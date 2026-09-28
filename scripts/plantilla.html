@@ -248,6 +248,20 @@ select option{background:var(--bg);color:var(--ink)}
 @media (hover:hover) and (pointer:fine){.boton:hover{background:#1F5E97}}
 .boton:active{transform:scale(.97)}
 .oculto{display:none}
+.contexto-grafico{font-size:13.5px;color:var(--muted);margin:14px 0 0}
+.conmutador.pestanas{margin-top:14px}
+.panel-pestana[hidden]{display:none}
+.tabla-desliza{max-height:420px;overflow:auto;margin:22px 0 8px;border:1px solid var(--line);border-radius:14px}
+.tabla-areas{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.tabla-areas th{position:sticky;top:0;background:#F7FAFD;text-align:left;font-weight:600;font-size:12.5px;color:var(--muted);padding:9px 12px;border-bottom:1px solid var(--line)}
+.tabla-areas td{padding:8px 12px;border-bottom:1px solid #F0F3F7;vertical-align:top}
+.tabla-areas td.n,.tabla-areas th.n{text-align:right;white-space:nowrap}
+.tabla-areas tr.elegida td{background:var(--celeste-suave)}
+.mapa-areas svg{max-width:560px;margin:0 auto}
+.mapa-areas .prov{stroke:#fff;stroke-width:.8}
+.mapa-areas .prov.elegida{stroke:var(--ink);stroke-width:1.6}
+.mapa-areas .burbuja{fill:var(--sol);fill-opacity:.8;stroke:var(--sol-borde);stroke-width:.8}
+.leyenda-mapa text{font-size:12px;fill:var(--muted);font-family:var(--f)}
 .ir-consultas{margin:18px 0 0}
 .revelado{animation:aparece .45s cubic-bezier(.2,.8,.2,1)}
 @keyframes aparece{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -296,7 +310,7 @@ footer p{max-width:40em}
   <div class="envoltura">
     <a class="marca" href="#inicio">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 36" aria-hidden="true"><path class="gorro-cuerpo" d="M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z"/><path class="gorro-banda" d="M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z"/></svg></span>na</a>
     <nav class="temas" aria-label="Temas">
-      <a href="#energia">Energía</a><a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#naturaleza">Naturaleza</a><a href="#turismo">Turismo</a><a href="#salud">Salud</a><a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#movilidad">Movilidad</a>
+      <a href="#energia">Energía</a><a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#naturaleza">Flora y fauna</a><a href="#turismo">Turismo</a><a href="#salud">Salud</a><a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#movilidad">Movilidad</a><a href="#curiosidades">Curiosidades</a>
     </nav>
   </div>
 </header>
@@ -460,7 +474,7 @@ footer p{max-width:40em}
   </section>
 
   <section class="tema" id="naturaleza">
-    <h2>Naturaleza</h2>
+    <h2>Flora y fauna</h2>
 
     <article class="ficha" id="f-protegida">
       <h3 data-t="protegida-titulo"></h3>
@@ -477,8 +491,23 @@ footer p{max-width:40em}
     <article class="ficha" id="f-parques">
       <h3 data-t="parques-titulo"></h3>
       <p class="lead" data-t="parques"></p>
-      <div class="grafico" data-g="parques"></div>
-      <p class="nota" data-t="parques-nota"></p>
+      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:3">
+        <button type="button" role="tab" id="pt-evolucion" aria-controls="pp-evolucion" aria-selected="true">Evolución</button>
+        <button type="button" role="tab" id="pt-mapa" aria-controls="pp-mapa" aria-selected="false" tabindex="-1">Mapa</button>
+        <button type="button" role="tab" id="pt-lista" aria-controls="pp-lista" aria-selected="false" tabindex="-1">Cuáles son</button>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pp-evolucion" aria-labelledby="pt-evolucion">
+        <div class="grafico" data-g="parques"></div>
+        <p class="nota" data-t="parques-nota"></p>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pp-mapa" aria-labelledby="pt-mapa" hidden>
+        <div class="grafico mapa-areas" data-g="mapa-areas"></div>
+        <p class="nota" data-t="mapa-areas-nota"></p>
+      </div>
+      <div class="panel-pestana" role="tabpanel" id="pp-lista" aria-labelledby="pt-lista" hidden>
+        <div class="tabla-desliza"><table class="tabla-areas" id="tabla-areas"></table></div>
+        <p class="nota" data-t="lista-areas-nota"></p>
+      </div>
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -496,6 +525,34 @@ footer p{max-width:40em}
       <div class="grafico" data-g="visitas"></div>
       <p class="nota" data-t="visitas-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA)</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-visitas-parque">
+      <h3 data-t="visitas-parque-titulo"></h3>
+      <p class="lead" data-t="visitas-parque"></p>
+      <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque">
+        <button type="button" data-m="visitas_2022" aria-pressed="true">2022</button>
+        <button type="button" data-m="visitas_2019" aria-pressed="false">2019</button>
+      </div>
+      <div class="grafico" data-g="visitas-parque"></div>
+      <p class="nota" data-t="visitas-parque-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Anuario Estadístico de Turismo 2022, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-pesca">
+      <h3 data-t="pesca-titulo"></h3>
+      <p class="lead" data-t="pesca"></p>
+      <div class="grafico" data-g="pesca"></div>
+      <p class="nota" data-t="pesca-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/desembarques_especies.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-pesca-rio">
+      <h3 data-t="pesca-rio-titulo"></h3>
+      <p class="lead" data-t="pesca-rio"></p>
+      <div class="grafico" data-g="pesca-rio"></div>
+      <p class="nota" data-t="pesca-rio-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
   </section>
 
@@ -561,11 +618,11 @@ footer p{max-width:40em}
     </article>
 
     <article class="ficha" id="f-muertes">
-      <h3>Muertes por suicidio, homicidio y siniestros viales, 2000 a 2025</h3>
+      <h3>Muertes por suicidio, homicidio, siniestros viales y femicidio, 2000 a 2025</h3>
       <p class="lead" data-t="muertes"></p>
       <div class="grafico" data-g="muertes"></div>
-      <p class="nota">Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC.</p>
-      <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/muertes_violentas.csv" download>Descargar tabla (CSV)</a></div>
+      <p class="nota" data-t="muertes-nota"></p>
+      <div class="pie"><span>Fuentes: SNIC, Ministerio de Seguridad, y Registro Nacional de Femicidios de la Justicia Argentina, Corte Suprema</span><a href="datos/muertes_violentas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
   </section>
 
@@ -604,6 +661,91 @@ footer p{max-width:40em}
       <div class="grafico" data-g="sube"></div>
       <p class="nota" data-t="sube-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-sube-modos">
+      <h3 data-t="sube-modos-titulo"></h3>
+      <p class="lead" data-t="sube-modos"></p>
+      <div class="grafico" data-g="sube-modos"></div>
+      <p class="nota" data-t="sube-modos-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-patentes">
+      <h3 data-t="patentes-titulo"></h3>
+      <p class="lead" data-t="patentes"></p>
+      <div class="grafico" data-g="patentes"></div>
+      <p class="nota" data-t="patentes-nota"></p>
+      <div class="pie"><span>Fuente: Dirección Nacional de los Registros de la Propiedad Automotor (DNRPA), Ministerio de Justicia</span><a href="datos/patentamientos_anual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-patentes-prov">
+      <h3 data-t="patentes-prov-titulo"></h3>
+      <p class="lead" data-t="patentes-prov"></p>
+      <div class="conmutador" role="group" aria-label="Vehículo" data-g="patentes-prov">
+        <button type="button" data-m="autos_1000" aria-pressed="true">Autos</button>
+        <button type="button" data-m="motos_1000" aria-pressed="false">Motos</button>
+      </div>
+      <div class="grafico" data-g="patentes-prov"></div>
+      <p class="nota" data-t="patentes-prov-nota"></p>
+      <div class="pie"><span>Fuente: DNRPA, Ministerio de Justicia</span><a href="datos/patentamientos_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="curiosidades">
+    <h2>Curiosidades</h2>
+
+    <article class="ficha" id="f-nombres">
+      <h3 data-t="nombres-titulo"></h3>
+      <p class="lead" data-t="nombres"></p>
+      <div class="conmutador" role="group" aria-label="Sexo" data-g="nombres">
+        <button type="button" data-m="F" aria-pressed="true">Nenas</button>
+        <button type="button" data-m="M" aria-pressed="false">Varones</button>
+      </div>
+      <p class="contexto-grafico" id="contexto-nombres"></p>
+      <div class="grafico" data-g="nombres"></div>
+      <p class="nota" data-t="nombres-nota"></p>
+      <div class="pie"><span>Fuente: Registro Nacional de las Personas (RENAPER), nombres propios frecuentes</span><a href="datos/nombres_top.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-carne">
+      <h3 data-t="carne-titulo"></h3>
+      <p class="lead" data-t="carne"></p>
+      <div class="grafico" data-g="carne"></div>
+      <p class="nota" data-t="carne-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Economía, indicadores sectoriales (SSPMI), con datos del Ministerio de Agricultura</span><a href="datos/carne_vacuna.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-vino">
+      <h3 data-t="vino-titulo"></h3>
+      <p class="lead" data-t="vino"></p>
+      <div class="grafico" data-g="vino"></div>
+      <p class="nota" data-t="vino-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de Vitivinicultura</span><a href="datos/vino_mercado_interno.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-yerba">
+      <h3 data-t="yerba-titulo"></h3>
+      <p class="lead" data-t="yerba"></p>
+      <div class="grafico" data-g="yerba"></div>
+      <p class="nota" data-t="yerba-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate</span><a href="datos/yerba_molino.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-glaciares">
+      <h3 data-t="glaciares-titulo"></h3>
+      <p class="lead" data-t="glaciares"></p>
+      <div class="grafico" data-g="glaciares"></div>
+      <p class="nota" data-t="glaciares-nota"></p>
+      <div class="pie"><span>Fuente: Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM)</span><a href="datos/glaciares_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-clima">
+      <h3 data-t="clima-titulo"></h3>
+      <p class="lead" data-t="clima"></p>
+      <div class="grafico" data-g="clima"></div>
+      <p class="nota" data-t="clima-nota"></p>
+      <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
     </article>
   </section>
 
@@ -654,6 +796,9 @@ const tip = document.getElementById("tip");
 })();
 
 /* ---------- textos ---------- */
+const au = R.autos, cu = R.curiosidades, pe = R.pesca, vpq = R.visitas_parque;
+const lista = xs => xs.length > 1 ? xs.slice(0, -1).join(", ") + " y " + xs[xs.length - 1] : xs.join("");
+const grados = v => (v > 0 ? "+" : "") + n2(v) + " °C";
 const e = R.energia, nac = R.nacimientos, s = R.suicidio, em = R.empleo, mo = R.mortalidad, su = R.sube,
   pz = R.pisa, es = R.escolarizacion, ap = R.aprender, nt = R.naturaleza, tu = R.turismo;
 const movio = v => `${v < 0 ? "bajaron" : "subieron"} ${n1(Math.abs(v))}%`;
@@ -671,7 +816,8 @@ const TX = {
   "suicidio-prov-titulo": `Tasa de suicidios por provincia, ${s.anio}`,
   "suicidio-prov": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes, y ${s.low} la más baja, con ${n1(s.low_tasa)}. La tasa nacional fue ${n1(s.tasa)}.`,
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre 2017 y 2024 con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
-  muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales.`,
+  muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. En ${R.femicidios.anio} la Justicia registró ${n0(R.femicidios.n)} víctimas directas de femicidio.`,
+  "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
   "empleo-titulo": `Asalariados privados registrados por provincia, ${em.mes}`,
   empleo: `En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado, ${n1(em.cada_100_pais)} por cada 100 habitantes. En los doce meses previos el total nacional ${signo(em.var_nac)} y ${em.suben} de las 24 jurisdicciones registraron aumentos.`,
   "mortalidad-titulo": `Tasa de mortalidad infantil por provincia, ${mo.tri_base} y ${mo.tri_act}`,
@@ -713,6 +859,44 @@ const TX = {
   "pobreza-titulo": `Pobreza e indigencia en los 31 aglomerados urbanos, ${R.pobreza.ini} a ${R.pobreza.fin}`,
   pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${pct(R.pobreza.ind)} bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, eran ${pct(R.pobreza.pob_prev)} y ${pct(R.pobreza.ind_prev)}. El valor más alto de la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.`,
+  "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor para ver los valores.`,
+  "lista-areas-nota": `Las ${nt.pn_n} áreas protegidas de la Administración de Parques Nacionales, ordenadas por año de creación. Superficie actual en hectáreas según el Sistema de Información de Biodiversidad.`,
+  "sube-modos-titulo": `Tarjetas SUBE usadas por día hábil en trenes y subtes, 2020 a ${su.mes.slice(-4)}`,
+  "sube-modos": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.tren_miles)} mil tarjetas en trenes y ${n0(su.subte_miles)} mil en subtes. En los primeros días hábiles de marzo de 2020 eran ${n0(su.tren_pre_miles)} mil y ${n0(su.subte_pre_miles)} mil: el tren ${su.tren_vs_pre < 0 ? "tiene" : "suma"} ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} y el subte ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"}. En colectivo la diferencia es de ${su.colectivo_vs_pre > 0 ? "+" : ""}${pct(su.colectivo_vs_pre)}.`,
+  "sube-modos-nota": `Mediana de las tarjetas distintas que viajaron cada día hábil en cada modo. El subte funciona solo en la Ciudad de Buenos Aires y los trenes con SUBE, sobre todo en el Área Metropolitana.`,
+  "patentes-titulo": `Autos y motos nuevos inscriptos por año, ${au.ini} a ${au.anio}`,
+  patentes: `En ${au.anio} se inscribieron ${n0(au.autos)} autos y ${n0(au.motos)} motos nuevos en los registros del país. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}. Entre ${au.ytd} se inscribieron ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos que en el mismo período del año anterior.`,
+  "patentes-nota": `Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en ${au.motos_ini}.`,
+  "patentes-prov-titulo": `Autos y motos nuevos por cada 1.000 habitantes, por provincia, ${au.anio}`,
+  "patentes-prov": `En ${au.anio} se inscribieron ${n1(au.pais_1000)} autos y ${n1(au.motos_pais_1000)} motos nuevos cada 1.000 habitantes. En autos el valor más alto fue el de ${au.top} (${n1(au.top_v)}) y el más bajo el de ${au.low} (${n1(au.low_v)}). En motos el más alto fue el de ${au.moto_top} (${n1(au.moto_top_v)}).`,
+  "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección 2025 del INDEC.`,
+  "nombres-titulo": `Nombres más elegidos para los bebés, ${cu.nom_anio}`,
+  nombres: `En ${cu.nom_anio} los nombres más inscriptos en el país fueron ${cu.nena} (${n0(cu.nena_n)}) para las nenas y ${cu.varon} (${n0(cu.varon_n)}) para los varones. En ${cu.nom_ini} habían sido ${cu.nena0} y ${cu.varon0}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
+  "nombres-nota": `Cantidad de veces que cada nombre fue inscripto como nombre de pila en el Registro Nacional de las Personas. Los nombres se muestran como los registra el RENAPER, sin tildes. Al elegir una provincia, el gráfico muestra sus diez nombres más frecuentes.`,
+  "carne-titulo": `Consumo de carne vacuna por habitante, ${cu.carne_ini} a ${cu.carne_anio}`,
+  carne: `En ${cu.carne_anio} cada habitante consumió en promedio ${n1(cu.carne_v)} kilos de carne vacuna, contra ${n1(cu.carne_ini_v)} en ${cu.carne_ini}. En lo que va de ${cu.carne_ytd_hasta.slice(-4)}, hasta ${cu.carne_ytd_hasta}, el ritmo es de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", el más bajo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,
+  "carne-nota": `Consumo aparente por habitante estimado a partir de la producción y el comercio exterior. Cada mes se expresa como tasa anual y el valor de cada año es el promedio de sus meses. Solo se muestran años completos.`,
+  "vino-titulo": `Vino vendido en el mercado interno, ${cu.vino_ini} a ${cu.vino_anio}`,
+  vino: `En ${cu.vino_anio} se vendieron en el país ${n0(cu.vino_v)} millones de litros de vino, ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} que en ${cu.vino_ini}, cuando fueron ${n0(cu.vino_ini_v)} millones. El ${pct(cu.vino_mza)} salió de bodegas de Mendoza.`,
+  "vino-nota": `Despachos de vino al mercado interno informados por el Instituto Nacional de Vitivinicultura. La provincia es la de origen del vino, no la del lugar donde se consume.`,
+  "yerba-titulo": `Yerba mate que salió de los molinos, ${cu.yerba_ini} a ${cu.yerba_anio}`,
+  yerba: `En ${cu.yerba_anio} los molinos despacharon ${n1(cu.yerba_v)} millones de kilos de yerba mate. El máximo de la serie fue en ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones.`,
+  "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
+  "glaciares-titulo": `Glaciares por provincia`,
+  glaciares: `El Inventario Nacional de Glaciares registra ${n0(cu.gl_total)} glaciares en ${cu.gl_n} provincias. ${cu.gl_top} tiene ${n0(cu.gl_top_v)} y ${cu.gl_2}, ${n0(cu.gl_2_v)}.`,
+  "glaciares-nota": `Cantidad de glaciares y cuerpos de hielo inventariados por el Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales (IANIGLA). Las provincias que no aparecen no tienen glaciares inventariados.`,
+  "clima-titulo": `Diferencia de la temperatura media anual del país con su valor de referencia, ${cu.cl_ini} a ${cu.cl_fin}`,
+  clima: `${cu.cl_max_anio} fue el año más cálido desde ${cu.cl_ini}: la temperatura media del país estuvo ${n2(cu.cl_max)} °C por encima del valor de referencia. De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
+  "clima-nota": `Desvío de la temperatura media anual del país respecto del período de referencia que usa el Servicio Meteorológico Nacional. Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor para ver el valor.`,
+  "visitas-parque-titulo": `Visitas por parque nacional, 2022 y 2019`,
+  "visitas-parque": `${vpq.top} (${vpq.top_lugar}) fue el parque nacional más visitado en 2022, con ${n0(vpq.top_v)} visitas: el ${pct(vpq.pct_top)} del total. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)}. En 2019, antes de la pandemia, ${vpq.top} había recibido unas ${n0(vpq.top_2019)}.`,
+  "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso. El Ministerio de Turismo no publica las visitas por parque en formato abierto: los valores de 2022 salen del Anuario Estadístico de Turismo 2022 (Tabla 5.2) y los de 2019 se calculan con la variación 2022 contra 2019 del mismo cuadro, por eso son aproximados. Esta tabla no se actualiza sola.`,
+  "pesca-titulo": `Desembarques de pesca marítima de las tres especies principales, ${pe.ini} a ${pe.anio}`,
+  pesca: `En ${pe.anio} se desembarcaron ${n0(pe.total)} toneladas de pescados y mariscos en los puertos del país, contra ${n0(pe.total_ini)} en ${pe.ini}. Las especies principales fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) y ${pe.top[2].toLowerCase()} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
+  "pesca-nota": `Capturas de la flota comercial desembarcadas en puertos argentinos, en toneladas, según la Subsecretaría de Pesca y Acuicultura. La tabla descargable incluye el total de todas las especies.`,
+  "pesca-rio-titulo": `Pesca comercial en ríos por especie, ${pe.rio_anio}`,
+  "pesca-rio": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. El ${pct(pe.rio_top_pct)} fue ${pe.rio_top.toLowerCase()}. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,
+  "pesca-rio-nota": `Captura comercial registrada en ríos y lagunas de las provincias que informan datos, en toneladas. No incluye la pesca deportiva ni la de subsistencia. La tabla descargable muestra cada especie por provincia.`,
   actualizado: `Datos descargados y procesados el ${R.actualizado}.`
 };
 document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
@@ -732,7 +916,7 @@ function elegir(c) {
   const u = new URL(location.href);
   if (prov) u.searchParams.set("prov", prov); else u.searchParams.delete("prov");
   history.replaceState(null, "", u);
-  dibujarTodo(); pintarPanel(true);
+  dibujarTodo(); pintarPanel(true); tablaAreas();
 }
 
 /* Desplegable propio: botón chico, panel con buscador y lista en dos columnas.
@@ -871,7 +1055,8 @@ function barrasH(el, cfg) {
   const data = [...cfg.data].sort((a,b) => d3.descending(a[cfg.k], b[cfg.k]));
   const fila = 24;
   const angosto = el.clientWidth < 520;
-  const C = lienzo(el, data.length * fila + 34, {t:24, r:54, b:10, l: angosto ? 118 : 150});
+  const izq = angosto ? (cfg.lAngosto || 118) : (cfg.l || 150);
+  const C = lienzo(el, data.length * fila + 34, {t:24, r:54, b:10, l: izq});
   const {g, iw} = C;
   const ext = d3.extent(data, d => d[cfg.k]);
   const x = d3.scaleLinear().domain([Math.min(0, ext[0]), Math.max(0, ext[1])]).nice().range([0, iw]);
@@ -971,8 +1156,72 @@ function piramide(el, cfg) {
   }
 }
 
+
+// Franjas de temperatura: un rectángulo por año, del celeste (más frío) al rojo (más cálido)
+function franjas(el, cfg) {
+  const data = cfg.data, angosto = el.clientWidth < 520;
+  const C = lienzo(el, angosto ? 190 : 230, {t:8, r:4, b:30, l:4});
+  const {g, iw, ih} = C;
+  const x = d3.scaleBand().domain(data.map(d => d.anio)).range([0, iw]).padding(0);
+  const ext = d3.max(data, d => Math.abs(d[cfg.k]));
+  const color = d3.scaleLinear().domain([-ext, -ext / 2, 0, ext / 2, ext])
+    .range(["#2C74B5", "#9CC4EA", "#F4F1EA", "#F0A35A", "#C8102E"]).clamp(true);
+  const r = g.selectAll("rect").data(data).join("rect").attr("x", d => x(d.anio)).attr("width", x.bandwidth() + .5)
+    .attr("y", 0).attr("height", ih).attr("fill", d => color(d[cfg.k]));
+  if (cfg.anim) r.attr("opacity", 0).transition().delay((d, i) => i * 14).duration(260).attr("opacity", 1);
+  const decadas = data.map(d => d.anio).filter(a => a % 10 === 0 && (!angosto || a % 20 === 0));
+  g.append("g").attr("class","eje").attr("transform", `translate(0,${ih})`)
+    .call(d3.axisBottom(x).tickValues(decadas).tickSize(4).tickPadding(6)).call(a => a.select(".domain").remove());
+  const fmt = v => (v > 0 ? "+" : "") + n2(v) + " °C";
+  r.on("pointerenter", function(ev, d) { d3.select(this).attr("stroke", css("--ink")).attr("stroke-width", 1.5);
+      mostrarTip(el, `<b>${d.anio}</b><br>${fmt(d[cfg.k])}`, x(d.anio) + x.bandwidth() / 2 + 4, 10); })
+   .on("pointerleave", function() { d3.select(this).attr("stroke", null); ocultarTip(); });
+}
+
+
+/* Mapa de provincias: color según el porcentaje del territorio protegido y círculos para las áreas nacionales */
+let GEO = null;
+function mapaAreas(anim) {
+  const el = G("mapa-areas");
+  if (!el || !el.offsetParent) return;
+  if (!GEO) { fetch("datos/provincias.geojson").then(r => r.json()).then(j => { GEO = j; mapaAreas(anim); }).catch(() => {}); return; }
+  el.innerHTML = "";
+  const w = Math.min(560, el.clientWidth), h = Math.round(w * 1.62) + 40;
+  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img")
+    .attr("aria-label", "Mapa de la Argentina con el porcentaje de territorio protegido por provincia");
+  const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 92]], GEO), camino = d3.geoPath(proy);
+  const val = Object.fromEntries(T.areas_protegidas_provincias.map(d => [d.codigo_indec, d]));
+  const cortes = [5, 10, 15, 20, 30], colores = ["#EEF5FC", "#D2E4F5", "#A9CBEA", "#7DAEDD", "#4C8DCA", "#2C74B5"];
+  const escala = d3.scaleThreshold().domain(cortes).range(colores);
+  const provs = svg.append("g").selectAll("path").data(GEO.features).join("path")
+    .attr("class", d => "prov" + (d.properties.codigo_indec === prov ? " elegida" : "")).attr("d", camino)
+    .attr("fill", d => escala(val[d.properties.codigo_indec]?.pct_territorio ?? 0));
+  provs.filter(".elegida").raise();
+  provs.on("pointermove", (ev, d) => {
+      const v = val[d.properties.codigo_indec], [mx, my] = d3.pointer(ev, el);
+      mostrarTip(el, `<b>${v ? v.territorio : d.properties.nombre}</b><br>${v ? pct(v.pct_territorio) : "Sin dato"} del territorio protegido` +
+        (v ? `<br>${n0(v.ha_terrestres)} hectáreas` : ""), mx, my);
+    }).on("pointerleave", ocultarTip);
+  const areas = T.parques_nacionales_lista.filter(d => !d.marina && d.lat != null && d.lng != null);
+  const r = d3.scaleSqrt().domain([0, d3.max(areas, d => d.hectareas)]).range([1.6, w < 420 ? 11 : 15]);
+  const burb = svg.append("g").selectAll("circle").data(areas.sort((a, b) => b.hectareas - a.hectareas)).join("circle")
+    .attr("class", "burbuja").attr("cx", d => proy([d.lng, d.lat])[0]).attr("cy", d => proy([d.lng, d.lat])[1]).attr("r", d => r(d.hectareas));
+  if (anim) burb.attr("opacity", 0).transition().delay((d, i) => 200 + i * 12).duration(300).attr("opacity", 1);
+  burb.on("pointermove", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
+      mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
+    .on("pointerleave", ocultarTip);
+  // leyenda
+  const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - 138)},${h - 38})`);
+  const et = ["0", "5", "10", "15", "20", "30%"];
+  colores.forEach((c, i) => {
+    ley.append("rect").attr("x", i * 46).attr("width", 44).attr("height", 10).attr("rx", 2).attr("fill", c);
+    ley.append("text").attr("x", i * 46).attr("y", 26).text(et[i]);
+  });
+  ley.append("text").attr("x", 0).attr("y", -6).text("% del territorio protegido");
+}
+
 /* ---------- fichas ---------- */
-const MED = {empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000"};
+const MED = {empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_2022"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -996,7 +1245,8 @@ const DIB = {
   "suicidio-prov": a => barrasH(G("suicidio-prov"), {anim:a, data: T.suicidio_provincias, k:"tasa", ref: R.suicidio.tasa, refLab:`País ${n1(R.suicidio.tasa)}`}),
   edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
   muertes: a => lineas(G("muertes"), {anim:a, data: T.muertes_violentas, x:"anio", y0:0,
-    series:[{k:"suicidios", lab:"Suicidios", c:NAR, w:3}, {k:"siniestros_viales", lab:"Viales", c:FRI}, {k:"homicidios", lab:"Homicidios", c:GRIS}]}),
+    series:[{k:"suicidios", lab:"Suicidios", c:NAR, w:3}, {k:"siniestros_viales", lab:"Viales", c:FRI}, {k:"homicidios", lab:"Homicidios", c:GRIS},
+      {k:"femicidios", lab:"Femicidios", c:css("--rojo"), w:2.4}]}),
   pisa: a => lineas(G("pisa"), {anim:a, data: T.pisa_argentina_ocde, x:"anio", y0:340, yf: v => v,
     series:[{k:`arg_${MED.pisa}_grafico`, lab:"Argentina", c:NAR, w:3}, {k:`ocde_${MED.pisa}`, lab:"Promedio OCDE", c:GRIS, w:2.2}]}),
   escolarizacion: a => pesas(G("escolarizacion"), {anim:a, data: T.escolarizacion_secundaria_provincias, a:"tasa_inicio", b:"tasa_final",
@@ -1011,7 +1261,17 @@ const DIB = {
         vf: v => n0(v) + " m²", af: v => n0(v)}),
   parques: a => lineas(G("parques"), {anim:a, data: T.parques_nacionales_historia, x:"anio", y0:0, escalones:true, vf: v => M(v) + " ha", yf: M,
     series:[{k:"ha_terrestres", lab:"Terrestres", c:NAR, w:3}, {k:"ha_marinas", lab:"Marinas", c:FRI, w:2.4}]}),
-  especies: a => barrasH(G("especies"), {anim:a, data: T.especies_areas_nacionales, k:"animales", vf: n0, af: n0}),
+  especies: a => barrasH(G("especies"), {anim:a, data: T.especies_areas_nacionales, k:"animales", vf: n0, af: n0, l: 250, lAngosto: 170}),
+  "sube-modos": a => lineas(G("sube-modos"), {anim:a, data: T.sube_dia_habil, x:"t", y0:0, mensual:true,
+    ref: su.tren_pre_miles * 1e3, refLab: "Trenes, marzo de 2020", refLabCorto: "Trenes, marzo 2020",
+    vf: v => n0(v / 1e3) + " mil", yf: v => n0(v / 1e3) + " mil",
+    xl: d => { const [y, m] = d.periodo.split("-"); return `${MESES[+m - 1]} ${y}`; },
+    series:[{k:"tren", lab:"Trenes", c:NAR, w:2.4}, {k:"subte", lab:"Subtes", c:FRI, w:2.4}]}),
+  patentes: a => lineas(G("patentes"), {anim:a, data: T.patentamientos_anual, x:"anio", y0:0, vf: v => n0(v / 1e3) + " mil", yf: v => n0(v / 1e3) + " mil",
+    series:[{k:"autos", lab:"Autos", c:NAR, w:3}, {k:"motos", lab:"Motos", c:FRI, w:2.4}]}),
+  "patentes-prov": a => barrasH(G("patentes-prov"), {anim:a, data: T.patentamientos_provincias, k: MED["patentes-prov"],
+    ref: MED["patentes-prov"] === "autos_1000" ? au.pais_1000 : au.motos_pais_1000,
+    refLab: `País ${n1(MED["patentes-prov"] === "autos_1000" ? au.pais_1000 : au.motos_pais_1000)}`, vf: n1, af: n0}),
   visitas: a => lineas(G("visitas"), {anim:a, data: T.visitas_parques_nacionales, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
     series:[{k:"total", lab:"Total", c:css("--ink"), w:2.6}, {k:"residentes", lab:"Residentes", c:NAR, w:2.4}, {k:"no_residentes", lab:"No residentes", c:FRI, w:2.4}]}),
   receptivo: a => lineas(G("receptivo"), {anim:a, data: T.turistas_no_residentes_anual, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
@@ -1024,6 +1284,26 @@ const DIB = {
   pobreza: a => lineas(G("pobreza"), {anim:a, data: T.pobreza_serie, x:"t", y0:0, mensual:true, vf: v => n1(v) + "%", yf: v => v + "%",
     xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
     series:[{k:"pobreza_personas", lab:"Pobreza", c:NAR, w:3}, {k:"indigencia_personas", lab:"Indigencia", c:FRI, w:2.4}]}),
+  "mapa-areas": a => mapaAreas(a),
+  "visitas-parque": a => barrasH(G("visitas-parque"), {anim:a, data: T.visitas_por_parque.filter(d => d[MED["visitas-parque"]] != null),
+    k: MED["visitas-parque"], vf: n0, af: v => n0(v / 1000) + " mil", l: 270, lAngosto: 175}),
+  pesca: a => lineas(G("pesca"), {anim:a, data: T.desembarques_especies, x:"anio", y0:0, vf: v => n0(v / 1000) + " mil t", yf: v => n0(v / 1000) + " mil",
+    series: pe.top.map((k, i) => ({k, lab: k.replace(" argentino", "").replace(" argentina", ""), c: [NAR, FRI, GRIS][i], w: i ? 2.4 : 3}))}),
+  "pesca-rio": a => barrasH(G("pesca-rio"), {anim:a, data: T.pesca_continental, k:"toneladas", vf: v => n0(v) + " t", af: n0}),
+  nombres: a => {
+    const cod = NOMBRES[prov] ? prov : "00";
+    document.getElementById("contexto-nombres").textContent = `${NOMBRES[prov] || "Total del país"}, ${cu.nom_anio}. Diez nombres más frecuentes.`;
+    barrasH(G("nombres"), {anim:a, data: T.nombres_top.filter(d => d.codigo_indec === cod && d.sexo === MED.nombres)
+      .map(d => ({codigo_indec: d.nombre, territorio: d.nombre, cantidad: d.cantidad})), k:"cantidad", vf: n0, af: n0});
+  },
+  carne: a => lineas(G("carne"), {anim:a, data: T.carne_vacuna, x:"anio", y0:0, vf: v => n1(v) + " kg", yf: v => v + " kg",
+    series:[{k:"kg_por_habitante", lab:"Carne vacuna", c:NAR, w:3}]}),
+  vino: a => lineas(G("vino"), {anim:a, data: T.vino_mercado_interno, x:"anio", y0:0, vf: v => n0(v) + " M l", yf: v => n0(v) + " M",
+    series:[{k:"millones_litros", lab:"Vino", c:NAR, w:3}]}),
+  yerba: a => lineas(G("yerba"), {anim:a, data: T.yerba_molino, x:"anio", y0:0, vf: v => n1(v) + " M kg", yf: v => n0(v) + " M",
+    series:[{k:"millones_kg", lab:"Yerba", c:NAR, w:3}]}),
+  glaciares: a => barrasH(G("glaciares"), {anim:a, data: T.glaciares_provincias, k:"glaciares", vf: n0, af: n0}),
+  clima: a => franjas(G("clima"), {anim:a, data: T.clima_desvio, k:"desvio_temperatura"}),
   empleo: a => MED.empleo === "cada_100"
     ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
     : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m", vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
@@ -1031,7 +1311,7 @@ const DIB = {
 };
 function dibujarTodo() { Object.keys(DIB).forEach(k => { if (G(k)) DIB[k](false); }); }
 
-document.querySelectorAll(".conmutador").forEach(conm => {
+document.querySelectorAll(".conmutador:not(.pestanas)").forEach(conm => {
   const k = conm.dataset.g;
   conm.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => {
     if (MED[k] === b.dataset.m) return;
@@ -1056,6 +1336,36 @@ document.getElementById("revelar").addEventListener("click", () => {
   DIB.nacimientos(!REDUCIR);
 });
 
+/* ---------- pestañas dentro de una tarjeta ---------- */
+document.querySelectorAll(".pestanas").forEach(tl => {
+  const tabs = [...tl.querySelectorAll('[role="tab"]')];
+  const mostrar = (t, foco) => {
+    tabs.forEach((x, i) => {
+      const on = x === t; x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+      if (on) tl.style.setProperty("--i", i);
+    });
+    if (foco) t.focus();
+    // los gráficos de una pestaña oculta no tienen ancho: se dibujan al mostrarse
+    document.getElementById(t.getAttribute("aria-controls")).querySelectorAll(".grafico[data-g]").forEach(gr => DIB[gr.dataset.g] && DIB[gr.dataset.g](!REDUCIR));
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => mostrar(t));
+    t.addEventListener("keydown", ev => {
+      const d = ev.key === "ArrowRight" ? 1 : ev.key === "ArrowLeft" ? -1 : 0;
+      if (d) { ev.preventDefault(); mostrar(tabs[(i + d + tabs.length) % tabs.length], true); }
+    });
+  });
+});
+
+/* ---------- listado de áreas protegidas nacionales ---------- */
+function tablaAreas() {
+  const t = document.getElementById("tabla-areas");
+  t.innerHTML = `<thead><tr><th>Área</th><th>Categoría</th><th>Dónde</th><th class="n">Año</th><th class="n">Hectáreas</th></tr></thead><tbody>` +
+    T.parques_nacionales_lista.map(d => `<tr${NOMBRES[prov] && d.lugar.includes(NOMBRES[prov]) ? ' class="elegida"' : ""}><td>${d.nombre}</td><td>${d.caracter}</td><td>${d.lugar}</td>` +
+      `<td class="n">${d.anio}</td><td class="n">${n0(d.hectareas)}</td></tr>`).join("") + `</tbody>`;
+}
+
 /* ---------- tarjetas: etiqueta, cifra clave y acciones ---------- */
 const sg = v => (v > 0 ? "+" : "") + pct(v);
 // Cifra destacada de cada ficha. La sección de salud mental no lleva cifra destacada, para no dramatizar.
@@ -1077,6 +1387,18 @@ const CLAVE = {
   "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`],
   "f-eti": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`],
   "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`],
+  "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`],
+  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`],
+  "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`],
+  "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en 2022`],
+  "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`],
+  "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`],
+  "f-nombres": [cu.nena, `y ${cu.varon} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`],
+  "f-carne": [`${n1(cu.carne_v)} kg`, `de carne vacuna por habitante en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)} kg`],
+  "f-vino": [n0(cu.vino_v), `millones de litros de vino vendidos en el país en ${cu.vino_anio}`],
+  "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`],
+  "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`],
+  "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`],
   "f-sube": [n2(su.total_millones), `millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
 };
 document.querySelectorAll("article.ficha").forEach(f => {
@@ -1206,6 +1528,26 @@ const PREG = [
    `En los doce meses a ${tu.doce_hasta} llegaron ${n0(tu.doce)} turistas no residentes, ${pct(Math.abs((tu.doce / tu.max - 1) * 100))} ${tu.doce < tu.max ? "menos" : "más"} que en ${tu.max_anio}.`, "#f-receptivo"],
   ["¿Cuánta pobreza hay en las ciudades del país?",
    `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza. El pico fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`, "#f-pobreza"],
+  ["¿Cuál es el parque nacional más visitado?",
+   `${vpq.top}, con ${n0(vpq.top_v)} visitas en 2022. Le sigue ${vpq.dos}, con ${n0(vpq.dos_v)}.`, "#f-visitas-parque"],
+  ["¿Qué es lo que más se pesca en el mar argentino?",
+   `${pe.top[0]}: ${n0(pe.top_t[0])} toneladas en ${pe.anio}, el ${pct(pe.top_pct)} de todo lo desembarcado.`, "#f-pesca"],
+  ["¿Se patentan más autos o más motos?",
+   `En ${au.anio} se inscribieron ${n0(au.motos)} motos nuevas y ${n0(au.autos)} autos.`, "#f-patentes"],
+  ["¿Volvieron los pasajeros al tren y al subte?",
+   `En ${su.mes} viajaban por día hábil ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} tarjetas en tren y ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"} en subte que en marzo de 2020.`, "#f-sube-modos"],
+  [`¿Cuántos bebés se llamaron Lionel en ${cu.lionel_anio}?`,
+   `${n0(cu.lionel_max)}, ${veces(cu.lionel_max, cu.lionel_prev)} veces los del año anterior (${n0(cu.lionel_prev)}).`, "#f-nombres"],
+  ["¿Cuánta carne vacuna come un argentino por año?",
+   `${n1(cu.carne_v)} kilos en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)}.`, "#f-carne"],
+  ["¿Cuántos kilos de pollo vale un kilo de asado?",
+   `${n1(cu.asado)} kilos en ${cu.asado_hasta}, en el Gran Buenos Aires. En ${cu.asado_ini_anio} eran ${n1(cu.asado_ini)}.`, "#f-carne"],
+  [`¿Cuánto vino menos se vende que en ${cu.vino_ini}?`,
+   `${pct(Math.abs(cu.vino_caida))} menos: ${n0(cu.vino_v)} millones de litros en ${cu.vino_anio} contra ${n0(cu.vino_ini_v)} millones.`, "#f-vino"],
+  ["¿Qué provincia tiene más glaciares?",
+   `${cu.gl_top}, con ${n0(cu.gl_top_v)}. Le sigue ${cu.gl_2}, con ${n0(cu.gl_2_v)}.`, "#f-glaciares"],
+  [`¿Cuál fue el año más cálido desde ${cu.cl_ini}?`,
+   `${cu.cl_max_anio}, con una temperatura media ${n2(cu.cl_max)} °C por encima del valor de referencia.`, "#f-clima"],
   ["¿Cómo cambió la maternidad adolescente?",
    `En 2012, ${n1(nac.pct_2012)} de cada 100 nacimientos eran de madres de 10 a 19 años. En 2024, ${n1(nac.pct_2024)}.`, "#f-adolescentes"],
 ];
@@ -1328,7 +1670,7 @@ async function mapa() {
 mapa();
 
 /* primer dibujo y redibujo al cambiar el ancho */
-const redibujar = () => { dibujarTodo(); tiras(); pintarPanel(false); };
+const redibujar = () => { dibujarTodo(); tiras(); pintarPanel(false); tablaAreas(); };
 redibujar();
 let ancho = document.documentElement.clientWidth, espera;
 new ResizeObserver(() => {

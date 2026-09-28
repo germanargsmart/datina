@@ -210,7 +210,8 @@ sube_m["anio"], sube_m["n_mes"] = sube_m.mes.dt.year, sube_m.mes.dt.month
 sube_m["t"] = sube_m.anio + (sube_m.n_mes - 1) / 12
 sube_m["periodo"] = sube_m.mes.astype(str)
 # Referencia previa a la pandemia: dias habiles del 2 al 13 de marzo de 2020, antes del aislamiento
-pre = sube[sube.indice_tiempo.between("2020-03-02", "2020-03-13")].total.median()
+pre_modos = sube[sube.indice_tiempo.between("2020-03-02", "2020-03-13")][MODOS].median()
+pre = pre_modos.total
 d = sube_m[["periodo", "total"]].rename(columns={"total": "valor"})
 d["codigo_indec"], d["territorio"] = "00", "Argentina"
 agregar(d, "tarjetas_sube_dia_habil_mediana", "tarjetas", "Ministerio de Transporte, datos abiertos")
@@ -337,7 +338,21 @@ d["codigo_indec"], d["territorio"] = "00", "Argentina"
 agregar(d, "ha_terrestres_areas_protegidas_nacionales_acumuladas", "ha", "Sistema de Informacion de Biodiversidad (APN)")
 terr = apn[~apn.marina]
 mayor, primera, ultima = terr.sort_values("superficie").iloc[-1], apn.sort_values("anio").iloc[0], apn.sort_values("anio").iloc[-1]
-esp = (terr.sort_values("animales", ascending=False).head(15)
+def lugar(u, prov):
+    """Provincias donde esta el area, con nombres oficiales (la fuente las escribe de formas distintas)."""
+    partes = [codigo(x) for x in re.split(r"\s+y\s+|,", str(u or "")) if x.strip()]
+    nombres = [CORTO[c] for c in partes if c and c != "00"]
+    if not nombres and codigo(prov):
+        nombres = [CORTO[codigo(prov)]]
+    return " y ".join(dict.fromkeys(nombres)) or "Mar Argentino"
+apn["lugar"] = [lugar(u, pv) for u, pv in zip(apn.ubicacion, apn.provincia)]
+apn.loc[apn.marina, "lugar"] = "Mar Argentino"
+terr = apn[~apn.marina]
+pn_lista = (apn.sort_values(["anio", "nombre"])[["nombre", "caracter", "lugar", "anio", "superficie", "marina", "lat", "lng"]]
+            .rename(columns={"superficie": "hectareas"}))
+pn_lista["anio"] = pn_lista.anio.astype(int)
+pn_lista["lat"], pn_lista["lng"] = pd.to_numeric(pn_lista.lat, errors="coerce"), pd.to_numeric(pn_lista.lng, errors="coerce")
+esp = (terr.assign(nombre=terr.nombre.str.strip() + " (" + terr.lugar + ")").sort_values("animales", ascending=False).head(15)
        .rename(columns={"slug": "codigo_indec", "nombre": "territorio"})
        [["codigo_indec", "territorio", "caracter", "anio", "animales", "plantas", "especies"]])
 esp["anio"] = esp.anio.astype(int)
@@ -422,6 +437,170 @@ sem_txt = lambda f: f"{SEM[int(f.semestre)]} semestre de {int(f.anio)}"
 pu_, pp_ = pobreza.iloc[-1], pobreza.iloc[-3]
 pmax = pobreza.loc[pobreza.pobreza_personas.idxmax()]
 
+# ---------------------------------------------------------------- autos y motos nuevos (DNRPA)
+def patentes(archivo, nombre):
+    d = pd.read_csv(CRUDO / archivo, encoding="utf-8-sig", dtype={"provincia_id": str})
+    d = d.rename(columns={"anio_inscripcion_inicial": "anio", "mes_inscripcion_inicial": "mes",
+                          "cantidad_inscripciones_iniciales": nombre, "provincia_id": "codigo_indec"})
+    d["codigo_indec"] = d.codigo_indec.str.zfill(2)
+    return d[["anio", "mes", "codigo_indec", nombre]]
+au, mo_ = patentes("dnrpa_autos_nuevos.csv", "autos"), patentes("dnrpa_motos_nuevas.csv", "motos")
+meses_au = au.groupby("anio").mes.nunique()
+ANIO_AU = int(meses_au[meses_au == 12].index.max())
+patent = (au.groupby("anio").autos.sum().to_frame().join(mo_.groupby("anio").motos.sum(), how="left")
+          .loc[lambda x: x.index <= ANIO_AU].reset_index())
+patent["motos"] = patent.motos.where(patent.anio >= int(mo_.anio.min()))
+ult_au = au[au.anio == au.anio.max()].mes.max()
+ytd_au = au[(au.anio == au.anio.max()) & (au.mes <= ult_au)].autos.sum()
+ytd_au_prev = au[(au.anio == au.anio.max() - 1) & (au.mes <= ult_au)].autos.sum()
+pat_prov = (au[au.anio == ANIO_AU].groupby("codigo_indec").autos.sum().to_frame()
+            .join(mo_[mo_.anio == ANIO_AU].groupby("codigo_indec").motos.sum()).reset_index())
+pat_prov["autos_1000"] = pat_prov.autos / pat_prov.codigo_indec.map(POB) * 1000
+pat_prov["motos_1000"] = pat_prov.motos / pat_prov.codigo_indec.map(POB) * 1000
+pat_prov["territorio"] = pat_prov.codigo_indec.map(CORTO)
+assert pat_prov.territorio.notna().all() and len(pat_prov) == 24, "Faltan provincias en los patentamientos"
+for col, var in [("autos", "autos_nuevos_inscriptos"), ("motos", "motos_nuevas_inscriptas")]:
+    d = patent[["anio", col]].dropna().rename(columns={"anio": "periodo", col: "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, var, "vehiculos", "DNRPA, Ministerio de Justicia")
+pa_max = patent.loc[patent.autos.idxmax()]; pa_min = patent.loc[patent.autos.idxmin()]
+
+# ---------------------------------------------------------------- femicidios
+# Victimas directas de femicidio por anio (Registro Nacional de Femicidios de la Justicia Argentina, Corte Suprema).
+# La figura se incorporo al Codigo Penal en diciembre de 2012 (Ley 26.791). Los datos abiertos empiezan en 2017.
+import pyreadstat
+fem = []
+for f in sorted(CRUDO.glob("csjn_femicidios_*.sav")):
+    d, _ = pyreadstat.read_sav(f, encoding="latin1")
+    col = {c.lower(): c for c in d.columns}
+    tipo = next(col[c] for c in col if c.startswith("tipo_victima") or c == "tipo_victima")
+    anio = int(re.search(r"(20\d{2})", f.name).group(1))
+    directas = d[pd.to_numeric(d[tipo], errors="coerce") == 1]
+    juris = next((col[c] for c in col if c.startswith("jurisdic")), None)
+    fem.append({"anio": anio, "femicidios": int(len(directas)),
+                "provincias": directas[juris].map(lambda x: f"{int(x):02d}" if pd.notna(x) else None).value_counts().to_dict() if juris else {}})
+femi = pd.DataFrame(fem)[["anio", "femicidios"]].sort_values("anio")
+muertes = muertes.merge(femi, on="anio", how="left")
+d = femi.rename(columns={"anio": "periodo", "femicidios": "valor"}); d["codigo_indec"], d["territorio"] = "00", "Argentina"
+agregar(d, "victimas_directas_femicidio", "personas", "Registro Nacional de Femicidios de la Justicia Argentina (CSJN)")
+fe_u = femi.iloc[-1]
+
+# ---------------------------------------------------------------- peces y pesca
+# Desembarques de pesca maritima por especie (toneladas), formato ancho con una columna por anio
+ds = pd.read_csv(CRUDO / "ciam_desembarques_especie.csv", sep=";", dtype=str).dropna(how="all").drop_duplicates()
+ds["especies"] = ds.especies.str.strip()
+anios_ds = [c for c in ds.columns if c.startswith("año_")]
+for c in anios_ds:
+    ds[c] = pd.to_numeric(ds[c].str.replace(".", "", regex=False), errors="coerce")
+dl = ds.melt(id_vars="especies", value_vars=anios_ds, var_name="anio", value_name="toneladas")
+dl["anio"] = dl.anio.str[-4:].astype(int)
+tot_ds = dl[dl.especies == "Total"].set_index("anio").toneladas
+ANIO_DS = int(tot_ds.dropna().index.max())
+esp_ds = dl[(dl.especies != "Total") & (dl.anio == ANIO_DS)].sort_values("toneladas", ascending=False)
+top3 = esp_ds.especies.head(3).tolist()
+pesca = dl[dl.especies.isin(top3 + ["Total"])].pivot(index="anio", columns="especies", values="toneladas").reset_index()
+pesca.columns = ["anio"] + [c for c in pesca.columns[1:]]
+pesca_top = esp_ds.head(10).rename(columns={"especies": "territorio"}).assign(codigo_indec=lambda x: x.territorio)[["codigo_indec", "territorio", "toneladas"]]
+d = tot_ds.rename("valor").reset_index().rename(columns={"anio": "periodo"}); d["codigo_indec"], d["territorio"] = "00", "Argentina"
+agregar(d, "desembarques_pesca_maritima", "toneladas", "Ministerio de Ambiente, CIAM (datos de la Subsecretaria de Pesca)")
+
+# Pesca continental comercial por especie y provincia
+pc = pd.read_csv(CRUDO / "ciam_pesca_continental.csv", sep=";", dtype=str).dropna(how="all").drop_duplicates()
+pc["toneladas"] = pd.to_numeric(pc.toneladas.str.replace(".", "", regex=False), errors="coerce")
+pc = pc[~pc.especie.str.lower().str.startswith("total") & pc.provincia.fillna("").str.strip().ne("")]
+pc["especie"] = pc.especie.str.strip()
+anio_pc = json.loads((CRUDO / "ciam_meta.json").read_text(encoding="utf-8")).get("pesca_continental")
+pc_esp = pc.groupby("especie").toneladas.sum().sort_values(ascending=False)
+pc_prov = pc.groupby("provincia").toneladas.sum().sort_values(ascending=False)
+rio = pc_esp.rename("toneladas").reset_index().rename(columns={"especie": "territorio"}).assign(codigo_indec=lambda x: x.territorio)[["codigo_indec", "territorio", "toneladas"]]
+pesca_rio_prov = pc.pivot_table(index="especie", columns="provincia", values="toneladas", aggfunc="sum").fillna(0).reset_index()
+
+# ---------------------------------------------------------------- visitas por parque nacional
+# No hay datos abiertos por parque: tabla fija tomada del Anuario Estadistico de Turismo 2022 (Tabla 5.2),
+# con 2019 calculado a partir de la variacion 2022/2019 que publica el mismo cuadro.
+vpp = pd.read_csv(RAIZ / "datos" / "manual" / "visitas_por_parque_2022.csv")
+vpp["visitas_2019"] = (vpp.visitas_2022 / (1 + vpp.variacion_2022_2019_pct / 100)).round()
+sin_esp = lambda t: re.sub(r"[^a-z]", "", norm(t).replace("predelta", "predelta"))
+lugares = {sin_esp(n): l for n, l in zip(pn_lista.nombre, pn_lista.lugar)}
+def lugar_parque(n):
+    k = sin_esp(n)
+    return next((l for c, l in lugares.items() if k and (k in c or c in k)), "")
+vpp["lugar"] = vpp.area.map(lugar_parque)
+vpp["territorio"] = vpp.area + vpp.lugar.map(lambda l: f" ({l})" if l else "")
+vpp["codigo_indec"] = vpp.area
+visitas_parque = vpp[["codigo_indec", "territorio", "visitas_2022", "visitas_2019", "residentes_2022", "no_residentes_2022"]]
+vp_top = vpp.sort_values("visitas_2022", ascending=False).iloc[0]; vp_2 = vpp.sort_values("visitas_2022", ascending=False).iloc[1]
+vp_tot = vpp.visitas_2022.sum()
+
+# ---------------------------------------------------------------- curiosidades
+# Nombres mas frecuentes (RENAPER): 20 nombres por provincia, anio y sexo. El codigo 99 es el total del pais.
+nom = pd.read_csv(CRUDO / "renaper_nombres_frecuentes.csv", encoding="utf-8-sig")
+nom["codigo_indec"] = nom.provincia_id.map(lambda x: "00" if int(x) == 99 else f"{int(x):02d}")
+ANIO_N = int(nom.anio.max())
+nom["nombre"] = nom.nombre.str.strip().str.title()
+nombres_top = (nom[nom.anio == ANIO_N].sort_values("cantidad", ascending=False)
+               .groupby(["codigo_indec", "sexo"]).head(10)[["codigo_indec", "sexo", "nombre", "cantidad"]])
+pais_n = nom[nom.codigo_indec == "00"]
+top_f = pais_n[(pais_n.anio == ANIO_N) & (pais_n.sexo == "F")].sort_values("cantidad").iloc[-1]
+top_m = pais_n[(pais_n.anio == ANIO_N) & (pais_n.sexo == "M")].sort_values("cantidad").iloc[-1]
+ini_n = int(nom.anio.min())
+top_f0 = pais_n[(pais_n.anio == ini_n) & (pais_n.sexo == "F")].sort_values("cantidad").iloc[-1]
+top_m0 = pais_n[(pais_n.anio == ini_n) & (pais_n.sexo == "M")].sort_values("cantidad").iloc[-1]
+lionel = pais_n[pais_n.nombre == "Lionel"].set_index("anio").cantidad
+lio_max = int(lionel.idxmax()) if len(lionel) else None
+prov_top_m = nom[(nom.anio == ANIO_N) & (nom.codigo_indec != "00") & (nom.sexo == "M")].sort_values("cantidad").groupby("codigo_indec").tail(1)
+
+# Carne vacuna, vino y yerba mate: indicadores sectoriales del Ministerio de Economia (formato largo)
+def sspmi(archivo):
+    d = pd.read_csv(CRUDO / archivo, encoding="latin-1", low_memory=False, parse_dates=["indice_tiempo"])
+    d["anio"] = d.indice_tiempo.dt.year
+    return d
+def anual_completo(d, como="sum"):
+    """Agrega por anio solo los anios con los 12 meses."""
+    m = d.groupby("anio").indice_tiempo.nunique()
+    return d[d.anio.isin(m[m == 12].index)].groupby("anio").valor.agg(como)
+cv = sspmi("sspmi_carne_vacuna.csv")
+cons = cv[cv.indicador.str.startswith("Consumo per c") & (cv.alcance_tipo == "PAIS")]
+carne = anual_completo(cons, "mean").rename("kg_por_habitante").reset_index()
+ult_cons = cons.indice_tiempo.max()
+cons_ytd = cons[cons.anio == ult_cons.year].valor.mean()
+asado = cv[cv.indicador.str.contains("Asado-Pollo", na=False)].sort_values("indice_tiempo")
+vi = sspmi("sspmi_vitivinicultura.csv")
+mi_v = vi[(vi.indicador == "Mercado interno") & (vi.unidad_de_medida == "hl")]
+vino_a = mi_v[(mi_v.frecuencia_nombre == "Anual") & (mi_v.anio <= 2000)].groupby("anio").valor.sum()
+vino_m = anual_completo(mi_v[mi_v.frecuencia_nombre == "Mensual"].groupby(["anio", "indice_tiempo"]).valor.sum().reset_index())
+vino = pd.concat([vino_a, vino_m[vino_m.index > 2000]]).rename("hl").reset_index()
+vino["millones_litros"] = vino.hl * 100 / 1e6
+ANIO_V = int(vino.anio.max())
+mza = mi_v[(mi_v.frecuencia_nombre == "Mensual") & (mi_v.anio == ANIO_V)]
+mza_pct = mza[mza.alcance_nombre == "MENDOZA"].valor.sum() / mza.valor.sum() * 100
+ym = sspmi("sspmi_yerba_mate.csv")
+molino = ym[(ym.indicador == "Salida de molino") & (ym.alcance_tipo == "PAIS")]
+yerba = (anual_completo(molino) / 1e6).rename("millones_kg").reset_index()
+for tabla_, col, var, uni in [(carne, "kg_por_habitante", "consumo_carne_vacuna_por_habitante", "kg por habitante por anio"),
+                               (vino, "millones_litros", "vino_mercado_interno", "millones de litros"),
+                               (yerba, "millones_kg", "yerba_mate_salida_de_molino", "millones de kg")]:
+    d = tabla_[["anio", col]].rename(columns={"anio": "periodo", col: "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, var, uni, "Ministerio de Economia, SSPMI")
+
+# Glaciares por provincia (Inventario Nacional de Glaciares, IANIGLA, via CIAM). El archivo repite las filas.
+gl = pd.read_csv(CRUDO / "ciam_glaciares.csv", sep=";", dtype=str).dropna(how="all").drop_duplicates()
+gl["codigo_indec"] = gl.provincia.map(codigo)
+gl["glaciares"] = pd.to_numeric(gl.cantidad_de_glaciares, errors="coerce")
+glaciares = gl.dropna(subset=["codigo_indec", "glaciares"]).groupby("codigo_indec").glaciares.max().reset_index()
+glaciares["territorio"] = glaciares.codigo_indec.map(CORTO)
+
+# Diferencia de la temperatura media anual del pais con el valor de referencia (SMN, via CIAM)
+cl = pd.read_csv(CRUDO / "ciam_anomalia_temperatura.csv", sep=";", dtype=str).dropna(how="all").drop_duplicates()
+cl.columns = ["anio", "desvio_temperatura", "desvio_precipitacion"]
+cl = cl.apply(pd.to_numeric, errors="coerce").dropna(subset=["anio"]).astype({"anio": int}).sort_values("anio")
+clima = cl[["anio", "desvio_temperatura", "desvio_precipitacion"]]
+d = clima[["anio", "desvio_temperatura"]].rename(columns={"anio": "periodo", "desvio_temperatura": "valor"})
+d["codigo_indec"], d["territorio"] = "00", "Argentina"
+agregar(d, "desvio_temperatura_media_anual", "grados C", "Servicio Meteorologico Nacional, via CIAM")
+cal = clima.sort_values("desvio_temperatura").iloc[-1]; fri_ = clima.sort_values("desvio_temperatura").iloc[0]
+
 # ---------------------------------------------------------------- salida
 pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False)
 
@@ -456,6 +635,20 @@ tablas = {
     "turistas_no_residentes_anual": receptivo,
     "viajeros_hoteles_anual": hoteles,
     "turistas_extranjeros_provincias": etp.round(2),
+    "parques_nacionales_lista": pn_lista.round({"hectareas": 0, "lat": 4, "lng": 4}),
+    "patentamientos_anual": patent,
+    "patentamientos_provincias": pat_prov[["codigo_indec", "territorio", "autos", "motos", "autos_1000", "motos_1000"]].round(2),
+    "nombres_top": nombres_top,
+    "desembarques_especies": pesca,
+    "desembarques_top": pesca_top,
+    "pesca_continental": rio,
+    "pesca_continental_provincias": pesca_rio_prov,
+    "visitas_por_parque": visitas_parque,
+    "carne_vacuna": carne.round(1),
+    "vino_mercado_interno": vino.round(2),
+    "yerba_molino": yerba.round(2),
+    "glaciares_provincias": glaciares,
+    "clima_desvio": clima,
     "pobreza_serie": pobreza[["periodo", "anio", "semestre", "t", "pobreza_personas", "indigencia_personas", "pobreza_hogares", "indigencia_hogares"]],
 }
 for k, t in tablas.items():
@@ -576,6 +769,42 @@ resumen = {
         "pob_prev": r1(pp_.pobreza_personas), "ind_prev": r1(pp_.indigencia_personas),
         "max": r1(pmax.pobreza_personas), "max_sem": sem_txt(pmax),
     },
+    "pesca": {
+        "anio": ANIO_DS, "ini": int(min(tot_ds.dropna().index)), "total": round(float(tot_ds[ANIO_DS])),
+        "total_ini": round(float(tot_ds.dropna().iloc[0])), "top": top3, "top_t": [round(float(x)) for x in esp_ds.toneladas.head(3)],
+        "top_pct": r1(esp_ds.toneladas.iloc[0] / tot_ds[ANIO_DS] * 100),
+        "rio_anio": anio_pc, "rio_total": round(float(pc_esp.sum())), "rio_top": pc_esp.index[0], "rio_top_pct": r1(pc_esp.iloc[0] / pc_esp.sum() * 100),
+        "rio_provs": list(pc_prov.index), "rio_prov_top": pc_prov.index[0], "rio_prov_top_pct": r1(pc_prov.iloc[0] / pc_prov.sum() * 100),
+    },
+    "femicidios": {"ini": int(femi.anio.min()), "anio": int(fe_u.anio), "n": int(fe_u.femicidios),
+                   "max_anio": int(femi.loc[femi.femicidios.idxmax(), "anio"]), "max": int(femi.femicidios.max())},
+    "visitas_parque": {"top": vp_top.area, "top_lugar": vp_top.lugar, "top_v": int(vp_top.visitas_2022), "top_nr": int(vp_top.no_residentes_2022),
+                       "dos": vp_2.area, "dos_v": int(vp_2.visitas_2022), "pct_top": r1(vp_top.visitas_2022 / vp_tot * 100),
+                       "top_2019": int(vp_top.visitas_2019), "n": int(vpp.visitas_2022.notna().sum())},
+    "curiosidades": {
+        "nom_anio": ANIO_N, "nom_ini": ini_n, "nena": top_f.nombre, "nena_n": int(top_f.cantidad), "varon": top_m.nombre, "varon_n": int(top_m.cantidad),
+        "nena0": top_f0.nombre, "varon0": top_m0.nombre,
+        "varon_prov": prov_top_m.nombre.value_counts().index[0], "varon_prov_n": int(prov_top_m.nombre.value_counts().iloc[0]),
+        "lionel_anio": lio_max, "lionel_max": int(lionel.max()) if lio_max else None,
+        "lionel_prev": int(lionel.get(lio_max - 1, 0)) if lio_max else None,
+        "carne_ini": int(carne.anio.iloc[0]), "carne_ini_v": r1(carne.kg_por_habitante.iloc[0]),
+        "carne_anio": int(carne.anio.iloc[-1]), "carne_v": r1(carne.kg_por_habitante.iloc[-1]),
+        "carne_ytd": r1(cons_ytd), "carne_ytd_hasta": f"{MES[ult_cons.month - 1]} de {ult_cons.year}",
+        "carne_min_serie": bool(cons_ytd < carne.kg_por_habitante.min()),
+        "asado_ini": r1(asado.valor.iloc[0]), "asado_ini_anio": int(asado.anio.iloc[0]),
+        "asado": r1(asado.valor.iloc[-1]), "asado_hasta": f"{MES[asado.indice_tiempo.iloc[-1].month - 1]} de {asado.indice_tiempo.iloc[-1].year}",
+        "vino_ini": int(vino.anio.iloc[0]), "vino_ini_v": round(float(vino.millones_litros.iloc[0])), "vino_anio": ANIO_V,
+        "vino_v": round(float(vino.millones_litros.iloc[-1])), "vino_caida": r1((vino.millones_litros.iloc[-1] / vino.millones_litros.iloc[0] - 1) * 100),
+        "vino_mza": r1(mza_pct),
+        "yerba_ini": int(yerba.anio.iloc[0]), "yerba_anio": int(yerba.anio.iloc[-1]), "yerba_v": r1(yerba.millones_kg.iloc[-1]),
+        "yerba_max_anio": int(yerba.loc[yerba.millones_kg.idxmax(), "anio"]), "yerba_max": r1(yerba.millones_kg.max()),
+        "gl_total": int(glaciares.glaciares.sum()), "gl_n": int(len(glaciares)),
+        "gl_top": glaciares.sort_values("glaciares").iloc[-1].territorio, "gl_top_v": int(glaciares.glaciares.max()),
+        "gl_2": glaciares.sort_values("glaciares").iloc[-2].territorio, "gl_2_v": int(glaciares.sort_values("glaciares").iloc[-2].glaciares),
+        "cl_ini": int(clima.anio.min()), "cl_fin": int(clima.anio.max()), "cl_ult": float(clima.desvio_temperatura.iloc[-1]),
+        "cl_max_anio": int(cal.anio), "cl_max": float(cal.desvio_temperatura), "cl_min_anio": int(fri_.anio), "cl_min": float(fri_.desvio_temperatura),
+        "cl_pos_desde2000": int((clima[clima.anio >= 2000].desvio_temperatura > 0).sum()), "cl_n_desde2000": int((clima.anio >= 2000).sum()),
+    },
     "sube": {
         "mes": f"{MES[int(su.n_mes) - 1]} de {int(su.anio)}", "mes_prev": f"{MES[int(su.n_mes) - 1]} de {int(su.anio) - 1}",
         "total_millones": round(float(su.total) / 1e6, 2),
@@ -584,6 +813,19 @@ resumen = {
         "subte_miles": round(float(su.subte) / 1e3),
         "pre_millones": round(float(pre) / 1e6, 2), "vs_pre": r1((su.total / pre - 1) * 100),
         "ultimo_dia": ULT_DIA.strftime("%d/%m/%Y"),
+        "tren_pre_miles": round(float(pre_modos.tren) / 1e3), "subte_pre_miles": round(float(pre_modos.subte) / 1e3),
+        "tren_vs_pre": r1((su.tren / pre_modos.tren - 1) * 100), "subte_vs_pre": r1((su.subte / pre_modos.subte - 1) * 100),
+        "colectivo_vs_pre": r1((su.colectivo / pre_modos.colectivo - 1) * 100),
+    },
+    "autos": {
+        "anio": ANIO_AU, "autos": int(patent.autos.iloc[-1]), "motos": int(patent.motos.iloc[-1]),
+        "max_anio": int(pa_max.anio), "max": int(pa_max.autos), "min_anio": int(pa_min.anio), "min": int(pa_min.autos),
+        "ini": int(patent.anio.min()), "motos_ini": int(mo_.anio.min()),
+        "ytd": f"enero y {MES[int(ult_au) - 1]} de {int(au.anio.max())}", "ytd_var": r1((ytd_au / ytd_au_prev - 1) * 100),
+        "top": pat_prov.sort_values("autos_1000").iloc[-1].territorio, "top_v": r1(pat_prov.autos_1000.max()),
+        "low": pat_prov.sort_values("autos_1000").iloc[0].territorio, "low_v": r1(pat_prov.autos_1000.min()),
+        "moto_top": pat_prov.sort_values("motos_1000").iloc[-1].territorio, "moto_top_v": r1(pat_prov.motos_1000.max()),
+        "pais_1000": r1(pat_prov.autos.sum() / POB_PAIS * 1000), "motos_pais_1000": r1(pat_prov.motos.sum() / POB_PAIS * 1000),
     },
 }
 

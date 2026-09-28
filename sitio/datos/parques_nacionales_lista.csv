@@ -1,0 +1,56 @@
+nombre,caracter,lugar,anio,hectareas,marina,lat,lng
+Iguazú,Parque Nacional,Misiones,1934,67698.0,False,-25.6684,-54.3105
+Nahuel Huapi,Parque Nacional,Neuquén y Río Negro,1934,717261.0,False,-40.9541,-71.5364
+Lago Puelo,Parque Nacional,Chubut,1937,27674.0,False,-42.179,-71.6873
+Lanín,Parque Nacional,Neuquén,1937,412000.0,False,-39.85,-71.431
+Los Alerces,Parque Nacional,Chubut,1937,259822.0,False,-42.8445,-71.8382
+Los Glaciares,Parque Nacional,Santa Cruz,1937,731932.0,False,-49.9469,-73.158
+Perito Moreno,Parque Nacional,Santa Cruz,1937,142120.0,False,-47.887,-72.2501
+Laguna Blanca,Parque Nacional,Neuquén,1940,11250.0,False,-39.0303,-70.3522
+El Rey,Parque Nacional,Salta,1948,44162.0,False,-24.7005,-64.6273
+Río Pilcomayo,Parque Nacional,Formosa,1951,51889.0,False,-25.0653,-58.1372
+Bosques Petrificados de Jaramillo,Parque Nacional,Santa Cruz,1954,78543.0,False,-47.6935,-68.066
+Chaco,Parque Nacional,Chaco,1954,14981.0,False,-26.8266,-59.6551
+Tierra del Fuego,Parque Nacional,Tierra del Fuego,1960,68909.0,False,-54.6423,-68.486
+El Palmar,Parque Nacional,Entre Ríos,1965,8213.0,False,-31.8822,-58.2567
+Formosa,Reserva Natural,Formosa,1968,9005.0,False,-24.2737,-61.8007
+Los Arrayanes,Parque Nacional,Neuquén,1971,1796.0,False,-40.8294,-71.6287
+Baritú,Parque Nacional,Salta,1974,72439.0,False,-22.582,-64.6442
+Lihué Calel,Parque Nacional,La Pampa,1976,32514.0,False,-37.9349,-65.6047
+Calilegua,Parque Nacional,Jujuy,1979,76306.0,False,-23.6605,-64.85
+Laguna de los Pozuelos,Monumento Natural,Jujuy,1980,16224.0,False,-22.3417,-66.0019
+Colonia Benítez,Reserva Natural Educativa,Chaco,1990,8.0,False,-27.3175,-58.9498
+San Antonio,Reserva Natural Estricta,Misiones,1990,480.0,False,-26.0171,-53.7899
+Sierra de las Quijadas,Parque Nacional,San Luis,1991,73785.0,False,-32.5568,-67.1346
+Pre-Delta,Parque Nacional,Entre Ríos,1992,2604.0,False,-32.1405,-60.6403
+Los Cardones,Parque Nacional,Salta,1996,64117.0,False,-25.2773,-65.9319
+Quebrada del Condorito,Parque Nacional,Córdoba,1996,35396.0,False,-31.6976,-64.7833
+Talampaya,Parque Nacional,La Rioja,1997,213800.0,False,-29.8502,-67.8776
+San Guillermo,Parque Nacional,San Juan,1999,166000.0,False,-29.2382,-69.2662
+Copo,Parque Nacional,Santiago del Estero,2000,118119.0,False,-25.8209,-61.88
+El Leoncito,Parque Nacional,San Juan,2002,89706.0,False,-31.8894,-69.2651
+Mburucuyá,Parque Nacional,Corrientes,2002,17086.0,False,-28.013,-58.0692
+Monte León,Parque Nacional,Santa Cruz,2004,62169.0,False,-50.3167,-68.9729
+El Nogalar de los Toldos,Reserva Nacional,Salta,2006,3275.0,False,-22.2658,-64.7531
+Campos del Tuyú,Parque Nacional,Buenos Aires,2009,3040.0,False,-36.3544,-56.8762
+Patagonia Austral,Parque Interjurisdiccional Marino Costero,Chubut,2009,103574.0,False,-45.0722,-66.0969
+Islas de Santa Fe,Parque Nacional,Santa Fe,2010,4096.0,False,-32.2791,-60.72
+Isla Pingüino,Parque Interjurisdiccional Marino,Santa Cruz,2012,159526.0,False,-48.15,-65.9446
+Makenke,Parque Interjurisdiccional Marino,Santa Cruz,2012,72673.0,False,-49.5481,-67.6247
+Namuncurá - Banco Burdwood I,Área Marina Protegida,Mar Argentino,2013,2800000.0,True,-54.3314,-59.2392
+El Impenetrable,Parque Nacional,Chaco,2014,128000.0,False,-25.0047,-61.1056
+Patagonia,Parque Nacional,Santa Cruz,2015,106424.0,False,-47.1592,-71.317
+Pizarro,Reserva Nacional,Salta,2015,7837.0,False,-24.17,-64.0625
+Isla de los Estados y Archipiélago de Año  Nuevo ,Reserva Natural Silvestre,Tierra del Fuego,2016,52784.0,False,-54.7672,-64.278
+Aconquija,Parque Nacional,Tucumán,2018,93313.0,False,-27.1938,-65.9576
+Ciervo de los Pantanos,Parque Nacional,Buenos Aires,2018,5200.0,False,-34.2345,-58.8772
+Iberá,Parque Nacional,Corrientes,2018,195094.0,False,-27.9324,-56.9308
+Namuncurá - Banco Burdwood II,Área Marina Protegida,Mar Argentino,2018,3233630.0,True,-55.1824,-59.8042
+Traslasierra,Parque Nacional,Córdoba,2018,44019.0,False,-30.9947,-65.6267
+Yaganes,Área Marina Protegida,Mar Argentino,2018,6883431.0,True,-56.933,-65.4582
+Ansenuza,Parque Nacional,Córdoba,2022,661416.0,False,-30.667,-62.5467
+Islote Lobos,Parque Nacional,Río Negro,2022,19079.0,False,-41.4378,-65.0637
+Parque Federal Campo San Juan,Reserva Natural Silvestre,Misiones,2022,5131.0,False,-27.3944,-55.6488
+Cerro Pistarini,Reserva Natural Educativa,Córdoba,2023,450.0,False,-32.2241,-64.4176
+Laguna El Palmar,Parque Nacional,Chaco,2023,5600.0,False,-27.1844,-58.6728
+Marismas del Tuyú,Reserva Natural Silvestre,Buenos Aires,2023,352.0,False,-36.3316,-56.7847
