@@ -1,0 +1,111 @@
+@import url("observablehq:default.css");
+@import url("observablehq:theme-air.css");
+
+:root {
+  --celeste: #2C74B5;
+  --sol: #F6B40E;
+  --tinta: #1d2733;
+  --tinta-suave: #5b6673;
+  --linea: #dde3ea;
+  --sans-serif: "Roboto Flex", Roboto, Verdana, sans-serif;
+  --serif: "Roboto Flex", Roboto, Verdana, sans-serif;
+  --theme-background: #ffffff;
+  --theme-background-alt: #ffffff;
+  --theme-foreground: var(--tinta);
+  --theme-foreground-focus: var(--celeste);
+  color-scheme: light;
+}
+
+html, body { background: #ffffff; }
+body { font-family: var(--sans-serif); color: var(--tinta); }
+
+h1, h2, h3, h4 { font-family: var(--sans-serif); color: var(--tinta); }
+h1 { font-weight: 650; max-width: 32ch; }
+h1::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 6px;
+  background: var(--sol);
+  margin-bottom: 1rem;
+}
+h2 { font-weight: 600; margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--linea); }
+h2 + p, h3 + p { margin-top: 0.4rem; }
+
+a[href] { color: var(--celeste); }
+
+.cabecera { display: flex; gap: 1.25rem; font-size: 14px; }
+.cabecera a { text-decoration: none; }
+.cabecera a:hover { text-decoration: underline; }
+
+.bajada { font-size: 1.15rem; line-height: 1.55; max-width: 68ch; color: var(--tinta); }
+.nota { color: var(--tinta-suave); font-size: 14px; max-width: 72ch; }
+.aviso { color: #7a5600; border-left: 3px solid var(--sol); padding-left: 0.75rem; max-width: 72ch; }
+.error-sql { color: #9b2c2c; border-left: 3px solid #c0392b; padding-left: 0.75rem; max-width: 80ch; }
+.error-sql code { white-space: pre-wrap; }
+
+/* Botones */
+button, .boton {
+  font: inherit;
+  font-size: 14px;
+  border: 1px solid var(--celeste);
+  background: #ffffff;
+  color: var(--celeste);
+  border-radius: 4px;
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+button:hover, .boton:hover { background: #eef4fa; }
+button.principal { background: var(--celeste); color: #ffffff; }
+button.principal:hover { background: #235f95; }
+
+.ejemplos { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+.descargas { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 0.75rem 0; }
+
+/* Caja de SQL libre */
+.sql-libre textarea {
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
+  font-family: var(--monospace);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0.75rem;
+  border: 1px solid #b9c4d0;
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--tinta);
+}
+.sql-libre textarea:focus { outline: 2px solid var(--celeste); outline-offset: 1px; }
+.sql-libre .acciones { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.5rem; }
+
+pre.sql-generado {
+  max-width: 900px;
+  white-space: pre-wrap;
+  background: #ffffff;
+  border: none;
+  border-left: 3px solid var(--celeste);
+  padding: 0.25rem 0 0.25rem 0.75rem;
+  font-size: 13px;
+}
+
+.lista-tablas { max-width: 900px; }
+.lista-tablas td, .lista-tablas th { vertical-align: top; }
+
+figure figcaption, .pie-grafico { color: var(--tinta-suave); font-size: 13px; max-width: 80ch; }
+.titulo-grafico { font-weight: 600; font-size: 15px; margin: 1rem 0 0.25rem; max-width: 80ch; }
+
+@media (max-width: 640px) {
+  h1 { font-size: 1.8rem; }
+  .bajada { font-size: 1.05rem; }
+}
+
+.sql-libre label { display: block; margin-bottom: 0.3rem; }
+
+/* En pantallas angostas la tabla de descargas se desplaza dentro de su espacio, sin mover toda la página */
+.lista-tablas{display:block;max-width:100%;overflow-x:auto}
+
+/* Enlace de vuelta a Datina */
+.cabecera .volver{font-weight:700;color:var(--theme-foreground,#18212B);margin-right:8px}

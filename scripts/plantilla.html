@@ -1,0 +1,1342 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datina | Las 24 Argentinas en números</title>
+<meta name="description" content="Datina: las 24 Argentinas en números. Estadísticas públicas de cada provincia con su fuente, su año y la tabla para descargar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<style>
+/* Paleta de la bandera: blanco, celeste y el amarillo del Sol de Mayo. Solo modo claro. */
+:root{
+  color-scheme:light;
+  --bg:#FFFFFF; --ink:#18212B; --muted:#56606C; --faint:#98A2AE; --line:#E4E9EF;
+  --celeste:#74ACDF; --celeste-fuerte:#2C74B5; --celeste-suave:#DCEBF8;
+  --sol:#F6B40E; --sol-fuerte:#B27A00; --sol-suave:#FDF0CC; --sol-borde:#85340A;
+  --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --sombra:0 1px 2px rgba(24,33,43,.04),0 14px 34px -20px rgba(44,116,181,.30);
+  --f: "Roboto Flex", Roboto, Verdana, system-ui, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:17px;line-height:1.55;
+  font-variation-settings:"opsz" 16;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration-color:var(--celeste);text-underline-offset:3px;text-decoration-thickness:1.5px}
+a:hover{text-decoration-color:var(--celeste-fuerte)}
+:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:3px;border-radius:2px}
+.envoltura{max-width:800px;margin:0 auto;padding:0 22px}
+
+/* barra superior */
+.barra{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px)}
+.barra .envoltura{max-width:1180px;display:flex;align-items:center;gap:22px;height:56px;overflow-x:auto;scrollbar-width:none}
+.barra .envoltura::-webkit-scrollbar{display:none}
+.marca{font-weight:650;font-size:15px;white-space:nowrap;text-decoration:none;font-variation-settings:"opsz" 20}
+.temas{display:flex;gap:18px;font-size:15px;color:var(--muted)}
+.temas a{text-decoration:none;white-space:nowrap;padding:4px 0}
+.temas a[aria-current="true"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--celeste)}
+.barra{border-top:4px solid var(--celeste);transition:box-shadow .2s ease}
+.barra.con-borde{box-shadow:0 1px 0 var(--line)}
+.marca .a-gorro .gorro{width:.6em;top:-.42em}
+.selector{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);white-space:nowrap;min-width:0}
+select{font:inherit;font-size:14px;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--celeste);
+  padding:4px 18px 4px 0;max-width:11em;text-overflow:ellipsis;appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 7px) 55%,calc(100% - 3px) 55%;background-size:4px 4px;background-repeat:no-repeat}
+select option{background:var(--bg);color:var(--ink)}
+
+/* portada */
+.portada{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+/* Mapa de fondo: proyección azimutal equidistante centrada en la Argentina */
+.mapa-fondo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+.mapa-fondo.listo{opacity:1}
+.mapa-fondo .esfera{fill:none;stroke:#DCE8F4;stroke-width:1}
+.mapa-fondo .grat{fill:none;stroke:#EAF2FA;stroke-width:.7}
+.mapa-fondo .tierra{fill:#EEF5FC;stroke:#D2E3F3;stroke-width:.6}
+.mapa-fondo .arg{fill:var(--celeste);stroke:var(--celeste-fuerte);stroke-width:.8}
+.mapa-fondo .anillo{fill:none;stroke:var(--celeste);stroke-opacity:.5;stroke-width:1;stroke-dasharray:1 6;stroke-linecap:round}
+.portada-grid{position:relative}
+.portada-texto{position:relative;isolation:isolate;align-self:start;margin-top:clamp(24px,8vh,90px)}
+.portada-texto::before{content:"";position:absolute;inset:-36px -40px;z-index:-1;
+  background:radial-gradient(closest-side,rgba(255,255,255,.95) 62%,rgba(255,255,255,0))}
+/* Gorro frigio sobre la A, como en el escudo */
+.a-gorro{position:relative;display:inline-block}
+.a-gorro .gorro{position:absolute;left:50%;top:-.25em;width:.46em;height:auto;overflow:visible;
+  transform:translateX(-46%) rotate(-12deg);transform-origin:50% 100%}
+.gorro-cuerpo{fill:var(--rojo)}
+.gorro-banda{fill:var(--rojo-oscuro)}
+.portada h1 .gorro{animation:posar .8s var(--ease-out) .55s both}
+@keyframes posar{from{opacity:0;transform:translateX(-46%) translateY(-.35em) rotate(-34deg)}}
+.portada-grid{max-width:1180px;margin:0 auto;padding:32px 22px 48px;display:grid;align-items:center;gap:16px;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);min-height:min(calc(100dvh - 60px),760px)}
+.portada h1{font-size:clamp(48px,6.4vw,88px);line-height:.98;letter-spacing:-.03em;font-weight:760;margin:0 0 22px;
+  font-variation-settings:"opsz" 144}
+.portada h1 .acento{color:var(--celeste-fuerte)}
+.portada h1{padding-top:.3em}
+.portada p{font-size:20px;line-height:1.5;color:var(--muted);max-width:25em;margin:0 0 30px}
+.portada-texto>*{animation:aparece .9s cubic-bezier(.16,1,.3,1) both}
+.portada-texto>:nth-child(2){animation-delay:.12s}
+.portada-texto>:nth-child(3){animation-delay:.24s}
+.portada-texto>:nth-child(4){animation-delay:.34s}
+.portada-sol{justify-self:end;width:min(620px,48vw)}
+
+/* Sol de Mayo: 16 rayos rectos y 16 flamígeros alternados alrededor del rostro */
+.sol{display:block;width:100%;height:auto;overflow:visible}
+.sol .rayo{fill:var(--sol);stroke:var(--sol-borde);stroke-width:.7;stroke-linejoin:round}
+.sol .disco{fill:var(--sol);stroke:var(--sol-borde);stroke-width:.9}
+.sol .rasgo{fill:none;stroke:var(--sol-borde);stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
+.sol .pupila{fill:var(--sol-borde)}
+/* Pestañeo: los dos ojos se cierran juntos un instante, a intervalos irregulares (a veces doble) */
+.sol .ojo{transform-box:fill-box;transform-origin:50% 55%;animation:pestanear 6.4s ease-in-out infinite 1.6s}
+@keyframes pestanear{0%,43%,47%,90%,93.5%,97%,100%{transform:scaleY(1)}45%,91.8%,95.3%{transform:scaleY(.08)}}
+/* La boca sonríe y se relaja muy despacio */
+.sol .boca{transform-box:fill-box;transform-origin:50% 30%;animation:hablar 4.2s ease-in-out infinite alternate}
+@keyframes hablar{0%{transform:scale(1,1)}55%{transform:scale(1.04,.86)}100%{transform:scale(.97,1.08) translateY(.3px)}}
+.sol .giro,.sol .nace,.sol .flama,.sol .rostro{transform-box:view-box;transform-origin:0 0}
+.sol .giro{animation:girar 90s linear infinite}
+.sol .nace{animation:nace 1.3s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i) * 28ms)}
+.sol .flama{animation:latir 3.4s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -.21s)}
+.sol .rostro{animation:nace 1.1s cubic-bezier(.16,1,.3,1) both}
+.sol.quieto *{animation-play-state:paused!important}
+@keyframes girar{to{transform:rotate(360deg)}}
+@keyframes nace{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
+@keyframes latir{from{transform:scale(.95)}to{transform:scale(1.05)}}
+
+/* Gorro frigio en lugar del punto de la i */
+.i-gorro{position:relative;display:inline-block}
+.i-gorro .gorro{position:absolute;left:50%;top:-.02em;width:.36em;height:auto;overflow:visible;
+  transform:translateX(-46%) rotate(-10deg);transform-origin:50% 100%}
+.marca .i-gorro .gorro{top:-.12em;width:.5em}
+.portada h1{font-size:clamp(64px,9vw,124px);letter-spacing:-.045em;margin:0 0 6px}
+.portada .lema{font-size:clamp(21px,2.4vw,28px);line-height:1.25;font-weight:620;color:var(--celeste-fuerte);letter-spacing:-.012em;margin:0 0 26px}
+
+/* Preguntas que rotan de a una: franja propia entre la portada y la elección de provincia */
+.preguntas{padding:48px 0 0}
+.rotador{padding:4px 0 4px 22px;border-left:3px solid var(--sol)}
+.rot-cuerpo{min-height:6em}
+.rot-q{display:block;font-size:clamp(21px,2.6vw,27px);font-weight:650;line-height:1.25;letter-spacing:-.015em;color:var(--ink);
+  text-decoration:none;margin:0 0 8px;max-width:28em;transition:color .2s ease}
+@media (hover:hover) and (pointer:fine){.rot-q:hover{color:var(--celeste-fuerte)}}
+.rot-a{font-size:17.5px;line-height:1.5;color:var(--muted);margin:0;max-width:36em}
+.rot-control{display:flex;align-items:center;gap:14px;margin-top:10px}
+.rot-barra{flex:0 0 120px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.rot-barra i{display:block;height:100%;background:var(--celeste);transform-origin:0 50%;transform:scaleX(0)}
+.rot-control button{font:inherit;font-size:13.5px;font-weight:560;color:var(--celeste-fuerte);background:none;border:0;padding:4px 0;cursor:pointer;
+  transition:transform .16s var(--ease-out)}
+.rot-control button:active{transform:scale(.97)}
+
+/* Las 24: tarjeta de elección y perfil de la provincia */
+.provincias{padding:60px 0 8px}
+.provincias h2{font-size:clamp(30px,4.4vw,44px);letter-spacing:-.025em;line-height:1.05;font-weight:720;margin:0 0 10px;font-variation-settings:"opsz" 96}
+.prov-sub{color:var(--muted);max-width:36em;margin:0 0 22px}
+/* Desplegable de provincia: compacto, fuente liviana, crece desde el botón */
+.elige{position:relative;display:inline-flex;flex-direction:column;gap:6px;z-index:6}
+.elige-lab{font-size:12.5px;font-weight:500;color:var(--muted);letter-spacing:.01em}
+.elige-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;min-width:260px;
+  font:inherit;font-size:16.5px;font-weight:350;color:var(--ink);background:var(--bg);cursor:pointer;
+  border:1px solid var(--line);border-radius:12px;padding:9px 14px 9px 16px;
+  transition:border-color .2s ease,background-color .2s ease,transform .16s var(--ease-out)}
+.elige-btn:active{transform:scale(.98)}
+@media (hover:hover) and (pointer:fine){.elige-btn:hover{border-color:#C6DCF1;background:#FAFCFE}}
+.elige-btn[aria-expanded="true"]{border-color:var(--celeste)}
+.elige-flecha{width:7px;height:7px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);
+  transform:translateY(-2px) rotate(45deg);transition:transform .18s var(--ease-out)}
+.elige-btn[aria-expanded="true"] .elige-flecha{transform:translateY(1px) rotate(225deg)}
+.elige-panel{position:absolute;top:calc(100% + 6px);left:0;width:min(520px,calc(100vw - 44px));padding:6px;
+  background:var(--bg);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 1px 2px rgba(24,33,43,.05),0 18px 40px -18px rgba(44,116,181,.35);
+  transform-origin:top left;opacity:0;transform:scale(.97) translateY(-4px);
+  transition:opacity .12s ease-out,transform .12s ease-out}
+.elige-panel.abierto{opacity:1;transform:none;transition:opacity .18s var(--ease-out),transform .18s var(--ease-out)}
+.elige-buscar{width:100%;font:inherit;font-size:14.5px;font-weight:350;color:var(--ink);border:0;border-bottom:1px solid var(--line);
+  border-radius:0;padding:8px 10px 10px;margin-bottom:4px;background:transparent;outline:none}
+.elige-buscar::placeholder{color:var(--faint)}
+.elige-lista{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px}
+.elige-lista li{font-size:14.5px;font-weight:350;line-height:1.3;color:var(--ink);padding:7px 10px;border-radius:8px;cursor:pointer;
+  transition:background-color .12s ease}
+@media (hover:hover) and (pointer:fine){.elige-lista li:hover{background:var(--celeste-suave)}}
+.elige-lista li.activa{background:var(--celeste-suave)}
+.elige-lista li[aria-selected="true"]{color:var(--celeste-fuerte);font-weight:600}
+.elige-lista li.primera{grid-column:1/-1}
+.elige-lista li[hidden]{display:none}
+.elige-vacio{font-size:14px;color:var(--muted);padding:8px 10px;margin:0}
+.prov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:14px}
+.dp{display:flex;flex-direction:column;gap:2px;padding:16px 18px 14px;border:1px solid var(--line);border-radius:18px;background:var(--bg);
+  text-decoration:none;color:inherit;transition:border-color .2s ease,transform .16s var(--ease-out)}
+.dp:active{transform:scale(.98)}
+@media (hover:hover) and (pointer:fine){.dp:hover{border-color:#C6DCF1}}
+.dp-lab{font-size:13.5px;font-weight:600;color:var(--celeste-fuerte)}
+.dp-num{font-size:34px;font-weight:720;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.dp-det{font-size:13px;color:var(--muted);line-height:1.35;min-height:2.7em}
+.dp-tira{display:block;width:100%;height:26px;margin:6px 0 2px;overflow:visible}
+.dp-pos{font-size:12.5px;color:var(--muted);line-height:1.35}
+
+/* secciones y fichas */
+.tema{padding-top:40px}
+.tema>h2{font-size:15px;font-weight:600;color:var(--celeste-fuerte);margin:56px 0 4px;letter-spacing:.01em}
+.ficha{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:28px 32px 22px;
+  margin:20px 0;box-shadow:var(--sombra);transition:border-color .2s ease}
+@media (hover:hover) and (pointer:fine){.ficha:hover{border-color:#C6DCF1}}
+.js .ficha{opacity:0;transform:translateY(18px);
+  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out),border-color .2s ease}
+.js .ficha.visto{opacity:1;transform:none}
+.etiqueta{display:inline-block;font-size:12.5px;font-weight:600;color:var(--celeste-fuerte);background:var(--celeste-suave);
+  border-radius:999px;padding:3px 10px;margin:0 0 14px}
+.clave{display:flex;align-items:baseline;gap:6px 16px;flex-wrap:wrap;margin:2px 0 14px}
+.clave .num{font-size:clamp(40px,6vw,56px);font-weight:720;letter-spacing:-.035em;line-height:1;color:var(--celeste-fuerte);
+  font-variant-numeric:tabular-nums;font-variation-settings:"opsz" 144}
+.clave .txt{font-size:15px;line-height:1.4;color:var(--muted);max-width:24em}
+.ficha h3{font-size:clamp(23px,3.4vw,29px);line-height:1.18;letter-spacing:-.012em;font-weight:640;margin:0 0 14px;
+  font-variation-settings:"opsz" 48;max-width:30em}
+.ficha .lead{font-size:18px;margin:0 0 6px;max-width:38em}
+.ficha .nota{font-size:14.5px;color:var(--muted);margin:10px 0 0;max-width:42em}
+.grafico{margin:26px 0 8px;position:relative;min-height:120px}
+.grafico svg{display:block;width:100%;height:auto;overflow:visible}
+.pie{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font-size:13.5px;color:var(--muted);
+  margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.acciones{display:flex;gap:8px;margin-left:auto}
+.accion{font:inherit;font-size:13.5px;font-weight:560;color:var(--celeste-fuerte);background:transparent;cursor:pointer;
+  border:1px solid var(--celeste-suave);border-radius:999px;padding:6px 13px;text-decoration:none;white-space:nowrap;
+  transition:transform .16s var(--ease-out),background-color .2s ease}
+.accion:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.accion:hover{background:var(--celeste-suave)}}
+.accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:filter .18s ease,opacity .18s ease}
+.accion .lbl.cambia{filter:blur(2px);opacity:.4}
+
+/* ejes y marcas */
+.eje text{fill:var(--muted);font-size:12.5px;font-family:var(--f)}
+.eje line,.eje path{stroke:var(--line)}
+.grilla line{stroke:var(--line);stroke-dasharray:2 3}
+.etq{font-size:13px;fill:var(--ink);font-family:var(--f)}
+.etq-suave{font-size:12.5px;fill:var(--muted);font-family:var(--f)}
+.etq-fuerte{font-size:13px;font-weight:650;fill:var(--ink);font-family:var(--f)}
+.etq,.etq-suave,.etq-fuerte{paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
+
+/* tooltip */
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;
+  padding:7px 10px;border-radius:6px;white-space:nowrap;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;z-index:5}
+.tip.on{opacity:1;transform:none}
+
+/* controles de ficha */
+.conmutador{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);margin:18px 0 0;padding:3px;border-radius:999px;background:var(--celeste-suave)}
+.conmutador::before{content:"";position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 6px) / var(--n,2));border-radius:999px;
+  background:var(--bg);box-shadow:0 1px 2px rgba(24,33,43,.12);transform:translateX(calc(var(--i,0) * 100%));
+  transition:transform .28s var(--ease-out)}
+.conmutador button{position:relative;font:inherit;font-size:14px;border:0;background:transparent;color:var(--muted);
+  padding:6px 16px;border-radius:999px;cursor:pointer;transition:color .2s ease}
+.conmutador button[aria-pressed="true"]{color:var(--ink);font-weight:560}
+
+/* adiviná */
+.adivina{margin:24px 0 0}
+.adivina label{display:block;font-size:16px;margin-bottom:10px}
+.adivina .fila{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.adivina input[type=range]{flex:1 1 260px;accent-color:var(--celeste-fuerte);height:28px}
+.adivina output{font-variant-numeric:tabular-nums;font-size:22px;font-weight:650;min-width:72px}
+.boton{font:inherit;font-size:15px;font-weight:560;border:0;border-radius:999px;padding:9px 18px;cursor:pointer;
+  background:var(--celeste-fuerte);color:#fff;text-decoration:none;display:inline-block;
+  transition:background-color .2s ease,transform .16s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.boton:hover{background:#1F5E97}}
+.boton:active{transform:scale(.97)}
+.oculto{display:none}
+.ir-consultas{margin:18px 0 0}
+.revelado{animation:aparece .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes aparece{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.veredicto{font-size:17px;margin:18px 0 0}
+
+/* ayuda */
+.ayuda{margin:22px 0 0;padding:16px 0 16px 18px;border-left:3px solid var(--celeste);font-size:16px;max-width:40em}
+.ayuda strong{font-weight:650}
+
+footer{padding:56px 0 80px;color:var(--muted);font-size:14.5px}
+footer h2{font-size:17px;color:var(--ink);font-weight:640;margin:0 0 10px}
+footer p{max-width:40em}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .temas{display:none}
+  .barra .envoltura{gap:14px}
+  .selector{gap:6px}
+  select{max-width:8.5em}
+}
+@media (max-width:760px){
+  .portada-grid{grid-template-columns:1fr;min-height:0;padding:0 22px 40px;gap:0}
+  .portada-sol{order:-1;width:88vw;margin:8px -22vw 4px 0}
+  .portada-texto{margin-top:0}
+  /* en el celular los indicadores de la provincia se deslizan de costado */
+  .prov-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:14px -22px 0;padding:2px 22px 12px;scroll-padding:0 22px;scrollbar-width:none}
+  .prov-grid::-webkit-scrollbar{display:none}
+  .dp{scroll-snap-align:start}
+  .portada h1{font-size:clamp(44px,13vw,64px)}
+  .portada p{font-size:18px}
+  .ficha .lead{font-size:17px}
+  .ficha{padding:22px 18px 18px;border-radius:18px;margin:16px 0}
+  .acciones{margin-left:0}
+}
+/* Movimiento reducido: sin desplazamientos ni giros, pero se conservan los fundidos que ayudan a entender */
+@media (prefers-reduced-motion:reduce){
+  .sol *,.portada-texto>*,.gorro,.revelado{animation:none!important}
+  .js .ficha{transform:none!important;transition:opacity .3s ease!important}
+  .conmutador::before,.accion,.boton{transition:none!important}
+}
+</style>
+</head>
+<body>
+<header class="barra">
+  <div class="envoltura">
+    <a class="marca" href="#inicio">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 36" aria-hidden="true"><path class="gorro-cuerpo" d="M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z"/><path class="gorro-banda" d="M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z"/></svg></span>na</a>
+    <nav class="temas" aria-label="Temas">
+      <a href="#energia">Energía</a><a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#naturaleza">Naturaleza</a><a href="#turismo">Turismo</a><a href="#salud">Salud</a><a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#movilidad">Movilidad</a>
+    </nav>
+  </div>
+</header>
+
+<section class="portada" id="inicio">
+  <svg class="mapa-fondo" id="mapa" aria-hidden="true"></svg>
+  <div class="portada-grid">
+    <div class="portada-texto">
+      <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 36" aria-hidden="true"><path class="gorro-cuerpo" d="M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z"/><path class="gorro-banda" d="M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z"/></svg></span>na</h1>
+      <p class="lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
+    </div>
+    <div class="portada-sol">
+      <svg class="sol" id="sol" viewBox="-100 -100 200 200" role="img" aria-label="Sol de Mayo">
+        <g class="giro" id="sol-rayos"></g>
+        <g class="rostro">
+          <circle class="disco" r="30"/>
+          <path class="rasgo" d="M-17,-9 Q-10.5,-15.5 -3.5,-10 M17,-9 Q10.5,-15.5 3.5,-10"/>
+          <g class="ojo"><path class="rasgo" d="M-16,-4 Q-10.5,-8.5 -5,-4 Q-10.5,-1 -16,-4 Z"/><circle class="pupila" cx="-10.5" cy="-4.2" r="1.8"/></g>
+          <g class="ojo"><path class="rasgo" d="M16,-4 Q10.5,-8.5 5,-4 Q10.5,-1 16,-4 Z"/><circle class="pupila" cx="10.5" cy="-4.2" r="1.8"/></g>
+          <path class="rasgo" d="M-1.5,-9 Q-3.5,2 -1,6 Q1.5,8 4,5.5"/>
+          <g class="boca"><path class="rasgo" d="M-8,14 Q-3,11.5 0,13 Q3,11.5 8,14 M-6.5,14.8 Q0,19.5 6.5,14.8"/></g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<main class="envoltura">
+  <section class="preguntas" aria-label="Preguntas con datos">
+    <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-label="Preguntas con datos">
+      <div class="rot-cuerpo"><a class="rot-q" href="#provincias"></a><p class="rot-a"></p></div>
+      <div class="rot-control">
+        <span class="rot-barra" aria-hidden="true"><i></i></span>
+        <button type="button" class="rot-pausa" aria-pressed="false">Pausar</button>
+        <button type="button" class="rot-sig">Siguiente pregunta</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="provincias" id="provincias" aria-labelledby="prov-titulo">
+    <h2 id="prov-titulo">Elegí una de las 24</h2>
+    <p class="prov-sub">Cada provincia comparada con el total del país en los indicadores que tienen dato provincial. Al elegirla, todos los gráficos del sitio la resaltan.</p>
+    <div class="elige" id="elige">
+      <span class="elige-lab" id="elige-lab">Provincia</span>
+      <button type="button" class="elige-btn" id="elige-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="elige-lab elige-btn">
+        <span id="elige-valor">Todo el país</span><span class="elige-flecha" aria-hidden="true"></span>
+      </button>
+      <div class="elige-panel" id="elige-panel" hidden>
+        <input type="text" class="elige-buscar" id="elige-buscar" placeholder="Buscar provincia" aria-label="Buscar provincia"
+          role="combobox" aria-controls="elige-lista" aria-expanded="true" aria-autocomplete="list" autocomplete="off">
+        <ul class="elige-lista" id="elige-lista" role="listbox" aria-labelledby="elige-lab"></ul>
+        <p class="elige-vacio" id="elige-vacio" hidden>Ninguna provincia coincide</p>
+      </div>
+    </div>
+    <div class="prov-grid" id="prov-grid"></div>
+  </section>
+
+  <section class="tema" id="energia">
+    <h2>Energía</h2>
+
+    <article class="ficha" id="f-hogares">
+      <h3>Participación de los hogares en la demanda eléctrica, 2005 a 2025</h3>
+      <p class="lead" data-t="hogares"></p>
+      <div class="grafico" data-g="hogares"></div>
+      <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-actividad">
+      <h3>Demanda eléctrica y nivel de actividad económica, 2005 a 2025</h3>
+      <p class="lead" data-t="actividad"></p>
+      <div class="grafico" data-g="actividad"></div>
+      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
+      <div class="pie"><span>Fuentes: Secretaría de Energía e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-meses">
+      <h3>Demanda eléctrica promedio por mes, 2023 a 2025</h3>
+      <p class="lead" data-t="meses"></p>
+      <div class="grafico" data-g="meses"></div>
+      <p class="nota" data-t="meses-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="poblacion">
+    <h2>Población</h2>
+
+    <article class="ficha" id="f-nacimientos">
+      <h3>Nacimientos registrados por año, 2012 a 2024</h3>
+      <div class="adivina" id="adivina">
+        <label for="guess">Antes de ver el dato: ¿cuánto cayeron los nacimientos entre 2014, el año con más nacimientos de la serie, y 2024?</label>
+        <div class="fila">
+          <input type="range" id="guess" min="0" max="70" step="1" value="15" aria-describedby="guess-out">
+          <output id="guess-out" for="guess">15%</output>
+          <button class="boton" id="revelar" type="button">Ver el dato</button>
+        </div>
+      </div>
+      <div id="nac-revelado" class="oculto">
+        <p class="veredicto" data-t="veredicto"></p>
+        <p class="lead" data-t="nacimientos"></p>
+        <div class="grafico" data-g="nacimientos"></div>
+        <p class="nota">Nacimientos inscriptos en el Registro Nacional de las Personas según año de nacimiento. El último año puede sumar inscripciones tardías en próximas actualizaciones.</p>
+      </div>
+      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-adolescentes">
+      <h3>Nacimientos de madres menores de 20 años por provincia, 2012 y 2024</h3>
+      <p class="lead" data-t="adolescentes"></p>
+      <div class="grafico" data-g="adolescentes"></div>
+      <p class="nota">Porcentaje de los nacimientos de cada provincia cuya madre tenía entre 10 y 19 años. El círculo claro marca 2012 y el oscuro 2024.</p>
+      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-mortalidad">
+      <h3 data-t="mortalidad-titulo">Tasa de mortalidad infantil por provincia</h3>
+      <p class="lead" data-t="mortalidad"></p>
+      <div class="grafico" data-g="mortalidad"></div>
+      <p class="nota" data-t="mortalidad-nota"></p>
+      <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="educacion">
+    <h2>Educación</h2>
+
+    <article class="ficha" id="f-pisa">
+      <h3 data-t="pisa-titulo">Resultados de la Argentina en las pruebas PISA</h3>
+      <p class="lead" data-t="pisa"></p>
+      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="pisa" style="--n:3">
+        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
+        <button type="button" data-m="lec" aria-pressed="false">Lectura</button>
+        <button type="button" data-m="cie" aria-pressed="false">Ciencias</button>
+      </div>
+      <div class="grafico" data-g="pisa"></div>
+      <p class="nota" data-t="pisa-nota"></p>
+      <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-escolarizacion">
+      <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
+      <p class="lead" data-t="escolarizacion"></p>
+      <div class="grafico" data-g="escolarizacion"></div>
+      <p class="nota" data-t="escolarizacion-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-aprender">
+      <h3 data-t="aprender-titulo">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia</h3>
+      <p class="lead" data-t="aprender"></p>
+      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="aprender">
+        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
+        <button type="button" data-m="len" aria-pressed="false">Lengua</button>
+      </div>
+      <div class="grafico" data-g="aprender"></div>
+      <p class="nota" data-t="aprender-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Educación, evaluación Aprender, base agregada</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="naturaleza">
+    <h2>Naturaleza</h2>
+
+    <article class="ficha" id="f-protegida">
+      <h3 data-t="protegida-titulo"></h3>
+      <p class="lead" data-t="protegida"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="protegida">
+        <button type="button" data-m="pct_territorio" aria-pressed="true">% del territorio</button>
+        <button type="button" data-m="m2_por_habitante" aria-pressed="false">m² por habitante</button>
+      </div>
+      <div class="grafico" data-g="protegida"></div>
+      <p class="nota" data-t="protegida-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Ambiente, Centro de Información Ambiental (CIAM)</span><a href="datos/areas_protegidas_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-parques">
+      <h3 data-t="parques-titulo"></h3>
+      <p class="lead" data-t="parques"></p>
+      <div class="grafico" data-g="parques"></div>
+      <p class="nota" data-t="parques-nota"></p>
+      <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-especies">
+      <h3 data-t="especies-titulo"></h3>
+      <p class="lead" data-t="especies"></p>
+      <div class="grafico" data-g="especies"></div>
+      <p class="nota" data-t="especies-nota"></p>
+      <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/especies_areas_nacionales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-visitas">
+      <h3 data-t="visitas-titulo"></h3>
+      <p class="lead" data-t="visitas"></p>
+      <div class="grafico" data-g="visitas"></div>
+      <p class="nota" data-t="visitas-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA)</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="turismo">
+    <h2>Turismo</h2>
+
+    <article class="ficha" id="f-receptivo">
+      <h3 data-t="receptivo-titulo"></h3>
+      <p class="lead" data-t="receptivo"></p>
+      <div class="grafico" data-g="receptivo"></div>
+      <p class="nota" data-t="receptivo-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional</span><a href="datos/turistas_no_residentes_anual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-hoteles">
+      <h3 data-t="hoteles-titulo"></h3>
+      <p class="lead" data-t="hoteles"></p>
+      <div class="grafico" data-g="hoteles"></div>
+      <p class="nota" data-t="hoteles-nota"></p>
+      <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Ocupación Hotelera</span><a href="datos/viajeros_hoteles_anual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-eti">
+      <h3 data-t="eti-titulo"></h3>
+      <p class="lead" data-t="eti"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="eti">
+        <button type="button" data-m="cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
+        <button type="button" data-m="turistas" aria-pressed="false">Cantidad de turistas</button>
+      </div>
+      <div class="grafico" data-g="eti"></div>
+      <p class="nota" data-t="eti-nota"></p>
+      <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Turismo Internacional</span><a href="datos/turistas_extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="salud">
+    <h2>Salud</h2>
+    <div class="ayuda" role="note">
+      <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
+    </div>
+
+    <article class="ficha" id="f-suicidio">
+      <h3>Tasa de suicidios por cada 100.000 habitantes, 2000 a 2025</h3>
+      <p class="lead" data-t="suicidio"></p>
+      <div class="grafico" data-g="suicidio"></div>
+      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. Las tasas por sexo están disponibles desde 2017.</p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad</span><a href="datos/suicidio_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-suicidio-prov">
+      <h3 data-t="suicidio-prov-titulo">Tasa de suicidios por provincia</h3>
+      <p class="lead" data-t="suicidio-prov"></p>
+      <div class="grafico" data-g="suicidio-prov"></div>
+      <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-edad">
+      <h3>Distribución de los suicidios por edad y sexo, 2017 a 2024</h3>
+      <p class="lead" data-t="edad"></p>
+      <div class="grafico" data-g="edad"></div>
+      <p class="nota">Porcentaje sobre el total de casos del período con edad y sexo registrados. Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan.</p>
+      <div class="pie"><span>Fuente: Sistema de Alerta Temprana de Suicidios, SNIC</span><a href="datos/suicidio_edad_sexo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-muertes">
+      <h3>Muertes por suicidio, homicidio y siniestros viales, 2000 a 2025</h3>
+      <p class="lead" data-t="muertes"></p>
+      <div class="grafico" data-g="muertes"></div>
+      <p class="nota">Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC.</p>
+      <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/muertes_violentas.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="trabajo">
+    <h2>Trabajo</h2>
+    <article class="ficha" id="f-empleo">
+      <h3 data-t="empleo-titulo">Asalariados privados registrados por provincia</h3>
+      <p class="lead" data-t="empleo"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="empleo">
+        <button type="button" data-m="cada_100" aria-pressed="true">Cada 100 habitantes</button>
+        <button type="button" data-m="var_12m" aria-pressed="false">Variación en 12 meses</button>
+      </div>
+      <div class="grafico" data-g="empleo"></div>
+      <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección 2025 del INDEC usada por el SNIC.</p>
+      <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="pobreza">
+    <h2>Pobreza</h2>
+    <article class="ficha" id="f-pobreza">
+      <h3 data-t="pobreza-titulo"></h3>
+      <p class="lead" data-t="pobreza"></p>
+      <div class="grafico" data-g="pobreza"></div>
+      <p class="nota" data-t="pobreza-nota"></p>
+      <p class="ir-consultas"><a class="boton" href="pobreza/">Consultar pobreza por aglomerado, partido y comuna</a></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema" id="movilidad">
+    <h2>Movilidad</h2>
+    <article class="ficha" id="f-sube">
+      <h3 data-t="sube-titulo">Tarjetas SUBE usadas por día hábil</h3>
+      <p class="lead" data-t="sube"></p>
+      <div class="grafico" data-g="sube"></div>
+      <p class="nota" data-t="sube-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <footer>
+    <h2>Cómo está hecho</h2>
+    <p>Todas las cifras salen de fuentes públicas oficiales descargadas de forma automática. Un primer programa baja cada archivo tal como lo publica el organismo, un segundo programa los ordena en una tabla única y calcula los indicadores, y un tercero arma esta página. La tabla completa en formato largo está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>.</p>
+    <p data-t="actualizado"></p>
+    <p>Datina muestra los números de las 24 jurisdicciones del país. El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
+  </footer>
+</main>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script id="datos" type="application/json">__DATOS__</script>
+<script>
+(() => {
+const D = JSON.parse(document.getElementById("datos").textContent);
+const R = D.resumen, T = D.datos;
+const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
+const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
+const pct = v => n1(v) + "%";
+const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const tip = document.getElementById("tip");
+
+/* ---------- Sol de Mayo ---------- */
+(function sol() {
+  const NS = "http://www.w3.org/2000/svg", cont = document.getElementById("sol-rayos");
+  const pt = ([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`;
+  const recto = "M-4.4,-27 L0,-95 L4.4,-27 Z";
+  // rayo flamígero: una onda que se afina hacia la punta
+  const izq = [], der = [];
+  for (let k = 0; k <= 30; k++) {
+    const t = k / 30, yy = -(27 + t * 60), c = 5.4 * Math.sin(t * Math.PI * 2.4) * (.3 + .7 * t);
+    const hw = 4.3 * Math.pow(1 - t, .9) + .2;
+    izq.push([c - hw, yy]); der.push([c + hw, yy]);
+  }
+  const flama = "M" + izq.map(pt).join("L") + "L" + der.reverse().map(pt).join("L") + "Z";
+  for (let i = 0; i < 32; i++) {
+    const g = document.createElementNS(NS, "g"); g.setAttribute("transform", `rotate(${i * 11.25})`);
+    const n = document.createElementNS(NS, "g"); n.setAttribute("class", "nace"); n.style.setProperty("--i", i);
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("class", i % 2 ? "rayo flama" : "rayo"); p.setAttribute("d", i % 2 ? flama : recto);
+    if (i % 2) p.style.setProperty("--i", i);
+    n.appendChild(p); g.appendChild(n); cont.appendChild(g);
+  }
+  const svg = document.getElementById("sol");
+  new IntersectionObserver(es => es.forEach(en => svg.classList.toggle("quieto", !en.isIntersecting))).observe(svg);
+})();
+
+/* ---------- textos ---------- */
+const e = R.energia, nac = R.nacimientos, s = R.suicidio, em = R.empleo, mo = R.mortalidad, su = R.sube,
+  pz = R.pisa, es = R.escolarizacion, ap = R.aprender, nt = R.naturaleza, tu = R.turismo;
+const movio = v => `${v < 0 ? "bajaron" : "subieron"} ${n1(Math.abs(v))}%`;
+const cambio = v => v === 0 ? "no cambió" : `${v < 0 ? "bajó" : "subió"} ${Math.abs(v)} ${Math.abs(v) === 1 ? "punto" : "puntos"}`;
+const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
+const TX = {
+  hogares: `En 2025 los hogares explicaron el ${pct(e.pct_res_2025)} de la electricidad demandada en el país, frente al ${pct(e.pct_res_2005)} de 2005. Entre ambos años la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
+  actividad: `Entre 2005 y 2025 la demanda eléctrica total creció ${pct(e.crec_total)} y la actividad económica medida por el EMAE creció ${pct(e.crec_emae)}. En 2025 el país demandó ${n0(e.gwh_2025)} gigavatios hora (GWh).`,
+  meses: `En promedio entre 2023 y 2025, ${e.mes_max} fue el mes de mayor demanda eléctrica y ${e.mes_min} el de menor. La diferencia entre ambos fue de ${pct(e.dif_max_min)}. El año tiene dos picos, uno por refrigeración en verano y otro por calefacción en invierno.`,
+  "meses-nota": `Promedio mensual de la demanda total en GWh para 2023, 2024 y 2025. El último mes disponible en la fuente es ${e.ultimo_mes}.`,
+  nacimientos: `En 2024 se registraron ${n0(nac.n_2024)} nacimientos, ${pct(Math.abs(nac.caida))} menos que los ${n0(nac.pico)} de ${nac.anio_pico}.`,
+  adolescentes: `En 2012, ${n1(nac.pct_2012)} de cada 100 nacimientos del país correspondían a madres de entre 10 y 19 años. En 2024 fueron ${n1(nac.pct_2024)} de cada 100. En cantidad pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_2024)} en 2024, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
+  suicidio: `En ${s.anio} el SNIC registró ${n0(s.casos)} suicidios, una tasa de ${n1(s.tasa)} por cada 100.000 habitantes. En ${s.anio-1} la tasa había sido ${n1(s.tasa_prev)}. La tasa de los varones (${n1(s.tasa_v)}) más que triplica la de las mujeres (${n1(s.tasa_m)}).`,
+  "suicidio-prov-titulo": `Tasa de suicidios por provincia, ${s.anio}`,
+  "suicidio-prov": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes, y ${s.low} la más baja, con ${n1(s.low_tasa)}. La tasa nacional fue ${n1(s.tasa)}.`,
+  edad: `Sobre ${n0(s.n_sat)} casos registrados entre 2017 y 2024 con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
+  muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales.`,
+  "empleo-titulo": `Asalariados privados registrados por provincia, ${em.mes}`,
+  empleo: `En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado, ${n1(em.cada_100_pais)} por cada 100 habitantes. En los doce meses previos el total nacional ${signo(em.var_nac)} y ${em.suben} de las 24 jurisdicciones registraron aumentos.`,
+  "mortalidad-titulo": `Tasa de mortalidad infantil por provincia, ${mo.tri_base} y ${mo.tri_act}`,
+  mortalidad: `En ${mo.anio} murieron en el país ${n1(mo.tasa)} de cada 1.000 nacidos vivos antes de cumplir un año. En ${mo.anio-1} la tasa había sido ${n1(mo.tasa_prev)} y en ${mo.anio_inicio}, ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
+  "mortalidad-nota": `Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca ${mo.tri_base} y el lleno ${mo.tri_act}. La tabla descargable incluye también el valor de ${mo.anio}.`,
+  "sube-titulo": `Tarjetas SUBE usadas por día hábil, 2020 a ${su.mes.slice(-4)}`,
+  sube: `En ${su.mes}, en un día hábil típico se usaron ${n2(su.total_millones)} millones de tarjetas SUBE distintas en colectivos, trenes, subtes y lanchas${su.var_anual == null ? "" : `, ${n1(Math.abs(su.var_anual))}% ${su.var_anual < 0 ? "menos" : "más"} que en ${su.mes_prev}`}. En los primeros días hábiles de marzo de 2020, antes del aislamiento, eran ${n2(su.pre_millones)} millones.`,
+  "sube-nota": `Cantidad de tarjetas distintas que registraron al menos un viaje en el día. Se toma la mediana de los días hábiles de cada mes, así los feriados o paros no bajan el valor del mes. En ${su.mes} se usaron por día ${n1(su.colectivo_millones)} millones de tarjetas en colectivo, ${n0(su.tren_miles)} mil en tren y ${n0(su.subte_miles)} mil en subte (una tarjeta que combina modos cuenta en cada uno). La SUBE funciona en el AMBA y en decenas de ciudades del interior. No incluye ciudades con sistemas de pago propios. Último día disponible en la fuente: ${su.ultimo_dia}.`,
+  "pisa-titulo": `Resultados de la Argentina en las pruebas PISA, 2000 a ${pz.anio}`,
+  pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.mat} puntos en matemática, ${pz.lec} en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_mat}, ${pz.ocde_lec} y ${pz.ocde_cie} puntos. En matemática la diferencia fue de ${pz.dif_mat} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
+  "pisa-nota": `Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.`,
+  "escolarizacion-titulo": `Tasa neta de escolarización secundaria por provincia, ${es.ini} y ${es.fin}`,
+  escolarizacion: `En ${es.fin}, el ${pct(es.pais_fin)} de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel. En ${es.ini} era el ${pct(es.pais_ini)}. La tasa subió en ${es.suben} de las 24 jurisdicciones. En ${es.fin} fue más alta en ${es.top} (${pct(es.top_v)}) y más baja en ${es.low} (${pct(es.low_v)}).`,
+  "escolarizacion-nota": `Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca ${es.ini} y el lleno ${es.fin}.`,
+  "aprender-titulo": `Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia, ${ap.anio}`,
+  aprender: `En Aprender ${ap.anio}, el ${pct(ap.mat)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en matemática y el ${pct(ap.len)} en lengua. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
+  "aprender-nota": `Aprender es la evaluación nacional del Ministerio de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes están calculados sobre la base agregada por departamento, sector y ámbito que publica el Ministerio, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial.`,
+  "protegida-titulo": `Superficie protegida por provincia, ${nt.anio}`,
+  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas: el ${pct(nt.pct)} del territorio continental del país, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie y ${nt.low} el ${pct(nt.low_v)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
+  "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población 2025 proyectada por el INDEC.`,
+  "parques-titulo": `Superficie de las áreas protegidas nacionales según año de creación, ${nt.anio_ini} a ${nt.anio_fin}`,
+  parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy la Administración de Parques Nacionales tiene ${nt.pn_n} áreas protegidas, con ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
+  "parques-nota": `Superficie acumulada según el año de creación de cada área, con su superficie actual. No refleja ampliaciones posteriores ni cambios de categoría.`,
+  "especies-titulo": `Especies animales registradas en las áreas protegidas nacionales, las 15 con más registros`,
+  especies: `${nt.esp_top} es el área protegida nacional con más especies animales registradas: ${n0(nt.esp_top_v)}. Le sigue ${nt.esp_2}, con ${n0(nt.esp_2_v)}.`,
+  "especies-nota": `Especies animales, vertebradas e invertebradas, registradas en cada área protegida nacional terrestre según el Sistema de Información de Biodiversidad. El número también refleja cuánto se estudió cada lugar: las áreas más antiguas e investigadas acumulan más registros, por eso no mide por sí solo la riqueza de fauna.`,
+  "visitas-titulo": `Visitas a parques nacionales, ${nt.vis_ini_anio} a ${nt.vis_anio}`,
+  visitas: `En ${nt.vis_anio} los parques nacionales recibieron ${n0(nt.vis)} visitas. El ${pct(nt.vis_nr_pct)} correspondió a personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)}, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ${nt.ytd_frase} las visitas ${movio(nt.ytd_var)} respecto del mismo período del año anterior.`,
+  "visitas-nota": `Visitas registradas en los parques nacionales con control de ingreso. Una persona que entra dos veces cuenta como dos visitas. Solo se muestran años completos. La fuente no publica datos abiertos por parque.`,
+  "receptivo-titulo": `Turistas no residentes que llegaron a la Argentina, ${tu.anio_ini} a ${tu.anio}`,
+  receptivo: `En ${tu.anio} llegaron ${n0(tu.turistas)} turistas que viven fuera del país. El máximo de la serie fue en ${tu.max_anio}, con ${n0(tu.max)}. En los doce meses a ${tu.doce_hasta} fueron ${n0(tu.doce)}, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores.`,
+  "receptivo-nota": `Viajes de turistas no residentes, es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Solo se muestran años completos.${tu.provisorio ? " Los últimos meses son datos provisorios." : ""}`,
+  "hoteles-titulo": `Viajeros hospedados en hoteles y parahoteles, ${tu.eoh_ini} a ${tu.eoh_anio}`,
+  hoteles: `En ${tu.eoh_anio} se hospedaron ${n1(tu.eoh_total)} millones de viajeros en hoteles y parahoteles de las localidades relevadas. El ${pct(tu.eoh_nr_pct)} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
+  "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}.`,
+  "eti-titulo": `Turistas extranjeros que visitaron cada provincia y salieron por Ezeiza o Aeroparque, ${tu.eti_anio}`,
+  eti: `En ${tu.eti_anio}, ${n0(tu.eti_top_v)} turistas no residentes que se fueron del país por Ezeiza o Aeroparque habían visitado ${tu.eti_top} y ${n0(tu.eti_2_v)} ${tu.eti_2}. En relación con su población, el valor más alto fue el de ${tu.eti_pc_top}, con ${n1(tu.eti_pc_top_v)} turistas cada 1.000 habitantes.`,
+  "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población 2025 proyectada por el INDEC.`,
+  "pobreza-titulo": `Pobreza e indigencia en los 31 aglomerados urbanos, ${R.pobreza.ini} a ${R.pobreza.fin}`,
+  pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${pct(R.pobreza.ind)} bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, eran ${pct(R.pobreza.pob_prev)} y ${pct(R.pobreza.ind_prev)}. El valor más alto de la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+  "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.`,
+  actualizado: `Datos descargados y procesados el ${R.actualizado}.`
+};
+document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
+
+/* ---------- provincias ---------- */
+const PROV = T.empleo_provincias.map(d => [d.codigo_indec, d.territorio]).sort((a,b) => a[1].localeCompare(b[1],"es"));
+const NOMBRES = Object.fromEntries(PROV);
+// La provincia se puede compartir en el enlace (?prov=30) y se recuerda en este navegador
+const leerProv = () => new URLSearchParams(location.search).get("prov") || new URLSearchParams(location.hash.split("?")[1] || "").get("prov") || "";
+let prov = "";
+try { prov = leerProv() || localStorage.getItem("prov") || ""; } catch(_) { prov = leerProv(); }
+if (!NOMBRES[prov]) prov = "";
+function elegir(c) {
+  prov = NOMBRES[c] ? c : "";
+  desplegable.marcar();
+  try { localStorage.setItem("prov", prov); } catch(_) {}
+  const u = new URL(location.href);
+  if (prov) u.searchParams.set("prov", prov); else u.searchParams.delete("prov");
+  history.replaceState(null, "", u);
+  dibujarTodo(); pintarPanel(true);
+}
+
+/* Desplegable propio: botón chico, panel con buscador y lista en dos columnas.
+   Teclado: flechas para moverse, Enter para elegir, Escape para cerrar. */
+const desplegable = (() => {
+  const caja = document.getElementById("elige"), btn = document.getElementById("elige-btn"), panel = document.getElementById("elige-panel");
+  const buscar = document.getElementById("elige-buscar"), lista = document.getElementById("elige-lista"), vacio = document.getElementById("elige-vacio");
+  const valor = document.getElementById("elige-valor");
+  const sinTilde = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  lista.innerHTML = [["", "Todo el país"], ...PROV].map(([c, n], i) =>
+    `<li role="option" id="op-${c || "pais"}" data-c="${c}" aria-selected="false"${i === 0 ? ' class="primera"' : ""}>${n}</li>`).join("");
+  const items = [...lista.children];
+  let activa = -1, cierre;
+  const visibles = () => items.filter(li => !li.hidden);
+  const activar = i => {
+    const v = visibles(); if (!v.length) return;
+    activa = (i + v.length) % v.length;
+    items.forEach(li => li.classList.remove("activa"));
+    v[activa].classList.add("activa"); v[activa].scrollIntoView({block: "nearest"});
+    buscar.setAttribute("aria-activedescendant", v[activa].id);
+  };
+  const abrir = () => {
+    clearTimeout(cierre); panel.hidden = false; btn.setAttribute("aria-expanded", "true");
+    requestAnimationFrame(() => panel.classList.add("abierto"));
+    buscar.value = ""; filtrar(); buscar.focus();
+    activar(Math.max(0, visibles().findIndex(li => li.dataset.c === prov)));
+  };
+  const cerrar = (volver) => {
+    panel.classList.remove("abierto"); btn.setAttribute("aria-expanded", "false");
+    cierre = setTimeout(() => { panel.hidden = true; }, 130);
+    if (volver) btn.focus();
+  };
+  const filtrar = () => {
+    const q = sinTilde(buscar.value.trim());
+    items.forEach(li => { li.hidden = q !== "" && !sinTilde(li.textContent).includes(q); });
+    vacio.hidden = visibles().length > 0; activar(0);
+  };
+  btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
+  buscar.addEventListener("input", filtrar);
+  buscar.addEventListener("keydown", ev => {
+    if (ev.key === "ArrowDown") { ev.preventDefault(); activar(activa + 1); }
+    else if (ev.key === "ArrowUp") { ev.preventDefault(); activar(activa - 1); }
+    else if (ev.key === "Enter") { ev.preventDefault(); const li = visibles()[activa]; if (li) { elegir(li.dataset.c); cerrar(true); } }
+    else if (ev.key === "Escape") { ev.preventDefault(); cerrar(true); }
+  });
+  lista.addEventListener("click", ev => { const li = ev.target.closest("li"); if (li) { elegir(li.dataset.c); cerrar(true); } });
+  document.addEventListener("pointerdown", ev => { if (!caja.contains(ev.target) && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
+  const marcar = () => {
+    valor.textContent = NOMBRES[prov] || "Todo el país";
+    items.forEach(li => li.setAttribute("aria-selected", li.dataset.c === prov));
+  };
+  marcar();
+  return {marcar};
+})();
+
+/* ---------- utilidades de gráfico ---------- */
+function lienzo(el, h, m) {
+  el.innerHTML = "";
+  const w = Math.max(300, el.clientWidth);
+  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role","img");
+  return {svg, w, h, iw: w - m.l - m.r, ih: h - m.t - m.b, g: svg.append("g").attr("transform", `translate(${m.l},${m.t})`)};
+}
+function mostrarTip(el, html, x, y) {
+  const r = el.getBoundingClientRect(), pr = document.body.getBoundingClientRect();
+  tip.innerHTML = html; tip.classList.add("on");
+  const tw = tip.offsetWidth;
+  let left = r.left - pr.left + x - tw / 2;
+  left = Math.max(8, Math.min(left, document.documentElement.clientWidth - tw - 8));
+  tip.style.left = left + "px"; tip.style.top = (r.top - pr.top + y - tip.offsetHeight - 12) + "px";
+}
+const ocultarTip = () => tip.classList.remove("on");
+
+/* Animación de entrada: solo la primera vez que el gráfico aparece en pantalla, nunca con movimiento reducido */
+const REDUCIR = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const EASE = d3.easePolyOut.exponent(4);
+function trazar(path, dash) {
+  const L = path.node().getTotalLength();
+  path.attr("stroke-dasharray", `${L} ${L}`).attr("stroke-dashoffset", L)
+    .transition().duration(1100).ease(EASE).attr("stroke-dashoffset", 0)
+    .on("end", function() { d3.select(this).attr("stroke-dasharray", dash || null).attr("stroke-dashoffset", null); });
+}
+const aparecer = (sel, delay) => sel.attr("opacity", 0).transition().delay(delay).duration(320).ease(d3.easeCubicOut).attr("opacity", 1);
+
+function lineas(el, cfg) {
+  const angosto = el.clientWidth < 520;
+  const C = lienzo(el, angosto ? 300 : 340, {t:14, r: angosto ? 92 : 128, b:30, l:44});
+  const {g, iw, ih} = C, data = cfg.data;
+  const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).range([0, iw]);
+  const vals = cfg.series.flatMap(s => data.map(d => d[s.k])).filter(v => v != null);
+  const y = d3.scaleLinear().domain([cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
+  g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(cfg.mensual
+    ? d3.axisBottom(x).tickValues(d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1).filter(v => !angosto || v % 2 === 0)).tickFormat(d3.format("d")).tickSizeOuter(0)
+    : d3.axisBottom(x).ticks(angosto ? 4 : 7).tickFormat(d3.format("d")).tickSizeOuter(0));
+  if (cfg.ref != null) {
+    g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(cfg.ref)).attr("y2",y(cfg.ref)).attr("stroke",css("--faint")).attr("stroke-width",1).attr("stroke-dasharray", cfg.refLab ? "4 4" : null);
+    if (cfg.refLab) g.append("text").attr("x", 6).attr("y", y(cfg.ref) + 16).attr("class","etq-suave").text(angosto && cfg.refLabCorto ? cfg.refLabCorto : cfg.refLab);
+  }
+  const etiquetas = [], fin = g.append("g");
+  cfg.series.forEach(s => {
+    const serie = data.filter(d => d[s.k] != null);
+    const trazo = g.append("path").datum(serie).attr("fill","none").attr("stroke", s.c).attr("stroke-width", s.w || 2.4)
+      .attr("stroke-linejoin","round").attr("stroke-linecap","round").attr("stroke-dasharray", s.dash || null)
+      .attr("d", d3.line().x(d => x(d[cfg.x])).y(d => y(d[s.k])).curve(cfg.escalones ? d3.curveStepAfter : d3.curveMonotoneX));
+    if (cfg.anim) trazar(trazo, s.dash);
+    const u = serie[serie.length - 1];
+    fin.append("circle").attr("cx", x(u[cfg.x])).attr("cy", y(u[s.k])).attr("r", 3.5).attr("fill", s.c);
+    etiquetas.push({y: y(u[s.k]), s, v: u[s.k]});
+  });
+  fin.raise();
+  // etiquetas directas sin solaparse
+  etiquetas.sort((a,b) => a.y - b.y);
+  for (let i = 1; i < etiquetas.length; i++) if (etiquetas[i].y - etiquetas[i-1].y < 32) etiquetas[i].y = etiquetas[i-1].y + 32;
+  etiquetas.forEach(l => {
+    const t = fin.append("text").attr("x", iw + 10).attr("y", l.y - 4).attr("class","etq-fuerte").attr("fill", l.s.c);
+    t.append("tspan").text(l.s.lab);
+    t.append("tspan").attr("x", iw + 10).attr("dy", 15).attr("class","etq-suave").text((cfg.vf || n0)(l.v));
+  });
+  if (cfg.anim) aparecer(fin, 800);
+  // lectura por punto
+  const regla = g.append("line").attr("y1",0).attr("y2",ih).attr("stroke",css("--faint")).attr("opacity",0);
+  g.append("rect").attr("width",iw).attr("height",ih).attr("fill","transparent")
+    .on("pointermove", ev => {
+      const [mx] = d3.pointer(ev); const xv = x.invert(mx);
+      const d = d3.least(data, r => Math.abs(r[cfg.x] - xv)); if (!d) return;
+      const a = d[cfg.x];
+      regla.attr("x1", x(a)).attr("x2", x(a)).attr("opacity",1);
+      const filas = cfg.series.filter(s => d[s.k] != null).map(s => `<span style="color:${s.c}">●</span> ${s.lab}: ${(cfg.vf || n0)(d[s.k])}`).join("<br>");
+      mostrarTip(el, `<b>${cfg.xl ? cfg.xl(d) : a}</b><br>${filas}`, x(a) + 44, 14);
+    })
+    .on("pointerleave", () => { regla.attr("opacity",0); ocultarTip(); });
+}
+
+function barrasH(el, cfg) {
+  const data = [...cfg.data].sort((a,b) => d3.descending(a[cfg.k], b[cfg.k]));
+  const fila = 24;
+  const angosto = el.clientWidth < 520;
+  const C = lienzo(el, data.length * fila + 34, {t:24, r:54, b:10, l: angosto ? 118 : 150});
+  const {g, iw} = C;
+  const ext = d3.extent(data, d => d[cfg.k]);
+  const x = d3.scaleLinear().domain([Math.min(0, ext[0]), Math.max(0, ext[1])]).nice().range([0, iw]);
+  const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.28);
+  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  if (x.domain()[0] < 0) g.append("line").attr("x1",x(0)).attr("x2",x(0)).attr("y1",0).attr("y2",data.length*fila).attr("stroke",css("--faint"));
+  const filas = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
+  const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", 2)
+    .attr("width", d => Math.abs(x(d[cfg.k]) - x(0)))
+    .attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : (cfg.color ? cfg.color(d) : css("--celeste")))
+    .attr("opacity", d => prov && d.codigo_indec !== prov ? .55 : 1);
+  filas.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end")
+    .attr("class", d => d.codigo_indec === prov ? "etq-fuerte" : "etq").text(d => d.territorio);
+  const valores = filas.append("text").attr("x", d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em")
+    .attr("class", d => d.codigo_indec === prov ? "etq-fuerte" : "etq-suave").text(d => (cfg.vf || n1)(d[cfg.k]));
+  if (cfg.anim) {
+    barras.attr("x", x(0)).attr("width", 0).transition().delay((d,i) => i * 18).duration(700).ease(EASE)
+      .attr("x", d => x(Math.min(0, d[cfg.k]))).attr("width", d => Math.abs(x(d[cfg.k]) - x(0)));
+    valores.attr("opacity", 0).transition().delay((d,i) => 300 + i * 18).duration(300).attr("opacity", 1);
+  }
+  if (cfg.ref != null) {
+    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3");
+    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
+  }
+}
+
+function pesas(el, cfg) {
+  // Dos momentos por provincia: círculo claro = a (antes), círculo lleno = b (después)
+  const {a, b, la, lb} = cfg, vf = cfg.vf || (v => n1(v) + "%");
+  const data = [...cfg.data].sort((p,q) => d3.descending(p[b], q[b]));
+  const fila = 24, angosto = el.clientWidth < 520;
+  const C = lienzo(el, data.length * fila + 34, {t:24, r:44, b:10, l: angosto ? 118 : 150});
+  const {g, iw} = C;
+  const x = d3.scaleLinear().domain([cfg.x0 ?? 0, d3.max(data, d => Math.max(d[a], d[b])) * 1.02]).nice().range([0, iw]);
+  const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length*fila]).padding(.3);
+  g.append("g").attr("class","grilla").call(d3.axisTop(x).ticks(5).tickSize(-data.length*fila).tickFormat("")).call(s => s.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(5).tickFormat(cfg.af || (v => v + "%")).tickSize(0).tickPadding(6)).call(s => s.select(".domain").remove());
+  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.codigo_indec) + y.bandwidth()/2})`)
+    .attr("opacity", d => prov && d.codigo_indec !== prov ? .45 : 1);
+  const tramo = f.append("line").attr("x1", d => x(d[b])).attr("x2", d => x(d[a])).attr("stroke", css("--celeste-suave")).attr("stroke-width", 5).attr("stroke-linecap","round");
+  f.append("circle").attr("cx", d => x(d[a])).attr("r", 5).attr("fill", css("--bg")).attr("stroke", css("--celeste")).attr("stroke-width", 2);
+  const punto = f.append("circle").attr("cx", d => x(d[b])).attr("r", 5.5).attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste"));
+  f.append("text").attr("x", -10).attr("dy",".35em").attr("text-anchor","end").attr("class", d => d.codigo_indec === prov ? "etq-fuerte" : "etq").text(d => d.territorio);
+  const valor = f.append("text").attr("x", d => x(Math.max(d[a], d[b])) + 10).attr("dy",".35em").attr("class","etq-suave").text(d => vf(d[b]));
+  if (cfg.anim) {
+    // el punto viaja desde el valor de antes hasta el de después: la animación cuenta el cambio
+    tramo.attr("x1", d => x(d[a])).transition().delay((d,i) => 200 + i * 22).duration(900).ease(EASE).attr("x1", d => x(d[b]));
+    punto.attr("cx", d => x(d[a])).transition().delay((d,i) => 200 + i * 22).duration(900).ease(EASE).attr("cx", d => x(d[b]));
+    valor.attr("opacity", 0).transition().delay((d,i) => 700 + i * 22).duration(300).attr("opacity", 1);
+  }
+  f.on("pointerenter", function(ev, d) { const yy = y(d.codigo_indec) + 24; mostrarTip(el, `<b>${d.territorio}</b><br>${la}: ${vf(d[a])}<br>${lb}: ${vf(d[b])}`, x(d[b]) + (angosto?118:150), yy); })
+   .on("pointerleave", ocultarTip);
+}
+
+function columnas(el, cfg) {
+  const MES = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+  const C = lienzo(el, 280, {t:26, r:6, b:28, l:6});
+  const {g, iw, ih} = C, data = cfg.data;
+  const x = d3.scaleBand().domain(data.map(d => d.mes)).range([0, iw]).padding(.22);
+  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.gwh) * 1.08]).range([ih, 0]);
+  const mx = d3.max(data, d => d.gwh), mn = d3.min(data, d => d.gwh);
+  const cols = g.selectAll("rect").data(data).join("rect").attr("x", d => x(d.mes)).attr("width", x.bandwidth()).attr("rx", 2)
+    .attr("y", d => y(d.gwh)).attr("height", d => ih - y(d.gwh))
+    .attr("fill", d => d.gwh === mx ? css("--celeste-fuerte") : d.gwh === mn ? css("--sol") : css("--celeste"));
+  const vals = g.selectAll("text.v").data(data).join("text").attr("class","etq-suave").attr("text-anchor","middle")
+    .attr("x", d => x(d.mes) + x.bandwidth()/2).attr("y", d => y(d.gwh) - 6)
+    .text(d => el.clientWidth < 520 ? n1(d.gwh/1000) : n0(d.gwh));
+  if (cfg.anim) {
+    cols.attr("y", ih).attr("height", 0).transition().delay((d,i) => i * 35).duration(700).ease(EASE)
+      .attr("y", d => y(d.gwh)).attr("height", d => ih - y(d.gwh));
+    vals.attr("opacity", 0).transition().delay((d,i) => 350 + i * 35).duration(300).attr("opacity", 1);
+  }
+  g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(m => MES[m-1]).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  if (el.clientWidth < 520) g.append("text").attr("class","etq-suave").attr("x",0).attr("y",-12).text("Miles de GWh");
+}
+
+function piramide(el, cfg) {
+  const data = cfg.data, fila = 22, angosto = el.clientWidth < 520;
+  const C = lienzo(el, data.length * fila + 40, {t:30, r:10, b:10, l:10});
+  const {g, iw} = C, centro = iw / 2, gap = angosto ? 34 : 44;
+  const mx = d3.max(data, d => Math.max(d.pct_varones, d.pct_mujeres));
+  const x = d3.scaleLinear().domain([0, mx]).range([0, centro - gap - 34]);
+  const y = d3.scaleBand().domain(data.map(d => d.edad).reverse()).range([0, data.length*fila]).padding(.2);
+  g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
+  g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
+  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
+  const v = f.append("rect").attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones)).attr("height", y.bandwidth()).attr("rx",2).attr("fill", css("--celeste"));
+  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.pct_mujeres)).attr("height", y.bandwidth()).attr("rx",2).attr("fill", css("--sol"));
+  f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").text(d => d.edad.replace(" y más","+").replace("Menos de ","<"));
+  const tv = f.append("text").attr("x", d => centro - gap - x(d.pct_varones) - 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq-suave").text(d => n1(d.pct_varones) + "%");
+  const tm = f.append("text").attr("x", d => centro + gap + x(d.pct_mujeres) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-suave").text(d => n1(d.pct_mujeres) + "%");
+  if (cfg.anim) {
+    v.attr("x", centro - gap).attr("width", 0).transition().delay((d,i) => i * 25).duration(700).ease(EASE)
+      .attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones));
+    m.attr("width", 0).transition().delay((d,i) => i * 25).duration(700).ease(EASE).attr("width", d => x(d.pct_mujeres));
+    aparecer(tv, 500); aparecer(tm, 500);
+  }
+}
+
+/* ---------- fichas ---------- */
+const MED = {empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000"};
+const M = v => n1(v / 1e6) + " M";
+const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
+const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
+const DIB = {
+  hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
+    series:[{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}], vf: v => n0(v)}),
+  actividad: a => lineas(G("actividad"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
+    series:[{k:"idx_demanda", lab:"Electricidad", c:NAR, w:3}, {k:"idx_emae", lab:"Actividad", c:GRIS}], vf: v => n0(v)}),
+  meses: a => columnas(G("meses"), {anim:a, data: T.energia_estacionalidad}),
+  nacimientos: a => { if (!document.getElementById("nac-revelado").classList.contains("oculto"))
+    lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:0, series:[{k:"nacimientos", lab:"Nacimientos", c:NAR, w:3}]}); },
+  adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a:"pct_2012", b:"pct_2024", la:"2012", lb:"2024"}),
+  mortalidad: a => pesas(G("mortalidad"), {anim:a, data: T.mortalidad_infantil_provincias, a:"tmi_base", b:"tmi_actual", la: mo.tri_base, lb: mo.tri_act,
+    vf: n1, af: v => v}),
+  sube: a => lineas(G("sube"), {anim:a, data: T.sube_dia_habil, x:"t", y0:0, mensual:true, ref: su.pre_millones * 1e6,
+    refLab: "Marzo de 2020, antes del aislamiento", refLabCorto: "Marzo de 2020", vf: v => n2(v / 1e6) + " M", yf: v => n1(v / 1e6) + " M",
+    xl: d => { const [y, m] = d.periodo.split("-"); return `${MESES[+m - 1]} ${y}`; },
+    series:[{k:"total", lab:"Tarjetas", c:NAR, w:2.4}]}),
+  suicidio: a => lineas(G("suicidio"), {anim:a, data: T.suicidio_serie, x:"anio", y0:0, vf: n1, yf: v => v,
+    series:[{k:"tasa_varones", lab:"Varones", c:NAR, w:2}, {k:"tasa", lab:"Total", c:css("--ink"), w:2.6}, {k:"tasa_mujeres", lab:"Mujeres", c:FRI, w:2}]}),
+  "suicidio-prov": a => barrasH(G("suicidio-prov"), {anim:a, data: T.suicidio_provincias, k:"tasa", ref: R.suicidio.tasa, refLab:`País ${n1(R.suicidio.tasa)}`}),
+  edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
+  muertes: a => lineas(G("muertes"), {anim:a, data: T.muertes_violentas, x:"anio", y0:0,
+    series:[{k:"suicidios", lab:"Suicidios", c:NAR, w:3}, {k:"siniestros_viales", lab:"Viales", c:FRI}, {k:"homicidios", lab:"Homicidios", c:GRIS}]}),
+  pisa: a => lineas(G("pisa"), {anim:a, data: T.pisa_argentina_ocde, x:"anio", y0:340, yf: v => v,
+    series:[{k:`arg_${MED.pisa}_grafico`, lab:"Argentina", c:NAR, w:3}, {k:`ocde_${MED.pisa}`, lab:"Promedio OCDE", c:GRIS, w:2.2}]}),
+  escolarizacion: a => pesas(G("escolarizacion"), {anim:a, data: T.escolarizacion_secundaria_provincias, a:"tasa_inicio", b:"tasa_final",
+    la: String(es.ini), lb: String(es.fin), x0: 50}),
+  aprender: a => barrasH(G("aprender"), {anim:a, data: T.aprender_provincias, k:`${MED.aprender}_logra`,
+    ref: MED.aprender === "mat" ? ap.mat : ap.len, refLab: `País ${pct(MED.aprender === "mat" ? ap.mat : ap.len)}`,
+    vf: v => n1(v) + "%", af: v => v + "%"}),
+  protegida: a => MED.protegida === "pct_territorio"
+    ? barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"pct_territorio", ref: nt.pct, refLab:`País ${pct(nt.pct)}`,
+        vf: v => n1(v) + "%", af: v => v + "%"})
+    : barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"m2_por_habitante", ref: nt.m2_pais, refLab:`País ${n0(nt.m2_pais)} m²`,
+        vf: v => n0(v) + " m²", af: v => n0(v)}),
+  parques: a => lineas(G("parques"), {anim:a, data: T.parques_nacionales_historia, x:"anio", y0:0, escalones:true, vf: v => M(v) + " ha", yf: M,
+    series:[{k:"ha_terrestres", lab:"Terrestres", c:NAR, w:3}, {k:"ha_marinas", lab:"Marinas", c:FRI, w:2.4}]}),
+  especies: a => barrasH(G("especies"), {anim:a, data: T.especies_areas_nacionales, k:"animales", vf: n0, af: n0}),
+  visitas: a => lineas(G("visitas"), {anim:a, data: T.visitas_parques_nacionales, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
+    series:[{k:"total", lab:"Total", c:css("--ink"), w:2.6}, {k:"residentes", lab:"Residentes", c:NAR, w:2.4}, {k:"no_residentes", lab:"No residentes", c:FRI, w:2.4}]}),
+  receptivo: a => lineas(G("receptivo"), {anim:a, data: T.turistas_no_residentes_anual, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
+    series:[{k:"turistas", lab:"Turistas", c:NAR, w:3}]}),
+  hoteles: a => lineas(G("hoteles"), {anim:a, data: T.viajeros_hoteles_anual, x:"anio", y0:0, vf: v => n1(v / 1e6) + " M", yf: M,
+    series:[{k:"residentes", lab:"Residentes", c:NAR, w:3}, {k:"no_residentes", lab:"No residentes", c:FRI, w:2.4}]}),
+  eti: a => MED.eti === "cada_1000"
+    ? barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"cada_1000", vf: n1, af: n0})
+    : barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"turistas", vf: n0, af: v => n0(v / 1000) + " mil"}),
+  pobreza: a => lineas(G("pobreza"), {anim:a, data: T.pobreza_serie, x:"t", y0:0, mensual:true, vf: v => n1(v) + "%", yf: v => v + "%",
+    xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
+    series:[{k:"pobreza_personas", lab:"Pobreza", c:NAR, w:3}, {k:"indigencia_personas", lab:"Indigencia", c:FRI, w:2.4}]}),
+  empleo: a => MED.empleo === "cada_100"
+    ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
+    : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m", vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+        color: d => d.var_12m < 0 ? css("--sol") : css("--celeste")}),
+};
+function dibujarTodo() { Object.keys(DIB).forEach(k => { if (G(k)) DIB[k](false); }); }
+
+document.querySelectorAll(".conmutador").forEach(conm => {
+  const k = conm.dataset.g;
+  conm.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => {
+    if (MED[k] === b.dataset.m) return;
+    MED[k] = b.dataset.m;
+    conm.style.setProperty("--i", i);
+    conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    DIB[k](!REDUCIR);
+  }));
+});
+
+/* adiviná */
+const guess = document.getElementById("guess"), out = document.getElementById("guess-out");
+guess.addEventListener("input", () => out.textContent = guess.value + "%");
+document.getElementById("revelar").addEventListener("click", () => {
+  const real = Math.abs(nac.caida), dif = Math.abs(real - guess.value);
+  const v = document.querySelector('[data-t="veredicto"]');
+  v.textContent = dif <= 5 ? `Tu estimación fue ${guess.value}%. Muy cerca, la caída real fue ${pct(real)}.`
+    : guess.value < real ? `Tu estimación fue ${guess.value}%. La caída real fue mayor, de ${pct(real)}.`
+    : `Tu estimación fue ${guess.value}%. La caída real fue menor, de ${pct(real)}.`;
+  document.getElementById("adivina").classList.add("oculto");
+  const r = document.getElementById("nac-revelado"); r.classList.remove("oculto"); r.classList.add("revelado");
+  DIB.nacimientos(!REDUCIR);
+});
+
+/* ---------- tarjetas: etiqueta, cifra clave y acciones ---------- */
+const sg = v => (v > 0 ? "+" : "") + pct(v);
+// Cifra destacada de cada ficha. La sección de salud mental no lleva cifra destacada, para no dramatizar.
+const CLAVE = {
+  "f-hogares": [pct(e.pct_res_2025), "de la electricidad demandada en el país en 2025 correspondió a los hogares"],
+  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre 2005 y 2025. La actividad económica creció ${pct(e.crec_emae)}`],
+  "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de 2023 a 2025`],
+  "f-adolescentes": [n1(nac.pct_2024), `de cada 100 nacimientos de 2024 fueron de madres de 10 a 19 años. En 2012 eran ${n1(nac.pct_2012)}`],
+  "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`],
+  "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`],
+  "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`],
+  "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`],
+  "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`],
+  "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`],
+  "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`],
+  "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`],
+  "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`],
+  "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`],
+  "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`],
+  "f-eti": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`],
+  "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`],
+  "f-sube": [n2(su.total_millones), `millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
+};
+document.querySelectorAll("article.ficha").forEach(f => {
+  const h3 = f.querySelector("h3");
+  const tema = f.closest(".tema")?.querySelector("h2")?.textContent;
+  if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
+  const c = CLAVE[f.id];
+  if (c) h3.insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[1]}</span></p>`);
+  const pie = f.querySelector(".pie"), csv = pie.querySelector("a");
+  const acc = document.createElement("div"); acc.className = "acciones";
+  acc.innerHTML = `<button type="button" class="accion copiar"><span class="lbl">Copiar enlace</span></button>`;
+  csv.className = "accion"; csv.innerHTML = `<span class="lbl">Descargar CSV</span>`;
+  acc.appendChild(csv); pie.appendChild(acc);
+  const lbl = acc.querySelector(".copiar .lbl");
+  const cambiar = t => { lbl.classList.add("cambia"); setTimeout(() => { lbl.textContent = t; lbl.classList.remove("cambia"); }, 120); };
+  acc.querySelector(".copiar").addEventListener("click", async () => {
+    const url = location.origin + location.pathname + (prov ? "?prov=" + prov : "") + "#" + f.id;
+    let ok = false;
+    try { await navigator.clipboard.writeText(url); ok = true; }
+    catch (_) {
+      // alternativa para navegadores que bloquean el portapapeles
+      const ta = document.createElement("textarea"); ta.value = url; ta.setAttribute("readonly", "");
+      ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select();
+      try { ok = document.execCommand("copy"); } catch (_) {}
+      ta.remove();
+    }
+    cambiar(ok ? "Enlace copiado" : "No se pudo copiar");
+    clearTimeout(lbl._t); lbl._t = setTimeout(() => cambiar("Copiar enlace"), 1800);
+  });
+});
+
+/* ---------- las 24: perfil de la provincia elegida ---------- */
+// Solo indicadores con dato por provincia. Las tasas de suicidio quedan fuera: no se presentan como ranking.
+const INDP = [
+  {id:"f-mortalidad", lab:"Mortalidad infantil", det:`muertes de menores de un año cada 1.000 nacidos vivos, promedio ${mo.tri_act}`,
+    d:T.mortalidad_infantil_provincias, k:"tmi_actual", pais:mo.pais_act, f:n1},
+  {id:"f-adolescentes", lab:"Maternidad adolescente", det:"% de los nacimientos de 2024 con madres de 10 a 19 años",
+    d:T.madres_adolescentes_provincias, k:"pct_2024", pais:nac.pct_2024, f:pct},
+  {id:"f-escolarizacion", lab:"Escolarización secundaria", det:`tasa neta de escolarización, ${es.fin}`,
+    d:T.escolarizacion_secundaria_provincias, k:"tasa_final", pais:es.pais_fin, f:pct},
+  {id:"f-aprender", lab:"Aprender, matemática", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
+    d:T.aprender_provincias, k:"mat_logra", pais:ap.mat, f:pct},
+  {id:"f-aprender", lab:"Aprender, lengua", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
+    d:T.aprender_provincias, k:"len_logra", pais:ap.len, f:pct},
+  {id:"f-empleo", lab:"Empleo privado registrado", det:`asalariados cada 100 habitantes, ${em.mes}`,
+    d:T.empleo_provincias, k:"cada_100", pais:em.cada_100_pais, f:n1},
+  {id:"f-empleo", lab:"Variación del empleo privado", det:`% en los doce meses a ${em.mes}`,
+    d:T.empleo_provincias, k:"var_12m", pais:em.var_nac, f:sg},
+  {id:"f-protegida", lab:"Territorio protegido", det:`% de la superficie dentro de áreas protegidas, ${nt.anio}`,
+    d:T.areas_protegidas_provincias, k:"pct_territorio", pais:nt.pct, f:pct},
+  {id:"f-eti", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
+    d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
+];
+const grilla = document.getElementById("prov-grid");
+grilla.innerHTML = INDP.map((c, i) => `<a class="dp" href="#${c.id}" data-i="${i}"><span class="dp-lab">${c.lab}</span>
+  <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span></a>`).join("");
+// Tira con las 24 provincias: puntos claros, raya oscura para el país y punto grande para la elegida
+function tiras() {
+  grilla.querySelectorAll(".dp").forEach(el => {
+    const c = INDP[+el.dataset.i], nodo = el.querySelector(".dp-tira"), svg = d3.select(nodo);
+    const w = Math.max(160, nodo.clientWidth || 200), h = 26;
+    svg.attr("viewBox", `0 0 ${w} ${h}`).selectAll("*").remove();
+    c.x = d3.scaleLinear().domain(d3.extent([...c.d.map(d => d[c.k]), ...(c.pais == null ? [] : [c.pais])])).range([7, w - 7]);
+    svg.append("line").attr("x1", 7).attr("x2", w - 7).attr("y1", h/2).attr("y2", h/2).attr("stroke", css("--line")).attr("stroke-width", 2);
+    svg.selectAll("circle.o").data(c.d).join("circle").attr("class","o").attr("cx", d => c.x(d[c.k])).attr("cy", h/2).attr("r", 3.2)
+      .attr("fill", css("--celeste")).attr("opacity", .45);
+    if (c.pais != null) svg.append("line").attr("x1", c.x(c.pais)).attr("x2", c.x(c.pais)).attr("y1", 4).attr("y2", h - 4).attr("stroke", css("--ink")).attr("stroke-width", 1.5);
+    svg.append("circle").attr("class","elegida").attr("cy", h/2).attr("r", 6.5).attr("fill", css("--celeste-fuerte"))
+      .attr("stroke", "#fff").attr("stroke-width", 2).attr("opacity", 0);
+  });
+}
+function cambiarTexto(el, t, animar) {
+  if (el.textContent === t) return;
+  if (!animar || REDUCIR) { el.textContent = t; return; }
+  el.animate([{opacity:1, filter:"blur(0)"}, {opacity:0, filter:"blur(3px)"}], {duration:120, easing:"ease-out"}).onfinish = () => {
+    el.textContent = t;
+    el.animate([{opacity:0, filter:"blur(3px)", transform:"translateY(4px)"}, {opacity:1, filter:"blur(0)", transform:"none"}],
+      {duration:300, easing:"cubic-bezier(.23,1,.32,1)"});
+  };
+}
+function pintarPanel(animar) {
+  const nombre = NOMBRES[prov];
+  cambiarTexto(document.getElementById("prov-titulo"), nombre ? `${nombre} en números` : "Elegí una de las 24", animar);
+  grilla.querySelectorAll(".dp").forEach(el => {
+    const c = INDP[+el.dataset.i], fila = c.d.find(d => d.codigo_indec === prov);
+    const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
+    cambiarTexto(el.querySelector(".dp-num"), fila ? c.f(fila[c.k]) : c.pais == null ? "Elegí una" : c.f(c.pais), animar);
+    el.querySelector(".dp-pos").textContent = fila ? `Posición ${orden} de ${c.d.length}, de mayor a menor.${c.pais == null ? "" : ` País: ${c.f(c.pais)}`}` : c.pais == null ? "Sin total nacional comparable" : "Total del país";
+    const punto = d3.select(el).select("circle.elegida");
+    if (!fila) { punto.attr("opacity", 0); return; }
+    // el punto viaja de la provincia anterior a la nueva
+    (animar && !REDUCIR && punto.attr("opacity") === "1" ? punto.transition().duration(450).ease(EASE) : punto)
+      .attr("cx", c.x(fila[c.k])).attr("opacity", 1);
+  });
+}
+
+/* ---------- preguntas que rotan de a una ---------- */
+const veces = (a, b) => n1(a / b).replace(/,0$/, "");
+const PREG = [
+  ["¿Cuánto varía la mortalidad infantil entre provincias?",
+   `En el promedio de ${mo.tri_act} murieron ${n1(mo.top_v)} de cada 1.000 nacidos vivos en ${mo.top} y ${n1(mo.low_v)} en ${mo.low}: ${veces(mo.top_v, mo.low_v)} veces más.`, "#f-mortalidad"],
+  ["¿Cuánto cambia lo que se aprende en matemática según la provincia?",
+   `En ${ap.top}, el ${pct(ap.top_v)} de los chicos de 6° grado alcanzó un nivel satisfactorio o avanzado en Aprender ${ap.anio}. En ${ap.low}, el ${pct(ap.low_v)}.`, "#f-aprender"],
+  ["¿Cuántos bebés menos nacen que hace una década?",
+   `En 2024 se registraron ${n0(nac.n_2024)} nacimientos, ${pct(Math.abs(nac.caida))} menos que en ${nac.anio_pico}.`, "#f-nacimientos"],
+  ["¿Cuánto empleo privado registrado hay en cada provincia?",
+   `${n1(em.top_v)} asalariados cada 100 habitantes en ${em.top} y ${n1(em.low_v)} en ${em.low}. El país tiene ${n1(em.cada_100_pais)}.`, "#f-empleo"],
+  ["¿A qué distancia está la Argentina del promedio de la OCDE en PISA?",
+   `A ${pz.dif_mat} puntos en matemática en ${pz.anio}: ${pz.mat} contra ${pz.ocde_mat}.`, "#f-pisa"],
+  ["¿Cuántos adolescentes están en la secundaria?",
+   `El ${pct(es.pais_fin)} en ${es.fin}, ${n1(es.pais_fin - es.pais_ini)} puntos más que en ${es.ini}. En ${es.low}, el ${pct(es.low_v)}.`, "#f-escolarizacion"],
+  ["¿Volvió el transporte público al nivel previo a la pandemia?",
+   `En ${su.mes} se usaron ${n2(su.total_millones)} millones de tarjetas SUBE por día hábil. En los primeros días de marzo de 2020 eran ${n2(su.pre_millones)} millones.`, "#f-sube"],
+  ["¿Qué parte de la electricidad consumen los hogares?",
+   `El ${pct(e.pct_res_2025)} de la demanda del país en 2025. En 2005 era el ${pct(e.pct_res_2005)}.`, "#f-hogares"],
+  ["¿En qué mes se usa más electricidad?",
+   `En ${e.mes_max}: ${pct(e.dif_max_min)} más que en ${e.mes_min}, el mes de menor demanda (promedio de 2023 a 2025).`, "#f-meses"],
+  ["¿Qué provincia tiene más territorio protegido?",
+   `${nt.top}: el ${pct(nt.top_v)} de su superficie está dentro de áreas protegidas. En ${nt.low}, el ${pct(nt.low_v)}.`, "#f-protegida"],
+  ["¿Cuántos metros cuadrados protegidos hay por habitante?",
+   `${n0(nt.m2_pais)} en todo el país. Van de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`, "#f-protegida"],
+  ["¿Cuál es el parque nacional más grande en tierra?",
+   `${nt.pn_mayor}, creado en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas.`, "#f-parques"],
+  ["¿En qué área protegida se registraron más especies animales?",
+   `En ${nt.esp_top}: ${n0(nt.esp_top_v)} especies. Le sigue ${nt.esp_2}, con ${n0(nt.esp_2_v)}.`, "#f-especies"],
+  [`¿Volvió el turismo extranjero al nivel de ${tu.max_anio}?`,
+   `En los doce meses a ${tu.doce_hasta} llegaron ${n0(tu.doce)} turistas no residentes, ${pct(Math.abs((tu.doce / tu.max - 1) * 100))} ${tu.doce < tu.max ? "menos" : "más"} que en ${tu.max_anio}.`, "#f-receptivo"],
+  ["¿Cuánta pobreza hay en las ciudades del país?",
+   `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza. El pico fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`, "#f-pobreza"],
+  ["¿Cómo cambió la maternidad adolescente?",
+   `En 2012, ${n1(nac.pct_2012)} de cada 100 nacimientos eran de madres de 10 a 19 años. En 2024, ${n1(nac.pct_2024)}.`, "#f-adolescentes"],
+];
+(function carrusel() {
+  const rot = document.getElementById("rotador"), q = rot.querySelector(".rot-q"), a = rot.querySelector(".rot-a");
+  const cuerpo = rot.querySelector(".rot-cuerpo"), barra = rot.querySelector(".rot-barra i");
+  const bPausa = rot.querySelector(".rot-pausa"), bSig = rot.querySelector(".rot-sig");
+  const DUR = 7000, freno = {pausa: false, puntero: false, foco: false, fuera: false};
+  let i = 0, prog;
+  const frenado = () => Object.values(freno).some(Boolean);
+  const aplicar = () => { if (prog) frenado() ? prog.pause() : prog.play(); };
+  function correr() {
+    prog?.cancel();
+    prog = barra.animate([{transform:"scaleX(0)"}, {transform:"scaleX(1)"}], {duration: DUR, easing: "linear", fill: "forwards"});
+    prog.onfinish = () => mostrar(i + 1, true);
+    aplicar();
+  }
+  function mostrar(n, animar) {
+    i = (n + PREG.length) % PREG.length;
+    const [pq, pa, h] = PREG[i];
+    const poner = () => {
+      q.textContent = pq; q.href = h; a.textContent = pa;
+      if (animar) cuerpo.animate(REDUCIR ? [{opacity:0}, {opacity:1}]
+        : [{opacity:0, transform:"translateY(10px)", filter:"blur(4px)"}, {opacity:1, transform:"none", filter:"blur(0)"}],
+        {duration: REDUCIR ? 200 : 480, easing: "cubic-bezier(.23,1,.32,1)"});
+      correr();
+    };
+    if (!animar) return poner();
+    const sale = cuerpo.animate(REDUCIR ? [{opacity:1}, {opacity:0}]
+      : [{opacity:1, transform:"none", filter:"blur(0)"}, {opacity:0, transform:"translateY(-6px)", filter:"blur(4px)"}],
+      {duration: 180, easing: "ease-out", fill: "forwards"});
+    sale.onfinish = () => { poner(); sale.cancel(); };
+  }
+  bPausa.addEventListener("click", () => {
+    freno.pausa = !freno.pausa; bPausa.setAttribute("aria-pressed", freno.pausa);
+    bPausa.textContent = freno.pausa ? "Seguir" : "Pausar"; aplicar();
+  });
+  bSig.addEventListener("click", () => mostrar(i + 1, true));
+  rot.addEventListener("pointerenter", () => { freno.puntero = true; aplicar(); });
+  rot.addEventListener("pointerleave", () => { freno.puntero = false; aplicar(); });
+  rot.addEventListener("focusin", () => { freno.foco = true; aplicar(); });
+  rot.addEventListener("focusout", () => { freno.foco = false; aplicar(); });
+  new IntersectionObserver(([en]) => { freno.fuera = !en.isIntersecting; aplicar(); }).observe(rot);
+  // Reserva el alto de la pregunta más larga para que el resto de la portada no salte
+  const medir = () => {
+    cuerpo.style.minHeight = "0px"; let alto = 0;
+    PREG.forEach(([pq, pa]) => { q.textContent = pq; a.textContent = pa; alto = Math.max(alto, cuerpo.offsetHeight); });
+    cuerpo.style.minHeight = alto + "px";
+    const [pq, pa, h] = PREG[i]; q.textContent = pq; q.href = h; a.textContent = pa;
+  };
+  medir(); new ResizeObserver(() => medir()).observe(rot.parentElement);
+  mostrar(0, false);
+})();
+
+/* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */
+const vistas = new IntersectionObserver(es => es.forEach(en => {
+  if (!en.isIntersecting) return;
+  const f = en.target; f.classList.add("visto"); vistas.unobserve(f);
+  if (!REDUCIR) f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent) DIB[gr.dataset.g](true); });
+}), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
+document.querySelectorAll("article.ficha").forEach(f => vistas.observe(f));
+
+/* navegación activa */
+const secciones = [...document.querySelectorAll(".tema")];
+const enlaces = [...document.querySelectorAll(".temas a")];
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting) enlaces.forEach(a => a.setAttribute("aria-current", a.hash === "#" + en.target.id));
+}), {rootMargin: "-40% 0px -55% 0px"});
+secciones.forEach(s => io.observe(s));
+
+/* la barra superior se separa del contenido recién cuando se deja la portada */
+const barra = document.querySelector(".barra");
+new IntersectionObserver(([en]) => barra.classList.toggle("con-borde", !en.isIntersecting), {rootMargin: "-80px 0px 0px 0px"})
+  .observe(document.querySelector(".portada-texto"));
+
+/* enlaces compartidos del tipo #f-empleo?prov=30: llevar a la ficha */
+if (location.hash.includes("?")) {
+  const destino = document.getElementById(location.hash.slice(1).split("?")[0]);
+  if (destino) requestAnimationFrame(() => destino.scrollIntoView());
+}
+
+/* ---------- mapa de fondo: el mundo visto desde la Argentina ---------- */
+async function mapa() {
+  const el = document.getElementById("mapa"), por = document.querySelector(".portada");
+  let mundo;
+  try { mundo = await fetch("datos/mundo-110m.json").then(r => r.json()); } catch (_) { return; }
+  const paises = topojson.feature(mundo, mundo.objects.countries).features;
+  const dibujar = () => {
+    const W = por.clientWidth, H = por.clientHeight, angosto = W < 760;
+    // La Argentina (unos 34 grados de norte a sur, 0,6 radianes) se ubica en el espacio libre:
+    // debajo del texto en pantallas anchas, a la izquierda del sol en el celular
+    const pr = por.getBoundingClientRect(), tx = document.querySelector(".portada-texto").getBoundingClientRect(),
+          sl = document.getElementById("sol").getBoundingClientRect();
+    let esc, cx, cy;
+    if (!angosto) {
+      const visible = Math.min(H, innerHeight - Math.max(0, pr.top));
+      const libre = visible - (tx.bottom - pr.top) - 40;
+      esc = Math.max(170, Math.min(W * .27, libre / .64));
+      cx = tx.left - pr.left + Math.min(150, tx.width * .3); cy = tx.bottom - pr.top + 34 + .31 * esc;
+    } else {
+      esc = Math.max(250, sl.height * 1.05); cx = W * .15; cy = sl.top - pr.top + sl.height * .52;
+    }
+    const proy = d3.geoAzimuthalEquidistant().rotate([64, 38]).clipAngle(179.9).scale(esc).translate([cx, cy]);
+    const camino = d3.geoPath(proy), svg = d3.select(el).attr("viewBox", `0 0 ${W} ${H}`);
+    svg.selectAll("*").remove();
+    svg.append("path").attr("class","grat").attr("d", camino(d3.geoGraticule().step([20, 20])()));
+    svg.append("path").attr("class","esfera").attr("d", camino({type: "Sphere"}));
+    [15, 40, 65, 90, 115, 140, 165].forEach(r =>
+      svg.append("path").attr("class","anillo").attr("d", camino(d3.geoCircle().center([-64, -38]).radius(r)())));
+    // Argentina continental y las Islas Malvinas, en celeste
+    svg.append("g").selectAll("path").data(paises).join("path")
+      .attr("class", d => d.id === "032" || d.id === "238" ? "arg" : "tierra").attr("d", camino)
+      .sort((a, b) => (a.id === "032" || a.id === "238") - (b.id === "032" || b.id === "238"));
+    el.classList.add("listo");
+  };
+  dibujar();
+  let ancho = por.clientWidth, t;
+  new ResizeObserver(() => { if (por.clientWidth === ancho) return; ancho = por.clientWidth; clearTimeout(t); t = setTimeout(dibujar, 150); }).observe(por);
+}
+mapa();
+
+/* primer dibujo y redibujo al cambiar el ancho */
+const redibujar = () => { dibujarTodo(); tiras(); pintarPanel(false); };
+redibujar();
+let ancho = document.documentElement.clientWidth, espera;
+new ResizeObserver(() => {
+  const w = document.documentElement.clientWidth;
+  if (w === ancho) return;
+  ancho = w; clearTimeout(espera); espera = setTimeout(redibujar, 150);
+}).observe(document.body);
+})();
+</script>
+</body>
+</html>

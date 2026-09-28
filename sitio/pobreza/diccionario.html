@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.4">
+<title>Diccionario de datos | Pobreza en la Argentina: consultas</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_import/estilo.3b41d97b.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_import/estilo.3b41d97b.css">
+<link rel="modulepreload" href="./_observablehq/client.929be116.js">
+<link rel="modulepreload" href="./_observablehq/runtime.fa9f71c0.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.67636428.js">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..700&amp;display=swap">
+<script>
+// Framework reescribe los enlaces que salen de este sitio: el de Datina se corrige al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+  const a = document.querySelector(".cabecera .volver");
+  if (a) a.href = new URL("../", location.href.replace(/[^/]*$/, "")).href;
+});
+</script>
+<meta name="description" content="Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.">
+<script type="module">
+
+import "./_observablehq/client.929be116.js";
+
+</script>
+</head>
+<body>
+<div id="observablehq-center">
+<header id="observablehq-header">
+<nav class="cabecera"><a href="./" class="volver">Datina</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>
+</header>
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#serie-nacional">serie_nacional</a></li>
+<li class="observablehq-secondary-link"><a href="#pobreza-edad">pobreza_edad</a></li>
+<li class="observablehq-secondary-link"><a href="#aglomerados">aglomerados</a></li>
+<li class="observablehq-secondary-link"><a href="#aglomerados-serie">aglomerados_serie</a></li>
+<li class="observablehq-secondary-link"><a href="#gba-partidos-comunas">gba_partidos_comunas</a></li>
+<li class="observablehq-secondary-link"><a href="#gba-fracciones">gba_fracciones</a></li>
+</ol>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<h1 id="diccionario-de-datos" tabindex="-1"><a class="observablehq-header-anchor" href="#diccionario-de-datos">Diccionario de datos</a></h1>
+<p>Este archivo se genera solo con <code>python scripts/exportar_parquet.py</code>. Si lo editás a mano, el próximo export lo pisa. Todas las tablas son Parquet con compresión zstd y se pueden leer con DuckDB, R, Python, QGIS o Excel con un complemento. Los porcentajes están en escala de 0 a 100.</p>
+<p>Para medir la precisión, el INDEC recomienda leer con cuidado los valores con coeficiente de variación entre 16% y 25% y considera no confiables los que superan 25%.</p>
+<p><a href="./">Volver a la página de consultas</a></p>
+<h2 id="serie-nacional" tabindex="-1"><a class="observablehq-header-anchor" href="#serie-nacional">serie_nacional</a></h2>
+<p><strong>Serie nacional de pobreza e indigencia.</strong> Incidencia de la pobreza y la indigencia en el total de 31 aglomerados urbanos, por semestre, desde el 2S 2016 hasta el 1S 2026. Fuente: INDEC, EPH.</p>
+<p>Archivo: <code>data/serie_nacional.parquet</code> (80 filas).</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Tipo</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>periodo</code></td>
+<td>texto</td>
+<td>Semestre, por ejemplo 1S 2026</td>
+</tr>
+<tr>
+<td><code>anio</code></td>
+<td>entero</td>
+<td>Año del semestre</td>
+</tr>
+<tr>
+<td><code>semestre</code></td>
+<td>entero</td>
+<td>Semestre del año (1 o 2)</td>
+</tr>
+<tr>
+<td><code>indicador</code></td>
+<td>texto</td>
+<td>pobreza o indigencia</td>
+</tr>
+<tr>
+<td><code>unidad</code></td>
+<td>texto</td>
+<td>personas u hogares (población de referencia)</td>
+</tr>
+<tr>
+<td><code>valor_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de personas u hogares en esa condición sobre el total de la población de referencia de los 31 aglomerados</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pobreza-edad" tabindex="-1"><a class="observablehq-header-anchor" href="#pobreza-edad">pobreza_edad</a></h2>
+<p><strong>Pobreza e indigencia por grupo de edad.</strong> Porcentaje de personas pobres e indigentes dentro de cada grupo de edad, total de 31 aglomerados urbanos, por semestre. Incluye los grupos generales (0 a 14, 15 a 29, 30 a 64, 65 y más) y el detalle de niñas, niños y adolescentes (0 a 17 y subgrupos). Fuente: INDEC, EPH.</p>
+<p>Archivo: <code>data/pobreza_edad.parquet</code> (360 filas).</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Tipo</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>periodo</code></td>
+<td>texto</td>
+<td>Semestre, por ejemplo 1S 2026</td>
+</tr>
+<tr>
+<td><code>anio</code></td>
+<td>entero</td>
+<td>Año del semestre</td>
+</tr>
+<tr>
+<td><code>semestre</code></td>
+<td>entero</td>
+<td>Semestre del año (1 o 2)</td>
+</tr>
+<tr>
+<td><code>grupo_edad</code></td>
+<td>texto</td>
+<td>Grupo de edad en años cumplidos (Total es el total de personas)</td>
+</tr>
+<tr>
+<td><code>serie_grupos</code></td>
+<td>texto</td>
+<td>general (grupos de toda la población) o ninez (0 a 17 años y subgrupos)</td>
+</tr>
+<tr>
+<td><code>indicador</code></td>
+<td>texto</td>
+<td>pobreza o indigencia</td>
+</tr>
+<tr>
+<td><code>valor_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de personas del grupo de edad que están en esa condición</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aglomerados" tabindex="-1"><a class="observablehq-header-anchor" href="#aglomerados">aglomerados</a></h2>
+<p><strong>Aglomerados, regiones y totales en el último semestre.</strong> Foto del 1S 2026 para el total de 31 aglomerados, las 6 regiones estadísticas, los 31 aglomerados (con Gran Buenos Aires abierto en Ciudad y Partidos del GBA) y los grupos por tamaño. Incluye coeficiente de variación (CV) e intervalo de confianza al 90% de cada incidencia. Fuente: INDEC, EPH, informe técnico del 1S 2026 y anexo de CV.</p>
+<p>Archivo: <code>data/aglomerados.parquet</code> (42 filas).</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Tipo</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>periodo</code></td>
+<td>texto</td>
+<td>Semestre de referencia (1S 2026)</td>
+</tr>
+<tr>
+<td><code>nombre</code></td>
+<td>texto</td>
+<td>Nombre del aglomerado, región o total</td>
+</tr>
+<tr>
+<td><code>tipo</code></td>
+<td>texto</td>
+<td>total, interior, region, aglomerado o tamano (grupo por tamaño del aglomerado)</td>
+</tr>
+<tr>
+<td><code>region</code></td>
+<td>texto</td>
+<td>Región estadística del INDEC a la que pertenece (vacía en totales)</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de personas pobres sobre el total de personas de la unidad</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_cv</code></td>
+<td>decimal</td>
+<td>Coeficiente de variación de pobreza_personas_pct, en %. Entre 16 y 25 leer con cuidado, más de 25 no confiable</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_li</code></td>
+<td>decimal</td>
+<td>Límite inferior del intervalo de confianza al 90% de pobreza_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_ls</code></td>
+<td>decimal</td>
+<td>Límite superior del intervalo de confianza al 90% de pobreza_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_miles</code></td>
+<td>decimal</td>
+<td>Cantidad de personas pobres, en miles</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares pobres sobre el total de hogares de la unidad</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_cv</code></td>
+<td>decimal</td>
+<td>Coeficiente de variación de pobreza_hogares_pct, en %. Entre 16 y 25 leer con cuidado, más de 25 no confiable</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_li</code></td>
+<td>decimal</td>
+<td>Límite inferior del intervalo de confianza al 90% de pobreza_hogares_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_ls</code></td>
+<td>decimal</td>
+<td>Límite superior del intervalo de confianza al 90% de pobreza_hogares_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_miles</code></td>
+<td>decimal</td>
+<td>Cantidad de hogares pobres, en miles</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de personas indigentes sobre el total de personas de la unidad</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_cv</code></td>
+<td>decimal</td>
+<td>Coeficiente de variación de indigencia_personas_pct, en %. Entre 16 y 25 leer con cuidado, más de 25 no confiable</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_li</code></td>
+<td>decimal</td>
+<td>Límite inferior del intervalo de confianza al 90% de indigencia_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_ls</code></td>
+<td>decimal</td>
+<td>Límite superior del intervalo de confianza al 90% de indigencia_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_miles</code></td>
+<td>decimal</td>
+<td>Cantidad de personas indigentes, en miles</td>
+</tr>
+<tr>
+<td><code>indigencia_hogares_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares indigentes sobre el total de hogares de la unidad</td>
+</tr>
+<tr>
+<td><code>indigencia_hogares_cv</code></td>
+<td>decimal</td>
+<td>Coeficiente de variación de indigencia_hogares_pct, en %. Entre 16 y 25 leer con cuidado, más de 25 no confiable</td>
+</tr>
+<tr>
+<td><code>indigencia_hogares_li</code></td>
+<td>decimal</td>
+<td>Límite inferior del intervalo de confianza al 90% de indigencia_hogares_pct, en %</td>
+</tr>
+<tr>
+<td><code>indigencia_hogares_ls</code></td>
+<td>decimal</td>
+<td>Límite superior del intervalo de confianza al 90% de indigencia_hogares_pct, en %</td>
+</tr>
+<tr>
+<td><code>indigencia_hogares_miles</code></td>
+<td>decimal</td>
+<td>Cantidad de hogares indigentes, en miles</td>
+</tr>
+<tr>
+<td><code>total_personas_miles</code></td>
+<td>decimal</td>
+<td>Población total de la unidad, en miles de personas (proyección EPH)</td>
+</tr>
+<tr>
+<td><code>total_hogares_miles</code></td>
+<td>decimal</td>
+<td>Total de hogares de la unidad, en miles</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aglomerados-serie" tabindex="-1"><a class="observablehq-header-anchor" href="#aglomerados-serie">aglomerados_serie</a></h2>
+<p><strong>Serie por aglomerado, región y total.</strong> Incidencia de la pobreza y la indigencia por semestre para cada una de las 42 unidades de la tabla aglomerados. Vacío donde el INDEC no publicó dato (Gran Resistencia en el 2S 2019 y Ushuaia - Río Grande en el 2S 2020). Fuente: INDEC, EPH.</p>
+<p>Archivo: <code>data/aglomerados_serie.parquet</code> (3360 filas).</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Tipo</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aglomerado</code></td>
+<td>texto</td>
+<td>Nombre del aglomerado, región o total</td>
+</tr>
+<tr>
+<td><code>tipo</code></td>
+<td>texto</td>
+<td>total, interior, region, aglomerado o tamano</td>
+</tr>
+<tr>
+<td><code>region</code></td>
+<td>texto</td>
+<td>Región estadística del INDEC (vacía en totales)</td>
+</tr>
+<tr>
+<td><code>periodo</code></td>
+<td>texto</td>
+<td>Semestre, por ejemplo 1S 2026</td>
+</tr>
+<tr>
+<td><code>anio</code></td>
+<td>entero</td>
+<td>Año del semestre</td>
+</tr>
+<tr>
+<td><code>semestre</code></td>
+<td>entero</td>
+<td>Semestre del año (1 o 2)</td>
+</tr>
+<tr>
+<td><code>indicador</code></td>
+<td>texto</td>
+<td>pobreza o indigencia</td>
+</tr>
+<tr>
+<td><code>unidad</code></td>
+<td>texto</td>
+<td>personas u hogares</td>
+</tr>
+<tr>
+<td><code>valor_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de personas u hogares de la unidad en esa condición (vacío si no hay dato)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gba-partidos-comunas" tabindex="-1"><a class="observablehq-header-anchor" href="#gba-partidos-comunas">gba_partidos_comunas</a></h2>
+<p><strong>Partidos del GBA y comunas de la Ciudad (estimación en áreas pequeñas).</strong> Estimación de la pobreza y la indigencia en los 24 partidos del Gran Buenos Aires y las 15 comunas de la Ciudad para el 1S 2026. No es una medición oficial: sale de un modelo estimado con la EPH del 1T 2026 y aplicado a las características de cada radio censal (Censo 2022), calibrado para reproducir el total oficial de cada dominio (36,9% de personas pobres en los Partidos del GBA y 11,1% en la Ciudad). Intervalos bootstrap al 90%. Población de referencia: la censal de 2022.</p>
+<p>Archivo: <code>data/gba_partidos_comunas.parquet</code> (39 filas).</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Tipo</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>periodo</code></td>
+<td>texto</td>
+<td>Semestre de referencia de la estimación (1S 2026)</td>
+</tr>
+<tr>
+<td><code>unidad</code></td>
+<td>texto</td>
+<td>Partido del GBA o comuna de la Ciudad</td>
+</tr>
+<tr>
+<td><code>jurisdiccion</code></td>
+<td>texto</td>
+<td>CABA (comunas de la Ciudad) o GBA (partidos del conurbano)</td>
+</tr>
+<tr>
+<td><code>zona</code></td>
+<td>texto</td>
+<td>Agrupamiento: Primera corona, Segunda corona, La Matanza, CABA norte, CABA centro o CABA sur</td>
+</tr>
+<tr>
+<td><code>poblacion_censo_2022</code></td>
+<td>entero</td>
+<td>Personas según el Censo 2022</td>
+</tr>
+<tr>
+<td><code>hogares_censo_2022</code></td>
+<td>entero</td>
+<td>Hogares según el Censo 2022</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje estimado de personas pobres</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_li</code></td>
+<td>decimal</td>
+<td>Límite inferior del intervalo al 90% de pobreza_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_ls</code></td>
+<td>decimal</td>
+<td>Límite superior del intervalo al 90% de pobreza_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_cv</code></td>
+<td>decimal</td>
+<td>Coeficiente de variación bootstrap de pobreza_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje estimado de hogares pobres</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_li</code></td>
+<td>decimal</td>
+<td>Límite inferior del intervalo al 90% de pobreza_hogares_pct, en %</td>
+</tr>
+<tr>
+<td><code>pobreza_hogares_ls</code></td>
+<td>decimal</td>
+<td>Límite superior del intervalo al 90% de pobreza_hogares_pct, en %</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje estimado de personas indigentes</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_li</code></td>
+<td>decimal</td>
+<td>Límite inferior del intervalo al 90% de indigencia_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_ls</code></td>
+<td>decimal</td>
+<td>Límite superior del intervalo al 90% de indigencia_personas_pct, en %</td>
+</tr>
+<tr>
+<td><code>personas_pobres</code></td>
+<td>entero</td>
+<td>Cantidad estimada de personas pobres, sobre la población censal</td>
+</tr>
+<tr>
+<td><code>personas_indigentes</code></td>
+<td>entero</td>
+<td>Cantidad estimada de personas indigentes, sobre la población censal</td>
+</tr>
+<tr>
+<td><code>nbi_hogares_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares con necesidades básicas insatisfechas (Censo 2022)</td>
+</tr>
+<tr>
+<td><code>privacion_convergente_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares con privación convergente según el IPMH (Censo 2022)</td>
+</tr>
+<tr>
+<td><code>sin_cobertura_salud_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de personas sin cobertura de salud por obra social, prepaga o plan estatal (Censo 2022)</td>
+</tr>
+<tr>
+<td><code>hacinamiento_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares con 2 o más personas por cuarto (Censo 2022)</td>
+</tr>
+<tr>
+<td><code>cloaca_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares con desagüe a red cloacal (Censo 2022)</td>
+</tr>
+<tr>
+<td><code>inquilinos_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares inquilinos (Censo 2022)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gba-fracciones" tabindex="-1"><a class="observablehq-header-anchor" href="#gba-fracciones">gba_fracciones</a></h2>
+<p><strong>Fracciones censales del GBA y la Ciudad.</strong> El mismo modelo de la tabla gba_partidos_comunas aplicado a cada fracción censal (unidades de unos 3 mil a 20 mil habitantes). Capa exploratoria, sin intervalos de confianza. Período de referencia 1S 2026, población censal 2022.</p>
+<p>Archivo: <code>data/gba_fracciones.parquet</code> (1373 filas).</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Tipo</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>periodo</code></td>
+<td>texto</td>
+<td>Semestre de referencia de la estimación (1S 2026)</td>
+</tr>
+<tr>
+<td><code>fraccion</code></td>
+<td>texto</td>
+<td>Código de la fracción censal (7 dígitos: provincia, departamento y fracción)</td>
+</tr>
+<tr>
+<td><code>unidad</code></td>
+<td>texto</td>
+<td>Partido del GBA o comuna de la Ciudad que la contiene</td>
+</tr>
+<tr>
+<td><code>jurisdiccion</code></td>
+<td>texto</td>
+<td>CABA o GBA</td>
+</tr>
+<tr>
+<td><code>zona</code></td>
+<td>texto</td>
+<td>Zona de la unidad que la contiene</td>
+</tr>
+<tr>
+<td><code>poblacion_censo_2022</code></td>
+<td>entero</td>
+<td>Personas según el Censo 2022</td>
+</tr>
+<tr>
+<td><code>pobreza_personas_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje estimado de personas pobres</td>
+</tr>
+<tr>
+<td><code>indigencia_personas_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje estimado de personas indigentes</td>
+</tr>
+<tr>
+<td><code>sin_cobertura_salud_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de personas sin cobertura de salud (Censo 2022)</td>
+</tr>
+<tr>
+<td><code>nbi_hogares_pct</code></td>
+<td>decimal</td>
+<td>Porcentaje de hogares con necesidades básicas insatisfechas (Censo 2022)</td>
+</tr>
+</tbody>
+</table>
+</main>
+<footer id="observablehq-footer">
+<div>Elaboración propia sobre INDEC: Encuesta Permanente de Hogares y Censo 2022. Las cifras por partido, comuna y fracción son estimaciones estadísticas, no mediciones oficiales.</div>
+</footer>
+</div>
+</body>
+</html>

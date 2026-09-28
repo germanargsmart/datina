@@ -1,0 +1,22 @@
+{
+  "name": "pobreza-consultas",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "datos": "python scripts/exportar_parquet.py",
+    "clean": "rimraf src/.observablehq/cache",
+    "build": "observable build && node scripts/poner-idioma.mjs",
+    "dev": "observable preview --port 3000",
+    "deploy": "observable deploy",
+    "observable": "observable"
+  },
+  "dependencies": {
+    "@observablehq/framework": "^1.13.4"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

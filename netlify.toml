@@ -1,0 +1,3 @@
+# Netlify publica solo la carpeta sitio/
+[build]
+  publish = "sitio"
