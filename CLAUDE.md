@@ -82,6 +82,17 @@ Relevamiento de septiembre de 2026: Argendata (Fundar) es casi toda nacional. Ti
 - El cruce se comparte en el enlace: `?cx=...&cy=...&cf=02,94` (jurisdicciones fuera del cálculo).
 - Benchmark que guió el diseño: OECD Regional eXplorer y Regional Well-Being, Eurostat Regions and Cities Illustrated, Gapminder, Our World in Data, Global Data Lab, Opportunity Atlas y el Atlas de Desarrollo Humano de Brasil (el más parecido: unidades federales con módulo de correlación).
 
+## Herramientas propias (septiembre 2026): lo que ningún otro sitio argentino ofrece
+
+Relevamiento: Argendata, datos.gob.ar, INDEC, CEP XXI (congelado en 2023), UCA, CIPPEC y CFI no tienen un panel provincia por año de varias fuentes, ni mapa por departamento, ni índice con pesos propios, ni comparación con el mundo. Referencias de afuera: Data México, Data USA, ONS Explore local statistics, TerriData, IBGE Cidades, Atlas Brasil, Better Life Index de la OCDE, County Health Rankings.
+- La barra muestra a la izquierda las herramientas (Tu provincia, Cruces, Tu índice, Mapa) y a la derecha un botón "Temas" que abre un menú con todas las secciones (también en el celular). La portada tiene atajos a las cuatro herramientas. Las herramientas van antes de los temas.
+- Tu provincia: además del perfil, "provincias parecidas" (distancia en desvíos estándar sobre todos los indicadores del explorador) y "si tu provincia fuera un país" (país más cercano en esperanza de vida y mortalidad infantil, Banco Mundial en español: `bm_paises.json`, `bm_mundo_*.json`, tabla `mundo_paises`).
+- Cruces: evolución año por año al estilo Gapminder cuando los dos indicadores tienen serie (`sitio/datos/cruces_series.csv`, se baja solo al pedirla; `resumen.cruces_series` indica los años). Botón Reproducir, control de año y estela de la provincia elegida. La población por año sale de las tasas del SNIC.
+- Tu índice: siete dimensiones con pesos de 0 a 5 elegidos por cada persona (idea del Índice para una Vida Mejor de la OCDE). Cada indicador en escala 0 a 10 entre el peor y el mejor valor de las 24 (exportaciones y velocidad en logaritmo). Los pesos quedan en el enlace (`?ix=`).
+- Mapa: 527 departamentos (Georef, simplificado una sola vez con `scripts/geometria_departamentos.py`, requiere Node). Homicidios y muertes viales (promedio de tres años), robos (SNIC por departamento, 70 MB que `01_descargar.py` resume al bajar en `snic_departamentos_resumen.csv`) y edad y origen de la población (RENAPER por departamento, `renaper_departamentos_resumen.csv`). Códigos que difieren entre SNIC y Georef: comunas de CABA, Chascomús, Quilmes, Río Grande y Ushuaia (`TRADUCE` en `02_procesar.py`). El RENAPER publica CABA sin comunas. Las listas excluyen departamentos con menos de 10.000 personas.
+- Finanzas provinciales: ficha `f-fiscal` con recursos propios sobre ingresos totales, resultado financiero y gasto en personal (esquema AIF del Ministerio de Economía, `aif_provincias.xlsx`, desde 2005). Se usa el último año con las 24 provincias. Natalidad por provincia (DEIS) en el explorador.
+- Liviandad: los gráficos se dibujan recién cuando la tarjeta entra en pantalla, la comparación con la OCDE está plegada y su tabla se baja al abrirla, y las series, el mapa y la geometría se cargan solo cuando se usan.
+
 ## Reglas para temas sensibles (suicidio)
 
 - Nunca usar ni mostrar las columnas de modalidad, lugar u hora de la base SAT del SNIC. Solo año, edad y sexo.

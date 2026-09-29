@@ -672,7 +672,7 @@ for k, (o_serie, frase, unidad, dec, origen) in OCDE_META.items():
     agregar(o_a, f"bm_{k}", unidad, f"Banco Mundial ({o_serie}), {origen}")
 ocde_tabla = pd.concat(ocde_filas, ignore_index=True)
 ocde_tabla = ocde_tabla[["indicador", "anio", "argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75", "ocde_paises"]]
-ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]] = ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]].round(3)
+ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]] = ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]].round(2)
 
 MES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
        "septiembre", "octubre", "noviembre", "diciembre"]
@@ -758,6 +758,117 @@ extranjeros["territorio"] = extranjeros.codigo_indec.map(CORTO)
 extranjeros["cada_100"] = extranjeros.personas / extranjeros.codigo_indec.map(POB) * 100
 top_origen = rx.groupby("pais_nacimiento").cantidad.sum().sort_values(ascending=False)
 
+# ---------------------------------------------------------------- si tu provincia fuera un pais
+# Ultimo valor de cada pais (sin agregados regionales) para esperanza de vida y mortalidad infantil
+paises = [x for x in json.loads((CRUDO / "bm_paises.json").read_text(encoding="utf-8"))[1] if x["region"]["id"] != "NA"]
+NOMBRE_PAIS = {x["id"]: x["name"] for x in paises}
+mundo = pd.DataFrame({"iso3": sorted(NOMBRE_PAIS)})
+mundo["pais"] = mundo.iso3.map(NOMBRE_PAIS)
+for serie, col in [("SP.DYN.LE00.IN", "esperanza_vida"), ("SP.DYN.IMRT.IN", "mortalidad_infantil")]:
+    filas = json.loads((CRUDO / f"bm_mundo_{serie}.json").read_text(encoding="utf-8"))[1]
+    w = pd.DataFrame([{"iso3": x["countryiso3code"], "anio": int(x["date"]), "valor": x["value"]} for x in filas]).dropna()
+    w = w[w.iso3.isin(NOMBRE_PAIS)]
+    if col == "esperanza_vida":  # el mismo anio que las tablas provinciales del INDEC
+        w = w[w.anio <= ANIO_EV]
+    w = w.sort_values("anio").groupby("iso3").last()
+    mundo[col] = mundo.iso3.map(w.valor).round(1)
+    mundo[f"{col}_anio"] = mundo.iso3.map(w.anio).astype("Int64")
+mundo = mundo[(mundo.iso3 != "ARG") & mundo[["esperanza_vida", "mortalidad_infantil"]].notna().any(axis=1)]
+
+# ---------------------------------------------------------------- cuentas fiscales provinciales
+# Esquema ahorro-inversion-financiamiento de cada provincia (Ministerio de Economia), millones de pesos corrientes.
+# Recursos propios = ingresos corrientes menos tributos de origen nacional y transferencias, mas recursos propios de capital.
+xl = pd.ExcelFile(CRUDO / "aif_provincias.xlsx")
+fisc = []
+for hoja in xl.sheet_names[1:]:
+    cod = codigo(hoja.replace("Ciudad", "CABA").replace("  ", " "))
+    t = pd.read_excel(xl, hoja, header=None)
+    fila_anios = t.index[t[0].astype(str).str.strip().str.upper() == "CONCEPTO"][0]
+    anios_f = {j: int(v) for j, v in t.loc[fila_anios].items() if j > 0 and pd.notna(v)}
+    etiqueta = t[0].astype(str).map(lambda x: norm(x).strip(" .-"))
+    def fila(texto, desde=0):
+        i = [k for k in t.index[desde:] if etiqueta[k].startswith(texto)][0]
+        return t.loc[i], i
+    ic, i_ic = fila("i. ingresos corrientes")
+    nac, _ = fila("de origen nacional", i_ic)
+    trc, _ = fila("transferencias corrientes", i_ic)
+    rpc, _ = fila("recursos propios de capital")
+    tot, _ = fila("vi. ingresos totales")
+    gas, _ = fila("vii. gastos totales")
+    per, _ = fila("personal")
+    res, _ = fila("viii. resultado financiero")
+    for j, a in anios_f.items():
+        v = lambda r: float(r[j])
+        if not v(tot) > 0:  # anios sin datos en la planilla
+            continue
+        fisc.append({"codigo_indec": cod, "anio": a, "autonomia": (v(ic) - v(nac) - v(trc) + v(rpc)) / v(tot) * 100,
+                     "resultado": v(res) / v(tot) * 100, "personal": v(per) / v(gas) * 100})
+fisc = pd.DataFrame(fisc)
+assert fisc.codigo_indec.nunique() == 24, "Faltan provincias en las cuentas fiscales"
+# ultimo anio con dato para las 24 (el ultimo suele faltar en alguna provincia)
+ANIO_FISC = int(fisc.groupby("anio").codigo_indec.nunique().loc[lambda x: x == 24].index.max())
+fiscal = fisc[fisc.anio == ANIO_FISC].copy()
+fiscal["territorio"] = fiscal.codigo_indec.map(CORTO)
+fiscal = fiscal[["codigo_indec", "territorio", "autonomia", "resultado", "personal"]]
+for col, var in [("autonomia", "recursos_propios_pct_ingresos"), ("resultado", "resultado_financiero_pct_ingresos"), ("personal", "gasto_personal_pct_gasto")]:
+    d = fisc[["codigo_indec", "anio", col]].rename(columns={"anio": "periodo", col: "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
+    agregar(d, var, "%", "Ministerio de Economia, cuentas provinciales (esquema AIF)")
+
+# Tasa de natalidad por provincia (DEIS), nacidos vivos cada 1.000 habitantes
+na = pd.read_csv(CRUDO / "deis_natalidad.csv", encoding="utf-8-sig")
+na["anio"] = na.indice_tiempo.astype(str).str[-4:].astype(int)
+na = na.melt(id_vars="anio", value_vars=[c for c in na.columns if c.startswith("natalidad_")], var_name="k", value_name="valor").dropna()
+na["codigo_indec"] = na.k.str.replace("natalidad_", "").map(lambda x: "00" if x == "argentina" else codigo(x.replace("_", " ")))
+assert na.codigo_indec.notna().all(), "Hay provincias de natalidad sin codigo"
+ANIO_NAT = int(na.anio.max())
+natalidad = na[na.anio == ANIO_NAT].set_index("codigo_indec").valor
+
+# ---------------------------------------------------------------- departamentos
+# Indicadores de los 529 departamentos para el mapa. Los codigos de la Ciudad (comunas), Chascomus, Quilmes,
+# Rio Grande y Ushuaia difieren entre el SNIC y la geometria de Georef: se traducen aca.
+sd = pd.read_csv(CRUDO / "snic_departamentos_resumen.csv", dtype={"departamento_id": str, "provincia_id": str})
+TRADUCE = {"06217": "06218", "06058": "06658", "94007": "94008", "94014": "94015",
+           **{f"02{n:03d}": f"02{7 * n:03d}" for n in range(1, 16)}}
+sd["id"] = sd.departamento_id.replace(TRADUCE)
+sd = sd[~sd.id.str.endswith("999")]
+ANIO_DEP = int(sd.anio.max())
+def tasa_dep(nombre, col, anios):
+    d = sd[(sd.codigo_delito_snic_nombre == nombre) & sd.anio.isin(anios)]
+    return d.groupby("id")[col].mean()
+dep = pd.DataFrame({"id": sorted(sd.id.unique())})
+dep["homicidios"] = dep.id.map(tasa_dep("Homicidios dolosos", "tasa_victimas", range(ANIO_DEP - 2, ANIO_DEP + 1)))
+dep["viales"] = dep.id.map(tasa_dep("Muertes en accidentes viales", "tasa_victimas", range(ANIO_DEP - 2, ANIO_DEP + 1)))
+dep["robos"] = dep.id.map(tasa_dep("Robos (excluye los agravados por el resultado de lesiones y/o muertes)", "tasa_hechos", [ANIO_DEP]))
+nombres_dep = sd.drop_duplicates("id").set_index("id").departamento_nombre
+rd = pd.read_csv(CRUDO / "renaper_departamentos_resumen.csv")
+rd["id"] = rd.departamento_id.map(lambda x: f"{int(x):05d}")
+rd.loc[rd.id.str.startswith("02"), "id"] = "02000"
+edad_ini = rd.edad_quinquenal.str.extract(r"^(\d+)")[0].astype(int)
+por_dep = rd.groupby("id").cantidad.sum()
+ren_dep = pd.DataFrame({
+    "poblacion_identificada": por_dep,
+    "mayores_65": rd[edad_ini >= 65].groupby("id").cantidad.sum() / por_dep * 100,
+    "menores_15": rd[edad_ini < 15].groupby("id").cantidad.sum() / por_dep * 100,
+    "nacidos_otro_pais": rd[rd.pais_nacimiento != "ARGENTINA"].groupby("id").cantidad.sum() / por_dep * 100,
+})
+geo_ids = [g["properties"]["id"] for g in list(json.loads((SITIO / "departamentos.topo.json").read_text(encoding="utf-8"))["objects"].values())[0]["geometries"]]
+departamentos = pd.DataFrame({"id": geo_ids})
+departamentos = departamentos.merge(dep, on="id", how="left")
+clave_ren = departamentos.id.where(~departamentos.id.str.startswith("02"), "02000")
+for c in ren_dep.columns:
+    departamentos[c] = clave_ren.map(ren_dep[c])
+departamentos["provincia"] = departamentos.id.str[:2].map(CORTO)
+departamentos = departamentos.round(2)
+DEP_META = {
+    "homicidios": ("Homicidios dolosos", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
+    "robos": ("Robos", f"hechos cada 100.000 habitantes, {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
+    "viales": ("Muertes viales", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
+    "mayores_65": ("Personas de 65 años o más", "% de la población identificada, junio de 2026", "RENAPER"),
+    "menores_15": ("Menores de 15 años", "% de la población identificada, junio de 2026", "RENAPER"),
+    "nacidos_otro_pais": ("Nacidos en otro país", "% de la población identificada, junio de 2026", "RENAPER"),
+}
+departamentos.to_csv(SITIO / "departamentos.csv", index=False)
+
 # ---------------------------------------------------------------- cruces entre indicadores provinciales
 # Una fila por provincia y una columna por indicador, para el explorador de cruces del sitio.
 # Solo tasas, porcentajes o valores por habitante: cruzar totales solo mostraria el tamanio de cada provincia.
@@ -810,6 +921,10 @@ cru["internet_fijo"] = columna(internet_fijo, "accesos_100_hogares")
 cru["velocidad"] = columna(internet_fijo, "mbps")
 cru["exportaciones"] = columna(exp_prov, "usd_por_habitante")
 cru["extranjeros"] = columna(extranjeros, "cada_100")
+cru["natalidad"] = cru.codigo_indec.map(natalidad)
+cru["autonomia_fiscal"] = columna(fiscal, "autonomia")
+cru["resultado_fiscal"] = columna(fiscal, "resultado")
+cru["gasto_personal"] = columna(fiscal, "personal")
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
@@ -839,8 +954,66 @@ CRUCES_META = {
     "internet_fijo": ("Accesos a internet fijo", "cada 100 hogares", TRIM_ENACOM, "Conectividad", "ENACOM", "f-internet", 1),
     "velocidad": ("Velocidad de internet fijo", "megabits por segundo de bajada, promedio", TRIM_ENACOM, "Conectividad", "ENACOM", "f-internet", 1),
     "exportaciones": ("Exportaciones", "dólares por habitante", str(ANIO_EX), "Trabajo", "INDEC, Origen Provincial de las Exportaciones", "f-exportaciones", 0),
+    "natalidad": ("Natalidad", "nacidos vivos cada 1.000 habitantes", str(ANIO_NAT), "Población", "DEIS, Ministerio de Salud", "", 1),
+    "autonomia_fiscal": ("Recursos propios", "% de los ingresos totales de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
+    "resultado_fiscal": ("Resultado fiscal", "superávit o déficit financiero, % de los ingresos totales", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
+    "gasto_personal": ("Gasto en personal", "% del gasto total de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "extranjeros": ("Nacidos en otro país", "personas identificadas por el RENAPER cada 100 habitantes", "junio de 2026", "Población", "RENAPER", "", 1),
 }
+
+# ---------------------------------------------------------------- series por provincia para animar los cruces
+# Una fila por provincia, anio e indicador, desde 2000. Se carga aparte, solo cuando alguien pide ver la evolucion.
+hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
+hp["pob"] = hp.cantidad_hechos / hp.tasa_hechos * 1e5
+POB_ANIO = hp.set_index(["provincia_id", "anio"]).pob  # poblacion implicita en las tasas del SNIC
+ser = []
+
+
+def a_serie(df, ident):
+    d = df[["codigo_indec", "anio", "valor"]].dropna()
+    d = d[(d.anio >= 2000) & d.codigo_indec.isin(REGION)].copy()
+    d["id"] = ident
+    ser.append(d)
+
+
+def por_hab(df, factor):
+    d = df.copy()
+    d["valor"] = d.valor / [POB_ANIO.get((c, a)) for c, a in zip(d.codigo_indec, d.anio)] * factor
+    return d
+
+
+for nombre, ident, col in [("Homicidios dolosos", "homicidios", "tasa_victimas"), ("Muertes en accidentes viales", "viales", "tasa_victimas"),
+                           ("Robos (excluye los agravados por el resultado de lesiones y/o muertes)", "robos", "tasa_hechos")]:
+    d = snic_prov[snic_prov.codigo_delito_snic_nombre == nombre].rename(columns={"provincia_id": "codigo_indec", col: "valor"})
+    a_serie(d, ident)
+a_serie(mil.rename(columns={"periodo": "anio_"}), "mortalidad_infantil")
+sipa = pd.read_csv(CRUDO / "sipa_provincias.csv", parse_dates=["indice_tiempo"])
+sipa = sipa.rename(columns={c: COL[c.replace("asalariados_priv_", "")] for c in sipa.columns if c != "indice_tiempo"})
+sipa = sipa.melt(id_vars="indice_tiempo", var_name="codigo_indec", value_name="miles").dropna()
+sipa["anio"] = sipa.indice_tiempo.dt.year
+sipa = sipa.groupby(["codigo_indec", "anio"]).agg(miles=("miles", "mean"), meses=("miles", "size")).reset_index()
+a_serie(por_hab(sipa[sipa.meses == 12].assign(valor=lambda x: x.miles * 1000), 100), "empleo_privado")
+for t, col, ident in [(ia, "accesos_cada_100_hogares", "internet_fijo"), (iv, "Mbps", "velocidad")]:
+    d = t.groupby(["codigo_indec", "anio"]).agg(valor=(col, "mean"), n=(col, "size")).reset_index()
+    a_serie(d[d.n == 4], ident)
+exs = []
+for col in ex.columns:
+    if "_total_" in col and not col.startswith("total_"):
+        cod = codigo(col.split("_total_")[0].replace("_", " "))
+        if cod and cod != "00":
+            exs.append(pd.DataFrame({"codigo_indec": cod, "anio": ex.anio, "valor": ex[col] * 1e6}))
+a_serie(por_hab(pd.concat(exs), 1), "exportaciones")
+for d, ident in [(au, "autos"), (mo_, "motos")]:
+    pat_anual = d[d.anio <= ANIO_AU].groupby(["codigo_indec", "anio"])[ident].sum().rename("valor").reset_index()
+    a_serie(por_hab(pat_anual, 1000), ident)
+a_serie(na[na.codigo_indec != "00"], "natalidad")
+for col, ident in [("autonomia", "autonomia_fiscal"), ("resultado", "resultado_fiscal"), ("personal", "gasto_personal")]:
+    a_serie(fisc.rename(columns={col: "valor"}), ident)
+cruces_series = pd.concat(ser, ignore_index=True)
+cruces_series["valor"] = cruces_series.valor.round(2)
+cruces_series = cruces_series.dropna()[["id", "codigo_indec", "anio", "valor"]].sort_values(["id", "codigo_indec", "anio"])
+cruces_series.to_csv(SITIO / "cruces_series.csv", index=False)
+SERIES_IDS = sorted(cruces_series.id.unique())
 
 # ---------------------------------------------------------------- salida
 pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False)
@@ -890,11 +1063,13 @@ tablas = {
     "clima_desvio": clima,
     "ocde_comparacion": ocde_tabla,
     "cruces_provincias": cru.round(3),
+    "mundo_paises": mundo,
     "esperanza_vida_provincias": ev.round(2),
     "censo2022_provincias": censo.round(2),
     "internet_fijo_provincias": internet_fijo.round(2),
     "exportaciones_provincias": exp_prov.round(2),
     "extranjeros_provincias": extranjeros.round(2),
+    "fiscal_provincias": fiscal.round(2),
     "pobreza_serie": pobreza[["periodo", "anio", "semestre", "t", "pobreza_personas", "indigencia_personas", "pobreza_hogares", "indigencia_hogares"]],
 }
 for k, t in tablas.items():
@@ -1081,6 +1256,15 @@ _ev_t, _ev_b = top_bot(ev, "total")
 _ex_t, _ex_b = top_bot(exp_prov, "usd_por_habitante")
 _in_t, _in_b = top_bot(internet_fijo, "accesos_100_hogares")
 _ve_t, _ve_b = top_bot(internet_fijo, "mbps")
+_fa_t, _fa_b = top_bot(fiscal, "autonomia")
+resumen["fiscal"] = {
+    "anio": ANIO_FISC, "top": _fa_t.territorio, "top_v": r1(_fa_t.autonomia), "low": _fa_b.territorio, "low_v": r1(_fa_b.autonomia),
+    "deficit": int((fiscal.resultado < 0).sum()), "superavit": int((fiscal.resultado > 0).sum()),
+    "mediana": r1(fiscal.autonomia.median()), "ini": int(fisc.anio.min()),
+    "mediana_ini": r1(fisc[fisc.anio == fisc.anio.min()].autonomia.median()),
+}
+resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
+                            "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["nuevos"] = {
     "ev_anio": ANIO_EV, "ev_pais": r1(ev_pais.total), "ev_m": r1(ev_pais.mujeres), "ev_v": r1(ev_pais.varones),
     "ev_top": _ev_t.territorio, "ev_top_v": r1(_ev_t.total), "ev_low": _ev_b.territorio, "ev_low_v": r1(_ev_b.total),
@@ -1098,9 +1282,11 @@ resumen["nuevos"] = {
 resumen["cruces"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                      for k, v in CRUCES_META.items()]
 assert all(m["id"] in cru.columns for m in resumen["cruces"])
+resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
 
 (SITIO / "fichas.json").write_text(json.dumps({
     "resumen": resumen,
-    "datos": {k: json.loads(t.to_json(orient="records")) for k, t in tablas.items()},
+    # las tablas que solo se usan al abrir un bloque se cargan aparte desde su CSV
+    "datos": {k: json.loads(t.to_json(orient="records")) for k, t in tablas.items() if k not in {"ocde_comparacion"}},
 }, ensure_ascii=False), encoding="utf-8")
 print(json.dumps(resumen, ensure_ascii=False, indent=1))

@@ -202,6 +202,11 @@ FUENTES.update({
     "exportaciones_provincias.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/350/distribution/350.1/download/exportaciones-provincia-rubro.csv",
     # Personas nacidas en otro país identificadas por el RENAPER, por provincia de residencia
     "renaper_extranjeros.csv": "https://datosabiertos.renaper.gob.ar/poblacion_extranjera_identificada_provincia_junio_206.csv",
+    # Cuentas fiscales de cada provincia (esquema ahorro-inversion-financiamiento), anual desde 2005, Ministerio de Economia
+    "aif_provincias.xlsx": "https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx",
+    # Tasa de natalidad por provincia, anual desde 2000 (DEIS)
+    "deis_natalidad.csv": ckan_csv("http://datos.salud.gob.ar", "314e08d7-70a1-4704-aa2f-e86ce03b359d",
+        "http://datos.salud.gob.ar/dataset/314e08d7-70a1-4704-aa2f-e86ce03b359d/resource/0f68d5c6-e667-40ca-90fd-4784336e092e/download/tasa-natalidad-deis-2000-2023.csv"),
 })
 
 # Comparación con la OCDE: Indicadores del Desarrollo Mundial del Banco Mundial para la Argentina y los 38 países miembros.
@@ -212,6 +217,10 @@ BM_INDICADORES = ["SP.DYN.TFRT.IN", "SP.ADO.TFRT", "SP.DYN.IMRT.IN", "SP.DYN.LE0
                   "SH.STA.SUIC.P5", "VC.IHR.PSRC.P5", "SH.STA.TRAF.P5", "SL.UEM.TOTL.ZS", "SL.EMP.TOTL.SP.ZS",
                   "EG.USE.ELEC.KH.PC", "EN.GHG.CO2.PC.CE.AR5", "ER.LND.PTLD.ZS", "ST.INT.ARVL", "ER.FSH.CAPT.MT",
                   "SP.POP.TOTL", "SI.DST.50MD", "SI.POV.GINI", "SE.SEC.CMPT.LO.ZS", "IT.NET.USER.ZS"]
+# Todos los países, con nombres en español, para "si tu provincia fuera un país"
+FUENTES["bm_paises.json"] = "https://api.worldbank.org/v2/es/country?format=json&per_page=400"
+for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
+    FUENTES[f"bm_mundo_{_ind}.json"] = f"https://api.worldbank.org/v2/es/country/all/indicator/{_ind}?format=json&per_page=20000&date=2015:2030"
 for _ind in BM_INDICADORES:
     FUENTES[f"bm_{_ind}.json"] = (f"https://api.worldbank.org/v2/country/{';'.join(['ARG'] + OCDE)}/indicator/{_ind}"
                                    "?format=json&per_page=20000&date=1990:2030")
@@ -237,12 +246,17 @@ VALIDA = {
     "ciam_superficie_provincias.csv": lambda b: b"superficie" in b[:80],
 }
 VALIDA.update({
+    "aif_provincias.xlsx": lambda b: b[:2] == b"PK",
+    "deis_natalidad.csv": lambda b: b"natalidad" in b[:300],
     "indec_tablas_mortalidad.csv": lambda b: b"Jurisdiccion_cod" in b[:40],
     "enacom_internet_accesos.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
     "enacom_internet_velocidad.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
     "exportaciones_provincias.csv": lambda b: b.startswith(b"indice_tiempo"),
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
 })
+VALIDA["bm_paises.json"] = lambda b: b'"capitalCity"' in b
+for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
+    VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
 for _ind in BM_INDICADORES:
     VALIDA[f"bm_{_ind}.json"] = lambda b: b.lstrip()[:1] == b"[" and b'"countryiso3code"' in b
 
@@ -256,7 +270,30 @@ def bajar(nombre, url):
     (CRUDO / nombre).write_bytes(datos)
 
 
+def departamentos():
+    """SNIC por departamento (70 MB) y poblacion identificada del RENAPER por departamento.
+    Se bajan a memoria y se guarda solo un resumen chico en datos/crudo/."""
+    import io, pandas as pd
+    snic = pd.read_csv(io.BytesIO(leer("https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-departamentos-anual.csv", 600)), sep=";",
+                       dtype={"departamento_id": str, "provincia_id": str}, decimal=",",
+                       usecols=["anio", "provincia_id", "departamento_id", "departamento_nombre", "codigo_delito_snic_nombre",
+                                "cantidad_hechos", "cantidad_victimas", "tasa_hechos", "tasa_victimas"])
+    ult = int(snic.anio.max())
+    snic = snic[(snic.anio >= ult - 2) & snic.codigo_delito_snic_nombre.isin(
+        ["Homicidios dolosos", "Muertes en accidentes viales", "Robos (excluye los agravados por el resultado de lesiones y/o muertes)"])]
+    snic.to_csv(CRUDO / "snic_departamentos_resumen.csv", index=False)
+    ren = pd.read_csv(io.BytesIO(leer("https://datosabiertos.renaper.gob.ar/poblacion_identificada_departamento_junio_2026.csv", 300)))
+    ren = ren.groupby(["provincia_id", "departamento_id", "nombre_departamento", "edad_quinquenal", "pais_nacimiento"], as_index=False).cantidad.sum()
+    ren.to_csv(CRUDO / "renaper_departamentos_resumen.csv", index=False)
+
+
 registro = []
+try:
+    departamentos()
+    registro.append(["departamentos (resumen)", "SNIC y RENAPER por departamento", datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
+except Exception as e:  # si falla se conservan los resumenes anteriores
+    registro.append(["departamentos (resumen)", "SNIC y RENAPER por departamento", datetime.datetime.now().isoformat(timespec="seconds"), f"error: {e}"])
+    print("departamentos: error", e)
 for nombre, url in FUENTES.items():
     try:
         bajar(nombre, url)
