@@ -9,7 +9,7 @@
 <script>document.documentElement.classList.add("js")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <style>
@@ -87,6 +87,7 @@ select option{background:var(--bg);color:var(--ink)}
 .portada-texto>:nth-child(2){animation-delay:.12s}
 .portada-texto>:nth-child(3){animation-delay:.24s}
 .portada-texto>:nth-child(4){animation-delay:.34s}
+.portada-texto>:nth-child(5){animation-delay:.42s}
 .portada-sol{justify-self:end;width:min(620px,48vw)}
 
 /* Sol de Mayo: 16 rayos rectos y 16 flamígeros alternados alrededor del rostro */
@@ -303,14 +304,138 @@ footer p{max-width:40em}
   .js .ficha{transform:none!important;transition:opacity .3s ease!important}
   .conmutador::before,.accion,.boton{transition:none!important}
 }
+
+/* ================================================================
+   Rediseño inspirado en hermes-agent.nousresearch.com, con la paleta de Datina:
+   bloque de color a sangre en la portada, tipografía ultra condensada, marco fino alrededor
+   de la ventana, formas rectas, divisores punteados y etiquetas monoespaciadas.
+   ================================================================ */
+:root{--azul:#2C74B5;--azul-hondo:#1F5E97;--fondo:#F6F8FB;--mono:"Roboto Mono",ui-monospace,Menlo,Consolas,monospace}
+body{background:var(--fondo)}
+body::after{content:"";position:fixed;inset:0;border:5px solid var(--azul);pointer-events:none;z-index:40}
+.cond{font-variation-settings:"wdth" 25,"opsz" 144}
+
+/* barra: menú repartido a los dos lados del logo, azul sobre la portada y clara después */
+.barra{background:var(--azul);border-top:0;transition:background-color .25s ease,box-shadow .25s ease;backdrop-filter:none;-webkit-backdrop-filter:none}
+.barra .envoltura{max-width:1180px;height:78px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:28px;overflow:visible}
+.barra .temas{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  font-variation-settings:"wdth" 60,"opsz" 14;color:rgba(255,255,255,.86)}
+.barra .temas a{padding:6px 0;transition:color .2s ease}
+.barra .temas a[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
+.barra .marca{grid-column:2;font-size:30px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
+  font-variation-settings:"wdth" 25,"opsz" 144;padding-top:8px}
+.barra.clara{background:rgba(246,248,251,.94);box-shadow:0 1px 0 rgba(44,116,181,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.barra.clara .temas{color:var(--azul)}
+.barra.clara .temas a[aria-current="true"]{color:var(--ink)}
+.barra.clara .marca{color:var(--azul)}
+@media (hover:hover) and (pointer:fine){.barra .temas a:hover{color:#fff}.barra.clara .temas a:hover{color:var(--ink)}}
+
+/* gorro frigio sobre la I, como sobre la pica del escudo */
+.i-gorro{position:relative;display:inline-block}
+.i-gorro .gorro{position:absolute;left:50%;top:auto;bottom:.705em;width:.3em;height:auto;transform:translateX(-50%) rotate(-8deg);transform-origin:50% 100%}
+.marca .i-gorro .gorro{bottom:.72em;width:.44em;top:auto}
+.gorro-brillo{fill:none;stroke:rgba(255,255,255,.35);stroke-width:1.6;stroke-linecap:round}
+.portada h1 .gorro{animation:posar .8s var(--ease-out) .55s both}
+@keyframes posar{from{opacity:0;transform:translateX(-50%) translateY(-.25em) rotate(-30deg)}}
+
+/* portada: bloque azul a sangre */
+.portada{background:var(--azul);color:#fff;border-bottom:0}
+.portada-grid{min-height:min(calc(100dvh - 78px),820px)}
+.portada-texto{margin-top:clamp(12px,5vh,60px)}
+.portada-texto::before{background:radial-gradient(closest-side,rgba(44,116,181,.92) 60%,rgba(44,116,181,0))}
+.portada h1{font-size:clamp(104px,15vw,230px);line-height:.8;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;color:#fff;
+  font-variation-settings:"wdth" 25,"opsz" 144;margin:0 0 18px;padding-top:.28em}
+.portada .lema{font-size:clamp(24px,2.8vw,36px);line-height:1.05;font-weight:500;color:#fff;text-transform:uppercase;letter-spacing:.01em;
+  font-variation-settings:"wdth" 30,"opsz" 144;margin:0 0 18px}
+.portada p{color:rgba(255,255,255,.84);font-size:18px;max-width:27em;margin:0 0 26px}
+.estado{display:inline-grid;grid-template-columns:repeat(3,auto);border:1px solid rgba(255,255,255,.35);background:var(--azul-hondo);
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:#fff}
+.estado span{padding:9px 14px;border-left:1px dotted rgba(255,255,255,.4);white-space:nowrap}
+.estado span:first-child{border-left:0}
+.estado b{font-weight:600;color:var(--sol)}
+
+/* mapa y sol sobre azul: líneas finas blancas, como un grabado */
+.mapa-fondo .esfera{stroke:rgba(255,255,255,.3)}
+.mapa-fondo .grat{stroke:rgba(255,255,255,.1)}
+.mapa-fondo .tierra{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.3)}
+.mapa-fondo .arg{fill:var(--celeste);stroke:#fff;stroke-width:1}
+.mapa-fondo .anillo{stroke:#fff;stroke-opacity:.35}
+.sol .rafaga line{stroke:#fff;stroke-width:.32;stroke-linecap:round}
+.sol .rafaga{opacity:.55;transform-box:view-box;transform-origin:0 0;animation:girar 240s linear infinite reverse}
+
+/* secciones: títulos condensados enormes con un mini sol */
+.tema{padding-top:36px}
+.tema>h2{font-size:clamp(64px,9vw,112px);line-height:.86;font-weight:400;letter-spacing:-.005em;color:var(--azul);
+  font-variation-settings:"wdth" 25,"opsz" 144;margin:96px 0 26px;position:relative;display:inline-block}
+.tema>h2::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
+  background:radial-gradient(circle,var(--sol) 34%,transparent 37%),repeating-conic-gradient(var(--sol) 0 7deg,transparent 7deg 22.5deg)}
+
+/* tarjetas rectas, sin sombra */
+.ficha{border-radius:0;box-shadow:none;border:1px solid #D9E3EE;padding:34px 36px 24px}
+@media (hover:hover) and (pointer:fine){.ficha:hover{border-color:var(--celeste)}}
+.etiqueta{background:none;border-radius:0;padding:0;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink)}
+.etiqueta::before{content:"# ";color:var(--azul)}
+.ficha h3{font-size:clamp(30px,4vw,44px);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);
+  font-variation-settings:"wdth" 35,"opsz" 144;max-width:none}
+.clave .num{font-variation-settings:"wdth" 30,"opsz" 144;font-weight:500;font-size:clamp(56px,8vw,88px);letter-spacing:-.01em}
+.pie{border-top:1px dotted var(--azul)}
+.accion{border-radius:0;border:1px solid var(--azul);font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;padding:8px 12px}
+@media (hover:hover) and (pointer:fine){.accion:hover{background:var(--azul);color:#fff}}
+.boton{border-radius:0;text-transform:uppercase;letter-spacing:.06em;font-size:14px;font-variation-settings:"wdth" 60,"opsz" 14;padding:11px 18px}
+.conmutador{border-radius:0;background:transparent;border:1px solid var(--azul);padding:2px}
+.conmutador::before{border-radius:0;background:var(--azul);box-shadow:none;top:2px;bottom:2px;left:2px;width:calc((100% - 4px) / var(--n,2))}
+.conmutador button{border-radius:0;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--azul);
+  font-variation-settings:"wdth" 70,"opsz" 14}
+.conmutador button[aria-pressed="true"],.conmutador button[aria-selected="true"]{color:#fff}
+.tip{border-radius:0;background:var(--azul-hondo);font-family:var(--mono);font-size:12px}
+.tabla-desliza,.elige-btn,.elige-panel,.elige-lista li,.dp,.ayuda{border-radius:0}
+
+/* preguntas: condensadas y azules, como las preguntas frecuentes de la referencia */
+.preguntas{padding-top:64px}
+.rotador{border-left:0;padding:22px 0 18px;border-top:1px dotted var(--azul);border-bottom:1px dotted var(--azul)}
+.rot-q{font-size:clamp(28px,3.6vw,42px);line-height:1.02;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 45,"opsz" 144;margin-bottom:12px}
+@media (hover:hover) and (pointer:fine){.rot-q:hover{color:var(--ink)}}
+.rot-control button{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.rot-barra i{background:var(--sol)}
+
+/* las 24 */
+.provincias h2{font-size:clamp(56px,8vw,100px);line-height:.88;font-weight:400;color:var(--azul);font-variation-settings:"wdth" 25,"opsz" 144}
+.elige-lab{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+.elige-btn{border-color:var(--azul)}
+.dp{border:0;border-top:1px dotted var(--azul);background:transparent;padding:16px 4px 14px}
+.prov-grid{gap:4px 28px}
+.dp-lab{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
+.dp-num{font-variation-settings:"wdth" 30,"opsz" 144;font-weight:500;font-size:46px;color:var(--azul)}
+
+footer{border-top:1px dotted var(--azul);margin-top:80px}
+footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weight:500;color:var(--azul)}
+
+@media (max-width:760px){
+  .barra .envoltura{grid-template-columns:1fr;height:62px}
+  .barra .temas{display:none}
+  .barra .marca{grid-column:1;justify-self:center;font-size:26px}
+  .portada h1{font-size:clamp(96px,30vw,150px)}
+  .estado{grid-template-columns:1fr;width:100%}
+  .estado span{border-left:0;border-top:1px dotted rgba(255,255,255,.4)}
+  .estado span:first-child{border-top:0}
+  .ficha{padding:24px 18px 18px}
+  .tema>h2{margin-top:64px}
+  .dp{padding:14px 16px;border:1px solid #D9E3EE;background:#fff}
+}
+@media (prefers-reduced-motion:reduce){.sol .rafaga{animation:none}}
 </style>
 </head>
 <body>
 <header class="barra">
   <div class="envoltura">
-    <a class="marca" href="#inicio">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 36" aria-hidden="true"><path class="gorro-cuerpo" d="M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z"/><path class="gorro-banda" d="M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z"/></svg></span>na</a>
-    <nav class="temas" aria-label="Temas">
-      <a href="#energia">Energía</a><a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#naturaleza">Flora y fauna</a><a href="#turismo">Turismo</a><a href="#salud">Salud</a><a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#movilidad">Movilidad</a><a href="#curiosidades">Curiosidades</a>
+    <a class="marca" href="#inicio">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    <nav class="temas" aria-label="Temas, primera parte" style="grid-column:1;grid-row:1">
+      <a href="#energia">Energía</a><a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#naturaleza">Flora y fauna</a><a href="#turismo">Turismo</a>
+    </nav>
+    <nav class="temas" aria-label="Temas, segunda parte" style="grid-column:3;grid-row:1">
+      <a href="#salud">Salud</a><a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#movilidad">Movilidad</a><a href="#curiosidades">Curiosidades</a>
     </nav>
   </div>
 </header>
@@ -319,12 +444,14 @@ footer p{max-width:40em}
   <svg class="mapa-fondo" id="mapa" aria-hidden="true"></svg>
   <div class="portada-grid">
     <div class="portada-texto">
-      <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 36" aria-hidden="true"><path class="gorro-cuerpo" d="M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z"/><path class="gorro-banda" d="M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z"/></svg></span>na</h1>
+      <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
       <p class="lema">Las 24 Argentinas en números</p>
       <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
+      <div class="estado" id="estado" aria-label="Estado de los datos"></div>
     </div>
     <div class="portada-sol">
       <svg class="sol" id="sol" viewBox="-100 -100 200 200" role="img" aria-label="Sol de Mayo">
+        <g class="rafaga" id="sol-rafaga"></g>
         <g class="giro" id="sol-rayos"></g>
         <g class="rostro">
           <circle class="disco" r="30"/>
@@ -790,6 +917,15 @@ const tip = document.getElementById("tip");
     p.setAttribute("class", i % 2 ? "rayo flama" : "rayo"); p.setAttribute("d", i % 2 ? flama : recto);
     if (i % 2) p.style.setProperty("--i", i);
     n.appendChild(p); g.appendChild(n); cont.appendChild(g);
+  }
+  // ráfaga de líneas finas, como en un grabado: largos irregulares pero fijos
+  const rafaga = document.getElementById("sol-rafaga");
+  for (let i = 0; i < 144; i++) {
+    const a = i * 2.5 * Math.PI / 180, largo = 104 + 22 * Math.abs(Math.sin(i * 12.9898) * 1.7 % 1);
+    const l = document.createElementNS(NS, "line");
+    l.setAttribute("x1", (Math.cos(a) * 36).toFixed(2)); l.setAttribute("y1", (Math.sin(a) * 36).toFixed(2));
+    l.setAttribute("x2", (Math.cos(a) * largo).toFixed(2)); l.setAttribute("y2", (Math.sin(a) * largo).toFixed(2));
+    rafaga.appendChild(l);
   }
   const svg = document.getElementById("sol");
   new IntersectionObserver(es => es.forEach(en => svg.classList.toggle("quieto", !en.isIntersecting))).observe(svg);
@@ -1602,6 +1738,10 @@ const PREG = [
   mostrar(0, false);
 })();
 
+/* recuadro de estado de la portada */
+document.getElementById("estado").innerHTML =
+  `<span><b>${document.querySelectorAll("article.ficha").length}</b> fichas</span><span><b>24</b> jurisdicciones</span><span>actualizado <b>${R.actualizado}</b></span>`;
+
 /* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */
 const vistas = new IntersectionObserver(es => es.forEach(en => {
   if (!en.isIntersecting) return;
@@ -1620,8 +1760,8 @@ secciones.forEach(s => io.observe(s));
 
 /* la barra superior se separa del contenido recién cuando se deja la portada */
 const barra = document.querySelector(".barra");
-new IntersectionObserver(([en]) => barra.classList.toggle("con-borde", !en.isIntersecting), {rootMargin: "-80px 0px 0px 0px"})
-  .observe(document.querySelector(".portada-texto"));
+new IntersectionObserver(([en]) => barra.classList.toggle("clara", !en.isIntersecting && en.boundingClientRect.top < 0), {rootMargin: "-80px 0px 0px 0px"})
+  .observe(document.querySelector(".portada"));
 
 /* enlaces compartidos del tipo #f-empleo?prov=30: llevar a la ficha */
 if (location.hash.includes("?")) {
@@ -1664,6 +1804,8 @@ async function mapa() {
     el.classList.add("listo");
   };
   dibujar();
+  // la tipografía condensada cambia el alto del texto: se recalcula cuando termina de cargar
+  if (document.fonts) document.fonts.ready.then(dibujar);
   let ancho = por.clientWidth, t;
   new ResizeObserver(() => { if (por.clientWidth === ancho) return; ancho = por.clientWidth; clearTimeout(t); t = setTimeout(dibujar, 150); }).observe(por);
 }
