@@ -1,0 +1,25 @@
+codigo_indec,territorio,millones_usd,usd_por_habitante,rubro_principal,primarios,manufacturas_agro,manufacturas_industriales,combustibles_energia
+06,Buenos Aires,29143.56,1670.75,manufacturas_industriales,5445.56,9430.02,11247.59,3020.39
+10,Catamarca,325.16,740.65,manufacturas_industriales,32.2,11.36,281.6,0.0
+22,Chaco,401.72,332.65,primarios,326.61,70.37,4.74,0.0
+26,Chubut,3509.22,5825.9,combustibles_energia,685.9,88.77,993.81,1740.74
+02,CABA,363.04,117.88,manufacturas_industriales,0.0,37.32,325.72,0.0
+14,Córdoba,9964.57,2517.85,manufacturas_agro,3981.77,4242.03,1718.16,22.61
+18,Corrientes,257.69,214.05,primarios,121.85,103.09,32.75,0.0
+30,Entre Ríos,1396.53,957.06,primarios,779.38,532.72,83.7,0.74
+34,Formosa,37.06,59.13,primarios,32.28,4.53,0.25,0.0
+38,Jujuy,1060.41,1324.28,primarios,465.2,169.3,425.91,0.0
+42,La Pampa,1025.08,2720.54,primarios,776.82,210.29,5.14,32.84
+46,La Rioja,181.64,450.07,manufacturas_agro,7.02,112.53,62.09,0.0
+50,Mendoza,1566.29,765.09,manufacturas_agro,217.64,1006.07,249.59,92.98
+54,Misiones,440.57,327.72,manufacturas_agro,51.81,249.97,138.79,0.0
+58,Neuquén,3807.8,5417.91,combustibles_energia,55.38,13.89,67.39,3671.13
+62,Río Negro,601.03,762.09,primarios,302.1,110.28,4.6,184.05
+66,Salta,1279.76,860.91,primarios,835.18,89.56,316.77,38.25
+70,San Juan,1820.74,2144.28,manufacturas_industriales,72.84,154.78,1593.13,0.0
+74,San Luis,641.74,1196.88,primarios,287.43,213.26,141.04,0.0
+78,Santa Cruz,2267.38,6769.25,manufacturas_industriales,315.9,55.23,1619.5,276.76
+82,Santa Fe,14658.05,3978.27,manufacturas_agro,1354.87,11679.72,1487.77,135.69
+86,Santiago del Estero,1317.35,1246.57,primarios,1257.81,58.83,0.7,0.0
+94,Tierra del Fuego,412.28,2265.23,combustibles_energia,59.77,11.68,41.9,298.93
+90,Tucumán,946.59,533.72,manufacturas_industriales,219.24,358.66,366.23,2.45

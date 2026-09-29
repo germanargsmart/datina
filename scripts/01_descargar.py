@@ -191,6 +191,31 @@ FUENTES = {
 
 FUENTES.update(femicidios())
 
+# Indicadores provinciales que no publica Argendata (Fundar), para las fichas nuevas y el explorador de cruces
+FUENTES.update({
+    # Tablas de mortalidad 2020 a 2022 del INDEC: esperanza de vida al nacer por provincia y sexo
+    "indec_tablas_mortalidad.csv": "https://censo.gob.ar/wp-content/uploads/2025/10/tabla_mortalidad_2020_2022_base_csv.csv",
+    # ENACOM: accesos a internet fijo cada 100 hogares y velocidad media de bajada, por provincia y trimestre
+    "enacom_internet_accesos.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv",
+    "enacom_internet_velocidad.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv",
+    # Exportaciones por provincia de origen y rubro, millones de dólares (INDEC OPEX vía Secretaría de Política Económica)
+    "exportaciones_provincias.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/350/distribution/350.1/download/exportaciones-provincia-rubro.csv",
+    # Personas nacidas en otro país identificadas por el RENAPER, por provincia de residencia
+    "renaper_extranjeros.csv": "https://datosabiertos.renaper.gob.ar/poblacion_extranjera_identificada_provincia_junio_206.csv",
+})
+
+# Comparación con la OCDE: Indicadores del Desarrollo Mundial del Banco Mundial para la Argentina y los 38 países miembros.
+# El promedio se calcula en 02_procesar.py como promedio simple de los miembros, igual que el "promedio OCDE" de sus informes.
+OCDE = ("AUS AUT BEL CAN CHL COL CRI CZE DNK EST FIN FRA DEU GRC HUN ISL IRL ISR ITA JPN KOR LVA LTU LUX MEX "
+        "NLD NZL NOR POL PRT SVK SVN ESP SWE CHE TUR GBR USA").split()
+BM_INDICADORES = ["SP.DYN.TFRT.IN", "SP.ADO.TFRT", "SP.DYN.IMRT.IN", "SP.DYN.LE00.IN", "SH.XPD.CHEX.GD.ZS",
+                  "SH.STA.SUIC.P5", "VC.IHR.PSRC.P5", "SH.STA.TRAF.P5", "SL.UEM.TOTL.ZS", "SL.EMP.TOTL.SP.ZS",
+                  "EG.USE.ELEC.KH.PC", "EN.GHG.CO2.PC.CE.AR5", "ER.LND.PTLD.ZS", "ST.INT.ARVL", "ER.FSH.CAPT.MT",
+                  "SP.POP.TOTL", "SI.DST.50MD", "SI.POV.GINI", "SE.SEC.CMPT.LO.ZS", "IT.NET.USER.ZS"]
+for _ind in BM_INDICADORES:
+    FUENTES[f"bm_{_ind}.json"] = (f"https://api.worldbank.org/v2/country/{';'.join(['ARG'] + OCDE)}/indicator/{_ind}"
+                                   "?format=json&per_page=20000&date=1990:2030")
+
 # Controles para no pisar un archivo bueno con una pagina de error o de inicio de sesion
 VALIDA = {
     "aprender_primaria_matematica.csv": lambda b: b"jurisdiccion" in b[:40],
@@ -211,6 +236,15 @@ VALIDA = {
     "ciam_areas_protegidas_provincias.csv": lambda b: b"jurisdicciones" in b[:60],
     "ciam_superficie_provincias.csv": lambda b: b"superficie" in b[:80],
 }
+VALIDA.update({
+    "indec_tablas_mortalidad.csv": lambda b: b"Jurisdiccion_cod" in b[:40],
+    "enacom_internet_accesos.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
+    "enacom_internet_velocidad.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
+    "exportaciones_provincias.csv": lambda b: b.startswith(b"indice_tiempo"),
+    "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
+})
+for _ind in BM_INDICADORES:
+    VALIDA[f"bm_{_ind}.json"] = lambda b: b.lstrip()[:1] == b"[" and b'"countryiso3code"' in b
 
 
 def bajar(nombre, url):

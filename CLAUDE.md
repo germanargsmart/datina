@@ -57,6 +57,31 @@ Los textos se generan desde `resumen`, nunca con cifras escritas a mano, así se
 - Sin flechas decorativas ni estética de plantilla genérica. Etiquetas directas en las líneas en lugar de leyendas.
 - Solo modo claro (todo blanco, pedido del autor). Responsive, foco visible, respeta movimiento reducido.
 
+## Comparación con la OCDE (septiembre 2026, pedido del autor)
+
+- Doce fichas llevan un bloque "Frente a la OCDE" (objeto `OCDE_FICHAS` en `plantilla.html`), al estilo de las páginas de país del Banco Mundial: la Argentina, el promedio OCDE y una franja con la mitad central de los países (percentil 25 a 75).
+- Fuente: Indicadores del Desarrollo Mundial del Banco Mundial (`bm_*.json` en `datos/crudo/`, lista en `BM_INDICADORES` de `01_descargar.py`). El promedio OCDE se calcula en `02_procesar.py` como promedio simple de los 38 miembros, igual que en los informes de la OCDE, y solo en los años con dato para al menos 29 países. Se guarda también la mediana: si difiere más de 25% del promedio, el texto la menciona.
+- Son estimaciones armonizadas (OMS, ONU, OIT) y pueden diferir de las cifras nacionales de cada ficha. El texto lo aclara siempre. Mortalidad infantil, esperanza de vida y área protegida muestran además una línea punteada azul con el promedio OCDE en el gráfico por provincia.
+
+## Datos provinciales que no están en Argendata
+
+Relevamiento de septiembre de 2026: Argendata (Fundar) es casi toda nacional. Tiene por provincia PBG per cápita, NBI censal, fecundidad, informalidad y tasa de empleo (EPH), I+D y pernoctes. No duplicarlos. Se sumaron:
+- Esperanza de vida al nacer por provincia y sexo (INDEC, tablas de mortalidad 2020 a 2022). 2020 y 2021 reflejan la pandemia.
+- Censo 2022: agua de red, cloacas, internet, computadora, NBI y personas sin obra social, prepaga ni plan estatal. El INDEC publica un ZIP por provincia con resultados por radio censal (unos 800 MB). `scripts/censo_2022.py` se corre una sola vez y guarda el resumen en `datos/manual/censo2022_provincias.csv`. Cloacas usa la variable `HOGAR_H15_17_18` sobre todos los hogares.
+- Internet fijo (ENACOM): accesos cada 100 hogares y velocidad media, trimestral. Los nombres de provincia vienen sin código ("Tierra Del Fuego").
+- Exportaciones por provincia de origen (INDEC OPEX vía SSPM, dataset 350), en dólares por habitante.
+- Personas nacidas en otro país identificadas por el RENAPER (el archivo se llama `..._junio_206.csv`: es junio de 2026).
+- Pendientes verificados: salario medio SIPA por provincia (OEDE, un Excel por jurisdicción, con GBA separado), transferencias RON por provincia (Excel anual de la DNAP) y empleo público. El IDH provincial del PNUD es de 2016 y el de Global Data Lab solo tiene seis regiones.
+
+## Explorador de cruces
+
+- Sección `#cruces`, tarjeta `f-cruces` (clase `explorador`, no cuenta como ficha en el recuadro de estado). Tabla `cruces_provincias.csv` con una fila por jurisdicción y metadatos en `resumen.cruces` (objeto `CRUCES_META` de `02_procesar.py`: nombre, unidad, período, tema, fuente, ficha, decimales). Para sumar un indicador, agregar la columna a `cru` y su entrada en `CRUCES_META`.
+- Solo tasas, porcentajes o valores por habitante. Las tasas de suicidio quedan fuera, igual que en el perfil provincial.
+- Tres vistas: dispersión con recta de mínimos cuadrados, intervalo del 95%, r de Pearson, R², Spearman y valor p (todo calculado en el navegador); matriz de correlaciones que abre cada par al tocarlo; regresión múltiple con variables estandarizadas, hasta cuatro explicativas, intervalos y VIF.
+- Honestidad estadística obligatoria: advertir que son 24 casos, que correlación no es causalidad, que son promedios provinciales (falacia ecológica), cuándo los períodos no coinciden, cuándo Spearman difiere mucho de Pearson y qué jurisdicción mueve más la recta (distancia de Cook).
+- El cruce se comparte en el enlace: `?cx=...&cy=...&cf=02,94` (jurisdicciones fuera del cálculo).
+- Benchmark que guió el diseño: OECD Regional eXplorer y Regional Well-Being, Eurostat Regions and Cities Illustrated, Gapminder, Our World in Data, Global Data Lab, Opportunity Atlas y el Atlas de Desarrollo Humano de Brasil (el más parecido: unidades federales con módulo de correlación).
+
 ## Reglas para temas sensibles (suicidio)
 
 - Nunca usar ni mostrar las columnas de modalidad, lugar u hora de la base SAT del SNIC. Solo año, edad y sexo.
@@ -70,7 +95,7 @@ Los textos se generan desde `resumen`, nunca con cifras escritas a mano, así se
 - RENAPER deja sin código a Córdoba, Entre Ríos, Neuquén, Río Negro y Tucumán. Se completan por nombre en `02_procesar.py`.
 - DEIS (datos.salud.gob.ar) cambia el nombre del archivo de mortalidad infantil con cada año nuevo ("1990-2024"). `01_descargar.py` busca el CSV vigente en el catálogo del portal con `ckan_csv()`. En provincias con pocos nacimientos la tasa anual salta mucho: la ficha compara promedios de tres años.
 - SUBE: la copia en la API de Series de Tiempo quedó detenida en enero de 2026. Se baja directo de archivos-datos.transporte.gob.ar (`total-usuarios-por-dia.csv`, se actualiza a diario). Los archivos de viajes por línea y provincia (`dat-ab-usos-AAAA.csv`) pesan 50 a 65 MB por año y no se guardan en el repositorio. La ficha usa la mediana de los días hábiles de cada mes y solo meses completos.
-- No hay una serie descargable del INDEC con población provincial 2025. Se sigue usando la derivada del SNIC.
+- Población provincial: el INDEC publicó en octubre de 2025 las proyecciones 2022 a 2040 por jurisdicción (`censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv`). Todavía se usa la derivada del SNIC, que sale de esas mismas proyecciones. Reemplazarla es un pendiente.
 - Naturaleza. Superficie protegida por provincia: CIAM del Ministerio de Ambiente (`dt_csv.php?dt_id=394`, el año sale del nombre del archivo que informa el servidor, guardado en `ciam_meta.json`). La fuente suma la superficie de cada designación, así que puede haber superposiciones. Historia de las áreas nacionales, superficie y especies: API del SIB (`sib.gob.ar/api/2.0.0/ficha-area-protegida/areas-protegidas`), solo áreas APN. El año es el de creación con la superficie actual, sin ampliaciones. Las especies registradas dependen del esfuerzo de investigación. Las áreas provinciales no tienen superficie completa en el SIB. Visitas a parques nacionales: SINTA, mensual desde 2008, solo por región (no hay datos abiertos por parque).
 - Turismo. No existe una serie abierta y larga por provincia: el Padrón Único de Alojamiento (PUNA) fue retirado de los portales, y la Encuesta de Ocupación Hotelera solo tiene siete regiones y termina en noviembre de 2025. Se usan: turistas no residentes (SINTA, mensual desde 2010), viajeros en hoteles por región (EOH, desde 2007) y la Encuesta de Turismo Internacional por provincia visitada (desde 2022, solo quienes salen por Ezeiza y Aeroparque, sesgada hacia CABA y las provincias con vuelos internacionales).
 - Visitas por parque nacional: no hay datos abiertos por parque. `datos/manual/visitas_por_parque_2022.csv` se extrajo a mano del Anuario Estadístico de Turismo 2022 (Tabla 5.2, página 178 del PDF de tableros.yvera.tur.ar) y 2019 se calcula con la variación publicada. No se actualiza sola: cuando salga un anuario nuevo, repetir la extracción (el total debe coincidir con "Total país").

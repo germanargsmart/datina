@@ -601,11 +601,250 @@ d["codigo_indec"], d["territorio"] = "00", "Argentina"
 agregar(d, "desvio_temperatura_media_anual", "grados C", "Servicio Meteorologico Nacional, via CIAM")
 cal = clima.sort_values("desvio_temperatura").iloc[-1]; fri_ = clima.sort_values("desvio_temperatura").iloc[0]
 
-# ---------------------------------------------------------------- salida
-pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False)
+# ---------------------------------------------------------------- comparacion con la OCDE
+# Indicadores del Desarrollo Mundial (Banco Mundial) para la Argentina y los 38 paises miembros.
+# El promedio OCDE es el promedio simple de los miembros con dato ese anio, como en los informes de la OCDE.
+# Solo se usan los anios con dato para al menos 29 de los 38 miembros (tres cuartos).
+def bm(serie):
+    filas = json.loads((CRUDO / f"bm_{serie}.json").read_text(encoding="utf-8"))[1]
+    d = pd.DataFrame([{"pais": x["countryiso3code"], "anio": int(x["date"]), "valor": x["value"]} for x in filas])
+    return d.dropna(subset=["valor"])
+
+
+bm_pob = bm("SP.POP.TOTL").rename(columns={"valor": "pob"})
+
+
+def por_habitante(serie, factor):
+    d = bm(serie).merge(bm_pob, on=["pais", "anio"])
+    d["valor"] = d.valor / d.pob * factor
+    return d[["pais", "anio", "valor"]]
+
+
+# id: (serie, frase para el texto, unidad, decimales, fuente original)
+OCDE_META = {
+    "fecundidad": ("SP.DYN.TFRT.IN", "la tasa global de fecundidad", "hijos por mujer", 2, "División de Población de las Naciones Unidas"),
+    "fecundidad_adolescente": ("SP.ADO.TFRT", "la tasa de fecundidad adolescente", "nacimientos por cada 1.000 mujeres de 15 a 19 años", 1, "División de Población de las Naciones Unidas"),
+    "mortalidad_infantil": ("SP.DYN.IMRT.IN", "la tasa de mortalidad infantil", "muertes de menores de un año por cada 1.000 nacidos vivos", 1, "Grupo Interinstitucional de las Naciones Unidas para la Estimación de la Mortalidad Infantil"),
+    "esperanza_vida": ("SP.DYN.LE00.IN", "la esperanza de vida al nacer", "años", 1, "División de Población de las Naciones Unidas"),
+    "gasto_salud": ("SH.XPD.CHEX.GD.ZS", "el gasto corriente en salud", "% del producto interno bruto", 1, "Organización Mundial de la Salud"),
+    "suicidio": ("SH.STA.SUIC.P5", "la tasa de suicidios ajustada por edad que estima la OMS", "por cada 100.000 habitantes", 1, "Organización Mundial de la Salud"),
+    "homicidios": ("VC.IHR.PSRC.P5", "la tasa de homicidios intencionales", "por cada 100.000 habitantes", 1, "Oficina de las Naciones Unidas contra la Droga y el Delito"),
+    "viales": ("SH.STA.TRAF.P5", "la tasa de muertes en siniestros viales que estima la OMS", "por cada 100.000 habitantes", 1, "Organización Mundial de la Salud"),
+    "desocupacion": ("SL.UEM.TOTL.ZS", "la tasa de desocupación", "% de la población económicamente activa", 1, "Organización Internacional del Trabajo, estimación modelada"),
+    "empleo": ("SL.EMP.TOTL.SP.ZS", "la tasa de empleo", "% de la población de 15 años o más", 1, "Organización Internacional del Trabajo, estimación modelada"),
+    "electricidad": ("EG.USE.ELEC.KH.PC", "el consumo de electricidad por habitante", "kilovatios hora por año", 0, "Agencia Internacional de Energía"),
+    "co2": ("EN.GHG.CO2.PC.CE.AR5", "la emisión de dióxido de carbono por habitante (sin contar el cambio de uso del suelo)", "toneladas por año", 1, "Base EDGAR de la Comisión Europea"),
+    "protegida": ("ER.LND.PTLD.ZS", "la superficie terrestre protegida", "% del territorio", 1, "Base Mundial de Áreas Protegidas (PNUMA-WCMC)"),
+    "turistas": ("ST.INT.ARVL", "la llegada de turistas internacionales", "turistas por cada 100 habitantes", 0, "ONU Turismo"),
+    "pesca": ("ER.FSH.CAPT.MT", "la pesca de captura", "kilos por habitante por año", 1, "Organización de las Naciones Unidas para la Alimentación y la Agricultura"),
+    "pobreza_relativa": ("SI.DST.50MD", "la proporción de personas con ingresos por debajo de la mitad de la mediana", "% de la población", 1, "Plataforma de Pobreza y Desigualdad del Banco Mundial"),
+    "gini": ("SI.POV.GINI", "el índice de Gini (0 es igualdad total y 100 desigualdad máxima)", "puntos", 1, "Plataforma de Pobreza y Desigualdad del Banco Mundial"),
+    "secundaria": ("SE.SEC.CMPT.LO.ZS", "la tasa de finalización del ciclo básico de la secundaria", "% de la población en edad de terminarlo", 1, "Instituto de Estadística de la UNESCO"),
+    "internet": ("IT.NET.USER.ZS", "el uso de internet", "% de la población", 1, "Unión Internacional de Telecomunicaciones"),
+}
+OCDE_DERIVADO = {"turistas": lambda: por_habitante("ST.INT.ARVL", 100), "pesca": lambda: por_habitante("ER.FSH.CAPT.MT", 1000)}
+ocde_filas, ocde_res = [], {}
+for k, (o_serie, frase, unidad, dec, origen) in OCDE_META.items():
+    o_d = OCDE_DERIVADO[k]() if k in OCDE_DERIVADO else bm(o_serie)
+    o_arg = o_d[o_d.pais == "ARG"].set_index("anio").valor
+    o_mie = o_d[o_d.pais != "ARG"]
+    o_g = o_mie.groupby("anio").valor
+    o_est = pd.DataFrame({"ocde_promedio": o_g.mean(), "ocde_p25": o_g.quantile(.25), "ocde_p75": o_g.quantile(.75),
+                          "ocde_mediana": o_g.median(), "ocde_paises": o_g.count()})
+    o_est = o_est[(o_est.ocde_paises >= 29) & (o_est.index >= 1995)]
+    o_est["argentina"] = o_arg.reindex(o_est.index)
+    o_est = o_est.reset_index()
+    o_est.insert(0, "indicador", k)
+    ocde_filas.append(o_est)
+    o_comun = o_est.dropna(subset=["argentina"])
+    o_u, o_p = o_comun.iloc[-1], o_comun.iloc[0]
+    o_ult = o_mie[o_mie.anio == o_u.anio]
+    ocde_res[k] = {
+        "serie": o_serie, "frase": frase, "unidad": unidad, "dec": dec, "origen": origen,
+        "anio": int(o_u.anio), "arg": round(float(o_u.argentina), dec), "ocde": round(float(o_u.ocde_promedio), dec),
+        "p25": round(float(o_u.ocde_p25), dec), "p75": round(float(o_u.ocde_p75), dec),
+        "mediana": round(float(o_u.ocde_mediana), dec), "n": int(o_u.ocde_paises),
+        "mas_alto": int((o_ult.valor > o_u.argentina).sum()),
+        "ini": int(o_p.anio), "arg_ini": round(float(o_p.argentina), dec), "ocde_ini": round(float(o_p.ocde_promedio), dec),
+    }
+    o_a = o_arg.reset_index().rename(columns={"anio": "periodo"})
+    o_a["codigo_indec"], o_a["territorio"] = "00", "Argentina"
+    agregar(o_a, f"bm_{k}", unidad, f"Banco Mundial ({o_serie}), {origen}")
+ocde_tabla = pd.concat(ocde_filas, ignore_index=True)
+ocde_tabla = ocde_tabla[["indicador", "anio", "argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75", "ocde_paises"]]
+ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]] = ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]].round(3)
 
 MES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
        "septiembre", "octubre", "noviembre", "diciembre"]
+
+# ---------------------------------------------------------------- indicadores provinciales nuevos
+# Datos por provincia que no estan en Argendata (Fundar): esperanza de vida, censo 2022, internet, exportaciones y
+# poblacion nacida en otro pais.
+
+# Esperanza de vida al nacer por provincia y sexo (tablas de mortalidad del INDEC)
+tm = pd.read_csv(CRUDO / "indec_tablas_mortalidad.csv", sep=";", decimal=",", encoding="utf-8-sig")
+tm = tm[tm.Edad == 0]
+ANIO_EV = int(tm["Año"].max())
+ev = (tm[tm["Año"] == ANIO_EV].pivot_table(index="Jurisdiccion_cod", columns="Sexo", values="e")
+      .rename(columns={"A": "total", "M": "mujeres", "V": "varones"}).reset_index())
+ev["codigo_indec"] = ev.Jurisdiccion_cod.map(lambda x: f"{int(x):02d}")
+ev_pais = ev[ev.codigo_indec == "00"].iloc[0]
+ev = ev[ev.codigo_indec != "00"].copy()
+ev["territorio"] = ev.codigo_indec.map(CORTO)
+ev = ev[["codigo_indec", "territorio", "total", "mujeres", "varones"]]
+d = ev.rename(columns={"total": "valor"}); d["periodo"] = ANIO_EV
+agregar(d, "esperanza_vida_al_nacer", "anios", "INDEC, tablas de mortalidad")
+
+# Censo 2022: servicios, equipamiento y cobertura de salud (resumen hecho por scripts/censo_2022.py)
+censo = pd.read_csv(RAIZ / "datos" / "manual" / "censo2022_provincias.csv", dtype={"codigo_indec": str})
+censo["territorio"] = censo.codigo_indec.map(CORTO)
+CENSO_COLS = ["agua_red", "cloaca", "internet", "computadora", "nbi", "sin_cobertura"]
+censo_pais = {c: float((censo[c] * censo[f"{c}_base"]).sum() / censo[f"{c}_base"].sum()) for c in CENSO_COLS}
+for c in CENSO_COLS:
+    d = censo[["codigo_indec", "territorio", c]].rename(columns={c: "valor"}); d["periodo"] = 2022
+    agregar(d, f"censo2022_{c}", "% de hogares" if c != "sin_cobertura" else "% de personas", "INDEC, Censo 2022")
+censo = censo[["codigo_indec", "territorio"] + CENSO_COLS]
+
+# Internet fijo: accesos cada 100 hogares y velocidad media de bajada (ENACOM), ultimo trimestre
+ALIAS = {"santiago del estero": "86", "tierra del fuego": "94"}
+cod2 = lambda t: codigo(t) or ALIAS.get(norm(t))
+ia = pd.read_csv(CRUDO / "enacom_internet_accesos.csv")
+iv = pd.read_csv(CRUDO / "enacom_internet_velocidad.csv")
+for t in (ia, iv):
+    t["codigo_indec"] = t.provincia.map(cod2)
+    assert t.codigo_indec.notna().all(), "Hay provincias de ENACOM sin codigo"
+ult_ia = ia[["anio", "trimestre"]].drop_duplicates().sort_values(["anio", "trimestre"]).iloc[-1]
+TRIM_ENACOM = f"{int(ult_ia.trimestre)}.º trimestre de {int(ult_ia.anio)}"
+sel = lambda t: t[(t.anio == ult_ia.anio) & (t.trimestre == ult_ia.trimestre)].set_index("codigo_indec")
+internet_fijo = pd.DataFrame({"codigo_indec": sorted(CORTO)}).query("codigo_indec != '00'")
+internet_fijo = internet_fijo[internet_fijo.codigo_indec.isin(ia.codigo_indec)].copy()
+internet_fijo["territorio"] = internet_fijo.codigo_indec.map(CORTO)
+internet_fijo["accesos_100_hogares"] = internet_fijo.codigo_indec.map(sel(ia).accesos_cada_100_hogares)
+internet_fijo["mbps"] = internet_fijo.codigo_indec.map(sel(iv).Mbps)
+
+# Exportaciones por provincia de origen, en dolares por habitante (INDEC, via Secretaria de Politica Economica)
+ex = pd.read_csv(CRUDO / "exportaciones_provincias.csv")
+ex["anio"] = pd.to_datetime(ex.indice_tiempo).dt.year
+ANIO_EX = int(ex.anio.max())
+fila_ex = ex[ex.anio == ANIO_EX].iloc[0]
+RUBROS = {"pp": "primarios", "moa": "manufacturas_agro", "moi": "manufacturas_industriales", "cye": "combustibles_energia"}
+exp_prov = []
+for col in ex.columns:
+    if "_total_" not in col or col.startswith("total_"):
+        continue
+    slug = col.split("_total_")[0]
+    cod = codigo(slug.replace("_", " "))
+    if not cod or cod == "00":
+        continue
+    fila = {"codigo_indec": cod, "millones_usd": float(fila_ex[col])}
+    for r, nombre in RUBROS.items():
+        fila[nombre] = float(fila_ex.get(f"{slug}_{r}", 0) or 0)
+    exp_prov.append(fila)
+exp_prov = pd.DataFrame(exp_prov)
+assert len(exp_prov) == 24, "Faltan provincias en las exportaciones"
+exp_prov["territorio"] = exp_prov.codigo_indec.map(CORTO)
+exp_prov["usd_por_habitante"] = exp_prov.millones_usd * 1e6 / exp_prov.codigo_indec.map(POB)
+exp_prov["rubro_principal"] = exp_prov[list(RUBROS.values())].idxmax(axis=1)
+exp_prov = exp_prov[["codigo_indec", "territorio", "millones_usd", "usd_por_habitante", "rubro_principal"] + list(RUBROS.values())]
+EXP_TOTAL = float(fila_ex["total_exportaciones_total_exportaciones"])
+d = exp_prov[["codigo_indec", "territorio", "usd_por_habitante"]].rename(columns={"usd_por_habitante": "valor"}); d["periodo"] = ANIO_EX
+agregar(d, "exportaciones_usd_por_habitante", "dolares por habitante", "INDEC, Origen Provincial de las Exportaciones")
+
+# Personas nacidas en otro pais identificadas por el RENAPER, cada 100 habitantes
+rx = pd.read_csv(CRUDO / "renaper_extranjeros.csv")
+rx["codigo_indec"] = rx.provincia_id.map(lambda x: f"{int(x):02d}")
+extranjeros = rx.groupby("codigo_indec").cantidad.sum().rename("personas").reset_index()
+extranjeros["territorio"] = extranjeros.codigo_indec.map(CORTO)
+extranjeros["cada_100"] = extranjeros.personas / extranjeros.codigo_indec.map(POB) * 100
+top_origen = rx.groupby("pais_nacimiento").cantidad.sum().sort_values(ascending=False)
+
+# ---------------------------------------------------------------- cruces entre indicadores provinciales
+# Una fila por provincia y una columna por indicador, para el explorador de cruces del sitio.
+# Solo tasas, porcentajes o valores por habitante: cruzar totales solo mostraria el tamanio de cada provincia.
+# Las tasas de suicidio quedan fuera, igual que en el perfil provincial.
+REGION = {"02": "CABA", **{c: "Pampeana" for c in ["06", "14", "30", "42", "82"]},
+          **{c: "NOA" for c in ["10", "38", "46", "66", "86", "90"]}, **{c: "NEA" for c in ["18", "22", "34", "54"]},
+          **{c: "Cuyo" for c in ["50", "70", "74"]}, **{c: "Patagonia" for c in ["26", "58", "62", "78", "94"]}}
+cru = pd.DataFrame({"codigo_indec": sorted(REGION)})
+cru["territorio"] = cru.codigo_indec.map(CORTO)
+cru["region"] = cru.codigo_indec.map(REGION)
+cru["poblacion"] = cru.codigo_indec.map(POB).round(0)
+sup = pd.read_csv(CRUDO / "ciam_superficie_provincias.csv", sep=";", dtype=str)
+sup["codigo_indec"] = sup["jurisdicción"].map(codigo)
+sup["km2"] = pd.to_numeric(sup.superficie_en_km2, errors="coerce")
+# La fuente suma a Tierra del Fuego el sector antartico y las islas del Atlantico Sur. Para la densidad
+# se usa la superficie de la parte americana de la provincia, como hace el INDEC (21.571 km2).
+sup.loc[sup.codigo_indec == "94", "km2"] = 21571
+cru["densidad"] = cru.codigo_indec.map(sup.dropna(subset=["codigo_indec"]).set_index("codigo_indec").km2).rdiv(cru.poblacion)
+snic_25 = snic_prov[snic_prov.anio == ANIO_SNIC]
+
+
+def snic_tasa(nombre, col="tasa_hechos"):
+    return snic_25[snic_25.codigo_delito_snic_nombre == nombre].set_index("provincia_id")[col]
+
+
+cru["homicidios"] = cru.codigo_indec.map(snic_tasa("Homicidios dolosos", "tasa_victimas"))
+cru["robos"] = cru.codigo_indec.map(snic_tasa("Robos (excluye los agravados por el resultado de lesiones y/o muertes)"))
+cru["viales"] = cru.codigo_indec.map(snic_tasa("Muertes en accidentes viales", "tasa_victimas"))
+
+
+def columna(tabla, col):
+    return cru.codigo_indec.map(tabla.set_index("codigo_indec")[col])
+
+
+cru["mortalidad_infantil"] = columna(mi_prov, "tmi_actual")
+cru["madres_adolescentes"] = columna(ado_prov, "pct_2024")
+cru["escolarizacion"] = columna(esc_prov, "tasa_final")
+cru["aprender_mat"] = columna(ap_prov, "mat_logra")
+cru["aprender_len"] = columna(ap_prov, "len_logra")
+cru["empleo_privado"] = columna(emp, "cada_100")
+cru["empleo_var"] = columna(emp, "var_12m")
+cru["protegida"] = columna(area, "pct_territorio")
+cru["turistas_eti"] = columna(etp, "cada_1000")
+cru["autos"] = columna(pat_prov, "autos_1000")
+cru["motos"] = columna(pat_prov, "motos_1000")
+cru["esperanza_vida"] = columna(ev, "total")
+for c in CENSO_COLS:
+    cru[c] = columna(censo, c)
+cru["internet_fijo"] = columna(internet_fijo, "accesos_100_hogares")
+cru["velocidad"] = columna(internet_fijo, "mbps")
+cru["exportaciones"] = columna(exp_prov, "usd_por_habitante")
+cru["extranjeros"] = columna(extranjeros, "cada_100")
+
+# id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
+CRUCES_META = {
+    "poblacion": ("Población", "habitantes", "2025", "Población", "INDEC, proyecciones (vía tasas del SNIC)", "", 0),
+    "densidad": ("Densidad de población", "habitantes por km²", "2025", "Población", "INDEC y Ministerio de Ambiente", "", 1),
+    "mortalidad_infantil": ("Mortalidad infantil", "muertes de menores de 1 año cada 1.000 nacidos vivos, promedio 3 años", f"{TRI_ACT[0]} a {TRI_ACT[1]}", "Salud", "DEIS, Ministerio de Salud", "f-mortalidad", 1),
+    "madres_adolescentes": ("Maternidad adolescente", "% de los nacimientos con madres de 10 a 19 años", "2024", "Población", "RENAPER", "f-adolescentes", 1),
+    "escolarizacion": ("Escolarización secundaria", "tasa neta, %", str(ESC_FIN), "Educación", "Ministerio de Educación", "f-escolarizacion", 1),
+    "aprender_mat": ("Aprender, matemática", "% de 6° grado con nivel satisfactorio o avanzado", str(meta_ap["anio"]), "Educación", "Ministerio de Educación", "f-aprender", 1),
+    "aprender_len": ("Aprender, lengua", "% de 6° grado con nivel satisfactorio o avanzado", str(meta_ap["anio"]), "Educación", "Ministerio de Educación", "f-aprender", 1),
+    "empleo_privado": ("Empleo privado registrado", "asalariados cada 100 habitantes", f"{MES[fin.month - 1]} de {fin.year}", "Trabajo", "SIPA", "f-empleo", 1),
+    "empleo_var": ("Variación del empleo privado", "% en doce meses", f"{MES[fin.month - 1]} de {fin.year}", "Trabajo", "SIPA", "f-empleo", 1),
+    "homicidios": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-muertes", 1),
+    "robos": ("Robos", "hechos cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "", 0),
+    "viales": ("Muertes viales", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-muertes", 1),
+    "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Flora y fauna", "Ministerio de Ambiente, CIAM", "f-protegida", 1),
+    "turistas_eti": ("Turistas extranjeros", "cada 1.000 habitantes, salidos por Ezeiza o Aeroparque", str(ANIO_ETI), "Turismo", "Encuesta de Turismo Internacional", "f-eti", 1),
+    "autos": ("Autos nuevos", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
+    "motos": ("Motos nuevas", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
+    "esperanza_vida": ("Esperanza de vida", "años al nacer", str(ANIO_EV), "Salud", "INDEC, tablas de mortalidad", "f-esperanza", 1),
+    "sin_cobertura": ("Sin obra social ni prepaga", "% de las personas, sin cobertura de salud ni plan estatal", "2022", "Salud", "INDEC, Censo 2022", "f-censo", 1),
+    "agua_red": ("Agua de red", "% de los hogares", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
+    "cloaca": ("Cloacas", "% de los hogares con desagüe a red cloacal", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
+    "nbi": ("Necesidades básicas insatisfechas", "% de los hogares", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
+    "internet": ("Internet en el hogar", "% de los hogares", "2022", "Conectividad", "INDEC, Censo 2022", "f-censo", 1),
+    "computadora": ("Computadora en el hogar", "% de los hogares con computadora, notebook o tableta", "2022", "Conectividad", "INDEC, Censo 2022", "f-censo", 1),
+    "internet_fijo": ("Accesos a internet fijo", "cada 100 hogares", TRIM_ENACOM, "Conectividad", "ENACOM", "f-internet", 1),
+    "velocidad": ("Velocidad de internet fijo", "megabits por segundo de bajada, promedio", TRIM_ENACOM, "Conectividad", "ENACOM", "f-internet", 1),
+    "exportaciones": ("Exportaciones", "dólares por habitante", str(ANIO_EX), "Trabajo", "INDEC, Origen Provincial de las Exportaciones", "f-exportaciones", 0),
+    "extranjeros": ("Nacidos en otro país", "personas identificadas por el RENAPER cada 100 habitantes", "junio de 2026", "Población", "RENAPER", "", 1),
+}
+
+# ---------------------------------------------------------------- salida
+pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False)
+
 
 
 def r1(x):
@@ -649,6 +888,13 @@ tablas = {
     "yerba_molino": yerba.round(2),
     "glaciares_provincias": glaciares,
     "clima_desvio": clima,
+    "ocde_comparacion": ocde_tabla,
+    "cruces_provincias": cru.round(3),
+    "esperanza_vida_provincias": ev.round(2),
+    "censo2022_provincias": censo.round(2),
+    "internet_fijo_provincias": internet_fijo.round(2),
+    "exportaciones_provincias": exp_prov.round(2),
+    "extranjeros_provincias": extranjeros.round(2),
     "pobreza_serie": pobreza[["periodo", "anio", "semestre", "t", "pobreza_personas", "indigencia_personas", "pobreza_hogares", "indigencia_hogares"]],
 }
 for k, t in tablas.items():
@@ -828,6 +1074,30 @@ resumen = {
         "pais_1000": r1(pat_prov.autos.sum() / POB_PAIS * 1000), "motos_pais_1000": r1(pat_prov.motos.sum() / POB_PAIS * 1000),
     },
 }
+
+resumen["ocde"] = ocde_res
+top_bot = lambda t, c: (t.sort_values(c).iloc[-1], t.sort_values(c).iloc[0])
+_ev_t, _ev_b = top_bot(ev, "total")
+_ex_t, _ex_b = top_bot(exp_prov, "usd_por_habitante")
+_in_t, _in_b = top_bot(internet_fijo, "accesos_100_hogares")
+_ve_t, _ve_b = top_bot(internet_fijo, "mbps")
+resumen["nuevos"] = {
+    "ev_anio": ANIO_EV, "ev_pais": r1(ev_pais.total), "ev_m": r1(ev_pais.mujeres), "ev_v": r1(ev_pais.varones),
+    "ev_top": _ev_t.territorio, "ev_top_v": r1(_ev_t.total), "ev_low": _ev_b.territorio, "ev_low_v": r1(_ev_b.total),
+    "censo": {c: r1(v) for c, v in censo_pais.items()},
+    "censo_top": {c: [censo.sort_values(c).iloc[-1].territorio, r1(censo[c].max())] for c in CENSO_COLS},
+    "censo_low": {c: [censo.sort_values(c).iloc[0].territorio, r1(censo[c].min())] for c in CENSO_COLS},
+    "in_trim": TRIM_ENACOM, "in_top": _in_t.territorio, "in_top_v": r1(_in_t.accesos_100_hogares), "in_low": _in_b.territorio, "in_low_v": r1(_in_b.accesos_100_hogares),
+    "ve_top": _ve_t.territorio, "ve_top_v": r1(_ve_t.mbps), "ve_low": _ve_b.territorio, "ve_low_v": r1(_ve_b.mbps),
+    "ex_anio": ANIO_EX, "ex_total": round(EXP_TOTAL), "ex_pc_pais": round(EXP_TOTAL * 1e6 / POB_PAIS),
+    "ex_top": _ex_t.territorio, "ex_top_v": round(float(_ex_t.usd_por_habitante)), "ex_low": _ex_b.territorio, "ex_low_v": round(float(_ex_b.usd_por_habitante)),
+    "ex_provincial_pct": r1(exp_prov.millones_usd.sum() / EXP_TOTAL * 100),
+    "xt_pais": r1(extranjeros.personas.sum() / POB_PAIS * 100), "xt_top": extranjeros.sort_values("cada_100").iloc[-1].territorio,
+    "xt_top_v": r1(extranjeros.cada_100.max()), "xt_origen": list(top_origen.index[:3]),
+}
+resumen["cruces"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
+                     for k, v in CRUCES_META.items()]
+assert all(m["id"] in cru.columns for m in resumen["cruces"])
 
 (SITIO / "fichas.json").write_text(json.dumps({
     "resumen": resumen,
