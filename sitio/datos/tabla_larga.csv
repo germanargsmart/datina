@@ -10272,3 +10272,1537 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 94,Tierra del Fuego,2023,gasto_personal_pct_gasto,47.9498425225342,%,"Ministerio de Economia, cuentas provinciales (esquema AIF)"
 94,Tierra del Fuego,2024,gasto_personal_pct_gasto,50.56303154462852,%,"Ministerio de Economia, cuentas provinciales (esquema AIF)"
 94,Tierra del Fuego,2025,gasto_personal_pct_gasto,52.83243914093425,%,"Ministerio de Economia, cuentas provinciales (esquema AIF)"
+02,CABA,1983,participacion_presidencial,85.77533178665388,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,1983,participacion_presidencial,87.69413537099751,% de los electores,Direccion Nacional Electoral
+10,Catamarca,1983,participacion_presidencial,81.33975269824954,% de los electores,Direccion Nacional Electoral
+14,Córdoba,1983,participacion_presidencial,88.34846351377777,% de los electores,Direccion Nacional Electoral
+18,Corrientes,1983,participacion_presidencial,77.26251597324226,% de los electores,Direccion Nacional Electoral
+22,Chaco,1983,participacion_presidencial,75.90435370278153,% de los electores,Direccion Nacional Electoral
+26,Chubut,1983,participacion_presidencial,80.63014359009676,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,1983,participacion_presidencial,83.695388085902,% de los electores,Direccion Nacional Electoral
+34,Formosa,1983,participacion_presidencial,75.92033651163209,% de los electores,Direccion Nacional Electoral
+38,Jujuy,1983,participacion_presidencial,84.3212103741038,% de los electores,Direccion Nacional Electoral
+42,La Pampa,1983,participacion_presidencial,89.51590343245587,% de los electores,Direccion Nacional Electoral
+46,La Rioja,1983,participacion_presidencial,89.30820539573708,% de los electores,Direccion Nacional Electoral
+50,Mendoza,1983,participacion_presidencial,86.62966067310155,% de los electores,Direccion Nacional Electoral
+54,Misiones,1983,participacion_presidencial,80.15114476984773,% de los electores,Direccion Nacional Electoral
+58,Neuquén,1983,participacion_presidencial,86.80260986256575,% de los electores,Direccion Nacional Electoral
+62,Río Negro,1983,participacion_presidencial,85.83985174870998,% de los electores,Direccion Nacional Electoral
+66,Salta,1983,participacion_presidencial,80.06830752283565,% de los electores,Direccion Nacional Electoral
+70,San Juan,1983,participacion_presidencial,86.40359950351676,% de los electores,Direccion Nacional Electoral
+74,San Luis,1983,participacion_presidencial,84.98572399728076,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,1983,participacion_presidencial,82.22068614254012,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,1983,participacion_presidencial,88.27860245334351,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,1983,participacion_presidencial,69.88702187030937,% de los electores,Direccion Nacional Electoral
+90,Tucumán,1983,participacion_presidencial,81.66777152597943,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,1983,participacion_presidencial,90.55964557951658,% de los electores,Direccion Nacional Electoral
+02,CABA,1989,participacion_presidencial,85.73479977807513,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,1989,participacion_presidencial,87.06584498290806,% de los electores,Direccion Nacional Electoral
+10,Catamarca,1989,participacion_presidencial,84.79572826742935,% de los electores,Direccion Nacional Electoral
+14,Córdoba,1989,participacion_presidencial,86.65012857828206,% de los electores,Direccion Nacional Electoral
+18,Corrientes,1989,participacion_presidencial,80.923118940325,% de los electores,Direccion Nacional Electoral
+22,Chaco,1989,participacion_presidencial,79.69113935128921,% de los electores,Direccion Nacional Electoral
+26,Chubut,1989,participacion_presidencial,81.63832693403887,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,1989,participacion_presidencial,86.62210245527295,% de los electores,Direccion Nacional Electoral
+34,Formosa,1989,participacion_presidencial,81.35008452814564,% de los electores,Direccion Nacional Electoral
+38,Jujuy,1989,participacion_presidencial,80.12125540369085,% de los electores,Direccion Nacional Electoral
+42,La Pampa,1989,participacion_presidencial,88.50737163806798,% de los electores,Direccion Nacional Electoral
+46,La Rioja,1989,participacion_presidencial,83.67714127025103,% de los electores,Direccion Nacional Electoral
+50,Mendoza,1989,participacion_presidencial,86.63254275163061,% de los electores,Direccion Nacional Electoral
+54,Misiones,1989,participacion_presidencial,79.68884810461168,% de los electores,Direccion Nacional Electoral
+58,Neuquén,1989,participacion_presidencial,87.0595382746051,% de los electores,Direccion Nacional Electoral
+62,Río Negro,1989,participacion_presidencial,85.16905978779037,% de los electores,Direccion Nacional Electoral
+66,Salta,1989,participacion_presidencial,80.25833452351584,% de los electores,Direccion Nacional Electoral
+70,San Juan,1989,participacion_presidencial,87.02804363535385,% de los electores,Direccion Nacional Electoral
+74,San Luis,1989,participacion_presidencial,83.82539636532275,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,1989,participacion_presidencial,80.1311157276674,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,1989,participacion_presidencial,86.78994630472316,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,1989,participacion_presidencial,72.86198642397355,% de los electores,Direccion Nacional Electoral
+90,Tucumán,1989,participacion_presidencial,80.8501681049301,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,1989,participacion_presidencial,70.26435862458254,% de los electores,Direccion Nacional Electoral
+02,CABA,1995,participacion_presidencial,81.69628847970343,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,1995,participacion_presidencial,84.00390244377752,% de los electores,Direccion Nacional Electoral
+10,Catamarca,1995,participacion_presidencial,83.00945123516293,% de los electores,Direccion Nacional Electoral
+14,Córdoba,1995,participacion_presidencial,83.78086457883184,% de los electores,Direccion Nacional Electoral
+18,Corrientes,1995,participacion_presidencial,74.58329604438876,% de los electores,Direccion Nacional Electoral
+22,Chaco,1995,participacion_presidencial,75.58413600861094,% de los electores,Direccion Nacional Electoral
+26,Chubut,1995,participacion_presidencial,81.1057842484823,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,1995,participacion_presidencial,85.2044978746823,% de los electores,Direccion Nacional Electoral
+34,Formosa,1995,participacion_presidencial,73.34077981176958,% de los electores,Direccion Nacional Electoral
+38,Jujuy,1995,participacion_presidencial,76.1025641025641,% de los electores,Direccion Nacional Electoral
+42,La Pampa,1995,participacion_presidencial,87.9905272025049,% de los electores,Direccion Nacional Electoral
+46,La Rioja,1995,participacion_presidencial,84.58894684200281,% de los electores,Direccion Nacional Electoral
+50,Mendoza,1995,participacion_presidencial,85.37499178134165,% de los electores,Direccion Nacional Electoral
+54,Misiones,1995,participacion_presidencial,76.56385467020115,% de los electores,Direccion Nacional Electoral
+58,Neuquén,1995,participacion_presidencial,84.45535110240819,% de los electores,Direccion Nacional Electoral
+62,Río Negro,1995,participacion_presidencial,83.1974551812762,% de los electores,Direccion Nacional Electoral
+66,Salta,1995,participacion_presidencial,75.65951807678668,% de los electores,Direccion Nacional Electoral
+70,San Juan,1995,participacion_presidencial,84.36829446413516,% de los electores,Direccion Nacional Electoral
+74,San Luis,1995,participacion_presidencial,80.21663044608248,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,1995,participacion_presidencial,81.00125048510198,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,1995,participacion_presidencial,81.93993382667391,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,1995,participacion_presidencial,71.31749872785412,% de los electores,Direccion Nacional Electoral
+90,Tucumán,1995,participacion_presidencial,78.0614386567449,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,1995,participacion_presidencial,73.30470891791646,% de los electores,Direccion Nacional Electoral
+02,CABA,1999,participacion_presidencial,81.28027072693939,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,1999,participacion_presidencial,84.89650758403555,% de los electores,Direccion Nacional Electoral
+10,Catamarca,1999,participacion_presidencial,81.43544065898912,% de los electores,Direccion Nacional Electoral
+14,Córdoba,1999,participacion_presidencial,82.4504629596832,% de los electores,Direccion Nacional Electoral
+18,Corrientes,1999,participacion_presidencial,77.9572802960544,% de los electores,Direccion Nacional Electoral
+22,Chaco,1999,participacion_presidencial,77.36000745694778,% de los electores,Direccion Nacional Electoral
+26,Chubut,1999,participacion_presidencial,81.21293703926433,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,1999,participacion_presidencial,86.330885329324,% de los electores,Direccion Nacional Electoral
+34,Formosa,1999,participacion_presidencial,73.85759945893466,% de los electores,Direccion Nacional Electoral
+38,Jujuy,1999,participacion_presidencial,80.44094405533232,% de los electores,Direccion Nacional Electoral
+42,La Pampa,1999,participacion_presidencial,87.99353453475187,% de los electores,Direccion Nacional Electoral
+46,La Rioja,1999,participacion_presidencial,81.73809868325857,% de los electores,Direccion Nacional Electoral
+50,Mendoza,1999,participacion_presidencial,83.95499910775112,% de los electores,Direccion Nacional Electoral
+54,Misiones,1999,participacion_presidencial,78.47513580355961,% de los electores,Direccion Nacional Electoral
+58,Neuquén,1999,participacion_presidencial,82.07978377154501,% de los electores,Direccion Nacional Electoral
+62,Río Negro,1999,participacion_presidencial,82.31602494369284,% de los electores,Direccion Nacional Electoral
+66,Salta,1999,participacion_presidencial,76.01775244299674,% de los electores,Direccion Nacional Electoral
+70,San Juan,1999,participacion_presidencial,83.16744495639765,% de los electores,Direccion Nacional Electoral
+74,San Luis,1999,participacion_presidencial,81.36750497052564,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,1999,participacion_presidencial,81.05656444318824,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,1999,participacion_presidencial,81.85101402816106,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,1999,participacion_presidencial,72.21703745243175,% de los electores,Direccion Nacional Electoral
+90,Tucumán,1999,participacion_presidencial,75.9137157167572,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,1999,participacion_presidencial,74.06110657539409,% de los electores,Direccion Nacional Electoral
+02,CABA,2003,participacion_presidencial,77.22301466742071,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,2003,participacion_presidencial,80.49856568449366,% de los electores,Direccion Nacional Electoral
+10,Catamarca,2003,participacion_presidencial,76.57148367898014,% de los electores,Direccion Nacional Electoral
+14,Córdoba,2003,participacion_presidencial,77.80207798067403,% de los electores,Direccion Nacional Electoral
+18,Corrientes,2003,participacion_presidencial,73.82602163900278,% de los electores,Direccion Nacional Electoral
+22,Chaco,2003,participacion_presidencial,76.7132739815519,% de los electores,Direccion Nacional Electoral
+26,Chubut,2003,participacion_presidencial,77.27990197844967,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,2003,participacion_presidencial,78.04374933591923,% de los electores,Direccion Nacional Electoral
+34,Formosa,2003,participacion_presidencial,71.21633921337863,% de los electores,Direccion Nacional Electoral
+38,Jujuy,2003,participacion_presidencial,75.79302437203349,% de los electores,Direccion Nacional Electoral
+42,La Pampa,2003,participacion_presidencial,81.34197222697821,% de los electores,Direccion Nacional Electoral
+46,La Rioja,2003,participacion_presidencial,81.99732379936859,% de los electores,Direccion Nacional Electoral
+50,Mendoza,2003,participacion_presidencial,79.2000671428838,% de los electores,Direccion Nacional Electoral
+54,Misiones,2003,participacion_presidencial,75.15465467974533,% de los electores,Direccion Nacional Electoral
+58,Neuquén,2003,participacion_presidencial,79.24768987630117,% de los electores,Direccion Nacional Electoral
+62,Río Negro,2003,participacion_presidencial,77.10012881870686,% de los electores,Direccion Nacional Electoral
+66,Salta,2003,participacion_presidencial,74.00417728951886,% de los electores,Direccion Nacional Electoral
+70,San Juan,2003,participacion_presidencial,79.07641234825105,% de los electores,Direccion Nacional Electoral
+74,San Luis,2003,participacion_presidencial,81.21297797309445,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,2003,participacion_presidencial,78.6927952097671,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,2003,participacion_presidencial,77.8504612697981,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,2003,participacion_presidencial,68.04037362976688,% de los electores,Direccion Nacional Electoral
+90,Tucumán,2003,participacion_presidencial,74.6925114568017,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,2003,participacion_presidencial,72.43095582030635,% de los electores,Direccion Nacional Electoral
+02,CABA,2007,participacion_presidencial,75.54132246442738,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,2007,participacion_presidencial,79.05372970073347,% de los electores,Direccion Nacional Electoral
+10,Catamarca,2007,participacion_presidencial,66.4413492585197,% de los electores,Direccion Nacional Electoral
+14,Córdoba,2007,participacion_presidencial,71.94903745766274,% de los electores,Direccion Nacional Electoral
+18,Corrientes,2007,participacion_presidencial,70.88643916747259,% de los electores,Direccion Nacional Electoral
+22,Chaco,2007,participacion_presidencial,72.31549805041712,% de los electores,Direccion Nacional Electoral
+26,Chubut,2007,participacion_presidencial,76.94940522408919,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,2007,participacion_presidencial,77.19531214164488,% de los electores,Direccion Nacional Electoral
+34,Formosa,2007,participacion_presidencial,70.9754736677906,% de los electores,Direccion Nacional Electoral
+38,Jujuy,2007,participacion_presidencial,75.11767000075096,% de los electores,Direccion Nacional Electoral
+42,La Pampa,2007,participacion_presidencial,81.42428760207366,% de los electores,Direccion Nacional Electoral
+46,La Rioja,2007,participacion_presidencial,76.76737102968161,% de los electores,Direccion Nacional Electoral
+50,Mendoza,2007,participacion_presidencial,78.14274227595135,% de los electores,Direccion Nacional Electoral
+54,Misiones,2007,participacion_presidencial,75.67095157515968,% de los electores,Direccion Nacional Electoral
+58,Neuquén,2007,participacion_presidencial,76.9413925922686,% de los electores,Direccion Nacional Electoral
+62,Río Negro,2007,participacion_presidencial,74.98502857258859,% de los electores,Direccion Nacional Electoral
+66,Salta,2007,participacion_presidencial,72.21510815449275,% de los electores,Direccion Nacional Electoral
+70,San Juan,2007,participacion_presidencial,72.60986914780945,% de los electores,Direccion Nacional Electoral
+74,San Luis,2007,participacion_presidencial,76.86714427406785,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,2007,participacion_presidencial,76.26786458689796,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,2007,participacion_presidencial,76.95275985939975,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,2007,participacion_presidencial,63.491615117817425,% de los electores,Direccion Nacional Electoral
+90,Tucumán,2007,participacion_presidencial,76.21408386714778,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,2007,participacion_presidencial,70.67414709489846,% de los electores,Direccion Nacional Electoral
+02,CABA,2011,participacion_presidencial,77.02422390596995,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,2011,participacion_presidencial,82.57935486382178,% de los electores,Direccion Nacional Electoral
+10,Catamarca,2011,participacion_presidencial,75.90371703333913,% de los electores,Direccion Nacional Electoral
+14,Córdoba,2011,participacion_presidencial,75.56509160810523,% de los electores,Direccion Nacional Electoral
+18,Corrientes,2011,participacion_presidencial,75.19530831348217,% de los electores,Direccion Nacional Electoral
+22,Chaco,2011,participacion_presidencial,75.28382766378004,% de los electores,Direccion Nacional Electoral
+26,Chubut,2011,participacion_presidencial,78.97313701122897,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,2011,participacion_presidencial,82.34644914668073,% de los electores,Direccion Nacional Electoral
+34,Formosa,2011,participacion_presidencial,76.8759851697267,% de los electores,Direccion Nacional Electoral
+38,Jujuy,2011,participacion_presidencial,80.98076438622377,% de los electores,Direccion Nacional Electoral
+42,La Pampa,2011,participacion_presidencial,82.68073853331948,% de los electores,Direccion Nacional Electoral
+46,La Rioja,2011,participacion_presidencial,77.23649094366142,% de los electores,Direccion Nacional Electoral
+50,Mendoza,2011,participacion_presidencial,81.06438641734947,% de los electores,Direccion Nacional Electoral
+54,Misiones,2011,participacion_presidencial,77.46035920683808,% de los electores,Direccion Nacional Electoral
+58,Neuquén,2011,participacion_presidencial,82.45944351587849,% de los electores,Direccion Nacional Electoral
+62,Río Negro,2011,participacion_presidencial,78.47415597415598,% de los electores,Direccion Nacional Electoral
+66,Salta,2011,participacion_presidencial,76.48255622479672,% de los electores,Direccion Nacional Electoral
+70,San Juan,2011,participacion_presidencial,78.88837699372502,% de los electores,Direccion Nacional Electoral
+74,San Luis,2011,participacion_presidencial,80.76233241305977,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,2011,participacion_presidencial,76.54525441537,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,2011,participacion_presidencial,75.88917324824654,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,2011,participacion_presidencial,69.74862424977971,% de los electores,Direccion Nacional Electoral
+90,Tucumán,2011,participacion_presidencial,80.75868099342577,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,participacion_presidencial,73.28564578005115,% de los electores,Direccion Nacional Electoral
+02,CABA,2015,participacion_presidencial,78.32553011409337,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,2015,participacion_presidencial,82.79731379556982,% de los electores,Direccion Nacional Electoral
+10,Catamarca,2015,participacion_presidencial,80.755399351466,% de los electores,Direccion Nacional Electoral
+14,Córdoba,2015,participacion_presidencial,79.40424882582022,% de los electores,Direccion Nacional Electoral
+18,Corrientes,2015,participacion_presidencial,79.05170946810793,% de los electores,Direccion Nacional Electoral
+22,Chaco,2015,participacion_presidencial,77.27540233393572,% de los electores,Direccion Nacional Electoral
+26,Chubut,2015,participacion_presidencial,79.77253095306651,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,2015,participacion_presidencial,84.6332440832217,% de los electores,Direccion Nacional Electoral
+34,Formosa,2015,participacion_presidencial,80.1759252673258,% de los electores,Direccion Nacional Electoral
+38,Jujuy,2015,participacion_presidencial,84.33933824757645,% de los electores,Direccion Nacional Electoral
+42,La Pampa,2015,participacion_presidencial,82.01906065481867,% de los electores,Direccion Nacional Electoral
+46,La Rioja,2015,participacion_presidencial,77.6835517832125,% de los electores,Direccion Nacional Electoral
+50,Mendoza,2015,participacion_presidencial,81.85396470304897,% de los electores,Direccion Nacional Electoral
+54,Misiones,2015,participacion_presidencial,82.32846814093175,% de los electores,Direccion Nacional Electoral
+58,Neuquén,2015,participacion_presidencial,83.35972554929464,% de los electores,Direccion Nacional Electoral
+62,Río Negro,2015,participacion_presidencial,80.47155574792649,% de los electores,Direccion Nacional Electoral
+66,Salta,2015,participacion_presidencial,76.46386286942099,% de los electores,Direccion Nacional Electoral
+70,San Juan,2015,participacion_presidencial,83.7299960495226,% de los electores,Direccion Nacional Electoral
+74,San Luis,2015,participacion_presidencial,82.6338254845707,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,2015,participacion_presidencial,77.58782427992715,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,2015,participacion_presidencial,77.86924775610386,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,2015,participacion_presidencial,81.1483975930657,% de los electores,Direccion Nacional Electoral
+90,Tucumán,2015,participacion_presidencial,82.80298808334065,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,participacion_presidencial,75.08023914411581,% de los electores,Direccion Nacional Electoral
+02,CABA,2019,participacion_presidencial,76.57509708245321,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,2019,participacion_presidencial,82.07010783075692,% de los electores,Direccion Nacional Electoral
+10,Catamarca,2019,participacion_presidencial,80.9115678567188,% de los electores,Direccion Nacional Electoral
+14,Córdoba,2019,participacion_presidencial,78.99661211746368,% de los electores,Direccion Nacional Electoral
+18,Corrientes,2019,participacion_presidencial,80.74427535445085,% de los electores,Direccion Nacional Electoral
+22,Chaco,2019,participacion_presidencial,77.60402803888749,% de los electores,Direccion Nacional Electoral
+26,Chubut,2019,participacion_presidencial,77.58711520860771,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,2019,participacion_presidencial,80.58635335898407,% de los electores,Direccion Nacional Electoral
+34,Formosa,2019,participacion_presidencial,77.73655884751291,% de los electores,Direccion Nacional Electoral
+38,Jujuy,2019,participacion_presidencial,81.77990666914785,% de los electores,Direccion Nacional Electoral
+42,La Pampa,2019,participacion_presidencial,81.23362821391423,% de los electores,Direccion Nacional Electoral
+46,La Rioja,2019,participacion_presidencial,80.89946669339537,% de los electores,Direccion Nacional Electoral
+50,Mendoza,2019,participacion_presidencial,81.08097287006056,% de los electores,Direccion Nacional Electoral
+54,Misiones,2019,participacion_presidencial,79.87675651019535,% de los electores,Direccion Nacional Electoral
+58,Neuquén,2019,participacion_presidencial,83.9659658832762,% de los electores,Direccion Nacional Electoral
+62,Río Negro,2019,participacion_presidencial,80.25602521912309,% de los electores,Direccion Nacional Electoral
+66,Salta,2019,participacion_presidencial,76.09476188164473,% de los electores,Direccion Nacional Electoral
+70,San Juan,2019,participacion_presidencial,82.40835766080504,% de los electores,Direccion Nacional Electoral
+74,San Luis,2019,participacion_presidencial,81.23536748693937,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,2019,participacion_presidencial,74.62221326727744,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,2019,participacion_presidencial,79.43280750102835,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,2019,participacion_presidencial,80.39817158598356,% de los electores,Direccion Nacional Electoral
+90,Tucumán,2019,participacion_presidencial,82.78454648430612,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,participacion_presidencial,75.86718162356073,% de los electores,Direccion Nacional Electoral
+02,CABA,2023,participacion_presidencial,75.65002398408028,% de los electores,Direccion Nacional Electoral
+06,Buenos Aires,2023,participacion_presidencial,77.71305202852542,% de los electores,Direccion Nacional Electoral
+10,Catamarca,2023,participacion_presidencial,72.80729053510507,% de los electores,Direccion Nacional Electoral
+14,Córdoba,2023,participacion_presidencial,76.19377427152352,% de los electores,Direccion Nacional Electoral
+18,Corrientes,2023,participacion_presidencial,76.80431987546925,% de los electores,Direccion Nacional Electoral
+22,Chaco,2023,participacion_presidencial,72.44978971976634,% de los electores,Direccion Nacional Electoral
+26,Chubut,2023,participacion_presidencial,74.53639238173082,% de los electores,Direccion Nacional Electoral
+30,Entre Ríos,2023,participacion_presidencial,76.79607836289985,% de los electores,Direccion Nacional Electoral
+34,Formosa,2023,participacion_presidencial,75.60942746983956,% de los electores,Direccion Nacional Electoral
+38,Jujuy,2023,participacion_presidencial,78.35129875623996,% de los electores,Direccion Nacional Electoral
+42,La Pampa,2023,participacion_presidencial,77.32508532423208,% de los electores,Direccion Nacional Electoral
+46,La Rioja,2023,participacion_presidencial,79.61755401450023,% de los electores,Direccion Nacional Electoral
+50,Mendoza,2023,participacion_presidencial,76.44746629847855,% de los electores,Direccion Nacional Electoral
+54,Misiones,2023,participacion_presidencial,75.88636924234031,% de los electores,Direccion Nacional Electoral
+58,Neuquén,2023,participacion_presidencial,79.86164377875278,% de los electores,Direccion Nacional Electoral
+62,Río Negro,2023,participacion_presidencial,77.05346595790378,% de los electores,Direccion Nacional Electoral
+66,Salta,2023,participacion_presidencial,71.65668918621863,% de los electores,Direccion Nacional Electoral
+70,San Juan,2023,participacion_presidencial,74.91393829239743,% de los electores,Direccion Nacional Electoral
+74,San Luis,2023,participacion_presidencial,77.98720777508865,% de los electores,Direccion Nacional Electoral
+78,Santa Cruz,2023,participacion_presidencial,70.24905802562171,% de los electores,Direccion Nacional Electoral
+82,Santa Fe,2023,participacion_presidencial,73.21912416533878,% de los electores,Direccion Nacional Electoral
+86,Santiago del Estero,2023,participacion_presidencial,77.14843366153725,% de los electores,Direccion Nacional Electoral
+90,Tucumán,2023,participacion_presidencial,81.80452643553244,% de los electores,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,participacion_presidencial,74.10521193771626,% de los electores,Direccion Nacional Electoral
+02,CABA,1983,voto_presidente_1983_alende,4.48,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1983,voto_presidente_1983_alende,3.24,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1983,voto_presidente_1983_alende,0.58,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1983,voto_presidente_1983_alende,0.87,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1983,voto_presidente_1983_alende,0.74,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1983,voto_presidente_1983_alende,0.42,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1983,voto_presidente_1983_alende,1.75,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1983,voto_presidente_1983_alende,1.49,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1983,voto_presidente_1983_alende,0.46,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1983,voto_presidente_1983_alende,0.51,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1983,voto_presidente_1983_alende,1.57,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1983,voto_presidente_1983_alende,0.53,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1983,voto_presidente_1983_alende,0.95,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1983,voto_presidente_1983_alende,0.31,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1983,voto_presidente_1983_alende,1.98,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1983,voto_presidente_1983_alende,1.82,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1983,voto_presidente_1983_alende,0.44,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1983,voto_presidente_1983_alende,0.88,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1983,voto_presidente_1983_alende,0.45,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1983,voto_presidente_1983_alende,1.54,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1983,voto_presidente_1983_alende,1.87,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1983,voto_presidente_1983_alende,0.43,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1983,voto_presidente_1983_alende,0.56,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1983,voto_presidente_1983_alende,3.78,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1983,voto_presidente_1983_alfonsin,64.26,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1983,voto_presidente_1983_alfonsin,51.41,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1983,voto_presidente_1983_alfonsin,46.79,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1983,voto_presidente_1983_alfonsin,56.22,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1983,voto_presidente_1983_alfonsin,33.84,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1983,voto_presidente_1983_alfonsin,46.55,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1983,voto_presidente_1983_alfonsin,50.85,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1983,voto_presidente_1983_alfonsin,49.53,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1983,voto_presidente_1983_alfonsin,37.2,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1983,voto_presidente_1983_alfonsin,35.46,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1983,voto_presidente_1983_alfonsin,41.38,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1983,voto_presidente_1983_alfonsin,41.04,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1983,voto_presidente_1983_alfonsin,57.81,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1983,voto_presidente_1983_alfonsin,49.56,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1983,voto_presidente_1983_alfonsin,45.31,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1983,voto_presidente_1983_alfonsin,53.57,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1983,voto_presidente_1983_alfonsin,44.62,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1983,voto_presidente_1983_alfonsin,40.23,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1983,voto_presidente_1983_alfonsin,48.58,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1983,voto_presidente_1983_alfonsin,44.01,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1983,voto_presidente_1983_alfonsin,50.21,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1983,voto_presidente_1983_alfonsin,40.57,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1983,voto_presidente_1983_alfonsin,41.55,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1983,voto_presidente_1983_alfonsin,50.4,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1983,voto_presidente_1983_frigerio,0.73,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1983,voto_presidente_1983_frigerio,0.84,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1983,voto_presidente_1983_frigerio,0.78,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1983,voto_presidente_1983_frigerio,0.93,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1983,voto_presidente_1983_frigerio,3.52,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1983,voto_presidente_1983_frigerio,2.16,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1983,voto_presidente_1983_frigerio,2.11,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1983,voto_presidente_1983_frigerio,1.56,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1983,voto_presidente_1983_frigerio,13.77,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1983,voto_presidente_1983_frigerio,0.82,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1983,voto_presidente_1983_frigerio,2.69,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1983,voto_presidente_1983_frigerio,1.83,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1983,voto_presidente_1983_frigerio,1.13,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1983,voto_presidente_1983_frigerio,1.62,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1983,voto_presidente_1983_frigerio,0.85,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1983,voto_presidente_1983_frigerio,1.66,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1983,voto_presidente_1983_frigerio,0.58,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1983,voto_presidente_1983_frigerio,1.2,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1983,voto_presidente_1983_frigerio,3.67,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1983,voto_presidente_1983_frigerio,1.95,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1983,voto_presidente_1983_frigerio,1.43,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1983,voto_presidente_1983_frigerio,0.41,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1983,voto_presidente_1983_frigerio,0.69,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1983,voto_presidente_1983_frigerio,3.07,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1983,voto_presidente_1983_luder,27.36,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1983,voto_presidente_1983_luder,42.23,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1983,voto_presidente_1983_luder,43.65,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1983,voto_presidente_1983_luder,39.92,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1983,voto_presidente_1983_luder,28.38,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1983,voto_presidente_1983_luder,47.98,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1983,voto_presidente_1983_luder,41.46,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1983,voto_presidente_1983_luder,44.21,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1983,voto_presidente_1983_luder,45.12,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1983,voto_presidente_1983_luder,48.72,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1983,voto_presidente_1983_luder,40.88,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1983,voto_presidente_1983_luder,55.52,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1983,voto_presidente_1983_luder,36.56,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1983,voto_presidente_1983_luder,47.79,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1983,voto_presidente_1983_luder,22.2,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1983,voto_presidente_1983_luder,39.94,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1983,voto_presidente_1983_luder,45.27,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1983,voto_presidente_1983_luder,30.65,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1983,voto_presidente_1983_luder,41.44,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1983,voto_presidente_1983_luder,51.5,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1983,voto_presidente_1983_luder,42.94,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1983,voto_presidente_1983_luder,48.53,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1983,voto_presidente_1983_luder,51.78,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1983,voto_presidente_1983_luder,38.94,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1983,voto_presidente_1983_otras,3.17,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1983,voto_presidente_1983_otras,2.28,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1983,voto_presidente_1983_otras,8.21,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1983,voto_presidente_1983_otras,2.07,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1983,voto_presidente_1983_otras,33.51,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1983,voto_presidente_1983_otras,2.89,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1983,voto_presidente_1983_otras,3.83,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1983,voto_presidente_1983_otras,3.21,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1983,voto_presidente_1983_otras,3.46,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1983,voto_presidente_1983_otras,14.48,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1983,voto_presidente_1983_otras,13.49,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1983,voto_presidente_1983_otras,1.07,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1983,voto_presidente_1983_otras,3.54,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1983,voto_presidente_1983_otras,0.72,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1983,voto_presidente_1983_otras,29.65,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1983,voto_presidente_1983_otras,3.01,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1983,voto_presidente_1983_otras,9.08,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1983,voto_presidente_1983_otras,27.05,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1983,voto_presidente_1983_otras,5.85,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1983,voto_presidente_1983_otras,1.01,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1983,voto_presidente_1983_otras,3.54,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1983,voto_presidente_1983_otras,10.06,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1983,voto_presidente_1983_otras,5.42,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1983,voto_presidente_1983_otras,3.81,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1989,voto_presidente_1989_alsogaray,12.35,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1989,voto_presidente_1989_alsogaray,6.77,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1989,voto_presidente_1989_alsogaray,0.98,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1989,voto_presidente_1989_alsogaray,3.75,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1989,voto_presidente_1989_alsogaray,1.2,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1989,voto_presidente_1989_alsogaray,1.9,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1989,voto_presidente_1989_alsogaray,7.02,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1989,voto_presidente_1989_alsogaray,6.1,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1989,voto_presidente_1989_alsogaray,0.91,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1989,voto_presidente_1989_alsogaray,1.31,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1989,voto_presidente_1989_alsogaray,4.48,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1989,voto_presidente_1989_alsogaray,1.42,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1989,voto_presidente_1989_alsogaray,16.62,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1989,voto_presidente_1989_alsogaray,4.56,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1989,voto_presidente_1989_alsogaray,3.9,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1989,voto_presidente_1989_alsogaray,6.43,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1989,voto_presidente_1989_alsogaray,3.05,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1989,voto_presidente_1989_alsogaray,6.11,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1989,voto_presidente_1989_alsogaray,3.59,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1989,voto_presidente_1989_alsogaray,4.05,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1989,voto_presidente_1989_alsogaray,6.01,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1989,voto_presidente_1989_alsogaray,0.65,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1989,voto_presidente_1989_alsogaray,0.99,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1989,voto_presidente_1989_alsogaray,8.37,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1989,voto_presidente_1989_angeloz,45.13,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1989,voto_presidente_1989_angeloz,33.29,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1989,voto_presidente_1989_angeloz,40.25,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1989,voto_presidente_1989_angeloz,48.48,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1989,voto_presidente_1989_angeloz,27.82,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1989,voto_presidente_1989_angeloz,38.64,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1989,voto_presidente_1989_angeloz,45.79,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1989,voto_presidente_1989_angeloz,39.09,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1989,voto_presidente_1989_angeloz,39.53,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1989,voto_presidente_1989_angeloz,37.43,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1989,voto_presidente_1989_angeloz,40.28,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1989,voto_presidente_1989_angeloz,28.71,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1989,voto_presidente_1989_angeloz,33.62,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1989,voto_presidente_1989_angeloz,40.81,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1989,voto_presidente_1989_angeloz,29.29,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1989,voto_presidente_1989_angeloz,41.85,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1989,voto_presidente_1989_angeloz,47.04,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1989,voto_presidente_1989_angeloz,29.32,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1989,voto_presidente_1989_angeloz,42.0,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1989,voto_presidente_1989_angeloz,38.17,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1989,voto_presidente_1989_angeloz,34.98,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1989,voto_presidente_1989_angeloz,30.24,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1989,voto_presidente_1989_angeloz,27.3,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1989,voto_presidente_1989_angeloz,39.0,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1989,voto_presidente_1989_menem,36.64,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1989,voto_presidente_1989_menem,50.07,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1989,voto_presidente_1989_menem,55.15,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1989,voto_presidente_1989_menem,44.53,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1989,voto_presidente_1989_menem,42.04,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1989,voto_presidente_1989_menem,52.23,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1989,voto_presidente_1989_menem,42.71,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1989,voto_presidente_1989_menem,51.6,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1989,voto_presidente_1989_menem,58.7,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1989,voto_presidente_1989_menem,42.47,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1989,voto_presidente_1989_menem,51.59,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1989,voto_presidente_1989_menem,66.61,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1989,voto_presidente_1989_menem,42.28,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1989,voto_presidente_1989_menem,52.88,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1989,voto_presidente_1989_menem,39.44,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1989,voto_presidente_1989_menem,47.43,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1989,voto_presidente_1989_menem,44.01,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1989,voto_presidente_1989_menem,46.55,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1989,voto_presidente_1989_menem,49.24,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1989,voto_presidente_1989_menem,54.73,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1989,voto_presidente_1989_menem,51.95,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1989,voto_presidente_1989_menem,64.16,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1989,voto_presidente_1989_menem,41.49,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1989,voto_presidente_1989_menem,42.68,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1989,voto_presidente_1989_otras,2.51,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1989,voto_presidente_1989_otras,6.63,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1989,voto_presidente_1989_otras,2.56,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1989,voto_presidente_1989_otras,1.73,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1989,voto_presidente_1989_otras,28.39,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1989,voto_presidente_1989_otras,6.56,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1989,voto_presidente_1989_otras,2.46,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1989,voto_presidente_1989_otras,2.09,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1989,voto_presidente_1989_otras,0.47,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1989,voto_presidente_1989_otras,17.1,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1989,voto_presidente_1989_otras,1.73,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1989,voto_presidente_1989_otras,2.5,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1989,voto_presidente_1989_otras,3.5,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1989,voto_presidente_1989_otras,1.24,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1989,voto_presidente_1989_otras,25.41,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1989,voto_presidente_1989_otras,1.98,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1989,voto_presidente_1989_otras,4.72,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1989,voto_presidente_1989_otras,16.15,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1989,voto_presidente_1989_otras,3.14,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1989,voto_presidente_1989_otras,1.43,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1989,voto_presidente_1989_otras,5.06,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1989,voto_presidente_1989_otras,4.2,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1989,voto_presidente_1989_otras,29.24,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1989,voto_presidente_1989_otras,4.71,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1989,voto_presidente_1989_vicente,3.38,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1989,voto_presidente_1989_vicente,3.23,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1989,voto_presidente_1989_vicente,1.07,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1989,voto_presidente_1989_vicente,1.51,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1989,voto_presidente_1989_vicente,0.55,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1989,voto_presidente_1989_vicente,0.67,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1989,voto_presidente_1989_vicente,2.01,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1989,voto_presidente_1989_vicente,1.12,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1989,voto_presidente_1989_vicente,0.38,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1989,voto_presidente_1989_vicente,1.69,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1989,voto_presidente_1989_vicente,1.92,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1989,voto_presidente_1989_vicente,0.76,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1989,voto_presidente_1989_vicente,3.99,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1989,voto_presidente_1989_vicente,0.52,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1989,voto_presidente_1989_vicente,1.96,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1989,voto_presidente_1989_vicente,2.32,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1989,voto_presidente_1989_vicente,1.18,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1989,voto_presidente_1989_vicente,1.86,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1989,voto_presidente_1989_vicente,2.02,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1989,voto_presidente_1989_vicente,1.62,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1989,voto_presidente_1989_vicente,1.99,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1989,voto_presidente_1989_vicente,0.75,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1989,voto_presidente_1989_vicente,0.98,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1989,voto_presidente_1989_vicente,5.25,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1995,voto_presidente_1995_bordon,44.53,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1995,voto_presidente_1995_bordon,29.79,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1995,voto_presidente_1995_bordon,15.88,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1995,voto_presidente_1995_bordon,20.77,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1995,voto_presidente_1995_bordon,34.36,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1995,voto_presidente_1995_bordon,18.03,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1995,voto_presidente_1995_bordon,15.05,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1995,voto_presidente_1995_bordon,24.71,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1995,voto_presidente_1995_bordon,16.83,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1995,voto_presidente_1995_bordon,21.42,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1995,voto_presidente_1995_bordon,24.08,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1995,voto_presidente_1995_bordon,6.29,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1995,voto_presidente_1995_bordon,33.86,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1995,voto_presidente_1995_bordon,8.54,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1995,voto_presidente_1995_bordon,25.61,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1995,voto_presidente_1995_bordon,16.05,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1995,voto_presidente_1995_bordon,24.79,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1995,voto_presidente_1995_bordon,30.34,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1995,voto_presidente_1995_bordon,25.3,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1995,voto_presidente_1995_bordon,22.78,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1995,voto_presidente_1995_bordon,37.44,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1995,voto_presidente_1995_bordon,10.14,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1995,voto_presidente_1995_bordon,29.13,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1995,voto_presidente_1995_bordon,22.45,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1995,voto_presidente_1995_massaccesi,10.66,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1995,voto_presidente_1995_massaccesi,13.89,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1995,voto_presidente_1995_massaccesi,30.81,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1995,voto_presidente_1995_massaccesi,28.9,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1995,voto_presidente_1995_massaccesi,16.08,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1995,voto_presidente_1995_massaccesi,22.88,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1995,voto_presidente_1995_massaccesi,25.74,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1995,voto_presidente_1995_massaccesi,26.58,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1995,voto_presidente_1995_massaccesi,31.18,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1995,voto_presidente_1995_massaccesi,23.03,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1995,voto_presidente_1995_massaccesi,22.69,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1995,voto_presidente_1995_massaccesi,16.53,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1995,voto_presidente_1995_massaccesi,12.16,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1995,voto_presidente_1995_massaccesi,38.61,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1995,voto_presidente_1995_massaccesi,16.23,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1995,voto_presidente_1995_massaccesi,37.33,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1995,voto_presidente_1995_massaccesi,16.69,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1995,voto_presidente_1995_massaccesi,9.75,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1995,voto_presidente_1995_massaccesi,17.12,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1995,voto_presidente_1995_massaccesi,17.25,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1995,voto_presidente_1995_massaccesi,12.57,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1995,voto_presidente_1995_massaccesi,24.85,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1995,voto_presidente_1995_massaccesi,12.35,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1995,voto_presidente_1995_massaccesi,13.2,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1995,voto_presidente_1995_menem,41.71,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1995,voto_presidente_1995_menem,51.81,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1995,voto_presidente_1995_menem,52.29,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1995,voto_presidente_1995_menem,48.15,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1995,voto_presidente_1995_menem,46.61,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1995,voto_presidente_1995_menem,56.82,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1995,voto_presidente_1995_menem,57.15,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1995,voto_presidente_1995_menem,46.15,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1995,voto_presidente_1995_menem,49.42,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1995,voto_presidente_1995_menem,46.81,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1995,voto_presidente_1995_menem,50.39,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1995,voto_presidente_1995_menem,76.1,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1995,voto_presidente_1995_menem,51.69,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1995,voto_presidente_1995_menem,50.31,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1995,voto_presidente_1995_menem,53.63,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1995,voto_presidente_1995_menem,44.01,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1995,voto_presidente_1995_menem,53.58,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1995,voto_presidente_1995_menem,59.19,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1995,voto_presidente_1995_menem,55.33,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1995,voto_presidente_1995_menem,58.08,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1995,voto_presidente_1995_menem,46.94,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1995,voto_presidente_1995_menem,64.1,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1995,voto_presidente_1995_menem,45.59,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1995,voto_presidente_1995_menem,61.19,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1995,voto_presidente_1995_otras,1.86,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1995,voto_presidente_1995_otras,2.18,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1995,voto_presidente_1995_otras,0.61,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1995,voto_presidente_1995_otras,1.04,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1995,voto_presidente_1995_otras,1.23,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1995,voto_presidente_1995_otras,1.38,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1995,voto_presidente_1995_otras,1.1,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1995,voto_presidente_1995_otras,0.86,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1995,voto_presidente_1995_otras,1.22,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1995,voto_presidente_1995_otras,1.56,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1995,voto_presidente_1995_otras,1.32,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1995,voto_presidente_1995_otras,0.66,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1995,voto_presidente_1995_otras,1.02,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1995,voto_presidente_1995_otras,0.34,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1995,voto_presidente_1995_otras,2.76,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1995,voto_presidente_1995_otras,1.77,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1995,voto_presidente_1995_otras,1.08,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1995,voto_presidente_1995_otras,0.38,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1995,voto_presidente_1995_otras,1.24,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1995,voto_presidente_1995_otras,0.78,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1995,voto_presidente_1995_otras,1.49,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1995,voto_presidente_1995_otras,0.42,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1995,voto_presidente_1995_otras,12.38,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1995,voto_presidente_1995_otras,1.12,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1995,voto_presidente_1995_rico,1.24,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1995,voto_presidente_1995_rico,2.33,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1995,voto_presidente_1995_rico,0.41,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1995,voto_presidente_1995_rico,1.14,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1995,voto_presidente_1995_rico,1.72,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1995,voto_presidente_1995_rico,0.89,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1995,voto_presidente_1995_rico,0.96,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1995,voto_presidente_1995_rico,1.7,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1995,voto_presidente_1995_rico,1.35,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1995,voto_presidente_1995_rico,7.19,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1995,voto_presidente_1995_rico,1.52,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1995,voto_presidente_1995_rico,0.41,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1995,voto_presidente_1995_rico,1.27,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1995,voto_presidente_1995_rico,2.21,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1995,voto_presidente_1995_rico,1.77,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1995,voto_presidente_1995_rico,0.84,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1995,voto_presidente_1995_rico,3.86,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1995,voto_presidente_1995_rico,0.33,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1995,voto_presidente_1995_rico,1.01,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1995,voto_presidente_1995_rico,1.12,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1995,voto_presidente_1995_rico,1.55,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1995,voto_presidente_1995_rico,0.49,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1995,voto_presidente_1995_rico,0.55,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1995,voto_presidente_1995_rico,2.05,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1999,voto_presidente_1999_cavallo,16.27,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1999,voto_presidente_1999_cavallo,9.21,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1999,voto_presidente_1999_cavallo,3.4,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1999,voto_presidente_1999_cavallo,10.06,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1999,voto_presidente_1999_cavallo,8.47,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1999,voto_presidente_1999_cavallo,5.03,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1999,voto_presidente_1999_cavallo,11.49,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1999,voto_presidente_1999_cavallo,5.89,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1999,voto_presidente_1999_cavallo,2.59,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1999,voto_presidente_1999_cavallo,4.16,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1999,voto_presidente_1999_cavallo,5.67,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1999,voto_presidente_1999_cavallo,4.64,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1999,voto_presidente_1999_cavallo,21.66,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1999,voto_presidente_1999_cavallo,5.21,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1999,voto_presidente_1999_cavallo,14.1,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1999,voto_presidente_1999_cavallo,10.99,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1999,voto_presidente_1999_cavallo,7.05,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1999,voto_presidente_1999_cavallo,13.05,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1999,voto_presidente_1999_cavallo,9.4,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1999,voto_presidente_1999_cavallo,8.83,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1999,voto_presidente_1999_cavallo,12.16,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1999,voto_presidente_1999_cavallo,3.6,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1999,voto_presidente_1999_cavallo,8.31,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1999,voto_presidente_1999_cavallo,19.13,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1999,voto_presidente_1999_de_la_rua,54.34,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1999,voto_presidente_1999_de_la_rua,44.47,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1999,voto_presidente_1999_de_la_rua,50.74,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1999,voto_presidente_1999_de_la_rua,47.23,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1999,voto_presidente_1999_de_la_rua,47.28,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1999,voto_presidente_1999_de_la_rua,54.66,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1999,voto_presidente_1999_de_la_rua,55.74,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1999,voto_presidente_1999_de_la_rua,51.41,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1999,voto_presidente_1999_de_la_rua,47.23,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1999,voto_presidente_1999_de_la_rua,50.78,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1999,voto_presidente_1999_de_la_rua,52.24,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1999,voto_presidente_1999_de_la_rua,32.31,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1999,voto_presidente_1999_de_la_rua,53.45,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1999,voto_presidente_1999_de_la_rua,44.99,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1999,voto_presidente_1999_de_la_rua,52.38,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1999,voto_presidente_1999_de_la_rua,58.36,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1999,voto_presidente_1999_de_la_rua,47.82,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1999,voto_presidente_1999_de_la_rua,55.1,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1999,voto_presidente_1999_de_la_rua,57.59,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1999,voto_presidente_1999_de_la_rua,47.96,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1999,voto_presidente_1999_de_la_rua,53.23,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1999,voto_presidente_1999_de_la_rua,38.75,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1999,voto_presidente_1999_de_la_rua,47.61,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1999,voto_presidente_1999_de_la_rua,39.58,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1999,voto_presidente_1999_duhalde,23.55,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1999,voto_presidente_1999_duhalde,42.81,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1999,voto_presidente_1999_duhalde,44.23,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1999,voto_presidente_1999_duhalde,40.21,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1999,voto_presidente_1999_duhalde,42.97,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1999,voto_presidente_1999_duhalde,38.42,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1999,voto_presidente_1999_duhalde,30.37,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1999,voto_presidente_1999_duhalde,40.86,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1999,voto_presidente_1999_duhalde,48.85,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1999,voto_presidente_1999_duhalde,44.26,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1999,voto_presidente_1999_duhalde,40.18,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1999,voto_presidente_1999_duhalde,60.13,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1999,voto_presidente_1999_duhalde,22.71,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1999,voto_presidente_1999_duhalde,47.24,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1999,voto_presidente_1999_duhalde,28.08,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1999,voto_presidente_1999_duhalde,27.22,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1999,voto_presidente_1999_duhalde,42.83,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1999,voto_presidente_1999_duhalde,30.04,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1999,voto_presidente_1999_duhalde,30.68,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1999,voto_presidente_1999_duhalde,41.11,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1999,voto_presidente_1999_duhalde,31.66,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1999,voto_presidente_1999_duhalde,56.81,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1999,voto_presidente_1999_duhalde,41.98,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1999,voto_presidente_1999_duhalde,38.43,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1999,voto_presidente_1999_otras,4.18,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1999,voto_presidente_1999_otras,2.61,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1999,voto_presidente_1999_otras,1.45,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1999,voto_presidente_1999_otras,1.77,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1999,voto_presidente_1999_otras,1.06,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1999,voto_presidente_1999_otras,1.39,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1999,voto_presidente_1999_otras,1.84,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1999,voto_presidente_1999_otras,1.36,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,1999,voto_presidente_1999_otras,1.33,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1999,voto_presidente_1999_otras,0.46,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1999,voto_presidente_1999_otras,1.5,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1999,voto_presidente_1999_otras,1.91,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1999,voto_presidente_1999_otras,1.54,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1999,voto_presidente_1999_otras,2.13,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1999,voto_presidente_1999_otras,4.48,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1999,voto_presidente_1999_otras,2.53,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,1999,voto_presidente_1999_otras,2.3,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1999,voto_presidente_1999_otras,1.32,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1999,voto_presidente_1999_otras,1.82,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1999,voto_presidente_1999_otras,1.67,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1999,voto_presidente_1999_otras,2.15,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1999,voto_presidente_1999_otras,0.57,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1999,voto_presidente_1999_otras,1.75,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1999,voto_presidente_1999_otras,2.11,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,1999,voto_presidente_1999_walsh,1.65,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,1999,voto_presidente_1999_walsh,0.9,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,1999,voto_presidente_1999_walsh,0.18,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,1999,voto_presidente_1999_walsh,0.73,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,1999,voto_presidente_1999_walsh,0.21,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,1999,voto_presidente_1999_walsh,0.51,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,1999,voto_presidente_1999_walsh,0.55,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,1999,voto_presidente_1999_walsh,0.49,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,1999,voto_presidente_1999_walsh,0.34,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,1999,voto_presidente_1999_walsh,0.41,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,1999,voto_presidente_1999_walsh,1.01,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,1999,voto_presidente_1999_walsh,0.64,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,1999,voto_presidente_1999_walsh,0.43,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,1999,voto_presidente_1999_walsh,0.96,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,1999,voto_presidente_1999_walsh,0.9,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,1999,voto_presidente_1999_walsh,0.5,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,1999,voto_presidente_1999_walsh,0.51,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,1999,voto_presidente_1999_walsh,0.43,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,1999,voto_presidente_1999_walsh,0.8,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,1999,voto_presidente_1999_walsh,0.27,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,1999,voto_presidente_1999_walsh,0.35,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,1999,voto_presidente_1999_walsh,0.76,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2003,voto_presidente_2003_kirchner,19.46,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2003,voto_presidente_2003_kirchner,25.72,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2003,voto_presidente_2003_kirchner,13.64,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2003,voto_presidente_2003_kirchner,10.81,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2003,voto_presidente_2003_kirchner,26.39,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2003,voto_presidente_2003_kirchner,19.14,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2003,voto_presidente_2003_kirchner,50.22,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2003,voto_presidente_2003_kirchner,20.74,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2003,voto_presidente_2003_kirchner,41.11,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2003,voto_presidente_2003_kirchner,42.42,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2003,voto_presidente_2003_kirchner,17.77,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2003,voto_presidente_2003_kirchner,6.25,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2003,voto_presidente_2003_kirchner,9.66,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2003,voto_presidente_2003_kirchner,22.96,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2003,voto_presidente_2003_kirchner,25.27,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2003,voto_presidente_2003_kirchner,35.39,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2003,voto_presidente_2003_kirchner,13.19,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2003,voto_presidente_2003_kirchner,20.25,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2003,voto_presidente_2003_kirchner,1.28,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2003,voto_presidente_2003_kirchner,79.25,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2003,voto_presidente_2003_kirchner,16.11,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2003,voto_presidente_2003_kirchner,39.83,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2003,voto_presidente_2003_kirchner,24.05,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2003,voto_presidente_2003_kirchner,47.6,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2003,voto_presidente_2003_lopez_murphy,25.85,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2003,voto_presidente_2003_lopez_murphy,15.83,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2003,voto_presidente_2003_lopez_murphy,11.63,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2003,voto_presidente_2003_lopez_murphy,21.61,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2003,voto_presidente_2003_lopez_murphy,11.62,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2003,voto_presidente_2003_lopez_murphy,6.55,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2003,voto_presidente_2003_lopez_murphy,8.39,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2003,voto_presidente_2003_lopez_murphy,14.37,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2003,voto_presidente_2003_lopez_murphy,6.39,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2003,voto_presidente_2003_lopez_murphy,5.94,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2003,voto_presidente_2003_lopez_murphy,14.25,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2003,voto_presidente_2003_lopez_murphy,4.52,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2003,voto_presidente_2003_lopez_murphy,19.54,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2003,voto_presidente_2003_lopez_murphy,8.68,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2003,voto_presidente_2003_lopez_murphy,16.92,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2003,voto_presidente_2003_lopez_murphy,15.46,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2003,voto_presidente_2003_lopez_murphy,19.44,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2003,voto_presidente_2003_lopez_murphy,9.66,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2003,voto_presidente_2003_lopez_murphy,3.52,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2003,voto_presidente_2003_lopez_murphy,3.91,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2003,voto_presidente_2003_lopez_murphy,17.33,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2003,voto_presidente_2003_lopez_murphy,6.5,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2003,voto_presidente_2003_lopez_murphy,19.22,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2003,voto_presidente_2003_lopez_murphy,7.32,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2003,voto_presidente_2003_menem,16.05,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2003,voto_presidente_2003_menem,20.4,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2003,voto_presidente_2003_menem,49.52,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2003,voto_presidente_2003_menem,28.42,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2003,voto_presidente_2003_menem,35.02,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2003,voto_presidente_2003_menem,35.15,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2003,voto_presidente_2003_menem,18.66,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2003,voto_presidente_2003_menem,29.77,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2003,voto_presidente_2003_menem,26.35,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2003,voto_presidente_2003_menem,18.59,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2003,voto_presidente_2003_menem,27.81,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2003,voto_presidente_2003_menem,81.93,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2003,voto_presidente_2003_menem,19.09,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2003,voto_presidente_2003_menem,38.91,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2003,voto_presidente_2003_menem,25.02,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2003,voto_presidente_2003_menem,17.53,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2003,voto_presidente_2003_menem,44.8,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2003,voto_presidente_2003_menem,26.94,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2003,voto_presidente_2003_menem,2.29,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2003,voto_presidente_2003_menem,7.1,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2003,voto_presidente_2003_menem,25.26,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2003,voto_presidente_2003_menem,41.65,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2003,voto_presidente_2003_menem,31.36,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2003,voto_presidente_2003_menem,21.8,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2003,voto_presidente_2003_otras,30.43,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2003,voto_presidente_2003_otras,24.21,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2003,voto_presidente_2003_otras,14.18,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2003,voto_presidente_2003_otras,19.93,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2003,voto_presidente_2003_otras,21.43,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2003,voto_presidente_2003_otras,34.39,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2003,voto_presidente_2003_otras,17.94,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2003,voto_presidente_2003_otras,20.9,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2003,voto_presidente_2003_otras,16.9,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2003,voto_presidente_2003_otras,15.09,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2003,voto_presidente_2003_otras,19.67,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2003,voto_presidente_2003_otras,4.33,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2003,voto_presidente_2003_otras,14.95,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2003,voto_presidente_2003_otras,20.53,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2003,voto_presidente_2003_otras,24.58,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2003,voto_presidente_2003_otras,24.28,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2003,voto_presidente_2003_otras,15.83,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2003,voto_presidente_2003_otras,7.48,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2003,voto_presidente_2003_otras,5.53,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2003,voto_presidente_2003_otras,7.68,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2003,voto_presidente_2003_otras,32.74,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2003,voto_presidente_2003_otras,7.63,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2003,voto_presidente_2003_otras,12.67,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2003,voto_presidente_2003_otras,17.02,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2003,voto_presidente_2003_rodriguez_saa,8.21,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2003,voto_presidente_2003_rodriguez_saa,13.83,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2003,voto_presidente_2003_rodriguez_saa,11.04,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2003,voto_presidente_2003_rodriguez_saa,19.23,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2003,voto_presidente_2003_rodriguez_saa,5.53,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2003,voto_presidente_2003_rodriguez_saa,4.78,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2003,voto_presidente_2003_rodriguez_saa,4.78,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2003,voto_presidente_2003_rodriguez_saa,14.22,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2003,voto_presidente_2003_rodriguez_saa,9.26,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2003,voto_presidente_2003_rodriguez_saa,17.96,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2003,voto_presidente_2003_rodriguez_saa,20.5,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2003,voto_presidente_2003_rodriguez_saa,2.97,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2003,voto_presidente_2003_rodriguez_saa,36.76,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2003,voto_presidente_2003_rodriguez_saa,8.93,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2003,voto_presidente_2003_rodriguez_saa,8.21,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2003,voto_presidente_2003_rodriguez_saa,7.34,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2003,voto_presidente_2003_rodriguez_saa,6.74,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2003,voto_presidente_2003_rodriguez_saa,35.68,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2003,voto_presidente_2003_rodriguez_saa,87.39,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2003,voto_presidente_2003_rodriguez_saa,2.06,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2003,voto_presidente_2003_rodriguez_saa,8.55,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2003,voto_presidente_2003_rodriguez_saa,4.38,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2003,voto_presidente_2003_rodriguez_saa,12.7,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2003,voto_presidente_2003_rodriguez_saa,6.25,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2007,voto_presidente_2007_carrio,37.77,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2007,voto_presidente_2007_carrio,26.05,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2007,voto_presidente_2007_carrio,10.8,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2007,voto_presidente_2007_carrio,19.0,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2007,voto_presidente_2007_carrio,23.33,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2007,voto_presidente_2007_carrio,21.21,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2007,voto_presidente_2007_carrio,18.12,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2007,voto_presidente_2007_carrio,19.75,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2007,voto_presidente_2007_carrio,7.97,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2007,voto_presidente_2007_carrio,6.21,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2007,voto_presidente_2007_carrio,20.05,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2007,voto_presidente_2007_carrio,6.07,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2007,voto_presidente_2007_carrio,12.8,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2007,voto_presidente_2007_carrio,8.25,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2007,voto_presidente_2007_carrio,21.9,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2007,voto_presidente_2007_carrio,17.7,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2007,voto_presidente_2007_carrio,6.68,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2007,voto_presidente_2007_carrio,8.43,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2007,voto_presidente_2007_carrio,11.42,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2007,voto_presidente_2007_carrio,17.74,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2007,voto_presidente_2007_carrio,34.08,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2007,voto_presidente_2007_carrio,8.81,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2007,voto_presidente_2007_carrio,11.86,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2007,voto_presidente_2007_carrio,26.44,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2007,voto_presidente_2007_fernandez_de_kirchner,23.78,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2007,voto_presidente_2007_fernandez_de_kirchner,45.91,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2007,voto_presidente_2007_fernandez_de_kirchner,53.24,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2007,voto_presidente_2007_fernandez_de_kirchner,23.84,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2007,voto_presidente_2007_fernandez_de_kirchner,54.12,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2007,voto_presidente_2007_fernandez_de_kirchner,49.52,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2007,voto_presidente_2007_fernandez_de_kirchner,66.28,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2007,voto_presidente_2007_fernandez_de_kirchner,45.52,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2007,voto_presidente_2007_fernandez_de_kirchner,74.13,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2007,voto_presidente_2007_fernandez_de_kirchner,61.9,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2007,voto_presidente_2007_fernandez_de_kirchner,48.08,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2007,voto_presidente_2007_fernandez_de_kirchner,48.79,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2007,voto_presidente_2007_fernandez_de_kirchner,60.93,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2007,voto_presidente_2007_fernandez_de_kirchner,69.28,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2007,voto_presidente_2007_fernandez_de_kirchner,37.19,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2007,voto_presidente_2007_fernandez_de_kirchner,56.85,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2007,voto_presidente_2007_fernandez_de_kirchner,75.77,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2007,voto_presidente_2007_fernandez_de_kirchner,58.24,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2007,voto_presidente_2007_fernandez_de_kirchner,11.62,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2007,voto_presidente_2007_fernandez_de_kirchner,68.46,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2007,voto_presidente_2007_fernandez_de_kirchner,35.5,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2007,voto_presidente_2007_fernandez_de_kirchner,79.48,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2007,voto_presidente_2007_fernandez_de_kirchner,62.68,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2007,voto_presidente_2007_fernandez_de_kirchner,54.6,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2007,voto_presidente_2007_lavagna,18.39,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2007,voto_presidente_2007_lavagna,13.68,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2007,voto_presidente_2007_lavagna,20.64,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2007,voto_presidente_2007_lavagna,35.31,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2007,voto_presidente_2007_lavagna,14.65,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2007,voto_presidente_2007_lavagna,21.76,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2007,voto_presidente_2007_lavagna,9.68,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2007,voto_presidente_2007_lavagna,17.56,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2007,voto_presidente_2007_lavagna,14.62,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2007,voto_presidente_2007_lavagna,26.43,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2007,voto_presidente_2007_lavagna,13.61,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2007,voto_presidente_2007_lavagna,15.8,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2007,voto_presidente_2007_lavagna,18.29,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2007,voto_presidente_2007_lavagna,15.43,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2007,voto_presidente_2007_lavagna,9.91,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2007,voto_presidente_2007_lavagna,11.95,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2007,voto_presidente_2007_lavagna,12.2,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2007,voto_presidente_2007_lavagna,23.59,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2007,voto_presidente_2007_lavagna,5.84,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2007,voto_presidente_2007_lavagna,10.42,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2007,voto_presidente_2007_lavagna,16.55,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2007,voto_presidente_2007_lavagna,5.83,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2007,voto_presidente_2007_lavagna,15.68,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2007,voto_presidente_2007_lavagna,11.67,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2007,voto_presidente_2007_otras,11.74,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2007,voto_presidente_2007_otras,7.98,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2007,voto_presidente_2007_otras,4.61,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2007,voto_presidente_2007_otras,7.16,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2007,voto_presidente_2007_otras,2.83,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2007,voto_presidente_2007_otras,3.47,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2007,voto_presidente_2007_otras,4.24,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2007,voto_presidente_2007_otras,6.74,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2007,voto_presidente_2007_otras,1.42,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2007,voto_presidente_2007_otras,3.57,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2007,voto_presidente_2007_otras,5.72,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2007,voto_presidente_2007_otras,3.48,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2007,voto_presidente_2007_otras,3.76,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2007,voto_presidente_2007_otras,1.62,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2007,voto_presidente_2007_otras,27.41,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2007,voto_presidente_2007_otras,10.09,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2007,voto_presidente_2007_otras,3.9,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2007,voto_presidente_2007_otras,2.83,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2007,voto_presidente_2007_otras,2.95,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2007,voto_presidente_2007_otras,1.71,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2007,voto_presidente_2007_otras,6.16,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2007,voto_presidente_2007_otras,3.89,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2007,voto_presidente_2007_otras,6.7,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2007,voto_presidente_2007_otras,3.64,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2007,voto_presidente_2007_rodriguez_saa,8.31,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2007,voto_presidente_2007_rodriguez_saa,6.38,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2007,voto_presidente_2007_rodriguez_saa,10.7,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2007,voto_presidente_2007_rodriguez_saa,14.69,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2007,voto_presidente_2007_rodriguez_saa,5.06,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2007,voto_presidente_2007_rodriguez_saa,4.03,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2007,voto_presidente_2007_rodriguez_saa,1.67,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2007,voto_presidente_2007_rodriguez_saa,10.44,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2007,voto_presidente_2007_rodriguez_saa,1.85,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2007,voto_presidente_2007_rodriguez_saa,1.88,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2007,voto_presidente_2007_rodriguez_saa,12.53,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2007,voto_presidente_2007_rodriguez_saa,25.87,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2007,voto_presidente_2007_rodriguez_saa,4.22,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2007,voto_presidente_2007_rodriguez_saa,5.43,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2007,voto_presidente_2007_rodriguez_saa,3.59,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2007,voto_presidente_2007_rodriguez_saa,3.42,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2007,voto_presidente_2007_rodriguez_saa,1.45,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2007,voto_presidente_2007_rodriguez_saa,6.9,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2007,voto_presidente_2007_rodriguez_saa,68.18,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2007,voto_presidente_2007_rodriguez_saa,1.68,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2007,voto_presidente_2007_rodriguez_saa,7.71,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2007,voto_presidente_2007_rodriguez_saa,1.99,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2007,voto_presidente_2007_rodriguez_saa,3.08,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2007,voto_presidente_2007_rodriguez_saa,3.65,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011_alfonsin,9.45,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011_alfonsin,9.69,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011_alfonsin,17.92,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011_alfonsin,18.0,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011_alfonsin,12.9,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011_alfonsin,17.7,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011_alfonsin,9.64,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011_alfonsin,14.46,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011_alfonsin,14.66,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011_alfonsin,18.84,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011_alfonsin,13.31,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011_alfonsin,17.44,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011_alfonsin,11.02,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011_alfonsin,13.73,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011_alfonsin,9.29,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011_alfonsin,9.28,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011_alfonsin,14.59,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011_alfonsin,7.13,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011_alfonsin,9.09,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011_alfonsin,11.86,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011_alfonsin,5.71,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011_alfonsin,7.08,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011_alfonsin,13.31,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011_alfonsin,8.64,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011_binner,27.81,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011_binner,14.93,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011_binner,5.14,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011_binner,23.39,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011_binner,7.2,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011_binner,7.18,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011_binner,7.69,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011_binner,20.42,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011_binner,2.59,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011_binner,8.07,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011_binner,13.59,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011_binner,6.01,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011_binner,12.24,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011_binner,5.7,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011_binner,14.34,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011_binner,12.02,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011_binner,8.31,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011_binner,6.22,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011_binner,5.11,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011_binner,7.34,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011_binner,39.1,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011_binner,4.11,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011_binner,10.84,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011_binner,10.26,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011_fernandez_de_kirchner,35.11,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011_fernandez_de_kirchner,56.43,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011_fernandez_de_kirchner,69.79,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011_fernandez_de_kirchner,37.29,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011_fernandez_de_kirchner,68.04,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011_fernandez_de_kirchner,65.24,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011_fernandez_de_kirchner,59.82,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011_fernandez_de_kirchner,54.63,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011_fernandez_de_kirchner,79.27,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011_fernandez_de_kirchner,64.43,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011_fernandez_de_kirchner,58.27,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011_fernandez_de_kirchner,51.28,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011_fernandez_de_kirchner,51.12,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011_fernandez_de_kirchner,67.08,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011_fernandez_de_kirchner,61.13,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011_fernandez_de_kirchner,68.07,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011_fernandez_de_kirchner,64.55,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011_fernandez_de_kirchner,65.41,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011_fernandez_de_kirchner,31.43,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011_fernandez_de_kirchner,74.87,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011_fernandez_de_kirchner,41.96,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011_fernandez_de_kirchner,82.11,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011_fernandez_de_kirchner,65.19,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011_fernandez_de_kirchner,68.43,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011_otras,17.79,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011_otras,11.63,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011_otras,5.4,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011_otras,9.04,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011_otras,7.83,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011_otras,6.87,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011_otras,19.82,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011_otras,6.41,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011_otras,2.65,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011_otras,5.07,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011_otras,6.29,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011_otras,4.43,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011_otras,5.26,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011_otras,10.39,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011_otras,8.83,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011_otras,6.63,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011_otras,9.3,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011_otras,4.17,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011_otras,2.87,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011_otras,4.66,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011_otras,8.44,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011_otras,5.04,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011_otras,5.78,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011_otras,6.98,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011_rodriguez_saa,9.84,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011_rodriguez_saa,7.33,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011_rodriguez_saa,1.75,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011_rodriguez_saa,12.27,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011_rodriguez_saa,4.04,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011_rodriguez_saa,3.01,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011_rodriguez_saa,3.04,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011_rodriguez_saa,4.07,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011_rodriguez_saa,0.83,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011_rodriguez_saa,3.59,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011_rodriguez_saa,8.53,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011_rodriguez_saa,20.84,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011_rodriguez_saa,20.36,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011_rodriguez_saa,3.09,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011_rodriguez_saa,6.41,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011_rodriguez_saa,4.0,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011_rodriguez_saa,3.26,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011_rodriguez_saa,17.07,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011_rodriguez_saa,51.5,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011_rodriguez_saa,1.27,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011_rodriguez_saa,4.8,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011_rodriguez_saa,1.66,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011_rodriguez_saa,4.88,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011_rodriguez_saa,5.69,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015_del_cano,4.26,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015_del_cano,3.68,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015_del_cano,1.56,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015_del_cano,3.18,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015_del_cano,1.09,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015_del_cano,1.42,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015_del_cano,3.59,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015_del_cano,1.73,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015_del_cano,0.81,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015_del_cano,2.36,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015_del_cano,2.53,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015_del_cano,1.68,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015_del_cano,7.61,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015_del_cano,0.88,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015_del_cano,5.4,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015_del_cano,3.9,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015_del_cano,2.66,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015_del_cano,1.46,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015_del_cano,1.77,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015_del_cano,3.15,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015_del_cano,2.67,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015_del_cano,1.46,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015_del_cano,1.74,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015_del_cano,4.39,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015_macri,50.61,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015_macri,32.8,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015_macri,35.82,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015_macri,53.22,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015_macri,31.81,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015_macri,28.28,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015_macri,21.34,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015_macri,37.76,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015_macri,15.04,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015_macri,17.24,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015_macri,33.59,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015_macri,31.67,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015_macri,40.81,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015_macri,22.7,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015_macri,27.97,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015_macri,22.39,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015_macri,20.56,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015_macri,20.76,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015_macri,30.93,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015_macri,25.57,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015_macri,35.29,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015_macri,14.7,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015_macri,26.7,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015_macri,21.9,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015_massa,15.27,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015_massa,22.43,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015_massa,15.9,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015_massa,20.41,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015_massa,15.26,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015_massa,14.85,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015_massa,29.55,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015_massa,19.81,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015_massa,16.61,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015_massa,41.59,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015_massa,21.57,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015_massa,25.93,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015_massa,14.39,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015_massa,13.7,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015_massa,26.41,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015_massa,24.32,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015_massa,33.98,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015_massa,26.62,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015_massa,13.56,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015_massa,22.58,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015_massa,24.83,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015_massa,19.3,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015_massa,20.8,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015_massa,23.39,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015_otras,5.78,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015_otras,3.8,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015_otras,1.88,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015_otras,3.93,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015_otras,1.58,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015_otras,1.75,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015_otras,3.85,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015_otras,3.06,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015_otras,0.56,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015_otras,1.23,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015_otras,4.37,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015_otras,4.4,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015_otras,5.84,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015_otras,1.61,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015_otras,4.48,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015_otras,4.2,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015_otras,1.82,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015_otras,5.19,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015_otras,38.16,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015_otras,1.63,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015_otras,5.45,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015_otras,1.41,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015_otras,2.29,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015_otras,4.8,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015_scioli,24.09,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015_scioli,37.28,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015_scioli,44.84,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015_scioli,19.26,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015_scioli,50.26,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015_scioli,53.69,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015_scioli,41.67,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015_scioli,37.64,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015_scioli,66.98,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015_scioli,37.58,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015_scioli,37.94,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015_scioli,36.32,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015_scioli,31.36,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015_scioli,61.11,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015_scioli,35.74,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015_scioli,45.2,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015_scioli,40.98,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015_scioli,45.96,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015_scioli,15.58,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015_scioli,47.06,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015_scioli,31.77,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015_scioli,63.13,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015_scioli,48.46,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015_scioli,45.52,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015-2_macri,64.8,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015-2_macri,48.85,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015-2_macri,46.86,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015-2_macri,71.52,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015-2_macri,44.64,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015-2_macri,40.81,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015-2_macri,41.15,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015-2_macri,53.86,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015-2_macri,36.08,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015-2_macri,52.89,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015-2_macri,51.03,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015-2_macri,56.5,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015-2_macri,57.53,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015-2_macri,41.93,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015-2_macri,47.15,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015-2_macri,37.14,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015-2_macri,44.77,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015-2_macri,40.2,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015-2_macri,64.13,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015-2_macri,41.67,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015-2_macri,55.72,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015-2_macri,27.91,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015-2_macri,41.4,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015-2_macri,41.34,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015-2_scioli,35.2,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015-2_scioli,51.15,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015-2_scioli,53.14,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015-2_scioli,28.48,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015-2_scioli,55.36,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015-2_scioli,59.19,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015-2_scioli,58.85,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015-2_scioli,46.14,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015-2_scioli,63.92,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015-2_scioli,47.11,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015-2_scioli,48.97,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015-2_scioli,43.5,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015-2_scioli,42.47,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015-2_scioli,58.07,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015-2_scioli,52.85,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015-2_scioli,62.86,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015-2_scioli,55.23,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015-2_scioli,59.8,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015-2_scioli,35.87,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015-2_scioli,58.33,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015-2_scioli,44.28,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015-2_scioli,72.09,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015-2_scioli,58.6,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015-2_scioli,58.66,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019_del_cano,2.91,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019_del_cano,2.7,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019_del_cano,1.5,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019_del_cano,1.65,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019_del_cano,0.94,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019_del_cano,0.96,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019_del_cano,3.94,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019_del_cano,1.65,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019_del_cano,0.88,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019_del_cano,2.06,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019_del_cano,2.06,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019_del_cano,1.17,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019_del_cano,2.29,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019_del_cano,0.93,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019_del_cano,3.74,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019_del_cano,2.6,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019_del_cano,1.78,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019_del_cano,1.52,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019_del_cano,2.32,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019_del_cano,3.33,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019_del_cano,1.43,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019_del_cano,0.96,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019_del_cano,1.23,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019_del_cano,2.71,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019_fernandez,35.46,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019_fernandez,52.2,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019_fernandez,56.66,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019_fernandez,29.31,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019_fernandez,51.19,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019_fernandez,55.73,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019_fernandez,52.42,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019_fernandez,44.37,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019_fernandez,65.21,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019_fernandez,46.19,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019_fernandez,50.07,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019_fernandez,47.37,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019_fernandez,37.83,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019_fernandez,57.71,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019_fernandez,47.73,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019_fernandez,57.23,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019_fernandez,48.82,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019_fernandez,53.01,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019_fernandez,41.68,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019_fernandez,59.77,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019_fernandez,42.68,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019_fernandez,74.95,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019_fernandez,57.76,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019_fernandez,56.93,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019_lavagna,6.43,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019_lavagna,6.3,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019_lavagna,5.64,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019_lavagna,5.0,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019_lavagna,3.12,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019_lavagna,3.81,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019_lavagna,7.61,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019_lavagna,6.25,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019_lavagna,3.14,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019_lavagna,5.98,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019_lavagna,6.59,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019_lavagna,4.33,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019_lavagna,6.56,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019_lavagna,3.38,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019_lavagna,6.3,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019_lavagna,6.35,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019_lavagna,10.74,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019_lavagna,7.23,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019_lavagna,6.76,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019_lavagna,5.03,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019_lavagna,8.98,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019_lavagna,3.34,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019_lavagna,4.14,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019_lavagna,7.66,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019_macri,52.64,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019_macri,35.89,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019_macri,34.0,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019_macri,61.31,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019_macri,41.92,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019_macri,35.58,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019_macri,29.35,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019_macri,44.47,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019_macri,28.46,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019_macri,41.5,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019_macri,37.74,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019_macri,44.43,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019_macri,50.1,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019_macri,33.88,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019_macri,37.34,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019_macri,28.58,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019_macri,34.74,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019_macri,35.14,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019_macri,45.03,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019_macri,28.24,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019_macri,43.49,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019_macri,18.37,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019_macri,33.94,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019_macri,26.09,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019_otras,2.56,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019_otras,2.92,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019_otras,2.2,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019_otras,2.73,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019_otras,2.82,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019_otras,3.92,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019_otras,6.68,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019_otras,3.27,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019_otras,2.31,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019_otras,4.27,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019_otras,3.54,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019_otras,2.7,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019_otras,3.22,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019_otras,4.11,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019_otras,4.89,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019_otras,5.24,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019_otras,3.91,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019_otras,3.1,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019_otras,4.21,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019_otras,3.63,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019_otras,3.41,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019_otras,2.38,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019_otras,2.93,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019_otras,6.62,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023_bullrich,41.23,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023_bullrich,24.1,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023_bullrich,17.17,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023_bullrich,22.63,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023_bullrich,32.12,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023_bullrich,24.14,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023_bullrich,20.59,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023_bullrich,30.09,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023_bullrich,15.4,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023_bullrich,19.94,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023_bullrich,21.92,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023_bullrich,11.8,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023_bullrich,25.85,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023_bullrich,14.44,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023_bullrich,20.54,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023_bullrich,18.14,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023_bullrich,13.94,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023_bullrich,23.23,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023_bullrich,20.97,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023_bullrich,16.36,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023_bullrich,26.89,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023_bullrich,8.09,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023_bullrich,14.62,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023_bullrich,14.96,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023_massa,32.28,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023_massa,42.88,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023_massa,42.79,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023_massa,13.42,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023_massa,37.21,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023_massa,43.7,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023_massa,32.26,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023_massa,33.26,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023_massa,52.33,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023_massa,32.32,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023_massa,34.8,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023_massa,41.1,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023_massa,23.98,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023_massa,37.91,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023_massa,31.78,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023_massa,37.85,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023_massa,37.61,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023_massa,33.23,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023_massa,27.2,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023_massa,37.88,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023_massa,29.68,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023_massa,65.5,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023_massa,44.98,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023_massa,38.21,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023_milei,19.85,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023_milei,25.72,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023_milei,32.04,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023_milei,33.55,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023_milei,26.89,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023_milei,27.77,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023_milei,35.02,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023_milei,29.75,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023_milei,29.04,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023_milei,37.39,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023_milei,33.53,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023_milei,37.65,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023_milei,42.36,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023_milei,42.13,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023_milei,36.71,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023_milei,33.73,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023_milei,40.4,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023_milei,35.1,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023_milei,43.37,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023_milei,36.3,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023_milei,32.48,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023_milei,22.98,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023_milei,34.94,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023_milei,33.82,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023_otras,3.55,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023_otras,3.58,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023_otras,1.57,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023_otras,1.39,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023_otras,1.05,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023_otras,0.77,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023_otras,4.4,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023_otras,1.53,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023_otras,0.77,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023_otras,3.54,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023_otras,2.3,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023_otras,0.92,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023_otras,3.48,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023_otras,1.38,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023_otras,5.02,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023_otras,4.02,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023_otras,1.77,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023_otras,2.26,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023_otras,2.18,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023_otras,2.88,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023_otras,1.9,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023_otras,1.27,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023_otras,1.45,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023_otras,3.86,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023_schiaretti,3.09,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023_schiaretti,3.73,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023_schiaretti,6.43,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023_schiaretti,29.01,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023_schiaretti,2.74,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023_schiaretti,3.63,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023_schiaretti,7.73,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023_schiaretti,5.37,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023_schiaretti,2.46,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023_schiaretti,6.81,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023_schiaretti,7.44,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023_schiaretti,8.51,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023_schiaretti,4.33,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023_schiaretti,4.13,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023_schiaretti,5.96,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023_schiaretti,6.26,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023_schiaretti,6.27,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023_schiaretti,6.18,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023_schiaretti,6.28,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023_schiaretti,6.58,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023_schiaretti,9.04,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023_schiaretti,2.16,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023_schiaretti,4.02,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023_schiaretti,9.15,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023-2_massa,42.76,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023-2_massa,50.73,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023-2_massa,47.25,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023-2_massa,25.95,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023-2_massa,46.8,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023-2_massa,49.93,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023-2_massa,40.89,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023-2_massa,38.52,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023-2_massa,56.5,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023-2_massa,41.67,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023-2_massa,42.65,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023-2_massa,46.28,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023-2_massa,28.85,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023-2_massa,43.2,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023-2_massa,39.58,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023-2_massa,45.76,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023-2_massa,42.14,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023-2_massa,39.32,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023-2_massa,32.01,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023-2_massa,41.94,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023-2_massa,37.18,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023-2_massa,68.42,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023-2_massa,48.02,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023-2_massa,46.7,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023-2_milei,57.24,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023-2_milei,49.27,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023-2_milei,52.75,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023-2_milei,74.05,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023-2_milei,53.2,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023-2_milei,50.07,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023-2_milei,59.11,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023-2_milei,61.48,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023-2_milei,43.5,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023-2_milei,58.33,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023-2_milei,57.35,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023-2_milei,53.72,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023-2_milei,71.15,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023-2_milei,56.8,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023-2_milei,60.42,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023-2_milei,54.24,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023-2_milei,57.86,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023-2_milei,60.68,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023-2_milei,67.99,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023-2_milei,58.06,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023-2_milei,62.82,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023-2_milei,31.58,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023-2_milei,51.98,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023-2_milei,53.3,% de los votos positivos,Direccion Nacional Electoral

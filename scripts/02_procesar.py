@@ -674,6 +674,18 @@ ocde_tabla = pd.concat(ocde_filas, ignore_index=True)
 ocde_tabla = ocde_tabla[["indicador", "anio", "argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75", "ocde_paises"]]
 ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]] = ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]].round(2)
 
+# Nacimientos del conjunto de la OCDE: tasa bruta de natalidad por poblacion, sumado sobre los 38 miembros.
+# Se pasa a indice con base en el primer anio de la serie del RENAPER para ponerlo en el mismo grafico.
+o_nac = bm("SP.DYN.CBRT.IN").merge(bm_pob, on=["pais", "anio"])
+o_nac = o_nac[o_nac.pais != "ARG"]
+o_nac["nac"] = o_nac.valor * o_nac.pob / 1000
+o_nac = o_nac.groupby("anio").agg(nac=("nac", "sum"), n=("pais", "count"))
+o_nac = o_nac[o_nac.n == 38].nac  # solo anios con dato para los 38 miembros
+NAC_BASE = int(nac_df.anio.min())
+nac_df["idx_argentina"] = nac_df.nacimientos / nac_df.set_index("anio").nacimientos[NAC_BASE] * 100
+nac_df["idx_ocde"] = nac_df.anio.map(o_nac / o_nac[NAC_BASE] * 100)
+nac_df["nacimientos_ocde"] = nac_df.anio.map(o_nac).round(0)
+
 MES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
        "septiembre", "octubre", "noviembre", "diciembre"]
 
@@ -869,6 +881,247 @@ DEP_META = {
 }
 departamentos.to_csv(SITIO / "departamentos.csv", index=False)
 
+# ---------------------------------------------------------------- elecciones presidenciales
+# Direccion Nacional Electoral: definitivos 1983 a 2019 y provisorios 2023 (scripts/elecciones_presidenciales.py).
+# Cada formula se identifica por el apellido de quien encabezaba la lista. Las cuatro mas votadas del pais se muestran
+# por separado y el resto va a "Otras". Porcentajes sobre votos positivos, como en el escrutinio oficial.
+el = pd.read_csv(RAIZ / "datos" / "manual" / "presidenciales_provincia.csv", dtype={"codigo_indec": str})
+CAND_LISTA = {  # 2015 y 2023 no traen la formula, solo la alianza
+    "ALIANZA FRENTE PARA LA VICTORIA": "Scioli", "ALIANZA CAMBIEMOS": "Macri", "ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA)": "Massa",
+    "ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES": "Del Caño", "ALIANZA PROGRESISTAS": "Stolbizer", "ALIANZA COMPROMISO FEDERAL": "Rodríguez Saá",
+    "UNION POR LA PATRIA": "Massa", "LA LIBERTAD AVANZA": "Milei", "JUNTOS POR EL CAMBIO": "Bullrich", "HACEMOS POR NUESTRO PAIS": "Schiaretti",
+    "FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD": "Bregman"}
+CAND_ARREGLO = {"De La Rúa": "De la Rúa", "Fernández De Kirchner": "Fernández de Kirchner", "Alberto Fernández": "Fernández",
+                "Mauricio Macri": "Macri", "Roberto Lavagna": "Lavagna", "Nicolás Del Caño": "Del Caño", "Juan Gómez Centurión": "Gómez Centurión",
+                "José Espert": "Espert"}
+
+
+def candidato(fila):
+    if isinstance(fila.formula, str) and fila.formula.strip():
+        c = fila.formula.split(" - ")[0].strip().title()
+        return CAND_ARREGLO.get(c, c)
+    return CAND_LISTA.get(fila.partido, "Otras")
+
+
+el["candidato"] = el.apply(candidato, axis=1)
+el["eleccion"] = el.anio.astype(str) + el.vuelta.map({1: "", 2: "-2"})
+tot_el = el.drop_duplicates(["eleccion", "codigo_indec"])[["eleccion", "anio", "vuelta", "codigo_indec", "electores", "votantes", "positivos"]]
+nac_el = el.groupby(["eleccion", "candidato"]).votos.sum().reset_index()
+nac_el = nac_el[nac_el.candidato != "Otras"].sort_values(["eleccion", "votos"], ascending=[True, False])
+TOP_EL = nac_el.groupby("eleccion").head(4).groupby("eleccion").candidato.apply(list).to_dict()
+el["cand"] = [c if c in TOP_EL[e] else "Otras" for e, c in zip(el.eleccion, el.candidato)]
+pres = el.groupby(["eleccion", "anio", "vuelta", "codigo_indec", "cand"]).votos.sum().reset_index()
+pres = pres.merge(tot_el[["eleccion", "codigo_indec", "positivos"]], on=["eleccion", "codigo_indec"])
+pais_el = pres.groupby(["eleccion", "anio", "vuelta", "cand"]).agg(votos=("votos", "sum"), positivos=("positivos", "sum")).reset_index()
+pres = pd.concat([pres, pais_el.assign(codigo_indec="00")], ignore_index=True)
+pres["positivos"] = pres.groupby(["eleccion", "codigo_indec"]).positivos.transform("first")
+pais_pos = tot_el.groupby("eleccion").positivos.sum()
+pres.loc[pres.codigo_indec == "00", "positivos"] = pres.loc[pres.codigo_indec == "00", "eleccion"].map(pais_pos)
+pres["pct"] = (pres.votos / pres.positivos * 100).round(2)
+presidenciales = pres.pivot_table(index=["eleccion", "anio", "vuelta", "codigo_indec"], columns="cand", values="pct").reset_index()
+presidenciales["territorio"] = presidenciales.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+# nombre de la fuerza de cada candidatura: la agrupacion que mas votos le aporto en el pais
+FUERZA_EL = (el.groupby(["eleccion", "candidato", "partido"]).votos.sum().reset_index().sort_values("votos")
+             .drop_duplicates(["eleccion", "candidato"], keep="last").set_index(["eleccion", "candidato"]).partido)
+# participacion: votantes sobre electores habilitados
+tot_el["participacion"] = tot_el.votantes / tot_el.electores * 100
+# Oficialismo nacional: la formula del partido o la alianza que gobernaba al momento de votar.
+# En 2003 se toma la de Kirchner, que era la del presidente Duhalde. En 1983 no hubo oficialismo (gobierno de facto).
+OFICIALISMO = {"1989": "Angeloz", "1995": "Menem", "1999": "Duhalde", "2003": "Kirchner", "2007": "Fernández de Kirchner",
+               "2011": "Fernández de Kirchner", "2015": "Scioli", "2015-2": "Scioli", "2019": "Macri", "2023": "Massa", "2023-2": "Massa"}
+ofi = el[el.apply(lambda r: OFICIALISMO.get(r.eleccion) == r.candidato, axis=1)].groupby(["eleccion", "anio", "codigo_indec"]).votos.sum().reset_index()
+ofi = ofi.merge(tot_el[["eleccion", "codigo_indec", "positivos"]], on=["eleccion", "codigo_indec"])
+ofi["valor"] = ofi.votos / ofi.positivos * 100
+ofi = ofi[~ofi.eleccion.str.endswith("-2")]
+for c in ["participacion"]:
+    d = tot_el[tot_el.vuelta == 1].rename(columns={"anio": "periodo", c: "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
+    agregar(d, "participacion_presidencial", "% de los electores", "Direccion Nacional Electoral")
+d = pres[pres.codigo_indec != "00"].rename(columns={"anio": "periodo", "pct": "valor"})
+for e_, g_ in d.groupby("eleccion"):
+    for cand_, g2 in g_.groupby("cand"):
+        g2 = g2.copy(); g2["territorio"] = g2.codigo_indec.map(CORTO)
+        agregar(g2, f"voto_presidente_{e_}_{norm(cand_).replace(' ', '_')}", "% de los votos positivos", "Direccion Nacional Electoral")
+ELECCIONES = sorted(presidenciales.eleccion.unique(), key=lambda e: (int(e[:4]), e))
+ganador_el = {e: nac_el[nac_el.eleccion == e].iloc[0].candidato for e in ELECCIONES}
+round1 = lambda x: round(float(x), 1)
+# espacio de cada candidatura, con los mismos nombres que en el Congreso (sirve para darle el mismo color en todas las elecciones)
+_PJ, _UCR = "Peronismo", "UCR, PRO y aliados"
+CAND_ESP = {"Alfonsín": _UCR, "Luder": _PJ, "Menem": _PJ, "Angeloz": _UCR, "Vicente": "Izquierda", "Massaccesi": _UCR, "De la Rúa": _UCR,
+            "Duhalde": _PJ, "Walsh": "Izquierda", "Kirchner": _PJ, "Rodríguez Saá": _PJ, "Fernández de Kirchner": _PJ, "Scioli": _PJ,
+            "Macri": _UCR, "Del Caño": "Izquierda", "Fernández": _PJ, "Bullrich": _UCR, "Milei": "La Libertad Avanza", "Bregman": "Izquierda",
+            ("2023", "Massa"): _PJ}
+MINUSC = {"De", "Del", "La", "Las", "Los", "Y", "Por", "Para", "El", "Una"}
+
+
+def nombre_fuerza(t):
+    """Nombre legible de la agrupacion: sin aliados menores y sin el prefijo formal de alianza."""
+    t = str(t).split(" - ")[0].strip()
+    if t.isupper():
+        t = " ".join(w.lower() if w.title() in MINUSC and i else w.title() for i, w in enumerate(t.split()))
+        t = t.replace("Union", "Unión").replace("Pais", "País").replace("(Una)", "(UNA)")
+    if re.match(r"Alianza (Frente|Confederaci|Concertaci|Movimiento|Izquierda|Compromiso|Coalici|Uni[oó]n para|Afirmaci|Cambiemos|Progresistas|Unidos)", t):
+        t = t[len("Alianza "):]
+    return t
+
+
+el_meta = []
+for e in ELECCIONES:
+    pp = presidenciales[(presidenciales.eleccion == e) & (presidenciales.codigo_indec != "00")]
+    g_ = ganador_el[e]
+    otros_gan = pp.set_index("territorio")[TOP_EL[e]].idxmax(axis=1)
+    el_meta.append({"id": e, "anio": int(e[:4]), "vuelta": 2 if e.endswith("-2") else 1,
+                    "candidatos": [{"c": c, "fuerza": nombre_fuerza(FUERZA_EL.get((e, c), "")), "espacio": CAND_ESP.get((e[:4], c), CAND_ESP.get(c, "Otras fuerzas"))} for c in TOP_EL[e]],
+                    "ganador": g_, "pct_ganador": round1(float(presidenciales[(presidenciales.eleccion == e) & (presidenciales.codigo_indec == "00")][g_].iloc[0])),
+                    "prov_ganador": int((otros_gan == g_).sum()),
+                    "max_prov": pp.sort_values(g_).iloc[-1].territorio, "max_v": round1(pp[g_].max()),
+                    "min_prov": pp.sort_values(g_).iloc[0].territorio, "min_v": round1(pp[g_].min()),
+                    "participacion": round1(tot_el[tot_el.eleccion == e].votantes.sum() / tot_el[tot_el.eleccion == e].electores.sum() * 100),
+                    "provisorio": e.startswith("2023"),
+                    "oficialismo": OFICIALISMO.get(e)})
+pres_w = presidenciales
+presidenciales = pres[["eleccion", "codigo_indec", "cand", "pct"]].rename(columns={"cand": "candidato"}).sort_values(["eleccion", "codigo_indec", "pct"], ascending=[True, True, False])
+presidenciales["territorio"] = presidenciales.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+
+# ---------------------------------------------------------------- congreso
+# Senado: listado historico oficial (senado.gob.ar). Diputados: datos abiertos de la HCDN desde 2007 y, de 1983 a 2007,
+# el Patrimonio Legislativo de la HCDN (scripts/legisladores/). Desde 2007 los diputados figuran con su bloque real,
+# antes y en el Senado con el partido o la alianza por la que fueron electos.
+# Espacios: agrupacion amplia y neutral de cada bloque o partido. Los partidos provinciales y las fuerzas chicas quedan aparte.
+HOY = pd.Timestamp.now().normalize()
+ESPACIO = {"peronismo": "Peronismo", "UCR / Cambiemos / JxC": "UCR, PRO y aliados", "LLA / libertarios": "La Libertad Avanza",
+           "izquierda": "Izquierda", "partidos provinciales": "Fuerzas provinciales"}
+OTRAS_FUERZAS = r"FREPASO|FRENTE GRANDE|PAIS SOLIDARIO|FRENTE PROGRESISTA|\bGEN\b|ENCUENTRO FEDERAL"
+leg = []
+for camara, archivo in [("Diputados", "diputados_nacionales.csv"), ("Senado", "senadores_nacionales.csv")]:
+    d = pd.read_csv(RAIZ / "datos" / "manual" / archivo, parse_dates=["inicio", "fin", "mandato_fin"])
+    if "inicio_aprox" in d:  # reemplazos sin fecha de asuncion: se excluyen del conteo por anio
+        d = d[~d.inicio_aprox.fillna(False).astype(bool)]
+    d["camara"] = camara
+    leg.append(d)
+leg = pd.concat(leg, ignore_index=True)
+leg["codigo_indec"] = leg.provincia.map(codigo)
+assert leg.codigo_indec.notna().all(), leg[leg.codigo_indec.isna()].provincia.unique()
+leg["espacio"] = leg.familia.map(ESPACIO).fillna("Otras fuerzas")
+leg.loc[leg.bloque.fillna("").map(norm).str.upper().str.contains(OTRAS_FUERZAS), "espacio"] = "Otras fuerzas"
+# frentes provinciales y bloques de gobernadores: aparte, aunque algunos tengan origen peronista o radical
+PROVINCIALES = r"CONCORDIA|INNOVACION FEDERAL|ARGENTINA FEDERAL|FRENTE CIVICO POR SANTIAGO|PROVINCIAS UNIDAS|NEUQUINO|^INDEPENDENCIA$|PRIMERO SAN LUIS"
+leg.loc[leg.bloque.fillna("").map(norm).str.upper().str.contains(PROVINCIALES), "espacio"] = "Fuerzas provinciales"
+leg["fin"] = leg.fin.fillna(pd.Timestamp("2100-01-01"))
+ESPACIOS = ["Peronismo", "UCR, PRO y aliados", "La Libertad Avanza", "Izquierda", "Fuerzas provinciales", "Otras fuerzas"]
+comp = []
+for anio in range(1984, HOY.year + 1):
+    corte = min(pd.Timestamp(f"{anio}-07-01"), HOY)
+    act = leg[(leg.inicio <= corte) & (leg.fin >= corte)]
+    for (camara, espacio_), n in act.groupby(["camara", "espacio"]).id.nunique().items():
+        comp.append({"camara": camara, "anio": anio, "espacio": espacio_, "bancas": int(n)})
+congreso = pd.DataFrame(comp).pivot_table(index=["camara", "anio"], columns="espacio", values="bancas", fill_value=0).reset_index()
+congreso = congreso[["camara", "anio"] + [e for e in ESPACIOS if e in congreso.columns]]
+act = leg[(leg.inicio <= HOY) & (leg.fin >= HOY)].sort_values(["camara", "codigo_indec", "espacio", "nombre"])
+legisladores = act.assign(territorio=act.codigo_indec.map(CORTO), hasta=act.mandato_fin.dt.year)[
+    ["camara", "codigo_indec", "territorio", "nombre", "bloque", "espacio", "hasta"]]
+# representacion: habitantes por banca de diputado en cada provincia
+bancas_prov = act[act.camara == "Diputados"].groupby("codigo_indec").id.nunique()
+DIP_LEY = {"02": 25, "06": 70, "10": 5, "14": 18, "18": 7, "22": 7, "26": 5, "30": 9, "34": 5, "38": 6, "42": 5, "46": 5, "50": 10,
+           "54": 7, "58": 5, "62": 5, "66": 7, "70": 6, "74": 5, "78": 5, "82": 19, "86": 7, "90": 9, "94": 5}  # ley 22.847
+assert sum(DIP_LEY.values()) == 257
+representacion = pd.DataFrame({"codigo_indec": list(DIP_LEY), "diputados": list(DIP_LEY.values())})
+representacion["territorio"] = representacion.codigo_indec.map(CORTO)
+representacion["poblacion"] = representacion.codigo_indec.map(POB).round(0)
+representacion["hab_por_diputado"] = (representacion.poblacion / representacion.diputados).round(0)
+representacion["hab_por_senador"] = (representacion.poblacion / 3).round(0)
+# peso del voto: bancas totales (diputados mas senadores) sobre la proporcion de poblacion; 1 = proporcional
+representacion["peso_voto"] = ((representacion.diputados + 3) / (257 + 72)) / (representacion.poblacion / representacion.poblacion.sum())
+representacion = representacion.round({"peso_voto": 2})
+ult_c = congreso[congreso.anio == congreso.anio.max()].set_index("camara")
+_rp = representacion.sort_values("hab_por_diputado")
+congreso_res = {
+    "anio": int(congreso.anio.max()), "fecha": HOY.strftime("%d/%m/%Y"),
+    "dip": {e: int(ult_c.loc["Diputados", e]) for e in ESPACIOS if e in ult_c.columns},
+    "sen": {e: int(ult_c.loc["Senado", e]) for e in ESPACIOS if e in ult_c.columns},
+    "espacios": ESPACIOS,
+    "rep_min": _rp.iloc[0].territorio, "rep_min_v": int(_rp.iloc[0].hab_por_diputado),
+    "rep_max": _rp.iloc[-1].territorio, "rep_max_v": int(_rp.iloc[-1].hab_por_diputado),
+    "peso_max": _rp.sort_values("peso_voto").iloc[-1].territorio, "peso_max_v": float(_rp.peso_voto.max()),
+    "peso_min": _rp.sort_values("peso_voto").iloc[0].territorio, "peso_min_v": float(_rp.peso_voto.min()),
+    "n_dip": int(act[act.camara == "Diputados"].id.nunique()), "n_sen": int(act[act.camara == "Senado"].id.nunique()),
+}
+# historico completo solo para descargar
+for camara, nombre_arch in [("Diputados", "diputados_nacionales.csv"), ("Senado", "senadores_nacionales.csv")]:
+    h_ = leg[leg.camara == camara].copy()
+    h_["fin"] = h_.fin.where(h_.fin.dt.year < 2100)
+    h_.assign(territorio=h_.codigo_indec.map(CORTO))[["nombre", "codigo_indec", "territorio", "inicio", "fin", "mandato_fin", "bloque", "espacio", "fuente"]] \
+        .to_csv(SITIO / nombre_arch, index=False, date_format="%Y-%m-%d")
+
+# ---------------------------------------------------------------- presidentes y ministros
+# Lugar de nacimiento de presidentes (Wikipedia, Wikidata y Casa Rosada, las tres coinciden) y de los ministros con rango
+# de ministro y jefes de gabinete (anexos de gabinete de Wikipedia, corregidos con los anexos por ministerio y con
+# Wikidata). Tablas armadas una sola vez con scripts/ejecutivo/. AMBA: la Ciudad y los 24 partidos del Gran Buenos Aires (INDEC).
+PARTIDOS_GBA = ["Almirante Brown", "Avellaneda", "Berazategui", "Esteban Echeverría", "Ezeiza", "Florencio Varela", "General San Martín",
+                "Hurlingham", "Ituzaingó", "José C. Paz", "La Matanza", "Lanús", "Lomas de Zamora", "Malvinas Argentinas", "Merlo", "Moreno",
+                "Morón", "Quilmes", "San Fernando", "San Isidro", "San Miguel", "Tigre", "Tres de Febrero", "Vicente López"]
+_rdp = pd.read_csv(CRUDO / "renaper_departamentos_resumen.csv")
+assert _rdp[(_rdp.provincia_id == 6) & _rdp.nombre_departamento.isin(PARTIDOS_GBA)].nombre_departamento.nunique() == 24
+AMBA_PCT = float((_rdp[_rdp.provincia_id == 2].cantidad.sum() + _rdp[(_rdp.provincia_id == 6) & _rdp.nombre_departamento.isin(PARTIDOS_GBA)].cantidad.sum())
+                 / _rdp.cantidad.sum() * 100)
+
+
+def origen(prov_, amba_):
+    if not isinstance(prov_, str):
+        return "Sin dato"
+    if prov_.startswith("Exterior"):
+        return "Otro país"
+    if prov_.startswith("Ciudad"):
+        return "Ciudad de Buenos Aires"
+    if prov_ == "Buenos Aires":
+        return "Conurbano" if str(amba_) == "True" else "Resto de Buenos Aires"
+    return "Otras provincias"
+
+
+ORIGENES = ["Ciudad de Buenos Aires", "Conurbano", "Resto de Buenos Aires", "Otras provincias", "Otro país", "Sin dato"]
+pr = pd.read_csv(RAIZ / "datos" / "manual" / "presidentes.csv", parse_dates=["inicio", "fin"])
+pr["fin_"] = pr.fin.fillna(HOY)
+pr["dias"] = (pr.fin_ - pr.inicio).dt.days
+pr["origen"] = [origen(a, b) for a, b in zip(pr.provincia, pr.amba)]
+pr["codigo_nac"] = pr.provincia.map(codigo)
+presidentes = pr.assign(inicio=pr.inicio.dt.strftime("%Y-%m-%d"), fin=pr.fin.dt.strftime("%Y-%m-%d"))[
+    ["nombre", "inicio", "fin", "partido", "lugar_nacimiento", "provincia", "origen", "interino", "dias"]]
+_amba_pr = pr[pr.origen.isin(["Ciudad de Buenos Aires", "Conurbano"])]
+pres_res = {"n": int(len(pr)), "amba": int(len(_amba_pr)), "amba_nombres": list(_amba_pr.nombre),
+            "anios_amba": round1(_amba_pr.dias.sum() / 365.25), "anios": round1(pr.dias.sum() / 365.25),
+            "pct_tiempo_amba": round1(_amba_pr.dias.sum() / pr.dias.sum() * 100), "amba_pob": round1(AMBA_PCT),
+            "prov_distintas": int(pr.provincia.nunique())}
+mi = pd.read_csv(RAIZ / "datos" / "manual" / "ministros.csv")
+mi["origen"] = [origen(a, b) for a, b in zip(mi.provincia_nacimiento, mi.amba)]
+INTERINOS = {"Ramón Puerta", "Adolfo Rodríguez Saá", "Eduardo Camaño"}
+mi["gobierno"] = mi.presidente.where(~mi.presidente.isin(INTERINOS), "Interinos de 2001")
+ORDEN_GOB = list(dict.fromkeys(mi.sort_values("inicio").gobierno))
+_pm = mi.drop_duplicates(["gobierno", "nombre"])
+gab = _pm.groupby(["gobierno", "origen"]).nombre.count().unstack(fill_value=0).reindex(ORDEN_GOB)
+gab = gab[[o for o in ORIGENES if o in gab.columns]]
+gab_pct = gab.div(gab.drop(columns=["Sin dato"], errors="ignore").sum(axis=1), axis=0) * 100
+gabinetes = gab_pct.drop(columns=["Sin dato"], errors="ignore").round(1).reset_index()
+gabinetes["ministros"] = gab.sum(axis=1).values
+gabinetes["con_dato"] = gab.drop(columns=["Sin dato"], errors="ignore").sum(axis=1).values
+personas = mi.drop_duplicates("nombre")
+_amba_mi = personas[personas.origen.isin(["Ciudad de Buenos Aires", "Conurbano"])]
+_con = personas[personas.origen != "Sin dato"]
+por_prov_mi = personas.assign(codigo_indec=personas.provincia_nacimiento.map(codigo)).dropna(subset=["codigo_indec"]).groupby("codigo_indec").nombre.count()
+ministros_prov = pd.DataFrame({"codigo_indec": sorted(DIP_LEY)})
+ministros_prov["territorio"] = ministros_prov.codigo_indec.map(CORTO)
+ministros_prov["ministros"] = ministros_prov.codigo_indec.map(por_prov_mi).fillna(0).astype(int)
+ministros_prov["por_millon"] = (ministros_prov.ministros / ministros_prov.codigo_indec.map(POB) * 1e6).round(2)
+_g = gabinetes.set_index("gobierno")
+_amba_gob = (_g["Ciudad de Buenos Aires"] + _g.get("Conurbano", 0))
+gab_res = {"personas": int(len(personas)), "con_dato": int(len(_con)), "amba": int(len(_amba_mi)),
+           "pct_amba": round1(len(_amba_mi) / len(_con) * 100), "caba": int((_con.origen == "Ciudad de Buenos Aires").sum()),
+           "sin_ministro": list(ministros_prov[ministros_prov.ministros == 0].territorio),
+           "max_gob": list(_amba_gob[_amba_gob.round(1) == _amba_gob.round(1).max()].index), "max_gob_v": round1(_amba_gob.max()),
+           "min_gob": _amba_gob.drop("Interinos de 2001").idxmin(), "min_gob_v": round1(_amba_gob.drop("Interinos de 2001").min()),
+           "top_otras": ministros_prov[~ministros_prov.codigo_indec.isin(["02", "06"])].sort_values("ministros").iloc[-1].territorio,
+           "top_otras_v": int(ministros_prov[~ministros_prov.codigo_indec.isin(["02", "06"])].ministros.max())}
+ministros_lista = mi.assign(provincia=mi.provincia_nacimiento)[["nombre", "ministerio", "inicio", "fin", "presidente", "partido", "lugar_nacimiento", "provincia", "origen"]]
+ministros_lista.to_csv(SITIO / "ministros_nacionales.csv", index=False)
+
 # ---------------------------------------------------------------- cruces entre indicadores provinciales
 # Una fila por provincia y una columna por indicador, para el explorador de cruces del sitio.
 # Solo tasas, porcentajes o valores por habitante: cruzar totales solo mostraria el tamanio de cada provincia.
@@ -925,6 +1178,11 @@ cru["natalidad"] = cru.codigo_indec.map(natalidad)
 cru["autonomia_fiscal"] = columna(fiscal, "autonomia")
 cru["resultado_fiscal"] = columna(fiscal, "resultado")
 cru["gasto_personal"] = columna(fiscal, "personal")
+cru["peso_voto"] = columna(representacion, "peso_voto")
+_b23 = pres_w[pres_w.eleccion == "2023-2"]
+cru["voto_milei_2023"] = columna(_b23, "Milei")
+cru["participacion_2023"] = cru.codigo_indec.map(tot_el[tot_el.eleccion == "2023"].set_index("codigo_indec").participacion)
+cru["voto_oficialismo_2023"] = cru.codigo_indec.map(ofi[ofi.eleccion == "2023"].set_index("codigo_indec").valor)
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
@@ -958,6 +1216,10 @@ CRUCES_META = {
     "autonomia_fiscal": ("Recursos propios", "% de los ingresos totales de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "resultado_fiscal": ("Resultado fiscal", "superávit o déficit financiero, % de los ingresos totales", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "gasto_personal": ("Gasto en personal", "% del gasto total de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
+    "peso_voto": ("Peso de cada habitante en el Congreso", "bancas de diputados y senadores sobre la proporción de población, 1 = proporcional", "2025", "Política", "Ley 22.847 y proyecciones del INDEC", "f-representacion", 2),
+    "voto_milei_2023": ("Voto a Milei en el balotaje", "% de los votos positivos, segunda vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
+    "voto_oficialismo_2023": ("Voto al oficialismo nacional", "% de los votos positivos a la fórmula del gobierno, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
+    "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "extranjeros": ("Nacidos en otro país", "personas identificadas por el RENAPER cada 100 habitantes", "junio de 2026", "Población", "RENAPER", "", 1),
 }
 
@@ -1009,6 +1271,8 @@ for d, ident in [(au, "autos"), (mo_, "motos")]:
 a_serie(na[na.codigo_indec != "00"], "natalidad")
 for col, ident in [("autonomia", "autonomia_fiscal"), ("resultado", "resultado_fiscal"), ("personal", "gasto_personal")]:
     a_serie(fisc.rename(columns={col: "valor"}), ident)
+a_serie(ofi, "voto_oficialismo_2023")
+a_serie(tot_el[tot_el.vuelta == 1].rename(columns={"participacion": "valor"}), "participacion_2023")
 cruces_series = pd.concat(ser, ignore_index=True)
 cruces_series["valor"] = cruces_series.valor.round(2)
 cruces_series = cruces_series.dropna()[["id", "codigo_indec", "anio", "valor"]].sort_values(["id", "codigo_indec", "anio"])
@@ -1070,9 +1334,17 @@ tablas = {
     "exportaciones_provincias": exp_prov.round(2),
     "extranjeros_provincias": extranjeros.round(2),
     "fiscal_provincias": fiscal.round(2),
+    "elecciones_presidenciales": presidenciales,
+    "congreso_composicion": congreso,
+    "legisladores_actuales": legisladores,
+    "representacion_provincias": representacion,
+    "presidentes": presidentes,
+    "gabinetes_origen": gabinetes,
+    "ministros_provincias": ministros_prov,
     "pobreza_serie": pobreza[["periodo", "anio", "semestre", "t", "pobreza_personas", "indigencia_personas", "pobreza_hogares", "indigencia_hogares"]],
 }
 for k, t in tablas.items():
+    assert not isinstance(t, str), k
     t.to_csv(SITIO / f"{k}.csv", index=False)
 
 a05, a25 = anual.iloc[0], anual.iloc[-1]
@@ -1105,6 +1377,9 @@ resumen = {
         "ado_2024": int(n24.madres_menores_20),
         "ado_caida": r1((n24.madres_menores_20 / ado_pico.madres_menores_20 - 1) * 100),
         "pct_2012": r1(nac_df.iloc[0].pct_madres_menores_20), "pct_2024": r1(n24.pct_madres_menores_20),
+        "ocde_ult": int(nac_df.dropna(subset=["idx_ocde"]).anio.max()),
+        "ocde_caida": r1((nac_df.dropna(subset=["idx_ocde"]).iloc[-1].nacimientos_ocde / nac_df.set_index("anio").nacimientos_ocde[int(pico.anio)] - 1) * 100),
+        "arg_caida_ocde_ult": r1((nac_df.dropna(subset=["idx_ocde"]).iloc[-1].nacimientos / pico.nacimientos - 1) * 100),
     },
     "suicidio": {
         "anio": ANIO_SNIC, "casos": int(s25.casos), "tasa": r1(s25.tasa), "tasa_prev": r1(s24.tasa),
@@ -1265,6 +1540,10 @@ resumen["fiscal"] = {
 }
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
+resumen["elecciones"] = el_meta
+resumen["congreso"] = congreso_res
+resumen["presidentes"] = pres_res
+resumen["gabinetes"] = gab_res
 resumen["nuevos"] = {
     "ev_anio": ANIO_EV, "ev_pais": r1(ev_pais.total), "ev_m": r1(ev_pais.mujeres), "ev_v": r1(ev_pais.varones),
     "ev_top": _ev_t.territorio, "ev_top_v": r1(_ev_t.total), "ev_low": _ev_b.territorio, "ev_low_v": r1(_ev_b.total),

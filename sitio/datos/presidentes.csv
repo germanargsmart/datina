@@ -1,0 +1,13 @@
+nombre,inicio,fin,partido,lugar_nacimiento,provincia,origen,interino,dias
+Raúl Alfonsín,1983-12-10,1989-07-08,Unión Cívica Radical,Chascomús,Buenos Aires,Resto de Buenos Aires,False,2037
+Carlos Menem,1989-07-08,1999-12-10,Partido Justicialista,Anillaco,La Rioja,Otras provincias,False,3807
+Fernando de la Rúa,1999-12-10,2001-12-21,Unión Cívica Radical (Alianza),Córdoba,Córdoba,Otras provincias,False,742
+Ramón Puerta,2001-12-21,2001-12-23,Partido Justicialista,Apóstoles,Misiones,Otras provincias,True,2
+Adolfo Rodríguez Saá,2001-12-23,2001-12-30,Partido Justicialista,San Luis,San Luis,Otras provincias,True,7
+Eduardo Camaño,2001-12-30,2002-01-01,Partido Justicialista,Buenos Aires,Ciudad Autónoma de Buenos Aires,Ciudad de Buenos Aires,True,2
+Eduardo Duhalde,2002-01-02,2003-05-25,Partido Justicialista,Lomas de Zamora,Buenos Aires,Conurbano,True,508
+Néstor Kirchner,2003-05-25,2007-12-10,Partido Justicialista (Frente para la Victoria),Río Gallegos,Santa Cruz,Otras provincias,False,1660
+Cristina Fernández de Kirchner,2007-12-10,2015-12-10,Partido Justicialista (Frente para la Victoria),Tolosa (La Plata),Buenos Aires,Resto de Buenos Aires,False,2922
+Mauricio Macri,2015-12-10,2019-12-10,Propuesta Republicana (Cambiemos),Tandil,Buenos Aires,Resto de Buenos Aires,False,1461
+Alberto Fernández,2019-12-10,2023-12-10,Partido Justicialista (Frente de Todos),Buenos Aires,Ciudad Autónoma de Buenos Aires,Ciudad de Buenos Aires,False,1461
+Javier Milei,2023-12-10,,La Libertad Avanza,Buenos Aires,Ciudad Autónoma de Buenos Aires,Ciudad de Buenos Aires,False,1024

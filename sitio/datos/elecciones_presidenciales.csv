@@ -1,0 +1,1349 @@
+eleccion,codigo_indec,candidato,pct,territorio
+1983,00,Alfonsín,51.75,Total del país
+1983,00,Luder,40.16,Total del país
+1983,00,Otras,4.57,Total del país
+1983,00,Alende,2.33,Total del país
+1983,00,Frigerio,1.19,Total del país
+1983,02,Alfonsín,64.26,CABA
+1983,02,Luder,27.36,CABA
+1983,02,Alende,4.48,CABA
+1983,02,Otras,3.17,CABA
+1983,02,Frigerio,0.73,CABA
+1983,06,Alfonsín,51.41,Buenos Aires
+1983,06,Luder,42.23,Buenos Aires
+1983,06,Alende,3.24,Buenos Aires
+1983,06,Otras,2.28,Buenos Aires
+1983,06,Frigerio,0.84,Buenos Aires
+1983,10,Alfonsín,46.79,Catamarca
+1983,10,Luder,43.65,Catamarca
+1983,10,Otras,8.21,Catamarca
+1983,10,Frigerio,0.78,Catamarca
+1983,10,Alende,0.58,Catamarca
+1983,14,Alfonsín,56.22,Córdoba
+1983,14,Luder,39.92,Córdoba
+1983,14,Otras,2.07,Córdoba
+1983,14,Frigerio,0.93,Córdoba
+1983,14,Alende,0.87,Córdoba
+1983,18,Alfonsín,33.84,Corrientes
+1983,18,Otras,33.51,Corrientes
+1983,18,Luder,28.38,Corrientes
+1983,18,Frigerio,3.52,Corrientes
+1983,18,Alende,0.74,Corrientes
+1983,22,Luder,47.98,Chaco
+1983,22,Alfonsín,46.55,Chaco
+1983,22,Otras,2.89,Chaco
+1983,22,Frigerio,2.16,Chaco
+1983,22,Alende,0.42,Chaco
+1983,26,Alfonsín,50.85,Chubut
+1983,26,Luder,41.46,Chubut
+1983,26,Otras,3.83,Chubut
+1983,26,Frigerio,2.11,Chubut
+1983,26,Alende,1.75,Chubut
+1983,30,Alfonsín,49.53,Entre Ríos
+1983,30,Luder,44.21,Entre Ríos
+1983,30,Otras,3.21,Entre Ríos
+1983,30,Frigerio,1.56,Entre Ríos
+1983,30,Alende,1.49,Entre Ríos
+1983,34,Luder,45.12,Formosa
+1983,34,Alfonsín,37.2,Formosa
+1983,34,Frigerio,13.77,Formosa
+1983,34,Otras,3.46,Formosa
+1983,34,Alende,0.46,Formosa
+1983,38,Luder,48.72,Jujuy
+1983,38,Alfonsín,35.46,Jujuy
+1983,38,Otras,14.48,Jujuy
+1983,38,Frigerio,0.82,Jujuy
+1983,38,Alende,0.51,Jujuy
+1983,42,Alfonsín,41.38,La Pampa
+1983,42,Luder,40.88,La Pampa
+1983,42,Otras,13.49,La Pampa
+1983,42,Frigerio,2.69,La Pampa
+1983,42,Alende,1.57,La Pampa
+1983,46,Luder,55.52,La Rioja
+1983,46,Alfonsín,41.04,La Rioja
+1983,46,Frigerio,1.83,La Rioja
+1983,46,Otras,1.07,La Rioja
+1983,46,Alende,0.53,La Rioja
+1983,50,Alfonsín,57.81,Mendoza
+1983,50,Luder,36.56,Mendoza
+1983,50,Otras,3.54,Mendoza
+1983,50,Frigerio,1.13,Mendoza
+1983,50,Alende,0.95,Mendoza
+1983,54,Alfonsín,49.56,Misiones
+1983,54,Luder,47.79,Misiones
+1983,54,Frigerio,1.62,Misiones
+1983,54,Otras,0.72,Misiones
+1983,54,Alende,0.31,Misiones
+1983,58,Alfonsín,45.31,Neuquén
+1983,58,Otras,29.65,Neuquén
+1983,58,Luder,22.2,Neuquén
+1983,58,Alende,1.98,Neuquén
+1983,58,Frigerio,0.85,Neuquén
+1983,62,Alfonsín,53.57,Río Negro
+1983,62,Luder,39.94,Río Negro
+1983,62,Otras,3.01,Río Negro
+1983,62,Alende,1.82,Río Negro
+1983,62,Frigerio,1.66,Río Negro
+1983,66,Luder,45.27,Salta
+1983,66,Alfonsín,44.62,Salta
+1983,66,Otras,9.08,Salta
+1983,66,Frigerio,0.58,Salta
+1983,66,Alende,0.44,Salta
+1983,70,Alfonsín,40.23,San Juan
+1983,70,Luder,30.65,San Juan
+1983,70,Otras,27.05,San Juan
+1983,70,Frigerio,1.2,San Juan
+1983,70,Alende,0.88,San Juan
+1983,74,Alfonsín,48.58,San Luis
+1983,74,Luder,41.44,San Luis
+1983,74,Otras,5.85,San Luis
+1983,74,Frigerio,3.67,San Luis
+1983,74,Alende,0.45,San Luis
+1983,78,Luder,51.5,Santa Cruz
+1983,78,Alfonsín,44.01,Santa Cruz
+1983,78,Frigerio,1.95,Santa Cruz
+1983,78,Alende,1.54,Santa Cruz
+1983,78,Otras,1.01,Santa Cruz
+1983,82,Alfonsín,50.21,Santa Fe
+1983,82,Luder,42.94,Santa Fe
+1983,82,Otras,3.54,Santa Fe
+1983,82,Alende,1.87,Santa Fe
+1983,82,Frigerio,1.43,Santa Fe
+1983,86,Luder,48.53,Santiago del Estero
+1983,86,Alfonsín,40.57,Santiago del Estero
+1983,86,Otras,10.06,Santiago del Estero
+1983,86,Alende,0.43,Santiago del Estero
+1983,86,Frigerio,0.41,Santiago del Estero
+1983,90,Luder,51.78,Tucumán
+1983,90,Alfonsín,41.55,Tucumán
+1983,90,Otras,5.42,Tucumán
+1983,90,Frigerio,0.69,Tucumán
+1983,90,Alende,0.56,Tucumán
+1983,94,Alfonsín,50.4,Tierra del Fuego
+1983,94,Luder,38.94,Tierra del Fuego
+1983,94,Otras,3.81,Tierra del Fuego
+1983,94,Alende,3.78,Tierra del Fuego
+1983,94,Frigerio,3.07,Tierra del Fuego
+1989,00,Menem,47.49,Total del país
+1989,00,Angeloz,37.1,Total del país
+1989,00,Alsogaray,6.53,Total del país
+1989,00,Otras,6.44,Total del país
+1989,00,Vicente,2.44,Total del país
+1989,02,Angeloz,45.13,CABA
+1989,02,Menem,36.64,CABA
+1989,02,Alsogaray,12.35,CABA
+1989,02,Vicente,3.38,CABA
+1989,02,Otras,2.51,CABA
+1989,06,Menem,50.07,Buenos Aires
+1989,06,Angeloz,33.29,Buenos Aires
+1989,06,Alsogaray,6.77,Buenos Aires
+1989,06,Otras,6.63,Buenos Aires
+1989,06,Vicente,3.23,Buenos Aires
+1989,10,Menem,55.15,Catamarca
+1989,10,Angeloz,40.25,Catamarca
+1989,10,Otras,2.56,Catamarca
+1989,10,Vicente,1.07,Catamarca
+1989,10,Alsogaray,0.98,Catamarca
+1989,14,Angeloz,48.48,Córdoba
+1989,14,Menem,44.53,Córdoba
+1989,14,Alsogaray,3.75,Córdoba
+1989,14,Otras,1.73,Córdoba
+1989,14,Vicente,1.51,Córdoba
+1989,18,Menem,42.04,Corrientes
+1989,18,Otras,28.39,Corrientes
+1989,18,Angeloz,27.82,Corrientes
+1989,18,Alsogaray,1.2,Corrientes
+1989,18,Vicente,0.55,Corrientes
+1989,22,Menem,52.23,Chaco
+1989,22,Angeloz,38.64,Chaco
+1989,22,Otras,6.56,Chaco
+1989,22,Alsogaray,1.9,Chaco
+1989,22,Vicente,0.67,Chaco
+1989,26,Angeloz,45.79,Chubut
+1989,26,Menem,42.71,Chubut
+1989,26,Alsogaray,7.02,Chubut
+1989,26,Otras,2.46,Chubut
+1989,26,Vicente,2.01,Chubut
+1989,30,Menem,51.6,Entre Ríos
+1989,30,Angeloz,39.09,Entre Ríos
+1989,30,Alsogaray,6.1,Entre Ríos
+1989,30,Otras,2.09,Entre Ríos
+1989,30,Vicente,1.12,Entre Ríos
+1989,34,Menem,58.7,Formosa
+1989,34,Angeloz,39.53,Formosa
+1989,34,Alsogaray,0.91,Formosa
+1989,34,Otras,0.47,Formosa
+1989,34,Vicente,0.38,Formosa
+1989,38,Menem,42.47,Jujuy
+1989,38,Angeloz,37.43,Jujuy
+1989,38,Otras,17.1,Jujuy
+1989,38,Vicente,1.69,Jujuy
+1989,38,Alsogaray,1.31,Jujuy
+1989,42,Menem,51.59,La Pampa
+1989,42,Angeloz,40.28,La Pampa
+1989,42,Alsogaray,4.48,La Pampa
+1989,42,Vicente,1.92,La Pampa
+1989,42,Otras,1.73,La Pampa
+1989,46,Menem,66.61,La Rioja
+1989,46,Angeloz,28.71,La Rioja
+1989,46,Otras,2.5,La Rioja
+1989,46,Alsogaray,1.42,La Rioja
+1989,46,Vicente,0.76,La Rioja
+1989,50,Menem,42.28,Mendoza
+1989,50,Angeloz,33.62,Mendoza
+1989,50,Alsogaray,16.62,Mendoza
+1989,50,Vicente,3.99,Mendoza
+1989,50,Otras,3.5,Mendoza
+1989,54,Menem,52.88,Misiones
+1989,54,Angeloz,40.81,Misiones
+1989,54,Alsogaray,4.56,Misiones
+1989,54,Otras,1.24,Misiones
+1989,54,Vicente,0.52,Misiones
+1989,58,Menem,39.44,Neuquén
+1989,58,Angeloz,29.29,Neuquén
+1989,58,Otras,25.41,Neuquén
+1989,58,Alsogaray,3.9,Neuquén
+1989,58,Vicente,1.96,Neuquén
+1989,62,Menem,47.43,Río Negro
+1989,62,Angeloz,41.85,Río Negro
+1989,62,Alsogaray,6.43,Río Negro
+1989,62,Vicente,2.32,Río Negro
+1989,62,Otras,1.98,Río Negro
+1989,66,Angeloz,47.04,Salta
+1989,66,Menem,44.01,Salta
+1989,66,Otras,4.72,Salta
+1989,66,Alsogaray,3.05,Salta
+1989,66,Vicente,1.18,Salta
+1989,70,Menem,46.55,San Juan
+1989,70,Angeloz,29.32,San Juan
+1989,70,Otras,16.15,San Juan
+1989,70,Alsogaray,6.11,San Juan
+1989,70,Vicente,1.86,San Juan
+1989,74,Menem,49.24,San Luis
+1989,74,Angeloz,42.0,San Luis
+1989,74,Alsogaray,3.59,San Luis
+1989,74,Otras,3.14,San Luis
+1989,74,Vicente,2.02,San Luis
+1989,78,Menem,54.73,Santa Cruz
+1989,78,Angeloz,38.17,Santa Cruz
+1989,78,Alsogaray,4.05,Santa Cruz
+1989,78,Vicente,1.62,Santa Cruz
+1989,78,Otras,1.43,Santa Cruz
+1989,82,Menem,51.95,Santa Fe
+1989,82,Angeloz,34.98,Santa Fe
+1989,82,Alsogaray,6.01,Santa Fe
+1989,82,Otras,5.06,Santa Fe
+1989,82,Vicente,1.99,Santa Fe
+1989,86,Menem,64.16,Santiago del Estero
+1989,86,Angeloz,30.24,Santiago del Estero
+1989,86,Otras,4.2,Santiago del Estero
+1989,86,Vicente,0.75,Santiago del Estero
+1989,86,Alsogaray,0.65,Santiago del Estero
+1989,90,Menem,41.49,Tucumán
+1989,90,Otras,29.24,Tucumán
+1989,90,Angeloz,27.3,Tucumán
+1989,90,Alsogaray,0.99,Tucumán
+1989,90,Vicente,0.98,Tucumán
+1989,94,Menem,42.68,Tierra del Fuego
+1989,94,Angeloz,39.0,Tierra del Fuego
+1989,94,Alsogaray,8.37,Tierra del Fuego
+1989,94,Vicente,5.25,Tierra del Fuego
+1989,94,Otras,4.71,Tierra del Fuego
+1995,00,Menem,49.94,Total del país
+1995,00,Bordón,29.3,Total del país
+1995,00,Massaccesi,16.99,Total del país
+1995,00,Otras,1.99,Total del país
+1995,00,Rico,1.78,Total del país
+1995,02,Bordón,44.53,CABA
+1995,02,Menem,41.71,CABA
+1995,02,Massaccesi,10.66,CABA
+1995,02,Otras,1.86,CABA
+1995,02,Rico,1.24,CABA
+1995,06,Menem,51.81,Buenos Aires
+1995,06,Bordón,29.79,Buenos Aires
+1995,06,Massaccesi,13.89,Buenos Aires
+1995,06,Rico,2.33,Buenos Aires
+1995,06,Otras,2.18,Buenos Aires
+1995,10,Menem,52.29,Catamarca
+1995,10,Massaccesi,30.81,Catamarca
+1995,10,Bordón,15.88,Catamarca
+1995,10,Otras,0.61,Catamarca
+1995,10,Rico,0.41,Catamarca
+1995,14,Menem,48.15,Córdoba
+1995,14,Massaccesi,28.9,Córdoba
+1995,14,Bordón,20.77,Córdoba
+1995,14,Rico,1.14,Córdoba
+1995,14,Otras,1.04,Córdoba
+1995,18,Menem,46.61,Corrientes
+1995,18,Bordón,34.36,Corrientes
+1995,18,Massaccesi,16.08,Corrientes
+1995,18,Rico,1.72,Corrientes
+1995,18,Otras,1.23,Corrientes
+1995,22,Menem,56.82,Chaco
+1995,22,Massaccesi,22.88,Chaco
+1995,22,Bordón,18.03,Chaco
+1995,22,Otras,1.38,Chaco
+1995,22,Rico,0.89,Chaco
+1995,26,Menem,57.15,Chubut
+1995,26,Massaccesi,25.74,Chubut
+1995,26,Bordón,15.05,Chubut
+1995,26,Otras,1.1,Chubut
+1995,26,Rico,0.96,Chubut
+1995,30,Menem,46.15,Entre Ríos
+1995,30,Massaccesi,26.58,Entre Ríos
+1995,30,Bordón,24.71,Entre Ríos
+1995,30,Rico,1.7,Entre Ríos
+1995,30,Otras,0.86,Entre Ríos
+1995,34,Menem,49.42,Formosa
+1995,34,Massaccesi,31.18,Formosa
+1995,34,Bordón,16.83,Formosa
+1995,34,Rico,1.35,Formosa
+1995,34,Otras,1.22,Formosa
+1995,38,Menem,46.81,Jujuy
+1995,38,Massaccesi,23.03,Jujuy
+1995,38,Bordón,21.42,Jujuy
+1995,38,Rico,7.19,Jujuy
+1995,38,Otras,1.56,Jujuy
+1995,42,Menem,50.39,La Pampa
+1995,42,Bordón,24.08,La Pampa
+1995,42,Massaccesi,22.69,La Pampa
+1995,42,Rico,1.52,La Pampa
+1995,42,Otras,1.32,La Pampa
+1995,46,Menem,76.1,La Rioja
+1995,46,Massaccesi,16.53,La Rioja
+1995,46,Bordón,6.29,La Rioja
+1995,46,Otras,0.66,La Rioja
+1995,46,Rico,0.41,La Rioja
+1995,50,Menem,51.69,Mendoza
+1995,50,Bordón,33.86,Mendoza
+1995,50,Massaccesi,12.16,Mendoza
+1995,50,Rico,1.27,Mendoza
+1995,50,Otras,1.02,Mendoza
+1995,54,Menem,50.31,Misiones
+1995,54,Massaccesi,38.61,Misiones
+1995,54,Bordón,8.54,Misiones
+1995,54,Rico,2.21,Misiones
+1995,54,Otras,0.34,Misiones
+1995,58,Menem,53.63,Neuquén
+1995,58,Bordón,25.61,Neuquén
+1995,58,Massaccesi,16.23,Neuquén
+1995,58,Otras,2.76,Neuquén
+1995,58,Rico,1.77,Neuquén
+1995,62,Menem,44.01,Río Negro
+1995,62,Massaccesi,37.33,Río Negro
+1995,62,Bordón,16.05,Río Negro
+1995,62,Otras,1.77,Río Negro
+1995,62,Rico,0.84,Río Negro
+1995,66,Menem,53.58,Salta
+1995,66,Bordón,24.79,Salta
+1995,66,Massaccesi,16.69,Salta
+1995,66,Rico,3.86,Salta
+1995,66,Otras,1.08,Salta
+1995,70,Menem,59.19,San Juan
+1995,70,Bordón,30.34,San Juan
+1995,70,Massaccesi,9.75,San Juan
+1995,70,Otras,0.38,San Juan
+1995,70,Rico,0.33,San Juan
+1995,74,Menem,55.33,San Luis
+1995,74,Bordón,25.3,San Luis
+1995,74,Massaccesi,17.12,San Luis
+1995,74,Otras,1.24,San Luis
+1995,74,Rico,1.01,San Luis
+1995,78,Menem,58.08,Santa Cruz
+1995,78,Bordón,22.78,Santa Cruz
+1995,78,Massaccesi,17.25,Santa Cruz
+1995,78,Rico,1.12,Santa Cruz
+1995,78,Otras,0.78,Santa Cruz
+1995,82,Menem,46.94,Santa Fe
+1995,82,Bordón,37.44,Santa Fe
+1995,82,Massaccesi,12.57,Santa Fe
+1995,82,Rico,1.55,Santa Fe
+1995,82,Otras,1.49,Santa Fe
+1995,86,Menem,64.1,Santiago del Estero
+1995,86,Massaccesi,24.85,Santiago del Estero
+1995,86,Bordón,10.14,Santiago del Estero
+1995,86,Rico,0.49,Santiago del Estero
+1995,86,Otras,0.42,Santiago del Estero
+1995,90,Menem,45.59,Tucumán
+1995,90,Bordón,29.13,Tucumán
+1995,90,Otras,12.38,Tucumán
+1995,90,Massaccesi,12.35,Tucumán
+1995,90,Rico,0.55,Tucumán
+1995,94,Menem,61.19,Tierra del Fuego
+1995,94,Bordón,22.45,Tierra del Fuego
+1995,94,Massaccesi,13.2,Tierra del Fuego
+1995,94,Rico,2.05,Tierra del Fuego
+1995,94,Otras,1.12,Tierra del Fuego
+1999,00,De la Rúa,48.37,Total del país
+1999,00,Duhalde,38.27,Total del país
+1999,00,Cavallo,10.22,Total del país
+1999,00,Otras,2.34,Total del país
+1999,00,Walsh,0.8,Total del país
+1999,02,De la Rúa,54.34,CABA
+1999,02,Duhalde,23.55,CABA
+1999,02,Cavallo,16.27,CABA
+1999,02,Otras,4.18,CABA
+1999,02,Walsh,1.65,CABA
+1999,06,De la Rúa,44.47,Buenos Aires
+1999,06,Duhalde,42.81,Buenos Aires
+1999,06,Cavallo,9.21,Buenos Aires
+1999,06,Otras,2.61,Buenos Aires
+1999,06,Walsh,0.9,Buenos Aires
+1999,10,De la Rúa,50.74,Catamarca
+1999,10,Duhalde,44.23,Catamarca
+1999,10,Cavallo,3.4,Catamarca
+1999,10,Otras,1.45,Catamarca
+1999,10,Walsh,0.18,Catamarca
+1999,14,De la Rúa,47.23,Córdoba
+1999,14,Duhalde,40.21,Córdoba
+1999,14,Cavallo,10.06,Córdoba
+1999,14,Otras,1.77,Córdoba
+1999,14,Walsh,0.73,Córdoba
+1999,18,De la Rúa,47.28,Corrientes
+1999,18,Duhalde,42.97,Corrientes
+1999,18,Cavallo,8.47,Corrientes
+1999,18,Otras,1.06,Corrientes
+1999,18,Walsh,0.21,Corrientes
+1999,22,De la Rúa,54.66,Chaco
+1999,22,Duhalde,38.42,Chaco
+1999,22,Cavallo,5.03,Chaco
+1999,22,Otras,1.39,Chaco
+1999,22,Walsh,0.51,Chaco
+1999,26,De la Rúa,55.74,Chubut
+1999,26,Duhalde,30.37,Chubut
+1999,26,Cavallo,11.49,Chubut
+1999,26,Otras,1.84,Chubut
+1999,26,Walsh,0.55,Chubut
+1999,30,De la Rúa,51.41,Entre Ríos
+1999,30,Duhalde,40.86,Entre Ríos
+1999,30,Cavallo,5.89,Entre Ríos
+1999,30,Otras,1.36,Entre Ríos
+1999,30,Walsh,0.49,Entre Ríos
+1999,34,Duhalde,48.85,Formosa
+1999,34,De la Rúa,47.23,Formosa
+1999,34,Cavallo,2.59,Formosa
+1999,34,Otras,1.33,Formosa
+1999,38,De la Rúa,50.78,Jujuy
+1999,38,Duhalde,44.26,Jujuy
+1999,38,Cavallo,4.16,Jujuy
+1999,38,Otras,0.46,Jujuy
+1999,38,Walsh,0.34,Jujuy
+1999,42,De la Rúa,52.24,La Pampa
+1999,42,Duhalde,40.18,La Pampa
+1999,42,Cavallo,5.67,La Pampa
+1999,42,Otras,1.5,La Pampa
+1999,42,Walsh,0.41,La Pampa
+1999,46,Duhalde,60.13,La Rioja
+1999,46,De la Rúa,32.31,La Rioja
+1999,46,Cavallo,4.64,La Rioja
+1999,46,Otras,1.91,La Rioja
+1999,46,Walsh,1.01,La Rioja
+1999,50,De la Rúa,53.45,Mendoza
+1999,50,Duhalde,22.71,Mendoza
+1999,50,Cavallo,21.66,Mendoza
+1999,50,Otras,1.54,Mendoza
+1999,50,Walsh,0.64,Mendoza
+1999,54,Duhalde,47.24,Misiones
+1999,54,De la Rúa,44.99,Misiones
+1999,54,Cavallo,5.21,Misiones
+1999,54,Otras,2.13,Misiones
+1999,54,Walsh,0.43,Misiones
+1999,58,De la Rúa,52.38,Neuquén
+1999,58,Duhalde,28.08,Neuquén
+1999,58,Cavallo,14.1,Neuquén
+1999,58,Otras,4.48,Neuquén
+1999,58,Walsh,0.96,Neuquén
+1999,62,De la Rúa,58.36,Río Negro
+1999,62,Duhalde,27.22,Río Negro
+1999,62,Cavallo,10.99,Río Negro
+1999,62,Otras,2.53,Río Negro
+1999,62,Walsh,0.9,Río Negro
+1999,66,De la Rúa,47.82,Salta
+1999,66,Duhalde,42.83,Salta
+1999,66,Cavallo,7.05,Salta
+1999,66,Otras,2.3,Salta
+1999,70,De la Rúa,55.1,San Juan
+1999,70,Duhalde,30.04,San Juan
+1999,70,Cavallo,13.05,San Juan
+1999,70,Otras,1.32,San Juan
+1999,70,Walsh,0.5,San Juan
+1999,74,De la Rúa,57.59,San Luis
+1999,74,Duhalde,30.68,San Luis
+1999,74,Cavallo,9.4,San Luis
+1999,74,Otras,1.82,San Luis
+1999,74,Walsh,0.51,San Luis
+1999,78,De la Rúa,47.96,Santa Cruz
+1999,78,Duhalde,41.11,Santa Cruz
+1999,78,Cavallo,8.83,Santa Cruz
+1999,78,Otras,1.67,Santa Cruz
+1999,78,Walsh,0.43,Santa Cruz
+1999,82,De la Rúa,53.23,Santa Fe
+1999,82,Duhalde,31.66,Santa Fe
+1999,82,Cavallo,12.16,Santa Fe
+1999,82,Otras,2.15,Santa Fe
+1999,82,Walsh,0.8,Santa Fe
+1999,86,Duhalde,56.81,Santiago del Estero
+1999,86,De la Rúa,38.75,Santiago del Estero
+1999,86,Cavallo,3.6,Santiago del Estero
+1999,86,Otras,0.57,Santiago del Estero
+1999,86,Walsh,0.27,Santiago del Estero
+1999,90,De la Rúa,47.61,Tucumán
+1999,90,Duhalde,41.98,Tucumán
+1999,90,Cavallo,8.31,Tucumán
+1999,90,Otras,1.75,Tucumán
+1999,90,Walsh,0.35,Tucumán
+1999,94,De la Rúa,39.58,Tierra del Fuego
+1999,94,Duhalde,38.43,Tierra del Fuego
+1999,94,Cavallo,19.13,Tierra del Fuego
+1999,94,Otras,2.11,Tierra del Fuego
+1999,94,Walsh,0.76,Tierra del Fuego
+2003,00,Menem,24.45,Total del país
+2003,00,Otras,22.82,Total del país
+2003,00,Kirchner,22.25,Total del país
+2003,00,López Murphy,16.37,Total del país
+2003,00,Rodríguez Saá,14.11,Total del país
+2003,02,Otras,30.43,CABA
+2003,02,López Murphy,25.85,CABA
+2003,02,Kirchner,19.46,CABA
+2003,02,Menem,16.05,CABA
+2003,02,Rodríguez Saá,8.21,CABA
+2003,06,Kirchner,25.72,Buenos Aires
+2003,06,Otras,24.21,Buenos Aires
+2003,06,Menem,20.4,Buenos Aires
+2003,06,López Murphy,15.83,Buenos Aires
+2003,06,Rodríguez Saá,13.83,Buenos Aires
+2003,10,Menem,49.52,Catamarca
+2003,10,Otras,14.18,Catamarca
+2003,10,Kirchner,13.64,Catamarca
+2003,10,López Murphy,11.63,Catamarca
+2003,10,Rodríguez Saá,11.04,Catamarca
+2003,14,Menem,28.42,Córdoba
+2003,14,López Murphy,21.61,Córdoba
+2003,14,Otras,19.93,Córdoba
+2003,14,Rodríguez Saá,19.23,Córdoba
+2003,14,Kirchner,10.81,Córdoba
+2003,18,Menem,35.02,Corrientes
+2003,18,Kirchner,26.39,Corrientes
+2003,18,Otras,21.43,Corrientes
+2003,18,López Murphy,11.62,Corrientes
+2003,18,Rodríguez Saá,5.53,Corrientes
+2003,22,Menem,35.15,Chaco
+2003,22,Otras,34.39,Chaco
+2003,22,Kirchner,19.14,Chaco
+2003,22,López Murphy,6.55,Chaco
+2003,22,Rodríguez Saá,4.78,Chaco
+2003,26,Kirchner,50.22,Chubut
+2003,26,Menem,18.66,Chubut
+2003,26,Otras,17.94,Chubut
+2003,26,López Murphy,8.39,Chubut
+2003,26,Rodríguez Saá,4.78,Chubut
+2003,30,Menem,29.77,Entre Ríos
+2003,30,Otras,20.9,Entre Ríos
+2003,30,Kirchner,20.74,Entre Ríos
+2003,30,López Murphy,14.37,Entre Ríos
+2003,30,Rodríguez Saá,14.22,Entre Ríos
+2003,34,Kirchner,41.11,Formosa
+2003,34,Menem,26.35,Formosa
+2003,34,Otras,16.9,Formosa
+2003,34,Rodríguez Saá,9.26,Formosa
+2003,34,López Murphy,6.39,Formosa
+2003,38,Kirchner,42.42,Jujuy
+2003,38,Menem,18.59,Jujuy
+2003,38,Rodríguez Saá,17.96,Jujuy
+2003,38,Otras,15.09,Jujuy
+2003,38,López Murphy,5.94,Jujuy
+2003,42,Menem,27.81,La Pampa
+2003,42,Rodríguez Saá,20.5,La Pampa
+2003,42,Otras,19.67,La Pampa
+2003,42,Kirchner,17.77,La Pampa
+2003,42,López Murphy,14.25,La Pampa
+2003,46,Menem,81.93,La Rioja
+2003,46,Kirchner,6.25,La Rioja
+2003,46,López Murphy,4.52,La Rioja
+2003,46,Otras,4.33,La Rioja
+2003,46,Rodríguez Saá,2.97,La Rioja
+2003,50,Rodríguez Saá,36.76,Mendoza
+2003,50,López Murphy,19.54,Mendoza
+2003,50,Menem,19.09,Mendoza
+2003,50,Otras,14.95,Mendoza
+2003,50,Kirchner,9.66,Mendoza
+2003,54,Menem,38.91,Misiones
+2003,54,Kirchner,22.96,Misiones
+2003,54,Otras,20.53,Misiones
+2003,54,Rodríguez Saá,8.93,Misiones
+2003,54,López Murphy,8.68,Misiones
+2003,58,Kirchner,25.27,Neuquén
+2003,58,Menem,25.02,Neuquén
+2003,58,Otras,24.58,Neuquén
+2003,58,López Murphy,16.92,Neuquén
+2003,58,Rodríguez Saá,8.21,Neuquén
+2003,62,Kirchner,35.39,Río Negro
+2003,62,Otras,24.28,Río Negro
+2003,62,Menem,17.53,Río Negro
+2003,62,López Murphy,15.46,Río Negro
+2003,62,Rodríguez Saá,7.34,Río Negro
+2003,66,Menem,44.8,Salta
+2003,66,López Murphy,19.44,Salta
+2003,66,Otras,15.83,Salta
+2003,66,Kirchner,13.19,Salta
+2003,66,Rodríguez Saá,6.74,Salta
+2003,70,Rodríguez Saá,35.68,San Juan
+2003,70,Menem,26.94,San Juan
+2003,70,Kirchner,20.25,San Juan
+2003,70,López Murphy,9.66,San Juan
+2003,70,Otras,7.48,San Juan
+2003,74,Rodríguez Saá,87.39,San Luis
+2003,74,Otras,5.53,San Luis
+2003,74,López Murphy,3.52,San Luis
+2003,74,Menem,2.29,San Luis
+2003,74,Kirchner,1.28,San Luis
+2003,78,Kirchner,79.25,Santa Cruz
+2003,78,Otras,7.68,Santa Cruz
+2003,78,Menem,7.1,Santa Cruz
+2003,78,López Murphy,3.91,Santa Cruz
+2003,78,Rodríguez Saá,2.06,Santa Cruz
+2003,82,Otras,32.74,Santa Fe
+2003,82,Menem,25.26,Santa Fe
+2003,82,López Murphy,17.33,Santa Fe
+2003,82,Kirchner,16.11,Santa Fe
+2003,82,Rodríguez Saá,8.55,Santa Fe
+2003,86,Menem,41.65,Santiago del Estero
+2003,86,Kirchner,39.83,Santiago del Estero
+2003,86,Otras,7.63,Santiago del Estero
+2003,86,López Murphy,6.5,Santiago del Estero
+2003,86,Rodríguez Saá,4.38,Santiago del Estero
+2003,90,Menem,31.36,Tucumán
+2003,90,Kirchner,24.05,Tucumán
+2003,90,López Murphy,19.22,Tucumán
+2003,90,Rodríguez Saá,12.7,Tucumán
+2003,90,Otras,12.67,Tucumán
+2003,94,Kirchner,47.6,Tierra del Fuego
+2003,94,Menem,21.8,Tierra del Fuego
+2003,94,Otras,17.02,Tierra del Fuego
+2003,94,López Murphy,7.32,Tierra del Fuego
+2003,94,Rodríguez Saá,6.25,Tierra del Fuego
+2007,00,Fernández de Kirchner,45.28,Total del país
+2007,00,Carrió,23.05,Total del país
+2007,00,Lavagna,16.91,Total del país
+2007,00,Rodríguez Saá,7.64,Total del país
+2007,00,Otras,7.13,Total del país
+2007,02,Carrió,37.77,CABA
+2007,02,Fernández de Kirchner,23.78,CABA
+2007,02,Lavagna,18.39,CABA
+2007,02,Otras,11.74,CABA
+2007,02,Rodríguez Saá,8.31,CABA
+2007,06,Fernández de Kirchner,45.91,Buenos Aires
+2007,06,Carrió,26.05,Buenos Aires
+2007,06,Lavagna,13.68,Buenos Aires
+2007,06,Otras,7.98,Buenos Aires
+2007,06,Rodríguez Saá,6.38,Buenos Aires
+2007,10,Fernández de Kirchner,53.24,Catamarca
+2007,10,Lavagna,20.64,Catamarca
+2007,10,Carrió,10.8,Catamarca
+2007,10,Rodríguez Saá,10.7,Catamarca
+2007,10,Otras,4.61,Catamarca
+2007,14,Lavagna,35.31,Córdoba
+2007,14,Fernández de Kirchner,23.84,Córdoba
+2007,14,Carrió,19.0,Córdoba
+2007,14,Rodríguez Saá,14.69,Córdoba
+2007,14,Otras,7.16,Córdoba
+2007,18,Fernández de Kirchner,54.12,Corrientes
+2007,18,Carrió,23.33,Corrientes
+2007,18,Lavagna,14.65,Corrientes
+2007,18,Rodríguez Saá,5.06,Corrientes
+2007,18,Otras,2.83,Corrientes
+2007,22,Fernández de Kirchner,49.52,Chaco
+2007,22,Lavagna,21.76,Chaco
+2007,22,Carrió,21.21,Chaco
+2007,22,Rodríguez Saá,4.03,Chaco
+2007,22,Otras,3.47,Chaco
+2007,26,Fernández de Kirchner,66.28,Chubut
+2007,26,Carrió,18.12,Chubut
+2007,26,Lavagna,9.68,Chubut
+2007,26,Otras,4.24,Chubut
+2007,26,Rodríguez Saá,1.67,Chubut
+2007,30,Fernández de Kirchner,45.52,Entre Ríos
+2007,30,Carrió,19.75,Entre Ríos
+2007,30,Lavagna,17.56,Entre Ríos
+2007,30,Rodríguez Saá,10.44,Entre Ríos
+2007,30,Otras,6.74,Entre Ríos
+2007,34,Fernández de Kirchner,74.13,Formosa
+2007,34,Lavagna,14.62,Formosa
+2007,34,Carrió,7.97,Formosa
+2007,34,Rodríguez Saá,1.85,Formosa
+2007,34,Otras,1.42,Formosa
+2007,38,Fernández de Kirchner,61.9,Jujuy
+2007,38,Lavagna,26.43,Jujuy
+2007,38,Carrió,6.21,Jujuy
+2007,38,Otras,3.57,Jujuy
+2007,38,Rodríguez Saá,1.88,Jujuy
+2007,42,Fernández de Kirchner,48.08,La Pampa
+2007,42,Carrió,20.05,La Pampa
+2007,42,Lavagna,13.61,La Pampa
+2007,42,Rodríguez Saá,12.53,La Pampa
+2007,42,Otras,5.72,La Pampa
+2007,46,Fernández de Kirchner,48.79,La Rioja
+2007,46,Rodríguez Saá,25.87,La Rioja
+2007,46,Lavagna,15.8,La Rioja
+2007,46,Carrió,6.07,La Rioja
+2007,46,Otras,3.48,La Rioja
+2007,50,Fernández de Kirchner,60.93,Mendoza
+2007,50,Lavagna,18.29,Mendoza
+2007,50,Carrió,12.8,Mendoza
+2007,50,Rodríguez Saá,4.22,Mendoza
+2007,50,Otras,3.76,Mendoza
+2007,54,Fernández de Kirchner,69.28,Misiones
+2007,54,Lavagna,15.43,Misiones
+2007,54,Carrió,8.25,Misiones
+2007,54,Rodríguez Saá,5.43,Misiones
+2007,54,Otras,1.62,Misiones
+2007,58,Fernández de Kirchner,37.19,Neuquén
+2007,58,Otras,27.41,Neuquén
+2007,58,Carrió,21.9,Neuquén
+2007,58,Lavagna,9.91,Neuquén
+2007,58,Rodríguez Saá,3.59,Neuquén
+2007,62,Fernández de Kirchner,56.85,Río Negro
+2007,62,Carrió,17.7,Río Negro
+2007,62,Lavagna,11.95,Río Negro
+2007,62,Otras,10.09,Río Negro
+2007,62,Rodríguez Saá,3.42,Río Negro
+2007,66,Fernández de Kirchner,75.77,Salta
+2007,66,Lavagna,12.2,Salta
+2007,66,Carrió,6.68,Salta
+2007,66,Otras,3.9,Salta
+2007,66,Rodríguez Saá,1.45,Salta
+2007,70,Fernández de Kirchner,58.24,San Juan
+2007,70,Lavagna,23.59,San Juan
+2007,70,Carrió,8.43,San Juan
+2007,70,Rodríguez Saá,6.9,San Juan
+2007,70,Otras,2.83,San Juan
+2007,74,Rodríguez Saá,68.18,San Luis
+2007,74,Fernández de Kirchner,11.62,San Luis
+2007,74,Carrió,11.42,San Luis
+2007,74,Lavagna,5.84,San Luis
+2007,74,Otras,2.95,San Luis
+2007,78,Fernández de Kirchner,68.46,Santa Cruz
+2007,78,Carrió,17.74,Santa Cruz
+2007,78,Lavagna,10.42,Santa Cruz
+2007,78,Otras,1.71,Santa Cruz
+2007,78,Rodríguez Saá,1.68,Santa Cruz
+2007,82,Fernández de Kirchner,35.5,Santa Fe
+2007,82,Carrió,34.08,Santa Fe
+2007,82,Lavagna,16.55,Santa Fe
+2007,82,Rodríguez Saá,7.71,Santa Fe
+2007,82,Otras,6.16,Santa Fe
+2007,86,Fernández de Kirchner,79.48,Santiago del Estero
+2007,86,Carrió,8.81,Santiago del Estero
+2007,86,Lavagna,5.83,Santiago del Estero
+2007,86,Otras,3.89,Santiago del Estero
+2007,86,Rodríguez Saá,1.99,Santiago del Estero
+2007,90,Fernández de Kirchner,62.68,Tucumán
+2007,90,Lavagna,15.68,Tucumán
+2007,90,Carrió,11.86,Tucumán
+2007,90,Otras,6.7,Tucumán
+2007,90,Rodríguez Saá,3.08,Tucumán
+2007,94,Fernández de Kirchner,54.6,Tierra del Fuego
+2007,94,Carrió,26.44,Tierra del Fuego
+2007,94,Lavagna,11.67,Tierra del Fuego
+2007,94,Rodríguez Saá,3.65,Tierra del Fuego
+2007,94,Otras,3.64,Tierra del Fuego
+2011,00,Fernández de Kirchner,54.11,Total del país
+2011,00,Binner,16.81,Total del país
+2011,00,Alfonsín,11.14,Total del país
+2011,00,Otras,9.98,Total del país
+2011,00,Rodríguez Saá,7.96,Total del país
+2011,02,Fernández de Kirchner,35.11,CABA
+2011,02,Binner,27.81,CABA
+2011,02,Otras,17.79,CABA
+2011,02,Rodríguez Saá,9.84,CABA
+2011,02,Alfonsín,9.45,CABA
+2011,06,Fernández de Kirchner,56.43,Buenos Aires
+2011,06,Binner,14.93,Buenos Aires
+2011,06,Otras,11.63,Buenos Aires
+2011,06,Alfonsín,9.69,Buenos Aires
+2011,06,Rodríguez Saá,7.33,Buenos Aires
+2011,10,Fernández de Kirchner,69.79,Catamarca
+2011,10,Alfonsín,17.92,Catamarca
+2011,10,Otras,5.4,Catamarca
+2011,10,Binner,5.14,Catamarca
+2011,10,Rodríguez Saá,1.75,Catamarca
+2011,14,Fernández de Kirchner,37.29,Córdoba
+2011,14,Binner,23.39,Córdoba
+2011,14,Alfonsín,18.0,Córdoba
+2011,14,Rodríguez Saá,12.27,Córdoba
+2011,14,Otras,9.04,Córdoba
+2011,18,Fernández de Kirchner,68.04,Corrientes
+2011,18,Alfonsín,12.9,Corrientes
+2011,18,Otras,7.83,Corrientes
+2011,18,Binner,7.2,Corrientes
+2011,18,Rodríguez Saá,4.04,Corrientes
+2011,22,Fernández de Kirchner,65.24,Chaco
+2011,22,Alfonsín,17.7,Chaco
+2011,22,Binner,7.18,Chaco
+2011,22,Otras,6.87,Chaco
+2011,22,Rodríguez Saá,3.01,Chaco
+2011,26,Fernández de Kirchner,59.82,Chubut
+2011,26,Otras,19.82,Chubut
+2011,26,Alfonsín,9.64,Chubut
+2011,26,Binner,7.69,Chubut
+2011,26,Rodríguez Saá,3.04,Chubut
+2011,30,Fernández de Kirchner,54.63,Entre Ríos
+2011,30,Binner,20.42,Entre Ríos
+2011,30,Alfonsín,14.46,Entre Ríos
+2011,30,Otras,6.41,Entre Ríos
+2011,30,Rodríguez Saá,4.07,Entre Ríos
+2011,34,Fernández de Kirchner,79.27,Formosa
+2011,34,Alfonsín,14.66,Formosa
+2011,34,Otras,2.65,Formosa
+2011,34,Binner,2.59,Formosa
+2011,34,Rodríguez Saá,0.83,Formosa
+2011,38,Fernández de Kirchner,64.43,Jujuy
+2011,38,Alfonsín,18.84,Jujuy
+2011,38,Binner,8.07,Jujuy
+2011,38,Otras,5.07,Jujuy
+2011,38,Rodríguez Saá,3.59,Jujuy
+2011,42,Fernández de Kirchner,58.27,La Pampa
+2011,42,Binner,13.59,La Pampa
+2011,42,Alfonsín,13.31,La Pampa
+2011,42,Rodríguez Saá,8.53,La Pampa
+2011,42,Otras,6.29,La Pampa
+2011,46,Fernández de Kirchner,51.28,La Rioja
+2011,46,Rodríguez Saá,20.84,La Rioja
+2011,46,Alfonsín,17.44,La Rioja
+2011,46,Binner,6.01,La Rioja
+2011,46,Otras,4.43,La Rioja
+2011,50,Fernández de Kirchner,51.12,Mendoza
+2011,50,Rodríguez Saá,20.36,Mendoza
+2011,50,Binner,12.24,Mendoza
+2011,50,Alfonsín,11.02,Mendoza
+2011,50,Otras,5.26,Mendoza
+2011,54,Fernández de Kirchner,67.08,Misiones
+2011,54,Alfonsín,13.73,Misiones
+2011,54,Otras,10.39,Misiones
+2011,54,Binner,5.7,Misiones
+2011,54,Rodríguez Saá,3.09,Misiones
+2011,58,Fernández de Kirchner,61.13,Neuquén
+2011,58,Binner,14.34,Neuquén
+2011,58,Alfonsín,9.29,Neuquén
+2011,58,Otras,8.83,Neuquén
+2011,58,Rodríguez Saá,6.41,Neuquén
+2011,62,Fernández de Kirchner,68.07,Río Negro
+2011,62,Binner,12.02,Río Negro
+2011,62,Alfonsín,9.28,Río Negro
+2011,62,Otras,6.63,Río Negro
+2011,62,Rodríguez Saá,4.0,Río Negro
+2011,66,Fernández de Kirchner,64.55,Salta
+2011,66,Alfonsín,14.59,Salta
+2011,66,Otras,9.3,Salta
+2011,66,Binner,8.31,Salta
+2011,66,Rodríguez Saá,3.26,Salta
+2011,70,Fernández de Kirchner,65.41,San Juan
+2011,70,Rodríguez Saá,17.07,San Juan
+2011,70,Alfonsín,7.13,San Juan
+2011,70,Binner,6.22,San Juan
+2011,70,Otras,4.17,San Juan
+2011,74,Rodríguez Saá,51.5,San Luis
+2011,74,Fernández de Kirchner,31.43,San Luis
+2011,74,Alfonsín,9.09,San Luis
+2011,74,Binner,5.11,San Luis
+2011,74,Otras,2.87,San Luis
+2011,78,Fernández de Kirchner,74.87,Santa Cruz
+2011,78,Alfonsín,11.86,Santa Cruz
+2011,78,Binner,7.34,Santa Cruz
+2011,78,Otras,4.66,Santa Cruz
+2011,78,Rodríguez Saá,1.27,Santa Cruz
+2011,82,Fernández de Kirchner,41.96,Santa Fe
+2011,82,Binner,39.1,Santa Fe
+2011,82,Otras,8.44,Santa Fe
+2011,82,Alfonsín,5.71,Santa Fe
+2011,82,Rodríguez Saá,4.8,Santa Fe
+2011,86,Fernández de Kirchner,82.11,Santiago del Estero
+2011,86,Alfonsín,7.08,Santiago del Estero
+2011,86,Otras,5.04,Santiago del Estero
+2011,86,Binner,4.11,Santiago del Estero
+2011,86,Rodríguez Saá,1.66,Santiago del Estero
+2011,90,Fernández de Kirchner,65.19,Tucumán
+2011,90,Alfonsín,13.31,Tucumán
+2011,90,Binner,10.84,Tucumán
+2011,90,Otras,5.78,Tucumán
+2011,90,Rodríguez Saá,4.88,Tucumán
+2011,94,Fernández de Kirchner,68.43,Tierra del Fuego
+2011,94,Binner,10.26,Tierra del Fuego
+2011,94,Alfonsín,8.64,Tierra del Fuego
+2011,94,Otras,6.98,Tierra del Fuego
+2011,94,Rodríguez Saá,5.69,Tierra del Fuego
+2015,00,Scioli,37.08,Total del país
+2015,00,Macri,34.15,Total del país
+2015,00,Massa,21.39,Total del país
+2015,00,Otras,4.15,Total del país
+2015,00,Del Caño,3.23,Total del país
+2015,02,Macri,50.61,CABA
+2015,02,Scioli,24.09,CABA
+2015,02,Massa,15.27,CABA
+2015,02,Otras,5.78,CABA
+2015,02,Del Caño,4.26,CABA
+2015,06,Scioli,37.28,Buenos Aires
+2015,06,Macri,32.8,Buenos Aires
+2015,06,Massa,22.43,Buenos Aires
+2015,06,Otras,3.8,Buenos Aires
+2015,06,Del Caño,3.68,Buenos Aires
+2015,10,Scioli,44.84,Catamarca
+2015,10,Macri,35.82,Catamarca
+2015,10,Massa,15.9,Catamarca
+2015,10,Otras,1.88,Catamarca
+2015,10,Del Caño,1.56,Catamarca
+2015,14,Macri,53.22,Córdoba
+2015,14,Massa,20.41,Córdoba
+2015,14,Scioli,19.26,Córdoba
+2015,14,Otras,3.93,Córdoba
+2015,14,Del Caño,3.18,Córdoba
+2015,18,Scioli,50.26,Corrientes
+2015,18,Macri,31.81,Corrientes
+2015,18,Massa,15.26,Corrientes
+2015,18,Otras,1.58,Corrientes
+2015,18,Del Caño,1.09,Corrientes
+2015,22,Scioli,53.69,Chaco
+2015,22,Macri,28.28,Chaco
+2015,22,Massa,14.85,Chaco
+2015,22,Otras,1.75,Chaco
+2015,22,Del Caño,1.42,Chaco
+2015,26,Scioli,41.67,Chubut
+2015,26,Massa,29.55,Chubut
+2015,26,Macri,21.34,Chubut
+2015,26,Otras,3.85,Chubut
+2015,26,Del Caño,3.59,Chubut
+2015,30,Macri,37.76,Entre Ríos
+2015,30,Scioli,37.64,Entre Ríos
+2015,30,Massa,19.81,Entre Ríos
+2015,30,Otras,3.06,Entre Ríos
+2015,30,Del Caño,1.73,Entre Ríos
+2015,34,Scioli,66.98,Formosa
+2015,34,Massa,16.61,Formosa
+2015,34,Macri,15.04,Formosa
+2015,34,Del Caño,0.81,Formosa
+2015,34,Otras,0.56,Formosa
+2015,38,Massa,41.59,Jujuy
+2015,38,Scioli,37.58,Jujuy
+2015,38,Macri,17.24,Jujuy
+2015,38,Del Caño,2.36,Jujuy
+2015,38,Otras,1.23,Jujuy
+2015,42,Scioli,37.94,La Pampa
+2015,42,Macri,33.59,La Pampa
+2015,42,Massa,21.57,La Pampa
+2015,42,Otras,4.37,La Pampa
+2015,42,Del Caño,2.53,La Pampa
+2015,46,Scioli,36.32,La Rioja
+2015,46,Macri,31.67,La Rioja
+2015,46,Massa,25.93,La Rioja
+2015,46,Otras,4.4,La Rioja
+2015,46,Del Caño,1.68,La Rioja
+2015,50,Macri,40.81,Mendoza
+2015,50,Scioli,31.36,Mendoza
+2015,50,Massa,14.39,Mendoza
+2015,50,Del Caño,7.61,Mendoza
+2015,50,Otras,5.84,Mendoza
+2015,54,Scioli,61.11,Misiones
+2015,54,Macri,22.7,Misiones
+2015,54,Massa,13.7,Misiones
+2015,54,Otras,1.61,Misiones
+2015,54,Del Caño,0.88,Misiones
+2015,58,Scioli,35.74,Neuquén
+2015,58,Macri,27.97,Neuquén
+2015,58,Massa,26.41,Neuquén
+2015,58,Del Caño,5.4,Neuquén
+2015,58,Otras,4.48,Neuquén
+2015,62,Scioli,45.2,Río Negro
+2015,62,Massa,24.32,Río Negro
+2015,62,Macri,22.39,Río Negro
+2015,62,Otras,4.2,Río Negro
+2015,62,Del Caño,3.9,Río Negro
+2015,66,Scioli,40.98,Salta
+2015,66,Massa,33.98,Salta
+2015,66,Macri,20.56,Salta
+2015,66,Del Caño,2.66,Salta
+2015,66,Otras,1.82,Salta
+2015,70,Scioli,45.96,San Juan
+2015,70,Massa,26.62,San Juan
+2015,70,Macri,20.76,San Juan
+2015,70,Otras,5.19,San Juan
+2015,70,Del Caño,1.46,San Juan
+2015,74,Otras,38.16,San Luis
+2015,74,Macri,30.93,San Luis
+2015,74,Scioli,15.58,San Luis
+2015,74,Massa,13.56,San Luis
+2015,74,Del Caño,1.77,San Luis
+2015,78,Scioli,47.06,Santa Cruz
+2015,78,Macri,25.57,Santa Cruz
+2015,78,Massa,22.58,Santa Cruz
+2015,78,Del Caño,3.15,Santa Cruz
+2015,78,Otras,1.63,Santa Cruz
+2015,82,Macri,35.29,Santa Fe
+2015,82,Scioli,31.77,Santa Fe
+2015,82,Massa,24.83,Santa Fe
+2015,82,Otras,5.45,Santa Fe
+2015,82,Del Caño,2.67,Santa Fe
+2015,86,Scioli,63.13,Santiago del Estero
+2015,86,Massa,19.3,Santiago del Estero
+2015,86,Macri,14.7,Santiago del Estero
+2015,86,Del Caño,1.46,Santiago del Estero
+2015,86,Otras,1.41,Santiago del Estero
+2015,90,Scioli,48.46,Tucumán
+2015,90,Macri,26.7,Tucumán
+2015,90,Massa,20.8,Tucumán
+2015,90,Otras,2.29,Tucumán
+2015,90,Del Caño,1.74,Tucumán
+2015,94,Scioli,45.52,Tierra del Fuego
+2015,94,Massa,23.39,Tierra del Fuego
+2015,94,Macri,21.9,Tierra del Fuego
+2015,94,Otras,4.8,Tierra del Fuego
+2015,94,Del Caño,4.39,Tierra del Fuego
+2015-2,00,Macri,51.34,Total del país
+2015-2,00,Scioli,48.66,Total del país
+2015-2,02,Macri,64.8,CABA
+2015-2,02,Scioli,35.2,CABA
+2015-2,06,Scioli,51.15,Buenos Aires
+2015-2,06,Macri,48.85,Buenos Aires
+2015-2,10,Scioli,53.14,Catamarca
+2015-2,10,Macri,46.86,Catamarca
+2015-2,14,Macri,71.52,Córdoba
+2015-2,14,Scioli,28.48,Córdoba
+2015-2,18,Scioli,55.36,Corrientes
+2015-2,18,Macri,44.64,Corrientes
+2015-2,22,Scioli,59.19,Chaco
+2015-2,22,Macri,40.81,Chaco
+2015-2,26,Scioli,58.85,Chubut
+2015-2,26,Macri,41.15,Chubut
+2015-2,30,Macri,53.86,Entre Ríos
+2015-2,30,Scioli,46.14,Entre Ríos
+2015-2,34,Scioli,63.92,Formosa
+2015-2,34,Macri,36.08,Formosa
+2015-2,38,Macri,52.89,Jujuy
+2015-2,38,Scioli,47.11,Jujuy
+2015-2,42,Macri,51.03,La Pampa
+2015-2,42,Scioli,48.97,La Pampa
+2015-2,46,Macri,56.5,La Rioja
+2015-2,46,Scioli,43.5,La Rioja
+2015-2,50,Macri,57.53,Mendoza
+2015-2,50,Scioli,42.47,Mendoza
+2015-2,54,Scioli,58.07,Misiones
+2015-2,54,Macri,41.93,Misiones
+2015-2,58,Scioli,52.85,Neuquén
+2015-2,58,Macri,47.15,Neuquén
+2015-2,62,Scioli,62.86,Río Negro
+2015-2,62,Macri,37.14,Río Negro
+2015-2,66,Scioli,55.23,Salta
+2015-2,66,Macri,44.77,Salta
+2015-2,70,Scioli,59.8,San Juan
+2015-2,70,Macri,40.2,San Juan
+2015-2,74,Macri,64.13,San Luis
+2015-2,74,Scioli,35.87,San Luis
+2015-2,78,Scioli,58.33,Santa Cruz
+2015-2,78,Macri,41.67,Santa Cruz
+2015-2,82,Macri,55.72,Santa Fe
+2015-2,82,Scioli,44.28,Santa Fe
+2015-2,86,Scioli,72.09,Santiago del Estero
+2015-2,86,Macri,27.91,Santiago del Estero
+2015-2,90,Scioli,58.6,Tucumán
+2015-2,90,Macri,41.4,Tucumán
+2015-2,94,Scioli,58.66,Tierra del Fuego
+2015-2,94,Macri,41.34,Tierra del Fuego
+2019,00,Fernández,48.24,Total del país
+2019,00,Macri,40.28,Total del país
+2019,00,Lavagna,6.15,Total del país
+2019,00,Otras,3.18,Total del país
+2019,00,Del Caño,2.16,Total del país
+2019,02,Macri,52.64,CABA
+2019,02,Fernández,35.46,CABA
+2019,02,Lavagna,6.43,CABA
+2019,02,Del Caño,2.91,CABA
+2019,02,Otras,2.56,CABA
+2019,06,Fernández,52.2,Buenos Aires
+2019,06,Macri,35.89,Buenos Aires
+2019,06,Lavagna,6.3,Buenos Aires
+2019,06,Otras,2.92,Buenos Aires
+2019,06,Del Caño,2.7,Buenos Aires
+2019,10,Fernández,56.66,Catamarca
+2019,10,Macri,34.0,Catamarca
+2019,10,Lavagna,5.64,Catamarca
+2019,10,Otras,2.2,Catamarca
+2019,10,Del Caño,1.5,Catamarca
+2019,14,Macri,61.31,Córdoba
+2019,14,Fernández,29.31,Córdoba
+2019,14,Lavagna,5.0,Córdoba
+2019,14,Otras,2.73,Córdoba
+2019,14,Del Caño,1.65,Córdoba
+2019,18,Fernández,51.19,Corrientes
+2019,18,Macri,41.92,Corrientes
+2019,18,Lavagna,3.12,Corrientes
+2019,18,Otras,2.82,Corrientes
+2019,18,Del Caño,0.94,Corrientes
+2019,22,Fernández,55.73,Chaco
+2019,22,Macri,35.58,Chaco
+2019,22,Otras,3.92,Chaco
+2019,22,Lavagna,3.81,Chaco
+2019,22,Del Caño,0.96,Chaco
+2019,26,Fernández,52.42,Chubut
+2019,26,Macri,29.35,Chubut
+2019,26,Lavagna,7.61,Chubut
+2019,26,Otras,6.68,Chubut
+2019,26,Del Caño,3.94,Chubut
+2019,30,Macri,44.47,Entre Ríos
+2019,30,Fernández,44.37,Entre Ríos
+2019,30,Lavagna,6.25,Entre Ríos
+2019,30,Otras,3.27,Entre Ríos
+2019,30,Del Caño,1.65,Entre Ríos
+2019,34,Fernández,65.21,Formosa
+2019,34,Macri,28.46,Formosa
+2019,34,Lavagna,3.14,Formosa
+2019,34,Otras,2.31,Formosa
+2019,34,Del Caño,0.88,Formosa
+2019,38,Fernández,46.19,Jujuy
+2019,38,Macri,41.5,Jujuy
+2019,38,Lavagna,5.98,Jujuy
+2019,38,Otras,4.27,Jujuy
+2019,38,Del Caño,2.06,Jujuy
+2019,42,Fernández,50.07,La Pampa
+2019,42,Macri,37.74,La Pampa
+2019,42,Lavagna,6.59,La Pampa
+2019,42,Otras,3.54,La Pampa
+2019,42,Del Caño,2.06,La Pampa
+2019,46,Fernández,47.37,La Rioja
+2019,46,Macri,44.43,La Rioja
+2019,46,Lavagna,4.33,La Rioja
+2019,46,Otras,2.7,La Rioja
+2019,46,Del Caño,1.17,La Rioja
+2019,50,Macri,50.1,Mendoza
+2019,50,Fernández,37.83,Mendoza
+2019,50,Lavagna,6.56,Mendoza
+2019,50,Otras,3.22,Mendoza
+2019,50,Del Caño,2.29,Mendoza
+2019,54,Fernández,57.71,Misiones
+2019,54,Macri,33.88,Misiones
+2019,54,Otras,4.11,Misiones
+2019,54,Lavagna,3.38,Misiones
+2019,54,Del Caño,0.93,Misiones
+2019,58,Fernández,47.73,Neuquén
+2019,58,Macri,37.34,Neuquén
+2019,58,Lavagna,6.3,Neuquén
+2019,58,Otras,4.89,Neuquén
+2019,58,Del Caño,3.74,Neuquén
+2019,62,Fernández,57.23,Río Negro
+2019,62,Macri,28.58,Río Negro
+2019,62,Lavagna,6.35,Río Negro
+2019,62,Otras,5.24,Río Negro
+2019,62,Del Caño,2.6,Río Negro
+2019,66,Fernández,48.82,Salta
+2019,66,Macri,34.74,Salta
+2019,66,Lavagna,10.74,Salta
+2019,66,Otras,3.91,Salta
+2019,66,Del Caño,1.78,Salta
+2019,70,Fernández,53.01,San Juan
+2019,70,Macri,35.14,San Juan
+2019,70,Lavagna,7.23,San Juan
+2019,70,Otras,3.1,San Juan
+2019,70,Del Caño,1.52,San Juan
+2019,74,Macri,45.03,San Luis
+2019,74,Fernández,41.68,San Luis
+2019,74,Lavagna,6.76,San Luis
+2019,74,Otras,4.21,San Luis
+2019,74,Del Caño,2.32,San Luis
+2019,78,Fernández,59.77,Santa Cruz
+2019,78,Macri,28.24,Santa Cruz
+2019,78,Lavagna,5.03,Santa Cruz
+2019,78,Otras,3.63,Santa Cruz
+2019,78,Del Caño,3.33,Santa Cruz
+2019,82,Macri,43.49,Santa Fe
+2019,82,Fernández,42.68,Santa Fe
+2019,82,Lavagna,8.98,Santa Fe
+2019,82,Otras,3.41,Santa Fe
+2019,82,Del Caño,1.43,Santa Fe
+2019,86,Fernández,74.95,Santiago del Estero
+2019,86,Macri,18.37,Santiago del Estero
+2019,86,Lavagna,3.34,Santiago del Estero
+2019,86,Otras,2.38,Santiago del Estero
+2019,86,Del Caño,0.96,Santiago del Estero
+2019,90,Fernández,57.76,Tucumán
+2019,90,Macri,33.94,Tucumán
+2019,90,Lavagna,4.14,Tucumán
+2019,90,Otras,2.93,Tucumán
+2019,90,Del Caño,1.23,Tucumán
+2019,94,Fernández,56.93,Tierra del Fuego
+2019,94,Macri,26.09,Tierra del Fuego
+2019,94,Lavagna,7.66,Tierra del Fuego
+2019,94,Otras,6.62,Tierra del Fuego
+2019,94,Del Caño,2.71,Tierra del Fuego
+2023,00,Massa,36.69,Total del país
+2023,00,Milei,29.99,Total del país
+2023,00,Bullrich,23.84,Total del país
+2023,00,Schiaretti,6.79,Total del país
+2023,00,Otras,2.7,Total del país
+2023,02,Bullrich,41.23,CABA
+2023,02,Massa,32.28,CABA
+2023,02,Milei,19.85,CABA
+2023,02,Otras,3.55,CABA
+2023,02,Schiaretti,3.09,CABA
+2023,06,Massa,42.88,Buenos Aires
+2023,06,Milei,25.72,Buenos Aires
+2023,06,Bullrich,24.1,Buenos Aires
+2023,06,Schiaretti,3.73,Buenos Aires
+2023,06,Otras,3.58,Buenos Aires
+2023,10,Massa,42.79,Catamarca
+2023,10,Milei,32.04,Catamarca
+2023,10,Bullrich,17.17,Catamarca
+2023,10,Schiaretti,6.43,Catamarca
+2023,10,Otras,1.57,Catamarca
+2023,14,Milei,33.55,Córdoba
+2023,14,Schiaretti,29.01,Córdoba
+2023,14,Bullrich,22.63,Córdoba
+2023,14,Massa,13.42,Córdoba
+2023,14,Otras,1.39,Córdoba
+2023,18,Massa,37.21,Corrientes
+2023,18,Bullrich,32.12,Corrientes
+2023,18,Milei,26.89,Corrientes
+2023,18,Schiaretti,2.74,Corrientes
+2023,18,Otras,1.05,Corrientes
+2023,22,Massa,43.7,Chaco
+2023,22,Milei,27.77,Chaco
+2023,22,Bullrich,24.14,Chaco
+2023,22,Schiaretti,3.63,Chaco
+2023,22,Otras,0.77,Chaco
+2023,26,Milei,35.02,Chubut
+2023,26,Massa,32.26,Chubut
+2023,26,Bullrich,20.59,Chubut
+2023,26,Schiaretti,7.73,Chubut
+2023,26,Otras,4.4,Chubut
+2023,30,Massa,33.26,Entre Ríos
+2023,30,Bullrich,30.09,Entre Ríos
+2023,30,Milei,29.75,Entre Ríos
+2023,30,Schiaretti,5.37,Entre Ríos
+2023,30,Otras,1.53,Entre Ríos
+2023,34,Massa,52.33,Formosa
+2023,34,Milei,29.04,Formosa
+2023,34,Bullrich,15.4,Formosa
+2023,34,Schiaretti,2.46,Formosa
+2023,34,Otras,0.77,Formosa
+2023,38,Milei,37.39,Jujuy
+2023,38,Massa,32.32,Jujuy
+2023,38,Bullrich,19.94,Jujuy
+2023,38,Schiaretti,6.81,Jujuy
+2023,38,Otras,3.54,Jujuy
+2023,42,Massa,34.8,La Pampa
+2023,42,Milei,33.53,La Pampa
+2023,42,Bullrich,21.92,La Pampa
+2023,42,Schiaretti,7.44,La Pampa
+2023,42,Otras,2.3,La Pampa
+2023,46,Massa,41.1,La Rioja
+2023,46,Milei,37.65,La Rioja
+2023,46,Bullrich,11.8,La Rioja
+2023,46,Schiaretti,8.51,La Rioja
+2023,46,Otras,0.92,La Rioja
+2023,50,Milei,42.36,Mendoza
+2023,50,Bullrich,25.85,Mendoza
+2023,50,Massa,23.98,Mendoza
+2023,50,Schiaretti,4.33,Mendoza
+2023,50,Otras,3.48,Mendoza
+2023,54,Milei,42.13,Misiones
+2023,54,Massa,37.91,Misiones
+2023,54,Bullrich,14.44,Misiones
+2023,54,Schiaretti,4.13,Misiones
+2023,54,Otras,1.38,Misiones
+2023,58,Milei,36.71,Neuquén
+2023,58,Massa,31.78,Neuquén
+2023,58,Bullrich,20.54,Neuquén
+2023,58,Schiaretti,5.96,Neuquén
+2023,58,Otras,5.02,Neuquén
+2023,62,Massa,37.85,Río Negro
+2023,62,Milei,33.73,Río Negro
+2023,62,Bullrich,18.14,Río Negro
+2023,62,Schiaretti,6.26,Río Negro
+2023,62,Otras,4.02,Río Negro
+2023,66,Milei,40.4,Salta
+2023,66,Massa,37.61,Salta
+2023,66,Bullrich,13.94,Salta
+2023,66,Schiaretti,6.27,Salta
+2023,66,Otras,1.77,Salta
+2023,70,Milei,35.1,San Juan
+2023,70,Massa,33.23,San Juan
+2023,70,Bullrich,23.23,San Juan
+2023,70,Schiaretti,6.18,San Juan
+2023,70,Otras,2.26,San Juan
+2023,74,Milei,43.37,San Luis
+2023,74,Massa,27.2,San Luis
+2023,74,Bullrich,20.97,San Luis
+2023,74,Schiaretti,6.28,San Luis
+2023,74,Otras,2.18,San Luis
+2023,78,Massa,37.88,Santa Cruz
+2023,78,Milei,36.3,Santa Cruz
+2023,78,Bullrich,16.36,Santa Cruz
+2023,78,Schiaretti,6.58,Santa Cruz
+2023,78,Otras,2.88,Santa Cruz
+2023,82,Milei,32.48,Santa Fe
+2023,82,Massa,29.68,Santa Fe
+2023,82,Bullrich,26.89,Santa Fe
+2023,82,Schiaretti,9.04,Santa Fe
+2023,82,Otras,1.9,Santa Fe
+2023,86,Massa,65.5,Santiago del Estero
+2023,86,Milei,22.98,Santiago del Estero
+2023,86,Bullrich,8.09,Santiago del Estero
+2023,86,Schiaretti,2.16,Santiago del Estero
+2023,86,Otras,1.27,Santiago del Estero
+2023,90,Massa,44.98,Tucumán
+2023,90,Milei,34.94,Tucumán
+2023,90,Bullrich,14.62,Tucumán
+2023,90,Schiaretti,4.02,Tucumán
+2023,90,Otras,1.45,Tucumán
+2023,94,Massa,38.21,Tierra del Fuego
+2023,94,Milei,33.82,Tierra del Fuego
+2023,94,Bullrich,14.96,Tierra del Fuego
+2023,94,Schiaretti,9.15,Tierra del Fuego
+2023,94,Otras,3.86,Tierra del Fuego
+2023-2,00,Milei,55.69,Total del país
+2023-2,00,Massa,44.31,Total del país
+2023-2,02,Milei,57.24,CABA
+2023-2,02,Massa,42.76,CABA
+2023-2,06,Massa,50.73,Buenos Aires
+2023-2,06,Milei,49.27,Buenos Aires
+2023-2,10,Milei,52.75,Catamarca
+2023-2,10,Massa,47.25,Catamarca
+2023-2,14,Milei,74.05,Córdoba
+2023-2,14,Massa,25.95,Córdoba
+2023-2,18,Milei,53.2,Corrientes
+2023-2,18,Massa,46.8,Corrientes
+2023-2,22,Milei,50.07,Chaco
+2023-2,22,Massa,49.93,Chaco
+2023-2,26,Milei,59.11,Chubut
+2023-2,26,Massa,40.89,Chubut
+2023-2,30,Milei,61.48,Entre Ríos
+2023-2,30,Massa,38.52,Entre Ríos
+2023-2,34,Massa,56.5,Formosa
+2023-2,34,Milei,43.5,Formosa
+2023-2,38,Milei,58.33,Jujuy
+2023-2,38,Massa,41.67,Jujuy
+2023-2,42,Milei,57.35,La Pampa
+2023-2,42,Massa,42.65,La Pampa
+2023-2,46,Milei,53.72,La Rioja
+2023-2,46,Massa,46.28,La Rioja
+2023-2,50,Milei,71.15,Mendoza
+2023-2,50,Massa,28.85,Mendoza
+2023-2,54,Milei,56.8,Misiones
+2023-2,54,Massa,43.2,Misiones
+2023-2,58,Milei,60.42,Neuquén
+2023-2,58,Massa,39.58,Neuquén
+2023-2,62,Milei,54.24,Río Negro
+2023-2,62,Massa,45.76,Río Negro
+2023-2,66,Milei,57.86,Salta
+2023-2,66,Massa,42.14,Salta
+2023-2,70,Milei,60.68,San Juan
+2023-2,70,Massa,39.32,San Juan
+2023-2,74,Milei,67.99,San Luis
+2023-2,74,Massa,32.01,San Luis
+2023-2,78,Milei,58.06,Santa Cruz
+2023-2,78,Massa,41.94,Santa Cruz
+2023-2,82,Milei,62.82,Santa Fe
+2023-2,82,Massa,37.18,Santa Fe
+2023-2,86,Massa,68.42,Santiago del Estero
+2023-2,86,Milei,31.58,Santiago del Estero
+2023-2,90,Milei,51.98,Tucumán
+2023-2,90,Massa,48.02,Tucumán
+2023-2,94,Milei,53.3,Tierra del Fuego
+2023-2,94,Massa,46.7,Tierra del Fuego

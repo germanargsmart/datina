@@ -1,0 +1,49 @@
+# ===================== CONSULTA 1: declaraciones de cargo (P39) =====================
+# Ministros nacionales argentinos (y Jefes de Gabinete) desde 10/12/1983 según Wikidata.
+# Endpoint: https://query.wikidata.org/sparql
+# Posiciones incluidas:
+#   (a) cargos cuyo P31/P279* es "ministro" (Q83307) o el cargo "jefe de gabinete de ministros de Argentina" (Q2602792)
+#       y que tienen P1001 (jurisdicción) o P17 (país) = Argentina (Q414);
+#   (b) cargos genéricos (p.ej. "ministro de Economía" Q17618153) solo si la declaración P39 tiene
+#       calificador P1001 = Argentina, o P2389 (organización dirigida) con P17 = Argentina
+#       (los ministerios provinciales/porteños se descartan luego en Python).
+# Período: declaraciones que terminan >= 1983-12-10, o sin fecha de fin con inicio >= 1983-12-01.
+SELECT ?st ?person ?personLabel ?pos ?posLabel ?org ?orgLabel ?stJur ?start ?end WHERE {
+  {
+    SELECT DISTINCT ?pos WHERE {
+      { ?pos wdt:P31/wdt:P279* wd:Q83307 } UNION { ?pos wdt:P279+ wd:Q83307 }
+      UNION { VALUES ?pos { wd:Q2602792 } }
+      ?pos wdt:P1001|wdt:P17 wd:Q414 .
+    }
+  }
+  UNION
+  {
+    VALUES ?pos { wd:Q83307 wd:Q2621182 wd:Q2518691 wd:Q12303322 wd:Q3273722 wd:Q7614320
+                  wd:Q17618153 wd:Q17578116 wd:Q4018482 wd:Q10540834 wd:Q17763739 wd:Q10714707
+                  wd:Q11812509 wd:Q59344322 wd:Q7258042 wd:Q7330070 wd:Q112119463 }
+  }
+  ?person p:P39 ?st .
+  ?st ps:P39 ?pos .
+  ?person wdt:P27 wd:Q414 .
+  OPTIONAL { ?st pq:P580 ?start }
+  OPTIONAL { ?st pq:P582 ?end }
+  OPTIONAL { ?st pq:P2389 ?org }
+  OPTIONAL { ?st pq:P1001 ?stJur }
+  FILTER( (BOUND(?end) && ?end >= "1983-12-10"^^xsd:dateTime)
+          || (!BOUND(?end) && BOUND(?start) && ?start >= "1983-12-01"^^xsd:dateTime)
+          || (!BOUND(?end) && !BOUND(?start)) )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+}
+ORDER BY ?start
+
+# ===================== CONSULTA 2: datos biográficos =====================
+# Se ejecuta con VALUES ?person { ... } (lista de QIDs obtenida en la consulta 1).
+# Devuelve lugar de nacimiento (P19), su país (P17), su cadena P131 completa (ancestros) y partidos (P102).
+# SELECT ?person ?birth ?birthLabel ?birthCountryLabel ?anc ?ancLabel ?ancType ?party ?partyLabel WHERE {
+#   VALUES ?person { %VALUES% }
+#   OPTIONAL { ?person wdt:P19 ?birth .
+#              OPTIONAL { ?birth wdt:P17 ?birthCountry }
+#              OPTIONAL { ?birth wdt:P131+ ?anc . OPTIONAL { ?anc wdt:P31 ?ancType } } }
+#   OPTIONAL { ?person wdt:P102 ?party }
+#   SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+# }
