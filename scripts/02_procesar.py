@@ -7,6 +7,7 @@ Lee datos/crudo/, escribe:
 Uso: python scripts/02_procesar.py
 """
 import io, json, pathlib, re, unicodedata, zipfile
+import numpy as np
 import pandas as pd
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
@@ -945,10 +946,10 @@ ELECCIONES = sorted(presidenciales.eleccion.unique(), key=lambda e: (int(e[:4]),
 ganador_el = {e: nac_el[nac_el.eleccion == e].iloc[0].candidato for e in ELECCIONES}
 round1 = lambda x: round(float(x), 1)
 # espacio de cada candidatura, con los mismos nombres que en el Congreso (sirve para darle el mismo color en todas las elecciones)
-_PJ, _UCR = "Peronismo", "UCR, PRO y aliados"
+_PJ, _UCR, _JXC = "Peronismo", "UCR y aliados", "Cambiemos y Juntos por el Cambio"
 CAND_ESP = {"Alfonsín": _UCR, "Luder": _PJ, "Menem": _PJ, "Angeloz": _UCR, "Vicente": "Izquierda", "Massaccesi": _UCR, "De la Rúa": _UCR,
             "Duhalde": _PJ, "Walsh": "Izquierda", "Kirchner": _PJ, "Rodríguez Saá": _PJ, "Fernández de Kirchner": _PJ, "Scioli": _PJ,
-            "Macri": _UCR, "Del Caño": "Izquierda", "Fernández": _PJ, "Bullrich": _UCR, "Milei": "La Libertad Avanza", "Bregman": "Izquierda",
+            "Macri": _JXC, "Del Caño": "Izquierda", "Fernández": _PJ, "Bullrich": _JXC, "Milei": "La Libertad Avanza", "Bregman": "Izquierda",
             ("2023", "Massa"): _PJ}
 MINUSC = {"De", "Del", "La", "Las", "Los", "Y", "Por", "Para", "El", "Una"}
 
@@ -986,41 +987,142 @@ presidenciales["territorio"] = presidenciales.codigo_indec.map(lambda c: "Total 
 # Senado: listado historico oficial (senado.gob.ar). Diputados: datos abiertos de la HCDN desde 2007 y, de 1983 a 2007,
 # el Patrimonio Legislativo de la HCDN (scripts/legisladores/). Desde 2007 los diputados figuran con su bloque real,
 # antes y en el Senado con el partido o la alianza por la que fueron electos.
-# Espacios: agrupacion amplia y neutral de cada bloque o partido. Los partidos provinciales y las fuerzas chicas quedan aparte.
+# Espacios: agrupacion amplia y neutral de cada bloque o partido. La UCR y el PRO van separados: el PRO no existia
+# como fuerza nacional antes de 2005. Las alianzas Cambiemos y Juntos por el Cambio (2015 a 2023) van aparte cuando la
+# fuente solo da el nombre de la alianza (el Senado), porque no se puede saber de que partido era cada legislador.
 HOY = pd.Timestamp.now().normalize()
-ESPACIO = {"peronismo": "Peronismo", "UCR / Cambiemos / JxC": "UCR, PRO y aliados", "LLA / libertarios": "La Libertad Avanza",
-           "izquierda": "Izquierda", "partidos provinciales": "Fuerzas provinciales"}
-OTRAS_FUERZAS = r"FREPASO|FRENTE GRANDE|PAIS SOLIDARIO|FRENTE PROGRESISTA|\bGEN\b|ENCUENTRO FEDERAL"
+ESPACIOS = ["Peronismo", "UCR y aliados", "PRO", "Cambiemos y Juntos por el Cambio", "La Libertad Avanza", "Izquierda",
+            "Fuerzas provinciales", "Otras fuerzas"]
+ESPACIO_FAM = {"peronismo": "Peronismo", "UCR / Cambiemos / JxC": "UCR y aliados", "LLA / libertarios": "La Libertad Avanza",
+               "izquierda": "Izquierda", "partidos provinciales": "Fuerzas provinciales"}
+REGLAS_ESPACIO = [  # la primera que coincide gana; si ninguna coincide, se usa la familia de scripts/legisladores/build.py
+    ("Otras fuerzas", r"FREPASO|FRENTE GRANDE|PAIS SOLIDARIO|FRENTE PROGRESISTA|\bGEN\b|ENCUENTRO FEDERAL|COALICION CIVICA|\bARI\b|"
+                      r"AFIRMACION PARA UNA REPUBLICA|HACEMOS COALICION|CAMBIO FEDERAL|RECREAR|JUNTOS POR ARGENTINA"),
+    # frentes provinciales y bloques de gobernadores: aparte, aunque algunos tengan origen peronista o radical
+    ("Fuerzas provinciales", r"CONCORDIA|INNOVACION FEDERAL|ARGENTINA FEDERAL|FRENTE CIVICO POR SANTIAGO|PROVINCIAS UNIDAS|NEUQUINO|"
+                             r"^INDEPENDENCIA$|PRIMERO SAN LUIS"),
+    ("PRO", r"^PRO\b|UNION PRO|PROPUESTA REPUBLICANA"),
+    ("Cambiemos y Juntos por el Cambio", r"CAMBIEMOS|JUNTOS POR EL CAMBIO|TODOS JUNTOS POR SAN JUAN|ECO \+ VAMOS|UNION PARA VIVIR MEJOR"),
+]
+
+
+def espacio_leg(bloque, fam):
+    b = norm(bloque).upper() if isinstance(bloque, str) else ""
+    for esp_, rx in REGLAS_ESPACIO:
+        if re.search(rx, b):
+            return esp_
+    return ESPACIO_FAM.get(fam, "Otras fuerzas")
+
+
 leg = []
 for camara, archivo in [("Diputados", "diputados_nacionales.csv"), ("Senado", "senadores_nacionales.csv")]:
-    d = pd.read_csv(RAIZ / "datos" / "manual" / archivo, parse_dates=["inicio", "fin", "mandato_fin"])
-    if "inicio_aprox" in d:  # reemplazos sin fecha de asuncion: se excluyen del conteo por anio
-        d = d[~d.inicio_aprox.fillna(False).astype(bool)]
+    d = pd.read_csv(RAIZ / "datos" / "manual" / archivo, parse_dates=["inicio", "fin", "mandato_inicio", "mandato_fin"])
     d["camara"] = camara
     leg.append(d)
 leg = pd.concat(leg, ignore_index=True)
+leg["inicio_aprox"] = leg.inicio_aprox.fillna(False).astype(bool)
+# en el Senado, las observaciones dicen a quien reemplaza o de quien completa el mandato un senador
+_obs = leg.observaciones.fillna("").str.extract(r"(?i)(?:REEMPLAZA|COMPLETA)(.*)")[0]
+leg["reemplaza"] = leg.reemplaza.where(leg.camara == "Diputados", _obs)
 leg["codigo_indec"] = leg.provincia.map(codigo)
 assert leg.codigo_indec.notna().all(), leg[leg.codigo_indec.isna()].provincia.unique()
-leg["espacio"] = leg.familia.map(ESPACIO).fillna("Otras fuerzas")
-leg.loc[leg.bloque.fillna("").map(norm).str.upper().str.contains(OTRAS_FUERZAS), "espacio"] = "Otras fuerzas"
-# frentes provinciales y bloques de gobernadores: aparte, aunque algunos tengan origen peronista o radical
-PROVINCIALES = r"CONCORDIA|INNOVACION FEDERAL|ARGENTINA FEDERAL|FRENTE CIVICO POR SANTIAGO|PROVINCIAS UNIDAS|NEUQUINO|^INDEPENDENCIA$|PRIMERO SAN LUIS"
-leg.loc[leg.bloque.fillna("").map(norm).str.upper().str.contains(PROVINCIALES), "espacio"] = "Fuerzas provinciales"
+leg["espacio"] = [espacio_leg(b, f) for b, f in zip(leg.bloque, leg.familia)]
 leg["fin"] = leg.fin.fillna(pd.Timestamp("2100-01-01"))
-ESPACIOS = ["Peronismo", "UCR, PRO y aliados", "La Libertad Avanza", "Izquierda", "Fuerzas provinciales", "Otras fuerzas"]
-comp = []
-for anio in range(1984, HOY.year + 1):
-    corte = min(pd.Timestamp(f"{anio}-07-01"), HOY)
-    act = leg[(leg.inicio <= corte) & (leg.fin >= corte)]
-    for (camara, espacio_), n in act.groupby(["camara", "espacio"]).id.nunique().items():
-        comp.append({"camara": camara, "anio": anio, "espacio": espacio_, "bancas": int(n)})
-congreso = pd.DataFrame(comp).pivot_table(index=["camara", "anio"], columns="espacio", values="bancas", fill_value=0).reset_index()
-congreso = congreso[["camara", "anio"] + [e for e in ESPACIOS if e in congreso.columns]]
-act = leg[(leg.inicio <= HOY) & (leg.fin >= HOY)].sort_values(["camara", "codigo_indec", "espacio", "nombre"])
-legisladores = act.assign(territorio=act.codigo_indec.map(CORTO), hasta=act.mandato_fin.dt.year)[
-    ["camara", "codigo_indec", "territorio", "nombre", "bloque", "espacio", "hasta"]]
+# un mandato por persona: del primer al ultimo tramo de bloque
+man = (leg.sort_values("inicio").groupby(["camara", "id", "mandato_fin"])
+       .agg(nombre=("nombre", "first"), codigo_indec=("codigo_indec", "first"), inicio=("inicio", "min"), fin=("fin", "max"),
+            mandato_inicio=("mandato_inicio", "min"),
+            aprox=("inicio_aprox", "max"), reemplaza=("reemplaza", "first")).reset_index())
+
+
+def espacio_en(ids_fechas, clave=("camara", "id", "mandato_fin")):
+    """Bloque y espacio en una fecha: el ultimo tramo de bloque que empezo antes (o el primero, si todavia no empezo)."""
+    clave = list(clave)
+    t = leg.merge(ids_fechas[clave + ["fecha"]], on=clave)
+    t = t.assign(antes=t.inicio <= t.fecha).sort_values(["antes", "inicio"])
+    return t.drop_duplicates(clave, keep="last").set_index(clave)[["bloque", "espacio"]]
+
+
+# periodos legislativos: del 10 de diciembre de cada anio impar al 9 de diciembre dos anios despues
+PERIODOS = [a for a in range(1983, HOY.year + 1, 2) if pd.Timestamp(f"{a}-12-10") <= HOY]
+comp, filas_p = [], []
+for a in PERIODOS:
+    ini_p, fin_p = pd.Timestamp(f"{a}-12-10"), pd.Timestamp(f"{a + 2}-12-09")
+    # composicion al 1 de marzo, cuando empiezan las sesiones ordinarias (ya asumieron los reemplazos de diciembre)
+    corte = min(pd.Timestamp(f"{a + 1}-03-01"), HOY)
+    act = man[(man.inicio <= corte) & (man.fin >= corte) & ~man.aprox].sort_values("mandato_fin").drop_duplicates(["camara", "id"], keep="last")
+    act = act.join(espacio_en(act.assign(fecha=corte)[["camara", "id", "mandato_fin", "fecha"]]), on=["camara", "id", "mandato_fin"])
+    for (camara, espacio_), n in act.groupby(["camara", "espacio"]).id.count().items():
+        comp.append({"camara": camara, "anio": a, "periodo": f"{a} a {a + 2}", "espacio": espacio_, "bancas": int(n)})
+    # todos los que ocuparon una banca en el periodo, con los reemplazos enlazados
+    # tambien quienes dejaron la banca poco antes de empezar el periodo con el mandato todavia vigente (por ejemplo, para asumir otro cargo)
+    m = man[(man.inicio <= fin_p) & ((man.fin >= ini_p) | ((man.fin >= ini_p - pd.Timedelta(days=45)) & (man.mandato_fin > ini_p + pd.Timedelta(days=30))))]
+    # quien renueva la banca sin interrupcion aparece una sola vez
+    m = m.sort_values(["camara", "id", "inicio"]).copy()
+    sigue_ = (m.camara == m.camara.shift()) & (m.id == m.id.shift()) & (m.inicio <= m.fin.shift() + pd.Timedelta(days=30))
+    m["tramo"] = (~sigue_).cumsum()
+    m = m.groupby("tramo").agg(camara=("camara", "first"), id=("id", "first"), mandato_fin=("mandato_fin", "last"), nombre=("nombre", "first"),
+                               codigo_indec=("codigo_indec", "first"), inicio=("inicio", "first"), fin=("fin", "last"),
+                               mandato_inicio=("mandato_inicio", "first"),
+                               aprox=("aprox", "max"), reemplaza=("reemplaza", "first"), mf0=("mandato_fin", "first"))
+    m["fecha"] = m.inicio.where(m.inicio > ini_p, ini_p)
+    m = m.join(espacio_en(m.drop(columns="mandato_fin").drop_duplicates(["camara", "id"]).assign(fecha=m.fecha), ("camara", "id")), on=["camara", "id"])
+    m["sale"] = m.fin < fin_p - pd.Timedelta(days=3)
+    m["reemplaza_a"] = None
+    _ape = m.nombre.map(lambda n: set(norm(n.split(",")[0]).upper().split()))
+    for (camara, cod), g in m.groupby(["camara", "codigo_indec"]):
+        # primero, los reemplazos que la fuente nombra (Patrimonio Legislativo y observaciones del Senado)
+        usados = set()
+        for j, r in g[g.reemplaza.notna()].sort_values("inicio").iterrows():
+            txt = set(re.sub(r"[^A-Z ]", " ", norm(r.reemplaza).upper()).split())
+            ok = np.array([i != j and not g.at[i, "aprox"] and i not in usados and bool(_ape[i]) and _ape[i] <= txt
+                           and (r.aprox or g.at[i, "fin"] <= r.inicio + pd.Timedelta(days=15)) for i in g.index])
+            prev = g[ok]
+            if len(prev):
+                k = prev.sort_values("fin").index[-1]
+                m.at[j, "reemplaza_a"] = g.at[k, "nombre"]
+                usados.add(k)
+        g = m.loc[g.index]
+        # despues, por fecha: quien entra a una banca de la misma provincia poco despues de que alguien la deja
+        # entra a mitad de periodo, o asume a mitad de un mandato ya empezado (reemplazos de diciembre)
+        tarde = (g.inicio > ini_p + pd.Timedelta(days=3)) | ((g.inicio - g.mandato_inicio).dt.days > 30)
+        if camara == "Senado":  # el Senado fecha el mandato desde que asume: desde 2001 son seis anios, si dura menos completa el de otro
+            tarde |= (g.inicio >= pd.Timestamp("2001-12-01")) & ((g.mandato_fin - g.inicio).dt.days < 6 * 365 - 60)
+        libres = set(g[tarde & ~g.aprox & g.reemplaza_a.isna()].index)
+        for i, r in g[g.sale & ~g.index.isin(usados)].sort_values("fin").iterrows():
+            cand = g.loc[[j for j in libres if g.at[j, "inicio"] >= r.fin - pd.Timedelta(days=15)]]
+            if len(cand):
+                orden = cand.assign(mf=(cand.mandato_fin - r.mandato_fin).dt.days.abs() > 60, otro=cand.espacio != r.espacio,
+                                    dias=(cand.inicio - r.fin).dt.days.abs())
+                j = orden.sort_values(["mf", "otro", "dias"]).index[0]
+                m.at[j, "reemplaza_a"] = r.nombre
+                libres.discard(j)
+    m["entra"] = ((m.inicio > ini_p + pd.Timedelta(days=3)) | m.reemplaza_a.notna()) & ~m.aprox
+    m["desde"] = np.where(m.aprox & m.reemplaza_a.notna(), "sin fecha", np.where(m.entra, m.inicio.dt.strftime("%Y-%m"), ""))
+    m["hasta"] = np.where(m.sale, m.fin.dt.strftime("%Y-%m"), "")
+    # los reemplazos sin fecha que no se pudieron enlazar no se muestran: su periodo no se conoce
+    m = m[~(m.aprox & m.reemplaza_a.isna())]
+    m["periodo"] = a
+    filas_p.append(m)
+congreso = pd.DataFrame(comp).pivot_table(index=["camara", "anio", "periodo"], columns="espacio", values="bancas", fill_value=0).reset_index()
+congreso = congreso[["camara", "anio", "periodo"] + [e for e in ESPACIOS if e in congreso.columns]]
+leg_p = pd.concat(filas_p, ignore_index=True).sort_values(["periodo", "camara", "codigo_indec", "inicio", "nombre"])
+leg_p["territorio"] = leg_p.codigo_indec.map(CORTO)
+leg_p[["periodo", "camara", "codigo_indec", "territorio", "nombre", "bloque", "espacio", "desde", "hasta", "reemplaza_a"]].rename(
+    columns={"periodo": "periodo_inicio"}).to_csv(SITIO / "legisladores_por_periodo.csv", index=False)
+# version compacta para la pagina, que se carga al abrir la ficha: nombres y bloques en listas aparte
+_nom = sorted(set(leg_p.nombre) | set(leg_p.reemplaza_a.dropna()))
+_blo = sorted(set(leg_p.bloque.fillna("Sin dato")))
+_in, _ib = {n: i for i, n in enumerate(_nom)}, {b: i for i, b in enumerate(_blo)}
+(SITIO / "legisladores_por_periodo.json").write_text(json.dumps({
+    "espacios": ESPACIOS, "nombres": _nom, "bloques": _blo,
+    "filas": [[int(r.periodo), 0 if r.camara == "Diputados" else 1, r.codigo_indec, _in[r.nombre], _ib[r.bloque if isinstance(r.bloque, str) else "Sin dato"],
+               ESPACIOS.index(r.espacio), r.desde, r.hasta, _in[r.reemplaza_a] if isinstance(r.reemplaza_a, str) else -1]
+              for r in leg_p.itertuples()]}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+# hoy
+act = man[(man.inicio <= HOY) & (man.fin >= HOY) & ~man.aprox].sort_values("mandato_fin").drop_duplicates(["camara", "id"], keep="last")
+act = act.join(espacio_en(act.assign(fecha=HOY)[["camara", "id", "mandato_fin", "fecha"]]), on=["camara", "id", "mandato_fin"])
 # representacion: habitantes por banca de diputado en cada provincia
-bancas_prov = act[act.camara == "Diputados"].groupby("codigo_indec").id.nunique()
 DIP_LEY = {"02": 25, "06": 70, "10": 5, "14": 18, "18": 7, "22": 7, "26": 5, "30": 9, "34": 5, "38": 6, "42": 5, "46": 5, "50": 10,
            "54": 7, "58": 5, "62": 5, "66": 7, "70": 6, "74": 5, "78": 5, "82": 19, "86": 7, "90": 9, "94": 5}  # ley 22.847
 assert sum(DIP_LEY.values()) == 257
@@ -1032,18 +1134,18 @@ representacion["hab_por_senador"] = (representacion.poblacion / 3).round(0)
 # peso del voto: bancas totales (diputados mas senadores) sobre la proporcion de poblacion; 1 = proporcional
 representacion["peso_voto"] = ((representacion.diputados + 3) / (257 + 72)) / (representacion.poblacion / representacion.poblacion.sum())
 representacion = representacion.round({"peso_voto": 2})
-ult_c = congreso[congreso.anio == congreso.anio.max()].set_index("camara")
 _rp = representacion.sort_values("hab_por_diputado")
+_hoy = act.groupby(["camara", "espacio"]).id.count()
 congreso_res = {
-    "anio": int(congreso.anio.max()), "fecha": HOY.strftime("%d/%m/%Y"),
-    "dip": {e: int(ult_c.loc["Diputados", e]) for e in ESPACIOS if e in ult_c.columns},
-    "sen": {e: int(ult_c.loc["Senado", e]) for e in ESPACIOS if e in ult_c.columns},
+    "anio": int(max(PERIODOS)), "fecha": HOY.strftime("%d/%m/%Y"), "periodos": PERIODOS,
+    "dip": {e: int(_hoy.get(("Diputados", e), 0)) for e in ESPACIOS},
+    "sen": {e: int(_hoy.get(("Senado", e), 0)) for e in ESPACIOS},
     "espacios": ESPACIOS,
     "rep_min": _rp.iloc[0].territorio, "rep_min_v": int(_rp.iloc[0].hab_por_diputado),
     "rep_max": _rp.iloc[-1].territorio, "rep_max_v": int(_rp.iloc[-1].hab_por_diputado),
     "peso_max": _rp.sort_values("peso_voto").iloc[-1].territorio, "peso_max_v": float(_rp.peso_voto.max()),
     "peso_min": _rp.sort_values("peso_voto").iloc[0].territorio, "peso_min_v": float(_rp.peso_voto.min()),
-    "n_dip": int(act[act.camara == "Diputados"].id.nunique()), "n_sen": int(act[act.camara == "Senado"].id.nunique()),
+    "n_dip": int((act.camara == "Diputados").sum()), "n_sen": int((act.camara == "Senado").sum()),
 }
 # historico completo solo para descargar
 for camara, nombre_arch in [("Diputados", "diputados_nacionales.csv"), ("Senado", "senadores_nacionales.csv")]:
@@ -1336,7 +1438,6 @@ tablas = {
     "fiscal_provincias": fiscal.round(2),
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
-    "legisladores_actuales": legisladores,
     "representacion_provincias": representacion,
     "presidentes": presidentes,
     "gabinetes_origen": gabinetes,

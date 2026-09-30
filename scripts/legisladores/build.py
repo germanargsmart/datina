@@ -78,6 +78,10 @@ def attach_wd(df, w):
 # ================= DIPUTADOS =================
 # (a) HCDN open data, one row per bloc spell (2007-12-10 ->)
 h = pd.read_csv(D / "hcdn_diputados.csv")
+# algunos tramos de bloque siguen despues del cese (por ejemplo, quien deja la banca para asumir otro cargo): se cortan en el CESE
+for c in ["BLOQUE_INICIO", "BLOQUE_FIN", "CESE"]: h[c] = pd.to_datetime(h[c])
+h = h[h.BLOQUE_INICIO <= h.CESE].copy()
+h["BLOQUE_FIN"] = h[["BLOQUE_FIN", "CESE"]].min(axis=1)
 hd = pd.DataFrame({
     "id": h.ID, "nombre": h.APELLIDO.str.title() + ", " + h.NOMBRE.str.title(),
     "provincia": h.DISTRITO.map(prov),
@@ -148,7 +152,7 @@ for i, r in ap[ap.reemplaza.notna()].iterrows():
 ad = pd.DataFrame({"id": ap.id, "nombre": ap.nombre, "provincia": ap.provincia,
                    "mandato_inicio": ap.mandato_inicio.dt.date, "mandato_fin": ap.mandato_fin.dt.date,
                    "inicio": ap.inicio.dt.date, "fin": ap.fin.dt.date, "bloque": ap.bloque,
-                   "tipo_afiliacion": "partido/alianza electoral", "inicio_aprox": ap.inicio_aprox,
+                   "tipo_afiliacion": "partido/alianza electoral", "inicio_aprox": ap.inicio_aprox, "reemplaza": ap.reemplaza,
                    "fuente": "apym.hcdn.gob.ar Patrimonio Legislativo (scrape)"})
 hd["inicio_aprox"] = False
 dip = pd.concat([ad, hd], ignore_index=True)
@@ -156,6 +160,9 @@ dip["familia"] = dip.bloque.map(familia)
 dip = attach_wd(dip, wd_people("wd_Q18229570.csv"))
 dip = dip.sort_values(["inicio", "provincia", "nombre"])
 dip.to_csv(D / "diputados.csv", index=False, encoding="utf-8")
+# copia para el sitio, sin los datos de Wikidata (el cruce por nombre tiene errores)
+MANUAL = pathlib.Path(__file__).resolve().parents[2] / "datos" / "manual"
+WD = ["wikidata", "nacimiento_fecha", "nacimiento_lugar"]
 
 # ================= SENADORES =================
 j = json.loads((D / "senado_hist.json").read_text(encoding="utf-8"), strict=False)
@@ -175,6 +182,9 @@ sen["familia"] = sen.bloque.map(familia)
 sen = attach_wd(sen, wd_people("wd_Q18711738.csv"))
 sen = sen.sort_values(["inicio", "provincia", "nombre"])
 sen.to_csv(D / "senadores.csv", index=False, encoding="utf-8")
+if MANUAL.exists():
+    dip.drop(columns=WD).to_csv(MANUAL / "diputados_nacionales.csv", index=False, encoding="utf-8")
+    sen.drop(columns=WD).to_csv(MANUAL / "senadores_nacionales.csv", index=False, encoding="utf-8")
 
 # ================= coverage check =================
 def active(df, y, md="07-01"):

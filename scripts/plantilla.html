@@ -579,6 +579,8 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
 .lg-lista li i{width:10px;height:10px;margin-top:4px;grid-row:1/3}
 .lg-lista li small{font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--muted)}
 .lg-lista .senado ul{columns:1}
+.lg-sels{display:flex;flex-wrap:wrap;gap:0 20px}
+.lg-sels .selector-ficha{flex:1 1 220px}
 @media (max-width:760px){.lg-lista{grid-template-columns:1fr}}
 .grafico[data-g="presidentes"]{min-height:0}
 .pr-lista{list-style:none;margin:14px 0 0;padding:0;columns:2 280px;column-gap:28px}
@@ -896,7 +898,7 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       </div>
       <div class="pol-ley" id="cg-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="congreso"></div>
-      <p class="nota">Bancas ocupadas el 1° de julio de cada año y, en el último año, hoy. Desde 2007 los diputados figuran con el bloque en el que se sentaban, así que se ven los cambios de bloque. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines: la clasificación es propia y figura en las tablas de diputados y senadores de la ficha siguiente. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
+      <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -923,12 +925,15 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
     </article>
 
     <article class="ficha" id="f-legisladores">
-      <h3>Diputados y senadores nacionales en funciones por provincia</h3>
+      <h3>Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</h3>
       <p class="lead" data-t="legisladores"></p>
-      <label class="selector-ficha"><span>Provincia</span><select data-g="legisladores" id="lg-sel"></select></label>
+      <div class="lg-sels">
+        <label class="selector-ficha"><span>Período</span><select id="lg-per"></select></label>
+        <label class="selector-ficha"><span>Provincia</span><select id="lg-sel"></select></label>
+      </div>
       <div class="grafico lg-lista" data-g="legisladores"></div>
-      <p class="nota">Bloque parlamentario en el caso de los diputados y partido o alianza por la que fueron electos en el caso de los senadores, según los listados oficiales de cada cámara. "Hasta" es el año en que termina el mandato. El historial completo desde 1983, con el espacio asignado a cada bloque, está en las tablas de <a href="datos/diputados_nacionales.csv" download>diputados</a> y <a href="datos/senadores_nacionales.csv" download>senadores</a>.</p>
-      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos</span><a href="datos/legisladores_actuales.csv" download>Descargar tabla (CSV)</a></div>
+      <p class="nota">Cada período legislativo va del 10 de diciembre de un año impar al 9 de diciembre dos años después, cuando se renueva la mitad de la Cámara de Diputados. Entre paréntesis figura quién dejó la banca durante el período, o poco antes de empezar, y quién la ocupó después, por renuncia, licencia, fallecimiento o fin de mandato. En el Senado, hasta 2001 los mandatos eran de nueve años y se renovaban por tercios en distintas fechas. En 1995 la reforma constitucional sumó un tercer senador por provincia, que figura con la fecha en que asumió. Cada reemplazo se enlaza con la banca que dejó alguien de la misma provincia en la fecha más cercana. Antes de 2007 algunos reemplazos de diputados no tienen fecha de asunción en la fuente. Bloque parlamentario para los diputados desde 2007, y partido o alianza por la que fueron electos para los diputados anteriores y para los senadores. El historial completo está en las tablas de <a href="datos/diputados_nacionales.csv" download>diputados</a> y <a href="datos/senadores_nacionales.csv" download>senadores</a>.</p>
+      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-representacion">
@@ -1798,7 +1803,8 @@ function columnasApiladas(el, cfg) {
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`)
-    .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter(a => a % (angosto ? 8 : 4) === 0)).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+    .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter((a, i) => cfg.cadaTick ? i % (angosto ? cfg.cadaTick * 2 : cfg.cadaTick) === 0 : a % (angosto ? 8 : 4) === 0))
+      .tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   const col = g.selectAll("g.c").data(data).join("g").attr("class","c").attr("transform", d => `translate(${x(d.anio)},0)`);
   col.each(function(d) {
     let acc = 0;
@@ -1810,7 +1816,7 @@ function columnasApiladas(el, cfg) {
   });
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
     .on("pointerenter", function(ev, d) {
-      mostrarTip(el, `<b>${d.anio}</b>, ${tot(d)} bancas<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${d[k.k]}`).join("<br>"), 36 + x(d.anio) + x.bandwidth() / 2, 10); })
+      mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${tot(d)} bancas<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${d[k.k]}`).join("<br>"), 36 + x(d.anio) + x.bandwidth() / 2, 10); })
     .on("pointerleave", ocultarTip);
 }
 
@@ -1979,10 +1985,12 @@ const DIB = {
 };
 
 /* ---------- política ---------- */
-const ESP_COLOR = {"Peronismo": "#2C74B5", "UCR, PRO y aliados": "#F6B40E", "La Libertad Avanza": "#4A2C6F", "Izquierda": "#C8102E",
-  "Fuerzas provinciales": "#74ACDF", "Otras fuerzas": "#98A2AE"};
+const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " y " + arr[arr.length - 1] : arr[0];
+const ESP_COLOR = {"Peronismo": "#2C74B5", "UCR y aliados": "#D9453B", "PRO": "#F6B40E", "Cambiemos y Juntos por el Cambio": "#F08A24",
+  "La Libertad Avanza": "#4A2C6F", "Izquierda": "#7A1F2B", "Fuerzas provinciales": "#74ACDF", "Otras fuerzas": "#98A2AE"};
 const ESP_VARIANTE = {"Peronismo": ["#2C74B5", "#6FA3D8", "#A9CBEA"], "Otras fuerzas": ["#56606C", "#98A2AE", "#C3CAD2"]};
-const ESP_TXT = {"Peronismo": "el peronismo", "UCR, PRO y aliados": "la UCR, el PRO y sus aliados", "La Libertad Avanza": "La Libertad Avanza",
+const ESP_TXT = {"Peronismo": "el peronismo", "UCR y aliados": "la UCR y sus aliados", "PRO": "el PRO",
+  "Cambiemos y Juntos por el Cambio": "Cambiemos y Juntos por el Cambio", "La Libertad Avanza": "La Libertad Avanza",
   "Izquierda": "la izquierda", "Fuerzas provinciales": "las fuerzas provinciales", "Otras fuerzas": "otras fuerzas"};
 const EL = Object.fromEntries(R.elecciones.map(e => [e.id, e]));
 const nombreEl = e => `${e.anio}${e.vuelta === 2 ? ", segunda vuelta" : e.anio === 2015 || e.anio === 2023 ? ", primera vuelta" : ""}`;
@@ -1993,7 +2001,7 @@ function clavesEl(e) {
   const cl = e.candidatos.map(c => {
     const i = usados[c.espacio] = (usados[c.espacio] ?? -1) + 1;
     const col = (ESP_VARIANTE[c.espacio] || [ESP_COLOR[c.espacio]])[Math.min(i, 2)] || ESP_COLOR[c.espacio];
-    return {k: c.c, lab: c.c, fuerza: c.fuerza, c: col, texto: ["#F6B40E", "#A9CBEA", "#C3CAD2", "#74ACDF", "#6FA3D8"].includes(col) ? "#18212B" : "#fff"};
+    return {k: c.c, lab: c.c, fuerza: c.fuerza, c: col, texto: ["#F6B40E", "#F08A24", "#A9CBEA", "#C3CAD2", "#74ACDF", "#6FA3D8"].includes(col) ? "#18212B" : "#fff"};
   });
   const hayOtras = T.elecciones_presidenciales.some(d => d.eleccion === e.id && d.candidato === "Otras" && d.pct > 0);
   return hayOtras ? [...cl, {k: "Otras", lab: "Otras", c: "#E4E9EF", texto: "#18212B"}] : cl;
@@ -2014,36 +2022,67 @@ DIB.elecciones = a => {
 };
 MED.congreso = "Diputados";
 const CG = R.congreso;
-document.querySelector('[data-t="congreso-titulo"]').textContent = `Composición del Congreso por espacio político, 1984 a ${CG.anio}`;
+document.querySelector('[data-t="congreso-titulo"]').textContent = `Composición del Congreso por espacio político en cada período legislativo, 1983 a ${CG.anio + 2}`;
 DIB.congreso = a => {
   const cam = MED.congreso, esp = CG.espacios, v = cam === "Diputados" ? CG.dip : CG.sen, n = cam === "Diputados" ? CG.n_dip : CG.n_sen;
   const ord = esp.filter(k => v[k]).sort((p, q) => v[q] - v[p]);
   document.querySelector('[data-t="congreso"]').textContent = cam === "Diputados"
-    ? `Al ${CG.fecha}, en la Cámara de Diputados ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}. El gráfico muestra cómo cambió el reparto desde la vuelta de la democracia.`
+    ? `Al ${CG.fecha}, en la Cámara de Diputados ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}. El gráfico muestra el reparto al empezar cada período desde la vuelta de la democracia.`
     : `Al ${CG.fecha}, en el Senado ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}.`;
-  const cl = esp.map(k => ({k, lab: k, c: ESP_COLOR[k]}));
+  const filas = T.congreso_composicion.filter(d => d.camara === cam);
+  const cl = esp.filter(k => filas.some(d => d[k] > 0)).map(k => ({k, lab: k, c: ESP_COLOR[k]}));
   document.getElementById("cg-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
-  columnasApiladas(G("congreso"), {anim: a, data: T.congreso_composicion.filter(d => d.camara === cam), claves: cl});
+  columnasApiladas(G("congreso"), {anim: a, data: filas, claves: cl, cadaTick: 2});
 };
 document.getElementById("lg-sel").innerHTML = PROV.map(([c, nom]) => `<option value="${c}">${nom}</option>`).join("");
-MED.legisladores = null;
+const LG_PER = CG.periodos, LG_ULT = LG_PER[LG_PER.length - 1];
+document.getElementById("lg-per").innerHTML = [...LG_PER].reverse().map(a => `<option value="${a}">${a} a ${a + 2}${a === LG_ULT ? " (el actual)" : ""}</option>`).join("");
+MED.legisladores = null; MED.lgPer = LG_ULT;
+let LGP = null, lgCargando = null;
+const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_por_periodo.json").then(j => { LGP = j; }));
+["lg-sel", "lg-per"].forEach(id => document.getElementById(id).addEventListener("change", ev => {
+  if (id === "lg-sel") MED.legisladores = ev.target.value; else MED.lgPer = +ev.target.value;
+  DIB.legisladores();
+}));
+const lgMes = t => t === "sin fecha" ? "sin fecha" : `${MESES[+t.slice(5, 7) - 1]} de ${t.slice(0, 4)}`;
 DIB.legisladores = () => {
-  const c = MED.legisladores || prov || "02", sel = document.getElementById("lg-sel");
-  sel.value = c;
-  const L = T.legisladores_actuales.filter(d => d.codigo_indec === c);
-  const li = d => `<li><i style="background:${ESP_COLOR[d.espacio]}"></i><span>${d.nombre}</span><small>${d.bloque || "Sin dato"} · hasta ${d.hasta}</small></li>`;
-  const dip = L.filter(d => d.camara === "Diputados"), sen = L.filter(d => d.camara === "Senado");
-  const cuenta = arr => CG.espacios.filter(k => arr.some(d => d.espacio === k)).map(k => `${arr.filter(d => d.espacio === k).length} de ${ESP_TXT[k]}`.replace(" de el ", " del "));
-  const lista = arr => { const t = cuenta(arr); return t.length > 1 ? t.slice(0, -1).join(", ") + " y " + t[t.length - 1] : t[0]; };
-  document.querySelector('[data-t="legisladores"]').textContent = `${NOMBRES[c]} tiene hoy ${dip.length} diputados y ${sen.length} senadores nacionales. En Diputados: ${lista(dip)}. En el Senado: ${lista(sen)}.`;
-  G("legisladores").innerHTML = `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
+  const c = MED.legisladores || prov || "02", per = MED.lgPer, el = G("legisladores");
+  document.getElementById("lg-sel").value = c; document.getElementById("lg-per").value = per;
+  if (!LGP) { el.innerHTML = '<p class="nota">Cargando la lista…</p>'; lgCargar().then(DIB.legisladores).catch(() => { el.innerHTML = '<p class="nota">No se pudo cargar la lista.</p>'; }); return; }
+  // fila: [periodo, cámara, provincia, nombre, bloque, espacio, desde, hasta, a quién reemplaza]
+  const F = LGP.filas.filter(f => f[0] === per && f[2] === c);
+  const nom = i => { const n = LGP.nombres[i], k = n.indexOf(", "); return k < 0 ? n : `${n.slice(k + 2)} ${n.slice(0, k)}`; };
+  const bancas = cam => {
+    const filas = F.filter(f => f[1] === cam), sig = new Map(filas.filter(f => f[8] >= 0).map(f => [f[8], f]));
+    return filas.filter(f => f[8] < 0).sort((p, q) => LGP.nombres[p[3]].localeCompare(LGP.nombres[q[3]], "es")).map(h => {
+      const partes = [];
+      let cur = h, n = 0;
+      while (sig.has(cur[3]) && n++ < 8) {
+        const s_ = sig.get(cur[3]);
+        partes.push(`${cur[7] ? `hasta ${lgMes(cur[7])}, ` : ""}siguió ${nom(s_[3])}${s_[6] === "sin fecha" ? ", sin fecha de asunción" : s_[6] ? ` desde ${lgMes(s_[6])}` : ""}`);
+        cur = s_;
+      }
+      if (cur[7]) partes.push(`hasta ${lgMes(cur[7])}`);
+      return {h, texto: partes.length ? ` (${partes.join(", luego ")})` : "", cambios: n};
+    });
+  };
+  const li = b => `<li><i style="background:${ESP_COLOR[LGP.espacios[b.h[5]]]}"></i><span>${nom(b.h[3])}${b.texto}</span>` +
+    `<small>${LGP.bloques[b.h[4]]}${b.h[6] && b.h[6] !== "sin fecha" ? ` · desde ${lgMes(b.h[6])}` : ""}</small></li>`;
+  const dip = bancas(0), sen = bancas(1);
+  const cuenta = arr => CG.espacios.filter(k => arr.some(b => LGP.espacios[b.h[5]] === k))
+    .map(k => `${arr.filter(b => LGP.espacios[b.h[5]] === k).length} de ${ESP_TXT[k]}`.replace(" de el ", " del "));
+  const cambios = d3.sum([...dip, ...sen], b => b.cambios);
+  document.querySelector('[data-t="legisladores"]').textContent = `En el período ${per} a ${per + 2}, ${NOMBRES[c]} ${per === LG_ULT ? "tiene" : "tuvo"} ` +
+    `${dip.length} bancas de diputados y ${sen.length} de senadores nacionales. En Diputados: ${listaY(cuenta(dip))}. En el Senado: ${listaY(cuenta(sen))}. ` +
+    (cambios ? `Hubo ${cambios === 1 ? "un cambio" : `${cambios} cambios`} de legislador ${per === LG_ULT ? "en lo que va del" : "durante el"} período, que ${cambios === 1 ? "figura" : "figuran"} entre paréntesis.`
+      : `No hubo cambios de legisladores ${per === LG_ULT ? "en lo que va del" : "durante el"} período.`);
+  el.innerHTML = `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
 };
 
 const ORIGEN_COLOR = {"Ciudad de Buenos Aires": "#2C74B5", "Conurbano": "#74ACDF", "Resto de Buenos Aires": "#A9CBEA", "Otras provincias": "#F6B40E", "Otro país": "#98A2AE"};
 const ORIGEN_TEXTO = {"Ciudad de Buenos Aires": "#fff", "Conurbano": "#18212B", "Resto de Buenos Aires": "#18212B", "Otras provincias": "#18212B", "Otro país": "#18212B"};
 const leyOrigen = ks => ks.map(k => `<span><i style="background:${ORIGEN_COLOR[k]}"></i>${k}</span>`).join("");
 const PRR = R.presidentes, GBR = R.gabinetes;
-const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " y " + arr[arr.length - 1] : arr[0];
 const apellido = n => ({"Cristina Fernández de Kirchner": "Fernández de Kirchner", "Adolfo Rodríguez Saá": "Rodríguez Saá", "Fernando de la Rúa": "De la Rúa",
   "Interinos de 2001": "Interinos de 2001"})[n] || n.split(" ").slice(-1)[0];
 DIB.presidentes = a => {
