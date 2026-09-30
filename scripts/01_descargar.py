@@ -297,7 +297,30 @@ def departamentos():
     ren.to_csv(CRUDO / "renaper_departamentos_resumen.csv", index=False)
 
 
+def votaciones():
+    """Votaciones nominales de Diputados (desde 1993) y del Senado (desde 2005). Las paginas oficiales de actas no tienen
+    descarga masiva (y votaciones.hcdn.gob.ar bloquea las consultas seguidas), asi que se usa la copia de las actas que
+    mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto, se actualiza a diario). Se guarda comprimida,
+    con la version (commit) usada en congreso_votaciones_meta.json. Los totales de las leyes clave se cotejan con las
+    actas oficiales en scripts/verificar_votaciones.py."""
+    import gzip
+    sha = json.loads(leer("https://api.github.com/repos/rquiroga7/como_voto/commits/main", 60))["sha"]
+    for camara in ["diputados", "senadores"]:
+        datos = leer(f"https://raw.githubusercontent.com/rquiroga7/como_voto/{sha}/data/{camara}.json", 300)
+        db = json.loads(datos)
+        assert len(db["votaciones"]) > 1000 and {"names", "blocs", "provinces"} <= set(db), f"formato inesperado en {camara}"
+        (CRUDO / f"congreso_votaciones_{camara}.json.gz").write_bytes(gzip.compress(datos, 9, mtime=0))
+    (CRUDO / "congreso_votaciones_meta.json").write_text(json.dumps({"commit": sha, "descargado": datetime.date.today().isoformat()}), encoding="utf-8")
+
+
 registro = []
+for _nombre, _f in [("votaciones nominales", votaciones)]:
+    try:
+        _f()
+        registro.append([_nombre, "github.com/rquiroga7/como_voto", datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
+    except Exception as e:  # si falla se conservan los archivos anteriores
+        registro.append([_nombre, "github.com/rquiroga7/como_voto", datetime.datetime.now().isoformat(timespec="seconds"), f"error: {e}"])
+        print(f"{_nombre}: error", e)
 try:
     departamentos()
     registro.append(["departamentos (resumen)", "SNIC y RENAPER por departamento", datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

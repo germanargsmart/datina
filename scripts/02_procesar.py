@@ -1157,8 +1157,8 @@ REGLAS_ESPACIO = [  # la primera que coincide gana; si ninguna coincide, se usa 
                       r"AFIRMACION PARA UNA REPUBLICA|HACEMOS COALICION|CAMBIO FEDERAL|RECREAR|JUNTOS POR ARGENTINA"),
     # frentes provinciales y bloques de gobernadores: aparte, aunque algunos tengan origen peronista o radical
     ("Fuerzas provinciales", r"CONCORDIA|INNOVACION FEDERAL|ARGENTINA FEDERAL|FRENTE CIVICO POR SANTIAGO|PROVINCIAS UNIDAS|NEUQUINO|"
-                             r"^INDEPENDENCIA$|PRIMERO SAN LUIS"),
-    ("PRO", r"^PRO\b|UNION PRO|PROPUESTA REPUBLICANA"),
+                             r"^INDEPENDENCIA$|PRIMERO SAN LUIS|MOVERE|^MISIONES$|FRENTE CIVICO DE LA PROVINCIA"),
+    ("PRO", r"^PRO\b|UNION PRO|PROPUESTA REPUBLICANA|FRENTE PRO$"),
     ("Cambiemos y Juntos por el Cambio", r"CAMBIEMOS|JUNTOS POR EL CAMBIO|TODOS JUNTOS POR SAN JUAN|ECO \+ VAMOS|UNION PARA VIVIR MEJOR"),
 ]
 
@@ -1437,6 +1437,148 @@ transf = transf.round({"atn": 2, "otras": 2, "ley": 2, "pob": 0, "atn_hab": 0, "
 transf_serie = transf_serie.round(2)
 acum_t = acum_t.round({"atn_hab": 0, "otras_hab": 0, "ley_hab": 0, "atn_pct": 2, "pob_pct": 2})
 
+# ---------------------------------------------------------------- votaciones nominales en el Congreso
+# Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
+# desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
+# guarda comprimida. Cada voto: [legislador, bloque, provincia, voto], con 1 afirmativo, 2 negativo, 3 abstencion,
+# 4 ausente y 5 presidente de la sesion (no vota salvo empate, se descarta). Los totales de las leyes clave se cotejaron con
+# las actas oficiales (scripts/verificar_votaciones.py). El Senado no publica algunas actas nominales (por ejemplo, la de
+# la resolucion 125 en 2008): esas leyes quedan solo con Diputados.
+# Espacio de cada voto: el bloque del acta con las mismas reglas que la composicion del Congreso (REGLAS_ESPACIO y
+# scripts/legisladores/familias.py).
+import gzip, sys
+sys.path.insert(0, str(RAIZ / "scripts" / "legisladores"))
+from familias import familia
+
+_filas_v, _meta_v, VOT_DESCARTADAS = [], [], []
+for cam, arch in [("Diputados", "diputados"), ("Senado", "senadores")]:
+    db = json.loads(gzip.decompress((CRUDO / f"congreso_votaciones_{arch}.json.gz").read_bytes()))
+    _cod_p = [codigo(p.replace("C.A.B.A.", "caba").replace("Capital Federal", "caba")) for p in db["provinces"]]
+    _esp_b = [espacio_leg(b, familia(b)) for b in db["blocs"]]
+    for e in db["votaciones"]:
+        m = re.search(r"(\d{2})/(\d{2})/(\d{4})", e["d"])
+        if not m:
+            continue
+        vv = np.array(e["v"] if isinstance(e["v"], list) else json.loads(e["v"]), dtype=int).reshape(-1, 4)
+        if len(vv) and (vv[:, 0].max() >= len(db["names"]) or vv[:, 1].max() >= len(db["blocs"]) or vv[:, 2].max() >= len(db["provinces"])):
+            VOT_DESCARTADAS.append(f"{cam} {e['id']}")  # indices fuera de rango en la copia (4 actas de 2011 y 2012)
+            continue
+        vv = vv[(vv[:, 3] >= 1) & (vv[:, 3] <= 4)]
+        _meta_v.append((cam, str(e["id"]), pd.Timestamp(f"{m.group(3)}-{m.group(2)}-{m.group(1)}")))
+        _filas_v.append(pd.DataFrame({"camara": cam, "vid": str(e["id"]), "nombre": [db["names"][i] for i in vv[:, 0]],
+                                      "bloque": [db["blocs"][i] for i in vv[:, 1]], "espacio": [_esp_b[i] for i in vv[:, 1]],
+                                      "codigo_indec": [_cod_p[i] for i in vv[:, 2]], "voto": vv[:, 3]}))
+votos = pd.concat(_filas_v, ignore_index=True)
+votos = votos.merge(pd.DataFrame(_meta_v, columns=["camara", "vid", "fecha"]), on=["camara", "vid"])
+votos["codigo_indec"] = votos.codigo_indec.where(votos.codigo_indec.isin(DIP_LEY))
+
+# Espacio del gobierno nacional en cada fecha (presidentes desde 1989). En el gobierno de Macri, el PRO y la alianza
+# Cambiemos. El bloque oficialista de cada votacion es el bloque mas numeroso de ese espacio en la camara.
+GOBIERNOS = [("1989-07-08", "Menem", ("Peronismo",)), ("1999-12-10", "De la Rúa", ("UCR y aliados",)),
+             ("2001-12-21", "Duhalde", ("Peronismo",)), ("2003-05-25", "Kirchner", ("Peronismo",)),
+             ("2007-12-10", "Fernández de Kirchner", ("Peronismo",)), ("2015-12-10", "Macri", ("PRO", "Cambiemos y Juntos por el Cambio")),
+             ("2019-12-10", "Fernández", ("Peronismo",)), ("2023-12-10", "Milei", ("La Libertad Avanza",))]
+_gi = pd.Series([pd.Timestamp(f) for f, _, _ in GOBIERNOS])
+
+
+def gobierno(fecha):
+    return GOBIERNOS[int((_gi <= fecha).sum()) - 1]
+
+
+VOTOS_N = {1: "si", 2: "no", 3: "abs", 4: "aus"}
+_pos = []
+for (cam, vid), g in votos.groupby(["camara", "vid"], sort=False):
+    _, pres, esp_g = gobierno(g.fecha.iloc[0])
+    g_of = g[g.espacio.isin(esp_g)]
+    if g_of.empty:
+        continue
+    blo = g_of.bloque.value_counts().index[0]
+    b = g[g.bloque == blo].voto.value_counts()
+    si_, no_ = b.get(1, 0), b.get(2, 0)
+    if si_ == no_:
+        continue
+    pos = 1 if si_ > no_ else 2
+    pres_v = g[g.voto <= 3]
+    distinto = (pres_v.voto != pos).mean() if len(pres_v) else 0
+    _pos.append((cam, vid, pres, blo, pos, distinto))
+pos_v = pd.DataFrame(_pos, columns=["camara", "vid", "presidente", "bloque_of", "pos", "distinto"])
+
+# ---- leyes clave: como voto cada espacio y cada legislador
+lc = pd.read_csv(RAIZ / "datos" / "manual" / "leyes_clave.csv", dtype={"dip": str, "sen": str})
+_esp_idx = {e: i for i, e in enumerate(ESPACIOS)}
+_nom_v, _blo_v, leyes_v, filas_csv = {}, {}, [], []
+for r in lc.itertuples():
+    ley = {"k": r.clave, "anio": int(r.anio), "nombre": r.nombre, "que": r.que_cambia, "desenlace": r.desenlace, "camaras": {}}
+    for cam, vid in [("Diputados", r.dip), ("Senado", r.sen)]:
+        if not isinstance(vid, str):
+            continue
+        g = votos[(votos.camara == cam) & (votos.vid == vid)]
+        assert len(g) > (200 if cam == "Diputados" else 60), (r.clave, cam, len(g))
+        fecha = g.fecha.iloc[0]
+        _, pres, esp_g = gobierno(fecha)
+        cuenta = {VOTOS_N[k]: int(v) for k, v in g.voto.value_counts().items()}
+        por_esp = {e: [int((x.voto == k).sum()) for k in (1, 2, 3, 4)] for e, x in g.groupby("espacio")}
+        ley["camaras"][cam] = {"fecha": fecha.strftime("%Y-%m-%d"), "gobierno": pres, "esp_gob": list(esp_g),
+                               "total": {k: cuenta.get(k, 0) for k in ["si", "no", "abs", "aus"]},
+                               "espacios": {e: por_esp[e] for e in ESPACIOS if e in por_esp}}
+        for x in g.itertuples():
+            filas_csv.append({"ley": r.nombre, "camara": cam, "fecha": fecha.strftime("%Y-%m-%d"), "legislador": x.nombre, "bloque": x.bloque,
+                              "espacio": x.espacio, "provincia": CORTO.get(x.codigo_indec, ""), "voto": {1: "Afirmativo", 2: "Negativo", 3: "Abstención", 4: "Ausente"}[x.voto]})
+    leyes_v.append(ley)
+votos_clave = pd.DataFrame(filas_csv)
+votos_clave.to_csv(SITIO / "votaciones_leyes_clave.csv", index=False)
+# version compacta para los puntos de cada legislador, que se carga al abrir la ficha
+_nv = sorted(set(votos_clave.legislador))
+_bv = sorted(set(votos_clave.bloque))
+_inv, _ibv = {n: i for i, n in enumerate(_nv)}, {b: i for i, b in enumerate(_bv)}
+_cod_corto = {v: k for k, v in CORTO.items()}
+_vn = {"Afirmativo": 1, "Negativo": 2, "Abstención": 3, "Ausente": 4}
+(SITIO / "votaciones_leyes_clave.json").write_text(json.dumps({
+    "espacios": ESPACIOS, "nombres": _nv, "bloques": _bv,
+    "votos": {f"{k}|{c}": [[_inv[x.legislador], _ibv[x.bloque], _esp_idx[x.espacio], _cod_corto.get(x.provincia, ""), _vn[x.voto]]
+                           for x in g.itertuples()] for (k, c), g in votos_clave.assign(k=votos_clave.ley.map(dict(zip(lc.nombre, lc.clave)))).groupby(["k", "camara"])}},
+    ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+
+# ---- apoyo al gobierno de los legisladores de cada provincia y ATN
+# En cada votacion dividida (al menos una cuarta parte de los presentes voto distinto que el bloque oficialista), se mira
+# si cada legislador de fuera del bloque oficialista voto igual que ese bloque. Presentes: afirmativo, negativo o abstencion.
+# Por provincia y anio, porcentaje de votos coincidentes, sumando las dos camaras. Desde 2005, primer anio con Senado.
+AP_DESDE = 2005
+_vd = pos_v[pos_v.distinto >= 0.25]
+_ap = votos.merge(_vd, on=["camara", "vid"])
+_ap = _ap[(_ap.bloque != _ap.bloque_of) & (_ap.voto <= 3) & _ap.codigo_indec.notna() & (_ap.fecha.dt.year >= AP_DESDE)]
+_ap = _ap.assign(anio=_ap.fecha.dt.year, coincide=(_ap.voto == _ap.pos))
+apoyo = _ap.groupby(["anio", "codigo_indec"]).agg(apoyo=("coincide", "mean"), votos=("coincide", "size")).reset_index()
+apoyo["apoyo"] = apoyo.apoyo * 100
+apoyo["territorio"] = apoyo.codigo_indec.map(CORTO)
+apoyo = apoyo.merge(transf[["anio", "codigo_indec", "atn_hab", "otras_hab"]], on=["anio", "codigo_indec"], how="left")
+apoyo["presidente"] = apoyo.anio.map(lambda a: gobierno(pd.Timestamp(f"{a}-07-01"))[1])
+_div_anio = _vd.merge(votos[["camara", "vid", "fecha"]].drop_duplicates(["camara", "vid"]), on=["camara", "vid"])
+_div_anio = _div_anio.groupby(_div_anio.fecha.dt.year).size()
+AP_ANIOS = [a for a in range(AP_DESDE, TR_ULT + 1) if apoyo[apoyo.anio == a].codigo_indec.nunique() == 24]
+apoyo_res = {"desde": AP_DESDE, "hasta": AP_ANIOS[-1], "anios": []}
+for a in AP_ANIOS:
+    t = apoyo[apoyo.anio == a]
+    con = t[t.atn_hab > 0]
+    apoyo_res["anios"].append({"anio": a, "presidente": t.presidente.iloc[0], "votaciones": int(_div_anio.get(a, 0)),
+                               "r_atn": spearman(t.atn_hab.values, t.apoyo.values) if len(con) >= 8 else None,
+                               "r_otras": spearman(t.otras_hab.values, t.apoyo.values),
+                               "n_atn": int(len(con)), "max": t.sort_values("apoyo").iloc[-1].territorio, "max_v": round1(t.apoyo.max()),
+                               "min": t.sort_values("apoyo").iloc[0].territorio, "min_v": round1(t.apoyo.min())})
+apoyo = apoyo[apoyo.anio.isin(AP_ANIOS)].round({"apoyo": 1})
+# metadatos de la seccion
+_meta_cv = json.loads((CRUDO / "congreso_votaciones_meta.json").read_text(encoding="utf-8"))
+votaciones_res = {
+    "leyes": leyes_v, "espacios": ESPACIOS, "commit": _meta_cv["commit"][:7], "descargado": _meta_cv["descargado"],
+    "n_dip": int(votos[votos.camara == "Diputados"].vid.nunique()), "n_sen": int(votos[votos.camara == "Senado"].vid.nunique()),
+    # primer anio con al menos 20 votaciones (el Senado tiene un acta suelta de 1983)
+    **{f"{k}_desde": int(_c[_c >= 20].index.min()) for k, cam in [("dip", "Diputados"), ("sen", "Senado")]
+       for _c in [votos[votos.camara == cam].drop_duplicates("vid").fecha.dt.year.value_counts()]},
+    "ult": votos.fecha.max().strftime("%Y-%m-%d"), "descartadas": len(VOT_DESCARTADAS),
+    "apoyo": apoyo_res,
+}
+
 # ---------------------------------------------------------------- cruces entre indicadores provinciales
 # Una fila por provincia y una columna por indicador, para el explorador de cruces del sitio.
 # Solo tasas, porcentajes o valores por habitante: cruzar totales solo mostraria el tamanio de cada provincia.
@@ -1499,6 +1641,7 @@ for k_ in ["pct_pob_solo_cobertura_publica", "pct_hog_nbi_2022", "pct_25mas_secu
     cru[k_] = columna(nse, k_)
 cru["atn_hab"] = columna(acum_t.assign(v=acum_t.atn_hab / (TR_ULT - 1999)), "v")
 cru["transf_no_aut_hab"] = columna(transf[transf.anio == TR_ULT], "otras_hab")
+cru["apoyo_gobierno"] = columna(apoyo[apoyo.anio == apoyo_res["hasta"]], "apoyo")
 _b23 = pres_w[pres_w.eleccion == "2023-2"]
 cru["voto_milei_2023"] = columna(_b23, "Milei")
 cru["participacion_2023"] = cru.codigo_indec.map(tot_el[tot_el.eleccion == "2023"].set_index("codigo_indec").participacion)
@@ -1544,6 +1687,7 @@ CRUCES_META = {
     "vejez": ("Personas mayores por cada 100 en edad de trabajar", "personas de 65 años o más cada 100 de 15 a 64", str(ANIO_PROY), "Población", "INDEC, proyecciones de población", "f-envejecimiento", 1),
     "atn_hab": ("ATN por habitante", f"pesos de {TR_ULT} por habitante por año, promedio 2000 a {TR_ULT}", f"2000 a {TR_ULT}", "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-atn", 0),
     "transf_no_aut_hab": ("Transferencias no automáticas por habitante", f"pesos de {TR_ULT} por habitante", str(TR_ULT), "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-transferencias", 0),
+    "apoyo_gobierno": ("Apoyo al gobierno de sus legisladores", "% de los votos de diputados y senadores de fuera del bloque oficialista que coincidieron con él en votaciones divididas", str(apoyo_res["hasta"]), "Política", "Actas de votación de Diputados y del Senado, vía Cómo Votó", "f-apoyo", 1),
     "voto_milei_2023": ("Voto a Milei en el balotaje", "% de los votos positivos, segunda vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "voto_oficialismo_2023": ("Voto al oficialismo nacional", "% de los votos positivos a la fórmula del gobierno, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
@@ -1596,6 +1740,7 @@ a_serie(ofi, "voto_oficialismo_2023")
 a_serie(_pv.reset_index().rename(columns={"vejez": "valor"}).query("codigo_indec != '00' and anio <= @ANIO_PROY"), "vejez")
 a_serie(transf.rename(columns={"atn_hab": "valor"}), "atn_hab")
 a_serie(transf.rename(columns={"otras_hab": "valor"}), "transf_no_aut_hab")
+a_serie(apoyo.rename(columns={"apoyo": "valor"}), "apoyo_gobierno")
 a_serie(tot_el[tot_el.vuelta == 1].rename(columns={"participacion": "valor"}), "participacion_2023")
 cruces_series = pd.concat(ser, ignore_index=True)
 cruces_series["valor"] = cruces_series.valor.round(2)
@@ -1666,6 +1811,7 @@ tablas = {
     "madres_adolescentes_nse": nse_ado.round(2),
     "envejecimiento_pais": envejec_pais,
     "presidentes": presidentes,
+    "apoyo_gobierno_provincias": apoyo[["anio", "codigo_indec", "territorio", "presidente", "apoyo", "votos", "atn_hab", "otras_hab"]],
     "transferencias_provincias": transf[["anio", "codigo_indec", "territorio", "atn", "otras", "ley", "atn_hab", "otras_hab", "ley_hab", "atn_indice", "otras_indice", "pob"]],
     "transferencias_serie": transf_serie,
     "transferencias_acumulado": acum_t,
@@ -1880,6 +2026,7 @@ resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD
 resumen["transferencias"] = transf_res
+resumen["votaciones"] = votaciones_res
 resumen["gabinetes"] = gab_res
 resumen["nuevos"] = {
     "ev_anio": ANIO_EV, "ev_pais": r1(ev_pais.total), "ev_m": r1(ev_pais.mujeres), "ev_v": r1(ev_pais.varones),

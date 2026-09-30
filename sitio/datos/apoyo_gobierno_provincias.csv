@@ -1,0 +1,505 @@
+anio,codigo_indec,territorio,presidente,apoyo,votos,atn_hab,otras_hab
+2005,02,CABA,Kirchner,30.0,553,0.0,217531.0
+2005,06,Buenos Aires,Kirchner,37.8,1172,3357.0,195741.0
+2005,10,Catamarca,Kirchner,30.8,117,11479.0,634669.0
+2005,14,Córdoba,Kirchner,47.8,272,3010.0,385932.0
+2005,18,Corrientes,Kirchner,44.7,103,12626.0,411458.0
+2005,22,Chaco,Kirchner,19.1,220,3922.0,594751.0
+2005,26,Chubut,Kirchner,34.5,119,6025.0,529594.0
+2005,30,Entre Ríos,Kirchner,5.7,159,6508.0,432222.0
+2005,34,Formosa,Kirchner,60.2,98,8256.0,775116.0
+2005,38,Jujuy,Kirchner,21.2,170,11221.0,560895.0
+2005,42,La Pampa,Kirchner,12.8,78,10522.0,1011371.0
+2005,46,La Rioja,Kirchner,60.7,145,19800.0,1477786.0
+2005,50,Mendoza,Kirchner,8.7,196,1944.0,219624.0
+2005,54,Misiones,Kirchner,59.7,129,3956.0,408483.0
+2005,58,Neuquén,Kirchner,36.9,122,5507.0,297832.0
+2005,62,Río Negro,Kirchner,8.0,137,13235.0,421499.0
+2005,66,Salta,Kirchner,34.6,78,1663.0,318043.0
+2005,70,San Juan,Kirchner,66.7,117,5773.0,533151.0
+2005,74,San Luis,Kirchner,49.7,175,9676.0,477025.0
+2005,78,Santa Cruz,Kirchner,44.2,104,30200.0,1677811.0
+2005,82,Santa Fe,Kirchner,26.9,368,1912.0,350190.0
+2005,86,Santiago del Estero,Kirchner,35.7,84,2774.0,573883.0
+2005,90,Tucumán,Kirchner,25.5,141,5643.0,323262.0
+2005,94,Tierra del Fuego,Kirchner,26.0,123,29695.0,930705.0
+2006,02,CABA,Kirchner,23.5,715,0.0,109751.0
+2006,06,Buenos Aires,Kirchner,38.9,1812,1727.0,203965.0
+2006,10,Catamarca,Kirchner,31.9,144,3544.0,658297.0
+2006,14,Córdoba,Kirchner,41.0,400,1471.0,424176.0
+2006,18,Corrientes,Kirchner,53.2,109,921.0,366033.0
+2006,22,Chaco,Kirchner,15.8,247,3525.0,503736.0
+2006,26,Chubut,Kirchner,35.3,85,0.0,695736.0
+2006,30,Entre Ríos,Kirchner,6.2,160,2826.0,445330.0
+2006,34,Formosa,Kirchner,49.2,61,1537.0,725571.0
+2006,38,Jujuy,Kirchner,1.8,112,4247.0,569539.0
+2006,42,La Pampa,Kirchner,0.0,78,3541.0,761444.0
+2006,46,La Rioja,Kirchner,26.2,149,13082.0,1536234.0
+2006,50,Mendoza,Kirchner,3.3,269,2197.0,251036.0
+2006,54,Misiones,Kirchner,18.4,49,0.0,410518.0
+2006,58,Neuquén,Kirchner,27.1,107,17169.0,365191.0
+2006,62,Río Negro,Kirchner,3.5,171,1431.0,453392.0
+2006,66,Salta,Kirchner,31.7,104,2900.0,373325.0
+2006,70,San Juan,Kirchner,37.4,99,1217.0,715131.0
+2006,74,San Luis,Kirchner,36.6,194,0.0,466188.0
+2006,78,Santa Cruz,Kirchner,3.7,82,384.0,2586923.0
+2006,82,Santa Fe,Kirchner,18.7,498,818.0,392875.0
+2006,86,Santiago del Estero,Kirchner,45.1,51,16.0,520034.0
+2006,90,Tucumán,Kirchner,13.9,137,2446.0,374853.0
+2006,94,Tierra del Fuego,Kirchner,32.1,162,0.0,1274771.0
+2007,02,CABA,Kirchner,13.8,616,0.0,36266.0
+2007,06,Buenos Aires,Kirchner,49.3,1354,1802.0,114547.0
+2007,10,Catamarca,Kirchner,43.6,101,2638.0,323864.0
+2007,14,Córdoba,Kirchner,32.3,322,3195.0,171592.0
+2007,18,Corrientes,Kirchner,48.6,72,161.0,161333.0
+2007,22,Chaco,Kirchner,16.3,178,3394.0,371163.0
+2007,26,Chubut,Kirchner,33.3,36,2177.0,388236.0
+2007,30,Entre Ríos,Kirchner,9.6,94,7100.0,253374.0
+2007,34,Formosa,Kirchner,51.9,27,18225.0,298005.0
+2007,38,Jujuy,Kirchner,17.4,69,10341.0,312260.0
+2007,42,La Pampa,Kirchner,9.4,53,8801.0,644852.0
+2007,46,La Rioja,Kirchner,51.8,85,21603.0,999634.0
+2007,50,Mendoza,Kirchner,24.1,166,3961.0,105658.0
+2007,54,Misiones,Kirchner,54.5,33,1160.0,174169.0
+2007,58,Neuquén,Kirchner,35.1,134,88.0,138944.0
+2007,62,Río Negro,Kirchner,29.3,116,6945.0,173700.0
+2007,66,Salta,Kirchner,43.3,90,6261.0,161450.0
+2007,70,San Juan,Kirchner,29.3,75,3370.0,441293.0
+2007,74,San Luis,Kirchner,25.0,92,0.0,187566.0
+2007,78,Santa Cruz,Kirchner,16.9,59,3770.0,3656931.0
+2007,82,Santa Fe,Kirchner,24.1,424,2546.0,123314.0
+2007,86,Santiago del Estero,Kirchner,65.7,137,1562.0,216348.0
+2007,90,Tucumán,Kirchner,15.8,95,10325.0,267878.0
+2007,94,Tierra del Fuego,Kirchner,25.9,112,9065.0,648807.0
+2008,02,CABA,Fernández de Kirchner,13.7,964,0.0,81953.0
+2008,06,Buenos Aires,Fernández de Kirchner,22.1,1292,1569.0,97413.0
+2008,10,Catamarca,Fernández de Kirchner,25.8,194,1053.0,170306.0
+2008,14,Córdoba,Fernández de Kirchner,17.5,543,1947.0,222044.0
+2008,18,Corrientes,Fernández de Kirchner,38.0,179,833.0,119151.0
+2008,22,Chaco,Fernández de Kirchner,0.0,200,6023.0,437548.0
+2008,26,Chubut,Fernández de Kirchner,56.3,119,13243.0,509435.0
+2008,30,Entre Ríos,Fernández de Kirchner,8.8,226,3445.0,170600.0
+2008,34,Formosa,Fernández de Kirchner,46.2,117,5168.0,416267.0
+2008,38,Jujuy,Fernández de Kirchner,2.0,148,3189.0,350831.0
+2008,42,La Pampa,Fernández de Kirchner,3.6,166,7519.0,488873.0
+2008,46,La Rioja,Fernández de Kirchner,100.0,1,9744.0,1048408.0
+2008,50,Mendoza,Fernández de Kirchner,33.7,276,2942.0,111103.0
+2008,54,Misiones,Fernández de Kirchner,97.8,46,3170.0,201704.0
+2008,58,Neuquén,Fernández de Kirchner,80.3,254,13380.0,144642.0
+2008,62,Río Negro,Fernández de Kirchner,67.7,124,8413.0,190947.0
+2008,66,Salta,Fernández de Kirchner,45.5,253,4294.0,126129.0
+2008,70,San Juan,Fernández de Kirchner,14.3,77,8067.0,507836.0
+2008,74,San Luis,Fernández de Kirchner,27.7,321,877.0,122114.0
+2008,78,Santa Cruz,Fernández de Kirchner,1.8,112,5637.0,3905655.0
+2008,82,Santa Fe,Fernández de Kirchner,28.3,639,1382.0,129391.0
+2008,86,Santiago del Estero,Fernández de Kirchner,81.4,388,4488.0,333309.0
+2008,90,Tucumán,Fernández de Kirchner,4.3,161,841.0,281648.0
+2008,94,Tierra del Fuego,Fernández de Kirchner,53.1,211,4070.0,517141.0
+2009,02,CABA,Fernández de Kirchner,15.0,575,0.0,125798.0
+2009,06,Buenos Aires,Fernández de Kirchner,23.4,809,1916.0,245374.0
+2009,10,Catamarca,Fernández de Kirchner,34.7,144,150.0,204924.0
+2009,14,Córdoba,Fernández de Kirchner,13.8,356,219.0,249067.0
+2009,18,Corrientes,Fernández de Kirchner,49.6,141,55.0,65024.0
+2009,22,Chaco,Fernández de Kirchner,3.8,156,8772.0,535733.0
+2009,26,Chubut,Fernández de Kirchner,69.1,81,1113.0,413720.0
+2009,30,Entre Ríos,Fernández de Kirchner,3.6,193,3756.0,326646.0
+2009,34,Formosa,Fernández de Kirchner,48.0,127,7967.0,389311.0
+2009,38,Jujuy,Fernández de Kirchner,17.1,129,2070.0,567307.0
+2009,42,La Pampa,Fernández de Kirchner,2.7,110,3379.0,392003.0
+2009,46,La Rioja,Fernández de Kirchner,0.0,1,20099.0,1306358.0
+2009,50,Mendoza,Fernández de Kirchner,16.0,194,2694.0,147861.0
+2009,54,Misiones,Fernández de Kirchner,100.0,25,3778.0,218548.0
+2009,58,Neuquén,Fernández de Kirchner,92.5,174,5678.0,183858.0
+2009,62,Río Negro,Fernández de Kirchner,31.7,161,15125.0,294673.0
+2009,66,Salta,Fernández de Kirchner,15.9,276,4877.0,194006.0
+2009,70,San Juan,Fernández de Kirchner,25.0,92,6448.0,323237.0
+2009,74,San Luis,Fernández de Kirchner,30.1,272,1398.0,114076.0
+2009,78,Santa Cruz,Fernández de Kirchner,2.8,72,6385.0,2580850.0
+2009,82,Santa Fe,Fernández de Kirchner,11.3,497,508.0,94593.0
+2009,86,Santiago del Estero,Fernández de Kirchner,71.9,306,2858.0,490615.0
+2009,90,Tucumán,Fernández de Kirchner,25.7,144,1557.0,345255.0
+2009,94,Tierra del Fuego,Fernández de Kirchner,92.0,175,7549.0,987704.0
+2010,02,CABA,Fernández de Kirchner,14.4,662,367.0,51007.0
+2010,06,Buenos Aires,Fernández de Kirchner,13.6,1147,2433.0,172494.0
+2010,10,Catamarca,Fernández de Kirchner,14.8,135,343.0,191360.0
+2010,14,Córdoba,Fernández de Kirchner,8.7,483,302.0,248477.0
+2010,18,Corrientes,Fernández de Kirchner,14.0,229,1297.0,110516.0
+2010,22,Chaco,Fernández de Kirchner,6.2,129,4006.0,529054.0
+2010,26,Chubut,Fernández de Kirchner,12.5,128,0.0,190564.0
+2010,30,Entre Ríos,Fernández de Kirchner,3.3,214,2451.0,318419.0
+2010,34,Formosa,Fernández de Kirchner,15.5,110,2685.0,932813.0
+2010,38,Jujuy,Fernández de Kirchner,22.4,116,14963.0,336950.0
+2010,42,La Pampa,Fernández de Kirchner,28.9,242,2151.0,1005108.0
+2010,46,La Rioja,Fernández de Kirchner,12.8,39,92886.0,1196797.0
+2010,50,Mendoza,Fernández de Kirchner,14.8,237,2655.0,116876.0
+2010,54,Misiones,Fernández de Kirchner,19.4,31,3043.0,212502.0
+2010,58,Neuquén,Fernández de Kirchner,66.0,141,3601.0,201217.0
+2010,62,Río Negro,Fernández de Kirchner,9.6,114,4512.0,325276.0
+2010,66,Salta,Fernández de Kirchner,24.0,242,3735.0,166666.0
+2010,70,San Juan,Fernández de Kirchner,29.5,95,8710.0,271375.0
+2010,74,San Luis,Fernández de Kirchner,15.7,255,313.0,121725.0
+2010,78,Santa Cruz,Fernández de Kirchner,17.5,97,5242.0,2664246.0
+2010,82,Santa Fe,Fernández de Kirchner,12.8,507,148.0,92243.0
+2010,86,Santiago del Estero,Fernández de Kirchner,82.5,223,5198.0,679780.0
+2010,90,Tucumán,Fernández de Kirchner,0.0,87,1756.0,323523.0
+2010,94,Tierra del Fuego,Fernández de Kirchner,54.6,119,128649.0,602200.0
+2011,02,CABA,Fernández de Kirchner,32.3,266,0.0,88881.0
+2011,06,Buenos Aires,Fernández de Kirchner,28.2,400,869.0,128922.0
+2011,10,Catamarca,Fernández de Kirchner,8.2,61,1024.0,256322.0
+2011,14,Córdoba,Fernández de Kirchner,14.8,196,271.0,89896.0
+2011,18,Corrientes,Fernández de Kirchner,40.2,92,348.0,149737.0
+2011,22,Chaco,Fernández de Kirchner,9.6,52,918.0,543322.0
+2011,26,Chubut,Fernández de Kirchner,16.7,42,0.0,165898.0
+2011,30,Entre Ríos,Fernández de Kirchner,14.9,87,988.0,314948.0
+2011,34,Formosa,Fernández de Kirchner,0.0,33,3263.0,991772.0
+2011,38,Jujuy,Fernández de Kirchner,12.5,48,1298.0,319535.0
+2011,42,La Pampa,Fernández de Kirchner,57.5,80,1068.0,383844.0
+2011,46,La Rioja,Fernández de Kirchner,38.9,36,5394.0,1299898.0
+2011,50,Mendoza,Fernández de Kirchner,10.6,104,724.0,102555.0
+2011,54,Misiones,Fernández de Kirchner,73.1,26,796.0,226390.0
+2011,58,Neuquén,Fernández de Kirchner,82.4,68,3859.0,119112.0
+2011,62,Río Negro,Fernández de Kirchner,7.4,27,2699.0,277512.0
+2011,66,Salta,Fernández de Kirchner,61.1,90,272.0,112021.0
+2011,70,San Juan,Fernández de Kirchner,53.8,39,2949.0,263436.0
+2011,74,San Luis,Fernández de Kirchner,30.0,100,0.0,113566.0
+2011,78,Santa Cruz,Fernández de Kirchner,4.8,42,1776.0,3049937.0
+2011,82,Santa Fe,Fernández de Kirchner,30.1,216,569.0,82429.0
+2011,86,Santiago del Estero,Fernández de Kirchner,92.5,106,905.0,410327.0
+2011,90,Tucumán,Fernández de Kirchner,2.3,43,305.0,289424.0
+2011,94,Tierra del Fuego,Fernández de Kirchner,83.9,56,3548.0,444530.0
+2012,02,CABA,Fernández de Kirchner,18.5,574,0.0,83566.0
+2012,06,Buenos Aires,Fernández de Kirchner,15.8,961,189.0,103563.0
+2012,10,Catamarca,Fernández de Kirchner,16.7,84,1563.0,286200.0
+2012,14,Córdoba,Fernández de Kirchner,12.1,396,163.0,48863.0
+2012,18,Corrientes,Fernández de Kirchner,42.9,133,559.0,122880.0
+2012,22,Chaco,Fernández de Kirchner,4.1,121,1088.0,578022.0
+2012,26,Chubut,Fernández de Kirchner,14.6,48,1072.0,135124.0
+2012,30,Entre Ríos,Fernández de Kirchner,4.6,151,883.0,275566.0
+2012,34,Formosa,Fernández de Kirchner,5.8,69,1071.0,992749.0
+2012,38,Jujuy,Fernández de Kirchner,5.9,85,916.0,338819.0
+2012,42,La Pampa,Fernández de Kirchner,61.9,189,1577.0,315554.0
+2012,46,La Rioja,Fernández de Kirchner,5.2,58,1970.0,874577.0
+2012,50,Mendoza,Fernández de Kirchner,4.3,232,487.0,94523.0
+2012,54,Misiones,Fernández de Kirchner,61.0,59,521.0,201186.0
+2012,58,Neuquén,Fernández de Kirchner,83.4,151,931.0,182998.0
+2012,62,Río Negro,Fernández de Kirchner,2.6,38,4933.0,186064.0
+2012,66,Salta,Fernández de Kirchner,68.5,197,503.0,151636.0
+2012,70,San Juan,Fernández de Kirchner,53.3,75,2345.0,195596.0
+2012,74,San Luis,Fernández de Kirchner,4.3,186,0.0,122058.0
+2012,78,Santa Cruz,Fernández de Kirchner,4.7,86,521.0,996410.0
+2012,82,Santa Fe,Fernández de Kirchner,19.4,427,0.0,58961.0
+2012,86,Santiago del Estero,Fernández de Kirchner,91.4,291,681.0,435912.0
+2012,90,Tucumán,Fernández de Kirchner,3.1,64,402.0,221409.0
+2012,94,Tierra del Fuego,Fernández de Kirchner,71.9,139,6854.0,495045.0
+2013,02,CABA,Fernández de Kirchner,13.5,720,65.0,168298.0
+2013,06,Buenos Aires,Fernández de Kirchner,9.1,1216,9948.0,108928.0
+2013,10,Catamarca,Fernández de Kirchner,10.0,100,1569.0,364290.0
+2013,14,Córdoba,Fernández de Kirchner,1.5,469,0.0,42459.0
+2013,18,Corrientes,Fernández de Kirchner,40.0,155,0.0,101871.0
+2013,22,Chaco,Fernández de Kirchner,7.9,127,534.0,619799.0
+2013,26,Chubut,Fernández de Kirchner,0.0,54,1063.0,219311.0
+2013,30,Entre Ríos,Fernández de Kirchner,5.2,213,417.0,299571.0
+2013,34,Formosa,Fernández de Kirchner,1.6,62,1072.0,919673.0
+2013,38,Jujuy,Fernández de Kirchner,1.0,100,935.0,405345.0
+2013,42,La Pampa,Fernández de Kirchner,52.8,212,3771.0,489435.0
+2013,46,La Rioja,Fernández de Kirchner,0.0,74,1712.0,1065480.0
+2013,50,Mendoza,Fernández de Kirchner,0.0,258,723.0,106763.0
+2013,54,Misiones,Fernández de Kirchner,73.7,38,521.0,352150.0
+2013,58,Neuquén,Fernández de Kirchner,74.2,178,4950.0,190659.0
+2013,62,Río Negro,Fernández de Kirchner,19.6,56,2436.0,206735.0
+2013,66,Salta,Fernández de Kirchner,53.3,210,2409.0,175165.0
+2013,70,San Juan,Fernández de Kirchner,50.7,69,6999.0,217089.0
+2013,74,San Luis,Fernández de Kirchner,21.8,229,0.0,123239.0
+2013,78,Santa Cruz,Fernández de Kirchner,0.9,106,286.0,1391298.0
+2013,82,Santa Fe,Fernández de Kirchner,14.2,515,0.0,56616.0
+2013,86,Santiago del Estero,Fernández de Kirchner,95.3,317,815.0,487444.0
+2013,90,Tucumán,Fernández de Kirchner,1.2,81,6776.0,298251.0
+2013,94,Tierra del Fuego,Fernández de Kirchner,45.9,135,5998.0,569837.0
+2014,02,CABA,Fernández de Kirchner,19.9,913,43.0,127703.0
+2014,06,Buenos Aires,Fernández de Kirchner,17.8,1549,8765.0,109359.0
+2014,10,Catamarca,Fernández de Kirchner,4.1,146,1976.0,421187.0
+2014,14,Córdoba,Fernández de Kirchner,4.1,580,0.0,49723.0
+2014,18,Corrientes,Fernández de Kirchner,17.4,190,0.0,130039.0
+2014,22,Chaco,Fernández de Kirchner,37.1,175,1448.0,810836.0
+2014,26,Chubut,Fernández de Kirchner,9.5,126,1349.0,175978.0
+2014,30,Entre Ríos,Fernández de Kirchner,30.8,234,521.0,319758.0
+2014,34,Formosa,Fernández de Kirchner,0.0,84,1355.0,720128.0
+2014,38,Jujuy,Fernández de Kirchner,0.0,195,1180.0,481997.0
+2014,42,La Pampa,Fernández de Kirchner,38.0,258,1980.0,304169.0
+2014,46,La Rioja,Fernández de Kirchner,0.0,81,36104.0,1115331.0
+2014,50,Mendoza,Fernández de Kirchner,1.7,344,1632.0,103348.0
+2014,54,Misiones,Fernández de Kirchner,83.1,320,5970.0,346790.0
+2014,58,Neuquén,Fernández de Kirchner,88.4,215,1579.0,185602.0
+2014,62,Río Negro,Fernández de Kirchner,72.8,92,3018.0,296715.0
+2014,66,Salta,Fernández de Kirchner,33.3,201,1975.0,154303.0
+2014,70,San Juan,Fernández de Kirchner,12.5,72,3716.0,238624.0
+2014,74,San Luis,Fernández de Kirchner,30.5,249,0.0,109801.0
+2014,78,Santa Cruz,Fernández de Kirchner,0.0,109,3754.0,1116436.0
+2014,82,Santa Fe,Fernández de Kirchner,13.8,579,2636.0,80234.0
+2014,86,Santiago del Estero,Fernández de Kirchner,100.0,445,4598.0,488414.0
+2014,90,Tucumán,Fernández de Kirchner,0.0,129,4982.0,288117.0
+2014,94,Tierra del Fuego,Fernández de Kirchner,66.9,178,7656.0,790070.0
+2015,02,CABA,Fernández de Kirchner,15.6,365,0.0,144517.0
+2015,06,Buenos Aires,Fernández de Kirchner,21.3,506,4687.0,151515.0
+2015,10,Catamarca,Fernández de Kirchner,0.0,60,3501.0,450968.0
+2015,14,Córdoba,Fernández de Kirchner,1.9,209,0.0,40572.0
+2015,18,Corrientes,Fernández de Kirchner,30.5,82,1298.0,169884.0
+2015,22,Chaco,Fernández de Kirchner,55.8,86,1945.0,727994.0
+2015,26,Chubut,Fernández de Kirchner,2.6,39,748.0,172029.0
+2015,30,Entre Ríos,Fernández de Kirchner,46.1,115,1725.0,368891.0
+2015,34,Formosa,Fernández de Kirchner,2.9,35,7437.0,729222.0
+2015,38,Jujuy,Fernández de Kirchner,2.8,72,0.0,526299.0
+2015,42,La Pampa,Fernández de Kirchner,40.5,126,0.0,131761.0
+2015,46,La Rioja,Fernández de Kirchner,6.2,32,19273.0,891328.0
+2015,50,Mendoza,Fernández de Kirchner,2.7,146,0.0,107096.0
+2015,54,Misiones,Fernández de Kirchner,84.4,128,2337.0,340547.0
+2015,58,Neuquén,Fernández de Kirchner,83.0,112,0.0,285911.0
+2015,62,Río Negro,Fernández de Kirchner,74.2,66,408.0,357758.0
+2015,66,Salta,Fernández de Kirchner,41.7,115,1563.0,158489.0
+2015,70,San Juan,Fernández de Kirchner,10.5,38,564.0,286403.0
+2015,74,San Luis,Fernández de Kirchner,14.3,105,0.0,124137.0
+2015,78,Santa Cruz,Fernández de Kirchner,6.8,59,86856.0,1473521.0
+2015,82,Santa Fe,Fernández de Kirchner,13.2,242,2715.0,102130.0
+2015,86,Santiago del Estero,Fernández de Kirchner,99.5,202,2246.0,545713.0
+2015,90,Tucumán,Fernández de Kirchner,0.0,61,0.0,244138.0
+2015,94,Tierra del Fuego,Fernández de Kirchner,65.1,83,0.0,879103.0
+2016,02,CABA,Macri,39.8,1308,0.0,143885.0
+2016,06,Buenos Aires,Macri,47.9,5467,11130.0,268826.0
+2016,10,Catamarca,Macri,68.2,490,0.0,333092.0
+2016,14,Córdoba,Macri,80.1,1500,8239.0,126047.0
+2016,18,Corrientes,Macri,67.8,748,12393.0,204770.0
+2016,22,Chaco,Macri,39.3,748,6220.0,363277.0
+2016,26,Chubut,Macri,45.0,645,20208.0,175952.0
+2016,30,Entre Ríos,Macri,40.7,805,9792.0,258747.0
+2016,34,Formosa,Macri,35.2,673,3116.0,608857.0
+2016,38,Jujuy,Macri,84.4,756,9472.0,234905.0
+2016,42,La Pampa,Macri,79.2,518,32870.0,617846.0
+2016,46,La Rioja,Macri,81.0,437,7923.0,726612.0
+2016,50,Mendoza,Macri,54.4,981,9243.0,115702.0
+2016,54,Misiones,Macri,54.3,787,11637.0,210642.0
+2016,58,Neuquén,Macri,43.5,492,43843.0,284562.0
+2016,62,Río Negro,Macri,7.9,456,1459.0,215304.0
+2016,66,Salta,Macri,67.3,646,7503.0,233494.0
+2016,70,San Juan,Macri,39.1,611,1238.0,380332.0
+2016,74,San Luis,Macri,79.0,568,612.0,90455.0
+2016,78,Santa Cruz,Macri,58.7,537,45427.0,268329.0
+2016,82,Santa Fe,Macri,44.5,1428,6438.0,95078.0
+2016,86,Santiago del Estero,Macri,84.7,837,157.0,392650.0
+2016,90,Tucumán,Macri,40.5,920,5737.0,137551.0
+2016,94,Tierra del Fuego,Macri,9.6,468,206374.0,694567.0
+2017,02,CABA,Macri,34.9,918,0.0,166131.0
+2017,06,Buenos Aires,Macri,27.9,3349,2881.0,259239.0
+2017,10,Catamarca,Macri,70.6,360,12560.0,400898.0
+2017,14,Córdoba,Macri,64.4,1007,5508.0,170206.0
+2017,18,Corrientes,Macri,55.5,393,12178.0,160944.0
+2017,22,Chaco,Macri,52.1,470,3044.0,348487.0
+2017,26,Chubut,Macri,24.9,353,16449.0,166323.0
+2017,30,Entre Ríos,Macri,52.7,524,5643.0,222284.0
+2017,34,Formosa,Macri,48.3,327,0.0,418449.0
+2017,38,Jujuy,Macri,70.7,362,48237.0,243775.0
+2017,42,La Pampa,Macri,70.8,301,21343.0,290950.0
+2017,46,La Rioja,Macri,66.0,256,32455.0,805932.0
+2017,50,Mendoza,Macri,56.4,628,11145.0,105692.0
+2017,54,Misiones,Macri,66.5,499,5001.0,220401.0
+2017,58,Neuquén,Macri,33.3,210,49677.0,296021.0
+2017,62,Río Negro,Macri,17.2,256,5644.0,164548.0
+2017,66,Salta,Macri,56.1,435,5931.0,178704.0
+2017,70,San Juan,Macri,27.7,329,1964.0,303433.0
+2017,74,San Luis,Macri,42.3,248,12300.0,67407.0
+2017,78,Santa Cruz,Macri,58.1,298,56556.0,347017.0
+2017,82,Santa Fe,Macri,38.2,901,5390.0,103094.0
+2017,86,Santiago del Estero,Macri,58.5,275,4121.0,272021.0
+2017,90,Tucumán,Macri,47.0,513,4639.0,119101.0
+2017,94,Tierra del Fuego,Macri,12.9,233,82662.0,534231.0
+2018,02,CABA,Macri,33.4,887,0.0,157462.0
+2018,06,Buenos Aires,Macri,24.2,3026,2713.0,121394.0
+2018,10,Catamarca,Macri,53.1,352,7145.0,310174.0
+2018,14,Córdoba,Macri,56.4,821,2375.0,129363.0
+2018,18,Corrientes,Macri,46.7,336,8495.0,133513.0
+2018,22,Chaco,Macri,51.1,368,4661.0,223189.0
+2018,26,Chubut,Macri,28.7,362,32183.0,94954.0
+2018,30,Entre Ríos,Macri,54.8,484,3895.0,270705.0
+2018,34,Formosa,Macri,43.6,388,4623.0,294121.0
+2018,38,Jujuy,Macri,58.7,344,15546.0,173851.0
+2018,42,La Pampa,Macri,36.2,260,0.0,248300.0
+2018,46,La Rioja,Macri,61.5,208,3302.0,586674.0
+2018,50,Mendoza,Macri,60.8,569,565.0,93211.0
+2018,54,Misiones,Macri,44.3,451,19186.0,142224.0
+2018,58,Neuquén,Macri,33.5,203,1701.0,313675.0
+2018,62,Río Negro,Macri,30.9,236,755.0,117718.0
+2018,66,Salta,Macri,48.1,370,5944.0,149071.0
+2018,70,San Juan,Macri,25.9,363,2303.0,268763.0
+2018,74,San Luis,Macri,36.8,315,0.0,38387.0
+2018,78,Santa Cruz,Macri,55.1,283,11555.0,274910.0
+2018,82,Santa Fe,Macri,35.3,916,694.0,132864.0
+2018,86,Santiago del Estero,Macri,50.3,302,2010.0,154974.0
+2018,90,Tucumán,Macri,42.9,525,4157.0,111611.0
+2018,94,Tierra del Fuego,Macri,9.3,246,0.0,397247.0
+2019,02,CABA,Macri,15.3,698,0.0,120902.0
+2019,06,Buenos Aires,Macri,21.7,1610,1945.0,85512.0
+2019,10,Catamarca,Macri,23.9,142,2776.0,124081.0
+2019,14,Córdoba,Macri,37.3,582,1600.0,132759.0
+2019,18,Corrientes,Macri,22.3,206,2589.0,96712.0
+2019,22,Chaco,Macri,33.5,173,4020.0,81968.0
+2019,26,Chubut,Macri,21.7,157,1515.0,35807.0
+2019,30,Entre Ríos,Macri,29.1,278,3746.0,121508.0
+2019,34,Formosa,Macri,28.9,159,430.0,111182.0
+2019,38,Jujuy,Macri,41.4,128,12092.0,81154.0
+2019,42,La Pampa,Macri,7.9,89,0.0,191912.0
+2019,46,La Rioja,Macri,57.1,63,5223.0,447686.0
+2019,50,Mendoza,Macri,39.2,339,3033.0,53888.0
+2019,54,Misiones,Macri,54.5,220,3223.0,63292.0
+2019,58,Neuquén,Macri,36.3,124,3938.0,248664.0
+2019,62,Río Negro,Macri,45.5,110,1723.0,58751.0
+2019,66,Salta,Macri,41.8,201,1475.0,88740.0
+2019,70,San Juan,Macri,17.5,160,907.0,96771.0
+2019,74,San Luis,Macri,19.3,114,0.0,36448.0
+2019,78,Santa Cruz,Macri,47.2,125,4405.0,163563.0
+2019,82,Santa Fe,Macri,17.9,541,2186.0,72225.0
+2019,86,Santiago del Estero,Macri,65.2,141,3237.0,82959.0
+2019,90,Tucumán,Macri,35.5,242,11011.0,32759.0
+2019,94,Tierra del Fuego,Macri,7.9,127,0.0,142086.0
+2020,02,CABA,Fernández,6.8,739,4965.0,83642.0
+2020,06,Buenos Aires,Fernández,10.1,1321,24652.0,214476.0
+2020,10,Catamarca,Fernández,4.6,87,97528.0,95701.0
+2020,14,Córdoba,Fernández,24.8,614,37903.0,98834.0
+2020,18,Corrientes,Fernández,7.0,185,50854.0,60624.0
+2020,22,Chaco,Fernández,29.0,193,70967.0,136761.0
+2020,26,Chubut,Fernández,2.6,76,74260.0,28800.0
+2020,30,Entre Ríos,Fernández,12.2,279,57290.0,194015.0
+2020,34,Formosa,Fernández,35.3,153,88438.0,168794.0
+2020,38,Jujuy,Fernández,25.3,174,61814.0,93888.0
+2020,42,La Pampa,Fernández,2.2,92,99635.0,185876.0
+2020,46,La Rioja,Fernández,15.2,112,86968.0,676210.0
+2020,50,Mendoza,Fernández,15.0,307,32975.0,35022.0
+2020,54,Misiones,Fernández,61.7,282,44688.0,118695.0
+2020,58,Neuquén,Fernández,44.6,184,43570.0,267180.0
+2020,62,Río Negro,Fernández,72.7,161,55780.0,60303.0
+2020,66,Salta,Fernández,33.3,219,48277.0,67788.0
+2020,70,San Juan,Fernández,35.7,157,69758.0,104551.0
+2020,74,San Luis,Fernández,36.3,157,60854.0,24230.0
+2020,78,Santa Cruz,Fernández,34.6,136,93947.0,302616.0
+2020,82,Santa Fe,Fernández,7.2,445,39783.0,105437.0
+2020,86,Santiago del Estero,Fernández,96.2,80,68298.0,91686.0
+2020,90,Tucumán,Fernández,6.1,164,50908.0,139393.0
+2020,94,Tierra del Fuego,Fernández,35.9,156,140413.0,225388.0
+2021,02,CABA,Fernández,4.1,458,0.0,125976.0
+2021,06,Buenos Aires,Fernández,10.3,807,8719.0,201983.0
+2021,10,Catamarca,Fernández,1.6,63,73822.0,225503.0
+2021,14,Córdoba,Fernández,13.1,373,6048.0,163758.0
+2021,18,Corrientes,Fernández,1.1,87,4452.0,96209.0
+2021,22,Chaco,Fernández,26.3,114,31356.0,249608.0
+2021,26,Chubut,Fernández,0.0,51,35231.0,128628.0
+2021,30,Entre Ríos,Fernández,9.5,169,15520.0,197409.0
+2021,34,Formosa,Fernández,33.3,87,46804.0,326016.0
+2021,38,Jujuy,Fernández,26.2,103,14608.0,97667.0
+2021,42,La Pampa,Fernández,1.6,63,46796.0,392442.0
+2021,46,La Rioja,Fernández,34.4,64,61015.0,840965.0
+2021,50,Mendoza,Fernández,11.1,180,7263.0,66685.0
+2021,54,Misiones,Fernández,54.4,160,19225.0,126501.0
+2021,58,Neuquén,Fernández,44.4,108,19142.0,438214.0
+2021,62,Río Negro,Fernández,69.3,101,19807.0,107030.0
+2021,66,Salta,Fernández,32.8,119,19373.0,123333.0
+2021,70,San Juan,Fernández,35.4,96,32587.0,148001.0
+2021,74,San Luis,Fernández,27.7,94,26344.0,165037.0
+2021,78,Santa Cruz,Fernández,42.5,73,53943.0,410085.0
+2021,82,Santa Fe,Fernández,10.0,271,13657.0,103569.0
+2021,86,Santiago del Estero,Fernández,100.0,43,35802.0,131430.0
+2021,90,Tucumán,Fernández,10.8,102,25788.0,83930.0
+2021,94,Tierra del Fuego,Fernández,37.1,89,49320.0,276734.0
+2022,02,CABA,Fernández,11.0,609,0.0,95718.0
+2022,06,Buenos Aires,Fernández,14.3,1214,2453.0,180671.0
+2022,10,Catamarca,Fernández,21.1,90,36928.0,187495.0
+2022,14,Córdoba,Fernández,21.9,535,4077.0,62768.0
+2022,18,Corrientes,Fernández,17.1,152,10802.0,100051.0
+2022,22,Chaco,Fernández,10.3,107,16043.0,202118.0
+2022,26,Chubut,Fernández,16.3,86,12649.0,48311.0
+2022,30,Entre Ríos,Fernández,14.9,195,6029.0,170669.0
+2022,34,Formosa,Fernández,16.0,81,27130.0,262214.0
+2022,38,Jujuy,Fernández,29.9,117,6125.0,55148.0
+2022,42,La Pampa,Fernández,19.0,126,17226.0,164494.0
+2022,46,La Rioja,Fernández,59.5,37,93202.0,814043.0
+2022,50,Mendoza,Fernández,9.3,227,3553.0,33680.0
+2022,54,Misiones,Fernández,42.7,164,13409.0,112777.0
+2022,58,Neuquén,Fernández,38.4,112,7848.0,179792.0
+2022,62,Río Negro,Fernández,49.6,129,18160.0,80272.0
+2022,66,Salta,Fernández,21.0,119,8084.0,60195.0
+2022,70,San Juan,Fernández,8.5,71,8759.0,84931.0
+2022,74,San Luis,Fernández,14.0,100,4339.0,94124.0
+2022,78,Santa Cruz,Fernández,41.0,78,28654.0,295508.0
+2022,82,Santa Fe,Fernández,21.2,419,4912.0,86828.0
+2022,86,Santiago del Estero,Fernández,100.0,6,20068.0,165326.0
+2022,90,Tucumán,Fernández,17.1,146,9136.0,190245.0
+2022,94,Tierra del Fuego,Fernández,24.4,82,29432.0,254927.0
+2023,02,CABA,Fernández,12.1,438,0.0,90612.0
+2023,06,Buenos Aires,Fernández,14.1,839,4911.0,193154.0
+2023,10,Catamarca,Fernández,20.9,67,78292.0,186591.0
+2023,14,Córdoba,Fernández,20.7,382,19000.0,37912.0
+2023,18,Corrientes,Fernández,5.7,106,15090.0,98942.0
+2023,22,Chaco,Fernández,0.0,62,33465.0,188313.0
+2023,26,Chubut,Fernández,11.6,69,24023.0,56804.0
+2023,30,Entre Ríos,Fernández,11.1,153,30019.0,112426.0
+2023,34,Formosa,Fernández,8.9,56,60290.0,225193.0
+2023,38,Jujuy,Fernández,38.8,85,20472.0,75591.0
+2023,42,La Pampa,Fernández,16.3,98,55879.0,221026.0
+2023,46,La Rioja,Fernández,42.9,21,74156.0,657945.0
+2023,50,Mendoza,Fernández,7.5,160,16591.0,35156.0
+2023,54,Misiones,Fernández,40.0,125,15859.0,107684.0
+2023,58,Neuquén,Fernández,48.5,68,25340.0,190956.0
+2023,62,Río Negro,Fernández,58.0,100,30264.0,94615.0
+2023,66,Salta,Fernández,24.4,78,14953.0,91114.0
+2023,70,San Juan,Fernández,4.3,46,37787.0,53559.0
+2023,74,San Luis,Fernández,18.2,66,49201.0,106487.0
+2023,78,Santa Cruz,Fernández,28.3,46,51118.0,386707.0
+2023,82,Santa Fe,Fernández,15.5,283,20456.0,56277.0
+2023,86,Santiago del Estero,Fernández,100.0,7,35394.0,153476.0
+2023,90,Tucumán,Fernández,15.5,97,20640.0,87150.0
+2023,94,Tierra del Fuego,Fernández,22.4,67,63577.0,263499.0
+2024,02,CABA,Milei,44.4,3132,0.0,83021.0
+2024,06,Buenos Aires,Milei,30.1,8851,0.0,33871.0
+2024,10,Catamarca,Milei,22.0,829,9537.0,17340.0
+2024,14,Córdoba,Milei,60.7,2056,0.0,9620.0
+2024,18,Corrientes,Milei,43.2,1006,1160.0,23591.0
+2024,22,Chaco,Milei,34.8,926,0.0,36082.0
+2024,26,Chubut,Milei,35.4,667,10420.0,12824.0
+2024,30,Entre Ríos,Milei,36.6,1259,6496.0,39516.0
+2024,34,Formosa,Milei,6.7,699,0.0,16596.0
+2024,38,Jujuy,Milei,26.0,700,7837.0,28175.0
+2024,42,La Pampa,Milei,41.5,893,0.0,12709.0
+2024,46,La Rioja,Milei,1.3,707,0.0,22254.0
+2024,50,Mendoza,Milei,38.0,1095,0.0,12601.0
+2024,54,Misiones,Milei,75.3,872,13558.0,9556.0
+2024,58,Neuquén,Milei,29.3,714,0.0,86239.0
+2024,62,Río Negro,Milei,52.2,640,0.0,13722.0
+2024,66,Salta,Milei,40.1,691,5637.0,19229.0
+2024,70,San Juan,Milei,32.7,780,0.0,13137.0
+2024,74,San Luis,Milei,27.0,466,0.0,11294.0
+2024,78,Santa Cruz,Milei,24.0,778,12465.0,131923.0
+2024,82,Santa Fe,Milei,44.5,2407,567.0,7078.0
+2024,86,Santiago del Estero,Milei,1.2,1133,0.0,28814.0
+2024,90,Tucumán,Milei,56.6,1248,5112.0,21151.0
+2024,94,Tierra del Fuego,Milei,18.9,708,0.0,62033.0
+2025,02,CABA,Milei,33.0,2148,0.0,72841.0
+2025,06,Buenos Aires,Milei,20.4,6007,573.0,32400.0
+2025,10,Catamarca,Milei,27.0,660,39861.0,40947.0
+2025,14,Córdoba,Milei,36.7,1402,0.0,20993.0
+2025,18,Corrientes,Milei,34.4,695,2492.0,25665.0
+2025,22,Chaco,Milei,25.9,656,14905.0,85027.0
+2025,26,Chubut,Milei,24.9,502,27393.0,13198.0
+2025,30,Entre Ríos,Milei,28.8,843,13021.0,32692.0
+2025,34,Formosa,Milei,2.6,545,0.0,30007.0
+2025,38,Jujuy,Milei,10.4,519,0.0,38145.0
+2025,42,La Pampa,Milei,38.3,677,0.0,20995.0
+2025,46,La Rioja,Milei,0.2,528,0.0,40470.0
+2025,50,Mendoza,Milei,29.7,791,1465.0,14809.0
+2025,54,Misiones,Milei,64.1,562,14133.0,14375.0
+2025,58,Neuquén,Milei,34.0,477,25611.0,76063.0
+2025,62,Río Negro,Milei,38.1,493,6340.0,11534.0
+2025,66,Salta,Milei,31.1,405,12782.0,20582.0
+2025,70,San Juan,Milei,23.1,602,7066.0,17174.0
+2025,74,San Luis,Milei,22.5,364,0.0,30909.0
+2025,78,Santa Cruz,Milei,22.3,673,23884.0,120133.0
+2025,82,Santa Fe,Milei,31.2,1563,3257.0,15482.0
+2025,86,Santiago del Estero,Milei,1.9,807,0.0,32572.0
+2025,90,Tucumán,Milei,39.3,774,19734.0,27300.0
+2025,94,Tierra del Fuego,Milei,17.8,545,0.0,66642.0

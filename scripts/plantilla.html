@@ -592,6 +592,20 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 .lg-sels .selector-ficha{flex:1 1 220px}
 @media (max-width:760px){.lg-lista{grid-template-columns:1fr}}
 .grafico[data-g="presidentes"]{min-height:0}
+.vt-matriz{overflow-x:auto;min-height:0;margin-top:18px}
+.vt-matriz table{border-collapse:separate;border-spacing:2px;width:100%;min-width:600px}
+.vt-matriz th{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:center;padding:0 2px 6px;vertical-align:bottom}
+.vt-matriz th:first-child{text-align:left}
+.vt-matriz td{height:30px;min-width:44px;text-align:center;font-size:12.5px;font-variant-numeric:tabular-nums;border-radius:4px}
+.vt-matriz td.ley{min-width:0;text-align:left;padding:0 10px 0 0;font-size:13.5px;line-height:1.2;position:sticky;left:0;background:var(--bg);z-index:1}
+.vt-matriz td.ley small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.vt-matriz td.sin{color:var(--faint);font-size:11.5px}
+.vt-matriz tr[role="button"]{cursor:pointer}
+.vt-matriz tr[role="button"]:hover td.ley,.vt-matriz tr[role="button"]:focus-visible td.ley{text-decoration:underline}
+.vt-matriz tr.elegida td.ley{font-weight:600}
+.vt-matriz th:first-child{position:sticky;left:0;background:var(--bg);z-index:1}
+@media (max-width:760px){.vt-matriz table{min-width:520px}.vt-matriz td{min-width:36px;font-size:11.5px}
+  .vt-matriz td.ley{max-width:118px;font-size:12px;padding-right:6px}.vt-matriz th{font-size:9.5px}}
 .pr-lista{list-style:none;margin:14px 0 0;padding:0;columns:2 280px;column-gap:28px}
 .pr-lista li{break-inside:avoid;display:grid;grid-template-columns:10px 1fr;gap:1px 8px;padding:7px 0;border-top:1px dotted var(--line);font-size:14.5px;line-height:1.3}
 .pr-lista li i{width:10px;height:10px;margin-top:4px;grid-row:1/3}
@@ -1060,6 +1074,30 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-votaciones">
+      <h3 data-t="votaciones-titulo"></h3>
+      <p class="lead" data-t="votaciones"></p>
+      <label class="selector-ficha"><span>Ley</span><select id="vt-sel"></select></label>
+      <div class="conmutador" role="group" aria-label="Cámara" data-g="votaciones">
+        <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
+      </div>
+      <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="votaciones"></div>
+      <p class="nota" data-t="votaciones-nota"></p>
+      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-votaciones-espacios">
+      <h3 data-t="vtm-titulo"></h3>
+      <p class="lead" data-t="vtm"></p>
+      <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
+        <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
+      </div>
+      <div class="grafico vt-matriz" data-g="vtmatriz"></div>
+      <p class="nota" data-t="vtm-nota"></p>
+      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-atn">
       <h3 data-t="atn-titulo"></h3>
       <p class="lead" data-t="atn"></p>
@@ -1077,6 +1115,18 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <div class="grafico" data-g="transferencias"></div>
       <p class="nota" data-t="transferencias-nota"></p>
       <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-apoyo">
+      <h3 data-t="apoyo-titulo"></h3>
+      <p class="lead" data-t="apoyo"></p>
+      <label class="selector-ficha"><span>Año</span><select id="ap-sel"></select></label>
+      <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
+        <button type="button" data-m="atn_hab" aria-pressed="true">ATN</button><button type="button" data-m="otras_hab" aria-pressed="false">Otras no automáticas</button>
+      </div>
+      <div class="grafico" data-g="apoyo"></div>
+      <p class="nota" data-t="apoyo-nota"></p>
+      <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presidentes">
@@ -2311,18 +2361,178 @@ DIB.legisladores = () => {
 
 
 
+
+/* ---------- votaciones nominales en el Congreso ---------- */
+const VT = R.votaciones, VT_LEY = Object.fromEntries(VT.leyes.map(l => [l.k, l]));
+const VOTO_COL = ["", "#2C7A5B", "#C0504D", "#E3A92B", "#C3CAD2"], VOTO_LAB = ["", "A favor", "En contra", "Abstención", "Ausente"];
+const ESP_CORTO = {"Peronismo": "Peronismo", "UCR y aliados": "UCR y aliados", "PRO": "PRO", "Cambiemos y Juntos por el Cambio": "Cambiemos y JxC",
+  "La Libertad Avanza": "LLA", "Izquierda": "Izquierda", "Fuerzas provinciales": "Provinciales", "Otras fuerzas": "Otras"};
+const fechaLarga = f => `${+f.slice(8, 10)} de ${MESES[+f.slice(5, 7) - 1]} de ${f.slice(0, 4)}`;
+const ESP_PLURAL = new Set(["UCR y aliados", "Fuerzas provinciales", "Otras fuerzas"]);
+const mayus = t => t.charAt(0).toUpperCase() + t.slice(1);
+const deEsp = e => ("de " + ESP_TXT[e]).replace(/^de el /, "del ");
+// postura de la mayoría de un espacio: [a favor, en contra, abstenciones, ausentes]
+const postura = c => { const [si, no, ab, au] = c; return si + no + ab < au ? "aus" : si > no + ab ? "si" : no > si + ab ? "no" : "div"; };
+const nomVt = n => { const t = w => w.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toUpperCase()).replace(/ (De|Del|La|Las|Los|Y) /g, m => m.toLowerCase());
+  const k = n.indexOf(","); return k < 0 ? t(n) : `${t(n.slice(k + 1).trim())} ${t(n.slice(0, k))}`; };
+function resumenEspacios(esp) {
+  const gr = {si: [], no: [], div: [], aus: []};
+  VT.espacios.filter(e => esp[e]).forEach(e => gr[postura(esp[e])].push(e));
+  const plural = arr => arr.length > 1 || ESP_PLURAL.has(arr[0]);
+  const txt = arr => listaY(arr.map(e => ESP_TXT[e])), verbo = arr => plural(arr) ? "votaron" : "votó";
+  let s = gr.si.length && gr.no.length ? `En su mayoría, ${txt(gr.si)} ${verbo(gr.si)} a favor, y ${txt(gr.no)}, en contra.`
+    : gr.si.length ? `En su mayoría, ${txt(gr.si)} ${verbo(gr.si)} a favor.` : gr.no.length ? `En su mayoría, ${txt(gr.no)} ${verbo(gr.no)} en contra.` : "";
+  if (gr.div.length) s += ` ${mayus(txt(gr.div))} ${plural(gr.div) ? "se dividieron" : "se dividió"}.`;
+  if (gr.aus.length) s += ` La mayoría de los legisladores ${listaY(gr.aus.map(deEsp))} no estuvo en la votación.`;
+  return s.trim();
+}
+document.querySelector('[data-t="votaciones-titulo"]').textContent = `Cómo votó cada espacio político las leyes clave, ${VT.leyes[0].anio} a ${VT.leyes[VT.leyes.length - 1].anio}`;
+document.getElementById("vt-sel").innerHTML = [...VT.leyes].reverse().map(l => `<option value="${l.k}">${l.anio}, ${l.nombre}</option>`).join("");
+MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.vtmatriz = "Diputados";
+let VTJ = null, vtCargando = null;
+const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }));
+const vtConm = (g, cam) => {  // pone el conmutador de una ficha en la cámara indicada
+  const conm = document.querySelector(`.conmutador[data-g="${g}"]`);
+  conm.querySelectorAll("button").forEach((b, i) => { const on = b.dataset.m === cam; b.setAttribute("aria-pressed", on); if (on) conm.style.setProperty("--i", i); });
+};
+document.getElementById("vt-sel").addEventListener("change", ev => { MED.vtLey = ev.target.value; DIB.votaciones(!REDUCIR); DIB.vtmatriz(false); });
+function puntosVoto(el, cfg) {
+  const w = Math.max(300, el.clientWidth), angosto = w < 560;
+  const paso = cfg.senado ? (angosto ? 13 : 16) : (angosto ? 8.6 : 10.5), r = paso * .4;
+  const labW = angosto ? 0 : 170, arriba = angosto ? 34 : 0, cols = Math.max(8, Math.floor((w - labW) / paso));
+  let alto = 0;
+  const lay = cfg.filas.map(f => { const y0 = alto; alto += arriba + Math.max(Math.ceil(f.v.length / cols) * paso, angosto ? 0 : 38) + 14; return {f, y0}; });
+  const C = lienzo(el, alto, {t: 0, r: 0, b: 0, l: 0}), g = C.g;
+  lay.forEach(({f, y0}, j) => {
+    const cu = [1, 2, 3, 4].map(k => f.v.filter(x => x[4] === k).length);
+    const det = [[0, "a favor"], [1, "en contra"], [2, cu[2] === 1 ? "abstención" : "abstenciones"], [3, cu[3] === 1 ? "ausente" : "ausentes"]].filter(([i]) => cu[i]).map(([i, t]) => `${cu[i]} ${t}`).join(", ");
+    g.append("text").attr("class", "etq-fuerte").attr("x", 0).attr("y", y0 + 13).text(ESP_CORTO[f.e]);
+    g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", y0 + 29).text(det);
+    const pt = g.append("g").selectAll("circle").data(f.v).join("circle")
+      .attr("cx", (d, i) => labW + (i % cols) * paso + paso / 2).attr("cy", (d, i) => y0 + arriba + Math.floor(i / cols) * paso + paso / 2).attr("r", r)
+      .attr("fill", d => d[4] === 4 ? "none" : VOTO_COL[d[4]]).attr("stroke", d => d[3] === prov && prov ? css("--ink") : d[4] === 4 ? VOTO_COL[4] : "none")
+      .attr("stroke-width", d => d[3] === prov && prov ? 2 : 1.2);
+    pt.on("pointerenter", function(ev, d) {
+      mostrarTip(el, `<b>${nomVt(VTJ.nombres[d[0]])}</b><br>${VTJ.bloques[d[1]]}<br>${NOMBRES[d[3]] || "Sin provincia"}<br>${VOTO_LAB[d[4]]}`, +this.getAttribute("cx"), +this.getAttribute("cy"));
+    }).on("pointerleave", ocultarTip);
+    if (cfg.anim) pt.attr("opacity", 0).transition().delay(j * 90).duration(300).attr("opacity", 1);
+  });
+}
+DIB.votaciones = a => {
+  const L = VT_LEY[MED.vtLey], cam = MED.votaciones, C = L.camaras[cam], el = G("votaciones");
+  document.getElementById("vt-sel").value = L.k;
+  const t = C ? C.total : null, en = cam === "Diputados" ? "En Diputados" : "En el Senado";
+  const base = `${L.que} ` + (C
+    ? `${en}, el ${fechaLarga(C.fecha)}, votaron ${t.si} a favor y ${t.no} en contra` + (t.abs ? `, hubo ${t.abs} ${t.abs === 1 ? "abstención" : "abstenciones"}` : "") +
+      (t.aus ? ` y ${t.aus} ${t.aus === 1 ? "legislador no estuvo" : "legisladores no estuvieron"}.` : " y no faltó nadie.") + ` ${resumenEspacios(C.espacios)} `
+    : `El Senado no publica el acta con el voto de cada senador de esta ley. `) + L.desenlace;
+  const lead = document.querySelector('[data-t="votaciones"]');
+  lead.textContent = base;
+  document.getElementById("vt-ley").innerHTML = [1, 2, 3, 4].map(k => `<span><i style="${k === 4 ? `border:1.5px solid ${VOTO_COL[4]};border-radius:50%;box-sizing:border-box` : `background:${VOTO_COL[k]};border-radius:50%`}"></i>${VOTO_LAB[k]}</span>`).join("") +
+    (prov ? `<span><i style="border:2px solid var(--ink);border-radius:50%;box-sizing:border-box"></i>${NOMBRES[prov]}</span>` : "");
+  if (!C) { el.innerHTML = `<p class="nota">El Senado no publica el acta con el voto de cada senador de esta votación. Elegí Diputados para verla.</p>`; return; }
+  if (!VTJ) { el.innerHTML = '<p class="nota">Cargando los votos…</p>'; vtCargar().then(() => DIB.votaciones(a)).catch(() => { el.innerHTML = '<p class="nota">No se pudieron cargar los votos.</p>'; }); return; }
+  const V = VTJ.votos[`${L.k}|${cam}`];
+  const filas = VT.espacios.map((e, i) => ({e, v: V.filter(x => x[2] === i).sort((p, q) => p[4] - q[4] || VTJ.nombres[p[0]].localeCompare(VTJ.nombres[q[0]], "es"))})).filter(f => f.v.length);
+  if (prov) {
+    const mio = V.filter(x => x[3] === prov), cu = [1, 2, 3, 4].map(k => mio.filter(x => x[4] === k).length);
+    const fr = [[0, "votó a favor", "votaron a favor"], [1, "votó en contra", "votaron en contra"], [2, "se abstuvo", "se abstuvieron"], [3, "no estuvo", "no estuvieron"]]
+      .filter(([i]) => cu[i]).map(([i, s1, s2]) => `${cu[i]} ${cu[i] === 1 ? s1 : s2}`);
+    if (mio.length) lead.textContent = base + ` De ${mio.length === 1 ? "el legislador" : `los ${mio.length} ${cam === "Diputados" ? "diputados" : "senadores"}`} de ${NOMBRES[prov]}, ${listaY(fr)}.`.replace("De el ", "Del ");
+  }
+  puntosVoto(el, {anim: a, filas, senado: cam === "Senado"});
+};
+DIB.vtmatriz = a => {
+  const cam = MED.vtmatriz, el = G("vtmatriz");
+  const leyes = VT.leyes.filter(l => l.camaras[cam]);
+  const esp = VT.espacios.filter(e => leyes.filter(l => d3.sum(l.camaras[cam].espacios[e] || []) >= 3).length >= 3);
+  const col = d3.scaleLinear().domain([0, 50, 100]).range([VOTO_COL[2], "#EEF1F4", VOTO_COL[1]]);
+  const celda = (l, e) => {
+    const c = l.camaras[cam] && l.camaras[cam].espacios[e];
+    if (!l.camaras[cam]) return "";
+    if (!c || !d3.sum(c)) return `<td class="sin">·</td>`;
+    const tit = `${e}: ${c[0]} a favor, ${c[1]} en contra, ${c[2]} abstenciones y ${c[3]} ausentes`;
+    if (postura(c) === "aus") return `<td class="sin" title="${tit}">aus.</td>`;
+    const p = c[0] / (c[0] + c[1] + c[2]) * 100, fondo = col(p);
+    return `<td title="${tit}" style="background:${fondo};color:${Math.abs(p - 50) > 30 ? "#fff" : "#18212B"}">${Math.round(p)}</td>`;
+  };
+  el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th>${ESP_CORTO[e]}</th>`).join("")}</tr></thead><tbody>` +
+    [...VT.leyes].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}</small></td>` +
+      (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody></table>";
+  el.querySelectorAll("tr[data-k]").forEach(tr => {
+    const ir = () => {
+      MED.vtLey = tr.dataset.k; MED.votaciones = VT_LEY[tr.dataset.k].camaras[cam] ? cam : "Diputados"; vtConm("votaciones", MED.votaciones);
+      DIB.votaciones(!REDUCIR); DIB.vtmatriz(false);
+      document.getElementById("f-votaciones").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth", block: "start"});
+    };
+    tr.addEventListener("click", ir); tr.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ir(); } });
+  });
+  // coincidencias entre espacios: leyes en que la mayoría de los dos votó igual
+  const pares = [];
+  esp.forEach((e1, i) => esp.slice(i + 1).forEach(e2 => {
+    let n = 0, igual = 0;
+    leyes.forEach(l => { const c1 = l.camaras[cam].espacios[e1], c2 = l.camaras[cam].espacios[e2];
+      if (!c1 || !c2) return; const p1 = postura(c1), p2 = postura(c2);
+      if ((p1 === "si" || p1 === "no") && (p2 === "si" || p2 === "no")) { n++; if (p1 === p2) igual++; } });
+    if (n >= 6) pares.push({e1, e2, n, igual, f: igual / n});
+  }));
+  pares.sort((p, q) => q.f - p.f || q.n - p.n);
+  const mas = pares[0], menos = pares[pares.length - 1];
+  document.querySelector('[data-t="vtm"]').textContent = `${cam === "Diputados" ? "En Diputados" : "En el Senado"} hay acta nominal de ${leyes.length} de las ${VT.leyes.length} leyes clave. ` +
+    (mas ? `Contando la postura de la mayoría de cada espacio, ${ESP_TXT[mas.e1]} y ${ESP_TXT[mas.e2]} votaron igual en ${mas.igual} de las ${mas.n} leyes en que los dos tomaron posición, ` +
+      `y ${ESP_TXT[menos.e1]} y ${ESP_TXT[menos.e2]} votaron distinto en ${menos.n - menos.igual} de ${menos.n}. ` : "") + `Tocá una ley para ver el voto de cada legislador.`;
+};
+document.querySelector('[data-t="vtm-titulo"]').textContent = `Leyes clave: qué parte de cada espacio político votó a favor, ${VT.leyes[0].anio} a ${VT.leyes[VT.leyes.length - 1].anio}`;
+const AP = VT.apoyo, AP_A = Object.fromEntries(AP.anios.map(x => [x.anio, x]));
+MED.apoyo = "atn_hab"; MED.apAnio = AP.hasta;
+document.getElementById("ap-sel").innerHTML = [...AP.anios].reverse().map(x => `<option value="${x.anio}">${x.anio} (${x.presidente})</option>`).join("");
+document.getElementById("ap-sel").addEventListener("change", ev => { MED.apAnio = +ev.target.value; DIB.apoyo(!REDUCIR); });
+document.querySelector('[data-t="apoyo-titulo"]').textContent = `Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, ${AP.desde} a ${AP.hasta}`;
+DIB.apoyo = a => {
+  const y = MED.apAnio, A = AP_A[y], k = MED.apoyo, rr = x => k === "atn_hab" ? x.r_atn : x.r_otras, r = rr(A);
+  const nomT = k === "atn_hab" ? "los ATN" : "las otras transferencias no automáticas";
+  const serie = AP.anios.filter(x => rr(x) != null), pos = serie.filter(x => rr(x) >= .4).map(x => String(x.anio)), neg = serie.filter(x => rr(x) <= -.4).map(x => String(x.anio));
+  document.getElementById("ap-sel").value = y;
+  document.querySelector('[data-t="apoyo"]').textContent = `En ${y}, con ${A.presidente} en la presidencia, hubo ${A.votaciones} votaciones divididas en el Congreso. ` +
+    `Los diputados y senadores de ${A.max} que no eran del bloque oficialista votaron como ese bloque en el ${pct(A.max_v)} de los casos, y los de ${A.min}, en el ${pct(A.min_v)}. ` +
+    (r == null ? `Ese año solo ${A.n_atn} provincias recibieron ATN, muy pocas para medir una relación. `
+      : `La relación entre ese apoyo y ${nomT} por habitante fue ${fuerza(r)} (correlación de ${n2(r)})` + (k === "atn_hab" && A.n_atn < 24 ? `, con ${A.n_atn} provincias que recibieron ATN` : "") + `. `) +
+    `Entre ${AP.desde} y ${AP.hasta}, la relación fue positiva y al menos moderada, es decir que las provincias que más acompañaron recibieron más, en ` +
+    (pos.length ? `${pos.length === 1 ? "un año" : `${pos.length} años`} (${listaY(pos)})` : "ningún año") +
+    (neg.length ? `, y fue al revés en ${listaY(neg)}.` : `, y en ningún año fue al revés.`);
+  dispersion(G("apoyo"), {anim: a, data: T.apoyo_gobierno_provincias.filter(d => d.anio === y), x: k, y: "apoyo",
+    xLab: `${k === "atn_hab" ? "ATN" : "Otras no automáticas"} por habitante, pesos de ${TRR.ult}`, yLab: "Votos como el bloque oficialista",
+    fx: v => n0(v), vx: v => n0(v) + " pesos"});
+};
+
+document.querySelector('[data-t="votaciones-nota"]').textContent = `Votación en general de cada ley en cada cámara, según el acta de votación nominal. Cada punto es un legislador: pasá el cursor o tocá un punto para ver quién es. ` +
+    `Ausente incluye a quien estaba en la sesión pero no votó. Quien preside la sesión solo vota si hay empate y no figura en el acta. ` +
+    `El espacio de cada legislador sale del bloque que registra el acta, con la misma clasificación que la composición del Congreso, pero el PRO y la UCR siempre van por separado. ` +
+    `La selección de leyes es propia: leyes muy debatidas o con efectos amplios, de todos los gobiernos desde ${R.votaciones.leyes[0].anio}. ` +
+    `El Senado no publica el acta nominal de ${listaY(R.votaciones.leyes.filter(l => !l.camaras.Senado).map(l => `${l.nombre.charAt(0).toLowerCase() + l.nombre.slice(1)} de ${l.anio}`))}. ` +
+    `Las actas salen de la copia de los sitios oficiales que mantiene el proyecto abierto ¿Cómo Votó?, de Rodrigo Quiroga, con ${n0(R.votaciones.n_dip)} votaciones de Diputados desde ${R.votaciones.dip_desde} y ${n0(R.votaciones.n_sen)} del Senado desde ${R.votaciones.sen_desde}, hasta el ${fechaLarga(R.votaciones.ult)}. ` +
+    `Se cotejaron con los datos abiertos de la Cámara de Diputados (todas las actas de 2011 a 2019) y con el sitio del Senado (todas las de estas leyes y una muestra), sin diferencias.`;
+document.querySelector('[data-t="vtm-nota"]').textContent = `Cada celda muestra el porcentaje de los legisladores presentes de ese espacio que votó a favor en la votación en general: verde es a favor y rojo, en contra. ` +
+    `"aus." indica que la mayoría del espacio no estuvo en la votación y el punto, que el espacio no tenía legisladores en esa cámara o tenía menos de tres. ` +
+    `En la comparación entre espacios, un espacio toma posición en una ley cuando más de la mitad de sus presentes votó lo mismo. Espacios con legisladores en al menos tres de estas votaciones.`;
+document.querySelector('[data-t="apoyo-nota"]').textContent = `En cada votación dividida, aquella en la que al menos una cuarta parte de los presentes votó distinto que el bloque oficialista, se mira si cada diputado y senador de otro bloque votó igual que él. ` +
+    `El porcentaje suma las dos cámaras y todas las votaciones divididas del año, no solo las leyes clave. El bloque oficialista es el más numeroso del espacio del presidente en cada cámara. ` +
+    `Transferencias por habitante del mismo año, en pesos de ${R.transferencias.ult}. La correlación es la de rangos de Spearman entre las 24 jurisdicciones, de menos 1 a 1: cerca de 0 no hay relación. ` +
+    `No se calcula para los ATN cuando los recibieron menos de 8 provincias. Que dos cosas vayan juntas no prueba que una cause la otra: las provincias gobernadas por aliados del gobierno suelen tener legisladores que lo acompañan y también más acceso a esos fondos.`;
+
 /* ---------- por qué: dispersión simple entre dos variables provinciales ---------- */
 function dispersion(el, cfg) {
   const data = cfg.data.filter(d => d[cfg.x] != null && d[cfg.y] != null), angosto = el.clientWidth < 520;
-  const C = lienzo(el, angosto ? 300 : 360, {t:14, r:16, b:44, l:46});
+  const C = lienzo(el, angosto ? 320 : 380, {t:34, r:16, b:44, l:46});
   const {g, iw, ih} = C;
-  const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).nice().range([0, iw]);
+  const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).nice().range([8, iw]);
   const y = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.y])]).nice().range([ih, 0]);
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
-  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(v => v + "%")).call(a => a.select(".domain").remove());
-  g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).ticks(angosto ? 4 : 6).tickSize(0).tickPadding(8).tickFormat(v => v + "%")).call(a => a.select(".domain").remove());
+  const fx = cfg.fx || (v => v + "%"), fy = cfg.fy || (v => v + "%"), vx = cfg.vx || pct, vy = cfg.vy || pct;
+  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(fy)).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).ticks(angosto ? 4 : 6).tickSize(0).tickPadding(8).tickFormat(fx)).call(a => a.select(".domain").remove());
   g.append("text").attr("class","etq-suave").attr("x", iw).attr("y", ih + 38).attr("text-anchor","end").text(cfg.xLab);
-  g.append("text").attr("class","etq-suave").attr("x", 4).attr("y", 10).text(cfg.yLab);
+  g.append("text").attr("class","etq-suave").attr("x", -40).attr("y", -20).text(cfg.yLab);
   // recta de mínimos cuadrados, solo como guía visual
   const mx = d3.mean(data, d => d[cfg.x]), my = d3.mean(data, d => d[cfg.y]);
   const b = d3.sum(data, d => (d[cfg.x] - mx) * (d[cfg.y] - my)) / d3.sum(data, d => (d[cfg.x] - mx) ** 2), a0 = my - b * mx;
@@ -2332,11 +2542,17 @@ function dispersion(el, cfg) {
   const etiq = new Set([...orden.slice(0, 3), ...orden.slice(-3)].map(d => d.codigo_indec).concat(prov ? [prov] : []));
   const pt = g.selectAll("circle").data(data).join("circle").attr("cx", d => x(d[cfg.x])).attr("cy", d => y(d[cfg.y])).attr("r", 5.5)
     .attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste")).attr("stroke", "#fff");
-  g.selectAll("text.lab").data(data.filter(d => etiq.has(d.codigo_indec))).join("text").attr("class", d => d.codigo_indec === prov ? "etq-fuerte lab" : "etq lab")
+  // etiquetas sin superponerse: la provincia elegida primero, después las de los extremos
+  const puestas = [], conLab = data.filter(d => etiq.has(d.codigo_indec)).sort((p, q) => (q.codigo_indec === prov) - (p.codigo_indec === prov)).filter(d => {
+    const px = x(d[cfg.x]), py = y(d[cfg.y]);
+    if (puestas.some(([qx, qy]) => Math.abs(qx - px) < 90 && Math.abs(qy - py) < 13)) return false;
+    puestas.push([px, py]); return true;
+  });
+  g.selectAll("text.lab").data(conLab).join("text").attr("class", d => d.codigo_indec === prov ? "etq-fuerte lab" : "etq lab")
     .attr("x", d => x(d[cfg.x]) + (x(d[cfg.x]) > iw * .8 ? -8 : 8)).attr("text-anchor", d => x(d[cfg.x]) > iw * .8 ? "end" : "start")
     .attr("y", d => y(d[cfg.y]) + 4).text(d => d.territorio);
   if (cfg.anim) pt.attr("r", 0).transition().delay((d, i) => i * 20).duration(400).attr("r", 5.5);
-  pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${pct(d[cfg.x])}<br>${cfg.yLab}: ${pct(d[cfg.y])}`, 46 + x(d[cfg.x]), y(d[cfg.y])))
+  pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${vx(d[cfg.x])}<br>${cfg.yLab}: ${vy(d[cfg.y])}`, 46 + x(d[cfg.x]), 34 + y(d[cfg.y])))
     .on("pointerleave", ocultarTip);
 }
 const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada" : "débil";
