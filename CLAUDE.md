@@ -4,6 +4,8 @@ Números de las 24 Argentinas. Nombre y lema públicos del sitio desde septiembr
 
 El autor no programa. Claude Code es el asistente principal: explicar cada cambio en lenguaje simple, ejecutar los scripts y verificar el resultado antes de dar algo por terminado.
 
+Al empezar una sesión, leer la sección final "Pendientes y próximos pasos".
+
 ## Estructura
 
 ```
@@ -142,14 +144,10 @@ Sección `#politica`. Tono neutro obligatorio: describir, no adjetivar. Once fic
 
 ## Próximas fichas sugeridas
 
-- Transferencias no automáticas Nación-provincias per cápita.
 - Peces por parque nacional (SIB, especies de la clase ACTINOPTERYGII por área) y desembarques por puerto (magyp, tablas HTML).
 - Abandono interanual y repitencia por provincia (DiNIEE, archivos RAR).
-- Adultos de 25 años o más con secundaria completa por provincia (Censo 2022, cuadro c3 de educación).
 - SUBE por provincia, con los archivos de viajes por línea (resolver antes dónde guardarlos por su tamaño).
-- Patentamientos de autos y motos por provincia (DNRPA).
 - Tarifas eléctricas medidas en horas de salario.
-- "Si tu provincia fuera un país": comparación con indicadores del Banco Mundial.
 - Integrar el panel de pobreza por partido y comuna (estimación en áreas pequeñas) ya hecho aparte.
 
 ## Pobreza (pestaña de consultas)
@@ -173,3 +171,19 @@ Netlify toma la carpeta `sitio/` (ver `netlify.toml`). Con el repositorio en Git
   - `f-adolescentes-nse`: madres menores de 20 (RENAPER 2024) contra indicadores del Censo 2022 (`datos/manual/nse_censo2022_provincias.csv`: sin obra social ni prepaga, NBI, secundario completo en adultos, cloacas). Armada una sola vez con los cuadros del INDEC (el de cobertura de salud tiene invertidos los códigos de Tucumán y Tierra del Fuego). Correlación de Spearman y aclaración de que no prueba causalidad.
   - `f-causas-infantiles`: muertes de menores de un año por grupo de causa CIE-10 y provincia, suma de los tres últimos años (DEIS, `deis_defunciones_AAAA.csv` y `deis_nacidos_AAAA.csv`). Las tasas reproducen la tasa oficial de cada provincia. La reducibilidad solo existe para el país en el anuario (PDF): `REDUCIBLES_PAIS`. No se puede calcular por provincia con códigos de tres caracteres.
 - Diseño: se sacó el juego de adivinar de nacimientos (no se entendía) y el "actualizado" de la portada. Tipografía más chica y menos condensada (títulos de sección de 40 a 64 px, de ficha de 21 a 28 px) y reglas para celular (controles a lo ancho, notas más chicas, sin marco).
+
+
+## Pendientes y próximos pasos (al 30 de septiembre de 2026)
+
+Estado: todo lo hecho está en GitHub (último cambio: votaciones del Congreso y cruce con los ATN).
+- Confirmar con el autor la ubicación de las líneas de ayuda sobre suicidio: hoy van justo antes de las fichas de suicidio, al final de Salud (la regla de arriba ya lo refleja, falta su visto bueno).
+- Publicación estable: el autor tiene que conectar el repositorio de GitHub a Netlify (carpeta `sitio`, sin comando de construcción, ver `netlify.toml`), con vistas previas por rama para probar. Mientras tanto el sitio se muestra con un túnel temporal de cloudflared sobre `python -m http.server 8765 --directory sitio`, que se corta al cerrar la sesión o apagar la computadora: hay que abrir uno nuevo y pasarle el enlace.
+- Votaciones: cruzar el voto de los legisladores con el voto electoral de su provincia y sumar leyes anteriores a 2008.
+- Ideas de la mentora todavía sin hacer:
+  - Trabajo: rotación laboral por edad, generación, nivel educativo y nivel socioeconómico (EPH).
+  - Población: pirámide de población y su efecto en las jubilaciones.
+  - Política: al tocar el color de un espacio, qué propone y qué votó (base: `votaciones_leyes_clave`), y las leyes que más cambiaron la vida cotidiana.
+  - Educación: soluciones y proyectos (por ejemplo, DGEMPRE), no solo diagnósticos.
+  - Sección nueva para emprendedores: oportunidades, problemas para resolver y tendencias.
+- Datos que esperan publicación: RENAPER 2025, Encuesta de Ocupación Hotelera posterior a noviembre de 2025, exportaciones por provincia del primer semestre de 2026 (anexo con nombre variable), cuentas fiscales 2026 completas.
+- Entorno: en septiembre de 2026 una búsqueda instaló `pypdf` en el Python general sin que el proyecto lo use. El autor puede quitarlo con `pip uninstall pypdf`.
