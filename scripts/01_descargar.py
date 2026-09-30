@@ -198,10 +198,17 @@ FUENTES.update({
     # ENACOM: accesos a internet fijo cada 100 hogares y velocidad media de bajada, por provincia y trimestre
     "enacom_internet_accesos.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv",
     "enacom_internet_velocidad.csv": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv",
-    # Exportaciones por provincia de origen y rubro, millones de dólares (INDEC OPEX vía Secretaría de Política Económica)
-    "exportaciones_provincias.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/350/distribution/350.1/download/exportaciones-provincia-rubro.csv",
+    # Exportaciones por provincia de origen y rubro, millones de dólares, 1993 al último año (INDEC, Origen Provincial de las Exportaciones)
+    "exportaciones_provincias.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
     # Personas nacidas en otro país identificadas por el RENAPER, por provincia de residencia
     "renaper_extranjeros.csv": "https://datosabiertos.renaper.gob.ar/poblacion_extranjera_identificada_provincia_junio_206.csv",
+    # Defunciones por causa (CIE-10, 3 caracteres), provincia, sexo y edad, y nacidos vivos por provincia (DEIS, Ministerio de Salud)
+    **{f"deis_defunciones_{a}.csv": "https://www.argentina.gob.ar/sites/default/files/2021/03/" + f for a, f in
+       [(2022, "defweb22_0.csv"), (2023, "defweb23.csv"), (2024, "datos_sobre_defunciones_2024.csv")]},
+    **{f"deis_nacidos_{a}.csv": "https://www.argentina.gob.ar/sites/default/files/2021/03/" + f for a, f in
+       [(2022, "nacweb22_0.csv"), (2023, "nacweb23.csv"), (2024, "datos_sobre_nacidos_vivos_2024.csv")]},
+    # Proyecciones de poblacion por provincia, sexo y edad quinquenal, 2022 a 2040 (INDEC, base Censo 2022)
+    "indec_proyecciones_provincias.csv": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv",
     # Cuentas fiscales de cada provincia (esquema ahorro-inversion-financiamiento), anual desde 2005, Ministerio de Economia
     "aif_provincias.xlsx": "https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx",
     # Tasa de natalidad por provincia, anual desde 2000 (DEIS)
@@ -248,11 +255,13 @@ VALIDA = {
 }
 VALIDA.update({
     "aif_provincias.xlsx": lambda b: b[:2] == b"PK",
+    "indec_proyecciones_provincias.csv": lambda b: b"Jurisdiccion" in b[:40],
+    **{f"deis_{t}_{a}.csv": (lambda b: b"PROVRES" in b[:20]) for t in ["defunciones", "nacidos"] for a in [2022, 2023, 2024]},
     "deis_natalidad.csv": lambda b: b"natalidad" in b[:300],
     "indec_tablas_mortalidad.csv": lambda b: b"Jurisdiccion_cod" in b[:40],
     "enacom_internet_accesos.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
     "enacom_internet_velocidad.csv": lambda b: b.startswith(b"anio,trimestre,provincia"),
-    "exportaciones_provincias.csv": lambda b: b.startswith(b"indice_tiempo"),
+    "exportaciones_provincias.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
 })
 VALIDA["bm_paises.json"] = lambda b: b'"capitalCity"' in b

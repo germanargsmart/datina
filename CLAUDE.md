@@ -156,3 +156,17 @@ El proyecto está en `pobreza/`. Los datos salen de `pobreza/datos/crudo/ALL.jso
 ## Publicación
 
 Netlify toma la carpeta `sitio/` (ver `netlify.toml`). Con el repositorio en GitHub conectado a Netlify, cada actualización automática del día 5 republica el sitio sola.
+
+
+## Actualización y cruces "por qué" (30 de septiembre de 2026, feedback de la mentora del autor)
+
+- Datos al último período disponible. Las series mensuales cierran en el último año completo y el texto suma "entre enero y el último mes del año en curso" contra los mismos meses del año anterior (`en_lo_que_va` y `YTD` en `02_procesar.py`, `enLoQueVa` en la plantilla). Fuentes revisadas en septiembre de 2026:
+  - Exportaciones por provincia: INDEC, `sh_opex_regiones_economicas_grubros_1993_2025.xls` (una hoja por bloque de años, provincias por nombre). El dataset 350 de la SSPM quedó en 2024. El primer semestre de 2026 está en un anexo cuyo nombre cambia en cada publicación: no se usa todavía.
+  - Cuentas fiscales: la planilla anual trae 2025 para 23 provincias. La ficha usa el último año con al menos 20 y las que faltan van con su último año (`FISC_ATRASADAS`, aclarado en la nota). El primer trimestre de 2026 existe pero no es comparable con años completos.
+  - Visitas por parque nacional: tablero de áreas protegidas de la Secretaría de Turismo (tableros.yvera.tur.ar/tablero_areas_protegidas), sin enlace fijo. Exportación completa mensual desde 2008 en `datos/manual/visitas_parques_nacionales_mensual.csv`: renovarla a mano.
+  - Proyecciones de población del INDEC por provincia, sexo y edad 2022 a 2040 (`indec_proyecciones_provincias.csv`): ficha `f-envejecimiento` (personas de 65 y más cada 100 de 15 a 64, año en curso y 2040).
+  - Sin novedades: RENAPER sigue en 2024, la Encuesta de Ocupación Hotelera llega a noviembre de 2025 y el INDEC no publica desde enero de 2026.
+- Cruces que buscan el porqué:
+  - `f-adolescentes-nse`: madres menores de 20 (RENAPER 2024) contra indicadores del Censo 2022 (`datos/manual/nse_censo2022_provincias.csv`: sin obra social ni prepaga, NBI, secundario completo en adultos, cloacas). Armada una sola vez con los cuadros del INDEC (el de cobertura de salud tiene invertidos los códigos de Tucumán y Tierra del Fuego). Correlación de Spearman y aclaración de que no prueba causalidad.
+  - `f-causas-infantiles`: muertes de menores de un año por grupo de causa CIE-10 y provincia, suma de los tres últimos años (DEIS, `deis_defunciones_AAAA.csv` y `deis_nacidos_AAAA.csv`). Las tasas reproducen la tasa oficial de cada provincia. La reducibilidad solo existe para el país en el anuario (PDF): `REDUCIBLES_PAIS`. No se puede calcular por provincia con códigos de tres caracteres.
+- Diseño: se sacó el juego de adivinar de nacimientos (no se entendía) y el "actualizado" de la portada. Tipografía más chica y menos condensada (títulos de sección de 40 a 64 px, de ficha de 21 a 28 px) y reglas para celular (controles a lo ancho, notas más chicas, sin marco).

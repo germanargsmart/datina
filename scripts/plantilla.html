@@ -238,12 +238,6 @@ select option{background:var(--bg);color:var(--ink)}
   padding:6px 16px;border-radius:999px;cursor:pointer;transition:color .2s ease}
 .conmutador button[aria-pressed="true"]{color:var(--ink);font-weight:560}
 
-/* adiviná */
-.adivina{margin:24px 0 0}
-.adivina label{display:block;font-size:16px;margin-bottom:10px}
-.adivina .fila{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.adivina input[type=range]{flex:1 1 260px;accent-color:var(--celeste-fuerte);height:28px}
-.adivina output{font-variant-numeric:tabular-nums;font-size:22px;font-weight:650;min-width:72px}
 .boton{font:inherit;font-size:15px;font-weight:560;border:0;border-radius:999px;padding:9px 18px;cursor:pointer;
   background:var(--celeste-fuerte);color:#fff;text-decoration:none;display:inline-block;
   transition:background-color .2s ease,transform .16s var(--ease-out)}
@@ -267,7 +261,6 @@ select option{background:var(--bg);color:var(--ink)}
 .ir-consultas{margin:18px 0 0}
 .revelado{animation:aparece .45s cubic-bezier(.2,.8,.2,1)}
 @keyframes aparece{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.veredicto{font-size:17px;margin:18px 0 0}
 
 /* ayuda */
 .ayuda{margin:22px 0 0;padding:16px 0 16px 18px;border-left:3px solid var(--celeste);font-size:16px;max-width:40em}
@@ -344,12 +337,12 @@ body::after{content:"";position:fixed;inset:0;border:5px solid var(--azul);point
 .portada-grid{min-height:min(calc(100dvh - 78px),820px)}
 .portada-texto{margin-top:clamp(12px,5vh,60px)}
 .portada-texto::before{background:radial-gradient(closest-side,rgba(44,116,181,.92) 60%,rgba(44,116,181,0))}
-.portada h1{font-size:clamp(104px,15vw,230px);line-height:.8;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;color:#fff;
+.portada h1{font-size:clamp(72px,11vw,160px);line-height:.8;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 25,"opsz" 144;margin:0 0 18px;padding-top:.28em}
-.portada .lema{font-size:clamp(24px,2.8vw,36px);line-height:1.05;font-weight:500;color:#fff;text-transform:uppercase;letter-spacing:.01em;
+.portada .lema{font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;color:#fff;text-transform:uppercase;letter-spacing:.01em;
   font-variation-settings:"wdth" 30,"opsz" 144;margin:0 0 18px}
-.portada p{color:rgba(255,255,255,.84);font-size:18px;max-width:27em;margin:0 0 26px}
-.estado{display:inline-grid;grid-template-columns:repeat(3,auto);border:1px solid rgba(255,255,255,.35);background:var(--azul-hondo);
+.portada p{color:rgba(255,255,255,.84);font-size:17px;max-width:27em;margin:0 0 26px}
+.estado{display:inline-grid;grid-template-columns:repeat(2,auto);border:1px solid rgba(255,255,255,.35);background:var(--azul-hondo);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:#fff}
 .estado span{padding:9px 14px;border-left:1px dotted rgba(255,255,255,.4);white-space:nowrap}
 .estado span:first-child{border-left:0}
@@ -366,20 +359,20 @@ body::after{content:"";position:fixed;inset:0;border:5px solid var(--azul);point
 
 /* secciones: títulos condensados enormes con un mini sol */
 .tema{padding-top:36px}
-.tema>h2{font-size:clamp(64px,9vw,112px);line-height:.86;font-weight:400;letter-spacing:-.005em;color:var(--azul);
-  font-variation-settings:"wdth" 25,"opsz" 144;margin:96px 0 26px;position:relative;display:inline-block}
+.tema>h2{font-size:clamp(40px,5.2vw,64px);line-height:.95;font-weight:500;letter-spacing:-.005em;color:var(--azul);
+  font-variation-settings:"wdth" 55,"opsz" 144;margin:72px 0 18px;position:relative;display:inline-block}
 .tema>h2::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
   background:radial-gradient(circle,var(--sol) 34%,transparent 37%),repeating-conic-gradient(var(--sol) 0 7deg,transparent 7deg 22.5deg)}
 
 /* tarjetas rectas, sin sombra */
-.ficha{border-radius:0;box-shadow:none;border:1px solid #D9E3EE;padding:34px 36px 24px}
+.ficha{border-radius:0;box-shadow:none;border:1px solid #D9E3EE;padding:clamp(18px,3vw,30px) clamp(16px,3vw,32px) 20px}
 @media (hover:hover) and (pointer:fine){.ficha:hover{border-color:var(--celeste)}}
 .etiqueta{background:none;border-radius:0;padding:0;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink)}
 .etiqueta::before{content:"# ";color:var(--azul)}
-.ficha h3{font-size:clamp(30px,4vw,44px);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);
-  font-variation-settings:"wdth" 35,"opsz" 144;max-width:none}
-.clave .num{font-variation-settings:"wdth" 30,"opsz" 144;font-weight:500;font-size:clamp(56px,8vw,88px);letter-spacing:-.01em}
+.ficha h3{font-size:clamp(21px,2.4vw,28px);line-height:1.15;font-weight:560;letter-spacing:-.005em;color:var(--azul);
+  font-variation-settings:"wdth" 75,"opsz" 32;max-width:none}
+.clave .num{font-variation-settings:"wdth" 45,"opsz" 144;font-weight:500;font-size:clamp(38px,4.6vw,54px);letter-spacing:-.01em}
 .pie{border-top:1px dotted var(--azul)}
 .accion{border-radius:0;border:1px solid var(--azul);font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;
   text-transform:uppercase;padding:8px 12px}
@@ -396,24 +389,32 @@ body::after{content:"";position:fixed;inset:0;border:5px solid var(--azul);point
 /* preguntas: condensadas y azules, como las preguntas frecuentes de la referencia */
 .preguntas{padding-top:64px}
 .rotador{border-left:0;padding:22px 0 18px;border-top:1px dotted var(--azul);border-bottom:1px dotted var(--azul)}
-.rot-q{font-size:clamp(28px,3.6vw,42px);line-height:1.02;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 45,"opsz" 144;margin-bottom:12px}
+.rot-q{font-size:clamp(21px,2.4vw,28px);line-height:1.15;font-weight:560;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;margin-bottom:12px}
 @media (hover:hover) and (pointer:fine){.rot-q:hover{color:var(--ink)}}
 .rot-control button{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
 .rot-barra i{background:var(--sol)}
 
 /* las 24 */
-.provincias h2{font-size:clamp(56px,8vw,100px);line-height:.88;font-weight:400;color:var(--azul);font-variation-settings:"wdth" 25,"opsz" 144}
+.provincias h2{font-size:clamp(40px,5.2vw,64px);line-height:.95;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144}
 .elige-lab{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:11px}
 .elige-btn{border-color:var(--azul)}
 .dp{border:0;border-top:1px dotted var(--azul);background:transparent;padding:16px 4px 14px}
 .prov-grid{gap:4px 28px}
 .dp-lab{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
-.dp-num{font-variation-settings:"wdth" 30,"opsz" 144;font-weight:500;font-size:46px;color:var(--azul)}
+.dp-num{font-variation-settings:"wdth" 45,"opsz" 144;font-weight:500;font-size:34px;color:var(--azul)}
 
 footer{border-top:1px dotted var(--azul);margin-top:80px}
-footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weight:500;color:var(--azul)}
+footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weight:500;color:var(--azul)}
 
 @media (max-width:760px){
+  body::after{border-width:0}
+  .ficha .lead{font-size:16px}
+  .ficha .nota{font-size:13.5px}
+  .tema>h2{margin-top:48px}
+  .conmutador{display:grid;width:100%}
+  .conmutador button{font-size:11px;padding-left:6px;padding-right:6px;line-height:1.25}
+  .selector-ficha{max-width:none}
+  .pie{flex-direction:column;align-items:flex-start}
   .barra .envoltura{grid-template-columns:1fr;height:62px}
   .barra .temas{display:none}
   .barra .envoltura{grid-template-columns:auto 1fr}
@@ -421,7 +422,7 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
   .menu{grid-column:2!important}
   .atajos a{flex:1 1 auto;text-align:center}
   .atajos a:first-child{flex-basis:100%}
-  .portada h1{font-size:clamp(96px,30vw,150px)}
+  .portada h1{font-size:clamp(64px,22vw,110px)}
   .estado{grid-template-columns:1fr;width:100%}
   .estado span{border-left:0;border-top:1px dotted rgba(255,255,255,.4)}
   .estado span:first-child{border-top:0}
@@ -448,8 +449,8 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
 @media (hover:hover) and (pointer:fine){.menu-panel a:hover{background:var(--celeste-suave)}.menu-btn:hover{background:rgba(255,255,255,.14)}.barra.clara .menu-btn:hover{background:var(--celeste-suave)}}
 .atajos{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .tema-intro{max-width:42em;margin:-4px 0 30px}
-.tema-intro .pregunta{font-size:clamp(24px,3vw,32px);line-height:1.15;font-weight:500;color:var(--ink);margin:0 0 10px}
-.tema-intro p{font-size:17px;line-height:1.5;color:var(--muted);margin:0}
+.tema-intro .pregunta{font-size:clamp(19px,2.2vw,24px);line-height:1.15;font-weight:500;color:var(--ink);margin:0 0 10px}
+.tema-intro p{font-size:16px;line-height:1.5;color:var(--muted);margin:0}
 .tema-cierre{border-top:3px solid var(--azul);margin:36px 0 0;padding:22px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:14px 40px}
 .tema-cierre h3{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
 .tema-cierre ul{margin:0;padding-left:18px;font-size:16px;line-height:1.5}
@@ -702,7 +703,7 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p class="lead" data-t="exportaciones"></p>
       <div class="grafico" data-g="exportaciones"></div>
       <p class="nota" data-t="exportaciones-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones, vía Secretaría de Política Económica</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-fiscal">
@@ -821,6 +822,15 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="grafico" data-g="mortalidad"></div>
       <p class="nota" data-t="mortalidad-nota"></p>
       <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-causas-infantiles">
+      <h3 data-t="causas-titulo"></h3>
+      <p class="lead" data-t="causas"></p>
+      <div class="pol-ley" id="causas-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="causas"></div>
+      <p class="nota" data-t="causas-nota"></p>
+      <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <div class="ayuda" role="note">
@@ -943,21 +953,18 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
 
     <article class="ficha" id="f-nacimientos">
       <h3>Nacimientos por año en la Argentina y en la OCDE, 2012 a 2024</h3>
-      <div class="adivina" id="adivina">
-        <label for="guess">Antes de ver el dato: ¿cuánto cayeron los nacimientos entre 2014, el año con más nacimientos de la serie, y 2024?</label>
-        <div class="fila">
-          <input type="range" id="guess" min="0" max="70" step="1" value="15" aria-describedby="guess-out">
-          <output id="guess-out" for="guess">15%</output>
-          <button class="boton" id="revelar" type="button">Ver el dato</button>
-        </div>
-      </div>
-      <div id="nac-revelado" class="oculto">
-        <p class="veredicto" data-t="veredicto"></p>
-        <p class="lead" data-t="nacimientos"></p>
-        <div class="grafico" data-g="nacimientos"></div>
-        <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacimientos inscriptos en el Registro Nacional de las Personas según año de nacimiento, el último año puede sumar inscripciones tardías. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
-      </div>
+      <p class="lead" data-t="nacimientos"></p>
+      <div class="grafico" data-g="nacimientos"></div>
+      <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacimientos inscriptos en el Registro Nacional de las Personas según año de nacimiento, el último año puede sumar inscripciones tardías. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
       <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-envejecimiento">
+      <h3 data-t="envejecimiento-titulo"></h3>
+      <p class="lead" data-t="envejecimiento"></p>
+      <div class="grafico" data-g="envejecimiento"></div>
+      <p class="nota" data-t="envejecimiento-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes">
@@ -966,6 +973,15 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="grafico" data-g="adolescentes"></div>
       <p class="nota">Porcentaje de los nacimientos de cada provincia cuya madre tenía entre 10 y 19 años. El círculo claro marca 2012 y el oscuro 2024.</p>
       <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-adolescentes-nse">
+      <h3 data-t="adonse-titulo"></h3>
+      <p class="lead" data-t="adonse"></p>
+      <label class="selector-ficha"><span>Indicador del Censo 2022</span><select id="adonse-sel"></select></label>
+      <div class="grafico" data-g="adonse"></div>
+      <p class="nota" data-t="adonse-nota"></p>
+      <div class="pie"><span>Fuentes: RENAPER e INDEC, Censo 2022</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-extranjeros">
@@ -1272,13 +1288,14 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
     <article class="ficha" id="f-visitas-parque">
       <h3 data-t="visitas-parque-titulo"></h3>
       <p class="lead" data-t="visitas-parque"></p>
-      <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque">
-        <button type="button" data-m="visitas_2022" aria-pressed="true">2022</button>
-        <button type="button" data-m="visitas_2019" aria-pressed="false">2019</button>
+      <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
+        <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
+        <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
+        <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
       </div>
       <div class="grafico" data-g="visitas-parque"></div>
       <p class="nota" data-t="visitas-parque-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Anuario Estadístico de Turismo 2022, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-especies">
@@ -1538,9 +1555,25 @@ const movio = v => `${v < 0 ? "bajaron" : "subieron"} ${n1(Math.abs(v))}%`;
 const cambio = v => v === 0 ? "no cambió" : `${v < 0 ? "bajó" : "subió"} ${Math.abs(v)} ${Math.abs(v) === 1 ? "punto" : "puntos"}`;
 const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
+const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
+  ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
+const EV = R.envejecimiento;
 const TX = {
+  "adonse-titulo": `Madres menores de 20 años y nivel socioeconómico por provincia`,
+  "adonse-nota": `Cada punto es una provincia. En el eje vertical, el porcentaje de los nacimientos de ${R.ado_nse.anio} cuya madre tenía menos de 20 años (RENAPER). En el horizontal, el indicador elegido del Censo 2022. La línea punteada es solo una guía de la tendencia. ` +
+    `La correlación es la de rangos de Spearman, que va de menos 1 a 1: cerca de 0 no hay relación, cerca de 1 o de menos 1 la relación es fuerte. Con 24 provincias, valores menores a 0,4 pueden deberse al azar. Una correlación no prueba que una cosa cause la otra: muestra que van juntas.`,
+  "causas-titulo": `De qué mueren los bebés antes del primer año, por provincia, ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]}`,
+  "causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
+    `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que solo traen la causa con tres caracteres. ` +
+    `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social ni prepaga del Censo 2022.`,
+  "envejecimiento-titulo": `Personas de 65 años o más por cada 100 en edad de trabajar, ${EV.anio} y 2040`,
+  envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
+    `Según las proyecciones del INDEC, en 2040 serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. La relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}).`,
+  "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
+    `Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en 2040. El círculo claro marca ${EV.anio} y el oscuro 2040.`,
   hogares: `En 2025 los hogares explicaron el ${pct(e.pct_res_2025)} de la electricidad demandada en el país, frente al ${pct(e.pct_res_2005)} de 2005. Entre ambos años la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
-  actividad: `Entre 2005 y 2025 la demanda eléctrica total creció ${pct(e.crec_total)} y la actividad económica medida por el EMAE creció ${pct(e.crec_emae)}. En 2025 el país demandó ${n0(e.gwh_2025)} gigavatios hora (GWh).`,
+  actividad: `Entre 2005 y 2025 la demanda eléctrica total creció ${pct(e.crec_total)} y la actividad económica medida por el EMAE creció ${pct(e.crec_emae)}. En 2025 el país demandó ${n0(e.gwh_2025)} gigavatios hora (GWh).` +
+    enLoQueVa(R.ytd.demanda, 2025, "la demanda total", "subió", "bajó"),
   meses: `En promedio entre 2023 y 2025, ${e.mes_max} fue el mes de mayor demanda eléctrica y ${e.mes_min} el de menor. La diferencia entre ambos fue de ${pct(e.dif_max_min)}. El año tiene dos picos, uno por refrigeración en verano y otro por calefacción en invierno.`,
   "meses-nota": `Promedio mensual de la demanda total en GWh para 2023, 2024 y 2025. El último mes disponible en la fuente es ${e.ultimo_mes}.`,
   nacimientos: `En 2024 se registraron ${n0(nac.n_2024)} nacimientos, ${pct(Math.abs(nac.caida))} menos que los ${n0(nac.pico)} de ${nac.anio_pico}. En el conjunto de los 38 países de la OCDE, la baja entre ${nac.anio_pico} y ${nac.ocde_ult} fue de ${pct(Math.abs(nac.ocde_caida))}.`,
@@ -1610,10 +1643,10 @@ const TX = {
   carne: `En ${cu.carne_anio} cada habitante consumió en promedio ${n1(cu.carne_v)} kilos de carne vacuna, contra ${n1(cu.carne_ini_v)} en ${cu.carne_ini}. En lo que va de ${cu.carne_ytd_hasta.slice(-4)}, hasta ${cu.carne_ytd_hasta}, el ritmo es de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", el más bajo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,
   "carne-nota": `Consumo aparente por habitante estimado a partir de la producción y el comercio exterior. Cada mes se expresa como tasa anual y el valor de cada año es el promedio de sus meses. Solo se muestran años completos.`,
   "vino-titulo": `Vino vendido en el mercado interno, ${cu.vino_ini} a ${cu.vino_anio}`,
-  vino: `En ${cu.vino_anio} se vendieron en el país ${n0(cu.vino_v)} millones de litros de vino, ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} que en ${cu.vino_ini}, cuando fueron ${n0(cu.vino_ini_v)} millones. El ${pct(cu.vino_mza)} salió de bodegas de Mendoza.`,
+  vino: `En ${cu.vino_anio} se vendieron en el país ${n0(cu.vino_v)} millones de litros de vino, ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} que en ${cu.vino_ini}, cuando fueron ${n0(cu.vino_ini_v)} millones. El ${pct(cu.vino_mza)} salió de bodegas de Mendoza.` + enLoQueVa(R.ytd.vino, cu.vino_anio, "las ventas", "subieron", "bajaron"),
   "vino-nota": `Despachos de vino al mercado interno informados por el Instituto Nacional de Vitivinicultura. La provincia es la de origen del vino, no la del lugar donde se consume.`,
   "yerba-titulo": `Yerba mate que salió de los molinos, ${cu.yerba_ini} a ${cu.yerba_anio}`,
-  yerba: `En ${cu.yerba_anio} los molinos despacharon ${n1(cu.yerba_v)} millones de kilos de yerba mate. El máximo de la serie fue en ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones.`,
+  yerba: `En ${cu.yerba_anio} los molinos despacharon ${n1(cu.yerba_v)} millones de kilos de yerba mate. El máximo de la serie fue en ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones.` + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
   "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
   "glaciares-titulo": `Glaciares por provincia`,
   glaciares: `El Inventario Nacional de Glaciares registra ${n0(cu.gl_total)} glaciares en ${cu.gl_n} provincias. ${cu.gl_top} tiene ${n0(cu.gl_top_v)} y ${cu.gl_2}, ${n0(cu.gl_2_v)}.`,
@@ -1621,9 +1654,11 @@ const TX = {
   "clima-titulo": `Diferencia de la temperatura media anual del país con su valor de referencia, ${cu.cl_ini} a ${cu.cl_fin}`,
   clima: `${cu.cl_max_anio} fue el año más cálido desde ${cu.cl_ini}: la temperatura media del país estuvo ${n2(cu.cl_max)} °C por encima del valor de referencia. De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
   "clima-nota": `Desvío de la temperatura media anual del país respecto del período de referencia que usa el Servicio Meteorológico Nacional. Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor para ver el valor.`,
-  "visitas-parque-titulo": `Visitas por parque nacional, 2022 y 2019`,
-  "visitas-parque": `${vpq.top} (${vpq.top_lugar}) fue el parque nacional más visitado en 2022, con ${n0(vpq.top_v)} visitas: el ${pct(vpq.pct_top)} del total. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)}. En 2019, antes de la pandemia, ${vpq.top} había recibido unas ${n0(vpq.top_2019)}.`,
-  "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso. El Ministerio de Turismo no publica las visitas por parque en formato abierto: los valores de 2022 salen del Anuario Estadístico de Turismo 2022 (Tabla 5.2) y los de 2019 se calculan con la variación 2022 contra 2019 del mismo cuadro, por eso son aproximados. Esta tabla no se actualiza sola.`,
+  "visitas-parque-titulo": `Visitas por parque nacional, ${vpq.ult}${vpq.par ? ` y ${vpq.par}` : ""}`,
+  "visitas-parque": `${vpq.top} (${vpq.top_lugar}) fue el parque nacional más visitado en ${vpq.ult}, con ${n0(vpq.top_v)} visitas: el ${pct(vpq.pct_top)} del total. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)}. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
+    (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, las visitas a los parques nacionales fueron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? "más altas" : "más bajas"} que en los mismos meses de ${vpq.par - 1}.` : ""),
+  "vp-b1": String(vpq.ult), "vp-b2": vpq.par ? `${vpq.par}, ene a ${MESES[vpq.par_mes - 1].slice(0, 3)}` : "",
+  "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso. El tablero de la Secretaría de Turismo no tiene un enlace de descarga fijo: la exportación completa, mes a mes desde 2008, se guarda en el repositorio y hay que renovarla a mano.`,
   "pesca-titulo": `Desembarques de pesca marítima de las tres especies principales, ${pe.ini} a ${pe.anio}`,
   pesca: `En ${pe.anio} se desembarcaron ${n0(pe.total)} toneladas de pescados y mariscos en los puertos del país, contra ${n0(pe.total_ini)} en ${pe.ini}. Las especies principales fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) y ${pe.top[2].toLowerCase()} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
   "pesca-nota": `Capturas de la flota comercial desembarcadas en puertos argentinos, en toneladas, según la Subsecretaría de Pesca y Acuicultura. La tabla descargable incluye el total de todas las especies.`,
@@ -1645,7 +1680,8 @@ const TX = {
   extranjeros: `Por cada 100 habitantes del país hay ${n1(nv.xt_pais)} personas nacidas en otro país con documento argentino. ${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)}. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}.`,
   "extranjeros-nota": `Personas nacidas en el extranjero identificadas por el RENAPER, según la provincia de su domicilio. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección 2025 del INDEC.`,
   "fiscal-titulo": `Recursos propios, resultado fiscal y gasto en personal por provincia, ${R.fiscal.anio}`,
-  "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.`,
+  "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
+    Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
   "mapa-dep-titulo": `Indicadores de los ${R.departamentos.n} departamentos del país`,
   "mapa-dep": `Cada provincia se divide en departamentos, partidos o comunas. Este mapa muestra datos de seguridad del SNIC y la estructura de edad y el origen de la población identificada por el RENAPER en cada uno. Elegí una provincia arriba para acercarte.`,
   actualizado: `Datos descargados y procesados el ${R.actualizado}.`
@@ -1819,7 +1855,7 @@ function barrasH(el, cfg) {
   const ext = d3.extent(data, d => d[cfg.k]);
   const x = d3.scaleLinear().domain([Math.min(0, ext[0]), Math.max(0, ext[1])]).nice().range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.28);
-  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? (cfg.ntAngosto || 3) : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? (cfg.ntAngosto || 2) : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   if (x.domain()[0] < 0) g.append("line").attr("x1",x(0)).attr("x2",x(0)).attr("y1",0).attr("y2",data.length*fila).attr("stroke",css("--faint"));
   const filas = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
   const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", 2)
@@ -2065,10 +2101,11 @@ const DIB = {
   actividad: a => lineas(G("actividad"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
     series:[{k:"idx_demanda", lab:"Electricidad", c:NAR, w:3}, {k:"idx_emae", lab:"Actividad", c:GRIS}], vf: v => n0(v)}),
   meses: a => columnas(G("meses"), {anim:a, data: T.energia_estacionalidad}),
-  nacimientos: a => { if (!document.getElementById("nac-revelado").classList.contains("oculto"))
+  nacimientos: a => {
     lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:40, ref:100, refLab: `${T.nacimientos[0].anio} = 100`, yf: v => v, vf: n0,
       xl: d => `${d.anio}<br><span class="suave">Argentina: ${n0(d.nacimientos)} nacimientos${d.nacimientos_ocde ? `<br>OCDE: ${n1(d.nacimientos_ocde / 1e6)} millones` : ""}</span>`,
       series:[{k:"idx_argentina", lab:"Argentina", c:NAR, w:3}, {k:"idx_ocde", lab:"OCDE", c:css("--ocde"), w:2.6}]}); },
+  envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb:"2040", vf: n1, af: v => v}),
   adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a:"pct_2012", b:"pct_2024", la:"2012", lb:"2024"}),
   mortalidad: a => pesas(G("mortalidad"), {anim:a, data: T.mortalidad_infantil_provincias, a:"tmi_base", b:"tmi_actual", la: mo.tri_base, lb: mo.tri_act,
     vf: n1, af: v => v, ref: OC.mortalidad_infantil.ocde, refLab: `Promedio OCDE ${OC.mortalidad_infantil.anio}: ${n1(OC.mortalidad_infantil.ocde)}`}),
@@ -2272,6 +2309,63 @@ DIB.legisladores = () => {
   el.innerHTML = `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
 };
 
+
+
+/* ---------- por qué: dispersión simple entre dos variables provinciales ---------- */
+function dispersion(el, cfg) {
+  const data = cfg.data.filter(d => d[cfg.x] != null && d[cfg.y] != null), angosto = el.clientWidth < 520;
+  const C = lienzo(el, angosto ? 300 : 360, {t:14, r:16, b:44, l:46});
+  const {g, iw, ih} = C;
+  const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).nice().range([0, iw]);
+  const y = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.y])]).nice().range([ih, 0]);
+  g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(v => v + "%")).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).ticks(angosto ? 4 : 6).tickSize(0).tickPadding(8).tickFormat(v => v + "%")).call(a => a.select(".domain").remove());
+  g.append("text").attr("class","etq-suave").attr("x", iw).attr("y", ih + 38).attr("text-anchor","end").text(cfg.xLab);
+  g.append("text").attr("class","etq-suave").attr("x", 4).attr("y", 10).text(cfg.yLab);
+  // recta de mínimos cuadrados, solo como guía visual
+  const mx = d3.mean(data, d => d[cfg.x]), my = d3.mean(data, d => d[cfg.y]);
+  const b = d3.sum(data, d => (d[cfg.x] - mx) * (d[cfg.y] - my)) / d3.sum(data, d => (d[cfg.x] - mx) ** 2), a0 = my - b * mx;
+  const [x0, x1] = x.domain();
+  g.append("line").attr("x1", x(x0)).attr("x2", x(x1)).attr("y1", y(a0 + b * x0)).attr("y2", y(a0 + b * x1)).attr("stroke", css("--muted")).attr("stroke-dasharray","4 4");
+  const orden = [...data].sort((p, q) => q[cfg.y] - p[cfg.y]);
+  const etiq = new Set([...orden.slice(0, 3), ...orden.slice(-3)].map(d => d.codigo_indec).concat(prov ? [prov] : []));
+  const pt = g.selectAll("circle").data(data).join("circle").attr("cx", d => x(d[cfg.x])).attr("cy", d => y(d[cfg.y])).attr("r", 5.5)
+    .attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste")).attr("stroke", "#fff");
+  g.selectAll("text.lab").data(data.filter(d => etiq.has(d.codigo_indec))).join("text").attr("class", d => d.codigo_indec === prov ? "etq-fuerte lab" : "etq lab")
+    .attr("x", d => x(d[cfg.x]) + (x(d[cfg.x]) > iw * .8 ? -8 : 8)).attr("text-anchor", d => x(d[cfg.x]) > iw * .8 ? "end" : "start")
+    .attr("y", d => y(d[cfg.y]) + 4).text(d => d.territorio);
+  if (cfg.anim) pt.attr("r", 0).transition().delay((d, i) => i * 20).duration(400).attr("r", 5.5);
+  pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${pct(d[cfg.x])}<br>${cfg.yLab}: ${pct(d[cfg.y])}`, 46 + x(d[cfg.x]), y(d[cfg.y])))
+    .on("pointerleave", ocultarTip);
+}
+const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada" : "débil";
+const AN = R.ado_nse, MC = R.mi_causas;
+document.getElementById("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
+MED.adonse = AN.indicadores[0].k;
+document.getElementById("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; DIB.adonse(!REDUCIR); });
+DIB.adonse = a => {
+  const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
+  const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
+  document.querySelector('[data-t="adonse"]').textContent = `Las provincias con más nacimientos de madres menores de 20 años suelen ser también las de peores indicadores socioeconómicos. ` +
+    `Con ${i.lab.toLowerCase()} la relación es ${rel(i)} (correlación de ${n2(i.r)}): donde ese indicador es más alto, la proporción de madres adolescentes tiende a ser ${i.r > 0 ? "más alta" : "más baja"}. ` +
+    `Con los otros indicadores del Censo, la relación es ${listaY(otros.map(o => `${rel(o)} con ${o.lab.toLowerCase()} (${n2(o.r)})`))}.`;
+  dispersion(G("adonse"), {anim: a, data: T.madres_adolescentes_nse, x: i.k, y: "pct_2024", xLab: `${i.lab}, 2022`, yLab: `Nacimientos de madres menores de 20, ${AN.anio}`});
+};
+const CAUSA_COL = {perinatales: "#2C74B5", malformaciones: "#74ACDF", respiratorias: "#F6B40E", infecciosas: "#D9453B", externas: "#7A1F2B", mal_definidas: "#C3CAD2", otras: "#E4E9EF"};
+DIB.causas = a => {
+  const gr = MC.grupos, gk = Object.fromEntries(gr.map(x => [x.k, x]));
+  const vida = ["respiratorias", "infecciosas", "externas"], sumaVida = d3.sum(vida, k => gk[k].pct);
+  const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4).sort((p, q) => q.r_cobertura - p.r_cobertura);
+  document.querySelector('[data-t="causas"]').textContent = `Entre ${MC.anios[0]} y ${MC.anios[1]} murieron en el país ${n0(MC.muertes)} bebés antes de cumplir un año. ` +
+    `El ${pct(gk.perinatales.pct)} por afecciones perinatales, como la prematurez y las complicaciones del embarazo y el parto, y el ${pct(gk.malformaciones.pct)} por malformaciones congénitas. ` +
+    `Las enfermedades respiratorias, las infecciosas y las causas externas, que suelen estar más ligadas a las condiciones de vida, sumaron el ${pct(sumaVida)}. ` +
+    (fuertes.length ? `En las provincias con más población sin obra social ni prepaga, la mortalidad por ${listaY(fuertes.map(x => `${x.lab.toLowerCase()} (correlación de ${n2(x.r_cobertura)})`))} tiende a ser más alta.` : "");
+  const cl = gr.map(x => ({k: x.k, lab: x.lab, c: CAUSA_COL[x.k], texto: ["#F6B40E", "#74ACDF", "#C3CAD2", "#E4E9EF"].includes(CAUSA_COL[x.k]) ? "#18212B" : "#fff"}));
+  document.getElementById("causas-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
+  const filas = T.mortalidad_infantil_causas, pais = filas.find(d => d.codigo_indec === "00");
+  apiladasH(G("causas"), {anim: a, claves: cl, data: [pais, ...filas.filter(d => d.codigo_indec !== "00").sort((p, q) => q.tasa - p.tasa)]});
+};
 
 /* ---------- transferencias de la Nación a las provincias ---------- */
 const TRR = R.transferencias, TRP = T.transferencias_provincias, TRS = T.transferencias_serie, TRA = T.transferencias_acumulado;
@@ -3078,20 +3172,6 @@ document.querySelectorAll(".conmutador:not(.pestanas)").forEach(conm => {
   }));
 });
 
-/* adiviná */
-const guess = document.getElementById("guess"), out = document.getElementById("guess-out");
-guess.addEventListener("input", () => out.textContent = guess.value + "%");
-document.getElementById("revelar").addEventListener("click", () => {
-  const real = Math.abs(nac.caida), dif = Math.abs(real - guess.value);
-  const v = document.querySelector('[data-t="veredicto"]');
-  v.textContent = dif <= 5 ? `Tu estimación fue ${guess.value}%. Muy cerca, la caída real fue ${pct(real)}.`
-    : guess.value < real ? `Tu estimación fue ${guess.value}%. La caída real fue mayor, de ${pct(real)}.`
-    : `Tu estimación fue ${guess.value}%. La caída real fue menor, de ${pct(real)}.`;
-  document.getElementById("adivina").classList.add("oculto");
-  const r = document.getElementById("nac-revelado"); r.classList.remove("oculto"); r.classList.add("revelado");
-  DIB.nacimientos(!REDUCIR);
-});
-
 /* ---------- pestañas dentro de una tarjeta ---------- */
 document.querySelectorAll(".pestanas").forEach(tl => {
   const tabs = [...tl.querySelectorAll('[role="tab"]')];
@@ -3397,7 +3477,7 @@ const PREG = [
 
 /* recuadro de estado de la portada */
 document.getElementById("estado").innerHTML =
-  `<span><b>${document.querySelectorAll("article.ficha:not(.explorador)").length}</b> fichas</span><span><b>24</b> jurisdicciones</span><span>actualizado <b>${R.actualizado}</b></span>`;
+  `<span><b>${document.querySelectorAll("article.ficha:not(.explorador)").length}</b> fichas</span><span><b>24</b> jurisdicciones</span>`;
 
 /* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */
 const vistas = new IntersectionObserver(es => es.forEach(en => {

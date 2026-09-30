@@ -1,38 +1,42 @@
-codigo_indec,territorio,visitas_2022,visitas_2019,residentes_2022,no_residentes_2022
-Los Glaciares,Los Glaciares (Santa Cruz),675005.0,771434.0,490162.0,184843.0
-Nahuel Huapi,Nahuel Huapi (Neuquén y Río Negro),448646.0,412358.0,398801.0,49845.0
-Tierra del Fuego,Tierra del Fuego (Tierra del Fuego),439398.0,421687.0,346570.0,92828.0
-Los Alerces,Los Alerces (Chubut),211818.0,124599.0,210945.0,873.0
-Lanín,Lanín (Neuquén),206020.0,126238.0,202397.0,3623.0
-Los Arrayanes,Los Arrayanes (Neuquén),77631.0,75738.0,72925.0,4706.0
-Patagonia,Patagonia (Chubut),9640.0,,9137.0,503.0
-Monte León,Monte León (Santa Cruz),7991.0,3614.0,7272.0,719.0
-Lihué Calel,Lihué Calel (La Pampa),4585.0,6154.0,4491.0,94.0
-Bosques Petriﬁcados,Bosques Petriﬁcados (Santa Cruz),4225.0,3636.0,3785.0,440.0
-Laguna Blanca,Laguna Blanca (Neuquén),3789.0,2657.0,3696.0,93.0
-Perito Moreno,Perito Moreno (Santa Cruz),1855.0,1029.0,1622.0,233.0
-Lago Puelo,Lago Puelo (Chubut),,,,
-Iguazú,Iguazú (Misiones),1409165.0,1634762.0,1106364.0,302801.0
-El Palmar,El Palmar (Entre Ríos),175019.0,107903.0,173993.0,1026.0
-Predelta,Predelta (Entre Ríos),61593.0,73412.0,61376.0,217.0
-Iberá,Iberá (Corrientes),19427.0,13956.0,18119.0,1308.0
-Río Pilcomayo,Río Pilcomayo (Formosa),11950.0,11065.0,11816.0,134.0
-Chaco,Chaco (Chaco),9520.0,8462.0,9404.0,116.0
-Mburucuyá,Mburucuyá (Corrientes),8728.0,7027.0,8581.0,147.0
-Colonia Benítez,Colonia Benítez (Chaco),3031.0,2002.0,3004.0,27.0
-El Impenetrable,El Impenetrable (Chaco),2813.0,529.0,2764.0,49.0
-Formosa,Formosa (Formosa),40.0,84.0,40.0,
-Talampaya,Talampaya (La Rioja),104115.0,76499.0,100719.0,3396.0
-Los Cardones,Los Cardones (Salta),75670.0,92961.0,72653.0,3017.0
-Calilegua,Calilegua (Jujuy),23706.0,22343.0,22723.0,983.0
-Aconquija,Aconquija (Tucumán),3067.0,3239.0,3050.0,17.0
-Laguna de los Pozuelos,Laguna de los Pozuelos (Jujuy),2148.0,1827.0,1829.0,319.0
-Nogalar de los Toldos,Nogalar de los Toldos (Salta),1286.0,1086.0,1060.0,226.0
-El Rey,El Rey (Salta),451.0,776.0,440.0,11.0
-Baritú,Baritú (Salta),390.0,154.0,279.0,111.0
-Copo,Copo (Santiago del Estero),123.0,,114.0,9.0
-Sierra de las Quijadas,Sierra de las Quijadas (San Luis),36995.0,23355.0,36460.0,535.0
-El Leoncito,El Leoncito (San Juan),21625.0,23454.0,21043.0,582.0
-San Guillermo,San Guillermo (San Juan),17.0,46.0,17.0,
-Ciervo de los Pantanos,Ciervo de los Pantanos (Buenos Aires),34675.0,6515.0,34553.0,122.0
-Quebrada del Condorito,Quebrada del Condorito (Córdoba),14146.0,25488.0,13574.0,572.0
+codigo_indec,territorio,visitas_ult,visitas_par,visitas_pre,no_residentes_ult
+Aconquija,Aconquija (Tucumán),7155.0,1251.0,3237.0,35
+Ansenuza,Ansenuza (Córdoba),167.0,0.0,,0
+Baritú,Baritú (Salta),1000.0,145.0,154.0,124
+Bosques Petrificados,Bosques Petrificados (Santa Cruz),3777.0,2134.0,3636.0,721
+Calilegua,Calilegua (Jujuy),34410.0,13558.0,22337.0,1970
+Campo San Juan,Campo San Juan (Misiones),1222.0,991.0,,24
+Campos del Tuyú,Campos del Tuyú (Buenos Aires),5.0,18.0,,0
+Chaco,Chaco (Chaco),6355.0,0.0,8462.0,64
+Ciervo de los Pantanos,Ciervo de los Pantanos (Buenos Aires),27356.0,11484.0,6515.0,233
+Colonia Benítez,Colonia Benítez (Chaco),2045.0,482.0,2002.0,12
+Copo,Copo (Santiago del Estero),683.0,156.0,0.0,24
+El Impenetrable,El Impenetrable (Chaco),4063.0,268.0,529.0,77
+El Leoncito,El Leoncito (San Juan),17562.0,9376.0,23443.0,865
+El Nogalar de los Toldos,El Nogalar de los Toldos (Salta),3219.0,1600.0,1086.0,153
+El Palmar,El Palmar (Entre Ríos),128914.0,44517.0,107917.0,1018
+El Rey,El Rey (Salta),832.0,140.0,776.0,45
+Formosa,Formosa (Formosa),44.0,0.0,84.0,4
+Iberá,Iberá (Corrientes),17820.0,7564.0,13954.0,1595
+Iguazú,Iguazú (Misiones),1526772.0,830994.0,1635238.0,530184
+Islas de Santa Fe,Islas de Santa Fe (Santa Fe),570.0,322.0,,3
+Laguna Blanca,Laguna Blanca (Neuquén),4557.0,1925.0,2658.0,151
+Laguna de los Pozuelos,Laguna de los Pozuelos (Jujuy),2109.0,1244.0,1826.0,602
+Lanín,Lanín (Neuquén),131888.0,82781.0,126220.0,5102
+Lihué Calel,Lihué Calel (La Pampa),6291.0,2627.0,6158.0,295
+Los Alerces,Los Alerces (Chubut),121811.0,68899.0,124605.0,4183
+Los Arrayanes,Los Arrayanes (Neuquén),58875.0,42474.0,75736.0,4667
+Los Cardones,Los Cardones (Salta),73857.0,23580.0,92970.0,6073
+Los Glaciares,Los Glaciares (Santa Cruz),734308.0,419312.0,771521.0,413412
+Mburucuyá,Mburucuyá (Corrientes),7207.0,3149.0,7029.0,196
+Monte León,Monte León (Santa Cruz),10352.0,6707.0,3615.0,2288
+Nahuel Huapi,Nahuel Huapi (Neuquén y Río Negro),396957.0,230169.0,412429.0,75404
+Patagonia,Patagonia (Chubut),6594.0,3662.0,,698
+Perito Moreno,Perito Moreno (Santa Cruz),2814.0,2710.0,1029.0,646
+Pre Delta,Pre Delta (Entre Ríos),58687.0,22423.0,73400.0,300
+Quebrada del Condorito,Quebrada del Condorito (Córdoba),24378.0,5595.0,25482.0,987
+Río Pilcomayo,Río Pilcomayo (Formosa),7965.0,3542.0,11061.0,139
+San Guillermo,San Guillermo (San Juan),95.0,147.0,46.0,7
+Sierra de las Quijadas,Sierra de las Quijadas (San Luis),16787.0,6231.0,23362.0,714
+Talampaya,Talampaya (La Rioja),55482.0,19484.0,76526.0,3263
+Tierra del Fuego,Tierra del Fuego (Tierra del Fuego),461155.0,246071.0,421700.0,232796
+Traslasierra,Traslasierra (Córdoba),110.0,97.0,,1
