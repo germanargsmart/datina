@@ -447,6 +447,14 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
 .menu-panel a:focus-visible{outline:2px solid var(--sol);outline-offset:-2px}
 @media (hover:hover) and (pointer:fine){.menu-panel a:hover{background:var(--celeste-suave)}.menu-btn:hover{background:rgba(255,255,255,.14)}.barra.clara .menu-btn:hover{background:var(--celeste-suave)}}
 .atajos{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tema-intro{max-width:42em;margin:-4px 0 30px}
+.tema-intro .pregunta{font-size:clamp(24px,3vw,32px);line-height:1.15;font-weight:500;color:var(--ink);margin:0 0 10px}
+.tema-intro p{font-size:17px;line-height:1.5;color:var(--muted);margin:0}
+.tema-cierre{border-top:3px solid var(--azul);margin:36px 0 0;padding:22px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:14px 40px}
+.tema-cierre h3{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
+.tema-cierre ul{margin:0;padding-left:18px;font-size:16px;line-height:1.5}
+.tema-cierre li{margin:0 0 8px}
+@media (max-width:760px){.tema-cierre{grid-template-columns:1fr}}
 .herr-intro{font-size:17px;line-height:1.5;color:var(--muted);max-width:40em;margin:-8px 0 22px}
 .atajos a{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--azul);background:#fff;
   text-decoration:none;padding:10px 13px;border:1px solid #fff;transition:background-color .2s ease,color .2s ease,transform .12s cubic-bezier(.23,1,.32,1)}
@@ -594,15 +602,15 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
   <div class="envoltura">
     <a class="marca" href="#inicio">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     <nav class="temas" aria-label="Temas principales" style="grid-column:1;grid-row:1">
-      <a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#salud">Salud</a><a href="#trabajo">Trabajo</a><a href="#politica">Política</a>
+      <a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#salud">Salud</a><a href="#educacion">Educación</a><a href="#poblacion">Población</a><a href="#politica">Política</a>
     </nav>
     <div class="menu" style="grid-column:3;grid-row:1">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Secciones</button>
       <div class="menu-panel" id="menu-panel" hidden>
         <p class="menu-tit">Temas</p>
-        <a href="#provincias">Tu provincia</a><a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#salud">Salud</a>
-        <a href="#trabajo">Trabajo y finanzas</a><a href="#pobreza">Pobreza y hogares</a><a href="#politica">Política</a><a href="#energia">Energía</a>
-        <a href="#movilidad">Movilidad</a><a href="#turismo">Turismo</a><a href="#naturaleza">Flora y fauna</a><a href="#curiosidades">Curiosidades</a>
+        <a href="#provincias">Tu provincia</a><a href="#trabajo">Trabajo y finanzas</a><a href="#pobreza">Pobreza y hogares</a><a href="#salud">Salud</a>
+        <a href="#educacion">Educación</a><a href="#poblacion">Población</a><a href="#politica">Política</a><a href="#movilidad">Movilidad</a>
+        <a href="#energia">Energía</a><a href="#turismo">Turismo</a><a href="#naturaleza">Flora y fauna</a><a href="#curiosidades">Curiosidades</a>
         <p class="menu-tit">Herramientas</p>
         <a href="#cruces">Cruces</a><a href="#indice">Tu índice</a><a href="#departamentos">Departamentos</a>
       </div>
@@ -619,7 +627,7 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
       <div class="estado" id="estado" aria-label="Estado de los datos"></div>
       <nav class="atajos" aria-label="Temas">
-        <a href="#provincias">Elegí tu provincia</a><a href="#poblacion">Población</a><a href="#educacion">Educación</a><a href="#salud">Salud</a><a href="#trabajo">Trabajo</a><a href="#politica">Política</a>
+        <a href="#provincias">Elegí tu provincia</a><a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#salud">Salud</a><a href="#educacion">Educación</a><a href="#poblacion">Población</a><a href="#politica">Política</a>
       </nav>
     </div>
     <div class="portada-sol">
@@ -670,138 +678,13 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
     <div class="prov-extra" id="prov-extra"></div>
   </section>
 
-  <section class="tema" id="poblacion">
-    <h2>Población</h2>
-
-    <article class="ficha" id="f-nacimientos">
-      <h3>Nacimientos por año en la Argentina y en la OCDE, 2012 a 2024</h3>
-      <div class="adivina" id="adivina">
-        <label for="guess">Antes de ver el dato: ¿cuánto cayeron los nacimientos entre 2014, el año con más nacimientos de la serie, y 2024?</label>
-        <div class="fila">
-          <input type="range" id="guess" min="0" max="70" step="1" value="15" aria-describedby="guess-out">
-          <output id="guess-out" for="guess">15%</output>
-          <button class="boton" id="revelar" type="button">Ver el dato</button>
-        </div>
-      </div>
-      <div id="nac-revelado" class="oculto">
-        <p class="veredicto" data-t="veredicto"></p>
-        <p class="lead" data-t="nacimientos"></p>
-        <div class="grafico" data-g="nacimientos"></div>
-        <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacimientos inscriptos en el Registro Nacional de las Personas según año de nacimiento, el último año puede sumar inscripciones tardías. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
-      </div>
-      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-extranjeros">
-      <h3 data-t="extranjeros-titulo"></h3>
-      <p class="lead" data-t="extranjeros"></p>
-      <div class="grafico" data-g="extranjeros"></div>
-      <p class="nota" data-t="extranjeros-nota"></p>
-      <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-adolescentes">
-      <h3>Nacimientos de madres menores de 20 años por provincia, 2012 y 2024</h3>
-      <p class="lead" data-t="adolescentes"></p>
-      <div class="grafico" data-g="adolescentes"></div>
-      <p class="nota">Porcentaje de los nacimientos de cada provincia cuya madre tenía entre 10 y 19 años. El círculo claro marca 2012 y el oscuro 2024.</p>
-      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-mortalidad">
-      <h3 data-t="mortalidad-titulo">Tasa de mortalidad infantil por provincia</h3>
-      <p class="lead" data-t="mortalidad"></p>
-      <div class="grafico" data-g="mortalidad"></div>
-      <p class="nota" data-t="mortalidad-nota"></p>
-      <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-  </section>
-
-  <section class="tema" id="educacion">
-    <h2>Educación</h2>
-
-    <article class="ficha" id="f-pisa">
-      <h3 data-t="pisa-titulo">Resultados de la Argentina en las pruebas PISA</h3>
-      <p class="lead" data-t="pisa"></p>
-      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="pisa" style="--n:3">
-        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
-        <button type="button" data-m="lec" aria-pressed="false">Lectura</button>
-        <button type="button" data-m="cie" aria-pressed="false">Ciencias</button>
-      </div>
-      <div class="grafico" data-g="pisa"></div>
-      <p class="nota" data-t="pisa-nota"></p>
-      <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-escolarizacion">
-      <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
-      <p class="lead" data-t="escolarizacion"></p>
-      <div class="grafico" data-g="escolarizacion"></div>
-      <p class="nota" data-t="escolarizacion-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-aprender">
-      <h3 data-t="aprender-titulo">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia</h3>
-      <p class="lead" data-t="aprender"></p>
-      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="aprender">
-        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
-        <button type="button" data-m="len" aria-pressed="false">Lengua</button>
-      </div>
-      <div class="grafico" data-g="aprender"></div>
-      <p class="nota" data-t="aprender-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Educación, evaluación Aprender, base agregada</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-  </section>
-
-  <section class="tema" id="salud">
-    <h2>Salud</h2>
-    <div class="ayuda" role="note">
-      <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
-    </div>
-
-    <article class="ficha" id="f-suicidio">
-      <h3>Tasa de suicidios por cada 100.000 habitantes, 2000 a 2025</h3>
-      <p class="lead" data-t="suicidio"></p>
-      <div class="grafico" data-g="suicidio"></div>
-      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. Las tasas por sexo están disponibles desde 2017.</p>
-      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad</span><a href="datos/suicidio_serie.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-suicidio-prov">
-      <h3 data-t="suicidio-prov-titulo">Tasa de suicidios por provincia</h3>
-      <p class="lead" data-t="suicidio-prov"></p>
-      <div class="grafico" data-g="suicidio-prov"></div>
-      <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-edad">
-      <h3>Distribución de los suicidios por edad y sexo, 2017 a 2024</h3>
-      <p class="lead" data-t="edad"></p>
-      <div class="grafico" data-g="edad"></div>
-      <p class="nota">Porcentaje sobre el total de casos del período con edad y sexo registrados. Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan.</p>
-      <div class="pie"><span>Fuente: Sistema de Alerta Temprana de Suicidios, SNIC</span><a href="datos/suicidio_edad_sexo.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-muertes">
-      <h3>Muertes por suicidio, homicidio, siniestros viales y femicidio, 2000 a 2025</h3>
-      <p class="lead" data-t="muertes"></p>
-      <div class="grafico" data-g="muertes"></div>
-      <p class="nota" data-t="muertes-nota"></p>
-      <div class="pie"><span>Fuentes: SNIC, Ministerio de Seguridad, y Registro Nacional de Femicidios de la Justicia Argentina, Corte Suprema</span><a href="datos/muertes_violentas.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-esperanza">
-      <h3 data-t="esperanza-titulo"></h3>
-      <p class="lead" data-t="esperanza"></p>
-      <div class="grafico" data-g="esperanza"></div>
-      <p class="nota" data-t="esperanza-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-  </section>
-
   <section class="tema" id="trabajo">
     <h2>Trabajo y finanzas</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
+      <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen lo que cada provincia le vende al mundo y cuánto depende de los fondos que le manda la Nación.</p>
+    </div>
+
     <article class="ficha" id="f-empleo">
       <h3 data-t="empleo-titulo">Asalariados privados registrados por provincia</h3>
       <p class="lead" data-t="empleo"></p>
@@ -812,6 +695,14 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="grafico" data-g="empleo"></div>
       <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección 2025 del INDEC usada por el SNIC.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-exportaciones">
+      <h3 data-t="exportaciones-titulo"></h3>
+      <p class="lead" data-t="exportaciones"></p>
+      <div class="grafico" data-g="exportaciones"></div>
+      <p class="nota" data-t="exportaciones-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones, vía Secretaría de Política Económica</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-fiscal">
@@ -827,17 +718,32 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-exportaciones">
-      <h3 data-t="exportaciones-titulo"></h3>
-      <p class="lead" data-t="exportaciones"></p>
-      <div class="grafico" data-g="exportaciones"></div>
-      <p class="nota" data-t="exportaciones-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones, vía Secretaría de Política Económica</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+    <aside class="tema-cierre" aria-label="Para cerrar la sección">
+      <div>
+        <h3>Para pensar</h3>
+        <ul>
+        <li>¿Las provincias que más exportan son también las que más empleo formal generan?</li>
+        <li>Si una provincia financia la mayor parte de su gasto con fondos nacionales, ¿cuánto margen tiene para definir su propia agenda?</li>
+        <li>¿Qué pasa con el trabajo que no aparece en estos registros, el informal y el independiente?</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Oportunidades</h3>
+        <ul>
+        <li>Las provincias con pocos asalariados privados por habitante muestran dónde el empleo formal es más escaso y dónde hay lugar para nuevas empresas.</li>
+        <li>Lo que exporta cada provincia marca cadenas de valor en las que pueden sumarse proveedores, logística y servicios.</li>
+        </ul>
+      </div>
+    </aside>
   </section>
 
   <section class="tema" id="pobreza">
     <h2>Pobreza y hogares</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
+      <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
+    </div>
+
     <article class="ficha" id="f-pobreza">
       <h3 data-t="pobreza-titulo"></h3>
       <p class="lead" data-t="pobreza"></p>
@@ -875,10 +781,226 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p class="nota" data-t="internet-nota"></p>
       <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM)</span><a href="datos/internet_fijo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <aside class="tema-cierre" aria-label="Para cerrar la sección">
+      <div>
+        <h3>Para pensar</h3>
+        <ul>
+        <li>¿Qué parte de las subas y bajas de la pobreza responde a los precios y qué parte al empleo?</li>
+        <li>¿Qué provincias tienen carencias de vivienda y servicios que no se resuelven solo con más ingresos?</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Oportunidades</h3>
+        <ul>
+        <li>La brecha de conectividad entre provincias marca dónde faltan infraestructura y servicios digitales.</li>
+        <li>Las carencias de vivienda y de servicios básicos señalan demanda de obra, financiamiento y soluciones habitacionales.</li>
+        </ul>
+      </div>
+    </aside>
+  </section>
+
+  <section class="tema" id="salud">
+    <h2>Salud</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cuánto vivimos y de qué nos morimos antes de tiempo?</p>
+      <p>La esperanza de vida y la mortalidad infantil resumen cómo funciona el sistema de salud. Las muertes por causas externas, como los siniestros viales, los homicidios y los suicidios, muestran problemas que se pueden prevenir.</p>
+    </div>
+
+    <article class="ficha" id="f-esperanza">
+      <h3 data-t="esperanza-titulo"></h3>
+      <p class="lead" data-t="esperanza"></p>
+      <div class="grafico" data-g="esperanza"></div>
+      <p class="nota" data-t="esperanza-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-mortalidad">
+      <h3 data-t="mortalidad-titulo">Tasa de mortalidad infantil por provincia</h3>
+      <p class="lead" data-t="mortalidad"></p>
+      <div class="grafico" data-g="mortalidad"></div>
+      <p class="nota" data-t="mortalidad-nota"></p>
+      <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <div class="ayuda" role="note">
+      <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
+    </div>
+
+    <article class="ficha" id="f-muertes">
+      <h3>Muertes por suicidio, homicidio, siniestros viales y femicidio, 2000 a 2025</h3>
+      <p class="lead" data-t="muertes"></p>
+      <div class="grafico" data-g="muertes"></div>
+      <p class="nota" data-t="muertes-nota"></p>
+      <div class="pie"><span>Fuentes: SNIC, Ministerio de Seguridad, y Registro Nacional de Femicidios de la Justicia Argentina, Corte Suprema</span><a href="datos/muertes_violentas.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-suicidio">
+      <h3>Tasa de suicidios por cada 100.000 habitantes, 2000 a 2025</h3>
+      <p class="lead" data-t="suicidio"></p>
+      <div class="grafico" data-g="suicidio"></div>
+      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. Las tasas por sexo están disponibles desde 2017.</p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad</span><a href="datos/suicidio_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-suicidio-prov">
+      <h3 data-t="suicidio-prov-titulo">Tasa de suicidios por provincia</h3>
+      <p class="lead" data-t="suicidio-prov"></p>
+      <div class="grafico" data-g="suicidio-prov"></div>
+      <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-edad">
+      <h3>Distribución de los suicidios por edad y sexo, 2017 a 2024</h3>
+      <p class="lead" data-t="edad"></p>
+      <div class="grafico" data-g="edad"></div>
+      <p class="nota">Porcentaje sobre el total de casos del período con edad y sexo registrados. Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan.</p>
+      <div class="pie"><span>Fuente: Sistema de Alerta Temprana de Suicidios, SNIC</span><a href="datos/suicidio_edad_sexo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <aside class="tema-cierre" aria-label="Para cerrar la sección">
+      <div>
+        <h3>Para pensar</h3>
+        <ul>
+        <li>¿Por qué la mortalidad infantil sigue siendo más alta en unas provincias que en otras?</li>
+        <li>¿Qué parte de las muertes evitables depende del sistema de salud y qué parte de la seguridad vial, la violencia o la salud mental?</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Oportunidades</h3>
+        <ul>
+        <li>Las diferencias en mortalidad infantil entre provincias señalan dónde reforzar los controles del embarazo y la atención en los primeros meses.</li>
+        <li>La prevención de siniestros viales y el acompañamiento en salud mental son áreas donde los programas locales pueden medir resultados con estos mismos datos.</li>
+        </ul>
+      </div>
+    </aside>
+  </section>
+
+  <section class="tema" id="educacion">
+    <h2>Educación</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué aprenden los chicos en cada provincia?</p>
+      <p>Primero, cuántos alumnos de sexto grado alcanzan el nivel esperado en lengua y matemática. Después, cuántos adolescentes van a la secundaria y cómo le va al país frente al mundo en las pruebas PISA.</p>
+    </div>
+
+    <article class="ficha" id="f-aprender">
+      <h3 data-t="aprender-titulo">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia</h3>
+      <p class="lead" data-t="aprender"></p>
+      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="aprender">
+        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
+        <button type="button" data-m="len" aria-pressed="false">Lengua</button>
+      </div>
+      <div class="grafico" data-g="aprender"></div>
+      <p class="nota" data-t="aprender-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Educación, evaluación Aprender, base agregada</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-escolarizacion">
+      <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
+      <p class="lead" data-t="escolarizacion"></p>
+      <div class="grafico" data-g="escolarizacion"></div>
+      <p class="nota" data-t="escolarizacion-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-pisa">
+      <h3 data-t="pisa-titulo">Resultados de la Argentina en las pruebas PISA</h3>
+      <p class="lead" data-t="pisa"></p>
+      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="pisa" style="--n:3">
+        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
+        <button type="button" data-m="lec" aria-pressed="false">Lectura</button>
+        <button type="button" data-m="cie" aria-pressed="false">Ciencias</button>
+      </div>
+      <div class="grafico" data-g="pisa"></div>
+      <p class="nota" data-t="pisa-nota"></p>
+      <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <aside class="tema-cierre" aria-label="Para cerrar la sección">
+      <div>
+        <h3>Para pensar</h3>
+        <ul>
+        <li>¿Las provincias con más chicos en la escuela son también las que más aprenden?</li>
+        <li>¿Qué explica las diferencias en Aprender entre provincias con recursos parecidos?</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Oportunidades</h3>
+        <ul>
+        <li>Las brechas en lengua y matemática señalan demanda de apoyo escolar, formación docente y herramientas educativas.</li>
+        <li>Cruzar estos resultados con ingresos y conectividad, en la sección Cruces, ayuda a ubicar dónde un proyecto educativo puede tener más impacto.</li>
+        </ul>
+      </div>
+    </aside>
+  </section>
+
+  <section class="tema" id="poblacion">
+    <h2>Población</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
+      <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. También importa quién llega: las personas que migran desde otros países.</p>
+    </div>
+
+    <article class="ficha" id="f-nacimientos">
+      <h3>Nacimientos por año en la Argentina y en la OCDE, 2012 a 2024</h3>
+      <div class="adivina" id="adivina">
+        <label for="guess">Antes de ver el dato: ¿cuánto cayeron los nacimientos entre 2014, el año con más nacimientos de la serie, y 2024?</label>
+        <div class="fila">
+          <input type="range" id="guess" min="0" max="70" step="1" value="15" aria-describedby="guess-out">
+          <output id="guess-out" for="guess">15%</output>
+          <button class="boton" id="revelar" type="button">Ver el dato</button>
+        </div>
+      </div>
+      <div id="nac-revelado" class="oculto">
+        <p class="veredicto" data-t="veredicto"></p>
+        <p class="lead" data-t="nacimientos"></p>
+        <div class="grafico" data-g="nacimientos"></div>
+        <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacimientos inscriptos en el Registro Nacional de las Personas según año de nacimiento, el último año puede sumar inscripciones tardías. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
+      </div>
+      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-adolescentes">
+      <h3>Nacimientos de madres menores de 20 años por provincia, 2012 y 2024</h3>
+      <p class="lead" data-t="adolescentes"></p>
+      <div class="grafico" data-g="adolescentes"></div>
+      <p class="nota">Porcentaje de los nacimientos de cada provincia cuya madre tenía entre 10 y 19 años. El círculo claro marca 2012 y el oscuro 2024.</p>
+      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-extranjeros">
+      <h3 data-t="extranjeros-titulo"></h3>
+      <p class="lead" data-t="extranjeros"></p>
+      <div class="grafico" data-g="extranjeros"></div>
+      <p class="nota" data-t="extranjeros-nota"></p>
+      <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <aside class="tema-cierre" aria-label="Para cerrar la sección">
+      <div>
+        <h3>Para pensar</h3>
+        <ul>
+        <li>¿Cómo se sostiene el sistema previsional si hay menos trabajadores por cada persona mayor?</li>
+        <li>¿Qué hacer con escuelas y maternidades que van a tener menos demanda?</li>
+        <li>¿La baja de los embarazos adolescentes fue pareja en todas las provincias?</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Oportunidades</h3>
+        <ul>
+        <li>Una población que envejece demanda cuidados, salud, vivienda adaptada y servicios para personas mayores.</li>
+        <li>La caída de la natalidad invita a repensar la oferta educativa y a reconvertir parte de la infraestructura.</li>
+        </ul>
+      </div>
+    </aside>
   </section>
 
   <section class="tema" id="politica">
     <h2>Política</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
+      <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
+    </div>
 
     <article class="ficha" id="f-elecciones">
       <h3>Elecciones presidenciales y PASO por provincia, 1983 a 2023</h3>
@@ -888,6 +1010,26 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="grafico" data-g="elecciones"></div>
       <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-legisladores">
+      <h3>Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</h3>
+      <p class="lead" data-t="legisladores"></p>
+      <div class="lg-sels">
+        <label class="selector-ficha"><span>Período</span><select id="lg-per"></select></label>
+        <label class="selector-ficha"><span>Provincia</span><select id="lg-sel"></select></label>
+      </div>
+      <div class="grafico lg-lista" data-g="legisladores"></div>
+      <p class="nota">Cada período legislativo va del 10 de diciembre de un año impar al 9 de diciembre dos años después, cuando se renueva la mitad de la Cámara de Diputados. Entre paréntesis figura quién dejó la banca durante el período, o poco antes de empezar, y quién la ocupó después, por renuncia, licencia, fallecimiento o fin de mandato. En el Senado, hasta 2001 los mandatos eran de nueve años y se renovaban por tercios en distintas fechas. En 1995 la reforma constitucional sumó un tercer senador por provincia, que figura con la fecha en que asumió. Cada reemplazo se enlaza con la banca que dejó alguien de la misma provincia en la fecha más cercana. Antes de 2007 algunos reemplazos de diputados no tienen fecha de asunción en la fuente. Bloque parlamentario para los diputados desde 2007, y partido o alianza por la que fueron electos para los diputados anteriores y para los senadores. El historial completo está en las tablas de <a href="datos/diputados_nacionales.csv" download>diputados</a> y <a href="datos/senadores_nacionales.csv" download>senadores</a>.</p>
+      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-representacion">
+      <h3>Habitantes por banca de diputado nacional según provincia, 2025</h3>
+      <p class="lead" data-t="representacion"></p>
+      <div class="grafico" data-g="representacion"></div>
+      <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
+      <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-congreso">
@@ -900,6 +1042,25 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="grafico" data-g="congreso"></div>
       <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-atn">
+      <h3 data-t="atn-titulo"></h3>
+      <p class="lead" data-t="atn"></p>
+      <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
+      <div class="grafico" data-g="atn"></div>
+      <p class="nota" data-t="atn-nota"></p>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-transferencias">
+      <h3 data-t="transferencias-titulo"></h3>
+      <p class="lead" data-t="transferencias"></p>
+      <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
+      <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="transferencias"></div>
+      <p class="nota" data-t="transferencias-nota"></p>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presidentes">
@@ -924,77 +1085,32 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-legisladores">
-      <h3>Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</h3>
-      <p class="lead" data-t="legisladores"></p>
-      <div class="lg-sels">
-        <label class="selector-ficha"><span>Período</span><select id="lg-per"></select></label>
-        <label class="selector-ficha"><span>Provincia</span><select id="lg-sel"></select></label>
+    <aside class="tema-cierre" aria-label="Para cerrar la sección">
+      <div>
+        <h3>Para pensar</h3>
+        <ul>
+        <li>¿Las provincias que reciben más transferencias discrecionales votan distinto que el resto?</li>
+        <li>¿Qué consecuencias tiene que el voto de un habitante de una provincia chica pese varias veces más en el Congreso que el de una grande?</li>
+        <li>¿Cuánto cambia lo que un gobierno puede aprobar según la composición del Congreso?</li>
+        </ul>
       </div>
-      <div class="grafico lg-lista" data-g="legisladores"></div>
-      <p class="nota">Cada período legislativo va del 10 de diciembre de un año impar al 9 de diciembre dos años después, cuando se renueva la mitad de la Cámara de Diputados. Entre paréntesis figura quién dejó la banca durante el período, o poco antes de empezar, y quién la ocupó después, por renuncia, licencia, fallecimiento o fin de mandato. En el Senado, hasta 2001 los mandatos eran de nueve años y se renovaban por tercios en distintas fechas. En 1995 la reforma constitucional sumó un tercer senador por provincia, que figura con la fecha en que asumió. Cada reemplazo se enlaza con la banca que dejó alguien de la misma provincia en la fecha más cercana. Antes de 2007 algunos reemplazos de diputados no tienen fecha de asunción en la fuente. Bloque parlamentario para los diputados desde 2007, y partido o alianza por la que fueron electos para los diputados anteriores y para los senadores. El historial completo está en las tablas de <a href="datos/diputados_nacionales.csv" download>diputados</a> y <a href="datos/senadores_nacionales.csv" download>senadores</a>.</p>
-      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-representacion">
-      <h3>Habitantes por banca de diputado nacional según provincia, 2025</h3>
-      <p class="lead" data-t="representacion"></p>
-      <div class="grafico" data-g="representacion"></div>
-      <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
-      <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-atn">
-      <h3 data-t="atn-titulo"></h3>
-      <p class="lead" data-t="atn"></p>
-      <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
-      <div class="grafico" data-g="atn"></div>
-      <p class="nota" data-t="atn-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-transferencias">
-      <h3 data-t="transferencias-titulo"></h3>
-      <p class="lead" data-t="transferencias"></p>
-      <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
-      <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="transferencias"></div>
-      <p class="nota" data-t="transferencias-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia (CSV)</a></div>
-    </article>
-
-  </section>
-
-  <section class="tema" id="energia">
-    <h2>Energía</h2>
-
-    <article class="ficha" id="f-hogares">
-      <h3>Participación de los hogares en la demanda eléctrica, 2005 a 2025</h3>
-      <p class="lead" data-t="hogares"></p>
-      <div class="grafico" data-g="hogares"></div>
-      <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-actividad">
-      <h3>Demanda eléctrica y nivel de actividad económica, 2005 a 2025</h3>
-      <p class="lead" data-t="actividad"></p>
-      <div class="grafico" data-g="actividad"></div>
-      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
-      <div class="pie"><span>Fuentes: Secretaría de Energía e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-meses">
-      <h3>Demanda eléctrica promedio por mes, 2023 a 2025</h3>
-      <p class="lead" data-t="meses"></p>
-      <div class="grafico" data-g="meses"></div>
-      <p class="nota" data-t="meses-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+      <div>
+        <h3>Oportunidades</h3>
+        <ul>
+        <li>Las series de transferencias por provincia permiten seguir si los fondos llegan con criterios parejos o con cambios bruscos de un año a otro.</li>
+        <li>Las listas de legisladores por período sirven para reconstruir quién representó a cada provincia y en qué bloque.</li>
+        </ul>
+      </div>
+    </aside>
   </section>
 
   <section class="tema" id="movilidad">
     <h2>Movilidad</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cómo nos movemos y qué dice eso de la economía?</p>
+      <p>Los viajes en transporte público y la venta de autos y motos nuevas acompañan el nivel de actividad y el poder de compra.</p>
+    </div>
+
     <article class="ficha" id="f-sube">
       <h3 data-t="sube-titulo">Tarjetas SUBE usadas por día hábil</h3>
       <p class="lead" data-t="sube"></p>
@@ -1030,10 +1146,48 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p class="nota" data-t="patentes-prov-nota"></p>
       <div class="pie"><span>Fuente: DNRPA, Ministerio de Justicia</span><a href="datos/patentamientos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+  </section>
+
+  <section class="tema" id="energia">
+    <h2>Energía</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cuánta electricidad usamos y quién la usa?</p>
+      <p>Cuánto consumen los hogares, cómo se mueve la demanda con la economía y en qué meses se concentra.</p>
+    </div>
+
+    <article class="ficha" id="f-hogares">
+      <h3>Participación de los hogares en la demanda eléctrica, 2005 a 2025</h3>
+      <p class="lead" data-t="hogares"></p>
+      <div class="grafico" data-g="hogares"></div>
+      <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-actividad">
+      <h3>Demanda eléctrica y nivel de actividad económica, 2005 a 2025</h3>
+      <p class="lead" data-t="actividad"></p>
+      <div class="grafico" data-g="actividad"></div>
+      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
+      <div class="pie"><span>Fuentes: Secretaría de Energía e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-meses">
+      <h3>Demanda eléctrica promedio por mes, 2023 a 2025</h3>
+      <p class="lead" data-t="meses"></p>
+      <div class="grafico" data-g="meses"></div>
+      <p class="nota" data-t="meses-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema" id="turismo">
     <h2>Turismo</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Quién viaja por la Argentina y adónde va?</p>
+      <p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>
+    </div>
 
     <article class="ficha" id="f-receptivo">
       <h3 data-t="receptivo-titulo"></h3>
@@ -1062,10 +1216,15 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p class="nota" data-t="eti-nota"></p>
       <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Turismo Internacional</span><a href="datos/turistas_extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
   </section>
 
   <section class="tema" id="naturaleza">
     <h2>Flora y fauna</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cuánto territorio está protegido y qué vive en él?</p>
+      <p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>
+    </div>
 
     <article class="ficha" id="f-protegida">
       <h3 data-t="protegida-titulo"></h3>
@@ -1102,14 +1261,6 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-especies">
-      <h3 data-t="especies-titulo"></h3>
-      <p class="lead" data-t="especies"></p>
-      <div class="grafico" data-g="especies"></div>
-      <p class="nota" data-t="especies-nota"></p>
-      <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/especies_areas_nacionales.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
     <article class="ficha" id="f-visitas">
       <h3 data-t="visitas-titulo"></h3>
       <p class="lead" data-t="visitas"></p>
@@ -1130,6 +1281,14 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Anuario Estadístico de Turismo 2022, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-especies">
+      <h3 data-t="especies-titulo"></h3>
+      <p class="lead" data-t="especies"></p>
+      <div class="grafico" data-g="especies"></div>
+      <p class="nota" data-t="especies-nota"></p>
+      <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/especies_areas_nacionales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-pesca">
       <h3 data-t="pesca-titulo"></h3>
       <p class="lead" data-t="pesca"></p>
@@ -1145,10 +1304,15 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p class="nota" data-t="pesca-rio-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
   </section>
 
   <section class="tema" id="curiosidades">
     <h2>Curiosidades</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué dicen los datos de lo cotidiano?</p>
+      <p>Los nombres más elegidos, el consumo de carne, vino y yerba, los glaciares y el clima.</p>
+    </div>
 
     <article class="ficha" id="f-nombres">
       <h3 data-t="nombres-titulo"></h3>
@@ -1202,6 +1366,7 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p class="nota" data-t="clima-nota"></p>
       <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
   </section>
 
   <section class="tema herramienta" id="cruces">
