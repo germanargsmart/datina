@@ -217,7 +217,7 @@ BM_INDICADORES = ["SP.DYN.TFRT.IN", "SP.ADO.TFRT", "SP.DYN.IMRT.IN", "SP.DYN.LE0
                   "SH.STA.SUIC.P5", "VC.IHR.PSRC.P5", "SH.STA.TRAF.P5", "SL.UEM.TOTL.ZS", "SL.EMP.TOTL.SP.ZS",
                   "EG.USE.ELEC.KH.PC", "EN.GHG.CO2.PC.CE.AR5", "ER.LND.PTLD.ZS", "ST.INT.ARVL", "ER.FSH.CAPT.MT",
                   "SP.POP.TOTL", "SI.DST.50MD", "SI.POV.GINI", "SE.SEC.CMPT.LO.ZS", "IT.NET.USER.ZS",
-                  "SP.DYN.CBRT.IN"]
+                  "SP.DYN.CBRT.IN", "NY.GDP.DEFL.ZS"]
 # Todos los países, con nombres en español, para "si tu provincia fuera un país"
 FUENTES["bm_paises.json"] = "https://api.worldbank.org/v2/es/country?format=json&per_page=400"
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:

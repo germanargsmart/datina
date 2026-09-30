@@ -894,18 +894,26 @@ CAND_LISTA = {  # 2015 y 2023 no traen la formula, solo la alianza
     "FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD": "Bregman"}
 CAND_ARREGLO = {"De La Rúa": "De la Rúa", "Fernández De Kirchner": "Fernández de Kirchner", "Alberto Fernández": "Fernández",
                 "Mauricio Macri": "Macri", "Roberto Lavagna": "Lavagna", "Nicolás Del Caño": "Del Caño", "Juan Gómez Centurión": "Gómez Centurión",
-                "José Espert": "Espert"}
+                "José Espert": "Espert", "De La Sota": "De la Sota", "Juan Gomez": "Gómez Centurión"}
 
 
 def candidato(fila):
     if isinstance(fila.formula, str) and fila.formula.strip():
-        c = fila.formula.split(" - ")[0].strip().title()
+        c = fila.formula.split(" - ")[0].split(",")[0].strip().title()  # PASO 2015: "Apellido, Nombre - ..."
         return CAND_ARREGLO.get(c, c)
     return CAND_LISTA.get(fila.partido, "Otras")
 
 
 el["candidato"] = el.apply(candidato, axis=1)
-el["eleccion"] = el.anio.astype(str) + el.vuelta.map({1: "", 2: "-2"})
+el["eleccion"] = el.anio.astype(str) + el.vuelta.map({0: "-paso", 1: "", 2: "-2"})
+# PASO (vuelta 0): cada fila es una lista interna. La unidad del grafico es la agrupacion, que se nombra por su
+# precandidatura mas votada en el pais. Las listas internas quedan en "precand"
+el["precand"] = el.candidato
+_p = el.vuelta == 0
+_lab = (el[_p].groupby(["eleccion", "partido", "precand"]).votos.sum().reset_index().sort_values("votos")
+        .drop_duplicates(["eleccion", "partido"], keep="last").set_index(["eleccion", "partido"]).precand)
+el.loc[_p, "candidato"] = [_lab[(e_, p_)] for e_, p_ in zip(el[_p].eleccion, el[_p].partido)]
+PROVISORIAS = set(el[el.fuente.str.contains("provisorio")].eleccion)
 tot_el = el.drop_duplicates(["eleccion", "codigo_indec"])[["eleccion", "anio", "vuelta", "codigo_indec", "electores", "votantes", "positivos"]]
 nac_el = el.groupby(["eleccion", "candidato"]).votos.sum().reset_index()
 nac_el = nac_el[nac_el.candidato != "Otras"].sort_values(["eleccion", "votos"], ascending=[True, False])
@@ -933,7 +941,7 @@ OFICIALISMO = {"1989": "Angeloz", "1995": "Menem", "1999": "Duhalde", "2003": "K
 ofi = el[el.apply(lambda r: OFICIALISMO.get(r.eleccion) == r.candidato, axis=1)].groupby(["eleccion", "anio", "codigo_indec"]).votos.sum().reset_index()
 ofi = ofi.merge(tot_el[["eleccion", "codigo_indec", "positivos"]], on=["eleccion", "codigo_indec"])
 ofi["valor"] = ofi.votos / ofi.positivos * 100
-ofi = ofi[~ofi.eleccion.str.endswith("-2")]
+ofi = ofi[ofi.eleccion.str.fullmatch(r"\d{4}")]  # solo primera vuelta
 for c in ["participacion"]:
     d = tot_el[tot_el.vuelta == 1].rename(columns={"anio": "periodo", c: "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
     agregar(d, "participacion_presidencial", "% de los electores", "Direccion Nacional Electoral")
@@ -942,7 +950,7 @@ for e_, g_ in d.groupby("eleccion"):
     for cand_, g2 in g_.groupby("cand"):
         g2 = g2.copy(); g2["territorio"] = g2.codigo_indec.map(CORTO)
         agregar(g2, f"voto_presidente_{e_}_{norm(cand_).replace(' ', '_')}", "% de los votos positivos", "Direccion Nacional Electoral")
-ELECCIONES = sorted(presidenciales.eleccion.unique(), key=lambda e: (int(e[:4]), e))
+ELECCIONES = sorted(presidenciales.eleccion.unique(), key=lambda e: (int(e[:4]), {"-paso": 0, "": 1, "-2": 2}[e[4:]]))
 ganador_el = {e: nac_el[nac_el.eleccion == e].iloc[0].candidato for e in ELECCIONES}
 round1 = lambda x: round(float(x), 1)
 # espacio de cada candidatura, con los mismos nombres que en el Congreso (sirve para darle el mismo color en todas las elecciones)
@@ -970,14 +978,18 @@ for e in ELECCIONES:
     pp = presidenciales[(presidenciales.eleccion == e) & (presidenciales.codigo_indec != "00")]
     g_ = ganador_el[e]
     otros_gan = pp.set_index("territorio")[TOP_EL[e]].idxmax(axis=1)
-    el_meta.append({"id": e, "anio": int(e[:4]), "vuelta": 2 if e.endswith("-2") else 1,
-                    "candidatos": [{"c": c, "fuerza": nombre_fuerza(FUERZA_EL.get((e, c), "")), "espacio": CAND_ESP.get((e[:4], c), CAND_ESP.get(c, "Otras fuerzas"))} for c in TOP_EL[e]],
+    _int = el[el.eleccion == e].groupby(["candidato", "precand"]).votos.sum()
+    _listas = {c: [{"n": k, "pct": round1(v / pais_pos[e] * 100)} for k, v in _int[c].sort_values(ascending=False).items()]
+               for c in TOP_EL[e]} if e.endswith("-paso") else {}
+    el_meta.append({"id": e, "anio": int(e[:4]), "vuelta": {"-paso": 0, "": 1, "-2": 2}[e[4:]],
+                    "candidatos": [{"c": c, "fuerza": nombre_fuerza(FUERZA_EL.get((e, c), "")), "espacio": CAND_ESP.get((e[:4], c), CAND_ESP.get(c, "Otras fuerzas")),
+                                    "listas": _listas.get(c, [])} for c in TOP_EL[e]],
                     "ganador": g_, "pct_ganador": round1(float(presidenciales[(presidenciales.eleccion == e) & (presidenciales.codigo_indec == "00")][g_].iloc[0])),
                     "prov_ganador": int((otros_gan == g_).sum()),
                     "max_prov": pp.sort_values(g_).iloc[-1].territorio, "max_v": round1(pp[g_].max()),
                     "min_prov": pp.sort_values(g_).iloc[0].territorio, "min_v": round1(pp[g_].min()),
                     "participacion": round1(tot_el[tot_el.eleccion == e].votantes.sum() / tot_el[tot_el.eleccion == e].electores.sum() * 100),
-                    "provisorio": e.startswith("2023"),
+                    "provisorio": e in PROVISORIAS,
                     "oficialismo": OFICIALISMO.get(e)})
 pres_w = presidenciales
 presidenciales = pres[["eleccion", "codigo_indec", "cand", "pct"]].rename(columns={"cand": "candidato"}).sort_values(["eleccion", "codigo_indec", "pct"], ascending=[True, True, False])
@@ -1224,6 +1236,62 @@ gab_res = {"personas": int(len(personas)), "con_dato": int(len(_con)), "amba": i
 ministros_lista = mi.assign(provincia=mi.provincia_nacimiento)[["nombre", "ministerio", "inicio", "fin", "presidente", "partido", "lugar_nacimiento", "provincia", "origen"]]
 ministros_lista.to_csv(SITIO / "ministros_nacionales.csv", index=False)
 
+# ---------------------------------------------------------------- transferencias de la Nacion a las provincias
+# Presupuesto Abierto: credito devengado de las transferencias a gobiernos provinciales y municipales, por provincia de
+# destino (scripts/transferencias_presupuesto.py). ATN, otras no automaticas y las fijadas por ley o por fallo.
+# Desde 2000, primer anio con los ATN asignados a cada provincia, hasta el ultimo anio completo.
+# Pesos del ultimo anio con el deflactor del PBI (INDEC, via Banco Mundial). Por habitante con las proyecciones del INDEC.
+trf = pd.read_csv(RAIZ / "datos" / "manual" / "transferencias_provincias.csv", dtype={"codigo_indec": str})
+TR_ULT = int(HOY.year - 1)
+defl = bm("NY.GDP.DEFL.ZS")
+defl = defl[defl.pais == "ARG"].set_index("anio").valor
+assert TR_ULT in defl.index and trf.anio.max() >= TR_ULT
+trf = trf[(trf.anio >= 2000) & (trf.anio <= TR_ULT)].copy()
+trf["real"] = trf.millones_corrientes * defl[TR_ULT] / trf.anio.map(defl)  # millones de pesos del ultimo anio
+_hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
+POB_T = (_hp.cantidad_hechos / _hp.tasa_hechos * 1e5).groupby([_hp.provincia_id, _hp.anio]).first()
+TIPO_T = {"ATN": "atn", "Otras no automáticas": "otras", "Por ley o por fallo": "ley"}
+_tp = trf[trf.codigo_indec != "sin provincia"].pivot_table(index=["anio", "codigo_indec"], columns="tipo", values="real", aggfunc="sum")
+_grid = pd.MultiIndex.from_product([range(2000, TR_ULT + 1), sorted(DIP_LEY)], names=["anio", "codigo_indec"])
+transf = _tp.reindex(_grid).fillna(0).rename(columns=TIPO_T).reset_index()
+transf["pob"] = [POB_T.get((c, a)) for c, a in zip(transf.codigo_indec, transf.anio)]
+assert transf.pob.notna().all()
+transf["territorio"] = transf.codigo_indec.map(CORTO)
+for k in ["atn", "otras", "ley"]:
+    transf[f"{k}_hab"] = transf[k] * 1e6 / transf.pob  # pesos del ultimo anio por habitante
+    _pais = transf.groupby("anio")[k].sum() * 1e6 / transf.groupby("anio").pob.sum()
+    transf[f"{k}_indice"] = transf[f"{k}_hab"] / transf.anio.map(_pais) * 100  # 100 = promedio del pais ese anio
+transf_serie = trf.groupby(["anio", "tipo"]).real.sum().unstack(fill_value=0).rename(columns=TIPO_T).reset_index()
+transf_serie[["atn", "otras", "ley"]] = transf_serie[["atn", "otras", "ley"]] / 1000  # miles de millones
+transf_serie["provincias_atn"] = transf_serie.anio.map(transf[transf.atn > 0].groupby("anio").codigo_indec.nunique()).fillna(0).astype(int)
+# acumulado del periodo: suma de lo recibido por habitante cada anio
+acum_t = transf.groupby(["codigo_indec", "territorio"])[["atn_hab", "otras_hab", "ley_hab"]].sum().reset_index()
+acum_t["atn_pct"] = acum_t.codigo_indec.map(transf.groupby("codigo_indec").atn.sum() / transf.atn.sum() * 100)
+acum_t["pob_pct"] = acum_t.codigo_indec.map(transf[transf.anio == TR_ULT].set_index("codigo_indec").pob / transf[transf.anio == TR_ULT].pob.sum() * 100)
+_u = transf[transf.anio == TR_ULT]
+_ua = _u[_u.atn > 0].sort_values("atn_hab")
+_pico = transf_serie.sort_values("atn").iloc[-1]
+_ac = acum_t.sort_values("atn_hab")
+transf_res = {
+    "ult": TR_ULT, "desde": 2000,
+    "atn_ult": round1(transf_serie.set_index("anio").atn[TR_ULT]), "n_atn_ult": int(len(_ua)),
+    "atn_ult_max": _ua.iloc[-1].territorio if len(_ua) else None, "atn_ult_max_v": round(float(_ua.atn_hab.max())) if len(_ua) else 0,
+    "atn_ult_min": _ua.iloc[0].territorio if len(_ua) else None, "atn_ult_min_v": round(float(_ua.atn_hab.min())) if len(_ua) else 0,
+    "sin_atn_ult": list(_u[_u.atn == 0].territorio),
+    "atn_pico_anio": int(_pico.anio), "atn_pico_v": round1(_pico.atn),
+    "atn_acum_max": _ac.iloc[-1].territorio, "atn_acum_max_v": round(float(_ac.atn_hab.max())),
+    "atn_acum_min": _ac.iloc[0].territorio, "atn_acum_min_v": round(float(_ac.atn_hab.min())),
+    "atn_acum_max_pct": round1(_ac.iloc[-1].atn_pct), "atn_acum_max_pob": round1(_ac.iloc[-1].pob_pct),
+    "otras_ult": round1(transf_serie.set_index("anio").otras[TR_ULT]),
+    "otras_ult_max": _u.sort_values("otras_hab").iloc[-1].territorio, "otras_ult_max_v": round(float(_u.otras_hab.max())),
+    "otras_ult_min": _u.sort_values("otras_hab").iloc[0].territorio, "otras_ult_min_v": round(float(_u.otras_hab.min())),
+    "otras_ult_pais": round(float(_u.otras.sum() * 1e6 / _u.pob.sum())),
+    "otras_pico_anio": int(transf_serie.sort_values("otras").iloc[-1].anio), "otras_pico_v": round1(transf_serie.otras.max()),
+}
+transf = transf.round({"atn": 2, "otras": 2, "ley": 2, "pob": 0, "atn_hab": 0, "otras_hab": 0, "ley_hab": 0, "atn_indice": 1, "otras_indice": 1, "ley_indice": 1})
+transf_serie = transf_serie.round(2)
+acum_t = acum_t.round({"atn_hab": 0, "otras_hab": 0, "ley_hab": 0, "atn_pct": 2, "pob_pct": 2})
+
 # ---------------------------------------------------------------- cruces entre indicadores provinciales
 # Una fila por provincia y una columna por indicador, para el explorador de cruces del sitio.
 # Solo tasas, porcentajes o valores por habitante: cruzar totales solo mostraria el tamanio de cada provincia.
@@ -1281,6 +1349,8 @@ cru["autonomia_fiscal"] = columna(fiscal, "autonomia")
 cru["resultado_fiscal"] = columna(fiscal, "resultado")
 cru["gasto_personal"] = columna(fiscal, "personal")
 cru["peso_voto"] = columna(representacion, "peso_voto")
+cru["atn_hab"] = columna(acum_t.assign(v=acum_t.atn_hab / (TR_ULT - 1999)), "v")
+cru["transf_no_aut_hab"] = columna(transf[transf.anio == TR_ULT], "otras_hab")
 _b23 = pres_w[pres_w.eleccion == "2023-2"]
 cru["voto_milei_2023"] = columna(_b23, "Milei")
 cru["participacion_2023"] = cru.codigo_indec.map(tot_el[tot_el.eleccion == "2023"].set_index("codigo_indec").participacion)
@@ -1319,6 +1389,8 @@ CRUCES_META = {
     "resultado_fiscal": ("Resultado fiscal", "superávit o déficit financiero, % de los ingresos totales", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "gasto_personal": ("Gasto en personal", "% del gasto total de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "peso_voto": ("Peso de cada habitante en el Congreso", "bancas de diputados y senadores sobre la proporción de población, 1 = proporcional", "2025", "Política", "Ley 22.847 y proyecciones del INDEC", "f-representacion", 2),
+    "atn_hab": ("ATN por habitante", f"pesos de {TR_ULT} por habitante por año, promedio 2000 a {TR_ULT}", f"2000 a {TR_ULT}", "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-atn", 0),
+    "transf_no_aut_hab": ("Transferencias no automáticas por habitante", f"pesos de {TR_ULT} por habitante", str(TR_ULT), "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-transferencias", 0),
     "voto_milei_2023": ("Voto a Milei en el balotaje", "% de los votos positivos, segunda vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "voto_oficialismo_2023": ("Voto al oficialismo nacional", "% de los votos positivos a la fórmula del gobierno, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
@@ -1374,6 +1446,8 @@ a_serie(na[na.codigo_indec != "00"], "natalidad")
 for col, ident in [("autonomia", "autonomia_fiscal"), ("resultado", "resultado_fiscal"), ("personal", "gasto_personal")]:
     a_serie(fisc.rename(columns={col: "valor"}), ident)
 a_serie(ofi, "voto_oficialismo_2023")
+a_serie(transf.rename(columns={"atn_hab": "valor"}), "atn_hab")
+a_serie(transf.rename(columns={"otras_hab": "valor"}), "transf_no_aut_hab")
 a_serie(tot_el[tot_el.vuelta == 1].rename(columns={"participacion": "valor"}), "participacion_2023")
 cruces_series = pd.concat(ser, ignore_index=True)
 cruces_series["valor"] = cruces_series.valor.round(2)
@@ -1440,6 +1514,9 @@ tablas = {
     "congreso_composicion": congreso,
     "representacion_provincias": representacion,
     "presidentes": presidentes,
+    "transferencias_provincias": transf[["anio", "codigo_indec", "territorio", "atn", "otras", "ley", "atn_hab", "otras_hab", "ley_hab", "atn_indice", "otras_indice", "pob"]],
+    "transferencias_serie": transf_serie,
+    "transferencias_acumulado": acum_t,
     "gabinetes_origen": gabinetes,
     "ministros_provincias": ministros_prov,
     "pobreza_serie": pobreza[["periodo", "anio", "semestre", "t", "pobreza_personas", "indigencia_personas", "pobreza_hogares", "indigencia_hogares"]],
@@ -1644,6 +1721,7 @@ resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente
 resumen["elecciones"] = el_meta
 resumen["congreso"] = congreso_res
 resumen["presidentes"] = pres_res
+resumen["transferencias"] = transf_res
 resumen["gabinetes"] = gab_res
 resumen["nuevos"] = {
     "ev_anio": ANIO_EV, "ev_pais": r1(ev_pais.total), "ev_m": r1(ev_pais.mujeres), "ev_v": r1(ev_pais.varones),

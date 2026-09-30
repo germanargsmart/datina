@@ -1676,6 +1676,246 @@ anio,vuelta,codigo_indec,provincia,partido,formula,votos,electores,votantes,posi
 2007,1,94,"Tierra del Fuego, AeIAS",Obrero,PITROLA - ARROYOS,224,88052,62230,58296,2003,1931,DINE definitivo xlsx
 2007,1,94,"Tierra del Fuego, AeIAS",Frente De Izquierda,MONTES - HEBERLING,200,88052,62230,58296,2003,1931,DINE definitivo xlsx
 2007,1,94,"Tierra del Fuego, AeIAS",Popular de la Reconstrucción,BREIDE OBEID - VERGARA,115,88052,62230,58296,2003,1931,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,564908,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Alianza Frente Popular,DUHALDE - DAS NEVES,414575,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Alianza Frente Amplio Progresista,BINNER - MORANDINI,267189,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,207539,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,189284,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,116635,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,76348,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,29879,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,3182,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,02,Ciudad Autónoma de Buenos Aires,Del Campo Popular,BONACCI - VILLENA,2654,2491166,1927364,1872193,32866,22305,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,4360820,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Alianza Frente Popular,DUHALDE - DAS NEVES,1129321,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,896648,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Alianza Frente Amplio Progresista,BINNER - MORANDINI,637983,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,562064,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,253140,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,213692,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,79263,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,22599,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,06,Buenos Aires,Del Campo Popular,BONACCI - VILLENA,18737,10819085,8804014,8174267,553136,76611,DINE definitivo xlsx
+2011,0,10,Catamarca,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,117335,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,37486,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Alianza Frente Popular,DUHALDE - DAS NEVES,10382,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,8617,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Alianza Frente Amplio Progresista,BINNER - MORANDINI,4399,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,2845,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,1866,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,1203,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Del Campo Popular,BONACCI - VILLENA,445,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,10,Catamarca,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,395,258194,192268,184973,5510,1785,DINE definitivo xlsx
+2011,0,14,Córdoba,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,618305,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,319358,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Alianza Frente Amplio Progresista,BINNER - MORANDINI,262103,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,246721,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Alianza Frente Popular,DUHALDE - DAS NEVES,213949,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,66182,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,54706,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,13547,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,6251,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,14,Córdoba,Del Campo Popular,BONACCI - VILLENA,3892,2501744,1884924,1805014,53649,26261,DINE definitivo xlsx
+2011,0,18,Corrientes,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,323923,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,74089,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Alianza Frente Popular,DUHALDE - DAS NEVES,51347,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,20435,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,17093,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Alianza Frente Amplio Progresista,BINNER - MORANDINI,16245,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,3704,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,1524,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,1450,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,18,Corrientes,Del Campo Popular,BONACCI - VILLENA,968,699470,533971,510778,16515,6678,DINE definitivo xlsx
+2011,0,22,Chaco,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,351886,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,125229,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Alianza Frente Popular,DUHALDE - DAS NEVES,39652,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,18682,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,16814,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Alianza Frente Amplio Progresista,BINNER - MORANDINI,16622,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,5058,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,4486,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,3500,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,22,Chaco,Del Campo Popular,BONACCI - VILLENA,1174,761885,597882,583103,10170,4609,DINE definitivo xlsx
+2011,0,26,Chubut,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,139815,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Alianza Frente Popular,DUHALDE - DAS NEVES,71055,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,26343,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Alianza Frente Amplio Progresista,BINNER - MORANDINI,10819,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,7031,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,7015,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,4416,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,3070,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,841,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,26,Chubut,Del Campo Popular,BONACCI - VILLENA,739,359240,281898,271144,4159,6595,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,314681,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,115991,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Alianza Frente Amplio Progresista,BINNER - MORANDINI,90607,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Alianza Frente Popular,DUHALDE - DAS NEVES,84658,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,43723,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,16921,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,7925,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,5567,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,3649,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,30,Entre Ríos,Del Campo Popular,BONACCI - VILLENA,2629,921453,741833,686351,45283,10199,DINE definitivo xlsx
+2011,0,34,Formosa,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,177446,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,38178,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Alianza Frente Popular,DUHALDE - DAS NEVES,16483,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Alianza Frente Amplio Progresista,BINNER - MORANDINI,5801,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,5578,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,5398,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,2072,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,888,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,761,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,34,Formosa,Del Campo Popular,BONACCI - VILLENA,613,360194,268366,253218,12309,2839,DINE definitivo xlsx
+2011,0,38,Jujuy,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,186040,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,61022,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,17223,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Alianza Frente Amplio Progresista,BINNER - MORANDINI,17010,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Alianza Frente Popular,DUHALDE - DAS NEVES,16855,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,10075,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,7290,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,2647,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,1385,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,38,Jujuy,Del Campo Popular,BONACCI - VILLENA,1177,444461,338747,320724,12753,5270,DINE definitivo xlsx
+2011,0,42,La Pampa,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,89773,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,30077,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,22431,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Alianza Frente Popular,DUHALDE - DAS NEVES,21325,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Alianza Frente Amplio Progresista,BINNER - MORANDINI,13099,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,5466,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,2719,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,979,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,900,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,42,La Pampa,Del Campo Popular,BONACCI - VILLENA,515,250206,199281,187284,8591,3406,DINE definitivo xlsx
+2011,0,46,La Rioja,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,68659,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,27189,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,24457,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Alianza Frente Popular,DUHALDE - DAS NEVES,4996,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Alianza Frente Amplio Progresista,BINNER - MORANDINI,4595,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,2261,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,2163,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,602,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,518,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,46,La Rioja,Del Campo Popular,BONACCI - VILLENA,452,231925,173789,135892,35351,2546,DINE definitivo xlsx
+2011,0,50,Mendoza,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,447972,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,193778,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,113769,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Alianza Frente Amplio Progresista,BINNER - MORANDINI,70107,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Alianza Frente Popular,DUHALDE - DAS NEVES,57179,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,27759,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,25148,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,12012,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,3880,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,50,Mendoza,Del Campo Popular,BONACCI - VILLENA,2760,1231472,999577,954364,21570,23643,DINE definitivo xlsx
+2011,0,54,Misiones,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,337470,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,75228,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Alianza Frente Popular,DUHALDE - DAS NEVES,59557,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,17883,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Alianza Frente Amplio Progresista,BINNER - MORANDINI,16058,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,10878,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,4139,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,2379,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,1829,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,54,Misiones,Del Campo Popular,BONACCI - VILLENA,1077,723007,549832,526498,18730,4604,DINE definitivo xlsx
+2011,0,58,Neuquén,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,163432,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,32609,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Alianza Frente Amplio Progresista,BINNER - MORANDINI,29117,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Alianza Frente Popular,DUHALDE - DAS NEVES,26258,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,15506,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,14235,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,6701,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,4049,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,2236,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,58,Neuquén,Del Campo Popular,BONACCI - VILLENA,1364,406828,326173,295507,21786,8880,DINE definitivo xlsx
+2011,0,62,Río Negro,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,195830,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,43585,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Alianza Frente Popular,DUHALDE - DAS NEVES,22887,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Alianza Frente Amplio Progresista,BINNER - MORANDINI,21324,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,15670,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,11459,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,8604,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,3840,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,1711,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,62,Río Negro,Del Campo Popular,BONACCI - VILLENA,1057,440100,340250,325967,6636,7647,DINE definitivo xlsx
+2011,0,66,Salta,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,364705,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,78308,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Alianza Frente Popular,DUHALDE - DAS NEVES,46543,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Alianza Frente Amplio Progresista,BINNER - MORANDINI,29256,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,24519,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,17117,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,14226,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,3484,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,2008,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,66,Salta,Del Campo Popular,BONACCI - VILLENA,1643,819998,600725,581809,11992,6924,DINE definitivo xlsx
+2011,0,70,San Juan,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,209730,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,53758,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,24236,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Alianza Frente Popular,DUHALDE - DAS NEVES,12382,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Alianza Frente Amplio Progresista,BINNER - MORANDINI,8610,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,6422,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,3463,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,1920,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Del Campo Popular,BONACCI - VILLENA,479,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,70,San Juan,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,359,468845,364556,321359,39111,4086,DINE definitivo xlsx
+2011,0,74,San Luis,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,117975,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,61816,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,24451,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Alianza Frente Amplio Progresista,BINNER - MORANDINI,6213,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Alianza Frente Popular,DUHALDE - DAS NEVES,4498,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,3578,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,1579,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,925,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,148,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,74,San Luis,Del Campo Popular,BONACCI - VILLENA,21,311931,249723,221204,25059,3460,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,92414,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,20195,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Alianza Frente Popular,DUHALDE - DAS NEVES,7409,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Alianza Frente Amplio Progresista,BINNER - MORANDINI,6775,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,4543,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,4229,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,3706,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,969,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,451,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,78,Santa Cruz,Del Campo Popular,BONACCI - VILLENA,312,199721,147415,141003,3449,2963,DINE definitivo xlsx
+2011,0,82,Santa Fe,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,676812,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Alianza Frente Amplio Progresista,BINNER - MORANDINI,585682,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Alianza Frente Popular,DUHALDE - DAS NEVES,207293,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,116807,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,97738,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,59151,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,23983,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,12573,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Del Campo Popular,BONACCI - VILLENA,3636,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,82,Santa Fe,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,1867,2440284,1844271,1785542,31694,27035,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,336339,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,27062,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Alianza Frente Popular,DUHALDE - DAS NEVES,26011,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Alianza Frente Amplio Progresista,BINNER - MORANDINI,10027,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,7215,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,4579,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,4070,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,1254,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,961,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,86,Santiago del Estero,Del Campo Popular,BONACCI - VILLENA,559,601790,425547,418077,5043,2427,DINE definitivo xlsx
+2011,0,90,Tucumán,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,519534,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,112860,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Alianza Frente Popular,DUHALDE - DAS NEVES,46081,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Alianza Frente Amplio Progresista,BINNER - MORANDINI,45695,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,34695,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,15940,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,15179,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Alianza Proyecto Sur,ARGUMEDO - CARDELLI,4329,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Del Campo Popular,BONACCI - VILLENA,1684,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,90,Tucumán,Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,1453,1018266,836898,797450,27536,11912,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,40393,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Alianza Unión para el Desarrollo Social,ALFONSÍN - GONZÁLEZ FRAGA,6735,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Alianza Frente Popular,DUHALDE - DAS NEVES,4832,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Alianza Frente Amplio Progresista,BINNER - MORANDINI,4616,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Alianza Compromiso Federal,RODRÍGUEZ SAÁ - VERNET,4588,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,2093,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,1286,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Alianza Proyecto Sur,ARGUMEDO - CARDELLI,430,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Movimiento de Acción Vecinal,PASTORE - RODRÍGUEZ,371,99951,72517,65506,4767,2244,DINE definitivo xlsx
+2011,0,94,"Tierra del Fuego, AeIAS",Del Campo Popular,BONACCI - VILLENA,162,99951,72517,65506,4767,2244,DINE definitivo xlsx
 2011,1,02,Ciudad Autónoma de Buenos Aires,Alianza Frente para la Victoria,FERNÁNDEZ DE KIRCHNER - BOUDOU,660275,2511197,1934230,1880543,35333,18354,DINE definitivo xlsx
 2011,1,02,Ciudad Autónoma de Buenos Aires,Alianza Frente Amplio Progresista,BINNER - MORANDINI,522979,2511197,1934230,1880543,35333,18354,DINE definitivo xlsx
 2011,1,02,Ciudad Autónoma de Buenos Aires,Alianza Frente Popular,DUHALDE - DAS NEVES,192503,2511197,1934230,1880543,35333,18354,DINE definitivo xlsx
@@ -1844,6 +2084,366 @@ anio,vuelta,codigo_indec,provincia,partido,formula,votos,electores,votantes,posi
 2011,1,94,"Tierra del Fuego, AeIAS",Alianza Frente Popular,DUHALDE - DAS NEVES,2510,100096,73356,70824,1182,1350,DINE definitivo xlsx
 2011,1,94,"Tierra del Fuego, AeIAS",Alianza Frente de Izquierda y de los Trabajadores,ALTAMIRA - CASTILLO,1370,100096,73356,70824,1182,1350,DINE definitivo xlsx
 2011,1,94,"Tierra del Fuego, AeIAS",Coalición Cívica - Afirmación para una República Igualitaria,CARRIÓ - PÉREZ,1063,100096,73356,70824,1182,1350,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",765805,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",426934,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",215062,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",123108,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",70614,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",61241,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",45719,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",37154,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",29717,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",21085,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",10562,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",10318,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",9587,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",3498,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1593,2551306,1883050,1831997,36114,14939,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",3418176,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",2136361,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",1577724,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",367227,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",201185,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",197049,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",176888,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",164063,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",130008,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",95756,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",42263,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",38639,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",33848,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",20647,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,06,Buenos Aires,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",12782,11861894,9135239,8612616,457240,65383,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",97103,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",44145,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",18115,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",16652,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",7775,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",1822,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",1327,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",1256,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",1064,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",771,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",619,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",543,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",412,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",361,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,10,Catamarca,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",348,294143,219455,192313,26037,1105,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",635864,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",566109,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",280740,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",108157,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",69155,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",57298,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",44422,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",42922,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",41134,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",29516,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",10315,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",9302,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",8570,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",7832,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,14,Córdoba,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",5589,2789055,1985822,1916925,44888,24009,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",290172,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",105183,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",75729,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",50229,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",16497,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",14070,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",5850,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",3225,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",3093,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",2427,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",2301,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",2282,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1521,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",1311,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,18,Corrientes,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",1297,810712,605900,575187,25418,5295,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",333269,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",94697,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",58346,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",44225,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",18030,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",17432,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",9546,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",7752,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",4035,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",3317,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",3129,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",2982,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",2468,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",1760,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,22,Chaco,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",993,864683,621412,601981,15914,3517,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",112425,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",44361,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",36362,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",8768,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",8003,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",7020,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",2834,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",2803,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",2500,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",2329,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",1993,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",1889,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",1730,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",1441,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,26,Chubut,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",844,416652,318754,235302,76930,6522,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",287200,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",200676,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",105836,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",40248,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",24334,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",22854,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",11896,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",7106,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",4871,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",4301,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",4202,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",3581,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",3193,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",1917,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,30,Entre Ríos,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1198,1031024,835768,723413,103212,9143,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",181912,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",38596,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",35021,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",12539,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",10153,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",4179,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",3279,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",2877,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",1457,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",1350,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",1188,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",1064,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",810,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",563,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,34,Formosa,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",90,421702,306682,295078,9154,2450,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",157209,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",72712,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",60815,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",28194,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",20132,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",10367,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",5319,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",5193,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",4191,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",2738,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",2002,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",1981,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",1834,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",974,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,38,Jujuy,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",768,511624,394610,374429,15200,4981,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",81499,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",51770,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",22884,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",12275,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",8914,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",6984,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",5409,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",4381,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",2344,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",1697,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",1002,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",995,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",826,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",594,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,42,La Pampa,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",406,274248,213552,201980,9179,2393,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",68818,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",37583,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",24618,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",16370,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",7081,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",5396,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",2663,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",1561,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",1146,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",843,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",645,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",612,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",602,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",557,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,46,La Rioja,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",336,269047,178473,168831,7974,1668,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",336797,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",259539,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",97710,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",90799,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",83459,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",52545,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",36837,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",13974,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",13251,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",7183,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",3939,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",3060,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",3013,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",2534,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,50,Mendoza,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1577,1363969,1071897,1006217,49465,16215,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",355537,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",85361,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",51361,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",39561,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",36222,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",14990,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",7391,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",4521,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",4176,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",3870,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",3765,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",3217,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",2941,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",2908,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,54,Misiones,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1404,851144,650907,617225,27190,6492,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",115769,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",72573,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",49758,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",20790,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",12367,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",9870,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",9855,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",7847,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",7397,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",6477,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",2705,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",2621,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",2503,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",2416,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,58,Neuquén,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1413,470217,376593,324361,42212,10020,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",160751,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",64120,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",56095,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",20780,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",11208,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",9545,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",7595,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",6775,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",6243,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",5748,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",3155,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",2500,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",1812,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",1648,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,62,Río Negro,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",965,512587,377620,358940,11628,7052,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",273686,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",134316,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",108026,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",37630,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",16009,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",9787,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",7731,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",7225,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",4323,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",3590,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",3580,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",2570,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",2263,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",2031,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,66,Salta,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1080,956439,643287,613847,22510,6930,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",216245,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",60847,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",57451,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",26398,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",15283,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",5709,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",4615,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",1978,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",1638,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",1498,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",1223,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",1223,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",716,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",449,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,70,San Juan,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",384,536604,430869,395657,31265,3947,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",111989,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",51589,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",48186,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",12277,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",7675,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",3501,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",3266,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",1918,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",1701,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",1220,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",942,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",580,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",507,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",436,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,74,San Luis,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",189,358271,291851,245976,41913,3962,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",73042,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",30162,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",23713,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",10271,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",6526,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",5241,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",5190,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",2525,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",1871,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",1699,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",1186,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",1061,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",905,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",470,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,78,Santa Cruz,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",425,237523,171806,164287,3937,3582,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",550970,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",434764,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",227714,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",140979,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",102997,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",57643,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",47438,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",40991,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",21064,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",16057,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",8257,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",6324,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",6220,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",4468,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,82,Santa Fe,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",2364,2687061,1805363,1668250,98878,38235,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",311640,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",59518,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",57264,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",10590,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",4975,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",4543,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",4154,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",3270,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",2409,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",2312,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",1787,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",1716,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",1376,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",1295,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,86,Santiago del Estero,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",725,699513,481868,467574,12121,2173,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",501039,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",143915,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",92504,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",49023,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",19036,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",12500,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",12098,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre De Alonso, Liliana Teresita",9155,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",8942,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",8424,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",3600,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",3578,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",3032,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",2922,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,90,Tucumán,MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",1869,1171255,928154,871637,45188,11329,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA FRENTE PARA LA VICTORIA,"Scioli, Daniel Osvaldo - Zannini, Carlos Alberto",41454,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA CAMBIEMOS,"Macri, Mauricio - Michetti, Marta Gabriela",16123,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"Massa, Sergio Tomás - Ruberto Sáenz, Gustavo Adolfo",12396,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),"de la Sota, José Manuel - Rucci, Claudia Mónica",5686,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA CAMBIEMOS,"Carrió, Elisa María Avelina - Flores, Héctor Antonio",2098,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA PROGRESISTAS,"Stolbizer, Margarita Rosa - Olaviaga, Miguel Ángel",2075,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA COMPROMISO FEDERAL,"Rodríguez Saá, Adolfo - Negre de Alonso, Liliana Teresita",1711,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"del Caño, Nicolás - Bregman, Myriam Teresa",1269,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA CAMBIEMOS,"Sanz, Ernesto Ricardo - Llach, Lucas",1117,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES,"Altamira, Jorge - Giordano, Juan Carlos",1082,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO AL SOCIALISMO,"Castañeira, Manuela Jimena - Ayala, Jorge Luis",726,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",ALIANZA FRENTE POPULAR,"De Gennaro, Víctor Norberto - Codoni, Evangelina Soledad",499,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",MST - NUEVA IZQUIERDA,"Bodart, Hugo Alejandro - Ripoll, Vilma Ana",366,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",PARTIDO POPULAR,"Yattah, Mauricio Jorge - Moretta, María Belén",288,126968,92884,87053,3067,2764,DINE definitivo xlsx
+2015,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO DE ACCIÓN VECINAL,"Albarracín, Raúl Humberto - Dib, Gastón",163,126968,92884,87053,3067,2764,DINE definitivo xlsx
 2015,1,02,Ciudad Autónoma de Buenos Aires,ALIANZA CAMBIEMOS,,1001379,2568598,2011868,1978632,21162,12074,DINE definitivo xlsx
 2015,1,02,Ciudad Autónoma de Buenos Aires,ALIANZA FRENTE PARA LA VICTORIA,,476632,2568598,2011868,1978632,21162,12074,DINE definitivo xlsx
 2015,1,02,Ciudad Autónoma de Buenos Aires,ALIANZA UNIDOS POR UNA NUEVA ALTERNATIVA (UNA),,302065,2568598,2011868,1978632,21162,12074,DINE definitivo xlsx
@@ -2036,6 +2636,246 @@ anio,vuelta,codigo_indec,provincia,partido,formula,votos,electores,votantes,posi
 2015,2,90,Tucumán,ALIANZA CAMBIEMOS,,398197,1171255,976775,961893,6054,8828,DINE definitivo xlsx
 2015,2,94,"Tierra del Fuego, AeIAS",ALIANZA FRENTE PARA LA VICTORIA,,54503,127060,95708,92910,579,2219,DINE definitivo xlsx
 2015,2,94,"Tierra del Fuego, AeIAS",ALIANZA CAMBIEMOS,,38407,127060,95708,92910,579,2219,DINE definitivo xlsx
+2019,0,02,Ciudad Autónoma de Buenos Aires,JUNTOS POR EL CAMBIO,Mauricio Macri,863169,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,FRENTE DE TODOS,Alberto Fernández,637891,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,CONSENSO FEDERAL,Roberto Lavagna,168607,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,75746,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,68828,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,FRENTE NOS,Juan Gomez,22592,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,21470,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,FRENTE PATRIOTA,Alejandro Biondini,5172,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,2406,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,02,Ciudad Autónoma de Buenos Aires,PARTIDO AUTONOMISTA,José Romero,2126,2565523,1950547,1868007,62397,20143,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,FRENTE DE TODOS,Alberto Fernández,4661554,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,JUNTOS POR EL CAMBIO,Mauricio Macri,2749946,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,CONSENSO FEDERAL,Roberto Lavagna,711181,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,319253,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,174887,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,FRENTE NOS,Juan Gomez,171376,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,71935,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,FRENTE PATRIOTA,Alejandro Biondini,22581,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,PARTIDO AUTONOMISTA,José Romero,8783,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,06,Buenos Aires,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,5908,12348284,9279760,8897404,304904,77452,DINE provisorio mesa CSV
+2019,0,10,Catamarca,FRENTE DE TODOS,Alberto Fernández,107870,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,JUNTOS POR EL CAMBIO,Mauricio Macri,48196,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,CONSENSO FEDERAL,Roberto Lavagna,12049,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,2502,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,FRENTE NOS,Juan Gomez,1953,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,708,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,FRENTE PATRIOTA,Alejandro Biondini,366,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,284,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,177,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,10,Catamarca,PARTIDO AUTONOMISTA,José Romero,7,293416,190302,174112,13915,2275,DINE provisorio mesa CSV
+2019,0,14,Córdoba,JUNTOS POR EL CAMBIO,Mauricio Macri,998318,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,FRENTE DE TODOS,Alberto Fernández,629804,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,CONSENSO FEDERAL,Roberto Lavagna,164047,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,FRENTE NOS,Juan Gomez,59033,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,55482,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,53827,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,16978,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,7338,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,FRENTE PATRIOTA,Alejandro Biondini,4169,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,14,Córdoba,PARTIDO AUTONOMISTA,José Romero,3023,2939905,2111750,1992019,79851,39880,DINE provisorio mesa CSV
+2019,0,18,Corrientes,FRENTE DE TODOS,Alberto Fernández,327999,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,JUNTOS POR EL CAMBIO,Mauricio Macri,205099,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,CONSENSO FEDERAL,Roberto Lavagna,30488,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,FRENTE NOS,Juan Gomez,21547,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,9342,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,6909,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,PARTIDO AUTONOMISTA,José Romero,4757,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,2787,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,FRENTE PATRIOTA,Alejandro Biondini,1108,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,18,Corrientes,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,935,872131,627948,610971,7817,9160,DINE provisorio mesa CSV
+2019,0,22,Chaco,FRENTE DE TODOS,Alberto Fernández,309957,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,JUNTOS POR EL CAMBIO,Mauricio Macri,141379,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,FRENTE NOS,Juan Gomez,26639,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,CONSENSO FEDERAL,Roberto Lavagna,19042,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,8962,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,7394,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,1876,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,FRENTE PATRIOTA,Alejandro Biondini,1222,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,855,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,22,Chaco,PARTIDO AUTONOMISTA,José Romero,629,793470,562069,517955,35910,8204,DINE provisorio mesa CSV
+2019,0,26,Chubut,FRENTE DE TODOS,Alberto Fernández,156896,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,JUNTOS POR EL CAMBIO,Mauricio Macri,70005,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,CONSENSO FEDERAL,Roberto Lavagna,25211,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,FRENTE NOS,Juan Gomez,13975,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,10927,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,7538,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,3009,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,FRENTE PATRIOTA,Alejandro Biondini,1012,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,724,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,26,Chubut,PARTIDO AUTONOMISTA,José Romero,561,439293,315803,289858,17863,8082,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,FRENTE DE TODOS,Alberto Fernández,368124,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,JUNTOS POR EL CAMBIO,Mauricio Macri,293477,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,CONSENSO FEDERAL,Roberto Lavagna,69983,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,FRENTE NOS,Juan Gomez,20851,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,19075,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,16230,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,7359,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,FRENTE PATRIOTA,Alejandro Biondini,2085,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,1924,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,30,Entre Ríos,PARTIDO AUTONOMISTA,José Romero,1208,1099749,825812,800316,15407,10089,DINE provisorio mesa CSV
+2019,0,34,Formosa,FRENTE DE TODOS,Alberto Fernández,210732,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,JUNTOS POR EL CAMBIO,Mauricio Macri,77540,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,CONSENSO FEDERAL,Roberto Lavagna,11830,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,FRENTE NOS,Juan Gomez,7684,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,4185,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,2544,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,868,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,FRENTE PATRIOTA,Alejandro Biondini,616,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,363,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,34,Formosa,PARTIDO AUTONOMISTA,José Romero,299,452225,322589,316661,3090,2838,DINE provisorio mesa CSV
+2019,0,38,Jujuy,FRENTE DE TODOS,Alberto Fernández,158175,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,JUNTOS POR EL CAMBIO,Mauricio Macri,99892,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,CONSENSO FEDERAL,Roberto Lavagna,34348,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,FRENTE NOS,Juan Gomez,14454,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,11154,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,9239,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,1560,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,FRENTE PATRIOTA,Alejandro Biondini,883,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,853,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,38,Jujuy,PARTIDO AUTONOMISTA,José Romero,302,550625,349642,330860,12405,6377,DINE provisorio mesa CSV
+2019,0,42,La Pampa,FRENTE DE TODOS,Alberto Fernández,106741,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,JUNTOS POR EL CAMBIO,Mauricio Macri,68910,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,CONSENSO FEDERAL,Roberto Lavagna,16981,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,FRENTE NOS,Juan Gomez,5433,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,4802,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,4016,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,2474,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,FRENTE PATRIOTA,Alejandro Biondini,622,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,489,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,42,La Pampa,PARTIDO AUTONOMISTA,José Romero,405,286632,215749,210873,2229,2647,DINE provisorio mesa CSV
+2019,0,46,La Rioja,FRENTE DE TODOS,Alberto Fernández,95391,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,JUNTOS POR EL CAMBIO,Mauricio Macri,59832,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,CONSENSO FEDERAL,Roberto Lavagna,13856,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,FRENTE NOS,Juan Gomez,4002,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,3852,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,3672,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,1438,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,FRENTE PATRIOTA,Alejandro Biondini,502,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,496,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,46,La Rioja,PARTIDO AUTONOMISTA,José Romero,350,288013,192499,183391,5659,3449,DINE provisorio mesa CSV
+2019,0,50,Mendoza,FRENTE DE TODOS,Alberto Fernández,440783,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,JUNTOS POR EL CAMBIO,Mauricio Macri,406517,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,CONSENSO FEDERAL,Roberto Lavagna,100687,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,45475,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,FRENTE NOS,Juan Gomez,41905,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,25974,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,6059,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,FRENTE PATRIOTA,Alejandro Biondini,3315,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,2737,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,50,Mendoza,PARTIDO AUTONOMISTA,José Romero,1975,1412888,1109902,1075427,13388,21087,DINE provisorio mesa CSV
+2019,0,54,Misiones,FRENTE DE TODOS,Alberto Fernández,368265,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,JUNTOS POR EL CAMBIO,Mauricio Macri,172424,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,FRENTE NOS,Juan Gomez,35355,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,CONSENSO FEDERAL,Roberto Lavagna,33942,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,11508,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,8034,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,3042,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,FRENTE PATRIOTA,Alejandro Biondini,1527,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,1229,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,54,Misiones,PARTIDO AUTONOMISTA,José Romero,682,922519,665719,636008,20374,9337,DINE provisorio mesa CSV
+2019,0,58,Neuquén,FRENTE DE TODOS,Alberto Fernández,170824,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,JUNTOS POR EL CAMBIO,Mauricio Macri,105843,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,CONSENSO FEDERAL,Roberto Lavagna,28910,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,17522,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,FRENTE NOS,Juan Gomez,16561,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,8862,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,3710,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,FRENTE PATRIOTA,Alejandro Biondini,1766,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,1247,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,58,Neuquén,PARTIDO AUTONOMISTA,José Romero,877,501572,395438,356122,29600,9716,DINE provisorio mesa CSV
+2019,0,62,Río Negro,FRENTE DE TODOS,Alberto Fernández,218871,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,JUNTOS POR EL CAMBIO,Mauricio Macri,91031,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,CONSENSO FEDERAL,Roberto Lavagna,28531,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,FRENTE NOS,Juan Gomez,18504,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,11964,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,9135,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,3328,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,FRENTE PATRIOTA,Alejandro Biondini,1094,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,989,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,62,Río Negro,PARTIDO AUTONOMISTA,José Romero,620,554411,413497,384067,20461,8969,DINE provisorio mesa CSV
+2019,0,66,Salta,FRENTE DE TODOS,Alberto Fernández,333898,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,JUNTOS POR EL CAMBIO,Mauricio Macri,141660,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,CONSENSO FEDERAL,Roberto Lavagna,127819,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,FRENTE NOS,Juan Gomez,26879,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,18219,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,17022,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,3929,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,FRENTE PATRIOTA,Alejandro Biondini,2155,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,1763,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,66,Salta,PARTIDO AUTONOMISTA,José Romero,902,1017246,697073,674246,9362,13465,DINE provisorio mesa CSV
+2019,0,70,San Juan,FRENTE DE TODOS,Alberto Fernández,233155,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,JUNTOS POR EL CAMBIO,Mauricio Macri,111971,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,CONSENSO FEDERAL,Roberto Lavagna,42140,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,FRENTE NOS,Juan Gomez,12471,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,6180,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,6072,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,1958,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,793,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,FRENTE PATRIOTA,Alejandro Biondini,782,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,70,San Juan,PARTIDO AUTONOMISTA,José Romero,218,560128,429555,415740,8561,5254,DINE provisorio mesa CSV
+2019,0,74,San Luis,FRENTE DE TODOS,Alberto Fernández,121974,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,JUNTOS POR EL CAMBIO,Mauricio Macri,94017,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,CONSENSO FEDERAL,Roberto Lavagna,24155,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,FRENTE NOS,Juan Gomez,10476,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,7805,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,6285,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,2443,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,FRENTE PATRIOTA,Alejandro Biondini,1034,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,999,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,74,San Luis,PARTIDO AUTONOMISTA,José Romero,652,383291,280750,269840,5906,5004,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,FRENTE DE TODOS,Alberto Fernández,80544,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,JUNTOS POR EL CAMBIO,Mauricio Macri,32939,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,CONSENSO FEDERAL,Roberto Lavagna,11032,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,FRENTE NOS,Juan Gomez,5351,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,4940,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,2990,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,959,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,FRENTE PATRIOTA,Alejandro Biondini,313,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,136,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,78,Santa Cruz,PARTIDO AUTONOMISTA,José Romero,114,247224,174103,139318,32144,2641,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,FRENTE DE TODOS,Alberto Fernández,856320,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,JUNTOS POR EL CAMBIO,Mauricio Macri,663515,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,CONSENSO FEDERAL,Roberto Lavagna,238554,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,FRENTE NOS,Juan Gomez,59250,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,57753,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,38260,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,11069,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,FRENTE PATRIOTA,Alejandro Biondini,3639,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,PARTIDO AUTONOMISTA,José Romero,2975,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,82,Santa Fe,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,2272,2751264,2010522,1933607,27328,49587,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,FRENTE DE TODOS,Alberto Fernández,413354,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,JUNTOS POR EL CAMBIO,Mauricio Macri,75691,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,CONSENSO FEDERAL,Roberto Lavagna,19570,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,FRENTE NOS,Juan Gomez,10175,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,5845,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,4796,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,1406,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,FRENTE PATRIOTA,Alejandro Biondini,936,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,576,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,86,Santiago del Estero,PARTIDO AUTONOMISTA,José Romero,372,753651,550798,532721,13577,4500,DINE provisorio mesa CSV
+2019,0,90,Tucumán,FRENTE DE TODOS,Alberto Fernández,560587,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,JUNTOS POR EL CAMBIO,Mauricio Macri,234729,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,CONSENSO FEDERAL,Roberto Lavagna,65352,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,FRENTE NOS,Juan Gomez,31624,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,15161,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,14634,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,2362,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,FRENTE PATRIOTA,Alejandro Biondini,1391,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,809,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,90,Tucumán,PARTIDO AUTONOMISTA,José Romero,570,1249130,954297,927219,14237,12841,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",FRENTE DE TODOS,Alberto Fernández,52719,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",JUNTOS POR EL CAMBIO,Mauricio Macri,19108,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",CONSENSO FEDERAL,Roberto Lavagna,8720,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",FRENTE NOS,Juan Gomez,4572,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño,3061,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert,2836,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO AL SOCIALISMO,Manuela Castañeira,858,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",FRENTE PATRIOTA,Alejandro Biondini,285,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO DE ACCION VECINAL,Raúl Albarracin,199,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
+2019,0,94,"Tierra del Fuego, AeIAS",PARTIDO AUTONOMISTA,José Romero,155,137086,97890,92513,2603,2774,DINE provisorio mesa CSV
 2019,1,02,Ciudad Autónoma de Buenos Aires,JUNTOS POR EL CAMBIO,Mauricio Macri - Miguel Pichetto,1068134,2710325,2075434,2029206,31085,15143,DINE definitivo xlsx
 2019,1,02,Ciudad Autónoma de Buenos Aires,FRENTE DE TODOS,Alberto Fernández - Cristina Fernández,719655,2710325,2075434,2029206,31085,15143,DINE definitivo xlsx
 2019,1,02,Ciudad Autónoma de Buenos Aires,CONSENSO FEDERAL,Roberto Lavagna - Juan Urtubey,130475,2710325,2075434,2029206,31085,15143,DINE definitivo xlsx
@@ -2180,6 +3020,606 @@ anio,vuelta,codigo_indec,provincia,partido,formula,votos,electores,votantes,posi
 2019,1,94,"Tierra del Fuego, AeIAS",FRENTE NOS,Juan Gomez - Cynthia Hotton,3925,138264,104897,101689,1340,1868,DINE definitivo xlsx
 2019,1,94,"Tierra del Fuego, AeIAS",UNITE POR LA LIBERTAD Y LA DIGNIDAD,José Espert - Luis Rosales,2803,138264,104897,101689,1340,1868,DINE definitivo xlsx
 2019,1,94,"Tierra del Fuego, AeIAS",FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,Nicolás Del Caño - Romina Del Pla,2760,138264,104897,101689,1340,1868,DINE definitivo xlsx
+2023,0,02,Ciudad Autónoma de Buenos Aires,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,476010,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,337254,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,299097,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,UNION POR LA PATRIA,MASSA - ROSSI,276942,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,120112,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,62254,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,PRINCIPIOS Y VALORES,,22233,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,15886,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,15760,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO AL SOCIALISMO,,7198,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,4937,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,POLITICA OBRERA,,4454,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO LIBRES DEL SUR,,3754,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,FRENTE PATRIOTA FEDERAL,,2715,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO DE ACCION VECINAL,,2691,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,UNION DEL CENTRO DEMOCRATICO,,2230,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1249,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,FRENTE LIBER.AR,,105,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,FRENTE LIBER.AR,,41,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,PROYECTO JOVEN,,23,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,FRENTE LIBER.AR,,21,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,PROYECTO JOVEN,,20,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,02,Ciudad Autónoma de Buenos Aires,PROYECTO JOVEN,,18,2528223,1700085,1655004,28143,16938,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,2161679,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,UNION POR LA PATRIA,MASSA - ROSSI,2069920,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,1448907,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,1118933,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,761158,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,209110,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,97586,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,84491,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,PRINCIPIOS Y VALORES,,77614,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,MOVIMIENTO LIBRES DEL SUR,,41840,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,MOVIMIENTO AL SOCIALISMO,,32230,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,25324,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,FRENTE PATRIOTA FEDERAL,,19974,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,POLITICA OBRERA,,19572,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,MOVIMIENTO DE ACCION VECINAL,,12795,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,FRENTE LIBER.AR,,10159,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,9405,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,UNION DEL CENTRO DEMOCRATICO,,7400,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,PROYECTO JOVEN,,7317,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,PROYECTO JOVEN,,7060,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,FRENTE LIBER.AR,,4675,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,PROYECTO JOVEN,,2062,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,06,Buenos Aires,FRENTE LIBER.AR,,989,13115144,8902113,8230200,582843,89070,DINE provisorio mesa CSV
+2023,0,10,Catamarca,UNION POR LA PATRIA,MASSA - ROSSI,83099,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,53778,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,24046,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,20498,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,4414,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,3530,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,1580,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,MOVIMIENTO LIBRES DEL SUR,,1245,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,1222,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,POLITICA OBRERA,,745,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,MOVIMIENTO AL SOCIALISMO,,557,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,FRENTE PATRIOTA FEDERAL,,394,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,MOVIMIENTO DE ACCION VECINAL,,385,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,323,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,264,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PRINCIPIOS Y VALORES,,67,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,FRENTE LIBER.AR,,57,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,UNION DEL CENTRO DEMOCRATICO,,17,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PROYECTO JOVEN,,13,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,FRENTE LIBER.AR,,7,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PRINCIPIOS Y VALORES,,7,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PROYECTO JOVEN,,4,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PRINCIPIOS Y VALORES,,3,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PRINCIPIOS Y VALORES,,3,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PROYECTO JOVEN,,3,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,FRENTE LIBER.AR,,1,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,10,Catamarca,PRINCIPIOS Y VALORES,,1,340478,220286,196263,21221,2802,DINE provisorio mesa CSV
+2023,0,14,Córdoba,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,688684,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,564182,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,384685,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,130771,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,UNION POR LA PATRIA,MASSA - ROSSI,126219,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,51309,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,19752,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,11383,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,PRINCIPIOS Y VALORES,,10419,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,MOVIMIENTO LIBRES DEL SUR,,4565,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,MOVIMIENTO AL SOCIALISMO,,3893,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,FRENTE PATRIOTA FEDERAL,,2867,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,MOVIMIENTO DE ACCION VECINAL,,2471,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,2404,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,PROYECTO JOVEN,,2144,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,POLITICA OBRERA,,2123,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,PRINCIPIOS Y VALORES,,1934,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,FRENTE LIBER.AR,,1564,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,FRENTE LIBER.AR,,1512,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,PRINCIPIOS Y VALORES,,1431,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1009,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,PROYECTO JOVEN,,760,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,PROYECTO JOVEN,,731,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,14,Córdoba,UNION DEL CENTRO DEMOCRATICO,,61,3063956,2073669,2016873,31802,24994,DINE provisorio mesa CSV
+2023,0,18,Corrientes,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,181456,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,UNION POR LA PATRIA,MASSA - ROSSI,161865,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,145964,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,67140,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,20793,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,8929,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,3836,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,MOVIMIENTO LIBRES DEL SUR,,3770,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PRINCIPIOS Y VALORES,,3189,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,MOVIMIENTO AL SOCIALISMO,,2686,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,2219,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,POLITICA OBRERA,,1449,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,MOVIMIENTO DE ACCION VECINAL,,1358,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1169,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,FRENTE PATRIOTA FEDERAL,,969,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,918,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PROYECTO JOVEN,,56,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PRINCIPIOS Y VALORES,,53,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,UNION DEL CENTRO DEMOCRATICO,,43,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,FRENTE LIBER.AR,,41,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,FRENTE LIBER.AR,,34,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PRINCIPIOS Y VALORES,,17,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PROYECTO JOVEN,,16,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PRINCIPIOS Y VALORES,,14,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PRINCIPIOS Y VALORES,,13,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,FRENTE LIBER.AR,,7,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,18,Corrientes,PROYECTO JOVEN,,3,933441,631006,608007,13636,9363,DINE provisorio mesa CSV
+2023,0,22,Chaco,UNION POR LA PATRIA,MASSA - ROSSI,199837,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,180599,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,96192,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,69529,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,16420,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,8833,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,MOVIMIENTO LIBRES DEL SUR,,6141,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PRINCIPIOS Y VALORES,,4150,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,4125,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,3585,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,MOVIMIENTO AL SOCIALISMO,,2437,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,POLITICA OBRERA,,2035,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,FRENTE PATRIOTA FEDERAL,,1490,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,MOVIMIENTO DE ACCION VECINAL,,1211,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1156,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1108,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,FRENTE LIBER.AR,,130,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PROYECTO JOVEN,,84,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,FRENTE LIBER.AR,,77,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,FRENTE LIBER.AR,,46,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PRINCIPIOS Y VALORES,,44,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PROYECTO JOVEN,,39,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,UNION DEL CENTRO DEMOCRATICO,,21,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PRINCIPIOS Y VALORES,,15,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PRINCIPIOS Y VALORES,,14,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PRINCIPIOS Y VALORES,,9,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,22,Chaco,PROYECTO JOVEN,,6,1001910,630428,599333,24804,6291,DINE provisorio mesa CSV
+2023,0,26,Chubut,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,124030,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,UNION POR LA PATRIA,MASSA - ROSSI,52536,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,46785,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,29818,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,19294,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,7587,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,6656,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,3763,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,PRINCIPIOS Y VALORES,,3094,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,MOVIMIENTO AL SOCIALISMO,,1959,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,MOVIMIENTO LIBRES DEL SUR,,1926,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,POLITICA OBRERA,,1367,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1022,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,FRENTE PATRIOTA FEDERAL,,905,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,MOVIMIENTO DE ACCION VECINAL,,819,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,128,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,UNION DEL CENTRO DEMOCRATICO,,96,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,FRENTE LIBER.AR,,90,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,FRENTE LIBER.AR,,63,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,PROYECTO JOVEN,,27,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,PROYECTO JOVEN,,26,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,PROYECTO JOVEN,,22,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,PRINCIPIOS Y VALORES,,17,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,PRINCIPIOS Y VALORES,,15,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,FRENTE LIBER.AR,,6,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,26,Chubut,PRINCIPIOS Y VALORES,,1,474701,323155,302052,12685,8418,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,UNION POR LA PATRIA,MASSA - ROSSI,180436,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,176164,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,166823,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,90440,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,52134,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,9425,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,5671,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PRINCIPIOS Y VALORES,,4767,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,4365,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,MOVIMIENTO AL SOCIALISMO,,1885,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,FRENTE PATRIOTA FEDERAL,,1643,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,POLITICA OBRERA,,1477,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,MOVIMIENTO LIBRES DEL SUR,,1456,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1343,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,MOVIMIENTO DE ACCION VECINAL,,1238,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,912,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,FRENTE LIBER.AR,,375,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,FRENTE LIBER.AR,,201,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PROYECTO JOVEN,,64,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,UNION DEL CENTRO DEMOCRATICO,,52,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PRINCIPIOS Y VALORES,,48,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PRINCIPIOS Y VALORES,,39,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,FRENTE LIBER.AR,,37,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PRINCIPIOS Y VALORES,,32,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PROYECTO JOVEN,,17,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PRINCIPIOS Y VALORES,,15,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,30,Entre Ríos,PROYECTO JOVEN,,10,1144216,814030,701069,100046,12915,DINE provisorio mesa CSV
+2023,0,34,Formosa,UNION POR LA PATRIA,MASSA - ROSSI,142965,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,80753,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,46650,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,22089,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,4627,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,3208,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,MOVIMIENTO LIBRES DEL SUR,,1724,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,1287,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,829,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,MOVIMIENTO AL SOCIALISMO,,775,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,POLITICA OBRERA,,710,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,MOVIMIENTO DE ACCION VECINAL,,533,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,FRENTE PATRIOTA FEDERAL,,470,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,331,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,329,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,FRENTE LIBER.AR,,119,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,FRENTE LIBER.AR,,45,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PRINCIPIOS Y VALORES,,39,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PROYECTO JOVEN,,39,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PROYECTO JOVEN,,38,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PRINCIPIOS Y VALORES,,31,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,UNION DEL CENTRO DEMOCRATICO,,31,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,FRENTE LIBER.AR,,24,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PROYECTO JOVEN,,20,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PRINCIPIOS Y VALORES,,19,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PRINCIPIOS Y VALORES,,4,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,34,Formosa,PRINCIPIOS Y VALORES,,1,482733,319297,307690,8935,2672,DINE provisorio mesa CSV
+2023,0,38,Jujuy,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,168142,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,76378,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,UNION POR LA PATRIA,MASSA - ROSSI,71980,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,24030,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,22186,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,15334,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,7215,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,6796,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PRINCIPIOS Y VALORES,,2819,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,MOVIMIENTO LIBRES DEL SUR,,1598,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,POLITICA OBRERA,,1423,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,MOVIMIENTO AL SOCIALISMO,,1124,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,FRENTE PATRIOTA FEDERAL,,905,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,MOVIMIENTO DE ACCION VECINAL,,839,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,814,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,713,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,FRENTE LIBER.AR,,281,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,FRENTE LIBER.AR,,115,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PRINCIPIOS Y VALORES,,21,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,FRENTE LIBER.AR,,17,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PROYECTO JOVEN,,13,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PRINCIPIOS Y VALORES,,9,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PRINCIPIOS Y VALORES,,6,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PROYECTO JOVEN,,6,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,UNION DEL CENTRO DEMOCRATICO,,5,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PRINCIPIOS Y VALORES,,4,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,38,Jujuy,PROYECTO JOVEN,,2,590695,428107,402775,19272,6060,DINE provisorio mesa CSV
+2023,0,42,La Pampa,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,66280,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,UNION POR LA PATRIA,MASSA - ROSSI,45208,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,32488,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,24899,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,11726,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,7504,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,2556,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,PRINCIPIOS Y VALORES,,1408,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,1139,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,MOVIMIENTO AL SOCIALISMO,,1133,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,MOVIMIENTO LIBRES DEL SUR,,1000,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,POLITICA OBRERA,,756,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,643,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,FRENTE PATRIOTA FEDERAL,,578,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,MOVIMIENTO DE ACCION VECINAL,,447,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,FRENTE LIBER.AR,,162,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,106,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,UNION DEL CENTRO DEMOCRATICO,,23,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,PRINCIPIOS Y VALORES,,15,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,PRINCIPIOS Y VALORES,,8,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,FRENTE LIBER.AR,,7,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,PROYECTO JOVEN,,4,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,42,La Pampa,FRENTE LIBER.AR,,1,300103,205617,198091,4155,3371,DINE provisorio mesa CSV
+2023,0,46,La Rioja,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,69607,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,UNION POR LA PATRIA,MASSA - ROSSI,53814,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,20483,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,18176,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,13371,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,6346,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,1122,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,747,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,MOVIMIENTO LIBRES DEL SUR,,723,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,MOVIMIENTO AL SOCIALISMO,,564,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,UNION DEL CENTRO DEMOCRATICO,,484,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,FRENTE PATRIOTA FEDERAL,,432,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,PRINCIPIOS Y VALORES,,428,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,POLITICA OBRERA,,426,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,MOVIMIENTO DE ACCION VECINAL,,336,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,335,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,FRENTE LIBER.AR,,54,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,28,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,FRENTE LIBER.AR,,15,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,PRINCIPIOS Y VALORES,,6,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,PROYECTO JOVEN,,6,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,46,La Rioja,PROYECTO JOVEN,,4,304344,192686,187507,3568,1611,DINE provisorio mesa CSV
+2023,0,50,Mendoza,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,466437,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,229636,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,UNION POR LA PATRIA,MASSA - ROSSI,140766,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,64441,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,34756,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,24852,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,MOVIMIENTO LIBRES DEL SUR,,15566,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,13858,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,PRINCIPIOS Y VALORES,,7182,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,6600,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,MOVIMIENTO AL SOCIALISMO,,3986,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,MOVIMIENTO DE ACCION VECINAL,,3416,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,POLITICA OBRERA,,3041,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,FRENTE PATRIOTA FEDERAL,,2588,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,2284,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1532,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,UNION DEL CENTRO DEMOCRATICO,,101,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,PRINCIPIOS Y VALORES,,43,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,FRENTE LIBER.AR,,42,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,PROYECTO JOVEN,,41,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,PRINCIPIOS Y VALORES,,32,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,PRINCIPIOS Y VALORES,,26,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,PRINCIPIOS Y VALORES,,22,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,FRENTE LIBER.AR,,17,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,PROYECTO JOVEN,,4,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,50,Mendoza,FRENTE LIBER.AR,,1,1494214,1059729,1021270,19784,18675,DINE provisorio mesa CSV
+2023,0,54,Misiones,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,277899,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,UNION POR LA PATRIA,MASSA - ROSSI,157074,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,82456,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,40072,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,18296,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,8610,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,4964,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,MOVIMIENTO LIBRES DEL SUR,,4740,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PRINCIPIOS Y VALORES,,3938,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,3710,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,MOVIMIENTO AL SOCIALISMO,,3704,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,POLITICA OBRERA,,3054,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,FRENTE PATRIOTA FEDERAL,,3051,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,MOVIMIENTO DE ACCION VECINAL,,1947,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1039,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,533,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,FRENTE LIBER.AR,,183,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,FRENTE LIBER.AR,,135,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,FRENTE LIBER.AR,,118,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PROYECTO JOVEN,,62,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,UNION DEL CENTRO DEMOCRATICO,,54,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PRINCIPIOS Y VALORES,,36,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PRINCIPIOS Y VALORES,,30,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PROYECTO JOVEN,,26,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PRINCIPIOS Y VALORES,,25,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PROYECTO JOVEN,,19,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,54,Misiones,PRINCIPIOS Y VALORES,,14,988884,651877,615789,30010,6078,DINE provisorio mesa CSV
+2023,0,58,Neuquén,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,156147,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,57819,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,UNION POR LA PATRIA,MASSA - ROSSI,57483,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,33444,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,21541,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,13715,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,MOVIMIENTO LIBRES DEL SUR,,13064,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,7038,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,5132,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,PRINCIPIOS Y VALORES,,4232,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,MOVIMIENTO AL SOCIALISMO,,3053,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,POLITICA OBRERA,,2024,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,FRENTE PATRIOTA FEDERAL,,1851,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1612,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,58,Neuquén,MOVIMIENTO DE ACCION VECINAL,,1268,553755,410240,379423,20484,10333,DINE provisorio mesa CSV
+2023,0,62,Río Negro,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,148437,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,UNION POR LA PATRIA,MASSA - ROSSI,72012,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,52712,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,34246,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,31520,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,9471,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,8232,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,MOVIMIENTO LIBRES DEL SUR,,5013,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,3759,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PRINCIPIOS Y VALORES,,3364,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,MOVIMIENTO AL SOCIALISMO,,3128,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,POLITICA OBRERA,,2378,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,MOVIMIENTO DE ACCION VECINAL,,1767,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,986,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PROYECTO JOVEN,,261,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,188,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,FRENTE LIBER.AR,,47,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PROYECTO JOVEN,,34,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PRINCIPIOS Y VALORES,,32,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,FRENTE PATRIOTA FEDERAL,,27,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,FRENTE LIBER.AR,,24,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,UNION DEL CENTRO DEMOCRATICO,,21,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,FRENTE LIBER.AR,,15,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PRINCIPIOS Y VALORES,,13,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PRINCIPIOS Y VALORES,,12,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PRINCIPIOS Y VALORES,,12,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,62,Río Negro,PROYECTO JOVEN,,10,595737,408597,377721,20240,10636,DINE provisorio mesa CSV
+2023,0,66,Salta,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,318910,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,UNION POR LA PATRIA,MASSA - ROSSI,137998,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,66556,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,44453,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,17839,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,12820,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,MOVIMIENTO LIBRES DEL SUR,,8012,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,7278,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,5057,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,POLITICA OBRERA,,3884,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PRINCIPIOS Y VALORES,,2142,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,MOVIMIENTO AL SOCIALISMO,,1887,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,FRENTE PATRIOTA FEDERAL,,1363,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,MOVIMIENTO DE ACCION VECINAL,,1282,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1277,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1263,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PROYECTO JOVEN,,608,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,UNION DEL CENTRO DEMOCRATICO,,47,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,FRENTE LIBER.AR,,40,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PROYECTO JOVEN,,27,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PRINCIPIOS Y VALORES,,24,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,FRENTE LIBER.AR,,19,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PRINCIPIOS Y VALORES,,17,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PROYECTO JOVEN,,14,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,FRENTE LIBER.AR,,9,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PRINCIPIOS Y VALORES,,6,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,66,Salta,PRINCIPIOS Y VALORES,,5,1090792,660027,632837,12883,14307,DINE provisorio mesa CSV
+2023,0,70,San Juan,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,143858,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,UNION POR LA PATRIA,MASSA - ROSSI,95443,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,63523,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,53926,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,26841,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,6896,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,3244,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,MOVIMIENTO LIBRES DEL SUR,,2838,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,2259,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1434,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,POLITICA OBRERA,,1251,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,FRENTE PATRIOTA FEDERAL,,1187,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,MOVIMIENTO AL SOCIALISMO,,1130,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PRINCIPIOS Y VALORES,,1037,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1028,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,MOVIMIENTO DE ACCION VECINAL,,961,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,FRENTE LIBER.AR,,128,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PROYECTO JOVEN,,15,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,FRENTE LIBER.AR,,10,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,FRENTE LIBER.AR,,7,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,UNION DEL CENTRO DEMOCRATICO,,5,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PRINCIPIOS Y VALORES,,3,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PRINCIPIOS Y VALORES,,1,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PRINCIPIOS Y VALORES,,1,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PRINCIPIOS Y VALORES,,1,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PROYECTO JOVEN,,1,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,70,San Juan,PROYECTO JOVEN,,1,608857,426188,407029,13938,5221,DINE provisorio mesa CSV
+2023,0,74,San Luis,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,135471,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,UNION POR LA PATRIA,MASSA - ROSSI,38315,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,33385,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,33194,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,10999,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,8263,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,3006,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,MOVIMIENTO LIBRES DEL SUR,,2769,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PRINCIPIOS Y VALORES,,1189,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,FRENTE PATRIOTA FEDERAL,,1127,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,POLITICA OBRERA,,987,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,935,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,MOVIMIENTO AL SOCIALISMO,,874,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,MOVIMIENTO DE ACCION VECINAL,,803,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,666,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,598,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,FRENTE LIBER.AR,,186,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,UNION DEL CENTRO DEMOCRATICO,,27,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,FRENTE LIBER.AR,,21,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PROYECTO JOVEN,,17,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PRINCIPIOS Y VALORES,,14,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,FRENTE LIBER.AR,,13,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PROYECTO JOVEN,,13,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PRINCIPIOS Y VALORES,,11,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PROYECTO JOVEN,,9,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PRINCIPIOS Y VALORES,,7,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,74,San Luis,PRINCIPIOS Y VALORES,,6,421742,287572,272905,10210,4457,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,52189,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,UNION POR LA PATRIA,MASSA - ROSSI,29622,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,17507,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,10604,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,8857,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,3679,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,1856,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,1438,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,MOVIMIENTO LIBRES DEL SUR,,607,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,MOVIMIENTO AL SOCIALISMO,,414,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,POLITICA OBRERA,,403,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,334,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,FRENTE PATRIOTA FEDERAL,,209,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,MOVIMIENTO DE ACCION VECINAL,,138,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,PRINCIPIOS Y VALORES,,65,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,25,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,FRENTE LIBER.AR,,11,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,UNION DEL CENTRO DEMOCRATICO,,4,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,PROYECTO JOVEN,,3,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,FRENTE LIBER.AR,,1,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,78,Santa Cruz,PROYECTO JOVEN,,1,265400,183063,127967,52228,2868,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,646315,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,369533,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,UNION POR LA PATRIA,MASSA - ROSSI,301725,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,210334,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,85140,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,67563,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PRINCIPIOS Y VALORES,,25979,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,21601,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,9244,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,MOVIMIENTO LIBRES DEL SUR,,5606,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,MOVIMIENTO AL SOCIALISMO,,5554,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,4468,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,POLITICA OBRERA,,3578,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,FRENTE PATRIOTA FEDERAL,,2406,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,FRENTE LIBER.AR,,2359,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,MOVIMIENTO DE ACCION VECINAL,,2288,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,2225,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,UNION DEL CENTRO DEMOCRATICO,,1218,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PROYECTO JOVEN,,1217,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,FRENTE LIBER.AR,,853,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,FRENTE LIBER.AR,,806,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PROYECTO JOVEN,,455,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PROYECTO JOVEN,,244,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PRINCIPIOS Y VALORES,,217,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PRINCIPIOS Y VALORES,,41,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PRINCIPIOS Y VALORES,,36,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,82,Santa Fe,PRINCIPIOS Y VALORES,,34,2822834,1885494,1771039,65282,49173,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,UNION POR LA PATRIA,MASSA - ROSSI,272293,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,142042,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,31652,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,24260,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,MOVIMIENTO LIBRES DEL SUR,,10260,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,8270,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,7605,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,2890,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,2716,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,MOVIMIENTO AL SOCIALISMO,,1644,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,POLITICA OBRERA,,1192,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,MOVIMIENTO DE ACCION VECINAL,,808,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,FRENTE PATRIOTA FEDERAL,,790,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,731,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,549,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,FRENTE LIBER.AR,,278,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,PROYECTO JOVEN,,51,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,FRENTE LIBER.AR,,33,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,PROYECTO JOVEN,,23,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,PRINCIPIOS Y VALORES,,11,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,FRENTE LIBER.AR,,8,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,PROYECTO JOVEN,,4,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,PRINCIPIOS Y VALORES,,2,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,86,Santiago del Estero,UNION DEL CENTRO DEMOCRATICO,,2,813802,532837,508114,18376,6347,DINE provisorio mesa CSV
+2023,0,90,Tucumán,LA LIBERTAD AVANZA,MILEI - VILLARRUEL,342681,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,UNION POR LA PATRIA,MASSA - ROSSI,279766,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,JUNTOS POR EL CAMBIO,BULLRICH - PETRI,104824,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,102145,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,33319,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,MOVIMIENTO LIBRES DEL SUR,,15445,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,11302,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,10118,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,5911,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,POLITICA OBRERA,,3349,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,MOVIMIENTO AL SOCIALISMO,,2971,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,FRENTE PATRIOTA FEDERAL,,2889,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,MOVIMIENTO DE ACCION VECINAL,,1972,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PRINCIPIOS Y VALORES,,1956,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1625,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,1580,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,FRENTE LIBER.AR,,286,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,FRENTE LIBER.AR,,138,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,FRENTE LIBER.AR,,90,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PRINCIPIOS Y VALORES,,66,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PRINCIPIOS Y VALORES,,51,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,UNION DEL CENTRO DEMOCRATICO,,33,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PROYECTO JOVEN,,23,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PROYECTO JOVEN,,17,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PRINCIPIOS Y VALORES,,16,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PRINCIPIOS Y VALORES,,10,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,90,Tucumán,PROYECTO JOVEN,,6,1321055,965553,922589,30624,12340,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",LA LIBERTAD AVANZA,MILEI - VILLARRUEL,35697,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",UNION POR LA PATRIA,MASSA - ROSSI,22786,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",JUNTOS POR EL CAMBIO,BULLRICH - PETRI,11704,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",JUNTOS POR EL CAMBIO,RODRÍGUEZ LARRETA - MORALES,9341,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",UNION POR LA PATRIA,GRABOIS - ABAL MEDINA,6814,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",HACEMOS POR NUESTRO PAIS,SCHIARETTI - RANDAZZO,4315,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,BREGMAN - DEL CAÑO,2074,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",PRINCIPIOS Y VALORES,,1848,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO AL SOCIALISMO,,842,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",POLITICA OBRERA,,726,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO LIBRES DEL SUR,,676,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD,SOLANO - RIPOLL,629,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO DE ACCION VECINAL,,479,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,16,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",FRENTE PATRIOTA FEDERAL,,12,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",MOVIMIENTO IZQUIERDA JUVENTUD Y DIGNIDAD,,9,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",PRINCIPIOS Y VALORES,,7,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",UNION DEL CENTRO DEMOCRATICO,,7,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",FRENTE LIBER.AR,,6,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",PROYECTO JOVEN,,6,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",PRINCIPIOS Y VALORES,,1,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
+2023,0,94,"Tierra del Fuego, AeIAS",PROYECTO JOVEN,,1,147997,105120,97996,3173,3951,DINE provisorio mesa CSV
 2023,1,02,Ciudad Autónoma de Buenos Aires,JUNTOS POR EL CAMBIO,,767367,2526676,1911431,1861375,32311,17745,DINE provisorio mesa CSV
 2023,1,02,Ciudad Autónoma de Buenos Aires,UNION POR LA PATRIA,,600832,2526676,1911431,1861375,32311,17745,DINE provisorio mesa CSV
 2023,1,02,Ciudad Autónoma de Buenos Aires,LA LIBERTAD AVANZA,,369424,2526676,1911431,1861375,32311,17745,DINE provisorio mesa CSV

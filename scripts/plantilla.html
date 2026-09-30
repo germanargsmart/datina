@@ -881,12 +881,12 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
     <h2>Política</h2>
 
     <article class="ficha" id="f-elecciones">
-      <h3>Elecciones presidenciales por provincia, 1983 a 2023</h3>
+      <h3>Elecciones presidenciales y PASO por provincia, 1983 a 2023</h3>
       <p class="lead" data-t="elecciones"></p>
       <label class="selector-ficha"><span>Elección</span><select data-g="elecciones" id="el-sel"></select></label>
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="elecciones"></div>
-      <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. De 1983 a 2019, escrutinio definitivo. En 2023, escrutinio provisorio, porque el definitivo no está publicado como datos abiertos.</p>
+      <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -943,6 +943,26 @@ footer h2{font-variation-settings:"wdth" 30,"opsz" 144;font-size:34px;font-weigh
       <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
       <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <article class="ficha" id="f-atn">
+      <h3 data-t="atn-titulo"></h3>
+      <p class="lead" data-t="atn"></p>
+      <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
+      <div class="grafico" data-g="atn"></div>
+      <p class="nota" data-t="atn-nota"></p>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-transferencias">
+      <h3 data-t="transferencias-titulo"></h3>
+      <p class="lead" data-t="transferencias"></p>
+      <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
+      <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="transferencias"></div>
+      <p class="nota" data-t="transferencias-nota"></p>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema" id="energia">
@@ -1634,7 +1654,7 @@ function barrasH(el, cfg) {
   const ext = d3.extent(data, d => d[cfg.k]);
   const x = d3.scaleLinear().domain([Math.min(0, ext[0]), Math.max(0, ext[1])]).nice().range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.28);
-  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? (cfg.ntAngosto || 3) : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   if (x.domain()[0] < 0) g.append("line").attr("x1",x(0)).attr("x2",x(0)).attr("y1",0).attr("y2",data.length*fila).attr("stroke",css("--faint"));
   const filas = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
   const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", 2)
@@ -1801,7 +1821,7 @@ function columnasApiladas(el, cfg) {
   const tot = d => d3.sum(cfg.claves, k => d[k.k] || 0);
   const y = d3.scaleLinear().domain([0, d3.max(data, tot)]).nice().range([ih, 0]);
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
-  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(cfg.af || null)).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`)
     .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter((a, i) => cfg.cadaTick ? i % (angosto ? cfg.cadaTick * 2 : cfg.cadaTick) === 0 : a % (angosto ? 8 : 4) === 0))
       .tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
@@ -1816,7 +1836,7 @@ function columnasApiladas(el, cfg) {
   });
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
     .on("pointerenter", function(ev, d) {
-      mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${tot(d)} bancas<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${d[k.k]}`).join("<br>"), 36 + x(d.anio) + x.bandwidth() / 2, 10); })
+      mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>"), 36 + x(d.anio) + x.bandwidth() / 2, 10); })
     .on("pointerleave", ocultarTip);
 }
 
@@ -1993,7 +2013,8 @@ const ESP_TXT = {"Peronismo": "el peronismo", "UCR y aliados": "la UCR y sus ali
   "Cambiemos y Juntos por el Cambio": "Cambiemos y Juntos por el Cambio", "La Libertad Avanza": "La Libertad Avanza",
   "Izquierda": "la izquierda", "Fuerzas provinciales": "las fuerzas provinciales", "Otras fuerzas": "otras fuerzas"};
 const EL = Object.fromEntries(R.elecciones.map(e => [e.id, e]));
-const nombreEl = e => `${e.anio}${e.vuelta === 2 ? ", segunda vuelta" : e.anio === 2015 || e.anio === 2023 ? ", primera vuelta" : ""}`;
+const nombreEl = e => `${e.anio}${e.vuelta === 0 ? ", PASO" : e.vuelta === 2 ? ", segunda vuelta" : e.anio === 2015 || e.anio === 2023 ? ", primera vuelta" : e.anio >= 2011 ? ", generales" : ""}`;
+const nomListas = c => listaY(c.listas.map(l => `${l.n} (${pct(l.pct)})`));
 MED.elecciones = R.elecciones[R.elecciones.length - 1].id;
 document.getElementById("el-sel").innerHTML = [...R.elecciones].reverse().map(e => `<option value="${e.id}">${nombreEl(e)}</option>`).join("");
 function clavesEl(e) {
@@ -2001,7 +2022,8 @@ function clavesEl(e) {
   const cl = e.candidatos.map(c => {
     const i = usados[c.espacio] = (usados[c.espacio] ?? -1) + 1;
     const col = (ESP_VARIANTE[c.espacio] || [ESP_COLOR[c.espacio]])[Math.min(i, 2)] || ESP_COLOR[c.espacio];
-    return {k: c.c, lab: c.c, fuerza: c.fuerza, c: col, texto: ["#F6B40E", "#F08A24", "#A9CBEA", "#C3CAD2", "#74ACDF", "#6FA3D8"].includes(col) ? "#18212B" : "#fff"};
+    const paso = e.vuelta === 0;
+    return {k: c.c, lab: paso ? c.fuerza : c.c, fuerza: paso ? listaY(c.listas.map(l => l.n)) : c.fuerza, c: col, texto: ["#F6B40E", "#F08A24", "#A9CBEA", "#C3CAD2", "#74ACDF", "#6FA3D8"].includes(col) ? "#18212B" : "#fff"};
   });
   const hayOtras = T.elecciones_presidenciales.some(d => d.eleccion === e.id && d.candidato === "Otras" && d.pct > 0);
   return hayOtras ? [...cl, {k: "Otras", lab: "Otras", c: "#E4E9EF", texto: "#18212B"}] : cl;
@@ -2014,7 +2036,13 @@ DIB.elecciones = a => {
   const resto = Object.values(filas).filter(d => d.codigo_indec !== "00").sort((p, q) => (q[g0] || 0) - (p[g0] || 0));
   const gan = e.candidatos.find(c => c.c === e.ganador);
   const intro = e.vuelta === 2 ? `En la segunda vuelta de ${e.anio}` : e.anio === 2015 || e.anio === 2023 ? `En la primera vuelta de ${e.anio}` : `En la elección de ${e.anio}`;
-  document.querySelector('[data-t="elecciones"]').textContent = `${intro}, la fórmula de ${e.ganador} (${gan.fuerza}) obtuvo el ${pct(e.pct_ganador)} de los votos positivos del país ` +
+  const internas = e.candidatos.filter(c => c.listas.length > 1);
+  document.querySelector('[data-t="elecciones"]').textContent = e.vuelta === 0
+    ? `En las PASO de ${e.anio}, la agrupación más votada fue la de ${e.ganador} (${gan.fuerza}), con el ${pct(e.pct_ganador)} de los votos positivos del país, ` +
+      `y fue la primera en ${e.prov_ganador} de las 24 jurisdicciones. Su porcentaje más alto fue el de ${e.max_prov} (${pct(e.max_v)}) y el más bajo, el de ${e.min_prov} (${pct(e.min_v)}). ` +
+      (internas.length ? internas.map(c => `En ${c.fuerza} compitieron ${nomListas(c)}. `).join("") : "Ninguna de las cuatro agrupaciones más votadas tuvo interna. ") +
+      `Votó el ${pct(e.participacion)} de los electores habilitados.` + (e.provisorio ? " Son datos del escrutinio provisorio." : "")
+    : `${intro}, la fórmula de ${e.ganador} (${gan.fuerza}) obtuvo el ${pct(e.pct_ganador)} de los votos positivos del país ` +
     `y fue la más votada en ${e.prov_ganador} de las 24 jurisdicciones. Su porcentaje más alto fue el de ${e.max_prov} (${pct(e.max_v)}) y el más bajo, el de ${e.min_prov} (${pct(e.min_v)}). ` +
     `Votó el ${pct(e.participacion)} de los electores habilitados.` + (e.provisorio ? " Son datos del escrutinio provisorio." : "");
   document.getElementById("el-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i><b>${k.lab}</b>${k.fuerza ? ` <small>${k.fuerza}</small>` : ""}</span>`).join("");
@@ -2077,6 +2105,73 @@ DIB.legisladores = () => {
     (cambios ? `Hubo ${cambios === 1 ? "un cambio" : `${cambios} cambios`} de legislador ${per === LG_ULT ? "en lo que va del" : "durante el"} período, que ${cambios === 1 ? "figura" : "figuran"} entre paréntesis.`
       : `No hubo cambios de legisladores ${per === LG_ULT ? "en lo que va del" : "durante el"} período.`);
   el.innerHTML = `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
+};
+
+
+/* ---------- transferencias de la Nación a las provincias ---------- */
+const TRR = R.transferencias, TRP = T.transferencias_provincias, TRS = T.transferencias_serie, TRA = T.transferencias_acumulado;
+const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : `${v >= 10 ? n0(v) : n1(v)} mil millones`;
+const TR_COL = {atn: "#2C74B5", otras: "#74ACDF", ley: "#C3CAD2"};
+const TR_LAB = {atn: "ATN", otras: "Otras no automáticas", ley: "Por ley o por fallo"};
+const trOpciones = sel => { document.getElementById(sel).innerHTML = [`<option value="serie">Total del país por año</option>`, `<option value="acum">Por provincia, suma de ${TRR.desde} a ${TRR.ult}</option>`,
+  ...d3.range(TRR.ult, TRR.desde - 1, -1).map(a => `<option value="${a}">Por provincia, ${a}</option>`)].join(""); };
+trOpciones("atn-sel"); trOpciones("tr-sel");
+MED.atn = "serie"; MED.transferencias = String(TRR.ult);
+["atn", "tr"].forEach(id => document.getElementById(`${id}-sel`).addEventListener("change", ev => {
+  const g = id === "atn" ? "atn" : "transferencias"; MED[g] = ev.target.value; DIB[g](!REDUCIR); }));
+document.querySelector('[data-t="atn-titulo"]').textContent = `Aportes del Tesoro Nacional (ATN) a las provincias, ${TRR.desde} a ${TRR.ult}`;
+document.querySelector('[data-t="transferencias-titulo"]').textContent = `Transferencias no automáticas de la Nación a las provincias, ${TRR.desde} a ${TRR.ult}`;
+document.querySelector('[data-t="atn-nota"]').textContent = `Pesos de ${TRR.ult}, ajustados por el deflactor del PBI. Crédito devengado del presupuesto nacional, con la provincia de destino. Incluye los ATN a provincias y municipios. ` +
+  `Los ATN salen del Fondo de Aportes del Tesoro Nacional, que se forma con parte de la coparticipación y que el gobierno nacional reparte sin fórmula. Desde 2017 el presupuesto los identifica como actividad propia. ` +
+  `Entre 2002 y 2016 se toman los del programa de asistencia financiera a provincias del Ministerio del Interior financiados con ese fondo. Antes de 2000 casi todos figuran sin provincia, por eso la serie empieza ese año. ` +
+  `Por habitante con las proyecciones de población del INDEC de cada año. La suma del período es la suma de lo recibido por habitante en cada año.`;
+document.querySelector('[data-t="transferencias-nota"]').textContent = `Pesos de ${TRR.ult}, ajustados por el deflactor del PBI. Crédito devengado del presupuesto nacional en transferencias corrientes y de capital a gobiernos provinciales y municipales, con la provincia de destino. ` +
+  `No incluye la coparticipación ni las demás transferencias automáticas, que no pasan por el presupuesto. Se separan las fijadas por ley o por fallo judicial: coparticipación de la Ciudad y de Tierra del Fuego cuando pasaba por el presupuesto, Fondo Federal Solidario, ` +
+  `Fondo Nacional de Incentivo Docente, devolución del 15% de la coparticipación, policía de la Ciudad y cautelar de la Corte Suprema a favor de la Ciudad. Las otras no automáticas incluyen obras, vivienda, programas sociales y de salud y la asistencia financiera del Tesoro. Por provincia se muestran las otras no automáticas por habitante.`;
+function trProvincias(el, k, anio, a) {
+  const acum = anio === "acum", data = acum ? TRA : TRP.filter(d => d.anio === +anio);
+  barrasH(el, {anim: a, data, k: `${k}_hab`, vf: n0, af: v => v >= 1e6 ? `${n1(v / 1e6)} M` : v >= 1e3 ? `${n0(v / 1e3)} mil` : n0(v),
+    color: () => TR_COL[k], l: 150, ntAngosto: 2});
+  return data;
+}
+DIB.atn = a => {
+  const v = MED.atn, el = G("atn"), t = document.querySelector('[data-t="atn"]');
+  document.getElementById("atn-sel").value = v;
+  if (v === "serie") {
+    t.textContent = `El año con más ATN fue ${TRR.atn_pico_anio}, con ${milM(TRR.atn_pico_v)} de pesos de ${TRR.ult}. En ${TRR.ult} se repartieron ${milM(TRR.atn_ult)} entre ${TRR.n_atn_ult} provincias. ` +
+      `Los montos dependen de cada gobierno y de cada año, porque no hay una fórmula de reparto.`;
+    columnasApiladas(el, {anim: a, data: TRS, claves: [{k: "atn", lab: "ATN", c: TR_COL.atn}], cadaTick: 5, unidad: `mil millones de pesos de ${TRR.ult}`, vf: n1, af: n0});
+    return;
+  }
+  const data = trProvincias(el, "atn", v, a);
+  if (v === "acum") {
+    t.textContent = `Sumando lo recibido por habitante entre ${TRR.desde} y ${TRR.ult}, ${TRR.atn_acum_max} fue la provincia con más ATN (${n0(TRR.atn_acum_max_v)} pesos de ${TRR.ult} por habitante) y ${TRR.atn_acum_min} la que menos (${n0(TRR.atn_acum_min_v)}). ` +
+      `La provincia de Buenos Aires recibió el ${pct(TRA.find(d => d.codigo_indec === "06").atn_pct)} de los ATN del período y tiene el ${pct(TRA.find(d => d.codigo_indec === "06").pob_pct)} de la población del país.`;
+    return;
+  }
+  const con = data.filter(d => d.atn > 0).sort((p, q) => q.atn_hab - p.atn_hab), sin = data.filter(d => d.atn === 0).map(d => d.territorio);
+  const tot = TRS.find(d => d.anio === +v).atn;
+  t.textContent = con.length
+    ? `En ${v} el gobierno nacional repartió ${milM(tot)} de pesos de ${TRR.ult} en ATN entre ${con.length} provincias. Por habitante, la que más recibió fue ${con[0].territorio} (${n0(con[0].atn_hab)} pesos) ` +
+      `y la que menos, ${con[con.length - 1].territorio} (${n0(con[con.length - 1].atn_hab)}).` + (sin.length ? ` No recibieron ATN: ${listaY(sin)}.` : "")
+    : `En ${v} no hubo ATN asignados a provincias.`;
+};
+DIB.transferencias = a => {
+  const v = MED.transferencias, el = G("transferencias"), t = document.querySelector('[data-t="transferencias"]'), ley = document.getElementById("tr-ley");
+  document.getElementById("tr-sel").value = v;
+  if (v === "serie") {
+    const cl = ["otras", "atn", "ley"].map(k => ({k, lab: TR_LAB[k], c: TR_COL[k]}));
+    ley.hidden = false; ley.innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
+    t.textContent = `Las transferencias no automáticas, sin contar los ATN, llegaron a su máximo en ${TRR.otras_pico_anio}, con ${milM(TRR.otras_pico_v)} de pesos de ${TRR.ult}. En ${TRR.ult} fueron ${milM(TRR.otras_ult)}.`;
+    columnasApiladas(el, {anim: a, data: TRS, claves: cl, cadaTick: 5, unidad: `mil millones de pesos de ${TRR.ult}`, vf: n1, af: n0});
+    return;
+  }
+  ley.hidden = true;
+  const data = trProvincias(el, "otras", v, a).slice().sort((p, q) => q.otras_hab - p.otras_hab);
+  const pais = v === "acum" ? null : d3.sum(data, d => d.otras) * 1e6 / d3.sum(data, d => d.pob);
+  t.textContent = v === "acum"
+    ? `Sumando lo recibido por habitante entre ${TRR.desde} y ${TRR.ult}, ${data[0].territorio} fue la provincia con más transferencias no automáticas (${n0(data[0].otras_hab)} pesos de ${TRR.ult} por habitante) y ${data[data.length - 1].territorio} la que menos (${n0(data[data.length - 1].otras_hab)}).`
+    : `En ${v}, las transferencias no automáticas sin contar los ATN fueron de ${n0(pais)} pesos de ${TRR.ult} por habitante en el promedio del país. ${data[0].territorio} recibió ${n0(data[0].otras_hab)} por habitante y ${data[data.length - 1].territorio}, ${n0(data[data.length - 1].otras_hab)}.`;
 };
 
 const ORIGEN_COLOR = {"Ciudad de Buenos Aires": "#2C74B5", "Conurbano": "#74ACDF", "Resto de Buenos Aires": "#A9CBEA", "Otras provincias": "#F6B40E", "Otro país": "#98A2AE"};

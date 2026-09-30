@@ -872,6 +872,131 @@ eleccion,codigo_indec,candidato,pct,territorio
 2011,94,Alfonsín,8.64,Tierra del Fuego
 2011,94,Otras,6.98,Tierra del Fuego
 2011,94,Rodríguez Saá,5.69,Tierra del Fuego
+2011-paso,00,Fernández de Kirchner,50.24,Total del país
+2011-paso,00,Otras,15.27,Total del país
+2011-paso,00,Alfonsín,12.2,Total del país
+2011-paso,00,Duhalde,12.12,Total del país
+2011-paso,00,Binner,10.18,Total del país
+2011-paso,02,Fernández de Kirchner,30.17,CABA
+2011-paso,02,Otras,23.3,CABA
+2011-paso,02,Duhalde,22.14,CABA
+2011-paso,02,Binner,14.27,CABA
+2011-paso,02,Alfonsín,10.11,CABA
+2011-paso,06,Fernández de Kirchner,53.35,Buenos Aires
+2011-paso,06,Otras,14.06,Buenos Aires
+2011-paso,06,Duhalde,13.82,Buenos Aires
+2011-paso,06,Alfonsín,10.97,Buenos Aires
+2011-paso,06,Binner,7.8,Buenos Aires
+2011-paso,10,Fernández de Kirchner,63.43,Catamarca
+2011-paso,10,Alfonsín,20.27,Catamarca
+2011-paso,10,Otras,8.31,Catamarca
+2011-paso,10,Duhalde,5.61,Catamarca
+2011-paso,10,Binner,2.38,Catamarca
+2011-paso,14,Fernández de Kirchner,34.25,Córdoba
+2011-paso,14,Otras,21.68,Córdoba
+2011-paso,14,Alfonsín,17.69,Córdoba
+2011-paso,14,Binner,14.52,Córdoba
+2011-paso,14,Duhalde,11.85,Córdoba
+2011-paso,18,Fernández de Kirchner,63.42,Corrientes
+2011-paso,18,Alfonsín,14.51,Corrientes
+2011-paso,18,Duhalde,10.05,Corrientes
+2011-paso,18,Otras,8.84,Corrientes
+2011-paso,18,Binner,3.18,Corrientes
+2011-paso,22,Fernández de Kirchner,60.35,Chaco
+2011-paso,22,Alfonsín,21.48,Chaco
+2011-paso,22,Otras,8.53,Chaco
+2011-paso,22,Duhalde,6.8,Chaco
+2011-paso,22,Binner,2.85,Chaco
+2011-paso,26,Fernández de Kirchner,51.56,Chubut
+2011-paso,26,Duhalde,26.21,Chubut
+2011-paso,26,Alfonsín,9.72,Chubut
+2011-paso,26,Otras,8.52,Chubut
+2011-paso,26,Binner,3.99,Chubut
+2011-paso,30,Fernández de Kirchner,45.85,Entre Ríos
+2011-paso,30,Alfonsín,16.9,Entre Ríos
+2011-paso,30,Binner,13.2,Entre Ríos
+2011-paso,30,Duhalde,12.33,Entre Ríos
+2011-paso,30,Otras,11.72,Entre Ríos
+2011-paso,34,Fernández de Kirchner,70.08,Formosa
+2011-paso,34,Alfonsín,15.08,Formosa
+2011-paso,34,Duhalde,6.51,Formosa
+2011-paso,34,Otras,6.05,Formosa
+2011-paso,34,Binner,2.29,Formosa
+2011-paso,38,Fernández de Kirchner,58.01,Jujuy
+2011-paso,38,Alfonsín,19.03,Jujuy
+2011-paso,38,Otras,12.41,Jujuy
+2011-paso,38,Binner,5.3,Jujuy
+2011-paso,38,Duhalde,5.26,Jujuy
+2011-paso,42,Fernández de Kirchner,47.93,La Pampa
+2011-paso,42,Otras,17.63,La Pampa
+2011-paso,42,Alfonsín,16.06,La Pampa
+2011-paso,42,Duhalde,11.39,La Pampa
+2011-paso,42,Binner,6.99,La Pampa
+2011-paso,46,Fernández de Kirchner,50.52,La Rioja
+2011-paso,46,Otras,24.42,La Rioja
+2011-paso,46,Alfonsín,18.0,La Rioja
+2011-paso,46,Duhalde,3.68,La Rioja
+2011-paso,46,Binner,3.38,La Rioja
+2011-paso,50,Fernández de Kirchner,46.94,Mendoza
+2011-paso,50,Otras,27.8,Mendoza
+2011-paso,50,Alfonsín,11.92,Mendoza
+2011-paso,50,Binner,7.35,Mendoza
+2011-paso,50,Duhalde,5.99,Mendoza
+2011-paso,54,Fernández de Kirchner,64.1,Misiones
+2011-paso,54,Alfonsín,14.29,Misiones
+2011-paso,54,Duhalde,11.31,Misiones
+2011-paso,54,Otras,7.25,Misiones
+2011-paso,54,Binner,3.05,Misiones
+2011-paso,58,Fernández de Kirchner,55.31,Neuquén
+2011-paso,58,Otras,14.92,Neuquén
+2011-paso,58,Alfonsín,11.03,Neuquén
+2011-paso,58,Binner,9.85,Neuquén
+2011-paso,58,Duhalde,8.89,Neuquén
+2011-paso,62,Fernández de Kirchner,60.08,Río Negro
+2011-paso,62,Alfonsín,13.37,Río Negro
+2011-paso,62,Otras,12.99,Río Negro
+2011-paso,62,Duhalde,7.02,Río Negro
+2011-paso,62,Binner,6.54,Río Negro
+2011-paso,66,Fernández de Kirchner,62.68,Salta
+2011-paso,66,Alfonsín,13.46,Salta
+2011-paso,66,Otras,10.83,Salta
+2011-paso,66,Duhalde,8.0,Salta
+2011-paso,66,Binner,5.03,Salta
+2011-paso,70,Fernández de Kirchner,65.26,San Juan
+2011-paso,70,Otras,20.66,San Juan
+2011-paso,70,Alfonsín,7.54,San Juan
+2011-paso,70,Duhalde,3.85,San Juan
+2011-paso,70,Binner,2.68,San Juan
+2011-paso,74,Otras,56.16,San Luis
+2011-paso,74,Fernández de Kirchner,27.95,San Luis
+2011-paso,74,Alfonsín,11.05,San Luis
+2011-paso,74,Binner,2.81,San Luis
+2011-paso,74,Duhalde,2.03,San Luis
+2011-paso,78,Fernández de Kirchner,65.54,Santa Cruz
+2011-paso,78,Alfonsín,14.32,Santa Cruz
+2011-paso,78,Otras,10.08,Santa Cruz
+2011-paso,78,Duhalde,5.25,Santa Cruz
+2011-paso,78,Binner,4.8,Santa Cruz
+2011-paso,82,Fernández de Kirchner,37.91,Santa Fe
+2011-paso,82,Binner,32.8,Santa Fe
+2011-paso,82,Duhalde,11.61,Santa Fe
+2011-paso,82,Otras,11.14,Santa Fe
+2011-paso,82,Alfonsín,6.54,Santa Fe
+2011-paso,86,Fernández de Kirchner,80.45,Santiago del Estero
+2011-paso,86,Alfonsín,6.47,Santiago del Estero
+2011-paso,86,Duhalde,6.22,Santiago del Estero
+2011-paso,86,Otras,4.46,Santiago del Estero
+2011-paso,86,Binner,2.4,Santiago del Estero
+2011-paso,90,Fernández de Kirchner,65.15,Tucumán
+2011-paso,90,Alfonsín,14.15,Tucumán
+2011-paso,90,Otras,9.19,Tucumán
+2011-paso,90,Duhalde,5.78,Tucumán
+2011-paso,90,Binner,5.73,Tucumán
+2011-paso,94,Fernández de Kirchner,61.66,Tierra del Fuego
+2011-paso,94,Otras,13.63,Tierra del Fuego
+2011-paso,94,Alfonsín,10.28,Tierra del Fuego
+2011-paso,94,Duhalde,7.38,Tierra del Fuego
+2011-paso,94,Binner,7.05,Tierra del Fuego
 2015,00,Scioli,37.08,Total del país
 2015,00,Macri,34.15,Total del país
 2015,00,Massa,21.39,Total del país
@@ -1047,6 +1172,131 @@ eleccion,codigo_indec,candidato,pct,territorio
 2015-2,90,Macri,41.4,Tucumán
 2015-2,94,Scioli,58.66,Tierra del Fuego
 2015-2,94,Macri,41.34,Tierra del Fuego
+2015-paso,00,Scioli,38.67,Total del país
+2015-paso,00,Macri,30.12,Total del país
+2015-paso,00,Massa,20.57,Total del país
+2015-paso,00,Otras,7.18,Total del país
+2015-paso,00,Stolbizer,3.47,Total del país
+2015-paso,02,Macri,49.0,CABA
+2015-paso,02,Scioli,23.3,CABA
+2015-paso,02,Massa,13.36,CABA
+2015-paso,02,Otras,7.62,CABA
+2015-paso,02,Stolbizer,6.72,CABA
+2015-paso,06,Scioli,39.69,Buenos Aires
+2015-paso,06,Macri,29.15,Buenos Aires
+2015-paso,06,Massa,20.65,Buenos Aires
+2015-paso,06,Otras,6.25,Buenos Aires
+2015-paso,06,Stolbizer,4.26,Buenos Aires
+2015-paso,10,Scioli,50.49,Catamarca
+2015-paso,10,Macri,33.06,Catamarca
+2015-paso,10,Massa,12.7,Catamarca
+2015-paso,10,Otras,2.79,Catamarca
+2015-paso,10,Stolbizer,0.95,Catamarca
+2015-paso,14,Massa,38.81,Córdoba
+2015-paso,14,Macri,35.38,Córdoba
+2015-paso,14,Scioli,14.65,Córdoba
+2015-paso,14,Otras,8.85,Córdoba
+2015-paso,14,Stolbizer,2.32,Córdoba
+2015-paso,18,Scioli,50.45,Corrientes
+2015-paso,18,Macri,29.47,Corrientes
+2015-paso,18,Massa,16.03,Corrientes
+2015-paso,18,Otras,3.04,Corrientes
+2015-paso,18,Stolbizer,1.02,Corrientes
+2015-paso,22,Scioli,55.36,Chaco
+2015-paso,22,Macri,25.97,Chaco
+2015-paso,22,Massa,12.69,Chaco
+2015-paso,22,Otras,4.39,Chaco
+2015-paso,22,Stolbizer,1.59,Chaco
+2015-paso,26,Scioli,47.78,Chubut
+2015-paso,26,Macri,22.99,Chubut
+2015-paso,26,Massa,19.18,Chubut
+2015-paso,26,Otras,7.07,Chubut
+2015-paso,26,Stolbizer,2.98,Chubut
+2015-paso,30,Scioli,39.7,Entre Ríos
+2015-paso,30,Macri,34.95,Entre Ríos
+2015-paso,30,Massa,17.79,Entre Ríos
+2015-paso,30,Otras,4.2,Entre Ríos
+2015-paso,30,Stolbizer,3.36,Entre Ríos
+2015-paso,34,Scioli,61.65,Formosa
+2015-paso,34,Massa,17.33,Formosa
+2015-paso,34,Macri,16.73,Formosa
+2015-paso,34,Otras,3.32,Formosa
+2015-paso,34,Stolbizer,0.97,Formosa
+2015-paso,38,Scioli,41.99,Jujuy
+2015-paso,38,Massa,26.95,Jujuy
+2015-paso,38,Macri,23.04,Jujuy
+2015-paso,38,Otras,6.64,Jujuy
+2015-paso,38,Stolbizer,1.39,Jujuy
+2015-paso,42,Scioli,40.35,La Pampa
+2015-paso,42,Macri,35.17,La Pampa
+2015-paso,42,Massa,15.74,La Pampa
+2015-paso,42,Otras,6.06,La Pampa
+2015-paso,42,Stolbizer,2.68,La Pampa
+2015-paso,46,Scioli,40.76,La Rioja
+2015-paso,46,Macri,27.03,La Rioja
+2015-paso,46,Massa,24.28,La Rioja
+2015-paso,46,Otras,7.25,La Rioja
+2015-paso,46,Stolbizer,0.68,La Rioja
+2015-paso,50,Macri,36.13,Mendoza
+2015-paso,50,Scioli,33.47,Mendoza
+2015-paso,50,Otras,15.63,Mendoza
+2015-paso,50,Massa,13.37,Mendoza
+2015-paso,50,Stolbizer,1.39,Mendoza
+2015-paso,54,Scioli,57.6,Misiones
+2015-paso,54,Macri,22.13,Misiones
+2015-paso,54,Massa,14.73,Misiones
+2015-paso,54,Otras,4.34,Misiones
+2015-paso,54,Stolbizer,1.2,Misiones
+2015-paso,58,Scioli,35.69,Neuquén
+2015-paso,58,Macri,27.41,Neuquén
+2015-paso,58,Massa,21.75,Neuquén
+2015-paso,58,Otras,12.11,Neuquén
+2015-paso,58,Stolbizer,3.04,Neuquén
+2015-paso,62,Scioli,44.78,Río Negro
+2015-paso,62,Macri,22.64,Río Negro
+2015-paso,62,Massa,21.42,Río Negro
+2015-paso,62,Otras,8.04,Río Negro
+2015-paso,62,Stolbizer,3.12,Río Negro
+2015-paso,66,Scioli,44.59,Salta
+2015-paso,66,Massa,28.01,Salta
+2015-paso,66,Macri,20.45,Salta
+2015-paso,66,Otras,5.77,Salta
+2015-paso,66,Stolbizer,1.18,Salta
+2015-paso,70,Scioli,54.65,San Juan
+2015-paso,70,Massa,22.05,San Juan
+2015-paso,70,Macri,16.07,San Juan
+2015-paso,70,Otras,5.79,San Juan
+2015-paso,70,Stolbizer,1.44,San Juan
+2015-paso,74,Otras,47.88,San Luis
+2015-paso,74,Macri,24.78,San Luis
+2015-paso,74,Scioli,19.59,San Luis
+2015-paso,74,Massa,6.32,San Luis
+2015-paso,74,Stolbizer,1.42,San Luis
+2015-paso,78,Scioli,44.46,Santa Cruz
+2015-paso,78,Macri,25.52,Santa Cruz
+2015-paso,78,Massa,20.69,Santa Cruz
+2015-paso,78,Otras,7.8,Santa Cruz
+2015-paso,78,Stolbizer,1.54,Santa Cruz
+2015-paso,82,Scioli,33.03,Santa Fe
+2015-paso,82,Macri,31.97,Santa Fe
+2015-paso,82,Massa,22.1,Santa Fe
+2015-paso,82,Otras,6.73,Santa Fe
+2015-paso,82,Stolbizer,6.17,Santa Fe
+2015-paso,86,Scioli,66.65,Santiago del Estero
+2015-paso,86,Massa,14.99,Santiago del Estero
+2015-paso,86,Macri,14.2,Santiago del Estero
+2015-paso,86,Otras,3.18,Santiago del Estero
+2015-paso,86,Stolbizer,0.97,Santiago del Estero
+2015-paso,90,Scioli,57.48,Tucumán
+2015-paso,90,Macri,20.08,Tucumán
+2015-paso,90,Massa,16.24,Tucumán
+2015-paso,90,Otras,4.76,Tucumán
+2015-paso,90,Stolbizer,1.43,Tucumán
+2015-paso,94,Scioli,47.62,Tierra del Fuego
+2015-paso,94,Macri,22.21,Tierra del Fuego
+2015-paso,94,Massa,20.77,Tierra del Fuego
+2015-paso,94,Otras,7.01,Tierra del Fuego
+2015-paso,94,Stolbizer,2.38,Tierra del Fuego
 2019,00,Fernández,48.24,Total del país
 2019,00,Macri,40.28,Total del país
 2019,00,Lavagna,6.15,Total del país
@@ -1172,6 +1422,131 @@ eleccion,codigo_indec,candidato,pct,territorio
 2019,94,Lavagna,7.66,Tierra del Fuego
 2019,94,Otras,6.62,Tierra del Fuego
 2019,94,Del Caño,2.71,Tierra del Fuego
+2019-paso,00,Fernández,49.19,Total del país
+2019-paso,00,Macri,33.12,Total del país
+2019-paso,00,Lavagna,8.49,Total del país
+2019-paso,00,Otras,6.25,Total del país
+2019-paso,00,Del Caño,2.95,Total del país
+2019-paso,02,Macri,46.21,CABA
+2019-paso,02,Fernández,34.15,CABA
+2019-paso,02,Lavagna,9.03,CABA
+2019-paso,02,Otras,6.56,CABA
+2019-paso,02,Del Caño,4.05,CABA
+2019-paso,06,Fernández,52.39,Buenos Aires
+2019-paso,06,Macri,30.91,Buenos Aires
+2019-paso,06,Lavagna,7.99,Buenos Aires
+2019-paso,06,Otras,5.12,Buenos Aires
+2019-paso,06,Del Caño,3.59,Buenos Aires
+2019-paso,10,Fernández,61.95,Catamarca
+2019-paso,10,Macri,27.68,Catamarca
+2019-paso,10,Lavagna,6.92,Catamarca
+2019-paso,10,Otras,2.01,Catamarca
+2019-paso,10,Del Caño,1.44,Catamarca
+2019-paso,14,Macri,50.12,Córdoba
+2019-paso,14,Fernández,31.62,Córdoba
+2019-paso,14,Lavagna,8.24,Córdoba
+2019-paso,14,Otras,7.25,Córdoba
+2019-paso,14,Del Caño,2.79,Córdoba
+2019-paso,18,Fernández,53.68,Corrientes
+2019-paso,18,Macri,33.57,Corrientes
+2019-paso,18,Otras,6.62,Corrientes
+2019-paso,18,Lavagna,4.99,Corrientes
+2019-paso,18,Del Caño,1.13,Corrientes
+2019-paso,22,Fernández,59.84,Chaco
+2019-paso,22,Macri,27.3,Chaco
+2019-paso,22,Otras,7.76,Chaco
+2019-paso,22,Lavagna,3.68,Chaco
+2019-paso,22,Del Caño,1.43,Chaco
+2019-paso,26,Fernández,54.13,Chubut
+2019-paso,26,Macri,24.15,Chubut
+2019-paso,26,Otras,9.25,Chubut
+2019-paso,26,Lavagna,8.7,Chubut
+2019-paso,26,Del Caño,3.77,Chubut
+2019-paso,30,Fernández,46.0,Entre Ríos
+2019-paso,30,Macri,36.67,Entre Ríos
+2019-paso,30,Lavagna,8.74,Entre Ríos
+2019-paso,30,Otras,6.56,Entre Ríos
+2019-paso,30,Del Caño,2.03,Entre Ríos
+2019-paso,34,Fernández,66.55,Formosa
+2019-paso,34,Macri,24.49,Formosa
+2019-paso,34,Otras,4.43,Formosa
+2019-paso,34,Lavagna,3.74,Formosa
+2019-paso,34,Del Caño,0.8,Formosa
+2019-paso,38,Fernández,47.81,Jujuy
+2019-paso,38,Macri,30.19,Jujuy
+2019-paso,38,Lavagna,10.38,Jujuy
+2019-paso,38,Otras,8.25,Jujuy
+2019-paso,38,Del Caño,3.37,Jujuy
+2019-paso,42,Fernández,50.62,La Pampa
+2019-paso,42,Macri,32.68,La Pampa
+2019-paso,42,Lavagna,8.05,La Pampa
+2019-paso,42,Otras,6.37,La Pampa
+2019-paso,42,Del Caño,2.28,La Pampa
+2019-paso,46,Fernández,52.02,La Rioja
+2019-paso,46,Macri,32.63,La Rioja
+2019-paso,46,Lavagna,7.56,La Rioja
+2019-paso,46,Otras,5.8,La Rioja
+2019-paso,46,Del Caño,2.0,La Rioja
+2019-paso,50,Fernández,40.99,Mendoza
+2019-paso,50,Macri,37.8,Mendoza
+2019-paso,50,Lavagna,9.36,Mendoza
+2019-paso,50,Otras,7.62,Mendoza
+2019-paso,50,Del Caño,4.23,Mendoza
+2019-paso,54,Fernández,57.9,Misiones
+2019-paso,54,Macri,27.11,Misiones
+2019-paso,54,Otras,8.39,Misiones
+2019-paso,54,Lavagna,5.34,Misiones
+2019-paso,54,Del Caño,1.26,Misiones
+2019-paso,58,Fernández,47.97,Neuquén
+2019-paso,58,Macri,29.72,Neuquén
+2019-paso,58,Otras,9.27,Neuquén
+2019-paso,58,Lavagna,8.12,Neuquén
+2019-paso,58,Del Caño,4.92,Neuquén
+2019-paso,62,Fernández,56.99,Río Negro
+2019-paso,62,Macri,23.7,Río Negro
+2019-paso,62,Otras,8.77,Río Negro
+2019-paso,62,Lavagna,7.43,Río Negro
+2019-paso,62,Del Caño,3.12,Río Negro
+2019-paso,66,Fernández,49.52,Salta
+2019-paso,66,Macri,21.01,Salta
+2019-paso,66,Lavagna,18.96,Salta
+2019-paso,66,Otras,7.99,Salta
+2019-paso,66,Del Caño,2.52,Salta
+2019-paso,70,Fernández,56.08,San Juan
+2019-paso,70,Macri,26.93,San Juan
+2019-paso,70,Lavagna,10.14,San Juan
+2019-paso,70,Otras,5.39,San Juan
+2019-paso,70,Del Caño,1.46,San Juan
+2019-paso,74,Fernández,45.2,San Luis
+2019-paso,74,Macri,34.84,San Luis
+2019-paso,74,Lavagna,8.95,San Luis
+2019-paso,74,Otras,8.11,San Luis
+2019-paso,74,Del Caño,2.89,San Luis
+2019-paso,78,Fernández,57.81,Santa Cruz
+2019-paso,78,Macri,23.64,Santa Cruz
+2019-paso,78,Lavagna,7.92,Santa Cruz
+2019-paso,78,Otras,7.08,Santa Cruz
+2019-paso,78,Del Caño,3.55,Santa Cruz
+2019-paso,82,Fernández,44.29,Santa Fe
+2019-paso,82,Macri,34.31,Santa Fe
+2019-paso,82,Lavagna,12.34,Santa Fe
+2019-paso,82,Otras,7.08,Santa Fe
+2019-paso,82,Del Caño,1.98,Santa Fe
+2019-paso,86,Fernández,77.59,Santiago del Estero
+2019-paso,86,Macri,14.21,Santiago del Estero
+2019-paso,86,Lavagna,3.67,Santiago del Estero
+2019-paso,86,Otras,3.43,Santiago del Estero
+2019-paso,86,Del Caño,1.1,Santiago del Estero
+2019-paso,90,Fernández,60.46,Tucumán
+2019-paso,90,Macri,25.32,Tucumán
+2019-paso,90,Lavagna,7.05,Tucumán
+2019-paso,90,Otras,5.54,Tucumán
+2019-paso,90,Del Caño,1.64,Tucumán
+2019-paso,94,Fernández,56.99,Tierra del Fuego
+2019-paso,94,Macri,20.65,Tierra del Fuego
+2019-paso,94,Otras,9.63,Tierra del Fuego
+2019-paso,94,Lavagna,9.43,Tierra del Fuego
+2019-paso,94,Del Caño,3.31,Tierra del Fuego
 2023,00,Massa,36.69,Total del país
 2023,00,Milei,29.99,Total del país
 2023,00,Bullrich,23.84,Total del país
@@ -1347,3 +1722,128 @@ eleccion,codigo_indec,candidato,pct,territorio
 2023-2,90,Massa,48.02,Tucumán
 2023-2,94,Milei,53.3,Tierra del Fuego
 2023-2,94,Massa,46.7,Tierra del Fuego
+2023-paso,00,Milei,31.57,Total del país
+2023-paso,00,Bullrich,29.72,Total del país
+2023-paso,00,Massa,28.66,Total del país
+2023-paso,00,Otras,6.02,Total del país
+2023-paso,00,Schiaretti,4.03,Total del país
+2023-paso,02,Bullrich,49.14,CABA
+2023-paso,02,Massa,23.99,CABA
+2023-paso,02,Milei,18.07,CABA
+2023-paso,02,Otras,7.84,CABA
+2023-paso,02,Schiaretti,0.96,CABA
+2023-paso,06,Massa,34.4,Buenos Aires
+2023-paso,06,Bullrich,31.2,Buenos Aires
+2023-paso,06,Milei,26.27,Buenos Aires
+2023-paso,06,Otras,6.95,Buenos Aires
+2023-paso,06,Schiaretti,1.19,Buenos Aires
+2023-paso,10,Massa,44.59,Catamarca
+2023-paso,10,Milei,27.4,Catamarca
+2023-paso,10,Bullrich,22.7,Catamarca
+2023-paso,10,Otras,3.51,Catamarca
+2023-paso,10,Schiaretti,1.8,Catamarca
+2023-paso,14,Milei,34.15,Córdoba
+2023-paso,14,Schiaretti,27.97,Córdoba
+2023-paso,14,Bullrich,25.56,Córdoba
+2023-paso,14,Massa,8.8,Córdoba
+2023-paso,14,Otras,3.52,Córdoba
+2023-paso,18,Bullrich,35.05,Corrientes
+2023-paso,18,Massa,30.04,Corrientes
+2023-paso,18,Milei,29.84,Corrientes
+2023-paso,18,Otras,3.6,Corrientes
+2023-paso,18,Schiaretti,1.47,Corrientes
+2023-paso,22,Massa,36.08,Chaco
+2023-paso,22,Milei,30.13,Chaco
+2023-paso,22,Bullrich,27.65,Chaco
+2023-paso,22,Otras,4.66,Chaco
+2023-paso,22,Schiaretti,1.47,Chaco
+2023-paso,26,Milei,41.06,Chubut
+2023-paso,26,Bullrich,25.36,Chubut
+2023-paso,26,Massa,23.78,Chubut
+2023-paso,26,Otras,7.28,Chubut
+2023-paso,26,Schiaretti,2.51,Chubut
+2023-paso,30,Bullrich,36.7,Entre Ríos
+2023-paso,30,Massa,33.17,Entre Ríos
+2023-paso,30,Milei,25.13,Entre Ríos
+2023-paso,30,Otras,3.66,Entre Ríos
+2023-paso,30,Schiaretti,1.34,Entre Ríos
+2023-paso,34,Massa,47.97,Formosa
+2023-paso,34,Milei,26.24,Formosa
+2023-paso,34,Bullrich,22.34,Formosa
+2023-paso,34,Otras,2.4,Formosa
+2023-paso,34,Schiaretti,1.04,Formosa
+2023-paso,38,Milei,41.75,Jujuy
+2023-paso,38,Bullrich,24.93,Jujuy
+2023-paso,38,Massa,21.68,Jujuy
+2023-paso,38,Otras,9.86,Jujuy
+2023-paso,38,Schiaretti,1.79,Jujuy
+2023-paso,42,Milei,33.46,La Pampa
+2023-paso,42,Bullrich,28.97,La Pampa
+2023-paso,42,Massa,28.74,La Pampa
+2023-paso,42,Otras,5.04,La Pampa
+2023-paso,42,Schiaretti,3.79,La Pampa
+2023-paso,46,Milei,37.12,La Rioja
+2023-paso,46,Massa,32.08,La Rioja
+2023-paso,46,Bullrich,20.62,La Rioja
+2023-paso,46,Schiaretti,7.13,La Rioja
+2023-paso,46,Otras,3.05,La Rioja
+2023-paso,50,Milei,45.67,Mendoza
+2023-paso,50,Bullrich,28.8,Mendoza
+2023-paso,50,Massa,17.19,Mendoza
+2023-paso,50,Otras,6.99,Mendoza
+2023-paso,50,Schiaretti,1.36,Mendoza
+2023-paso,54,Milei,45.13,Misiones
+2023-paso,54,Massa,28.48,Misiones
+2023-paso,54,Bullrich,19.9,Misiones
+2023-paso,54,Otras,5.1,Misiones
+2023-paso,54,Schiaretti,1.4,Misiones
+2023-paso,58,Milei,41.15,Neuquén
+2023-paso,58,Bullrich,24.05,Neuquén
+2023-paso,58,Massa,20.83,Neuquén
+2023-paso,58,Otras,12.11,Neuquén
+2023-paso,58,Schiaretti,1.85,Neuquén
+2023-paso,62,Milei,39.3,Río Negro
+2023-paso,62,Massa,28.13,Río Negro
+2023-paso,62,Bullrich,22.3,Río Negro
+2023-paso,62,Otras,8.09,Río Negro
+2023-paso,62,Schiaretti,2.18,Río Negro
+2023-paso,66,Milei,50.39,Salta
+2023-paso,66,Massa,24.63,Salta
+2023-paso,66,Bullrich,17.54,Salta
+2023-paso,66,Otras,5.41,Salta
+2023-paso,66,Schiaretti,2.03,Salta
+2023-paso,70,Milei,35.34,San Juan
+2023-paso,70,Massa,30.04,San Juan
+2023-paso,70,Bullrich,28.86,San Juan
+2023-paso,70,Otras,4.06,San Juan
+2023-paso,70,Schiaretti,1.69,San Juan
+2023-paso,74,Milei,49.64,San Luis
+2023-paso,74,Bullrich,24.4,San Luis
+2023-paso,74,Massa,18.07,San Luis
+2023-paso,74,Otras,4.87,San Luis
+2023-paso,74,Schiaretti,3.03,San Luis
+2023-paso,78,Milei,40.78,Santa Cruz
+2023-paso,78,Massa,30.07,Santa Cruz
+2023-paso,78,Bullrich,21.97,Santa Cruz
+2023-paso,78,Otras,4.31,Santa Cruz
+2023-paso,78,Schiaretti,2.87,Santa Cruz
+2023-paso,82,Milei,36.49,Santa Fe
+2023-paso,82,Bullrich,32.74,Santa Fe
+2023-paso,82,Massa,21.84,Santa Fe
+2023-paso,82,Otras,5.11,Santa Fe
+2023-paso,82,Schiaretti,3.81,Santa Fe
+2023-paso,86,Massa,55.22,Santiago del Estero
+2023-paso,86,Milei,27.95,Santiago del Estero
+2023-paso,86,Bullrich,11.0,Santiago del Estero
+2023-paso,86,Otras,4.33,Santiago del Estero
+2023-paso,86,Schiaretti,1.5,Santiago del Estero
+2023-paso,90,Milei,37.14,Tucumán
+2023-paso,90,Massa,33.94,Tucumán
+2023-paso,90,Bullrich,22.43,Tucumán
+2023-paso,90,Otras,5.26,Tucumán
+2023-paso,90,Schiaretti,1.23,Tucumán
+2023-paso,94,Milei,36.43,Tierra del Fuego
+2023-paso,94,Massa,30.21,Tierra del Fuego
+2023-paso,94,Bullrich,21.48,Tierra del Fuego
+2023-paso,94,Otras,7.49,Tierra del Fuego
+2023-paso,94,Schiaretti,4.4,Tierra del Fuego

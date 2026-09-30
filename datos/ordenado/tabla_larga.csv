@@ -11350,6 +11350,126 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,2011,voto_presidente_2011_rodriguez_saa,1.66,% de los votos positivos,Direccion Nacional Electoral
 90,Tucumán,2011,voto_presidente_2011_rodriguez_saa,4.88,% de los votos positivos,Direccion Nacional Electoral
 94,Tierra del Fuego,2011,voto_presidente_2011_rodriguez_saa,5.69,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011-paso_alfonsin,10.11,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011-paso_alfonsin,10.97,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011-paso_alfonsin,20.27,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011-paso_alfonsin,17.69,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011-paso_alfonsin,14.51,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011-paso_alfonsin,21.48,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011-paso_alfonsin,9.72,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011-paso_alfonsin,16.9,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011-paso_alfonsin,15.08,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011-paso_alfonsin,19.03,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011-paso_alfonsin,16.06,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011-paso_alfonsin,18.0,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011-paso_alfonsin,11.92,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011-paso_alfonsin,14.29,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011-paso_alfonsin,11.03,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011-paso_alfonsin,13.37,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011-paso_alfonsin,13.46,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011-paso_alfonsin,7.54,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011-paso_alfonsin,11.05,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011-paso_alfonsin,14.32,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011-paso_alfonsin,6.54,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011-paso_alfonsin,6.47,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011-paso_alfonsin,14.15,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011-paso_alfonsin,10.28,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011-paso_binner,14.27,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011-paso_binner,7.8,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011-paso_binner,2.38,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011-paso_binner,14.52,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011-paso_binner,3.18,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011-paso_binner,2.85,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011-paso_binner,3.99,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011-paso_binner,13.2,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011-paso_binner,2.29,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011-paso_binner,5.3,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011-paso_binner,6.99,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011-paso_binner,3.38,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011-paso_binner,7.35,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011-paso_binner,3.05,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011-paso_binner,9.85,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011-paso_binner,6.54,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011-paso_binner,5.03,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011-paso_binner,2.68,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011-paso_binner,2.81,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011-paso_binner,4.8,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011-paso_binner,32.8,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011-paso_binner,2.4,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011-paso_binner,5.73,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011-paso_binner,7.05,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011-paso_duhalde,22.14,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011-paso_duhalde,13.82,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011-paso_duhalde,5.61,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011-paso_duhalde,11.85,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011-paso_duhalde,10.05,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011-paso_duhalde,6.8,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011-paso_duhalde,26.21,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011-paso_duhalde,12.33,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011-paso_duhalde,6.51,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011-paso_duhalde,5.26,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011-paso_duhalde,11.39,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011-paso_duhalde,3.68,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011-paso_duhalde,5.99,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011-paso_duhalde,11.31,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011-paso_duhalde,8.89,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011-paso_duhalde,7.02,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011-paso_duhalde,8.0,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011-paso_duhalde,3.85,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011-paso_duhalde,2.03,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011-paso_duhalde,5.25,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011-paso_duhalde,11.61,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011-paso_duhalde,6.22,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011-paso_duhalde,5.78,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011-paso_duhalde,7.38,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011-paso_fernandez_de_kirchner,30.17,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011-paso_fernandez_de_kirchner,53.35,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011-paso_fernandez_de_kirchner,63.43,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011-paso_fernandez_de_kirchner,34.25,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011-paso_fernandez_de_kirchner,63.42,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011-paso_fernandez_de_kirchner,60.35,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011-paso_fernandez_de_kirchner,51.56,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011-paso_fernandez_de_kirchner,45.85,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011-paso_fernandez_de_kirchner,70.08,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011-paso_fernandez_de_kirchner,58.01,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011-paso_fernandez_de_kirchner,47.93,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011-paso_fernandez_de_kirchner,50.52,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011-paso_fernandez_de_kirchner,46.94,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011-paso_fernandez_de_kirchner,64.1,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011-paso_fernandez_de_kirchner,55.31,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011-paso_fernandez_de_kirchner,60.08,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011-paso_fernandez_de_kirchner,62.68,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011-paso_fernandez_de_kirchner,65.26,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011-paso_fernandez_de_kirchner,27.95,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011-paso_fernandez_de_kirchner,65.54,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011-paso_fernandez_de_kirchner,37.91,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011-paso_fernandez_de_kirchner,80.45,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011-paso_fernandez_de_kirchner,65.15,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011-paso_fernandez_de_kirchner,61.66,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2011,voto_presidente_2011-paso_otras,23.3,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2011,voto_presidente_2011-paso_otras,14.06,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2011,voto_presidente_2011-paso_otras,8.31,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2011,voto_presidente_2011-paso_otras,21.68,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2011,voto_presidente_2011-paso_otras,8.84,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2011,voto_presidente_2011-paso_otras,8.53,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2011,voto_presidente_2011-paso_otras,8.52,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2011,voto_presidente_2011-paso_otras,11.72,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2011,voto_presidente_2011-paso_otras,6.05,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2011,voto_presidente_2011-paso_otras,12.41,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2011,voto_presidente_2011-paso_otras,17.63,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2011,voto_presidente_2011-paso_otras,24.42,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2011,voto_presidente_2011-paso_otras,27.8,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2011,voto_presidente_2011-paso_otras,7.25,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2011,voto_presidente_2011-paso_otras,14.92,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2011,voto_presidente_2011-paso_otras,12.99,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2011,voto_presidente_2011-paso_otras,10.83,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2011,voto_presidente_2011-paso_otras,20.66,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2011,voto_presidente_2011-paso_otras,56.16,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2011,voto_presidente_2011-paso_otras,10.08,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2011,voto_presidente_2011-paso_otras,11.14,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2011,voto_presidente_2011-paso_otras,4.46,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2011,voto_presidente_2011-paso_otras,9.19,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2011,voto_presidente_2011-paso_otras,13.63,% de los votos positivos,Direccion Nacional Electoral
 02,CABA,2015,voto_presidente_2015_del_cano,4.26,% de los votos positivos,Direccion Nacional Electoral
 06,Buenos Aires,2015,voto_presidente_2015_del_cano,3.68,% de los votos positivos,Direccion Nacional Electoral
 10,Catamarca,2015,voto_presidente_2015_del_cano,1.56,% de los votos positivos,Direccion Nacional Electoral
@@ -11518,6 +11638,126 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,2015,voto_presidente_2015-2_scioli,72.09,% de los votos positivos,Direccion Nacional Electoral
 90,Tucumán,2015,voto_presidente_2015-2_scioli,58.6,% de los votos positivos,Direccion Nacional Electoral
 94,Tierra del Fuego,2015,voto_presidente_2015-2_scioli,58.66,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015-paso_macri,49.0,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015-paso_macri,29.15,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015-paso_macri,33.06,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015-paso_macri,35.38,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015-paso_macri,29.47,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015-paso_macri,25.97,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015-paso_macri,22.99,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015-paso_macri,34.95,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015-paso_macri,16.73,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015-paso_macri,23.04,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015-paso_macri,35.17,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015-paso_macri,27.03,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015-paso_macri,36.13,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015-paso_macri,22.13,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015-paso_macri,27.41,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015-paso_macri,22.64,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015-paso_macri,20.45,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015-paso_macri,16.07,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015-paso_macri,24.78,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015-paso_macri,25.52,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015-paso_macri,31.97,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015-paso_macri,14.2,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015-paso_macri,20.08,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015-paso_macri,22.21,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015-paso_massa,13.36,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015-paso_massa,20.65,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015-paso_massa,12.7,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015-paso_massa,38.81,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015-paso_massa,16.03,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015-paso_massa,12.69,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015-paso_massa,19.18,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015-paso_massa,17.79,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015-paso_massa,17.33,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015-paso_massa,26.95,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015-paso_massa,15.74,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015-paso_massa,24.28,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015-paso_massa,13.37,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015-paso_massa,14.73,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015-paso_massa,21.75,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015-paso_massa,21.42,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015-paso_massa,28.01,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015-paso_massa,22.05,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015-paso_massa,6.32,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015-paso_massa,20.69,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015-paso_massa,22.1,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015-paso_massa,14.99,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015-paso_massa,16.24,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015-paso_massa,20.77,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015-paso_otras,7.62,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015-paso_otras,6.25,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015-paso_otras,2.79,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015-paso_otras,8.85,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015-paso_otras,3.04,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015-paso_otras,4.39,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015-paso_otras,7.07,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015-paso_otras,4.2,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015-paso_otras,3.32,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015-paso_otras,6.64,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015-paso_otras,6.06,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015-paso_otras,7.25,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015-paso_otras,15.63,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015-paso_otras,4.34,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015-paso_otras,12.11,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015-paso_otras,8.04,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015-paso_otras,5.77,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015-paso_otras,5.79,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015-paso_otras,47.88,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015-paso_otras,7.8,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015-paso_otras,6.73,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015-paso_otras,3.18,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015-paso_otras,4.76,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015-paso_otras,7.01,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015-paso_scioli,23.3,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015-paso_scioli,39.69,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015-paso_scioli,50.49,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015-paso_scioli,14.65,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015-paso_scioli,50.45,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015-paso_scioli,55.36,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015-paso_scioli,47.78,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015-paso_scioli,39.7,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015-paso_scioli,61.65,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015-paso_scioli,41.99,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015-paso_scioli,40.35,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015-paso_scioli,40.76,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015-paso_scioli,33.47,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015-paso_scioli,57.6,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015-paso_scioli,35.69,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015-paso_scioli,44.78,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015-paso_scioli,44.59,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015-paso_scioli,54.65,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015-paso_scioli,19.59,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015-paso_scioli,44.46,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015-paso_scioli,33.03,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015-paso_scioli,66.65,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015-paso_scioli,57.48,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015-paso_scioli,47.62,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2015,voto_presidente_2015-paso_stolbizer,6.72,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2015,voto_presidente_2015-paso_stolbizer,4.26,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2015,voto_presidente_2015-paso_stolbizer,0.95,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2015,voto_presidente_2015-paso_stolbizer,2.32,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2015,voto_presidente_2015-paso_stolbizer,1.02,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2015,voto_presidente_2015-paso_stolbizer,1.59,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2015,voto_presidente_2015-paso_stolbizer,2.98,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2015,voto_presidente_2015-paso_stolbizer,3.36,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2015,voto_presidente_2015-paso_stolbizer,0.97,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2015,voto_presidente_2015-paso_stolbizer,1.39,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2015,voto_presidente_2015-paso_stolbizer,2.68,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2015,voto_presidente_2015-paso_stolbizer,0.68,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2015,voto_presidente_2015-paso_stolbizer,1.39,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2015,voto_presidente_2015-paso_stolbizer,1.2,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2015,voto_presidente_2015-paso_stolbizer,3.04,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2015,voto_presidente_2015-paso_stolbizer,3.12,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2015,voto_presidente_2015-paso_stolbizer,1.18,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2015,voto_presidente_2015-paso_stolbizer,1.44,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2015,voto_presidente_2015-paso_stolbizer,1.42,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2015,voto_presidente_2015-paso_stolbizer,1.54,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2015,voto_presidente_2015-paso_stolbizer,6.17,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2015,voto_presidente_2015-paso_stolbizer,0.97,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2015,voto_presidente_2015-paso_stolbizer,1.43,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2015,voto_presidente_2015-paso_stolbizer,2.38,% de los votos positivos,Direccion Nacional Electoral
 02,CABA,2019,voto_presidente_2019_del_cano,2.91,% de los votos positivos,Direccion Nacional Electoral
 06,Buenos Aires,2019,voto_presidente_2019_del_cano,2.7,% de los votos positivos,Direccion Nacional Electoral
 10,Catamarca,2019,voto_presidente_2019_del_cano,1.5,% de los votos positivos,Direccion Nacional Electoral
@@ -11638,6 +11878,126 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,2019,voto_presidente_2019_otras,2.38,% de los votos positivos,Direccion Nacional Electoral
 90,Tucumán,2019,voto_presidente_2019_otras,2.93,% de los votos positivos,Direccion Nacional Electoral
 94,Tierra del Fuego,2019,voto_presidente_2019_otras,6.62,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019-paso_del_cano,4.05,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019-paso_del_cano,3.59,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019-paso_del_cano,1.44,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019-paso_del_cano,2.79,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019-paso_del_cano,1.13,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019-paso_del_cano,1.43,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019-paso_del_cano,3.77,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019-paso_del_cano,2.03,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019-paso_del_cano,0.8,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019-paso_del_cano,3.37,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019-paso_del_cano,2.28,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019-paso_del_cano,2.0,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019-paso_del_cano,4.23,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019-paso_del_cano,1.26,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019-paso_del_cano,4.92,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019-paso_del_cano,3.12,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019-paso_del_cano,2.52,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019-paso_del_cano,1.46,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019-paso_del_cano,2.89,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019-paso_del_cano,3.55,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019-paso_del_cano,1.98,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019-paso_del_cano,1.1,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019-paso_del_cano,1.64,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019-paso_del_cano,3.31,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019-paso_fernandez,34.15,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019-paso_fernandez,52.39,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019-paso_fernandez,61.95,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019-paso_fernandez,31.62,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019-paso_fernandez,53.68,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019-paso_fernandez,59.84,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019-paso_fernandez,54.13,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019-paso_fernandez,46.0,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019-paso_fernandez,66.55,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019-paso_fernandez,47.81,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019-paso_fernandez,50.62,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019-paso_fernandez,52.02,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019-paso_fernandez,40.99,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019-paso_fernandez,57.9,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019-paso_fernandez,47.97,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019-paso_fernandez,56.99,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019-paso_fernandez,49.52,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019-paso_fernandez,56.08,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019-paso_fernandez,45.2,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019-paso_fernandez,57.81,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019-paso_fernandez,44.29,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019-paso_fernandez,77.59,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019-paso_fernandez,60.46,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019-paso_fernandez,56.99,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019-paso_lavagna,9.03,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019-paso_lavagna,7.99,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019-paso_lavagna,6.92,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019-paso_lavagna,8.24,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019-paso_lavagna,4.99,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019-paso_lavagna,3.68,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019-paso_lavagna,8.7,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019-paso_lavagna,8.74,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019-paso_lavagna,3.74,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019-paso_lavagna,10.38,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019-paso_lavagna,8.05,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019-paso_lavagna,7.56,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019-paso_lavagna,9.36,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019-paso_lavagna,5.34,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019-paso_lavagna,8.12,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019-paso_lavagna,7.43,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019-paso_lavagna,18.96,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019-paso_lavagna,10.14,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019-paso_lavagna,8.95,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019-paso_lavagna,7.92,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019-paso_lavagna,12.34,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019-paso_lavagna,3.67,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019-paso_lavagna,7.05,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019-paso_lavagna,9.43,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019-paso_macri,46.21,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019-paso_macri,30.91,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019-paso_macri,27.68,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019-paso_macri,50.12,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019-paso_macri,33.57,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019-paso_macri,27.3,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019-paso_macri,24.15,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019-paso_macri,36.67,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019-paso_macri,24.49,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019-paso_macri,30.19,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019-paso_macri,32.68,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019-paso_macri,32.63,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019-paso_macri,37.8,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019-paso_macri,27.11,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019-paso_macri,29.72,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019-paso_macri,23.7,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019-paso_macri,21.01,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019-paso_macri,26.93,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019-paso_macri,34.84,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019-paso_macri,23.64,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019-paso_macri,34.31,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019-paso_macri,14.21,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019-paso_macri,25.32,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019-paso_macri,20.65,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2019,voto_presidente_2019-paso_otras,6.56,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2019,voto_presidente_2019-paso_otras,5.12,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2019,voto_presidente_2019-paso_otras,2.01,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2019,voto_presidente_2019-paso_otras,7.25,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2019,voto_presidente_2019-paso_otras,6.62,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2019,voto_presidente_2019-paso_otras,7.76,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2019,voto_presidente_2019-paso_otras,9.25,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2019,voto_presidente_2019-paso_otras,6.56,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2019,voto_presidente_2019-paso_otras,4.43,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2019,voto_presidente_2019-paso_otras,8.25,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2019,voto_presidente_2019-paso_otras,6.37,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2019,voto_presidente_2019-paso_otras,5.8,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2019,voto_presidente_2019-paso_otras,7.62,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2019,voto_presidente_2019-paso_otras,8.39,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2019,voto_presidente_2019-paso_otras,9.27,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2019,voto_presidente_2019-paso_otras,8.77,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2019,voto_presidente_2019-paso_otras,7.99,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2019,voto_presidente_2019-paso_otras,5.39,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2019,voto_presidente_2019-paso_otras,8.11,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2019,voto_presidente_2019-paso_otras,7.08,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2019,voto_presidente_2019-paso_otras,7.08,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2019,voto_presidente_2019-paso_otras,3.43,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2019,voto_presidente_2019-paso_otras,5.54,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2019,voto_presidente_2019-paso_otras,9.63,% de los votos positivos,Direccion Nacional Electoral
 02,CABA,2023,voto_presidente_2023_bullrich,41.23,% de los votos positivos,Direccion Nacional Electoral
 06,Buenos Aires,2023,voto_presidente_2023_bullrich,24.1,% de los votos positivos,Direccion Nacional Electoral
 10,Catamarca,2023,voto_presidente_2023_bullrich,17.17,% de los votos positivos,Direccion Nacional Electoral
@@ -11806,3 +12166,123 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,2023,voto_presidente_2023-2_milei,31.58,% de los votos positivos,Direccion Nacional Electoral
 90,Tucumán,2023,voto_presidente_2023-2_milei,51.98,% de los votos positivos,Direccion Nacional Electoral
 94,Tierra del Fuego,2023,voto_presidente_2023-2_milei,53.3,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023-paso_bullrich,49.14,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023-paso_bullrich,31.2,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023-paso_bullrich,22.7,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023-paso_bullrich,25.56,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023-paso_bullrich,35.05,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023-paso_bullrich,27.65,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023-paso_bullrich,25.36,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023-paso_bullrich,36.7,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023-paso_bullrich,22.34,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023-paso_bullrich,24.93,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023-paso_bullrich,28.97,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023-paso_bullrich,20.62,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023-paso_bullrich,28.8,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023-paso_bullrich,19.9,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023-paso_bullrich,24.05,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023-paso_bullrich,22.3,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023-paso_bullrich,17.54,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023-paso_bullrich,28.86,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023-paso_bullrich,24.4,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023-paso_bullrich,21.97,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023-paso_bullrich,32.74,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023-paso_bullrich,11.0,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023-paso_bullrich,22.43,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023-paso_bullrich,21.48,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023-paso_massa,23.99,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023-paso_massa,34.4,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023-paso_massa,44.59,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023-paso_massa,8.8,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023-paso_massa,30.04,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023-paso_massa,36.08,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023-paso_massa,23.78,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023-paso_massa,33.17,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023-paso_massa,47.97,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023-paso_massa,21.68,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023-paso_massa,28.74,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023-paso_massa,32.08,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023-paso_massa,17.19,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023-paso_massa,28.48,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023-paso_massa,20.83,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023-paso_massa,28.13,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023-paso_massa,24.63,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023-paso_massa,30.04,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023-paso_massa,18.07,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023-paso_massa,30.07,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023-paso_massa,21.84,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023-paso_massa,55.22,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023-paso_massa,33.94,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023-paso_massa,30.21,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023-paso_milei,18.07,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023-paso_milei,26.27,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023-paso_milei,27.4,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023-paso_milei,34.15,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023-paso_milei,29.84,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023-paso_milei,30.13,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023-paso_milei,41.06,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023-paso_milei,25.13,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023-paso_milei,26.24,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023-paso_milei,41.75,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023-paso_milei,33.46,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023-paso_milei,37.12,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023-paso_milei,45.67,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023-paso_milei,45.13,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023-paso_milei,41.15,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023-paso_milei,39.3,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023-paso_milei,50.39,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023-paso_milei,35.34,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023-paso_milei,49.64,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023-paso_milei,40.78,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023-paso_milei,36.49,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023-paso_milei,27.95,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023-paso_milei,37.14,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023-paso_milei,36.43,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023-paso_otras,7.84,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023-paso_otras,6.95,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023-paso_otras,3.51,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023-paso_otras,3.52,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023-paso_otras,3.6,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023-paso_otras,4.66,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023-paso_otras,7.28,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023-paso_otras,3.66,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023-paso_otras,2.4,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023-paso_otras,9.86,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023-paso_otras,5.04,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023-paso_otras,3.05,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023-paso_otras,6.99,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023-paso_otras,5.1,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023-paso_otras,12.11,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023-paso_otras,8.09,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023-paso_otras,5.41,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023-paso_otras,4.06,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023-paso_otras,4.87,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023-paso_otras,4.31,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023-paso_otras,5.11,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023-paso_otras,4.33,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023-paso_otras,5.26,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023-paso_otras,7.49,% de los votos positivos,Direccion Nacional Electoral
+02,CABA,2023,voto_presidente_2023-paso_schiaretti,0.96,% de los votos positivos,Direccion Nacional Electoral
+06,Buenos Aires,2023,voto_presidente_2023-paso_schiaretti,1.19,% de los votos positivos,Direccion Nacional Electoral
+10,Catamarca,2023,voto_presidente_2023-paso_schiaretti,1.8,% de los votos positivos,Direccion Nacional Electoral
+14,Córdoba,2023,voto_presidente_2023-paso_schiaretti,27.97,% de los votos positivos,Direccion Nacional Electoral
+18,Corrientes,2023,voto_presidente_2023-paso_schiaretti,1.47,% de los votos positivos,Direccion Nacional Electoral
+22,Chaco,2023,voto_presidente_2023-paso_schiaretti,1.47,% de los votos positivos,Direccion Nacional Electoral
+26,Chubut,2023,voto_presidente_2023-paso_schiaretti,2.51,% de los votos positivos,Direccion Nacional Electoral
+30,Entre Ríos,2023,voto_presidente_2023-paso_schiaretti,1.34,% de los votos positivos,Direccion Nacional Electoral
+34,Formosa,2023,voto_presidente_2023-paso_schiaretti,1.04,% de los votos positivos,Direccion Nacional Electoral
+38,Jujuy,2023,voto_presidente_2023-paso_schiaretti,1.79,% de los votos positivos,Direccion Nacional Electoral
+42,La Pampa,2023,voto_presidente_2023-paso_schiaretti,3.79,% de los votos positivos,Direccion Nacional Electoral
+46,La Rioja,2023,voto_presidente_2023-paso_schiaretti,7.13,% de los votos positivos,Direccion Nacional Electoral
+50,Mendoza,2023,voto_presidente_2023-paso_schiaretti,1.36,% de los votos positivos,Direccion Nacional Electoral
+54,Misiones,2023,voto_presidente_2023-paso_schiaretti,1.4,% de los votos positivos,Direccion Nacional Electoral
+58,Neuquén,2023,voto_presidente_2023-paso_schiaretti,1.85,% de los votos positivos,Direccion Nacional Electoral
+62,Río Negro,2023,voto_presidente_2023-paso_schiaretti,2.18,% de los votos positivos,Direccion Nacional Electoral
+66,Salta,2023,voto_presidente_2023-paso_schiaretti,2.03,% de los votos positivos,Direccion Nacional Electoral
+70,San Juan,2023,voto_presidente_2023-paso_schiaretti,1.69,% de los votos positivos,Direccion Nacional Electoral
+74,San Luis,2023,voto_presidente_2023-paso_schiaretti,3.03,% de los votos positivos,Direccion Nacional Electoral
+78,Santa Cruz,2023,voto_presidente_2023-paso_schiaretti,2.87,% de los votos positivos,Direccion Nacional Electoral
+82,Santa Fe,2023,voto_presidente_2023-paso_schiaretti,3.81,% de los votos positivos,Direccion Nacional Electoral
+86,Santiago del Estero,2023,voto_presidente_2023-paso_schiaretti,1.5,% de los votos positivos,Direccion Nacional Electoral
+90,Tucumán,2023,voto_presidente_2023-paso_schiaretti,1.23,% de los votos positivos,Direccion Nacional Electoral
+94,Tierra del Fuego,2023,voto_presidente_2023-paso_schiaretti,4.4,% de los votos positivos,Direccion Nacional Electoral
