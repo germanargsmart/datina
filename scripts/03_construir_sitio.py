@@ -1,6 +1,7 @@
 """
 Paso 3. Arma las paginas.
-Escribe sitio/datos/fichas.js (los datos de sitio/datos/fichas.json, compartidos por todas las paginas)
+Escribe sitio/datos/fichas.js (los datos de sitio/datos/fichas.json, compartidos por todas las paginas),
+sitio/datina.css y sitio/datina.js (el diseño y el comportamiento, tambien compartidos)
 y una pagina por seccion a partir de scripts/plantilla.html: sitio/index.html (portada) y sitio/{seccion}.html.
 Todas las paginas llevan el mismo marcado y cada una oculta las secciones ajenas.
 La explicacion de cada seccion (que se mide, desde cuando, como se calcula) sale de datos/manual/explicadores.json.
@@ -12,20 +13,38 @@ import hashlib, html, json, pathlib, re, shutil
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SITIO = RAIZ / "sitio"
+huella = lambda t: hashlib.sha1(t.encode("utf-8")).hexdigest()[:10]
 
-datos = (SITIO / "datos" / "fichas.json").read_text(encoding="utf-8")
-(SITIO / "datos" / "fichas.js").write_text("window.DATINA=" + datos + ";\n", encoding="utf-8")
-version = hashlib.sha1(datos.encode("utf-8")).hexdigest()[:10]
-
-plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8").replace("__VERSION__", version)
+# Datos. Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
+# fichas.js lleva la huella de cada una para que el navegador no use una version vieja.
+DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias"]
+D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+D["diferidas"] = {}
+for nombre in DIFERIDAS:
+    t = json.dumps(D["datos"].pop(nombre), ensure_ascii=False, separators=(",", ":"))
+    (SITIO / "datos" / f"{nombre}.json").write_text(t, encoding="utf-8")
+    D["diferidas"][nombre] = huella(t)
+datos = "window.DATINA=" + json.dumps(D, ensure_ascii=False, separators=(",", ":")) + ";\n"
+(SITIO / "datos" / "fichas.js").write_text(datos, encoding="utf-8")
 
 # Iconos isometricos propios (los genera scripts/iconos_isometricos.py en datos/manual/iconos_iso): trazo y tono de cada uno
 DIR_ICONOS = RAIZ / "datos" / "manual" / "iconos_iso"
 TONOS = json.loads((DIR_ICONOS / "tonos.json").read_text(encoding="utf-8"))
 ICONOS = {n: {"t": tono, "d": re.sub(r"^<svg[^>]*>|</svg>\s*$", "", (DIR_ICONOS / f"{n}.svg").read_text(encoding="utf-8").strip())}
           for n, tono in TONOS.items()}
-assert "/*ICONOS*/{}" in plantilla
-plantilla = plantilla.replace("/*ICONOS*/{}", json.dumps(ICONOS, ensure_ascii=False))
+
+# Diseño y comportamiento: un solo archivo de cada uno para todas las paginas, que el navegador guarda despues de la primera visita
+css = (RAIZ / "scripts" / "datina.css").read_text(encoding="utf-8")
+js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
+assert "/*ICONOS*/{}" in js
+js = js.replace("/*ICONOS*/{}", json.dumps(ICONOS, ensure_ascii=False))
+(SITIO / "datina.css").write_text(css, encoding="utf-8")
+(SITIO / "datina.js").write_text(js, encoding="utf-8")
+
+plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8")
+for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(js)}.items():
+    assert marca in plantilla, marca
+    plantilla = plantilla.replace(marca, valor)
 
 ruta_exp = RAIZ / "datos" / "manual" / "explicadores.json"
 EXP = json.loads(ruta_exp.read_text(encoding="utf-8")) if ruta_exp.exists() else {}

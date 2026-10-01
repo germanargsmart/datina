@@ -1,3 +1,34 @@
 # Netlify publica solo la carpeta sitio/
 [build]
   publish = "sitio"
+
+# Archivos que las páginas piden con su huella en la dirección (?v=...): cuando cambia el contenido cambia la dirección,
+# así que el navegador los puede guardar un año sin volver a preguntar. Lo arma scripts/03_construir_sitio.py.
+[[headers]]
+  for = "/datina.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/datina.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/datos/fichas.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/datos/elecciones_presidenciales.json"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/datos/transferencias_provincias.json"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/datos/piramide_poblacion.json"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/datos/apoyo_gobierno_provincias.json"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
