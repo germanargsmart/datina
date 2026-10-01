@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<base href="/">
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Página no encontrada | Datina</title>
+<meta name="description" content="Esta página no existe.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<link rel="stylesheet" href="datina.css?v=db99def3a4">
+</head>
+<body data-pagina="404">
+<header class="barra">
+  <div class="envoltura">
+    <div class="barra-izq">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    </div>
+    <nav class="temas" aria-label="Temas principales">
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+    </nav>
+    <div class="barra-der">
+      <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
+      <div class="prov-chip" id="prov-chip" hidden>
+        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
+      </div>
+      <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
+    </div>
+    <div class="menu-panel" id="menu-panel" hidden>
+      <div class="menu-col">
+        <p class="menu-tit">Temas</p>
+        <a href="provincia.html">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
+        <a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a>
+        <a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a>
+      </div>
+      <div class="menu-col">
+        <p class="menu-tit">Artículos</p>
+        <a href="articulos.html">Todos los artículos</a>
+        <p class="menu-tit">Herramientas</p>
+        <a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a>
+        <p class="menu-tit">Datina</p>
+        <a href="nosotros.html">Sobre nosotros</a><a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+  </div>
+  <div class="buscador" id="buscador" hidden>
+    <div class="buscador-caja">
+      <label class="buscador-lab" for="busca">Buscar en Datina</label>
+      <input type="search" id="busca" placeholder="Un tema, una provincia o una pregunta: empleo, Salta, cloacas" autocomplete="off" spellcheck="false">
+      <div class="busca-res" id="busca-res" aria-live="polite"></div>
+    </div>
+  </div>
+</header>
+
+
+
+<main class="envoltura">
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  <section class="no-encontrada" id="no-encontrada" aria-labelledby="no-tit">
+    <h2 id="no-tit">Esta página no existe</h2>
+    <p class="nos-bajada">Puede que la dirección tenga un error o que la página se haya mudado. Los datos siguen acá: elegí una sección o buscá con la lupa.</p>
+    <p class="no-acciones"><a class="boton principal" href="./">Ir a la portada</a><a class="boton" href="./#secciones">Ver todas las secciones</a></p>
+  </section>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="energia.html">Energía</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="articulos.html">Artículos</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p data-t="actualizado"></p>
+      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
+<script src="datos/fichas.js?v=8020598329"></script>
+<script src="datina.js?v=fd28d27d14"></script>
+</body>
+</html>

@@ -1,21 +1,32 @@
 (() => {
 const D = window.DATINA;
 
-/* ---------- páginas: cada sección vive en su propio archivo (salud.html, politica.html) ---------- */
-// Todas las páginas comparten el mismo marcado y el constructor oculta las secciones ajenas.
+/* ---------- páginas: cada sección vive en su propio archivo (salud.html, politica.html) ----------
+   Cada página trae solo el marcado de su sección. Lo que hace falta saber de las otras (títulos, fichas y en qué página
+   está cada ancla) sale del índice del sitio, que arma el constructor desde la plantilla (D.indice). */
 const PAGINA = document.body.dataset.pagina || "inicio";
 // sección a la que pertenece la página: en un artículo es "articulos"
 const SECCION = PAGINA.startsWith("a-") ? "articulos" : PAGINA;
-const paginaDe = el => el?.closest(".nota")?.id || el?.closest(".tema")?.id || "inicio";
+const SITIO = D.indice, UBIC = SITIO.ubic;
+// página donde está un ancla (una ficha, una sección o un artículo)
+const paginaDe = id => UBIC[id];
 const urlPagina = (p, resto = "") => (p === "inicio" ? "./" : p + ".html") + resto;
+// enlace a una ficha (#f-empleo): si está en otra página, la dirección de esa página
+const destinoDe = href => {
+  const id = href.slice(1).split("?")[0], p = id && paginaDe(id);
+  if (!p || p === PAGINA) return null;
+  return urlPagina(p, p === id ? "" : "#" + id);
+};
 // Los enlaces de cuando todo estaba en una sola página (#f-empleo?prov=30, #salud, ?cx=, ?ix=) llevan a la página nueva
 if (PAGINA === "inicio") {
-  const q = new URLSearchParams(location.search), h = location.hash.slice(1).split("?")[0], el = h && document.getElementById(h);
+  const q = new URLSearchParams(location.search), h = location.hash.slice(1).split("?")[0], p = h && paginaDe(h);
   const destino = h === "provincias" || (q.has("prov") && !h) ? "provincia"
-    : el && paginaDe(el) !== "inicio" ? paginaDe(el) : q.has("cx") || q.has("cy") ? "cruces" : q.has("ix") ? "indice" : null;
+    : p && p !== "inicio" ? p : q.has("cx") || q.has("cy") ? "cruces" : q.has("ix") ? "indice" : null;
   if (destino) { location.replace(urlPagina(destino, location.search + (h === destino || h === "provincias" ? "" : location.hash))); return; }
 }
 const R = D.resumen, T = D.datos, OC = R.ocde;
+// Elementos de una ficha que puede no estar en esta página: si falta, se usa uno suelto y esas líneas no tienen efecto
+const $ = id => document.getElementById(id) || document.createElement("div");
 // Las tablas más pesadas (elecciones, transferencias por provincia, pirámide y apoyo al gobierno) van en archivos aparte
 // y se bajan recién cuando se dibuja una ficha que las usa, como la lista de legisladores
 const DIFERIDAS = D.diferidas || {}, pedidas = {};
@@ -81,6 +92,7 @@ document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(e
 /* ---------- Sol de Mayo ---------- */
 (function sol() {
   const NS = "http://www.w3.org/2000/svg", cont = document.getElementById("sol-rayos");
+  if (!cont) return;
   const pt = ([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`;
   const recto = "M-4.4,-27 L0,-95 L4.4,-27 Z";
   // rayo flamígero: una onda que se afina hacia la punta
@@ -280,6 +292,7 @@ const TX = {
   actualizado: `Datos descargados y procesados el ${R.actualizado}.`
 };
 document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
+const $t = k => document.querySelector(`[data-t="${k}"]`) || document.createElement("p");
 
 /* ---------- provincias ---------- */
 const PROV = T.empleo_provincias.map(d => [d.codigo_indec, d.territorio]).sort((a,b) => a[1].localeCompare(b[1],"es"));
@@ -289,20 +302,35 @@ const leerProv = () => new URLSearchParams(location.search).get("prov") || new U
 let prov = "";
 try { prov = leerProv() || localStorage.getItem("prov") || ""; } catch(_) { prov = leerProv(); }
 if (!NOMBRES[prov]) prov = "";
-function elegir(c) {
+// una provincia que llega en el enlace queda elegida también para las otras páginas
+else if (leerProv() === prov) try { localStorage.setItem("prov", prov); } catch(_) {}
+function elegir(c, desdeHistorial = false) {
+  const antes = prov;
   prov = NOMBRES[c] ? c : "";
   desplegable.marcar();
   try { localStorage.setItem("prov", prov); } catch(_) {}
-  const u = new URL(location.href);
-  if (prov) u.searchParams.set("prov", prov); else u.searchParams.delete("prov");
-  history.replaceState(null, "", u);
-  dibujarTodo(); pintarPanel(true); tablaAreas();
+  if (!desdeHistorial && prov !== antes) {
+    const u = new URL(location.href);
+    if (prov) u.searchParams.set("prov", prov); else u.searchParams.delete("prov");
+    history.pushState({...history.state, prov}, "", u);
+  }
+  dibujarTodo(); pintarPanel(true); tablaAreas(); alCambiarProv.forEach(f => f());
 }
+// lo que, además de los gráficos y el perfil, depende de la provincia elegida (indicador, migas, "En cifras", destacados)
+const alCambiarProv = [];
+// cada entrada del historial recuerda su provincia: "atrás" y "adelante" la restituyen sin agregar entradas
+history.replaceState({...history.state, prov}, "");
+addEventListener("popstate", ev => {
+  const c = ev.state && "prov" in ev.state ? ev.state.prov : null;
+  if (c !== null && c !== prov) elegir(c, true);
+});
 
 /* Desplegable propio: botón chico, panel con buscador y lista en dos columnas.
    Teclado: flechas para moverse, Enter para elegir, Escape para cerrar. */
 const desplegable = (() => {
-  const caja = document.getElementById("elige"), btn = document.getElementById("elige-btn"), panel = document.getElementById("elige-panel");
+  const caja = document.getElementById("elige");
+  if (!caja) return {marcar() {}};
+  const btn = document.getElementById("elige-btn"), panel = document.getElementById("elige-panel");
   const buscar = document.getElementById("elige-buscar"), lista = document.getElementById("elige-lista"), vacio = document.getElementById("elige-vacio");
   const valor = document.getElementById("elige-valor");
   const sinTilde = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -909,7 +937,7 @@ const EL = Object.fromEntries(R.elecciones.map(e => [e.id, e]));
 const nombreEl = e => `${e.anio}${e.vuelta === 0 ? ", PASO" : e.vuelta === 2 ? ", segunda vuelta" : e.anio === 2015 || e.anio === 2023 ? ", primera vuelta" : e.anio >= 2011 ? ", generales" : ""}`;
 const nomListas = c => listaY(c.listas.map(l => `${l.n} (${pct(l.pct)})`));
 MED.elecciones = R.elecciones[R.elecciones.length - 1].id;
-document.getElementById("el-sel").innerHTML = [...R.elecciones].reverse().map(e => `<option value="${e.id}">${nombreEl(e)}</option>`).join("");
+$("el-sel").innerHTML = [...R.elecciones].reverse().map(e => `<option value="${e.id}">${nombreEl(e)}</option>`).join("");
 function clavesEl(e) {
   const usados = {};
   const cl = e.candidatos.map(c => {
@@ -943,7 +971,7 @@ DIB.elecciones = conTablas("elecciones", ["elecciones_presidenciales"], a => {
 });
 MED.congreso = "Diputados";
 const CG = R.congreso;
-document.querySelector('[data-t="congreso-titulo"]').textContent = `Composición del Congreso por espacio político en cada período legislativo, 1983 a ${CG.anio + 2}`;
+TX["congreso-titulo"] = $t("congreso-titulo").textContent = `Composición del Congreso por espacio político en cada período legislativo, 1983 a ${CG.anio + 2}`;
 DIB.congreso = a => {
   const cam = MED.congreso, esp = CG.espacios, v = cam === "Diputados" ? CG.dip : CG.sen, n = cam === "Diputados" ? CG.n_dip : CG.n_sen;
   const ord = esp.filter(k => v[k]).sort((p, q) => v[q] - v[p]);
@@ -955,13 +983,13 @@ DIB.congreso = a => {
   document.getElementById("cg-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
   columnasApiladas(G("congreso"), {anim: a, data: filas, claves: cl, cadaTick: 2});
 };
-document.getElementById("lg-sel").innerHTML = PROV.map(([c, nom]) => `<option value="${c}">${nom}</option>`).join("");
+$("lg-sel").innerHTML = PROV.map(([c, nom]) => `<option value="${c}">${nom}</option>`).join("");
 const LG_PER = CG.periodos, LG_ULT = LG_PER[LG_PER.length - 1];
-document.getElementById("lg-per").innerHTML = [...LG_PER].reverse().map(a => `<option value="${a}">${a} a ${a + 2}${a === LG_ULT ? " (el actual)" : ""}</option>`).join("");
+$("lg-per").innerHTML = [...LG_PER].reverse().map(a => `<option value="${a}">${a} a ${a + 2}${a === LG_ULT ? " (el actual)" : ""}</option>`).join("");
 MED.legisladores = null; MED.lgPer = LG_ULT;
 let LGP = null, lgCargando = null;
 const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_por_periodo.json").then(j => { LGP = j; }));
-["lg-sel", "lg-per"].forEach(id => document.getElementById(id).addEventListener("change", ev => {
+["lg-sel", "lg-per"].forEach(id => $(id).addEventListener("change", ev => {
   if (id === "lg-sel") MED.legisladores = ev.target.value; else MED.lgPer = +ev.target.value;
   DIB.legisladores();
 }));
@@ -1027,8 +1055,8 @@ function resumenEspacios(esp) {
   if (gr.aus.length) s += ` La mayoría de los legisladores ${listaY(gr.aus.map(deEsp))} no estuvo en la votación.`;
   return s.trim();
 }
-document.querySelector('[data-t="votaciones-titulo"]').textContent = `Cómo votó cada espacio político las leyes clave, ${VT.leyes[0].anio} a ${VT.leyes[VT.leyes.length - 1].anio}`;
-document.getElementById("vt-sel").innerHTML = [...VT.leyes].reverse().map(l => `<option value="${l.k}">${l.anio}, ${l.nombre}</option>`).join("");
+TX["votaciones-titulo"] = $t("votaciones-titulo").textContent = `Cómo votó cada espacio político las leyes clave, ${VT.leyes[0].anio} a ${VT.leyes[VT.leyes.length - 1].anio}`;
+$("vt-sel").innerHTML = [...VT.leyes].reverse().map(l => `<option value="${l.k}">${l.anio}, ${l.nombre}</option>`).join("");
 MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.vtmatriz = "Diputados";
 let VTJ = null, vtCargando = null;
 const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }));
@@ -1036,7 +1064,7 @@ const vtConm = (g, cam) => {  // pone el conmutador de una ficha en la cámara i
   const conm = document.querySelector(`.conmutador[data-g="${g}"]`);
   conm.querySelectorAll("button").forEach((b, i) => { const on = b.dataset.m === cam; b.setAttribute("aria-pressed", on); if (on) conm.style.setProperty("--i", i); });
 };
-document.getElementById("vt-sel").addEventListener("change", ev => { MED.vtLey = ev.target.value; DIB.votaciones(!REDUCIR); DIB.vtmatriz(false); });
+$("vt-sel").addEventListener("change", ev => { MED.vtLey = ev.target.value; DIB.votaciones(!REDUCIR); DIB.vtmatriz(false); });
 function puntosVoto(el, cfg) {
   const w = Math.max(300, el.clientWidth), angosto = w < 560;
   const paso = cfg.senado ? (angosto ? 13 : 16) : (angosto ? 8.6 : 10.5), r = paso * .4;
@@ -1139,12 +1167,12 @@ DIB.vtmatriz = a => {
     (mas ? `Contando la postura de la mayoría de cada espacio, ${ESP_TXT[mas.e1]} y ${ESP_TXT[mas.e2]} votaron igual en ${mas.igual} de las ${mas.n} leyes en que los dos tomaron posición, ` +
       `y ${ESP_TXT[menos.e1]} y ${ESP_TXT[menos.e2]} votaron distinto en ${menos.n - menos.igual} de ${menos.n}. ` : "") + `Tocá una ley para ver el voto de cada legislador.`;
 };
-document.querySelector('[data-t="vtm-titulo"]').textContent = `Leyes clave: qué parte de cada espacio político votó a favor, ${VT.leyes[0].anio} a ${VT.leyes[VT.leyes.length - 1].anio}`;
+TX["vtm-titulo"] = $t("vtm-titulo").textContent = `Leyes clave: qué parte de cada espacio político votó a favor, ${VT.leyes[0].anio} a ${VT.leyes[VT.leyes.length - 1].anio}`;
 const AP = VT.apoyo, AP_A = Object.fromEntries(AP.anios.map(x => [x.anio, x]));
 MED.apoyo = "atn_hab"; MED.apAnio = AP.hasta;
-document.getElementById("ap-sel").innerHTML = [...AP.anios].reverse().map(x => `<option value="${x.anio}">${x.anio} (${x.presidente})</option>`).join("");
-document.getElementById("ap-sel").addEventListener("change", ev => { MED.apAnio = +ev.target.value; DIB.apoyo(!REDUCIR); });
-document.querySelector('[data-t="apoyo-titulo"]').textContent = `Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, ${AP.desde} a ${AP.hasta}`;
+$("ap-sel").innerHTML = [...AP.anios].reverse().map(x => `<option value="${x.anio}">${x.anio} (${x.presidente})</option>`).join("");
+$("ap-sel").addEventListener("change", ev => { MED.apAnio = +ev.target.value; DIB.apoyo(!REDUCIR); });
+TX["apoyo-titulo"] = $t("apoyo-titulo").textContent = `Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, ${AP.desde} a ${AP.hasta}`;
 DIB.apoyo = conTablas("apoyo", ["apoyo_gobierno_provincias"], a => {
   const y = MED.apAnio, A = AP_A[y], k = MED.apoyo, rr = x => k === "atn_hab" ? x.r_atn : x.r_otras, r = rr(A);
   const nomT = k === "atn_hab" ? "los ATN" : "las otras transferencias no automáticas";
@@ -1162,7 +1190,7 @@ DIB.apoyo = conTablas("apoyo", ["apoyo_gobierno_provincias"], a => {
     fx: v => n0(v), vx: v => n0(v) + " pesos"});
 });
 
-document.querySelector('[data-t="votaciones-nota"]').textContent = `Votación en general de cada ley en cada cámara, según el acta de votación nominal. Cada punto es un legislador: pasá el cursor o tocá un punto para ver quién es. ` +
+TX["votaciones-nota"] = $t("votaciones-nota").textContent = `Votación en general de cada ley en cada cámara, según el acta de votación nominal. Cada punto es un legislador: pasá el cursor o tocá un punto para ver quién es. ` +
     `Ausente incluye a quien estaba en la sesión pero no votó. Quien preside la sesión solo vota si hay empate y no figura en el acta. ` +
     `El espacio de cada legislador sale del bloque que registra el acta, con la misma clasificación que la composición del Congreso, pero el PRO y la UCR siempre van por separado. ` +
     `La selección de leyes es propia: leyes muy debatidas o con efectos amplios, de todos los gobiernos desde ${R.votaciones.leyes[0].anio}. ` +
@@ -1173,12 +1201,12 @@ document.querySelector('[data-t="votaciones-nota"]').textContent = `Votación en
 const RV = R.votaciones.representacion.filter(g => g.r != null);
 const rvClave = g => g.presidente + "|" + g.eleccion;
 const rvNombre = g => `${g.presidente}, ${g.anios[0] === g.anios[1] ? g.anios[0] : g.anios[0] + " a " + g.anios[1]} (elección ${g.eleccion})`;
-const rvSel = document.getElementById("vprov-sel");
+const rvSel = $("vprov-sel");
 rvSel.innerHTML = RV.map(g => `<option value="${rvClave(g)}">${rvNombre(g)}</option>`).join("");
 MED.vprov = rvClave(RV[RV.length - 1]); rvSel.value = MED.vprov;
 const rvFuerza = r => Math.abs(r) < .2 ? "casi nula" : Math.abs(r) < .4 ? "débil" : Math.abs(r) < .6 ? "moderada" : "fuerte";
-document.querySelector('[data-t="vprov-titulo"]').textContent = `Voto de los legisladores en las leyes clave y voto de su provincia al presidente, ${RV[0].anios[0]} a ${RV[RV.length - 1].anios[1]}`;
-document.querySelector('[data-t="vprov"]').textContent =
+TX["vprov-titulo"] = $t("vprov-titulo").textContent = `Voto de los legisladores en las leyes clave y voto de su provincia al presidente, ${RV[0].anios[0]} a ${RV[RV.length - 1].anios[1]}`;
+TX["vprov"] = $t("vprov").textContent = 
   `En las leyes clave de cada gobierno, la correlación de Spearman entre el voto al presidente en la primera vuelta y la coincidencia de los legisladores de cada provincia con el bloque oficialista fue ` +
   RV.map(g => `${n2(g.r).replace("-", "menos ")} con ${g.presidente} (${g.leyes} ${g.leyes === 1 ? "ley" : "leyes"} entre ${g.anios[0]} y ${g.anios[1]}, ${rvFuerza(g.r)})`).join(", ") + ".";
 DIB.vprov = a => {
@@ -1186,15 +1214,15 @@ DIB.vprov = a => {
   dispersion(G("vprov"), {anim: a, data: T.voto_legisladores_y_provincia.filter(d => d.presidente === g.presidente && d.eleccion === g.eleccion),
     x: "pct_presidente", y: "pct_coincide", xLab: `Votos de ${g.presidente} en la primera vuelta de ${g.eleccion}`, yLab: "Votos de sus legisladores que coincidieron con el oficialismo"});
 };
-document.querySelector('[data-t="vprov-nota"]').textContent = `Cada punto es una provincia. El eje horizontal es el porcentaje de votos positivos que sacó el presidente en esa provincia en la primera vuelta de la elección que lo llevó al gobierno. ` +
+TX["vprov-nota"] = $t("vprov-nota").textContent = `Cada punto es una provincia. El eje horizontal es el porcentaje de votos positivos que sacó el presidente en esa provincia en la primera vuelta de la elección que lo llevó al gobierno. ` +
   `El vertical, el porcentaje de los votos de sus diputados y senadores presentes que coincidió con la posición del bloque oficialista en las leyes clave de ese gobierno, contando también a los del propio bloque oficialista. ` +
   `Los legisladores fueron elegidos en distintos años, no solo en esa elección, y con pocas leyes por gobierno el resultado es frágil. La correlación de Spearman compara el orden de las provincias en las dos medidas: no prueba que un voto explique el otro.`;
-document.querySelector('[data-t="vtm-nota"]').textContent = `Cada celda muestra el porcentaje de los legisladores presentes de ese espacio que votó a favor en la votación en general: verde es a favor y rojo, en contra. ` +
+TX["vtm-nota"] = $t("vtm-nota").textContent = `Cada celda muestra el porcentaje de los legisladores presentes de ese espacio que votó a favor en la votación en general: verde es a favor y rojo, en contra. ` +
     `"aus." indica que la mayoría del espacio no estuvo en la votación y el punto, que el espacio no tenía legisladores en esa cámara o tenía menos de tres. ` +
     `En la comparación entre espacios, un espacio toma posición en una ley cuando más de la mitad de sus presentes votó lo mismo. Espacios con legisladores en al menos tres de estas votaciones. ` +
     `La última fila enlaza la plataforma electoral nacional que cada alianza presentó ante la Justicia Nacional Electoral para las elecciones de 2023, publicada por la Cámara Nacional Electoral: lo que cada espacio propuso, junto a lo que votó. ` +
     `La UCR y el PRO la presentaron juntos, dentro de Juntos por el Cambio. Las fuerzas provinciales y las otras fuerzas no tienen una plataforma nacional única.`;
-document.querySelector('[data-t="apoyo-nota"]').textContent = `En cada votación dividida, aquella en la que al menos una cuarta parte de los presentes votó distinto que el bloque oficialista, se mira si cada diputado y senador de otro bloque votó igual que él. ` +
+TX["apoyo-nota"] = $t("apoyo-nota").textContent = `En cada votación dividida, aquella en la que al menos una cuarta parte de los presentes votó distinto que el bloque oficialista, se mira si cada diputado y senador de otro bloque votó igual que él. ` +
     `El porcentaje suma las dos cámaras y todas las votaciones divididas del año, no solo las leyes clave. El bloque oficialista es el más numeroso del espacio del presidente en cada cámara. ` +
     `Transferencias por habitante del mismo año, en pesos de ${R.transferencias.ult}. La correlación es la de rangos de Spearman entre las 24 jurisdicciones, de menos 1 a 1: cerca de 0 no hay relación. ` +
     `No se calcula para los ATN cuando los recibieron menos de 8 provincias. Que dos cosas vayan juntas no prueba que una cause la otra: las provincias gobernadas por aliados del gobierno suelen tener legisladores que lo acompañan y también más acceso a esos fondos.`;
@@ -1236,9 +1264,9 @@ function dispersion(el, cfg) {
 }
 const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada" : "débil";
 const AN = R.ado_nse, MC = R.mi_causas;
-document.getElementById("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
+$("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
 MED.adonse = AN.indicadores[0].k;
-document.getElementById("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; DIB.adonse(!REDUCIR); });
+$("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; DIB.adonse(!REDUCIR); });
 DIB.adonse = a => {
   const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
   const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
@@ -1267,19 +1295,19 @@ const TRR = R.transferencias, TRS = T.transferencias_serie, TRA = T.transferenci
 const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : `${v >= 10 ? n0(v) : n1(v)} mil millones`;
 const TR_COL = {atn: "#2C74B5", otras: "#74ACDF", ley: "#C3CAD2"};
 const TR_LAB = {atn: "ATN", otras: "Otras no automáticas", ley: "Por ley o por fallo"};
-const trOpciones = sel => { document.getElementById(sel).innerHTML = [`<option value="serie">Total del país por año</option>`, `<option value="acum">Por provincia, suma de ${TRR.desde} a ${TRR.ult}</option>`,
+const trOpciones = sel => { $(sel).innerHTML = [`<option value="serie">Total del país por año</option>`, `<option value="acum">Por provincia, suma de ${TRR.desde} a ${TRR.ult}</option>`,
   ...d3.range(TRR.ult, TRR.desde - 1, -1).map(a => `<option value="${a}">Por provincia, ${a}</option>`)].join(""); };
 trOpciones("atn-sel"); trOpciones("tr-sel");
 MED.atn = "serie"; MED.transferencias = String(TRR.ult);
-["atn", "tr"].forEach(id => document.getElementById(`${id}-sel`).addEventListener("change", ev => {
+["atn", "tr"].forEach(id => $(`${id}-sel`).addEventListener("change", ev => {
   const g = id === "atn" ? "atn" : "transferencias"; MED[g] = ev.target.value; DIB[g](!REDUCIR); }));
-document.querySelector('[data-t="atn-titulo"]').textContent = `Aportes del Tesoro Nacional (ATN) a las provincias, ${TRR.desde} a ${TRR.ult}`;
-document.querySelector('[data-t="transferencias-titulo"]').textContent = `Transferencias no automáticas de la Nación a las provincias, ${TRR.desde} a ${TRR.ult}`;
-document.querySelector('[data-t="atn-nota"]').textContent = `Pesos de ${TRR.ult}, ajustados por el deflactor del PBI. Crédito devengado del presupuesto nacional, con la provincia de destino. Incluye los ATN a provincias y municipios. ` +
+TX["atn-titulo"] = $t("atn-titulo").textContent = `Aportes del Tesoro Nacional (ATN) a las provincias, ${TRR.desde} a ${TRR.ult}`;
+TX["transferencias-titulo"] = $t("transferencias-titulo").textContent = `Transferencias no automáticas de la Nación a las provincias, ${TRR.desde} a ${TRR.ult}`;
+TX["atn-nota"] = $t("atn-nota").textContent = `Pesos de ${TRR.ult}, ajustados por el deflactor del PBI. Crédito devengado del presupuesto nacional, con la provincia de destino. Incluye los ATN a provincias y municipios. ` +
   `Los ATN salen del Fondo de Aportes del Tesoro Nacional, que se forma con parte de la coparticipación y que el gobierno nacional reparte sin fórmula. Desde 2017 el presupuesto los identifica como actividad propia. ` +
   `Entre 2002 y 2016 se toman los del programa de asistencia financiera a provincias del Ministerio del Interior financiados con ese fondo. Antes de 2000 casi todos figuran sin provincia, por eso la serie empieza ese año. ` +
   `Por habitante con las proyecciones de población del INDEC de cada año. La suma del período es la suma de lo recibido por habitante en cada año.`;
-document.querySelector('[data-t="transferencias-nota"]').textContent = `Pesos de ${TRR.ult}, ajustados por el deflactor del PBI. Crédito devengado del presupuesto nacional en transferencias corrientes y de capital a gobiernos provinciales y municipales, con la provincia de destino. ` +
+TX["transferencias-nota"] = $t("transferencias-nota").textContent = `Pesos de ${TRR.ult}, ajustados por el deflactor del PBI. Crédito devengado del presupuesto nacional en transferencias corrientes y de capital a gobiernos provinciales y municipales, con la provincia de destino. ` +
   `No incluye la coparticipación ni las demás transferencias automáticas, que no pasan por el presupuesto. Se separan las fijadas por ley o por fallo judicial: coparticipación de la Ciudad y de Tierra del Fuego cuando pasaba por el presupuesto, Fondo Federal Solidario, ` +
   `Fondo Nacional de Incentivo Docente, devolución del 15% de la coparticipación, policía de la Ciudad y cautelar de la Corte Suprema a favor de la Ciudad. Las otras no automáticas incluyen obras, vivienda, programas sociales y de salud y la asistencia financiera del Tesoro. Por provincia se muestran las otras no automáticas por habitante.`;
 function trProvincias(el, k, anio, a) {
@@ -1358,7 +1386,7 @@ DIB.presidentes = a => {
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "Ciudad de Buenos Aires") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
 };
 MED.ministros = "gobierno";
-document.querySelector('[data-t="ministros-titulo"]').textContent = `Ministros nacionales según lugar de nacimiento, 1983 a ${new Date().getFullYear()}`;
+TX["ministros-titulo"] = $t("ministros-titulo").textContent = `Ministros nacionales según lugar de nacimiento, 1983 a ${new Date().getFullYear()}`;
 DIB.ministros = a => {
   document.querySelector('[data-t="ministros"]').textContent = `De las ${GBR.personas} personas que fueron ministros o jefes de gabinete desde 1983, se conoce el lugar de nacimiento de ${GBR.con_dato}. ` +
     `El ${pct(GBR.pct_amba)} nació en el AMBA, que tiene el ${pct(PRR.amba_pob)} de la población, y ${GBR.caba} en la Ciudad de Buenos Aires. ` +
@@ -1498,7 +1526,7 @@ const CX = (() => {
     const u = new URL(location.href);
     u.searchParams.set("cx", st.x); u.searchParams.set("cy", st.y);
     if (st.fuera.size) u.searchParams.set("cf", [...st.fuera].join(",")); else u.searchParams.delete("cf");
-    history.replaceState(null, "", u);
+    history.replaceState(history.state, "", u);
   };
 
   /* ---- estadística ---- */
@@ -1604,6 +1632,7 @@ const CX = (() => {
   const fuerza = r => { const a = Math.abs(r); return a < .1 ? "prácticamente nula" : a < .3 ? "débil" : a < .5 ? "moderada" : a < .7 ? "fuerte" : "muy fuerte"; };
 
   /* ---- controles ---- */
+  if (!document.getElementById("f-cruces")) return {pearson, spearman, simple};
   const selX = document.getElementById("cx-x"), selY = document.getElementById("cx-y"), selMY = document.getElementById("cm-y");
   const temas = [...new Set(R.cruces.map(m => m.tema))];
   const opciones = temas.map(t => `<optgroup label="${t}">` + R.cruces.filter(m => m.tema === t)
@@ -1889,6 +1918,7 @@ const CX = (() => {
 /* ---------- mapa de los departamentos: se carga solo al llegar ---------- */
 const MAPA_DEP = (() => {
   const META = R.departamentos.meta, sel = document.getElementById("mp-ind");
+  if (!sel) return;
   sel.innerHTML = Object.entries(META).map(([k, m]) => `<option value="${k}">${m.nombre}</option>`).join("");
   let ind = "homicidios", topo = null, filas = null, cargando = null;
   sel.addEventListener("change", () => { ind = sel.value; DIB["mapa-dep"](!REDUCIR); });
@@ -1973,11 +2003,12 @@ const IX = (() => {
   const ordenIgual = [...puntaje].sort((a, b) => total(b, iguales) - total(a, iguales)).map(p => p.f.codigo_indec);
 
   const caja = document.getElementById("ix-pesos");
+  if (!caja) return {puntaje, DIMS};
   caja.innerHTML = DIMS.map(d => `<label class="ix-peso"><i style="background:${d.c}"></i><span>${d.nombre}</span><output id="ixo-${d.id}">${pesos[d.id]}</output>
     <input type="range" min="0" max="5" step="1" value="${pesos[d.id]}" data-d="${d.id}" aria-label="Peso de ${d.nombre}">
     <small>${d.ind.map(([k]) => M[k].nombre).join(", ")}</small></label>`).join("") +
     `<button type="button" class="boton chico ix-reset" id="ix-reset">Pesos iguales</button>`;
-  const guardar = () => { const u = new URL(location.href); u.searchParams.set("ix", DIMS.map(d => pesos[d.id]).join(",")); history.replaceState(null, "", u); };
+  const guardar = () => { const u = new URL(location.href); u.searchParams.set("ix", DIMS.map(d => pesos[d.id]).join(",")); history.replaceState(history.state, "", u); };
   caja.addEventListener("input", ev => {
     const i = ev.target.closest("input"); if (!i) return;
     pesos[i.dataset.d] = +i.value; document.getElementById(`ixo-${i.dataset.d}`).textContent = i.value; guardar(); dibujar(true);
@@ -2102,7 +2133,7 @@ document.querySelectorAll(".pestanas").forEach(tl => {
 
 /* ---------- listado de áreas protegidas nacionales ---------- */
 function tablaAreas() {
-  const t = document.getElementById("tabla-areas");
+  const t = document.getElementById("tabla-areas"); if (!t) return;
   t.innerHTML = `<thead><tr><th>Área</th><th>Categoría</th><th>Dónde</th><th class="n">Año</th><th class="n">Hectáreas</th></tr></thead><tbody>` +
     T.parques_nacionales_lista.map(d => `<tr${NOMBRES[prov] && d.lugar.includes(NOMBRES[prov]) ? ' class="elegida"' : ""}><td>${d.nombre}</td><td>${d.caracter}</td><td>${d.lugar}</td>` +
       `<td class="n">${d.anio}</td><td class="n">${n0(d.hectareas)}</td></tr>`).join("") + `</tbody>`;
@@ -2286,7 +2317,7 @@ const INDP = [
   {id:"f-eti", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
 ];
-const grilla = document.getElementById("prov-grid");
+const grilla = document.getElementById("prov-grid") || document.createElement("div");
 grilla.innerHTML = INDP.map((c, i) => `<a class="tarjeta dp" href="#${c.id}" data-i="${i}"><span class="dp-lab">${c.lab}</span>
   <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span></a>`).join("");
 // Tira con las 24 provincias: puntos claros, raya oscura para el país y punto grande para la elegida
@@ -2316,7 +2347,7 @@ function cambiarTexto(el, t, animar) {
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
   pintarExtra();
-  cambiarTexto(document.getElementById("prov-titulo"), nombre ? `${nombre} en números` : "Elegí una de las 24", animar);
+  cambiarTexto($("prov-titulo"), nombre ? `${nombre} en números` : "Elegí una de las 24", animar);
   grilla.querySelectorAll(".dp").forEach(el => {
     const c = INDP[+el.dataset.i], fila = c.d.find(d => d.codigo_indec === prov);
     const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
@@ -2393,7 +2424,8 @@ const PREG = [
    `En 2012, ${n1(nac.pct_2012)} de cada 100 nacimientos eran de madres de 10 a 19 años. En 2024, ${n1(nac.pct_2024)}.`, "#f-adolescentes"],
 ];
 (function carrusel() {
-  const rot = document.getElementById("rotador"), q = rot.querySelector(".rot-q"), a = rot.querySelector(".rot-a");
+  const rot = document.getElementById("rotador"); if (!rot) return;
+  const q = rot.querySelector(".rot-q"), a = rot.querySelector(".rot-a");
   const cuerpo = rot.querySelector(".rot-cuerpo"), barra = rot.querySelector(".rot-barra i");
   const bPausa = rot.querySelector(".rot-pausa"), bSig = rot.querySelector(".rot-sig");
   const DUR = 7000, freno = {pausa: false, puntero: false, foco: false, fuera: false};
@@ -2410,7 +2442,7 @@ const PREG = [
     i = (n + PREG.length) % PREG.length;
     const [pq, pa, h] = PREG[i];
     const poner = () => {
-      q.textContent = pq; q.href = h; a.textContent = pa;
+      q.textContent = pq; q.href = destinoDe(h) || h; a.textContent = pa;
       if (animar) cuerpo.animate(REDUCIR ? [{opacity:0}, {opacity:1}]
         : [{opacity:0, transform:"translateY(10px)", filter:"blur(4px)"}, {opacity:1, transform:"none", filter:"blur(0)"}],
         {duration: REDUCIR ? 200 : 480, easing: "cubic-bezier(.23,1,.32,1)"});
@@ -2437,7 +2469,7 @@ const PREG = [
     cuerpo.style.minHeight = "0px"; let alto = 0;
     PREG.forEach(([pq, pa]) => { q.textContent = pq; a.textContent = pa; alto = Math.max(alto, cuerpo.offsetHeight); });
     cuerpo.style.minHeight = alto + "px";
-    const [pq, pa, h] = PREG[i]; q.textContent = pq; q.href = h; a.textContent = pa;
+    const [pq, pa, h] = PREG[i]; q.textContent = pq; q.href = destinoDe(h) || h; a.textContent = pa;
   };
   medir(); new ResizeObserver(() => medir()).observe(rot.parentElement);
   mostrar(0, false);
@@ -2452,7 +2484,7 @@ const PREG = [
   btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
   panel.addEventListener("click", ev => { if (ev.target.closest("a")) cerrar(false); });
   document.addEventListener("keydown", ev => { if (ev.key === "Escape" && btn.getAttribute("aria-expanded") === "true") cerrar(true); });
-  document.addEventListener("pointerdown", ev => { if (!panel.contains(ev.target) && ev.target !== btn && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
+  document.addEventListener("pointerdown", ev => { if (!panel.contains(ev.target) && !btn.contains(ev.target) && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
 })();
 
 /* ---------- artículos: preguntas respondidas cruzando dos indicadores de las 24 jurisdicciones ----------
@@ -2542,20 +2574,19 @@ function textoArt(a, c) {
   return {respuesta, bajada, extremos, excep, peso, lim, vx, vy};
 }
 const fuenteArt = m => m.fuente.includes(m.periodo) ? m.fuente : `${m.fuente} (${m.periodo})`;
-const nombreSec = id => document.getElementById(id)?.querySelector("h2")?.textContent || "";
+const SEC = Object.fromEntries(SITIO.secciones.map(([id, t, p, x, herr, f, a]) => [id, {id, t, p, x, herr, f, a}]));
+const nombreSec = id => SEC[id]?.t || "";
 const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><span class="art-ico">${icono(a.icono)}</span>` +
   `<span class="art-txt"><b>${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
-ART.forEach(a => {
-  const nota = document.getElementById(a.id);
-  a.titulo = nota.dataset.titulo; a.c = calcularArt(a); a.t = textoArt(a, a.c);
-});
+const TIT_ART = Object.fromEntries(SITIO.articulos);
+ART.forEach(a => { a.titulo = TIT_ART[a.id]; a.c = calcularArt(a); a.t = textoArt(a, a.c); });
 ART.forEach(a => {
   const {c, t} = a, Mx = META_CX[a.x], My = META_CX[a.y], key = "art-" + a.id;
-  const ficha = id => { const el = id && document.getElementById(id); return el ? urlPagina(paginaDe(el), "#" + id) : null; };
+  const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   const fichas = [...new Map([[Mx.ficha, Mx.nombre], [My.ficha, My.nombre]]).entries()].filter(([id]) => ficha(id));
   const [px] = partesU(a.ux), [py] = partesU(a.uy);
-  document.getElementById(a.id).innerHTML =
-    `<a class="nota-volver" href="articulos.html">Artículos</a>` +
+  const nota = document.getElementById(a.id); if (!nota) return;
+  nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit">${a.titulo}</h2></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
     `<div class="nota-graf"><h3>${Mx.nombre} y ${My.nombre.toLowerCase()} por jurisdicción</h3><div class="grafico" data-g="${key}"></div>` +
@@ -2580,7 +2611,7 @@ if (artHome) artHome.innerHTML = ART.slice(0, 6).map(tarjetaArt).join("");
 const destGrid = document.getElementById("dest-grid");
 // el gorro frigio de la marca, en un botón redondo: invita a entrar sin usar una flecha genérica
 
-if (destGrid) {
+const pintarDestacados = () => {
   // los artículos de política no van destacados por un cálculo automático
   const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
   const D3 = [
@@ -2595,27 +2626,23 @@ if (destGrid) {
   destGrid.innerHTML = D3.map(d => `<a class="tarjeta dest ${d.cls}" href="${d.href}"><span class="dest-arte">${icono(d.ico)}</span>` +
     `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.tit}</b><span class="dest-txt">${d.txt}</span>` +
     `<span class="dest-ir" aria-hidden="true">${SOL_BOTON}</span></span></a>`).join("");
-}
+};
+if (destGrid) { pintarDestacados(); alCambiarProv.push(pintarDestacados); }
 
 /* Sobre nosotros: cifras contadas en el propio sitio */
+const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
 const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
-  const temas = document.querySelectorAll(".tema:not(.herramienta):not(#articulos)").length;
-  nosCifras.innerHTML = [[document.querySelectorAll("article.ficha:not(.explorador)").length, "fichas con su tabla"], [24, "jurisdicciones"],
+  const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos").length;
+  nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
     [temas, "secciones temáticas"], [ART.length, "artículos de cruces"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }
 
 /* recuadro de estado de la portada */
-document.getElementById("estado").innerHTML =
-  `<span><b>${document.querySelectorAll("article.ficha:not(.explorador)").length}</b> fichas</span><span><b>24</b> jurisdicciones</span>`;
+const estado = document.getElementById("estado");
+if (estado) estado.innerHTML = `<span><b>${NFICHAS}</b> fichas</span><span><b>24</b> jurisdicciones</span>`;
 
 /* Enlaces a fichas que viven en otra página (perfil provincial, preguntas, cruces): llevan a esa página */
-const destinoDe = href => {
-  const id = href.slice(1).split("?")[0], el = id && document.getElementById(id);
-  if (!el) return null;
-  const p = paginaDe(el);
-  return p === PAGINA ? null : urlPagina(p, p === id ? "" : "#" + id);
-};
 document.querySelectorAll('a[href^="#"]').forEach(a => { const u = destinoDe(a.getAttribute("href")); if (u) a.href = u; });
 document.addEventListener("click", ev => {
   const a = ev.target.closest?.('a[href^="#"]');
@@ -2628,28 +2655,20 @@ const SEC_ICONO = {articulos: "periodico", trabajo: "maletin", empresas: "tienda
   poblacion: "personas", politica: "congreso", movilidad: "colectivo", energia: "rayo", turismo: "valija", naturaleza: "andes",
   curiosidades: "mate", cruces: "dispersion", indice: "podio", departamentos: "mosaico"};
 const grillaSec = document.getElementById("secciones-grid");
-if (grillaSec) grillaSec.innerHTML = [...document.querySelectorAll(".tema")].map(sec => {
-  const n = sec.querySelectorAll("article.ficha:not(.explorador)").length;
-  const preg = sec.querySelector(".tema-intro .pregunta")?.textContent || "";
-  const na = sec.querySelectorAll("article.nota").length;
-  return `<a class="tarjeta sec-tarjeta${sec.classList.contains("herramienta") ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
-    `<span class="sec-tipo">${sec.classList.contains("herramienta") ? "Herramienta" : na ? na + " artículos" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
-    `<b>${sec.querySelector("h2").textContent}</b><span class="sec-preg">${preg}</span></a>`;
+if (grillaSec) grillaSec.innerHTML = Object.values(SEC).map(sec => {
+  const n = sec.f, na = sec.a;
+  return `<a class="tarjeta sec-tarjeta${sec.herr ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
+    `<span class="sec-tipo">${sec.herr ? "Herramienta" : na ? na + " artículos" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
+    `<b>${sec.t}</b><span class="sec-preg">${sec.p}</span></a>`;
 }).join("");
-
-/* pie de cada página de sección: anterior y siguiente */
-if (PAGINA !== "inicio") {
-  const todas = [...document.querySelectorAll(".tema")], i = todas.findIndex(t => t.id === PAGINA), sec = todas[i];
-  const ir = (t, rot) => t ? `<a href="${urlPagina(t.id)}"><small>${rot}</small>${t.querySelector("h2").textContent}</a>` : "<span></span>";
-  if (sec) sec.insertAdjacentHTML("beforeend", `<nav class="sec-pasos" aria-label="Otras secciones">${ir(todas[i - 1], "Anterior")}<a class="sec-todas" href="./#secciones"><small>Datina</small>Todas las secciones</a>${ir(todas[i + 1], "Siguiente")}</nav>`);
-}
 
 /* La respuesta primero (idea de USAFacts): las cifras clave de la sección arriba, antes de la explicación.
    Salen de CLAVE y del perfil provincial (INDP), así que no hay cifras nuevas escritas a mano y el suicidio queda afuera.
    Con una provincia elegida, sus indicadores reemplazan a la cifra del país de la misma ficha. */
-if (PAGINA !== "inicio") {
+const pintarCifras = () => {
   const sec = document.getElementById(PAGINA), intro = sec?.querySelector(".tema-intro");
   if (sec && intro && !sec.classList.contains("herramienta")) {
+    sec.querySelector(".en-cifras")?.remove();
     const ids = new Set([...sec.querySelectorAll("article.ficha")].map(f => f.id)), conProv = new Set(), tarjetas = [];
     if (prov && NOMBRES[prov]) INDP.forEach(c => {
       const fila = ids.has(c.id) && c.d.find(d => d.codigo_indec === prov); if (!fila) return;
@@ -2663,14 +2682,12 @@ if (PAGINA !== "inicio") {
       tarjetas.push(`<a class="tarjeta cifra invita" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
     if (tarjetas.length >= 2) intro.insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.join("")}</div></div>`);
   }
-  // en el celular, una fila de secciones que se desliza de costado, con la actual marcada
-  if (sec?.closest(".tema")) {
-    const nav = document.createElement("nav"); nav.className = "pildoras"; nav.setAttribute("aria-label", "Secciones");
-    nav.innerHTML = [...document.querySelectorAll(".tema")].map(t => `<a href="${urlPagina(t.id)}"${t.id === SECCION ? ' aria-current="page"' : ""}>${t.querySelector("h2").textContent}</a>`).join("");
-    sec.prepend(nav);
-    const cur = nav.querySelector("[aria-current]");
-    if (cur) requestAnimationFrame(() => { nav.scrollLeft = cur.offsetLeft - 22; });
-  }
+};
+if (PAGINA !== "inicio") {
+  pintarCifras(); alCambiarProv.push(pintarCifras);
+  // en el celular, la fila de secciones (la escribe el constructor) se desliza hasta la actual
+  const cur = document.querySelector(".pildoras [aria-current]");
+  if (cur) requestAnimationFrame(() => { cur.parentElement.scrollLeft = cur.offsetLeft - 22; });
 }
 
 /* buscador de la lupa: secciones, fichas, preguntas y artículos de todo el sitio (cada página tiene todo el marcado) */
@@ -2679,23 +2696,22 @@ if (PAGINA !== "inicio") {
   const ent = document.getElementById("busca"), res = document.getElementById("busca-res");
   if (!btn) return;
   const st = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  const ir = (el, hash) => { const p = paginaDe(el); return p === PAGINA ? hash : urlPagina(p, hash); };
+  const ir = (id, hash) => { const p = paginaDe(id); return p === PAGINA ? hash : urlPagina(p, hash); };
   let IDX;
   const armar = () => {
     IDX = [];
-    document.querySelectorAll(".tema").forEach(t => IDX.push({t: t.querySelector("h2").textContent, s: t.classList.contains("herramienta") ? "Herramienta" : "Sección",
-      u: urlPagina(t.id), x: t.querySelector(".tema-intro")?.textContent || "", sec: 1}));
+    Object.values(SEC).forEach(t => IDX.push({t: t.t, s: t.herr ? "Herramienta" : "Sección", u: urlPagina(t.id), x: t.x, sec: 1}));
     IDX.push({t: "Tu provincia", s: "Sección", u: "provincia.html", x: "perfil provincia provincias comparar país posición", sec: 1});
     Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, s: "Tu provincia", u: `provincia.html?prov=${c}`, x: n, sec: 2}));
     IDX.push({t: "Sobre nosotros", s: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace"});
-    document.querySelectorAll("article.ficha").forEach(f => {
-      const h = f.querySelector("h3")?.textContent.trim(); if (!h) return;
+    SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda]) => {
+      // el título y el texto de muchas fichas se calculan (TX): en otra página se leen de ahí
+      const h = (TX[kt] || tit || "").trim(); if (!h) return;
       // las fichas de suicidio llevan a las líneas de ayuda, que van justo antes
-      const ayuda = document.getElementById("ayuda-suicidio");
-      const ancla = NOTA_A_LA_VISTA.has(f.id) && ayuda && (ayuda.compareDocumentPosition(f) & Node.DOCUMENT_POSITION_FOLLOWING) ? "#ayuda-suicidio" : "#" + f.id;
-      IDX.push({t: h, s: f.closest(".tema")?.querySelector("h2")?.textContent || "", u: ir(f, ancla), x: (f.querySelector(".lead")?.textContent || "") + " " + (CLAVE[f.id]?.[1] || "")});
+      const ancla = NOTA_A_LA_VISTA.has(id) && trasAyuda ? "#ayuda-suicidio" : "#" + id;
+      IDX.push({t: h, s: nombreSec(sec), u: ir(id, ancla), x: (TX[kl] || "") + " " + (CLAVE[id]?.[1] || "")});
     });
-    PREG.forEach(([q, a, h]) => { const el = document.getElementById(h.slice(1)); if (el) IDX.push({t: q, s: "Pregunta", u: ir(el, h), x: a}); });
+    PREG.forEach(([q, a, h]) => { if (paginaDe(h.slice(1))) IDX.push({t: q, s: "Pregunta", u: ir(h.slice(1), h), x: a}); });
     ART.forEach(a => IDX.push({t: a.titulo, s: "Artículo", u: urlPagina(a.id), x: a.dek + " " + a.t.bajada, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
@@ -2744,12 +2760,44 @@ const vistas = new IntersectionObserver(es => es.forEach(en => {
 }), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
 document.querySelectorAll("article.ficha, article.nota").forEach(f => vistas.observe(f));
 
-/* navegación activa: la sección de esta página */
-document.querySelectorAll(".temas a, .menu-panel a, .sobre-link").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
+/* navegación activa: la sección de esta página, en la barra, el menú y el pie */
+document.querySelectorAll(".temas a, .menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
+
+/* Provincia elegida: un indicador en la barra con su bandera, que lleva al perfil y la borra ("Ver todo el país").
+   No la elige: eso se hace solo en provincia.html. También aparece al final de las migas. */
+const CORTO_CHIP = {"Santiago del Estero": "Sgo. del Estero", "Tierra del Fuego": "T. del Fuego"};
+const pintarChip = () => {
+  const chip = document.getElementById("prov-chip"), nom = NOMBRES[prov];
+  if (chip) {
+    chip.hidden = !nom;
+    if (nom) {
+      document.getElementById("chip-bandera").src = `datos/banderas/${prov}.png`;
+      document.getElementById("chip-nom").textContent = CORTO_CHIP[nom] || nom;
+      const a = document.getElementById("chip-prov");
+      a.href = `provincia.html?prov=${prov}`;
+      a.setAttribute("aria-label", `Provincia elegida: ${nom}. Ver su perfil`);
+      a.title = `${nom}: ver su perfil`;
+      document.getElementById("chip-borrar").setAttribute("aria-label", `Ver todo el país en lugar de ${nom}`);
+    }
+  }
+  document.querySelectorAll(".migas-prov").forEach(li => { li.hidden = !nom; li.textContent = nom || ""; });
+};
+pintarChip(); alCambiarProv.push(pintarChip);
+document.getElementById("chip-borrar")?.addEventListener("click", () => {
+  elegir("");
+  // el foco no se pierde cuando el indicador desaparece
+  document.getElementById("lupa-btn")?.focus();
+});
+
+/* contacto: aviso después de enviar el formulario (Netlify vuelve a esta página con ?enviado=1) */
+if (PAGINA === "contacto" && new URLSearchParams(location.search).has("enviado")) {
+  document.querySelector(".form-contacto").hidden = true;
+  document.getElementById("form-gracias").hidden = false;
+}
 
 /* la barra superior es azul sobre la portada y clara en el resto */
 const barra = document.querySelector(".barra");
-if (PAGINA === "inicio")
+if (PAGINA === "inicio" && document.querySelector(".portada"))
   new IntersectionObserver(([en]) => barra.classList.toggle("clara", !en.isIntersecting && en.boundingClientRect.top < 0), {rootMargin: "-80px 0px 0px 0px"})
     .observe(document.querySelector(".portada"));
 else barra.classList.add("clara");

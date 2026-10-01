@@ -17,23 +17,35 @@
 <body>
 <header class="barra">
   <div class="envoltura">
-    <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
-    <nav class="temas" aria-label="Temas principales" style="grid-column:1;grid-row:1">
-      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="articulos.html">Artículos</a>
+    <div class="barra-izq">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    </div>
+    <nav class="temas" aria-label="Temas principales">
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
     </nav>
-    <div class="menu" style="grid-column:3;grid-row:1">
-      <a class="sobre-link" href="nosotros.html">Sobre nosotros</a>
+    <div class="barra-der">
+      <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
+      <div class="prov-chip" id="prov-chip" hidden>
+        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
+      </div>
       <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
-      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Secciones</button>
-      <div class="menu-panel" id="menu-panel" hidden>
+    </div>
+    <div class="menu-panel" id="menu-panel" hidden>
+      <div class="menu-col">
         <p class="menu-tit">Temas</p>
-        <a href="articulos.html">Artículos</a><a href="provincia.html">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
+        <a href="provincia.html">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
         <a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a>
         <a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a>
+      </div>
+      <div class="menu-col">
+        <p class="menu-tit">Artículos</p>
+        <a href="articulos.html">Todos los artículos</a>
         <p class="menu-tit">Herramientas</p>
         <a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a>
         <p class="menu-tit">Datina</p>
-        <a href="nosotros.html">Sobre nosotros</a>
+        <a href="nosotros.html">Sobre nosotros</a><a href="contacto.html">Contacto</a>
       </div>
     </div>
   </div>
@@ -133,7 +145,7 @@
     <div class="nos-grid">
       <div class="nos-item"><span class="nos-ico" data-icono="pin"></span><div><h3>Las 24, una por una</h3><p>Muchas estadísticas se publican solo para el total del país, o en archivos difíciles de encontrar y de comparar. Datina pone a las 24 jurisdicciones una al lado de la otra, con la misma unidad y el mismo período.</p></div></div>
       <div class="nos-item"><span class="nos-ico" data-icono="periodico"></span><div><h3>Cada cifra con su origen</h3><p>Cada dato dice qué mide, de qué año es y de dónde sale, y trae su tabla para descargar. Los textos se calculan a partir de los datos: no hay números escritos a mano.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="congreso"></span><div><h3>Fuentes oficiales</h3><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay una excepción, señalada en su ficha: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="congreso"></span><div><h3 id="fuentes">Fuentes oficiales</h3><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay una excepción, señalada en su ficha: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica.</p></div></div>
       <div class="nos-item"><span class="nos-ico" data-icono="dispersion"></span><div><h3>Cruces con advertencias</h3><p>Datina cruza fuentes distintas para buscar relaciones entre provincias. Cada cruce aclara sus límites: son pocos casos, son promedios y una correlación no prueba que una cosa cause la otra.</p></div></div>
       <div class="nos-item"><span class="nos-ico" data-icono="urna"></span><div><h3>Tono neutro</h3><p>En política y en temas sensibles, Datina describe sin adjetivar. Las fichas sobre suicidio llevan líneas de ayuda y no entran en el perfil provincial ni en los cruces.</p></div></div>
       <div class="nos-item"><span class="nos-ico" data-icono="reloj"></span><div><h3>Se actualiza sola</h3><p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p></div></div>
@@ -143,13 +155,36 @@
       <p>Para quienes toman decisiones en el Estado, en empresas y en organizaciones sociales, para periodistas y docentes, y para cualquier persona curiosa que quiera mirar los números de su provincia con contexto.</p>
       <h3>Qué no es</h3>
       <p>Datina no es un sitio oficial ni habla en nombre de ningún organismo. Muestra datos públicos tal como los publica cada fuente y explica en cada ficha cómo se procesaron.</p>
-      <h3>Cómo se hace</h3>
+      <h3 id="como-se-hace">Cómo se hace</h3>
       <p>Tres programas hacen todo el trabajo. El primero baja cada archivo tal como lo publica el organismo. El segundo los ordena en una tabla única, con una fila por jurisdicción, período e indicador, y calcula los indicadores. El tercero arma las páginas. La tabla completa está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>.</p>
       <h3>De dónde viene la idea</h3>
       <p>Datina toma ideas de The Pudding, que arranca cada historia con una pregunta, de Our World in Data, por mostrar siempre la fuente y la tabla, y de USAFacts, por presentar los datos públicos de forma clara y sin opinión. En la Argentina, Argendata, de Fundar, es un antecedente con datos sobre todo nacionales: Datina suma la mirada provincia por provincia y los cruces entre fuentes.</p>
       <h3>El nombre y los símbolos</h3>
       <p>El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y de la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
+      <!--BANDERAS-->
     </div>
+  </section>
+
+  <section class="contacto" id="contacto" aria-labelledby="contacto-tit">
+    <h2 id="contacto-tit">Contacto</h2>
+    <p class="nos-bajada">Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.</p>
+    <!-- formulario de Netlify: se activa solo al publicar el sitio en Netlify, que guarda los mensajes y avisa por correo -->
+    <form class="form-contacto" name="contacto" method="POST" action="contacto.html?enviado=1" data-netlify="true" netlify-honeypot="no-completar">
+      <input type="hidden" name="form-name" value="contacto">
+      <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
+      <label class="campo"><span>Mensaje</span><textarea name="mensaje" rows="6" required></textarea></label>
+      <label class="campo"><span>Nombre <small>(opcional)</small></span><input type="text" name="nombre" autocomplete="name"></label>
+      <label class="campo"><span>Correo <small>(opcional, solo si querés respuesta)</small></span><input type="email" name="correo" autocomplete="email"></label>
+      <p class="form-nota">El mensaje llega solo al equipo de Datina y no se publica.</p>
+      <button type="submit" class="boton principal">Enviar mensaje</button>
+    </form>
+    <p class="form-gracias" id="form-gracias" hidden>Gracias. El mensaje llegó al equipo de Datina.</p>
+  </section>
+
+  <section class="no-encontrada" id="no-encontrada" aria-labelledby="no-tit">
+    <h2 id="no-tit">Esta página no existe</h2>
+    <p class="nos-bajada">Puede que la dirección tenga un error o que la página se haya mudado. Los datos siguen acá: elegí una sección o buscá con la lupa.</p>
+    <p class="no-acciones"><a class="boton principal" href="./">Ir a la portada</a><a class="boton" href="./#secciones">Ver todas las secciones</a></p>
   </section>
 
   <section class="tema" id="articulos">
@@ -1132,14 +1167,24 @@
     </article>
   </section>
 
-  <footer>
-    <p class="pie-sobre"><a href="nosotros.html">Sobre nosotros</a>: el propósito de Datina, sus fuentes y sus principios.</p>
-    <h2>Cómo está hecho</h2>
-    <p>Todas las cifras salen de fuentes públicas oficiales descargadas de forma automática. Un primer programa baja cada archivo tal como lo publica el organismo, un segundo programa los ordena en una tabla única y calcula los indicadores, y un tercero arma esta página. La tabla completa en formato largo está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>.</p>
-    <p data-t="actualizado"></p>
-    <p>Datina muestra los números de las 24 jurisdicciones del país. El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
-  </footer>
 </main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><!--MAPA--></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p data-t="actualizado"></p>
+      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
 
 <div class="tip" id="tip" role="tooltip"></div>
 

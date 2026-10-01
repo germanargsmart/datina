@@ -12,29 +12,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=43c7d401e4">
-<style id="pagina">.portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.nosotros,.tema:not(#movilidad){display:none}</style>
+<link rel="stylesheet" href="datina.css?v=db99def3a4">
 </head>
 <body data-pagina="movilidad">
 <header class="barra">
   <div class="envoltura">
-    <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
-    <nav class="temas" aria-label="Temas principales" style="grid-column:1;grid-row:1">
-      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="articulos.html">Artículos</a>
+    <div class="barra-izq">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    </div>
+    <nav class="temas" aria-label="Temas principales">
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
     </nav>
-    <div class="menu" style="grid-column:3;grid-row:1">
-      <a class="sobre-link" href="nosotros.html">Sobre nosotros</a>
+    <div class="barra-der">
+      <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
+      <div class="prov-chip" id="prov-chip" hidden>
+        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
+      </div>
       <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
-      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Secciones</button>
-      <div class="menu-panel" id="menu-panel" hidden>
+    </div>
+    <div class="menu-panel" id="menu-panel" hidden>
+      <div class="menu-col">
         <p class="menu-tit">Temas</p>
-        <a href="articulos.html">Artículos</a><a href="provincia.html">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
+        <a href="provincia.html">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
         <a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a>
         <a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a>
+      </div>
+      <div class="menu-col">
+        <p class="menu-tit">Artículos</p>
+        <a href="articulos.html">Todos los artículos</a>
         <p class="menu-tit">Herramientas</p>
         <a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a>
         <p class="menu-tit">Datina</p>
-        <a href="nosotros.html">Sobre nosotros</a>
+        <a href="nosotros.html">Sobre nosotros</a><a href="contacto.html">Contacto</a>
       </div>
     </div>
   </div>
@@ -47,706 +58,42 @@
   </div>
 </header>
 
-<section class="portada en-azul" id="inicio">
-  <svg class="mapa-fondo" id="mapa" aria-hidden="true"></svg>
-  <div class="portada-grid">
-    <div class="portada-texto">
-      <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
-      <p class="lema">Las 24 Argentinas en números</p>
-      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
-      <div class="portada-acciones">
-        <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a><a class="boton" href="articulos.html">Artículos</a></nav>
-        <div class="estado" id="estado" aria-label="Estado de los datos"></div>
-      </div>
-    </div>
-    <div class="portada-sol">
-      <svg class="sol" id="sol" viewBox="-100 -100 200 200" role="img" aria-label="Sol de Mayo">
-        <g class="rafaga" id="sol-rafaga"></g>
-        <g class="giro" id="sol-rayos"></g>
-        <g class="rostro">
-          <circle class="disco" r="30"/>
-          <path class="rasgo" d="M-17,-9 Q-10.5,-15.5 -3.5,-10 M17,-9 Q10.5,-15.5 3.5,-10"/>
-          <g class="ojo"><path class="rasgo" d="M-16,-4 Q-10.5,-8.5 -5,-4 Q-10.5,-1 -16,-4 Z"/><circle class="pupila" cx="-10.5" cy="-4.2" r="1.8"/></g>
-          <g class="ojo"><path class="rasgo" d="M16,-4 Q10.5,-8.5 5,-4 Q10.5,-1 16,-4 Z"/><circle class="pupila" cx="10.5" cy="-4.2" r="1.8"/></g>
-          <path class="rasgo" d="M-1.5,-9 Q-3.5,2 -1,6 Q1.5,8 4,5.5"/>
-          <g class="boca"><path class="rasgo" d="M-8,14 Q-3,11.5 0,13 Q3,11.5 8,14 M-6.5,14.8 Q0,19.5 6.5,14.8"/></g>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <section class="preguntas" aria-labelledby="preg-tit">
-    <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-label="Datos rápidos">
-      <h2 class="rot-eb" id="preg-tit">Datos rápidos</h2>
-      <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
-      <div class="rot-control">
-        <span class="rot-barra" aria-hidden="true"><i></i></span>
-        <button type="button" class="boton chico rot-pausa" aria-pressed="false">Pausar</button>
-        <button type="button" class="boton chico rot-sig">Siguiente pregunta</button>
-      </div>
-    </div>
-  </section>
-</section>
+
 
 <main class="envoltura">
-  <section class="destacados ancho" id="destacados" aria-labelledby="dest-tit">
-    <h2 class="bloque-tit" id="dest-tit">Destacados</h2>
-    <p class="bloque-sub">Tres entradas a los datos de las 24 jurisdicciones.</p>
-    <div class="dest-grid" id="dest-grid"></div>
-  </section>
+  
 
-  <section class="articulos-home ancho" aria-labelledby="arth-tit">
-    <h2 class="bloque-tit" id="arth-tit">Artículos</h2>
-    <p class="bloque-sub">Preguntas respondidas cruzando datos oficiales. Los números se recalculan cada vez que se actualiza una fuente.</p>
-    <div class="art-grid" id="art-grid-home"></div>
-    <a class="boton ver-todos" href="articulos.html">Todos los artículos</a>
-  </section>
+  
 
 
-  <section class="provincias" id="provincias" aria-labelledby="prov-titulo">
-    <h2 id="prov-titulo">Elegí una de las 24</h2>
-    <p class="prov-sub">Cada provincia comparada con el total del país en los indicadores que tienen dato provincial. Al elegirla, todos los gráficos del sitio la resaltan.</p>
-    <div class="elige" id="elige">
-      <span class="elige-lab" id="elige-lab">Provincia</span>
-      <button type="button" class="elige-btn" id="elige-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="elige-lab elige-btn">
-        <span id="elige-valor">Todo el país</span><span class="elige-flecha" aria-hidden="true"></span>
-      </button>
-      <div class="elige-panel" id="elige-panel" hidden>
-        <input type="text" class="elige-buscar" id="elige-buscar" placeholder="Buscar provincia" aria-label="Buscar provincia"
-          role="combobox" aria-controls="elige-lista" aria-expanded="true" aria-autocomplete="list" autocomplete="off">
-        <ul class="elige-lista" id="elige-lista" role="listbox" aria-labelledby="elige-lab"></ul>
-        <p class="elige-vacio" id="elige-vacio" hidden>Ninguna provincia coincide</p>
-      </div>
-    </div>
-    <div class="prov-grid" id="prov-grid"></div>
-    <div class="prov-extra" id="prov-extra"></div>
-  </section>
+  
 
-  <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
-    <h2 class="bloque-tit" id="sec-titulo">Secciones</h2>
-    <p class="bloque-sub">Cada sección tiene su página: qué se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
-    <div class="secciones-grid" id="secciones-grid"></div>
-  </section>
+  
 
-  <section class="nosotros" id="nosotros" aria-labelledby="nos-tit">
-    <h2 id="nos-tit">Sobre nosotros</h2>
-    <p class="nos-bajada">Datina reúne las estadísticas públicas de la Argentina y las muestra provincia por provincia, para entender un problema, opinar con datos y encontrar oportunidades.</p>
-    <div class="nos-cifras" id="nos-cifras"></div>
-    <div class="nos-grid">
-      <div class="nos-item"><span class="nos-ico" data-icono="pin"></span><div><h3>Las 24, una por una</h3><p>Muchas estadísticas se publican solo para el total del país, o en archivos difíciles de encontrar y de comparar. Datina pone a las 24 jurisdicciones una al lado de la otra, con la misma unidad y el mismo período.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="periodico"></span><div><h3>Cada cifra con su origen</h3><p>Cada dato dice qué mide, de qué año es y de dónde sale, y trae su tabla para descargar. Los textos se calculan a partir de los datos: no hay números escritos a mano.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="congreso"></span><div><h3>Fuentes oficiales</h3><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay una excepción, señalada en su ficha: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="dispersion"></span><div><h3>Cruces con advertencias</h3><p>Datina cruza fuentes distintas para buscar relaciones entre provincias. Cada cruce aclara sus límites: son pocos casos, son promedios y una correlación no prueba que una cosa cause la otra.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="urna"></span><div><h3>Tono neutro</h3><p>En política y en temas sensibles, Datina describe sin adjetivar. Las fichas sobre suicidio llevan líneas de ayuda y no entran en el perfil provincial ni en los cruces.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="reloj"></span><div><h3>Se actualiza sola</h3><p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p></div></div>
-    </div>
-    <div class="nos-texto">
-      <h3>Para quién es</h3>
-      <p>Para quienes toman decisiones en el Estado, en empresas y en organizaciones sociales, para periodistas y docentes, y para cualquier persona curiosa que quiera mirar los números de su provincia con contexto.</p>
-      <h3>Qué no es</h3>
-      <p>Datina no es un sitio oficial ni habla en nombre de ningún organismo. Muestra datos públicos tal como los publica cada fuente y explica en cada ficha cómo se procesaron.</p>
-      <h3>Cómo se hace</h3>
-      <p>Tres programas hacen todo el trabajo. El primero baja cada archivo tal como lo publica el organismo. El segundo los ordena en una tabla única, con una fila por jurisdicción, período e indicador, y calcula los indicadores. El tercero arma las páginas. La tabla completa está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>.</p>
-      <h3>De dónde viene la idea</h3>
-      <p>Datina toma ideas de The Pudding, que arranca cada historia con una pregunta, de Our World in Data, por mostrar siempre la fuente y la tabla, y de USAFacts, por presentar los datos públicos de forma clara y sin opinión. En la Argentina, Argendata, de Fundar, es un antecedente con datos sobre todo nacionales: Datina suma la mirada provincia por provincia y los cruces entre fuentes.</p>
-      <h3>El nombre y los símbolos</h3>
-      <p>El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y de la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
-    </div>
-  </section>
+  
 
-  <section class="tema" id="articulos">
-    <h2>Artículos</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Qué cuentan los datos cuando se los cruza?</p>
-      <p>Cada artículo responde una pregunta con dos indicadores de las 24 jurisdicciones. Los textos y los números se recalculan solos cuando se actualiza cada fuente, y cada artículo dice qué no se puede concluir del cruce.</p>
-    </div>
-    <div class="art-grid" id="art-grid"></div>
-    <div class="notas">
-      <article class="nota" id="a-exportaciones-empleo" data-titulo="¿Las provincias que más exportan tienen más empleo formal?"></article>
-      <article class="nota" id="a-cloacas-mortalidad" data-titulo="¿Mueren más bebés donde menos hogares tienen cloacas?"></article>
-      <article class="nota" id="a-cobertura-adolescentes" data-titulo="¿Hay más madres adolescentes donde menos gente tiene obra social o prepaga?"></article>
-      <article class="nota" id="a-recursos-empleo" data-titulo="¿Las provincias que recaudan más por su cuenta tienen más empleo privado?"></article>
-      <article class="nota" id="a-cobertura-esperanza" data-titulo="¿Se vive más años donde más gente tiene obra social o prepaga?"></article>
-      <article class="nota" id="a-internet-aprender" data-titulo="¿Aprenden más matemática los chicos de las provincias con más internet en el hogar?"></article>
-      <article class="nota" id="a-milei-empleo" data-titulo="¿Votaron más a Milei las provincias con más empleo privado?"></article>
-    </div>
-  </section>
+  
 
-  <section class="tema" id="trabajo">
-    <h2>Trabajo y finanzas</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
-      <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen lo que cada provincia le vende al mundo y cuánto depende de los fondos que le manda la Nación.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué se mide</h4><p>Esta sección reúne tres miradas sobre la economía de cada provincia. La primera cuenta a las personas asalariadas registradas en el sector privado, con datos mensuales que publica la Secretaría de Trabajo a partir de los registros de la seguridad social. La segunda muestra cuánto exporta cada provincia según el origen de los bienes vendidos al exterior, una estadística del INDEC llamada OPEX. La tercera describe las cuentas públicas provinciales con el esquema de ahorro, inversión y financiamiento del Ministerio de Economía: qué parte de los ingresos recauda la propia provincia, si cerró el año con superávit o déficit y cuánto pesa el gasto en personal.</p><p class="exp-fuente">Fuentes: <a href="https://apis.datos.gob.ar/series/api/series/?ids=154.1_CABA_C_0_0_4&amp;metadata=full&amp;limit=1" target="_blank" rel="noopener">API de Series de Tiempo, metadatos de la serie 154.1 (Secretaría de Trabajo, publicada por la Subsecretaría de Programación Macroeconómica)</a>, <a href="https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf" target="_blank" rel="noopener">INDEC, Origen provincial de las exportaciones. Bienes. Primer semestre de 2026</a>, <a href="https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial" target="_blank" rel="noopener">Ministerio de Economía, Ejecución presupuestaria provincial</a></p></section><section class="exp-bloque"><h4>Desde cuándo</h4><p>El registro previsional que hoy se usa para medir el empleo formal tiene su base en la ley 24.241, sancionada el 23 de septiembre de 1993, que creó el Sistema Integrado de Jubilaciones y Pensiones. En 2008 la ley 26.425 unificó ese sistema en un único régimen público llamado Sistema Integrado Previsional Argentino, el SIPA. La serie de asalariados privados por provincia que usa el sitio comienza en 2009. La estadística de exportaciones por provincia de origen tiene datos desde 1993. El Ministerio de Economía publica las cuentas provinciales con el esquema actual desde 2005 y conserva registros anteriores, desde 1983, de la administración central y los organismos descentralizados.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/639/texact.htm" target="_blank" rel="noopener">Ley 24.241</a>, <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/145000-149999/148141/norma.htm" target="_blank" rel="noopener">Ley 26.425</a>, <a href="https://apis.datos.gob.ar/series/api/series/?ids=154.1_CABA_C_0_0_4&amp;metadata=full&amp;limit=1" target="_blank" rel="noopener">API de Series de Tiempo, metadatos de la serie 154.1</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls" target="_blank" rel="noopener">INDEC, planilla OPEX 1993 a 2025</a>, <a href="https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones" target="_blank" rel="noopener">Ministerio de Economía, Ejecuciones presupuestarias APNF</a></p></section><section class="exp-bloque"><h4>Cómo se cuenta el empleo registrado</h4><p>Los datos no salen de una encuesta sino de los registros administrativos de la seguridad social. Se considera asalariada registrada en el sector privado a toda persona identificada con su Clave Única de Identificación Laboral (CUIL) que ocupa al menos un puesto de trabajo. Se cuentan personas y no puestos, y quien figura en más de una categoría se clasifica en una sola. Para el dato provincial, cada trabajador se asigna a la zona geográfica donde la empresa lo declara. Por eso la cifra de una provincia muestra dónde las empresas declaran a su personal, que no es necesariamente el lugar donde viven esas personas.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf" target="_blank" rel="noopener">Secretaría de Trabajo, Situación y evolución del trabajo registrado (diciembre de 2023), notas metodológicas</a></p></section><section class="exp-bloque"><h4>Actividad, desocupación e informalidad</h4><p>El SIPA solo registra el empleo declarado. Para conocer el mercado de trabajo completo, incluido el informal, el INDEC usa la Encuesta Permanente de Hogares (EPH), que publica tasas trimestrales para 31 aglomerados urbanos. Se considera ocupada a la persona que trabajó al menos una hora en la semana de referencia. La población económicamente activa reúne a quienes tienen trabajo y a quienes lo buscan activamente. La tasa de actividad la compara con la población total. La tasa de empleo hace lo mismo con las personas ocupadas. La tasa de desocupación mide a quienes buscan trabajo y están disponibles sobre la población activa. La informalidad se aproxima con los asalariados sin descuento jubilatorio.</p><p class="exp-fuente">Fuente: <a href="https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf" target="_blank" rel="noopener">INDEC, Mercado de trabajo. Tasas e indicadores socioeconómicos (EPH). Segundo trimestre de 2026</a></p></section><section class="exp-bloque"><h4>Coparticipación y recursos propios</h4><p>Las provincias se financian con impuestos que cobran ellas mismas y con recursos que recauda la Nación y les transfiere. El canal principal es la coparticipación federal de impuestos, regida por la ley 23.548, que estableció desde el 1 de enero de 1988 un régimen transitorio. La ley fijó su vigencia hasta fines de 1989, con prórroga automática mientras no hubiera un régimen que la reemplazara. El Banco de la Nación transfiere en forma automática a cada provincia lo que le corresponde. La reforma constitucional de 1994 previó una nueva ley convenio, a dictarse antes de que terminara 1996. En la ficha, los recursos propios son los que la provincia recauda por su cuenta.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm" target="_blank" rel="noopener">Ley 23.548, art. 1</a>, <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm" target="_blank" rel="noopener">Constitución Nacional, art. 75 inc. 2 y disposición transitoria sexta</a>, <a href="https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/ron" target="_blank" rel="noopener">Ministerio de Economía, Recursos de Origen Nacional</a></p></section><section class="exp-bloque"><h4>Resultado financiero y advertencias</h4><p>Las cuentas provinciales abarcan la administración pública no financiera: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social. Registran los recursos percibidos y los gastos devengados. El resultado financiero es, en términos generales, la diferencia entre los ingresos corrientes y de capital y los gastos del período: si es positivo hay superávit y si es negativo, déficit. La ley 25.917 de Responsabilidad Fiscal, de 2004, usa esa lógica para medir el equilibrio financiero. En exportaciones, una parte del total no se asigna a ninguna provincia y figura como Indeterminado o como Extranjero y plataforma continental. El INDEC revisa la asignación periódicamente.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones" target="_blank" rel="noopener">Ministerio de Economía, Ejecuciones presupuestarias APNF, consideraciones metodológicas</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/97698/texto" target="_blank" rel="noopener">Ley 25.917, art. 19</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls" target="_blank" rel="noopener">INDEC, planilla OPEX 1993 a 2025 (categoría de la tabla)</a>, <a href="https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf" target="_blank" rel="noopener">INDEC, OPEX primer semestre de 2026, Política de revisión</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>SIPA</dt><dd>Sistema Integrado Previsional Argentino. Es el régimen previsional público único creado en 2008 al unificar el sistema anterior. Sus registros son la fuente de las estadísticas de trabajo registrado. <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/145000-149999/148141/norma.htm" target="_blank" rel="noopener">Ley 26.425</a></dd></div><div><dt>Asalariado registrado del sector privado</dt><dd>Persona identificada con su CUIL que ocupa al menos un puesto de trabajo declarado por una empresa privada ante la seguridad social. <a href="https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf" target="_blank" rel="noopener">Secretaría de Trabajo, Situación y evolución del trabajo registrado</a></dd></div><div><dt>Tasa de actividad</dt><dd>Porcentaje de la población que trabaja o busca trabajo activamente sobre la población total de referencia. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf" target="_blank" rel="noopener">INDEC, Mercado de trabajo (EPH), segundo trimestre de 2026</a></dd></div><div><dt>Tasa de desocupación</dt><dd>Porcentaje de personas sin ocupación que buscan trabajo activamente y están disponibles sobre la población económicamente activa. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf" target="_blank" rel="noopener">INDEC, Mercado de trabajo (EPH), segundo trimestre de 2026</a></dd></div><div><dt>Asalariados sin descuento jubilatorio</dt><dd>Personas asalariadas cuyo puesto de trabajo no tiene aportes a la jubilación. Es el indicador clásico de informalidad laboral en la EPH. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf" target="_blank" rel="noopener">INDEC, Mercado de trabajo (EPH), segundo trimestre de 2026</a></dd></div><div><dt>Coparticipación federal</dt><dd>Régimen por el que la recaudación de impuestos nacionales se reparte entre la Nación y las provincias, con transferencias automáticas a través del Banco de la Nación. Lo regula la ley 23.548. <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm" target="_blank" rel="noopener">Ley 23.548, art. 2</a></dd></div><div><dt>Administración Pública No Financiera</dt><dd>Universo que cubren las cuentas provinciales del Ministerio de Economía: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social. <a href="https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones" target="_blank" rel="noopener">Ministerio de Economía, Ejecuciones presupuestarias APNF</a></dd></div><div><dt>OPEX</dt><dd>Estadística del INDEC sobre el origen provincial de las exportaciones de bienes. Detalla cuánto aporta cada región y provincia al total exportado. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf" target="_blank" rel="noopener">INDEC, OPEX primer semestre de 2026</a></dd></div></dl></details></div>
+  
 
-    <article class="ficha" id="f-empleo">
-      <h3 data-t="empleo-titulo">Asalariados privados registrados por provincia</h3>
-      <p class="lead" data-t="empleo"></p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="empleo">
-        <button type="button" data-m="cada_100" aria-pressed="true">Cada 100 habitantes</button>
-        <button type="button" data-m="var_12m" aria-pressed="false">Variación en 12 meses</button>
-      </div>
-      <div class="grafico" data-g="empleo"></div>
-      <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección 2025 del INDEC usada por el SNIC.</p>
-      <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <article class="ficha" id="f-rotacion">
-      <h3 data-t="rotacion-titulo"></h3>
-      <p class="lead" data-t="rotacion"></p>
-      <label class="selector-ficha"><span>Según</span>
-        <select data-g="rotacion">
-          <option value="edad" selected>Edad</option>
-          <option value="generacion">Generación (año de nacimiento)</option>
-          <option value="educacion">Nivel educativo</option>
-          <option value="ingreso">Ingreso del hogar por persona</option>
-          <option value="registro">Registro del empleo</option>
-        </select></label>
-      <div class="grafico" data-g="rotacion"></div>
-      <p class="nota" data-t="rotacion-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio)</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <article class="ficha" id="f-exportaciones">
-      <h3 data-t="exportaciones-titulo"></h3>
-      <p class="lead" data-t="exportaciones"></p>
-      <div class="grafico" data-g="exportaciones"></div>
-      <p class="nota" data-t="exportaciones-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <article class="ficha" id="f-fiscal">
-      <h3 data-t="fiscal-titulo"></h3>
-      <p class="lead" data-t="fiscal"></p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="fiscal" style="--n:3">
-        <button type="button" data-m="autonomia" aria-pressed="true">Recursos propios</button>
-        <button type="button" data-m="resultado" aria-pressed="false">Resultado</button>
-        <button type="button" data-m="personal" aria-pressed="false">Personal</button>
-      </div>
-      <div class="grafico" data-g="fiscal"></div>
-      <p class="nota" data-t="fiscal-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
-        <ul>
-        <li>¿Las provincias que más exportan son también las que más empleo formal generan?</li>
-        <li>Si una provincia financia la mayor parte de su gasto con fondos nacionales, ¿cuánto margen tiene para definir su propia agenda?</li>
-        <li>¿Qué pasa con el trabajo que no aparece en estos registros, el informal y el independiente?</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Oportunidades</h3>
-        <ul>
-        <li>Las provincias con pocos asalariados privados por habitante muestran dónde el empleo formal es más escaso y dónde hay lugar para nuevas empresas.</li>
-        <li>Lo que exporta cada provincia marca cadenas de valor en las que pueden sumarse proveedores, logística y servicios.</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
+  
 
-  <section class="tema" id="empresas">
-    <h2>Empresas y oportunidades</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
-      <p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué se mide</h4><p>Las fichas cuentan empresas privadas que tienen al menos una persona en relación de dependencia. Los datos salen del Observatorio de Empleo y Dinámica Empresarial (OEDE), que usa las declaraciones mensuales que cada empresa presenta ante la seguridad social para pagar los aportes de su personal. La unidad es la empresa como unidad legal, identificada por su CUIT, y no cada local o sucursal. Quienes trabajan por su cuenta sin empleados no aparecen en este registro.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a></p></section><section class="exp-bloque"><h4>Desde cuándo</h4><p>El Observatorio se creó en mayo de 2003 dentro de la Secretaría de Empleo del Ministerio de Trabajo. Reconstruyó las series de empresas y de empleo registrado desde 1996, con una base que sigue a cada empresa a lo largo del tiempo. Eso permite saber no solo cuántas empresas hay, sino cuántas abren, cuántas cierran y cuánto empleo crean o destruyen.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a></p></section><section class="exp-bloque"><h4>Cuándo abre y cuándo cierra una empresa</h4><p>Una empresa abre cuando aparecen sus primeras declaraciones de personal ocupado. Se considera cerrada cuando pasa un año, cuatro trimestres seguidos, sin declarar empleados, el mismo criterio que usa la oficina de estadísticas laborales de los Estados Unidos. Las tasas de entrada y de salida dividen las aperturas y los cierres por todas las empresas que estuvieron activas en el período. El cambio neto es la diferencia entre las dos.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a></p></section><section class="exp-bloque"><h4>Empresas locales y empresas en varias provincias</h4><p>Una empresa que tiene personal en varias provincias figura en cada una de ellas, por eso la suma provincial supera al total del país. Para estudiar aperturas y cierres el Observatorio usa las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su empleo. La entrada y salida de las empresas no locales es más volátil y refleja menos el crecimiento del tejido productivo de cada región.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a>, <a href="https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales" target="_blank" rel="noopener">Ministerio de Capital Humano, estadísticas provinciales del OEDE</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Empresa</dt><dd>Unidad legal independiente identificada por su CUIT. Puede tener varios locales o plantas. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div><div><dt>Tasa de entrada</dt><dd>Empresas que abrieron en el período sobre el total de empresas activas en ese período, incluidas las que cerraron. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div><div><dt>Tasa de salida</dt><dd>Empresas que cerraron en el período sobre el mismo total. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div><div><dt>Empresa local</dt><dd>Empresa contada en la provincia donde declara la mayor parte de su personal. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div></dl></details></div>
+  
 
-    <article class="ficha" id="f-empresas">
-      <h3 data-t="empresas-titulo"></h3>
-      <p class="lead" data-t="empresas"></p>
-      <div class="grafico" data-g="empresas"></div>
-      <p class="nota" data-t="empresas-nota"></p>
-      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <article class="ficha" id="f-dinamica-empresas">
-      <h3 data-t="dinamica-titulo"></h3>
-      <p class="lead" data-t="dinamica"></p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="dinamica">
-        <button type="button" data-m="pais" aria-pressed="true">Serie del país</button>
-        <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
-      </div>
-      <div class="grafico" data-g="dinamica"></div>
-      <p class="nota" data-t="dinamica-nota"></p>
-      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_serie_pais.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Problemas para resolver</h3>
-        <ul>
-        <li><a href="#f-internet">Conectividad</a>: las provincias con menos accesos a internet fijo y menor velocidad.</li>
-        <li><a href="#f-censo">Servicios en el hogar</a>: cloacas, agua de red y computadora, provincia por provincia.</li>
-        <li><a href="#f-rotacion">Empleo inestable</a>: quiénes cambian más seguido de trabajo.</li>
-        <li><a href="#f-mortalidad">Salud materno infantil</a>: dónde la mortalidad infantil sigue alta.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Tendencias y mercados</h3>
-        <ul>
-        <li><a href="#f-piramide">Una población que envejece</a>: más demanda de cuidados, salud y servicios para personas mayores.</li>
-        <li><a href="#f-exportaciones">Exportaciones por provincia</a>: qué produce cada una y cuánto crecen en el último semestre.</li>
-        <li><a href="#f-receptivo">Turismo internacional</a>: cuántos visitantes llegan al país.</li>
-        <li><a href="#cruces">Cruces</a>: compará la creación de empresas con cualquier otro indicador.</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section class="tema" id="pobreza">
-    <h2>Pobreza y hogares</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
-      <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué se mide</h4><p>La sección combina tres fuentes. La pobreza y la indigencia por ingresos salen de la Encuesta Permanente de Hogares (EPH) del INDEC. Indican qué proporción de hogares y de personas no alcanza con sus ingresos a cubrir una canasta de bienes y servicios. El Censo 2022 aporta datos de todos los hogares del país sobre condiciones de la vivienda, servicios, salud y educación, con los que se calculan, entre otros, el acceso a cloacas y agua de red y las Necesidades Básicas Insatisfechas. El Ente Nacional de Comunicaciones (ENACOM) informa cada trimestre la penetración de internet fijo por provincia, medida cada 100 hogares.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22. La medición de la pobreza y la indigencia en la Argentina (noviembre de 2016)</a>, <a href="https://censo.gob.ar/index.php/datos_definitivos/" target="_blank" rel="noopener">censo.gob.ar, Resultados definitivos</a>, <a href="https://datos.gob.ar/dataset/internet-fija" target="_blank" rel="noopener">datos.gob.ar, ENACOM, Internet Fija, recurso Internet Fija Penetración Provincias</a></p></section><section class="exp-bloque"><h4>Desde cuándo</h4><p>La EPH se aplica en la Argentina desde 1973. En su modalidad original se hacía dos veces por año, en mayo y octubre. En 1984 el INDEC publicó La pobreza en la Argentina, que midió las Necesidades Básicas Insatisfechas con el Censo de 1980. La medición por ingresos tomó forma con la Investigación de la Pobreza en la Argentina, de 1988, y desde ese año hay series oficiales para el Gran Buenos Aires. Desde 2003 la EPH es continua y da datos de pobreza por semestre. En enero de 2016 se declaró la emergencia administrativa del sistema estadístico y ese año el INDEC reanudó la difusión de pobreza e indigencia.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/metodologia_eph_continua.pdf" target="_blank" rel="noopener">INDEC, La nueva Encuesta Permanente de Hogares de Argentina. 2003</a>, <a href="https://biblioteca.indec.gob.ar/bases/minde/2mi491.pdf" target="_blank" rel="noopener">INDEC, biblioteca: documento sobre la medición de la pobreza en el Gran Buenos Aires 1991 a 1997</a>, <a href="https://apis.datos.gob.ar/series/api/series/?ids=60.1_PP_0_0_15&amp;metadata=full&amp;limit=1" target="_blank" rel="noopener">datos.gob.ar, Pobreza e indigencia. EPH puntual (Subsecretaría de Programación Macroeconómica, fuente INDEC)</a>, <a href="https://www.indec.gob.ar/uploads/informesdeprensa/eph_pobreza_01_18.pdf" target="_blank" rel="noopener">INDEC, Incidencia de la pobreza y la indigencia, primer semestre de 2018</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/resolución-17-2016-258193/texto" target="_blank" rel="noopener">INDEC, Resolución 17/2016</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a></p></section><section class="exp-bloque"><h4>Cómo se calcula</h4><p>La medición usa el método indirecto, también llamado de la línea. Primero se arma la Canasta Básica Alimentaria (CBA), un conjunto de alimentos que cubre requerimientos nutricionales mínimos. Después se obtiene la Canasta Básica Total (CBT), que suma bienes y servicios no alimentarios. Para pasar de una a otra se multiplica la CBA por la inversa del coeficiente de Engel, que es la relación entre el gasto en alimentos y el gasto total de una población de referencia. Como cada hogar tiene una composición distinta, las canastas se expresan en adultos equivalentes. Por último, se compara la canasta de cada hogar con su ingreso total familiar, informado en la EPH.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a>, <a href="https://www.indec.gob.ar/uploads/informesdeprensa/eph_pobreza_01_18.pdf" target="_blank" rel="noopener">INDEC, Incidencia de la pobreza y la indigencia, primer semestre de 2018</a></p></section><section class="exp-bloque"><h4>Pobreza e indigencia</h4><p>Un hogar es indigente si su ingreso no alcanza para comprar la Canasta Básica Alimentaria que le corresponde según su composición. Es pobre si no alcanza para la Canasta Básica Total, de modo que los hogares indigentes también se cuentan como pobres. La clasificación se hace por hogar y después se extiende a cada una de las personas que viven en él. Por eso se publican dos porcentajes, uno de hogares y otro de personas. La EPH es una encuesta urbana. Su versión continua empezó en los aglomerados que ya cubría la encuesta anterior y, con una incorporación progresiva, llegó a 31 aglomerados urbanos.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/metodologia_eph_continua.pdf" target="_blank" rel="noopener">INDEC, La nueva Encuesta Permanente de Hogares de Argentina. 2003</a></p></section><section class="exp-bloque"><h4>Necesidades Básicas Insatisfechas</h4><p>Las Necesidades Básicas Insatisfechas (NBI) miden la pobreza a través de carencias materiales y no a través del ingreso. Un hogar tiene NBI si presenta al menos una de cinco privaciones: más de tres personas por cuarto, vivienda de tipo inconveniente como una pieza de inquilinato o una vivienda precaria, vivienda sin retrete, algún niño en edad escolar que no asiste a la escuela, o cuatro o más personas por cada miembro ocupado con un jefe de hogar que no completó el tercer grado. Se calculan con los censos, que cubren todo el país. El Censo 2022 fue el primero de derecho: contó a las personas en su lugar de residencia habitual.</p><p class="exp-fuente">Fuentes: <a href="https://biblioteca.indec.gob.ar/bases/minde/2mi491.pdf" target="_blank" rel="noopener">INDEC, biblioteca: documento sobre la medición de la pobreza en el Gran Buenos Aires 1991 a 1997</a>, <a href="https://www.indec.gob.ar/micro_sitios/webcenso/aquisecuenta/Aqui7.pdf" target="_blank" rel="noopener">INDEC, Aquí se cuenta Nº 7, Revista informativa del Censo 2001 (septiembre de 2003)</a>, <a href="https://sitioanterior.indec.gob.ar/textos_glosario.asp?id=21" target="_blank" rel="noopener">INDEC, glosario del sitio anterior</a>, <a href="https://censo.gob.ar/index.php/el-operativo/" target="_blank" rel="noopener">censo.gob.ar, El operativo</a></p></section><section class="exp-bloque"><h4>Para tener en cuenta</h4><p>La pobreza por ingresos y las NBI no miden lo mismo. La primera compara el ingreso con el costo de una canasta y la segunda observa carencias de la vivienda y del hogar, así que sus resultados no son intercambiables. Las canastas cambian según la región, para reflejar pautas de consumo de hogares con poder adquisitivo parecido. Desde 2016, la relación entre gasto en alimentos y gasto total se toma de la Encuesta Nacional de Gastos de los Hogares 2004/05. El indicador de ENACOM cuenta accesos a internet fijo cada 100 hogares, es decir, conexiones y no hogares conectados. La serie provincial que publica empieza en 2014.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a>, <a href="https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv" target="_blank" rel="noopener">ENACOM, archivo oficial de penetración por provincia</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Canasta Básica Alimentaria (CBA)</dt><dd>Conjunto de alimentos que cubre requerimientos nutricionales mínimos. Su valor marca la línea de indigencia. <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a></dd></div><div><dt>Canasta Básica Total (CBT)</dt><dd>La CBA ampliada con bienes y servicios no alimentarios. Su valor marca la línea de pobreza. <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a></dd></div><div><dt>Inversa del coeficiente de Engel</dt><dd>El coeficiente de Engel es el gasto en alimentos dividido por el gasto total. Su inversa es el factor por el que se multiplica la CBA para obtener la CBT. <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a></dd></div><div><dt>Adulto equivalente</dt><dd>Unidad de referencia que expresa las necesidades de cada persona en relación con las de un varón adulto de actividad moderada, según edad y sexo. Permite calcular una canasta específica para cada hogar. <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a></dd></div><div><dt>Hogar indigente</dt><dd>Hogar cuyo ingreso no supera el valor de la Canasta Básica Alimentaria que le corresponde. Todo hogar indigente también es pobre. <a href="https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf" target="_blank" rel="noopener">INDEC, Metodología INDEC Nº 22</a></dd></div><div><dt>Hogar con NBI</dt><dd>Hogar con al menos una de cinco privaciones: hacinamiento crítico, vivienda inconveniente, condiciones sanitarias, asistencia escolar o capacidad de subsistencia. <a href="https://www.indec.gob.ar/micro_sitios/webcenso/aquisecuenta/Aqui7.pdf" target="_blank" rel="noopener">INDEC, Aquí se cuenta Nº 7</a></dd></div><div><dt>Hacinamiento crítico</dt><dd>Situación de los hogares que viven con más de tres personas por cuarto. Es uno de los cinco indicadores de NBI. <a href="https://sitioanterior.indec.gob.ar/textos_glosario.asp?id=21" target="_blank" rel="noopener">INDEC, glosario del sitio anterior</a></dd></div><div><dt>Censo de derecho</dt><dd>Censo que registra a cada persona en su lugar de residencia habitual y no donde se encontraba el día del censo. El de 2022 fue el primero de este tipo en la Argentina. <a href="https://censo.gob.ar/index.php/el-operativo/" target="_blank" rel="noopener">censo.gob.ar, El operativo</a></dd></div></dl></details></div>
-
-    <article class="ficha" id="f-pobreza">
-      <h3 data-t="pobreza-titulo"></h3>
-      <p class="lead" data-t="pobreza"></p>
-      <div class="grafico" data-g="pobreza"></div>
-      <p class="nota" data-t="pobreza-nota"></p>
-      <p class="ir-consultas"><a class="boton principal" href="pobreza/">Consultar pobreza por aglomerado, partido y comuna</a></p>
-      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-censo">
-      <h3 data-t="censo-titulo"></h3>
-      <p class="lead" data-t="censo"></p>
-      <label class="selector-ficha"><span>Indicador</span>
-        <select data-g="censo">
-          <option value="cloaca" selected>Cloacas</option>
-          <option value="agua_red">Agua de red</option>
-          <option value="internet">Internet en el hogar</option>
-          <option value="computadora">Computadora o tableta</option>
-          <option value="nbi">Necesidades básicas insatisfechas</option>
-          <option value="sin_cobertura">Sin obra social, prepaga ni plan estatal</option>
-        </select></label>
-      <div class="grafico" data-g="censo"></div>
-      <p class="nota" data-t="censo-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/censo2022_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-internet">
-      <h3 data-t="internet-titulo"></h3>
-      <p class="lead" data-t="internet"></p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="internet">
-        <button type="button" data-m="accesos_100_hogares" aria-pressed="true">Accesos</button>
-        <button type="button" data-m="mbps" aria-pressed="false">Velocidad</button>
-      </div>
-      <div class="grafico" data-g="internet"></div>
-      <p class="nota" data-t="internet-nota"></p>
-      <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM)</span><a href="datos/internet_fijo_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
-        <ul>
-        <li>¿Qué parte de las subas y bajas de la pobreza responde a los precios y qué parte al empleo?</li>
-        <li>¿Qué provincias tienen carencias de vivienda y servicios que no se resuelven solo con más ingresos?</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Oportunidades</h3>
-        <ul>
-        <li>La brecha de conectividad entre provincias marca dónde faltan infraestructura y servicios digitales.</li>
-        <li>Las carencias de vivienda y de servicios básicos señalan demanda de obra, financiamiento y soluciones habitacionales.</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section class="tema" id="salud">
-    <h2>Salud</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Cuánto vivimos y de qué nos morimos antes de tiempo?</p>
-      <p>La esperanza de vida y la mortalidad infantil resumen cómo funciona el sistema de salud. Las muertes por causas externas, como los siniestros viales, los homicidios y los suicidios, muestran problemas que se pueden prevenir.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Esperanza de vida al nacer</h4><p>La esperanza de vida al nacer resume en un número las condiciones de mortalidad de un período. No predice cuánto va a vivir una persona concreta. Indica cuántos años viviría en promedio un recién nacido si, en cada edad de su vida, enfrentara los riesgos de morir observados en ese período. El INDEC la obtiene de las tablas de mortalidad, que parten de las tasas de mortalidad por sexo y edad y calculan, edad por edad, la probabilidad de morir antes de llegar a la edad siguiente. Las tablas provinciales más recientes cubren 2019 y los años 2020 a 2022, y los valores de 2020 y 2021 muestran el efecto de la pandemia de COVID-19.</p><p class="exp-fuente">Fuentes: <a href="https://censo.gob.ar/wp-content/uploads/2025/10/metadato_tabla_mortalidad_base.pdf" target="_blank" rel="noopener">INDEC. Tablas abreviadas de mortalidad 2019 y 2020-2022, por sexo y edad. Metadatos (15/10/2025)</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Estimaciones y proyecciones de población 2022-2040 (Análisis Demográfico 39)</a></p></section><section class="exp-bloque"><h4>Mortalidad infantil, neonatal y posneonatal</h4><p>La tasa de mortalidad infantil relaciona las muertes de menores de un año ocurridas en un año con los nacidos vivos registrados ese mismo año, y se expresa por cada 1.000 nacidos vivos. Se divide en dos tramos. La mortalidad neonatal abarca los primeros 27 días de vida y depende sobre todo de condiciones congénitas y de la atención del embarazo, el parto y el recién nacido. La posneonatal va desde el día 28 hasta el año de vida y responde más a las condiciones ambientales y socioeconómicas. Las muertes de menores de un año se asignan a la provincia donde vivía la madre, no al lugar donde ocurrió la muerte.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS, Ministerio de Salud. Natalidad y mortalidad infantil 2019. Boletín 163</a></p></section><section class="exp-bloque"><h4>Causas de muerte y la CIE-10</h4><p>Cada defunción se clasifica por su causa básica, es decir, la enfermedad o lesión que inició la cadena de hechos que llevó a la muerte, o las circunstancias del accidente o la violencia que causó la lesión. Para codificarla se usa la Clasificación Estadística Internacional de Enfermedades y Problemas Relacionados con la Salud, Décima Revisión, conocida como CIE-10. Su antecedente es la Lista Internacional de Causas de Defunción, formalizada en 1893. El sistema estadístico de salud argentino la aplica a las causas de muerte desde el 1 de enero de 1997. Para los menores de un año, la DEIS usa una lista de tabulación que agrupa los códigos en capítulos, como las afecciones perinatales o las malformaciones congénitas.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></p></section><section class="exp-bloque"><h4>Muertes reducibles</h4><p>Desde 1985 la Argentina clasifica las muertes de menores de un año según criterios de reducibilidad, con el objetivo de detectar problemas y orientar decisiones. Se consideran reducibles las defunciones cuya frecuencia podría bajar con el conocimiento científico actual y con distintas acciones, sobre todo de los servicios de salud. Las difícilmente reducibles son las que hoy no se pueden evitar. Los grupos de causas son distintos para el período neonatal y el posneonatal. La clasificación se revisó en 1996 y en 2011, cuando se sumó la categoría de no clasificables. En 2017 se actualizó para incorporar los códigos de la edición de la CIE-10 que se usa desde 2016.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></p></section><section class="exp-bloque"><h4>El SNIC y por qué difiere de la DEIS</h4><p>El Sistema Nacional de Información Criminal (SNIC), del Ministerio de Seguridad, fue creado en el año 2000 por la ley 25.266. Reúne los hechos presuntamente delictuosos que registran las policías provinciales, las fuerzas federales y otros organismos que reciben denuncias en todas las jurisdicciones. Sus módulos de alerta temprana relevan caso por caso los homicidios dolosos, las muertes viales y los suicidios, aunque estos dos últimos no sean delitos. Como se basa en las primeras actuaciones policiales, sus cifras pueden diferir de las de otros organismos. La DEIS, en cambio, parte de defunciones certificadas por personal de salud y las asigna al lugar donde vivía la persona fallecida.</p><p class="exp-fuente">Fuentes: <a href="https://cloud-snic.minseg.gob.ar/Bases/SNIC/Documento_metodologico_SNIC_2024.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional. Documento metodológico del SNIC</a>, <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></p></section><section class="exp-bloque"><h4>Femicidios: el registro judicial</h4><p>El Registro Nacional de Femicidios de la Justicia Argentina lo elabora la Oficina de la Mujer de la Corte Suprema. Reúne datos de las causas judiciales en las que se investigan muertes violentas de mujeres cis y de mujeres trans y travestis por razones de género. El primer informe se publicó en 2015 y se refirió a 2014. La metodología se consolidó en todo el país en 2017, por lo que los datos de 2014 a 2016 deben tomarse con cautela. Las tasas se calculan con las proyecciones de población de mujeres del INDEC. Como esas proyecciones no distinguen entre mujeres cis y trans, los travesticidios y transfemicidios entran en el mismo cálculo.</p><p class="exp-fuente">Fuente: <a href="https://om.csjn.gob.ar/consultaTalleresWeb/public/documentoConsulta/verDocumentoById?idDocumento=240" target="_blank" rel="noopener">CSJN, Oficina de la Mujer. Registro Nacional de Femicidios. Resumen de la Edición 2023</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Esperanza de vida al nacer</dt><dd>Cantidad de años que en promedio viviría un recién nacido si enfrentara durante toda su vida las condiciones de mortalidad por edad del período estudiado. <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040, glosario</a></dd></div><div><dt>Tabla de mortalidad</dt><dd>Herramienta que, a partir de las tasas de mortalidad por edad, calcula la probabilidad de morir en cada edad y los años que en promedio le quedan por vivir a quien llega a ella. <a href="https://censo.gob.ar/wp-content/uploads/2025/10/metadato_tabla_mortalidad_base.pdf" target="_blank" rel="noopener">INDEC. Metadatos de las tablas de mortalidad</a></dd></div><div><dt>Nacido vivo</dt><dd>Todo producto de la concepción que, una vez separado del cuerpo de la madre, respira o muestra otro signo de vida, sin importar la duración del embarazo. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div><div><dt>Mortalidad infantil</dt><dd>Muertes de menores de un año. La tasa se calcula sobre los nacidos vivos registrados del mismo año y se expresa por cada 1.000 nacidos vivos. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div><div><dt>Mortalidad neonatal y posneonatal</dt><dd>La neonatal abarca los primeros 27 días de vida. La posneonatal va desde el día 28 hasta el año de vida. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div><div><dt>Causa básica de defunción</dt><dd>Enfermedad o lesión que inició la cadena de hechos que terminó en la muerte, o las circunstancias del accidente o la violencia que causó la lesión. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div><div><dt>CIE-10</dt><dd>Clasificación Estadística Internacional de Enfermedades y Problemas Relacionados con la Salud, Décima Revisión. En la Argentina se usa para codificar las causas de muerte desde 1997. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div><div><dt>Muertes reducibles</dt><dd>Muertes de menores de un año cuya frecuencia podría bajar con el conocimiento científico actual y con acciones, sobre todo de los servicios de salud. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div></dl></details></div>
-
-    <article class="ficha" id="f-esperanza">
-      <h3 data-t="esperanza-titulo"></h3>
-      <p class="lead" data-t="esperanza"></p>
-      <div class="grafico" data-g="esperanza"></div>
-      <p class="nota" data-t="esperanza-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-mortalidad">
-      <h3 data-t="mortalidad-titulo">Tasa de mortalidad infantil por provincia</h3>
-      <p class="lead" data-t="mortalidad"></p>
-      <div class="grafico" data-g="mortalidad"></div>
-      <p class="nota" data-t="mortalidad-nota"></p>
-      <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-causas-infantiles">
-      <h3 data-t="causas-titulo"></h3>
-      <p class="lead" data-t="causas"></p>
-      <div class="pol-ley" id="causas-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="causas"></div>
-      <p class="nota" data-t="causas-nota"></p>
-      <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <div class="ayuda" id="ayuda-suicidio" role="note">
-      <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
-    </div>
-
-    <article class="ficha" id="f-muertes">
-      <h3>Muertes por suicidio, homicidio, siniestros viales y femicidio, 2000 a 2025</h3>
-      <p class="lead" data-t="muertes"></p>
-      <div class="grafico" data-g="muertes"></div>
-      <p class="nota" data-t="muertes-nota"></p>
-      <div class="pie"><span>Fuentes: SNIC, Ministerio de Seguridad, y Registro Nacional de Femicidios de la Justicia Argentina, Corte Suprema</span><a href="datos/muertes_violentas.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-suicidio">
-      <h3>Tasa de suicidios por cada 100.000 habitantes, 2000 a 2025</h3>
-      <p class="lead" data-t="suicidio"></p>
-      <div class="grafico" data-g="suicidio"></div>
-      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. Las tasas por sexo están disponibles desde 2017.</p>
-      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad</span><a href="datos/suicidio_serie.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-suicidio-prov">
-      <h3 data-t="suicidio-prov-titulo">Tasa de suicidios por provincia</h3>
-      <p class="lead" data-t="suicidio-prov"></p>
-      <div class="grafico" data-g="suicidio-prov"></div>
-      <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-edad">
-      <h3>Distribución de los suicidios por edad y sexo, 2017 a 2024</h3>
-      <p class="lead" data-t="edad"></p>
-      <div class="grafico" data-g="edad"></div>
-      <p class="nota">Porcentaje sobre el total de casos del período con edad y sexo registrados. Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan.</p>
-      <div class="pie"><span>Fuente: Sistema de Alerta Temprana de Suicidios, SNIC</span><a href="datos/suicidio_edad_sexo.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
-        <ul>
-        <li>¿Por qué la mortalidad infantil sigue siendo más alta en unas provincias que en otras?</li>
-        <li>¿Qué parte de las muertes evitables depende del sistema de salud y qué parte de la seguridad vial, la violencia o la salud mental?</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Oportunidades</h3>
-        <ul>
-        <li>Las diferencias en mortalidad infantil entre provincias señalan dónde reforzar los controles del embarazo y la atención en los primeros meses.</li>
-        <li>La prevención de siniestros viales y el acompañamiento en salud mental son áreas donde los programas locales pueden medir resultados con estos mismos datos.</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section class="tema" id="educacion">
-    <h2>Educación</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Qué aprenden los chicos en cada provincia?</p>
-      <p>Primero, cuántos alumnos de sexto grado alcanzan el nivel esperado en lengua y matemática. Después, cuántos adolescentes van a la secundaria y cómo le va al país frente al mundo en las pruebas PISA.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué es Aprender</h4><p>Aprender es la evaluación nacional de los aprendizajes de estudiantes de primaria y secundaria en las áreas básicas. Se aplica desde 2016 y continúa la serie de Operativos Nacionales de Evaluación (ONE) que el Ministerio de Educación de la Nación empezó en 1993. Es una prueba estandarizada: todos los estudiantes del mismo grado o año responden los mismos instrumentos en las mismas condiciones. Está referida a criterio, porque mide el dominio de un marco definido por los Núcleos de Aprendizaje Prioritarios, los diseños curriculares de cada jurisdicción y acuerdos federales. Según el año y el área, se aplica a todos los estudiantes o a una muestra probabilística.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf" target="_blank" rel="noopener">Ministerio de Educación. Evaluación Nacional Aprender. Documento metodológico de bases usuarias</a></p></section><section class="exp-bloque"><h4>Niveles de desempeño</h4><p>Aprender no informa solo un puntaje. Ubica a cada estudiante en uno de cuatro niveles de desempeño: por debajo del básico, básico, satisfactorio y avanzado. Los puntos de corte entre niveles se fijaron con el método Bookmark, en talleres con docentes frente a aula elegidos al azar en las distintas jurisdicciones. Para que los resultados se puedan comparar entre años, las pruebas repiten un grupo de preguntas comunes, el bloque de anclaje, y la edición 2016 funciona como escala de referencia. Como los niveles se definieron sobre los contenidos de la escuela argentina, el Ministerio advierte que no se pueden comparar en forma directa con otras evaluaciones.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf" target="_blank" rel="noopener">Aprender. Documento metodológico</a></p></section><section class="exp-bloque"><h4>PISA</h4><p>PISA es el Programa para la Evaluación Internacional de Estudiantes de la OCDE. Se aplica cada tres años desde 2000 a estudiantes de 15 años y mide sus logros en lectura, matemática y ciencias. Es una evaluación muestral: se elige un conjunto de escuelas y estudiantes que representa a toda la población evaluada. La Argentina asumió el compromiso de participar en el año 2000. Según la OCDE, los resultados argentinos de 2015 no se pueden comparar con los de años anteriores ni con los de 2018, porque se usó un marco muestral incompleto. Por eso ese año queda fuera de las series.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/evaluacion-pisa" target="_blank" rel="noopener">Ministerio de Educación. Evaluación PISA (extraída por herramienta)</a>, <a href="https://www.argentina.gob.ar/noticias/comenzo-la-participacion-de-argentina-en-la-evaluacion-internacional-pisa" target="_blank" rel="noopener">Ministerio de Educación. Noticia sobre el inicio de la participación argentina en PISA (extraída por herramienta)</a>, <a href="https://www.oecd.org/content/dam/oecd/en/about/programmes/edu/pisa/publications/national-reports/pisa-2018/featured-country-specific-overviews/PISA2018_CN_ARG.pdf" target="_blank" rel="noopener">OCDE. PISA 2018 Results. Country Note Argentina</a></p></section><section class="exp-bloque"><h4>Tasa neta de escolarización</h4><p>La tasa neta de escolarización mide qué parte de la población que por su edad debería cursar un nivel efectivamente asiste a ese nivel. Se calcula dividiendo los estudiantes que tienen la edad teórica del nivel por toda la población de esa edad. El numerador sale del Relevamiento Anual, un operativo censal de matrícula que se aplica desde 1996. El denominador sale de las proyecciones de población del INDEC. Lo que falta para completar la tasa no es necesariamente exclusión, porque incluye a quienes estudian en un nivel que no corresponde a su edad. Al combinar dos fuentes distintas, a veces la matrícula supera a la población proyectada y la tasa pasa el máximo teórico.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf" target="_blank" rel="noopener">Ministerio de Educación. Tasas de escolarización. Consideraciones sobre las fuentes y métodos de cálculo (2023)</a></p></section><section class="exp-bloque"><h4>Educación obligatoria</h4><p>La Ley de Educación Nacional 26.206, sancionada el 14 de diciembre de 2006, estableció que la escolaridad es obligatoria desde los cinco años hasta terminar la secundaria. El 3 de diciembre de 2014 se sancionó la ley 27.045, que declaró obligatoria la educación inicial desde los cuatro años y modificó la ley 26.206. Desde entonces la obligatoriedad abarca los dos últimos años del nivel inicial, la primaria y la secundaria. Además, el Estado nacional, las provincias y la Ciudad de Buenos Aires tienen que universalizar los servicios educativos para niñas y niños de tres años.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-26206-123542/texto" target="_blank" rel="noopener">Ley 26.206, texto original (argentina.gob.ar/normativa, extraída por herramienta)</a>, <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/240000-244999/240450/norma.htm" target="_blank" rel="noopener">Ley 27.045 (InfoLEG, extraída por herramienta)</a>, <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/120000-124999/123542/texact.htm" target="_blank" rel="noopener">Ley 26.206, texto actualizado (InfoLEG, extraída por herramienta)</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Aprender</dt><dd>Evaluación nacional y estandarizada de los aprendizajes en primaria y secundaria, que se aplica desde 2016. <a href="https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf" target="_blank" rel="noopener">Aprender. Documento metodológico</a></dd></div><div><dt>Prueba referida a criterio</dt><dd>Evaluación que mide el dominio de un conjunto definido de conocimientos y habilidades, en lugar de comparar a los estudiantes entre sí. <a href="https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf" target="_blank" rel="noopener">Aprender. Documento metodológico</a></dd></div><div><dt>Niveles de desempeño</dt><dd>Las cuatro categorías en que Aprender agrupa los resultados: por debajo del básico, básico, satisfactorio y avanzado. <a href="https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf" target="_blank" rel="noopener">Aprender. Documento metodológico</a></dd></div><div><dt>Bloque de anclaje</dt><dd>Grupo de preguntas que se repite entre ediciones de Aprender para poder comparar los resultados en el tiempo. <a href="https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf" target="_blank" rel="noopener">Aprender. Documento metodológico</a></dd></div><div><dt>PISA</dt><dd>Evaluación internacional de la OCDE que se aplica cada tres años a estudiantes de 15 años. <a href="https://www.oecd.org/content/dam/oecd/en/about/programmes/edu/pisa/publications/national-reports/pisa-2018/featured-country-specific-overviews/PISA2018_CN_ARG.pdf" target="_blank" rel="noopener">OCDE. PISA 2018 Country Note Argentina</a></dd></div><div><dt>Tasa neta de escolarización</dt><dd>Estudiantes con la edad teórica de un nivel, divididos por toda la población de esa edad y multiplicados por cien. <a href="https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf" target="_blank" rel="noopener">Tasas de escolarización (2023)</a></dd></div><div><dt>Tasa bruta de escolarización</dt><dd>Todos los estudiantes de un nivel, tengan la edad que tengan, divididos por la población en edad teórica de cursarlo. <a href="https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf" target="_blank" rel="noopener">Tasas de escolarización (2023)</a></dd></div><div><dt>Relevamiento Anual</dt><dd>Operativo censal del sistema educativo que registra cada año la matrícula y otras variables de todos los establecimientos. Se aplica desde 1996. <a href="https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf" target="_blank" rel="noopener">Tasas de escolarización (2023)</a></dd></div></dl></details></div>
-
-    <article class="ficha" id="f-aprender">
-      <h3 data-t="aprender-titulo">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia</h3>
-      <p class="lead" data-t="aprender"></p>
-      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="aprender">
-        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
-        <button type="button" data-m="len" aria-pressed="false">Lengua</button>
-      </div>
-      <div class="grafico" data-g="aprender"></div>
-      <p class="nota" data-t="aprender-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Educación, evaluación Aprender, base agregada</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-escolarizacion">
-      <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
-      <p class="lead" data-t="escolarizacion"></p>
-      <div class="grafico" data-g="escolarizacion"></div>
-      <p class="nota" data-t="escolarizacion-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-pisa">
-      <h3 data-t="pisa-titulo">Resultados de la Argentina en las pruebas PISA</h3>
-      <p class="lead" data-t="pisa"></p>
-      <div class="conmutador" role="group" aria-label="Área evaluada" data-g="pisa" style="--n:3">
-        <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
-        <button type="button" data-m="lec" aria-pressed="false">Lectura</button>
-        <button type="button" data-m="cie" aria-pressed="false">Ciencias</button>
-      </div>
-      <div class="grafico" data-g="pisa"></div>
-      <p class="nota" data-t="pisa-nota"></p>
-      <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
-        <ul>
-        <li>¿Las provincias con más chicos en la escuela son también las que más aprenden?</li>
-        <li>¿Qué explica las diferencias en Aprender entre provincias con recursos parecidos?</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Oportunidades</h3>
-        <ul>
-        <li>Las brechas en lengua y matemática señalan demanda de apoyo escolar, formación docente y herramientas educativas.</li>
-        <li>Cruzar estos resultados con ingresos y conectividad, en la sección Cruces, ayuda a ubicar dónde un proyecto educativo puede tener más impacto.</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section class="tema" id="poblacion">
-    <h2>Población</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
-      <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. También importa quién llega: las personas que migran desde otros países.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Los censos nacionales</h4><p>El primer censo nacional de población se hizo en 1869 y alcanzó en forma simultánea a todos los habitantes de las provincias que entonces integraban el Estado nacional. Los censos permiten saber cuántos somos, cómo vivimos y cómo nos distribuimos en el territorio. Los censos anteriores al de 2022 fueron de hecho: contaban a cada persona donde había pasado la noche previa. El Censo 2022, con fecha de referencia el 18 de mayo, fue el primero de derecho, que registra a la población en su lugar de residencia habitual. También fue el primero bimodal, porque permitió responder por internet además del recorrido con cuestionario en papel.</p><p class="exp-fuente">Fuentes: <a href="https://censo.gob.ar/index.php/recursos/historia-de-los-censos/" target="_blank" rel="noopener">Censo 2022. Historia de los censos</a>, <a href="https://censo.gob.ar/index.php/historia/" target="_blank" rel="noopener">Censo 2022. Historia (extraída por herramienta)</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Estimaciones y proyecciones de población 2022-2040</a></p></section><section class="exp-bloque"><h4>Proyecciones de población y método de los componentes</h4><p>Entre un censo y otro, la población se estima con proyecciones. En octubre de 2025 el INDEC publicó las estimaciones y proyecciones 2022 a 2040 basadas en el Censo 2022. Primero reconstruye la población año por año con una ecuación de balance: parte de una población inicial, suma nacimientos, resta defunciones y agrega el saldo migratorio. Desde 2022 proyecta con el método de los componentes, que proyecta por separado la mortalidad, la fecundidad y la migración y luego las combina por sexo y edad. Las proyecciones se usan como denominador de muchas tasas, por lo que una revisión puede cambiar indicadores ya publicados.</p><p class="exp-fuente">Fuente: <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040</a></p></section><section class="exp-bloque"><h4>Fecundidad y envejecimiento</h4><p>La tasa global de fecundidad indica cuántos hijos tendría en promedio una mujer a lo largo de su período reproductivo si tuviera sus hijos según las tasas por edad observadas en un año. El nivel de reemplazo es la fecundidad mínima para que una población, sin contar las migraciones, mantenga su tamaño en el tiempo. Cuando la fecundidad baja y la sobrevida aumenta, la población envejece. Una forma de medirlo es el índice de dependencia potencial de los mayores, que compara las personas de 65 años y más con las de 15 a 64, cada 100. Algunos informes oficiales usan el corte de 60 años, por eso conviene revisar qué edades usa cada fuente.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040, glosario</a>, <a href="https://www.indec.gob.ar/ftp/indecinforma/nuevaweb/cuadros/7/definicionesyconceptos_am.pdf" target="_blank" rel="noopener">INDEC. SESD, área Adultos mayores. Definiciones y conceptos</a>, <a href="https://www.argentina.gob.ar/sites/default/files/2021/10/reporte_de_envejecimiento_poblacional_a_nivel_nacional_y_provincial.pptx_.pdf" target="_blank" rel="noopener">RENAPER, Dirección Nacional de Población. Reporte de envejecimiento poblacional 1991-2010 (2021)</a></p></section><section class="exp-bloque"><h4>Estadísticas vitales, RENAPER y censos</h4><p>Los nacimientos y las defunciones se conocen por las estadísticas vitales. El personal de salud certifica cada hecho y los registros civiles lo inscriben. La DEIS, del Ministerio de Salud, elabora estas estadísticas por delegación del INDEC, dentro de un sistema que se formó a fines de la década de 1960 con convenios firmados con las provincias en 1968. El RENAPER, regido por la ley 17.671 de 1968, tiene a su cargo la inscripción e identificación de las personas. A diferencia del censo, que cuenta a la población en una fecha determinada, los registros acumulan hechos durante el año y pueden tener omisiones o inscripciones tardías.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a>, <a href="https://www.argentina.gob.ar/salud/deis/ses" target="_blank" rel="noopener">DEIS. Sistema Estadístico de Salud (extraída por herramienta)</a>, <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/28130/texact.htm" target="_blank" rel="noopener">Ley 17.671 (InfoLEG, extraída por herramienta)</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040</a></p></section><section class="exp-bloque"><h4>Nacimientos y edad de la madre</h4><p>Las estadísticas vitales clasifican los nacimientos según la edad de la madre. La DEIS considera de alto riesgo a las madres menores de 20 años, porque la edad materna se asocia con la probabilidad de muerte o enfermedad del niño en su primer año. La tasa bruta de natalidad, en cambio, relaciona todos los nacimientos de un año con la población total y no permite comparar la fecundidad entre lugares con distinta estructura de edades. El INDEC registra una baja de la fecundidad en todas las edades, que en las menores de 20 años ya se observa en 2022.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a>, <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Tasa global de fecundidad</dt><dd>Cantidad promedio de hijos que tendría una mujer si durante toda su vida fértil tuviera sus hijos según las tasas por edad de un año. <a href="https://www.indec.gob.ar/ftp/indecinforma/nuevaWEB/cuadros/7/definiciones_sesd_din%C3%A1mica%20poblaci%C3%B3n.pdf" target="_blank" rel="noopener">INDEC. SESD, dinámica y estructura de la población</a></dd></div><div><dt>Fecundidad de reemplazo</dt><dd>Fecundidad mínima para que una población, sin contar las migraciones, mantenga su tamaño en el largo plazo. <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040</a></dd></div><div><dt>Método de los componentes</dt><dd>Técnica de proyección que estima por separado la mortalidad, la fecundidad y la migración y las combina por sexo y edad. <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040</a></dd></div><div><dt>Índice de dependencia potencial</dt><dd>Cantidad de personas en edades potencialmente inactivas por cada 100 en edad activa. La versión de los mayores compara 65 años y más con 15 a 64. <a href="https://www.indec.gob.ar/ftp/indecinforma/nuevaweb/cuadros/7/definicionesyconceptos_am.pdf" target="_blank" rel="noopener">INDEC. SESD, Adultos mayores</a></dd></div><div><dt>Censo de derecho</dt><dd>Censo que registra a cada persona en su lugar de residencia habitual. El de 2022 fue el primero de este tipo en la Argentina. <a href="https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf" target="_blank" rel="noopener">INDEC. Proyecciones 2022-2040</a></dd></div><div><dt>Nacidos vivos registrados</dt><dd>Nacimientos ocurridos en el año de registro más los del año anterior inscriptos en el año de referencia. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div><div><dt>Tasa bruta de natalidad</dt><dd>Nacimientos de un año en relación con la población total. No sirve para comparar fecundidad entre poblaciones con distinta estructura de edades. <a href="https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf" target="_blank" rel="noopener">DEIS. Boletín 163</a></dd></div></dl></details></div>
-
-    <article class="ficha" id="f-nacimientos">
-      <h3>Nacimientos por año en la Argentina y en la OCDE, 2012 a 2024</h3>
-      <p class="lead" data-t="nacimientos"></p>
-      <div class="grafico" data-g="nacimientos"></div>
-      <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacimientos inscriptos en el Registro Nacional de las Personas según año de nacimiento, el último año puede sumar inscripciones tardías. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
-      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-envejecimiento">
-      <h3 data-t="envejecimiento-titulo"></h3>
-      <p class="lead" data-t="envejecimiento"></p>
-      <div class="grafico" data-g="envejecimiento"></div>
-      <p class="nota" data-t="envejecimiento-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-piramide">
-      <h3 data-t="piramide-titulo"></h3>
-      <p class="lead" data-t="piramide"></p>
-      <div class="grafico" data-g="piramide"></div>
-      <p class="nota" data-t="piramide-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-jubilaciones">
-      <h3 data-t="jubilaciones-titulo"></h3>
-      <p class="lead" data-t="jubilaciones"></p>
-      <div class="grafico" data-g="jubilaciones"></div>
-      <p class="nota" data-t="jubilaciones-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-adolescentes">
-      <h3>Nacimientos de madres menores de 20 años por provincia, 2012 y 2024</h3>
-      <p class="lead" data-t="adolescentes"></p>
-      <div class="grafico" data-g="adolescentes"></div>
-      <p class="nota">Porcentaje de los nacimientos de cada provincia cuya madre tenía entre 10 y 19 años. El círculo claro marca 2012 y el oscuro 2024.</p>
-      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-adolescentes-nse">
-      <h3 data-t="adonse-titulo"></h3>
-      <p class="lead" data-t="adonse"></p>
-      <label class="selector-ficha"><span>Indicador del Censo 2022</span><select id="adonse-sel"></select></label>
-      <div class="grafico" data-g="adonse"></div>
-      <p class="nota" data-t="adonse-nota"></p>
-      <div class="pie"><span>Fuentes: RENAPER e INDEC, Censo 2022</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-extranjeros">
-      <h3 data-t="extranjeros-titulo"></h3>
-      <p class="lead" data-t="extranjeros"></p>
-      <div class="grafico" data-g="extranjeros"></div>
-      <p class="nota" data-t="extranjeros-nota"></p>
-      <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
-        <ul>
-        <li>¿Cómo se sostiene el sistema previsional si hay menos trabajadores por cada persona mayor?</li>
-        <li>¿Qué hacer con escuelas y maternidades que van a tener menos demanda?</li>
-        <li>¿La baja de los embarazos adolescentes fue pareja en todas las provincias?</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Oportunidades</h3>
-        <ul>
-        <li>Una población que envejece demanda cuidados, salud, vivienda adaptada y servicios para personas mayores.</li>
-        <li>La caída de la natalidad invita a repensar la oferta educativa y a reconvertir parte de la infraestructura.</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section class="tema" id="politica">
-    <h2>Política</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
-      <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Cómo se elige al presidente</h4><p>Desde la reforma constitucional de 1994, el presidente y el vicepresidente se eligen en forma directa y en doble vuelta. Antes, la Capital y cada provincia elegían una junta de electores que después votaba la fórmula, y así se hizo en 1983. Gana en primera vuelta la fórmula que supera el 45% de los votos afirmativos válidamente emitidos, o la que obtiene al menos el 40% con más de 10 puntos de diferencia sobre la segunda. Si ninguna lo logra, hay segunda vuelta entre las dos más votadas dentro de los 30 días. El mandato dura cuatro años, con una sola reelección consecutiva.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm" target="_blank" rel="noopener">Constitución Nacional, artículo 94</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24309-693/texto" target="_blank" rel="noopener">Ley 24.309 de necesidad de la reforma constitucional</a>, <a href="https://www.infoleg.gob.ar/?page_id=3873" target="_blank" rel="noopener">Constitución de 1853, artículo 78</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-195989/texto" target="_blank" rel="noopener">Ley 22.847 de 1983, artículo 6</a></p></section><section class="exp-bloque"><h4>Las PASO</h4><p>Las elecciones Primarias, Abiertas, Simultáneas y Obligatorias (PASO) las creó la ley 26.571, sancionada el 2 de diciembre de 2009. Se usaron por primera vez el 14 de agosto de 2011. En las PASO todas las agrupaciones eligen sus candidaturas nacionales el mismo día, en todo el país, con voto secreto y obligatorio, aunque presenten una sola lista. Votan todos los electores del padrón. Solo pasan a la elección general las agrupaciones que, sumando todas sus listas internas, llegan al 1,5% de los votos válidamente emitidos en el distrito. La ley 27.783 suspendió las PASO durante 2025.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/160000-164999/161453/texact.htm" target="_blank" rel="noopener">Ley 26.571, artículo 19</a>, <a href="https://www.argentina.gob.ar/dine/resultados-electorales/elecciones-2011" target="_blank" rel="noopener">DINE, Elecciones 2011</a>, <a href="https://www.boletinoficial.gob.ar/detalleAviso/primera/322209/20250307" target="_blank" rel="noopener">Ley 27.783, artículo 1 (Boletín Oficial, 7 de marzo de 2025)</a></p></section><section class="exp-bloque"><h4>Qué votos cuentan</h4><p>El Código Electoral Nacional, en el texto que le dio la ley 27.781 de 2024, llama votos válidos a los emitidos en una boleta oficializada que muestra con claridad la voluntad de quien vota. Pueden ser afirmativos, cuando se marca una opción, o en blanco, cuando no se marca ninguna en una categoría. Los nulos no son válidos. La diferencia importa. Los umbrales del 45% y el 40% para elegir presidente se calculan sobre los votos afirmativos, sin los blancos. El piso del 1,5% de las PASO se calcula sobre los válidos. En este sitio los porcentajes son sobre votos positivos (afirmativos). El recuento provisorio solo informa: la Justicia Nacional Electoral proclama a los electos con el escrutinio definitivo.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto" target="_blank" rel="noopener">Ley 27.781, nuevo artículo 101 del Código Electoral</a>, <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm" target="_blank" rel="noopener">Constitución Nacional, artículo 97</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/disposici%C3%B3n-1-2024-397238/texto" target="_blank" rel="noopener">Dirección Nacional Electoral, Disposición 1/2024</a></p></section><section class="exp-bloque"><h4>Cámara de Diputados</h4><p>La Cámara de Diputados tiene 257 bancas. Cada provincia y la Ciudad de Buenos Aires forman un distrito electoral. El reparto entre distritos sale de la ley 22.847 de 1983, con base en el censo de 1980. Da un diputado cada 161.000 habitantes o fracción no menor de 80.500, más tres por distrito, y ningún distrito puede tener menos de cinco. El mandato dura cuatro años y la Cámara se renueva por mitades cada dos años. Las bancas de cada distrito se asignan con el sistema D&#x27;Hondt de la ley 22.838: solo participan las listas que superan el 3% del padrón, sus votos se dividen por 1, 2, 3 y así sucesivamente, y las bancas van a los cocientes más altos.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm" target="_blank" rel="noopener">Constitución Nacional, artículo 45</a>, <a href="https://www.hcdn.gob.ar/congreso_explicado/index.html" target="_blank" rel="noopener">HCDN, Congreso Explicado</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-195989/texto" target="_blank" rel="noopener">Ley 22.847, artículo 3</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-151849/texto" target="_blank" rel="noopener">Ley 22.838 de 1983, artículo 4</a></p></section><section class="exp-bloque"><h4>Senado</h4><p>Desde la reforma de 1994, el Senado tiene tres bancas por cada provincia y tres por la Ciudad de Buenos Aires, 72 en total. Se votan en forma directa y conjunta: dos bancas son para el partido más votado y la tercera para el que le sigue. En el texto original de la Constitución de 1853 había dos senadores por provincia, elegidos por las legislaturas. Una cláusula transitoria reguló el paso de un sistema al otro, y los mandatos elegidos con ese régimen terminaron el 9 de diciembre de 2001. El mandato dura seis años y cada dos años se renueva un tercio de los distritos.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm" target="_blank" rel="noopener">Constitución Nacional, artículo 54</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24309-693/texto" target="_blank" rel="noopener">Ley 24.309, núcleo de coincidencias básicas</a>, <a href="https://www.infoleg.gob.ar/?page_id=3873" target="_blank" rel="noopener">Constitución de 1853, artículo 42</a></p></section><section class="exp-bloque"><h4>Votaciones nominales y bloques</h4><p>Ninguna de las dos cámaras puede sesionar sin la mayoría absoluta de sus miembros. Ese número mínimo se llama quórum. En una votación nominal queda registrado en el acta y en el Diario de Sesiones el nombre de cada legislador y cómo votó, y eso permite seguir los votos uno por uno. La Cámara de Diputados publica sus votaciones nominales como datos abiertos, y la Secretaría Parlamentaria del Senado publica las suyas. Según el reglamento de Diputados, los grupos de tres o más diputados pueden formar bloques según sus afinidades políticas. Los interbloques reúnen varios bloques y el reglamento no los define.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm" target="_blank" rel="noopener">Constitución Nacional, artículo 64</a>, <a href="https://www2.hcdn.gob.ar/secparl/dgral_info_parlamentaria/dip/glosario/V/votacion_tipos.html" target="_blank" rel="noopener">HCDN, glosario parlamentario: votación, tipos de</a>, <a href="https://datos.hcdn.gob.ar/dataset/votaciones_nominales" target="_blank" rel="noopener">HCDN, datos abiertos: Votaciones Nominales</a>, <a href="https://www.senado.gob.ar/votaciones/actas" target="_blank" rel="noopener">Senado, Votaciones</a>, <a href="https://www.hcdn.gob.ar/congreso_explicado/index.html" target="_blank" rel="noopener">HCDN, Congreso Explicado (artículo 55 del reglamento)</a>, <a href="https://www.hcdn.gob.ar/diputados/interbloques.html" target="_blank" rel="noopener">HCDN, Interbloques</a></p></section><section class="exp-bloque"><h4>Coparticipación y transferencias</h4><p>La Constitución pide una ley convenio entre la Nación y las provincias que garantice el envío automático de los fondos coparticipados. La ley 23.548 rige desde 1988. En la distribución primaria fija 42,34% para la Nación, 54,66% para las provincias, 2% para el recupero del nivel relativo de algunas provincias y 1% para el Fondo de Aportes del Tesoro Nacional (ATN). En la secundaria reparte la parte provincial con porcentajes fijos por provincia. El Banco de la Nación transfiere esos fondos todos los días en forma automática. Los ATN atienden emergencias y desequilibrios financieros provinciales y los asigna el Ministerio del Interior. Las demás transferencias son no automáticas. En el presupuesto figuran en el inciso 5 como subsidios a provincias y municipios.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm" target="_blank" rel="noopener">Constitución Nacional, artículo 75 inciso 2</a>, <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm" target="_blank" rel="noopener">Ley 23.548, artículo 3</a>, <a href="https://www.argentina.gob.ar/normativa/recurso/85332/res71-2003clasifobjgasto/htm" target="_blank" rel="noopener">Resolución 71/2003, clasificación por objeto del gasto</a>, <a href="https://www.mecon.gob.ar/onp/documentos/boletin/3ertrim02/capitulos/capitulo4.htm" target="_blank" rel="noopener">Ministerio de Economía, Boletín Fiscal, capítulo Provincias</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Votos afirmativos (positivos)</dt><dd>Votos válidos que marcan una opción electoral. Sobre ellos se calculan los umbrales del 45% y el 40% de la elección presidencial. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto" target="_blank" rel="noopener">Ley 27.781, artículo 101 del Código Electoral</a></dd></div><div><dt>Votos válidos</dt><dd>Votos emitidos en una boleta oficializada con la voluntad claramente identificada. Incluyen los afirmativos y los en blanco. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto" target="_blank" rel="noopener">Ley 27.781, artículo 101 del Código Electoral</a></dd></div><div><dt>Voto en blanco</dt><dd>Voto válido que no marca ninguna opción en una o más categorías. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto" target="_blank" rel="noopener">Ley 27.781, artículo 101 del Código Electoral</a></dd></div><div><dt>Escrutinio provisorio</dt><dd>Recuento rápido que se difunde la noche de la elección. Es informativo. Los electos se proclaman con el escrutinio definitivo de la Justicia Nacional Electoral. <a href="https://www.argentina.gob.ar/normativa/nacional/disposici%C3%B3n-1-2024-397238/texto" target="_blank" rel="noopener">Dirección Nacional Electoral, Disposición 1/2024</a></dd></div><div><dt>Sistema D&#x27;Hondt</dt><dd>Método para repartir las bancas de diputados. Los votos de cada lista que supera el 3% del padrón se dividen por 1, 2, 3 y así sucesivamente, y las bancas van a los cocientes más altos. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-151849/texto" target="_blank" rel="noopener">Ley 22.838, artículo 5</a></dd></div><div><dt>Quórum</dt><dd>Cantidad mínima de legisladores presentes para que una cámara pueda sesionar. La Constitución la fija en la mayoría absoluta de sus miembros. <a href="https://www2.hcdn.gob.ar/secparl/dgral_info_parlamentaria/dip/glosario/Q/quorum.html" target="_blank" rel="noopener">HCDN, glosario parlamentario: quórum</a></dd></div><div><dt>Votación nominal</dt><dd>Votación en la que queda registrado el nombre de cada legislador y el sentido de su voto. <a href="https://www2.hcdn.gob.ar/secparl/dgral_info_parlamentaria/dip/glosario/V/votacion_tipos.html" target="_blank" rel="noopener">HCDN, glosario parlamentario: votación, tipos de</a></dd></div><div><dt>Bloque parlamentario</dt><dd>Grupo de legisladores que actúan juntos por afinidad política. En Diputados se forma con tres o más miembros. <a href="https://www.hcdn.gob.ar/congreso_explicado/index.html" target="_blank" rel="noopener">HCDN, Congreso Explicado</a></dd></div><div><dt>Aportes del Tesoro Nacional (ATN)</dt><dd>Fondo formado con el 1% de la masa coparticipable para atender emergencias y desequilibrios financieros de las provincias. La ley pone su asignación a cargo del Ministerio del Interior. <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm" target="_blank" rel="noopener">Ley 23.548, artículo 5</a></dd></div><div><dt>Transferencias no automáticas</dt><dd>Envíos de la Nación a provincias y municipios que no salen de la remisión automática y diaria de la coparticipación. En el presupuesto son subsidios del inciso 5 para gastos corrientes o de capital. <a href="https://www.argentina.gob.ar/normativa/recurso/85332/res71-2003clasifobjgasto/htm" target="_blank" rel="noopener">Resolución 71/2003, clasificación por objeto del gasto</a></dd></div></dl></details></div>
-
-    <article class="ficha" id="f-elecciones">
-      <h3>Elecciones presidenciales y PASO por provincia, 1983 a 2023</h3>
-      <p class="lead" data-t="elecciones"></p>
-      <label class="selector-ficha"><span>Elección</span><select data-g="elecciones" id="el-sel"></select></label>
-      <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="elecciones"></div>
-      <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
-      <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-legisladores">
-      <h3>Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</h3>
-      <p class="lead" data-t="legisladores"></p>
-      <div class="lg-sels">
-        <label class="selector-ficha"><span>Período</span><select id="lg-per"></select></label>
-        <label class="selector-ficha"><span>Provincia</span><select id="lg-sel"></select></label>
-      </div>
-      <div class="grafico lg-lista" data-g="legisladores"></div>
-      <p class="nota">Cada período legislativo va del 10 de diciembre de un año impar al 9 de diciembre dos años después, cuando se renueva la mitad de la Cámara de Diputados. Entre paréntesis figura quién dejó la banca durante el período, o poco antes de empezar, y quién la ocupó después, por renuncia, licencia, fallecimiento o fin de mandato. En el Senado, hasta 2001 los mandatos eran de nueve años y se renovaban por tercios en distintas fechas. En 1995 la reforma constitucional sumó un tercer senador por provincia, que figura con la fecha en que asumió. Cada reemplazo se enlaza con la banca que dejó alguien de la misma provincia en la fecha más cercana. Antes de 2007 algunos reemplazos de diputados no tienen fecha de asunción en la fuente. Bloque parlamentario para los diputados desde 2007, y partido o alianza por la que fueron electos para los diputados anteriores y para los senadores. El historial completo está en las tablas de <a href="datos/diputados_nacionales.csv" download>diputados</a> y <a href="datos/senadores_nacionales.csv" download>senadores</a>.</p>
-      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-representacion">
-      <h3>Habitantes por banca de diputado nacional según provincia, 2025</h3>
-      <p class="lead" data-t="representacion"></p>
-      <div class="grafico" data-g="representacion"></div>
-      <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
-      <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-congreso">
-      <h3 data-t="congreso-titulo"></h3>
-      <p class="lead" data-t="congreso"></p>
-      <div class="conmutador" role="group" aria-label="Cámara" data-g="congreso">
-        <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
-      </div>
-      <div class="pol-ley" id="cg-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="congreso"></div>
-      <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
-      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-votaciones">
-      <h3 data-t="votaciones-titulo"></h3>
-      <p class="lead" data-t="votaciones"></p>
-      <label class="selector-ficha"><span>Ley</span><select id="vt-sel"></select></label>
-      <div class="conmutador" role="group" aria-label="Cámara" data-g="votaciones">
-        <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
-      </div>
-      <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="votaciones"></div>
-      <p class="nota" data-t="votaciones-nota"></p>
-      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-votaciones-espacios">
-      <h3 data-t="vtm-titulo"></h3>
-      <p class="lead" data-t="vtm"></p>
-      <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
-        <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
-      </div>
-      <div class="grafico vt-matriz" data-g="vtmatriz"></div>
-      <p class="nota" data-t="vtm-nota"></p>
-      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-voto-provincia">
-      <h3 data-t="vprov-titulo"></h3>
-      <p class="lead" data-t="vprov"></p>
-      <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
-      <div class="grafico" data-g="vprov"></div>
-      <p class="nota" data-t="vprov-nota"></p>
-      <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-atn">
-      <h3 data-t="atn-titulo"></h3>
-      <p class="lead" data-t="atn"></p>
-      <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
-      <div class="grafico" data-g="atn"></div>
-      <p class="nota" data-t="atn-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-transferencias">
-      <h3 data-t="transferencias-titulo"></h3>
-      <p class="lead" data-t="transferencias"></p>
-      <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
-      <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="transferencias"></div>
-      <p class="nota" data-t="transferencias-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-apoyo">
-      <h3 data-t="apoyo-titulo"></h3>
-      <p class="lead" data-t="apoyo"></p>
-      <label class="selector-ficha"><span>Año</span><select id="ap-sel"></select></label>
-      <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
-        <button type="button" data-m="atn_hab" aria-pressed="true">ATN</button><button type="button" data-m="otras_hab" aria-pressed="false">Otras no automáticas</button>
-      </div>
-      <div class="grafico" data-g="apoyo"></div>
-      <p class="nota" data-t="apoyo-nota"></p>
-      <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-presidentes">
-      <h3>Presidentes de la Nación desde 1983 según lugar de nacimiento</h3>
-      <p class="lead" data-t="presidentes"></p>
-      <div class="pol-ley" id="pr-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="presidentes"></div>
-      <ol class="pr-lista" id="pr-lista"></ol>
-      <p class="nota">AMBA: la Ciudad de Buenos Aires y los 24 partidos del Gran Buenos Aires según el INDEC. La Plata, donde nació Cristina Fernández de Kirchner, no forma parte de esa definición. Incluye a los presidentes interinos de diciembre de 2001. La proporción de población del AMBA sale de las personas identificadas por el RENAPER.</p>
-      <div class="pie"><span>Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos</span><a href="datos/presidentes.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-ministros">
-      <h3 data-t="ministros-titulo"></h3>
-      <p class="lead" data-t="ministros"></p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="ministros">
-        <button type="button" data-m="gobierno" aria-pressed="true">Por gobierno</button><button type="button" data-m="provincia" aria-pressed="false">Por provincia</button>
-      </div>
-      <div class="pol-ley" id="mi-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="ministros"></div>
-      <p class="nota">Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.</p>
-      <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
-        <ul>
-        <li>¿Las provincias que reciben más transferencias discrecionales votan distinto que el resto?</li>
-        <li>¿Qué consecuencias tiene que el voto de un habitante de una provincia chica pese varias veces más en el Congreso que el de una grande?</li>
-        <li>¿Cuánto cambia lo que un gobierno puede aprobar según la composición del Congreso?</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Oportunidades</h3>
-        <ul>
-        <li>Las series de transferencias por provincia permiten seguir si los fondos llegan con criterios parejos o con cambios bruscos de un año a otro.</li>
-        <li>Las listas de legisladores por período sirven para reconstruir quién representó a cada provincia y en qué bloque.</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section class="tema" id="movilidad">
-    <h2>Movilidad</h2>
+  <section class="tema" id="movilidad"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html" aria-current="page">Movilidad</a><a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a></nav>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Movilidad</span></li><li class="migas-prov" hidden></li></ol></nav><h2>Movilidad</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Cómo nos movemos y qué dice eso de la economía?</p>
       <p>Los viajes en transporte público y la venta de autos y motos nuevas acompañan el nivel de actividad y el poder de compra.</p>
@@ -789,363 +136,45 @@
       <div class="pie"><span>Fuente: DNRPA, Ministerio de Justicia</span><a href="datos/patentamientos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-  </section>
+  <nav class="pasos" aria-label="Otras páginas"><a class="paso ant" href="politica.html"><span class="paso-eb"><span aria-hidden="true">←</span> Anterior</span><b>Política</b></a><a class="paso todas" href="./#secciones"><b>Todas las secciones</b></a><a class="paso sig" href="energia.html"><span class="paso-eb">Siguiente <span aria-hidden="true">→</span></span><b>Energía</b></a></nav></section>
 
-  <section class="tema" id="energia">
-    <h2>Energía</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Cuánta electricidad usamos y quién la usa?</p>
-      <p>Cuánto consumen los hogares, cómo se mueve la demanda con la economía y en qué meses se concentra.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>El marco: la Ley 24.065</h4><p>La Ley 24.065, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico. Reconoce cuatro tipos de actores del Mercado Eléctrico Mayorista (MEM): generadores, transportistas, distribuidores y grandes usuarios. El texto ordenado vigente se aprobó con el Decreto 450 de 2025. En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, texto actualizado</a></p></section><section class="exp-bloque"><h4>Qué es CAMMESA</h4><p>La Compañía Administradora del Mercado Mayorista Eléctrico (CAMMESA) se constituyó por el Decreto 1192 del 10 de julio de 1992, según el artículo 35 de la Ley 24.065. Es una sociedad anónima sin fines de lucro que despacha el Sistema Argentino de Interconexión (SADI): decide qué centrales generan en cada momento para abastecer la demanda. Su capital se reparte entre el Estado Nacional y cuatro asociaciones civiles de generadores, transportistas, distribuidores y grandes usuarios. Es la fuente de los datos de demanda de este sitio.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto" target="_blank" rel="noopener">Decreto 1192/1992</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto" target="_blank" rel="noopener">Decreto 1173/1998</a></p></section><section class="exp-bloque"><h4>Cómo se clasifica la demanda</h4><p>La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, artículo 10</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto" target="_blank" rel="noopener">Resolución SE 884/2023, artículo 9</a></p></section><section class="exp-bloque"><h4>De dónde sale la serie</h4><p>Las fichas usan la serie mensual de demanda de electricidad de la API de Series de Tiempo del Estado nacional. La publica la Subsecretaría de Programación Macroeconómica con datos de CAMMESA, en gigavatios hora. La demanda total empieza en 2001 y la residencial en 2005. Como el dato es mensual, permite ver qué meses concentran más consumo y compararlo con la actividad económica. La copia de CAMMESA en datos.gob.ar terminó en febrero de 2020 y no se usa.</p><p class="exp-fuente">Fuente: <a href="https://apis.datos.gob.ar/series/api/series/?ids=367.3_DEMANDA_TOTAL__13,367.3_DEMANDA_REIAL__19&amp;metadata=full" target="_blank" rel="noopener">API de Series de Tiempo, metadatos de la serie 367.3</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Mercado Eléctrico Mayorista (MEM)</dt><dd>Mercado donde operan generadores, transportistas, distribuidores y grandes usuarios, administrado por CAMMESA. <a href="https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto" target="_blank" rel="noopener">Decreto 1192/1992</a></dd></div><div><dt>SADI</dt><dd>Sistema Argentino de Interconexión, la red eléctrica que despacha CAMMESA. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto" target="_blank" rel="noopener">Decreto 1173/1998</a></dd></div><div><dt>Distribuidor</dt><dd>Empresa que abastece a los usuarios de su zona de concesión que no contratan por su cuenta. <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, texto actualizado</a></dd></div><div><dt>Gran usuario</dt><dd>Quien contrata su energía en forma independiente y para consumo propio. <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, texto actualizado</a></dd></div><div><dt>GUDI</dt><dd>Demanda de más de 300 kW abastecida por una distribuidora. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto" target="_blank" rel="noopener">Resolución SE 884/2023, artículo 9</a></dd></div></dl></details></div>
+  
 
-    <article class="ficha" id="f-hogares">
-      <h3>Participación de los hogares en la demanda eléctrica, 2005 a 2025</h3>
-      <p class="lead" data-t="hogares"></p>
-      <div class="grafico" data-g="hogares"></div>
-      <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
-      <div class="pie"><span>Fuente: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <article class="ficha" id="f-actividad">
-      <h3>Demanda eléctrica y nivel de actividad económica, 2005 a 2025</h3>
-      <p class="lead" data-t="actividad"></p>
-      <div class="grafico" data-g="actividad"></div>
-      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
-      <div class="pie"><span>Fuentes: CAMMESA e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <article class="ficha" id="f-meses">
-      <h3>Demanda eléctrica promedio por mes, 2023 a 2025</h3>
-      <p class="lead" data-t="meses"></p>
-      <div class="grafico" data-g="meses"></div>
-      <p class="nota" data-t="meses-nota"></p>
-      <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-  </section>
+  
 
-  <section class="tema" id="turismo">
-    <h2>Turismo</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Quién viaja por la Argentina y adónde va?</p>
-      <p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Turista y excursionista</h4><p>Las estadísticas de turismo siguen las definiciones de la Organización Mundial del Turismo (ONU Turismo). Un visitante es quien viaja fuera de su entorno habitual por menos de un año, con cualquier motivo principal. Si el viaje incluye al menos una noche, es turista. Si vuelve en el día, es excursionista o visitante del día. Las fichas de este sitio cuentan turistas, es decir, personas que pasaron al menos una noche en el lugar.</p><p class="exp-fuente">Fuente: <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></p></section><section class="exp-bloque"><h4>Turistas no residentes</h4><p>La serie de turismo internacional cuenta los viajes de no residentes que entran al país (turismo receptivo) y de residentes que salen (turismo emisivo), por todos los medios de transporte: aéreo, terrestre, fluvial y marítimo. Se arma con los registros de la Dirección Nacional de Migraciones y la publica todos los meses la Dirección Nacional de Mercados y Estadística, de la Subsecretaría de Turismo.</p><p class="exp-fuente">Fuente: <a href="https://datos.yvera.tur.ar/dataset/turismo-internacional-total-pais" target="_blank" rel="noopener">Datos abiertos de Turismo: Turismo Internacional, total país</a></p></section><section class="exp-bloque"><h4>Encuesta de Turismo Internacional (ETI)</h4><p>La ETI es una encuesta continua que el INDEC y la Subsecretaría de Turismo hacen desde 2004. Pregunta a quienes entran y salen del país por el motivo, la duración, el alojamiento, el gasto y los lugares visitados. No cubre todos los pasos: se hace en los aeropuertos de Ezeiza, Aeroparque, Córdoba y Mendoza, en el Puerto de Buenos Aires y en el paso Cristo Redentor. Por eso la distribución por provincia visitada refleja sobre todo a quienes viajan en avión.</p><p class="exp-fuente">Fuentes: <a href="https://datos.yvera.tur.ar/dataset/encuesta-turismo-internacional" target="_blank" rel="noopener">Datos abiertos de Turismo: Encuesta de Turismo Internacional</a>, <a href="https://www.yvera.tur.ar/sinta/informe/info/turismo-internacional" target="_blank" rel="noopener">SINTA, informe de turismo internacional</a></p></section><section class="exp-bloque"><h4>Encuesta de Ocupación Hotelera (EOH)</h4><p>La EOH es otra encuesta continua del INDEC y la Subsecretaría de Turismo, que también empezó en 2004. Mira el turismo desde quienes ofrecen alojamiento: hoteles y establecimientos parahoteleros informan cuántos viajeros hospedaron, cuántas noches se quedaron y cuántas habitaciones y plazas se ocuparon, separando residentes de no residentes. Los resultados se publican por región de destino y por localidad. No incluye casas de familiares ni alquileres temporarios particulares.</p><p class="exp-fuente">Fuentes: <a href="https://datos.yvera.tur.ar/dataset/encuesta-ocupacion-hotelera-parahotelera-eoh" target="_blank" rel="noopener">Datos abiertos de Turismo: EOH</a>, <a href="https://www.yvera.tur.ar/sinta/informe/info/encuesta-de-ocupacion-hotelera-eoh" target="_blank" rel="noopener">SINTA, informe de la EOH</a></p></section><section class="exp-bloque"><h4>Qué es el SINTA</h4><p>El Sistema de Información Turística de la Argentina (SINTA) reúne en un solo lugar las estadísticas oficiales de turismo. Lo administra el área de estadística de la Subsecretaría de Turismo. Incluye informes técnicos y metodológicos, un portal de datos abiertos, tableros interactivos y los microdatos de la Encuesta de Viajes y Turismo de los Hogares. De ahí salen la EOH, la ETI, el turismo internacional y las visitas a parques nacionales que usa este sitio.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/node/281669" target="_blank" rel="noopener">Argentina.gob.ar, presentación del SINTA</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Visitante</dt><dd>Quien viaja a un destino fuera de su entorno habitual, por menos de un año y con cualquier motivo principal. <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></dd></div><div><dt>Turista</dt><dd>Visitante cuyo viaje incluye al menos una noche. <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></dd></div><div><dt>Excursionista</dt><dd>Visitante que no pasa la noche en el destino. También se lo llama visitante del día. <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></dd></div><div><dt>Turismo receptivo y emisivo</dt><dd>Viajes de no residentes que entran al país y de residentes que salen. <a href="https://datos.yvera.tur.ar/dataset/turismo-internacional-total-pais" target="_blank" rel="noopener">Datos abiertos de Turismo: Turismo Internacional, total país</a></dd></div><div><dt>Pernocte</dt><dd>Cada noche que un viajero pasa en un establecimiento. La EOH lo informa junto con los viajeros hospedados. <a href="https://datos.yvera.tur.ar/dataset/encuesta-ocupacion-hotelera-parahotelera-eoh" target="_blank" rel="noopener">Datos abiertos de Turismo: EOH</a></dd></div></dl></details></div>
+  
 
-    <article class="ficha" id="f-receptivo">
-      <h3 data-t="receptivo-titulo"></h3>
-      <p class="lead" data-t="receptivo"></p>
-      <div class="grafico" data-g="receptivo"></div>
-      <p class="nota" data-t="receptivo-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional</span><a href="datos/turistas_no_residentes_anual.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
+  
 
-    <article class="ficha" id="f-hoteles">
-      <h3 data-t="hoteles-titulo"></h3>
-      <p class="lead" data-t="hoteles"></p>
-      <div class="grafico" data-g="hoteles"></div>
-      <p class="nota" data-t="hoteles-nota"></p>
-      <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Ocupación Hotelera</span><a href="datos/viajeros_hoteles_anual.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-eti">
-      <h3 data-t="eti-titulo"></h3>
-      <p class="lead" data-t="eti"></p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="eti">
-        <button type="button" data-m="cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
-        <button type="button" data-m="turistas" aria-pressed="false">Cantidad de turistas</button>
-      </div>
-      <div class="grafico" data-g="eti"></div>
-      <p class="nota" data-t="eti-nota"></p>
-      <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Turismo Internacional</span><a href="datos/turistas_extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-  </section>
-
-  <section class="tema" id="naturaleza">
-    <h2>Flora y fauna</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Cuánto territorio está protegido y qué vive en él?</p>
-      <p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Cómo empezaron los parques nacionales</h4><p>El 6 de noviembre de 1903 el perito Francisco P. Moreno cedió a la Nación tierras cerca de Puerto Blest para que fueran un parque público. Sobre esa base se creó el 8 de abril de 1922 el Parque Nacional del Sud. El 29 de septiembre de 1934 la Ley 12.103 creó la Dirección de Parques Nacionales, dependiente del Ministerio de Agricultura, y los parques nacionales Nahuel Huapi e Iguazú. Por eso el 6 de noviembre es el Día de los Parques Nacionales.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/parquesnacionales/institucional/historia" target="_blank" rel="noopener">Administración de Parques Nacionales, historia</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-196777/texto" target="_blank" rel="noopener">Ley 12.103</a></p></section><section class="exp-bloque"><h4>La ley vigente y sus categorías</h4><p>Hoy rige la Ley 22.351, sancionada en 1980, que es el marco legal de la Administración de Parques Nacionales. Define tres categorías. Los parques nacionales se conservan en estado natural y son representativos de una región. Los monumentos naturales protegen áreas, cosas o especies de valor estético, histórico o científico. Las reservas nacionales conservan sistemas ecológicos o sirven de zonas protectoras. En 1990 el Decreto 2148 sumó la Reserva Natural Estricta, el tipo de área con las máximas garantías de conservación.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-4605/texto" target="_blank" rel="noopener">Decreto 2148/1990</a></p></section><section class="exp-bloque"><h4>El SIB y las visitas</h4><p>El Sistema de Información de Biodiversidad (SIB) lo creó la Administración de Parques Nacionales en 2002. Guarda los datos biológicos que surgen del trabajo técnico, científico y de manejo en las áreas protegidas. Las especies registradas en cada área dependen de cuánto se investigó, no solo de cuántas hay. Las visitas se cuentan con el Registro Nacional de Autorizaciones, Recaudaciones e Infracciones (RENARI) de la APN, separando residentes y no residentes. La serie empieza en 2008.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/parquesnacionales/sib" target="_blank" rel="noopener">APN, Sistema de Información de Biodiversidad</a>, <a href="https://datos.yvera.tur.ar/dataset/parques-nacionales" target="_blank" rel="noopener">Datos abiertos de Turismo: Parques Nacionales</a></p></section><section class="exp-bloque"><h4>Ley de Glaciares e inventario</h4><p>La Ley 26.639, sancionada el 30 de septiembre de 2010, fija los presupuestos mínimos para proteger los glaciares y el ambiente periglacial, y creó el Inventario Nacional de Glaciares. Lo hace y lo actualiza el IANIGLA, del CONICET. El primer inventario se completó en 2018. En abril de 2026 la Ley 27.804 modificó varios artículos: redefinió el objeto protegido y dio más funciones a las provincias. Los glaciares que figuran en el inventario siguen protegidos mientras la autoridad competente no verifique que carecen de funciones hídricas.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/174117/actualizacion" target="_blank" rel="noopener">Ley 26.639, texto actualizado (incluye la Ley 27.804, B.O. 24/4/2026)</a>, <a href="https://www.glaciaresargentinos.gob.ar/" target="_blank" rel="noopener">Inventario Nacional de Glaciares</a></p></section><section class="exp-bloque"><h4>Qué es un desembarque</h4><p>En pesca, el desembarque es lo que los barcos descargan en puerto. La Subsecretaría de Pesca y Acuicultura lo registra a partir de lo que declara cada barco en sus partes de pesca y lo controla con las actas de desembarque. Publica los datos por especie, puerto y flota. La serie histórica empieza en 1898, y la misma Subsecretaría advierte que las cifras pueden cambiar porque las bases se validan y actualizan todo el tiempo.</p><p class="exp-fuente">Fuente: <a href="https://www.magyp.gob.ar/sitio/areas/pesca_maritima/desembarques/" target="_blank" rel="noopener">Subsecretaría de Pesca y Acuicultura, desembarques</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Parque Nacional</dt><dd>Área que se conserva en estado natural, representativa de una región fitozoogeográfica. <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a></dd></div><div><dt>Monumento Natural</dt><dd>Área, cosa o especie viva de interés estético, valor histórico o científico. <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a></dd></div><div><dt>Reserva Nacional</dt><dd>Área para conservar sistemas ecológicos o servir de zona protectora de un parque nacional. <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a></dd></div><div><dt>Glaciar</dt><dd>Masa de hielo perenne, estable o que fluye lentamente, formada por la recristalización de nieve. <a href="https://www.argentina.gob.ar/normativa/nacional/174117/actualizacion" target="_blank" rel="noopener">Ley 26.639, texto actualizado (incluye la Ley 27.804, B.O. 24/4/2026)</a></dd></div><div><dt>Desembarque</dt><dd>Captura que un barco descarga en puerto, declarada en los partes de pesca. <a href="https://www.magyp.gob.ar/sitio/areas/pesca_maritima/desembarques/" target="_blank" rel="noopener">Subsecretaría de Pesca y Acuicultura, desembarques</a></dd></div></dl></details></div>
-
-    <article class="ficha" id="f-protegida">
-      <h3 data-t="protegida-titulo"></h3>
-      <p class="lead" data-t="protegida"></p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="protegida">
-        <button type="button" data-m="pct_territorio" aria-pressed="true">% del territorio</button>
-        <button type="button" data-m="m2_por_habitante" aria-pressed="false">m² por habitante</button>
-      </div>
-      <div class="grafico" data-g="protegida"></div>
-      <p class="nota" data-t="protegida-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Ambiente, Centro de Información Ambiental (CIAM)</span><a href="datos/areas_protegidas_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-parques">
-      <h3 data-t="parques-titulo"></h3>
-      <p class="lead" data-t="parques"></p>
-      <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:3">
-        <button type="button" role="tab" id="pt-evolucion" aria-controls="pp-evolucion" aria-selected="true">Evolución</button>
-        <button type="button" role="tab" id="pt-mapa" aria-controls="pp-mapa" aria-selected="false" tabindex="-1">Mapa</button>
-        <button type="button" role="tab" id="pt-lista" aria-controls="pp-lista" aria-selected="false" tabindex="-1">Cuáles son</button>
-      </div>
-      <div class="panel-pestana" role="tabpanel" id="pp-evolucion" aria-labelledby="pt-evolucion">
-        <div class="grafico" data-g="parques"></div>
-        <p class="nota" data-t="parques-nota"></p>
-      </div>
-      <div class="panel-pestana" role="tabpanel" id="pp-mapa" aria-labelledby="pt-mapa" hidden>
-        <div class="grafico mapa-areas" data-g="mapa-areas"></div>
-        <p class="nota" data-t="mapa-areas-nota"></p>
-      </div>
-      <div class="panel-pestana" role="tabpanel" id="pp-lista" aria-labelledby="pt-lista" hidden>
-        <div class="tabla-desliza"><table class="tabla-areas" id="tabla-areas"></table></div>
-        <p class="nota" data-t="lista-areas-nota"></p>
-      </div>
-      <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-visitas">
-      <h3 data-t="visitas-titulo"></h3>
-      <p class="lead" data-t="visitas"></p>
-      <div class="grafico" data-g="visitas"></div>
-      <p class="nota" data-t="visitas-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA)</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-visitas-parque">
-      <h3 data-t="visitas-parque-titulo"></h3>
-      <p class="lead" data-t="visitas-parque"></p>
-      <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
-        <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
-        <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
-        <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
-      </div>
-      <div class="grafico" data-g="visitas-parque"></div>
-      <p class="nota" data-t="visitas-parque-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-especies">
-      <h3 data-t="especies-titulo"></h3>
-      <p class="lead" data-t="especies"></p>
-      <div class="grafico" data-g="especies"></div>
-      <p class="nota" data-t="especies-nota"></p>
-      <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/especies_areas_nacionales.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-pesca">
-      <h3 data-t="pesca-titulo"></h3>
-      <p class="lead" data-t="pesca"></p>
-      <div class="grafico" data-g="pesca"></div>
-      <p class="nota" data-t="pesca-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/desembarques_especies.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-pesca-rio">
-      <h3 data-t="pesca-rio-titulo"></h3>
-      <p class="lead" data-t="pesca-rio"></p>
-      <div class="grafico" data-g="pesca-rio"></div>
-      <p class="nota" data-t="pesca-rio-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-  </section>
-
-  <section class="tema" id="curiosidades">
-    <h2>Curiosidades</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Qué dicen los datos de lo cotidiano?</p>
-      <p>Los nombres más elegidos, el consumo de carne, vino y yerba, los glaciares y el clima.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Nombres: qué publica el RENAPER</h4><p>El Registro Nacional de las Personas (RENAPER) publica en su portal de datos abiertos los nombres propios más frecuentes por año, sexo y provincia, desde 2012 hasta 2024. Cada fila dice cuántas personas inscriptas recibieron un nombre en un año y una provincia. Muestra los nombres más usados, no la lista completa. La serie tiene un año de atraso respecto del calendario.</p><p class="exp-fuente">Fuente: <a href="https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv" target="_blank" rel="noopener">RENAPER, datos abiertos: nombres propios frecuentes por año, sexo y provincia, 2012 a 2024 (CSV)</a></p></section><section class="exp-bloque"><h4>Consumo de carne por habitante</h4><p>El Ministerio de Economía publica el consumo de carne vacuna por habitante entre sus indicadores sectoriales, con datos de la Secretaría de Agricultura, Ganadería y Pesca. La misma serie trae la faena, la producción, el stock de ganado y el peso promedio de la res. Es un promedio nacional en kilos por persona por año: no distingue entre provincias ni entre hogares, y no surge de preguntarle a la gente qué come.</p><p class="exp-fuente">Fuente: <a href="https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv" target="_blank" rel="noopener">Ministerio de Economía, indicadores sectoriales, cárnica vacuna (columna fuente: MAGYP)</a></p></section><section class="exp-bloque"><h4>Vino: despachos al mercado interno</h4><p>El Instituto Nacional de Vitivinicultura (INV) lo creó la Ley 14.878, sancionada el 23 de octubre de 1959, para promover y controlar técnicamente la producción, la industria y el comercio del vino. Las plantas de fraccionamiento le declaran todos los meses lo que fraccionan y despachan al mercado interno. Esos despachos, medidos en hectolitros, son la salida de vino de las bodegas hacia el comercio. Muestran cuánto vino llega a la venta, no cuánto se toma en las casas.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/15764/actualizacion" target="_blank" rel="noopener">Ley 14.878, artículo 2</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-334223/texto" target="_blank" rel="noopener">Resolución INV 2/2020, artículo 9</a></p></section><section class="exp-bloque"><h4>Yerba mate: el INYM</h4><p>El Instituto Nacional de la Yerba Mate (INYM) se creó con la Ley 25.564, sancionada el 21 de febrero de 2002. Es un ente de derecho público no estatal con sede en Misiones. Entre sus funciones está hacer estadísticas de producción, elaboración, comercialización y consumo. Desde 2004 los molinos, fraccionadores e importadores le presentan declaraciones juradas mensuales. La salida de molino es la yerba elaborada que deja los molinos rumbo al mercado. En 2023 el Decreto 70 modificó varias de sus funciones.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-25564-72946/actualizacion" target="_blank" rel="noopener">Ley 25.564, texto actualizado</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-91763/texto" target="_blank" rel="noopener">Resolución INYM 147/2003</a></p></section><section class="exp-bloque"><h4>Anomalía de temperatura</h4><p>Una anomalía de temperatura es la diferencia entre la temperatura media de un año y un promedio de referencia de treinta años. El Servicio Meteorológico Nacional (SMN) usa hoy el promedio de 1991 a 2020. Un valor positivo indica un año más cálido que ese promedio y uno negativo, más frío. La serie nacional empieza en 1961. Usar anomalías permite comparar años sin que pesen las diferencias de clima entre regiones.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/noticias/el-clima-en-argentina-2024-reporte-final" target="_blank" rel="noopener">SMN, El clima en Argentina 2024</a>, <a href="https://www.argentina.gob.ar/node/412271" target="_blank" rel="noopener">SMN, informe del clima 2023</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Despacho al mercado interno</dt><dd>Vino que sale de bodegas y plantas de fraccionamiento hacia la venta en el país, declarado al INV. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-334223/texto" target="_blank" rel="noopener">Resolución INV 2/2020, artículo 9</a></dd></div><div><dt>Salida de molino</dt><dd>Yerba mate elaborada que dejan los molinos, según las declaraciones juradas al INYM. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-91763/texto" target="_blank" rel="noopener">Resolución INYM 147/2003</a></dd></div><div><dt>Anomalía de temperatura</dt><dd>Diferencia entre la temperatura media de un período y su valor medio de referencia. <a href="https://www.argentina.gob.ar/node/412271" target="_blank" rel="noopener">SMN, informe del clima 2023</a></dd></div><div><dt>Período de referencia</dt><dd>Promedio de treinta años contra el que se compara. El SMN usa 1991-2020. <a href="https://www.argentina.gob.ar/noticias/el-clima-en-argentina-2024-reporte-final" target="_blank" rel="noopener">SMN, El clima en Argentina 2024</a></dd></div></dl></details></div>
-
-    <article class="ficha" id="f-nombres">
-      <h3 data-t="nombres-titulo"></h3>
-      <p class="lead" data-t="nombres"></p>
-      <div class="conmutador" role="group" aria-label="Sexo" data-g="nombres">
-        <button type="button" data-m="F" aria-pressed="true">Nenas</button>
-        <button type="button" data-m="M" aria-pressed="false">Varones</button>
-      </div>
-      <p class="contexto-grafico" id="contexto-nombres"></p>
-      <div class="grafico" data-g="nombres"></div>
-      <p class="nota" data-t="nombres-nota"></p>
-      <div class="pie"><span>Fuente: Registro Nacional de las Personas (RENAPER), nombres propios frecuentes</span><a href="datos/nombres_top.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-carne">
-      <h3 data-t="carne-titulo"></h3>
-      <p class="lead" data-t="carne"></p>
-      <div class="grafico" data-g="carne"></div>
-      <p class="nota" data-t="carne-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Economía, indicadores sectoriales (SSPMI), con datos del Ministerio de Agricultura</span><a href="datos/carne_vacuna.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-vino">
-      <h3 data-t="vino-titulo"></h3>
-      <p class="lead" data-t="vino"></p>
-      <div class="grafico" data-g="vino"></div>
-      <p class="nota" data-t="vino-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de Vitivinicultura</span><a href="datos/vino_mercado_interno.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-yerba">
-      <h3 data-t="yerba-titulo"></h3>
-      <p class="lead" data-t="yerba"></p>
-      <div class="grafico" data-g="yerba"></div>
-      <p class="nota" data-t="yerba-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate</span><a href="datos/yerba_molino.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-glaciares">
-      <h3 data-t="glaciares-titulo"></h3>
-      <p class="lead" data-t="glaciares"></p>
-      <div class="grafico" data-g="glaciares"></div>
-      <p class="nota" data-t="glaciares-nota"></p>
-      <div class="pie"><span>Fuente: Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM)</span><a href="datos/glaciares_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-clima">
-      <h3 data-t="clima-titulo"></h3>
-      <p class="lead" data-t="clima"></p>
-      <div class="grafico" data-g="clima"></div>
-      <p class="nota" data-t="clima-nota"></p>
-      <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-  </section>
-
-  <section class="tema herramienta" id="cruces">
-    <h2>Cruces</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Qué indicadores se mueven juntos entre las provincias?</p>
-      <p>Elegí dos indicadores y mirá cómo se ubican las 24 jurisdicciones, con la recta que mejor las resume y las advertencias para no sacar conclusiones de más.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué muestra</h4><p>Cada punto es una de las 24 jurisdicciones. Su posición depende de dos indicadores que elegís vos, por ejemplo empleo registrado y pobreza. La recta resume la relación promedio entre los dos y la franja alrededor marca el margen de error de esa recta. Todos los indicadores son tasas, porcentajes o valores por habitante, para que el tamaño de cada provincia no domine la comparación.</p></section><section class="exp-bloque"><h4>Cómo leer la correlación</h4><p>La r de Pearson va de menos uno a uno. Cerca de uno, los dos indicadores suben juntos. Cerca de menos uno, cuando uno sube el otro baja. Cerca de cero, no hay una relación lineal clara. El R² dice qué parte de las diferencias entre provincias en un indicador acompaña a las del otro. La correlación de Spearman compara posiciones en lugar de valores y es menos sensible a una provincia muy distinta del resto. El valor p indica qué tan raro sería ver esa relación si en realidad no existiera.</p></section><section class="exp-bloque"><h4>Para no sacar conclusiones de más</h4><p>Son solo 24 casos, así que una provincia puede mover mucho la recta: el explorador avisa cuál pesa más. Que dos indicadores se muevan juntos no prueba que uno cause el otro, porque puede haber un tercer factor detrás. Además son promedios provinciales: lo que vale para las provincias no tiene por qué valer para cada persona que vive en ellas, un error que se conoce como falacia ecológica. Cuando los indicadores son de años distintos, el explorador también lo aclara.</p></section><section class="exp-bloque"><h4>Evolución y regresión</h4><p>Cuando los dos indicadores tienen serie por año, se puede ver cómo se movió cada provincia, al estilo de los gráficos animados de Gapminder. La vista de regresión múltiple estima el peso de hasta cuatro indicadores a la vez sobre otro, con las variables llevadas a la misma escala. Con 24 casos y varios indicadores parecidos entre sí, los resultados son frágiles: el factor de inflación de la varianza (VIF) avisa cuando dos explicativas se superponen demasiado.</p><p class="exp-fuente">Fuente: <a href="https://www.gapminder.org/tools/" target="_blank" rel="noopener">Gapminder</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Correlación de Pearson (r)</dt><dd>Medida de cuánto se acercan los puntos a una recta. Va de menos uno a uno.</dd></div><div><dt>R²</dt><dd>Parte de la variación de un indicador que acompaña a la variación del otro, en una recta de mínimos cuadrados.</dd></div><div><dt>Correlación de Spearman</dt><dd>Correlación calculada sobre el orden de las provincias en lugar de sus valores.</dd></div><div><dt>Valor p</dt><dd>Probabilidad de ver una relación al menos así de fuerte si en realidad no hubiera ninguna.</dd></div><div><dt>Falacia ecológica</dt><dd>Error de suponer que una relación entre promedios de grupos vale también para las personas de esos grupos.</dd></div><div><dt>Distancia de Cook</dt><dd>Medida de cuánto cambia la recta al sacar un caso. Sirve para ver qué provincia la mueve más.</dd></div></dl></details></div>
-    <article class="ficha explorador" id="f-cruces">
-      <h3>Explorador de indicadores provinciales</h3>
-      <p class="lead">Elegí dos indicadores y mirá si las 24 jurisdicciones se ordenan juntas. Sirve para explorar: una correlación no dice qué causa qué. El diseño sigue a los exploradores regionales de la OCDE y Eurostat, a Gapminder y al Atlas de Desarrollo Humano de Brasil.</p>
-      <div class="conmutador pestanas" role="tablist" aria-label="Tipo de análisis" style="--n:3">
-        <button type="button" role="tab" id="tab-cx-disp" aria-controls="pan-cx-disp" aria-selected="true">Dispersión</button>
-        <button type="button" role="tab" id="tab-cx-matriz" aria-controls="pan-cx-matriz" aria-selected="false" tabindex="-1">Correlaciones</button>
-        <button type="button" role="tab" id="tab-cx-multi" aria-controls="pan-cx-multi" aria-selected="false" tabindex="-1">Regresión múltiple</button>
-      </div>
-
-      <div class="panel-pestana" role="tabpanel" id="pan-cx-disp" aria-labelledby="tab-cx-disp">
-        <div class="cx-controles">
-          <label class="cx-campo"><span>Eje horizontal</span><select id="cx-x"></select></label>
-          <button type="button" class="boton chico cx-boton" id="cx-cambiar">Invertir ejes</button>
-          <label class="cx-campo"><span>Eje vertical</span><select id="cx-y"></select></label>
-        </div>
-        <div class="cx-opciones">
-          <label><input type="checkbox" id="cx-tam"> Tamaño según población</label>
-          <label><input type="checkbox" id="cx-logx"> Horizontal logarítmico</label>
-          <label><input type="checkbox" id="cx-logy"> Vertical logarítmico</label>
-          <button type="button" class="boton chico cx-boton" id="cx-caba" aria-pressed="false">Sin CABA</button>
-          <button type="button" class="boton chico cx-boton" id="cx-reponer">Todas las provincias</button>
-        </div>
-        <div class="cx-sug"><span class="cx-sug-lab">Para empezar</span><span id="cx-sug"></span></div>
-        <div class="cx-cuerpo">
-          <div>
-            <div class="grafico cx-grafico" data-g="cruces-disp"></div>
-            <p class="cx-leyenda" id="cx-leyenda" aria-hidden="true"></p>
-            <div class="cx-tiempo" id="cx-tiempo" hidden>
-              <button type="button" class="boton chico cx-boton" id="cx-play">Ver la evolución</button>
-              <input type="range" id="cx-anio" aria-label="Año">
-              <b id="cx-anio-v">Último dato</b>
-              <button type="button" class="boton chico cx-boton" id="cx-ultimo" hidden>Último dato</button>
-            </div>
-          </div>
-          <aside class="cx-stats" id="cx-stats" aria-live="polite"></aside>
-        </div>
-        <p class="cx-lectura" id="cx-lectura" aria-live="polite"></p>
-        <div class="cx-residuos" id="cx-residuos"></div>
-        <p class="nota">Tocá un punto para sacar esa jurisdicción del cálculo y otra vez para volver a sumarla. La recta es una regresión lineal por mínimos cuadrados y la franja celeste, su intervalo de confianza del 95%. Con 24 casos, correlaciones moderadas pueden aparecer por azar. Son promedios de cada provincia: no dicen nada de cada persona. Y dos indicadores pueden moverse juntos porque dependen de un tercero, como el ingreso o la urbanización.</p>
-        <p class="nota" id="cx-fuentes"></p>
-        <details class="cx-detalle"><summary>Ver los datos del cruce</summary><div class="tabla-desliza"><table class="tabla-areas" id="cx-tabla"></table></div></details>
-      </div>
-
-      <div class="panel-pestana" role="tabpanel" id="pan-cx-matriz" aria-labelledby="tab-cx-matriz" hidden>
-        <div class="cx-matriz"><div class="grafico" data-g="cruces-matriz"></div></div>
-        <p class="nota" id="cm-matriz-nota"></p>
-      </div>
-
-      <div class="panel-pestana" role="tabpanel" id="pan-cx-multi" aria-labelledby="tab-cx-multi" hidden>
-        <div class="cx-controles">
-          <label class="cx-campo"><span>Indicador a explicar</span><select id="cm-y"></select></label>
-        </div>
-        <fieldset class="cm-xs"><legend>Variables explicativas, hasta cuatro</legend><div id="cm-x"></div></fieldset>
-        <p class="cm-aviso" id="cm-aviso" aria-live="polite"></p>
-        <p class="cx-lectura" id="cm-lectura" aria-live="polite"></p>
-        <div class="grafico" data-g="cruces-multi"></div>
-        <div class="tabla-desliza"><table class="tabla-areas" id="cm-tabla"></table></div>
-        <p class="nota">Regresión lineal por mínimos cuadrados con todas las variables estandarizadas, así los coeficientes se pueden comparar: cada uno indica cuántos desvíos cambia el indicador a explicar cuando esa variable sube un desvío y las demás quedan fijas. Las barras son intervalos de confianza del 95%. En azul, los coeficientes con valor p menor a 0,05. El VIF mide cuánto se superpone cada variable con las otras: arriba de 5, sus coeficientes separados no son confiables. Con 24 casos, conviene usar pocas variables.</p>
-      </div>
-      <div class="pie"><span>Fuentes: las de cada indicador, indicadas debajo del gráfico</span><a href="datos/cruces_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-  </section>
-
-  <section class="tema herramienta" id="indice">
-    <h2>Tu índice</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Qué provincia está mejor según lo que a vos te importa?</p>
-      <p>Cada persona le da su propio peso a siete dimensiones y el índice ordena las provincias con esos pesos.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Cómo se arma</h4><p>El índice reúne siete dimensiones, como salud, educación, trabajo y vivienda. Cada persona elige cuánto pesa cada una, de cero a cinco. Con esos pesos se calcula un promedio y las provincias se ordenan de mayor a menor. No hay un índice correcto: cambia según lo que a cada uno le importa, y por eso los pesos quedan guardados en el enlace para compartirlo.</p><p class="exp-fuente">Fuente: <a href="https://www.oecdbetterlifeindex.org/es/" target="_blank" rel="noopener">OCDE, Índice para una Vida Mejor</a></p></section><section class="exp-bloque"><h4>La escala de cero a diez</h4><p>Cada indicador se pasa a una escala de cero a diez: la provincia con el peor valor recibe cero, la del mejor recibe diez y el resto queda en proporción. Así se pueden promediar indicadores con unidades distintas. Las exportaciones por habitante y la velocidad de internet se miden en escala logarítmica, para que unas pocas provincias con valores muy altos no aplasten al resto.</p></section><section class="exp-bloque"><h4>Lo que el índice no dice</h4><p>La escala compara a las provincias entre sí. Un diez significa la mejor de las 24, no un nivel ideal. Si todas mejoran o empeoran juntas, el índice no lo muestra. Además, cada indicador es de su último año disponible y no todos coinciden. Por eso conviene mirar también las fichas de cada tema, que muestran los valores reales y su evolución.</p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Normalización mínimo y máximo</dt><dd>Llevar un indicador a una escala común tomando el peor valor como cero y el mejor como diez.</dd></div><div><dt>Escala logarítmica</dt><dd>Escala en la que cada salto representa una multiplicación y no una suma. Achica la distancia entre valores muy altos.</dd></div></dl></details></div>
-    <article class="ficha explorador" id="f-indice">
-      <h3>Armá tu propio índice de bienestar provincial</h3>
-      <p class="lead">Cada persona valora cosas distintas. Mové los controles para darle más o menos peso a cada dimensión y mirá cómo cambia el orden de las 24 jurisdicciones. La idea viene del Índice para una Vida Mejor de la OCDE.</p>
-      <div class="ix-cuerpo">
-        <div class="ix-pesos" id="ix-pesos" role="group" aria-label="Peso de cada dimensión"></div>
-        <div>
-          <p class="ix-lectura" id="ix-lectura" aria-live="polite"></p>
-          <div class="grafico" data-g="indice"></div>
-          <p class="ix-leyenda" id="ix-leyenda" aria-hidden="true"></p>
-        </div>
-      </div>
-      <p class="nota" id="ix-nota"></p>
-      <div class="pie"><span>Fuentes: las de cada indicador, en la tabla descargable</span><a href="datos/cruces_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-  </section>
-
-  <section class="tema herramienta" id="departamentos">
-    <h2>Departamentos</h2>
-    <div class="tema-intro">
-      <p class="pregunta">¿Cómo cambian los números dentro de cada provincia?</p>
-      <p>Un mapa con los departamentos de todo el país para ver lo que el promedio provincial esconde.</p>
-    </div>
-    <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué muestra</h4><p>El mapa baja de la provincia al departamento, partido o comuna, la unidad en la que el INDEC divide cada provincia. Así se ve lo que el promedio provincial esconde: diferencias grandes entre la capital y el interior, o entre zonas vecinas. Los límites salen del Servicio de Normalización de Datos Geográficos (Georef), simplificados para que el mapa cargue rápido.</p><p class="exp-fuente">Fuente: <a href="https://datosgobar.github.io/georef-ar-api/" target="_blank" rel="noopener">Georef, Servicio de Normalización de Datos Geográficos</a></p></section><section class="exp-bloque"><h4>De dónde salen los datos</h4><p>Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, por departamento donde ocurrió el hecho. La edad y el origen de la población vienen del Registro Nacional de las Personas (RENAPER), con las personas identificadas según su domicilio. El RENAPER publica la Ciudad de Buenos Aires sin dividirla en comunas.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/seguridad/estadisticascriminales" target="_blank" rel="noopener">SNIC, estadísticas criminales por departamento</a>, <a href="https://www.argentina.gob.ar/interior/renaper" target="_blank" rel="noopener">RENAPER, datos abiertos</a></p></section><section class="exp-bloque"><h4>Para tener en cuenta</h4><p>En los departamentos con poca población unos pocos casos cambian mucho la tasa. Por eso las muertes se promedian en tres años y las listas de mayores y menores valores dejan afuera a los departamentos con menos de diez mil personas. El SNIC registra los hechos que llegan a la policía o a la justicia, así que los delitos no denunciados no aparecen.</p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Departamento</dt><dd>División de cada provincia que usa el INDEC para sus estadísticas. En Buenos Aires se llaman partidos y en la Ciudad de Buenos Aires, comunas.</dd></div><div><dt>Tasa cada 100.000 habitantes</dt><dd>Cantidad de hechos dividida por la población y multiplicada por cien mil. Permite comparar lugares de distinto tamaño.</dd></div></dl></details></div>
-    <article class="ficha explorador" id="f-mapa">
-      <h3 data-t="mapa-dep-titulo"></h3>
-      <p class="lead" data-t="mapa-dep"></p>
-      <label class="selector-ficha"><span>Indicador</span><select id="mp-ind"></select></label>
-      <div class="mp-cuerpo">
-        <div class="grafico mp-mapa" data-g="mapa-dep"></div>
-        <aside class="mp-lado">
-          <p class="mp-lugar" id="mp-lugar"></p>
-          <div id="mp-lista"></div>
-          <button type="button" class="boton chico cx-boton" id="mp-pais" hidden>Ver todo el país</button>
-        </aside>
-      </div>
-      <p class="nota" id="mp-nota"></p>
-      <div class="pie"><span>Fuentes: SNIC (Ministerio de Seguridad), RENAPER y Georef (IGN)</span><a href="datos/departamentos.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-  </section>
-
-  <footer>
-    <p class="pie-sobre"><a href="nosotros.html">Sobre nosotros</a>: el propósito de Datina, sus fuentes y sus principios.</p>
-    <h2>Cómo está hecho</h2>
-    <p>Todas las cifras salen de fuentes públicas oficiales descargadas de forma automática. Un primer programa baja cada archivo tal como lo publica el organismo, un segundo programa los ordena en una tabla única y calcula los indicadores, y un tercero arma esta página. La tabla completa en formato largo está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>.</p>
-    <p data-t="actualizado"></p>
-    <p>Datina muestra los números de las 24 jurisdicciones del país. El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
-  </footer>
 </main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="energia.html">Energía</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="articulos.html">Artículos</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p data-t="actualizado"></p>
+      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
 
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=8dedb1e600"></script>
-<script src="datina.js?v=d4ec294fc1"></script>
+<script src="datos/fichas.js?v=8020598329"></script>
+<script src="datina.js?v=fd28d27d14"></script>
 </body>
 </html>
