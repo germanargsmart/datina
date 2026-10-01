@@ -19,6 +19,14 @@ version = hashlib.sha1(datos.encode("utf-8")).hexdigest()[:10]
 
 plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8").replace("__VERSION__", version)
 
+# Iconos de Phosphor (duotono, licencia MIT) guardados en datos/manual/iconos: se insertan solo los trazos
+ICONOS = {}
+for f in sorted((RAIZ / "datos" / "manual" / "iconos").glob("*.svg")):
+    svg = f.read_text(encoding="utf-8")
+    ICONOS[f.stem] = re.sub(r"^<svg[^>]*>|</svg>\s*$", "", svg.strip())
+assert "/*ICONOS*/{}" in plantilla
+plantilla = plantilla.replace("/*ICONOS*/{}", json.dumps(ICONOS, ensure_ascii=False))
+
 ruta_exp = RAIZ / "datos" / "manual" / "explicadores.json"
 EXP = json.loads(ruta_exp.read_text(encoding="utf-8")) if ruta_exp.exists() else {}
 e = lambda t: html.escape(str(t), quote=True)
@@ -76,11 +84,35 @@ def pagina(id_, titulo, descripcion, estilo):
 
 
 # Portada: sin secciones, con la grilla que lleva a cada una
-(SITIO / "index.html").write_text(pagina("inicio", None, None, ".tema{display:none}"), encoding="utf-8")
+(SITIO / "index.html").write_text(pagina("inicio", None, None, ".tema,.provincias{display:none}"), encoding="utf-8")
+# Tu provincia: el perfil de la provincia elegida, en su propia pagina (se entra desde el primer destacado)
+(SITIO / "provincia.html").write_text(pagina("provincia", "Tu provincia",
+    "Cada provincia comparada con el total del país en todos los indicadores con dato provincial, su posición entre las 24 y las provincias que más se le parecen.",
+    ".portada,.preguntas,.secciones,.destacados,.articulos-home,.tema{display:none}"), encoding="utf-8")
 for id_, titulo, preg in SECCIONES:
-    estilo = f".portada,.preguntas,.provincias,.secciones,.tema:not(#{id_}){{display:none}}"
+    estilo = f".portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.tema:not(#{id_}){{display:none}}"
+    if id_ == "articulos":
+        estilo += "#articulos .notas{display:none}"
     descr = f"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar." if preg else f"{titulo} en Datina."
     (SITIO / f"{id_}.html").write_text(pagina(id_, titulo, descr, estilo), encoding="utf-8")
+
+# Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
+REDIRECCIONES = {"emprendedores": "empresas"}
+for viejo, nuevo in REDIRECCIONES.items():
+    (SITIO / f"{viejo}.html").write_text(
+        f'<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Datina</title>'
+        f'<meta name="robots" content="noindex"><link rel="canonical" href="{nuevo}.html">'
+        f'<script>location.replace("{nuevo}.html" + location.search + location.hash)</script>'
+        f'<noscript><meta http-equiv="refresh" content="0; url={nuevo}.html"></noscript></head>'
+        f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8")
+
+# Una pagina por articulo (a-....html): solo esa nota, sin el indice de articulos
+ARTICULOS = re.findall(r'<article class="nota" id="(a-[\w-]+)" data-titulo="([^"]+)"', base)
+for id_, titulo in ARTICULOS:
+    estilo = (".portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.tema:not(#articulos),"
+              f"#articulos>h2,#articulos>.tema-intro,#articulos>.art-grid,#articulos .nota:not(#{id_}){{display:none}}")
+    descr = f"{html.unescape(titulo)} Un cruce de datos oficiales de las 24 jurisdicciones, con sus fuentes y sus límites."
+    (SITIO / f"{id_}.html").write_text(pagina(id_, html.unescape(titulo), descr, estilo), encoding="utf-8")
 
 shutil.copy(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", SITIO / "datos" / "tabla_larga.csv")
 # Sitio de consultas de pobreza (Observable Framework). Se construye aparte con "npm run build" dentro de pobreza/
@@ -89,4 +121,4 @@ dist = RAIZ / "pobreza" / "dist"
 if dist.exists():
     shutil.rmtree(SITIO / "pobreza", ignore_errors=True)
     shutil.copytree(dist, SITIO / "pobreza")
-print(f"Listo: sitio/index.html y {len(SECCIONES)} paginas de seccion" + (" y sitio/pobreza/" if dist.exists() else ""))
+print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(ARTICULOS)} articulos" + (" y sitio/pobreza/" if dist.exists() else ""))

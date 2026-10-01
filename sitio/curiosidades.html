@@ -18,6 +18,7 @@
   color-scheme:light;
   --bg:#FFFFFF; --ink:#18212B; --muted:#56606C; --faint:#98A2AE; --line:#E4E9EF;
   --celeste:#74ACDF; --celeste-fuerte:#2C74B5; --celeste-suave:#DCEBF8;
+  --borde:#D9E3EE; --superficie:#F7FAFD; --superficie-2:#EDF2F8; --sol-suave:#FCE7B0;
   --sol:#F6B40E; --sol-fuerte:#B27A00; --sol-suave:#FDF0CC; --sol-borde:#85340A;
   --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
   --ocde:#7A4FA0; --ocde-suave:#ECE3F5; /* promedio de los países de la OCDE en todos los gráficos */
@@ -249,7 +250,7 @@ select option{background:var(--bg);color:var(--ink)}
 .panel-pestana[hidden]{display:none}
 .tabla-desliza{max-height:420px;overflow:auto;margin:22px 0 8px;border:1px solid var(--line);border-radius:14px}
 .tabla-areas{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
-.tabla-areas th{position:sticky;top:0;background:#F7FAFD;text-align:left;font-weight:600;font-size:12.5px;color:var(--muted);padding:9px 12px;border-bottom:1px solid var(--line)}
+.tabla-areas th{position:sticky;top:0;background:var(--superficie);text-align:left;font-weight:600;font-size:12.5px;color:var(--muted);padding:9px 12px;border-bottom:1px solid var(--line)}
 .tabla-areas td{padding:8px 12px;border-bottom:1px solid #F0F3F7;vertical-align:top}
 .tabla-areas td.n,.tabla-areas th.n{text-align:right;white-space:nowrap}
 .tabla-areas tr.elegida td{background:var(--celeste-suave)}
@@ -365,7 +366,7 @@ body::after{content:"";position:fixed;inset:0;border:5px solid var(--azul);point
   background:radial-gradient(circle,var(--sol) 34%,transparent 37%),repeating-conic-gradient(var(--sol) 0 7deg,transparent 7deg 22.5deg)}
 
 /* tarjetas rectas, sin sombra */
-.ficha{border-radius:0;box-shadow:none;border:1px solid #D9E3EE;padding:clamp(18px,3vw,30px) clamp(16px,3vw,32px) 20px}
+.ficha{border-radius:0;box-shadow:none;border:1px solid var(--borde);padding:clamp(18px,3vw,30px) clamp(16px,3vw,32px) 20px}
 @media (hover:hover) and (pointer:fine){.ficha:hover{border-color:var(--celeste)}}
 .etiqueta{background:none;border-radius:0;padding:0;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink)}
@@ -428,7 +429,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
   .estado span:first-child{border-top:0}
   .ficha{padding:24px 18px 18px}
   .tema>h2{margin-top:64px}
-  .dp{padding:14px 16px;border:1px solid #D9E3EE;background:#fff}
+  .dp{padding:14px 16px;border:1px solid var(--borde);background:#fff}
 }
 @media (prefers-reduced-motion:reduce){.sol .rafaga{animation:none}}
 /* menú de temas y atajos */
@@ -460,7 +461,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 .secciones{padding-top:36px}
 .secciones>h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:clamp(40px,5.2vw,64px);line-height:.95;font-weight:500;color:var(--azul);margin:24px 0 10px}
 .secciones-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:20px}
-.sec-tarjeta{display:flex;flex-direction:column;gap:6px;padding:18px 18px 20px;border:1px solid #D9E3EE;background:#fff;color:var(--ink);text-decoration:none;
+.sec-tarjeta{display:flex;flex-direction:column;gap:6px;padding:18px 18px 20px;border:1px solid var(--borde);background:#fff;color:var(--ink);text-decoration:none;
   transition:border-color .2s ease,transform .16s var(--ease-out)}
 .sec-tarjeta:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){.sec-tarjeta:hover{border-color:var(--azul)}}
@@ -471,21 +472,21 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 .explicador{margin:0 0 30px;border-top:1px dotted var(--azul);padding-top:20px}
 .explicador>h3{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 14px}
 .exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-.exp-bloque{border:1px solid #D9E3EE;background:#fff;padding:18px 20px}
+.exp-bloque{border:1px solid var(--borde);background:#fff;padding:18px 20px}
 .exp-bloque h4{font-size:19px;line-height:1.2;font-weight:560;color:var(--azul);margin:0 0 8px}
 .exp-bloque p{font-size:15.5px;line-height:1.5;margin:0}
 .exp-fuente{margin-top:10px!important;font-size:13px!important;color:var(--muted)}
 .exp-fuente a{color:var(--celeste-fuerte)}
-.glosario{margin-top:12px;border:1px solid #D9E3EE;background:#fff;padding:0 20px}
+.glosario{margin-top:12px;border:1px solid var(--borde);background:#fff;padding:0 20px}
 .glosario>summary{min-height:48px;display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}
 .glosario>summary::-webkit-details-marker{display:none}
 .glosario>summary::before{content:"+";display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid var(--azul);font-size:13px;letter-spacing:0}
-.glosario[open]>summary::before{content:"2"}
+.glosario[open]>summary::before{content:"\2212"}
 .glosario dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 28px;margin:0 0 18px}
 .glosario dt{font-weight:600;font-size:15px;margin-top:10px}
 .glosario dd{margin:2px 0 0;font-size:14.5px;line-height:1.45;color:var(--muted)}
 .sec-pasos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:40px 0 0;border-top:3px solid var(--azul);padding-top:18px}
-.sec-pasos a{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border:1px solid #D9E3EE;background:#fff;text-decoration:none;color:var(--azul);font-size:18px;font-weight:500}
+.sec-pasos a{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border:1px solid var(--borde);background:#fff;text-decoration:none;color:var(--azul);font-size:18px;font-weight:500}
 .sec-pasos a:last-child{text-align:right}
 .sec-pasos .sec-todas{text-align:center}
 .sec-pasos small{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -500,6 +501,198 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
   .sec-tarjeta b{font-size:24px}
   .sec-preg{font-size:13.5px}
 }
+/* ideas de USAFacts: la respuesta primero, lectura fija de las series, tabla en la ficha, imagen y búsqueda */
+.en-cifras{margin:0 0 30px}
+.en-cifras>h3{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 12px}
+.cifras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.cifra{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px;border:1px solid var(--borde);background:#fff;color:var(--ink);text-decoration:none;
+  transition:border-color .2s ease,transform .16s var(--ease-out)}
+.cifra:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.cifra:hover{border-color:var(--azul)}}
+.c-lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.c-num{font-variation-settings:"wdth" 45,"opsz" 144;font-weight:500;font-size:clamp(28px,3.4vw,36px);line-height:1;color:var(--azul);font-variant-numeric:tabular-nums}
+.c-txt{font-size:13.5px;line-height:1.38;color:var(--muted)}
+.cifra.prov{background:var(--celeste-suave);border-color:var(--celeste)}
+.cifra.elige{justify-content:center;border-style:dashed;border-color:var(--azul)}
+.lectura-serie{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;min-height:1.6em;margin:0 0 4px;
+  font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--muted);font-variant-numeric:tabular-nums}
+.lectura-serie b{color:var(--ink);font-weight:600}
+.lectura-serie span{white-space:nowrap}
+.lectura-serie i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.acciones{flex-wrap:wrap}
+.accion[hidden]{display:none}
+.tabla-datos{margin:16px 0 0}
+.tabla-datos .tabla-desliza{max-height:360px;margin:0}
+.tabla-nota{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.menu-panel{max-height:calc(100dvh - 110px);overflow:auto}
+.menu-buscar{grid-column:1/-1;margin:4px 16px 8px;font:inherit;font-size:15px;padding:9px 10px;border:1px solid var(--azul);border-radius:0;background:#fff;color:var(--ink)}
+.menu-buscar:focus-visible{outline:2px solid var(--sol);outline-offset:1px}
+.menu-resultados{grid-column:1/-1;display:flex;flex-direction:column}
+.menu-panel .menu-resultados a{display:flex;flex-direction:column;gap:2px;line-height:1.3}
+.menu-resultados small{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.menu-vacio{margin:6px 16px;font-size:14px;color:var(--muted)}
+.menu-panel.buscando>a,.menu-panel.buscando>.menu-tit{display:none}
+.pildoras{display:none}
+@media (max-width:760px){
+  .cifras-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:74%;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 -22px;padding:2px 22px 10px;scroll-padding:0 22px;scrollbar-width:none}
+  .cifras-grid::-webkit-scrollbar{display:none}
+  .cifra{scroll-snap-align:start}
+  .pildoras{display:flex;gap:6px;overflow-x:auto;margin:0 -22px;padding:16px 22px 2px;scrollbar-width:none}
+  .pildoras::-webkit-scrollbar{display:none}
+  .pildoras a{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:9px 12px;
+    border:1px solid var(--borde);background:#fff;color:var(--azul);text-decoration:none}
+  .pildoras a[aria-current]{background:var(--azul);border-color:var(--azul);color:#fff}
+  .tema>.pildoras+h2{margin-top:30px}
+}
+/* ================================================================
+   Rediseño de la portada y artículos (octubre de 2026), con usafacts.org como referencia:
+   destacados en bloques de color con ícono grande, grilla de artículos con ícono,
+   "Datos rápidos" y páginas de artículo. Se conservan las formas rectas y la paleta de la bandera.
+   Íconos: Phosphor (duotono), copiados de @phosphor-icons/core a datos/manual/iconos.
+   ================================================================ */
+.ico{display:block;width:1em;height:1em;flex:none}
+.ancho{width:min(1136px,calc(100vw - 44px));margin-left:calc(50% - min(568px,50vw - 22px))}
+.bloque-tit{font-size:clamp(30px,3.6vw,44px);line-height:1;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;margin:0 0 8px;letter-spacing:-.005em}
+.bloque-sub{font-size:16px;line-height:1.45;color:var(--muted);margin:0 0 22px;max-width:44em}
+
+/* destacados: tres bloques de color, uno más ancho */
+.destacados{padding-top:64px}
+.dest-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:16px}
+.dest{--c:var(--azul);--c-claro:#5E97CE;--c-ico:#fff;--c-txt:#fff;position:relative;display:flex;flex-direction:column;min-height:440px;
+  background:var(--c);color:var(--c-txt);text-decoration:none;overflow:hidden;transition:transform .16s var(--ease-out)}
+.dest:active{transform:scale(.98)}
+.dest.sol{--c:var(--sol);--c-claro:#FBD36E;--c-ico:var(--ink);--c-txt:var(--ink)}
+.dest.hondo{--c:var(--azul-hondo);--c-claro:#4D84B8;--c-ico:#fff;--c-txt:#fff}
+.dest-arte{position:relative;height:196px;background:var(--c-claro);overflow:hidden;flex:none}
+.dest-arte::after{content:"";position:absolute;left:-35%;right:-12%;top:60%;height:200%;border-radius:50%;background:var(--c)}
+.dest-arte .ico{position:absolute;right:30px;bottom:14px;width:112px;height:112px;z-index:1;color:var(--c-ico)}
+.dest-cuerpo{display:flex;flex-direction:column;gap:10px;padding:20px 26px 24px;flex:1}
+.dest-eb{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+.dest-cuerpo b{font-size:clamp(24px,2.3vw,30px);line-height:1.1;font-weight:560;font-variation-settings:"wdth" 75,"opsz" 32}
+.dest-txt{font-size:15px;line-height:1.45;max-width:30em}
+.dest-ir{margin-top:auto;width:38px;height:38px;display:grid;place-items:center;background:#fff;color:var(--c)}
+.dest-ir .ico{width:20px;height:20px}
+.dest.sol .dest-ir{background:var(--ink);color:var(--sol)}
+@media (hover:hover) and (pointer:fine){.dest:hover .dest-ir{transform:translateX(3px)}.dest-ir{transition:transform .2s var(--ease-out)}}
+
+/* artículos: grilla de tarjetas con ícono, como la de referencia */
+.articulos-home{padding-top:64px}
+.art-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.art-card{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:center;padding:16px;background:var(--superficie-2);border:1px solid transparent;
+  color:var(--ink);text-decoration:none;transition:border-color .2s ease,transform .16s var(--ease-out)}
+.art-card:active{transform:scale(.98)}
+@media (hover:hover) and (pointer:fine){.art-card:hover{border-color:var(--azul)}}
+.art-ico{display:grid;place-items:center;width:96px;height:96px;background:#fff;color:var(--azul)}
+.art-ico .ico{width:58px;height:58px}
+.art-txt{display:flex;flex-direction:column;gap:8px}
+.art-txt b{font-size:17px;line-height:1.3;font-weight:600}
+.art-txt small{font-size:13px;color:var(--muted)}
+.ver-todos{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--azul);text-decoration:none;border:1px solid var(--azul);padding:10px 14px}
+.ver-todos .ico{width:16px;height:16px}
+@media (hover:hover) and (pointer:fine){.ver-todos:hover{background:var(--azul);color:#fff}}
+
+/* secciones con ícono */
+.sec-ico{width:34px;height:34px;color:var(--azul);margin-bottom:6px}
+.sec-tarjeta.herr .sec-ico{color:var(--azul-hondo)}
+
+/* página de artículo */
+.notas{padding-top:8px}
+.preguntas .rot-cuerpo,.provincias .prov-sub{max-width:44em}
+.nota{max-width:740px}
+.nota-volver{display:inline-block;margin-top:28px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte);text-decoration:none}
+.nota-cab{display:grid;grid-template-columns:76px 1fr;gap:20px;align-items:center;margin:18px 0 24px}
+.nota-ico{display:grid;place-items:center;width:76px;height:76px;background:var(--superficie-2);color:var(--azul)}
+.nota-ico .ico{width:46px;height:46px}
+.nota-meta{margin:0 0 6px!important;font-size:13.5px!important;color:var(--muted)}
+.nota-tit{font-size:clamp(30px,4.2vw,46px);line-height:1.04;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;margin:0}
+.nota p{font-size:18px;line-height:1.6;margin:0 0 16px}
+.nota .nota-bajada{font-size:20px;line-height:1.5}
+.nota mark{background:var(--sol-suave);color:var(--ink);font-weight:600;padding:0 .2em}
+.nota-graf{border:1px solid var(--borde);background:#fff;padding:20px 22px 16px;margin:28px 0}
+.nota-graf h3{font-size:19px;line-height:1.25;font-weight:560;color:var(--azul);margin:0}
+.nota-graf .grafico{margin-top:18px}
+.nota .nota-pie-graf{font-size:13.5px;color:var(--muted);margin:4px 0 0}
+.nota-limites{border-top:3px solid var(--azul);margin:36px 0 0;padding-top:18px}
+.nota-limites h2,.nota-otras h2{font-size:26px;line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;margin:0 0 12px}
+.nota-limites ul{margin:0;padding-left:20px}
+.nota-limites li{font-size:16px;line-height:1.5;margin:0 0 8px}
+.nota-fuentes{border-top:1px dotted var(--azul);margin-top:28px;padding-top:14px}
+.nota .nota-fuentes p{font-size:14px;color:var(--muted)}
+.nota-fuentes .acciones{margin-left:0;flex-wrap:wrap}
+.nota-otras{margin-top:52px}
+.nota-otras .art-grid{grid-template-columns:1fr}
+
+@media (max-width:760px){
+  .destacados,.articulos-home{padding-top:44px}
+  .dest-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 -22px;padding:0 22px 8px;scroll-padding:0 22px;scrollbar-width:none}
+  .dest-grid::-webkit-scrollbar{display:none}
+  .dest{min-height:390px;scroll-snap-align:start}
+  .dest-arte{height:150px}
+  .dest-arte .ico{width:88px;height:88px;right:22px}
+  .dest-cuerpo{padding:18px 20px 20px}
+  .art-grid{grid-template-columns:1fr;gap:10px}
+  .art-card{grid-template-columns:64px 1fr;gap:14px;padding:12px}
+  .art-ico{width:64px;height:64px}
+  .art-ico .ico{width:40px;height:40px}
+  .art-txt b{font-size:16px}
+  .nota-cab{grid-template-columns:56px 1fr;gap:14px}
+  .nota-ico{width:56px;height:56px}
+  .nota-ico .ico{width:34px;height:34px}
+  .nota p{font-size:17px}
+  .nota .nota-bajada{font-size:18px}
+  .nota-graf{padding:16px 14px 12px;margin:22px -8px}
+}
+/* ---- ajustes de octubre de 2026 (pedido del autor): portada más baja, "Datos rápidos" dentro de la portada,
+   destacados del mismo tamaño y redondeados, botón con el gorro frigio. Regla de formas: en la portada, las tarjetas
+   (destacados, artículos y secciones) llevan radio de 18 px y los botones de entrada son circulares. Las fichas siguen rectas. */
+.portada-grid{min-height:0;padding-top:20px;padding-bottom:20px}
+.portada h1{font-size:clamp(64px,9vw,132px)}
+.portada-sol{width:min(470px,38vw)}
+.portada .preguntas{position:relative;z-index:2;padding:4px 22px 40px}
+.portada .rotador{max-width:880px;margin:0 auto;text-align:center;padding:22px clamp(18px,4vw,40px) 16px;
+  border:1px solid rgba(255,255,255,.3);border-radius:22px;background:rgba(255,255,255,.12);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.28)}
+@media (prefers-reduced-transparency:reduce){.portada .rotador{background:var(--azul-hondo);-webkit-backdrop-filter:none;backdrop-filter:none}}
+.portada .rot-eb{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sol);margin:0 0 12px}
+.portada .rot-cuerpo{max-width:none;display:flex;flex-direction:column;justify-content:center}
+.portada .rot-q{color:#fff;max-width:30em;margin:0 auto 8px}
+@media (hover:hover) and (pointer:fine){.portada .rot-q:hover{color:var(--sol)}}
+.portada .rot-a{color:rgba(255,255,255,.86);font-size:17px;max-width:40em;margin:0 auto}
+.portada .rot-control{justify-content:center;margin-top:14px}
+.portada .rot-barra{background:rgba(255,255,255,.25)}
+.portada .rot-control button{color:#fff}
+.portada .rot-control button:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+.dest-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dest{border-radius:18px;min-height:420px}
+.dest-ir{width:50px;height:50px;border-radius:50%;background:#fff;box-shadow:0 2px 0 rgba(24,33,43,.14);
+  transition:transform .2s var(--ease-out),box-shadow .2s ease}
+.dest.sol .dest-ir{background:#fff}
+.gorro-ir{width:28px;height:28px;overflow:visible;transform:rotate(-10deg);transform-origin:50% 90%;transition:transform .35s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .dest:hover .dest-ir{transform:translateY(-2px);box-shadow:0 5px 0 rgba(24,33,43,.14)}
+  .dest:hover .gorro-ir,.ver-todos:hover .gorro-ir{transform:rotate(-26deg) translateY(-2px)}
+}
+.dest:active .dest-ir{transform:scale(.94)}
+.art-card,.sec-tarjeta{border-radius:18px}
+.art-ico{border-radius:12px}
+.nota-ico{border-radius:16px}
+.ver-todos{border-radius:999px;padding:8px 10px 8px 18px;gap:10px}
+.ver-todos .gorro-ir{width:22px;height:22px}
+@media (hover:hover) and (pointer:fine){.ver-todos:hover{background:var(--celeste-suave);color:var(--azul)}}
+.provincias{padding-top:48px}
+@media (max-width:760px){
+  .portada-sol{width:56vw;margin:4px -6vw 0 0}
+  .dest-grid{grid-template-columns:none}
+  .portada .preguntas{padding:0 16px 28px}
+  .portada .rotador{border-radius:18px;padding:18px 16px 12px}
+  .portada .rot-q{font-size:20px}
+  .portada .rot-a{font-size:15.5px}
+  .dest{min-height:380px}
+}
+@media (prefers-reduced-motion:reduce){.gorro-ir,.dest-ir{transition:none!important;transform:none!important}}
 /* notas metodológicas plegadas en cada ficha */
 .sobre{margin:10px 0 0;max-width:42em}
 .sobre>summary{display:inline-flex;align-items:center;gap:8px;min-height:40px;cursor:pointer;list-style:none;
@@ -672,20 +865,22 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 .pr-lista li i{width:10px;height:10px;margin-top:4px;grid-row:1/3}
 .pr-lista li small{font-size:12.5px;color:var(--muted)}
 </style>
-<style id="pagina">.portada,.preguntas,.provincias,.secciones,.tema:not(#curiosidades){display:none}</style>
+<style id="pagina">.portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.tema:not(#curiosidades){display:none}</style>
 </head>
 <body data-pagina="curiosidades">
 <header class="barra">
   <div class="envoltura">
     <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     <nav class="temas" aria-label="Temas principales" style="grid-column:1;grid-row:1">
-      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="articulos.html">Artículos</a>
     </nav>
     <div class="menu" style="grid-column:3;grid-row:1">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Secciones</button>
       <div class="menu-panel" id="menu-panel" hidden>
+        <input type="search" class="menu-buscar" id="menu-buscar" placeholder="Buscar un tema o un dato" aria-label="Buscar en Datina" autocomplete="off">
+        <div class="menu-resultados" id="menu-resultados" aria-live="polite" hidden></div>
         <p class="menu-tit">Temas</p>
-        <a href="./#provincias">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="emprendedores.html">Emprendedores</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
+        <a href="articulos.html">Artículos</a><a href="provincia.html">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
         <a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a>
         <a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a>
         <p class="menu-tit">Herramientas</p>
@@ -704,7 +899,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
       <div class="estado" id="estado" aria-label="Estado de los datos"></div>
       <nav class="atajos" aria-label="Temas">
-        <a href="./#provincias">Elegí tu provincia</a><a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+        <a href="provincia.html">Elegí tu provincia</a><a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="articulos.html">Artículos</a>
       </nav>
     </div>
     <div class="portada-sol">
@@ -722,12 +917,10 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       </svg>
     </div>
   </div>
-</section>
-
-<main class="envoltura">
-  <section class="preguntas" aria-label="Preguntas con datos">
-    <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-label="Preguntas con datos">
-      <div class="rot-cuerpo"><a class="rot-q" href="#provincias"></a><p class="rot-a"></p></div>
+  <section class="preguntas" aria-labelledby="preg-tit">
+    <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-label="Datos rápidos">
+      <h2 class="rot-eb" id="preg-tit">Datos rápidos</h2>
+      <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
       <div class="rot-control">
         <span class="rot-barra" aria-hidden="true"><i></i></span>
         <button type="button" class="rot-pausa" aria-pressed="false">Pausar</button>
@@ -735,6 +928,22 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       </div>
     </div>
   </section>
+</section>
+
+<main class="envoltura">
+  <section class="destacados ancho" id="destacados" aria-labelledby="dest-tit">
+    <h2 class="bloque-tit" id="dest-tit">Destacados</h2>
+    <p class="bloque-sub">Tres entradas a los datos de las 24 jurisdicciones.</p>
+    <div class="dest-grid" id="dest-grid"></div>
+  </section>
+
+  <section class="articulos-home ancho" aria-labelledby="arth-tit">
+    <h2 class="bloque-tit" id="arth-tit">Artículos</h2>
+    <p class="bloque-sub">Preguntas respondidas cruzando datos oficiales. Los números se recalculan cada vez que se actualiza una fuente.</p>
+    <div class="art-grid" id="art-grid-home"></div>
+    <a class="ver-todos" href="articulos.html">Todos los artículos</a>
+  </section>
+
 
   <section class="provincias" id="provincias" aria-labelledby="prov-titulo">
     <h2 id="prov-titulo">Elegí una de las 24</h2>
@@ -755,10 +964,28 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
     <div class="prov-extra" id="prov-extra"></div>
   </section>
 
-  <section class="secciones" id="secciones" aria-labelledby="sec-titulo">
+  <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
     <h2 id="sec-titulo">Secciones</h2>
     <p class="prov-sub">Cada sección tiene su página: qué se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
     <div class="secciones-grid" id="secciones-grid"></div>
+  </section>
+
+  <section class="tema" id="articulos">
+    <h2>Artículos</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué cuentan los datos cuando se los cruza?</p>
+      <p>Cada artículo responde una pregunta con dos indicadores de las 24 jurisdicciones. Los textos y los números se recalculan solos cuando se actualiza cada fuente, y cada artículo dice qué no se puede concluir del cruce.</p>
+    </div>
+    <div class="art-grid" id="art-grid"></div>
+    <div class="notas">
+      <article class="nota" id="a-exportaciones-empleo" data-titulo="¿Las provincias que más exportan tienen más empleo formal?"></article>
+      <article class="nota" id="a-cloacas-mortalidad" data-titulo="¿Mueren más bebés donde menos hogares tienen cloacas?"></article>
+      <article class="nota" id="a-cobertura-adolescentes" data-titulo="¿Hay más madres adolescentes donde menos gente tiene obra social o prepaga?"></article>
+      <article class="nota" id="a-recursos-empleo" data-titulo="¿Las provincias que recaudan más por su cuenta tienen más empleo privado?"></article>
+      <article class="nota" id="a-cobertura-esperanza" data-titulo="¿Se vive más años donde más gente tiene obra social o prepaga?"></article>
+      <article class="nota" id="a-internet-aprender" data-titulo="¿Aprenden más matemática los chicos de las provincias con más internet en el hogar?"></article>
+      <article class="nota" id="a-milei-empleo" data-titulo="¿Votaron más a Milei las provincias con más empleo privado?"></article>
+    </div>
   </section>
 
   <section class="tema" id="trabajo">
@@ -837,8 +1064,8 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
     </aside>
   </section>
 
-  <section class="tema" id="emprendedores">
-    <h2>Emprendedores</h2>
+  <section class="tema" id="empresas">
+    <h2>Empresas y oportunidades</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
       <p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>
@@ -984,7 +1211,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <div class="ayuda" role="note">
+    <div class="ayuda" id="ayuda-suicidio" role="note">
       <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
     </div>
 
@@ -1734,7 +1961,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=2272d3a000"></script>
+<script src="datos/fichas.js?v=aa24c8d78c"></script>
 <script>
 (() => {
 const D = window.DATINA;
@@ -1742,13 +1969,16 @@ const D = window.DATINA;
 /* ---------- páginas: cada sección vive en su propio archivo (salud.html, politica.html) ---------- */
 // Todas las páginas comparten el mismo marcado y el constructor oculta las secciones ajenas.
 const PAGINA = document.body.dataset.pagina || "inicio";
-const paginaDe = el => el?.closest(".tema")?.id || "inicio";
+// sección a la que pertenece la página: en un artículo es "articulos"
+const SECCION = PAGINA.startsWith("a-") ? "articulos" : PAGINA;
+const paginaDe = el => el?.closest(".nota")?.id || el?.closest(".tema")?.id || "inicio";
 const urlPagina = (p, resto = "") => (p === "inicio" ? "./" : p + ".html") + resto;
 // Los enlaces de cuando todo estaba en una sola página (#f-empleo?prov=30, #salud, ?cx=, ?ix=) llevan a la página nueva
 if (PAGINA === "inicio") {
   const q = new URLSearchParams(location.search), h = location.hash.slice(1).split("?")[0], el = h && document.getElementById(h);
-  const destino = el && paginaDe(el) !== "inicio" ? paginaDe(el) : q.has("cx") || q.has("cy") ? "cruces" : q.has("ix") ? "indice" : null;
-  if (destino) { location.replace(urlPagina(destino, location.search + (h === destino ? "" : location.hash))); return; }
+  const destino = h === "provincias" || (q.has("prov") && !h) ? "provincia"
+    : el && paginaDe(el) !== "inicio" ? paginaDe(el) : q.has("cx") || q.has("cy") ? "cruces" : q.has("ix") ? "indice" : null;
+  if (destino) { location.replace(urlPagina(destino, location.search + (h === destino || h === "provincias" ? "" : location.hash))); return; }
 }
 const R = D.resumen, T = D.datos, OC = R.ocde;
 const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
@@ -1756,6 +1986,10 @@ const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
 const pct = v => n1(v) + "%";
 const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
 const tip = document.getElementById("tip");
+// Íconos de Phosphor (duotono), los inserta el constructor desde datos/manual/iconos
+const ICONOS = {"airplane-tilt": "<path d=\"M209,81l-33,31,32,88-24,24-48-72-24,24v24L88,224,72,184,32,168l24-24H80l24-24L32,72,56,48l88,32,31-33A24,24,0,0,1,209,81Z\" opacity=\"0.2\"/><path d=\"M185.33,114.21l29.14-27.43.17-.16a32,32,0,0,0-45.26-45.26l-.16.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.89A8,8,0,0,0,136.8,144a7.09,7.09,0,0,0-.79,0,8,8,0,0,0-5.66,2.34l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2l30.94-32.88A16,16,0,0,1,203.4,75.22l-32.87,30.94a8,8,0,0,0-2,8.56l30.26,83.22Z\"/>", "arrow-right": "<path d=\"M216,128l-72,72V56Z\" opacity=\"0.2\"/><path d=\"M221.66,122.34l-72-72A8,8,0,0,0,136,56v64H40a8,8,0,0,0,0,16h96v64a8,8,0,0,0,13.66,5.66l72-72A8,8,0,0,0,221.66,122.34ZM152,180.69V75.31L204.69,128Z\"/>", "baby": "<path d=\"M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z\" opacity=\"0.2\"/><path d=\"M92,140a12,12,0,1,1,12-12A12,12,0,0,1,92,140Zm72-24a12,12,0,1,0,12,12A12,12,0,0,0,164,116Zm-12.27,45.23a45,45,0,0,1-47.46,0,8,8,0,0,0-8.54,13.54,61,61,0,0,0,64.54,0,8,8,0,0,0-8.54-13.54ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88.11,88.11,0,0,0-84.09-87.91C120.32,56.38,120,71.88,120,72a8,8,0,0,0,16,0,8,8,0,0,1,16,0,24,24,0,0,1-48,0c0-.73.13-14.3,8.46-30.63A88,88,0,1,0,216,128Z\"/>", "bank": "<path d=\"M232,96H24L128,32Z\" opacity=\"0.2\"/><path d=\"M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z\"/>", "boat": "<path d=\"M224,125.77V152c0,56-96,80-96,80s-96-24-96-80V125.77a8,8,0,0,1,5.47-7.59L128,88l90.53,30.18A8,8,0,0,1,224,125.77Z\" opacity=\"0.2\"/><path d=\"M221.06,110.59,208,106.23V56a16,16,0,0,0-16-16H136V24a8,8,0,0,0-16,0V40H64A16,16,0,0,0,48,56v50.23l-13.06,4.36A16,16,0,0,0,24,125.77V152c0,61.54,97.89,86.72,102.06,87.76a8,8,0,0,0,3.88,0C134.11,238.72,232,213.54,232,152V125.77A16,16,0,0,0,221.06,110.59ZM64,56H192v44.9L130.53,80.41a8,8,0,0,0-5.06,0L64,100.9Zm152,96c0,24.91-23.68,43-43.55,53.83A228.13,228.13,0,0,1,128,223.72,226.85,226.85,0,0,1,83.81,206C47.6,186.35,40,165.79,40,152V125.77L120,99.1V168a8,8,0,0,0,16,0V99.1l80,26.67Z\"/>", "briefcase": "<path d=\"M224,118.31V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V118.31h0A191.14,191.14,0,0,0,128,144,191.08,191.08,0,0,0,224,118.31Z\" opacity=\"0.2\"/><path d=\"M104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112ZM232,72V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56H80V48a24,24,0,0,1,24-24h48a24,24,0,0,1,24,24v8h40A16,16,0,0,1,232,72ZM96,56h64V48a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8ZM40,72v41.62A184.07,184.07,0,0,0,128,136a184,184,0,0,0,88-22.39V72ZM216,200V131.63A200.25,200.25,0,0,1,128,152a200.19,200.19,0,0,1-88-20.36V200H216Z\"/>", "bus": "<path d=\"M48,184H88v24a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8Zm120,24a8,8,0,0,0,8,8h24a8,8,0,0,0,8-8V184H168ZM48,72v40H208V72Z\" opacity=\"0.2\"/><path d=\"M184,32H72A32,32,0,0,0,40,64V208a16,16,0,0,0,16,16H80a16,16,0,0,0,16-16V192h64v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V64A32,32,0,0,0,184,32ZM56,176V120H200v56Zm0-96H200v24H56ZM72,48H184a16,16,0,0,1,16,16H56A16,16,0,0,1,72,48Zm8,160H56V192H80Zm96,0V192h24v16Zm-72-60a12,12,0,1,1-12-12A12,12,0,0,1,104,148Zm72,0a12,12,0,1,1-12-12A12,12,0,0,1,176,148Zm72-68v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0ZM24,80v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Z\"/>", "chart-scatter": "<path d=\"M224,64V208H32V48H208A16,16,0,0,1,224,64Z\" opacity=\"0.2\"/><path d=\"M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V200H224A8,8,0,0,1,232,208ZM132,160a12,12,0,1,0-12-12A12,12,0,0,0,132,160Zm-24-56A12,12,0,1,0,96,92,12,12,0,0,0,108,104ZM76,176a12,12,0,1,0-12-12A12,12,0,0,0,76,176Zm96-48a12,12,0,1,0-12-12A12,12,0,0,0,172,128Zm24-40a12,12,0,1,0-12-12A12,12,0,0,0,196,88Zm-20,76a12,12,0,1,0,12-12A12,12,0,0,0,176,164Z\"/>", "coins": "<path d=\"M240,132c0,19.88-35.82,36-80,36-19.6,0-37.56-3.17-51.47-8.44h0C146.76,156.85,176,142,176,124V96.72h0C212.52,100.06,240,114.58,240,132ZM176,84c0-19.88-35.82-36-80-36S16,64.12,16,84s35.82,36,80,36S176,103.88,176,84Z\" opacity=\"0.2\"/><path d=\"M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z\"/>", "drop": "<path d=\"M208,144a80,80,0,0,1-160,0c0-72,80-128,80-128S208,72,208,144Z\" opacity=\"0.2\"/><path d=\"M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75ZM128,216a72.08,72.08,0,0,1-72-72c0-57.23,55.47-105,72-118,16.53,13,72,60.75,72,118A72.08,72.08,0,0,1,128,216Zm55.89-62.66a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z\"/>", "factory": "<path d=\"M216,136v80H40V88l64,48V88l64,48Z\" opacity=\"0.2\"/><path d=\"M116,176a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h28A8,8,0,0,1,116,176Zm60-8H148a8,8,0,0,0,0,16h28a8,8,0,0,0,0-16Zm64,48a8,8,0,0,1-8,8H24a8,8,0,0,1,0-16h8V88a8,8,0,0,1,12.8-6.4L96,120V88a8,8,0,0,1,12.8-6.4l38.74,29.05L159.1,29.74A16.08,16.08,0,0,1,174.94,16h18.12A16.08,16.08,0,0,1,208.9,29.74l15,105.13s.08.78.08,1.13v72h8A8,8,0,0,1,240,216Zm-77.86-94.4,8.53,6.4h36.11L193.06,32H174.94ZM48,208H208V144H168a8,8,0,0,1-4.8-1.6l-14.4-10.8,0,0L112,104v32a8,8,0,0,1-12.8,6.4L48,104Z\"/>", "first-aid-kit": "<path d=\"M224,72V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8H216A8,8,0,0,1,224,72Z\" opacity=\"0.2\"/><path d=\"M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,200H40V72H216V200Zm-56-64a8,8,0,0,1-8,8H136v16a8,8,0,0,1-16,0V144H104a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,160,136Z\"/>", "graduation-cap": "<path d=\"M216,113.07v53.22a8,8,0,0,1-2,5.31c-11.3,12.59-38.9,36.4-86,36.4s-74.68-23.81-86-36.4a8,8,0,0,1-2-5.31V113.07L128,160Z\" opacity=\"0.2\"/><path d=\"M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z\"/>", "heartbeat": "<path d=\"M232,102c0,66-104,122-104,122S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32A54,54,0,0,1,232,102Z\" opacity=\"0.2\"/><path d=\"M72,144H32a8,8,0,0,1,0-16H67.72l13.62-20.44a8,8,0,0,1,13.32,0l25.34,38,9.34-14A8,8,0,0,1,136,128h24a8,8,0,0,1,0,16H140.28l-13.62,20.44a8,8,0,0,1-13.32,0L88,126.42l-9.34,14A8,8,0,0,1,72,144ZM178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,.75,0,1.5,0,2.25a8,8,0,1,0,16-.5c0-.58,0-1.17,0-1.75A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46c0,53.61-77.76,102.15-96,112.8-10.83-6.31-42.63-26-66.68-52.21a8,8,0,1,0-11.8,10.82c31.17,34,72.93,56.68,74.69,57.63a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40Z\"/>", "house-line": "<path d=\"M216,116.69V216H152V152H104v64H40V116.69l82.34-82.35a8,8,0,0,1,11.32,0Z\" opacity=\"0.2\"/><path d=\"M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z\"/>", "lightbulb": "<path d=\"M208,104a79.86,79.86,0,0,1-30.59,62.92A24.29,24.29,0,0,0,168,186v6a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8v-6a24.11,24.11,0,0,0-9.3-19A79.87,79.87,0,0,1,48,104.45C47.76,61.09,82.72,25,126.07,24A80,80,0,0,1,208,104Z\" opacity=\"0.2\"/><path d=\"M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Zm-16.11-9.34a57.6,57.6,0,0,0-46.56-46.55,8,8,0,0,0-2.66,15.78c16.57,2.79,30.63,16.85,33.44,33.45A8,8,0,0,0,176,104a9,9,0,0,0,1.35-.11A8,8,0,0,0,183.89,94.66Z\"/>", "lightning": "<path d=\"M96,240l16-80L48,136,160,16,144,96l64,24Z\" opacity=\"0.2\"/><path d=\"M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z\"/>", "magnifying-glass": "<path d=\"M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z\" opacity=\"0.2\"/><path d=\"M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z\"/>", "map-pin": "<path d=\"M128,24a80,80,0,0,0-80,80c0,72,80,128,80,128s80-56,80-128A80,80,0,0,0,128,24Zm0,112a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z\" opacity=\"0.2\"/><path d=\"M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z\"/>", "map-trifold": "<path d=\"M160,72V216L96,184V40Z\" opacity=\"0.2\"/><path d=\"M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM104,52.94l48,24V203.06l-48-24ZM40,62.25l48-12v127.5l-48,12Zm176,131.5-48,12V78.25l48-12Z\"/>", "newspaper": "<path d=\"M224,64V184a16,16,0,0,1-16,16H32a16,16,0,0,0,16-16V64a8,8,0,0,1,8-8H216A8,8,0,0,1,224,64Z\" opacity=\"0.2\"/><path d=\"M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z\"/>", "scales": "<path d=\"M56,88l32,80c0,17.67-20,24-32,24s-32-6.33-32-24ZM200,56l-32,80c0,17.67,20,24,32,24s32-6.33,32-24Z\" opacity=\"0.2\"/><path d=\"M239.43,133l-32-80h0a8,8,0,0,0-9.16-4.84L136,62V40a8,8,0,0,0-16,0V65.58L54.26,80.19A8,8,0,0,0,48.57,85h0v.06L16.57,165a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133ZM56,184c-7.53,0-22.76-3.61-23.93-14.64L56,109.54l23.93,59.82C78.76,180.39,63.53,184,56,184Zm144-32c-7.53,0-22.76-3.61-23.93-14.64L200,77.54l23.93,59.82C222.76,148.39,207.53,152,200,152Z\"/>", "sliders-horizontal": "<path d=\"M128,80a24,24,0,1,1-24-24A24,24,0,0,1,128,80Zm40,72a24,24,0,1,0,24,24A24,24,0,0,0,168,152Z\" opacity=\"0.2\"/><path d=\"M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z\"/>", "storefront": "<path d=\"M224,96v16a32,32,0,0,1-64,0V96H96v16a32,32,0,0,1-64,0V96L46.34,45.8A8,8,0,0,1,54,40H202a8,8,0,0,1,7.69,5.8Z\" opacity=\"0.2\"/><path d=\"M231.69,93.81,217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.81A7.94,7.94,0,0,0,24,96v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96A7.94,7.94,0,0,0,231.69,93.81ZM54,48H202l11.42,40H42.61Zm98,56v8a24,24,0,0,1-48,0v-8ZM51.06,132.2A24,24,0,0,1,40,112v-8H88v8a24,24,0,0,1-35.12,21.26A7.88,7.88,0,0,0,51.06,132.2ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm16-96a24,24,0,0,1-11.07,20.2,8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48Z\"/>", "tree": "<path d=\"M232,127.82c.09,33.94-28.41,63.3-62.34,64.16a63.72,63.72,0,0,1-41.66-14,63.71,63.71,0,0,1-41.65,14c-33.93-.86-62.44-30.22-62.35-64.16a64,64,0,0,1,40.13-59.2,68,68,0,0,1,127.74,0A64,64,0,0,1,232,127.82Z\" opacity=\"0.2\"/><path d=\"M198.1,62.59a76,76,0,0,0-140.2,0A71.71,71.71,0,0,0,16,127.8C15.9,166,48,199,86.14,200A72.22,72.22,0,0,0,120,192.47V232a8,8,0,0,0,16,0V192.47A72.17,72.17,0,0,0,168,200l1.82,0C208,199,240.11,166,240,127.8A71.71,71.71,0,0,0,198.1,62.59ZM169.45,184a56.08,56.08,0,0,1-33.45-10v-41l43.58-21.78a8,8,0,1,0-7.16-14.32L136,115.06V88a8,8,0,0,0-16,0v51.06L83.58,120.84a8,8,0,1,0-7.16,14.32L120,156.94v17a56,56,0,0,1-33.45,10C56.9,183.23,31.92,157.52,32,127.84A55.79,55.79,0,0,1,67.11,76a8,8,0,0,0,4.53-4.67,60,60,0,0,1,112.72,0A8,8,0,0,0,188.89,76,55.79,55.79,0,0,1,224,127.84C224.08,157.52,199.1,183.23,169.45,184Z\"/>", "users-three": "<path d=\"M168,144a40,40,0,1,1-40-40A40,40,0,0,1,168,144ZM64,56A32,32,0,1,0,96,88,32,32,0,0,0,64,56Zm128,0a32,32,0,1,0,32,32A32,32,0,0,0,192,56Z\" opacity=\"0.2\"/><path d=\"M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1,0-16,24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.85,8,57,57,0,0,0-98.15,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z\"/>"};
+const icono = (n, cls = "") => ICONOS[n] ? `<svg class="ico ${cls}" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false">${ICONOS[n]}</svg>` : "";
+document.querySelectorAll("a.ver-todos").forEach(a => a.insertAdjacentHTML("beforeend", `<svg class="gorro-ir" viewBox="0 0 40 40" aria-hidden="true">${document.querySelector(".marca .gorro").innerHTML}</svg>`));
 
 /* ---------- Sol de Mayo ---------- */
 (function sol() {
@@ -2047,6 +2281,7 @@ function mostrarTip(el, html, x, y) {
   tip.style.left = left + "px"; tip.style.top = (r.top - pr.top + y - tip.offsetHeight - 12) + "px";
 }
 const ocultarTip = () => tip.classList.remove("on");
+document.addEventListener("pointerdown", ev => { if (!ev.target.closest?.(".grafico")) ocultarTip(); });
 
 /* Animación de entrada: solo la primera vez que el gráfico aparece en pantalla, nunca con movimiento reducido */
 const REDUCIR = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -2063,6 +2298,7 @@ function lineas(el, cfg) {
   const angosto = el.clientWidth < 520;
   const C = lienzo(el, cfg.h ? (angosto ? cfg.h - 20 : cfg.h) : (angosto ? 300 : 340), {t:14, r: angosto ? 92 : 128, b:30, l:44});
   const {g, iw, ih} = C, data = cfg.data;
+  const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
   const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).range([0, iw]);
   const vals = [...cfg.series.map(s => s.k), ...(cfg.banda ? [cfg.banda.hi] : [])].flatMap(k => data.map(d => d[k])).filter(v => v != null);
   const y = d3.scaleLinear().domain([cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
@@ -2102,19 +2338,33 @@ function lineas(el, cfg) {
     t.append("tspan").attr("x", iw + 10).attr("dy", 15).attr("class","etq-suave").text((cfg.vf || n0)(l.v));
   });
   if (cfg.anim) aparecer(fin, 800);
-  // lectura por punto
+  // Lectura por punto en una línea fija arriba del gráfico (idea de USAFacts): muestra el último dato y, al pasar el mouse
+  // o deslizar el dedo, el período elegido. El dedo no tapa el valor. Deslizar en vertical sigue moviendo la página.
+  const vf = cfg.vf || n0;
+  const leer = d => `<b>${cfg.xl ? cfg.xl(d) : d[cfg.x]}</b>` +
+    cfg.series.filter(s => d[s.k] != null).map(s => `<span><i style="background:${s.c}"></i>${s.lab} ${vf(d[s.k])}</span>`).join("") +
+    (cfg.banda && d[cfg.banda.lo] != null ? `<span><i style="background:${cfg.banda.c || css("--celeste-suave")}"></i>${cfg.banda.lab} ${vf(d[cfg.banda.lo])} a ${vf(d[cfg.banda.hi])}</span>` : "");
+  const ult = [...data].reverse().find(d => cfg.series.some(s => d[s.k] != null));
+  lec.html(ult ? leer(ult) : "");
   const regla = g.append("line").attr("y1",0).attr("y2",ih).attr("stroke",css("--faint")).attr("opacity",0);
+  const marcas = g.append("g").attr("opacity", 0);
+  const puntos = marcas.selectAll("circle").data(cfg.series).join("circle").attr("r", 4.5).attr("fill", s => s.c).attr("stroke", "#fff").attr("stroke-width", 2);
+  const leerEn = ev => {
+    const [mx] = d3.pointer(ev); const xv = x.invert(mx);
+    const d = d3.least(data, r => Math.abs(r[cfg.x] - xv)); if (!d) return;
+    const a = x(d[cfg.x]);
+    regla.attr("x1", a).attr("x2", a).attr("opacity", 1);
+    marcas.attr("opacity", 1);
+    puntos.attr("cx", a).attr("cy", s => d[s.k] != null ? y(d[s.k]) : 0).attr("opacity", s => d[s.k] != null ? 1 : 0);
+    lec.html(leer(d));
+  };
+  C.svg.style("touch-action", "pan-y");
   g.append("rect").attr("width",iw).attr("height",ih).attr("fill","transparent")
-    .on("pointermove", ev => {
-      const [mx] = d3.pointer(ev); const xv = x.invert(mx);
-      const d = d3.least(data, r => Math.abs(r[cfg.x] - xv)); if (!d) return;
-      const a = d[cfg.x];
-      regla.attr("x1", x(a)).attr("x2", x(a)).attr("opacity",1);
-      const filas = cfg.series.filter(s => d[s.k] != null).map(s => `<span style="color:${s.c}">●</span> ${s.lab}: ${(cfg.vf || n0)(d[s.k])}`).join("<br>") +
-        (cfg.banda && d[cfg.banda.lo] != null ? `<br>${cfg.banda.lab}: ${(cfg.vf || n0)(d[cfg.banda.lo])} a ${(cfg.vf || n0)(d[cfg.banda.hi])}` : "");
-      mostrarTip(el, `<b>${cfg.xl ? cfg.xl(d) : a}</b><br>${filas}`, x(a) + 44, 14);
-    })
-    .on("pointerleave", () => { regla.attr("opacity",0); ocultarTip(); });
+    .on("pointerdown", leerEn).on("pointermove", leerEn)
+    .on("pointerleave", ev => {
+      if (ev.pointerType !== "mouse") return;
+      regla.attr("opacity",0); marcas.attr("opacity",0); lec.html(ult ? leer(ult) : "");
+    });
 }
 
 function barrasH(el, cfg) {
@@ -2141,6 +2391,12 @@ function barrasH(el, cfg) {
     barras.attr("x", x(0)).attr("width", 0).transition().delay((d,i) => i * 18).duration(700).ease(EASE)
       .attr("x", d => x(Math.min(0, d[cfg.k]))).attr("width", d => Math.abs(x(d[cfg.k]) - x(0)));
     valores.attr("opacity", 0).transition().delay((d,i) => 300 + i * 18).duration(300).attr("opacity", 1);
+  }
+  if (cfg.tip) {
+    // toda la fila responde, no solo la barra, y el cuadro muestra los valores absolutos que la barra no dice
+    filas.insert("rect", ":first-child").attr("x", -izq).attr("width", iw + izq + 54).attr("height", y.bandwidth()).attr("fill", "transparent");
+    filas.on("pointerenter", (ev, d) => mostrarTip(el, cfg.tip(d), izq + x(Math.max(0, d[cfg.k])), 24 + y(d.codigo_indec)))
+      .on("pointerleave", ocultarTip);
   }
   if (cfg.ref != null) {
     g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3");
@@ -2450,7 +2706,8 @@ const DIB = {
     series:[{k:"tasa_varones", lab:"Varones", c:NAR, w:2}, {k:"tasa", lab:"Total", c:css("--ink"), w:2.6}, {k:"tasa_mujeres", lab:"Mujeres", c:FRI, w:2}]}),
   "suicidio-prov": a => barrasH(G("suicidio-prov"), {anim:a, data: T.suicidio_provincias, k:"tasa", ref: R.suicidio.tasa, refLab:`País ${n1(R.suicidio.tasa)}`}),
   edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
-  empresas: a => barrasH(G("empresas"), {anim:a, data: T.empresas_provincias, k:"cada_1000_hab", ref: EM.pais_1000, refLab: `País ${n1(EM.pais_1000)}`}),
+  empresas: a => barrasH(G("empresas"), {anim:a, data: T.empresas_provincias, k:"cada_1000_hab", ref: EM.pais_1000,
+    tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_hab)} cada 1.000 habitantes<br>${n0(d.empresas)} empresas con empleados`, refLab: `País ${n1(EM.pais_1000)}`}),
   dinamica: a => MED.dinamica === "pais"
     ? lineas(G("dinamica"), {anim:a, data: T.empresas_serie_pais, x:"anio", y0:0, vf: v => n1(v) + "%", yf: v => v + "%",
         series: [{k:"tasa_entrada", c: css("--celeste-fuerte"), lab:"Aperturas"}, {k:"tasa_salida", c: css("--sol-fuerte"), lab:"Cierres"}]})
@@ -2524,6 +2781,7 @@ const DIB = {
   esperanza: a => pesas(G("esperanza"), {anim:a, data: T.esperanza_vida_provincias, a:"varones", b:"mujeres", la:"Varones", lb:"Mujeres",
     vf: v => n1(v) + " años", af: v => v, x0: 66, ref: OC.esperanza_vida.ocde, refLab: `Promedio OCDE ${OC.esperanza_vida.anio}: ${n1(OC.esperanza_vida.ocde)}`}),
   exportaciones: a => barrasH(G("exportaciones"), {anim:a, data: T.exportaciones_provincias, k:"usd_por_habitante", ref: nv.ex_pc_pais,
+    tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} US$ por habitante<br>${n0(d.millones_usd)} millones de US$ en total`,
     refLab: `País ${n0(nv.ex_pc_pais)}`, vf: v => n0(v) + " US$", af: n0}),
   fiscal: a => {
     const k = MED.fiscal, d = T.fiscal_provincias, fz = R.fiscal, ord = [...d].sort((p, q) => q[k] - p[k]);
@@ -2545,8 +2803,10 @@ const DIB = {
     : barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", vf: n1, af: n0}),
   extranjeros: a => barrasH(G("extranjeros"), {anim:a, data: T.extranjeros_provincias, k:"cada_100", ref: nv.xt_pais, refLab: `País ${n1(nv.xt_pais)}`, vf: n1, af: n0}),
   empleo: a => MED.empleo === "cada_100"
-    ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
-    : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m", vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+    ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais,
+        tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100)} cada 100 habitantes<br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.poblacion)} habitantes`, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
+    : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m",
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
         color: d => d.var_12m < 0 ? css("--sol") : css("--celeste")}),
 };
 
@@ -2858,7 +3118,7 @@ function dispersion(el, cfg) {
   const C = lienzo(el, angosto ? 320 : 380, {t:34, r:16, b:44, l:46});
   const {g, iw, ih} = C;
   const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).nice().range([8, iw]);
-  const y = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.y])]).nice().range([ih, 0]);
+  const y = d3.scaleLinear().domain(cfg.yAuto ? d3.extent(data, d => d[cfg.y]) : [0, d3.max(data, d => d[cfg.y])]).nice().range([ih, 0]);
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
   const fx = cfg.fx || (v => v + "%"), fy = cfg.fy || (v => v + "%"), vx = cfg.vx || pct, vy = cfg.vy || pct;
   g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(fy)).call(a => a.select(".domain").remove());
@@ -2871,7 +3131,7 @@ function dispersion(el, cfg) {
   const [x0, x1] = x.domain();
   g.append("line").attr("x1", x(x0)).attr("x2", x(x1)).attr("y1", y(a0 + b * x0)).attr("y2", y(a0 + b * x1)).attr("stroke", css("--muted")).attr("stroke-dasharray","4 4");
   const orden = [...data].sort((p, q) => q[cfg.y] - p[cfg.y]);
-  const etiq = new Set([...orden.slice(0, 3), ...orden.slice(-3)].map(d => d.codigo_indec).concat(prov ? [prov] : []));
+  const etiq = new Set([...orden.slice(0, 3), ...orden.slice(-3)].map(d => d.codigo_indec).concat(prov ? [prov] : [], cfg.marcar || []));
   const pt = g.selectAll("circle").data(data).join("circle").attr("cx", d => x(d[cfg.x])).attr("cy", d => y(d[cfg.y])).attr("r", 5.5)
     .attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste")).attr("stroke", "#fff");
   // etiquetas sin superponerse: la provincia elegida primero, después las de los extremos
@@ -3536,7 +3796,7 @@ const CX = (() => {
 
   DIB["cruces-disp"] = dispersion; DIB["cruces-matriz"] = matriz; DIB["cruces-multi"] = multi;
   sincronizar();
-  return {todo};
+  return {todo, pearson, spearman, simple};
 })();
 
 /* ---------- mapa de los departamentos: se carga solo al llegar ---------- */
@@ -3800,8 +4060,66 @@ const CLAVE = {
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}`],
   "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, junio de 2026`],
   "f-fiscal": [pct(R.fiscal.mediana), `de los ingresos de la provincia del medio fueron recursos propios en ${R.fiscal.anio}. El resto llegó de la Nación`],
-  "f-sube": [n2(su.total_millones), `millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
+  "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
+  "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
+  "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`],
+  "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
 };
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
+const nTabla = loc.format(",.2~f");
+// Tabla de la ficha dentro de la tarjeta (idea de USAFacts), con las mismas filas que el CSV
+function tablaDatos(filas) {
+  const MAX = 300, todas = Object.keys(filas[0]);
+  const cols = todas.includes("territorio") ? ["territorio", ...todas.filter(c => c !== "territorio" && c !== "codigo_indec")] : todas;
+  const anio = c => filas.every(r => r[c] == null || (Number.isInteger(r[c]) && r[c] >= 1800 && r[c] <= 2100));
+  const num = Object.fromEntries(cols.map(c => [c, filas.some(r => typeof r[c] === "number")]));
+  const v = (r, c) => r[c] == null ? "" : typeof r[c] === "number" ? (anio(c) ? String(r[c]) : nTabla(r[c])) : Array.isArray(r[c]) ? r[c].join(", ") : typeof r[c] === "object" ? JSON.stringify(r[c]) : r[c];
+  return `<div class="tabla-desliza"><table class="tabla-areas"><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
+    filas.slice(0, MAX).map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ' class="n"' : ""}>${esc(v(r, c))}</td>`).join("")}</tr>`).join("") +
+    `</tbody></table></div><p class="tabla-nota">${filas.length > MAX ? `Primeras ${MAX} filas de ${n0(filas.length)}. ` : ""}La tabla completa está en el CSV.</p>`;
+}
+// Imagen de la ficha: título, texto, gráfico y fuente en un PNG de doble resolución
+const svgUnico = f => { const v = [...f.querySelectorAll(".grafico svg")].filter(s => s.getBoundingClientRect().width > 0 && s.viewBox?.baseVal?.width); return v.length === 1 ? v[0] : null; };
+async function imagenFicha(f) {
+  // se vuelve a dibujar sin animación para no capturar barras o líneas a medio camino
+  const gr = svgUnico(f)?.closest(".grafico[data-g]");
+  if (gr && DIB[gr.dataset.g]) DIB[gr.dataset.g](false);
+  const svg = svgUnico(f); if (!svg) return;
+  const vb = svg.viewBox.baseVal, w = vb.width, h = vb.height;
+  const clon = svg.cloneNode(true), orig = [svg, ...svg.querySelectorAll("*")], copia = [clon, ...clon.querySelectorAll("*")];
+  const P = ["fill", "fill-opacity", "stroke", "stroke-width", "stroke-dasharray", "stroke-opacity", "stroke-linejoin", "stroke-linecap", "paint-order",
+    "opacity", "font-family", "font-size", "font-weight", "text-anchor", "dominant-baseline", "letter-spacing"];
+  orig.forEach((n, i) => { const cs = getComputedStyle(n); copia[i].setAttribute("style", P.map(k => `${k}:${cs.getPropertyValue(k)}`).join(";")); });
+  clon.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clon.setAttribute("width", w); clon.setAttribute("height", h);
+  const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clon)], {type: "image/svg+xml;charset=utf-8"}));
+  const img = new Image();
+  await new Promise((ok, mal) => { img.onload = ok; img.onerror = mal; img.src = url; });
+  const E = 2, pad = 32, W = Math.max(w, 600) + pad * 2, F = css("--f") || "Roboto, Verdana, sans-serif";
+  const med = document.createElement("canvas").getContext("2d");
+  const envolver = (t, font) => {
+    med.font = font; const lin = []; let l = "";
+    t.split(/\s+/).filter(Boolean).forEach(p => { const n = l ? l + " " + p : p; if (l && med.measureText(n).width > W - pad * 2) { lin.push(l); l = p; } else l = n; });
+    if (l) lin.push(l); return lin;
+  };
+  const fT = `600 24px ${F}`, fL = `400 15px ${F}`, fP = `400 12px ${F}`;
+  const tit = envolver(f.querySelector("h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
+  const pieL = envolver(`${f.querySelector(".pie span")?.textContent || ""}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
+  const H = pad + tit.length * 30 + 10 + lead.length * 21 + 18 + h + 22 + pieL.length * 17 + pad;
+  const cv = document.createElement("canvas"); cv.width = W * E; cv.height = H * E;
+  const ctx = cv.getContext("2d"); ctx.scale(E, E); ctx.textBaseline = "top";
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
+  let yy = pad;
+  ctx.fillStyle = css("--azul"); ctx.font = fT; tit.forEach(l => { ctx.fillText(l, pad, yy); yy += 30; }); yy += 10;
+  ctx.fillStyle = css("--ink"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); yy += 18;
+  ctx.drawImage(img, pad + (W - pad * 2 - w) / 2, yy, w, h); yy += h + 12;
+  ctx.strokeStyle = css("--azul"); ctx.setLineDash([1, 3]); ctx.beginPath(); ctx.moveTo(pad, yy); ctx.lineTo(W - pad, yy); ctx.stroke(); yy += 10;
+  ctx.fillStyle = css("--muted"); ctx.font = fP; pieL.forEach(l => { ctx.fillText(l, pad, yy); yy += 17; });
+  URL.revokeObjectURL(url);
+  cv.toBlob(b => {
+    const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `datina-${f.id.slice(2)}.png`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, "image/png");
+}
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   const tema = f.closest(".tema")?.querySelector("h2")?.textContent;
@@ -3810,9 +4128,24 @@ document.querySelectorAll("article.ficha").forEach(f => {
   if (c) h3.insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[1]}</span></p>`);
   const pie = f.querySelector(".pie"), csv = pie.querySelector("a");
   const acc = document.createElement("div"); acc.className = "acciones";
-  acc.innerHTML = `<button type="button" class="accion copiar"><span class="lbl">Copiar enlace</span></button>`;
+  const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre];
+  const conTabla = Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
+  acc.innerHTML = `<button type="button" class="accion copiar"><span class="lbl">Copiar enlace</span></button>` +
+    (conTabla ? `<button type="button" class="accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
+    (f.querySelector(".grafico[data-g]") ? `<button type="button" class="accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
   csv.className = "accion"; csv.innerHTML = `<span class="lbl">Descargar CSV</span>`;
   acc.appendChild(csv); pie.appendChild(acc);
+  acc.querySelector(".ver-tabla")?.addEventListener("click", ev => {
+    const b = ev.currentTarget, abierta = b.getAttribute("aria-expanded") === "true";
+    let caja = f.querySelector(".tabla-datos");
+    if (!caja) { caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(filas); pie.before(caja); }
+    caja.hidden = abierta; b.setAttribute("aria-expanded", String(!abierta));
+    b.querySelector(".lbl").textContent = abierta ? "Ver tabla" : "Ocultar tabla";
+  });
+  acc.querySelector(".imagen")?.addEventListener("click", ev => {
+    const l = ev.currentTarget.querySelector(".lbl");
+    imagenFicha(f).catch(() => { l.textContent = "No se pudo"; clearTimeout(l._t); l._t = setTimeout(() => { l.textContent = "Descargar imagen"; }, 1800); });
+  });
   const lbl = acc.querySelector(".copiar .lbl");
   const cambiar = t => { lbl.classList.add("cambia"); setTimeout(() => { lbl.textContent = t; lbl.classList.remove("cambia"); }, 120); };
   acc.querySelector(".copiar").addEventListener("click", async () => {
@@ -4026,13 +4359,155 @@ const PREG = [
 (() => {
   const btn = document.getElementById("menu-btn"), panel = document.getElementById("menu-panel");
   let t;
-  const abrir = () => { clearTimeout(t); panel.hidden = false; btn.setAttribute("aria-expanded", "true"); requestAnimationFrame(() => panel.classList.add("abierto")); panel.querySelector("a").focus({preventScroll: true}); };
+  const abrir = () => { clearTimeout(t); panel.hidden = false; btn.setAttribute("aria-expanded", "true"); requestAnimationFrame(() => panel.classList.add("abierto")); (matchMedia("(pointer:fine)").matches ? document.getElementById("menu-buscar") : panel.querySelector("a")).focus({preventScroll: true}); };
   const cerrar = (volver) => { panel.classList.remove("abierto"); btn.setAttribute("aria-expanded", "false"); t = setTimeout(() => panel.hidden = true, 160); if (volver) btn.focus(); };
   btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
   panel.addEventListener("click", ev => { if (ev.target.closest("a")) cerrar(false); });
   document.addEventListener("keydown", ev => { if (ev.key === "Escape" && btn.getAttribute("aria-expanded") === "true") cerrar(true); });
   document.addEventListener("pointerdown", ev => { if (!panel.contains(ev.target) && ev.target !== btn && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
 })();
+
+/* ---------- artículos: preguntas respondidas cruzando dos indicadores de las 24 jurisdicciones ----------
+   Los números y las frases que dependen de ellos se calculan acá desde la tabla de cruces, así se actualizan solos.
+   A mano van solo la pregunta (data-titulo en el marcado), el contexto y los límites propios de cada cruce, sin cifras.
+   Las advertencias generales (pocos casos, correlación no es causalidad, promedios provinciales, períodos distintos,
+   Spearman y Pearson que difieren) se agregan siempre que corresponden. */
+const ART = [
+  {id: "a-exportaciones-empleo", x: "exportaciones", y: "empleo_privado", espera: 1, icono: "boat", sec: "trabajo", frec: "Se actualiza cada año",
+    lx: "exportaciones por habitante", ly: "empleo privado registrado", ux: "dólares por habitante", uy: "asalariados cada 100 habitantes",
+    dek: "Lo que cada provincia le vende al mundo, frente a cuántas personas tienen un empleo privado registrado.",
+    contexto: "Exportar trae dólares a una provincia, pero no todas las actividades necesitan la misma cantidad de personas para producir lo mismo. Este cruce pone una cosa al lado de la otra, provincia por provincia.",
+    limites: ["El registro previsional asigna cada empleo a la provincia donde está inscripto el empleador. Por eso la Ciudad de Buenos Aires aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.",
+      "Las exportaciones se cuentan según la provincia donde se produjo la mercadería, no según dónde está la empresa que la vende."]},
+  {id: "a-cloacas-mortalidad", x: "cloaca", y: "mortalidad_infantil", espera: -1, icono: "drop", sec: "salud", frec: "Se actualiza cada año",
+    lx: "hogares con cloacas", ly: "mortalidad infantil", ux: "% de los hogares", uy: "muertes cada 1.000 nacidos vivos",
+    dek: "El acceso a la red cloacal según el último censo, frente a las muertes de bebés menores de un año.",
+    contexto: "El saneamiento forma parte de las condiciones en las que nace y crece un bebé. Este cruce compara la cobertura de cloacas de cada provincia con su tasa de mortalidad infantil.",
+    limites: ["La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.",
+      "La mortalidad infantil depende también de la atención durante el embarazo y el parto, que este cruce no mide."]},
+  {id: "a-cobertura-adolescentes", x: "sin_cobertura", y: "madres_adolescentes", espera: 1, icono: "baby", sec: "poblacion", frec: "Se actualiza cada año",
+    lx: "personas sin obra social ni prepaga", ly: "maternidad adolescente", ux: "% de las personas", uy: "% de los nacimientos",
+    dek: "La cobertura de salud del último censo, frente a la parte de los nacimientos que son de madres adolescentes.",
+    contexto: "En la Argentina, la obra social llega sobre todo con el empleo registrado. Por eso este cruce usa la falta de cobertura como una aproximación a las condiciones económicas de cada provincia.",
+    limites: ["La ficha de maternidad adolescente compara el mismo dato con otros indicadores del Censo, como las necesidades básicas insatisfechas y el secundario completo de los adultos."]},
+  {id: "a-recursos-empleo", x: "autonomia_fiscal", y: "empleo_privado", espera: 1, icono: "coins", sec: "trabajo", frec: "Se actualiza cada año",
+    lx: "recursos propios", ly: "empleo privado registrado", ux: "% de los ingresos", uy: "asalariados cada 100 habitantes",
+    dek: "Qué parte de sus ingresos recauda cada provincia, frente a cuánto empleo privado registrado tiene.",
+    contexto: "Las provincias se financian con lo que recaudan y con lo que reciben de la Nación. Una economía privada más grande puede dejar más impuestos propios, pero también pesan la coparticipación y las decisiones de cada gobierno.",
+    limites: ["Los recursos propios incluyen impuestos provinciales y otros ingresos, como las regalías. Una provincia con petróleo o minería puede recaudar mucho sin tener mucho empleo privado."]},
+  {id: "a-cobertura-esperanza", x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, icono: "heartbeat", sec: "salud", frec: "Se actualiza con cada censo",
+    lx: "personas sin obra social ni prepaga", ly: "esperanza de vida", ux: "% de las personas", uy: "años",
+    dek: "La esperanza de vida al nacer de cada provincia, frente a la parte de su población sin obra social ni prepaga.",
+    contexto: "La esperanza de vida resume en un número las condiciones de mortalidad de un período. La falta de obra social o prepaga se usa acá como una aproximación a las condiciones de vida, no como una medida del acceso a la salud: el hospital público atiende a todas las personas.",
+    limites: ["La esperanza de vida de 2020 y 2021 refleja la pandemia de COVID-19. Conviene mirar el año del dato antes de compararlo con otros períodos."]},
+  {id: "a-internet-aprender", x: "internet", y: "aprender_mat", espera: 1, icono: "graduation-cap", sec: "educacion", frec: "Se actualiza con cada Aprender",
+    lx: "hogares con internet", ly: "matemática en Aprender", ux: "% de los hogares", uy: "% de 6° grado en nivel satisfactorio o avanzado",
+    dek: "La conexión a internet en los hogares según el último censo, frente a los resultados de 6° grado en la evaluación Aprender.",
+    contexto: "Internet en el hogar suele acompañar a otras ventajas, como más ingresos o más años de estudio de los adultos. Por eso este cruce sirve para ver una desigualdad, no para medir el efecto de internet en el aprendizaje.",
+    limites: ["El cálculo propio de Aprender sobre la base agregada difiere levemente del informe oficial."]},
+  {id: "a-milei-empleo", x: "empleo_privado", y: "voto_milei_2023", espera: 1, icono: "bank", sec: "politica", frec: "El empleo se actualiza cada mes",
+    lx: "empleo privado registrado", ly: "voto a Milei en el balotaje", ux: "asalariados cada 100 habitantes", uy: "% de los votos positivos",
+    dek: "Cómo se repartió el voto del balotaje presidencial según el peso del empleo privado registrado en cada provincia.",
+    contexto: "El balotaje enfrentó a dos fórmulas con propuestas económicas distintas. Este cruce describe cómo se repartió el voto según el peso del empleo privado registrado en cada provincia, sin juzgar las razones de cada elector.",
+    limites: ["Votan todas las personas habilitadas, y el empleo privado registrado cubre solo a una parte de quienes trabajan.",
+      "El resultado es el del escrutinio provisorio, el único publicado como datos abiertos para esa elección."]},
+];
+const META_CX = Object.fromEntries(R.cruces.map(m => [m.id, m]));
+const rTxt = r => n2(r).replace(/[-−]/, "menos ");
+const fuerzaArt = r => { const a = Math.abs(r); return a >= .6 ? "fuerte" : a >= .4 ? "moderada" : a >= .2 ? "débil" : "casi nula"; };
+// "% de los hogares" se pega al número (45,2%) y el resto de la unidad va después
+const partesU = u => u.startsWith("%") ? ["%", u.replace(/^%\s*/, "")] : ["", u];
+function calcularArt(a) {
+  const F = T.cruces_provincias.filter(f => f[a.x] != null && f[a.y] != null);
+  const xs = F.map(f => f[a.x]), ys = F.map(f => f[a.y]);
+  const S = CX.simple(xs, ys), iCook = d3.maxIndex(S.cook), sinC = F.filter((_, i) => i !== iCook);
+  return {F, n: F.length, rs: CX.spearman(xs, ys), rp: CX.pearson(xs, ys), rs2: CX.spearman(sinC.map(f => f[a.x]), sinC.map(f => f[a.y])),
+    cook: F[iCook], arriba: F[d3.maxIndex(S.res)], abajo: F[d3.minIndex(S.res)]};
+}
+function textoArt(a, c) {
+  const Mx = META_CX[a.x], My = META_CX[a.y];
+  const fx = v => loc.format(`,.${Mx.dec}f`)(v), fy = v => loc.format(`,.${My.dec}f`)(v);
+  const [px, rx] = partesU(a.ux), [py, ry] = partesU(a.uy);
+  const vx = f => `${fx(f[a.x])}${px} ${rx}`, vy = f => `${fy(f[a.y])}${py} ${ry}`;
+  const ab = Math.abs(c.rs), mismo = Math.sign(c.rs) === a.espera;
+  const respuesta = ab < .2 ? "No hay un patrón claro." : !mismo ? "No: la relación va en sentido contrario." : ab >= .4 ? "Sí, en general." : "Apenas.";
+  const bajada = ab < .2
+    ? `En las ${c.n} jurisdicciones con dato, conocer el nivel de ${a.lx} casi no ayuda a anticipar el de ${a.ly}. La correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`
+    : `En las ${c.n} jurisdicciones con dato, las que tienen más ${a.lx} tienden a tener valores ${c.rs > 0 ? "más altos" : "más bajos"} de ${a.ly}. La relación es ${fuerzaArt(c.rs)}: la correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`;
+  const ord = [...c.F].sort((p, q) => q[a.x] - p[a.x]), top = ord.slice(0, 3), bajo = ord.slice(-3).reverse();
+  // "22,0 en Neuquén, 14,9 en Santa Cruz y 13,7 en Santa Fe": el nombre separa los números, sin ambigüedad con la coma decimal
+  const enProv = fs => listaY(fs.map(f => `${fy(f[a.y])}${py} en ${f.territorio}`));
+  const extremos = `Las tres jurisdicciones con más ${a.lx} son ${listaY(top.map(f => `${f.territorio} (${vx(f)})`))}. ` +
+    `En ${a.ly}, los valores son ${enProv(top)} (${ry}). ` +
+    `Las tres con menos son ${listaY(bajo.map(f => `${f.territorio} (${vx(f)})`))}. En ${a.ly}, esas tres tienen ${enProv(bajo)}.`;
+  const excep = `Las que más se apartan de la tendencia son ${c.arriba.territorio}, con ${vy(c.arriba)} y ${vx(c.arriba)}, por encima de la línea del gráfico, ` +
+    `y ${c.abajo.territorio}, con ${vy(c.abajo)} y ${vx(c.abajo)}, por debajo.`;
+  const peso = `${c.cook.territorio} es la jurisdicción que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05
+    ? `Sin ella, la correlación casi no cambia: pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}, así que el resultado no depende de un solo caso.`
+    : `Sin ella, la correlación de Spearman pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerzaArt(c.rs2) !== fuerzaArt(c.rs) ? `, una relación ${fuerzaArt(c.rs2)}.` : "."));
+  const lim = [`Son ${c.n} casos. Con tan pocos, una o dos jurisdicciones pueden cambiar el resultado.`,
+    "Una correlación no prueba que una cosa cause la otra. Las dos pueden responder a otros factores que este cruce no mide.",
+    "Son promedios de cada jurisdicción: no dicen qué pasa con cada persona ni con los municipios de una misma provincia.",
+    ...(Mx.periodo !== My.periodo ? [`Los períodos no coinciden: el dato de ${a.lx} es de ${Mx.periodo} y el de ${a.ly}, de ${My.periodo}.`] : []),
+    ...(Math.abs(c.rs - c.rp) > .2 ? [`La correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}. La diferencia con la de Spearman indica que unos pocos casos influyen mucho.`] : []),
+    ...a.limites];
+  return {respuesta, bajada, extremos, excep, peso, lim, vx, vy};
+}
+const fuenteArt = m => m.fuente.includes(m.periodo) ? m.fuente : `${m.fuente} (${m.periodo})`;
+const nombreSec = id => document.getElementById(id)?.querySelector("h2")?.textContent || "";
+const tarjetaArt = a => `<a class="art-card" href="${urlPagina(a.id)}"><span class="art-ico">${icono(a.icono)}</span>` +
+  `<span class="art-txt"><b>${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
+ART.forEach(a => {
+  const nota = document.getElementById(a.id);
+  a.titulo = nota.dataset.titulo; a.c = calcularArt(a); a.t = textoArt(a, a.c);
+});
+ART.forEach(a => {
+  const {c, t} = a, Mx = META_CX[a.x], My = META_CX[a.y], key = "art-" + a.id;
+  const ficha = id => { const el = id && document.getElementById(id); return el ? urlPagina(paginaDe(el), "#" + id) : null; };
+  const fichas = [...new Map([[Mx.ficha, Mx.nombre], [My.ficha, My.nombre]]).entries()].filter(([id]) => ficha(id));
+  const [px] = partesU(a.ux), [py] = partesU(a.uy);
+  document.getElementById(a.id).innerHTML =
+    `<a class="nota-volver" href="articulos.html">Artículos</a>` +
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit">${a.titulo}</h2></div></div>` +
+    `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
+    `<div class="nota-graf"><h3>${Mx.nombre} y ${My.nombre.toLowerCase()} por jurisdicción</h3><div class="grafico" data-g="${key}"></div>` +
+    `<p class="nota-pie-graf">Cada punto es una jurisdicción. La línea punteada muestra la tendencia.</p></div>` +
+    `<p>${t.extremos}</p><p>${t.excep}</p><p>${t.peso}</p>` +
+    `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
+    `<div class="nota-fuentes"><p>Fuentes: ${fuenteArt(Mx)} y ${fuenteArt(My)}.</p><div class="acciones">` +
+    fichas.map(([id, nom]) => `<a class="accion" href="${ficha(id)}">Ficha: ${nom.toLowerCase()}</a>`).join("") +
+    `<a class="accion" href="cruces.html?cx=${a.x}&cy=${a.y}">Abrir en Cruces</a><a class="accion" href="datos/cruces_provincias.csv" download>Descargar CSV</a></div></div>` +
+    `<nav class="nota-otras" aria-label="Otros artículos"><h2>Otros artículos</h2><div class="art-grid">${ART.filter(o => o !== a).slice(0, 3).map(tarjetaArt).join("")}</div></nav>`;
+  // en el gráfico van con nombre las jurisdicciones que menciona el texto
+  DIB[key] = anim => dispersion(G(key), {anim, data: c.F, x: a.x, y: a.y, yAuto: a.yAuto, xLab: Mx.nombre, yLab: My.nombre,
+    marcar: [c.arriba, c.abajo, c.cook].map(f => f.codigo_indec),
+    fx: v => n0(v) + px, fy: v => n0(v) + py, vx: v => a.t.vx({[a.x]: v}), vy: v => a.t.vy({[a.y]: v})});
+});
+const artGrid = document.getElementById("art-grid");
+if (artGrid) artGrid.innerHTML = ART.map(tarjetaArt).join("");
+const artHome = document.getElementById("art-grid-home");
+if (artHome) artHome.innerHTML = ART.slice(0, 6).map(tarjetaArt).join("");
+
+/* portada: tres destacados. El artículo destacado es el de la relación más marcada */
+const destGrid = document.getElementById("dest-grid");
+// el gorro frigio de la marca, en un botón redondo: invita a entrar sin usar una flecha genérica
+const GORRO = `<svg class="gorro-ir" viewBox="0 0 40 40">${document.querySelector(".marca .gorro").innerHTML}</svg>`;
+if (destGrid) {
+  // los artículos de política no van destacados por un cálculo automático
+  const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
+  const D3 = [
+    {cls: "azul", ico: "map-pin", eb: "Tu provincia", href: "provincia.html",
+      tit: prov && NOMBRES[prov] ? `${NOMBRES[prov]} en números` : "Las 24, una por una",
+      txt: "Cada provincia junto al total del país y su posición entre las 24, en todos los indicadores con dato provincial."},
+    {cls: "sol", ico: fuerte.icono, eb: "Artículo", href: urlPagina(fuerte.id), tit: fuerte.titulo, txt: fuerte.dek},
+    {cls: "hondo", ico: "scales", eb: "Congreso", href: "#f-votaciones-espacios",
+      tit: "Qué votó cada espacio en las leyes clave",
+      txt: "Los votos nominales de diputados y senadores, ley por ley, junto a la plataforma electoral que presentó cada alianza."},
+  ];
+  destGrid.innerHTML = D3.map(d => `<a class="dest ${d.cls}" href="${d.href}"><span class="dest-arte">${icono(d.ico)}</span>` +
+    `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.tit}</b><span class="dest-txt">${d.txt}</span>` +
+    `<span class="dest-ir" aria-hidden="true">${GORRO}</span></span></a>`).join("");
+}
 
 /* recuadro de estado de la portada */
 document.getElementById("estado").innerHTML =
@@ -4053,12 +4528,16 @@ document.addEventListener("click", ev => {
 });
 
 /* portada: una tarjeta por sección */
+const SEC_ICONO = {articulos: "newspaper", trabajo: "briefcase", empresas: "storefront", pobreza: "house-line", salud: "heartbeat", educacion: "graduation-cap",
+  poblacion: "users-three", politica: "bank", movilidad: "bus", energia: "lightning", turismo: "airplane-tilt", naturaleza: "tree",
+  curiosidades: "lightbulb", cruces: "chart-scatter", indice: "sliders-horizontal", departamentos: "map-trifold"};
 const grillaSec = document.getElementById("secciones-grid");
 if (grillaSec) grillaSec.innerHTML = [...document.querySelectorAll(".tema")].map(sec => {
   const n = sec.querySelectorAll("article.ficha:not(.explorador)").length;
   const preg = sec.querySelector(".tema-intro .pregunta")?.textContent || "";
-  return `<a class="sec-tarjeta${sec.classList.contains("herramienta") ? " herr" : ""}" href="${urlPagina(sec.id)}">` +
-    `<span class="sec-tipo">${sec.classList.contains("herramienta") ? "Herramienta" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
+  const na = sec.querySelectorAll("article.nota").length;
+  return `<a class="sec-tarjeta${sec.classList.contains("herramienta") ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
+    `<span class="sec-tipo">${sec.classList.contains("herramienta") ? "Herramienta" : na ? na + " artículos" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
     `<b>${sec.querySelector("h2").textContent}</b><span class="sec-preg">${preg}</span></a>`;
 }).join("");
 
@@ -4069,16 +4548,82 @@ if (PAGINA !== "inicio") {
   if (sec) sec.insertAdjacentHTML("beforeend", `<nav class="sec-pasos" aria-label="Otras secciones">${ir(todas[i - 1], "Anterior")}<a class="sec-todas" href="./#secciones"><small>Datina</small>Todas las secciones</a>${ir(todas[i + 1], "Siguiente")}</nav>`);
 }
 
+/* La respuesta primero (idea de USAFacts): las cifras clave de la sección arriba, antes de la explicación.
+   Salen de CLAVE y del perfil provincial (INDP), así que no hay cifras nuevas escritas a mano y el suicidio queda afuera.
+   Con una provincia elegida, sus indicadores reemplazan a la cifra del país de la misma ficha. */
+if (PAGINA !== "inicio") {
+  const sec = document.getElementById(PAGINA), intro = sec?.querySelector(".tema-intro");
+  if (sec && intro && !sec.classList.contains("herramienta")) {
+    const ids = new Set([...sec.querySelectorAll("article.ficha")].map(f => f.id)), conProv = new Set(), tarjetas = [];
+    if (prov && NOMBRES[prov]) INDP.forEach(c => {
+      const fila = ids.has(c.id) && c.d.find(d => d.codigo_indec === prov); if (!fila) return;
+      conProv.add(c.id);
+      const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
+      tarjetas.push(`<a class="cifra prov" href="#${c.id}"><span class="c-lab">${NOMBRES[prov]}</span><span class="c-num">${c.f(fila[c.k])}</span>` +
+        `<span class="c-txt">${c.lab}: ${c.det}.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`} Posición ${orden} de ${c.d.length}, de mayor a menor.</span></a>`);
+    });
+    ids.forEach(id => { const c = CLAVE[id]; if (c && !conProv.has(id)) tarjetas.push(`<a class="cifra" href="#${id}"><span class="c-num">${c[0]}</span><span class="c-txt">${c[1]}</span></a>`); });
+    if (!conProv.size && INDP.some(c => ids.has(c.id)))
+      tarjetas.push(`<a class="cifra elige" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
+    if (tarjetas.length >= 2) intro.insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.join("")}</div></div>`);
+  }
+  // en el celular, una fila de secciones que se desliza de costado, con la actual marcada
+  if (sec) {
+    const nav = document.createElement("nav"); nav.className = "pildoras"; nav.setAttribute("aria-label", "Secciones");
+    nav.innerHTML = [...document.querySelectorAll(".tema")].map(t => `<a href="${urlPagina(t.id)}"${t.id === SECCION ? ' aria-current="page"' : ""}>${t.querySelector("h2").textContent}</a>`).join("");
+    sec.prepend(nav);
+    const cur = nav.querySelector("[aria-current]");
+    if (cur) requestAnimationFrame(() => { nav.scrollLeft = cur.offsetLeft - 22; });
+  }
+}
+
+/* buscador del menú: secciones, fichas y preguntas de todo el sitio (cada página tiene todo el marcado) */
+(() => {
+  const ent = document.getElementById("menu-buscar"), res = document.getElementById("menu-resultados"), panel = document.getElementById("menu-panel");
+  if (!ent) return;
+  const st = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const ir = (el, hash) => { const p = paginaDe(el); return p === PAGINA ? hash : urlPagina(p, hash); };
+  let IDX;
+  const armar = () => {
+    IDX = [];
+    document.querySelectorAll(".tema").forEach(t => IDX.push({t: t.querySelector("h2").textContent, s: t.classList.contains("herramienta") ? "Herramienta" : "Sección",
+      u: urlPagina(t.id), x: t.querySelector(".tema-intro")?.textContent || "", sec: 1}));
+    document.querySelectorAll("article.ficha").forEach(f => {
+      const h = f.querySelector("h3")?.textContent.trim(); if (!h) return;
+      // las fichas de suicidio llevan a las líneas de ayuda, que van justo antes
+      const ayuda = document.getElementById("ayuda-suicidio");
+      const ancla = NOTA_A_LA_VISTA.has(f.id) && ayuda && (ayuda.compareDocumentPosition(f) & Node.DOCUMENT_POSITION_FOLLOWING) ? "#ayuda-suicidio" : "#" + f.id;
+      IDX.push({t: h, s: f.closest(".tema")?.querySelector("h2")?.textContent || "", u: ir(f, ancla), x: (f.querySelector(".lead")?.textContent || "") + " " + (CLAVE[f.id]?.[1] || "")});
+    });
+    PREG.forEach(([q, a, h]) => { const el = document.getElementById(h.slice(1)); if (el) IDX.push({t: q, s: "Pregunta", u: ir(el, h), x: a}); });
+    ART.forEach(a => IDX.push({t: a.titulo, s: "Artículo", u: urlPagina(a.id), x: a.dek + " " + a.t.bajada, sec: 1}));
+    IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
+  };
+  const buscar = () => {
+    const pal = st(ent.value.trim()).split(/\s+/).filter(Boolean);
+    panel.classList.toggle("buscando", pal.length > 0);
+    if (!pal.length) { res.hidden = true; res.innerHTML = ""; return; }
+    if (!IDX) armar();
+    const hall = IDX.map(d => ({d, p: pal.every(w => d.tt.includes(w) || d.xx.includes(w)) ? 1 + 2 * pal.filter(w => d.tt.includes(w)).length + (d.sec || 0) : 0}))
+      .filter(r => r.p).sort((a, b) => b.p - a.p).slice(0, 8);
+    res.hidden = false;
+    res.innerHTML = hall.length ? hall.map(({d}) => `<a href="${d.u}"><small>${esc(d.s)}</small>${esc(d.t)}</a>`).join("") : `<p class="menu-vacio">Nada coincide con la búsqueda</p>`;
+  };
+  ent.addEventListener("input", buscar);
+  ent.addEventListener("keydown", ev => { if (ev.key === "Enter") { const a = res.querySelector("a"); if (a) { ev.preventDefault(); a.click(); } } });
+})();
+
 /* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */
 const vistas = new IntersectionObserver(es => es.forEach(en => {
   if (!en.isIntersecting) return;
   const f = en.target; f.classList.add("visto"); vistas.unobserve(f);
   f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent) DIB[gr.dataset.g](!REDUCIR); });
+  const bi = f.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(f);
 }), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
-document.querySelectorAll("article.ficha").forEach(f => vistas.observe(f));
+document.querySelectorAll("article.ficha, article.nota").forEach(f => vistas.observe(f));
 
 /* navegación activa: la sección de esta página */
-document.querySelectorAll(".temas a, .menu-panel a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === PAGINA + ".html"));
+document.querySelectorAll(".temas a, .menu-panel a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
 
 /* la barra superior es azul sobre la portada y clara en el resto */
 const barra = document.querySelector(".barra");
