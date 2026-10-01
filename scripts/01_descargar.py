@@ -313,13 +313,123 @@ def votaciones():
     (CRUDO / "congreso_votaciones_meta.json").write_text(json.dumps({"commit": sha, "descargado": datetime.date.today().isoformat()}), encoding="utf-8")
 
 
+def opex_semestre():
+    """Origen Provincial de las Exportaciones: el anexo con el ultimo semestre se llama opex_anexo_cuadros_DD_MM_YY.xls
+    (la fecha es la de publicacion) y no tiene una pagina indice fija. Se prueban las fechas de principios de marzo
+    (dato anual) y de septiembre (primer semestre), de la mas nueva a la mas vieja, y se guarda el primero que exista."""
+    hoy = datetime.date.today()
+    candidatos = [datetime.date(a, m, d) for a in (hoy.year, hoy.year - 1) for m in (9, 3) for d in range(25, 0, -1)]
+    for f in sorted((c for c in candidatos if c <= hoy), reverse=True):
+        url = f"https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_{f:%d_%m_%y}.xls"
+        try:
+            datos = leer(url, 60)
+        except urllib.error.HTTPError:
+            continue
+        if datos[:4] != bytes.fromhex("d0cf11e0"):
+            continue
+        (CRUDO / "exportaciones_semestre.xls").write_bytes(datos)
+        (CRUDO / "exportaciones_semestre_meta.json").write_text(json.dumps({"url": url, "publicado": f.isoformat()}), encoding="utf-8")
+        return url
+    raise ValueError("no se encontro el anexo del OPEX")
+
+
+def bess():
+    """Boletin Estadistico de la Seguridad Social (Secretaria de Seguridad Social). Los nombres de los Excel cambian con
+    cada edicion (sufijos de fecha), asi que se leen desde la pagina del boletin."""
+    pagina = leer("https://www.argentina.gob.ar/trabajo/seguridadsocial/bess", 60).decode("utf-8", "ignore")
+    enlace = re.search(r'href="(/sites/default/files/estadisticas_de_seguridad_social_indicadores_[^"]+\.xlsx)"', pagina)
+    if not enlace:
+        raise ValueError("no se encontro el cuadro de indicadores en la pagina del BESS")
+    url = "https://www.argentina.gob.ar" + enlace.group(1)
+    datos = leer(url, 120)
+    if datos[:2] != b"PK":
+        raise ValueError("el archivo del BESS no es un Excel")
+    (CRUDO / "bess_indicadores.xlsx").write_bytes(datos)
+    return url
+
+
+def eph_antiguedad():
+    """Encuesta Permanente de Hogares (INDEC), bases usuarias de los cuatro ultimos trimestres publicados.
+    Se bajan a memoria y se guarda solo un resumen: porcentaje de asalariados (sin servicio domestico, que no responde
+    la pregunta) con un anio o menos en su empleo actual (PP07A de 1 a 4) y con mas de cinco anios (PP07A = 6),
+    por edad, generacion, nivel educativo, quintil de ingreso per capita familiar y registro. Codigos segun el
+    diseno de registro oficial (EPH_registro_1T2026.pdf). Los cortes por ingreso usan PONDIH, el ponderador que el
+    INDEC indica para los ingresos, y el resto PONDERA."""
+    import io, zipfile, pandas as pd
+    hoy = datetime.date.today()
+    candidatos = [(a, t) for a in range(hoy.year, hoy.year - 3, -1) for t in (4, 3, 2, 1)]
+    bases = []
+    for a, t in candidatos:
+        url = f"https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{t}_Trim_{a}_txt.zip"
+        try:
+            z = zipfile.ZipFile(io.BytesIO(leer(url, 300)))
+        except Exception:
+            continue
+        ind = next(n for n in z.namelist() if "individual" in n.lower())
+        d = pd.read_csv(z.open(ind), sep=";", low_memory=False, decimal=",",
+                        usecols=["ANO4", "TRIMESTRE", "ESTADO", "CAT_OCUP", "PP07A", "PP07H", "CH06", "NIVEL_ED", "P_DECCF", "PONDERA", "PONDIH"])
+        bases.append(d)
+        if len(bases) == 4:
+            break
+    if len(bases) < 4:
+        raise ValueError("no se encontraron cuatro trimestres de la EPH")
+    d = pd.concat(bases)
+    d = d[(d.ESTADO == 1) & (d.CAT_OCUP == 3) & d.PP07A.between(1, 6)].copy()
+    d["corto"] = d.PP07A.between(1, 4)
+    d["largo"] = d.PP07A == 6
+    nac = d.ANO4 - d.CH06
+    grupos = {
+        "edad": pd.cut(d.CH06, [0, 24, 34, 44, 54, 64, 120], labels=["Hasta 24 años", "25 a 34", "35 a 44", "45 a 54", "55 a 64", "65 y más"]),
+        "generacion": pd.cut(nac, [0, 1964, 1980, 1996, 3000], labels=["Nacidos antes de 1965", "1965 a 1980", "1981 a 1996", "Desde 1997"]),
+        "educacion": d.NIVEL_ED.map({7: "Hasta primaria completa", 1: "Hasta primaria completa", 2: "Hasta primaria completa", 3: "Secundaria incompleta",
+                                     4: "Secundaria completa", 5: "Superior incompleto", 6: "Superior completo"}),
+        "ingreso": pd.to_numeric(d.P_DECCF, errors="coerce").map(lambda x: f"Quintil {int((x + 1) // 2)}" if 1 <= x <= 10 else None),
+        "registro": d.PP07H.map({1: "Con descuento jubilatorio", 2: "Sin descuento jubilatorio"}),
+        "total": pd.Series("Total de asalariados", index=d.index),
+    }
+    ORDEN_EPH = {"educacion": ["Hasta primaria completa", "Secundaria incompleta", "Secundaria completa", "Superior incompleto", "Superior completo"]}
+    filas = []
+    for dim, g in grupos.items():
+        peso = d.PONDIH if dim == "ingreso" else d.PONDERA
+        orden = list(g.cat.categories) if hasattr(g, "cat") else ORDEN_EPH.get(dim, sorted(g.dropna().unique()))
+        for i, cat in enumerate(orden):
+            m = g == cat
+            w = peso[m]
+            if w.sum() == 0:
+                continue
+            filas.append({"dimension": dim, "grupo": cat, "orden": i, "casos": int(m.sum()),
+                          "pct_un_anio_o_menos": round(float((w * d.corto[m]).sum() / w.sum() * 100), 1),
+                          "pct_mas_de_cinco_anios": round(float((w * d.largo[m]).sum() / w.sum() * 100), 1)})
+    pd.DataFrame(filas).to_csv(CRUDO / "eph_antiguedad_resumen.csv", index=False)
+    trims = sorted({(int(a), int(t)) for a, t in d[["ANO4", "TRIMESTRE"]].drop_duplicates().values})
+    (CRUDO / "eph_antiguedad_meta.json").write_text(json.dumps({"trimestres": trims}), encoding="utf-8")
+    return "indec.gob.ar EPH bases usuarias " + ", ".join(f"{t}T{a}" for a, t in trims)
+
+
+def oede_empresas():
+    """Observatorio de Empleo y Dinamica Empresarial (Ministerio de Capital Humano): empresas privadas empleadoras por
+    provincia y aperturas y cierres de empresas locales desde 1996, con base en el SIPA. El nombre del Excel cambia con
+    cada edicion (provinciales_serie_empresas2_N.xlsx), asi que se lee desde la pagina de estadisticas provinciales."""
+    pagina = leer("https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales", 60).decode("utf-8", "ignore")
+    enlace = re.search(r'href="(/sites/default/files/provinciales_serie_empresas2[^"]*\.xlsx)"', pagina)
+    if not enlace:
+        raise ValueError("no se encontro la serie de empresas en la pagina del OEDE")
+    url = "https://www.argentina.gob.ar" + enlace.group(1)
+    datos = leer(url, 120)
+    if datos[:2] != b"PK":
+        raise ValueError("el archivo del OEDE no es un Excel")
+    (CRUDO / "oede_empresas_provincias.xlsx").write_bytes(datos)
+    return url
+
+
 registro = []
-for _nombre, _f in [("votaciones nominales", votaciones)]:
+for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
+                    ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas)]:
     try:
-        _f()
-        registro.append([_nombre, "github.com/rquiroga7/como_voto", datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
+        _origen = _f() or "github.com/rquiroga7/como_voto"
+        registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
     except Exception as e:  # si falla se conservan los archivos anteriores
-        registro.append([_nombre, "github.com/rquiroga7/como_voto", datetime.datetime.now().isoformat(timespec="seconds"), f"error: {e}"])
+        registro.append([_nombre, "", datetime.datetime.now().isoformat(timespec="seconds"), f"error: {e}"])
         print(f"{_nombre}: error", e)
 try:
     departamentos()

@@ -11,8 +11,9 @@ Al empezar una sesión, leer la sección final "Pendientes y próximos pasos".
 ```
 scripts/01_descargar.py        baja cada fuente tal como la publica el organismo a datos/crudo/
 scripts/02_procesar.py         arma datos/ordenado/tabla_larga.csv, sitio/datos/fichas.json y un CSV por ficha
-scripts/03_construir_sitio.py  inserta fichas.json en scripts/plantilla.html y escribe sitio/index.html
-scripts/plantilla.html         diseño, textos y gráficos (D3 7.8.5 desde cdnjs)
+scripts/03_construir_sitio.py  escribe sitio/datos/fichas.js y una página por sección desde scripts/plantilla.html
+scripts/plantilla.html         diseño, textos y gráficos (D3 7.8.5 desde cdnjs), con el marcado de todas las secciones
+datos/manual/explicadores.json contenido "Para entender los datos" de cada página, con fuentes oficiales y citas
 pobreza/                       sitio de consultas de pobreza (Observable Framework, DuckDB en el navegador, datos en Parquet)
 sitio/                         lo único que se publica en Netlify
 .github/workflows/             actualización automática mensual
@@ -36,6 +37,16 @@ Población provincial 2025: se deriva de las tasas del SNIC (cantidad / tasa x 1
 
 Los textos se generan desde `resumen`, nunca con cifras escritas a mano, así se actualizan solos.
 
+Después de tocar la plantilla, chequear la sintaxis del JavaScript de una página generada (por ejemplo con `node` y `new Function` sobre cada `<script>`): un error de sintaxis deja la página sin textos ni gráficos.
+
+## Páginas (octubre de 2026, pedido del autor)
+
+- Cada sección tiene su página con dirección propia: `index.html` (portada, preguntas, tu provincia y la grilla de secciones) y `trabajo.html`, `emprendedores.html`, `pobreza.html`, ..., `cruces.html`, `indice.html`, `departamentos.html`. `sitio/pobreza/` sigue siendo el consultor de pobreza (Observable), distinto de `pobreza.html`.
+- Todas las páginas salen de la misma plantilla con todo el marcado. `03_construir_sitio.py` pone `data-pagina` en el `<body>`, un `<style id="pagina">` que oculta las secciones ajenas, y el título y la descripción de cada página. El JavaScript no cambia entre páginas y los gráficos ocultos no se dibujan. Los datos van en `sitio/datos/fichas.js` (`window.DATINA`), que el navegador baja una sola vez para todas las páginas (con `?v=` según su contenido).
+- Navegación: `PAGINA`, `paginaDe()` y `urlPagina()` en la plantilla. Los enlaces a una ficha de otra página (perfil provincial, preguntas, cierre de Emprendedores) se reescriben solos (`destinoDe`). Los enlaces viejos de la página única (`#f-empleo?prov=30`, `#salud`, `?cx=`, `?ix=`) redirigen a la página nueva desde `index.html`. La provincia elegida pasa entre páginas por `localStorage` y `?prov=`. Al pie de cada sección van "Anterior", "Todas las secciones" y "Siguiente".
+- Cada página abre con su pregunta (`.tema-intro`) y "Para entender los datos" (`<!--EXPLICADOR:id-->`, lo completa el constructor desde `datos/manual/explicadores.json`): bloques con título, texto y fuentes, y un glosario plegado. Reglas del contenido: solo fuentes oficiales, cada afirmación con su URL y una cita textual corta (campo `cita`, no se muestra pero sirve para verificar), sin cifras estadísticas (solo fechas, definiciones, normas y métodos), sin punto y coma. Las de Cruces, Tu índice y Departamentos describen métodos propios. Verificación de octubre de 2026: 275 citas encontradas en su fuente con un programa que baja cada documento y busca la cita. Excepciones aceptadas: ONU Turismo (definiciones de turista), Gapminder, la OCDE y la documentación de Georef.
+- El plegado de fichas por sección (dos a la vista y un botón), hecho la mañana del 1 de octubre de 2026, se sacó al pasar a páginas. Quedaron las notas plegadas en "Sobre los datos" (`details.sobre`, salvo suicidio en `NOTA_A_LA_VISTA` y herramientas) y la compactación en celular.
+
 ## Reglas de redacción (obligatorias)
 
 - Español rioplatense. Títulos de ficha descriptivos y neutros, con período ("Tasa de suicidios por provincia, 2025"), nunca retóricos ni ingeniosos. Las preguntas van solo en el índice.
@@ -56,6 +67,7 @@ Los textos se generan desde `resumen`, nunca con cifras escritas a mano, así se
 - Fondo de la portada: mapa del mundo en proyección azimutal equidistante centrada en la Argentina (`sitio/datos/mundo-110m.json`, world-atlas), con anillos de igual distancia. La Argentina y las Islas Malvinas van en celeste. El mapa se ubica en el espacio libre: debajo del texto en pantallas anchas y a la izquierda del sol en el celular.
 - Cada ficha es una tarjeta blanca con borde fino y sombra suave (pedido del autor, septiembre 2026): etiqueta de sección, título, cifra destacada (objeto `CLAVE`, siempre generada desde `resumen`), texto, gráfico, nota y pie con fuente, "Copiar enlace" y "Descargar CSV". Las fichas de suicidio no llevan cifra destacada, para no dramatizar.
 - Movimiento (criterios de Emil Kowalski y Apple): la tarjeta y su gráfico aparecen una sola vez al entrar en pantalla, con ease-out fuerte `cubic-bezier(.23,1,.32,1)`. Las líneas se trazan, las barras crecen y en los gráficos de antes y después el punto viaja del valor viejo al nuevo. Botones con `scale(.97)` al presionar, hover solo con mouse. Con movimiento reducido no hay desplazamientos, solo fundidos.
+- Largo de la página (octubre 2026, pedido del autor: "el scroleo es infinito"): la página única medía 76.400 píxeles en celular. Ahora cada sección es una página propia (ver "Páginas"). Las notas de cada ficha van plegadas en "Sobre los datos" (`details.sobre`), salvo las de suicidio (lista `NOTA_A_LA_VISTA`, sumar ahí cualquier ficha sensible nueva) y las de las herramientas. Los gráficos de barras de 24 provincias usan filas de 20 píxeles en pantallas angostas (24 en las anchas).
 - Sin flechas decorativas ni estética de plantilla genérica. Etiquetas directas en las líneas en lugar de leyendas.
 - Solo modo claro (todo blanco, pedido del autor). Responsive, foco visible, respeta movimiento reducido.
 
@@ -88,7 +100,7 @@ Relevamiento de septiembre de 2026: Argendata (Fundar) es casi toda nacional. Ti
 
 Relevamiento: Argendata, datos.gob.ar, INDEC, CEP XXI (congelado en 2023), UCA, CIPPEC y CFI no tienen un panel provincia por año de varias fuentes, ni mapa por departamento, ni índice con pesos propios, ni comparación con el mundo. Referencias de afuera: Data México, Data USA, ONS Explore local statistics, TerriData, IBGE Cidades, Atlas Brasil, Better Life Index de la OCDE, County Health Rankings.
 - Público (septiembre 2026, tras el feedback de la mentora del autor): decisores, periodistas y gente curiosa con algo de manejo de datos. Más adelante, una sección para emprendedores (oportunidades, problemas para resolver, tendencias). Cada sección tiene que ayudar a entender un problema, opinar mejor y detectar oportunidades.
-- Jerarquía y orden: de lo más cercano a la vida cotidiana a lo más lejano. Orden: provincia, trabajo, pobreza, salud, educación, población, política, movilidad, energía, turismo, naturaleza, curiosidades y al final las herramientas (Cruces, Tu índice, Departamentos). La barra muestra Trabajo, Pobreza, Salud, Educación, Población y Política, y el botón "Secciones" abre todas (también en el celular). Cada sección abre con una pregunta (`.tema-intro`) y las seis principales cierran con "Para pensar" y "Oportunidades" (`.tema-cierre`), sin cifras escritas a mano. Dentro de cada sección, las fichas van de lo cercano a lo lejano (por ejemplo, Salud arranca con esperanza de vida y mortalidad infantil, y Educación con Aprender). La sección del mapa se llama `#departamentos` porque `#mapa` es el dibujo de fondo de la portada.
+- Jerarquía y orden: de lo más cercano a la vida cotidiana a lo más lejano. Orden: provincia, trabajo, emprendedores, pobreza, salud, educación, población, política, movilidad, energía, turismo, naturaleza, curiosidades y al final las herramientas (Cruces, Tu índice, Departamentos). La barra muestra Trabajo, Pobreza, Salud, Educación, Población y Política, y el botón "Secciones" abre todas (también en el celular). Cada sección abre con una pregunta (`.tema-intro`) y las seis principales cierran con "Para pensar" y "Oportunidades" (`.tema-cierre`), sin cifras escritas a mano. Dentro de cada sección, las fichas van de lo cercano a lo lejano (por ejemplo, Salud arranca con esperanza de vida y mortalidad infantil, y Educación con Aprender). La sección del mapa se llama `#departamentos` porque `#mapa` es el dibujo de fondo de la portada.
 - Tu provincia: además del perfil, "provincias parecidas" (distancia en desvíos estándar sobre todos los indicadores del explorador) y "si tu provincia fuera un país" (país más cercano en esperanza de vida y mortalidad infantil, Banco Mundial en español: `bm_paises.json`, `bm_mundo_*.json`, tabla `mundo_paises`).
 - Cruces: evolución año por año al estilo Gapminder cuando los dos indicadores tienen serie (`sitio/datos/cruces_series.csv`, se baja solo al pedirla; `resumen.cruces_series` indica los años). Botón Reproducir, control de año y estela de la provincia elegida. La población por año sale de las tasas del SNIC.
 - Tu índice: siete dimensiones con pesos de 0 a 5 elegidos por cada persona (idea del Índice para una Vida Mejor de la OCDE). Cada indicador en escala 0 a 10 entre el peor y el mejor valor de las 24 (exportaciones y velocidad en logaritmo). Los pesos quedan en el enlace (`?ix=`).
@@ -173,17 +185,27 @@ Netlify toma la carpeta `sitio/` (ver `netlify.toml`). Con el repositorio en Git
 - Diseño: se sacó el juego de adivinar de nacimientos (no se entendía) y el "actualizado" de la portada. Tipografía más chica y menos condensada (títulos de sección de 40 a 64 px, de ficha de 21 a 28 px) y reglas para celular (controles a lo ancho, notas más chicas, sin marco).
 
 
-## Pendientes y próximos pasos (al 30 de septiembre de 2026)
+## Fuentes sumadas en octubre de 2026
 
-Estado: todo lo hecho está en GitHub (último cambio: votaciones del Congreso y cruce con los ATN).
-- Confirmar con el autor la ubicación de las líneas de ayuda sobre suicidio: hoy van justo antes de las fichas de suicidio, al final de Salud (la regla de arriba ya lo refleja, falta su visto bueno).
-- Publicación estable: el autor tiene que conectar el repositorio de GitHub a Netlify (carpeta `sitio`, sin comando de construcción, ver `netlify.toml`), con vistas previas por rama para probar. Mientras tanto el sitio se muestra con un túnel temporal de cloudflared sobre `python -m http.server 8765 --directory sitio`, que se corta al cerrar la sesión o apagar la computadora: hay que abrir uno nuevo y pasarle el enlace.
-- Votaciones: cruzar el voto de los legisladores con el voto electoral de su provincia y sumar leyes anteriores a 2008.
-- Ideas de la mentora todavía sin hacer:
-  - Trabajo: rotación laboral por edad, generación, nivel educativo y nivel socioeconómico (EPH).
-  - Población: pirámide de población y su efecto en las jubilaciones.
-  - Política: al tocar el color de un espacio, qué propone y qué votó (base: `votaciones_leyes_clave`), y las leyes que más cambiaron la vida cotidiana.
-  - Educación: soluciones y proyectos (por ejemplo, DGEMPRE), no solo diagnósticos.
-  - Sección nueva para emprendedores: oportunidades, problemas para resolver y tendencias.
-- Datos que esperan publicación: RENAPER 2025, Encuesta de Ocupación Hotelera posterior a noviembre de 2025, exportaciones por provincia del primer semestre de 2026 (anexo con nombre variable), cuentas fiscales 2026 completas.
-- Entorno: en septiembre de 2026 una búsqueda instaló `pypdf` en el Python general sin que el proyecto lo use. El autor puede quitarlo con `pip uninstall pypdf`.
+- Exportaciones del último semestre (INDEC, OPEX): el anexo se llama `opex_anexo_cuadros_DD_MM_YY.xls` con la fecha de publicación y no tiene página índice fija. `opex_semestre()` en `01_descargar.py` prueba fechas de marzo y septiembre. Datos provisorios. La ficha de exportaciones compara el primer semestre con el del año anterior.
+- Seguridad social (Boletín Estadístico de la Seguridad Social, `bess()`): los nombres de los Excel cambian en cada edición y se leen desde la página del BESS. Se usa el cuadro 4.1.1.1 (aportantes por beneficio de ANSES desde 1994). No se compara entre provincias porque varias tienen su propia caja previsional. Ficha `f-jubilaciones`.
+- Pirámide de población (`f-piramide`): proyecciones del INDEC por sexo y edad. En ese archivo el sexo 1 son mujeres y el 2 varones (verificado con los datos: al nacer hay más del 2 y entre las personas mayores más del 1).
+- Antigüedad en el empleo (`f-rotacion`, EPH del INDEC): `eph_antiguedad()` baja los cuatro últimos trimestres y guarda solo un resumen (`eph_antiguedad_resumen.csv`). Pregunta PP07A (1 a 4 = un año o menos, 6 = más de cinco años, según el diseño de registro oficial), asalariados salvo servicio doméstico, quintiles con `P_DECCF` y el ponderador `PONDIH`. Solo aglomerados urbanos, sin detalle provincial.
+- Empresas (`f-empresas`, `f-dinamica-empresas`, sección Emprendedores): OEDE del Ministerio de Capital Humano en base al SIPA (`oede_empresas()`, nombre del Excel leído desde la página). La provincia de Buenos Aires viene partida en partidos del GBA y resto: se suman las cantidades y las tasas se recalculan con el denominador implícito (aperturas / tasa de entrada). Apertura y cierre con empresas locales (suman el total del país).
+- Voto de los legisladores y de su provincia (`f-voto-provincia`): coincidencia con el bloque oficialista en las leyes clave contra el voto al presidente en la primera vuelta, por gobierno (`ELECCION_DEL_GOBIERNO` en `02_procesar.py`), con Spearman.
+- Plataformas electorales 2023 (Cámara Nacional Electoral, orden nacional): enlazadas al pie de la tabla de leyes clave por espacio (`PLATAFORMA_2023`). No se resumen ni se interpretan. La UCR y el PRO llevan a la de Juntos por el Cambio.
+- Encuesta de Ocupación Hotelera y Encuesta de Turismo Internacional: el INDEC no renovó el convenio de financiamiento con la Secretaría de Turismo y las reformula. La EOH nacional termina en noviembre de 2025. La Ciudad de Buenos Aires sigue relevando sus hoteles (IDECBA). Las notas de las fichas lo aclaran.
+- Demanda eléctrica: la serie 367.3 la publica la Subsecretaría de Programación Macroeconómica con datos de CAMMESA (no la Secretaría de Energía, corregido en los pies de las fichas).
+
+## Pendientes y próximos pasos (al 1 de octubre de 2026)
+
+Estado: páginas por sección, contenido explicativo y fichas nuevas (exportaciones del semestre, pirámide, jubilaciones, rotación laboral, Emprendedores, voto de legisladores y provincia, plataformas 2023). Falta guardarlo en GitHub cuando el autor lo pida.
+- Líneas de ayuda sobre suicidio: el autor confirmó (1 de octubre de 2026) que quedan justo antes de las fichas de suicidio, al final de Salud.
+- Decisión del autor: en celular, "Para entender los datos" ocupa de 1.000 a 3.800 píxeles antes del primer gráfico (Política, Trabajo, Pobreza y Salud son las más largas). Opción propuesta: dejar abierto el primer bloque y plegar el resto.
+- Decisión del autor: votaciones anteriores a 2008. La copia de ¿Cómo Votó? tiene pocas actas de Diputados entre 1993 y 2003 (22 a 54 por año) y el Senado recién desde 2005. Candidatas con acta en las dos cámaras: Ley de Educación Nacional (2006), reforma del Consejo de la Magistratura (2005 y 2006), cambios a la ley de Administración Financiera ("superpoderes", 2006) y Bosques Nativos (2007). Sumar en `leyes_clave.csv` con el id de cada acta.
+- Decisión del autor: "las leyes que más cambiaron la vida cotidiana". Propuesta: marcar un subconjunto de las 25 leyes clave (por ejemplo matrimonio igualitario, interrupción voluntaria del embarazo, fin de las AFJP, movilidad jubilatoria, Ganancias, modernización laboral, Ley Bases, financiamiento universitario).
+- La idea de Educación con soluciones y proyectos quedó afuera (el autor pidió no seguir el ejemplo de DGEMPRE). Si se retoma, buscar programas con evaluaciones oficiales publicadas.
+- Publicación estable: el autor tiene que conectar el repositorio de GitHub a Netlify (carpeta `sitio`, sin comando de construcción). Mientras tanto, túnel temporal de cloudflared sobre `python -m http.server 8765 --directory sitio`.
+- Datos que esperan publicación (revisado el 1 de octubre de 2026): RENAPER 2025 (nacimientos, extranjeros y nombres siguen en 2024 o junio de 2026), cuentas fiscales 2025 de La Pampa (la serie sigue con 23 provincias) y 2026 completo (solo hay primer trimestre, no comparable). La EOH nacional no tiene reemplazo.
+- Carne, vino y yerba: el servidor del Ministerio de Economía (sspmi) devuelve 404. Se conservan los archivos del 28/09/2026.
+- Ideas de la mentora todavía sin hacer: al tocar el color de un espacio, ver qué votó en todas las leyes (hoy está en la tabla), y una sección de soluciones en Educación.

@@ -6,7 +6,7 @@ Lee datos/crudo/, escribe:
   sitio/datos/<ficha>.csv          la tabla de cada ficha, para descargar
 Uso: python scripts/02_procesar.py
 """
-import io, json, pathlib, re, unicodedata, zipfile
+import datetime, io, json, pathlib, re, unicodedata, zipfile
 import numpy as np
 import pandas as pd
 
@@ -66,6 +66,49 @@ envejec = envejec.round({"vejez_hoy": 1, "vejez_2040": 1})
 d = _pv.reset_index()
 d = d[d.codigo_indec != "00"].rename(columns={"anio": "periodo", "vejez": "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
 agregar(d, "personas_65_mas_cada_100_de_15_a_64", "personas", "INDEC, proyecciones de poblacion 2022 a 2040")
+
+# Piramide de poblacion: personas por sexo y grupo de edad quinquenal, anio en curso y 2040, por provincia y pais.
+# En el archivo del INDEC el sexo 1 son mujeres y el 2 varones: al nacer hay mas del 2 (unos 104 cada 100, como en todas
+# las poblaciones) y entre las personas mayores y en el total hay mas del 1.
+_pi = proy[proy.anio.isin([ANIO_PROY, 2040])].copy()
+_pi["sexo"] = _pi.Sexo.map({1: "mujeres", 2: "varones"})
+_pi["edad"] = _pi.edad.clip(upper=90)  # 90 y mas en un solo grupo
+_pi = _pi.groupby(["codigo_indec", "anio", "sexo", "edad"]).pob.sum().reset_index()
+_pi = pd.concat([_pi, _pi.groupby(["anio", "sexo", "edad"]).pob.sum().reset_index().assign(codigo_indec="00")])
+piramide = _pi.pivot_table(index=["codigo_indec", "edad", "sexo"], columns="anio", values="pob").reset_index()
+piramide.columns = ["codigo_indec", "edad", "sexo", "personas_hoy", "personas_2040"]
+piramide["territorio"] = piramide.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+piramide = piramide[["codigo_indec", "territorio", "sexo", "edad", "personas_hoy", "personas_2040"]].round(0)
+_pp = piramide[piramide.codigo_indec == "00"]
+_med = lambda col: float(np.interp(_pp.groupby("edad")[col].sum().sum() / 2, _pp.groupby("edad")[col].sum().cumsum().values, _pp.groupby("edad")[col].sum().index.values + 5))
+pir_res = {"anio": ANIO_PROY, "edad_mediana_hoy": round(_med("personas_hoy")), "edad_mediana_2040": round(_med("personas_2040")),
+           "menores15_hoy": round(float(_pp[_pp.edad < 15].personas_hoy.sum() / _pp.personas_hoy.sum() * 100), 1),
+           "menores15_2040": round(float(_pp[_pp.edad < 15].personas_2040.sum() / _pp.personas_2040.sum() * 100), 1)}
+
+# Aportantes por beneficio previsional (Boletin Estadistico de la Seguridad Social, cuadro 4.1.1.1): regimenes de ANSES,
+# promedio anual, el ultimo anio es el ultimo mes disponible. No se compara entre provincias: trece provincias tienen su
+# propia caja previsional fuera de ANSES.
+jub_res, jubil = None, None
+if (CRUDO / "bess_indicadores.xlsx").exists():
+    t = pd.read_excel(CRUDO / "bess_indicadores.xlsx", sheet_name="4.1.1.1", header=None)
+    filas = []
+    for i in range(len(t)):
+        v0 = t.iat[i, 0]
+        anio = v0.year if isinstance(v0, (pd.Timestamp, datetime.datetime)) else (int(v0) if isinstance(v0, (int, float, np.integer)) and not pd.isna(v0) and 1990 < v0 < 2100 else None)
+        if anio and pd.notna(t.iat[i, 1]) and pd.notna(t.iat[i, 2]):
+            mes = v0.month if isinstance(v0, (pd.Timestamp, datetime.datetime)) else None
+            filas.append({"anio": anio, "mes": mes, "aportantes": round(float(t.iat[i, 1])), "beneficios": round(float(t.iat[i, 2]))})
+    jubil = pd.DataFrame(filas)
+    jubil["aportantes_por_beneficio"] = (jubil.aportantes / jubil.beneficios).round(3)
+    _u, _i = jubil.iloc[-1], jubil.iloc[0]
+    _mx = jubil.loc[jubil.aportantes_por_beneficio.idxmax()]
+    _mn = jubil.loc[jubil.aportantes_por_beneficio.idxmin()]
+    jub_res = {"anio": int(_u.anio), "mes": None if pd.isna(_u.mes) else int(_u.mes), "ratio": round(float(_u.aportantes_por_beneficio), 2),
+               "aportantes": int(_u.aportantes), "beneficios": int(_u.beneficios), "ini": int(_i.anio), "ini_ratio": round(float(_i.aportantes_por_beneficio), 2),
+               "max_anio": int(_mx.anio), "max": round(float(_mx.aportantes_por_beneficio), 2), "min_anio": int(_mn.anio), "min": round(float(_mn.aportantes_por_beneficio), 2)}
+    d = jubil[["anio", "aportantes_por_beneficio"]].rename(columns={"anio": "periodo", "aportantes_por_beneficio": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "aportantes_por_beneficio_previsional", "aportantes por beneficio", "Secretaria de Seguridad Social, BESS")
 
 # ---------------------------------------------------------------- energia
 e = pd.read_csv(CRUDO / "energia_emae.csv", parse_dates=["indice_tiempo"])
@@ -907,6 +950,129 @@ EXP_TOTAL = float(ex[(ex.anio == ANIO_EX) & (ex.codigo_indec == "00")].millones_
 d = exp_prov[["codigo_indec", "territorio", "usd_por_habitante"]].rename(columns={"usd_por_habitante": "valor"}); d["periodo"] = ANIO_EX
 agregar(d, "exportaciones_usd_por_habitante", "dolares por habitante", "INDEC, Origen Provincial de las Exportaciones")
 
+# Ultimo semestre publicado contra el mismo semestre del anio anterior (anexo del OPEX, ver opex_semestre() en 01_descargar.py).
+# Los valores son provisorios. Si el anexo es de un anio ya completo en la serie anual, no agrega nada.
+EX_SEM = None
+if (CRUDO / "exportaciones_semestre.xls").exists():
+    _xs = pd.ExcelFile(CRUDO / "exportaciones_semestre.xls")
+    _hoja = next((h for h in _xs.sheet_names if h.lower().startswith("region-prov") and "semestre" in h.lower()), None)
+    if _hoja:
+        t = _xs.parse(_hoja, header=None)
+        f_anio = t.index[t.apply(lambda r: r.astype(str).str.match(r"^20\d\d").sum() >= 3, axis=1)][0]
+        anios = {j: int(str(t.iat[f_anio, j])[:4]) for j in range(2, t.shape[1]) if re.match(r"^20\d\d", str(t.iat[f_anio, j]))}
+        u = max(anios.values())
+        ju, ja = [j for j, a in anios.items() if a == u][0], [j for j, a in anios.items() if a == u - 1][0]
+        filas = []
+        for i in range(f_anio + 1, len(t)):
+            nom = str(t.iat[i, 1]).strip()
+            cod = "00" if nom == "Total general" else (codigo(nom.replace(", Antártida e Islas del Atlántico Sur", "")) if nom != "nan" else None)
+            if cod:
+                filas.append({"codigo_indec": cod, "actual": float(t.iat[i, ju]), "anterior": float(t.iat[i, ja])})
+        sem = pd.DataFrame(filas).drop_duplicates("codigo_indec")
+        sem["var"] = (sem.actual / sem.anterior - 1) * 100
+        if u > ANIO_EX and sem.codigo_indec.nunique() == 25:
+            _p = sem[sem.codigo_indec == "00"].iloc[0]
+            _pr = sem[sem.codigo_indec != "00"].assign(territorio=lambda x: x.codigo_indec.map(CORTO))
+            _sube = int((_pr["var"] > 0).sum())
+            _t, _b = _pr.sort_values("var").iloc[-1], _pr.sort_values("var").iloc[0]
+            EX_SEM = {"anio": u, "total": round(_p.actual), "var": round(float(_p["var"]), 1), "suben": _sube,
+                      "top": _t.territorio, "top_v": round(float(_t["var"]), 1), "low": _b.territorio, "low_v": round(float(_b["var"]), 1)}
+            exp_prov = exp_prov.merge(sem[["codigo_indec", "actual", "var"]].rename(columns={
+                "actual": f"millones_usd_1er_semestre_{u}", "var": f"variacion_1er_semestre_{u}_vs_{u - 1}"}), on="codigo_indec", how="left")
+
+# Empresas privadas empleadoras (OEDE, en base al SIPA). Una empresa con personal en varias provincias se cuenta en cada
+# una (cuadro 1). La apertura y el cierre usan las empresas locales: cada empresa es local en la provincia donde declara
+# la mayor parte de su empleo, asi que las provincias suman el total del pais (cuadros 6 y 7). La provincia de Buenos
+# Aires viene separada en partidos del GBA y resto: se suman las cantidades y las tasas se recalculan con el denominador
+# implicito (aperturas / tasa de entrada).
+empresas, empresas_serie, emp_res = None, None, None
+if (CRUDO / "oede_empresas_provincias.xlsx").exists():
+    _xo = pd.ExcelFile(CRUDO / "oede_empresas_provincias.xlsx")
+    def _cod_oede(t):
+        t = norm(str(t))
+        c = "06" if t in ("partidos de gba", "resto de buenos aires") else ("02" if t == "capital federal" else codigo(t))
+        return None if c == "00" else c
+    _t1 = _xo.parse("T1", header=None)
+    _anio_emp = int(re.search(r"(20\d\d)", " ".join(_xo.parse("Indice", header=None)[0].dropna().astype(str))).group(1))
+    _fila_tit = _t1.index[_t1[0].astype(str).str.strip() == "Provincia"][0]
+    _col_tot = [j for j in range(_t1.shape[1]) if str(_t1.iat[_fila_tit, j]).strip() == "Total"][0]
+    _cant = {}
+    for i in range(_fila_tit + 1, len(_t1)):
+        c = _cod_oede(_t1.iat[i, 0])
+        if c and pd.notna(_t1.iat[i, _col_tot]):
+            _cant[c] = _cant.get(c, 0) + float(_t1.iat[i, _col_tot])
+    _filas = []
+    for hoja, tipo in [("T6", "cantidad"), ("T7", "tasa")]:
+        t = _xo.parse(hoja, header=None)
+        f_anio = t.index[t.apply(lambda r: pd.to_numeric(r, errors="coerce").between(1990, 2100).sum() > 10, axis=1)][0]
+        anios = {j: int(t.iat[f_anio, j]) for j in range(t.shape[1]) if pd.notna(pd.to_numeric(t.iat[f_anio, j], errors="coerce")) and 1990 < float(t.iat[f_anio, j]) < 2100}
+        prov, sector = None, None
+        for i in range(f_anio + 1, len(t)):
+            v0 = t.iat[i, 0]
+            if pd.notna(v0) and norm(str(v0)) == "total":
+                sector = "Total"
+            elif pd.notna(v0):
+                c = _cod_oede(v0)
+                if c:
+                    prov = c if norm(str(v0)) not in ("partidos de gba", "resto de buenos aires") else norm(str(v0))
+                    sector = None
+                    continue
+                sector = str(v0).strip()
+            med = str(t.iat[i, 1]).strip().lower()
+            if prov and sector == "Total" and med in ("aperturas", "cierres"):
+                for j, a_ in anios.items():
+                    _filas.append({"prov": prov, "anio": a_, "tipo": tipo, "medida": med, "valor": pd.to_numeric(t.iat[i, j], errors="coerce")})
+    _m = pd.DataFrame(_filas).pivot_table(index=["prov", "anio"], columns=["tipo", "medida"], values="valor").reset_index()
+    _m.columns = ["prov", "anio", "aperturas", "cierres", "tasa_entrada", "tasa_salida"]
+    _m["base"] = _m.aperturas / _m.tasa_entrada
+    _m["codigo_indec"] = _m.prov.map(lambda x: "06" if x in ("partidos de gba", "resto de buenos aires") else x)
+    _m = _m.groupby(["codigo_indec", "anio"])[["aperturas", "cierres", "base"]].sum().reset_index()
+    empresas_serie = _m.groupby("anio")[["aperturas", "cierres", "base"]].sum().reset_index()
+    for d_ in (_m, empresas_serie):
+        d_["tasa_entrada"] = d_.aperturas / d_.base * 100
+        d_["tasa_salida"] = d_.cierres / d_.base * 100
+        d_["tasa_neta"] = d_.tasa_entrada - d_.tasa_salida
+    _ult = int(_m.anio.max())
+    _u = _m[_m.anio == _ult].set_index("codigo_indec")
+    _c5 = _m[_m.anio > _ult - 5].groupby("codigo_indec")[["aperturas", "cierres", "base"]].sum()
+    empresas = pd.DataFrame({"codigo_indec": sorted(_cant)})
+    assert len(empresas) == 24, "Faltan provincias en las empresas del OEDE"
+    empresas["territorio"] = empresas.codigo_indec.map(CORTO)
+    empresas["empresas"] = empresas.codigo_indec.map(_cant).round(0)
+    empresas["cada_1000_hab"] = empresas.empresas / empresas.codigo_indec.map(POB) * 1000
+    for k in ("aperturas", "cierres", "tasa_entrada", "tasa_salida", "tasa_neta"):
+        empresas[f"{k}_{_ult}"] = empresas.codigo_indec.map(_u[k])
+    empresas[f"tasa_neta_{_ult - 4}_{_ult}"] = empresas.codigo_indec.map((_c5.aperturas - _c5.cierres) / _c5.base * 100)
+    empresas = empresas.round(2)
+    empresas_serie = empresas_serie.drop(columns="base").round(2)
+    _es = empresas_serie.set_index("anio")
+    _e = empresas.sort_values("cada_1000_hab")
+    _n = empresas.sort_values(f"tasa_neta_{_ult}")
+    _neg = [int(a_) for a_ in _es.index if _es.tasa_neta[a_] < 0]
+    emp_res = {"anio": _anio_emp, "ult": _ult, "total_pais": int(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot])),
+               "top": _e.iloc[-1].territorio, "top_v": round(float(_e.cada_1000_hab.max()), 1), "low": _e.iloc[0].territorio, "low_v": round(float(_e.cada_1000_hab.min()), 1),
+               "pais_1000": round(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot]) / POB_PAIS * 1000, 1),
+               "ap": int(_es.aperturas[_ult]), "ci": int(_es.cierres[_ult]), "te": round(float(_es.tasa_entrada[_ult]), 1), "ts": round(float(_es.tasa_salida[_ult]), 1),
+               "neta": round(float(_es.tasa_neta[_ult]), 1), "neta_top": _n.iloc[-1].territorio, "neta_top_v": round(float(_n[f"tasa_neta_{_ult}"].max()), 1),
+               "neta_low": _n.iloc[0].territorio, "neta_low_v": round(float(_n[f"tasa_neta_{_ult}"].min()), 1),
+               "positivas": int((empresas[f"tasa_neta_{_ult}"] > 0).sum()), "ini": int(_es.index.min()),
+               "te_max_anio": int(_es.tasa_entrada.idxmax()), "te_max": round(float(_es.tasa_entrada.max()), 1),
+               "anios_negativos": len(_neg), "ultimos_negativos": [a_ for a_ in _neg if a_ > _ult - 5]}
+    d = empresas[["codigo_indec", "territorio", "cada_1000_hab"]].rename(columns={"cada_1000_hab": "valor"}); d["periodo"] = _anio_emp
+    agregar(d, "empresas_privadas_cada_1000_habitantes", "empresas", "OEDE, Ministerio de Capital Humano, en base al SIPA")
+
+# Antiguedad en el empleo de los asalariados (EPH, cuatro ultimos trimestres, resumen armado en 01_descargar.py)
+rotacion, rot_res = None, None
+if (CRUDO / "eph_antiguedad_resumen.csv").exists():
+    rotacion = pd.read_csv(CRUDO / "eph_antiguedad_resumen.csv")
+    _tr = json.loads((CRUDO / "eph_antiguedad_meta.json").read_text(encoding="utf-8"))["trimestres"]
+    _g = lambda dim, grupo, col="pct_un_anio_o_menos": float(rotacion[(rotacion.dimension == dim) & (rotacion.grupo == grupo)][col].iloc[0])
+    rot_res = {"desde": _tr[0], "hasta": _tr[-1], "total": _g("total", "Total de asalariados"), "total_largo": _g("total", "Total de asalariados", "pct_mas_de_cinco_anios"),
+               "jovenes": _g("edad", "Hasta 24 años"), "e45": _g("edad", "45 a 54"), "sin_desc": _g("registro", "Sin descuento jubilatorio"),
+               "con_desc": _g("registro", "Con descuento jubilatorio"), "q1": _g("ingreso", "Quintil 1"), "q5": _g("ingreso", "Quintil 5"),
+               "sec_inc": _g("educacion", "Secundaria incompleta"), "sup_comp": _g("educacion", "Superior completo"),
+               "casos": int(rotacion[rotacion.dimension == "total"].casos.iloc[0])}
+
 # Personas nacidas en otro pais identificadas por el RENAPER, cada 100 habitantes
 rx = pd.read_csv(CRUDO / "renaper_extranjeros.csv")
 rx["codigo_indec"] = rx.provincia_id.map(lambda x: f"{int(x):02d}")
@@ -1567,6 +1733,47 @@ for a in AP_ANIOS:
                                "n_atn": int(len(con)), "max": t.sort_values("apoyo").iloc[-1].territorio, "max_v": round1(t.apoyo.max()),
                                "min": t.sort_values("apoyo").iloc[0].territorio, "min_v": round1(t.apoyo.min())})
 apoyo = apoyo[apoyo.anio.isin(AP_ANIOS)].round({"apoyo": 1})
+# ---- voto de los legisladores en las leyes clave y voto de su provincia al presidente
+# Por gobierno y provincia: porcentaje de los votos de sus diputados y senadores presentes que coincidieron con la posicion
+# del bloque oficialista en las leyes clave, contra el porcentaje de votos positivos que ese presidente saco en la
+# provincia en la primera vuelta de la eleccion que lo llevo al gobierno. Incluye a los legisladores del bloque oficialista.
+ELECCION_DEL_GOBIERNO = {"Kirchner": "2003", "Macri": "2015", "Fernández": "2019", "Milei": "2023"}
+def _eleccion_gob(fecha, pres):
+    if pres == "Fernández de Kirchner":
+        return "2007" if fecha < pd.Timestamp("2011-12-10") else "2011"
+    return ELECCION_DEL_GOBIERNO.get(pres)
+_pp = el.groupby(["eleccion", "candidato", "codigo_indec"]).votos.sum().reset_index().merge(
+    tot_el[["eleccion", "codigo_indec", "positivos"]], on=["eleccion", "codigo_indec"])
+_pp["pct_presidente"] = _pp.votos / _pp.positivos * 100
+_rv = []
+for r in lc.itertuples():
+    for cam, vid in [("Diputados", r.dip), ("Senado", r.sen)]:
+        if not isinstance(vid, str):
+            continue
+        pv = pos_v[(pos_v.camara == cam) & (pos_v.vid == vid)]
+        if pv.empty:
+            continue
+        g = votos[(votos.camara == cam) & (votos.vid == vid) & (votos.voto <= 3) & votos.codigo_indec.notna()]
+        _rv.append(g.assign(ley=r.clave, presidente=pv.presidente.iloc[0], coincide=(g.voto == pv.pos.iloc[0])))
+_rv = pd.concat(_rv)
+_rv["eleccion"] = [_eleccion_gob(f, pr) for f, pr in zip(_rv.fecha, _rv.presidente)]
+_rv = _rv[_rv.eleccion.notna()]
+rep_voto = _rv.groupby(["presidente", "eleccion", "codigo_indec"]).agg(
+    pct_coincide=("coincide", "mean"), votos=("coincide", "size"), leyes=("ley", "nunique")).reset_index()
+rep_voto["pct_coincide"] *= 100
+rep_voto = rep_voto.merge(_pp.rename(columns={"candidato": "presidente"})[["eleccion", "presidente", "codigo_indec", "pct_presidente"]],
+                          on=["eleccion", "presidente", "codigo_indec"], how="left")
+rep_voto["territorio"] = rep_voto.codigo_indec.map(CORTO)
+rep_voto = rep_voto[["presidente", "eleccion", "codigo_indec", "territorio", "pct_presidente", "pct_coincide", "votos", "leyes"]].round(1)
+rep_res = []
+for (pr, ec), t in rep_voto.groupby(["presidente", "eleccion"], sort=False):
+    t = t.dropna(subset=["pct_presidente"])
+    leyes_g = sorted(_rv[(_rv.presidente == pr) & (_rv.eleccion == ec)].ley.unique())
+    rep_res.append({"presidente": pr, "eleccion": ec, "leyes": len(leyes_g), "n": int(len(t)),
+                    "anios": [int(min(lc[lc.clave.isin(leyes_g)].anio)), int(max(lc[lc.clave.isin(leyes_g)].anio))],
+                    "r": spearman(t.pct_presidente.values, t.pct_coincide.values) if len(t) >= 20 else None})
+rep_res.sort(key=lambda x: x["anios"][0])
+
 # metadatos de la seccion
 _meta_cv = json.loads((CRUDO / "congreso_votaciones_meta.json").read_text(encoding="utf-8"))
 votaciones_res = {
@@ -1577,6 +1784,7 @@ votaciones_res = {
        for _c in [votos[votos.camara == cam].drop_duplicates("vid").fecha.dt.year.value_counts()]},
     "ult": votos.fecha.max().strftime("%Y-%m-%d"), "descartadas": len(VOT_DESCARTADAS),
     "apoyo": apoyo_res,
+    "representacion": rep_res,
 }
 
 # ---------------------------------------------------------------- cruces entre indicadores provinciales
@@ -1630,6 +1838,9 @@ for c in CENSO_COLS:
 cru["internet_fijo"] = columna(internet_fijo, "accesos_100_hogares")
 cru["velocidad"] = columna(internet_fijo, "mbps")
 cru["exportaciones"] = columna(exp_prov, "usd_por_habitante")
+if empresas is not None:
+    cru["empresas"] = columna(empresas, "cada_1000_hab")
+    cru["empresas_neta"] = columna(empresas, f"tasa_neta_{emp_res['ult'] - 4}_{emp_res['ult']}")
 cru["extranjeros"] = columna(extranjeros, "cada_100")
 cru["natalidad"] = cru.codigo_indec.map(natalidad)
 cru["autonomia_fiscal"] = columna(fiscal, "autonomia")
@@ -1684,6 +1895,9 @@ CRUCES_META = {
     "pct_hog_nbi_2022": ("Hogares con necesidades básicas insatisfechas", "% de los hogares", "2022", "Pobreza", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_25mas_secundario_completo_o_mas": ("Adultos con secundario completo", "% de la población de 25 años o más", "2022", "Educación", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_hog_cloaca": ("Hogares con cloacas", "% de los hogares con desagüe a red pública", "2022", "Pobreza", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
+    **({"empresas": ("Empresas privadas empleadoras", "empresas cada 1.000 habitantes", str(emp_res["anio"]), "Emprendedores", "OEDE, Ministerio de Capital Humano (SIPA)", "f-empresas", 1),
+        "empresas_neta": ("Cambio neto de empresas locales", "aperturas menos cierres, % de las empresas, promedio de cinco años", f"{emp_res['ult'] - 4} a {emp_res['ult']}", "Emprendedores", "OEDE, Ministerio de Capital Humano (SIPA)", "f-dinamica-empresas", 1)}
+       if emp_res else {}),
     "vejez": ("Personas mayores por cada 100 en edad de trabajar", "personas de 65 años o más cada 100 de 15 a 64", str(ANIO_PROY), "Población", "INDEC, proyecciones de población", "f-envejecimiento", 1),
     "atn_hab": ("ATN por habitante", f"pesos de {TR_ULT} por habitante por año, promedio 2000 a {TR_ULT}", f"2000 a {TR_ULT}", "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-atn", 0),
     "transf_no_aut_hab": ("Transferencias no automáticas por habitante", f"pesos de {TR_ULT} por habitante", str(TR_ULT), "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-transferencias", 0),
@@ -1810,7 +2024,12 @@ tablas = {
     "mortalidad_infantil_causas": mi_causas,
     "madres_adolescentes_nse": nse_ado.round(2),
     "envejecimiento_pais": envejec_pais,
+    "piramide_poblacion": piramide,
+    **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),
+    **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
+    **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
     "presidentes": presidentes,
+    "voto_legisladores_y_provincia": rep_voto,
     "apoyo_gobierno_provincias": apoyo[["anio", "codigo_indec", "territorio", "presidente", "apoyo", "votos", "atn_hab", "otras_hab"]],
     "transferencias_provincias": transf[["anio", "codigo_indec", "territorio", "atn", "otras", "ley", "atn_hab", "otras_hab", "ley_hab", "atn_indice", "otras_indice", "pob"]],
     "transferencias_serie": transf_serie,
@@ -2022,6 +2241,10 @@ resumen["elecciones"] = el_meta
 resumen["congreso"] = congreso_res
 resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res
+resumen["piramide"] = pir_res
+resumen["empresas"] = emp_res
+resumen["rotacion"] = rot_res
+resumen["jubilaciones"] = jub_res
 resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD
@@ -2038,7 +2261,7 @@ resumen["nuevos"] = {
     "ve_top": _ve_t.territorio, "ve_top_v": r1(_ve_t.mbps), "ve_low": _ve_b.territorio, "ve_low_v": r1(_ve_b.mbps),
     "ex_anio": ANIO_EX, "ex_total": round(EXP_TOTAL), "ex_pc_pais": round(EXP_TOTAL * 1e6 / POB_PAIS),
     "ex_top": _ex_t.territorio, "ex_top_v": round(float(_ex_t.usd_por_habitante)), "ex_low": _ex_b.territorio, "ex_low_v": round(float(_ex_b.usd_por_habitante)),
-    "ex_provincial_pct": r1(exp_prov.millones_usd.sum() / EXP_TOTAL * 100),
+    "ex_provincial_pct": r1(exp_prov.millones_usd.sum() / EXP_TOTAL * 100), "ex_sem": EX_SEM,
     "xt_pais": r1(extranjeros.personas.sum() / POB_PAIS * 100), "xt_top": extranjeros.sort_values("cada_100").iloc[-1].territorio,
     "xt_top_v": r1(extranjeros.cada_100.max()), "xt_origen": list(top_origen.index[:3]),
 }

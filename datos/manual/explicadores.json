@@ -1,0 +1,2398 @@
+{
+ "trabajo": {
+  "bloques": [
+   {
+    "titulo": "Qué se mide",
+    "texto": "Esta sección reúne tres miradas sobre la economía de cada provincia. La primera cuenta a las personas asalariadas registradas en el sector privado, con datos mensuales que publica la Secretaría de Trabajo a partir de los registros de la seguridad social. La segunda muestra cuánto exporta cada provincia según el origen de los bienes vendidos al exterior, una estadística del INDEC llamada OPEX. La tercera describe las cuentas públicas provinciales con el esquema de ahorro, inversión y financiamiento del Ministerio de Economía: qué parte de los ingresos recauda la propia provincia, si cerró el año con superávit o déficit y cuánto pesa el gasto en personal.",
+    "fuentes": [
+     {
+      "nombre": "API de Series de Tiempo, metadatos de la serie 154.1 (Secretaría de Trabajo, publicada por la Subsecretaría de Programación Macroeconómica)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=154.1_CABA_C_0_0_4&metadata=full&limit=1",
+      "cita": "Asalariados registrados del sector privado según provincia. En miles de trabajadores"
+     },
+     {
+      "nombre": "INDEC, Origen provincial de las exportaciones. Bienes. Primer semestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf",
+      "cita": "el origen provincial de las exportaciones (OPEX), que detalla el aporte de cada región y provincia"
+     },
+     {
+      "nombre": "Ministerio de Economía, Ejecución presupuestaria provincial",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial",
+      "cita": "proyectando el esquema de ahorro-inversión-financiamiento para las 24 jurisdicciones"
+     }
+    ]
+   },
+   {
+    "titulo": "Desde cuándo",
+    "texto": "El registro previsional que hoy se usa para medir el empleo formal tiene su base en la ley 24.241, sancionada el 23 de septiembre de 1993, que creó el Sistema Integrado de Jubilaciones y Pensiones. En 2008 la ley 26.425 unificó ese sistema en un único régimen público llamado Sistema Integrado Previsional Argentino, el SIPA. La serie de asalariados privados por provincia que usa el sitio comienza en 2009. La estadística de exportaciones por provincia de origen tiene datos desde 1993. El Ministerio de Economía publica las cuentas provinciales con el esquema actual desde 2005 y conserva registros anteriores, desde 1983, de la administración central y los organismos descentralizados.",
+    "fuentes": [
+     {
+      "nombre": "Ley 24.241",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/639/texact.htm",
+      "cita": "el Sistema Integrado de Jubilaciones y Pensiones (SIJP), que cubrirá las contingencias de vejez, invalidez y muerte"
+     },
+     {
+      "nombre": "Ley 26.425",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/145000-149999/148141/norma.htm",
+      "cita": "un único régimen previsional público que se denominará Sistema Integrado Previsional Argentino (SIPA)"
+     },
+     {
+      "nombre": "API de Series de Tiempo, metadatos de la serie 154.1",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=154.1_CABA_C_0_0_4&metadata=full&limit=1",
+      "cita": "Asalariados registrados del sector privado, por provincia."
+     },
+     {
+      "nombre": "INDEC, planilla OPEX 1993 a 2025",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
+      "cita": "según grandes rubros, en millones de USD. Años 1993-1996"
+     },
+     {
+      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+      "cita": "Serie anual 24 jurisdicciones y por jurisdicción"
+     }
+    ]
+   },
+   {
+    "titulo": "Cómo se cuenta el empleo registrado",
+    "texto": "Los datos no salen de una encuesta sino de los registros administrativos de la seguridad social. Se considera asalariada registrada en el sector privado a toda persona identificada con su Clave Única de Identificación Laboral (CUIL) que ocupa al menos un puesto de trabajo. Se cuentan personas y no puestos, y quien figura en más de una categoría se clasifica en una sola. Para el dato provincial, cada trabajador se asigna a la zona geográfica donde la empresa lo declara. Por eso la cifra de una provincia muestra dónde las empresas declaran a su personal, que no es necesariamente el lugar donde viven esas personas.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Trabajo, Situación y evolución del trabajo registrado (diciembre de 2023), notas metodológicas",
+      "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf",
+      "cita": "son los registros administrativos de la seguridad social, provenientes del Sistema Integrado Previsional Argentino (SIPA)"
+     },
+     {
+      "nombre": "Secretaría de Trabajo, Situación y evolución del trabajo registrado (diciembre de 2023), notas metodológicas",
+      "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf",
+      "cita": "identificada a través de una Clave Única de Identificación Laboral (CUIL) y que ocupa, al menos, un puesto de trabajo"
+     },
+     {
+      "nombre": "Secretaría de Trabajo, Situación y evolución del trabajo registrado (diciembre de 2023), notas metodológicas",
+      "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf",
+      "cita": "se realizan de acuerdo a la zona geográfica en donde las empresas declaran a los trabajadores"
+     },
+     {
+      "nombre": "Secretaría de Trabajo, Situación y evolución del trabajo registrado (diciembre de 2023), notas metodológicas",
+      "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf",
+      "cita": "se categoriza de manera unívoca al trabajador en una sola modalidad"
+     }
+    ]
+   },
+   {
+    "titulo": "Actividad, desocupación e informalidad",
+    "texto": "El SIPA solo registra el empleo declarado. Para conocer el mercado de trabajo completo, incluido el informal, el INDEC usa la Encuesta Permanente de Hogares (EPH), que publica tasas trimestrales para 31 aglomerados urbanos. Se considera ocupada a la persona que trabajó al menos una hora en la semana de referencia. La población económicamente activa reúne a quienes tienen trabajo y a quienes lo buscan activamente. La tasa de actividad la compara con la población total. La tasa de empleo hace lo mismo con las personas ocupadas. La tasa de desocupación mide a quienes buscan trabajo y están disponibles sobre la población activa. La informalidad se aproxima con los asalariados sin descuento jubilatorio.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Mercado de trabajo. Tasas e indicadores socioeconómicos (EPH). Segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+      "cita": "en la semana de referencia han trabajado como mínimo una hora"
+     },
+     {
+      "nombre": "INDEC, Mercado de trabajo. Tasas e indicadores socioeconómicos (EPH). Segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+      "cita": "la integran las personas que tienen una ocupación o que, sin tenerla, la están buscando activamente"
+     },
+     {
+      "nombre": "INDEC, Mercado de trabajo. Tasas e indicadores socioeconómicos (EPH). Segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+      "cita": "calculada como porcentaje entre la población desocupada y la población económicamente activa"
+     },
+     {
+      "nombre": "INDEC, Mercado de trabajo. Tasas e indicadores socioeconómicos (EPH). Segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+      "cita": "población ocupada asalariada que no tiene descuento jubilatorio como atributo del puesto de trabajo"
+     },
+     {
+      "nombre": "INDEC, Mercado de trabajo. Tasas e indicadores socioeconómicos (EPH). Segundo trimestre de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+      "cita": "Total 31 aglomerados urbanos"
+     }
+    ]
+   },
+   {
+    "titulo": "Coparticipación y recursos propios",
+    "texto": "Las provincias se financian con impuestos que cobran ellas mismas y con recursos que recauda la Nación y les transfiere. El canal principal es la coparticipación federal de impuestos, regida por la ley 23.548, que estableció desde el 1 de enero de 1988 un régimen transitorio. La ley fijó su vigencia hasta fines de 1989, con prórroga automática mientras no hubiera un régimen que la reemplazara. El Banco de la Nación transfiere en forma automática a cada provincia lo que le corresponde. La reforma constitucional de 1994 previó una nueva ley convenio, a dictarse antes de que terminara 1996. En la ficha, los recursos propios son los que la provincia recauda por su cuenta.",
+    "fuentes": [
+     {
+      "nombre": "Ley 23.548, art. 1",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "Establécese a partir del 1 de enero de 1988, el Régimen Transitorio de Distribución de Recursos Fiscales"
+     },
+     {
+      "nombre": "Ley 23.548, art. 15",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "Su vigencia se prorrogará automáticamente ante la inexistencia de un régimen sustitutivo"
+     },
+     {
+      "nombre": "Ley 23.548, art. 6",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "El Banco de la Nación Argentina, transferirá automáticamente a cada provincia"
+     },
+     {
+      "nombre": "Constitución Nacional, art. 75 inc. 2 y disposición transitoria sexta",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "serán establecidos antes de la finalización del año 1996"
+     },
+     {
+      "nombre": "Ministerio de Economía, Recursos de Origen Nacional",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/ron",
+      "cita": "Los Recursos de Origen Nacional, incluyen Distribución Secundaria de la Coparticipación Federal de Impuestos (Ley Nº 23.548 y Modificatorias)"
+     }
+    ]
+   },
+   {
+    "titulo": "Resultado financiero y advertencias",
+    "texto": "Las cuentas provinciales abarcan la administración pública no financiera: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social. Registran los recursos percibidos y los gastos devengados. El resultado financiero es, en términos generales, la diferencia entre los ingresos corrientes y de capital y los gastos del período: si es positivo hay superávit y si es negativo, déficit. La ley 25.917 de Responsabilidad Fiscal, de 2004, usa esa lógica para medir el equilibrio financiero. En exportaciones, una parte del total no se asigna a ninguna provincia y figura como Indeterminado o como Extranjero y plataforma continental. El INDEC revisa la asignación periódicamente.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF, consideraciones metodológicas",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+      "cita": "incluye la Administración Central, Organismos Descentralizados, Fondos Fiduciarios e Instituciones de la Seguridad Social"
+     },
+     {
+      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF, consideraciones metodológicas",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+      "cita": "el esquema presenta los recursos percibidos y los gastos devengados, en ambos casos con sus clasificaciones económicas"
+     },
+     {
+      "nombre": "Ley 25.917, art. 19",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/97698/texto",
+      "cita": "la diferencia entre los recursos percibidos [...] de naturaleza corriente y de capital [...] y los gastos devengados"
+     },
+     {
+      "nombre": "INDEC, planilla OPEX 1993 a 2025 (categoría de la tabla)",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
+      "cita": "Extranjero y plataforma continental"
+     },
+     {
+      "nombre": "INDEC, OPEX primer semestre de 2026, Política de revisión",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf",
+      "cita": "La asignación del origen provincial de las exportaciones se revisa periódicamente ante la actualización"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "SIPA",
+    "definicion": "Sistema Integrado Previsional Argentino. Es el régimen previsional público único creado en 2008 al unificar el sistema anterior. Sus registros son la fuente de las estadísticas de trabajo registrado.",
+    "fuente": {
+     "nombre": "Ley 26.425",
+     "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/145000-149999/148141/norma.htm",
+     "cita": "un único régimen previsional público que se denominará Sistema Integrado Previsional Argentino (SIPA)"
+    }
+   },
+   {
+    "termino": "Asalariado registrado del sector privado",
+    "definicion": "Persona identificada con su CUIL que ocupa al menos un puesto de trabajo declarado por una empresa privada ante la seguridad social.",
+    "fuente": {
+     "nombre": "Secretaría de Trabajo, Situación y evolución del trabajo registrado",
+     "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf",
+     "cita": "identificada a través de una Clave Única de Identificación Laboral (CUIL) y que ocupa, al menos, un puesto de trabajo"
+    }
+   },
+   {
+    "termino": "Tasa de actividad",
+    "definicion": "Porcentaje de la población que trabaja o busca trabajo activamente sobre la población total de referencia.",
+    "fuente": {
+     "nombre": "INDEC, Mercado de trabajo (EPH), segundo trimestre de 2026",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+     "cita": "calculada como porcentaje entre la población económicamente activa y la población total de referencia"
+    }
+   },
+   {
+    "termino": "Tasa de desocupación",
+    "definicion": "Porcentaje de personas sin ocupación que buscan trabajo activamente y están disponibles sobre la población económicamente activa.",
+    "fuente": {
+     "nombre": "INDEC, Mercado de trabajo (EPH), segundo trimestre de 2026",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+     "cita": "personas que, no teniendo ocupación, están buscando activamente trabajo y están disponibles para trabajar"
+    }
+   },
+   {
+    "termino": "Asalariados sin descuento jubilatorio",
+    "definicion": "Personas asalariadas cuyo puesto de trabajo no tiene aportes a la jubilación. Es el indicador clásico de informalidad laboral en la EPH.",
+    "fuente": {
+     "nombre": "INDEC, Mercado de trabajo (EPH), segundo trimestre de 2026",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
+     "cita": "población ocupada asalariada que no tiene descuento jubilatorio como atributo del puesto de trabajo"
+    }
+   },
+   {
+    "termino": "Coparticipación federal",
+    "definicion": "Régimen por el que la recaudación de impuestos nacionales se reparte entre la Nación y las provincias, con transferencias automáticas a través del Banco de la Nación. Lo regula la ley 23.548.",
+    "fuente": {
+     "nombre": "Ley 23.548, art. 2",
+     "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+     "cita": "La masa de fondos a distribuir estará integrada por el producido de la recaudación de todos los impuestos nacionales"
+    }
+   },
+   {
+    "termino": "Administración Pública No Financiera",
+    "definicion": "Universo que cubren las cuentas provinciales del Ministerio de Economía: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social.",
+    "fuente": {
+     "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF",
+     "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+     "cita": "incluye la Administración Central, Organismos Descentralizados, Fondos Fiduciarios e Instituciones de la Seguridad Social"
+    }
+   },
+   {
+    "termino": "OPEX",
+    "definicion": "Estadística del INDEC sobre el origen provincial de las exportaciones de bienes. Detalla cuánto aporta cada región y provincia al total exportado.",
+    "fuente": {
+     "nombre": "INDEC, OPEX primer semestre de 2026",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf",
+     "cita": "el origen provincial de las exportaciones (OPEX), que detalla el aporte de cada región y provincia"
+    }
+   }
+  ]
+ },
+ "emprendedores": {
+  "bloques": [
+   {
+    "titulo": "Qué se mide",
+    "texto": "Las fichas cuentan empresas privadas que tienen al menos una persona en relación de dependencia. Los datos salen del Observatorio de Empleo y Dinámica Empresarial (OEDE), que usa las declaraciones mensuales que cada empresa presenta ante la seguridad social para pagar los aportes de su personal. La unidad es la empresa como unidad legal, identificada por su CUIT, y no cada local o sucursal. Quienes trabajan por su cuenta sin empleados no aparecen en este registro.",
+    "fuentes": [
+     {
+      "nombre": "OEDE, estadísticas provinciales, nota metodológica",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx",
+      "cita": "Tiene como fuente los registros administrativos del Sistema Integrado Previsional Argentino (SIPA)"
+     }
+    ]
+   },
+   {
+    "titulo": "Desde cuándo",
+    "texto": "El Observatorio se creó en mayo de 2003 dentro de la Secretaría de Empleo del Ministerio de Trabajo. Reconstruyó las series de empresas y de empleo registrado desde 1996, con una base que sigue a cada empresa a lo largo del tiempo. Eso permite saber no solo cuántas empresas hay, sino cuántas abren, cuántas cierran y cuánto empleo crean o destruyen.",
+    "fuentes": [
+     {
+      "nombre": "OEDE, estadísticas provinciales, nota metodológica",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx",
+      "cita": "fue creado por la Resolución N° 135 de mayo de 2003, de la Secretaría de Empleo"
+     }
+    ]
+   },
+   {
+    "titulo": "Cuándo abre y cuándo cierra una empresa",
+    "texto": "Una empresa abre cuando aparecen sus primeras declaraciones de personal ocupado. Se considera cerrada cuando pasa un año, cuatro trimestres seguidos, sin declarar empleados, el mismo criterio que usa la oficina de estadísticas laborales de los Estados Unidos. Las tasas de entrada y de salida dividen las aperturas y los cierres por todas las empresas que estuvieron activas en el período. El cambio neto es la diferencia entre las dos.",
+    "fuentes": [
+     {
+      "nombre": "OEDE, estadísticas provinciales, nota metodológica",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx",
+      "cita": "considera como cerrada a toda empresa que no declara personal ocupado a lo largo de un año (4 trimestres)"
+     }
+    ]
+   },
+   {
+    "titulo": "Empresas locales y empresas en varias provincias",
+    "texto": "Una empresa que tiene personal en varias provincias figura en cada una de ellas, por eso la suma provincial supera al total del país. Para estudiar aperturas y cierres el Observatorio usa las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su empleo. La entrada y salida de las empresas no locales es más volátil y refleja menos el crecimiento del tejido productivo de cada región.",
+    "fuentes": [
+     {
+      "nombre": "OEDE, estadísticas provinciales, nota metodológica",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx",
+      "cita": "una misma firma diversificada en el territorio nacional será firma local en la provincia donde declara más empleo"
+     },
+     {
+      "nombre": "Ministerio de Capital Humano, estadísticas provinciales del OEDE",
+      "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Empresa",
+    "definicion": "Unidad legal independiente identificada por su CUIT. Puede tener varios locales o plantas.",
+    "fuente": {
+     "nombre": "OEDE, nota metodológica",
+     "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx"
+    }
+   },
+   {
+    "termino": "Tasa de entrada",
+    "definicion": "Empresas que abrieron en el período sobre el total de empresas activas en ese período, incluidas las que cerraron.",
+    "fuente": {
+     "nombre": "OEDE, nota metodológica",
+     "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx"
+    }
+   },
+   {
+    "termino": "Tasa de salida",
+    "definicion": "Empresas que cerraron en el período sobre el mismo total.",
+    "fuente": {
+     "nombre": "OEDE, nota metodológica",
+     "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx"
+    }
+   },
+   {
+    "termino": "Empresa local",
+    "definicion": "Empresa contada en la provincia donde declara la mayor parte de su personal.",
+    "fuente": {
+     "nombre": "OEDE, nota metodológica",
+     "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx"
+    }
+   }
+  ]
+ },
+ "pobreza": {
+  "bloques": [
+   {
+    "titulo": "Qué se mide",
+    "texto": "La sección combina tres fuentes. La pobreza y la indigencia por ingresos salen de la Encuesta Permanente de Hogares (EPH) del INDEC. Indican qué proporción de hogares y de personas no alcanza con sus ingresos a cubrir una canasta de bienes y servicios. El Censo 2022 aporta datos de todos los hogares del país sobre condiciones de la vivienda, servicios, salud y educación, con los que se calculan, entre otros, el acceso a cloacas y agua de red y las Necesidades Básicas Insatisfechas. El Ente Nacional de Comunicaciones (ENACOM) informa cada trimestre la penetración de internet fijo por provincia, medida cada 100 hogares.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22. La medición de la pobreza y la indigencia en la Argentina (noviembre de 2016)",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "la cual es también contrastada con los ingresos de los hogares relevados por la Encuesta Permanente de Hogares (EPH)"
+     },
+     {
+      "nombre": "censo.gob.ar, Resultados definitivos",
+      "url": "https://censo.gob.ar/index.php/datos_definitivos/",
+      "cita": "Resultados definitivos. Condiciones habitacionales de la población, los hogares y las viviendas"
+     },
+     {
+      "nombre": "datos.gob.ar, ENACOM, Internet Fija, recurso Internet Fija Penetración Provincias",
+      "url": "https://datos.gob.ar/dataset/internet-fija",
+      "cita": "Penetración del Servicio de Internet fija por Provincia medido por cada 100 habitantes y por cada 100 hogares (trimestral)"
+     }
+    ]
+   },
+   {
+    "titulo": "Desde cuándo",
+    "texto": "La EPH se aplica en la Argentina desde 1973. En su modalidad original se hacía dos veces por año, en mayo y octubre. En 1984 el INDEC publicó La pobreza en la Argentina, que midió las Necesidades Básicas Insatisfechas con el Censo de 1980. La medición por ingresos tomó forma con la Investigación de la Pobreza en la Argentina, de 1988, y desde ese año hay series oficiales para el Gran Buenos Aires. Desde 2003 la EPH es continua y da datos de pobreza por semestre. En enero de 2016 se declaró la emergencia administrativa del sistema estadístico y ese año el INDEC reanudó la difusión de pobreza e indigencia.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, La nueva Encuesta Permanente de Hogares de Argentina. 2003",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/metodologia_eph_continua.pdf",
+      "cita": "En su modalidad original, se ha venido aplicando en Argentina desde 1973, dos veces al año (mayo y octubre)."
+     },
+     {
+      "nombre": "INDEC, biblioteca: documento sobre la medición de la pobreza en el Gran Buenos Aires 1991 a 1997",
+      "url": "https://biblioteca.indec.gob.ar/bases/minde/2mi491.pdf",
+      "cita": "quedó sintetizado en el documento \"La Pobreza [en] la Argentina\" (INDEC, [1984])"
+     },
+     {
+      "nombre": "INDEC, biblioteca: documento sobre la medición de la pobreza en el Gran Buenos Aires 1991 a 1997",
+      "url": "https://biblioteca.indec.gob.ar/bases/minde/2mi491.pdf",
+      "cita": "Con [p]osterioridad se inicia el proyecto conocido como Investigación de la Pobreza en la Arge[n]tina (IPA, 1988)."
+     },
+     {
+      "nombre": "datos.gob.ar, Pobreza e indigencia. EPH puntual (Subsecretaría de Programación Macroeconómica, fuente INDEC)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=60.1_PP_0_0_15&metadata=full&limit=1",
+      "cita": "Población con ingresos debajo de línea de pobreza (%) desde 1988 hasta 2003"
+     },
+     {
+      "nombre": "INDEC, Incidencia de la pobreza y la indigencia, primer semestre de 2018",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/eph_pobreza_01_18.pdf",
+      "cita": "A partir de 2003, la EPH pasó a ser un relevamiento continuo que produce datos de pobreza con frecuencia semestral."
+     },
+     {
+      "nombre": "INDEC, Resolución 17/2016",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/resolución-17-2016-258193/texto",
+      "cita": "se declara en estado de emergencia administrativa al Sistema Estadístico Nacional (SEN) y a su órgano rector"
+     },
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "A partir del año 2016, el Instituto Nacional de Estadística y Censos (INDEC) ha reanudado la elaboración y difusión de los indicadores de Pobreza e Indigencia"
+     }
+    ]
+   },
+   {
+    "titulo": "Cómo se calcula",
+    "texto": "La medición usa el método indirecto, también llamado de la línea. Primero se arma la Canasta Básica Alimentaria (CBA), un conjunto de alimentos que cubre requerimientos nutricionales mínimos. Después se obtiene la Canasta Básica Total (CBT), que suma bienes y servicios no alimentarios. Para pasar de una a otra se multiplica la CBA por la inversa del coeficiente de Engel, que es la relación entre el gasto en alimentos y el gasto total de una población de referencia. Como cada hogar tiene una composición distinta, las canastas se expresan en adultos equivalentes. Por último, se compara la canasta de cada hogar con su ingreso total familiar, informado en la EPH.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "el método de medición indirecta, denominado también 'línea'"
+     },
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "La Canasta Básica Alimentaria (CBA) se define como el conjunto de alimentos que satisfacen ciertos requerimientos nutricionales"
+     },
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "Para expandir el valor de la CBA, se multiplica su valor por la inversa del coeficiente de Engel (ICE)"
+     },
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "Coeficiente de Engel = Gasto Alimentario / Gasto Total"
+     },
+     {
+      "nombre": "INDEC, Incidencia de la pobreza y la indigencia, primer semestre de 2018",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/eph_pobreza_01_18.pdf",
+      "cita": "Se compara el valor de la CBT de cada hogar con el ingreso total familiar de dicho hogar."
+     }
+    ]
+   },
+   {
+    "titulo": "Pobreza e indigencia",
+    "texto": "Un hogar es indigente si su ingreso no alcanza para comprar la Canasta Básica Alimentaria que le corresponde según su composición. Es pobre si no alcanza para la Canasta Básica Total, de modo que los hogares indigentes también se cuentan como pobres. La clasificación se hace por hogar y después se extiende a cada una de las personas que viven en él. Por eso se publican dos porcentajes, uno de hogares y otro de personas. La EPH es una encuesta urbana. Su versión continua empezó en los aglomerados que ya cubría la encuesta anterior y, con una incorporación progresiva, llegó a 31 aglomerados urbanos.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "los hogares que no superan ese umbral o línea son considerados indigentes"
+     },
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "pobres (incluye las dos anteriores) y no pobres, extendiéndose esa caracterización a cada una de las personas"
+     },
+     {
+      "nombre": "INDEC, La nueva Encuesta Permanente de Hogares de Argentina. 2003",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/metodologia_eph_continua.pdf",
+      "cita": "en los aglomerados urbanos que venían siendo cubiertos por la EPH puntual"
+     },
+     {
+      "nombre": "INDEC, La nueva Encuesta Permanente de Hogares de Argentina. 2003",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/metodologia_eph_continua.pdf",
+      "cita": "Con un plan de incorporación progresiva, se han llegado a cubrir 31 aglomerados urbanos y un área urbano-rural."
+     }
+    ]
+   },
+   {
+    "titulo": "Necesidades Básicas Insatisfechas",
+    "texto": "Las Necesidades Básicas Insatisfechas (NBI) miden la pobreza a través de carencias materiales y no a través del ingreso. Un hogar tiene NBI si presenta al menos una de cinco privaciones: más de tres personas por cuarto, vivienda de tipo inconveniente como una pieza de inquilinato o una vivienda precaria, vivienda sin retrete, algún niño en edad escolar que no asiste a la escuela, o cuatro o más personas por cada miembro ocupado con un jefe de hogar que no completó el tercer grado. Se calculan con los censos, que cubren todo el país. El Censo 2022 fue el primero de derecho: contó a las personas en su lugar de residencia habitual.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, biblioteca: documento sobre la medición de la pobreza en el Gran Buenos Aires 1991 a 1997",
+      "url": "https://biblioteca.indec.gob.ar/bases/minde/2mi491.pdf",
+      "cita": "Este método representa una aproximación a la pobreza a través de la carencia de ciertas manifestaciones materiales"
+     },
+     {
+      "nombre": "INDEC, Aquí se cuenta Nº 7, Revista informativa del Censo 2001 (septiembre de 2003)",
+      "url": "https://www.indec.gob.ar/micro_sitios/webcenso/aquisecuenta/Aqui7.pdf",
+      "cita": "hogares que habitan una vivienda de tipo inconveniente (pieza de inquilinato, vivienda precaria u otro tipo)"
+     },
+     {
+      "nombre": "INDEC, Aquí se cuenta Nº 7, Revista informativa del Censo 2001 (septiembre de 2003)",
+      "url": "https://www.indec.gob.ar/micro_sitios/webcenso/aquisecuenta/Aqui7.pdf",
+      "cita": "hogares que tienen cuatro o más personas por miembro ocupado, cuyo jefe no hubiese completado el tercer grado"
+     },
+     {
+      "nombre": "INDEC, glosario del sitio anterior",
+      "url": "https://sitioanterior.indec.gob.ar/textos_glosario.asp?id=21",
+      "cita": "Hogares que habitan viviendas con más de 3 personas por cuarto (hacinamiento crítico)"
+     },
+     {
+      "nombre": "censo.gob.ar, El operativo",
+      "url": "https://censo.gob.ar/index.php/el-operativo/",
+      "cita": "Por primera vez, se hizo un censo de derecho, es decir, las personas se contabilizaron según su lugar de residencia habitual."
+     }
+    ]
+   },
+   {
+    "titulo": "Para tener en cuenta",
+    "texto": "La pobreza por ingresos y las NBI no miden lo mismo. La primera compara el ingreso con el costo de una canasta y la segunda observa carencias de la vivienda y del hogar, así que sus resultados no son intercambiables. Las canastas cambian según la región, para reflejar pautas de consumo de hogares con poder adquisitivo parecido. Desde 2016, la relación entre gasto en alimentos y gasto total se toma de la Encuesta Nacional de Gastos de los Hogares 2004/05. El indicador de ENACOM cuenta accesos a internet fijo cada 100 hogares, es decir, conexiones y no hogares conectados. La serie provincial que publica empieza en 2014.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "reflejan las pautas de consumo de hogares con niveles de ingresos equiparables en términos de poder adquisitivo"
+     },
+     {
+      "nombre": "INDEC, Metodología INDEC Nº 22",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "A partir de 2016, se decidió actualizar la base utilizada para el CdE tomando los resultados de la ENGHo de 2004/05."
+     },
+     {
+      "nombre": "ENACOM, archivo oficial de penetración por provincia",
+      "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv",
+      "cita": "anio,trimestre,provincia,accesos_cada_100_hogares,accesos_cada_100_habitantes"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Canasta Básica Alimentaria (CBA)",
+    "definicion": "Conjunto de alimentos que cubre requerimientos nutricionales mínimos. Su valor marca la línea de indigencia.",
+    "fuente": {
+     "nombre": "INDEC, Metodología INDEC Nº 22",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+     "cita": "La Canasta Básica Alimentaria (CBA) se define como el conjunto de alimentos que satisfacen ciertos requerimientos nutricionales"
+    }
+   },
+   {
+    "termino": "Canasta Básica Total (CBT)",
+    "definicion": "La CBA ampliada con bienes y servicios no alimentarios. Su valor marca la línea de pobreza.",
+    "fuente": {
+     "nombre": "INDEC, Metodología INDEC Nº 22",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+     "cita": "se obtiene mediante la ampliación de la CBA considerando los bienes y servicios no alimentarios"
+    }
+   },
+   {
+    "termino": "Inversa del coeficiente de Engel",
+    "definicion": "El coeficiente de Engel es el gasto en alimentos dividido por el gasto total. Su inversa es el factor por el que se multiplica la CBA para obtener la CBT.",
+    "fuente": {
+     "nombre": "INDEC, Metodología INDEC Nº 22",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+     "cita": "Para expandir el valor de la CBA, se multiplica su valor por la inversa del coeficiente de Engel (ICE)"
+    }
+   },
+   {
+    "termino": "Adulto equivalente",
+    "definicion": "Unidad de referencia que expresa las necesidades de cada persona en relación con las de un varón adulto de actividad moderada, según edad y sexo. Permite calcular una canasta específica para cada hogar.",
+    "fuente": {
+     "nombre": "INDEC, Metodología INDEC Nº 22",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+     "cita": "un hombre adulto de actividad moderada, para establecer luego las relaciones en las necesidades energéticas según edad y sexo"
+    }
+   },
+   {
+    "termino": "Hogar indigente",
+    "definicion": "Hogar cuyo ingreso no supera el valor de la Canasta Básica Alimentaria que le corresponde. Todo hogar indigente también es pobre.",
+    "fuente": {
+     "nombre": "INDEC, Metodología INDEC Nº 22",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+     "cita": "los hogares que no superan ese umbral o línea son considerados indigentes"
+    }
+   },
+   {
+    "termino": "Hogar con NBI",
+    "definicion": "Hogar con al menos una de cinco privaciones: hacinamiento crítico, vivienda inconveniente, condiciones sanitarias, asistencia escolar o capacidad de subsistencia.",
+    "fuente": {
+     "nombre": "INDEC, Aquí se cuenta Nº 7",
+     "url": "https://www.indec.gob.ar/micro_sitios/webcenso/aquisecuenta/Aqui7.pdf",
+     "cita": "hogares que tienen al menos un niño en edad escolar (6 a 12 años) que no asiste a la escuela"
+    }
+   },
+   {
+    "termino": "Hacinamiento crítico",
+    "definicion": "Situación de los hogares que viven con más de tres personas por cuarto. Es uno de los cinco indicadores de NBI.",
+    "fuente": {
+     "nombre": "INDEC, glosario del sitio anterior",
+     "url": "https://sitioanterior.indec.gob.ar/textos_glosario.asp?id=21",
+     "cita": "Hogares que habitan viviendas con más de 3 personas por cuarto (hacinamiento crítico)"
+    }
+   },
+   {
+    "termino": "Censo de derecho",
+    "definicion": "Censo que registra a cada persona en su lugar de residencia habitual y no donde se encontraba el día del censo. El de 2022 fue el primero de este tipo en la Argentina.",
+    "fuente": {
+     "nombre": "censo.gob.ar, El operativo",
+     "url": "https://censo.gob.ar/index.php/el-operativo/",
+     "cita": "Por primera vez, se hizo un censo de derecho, es decir, las personas se contabilizaron según su lugar de residencia habitual."
+    }
+   }
+  ]
+ },
+ "politica": {
+  "bloques": [
+   {
+    "titulo": "Cómo se elige al presidente",
+    "texto": "Desde la reforma constitucional de 1994, el presidente y el vicepresidente se eligen en forma directa y en doble vuelta. Antes, la Capital y cada provincia elegían una junta de electores que después votaba la fórmula, y así se hizo en 1983. Gana en primera vuelta la fórmula que supera el 45% de los votos afirmativos válidamente emitidos, o la que obtiene al menos el 40% con más de 10 puntos de diferencia sobre la segunda. Si ninguna lo logra, hay segunda vuelta entre las dos más votadas dentro de los 30 días. El mandato dura cuatro años, con una sola reelección consecutiva.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículo 94",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "El Presidente y el vicepresidente de la Nación serán elegidos directamente por el Pueblo, en doble vuelta, según lo establece esta Constitución."
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 97",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "hubiere obtenido más del cuarenta y cinco por ciento de los votos afirmativos válidamente emitidos"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 98",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "el cuarenta por ciento por lo menos de los votos afirmativos válidamente emitidos y existiere diferencia mayor de diez puntos porcentuales"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 96",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "se realizará entre las dos fórmulas de candidatos más votadas, dentro de los treinta días de celebrada la anterior."
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 90",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "duran en sus funciones el término de cuatro años y podrán ser reelegidos o sucederse recíprocamente por un solo período consecutivo."
+     },
+     {
+      "nombre": "Ley 24.309 de necesidad de la reforma constitucional",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24309-693/texto",
+      "cita": "ELECCION DIRECTA POR DOBLE VUELTA DEL PRESIDENTE Y VICEPRESIDENTE DE LA NACION."
+     },
+     {
+      "nombre": "Constitución de 1853, artículo 78",
+      "url": "https://www.infoleg.gob.ar/?page_id=3873",
+      "cita": "nombrarán por votacion directa una junta de electores, igual al duplo del total de Diputados y Senadores que envían al Congreso"
+     },
+     {
+      "nombre": "Ley 22.847 de 1983, artículo 6",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-195989/texto",
+      "cita": "Los electores de presidente y vicepresidente de la Nación, que resulten elegidos, se reunirán en la Capital Federal"
+     }
+    ]
+   },
+   {
+    "titulo": "Las PASO",
+    "texto": "Las elecciones Primarias, Abiertas, Simultáneas y Obligatorias (PASO) las creó la ley 26.571, sancionada el 2 de diciembre de 2009. Se usaron por primera vez el 14 de agosto de 2011. En las PASO todas las agrupaciones eligen sus candidaturas nacionales el mismo día, en todo el país, con voto secreto y obligatorio, aunque presenten una sola lista. Votan todos los electores del padrón. Solo pasan a la elección general las agrupaciones que, sumando todas sus listas internas, llegan al 1,5% de los votos válidamente emitidos en el distrito. La ley 27.783 suspendió las PASO durante 2025.",
+    "fuentes": [
+     {
+      "nombre": "Ley 26.571, artículo 19",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/160000-164999/161453/texact.htm",
+      "cita": "mediante elecciones primarias, en forma simultánea, en todo el territorio nacional, en un solo acto electivo, con voto secreto y obligatorio"
+     },
+     {
+      "nombre": "Ley 26.571, artículo 21",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/160000-164999/161453/texact.htm",
+      "cita": "En las elecciones primarias deben votar todos los electores, de acuerdo al registro de electores confeccionado por la justicia nacional electoral."
+     },
+     {
+      "nombre": "Ley 26.571, artículo 45",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/160000-164999/161453/texact.htm",
+      "cita": "igual o superior al uno y medio por ciento (1,5 %) de los votos válidamente emitidos en el distrito"
+     },
+     {
+      "nombre": "DINE, Elecciones 2011",
+      "url": "https://www.argentina.gob.ar/dine/resultados-electorales/elecciones-2011",
+      "cita": "P.A.S.O Presidente y Vicepresidente 14 agosto"
+     },
+     {
+      "nombre": "Ley 27.783, artículo 1 (Boletín Oficial, 7 de marzo de 2025)",
+      "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/322209/20250307",
+      "cita": "Suspéndanse durante el año 2025 las elecciones Primarias, Abiertas, Simultáneas y Obligatorias contenidas en el título II de la ley 26.571"
+     }
+    ]
+   },
+   {
+    "titulo": "Qué votos cuentan",
+    "texto": "El Código Electoral Nacional, en el texto que le dio la ley 27.781 de 2024, llama votos válidos a los emitidos en una boleta oficializada que muestra con claridad la voluntad de quien vota. Pueden ser afirmativos, cuando se marca una opción, o en blanco, cuando no se marca ninguna en una categoría. Los nulos no son válidos. La diferencia importa. Los umbrales del 45% y el 40% para elegir presidente se calculan sobre los votos afirmativos, sin los blancos. El piso del 1,5% de las PASO se calcula sobre los válidos. En este sitio los porcentajes son sobre votos positivos (afirmativos). El recuento provisorio solo informa: la Justicia Nacional Electoral proclama a los electos con el escrutinio definitivo.",
+    "fuentes": [
+     {
+      "nombre": "Ley 27.781, nuevo artículo 101 del Código Electoral",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto",
+      "cita": "Son votos válidos aquellos emitidos en Boleta Única oficializada donde esté claramente identificada la voluntad de la persona"
+     },
+     {
+      "nombre": "Ley 27.781, nuevo artículo 101 (afirmativos)",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto",
+      "cita": "Los votos afirmativos en los que el elector marca una opción electoral por una o más categorías"
+     },
+     {
+      "nombre": "Ley 27.781, nuevo artículo 101 (en blanco)",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto",
+      "cita": "Los votos en blanco cuando la persona no marca ninguna preferencia electoral en una o más categorías."
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 97",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "de los votos afirmativos válidamente emitidos"
+     },
+     {
+      "nombre": "Dirección Nacional Electoral, Disposición 1/2024",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/disposici%C3%B3n-1-2024-397238/texto",
+      "cita": "carece de efectos jurídicos para proclamar a los representantes electos, pues ello resulta atribución de la Justicia Nacional con competencia electoral"
+     }
+    ]
+   },
+   {
+    "titulo": "Cámara de Diputados",
+    "texto": "La Cámara de Diputados tiene 257 bancas. Cada provincia y la Ciudad de Buenos Aires forman un distrito electoral. El reparto entre distritos sale de la ley 22.847 de 1983, con base en el censo de 1980. Da un diputado cada 161.000 habitantes o fracción no menor de 80.500, más tres por distrito, y ningún distrito puede tener menos de cinco. El mandato dura cuatro años y la Cámara se renueva por mitades cada dos años. Las bancas de cada distrito se asignan con el sistema D'Hondt de la ley 22.838: solo participan las listas que superan el 3% del padrón, sus votos se dividen por 1, 2, 3 y así sucesivamente, y las bancas van a los cocientes más altos.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículo 45",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "que se consideran a este fin como distritos electorales de un solo Estado y a simple pluralidad de sufragios"
+     },
+     {
+      "nombre": "HCDN, Congreso Explicado",
+      "url": "https://www.hcdn.gob.ar/congreso_explicado/index.html",
+      "cita": "cuatro son los años de mandato de un diputado y la Cámara se renueva por mitad cada dos años"
+     },
+     {
+      "nombre": "HCDN, Congreso Explicado (integrantes)",
+      "url": "https://www.hcdn.gob.ar/congreso_explicado/index.html",
+      "cita": "Integrantes: de la Cámara de Diputados en la actualidad son 257"
+     },
+     {
+      "nombre": "Ley 22.847, artículo 3",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-195989/texto",
+      "cita": "uno por cada 161.000 habitantes o fracción no menor de 80.500. A dicha representación se agregará, por cada distrito, la cantidad de tres (3) diputados"
+     },
+     {
+      "nombre": "Ley 22.847, artículo 3 (mínimo)",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-195989/texto",
+      "cita": "no pudiendo en ningún caso ser menor de cinco (5) diputados"
+     },
+     {
+      "nombre": "Ley 22.847, artículo 4",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-195989/texto",
+      "cita": "tomando como base a tal efecto el censo practicado en 1980"
+     },
+     {
+      "nombre": "Ley 22.838 de 1983, artículo 4",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-151849/texto",
+      "cita": "No participarán en la asignación de cargos las listas que no logren un mínimo del tres por ciento (3 %) del padrón electoral del distrito."
+     },
+     {
+      "nombre": "Ley 22.838, artículo 5",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-151849/texto",
+      "cita": "será dividido por uno (1), por dos (2), por tres (3) y así sucesivamente hasta llegar al número total de los cargos a cubrir"
+     }
+    ]
+   },
+   {
+    "titulo": "Senado",
+    "texto": "Desde la reforma de 1994, el Senado tiene tres bancas por cada provincia y tres por la Ciudad de Buenos Aires, 72 en total. Se votan en forma directa y conjunta: dos bancas son para el partido más votado y la tercera para el que le sigue. En el texto original de la Constitución de 1853 había dos senadores por provincia, elegidos por las legislaturas. Una cláusula transitoria reguló el paso de un sistema al otro, y los mandatos elegidos con ese régimen terminaron el 9 de diciembre de 2001. El mandato dura seis años y cada dos años se renueva un tercio de los distritos.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículo 54",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "tres senadores por cada provincia y tres por la ciudad de Buenos Aires, elegidos en forma directa y conjunta"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 54 (reparto)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "correspondiendo dos bancas al partido político que obtenga el mayor número de votos, y la restante al partido político que le siga"
+     },
+     {
+      "nombre": "Constitución Nacional, artículo 56",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "el Senado se renovará a razón de una tercera parte de los distritos electorales cada dos años."
+     },
+     {
+      "nombre": "Constitución Nacional, cláusula transitoria cuarta",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "Los mandatos de los senadores elegidos por aplicación de esta cláusula transitoria durarán hasta el nueve de diciembre del dos mil uno."
+     },
+     {
+      "nombre": "Ley 24.309, núcleo de coincidencias básicas",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24309-693/texto",
+      "cita": "ELECCION DIRECTA DE TRES SENADORES, DOS POR LA MAYORIA Y UNO POR LA PRIMERA MINORIA, POR CADA PROVINCIA Y POR LA CIUDAD DE BUENOS AIRES"
+     },
+     {
+      "nombre": "Constitución de 1853, artículo 42",
+      "url": "https://www.infoleg.gob.ar/?page_id=3873",
+      "cita": "elegidos por sus legislaturas á pluralidad de sufragios"
+     }
+    ]
+   },
+   {
+    "titulo": "Votaciones nominales y bloques",
+    "texto": "Ninguna de las dos cámaras puede sesionar sin la mayoría absoluta de sus miembros. Ese número mínimo se llama quórum. En una votación nominal queda registrado en el acta y en el Diario de Sesiones el nombre de cada legislador y cómo votó, y eso permite seguir los votos uno por uno. La Cámara de Diputados publica sus votaciones nominales como datos abiertos, y la Secretaría Parlamentaria del Senado publica las suyas. Según el reglamento de Diputados, los grupos de tres o más diputados pueden formar bloques según sus afinidades políticas. Los interbloques reúnen varios bloques y el reglamento no los define.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículo 64",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "Ninguna de ellas entrará en sesión sin la mayoría absoluta de sus miembros"
+     },
+     {
+      "nombre": "HCDN, glosario parlamentario: votación, tipos de",
+      "url": "https://www2.hcdn.gob.ar/secparl/dgral_info_parlamentaria/dip/glosario/V/votacion_tipos.html",
+      "cita": "dejar constancia de ello en el Acta y en el Diario de Sesiones del nombre y apellido de cada diputado votante"
+     },
+     {
+      "nombre": "HCDN, datos abiertos: Votaciones Nominales",
+      "url": "https://datos.hcdn.gob.ar/dataset/votaciones_nominales",
+      "cita": "Información de las Votaciones Nominales realizadas en la Cámara de Diputados desde el período N°129."
+     },
+     {
+      "nombre": "Senado, Votaciones",
+      "url": "https://www.senado.gob.ar/votaciones/actas",
+      "cita": "Esta información es actualizada por la Secretaría Parlamentaria."
+     },
+     {
+      "nombre": "HCDN, Congreso Explicado (artículo 55 del reglamento)",
+      "url": "https://www.hcdn.gob.ar/congreso_explicado/index.html",
+      "cita": "Los grupos de tres o más diputados podrán organizarse en bloques de acuerdo con sus afinidades políticas."
+     },
+     {
+      "nombre": "HCDN, Interbloques",
+      "url": "https://www.hcdn.gob.ar/diputados/interbloques.html",
+      "cita": "No están definidos en el reglamento, pero refieren a grupos de bloques unidos por afinidades o frentes de coalición."
+     }
+    ]
+   },
+   {
+    "titulo": "Coparticipación y transferencias",
+    "texto": "La Constitución pide una ley convenio entre la Nación y las provincias que garantice el envío automático de los fondos coparticipados. La ley 23.548 rige desde 1988. En la distribución primaria fija 42,34% para la Nación, 54,66% para las provincias, 2% para el recupero del nivel relativo de algunas provincias y 1% para el Fondo de Aportes del Tesoro Nacional (ATN). En la secundaria reparte la parte provincial con porcentajes fijos por provincia. El Banco de la Nación transfiere esos fondos todos los días en forma automática. Los ATN atienden emergencias y desequilibrios financieros provinciales y los asigna el Ministerio del Interior. Las demás transferencias son no automáticas. En el presupuesto figuran en el inciso 5 como subsidios a provincias y municipios.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículo 75 inciso 2",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "instituirá regímenes de coparticipación de estas contribuciones, garantizando la automaticidad en la remisión de los fondos."
+     },
+     {
+      "nombre": "Ley 23.548, artículo 3",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "El uno por ciento (1%) para el Fondo de Aportes del Tesoro Nacional a las provincias."
+     },
+     {
+      "nombre": "Ley 23.548, artículo 4",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "se efectuará entre las provincias adheridas de acuerdo con los siguientes porcentajes"
+     },
+     {
+      "nombre": "Ley 23.548, artículo 5",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "se destinará a atender situaciones de emergencia y desequilibrios financieros de los gobiernos provinciales"
+     },
+     {
+      "nombre": "Ley 23.548, artículo 6",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "transferirá automáticamente a cada provincia y al Fondo de Aportes del Tesoro Nacional a las Provincias, el monto de recaudación que les corresponda"
+     },
+     {
+      "nombre": "Resolución 71/2003, clasificación por objeto del gasto",
+      "url": "https://www.argentina.gob.ar/normativa/recurso/85332/res71-2003clasifobjgasto/htm",
+      "cita": "Subsidios otorgados a las provincias para atender sus erogaciones corrientes."
+     },
+     {
+      "nombre": "Ministerio de Economía, Boletín Fiscal, capítulo Provincias",
+      "url": "https://www.mecon.gob.ar/onp/documentos/boletin/3ertrim02/capitulos/capitulo4.htm",
+      "cita": "Las remesas no automáticas del ejercicio 2002"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Votos afirmativos (positivos)",
+    "definicion": "Votos válidos que marcan una opción electoral. Sobre ellos se calculan los umbrales del 45% y el 40% de la elección presidencial.",
+    "fuente": {
+     "nombre": "Ley 27.781, artículo 101 del Código Electoral",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto",
+     "cita": "Los votos afirmativos en los que el elector marca una opción electoral por una o más categorías"
+    }
+   },
+   {
+    "termino": "Votos válidos",
+    "definicion": "Votos emitidos en una boleta oficializada con la voluntad claramente identificada. Incluyen los afirmativos y los en blanco.",
+    "fuente": {
+     "nombre": "Ley 27.781, artículo 101 del Código Electoral",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto",
+     "cita": "Son votos válidos aquellos emitidos en Boleta Única oficializada donde esté claramente identificada la voluntad de la persona"
+    }
+   },
+   {
+    "termino": "Voto en blanco",
+    "definicion": "Voto válido que no marca ninguna opción en una o más categorías.",
+    "fuente": {
+     "nombre": "Ley 27.781, artículo 101 del Código Electoral",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-405395/texto",
+     "cita": "Los votos en blanco cuando la persona no marca ninguna preferencia electoral en una o más categorías."
+    }
+   },
+   {
+    "termino": "Escrutinio provisorio",
+    "definicion": "Recuento rápido que se difunde la noche de la elección. Es informativo. Los electos se proclaman con el escrutinio definitivo de la Justicia Nacional Electoral.",
+    "fuente": {
+     "nombre": "Dirección Nacional Electoral, Disposición 1/2024",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/disposici%C3%B3n-1-2024-397238/texto",
+     "cita": "carece de efectos jurídicos para proclamar a los representantes electos"
+    }
+   },
+   {
+    "termino": "Sistema D'Hondt",
+    "definicion": "Método para repartir las bancas de diputados. Los votos de cada lista que supera el 3% del padrón se dividen por 1, 2, 3 y así sucesivamente, y las bancas van a los cocientes más altos.",
+    "fuente": {
+     "nombre": "Ley 22.838, artículo 5",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-151849/texto",
+     "cita": "será dividido por uno (1), por dos (2), por tres (3) y así sucesivamente hasta llegar al número total de los cargos a cubrir"
+    }
+   },
+   {
+    "termino": "Quórum",
+    "definicion": "Cantidad mínima de legisladores presentes para que una cámara pueda sesionar. La Constitución la fija en la mayoría absoluta de sus miembros.",
+    "fuente": {
+     "nombre": "HCDN, glosario parlamentario: quórum",
+     "url": "https://www2.hcdn.gob.ar/secparl/dgral_info_parlamentaria/dip/glosario/Q/quorum.html",
+     "cita": "Ese requisito se denomina 'quórum', y es imprescindible para que la Cámara entre en sesión."
+    }
+   },
+   {
+    "termino": "Votación nominal",
+    "definicion": "Votación en la que queda registrado el nombre de cada legislador y el sentido de su voto.",
+    "fuente": {
+     "nombre": "HCDN, glosario parlamentario: votación, tipos de",
+     "url": "https://www2.hcdn.gob.ar/secparl/dgral_info_parlamentaria/dip/glosario/V/votacion_tipos.html",
+     "cita": "Modo de votación en el que se registra quien votó en cada sentido"
+    }
+   },
+   {
+    "termino": "Bloque parlamentario",
+    "definicion": "Grupo de legisladores que actúan juntos por afinidad política. En Diputados se forma con tres o más miembros.",
+    "fuente": {
+     "nombre": "HCDN, Congreso Explicado",
+     "url": "https://www.hcdn.gob.ar/congreso_explicado/index.html",
+     "cita": "Los grupos de tres o más diputados podrán organizarse en bloques de acuerdo con sus afinidades políticas."
+    }
+   },
+   {
+    "termino": "Aportes del Tesoro Nacional (ATN)",
+    "definicion": "Fondo formado con el 1% de la masa coparticipable para atender emergencias y desequilibrios financieros de las provincias. La ley pone su asignación a cargo del Ministerio del Interior.",
+    "fuente": {
+     "nombre": "Ley 23.548, artículo 5",
+     "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+     "cita": "será previsto presupuestariamente en jurisdicción del Ministerio del Interior, quien será el encargado de su asignación."
+    }
+   },
+   {
+    "termino": "Transferencias no automáticas",
+    "definicion": "Envíos de la Nación a provincias y municipios que no salen de la remisión automática y diaria de la coparticipación. En el presupuesto son subsidios del inciso 5 para gastos corrientes o de capital.",
+    "fuente": {
+     "nombre": "Resolución 71/2003, clasificación por objeto del gasto",
+     "url": "https://www.argentina.gob.ar/normativa/recurso/85332/res71-2003clasifobjgasto/htm",
+     "cita": "Subsidios otorgados a las provincias para atender sus erogaciones de capital."
+    }
+   }
+  ]
+ },
+ "salud": {
+  "bloques": [
+   {
+    "titulo": "Esperanza de vida al nacer",
+    "texto": "La esperanza de vida al nacer resume en un número las condiciones de mortalidad de un período. No predice cuánto va a vivir una persona concreta. Indica cuántos años viviría en promedio un recién nacido si, en cada edad de su vida, enfrentara los riesgos de morir observados en ese período. El INDEC la obtiene de las tablas de mortalidad, que parten de las tasas de mortalidad por sexo y edad y calculan, edad por edad, la probabilidad de morir antes de llegar a la edad siguiente. Las tablas provinciales más recientes cubren 2019 y los años 2020 a 2022, y los valores de 2020 y 2021 muestran el efecto de la pandemia de COVID-19.",
+    "fuentes": [
+     {
+      "nombre": "INDEC. Tablas abreviadas de mortalidad 2019 y 2020-2022, por sexo y edad. Metadatos (15/10/2025)",
+      "url": "https://censo.gob.ar/wp-content/uploads/2025/10/metadato_tabla_mortalidad_base.pdf",
+      "cita": "Es la tasa central de mortalidad entre las edades x, x + n, a partir de la cual se derivan las restantes funciones interdependientes de la tabla."
+     },
+     {
+      "nombre": "INDEC. Tablas abreviadas de mortalidad 2019 y 2020-2022. Metadatos",
+      "url": "https://censo.gob.ar/wp-content/uploads/2025/10/metadato_tabla_mortalidad_base.pdf",
+      "cita": "Es la probabilidad que tiene una persona de edad exacta x de fallecer antes de alcanzar la edad exacta x + n."
+     },
+     {
+      "nombre": "INDEC. Tablas abreviadas de mortalidad 2019 y 2020-2022. Metadatos",
+      "url": "https://censo.gob.ar/wp-content/uploads/2025/10/metadato_tabla_mortalidad_base.pdf",
+      "cita": "En particular, para x=0 se obtiene la esperanza de vida al nacer."
+     },
+     {
+      "nombre": "INDEC. Estimaciones y proyecciones de población 2022-2040 (Análisis Demográfico 39)",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "en 2020 se observó una pérdida en los años de vida que se agudizó en 2021"
+     }
+    ]
+   },
+   {
+    "titulo": "Mortalidad infantil, neonatal y posneonatal",
+    "texto": "La tasa de mortalidad infantil relaciona las muertes de menores de un año ocurridas en un año con los nacidos vivos registrados ese mismo año, y se expresa por cada 1.000 nacidos vivos. Se divide en dos tramos. La mortalidad neonatal abarca los primeros 27 días de vida y depende sobre todo de condiciones congénitas y de la atención del embarazo, el parto y el recién nacido. La posneonatal va desde el día 28 hasta el año de vida y responde más a las condiciones ambientales y socioeconómicas. Las muertes de menores de un año se asignan a la provincia donde vivía la madre, no al lugar donde ocurrió la muerte.",
+    "fuentes": [
+     {
+      "nombre": "DEIS, Ministerio de Salud. Natalidad y mortalidad infantil 2019. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "relaciona las defunciones de menores de un año acaecidas durante un año y el número de nacidos vivos registrados"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "las de mortalidad infantil por 1.000 nacidos vivos"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "Se llama mortalidad neonatal a la ocurrida en el transcurso de los primeros 27 días de vida"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "En la mortalidad neonatal prevalecen aquéllos vinculados con las condiciones congénitas como con la atención de la salud"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "En la mortalidad post-neonatal tienen mayor impacto las condiciones ambientales y socio-económicas sobre la salud del niño."
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "en las de menores de un año, lugar de residencia de la madre en el momento de la muerte del niño"
+     }
+    ]
+   },
+   {
+    "titulo": "Causas de muerte y la CIE-10",
+    "texto": "Cada defunción se clasifica por su causa básica, es decir, la enfermedad o lesión que inició la cadena de hechos que llevó a la muerte, o las circunstancias del accidente o la violencia que causó la lesión. Para codificarla se usa la Clasificación Estadística Internacional de Enfermedades y Problemas Relacionados con la Salud, Décima Revisión, conocida como CIE-10. Su antecedente es la Lista Internacional de Causas de Defunción, formalizada en 1893. El sistema estadístico de salud argentino la aplica a las causas de muerte desde el 1 de enero de 1997. Para los menores de un año, la DEIS usa una lista de tabulación que agrupa los códigos en capítulos, como las afecciones perinatales o las malformaciones congénitas.",
+    "fuentes": [
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "la enfermedad o lesión que inició la cadena de acontecimientos patológicos que condujeron directamente a la muerte"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "El SES ha adoptado la CIE-10 para la codificación de la causa de muerte a partir del 1º de enero de 1997"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "La clasificación de enfermedades, formalizada en 1893 como Lista Internacional de Causas de Defunción"
+     },
+     {
+      "nombre": "DEIS. Boletín 163 (anexo)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "Lista de tabulación para la mortalidad infantil y del niño"
+     }
+    ]
+   },
+   {
+    "titulo": "Muertes reducibles",
+    "texto": "Desde 1985 la Argentina clasifica las muertes de menores de un año según criterios de reducibilidad, con el objetivo de detectar problemas y orientar decisiones. Se consideran reducibles las defunciones cuya frecuencia podría bajar con el conocimiento científico actual y con distintas acciones, sobre todo de los servicios de salud. Las difícilmente reducibles son las que hoy no se pueden evitar. Los grupos de causas son distintos para el período neonatal y el posneonatal. La clasificación se revisó en 1996 y en 2011, cuando se sumó la categoría de no clasificables. En 2017 se actualizó para incorporar los códigos de la edición de la CIE-10 que se usa desde 2016.",
+    "fuentes": [
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "En la Argentina esta clasificación comenzó a usarse a partir de 1985."
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "tiene como objeto detectar problemas, sustentar la toma de decisiones y guiar las actividades"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "que incluye las defunciones cuya frecuencia podría disminuirse, en función del conocimiento científico actual y por distintas acciones desarrolladas"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "que incluye las defunciones que en la actualidad no son reducibles"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "En 2011 el agrupamiento de causas infantiles vigente fue nuevamente revisado y reformulado"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "En el año 2017, la DINAMIA junto con expertos que participaron en la Revisión del año 2011 actualizó la Clasificación de Criterios de Reducibilidad"
+     }
+    ]
+   },
+   {
+    "titulo": "El SNIC y por qué difiere de la DEIS",
+    "texto": "El Sistema Nacional de Información Criminal (SNIC), del Ministerio de Seguridad, fue creado en el año 2000 por la ley 25.266. Reúne los hechos presuntamente delictuosos que registran las policías provinciales, las fuerzas federales y otros organismos que reciben denuncias en todas las jurisdicciones. Sus módulos de alerta temprana relevan caso por caso los homicidios dolosos, las muertes viales y los suicidios, aunque estos dos últimos no sean delitos. Como se basa en las primeras actuaciones policiales, sus cifras pueden diferir de las de otros organismos. La DEIS, en cambio, parte de defunciones certificadas por personal de salud y las asigna al lugar donde vivía la persona fallecida.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Seguridad Nacional. Documento metodológico del SNIC",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Documento_metodologico_SNIC_2024.pdf",
+      "cita": "El Sistema Nacional de Información Criminal fue creado en el año 2000 por la Ley Nro. 25.266, modificatoria de la Ley Nro. 22.117."
+     },
+     {
+      "nombre": "Documento metodológico del SNIC",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Documento_metodologico_SNIC_2024.pdf",
+      "cita": "brindar información sobre hechos presuntamente delictuosos registrados por las fuerzas policiales provinciales"
+     },
+     {
+      "nombre": "Documento metodológico del SNIC",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Documento_metodologico_SNIC_2024.pdf",
+      "cita": "Mientras que los módulos SAT Homicidios dolosos, muertes viales y suicidios recolectan información a nivel de sumario o preventivo policial (microdatos)"
+     },
+     {
+      "nombre": "Documento metodológico del SNIC",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Documento_metodologico_SNIC_2024.pdf",
+      "cita": "También se consideran las muertes violentas que registra el SNIC (suicidios y muertes viales) que no tipifican ningún delito."
+     },
+     {
+      "nombre": "Documento metodológico del SNIC",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Documento_metodologico_SNIC_2024.pdf",
+      "cita": "el SNIC-SAT se nutre de lo relevado en las primeras actuaciones policiales que pueden no tener información suficiente"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "El personal de salud de los establecimientos certifica los hechos y capta los datos básicos"
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "y lugar de residencia del fallecido al morir para el resto de las edades"
+     }
+    ]
+   },
+   {
+    "titulo": "Femicidios: el registro judicial",
+    "texto": "El Registro Nacional de Femicidios de la Justicia Argentina lo elabora la Oficina de la Mujer de la Corte Suprema. Reúne datos de las causas judiciales en las que se investigan muertes violentas de mujeres cis y de mujeres trans y travestis por razones de género. El primer informe se publicó en 2015 y se refirió a 2014. La metodología se consolidó en todo el país en 2017, por lo que los datos de 2014 a 2016 deben tomarse con cautela. Las tasas se calculan con las proyecciones de población de mujeres del INDEC. Como esas proyecciones no distinguen entre mujeres cis y trans, los travesticidios y transfemicidios entran en el mismo cálculo.",
+    "fuentes": [
+     {
+      "nombre": "CSJN, Oficina de la Mujer. Registro Nacional de Femicidios. Resumen de la Edición 2023",
+      "url": "https://om.csjn.gob.ar/consultaTalleresWeb/public/documentoConsulta/verDocumentoById?idDocumento=240",
+      "cita": "registro de datos estadísticos de las causas judiciales en las que se investigan muertes violentas de mujeres cis y de mujeres trans/travestis"
+     },
+     {
+      "nombre": "CSJN. Resumen de la Edición 2023",
+      "url": "https://om.csjn.gob.ar/consultaTalleresWeb/public/documentoConsulta/verDocumentoById?idDocumento=240",
+      "cita": "En 2015 se realizó el primer informe referido al año 2014"
+     },
+     {
+      "nombre": "CSJN. Resumen de la Edición 2023",
+      "url": "https://om.csjn.gob.ar/consultaTalleresWeb/public/documentoConsulta/verDocumentoById?idDocumento=240",
+      "cita": "Los datos de 2014 a 2016 fueron obtenidos por una metodología en fase de desarrollo, por lo cual deben tomarse con cautela."
+     },
+     {
+      "nombre": "CSJN. Resumen de la Edición 2023",
+      "url": "https://om.csjn.gob.ar/consultaTalleresWeb/public/documentoConsulta/verDocumentoById?idDocumento=240",
+      "cita": "Las tasas fueron calculadas utilizando las proyecciones de población de mujeres del INDEC"
+     },
+     {
+      "nombre": "CSJN. Resumen de la Edición 2023",
+      "url": "https://om.csjn.gob.ar/consultaTalleresWeb/public/documentoConsulta/verDocumentoById?idDocumento=240",
+      "cita": "las proyecciones de población del INDEC aún no distinguen entre mujeres cis y mujeres trans/travestis"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Esperanza de vida al nacer",
+    "definicion": "Cantidad de años que en promedio viviría un recién nacido si enfrentara durante toda su vida las condiciones de mortalidad por edad del período estudiado.",
+    "fuente": {
+     "nombre": "INDEC. Proyecciones 2022-2040, glosario",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+     "cita": "número de años que en promedio se espera que viva un recién nacido en las condiciones de mortalidad por edad"
+    }
+   },
+   {
+    "termino": "Tabla de mortalidad",
+    "definicion": "Herramienta que, a partir de las tasas de mortalidad por edad, calcula la probabilidad de morir en cada edad y los años que en promedio le quedan por vivir a quien llega a ella.",
+    "fuente": {
+     "nombre": "INDEC. Metadatos de las tablas de mortalidad",
+     "url": "https://censo.gob.ar/wp-content/uploads/2025/10/metadato_tabla_mortalidad_base.pdf",
+     "cita": "Es el número medio de años que le quedan por vivir a los sobrevivientes de edad exacta x"
+    }
+   },
+   {
+    "termino": "Nacido vivo",
+    "definicion": "Todo producto de la concepción que, una vez separado del cuerpo de la madre, respira o muestra otro signo de vida, sin importar la duración del embarazo.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "Es la expulsión o extracción completa del cuerpo de la madre prescindiendo de la duración del embarazo, de un producto de la concepción"
+    }
+   },
+   {
+    "termino": "Mortalidad infantil",
+    "definicion": "Muertes de menores de un año. La tasa se calcula sobre los nacidos vivos registrados del mismo año y se expresa por cada 1.000 nacidos vivos.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "La mortalidad infantil comprende la mortalidad de menores de un año."
+    }
+   },
+   {
+    "termino": "Mortalidad neonatal y posneonatal",
+    "definicion": "La neonatal abarca los primeros 27 días de vida. La posneonatal va desde el día 28 hasta el año de vida.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "Se definieron diferentes causas de muerte para el período neonatal (0 a 27 días) y para el período post-neonatal (28 a 365 días)."
+    }
+   },
+   {
+    "termino": "Causa básica de defunción",
+    "definicion": "Enfermedad o lesión que inició la cadena de hechos que terminó en la muerte, o las circunstancias del accidente o la violencia que causó la lesión.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "la enfermedad o lesión que inició la cadena de acontecimientos patológicos que condujeron directamente a la muerte"
+    }
+   },
+   {
+    "termino": "CIE-10",
+    "definicion": "Clasificación Estadística Internacional de Enfermedades y Problemas Relacionados con la Salud, Décima Revisión. En la Argentina se usa para codificar las causas de muerte desde 1997.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "El SES ha adoptado la CIE-10 para la codificación de la causa de muerte a partir del 1º de enero de 1997"
+    }
+   },
+   {
+    "termino": "Muertes reducibles",
+    "definicion": "Muertes de menores de un año cuya frecuencia podría bajar con el conocimiento científico actual y con acciones, sobre todo de los servicios de salud.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "que incluye las defunciones cuya frecuencia podría disminuirse, en función del conocimiento científico actual y por distintas acciones desarrolladas"
+    }
+   }
+  ]
+ },
+ "educacion": {
+  "bloques": [
+   {
+    "titulo": "Qué es Aprender",
+    "texto": "Aprender es la evaluación nacional de los aprendizajes de estudiantes de primaria y secundaria en las áreas básicas. Se aplica desde 2016 y continúa la serie de Operativos Nacionales de Evaluación (ONE) que el Ministerio de Educación de la Nación empezó en 1993. Es una prueba estandarizada: todos los estudiantes del mismo grado o año responden los mismos instrumentos en las mismas condiciones. Está referida a criterio, porque mide el dominio de un marco definido por los Núcleos de Aprendizaje Prioritarios, los diseños curriculares de cada jurisdicción y acuerdos federales. Según el año y el área, se aplica a todos los estudiantes o a una muestra probabilística.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Educación. Evaluación Nacional Aprender. Documento metodológico de bases usuarias",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "permite conocer los logros de aprendizaje de las y los estudiantes de nivel primario y secundario de todo el país"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "cuando el Ministerio de Educación de la Nación comenzó a implementar los Operativos Nacionales de Evaluación (ONE)"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "forman parte de la política de educación nacional desde 1993"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "Aprender se realiza desde el año 2016 en adelante."
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "Esto significa que se aplican los mismos instrumentos a todos/as los/as estudiantes del mismo grado o año, en las mismas condiciones"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "ese conjunto consiste en los Núcleos de Aprendizaje Prioritarios, los diseños curriculares jurisdiccionales y los consensos construidos federalmente"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "En las áreas evaluadas de manera muestral, las muestras son seleccionadas en forma probabilística"
+     }
+    ]
+   },
+   {
+    "titulo": "Niveles de desempeño",
+    "texto": "Aprender no informa solo un puntaje. Ubica a cada estudiante en uno de cuatro niveles de desempeño: por debajo del básico, básico, satisfactorio y avanzado. Los puntos de corte entre niveles se fijaron con el método Bookmark, en talleres con docentes frente a aula elegidos al azar en las distintas jurisdicciones. Para que los resultados se puedan comparar entre años, las pruebas repiten un grupo de preguntas comunes, el bloque de anclaje, y la edición 2016 funciona como escala de referencia. Como los niveles se definieron sobre los contenidos de la escuela argentina, el Ministerio advierte que no se pueden comparar en forma directa con otras evaluaciones.",
+    "fuentes": [
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "se hace mediante la definición de niveles de desempeño, cuatro en las evaluaciones Aprender."
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "(por debajo del básico, básico, satisfactorio y avanzado)"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "fueron convocados un conjunto de docentes con tarea frente a aula, seleccionados en forma aleatoria"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "un conjunto de ítems en común, el bloque de anclaje"
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "Aprender 2016 se fijó como escala de referencia."
+     },
+     {
+      "nombre": "Aprender. Documento metodológico",
+      "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+      "cita": "no es posible establecer una comparación directa con otras evaluaciones"
+     }
+    ]
+   },
+   {
+    "titulo": "PISA",
+    "texto": "PISA es el Programa para la Evaluación Internacional de Estudiantes de la OCDE. Se aplica cada tres años desde 2000 a estudiantes de 15 años y mide sus logros en lectura, matemática y ciencias. Es una evaluación muestral: se elige un conjunto de escuelas y estudiantes que representa a toda la población evaluada. La Argentina asumió el compromiso de participar en el año 2000. Según la OCDE, los resultados argentinos de 2015 no se pueden comparar con los de años anteriores ni con los de 2018, porque se usó un marco muestral incompleto. Por eso ese año queda fuera de las series.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Educación. Evaluación PISA (extraída por herramienta)",
+      "url": "https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/evaluacion-pisa",
+      "cita": "Se implementa cada tres años desde el año 2000"
+     },
+     {
+      "nombre": "Ministerio de Educación. Evaluación PISA (extraída por herramienta)",
+      "url": "https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/evaluacion-pisa",
+      "cita": "Se trata de una evaluación muestral, es decir, se selecciona un conjunto de escuelas y estudiantes"
+     },
+     {
+      "nombre": "Ministerio de Educación. Noticia sobre el inicio de la participación argentina en PISA (extraída por herramienta)",
+      "url": "https://www.argentina.gob.ar/noticias/comenzo-la-participacion-de-argentina-en-la-evaluacion-internacional-pisa",
+      "cita": "es un compromiso que asumió la Argentina en el año 2000"
+     },
+     {
+      "nombre": "OCDE. PISA 2018 Results. Country Note Argentina",
+      "url": "https://www.oecd.org/content/dam/oecd/en/about/programmes/edu/pisa/publications/national-reports/pisa-2018/featured-country-specific-overviews/PISA2018_CN_ARG.pdf",
+      "cita": "PISA 2015 results for Argentina cannot be compared to results from previous years or to results from 2018"
+     },
+     {
+      "nombre": "OCDE. PISA 2018 Country Note Argentina",
+      "url": "https://www.oecd.org/content/dam/oecd/en/about/programmes/edu/pisa/publications/national-reports/pisa-2018/featured-country-specific-overviews/PISA2018_CN_ARG.pdf",
+      "cita": "due to the use of an incomplete sampling frame"
+     }
+    ]
+   },
+   {
+    "titulo": "Tasa neta de escolarización",
+    "texto": "La tasa neta de escolarización mide qué parte de la población que por su edad debería cursar un nivel efectivamente asiste a ese nivel. Se calcula dividiendo los estudiantes que tienen la edad teórica del nivel por toda la población de esa edad. El numerador sale del Relevamiento Anual, un operativo censal de matrícula que se aplica desde 1996. El denominador sale de las proyecciones de población del INDEC. Lo que falta para completar la tasa no es necesariamente exclusión, porque incluye a quienes estudian en un nivel que no corresponde a su edad. Al combinar dos fuentes distintas, a veces la matrícula supera a la población proyectada y la tasa pasa el máximo teórico.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Educación. Tasas de escolarización. Consideraciones sobre las fuentes y métodos de cálculo (2023)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+      "cita": "Es el cociente entre el número de alumnos que cuentan con la edad teórica para cursar un determinado nivel educativo, ciclo o año de estudio"
+     },
+     {
+      "nombre": "Tasas de escolarización (2023)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+      "cita": "El Relevamiento Anual es un operativo de carácter censal que recoge al 30 de abril de cada año la información consolidada"
+     },
+     {
+      "nombre": "Tasas de escolarización (2023)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+      "cita": "Se aplica desde el año 1996"
+     },
+     {
+      "nombre": "Tasas de escolarización (2023)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+      "cita": "a partir de proyecciones por edad simple (INDEC-MEN)"
+     },
+     {
+      "nombre": "Tasas de escolarización (2023)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+      "cita": "El complemento de la tasa no necesariamente indica exclusión educativa, ya que puede tratarse de estudiantes matriculados en instancias que no corresponden a su edad."
+     },
+     {
+      "nombre": "Tasas de escolarización (2023)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+      "cita": "el volumen de matrícula supera a la cantidad de población proyectada, dando lugar así a valores del indicador superiores a 100."
+     }
+    ]
+   },
+   {
+    "titulo": "Educación obligatoria",
+    "texto": "La Ley de Educación Nacional 26.206, sancionada el 14 de diciembre de 2006, estableció que la escolaridad es obligatoria desde los cinco años hasta terminar la secundaria. El 3 de diciembre de 2014 se sancionó la ley 27.045, que declaró obligatoria la educación inicial desde los cuatro años y modificó la ley 26.206. Desde entonces la obligatoriedad abarca los dos últimos años del nivel inicial, la primaria y la secundaria. Además, el Estado nacional, las provincias y la Ciudad de Buenos Aires tienen que universalizar los servicios educativos para niñas y niños de tres años.",
+    "fuentes": [
+     {
+      "nombre": "Ley 26.206, texto original (argentina.gob.ar/normativa, extraída por herramienta)",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26206-123542/texto",
+      "cita": "La obligatoriedad escolar en todo el país se extiende desde la edad de CINCO (5) años hasta la finalización del nivel de la Educación Secundaria."
+     },
+     {
+      "nombre": "Ley 27.045 (InfoLEG, extraída por herramienta)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/240000-244999/240450/norma.htm",
+      "cita": "Declárese obligatoria la educación inicial para niños/as de cuatro (4) años en el sistema educativo nacional."
+     },
+     {
+      "nombre": "Ley 26.206, texto actualizado (InfoLEG, extraída por herramienta)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/120000-124999/123542/texact.htm",
+      "cita": "siendo obligatorios los dos (2) últimos años"
+     },
+     {
+      "nombre": "Ley 26.206, texto actualizado (InfoLEG, extraída por herramienta)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/120000-124999/123542/texact.htm",
+      "cita": "tienen la obligación de universalizar los servicios educativos para los/as niños/as de tres (3) años de edad"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Aprender",
+    "definicion": "Evaluación nacional y estandarizada de los aprendizajes en primaria y secundaria, que se aplica desde 2016.",
+    "fuente": {
+     "nombre": "Aprender. Documento metodológico",
+     "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+     "cita": "Aprender se realiza desde el año 2016 en adelante."
+    }
+   },
+   {
+    "termino": "Prueba referida a criterio",
+    "definicion": "Evaluación que mide el dominio de un conjunto definido de conocimientos y habilidades, en lugar de comparar a los estudiantes entre sí.",
+    "fuente": {
+     "nombre": "Aprender. Documento metodológico",
+     "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+     "cita": "Aprender es una prueba referida a criterio, por lo que tiene un marco de referencia"
+    }
+   },
+   {
+    "termino": "Niveles de desempeño",
+    "definicion": "Las cuatro categorías en que Aprender agrupa los resultados: por debajo del básico, básico, satisfactorio y avanzado.",
+    "fuente": {
+     "nombre": "Aprender. Documento metodológico",
+     "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+     "cita": "(por debajo del básico, básico, satisfactorio y avanzado)"
+    }
+   },
+   {
+    "termino": "Bloque de anclaje",
+    "definicion": "Grupo de preguntas que se repite entre ediciones de Aprender para poder comparar los resultados en el tiempo.",
+    "fuente": {
+     "nombre": "Aprender. Documento metodológico",
+     "url": "https://www.argentina.gob.ar/sites/default/files/documento_metodologico_aprender_2018.pdf",
+     "cita": "un conjunto de ítems en común, el bloque de anclaje"
+    }
+   },
+   {
+    "termino": "PISA",
+    "definicion": "Evaluación internacional de la OCDE que se aplica cada tres años a estudiantes de 15 años.",
+    "fuente": {
+     "nombre": "OCDE. PISA 2018 Country Note Argentina",
+     "url": "https://www.oecd.org/content/dam/oecd/en/about/programmes/edu/pisa/publications/national-reports/pisa-2018/featured-country-specific-overviews/PISA2018_CN_ARG.pdf",
+     "cita": "is a triennial survey of 15-year-old students that assesses the extent to which they have acquired the key knowledge and skills"
+    }
+   },
+   {
+    "termino": "Tasa neta de escolarización",
+    "definicion": "Estudiantes con la edad teórica de un nivel, divididos por toda la población de esa edad y multiplicados por cien.",
+    "fuente": {
+     "nombre": "Tasas de escolarización (2023)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+     "cita": "Es el cociente entre el número de alumnos que cuentan con la edad teórica para cursar un determinado nivel educativo, ciclo o año de estudio"
+    }
+   },
+   {
+    "termino": "Tasa bruta de escolarización",
+    "definicion": "Todos los estudiantes de un nivel, tengan la edad que tengan, divididos por la población en edad teórica de cursarlo.",
+    "fuente": {
+     "nombre": "Tasas de escolarización (2023)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+     "cita": "Es el cociente entre el número de alumnos escolarizados en un determinado nivel educativo, ciclo o año de estudio, independientemente de su edad"
+    }
+   },
+   {
+    "termino": "Relevamiento Anual",
+    "definicion": "Operativo censal del sistema educativo que registra cada año la matrícula y otras variables de todos los establecimientos. Se aplica desde 1996.",
+    "fuente": {
+     "nombre": "Tasas de escolarización (2023)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
+     "cita": "El Relevamiento Anual es un operativo de carácter censal que recoge al 30 de abril de cada año la información consolidada"
+    }
+   }
+  ]
+ },
+ "poblacion": {
+  "bloques": [
+   {
+    "titulo": "Los censos nacionales",
+    "texto": "El primer censo nacional de población se hizo en 1869 y alcanzó en forma simultánea a todos los habitantes de las provincias que entonces integraban el Estado nacional. Los censos permiten saber cuántos somos, cómo vivimos y cómo nos distribuimos en el territorio. Los censos anteriores al de 2022 fueron de hecho: contaban a cada persona donde había pasado la noche previa. El Censo 2022, con fecha de referencia el 18 de mayo, fue el primero de derecho, que registra a la población en su lugar de residencia habitual. También fue el primero bimodal, porque permitió responder por internet además del recorrido con cuestionario en papel.",
+    "fuentes": [
+     {
+      "nombre": "Censo 2022. Historia de los censos",
+      "url": "https://censo.gob.ar/index.php/recursos/historia-de-los-censos/",
+      "cita": "Primer Censo de la República Argentina – 1869"
+     },
+     {
+      "nombre": "Censo 2022. Historia (extraída por herramienta)",
+      "url": "https://censo.gob.ar/index.php/historia/",
+      "cita": "alcanzó a todos los habitantes de las 14 provincias del entonces denominado Estado nacional en forma simultánea"
+     },
+     {
+      "nombre": "Censo 2022. Historia (extraída por herramienta)",
+      "url": "https://censo.gob.ar/index.php/historia/",
+      "cita": "Los censos permiten saber cuántos somos, cómo somos, cómo vivimos y cómo nos distribuimos en el territorio."
+     },
+     {
+      "nombre": "INDEC. Estimaciones y proyecciones de población 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "se enumeraba a la población en el lugar donde había pasado la noche anterior al Día del Censo"
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "El Censo 2022 fue el primer censo de derecho llevado adelante en nuestro país."
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "fue la primera experiencia en aplicar un operativo bimodal que combinó el autoempadronamiento en línea con el tradicional barrido completo del territorio"
+     }
+    ]
+   },
+   {
+    "titulo": "Proyecciones de población y método de los componentes",
+    "texto": "Entre un censo y otro, la población se estima con proyecciones. En octubre de 2025 el INDEC publicó las estimaciones y proyecciones 2022 a 2040 basadas en el Censo 2022. Primero reconstruye la población año por año con una ecuación de balance: parte de una población inicial, suma nacimientos, resta defunciones y agrega el saldo migratorio. Desde 2022 proyecta con el método de los componentes, que proyecta por separado la mortalidad, la fecundidad y la migración y luego las combina por sexo y edad. Las proyecciones se usan como denominador de muchas tasas, por lo que una revisión puede cambiar indicadores ya publicados.",
+    "fuentes": [
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "Buenos Aires, octubre de 2025."
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "partiendo de una población inicial se suman nacimientos, se restan defunciones y se adiciona el saldo migratorio internacional neto"
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "utilizando el método de los componentes, que consiste en proyectar cada uno de los fenómenos determinantes en la dinámica demográfica de forma independiente"
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "También se utilizan como denominadores para diversas medidas de seguimiento de fenómenos sociales, económicos y demográficos."
+     }
+    ]
+   },
+   {
+    "titulo": "Fecundidad y envejecimiento",
+    "texto": "La tasa global de fecundidad indica cuántos hijos tendría en promedio una mujer a lo largo de su período reproductivo si tuviera sus hijos según las tasas por edad observadas en un año. El nivel de reemplazo es la fecundidad mínima para que una población, sin contar las migraciones, mantenga su tamaño en el tiempo. Cuando la fecundidad baja y la sobrevida aumenta, la población envejece. Una forma de medirlo es el índice de dependencia potencial de los mayores, que compara las personas de 65 años y más con las de 15 a 64, cada 100. Algunos informes oficiales usan el corte de 60 años, por eso conviene revisar qué edades usa cada fuente.",
+    "fuentes": [
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040, glosario",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "número promedio de hijos que tendría una mujer de una cohorte hipotética de mujeres si, durante todo su período reproductivo"
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "fecundidad mínima necesaria para que una población cerrada (las migraciones se entienden aparte) se mantenga indefinidamente en el tiempo sin disminuir su tamaño"
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "La estructura de la población evidencia un envejecimiento demográfico paulatino en ambos sexos, pero en particular en las mujeres."
+     },
+     {
+      "nombre": "INDEC. SESD, área Adultos mayores. Definiciones y conceptos",
+      "url": "https://www.indec.gob.ar/ftp/indecinforma/nuevaweb/cuadros/7/definicionesyconceptos_am.pdf",
+      "cita": "Índice de dependencia potencial de los mayores: proporción de población de 65 años y más respecto a la población de 15 a 64 años, por cien."
+     },
+     {
+      "nombre": "RENAPER, Dirección Nacional de Población. Reporte de envejecimiento poblacional 1991-2010 (2021)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2021/10/reporte_de_envejecimiento_poblacional_a_nivel_nacional_y_provincial.pptx_.pdf",
+      "cita": "Cuando se privilegia el análisis de la dimensión económica del envejecimiento demográfico, suele tomarse como límite inferior el corte en los 65 años"
+     }
+    ]
+   },
+   {
+    "titulo": "Estadísticas vitales, RENAPER y censos",
+    "texto": "Los nacimientos y las defunciones se conocen por las estadísticas vitales. El personal de salud certifica cada hecho y los registros civiles lo inscriben. La DEIS, del Ministerio de Salud, elabora estas estadísticas por delegación del INDEC, dentro de un sistema que se formó a fines de la década de 1960 con convenios firmados con las provincias en 1968. El RENAPER, regido por la ley 17.671 de 1968, tiene a su cargo la inscripción e identificación de las personas. A diferencia del censo, que cuenta a la población en una fecha determinada, los registros acumulan hechos durante el año y pueden tener omisiones o inscripciones tardías.",
+    "fuentes": [
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "Los registros civiles y sus delegaciones inscriben y registran legalmente los hechos vitales."
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "se encuentran bajo responsabilidad del Ministerio de Salud por delegación del Instituto Nacional de Estadística y Censos (INDEC)"
+     },
+     {
+      "nombre": "DEIS. Sistema Estadístico de Salud (extraída por herramienta)",
+      "url": "https://www.argentina.gob.ar/salud/deis/ses",
+      "cita": "El Sistema Estadístico de Salud se conformó a fines de la década del 60"
+     },
+     {
+      "nombre": "DEIS. Sistema Estadístico de Salud (extraída por herramienta)",
+      "url": "https://www.argentina.gob.ar/salud/deis/ses",
+      "cita": "requirió la firma de convenios entre el Ministerio de Salud de la Nación y los Ministerios de Salud provinciales -suscriptos en 1968"
+     },
+     {
+      "nombre": "Ley 17.671 (InfoLEG, extraída por herramienta)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/28130/texact.htm",
+      "cita": "Compete al Registro Nacional de las Personas, ejercer las siguientes funciones: a) La inscripción e identificación de las personas"
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "La fecha de referencia para el censo 2022 se estableció el día del barrido territorial, el 18 de mayo de 2022."
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "Otro factor a considerar es la omisión de registro del nacimiento y la defunción."
+     }
+    ]
+   },
+   {
+    "titulo": "Nacimientos y edad de la madre",
+    "texto": "Las estadísticas vitales clasifican los nacimientos según la edad de la madre. La DEIS considera de alto riesgo a las madres menores de 20 años, porque la edad materna se asocia con la probabilidad de muerte o enfermedad del niño en su primer año. La tasa bruta de natalidad, en cambio, relaciona todos los nacimientos de un año con la población total y no permite comparar la fecundidad entre lugares con distinta estructura de edades. El INDEC registra una baja de la fecundidad en todas las edades, que en las menores de 20 años ya se observa en 2022.",
+    "fuentes": [
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "La edad de la madre es un factor que se asocia fuertemente con el posible daño del niño (muerte o enfermedad)."
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "ALTO RIESGO - Menos de 20 años."
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "relaciona todos los nacimientos acaecidos en una población dada con la población total."
+     },
+     {
+      "nombre": "DEIS. Boletín 163",
+      "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+      "cita": "La tasa bruta de natalidad sola no debe usarse para comparar el nivel de fecundidad de dos poblaciones"
+     },
+     {
+      "nombre": "INDEC. Proyecciones 2022-2040",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+      "cita": "Ya en 2022 se puede apreciar una reducción de las tasas específicas en las mujeres menores de 20 años"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Tasa global de fecundidad",
+    "definicion": "Cantidad promedio de hijos que tendría una mujer si durante toda su vida fértil tuviera sus hijos según las tasas por edad de un año.",
+    "fuente": {
+     "nombre": "INDEC. SESD, dinámica y estructura de la población",
+     "url": "https://www.indec.gob.ar/ftp/indecinforma/nuevaWEB/cuadros/7/definiciones_sesd_din%C3%A1mica%20poblaci%C3%B3n.pdf",
+     "cita": "es el número de hijos que en promedio tendría una mujer de una cohorte hipotética de mujeres"
+    }
+   },
+   {
+    "termino": "Fecundidad de reemplazo",
+    "definicion": "Fecundidad mínima para que una población, sin contar las migraciones, mantenga su tamaño en el largo plazo.",
+    "fuente": {
+     "nombre": "INDEC. Proyecciones 2022-2040",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+     "cita": "fecundidad mínima necesaria para que una población cerrada (las migraciones se entienden aparte) se mantenga indefinidamente en el tiempo sin disminuir su tamaño"
+    }
+   },
+   {
+    "termino": "Método de los componentes",
+    "definicion": "Técnica de proyección que estima por separado la mortalidad, la fecundidad y la migración y las combina por sexo y edad.",
+    "fuente": {
+     "nombre": "INDEC. Proyecciones 2022-2040",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+     "cita": "utilizando el método de los componentes, que consiste en proyectar cada uno de los fenómenos determinantes en la dinámica demográfica de forma independiente"
+    }
+   },
+   {
+    "termino": "Índice de dependencia potencial",
+    "definicion": "Cantidad de personas en edades potencialmente inactivas por cada 100 en edad activa. La versión de los mayores compara 65 años y más con 15 a 64.",
+    "fuente": {
+     "nombre": "INDEC. SESD, Adultos mayores",
+     "url": "https://www.indec.gob.ar/ftp/indecinforma/nuevaweb/cuadros/7/definicionesyconceptos_am.pdf",
+     "cita": "Índice de dependencia potencial: expresa el número de personas potencialmente no económicamente activas que serían sostenidas por el total de la población potencialmente activa."
+    }
+   },
+   {
+    "termino": "Censo de derecho",
+    "definicion": "Censo que registra a cada persona en su lugar de residencia habitual. El de 2022 fue el primero de este tipo en la Argentina.",
+    "fuente": {
+     "nombre": "INDEC. Proyecciones 2022-2040",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/publicaciones/proyecciones_nacionales_2022_2040.pdf",
+     "cita": "Es decir que se relevó a la población en el lugar donde reside habitualmente"
+    }
+   },
+   {
+    "termino": "Nacidos vivos registrados",
+    "definicion": "Nacimientos ocurridos en el año de registro más los del año anterior inscriptos en el año de referencia.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "Se consideran nacidos vivos registrados a los ocurridos en el año de registro y a los ocurridos en el año inmediato anterior"
+    }
+   },
+   {
+    "termino": "Tasa bruta de natalidad",
+    "definicion": "Nacimientos de un año en relación con la población total. No sirve para comparar fecundidad entre poblaciones con distinta estructura de edades.",
+    "fuente": {
+     "nombre": "DEIS. Boletín 163",
+     "url": "https://www.argentina.gob.ar/sites/default/files/boletinnro163.pdf",
+     "cita": "relaciona todos los nacimientos acaecidos en una población dada con la población total."
+    }
+   }
+  ]
+ },
+ "movilidad": {
+  "bloques": [
+   {
+    "titulo": "Qué es la SUBE",
+    "texto": "La SUBE (Sistema Único de Boleto Electrónico) es la tarjeta con la que se pagan colectivos, trenes y subtes. Se creó por el Decreto 84 del 4 de febrero de 2009 como medio de pago de la tarifa del transporte público urbano y suburbano. El Ministerio de Transporte fecha su implementación en 2010 y la describe como una política de Estado. Hoy funciona en el Área Metropolitana de Buenos Aires y en otras localidades del país. Cada vez que alguien apoya la tarjeta en una validadora, el sistema registra la operación.",
+    "fuentes": [
+     {
+      "nombre": "Decreto 84/2009",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-150105/texto",
+      "cita": "Ordénase la implementación de un SISTEMA UNICO DE BOLETO ELECTRONICO (S.U.B.E.), como medio de percepción de la tarifa"
+     },
+     {
+      "nombre": "Ministerio de Transporte, nota del 25/10/2022",
+      "url": "https://www.argentina.gob.ar/noticias/sube-cumple-12-anos",
+      "cita": "Hoy se cumplen 12 años desde que se implementó el Sistema Único de Boleto Electrónico (SUBE)"
+     }
+    ]
+   },
+   {
+    "titulo": "Usuarios por día: tarjetas, no personas",
+    "texto": "El dato de usuarios cuenta las tarjetas distintas que se usaron al menos una vez en un día dentro de la red SUBE, desagregadas por modo de transporte. Una tarjeta usada varias veces el mismo día cuenta una sola vez. Como se cuentan tarjetas y no personas, quien tiene dos tarjetas suma dos. El dataset lo publica a diario la Dirección Nacional de Desarrollo Tecnológico del Ministerio de Transporte. La ficha usa la mediana de los días hábiles de cada mes para que los feriados y los fines de semana no distorsionen la comparación.",
+    "fuentes": [
+     {
+      "nombre": "Datos abiertos de Transporte: SUBE, cantidad de tarjetas (usuarios) por día",
+      "url": "https://datos.transporte.gob.ar/dataset/sube-cantidad-de-tarjetas-usuarios-por-dia",
+      "cita": "Cantidad de usuarios (tarjetas diferentes) utilizadas dentro de la red SUBE en el día indicado desagregado por modo de transporte."
+     }
+    ]
+   },
+   {
+    "titulo": "Viajes por modo: usos en validadoras",
+    "texto": "Los viajes por modo se miden con las transacciones registradas en las validadoras de la red SUBE, que el organismo llama usos. Se informan por fecha para colectivo, tren, subte y transporte fluvial. Un uso no equivale a un viaje completo: quien combina colectivo y tren valida dos veces. Por eso los usos muestran cuánto se mueve cada modo y no cuántas personas viajaron. Los archivos anuales están disponibles desde 2020.",
+    "fuentes": [
+     {
+      "nombre": "Datos abiertos de Transporte: SUBE, cantidad de transacciones (usos) por fecha",
+      "url": "https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha",
+      "cita": "SUBE - Cantidad de transacciones (usos) por fecha en validadoras de la red SUBE"
+     }
+    ]
+   },
+   {
+    "titulo": "Qué es un patentamiento",
+    "texto": "Un patentamiento es la inscripción inicial de un vehículo 0 km en el Registro Nacional de la Propiedad del Automotor. La Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios (DNRPA), del Ministerio de Justicia, publica estas inscripciones por año, mes y provincia del registro seccional donde se hizo el trámite. La serie de autos empieza en enero de 2000 y la de motos en enero de 2007. La provincia es la del registro, que no siempre coincide con el domicilio de quien compra.",
+    "fuentes": [
+     {
+      "nombre": "Datos abiertos del Ministerio de Justicia: trámites de automotores",
+      "url": "https://datos.jus.gob.ar/dataset/estadistica-de-tramites-de-automotores",
+      "cita": "Estadística de inscripciones iniciales de automotores por año, mes y provincia a la que pertenece el registro seccional"
+     },
+     {
+      "nombre": "Datos abiertos del Ministerio de Justicia: trámites de motovehículos",
+      "url": "https://datos.jus.gob.ar/dataset/estadistica-de-tramites-de-motovehiculos",
+      "cita": "Cantidad de motovehículos 0km inscriptos y motovehículos transferidos, discriminados por año, mes y provincia"
+     }
+    ]
+   },
+   {
+    "titulo": "Un cambio reciente en el registro",
+    "texto": "Desde 2025 la DNRPA tiene un Registro Único Virtual para hacer trámites a distancia. La Disposición 140, publicada el 8 de julio de 2026, sumó la inscripción inicial de autos y motos 0 km por esa vía, bajo jurisdicción nacional. Este cambio puede alterar la provincia a la que se asignan algunos patentamientos recientes, porque el trámite ya no depende de un registro seccional local. Conviene tenerlo en cuenta al comparar provincias en los últimos meses de la serie.",
+    "fuentes": [
+     {
+      "nombre": "Disposición DNRPA 140/2026, Boletín Oficial",
+      "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/344189/20260708",
+      "cita": "directamente por ante esta Dirección Nacional, en el marco de un servicio de inscripción remoto, abierto, accesible y estandarizado, bajo jurisdicción nacional."
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "SUBE",
+    "definicion": "Sistema Único de Boleto Electrónico, medio de pago de la tarifa del transporte público urbano y suburbano.",
+    "fuente": {
+     "nombre": "Decreto 84/2009",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-150105/texto"
+    }
+   },
+   {
+    "termino": "Usuario SUBE",
+    "definicion": "Tarjeta distinta usada al menos una vez en un día en la red SUBE.",
+    "fuente": {
+     "nombre": "Datos abiertos de Transporte: SUBE, cantidad de tarjetas (usuarios) por día",
+     "url": "https://datos.transporte.gob.ar/dataset/sube-cantidad-de-tarjetas-usuarios-por-dia"
+    }
+   },
+   {
+    "termino": "Uso o transacción",
+    "definicion": "Cada operación registrada en una validadora de la red SUBE.",
+    "fuente": {
+     "nombre": "Datos abiertos de Transporte: SUBE, cantidad de transacciones (usos) por fecha",
+     "url": "https://datos.transporte.gob.ar/dataset/sube-cantidad-de-transacciones-usos-por-fecha"
+    }
+   },
+   {
+    "termino": "Inscripción inicial",
+    "definicion": "Primera inscripción de un vehículo 0 km en el Registro de la Propiedad del Automotor. Es lo que se conoce como patentamiento.",
+    "fuente": {
+     "nombre": "Datos abiertos del Ministerio de Justicia: trámites de automotores",
+     "url": "https://datos.jus.gob.ar/dataset/estadistica-de-tramites-de-automotores"
+    }
+   },
+   {
+    "termino": "Registro Único Virtual (RUV)",
+    "definicion": "Registro de la DNRPA para hacer trámites a distancia, que incluye la inscripción inicial de los 0 km.",
+    "fuente": {
+     "nombre": "Disposición DNRPA 140/2026, Boletín Oficial",
+     "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/344189/20260708"
+    }
+   }
+  ]
+ },
+ "energia": {
+  "bloques": [
+   {
+    "titulo": "El marco: la Ley 24.065",
+    "texto": "La Ley 24.065, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico. Reconoce cuatro tipos de actores del Mercado Eléctrico Mayorista (MEM): generadores, transportistas, distribuidores y grandes usuarios. El texto ordenado vigente se aprobó con el Decreto 450 de 2025. En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias.",
+    "fuentes": [
+     {
+      "nombre": "Ley 24.065, texto actualizado",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion",
+      "cita": "generadores o productores independientemente de la fuente"
+     }
+    ]
+   },
+   {
+    "titulo": "Qué es CAMMESA",
+    "texto": "La Compañía Administradora del Mercado Mayorista Eléctrico (CAMMESA) se constituyó por el Decreto 1192 del 10 de julio de 1992, según el artículo 35 de la Ley 24.065. Es una sociedad anónima sin fines de lucro que despacha el Sistema Argentino de Interconexión (SADI): decide qué centrales generan en cada momento para abastecer la demanda. Su capital se reparte entre el Estado Nacional y cuatro asociaciones civiles de generadores, transportistas, distribuidores y grandes usuarios. Es la fuente de los datos de demanda de este sitio.",
+    "fuentes": [
+     {
+      "nombre": "Decreto 1192/1992",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto",
+      "cita": "COMPAÑÍA ADMINISTRADORA DEL MERCADO MAYORISTA ELÉCTRICO SOCIEDAD ANÓNIMA (CAMMESA)"
+     },
+     {
+      "nombre": "Decreto 1173/1998",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto",
+      "cita": "tiene a su cargo el Despacho Nacional de Cargas del SISTEMA ARGENTINO DE INTERCONEXION (SADI)"
+     }
+    ]
+   },
+   {
+    "titulo": "Cómo se clasifica la demanda",
+    "texto": "La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares.",
+    "fuentes": [
+     {
+      "nombre": "Ley 24.065, artículo 10",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion",
+      "cita": "contrata, en forma independiente y para consumo propio, su abastecimiento de energía eléctrica."
+     },
+     {
+      "nombre": "Resolución SE 884/2023, artículo 9",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto",
+      "cita": "Demandas Menores a 300 kW (No Residencial)"
+     }
+    ]
+   },
+   {
+    "titulo": "De dónde sale la serie",
+    "texto": "Las fichas usan la serie mensual de demanda de electricidad de la API de Series de Tiempo del Estado nacional. La publica la Subsecretaría de Programación Macroeconómica con datos de CAMMESA, en gigavatios hora. La demanda total empieza en 2001 y la residencial en 2005. Como el dato es mensual, permite ver qué meses concentran más consumo y compararlo con la actividad económica. La copia de CAMMESA en datos.gob.ar terminó en febrero de 2020 y no se usa.",
+    "fuentes": [
+     {
+      "nombre": "API de Series de Tiempo, metadatos de la serie 367.3",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=367.3_DEMANDA_TOTAL__13,367.3_DEMANDA_REIAL__19&metadata=full",
+      "cita": "Compañía Administradora del Mercado Mayorista Eléctrico S.A. (CAMMESA)"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Mercado Eléctrico Mayorista (MEM)",
+    "definicion": "Mercado donde operan generadores, transportistas, distribuidores y grandes usuarios, administrado por CAMMESA.",
+    "fuente": {
+     "nombre": "Decreto 1192/1992",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto"
+    }
+   },
+   {
+    "termino": "SADI",
+    "definicion": "Sistema Argentino de Interconexión, la red eléctrica que despacha CAMMESA.",
+    "fuente": {
+     "nombre": "Decreto 1173/1998",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto"
+    }
+   },
+   {
+    "termino": "Distribuidor",
+    "definicion": "Empresa que abastece a los usuarios de su zona de concesión que no contratan por su cuenta.",
+    "fuente": {
+     "nombre": "Ley 24.065, texto actualizado",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
+    }
+   },
+   {
+    "termino": "Gran usuario",
+    "definicion": "Quien contrata su energía en forma independiente y para consumo propio.",
+    "fuente": {
+     "nombre": "Ley 24.065, texto actualizado",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
+    }
+   },
+   {
+    "termino": "GUDI",
+    "definicion": "Demanda de más de 300 kW abastecida por una distribuidora.",
+    "fuente": {
+     "nombre": "Resolución SE 884/2023, artículo 9",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto"
+    }
+   }
+  ]
+ },
+ "turismo": {
+  "bloques": [
+   {
+    "titulo": "Turista y excursionista",
+    "texto": "Las estadísticas de turismo siguen las definiciones de la Organización Mundial del Turismo (ONU Turismo). Un visitante es quien viaja fuera de su entorno habitual por menos de un año, con cualquier motivo principal. Si el viaje incluye al menos una noche, es turista. Si vuelve en el día, es excursionista o visitante del día. Las fichas de este sitio cuentan turistas, es decir, personas que pasaron al menos una noche en el lugar.",
+    "fuentes": [
+     {
+      "nombre": "ONU Turismo, glosario de términos",
+      "url": "https://www.untourism.int/es/glosario-terminos-turisticos",
+      "cita": "Un visitante se clasifica como turista si su viaje incluye una pernoctación"
+     }
+    ]
+   },
+   {
+    "titulo": "Turistas no residentes",
+    "texto": "La serie de turismo internacional cuenta los viajes de no residentes que entran al país (turismo receptivo) y de residentes que salen (turismo emisivo), por todos los medios de transporte: aéreo, terrestre, fluvial y marítimo. Se arma con los registros de la Dirección Nacional de Migraciones y la publica todos los meses la Dirección Nacional de Mercados y Estadística, de la Subsecretaría de Turismo.",
+    "fuentes": [
+     {
+      "nombre": "Datos abiertos de Turismo: Turismo Internacional, total país",
+      "url": "https://datos.yvera.tur.ar/dataset/turismo-internacional-total-pais",
+      "cita": "Datos en base a la información de la Dirección Nacional de Migraciones."
+     }
+    ]
+   },
+   {
+    "titulo": "Encuesta de Turismo Internacional (ETI)",
+    "texto": "La ETI es una encuesta continua que el INDEC y la Subsecretaría de Turismo hacen desde 2004. Pregunta a quienes entran y salen del país por el motivo, la duración, el alojamiento, el gasto y los lugares visitados. No cubre todos los pasos: se hace en los aeropuertos de Ezeiza, Aeroparque, Córdoba y Mendoza, en el Puerto de Buenos Aires y en el paso Cristo Redentor. Por eso la distribución por provincia visitada refleja sobre todo a quienes viajan en avión.",
+    "fuentes": [
+     {
+      "nombre": "Datos abiertos de Turismo: Encuesta de Turismo Internacional",
+      "url": "https://datos.yvera.tur.ar/dataset/encuesta-turismo-internacional",
+      "cita": "Operativo de encuesta continuo desde el año 2004 realizado conjuntamente el INDEC y la Subsecretaría de Turismo."
+     },
+     {
+      "nombre": "SINTA, informe de turismo internacional",
+      "url": "https://www.yvera.tur.ar/sinta/informe/info/turismo-internacional",
+      "cita": "registros migratorios provistos por la Dirección Nacional de Migraciones (DNM)"
+     }
+    ]
+   },
+   {
+    "titulo": "Encuesta de Ocupación Hotelera (EOH)",
+    "texto": "La EOH es otra encuesta continua del INDEC y la Subsecretaría de Turismo, que también empezó en 2004. Mira el turismo desde quienes ofrecen alojamiento: hoteles y establecimientos parahoteleros informan cuántos viajeros hospedaron, cuántas noches se quedaron y cuántas habitaciones y plazas se ocuparon, separando residentes de no residentes. Los resultados se publican por región de destino y por localidad. No incluye casas de familiares ni alquileres temporarios particulares.",
+    "fuentes": [
+     {
+      "nombre": "Datos abiertos de Turismo: EOH",
+      "url": "https://datos.yvera.tur.ar/dataset/encuesta-ocupacion-hotelera-parahotelera-eoh",
+      "cita": "Operativo de encuesta continuo desde el año 2004 realizado conjuntamente el INDEC y la Subsecretaría de Turismo."
+     },
+     {
+      "nombre": "SINTA, informe de la EOH",
+      "url": "https://www.yvera.tur.ar/sinta/informe/info/encuesta-de-ocupacion-hotelera-eoh",
+      "cita": "mide la evolución de la actividad hotelera del país desde una perspectiva de la oferta"
+     }
+    ]
+   },
+   {
+    "titulo": "Qué es el SINTA",
+    "texto": "El Sistema de Información Turística de la Argentina (SINTA) reúne en un solo lugar las estadísticas oficiales de turismo. Lo administra el área de estadística de la Subsecretaría de Turismo. Incluye informes técnicos y metodológicos, un portal de datos abiertos, tableros interactivos y los microdatos de la Encuesta de Viajes y Turismo de los Hogares. De ahí salen la EOH, la ETI, el turismo internacional y las visitas a parques nacionales que usa este sitio.",
+    "fuentes": [
+     {
+      "nombre": "Argentina.gob.ar, presentación del SINTA",
+      "url": "https://www.argentina.gob.ar/node/281669",
+      "cita": "es el resultado de un trabajo de procesamiento y puesta en valor de fuentes de datos"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Visitante",
+    "definicion": "Quien viaja a un destino fuera de su entorno habitual, por menos de un año y con cualquier motivo principal.",
+    "fuente": {
+     "nombre": "ONU Turismo, glosario de términos",
+     "url": "https://www.untourism.int/es/glosario-terminos-turisticos"
+    }
+   },
+   {
+    "termino": "Turista",
+    "definicion": "Visitante cuyo viaje incluye al menos una noche.",
+    "fuente": {
+     "nombre": "ONU Turismo, glosario de términos",
+     "url": "https://www.untourism.int/es/glosario-terminos-turisticos"
+    }
+   },
+   {
+    "termino": "Excursionista",
+    "definicion": "Visitante que no pasa la noche en el destino. También se lo llama visitante del día.",
+    "fuente": {
+     "nombre": "ONU Turismo, glosario de términos",
+     "url": "https://www.untourism.int/es/glosario-terminos-turisticos"
+    }
+   },
+   {
+    "termino": "Turismo receptivo y emisivo",
+    "definicion": "Viajes de no residentes que entran al país y de residentes que salen.",
+    "fuente": {
+     "nombre": "Datos abiertos de Turismo: Turismo Internacional, total país",
+     "url": "https://datos.yvera.tur.ar/dataset/turismo-internacional-total-pais"
+    }
+   },
+   {
+    "termino": "Pernocte",
+    "definicion": "Cada noche que un viajero pasa en un establecimiento. La EOH lo informa junto con los viajeros hospedados.",
+    "fuente": {
+     "nombre": "Datos abiertos de Turismo: EOH",
+     "url": "https://datos.yvera.tur.ar/dataset/encuesta-ocupacion-hotelera-parahotelera-eoh"
+    }
+   }
+  ]
+ },
+ "naturaleza": {
+  "bloques": [
+   {
+    "titulo": "Cómo empezaron los parques nacionales",
+    "texto": "El 6 de noviembre de 1903 el perito Francisco P. Moreno cedió a la Nación tierras cerca de Puerto Blest para que fueran un parque público. Sobre esa base se creó el 8 de abril de 1922 el Parque Nacional del Sud. El 29 de septiembre de 1934 la Ley 12.103 creó la Dirección de Parques Nacionales, dependiente del Ministerio de Agricultura, y los parques nacionales Nahuel Huapi e Iguazú. Por eso el 6 de noviembre es el Día de los Parques Nacionales.",
+    "fuentes": [
+     {
+      "nombre": "Administración de Parques Nacionales, historia",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/institucional/historia",
+      "cita": "El 8 de abril de 1922 se creó, bajo el mandato presidencial de Hipólito Irigoyen, el Parque Nacional del Sud (futuro Nahuel Huapi)"
+     },
+     {
+      "nombre": "Ley 12.103",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-196777/texto",
+      "cita": "Créase por la presente ley los parques nacionales de Nahuel Huapí e Iguazú"
+     }
+    ]
+   },
+   {
+    "titulo": "La ley vigente y sus categorías",
+    "texto": "Hoy rige la Ley 22.351, sancionada en 1980, que es el marco legal de la Administración de Parques Nacionales. Define tres categorías. Los parques nacionales se conservan en estado natural y son representativos de una región. Los monumentos naturales protegen áreas, cosas o especies de valor estético, histórico o científico. Las reservas nacionales conservan sistemas ecológicos o sirven de zonas protectoras. En 1990 el Decreto 2148 sumó la Reserva Natural Estricta, el tipo de área con las máximas garantías de conservación.",
+    "fuentes": [
+     {
+      "nombre": "Ley 22.351",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/16299/texto",
+      "cita": "Serán Parques Nacionales las áreas a conservar en su estado natural, que sean representativas de una región fitozoogeográfica"
+     },
+     {
+      "nombre": "Decreto 2148/1990",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-4605/texto",
+      "cita": "Desígnase con el título de RESERVA NATURAL ESTRICTA al tipo de área protegida que ofrezca las máximas garantías"
+     }
+    ]
+   },
+   {
+    "titulo": "El SIB y las visitas",
+    "texto": "El Sistema de Información de Biodiversidad (SIB) lo creó la Administración de Parques Nacionales en 2002. Guarda los datos biológicos que surgen del trabajo técnico, científico y de manejo en las áreas protegidas. Las especies registradas en cada área dependen de cuánto se investigó, no solo de cuántas hay. Las visitas se cuentan con el Registro Nacional de Autorizaciones, Recaudaciones e Infracciones (RENARI) de la APN, separando residentes y no residentes. La serie empieza en 2008.",
+    "fuentes": [
+     {
+      "nombre": "APN, Sistema de Información de Biodiversidad",
+      "url": "https://www.argentina.gob.ar/parquesnacionales/sib",
+      "cita": "mantener, almacenar y organizar los datos sobre biodiversidad derivados de las actividades técnicas, científicas y de manejo"
+     },
+     {
+      "nombre": "Datos abiertos de Turismo: Parques Nacionales",
+      "url": "https://datos.yvera.tur.ar/dataset/parques-nacionales",
+      "cita": "Estadísticas de los Parques Nacionales del país en base al Registro Nacional de Autorizaciones, Recaudaciones e Infracciones (RENARI)"
+     }
+    ]
+   },
+   {
+    "titulo": "Ley de Glaciares e inventario",
+    "texto": "La Ley 26.639, sancionada el 30 de septiembre de 2010, fija los presupuestos mínimos para proteger los glaciares y el ambiente periglacial, y creó el Inventario Nacional de Glaciares. Lo hace y lo actualiza el IANIGLA, del CONICET. El primer inventario se completó en 2018. En abril de 2026 la Ley 27.804 modificó varios artículos: redefinió el objeto protegido y dio más funciones a las provincias. Los glaciares que figuran en el inventario siguen protegidos mientras la autoridad competente no verifique que carecen de funciones hídricas.",
+    "fuentes": [
+     {
+      "nombre": "Ley 26.639, texto actualizado (incluye la Ley 27.804, B.O. 24/4/2026)",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/174117/actualizacion",
+      "cita": "Todos los glaciares y geoformas periglaciales que se encuentren incluidos en el Inventario serán considerados como parte del objeto protegido"
+     },
+     {
+      "nombre": "Ley 26.639, artículo 5",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/174117/actualizacion",
+      "cita": "será realizado por el Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales (IANIGLA)"
+     },
+     {
+      "nombre": "Inventario Nacional de Glaciares",
+      "url": "https://www.glaciaresargentinos.gob.ar/",
+      "cita": "Aquí está disponible la información de los glaciares relevados hasta la fecha en la cordillera de los Andes argentinos."
+     }
+    ]
+   },
+   {
+    "titulo": "Qué es un desembarque",
+    "texto": "En pesca, el desembarque es lo que los barcos descargan en puerto. La Subsecretaría de Pesca y Acuicultura lo registra a partir de lo que declara cada barco en sus partes de pesca y lo controla con las actas de desembarque. Publica los datos por especie, puerto y flota. La serie histórica empieza en 1898, y la misma Subsecretaría advierte que las cifras pueden cambiar porque las bases se validan y actualizan todo el tiempo.",
+    "fuentes": [
+     {
+      "nombre": "Subsecretaría de Pesca y Acuicultura, desembarques",
+      "url": "https://www.magyp.gob.ar/sitio/areas/pesca_maritima/desembarques/",
+      "cita": "las cifras expresadas en estas tablas pueden tener diferencias debido a la permanente validación y actualización de las bases de datos"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Parque Nacional",
+    "definicion": "Área que se conserva en estado natural, representativa de una región fitozoogeográfica.",
+    "fuente": {
+     "nombre": "Ley 22.351",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/16299/texto"
+    }
+   },
+   {
+    "termino": "Monumento Natural",
+    "definicion": "Área, cosa o especie viva de interés estético, valor histórico o científico.",
+    "fuente": {
+     "nombre": "Ley 22.351",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/16299/texto"
+    }
+   },
+   {
+    "termino": "Reserva Nacional",
+    "definicion": "Área para conservar sistemas ecológicos o servir de zona protectora de un parque nacional.",
+    "fuente": {
+     "nombre": "Ley 22.351",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/16299/texto"
+    }
+   },
+   {
+    "termino": "Glaciar",
+    "definicion": "Masa de hielo perenne, estable o que fluye lentamente, formada por la recristalización de nieve.",
+    "fuente": {
+     "nombre": "Ley 26.639, texto actualizado (incluye la Ley 27.804, B.O. 24/4/2026)",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/174117/actualizacion"
+    }
+   },
+   {
+    "termino": "Desembarque",
+    "definicion": "Captura que un barco descarga en puerto, declarada en los partes de pesca.",
+    "fuente": {
+     "nombre": "Subsecretaría de Pesca y Acuicultura, desembarques",
+     "url": "https://www.magyp.gob.ar/sitio/areas/pesca_maritima/desembarques/"
+    }
+   }
+  ]
+ },
+ "curiosidades": {
+  "bloques": [
+   {
+    "titulo": "Nombres: qué publica el RENAPER",
+    "texto": "El Registro Nacional de las Personas (RENAPER) publica en su portal de datos abiertos los nombres propios más frecuentes por año, sexo y provincia, desde 2012 hasta 2024. Cada fila dice cuántas personas inscriptas recibieron un nombre en un año y una provincia. Muestra los nombres más usados, no la lista completa. La serie tiene un año de atraso respecto del calendario.",
+    "fuentes": [
+     {
+      "nombre": "RENAPER, datos abiertos: nombres propios frecuentes por año, sexo y provincia, 2012 a 2024 (CSV)",
+      "url": "https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv",
+      "cita": null
+     }
+    ]
+   },
+   {
+    "titulo": "Consumo de carne por habitante",
+    "texto": "El Ministerio de Economía publica el consumo de carne vacuna por habitante entre sus indicadores sectoriales, con datos de la Secretaría de Agricultura, Ganadería y Pesca. La misma serie trae la faena, la producción, el stock de ganado y el peso promedio de la res. Es un promedio nacional en kilos por persona por año: no distingue entre provincias ni entre hogares, y no surge de preguntarle a la gente qué come.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Economía, indicadores sectoriales, cárnica vacuna (columna fuente: MAGYP)",
+      "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv",
+      "cita": null
+     }
+    ]
+   },
+   {
+    "titulo": "Vino: despachos al mercado interno",
+    "texto": "El Instituto Nacional de Vitivinicultura (INV) lo creó la Ley 14.878, sancionada el 23 de octubre de 1959, para promover y controlar técnicamente la producción, la industria y el comercio del vino. Las plantas de fraccionamiento le declaran todos los meses lo que fraccionan y despachan al mercado interno. Esos despachos, medidos en hectolitros, son la salida de vino de las bodegas hacia el comercio. Muestran cuánto vino llega a la venta, no cuánto se toma en las casas.",
+    "fuentes": [
+     {
+      "nombre": "Ley 14.878, artículo 2",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/15764/actualizacion",
+      "cita": "como organismo competente para entender en la promoción y el control técnico de la producción, la industria y el comercio vitivinícolas."
+     },
+     {
+      "nombre": "Resolución INV 2/2020, artículo 9",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-334223/texto",
+      "cita": "para declarar el fraccionamiento y despacho de los productos mediante soporte contable, tanto para el mercado interno"
+     }
+    ]
+   },
+   {
+    "titulo": "Yerba mate: el INYM",
+    "texto": "El Instituto Nacional de la Yerba Mate (INYM) se creó con la Ley 25.564, sancionada el 21 de febrero de 2002. Es un ente de derecho público no estatal con sede en Misiones. Entre sus funciones está hacer estadísticas de producción, elaboración, comercialización y consumo. Desde 2004 los molinos, fraccionadores e importadores le presentan declaraciones juradas mensuales. La salida de molino es la yerba elaborada que deja los molinos rumbo al mercado. En 2023 el Decreto 70 modificó varias de sus funciones.",
+    "fuentes": [
+     {
+      "nombre": "Ley 25.564, texto actualizado",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-25564-72946/actualizacion",
+      "cita": "Créase el Instituto Nacional de la Yerba Mate, en adelante el INYM, como ente de derecho público no estatal"
+     },
+     {
+      "nombre": "Ley 25.564, artículo 4, inciso i",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-25564-72946/actualizacion",
+      "cita": "Realizar y compilar estadísticas, censos y relevamientos de la producción, elaboración, industrialización, comercialización y consumo de yerba mate"
+     },
+     {
+      "nombre": "Resolución INYM 147/2003",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-91763/texto",
+      "cita": "IMPLEMENTASE las Declaraciones Juradas Mensuales de Industrias Molineras, Fraccionadoras e Importadoras de Yerba Mate"
+     }
+    ]
+   },
+   {
+    "titulo": "Anomalía de temperatura",
+    "texto": "Una anomalía de temperatura es la diferencia entre la temperatura media de un año y un promedio de referencia de treinta años. El Servicio Meteorológico Nacional (SMN) usa hoy el promedio de 1991 a 2020. Un valor positivo indica un año más cálido que ese promedio y uno negativo, más frío. La serie nacional empieza en 1961. Usar anomalías permite comparar años sin que pesen las diferencias de clima entre regiones.",
+    "fuentes": [
+     {
+      "nombre": "SMN, El clima en Argentina 2024",
+      "url": "https://www.argentina.gob.ar/noticias/el-clima-en-argentina-2024-reporte-final",
+      "cita": "La temperatura media del país superó el promedio de 1991-2020"
+     },
+     {
+      "nombre": "SMN, informe del clima 2023",
+      "url": "https://www.argentina.gob.ar/node/412271",
+      "cita": "Anomalías de temperatura media en Argentina desde 1961 a 2023, con respecto al valor medio 1991-2020"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Despacho al mercado interno",
+    "definicion": "Vino que sale de bodegas y plantas de fraccionamiento hacia la venta en el país, declarado al INV.",
+    "fuente": {
+     "nombre": "Resolución INV 2/2020, artículo 9",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-334223/texto"
+    }
+   },
+   {
+    "termino": "Salida de molino",
+    "definicion": "Yerba mate elaborada que dejan los molinos, según las declaraciones juradas al INYM.",
+    "fuente": {
+     "nombre": "Resolución INYM 147/2003",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-91763/texto"
+    }
+   },
+   {
+    "termino": "Anomalía de temperatura",
+    "definicion": "Diferencia entre la temperatura media de un período y su valor medio de referencia.",
+    "fuente": {
+     "nombre": "SMN, informe del clima 2023",
+     "url": "https://www.argentina.gob.ar/node/412271"
+    }
+   },
+   {
+    "termino": "Período de referencia",
+    "definicion": "Promedio de treinta años contra el que se compara. El SMN usa 1991-2020.",
+    "fuente": {
+     "nombre": "SMN, El clima en Argentina 2024",
+     "url": "https://www.argentina.gob.ar/noticias/el-clima-en-argentina-2024-reporte-final"
+    }
+   }
+  ]
+ },
+ "cruces": {
+  "bloques": [
+   {
+    "titulo": "Qué muestra",
+    "texto": "Cada punto es una de las 24 jurisdicciones. Su posición depende de dos indicadores que elegís vos, por ejemplo empleo registrado y pobreza. La recta resume la relación promedio entre los dos y la franja alrededor marca el margen de error de esa recta. Todos los indicadores son tasas, porcentajes o valores por habitante, para que el tamaño de cada provincia no domine la comparación.",
+    "fuentes": []
+   },
+   {
+    "titulo": "Cómo leer la correlación",
+    "texto": "La r de Pearson va de menos uno a uno. Cerca de uno, los dos indicadores suben juntos. Cerca de menos uno, cuando uno sube el otro baja. Cerca de cero, no hay una relación lineal clara. El R² dice qué parte de las diferencias entre provincias en un indicador acompaña a las del otro. La correlación de Spearman compara posiciones en lugar de valores y es menos sensible a una provincia muy distinta del resto. El valor p indica qué tan raro sería ver esa relación si en realidad no existiera.",
+    "fuentes": []
+   },
+   {
+    "titulo": "Para no sacar conclusiones de más",
+    "texto": "Son solo 24 casos, así que una provincia puede mover mucho la recta: el explorador avisa cuál pesa más. Que dos indicadores se muevan juntos no prueba que uno cause el otro, porque puede haber un tercer factor detrás. Además son promedios provinciales: lo que vale para las provincias no tiene por qué valer para cada persona que vive en ellas, un error que se conoce como falacia ecológica. Cuando los indicadores son de años distintos, el explorador también lo aclara.",
+    "fuentes": []
+   },
+   {
+    "titulo": "Evolución y regresión",
+    "texto": "Cuando los dos indicadores tienen serie por año, se puede ver cómo se movió cada provincia, al estilo de los gráficos animados de Gapminder. La vista de regresión múltiple estima el peso de hasta cuatro indicadores a la vez sobre otro, con las variables llevadas a la misma escala. Con 24 casos y varios indicadores parecidos entre sí, los resultados son frágiles: el factor de inflación de la varianza (VIF) avisa cuando dos explicativas se superponen demasiado.",
+    "fuentes": [
+     {
+      "nombre": "Gapminder",
+      "url": "https://www.gapminder.org/tools/"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Correlación de Pearson (r)",
+    "definicion": "Medida de cuánto se acercan los puntos a una recta. Va de menos uno a uno."
+   },
+   {
+    "termino": "R²",
+    "definicion": "Parte de la variación de un indicador que acompaña a la variación del otro, en una recta de mínimos cuadrados."
+   },
+   {
+    "termino": "Correlación de Spearman",
+    "definicion": "Correlación calculada sobre el orden de las provincias en lugar de sus valores."
+   },
+   {
+    "termino": "Valor p",
+    "definicion": "Probabilidad de ver una relación al menos así de fuerte si en realidad no hubiera ninguna."
+   },
+   {
+    "termino": "Falacia ecológica",
+    "definicion": "Error de suponer que una relación entre promedios de grupos vale también para las personas de esos grupos."
+   },
+   {
+    "termino": "Distancia de Cook",
+    "definicion": "Medida de cuánto cambia la recta al sacar un caso. Sirve para ver qué provincia la mueve más."
+   }
+  ]
+ },
+ "indice": {
+  "bloques": [
+   {
+    "titulo": "Cómo se arma",
+    "texto": "El índice reúne siete dimensiones, como salud, educación, trabajo y vivienda. Cada persona elige cuánto pesa cada una, de cero a cinco. Con esos pesos se calcula un promedio y las provincias se ordenan de mayor a menor. No hay un índice correcto: cambia según lo que a cada uno le importa, y por eso los pesos quedan guardados en el enlace para compartirlo.",
+    "fuentes": [
+     {
+      "nombre": "OCDE, Índice para una Vida Mejor",
+      "url": "https://www.oecdbetterlifeindex.org/es/"
+     }
+    ]
+   },
+   {
+    "titulo": "La escala de cero a diez",
+    "texto": "Cada indicador se pasa a una escala de cero a diez: la provincia con el peor valor recibe cero, la del mejor recibe diez y el resto queda en proporción. Así se pueden promediar indicadores con unidades distintas. Las exportaciones por habitante y la velocidad de internet se miden en escala logarítmica, para que unas pocas provincias con valores muy altos no aplasten al resto.",
+    "fuentes": []
+   },
+   {
+    "titulo": "Lo que el índice no dice",
+    "texto": "La escala compara a las provincias entre sí. Un diez significa la mejor de las 24, no un nivel ideal. Si todas mejoran o empeoran juntas, el índice no lo muestra. Además, cada indicador es de su último año disponible y no todos coinciden. Por eso conviene mirar también las fichas de cada tema, que muestran los valores reales y su evolución.",
+    "fuentes": []
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Normalización mínimo y máximo",
+    "definicion": "Llevar un indicador a una escala común tomando el peor valor como cero y el mejor como diez."
+   },
+   {
+    "termino": "Escala logarítmica",
+    "definicion": "Escala en la que cada salto representa una multiplicación y no una suma. Achica la distancia entre valores muy altos."
+   }
+  ]
+ },
+ "departamentos": {
+  "bloques": [
+   {
+    "titulo": "Qué muestra",
+    "texto": "El mapa baja de la provincia al departamento, partido o comuna, la unidad en la que el INDEC divide cada provincia. Así se ve lo que el promedio provincial esconde: diferencias grandes entre la capital y el interior, o entre zonas vecinas. Los límites salen del Servicio de Normalización de Datos Geográficos (Georef), simplificados para que el mapa cargue rápido.",
+    "fuentes": [
+     {
+      "nombre": "Georef, Servicio de Normalización de Datos Geográficos",
+      "url": "https://datosgobar.github.io/georef-ar-api/"
+     }
+    ]
+   },
+   {
+    "titulo": "De dónde salen los datos",
+    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, por departamento donde ocurrió el hecho. La edad y el origen de la población vienen del Registro Nacional de las Personas (RENAPER), con las personas identificadas según su domicilio. El RENAPER publica la Ciudad de Buenos Aires sin dividirla en comunas.",
+    "fuentes": [
+     {
+      "nombre": "SNIC, estadísticas criminales por departamento",
+      "url": "https://www.argentina.gob.ar/seguridad/estadisticascriminales"
+     },
+     {
+      "nombre": "RENAPER, datos abiertos",
+      "url": "https://www.argentina.gob.ar/interior/renaper"
+     }
+    ]
+   },
+   {
+    "titulo": "Para tener en cuenta",
+    "texto": "En los departamentos con poca población unos pocos casos cambian mucho la tasa. Por eso las muertes se promedian en tres años y las listas de mayores y menores valores dejan afuera a los departamentos con menos de diez mil personas. El SNIC registra los hechos que llegan a la policía o a la justicia, así que los delitos no denunciados no aparecen.",
+    "fuentes": []
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Departamento",
+    "definicion": "División de cada provincia que usa el INDEC para sus estadísticas. En Buenos Aires se llaman partidos y en la Ciudad de Buenos Aires, comunas."
+   },
+   {
+    "termino": "Tasa cada 100.000 habitantes",
+    "definicion": "Cantidad de hechos dividida por la población y multiplicada por cien mil. Permite comparar lugares de distinto tamaño."
+   }
+  ]
+ }
+}

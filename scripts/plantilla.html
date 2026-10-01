@@ -456,6 +456,65 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 .tema-cierre ul{margin:0;padding-left:18px;font-size:16px;line-height:1.5}
 .tema-cierre li{margin:0 0 8px}
 @media (max-width:760px){.tema-cierre{grid-template-columns:1fr}}
+/* páginas: grilla de secciones en la portada, explicación de cada sección y pasos entre páginas */
+.secciones{padding-top:36px}
+.secciones>h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:clamp(40px,5.2vw,64px);line-height:.95;font-weight:500;color:var(--azul);margin:24px 0 10px}
+.secciones-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:20px}
+.sec-tarjeta{display:flex;flex-direction:column;gap:6px;padding:18px 18px 20px;border:1px solid #D9E3EE;background:#fff;color:var(--ink);text-decoration:none;
+  transition:border-color .2s ease,transform .16s var(--ease-out)}
+.sec-tarjeta:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.sec-tarjeta:hover{border-color:var(--azul)}}
+.sec-tarjeta b{font-variation-settings:"wdth" 45,"opsz" 144;font-size:30px;line-height:1;font-weight:500;color:var(--azul)}
+.sec-tipo{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sec-preg{font-size:15px;line-height:1.35;color:var(--ink)}
+.sec-tarjeta.herr{background:var(--celeste-suave)}
+.explicador{margin:0 0 30px;border-top:1px dotted var(--azul);padding-top:20px}
+.explicador>h3{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 14px}
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.exp-bloque{border:1px solid #D9E3EE;background:#fff;padding:18px 20px}
+.exp-bloque h4{font-size:19px;line-height:1.2;font-weight:560;color:var(--azul);margin:0 0 8px}
+.exp-bloque p{font-size:15.5px;line-height:1.5;margin:0}
+.exp-fuente{margin-top:10px!important;font-size:13px!important;color:var(--muted)}
+.exp-fuente a{color:var(--celeste-fuerte)}
+.glosario{margin-top:12px;border:1px solid #D9E3EE;background:#fff;padding:0 20px}
+.glosario>summary{min-height:48px;display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}
+.glosario>summary::-webkit-details-marker{display:none}
+.glosario>summary::before{content:"+";display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid var(--azul);font-size:13px;letter-spacing:0}
+.glosario[open]>summary::before{content:"2"}
+.glosario dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 28px;margin:0 0 18px}
+.glosario dt{font-weight:600;font-size:15px;margin-top:10px}
+.glosario dd{margin:2px 0 0;font-size:14.5px;line-height:1.45;color:var(--muted)}
+.sec-pasos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:40px 0 0;border-top:3px solid var(--azul);padding-top:18px}
+.sec-pasos a{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border:1px solid #D9E3EE;background:#fff;text-decoration:none;color:var(--azul);font-size:18px;font-weight:500}
+.sec-pasos a:last-child{text-align:right}
+.sec-pasos .sec-todas{text-align:center}
+.sec-pasos small{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.sec-pasos a:hover{border-color:var(--azul)}}
+@media (max-width:760px){
+  .sec-pasos{grid-template-columns:1fr 1fr}
+  .sec-pasos .sec-todas{grid-column:1/-1;grid-row:2}
+  .exp-grid{grid-template-columns:1fr}
+  .exp-bloque{padding:16px}
+  .secciones-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .sec-tarjeta{padding:14px 12px 16px}
+  .sec-tarjeta b{font-size:24px}
+  .sec-preg{font-size:13.5px}
+}
+/* notas metodológicas plegadas en cada ficha */
+.sobre{margin:10px 0 0;max-width:42em}
+.sobre>summary{display:inline-flex;align-items:center;gap:8px;min-height:40px;cursor:pointer;list-style:none;
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}
+.sobre>summary::-webkit-details-marker{display:none}
+.sobre>summary::before{content:"+";display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid var(--azul);
+  font-size:13px;letter-spacing:0;line-height:1}
+.sobre[open]>summary::before{content:"\2212"}
+.sobre>.nota:first-of-type{margin-top:2px}
+@media (hover:hover) and (pointer:fine){.sobre>summary:hover{color:var(--ink)}}
+@media (max-width:760px){
+  .ficha{padding:20px 16px 16px;margin:14px 0}
+  .tema>h2{margin-top:48px}
+  .grafico{margin:18px 0 6px}
+}
 .herr-intro{font-size:17px;line-height:1.5;color:var(--muted);max-width:40em;margin:-8px 0 22px}
 .atajos a{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--azul);background:#fff;
   text-decoration:none;padding:10px 13px;border:1px solid #fff;transition:background-color .2s ease,color .2s ease,transform .12s cubic-bezier(.23,1,.32,1)}
@@ -600,6 +659,8 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 .vt-matriz td.ley{min-width:0;text-align:left;padding:0 10px 0 0;font-size:13.5px;line-height:1.2;position:sticky;left:0;background:var(--bg);z-index:1}
 .vt-matriz td.ley small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
 .vt-matriz td.sin{color:var(--faint);font-size:11.5px}
+.vt-matriz tfoot td{border-top:1px dotted var(--azul);padding-top:6px}
+.vt-matriz td.plat a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--celeste-fuerte)}
 .vt-matriz tr[role="button"]{cursor:pointer}
 .vt-matriz tr[role="button"]:hover td.ley,.vt-matriz tr[role="button"]:focus-visible td.ley{text-decoration:underline}
 .vt-matriz tr.elegida td.ley{font-weight:600}
@@ -615,19 +676,19 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 <body>
 <header class="barra">
   <div class="envoltura">
-    <a class="marca" href="#inicio">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     <nav class="temas" aria-label="Temas principales" style="grid-column:1;grid-row:1">
-      <a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#salud">Salud</a><a href="#educacion">Educación</a><a href="#poblacion">Población</a><a href="#politica">Política</a>
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
     </nav>
     <div class="menu" style="grid-column:3;grid-row:1">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Secciones</button>
       <div class="menu-panel" id="menu-panel" hidden>
         <p class="menu-tit">Temas</p>
-        <a href="#provincias">Tu provincia</a><a href="#trabajo">Trabajo y finanzas</a><a href="#pobreza">Pobreza y hogares</a><a href="#salud">Salud</a>
-        <a href="#educacion">Educación</a><a href="#poblacion">Población</a><a href="#politica">Política</a><a href="#movilidad">Movilidad</a>
-        <a href="#energia">Energía</a><a href="#turismo">Turismo</a><a href="#naturaleza">Flora y fauna</a><a href="#curiosidades">Curiosidades</a>
+        <a href="./#provincias">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="emprendedores.html">Emprendedores</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
+        <a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a>
+        <a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a>
         <p class="menu-tit">Herramientas</p>
-        <a href="#cruces">Cruces</a><a href="#indice">Tu índice</a><a href="#departamentos">Departamentos</a>
+        <a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a>
       </div>
     </div>
   </div>
@@ -642,7 +703,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
       <div class="estado" id="estado" aria-label="Estado de los datos"></div>
       <nav class="atajos" aria-label="Temas">
-        <a href="#provincias">Elegí tu provincia</a><a href="#trabajo">Trabajo</a><a href="#pobreza">Pobreza</a><a href="#salud">Salud</a><a href="#educacion">Educación</a><a href="#poblacion">Población</a><a href="#politica">Política</a>
+        <a href="./#provincias">Elegí tu provincia</a><a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
       </nav>
     </div>
     <div class="portada-sol">
@@ -693,12 +754,19 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
     <div class="prov-extra" id="prov-extra"></div>
   </section>
 
+  <section class="secciones" id="secciones" aria-labelledby="sec-titulo">
+    <h2 id="sec-titulo">Secciones</h2>
+    <p class="prov-sub">Cada sección tiene su página: qué se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
+    <div class="secciones-grid" id="secciones-grid"></div>
+  </section>
+
   <section class="tema" id="trabajo">
     <h2>Trabajo y finanzas</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
       <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen lo que cada provincia le vende al mundo y cuánto depende de los fondos que le manda la Nación.</p>
     </div>
+    <!--EXPLICADOR:trabajo-->
 
     <article class="ficha" id="f-empleo">
       <h3 data-t="empleo-titulo">Asalariados privados registrados por provincia</h3>
@@ -710,6 +778,22 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <div class="grafico" data-g="empleo"></div>
       <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección 2025 del INDEC usada por el SNIC.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-rotacion">
+      <h3 data-t="rotacion-titulo"></h3>
+      <p class="lead" data-t="rotacion"></p>
+      <label class="selector-ficha"><span>Según</span>
+        <select data-g="rotacion">
+          <option value="edad" selected>Edad</option>
+          <option value="generacion">Generación (año de nacimiento)</option>
+          <option value="educacion">Nivel educativo</option>
+          <option value="ingreso">Ingreso del hogar por persona</option>
+          <option value="registro">Registro del empleo</option>
+        </select></label>
+      <div class="grafico" data-g="rotacion"></div>
+      <p class="nota" data-t="rotacion-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio)</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-exportaciones">
@@ -752,12 +836,63 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
     </aside>
   </section>
 
+  <section class="tema" id="emprendedores">
+    <h2>Emprendedores</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
+      <p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>
+    </div>
+    <!--EXPLICADOR:emprendedores-->
+
+    <article class="ficha" id="f-empresas">
+      <h3 data-t="empresas-titulo"></h3>
+      <p class="lead" data-t="empresas"></p>
+      <div class="grafico" data-g="empresas"></div>
+      <p class="nota" data-t="empresas-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-dinamica-empresas">
+      <h3 data-t="dinamica-titulo"></h3>
+      <p class="lead" data-t="dinamica"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="dinamica">
+        <button type="button" data-m="pais" aria-pressed="true">Serie del país</button>
+        <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
+      </div>
+      <div class="grafico" data-g="dinamica"></div>
+      <p class="nota" data-t="dinamica-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_serie_pais.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <aside class="tema-cierre" aria-label="Para cerrar la sección">
+      <div>
+        <h3>Problemas para resolver</h3>
+        <ul>
+        <li><a href="#f-internet">Conectividad</a>: las provincias con menos accesos a internet fijo y menor velocidad.</li>
+        <li><a href="#f-censo">Servicios en el hogar</a>: cloacas, agua de red y computadora, provincia por provincia.</li>
+        <li><a href="#f-rotacion">Empleo inestable</a>: quiénes cambian más seguido de trabajo.</li>
+        <li><a href="#f-mortalidad">Salud materno infantil</a>: dónde la mortalidad infantil sigue alta.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Tendencias y mercados</h3>
+        <ul>
+        <li><a href="#f-piramide">Una población que envejece</a>: más demanda de cuidados, salud y servicios para personas mayores.</li>
+        <li><a href="#f-exportaciones">Exportaciones por provincia</a>: qué produce cada una y cuánto crecen en el último semestre.</li>
+        <li><a href="#f-receptivo">Turismo internacional</a>: cuántos visitantes llegan al país.</li>
+        <li><a href="#cruces">Cruces</a>: compará la creación de empresas con cualquier otro indicador.</li>
+        </ul>
+      </div>
+    </aside>
+  </section>
+
   <section class="tema" id="pobreza">
     <h2>Pobreza y hogares</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
       <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
     </div>
+    <!--EXPLICADOR:pobreza-->
 
     <article class="ficha" id="f-pobreza">
       <h3 data-t="pobreza-titulo"></h3>
@@ -821,6 +956,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Cuánto vivimos y de qué nos morimos antes de tiempo?</p>
       <p>La esperanza de vida y la mortalidad infantil resumen cómo funciona el sistema de salud. Las muertes por causas externas, como los siniestros viales, los homicidios y los suicidios, muestran problemas que se pueden prevenir.</p>
     </div>
+    <!--EXPLICADOR:salud-->
 
     <article class="ficha" id="f-esperanza">
       <h3 data-t="esperanza-titulo"></h3>
@@ -906,6 +1042,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Qué aprenden los chicos en cada provincia?</p>
       <p>Primero, cuántos alumnos de sexto grado alcanzan el nivel esperado en lengua y matemática. Después, cuántos adolescentes van a la secundaria y cómo le va al país frente al mundo en las pruebas PISA.</p>
     </div>
+    <!--EXPLICADOR:educacion-->
 
     <article class="ficha" id="f-aprender">
       <h3 data-t="aprender-titulo">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia</h3>
@@ -964,6 +1101,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
       <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. También importa quién llega: las personas que migran desde otros países.</p>
     </div>
+    <!--EXPLICADOR:poblacion-->
 
     <article class="ficha" id="f-nacimientos">
       <h3>Nacimientos por año en la Argentina y en la OCDE, 2012 a 2024</h3>
@@ -979,6 +1117,22 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <div class="grafico" data-g="envejecimiento"></div>
       <p class="nota" data-t="envejecimiento-nota"></p>
       <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-piramide">
+      <h3 data-t="piramide-titulo"></h3>
+      <p class="lead" data-t="piramide"></p>
+      <div class="grafico" data-g="piramide"></div>
+      <p class="nota" data-t="piramide-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-jubilaciones">
+      <h3 data-t="jubilaciones-titulo"></h3>
+      <p class="lead" data-t="jubilaciones"></p>
+      <div class="grafico" data-g="jubilaciones"></div>
+      <p class="nota" data-t="jubilaciones-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes">
@@ -1031,6 +1185,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
       <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
     </div>
+    <!--EXPLICADOR:politica-->
 
     <article class="ficha" id="f-elecciones">
       <h3>Elecciones presidenciales y PASO por provincia, 1983 a 2023</h3>
@@ -1096,6 +1251,15 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <div class="grafico vt-matriz" data-g="vtmatriz"></div>
       <p class="nota" data-t="vtm-nota"></p>
       <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-voto-provincia">
+      <h3 data-t="vprov-titulo"></h3>
+      <p class="lead" data-t="vprov"></p>
+      <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
+      <div class="grafico" data-g="vprov"></div>
+      <p class="nota" data-t="vprov-nota"></p>
+      <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-atn">
@@ -1176,6 +1340,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Cómo nos movemos y qué dice eso de la economía?</p>
       <p>Los viajes en transporte público y la venta de autos y motos nuevas acompañan el nivel de actividad y el poder de compra.</p>
     </div>
+    <!--EXPLICADOR:movilidad-->
 
     <article class="ficha" id="f-sube">
       <h3 data-t="sube-titulo">Tarjetas SUBE usadas por día hábil</h3>
@@ -1221,13 +1386,14 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Cuánta electricidad usamos y quién la usa?</p>
       <p>Cuánto consumen los hogares, cómo se mueve la demanda con la economía y en qué meses se concentra.</p>
     </div>
+    <!--EXPLICADOR:energia-->
 
     <article class="ficha" id="f-hogares">
       <h3>Participación de los hogares en la demanda eléctrica, 2005 a 2025</h3>
       <p class="lead" data-t="hogares"></p>
       <div class="grafico" data-g="hogares"></div>
       <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-actividad">
@@ -1235,7 +1401,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="lead" data-t="actividad"></p>
       <div class="grafico" data-g="actividad"></div>
       <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
-      <div class="pie"><span>Fuentes: Secretaría de Energía e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: CAMMESA e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-meses">
@@ -1243,7 +1409,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="lead" data-t="meses"></p>
       <div class="grafico" data-g="meses"></div>
       <p class="nota" data-t="meses-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
@@ -1254,6 +1420,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Quién viaja por la Argentina y adónde va?</p>
       <p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>
     </div>
+    <!--EXPLICADOR:turismo-->
 
     <article class="ficha" id="f-receptivo">
       <h3 data-t="receptivo-titulo"></h3>
@@ -1291,6 +1458,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Cuánto territorio está protegido y qué vive en él?</p>
       <p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>
     </div>
+    <!--EXPLICADOR:naturaleza-->
 
     <article class="ficha" id="f-protegida">
       <h3 data-t="protegida-titulo"></h3>
@@ -1380,6 +1548,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <p class="pregunta">¿Qué dicen los datos de lo cotidiano?</p>
       <p>Los nombres más elegidos, el consumo de carne, vino y yerba, los glaciares y el clima.</p>
     </div>
+    <!--EXPLICADOR:curiosidades-->
 
     <article class="ficha" id="f-nombres">
       <h3 data-t="nombres-titulo"></h3>
@@ -1438,7 +1607,11 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 
   <section class="tema herramienta" id="cruces">
     <h2>Cruces</h2>
-    <p class="herr-intro">Tres herramientas para ir más allá de las fichas: cruzar indicadores, armar un índice propio y bajar al nivel de cada departamento.</p>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué indicadores se mueven juntos entre las provincias?</p>
+      <p>Elegí dos indicadores y mirá cómo se ubican las 24 jurisdicciones, con la recta que mejor las resume y las advertencias para no sacar conclusiones de más.</p>
+    </div>
+    <!--EXPLICADOR:cruces-->
     <article class="ficha explorador" id="f-cruces">
       <h3>Explorador de indicadores provinciales</h3>
       <p class="lead">Elegí dos indicadores y mirá si las 24 jurisdicciones se ordenan juntas. Sirve para explorar: una correlación no dice qué causa qué. El diseño sigue a los exploradores regionales de la OCDE y Eurostat, a Gapminder y al Atlas de Desarrollo Humano de Brasil.</p>
@@ -1504,6 +1677,11 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 
   <section class="tema herramienta" id="indice">
     <h2>Tu índice</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué provincia está mejor según lo que a vos te importa?</p>
+      <p>Cada persona le da su propio peso a siete dimensiones y el índice ordena las provincias con esos pesos.</p>
+    </div>
+    <!--EXPLICADOR:indice-->
     <article class="ficha explorador" id="f-indice">
       <h3>Armá tu propio índice de bienestar provincial</h3>
       <p class="lead">Cada persona valora cosas distintas. Mové los controles para darle más o menos peso a cada dimensión y mirá cómo cambia el orden de las 24 jurisdicciones. La idea viene del Índice para una Vida Mejor de la OCDE.</p>
@@ -1522,6 +1700,11 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 
   <section class="tema herramienta" id="departamentos">
     <h2>Departamentos</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Cómo cambian los números dentro de cada provincia?</p>
+      <p>Un mapa con los departamentos de todo el país para ver lo que el promedio provincial esconde.</p>
+    </div>
+    <!--EXPLICADOR:departamentos-->
     <article class="ficha explorador" id="f-mapa">
       <h3 data-t="mapa-dep-titulo"></h3>
       <p class="lead" data-t="mapa-dep"></p>
@@ -1549,10 +1732,23 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
 
 <div class="tip" id="tip" role="tooltip"></div>
 
-<script id="datos" type="application/json">__DATOS__</script>
+<!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
+<script src="datos/fichas.js?v=__VERSION__"></script>
 <script>
 (() => {
-const D = JSON.parse(document.getElementById("datos").textContent);
+const D = window.DATINA;
+
+/* ---------- páginas: cada sección vive en su propio archivo (salud.html, politica.html) ---------- */
+// Todas las páginas comparten el mismo marcado y el constructor oculta las secciones ajenas.
+const PAGINA = document.body.dataset.pagina || "inicio";
+const paginaDe = el => el?.closest(".tema")?.id || "inicio";
+const urlPagina = (p, resto = "") => (p === "inicio" ? "./" : p + ".html") + resto;
+// Los enlaces de cuando todo estaba en una sola página (#f-empleo?prov=30, #salud, ?cx=, ?ix=) llevan a la página nueva
+if (PAGINA === "inicio") {
+  const q = new URLSearchParams(location.search), h = location.hash.slice(1).split("?")[0], el = h && document.getElementById(h);
+  const destino = el && paginaDe(el) !== "inicio" ? paginaDe(el) : q.has("cx") || q.has("cy") ? "cruces" : q.has("ix") ? "indice" : null;
+  if (destino) { location.replace(urlPagina(destino, location.search + (h === destino ? "" : location.hash))); return; }
+}
 const R = D.resumen, T = D.datos, OC = R.ocde;
 const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
 const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
@@ -1608,6 +1804,9 @@ const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
 const EV = R.envejecimiento;
+const PI = R.piramide, JU = R.jubilaciones;
+const EM = R.empresas;
+const RO = R.rotacion, trim = t => `${["primer", "segundo", "tercer", "cuarto"][t[1] - 1]} trimestre de ${t[0]}`;
 const TX = {
   "adonse-titulo": `Madres menores de 20 años y nivel socioeconómico por provincia`,
   "adonse-nota": `Cada punto es una provincia. En el eje vertical, el porcentaje de los nacimientos de ${R.ado_nse.anio} cuya madre tenía menos de 20 años (RENAPER). En el horizontal, el indicador elegido del Censo 2022. La línea punteada es solo una guía de la tendencia. ` +
@@ -1619,6 +1818,28 @@ const TX = {
   "envejecimiento-titulo": `Personas de 65 años o más por cada 100 en edad de trabajar, ${EV.anio} y 2040`,
   envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
     `Según las proyecciones del INDEC, en 2040 serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. La relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}).`,
+  "empresas-titulo": `Empresas privadas con empleados cada 1.000 habitantes, ${EM.anio}`,
+  empresas: `En ${EM.anio} había ${n0(EM.total_pais)} empresas privadas con al menos una persona en relación de dependencia, unas ${n1(EM.pais_1000)} cada 1.000 habitantes. ${EM.top} tenía ${n1(EM.top_v)} cada 1.000 y ${EM.low}, ${n1(EM.low_v)}.`,
+  "empresas-nota": `Empresas que declaran personal ante la seguridad social. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni al personal de casas particulares. Una empresa con personal en varias provincias se cuenta en cada una, por eso las provincias suman más que el total del país. La población es la proyección 2025 del INDEC.`,
+  "dinamica-titulo": `Apertura y cierre de empresas privadas, ${EM.ini} a ${EM.ult}`,
+  dinamica: `En ${EM.ult} abrieron ${n0(EM.ap)} empresas con empleados y cerraron ${n0(EM.ci)}: una tasa de entrada de ${pct(EM.te)} y una de salida de ${pct(EM.ts)} sobre el total de empresas. ` +
+    `El cambio neto fue ${EM.neta >= 0 ? "positivo" : "negativo"}, de ${pct(Math.abs(EM.neta))}, y solo ${EM.positivas === 1 ? "una provincia tuvo" : EM.positivas + " provincias tuvieron"} más aperturas que cierres. ` +
+    `La tasa de entrada más alta de la serie fue ${pct(EM.te_max)}, en ${EM.te_max_anio}. Desde ${EM.ini}, el cambio neto fue negativo en ${EM.anios_negativos} años.`,
+  "dinamica-nota": `Se cuentan las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su personal, así que las provincias suman el total del país. Una empresa abre cuando declara empleados por primera vez y cierra cuando pasa un año (cuatro trimestres) sin declarar personal. ` +
+    `Las tasas dividen aperturas y cierres por todas las empresas activas en el año. La vista por provincia muestra el cambio neto de ${EM.ult}. El OEDE separa la provincia de Buenos Aires en partidos del Gran Buenos Aires y resto, que acá se suman.`,
+  "rotacion-titulo": `Asalariados con un año o menos en su empleo actual, ${RO.desde[0] === RO.hasta[0] ? RO.hasta[0] : RO.desde[0] + " y " + RO.hasta[0]}`,
+  rotacion: `Entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}, el ${pct(RO.total)} de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo y el ${pct(RO.total_largo)} más de cinco años. ` +
+    `La rotación se concentra en quienes tienen menos de 25 años (${pct(RO.jovenes)}), en los empleos sin descuento jubilatorio (${pct(RO.sin_desc)}, contra ${pct(RO.con_desc)} en los registrados) y en los hogares del quintil de menores ingresos (${pct(RO.q1)}, contra ${pct(RO.q5)} en el de mayores ingresos).`,
+  "rotacion-nota": `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC, con ${n0(RO.casos)} respuestas de los cuatro últimos trimestres publicados. Se usa la pregunta sobre cuánto tiempo hace que la persona trabaja en ese empleo en forma continua, que se hace a los asalariados salvo el servicio doméstico. ` +
+    `La antigüedad corta no siempre significa rotación: también incluye a quienes consiguieron su primer empleo o volvieron a trabajar. La generación se calcula con la edad declarada. Los quintiles ordenan a las personas por el ingreso per cápita de su hogar y usan el ponderador de ingresos del INDEC. La encuesta cubre solo aglomerados urbanos y no permite resultados confiables por provincia con este detalle.`,
+  "piramide-titulo": `Población por edad y sexo, ${PI.anio} y 2040`,
+  piramide: `En ${PI.anio} la mitad de la población del país tiene menos de ${PI.edad_mediana_hoy} años, aproximadamente. Según las proyecciones del INDEC, en 2040 esa edad mediana llegará a unos ${PI.edad_mediana_2040} años y los menores de 15 pasarán de ser el ${pct(PI.menores15_hoy)} al ${pct(PI.menores15_2040)} de la población. La base de la pirámide se angosta porque nacen menos chicos y la parte de arriba se ensancha porque se vive más.`,
+  "piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, 2040. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
+  "jubilaciones-titulo": `Aportantes por cada beneficio previsional de ANSES, ${JU.ini} a ${JU.anio}`,
+  jubilaciones: `En ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio} había ${n2(JU.ratio)} aportantes por cada jubilación o pensión de los regímenes que administra ANSES: ${n0(JU.aportantes)} personas aportando y ${n0(JU.beneficios)} beneficios. El valor más alto de la serie fue ${n2(JU.max)} en ${JU.max_anio} y el más bajo, ${n2(JU.min)} en ${JU.min_anio}. ` +
+    `La demografía empuja en la misma dirección: según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en 2040.`,
+  "jubilaciones-nota": `Promedio anual de aportantes y de beneficios. El último año es el último mes disponible. Los aportantes incluyen asalariados, autónomos, monotributistas y trabajadoras de casas particulares, también jubilados que siguen aportando. Desde abril de 2019 se cuentan solo los beneficios no suspendidos y hasta 2008 la serie incluye el sistema de capitalización. ` +
+    `La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
   "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
     `Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en 2040. El círculo claro marca ${EV.anio} y el oscuro 2040.`,
   hogares: `En 2025 los hogares explicaron el ${pct(e.pct_res_2025)} de la electricidad demandada en el país, frente al ${pct(e.pct_res_2005)} de 2005. Entre ambos años la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
@@ -1668,10 +1889,10 @@ const TX = {
   "receptivo-nota": `Viajes de turistas no residentes, es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Solo se muestran años completos.${tu.provisorio ? " Los últimos meses son datos provisorios." : ""}`,
   "hoteles-titulo": `Viajeros hospedados en hoteles y parahoteles, ${tu.eoh_ini} a ${tu.eoh_anio}`,
   hoteles: `En ${tu.eoh_anio} se hospedaron ${n1(tu.eoh_total)} millones de viajeros en hoteles y parahoteles de las localidades relevadas. El ${pct(tu.eoh_nr_pct)} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
-  "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}.`,
+  "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}. El INDEC informó que, al no renovarse el convenio de financiamiento con la Secretaría de Turismo, la encuesta se reformulará y su difusión se reprogramará. El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en la Ciudad.`,
   "eti-titulo": `Turistas extranjeros que visitaron cada provincia y salieron por Ezeiza o Aeroparque, ${tu.eti_anio}`,
   eti: `En ${tu.eti_anio}, ${n0(tu.eti_top_v)} turistas no residentes que se fueron del país por Ezeiza o Aeroparque habían visitado ${tu.eti_top} y ${n0(tu.eti_2_v)} ${tu.eti_2}. En relación con su población, el valor más alto fue el de ${tu.eti_pc_top}, con ${n1(tu.eti_pc_top_v)} turistas cada 1.000 habitantes.`,
-  "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población 2025 proyectada por el INDEC.`,
+  "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población 2025 proyectada por el INDEC. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
   "pobreza-titulo": `Pobreza e indigencia en los 31 aglomerados urbanos, ${R.pobreza.ini} a ${R.pobreza.fin}`,
   pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${pct(R.pobreza.ind)} bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, eran ${pct(R.pobreza.pob_prev)} y ${pct(R.pobreza.ind_prev)}. El valor más alto de la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.`,
@@ -1719,7 +1940,7 @@ const TX = {
   esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer en el país era de ${n1(nv.ev_pais)} años: ${n1(nv.ev_m)} para las mujeres y ${n1(nv.ev_v)} para los varones. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
   "exportaciones-titulo": `Exportaciones por habitante según provincia de origen, ${nv.ex_anio}`,
-  exportaciones: `En ${nv.ex_anio} el país exportó bienes por ${n0(nv.ex_total)} millones de dólares, unos ${n0(nv.ex_pc_pais)} dólares por habitante. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}.`,
+  exportaciones: `En ${nv.ex_anio} el país exportó bienes por ${n0(nv.ex_total)} millones de dólares, unos ${n0(nv.ex_pc_pais)} dólares por habitante. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : ""),
   "exportaciones-nota": `Valor FOB de los bienes exportados según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección 2025 del INDEC.`,
   "censo-titulo": `Servicios, equipamiento y cobertura de salud por provincia, Censo 2022`,
   "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
@@ -1897,8 +2118,7 @@ function lineas(el, cfg) {
 
 function barrasH(el, cfg) {
   const data = [...cfg.data].sort((a,b) => d3.descending(a[cfg.k], b[cfg.k]));
-  const fila = 24;
-  const angosto = el.clientWidth < 520;
+  const angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
   const izq = angosto ? (cfg.lAngosto || 118) : (cfg.l || 150);
   const C = lienzo(el, data.length * fila + 34 + (cfg.ref2 != null ? 14 : 0), {t:24, r:54, b:10, l: izq});
   const {g, iw} = C;
@@ -1937,7 +2157,7 @@ function pesas(el, cfg) {
   // Dos momentos por provincia: círculo claro = a (antes), círculo lleno = b (después)
   const {a, b, la, lb} = cfg, vf = cfg.vf || (v => n1(v) + "%");
   const data = [...cfg.data].sort((p,q) => d3.descending(p[b], q[b]));
-  const fila = 24, angosto = el.clientWidth < 520;
+  const angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
   const C = lienzo(el, data.length * fila + 34 + (cfg.ref != null ? 12 : 0), {t:24, r:44, b:10, l: angosto ? 118 : 150});
   const {g, iw} = C;
   const x = d3.scaleLinear().domain([cfg.x0 ?? 0, d3.max(data, d => Math.max(d[a], d[b])) * 1.02]).nice().range([0, iw]);
@@ -1985,6 +2205,68 @@ function columnas(el, cfg) {
   }
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(m => MES[m-1]).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   if (el.clientWidth < 520) g.append("text").attr("class","etq-suave").attr("x",0).attr("y",-12).text("Miles de GWh");
+}
+
+// Barras horizontales por grupo (no por provincia), con una línea de referencia
+function barrasGrupos(el, cfg) {
+  const data = cfg.data, angosto = el.clientWidth < 520, fila = 32;
+  const izq = angosto ? 128 : 190;
+  const C = lienzo(el, data.length * fila + 40, {t:24, r:56, b:16, l: izq});
+  const {g, iw} = C;
+  const x = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.k]) * 1.05]).nice().range([0, iw]);
+  const y = d3.scaleBand().domain(data.map(d => d.grupo)).range([0, data.length * fila]).padding(.3);
+  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.grupo)})`);
+  const b = f.append("rect").attr("height", y.bandwidth()).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
+  f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq").text(d => d.grupo);
+  const v = f.append("text").attr("x", d => x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
+  if (cfg.ref != null) {
+    g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3");
+    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
+  }
+  if (cfg.anim) {
+    b.attr("width", 0).transition().delay((d,i) => i * 40).duration(700).ease(EASE).attr("width", d => x(d[cfg.k]));
+    aparecer(v, 400);
+  }
+}
+
+// Pirámide de población: barras llenas para el año en curso y contorno para 2040, en porcentaje del total
+function piramidePob(el, cfg) {
+  const filas = cfg.data.filter(d => d.codigo_indec === cfg.cod);
+  const th = d3.sum(filas, d => d.personas_hoy), tf = d3.sum(filas, d => d.personas_2040);
+  const edades = [...new Set(filas.map(d => d.edad))].sort((a, b) => a - b);
+  const data = edades.map(e => {
+    const v = filas.find(d => d.edad === e && d.sexo === "varones"), m = filas.find(d => d.edad === e && d.sexo === "mujeres");
+    return {edad: e, lab: e >= 90 ? "90+" : `${e}-${e + 4}`, vh: v.personas_hoy / th * 100, mh: m.personas_hoy / th * 100, vf: v.personas_2040 / tf * 100, mf: m.personas_2040 / tf * 100};
+  });
+  const angosto = el.clientWidth < 520, fila = angosto ? 17 : 20;
+  const C = lienzo(el, data.length * fila + 64, {t:48, r:8, b:16, l:8});
+  const {g, iw} = C, centro = iw / 2, gap = angosto ? 22 : 28;
+  const mx = d3.max(data, d => Math.max(d.vh, d.mh, d.vf, d.mf));
+  const x = d3.scaleLinear().domain([0, mx]).range([0, centro - gap - 6]);
+  const y = d3.scaleBand().domain(data.map(d => d.edad).reverse()).range([0, data.length * fila]).padding(.14);
+  g.append("text").attr("x", centro).attr("y", -30).attr("text-anchor","middle").attr("class","etq-fuerte").text(cfg.nombre);
+  g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
+  g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
+  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
+  const v = f.append("rect").attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh)).attr("height", y.bandwidth()).attr("fill", css("--celeste"));
+  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mh)).attr("height", y.bandwidth()).attr("fill", css("--sol"));
+  const ov = f.append("rect").attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf)).attr("height", y.bandwidth()).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
+  const om = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mf)).attr("height", y.bandwidth()).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
+  f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").style("font-size", angosto ? "10px" : null).text(d => d.lab);
+  f.append("rect").attr("x", 0).attr("width", iw).attr("height", y.bandwidth()).attr("fill","transparent")
+    .on("pointermove", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en 2040<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en 2040`, centro, y(d.edad) + 48))
+    .on("pointerleave", ocultarTip);
+  const ley = g.append("g").attr("transform", `translate(${centro - 56},${data.length * fila + 8})`);
+  ley.append("rect").attr("width", 12).attr("height", 9).attr("fill", css("--celeste"));
+  ley.append("text").attr("x", 16).attr("y", 9).attr("class","etq-suave").text(String(cfg.anio));
+  ley.append("rect").attr("x", 64).attr("width", 12).attr("height", 9).attr("fill","none").attr("stroke", css("--ink"));
+  ley.append("text").attr("x", 80).attr("y", 9).attr("class","etq-suave").text("2040");
+  if (cfg.anim) {
+    v.attr("x", centro - gap).attr("width", 0).transition().delay((d,i) => i * 20).duration(700).ease(EASE).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
+    m.attr("width", 0).transition().delay((d,i) => i * 20).duration(700).ease(EASE).attr("width", d => x(d.mh));
+    aparecer(ov, 700); aparecer(om, 700);
+  }
 }
 
 function piramide(el, cfg) {
@@ -2036,7 +2318,7 @@ function franjas(el, cfg) {
 
 /* Barras horizontales apiladas al 100%: una fila por provincia (elecciones) */
 function apiladasH(el, cfg) {
-  const data = cfg.data, fila = 24, angosto = el.clientWidth < 520;
+  const data = cfg.data, angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
   const C = lienzo(el, data.length * fila + 30, {t:22, r:8, b:6, l: angosto ? 112 : 150});
   const {g, iw} = C;
   const x = d3.scaleLinear().domain([0, 100]).range([0, iw]);
@@ -2133,7 +2415,7 @@ function mapaAreas(anim) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_2022"};
+const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_2022"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -2167,6 +2449,17 @@ const DIB = {
     series:[{k:"tasa_varones", lab:"Varones", c:NAR, w:2}, {k:"tasa", lab:"Total", c:css("--ink"), w:2.6}, {k:"tasa_mujeres", lab:"Mujeres", c:FRI, w:2}]}),
   "suicidio-prov": a => barrasH(G("suicidio-prov"), {anim:a, data: T.suicidio_provincias, k:"tasa", ref: R.suicidio.tasa, refLab:`País ${n1(R.suicidio.tasa)}`}),
   edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
+  empresas: a => barrasH(G("empresas"), {anim:a, data: T.empresas_provincias, k:"cada_1000_hab", ref: EM.pais_1000, refLab: `País ${n1(EM.pais_1000)}`}),
+  dinamica: a => MED.dinamica === "pais"
+    ? lineas(G("dinamica"), {anim:a, data: T.empresas_serie_pais, x:"anio", y0:0, vf: v => n1(v) + "%", yf: v => v + "%",
+        series: [{k:"tasa_entrada", c: css("--celeste-fuerte"), lab:"Aperturas"}, {k:"tasa_salida", c: css("--sol-fuerte"), lab:"Cierres"}]})
+    : barrasH(G("dinamica"), {anim:a, data: T.empresas_provincias, k:`tasa_neta_${EM.ult}`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+        ref: EM.neta, refLab: `País ${n1(EM.neta)}%`, color: d => d[`tasa_neta_${EM.ult}`] < 0 ? css("--sol") : css("--celeste")}),
+  rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
+    k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
+  piramide: a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio}),
+  jubilaciones: a => lineas(G("jubilaciones"), {anim:a, data: T.jubilaciones_aportantes, x:"anio", y0:0, vf: n2, yf: v => n1(v),
+    series: [{k:"aportantes_por_beneficio", c: css("--celeste-fuerte"), lab:"Por beneficio"}], xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio}),
   muertes: a => lineas(G("muertes"), {anim:a, data: T.muertes_violentas, x:"anio", y0:0,
     series:[{k:"suicidios", lab:"Suicidios", c:NAR, w:3}, {k:"siniestros_viales", lab:"Viales", c:FRI}, {k:"homicidios", lab:"Homicidios", c:GRIS},
       {k:"femicidios", lab:"Femicidios", c:css("--rojo"), w:2.4}]}),
@@ -2442,6 +2735,21 @@ DIB.votaciones = a => {
   }
   puntosVoto(el, {anim: a, filas, senado: cam === "Senado"});
 };
+// Plataformas electorales nacionales 2023 presentadas ante la Justicia Nacional Electoral (Cámara Nacional Electoral).
+// Solo los espacios con una plataforma nacional inequívoca: la UCR y el PRO la presentaron juntos dentro de Juntos por el Cambio.
+const CNE_2023 = "https://www.electoral.gob.ar/nuevo/paginas/pdf/plataformas/2023/GENERALES/";
+const PLATAFORMA_2023 = {
+  "Peronismo": ["Unión por la Patria", "ON 134 UNION POR LA PATRIA PLATAFORMA.pdf"],
+  "La Libertad Avanza": ["La Libertad Avanza", "ON 135 LA LIBERTAD AVANZA PLATAFORMA.pdf"],
+  "PRO": ["Juntos por el Cambio", "ON 132 JUNTOS POR EL CAMBIO.pdf"],
+  "UCR y aliados": ["Juntos por el Cambio", "ON 132 JUNTOS POR EL CAMBIO.pdf"],
+  "Cambiemos y Juntos por el Cambio": ["Juntos por el Cambio", "ON 132 JUNTOS POR EL CAMBIO.pdf"],
+  "Izquierda": ["Frente de Izquierda y de Trabajadores Unidad", "ON 136 FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD PLATAFORMA.pdf"],
+};
+const plataformaCelda = e => {
+  const pl = PLATAFORMA_2023[e];
+  return pl ? `<td class="plat"><a href="${CNE_2023 + encodeURIComponent(pl[1])}" target="_blank" rel="noopener" title="Plataforma de ${pl[0]}, elecciones 2023">PDF</a></td>` : `<td class="sin">·</td>`;
+};
 DIB.vtmatriz = a => {
   const cam = MED.vtmatriz, el = G("vtmatriz");
   const leyes = VT.leyes.filter(l => l.camaras[cam]);
@@ -2458,7 +2766,8 @@ DIB.vtmatriz = a => {
   };
   el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th>${ESP_CORTO[e]}</th>`).join("")}</tr></thead><tbody>` +
     [...VT.leyes].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}</small></td>` +
-      (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody></table>";
+      (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody>" +
+    `<tfoot><tr><td class="ley">Plataforma 2023<small>qué propuso</small></td>${esp.map(plataformaCelda).join("")}</tr></tfoot></table>`;
   el.querySelectorAll("tr[data-k]").forEach(tr => {
     const ir = () => {
       MED.vtLey = tr.dataset.k; MED.votaciones = VT_LEY[tr.dataset.k].camaras[cam] ? cam : "Diputados"; vtConm("votaciones", MED.votaciones);
@@ -2512,9 +2821,31 @@ document.querySelector('[data-t="votaciones-nota"]').textContent = `Votación en
     `El Senado no publica el acta nominal de ${listaY(R.votaciones.leyes.filter(l => !l.camaras.Senado).map(l => `${l.nombre.charAt(0).toLowerCase() + l.nombre.slice(1)} de ${l.anio}`))}. ` +
     `Las actas salen de la copia de los sitios oficiales que mantiene el proyecto abierto ¿Cómo Votó?, de Rodrigo Quiroga, con ${n0(R.votaciones.n_dip)} votaciones de Diputados desde ${R.votaciones.dip_desde} y ${n0(R.votaciones.n_sen)} del Senado desde ${R.votaciones.sen_desde}, hasta el ${fechaLarga(R.votaciones.ult)}. ` +
     `Se cotejaron con los datos abiertos de la Cámara de Diputados (todas las actas de 2011 a 2019) y con el sitio del Senado (todas las de estas leyes y una muestra), sin diferencias.`;
+/* voto de los legisladores y voto de su provincia al presidente */
+const RV = R.votaciones.representacion.filter(g => g.r != null);
+const rvClave = g => g.presidente + "|" + g.eleccion;
+const rvNombre = g => `${g.presidente}, ${g.anios[0] === g.anios[1] ? g.anios[0] : g.anios[0] + " a " + g.anios[1]} (elección ${g.eleccion})`;
+const rvSel = document.getElementById("vprov-sel");
+rvSel.innerHTML = RV.map(g => `<option value="${rvClave(g)}">${rvNombre(g)}</option>`).join("");
+MED.vprov = rvClave(RV[RV.length - 1]); rvSel.value = MED.vprov;
+const rvFuerza = r => Math.abs(r) < .2 ? "casi nula" : Math.abs(r) < .4 ? "débil" : Math.abs(r) < .6 ? "moderada" : "fuerte";
+document.querySelector('[data-t="vprov-titulo"]').textContent = `Voto de los legisladores en las leyes clave y voto de su provincia al presidente, ${RV[0].anios[0]} a ${RV[RV.length - 1].anios[1]}`;
+document.querySelector('[data-t="vprov"]').textContent =
+  `En las leyes clave de cada gobierno, la correlación de Spearman entre el voto al presidente en la primera vuelta y la coincidencia de los legisladores de cada provincia con el bloque oficialista fue ` +
+  RV.map(g => `${n2(g.r).replace("-", "menos ")} con ${g.presidente} (${g.leyes} ${g.leyes === 1 ? "ley" : "leyes"} entre ${g.anios[0]} y ${g.anios[1]}, ${rvFuerza(g.r)})`).join(", ") + ".";
+DIB.vprov = a => {
+  const g = RV.find(x => rvClave(x) === MED.vprov);
+  dispersion(G("vprov"), {anim: a, data: T.voto_legisladores_y_provincia.filter(d => d.presidente === g.presidente && d.eleccion === g.eleccion),
+    x: "pct_presidente", y: "pct_coincide", xLab: `Votos de ${g.presidente} en la primera vuelta de ${g.eleccion}`, yLab: "Votos de sus legisladores que coincidieron con el oficialismo"});
+};
+document.querySelector('[data-t="vprov-nota"]').textContent = `Cada punto es una provincia. El eje horizontal es el porcentaje de votos positivos que sacó el presidente en esa provincia en la primera vuelta de la elección que lo llevó al gobierno. ` +
+  `El vertical, el porcentaje de los votos de sus diputados y senadores presentes que coincidió con la posición del bloque oficialista en las leyes clave de ese gobierno, contando también a los del propio bloque oficialista. ` +
+  `Los legisladores fueron elegidos en distintos años, no solo en esa elección, y con pocas leyes por gobierno el resultado es frágil. La correlación de Spearman compara el orden de las provincias en las dos medidas: no prueba que un voto explique el otro.`;
 document.querySelector('[data-t="vtm-nota"]').textContent = `Cada celda muestra el porcentaje de los legisladores presentes de ese espacio que votó a favor en la votación en general: verde es a favor y rojo, en contra. ` +
     `"aus." indica que la mayoría del espacio no estuvo en la votación y el punto, que el espacio no tenía legisladores en esa cámara o tenía menos de tres. ` +
-    `En la comparación entre espacios, un espacio toma posición en una ley cuando más de la mitad de sus presentes votó lo mismo. Espacios con legisladores en al menos tres de estas votaciones.`;
+    `En la comparación entre espacios, un espacio toma posición en una ley cuando más de la mitad de sus presentes votó lo mismo. Espacios con legisladores en al menos tres de estas votaciones. ` +
+    `La última fila enlaza la plataforma electoral nacional que cada alianza presentó ante la Justicia Nacional Electoral para las elecciones de 2023, publicada por la Cámara Nacional Electoral: lo que cada espacio propuso, junto a lo que votó. ` +
+    `La UCR y el PRO la presentaron juntos, dentro de Juntos por el Cambio. Las fuerzas provinciales y las otras fuerzas no tienen una plataforma nacional única.`;
 document.querySelector('[data-t="apoyo-nota"]').textContent = `En cada votación dividida, aquella en la que al menos una cuarta parte de los presentes votó distinto que el bloque oficialista, se mira si cada diputado y senador de otro bloque votó igual que él. ` +
     `El porcentaje suma las dos cámaras y todas las votaciones divididas del año, no solo las leyes clave. El bloque oficialista es el más numeroso del espacio del presidente en cada cámara. ` +
     `Transferencias por habitante del mismo año, en pesos de ${R.transferencias.ult}. La correlación es la de rangos de Spearman entre las 24 jurisdicciones, de menos 1 a 1: cerca de 0 no hay relación. ` +
@@ -2752,6 +3083,17 @@ function textoOCDE(k) {
     : `${o.mas_alto} de esos ${o.n} países tenían un valor más alto que la Argentina.`;
   return `En ${o.anio}, ${o.frase} fue de ${conUnidad(k, o.arg)} en la Argentina y de ${f(o.ocde)} en el promedio simple de los ${o.n} países de la OCDE con dato.${med} ${alto} En ${o.ini} los valores eran ${f(o.arg_ini)} y ${f(o.ocde_ini)}.`;
 }
+/* Notas metodológicas plegadas bajo "Sobre los datos" para acortar la página. Quedan a la vista
+   las de las herramientas (advertencias estadísticas) y las de suicidio (el SNIC es un registro policial). */
+const NOTA_A_LA_VISTA = new Set(["f-muertes", "f-suicidio", "f-suicidio-prov", "f-edad"]);
+document.querySelectorAll(".tema:not(.herramienta) > article.ficha").forEach(f => {
+  const notas = f.querySelectorAll(":scope > .nota");
+  if (!notas.length || NOTA_A_LA_VISTA.has(f.id)) return;
+  const d = document.createElement("details"); d.className = "sobre";
+  d.innerHTML = "<summary>Sobre los datos</summary>";
+  notas[0].before(d); d.append(...notas);
+});
+
 const VISTA = {};
 Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
   const art = document.getElementById(id), graf = G(g); if (!art || !graf) return;
@@ -2761,7 +3103,7 @@ Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
     ks.map(k => `<button type="button" data-k="${k}" aria-pressed="false">OCDE: ${OCDE_BOTON[k]}</button>`).join("") + `</div>`);
   graf.insertAdjacentHTML("afterend", `<p class="nota ocde-nota" hidden></p>`);
   const conm = graf.previousElementSibling, nota = graf.nextElementSibling, lead = art.querySelector(".lead");
-  const propios = [...art.querySelectorAll(".nota:not(.ocde-nota), .selector-ficha, .conmutador:not(.pestanas)")];
+  const propios = [...art.querySelectorAll(".sobre, .nota:not(.ocde-nota), .selector-ficha, .conmutador:not(.pestanas)")];
   conm.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
     if (VISTA[g] === (b.dataset.k || null)) return;
     VISTA[g] = b.dataset.k || null;
@@ -3303,7 +3645,7 @@ const IX = (() => {
     const el = G("indice"); if (!el || !el.offsetParent) return;
     const sw = DIMS.reduce((a, d) => a + pesos[d.id], 0);
     const datos = [...puntaje].map(p => ({...p, t: total(p, pesos)})).sort((a, b) => b.t - a.t);
-    const angosto = el.clientWidth < 520, fila = 24;
+    const angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
     const C = lienzo(el, datos.length * fila + 30, {t: 22, r: 44, b: 8, l: angosto ? 112 : 140});
     const {g, iw} = C, x = d3.scaleLinear().domain([0, 10]).range([0, iw]);
     g.append("g").attr("class", "eje").call(d3.axisTop(x).ticks(5).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
@@ -3695,6 +4037,37 @@ const PREG = [
 document.getElementById("estado").innerHTML =
   `<span><b>${document.querySelectorAll("article.ficha:not(.explorador)").length}</b> fichas</span><span><b>24</b> jurisdicciones</span>`;
 
+/* Enlaces a fichas que viven en otra página (perfil provincial, preguntas, cruces): llevan a esa página */
+const destinoDe = href => {
+  const id = href.slice(1).split("?")[0], el = id && document.getElementById(id);
+  if (!el) return null;
+  const p = paginaDe(el);
+  return p === PAGINA ? null : urlPagina(p, p === id ? "" : "#" + id);
+};
+document.querySelectorAll('a[href^="#"]').forEach(a => { const u = destinoDe(a.getAttribute("href")); if (u) a.href = u; });
+document.addEventListener("click", ev => {
+  const a = ev.target.closest?.('a[href^="#"]');
+  const u = a && destinoDe(a.getAttribute("href"));
+  if (u && !ev.ctrlKey && !ev.metaKey && !ev.shiftKey) { ev.preventDefault(); location.href = u; }
+});
+
+/* portada: una tarjeta por sección */
+const grillaSec = document.getElementById("secciones-grid");
+if (grillaSec) grillaSec.innerHTML = [...document.querySelectorAll(".tema")].map(sec => {
+  const n = sec.querySelectorAll("article.ficha:not(.explorador)").length;
+  const preg = sec.querySelector(".tema-intro .pregunta")?.textContent || "";
+  return `<a class="sec-tarjeta${sec.classList.contains("herramienta") ? " herr" : ""}" href="${urlPagina(sec.id)}">` +
+    `<span class="sec-tipo">${sec.classList.contains("herramienta") ? "Herramienta" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
+    `<b>${sec.querySelector("h2").textContent}</b><span class="sec-preg">${preg}</span></a>`;
+}).join("");
+
+/* pie de cada página de sección: anterior y siguiente */
+if (PAGINA !== "inicio") {
+  const todas = [...document.querySelectorAll(".tema")], i = todas.findIndex(t => t.id === PAGINA), sec = todas[i];
+  const ir = (t, rot) => t ? `<a href="${urlPagina(t.id)}"><small>${rot}</small>${t.querySelector("h2").textContent}</a>` : "<span></span>";
+  if (sec) sec.insertAdjacentHTML("beforeend", `<nav class="sec-pasos" aria-label="Otras secciones">${ir(todas[i - 1], "Anterior")}<a class="sec-todas" href="./#secciones"><small>Datina</small>Todas las secciones</a>${ir(todas[i + 1], "Siguiente")}</nav>`);
+}
+
 /* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */
 const vistas = new IntersectionObserver(es => es.forEach(en => {
   if (!en.isIntersecting) return;
@@ -3703,20 +4076,17 @@ const vistas = new IntersectionObserver(es => es.forEach(en => {
 }), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
 document.querySelectorAll("article.ficha").forEach(f => vistas.observe(f));
 
-/* navegación activa */
-const secciones = [...document.querySelectorAll(".tema, #provincias")];
-const enlaces = [...document.querySelectorAll(".temas a, .menu-panel a")];
-const io = new IntersectionObserver(es => es.forEach(en => {
-  if (en.isIntersecting) enlaces.forEach(a => a.setAttribute("aria-current", a.hash === "#" + en.target.id));
-}), {rootMargin: "-40% 0px -55% 0px"});
-secciones.forEach(s => io.observe(s));
+/* navegación activa: la sección de esta página */
+document.querySelectorAll(".temas a, .menu-panel a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === PAGINA + ".html"));
 
-/* la barra superior se separa del contenido recién cuando se deja la portada */
+/* la barra superior es azul sobre la portada y clara en el resto */
 const barra = document.querySelector(".barra");
-new IntersectionObserver(([en]) => barra.classList.toggle("clara", !en.isIntersecting && en.boundingClientRect.top < 0), {rootMargin: "-80px 0px 0px 0px"})
-  .observe(document.querySelector(".portada"));
+if (PAGINA === "inicio")
+  new IntersectionObserver(([en]) => barra.classList.toggle("clara", !en.isIntersecting && en.boundingClientRect.top < 0), {rootMargin: "-80px 0px 0px 0px"})
+    .observe(document.querySelector(".portada"));
+else barra.classList.add("clara");
 
-/* enlaces compartidos del tipo #f-empleo?prov=30: llevar a la ficha */
+/* enlaces compartidos del tipo salud.html#f-mortalidad?prov=30: llevar a la ficha */
 if (location.hash.includes("?")) {
   const destino = document.getElementById(location.hash.slice(1).split("?")[0]);
   if (destino) requestAnimationFrame(() => destino.scrollIntoView());
@@ -3762,7 +4132,7 @@ async function mapa() {
   let ancho = por.clientWidth, t;
   new ResizeObserver(() => { if (por.clientWidth === ancho) return; ancho = por.clientWidth; clearTimeout(t); t = setTimeout(dibujar, 150); }).observe(por);
 }
-mapa();
+if (PAGINA === "inicio") mapa();
 
 /* primer dibujo y redibujo al cambiar el ancho */
 const redibujar = () => { dibujarTodo(); tiras(); pintarPanel(false); tablaAreas(); };

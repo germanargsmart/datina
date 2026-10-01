@@ -1,0 +1,24 @@
+dimension,grupo,orden,casos,pct_un_anio_o_menos,pct_mas_de_cinco_anios
+edad,Hasta 24 años,0,5831,42.5,4.5
+edad,25 a 34,1,13531,21.9,29.7
+edad,35 a 44,2,13171,12.1,59.7
+edad,45 a 54,3,11406,7.3,73.8
+edad,55 a 64,4,6045,6.5,78.8
+edad,65 y más,5,1216,6.5,76.0
+generacion,Nacidos antes de 1965,0,2847,6.0,79.1
+generacion,1965 a 1980,1,15486,7.2,74.8
+generacion,1981 a 1996,2,21450,13.9,52.4
+generacion,Desde 1997,3,11417,35.5,10.8
+educacion,Hasta primaria completa,0,5001,17.8,54.3
+educacion,Secundaria incompleta,1,7098,26.5,39.1
+educacion,Secundaria completa,2,17191,17.1,48.0
+educacion,Superior incompleto,3,7670,20.6,40.5
+educacion,Superior completo,4,14240,8.4,63.6
+ingreso,Quintil 1,0,3616,33.2,34.4
+ingreso,Quintil 2,1,6061,21.5,44.1
+ingreso,Quintil 3,2,7502,17.1,48.6
+ingreso,Quintil 4,3,9297,14.7,54.2
+ingreso,Quintil 5,4,10698,10.1,57.8
+registro,Con descuento jubilatorio,0,34538,8.3,63.2
+registro,Sin descuento jubilatorio,1,16662,33.6,24.3
+total,Total de asalariados,0,51200,16.6,50.5

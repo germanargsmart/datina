@@ -1,0 +1,951 @@
+codigo_indec,territorio,sexo,edad,personas_hoy,personas_2040
+00,Total del país,mujeres,0,1125126.0,1163584.0
+00,Total del país,varones,0,1178281.0,1220586.0
+00,Total del país,mujeres,5,1539506.0,1102680.0
+00,Total del país,varones,5,1609772.0,1156569.0
+00,Total del país,mujeres,10,1837288.0,1054250.0
+00,Total del país,varones,10,1947144.0,1105232.0
+00,Total del país,mujeres,15,1806897.0,1180253.0
+00,Total del país,varones,15,1909495.0,1231157.0
+00,Total del país,mujeres,20,1781561.0,1647372.0
+00,Total del país,varones,20,1851650.0,1715538.0
+00,Total del país,mujeres,25,1754111.0,1846874.0
+00,Total del país,varones,25,1804828.0,1940743.0
+00,Total del país,mujeres,30,1745855.0,1779618.0
+00,Total del país,varones,30,1785373.0,1862329.0
+00,Total del país,mujeres,35,1697125.0,1753209.0
+00,Total del país,varones,35,1718519.0,1802709.0
+00,Total del país,mujeres,40,1592764.0,1722912.0
+00,Total del país,varones,40,1592477.0,1759670.0
+00,Total del país,mujeres,45,1612684.0,1713233.0
+00,Total del país,varones,45,1589049.0,1735206.0
+00,Total del país,mujeres,50,1395966.0,1634704.0
+00,Total del país,varones,50,1345889.0,1631436.0
+00,Total del país,mujeres,55,1182525.0,1534127.0
+00,Total del país,varones,55,1103073.0,1496973.0
+00,Total del país,mujeres,60,1075740.0,1506779.0
+00,Total del país,varones,60,961663.0,1426767.0
+00,Total del país,mujeres,65,966901.0,1231416.0
+00,Total del país,varones,65,814422.0,1112054.0
+00,Total del país,mujeres,70,838446.0,996097.0
+00,Total del país,varones,70,654719.0,837977.0
+00,Total del país,mujeres,75,681098.0,829689.0
+00,Total del país,varones,75,489635.0,635047.0
+00,Total del país,mujeres,80,475911.0,630856.0
+00,Total del país,varones,80,287022.0,424714.0
+00,Total del país,mujeres,85,291633.0,412355.0
+00,Total del país,varones,85,138630.0,239815.0
+00,Total del país,mujeres,90,209875.0,300889.0
+00,Total del país,varones,90,74035.0,138697.0
+02,CABA,mujeres,0,56249.0,63959.0
+02,CABA,varones,0,58521.0,66524.0
+02,CABA,mujeres,5,77378.0,57961.0
+02,CABA,varones,5,80532.0,59950.0
+02,CABA,mujeres,10,98516.0,51249.0
+02,CABA,varones,10,101523.0,52530.0
+02,CABA,mujeres,15,98164.0,60577.0
+02,CABA,varones,15,101080.0,61266.0
+02,CABA,mujeres,20,100418.0,91287.0
+02,CABA,varones,20,99377.0,92329.0
+02,CABA,mujeres,25,112710.0,107078.0
+02,CABA,varones,25,107474.0,108224.0
+02,CABA,mujeres,30,122015.0,99451.0
+02,CABA,varones,30,114379.0,101642.0
+02,CABA,mujeres,35,113845.0,95441.0
+02,CABA,varones,35,108841.0,93980.0
+02,CABA,mujeres,40,110880.0,108258.0
+02,CABA,varones,40,104403.0,101521.0
+02,CABA,mujeres,45,102501.0,115756.0
+02,CABA,varones,45,91728.0,105919.0
+02,CABA,mujeres,50,99446.0,107953.0
+02,CABA,varones,50,84168.0,99800.0
+02,CABA,mujeres,55,92129.0,104422.0
+02,CABA,varones,55,75189.0,93047.0
+02,CABA,mujeres,60,88934.0,96728.0
+02,CABA,varones,60,68860.0,81778.0
+02,CABA,mujeres,65,82317.0,90529.0
+02,CABA,varones,65,62420.0,70857.0
+02,CABA,mujeres,70,76403.0,79375.0
+02,CABA,varones,70,53917.0,59042.0
+02,CABA,mujeres,75,72949.0,71257.0
+02,CABA,varones,75,47463.0,48025.0
+02,CABA,mujeres,80,60146.0,57873.0
+02,CABA,varones,80,31752.0,36194.0
+02,CABA,mujeres,85,42197.0,43407.0
+02,CABA,varones,85,16954.0,23430.0
+02,CABA,mujeres,90,38321.0,45244.0
+02,CABA,varones,90,11892.0,18134.0
+06,Buenos Aires,mujeres,0,393147.0,423015.0
+06,Buenos Aires,varones,0,418208.0,452042.0
+06,Buenos Aires,mujeres,5,562760.0,390874.0
+06,Buenos Aires,varones,5,595124.0,417969.0
+06,Buenos Aires,mujeres,10,690990.0,366567.0
+06,Buenos Aires,varones,10,756272.0,392141.0
+06,Buenos Aires,mujeres,15,686115.0,415591.0
+06,Buenos Aires,varones,15,744135.0,441244.0
+06,Buenos Aires,mujeres,20,661326.0,607026.0
+06,Buenos Aires,varones,20,697447.0,642451.0
+06,Buenos Aires,mujeres,25,617675.0,698980.0
+06,Buenos Aires,varones,25,645385.0,760075.0
+06,Buenos Aires,mujeres,30,586434.0,671734.0
+06,Buenos Aires,varones,30,609227.0,723496.0
+06,Buenos Aires,mujeres,35,604984.0,645596.0
+06,Buenos Aires,varones,35,619408.0,671019.0
+06,Buenos Aires,mujeres,40,585370.0,596728.0
+06,Buenos Aires,varones,40,587529.0,620674.0
+06,Buenos Aires,mujeres,45,619791.0,572530.0
+06,Buenos Aires,varones,45,616438.0,589196.0
+06,Buenos Aires,mujeres,50,554236.0,593990.0
+06,Buenos Aires,varones,50,542827.0,599048.0
+06,Buenos Aires,mujeres,55,473608.0,566782.0
+06,Buenos Aires,varones,55,447008.0,555193.0
+06,Buenos Aires,mujeres,60,419688.0,583726.0
+06,Buenos Aires,varones,60,376753.0,558046.0
+06,Buenos Aires,mujeres,65,380014.0,491038.0
+06,Buenos Aires,varones,65,318978.0,449424.0
+06,Buenos Aires,mujeres,70,333502.0,398285.0
+06,Buenos Aires,varones,70,252776.0,336974.0
+06,Buenos Aires,mujeres,75,275976.0,323441.0
+06,Buenos Aires,varones,75,192398.0,246402.0
+06,Buenos Aires,mujeres,80,192795.0,248309.0
+06,Buenos Aires,varones,80,115586.0,163858.0
+06,Buenos Aires,mujeres,85,115361.0,162631.0
+06,Buenos Aires,varones,85,54046.0,89759.0
+06,Buenos Aires,mujeres,90,82299.0,114435.0
+06,Buenos Aires,varones,90,27423.0,51481.0
+10,Catamarca,mujeres,0,10659.0,10985.0
+10,Catamarca,varones,0,11087.0,11249.0
+10,Catamarca,mujeres,5,14724.0,10704.0
+10,Catamarca,varones,5,14912.0,10939.0
+10,Catamarca,mujeres,10,16864.0,10334.0
+10,Catamarca,varones,10,16689.0,10558.0
+10,Catamarca,mujeres,15,16873.0,10909.0
+10,Catamarca,varones,15,17429.0,11449.0
+10,Catamarca,mujeres,20,17653.0,15362.0
+10,Catamarca,varones,20,18379.0,15663.0
+10,Catamarca,mujeres,25,19043.0,16443.0
+10,Catamarca,varones,25,20160.0,16572.0
+10,Catamarca,mujeres,30,18205.0,16734.0
+10,Catamarca,varones,30,19166.0,17218.0
+10,Catamarca,mujeres,35,16756.0,18028.0
+10,Catamarca,varones,35,17163.0,18567.0
+10,Catamarca,mujeres,40,15504.0,18743.0
+10,Catamarca,varones,40,15557.0,19787.0
+10,Catamarca,mujeres,45,15446.0,17727.0
+10,Catamarca,varones,45,15638.0,18521.0
+10,Catamarca,mujeres,50,12908.0,15950.0
+10,Catamarca,varones,50,13226.0,16202.0
+10,Catamarca,mujeres,55,10326.0,14917.0
+10,Catamarca,varones,55,10409.0,14770.0
+10,Catamarca,mujeres,60,8857.0,14299.0
+10,Catamarca,varones,60,8656.0,14127.0
+10,Catamarca,mujeres,65,7873.0,11264.0
+10,Catamarca,varones,65,7489.0,10957.0
+10,Catamarca,mujeres,70,6802.0,8612.0
+10,Catamarca,varones,70,6004.0,7924.0
+10,Catamarca,mujeres,75,5017.0,6864.0
+10,Catamarca,varones,75,4304.0,5874.0
+10,Catamarca,mujeres,80,3221.0,5291.0
+10,Catamarca,varones,80,2295.0,4197.0
+10,Catamarca,mujeres,85,1923.0,3543.0
+10,Catamarca,varones,85,1089.0,2502.0
+10,Catamarca,mujeres,90,1454.0,2494.0
+10,Catamarca,varones,90,743.0,1484.0
+14,Córdoba,mujeres,0,94723.0,98447.0
+14,Córdoba,varones,0,98931.0,102816.0
+14,Córdoba,mujeres,5,125357.0,93691.0
+14,Córdoba,varones,5,131821.0,97817.0
+14,Córdoba,mujeres,10,145127.0,90821.0
+14,Córdoba,varones,10,152427.0,94763.0
+14,Córdoba,mujeres,15,150697.0,106098.0
+14,Córdoba,varones,15,155511.0,108677.0
+14,Córdoba,mujeres,20,154453.0,142679.0
+14,Córdoba,varones,20,159136.0,147719.0
+14,Córdoba,mujeres,25,151092.0,155015.0
+14,Córdoba,varones,25,154855.0,159794.0
+14,Córdoba,mujeres,30,151064.0,151946.0
+14,Córdoba,varones,30,155697.0,155788.0
+14,Córdoba,mujeres,35,143574.0,148470.0
+14,Córdoba,varones,35,145821.0,153080.0
+14,Córdoba,mujeres,40,134215.0,149876.0
+14,Córdoba,varones,40,136793.0,152016.0
+14,Córdoba,mujeres,45,141492.0,149216.0
+14,Córdoba,varones,45,140855.0,151682.0
+14,Córdoba,mujeres,50,118672.0,139426.0
+14,Córdoba,varones,50,116848.0,139810.0
+14,Córdoba,mujeres,55,100188.0,132107.0
+14,Córdoba,varones,55,95438.0,131387.0
+14,Córdoba,mujeres,60,93935.0,134746.0
+14,Córdoba,varones,60,84922.0,129043.0
+14,Córdoba,mujeres,65,85096.0,106363.0
+14,Córdoba,varones,65,71973.0,98334.0
+14,Córdoba,mujeres,70,75056.0,86960.0
+14,Córdoba,varones,70,58620.0,74568.0
+14,Córdoba,mujeres,75,63297.0,74533.0
+14,Córdoba,varones,75,45012.0,57510.0
+14,Córdoba,mujeres,80,44859.0,56394.0
+14,Córdoba,varones,80,26634.0,38134.0
+14,Córdoba,mujeres,85,26523.0,36382.0
+14,Córdoba,varones,85,13112.0,21584.0
+14,Córdoba,mujeres,90,17326.0,25422.0
+14,Córdoba,varones,90,7184.0,12523.0
+18,Corrientes,mujeres,0,34118.0,32493.0
+18,Corrientes,varones,0,35575.0,34006.0
+18,Corrientes,mujeres,5,45245.0,32061.0
+18,Corrientes,varones,5,46964.0,33498.0
+18,Corrientes,mujeres,10,48897.0,31588.0
+18,Corrientes,varones,10,51914.0,32923.0
+18,Corrientes,mujeres,15,48442.0,35814.0
+18,Corrientes,varones,15,51284.0,37013.0
+18,Corrientes,mujeres,20,50413.0,46416.0
+18,Corrientes,varones,20,52339.0,47734.0
+18,Corrientes,mujeres,25,50631.0,47202.0
+18,Corrientes,varones,25,50612.0,49627.0
+18,Corrientes,mujeres,30,49981.0,46485.0
+18,Corrientes,varones,30,51720.0,48532.0
+18,Corrientes,mujeres,35,47113.0,49388.0
+18,Corrientes,varones,35,47588.0,50706.0
+18,Corrientes,mujeres,40,40449.0,50106.0
+18,Corrientes,varones,40,41830.0,50061.0
+18,Corrientes,mujeres,45,38673.0,48334.0
+18,Corrientes,varones,45,38153.0,49807.0
+18,Corrientes,mujeres,50,31756.0,44861.0
+18,Corrientes,varones,50,30141.0,45146.0
+18,Corrientes,mujeres,55,26696.0,37898.0
+18,Corrientes,varones,55,24897.0,38644.0
+18,Corrientes,mujeres,60,25373.0,35335.0
+18,Corrientes,varones,60,23209.0,33380.0
+18,Corrientes,mujeres,65,22275.0,27162.0
+18,Corrientes,varones,65,19030.0,24285.0
+18,Corrientes,mujeres,70,17914.0,21907.0
+18,Corrientes,varones,70,15111.0,18557.0
+18,Corrientes,mujeres,75,12873.0,18834.0
+18,Corrientes,varones,75,10201.0,14822.0
+18,Corrientes,mujeres,80,8349.0,13737.0
+18,Corrientes,varones,80,5315.0,9580.0
+18,Corrientes,mujeres,85,5432.0,8386.0
+18,Corrientes,varones,85,2627.0,5486.0
+18,Corrientes,mujeres,90,3703.0,5587.0
+18,Corrientes,varones,90,1491.0,2796.0
+22,Chaco,mujeres,0,41426.0,38280.0
+22,Chaco,varones,0,42837.0,39339.0
+22,Chaco,mujeres,5,52025.0,38623.0
+22,Chaco,varones,5,53671.0,39681.0
+22,Chaco,mujeres,10,56006.0,39522.0
+22,Chaco,varones,10,57803.0,40625.0
+22,Chaco,mujeres,15,50102.0,41290.0
+22,Chaco,varones,15,51420.0,42925.0
+22,Chaco,mujeres,20,52548.0,52640.0
+22,Chaco,varones,20,54518.0,53847.0
+22,Chaco,mujeres,25,49444.0,53709.0
+22,Chaco,varones,25,51432.0,55297.0
+22,Chaco,mujeres,30,48053.0,47132.0
+22,Chaco,varones,30,48992.0,48096.0
+22,Chaco,mujeres,35,42825.0,51481.0
+22,Chaco,varones,35,42436.0,53160.0
+22,Chaco,mujeres,40,39511.0,47272.0
+22,Chaco,varones,40,37854.0,48918.0
+22,Chaco,mujeres,45,38090.0,46923.0
+22,Chaco,varones,45,36283.0,47569.0
+22,Chaco,mujeres,50,30837.0,38470.0
+22,Chaco,varones,50,28770.0,37600.0
+22,Chaco,mujeres,55,26749.0,37468.0
+22,Chaco,varones,55,24307.0,35327.0
+22,Chaco,mujeres,60,24668.0,33507.0
+22,Chaco,varones,60,22279.0,30763.0
+22,Chaco,mujeres,65,21211.0,25963.0
+22,Chaco,varones,65,18783.0,22582.0
+22,Chaco,mujeres,70,16398.0,21394.0
+22,Chaco,varones,70,13697.0,16999.0
+22,Chaco,mujeres,75,10815.0,17370.0
+22,Chaco,varones,75,8473.0,12959.0
+22,Chaco,mujeres,80,6927.0,12138.0
+22,Chaco,varones,80,3912.0,7932.0
+22,Chaco,mujeres,85,4256.0,6704.0
+22,Chaco,varones,85,1678.0,3700.0
+22,Chaco,mujeres,90,2575.0,3624.0
+22,Chaco,varones,90,669.0,1443.0
+26,Chubut,mujeres,0,13698.0,14768.0
+26,Chubut,varones,0,14171.0,15198.0
+26,Chubut,mujeres,5,19791.0,13791.0
+26,Chubut,varones,5,20433.0,14201.0
+26,Chubut,mujeres,10,24404.0,13059.0
+26,Chubut,varones,10,25653.0,13453.0
+26,Chubut,mujeres,15,24842.0,14505.0
+26,Chubut,varones,15,25927.0,14994.0
+26,Chubut,mujeres,20,21004.0,21420.0
+26,Chubut,varones,20,22584.0,22001.0
+26,Chubut,mujeres,25,21600.0,24698.0
+26,Chubut,varones,25,23194.0,25707.0
+26,Chubut,mujeres,30,23107.0,24123.0
+26,Chubut,varones,30,24324.0,25112.0
+26,Chubut,mujeres,35,23779.0,20495.0
+26,Chubut,varones,35,24633.0,21843.0
+26,Chubut,mujeres,40,22784.0,21560.0
+26,Chubut,varones,40,23785.0,22849.0
+26,Chubut,mujeres,45,21510.0,22987.0
+26,Chubut,varones,45,22324.0,23906.0
+26,Chubut,mujeres,50,17992.0,23194.0
+26,Chubut,varones,50,17851.0,23615.0
+26,Chubut,mujeres,55,14869.0,21968.0
+26,Chubut,varones,55,14186.0,22355.0
+26,Chubut,mujeres,60,13794.0,20057.0
+26,Chubut,varones,60,12650.0,19770.0
+26,Chubut,mujeres,65,11784.0,16097.0
+26,Chubut,varones,65,10615.0,14730.0
+26,Chubut,mujeres,70,9903.0,12909.0
+26,Chubut,varones,70,8212.0,10925.0
+26,Chubut,mujeres,75,7429.0,11083.0
+26,Chubut,varones,75,5895.0,8545.0
+26,Chubut,mujeres,80,4829.0,8118.0
+26,Chubut,varones,80,3227.0,5668.0
+26,Chubut,mujeres,85,2882.0,5265.0
+26,Chubut,varones,85,1644.0,3099.0
+26,Chubut,mujeres,90,1915.0,3603.0
+26,Chubut,varones,90,706.0,1699.0
+30,Entre Ríos,mujeres,0,34801.0,35437.0
+30,Entre Ríos,varones,0,36454.0,36899.0
+30,Entre Ríos,mujeres,5,48316.0,34149.0
+30,Entre Ríos,varones,5,50547.0,35545.0
+30,Entre Ríos,mujeres,10,56480.0,33112.0
+30,Entre Ríos,varones,10,59023.0,34481.0
+30,Entre Ríos,mujeres,15,53829.0,36340.0
+30,Entre Ríos,varones,15,55785.0,38101.0
+30,Entre Ríos,mujeres,20,55611.0,50614.0
+30,Entre Ríos,varones,20,56869.0,52510.0
+30,Entre Ríos,mujeres,25,57456.0,55338.0
+30,Entre Ríos,varones,25,59332.0,57225.0
+30,Entre Ríos,mujeres,30,57943.0,53659.0
+30,Entre Ríos,varones,30,59625.0,54516.0
+30,Entre Ríos,mujeres,35,55327.0,56974.0
+30,Entre Ríos,varones,35,56059.0,57709.0
+30,Entre Ríos,mujeres,40,51581.0,58083.0
+30,Entre Ríos,varones,40,51457.0,59362.0
+30,Entre Ríos,mujeres,45,50421.0,57842.0
+30,Entre Ríos,varones,45,49882.0,59010.0
+30,Entre Ríos,mujeres,50,43035.0,53354.0
+30,Entre Ríos,varones,50,42508.0,53324.0
+30,Entre Ríos,mujeres,55,36161.0,49719.0
+30,Entre Ríos,varones,55,34751.0,48535.0
+30,Entre Ríos,mujeres,60,33574.0,46910.0
+30,Entre Ríos,varones,60,31544.0,44662.0
+30,Entre Ríos,mujeres,65,30315.0,37865.0
+30,Entre Ríos,varones,65,25449.0,35067.0
+30,Entre Ríos,mujeres,70,26072.0,30411.0
+30,Entre Ríos,varones,70,20691.0,26358.0
+30,Entre Ríos,mujeres,75,20584.0,25773.0
+30,Entre Ríos,varones,75,14911.0,20615.0
+30,Entre Ríos,mujeres,80,14388.0,19626.0
+30,Entre Ríos,varones,80,8778.0,13057.0
+30,Entre Ríos,mujeres,85,9311.0,12905.0
+30,Entre Ríos,varones,85,4548.0,7545.0
+30,Entre Ríos,mujeres,90,6460.0,9743.0
+30,Entre Ríos,varones,90,2275.0,4187.0
+34,Formosa,mujeres,0,20359.0,19162.0
+34,Formosa,varones,0,20800.0,19774.0
+34,Formosa,mujeres,5,25221.0,19540.0
+34,Formosa,varones,5,26102.0,20163.0
+34,Formosa,mujeres,10,28742.0,19505.0
+34,Formosa,varones,10,29359.0,20157.0
+34,Formosa,mujeres,15,27125.0,19058.0
+34,Formosa,varones,15,27848.0,19528.0
+34,Formosa,mujeres,20,28545.0,24233.0
+34,Formosa,varones,20,27682.0,24981.0
+34,Formosa,mujeres,25,27505.0,26256.0
+34,Formosa,varones,25,26128.0,26671.0
+34,Formosa,mujeres,30,27765.0,25769.0
+34,Formosa,varones,30,26583.0,25886.0
+34,Formosa,mujeres,35,22366.0,27953.0
+34,Formosa,varones,35,21276.0,26802.0
+34,Formosa,mujeres,40,18835.0,26603.0
+34,Formosa,varones,40,17413.0,25283.0
+34,Formosa,mujeres,45,18662.0,26385.0
+34,Formosa,varones,45,17260.0,25581.0
+34,Formosa,mujeres,50,16062.0,19177.0
+34,Formosa,varones,50,14597.0,18123.0
+34,Formosa,mujeres,55,14265.0,17148.0
+34,Formosa,varones,55,12911.0,15825.0
+34,Formosa,mujeres,60,13026.0,16241.0
+34,Formosa,varones,60,12172.0,14440.0
+34,Formosa,mujeres,65,11319.0,13383.0
+34,Formosa,varones,65,9883.0,11546.0
+34,Formosa,mujeres,70,8986.0,11379.0
+34,Formosa,varones,70,7578.0,9377.0
+34,Formosa,mujeres,75,6156.0,9384.0
+34,Formosa,varones,75,4870.0,7524.0
+34,Formosa,mujeres,80,3852.0,6906.0
+34,Formosa,varones,80,2452.0,4724.0
+34,Formosa,mujeres,85,2179.0,4103.0
+34,Formosa,varones,85,1171.0,2479.0
+34,Formosa,mujeres,90,1376.0,2413.0
+34,Formosa,varones,90,445.0,1119.0
+38,Jujuy,mujeres,0,18850.0,20839.0
+38,Jujuy,varones,0,19402.0,21370.0
+38,Jujuy,mujeres,5,26352.0,20230.0
+38,Jujuy,varones,5,27236.0,20772.0
+38,Jujuy,mujeres,10,33126.0,19108.0
+38,Jujuy,varones,10,33820.0,19694.0
+38,Jujuy,mujeres,15,32524.0,18368.0
+38,Jujuy,varones,15,33928.0,19494.0
+38,Jujuy,mujeres,20,34675.0,25607.0
+38,Jujuy,varones,20,36697.0,27241.0
+38,Jujuy,mujeres,25,33319.0,30960.0
+38,Jujuy,varones,25,35018.0,31932.0
+38,Jujuy,mujeres,30,32327.0,32501.0
+38,Jujuy,varones,30,33010.0,32798.0
+38,Jujuy,mujeres,35,30307.0,36082.0
+38,Jujuy,varones,35,30649.0,36848.0
+38,Jujuy,mujeres,40,29596.0,33397.0
+38,Jujuy,varones,40,28787.0,34062.0
+38,Jujuy,mujeres,45,29655.0,31759.0
+38,Jujuy,varones,45,28474.0,32229.0
+38,Jujuy,mujeres,50,24582.0,29341.0
+38,Jujuy,varones,50,23101.0,28961.0
+38,Jujuy,mujeres,55,18828.0,28569.0
+38,Jujuy,varones,55,17761.0,27214.0
+38,Jujuy,mujeres,60,16603.0,27256.0
+38,Jujuy,varones,60,14627.0,25371.0
+38,Jujuy,mujeres,65,14258.0,21039.0
+38,Jujuy,varones,65,11740.0,18855.0
+38,Jujuy,mujeres,70,11894.0,15315.0
+38,Jujuy,varones,70,9465.0,13357.0
+38,Jujuy,mujeres,75,8483.0,12396.0
+38,Jujuy,varones,75,6657.0,9640.0
+38,Jujuy,mujeres,80,5409.0,8939.0
+38,Jujuy,varones,80,3786.0,6256.0
+38,Jujuy,mujeres,85,3192.0,5635.0
+38,Jujuy,varones,85,2004.0,3664.0
+38,Jujuy,mujeres,90,1908.0,3591.0
+38,Jujuy,varones,90,872.0,2046.0
+42,La Pampa,mujeres,0,8291.0,8524.0
+42,La Pampa,varones,0,8666.0,8863.0
+42,La Pampa,mujeres,5,10839.0,8451.0
+42,La Pampa,varones,5,11378.0,8766.0
+42,La Pampa,mujeres,10,13640.0,8302.0
+42,La Pampa,varones,10,14248.0,8593.0
+42,La Pampa,mujeres,15,12617.0,7954.0
+42,La Pampa,varones,15,13767.0,8775.0
+42,La Pampa,mujeres,20,12525.0,10520.0
+42,La Pampa,varones,20,13511.0,11593.0
+42,La Pampa,mujeres,25,13935.0,13308.0
+42,La Pampa,varones,25,14466.0,14160.0
+42,La Pampa,mujeres,30,14814.0,13508.0
+42,La Pampa,varones,30,15269.0,14118.0
+42,La Pampa,mujeres,35,14993.0,14077.0
+42,La Pampa,varones,35,15130.0,14315.0
+42,La Pampa,mujeres,40,14201.0,14822.0
+42,La Pampa,varones,40,13861.0,15053.0
+42,La Pampa,mujeres,45,13148.0,15009.0
+42,La Pampa,varones,45,13203.0,15252.0
+42,La Pampa,mujeres,50,11498.0,14694.0
+42,La Pampa,varones,50,11556.0,14712.0
+42,La Pampa,mujeres,55,9842.0,13776.0
+42,La Pampa,varones,55,9602.0,13279.0
+42,La Pampa,mujeres,60,9462.0,12275.0
+42,La Pampa,varones,60,9053.0,12148.0
+42,La Pampa,mujeres,65,8064.0,10375.0
+42,La Pampa,varones,65,7521.0,9945.0
+42,La Pampa,mujeres,70,7123.0,8563.0
+42,La Pampa,varones,70,6357.0,7674.0
+42,La Pampa,mujeres,75,5859.0,7573.0
+42,La Pampa,varones,75,4665.0,6334.0
+42,La Pampa,mujeres,80,4345.0,5525.0
+42,La Pampa,varones,80,3164.0,4212.0
+42,La Pampa,mujeres,85,2738.0,3848.0
+42,La Pampa,varones,85,1507.0,2597.0
+42,La Pampa,mujeres,90,1940.0,3189.0
+42,La Pampa,varones,90,865.0,1642.0
+46,La Rioja,mujeres,0,10234.0,10251.0
+46,La Rioja,varones,0,10708.0,10645.0
+46,La Rioja,mujeres,5,12928.0,10023.0
+46,La Rioja,varones,5,13584.0,10402.0
+46,La Rioja,mujeres,10,15341.0,9853.0
+46,La Rioja,varones,10,15872.0,10203.0
+46,La Rioja,mujeres,15,15481.0,10612.0
+46,La Rioja,varones,15,15961.0,10992.0
+46,La Rioja,mujeres,20,17047.0,13937.0
+46,La Rioja,varones,20,16603.0,14308.0
+46,La Rioja,mujeres,25,17141.0,15564.0
+46,La Rioja,varones,25,17051.0,15767.0
+46,La Rioja,mujeres,30,18211.0,15620.0
+46,La Rioja,varones,30,18661.0,15844.0
+46,La Rioja,mujeres,35,16106.0,16730.0
+46,La Rioja,varones,35,16548.0,16328.0
+46,La Rioja,mujeres,40,13799.0,17210.0
+46,La Rioja,varones,40,14361.0,16984.0
+46,La Rioja,mujeres,45,14543.0,17768.0
+46,La Rioja,varones,45,14852.0,18342.0
+46,La Rioja,mujeres,50,11816.0,15051.0
+46,La Rioja,varones,50,11675.0,15307.0
+46,La Rioja,mujeres,55,9457.0,13262.0
+46,La Rioja,varones,55,9208.0,13620.0
+46,La Rioja,mujeres,60,8592.0,13503.0
+46,La Rioja,varones,60,8081.0,13334.0
+46,La Rioja,mujeres,65,7237.0,10160.0
+46,La Rioja,varones,65,6583.0,9523.0
+46,La Rioja,mujeres,70,5829.0,7839.0
+46,La Rioja,varones,70,5117.0,6999.0
+46,La Rioja,mujeres,75,4341.0,6506.0
+46,La Rioja,varones,75,3547.0,5341.0
+46,La Rioja,mujeres,80,2701.0,4623.0
+46,La Rioja,varones,80,1905.0,3471.0
+46,La Rioja,mujeres,85,1614.0,2889.0
+46,La Rioja,varones,85,909.0,1950.0
+46,La Rioja,mujeres,90,1106.0,2015.0
+46,La Rioja,varones,90,491.0,1059.0
+50,Mendoza,mujeres,0,49271.0,52068.0
+50,Mendoza,varones,0,51040.0,53830.0
+50,Mendoza,mujeres,5,68775.0,48638.0
+50,Mendoza,varones,5,71280.0,50329.0
+50,Mendoza,mujeres,10,85717.0,46307.0
+50,Mendoza,varones,10,87756.0,47921.0
+50,Mendoza,mujeres,15,83841.0,51933.0
+50,Mendoza,varones,15,87110.0,53588.0
+50,Mendoza,mujeres,20,75277.0,74252.0
+50,Mendoza,varones,20,78341.0,76705.0
+50,Mendoza,mujeres,25,77535.0,85698.0
+50,Mendoza,varones,25,79684.0,86971.0
+50,Mendoza,mujeres,30,78821.0,82293.0
+50,Mendoza,varones,30,80906.0,84727.0
+50,Mendoza,mujeres,35,76560.0,73727.0
+50,Mendoza,varones,35,78271.0,76129.0
+50,Mendoza,mujeres,40,70526.0,77320.0
+50,Mendoza,varones,40,70634.0,78854.0
+50,Mendoza,mujeres,45,70025.0,78159.0
+50,Mendoza,varones,45,69568.0,79355.0
+50,Mendoza,mujeres,50,60889.0,74134.0
+50,Mendoza,varones,50,58635.0,74405.0
+50,Mendoza,mujeres,55,50925.0,68144.0
+50,Mendoza,varones,55,46611.0,66555.0
+50,Mendoza,mujeres,60,45163.0,65889.0
+50,Mendoza,varones,60,39768.0,63106.0
+50,Mendoza,mujeres,65,41539.0,54098.0
+50,Mendoza,varones,65,34834.0,49206.0
+50,Mendoza,mujeres,70,37547.0,42926.0
+50,Mendoza,varones,70,29748.0,36233.0
+50,Mendoza,mujeres,75,30575.0,34900.0
+50,Mendoza,varones,75,22266.0,27426.0
+50,Mendoza,mujeres,80,20792.0,27188.0
+50,Mendoza,varones,80,13157.0,19286.0
+50,Mendoza,mujeres,85,11893.0,18352.0
+50,Mendoza,varones,85,6208.0,11552.0
+50,Mendoza,mujeres,90,7374.0,13046.0
+50,Mendoza,varones,90,3050.0,6681.0
+54,Misiones,mujeres,0,46963.0,44218.0
+54,Misiones,varones,0,48772.0,46065.0
+54,Misiones,mujeres,5,58059.0,44859.0
+54,Misiones,varones,5,59526.0,46748.0
+54,Misiones,mujeres,10,64199.0,45712.0
+54,Misiones,varones,10,66682.0,47599.0
+54,Misiones,mujeres,15,59319.0,47256.0
+54,Misiones,varones,15,61980.0,48917.0
+54,Misiones,mujeres,20,60399.0,58005.0
+54,Misiones,varones,20,61738.0,59701.0
+54,Misiones,mujeres,25,58507.0,60854.0
+54,Misiones,varones,25,58024.0,62797.0
+54,Misiones,mujeres,30,54278.0,57680.0
+54,Misiones,varones,30,54280.0,60169.0
+54,Misiones,mujeres,35,47973.0,60428.0
+54,Misiones,varones,35,48613.0,60826.0
+54,Misiones,mujeres,40,42449.0,56933.0
+54,Misiones,varones,40,40918.0,56866.0
+54,Misiones,mujeres,45,39384.0,53462.0
+54,Misiones,varones,45,37538.0,53414.0
+54,Misiones,mujeres,50,33061.0,45164.0
+54,Misiones,varones,50,31919.0,44842.0
+54,Misiones,mujeres,55,28163.0,40186.0
+54,Misiones,varones,55,26173.0,37914.0
+54,Misiones,mujeres,60,26296.0,36003.0
+54,Misiones,varones,60,24482.0,33230.0
+54,Misiones,mujeres,65,22515.0,28714.0
+54,Misiones,varones,65,20379.0,26077.0
+54,Misiones,mujeres,70,17055.0,23304.0
+54,Misiones,varones,70,14893.0,19495.0
+54,Misiones,mujeres,75,11094.0,19427.0
+54,Misiones,varones,75,9041.0,15563.0
+54,Misiones,mujeres,80,6735.0,13435.0
+54,Misiones,varones,80,4426.0,9817.0
+54,Misiones,mujeres,85,3944.0,7220.0
+54,Misiones,varones,85,2050.0,4772.0
+54,Misiones,mujeres,90,2272.0,3748.0
+54,Misiones,varones,90,930.0,1989.0
+58,Neuquén,mujeres,0,17360.0,18734.0
+58,Neuquén,varones,0,17793.0,19184.0
+58,Neuquén,mujeres,5,23779.0,17561.0
+58,Neuquén,varones,5,24540.0,18007.0
+58,Neuquén,mujeres,10,28953.0,16728.0
+58,Neuquén,varones,10,29505.0,17185.0
+58,Neuquén,mujeres,15,28421.0,17737.0
+58,Neuquén,varones,15,29584.0,18499.0
+58,Neuquén,mujeres,20,24637.0,25259.0
+58,Neuquén,varones,20,25821.0,25921.0
+58,Neuquén,mujeres,25,26249.0,29799.0
+58,Neuquén,varones,25,26803.0,30125.0
+58,Neuquén,mujeres,30,29824.0,30725.0
+58,Neuquén,varones,30,30356.0,31070.0
+58,Neuquén,mujeres,35,30135.0,27448.0
+58,Neuquén,varones,35,30768.0,27752.0
+58,Neuquén,mujeres,40,26160.0,28623.0
+58,Neuquén,varones,40,26784.0,28648.0
+58,Neuquén,mujeres,45,24043.0,30700.0
+58,Neuquén,varones,45,23988.0,30860.0
+58,Neuquén,mujeres,50,21199.0,29080.0
+58,Neuquén,varones,50,19861.0,29277.0
+58,Neuquén,mujeres,55,18011.0,24995.0
+58,Neuquén,varones,55,16570.0,24834.0
+58,Neuquén,mujeres,60,16519.0,22544.0
+58,Neuquén,varones,60,14324.0,21359.0
+58,Neuquén,mujeres,65,13720.0,19048.0
+58,Neuquén,varones,65,11921.0,16652.0
+58,Neuquén,mujeres,70,11054.0,15405.0
+58,Neuquén,varones,70,9148.0,12861.0
+58,Neuquén,mujeres,75,8109.0,12842.0
+58,Neuquén,varones,75,6388.0,9731.0
+58,Neuquén,mujeres,80,4931.0,8950.0
+58,Neuquén,varones,80,3391.0,6501.0
+58,Neuquén,mujeres,85,2647.0,5484.0
+58,Neuquén,varones,85,1480.0,3575.0
+58,Neuquén,mujeres,90,1650.0,3527.0
+58,Neuquén,varones,90,666.0,1966.0
+62,Río Negro,mujeres,0,18503.0,19706.0
+62,Río Negro,varones,0,19215.0,20559.0
+62,Río Negro,mujeres,5,25310.0,18862.0
+62,Río Negro,varones,5,26455.0,19740.0
+62,Río Negro,mujeres,10,31054.0,18211.0
+62,Río Negro,varones,10,32437.0,19088.0
+62,Río Negro,mujeres,15,29555.0,19218.0
+62,Río Negro,varones,15,31334.0,20030.0
+62,Río Negro,mujeres,20,27395.0,26825.0
+62,Río Negro,varones,20,29122.0,28138.0
+62,Río Negro,mujeres,25,29973.0,31552.0
+62,Río Negro,varones,25,31059.0,32495.0
+62,Río Negro,mujeres,30,31928.0,31359.0
+62,Río Negro,varones,30,32397.0,32537.0
+62,Río Negro,mujeres,35,33041.0,30350.0
+62,Río Negro,varones,35,33462.0,31526.0
+62,Río Negro,mujeres,40,30110.0,31923.0
+62,Río Negro,varones,40,30381.0,32559.0
+62,Río Negro,mujeres,45,27326.0,32787.0
+62,Río Negro,varones,45,26946.0,33024.0
+62,Río Negro,mujeres,50,23216.0,32519.0
+62,Río Negro,varones,50,22240.0,32542.0
+62,Río Negro,mujeres,55,19752.0,28910.0
+62,Río Negro,varones,55,18258.0,28532.0
+62,Río Negro,mujeres,60,18761.0,25468.0
+62,Río Negro,varones,60,16472.0,24178.0
+62,Río Negro,mujeres,65,16327.0,20943.0
+62,Río Negro,varones,65,14172.0,18809.0
+62,Río Negro,mujeres,70,13501.0,17255.0
+62,Río Negro,varones,70,11289.0,14384.0
+62,Río Negro,mujeres,75,10616.0,15116.0
+62,Río Negro,varones,75,8587.0,11444.0
+62,Río Negro,mujeres,80,7114.0,11170.0
+62,Río Negro,varones,80,4881.0,7918.0
+62,Río Negro,mujeres,85,4029.0,7067.0
+62,Río Negro,varones,85,2352.0,4611.0
+62,Río Negro,mujeres,90,2834.0,5057.0
+62,Río Negro,varones,90,1183.0,2892.0
+66,Salta,mujeres,0,41247.0,40968.0
+66,Salta,varones,0,42839.0,42265.0
+66,Salta,mujeres,5,57401.0,39527.0
+66,Salta,varones,5,58948.0,40800.0
+66,Salta,mujeres,10,67442.0,37633.0
+66,Salta,varones,10,68848.0,38793.0
+66,Salta,mujeres,15,63468.0,41933.0
+66,Salta,varones,15,65665.0,43534.0
+66,Salta,mujeres,20,61696.0,58515.0
+66,Salta,varones,20,64082.0,60044.0
+66,Salta,mujeres,25,64136.0,64784.0
+66,Salta,varones,25,67203.0,66122.0
+66,Salta,mujeres,30,61919.0,60285.0
+66,Salta,varones,30,64561.0,62365.0
+66,Salta,mujeres,35,55816.0,61734.0
+66,Salta,varones,35,56850.0,63690.0
+66,Salta,mujeres,40,50872.0,63201.0
+66,Salta,varones,40,50403.0,65991.0
+66,Salta,mujeres,45,48442.0,60340.0
+66,Salta,varones,45,46430.0,62714.0
+66,Salta,mujeres,50,40903.0,52360.0
+66,Salta,varones,50,38395.0,52897.0
+66,Salta,mujeres,55,32732.0,48175.0
+66,Salta,varones,55,31056.0,46996.0
+66,Salta,mujeres,60,28543.0,44186.0
+66,Salta,varones,60,26487.0,41014.0
+66,Salta,mujeres,65,23931.0,35218.0
+66,Salta,varones,65,20765.0,31427.0
+66,Salta,mujeres,70,19986.0,26725.0
+66,Salta,varones,70,16386.0,23208.0
+66,Salta,mujeres,75,14845.0,21297.0
+66,Salta,varones,75,11141.0,17002.0
+66,Salta,mujeres,80,9231.0,15086.0
+66,Salta,varones,80,6079.0,10553.0
+66,Salta,mujeres,85,5524.0,9563.0
+66,Salta,varones,85,3071.0,5959.0
+66,Salta,mujeres,90,3450.0,6297.0
+66,Salta,varones,90,1474.0,3146.0
+70,San Juan,mujeres,0,23799.0,23831.0
+70,San Juan,varones,0,24683.0,24727.0
+70,San Juan,mujeres,5,31101.0,22849.0
+70,San Juan,varones,5,32264.0,23729.0
+70,San Juan,mujeres,10,36353.0,21776.0
+70,San Juan,varones,10,37600.0,22630.0
+70,San Juan,mujeres,15,34725.0,24831.0
+70,San Juan,varones,15,36706.0,25766.0
+70,San Juan,mujeres,20,33998.0,32784.0
+70,San Juan,varones,20,36188.0,33718.0
+70,San Juan,mujeres,25,33243.0,36214.0
+70,San Juan,varones,25,34961.0,37308.0
+70,San Juan,mujeres,30,34653.0,34497.0
+70,San Juan,varones,30,35786.0,36430.0
+70,San Juan,mujeres,35,30826.0,33423.0
+70,San Juan,varones,35,31445.0,35227.0
+70,San Juan,mujeres,40,27758.0,33095.0
+70,San Juan,varones,40,27577.0,34471.0
+70,San Juan,mujeres,45,27687.0,34455.0
+70,San Juan,varones,45,27605.0,35206.0
+70,San Juan,mujeres,50,24876.0,28868.0
+70,San Juan,varones,50,24009.0,29045.0
+70,San Juan,mujeres,55,20205.0,26799.0
+70,San Juan,varones,55,18451.0,26130.0
+70,San Juan,mujeres,60,17195.0,26036.0
+70,San Juan,varones,60,15406.0,25083.0
+70,San Juan,mujeres,65,15881.0,21961.0
+70,San Juan,varones,65,12825.0,19909.0
+70,San Juan,mujeres,70,13879.0,16690.0
+70,San Juan,varones,70,10752.0,13913.0
+70,San Juan,mujeres,75,11145.0,13045.0
+70,San Juan,varones,75,8164.0,10223.0
+70,San Juan,mujeres,80,7214.0,10137.0
+70,San Juan,varones,80,4630.0,6810.0
+70,San Juan,mujeres,85,4000.0,6524.0
+70,San Juan,varones,85,1960.0,4051.0
+70,San Juan,mujeres,90,2280.0,4433.0
+70,San Juan,varones,90,917.0,2322.0
+74,San Luis,mujeres,0,12620.0,14137.0
+74,San Luis,varones,0,13468.0,14702.0
+74,San Luis,mujeres,5,17346.0,13593.0
+74,San Luis,varones,5,17989.0,14123.0
+74,San Luis,mujeres,10,20893.0,12895.0
+74,San Luis,varones,10,22003.0,13397.0
+74,San Luis,mujeres,15,21927.0,13614.0
+74,San Luis,varones,15,22975.0,14419.0
+74,San Luis,mujeres,20,22161.0,18398.0
+74,San Luis,varones,20,22535.0,19166.0
+74,San Luis,mujeres,25,21489.0,21614.0
+74,San Luis,varones,25,22346.0,22170.0
+74,San Luis,mujeres,30,21032.0,23094.0
+74,San Luis,varones,30,21575.0,23586.0
+74,San Luis,mujeres,35,20357.0,23144.0
+74,San Luis,varones,35,19782.0,23460.0
+74,San Luis,mujeres,40,18655.0,22294.0
+74,San Luis,varones,40,18908.0,22997.0
+74,San Luis,mujeres,45,19065.0,21426.0
+74,San Luis,varones,45,18886.0,21518.0
+74,San Luis,mujeres,50,15842.0,20025.0
+74,San Luis,varones,50,15581.0,19240.0
+74,San Luis,mujeres,55,13193.0,18448.0
+74,San Luis,varones,55,13267.0,18296.0
+74,San Luis,mujeres,60,12096.0,18062.0
+74,San Luis,varones,60,11474.0,17085.0
+74,San Luis,mujeres,65,10608.0,14123.0
+74,San Luis,varones,65,9495.0,13180.0
+74,San Luis,mujeres,70,8896.0,11234.0
+74,San Luis,varones,70,7576.0,10279.0
+74,San Luis,mujeres,75,6758.0,9294.0
+74,San Luis,varones,75,5337.0,7659.0
+74,San Luis,mujeres,80,4440.0,6684.0
+74,San Luis,varones,80,2870.0,5000.0
+74,San Luis,mujeres,85,2310.0,4078.0
+74,San Luis,varones,85,1190.0,2778.0
+74,San Luis,mujeres,90,1337.0,2576.0
+74,San Luis,varones,90,570.0,1458.0
+78,Santa Cruz,mujeres,0,7450.0,7730.0
+78,Santa Cruz,varones,0,7869.0,8158.0
+78,Santa Cruz,mujeres,5,11943.0,6669.0
+78,Santa Cruz,varones,5,12154.0,7077.0
+78,Santa Cruz,mujeres,10,14449.0,6183.0
+78,Santa Cruz,varones,10,15858.0,6602.0
+78,Santa Cruz,mujeres,15,15926.0,8386.0
+78,Santa Cruz,varones,15,15829.0,8213.0
+78,Santa Cruz,mujeres,20,11829.0,14023.0
+78,Santa Cruz,varones,20,12877.0,13667.0
+78,Santa Cruz,mujeres,25,10344.0,14478.0
+78,Santa Cruz,varones,25,11952.0,15179.0
+78,Santa Cruz,mujeres,30,12991.0,12833.0
+78,Santa Cruz,varones,30,13816.0,13440.0
+78,Santa Cruz,mujeres,35,13556.0,8006.0
+78,Santa Cruz,varones,35,14488.0,10204.0
+78,Santa Cruz,mujeres,40,13127.0,9203.0
+78,Santa Cruz,varones,40,14694.0,10830.0
+78,Santa Cruz,mujeres,45,12346.0,13012.0
+78,Santa Cruz,varones,45,13935.0,13428.0
+78,Santa Cruz,mujeres,50,9986.0,13254.0
+78,Santa Cruz,varones,50,10392.0,14068.0
+78,Santa Cruz,mujeres,55,8114.0,12986.0
+78,Santa Cruz,varones,55,7671.0,14111.0
+78,Santa Cruz,mujeres,60,6926.0,11504.0
+78,Santa Cruz,varones,60,6592.0,12275.0
+78,Santa Cruz,mujeres,65,5381.0,8899.0
+78,Santa Cruz,varones,65,5154.0,8442.0
+78,Santa Cruz,mujeres,70,4087.0,6795.0
+78,Santa Cruz,varones,70,3502.0,5794.0
+78,Santa Cruz,mujeres,75,2611.0,5197.0
+78,Santa Cruz,varones,75,2156.0,4388.0
+78,Santa Cruz,mujeres,80,1572.0,3373.0
+78,Santa Cruz,varones,80,1113.0,2681.0
+78,Santa Cruz,mujeres,85,926.0,1921.0
+78,Santa Cruz,varones,85,572.0,1295.0
+78,Santa Cruz,mujeres,90,620.0,1090.0
+78,Santa Cruz,varones,90,288.0,632.0
+82,Santa Fe,mujeres,0,92450.0,86714.0
+82,Santa Fe,varones,0,95969.0,90536.0
+82,Santa Fe,mujeres,5,117272.0,84585.0
+82,Santa Fe,varones,5,121786.0,88425.0
+82,Santa Fe,mujeres,10,135901.0,83591.0
+82,Santa Fe,varones,10,143322.0,87330.0
+82,Santa Fe,mujeres,15,129858.0,96342.0
+82,Santa Fe,varones,15,136909.0,99324.0
+82,Santa Fe,mujeres,20,132743.0,125049.0
+82,Santa Fe,varones,20,136543.0,129298.0
+82,Santa Fe,mujeres,25,134116.0,134949.0
+82,Santa Fe,varones,25,136417.0,141730.0
+82,Santa Fe,mujeres,30,144646.0,128150.0
+82,Santa Fe,varones,30,145250.0,133113.0
+82,Santa Fe,mujeres,35,141107.0,130283.0
+82,Santa Fe,varones,35,142188.0,133204.0
+82,Santa Fe,mujeres,40,133307.0,133605.0
+82,Santa Fe,varones,40,135574.0,134452.0
+82,Santa Fe,mujeres,45,133676.0,143842.0
+82,Santa Fe,varones,45,133431.0,143028.0
+82,Santa Fe,mujeres,50,109226.0,134895.0
+82,Santa Fe,varones,50,106273.0,134686.0
+82,Santa Fe,mujeres,55,92373.0,128692.0
+82,Santa Fe,varones,55,86238.0,127866.0
+82,Santa Fe,mujeres,60,88461.0,124184.0
+82,Santa Fe,varones,60,79193.0,119082.0
+82,Santa Fe,mujeres,65,80911.0,95712.0
+82,Santa Fe,varones,65,67651.0,87196.0
+82,Santa Fe,mujeres,70,70664.0,78494.0
+82,Santa Fe,varones,70,55531.0,66045.0
+82,Santa Fe,mujeres,75,58624.0,68621.0
+82,Santa Fe,varones,75,41440.0,52471.0
+82,Santa Fe,mujeres,80,42178.0,52592.0
+82,Santa Fe,varones,80,24714.0,34903.0
+82,Santa Fe,mujeres,85,26193.0,34460.0
+82,Santa Fe,varones,85,11800.0,19797.0
+82,Santa Fe,mujeres,90,18713.0,25898.0
+82,Santa Fe,varones,90,6035.0,11242.0
+86,Santiago del Estero,mujeres,0,28997.0,28392.0
+86,Santiago del Estero,varones,0,30110.0,29477.0
+86,Santiago del Estero,mujeres,5,39621.0,27222.0
+86,Santiago del Estero,varones,5,41807.0,28315.0
+86,Santiago del Estero,mujeres,10,43011.0,26230.0
+86,Santiago del Estero,varones,10,45367.0,27319.0
+86,Santiago del Estero,mujeres,15,43907.0,29534.0
+86,Santiago del Estero,varones,15,45327.0,30960.0
+86,Santiago del Estero,mujeres,20,45863.0,40334.0
+86,Santiago del Estero,varones,20,47757.0,42408.0
+86,Santiago del Estero,mujeres,25,45452.0,41261.0
+86,Santiago del Estero,varones,25,47547.0,42944.0
+86,Santiago del Estero,mujeres,30,43928.0,43346.0
+86,Santiago del Estero,varones,30,45997.0,43938.0
+86,Santiago del Estero,mujeres,35,40320.0,45821.0
+86,Santiago del Estero,varones,35,41054.0,46932.0
+86,Santiago del Estero,mujeres,40,36357.0,44567.0
+86,Santiago del Estero,varones,40,36613.0,46187.0
+86,Santiago del Estero,mujeres,45,35534.0,42806.0
+86,Santiago del Estero,varones,45,35335.0,44393.0
+86,Santiago del Estero,mujeres,50,28491.0,37947.0
+86,Santiago del Estero,varones,50,28065.0,38052.0
+86,Santiago del Estero,mujeres,55,21866.0,34416.0
+86,Santiago del Estero,varones,55,21912.0,33881.0
+86,Santiago del Estero,mujeres,60,18873.0,32188.0
+86,Santiago del Estero,varones,60,18247.0,30689.0
+86,Santiago del Estero,mujeres,65,17172.0,24005.0
+86,Santiago del Estero,varones,65,15371.0,22296.0
+86,Santiago del Estero,mujeres,70,14085.0,17553.0
+86,Santiago del Estero,varones,70,12403.0,16045.0
+86,Santiago del Estero,mujeres,75,10435.0,14069.0
+86,Santiago del Estero,varones,75,8881.0,11620.0
+86,Santiago del Estero,mujeres,80,6905.0,10972.0
+86,Santiago del Estero,varones,80,4578.0,7679.0
+86,Santiago del Estero,mujeres,85,4789.0,6926.0
+86,Santiago del Estero,varones,85,2689.0,4243.0
+86,Santiago del Estero,mujeres,90,3449.0,4862.0
+86,Santiago del Estero,varones,90,1812.0,2135.0
+90,Tucumán,mujeres,0,46240.0,46195.0
+90,Tucumán,varones,0,47436.0,47527.0
+90,Tucumán,mujeres,5,61773.0,43992.0
+90,Tucumán,varones,5,64082.0,45299.0
+90,Tucumán,mujeres,10,73315.0,42318.0
+90,Tucumán,varones,10,75462.0,43600.0
+90,Tucumán,mujeres,15,71594.0,48384.0
+90,Tucumán,varones,15,73887.0,49348.0
+90,Tucumán,mujeres,20,72888.0,65244.0
+90,Tucumán,varones,20,74857.0,67147.0
+90,Tucumán,mujeres,25,74600.0,73186.0
+90,Tucumán,varones,25,76852.0,74173.0
+90,Tucumán,mujeres,30,73603.0,68890.0
+90,Tucumán,varones,30,75234.0,70299.0
+90,Tucumán,mujeres,35,66701.0,71479.0
+90,Tucumán,varones,35,67073.0,73267.0
+90,Tucumán,mujeres,40,59463.0,72395.0
+90,Tucumán,varones,40,58699.0,74417.0
+90,Tucumán,mujeres,45,64860.0,71563.0
+90,Tucumán,varones,45,63420.0,72684.0
+90,Tucumán,mujeres,50,50305.0,62551.0
+90,Tucumán,varones,50,48209.0,62150.0
+90,Tucumán,mujeres,55,39907.0,57506.0
+90,Tucumán,varones,55,37224.0,55527.0
+90,Tucumán,mujeres,60,36133.0,60239.0
+90,Tucumán,varones,60,32382.0,56626.0
+90,Tucumán,mujeres,65,33819.0,42919.0
+90,Tucumán,varones,65,28158.0,38503.0
+90,Tucumán,mujeres,70,29603.0,33053.0
+90,Tucumán,varones,70,24120.0,27794.0
+90,Tucumán,mujeres,75,21236.0,27420.0
+90,Tucumán,varones,75,16837.0,21025.0
+90,Tucumán,mujeres,80,12269.0,21530.0
+90,Tucumán,varones,80,7908.0,14509.0
+90,Tucumán,mujeres,85,7378.0,13900.0
+90,Tucumán,varones,85,3757.0,8689.0
+90,Tucumán,mujeres,90,5282.0,8369.0
+90,Tucumán,varones,90,1918.0,4339.0
+94,Tierra del Fuego,mujeres,0,3671.0,4731.0
+94,Tierra del Fuego,varones,0,3727.0,4831.0
+94,Tierra del Fuego,mujeres,5,6190.0,4225.0
+94,Tierra del Fuego,varones,5,6637.0,4274.0
+94,Tierra del Fuego,mujeres,10,7868.0,3646.0
+94,Tierra del Fuego,varones,10,7701.0,3647.0
+94,Tierra del Fuego,mujeres,15,7545.0,3969.0
+94,Tierra del Fuego,varones,15,8114.0,4101.0
+94,Tierra del Fuego,mujeres,20,6457.0,6943.0
+94,Tierra del Fuego,varones,20,6647.0,7248.0
+94,Tierra del Fuego,mujeres,25,6916.0,7934.0
+94,Tierra del Fuego,varones,25,6873.0,7678.0
+94,Tierra del Fuego,mujeres,30,8313.0,7804.0
+94,Tierra del Fuego,varones,30,8562.0,7609.0
+94,Tierra del Fuego,mujeres,35,8758.0,6651.0
+94,Tierra del Fuego,varones,35,8973.0,6135.0
+94,Tierra del Fuego,mujeres,40,7255.0,7095.0
+94,Tierra del Fuego,varones,40,7662.0,6828.0
+94,Tierra del Fuego,mujeres,45,6364.0,8445.0
+94,Tierra del Fuego,varones,45,6877.0,8568.0
+94,Tierra del Fuego,mujeres,50,5132.0,8446.0
+94,Tierra del Fuego,varones,50,5042.0,8584.0
+94,Tierra del Fuego,mujeres,55,4166.0,6834.0
+94,Tierra del Fuego,varones,55,3975.0,7135.0
+94,Tierra del Fuego,mujeres,60,4268.0,5893.0
+94,Tierra del Fuego,varones,60,4030.0,6178.0
+94,Tierra del Fuego,mujeres,65,3334.0,4538.0
+94,Tierra del Fuego,varones,65,3233.0,4252.0
+94,Tierra del Fuego,mujeres,70,2207.0,3714.0
+94,Tierra del Fuego,varones,70,1826.0,3172.0
+94,Tierra del Fuego,mujeres,75,1271.0,3447.0
+94,Tierra del Fuego,varones,75,1001.0,2904.0
+94,Tierra del Fuego,mujeres,80,709.0,2260.0
+94,Tierra del Fuego,varones,80,469.0,1774.0
+94,Tierra del Fuego,mujeres,85,392.0,1162.0
+94,Tierra del Fuego,varones,85,212.0,698.0
+94,Tierra del Fuego,mujeres,90,231.0,626.0
+94,Tierra del Fuego,varones,90,136.0,282.0
