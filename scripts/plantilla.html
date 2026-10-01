@@ -549,7 +549,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
    Rediseño de la portada y artículos (octubre de 2026), con usafacts.org como referencia:
    destacados en bloques de color con ícono grande, grilla de artículos con ícono,
    "Datos rápidos" y páginas de artículo. Se conservan las formas rectas y la paleta de la bandera.
-   Íconos: Phosphor (duotono), copiados de @phosphor-icons/core a datos/manual/iconos.
+   Íconos: familia isométrica propia (scripts/iconos_isometricos.py), ver la tercera vuelta más abajo.
    ================================================================ */
 .ico{display:block;width:1em;height:1em;flex:none}
 .ancho{width:min(1136px,calc(100vw - 44px));margin-left:calc(50% - min(568px,50vw - 22px))}
@@ -693,6 +693,130 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
   .dest{min-height:380px}
 }
 @media (prefers-reduced-motion:reduce){.gorro-ir,.dest-ir{transition:none!important;transform:none!important}}
+/* ---- tercera vuelta (octubre de 2026, pedido del autor): íconos isométricos propios, sol en los botones de entrada,
+   portada más compacta, panel de preguntas en azul hondo, lupa de búsqueda y página Sobre nosotros ---- */
+.iso{display:block;flex:none;--ic:var(--azul);--ic-claro:#fff;--ic-detalle:#fff}
+.iso path,.iso ellipse,.iso circle{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;stroke-width:var(--trazo,1.6px)}
+.iso .s{fill:var(--ic);stroke:var(--ic)}
+.iso .l{fill:var(--ic-claro);stroke:var(--ic)}
+.iso .w{fill:var(--ic-detalle);stroke:none}
+.iso .wl{fill:none;stroke:var(--ic-detalle)}
+.iso .k{fill:none;stroke:var(--ic)}
+.tono-azul{--ic:#2C74B5}.tono-hondo{--ic:#1F5E97}.tono-oro{--ic:#B27A00}
+/* sobre las tarjetas de color los íconos se invierten: contorno blanco (o tinta sobre el amarillo) y caras claras del tono de la tarjeta */
+.dest .iso{--ic:#fff;--ic-claro:var(--c-claro);--ic-detalle:var(--c)}
+.dest.sol .iso{--ic:var(--ink);--ic-claro:#FBD36E;--ic-detalle:var(--sol)}
+.dest-arte .iso{position:absolute;right:20px;bottom:0;width:150px;height:150px;z-index:1;--trazo:2.2px}
+.art-ico .iso{width:78px;height:78px;--trazo:1.5px}
+.nota-ico .iso{width:66px;height:66px;--trazo:1.5px}
+.sec-ico{width:60px;height:60px;margin:-6px 0 2px -6px;--trazo:1.4px}
+.sec-tarjeta.herr .sec-ico{--ic-claro:#fff}
+/* botón de entrada de los destacados: el Sol de Mayo en un círculo blanco, gira al pasar el mouse */
+.dest-ir{width:50px;height:50px;border-radius:50%;background:#fff;box-shadow:0 2px 0 rgba(24,33,43,.14);display:grid;place-items:center}
+.sol-ir{width:32px;height:32px;transition:transform .6s var(--ease-out)}
+.sol-ir path,.sol-ir circle{fill:var(--sol);stroke:var(--sol-borde);stroke-width:3.2;stroke-linejoin:round}
+@media (hover:hover) and (pointer:fine){
+  .dest:hover .sol-ir,.ver-todos:hover .sol-ir{transform:rotate(45deg)}
+  .dest:hover .dest-ir{transform:translateY(-2px);box-shadow:0 5px 0 rgba(24,33,43,.14)}
+}
+.ver-sol{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#fff}
+.ver-sol .sol-ir{width:22px;height:22px}
+/* portada más compacta: dos entradas, el estado en la misma fila y un sol más chico */
+.portada-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);padding-top:14px;padding-bottom:4px}
+.portada-texto{margin-top:0}
+.portada h1{font-size:clamp(60px,7.4vw,112px);margin-bottom:8px}
+.portada .lema{margin-bottom:10px}
+.portada-texto>p:not(.lema){margin-bottom:16px;max-width:30em}
+.portada-sol{width:min(300px,26vw)}
+.portada-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.portada-acciones .atajos{margin-top:0}
+/* "Datos rápidos": panel en azul hondo translúcido, más oscuro que la portada */
+.portada .preguntas{padding:4px 22px 26px}
+.portada .rotador{max-width:880px;padding:16px clamp(18px,4vw,36px) 10px;background:rgba(31,94,151,.9);border:1px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 12px 28px rgba(16,52,90,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media (prefers-reduced-transparency:reduce){.portada .rotador{background:var(--azul-hondo)}}
+.portada .rot-eb{margin-bottom:8px}
+/* barra: Sobre nosotros y la lupa */
+.barra .menu{display:flex;align-items:center;gap:10px}
+.sobre-link{font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.86);text-decoration:none;white-space:nowrap;
+  font-variation-settings:"wdth" 60,"opsz" 14;margin-right:8px;padding:6px 0;transition:color .2s ease}
+.sobre-link[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
+.barra.clara .sobre-link{color:var(--azul)}
+.barra.clara .sobre-link[aria-current="true"]{color:var(--ink)}
+.lupa-btn{width:40px;height:40px;display:grid;place-items:center;padding:0;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);
+  cursor:pointer;transition:background-color .2s ease,color .2s ease,transform .12s var(--ease-out)}
+.lupa-btn .ico{width:19px;height:19px}
+.lupa-btn:active{transform:scale(.95)}
+.lupa-btn[aria-expanded="true"]{background:#fff;color:var(--azul)}
+.barra.clara .lupa-btn{color:var(--azul);border-color:var(--azul)}
+.barra.clara .lupa-btn[aria-expanded="true"]{background:var(--azul);color:#fff}
+@media (hover:hover) and (pointer:fine){.sobre-link:hover{color:#fff}.barra.clara .sobre-link:hover{color:var(--ink)}
+  .lupa-btn:hover{background:rgba(255,255,255,.14)}.barra.clara .lupa-btn:hover{background:var(--celeste-suave)}}
+.buscador{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--borde);box-shadow:0 18px 30px rgba(24,33,43,.14)}
+.buscador:not([hidden]){animation:abre-buscador .22s var(--ease-out)}
+@keyframes abre-buscador{from{transform:translateY(-8px)}}
+.buscador-caja{max-width:760px;margin:0 auto;padding:18px 22px 22px}
+.buscador-lab{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+#busca{width:100%;font:inherit;font-size:20px;padding:12px 16px;border:1.5px solid var(--azul);border-radius:14px;background:#fff;color:var(--ink)}
+#busca::placeholder{color:#7A8794}
+#busca:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
+.busca-res{display:flex;flex-direction:column;margin-top:10px;max-height:min(60vh,440px);overflow:auto}
+.busca-res a{display:flex;flex-direction:column;gap:3px;padding:10px 6px;border-bottom:1px dotted var(--borde);color:var(--ink);text-decoration:none;font-size:16px;line-height:1.3}
+.busca-res a:focus-visible{outline:2px solid var(--sol);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.busca-res a:hover{background:var(--superficie-2)}}
+.busca-res small{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}
+.busca-sug{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:8px 6px 2px}
+/* Sobre nosotros */
+.nosotros{padding-top:36px}
+.nosotros>h2{font-size:clamp(40px,5.2vw,64px);line-height:.95;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;margin:24px 0 14px}
+.nos-bajada{font-size:clamp(19px,2.2vw,23px);line-height:1.42;max-width:34em;margin:0 0 26px}
+.nos-cifras{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 30px}
+.nos-cifra{background:#fff;border:1px solid var(--borde);border-radius:18px;padding:16px 18px}
+.nos-cifra b{display:block;font-variation-settings:"wdth" 45,"opsz" 144;font-size:46px;font-weight:500;line-height:1;color:var(--azul)}
+.nos-cifra span{display:block;margin-top:6px;font-size:14px;line-height:1.3;color:var(--muted)}
+.nos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.nos-item{display:grid;grid-template-columns:76px 1fr;gap:16px;align-items:start;background:#fff;border:1px solid var(--borde);border-radius:18px;padding:18px}
+.nos-ico .iso{width:76px;height:76px;--trazo:1.5px}
+.nos-item h3{font-size:19px;line-height:1.2;font-weight:600;color:var(--azul);margin:4px 0 6px}
+.nos-item p{font-size:15.5px;line-height:1.5;margin:0}
+.nos-texto{max-width:44em;margin-top:28px}
+.nos-texto h3{font-size:28px;line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;margin:30px 0 8px}
+.nos-texto p{font-size:17px;line-height:1.6;margin:0 0 12px}
+.pie-sobre{font-size:15px;margin:0 0 18px}
+@media (max-width:760px){
+  .sobre-link{display:none}
+  .lupa-btn{width:38px;height:38px}
+  .buscador-caja{padding:14px 16px 18px}
+  #busca{font-size:17px}
+  .dest-arte .iso{width:118px;height:118px;right:12px}
+  .art-ico .iso{width:54px;height:54px}
+  .nota-ico .iso{width:48px;height:48px}
+  .sec-ico{width:50px;height:50px}
+  .nos-cifras{grid-template-columns:1fr 1fr}
+  .nos-cifra b{font-size:38px}
+  .nos-grid{grid-template-columns:1fr}
+  .nos-item{grid-template-columns:58px 1fr;gap:12px;padding:14px}
+  .nos-ico .iso{width:58px;height:58px}
+  /* portada en el celular: el sol al lado de la palabra DATINA y no arriba */
+  .portada-grid{grid-template-columns:1fr;position:relative;padding:6px 22px 6px}
+  .portada-sol{position:absolute;top:4px;right:-2vw;width:36vw;margin:0;order:0}
+  .portada-texto{position:relative;z-index:1}
+  .portada-texto::before{display:none}
+  .portada h1{font-size:clamp(58px,18vw,92px)}
+  .portada .lema{max-width:9.5em}
+  .portada-texto>p:not(.lema){font-size:16px}
+  .atajos a:first-child{flex-basis:auto}
+  .atajos a{flex:0 0 auto}
+  .estado{grid-template-columns:repeat(2,auto);width:auto}
+  .estado span{border-top:0;border-left:1px dotted rgba(255,255,255,.4)}
+  .estado span:first-child{border-left:0}
+  .portada .preguntas{padding:0 16px 22px}
+}
+@media (prefers-reduced-motion:reduce){.sol-ir{transition:none!important;transform:none!important}.buscador:not([hidden]){animation:none}}
+/* barra en anchos medianos: menos aire entre temas, y "Sobre nosotros" queda en el menú y en el pie */
+@media (max-width:1180px){.barra .envoltura{gap:18px}.barra .temas{gap:16px}}
+@media (max-width:1080px){.sobre-link{display:none}.barra .temas{gap:13px;font-size:12px}}
+@media (max-width:900px){.barra .temas{display:none}}
 /* notas metodológicas plegadas en cada ficha */
 .sobre{margin:10px 0 0;max-width:42em}
 .sobre>summary{display:inline-flex;align-items:center;gap:8px;min-height:40px;cursor:pointer;list-style:none;
@@ -874,17 +998,26 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="articulos.html">Artículos</a>
     </nav>
     <div class="menu" style="grid-column:3;grid-row:1">
+      <a class="sobre-link" href="nosotros.html">Sobre nosotros</a>
+      <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Secciones</button>
       <div class="menu-panel" id="menu-panel" hidden>
-        <input type="search" class="menu-buscar" id="menu-buscar" placeholder="Buscar un tema o un dato" aria-label="Buscar en Datina" autocomplete="off">
-        <div class="menu-resultados" id="menu-resultados" aria-live="polite" hidden></div>
         <p class="menu-tit">Temas</p>
         <a href="articulos.html">Artículos</a><a href="provincia.html">Tu provincia</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a>
         <a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a>
         <a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a>
         <p class="menu-tit">Herramientas</p>
         <a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a>
+        <p class="menu-tit">Datina</p>
+        <a href="nosotros.html">Sobre nosotros</a>
       </div>
+    </div>
+  </div>
+  <div class="buscador" id="buscador" hidden>
+    <div class="buscador-caja">
+      <label class="buscador-lab" for="busca">Buscar en Datina</label>
+      <input type="search" id="busca" placeholder="Un tema, una provincia o una pregunta: empleo, Salta, cloacas" autocomplete="off" spellcheck="false">
+      <div class="busca-res" id="busca-res" aria-live="polite"></div>
     </div>
   </div>
 </header>
@@ -896,10 +1029,10 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
       <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
       <p class="lema">Las 24 Argentinas en números</p>
       <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
-      <div class="estado" id="estado" aria-label="Estado de los datos"></div>
-      <nav class="atajos" aria-label="Temas">
-        <a href="provincia.html">Elegí tu provincia</a><a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="articulos.html">Artículos</a>
-      </nav>
+      <div class="portada-acciones">
+        <nav class="atajos" aria-label="Entradas principales"><a href="provincia.html">Elegí tu provincia</a><a href="articulos.html">Artículos</a></nav>
+        <div class="estado" id="estado" aria-label="Estado de los datos"></div>
+      </div>
     </div>
     <div class="portada-sol">
       <svg class="sol" id="sol" viewBox="-100 -100 200 200" role="img" aria-label="Sol de Mayo">
@@ -967,6 +1100,32 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
     <h2 id="sec-titulo">Secciones</h2>
     <p class="prov-sub">Cada sección tiene su página: qué se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
     <div class="secciones-grid" id="secciones-grid"></div>
+  </section>
+
+  <section class="nosotros" id="nosotros" aria-labelledby="nos-tit">
+    <h2 id="nos-tit">Sobre nosotros</h2>
+    <p class="nos-bajada">Datina reúne las estadísticas públicas de la Argentina y las muestra provincia por provincia, para entender un problema, opinar con datos y encontrar oportunidades.</p>
+    <div class="nos-cifras" id="nos-cifras"></div>
+    <div class="nos-grid">
+      <div class="nos-item"><span class="nos-ico" data-icono="pin"></span><div><h3>Las 24, una por una</h3><p>Muchas estadísticas se publican solo para el total del país, o en archivos difíciles de encontrar y de comparar. Datina pone a las 24 jurisdicciones una al lado de la otra, con la misma unidad y el mismo período.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="periodico"></span><div><h3>Cada cifra con su origen</h3><p>Cada dato dice qué mide, de qué año es y de dónde sale, y trae su tabla para descargar. Los textos se calculan a partir de los datos: no hay números escritos a mano.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="congreso"></span><div><h3>Fuentes oficiales</h3><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay una excepción, señalada en su ficha: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="dispersion"></span><div><h3>Cruces con advertencias</h3><p>Datina cruza fuentes distintas para buscar relaciones entre provincias. Cada cruce aclara sus límites: son pocos casos, son promedios y una correlación no prueba que una cosa cause la otra.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="urna"></span><div><h3>Tono neutro</h3><p>En política y en temas sensibles, Datina describe sin adjetivar. Las fichas sobre suicidio llevan líneas de ayuda y no entran en el perfil provincial ni en los cruces.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="reloj"></span><div><h3>Se actualiza sola</h3><p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p></div></div>
+    </div>
+    <div class="nos-texto">
+      <h3>Para quién es</h3>
+      <p>Para quienes toman decisiones en el Estado, en empresas y en organizaciones sociales, para periodistas y docentes, y para cualquier persona curiosa que quiera mirar los números de su provincia con contexto.</p>
+      <h3>Qué no es</h3>
+      <p>Datina no es un sitio oficial ni habla en nombre de ningún organismo. Muestra datos públicos tal como los publica cada fuente y explica en cada ficha cómo se procesaron.</p>
+      <h3>Cómo se hace</h3>
+      <p>Tres programas hacen todo el trabajo. El primero baja cada archivo tal como lo publica el organismo. El segundo los ordena en una tabla única, con una fila por jurisdicción, período e indicador, y calcula los indicadores. El tercero arma las páginas. La tabla completa está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>.</p>
+      <h3>De dónde viene la idea</h3>
+      <p>Datina toma ideas de The Pudding, que arranca cada historia con una pregunta, de Our World in Data, por mostrar siempre la fuente y la tabla, y de USAFacts, por presentar los datos públicos de forma clara y sin opinión. En la Argentina, Argendata, de Fundar, es un antecedente con datos sobre todo nacionales: Datina suma la mirada provincia por provincia y los cruces entre fuentes.</p>
+      <h3>El nombre y los símbolos</h3>
+      <p>El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y de la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
+    </div>
   </section>
 
   <section class="tema" id="articulos">
@@ -1950,6 +2109,7 @@ footer h2{font-variation-settings:"wdth" 55,"opsz" 144;font-size:26px;font-weigh
   </section>
 
   <footer>
+    <p class="pie-sobre"><a href="nosotros.html">Sobre nosotros</a>: el propósito de Datina, sus fuentes y sus principios.</p>
     <h2>Cómo está hecho</h2>
     <p>Todas las cifras salen de fuentes públicas oficiales descargadas de forma automática. Un primer programa baja cada archivo tal como lo publica el organismo, un segundo programa los ordena en una tabla única y calcula los indicadores, y un tercero arma esta página. La tabla completa en formato largo está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>.</p>
     <p data-t="actualizado"></p>
@@ -1985,10 +2145,22 @@ const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
 const pct = v => n1(v) + "%";
 const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
 const tip = document.getElementById("tip");
-// Íconos de Phosphor (duotono), los inserta el constructor desde datos/manual/iconos
+// Íconos isométricos propios (scripts/iconos_isometricos.py), los inserta el constructor desde datos/manual/iconos_iso.
+// Cada uno tiene su tono (azul, hondo u oro) y el CSS decide los colores según dónde va.
 const ICONOS = /*ICONOS*/{};
-const icono = (n, cls = "") => ICONOS[n] ? `<svg class="ico ${cls}" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false">${ICONOS[n]}</svg>` : "";
-document.querySelectorAll("a.ver-todos").forEach(a => a.insertAdjacentHTML("beforeend", `<svg class="gorro-ir" viewBox="0 0 40 40" aria-hidden="true">${document.querySelector(".marca .gorro").innerHTML}</svg>`));
+const icono = (n, cls = "") => ICONOS[n] ? `<svg class="iso tono-${ICONOS[n].t} ${cls}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">${ICONOS[n].d}</svg>` : "";
+// Sol de Mayo chico para los botones de entrada: 16 rayos alternados y el disco, gira al pasar el mouse
+const SOL_BOTON = (() => {
+  const p = (a, r) => `${(Math.sin(a) * r).toFixed(1)} ${(-Math.cos(a) * r).toFixed(1)}`;
+  let rayos = "";
+  for (let i = 0; i < 16; i++) {
+    const a = i * Math.PI / 8, w = .12, L = i % 2 ? 36 : 47;
+    rayos += `M${p(a - w, 19)}L${p(a, L)}L${p(a + w, 19)}Z`;
+  }
+  return `<svg class="sol-ir" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false"><path d="${rayos}"/><circle r="21"/></svg>`;
+})();
+document.querySelectorAll("a.ver-todos").forEach(a => a.insertAdjacentHTML("beforeend", `<span class="ver-sol">${SOL_BOTON}</span>`));
+document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(el.dataset.icono); });
 
 /* ---------- Sol de Mayo ---------- */
 (function sol() {
@@ -4372,39 +4544,39 @@ const PREG = [
    Las advertencias generales (pocos casos, correlación no es causalidad, promedios provinciales, períodos distintos,
    Spearman y Pearson que difieren) se agregan siempre que corresponden. */
 const ART = [
-  {id: "a-exportaciones-empleo", x: "exportaciones", y: "empleo_privado", espera: 1, icono: "boat", sec: "trabajo", frec: "Se actualiza cada año",
+  {id: "a-exportaciones-empleo", x: "exportaciones", y: "empleo_privado", espera: 1, icono: "buque", sec: "trabajo", frec: "Se actualiza cada año",
     lx: "exportaciones por habitante", ly: "empleo privado registrado", ux: "dólares por habitante", uy: "asalariados cada 100 habitantes",
     dek: "Lo que cada provincia le vende al mundo, frente a cuántas personas tienen un empleo privado registrado.",
     contexto: "Exportar trae dólares a una provincia, pero no todas las actividades necesitan la misma cantidad de personas para producir lo mismo. Este cruce pone una cosa al lado de la otra, provincia por provincia.",
     limites: ["El registro previsional asigna cada empleo a la provincia donde está inscripto el empleador. Por eso la Ciudad de Buenos Aires aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.",
       "Las exportaciones se cuentan según la provincia donde se produjo la mercadería, no según dónde está la empresa que la vende."]},
-  {id: "a-cloacas-mortalidad", x: "cloaca", y: "mortalidad_infantil", espera: -1, icono: "drop", sec: "salud", frec: "Se actualiza cada año",
+  {id: "a-cloacas-mortalidad", x: "cloaca", y: "mortalidad_infantil", espera: -1, icono: "gota", sec: "salud", frec: "Se actualiza cada año",
     lx: "hogares con cloacas", ly: "mortalidad infantil", ux: "% de los hogares", uy: "muertes cada 1.000 nacidos vivos",
     dek: "El acceso a la red cloacal según el último censo, frente a las muertes de bebés menores de un año.",
     contexto: "El saneamiento forma parte de las condiciones en las que nace y crece un bebé. Este cruce compara la cobertura de cloacas de cada provincia con su tasa de mortalidad infantil.",
     limites: ["La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.",
       "La mortalidad infantil depende también de la atención durante el embarazo y el parto, que este cruce no mide."]},
-  {id: "a-cobertura-adolescentes", x: "sin_cobertura", y: "madres_adolescentes", espera: 1, icono: "baby", sec: "poblacion", frec: "Se actualiza cada año",
+  {id: "a-cobertura-adolescentes", x: "sin_cobertura", y: "madres_adolescentes", espera: 1, icono: "mamadera", sec: "poblacion", frec: "Se actualiza cada año",
     lx: "personas sin obra social ni prepaga", ly: "maternidad adolescente", ux: "% de las personas", uy: "% de los nacimientos",
     dek: "La cobertura de salud del último censo, frente a la parte de los nacimientos que son de madres adolescentes.",
     contexto: "En la Argentina, la obra social llega sobre todo con el empleo registrado. Por eso este cruce usa la falta de cobertura como una aproximación a las condiciones económicas de cada provincia.",
     limites: ["La ficha de maternidad adolescente compara el mismo dato con otros indicadores del Censo, como las necesidades básicas insatisfechas y el secundario completo de los adultos."]},
-  {id: "a-recursos-empleo", x: "autonomia_fiscal", y: "empleo_privado", espera: 1, icono: "coins", sec: "trabajo", frec: "Se actualiza cada año",
+  {id: "a-recursos-empleo", x: "autonomia_fiscal", y: "empleo_privado", espera: 1, icono: "monedas", sec: "trabajo", frec: "Se actualiza cada año",
     lx: "recursos propios", ly: "empleo privado registrado", ux: "% de los ingresos", uy: "asalariados cada 100 habitantes",
     dek: "Qué parte de sus ingresos recauda cada provincia, frente a cuánto empleo privado registrado tiene.",
     contexto: "Las provincias se financian con lo que recaudan y con lo que reciben de la Nación. Una economía privada más grande puede dejar más impuestos propios, pero también pesan la coparticipación y las decisiones de cada gobierno.",
     limites: ["Los recursos propios incluyen impuestos provinciales y otros ingresos, como las regalías. Una provincia con petróleo o minería puede recaudar mucho sin tener mucho empleo privado."]},
-  {id: "a-cobertura-esperanza", x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, icono: "heartbeat", sec: "salud", frec: "Se actualiza con cada censo",
+  {id: "a-cobertura-esperanza", x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, icono: "reloj", sec: "salud", frec: "Se actualiza con cada censo",
     lx: "personas sin obra social ni prepaga", ly: "esperanza de vida", ux: "% de las personas", uy: "años",
     dek: "La esperanza de vida al nacer de cada provincia, frente a la parte de su población sin obra social ni prepaga.",
     contexto: "La esperanza de vida resume en un número las condiciones de mortalidad de un período. La falta de obra social o prepaga se usa acá como una aproximación a las condiciones de vida, no como una medida del acceso a la salud: el hospital público atiende a todas las personas.",
     limites: ["La esperanza de vida de 2020 y 2021 refleja la pandemia de COVID-19. Conviene mirar el año del dato antes de compararlo con otros períodos."]},
-  {id: "a-internet-aprender", x: "internet", y: "aprender_mat", espera: 1, icono: "graduation-cap", sec: "educacion", frec: "Se actualiza con cada Aprender",
+  {id: "a-internet-aprender", x: "internet", y: "aprender_mat", espera: 1, icono: "laptop", sec: "educacion", frec: "Se actualiza con cada Aprender",
     lx: "hogares con internet", ly: "matemática en Aprender", ux: "% de los hogares", uy: "% de 6° grado en nivel satisfactorio o avanzado",
     dek: "La conexión a internet en los hogares según el último censo, frente a los resultados de 6° grado en la evaluación Aprender.",
     contexto: "Internet en el hogar suele acompañar a otras ventajas, como más ingresos o más años de estudio de los adultos. Por eso este cruce sirve para ver una desigualdad, no para medir el efecto de internet en el aprendizaje.",
     limites: ["El cálculo propio de Aprender sobre la base agregada difiere levemente del informe oficial."]},
-  {id: "a-milei-empleo", x: "empleo_privado", y: "voto_milei_2023", espera: 1, icono: "bank", sec: "politica", frec: "El empleo se actualiza cada mes",
+  {id: "a-milei-empleo", x: "empleo_privado", y: "voto_milei_2023", espera: 1, icono: "urna", sec: "politica", frec: "El empleo se actualiza cada mes",
     lx: "empleo privado registrado", ly: "voto a Milei en el balotaje", ux: "asalariados cada 100 habitantes", uy: "% de los votos positivos",
     dek: "Cómo se repartió el voto del balotaje presidencial según el peso del empleo privado registrado en cada provincia.",
     contexto: "El balotaje enfrentó a dos fórmulas con propuestas económicas distintas. Este cruce describe cómo se repartió el voto según el peso del empleo privado registrado en cada provincia, sin juzgar las razones de cada elector.",
@@ -4490,22 +4662,30 @@ if (artHome) artHome.innerHTML = ART.slice(0, 6).map(tarjetaArt).join("");
 /* portada: tres destacados. El artículo destacado es el de la relación más marcada */
 const destGrid = document.getElementById("dest-grid");
 // el gorro frigio de la marca, en un botón redondo: invita a entrar sin usar una flecha genérica
-const GORRO = `<svg class="gorro-ir" viewBox="0 0 40 40">${document.querySelector(".marca .gorro").innerHTML}</svg>`;
+
 if (destGrid) {
   // los artículos de política no van destacados por un cálculo automático
   const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
   const D3 = [
-    {cls: "azul", ico: "map-pin", eb: "Tu provincia", href: "provincia.html",
+    {cls: "azul", ico: "pin", eb: "Tu provincia", href: "provincia.html",
       tit: prov && NOMBRES[prov] ? `${NOMBRES[prov]} en números` : "Las 24, una por una",
       txt: "Cada provincia junto al total del país y su posición entre las 24, en todos los indicadores con dato provincial."},
     {cls: "sol", ico: fuerte.icono, eb: "Artículo", href: urlPagina(fuerte.id), tit: fuerte.titulo, txt: fuerte.dek},
-    {cls: "hondo", ico: "scales", eb: "Congreso", href: "#f-votaciones-espacios",
+    {cls: "hondo", ico: "congreso", eb: "Congreso", href: "#f-votaciones-espacios",
       tit: "Qué votó cada espacio en las leyes clave",
       txt: "Los votos nominales de diputados y senadores, ley por ley, junto a la plataforma electoral que presentó cada alianza."},
   ];
   destGrid.innerHTML = D3.map(d => `<a class="dest ${d.cls}" href="${d.href}"><span class="dest-arte">${icono(d.ico)}</span>` +
     `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.tit}</b><span class="dest-txt">${d.txt}</span>` +
-    `<span class="dest-ir" aria-hidden="true">${GORRO}</span></span></a>`).join("");
+    `<span class="dest-ir" aria-hidden="true">${SOL_BOTON}</span></span></a>`).join("");
+}
+
+/* Sobre nosotros: cifras contadas en el propio sitio */
+const nosCifras = document.getElementById("nos-cifras");
+if (nosCifras) {
+  const temas = document.querySelectorAll(".tema:not(.herramienta):not(#articulos)").length;
+  nosCifras.innerHTML = [[document.querySelectorAll("article.ficha:not(.explorador)").length, "fichas con su tabla"], [24, "jurisdicciones"],
+    [temas, "secciones temáticas"], [ART.length, "artículos de cruces"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }
 
 /* recuadro de estado de la portada */
@@ -4527,9 +4707,9 @@ document.addEventListener("click", ev => {
 });
 
 /* portada: una tarjeta por sección */
-const SEC_ICONO = {articulos: "newspaper", trabajo: "briefcase", empresas: "storefront", pobreza: "house-line", salud: "heartbeat", educacion: "graduation-cap",
-  poblacion: "users-three", politica: "bank", movilidad: "bus", energia: "lightning", turismo: "airplane-tilt", naturaleza: "tree",
-  curiosidades: "lightbulb", cruces: "chart-scatter", indice: "sliders-horizontal", departamentos: "map-trifold"};
+const SEC_ICONO = {articulos: "periodico", trabajo: "maletin", empresas: "tienda", pobreza: "casa", salud: "botiquin", educacion: "birrete",
+  poblacion: "personas", politica: "congreso", movilidad: "colectivo", energia: "rayo", turismo: "valija", naturaleza: "andes",
+  curiosidades: "mate", cruces: "dispersion", indice: "podio", departamentos: "mosaico"};
 const grillaSec = document.getElementById("secciones-grid");
 if (grillaSec) grillaSec.innerHTML = [...document.querySelectorAll(".tema")].map(sec => {
   const n = sec.querySelectorAll("article.ficha:not(.explorador)").length;
@@ -4567,7 +4747,7 @@ if (PAGINA !== "inicio") {
     if (tarjetas.length >= 2) intro.insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.join("")}</div></div>`);
   }
   // en el celular, una fila de secciones que se desliza de costado, con la actual marcada
-  if (sec) {
+  if (sec?.closest(".tema")) {
     const nav = document.createElement("nav"); nav.className = "pildoras"; nav.setAttribute("aria-label", "Secciones");
     nav.innerHTML = [...document.querySelectorAll(".tema")].map(t => `<a href="${urlPagina(t.id)}"${t.id === SECCION ? ' aria-current="page"' : ""}>${t.querySelector("h2").textContent}</a>`).join("");
     sec.prepend(nav);
@@ -4576,10 +4756,11 @@ if (PAGINA !== "inicio") {
   }
 }
 
-/* buscador del menú: secciones, fichas y preguntas de todo el sitio (cada página tiene todo el marcado) */
+/* buscador de la lupa: secciones, fichas, preguntas y artículos de todo el sitio (cada página tiene todo el marcado) */
 (() => {
-  const ent = document.getElementById("menu-buscar"), res = document.getElementById("menu-resultados"), panel = document.getElementById("menu-panel");
-  if (!ent) return;
+  const btn = document.getElementById("lupa-btn"), caja = document.getElementById("buscador");
+  const ent = document.getElementById("busca"), res = document.getElementById("busca-res");
+  if (!btn) return;
   const st = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   const ir = (el, hash) => { const p = paginaDe(el); return p === PAGINA ? hash : urlPagina(p, hash); };
   let IDX;
@@ -4587,6 +4768,9 @@ if (PAGINA !== "inicio") {
     IDX = [];
     document.querySelectorAll(".tema").forEach(t => IDX.push({t: t.querySelector("h2").textContent, s: t.classList.contains("herramienta") ? "Herramienta" : "Sección",
       u: urlPagina(t.id), x: t.querySelector(".tema-intro")?.textContent || "", sec: 1}));
+    IDX.push({t: "Tu provincia", s: "Sección", u: "provincia.html", x: "perfil provincia provincias comparar país posición", sec: 1});
+    Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, s: "Tu provincia", u: `provincia.html?prov=${c}`, x: n, sec: 2}));
+    IDX.push({t: "Sobre nosotros", s: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace"});
     document.querySelectorAll("article.ficha").forEach(f => {
       const h = f.querySelector("h3")?.textContent.trim(); if (!h) return;
       // las fichas de suicidio llevan a las líneas de ayuda, que van justo antes
@@ -4598,18 +4782,40 @@ if (PAGINA !== "inicio") {
     ART.forEach(a => IDX.push({t: a.titulo, s: "Artículo", u: urlPagina(a.id), x: a.dek + " " + a.t.bajada, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
+  const fila = d => `<a href="${d.u}"><small>${esc(d.s)}</small>${esc(d.t)}</a>`;
   const buscar = () => {
     const pal = st(ent.value.trim()).split(/\s+/).filter(Boolean);
-    panel.classList.toggle("buscando", pal.length > 0);
-    if (!pal.length) { res.hidden = true; res.innerHTML = ""; return; }
     if (!IDX) armar();
-    const hall = IDX.map(d => ({d, p: pal.every(w => d.tt.includes(w) || d.xx.includes(w)) ? 1 + 2 * pal.filter(w => d.tt.includes(w)).length + (d.sec || 0) : 0}))
-      .filter(r => r.p).sort((a, b) => b.p - a.p).slice(0, 8);
-    res.hidden = false;
-    res.innerHTML = hall.length ? hall.map(({d}) => `<a href="${d.u}"><small>${esc(d.s)}</small>${esc(d.t)}</a>`).join("") : `<p class="menu-vacio">Nada coincide con la búsqueda</p>`;
+    if (!pal.length) {
+      // sin texto, sugerencias: los artículos
+      res.innerHTML = `<p class="busca-sug">Para empezar</p>` + IDX.filter(d => d.s === "Artículo").slice(0, 4).map(fila).join("");
+      return;
+    }
+    const puntaje = (d, todas) => {
+      const en = pal.filter(w => d.tt.includes(w) || d.xx.includes(w));
+      if (todas ? en.length < pal.length : !en.length) return 0;
+      return en.length * 3 + 2 * pal.filter(w => d.tt.includes(w)).length + (d.sec || 0);
+    };
+    let hall = IDX.map(d => ({d, p: puntaje(d, true)})).filter(r => r.p);
+    // si ninguna entrada tiene todas las palabras ("salta empleo"), se muestran las que tienen alguna
+    if (!hall.length) hall = IDX.map(d => ({d, p: puntaje(d, false)})).filter(r => r.p);
+    hall = hall.sort((a, b) => b.p - a.p).slice(0, 8);
+    res.innerHTML = hall.length ? hall.map(({d}) => fila(d)).join("") : `<p class="busca-sug">Nada coincide con la búsqueda. Probá con otra palabra.</p>`;
   };
+  const abrir = () => {
+    caja.hidden = false; btn.setAttribute("aria-expanded", "true");
+    buscar(); ent.focus({preventScroll: true});
+  };
+  const cerrar = volver => { btn.setAttribute("aria-expanded", "false"); caja.hidden = true; if (volver) btn.focus(); };
+  btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
   ent.addEventListener("input", buscar);
   ent.addEventListener("keydown", ev => { if (ev.key === "Enter") { const a = res.querySelector("a"); if (a) { ev.preventDefault(); a.click(); } } });
+  res.addEventListener("click", ev => { if (ev.target.closest("a")) cerrar(false); });
+  document.addEventListener("keydown", ev => {
+    if (ev.key === "Escape" && !caja.hidden) cerrar(true);
+    else if (ev.key === "/" && caja.hidden && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "")) { ev.preventDefault(); abrir(); }
+  });
+  document.addEventListener("pointerdown", ev => { if (!caja.hidden && !caja.contains(ev.target) && !btn.contains(ev.target)) cerrar(false); });
 })();
 
 /* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */
@@ -4622,7 +4828,7 @@ const vistas = new IntersectionObserver(es => es.forEach(en => {
 document.querySelectorAll("article.ficha, article.nota").forEach(f => vistas.observe(f));
 
 /* navegación activa: la sección de esta página */
-document.querySelectorAll(".temas a, .menu-panel a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
+document.querySelectorAll(".temas a, .menu-panel a, .sobre-link").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
 
 /* la barra superior es azul sobre la portada y clara en el resto */
 const barra = document.querySelector(".barra");
@@ -4645,18 +4851,18 @@ async function mapa() {
   const paises = topojson.feature(mundo, mundo.objects.countries).features;
   const dibujar = () => {
     const W = por.clientWidth, H = por.clientHeight, angosto = W < 760;
-    // La Argentina (unos 34 grados de norte a sur, 0,6 radianes) se ubica en el espacio libre:
-    // debajo del texto en pantallas anchas, a la izquierda del sol en el celular
-    const pr = por.getBoundingClientRect(), tx = document.querySelector(".portada-texto").getBoundingClientRect(),
-          sl = document.getElementById("sol").getBoundingClientRect();
+    // La Argentina (unos 34 grados de norte a sur, 0,6 radianes) se ubica en el espacio libre: en pantallas anchas,
+    // en el hueco entre el texto y el sol, arriba del panel de preguntas. En el celular, detrás de ese panel.
+    const pr = por.getBoundingClientRect(), sl = document.getElementById("sol").getBoundingClientRect();
+    const textoDer = Math.max(...[...document.querySelector(".portada-texto").children].map(c => c.getBoundingClientRect().right));
+    const pn = document.querySelector(".portada .rotador")?.getBoundingClientRect();
     let esc, cx, cy;
     if (!angosto) {
-      const visible = Math.min(H, innerHeight - Math.max(0, pr.top));
-      const libre = visible - (tx.bottom - pr.top) - 40;
-      esc = Math.max(170, Math.min(W * .27, libre / .64));
-      cx = tx.left - pr.left + Math.min(150, tx.width * .3); cy = tx.bottom - pr.top + 34 + .31 * esc;
+      const arriba = 20, abajo = (pn ? pn.top : pr.bottom) - pr.top - 20, hueco = Math.max(160, sl.left - textoDer);
+      esc = Math.max(170, Math.min((abajo - arriba) / .64, hueco / .34, W * .3));
+      cx = (textoDer + sl.left) / 2 - pr.left; cy = arriba + (abajo - arriba) * .5;
     } else {
-      esc = Math.max(250, sl.height * 1.05); cx = W * .15; cy = sl.top - pr.top + sl.height * .52;
+      esc = Math.max(240, W * .62); cx = W * .78; cy = pn ? pn.top - pr.top + pn.height * .5 : H * .7;
     }
     const proy = d3.geoAzimuthalEquidistant().rotate([64, 38]).clipAngle(179.9).scale(esc).translate([cx, cy]);
     const camino = d3.geoPath(proy), svg = d3.select(el).attr("viewBox", `0 0 ${W} ${H}`);

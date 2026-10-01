@@ -1,0 +1,610 @@
+"""
+Iconos isometricos de Datina.
+Familia propia en el lenguaje visual que usa usafacts.org (que tiene ilustraciones propias, no reutilizables):
+perspectiva isometrica real, un solo color por icono mas blanco, contorno del mismo color y sombra plana.
+Cada icono se arma con figuras geometricas (cajas, cilindros, piramides, poligonos extruidos) proyectadas
+en isometrico y dibujadas de atras hacia adelante. Nada se dibuja a mano alzada.
+
+Clases de cada trazo (los colores los pone el CSS del sitio, asi el mismo icono sirve sobre blanco y sobre color):
+  s  cara llena (color del icono)          l  cara clara (blanco con contorno)
+  w  detalle claro sobre una cara llena    wl linea clara sobre una cara llena
+  k  linea del color del icono
+Uso: python scripts/iconos_isometricos.py  (escribe datos/manual/iconos_iso/*.svg y una hoja de muestra)
+"""
+import json, math, pathlib
+
+RAIZ = pathlib.Path(__file__).resolve().parents[1]
+SALIDA = RAIZ / "datos" / "manual" / "iconos_iso"
+C30, S30 = math.cos(math.radians(30)), math.sin(math.radians(30))
+ESC = 6.0            # pixeles por unidad del mundo (viewBox de 120)
+VISTA = (1.0, 1.0, 1.0)
+
+
+def suma(a, b): return tuple(p + q for p, q in zip(a, b))
+def resta(a, b): return tuple(p - q for p, q in zip(a, b))
+def por(a, k): return tuple(p * k for p in a)
+def punto(a, b): return sum(p * q for p, q in zip(a, b))
+def proy(p):
+    x, y, z = p
+    return ((x - y) * C30 * ESC, ((x + y) * S30 - z) * ESC)
+
+
+def envolvente(pts):
+    """Envolvente convexa (cadena monotona de Andrew)."""
+    pts = sorted(set((round(x, 3), round(y, 3)) for x, y in pts))
+    def cruz(o, a, b): return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    abajo, arriba = [], []
+    for p in pts:
+        while len(abajo) >= 2 and cruz(abajo[-2], abajo[-1], p) <= 0: abajo.pop()
+        abajo.append(p)
+    for p in reversed(pts):
+        while len(arriba) >= 2 and cruz(arriba[-2], arriba[-1], p) <= 0: arriba.pop()
+        arriba.append(p)
+    return abajo[:-1] + arriba[:-1]
+
+
+def recortar_derecha(poligono, x0):
+    """Parte de un poligono a la derecha de la vertical x = x0 (Sutherland-Hodgman con un solo borde)."""
+    sale = []
+    for i in range(len(poligono)):
+        a, b = poligono[i], poligono[(i + 1) % len(poligono)]
+        da, db = a[0] >= x0, b[0] >= x0
+        if da: sale.append(a)
+        if da != db:
+            t = (x0 - a[0]) / (b[0] - a[0])
+            sale.append((x0, a[1] + t * (b[1] - a[1])))
+    return sale
+
+
+RX, RY = math.sqrt(2) * C30 * ESC, math.sqrt(2) * S30 * ESC   # semiejes en pantalla de un circulo horizontal de radio 1
+
+
+def f1(v):
+    """Numero con un decimal, sin ceros de mas (12.0 -> 12)."""
+    t = f"{v:.1f}"
+    return t[:-2] if t.endswith(".0") else ("-0" if t == "-0.0" else t)
+
+
+class Icono:
+    """Las capas guardan coordenadas de pantalla. Tipos: p (poligono), l (linea), e (elipse), c (circulo),
+    d (camino con arcos, con sus puntos extremos para calcular el tamaño)."""
+    def __init__(self, nombre, tono):
+        self.nombre, self.tono, self.capas = nombre, tono, []
+
+    # ---- primitivas de dibujo
+    def poli(self, pts3, cls):
+        self.capas.append(("p", [proy(p) for p in pts3], cls))
+
+    def linea(self, pts3, cls="k"):
+        self.capas.append(("l", [proy(p) for p in pts3], cls))
+
+    def camino(self, d, cls, extremos):
+        self.capas.append(("d", d, cls, extremos))
+
+    # ---- figuras
+    def caja(self, x, y, z, w, d, h, arriba="l", izq="l", der="s"):
+        """Caja con aristas paralelas a los ejes. Caras visibles: arriba, +y (izquierda en pantalla), +x (derecha)."""
+        self.poli([(x, y + d, z), (x + w, y + d, z), (x + w, y + d, z + h), (x, y + d, z + h)], izq)
+        self.poli([(x + w, y, z), (x + w, y + d, z), (x + w, y + d, z + h), (x + w, y, z + h)], der)
+        self.poli([(x, y, z + h), (x + w, y, z + h), (x + w, y + d, z + h), (x, y + d, z + h)], arriba)
+
+    def elipse_piso(self, cx, cy, z, r, cls="s"):
+        """Circulo horizontal: en isometrico es una elipse con los ejes alineados con la pantalla."""
+        x, y = proy((cx, cy, z))
+        self.capas.append(("e", (x, y, r * RX, r * RY), cls))
+
+    def arco_frente(self, cx, cy, z, r, cls="wl", n=None, desde=-45, hasta=135):
+        """Parte delantera de un circulo horizontal (de -45 a 135 grados es la mitad que mira al observador)."""
+        p0 = proy((cx + r * math.cos(math.radians(desde)), cy + r * math.sin(math.radians(desde)), z))
+        p1 = proy((cx + r * math.cos(math.radians(hasta)), cy + r * math.sin(math.radians(hasta)), z))
+        grande = 1 if hasta - desde > 180 else 0
+        self.camino(f"M{f1(p0[0])} {f1(p0[1])}A{f1(r * RX)} {f1(r * RY)} 0 {grande} 1 {f1(p1[0])} {f1(p1[1])}", cls, [p0, p1])
+
+    def sombra(self, cx, cy, a, b):
+        """Sombra plana en el piso: elipse alargada hacia la derecha de la pantalla, como una sombra proyectada."""
+        x, y = proy((cx, cy, 0))
+        self.capas.append(("e", (x, y, a * RX, b * RY), "s"))
+
+    def circulo_vertical(self, cx, y, cz, r, cls, n=28):
+        """Circulo en el plano de la cara +y (ruedas)."""
+        self.poli([(cx + r * math.cos(2 * math.pi * i / n), y, cz + r * math.sin(2 * math.pi * i / n)) for i in range(n)], cls)
+
+    def cilindro(self, cx, cy, z, r, h, arriba="l", lado="s"):
+        x, y0 = proy((cx, cy, z))
+        y1 = y0 - h * ESC
+        rx, ry = r * RX, r * RY
+        d = (f"M{f1(x - rx)} {f1(y0)}A{f1(rx)} {f1(ry)} 0 0 0 {f1(x + rx)} {f1(y0)}"
+             f"L{f1(x + rx)} {f1(y1)}A{f1(rx)} {f1(ry)} 0 0 1 {f1(x - rx)} {f1(y1)}Z")
+        self.camino(d, lado, [(x - rx, y1 - ry), (x + rx, y0 + ry)])
+        if arriba:
+            self.capas.append(("e", (x, y1, rx, ry), arriba))
+
+    def extruir(self, pts2, origen, U, V, E, frente="l", lados="s"):
+        """Poligono plano (coordenadas u, v sobre los ejes U y V desde origen) extruido segun E."""
+        base = [suma(origen, suma(por(U, u), por(V, v))) for u, v in pts2]
+        tope = [suma(p, E) for p in base]
+        area = sum(pts2[i][0] * pts2[(i + 1) % len(pts2)][1] - pts2[(i + 1) % len(pts2)][0] * pts2[i][1] for i in range(len(pts2)))
+        signo = 1 if area > 0 else -1
+        caras = []
+        for i in range(len(base)):
+            (u0, v0), (u1, v1) = pts2[i], pts2[(i + 1) % len(pts2)]
+            du, dv = u1 - u0, v1 - v0
+            normal = por(suma(por(U, dv), por(V, -du)), signo)   # normal hacia afuera en el plano del poligono
+            if punto(normal, VISTA) > 1e-9:
+                q = [base[i], base[(i + 1) % len(base)], tope[(i + 1) % len(base)], tope[i]]
+                caras.append((punto(por(suma(suma(q[0], q[1]), suma(q[2], q[3])), .25), VISTA), q))
+        if punto(E, VISTA) < 0:
+            self.poli(base, frente)
+        for _, q in sorted(caras, key=lambda c: c[0]):
+            self.poli(q, lados)
+        if punto(E, VISTA) >= 0:
+            self.poli(tope, frente)
+        return base, tope
+
+    def piramide(self, cx, cy, z, r, h, n=4, giro=45, nieve=0.0, modo=None, apice=None):
+        """Piramide de n lados. Las caras que miran a +x van llenas y las que miran a +y, claras,
+        salvo que modo fije una sola clase. apice permite correr la punta (cerros irregulares)."""
+        b = [(cx + r * math.cos(math.radians(giro + 360 * i / n)), cy + r * math.sin(math.radians(giro + 360 * i / n)), z) for i in range(n)]
+        apice = apice or (cx, cy, z + h)
+        caras = []
+        for i in range(n):
+            p0, p1 = b[i], b[(i + 1) % n]
+            e1, e2 = resta(p1, p0), resta(apice, p0)
+            nor = (e1[1] * e2[2] - e1[2] * e2[1], e1[2] * e2[0] - e1[0] * e2[2], e1[0] * e2[1] - e1[1] * e2[0])
+            if punto(nor, VISTA) > 1e-9:
+                caras.append((punto(suma(suma(p0, p1), apice), VISTA), p0, p1, nor))
+        for _, p0, p1, nor in sorted(caras, key=lambda c: c[0]):
+            llena = nor[0] > nor[1]
+            self.poli([p0, p1, apice], modo or ("s" if llena else "l"))
+            if nieve:
+                a0 = suma(apice, por(resta(p0, apice), nieve))
+                a1 = suma(apice, por(resta(p1, apice), nieve))
+                m = suma(apice, por(resta(suma(por(p0, .5), por(p1, .5)), apice), nieve * .7))
+                if llena:
+                    self.poli([apice, a0, m, a1], "w")
+                else:
+                    self.linea([a0, m, a1], "k")
+
+    def revolucion(self, cx, cy, perfil, lado="s", mitad=False):
+        """Cuerpo convexo de revolucion alrededor de un eje vertical. perfil: [(z, radio), ...] de abajo hacia arriba.
+        El contorno es la envolvente de todos los circulos horizontales (su envolvente convexa en pantalla).
+        Con mitad=True, la mitad izquierda va clara y la derecha llena, como un globo."""
+        pts = []
+        for k in range(len(perfil) - 1):
+            (za, ra), (zb, rb) = perfil[k], perfil[k + 1]
+            for f in range(3):
+                z, r = za + (zb - za) * f / 3, ra + (rb - ra) * f / 3
+                pts += [proy((cx + r * math.cos(2 * math.pi * i / 48), cy + r * math.sin(2 * math.pi * i / 48), z)) for i in range(48)]
+        z, r = perfil[-1]
+        pts += [proy((cx + r * math.cos(2 * math.pi * i / 48), cy + r * math.sin(2 * math.pi * i / 48), z)) for i in range(48)]
+        casco = simplificar(envolvente(pts))
+        self.capas.append(("p", casco, "l" if mitad else lado))
+        if mitad:
+            eje = proy((cx, cy, 0))[0]
+            self.capas.append(("p", recortar_derecha(casco, eje), lado))
+
+    def esfera(self, c, r, mitad="der"):
+        """Esfera en dos tonos, como un globo: la mitad izquierda clara y la derecha llena."""
+        x, y = proy(c)
+        R = r * math.sqrt(1.5) * ESC
+        self.capas.append(("c", (x, y, R), "l"))
+        if mitad:
+            self.camino(f"M{f1(x)} {f1(y - R)}A{f1(R)} {f1(R)} 0 0 1 {f1(x)} {f1(y + R)}Z", "s", [(x, y - R), (x + R, y + R)])
+
+    def plano_circulo(self, x, y, R, cls):
+        self.capas.append(("c", (x, y, R), cls))
+
+    def cupula(self, c, r, cls_izq="l", cls_der="s"):
+        """Media esfera apoyada en un circulo horizontal: arriba un semicirculo y abajo la mitad delantera del circulo.
+        La mitad izquierda va clara y la derecha llena."""
+        x, y = proy(c)
+        R, ry = r * RX, r * RY        # r * RX es igual al radio de la esfera en pantalla
+        self.camino(f"M{f1(x - R)} {f1(y)}A{f1(R)} {f1(R)} 0 0 1 {f1(x + R)} {f1(y)}A{f1(R)} {f1(ry)} 0 0 1 {f1(x - R)} {f1(y)}Z",
+                    cls_izq, [(x - R, y - R), (x + R, y + ry)])
+        self.camino(f"M{f1(x)} {f1(y - R)}A{f1(R)} {f1(R)} 0 0 1 {f1(x + R)} {f1(y)}A{f1(R)} {f1(ry)} 0 0 1 {f1(x)} {f1(y + ry)}Z",
+                    cls_der, [(x, y - R), (x + R, y + ry)])
+
+    # ---- salida
+    def extremos(self):
+        pts = []
+        for capa in self.capas:
+            t = capa[0]
+            if t in ("p", "l"):
+                pts += capa[1]
+            elif t == "e":
+                x, y, rx, ry = capa[1]; pts += [(x - rx, y - ry), (x + rx, y + ry)]
+            elif t == "c":
+                x, y, r = capa[1]; pts += [(x - r, y - r), (x + r, y + r)]
+            else:
+                pts += capa[3]
+        return pts
+
+    def svg(self, lado=120, margen=6):
+        pts = self.extremos()
+        xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+        ancho, alto = max(xs) - min(xs), max(ys) - min(ys)
+        assert ancho <= lado - 2 * margen and alto <= lado - 2 * margen, (self.nombre, round(ancho), round(alto))
+        cx, cy = (max(xs) + min(xs)) / 2, (max(ys) + min(ys)) / 2
+        # todos con el mismo tamano optico: se agranda hasta ocupar el cuadro (sin pasar de 1,35 veces)
+        k = min((lado - 2 * margen) / ancho, (lado - 2 * margen) / alto, 1.35)
+        partes = []
+        for capa in self.capas:
+            t, cls = capa[0], capa[2]
+            if t in ("p", "l"):
+                d = "M" + "L".join(f"{f1(x)} {f1(y)}" for x, y in capa[1]) + ("Z" if t == "p" else "")
+                partes.append(f'<path class="{cls}" d="{d}"/>')
+            elif t == "e":
+                x, y, rx, ry = capa[1]
+                partes.append(f'<ellipse class="{cls}" cx="{f1(x)}" cy="{f1(y)}" rx="{f1(rx)}" ry="{f1(ry)}"/>')
+            elif t == "c":
+                x, y, r = capa[1]
+                partes.append(f'<circle class="{cls}" cx="{f1(x)}" cy="{f1(y)}" r="{f1(r)}"/>')
+            else:
+                partes.append(f'<path class="{cls}" d="{capa[1]}"/>')
+        return f'<g transform="translate({f1(lado / 2)} {f1(lado / 2)}) scale({k:.3f}) translate({f1(-cx)} {f1(-cy)})">' + "".join(partes) + "</g>"
+
+
+def simplificar(pts, tol=.35):
+    """Saca puntos casi alineados de un contorno (menos peso sin cambio visible)."""
+    if len(pts) < 4:
+        return pts
+    sale = [pts[0]]
+    for i in range(1, len(pts) - 1):
+        a, b, c = sale[-1], pts[i], pts[i + 1]
+        area2 = abs((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]))
+        largo = math.hypot(c[0] - a[0], c[1] - a[1]) or 1
+        if area2 / largo > tol:
+            sale.append(b)
+    sale.append(pts[-1])
+    return sale
+
+
+# ---------------------------------------------------------------- iconos
+# Cada funcion compone un icono con figuras del motor, de atras hacia adelante.
+# Tonos: azul (#2C74B5), hondo (#1F5E97) y oro (#B27A00), los de la paleta de Datina.
+ICONOS = {}
+def icono(nombre, tono):
+    def deco(f):
+        ic = Icono(nombre, tono); f(ic); ICONOS[nombre] = ic; return f
+    return deco
+
+
+def manija(ic, x0, x1, y, z, alto, grosor=.55, prof=.55):
+    """Manija en U sobre una tapa (maletin, valija, botiquin)."""
+    g = grosor
+    u = [(x0, 0), (x0, alto), (x1, alto), (x1, 0), (x1 - g, 0), (x1 - g, alto - g), (x0 + g, alto - g), (x0 + g, 0)]
+    ic.extruir(u, (0, y, z), (1, 0, 0), (0, 0, 1), (0, prof, 0), "s", "s")
+
+
+@icono("periodico", "azul")
+def _(ic):
+    ic.caja(.7, .7, 0, 9, 7.4, .45, "l", "s", "s")
+    ic.caja(0, 0, .45, 9, 7.4, .45)
+    z = .9
+    ic.poli([(.8, .8, z), (8.2, .8, z), (8.2, 2.0, z), (.8, 2.0, z)], "s")
+    ic.poli([(.8, 2.7, z), (4.0, 2.7, z), (4.0, 6.5, z), (.8, 6.5, z)], "s")
+    for y in (2.8, 3.7, 4.6, 5.5, 6.4):
+        ic.linea([(4.8, y, z), (8.2, y, z)], "k")
+
+
+@icono("maletin", "hondo")
+def _(ic):
+    ic.sombra(6.8, 1.6, 6.4, 2.2)
+    ic.caja(0, 0, 0, 9.2, 4.0, 6.0)
+    manija(ic, 3.1, 6.1, 1.75, 6.0, 1.5)
+    y = 4.0
+    ic.linea([(0, y, 3.8), (9.2, y, 3.8)], "k")
+    ic.poli([(4.0, y, 3.2), (5.2, y, 3.2), (5.2, y, 4.4), (4.0, y, 4.4)], "s")
+
+
+@icono("tienda", "azul")
+def _(ic):
+    ic.sombra(8.4, 3.0, 5.2, 2.2)
+    ic.caja(0, 0, 0, 9.0, 6.0, 5.6)
+    y = 6.0
+    ic.poli([(1.0, y, 0), (2.7, y, 0), (2.7, y, 3.4), (1.0, y, 3.4)], "s")
+    ic.poli([(3.5, y, 1.3), (8.0, y, 1.3), (8.0, y, 3.4), (3.5, y, 3.4)], "l")
+    ic.linea([(5.75, y, 1.3), (5.75, y, 3.4)], "k")
+    for k in range(5):
+        x0, x1 = k * 1.8, (k + 1) * 1.8
+        c = "s" if k % 2 == 0 else "l"
+        ic.poli([(x0, 6.0, 5.0), (x1, 6.0, 5.0), (x1, 7.7, 4.1), (x0, 7.7, 4.1)], c)
+        ic.poli([(x0, 7.7, 4.1), (x1, 7.7, 4.1), (x1, 7.7, 3.6), (x0, 7.7, 3.6)], c)
+
+
+@icono("casa", "oro")
+def _(ic):
+    ic.sombra(7.4, 3.2, 4.8, 2.0)
+    # faldon trasero del techo y chimenea, despues paredes, frontis y faldon delantero
+    ic.poli([(-.5, 3.5, 7.6), (7.5, 3.5, 7.6), (7.5, -.6, 4.2), (-.5, -.6, 4.2)], "l")
+    ic.caja(4.6, 1.0, 5.4, .9, .9, 2.4)
+    ic.poli([(0, 7, 0), (7, 7, 0), (7, 7, 4.4), (0, 7, 4.4)], "l")
+    ic.poli([(7, 0, 0), (7, 7, 0), (7, 7, 4.4), (7, 0, 4.4)], "s")
+    ic.poli([(7, -.6, 4.2), (7, 7.6, 4.2), (7, 3.5, 7.6)], "s")
+    ic.poli([(7, 2.6, 4.9), (7, 4.4, 4.9), (7, 4.4, 6.2), (7, 2.6, 6.2)], "w")
+    ic.poli([(1.0, 7, 0), (2.6, 7, 0), (2.6, 7, 3.0), (1.0, 7, 3.0)], "s")
+    ic.poli([(3.8, 7, 1.4), (6.0, 7, 1.4), (6.0, 7, 3.2), (3.8, 7, 3.2)], "l")
+    ic.linea([(4.9, 7, 1.4), (4.9, 7, 3.2)], "k")
+    ic.poli([(-.5, 3.5, 7.6), (7.5, 3.5, 7.6), (7.5, 7.6, 4.2), (-.5, 7.6, 4.2)], "s")
+
+
+@icono("botiquin", "azul")
+def _(ic):
+    ic.sombra(7.4, 1.8, 5.8, 2.2)
+    ic.caja(0, 0, 0, 8.4, 4.6, 6.2)
+    manija(ic, 2.8, 5.6, 2.0, 6.2, 1.3)
+    y, cx, cz, a, l = 4.6, 4.2, 3.1, .75, 2.1
+    ic.poli([(cx - a, y, cz - l), (cx + a, y, cz - l), (cx + a, y, cz - a), (cx + l, y, cz - a), (cx + l, y, cz + a), (cx + a, y, cz + a),
+             (cx + a, y, cz + l), (cx - a, y, cz + l), (cx - a, y, cz + a), (cx - l, y, cz + a), (cx - l, y, cz - a), (cx - a, y, cz - a)], "s")
+
+
+@icono("birrete", "hondo")
+def _(ic):
+    ic.revolucion(5, 5, [(0, 2.9), (1.6, 3.0), (2.8, 3.1)], "s", mitad=True)
+    h = 4.6
+    ic.extruir([(5 - h, 5 - h), (5 + h, 5 - h), (5 + h, 5 + h), (5 - h, 5 + h)], (0, 0, 2.8), (1, 0, 0), (0, 1, 0), (0, 0, .5), "l", "s")
+    ic.cilindro(5, 5, 3.3, .55, .3)
+    ic.linea([(5, 5, 3.6), (9.6, .4, 3.3), (9.6, .4, .8)], "k")
+    ic.caja(9.25, .05, -.3, .7, .7, 1.3, "s", "s", "s")
+
+
+@icono("personas", "azul")
+def _(ic):
+    def persona(x, y, r, h):
+        ic.cilindro(x, y, 0, r, h, arriba=None)
+        ic.cupula((x, y, h), r)
+        ic.esfera((x, y, h + r * 1.62), r * .66)
+    persona(1.6, 6.6, 1.45, 2.4)
+    persona(6.6, 1.6, 1.45, 2.4)
+    persona(6.0, 6.0, 1.8, 3.0)
+
+
+@icono("congreso", "azul")
+def _(ic):
+    ic.caja(0, 0, 0, 12, 8.4, .8)
+    ic.caja(.8, .8, .8, 10.4, 6.6, 3.8)
+    for k in range(6):
+        x0 = 1.5 + k * 1.75
+        ic.poli([(x0, 7.4, 1.1), (x0 + .7, 7.4, 1.1), (x0 + .7, 7.4, 4.1), (x0, 7.4, 4.1)], "s")
+    ic.extruir([(0, 0), (4, 0), (2, 1.3)], (4, 7.4, 4.6), (1, 0, 0), (0, 0, 1), (0, -1.2, 0), "l", "s")
+    ic.cilindro(6, 4.1, 4.6, 2.3, 1.5)
+    ic.cupula((6, 4.1, 6.1), 2.3)
+    ic.cilindro(6, 4.1, 8.85, .45, .9)
+
+
+@icono("colectivo", "hondo")
+def _(ic):
+    ic.caja(0, 0, 1, 11.5, 4.4, 4.8)
+    for k in range(5):
+        x0 = 3.0 + k * 1.65
+        ic.poli([(x0, 4.4, 3.4), (x0 + 1.25, 4.4, 3.4), (x0 + 1.25, 4.4, 5.1), (x0, 4.4, 5.1)], "s")
+    ic.poli([(.8, 4.4, 1.8), (2.2, 4.4, 1.8), (2.2, 4.4, 5.1), (.8, 4.4, 5.1)], "s")
+    ic.poli([(11.5, .5, 3.3), (11.5, 3.9, 3.3), (11.5, 3.9, 5.3), (11.5, .5, 5.3)], "w")
+    for x in (3.2, 9.0):
+        ic.circulo_vertical(x, 4.4, 1.05, 1.25, "s")
+        ic.circulo_vertical(x, 4.4, 1.05, .45, "w", 24)
+
+
+@icono("rayo", "oro")
+def _(ic):
+    ic.sombra(4.6, 1.2, 3.6, 1.4)
+    rayo = [(2.6, 10.6), (.2, 4.9), (2.9, 4.9), (1.4, 0), (6.8, 6.5), (3.9, 6.5), (5.8, 10.6)]
+    ic.extruir(rayo, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 1.7, 0), "l", "s")
+
+
+@icono("valija", "hondo")
+def _(ic):
+    ic.sombra(5.6, 1.4, 4.4, 1.8)
+    ic.cilindro(.9, 2.9, 0, .5, .55, arriba=None)
+    ic.cilindro(5.1, 2.9, 0, .5, .55, arriba=None)
+    ic.caja(0, 0, .55, 6.2, 3.4, 7.0)
+    y = 3.4
+    for x0 in (1.3, 4.3):
+        ic.poli([(x0, y, .55), (x0 + .6, y, .55), (x0 + .6, y, 7.55), (x0, y, 7.55)], "s")
+    manija(ic, 2.0, 4.2, 1.4, 7.55, 1.5, .6, .6)
+
+
+@icono("andes", "azul")
+def _(ic):
+    ic.piramide(3.6, 4.6, 0, 5.0, 8.6, nieve=.36, apice=(4.0, 4.2, 8.6))
+    ic.piramide(9.0, 7.2, 0, 3.6, 5.6, nieve=.32, apice=(8.8, 7.0, 5.6))
+    ic.piramide(9.6, 1.6, 0, 2.6, 4.0, nieve=.3)
+
+
+@icono("mate", "oro")
+def _(ic):
+    # calabaza redonda en dos tonos (como un globo), virola clara, yerba y bombilla con la boquilla doblada
+    perfil = [(0, 1.1), (.2, 2.0), (.6, 2.75), (1.2, 3.25), (1.9, 3.45), (2.6, 3.35), (3.3, 2.95), (3.9, 2.45), (4.3, 2.15), (4.6, 2.05)]
+    ic.revolucion(5, 5, perfil, "s", mitad=True)
+    ic.cilindro(5, 5, 4.6, 2.15, .8, arriba="l", lado="l")
+    ic.elipse_piso(5, 5, 5.4, 1.65, "s")
+    ic.linea([(5.7, 4.5, 5.4), (8.3, 2.0, 10.0), (9.5, 1.5, 10.25)], "k")
+    ic.linea([(5.45, 4.25, 5.4), (8.05, 1.75, 10.0)], "k")
+
+
+@icono("dispersion", "azul")
+def _(ic):
+    ic.caja(0, 0, 0, 9.6, 9.6, .55)
+    puntos = [(.9, 7.6, .8), (2.5, 5.8, 1.5), (4.1, 7.0, 1.1), (4.7, 3.8, 2.4), (6.5, 5.0, 2.0), (7.0, 1.4, 3.4), (7.9, 3.2, 2.9)]
+    for x, y, h in sorted(puntos, key=lambda p: p[0] + p[1]):
+        ic.caja(x, y, .55, 1.15, 1.15, h)
+
+
+@icono("podio", "oro")
+def _(ic):
+    ic.caja(0, 0, 0, 3.2, 4.2, 4.2)
+    ic.caja(3.2, 0, 0, 3.2, 4.2, 6.2)
+    ic.caja(6.4, 0, 0, 3.2, 4.2, 2.8)
+    for x0, z in ((1.0, 2.6), (4.2, 4.6), (7.4, 1.4)):
+        ic.poli([(x0, 4.2, z), (x0 + 1.2, 4.2, z), (x0 + 1.2, 4.2, z + .45), (x0, 4.2, z + .45)], "s")
+
+
+@icono("mosaico", "hondo")
+def _(ic):
+    alturas = [[1.0, 2.6, 1.6], [3.6, 1.2, 2.2], [1.8, 4.4, 1.4]]
+    celdas = [(i, j) for i in range(3) for j in range(3)]
+    for i, j in sorted(celdas, key=lambda c: (c[0] + c[1], c[0])):
+        ic.caja(i * 3.1, j * 3.1, 0, 2.7, 2.7, alturas[i][j])
+
+
+@icono("pin", "azul")
+def _(ic):
+    # mapa plegado en tres paños y un marcador parado sobre el ultimo
+    paños = [((0, 0), (3.5, .9), "l"), ((3.5, .9), (7.0, 0), "s"), ((7.0, 0), (10.5, .9), "l")]
+    for (x0, z0), (x1, z1), c in paños:
+        ic.poli([(x0, 0, z0), (x1, 0, z1), (x1, 8, z1), (x0, 8, z0)], c)
+    ic.linea([(.8, 6.6, .9 * .8 / 3.5), (2.2, 4.0, .9 * 2.2 / 3.5), (3.5, 3.4, .9)], "k")
+    ic.linea([(3.5, 3.4, .9), (5.0, 2.6, .9 * (7 - 5.0) / 3.5), (7.0, 2.2, 0)], "wl")
+    zb = .9 * (8.6 - 7) / 3.5
+    punta, centro, r = proy((8.6, 3.4, zb)), proy((8.6, 3.4, zb + 4.6)), 1.55 * math.sqrt(1.5) * ESC
+    dx, dy = centro[0] - punta[0], centro[1] - punta[1]
+    dist = math.hypot(dx, dy)
+    ang = math.asin(r / dist)
+    base = math.atan2(dy, dx)
+    t1 = (punta[0] + math.cos(base - ang) * math.sqrt(dist ** 2 - r ** 2), punta[1] + math.sin(base - ang) * math.sqrt(dist ** 2 - r ** 2))
+    t2 = (punta[0] + math.cos(base + ang) * math.sqrt(dist ** 2 - r ** 2), punta[1] + math.sin(base + ang) * math.sqrt(dist ** 2 - r ** 2))
+    ic.capas.append(("p", [punta, t1, t2], "s"))
+    ic.plano_circulo(centro[0], centro[1], r, "s")
+    ic.plano_circulo(centro[0], centro[1], r * .42, "w")
+
+
+@icono("buque", "azul")
+def _(ic):
+    ic.sombra(7.0, 1.8, 5.6, 1.8)
+    casco = [(0, 2.3), (.8, 0), (10.0, 0), (11.6, 2.3)]
+    ic.extruir(casco, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 4.4, 0), "s", "s")
+    ic.poli([(0, 0, 2.3), (11.6, 0, 2.3), (11.6, 4.4, 2.3), (0, 4.4, 2.3)], "l")
+    ic.linea([(.55, 4.4, .75), (10.5, 4.4, .75)], "wl")
+    ic.caja(.5, .6, 2.3, 1.9, 3.2, 3.4)
+    ic.poli([(.7, 3.8, 4.6), (2.2, 3.8, 4.6), (2.2, 3.8, 5.3), (.7, 3.8, 5.3)], "s")
+    pilas = [(2.8, 1), (5.0, 2), (7.2, 2), (9.4, 1)]
+    for x0, n in pilas:
+        for k in range(n):
+            c = "s" if (k + int(x0)) % 2 else "l"
+            ic.caja(x0, .5, 2.3 + k * 1.3, 2.2, 3.4, 1.3, "l", c, "s")
+
+
+@icono("gota", "azul")
+def _(ic):
+    pts = [(4.4 + 3.2 * math.cos(math.radians(a)), .4 + 3.2 + 3.2 * math.sin(math.radians(a))) for a in range(-210, 31, 4)]
+    pts += [(4.4, 10.6)]
+    ic.sombra(5.6, 1.4, 4.0, 1.6)
+    ic.extruir(pts, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 1.8, 0), "l", "s")
+    ic.linea([(2.3, 1.8, 3.6), (2.6, 1.8, 2.5), (3.4, 1.8, 1.7)], "k")
+
+
+@icono("mamadera", "hondo")
+def _(ic):
+    ic.sombra(6.2, 3.8, 3.0, 1.3)
+    ic.cilindro(5, 5, 0, 1.95, 5.6, arriba=None, lado="l")
+    for z in (1.2, 2.2, 3.2, 4.2):
+        ic.arco_frente(5, 5, z, 1.95, "k", 12, 25, 75)
+    ic.cilindro(5, 5, 5.6, 2.2, 1.1)
+    ic.revolucion(5, 5, [(6.7, 1.3), (7.2, 1.2), (7.6, .9), (7.9, .55), (8.6, .5)], "s", mitad=True)
+    ic.cupula((5, 5, 8.6), .5)
+
+
+@icono("monedas", "oro")
+def _(ic):
+    def pila(cx, cy, n, r=3.2, h=.72):
+        for i in range(n):
+            ic.cilindro(cx, cy, i * h, r, h, arriba="s" if i == n - 1 else None)
+        for i in range(1, n):
+            ic.arco_frente(cx, cy, i * h, r)
+        ic.elipse_piso(cx, cy, n * h, r * .62, "wl")
+    pila(3.2, 3.2, 7)
+    pila(8.6, 6.2, 4)
+
+
+@icono("reloj", "azul")
+def _(ic):
+    # reloj de arena: dos conos de vidrio claros, la arena llena abajo y un resto junto al cuello
+    ic.cilindro(5, 5, 0, 3.1, .7)
+    ic.revolucion(5, 5, [(.7, 2.45), (4.2, .05)], "l")
+    ic.revolucion(5, 5, [(.7, 2.05), (2.3, .05)], "s")
+    ic.revolucion(5, 5, [(4.2, .05), (7.7, 2.45)], "l")
+    ic.revolucion(5, 5, [(4.2, .05), (5.2, .7)], "s")
+    ic.linea([(5, 5, 4.2), (5, 5, 2.3)], "k")
+    ic.cilindro(5, 5, 7.7, 3.1, .7)
+    for t in (135, -45):
+        x, y = 5 + 2.75 * math.cos(math.radians(t)), 5 + 2.75 * math.sin(math.radians(t))
+        ic.cilindro(x, y, .7, .3, 7.0, arriba=None, lado="s")
+
+
+@icono("laptop", "hondo")
+def _(ic):
+    ic.caja(0, -.5, .6, 9.4, .5, 6.2)
+    y = 0
+    ic.poli([(.7, y, 1.3), (8.7, y, 1.3), (8.7, y, 6.2), (.7, y, 6.2)], "s")
+    for x0, h in ((2.0, 1.4), (3.6, 2.4), (5.2, 1.9), (6.8, 3.2)):
+        ic.poli([(x0, y, 1.9), (x0 + .9, y, 1.9), (x0 + .9, y, 1.9 + h), (x0, y, 1.9 + h)], "w")
+    ic.caja(0, 0, 0, 9.4, 6.6, .6)
+    z = .6
+    ic.poli([(1.0, 1.0, z), (8.4, 1.0, z), (8.4, 3.8, z), (1.0, 3.8, z)], "s")
+    for x in (2.85, 4.7, 6.55):
+        ic.linea([(x, 1.0, z), (x, 3.8, z)], "wl")
+    ic.linea([(1.0, 2.4, z), (8.4, 2.4, z)], "wl")
+    ic.poli([(3.6, 4.5, z), (5.8, 4.5, z), (5.8, 5.9, z), (3.6, 5.9, z)], "l")
+
+
+@icono("urna", "azul")
+def _(ic):
+    ic.sombra(7.0, 2.6, 4.6, 2.2)
+    ic.caja(0, 0, 0, 8, 8, 6.2)
+    ic.poli([(1.8, 3.55, 6.2), (6.2, 3.55, 6.2), (6.2, 4.45, 6.2), (1.8, 4.45, 6.2)], "s")
+    ic.poli([(2.4, 4, 6.2), (5.6, 4, 6.2), (5.6, 4, 10.4), (2.4, 4, 10.4)], "l")
+    ic.linea([(3.1, 4, 8.6), (3.8, 4, 7.8), (5.0, 4, 9.6)], "k")
+    ic.poli([(1.6, 8, 2.4), (6.4, 8, 2.4), (6.4, 8, 3.6), (1.6, 8, 3.6)], "s")
+
+
+# ---------------------------------------------------------------- salida
+TONOS = {"azul": "#2C74B5", "hondo": "#1F5E97", "oro": "#B27A00"}
+
+def escribir():
+    SALIDA.mkdir(parents=True, exist_ok=True)
+    meta, grandes = {}, []
+    for nombre, ic in ICONOS.items():
+        try:
+            cuerpo = ic.svg()
+        except AssertionError as e:
+            grandes.append(e.args[0]); continue
+        (SALIDA / f"{nombre}.svg").write_text(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">{cuerpo}</svg>\n', encoding="utf-8")
+        meta[nombre] = ic.tono
+    assert not grandes, f"iconos que no entran en el cuadro de 120: {grandes}"
+    (SALIDA / "tonos.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")
+    return meta
+
+
+def hoja(ruta):
+    """Hoja de muestra: cada icono a 34, 58 y 112 pixeles, sobre blanco y sobre las tarjetas de color."""
+    css = """
+    body{font-family:Roboto,Verdana,sans-serif;margin:20px;background:#F6F8FB;color:#18212B}
+    .fila{display:flex;align-items:center;gap:22px;padding:10px 0;border-bottom:1px dotted #2C74B5}
+    .fila b{width:110px;font:12px monospace}
+    .t{display:grid;place-items:center;background:#fff;border-radius:12px}
+    .c{display:grid;place-items:center;border-radius:14px;width:150px;height:130px}
+    .iso{display:block}
+    .iso path{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;stroke-width:var(--trazo,2px)}
+    .iso .s{fill:var(--ic);stroke:var(--ic)} .iso .l{fill:var(--ic-claro,#fff);stroke:var(--ic)}
+    .iso .w{fill:var(--ic-detalle,#fff);stroke:none} .iso .wl{fill:none;stroke:var(--ic-detalle,#fff)} .iso .k{fill:none;stroke:var(--ic)}
+    .tono-azul{--ic:#2C74B5}.tono-hondo{--ic:#1F5E97}.tono-oro{--ic:#B27A00}
+    .azul .iso{--ic:#fff;--ic-claro:#5E97CE;--ic-detalle:#2C74B5}
+    .sol .iso{--ic:#18212B;--ic-claro:#FBD36E;--ic-detalle:#F6B40E}
+    .hondo .iso{--ic:#fff;--ic-claro:#4D84B8;--ic-detalle:#1F5E97}
+    """
+    filas = []
+    for nombre, ic in ICONOS.items():
+        s = lambda px, tr: f'<svg class="iso tono-{ic.tono}" style="width:{px}px;height:{px}px;--trazo:{tr}px" viewBox="0 0 120 120">{ic.svg()}</svg>'
+        filas.append(f'<div class="fila"><b>{nombre}</b><div class="t" style="width:48px;height:48px">{s(34, 1.3)}</div>'
+                     f'<div class="t" style="width:96px;height:96px">{s(58, 1.6)}</div><div class="t" style="width:140px;height:140px">{s(112, 2.4)}</div>'
+                     f'<div class="c azul" style="background:#2C74B5">{s(104, 2.4)}</div><div class="c sol" style="background:#F6B40E">{s(104, 2.4)}</div>'
+                     f'<div class="c hondo" style="background:#1F5E97">{s(104, 2.4)}</div></div>')
+    pathlib.Path(ruta).write_text(f"<!doctype html><meta charset=utf-8><style>{css}</style>{''.join(filas)}", encoding="utf-8")
+
+
+if __name__ == "__main__":
+    import sys
+    m = escribir()
+    print(f"{len(m)} iconos en {SALIDA}")
+    if len(sys.argv) > 1:
+        hoja(sys.argv[1])

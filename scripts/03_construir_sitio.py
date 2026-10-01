@@ -19,11 +19,11 @@ version = hashlib.sha1(datos.encode("utf-8")).hexdigest()[:10]
 
 plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8").replace("__VERSION__", version)
 
-# Iconos de Phosphor (duotono, licencia MIT) guardados en datos/manual/iconos: se insertan solo los trazos
-ICONOS = {}
-for f in sorted((RAIZ / "datos" / "manual" / "iconos").glob("*.svg")):
-    svg = f.read_text(encoding="utf-8")
-    ICONOS[f.stem] = re.sub(r"^<svg[^>]*>|</svg>\s*$", "", svg.strip())
+# Iconos isometricos propios (los genera scripts/iconos_isometricos.py en datos/manual/iconos_iso): trazo y tono de cada uno
+DIR_ICONOS = RAIZ / "datos" / "manual" / "iconos_iso"
+TONOS = json.loads((DIR_ICONOS / "tonos.json").read_text(encoding="utf-8"))
+ICONOS = {n: {"t": tono, "d": re.sub(r"^<svg[^>]*>|</svg>\s*$", "", (DIR_ICONOS / f"{n}.svg").read_text(encoding="utf-8").strip())}
+          for n, tono in TONOS.items()}
 assert "/*ICONOS*/{}" in plantilla
 plantilla = plantilla.replace("/*ICONOS*/{}", json.dumps(ICONOS, ensure_ascii=False))
 
@@ -84,13 +84,17 @@ def pagina(id_, titulo, descripcion, estilo):
 
 
 # Portada: sin secciones, con la grilla que lleva a cada una
-(SITIO / "index.html").write_text(pagina("inicio", None, None, ".tema,.provincias{display:none}"), encoding="utf-8")
+(SITIO / "index.html").write_text(pagina("inicio", None, None, ".tema,.provincias,.nosotros{display:none}"), encoding="utf-8")
 # Tu provincia: el perfil de la provincia elegida, en su propia pagina (se entra desde el primer destacado)
 (SITIO / "provincia.html").write_text(pagina("provincia", "Tu provincia",
     "Cada provincia comparada con el total del país en todos los indicadores con dato provincial, su posición entre las 24 y las provincias que más se le parecen.",
-    ".portada,.preguntas,.secciones,.destacados,.articulos-home,.tema{display:none}"), encoding="utf-8")
+    ".portada,.preguntas,.secciones,.destacados,.articulos-home,.tema,.nosotros{display:none}"), encoding="utf-8")
+# Sobre nosotros: proposito, principios y forma de trabajo de Datina
+(SITIO / "nosotros.html").write_text(pagina("nosotros", "Sobre nosotros",
+    "Qué es Datina, para qué existe, de dónde salen sus datos y cómo se hace. Estadísticas públicas de las 24 jurisdicciones de la Argentina.",
+    ".portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.tema{display:none}"), encoding="utf-8")
 for id_, titulo, preg in SECCIONES:
-    estilo = f".portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.tema:not(#{id_}){{display:none}}"
+    estilo = f".portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.nosotros,.tema:not(#{id_}){{display:none}}"
     if id_ == "articulos":
         estilo += "#articulos .notas{display:none}"
     descr = f"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar." if preg else f"{titulo} en Datina."
@@ -109,7 +113,7 @@ for viejo, nuevo in REDIRECCIONES.items():
 # Una pagina por articulo (a-....html): solo esa nota, sin el indice de articulos
 ARTICULOS = re.findall(r'<article class="nota" id="(a-[\w-]+)" data-titulo="([^"]+)"', base)
 for id_, titulo in ARTICULOS:
-    estilo = (".portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.tema:not(#articulos),"
+    estilo = (".portada,.preguntas,.provincias,.secciones,.destacados,.articulos-home,.nosotros,.tema:not(#articulos),"
               f"#articulos>h2,#articulos>.tema-intro,#articulos>.art-grid,#articulos .nota:not(#{id_}){{display:none}}")
     descr = f"{html.unescape(titulo)} Un cruce de datos oficiales de las 24 jurisdicciones, con sus fuentes y sus límites."
     (SITIO / f"{id_}.html").write_text(pagina(id_, html.unescape(titulo), descr, estilo), encoding="utf-8")
