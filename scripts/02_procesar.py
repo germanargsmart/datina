@@ -1071,6 +1071,9 @@ if (CRUDO / "eph_antiguedad_resumen.csv").exists():
                "jovenes": _g("edad", "Hasta 24 años"), "e45": _g("edad", "45 a 54"), "sin_desc": _g("registro", "Sin descuento jubilatorio"),
                "con_desc": _g("registro", "Con descuento jubilatorio"), "q1": _g("ingreso", "Quintil 1"), "q5": _g("ingreso", "Quintil 5"),
                "sec_inc": _g("educacion", "Secundaria incompleta"), "sup_comp": _g("educacion", "Superior completo"),
+               # tipo de trabajo (desde octubre de 2026)
+               "estatal": _g("sector", "Estatal"), "privado": _g("sector", "Privado"), "chico": _g("tamano", "Hasta 5 personas"),
+               "grande": _g("tamano", "Más de 40 personas"), "no_calif": _g("calificacion", "No calificada"), "profesional": _g("calificacion", "Profesional"),
                "casos": int(rotacion[rotacion.dimension == "total"].casos.iloc[0])}
 
 # Personas nacidas en otro pais identificadas por el RENAPER, cada 100 habitantes

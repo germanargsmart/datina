@@ -352,9 +352,12 @@ def eph_antiguedad():
     """Encuesta Permanente de Hogares (INDEC), bases usuarias de los cuatro ultimos trimestres publicados.
     Se bajan a memoria y se guarda solo un resumen: porcentaje de asalariados (sin servicio domestico, que no responde
     la pregunta) con un anio o menos en su empleo actual (PP07A de 1 a 4) y con mas de cinco anios (PP07A = 6),
-    por edad, generacion, nivel educativo, quintil de ingreso per capita familiar y registro. Codigos segun el
-    diseno de registro oficial (EPH_registro_1T2026.pdf). Los cortes por ingreso usan PONDIH, el ponderador que el
-    INDEC indica para los ingresos, y el resto PONDERA."""
+    por edad, generacion, nivel educativo, quintil de ingreso per capita familiar y registro, y desde octubre de 2026 por tipo
+    de trabajo: empleo estatal o privado (PP04A), cantidad de personas que trabajan en el lugar (PP04C, y PP04C99 si la persona
+    respondio por tramos) y calificacion de la tarea (quinto digito del codigo de ocupacion PP04D_COD, Clasificador Nacional
+    de Ocupaciones 2001: 1 profesional, 2 tecnica, 3 operativa, 4 no calificada, segun definiciones_conceptuales_cno.pdf del
+    INDEC). Codigos segun el diseno de registro oficial (EPH_registro_1T2026.pdf). Los cortes por ingreso usan PONDIH, el
+    ponderador que el INDEC indica para los ingresos, y el resto PONDERA."""
     import io, zipfile, pandas as pd
     hoy = datetime.date.today()
     candidatos = [(a, t) for a in range(hoy.year, hoy.year - 3, -1) for t in (4, 3, 2, 1)]
@@ -367,7 +370,8 @@ def eph_antiguedad():
             continue
         ind = next(n for n in z.namelist() if "individual" in n.lower())
         d = pd.read_csv(z.open(ind), sep=";", low_memory=False, decimal=",",
-                        usecols=["ANO4", "TRIMESTRE", "ESTADO", "CAT_OCUP", "PP07A", "PP07H", "CH06", "NIVEL_ED", "P_DECCF", "PONDERA", "PONDIH"])
+                        usecols=["ANO4", "TRIMESTRE", "ESTADO", "CAT_OCUP", "PP07A", "PP07H", "CH06", "NIVEL_ED", "P_DECCF", "PONDERA", "PONDIH",
+                                 "PP04A", "PP04C", "PP04C99", "PP04D_COD"], dtype={"PP04D_COD": str})
         bases.append(d)
         if len(bases) == 4:
             break
@@ -378,6 +382,16 @@ def eph_antiguedad():
     d["corto"] = d.PP07A.between(1, 4)
     d["largo"] = d.PP07A == 6
     nac = d.ANO4 - d.CH06
+    # cantidad de personas en el lugar de trabajo, en los tramos que usa el INDEC (PP04C de 1 a 12, o el tramo de PP04C99)
+    tam = pd.to_numeric(d.PP04C, errors="coerce")
+    tramo = pd.Series(None, index=d.index, dtype=object)
+    tramo[tam.between(1, 5)] = "Hasta 5 personas"
+    tramo[tam.between(6, 8)] = "De 6 a 40 personas"
+    tramo[tam.between(9, 12)] = "Más de 40 personas"
+    sin_dato = tam.eq(99) | tam.isna()
+    tramo[sin_dato] = pd.to_numeric(d.PP04C99, errors="coerce")[sin_dato].map({1: "Hasta 5 personas", 2: "De 6 a 40 personas", 3: "Más de 40 personas"})
+    cod = d.PP04D_COD.fillna("").str.strip()
+    calif = cod.where(cod.str.len() == 5, "").str[-1].map({"1": "Profesional", "2": "Técnica", "3": "Operativa", "4": "No calificada"})
     grupos = {
         "edad": pd.cut(d.CH06, [0, 24, 34, 44, 54, 64, 120], labels=["Hasta 24 años", "25 a 34", "35 a 44", "45 a 54", "55 a 64", "65 y más"]),
         "generacion": pd.cut(nac, [0, 1964, 1980, 1996, 3000], labels=["Nacidos antes de 1965", "1965 a 1980", "1981 a 1996", "Desde 1997"]),
@@ -385,9 +399,14 @@ def eph_antiguedad():
                                      4: "Secundaria completa", 5: "Superior incompleto", 6: "Superior completo"}),
         "ingreso": pd.to_numeric(d.P_DECCF, errors="coerce").map(lambda x: f"Quintil {int((x + 1) // 2)}" if 1 <= x <= 10 else None),
         "registro": d.PP07H.map({1: "Con descuento jubilatorio", 2: "Sin descuento jubilatorio"}),
+        "sector": pd.to_numeric(d.PP04A, errors="coerce").map({1: "Estatal", 2: "Privado"}),
+        "tamano": tramo,
+        "calificacion": calif,
         "total": pd.Series("Total de asalariados", index=d.index),
     }
-    ORDEN_EPH = {"educacion": ["Hasta primaria completa", "Secundaria incompleta", "Secundaria completa", "Superior incompleto", "Superior completo"]}
+    ORDEN_EPH = {"educacion": ["Hasta primaria completa", "Secundaria incompleta", "Secundaria completa", "Superior incompleto", "Superior completo"],
+                 "sector": ["Estatal", "Privado"], "tamano": ["Hasta 5 personas", "De 6 a 40 personas", "Más de 40 personas"],
+                 "calificacion": ["Profesional", "Técnica", "Operativa", "No calificada"]}
     filas = []
     for dim, g in grupos.items():
         peso = d.PONDIH if dim == "ingreso" else d.PONDERA

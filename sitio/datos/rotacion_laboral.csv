@@ -21,4 +21,13 @@ ingreso,Quintil 4,3,9297,14.7,54.2
 ingreso,Quintil 5,4,10698,10.1,57.8
 registro,Con descuento jubilatorio,0,34538,8.3,63.2
 registro,Sin descuento jubilatorio,1,16662,33.6,24.3
+sector,Estatal,0,16433,5.7,71.7
+sector,Privado,1,33964,20.3,43.4
+tamano,Hasta 5 personas,0,10630,29.4,31.5
+tamano,De 6 a 40 personas,1,18150,16.7,49.2
+tamano,Más de 40 personas,2,17812,9.2,63.3
+calificacion,Profesional,0,4011,9.4,60.1
+calificacion,Técnica,1,9353,10.5,57.2
+calificacion,Operativa,2,29173,16.7,50.7
+calificacion,No calificada,3,7886,29.8,32.5
 total,Total de asalariados,0,51200,16.6,50.5

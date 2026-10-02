@@ -60,7 +60,29 @@ def explicador(sec):
             f'<div class="exp-lista">{filas}</div></div>')
 
 
+# Programas con evaluación oficial (etapa 9, octubre de 2026): solo programas con una evaluación publicada por un organismo
+# público, con lo que hacen, qué midió su evaluación y qué no permite concluir. Sin cifras y sin recomendar.
+ruta_prog = RAIZ / "datos" / "manual" / "programas_educacion.json"
+PROG = json.loads(ruta_prog.read_text(encoding="utf-8"))["programas"] if ruta_prog.exists() else []
+
+
+def programas(sec):
+    if sec != "educacion" or not PROG:
+        return ""
+    tarjetas = "".join(
+        f'<article class="programa"><h4>{e(x["nombre"])}</h4><p class="programa-donde">{e(x["donde"])}</p><p>{e(x["que_hace"])}</p><dl>'
+        f'<div><dt>Evaluación</dt><dd>{e(x["evaluacion"]["tipo"])}<small>{e(x["evaluacion"]["organismo"])}, {x["evaluacion"]["anio"]}</small></dd></div>'
+        f'<div><dt>Qué encontró</dt><dd>{e(x["hallazgo"])}</dd></div><div><dt>Qué no permite concluir</dt><dd>{e(x["limites"])}</dd></div></dl>'
+        f'<a class="enlace" href="{e(x["evaluacion"]["url"])}" target="_blank" rel="noopener">{e(x.get("enlace", "Leer la evaluación"))}</a></article>' for x in PROG)
+    return ('<section class="programas" aria-labelledby="prog-tit"><h3 class="bloque-grupo" id="prog-tit">Programas con evaluación oficial</h3>'
+            '<p class="programas-sub">Programas educativos que tienen una evaluación publicada por un organismo público. Para cada uno, qué hace, '
+            'qué midió su evaluación y qué no permite concluir. No es una lista de recomendaciones: muchos programas no fueron evaluados '
+            'o no publicaron su evaluación, y por eso no están.</p>'
+            f'<div class="programas-grid">{tarjetas}</div></section>')
+
+
 base = re.sub(r"<!--EXPLICADOR:(\w+)-->", lambda m: explicador(m.group(1)), plantilla)
+base = re.sub(r"<!--PROGRAMAS:(\w+)-->", lambda m: programas(m.group(1)), base)
 
 # Banderas provinciales (las baja y achica scripts/banderas.py): van al sitio, y su autor y licencia a Sobre nosotros
 DIR_BANDERAS = RAIZ / "datos" / "manual" / "banderas"

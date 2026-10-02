@@ -175,9 +175,10 @@ const TX = {
     `Las tasas dividen aperturas y cierres por todas las empresas activas en el año. La vista por provincia muestra el cambio neto de ${EM.ult}. El OEDE separa la provincia de Buenos Aires en partidos del Gran Buenos Aires y resto, que acá se suman.`,
   "rotacion-titulo": `Asalariados con un año o menos en su empleo actual, ${RO.desde[0] === RO.hasta[0] ? RO.hasta[0] : RO.desde[0] + " y " + RO.hasta[0]}`,
   rotacion: `Entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}, el ${pct(RO.total)} de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo y el ${pct(RO.total_largo)} más de cinco años. ` +
-    `La rotación se concentra en quienes tienen menos de 25 años (${pct(RO.jovenes)}), en los empleos sin descuento jubilatorio (${pct(RO.sin_desc)}, contra ${pct(RO.con_desc)} en los registrados) y en los hogares del quintil de menores ingresos (${pct(RO.q1)}, contra ${pct(RO.q5)} en el de mayores ingresos).`,
+    `La rotación se concentra en quienes tienen menos de 25 años (${pct(RO.jovenes)}), en los empleos sin descuento jubilatorio (${pct(RO.sin_desc)}, contra ${pct(RO.con_desc)} en los registrados) y en los hogares del quintil de menores ingresos (${pct(RO.q1)}, contra ${pct(RO.q5)} en el de mayores ingresos). ` +
+    `Según el tipo de trabajo, es más común en el empleo privado (${pct(RO.privado)}) que en el estatal (${pct(RO.estatal)}), en los lugares donde trabajan hasta cinco personas (${pct(RO.chico)}, contra ${pct(RO.grande)} donde trabajan más de 40) y en las tareas no calificadas (${pct(RO.no_calif)}, contra ${pct(RO.profesional)} en las profesionales).`,
   "rotacion-nota": `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC, con ${n0(RO.casos)} respuestas de los cuatro últimos trimestres publicados. Se usa la pregunta sobre cuánto tiempo hace que la persona trabaja en ese empleo en forma continua, que se hace a los asalariados salvo el servicio doméstico. ` +
-    `La antigüedad corta no siempre significa rotación: también incluye a quienes consiguieron su primer empleo o volvieron a trabajar. La generación se calcula con la edad declarada. Los quintiles ordenan a las personas por el ingreso per cápita de su hogar y usan el ponderador de ingresos del INDEC. La encuesta cubre solo aglomerados urbanos y no permite resultados confiables por provincia con este detalle.`,
+    `La antigüedad corta no siempre significa rotación: también incluye a quienes consiguieron su primer empleo o volvieron a trabajar. La generación se calcula con la edad declarada. Las personas en el lugar de trabajo son todas las que trabajan allí, en los tramos que usa el INDEC. La calificación es la de la tarea y no la de la persona, según el Clasificador Nacional de Ocupaciones del INDEC: mide la complejidad de lo que se hace en ese puesto. Los quintiles ordenan a las personas por el ingreso per cápita de su hogar y usan el ponderador de ingresos del INDEC. La encuesta cubre solo aglomerados urbanos y no permite resultados confiables por provincia con este detalle.`,
   "piramide-titulo": `Población por edad y sexo, ${PI.anio} y 2040`,
   piramide: `En ${PI.anio} la mitad de la población del país tiene menos de ${PI.edad_mediana_hoy} años, aproximadamente. Según las proyecciones del INDEC, en 2040 esa edad mediana llegará a unos ${PI.edad_mediana_2040} años y los menores de 15 pasarán de ser el ${pct(PI.menores15_hoy)} al ${pct(PI.menores15_2040)} de la población. La base de la pirámide se angosta porque nacen menos chicos y la parte de arriba se ensancha porque se vive más.`,
   "piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, 2040. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
@@ -1075,11 +1076,13 @@ DIB.congreso = a => {
   const cam = MED.congreso, esp = CG.espacios, v = cam === "Diputados" ? CG.dip : CG.sen, n = cam === "Diputados" ? CG.n_dip : CG.n_sen;
   const ord = esp.filter(k => v[k]).sort((p, q) => v[q] - v[p]);
   document.querySelector('[data-t="congreso"]').textContent = cam === "Diputados"
-    ? `Al ${CG.fecha}, en la Cámara de Diputados ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}. El gráfico muestra el reparto al empezar cada período desde la vuelta de la democracia.`
-    : `Al ${CG.fecha}, en el Senado ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}.`;
+    ? `Al ${CG.fecha}, en la Cámara de Diputados ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}. El gráfico muestra el reparto al empezar cada período desde la vuelta de la democracia. Tocá un espacio en la leyenda para ver cómo votó las leyes clave.`
+    : `Al ${CG.fecha}, en el Senado ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}. Tocá un espacio en la leyenda para ver cómo votó las leyes clave.`;
   const filas = T.congreso_composicion.filter(d => d.camara === cam);
   const cl = esp.filter(k => filas.some(d => d[k] > 0)).map(k => ({k, lab: k, c: ESP_COLOR[k]}));
-  document.getElementById("cg-ley").innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
+  document.getElementById("cg-ley").innerHTML = cl.map(k => VT.espacios.includes(k.k)
+    ? `<button type="button" class="esp-btn" data-e="${k.k}" aria-haspopup="dialog"><i style="background:${k.c}"></i>${k.lab}</button>`
+    : `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
   columnasApiladas(G("congreso"), {anim: a, data: filas, claves: cl, cadaTick: 2});
 };
 $("lg-sel").innerHTML = PROV.map(([c, nom]) => `<option value="${c}">${nom}</option>`).join("");
@@ -1240,7 +1243,7 @@ DIB.vtmatriz = a => {
     const p = c[0] / (c[0] + c[1] + c[2]) * 100, fondo = col(p);
     return `<td title="${tit}" style="background:${fondo};color:${Math.abs(p - 50) > 30 ? "#fff" : "#18212B"}">${Math.round(p)}</td>`;
   };
-  el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th>${ESP_CORTO[e]}</th>`).join("")}</tr></thead><tbody>` +
+  el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th><button type="button" class="esp-btn" data-e="${e}" aria-haspopup="dialog">${ESP_CORTO[e]}</button></th>`).join("")}</tr></thead><tbody>` +
     [...VT.leyes].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}</small></td>` +
       (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody>" +
     `<tfoot><tr><td class="ley">Plataforma 2023<small>qué propuso</small></td>${esp.map(plataformaCelda).join("")}</tr></tfoot></table>`;
@@ -1265,8 +1268,72 @@ DIB.vtmatriz = a => {
   const mas = pares[0], menos = pares[pares.length - 1];
   document.querySelector('[data-t="vtm"]').textContent = `${cam === "Diputados" ? "En Diputados" : "En el Senado"} hay acta nominal de ${leyes.length} de las ${VT.leyes.length} leyes clave. ` +
     (mas ? `Contando la postura de la mayoría de cada espacio, ${ESP_TXT[mas.e1]} y ${ESP_TXT[mas.e2]} votaron igual en ${mas.igual} de las ${mas.n} leyes en que los dos tomaron posición, ` +
-      `y ${ESP_TXT[menos.e1]} y ${ESP_TXT[menos.e2]} votaron distinto en ${menos.n - menos.igual} de ${menos.n}. ` : "") + `Tocá una ley para ver el voto de cada legislador.`;
+      `y ${ESP_TXT[menos.e1]} y ${ESP_TXT[menos.e2]} votaron distinto en ${menos.n - menos.igual} de ${menos.n}. ` : "") +
+    `Tocá una ley para ver el voto de cada legislador, o el nombre de un espacio para ver su recorrido ley por ley.`;
 };
+/* Perfil de un espacio político (etapa 9, octubre de 2026, de la devolución que orientó la ronda: "al tocar un bloque, mostrar qué
+   propone, qué votó y sus leyes principales"). Se abre al tocar su nombre en la tabla de leyes clave o su color en la leyenda del
+   Congreso. Lleva su plataforma de 2023 (solo el enlace: no se resume ni se interpreta), cuántas leyes clave votó a favor y en contra
+   en cada cámara y, ley por ley, qué cambia y cómo votó la mayoría del espacio. Todo sale de las actas. */
+const POSTURA_CORTA = {si: "A favor", no: "En contra", div: "Dividido", aus: "Ausente"}, POSTURA_COL = {si: 1, no: 2, div: 3, aus: 4};
+let dlgEsp = null;
+const conLegisladores = (l, cam, e) => l.camaras[cam] && d3.sum(l.camaras[cam].espacios[e] || []) > 0;
+function cerrarEspacio() {
+  if (!dlgEsp?.open) return;
+  if (REDUCIR) return dlgEsp.close();
+  dlgEsp.animate([{opacity: 1}, {opacity: 0}], {duration: 150, easing: "ease-out"}).onfinish = () => dlgEsp.close();
+}
+function abrirEspacio(e) {
+  if (!dlgEsp) {
+    dlgEsp = document.createElement("dialog"); dlgEsp.className = "esp-dialogo"; dlgEsp.setAttribute("aria-labelledby", "esp-tit");
+    document.body.appendChild(dlgEsp);
+    dlgEsp.addEventListener("click", ev => {
+      if (ev.target === dlgEsp) return cerrarEspacio();   // tocar afuera del cuadro
+      if (ev.target.closest(".esp-cerrar")) return cerrarEspacio();
+      const ver = ev.target.closest(".esp-ver");
+      if (ver) {
+        const k = ver.dataset.k; dlgEsp.close();
+        MED.vtLey = k; MED.votaciones = VT_LEY[k].camaras.Diputados ? "Diputados" : "Senado"; vtConm("votaciones", MED.votaciones);
+        DIB.votaciones(!REDUCIR); DIB.vtmatriz(false);
+        document.getElementById("f-votaciones").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth", block: "start"});
+      }
+    });
+    dlgEsp.addEventListener("cancel", ev => { ev.preventDefault(); cerrarEspacio(); });   // Escape
+  }
+  const en = cam => cam === "Diputados" ? "En Diputados" : "En el Senado";
+  const resumen = ["Diputados", "Senado"].map(cam => {
+    const total = VT.leyes.filter(l => l.camaras[cam]).length, leyes = VT.leyes.filter(l => conLegisladores(l, cam, e));
+    if (!leyes.length) return `${en(cam)} no tuvo legisladores en ninguna de las ${total} leyes clave con acta nominal.`;
+    const n = {si: 0, no: 0, div: 0, aus: 0}; leyes.forEach(l => n[postura(l.camaras[cam].espacios[e])]++);
+    const partes = [n.si && `votó a favor en ${n.si}`, n.no && `en contra en ${n.no}`, n.div && `se dividió en ${n.div}`, n.aus && `no estuvo en ${n.aus}`].filter(Boolean);
+    return `${en(cam)} tuvo legisladores en ${leyes.length === total ? `las ${total}` : `${leyes.length} de las ${total}`} leyes clave con acta nominal, y la mayoría del espacio ${listaY(partes)}.`;
+  }).join(" ");
+  const pl = PLATAFORMA_2023[e];
+  const plat = pl ? `<a href="${CNE_2023 + encodeURIComponent(pl[1])}" target="_blank" rel="noopener">Plataforma electoral de ${pl[0]}</a> <small>(PDF presentado ante la Cámara Nacional Electoral)</small>`
+    : `Este grupo reúne a partidos distintos y no tiene una plataforma nacional única.`;
+  const voto = (l, cam) => {
+    if (!l.camaras[cam]) return `<li><span>${cam}</span><em class="sin">Sin acta nominal publicada</em></li>`;
+    const c = l.camaras[cam].espacios[e];
+    if (!c || !d3.sum(c)) return `<li><span>${cam}</span><em class="sin">Sin legisladores del espacio</em></li>`;
+    const p = postura(c), det = [[0, "a favor"], [1, "en contra"], [2, c[2] === 1 ? "abstención" : "abstenciones"], [3, c[3] === 1 ? "ausente" : "ausentes"]]
+      .filter(([i]) => c[i]).map(([i, t]) => `${c[i]} ${t}`).join(", ");
+    return `<li><span>${cam}</span><em style="--pv:${VOTO_COL[POSTURA_COL[p]]}">${POSTURA_CORTA[p]}</em><small>${det}</small></li>`;
+  };
+  const leyes = [...VT.leyes].reverse().filter(l => conLegisladores(l, "Diputados", e) || conLegisladores(l, "Senado", e));
+  dlgEsp.innerHTML = `<div class="esp-cab"><i style="background:${ESP_COLOR[e]}" aria-hidden="true"></i><div><p class="esp-eb">Espacio político</p><h3 id="esp-tit">${e}</h3></div>` +
+    `<button type="button" class="boton chico esp-cerrar">Cerrar</button></div><div class="esp-cuerpo"><p class="esp-res">${resumen}</p>` +
+    `<div class="esp-plat"><p class="esp-eb">Qué propuso en 2023</p><p>${plat}</p></div>` +
+    `<h4 class="esp-eb">Ley por ley</h4><ol class="esp-leyes">` + leyes.map(l => `<li class="esp-ley"><div><b>${l.nombre}</b><small>${l.anio}</small></div><p>${l.que}</p>` +
+      `<ul class="esp-votos">${voto(l, "Diputados")}${voto(l, "Senado")}</ul><button type="button" class="enlace esp-ver" data-k="${l.k}">Ver el voto de cada legislador</button></li>`).join("") +
+    `</ol><p class="nota">Postura de la mayoría de los legisladores del espacio en la votación en general, según el acta de cada cámara. ` +
+    `El espacio de cada legislador sale del bloque que registra el acta, con la clasificación propia de esta sección. La selección de leyes también es propia.</p></div>`;
+  dlgEsp.showModal(); dlgEsp.scrollTop = 0;
+  // como los menús: 200 ms, y sin animación si se abrió con el teclado
+  if (!document.documentElement.classList.contains("teclado"))
+    dlgEsp.animate(REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 0, transform: "translateY(8px) scale(.98)"}, {opacity: 1, transform: "none"}], {duration: 200, easing: "cubic-bezier(.23,1,.32,1)"});
+}
+document.addEventListener("click", ev => { const b = ev.target.closest(".esp-btn"); if (b) abrirEspacio(b.dataset.e); });
+
 TX["vtm-titulo"] = $t("vtm-titulo").textContent = `Leyes clave: qué parte de cada espacio político votó a favor, ${VT.leyes[0].anio} a ${VT.leyes[VT.leyes.length - 1].anio}`;
 const AP = VT.apoyo, AP_A = Object.fromEntries(AP.anios.map(x => [x.anio, x]));
 MED.apoyo = "atn_hab"; MED.apAnio = AP.hasta;

@@ -219,6 +219,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta" data-corta="¿Dónde se crea empleo formal?">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
       <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen lo que cada provincia le vende al mundo y cuánto depende de los fondos que le manda la Nación.</p>
     </div>
+    <p class="pub-atajos"><span>Por dónde empezar</span><a href="#pub-trabajo-vecinos">si vivís en una provincia</a> <a href="#pub-trabajo-emprender">si emprendés</a> <a href="#pub-trabajo-estudiar">si estudiás</a></p>
     <!--EXPLICADOR:trabajo-->
 
     <article class="ficha" id="f-empleo">
@@ -243,6 +244,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="educacion">Nivel educativo</option>
           <option value="ingreso">Ingreso del hogar por persona</option>
           <option value="registro">Registro del empleo</option>
+          <option value="sector">Empleo estatal o privado</option>
+          <option value="tamano">Personas en el lugar de trabajo</option>
+          <option value="calificacion">Calificación de la tarea</option>
         </select></label>
       <div class="grafico" data-g="rotacion" data-forma="barras" style="--alto:232px;--alto-c:232px"></div>
       <p class="nota" data-t="rotacion-nota"></p>
@@ -270,23 +274,36 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
+    <section class="publicos" aria-labelledby="pub-tit-trabajo">
+      <h3 class="bloque-grupo" id="pub-tit-trabajo">Qué hacer con estos datos</h3>
+      <p class="publicos-sub">Preguntas para empezar, según quién mira.</p>
+      <div class="tema-cierre tres">
+      <div id="pub-trabajo-vecinos">
+        <h4>Vecinos y vecinas</h4>
         <ul>
-        <li>¿Las provincias que más exportan son también las que más empleo formal generan?</li>
-        <li>Si una provincia financia la mayor parte de su gasto con fondos nacionales, ¿cuánto margen tiene para definir su propia agenda?</li>
-        <li>¿Qué pasa con el trabajo que no aparece en estos registros, el informal y el independiente?</li>
+        <li>¿Cuántas personas tienen un empleo registrado en tu provincia, comparada con las demás? <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
+        <li>¿Quiénes cambian más seguido de trabajo: los más jóvenes, quienes no tienen aportes, quienes trabajan en lugares chicos? <a class="pub-ir" href="#f-rotacion">Antigüedad en el empleo</a></li>
+        <li>Si tu provincia financia la mayor parte de su gasto con fondos nacionales, ¿cuánto margen tiene para definir su propia agenda? <a class="pub-ir" href="#f-fiscal">Finanzas provinciales</a></li>
         </ul>
       </div>
-      <div>
-        <h3>Oportunidades</h3>
+      <div id="pub-trabajo-emprender">
+        <h4>Quienes emprenden</h4>
         <ul>
-        <li>Las provincias con pocos asalariados privados por habitante muestran dónde el empleo formal es más escaso y dónde hay lugar para nuevas empresas.</li>
-        <li>Lo que exporta cada provincia marca cadenas de valor en las que pueden sumarse proveedores, logística y servicios.</li>
+        <li>Las provincias con pocos asalariados privados por habitante muestran dónde el empleo formal es más escaso y dónde hay lugar para nuevas empresas. <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
+        <li>Lo que exporta cada provincia marca cadenas de valor en las que pueden sumarse proveedores, logística y servicios. <a class="pub-ir" href="#f-exportaciones">Exportaciones por provincia</a></li>
+        <li>¿Dónde abren y dónde cierran más empresas? <a class="pub-ir" href="empresas.html">Empresas y oportunidades</a></li>
         </ul>
       </div>
-    </aside>
+      <div id="pub-trabajo-estudiar">
+        <h4>Estudiantes</h4>
+        <ul>
+        <li>¿Por qué la Ciudad de Buenos Aires aparece tan arriba en empleo registrado? La nota de la ficha explica dónde se cuenta cada puesto. <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
+        <li>Una antigüedad corta en el empleo, ¿siempre quiere decir que la persona cambió de trabajo? Leé qué aclara la nota. <a class="pub-ir" href="#f-rotacion">Antigüedad en el empleo</a></li>
+        <li>¿Las provincias que más exportan son también las que más empleo formal generan? El artículo lo responde con dos indicadores. <a class="pub-ir" href="a-exportaciones-empleo.html">Artículo</a></li>
+        </ul>
+      </div>
+      </div>
+    </section>
   </section>
 
   <section class="tema" id="empresas">
@@ -530,6 +547,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!--PROGRAMAS:educacion-->
+
     <aside class="tema-cierre" aria-label="Para cerrar la sección">
       <div>
         <h3>Para pensar</h3>
@@ -554,6 +573,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta" data-corta="¿Qué pasa si nacen cada vez menos chicos?">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
       <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. También importa quién llega: las personas que migran desde otros países.</p>
     </div>
+    <p class="pub-atajos"><span>Por dónde empezar</span><a href="#pub-poblacion-vecinos">si vivís en una provincia</a> <a href="#pub-poblacion-emprender">si emprendés</a> <a href="#pub-poblacion-estudiar">si estudiás</a></p>
     <!--EXPLICADOR:poblacion-->
 
     <article class="ficha" id="f-nacimientos">
@@ -564,20 +584,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-envejecimiento">
-      <h3 data-t="envejecimiento-titulo"></h3>
-      <p class="lead" data-t="envejecimiento"></p>
-      <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
-      <p class="nota" data-t="envejecimiento-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
     <article class="ficha" id="f-piramide">
       <h3 data-t="piramide-titulo"></h3>
       <p class="lead" data-t="piramide"></p>
       <div class="grafico" data-g="piramide" data-forma="piramide" style="--alto:444px;--alto-c:387px"></div>
       <p class="nota" data-t="piramide-nota"></p>
       <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-envejecimiento">
+      <h3 data-t="envejecimiento-titulo"></h3>
+      <p class="lead" data-t="envejecimiento"></p>
+      <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
+      <p class="nota" data-t="envejecimiento-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-jubilaciones">
@@ -613,23 +633,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Para pensar</h3>
+    <section class="publicos" aria-labelledby="pub-tit-poblacion">
+      <h3 class="bloque-grupo" id="pub-tit-poblacion">Qué hacer con estos datos</h3>
+      <p class="publicos-sub">Preguntas para empezar, según quién mira.</p>
+      <div class="tema-cierre tres">
+      <div id="pub-poblacion-vecinos">
+        <h4>Vecinos y vecinas</h4>
         <ul>
-        <li>¿Cómo se sostiene el sistema previsional si hay menos trabajadores por cada persona mayor?</li>
-        <li>¿Qué hacer con escuelas y maternidades que van a tener menos demanda?</li>
-        <li>¿La baja de los embarazos adolescentes fue pareja en todas las provincias?</li>
+        <li>¿Cuántos chicos nacen hoy y cuántos nacían antes? ¿Qué cambia eso en las escuelas y las maternidades? <a class="pub-ir" href="#f-nacimientos">Nacimientos</a></li>
+        <li>¿Cómo va a cambiar la población de tu provincia de acá a 2040? <a class="pub-ir" href="#f-piramide">Pirámide de población</a></li>
+        <li>¿Cómo se sostiene el sistema previsional si hay menos personas en edad de trabajar por cada persona mayor? <a class="pub-ir" href="#f-jubilaciones">Aportantes por jubilación</a></li>
         </ul>
       </div>
-      <div>
-        <h3>Oportunidades</h3>
+      <div id="pub-poblacion-emprender">
+        <h4>Quienes emprenden</h4>
         <ul>
-        <li>Una población que envejece demanda cuidados, salud, vivienda adaptada y servicios para personas mayores.</li>
-        <li>La caída de la natalidad invita a repensar la oferta educativa y a reconvertir parte de la infraestructura.</li>
+        <li>Una población que envejece demanda cuidados, salud, vivienda adaptada y servicios para personas mayores. <a class="pub-ir" href="#f-envejecimiento">Personas mayores</a></li>
+        <li>La caída de la natalidad invita a repensar la oferta educativa y a reconvertir parte de la infraestructura. <a class="pub-ir" href="#f-nacimientos">Nacimientos</a></li>
         </ul>
       </div>
-    </aside>
+      <div id="pub-poblacion-estudiar">
+        <h4>Estudiantes</h4>
+        <ul>
+        <li>¿La baja de los embarazos adolescentes fue pareja en todas las provincias? Compará la tuya con otras. <a class="pub-ir" href="#f-adolescentes">Madres adolescentes</a></li>
+        <li>Que dos datos se muevan juntos no prueba que uno cause el otro. Mirá cómo lo aclara la ficha de madres adolescentes y nivel socioeconómico. <a class="pub-ir" href="#f-adolescentes-nse">Madres adolescentes y nivel socioeconómico</a></li>
+        <li>¿Qué provincias tienen la población más joven y cuáles la más envejecida? <a class="pub-ir" href="#f-envejecimiento">Personas mayores</a></li>
+        </ul>
+      </div>
+      </div>
+    </section>
   </section>
 
   <section class="tema" id="politica">
@@ -676,7 +708,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="conmutador" role="group" aria-label="Cámara" data-g="congreso">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
-      <div class="pol-ley" id="cg-ley" aria-hidden="true"></div>
+      <div class="pol-ley" id="cg-ley"></div>
       <div class="grafico" data-g="congreso" data-forma="columnas"></div>
       <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
