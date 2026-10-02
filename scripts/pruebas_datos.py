@@ -100,6 +100,17 @@ def prueba_sumas(d, t):
     s, n = sp.casos.sum(), ss.casos.iloc[-1]
     if abs(s / n - 1) > .01:
         sale.append(("total|suicidios", f"suicidios: las provincias suman {s:,.0f} y el país {n:,.0f}"))
+    # Aprender (diagnóstico educativo): las provincias suman el país, y los departamentos más los que la fuente oculta suman su provincia
+    ad = pd.DataFrame(d["datos"]["aprender_diagnostico"]).set_index("codigo_indec")
+    s, n = ad.drop("00").n.sum(), ad.loc["00", "n"]
+    if abs(s - n) > 1:
+        sale.append(("total|aprender", f"Aprender: las provincias suman {s:,.0f} estudiantes y el país {n:,.0f}"))
+    dep = pd.DataFrame(d["datos"]["aprender_departamentos"]).groupby("codigo_indec").n.sum()
+    oculto = d["resumen"]["diagnostico"]["enmascarados"]["alumnos"]
+    if abs(dep.sum() + oculto - n) > 2:
+        sale.append(("total|aprender_departamentos", f"Aprender: los departamentos suman {dep.sum():,.0f} y los ocultos {oculto:,.0f}, y el país {n:,.0f}"))
+    if (dep > ad.drop("00").n.reindex(dep.index) + 1).any():
+        sale.append(("total|aprender_dep_prov", "Aprender: algún departamento suma más estudiantes que su provincia"))
     return sale
 
 

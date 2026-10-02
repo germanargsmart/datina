@@ -483,6 +483,87 @@ for col, var in [("mat_logra", "aprender_matematica_satisfactorio_o_avanzado"), 
 ap_pais = ap[ap.codigo_indec == "00"].iloc[0]
 ap_prov = ap[ap.codigo_indec != "00"][["codigo_indec", "territorio", "mat_logra", "mat_debajo", "len_logra", "len_debajo"]]
 
+# Diagnóstico educativo (etapa 10, octubre de 2026): la misma base de Aprender trae, para cada combinación de jurisdicción,
+# departamento, sector (estatal o privado) y ámbito (urbano o rural), cuántos estudiantes hay en cada nivel de desempeño, en
+# cada situación de edad y en cada quinto del nivel socioeconómico del país (conteos expandidos). Un grupo de menos de MIN_DIAG
+# estudiantes no lleva porcentajes. Los departamentos que la fuente oculta ("Enmascarado") cuentan en su provincia y no en la lista.
+MIN_DIAG = 300
+def aprender_base(archivo, pref):
+    d = pd.read_csv(CRUDO / archivo, sep=";", encoding="utf-8-sig", low_memory=False)
+    num = [c for c in d.columns if c.startswith((pref + "desemp_", "sobreedad_", "NSE_nivel_"))]
+    d = pd.concat([d[["jurisdiccion", "departamento", "sector", "ambito"]],
+                   d[num].apply(lambda c: pd.to_numeric(c.astype(str).str.strip().str.replace(",", "."), errors="coerce")).fillna(0)], axis=1)
+    des = [c for c in num if c.startswith(pref + "desemp_")]
+    niv = {c: norm(c.split("desemp_")[1].replace("_", " ")) for c in des}
+    sob = [c for c in num if c.startswith("sobreedad_")]
+    atraso = [c for c in sob if c.endswith("_de_sobreedad")]
+    nse = [c for c in num if c.startswith("NSE_nivel_")]
+    assert len(atraso) == 3 and len(nse) == 5 and sum("Q1" in c for c in nse) == 1, "Cambiaron las columnas de edad o nivel socioeconomico de Aprender"
+    d["n"] = d[des].sum(axis=1)
+    d["logra"] = d[[c for c in des if niv[c] in ("satisfactorio", "avanzado")]].sum(axis=1)
+    d["debajo"] = d[[c for c in des if niv[c].startswith("por debajo")]].sum(axis=1)
+    d["edad_n"], d["sobreedad"] = d[sob].sum(axis=1), d[atraso].sum(axis=1)
+    d["nse_n"], d["nse_q1"] = d[nse].sum(axis=1), d[[c for c in nse if "Q1" in c]].sum(axis=1)
+    d["codigo_indec"] = d.jurisdiccion.map(codigo)
+    assert d.codigo_indec.notna().all(), "Hay jurisdicciones de Aprender sin codigo INDEC"
+    return d
+dx_m, dx_l = aprender_base("aprender_primaria_matematica.csv", "m"), aprender_base("aprender_primaria_lengua.csv", "l")
+def dx_resumir(fm, fl, por):
+    m = fm.groupby(por)[["n", "logra", "debajo", "edad_n", "sobreedad", "nse_n", "nse_q1"]].sum()
+    l = fl.groupby(por)[["n", "logra", "debajo"]].sum().reindex(m.index)
+    pct = lambda a, b: (a / b * 100).where(b >= MIN_DIAG)
+    return pd.DataFrame({"n": m.n, "mat_logra": pct(m.logra, m.n), "mat_debajo": pct(m.debajo, m.n), "mat_debajo_n": m.debajo,
+                         "len_logra": pct(l.logra, l.n), "len_debajo": pct(l.debajo, l.n), "len_debajo_n": l.debajo,
+                         "sobreedad": pct(m.sobreedad, m.edad_n), "nse_q1": pct(m.nse_q1, m.nse_n)})
+def dx_provincias(fm, fl):
+    r = dx_resumir(fm, fl, "codigo_indec")
+    r.loc["00"] = dx_resumir(fm.assign(t="00"), fl.assign(t="00"), "t").iloc[0]
+    return r
+dx = dx_provincias(dx_m, dx_l)
+for col, grupos in (("sector", {"Estatal": "estatal", "Privado": "privado"}), ("ambito", {"Urbano": "urbano", "Rural": "rural"})):
+    assert set(dx_m[col]) == set(grupos), f"Cambiaron los grupos de {col} en Aprender"
+    for k, suf in grupos.items():
+        r = dx_provincias(dx_m[dx_m[col] == k], dx_l[dx_l[col] == k]).reindex(dx.index)
+        dx[f"n_{suf}"] = r.n.fillna(0)
+        for c in ("mat_logra", "len_logra", "sobreedad", "nse_q1"):
+            dx[f"{c}_{suf}"] = r[c]
+assert abs(dx.loc["00", "mat_logra"] - ap_pais.mat_logra) < .01 and abs(dx.loc["00", "len_logra"] - ap_pais.len_logra) < .01
+# escolarización con el mismo denominador: desde 2022 (proyecciones del Censo 2022) hasta el último año
+ESC_DESDE = 2022
+_esc = esc.set_index("codigo_indec")
+dx["esc_desde"], dx["esc_hasta"] = _esc[ESC_DESDE].astype(float), _esc[ESC_FIN].astype(float)
+dx = dx.reset_index().rename(columns={"index": "codigo_indec"})
+dx.insert(1, "territorio", dx.codigo_indec.map({**CORTO, "00": "Argentina"}))
+dx = dx.sort_values("codigo_indec").reset_index(drop=True)
+# departamentos: el nombre con tildes de Georef (la base de Aprender trae muchos en mayúsculas y sin tilde)
+_geo = list(json.loads((SITIO / "departamentos.topo.json").read_text(encoding="utf-8"))["objects"].values())[0]["geometries"]
+NOMBRE_DEP = {(g["properties"]["prov"], norm(g["properties"]["nombre"])): g["properties"]["nombre"] for g in _geo}
+# los que Aprender abrevia distinto que Georef
+ALIAS_DEP = {("06", "coronel de marina l rosales"): "coronel de marina leonardo rosales", ("22", "mayor luis j fontana"): "mayor luis j. fontana",
+             ("22", "o higgins"): "o'higgins", ("38", "doctor manuel belgrano"): "dr. manuel belgrano",
+             ("46", "coronel felipe varela"): "general felipe varela", ("46", "general angel v penaloza"): "angel vicente penaloza",
+             ("46", "general juan f quiroga"): "general juan facundo quiroga", ("46", "general ocampo"): "general ortiz de ocampo",
+             ("54", "libertador grl san martin"): "libertador general san martin", ("74", "libertador grl san martin"): "libertador general san martin",
+             ("74", "general juan martin de pueyrredon"): "juan martin de pueyrredon", ("86", "juan f ibarra"): "juan felipe ibarra",
+             ("90", "juan b alberdi"): "juan bautista alberdi"}
+def nombre_dep(c, n):
+    n_alias = ALIAS_DEP.get((c, norm(n)))
+    if n_alias and (c, n_alias) in NOMBRE_DEP:
+        return NOMBRE_DEP[(c, n_alias)]
+    if (c, norm(n)) in NOMBRE_DEP:
+        return NOMBRE_DEP[(c, norm(n))]
+    if not n.isupper():
+        return n
+    return " ".join(w if w in ("de", "del", "la", "las", "los", "y", "el") and i else w.capitalize() for i, w in enumerate(n.lower().split()))
+_enm = dx_m.departamento == "Enmascarado"
+dx_dep = dx_resumir(dx_m[~_enm], dx_l[dx_l.departamento != "Enmascarado"], ["codigo_indec", "departamento"]).reset_index()
+dx_dep["departamento"] = [nombre_dep(c, n) for c, n in zip(dx_dep.codigo_indec, dx_dep.departamento)]
+dx_dep.insert(1, "provincia", dx_dep.codigo_indec.map(CORTO))
+dx_dep = dx_dep[["codigo_indec", "provincia", "departamento", "n", "mat_logra", "mat_debajo", "len_logra", "len_debajo"]]
+dx_dep = dx_dep.sort_values(["codigo_indec", "departamento"]).reset_index(drop=True)
+_nse25 = pd.read_csv(RAIZ / "datos" / "manual" / "nse_censo2022_provincias.csv")
+DX_ENMASCARADOS = {"alumnos": round(float(dx_m[_enm].n.sum())), "provincias": int(dx_m[_enm].codigo_indec.nunique())}
+
 # ---------------------------------------------------------------- naturaleza
 COD_NOMBRE.update({"ciudad a. de buenos aires": "02", "total": "00"})
 POB_PAIS = sum(POB.values())
@@ -1928,7 +2009,7 @@ cru["voto_oficialismo_2023"] = cru.codigo_indec.map(ofi[ofi.eleccion == "2023"].
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
-    "poblacion": ("Población", "habitantes", "2025", "Población", "INDEC, proyecciones (vía tasas del SNIC)", "", 0),
+    "poblacion": ("Población", "habitantes", "2025", "Población", "INDEC, proyecciones de población 2022 a 2040", "", 0),
     "densidad": ("Densidad de población", "habitantes por km²", "2025", "Población", "INDEC y Ministerio de Ambiente", "", 1),
     "mortalidad_infantil": ("Mortalidad infantil", "muertes de menores de 1 año cada 1.000 nacidos vivos, promedio 3 años", f"{TRI_ACT[0]} a {TRI_ACT[1]}", "Salud", "DEIS, Ministerio de Salud", "f-mortalidad", 1),
     "madres_adolescentes": ("Maternidad adolescente", "% de los nacimientos con madres menores de 20 años", "2024", "Población", "DEIS, Ministerio de Salud", "f-adolescentes", 1),
@@ -2041,6 +2122,8 @@ tablas = {
     "energia_estacionalidad": perfil.round(0),
     "nacimientos": nac_df,
     "madres_adolescentes_provincias": ado_prov.round(1),
+    "aprender_diagnostico": dx,
+    "aprender_departamentos": dx_dep,
     "suicidio_serie": tasa_sui,
     "suicidio_provincias": sui_prov,
     "suicidio_edad_sexo": edad,
@@ -2193,6 +2276,13 @@ resumen = {
         "mat": r1(ap_pais.mat_logra), "len": r1(ap_pais.len_logra), "mat_debajo": r1(ap_pais.mat_debajo),
         "top": ap_prov.sort_values("mat_logra").iloc[-1].territorio, "top_v": r1(ap_prov.mat_logra.max()),
         "low": ap_prov.sort_values("mat_logra").iloc[0].territorio, "low_v": r1(ap_prov.mat_logra.min()),
+    },
+    "diagnostico": {
+        "anio": meta_ap["anio"], "min": MIN_DIAG, "esc_desde": ESC_DESDE, "esc_hasta": ESC_FIN,
+        "deps": int(dx_dep.mat_logra.notna().sum()), "deps_chicos": int(dx_dep.mat_logra.isna().sum()),
+        "enmascarados": DX_ENMASCARADOS, "alumnos": round(float(dx.loc[dx.codigo_indec == "00", "n"].iloc[0])),
+        # adultos con secundario completo en todo el país: el promedio de las provincias pesado por su población de 25 años o más (Censo 2022)
+        "adultos_pais": r1((_nse25.pct_25mas_secundario_completo_o_mas * _nse25.pob25mas_2022).sum() / _nse25.pob25mas_2022.sum()),
     },
     "naturaleza": {
         "anio": anio_ap, "areas": int(ap_tot.total_cantidad), "pct": r1(ap_tot.porcentaje_terrestre_protegido),

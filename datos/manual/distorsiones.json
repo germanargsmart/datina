@@ -10,5 +10,11 @@
  },
  "patentamientos_provincias.motos_1000": {
   "94": {"accion": "excluir", "motivo": "su dato del DNRPA salta durante 2025 a valores decenas de veces mayores que los de los años anteriores y siguientes, y las cámaras del sector no registran ese aumento: es probable un error en el dato abierto"}
+ },
+ "aprender_provincias.mat_logra": {
+  "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo"}
+ },
+ "aprender_provincias.len_logra": {
+  "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo"}
  }
 }

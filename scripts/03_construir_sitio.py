@@ -179,7 +179,7 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
 # fichas.js lleva la huella de cada una para que el navegador no use una version vieja.
-DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias"]
+DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
@@ -202,7 +202,8 @@ js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "energia": "rayo", "turismo": "valija",
-             "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico"}
+             "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
+             "diagnostico": "portapapeles"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO}.items():

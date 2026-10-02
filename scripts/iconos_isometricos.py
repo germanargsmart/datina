@@ -570,6 +570,21 @@ def _(ic):
     ic.poli([(1.6, 8, 2.4), (6.4, 8, 2.4), (6.4, 8, 3.6), (1.6, 8, 3.6)], "s")
 
 
+
+@icono("portapapeles", "azul")
+def _(ic):
+    # diagnóstico educativo (etapa 10): un portapapeles parado con una hoja y un gráfico de barras
+    ic.sombra(7.6, -0.4, 3.4, 1.4)
+    ic.caja(0, 0, 0, 8.2, .8, 10.4, "s", "s", "s")
+    y = .8
+    ic.poli([(.7, y, .6), (7.5, y, .6), (7.5, y, 9.3), (.7, y, 9.3)], "l")
+    for x0, h in ((1.5, 2.4), (3.4, 4.4), (5.3, 3.2)):
+        ic.poli([(x0, y, 1.5), (x0 + 1.3, y, 1.5), (x0 + 1.3, y, 1.5 + h), (x0, y, 1.5 + h)], "s")
+    ic.linea([(1.2, y, 1.5), (7.0, y, 1.5)], "k")
+    for z in (7.3, 8.3):
+        ic.linea([(1.5, y, z), (6.7, y, z)], "k")
+    ic.caja(2.8, -.1, 9.9, 2.6, 1.1, 1.2, "s", "s", "s")
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}

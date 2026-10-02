@@ -46,7 +46,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <p class="menu-tit">Artículos</p>
         <a href="articulos.html">Todos los artículos</a>
         <p class="menu-tit">Herramientas</p>
-        <a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a>
+        <a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a>
         <p class="menu-tit">Datina</p>
         <a href="nosotros.html">Sobre nosotros</a><a href="contacto.html">Contacto</a>
       </div>
@@ -142,7 +142,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <p class="bloque-sub">Cada sección tiene su página: qué se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
     <div class="secciones-grid" id="secciones-grid"></div>
     <h3 class="bloque-grupo" id="herr-titulo">Herramientas</h3>
-    <p class="bloque-sub">Para cruzar indicadores entre provincias, armar un ranking con tus propias prioridades y ver los números por departamento.</p>
+    <p class="bloque-sub">Para cruzar indicadores entre provincias, armar un ranking con tus propias prioridades, ver los números por departamento y describir la situación educativa de cada provincia.</p>
     <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"></div>
   </section>
 
@@ -1206,6 +1206,37 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <p class="nota" id="mp-nota"></p>
       <div class="pie"><span>Fuentes: SNIC (Ministerio de Seguridad), RENAPER y Georef (IGN)</span><a href="datos/departamentos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+  </section>
+
+  <section class="tema herramienta" id="diagnostico">
+    <h2>Diagnóstico educativo</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Dónde está cada provincia en educación?">¿Dónde está cada provincia en educación y qué diferencias hay dentro de ella?</p>
+      <p>Elegí un tema y una o varias provincias. El diagnóstico describe su lugar entre las 24, la distancia con el promedio del país y las diferencias dentro de cada una: entre escuelas estatales y privadas, urbanas y rurales, y entre departamentos.</p>
+    </div>
+    <!--EXPLICADOR:diagnostico-->
+    <article class="ficha explorador" id="f-diagnostico">
+      <h3>Diagnóstico de educación por provincia</h3>
+      <p class="lead">Describe posiciones y diferencias con los últimos datos oficiales de cada tema. No dice qué hacer ni explica por qué cada provincia está donde está.</p>
+      <div class="dx-controles">
+        <label class="cx-campo"><span>Tema</span><select id="dx-tema"></select></label>
+        <label class="cx-campo"><span>Sumar una provincia</span><select id="dx-sumar"></select></label>
+      </div>
+      <div class="dx-elegidas" id="dx-elegidas"></div>
+      <p class="solo-lector" id="dx-estado" aria-live="polite"></p>
+      <div class="dx-cuerpo">
+        <div class="dx-salida" id="dx-salida"></div>
+        <div class="dx-grafico-caja">
+          <p class="dx-grafico-tit" id="dx-grafico-tit"></p>
+          <div class="grafico" data-g="diagnostico" data-forma="barras"></div>
+        </div>
+      </div>
+      <div class="dx-no-dice">
+        <h4>Qué no dice este diagnóstico</h4>
+        <ul id="dx-no-dice"></ul>
+      </div>
+      <div class="pie"><span>Fuentes: Aprender y DiNIEE (Ministerio de Educación), Censo 2022 (INDEC) y PISA (OCDE)</span><a href="datos/aprender_diagnostico.csv" download>Descargar tabla por provincia (CSV)</a><a href="datos/aprender_departamentos.csv" download>Descargar tabla por departamento (CSV)</a></div>
     </article>
   </section>
 

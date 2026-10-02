@@ -2394,5 +2394,90 @@
     "definicion": "Cantidad de hechos dividida por la población y multiplicada por cien mil. Permite comparar lugares de distinto tamaño."
    }
   ]
+ },
+ "diagnostico": {
+  "bloques": [
+   {
+    "titulo": "Qué mide Aprender en 6° grado",
+    "texto": "Aprender es la evaluación nacional de los aprendizajes. En 2025 se aplicó de manera censal a estudiantes de 6° grado de primaria de todo el país, en Lengua y Matemática. Cada estudiante queda en un nivel de desempeño: por debajo del básico, básico, satisfactorio o avanzado. El diagnóstico usa la base pública del Ministerio, que trae los resultados por provincia, departamento, sector de gestión (estatal o privado) y ámbito (urbano o rural). El propio informe oficial muestra resultados por departamento para ver lo que el promedio provincial esconde.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Capital Humano. Aprender 2025. Informe nacional de resultados, 6.° grado de primaria",
+      "url": "https://www.argentina.gob.ar/sites/default/files/0307202618.45_inf.pdf",
+      "cita": "se aplicó de manera censal"
+     },
+     {
+      "nombre": "Ministerio de Capital Humano. Aprender 2025. Informe nacional de resultados, 6.° grado de primaria",
+      "url": "https://www.argentina.gob.ar/sites/default/files/0307202618.45_inf.pdf",
+      "cita": "al desagregar el dato al nivel departamental"
+     }
+    ]
+   },
+   {
+    "titulo": "La participación de Neuquén",
+    "texto": "En casi todas las provincias participó la gran mayoría de los estudiantes. En Neuquén la participación quedó por debajo del umbral mínimo de representatividad estadística, así que el Ministerio publica su dato a título informativo y aclara que no permite sacar conclusiones sobre todo su sistema educativo. El diagnóstico lo repite cada vez que muestra a Neuquén en un tema de Aprender.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Capital Humano. Aprender 2025. Informe nacional de resultados, 6.° grado de primaria",
+      "url": "https://www.argentina.gob.ar/sites/default/files/0307202618.45_inf.pdf",
+      "cita": "Su inclusión es a título informativo y no permite realizar inferencias"
+     }
+    ]
+   },
+   {
+    "titulo": "Sobreedad y nivel socioeconómico",
+    "texto": "La edad teórica para 6° grado es de 11 años. Un estudiante tiene sobreedad si tiene al menos un año más, según la edad que declara en el cuestionario. El nivel socioeconómico es un índice que el Ministerio arma con un análisis factorial a partir del nivel educativo de la madre, los libros en el hogar, algunos bienes y servicios y la cantidad de baños de la vivienda. Después lo divide en cinco grupos con una cantidad parecida de estudiantes de todo el país, de modo que una provincia puede tener muchos o pocos estudiantes en el grupo más bajo.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Capital Humano. Aprender 2025. Informe nacional de resultados, 6.° grado de primaria",
+      "url": "https://www.argentina.gob.ar/sites/default/files/0307202618.45_inf.pdf",
+      "cita": "11 años, que corresponde a la edad teórica para 6.° grado"
+     },
+     {
+      "nombre": "Ministerio de Capital Humano. Aprender 2025. Informe nacional de resultados, 6.° grado de primaria",
+      "url": "https://www.argentina.gob.ar/sites/default/files/0307202618.45_inf.pdf",
+      "cita": "calculada a partir de la edad declarada"
+     },
+     {
+      "nombre": "Ministerio de Capital Humano. Aprender 2025. Informe nacional de resultados, 6.° grado de primaria",
+      "url": "https://www.argentina.gob.ar/sites/default/files/0307202618.45_inf.pdf",
+      "cita": "se construyó un índice numérico de NSE mediante un análisis factorial"
+     },
+     {
+      "nombre": "Ministerio de Capital Humano. Aprender 2025. Informe nacional de resultados, 6.° grado de primaria",
+      "url": "https://www.argentina.gob.ar/sites/default/files/0307202618.45_inf.pdf",
+      "cita": "cada una con una cantidad ponderada aproximadamente igual de alumnos"
+     }
+    ]
+   },
+   {
+    "titulo": "Cómo se arma el diagnóstico",
+    "texto": "Para cada provincia, el diagnóstico muestra el valor de cada indicador, su puesto entre las 24 ordenadas de mayor a menor y la diferencia en puntos con el valor de todo el país. También dice en qué indicadores está entre las cinco provincias con valores más altos o más bajos, y en cuál se aleja más del promedio del país teniendo en cuenta cuánto se separan las provincias entre sí en ese indicador (en desvíos estándar). Las diferencias por sector, ámbito y departamento salen de la misma base de Aprender. Un grupo de menos de 300 estudiantes no muestra porcentajes, y los departamentos que la fuente oculta para proteger la confidencialidad cuentan en el total de su provincia pero no aparecen en la lista. La elección de tema y provincias queda en el enlace para compartirla y no cambia la provincia elegida en el resto del sitio.",
+    "fuentes": []
+   },
+   {
+    "titulo": "Lo que el diagnóstico no dice",
+    "texto": "Describe posiciones y diferencias. No dice qué hacer ni explica por qué una provincia está donde está. La diferencia entre escuelas estatales y privadas refleja también quiénes asisten a cada una, por eso va acompañada del nivel socioeconómico de sus estudiantes. Aprender mide 6° grado de primaria, no toda la trayectoria escolar. Los indicadores son de años distintos. La escolarización secundaria se compara solo desde 2022, porque ese año cambió la población de referencia.",
+    "fuentes": []
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Sector de gestión",
+    "definicion": "Si la escuela es de gestión estatal o privada."
+   },
+   {
+    "termino": "Ámbito",
+    "definicion": "Si la escuela está en una zona urbana o rural."
+   },
+   {
+    "termino": "Desvío estándar",
+    "definicion": "Medida de cuánto se separan, en promedio, los valores de las provincias del promedio. Sirve para comparar distancias entre indicadores con unidades distintas."
+   },
+   {
+    "termino": "Departamento enmascarado",
+    "definicion": "Departamento que la base pública de Aprender no identifica, para que no se pueda reconocer a escuelas o estudiantes."
+   }
+  ]
  }
 }
