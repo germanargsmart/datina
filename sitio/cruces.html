@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=6c29b1460c">
+<link rel="stylesheet" href="datina.css?v=763a7eb850">
 </head>
 <body data-pagina="cruces">
 <header class="barra">
@@ -110,7 +110,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema herramienta" id="cruces"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a><a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html" aria-current="page">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Cruces</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-cruces">Cruces</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Qué indicadores se mueven juntos entre las provincias?</p>
+      <p class="pregunta" data-corta="¿Qué indicadores se mueven juntos?">¿Qué indicadores se mueven juntos entre las provincias?</p>
       <p>Elegí dos indicadores y mirá cómo se ubican las 24 jurisdicciones, con la recta que mejor las resume y las advertencias para no sacar conclusiones de más.</p>
     </div>
     <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué muestra</h4><p>Cada punto es una de las 24 jurisdicciones. Su posición depende de dos indicadores que elegís vos, por ejemplo empleo registrado y pobreza. La recta resume la relación promedio entre los dos y la franja alrededor marca el margen de error de esa recta. Todos los indicadores son tasas, porcentajes o valores por habitante, para que el tamaño de cada provincia no domine la comparación.</p></section><section class="exp-bloque"><h4>Cómo leer la correlación</h4><p>La r de Pearson va de menos uno a uno. Cerca de uno, los dos indicadores suben juntos. Cerca de menos uno, cuando uno sube el otro baja. Cerca de cero, no hay una relación lineal clara. El R² dice qué parte de las diferencias entre provincias en un indicador acompaña a las del otro. La correlación de Spearman compara posiciones en lugar de valores y es menos sensible a una provincia muy distinta del resto. El valor p indica qué tan raro sería ver esa relación si en realidad no existiera.</p></section><section class="exp-bloque"><h4>Para no sacar conclusiones de más</h4><p>Son solo 24 casos, así que una provincia puede mover mucho la recta: el explorador avisa cuál pesa más. Que dos indicadores se muevan juntos no prueba que uno cause el otro, porque puede haber un tercer factor detrás. Además son promedios provinciales: lo que vale para las provincias no tiene por qué valer para cada persona que vive en ellas, un error que se conoce como falacia ecológica. Cuando los indicadores son de años distintos, el explorador también lo aclara.</p></section><section class="exp-bloque"><h4>Evolución y regresión</h4><p>Cuando los dos indicadores tienen serie por año, se puede ver cómo se movió cada provincia, al estilo de los gráficos animados de Gapminder. La vista de regresión múltiple estima el peso de hasta cuatro indicadores a la vez sobre otro, con las variables llevadas a la misma escala. Con 24 casos y varios indicadores parecidos entre sí, los resultados son frágiles: el factor de inflación de la varianza (VIF) avisa cuando dos explicativas se superponen demasiado.</p><p class="exp-fuente">Fuente: <a href="https://www.gapminder.org/tools/" target="_blank" rel="noopener">Gapminder</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Correlación de Pearson (r)</dt><dd>Medida de cuánto se acercan los puntos a una recta. Va de menos uno a uno.</dd></div><div><dt>R²</dt><dd>Parte de la variación de un indicador que acompaña a la variación del otro, en una recta de mínimos cuadrados.</dd></div><div><dt>Correlación de Spearman</dt><dd>Correlación calculada sobre el orden de las provincias en lugar de sus valores.</dd></div><div><dt>Valor p</dt><dd>Probabilidad de ver una relación al menos así de fuerte si en realidad no hubiera ninguna.</dd></div><div><dt>Falacia ecológica</dt><dd>Error de suponer que una relación entre promedios de grupos vale también para las personas de esos grupos.</dd></div><div><dt>Distancia de Cook</dt><dd>Medida de cuánto cambia la recta al sacar un caso. Sirve para ver qué provincia la mueve más.</dd></div></dl></details></div>
@@ -183,7 +183,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 </main>
 
-<footer class="pie">
+<footer class="pie-sitio">
   <div class="envoltura">
     <div class="pie-marca">
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
@@ -203,7 +203,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=e9bae1f3a2"></script>
-<script src="datina.js?v=29ab8b29a3"></script>
+<script src="datos/fichas.js?v=3f23a41df0"></script>
+<script src="datina.js?v=b6f96bf8c1"></script>
 </body>
 </html>

@@ -1478,16 +1478,32 @@ function textoOCDE(k) {
     : `${o.mas_alto} de esos ${o.n} países tenían un valor más alto que la Argentina.`;
   return `En ${o.anio}, ${o.frase} fue de ${conUnidad(k, o.arg)} en la Argentina y de ${f(o.ocde)} en el promedio simple de los ${o.n} países de la OCDE con dato.${med} ${alto} En ${o.ini} los valores eran ${f(o.arg_ini)} y ${f(o.ocde_ini)}.`;
 }
-/* Notas metodológicas plegadas bajo "Sobre los datos" para acortar la página. Quedan a la vista
-   las de las herramientas (advertencias estadísticas) y las de suicidio (el SNIC es un registro policial). */
+/* Notas metodológicas: van en "Sobre los datos", un ícono de información en el pie de la ficha que abre un cuadro con ellas.
+   La fuente sigue a la vista en el pie. Quedan a la vista las notas de las herramientas (advertencias estadísticas)
+   y las de suicidio (el SNIC es un registro policial). */
 const NOTA_A_LA_VISTA = new Set(["f-muertes", "f-suicidio", "f-suicidio-prov", "f-edad"]);
+const ICONO_INFO = `<svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8.2"/><path d="M10 9v5M10 6.2v.1"/></svg>`;
 document.querySelectorAll(".tema:not(.herramienta) > article.ficha").forEach(f => {
   const notas = f.querySelectorAll(":scope > .nota");
   if (!notas.length || NOTA_A_LA_VISTA.has(f.id)) return;
   const d = document.createElement("details"); d.className = "sobre";
-  d.innerHTML = "<summary>Sobre los datos</summary>";
-  notas[0].before(d); d.append(...notas);
+  d.innerHTML = `<summary>${ICONO_INFO}<span>Sobre los datos</span></summary><div class="sobre-panel"></div>`;
+  d.lastElementChild.append(...notas);
+  f.querySelector(".pie").prepend(d);
+  // el cuadro se abre arriba del pie, desde el ícono
+  d.addEventListener("toggle", () => {
+    if (!d.open) return;
+    const pie = d.closest(".pie");
+    d.lastElementChild.style.bottom = `${f.getBoundingClientRect().bottom - pie.getBoundingClientRect().top + 8}px`;
+    document.querySelectorAll(".sobre[open]").forEach(o => { if (o !== d) o.open = false; });
+  });
 });
+// se cierra con Escape o tocando afuera
+document.addEventListener("keydown", ev => {
+  const d = ev.key === "Escape" && document.querySelector(".sobre[open]");
+  if (d) { d.open = false; d.querySelector("summary").focus(); }
+});
+document.addEventListener("pointerdown", ev => document.querySelectorAll(".sobre[open]").forEach(d => { if (!d.contains(ev.target)) d.open = false; }));
 
 const VISTA = {};
 Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
@@ -2240,7 +2256,7 @@ async function imagenFicha(f) {
   };
   const fT = `600 24px ${F}`, fL = `400 15px ${F}`, fP = `400 12px ${F}`;
   const tit = envolver(f.querySelector("h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
-  const pieL = envolver(`${f.querySelector(".pie span")?.textContent || ""}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
+  const pieL = envolver(`${f.querySelector(".pie > span")?.textContent || ""}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
   const H = pad + tit.length * 30 + 10 + lead.length * 21 + 18 + h + 22 + pieL.length * 17 + pad;
   const cv = document.createElement("canvas"); cv.width = W * E; cv.height = H * E;
   const ctx = cv.getContext("2d"); ctx.scale(E, E); ctx.textBaseline = "top";
@@ -2263,7 +2279,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
   if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
   if (c) h3.insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[1]}</span></p>`);
-  const pie = f.querySelector(".pie"), csv = pie.querySelector("a");
+  const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a");
   const acc = document.createElement("div"); acc.className = "acciones";
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre];
   const conTabla = nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
@@ -2301,6 +2317,56 @@ document.querySelectorAll("article.ficha").forEach(f => {
     clearTimeout(lbl._t); lbl._t = setTimeout(() => cambiar("Copiar enlace"), 1800);
   });
 });
+
+/* Fichas horizontales: el texto (etiqueta, título, cifra, texto y notas a la vista) en una columna y el gráfico con sus
+   controles en otra. El pie y la tabla van debajo, a todo el ancho. En pantallas angostas las dos columnas se apilan
+   como antes (display: contents). Las fichas con clase "ancha" en la plantilla, y las herramientas, quedan apiladas. */
+document.querySelectorAll(".tema:not(.herramienta) > article.ficha:not(.ancha)").forEach(f => {
+  const texto = document.createElement("div"), graf = document.createElement("div");
+  texto.className = "ficha-texto"; graf.className = "ficha-grafico";
+  [...f.children].forEach(el => {
+    if (el.matches(".pie, .tabla-datos")) return;
+    (el.matches(".etiqueta, h3, .clave, .lead, .nota:not(.ocde-nota)") ? texto : graf).appendChild(el);
+  });
+  f.prepend(texto, graf);
+  f.classList.add("horizontal");
+});
+
+/* "Ver más": los textos de las fichas que pasan de siete líneas se muestran en seis, con un botón para leer el resto.
+   Lo que queda a la vista sigue diciendo qué mide la cifra, su unidad y su año (la cifra destacada y el comienzo del texto).
+   Se revisa cada vez que el texto cambia (provincia, vistas OCDE) y cuando cambia el ancho. */
+const LINEAS_VER = 6;
+function revisarLargo(lead) {
+  if (lead.classList.contains("abierto")) return;
+  const linea = parseFloat(getComputedStyle(lead).lineHeight) || 26;
+  lead.style.setProperty("--alto-plegado", `${LINEAS_VER * linea}px`);
+  lead.classList.remove("plegado");
+  const sobra = lead.scrollHeight > (LINEAS_VER + 1.2) * linea;
+  lead.classList.toggle("plegado", sobra);
+  let b = lead.nextElementSibling?.classList.contains("ver-mas") ? lead.nextElementSibling : null;
+  if (sobra && !b) {
+    b = document.createElement("button"); b.type = "button"; b.className = "enlace ver-mas"; b.textContent = "Ver más";
+    b.setAttribute("aria-expanded", "false");
+    lead.after(b);
+    b.addEventListener("click", () => alternarLargo(lead, b));
+  }
+  if (b) b.hidden = !sobra;
+}
+function alternarLargo(lead, b) {
+  const abrir = !lead.classList.contains("abierto"), desde = lead.getBoundingClientRect().height;
+  lead.classList.toggle("abierto", abrir); lead.classList.toggle("plegado", !abrir);
+  b.textContent = abrir ? "Ver menos" : "Ver más"; b.setAttribute("aria-expanded", String(abrir));
+  if (REDUCIR) return;
+  // la altura es lo único que se anima, solo acá: 250 ms
+  const hasta = lead.getBoundingClientRect().height;
+  lead.animate([{height: desde + "px"}, {height: hasta + "px"}], {duration: 250, easing: "cubic-bezier(.23,1,.32,1)"});
+  if (abrir) lead.animate([{opacity: .6}, {opacity: 1}], {duration: 250, easing: "ease-out"});
+}
+const LEADS = [...document.querySelectorAll(".tema:not(.herramienta) article.ficha .lead")];
+const vigiaLargo = new MutationObserver(ms => new Set(ms.map(m => m.target.nodeType === 1 ? m.target.closest(".lead") : m.target.parentElement?.closest(".lead"))).forEach(l => l && revisarLargo(l)));
+LEADS.forEach(l => { revisarLargo(l); vigiaLargo.observe(l, {childList: true, characterData: true, subtree: true}); });
+let anchoLargo = innerWidth;
+addEventListener("resize", () => { if (innerWidth === anchoLargo) return; anchoLargo = innerWidth; LEADS.forEach(revisarLargo); });
 
 /* ---------- las 24: perfil de la provincia elegida ---------- */
 // Solo indicadores con dato por provincia. Las tasas de suicidio quedan fuera: no se presentan como ranking.
@@ -2600,7 +2666,7 @@ function textoArt(a, c) {
   return {respuesta, bajada, extremos, excep, peso, lim, vx, vy};
 }
 const fuenteArt = m => m.fuente.includes(m.periodo) ? m.fuente : `${m.fuente} (${m.periodo})`;
-const SEC = Object.fromEntries(SITIO.secciones.map(([id, t, p, x, herr, f, a]) => [id, {id, t, p, x, herr, f, a}]));
+const SEC = Object.fromEntries(SITIO.secciones.map(([id, t, p, x, herr, f, a, c]) => [id, {id, t, p, x, herr, f, a, c}]));
 const nombreSec = id => SEC[id]?.t || "";
 const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><span class="art-ico">${icono(a.icono)}</span>` +
   `<span class="art-txt"><b style="view-transition-name:t-${a.id}">${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
@@ -2681,12 +2747,16 @@ const SEC_ICONO = {articulos: "periodico", trabajo: "maletin", empresas: "tienda
   poblacion: "personas", politica: "congreso", movilidad: "colectivo", energia: "rayo", turismo: "valija", naturaleza: "andes",
   curiosidades: "mate", cruces: "dispersion", indice: "podio", departamentos: "mosaico"};
 const grillaSec = document.getElementById("secciones-grid");
-if (grillaSec) grillaSec.innerHTML = Object.values(SEC).map(sec => {
+const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
   return `<a class="tarjeta sec-tarjeta${sec.herr ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
     `<span class="sec-tipo">${sec.herr ? "Herramienta" : na ? na + " artículos" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
-    `<b style="view-transition-name:t-${sec.id}">${sec.t}</b><span class="sec-preg">${sec.p}</span></a>`;
-}).join("");
+    `<b style="view-transition-name:t-${sec.id}">${sec.t}</b><span class="sec-preg">${sec.c || sec.p}</span></a>`;
+};
+// en la tarjeta va la pregunta corta de la sección, si tiene una (data-corta en la plantilla)
+if (grillaSec) grillaSec.innerHTML = Object.values(SEC).filter(s => !s.herr).map(tarjetaSec).join("");
+const grillaHerr = document.getElementById("herramientas-grid");
+if (grillaHerr) grillaHerr.innerHTML = Object.values(SEC).filter(s => s.herr).map(tarjetaSec).join("");
 
 /* La respuesta primero (idea de USAFacts): las cifras clave de la sección arriba, antes de la explicación.
    Salen de CLAVE y del perfil provincial (INDP), así que no hay cifras nuevas escritas a mano y el suicidio queda afuera.

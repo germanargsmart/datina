@@ -120,7 +120,7 @@ for b in TEMAS:
     h = base[b["ini"]:b["fin"]]
     titulo = texto(re.search(r"<h2>(.*?)</h2>", h).group(1))
     intro = re.search(r'<div class="tema-intro">(.*?)</div>', h, re.S)
-    preg = re.search(r'<p class="pregunta">(.*?)</p>', h)
+    preg = re.search(r'<p class="pregunta"(?: data-corta="([^"]*)")?>(.*?)</p>', h)
     ayuda = h.find('id="ayuda-suicidio"')
     n = 0
     for m in re.finditer(r'<article class="ficha([^"]*)" id="([^"]+)"[^>]*>(.*?)</article>', h, re.S):
@@ -132,9 +132,10 @@ for b in TEMAS:
         # [id, sección, título fijo, clave del título calculado, clave del texto, explorador, después de las líneas de ayuda]
         FICHAS.append([m.group(2), b["id"], texto(h3.group(2)) if h3 else "", kt.group(1) if kt else "", kl.group(1) if kl else "",
                        int(explorador), int(0 <= ayuda < m.start())])
-    # [id, título, pregunta, texto de entrada, herramienta, fichas, artículos]
-    SECCIONES.append([b["id"], titulo, texto(preg.group(1)) if preg else "", texto(intro.group(1)) if intro else "",
-                      int("herramienta" in b["clases"]), n, len(re.findall(r'<article class="nota"', h))])
+    # [id, título, pregunta, texto de entrada, herramienta, fichas, artículos, pregunta corta para la tarjeta de la portada]
+    SECCIONES.append([b["id"], titulo, texto(preg.group(2)) if preg else "", texto(intro.group(1)) if intro else "",
+                      int("herramienta" in b["clases"]), n, len(re.findall(r'<article class="nota"', h)),
+                      html.unescape(preg.group(1)) if preg and preg.group(1) else ""])
 INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t)] for i, t in NOTAS], "ubic": UBIC}
 
 # ---------- datos ----------

@@ -141,6 +141,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2 class="bloque-tit" id="sec-titulo">Secciones</h2>
     <p class="bloque-sub">Cada sección tiene su página: qué se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
     <div class="secciones-grid" id="secciones-grid"></div>
+    <h3 class="bloque-grupo" id="herr-titulo">Herramientas</h3>
+    <p class="bloque-sub">Para cruzar indicadores entre provincias, armar un ranking con tus propias prioridades y ver los números por departamento.</p>
+    <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"></div>
   </section>
 
   <section class="nosotros" id="nosotros" aria-labelledby="nos-tit">
@@ -213,7 +216,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="trabajo">
     <h2>Trabajo y finanzas</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
+      <p class="pregunta" data-corta="¿Dónde se crea empleo formal?">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
       <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen lo que cada provincia le vende al mundo y cuánto depende de los fondos que le manda la Nación.</p>
     </div>
     <!--EXPLICADOR:trabajo-->
@@ -289,7 +292,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="empresas">
     <h2>Empresas y oportunidades</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
+      <p class="pregunta" data-corta="¿Dónde abren y cierran empresas?">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
       <p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>
     </div>
     <!--EXPLICADOR:empresas-->
@@ -339,7 +342,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="pobreza">
     <h2>Pobreza y hogares</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
+      <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
       <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
     </div>
     <!--EXPLICADOR:pobreza-->
@@ -403,7 +406,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="salud">
     <h2>Salud</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Cuánto vivimos y de qué nos morimos antes de tiempo?</p>
+      <p class="pregunta" data-corta="¿Cuánto vivimos y de qué nos morimos?">¿Cuánto vivimos y de qué nos morimos antes de tiempo?</p>
       <p>La esperanza de vida y la mortalidad infantil resumen cómo funciona el sistema de salud. Las muertes por causas externas, como los siniestros viales, los homicidios y los suicidios, muestran problemas que se pueden prevenir.</p>
     </div>
     <!--EXPLICADOR:salud-->
@@ -548,7 +551,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="poblacion">
     <h2>Población</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
+      <p class="pregunta" data-corta="¿Qué pasa si nacen cada vez menos chicos?">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
       <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. También importa quién llega: las personas que migran desde otros países.</p>
     </div>
     <!--EXPLICADOR:poblacion-->
@@ -632,7 +635,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="politica">
     <h2>Política</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
+      <p class="pregunta" data-corta="¿Quién decide y cómo se reparten los fondos?">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
       <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
     </div>
     <!--EXPLICADOR:politica-->
@@ -647,7 +650,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-legisladores">
+    <article class="ficha ancha" id="f-legisladores">
       <h3>Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</h3>
       <p class="lead" data-t="legisladores"></p>
       <div class="lg-sels">
@@ -692,7 +695,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-votaciones-espacios">
+    <article class="ficha ancha" id="f-votaciones-espacios">
       <h3 data-t="vtm-titulo"></h3>
       <p class="lead" data-t="vtm"></p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
@@ -1058,7 +1061,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema herramienta" id="cruces">
     <h2>Cruces</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Qué indicadores se mueven juntos entre las provincias?</p>
+      <p class="pregunta" data-corta="¿Qué indicadores se mueven juntos?">¿Qué indicadores se mueven juntos entre las provincias?</p>
       <p>Elegí dos indicadores y mirá cómo se ubican las 24 jurisdicciones, con la recta que mejor las resume y las advertencias para no sacar conclusiones de más.</p>
     </div>
     <!--EXPLICADOR:cruces-->
@@ -1128,7 +1131,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema herramienta" id="indice">
     <h2>Tu índice</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Qué provincia está mejor según lo que a vos te importa?</p>
+      <p class="pregunta" data-corta="¿Qué provincia está mejor para vos?">¿Qué provincia está mejor según lo que a vos te importa?</p>
       <p>Cada persona le da su propio peso a siete dimensiones y el índice ordena las provincias con esos pesos.</p>
     </div>
     <!--EXPLICADOR:indice-->
@@ -1174,7 +1177,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 </main>
 
-<footer class="pie">
+<footer class="pie-sitio">
   <div class="envoltura">
     <div class="pie-marca">
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>

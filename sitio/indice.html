@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=6c29b1460c">
+<link rel="stylesheet" href="datina.css?v=763a7eb850">
 </head>
 <body data-pagina="indice">
 <header class="barra">
@@ -112,7 +112,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema herramienta" id="indice"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a><a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html" aria-current="page">Tu índice</a><a href="departamentos.html">Departamentos</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Tu índice</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-indice">Tu índice</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Qué provincia está mejor según lo que a vos te importa?</p>
+      <p class="pregunta" data-corta="¿Qué provincia está mejor para vos?">¿Qué provincia está mejor según lo que a vos te importa?</p>
       <p>Cada persona le da su propio peso a siete dimensiones y el índice ordena las provincias con esos pesos.</p>
     </div>
     <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Cómo se arma</h4><p>El índice reúne siete dimensiones, como salud, educación, trabajo y vivienda. Cada persona elige cuánto pesa cada una, de cero a cinco. Con esos pesos se calcula un promedio y las provincias se ordenan de mayor a menor. No hay un índice correcto: cambia según lo que a cada uno le importa, y por eso los pesos quedan guardados en el enlace para compartirlo.</p><p class="exp-fuente">Fuente: <a href="https://www.oecdbetterlifeindex.org/es/" target="_blank" rel="noopener">OCDE, Índice para una Vida Mejor</a></p></section><section class="exp-bloque"><h4>La escala de cero a diez</h4><p>Cada indicador se pasa a una escala de cero a diez: la provincia con el peor valor recibe cero, la del mejor recibe diez y el resto queda en proporción. Así se pueden promediar indicadores con unidades distintas. Las exportaciones por habitante y la velocidad de internet se miden en escala logarítmica, para que unas pocas provincias con valores muy altos no aplasten al resto.</p></section><section class="exp-bloque"><h4>Lo que el índice no dice</h4><p>La escala compara a las provincias entre sí. Un diez significa la mejor de las 24, no un nivel ideal. Si todas mejoran o empeoran juntas, el índice no lo muestra. Además, cada indicador es de su último año disponible y no todos coinciden. Por eso conviene mirar también las fichas de cada tema, que muestran los valores reales y su evolución.</p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Normalización mínimo y máximo</dt><dd>Llevar un indicador a una escala común tomando el peor valor como cero y el mejor como diez.</dd></div><div><dt>Escala logarítmica</dt><dd>Escala en la que cada salto representa una multiplicación y no una suma. Achica la distancia entre valores muy altos.</dd></div></dl></details></div>
@@ -136,7 +136,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 </main>
 
-<footer class="pie">
+<footer class="pie-sitio">
   <div class="envoltura">
     <div class="pie-marca">
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
@@ -156,7 +156,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=e9bae1f3a2"></script>
-<script src="datina.js?v=29ab8b29a3"></script>
+<script src="datos/fichas.js?v=3f23a41df0"></script>
+<script src="datina.js?v=b6f96bf8c1"></script>
 </body>
 </html>
