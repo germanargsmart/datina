@@ -15,10 +15,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=763a7eb850">
+<link rel="stylesheet" href="datina.css?v=4536c9f0ed">
 </head>
 <body data-pagina="politica">
-<header class="barra">
+<header class="barra clara">
   <div class="envoltura">
     <div class="barra-izq">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
@@ -108,7 +108,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="elecciones"></p>
       <label class="selector-ficha"><span>Elección</span><select data-g="elecciones" id="el-sel"></select></label>
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="elecciones"></div>
+      <div class="grafico" data-g="elecciones" data-forma="barras" style="--filas:25;--extra:-4px"></div>
       <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -120,7 +120,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <label class="selector-ficha"><span>Período</span><select id="lg-per"></select></label>
         <label class="selector-ficha"><span>Provincia</span><select id="lg-sel"></select></label>
       </div>
-      <div class="grafico lg-lista" data-g="legisladores"></div>
+      <div class="grafico lg-lista" data-g="legisladores" data-forma="lista" style="--alto:657px;--alto-c:1449px"></div>
       <p class="nota">Cada período legislativo va del 10 de diciembre de un año impar al 9 de diciembre dos años después, cuando se renueva la mitad de la Cámara de Diputados. Entre paréntesis figura quién dejó la banca durante el período, o poco antes de empezar, y quién la ocupó después, por renuncia, licencia, fallecimiento o fin de mandato. En el Senado, hasta 2001 los mandatos eran de nueve años y se renovaban por tercios en distintas fechas. En 1995 la reforma constitucional sumó un tercer senador por provincia, que figura con la fecha en que asumió. Cada reemplazo se enlaza con la banca que dejó alguien de la misma provincia en la fecha más cercana. Antes de 2007 algunos reemplazos de diputados no tienen fecha de asunción en la fuente. Bloque parlamentario para los diputados desde 2007, y partido o alianza por la que fueron electos para los diputados anteriores y para los senadores. El historial completo está en las tablas de <a href="datos/diputados_nacionales.csv" download>diputados</a> y <a href="datos/senadores_nacionales.csv" download>senadores</a>.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -128,7 +128,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-representacion">
       <h3>Habitantes por banca de diputado nacional según provincia, 2025</h3>
       <p class="lead" data-t="representacion"></p>
-      <div class="grafico" data-g="representacion"></div>
+      <div class="grafico" data-g="representacion" data-forma="barras"></div>
       <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
       <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -140,7 +140,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="cg-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="congreso"></div>
+      <div class="grafico" data-g="congreso" data-forma="columnas"></div>
       <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -153,7 +153,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="votaciones"></div>
+      <div class="grafico" data-g="votaciones" data-forma="puntos" style="--alto:364px;--alto-c:439px"></div>
       <p class="nota" data-t="votaciones-nota"></p>
       <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -164,7 +164,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
-      <div class="grafico vt-matriz" data-g="vtmatriz"></div>
+      <div class="grafico vt-matriz" data-g="vtmatriz" data-forma="lista" style="--alto:858px;--alto-c:1148px"></div>
       <p class="nota" data-t="vtm-nota"></p>
       <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -173,7 +173,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h3 data-t="vprov-titulo"></h3>
       <p class="lead" data-t="vprov"></p>
       <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
-      <div class="grafico" data-g="vprov"></div>
+      <div class="grafico" data-g="vprov" data-forma="puntos"></div>
       <p class="nota" data-t="vprov-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -182,7 +182,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h3 data-t="atn-titulo"></h3>
       <p class="lead" data-t="atn"></p>
       <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
-      <div class="grafico" data-g="atn"></div>
+      <div class="grafico" data-g="atn" data-forma="columnas"></div>
       <p class="nota" data-t="atn-nota"></p>
       <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -192,7 +192,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="transferencias"></p>
       <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
       <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="transferencias"></div>
+      <div class="grafico" data-g="transferencias" data-forma="barras"></div>
       <p class="nota" data-t="transferencias-nota"></p>
       <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia (CSV)</a></div>
     </article>
@@ -204,7 +204,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
         <button type="button" data-m="atn_hab" aria-pressed="true">ATN</button><button type="button" data-m="otras_hab" aria-pressed="false">Otras no automáticas</button>
       </div>
-      <div class="grafico" data-g="apoyo"></div>
+      <div class="grafico" data-g="apoyo" data-forma="puntos"></div>
       <p class="nota" data-t="apoyo-nota"></p>
       <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -213,7 +213,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h3>Presidentes de la Nación desde 1983 según lugar de nacimiento</h3>
       <p class="lead" data-t="presidentes"></p>
       <div class="pol-ley" id="pr-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="presidentes"></div>
+      <div class="grafico" data-g="presidentes" data-forma="bloque" style="--alto:74px;--alto-c:74px"></div>
       <ol class="pr-lista" id="pr-lista"></ol>
       <p class="nota">AMBA: la Ciudad de Buenos Aires y los 24 partidos del Gran Buenos Aires según el INDEC. La Plata, donde nació Cristina Fernández de Kirchner, no forma parte de esa definición. Incluye a los presidentes interinos de diciembre de 2001. La proporción de población del AMBA sale de las personas identificadas por el RENAPER.</p>
       <div class="pie"><span>Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos</span><a href="datos/presidentes.csv" download>Descargar tabla (CSV)</a></div>
@@ -226,7 +226,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="gobierno" aria-pressed="true">Por gobierno</button><button type="button" data-m="provincia" aria-pressed="false">Por provincia</button>
       </div>
       <div class="pol-ley" id="mi-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="ministros"></div>
+      <div class="grafico" data-g="ministros" data-forma="barras" style="--filas:10"></div>
       <p class="nota">Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.</p>
       <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -289,6 +289,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=3f23a41df0"></script>
-<script src="datina.js?v=b6f96bf8c1"></script>
+<script src="datina.js?v=44ac7993c1"></script>
 </body>
 </html>

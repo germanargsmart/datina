@@ -15,10 +15,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=763a7eb850">
+<link rel="stylesheet" href="datina.css?v=4536c9f0ed">
 </head>
 <body data-pagina="curiosidades">
-<header class="barra">
+<header class="barra clara">
   <div class="envoltura">
     <div class="barra-izq">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
@@ -110,7 +110,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <p class="pregunta">¿Qué dicen los datos de lo cotidiano?</p>
       <p>Los nombres más elegidos, el consumo de carne, vino y yerba, los glaciares y el clima.</p>
-    </div>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Nombres: qué publica el RENAPER</h4><p>El Registro Nacional de las Personas (RENAPER) publica en su portal de datos abiertos los nombres propios más frecuentes por año, sexo y provincia, desde 2012 hasta 2024. Cada fila dice cuántas personas inscriptas recibieron un nombre en un año y una provincia. Muestra los nombres más usados, no la lista completa. La serie tiene un año de atraso respecto del calendario.</p><p class="exp-fuente">Fuente: <a href="https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv" target="_blank" rel="noopener">RENAPER, datos abiertos: nombres propios frecuentes por año, sexo y provincia, 2012 a 2024 (CSV)</a></p></section><section class="exp-bloque"><h4>Consumo de carne por habitante</h4><p>El Ministerio de Economía publica el consumo de carne vacuna por habitante entre sus indicadores sectoriales, con datos de la Secretaría de Agricultura, Ganadería y Pesca. La misma serie trae la faena, la producción, el stock de ganado y el peso promedio de la res. Es un promedio nacional en kilos por persona por año: no distingue entre provincias ni entre hogares, y no surge de preguntarle a la gente qué come.</p><p class="exp-fuente">Fuente: <a href="https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv" target="_blank" rel="noopener">Ministerio de Economía, indicadores sectoriales, cárnica vacuna (columna fuente: MAGYP)</a></p></section><section class="exp-bloque"><h4>Vino: despachos al mercado interno</h4><p>El Instituto Nacional de Vitivinicultura (INV) lo creó la Ley 14.878, sancionada el 23 de octubre de 1959, para promover y controlar técnicamente la producción, la industria y el comercio del vino. Las plantas de fraccionamiento le declaran todos los meses lo que fraccionan y despachan al mercado interno. Esos despachos, medidos en hectolitros, son la salida de vino de las bodegas hacia el comercio. Muestran cuánto vino llega a la venta, no cuánto se toma en las casas.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/15764/actualizacion" target="_blank" rel="noopener">Ley 14.878, artículo 2</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-334223/texto" target="_blank" rel="noopener">Resolución INV 2/2020, artículo 9</a></p></section><section class="exp-bloque"><h4>Yerba mate: el INYM</h4><p>El Instituto Nacional de la Yerba Mate (INYM) se creó con la Ley 25.564, sancionada el 21 de febrero de 2002. Es un ente de derecho público no estatal con sede en Misiones. Entre sus funciones está hacer estadísticas de producción, elaboración, comercialización y consumo. Desde 2004 los molinos, fraccionadores e importadores le presentan declaraciones juradas mensuales. La salida de molino es la yerba elaborada que deja los molinos rumbo al mercado. En 2023 el Decreto 70 modificó varias de sus funciones.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-25564-72946/actualizacion" target="_blank" rel="noopener">Ley 25.564, texto actualizado</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-91763/texto" target="_blank" rel="noopener">Resolución INYM 147/2003</a></p></section><section class="exp-bloque"><h4>Anomalía de temperatura</h4><p>Una anomalía de temperatura es la diferencia entre la temperatura media de un año y un promedio de referencia de treinta años. El Servicio Meteorológico Nacional (SMN) usa hoy el promedio de 1991 a 2020. Un valor positivo indica un año más cálido que ese promedio y uno negativo, más frío. La serie nacional empieza en 1961. Usar anomalías permite comparar años sin que pesen las diferencias de clima entre regiones.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/noticias/el-clima-en-argentina-2024-reporte-final" target="_blank" rel="noopener">SMN, El clima en Argentina 2024</a>, <a href="https://www.argentina.gob.ar/node/412271" target="_blank" rel="noopener">SMN, informe del clima 2023</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Despacho al mercado interno</dt><dd>Vino que sale de bodegas y plantas de fraccionamiento hacia la venta en el país, declarado al INV. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-334223/texto" target="_blank" rel="noopener">Resolución INV 2/2020, artículo 9</a></dd></div><div><dt>Salida de molino</dt><dd>Yerba mate elaborada que dejan los molinos, según las declaraciones juradas al INYM. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-91763/texto" target="_blank" rel="noopener">Resolución INYM 147/2003</a></dd></div><div><dt>Anomalía de temperatura</dt><dd>Diferencia entre la temperatura media de un período y su valor medio de referencia. <a href="https://www.argentina.gob.ar/node/412271" target="_blank" rel="noopener">SMN, informe del clima 2023</a></dd></div><div><dt>Período de referencia</dt><dd>Promedio de treinta años contra el que se compara. El SMN usa 1991-2020. <a href="https://www.argentina.gob.ar/noticias/el-clima-en-argentina-2024-reporte-final" target="_blank" rel="noopener">SMN, El clima en Argentina 2024</a></dd></div></dl></details></div>
 
     <article class="ficha" id="f-nombres">
@@ -121,7 +121,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="M" aria-pressed="false">Varones</button>
       </div>
       <p class="contexto-grafico" id="contexto-nombres"></p>
-      <div class="grafico" data-g="nombres"></div>
+      <div class="grafico" data-g="nombres" data-forma="barras" style="--filas:10"></div>
       <p class="nota" data-t="nombres-nota"></p>
       <div class="pie"><span>Fuente: Registro Nacional de las Personas (RENAPER), nombres propios frecuentes</span><a href="datos/nombres_top.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -129,7 +129,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-carne">
       <h3 data-t="carne-titulo"></h3>
       <p class="lead" data-t="carne"></p>
-      <div class="grafico" data-g="carne"></div>
+      <div class="grafico" data-g="carne" data-forma="lineas"></div>
       <p class="nota" data-t="carne-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía, indicadores sectoriales (SSPMI), con datos del Ministerio de Agricultura</span><a href="datos/carne_vacuna.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -137,7 +137,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-vino">
       <h3 data-t="vino-titulo"></h3>
       <p class="lead" data-t="vino"></p>
-      <div class="grafico" data-g="vino"></div>
+      <div class="grafico" data-g="vino" data-forma="lineas"></div>
       <p class="nota" data-t="vino-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de Vitivinicultura</span><a href="datos/vino_mercado_interno.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -145,7 +145,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-yerba">
       <h3 data-t="yerba-titulo"></h3>
       <p class="lead" data-t="yerba"></p>
-      <div class="grafico" data-g="yerba"></div>
+      <div class="grafico" data-g="yerba" data-forma="lineas"></div>
       <p class="nota" data-t="yerba-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate</span><a href="datos/yerba_molino.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -153,7 +153,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-glaciares">
       <h3 data-t="glaciares-titulo"></h3>
       <p class="lead" data-t="glaciares"></p>
-      <div class="grafico" data-g="glaciares"></div>
+      <div class="grafico" data-g="glaciares" data-forma="barras" style="--filas:12"></div>
       <p class="nota" data-t="glaciares-nota"></p>
       <div class="pie"><span>Fuente: Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM)</span><a href="datos/glaciares_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -161,7 +161,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-clima">
       <h3 data-t="clima-titulo"></h3>
       <p class="lead" data-t="clima"></p>
-      <div class="grafico" data-g="clima"></div>
+      <div class="grafico" data-g="clima" data-forma="franjas"></div>
       <p class="nota" data-t="clima-nota"></p>
       <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -197,6 +197,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=3f23a41df0"></script>
-<script src="datina.js?v=b6f96bf8c1"></script>
+<script src="datina.js?v=44ac7993c1"></script>
 </body>
 </html>

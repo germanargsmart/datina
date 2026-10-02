@@ -12,6 +12,7 @@
   /* colores: la bandera y los neutros */
   --bg:#FFFFFF; --fondo:#F6F8FB; --ink:#18212B; --muted:#56606C; --faint:#98A2AE; --line:#E4E9EF;
   --borde:#D9E3EE; --borde-claro:#C6DCF1; --superficie:#F7FAFD; --superficie-2:#EDF2F8;
+  --esqueleto:#EDF2F8;   /* formas de carga (el mismo valor va escrito en los dibujos de datina.css) */
   --celeste:#74ACDF; --celeste-fuerte:#2C74B5; --celeste-suave:#DCEBF8;
   --azul:#2C74B5; --azul-hondo:#1F5E97;
   --sol:#F6B40E; --sol-fuerte:#B27A00; --sol-suave:#FDF0CC; --sol-borde:#85340A;
@@ -584,10 +585,12 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* ---------- fichas: rectas ---------- */
 .ficha{position:relative;margin:var(--e-5) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px) var(--e-5);background:var(--bg);border:1px solid var(--borde);transition:border-color var(--dur-1) var(--ease-out)}
-/* la tarjeta aparece una sola vez, al entrar en pantalla */
-.js .ficha{opacity:0;transform:translateY(10px);transition:opacity var(--dur-3) var(--ease-out) var(--retraso,0ms),transform var(--dur-3) var(--ease-out) var(--retraso,0ms),border-color var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
-.js .ficha.sin-entrada{transition:none}
-.js .ficha.visto{opacity:1;transform:none}
+/* La tarjeta aparece una sola vez, al entrar en pantalla (datina.js pone "listo" en la página y "visto" en cada ficha).
+   Mientras el código no llegó, se ve con su silueta desde los 400 ms (ver "formas de carga"): si llega antes, nunca se ve vacía */
+.js:not(.listo) .ficha{animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
+.listo .ficha{opacity:0;transform:translateY(10px);transition:opacity var(--dur-3) var(--ease-out) var(--retraso,0ms),transform var(--dur-3) var(--ease-out) var(--retraso,0ms),border-color var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
+.listo .ficha.sin-entrada{transition:border-color var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
+.listo .ficha.visto{opacity:1;transform:none}
 .etiqueta{display:inline-block;margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .etiqueta::before{content:"# ";color:var(--azul)}
 .ficha h3{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32}
@@ -651,6 +654,86 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .ficha-grafico>:first-child{margin-top:0}
 }
 
+/* ---------- formas de carga (etapa 6) ----------
+   Mientras llegan el código o los datos, cada ficha muestra su silueta: el título y el texto como renglones, y el gráfico
+   con la forma de su tipo (data-forma en la plantilla) y el alto que va a tener, para que nada salte cuando llega.
+   Quietas: aparecen con un fundido a los 400 ms, así no se ven si los datos llegan antes. Los gráficos que se dibujan
+   al instante no las muestran nunca. Las notas esperan dentro de "Sobre los datos" y el texto y el gráfico ya van en
+   dos columnas en la computadora, como quedan después. */
+@keyframes esqueleto{from{opacity:0}}
+.js:not(.listo) .ficha>.nota{display:none}
+@media (min-width:1080px){
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha){display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--e-8);align-items:start;grid-auto-flow:row dense}
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>*{grid-column:2}
+  /* el texto ocupa muchas filas para no quedar debajo del gráfico: las filas vacías no miden nada */
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>h3{grid-column:1;grid-row:1}
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>.lead{grid-column:1;grid-row:2/span 30}
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>.grafico{grid-row:span 30}
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>.pie{grid-column:1/-1}
+}
+.js .ficha h3:empty::before,.js .ficha .lead:empty::before{content:"";display:block;border-radius:2px;animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
+.js .ficha h3:empty::before{height:.75lh;margin:.12lh 0;width:min(24em,80%);background:var(--esqueleto)}
+.js .ficha .lead:empty::before{height:4lh;background:repeating-linear-gradient(var(--esqueleto) 0 .62lh,transparent .62lh 1lh);
+  -webkit-mask:linear-gradient(#000 0 0) 0 0/100% 3lh no-repeat,linear-gradient(#000 0 0) 0 3lh/58% 1lh no-repeat;
+  mask:linear-gradient(#000 0 0) 0 0/100% 3lh no-repeat,linear-gradient(#000 0 0) 0 3lh/58% 1lh no-repeat}
+/* el gráfico: alto de su forma (filas de 24 píxeles, 20 si el gráfico mide menos de 520 de ancho, como en datina.js) */
+.js .grafico[data-forma]:empty,.js .grafico[aria-busy="true"]{container-type:inline-size}
+/* con :where() la regla general pesa poco y cada forma (más abajo) pone su dibujo encima */
+.js :where(.grafico[data-forma]:empty,.grafico[aria-busy="true"])::before{content:"";display:block;box-sizing:border-box;
+  --fila:24px;--izq:150px;height:var(--alto,calc(var(--filas,24) * var(--fila) + 34px + var(--extra,0px)));
+  background:var(--esqueleto);background-clip:content-box;background-origin:content-box;border-radius:2px;
+  animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
+@container (max-width:519px){
+  .js :where(.grafico[data-forma]:empty,.grafico[aria-busy="true"])::before{--fila:20px;--izq:118px;
+    height:var(--alto-c,var(--alto,calc(var(--filas,24) * var(--fila) + 34px + var(--extra,0px))))}
+}
+.grafico[data-forma="lineas"]{--alto:363px;--alto-c:323px}
+.grafico[data-forma="columnas"]{--alto:340px;--alto-c:300px}
+.grafico[data-forma="puntos"]{--alto:380px;--alto-c:320px}
+.grafico[data-forma="franjas"]{--alto:230px;--alto-c:190px}
+.grafico[data-forma="bloque"]{--alto:340px;--alto-c:300px}
+/* barras por provincia: el nombre a la izquierda y barras que se acortan hacia abajo, como quedan ordenadas */
+.js .grafico:is([data-forma="barras"],[data-forma="pesas"])::before{padding-top:24px;
+  background:linear-gradient(transparent 28%,var(--esqueleto) 28% 72%,transparent 72%) calc(var(--izq) - 92px) 0/82px var(--fila) repeat-y,
+    linear-gradient(transparent 28%,var(--esqueleto) 28% 72%,transparent 72%) var(--izq) 0/calc(100% - var(--izq) - 54px) var(--fila) repeat-y;
+  background-clip:content-box;background-origin:content-box;
+  -webkit-mask:linear-gradient(#000 0 0) 0 0/var(--izq) 100% no-repeat,linear-gradient(to bottom right,#000 50%,transparent 50%) var(--izq) 0/calc(100% - var(--izq)) 100% no-repeat;
+  mask:linear-gradient(#000 0 0) 0 0/var(--izq) 100% no-repeat,linear-gradient(to bottom right,#000 50%,transparent 50%) var(--izq) 0/calc(100% - var(--izq)) 100% no-repeat}
+.js .grafico[data-forma="pesas"]::before{
+  background:linear-gradient(transparent 28%,var(--esqueleto) 28% 72%,transparent 72%) calc(var(--izq) - 92px) 0/82px var(--fila) repeat-y,
+    linear-gradient(transparent 42%,var(--esqueleto) 42% 58%,transparent 58%) var(--izq) 0/calc(100% - var(--izq) - 44px) var(--fila) repeat-y;
+  background-clip:content-box;background-origin:content-box}
+/* líneas en el tiempo: un área suave debajo de una línea, con el lugar de la lectura arriba */
+.js .grafico[data-forma="lineas"]::before{padding:37px 128px 30px 44px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath d='M0 31C12 29 18 22 30 23S48 15 60 17 82 8 100 6V40H0Z' fill='%23EDF2F8'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;
+  background-clip:content-box;background-origin:content-box}
+@container (max-width:519px){ .js .grafico[data-forma="lineas"]::before{padding-right:92px} }
+/* columnas por año o por mes */
+.js .grafico[data-forma="columnas"]::before{padding:14px 8px 28px 36px;background:linear-gradient(90deg,transparent 18%,var(--esqueleto) 18% 82%,transparent 82%) 0 0/5% 100% repeat-x;
+  background-clip:content-box;background-origin:content-box;-webkit-mask:linear-gradient(to top,#000 45%,transparent 96%);mask:linear-gradient(to top,#000 45%,transparent 96%)}
+/* pirámide: barras a los dos lados del centro, más anchas abajo */
+.js .grafico[data-forma="piramide"]::before{padding:48px 8px 16px;background:linear-gradient(transparent 14%,var(--esqueleto) 14% 86%,transparent 86%) 0 0/100% 20px repeat-y;
+  background-clip:content-box;background-origin:content-box;
+  -webkit-mask:linear-gradient(to top left,#000 50%,transparent 50%) 0 0/calc(50% - 28px) 100% no-repeat,linear-gradient(to top right,#000 50%,transparent 50%) 100% 0/calc(50% - 28px) 100% no-repeat;
+  mask:linear-gradient(to top left,#000 50%,transparent 50%) 0 0/calc(50% - 28px) 100% no-repeat,linear-gradient(to top right,#000 50%,transparent 50%) 100% 0/calc(50% - 28px) 100% no-repeat}
+/* dispersión: puntos en una franja diagonal */
+.js .grafico[data-forma="puntos"]::before{padding:34px 16px 44px 46px;
+  background:radial-gradient(circle,var(--esqueleto) 0 5px,transparent 5.5px) 0 0/48px 40px,radial-gradient(circle,var(--esqueleto) 0 5px,transparent 5.5px) 24px 20px/48px 40px;
+  background-clip:content-box;background-origin:content-box;
+  -webkit-mask:linear-gradient(to top right,transparent 22%,#000 38% 62%,transparent 78%);mask:linear-gradient(to top right,transparent 22%,#000 38% 62%,transparent 78%)}
+/* franjas de temperatura y listas */
+.js .grafico[data-forma="franjas"]::before{padding-bottom:30px;background:repeating-linear-gradient(90deg,var(--esqueleto) 0 8px,var(--superficie) 8px 16px);background-clip:content-box}
+.js .grafico[data-forma="lista"]::before{background:repeating-linear-gradient(var(--esqueleto) 0 12px,transparent 12px 28px);
+  -webkit-mask:linear-gradient(#000 70%,transparent);mask:linear-gradient(#000 70%,transparent)}
+.js .grafico[data-forma="mapa"]::before{width:min(100%,560px);margin:0 auto;border-radius:24px}
+/* una ficha que todavía no entró en pantalla muestra la silueta recién 400 ms después de entrar, si su gráfico no llegó */
+.listo .ficha:not(.visto) :is(h3,.lead,.grafico)::before{animation:none}
+/* "En cifras" y el perfil provincial: tarjetas vacías del mismo tamaño (las pone el constructor y las reemplaza datina.js) */
+html:not(.js) .esqueleto{display:none}
+.esqueleto .cifra,.dp.esqueleto{pointer-events:none;animation:esqueleto var(--dur-2) var(--ease-out) 400ms both;background-repeat:no-repeat;
+  background-image:linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0)}
+.esqueleto .cifra{min-height:140px;background-position:16px 18px,16px 66px,16px 86px,16px 106px;background-size:42% 30px,calc(100% - 32px) 10px,calc(100% - 32px) 10px,55% 10px}
+.dp.esqueleto{min-height:224px;background-position:20px 20px,20px 50px,20px 112px,20px 168px;background-size:50% 10px,40% 40px,calc(100% - 40px) 10px,calc(100% - 40px) 12px}
+
 /* ---------- controles de las fichas: rectos ---------- */
 /* conmutador: botones de opción con un indicador que se desliza */
 .conmutador{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);margin:var(--e-5) 0 0;padding:2px;border:1px solid var(--azul)}
@@ -708,7 +791,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .tabla-areas tr.elegida td{background:var(--celeste-suave)}
 /* mapa de las áreas protegidas */
 .mapa-areas svg{max-width:560px;margin:0 auto}
-.mapa-areas .prov{stroke:#fff;stroke-width:.8}
+.mapa-areas .prov{stroke:#fff;stroke-width:.8;transition:stroke var(--dur-2) var(--ease-out),stroke-width var(--dur-2) var(--ease-out)}
 .mapa-areas .prov.elegida{stroke:var(--ink);stroke-width:1.6}
 .mapa-areas .burbuja{fill:var(--sol);fill-opacity:.8;stroke:var(--sol-borde);stroke-width:.8}
 .leyenda-mapa text{font-size:12px;fill:var(--muted);font-family:var(--f)}
@@ -903,6 +986,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .form-nota{margin:0;font-size:var(--t-2);color:var(--muted)}
 .form-contacto .boton{justify-self:start}
 .oculto{display:none}
+.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .form-gracias{max-width:34em;font-size:var(--t-5)}
 .no-acciones{display:flex;flex-wrap:wrap;gap:var(--e-3);margin:var(--e-6) 0 0}
 /* autores y licencias de las banderas, en Sobre nosotros */
@@ -924,12 +1008,16 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 html:active-view-transition-type(grafico)::view-transition-old(root),
 html:active-view-transition-type(grafico)::view-transition-new(root){animation:none}
 ::view-transition-group(grafico){animation-duration:var(--dur-2)}
+/* cambio de provincia (etapa 6): la página queda quieta y funden en 200 ms los gráficos, "En cifras" y lo demás que cambió */
+html:active-view-transition-type(provincia)::view-transition-old(root),
+html:active-view-transition-type(provincia)::view-transition-new(root){animation:none}
+html:active-view-transition-type(provincia)::view-transition-group(*){animation-duration:var(--dur-2)}
 
 /* ---------- preferencias del sistema ---------- */
 /* Movimiento reducido: sin desplazamientos ni giros, pero se conservan los fundidos que ayudan a entender */
 @media (prefers-reduced-motion:reduce){
   .sol *,.portada-texto>*,.gorro{animation:none!important}
-  .js .ficha{transform:none!important;transition:opacity var(--dur-3) var(--ease-out)!important}
+  .listo .ficha{transform:none!important;transition:opacity var(--dur-3) var(--ease-out)!important}
   .conmutador::before,.boton,.tarjeta,.lupa-btn,.menu-btn,.chip-prov,.chip-borrar,.paso{transition:none!important}
   .boton:active,.tarjeta:active,.lupa-btn:active,.menu-btn:active,.elige-btn:active{transform:none}
   .dest-ir,.sol-ir{transition:none!important;transform:none!important}

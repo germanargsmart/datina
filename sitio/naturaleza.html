@@ -15,10 +15,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=763a7eb850">
+<link rel="stylesheet" href="datina.css?v=4536c9f0ed">
 </head>
 <body data-pagina="naturaleza">
-<header class="barra">
+<header class="barra clara">
   <div class="envoltura">
     <div class="barra-izq">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
@@ -108,7 +108,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <p class="pregunta">¿Cuánto territorio está protegido y qué vive en él?</p>
       <p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>
-    </div>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Cómo empezaron los parques nacionales</h4><p>El 6 de noviembre de 1903 el perito Francisco P. Moreno cedió a la Nación tierras cerca de Puerto Blest para que fueran un parque público. Sobre esa base se creó el 8 de abril de 1922 el Parque Nacional del Sud. El 29 de septiembre de 1934 la Ley 12.103 creó la Dirección de Parques Nacionales, dependiente del Ministerio de Agricultura, y los parques nacionales Nahuel Huapi e Iguazú. Por eso el 6 de noviembre es el Día de los Parques Nacionales.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/parquesnacionales/institucional/historia" target="_blank" rel="noopener">Administración de Parques Nacionales, historia</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-196777/texto" target="_blank" rel="noopener">Ley 12.103</a></p></section><section class="exp-bloque"><h4>La ley vigente y sus categorías</h4><p>Hoy rige la Ley 22.351, sancionada en 1980, que es el marco legal de la Administración de Parques Nacionales. Define tres categorías. Los parques nacionales se conservan en estado natural y son representativos de una región. Los monumentos naturales protegen áreas, cosas o especies de valor estético, histórico o científico. Las reservas nacionales conservan sistemas ecológicos o sirven de zonas protectoras. En 1990 el Decreto 2148 sumó la Reserva Natural Estricta, el tipo de área con las máximas garantías de conservación.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-4605/texto" target="_blank" rel="noopener">Decreto 2148/1990</a></p></section><section class="exp-bloque"><h4>El SIB y las visitas</h4><p>El Sistema de Información de Biodiversidad (SIB) lo creó la Administración de Parques Nacionales en 2002. Guarda los datos biológicos que surgen del trabajo técnico, científico y de manejo en las áreas protegidas. Las especies registradas en cada área dependen de cuánto se investigó, no solo de cuántas hay. Las visitas se cuentan con el Registro Nacional de Autorizaciones, Recaudaciones e Infracciones (RENARI) de la APN, separando residentes y no residentes. La serie empieza en 2008.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/parquesnacionales/sib" target="_blank" rel="noopener">APN, Sistema de Información de Biodiversidad</a>, <a href="https://datos.yvera.tur.ar/dataset/parques-nacionales" target="_blank" rel="noopener">Datos abiertos de Turismo: Parques Nacionales</a></p></section><section class="exp-bloque"><h4>Ley de Glaciares e inventario</h4><p>La Ley 26.639, sancionada el 30 de septiembre de 2010, fija los presupuestos mínimos para proteger los glaciares y el ambiente periglacial, y creó el Inventario Nacional de Glaciares. Lo hace y lo actualiza el IANIGLA, del CONICET. El primer inventario se completó en 2018. En abril de 2026 la Ley 27.804 modificó varios artículos: redefinió el objeto protegido y dio más funciones a las provincias. Los glaciares que figuran en el inventario siguen protegidos mientras la autoridad competente no verifique que carecen de funciones hídricas.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/174117/actualizacion" target="_blank" rel="noopener">Ley 26.639, texto actualizado (incluye la Ley 27.804, B.O. 24/4/2026)</a>, <a href="https://www.glaciaresargentinos.gob.ar/" target="_blank" rel="noopener">Inventario Nacional de Glaciares</a></p></section><section class="exp-bloque"><h4>Qué es un desembarque</h4><p>En pesca, el desembarque es lo que los barcos descargan en puerto. La Subsecretaría de Pesca y Acuicultura lo registra a partir de lo que declara cada barco en sus partes de pesca y lo controla con las actas de desembarque. Publica los datos por especie, puerto y flota. La serie histórica empieza en 1898, y la misma Subsecretaría advierte que las cifras pueden cambiar porque las bases se validan y actualizan todo el tiempo.</p><p class="exp-fuente">Fuente: <a href="https://www.magyp.gob.ar/sitio/areas/pesca_maritima/desembarques/" target="_blank" rel="noopener">Subsecretaría de Pesca y Acuicultura, desembarques</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Parque Nacional</dt><dd>Área que se conserva en estado natural, representativa de una región fitozoogeográfica. <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a></dd></div><div><dt>Monumento Natural</dt><dd>Área, cosa o especie viva de interés estético, valor histórico o científico. <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a></dd></div><div><dt>Reserva Nacional</dt><dd>Área para conservar sistemas ecológicos o servir de zona protectora de un parque nacional. <a href="https://www.argentina.gob.ar/normativa/nacional/16299/texto" target="_blank" rel="noopener">Ley 22.351</a></dd></div><div><dt>Glaciar</dt><dd>Masa de hielo perenne, estable o que fluye lentamente, formada por la recristalización de nieve. <a href="https://www.argentina.gob.ar/normativa/nacional/174117/actualizacion" target="_blank" rel="noopener">Ley 26.639, texto actualizado (incluye la Ley 27.804, B.O. 24/4/2026)</a></dd></div><div><dt>Desembarque</dt><dd>Captura que un barco descarga en puerto, declarada en los partes de pesca. <a href="https://www.magyp.gob.ar/sitio/areas/pesca_maritima/desembarques/" target="_blank" rel="noopener">Subsecretaría de Pesca y Acuicultura, desembarques</a></dd></div></dl></details></div>
 
     <article class="ficha" id="f-protegida">
@@ -118,7 +118,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="pct_territorio" aria-pressed="true">% del territorio</button>
         <button type="button" data-m="m2_por_habitante" aria-pressed="false">m² por habitante</button>
       </div>
-      <div class="grafico" data-g="protegida"></div>
+      <div class="grafico" data-g="protegida" data-forma="barras" style="--extra:14px"></div>
       <p class="nota" data-t="protegida-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente, Centro de Información Ambiental (CIAM)</span><a href="datos/areas_protegidas_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -132,11 +132,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" role="tab" id="pt-lista" aria-controls="pp-lista" aria-selected="false" tabindex="-1">Cuáles son</button>
       </div>
       <div class="panel-pestana" role="tabpanel" id="pp-evolucion" aria-labelledby="pt-evolucion">
-        <div class="grafico" data-g="parques"></div>
+        <div class="grafico" data-g="parques" data-forma="lineas" style="--alto-c:342px"></div>
         <p class="nota" data-t="parques-nota"></p>
       </div>
       <div class="panel-pestana" role="tabpanel" id="pp-mapa" aria-labelledby="pt-mapa" hidden>
-        <div class="grafico mapa-areas" data-g="mapa-areas"></div>
+        <div class="grafico mapa-areas" data-g="mapa-areas" data-forma="mapa"></div>
         <p class="nota" data-t="mapa-areas-nota"></p>
       </div>
       <div class="panel-pestana" role="tabpanel" id="pp-lista" aria-labelledby="pt-lista" hidden>
@@ -149,7 +149,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-visitas">
       <h3 data-t="visitas-titulo"></h3>
       <p class="lead" data-t="visitas"></p>
-      <div class="grafico" data-g="visitas"></div>
+      <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="visitas-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA)</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -162,7 +162,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
         <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
       </div>
-      <div class="grafico" data-g="visitas-parque"></div>
+      <div class="grafico" data-g="visitas-parque" data-forma="barras" style="--filas:41"></div>
       <p class="nota" data-t="visitas-parque-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -170,7 +170,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-especies">
       <h3 data-t="especies-titulo"></h3>
       <p class="lead" data-t="especies"></p>
-      <div class="grafico" data-g="especies"></div>
+      <div class="grafico" data-g="especies" data-forma="barras" style="--filas:15"></div>
       <p class="nota" data-t="especies-nota"></p>
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/especies_areas_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -178,7 +178,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-pesca">
       <h3 data-t="pesca-titulo"></h3>
       <p class="lead" data-t="pesca"></p>
-      <div class="grafico" data-g="pesca"></div>
+      <div class="grafico" data-g="pesca" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="pesca-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/desembarques_especies.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -186,7 +186,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-pesca-rio">
       <h3 data-t="pesca-rio-titulo"></h3>
       <p class="lead" data-t="pesca-rio"></p>
-      <div class="grafico" data-g="pesca-rio"></div>
+      <div class="grafico" data-g="pesca-rio" data-forma="barras" style="--filas:6"></div>
       <p class="nota" data-t="pesca-rio-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -224,6 +224,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=3f23a41df0"></script>
-<script src="datina.js?v=b6f96bf8c1"></script>
+<script src="datina.js?v=44ac7993c1"></script>
 </body>
 </html>

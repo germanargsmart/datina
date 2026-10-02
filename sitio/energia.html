@@ -15,10 +15,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=763a7eb850">
+<link rel="stylesheet" href="datina.css?v=4536c9f0ed">
 </head>
 <body data-pagina="energia">
-<header class="barra">
+<header class="barra clara">
   <div class="envoltura">
     <div class="barra-izq">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
@@ -104,13 +104,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <p class="pregunta">¿Cuánta electricidad usamos y quién la usa?</p>
       <p>Cuánto consumen los hogares, cómo se mueve la demanda con la economía y en qué meses se concentra.</p>
-    </div>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>El marco: la Ley 24.065</h4><p>La Ley 24.065, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico. Reconoce cuatro tipos de actores del Mercado Eléctrico Mayorista (MEM): generadores, transportistas, distribuidores y grandes usuarios. El texto ordenado vigente se aprobó con el Decreto 450 de 2025. En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, texto actualizado</a></p></section><section class="exp-bloque"><h4>Qué es CAMMESA</h4><p>La Compañía Administradora del Mercado Mayorista Eléctrico (CAMMESA) se constituyó por el Decreto 1192 del 10 de julio de 1992, según el artículo 35 de la Ley 24.065. Es una sociedad anónima sin fines de lucro que despacha el Sistema Argentino de Interconexión (SADI): decide qué centrales generan en cada momento para abastecer la demanda. Su capital se reparte entre el Estado Nacional y cuatro asociaciones civiles de generadores, transportistas, distribuidores y grandes usuarios. Es la fuente de los datos de demanda de este sitio.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto" target="_blank" rel="noopener">Decreto 1192/1992</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto" target="_blank" rel="noopener">Decreto 1173/1998</a></p></section><section class="exp-bloque"><h4>Cómo se clasifica la demanda</h4><p>La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, artículo 10</a>, <a href="https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto" target="_blank" rel="noopener">Resolución SE 884/2023, artículo 9</a></p></section><section class="exp-bloque"><h4>De dónde sale la serie</h4><p>Las fichas usan la serie mensual de demanda de electricidad de la API de Series de Tiempo del Estado nacional. La publica la Subsecretaría de Programación Macroeconómica con datos de CAMMESA, en gigavatios hora. La demanda total empieza en 2001 y la residencial en 2005. Como el dato es mensual, permite ver qué meses concentran más consumo y compararlo con la actividad económica. La copia de CAMMESA en datos.gob.ar terminó en febrero de 2020 y no se usa.</p><p class="exp-fuente">Fuente: <a href="https://apis.datos.gob.ar/series/api/series/?ids=367.3_DEMANDA_TOTAL__13,367.3_DEMANDA_REIAL__19&amp;metadata=full" target="_blank" rel="noopener">API de Series de Tiempo, metadatos de la serie 367.3</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Mercado Eléctrico Mayorista (MEM)</dt><dd>Mercado donde operan generadores, transportistas, distribuidores y grandes usuarios, administrado por CAMMESA. <a href="https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto" target="_blank" rel="noopener">Decreto 1192/1992</a></dd></div><div><dt>SADI</dt><dd>Sistema Argentino de Interconexión, la red eléctrica que despacha CAMMESA. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto" target="_blank" rel="noopener">Decreto 1173/1998</a></dd></div><div><dt>Distribuidor</dt><dd>Empresa que abastece a los usuarios de su zona de concesión que no contratan por su cuenta. <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, texto actualizado</a></dd></div><div><dt>Gran usuario</dt><dd>Quien contrata su energía en forma independiente y para consumo propio. <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion" target="_blank" rel="noopener">Ley 24.065, texto actualizado</a></dd></div><div><dt>GUDI</dt><dd>Demanda de más de 300 kW abastecida por una distribuidora. <a href="https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto" target="_blank" rel="noopener">Resolución SE 884/2023, artículo 9</a></dd></div></dl></details></div>
 
     <article class="ficha" id="f-hogares">
       <h3>Participación de los hogares en la demanda eléctrica, 2005 a 2025</h3>
       <p class="lead" data-t="hogares"></p>
-      <div class="grafico" data-g="hogares"></div>
+      <div class="grafico" data-g="hogares" data-forma="lineas"></div>
       <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
       <div class="pie"><span>Fuente: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -118,7 +118,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-actividad">
       <h3>Demanda eléctrica y nivel de actividad económica, 2005 a 2025</h3>
       <p class="lead" data-t="actividad"></p>
-      <div class="grafico" data-g="actividad"></div>
+      <div class="grafico" data-g="actividad" data-forma="lineas"></div>
       <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
       <div class="pie"><span>Fuentes: CAMMESA e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -126,7 +126,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-meses">
       <h3>Demanda eléctrica promedio por mes, 2023 a 2025</h3>
       <p class="lead" data-t="meses"></p>
-      <div class="grafico" data-g="meses"></div>
+      <div class="grafico" data-g="meses" data-forma="columnas" style="--alto:280px;--alto-c:280px"></div>
       <p class="nota" data-t="meses-nota"></p>
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -168,6 +168,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=3f23a41df0"></script>
-<script src="datina.js?v=b6f96bf8c1"></script>
+<script src="datina.js?v=44ac7993c1"></script>
 </body>
 </html>

@@ -15,10 +15,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=763a7eb850">
+<link rel="stylesheet" href="datina.css?v=4536c9f0ed">
 </head>
 <body data-pagina="empresas">
-<header class="barra">
+<header class="barra clara">
   <div class="envoltura">
     <div class="barra-izq">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
@@ -90,13 +90,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Dónde abren y cierran empresas?">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
       <p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>
-    </div>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Qué se mide</h4><p>Las fichas cuentan empresas privadas que tienen al menos una persona en relación de dependencia. Los datos salen del Observatorio de Empleo y Dinámica Empresarial (OEDE), que usa las declaraciones mensuales que cada empresa presenta ante la seguridad social para pagar los aportes de su personal. La unidad es la empresa como unidad legal, identificada por su CUIT, y no cada local o sucursal. Quienes trabajan por su cuenta sin empleados no aparecen en este registro.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a></p></section><section class="exp-bloque"><h4>Desde cuándo</h4><p>El Observatorio se creó en mayo de 2003 dentro de la Secretaría de Empleo del Ministerio de Trabajo. Reconstruyó las series de empresas y de empleo registrado desde 1996, con una base que sigue a cada empresa a lo largo del tiempo. Eso permite saber no solo cuántas empresas hay, sino cuántas abren, cuántas cierran y cuánto empleo crean o destruyen.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a></p></section><section class="exp-bloque"><h4>Cuándo abre y cuándo cierra una empresa</h4><p>Una empresa abre cuando aparecen sus primeras declaraciones de personal ocupado. Se considera cerrada cuando pasa un año, cuatro trimestres seguidos, sin declarar empleados, el mismo criterio que usa la oficina de estadísticas laborales de los Estados Unidos. Las tasas de entrada y de salida dividen las aperturas y los cierres por todas las empresas que estuvieron activas en el período. El cambio neto es la diferencia entre las dos.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a></p></section><section class="exp-bloque"><h4>Empresas locales y empresas en varias provincias</h4><p>Una empresa que tiene personal en varias provincias figura en cada una de ellas, por eso la suma provincial supera al total del país. Para estudiar aperturas y cierres el Observatorio usa las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su empleo. La entrada y salida de las empresas no locales es más volátil y refleja menos el crecimiento del tejido productivo de cada región.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, estadísticas provinciales, nota metodológica</a>, <a href="https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales" target="_blank" rel="noopener">Ministerio de Capital Humano, estadísticas provinciales del OEDE</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Empresa</dt><dd>Unidad legal independiente identificada por su CUIT. Puede tener varios locales o plantas. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div><div><dt>Tasa de entrada</dt><dd>Empresas que abrieron en el período sobre el total de empresas activas en ese período, incluidas las que cerraron. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div><div><dt>Tasa de salida</dt><dd>Empresas que cerraron en el período sobre el mismo total. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div><div><dt>Empresa local</dt><dd>Empresa contada en la provincia donde declara la mayor parte de su personal. <a href="https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx" target="_blank" rel="noopener">OEDE, nota metodológica</a></dd></div></dl></details></div>
 
     <article class="ficha" id="f-empresas">
       <h3 data-t="empresas-titulo"></h3>
       <p class="lead" data-t="empresas"></p>
-      <div class="grafico" data-g="empresas"></div>
+      <div class="grafico" data-g="empresas" data-forma="barras"></div>
       <p class="nota" data-t="empresas-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -108,7 +108,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="pais" aria-pressed="true">Serie del país</button>
         <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
       </div>
-      <div class="grafico" data-g="dinamica"></div>
+      <div class="grafico" data-g="dinamica" data-forma="lineas"></div>
       <p class="nota" data-t="dinamica-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_serie_pais.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -184,6 +184,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=3f23a41df0"></script>
-<script src="datina.js?v=b6f96bf8c1"></script>
+<script src="datina.js?v=44ac7993c1"></script>
 </body>
 </html>

@@ -1,5 +1,13 @@
 (() => {
 const D = window.DATINA;
+/* Formas de carga (etapa 6). Si el código tardó en llegar, las fichas ya se ven con su silueta (datina.css las muestra a
+   los 400 ms): las que están en pantalla se completan en su lugar, sin entrada propia. "listo" saca la disposición de carga
+   antes de medir nada (por ejemplo el largo de los textos para "Ver más"). Desde acá, las fichas aparecen al llegar a la pantalla. */
+document.querySelectorAll("article.ficha").forEach(f => {
+  const r = f.getBoundingClientRect();
+  if (r.height > 0 && r.bottom > 0 && r.top < innerHeight && +getComputedStyle(f).opacity > .01) f.classList.add("visto", "sin-entrada");
+});
+document.documentElement.classList.add("listo");
 
 /* ---------- páginas: cada sección vive en su propio archivo (salud.html, politica.html) ----------
    Cada página trae solo el marcado de su sección. Lo que hace falta saber de las otras (títulos, fichas y en qué página
@@ -31,17 +39,21 @@ const $ = id => document.getElementById(id) || document.createElement("div");
 // y se bajan recién cuando se dibuja una ficha que las usa, como la lista de legisladores
 const DIFERIDAS = D.diferidas || {}, pedidas = {};
 const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = t)));
-// Dibujo de una ficha que necesita tablas diferidas (lista fija o función que la devuelve): avisa mientras llegan y después dibuja
+/* Mientras llegan los datos de un gráfico, el contenedor queda vacío y muestra la silueta de su forma (data-forma en la plantilla,
+   dibujada por datina.css) con el alto que va a tener, así nada salta cuando llega. Los lectores de pantalla oyen "Cargando". */
+const esperando = el => { el.innerHTML = '<span class="solo-lector">Cargando los datos</span>'; el.setAttribute("aria-busy", "true"); };
+const sinDatos = (el, t) => { el.removeAttribute("aria-busy"); el.innerHTML = `<p class="nota">${t}</p>`; };
+// Dibujo de una ficha que necesita tablas diferidas (lista fija o función que la devuelve): muestra la silueta mientras llegan y después dibuja
 const conTablas = (g, nombres, dibujo) => a => {
   const faltan = (typeof nombres === "function" ? nombres() : nombres).filter(n => !T[n]);
   if (!faltan.length) return dibujo(a);
   const el = G(g); if (!el) return;
-  if (!el.querySelector("svg")) el.innerHTML = '<p class="nota">Cargando los datos…</p>';
+  if (!el.querySelector("svg")) esperando(el);
   Promise.all(faltan.map(cargarTabla)).then(() => {
     dibujo(a);
     // "Descargar imagen" se muestra solo si la ficha tiene un gráfico: ahora que está dibujado, se vuelve a mirar
     const f = el.closest(".ficha"), bi = f?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(f);
-  }).catch(() => { el.innerHTML = '<p class="nota">No se pudieron cargar los datos.</p>'; });
+  }).catch(() => sinDatos(el, "No se pudieron cargar los datos."));
 };
 const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
 const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
@@ -314,15 +326,21 @@ function elegir(c, desdeHistorial = false) {
     if (prov) u.searchParams.set("prov", prov); else u.searchParams.delete("prov");
     history.pushState({...history.state, prov}, "", u);
   }
-  dibujarTodo(); pintarPanel(true); tablaAreas(); alCambiarProv.forEach(f => f());
+  repintarProv();
 }
 // lo que, además de los gráficos y el perfil, depende de la provincia elegida (indicador, migas, "En cifras", destacados)
 const alCambiarProv = [];
-// cada entrada del historial recuerda su provincia: "atrás" y "adelante" la restituyen sin agregar entradas
+// cada entrada del historial recuerda su provincia: "atrás" y "adelante" la restituyen sin agregar entradas.
+// Lo que se está mirando queda en su lugar: el navegador llevaría la página a la altura que tenía cuando se cambió la provincia
+// (lo hace después de este aviso, por eso se corrige en el cuadro siguiente, antes de dibujarlo)
 history.replaceState({...history.state, prov}, "");
 addEventListener("popstate", ev => {
   const c = ev.state && "prov" in ev.state ? ev.state.prov : null;
-  if (c !== null && c !== prov) elegir(c, true);
+  if (c === null || c === prov) return;
+  const ref = document.elementFromPoint(innerWidth / 2, innerHeight / 2)?.closest("article, .explicador, .tema-cierre, .pasos, .pie-sitio, section");
+  const top0 = ref?.getBoundingClientRect().top;
+  elegir(c, true);
+  if (ref) requestAnimationFrame(() => { if (ref.isConnected) scrollBy({top: ref.getBoundingClientRect().top - top0, behavior: "instant"}); });
 });
 
 /* Desplegable propio: botón chico, panel con buscador y lista en dos columnas.
@@ -382,7 +400,7 @@ const desplegable = (() => {
 
 /* ---------- utilidades de gráfico ---------- */
 function lienzo(el, h, m) {
-  el.innerHTML = "";
+  el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
   const w = Math.max(300, el.clientWidth);
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role","img");
   return {svg, w, h, iw: w - m.l - m.r, ih: h - m.t - m.b, g: svg.append("g").attr("transform", `translate(${m.l},${m.t})`)};
@@ -413,6 +431,12 @@ function trazar(path, dash) {
     .transition().duration(DUR_G).ease(EASE).attr("stroke-dashoffset", 0)
     .on("end", function() { d3.select(this).attr("stroke-dasharray", dash || null).attr("stroke-dashoffset", null); });
 }
+/* Al cambiar de provincia, donde solo cambia el resaltado el color pasa de una provincia a la otra en 200 ms, sin redibujar:
+   cada gráfico que resalta la provincia deja en su contenedor una función resaltar(). La transición lleva nombre propio
+   para no cortar el dibujo de entrada si todavía está en marcha. */
+const DUR_C = 200;
+const pasar = sel => sel.transition("resalte").duration(DUR_C).ease(d3.easeCubicOut);
+const claseProv = (d, base) => d.codigo_indec === prov ? "etq-fuerte" : base;
 // rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
 const aparecer = (sel, delay = 0) => sel.attr("opacity", 0).transition().delay(Math.min(delay, 150)).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
 
@@ -501,14 +525,20 @@ function barrasH(el, cfg) {
   g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? (cfg.ntAngosto || 2) : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   if (x.domain()[0] < 0) g.append("line").attr("x1",x(0)).attr("x2",x(0)).attr("y1",0).attr("y2",data.length*fila).attr("stroke",css("--faint"));
   const filas = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
+  // lo que depende de la provincia elegida: se usa al dibujar y otra vez en resaltar()
+  const relleno = d => d.codigo_indec === prov ? css("--celeste-fuerte") : (cfg.color ? cfg.color(d) : css("--celeste"));
+  const opac = d => prov && d.codigo_indec !== prov ? .55 : 1;
   const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", 2)
-    .attr("width", d => Math.abs(x(d[cfg.k]) - x(0)))
-    .attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : (cfg.color ? cfg.color(d) : css("--celeste")))
-    .attr("opacity", d => prov && d.codigo_indec !== prov ? .55 : 1);
-  filas.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end")
-    .attr("class", d => d.codigo_indec === prov ? "etq-fuerte" : "etq").text(d => d.territorio);
+    .attr("width", d => Math.abs(x(d[cfg.k]) - x(0))).attr("fill", relleno).attr("opacity", opac);
+  const nombres = filas.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end")
+    .attr("class", d => claseProv(d, "etq")).text(d => d.territorio);
   const valores = filas.append("text").attr("x", d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em")
-    .attr("class", d => d.codigo_indec === prov ? "etq-fuerte" : "etq-suave").text(d => (cfg.vf || n1)(d[cfg.k]));
+    .attr("class", d => claseProv(d, "etq-suave")).text(d => (cfg.vf || n1)(d[cfg.k]));
+  // si los datos mismos cambian con la provincia (los nombres más frecuentes), se redibuja
+  if (!cfg.cambiaConProv) el.resaltar = () => {
+    pasar(barras).attr("fill", relleno).attr("opacity", opac);
+    nombres.attr("class", d => claseProv(d, "etq")); valores.attr("class", d => claseProv(d, "etq-suave"));
+  };
   if (cfg.anim) {
     barras.attr("x", x(0)).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
       .attr("x", d => x(Math.min(0, d[cfg.k]))).attr("width", d => Math.abs(x(d[cfg.k]) - x(0)));
@@ -547,12 +577,14 @@ function pesas(el, cfg) {
     g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 6).attr("class","etq-fuerte").attr("fill",css("--ocde")).text(cfg.refLab);
   }
+  const opac = d => prov && d.codigo_indec !== prov ? .45 : 1, relleno = d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste");
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.codigo_indec) + y.bandwidth()/2})`)
-    .attr("opacity", d => prov && d.codigo_indec !== prov ? .45 : 1);
+    .attr("opacity", opac);
   const tramo = f.append("line").attr("x1", d => x(d[b])).attr("x2", d => x(d[a])).attr("stroke", css("--celeste-suave")).attr("stroke-width", 5).attr("stroke-linecap","round");
   f.append("circle").attr("cx", d => x(d[a])).attr("r", 5).attr("fill", css("--bg")).attr("stroke", css("--celeste")).attr("stroke-width", 2);
-  const punto = f.append("circle").attr("cx", d => x(d[b])).attr("r", 5.5).attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste"));
-  f.append("text").attr("x", -10).attr("dy",".35em").attr("text-anchor","end").attr("class", d => d.codigo_indec === prov ? "etq-fuerte" : "etq").text(d => d.territorio);
+  const punto = f.append("circle").attr("cx", d => x(d[b])).attr("r", 5.5).attr("fill", relleno);
+  const nombres = f.append("text").attr("x", -10).attr("dy",".35em").attr("text-anchor","end").attr("class", d => claseProv(d, "etq")).text(d => d.territorio);
+  el.resaltar = () => { pasar(f).attr("opacity", opac); pasar(punto).attr("fill", relleno); nombres.attr("class", d => claseProv(d, "etq")); };
   const valor = f.append("text").attr("x", d => x(Math.max(d[a], d[b])) + 10).attr("dy",".35em").attr("class","etq-suave").text(d => vf(d[b]));
   if (cfg.anim) {
     // el punto viaja desde el valor de antes hasta el de después: la animación cuenta el cambio
@@ -624,7 +656,10 @@ function piramidePob(el, cfg) {
   const mx = d3.max(data, d => Math.max(d.vh, d.mh, d.vf, d.mf));
   const x = d3.scaleLinear().domain([0, mx]).range([0, centro - gap - 6]);
   const y = d3.scaleBand().domain(data.map(d => d.edad).reverse()).range([0, data.length * fila]).padding(.14);
-  g.append("text").attr("x", centro).attr("y", -30).attr("text-anchor","middle").attr("class","etq-fuerte").text(cfg.nombre);
+  // al cambiar de provincia, cada barra pasa del valor de la anterior al de la nueva (300 ms), con la escala de cada una
+  const antes = !cfg.anim && !REDUCIR && el.pir && el.pir.cod !== cfg.cod ? el.pir : null;
+  el.pir = {cod: cfg.cod, mx, d: Object.fromEntries(data.map(d => [d.edad, d]))};
+  const titulo = g.append("text").attr("x", centro).attr("y", -30).attr("text-anchor","middle").attr("class","etq-fuerte").text(cfg.nombre);
   g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
   g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
@@ -645,6 +680,15 @@ function piramidePob(el, cfg) {
     v.attr("x", centro - gap).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
     m.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d.mh));
     aparecer(ov, 700); aparecer(om, 700);
+  }
+  if (antes) {
+    const xa = d3.scaleLinear().domain([0, antes.mx]).range(x.range()), va = d => antes.d[d.edad] || d;
+    const ir = sel => sel.transition().duration(DUR_G).ease(EASE);
+    ir(v.attr("x", d => centro - gap - xa(va(d).vh)).attr("width", d => xa(va(d).vh))).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
+    ir(m.attr("width", d => xa(va(d).mh))).attr("width", d => x(d.mh));
+    ir(ov.attr("x", d => centro - gap - xa(va(d).vf)).attr("width", d => xa(va(d).vf))).attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf));
+    ir(om.attr("width", d => xa(va(d).mf))).attr("width", d => x(d.mf));
+    titulo.attr("opacity", 0).transition().duration(DUR_C).attr("opacity", 1);
   }
 }
 
@@ -704,14 +748,16 @@ function apiladasH(el, cfg) {
   const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.22);
   g.append("g").attr("class","eje").call(d3.axisTop(x).tickValues([0, 25, 50, 75, 100]).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   const f = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
-  f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end")
-    .attr("class", d => d.codigo_indec === prov || d.codigo_indec === "00" ? "etq-fuerte" : "etq").text(d => d.territorio);
+  const clase = d => d.codigo_indec === prov || d.codigo_indec === "00" ? "etq-fuerte" : "etq";
+  const opac = d => prov && d.codigo_indec !== prov && d.codigo_indec !== "00" ? .55 : 1;
+  const nombres = f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class", clase).text(d => d.territorio);
+  el.resaltar = () => { nombres.attr("class", clase); f.each(function(d) { pasar(d3.select(this).selectAll("rect")).attr("opacity", opac(d)); }); };
   f.each(function(d) {
     let acc = 0;
     const partes = cfg.claves.map(k => { const v = d[k.k] || 0, p = {k, x0: acc, v}; acc += v; return p; });
     const r = d3.select(this).selectAll("rect").data(partes).join("rect").attr("y", 0).attr("height", y.bandwidth())
       .attr("x", p => x(p.x0)).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0))).attr("fill", p => p.k.c)
-      .attr("opacity", prov && d.codigo_indec !== prov && d.codigo_indec !== "00" ? .55 : 1);
+      .attr("opacity", opac(d));
     const t = d3.select(this).selectAll("text.v").data(partes.filter(p => x(p.x0 + p.v) - x(p.x0) > 34)).join("text").attr("class","v")
       .attr("x", p => x(p.x0) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("font-size", 11.5).attr("font-family","var(--mono)")
       .attr("fill", p => p.k.texto || "#fff").text(p => n0(p.v));
@@ -771,6 +817,7 @@ function mapaAreas(anim) {
     .attr("class", d => "prov" + (d.properties.codigo_indec === prov ? " elegida" : "")).attr("d", camino)
     .attr("fill", d => escala(val[d.properties.codigo_indec]?.pct_territorio ?? 0));
   provs.filter(".elegida").raise();
+  el.resaltar = () => { provs.attr("class", d => "prov" + (d.properties.codigo_indec === prov ? " elegida" : "")); provs.filter(".elegida").raise(); };
   provs.on("pointermove", (ev, d) => {
       const v = val[d.properties.codigo_indec], [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${v ? v.territorio : d.properties.nombre}</b><br>${v ? pct(v.pct_territorio) : "Sin dato"} del territorio protegido` +
@@ -795,7 +842,7 @@ function mapaAreas(anim) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_2022"};
+const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -891,7 +938,7 @@ const DIB = {
     const cod = NOMBRES[prov] ? prov : "00";
     document.getElementById("contexto-nombres").textContent = `${NOMBRES[prov] || "Total del país"}, ${cu.nom_anio}. Diez nombres más frecuentes.`;
     barrasH(G("nombres"), {anim:a, data: T.nombres_top.filter(d => d.codigo_indec === cod && d.sexo === MED.nombres)
-      .map(d => ({codigo_indec: d.nombre, territorio: d.nombre, cantidad: d.cantidad})), k:"cantidad", vf: n0, af: n0});
+      .map(d => ({codigo_indec: d.nombre, territorio: d.nombre, cantidad: d.cantidad})), k:"cantidad", vf: n0, af: n0, cambiaConProv: true});
   },
   carne: a => lineas(G("carne"), {anim:a, data: T.carne_vacuna, x:"anio", y0:0, vf: v => n1(v) + " kg", yf: v => v + " kg",
     series:[{k:"kg_por_habitante", lab:"Carne vacuna", c:NAR, w:3}]}),
@@ -1005,7 +1052,7 @@ const lgMes = t => t === "sin fecha" ? "sin fecha" : `${MESES[+t.slice(5, 7) - 1
 DIB.legisladores = () => {
   const c = MED.legisladores || prov || "02", per = MED.lgPer, el = G("legisladores");
   document.getElementById("lg-sel").value = c; document.getElementById("lg-per").value = per;
-  if (!LGP) { el.innerHTML = '<p class="nota">Cargando la lista…</p>'; lgCargar().then(DIB.legisladores).catch(() => { el.innerHTML = '<p class="nota">No se pudo cargar la lista.</p>'; }); return; }
+  if (!LGP) { esperando(el); lgCargar().then(DIB.legisladores).catch(() => sinDatos(el, "No se pudo cargar la lista.")); return; }
   // fila: [periodo, cámara, provincia, nombre, bloque, espacio, desde, hasta, a quién reemplaza]
   const F = LGP.filas.filter(f => f[0] === per && f[2] === c);
   const nom = i => { const n = LGP.nombres[i], k = n.indexOf(", "); return k < 0 ? n : `${n.slice(k + 2)} ${n.slice(0, k)}`; };
@@ -1033,6 +1080,7 @@ DIB.legisladores = () => {
     `${dip.length} bancas de diputados y ${sen.length} de senadores nacionales. En Diputados: ${listaY(cuenta(dip))}. En el Senado: ${listaY(cuenta(sen))}. ` +
     (cambios ? `Hubo ${cambios === 1 ? "un cambio" : `${cambios} cambios`} de legislador ${per === LG_ULT ? "en lo que va del" : "durante el"} período, que ${cambios === 1 ? "figura" : "figuran"} entre paréntesis.`
       : `No hubo cambios de legisladores ${per === LG_ULT ? "en lo que va del" : "durante el"} período.`);
+  el.removeAttribute("aria-busy");
   el.innerHTML = `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
 };
 
@@ -1108,7 +1156,7 @@ DIB.votaciones = a => {
   document.getElementById("vt-ley").innerHTML = [1, 2, 3, 4].map(k => `<span><i style="${k === 4 ? `border:1.5px solid ${VOTO_COL[4]};border-radius:50%;box-sizing:border-box` : `background:${VOTO_COL[k]};border-radius:50%`}"></i>${VOTO_LAB[k]}</span>`).join("") +
     (prov ? `<span><i style="border:2px solid var(--ink);border-radius:50%;box-sizing:border-box"></i>${NOMBRES[prov]}</span>` : "");
   if (!C) { el.innerHTML = `<p class="nota">El Senado no publica el acta con el voto de cada senador de esta votación. Elegí Diputados para verla.</p>`; return; }
-  if (!VTJ) { el.innerHTML = '<p class="nota">Cargando los votos…</p>'; vtCargar().then(() => DIB.votaciones(a)).catch(() => { el.innerHTML = '<p class="nota">No se pudieron cargar los votos.</p>'; }); return; }
+  if (!VTJ) { esperando(el); vtCargar().then(() => DIB.votaciones(a)).catch(() => sinDatos(el, "No se pudieron cargar los votos.")); return; }
   const V = VTJ.votos[`${L.k}|${cam}`];
   const filas = VT.espacios.map((e, i) => ({e, v: V.filter(x => x[2] === i).sort((p, q) => p[4] - q[4] || VTJ.nombres[p[0]].localeCompare(VTJ.nombres[q[0]], "es"))})).filter(f => f.v.length);
   if (prov) {
@@ -1428,6 +1476,28 @@ function cambiarVista(g, dibujar = () => DIB[g](false)) {
   el.style.viewTransitionName = "grafico";
   const t = document.startViewTransition({update: dibujar, types: ["grafico"]});
   t.finished.finally(() => { el.style.viewTransitionName = ""; });
+}
+/* Al cambiar de provincia (etapa 6), según qué cambia en cada lugar:
+   - solo el resaltado: el color pasa de una provincia a la otra en 200 ms (resaltar() de cada gráfico, sin redibujar);
+   - los valores: la pirámide de población y los puntos del perfil provincial viajan de unos a otros en 300 ms;
+   - lo demás que está en pantalla (gráficos cuyos datos o rótulos cambian, "En cifras", provincias parecidas) funde sobre
+     lo anterior en 200 ms, con una transición de vista en la que la página queda quieta. Cada pieza lleva un nombre propio.
+   Lo que está fuera de la pantalla se redibuja de una vez. Con movimiento reducido quedan solo los cambios de color. */
+const SE_MUEVEN = new Set(["piramide"]);
+const enPantalla = el => { const r = el.getBoundingClientRect(); return r.height > 0 && r.bottom > 0 && r.top < innerHeight; };
+function repintarProv() {
+  const vistos = Object.keys(DIB).map(k => [k, G(k)]).filter(([, el]) => el && el.closest(".visto"));
+  vistos.forEach(([, el]) => el.resaltar?.());
+  const redibujan = vistos.filter(([, el]) => !el.resaltar);
+  const cambiar = () => { redibujan.forEach(([k]) => DIB[k](false)); pintarPanel(true); tablaAreas(); alCambiarProv.forEach(f => f()); };
+  if (REDUCIR || !VT_TIPOS || document.hidden) return cambiar();
+  // "En cifras" se arma de nuevo: su lugar se busca antes y después del cambio
+  const lugares = [...redibujan.filter(([k]) => !SE_MUEVEN.has(k)).map(([, el]) => () => el),
+    () => document.querySelector(".en-cifras"), () => document.getElementById("prov-extra")];
+  const nombrar = () => lugares.forEach((l, i) => { const el = l(); if (el && enPantalla(el)) el.style.viewTransitionName = `cambio-${i}`; });
+  nombrar();
+  const t = document.startViewTransition({update: () => { cambiar(); nombrar(); }, types: ["provincia"]});
+  t.finished.finally(() => lugares.forEach(l => { const el = l(); if (el) el.style.viewTransitionName = ""; }));
 }
 // Solo se redibujan los gráficos de tarjetas que ya entraron en pantalla: el resto se dibuja al llegar
 function dibujarTodo() { Object.keys(DIB).forEach(k => { const el = G(k); if (el && el.closest(".visto")) DIB[k](false); }); }
@@ -2572,7 +2642,8 @@ const PREG = [
   const btn = document.getElementById("menu-btn"), panel = document.getElementById("menu-panel");
   let t;
   const abrir = () => { clearTimeout(t); panel.hidden = false; btn.setAttribute("aria-expanded", "true"); requestAnimationFrame(() => panel.classList.add("abierto")); panel.querySelector("a").focus({preventScroll: true}); };
-  const cerrar = (volver) => { panel.classList.remove("abierto"); btn.setAttribute("aria-expanded", "false"); t = setTimeout(() => panel.hidden = true, 160); if (volver) btn.focus(); };
+  // los botones de la barra están fijos arriba: sin preventScroll, Chrome corre la página para "mostrarlos" al darles el foco
+  const cerrar = (volver) => { panel.classList.remove("abierto"); btn.setAttribute("aria-expanded", "false"); t = setTimeout(() => panel.hidden = true, 160); if (volver) btn.focus({preventScroll: true}); };
   btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
   panel.addEventListener("click", ev => { if (ev.target.closest("a")) cerrar(false); });
   document.addEventListener("keydown", ev => { if (ev.key === "Escape" && btn.getAttribute("aria-expanded") === "true") cerrar(true); });
@@ -2835,7 +2906,7 @@ if (PAGINA !== "inicio") {
     caja.hidden = false; btn.setAttribute("aria-expanded", "true");
     buscar(); ent.focus({preventScroll: true});
   };
-  const cerrar = volver => { btn.setAttribute("aria-expanded", "false"); caja.hidden = true; if (volver) btn.focus(); };
+  const cerrar = volver => { btn.setAttribute("aria-expanded", "false"); caja.hidden = true; if (volver) btn.focus({preventScroll: true}); };
   btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
   ent.addEventListener("input", buscar);
   ent.addEventListener("keydown", ev => { if (ev.key === "Enter") { const a = res.querySelector("a"); if (a) { ev.preventDefault(); a.click(); } } });
@@ -2891,8 +2962,8 @@ const pintarChip = () => {
 pintarChip(); alCambiarProv.push(pintarChip);
 document.getElementById("chip-borrar")?.addEventListener("click", () => {
   elegir("");
-  // el foco no se pierde cuando el indicador desaparece
-  document.getElementById("lupa-btn")?.focus();
+  // el foco no se pierde cuando el indicador desaparece (sin correr la página: la lupa está en la barra fija)
+  document.getElementById("lupa-btn")?.focus({preventScroll: true});
 });
 
 /* contacto: aviso después de enviar el formulario (Netlify vuelve a esta página con ?enviado=1) */

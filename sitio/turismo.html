@@ -15,10 +15,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=763a7eb850">
+<link rel="stylesheet" href="datina.css?v=4536c9f0ed">
 </head>
 <body data-pagina="turismo">
-<header class="barra">
+<header class="barra clara">
   <div class="envoltura">
     <div class="barra-izq">
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 5h16M2 10h16M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
@@ -106,13 +106,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <p class="pregunta">¿Quién viaja por la Argentina y adónde va?</p>
       <p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>
-    </div>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid"><section class="exp-bloque"><h4>Turista y excursionista</h4><p>Las estadísticas de turismo siguen las definiciones de la Organización Mundial del Turismo (ONU Turismo). Un visitante es quien viaja fuera de su entorno habitual por menos de un año, con cualquier motivo principal. Si el viaje incluye al menos una noche, es turista. Si vuelve en el día, es excursionista o visitante del día. Las fichas de este sitio cuentan turistas, es decir, personas que pasaron al menos una noche en el lugar.</p><p class="exp-fuente">Fuente: <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></p></section><section class="exp-bloque"><h4>Turistas no residentes</h4><p>La serie de turismo internacional cuenta los viajes de no residentes que entran al país (turismo receptivo) y de residentes que salen (turismo emisivo), por todos los medios de transporte: aéreo, terrestre, fluvial y marítimo. Se arma con los registros de la Dirección Nacional de Migraciones y la publica todos los meses la Dirección Nacional de Mercados y Estadística, de la Subsecretaría de Turismo.</p><p class="exp-fuente">Fuente: <a href="https://datos.yvera.tur.ar/dataset/turismo-internacional-total-pais" target="_blank" rel="noopener">Datos abiertos de Turismo: Turismo Internacional, total país</a></p></section><section class="exp-bloque"><h4>Encuesta de Turismo Internacional (ETI)</h4><p>La ETI es una encuesta continua que el INDEC y la Subsecretaría de Turismo hacen desde 2004. Pregunta a quienes entran y salen del país por el motivo, la duración, el alojamiento, el gasto y los lugares visitados. No cubre todos los pasos: se hace en los aeropuertos de Ezeiza, Aeroparque, Córdoba y Mendoza, en el Puerto de Buenos Aires y en el paso Cristo Redentor. Por eso la distribución por provincia visitada refleja sobre todo a quienes viajan en avión.</p><p class="exp-fuente">Fuentes: <a href="https://datos.yvera.tur.ar/dataset/encuesta-turismo-internacional" target="_blank" rel="noopener">Datos abiertos de Turismo: Encuesta de Turismo Internacional</a>, <a href="https://www.yvera.tur.ar/sinta/informe/info/turismo-internacional" target="_blank" rel="noopener">SINTA, informe de turismo internacional</a></p></section><section class="exp-bloque"><h4>Encuesta de Ocupación Hotelera (EOH)</h4><p>La EOH es otra encuesta continua del INDEC y la Subsecretaría de Turismo, que también empezó en 2004. Mira el turismo desde quienes ofrecen alojamiento: hoteles y establecimientos parahoteleros informan cuántos viajeros hospedaron, cuántas noches se quedaron y cuántas habitaciones y plazas se ocuparon, separando residentes de no residentes. Los resultados se publican por región de destino y por localidad. No incluye casas de familiares ni alquileres temporarios particulares.</p><p class="exp-fuente">Fuentes: <a href="https://datos.yvera.tur.ar/dataset/encuesta-ocupacion-hotelera-parahotelera-eoh" target="_blank" rel="noopener">Datos abiertos de Turismo: EOH</a>, <a href="https://www.yvera.tur.ar/sinta/informe/info/encuesta-de-ocupacion-hotelera-eoh" target="_blank" rel="noopener">SINTA, informe de la EOH</a></p></section><section class="exp-bloque"><h4>Qué es el SINTA</h4><p>El Sistema de Información Turística de la Argentina (SINTA) reúne en un solo lugar las estadísticas oficiales de turismo. Lo administra el área de estadística de la Subsecretaría de Turismo. Incluye informes técnicos y metodológicos, un portal de datos abiertos, tableros interactivos y los microdatos de la Encuesta de Viajes y Turismo de los Hogares. De ahí salen la EOH, la ETI, el turismo internacional y las visitas a parques nacionales que usa este sitio.</p><p class="exp-fuente">Fuente: <a href="https://www.argentina.gob.ar/node/281669" target="_blank" rel="noopener">Argentina.gob.ar, presentación del SINTA</a></p></section></div><details class="glosario"><summary>Glosario</summary><dl><div><dt>Visitante</dt><dd>Quien viaja a un destino fuera de su entorno habitual, por menos de un año y con cualquier motivo principal. <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></dd></div><div><dt>Turista</dt><dd>Visitante cuyo viaje incluye al menos una noche. <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></dd></div><div><dt>Excursionista</dt><dd>Visitante que no pasa la noche en el destino. También se lo llama visitante del día. <a href="https://www.untourism.int/es/glosario-terminos-turisticos" target="_blank" rel="noopener">ONU Turismo, glosario de términos</a></dd></div><div><dt>Turismo receptivo y emisivo</dt><dd>Viajes de no residentes que entran al país y de residentes que salen. <a href="https://datos.yvera.tur.ar/dataset/turismo-internacional-total-pais" target="_blank" rel="noopener">Datos abiertos de Turismo: Turismo Internacional, total país</a></dd></div><div><dt>Pernocte</dt><dd>Cada noche que un viajero pasa en un establecimiento. La EOH lo informa junto con los viajeros hospedados. <a href="https://datos.yvera.tur.ar/dataset/encuesta-ocupacion-hotelera-parahotelera-eoh" target="_blank" rel="noopener">Datos abiertos de Turismo: EOH</a></dd></div></dl></details></div>
 
     <article class="ficha" id="f-receptivo">
       <h3 data-t="receptivo-titulo"></h3>
       <p class="lead" data-t="receptivo"></p>
-      <div class="grafico" data-g="receptivo"></div>
+      <div class="grafico" data-g="receptivo" data-forma="lineas"></div>
       <p class="nota" data-t="receptivo-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional</span><a href="datos/turistas_no_residentes_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -120,7 +120,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-hoteles">
       <h3 data-t="hoteles-titulo"></h3>
       <p class="lead" data-t="hoteles"></p>
-      <div class="grafico" data-g="hoteles"></div>
+      <div class="grafico" data-g="hoteles" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="hoteles-nota"></p>
       <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Ocupación Hotelera</span><a href="datos/viajeros_hoteles_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -132,7 +132,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
         <button type="button" data-m="turistas" aria-pressed="false">Cantidad de turistas</button>
       </div>
-      <div class="grafico" data-g="eti"></div>
+      <div class="grafico" data-g="eti" data-forma="barras"></div>
       <p class="nota" data-t="eti-nota"></p>
       <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Turismo Internacional</span><a href="datos/turistas_extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -172,6 +172,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=3f23a41df0"></script>
-<script src="datina.js?v=b6f96bf8c1"></script>
+<script src="datina.js?v=44ac7993c1"></script>
 </body>
 </html>

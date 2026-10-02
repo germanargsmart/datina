@@ -254,6 +254,36 @@ BLOQUES = bloques(base)
 for b in BLOQUES:
     b["pagina"] = b["id"] if "tema" in b["clases"] else next(PAGINA_DE_BLOQUE[c] for c in b["clases"] if c in PAGINA_DE_BLOQUE)
 
+# Formas de carga (etapa 6): mientras llegan los datos y el código, cada ficha muestra su silueta y cada gráfico reserva su alto.
+# La forma de cada gráfico va en la plantilla (data-forma). Las tarjetas de "En cifras" y del perfil provincial las arma
+# datina.js: aca se cuentan para dejar en su lugar la misma cantidad de tarjetas vacías
+sin_forma = re.findall(r'<div class="grafico[^"]*" data-g="([\w-]+)"(?![^>]*data-forma)', base)
+if sin_forma:
+    print("Aviso: gráficos sin data-forma en la plantilla (se ven sin silueta mientras cargan):", ", ".join(sin_forma))
+bloque_js = lambda ini, fin: js[js.index(ini):js.index(fin, js.index(ini))]
+CON_CLAVE = set(re.findall(r'^\s+"(f-[\w-]+)":\s*\[', bloque_js("const CLAVE = {", "\n};"), re.M))
+CON_PERFIL = re.findall(r'\{id:"(f-[\w-]+)"', bloque_js("const INDP = [", "\n];"))
+tarjetas_vacias = lambda n, cls: "".join(f'<span class="tarjeta {cls}"></span>' for _ in range(n))
+
+
+def siluetas(h, id_):
+    """Barra clara desde el principio fuera de la portada, y tarjetas vacías donde datina.js pone "En cifras" y el perfil."""
+    if id_ != "inicio":
+        assert '<header class="barra">' in h
+        h = h.replace('<header class="barra">', '<header class="barra clara">', 1)
+    b = next((b for b in bloques(h) if b["id"] == id_ and "tema" in b["clases"] and "herramienta" not in b["clases"]), None)
+    if b:
+        blo = h[b["ini"]:b["fin"]]
+        ids = set(re.findall(r'<article class="ficha[^"]*" id="(f-[\w-]+)"', blo))
+        # la misma cuenta que pintarCifras() sin provincia elegida: una tarjeta por cifra destacada y una que invita a elegirla
+        n = len(ids & CON_CLAVE) + (1 if ids & set(CON_PERFIL) else 0)
+        if n >= 2:
+            vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
+            blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + vacias, blo, 1, re.S)
+            h = h[:b["ini"]] + blo + h[b["fin"]:]
+    return h.replace('<div class="prov-grid" id="prov-grid"></div>',
+                     f'<div class="prov-grid" id="prov-grid">{tarjetas_vacias(len(CON_PERFIL), "dp esqueleto")}</div>', 1)
+
 
 def pagina(id_, titulo, descripcion, quedan, recorte=None):
     """Arma una pagina con los bloques de `quedan` (paginas del indice) y saca el resto del marcado.
@@ -279,6 +309,7 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None):
         return f'href="{url_pagina(p)}{"" if p == id2 else "#" + id2}"'
     h = re.sub(r'href="#([\w-]+)"', destino, h)
     h = navegacion(h, id_)
+    h = siluetas(h, id_)
     (SITIO / ("index.html" if id_ == "inicio" else f"{id_}.html")).write_text(h, encoding="utf-8")
     return h
 
