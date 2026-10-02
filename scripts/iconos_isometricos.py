@@ -287,7 +287,7 @@ def _(ic):
         ic.linea([(4.8, y, z), (8.2, y, z)], "k")
 
 
-@icono("maletin", "hondo")
+@icono("maletin", "azul")
 def _(ic):
     ic.sombra(6.8, 1.6, 6.4, 2.2)
     ic.caja(0, 0, 0, 9.2, 4.0, 6.0)
@@ -312,7 +312,7 @@ def _(ic):
         ic.poli([(x0, 7.7, 4.1), (x1, 7.7, 4.1), (x1, 7.7, 3.6), (x0, 7.7, 3.6)], c)
 
 
-@icono("casa", "oro")
+@icono("casa", "azul")
 def _(ic):
     ic.sombra(7.4, 3.2, 4.8, 2.0)
     # faldon trasero del techo y chimenea, despues paredes, frontis y faldon delantero
@@ -338,7 +338,7 @@ def _(ic):
              (cx + a, y, cz + l), (cx - a, y, cz + l), (cx - a, y, cz + a), (cx - l, y, cz + a), (cx - l, y, cz - a), (cx - a, y, cz - a)], "s")
 
 
-@icono("birrete", "hondo")
+@icono("birrete", "azul")
 def _(ic):
     ic.revolucion(5, 5, [(0, 2.9), (1.6, 3.0), (2.8, 3.1)], "s", mitad=True)
     h = 4.6
@@ -372,7 +372,7 @@ def _(ic):
     ic.cilindro(6, 4.1, 8.85, .45, .9)
 
 
-@icono("colectivo", "hondo")
+@icono("colectivo", "azul")
 def _(ic):
     ic.caja(0, 0, 1, 11.5, 4.4, 4.8)
     for k in range(5):
@@ -385,14 +385,14 @@ def _(ic):
         ic.circulo_vertical(x, 4.4, 1.05, .45, "w", 24)
 
 
-@icono("rayo", "oro")
+@icono("rayo", "azul")
 def _(ic):
     ic.sombra(4.6, 1.2, 3.6, 1.4)
     rayo = [(2.6, 10.6), (.2, 4.9), (2.9, 4.9), (1.4, 0), (6.8, 6.5), (3.9, 6.5), (5.8, 10.6)]
     ic.extruir(rayo, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 1.7, 0), "l", "s")
 
 
-@icono("valija", "hondo")
+@icono("valija", "azul")
 def _(ic):
     ic.sombra(5.6, 1.4, 4.4, 1.8)
     ic.cilindro(.9, 2.9, 0, .5, .55, arriba=None)
@@ -411,7 +411,7 @@ def _(ic):
     ic.piramide(9.6, 1.6, 0, 2.6, 4.0, nieve=.3)
 
 
-@icono("mate", "oro")
+@icono("mate", "azul")
 def _(ic):
     # calabaza redonda en dos tonos (como un globo), virola clara, yerba y bombilla con la boquilla doblada
     perfil = [(0, 1.1), (.2, 2.0), (.6, 2.75), (1.2, 3.25), (1.9, 3.45), (2.6, 3.35), (3.3, 2.95), (3.9, 2.45), (4.3, 2.15), (4.6, 2.05)]
@@ -430,7 +430,7 @@ def _(ic):
         ic.caja(x, y, .55, 1.15, 1.15, h)
 
 
-@icono("podio", "oro")
+@icono("podio", "azul")
 def _(ic):
     ic.caja(0, 0, 0, 3.2, 4.2, 4.2)
     ic.caja(3.2, 0, 0, 3.2, 4.2, 6.2)
@@ -439,7 +439,7 @@ def _(ic):
         ic.poli([(x0, 4.2, z), (x0 + 1.2, 4.2, z), (x0 + 1.2, 4.2, z + .45), (x0, 4.2, z + .45)], "s")
 
 
-@icono("mosaico", "hondo")
+@icono("mosaico", "azul")
 def _(ic):
     alturas = [[1.0, 2.6, 1.6], [3.6, 1.2, 2.2], [1.8, 4.4, 1.4]]
     celdas = [(i, j) for i in range(3) for j in range(3)]
@@ -493,7 +493,7 @@ def _(ic):
     ic.linea([(2.3, 1.8, 3.6), (2.6, 1.8, 2.5), (3.4, 1.8, 1.7)], "k")
 
 
-@icono("mamadera", "hondo")
+@icono("mamadera", "azul")
 def _(ic):
     ic.sombra(6.2, 3.8, 3.0, 1.3)
     ic.cilindro(5, 5, 0, 1.95, 5.6, arriba=None, lado="l")
@@ -504,7 +504,7 @@ def _(ic):
     ic.cupula((5, 5, 8.6), .5)
 
 
-@icono("monedas", "oro")
+@icono("monedas", "azul")
 def _(ic):
     def pila(cx, cy, n, r=3.2, h=.72):
         for i in range(n):
@@ -531,7 +531,7 @@ def _(ic):
         ic.cilindro(x, y, .7, .3, 7.0, arriba=None, lado="s")
 
 
-@icono("laptop", "hondo")
+@icono("laptop", "azul")
 def _(ic):
     ic.caja(0, -.5, .6, 9.4, .5, 6.2)
     y = 0
@@ -558,7 +558,8 @@ def _(ic):
 
 
 # ---------------------------------------------------------------- salida
-TONOS = {"azul": "#2C74B5", "hondo": "#1F5E97", "oro": "#B27A00"}
+# todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
+TONOS = {"azul": "#2C74B5"}
 
 def escribir():
     SALIDA.mkdir(parents=True, exist_ok=True)

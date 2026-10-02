@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=db99def3a4">
+<link rel="stylesheet" href="datina.css?v=dcd4785c22">
 </head>
 <body data-pagina="inicio">
 <header class="barra">
@@ -59,18 +59,17 @@
 </header>
 
 <section class="portada en-azul" id="inicio">
+  <!-- mapa: el mundo visto desde la Argentina y las 24 provincias, que llevan a su perfil (lo dibuja datina.js) -->
   <svg class="mapa-fondo" id="mapa" aria-hidden="true"></svg>
   <div class="portada-grid">
     <div class="portada-texto">
       <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
       <p class="lema">Las 24 Argentinas en números</p>
-      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
-      <div class="portada-acciones">
-        <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a><a class="boton" href="articulos.html">Artículos</a></nav>
-        <div class="estado" id="estado" aria-label="Estado de los datos"></div>
-      </div>
+      <p class="bajada">Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
+      <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a><a class="boton" href="articulos.html">Artículos</a></nav>
+      <p class="estado" id="estado"></p>
     </div>
-    <div class="portada-sol">
+    <div class="portada-mapa" id="portada-mapa">
       <svg class="sol" id="sol" viewBox="-100 -100 200 200" role="img" aria-label="Sol de Mayo">
         <g class="rafaga" id="sol-rafaga"></g>
         <g class="giro" id="sol-rayos"></g>
@@ -83,19 +82,22 @@
           <g class="boca"><path class="rasgo" d="M-8,14 Q-3,11.5 0,13 Q3,11.5 8,14 M-6.5,14.8 Q0,19.5 6.5,14.8"/></g>
         </g>
       </svg>
+      <p class="mapa-ayuda" id="mapa-ayuda" aria-hidden="true">Tocá una provincia para ver sus datos</p>
     </div>
   </div>
-  <section class="preguntas" aria-labelledby="preg-tit">
-    <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-label="Datos rápidos">
-      <h2 class="rot-eb" id="preg-tit">Datos rápidos</h2>
-      <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
-      <div class="rot-control">
-        <span class="rot-barra" aria-hidden="true"><i></i></span>
-        <button type="button" class="boton chico rot-pausa" aria-pressed="false">Pausar</button>
-        <button type="button" class="boton chico rot-sig">Siguiente pregunta</button>
-      </div>
+</section>
+
+<section class="preguntas" aria-labelledby="preg-tit">
+  <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-labelledby="preg-tit">
+    <h2 class="rot-eb" id="preg-tit">Datos rápidos</h2>
+    <div class="rot-control">
+      <button type="button" class="boton chico rot-ant"><span aria-hidden="true">&larr;</span> Anterior</button>
+      <span class="rot-cuenta"><span id="rot-cuenta"></span><span class="rot-barra" aria-hidden="true"><i></i></span></span>
+      <button type="button" class="boton chico rot-sig">Siguiente <span aria-hidden="true">&rarr;</span></button>
+      <button type="button" class="boton chico rot-pausa" aria-pressed="false">Pausar</button>
     </div>
-  </section>
+    <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
+  </div>
 </section>
 
 <main class="envoltura">
@@ -181,7 +183,7 @@
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=8020598329"></script>
-<script src="datina.js?v=fd28d27d14"></script>
+<script src="datos/fichas.js?v=e9bae1f3a2"></script>
+<script src="datina.js?v=5ffe088344"></script>
 </body>
 </html>

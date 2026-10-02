@@ -91,7 +91,7 @@ def bloques(h):
 
 
 # página a la que pertenece cada bloque
-PAGINA_DE_BLOQUE = {"portada": "inicio", "destacados": "inicio", "articulos-home": "inicio", "secciones": "inicio",
+PAGINA_DE_BLOQUE = {"portada": "inicio", "preguntas": "inicio", "destacados": "inicio", "articulos-home": "inicio", "secciones": "inicio",
                     "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404"}
 BLOQUES = bloques(base)
 for b in BLOQUES:

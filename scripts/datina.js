@@ -747,10 +747,11 @@ function columnasApiladas(el, cfg) {
 
 /* Mapa de provincias: color según el porcentaje del territorio protegido y círculos para las áreas nacionales */
 let GEO = null;
+const cargarGeo = () => GEO ? Promise.resolve(GEO) : fetch("datos/provincias.geojson").then(r => r.json()).then(j => (GEO = j));
 function mapaAreas(anim) {
   const el = G("mapa-areas");
   if (!el || !el.offsetParent) return;
-  if (!GEO) { fetch("datos/provincias.geojson").then(r => r.json()).then(j => { GEO = j; mapaAreas(anim); }).catch(() => {}); return; }
+  if (!GEO) { cargarGeo().then(() => mapaAreas(anim)).catch(() => {}); return; }
   el.innerHTML = "";
   const w = Math.min(560, el.clientWidth), h = Math.round(w * 1.62) + 40;
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img")
@@ -2426,8 +2427,8 @@ const PREG = [
 (function carrusel() {
   const rot = document.getElementById("rotador"); if (!rot) return;
   const q = rot.querySelector(".rot-q"), a = rot.querySelector(".rot-a");
-  const cuerpo = rot.querySelector(".rot-cuerpo"), barra = rot.querySelector(".rot-barra i");
-  const bPausa = rot.querySelector(".rot-pausa"), bSig = rot.querySelector(".rot-sig");
+  const cuerpo = rot.querySelector(".rot-cuerpo"), barra = rot.querySelector(".rot-barra i"), cuenta = document.getElementById("rot-cuenta");
+  const bPausa = rot.querySelector(".rot-pausa"), bSig = rot.querySelector(".rot-sig"), bAnt = rot.querySelector(".rot-ant");
   const DUR = 7000, freno = {pausa: false, puntero: false, foco: false, fuera: false};
   let i = 0, prog;
   const frenado = () => Object.values(freno).some(Boolean);
@@ -2438,38 +2439,44 @@ const PREG = [
     prog.onfinish = () => mostrar(i + 1, true);
     aplicar();
   }
-  function mostrar(n, animar) {
-    i = (n + PREG.length) % PREG.length;
+  const poner = () => {
     const [pq, pa, h] = PREG[i];
-    const poner = () => {
-      q.textContent = pq; q.href = destinoDe(h) || h; a.textContent = pa;
+    q.textContent = pq; q.href = destinoDe(h) || h; a.textContent = pa;
+    cuenta.textContent = `${i + 1} de ${PREG.length}`;
+  };
+  function mostrar(n, animar, paso = 1) {
+    i = (n + PREG.length) % PREG.length;
+    const entrar = () => {
+      poner();
       if (animar) cuerpo.animate(REDUCIR ? [{opacity:0}, {opacity:1}]
-        : [{opacity:0, transform:"translateY(10px)", filter:"blur(4px)"}, {opacity:1, transform:"none", filter:"blur(0)"}],
-        {duration: REDUCIR ? 200 : 480, easing: "cubic-bezier(.23,1,.32,1)"});
+        : [{opacity:0, transform:`translateX(${paso * 12}px)`}, {opacity:1, transform:"none"}],
+        {duration: REDUCIR ? 200 : 300, easing: "cubic-bezier(.23,1,.32,1)"});
       correr();
     };
-    if (!animar) return poner();
+    if (!animar) return entrar();
     const sale = cuerpo.animate(REDUCIR ? [{opacity:1}, {opacity:0}]
-      : [{opacity:1, transform:"none", filter:"blur(0)"}, {opacity:0, transform:"translateY(-6px)", filter:"blur(4px)"}],
-      {duration: 180, easing: "ease-out", fill: "forwards"});
-    sale.onfinish = () => { poner(); sale.cancel(); };
+      : [{opacity:1, transform:"none"}, {opacity:0, transform:`translateX(${-paso * 8}px)`}],
+      {duration: 150, easing: "ease-out", fill: "forwards"});
+    sale.onfinish = () => { entrar(); sale.cancel(); };
   }
   bPausa.addEventListener("click", () => {
     freno.pausa = !freno.pausa; bPausa.setAttribute("aria-pressed", freno.pausa);
     bPausa.textContent = freno.pausa ? "Seguir" : "Pausar"; aplicar();
   });
-  bSig.addEventListener("click", () => mostrar(i + 1, true));
+  bSig.addEventListener("click", () => mostrar(i + 1, true, 1));
+  bAnt.addEventListener("click", () => mostrar(i - 1, true, -1));
   rot.addEventListener("pointerenter", () => { freno.puntero = true; aplicar(); });
   rot.addEventListener("pointerleave", () => { freno.puntero = false; aplicar(); });
   rot.addEventListener("focusin", () => { freno.foco = true; aplicar(); });
   rot.addEventListener("focusout", () => { freno.foco = false; aplicar(); });
   new IntersectionObserver(([en]) => { freno.fuera = !en.isIntersecting; aplicar(); }).observe(rot);
-  // Reserva el alto de la pregunta más larga para que el resto de la portada no salte
+  // Reserva el alto de la pregunta más larga para que la página no salte. Los controles van arriba,
+  // así que el espacio que sobra con las preguntas cortas queda al final de la franja y no entre el texto y los botones
   const medir = () => {
     cuerpo.style.minHeight = "0px"; let alto = 0;
     PREG.forEach(([pq, pa]) => { q.textContent = pq; a.textContent = pa; alto = Math.max(alto, cuerpo.offsetHeight); });
     cuerpo.style.minHeight = alto + "px";
-    const [pq, pa, h] = PREG[i]; q.textContent = pq; q.href = destinoDe(h) || h; a.textContent = pa;
+    poner();
   };
   medir(); new ResizeObserver(() => medir()).observe(rot.parentElement);
   mostrar(0, false);
@@ -2640,7 +2647,7 @@ if (nosCifras) {
 
 /* recuadro de estado de la portada */
 const estado = document.getElementById("estado");
-if (estado) estado.innerHTML = `<span><b>${NFICHAS}</b> fichas</span><span><b>24</b> jurisdicciones</span>`;
+if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ART.length} artículos`].map(t => `<span>${t}</span>`).join(" · ");
 
 /* Enlaces a fichas que viven en otra página (perfil provincial, preguntas, cruces): llevan a esa página */
 document.querySelectorAll('a[href^="#"]').forEach(a => { const u = destinoDe(a.getAttribute("href")); if (u) a.href = u; });
@@ -2808,38 +2815,44 @@ if (location.hash.includes("?")) {
   if (destino) requestAnimationFrame(() => destino.scrollIntoView());
 }
 
-/* ---------- mapa de fondo: el mundo visto desde la Argentina ---------- */
+/* ---------- portada: el mundo visto desde la Argentina y las 24 provincias ----------
+   Proyección azimutal equidistante centrada en la Argentina, ajustada para que el país llene su lugar en la portada
+   (a la derecha del texto, o debajo en el celular). Los anillos marcan distancias iguales desde el centro del país.
+   Cada provincia lleva a su perfil. El mapa no recibe el foco del teclado: "Elegí tu provincia" hace lo mismo. */
 async function mapa() {
   const el = document.getElementById("mapa"), por = document.querySelector(".portada");
+  const caja = document.getElementById("portada-mapa"), ayuda = document.getElementById("mapa-ayuda");
   let mundo;
-  try { mundo = await fetch("datos/mundo-110m.json").then(r => r.json()); } catch (_) { return; }
-  const paises = topojson.feature(mundo, mundo.objects.countries).features;
+  try { [mundo] = await Promise.all([fetch("datos/mundo-110m.json").then(r => r.json()), cargarGeo()]); } catch (_) { return; }
+  // la Argentina y las Malvinas del mapa del mundo no se dibujan: van las provincias, con su contorno oficial
+  const paises = topojson.feature(mundo, mundo.objects.countries).features.filter(d => d.id !== "032" && d.id !== "238");
+  // con mouse se hace clic, en el celular se toca
+  const AYUDA = matchMedia("(hover:hover) and (pointer:fine)").matches ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
+  ayuda.textContent = AYUDA;
   const dibujar = () => {
     const W = por.clientWidth, H = por.clientHeight, angosto = W < 760;
-    // La Argentina (unos 34 grados de norte a sur, 0,6 radianes) se ubica en el espacio libre: en pantallas anchas,
-    // en el hueco entre el texto y el sol, arriba del panel de preguntas. En el celular, detrás de ese panel.
-    const pr = por.getBoundingClientRect(), sl = document.getElementById("sol").getBoundingClientRect();
-    const textoDer = Math.max(...[...document.querySelector(".portada-texto").children].map(c => c.getBoundingClientRect().right));
-    const pn = document.querySelector(".portada .rotador")?.getBoundingClientRect();
-    let esc, cx, cy;
-    if (!angosto) {
-      const arriba = 20, abajo = (pn ? pn.top : pr.bottom) - pr.top - 20, hueco = Math.max(160, sl.left - textoDer);
-      esc = Math.max(170, Math.min((abajo - arriba) / .64, hueco / .34, W * .3));
-      cx = (textoDer + sl.left) / 2 - pr.left; cy = arriba + (abajo - arriba) * .5;
-    } else {
-      esc = Math.max(240, W * .62); cx = W * .78; cy = pn ? pn.top - pr.top + pn.height * .5 : H * .7;
-    }
-    const proy = d3.geoAzimuthalEquidistant().rotate([64, 38]).clipAngle(179.9).scale(esc).translate([cx, cy]);
+    const pr = por.getBoundingClientRect(), c = caja.getBoundingClientRect(), sl = document.getElementById("sol").getBoundingClientRect();
+    // el país ocupa el lugar del mapa. En pantallas anchas deja libre la esquina del sol
+    const x0 = c.left - pr.left, y0 = c.top - pr.top + (angosto ? 0 : 12);
+    const x1 = c.right - pr.left - (angosto ? 0 : sl.width * .55), y1 = c.bottom - pr.top - ayuda.offsetHeight - 10;
+    const proy = d3.geoAzimuthalEquidistant().rotate([64, 38]).clipAngle(179.9).fitExtent([[x0, y0], [x1, y1]], GEO);
     const camino = d3.geoPath(proy), svg = d3.select(el).attr("viewBox", `0 0 ${W} ${H}`);
     svg.selectAll("*").remove();
-    svg.append("path").attr("class","grat").attr("d", camino(d3.geoGraticule().step([20, 20])()));
-    svg.append("path").attr("class","esfera").attr("d", camino({type: "Sphere"}));
-    [15, 40, 65, 90, 115, 140, 165].forEach(r =>
+    svg.append("path").attr("class","grat").attr("d", camino(d3.geoGraticule().step([10, 10])()));
+    [10, 20, 30, 45, 60, 80, 100, 130, 160].forEach(r =>
       svg.append("path").attr("class","anillo").attr("d", camino(d3.geoCircle().center([-64, -38]).radius(r)())));
-    // Argentina continental y las Islas Malvinas, en celeste
-    svg.append("g").selectAll("path").data(paises).join("path")
-      .attr("class", d => d.id === "032" || d.id === "238" ? "arg" : "tierra").attr("d", camino)
-      .sort((a, b) => (a.id === "032" || a.id === "238") - (b.id === "032" || b.id === "238"));
+    svg.append("g").selectAll("path").data(paises).join("path").attr("class", "tierra").attr("d", camino);
+    const g = svg.append("g").attr("class", "provs");
+    const enlaces = g.selectAll("a").data(GEO.features).join("a")
+      .attr("href", d => `provincia.html?prov=${d.properties.codigo_indec}`).attr("tabindex", -1)
+      .attr("data-c", d => d.properties.codigo_indec);
+    enlaces.append("path").attr("d", camino);
+    // la Ciudad de Buenos Aires es un punto a esta escala: un círculo para poder tocarla
+    const [cx, cy] = proy(d3.geoCentroid(GEO.features.find(f => f.properties.codigo_indec === "02")));
+    g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy).attr("r", angosto ? 6 : 5);
+    enlaces.on("pointerenter", (ev, d) => { ayuda.textContent = `${NOMBRES[d.properties.codigo_indec]}: ver sus datos`; })
+      .on("pointerleave", () => { ayuda.textContent = AYUDA; });
+    marcarMapa();
     el.classList.add("listo");
   };
   dibujar();
@@ -2848,6 +2861,9 @@ async function mapa() {
   let ancho = por.clientWidth, t;
   new ResizeObserver(() => { if (por.clientWidth === ancho) return; ancho = por.clientWidth; clearTimeout(t); t = setTimeout(dibujar, 150); }).observe(por);
 }
+// la provincia elegida, en amarillo
+const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
+alCambiarProv.push(marcarMapa);
 if (PAGINA === "inicio") mapa();
 
 /* primer dibujo y redibujo al cambiar el ancho */

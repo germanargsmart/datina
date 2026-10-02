@@ -55,6 +55,8 @@
 
 /* ---------- base ---------- */
 *,*::before,*::after{box-sizing:inherit}
+/* lo oculto no ocupa lugar ni recibe toques, aunque su componente tenga otro display (el menú cerrado tapaba el contenido) */
+[hidden]{display:none!important}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fondo);color:var(--ink);font-family:var(--f);font-size:var(--t-4);line-height:var(--i-texto);
   font-variation-settings:"opsz" 16;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -83,8 +85,6 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .iso .wl{fill:none;stroke:var(--ic-detalle)}
 .iso .k{fill:none;stroke:var(--ic)}
 .tono-azul{--ic:#2C74B5}
-.tono-hondo{--ic:#1F5E97}
-.tono-oro{--ic:#B27A00}
 
 /* ---------- botones, enlaces y tarjetas ----------
    Cinco tipos y nada más: botón principal (lleno, uno por pantalla), botón secundario (con borde: el .boton común),
@@ -129,6 +129,7 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .barra .marca{padding-top:9px;font-size:38px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;
   color:#fff;text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .barra.clara .marca{color:var(--azul)}
+body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* navegación: el mismo estilo en la barra, la fila de secciones del celular y el pie */
 .barra .temas{grid-column:2;justify-self:end;display:flex;gap:var(--e-6);font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   font-variation-settings:"wdth" 60,"opsz" 14;color:var(--en-azul-texto)}
@@ -226,48 +227,54 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .portada h1 .gorro{animation:posar .8s var(--ease-out) .55s both}
 @keyframes posar{from{opacity:0;transform:translateX(-50%) translateY(-.25em) rotate(-30deg)}}
 
-/* ---------- portada: bloque azul a sangre ---------- */
+/* ---------- portada: bloque azul a sangre ----------
+   Jerarquía: DATINA, qué es y "Elegí tu provincia". A la derecha, la Argentina con sus 24 provincias y el sol. */
 .portada{position:relative;overflow:hidden;background:var(--azul);color:#fff}
-.portada-grid{position:relative;max-width:var(--ancho-max);margin:0 auto;padding:14px var(--margen) 4px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);align-items:center;gap:16px}
-.portada-texto{position:relative;isolation:isolate;align-self:start}
+.portada-grid{position:relative;max-width:var(--ancho-max);margin:0 auto;padding:var(--e-6) var(--margen) var(--e-7);display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:var(--e-6);pointer-events:none}
+.portada-texto{position:relative;isolation:isolate;align-self:center;pointer-events:auto}
 .portada-texto::before{content:"";position:absolute;inset:-36px -40px;z-index:-1;background:radial-gradient(closest-side,rgba(44,116,181,.92) 60%,rgba(44,116,181,0))}
 .portada-texto>*{animation:aparece .9s cubic-bezier(.16,1,.3,1) both}
 .portada-texto>:nth-child(2){animation-delay:.12s}
 .portada-texto>:nth-child(3){animation-delay:.24s}
 .portada-texto>:nth-child(4){animation-delay:.34s}
 @keyframes aparece{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.portada h1{margin:0 0 8px;padding-top:.28em;font-size:clamp(60px,7.4vw,112px);line-height:.8;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;color:#fff;
+.portada h1{margin:0 0 var(--e-3);padding-top:.28em;font-size:clamp(76px,9vw,136px);line-height:.8;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 25,"opsz" 144}
-.portada .lema{margin:0 0 10px;font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
+.portada .lema{margin:0 0 var(--e-5);font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 30,"opsz" 144}
-.portada-texto>p:not(.lema){margin:0 0 var(--e-4);max-width:30em;line-height:1.5;color:rgba(255,255,255,.84)}
-.portada-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-4)}
-.atajos{display:flex;flex-wrap:wrap;gap:var(--e-2)}
-/* recuadro de estado: cantidad de fichas y de jurisdicciones */
-.estado{display:inline-grid;grid-template-columns:repeat(2,auto);border:1px solid var(--en-azul-linea);background:var(--azul-hondo);
-  font-family:var(--mono);font-size:var(--t-2);letter-spacing:.02em;color:#fff}
-.estado span{padding:9px 14px;border-left:1px dotted rgba(255,255,255,.4);white-space:nowrap}
-.estado span:first-child{border-left:0}
-.estado b{font-weight:600;color:var(--sol)}
-.portada-sol{justify-self:end;width:min(300px,26vw)}
+.portada .bajada{margin:0 0 var(--e-6);max-width:26em;font-size:var(--t-5);line-height:1.45;color:rgba(255,255,255,.88)}
+.atajos{display:flex;flex-wrap:wrap;gap:var(--e-3)}
+/* cifras del sitio: texto simple, no se tocan */
+.estado{margin:var(--e-5) 0 0;font:500 var(--t-2)/1.5 var(--mono);letter-spacing:.02em;color:var(--en-azul-texto)}
+.estado span{white-space:nowrap}
+/* lugar del mapa: el país lo dibuja datina.js en el fondo, con la misma proyección que el mundo */
+.portada-mapa{position:relative;min-height:480px}
+.portada-mapa .sol{position:absolute;top:0;right:0;width:200px}
+.mapa-ayuda{position:absolute;left:0;right:0;bottom:0;margin:0;font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto)}
+@media (max-width:1080px){.portada-mapa{min-height:420px}.portada-mapa .sol{width:170px}}
 @media (max-width:760px){
-  /* el sol al lado de la palabra DATINA y no arriba */
-  .portada-grid{grid-template-columns:1fr;gap:0;padding:6px var(--margen) 6px}
-  .portada-sol{position:absolute;top:4px;right:-2vw;width:36vw;margin:0}
-  .portada-texto{z-index:1}
-  .portada-texto::before{display:none}
-  .portada h1{font-size:clamp(58px,18vw,92px)}
-  .portada .lema{max-width:9.5em}
+  .portada-grid{grid-template-columns:1fr;gap:var(--e-4);padding:var(--e-4) var(--margen) var(--e-6)}
+  .portada-texto::before{inset:-16px -24px}
+  .portada h1{font-size:clamp(64px,22vw,104px)}
+  .portada .bajada{font-size:var(--t-4)}
+  .portada-mapa{min-height:250px}
+  .portada-mapa .sol{width:84px}
+  .mapa-ayuda{text-align:center}
 }
 
 /* mapa de fondo: proyección azimutal equidistante centrada en la Argentina, en líneas finas blancas */
 .mapa-fondo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
 .mapa-fondo.listo{opacity:1}
-.mapa-fondo .esfera{fill:none;stroke:rgba(255,255,255,.3);stroke-width:1}
-.mapa-fondo .grat{fill:none;stroke:rgba(255,255,255,.1);stroke-width:.7}
-.mapa-fondo .tierra{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.3);stroke-width:.6}
-.mapa-fondo .arg{fill:var(--celeste);stroke:#fff;stroke-width:1}
-.mapa-fondo .anillo{fill:none;stroke:#fff;stroke-opacity:.35;stroke-width:1;stroke-dasharray:1 6;stroke-linecap:round}
+.mapa-fondo .grat{fill:none;stroke:rgba(255,255,255,.08);stroke-width:.7}
+.mapa-fondo .tierra{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.28);stroke-width:.6}
+.mapa-fondo .anillo{fill:none;stroke:#fff;stroke-opacity:.32;stroke-width:1;stroke-dasharray:1 6;stroke-linecap:round}
+/* las 24 provincias: cada una lleva a su perfil. La elegida va en amarillo */
+.mapa-fondo .provs a{pointer-events:auto;cursor:pointer}
+.mapa-fondo .provs path,.mapa-fondo .provs circle{fill:var(--celeste);stroke:#fff;stroke-width:.9;stroke-linejoin:round;transition:fill .15s ease}
+.mapa-fondo .provs circle{stroke-width:1.5}
+.mapa-fondo .provs a.elegida path,.mapa-fondo .provs a.elegida circle{fill:var(--sol);stroke:var(--sol-borde)}
+@media (hover:hover) and (pointer:fine){.mapa-fondo .provs a:hover path,.mapa-fondo .provs a:hover circle{fill:#fff;stroke:var(--azul-hondo)}}
 
 /* Sol de Mayo: 16 rayos rectos y 16 flamígeros alrededor del rostro, con una ráfaga de líneas finas */
 .sol{display:block;width:100%;height:auto;overflow:visible}
@@ -293,24 +300,27 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 @keyframes nace{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
 @keyframes latir{from{transform:scale(.95)}to{transform:scale(1.05)}}
 
-/* "Datos rápidos": preguntas que rotan de a una, en un panel azul hondo dentro de la portada */
-.portada .preguntas{position:relative;z-index:2;padding:var(--e-1) var(--margen) var(--e-6)}
-.portada .rotador{max-width:880px;margin:0 auto;padding:var(--e-4) clamp(18px,4vw,36px) var(--e-3);text-align:center;border:1px solid rgba(255,255,255,.14);
-  border-radius:var(--r-tarjeta);background:rgba(31,94,151,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 12px 28px rgba(16,52,90,.22);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.portada .rot-eb{margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sol)}
-.portada .rot-cuerpo{min-height:6em;display:flex;flex-direction:column;justify-content:center}
-.portada .rot-q{display:block;margin:0 auto var(--e-2);max-width:30em;font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.015em;color:#fff;
-  text-decoration:none;font-variation-settings:"wdth" 75,"opsz" 32;transition:color .2s ease}
-.portada .rot-a{margin:0 auto;max-width:40em;line-height:1.5;color:var(--en-azul-texto)}
-.portada .rot-control{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--e-3);margin-top:var(--e-3)}
-.portada .rot-barra{flex:0 0 120px;height:2px;border-radius:2px;overflow:hidden;background:rgba(255,255,255,.25)}
+/* "Datos rápidos": preguntas que rotan de a una, en una franja propia debajo de la portada.
+   Arriba los controles (anterior, cuál es de cuántas, siguiente y pausa) y abajo la pregunta con su respuesta. */
+.preguntas{background:#fff;border-bottom:1px solid var(--borde)}
+.rotador{max-width:880px;margin:0 auto;padding:var(--e-7) var(--margen) var(--e-6);text-align:center}
+.rot-eb{margin:0 0 var(--e-4);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-hondo)}
+.rot-control{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--e-3)}
+.rot-cuenta{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px;font:500 var(--t-2)/1 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.rot-barra{display:block;width:96px;height:2px;overflow:hidden;background:var(--line)}
 .rot-barra i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--sol)}
-@media (hover:hover) and (pointer:fine){.portada .rot-q:hover{color:var(--sol)}}
-@media (max-width:760px){
-  .portada .preguntas{padding:0 var(--margen) var(--e-5)}
-  .portada .rotador{padding-left:var(--e-4);padding-right:var(--e-4)}
-  .portada .rot-barra{flex-basis:100%}
+.rot-pausa{margin-left:var(--e-4)}
+.rot-cuerpo{margin-top:var(--e-5)}
+.rot-q{display:block;margin:0 auto var(--e-2);max-width:30em;font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.015em;color:var(--azul);
+  text-decoration:none;font-variation-settings:"wdth" 75,"opsz" 32;transition:color .2s ease}
+.rot-a{margin:0 auto;max-width:40em;line-height:1.5;color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.rot-q:hover{color:var(--azul-hondo);text-decoration:underline;text-decoration-color:var(--celeste)}}
+@media (max-width:560px){
+  .rotador{padding-top:var(--e-6)}
+  .rot-control{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--e-2)}
+  .rot-cuenta{min-width:72px}
+  .rot-barra{width:64px}
+  .rot-pausa{grid-column:1/-1;justify-self:center;margin:var(--e-1) 0 0}
 }
 
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
@@ -872,7 +882,7 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
   .dest-ir,.sol-ir{transition:none!important;transform:none!important}
   .buscador:not([hidden]){animation:none}
 }
-/* Transparencia reducida: el panel de preguntas con fondo sólido */
+/* Transparencia reducida: la barra clara con fondo sólido */
 @media (prefers-reduced-transparency:reduce){
-  .portada .rotador{background:var(--azul-hondo);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .barra.clara{background:var(--fondo);-webkit-backdrop-filter:none;backdrop-filter:none}
 }
