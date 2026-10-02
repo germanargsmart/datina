@@ -959,6 +959,7 @@ html:not(.js) .esqueleto{display:none}
 .cx-cuerpo{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:var(--e-5);align-items:start;margin-top:var(--e-4)}
 .cx-cuerpo>*{min-width:0}
 /* diagnóstico educativo (etapa 10): controles, provincias elegidas, una tarjeta interna por provincia y el gráfico al costado */
+.vt-controles{display:flex;flex-wrap:wrap;gap:0 var(--e-4);align-items:end}
 .dx-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-4);margin:var(--e-5) 0 var(--e-3)}
 .dx-elegidas{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3);min-height:36px;margin-bottom:var(--e-5)}
 .dx-chips{display:flex;flex-wrap:wrap;gap:var(--e-2);margin:0;padding:0;list-style:none}

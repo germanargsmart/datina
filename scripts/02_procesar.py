@@ -1823,7 +1823,9 @@ lc = pd.read_csv(RAIZ / "datos" / "manual" / "leyes_clave.csv", dtype={"dip": st
 _esp_idx = {e: i for i, e in enumerate(ESPACIOS)}
 _nom_v, _blo_v, leyes_v, filas_csv = {}, {}, [], []
 for r in lc.itertuples():
-    ley = {"k": r.clave, "anio": int(r.anio), "nombre": r.nombre, "que": r.que_cambia, "desenlace": r.desenlace, "camaras": {}}
+    # ed: ley de efecto directo (selección propia, columna efecto_directo de leyes_clave.csv, criterio en la nota de la ficha)
+    ley = {"k": r.clave, "anio": int(r.anio), "nombre": r.nombre, "que": r.que_cambia, "desenlace": r.desenlace,
+           "ed": str(r.efecto_directo).strip().lower() in ("sí", "si"), "camaras": {}}
     for cam, vid in [("Diputados", r.dip), ("Senado", r.sen)]:
         if not isinstance(vid, str):
             continue
