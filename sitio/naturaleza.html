@@ -6,13 +6,16 @@
 <title>Flora y fauna | Datina</title>
 <meta name="description" content="Flora y fauna: ¿Cuánto territorio está protegido y qué vive en él? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");
+// transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
+window.LLEGADA = {activa: false};
+addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = true; e.viewTransition.finished.finally(() => { LLEGADA.activa = false; }); } });</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=dcd4785c22">
+<link rel="stylesheet" href="datina.css?v=6c29b1460c">
 </head>
 <body data-pagina="naturaleza">
 <header class="barra">
@@ -101,7 +104,7 @@
   
 
   <section class="tema" id="naturaleza"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a><a href="energia.html">Energía</a><a href="turismo.html">Turismo</a><a href="naturaleza.html" aria-current="page">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a></nav>
-    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Flora y fauna</span></li><li class="migas-prov" hidden></li></ol></nav><h2>Flora y fauna</h2>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Flora y fauna</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-naturaleza">Flora y fauna</h2>
     <div class="tema-intro">
       <p class="pregunta">¿Cuánto territorio está protegido y qué vive en él?</p>
       <p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>
@@ -221,6 +224,6 @@
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=e9bae1f3a2"></script>
-<script src="datina.js?v=5ffe088344"></script>
+<script src="datina.js?v=29ab8b29a3"></script>
 </body>
 </html>

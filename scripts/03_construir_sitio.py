@@ -226,6 +226,9 @@ def navegacion(h, pagina):
     blo = h[b["ini"]:b["fin"]]
     # migas arriba del título y fila de secciones (solo en el celular) arriba de todo
     blo = blo.replace("<h2", migas(("", TITULO_DE[pagina]), prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
+    # transición entre páginas: el título viaja desde su tarjeta de la portada (mismo nombre en las dos páginas)
+    if pagina in [x[0] for x in SECCIONES]:
+        blo = re.sub(r"<h2>", f'<h2 style="view-transition-name:t-{pagina}">', blo, 1)
     if pagina in [x[0] for x in SECCIONES]:
         blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + pildoras(pagina), blo)
     if pagina in ORDEN:

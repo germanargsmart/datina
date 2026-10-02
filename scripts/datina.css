@@ -45,7 +45,8 @@
   --r-tarjeta:18px; --r-icono:12px;
   --sombra-panel:0 18px 30px rgba(24,33,43,.14);
   --sombra-boton:0 2px 0 rgba(24,33,43,.14);
-  /* movimiento: curvas y duraciones (las duraciones se aplican en la etapa de movimiento) */
+  /* movimiento: curvas y duraciones. 150 ms respuesta al mouse, 200 menús, cuadros y cambios de vista, 250 fichas y barra, 300 páginas y gráficos.
+     Nada de la interfaz pasa de 300 ms: solo el sol y el gorro de la portada, que son decorativos */
   --ease-out:cubic-bezier(.23,1,.32,1); --ease-in-out:cubic-bezier(.77,0,.175,1);
   --dur-1:150ms; --dur-2:200ms; --dur-3:250ms; --dur-4:300ms;
   box-sizing:border-box;
@@ -95,7 +96,7 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
   display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);min-height:44px;padding:0 var(--e-4);
   font:500 12px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;text-decoration:none;cursor:pointer;
   color:var(--b-tinta);background:var(--b-fondo);border:1px solid var(--b-borde);border-radius:0;
-  transition:background-color .2s ease,color .2s ease,border-color .2s ease,transform .16s var(--ease-out)}
+  transition:background-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out),border-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .boton.principal{--b-fondo:var(--azul);--b-tinta:#fff}
 .boton.chico{min-height:34px;padding:0 var(--e-3);font-size:var(--t-1)}
 .boton[aria-pressed="true"]{--b-fondo:var(--azul);--b-tinta:#fff}
@@ -107,8 +108,8 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .enlace{padding:0;font:inherit;text-align:left;color:var(--azul);background:none;border:0;cursor:pointer;
   text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
 .tarjeta{display:flex;flex-direction:column;gap:var(--e-2);padding:var(--e-5);color:var(--ink);text-decoration:none;
-  background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);transition:border-color .2s ease,transform .16s var(--ease-out)}
-.tarjeta:active{transform:scale(.98)}
+  background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);transition:border-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+.tarjeta:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){
   .boton:hover{--b-fondo:var(--celeste-suave)}
   .boton.principal:hover,.boton[aria-pressed="true"]:hover{--b-fondo:var(--azul-hondo);--b-borde:var(--azul-hondo)}
@@ -121,26 +122,34 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 
 /* ---------- barra superior: azul sobre la portada y clara al bajar ----------
    A la izquierda, "Secciones" y la marca. A la derecha, los seis temas principales, la provincia elegida y la lupa. */
-.barra{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--azul);transition:background-color .25s ease,box-shadow .25s ease}
+.barra{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--azul);view-transition-name:barra;
+  transition:background-color var(--dur-3) var(--ease-out),box-shadow var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out)}
 .barra.clara{background:rgba(246,248,251,.94);box-shadow:0 1px 0 rgba(44,116,181,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .barra .envoltura{position:relative;max-width:var(--ancho-max);height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--e-6)}
 .barra-izq{grid-column:1;display:flex;align-items:center;gap:var(--e-5)}
+/* al bajar, la barra se compacta: sube 14 px, su contenido baja 7 y la marca se achica. Al subir vuelve */
+.barra-izq,.barra .temas,.barra-der{transition:transform var(--dur-3) var(--ease-out)}
+.barra.compacta{transform:translateY(-14px)}
+.barra.compacta .barra-izq,.barra.compacta .temas,.barra.compacta .barra-der{transform:translateY(7px)}
+.barra.compacta .marca{transform:scale(.82)}
+/* en el celular la barra ya es baja: se compacta menos */
+@media (max-width:760px){.barra.compacta{transform:translateY(-8px)}.barra.compacta .barra-izq,.barra.compacta .barra-der{transform:translateY(4px)}.barra.compacta .marca{transform:scale(.88)}}
 .barra-der{grid-column:3;display:flex;align-items:center;gap:var(--e-2);min-width:0}
-.barra .marca{padding-top:9px;font-size:38px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;
+.barra .marca{transform-origin:0 70%;transition:transform var(--dur-3) var(--ease-out),color var(--dur-3) var(--ease-out);padding-top:9px;font-size:38px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;
   color:#fff;text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .barra.clara .marca{color:var(--azul)}
 body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* navegación: el mismo estilo en la barra, la fila de secciones del celular y el pie */
 .barra .temas{grid-column:2;justify-self:end;display:flex;gap:var(--e-6);font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   font-variation-settings:"wdth" 60,"opsz" 14;color:var(--en-azul-texto)}
-.barra .temas a{padding:6px 0;text-decoration:none;white-space:nowrap;transition:color .2s ease}
+.barra .temas a{padding:6px 0;text-decoration:none;white-space:nowrap;transition:color var(--dur-1) var(--ease-out)}
 .barra .temas a[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
 .barra.clara .temas{color:var(--azul)}
 .barra.clara .temas a[aria-current="true"]{color:var(--ink)}
 /* controles de la barra: Secciones, la lupa y el indicador de provincia, con el mismo alto y el mismo borde */
 .lupa-btn,.menu-btn{min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);padding:0 var(--e-4);
   font:500 12px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  color:#fff;background:transparent;border:1px solid var(--en-azul-borde);cursor:pointer;transition:background-color .2s ease,color .2s ease,transform .12s var(--ease-out)}
+  color:#fff;background:transparent;border:1px solid var(--en-azul-borde);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .lupa-btn{width:40px;padding:0}
 .lupa-btn .ico{width:19px;height:19px}
 .menu-btn .ico,.chip-borrar .ico{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
@@ -151,11 +160,11 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* provincia elegida: bandera y nombre (llevan al perfil) y un botón para volver a todo el país */
 .prov-chip{display:flex;align-items:stretch;min-width:0;height:40px;color:#fff;border:1px solid var(--en-azul-borde)}
 .prov-chip[hidden]{display:none}
-.chip-prov{display:flex;align-items:center;gap:var(--e-2);min-width:0;padding:0 var(--e-3);font-size:var(--t-3);font-weight:600;color:inherit;text-decoration:none;transition:background-color .2s ease}
+.chip-prov{display:flex;align-items:center;gap:var(--e-2);min-width:0;padding:0 var(--e-3);font-size:var(--t-3);font-weight:600;color:inherit;text-decoration:none;transition:background-color var(--dur-1) var(--ease-out)}
 .chip-nom{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bandera{display:block;flex:none;width:24px;height:16px;outline:1px solid rgba(24,33,43,.2);outline-offset:-1px}
 .chip-borrar{display:inline-flex;align-items:center;gap:var(--e-2);padding:0 var(--e-3);font:500 var(--t-1)/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
-  color:inherit;background:none;border:0;border-left:1px solid var(--en-azul-linea);cursor:pointer;transition:background-color .2s ease}
+  color:inherit;background:none;border:0;border-left:1px solid var(--en-azul-linea);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
 .chip-txt{display:none}
 .barra.clara .prov-chip{color:var(--azul);border-color:var(--azul)}
 .barra.clara .chip-borrar{border-left-color:var(--borde-claro)}
@@ -163,8 +172,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* menú de secciones: se abre debajo del botón, a la izquierda */
 .menu-panel{position:absolute;left:var(--margen);top:calc(100% + 4px);z-index:60;width:min(680px,calc(100vw - 2 * var(--margen)));max-height:calc(100dvh - 100px);overflow:auto;
   display:grid;grid-template-columns:2fr 1fr;padding:10px 0 12px;background:#fff;border:1px solid var(--azul);
-  transform-origin:top left;opacity:0;transform:scale(.97) translateY(-4px);transition:opacity .16s ease,transform .2s var(--ease-out)}
+  transform-origin:top left;opacity:0;transform:scale(.97) translateY(-4px);transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
 .menu-panel.abierto{opacity:1;transform:none}
+.teclado .menu-panel,.teclado .elige-panel{transition:none}
+.teclado .buscador:not([hidden]){animation:none}
 .menu-col{display:flex;flex-direction:column}
 /* los temas, en dos columnas que se leen de arriba abajo */
 .menu-col:first-child{display:block;columns:2;column-gap:0}
@@ -202,7 +213,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* buscador de la lupa: panel debajo de la barra */
 .buscador{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--borde);box-shadow:var(--sombra-panel)}
-.buscador:not([hidden]){animation:abre-buscador .22s var(--ease-out)}
+.buscador:not([hidden]){animation:abre-buscador var(--dur-2) var(--ease-out)}
 @keyframes abre-buscador{from{transform:translateY(-8px)}}
 .buscador-caja{max-width:760px;margin:0 auto;padding:var(--e-5) var(--margen) var(--e-6)}
 .buscador-lab{display:block;margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -234,11 +245,12 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:var(--e-6);pointer-events:none}
 .portada-texto{position:relative;isolation:isolate;align-self:center;pointer-events:auto}
 .portada-texto::before{content:"";position:absolute;inset:-36px -40px;z-index:-1;background:radial-gradient(closest-side,rgba(44,116,181,.92) 60%,rgba(44,116,181,0))}
-.portada-texto>*{animation:aparece .9s cubic-bezier(.16,1,.3,1) both}
-.portada-texto>:nth-child(2){animation-delay:.12s}
-.portada-texto>:nth-child(3){animation-delay:.24s}
-.portada-texto>:nth-child(4){animation-delay:.34s}
-@keyframes aparece{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* entrada corta y escalonada: "Elegí tu provincia" está lista antes de los 450 ms */
+.portada-texto>*{animation:aparece var(--dur-4) var(--ease-out) both}
+.portada-texto>:nth-child(2){animation-delay:40ms}
+.portada-texto>:nth-child(3){animation-delay:80ms}
+.portada-texto>:nth-child(n+4){animation-delay:120ms}
+@keyframes aparece{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .portada h1{margin:0 0 var(--e-3);padding-top:.28em;font-size:clamp(76px,9vw,136px);line-height:.8;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 25,"opsz" 144}
 .portada .lema{margin:0 0 var(--e-5);font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
@@ -264,14 +276,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 }
 
 /* mapa de fondo: proyección azimutal equidistante centrada en la Argentina, en líneas finas blancas */
-.mapa-fondo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+.mapa-fondo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity var(--dur-4) var(--ease-out)}
 .mapa-fondo.listo{opacity:1}
 .mapa-fondo .grat{fill:none;stroke:rgba(255,255,255,.08);stroke-width:.7}
 .mapa-fondo .tierra{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.28);stroke-width:.6}
 .mapa-fondo .anillo{fill:none;stroke:#fff;stroke-opacity:.32;stroke-width:1;stroke-dasharray:1 6;stroke-linecap:round}
 /* las 24 provincias: cada una lleva a su perfil. La elegida va en amarillo */
 .mapa-fondo .provs a{pointer-events:auto;cursor:pointer}
-.mapa-fondo .provs path,.mapa-fondo .provs circle{fill:var(--celeste);stroke:#fff;stroke-width:.9;stroke-linejoin:round;transition:fill .15s ease}
+.mapa-fondo .provs path,.mapa-fondo .provs circle{fill:var(--celeste);stroke:#fff;stroke-width:.9;stroke-linejoin:round;transition:fill var(--dur-1) var(--ease-out)}
 .mapa-fondo .provs circle{stroke-width:1.5}
 .mapa-fondo .provs a.elegida path,.mapa-fondo .provs a.elegida circle{fill:var(--sol);stroke:var(--sol-borde)}
 @media (hover:hover) and (pointer:fine){.mapa-fondo .provs a:hover path,.mapa-fondo .provs a:hover circle{fill:#fff;stroke:var(--azul-hondo)}}
@@ -312,7 +324,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .rot-pausa{margin-left:var(--e-4)}
 .rot-cuerpo{margin-top:var(--e-5)}
 .rot-q{display:block;margin:0 auto var(--e-2);max-width:30em;font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.015em;color:var(--azul);
-  text-decoration:none;font-variation-settings:"wdth" 75,"opsz" 32;transition:color .2s ease}
+  text-decoration:none;font-variation-settings:"wdth" 75,"opsz" 32;transition:color var(--dur-1) var(--ease-out)}
 .rot-a{margin:0 auto;max-width:40em;line-height:1.5;color:var(--ink)}
 @media (hover:hover) and (pointer:fine){.rot-q:hover{color:var(--azul-hondo);text-decoration:underline;text-decoration-color:var(--celeste)}}
 @media (max-width:560px){
@@ -345,10 +357,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .dest-cuerpo b{font-size:var(--t-7);line-height:var(--i-titulo);font-weight:600;font-variation-settings:"wdth" 75,"opsz" 32}
 .dest-txt{max-width:30em;font-size:var(--t-3);line-height:var(--i-chico)}
 .dest-ir{margin-top:auto;width:50px;height:50px;display:grid;place-items:center;border-radius:50%;background:#fff;color:var(--c);box-shadow:var(--sombra-boton);
-  transition:transform .2s var(--ease-out),box-shadow .2s ease}
-.dest:active .dest-ir{transform:scale(.94)}
+  transition:transform var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
+.dest:active .dest-ir{transform:scale(.97)}
 /* el Sol de Mayo de la señal de entrada gira al pasar el mouse */
-.sol-ir{width:32px;height:32px;transition:transform .6s var(--ease-out)}
+.sol-ir{width:32px;height:32px;transition:transform var(--dur-4) var(--ease-out)}
 .sol-ir path,.sol-ir circle{fill:var(--sol);stroke:var(--sol-borde);stroke-width:3.2;stroke-linejoin:round}
 @media (hover:hover) and (pointer:fine){
   .dest:hover{border-color:transparent}
@@ -425,21 +437,21 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .elige-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .elige-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;min-width:260px;min-height:44px;padding:0 14px 0 16px;
   font:inherit;font-weight:350;color:var(--ink);background:var(--bg);border:1px solid var(--azul);cursor:pointer;
-  transition:border-color .2s ease,background-color .2s ease,transform .16s var(--ease-out)}
-.elige-btn:active{transform:scale(.98)}
+  transition:border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+.elige-btn:active{transform:scale(.97)}
 .elige-btn[aria-expanded="true"]{border-color:var(--celeste)}
 .elige-flecha{width:7px;height:7px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);
-  transform:translateY(-2px) rotate(45deg);transition:transform .18s var(--ease-out)}
+  transform:translateY(-2px) rotate(45deg);transition:transform var(--dur-2) var(--ease-out)}
 .elige-btn[aria-expanded="true"] .elige-flecha{transform:translateY(1px) rotate(225deg)}
 .elige-panel{position:absolute;top:calc(100% + 6px);left:0;width:min(520px,calc(100vw - 2 * var(--margen)));padding:6px;background:var(--bg);border:1px solid var(--line);
   box-shadow:0 1px 2px rgba(24,33,43,.05),0 18px 40px -18px rgba(44,116,181,.35);
-  transform-origin:top left;opacity:0;transform:scale(.97) translateY(-4px);transition:opacity .12s ease-out,transform .12s ease-out}
-.elige-panel.abierto{opacity:1;transform:none;transition:opacity .18s var(--ease-out),transform .18s var(--ease-out)}
+  transform-origin:top left;opacity:0;transform:scale(.97) translateY(-4px);transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+.elige-panel.abierto{opacity:1;transform:none;transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
 .elige-buscar{width:100%;margin-bottom:4px;padding:8px 10px 10px;font:inherit;font-size:var(--t-3);font-weight:350;color:var(--ink);
   background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;outline:none}
 .elige-buscar::placeholder{color:var(--faint)}
 .elige-lista{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px}
-.elige-lista li{padding:7px 10px;font-size:var(--t-3);font-weight:350;line-height:1.3;color:var(--ink);cursor:pointer;transition:background-color .12s ease}
+.elige-lista li{padding:7px 10px;font-size:var(--t-3);font-weight:350;line-height:1.3;color:var(--ink);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
 .elige-lista li.activa{background:var(--celeste-suave)}
 .elige-lista li[aria-selected="true"]{color:var(--celeste-fuerte);font-weight:600}
 .elige-lista li.primera{grid-column:1/-1}
@@ -554,7 +566,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 @media (max-width:760px){.tema-cierre{grid-template-columns:1fr}}
 /* final de página: anterior, todas las secciones y siguiente, en una sola pieza */
 .pasos{display:grid;grid-template-columns:1fr auto 1fr;margin:var(--e-9) 0 0;background:#fff;border:1px solid var(--borde);border-top:3px solid var(--azul)}
-.paso{display:flex;flex-direction:column;justify-content:center;gap:var(--e-1);min-height:92px;padding:var(--e-4) var(--e-5);color:var(--azul);text-decoration:none;transition:background-color .2s ease}
+.paso{display:flex;flex-direction:column;justify-content:center;gap:var(--e-1);min-height:92px;padding:var(--e-4) var(--e-5);color:var(--azul);text-decoration:none;transition:background-color var(--dur-1) var(--ease-out)}
 .paso b{font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:500;text-wrap:balance}
 .paso-eb{font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .paso.todas{align-items:center;padding:var(--e-4) var(--e-7);text-align:center;border-left:1px solid var(--borde);border-right:1px solid var(--borde)}
@@ -570,9 +582,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 }
 
 /* ---------- fichas: rectas ---------- */
-.ficha{position:relative;margin:var(--e-5) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px) var(--e-5);background:var(--bg);border:1px solid var(--borde);transition:border-color .2s ease}
+.ficha{position:relative;margin:var(--e-5) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px) var(--e-5);background:var(--bg);border:1px solid var(--borde);transition:border-color var(--dur-1) var(--ease-out)}
 /* la tarjeta aparece una sola vez, al entrar en pantalla */
-.js .ficha{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out),border-color .2s ease}
+.js .ficha{opacity:0;transform:translateY(10px);transition:opacity var(--dur-3) var(--ease-out) var(--retraso,0ms),transform var(--dur-3) var(--ease-out) var(--retraso,0ms),border-color var(--dur-1) var(--ease-out)}
+.js .ficha.sin-entrada{transition:none}
 .js .ficha.visto{opacity:1;transform:none}
 .etiqueta{display:inline-block;margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .etiqueta::before{content:"# ";color:var(--azul)}
@@ -600,8 +613,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* pie: fuente y acciones */
 .pie{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-5);margin-top:var(--e-5);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}
 .acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-left:auto}
-.accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:filter .18s ease,opacity .18s ease}
-.accion .lbl.cambia{filter:blur(2px);opacity:.4}
+.accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:opacity var(--dur-1) var(--ease-out)}
+.accion .lbl.cambia{opacity:0}
 .tabla-datos{margin:var(--e-4) 0 0}
 .tabla-datos .tabla-desliza{max-height:360px;margin:0}
 .tabla-nota{margin:6px 0 0;font-size:var(--t-2);color:var(--muted)}
@@ -618,9 +631,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* conmutador: botones de opción con un indicador que se desliza */
 .conmutador{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);margin:var(--e-5) 0 0;padding:2px;border:1px solid var(--azul)}
 .conmutador::before{content:"";position:absolute;top:2px;bottom:2px;left:2px;width:calc((100% - 4px) / var(--n,2));background:var(--azul);
-  transform:translateX(calc(var(--i,0) * 100%));transition:transform .28s var(--ease-out)}
+  transform:translateX(calc(var(--i,0) * 100%));transition:transform var(--dur-2) var(--ease-out)}
 .conmutador button{position:relative;min-height:34px;padding:0 var(--e-4);font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--azul);
-  background:transparent;border:0;cursor:pointer;transition:color .2s ease}
+  background:transparent;border:0;cursor:pointer;transition:color var(--dur-1) var(--ease-out)}
 .conmutador button[aria-pressed="true"]{color:#fff}
 .conmutador button[aria-selected="true"]{color:#fff}
 .conmutador.pestanas{margin-top:var(--e-3)}
@@ -660,7 +673,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .etq,.etq-suave,.etq-fuerte{paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
 /* cuadro flotante */
 .tip{position:absolute;z-index:5;padding:7px 10px;font-family:var(--mono);font-size:12px;line-height:1.35;white-space:nowrap;color:var(--bg);background:var(--azul-hondo);
-  pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s}
+  pointer-events:none;opacity:0;transform:translateY(4px) scale(.96);transform-origin:50% 100%;transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .tip.on{opacity:1;transform:none}
 /* tablas */
 .tabla-desliza{max-height:420px;overflow:auto;margin:var(--e-6) 0 var(--e-2);border:1px solid var(--line)}
@@ -872,15 +885,38 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .creditos ul{margin:0 0 var(--e-4);padding-left:18px;font-size:var(--t-2);line-height:var(--i-chico);columns:2 240px;column-gap:var(--e-7)}
 .creditos li{margin:0 0 var(--e-1);break-inside:avoid}
 
+/* ---------- transiciones entre páginas (View Transitions entre documentos) ----------
+   La barra queda anclada (también resuelve el paso de azul a clara), la página que se va se funde en 200 ms
+   y la nueva entra con un fundido y 12 px hacia arriba en 300 ms. El título de una sección o de un artículo viaja desde su tarjeta.
+   Donde el navegador no tiene soporte, se navega como siempre. */
+@view-transition{navigation:auto}
+::view-transition-group(*){animation-duration:var(--dur-4);animation-timing-function:var(--ease-out)}
+::view-transition-old(root){animation:vt-sale var(--dur-2) var(--ease-out) both}
+::view-transition-new(root){animation:vt-entra var(--dur-4) var(--ease-out) both}
+@keyframes vt-sale{to{opacity:0}}
+@keyframes vt-entra{from{opacity:0;transform:translateY(12px)}}
+@keyframes vt-funde{from{opacity:0}}
+/* cambio de vista de un gráfico (botones OCDE, selectores): solo funde el gráfico, la página queda quieta */
+html:active-view-transition-type(grafico)::view-transition-old(root),
+html:active-view-transition-type(grafico)::view-transition-new(root){animation:none}
+::view-transition-group(grafico){animation-duration:var(--dur-2)}
+
 /* ---------- preferencias del sistema ---------- */
 /* Movimiento reducido: sin desplazamientos ni giros, pero se conservan los fundidos que ayudan a entender */
 @media (prefers-reduced-motion:reduce){
   .sol *,.portada-texto>*,.gorro{animation:none!important}
-  .js .ficha{transform:none!important;transition:opacity .3s ease!important}
+  .js .ficha{transform:none!important;transition:opacity var(--dur-3) var(--ease-out)!important}
   .conmutador::before,.boton,.tarjeta,.lupa-btn,.menu-btn,.chip-prov,.chip-borrar,.paso{transition:none!important}
   .boton:active,.tarjeta:active,.lupa-btn:active,.menu-btn:active,.elige-btn:active{transform:none}
   .dest-ir,.sol-ir{transition:none!important;transform:none!important}
   .buscador:not([hidden]){animation:none}
+  /* menús, cuadros y barra: solo fundidos */
+  .menu-panel,.elige-panel,.tip{transform:none!important}
+  .barra,.barra-izq,.barra .temas,.barra-der,.barra .marca{transform:none!important}
+  .mapa-fondo .provs path{transition:none}
+  /* entre páginas: solo un fundido, nada viaja */
+  ::view-transition-group(*){animation-duration:0s}
+  ::view-transition-new(root){animation:vt-funde var(--dur-3) var(--ease-out) both}
 }
 /* Transparencia reducida: la barra clara con fondo sólido */
 @media (prefers-reduced-transparency:reduce){

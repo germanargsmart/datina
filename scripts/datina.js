@@ -400,14 +400,21 @@ document.addEventListener("pointerdown", ev => { if (!ev.target.closest?.(".graf
 
 /* Animación de entrada: solo la primera vez que el gráfico aparece en pantalla, nunca con movimiento reducido */
 const REDUCIR = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// la plantilla anota si la página llegó con una transición de vista desde otra página (evento pagereveal)
+const LLEGADA = window.LLEGADA || {activa: false};
 const EASE = d3.easePolyOut.exponent(4);
+/* Movimiento de los gráficos: cada elemento tarda 300 ms y el escalonado entre el primero y el último suma como máximo 150 ms,
+   así cada gráfico queda completo en menos de medio segundo. escalon() se usa en .delay(): d3 le pasa la lista de elementos. */
+const DUR_G = 300;
+const escalon = (d, i, nodos) => i * Math.min(30, 150 / Math.max(1, nodos.length - 1));
 function trazar(path, dash) {
   const L = path.node().getTotalLength();
   path.attr("stroke-dasharray", `${L} ${L}`).attr("stroke-dashoffset", L)
-    .transition().duration(1100).ease(EASE).attr("stroke-dashoffset", 0)
+    .transition().duration(DUR_G).ease(EASE).attr("stroke-dashoffset", 0)
     .on("end", function() { d3.select(this).attr("stroke-dasharray", dash || null).attr("stroke-dashoffset", null); });
 }
-const aparecer = (sel, delay) => sel.attr("opacity", 0).transition().delay(delay).duration(320).ease(d3.easeCubicOut).attr("opacity", 1);
+// rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
+const aparecer = (sel, delay = 0) => sel.attr("opacity", 0).transition().delay(Math.min(delay, 150)).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
 
 function lineas(el, cfg) {
   const angosto = el.clientWidth < 520;
@@ -503,9 +510,9 @@ function barrasH(el, cfg) {
   const valores = filas.append("text").attr("x", d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em")
     .attr("class", d => d.codigo_indec === prov ? "etq-fuerte" : "etq-suave").text(d => (cfg.vf || n1)(d[cfg.k]));
   if (cfg.anim) {
-    barras.attr("x", x(0)).attr("width", 0).transition().delay((d,i) => i * 18).duration(700).ease(EASE)
+    barras.attr("x", x(0)).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
       .attr("x", d => x(Math.min(0, d[cfg.k]))).attr("width", d => Math.abs(x(d[cfg.k]) - x(0)));
-    valores.attr("opacity", 0).transition().delay((d,i) => 300 + i * 18).duration(300).attr("opacity", 1);
+    valores.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   }
   if (cfg.tip) {
     // toda la fila responde, no solo la barra, y el cuadro muestra los valores absolutos que la barra no dice
@@ -549,9 +556,9 @@ function pesas(el, cfg) {
   const valor = f.append("text").attr("x", d => x(Math.max(d[a], d[b])) + 10).attr("dy",".35em").attr("class","etq-suave").text(d => vf(d[b]));
   if (cfg.anim) {
     // el punto viaja desde el valor de antes hasta el de después: la animación cuenta el cambio
-    tramo.attr("x1", d => x(d[a])).transition().delay((d,i) => 200 + i * 22).duration(900).ease(EASE).attr("x1", d => x(d[b]));
-    punto.attr("cx", d => x(d[a])).transition().delay((d,i) => 200 + i * 22).duration(900).ease(EASE).attr("cx", d => x(d[b]));
-    valor.attr("opacity", 0).transition().delay((d,i) => 700 + i * 22).duration(300).attr("opacity", 1);
+    tramo.attr("x1", d => x(d[a])).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x1", d => x(d[b]));
+    punto.attr("cx", d => x(d[a])).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("cx", d => x(d[b]));
+    valor.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   }
   f.on("pointerenter", function(ev, d) { const yy = y(d.codigo_indec) + 24; mostrarTip(el, `<b>${d.territorio}</b><br>${la}: ${vf(d[a])}<br>${lb}: ${vf(d[b])}`, x(d[b]) + (angosto?118:150), yy); })
    .on("pointerleave", ocultarTip);
@@ -571,9 +578,9 @@ function columnas(el, cfg) {
     .attr("x", d => x(d.mes) + x.bandwidth()/2).attr("y", d => y(d.gwh) - 6)
     .text(d => el.clientWidth < 520 ? n1(d.gwh/1000) : n0(d.gwh));
   if (cfg.anim) {
-    cols.attr("y", ih).attr("height", 0).transition().delay((d,i) => i * 35).duration(700).ease(EASE)
+    cols.attr("y", ih).attr("height", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
       .attr("y", d => y(d.gwh)).attr("height", d => ih - y(d.gwh));
-    vals.attr("opacity", 0).transition().delay((d,i) => 350 + i * 35).duration(300).attr("opacity", 1);
+    vals.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   }
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(m => MES[m-1]).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   if (el.clientWidth < 520) g.append("text").attr("class","etq-suave").attr("x",0).attr("y",-12).text("Miles de GWh");
@@ -597,7 +604,7 @@ function barrasGrupos(el, cfg) {
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
   }
   if (cfg.anim) {
-    b.attr("width", 0).transition().delay((d,i) => i * 40).duration(700).ease(EASE).attr("width", d => x(d[cfg.k]));
+    b.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d[cfg.k]));
     aparecer(v, 400);
   }
 }
@@ -635,8 +642,8 @@ function piramidePob(el, cfg) {
   ley.append("rect").attr("x", 64).attr("width", 12).attr("height", 9).attr("fill","none").attr("stroke", css("--ink"));
   ley.append("text").attr("x", 80).attr("y", 9).attr("class","etq-suave").text("2040");
   if (cfg.anim) {
-    v.attr("x", centro - gap).attr("width", 0).transition().delay((d,i) => i * 20).duration(700).ease(EASE).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
-    m.attr("width", 0).transition().delay((d,i) => i * 20).duration(700).ease(EASE).attr("width", d => x(d.mh));
+    v.attr("x", centro - gap).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh));
+    m.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d.mh));
     aparecer(ov, 700); aparecer(om, 700);
   }
 }
@@ -657,9 +664,9 @@ function piramide(el, cfg) {
   const tv = f.append("text").attr("x", d => centro - gap - x(d.pct_varones) - 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq-suave").text(d => n1(d.pct_varones) + "%");
   const tm = f.append("text").attr("x", d => centro + gap + x(d.pct_mujeres) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-suave").text(d => n1(d.pct_mujeres) + "%");
   if (cfg.anim) {
-    v.attr("x", centro - gap).attr("width", 0).transition().delay((d,i) => i * 25).duration(700).ease(EASE)
+    v.attr("x", centro - gap).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
       .attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones));
-    m.attr("width", 0).transition().delay((d,i) => i * 25).duration(700).ease(EASE).attr("width", d => x(d.pct_mujeres));
+    m.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d.pct_mujeres));
     aparecer(tv, 500); aparecer(tm, 500);
   }
 }
@@ -676,7 +683,7 @@ function franjas(el, cfg) {
     .range(["#2C74B5", "#9CC4EA", "#F4F1EA", "#F0A35A", "#C8102E"]).clamp(true);
   const r = g.selectAll("rect").data(data).join("rect").attr("x", d => x(d.anio)).attr("width", x.bandwidth() + .5)
     .attr("y", 0).attr("height", ih).attr("fill", d => color(d[cfg.k]));
-  if (cfg.anim) r.attr("opacity", 0).transition().delay((d, i) => i * 14).duration(260).attr("opacity", 1);
+  if (cfg.anim) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   const decadas = data.map(d => d.anio).filter(a => a % 10 === 0 && (!angosto || a % 20 === 0));
   g.append("g").attr("class","eje").attr("transform", `translate(0,${ih})`)
     .call(d3.axisBottom(x).tickValues(decadas).tickSize(4).tickPadding(6)).call(a => a.select(".domain").remove());
@@ -708,8 +715,8 @@ function apiladasH(el, cfg) {
     const t = d3.select(this).selectAll("text.v").data(partes.filter(p => x(p.x0 + p.v) - x(p.x0) > 34)).join("text").attr("class","v")
       .attr("x", p => x(p.x0) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("font-size", 11.5).attr("font-family","var(--mono)")
       .attr("fill", p => p.k.texto || "#fff").text(p => n0(p.v));
-    if (cfg.anim) { r.attr("width", 0).transition().delay(i => 0).duration(700).ease(EASE).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0)));
-      t.attr("opacity", 0).transition().delay(500).duration(300).attr("opacity", 1); }
+    if (cfg.anim) { r.attr("width", 0).transition().duration(DUR_G).ease(EASE).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0)));
+      aparecer(t, 150); }
   });
   f.on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${d.territorio}</b><br>` + cfg.claves.filter(k => d[k.k] != null).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${pct(d[k.k])}`).join("<br>"),
@@ -736,7 +743,7 @@ function columnasApiladas(el, cfg) {
     const partes = cfg.claves.map(k => { const v = d[k.k] || 0, p = {k, y0: acc, v}; acc += v; return p; });
     const r = d3.select(this).selectAll("rect").data(partes).join("rect").attr("width", x.bandwidth()).attr("fill", p => p.k.c)
       .attr("y", p => y(p.y0 + p.v)).attr("height", p => y(p.y0) - y(p.y0 + p.v));
-    if (cfg.anim) r.attr("y", ih).attr("height", 0).transition().delay(x(d.anio) / iw * 500).duration(600).ease(EASE)
+    if (cfg.anim) r.attr("y", ih).attr("height", 0).transition().delay(x(d.anio) / iw * 150).duration(DUR_G).ease(EASE)
       .attr("y", p => y(p.y0 + p.v)).attr("height", p => y(p.y0) - y(p.y0 + p.v));
   });
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
@@ -773,7 +780,7 @@ function mapaAreas(anim) {
   const r = d3.scaleSqrt().domain([0, d3.max(areas, d => d.hectareas)]).range([1.6, w < 420 ? 11 : 15]);
   const burb = svg.append("g").selectAll("circle").data(areas.sort((a, b) => b.hectareas - a.hectareas)).join("circle")
     .attr("class", "burbuja").attr("cx", d => proy([d.lng, d.lat])[0]).attr("cy", d => proy([d.lng, d.lat])[1]).attr("r", d => r(d.hectareas));
-  if (anim) burb.attr("opacity", 0).transition().delay((d, i) => 200 + i * 12).duration(300).attr("opacity", 1);
+  if (anim) burb.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   burb.on("pointermove", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
     .on("pointerleave", ocultarTip);
@@ -1065,7 +1072,7 @@ const vtConm = (g, cam) => {  // pone el conmutador de una ficha en la cámara i
   const conm = document.querySelector(`.conmutador[data-g="${g}"]`);
   conm.querySelectorAll("button").forEach((b, i) => { const on = b.dataset.m === cam; b.setAttribute("aria-pressed", on); if (on) conm.style.setProperty("--i", i); });
 };
-$("vt-sel").addEventListener("change", ev => { MED.vtLey = ev.target.value; DIB.votaciones(!REDUCIR); DIB.vtmatriz(false); });
+$("vt-sel").addEventListener("change", ev => { MED.vtLey = ev.target.value; cambiarVista("votaciones"); DIB.vtmatriz(false); });
 function puntosVoto(el, cfg) {
   const w = Math.max(300, el.clientWidth), angosto = w < 560;
   const paso = cfg.senado ? (angosto ? 13 : 16) : (angosto ? 8.6 : 10.5), r = paso * .4;
@@ -1085,7 +1092,7 @@ function puntosVoto(el, cfg) {
     pt.on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${nomVt(VTJ.nombres[d[0]])}</b><br>${VTJ.bloques[d[1]]}<br>${NOMBRES[d[3]] || "Sin provincia"}<br>${VOTO_LAB[d[4]]}`, +this.getAttribute("cx"), +this.getAttribute("cy"));
     }).on("pointerleave", ocultarTip);
-    if (cfg.anim) pt.attr("opacity", 0).transition().delay(j * 90).duration(300).attr("opacity", 1);
+    if (cfg.anim) pt.attr("opacity", 0).transition().delay(Math.min(150, j * 30)).duration(DUR_G).attr("opacity", 1);
   });
 }
 DIB.votaciones = a => {
@@ -1172,7 +1179,7 @@ TX["vtm-titulo"] = $t("vtm-titulo").textContent = `Leyes clave: qué parte de ca
 const AP = VT.apoyo, AP_A = Object.fromEntries(AP.anios.map(x => [x.anio, x]));
 MED.apoyo = "atn_hab"; MED.apAnio = AP.hasta;
 $("ap-sel").innerHTML = [...AP.anios].reverse().map(x => `<option value="${x.anio}">${x.anio} (${x.presidente})</option>`).join("");
-$("ap-sel").addEventListener("change", ev => { MED.apAnio = +ev.target.value; DIB.apoyo(!REDUCIR); });
+$("ap-sel").addEventListener("change", ev => { MED.apAnio = +ev.target.value; cambiarVista("apoyo"); });
 TX["apoyo-titulo"] = $t("apoyo-titulo").textContent = `Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, ${AP.desde} a ${AP.hasta}`;
 DIB.apoyo = conTablas("apoyo", ["apoyo_gobierno_provincias"], a => {
   const y = MED.apAnio, A = AP_A[y], k = MED.apoyo, rr = x => k === "atn_hab" ? x.r_atn : x.r_otras, r = rr(A);
@@ -1259,7 +1266,7 @@ function dispersion(el, cfg) {
   g.selectAll("text.lab").data(conLab).join("text").attr("class", d => d.codigo_indec === prov ? "etq-fuerte lab" : "etq lab")
     .attr("x", d => x(d[cfg.x]) + (x(d[cfg.x]) > iw * .8 ? -8 : 8)).attr("text-anchor", d => x(d[cfg.x]) > iw * .8 ? "end" : "start")
     .attr("y", d => y(d[cfg.y]) + 4).text(d => d.territorio);
-  if (cfg.anim) pt.attr("r", 0).transition().delay((d, i) => i * 20).duration(400).attr("r", 5.5);
+  if (cfg.anim) pt.attr("r", 0).transition().delay(escalon).duration(DUR_G).attr("r", 5.5);
   pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${vx(d[cfg.x])}<br>${cfg.yLab}: ${vy(d[cfg.y])}`, 46 + x(d[cfg.x]), 34 + y(d[cfg.y])))
     .on("pointerleave", ocultarTip);
 }
@@ -1267,7 +1274,7 @@ const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada
 const AN = R.ado_nse, MC = R.mi_causas;
 $("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
 MED.adonse = AN.indicadores[0].k;
-$("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; DIB.adonse(!REDUCIR); });
+$("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; cambiarVista("adonse"); });
 DIB.adonse = a => {
   const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
   const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
@@ -1301,7 +1308,7 @@ const trOpciones = sel => { $(sel).innerHTML = [`<option value="serie">Total del
 trOpciones("atn-sel"); trOpciones("tr-sel");
 MED.atn = "serie"; MED.transferencias = String(TRR.ult);
 ["atn", "tr"].forEach(id => $(`${id}-sel`).addEventListener("change", ev => {
-  const g = id === "atn" ? "atn" : "transferencias"; MED[g] = ev.target.value; DIB[g](!REDUCIR); }));
+  const g = id === "atn" ? "atn" : "transferencias"; MED[g] = ev.target.value; cambiarVista(g); }));
 TX["atn-titulo"] = $t("atn-titulo").textContent = `Aportes del Tesoro Nacional (ATN) a las provincias, ${TRR.desde} a ${TRR.ult}`;
 TX["transferencias-titulo"] = $t("transferencias-titulo").textContent = `Transferencias no automáticas de la Nación a las provincias, ${TRR.desde} a ${TRR.ult}`;
 TX["atn-nota"] = $t("atn-nota").textContent = `Pesos de ${TRR.ult}, ajustados por el deflactor del PBI. Crédito devengado del presupuesto nacional, con la provincia de destino. Incluye los ATN a provincias y municipios. ` +
@@ -1380,7 +1387,7 @@ DIB.presidentes = a => {
   g.selectAll("text.n").data(P.filter(d => x(fin(d)) - x(new Date(d.inicio)) > (angosto ? 44 : 60))).join("text").attr("class","n")
     .attr("x", d => x(new Date(d.inicio)) + 5).attr("y", 23).attr("font-size", 12).attr("fill", d => ORIGEN_TEXTO[d.origen]).text(d => apellido(d.nombre));
   g.append("g").attr("class","eje").attr("transform","translate(0,42)").call(d3.axisBottom(x).ticks(angosto ? 4 : 8).tickSize(0).tickPadding(8)).call(s => s.select(".domain").remove());
-  if (a) r.attr("opacity", 0).transition().delay((d, i) => i * 60).duration(300).attr("opacity", 1);
+  if (a) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}<br>Nació en ${d.lugar_nacimiento}, ${d.provincia}`,
       4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarTip);
   document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i><span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}</span>` +
@@ -1411,11 +1418,22 @@ DIB.representacion = a => {
     `Sumando las dos cámaras, ${CG.peso_max} tiene ${n1(CG.peso_max_v)} veces las bancas que le corresponderían por su población y ${CG.peso_min}, ${n2(CG.peso_min_v)} veces.`;
   barrasH(G("representacion"), {anim: a, data: rp, k: "hab_por_diputado", ref: prom, refLab: `País ${n0(prom)}`, vf: v => n0(v), af: v => n0(v / 1000) + " mil"});
 };
+/* Cambio de vista de un gráfico (botones OCDE, selectores y conmutadores de cada ficha): no se repite la animación de entrada.
+   El gráfico se redibuja quieto y la versión nueva funde sobre la anterior (200 ms), con una transición de vista del navegador.
+   Donde no hay soporte, o con movimiento reducido, cambia de una vez. La transición de valores llega en la etapa 6. */
+const VT_TIPOS = typeof ViewTransition !== "undefined" && "types" in ViewTransition.prototype;
+function cambiarVista(g, dibujar = () => DIB[g](false)) {
+  const el = G(g);
+  if (!el || REDUCIR || !VT_TIPOS || document.hidden) return dibujar();
+  el.style.viewTransitionName = "grafico";
+  const t = document.startViewTransition({update: dibujar, types: ["grafico"]});
+  t.finished.finally(() => { el.style.viewTransitionName = ""; });
+}
 // Solo se redibujan los gráficos de tarjetas que ya entraron en pantalla: el resto se dibuja al llegar
 function dibujarTodo() { Object.keys(DIB).forEach(k => { const el = G(k); if (el && el.closest(".visto")) DIB[k](false); }); }
 
 document.querySelectorAll(".selector-ficha select[data-g]").forEach(sel => sel.addEventListener("change", () => {
-  MED[sel.dataset.g] = sel.value; DIB[sel.dataset.g](!REDUCIR);
+  MED[sel.dataset.g] = sel.value; cambiarVista(sel.dataset.g);
 }));
 
 /* ---------- la OCDE dentro de cada gráfico, al estilo de las páginas de país del Banco Mundial ----------
@@ -1485,7 +1503,7 @@ Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
     if (VISTA[g] === (b.dataset.k || null)) return;
     VISTA[g] = b.dataset.k || null;
     conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    DIB[g](!REDUCIR);
+    cambiarVista(g);
   }));
   const orig = DIB[g];
   DIB[g] = a => {
@@ -1764,7 +1782,7 @@ const CX = (() => {
     pts.attr("transform", d => { const p = previo[d.codigo_indec] || pos(d); return `translate(${p[0]},${p[1]})`; });
     if (anim && !REDUCIR) {
       pts.transition().duration(Object.keys(previo).length ? 650 : 0).ease(EASE).attr("transform", d => `translate(${pos(d)})`);
-      if (!Object.keys(previo).length) circ.attr("r", 0).transition().delay((d, i) => 120 + i * 18).duration(420).ease(EASE).attr("r", d => r(d.poblacion));
+      if (!Object.keys(previo).length) circ.attr("r", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("r", d => r(d.poblacion));
     } else pts.attr("transform", d => `translate(${pos(d)})`);
     previo = Object.fromEntries(todos.map(d => [d.codigo_indec, pos(d)]));
     // estela: el recorrido de la provincia elegida hasta el año que se muestra
@@ -1899,7 +1917,7 @@ const CX = (() => {
     const tramo = f.append("line").attr("x1", r => x(r.lo)).attr("x2", r => x(r.hi)).attr("stroke", r => r.p < .05 ? css("--azul") : css("--faint")).attr("stroke-width", 3);
     const pto = f.append("circle").attr("cx", r => x(r.b)).attr("r", 6.5).attr("fill", r => r.p < .05 ? css("--azul") : "#fff").attr("stroke", r => r.p < .05 ? css("--azul") : css("--faint")).attr("stroke-width", 2);
     f.append("text").attr("x", -10).attr("dy", ".35em").attr("text-anchor", "end").attr("class", "etq").text(r => META[r.k].nombre.slice(0, angosto ? 20 : 34));
-    if (anim && !REDUCIR) { tramo.attr("x1", x(0)).attr("x2", x(0)).transition().duration(600).ease(EASE).attr("x1", r => x(r.lo)).attr("x2", r => x(r.hi)); pto.attr("cx", x(0)).transition().duration(600).ease(EASE).attr("cx", r => x(r.b)); }
+    if (anim && !REDUCIR) { tramo.attr("x1", x(0)).attr("x2", x(0)).transition().duration(DUR_G).ease(EASE).attr("x1", r => x(r.lo)).attr("x2", r => x(r.hi)); pto.attr("cx", x(0)).transition().duration(DUR_G).ease(EASE).attr("cx", r => x(r.b)); }
     tab.innerHTML = `<thead><tr><th>Variable</th><th class="n">Coeficiente estandarizado</th><th class="n">Intervalo del 95%</th><th class="n">Valor p</th><th class="n">VIF</th></tr></thead><tbody>` +
       filas.map(r => `<tr><td>${META[r.k].nombre}</td><td class="n">${fr(r.b)}</td><td class="n">${fr(r.lo)} a ${fr(r.hi)}</td><td class="n">${fp(r.p)}</td><td class="n">${r.vif == null ? "s/d" : loc.format(",.1f")(r.vif)}</td></tr>`).join("") + `</tbody>`;
     const sig = filas.filter(r => r.p < .05);
@@ -1922,7 +1940,7 @@ const MAPA_DEP = (() => {
   if (!sel) return;
   sel.innerHTML = Object.entries(META).map(([k, m]) => `<option value="${k}">${m.nombre}</option>`).join("");
   let ind = "homicidios", topo = null, filas = null, cargando = null;
-  sel.addEventListener("change", () => { ind = sel.value; DIB["mapa-dep"](!REDUCIR); });
+  sel.addEventListener("change", () => { ind = sel.value; cambiarVista("mapa-dep"); });
   document.getElementById("mp-pais").addEventListener("click", () => elegir(""));
   const cargar = () => cargando || (cargando = Promise.all([d3.json("datos/departamentos.topo.json"), d3.csv("datos/departamentos.csv", d3.autoType)])
     .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }));
@@ -1942,7 +1960,7 @@ const MAPA_DEP = (() => {
     const escala = d3.scaleThreshold().domain(cortes).range(colores);
     const deps = svg.append("g").selectAll("path").data(enProv).join("path").attr("class", "dep").attr("d", camino)
       .attr("fill", f => { const v = filas[f.properties.id]?.[ind]; return v == null ? "#E4E9EF" : escala(v); });
-    if (anim && !REDUCIR) deps.attr("opacity", 0).transition().delay((d, i) => Math.min(400, i * 2)).duration(300).attr("opacity", 1);
+    if (anim && !REDUCIR) deps.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
     const geoms = NOMBRES[prov] ? {type: "GeometryCollection", geometries: obj.geometries.filter(g => g.properties.prov === prov)} : obj;
     svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(topo, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
     const f1 = d3.format(",.1f"), fv = v => v == null ? "sin dato" : loc.format(",.1f")(v);
@@ -2033,7 +2051,7 @@ const IX = (() => {
       .attr("opacity", d => prov && d.f.codigo_indec !== prov ? .6 : 1);
     const destino = (d, i) => `translate(0,${i * fila})`;
     filas.attr("transform", (d, i) => yPrev[d.f.codigo_indec] != null ? `translate(0,${yPrev[d.f.codigo_indec]})` : destino(d, i));
-    if (anim && !REDUCIR) filas.transition().duration(500).ease(EASE).attr("transform", destino); else filas.attr("transform", destino);
+    if (anim && !REDUCIR) filas.transition().duration(DUR_G).ease(EASE).attr("transform", destino); else filas.attr("transform", destino);
     yPrev = Object.fromEntries(datos.map((d, i) => [d.f.codigo_indec, i * fila]));
     filas.each(function(d) {
       let acc = 0; const gg = d3.select(this);
@@ -2106,7 +2124,7 @@ document.querySelectorAll(".conmutador:not(.pestanas)").forEach(conm => {
     MED[k] = b.dataset.m;
     conm.style.setProperty("--i", i);
     conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    DIB[k](!REDUCIR);
+    cambiarVista(k);
   }));
 });
 
@@ -2339,10 +2357,9 @@ function tiras() {
 function cambiarTexto(el, t, animar) {
   if (el.textContent.replaceAll(NBSP, " ") === t) return;
   if (!animar || REDUCIR) { el.textContent = t; return; }
-  el.animate([{opacity:1, filter:"blur(0)"}, {opacity:0, filter:"blur(3px)"}], {duration:120, easing:"ease-out"}).onfinish = () => {
+  el.animate([{opacity:1}, {opacity:0}], {duration:100, easing:"ease-out"}).onfinish = () => {
     el.textContent = t;
-    el.animate([{opacity:0, filter:"blur(3px)", transform:"translateY(4px)"}, {opacity:1, filter:"blur(0)", transform:"none"}],
-      {duration:300, easing:"cubic-bezier(.23,1,.32,1)"});
+    el.animate([{opacity:0, transform:"translateY(4px)"}, {opacity:1, transform:"none"}], {duration:200, easing:"cubic-bezier(.23,1,.32,1)"});
   };
 }
 function pintarPanel(animar) {
@@ -2357,7 +2374,7 @@ function pintarPanel(animar) {
     const punto = d3.select(el).select("circle.elegida");
     if (!fila) { punto.attr("opacity", 0); return; }
     // el punto viaja de la provincia anterior a la nueva
-    (animar && !REDUCIR && punto.attr("opacity") === "1" ? punto.transition().duration(450).ease(EASE) : punto)
+    (animar && !REDUCIR && punto.attr("opacity") === "1" ? punto.transition().duration(DUR_G).ease(EASE) : punto)
       .attr("cx", c.x(fila[c.k])).attr("opacity", 1);
   });
 }
@@ -2429,7 +2446,9 @@ const PREG = [
   const q = rot.querySelector(".rot-q"), a = rot.querySelector(".rot-a");
   const cuerpo = rot.querySelector(".rot-cuerpo"), barra = rot.querySelector(".rot-barra i"), cuenta = document.getElementById("rot-cuenta");
   const bPausa = rot.querySelector(".rot-pausa"), bSig = rot.querySelector(".rot-sig"), bAnt = rot.querySelector(".rot-ant");
-  const DUR = 7000, freno = {pausa: false, puntero: false, foco: false, fuera: false};
+  const DUR = 7000, freno = {pausa: REDUCIR, puntero: false, foco: false, fuera: false};
+  // con movimiento reducido arranca en pausa: "Seguir" lo pone en marcha
+  if (REDUCIR) { bPausa.setAttribute("aria-pressed", "true"); bPausa.textContent = "Seguir"; }
   let i = 0, prog;
   const frenado = () => Object.values(freno).some(Boolean);
   const aplicar = () => { if (prog) frenado() ? prog.pause() : prog.play(); };
@@ -2584,7 +2603,7 @@ const fuenteArt = m => m.fuente.includes(m.periodo) ? m.fuente : `${m.fuente} ($
 const SEC = Object.fromEntries(SITIO.secciones.map(([id, t, p, x, herr, f, a]) => [id, {id, t, p, x, herr, f, a}]));
 const nombreSec = id => SEC[id]?.t || "";
 const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><span class="art-ico">${icono(a.icono)}</span>` +
-  `<span class="art-txt"><b>${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
+  `<span class="art-txt"><b style="view-transition-name:t-${a.id}">${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
 const TIT_ART = Object.fromEntries(SITIO.articulos);
 ART.forEach(a => { a.titulo = TIT_ART[a.id]; a.c = calcularArt(a); a.t = textoArt(a, a.c); });
 ART.forEach(a => {
@@ -2594,7 +2613,7 @@ ART.forEach(a => {
   const [px] = partesU(a.ux), [py] = partesU(a.uy);
   const nota = document.getElementById(a.id); if (!nota) return;
   nota.innerHTML =
-    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit">${a.titulo}</h2></div></div>` +
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
     `<div class="nota-graf"><h3>${Mx.nombre} y ${My.nombre.toLowerCase()} por jurisdicción</h3><div class="grafico" data-g="${key}"></div>` +
     `<p class="nota-pie-graf">Cada punto es una jurisdicción. La línea punteada muestra la tendencia.</p></div>` +
@@ -2666,7 +2685,7 @@ if (grillaSec) grillaSec.innerHTML = Object.values(SEC).map(sec => {
   const n = sec.f, na = sec.a;
   return `<a class="tarjeta sec-tarjeta${sec.herr ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
     `<span class="sec-tipo">${sec.herr ? "Herramienta" : na ? na + " artículos" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
-    `<b>${sec.t}</b><span class="sec-preg">${sec.p}</span></a>`;
+    `<b style="view-transition-name:t-${sec.id}">${sec.t}</b><span class="sec-preg">${sec.p}</span></a>`;
 }).join("");
 
 /* La respuesta primero (idea de USAFacts): las cifras clave de la sección arriba, antes de la explicación.
@@ -2759,12 +2778,22 @@ if (PAGINA !== "inicio") {
 })();
 
 /* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */
-const vistas = new IntersectionObserver(es => es.forEach(en => {
-  if (!en.isIntersecting) return;
-  const f = en.target; f.classList.add("visto"); vistas.unobserve(f);
-  f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent) DIB[gr.dataset.g](!REDUCIR); });
-  const bi = f.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(f);
-}), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
+// Si entran varias juntas, cada una 50 ms después de la anterior (hasta 150). Las que ya se ven al llegar desde otra página
+// no tienen entrada propia: entran con la página, para que no se sumen dos movimientos
+const vistas = new IntersectionObserver(es => {
+  let k = 0;
+  es.forEach(en => {
+    if (!en.isIntersecting) return;
+    const f = en.target, retraso = LLEGADA.activa ? 0 : Math.min(k++, 3) * 50;
+    if (LLEGADA.activa) f.classList.add("sin-entrada"); else f.style.setProperty("--retraso", retraso + "ms");
+    f.classList.add("visto"); vistas.unobserve(f);
+    setTimeout(() => {
+      f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent) DIB[gr.dataset.g](!REDUCIR && !LLEGADA.activa); });
+      // "Descargar imagen" solo si la ficha tiene un gráfico: se mira después de dibujarlo
+      const bi = f.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(f);
+    }, retraso);
+  });
+}, {threshold: .12, rootMargin: "0px 0px -8% 0px"});
 document.querySelectorAll("article.ficha, article.nota").forEach(f => vistas.observe(f));
 
 /* navegación activa: la sección de esta página, en la barra, el menú y el pie */
@@ -2808,6 +2837,25 @@ if (PAGINA === "inicio" && document.querySelector(".portada"))
   new IntersectionObserver(([en]) => barra.classList.toggle("clara", !en.isIntersecting && en.boundingClientRect.top < 0), {rootMargin: "-80px 0px 0px 0px"})
     .observe(document.querySelector(".portada"));
 else barra.classList.add("clara");
+if (!REDUCIR) {
+  let ultimo = scrollY, pendiente = false;
+  addEventListener("scroll", () => {
+    if (pendiente) return;
+    pendiente = true;
+    requestAnimationFrame(() => {
+      pendiente = false;
+      const y = scrollY, d = y - ultimo;
+      if (Math.abs(d) < 6) return;
+      // con un menú o el buscador abiertos la barra no cambia
+      if (!barra.querySelector('[aria-expanded="true"]')) barra.classList.toggle("compacta", d > 0 && y > 120);
+      ultimo = y;
+    });
+  }, {passive: true});
+}
+
+/* Paneles (Secciones, buscador, provincia): abiertos con el teclado aparecen sin animación */
+addEventListener("keydown", () => document.documentElement.classList.add("teclado"), true);
+addEventListener("pointerdown", () => document.documentElement.classList.remove("teclado"), true);
 
 /* enlaces compartidos del tipo salud.html#f-mortalidad?prov=30: llevar a la ficha */
 if (location.hash.includes("?")) {
