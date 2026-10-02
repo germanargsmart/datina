@@ -309,6 +309,15 @@ const $t = k => document.querySelector(`[data-t="${k}"]`) || document.createElem
 /* ---------- provincias ---------- */
 const PROV = T.empleo_provincias.map(d => [d.codigo_indec, d.territorio]).sort((a,b) => a[1].localeCompare(b[1],"es"));
 const NOMBRES = Object.fromEntries(PROV);
+/* Banderas provinciales (etapa 7): miniaturas de 72 x 48 (scripts/banderas.py) que se ven a 24 x 16, con el mismo recorte y el
+   mismo borde para las 24. Van siempre al lado del nombre: para los lectores de pantalla son decorativas (texto alternativo vacío).
+   Donde va "Todo el país" o el total nacional queda el lugar vacío, para que las columnas queden alineadas.
+   Van en un elemento propio, nunca dentro de un texto que se reescribe entero (cambiarTexto o textContent lo borrarían). */
+const bandera = (c, cls = "") => NOMBRES[c]
+  ? `<img class="bandera${cls ? " " + cls : ""}" src="datos/banderas/${c}.png" alt="" width="24" height="16" loading="lazy" decoding="async">`
+  : `<span class="bandera vacia" aria-hidden="true"></span>`;
+// código de una provincia por su nombre, como lo escriben otras fuentes (presidentes, gabinetes)
+const COD_PROV = Object.fromEntries([...PROV.map(([c, n]) => [n, c]), ["Ciudad Autónoma de Buenos Aires", "02"], ["Ciudad de Buenos Aires", "02"]]);
 // La provincia se puede compartir en el enlace (?prov=30) y se recuerda en este navegador
 const leerProv = () => new URLSearchParams(location.search).get("prov") || new URLSearchParams(location.hash.split("?")[1] || "").get("prov") || "";
 let prov = "";
@@ -350,10 +359,10 @@ const desplegable = (() => {
   if (!caja) return {marcar() {}};
   const btn = document.getElementById("elige-btn"), panel = document.getElementById("elige-panel");
   const buscar = document.getElementById("elige-buscar"), lista = document.getElementById("elige-lista"), vacio = document.getElementById("elige-vacio");
-  const valor = document.getElementById("elige-valor");
+  const valor = document.getElementById("elige-valor"), band = document.getElementById("elige-band");
   const sinTilde = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   lista.innerHTML = [["", "Todo el país"], ...PROV].map(([c, n], i) =>
-    `<li role="option" id="op-${c || "pais"}" data-c="${c}" aria-selected="false"${i === 0 ? ' class="primera"' : ""}>${n}</li>`).join("");
+    `<li role="option" id="op-${c || "pais"}" data-c="${c}" aria-selected="false"${i === 0 ? ' class="primera"' : ""}>${bandera(c)}<span>${n}</span></li>`).join("");
   const items = [...lista.children];
   let activa = -1, cierre;
   const visibles = () => items.filter(li => !li.hidden);
@@ -392,6 +401,7 @@ const desplegable = (() => {
   document.addEventListener("pointerdown", ev => { if (!caja.contains(ev.target) && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
   const marcar = () => {
     valor.textContent = NOMBRES[prov] || "Todo el país";
+    band.innerHTML = NOMBRES[prov] ? bandera(prov) : "";
     items.forEach(li => li.setAttribute("aria-selected", li.dataset.c === prov));
   };
   marcar();
@@ -437,6 +447,15 @@ function trazar(path, dash) {
 const DUR_C = 200;
 const pasar = sel => sel.transition("resalte").duration(DUR_C).ease(d3.easeCubicOut);
 const claseProv = (d, base) => d.codigo_indec === prov ? "etq-fuerte" : base;
+/* Barras redondeadas (octubre de 2026): las barras simples llevan las puntas redondeadas (4 px, o la mitad del grosor si es menor).
+   Las apiladas se redondean enteras con un recorte (clipPath), así las uniones entre tramos quedan rectas. */
+const RADIO_BARRA = 4, rBarra = h => Math.min(RADIO_BARRA, h / 2);
+let nRecorte = 0;
+const recorte = (svg, x, y, w, h, r) => {
+  const id = `rb${++nRecorte}`;
+  svg.append("defs").append("clipPath").attr("id", id).append("rect").attr("x", x).attr("y", y).attr("width", Math.max(0, w)).attr("height", Math.max(0, h)).attr("rx", r);
+  return `url(#${id})`;
+};
 // rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
 const aparecer = (sel, delay = 0) => sel.attr("opacity", 0).transition().delay(Math.min(delay, 150)).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
 
@@ -528,7 +547,7 @@ function barrasH(el, cfg) {
   // lo que depende de la provincia elegida: se usa al dibujar y otra vez en resaltar()
   const relleno = d => d.codigo_indec === prov ? css("--celeste-fuerte") : (cfg.color ? cfg.color(d) : css("--celeste"));
   const opac = d => prov && d.codigo_indec !== prov ? .55 : 1;
-  const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", 2)
+  const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth()))
     .attr("width", d => Math.abs(x(d[cfg.k]) - x(0))).attr("fill", relleno).attr("opacity", opac);
   const nombres = filas.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end")
     .attr("class", d => claseProv(d, "etq")).text(d => d.territorio);
@@ -603,7 +622,7 @@ function columnas(el, cfg) {
   const x = d3.scaleBand().domain(data.map(d => d.mes)).range([0, iw]).padding(.22);
   const y = d3.scaleLinear().domain([0, d3.max(data, d => d.gwh) * 1.08]).range([ih, 0]);
   const mx = d3.max(data, d => d.gwh), mn = d3.min(data, d => d.gwh);
-  const cols = g.selectAll("rect").data(data).join("rect").attr("x", d => x(d.mes)).attr("width", x.bandwidth()).attr("rx", 2)
+  const cols = g.selectAll("rect").data(data).join("rect").attr("x", d => x(d.mes)).attr("width", x.bandwidth()).attr("rx", rBarra(x.bandwidth()))
     .attr("y", d => y(d.gwh)).attr("height", d => ih - y(d.gwh))
     .attr("fill", d => d.gwh === mx ? css("--celeste-fuerte") : d.gwh === mn ? css("--sol") : css("--celeste"));
   const vals = g.selectAll("text.v").data(data).join("text").attr("class","etq-suave").attr("text-anchor","middle")
@@ -628,7 +647,7 @@ function barrasGrupos(el, cfg) {
   const y = d3.scaleBand().domain(data.map(d => d.grupo)).range([0, data.length * fila]).padding(.3);
   g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.grupo)})`);
-  const b = f.append("rect").attr("height", y.bandwidth()).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
+  const b = f.append("rect").attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
   f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq").text(d => d.grupo);
   const v = f.append("text").attr("x", d => x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
   if (cfg.ref != null) {
@@ -663,10 +682,11 @@ function piramidePob(el, cfg) {
   g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
   g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
-  const v = f.append("rect").attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh)).attr("height", y.bandwidth()).attr("fill", css("--celeste"));
-  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mh)).attr("height", y.bandwidth()).attr("fill", css("--sol"));
-  const ov = f.append("rect").attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf)).attr("height", y.bandwidth()).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
-  const om = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mf)).attr("height", y.bandwidth()).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
+  const rx = rBarra(y.bandwidth());
+  const v = f.append("rect").attr("x", d => centro - gap - x(d.vh)).attr("width", d => x(d.vh)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill", css("--celeste"));
+  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mh)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill", css("--sol"));
+  const ov = f.append("rect").attr("x", d => centro - gap - x(d.vf)).attr("width", d => x(d.vf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
+  const om = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
   f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").style("font-size", angosto ? "10px" : null).text(d => d.lab);
   f.append("rect").attr("x", 0).attr("width", iw).attr("height", y.bandwidth()).attr("fill","transparent")
     .on("pointermove", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en 2040<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en 2040`, centro, y(d.edad) + 48))
@@ -702,8 +722,8 @@ function piramide(el, cfg) {
   g.append("text").attr("x", centro - gap).attr("y", -12).attr("text-anchor","end").attr("class","etq-fuerte").attr("fill",css("--celeste-fuerte")).text("Varones");
   g.append("text").attr("x", centro + gap).attr("y", -12).attr("class","etq-fuerte").attr("fill",css("--sol-fuerte")).text("Mujeres");
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.edad)})`);
-  const v = f.append("rect").attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones)).attr("height", y.bandwidth()).attr("rx",2).attr("fill", css("--celeste"));
-  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.pct_mujeres)).attr("height", y.bandwidth()).attr("rx",2).attr("fill", css("--sol"));
+  const v = f.append("rect").attr("x", d => centro - gap - x(d.pct_varones)).attr("width", d => x(d.pct_varones)).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("fill", css("--celeste"));
+  const m = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.pct_mujeres)).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("fill", css("--sol"));
   f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").text(d => d.edad.replace(" y más","+").replace("Menos de ","<"));
   const tv = f.append("text").attr("x", d => centro - gap - x(d.pct_varones) - 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq-suave").text(d => n1(d.pct_varones) + "%");
   const tm = f.append("text").attr("x", d => centro + gap + x(d.pct_mujeres) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-suave").text(d => n1(d.pct_mujeres) + "%");
@@ -742,7 +762,10 @@ function franjas(el, cfg) {
 /* Barras horizontales apiladas al 100%: una fila por provincia (elecciones) */
 function apiladasH(el, cfg) {
   const data = cfg.data, angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
-  const C = lienzo(el, data.length * fila + 30, {t:22, r:8, b:6, l: angosto ? 112 : 150});
+  // con banderas, el lugar de los nombres crece lo que ocupa la bandera y un poco más ("Fernández de Kirchner" entra entero en el celular)
+  const izq = cfg.bandera ? (angosto ? 172 : 190) : (angosto ? 112 : 150), xNom = cfg.bandera ? -40 : -10;
+  // a la derecha, lugar para que el "100%" del eje no se corte
+  const C = lienzo(el, data.length * fila + 30, {t:22, r:18, b:6, l: izq});
   const {g, iw} = C;
   const x = d3.scaleLinear().domain([0, 100]).range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.22);
@@ -750,12 +773,24 @@ function apiladasH(el, cfg) {
   const f = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
   const clase = d => d.codigo_indec === prov || d.codigo_indec === "00" ? "etq-fuerte" : "etq";
   const opac = d => prov && d.codigo_indec !== prov && d.codigo_indec !== "00" ? .55 : 1;
-  const nombres = f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class", clase).text(d => d.territorio);
-  el.resaltar = () => { nombres.attr("class", clase); f.each(function(d) { pasar(d3.select(this).selectAll("rect")).attr("opacity", opac(d)); }); };
+  const nombres = f.append("text").attr("x", xNom).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class", clase).text(d => d.territorio);
+  if (cfg.bandera) f.each(function(d) {
+    // bandera de 24 x 16 con el mismo borde que en el resto del sitio, o un ícono neutro si la fila reúne a varias provincias
+    const v = cfg.bandera(d), s = d3.select(this), y0 = (y.bandwidth() - 16) / 2;
+    if (typeof v === "number") {
+      s.append("rect").attr("class", "bandera-grupo").attr("x", -34).attr("y", y0).attr("width", 24).attr("height", 16);
+      s.append("text").attr("class", "bandera-grupo-n").attr("x", -22).attr("y", y0 + 8).attr("dy", ".35em").attr("text-anchor", "middle").text(v);
+    } else if (NOMBRES[v]) {
+      s.append("image").attr("href", `datos/banderas/${v}.png`).attr("x", -34).attr("y", y0).attr("width", 24).attr("height", 16).attr("preserveAspectRatio", "none");
+      s.append("rect").attr("class", "bandera-borde").attr("x", -33.5).attr("y", y0 + .5).attr("width", 23).attr("height", 15);
+    }
+  });
+  el.resaltar = () => { nombres.attr("class", clase); f.each(function(d) { pasar(d3.select(this).selectAll("rect.parte")).attr("opacity", opac(d)); }); };
   f.each(function(d) {
     let acc = 0;
     const partes = cfg.claves.map(k => { const v = d[k.k] || 0, p = {k, x0: acc, v}; acc += v; return p; });
-    const r = d3.select(this).selectAll("rect").data(partes).join("rect").attr("y", 0).attr("height", y.bandwidth())
+    const tramos = d3.select(this).append("g").attr("clip-path", recorte(C.svg, 0, 0, x(acc) - 1, y.bandwidth(), rBarra(y.bandwidth())));
+    const r = tramos.selectAll("rect.parte").data(partes).join("rect").attr("class", "parte").attr("y", 0).attr("height", y.bandwidth())
       .attr("x", p => x(p.x0)).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0))).attr("fill", p => p.k.c)
       .attr("opacity", opac(d));
     const t = d3.select(this).selectAll("text.v").data(partes.filter(p => x(p.x0 + p.v) - x(p.x0) > 34)).join("text").attr("class","v")
@@ -765,8 +800,8 @@ function apiladasH(el, cfg) {
       aparecer(t, 150); }
   });
   f.on("pointerenter", function(ev, d) {
-      mostrarTip(el, `<b>${d.territorio}</b><br>` + cfg.claves.filter(k => d[k.k] != null).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${pct(d[k.k])}`).join("<br>"),
-        (angosto ? 112 : 150) + iw / 2, y(d.codigo_indec) + 22); })
+      mostrarTip(el, `<b>${d.territorio}</b>${cfg.tipExtra ? cfg.tipExtra(d) : ""}<br>` + cfg.claves.filter(k => d[k.k] != null).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${pct(d[k.k])}`).join("<br>"),
+        izq + iw / 2, y(d.codigo_indec) + 22); })
    .on("pointerleave", ocultarTip);
 }
 
@@ -787,7 +822,8 @@ function columnasApiladas(el, cfg) {
   col.each(function(d) {
     let acc = 0;
     const partes = cfg.claves.map(k => { const v = d[k.k] || 0, p = {k, y0: acc, v}; acc += v; return p; });
-    const r = d3.select(this).selectAll("rect").data(partes).join("rect").attr("width", x.bandwidth()).attr("fill", p => p.k.c)
+    const r = d3.select(this).append("g").attr("clip-path", recorte(C.svg, 0, y(acc), x.bandwidth(), ih - y(acc), rBarra(x.bandwidth())))
+      .selectAll("rect").data(partes).join("rect").attr("width", x.bandwidth()).attr("fill", p => p.k.c)
       .attr("y", p => y(p.y0 + p.v)).attr("height", p => y(p.y0) - y(p.y0 + p.v));
     if (cfg.anim) r.attr("y", ih).attr("height", 0).transition().delay(x(d.anio) / iw * 150).duration(DUR_G).ease(EASE)
       .attr("y", p => y(p.y0 + p.v)).attr("height", p => y(p.y0) - y(p.y0 + p.v));
@@ -1430,7 +1466,7 @@ DIB.presidentes = a => {
   const t0 = new Date(P[0].inicio), t1 = new Date();
   const x = d3.scaleTime().domain([t0, t1]).range([0, iw]);
   const fin = d => d.fin ? new Date(d.fin) : t1;
-  const r = g.selectAll("rect").data(P).join("rect").attr("x", d => x(new Date(d.inicio))).attr("y", 0).attr("height", 38)
+  const r = g.append("g").attr("clip-path", recorte(C.svg, 0, 0, iw, 38, RADIO_BARRA)).selectAll("rect").data(P).join("rect").attr("x", d => x(new Date(d.inicio))).attr("y", 0).attr("height", 38)
     .attr("width", d => Math.max(1.5, x(fin(d)) - x(new Date(d.inicio)) - 1)).attr("fill", d => ORIGEN_COLOR[d.origen]);
   g.selectAll("text.n").data(P.filter(d => x(fin(d)) - x(new Date(d.inicio)) > (angosto ? 44 : 60))).join("text").attr("class","n")
     .attr("x", d => x(new Date(d.inicio)) + 5).attr("y", 23).attr("font-size", 12).attr("fill", d => ORIGEN_TEXTO[d.origen]).text(d => apellido(d.nombre));
@@ -1438,7 +1474,7 @@ DIB.presidentes = a => {
   if (a) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}<br>Nació en ${d.lugar_nacimiento}, ${d.provincia}`,
       4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarTip);
-  document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i><span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}</span>` +
+  document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i>${bandera(COD_PROV[d.provincia])}<span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}</span>` +
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "Ciudad de Buenos Aires") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
 };
 MED.ministros = "gobierno";
@@ -1452,8 +1488,14 @@ DIB.ministros = a => {
   if (MED.ministros === "gobierno") {
     const ks = Object.keys(ORIGEN_COLOR).filter(k => T.gabinetes_origen.some(d => d[k] > 0));
     ley.innerHTML = leyOrigen(ks); ley.hidden = false;
+    const INTERINOS = T.presidentes.filter(p => p.interino && p.inicio.startsWith("2001"));
+    const presi = n => T.presidentes.find(p => p.nombre === n);
     apiladasH(G("ministros"), {anim: a, claves: ks.map(k => ({k, lab: k, c: ORIGEN_COLOR[k], texto: ORIGEN_TEXTO[k]})),
-      data: T.gabinetes_origen.map(d => ({...d, codigo_indec: d.gobierno, territorio: apellido(d.gobierno)}))});
+      data: T.gabinetes_origen.map(d => ({...d, codigo_indec: d.gobierno, territorio: apellido(d.gobierno)})),
+      bandera: d => d.gobierno === "Interinos de 2001" ? INTERINOS.length : COD_PROV[presi(d.gobierno)?.provincia],
+      tipExtra: d => d.gobierno === "Interinos de 2001"
+        ? "<br>" + INTERINOS.map(p => `${bandera(COD_PROV[p.provincia])} ${apellido(p.nombre)}, nacido en ${p.provincia.replace("Ciudad Autónoma de Buenos Aires", "la Ciudad de Buenos Aires")}`).join("<br>")
+        : (p => p ? `<br>${bandera(COD_PROV[p.provincia])} Nacido en ${p.provincia.replace("Ciudad Autónoma de Buenos Aires", "la Ciudad de Buenos Aires")}` : "")(presi(d.gobierno))});
   } else {
     ley.hidden = true;
     barrasH(G("ministros"), {anim: a, data: T.ministros_provincias, k: "ministros", vf: n0, af: n0});
@@ -1940,7 +1982,7 @@ const CX = (() => {
       `<div><h4>Más abajo de lo que marca la recta</h4><ol>${conRes.slice(-3).reverse().map(item).join("")}</ol></div>`;
     // tabla del par
     document.getElementById("cx-tabla").innerHTML = `<thead><tr><th>Jurisdicción</th><th>Región</th><th class="n">${X.nombre}</th><th class="n">${Y.nombre}</th></tr></thead><tbody>` +
-      [...FILAS].sort((a, b) => a.territorio.localeCompare(b.territorio, "es")).map(f => `<tr${f.codigo_indec === prov ? ' class="elegida"' : ""}><td>${f.territorio}${st.fuera.has(f.codigo_indec) ? " (fuera del cálculo)" : ""}</td><td>${f.region}</td>` +
+      [...FILAS].sort((a, b) => a.territorio.localeCompare(b.territorio, "es")).map(f => `<tr${f.codigo_indec === prov ? ' class="elegida"' : ""}><td>${conBandera(f.codigo_indec, f.territorio + (st.fuera.has(f.codigo_indec) ? " (fuera del cálculo)" : ""))}</td><td>${f.region}</td>` +
         `<td class="n">${f[st.x] == null ? "s/d" : fm(st.x)(f[st.x])}</td><td class="n">${f[st.y] == null ? "s/d" : fm(st.y)(f[st.y])}</td></tr>`).join("") + `</tbody>`;
     document.getElementById("cx-fuentes").textContent = `${X.nombre}: ${X.unidad}, ${X.periodo}. Fuente: ${X.fuente}. ${Y.nombre}: ${Y.unidad}, ${Y.periodo}. Fuente: ${Y.fuente}.`;
   }
@@ -2062,7 +2104,7 @@ const MAPA_DEP = (() => {
     ["", ...cortes.map(v => loc.format(",.1f")(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26).attr("text-anchor", i ? "middle" : "start").text(t));
     // lista lateral
     const lugar = NOMBRES[prov] || "Todo el país";
-    document.getElementById("mp-lugar").textContent = `${lugar}: ${m.nombre.toLowerCase()}`;
+    document.getElementById("mp-lugar").innerHTML = NOMBRES[prov] ? conBandera(prov, `${lugar}: ${m.nombre.toLowerCase()}`) : esc(`${lugar}: ${m.nombre.toLowerCase()}`);
     document.getElementById("mp-pais").hidden = !NOMBRES[prov];
     const lista = enProv.map(f => ({f, r: filas[f.properties.id]})).filter(o => o.r && o.r[ind] != null && (o.r.poblacion_identificada || 0) >= MIN_POB)
       .sort((a, b) => b.r[ind] - a.r[ind]);
@@ -2194,7 +2236,7 @@ function pintarExtra() {
   const cerca = (k, v) => T.mundo_paises.filter(p => p[k] != null).sort((a, b) => Math.abs(a[k] - v) - Math.abs(b[k] - v))[0];
   const pe = ev && cerca("esperanza_vida", ev.total), pm = mi && cerca("mortalidad_infantil", mi.tmi_actual);
   caja.innerHTML = `<div><h3>Provincias más parecidas a ${NOMBRES[prov]}</h3><ol>` +
-    lista.slice(0, 3).map(o => `<li><button type="button" class="enlace" data-c="${o.f.codigo_indec}">${o.f.territorio}</button></li>`).join("") + `</ol>` +
+    lista.slice(0, 3).map(o => `<li><button type="button" class="enlace con-bandera" data-c="${o.f.codigo_indec}">${bandera(o.f.codigo_indec)}<span>${o.f.territorio}</span></button></li>`).join("") + `</ol>` +
     `<p class="suave">La más distinta es ${lista[lista.length - 1].f.territorio}. Se compara la distancia en los ${R.cruces.length - 1} indicadores del explorador, cada uno medido en desvíos respecto del promedio de las 24.</p></div>` +
     `<div><h3>Si ${NOMBRES[prov]} fuera un país</h3><ul>` +
     (pe ? `<li>Su esperanza de vida, ${n1(ev.total)} años en ${nv.ev_anio}, se parece a la de <b>${pe.pais}</b> (${n1(pe.esperanza_vida)}).</li>` : "") +
@@ -2289,6 +2331,8 @@ const CLAVE = {
   "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
 };
 const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
+// nombre de una provincia con su bandera (tablas, listas, buscador, migas)
+function conBandera(c, nombre) { return `<span class="con-bandera">${bandera(c)}<span>${esc(nombre)}</span></span>`; }
 const nTabla = loc.format(",.2~f");
 // Tabla de la ficha dentro de la tarjeta (idea de USAFacts), con las mismas filas que el CSV
 function tablaDatos(filas) {
@@ -2298,7 +2342,8 @@ function tablaDatos(filas) {
   const num = Object.fromEntries(cols.map(c => [c, filas.some(r => typeof r[c] === "number")]));
   const v = (r, c) => r[c] == null ? "" : typeof r[c] === "number" ? (anio(c) ? String(r[c]) : nTabla(r[c])) : Array.isArray(r[c]) ? r[c].join(", ") : typeof r[c] === "object" ? JSON.stringify(r[c]) : r[c];
   return `<div class="tabla-desliza"><table class="tabla-areas"><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
-    filas.slice(0, MAX).map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ' class="n"' : ""}>${esc(v(r, c))}</td>`).join("")}</tr>`).join("") +
+    filas.slice(0, MAX).map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ' class="n"' : ""}>${
+      c === "territorio" && (NOMBRES[r.codigo_indec] || r.codigo_indec === "00") ? conBandera(r.codigo_indec, v(r, c)) : esc(v(r, c))}</td>`).join("")}</tr>`).join("") +
     `</tbody></table></div><p class="tabla-nota">${filas.length > MAX ? `Primeras ${MAX} filas de ${n0(filas.length)}. ` : ""}La tabla completa está en el CSV.</p>`;
 }
 // Imagen de la ficha: título, texto, gráfico y fuente en un PNG de doble resolución
@@ -2314,6 +2359,10 @@ async function imagenFicha(f) {
     "opacity", "font-family", "font-size", "font-weight", "text-anchor", "dominant-baseline", "letter-spacing"];
   orig.forEach((n, i) => { const cs = getComputedStyle(n); copia[i].setAttribute("style", P.map(k => `${k}:${cs.getPropertyValue(k)}`).join(";")); });
   clon.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clon.setAttribute("width", w); clon.setAttribute("height", h);
+  await Promise.all([...clon.querySelectorAll("image")].map(async im => {
+    const b = await (await fetch(im.getAttribute("href"))).blob();
+    im.setAttribute("href", await new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(b); }));
+  }));
   const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clon)], {type: "image/svg+xml;charset=utf-8"}));
   const img = new Image();
   await new Promise((ok, mal) => { img.onload = ok; img.onerror = mal; img.src = url; });
@@ -2400,6 +2449,59 @@ document.querySelectorAll(".tema:not(.herramienta) > article.ficha:not(.ancha)")
   });
   f.prepend(texto, graf);
   f.classList.add("horizontal");
+});
+
+/* "Para entender los datos" (octubre de 2026): una fila de botones de despliegue, y debajo el cuadro con el texto del que está abierto.
+   Abrir: el cuadro crece hasta el alto del texto (250 ms) y el texto entra con un fundido y 8 px hacia arriba. Cambiar de botón:
+   el texto anterior se va en 100 ms y el nuevo entra mientras el cuadro toma su alto (200 ms). Cerrar: el cuadro se achica en
+   200 ms. Uno abierto a la vez. Con movimiento reducido el alto cambia de una vez y queda el fundido. */
+document.querySelectorAll(".explicador").forEach(ex => {
+  const panel = ex.querySelector(".exp-panel"), botones = [...ex.querySelectorAll(".despliegue")];
+  if (!panel) return;
+  const OUT = "cubic-bezier(.23,1,.32,1)";
+  let abierto = null, curso = [];
+  const parar = () => { curso.forEach(a => a.cancel()); curso = []; panel.style.height = ""; panel.style.overflow = ""; };
+  const crecer = (de, a, ms) => {
+    if (REDUCIR || de === a) return Promise.resolve();
+    panel.style.overflow = "hidden";
+    const an = panel.animate([{height: de + "px"}, {height: a + "px"}], {duration: ms, easing: OUT});
+    curso.push(an);
+    return an.finished.then(() => { panel.style.overflow = ""; }, () => {});
+  };
+  const entrar = (b, ms, demora = 0) => curso.push(b.animate(REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 0, transform: "translateY(8px)"}, {opacity: 1, transform: "none"}],
+    {duration: ms, delay: demora, easing: OUT, fill: "backwards"}));
+  const marcar = (b, si) => { b.classList.toggle("abierto", si); botones.find(x => x.getAttribute("aria-controls") === b.id)?.setAttribute("aria-expanded", String(si)); };
+  botones.forEach(btn => btn.addEventListener("click", async () => {
+    const bloque = document.getElementById(btn.getAttribute("aria-controls"));
+    parar();
+    const h0 = panel.getBoundingClientRect().height;
+    if (abierto === bloque) {
+      // cerrar
+      abierto = null; btn.setAttribute("aria-expanded", "false");
+      curso.push(bloque.animate([{opacity: 1}, {opacity: 0}], {duration: 150, easing: OUT, fill: "forwards"}));
+      await crecer(h0, 0, 200);
+      if (abierto !== bloque) { bloque.classList.remove("abierto"); curso.forEach(a => a.cancel()); curso = []; }
+      return;
+    }
+    const antes = abierto; abierto = bloque;
+    if (antes) {
+      // cambiar: el texto anterior se va (el cuadro conserva su alto) y entra el nuevo mientras el cuadro toma su alto
+      botones.find(x => x.getAttribute("aria-controls") === antes.id)?.setAttribute("aria-expanded", "false"); btn.setAttribute("aria-expanded", "true");
+      if (!REDUCIR) {
+        panel.style.height = h0 + "px";
+        await new Promise(ok => { const a = antes.animate([{opacity: 1}, {opacity: 0}], {duration: 100, easing: OUT, fill: "forwards"}); curso.push(a); a.onfinish = a.oncancel = ok; });
+        if (abierto !== bloque) return;
+        curso.forEach(a => a.cancel()); curso = []; panel.style.height = "";
+      }
+      antes.classList.remove("abierto"); bloque.classList.add("abierto");
+      const h1 = panel.getBoundingClientRect().height;
+      entrar(bloque, 200); crecer(h0, h1, 200);
+    } else {
+      marcar(bloque, true);
+      const h1 = panel.getBoundingClientRect().height;
+      entrar(bloque, 250, 50); crecer(0, h1, 250);
+    }
+  }));
 });
 
 /* "Ver más": los textos de las fichas que pasan de siete líneas se muestran en seis, con un botón para leer el resto.
@@ -2501,7 +2603,9 @@ function cambiarTexto(el, t, animar) {
 function pintarPanel(animar) {
   const nombre = NOMBRES[prov];
   pintarExtra();
-  cambiarTexto($("prov-titulo"), nombre ? `${nombre} en números` : "Elegí una de las 24", animar);
+  cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "Elegí una de las 24", animar);
+  const pb = $("prov-band"), nueva = nombre ? bandera(prov, "grande") : "";
+  if (pb.innerHTML !== nueva) { pb.innerHTML = nueva; if (animar && !REDUCIR && nueva) pb.animate([{opacity: 0}, {opacity: 1}], {duration: DUR_C, easing: "ease-out"}); }
   grilla.querySelectorAll(".dp").forEach(el => {
     const c = INDP[+el.dataset.i], fila = c.d.find(d => d.codigo_indec === prov);
     const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
@@ -2779,7 +2883,7 @@ const pintarDestacados = () => {
   const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
   const D3 = [
     {cls: "azul", ico: "pin", eb: "Tu provincia", href: "provincia.html",
-      tit: prov && NOMBRES[prov] ? `${NOMBRES[prov]} en números` : "Las 24, una por una",
+      tit: prov && NOMBRES[prov] ? `${NOMBRES[prov]} en números` : "Las 24, una por una", band: prov && NOMBRES[prov] ? bandera(prov) : "",
       txt: "Cada provincia junto al total del país y su posición entre las 24, en todos los indicadores con dato provincial."},
     {cls: "amarilla", ico: fuerte.icono, eb: "Artículo", href: urlPagina(fuerte.id), tit: fuerte.titulo, txt: fuerte.dek},
     {cls: "hondo", ico: "congreso", eb: "Congreso", href: "#f-votaciones-espacios",
@@ -2787,7 +2891,7 @@ const pintarDestacados = () => {
       txt: "Los votos nominales de diputados y senadores, ley por ley, junto a la plataforma electoral que presentó cada alianza."},
   ];
   destGrid.innerHTML = D3.map(d => `<a class="tarjeta dest ${d.cls}" href="${d.href}"><span class="dest-arte">${icono(d.ico)}</span>` +
-    `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.tit}</b><span class="dest-txt">${d.txt}</span>` +
+    `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.band ? `<span class="con-bandera">${d.band}<span>${d.tit}</span></span>` : d.tit}</b><span class="dest-txt">${d.txt}</span>` +
     `<span class="dest-ir" aria-hidden="true">${SOL_BOTON}</span></span></a>`).join("");
 };
 if (destGrid) { pintarDestacados(); alCambiarProv.push(pintarDestacados); }
@@ -2841,7 +2945,7 @@ const pintarCifras = () => {
       const fila = ids.has(c.id) && c.d.find(d => d.codigo_indec === prov); if (!fila) return;
       conProv.add(c.id);
       const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
-      tarjetas.push(`<a class="tarjeta cifra prov" href="#${c.id}"><span class="c-lab">${NOMBRES[prov]}</span><span class="c-num">${c.f(fila[c.k])}</span>` +
+      tarjetas.push(`<a class="tarjeta cifra prov" href="#${c.id}"><span class="c-lab con-bandera">${bandera(prov)}<span>${NOMBRES[prov]}</span></span><span class="c-num">${c.f(fila[c.k])}</span>` +
         `<span class="c-txt">${c.lab}: ${c.det}.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`} Posición ${orden} de ${c.d.length}, de mayor a menor.</span></a>`);
     });
     ids.forEach(id => { const c = CLAVE[id]; if (c && !conProv.has(id)) tarjetas.push(`<a class="tarjeta cifra" href="#${id}"><span class="c-num">${c[0]}</span><span class="c-txt">${c[1]}</span></a>`); });
@@ -2869,7 +2973,7 @@ if (PAGINA !== "inicio") {
     IDX = [];
     Object.values(SEC).forEach(t => IDX.push({t: t.t, s: t.herr ? "Herramienta" : "Sección", u: urlPagina(t.id), x: t.x, sec: 1}));
     IDX.push({t: "Tu provincia", s: "Sección", u: "provincia.html", x: "perfil provincia provincias comparar país posición", sec: 1});
-    Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, s: "Tu provincia", u: `provincia.html?prov=${c}`, x: n, sec: 2}));
+    Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, s: "Tu provincia", u: `provincia.html?prov=${c}`, x: n, sec: 2, c}));
     IDX.push({t: "Sobre nosotros", s: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace"});
     SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda]) => {
       // el título y el texto de muchas fichas se calculan (TX): en otra página se leen de ahí
@@ -2882,7 +2986,7 @@ if (PAGINA !== "inicio") {
     ART.forEach(a => IDX.push({t: a.titulo, s: "Artículo", u: urlPagina(a.id), x: a.dek + " " + a.t.bajada, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
-  const fila = d => `<a href="${d.u}"><small>${esc(d.s)}</small>${esc(d.t)}</a>`;
+  const fila = d => `<a href="${d.u}"><small>${esc(d.s)}</small>${d.c ? conBandera(d.c, d.t) : esc(d.t)}</a>`;
   const buscar = () => {
     const pal = st(ent.value.trim()).split(/\s+/).filter(Boolean);
     if (!IDX) armar();
@@ -2957,7 +3061,7 @@ const pintarChip = () => {
       document.getElementById("chip-borrar").setAttribute("aria-label", `Ver todo el país en lugar de ${nom}`);
     }
   }
-  document.querySelectorAll(".migas-prov").forEach(li => { li.hidden = !nom; li.textContent = nom || ""; });
+  document.querySelectorAll(".migas-prov").forEach(li => { li.hidden = !nom; li.innerHTML = nom ? conBandera(prov, nom) : ""; });
 };
 pintarChip(); alCambiarProv.push(pintarChip);
 document.getElementById("chip-borrar")?.addEventListener("click", () => {
@@ -3039,7 +3143,7 @@ async function mapa() {
     // la Ciudad de Buenos Aires es un punto a esta escala: un círculo para poder tocarla
     const [cx, cy] = proy(d3.geoCentroid(GEO.features.find(f => f.properties.codigo_indec === "02")));
     g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy).attr("r", angosto ? 6 : 5);
-    enlaces.on("pointerenter", (ev, d) => { ayuda.textContent = `${NOMBRES[d.properties.codigo_indec]}: ver sus datos`; })
+    enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); })
       .on("pointerleave", () => { ayuda.textContent = AYUDA; });
     marcarMapa();
     el.classList.add("listo");

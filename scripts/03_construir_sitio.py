@@ -39,18 +39,23 @@ def fuentes(lista):
 
 
 def explicador(sec):
+    """"Para entender los datos": una fila de botones de despliegue, uno por bloque y uno para el glosario. Cada botón abre su
+    texto en el cuadro de abajo (lo maneja datina.js). Sin JavaScript se ven todos los textos, uno debajo del otro."""
     x = EXP.get(sec)
     if not x:
         return ""
-    bloques = "".join(f'<section class="exp-bloque"><h4>{e(b["titulo"])}</h4><p>{e(b["texto"])}</p>{fuentes(b.get("fuentes"))}</section>'
-                      for b in x.get("bloques", []))
-    glos = ""
+    partes = [(b["titulo"], f'<h4>{e(b["titulo"])}</h4><p>{e(b["texto"])}</p>{fuentes(b.get("fuentes"))}') for b in x.get("bloques", [])]
     if x.get("glosario"):
         items = "".join(f'<div><dt>{e(g["termino"])}</dt><dd>{e(g["definicion"])}'
                         + (f' <a href="{e(g["fuente"]["url"])}" target="_blank" rel="noopener">{e(g["fuente"]["nombre"])}</a>' if g.get("fuente") else "")
                         + "</dd></div>" for g in x["glosario"])
-        glos = f'<details class="glosario"><summary>Glosario</summary><dl>{items}</dl></details>'
-    return f'<div class="explicador"><h3>Para entender los datos</h3><div class="exp-grid">{bloques}</div>{glos}</div>'
+        partes.append(("Glosario", f'<h4>Glosario</h4><dl class="glosario">{items}</dl>'))
+    botones = "".join(f'<button type="button" class="despliegue" id="exp-{sec}-{i}-b" aria-expanded="false" aria-controls="exp-{sec}-{i}">'
+                      f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button>' for i, (t, _) in enumerate(partes))
+    bloques = "".join(f'<section class="exp-bloque" id="exp-{sec}-{i}" role="region" aria-labelledby="exp-{sec}-{i}-b">{c}</section>'
+                      for i, (_, c) in enumerate(partes))
+    return (f'<div class="explicador"><h3>Para entender los datos</h3><div class="exp-botones">{botones}</div>'
+            f'<div class="exp-panel">{bloques}</div></div>')
 
 
 base = re.sub(r"<!--EXPLICADOR:(\w+)-->", lambda m: explicador(m.group(1)), plantilla)
@@ -191,7 +196,7 @@ TIT_NOTA = {i: html.unescape(t) for i, t in NOTAS}
 def pasos(ant, centro, sig):
     """Final de página: anterior, todas y siguiente en una sola pieza. Cada parte es (dirección, título)."""
     a = f'<a class="paso ant" href="{ant[0]}"><span class="paso-eb">{FLECHA_ANT}Anterior</span><b>{e(ant[1])}</b></a>'
-    c = f'<a class="paso todas" href="{centro[0]}"><b>{e(centro[1])}</b></a>'
+    c = f'<a class="boton pasos-todas" href="{centro[0]}">{e(centro[1])}</a>'
     z = f'<a class="paso sig" href="{sig[0]}"><span class="paso-eb">Siguiente{FLECHA_SIG}</span><b>{e(sig[1])}</b></a>'
     return f'<nav class="pasos" aria-label="Otras páginas">{a}{c}{z}</nav>'
 

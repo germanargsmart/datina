@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=4536c9f0ed">
+<link rel="stylesheet" href="datina.css?v=1205ea4123">
 </head>
 <body data-pagina="provincia">
 <header class="barra clara">
@@ -72,12 +72,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 
   <section class="provincias" id="provincias" aria-labelledby="prov-titulo">
-    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Tu provincia</span></li><li class="migas-prov" hidden></li></ol></nav><h2 id="prov-titulo">Elegí una de las 24</h2>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Tu provincia</span></li><li class="migas-prov" hidden></li></ol></nav><h2 id="prov-titulo"><span id="prov-band"></span><span id="prov-titulo-txt">Elegí una de las 24</span></h2>
     <p class="prov-sub">Cada provincia comparada con el total del país en los indicadores que tienen dato provincial. Al elegirla, todos los gráficos del sitio la resaltan.</p>
     <div class="elige" id="elige">
       <span class="elige-lab" id="elige-lab">Provincia</span>
       <button type="button" class="elige-btn" id="elige-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="elige-lab elige-btn">
-        <span id="elige-valor">Todo el país</span><span class="elige-flecha" aria-hidden="true"></span>
+        <span class="con-bandera"><span id="elige-band"></span><span id="elige-valor">Todo el país</span></span><span class="elige-flecha" aria-hidden="true"></span>
       </button>
       <div class="elige-panel" id="elige-panel" hidden>
         <input type="text" class="elige-buscar" id="elige-buscar" placeholder="Buscar provincia" aria-label="Buscar provincia"
@@ -88,7 +88,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <div class="prov-grid" id="prov-grid"><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span><span class="tarjeta dp esqueleto"></span></div>
     <div class="prov-extra" id="prov-extra"></div>
-  <nav class="pasos" aria-label="Otras páginas"><a class="paso ant" href="articulos.html"><span class="paso-eb"><span aria-hidden="true">←</span> Anterior</span><b>Artículos</b></a><a class="paso todas" href="./#secciones"><b>Todas las secciones</b></a><a class="paso sig" href="trabajo.html"><span class="paso-eb">Siguiente <span aria-hidden="true">→</span></span><b>Trabajo y finanzas</b></a></nav></section>
+  <nav class="pasos" aria-label="Otras páginas"><a class="paso ant" href="articulos.html"><span class="paso-eb"><span aria-hidden="true">←</span> Anterior</span><b>Artículos</b></a><a class="boton pasos-todas" href="./#secciones">Todas las secciones</a><a class="paso sig" href="trabajo.html"><span class="paso-eb">Siguiente <span aria-hidden="true">→</span></span><b>Trabajo y finanzas</b></a></nav></section>
 
   
 
@@ -152,7 +152,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=3f23a41df0"></script>
-<script src="datina.js?v=44ac7993c1"></script>
+<script src="datos/fichas.js?v=86e03d5772"></script>
+<script src="datina.js?v=36bbdb5ce4"></script>
 </body>
 </html>
