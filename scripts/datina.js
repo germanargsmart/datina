@@ -774,15 +774,23 @@ function apiladasH(el, cfg) {
   const clase = d => d.codigo_indec === prov || d.codigo_indec === "00" ? "etq-fuerte" : "etq";
   const opac = d => prov && d.codigo_indec !== prov && d.codigo_indec !== "00" ? .55 : 1;
   const nombres = f.append("text").attr("x", xNom).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class", clase).text(d => d.territorio);
+  // banderas con las esquinas redondeadas como en el resto del sitio: un recorte para todas (en proporción a cada imagen)
+  let esquinas = "";
+  if (cfg.bandera) {
+    esquinas = `band${++nRecorte}`;
+    C.svg.append("defs").append("clipPath").attr("id", esquinas).attr("clipPathUnits", "objectBoundingBox")
+      .append("rect").attr("width", 1).attr("height", 1).attr("rx", 3 / 24).attr("ry", 3 / 16);
+  }
   if (cfg.bandera) f.each(function(d) {
     // bandera de 24 x 16 con el mismo borde que en el resto del sitio, o un ícono neutro si la fila reúne a varias provincias
     const v = cfg.bandera(d), s = d3.select(this), y0 = (y.bandwidth() - 16) / 2;
     if (typeof v === "number") {
-      s.append("rect").attr("class", "bandera-grupo").attr("x", -34).attr("y", y0).attr("width", 24).attr("height", 16);
+      s.append("rect").attr("class", "bandera-grupo").attr("x", -34).attr("y", y0).attr("width", 24).attr("height", 16).attr("rx", 3);
       s.append("text").attr("class", "bandera-grupo-n").attr("x", -22).attr("y", y0 + 8).attr("dy", ".35em").attr("text-anchor", "middle").text(v);
     } else if (NOMBRES[v]) {
-      s.append("image").attr("href", `datos/banderas/${v}.png`).attr("x", -34).attr("y", y0).attr("width", 24).attr("height", 16).attr("preserveAspectRatio", "none");
-      s.append("rect").attr("class", "bandera-borde").attr("x", -33.5).attr("y", y0 + .5).attr("width", 23).attr("height", 15);
+      s.append("image").attr("href", `datos/banderas/${v}.png`).attr("x", -34).attr("y", y0).attr("width", 24).attr("height", 16).attr("preserveAspectRatio", "none")
+        .attr("clip-path", `url(#${esquinas})`);
+      s.append("rect").attr("class", "bandera-borde").attr("x", -33.5).attr("y", y0 + .5).attr("width", 23).attr("height", 15).attr("rx", 2.5);
     }
   });
   el.resaltar = () => { nombres.attr("class", clase); f.each(function(d) { pasar(d3.select(this).selectAll("rect.parte")).attr("opacity", opac(d)); }); };
@@ -2451,56 +2459,57 @@ document.querySelectorAll(".tema:not(.herramienta) > article.ficha:not(.ancha)")
   f.classList.add("horizontal");
 });
 
-/* "Para entender los datos" (octubre de 2026): una fila de botones de despliegue, y debajo el cuadro con el texto del que está abierto.
-   Abrir: el cuadro crece hasta el alto del texto (250 ms) y el texto entra con un fundido y 8 px hacia arriba. Cambiar de botón:
-   el texto anterior se va en 100 ms y el nuevo entra mientras el cuadro toma su alto (200 ms). Cerrar: el cuadro se achica en
-   200 ms. Uno abierto a la vez. Con movimiento reducido el alto cambia de una vez y queda el fundido. */
+/* "Para entender los datos" (octubre de 2026): una lista de botones de despliegue, cada uno con su texto justo debajo, de a uno.
+   Abrir: el texto crece hasta su alto (250 ms) y entra con un fundido y 8 px hacia arriba. Si había otro abierto, se cierra al mismo
+   tiempo. Cerrar: se achica en 200 ms. Con movimiento reducido el alto cambia de una vez y queda el fundido. */
 document.querySelectorAll(".explicador").forEach(ex => {
-  const panel = ex.querySelector(".exp-panel"), botones = [...ex.querySelectorAll(".despliegue")];
-  if (!panel) return;
-  const OUT = "cubic-bezier(.23,1,.32,1)";
-  let abierto = null, curso = [];
-  const parar = () => { curso.forEach(a => a.cancel()); curso = []; panel.style.height = ""; panel.style.overflow = ""; };
-  const crecer = (de, a, ms) => {
-    if (REDUCIR || de === a) return Promise.resolve();
-    panel.style.overflow = "hidden";
-    const an = panel.animate([{height: de + "px"}, {height: a + "px"}], {duration: ms, easing: OUT});
-    curso.push(an);
-    return an.finished.then(() => { panel.style.overflow = ""; }, () => {});
-  };
-  const entrar = (b, ms, demora = 0) => curso.push(b.animate(REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 0, transform: "translateY(8px)"}, {opacity: 1, transform: "none"}],
-    {duration: ms, delay: demora, easing: OUT, fill: "backwards"}));
-  const marcar = (b, si) => { b.classList.toggle("abierto", si); botones.find(x => x.getAttribute("aria-controls") === b.id)?.setAttribute("aria-expanded", String(si)); };
-  botones.forEach(btn => btn.addEventListener("click", async () => {
-    const bloque = document.getElementById(btn.getAttribute("aria-controls"));
-    parar();
-    const h0 = panel.getBoundingClientRect().height;
-    if (abierto === bloque) {
-      // cerrar
-      abierto = null; btn.setAttribute("aria-expanded", "false");
-      curso.push(bloque.animate([{opacity: 1}, {opacity: 0}], {duration: 150, easing: OUT, fill: "forwards"}));
-      await crecer(h0, 0, 200);
-      if (abierto !== bloque) { bloque.classList.remove("abierto"); curso.forEach(a => a.cancel()); curso = []; }
+  const botones = [...ex.querySelectorAll(".despliegue")];
+  const OUT = "cubic-bezier(.23,1,.32,1)", curso = new Map();
+  const region = b => document.getElementById(b.getAttribute("aria-controls"));
+  const parar = r => { (curso.get(r) || []).forEach(a => a.cancel()); curso.set(r, []); r.style.overflow = ""; };
+  const animar = (r, el, cuadros, op) => { const a = el.animate(cuadros, {easing: OUT, ...op}); curso.get(r).push(a); return a; };
+  const alternar = (btn, abrir) => {
+    const r = region(btn), cont = r.firstElementChild;
+    const h0 = r.classList.contains("abierto") ? r.getBoundingClientRect().height : 0;
+    parar(r);
+    btn.setAttribute("aria-expanded", String(abrir));
+    if (abrir) {
+      r.classList.add("abierto");
+      const h1 = r.getBoundingClientRect().height;
+      animar(r, cont, REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 0, transform: "translateY(8px)"}, {opacity: 1, transform: "none"}],
+        {duration: 250, delay: h0 ? 0 : 50, fill: "backwards"});
+      if (!REDUCIR && h0 !== h1) { r.style.overflow = "hidden"; animar(r, r, [{height: h0 + "px"}, {height: h1 + "px"}], {duration: 250}).finished.then(() => { r.style.overflow = ""; }, () => {}); }
       return;
     }
-    const antes = abierto; abierto = bloque;
-    if (antes) {
-      // cambiar: el texto anterior se va (el cuadro conserva su alto) y entra el nuevo mientras el cuadro toma su alto
-      botones.find(x => x.getAttribute("aria-controls") === antes.id)?.setAttribute("aria-expanded", "false"); btn.setAttribute("aria-expanded", "true");
-      if (!REDUCIR) {
-        panel.style.height = h0 + "px";
-        await new Promise(ok => { const a = antes.animate([{opacity: 1}, {opacity: 0}], {duration: 100, easing: OUT, fill: "forwards"}); curso.push(a); a.onfinish = a.oncancel = ok; });
-        if (abierto !== bloque) return;
-        curso.forEach(a => a.cancel()); curso = []; panel.style.height = "";
+    animar(r, cont, [{opacity: 1}, {opacity: 0}], {duration: 150, fill: "forwards"});
+    if (REDUCIR) { r.classList.remove("abierto"); parar(r); return; }
+    r.style.overflow = "hidden";
+    animar(r, r, [{height: h0 + "px"}, {height: "0px"}], {duration: 200, fill: "forwards"}).finished.then(() => {
+      if (btn.getAttribute("aria-expanded") === "false") { r.classList.remove("abierto"); parar(r); }
+    }, () => {});
+  };
+  let turno = 0;
+  botones.forEach(btn => btn.addEventListener("click", async () => {
+    const mio = ++turno;
+    if (btn.getAttribute("aria-expanded") === "true") return alternar(btn, false);
+    const otro = botones.find(b => b !== btn && b.getAttribute("aria-expanded") === "true");
+    if (otro && otro.compareDocumentPosition(btn) & Node.DOCUMENT_POSITION_FOLLOWING) {
+      // el abierto está más arriba: si se cerrara despacio, el botón tocado se correría hacia arriba todo ese alto. Su texto se va
+      // en 100 ms con el alto quieto, y después se saca de una vez con la página corrida lo mismo, así el botón tocado no se mueve.
+      const r = region(otro);
+      otro.setAttribute("aria-expanded", "false"); btn.setAttribute("aria-expanded", "true");
+      parar(r);
+      if (!REDUCIR) await animar(r, r.firstElementChild, [{opacity: 1}, {opacity: 0}], {duration: 100, fill: "forwards"}).finished.catch(() => {});
+      if (otro.getAttribute("aria-expanded") === "false") {
+        const y0 = btn.getBoundingClientRect().top;
+        r.classList.remove("abierto"); parar(r);
+        scrollBy(0, btn.getBoundingClientRect().top - y0);
       }
-      antes.classList.remove("abierto"); bloque.classList.add("abierto");
-      const h1 = panel.getBoundingClientRect().height;
-      entrar(bloque, 200); crecer(h0, h1, 200);
-    } else {
-      marcar(bloque, true);
-      const h1 = panel.getBoundingClientRect().height;
-      entrar(bloque, 250, 50); crecer(0, h1, 250);
+      if (mio === turno) alternar(btn, true);
+      return;
     }
+    if (otro) alternar(otro, false);
+    alternar(btn, true);
   }));
 });
 
@@ -2539,6 +2548,8 @@ const vigiaLargo = new MutationObserver(ms => new Set(ms.map(m => m.target.nodeT
 LEADS.forEach(l => { revisarLargo(l); vigiaLargo.observe(l, {childList: true, characterData: true, subtree: true}); });
 let anchoLargo = innerWidth;
 addEventListener("resize", () => { if (innerWidth === anchoLargo) return; anchoLargo = innerWidth; LEADS.forEach(revisarLargo); });
+// y cuando llega la letra del sitio: con la de reemplazo, más ancha, un texto de siete líneas parecía de ocho y quedaba plegado
+if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo));
 
 /* ---------- las 24: perfil de la provincia elegida ---------- */
 // Solo indicadores con dato por provincia. Las tasas de suicidio quedan fuera: no se presentan como ranking.
@@ -2760,39 +2771,39 @@ const PREG = [
    Las advertencias generales (pocos casos, correlación no es causalidad, promedios provinciales, períodos distintos,
    Spearman y Pearson que difieren) se agregan siempre que corresponden. */
 const ART = [
-  {id: "a-exportaciones-empleo", x: "exportaciones", y: "empleo_privado", espera: 1, icono: "buque", sec: "trabajo", frec: "Se actualiza cada año",
+  {id: "a-exportaciones-empleo", x: "exportaciones", y: "empleo_privado", espera: 1, frec: "Se actualiza cada año",
     lx: "exportaciones por habitante", ly: "empleo privado registrado", ux: "dólares por habitante", uy: "asalariados cada 100 habitantes",
     dek: "Lo que cada provincia le vende al mundo, frente a cuántas personas tienen un empleo privado registrado.",
     contexto: "Exportar trae dólares a una provincia, pero no todas las actividades necesitan la misma cantidad de personas para producir lo mismo. Este cruce pone una cosa al lado de la otra, provincia por provincia.",
     limites: ["El registro previsional asigna cada empleo a la provincia donde está inscripto el empleador. Por eso la Ciudad de Buenos Aires aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.",
       "Las exportaciones se cuentan según la provincia donde se produjo la mercadería, no según dónde está la empresa que la vende."]},
-  {id: "a-cloacas-mortalidad", x: "cloaca", y: "mortalidad_infantil", espera: -1, icono: "gota", sec: "salud", frec: "Se actualiza cada año",
+  {id: "a-cloacas-mortalidad", x: "cloaca", y: "mortalidad_infantil", espera: -1, frec: "Se actualiza cada año",
     lx: "hogares con cloacas", ly: "mortalidad infantil", ux: "% de los hogares", uy: "muertes cada 1.000 nacidos vivos",
     dek: "El acceso a la red cloacal según el último censo, frente a las muertes de bebés menores de un año.",
     contexto: "El saneamiento forma parte de las condiciones en las que nace y crece un bebé. Este cruce compara la cobertura de cloacas de cada provincia con su tasa de mortalidad infantil.",
     limites: ["La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.",
       "La mortalidad infantil depende también de la atención durante el embarazo y el parto, que este cruce no mide."]},
-  {id: "a-cobertura-adolescentes", x: "sin_cobertura", y: "madres_adolescentes", espera: 1, icono: "mamadera", sec: "poblacion", frec: "Se actualiza cada año",
+  {id: "a-cobertura-adolescentes", x: "sin_cobertura", y: "madres_adolescentes", espera: 1, frec: "Se actualiza cada año",
     lx: "personas sin obra social ni prepaga", ly: "maternidad adolescente", ux: "% de las personas", uy: "% de los nacimientos",
     dek: "La cobertura de salud del último censo, frente a la parte de los nacimientos que son de madres adolescentes.",
     contexto: "En la Argentina, la obra social llega sobre todo con el empleo registrado. Por eso este cruce usa la falta de cobertura como una aproximación a las condiciones económicas de cada provincia.",
     limites: ["La ficha de maternidad adolescente compara el mismo dato con otros indicadores del Censo, como las necesidades básicas insatisfechas y el secundario completo de los adultos."]},
-  {id: "a-recursos-empleo", x: "autonomia_fiscal", y: "empleo_privado", espera: 1, icono: "monedas", sec: "trabajo", frec: "Se actualiza cada año",
+  {id: "a-recursos-empleo", x: "autonomia_fiscal", y: "empleo_privado", espera: 1, frec: "Se actualiza cada año",
     lx: "recursos propios", ly: "empleo privado registrado", ux: "% de los ingresos", uy: "asalariados cada 100 habitantes",
     dek: "Qué parte de sus ingresos recauda cada provincia, frente a cuánto empleo privado registrado tiene.",
     contexto: "Las provincias se financian con lo que recaudan y con lo que reciben de la Nación. Una economía privada más grande puede dejar más impuestos propios, pero también pesan la coparticipación y las decisiones de cada gobierno.",
     limites: ["Los recursos propios incluyen impuestos provinciales y otros ingresos, como las regalías. Una provincia con petróleo o minería puede recaudar mucho sin tener mucho empleo privado."]},
-  {id: "a-cobertura-esperanza", x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, icono: "reloj", sec: "salud", frec: "Se actualiza con cada censo",
+  {id: "a-cobertura-esperanza", x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, frec: "Se actualiza con cada censo",
     lx: "personas sin obra social ni prepaga", ly: "esperanza de vida", ux: "% de las personas", uy: "años",
     dek: "La esperanza de vida al nacer de cada provincia, frente a la parte de su población sin obra social ni prepaga.",
     contexto: "La esperanza de vida resume en un número las condiciones de mortalidad de un período. La falta de obra social o prepaga se usa acá como una aproximación a las condiciones de vida, no como una medida del acceso a la salud: el hospital público atiende a todas las personas.",
     limites: ["La esperanza de vida de 2020 y 2021 refleja la pandemia de COVID-19. Conviene mirar el año del dato antes de compararlo con otros períodos."]},
-  {id: "a-internet-aprender", x: "internet", y: "aprender_mat", espera: 1, icono: "laptop", sec: "educacion", frec: "Se actualiza con cada Aprender",
+  {id: "a-internet-aprender", x: "internet", y: "aprender_mat", espera: 1, frec: "Se actualiza con cada Aprender",
     lx: "hogares con internet", ly: "matemática en Aprender", ux: "% de los hogares", uy: "% de 6° grado en nivel satisfactorio o avanzado",
     dek: "La conexión a internet en los hogares según el último censo, frente a los resultados de 6° grado en la evaluación Aprender.",
     contexto: "Internet en el hogar suele acompañar a otras ventajas, como más ingresos o más años de estudio de los adultos. Por eso este cruce sirve para ver una desigualdad, no para medir el efecto de internet en el aprendizaje.",
     limites: ["El cálculo propio de Aprender sobre la base agregada difiere levemente del informe oficial."]},
-  {id: "a-milei-empleo", x: "empleo_privado", y: "voto_milei_2023", espera: 1, icono: "urna", sec: "politica", frec: "El empleo se actualiza cada mes",
+  {id: "a-milei-empleo", x: "empleo_privado", y: "voto_milei_2023", espera: 1, frec: "El empleo se actualiza cada mes",
     lx: "empleo privado registrado", ly: "voto a Milei en el balotaje", ux: "asalariados cada 100 habitantes", uy: "% de los votos positivos",
     dek: "Cómo se repartió el voto del balotaje presidencial según el peso del empleo privado registrado en cada provincia.",
     contexto: "El balotaje enfrentó a dos fórmulas con propuestas económicas distintas. Este cruce describe cómo se repartió el voto según el peso del empleo privado registrado en cada provincia, sin juzgar las razones de cada elector.",
@@ -2845,8 +2856,9 @@ const SEC = Object.fromEntries(SITIO.secciones.map(([id, t, p, x, herr, f, a, c]
 const nombreSec = id => SEC[id]?.t || "";
 const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><span class="art-ico">${icono(a.icono)}</span>` +
   `<span class="art-txt"><b style="view-transition-name:t-${a.id}">${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
-const TIT_ART = Object.fromEntries(SITIO.articulos);
-ART.forEach(a => { a.titulo = TIT_ART[a.id]; a.c = calcularArt(a); a.t = textoArt(a, a.c); });
+// título, ícono y sección de cada artículo: de la plantilla (data-titulo, data-ico y data-sec), por el índice del sitio
+const DAT_ART = Object.fromEntries(SITIO.articulos.map(([id, titulo, icono, sec]) => [id, {titulo, icono, sec}]));
+ART.forEach(a => { Object.assign(a, DAT_ART[a.id]); a.c = calcularArt(a); a.t = textoArt(a, a.c); });
 ART.forEach(a => {
   const {c, t} = a, Mx = META_CX[a.x], My = META_CX[a.y], key = "art-" + a.id;
   const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
@@ -2862,8 +2874,7 @@ ART.forEach(a => {
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
     `<div class="nota-fuentes"><p>Fuentes: ${fuenteArt(Mx)} y ${fuenteArt(My)}.</p><div class="acciones">` +
     fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom.toLowerCase()}</a>`).join("") +
-    `<a class="boton chico accion" href="cruces.html?cx=${a.x}&cy=${a.y}">Abrir en Cruces</a><a class="boton chico accion" href="datos/cruces_provincias.csv" download>Descargar CSV</a></div></div>` +
-    `<nav class="nota-otras" aria-label="Otros artículos"><h2>Otros artículos</h2><div class="art-grid">${ART.filter(o => o !== a).slice(0, 3).map(tarjetaArt).join("")}</div></nav>`;
+    `<a class="boton chico accion" href="cruces.html?cx=${a.x}&cy=${a.y}">Abrir en Cruces</a><a class="boton chico accion" href="datos/cruces_provincias.csv" download>Descargar CSV</a></div></div>`;
   // en el gráfico van con nombre las jurisdicciones que menciona el texto
   DIB[key] = anim => dispersion(G(key), {anim, data: c.F, x: a.x, y: a.y, yAuto: a.yAuto, xLab: Mx.nombre, yLab: My.nombre,
     marcar: [c.arriba, c.abajo, c.cook].map(f => f.codigo_indec),
@@ -2918,9 +2929,8 @@ document.addEventListener("click", ev => {
 });
 
 /* portada: una tarjeta por sección */
-const SEC_ICONO = {articulos: "periodico", trabajo: "maletin", empresas: "tienda", pobreza: "casa", salud: "botiquin", educacion: "birrete",
-  poblacion: "personas", politica: "congreso", movilidad: "colectivo", energia: "rayo", turismo: "valija", naturaleza: "andes",
-  curiosidades: "mate", cruces: "dispersion", indice: "podio", departamentos: "mosaico"};
+// ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
+const SEC_ICONO = /*SEC_ICONO*/{};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;

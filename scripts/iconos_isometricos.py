@@ -9,14 +9,20 @@ Clases de cada trazo (los colores los pone el CSS del sitio, asi el mismo icono 
   s  cara llena (color del icono)          l  cara clara (blanco con contorno)
   w  detalle claro sobre una cara llena    wl linea clara sobre una cara llena
   k  linea del color del icono
-Uso: python scripts/iconos_isometricos.py  (escribe datos/manual/iconos_iso/*.svg y una hoja de muestra)
+Peso visual parejo (etapa 8, octubre de 2026): despues de dibujar cada icono del tamano de su cuadro, el programa mide con Chrome
+cuanta superficie ocupa y cuanta tinta lleva, y achica los que pesan mas que la meta (PESO_META, hasta PESO_MIN de su tamano).
+Los que pesan poco no se pueden agrandar porque ya llenan el cuadro: se les dio mas superficie llena en su dibujo.
+Uso: python scripts/iconos_isometricos.py [hoja.html]  (requiere Google Chrome; escribe datos/manual/iconos_iso/*.svg y, si se pide,
+una hoja de muestra)
 """
-import json, math, pathlib
+import html, json, math, pathlib, re, subprocess, tempfile
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SALIDA = RAIZ / "datos" / "manual" / "iconos_iso"
 C30, S30 = math.cos(math.radians(30)), math.sin(math.radians(30))
 ESC = 6.0            # pixeles por unidad del mundo (viewBox de 120)
+CHROME = r"C:/Program Files/Google/Chrome/Application/chrome.exe"
+PESO_META, PESO_MIN = 0.20, 0.80   # peso visual buscado y lo minimo que se achica un icono (ver medir_pesos)
 VISTA = (1.0, 1.0, 1.0)
 
 
@@ -69,7 +75,7 @@ class Icono:
     """Las capas guardan coordenadas de pantalla. Tipos: p (poligono), l (linea), e (elipse), c (circulo),
     d (camino con arcos, con sus puntos extremos para calcular el tamaño)."""
     def __init__(self, nombre, tono):
-        self.nombre, self.tono, self.capas = nombre, tono, []
+        self.nombre, self.tono, self.capas, self.factor = nombre, tono, [], 1.0
 
     # ---- primitivas de dibujo
     def poli(self, pts3, cls):
@@ -225,8 +231,9 @@ class Icono:
         ancho, alto = max(xs) - min(xs), max(ys) - min(ys)
         assert ancho <= lado - 2 * margen and alto <= lado - 2 * margen, (self.nombre, round(ancho), round(alto))
         cx, cy = (max(xs) + min(xs)) / 2, (max(ys) + min(ys)) / 2
-        # todos con el mismo tamano optico: se agranda hasta ocupar el cuadro (sin pasar de 1,35 veces)
-        k = min((lado - 2 * margen) / ancho, (lado - 2 * margen) / alto, 1.35)
+        # todos con el mismo tamano: se agranda hasta ocupar el cuadro (sin pasar de 1,35 veces), y despues se achica
+        # segun su peso visual (factor, lo calcula escribir con medir_pesos)
+        k = min((lado - 2 * margen) / ancho, (lado - 2 * margen) / alto, 1.35) * self.factor
         partes = []
         for capa in self.capas:
             t, cls = capa[0], capa[2]
@@ -342,9 +349,11 @@ def _(ic):
 def _(ic):
     ic.revolucion(5, 5, [(0, 2.9), (1.6, 3.0), (2.8, 3.1)], "s", mitad=True)
     h = 4.6
-    ic.extruir([(5 - h, 5 - h), (5 + h, 5 - h), (5 + h, 5 + h), (5 - h, 5 + h)], (0, 0, 2.8), (1, 0, 0), (0, 1, 0), (0, 0, .5), "l", "s")
+    # tapa llena (etapa 8: era clara y el birrete era el icono mas liviano), con el cordon claro encima
+    ic.extruir([(5 - h, 5 - h), (5 + h, 5 - h), (5 + h, 5 + h), (5 - h, 5 + h)], (0, 0, 2.8), (1, 0, 0), (0, 1, 0), (0, 0, .5), "s", "s")
     ic.cilindro(5, 5, 3.3, .55, .3)
-    ic.linea([(5, 5, 3.6), (9.6, .4, 3.3), (9.6, .4, .8)], "k")
+    ic.linea([(5, 5, 3.6), (9.6, .4, 3.3)], "wl")
+    ic.linea([(9.6, .4, 3.3), (9.6, .4, .8)], "k")
     ic.caja(9.25, .05, -.3, .7, .7, 1.3, "s", "s", "s")
 
 
@@ -389,7 +398,7 @@ def _(ic):
 def _(ic):
     ic.sombra(4.6, 1.2, 3.6, 1.4)
     rayo = [(2.6, 10.6), (.2, 4.9), (2.9, 4.9), (1.4, 0), (6.8, 6.5), (3.9, 6.5), (5.8, 10.6)]
-    ic.extruir(rayo, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 1.7, 0), "l", "s")
+    ic.extruir(rayo, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 1.7, 0), "s", "l")   # frente lleno y canto claro (etapa 8)
 
 
 @icono("valija", "azul")
@@ -415,6 +424,7 @@ def _(ic):
 def _(ic):
     # calabaza redonda en dos tonos (como un globo), virola clara, yerba y bombilla con la boquilla doblada
     perfil = [(0, 1.1), (.2, 2.0), (.6, 2.75), (1.2, 3.25), (1.9, 3.45), (2.6, 3.35), (3.3, 2.95), (3.9, 2.45), (4.3, 2.15), (4.6, 2.05)]
+    ic.sombra(6.6, 3.4, 3.6, 1.5)   # sombra como la de los demas (etapa 8)
     ic.revolucion(5, 5, perfil, "s", mitad=True)
     ic.cilindro(5, 5, 4.6, 2.15, .8, arriba="l", lado="l")
     ic.elipse_piso(5, 5, 5.4, 1.65, "s")
@@ -424,10 +434,10 @@ def _(ic):
 
 @icono("dispersion", "azul")
 def _(ic):
-    ic.caja(0, 0, 0, 9.6, 9.6, .55)
+    ic.caja(0, 0, 0, 9.6, 9.6, .55, "l", "s", "s")
     puntos = [(.9, 7.6, .8), (2.5, 5.8, 1.5), (4.1, 7.0, 1.1), (4.7, 3.8, 2.4), (6.5, 5.0, 2.0), (7.0, 1.4, 3.4), (7.9, 3.2, 2.9)]
     for x, y, h in sorted(puntos, key=lambda p: p[0] + p[1]):
-        ic.caja(x, y, .55, 1.15, 1.15, h)
+        ic.caja(x, y, .55, 1.15, 1.15, h, "l", "s", "s")   # columnas con las dos caras llenas (etapa 8)
 
 
 @icono("podio", "azul")
@@ -450,11 +460,12 @@ def _(ic):
 @icono("pin", "azul")
 def _(ic):
     # mapa plegado en tres paños y un marcador parado sobre el ultimo
-    paños = [((0, 0), (3.5, .9), "l"), ((3.5, .9), (7.0, 0), "s"), ((7.0, 0), (10.5, .9), "l")]
+    # dos paños llenos y uno claro (etapa 8: era al reves y el mapa quedaba liviano)
+    paños = [((0, 0), (3.5, .9), "s"), ((3.5, .9), (7.0, 0), "l"), ((7.0, 0), (10.5, .9), "s")]
     for (x0, z0), (x1, z1), c in paños:
         ic.poli([(x0, 0, z0), (x1, 0, z1), (x1, 8, z1), (x0, 8, z0)], c)
-    ic.linea([(.8, 6.6, .9 * .8 / 3.5), (2.2, 4.0, .9 * 2.2 / 3.5), (3.5, 3.4, .9)], "k")
-    ic.linea([(3.5, 3.4, .9), (5.0, 2.6, .9 * (7 - 5.0) / 3.5), (7.0, 2.2, 0)], "wl")
+    ic.linea([(.8, 6.6, .9 * .8 / 3.5), (2.2, 4.0, .9 * 2.2 / 3.5), (3.5, 3.4, .9)], "wl")
+    ic.linea([(3.5, 3.4, .9), (5.0, 2.6, .9 * (7 - 5.0) / 3.5), (7.0, 2.2, 0)], "k")
     zb = .9 * (8.6 - 7) / 3.5
     punta, centro, r = proy((8.6, 3.4, zb)), proy((8.6, 3.4, zb + 4.6)), 1.55 * math.sqrt(1.5) * ESC
     dx, dy = centro[0] - punta[0], centro[1] - punta[1]
@@ -496,9 +507,11 @@ def _(ic):
 @icono("mamadera", "azul")
 def _(ic):
     ic.sombra(6.2, 3.8, 3.0, 1.3)
-    ic.cilindro(5, 5, 0, 1.95, 5.6, arriba=None, lado="l")
+    # con leche hasta dos tercios (etapa 8: mas superficie llena), las marcas claras sobre la leche
+    ic.cilindro(5, 5, 0, 1.95, 3.7, arriba=None, lado="s")
+    ic.cilindro(5, 5, 3.7, 1.95, 1.9, arriba=None, lado="l")
     for z in (1.2, 2.2, 3.2, 4.2):
-        ic.arco_frente(5, 5, z, 1.95, "k", 12, 25, 75)
+        ic.arco_frente(5, 5, z, 1.95, "wl" if z < 3.7 else "k", 12, 25, 75)
     ic.cilindro(5, 5, 5.6, 2.2, 1.1)
     ic.revolucion(5, 5, [(6.7, 1.3), (7.2, 1.2), (7.6, .9), (7.9, .55), (8.6, .5)], "s", mitad=True)
     ic.cupula((5, 5, 8.6), .5)
@@ -561,9 +574,40 @@ def _(ic):
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}
 
+def medir_pesos(cuerpos):
+    """Peso visual de cada icono, medido con Chrome: lo dibuja a 240 pixeles con el trazo que tiene en una tarjeta del sitio y
+    cuenta la superficie que ocupa (s, de 0 a 1) y cuanto la oscurece (t, la tinta). Peso = raiz de s por t: un icono grande pero
+    casi blanco y uno chico pero lleno pesan parecido."""
+    estilo = ("<style>path,ellipse,circle{vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round;stroke-width:5px}"
+              ".s{fill:#2C74B5;stroke:#2C74B5}.l{fill:#fff;stroke:#2C74B5}.w{fill:#fff;stroke:none}.wl{fill:none;stroke:#fff}.k{fill:none;stroke:#2C74B5}</style>")
+    datos = {n: f'<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 120 120">{estilo}{c}</svg>' for n, c in cuerpos.items()}
+    js = ("(async () => { const out = {};"
+          " for (const [n, s] of Object.entries(D)) { const img = new Image(); img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s); await img.decode();"
+          "  const c = document.createElement('canvas'); c.width = c.height = 240; const g = c.getContext('2d'); g.drawImage(img, 0, 0);"
+          "  const d = g.getImageData(0, 0, 240, 240).data; let s2 = 0, t = 0;"
+          "  for (let i = 0; i < d.length; i += 4) { const a = d[i + 3] / 255; s2 += a; t += a * (1 - (.2126 * d[i] + .7152 * d[i + 1] + .0722 * d[i + 2]) / 255); }"
+          "  out[n] = Math.sqrt(s2 * t) / 57600; }"
+          " document.getElementById('r').textContent = JSON.stringify(out); })();")
+    with tempfile.TemporaryDirectory() as tmp:
+        pag = pathlib.Path(tmp) / "medir.html"
+        pag.write_text(f'<!doctype html><meta charset="utf-8"><pre id="r"></pre><script>const D = {json.dumps(datos)};{js}</script>', encoding="utf-8")
+        r = subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--virtual-time-budget=30000", "--dump-dom", pag.as_uri()],
+                           capture_output=True, timeout=300, check=True, text=True, encoding="utf-8")
+    m = re.search(r'<pre id="r">(.+?)</pre>', r.stdout, re.S)
+    assert m, "Chrome no devolvio las medidas de los iconos"
+    return json.loads(html.unescape(m.group(1)))
+
+
 def escribir():
     SALIDA.mkdir(parents=True, exist_ok=True)
     meta, grandes = {}, []
+    # peso visual parejo: los que pesan mas que la meta se achican (el peso crece con el cuadrado del tamano)
+    antes = medir_pesos({n: ic.svg() for n, ic in ICONOS.items()})
+    for nombre, ic in ICONOS.items():
+        ic.factor = max(PESO_MIN, min(1.0, math.sqrt(PESO_META / antes[nombre])))
+    despues = medir_pesos({n: ic.svg() for n, ic in ICONOS.items()})
+    for n in sorted(ICONOS, key=lambda n: -despues[n]):
+        print(f"{n:12} peso {antes[n]:.3f} -> {despues[n]:.3f}" + (f"  (al {ICONOS[n].factor:.0%} de su tamano)" if ICONOS[n].factor < 1 else ""))
     for nombre, ic in ICONOS.items():
         try:
             cuerpo = ic.svg()

@@ -173,13 +173,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* Banderas provinciales (etapa 7): una sola medida, 24 x 16, con el mismo recorte 3:2 y el mismo borde para las 24, en la barra,
    el selector, las listas, las tablas, el buscador y las migas. Solo el título del perfil la lleva a 36 x 24, el máximo que
    permite la miniatura de 72 x 48 sin perder nitidez en pantallas de doble densidad. Sobre el azul, el borde es claro. */
-.bandera{display:inline-block;flex:none;width:24px;height:16px;vertical-align:middle;outline:1px solid rgba(24,33,43,.2);outline-offset:-1px}
+/* esquinas redondeadas (2 de octubre de 2026, como todo el sistema): 3 px a 24 x 16, 4 a 36 x 24 y 2 a 18 x 12. El borde las sigue */
+.bandera{display:inline-block;flex:none;width:24px;height:16px;vertical-align:middle;border-radius:3px;outline:1px solid rgba(24,33,43,.2);outline-offset:-1px}
 .bandera.vacia{outline:0}
-.bandera.grande{width:36px;height:24px}
+.bandera.grande{width:36px;height:24px;border-radius:4px}
 .con-bandera{display:inline-flex;align-items:center;gap:8px;min-width:0}
 #elige-band:empty{display:none}
 .portada .bandera,.dest.azul .bandera,.dest.hondo .bandera,.tip .bandera{outline-color:rgba(255,255,255,.55)}
-.tip .bandera{width:18px;height:12px;margin-right:2px;vertical-align:-1px}
+.tip .bandera{width:18px;height:12px;margin-right:2px;vertical-align:-1px;border-radius:2px}
 .chip-borrar{display:inline-flex;align-items:center;gap:var(--e-2);padding:0 var(--e-3);font:500 var(--t-1)/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
   color:inherit;background:none;border:0;border-left:1px solid var(--en-azul-linea);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
 .chip-txt{display:none}
@@ -300,6 +301,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .mapa-fondo .anillo{fill:none;stroke:#fff;stroke-opacity:.32;stroke-width:1;stroke-dasharray:1 6;stroke-linecap:round}
 /* las 24 provincias: cada una lleva a su perfil. La elegida va en amarillo */
 .mapa-fondo .provs a{pointer-events:auto;cursor:pointer}
+/* sin el recuadro de foco que el navegador dibuja al hacer clic: era el rectángulo que contiene a la provincia y quedaba cruzado sobre
+   las vecinas. El mapa no recibe el foco del teclado ("Elegí tu provincia" lleva a lo mismo) */
+.mapa-fondo .provs a:focus,.mapa-fondo .provs a:focus-visible{outline:none}
 .mapa-fondo .provs path,.mapa-fondo .provs circle{fill:var(--celeste);stroke:#fff;stroke-width:.9;stroke-linejoin:round;transition:fill var(--dur-1) var(--ease-out)}
 .mapa-fondo .provs circle{stroke-width:1.5}
 .mapa-fondo .provs a.elegida path,.mapa-fondo .provs a.elegida circle{fill:var(--sol);stroke:var(--sol-borde)}
@@ -540,48 +544,54 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .pildoras a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--sol)}
   .tema>.pildoras+h2{margin-top:var(--e-7)}
 }
-/* "Para entender los datos": bloques con título, texto y fuentes, y un glosario plegado */
+/* "Para entender los datos" (2 de octubre de 2026, segunda versión a pedido del autor: "queda super desordenada, poco armónica").
+   A la izquierda el título y una línea de qué es, a la derecha una tarjeta con un botón de despliegue por tema, uno debajo del otro,
+   con la misma proporción que las fichas horizontales. Cada botón abre su texto justo debajo, de a uno. Letra negra: el azul queda
+   para el signo, el mouse y el foco. Sin JavaScript se ven todos los textos, con los títulos como encabezados */
 .explicador{margin:0 0 var(--e-7);padding-top:var(--e-5);border-top:1px dotted var(--azul)}
-.explicador>h3,.en-cifras>h3,.tema-cierre h3{margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
-/* "Para entender los datos": botones de despliegue (un tipo de botón del sistema: abren un texto en el cuadro de abajo).
-   Cerrado: blanco con borde y el signo + en un círculo celeste. Abierto: lleno en azul, y el + gira hasta ser una cruz.
-   Sin JavaScript no hay botones y se ven todos los textos. En el celular la fila se desliza de costado */
-.exp-botones{display:flex;flex-wrap:wrap;gap:var(--e-2)}
-html:not(.js) .exp-botones{display:none}
-.despliegue{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:0 10px 0 16px;font:500 var(--t-3)/1.25 var(--f);color:var(--azul);text-align:left;
-  background:#fff;border:1px solid var(--borde);border-radius:var(--r-control);box-shadow:var(--sombra-tarjeta);cursor:pointer;
-  transition:background-color var(--dur-1) var(--ease-out),border-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
-.despliegue:active{transform:scale(.97)}
-.desp-signo{position:relative;flex:none;width:22px;height:22px;border-radius:50%;background:var(--celeste-suave);transition:transform var(--dur-2) var(--ease-out),background-color var(--dur-1) var(--ease-out)}
-.desp-signo::before,.desp-signo::after{content:"";position:absolute;left:6px;right:6px;top:50%;height:1.5px;margin-top:-.75px;border-radius:1px;background:currentColor}
-.desp-signo::after{transform:rotate(90deg)}
-.despliegue[aria-expanded="true"]{color:#fff;background:var(--azul);border-color:var(--azul)}
-.despliegue[aria-expanded="true"] .desp-signo{transform:rotate(45deg);background:rgba(255,255,255,.18)}
-@media (hover:hover) and (pointer:fine){
-  .despliegue[aria-expanded="false"]:hover{border-color:var(--azul)}
-  .despliegue[aria-expanded="false"]:hover .desp-signo{background:var(--celeste)}
+.en-cifras>h3,.tema-cierre h3{margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+/* el título con el mismo estilo que "Seguí explorando", el de los bloques de la portada */
+.exp-cab .bloque-grupo{margin:0 0 var(--e-3)}
+.exp-cab p{max-width:22em;margin:0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+.exp-lista{margin-top:var(--e-5);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);overflow:hidden}
+@media (min-width:1080px){
+  .explicador{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--e-8);align-items:start}
+  .exp-lista{margin-top:0}
 }
+.exp-fila+.exp-fila{border-top:1px solid var(--line)}
+.exp-fila h4{margin:0}
+/* botón de despliegue: el título en letra normal y un + en un círculo celeste, que al abrir se llena de azul y gira hasta ser una cruz */
+.despliegue{display:flex;align-items:center;justify-content:space-between;gap:var(--e-4);width:100%;min-height:60px;padding:var(--e-3) var(--e-6);
+  font:500 var(--t-4)/var(--i-tarjeta) var(--f);color:var(--ink);text-align:left;background:none;border:0;border-radius:0;cursor:pointer;
+  transition:background-color var(--dur-1) var(--ease-out)}
+.despliegue:focus-visible{outline-offset:-3px}
+.desp-signo{position:relative;flex:none;width:28px;height:28px;border-radius:50%;color:var(--azul);background:var(--celeste-suave);
+  transition:transform var(--dur-2) var(--ease-out),background-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out)}
+.desp-signo::before,.desp-signo::after{content:"";position:absolute;left:8px;right:8px;top:50%;height:2px;margin-top:-1px;border-radius:1px;background:currentColor}
+.desp-signo::after{transform:rotate(90deg)}
+.despliegue[aria-expanded="true"] .desp-signo{transform:rotate(45deg);color:#fff;background:var(--azul)}
+@media (hover:hover) and (pointer:fine){
+  .despliegue:hover{background:var(--superficie)}
+  .despliegue[aria-expanded="false"]:hover .desp-signo{background:var(--celeste-suave);box-shadow:inset 0 0 0 1.5px var(--celeste)}
+}
+html:not(.js) .desp-signo{display:none}
+html:not(.js) .despliegue{cursor:default}
 .js .exp-bloque:not(.abierto){display:none}
-.exp-bloque{margin-top:var(--e-3);padding:var(--e-6) var(--e-7);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
-.exp-bloque h4{margin:0 0 var(--e-2);font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul)}
-.exp-bloque p{max-width:var(--medida);margin:0;font-size:var(--t-4);line-height:var(--i-texto)}
-/* las fuentes al pie, separadas del texto por una línea de puntos */
-.exp-fuente{margin-top:var(--e-4)!important;padding-top:var(--e-4);font-size:var(--t-2)!important;color:var(--muted);background:linear-gradient(90deg,var(--borde) 50%,transparent 0) top/6px 1px repeat-x}
-.exp-fuente a{color:var(--celeste-fuerte)}
+.exp-cont{padding:0 var(--e-6) var(--e-6)}
+.exp-cont p{max-width:var(--medida);margin:0;font-size:var(--t-4);line-height:var(--i-texto);color:var(--ink)}
+/* las fuentes al pie del texto, en gris y con el subrayado celeste de todos los enlaces */
+.exp-cont .exp-fuente{margin-top:var(--e-3);font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--e-4) var(--e-6);margin:0}
+.glosario dt{font-size:var(--t-3);font-weight:600;color:var(--ink)}
+.glosario dd{margin:2px 0 0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+@media (max-width:760px){
+  .despliegue{min-height:56px;padding:var(--e-3) var(--e-4)}
+  .exp-cont{padding:0 var(--e-4) var(--e-5)}
+}
 .sobre>summary{display:flex;align-items:center;gap:var(--e-2);min-height:44px;cursor:pointer;list-style:none;
   font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}
 .sobre>summary::-webkit-details-marker{display:none}
-dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--e-1) var(--e-7);margin:0}
-@media (max-width:760px){
-  .exp-botones{flex-wrap:nowrap;overflow-x:auto;margin:0 calc(-1 * var(--margen));padding:2px var(--margen) 12px;scroll-snap-type:x proximity;scrollbar-width:none}
-  .exp-botones::-webkit-scrollbar{display:none}
-  .despliegue{flex:none;white-space:nowrap;scroll-snap-align:start}
-  .exp-bloque{margin-top:var(--e-1);padding:var(--e-5)}
-}
-.glosario dt{margin-top:var(--e-3);font-size:var(--t-3);font-weight:600}
-.glosario dd{margin:2px 0 0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
-@media (hover:hover) and (pointer:fine){.glosario>summary:hover,.sobre>summary:hover{color:var(--ink)}}
-@media (max-width:760px){.exp-grid{grid-template-columns:1fr}.exp-bloque{padding:var(--e-4)}}
+@media (hover:hover) and (pointer:fine){.sobre>summary:hover{color:var(--ink)}}
 /* "En cifras": la cifra clave de cada ficha, o la de la provincia elegida, antes de la explicación */
 .en-cifras{margin:0 0 var(--e-7)}
 .cifras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--e-3)}
@@ -606,21 +616,27 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr)
 .tema-cierre ul{max-width:var(--medida);margin:0;padding-left:18px;line-height:1.5}
 .tema-cierre li{margin:0 0 var(--e-2)}
 @media (max-width:760px){.tema-cierre{grid-template-columns:1fr}}
-/* final de página: la anterior y la siguiente son tarjetas, y "Todas las secciones" un botón entre las dos */
-.pasos{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--e-4);margin:var(--e-9) 0 0}
-.paso{display:flex;flex-direction:column;justify-content:center;gap:var(--e-1);align-self:stretch;min-height:92px;padding:var(--e-4) var(--e-5);color:var(--azul);text-decoration:none;
-  background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);
-  transition:border-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
-.paso:active{transform:scale(.97)}
-.paso b{font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:500;text-wrap:balance}
-.paso-eb{font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.paso.sig{align-items:flex-end;text-align:right}
-@media (hover:hover) and (pointer:fine){.paso:hover{border-color:var(--azul)}.paso:hover .paso-eb{color:var(--azul)}}
+/* final de página: "Seguí explorando" (2 de octubre de 2026, pedido del autor, como el de usafacts.org). El título, el enlace a
+   todas las secciones y cuatro tarjetas grises con el ícono en un recuadro blanco: la anterior, la siguiente y dos relacionadas */
+.pasos{margin:var(--e-9) 0 0}
+.pasos-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-5);margin-bottom:var(--e-5)}
+.pasos-cab .bloque-grupo{margin:0}
+.pasos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e-4)}
+.tarjeta.explora{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:var(--e-5);padding:var(--e-4);
+  background:var(--superficie-2);border-color:var(--superficie-2);box-shadow:none}
+.explora-ico{display:grid;place-items:center;width:96px;height:96px;background:#fff;border-radius:var(--r-icono);box-shadow:var(--sombra-tarjeta)}
+.explora-ico .iso{width:72px;height:72px;--trazo:1.5px}
+.explora-ico .sol-ir{width:50px;height:50px}
+.explora-txt{display:flex;flex-direction:column;gap:var(--e-1)}
+.explora-txt b{font-size:var(--t-4);line-height:var(--i-tarjeta);font-weight:600}
+.explora-txt small{font-size:var(--t-2);font-weight:500;color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.explora:hover .sol-ir{transform:rotate(45deg)}}
 @media (max-width:760px){
-  .pasos{grid-template-columns:1fr 1fr;gap:var(--e-3)}
-  .paso{min-height:80px;padding:var(--e-3) var(--e-4)}
-  .pasos-todas{grid-column:1/-1;grid-row:2;justify-self:center}
-  .paso b{font-size:var(--t-3)}
+  .pasos-grid{grid-template-columns:1fr;gap:var(--e-3)}
+  .tarjeta.explora{grid-template-columns:72px minmax(0,1fr);gap:var(--e-4);padding:var(--e-3)}
+  .explora-ico{width:72px;height:72px}
+  .explora-ico .iso{width:56px;height:56px}
+  .explora-ico .sol-ir{width:40px;height:40px}
 }
 
 /* ---------- fichas: redondeadas, como todas las tarjetas ---------- */
@@ -987,14 +1003,12 @@ html:not(.js) .esqueleto{display:none}
 .nota-graf .grafico{margin-top:var(--e-5)}
 .nota .nota-pie-graf{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
 .nota-limites{margin:var(--e-8) 0 0;padding-top:var(--e-5);border-top:3px solid var(--azul)}
-.nota-limites h2,.nota-otras h2{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144}
+.nota-limites h2{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144}
 .nota-limites ul{margin:0;padding-left:20px}
 .nota-limites li{margin:0 0 var(--e-2);line-height:1.5}
 .nota-fuentes{margin-top:var(--e-7);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
 .nota .nota-fuentes p{font-size:var(--t-3);color:var(--muted)}
 .nota-fuentes .acciones{margin-left:0}
-.nota-otras{margin-top:var(--e-8)}
-.nota-otras .art-grid{grid-template-columns:1fr}
 @media (max-width:760px){
   .nota-cab{grid-template-columns:56px 1fr;gap:var(--e-3)}
   .nota-ico{width:56px;height:56px}
@@ -1064,7 +1078,7 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 @media (prefers-reduced-motion:reduce){
   .sol *,.portada-texto>*,.gorro{animation:none!important}
   .listo .ficha{transform:none!important;transition:opacity var(--dur-3) var(--ease-out)!important}
-  .conmutador::before,.boton,.tarjeta,.lupa-btn,.menu-btn,.chip-prov,.chip-borrar,.paso{transition:none!important}
+  .conmutador::before,.boton,.tarjeta,.lupa-btn,.menu-btn,.chip-prov,.chip-borrar{transition:none!important}
   .boton:active,.tarjeta:active,.lupa-btn:active,.menu-btn:active,.elige-btn:active{transform:none}
   .dest-ir,.sol-ir{transition:none!important;transform:none!important}
   .buscador:not([hidden]){animation:none}

@@ -10,7 +10,7 @@ Tambien copia la tabla larga al sitio para que se pueda descargar
 y el sitio de consultas de pobreza ya construido.
 Uso: python scripts/03_construir_sitio.py
 """
-import csv, hashlib, html, json, pathlib, re, shutil
+import csv, hashlib, html, json, math, pathlib, re, shutil
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SITIO = RAIZ / "sitio"
@@ -39,23 +39,25 @@ def fuentes(lista):
 
 
 def explicador(sec):
-    """"Para entender los datos": una fila de botones de despliegue, uno por bloque y uno para el glosario. Cada botón abre su
-    texto en el cuadro de abajo (lo maneja datina.js). Sin JavaScript se ven todos los textos, uno debajo del otro."""
+    """"Para entender los datos": una lista de botones de despliegue dentro de una tarjeta, uno por bloque y uno para el
+    glosario. Cada botón abre su texto justo debajo (lo maneja datina.js), de a uno. Sin JavaScript se ven todos los textos."""
     x = EXP.get(sec)
     if not x:
         return ""
-    partes = [(b["titulo"], f'<h4>{e(b["titulo"])}</h4><p>{e(b["texto"])}</p>{fuentes(b.get("fuentes"))}') for b in x.get("bloques", [])]
+    partes = [(b["titulo"], f'<p>{e(b["texto"])}</p>{fuentes(b.get("fuentes"))}') for b in x.get("bloques", [])]
     if x.get("glosario"):
         items = "".join(f'<div><dt>{e(g["termino"])}</dt><dd>{e(g["definicion"])}'
                         + (f' <a href="{e(g["fuente"]["url"])}" target="_blank" rel="noopener">{e(g["fuente"]["nombre"])}</a>' if g.get("fuente") else "")
                         + "</dd></div>" for g in x["glosario"])
-        partes.append(("Glosario", f'<h4>Glosario</h4><dl class="glosario">{items}</dl>'))
-    botones = "".join(f'<button type="button" class="despliegue" id="exp-{sec}-{i}-b" aria-expanded="false" aria-controls="exp-{sec}-{i}">'
-                      f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button>' for i, (t, _) in enumerate(partes))
-    bloques = "".join(f'<section class="exp-bloque" id="exp-{sec}-{i}" role="region" aria-labelledby="exp-{sec}-{i}-b">{c}</section>'
-                      for i, (_, c) in enumerate(partes))
-    return (f'<div class="explicador"><h3>Para entender los datos</h3><div class="exp-botones">{botones}</div>'
-            f'<div class="exp-panel">{bloques}</div></div>')
+        partes.append(("Glosario", f'<dl class="glosario">{items}</dl>'))
+    filas = "".join(
+        f'<div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-{sec}-{i}-b" aria-expanded="false" aria-controls="exp-{sec}-{i}">'
+        f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button></h4>'
+        f'<div class="exp-bloque" id="exp-{sec}-{i}" role="region" aria-labelledby="exp-{sec}-{i}-b"><div class="exp-cont">{c}</div></div></div>'
+        for i, (t, c) in enumerate(partes))
+    return ('<div class="explicador"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3>'
+            '<p>Qué se mide, cómo se calcula y de dónde sale cada dato de esta página.</p></div>'
+            f'<div class="exp-lista">{filas}</div></div>')
 
 
 base = re.sub(r"<!--EXPLICADOR:(\w+)-->", lambda m: explicador(m.group(1)), plantilla)
@@ -103,7 +105,9 @@ for b in BLOQUES:
     b["pagina"] = b["id"] if "tema" in b["clases"] else next((PAGINA_DE_BLOQUE[c] for c in b["clases"] if c in PAGINA_DE_BLOQUE), None)
     assert b["pagina"], f"bloque sin página: {b['clases']} {b['id']}"
 TEMAS = [b for b in BLOQUES if "tema" in b["clases"]]
-NOTAS = re.findall(r'<article class="nota" id="(a-[\w-]+)" data-titulo="([^"]+)"', base)
+# artículos: id, título, ícono y sección (data-ico y data-sec en la plantilla)
+NOTAS = re.findall(r'<article class="nota" id="(a-[\w-]+)" data-ico="([\w-]+)" data-sec="([\w-]+)" data-titulo="([^"]+)"', base)
+assert NOTAS, "no se encontraron los artículos en la plantilla"
 
 
 def ubicar(pos):
@@ -117,7 +121,7 @@ for m in re.finditer(r'\sid="([^"]+)"', base):
     p = ubicar(m.start())
     if p:
         UBIC[m.group(1)] = p
-for id_, _ in NOTAS:
+for id_, *_ in NOTAS:
     UBIC[id_] = id_
 
 SECCIONES, FICHAS = [], []
@@ -141,7 +145,7 @@ for b in TEMAS:
     SECCIONES.append([b["id"], titulo, texto(preg.group(2)) if preg else "", texto(intro.group(1)) if intro else "",
                       int("herramienta" in b["clases"]), n, len(re.findall(r'<article class="nota"', h)),
                       html.unescape(preg.group(1)) if preg and preg.group(1) else ""])
-INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t)] for i, t in NOTAS], "ubic": UBIC}
+INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC}
 
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
@@ -166,8 +170,15 @@ ICONOS = {n: {"t": tono, "d": re.sub(r"^<svg[^>]*>|</svg>\s*$", "", (DIR_ICONOS 
 # Diseño y comportamiento: un solo archivo de cada uno para todas las paginas, que el navegador guarda despues de la primera visita
 css = (RAIZ / "scripts" / "datina.css").read_text(encoding="utf-8")
 js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
-assert "/*ICONOS*/{}" in js
-js = js.replace("/*ICONOS*/{}", json.dumps(ICONOS, ensure_ascii=False))
+# ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
+SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
+             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "energia": "rayo", "turismo": "valija",
+             "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico"}
+SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
+assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
+for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO}.items():
+    assert marca in js, marca
+    js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
 (SITIO / "datina.css").write_text(css, encoding="utf-8")
 (SITIO / "datina.js").write_text(js, encoding="utf-8")
 
@@ -190,15 +201,58 @@ TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 ORDEN = ["articulos", "provincia"] + [x[0] for x in SECCIONES if x[0] != "articulos"] + ["nosotros"]
 TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto"})
 FLECHA_ANT, FLECHA_SIG = '<span aria-hidden="true">\u2190</span> ', ' <span aria-hidden="true">\u2192</span>'
-TIT_NOTA = {i: html.unescape(t) for i, t in NOTAS}
+TIT_NOTA = {i: html.unescape(t) for i, _, _, t in NOTAS}
 
 
-def pasos(ant, centro, sig):
-    """Final de página: anterior, todas y siguiente en una sola pieza. Cada parte es (dirección, título)."""
-    a = f'<a class="paso ant" href="{ant[0]}"><span class="paso-eb">{FLECHA_ANT}Anterior</span><b>{e(ant[1])}</b></a>'
-    c = f'<a class="boton pasos-todas" href="{centro[0]}">{e(centro[1])}</a>'
-    z = f'<a class="paso sig" href="{sig[0]}"><span class="paso-eb">Siguiente{FLECHA_SIG}</span><b>{e(sig[1])}</b></a>'
-    return f'<nav class="pasos" aria-label="Otras páginas">{a}{c}{z}</nav>'
+def sol_svg():
+    """El Sol de Mayo chico de los botones de entrada (el mismo que arma datina.js): ícono de la portada y de Sobre nosotros."""
+    p = lambda a, r: f"{math.sin(a) * r:.1f} {-math.cos(a) * r:.1f}"
+    rayos = "".join(f"M{p(i * math.pi / 8 - .12, 19)}L{p(i * math.pi / 8, 36 if i % 2 else 47)}L{p(i * math.pi / 8 + .12, 19)}Z" for i in range(16))
+    return f'<svg class="sol-ir" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false"><path d="{rayos}"/><circle r="21"/></svg>'
+
+
+def icono_svg(n):
+    if n == "sol":
+        return sol_svg()
+    return f'<svg class="iso tono-{ICONOS[n]["t"]}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">{ICONOS[n]["d"]}</svg>'
+
+
+def carta(pid, meta=None):
+    """Una tarjeta de "Seguí explorando": (dirección, título, línea de abajo, ícono, nombre de la transición del título)."""
+    if pid == "inicio":
+        return ("./", "Portada", meta or "Inicio de Datina", "sol", "")
+    if pid.startswith("a-"):
+        return (f"{pid}.html", TIT_NOTA[pid], meta or "Artículo", SEC_ICONO[pid], f"t-{pid}")
+    sec = next((x for x in SECCIONES if x[0] == pid), None)
+    desc = {"provincia": "Perfil provincial", "nosotros": "Qué es Datina", "articulos": f"{len(NOTAS)} artículos"}.get(pid) or (
+        "Herramienta" if sec and sec[4] else f"{sec[5]} fichas" if sec else "")
+    return (url_pagina(pid), TITULO_DE[pid], meta or desc, SEC_ICONO.get(pid, "sol"), f"t-{pid}" if sec else "")
+
+
+def pasos(ant, sig, relacionadas, todas):
+    """Final de página ("Seguí explorando", como el de usafacts.org, pedido del autor el 2 de octubre de 2026): cuatro tarjetas
+    con ícono, la anterior y la siguiente (con su flecha) y dos relacionadas, y el enlace a todas las secciones o artículos."""
+    cartas = [carta(ant, FLECHA_ANT + "Anterior"), carta(sig, "Siguiente" + FLECHA_SIG)]
+    cartas += [carta(r) for r in relacionadas]
+    t = "".join(f'<a class="tarjeta explora" href="{u}"><span class="explora-ico">{icono_svg(ic)}</span><span class="explora-txt">'
+                f'<b{f" style={chr(34)}view-transition-name:{vt}{chr(34)}" if vt else ""}>{e(tit)}</b><small>{meta}</small></span></a>'
+                for u, tit, meta, ic, vt in cartas)
+    return (f'<nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2>'
+            f'<a class="enlace" href="{todas[0]}">{e(todas[1])}{FLECHA_SIG}</a></div><div class="pasos-grid">{t}</div></nav>')
+
+
+def relacionadas(pagina, ya):
+    """Las dos tarjetas que acompañan a la anterior y la siguiente: los artículos de la sección y, si faltan, tu provincia, Cruces y
+    las páginas que siguen en el recorrido. Nunca la página actual ni una que ya está."""
+    candidatas = [i for i, _, sec, _ in NOTAS if sec == pagina] + ["provincia", "cruces"]
+    if pagina in ORDEN:
+        i = ORDEN.index(pagina)
+        candidatas += ORDEN[i + 2:] + ORDEN[:i]
+    sale = []
+    for c in candidatas:
+        if c not in sale and c != pagina and c not in ya and c != "nosotros":
+            sale.append(c)
+    return sale[:2]
 
 
 def migas(*partes, prov=True):
@@ -221,10 +275,11 @@ def navegacion(h, pagina):
         nota = f'<article class="nota" id="{pagina}"'
         orden = [n[0] for n in NOTAS]
         i = orden.index(pagina)
-        art = lambda j: (f"{orden[j % len(orden)]}.html", TIT_NOTA[orden[j % len(orden)]])
+        art = lambda j: orden[j % len(orden)]
         h = h.replace(nota, pildoras("articulos") + migas(("articulos.html", "Artículos"), ("", TIT_NOTA[pagina]), prov=False) + nota, 1)
         fin = h.index("</article>", h.index(nota)) + len("</article>")
-        return h[:fin] + pasos(art(i - 1), ("articulos.html", "Todos los artículos"), art(i + 1)) + h[fin:]
+        sec = next(sec for a, _, sec, _ in NOTAS if a == pagina)
+        return h[:fin] + pasos(art(i - 1), art(i + 1), [sec, "cruces"], ("articulos.html", "Todos los artículos")) + h[fin:]
     ident = {"provincia": "provincias"}.get(pagina, pagina)
     b = next((b for b in bloques(h) if b["id"] == ident), None)
     if not b or pagina in ("inicio", "404"):
@@ -239,8 +294,9 @@ def navegacion(h, pagina):
         blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + pildoras(pagina), blo)
     if pagina in ORDEN:
         i = ORDEN.index(pagina)
-        vecino = lambda j: (url_pagina(ORDEN[j]), TITULO_DE[ORDEN[j]]) if 0 <= j < len(ORDEN) else ("./", "Portada")
-        blo = blo[:-len("</section>")] + pasos(vecino(i - 1), ("./#secciones", "Todas las secciones"), vecino(i + 1)) + "</section>"
+        vecino = lambda j: ORDEN[j] if 0 <= j < len(ORDEN) else "inicio"
+        ant, sig = vecino(i - 1), vecino(i + 1)
+        blo = blo[:-len("</section>")] + pasos(ant, sig, relacionadas(pagina, {ant, sig}), ("./#secciones", "Todas las secciones")) + "</section>"
     return h[:b["ini"]] + blo + h[b["fin"]:]
 
 
@@ -352,7 +408,7 @@ def solo_nota(id_):
     return recorte
 
 
-for id_, titulo in NOTAS:
+for id_, _, _, titulo in NOTAS:
     descr = f"{html.unescape(titulo)} Un cruce de datos oficiales de las 24 jurisdicciones, con sus fuentes y sus límites."
     pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_))
 
