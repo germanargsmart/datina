@@ -174,6 +174,11 @@ for b in TEMAS:
     SECCIONES.append([b["id"], titulo, texto(preg.group(2)) if preg else "", texto(intro.group(1)) if intro else "",
                       int("herramienta" in b["clases"]), n, len(re.findall(r'<article class="nota"', h)),
                       html.unescape(preg.group(1)) if preg and preg.group(1) else ""])
+# las cifras de la portada van escritas desde el principio (etapa 13): si las pusiera solo datina.js, la portada saltaría al llegar
+_estado = '<p class="estado" id="estado"></p>'
+assert base.count(_estado) == 1
+base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f in FICHAS if not f[5])} fichas</span> · <span>24 jurisdicciones</span> · '
+                             f'<span>{len(NOTAS)} artículos</span></p>')
 INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC}
 
 # ---------- datos ----------

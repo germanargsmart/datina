@@ -3052,7 +3052,8 @@ const PREG = [
     cuerpo.style.minHeight = alto + "px";
     poner();
   };
-  medir(); new ResizeObserver(() => medir()).observe(rot.parentElement);
+  // y otra vez cuando termina de llegar la letra: medido con la de reemplazo, el alto podía quedar de más (etapa 13)
+  medir(); new ResizeObserver(() => medir()).observe(rot.parentElement); document.fonts?.ready.then(medir);
   mostrar(0, false);
 })();
 
