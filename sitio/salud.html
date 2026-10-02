@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18b12eeb8c">
+<link rel="stylesheet" href="datina.css?v=9b055cd5f1">
 </head>
 <body data-pagina="salud">
 <header class="barra clara">
@@ -135,10 +135,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-suicidio">
-      <h3>Tasa de suicidios por cada 100.000 habitantes, 2000 a 2025</h3>
+      <h3>Tasa de suicidios por cada 100.000 habitantes de 5 años y más, 2000 a 2025</h3>
       <p class="lead" data-t="suicidio"></p>
       <div class="grafico" data-g="suicidio" data-forma="lineas" style="--alto-c:342px"></div>
-      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. Las tasas por sexo están disponibles desde 2017.</p>
+      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. El SNIC calcula esta tasa sobre las personas de 5 años y más, con el criterio de la OPS y la OMS, y la de homicidios sobre toda la población: por eso las dos tasas no se comparan entre sí, y se comparan las cantidades. Las tasas por sexo están disponibles desde 2017.</p>
       <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad</span><a href="datos/suicidio_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -219,7 +219,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=ef55cfa307"></script>
-<script src="datina.js?v=23f03b71e0"></script>
+<script src="datos/fichas.js?v=432af2f401"></script>
+<script src="datina.js?v=1eb23c7d34"></script>
 </body>
 </html>

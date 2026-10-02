@@ -128,8 +128,6 @@ FUENTES = {
     "energia_emae.csv": API + "367.3_DEMANDA_TOTAL__13,367.3_DEMANDA_REIAL__19,143.3_NO_PR_2004_A_21",
     # Empleo privado registrado por provincia
     "sipa_provincias.csv": API + ",".join(SIPA),
-    # Nacimientos por provincia y edad de la madre (RENAPER)
-    "renaper_nacimientos.csv": "https://datosabiertos.renaper.gob.ar/cantidad_de_nacimientos_edad_madre_por_anio_de_nacimiento_2012_2024.csv",
     # Estadisticas criminales por provincia y pais (SNIC, Ministerio de Seguridad)
     "snic_provincias.csv": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv",
     "snic_pais.csv": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-pais.csv",
@@ -206,7 +204,9 @@ FUENTES.update({
     **{f"deis_defunciones_{a}.csv": "https://www.argentina.gob.ar/sites/default/files/2021/03/" + f for a, f in
        [(2022, "defweb22_0.csv"), (2023, "defweb23.csv"), (2024, "datos_sobre_defunciones_2024.csv")]},
     **{f"deis_nacidos_{a}.csv": "https://www.argentina.gob.ar/sites/default/files/2021/03/" + f for a, f in
-       [(2022, "nacweb22_0.csv"), (2023, "nacweb23.csv"), (2024, "datos_sobre_nacidos_vivos_2024.csv")]},
+       [(2012, "nacweb12.csv"), (2013, "nacweb13.csv"), (2014, "nacweb14.csv"), (2015, "nacweb15.csv"), (2016, "nacweb16.csv"),
+        (2017, "nacweb17.csv"), (2018, "nacweb18.csv"), (2019, "nacweb19.csv"), (2020, "nacweb20_0.csv"), (2021, "nacweb21_0.csv"),
+        (2022, "nacweb22_0.csv"), (2023, "nacweb23.csv"), (2024, "datos_sobre_nacidos_vivos_2024.csv")]},
     # Proyecciones de poblacion por provincia, sexo y edad quinquenal, 2022 a 2040 (INDEC, base Censo 2022)
     "indec_proyecciones_provincias.csv": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv",
     # Cuentas fiscales de cada provincia (esquema ahorro-inversion-financiamiento), anual desde 2005, Ministerio de Economia

@@ -17,6 +17,8 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python scripts/01_descargar.py
       - run: python scripts/02_procesar.py
+      # si una prueba de los datos falla, el trabajo se detiene acá y no se publica nada
+      - run: python scripts/pruebas_datos.py
       - run: python scripts/03_construir_sitio.py
       - name: Guardar cambios
         run: |

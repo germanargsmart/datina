@@ -1304,17 +1304,17 @@
     "texto": "PISA es el Programa para la Evaluación Internacional de Estudiantes de la OCDE. Se aplica cada tres años desde 2000 a estudiantes de 15 años y mide sus logros en lectura, matemática y ciencias. Es una evaluación muestral: se elige un conjunto de escuelas y estudiantes que representa a toda la población evaluada. La Argentina asumió el compromiso de participar en el año 2000. Según la OCDE, los resultados argentinos de 2015 no se pueden comparar con los de años anteriores ni con los de 2018, porque se usó un marco muestral incompleto. Por eso ese año queda fuera de las series.",
     "fuentes": [
      {
-      "nombre": "Ministerio de Educación. Evaluación PISA (extraída por herramienta)",
+      "nombre": "Ministerio de Educación. Evaluación PISA",
       "url": "https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/evaluacion-pisa",
       "cita": "Se implementa cada tres años desde el año 2000"
      },
      {
-      "nombre": "Ministerio de Educación. Evaluación PISA (extraída por herramienta)",
+      "nombre": "Ministerio de Educación. Evaluación PISA",
       "url": "https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/evaluacion-pisa",
       "cita": "Se trata de una evaluación muestral, es decir, se selecciona un conjunto de escuelas y estudiantes"
      },
      {
-      "nombre": "Ministerio de Educación. Noticia sobre el inicio de la participación argentina en PISA (extraída por herramienta)",
+      "nombre": "Ministerio de Educación. Noticia sobre el inicio de la participación argentina en PISA",
       "url": "https://www.argentina.gob.ar/noticias/comenzo-la-participacion-de-argentina-en-la-evaluacion-internacional-pisa",
       "cita": "es un compromiso que asumió la Argentina en el año 2000"
      },
@@ -1371,22 +1371,22 @@
     "texto": "La Ley de Educación Nacional 26.206, sancionada el 14 de diciembre de 2006, estableció que la escolaridad es obligatoria desde los cinco años hasta terminar la secundaria. El 3 de diciembre de 2014 se sancionó la ley 27.045, que declaró obligatoria la educación inicial desde los cuatro años y modificó la ley 26.206. Desde entonces la obligatoriedad abarca los dos últimos años del nivel inicial, la primaria y la secundaria. Además, el Estado nacional, las provincias y la Ciudad de Buenos Aires tienen que universalizar los servicios educativos para niñas y niños de tres años.",
     "fuentes": [
      {
-      "nombre": "Ley 26.206, texto original (argentina.gob.ar/normativa, extraída por herramienta)",
+      "nombre": "Ley 26.206, texto original (argentina.gob.ar/normativa)",
       "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26206-123542/texto",
       "cita": "La obligatoriedad escolar en todo el país se extiende desde la edad de CINCO (5) años hasta la finalización del nivel de la Educación Secundaria."
      },
      {
-      "nombre": "Ley 27.045 (InfoLEG, extraída por herramienta)",
+      "nombre": "Ley 27.045 (InfoLEG)",
       "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/240000-244999/240450/norma.htm",
       "cita": "Declárese obligatoria la educación inicial para niños/as de cuatro (4) años en el sistema educativo nacional."
      },
      {
-      "nombre": "Ley 26.206, texto actualizado (InfoLEG, extraída por herramienta)",
+      "nombre": "Ley 26.206, texto actualizado (InfoLEG)",
       "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/120000-124999/123542/texact.htm",
       "cita": "siendo obligatorios los dos (2) últimos años"
      },
      {
-      "nombre": "Ley 26.206, texto actualizado (InfoLEG, extraída por herramienta)",
+      "nombre": "Ley 26.206, texto actualizado (InfoLEG)",
       "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/120000-124999/123542/texact.htm",
       "cita": "tienen la obligación de universalizar los servicios educativos para los/as niños/as de tres (3) años de edad"
      }
@@ -1480,12 +1480,12 @@
       "cita": "Primer Censo de la República Argentina – 1869"
      },
      {
-      "nombre": "Censo 2022. Historia (extraída por herramienta)",
+      "nombre": "Censo 2022. Historia",
       "url": "https://censo.gob.ar/index.php/historia/",
       "cita": "alcanzó a todos los habitantes de las 14 provincias del entonces denominado Estado nacional en forma simultánea"
      },
      {
-      "nombre": "Censo 2022. Historia (extraída por herramienta)",
+      "nombre": "Censo 2022. Historia",
       "url": "https://censo.gob.ar/index.php/historia/",
       "cita": "Los censos permiten saber cuántos somos, cómo somos, cómo vivimos y cómo nos distribuimos en el territorio."
      },
@@ -1578,17 +1578,17 @@
       "cita": "se encuentran bajo responsabilidad del Ministerio de Salud por delegación del Instituto Nacional de Estadística y Censos (INDEC)"
      },
      {
-      "nombre": "DEIS. Sistema Estadístico de Salud (extraída por herramienta)",
+      "nombre": "DEIS. Sistema Estadístico de Salud",
       "url": "https://www.argentina.gob.ar/salud/deis/ses",
       "cita": "El Sistema Estadístico de Salud se conformó a fines de la década del 60"
      },
      {
-      "nombre": "DEIS. Sistema Estadístico de Salud (extraída por herramienta)",
+      "nombre": "DEIS. Sistema Estadístico de Salud",
       "url": "https://www.argentina.gob.ar/salud/deis/ses",
       "cita": "requirió la firma de convenios entre el Ministerio de Salud de la Nación y los Ministerios de Salud provinciales -suscriptos en 1968"
      },
      {
-      "nombre": "Ley 17.671 (InfoLEG, extraída por herramienta)",
+      "nombre": "Ley 17.671 (InfoLEG)",
       "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/28130/texact.htm",
       "cita": "Compete al Registro Nacional de las Personas, ejercer las siguientes funciones: a) La inscripción e identificación de las personas"
      },

@@ -10,9 +10,15 @@ Tambien copia la tabla larga al sitio para que se pueda descargar
 y el sitio de consultas de pobreza ya construido.
 Uso: python scripts/03_construir_sitio.py
 """
-import csv, hashlib, html, json, math, pathlib, re, shutil
+import csv, hashlib, html, json, math, pathlib, re, shutil, sys
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
+# Antes de armar nada, las pruebas de los datos (scripts/pruebas_datos.py): si alguna falla, el sitio no se arma ni se publica
+sys.path.insert(0, str(RAIZ / "scripts"))
+import pruebas_datos  # noqa: E402
+if pruebas_datos.correr(mostrar=False):
+    pruebas_datos.correr(mostrar=True)
+    sys.exit("Las pruebas de los datos encontraron problemas sin explicar: el sitio no se armó. Ver arriba.")
 SITIO = RAIZ / "sitio"
 huella = lambda t: hashlib.sha1(t.encode("utf-8")).hexdigest()[:10]
 e = lambda t: html.escape(str(t), quote=True)
@@ -89,6 +95,7 @@ DIR_BANDERAS = RAIZ / "datos" / "manual" / "banderas"
 with open(DIR_BANDERAS / "fuentes.csv", encoding="utf-8") as f:
     BANDERAS = list(csv.DictReader(f))
 NOMBRE_PROV = {f["codigo_indec"]: f["territorio"] for f in json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["datos"]["empleo_provincias"]}
+NOMBRE_PROV["00"] = "Argentina (Todo el país)"
 (SITIO / "datos" / "banderas").mkdir(exist_ok=True)
 for b in BANDERAS:
     shutil.copy(DIR_BANDERAS / f"{b['codigo_indec']}.png", SITIO / "datos" / "banderas" / f"{b['codigo_indec']}.png")
@@ -97,7 +104,7 @@ creditos = "".join(
     f'{e(b["licencia"])}</li>' for b in sorted(BANDERAS, key=lambda b: NOMBRE_PROV[b["codigo_indec"]]))
 assert "<!--BANDERAS-->" in base
 base = base.replace("<!--BANDERAS-->",
-    '<h3>Las banderas</h3><p>Las banderas de las provincias vienen de Wikimedia Commons, el archivo de imágenes libres de Wikipedia, '
+    '<h3>Las banderas</h3><p>Las banderas de las provincias y la nacional vienen de Wikimedia Commons, el archivo de imágenes libres de Wikipedia, '
     'y se muestran en miniatura, todas con el mismo tamaño y el mismo recorte.</p>'
     f'<details class="glosario creditos"><summary>Autores y licencias</summary><ul>{creditos}</ul></details>')
 

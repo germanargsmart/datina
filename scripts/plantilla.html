@@ -93,13 +93,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <section class="preguntas" aria-labelledby="preg-tit">
   <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-labelledby="preg-tit">
     <h2 class="rot-eb" id="preg-tit">Datos rápidos</h2>
+    <span class="rot-cuenta"><span id="rot-cuenta"></span><span class="rot-barra" aria-hidden="true"><i></i></span></span>
+    <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
     <div class="rot-control">
       <button type="button" class="boton chico rot-ant"><span aria-hidden="true">&larr;</span> Anterior</button>
-      <span class="rot-cuenta"><span id="rot-cuenta"></span><span class="rot-barra" aria-hidden="true"><i></i></span></span>
       <button type="button" class="boton chico rot-sig">Siguiente <span aria-hidden="true">&rarr;</span></button>
       <button type="button" class="boton chico rot-pausa" aria-pressed="false">Pausar</button>
     </div>
-    <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
   </div>
 </section>
 
@@ -219,7 +219,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta" data-corta="¿Dónde se crea empleo formal?">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
       <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen lo que cada provincia le vende al mundo y cuánto depende de los fondos que le manda la Nación.</p>
     </div>
-    <p class="pub-atajos"><span>Por dónde empezar</span><a href="#pub-trabajo-vecinos">si vivís en una provincia</a> <a href="#pub-trabajo-emprender">si emprendés</a> <a href="#pub-trabajo-estudiar">si estudiás</a></p>
+    <p class="pub-atajos"><span>Por dónde empezar</span><a href="#pub-trabajo-decidir">si tomás decisiones</a> <a href="#pub-trabajo-contar">si sos periodista</a> <a href="#pub-trabajo-curiosidad">si tenés curiosidad</a></p>
     <!--EXPLICADOR:trabajo-->
 
     <article class="ficha" id="f-empleo">
@@ -278,28 +278,28 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h3 class="bloque-grupo" id="pub-tit-trabajo">Qué hacer con estos datos</h3>
       <p class="publicos-sub">Preguntas para empezar, según quién mira.</p>
       <div class="tema-cierre tres">
-      <div id="pub-trabajo-vecinos">
-        <h4>Vecinos y vecinas</h4>
+      <div id="pub-trabajo-decidir">
+        <h4>Decisores</h4>
+        <ul>
+        <li>Las provincias con pocos asalariados privados por habitante muestran dónde el empleo formal es más escaso y dónde hay lugar para nuevas empresas. <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
+        <li>Si una provincia financia la mayor parte de su gasto con fondos nacionales, ¿cuánto margen tiene para definir su propia agenda? <a class="pub-ir" href="#f-fiscal">Finanzas provinciales</a></li>
+        <li>Lo que exporta cada provincia marca cadenas de valor en las que pueden sumarse proveedores, logística y servicios. <a class="pub-ir" href="#f-exportaciones">Exportaciones por provincia</a></li>
+        </ul>
+      </div>
+      <div id="pub-trabajo-contar">
+        <h4>Periodistas</h4>
+        <ul>
+        <li>La Ciudad de Buenos Aires aparece muy arriba en empleo registrado porque cada puesto se cuenta donde declara la empresa: conviene aclararlo al comparar provincias. <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
+        <li>Una antigüedad corta en el empleo no siempre es rotación: también incluye a quienes consiguieron su primer trabajo o volvieron a trabajar. <a class="pub-ir" href="#f-rotacion">Antigüedad en el empleo</a></li>
+        <li>¿Las provincias que más exportan generan más empleo formal? El artículo lo responde con dos indicadores y dice qué no permite concluir. <a class="pub-ir" href="a-exportaciones-empleo.html">Artículo</a></li>
+        </ul>
+      </div>
+      <div id="pub-trabajo-curiosidad">
+        <h4>Gente curiosa</h4>
         <ul>
         <li>¿Cuántas personas tienen un empleo registrado en tu provincia, comparada con las demás? <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
         <li>¿Quiénes cambian más seguido de trabajo: los más jóvenes, quienes no tienen aportes, quienes trabajan en lugares chicos? <a class="pub-ir" href="#f-rotacion">Antigüedad en el empleo</a></li>
-        <li>Si tu provincia financia la mayor parte de su gasto con fondos nacionales, ¿cuánto margen tiene para definir su propia agenda? <a class="pub-ir" href="#f-fiscal">Finanzas provinciales</a></li>
-        </ul>
-      </div>
-      <div id="pub-trabajo-emprender">
-        <h4>Quienes emprenden</h4>
-        <ul>
-        <li>Las provincias con pocos asalariados privados por habitante muestran dónde el empleo formal es más escaso y dónde hay lugar para nuevas empresas. <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
-        <li>Lo que exporta cada provincia marca cadenas de valor en las que pueden sumarse proveedores, logística y servicios. <a class="pub-ir" href="#f-exportaciones">Exportaciones por provincia</a></li>
-        <li>¿Dónde abren y dónde cierran más empresas? <a class="pub-ir" href="empresas.html">Empresas y oportunidades</a></li>
-        </ul>
-      </div>
-      <div id="pub-trabajo-estudiar">
-        <h4>Estudiantes</h4>
-        <ul>
-        <li>¿Por qué la Ciudad de Buenos Aires aparece tan arriba en empleo registrado? La nota de la ficha explica dónde se cuenta cada puesto. <a class="pub-ir" href="#f-empleo">Empleo privado registrado</a></li>
-        <li>Una antigüedad corta en el empleo, ¿siempre quiere decir que la persona cambió de trabajo? Leé qué aclara la nota. <a class="pub-ir" href="#f-rotacion">Antigüedad en el empleo</a></li>
-        <li>¿Las provincias que más exportan son también las que más empleo formal generan? El artículo lo responde con dos indicadores. <a class="pub-ir" href="a-exportaciones-empleo.html">Artículo</a></li>
+        <li>¿Qué pasa con el trabajo que no aparece en estos registros, el informal y el independiente? <a class="pub-ir" href="#f-rotacion">Antigüedad en el empleo</a></li>
         </ul>
       </div>
       </div>
@@ -466,10 +466,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-suicidio">
-      <h3>Tasa de suicidios por cada 100.000 habitantes, 2000 a 2025</h3>
+      <h3>Tasa de suicidios por cada 100.000 habitantes de 5 años y más, 2000 a 2025</h3>
       <p class="lead" data-t="suicidio"></p>
       <div class="grafico" data-g="suicidio" data-forma="lineas" style="--alto-c:342px"></div>
-      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. Las tasas por sexo están disponibles desde 2017.</p>
+      <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. El SNIC calcula esta tasa sobre las personas de 5 años y más, con el criterio de la OPS y la OMS, y la de homicidios sobre toda la población: por eso las dos tasas no se comparan entre sí, y se comparan las cantidades. Las tasas por sexo están disponibles desde 2017.</p>
       <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad</span><a href="datos/suicidio_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -529,6 +529,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-escolarizacion">
       <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
       <p class="lead" data-t="escolarizacion"></p>
+      <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
       <div class="grafico" data-g="escolarizacion" data-forma="pesas"></div>
       <p class="nota" data-t="escolarizacion-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -573,15 +574,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta" data-corta="¿Qué pasa si nacen cada vez menos chicos?">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
       <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. También importa quién llega: las personas que migran desde otros países.</p>
     </div>
-    <p class="pub-atajos"><span>Por dónde empezar</span><a href="#pub-poblacion-vecinos">si vivís en una provincia</a> <a href="#pub-poblacion-emprender">si emprendés</a> <a href="#pub-poblacion-estudiar">si estudiás</a></p>
+    <p class="pub-atajos"><span>Por dónde empezar</span><a href="#pub-poblacion-decidir">si tomás decisiones</a> <a href="#pub-poblacion-contar">si sos periodista</a> <a href="#pub-poblacion-curiosidad">si tenés curiosidad</a></p>
     <!--EXPLICADOR:poblacion-->
 
     <article class="ficha" id="f-nacimientos">
       <h3>Nacimientos por año en la Argentina y en la OCDE, 2012 a 2024</h3>
       <p class="lead" data-t="nacimientos"></p>
       <div class="grafico" data-g="nacimientos" data-forma="lineas" style="--alto:398px;--alto-c:378px"></div>
-      <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacimientos inscriptos en el Registro Nacional de las Personas según año de nacimiento, el último año puede sumar inscripciones tardías. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
-      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
+      <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
+      <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-piramide">
@@ -612,8 +613,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h3>Nacimientos de madres menores de 20 años por provincia, 2012 y 2024</h3>
       <p class="lead" data-t="adolescentes"></p>
       <div class="grafico" data-g="adolescentes" data-forma="pesas"></div>
-      <p class="nota">Porcentaje de los nacimientos de cada provincia cuya madre tenía entre 10 y 19 años. El círculo claro marca 2012 y el oscuro 2024.</p>
-      <div class="pie"><span>Fuente: RENAPER, datos abiertos</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <p class="nota">Porcentaje de los nacidos vivos de cada provincia, según el lugar donde vive la madre, cuya madre tenía menos de 20 años. El círculo claro marca 2012 y el oscuro 2024.</p>
+      <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes-nse">
@@ -622,7 +623,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>Indicador del Censo 2022</span><select id="adonse-sel"></select></label>
       <div class="grafico" data-g="adonse" data-forma="puntos"></div>
       <p class="nota" data-t="adonse-nota"></p>
-      <div class="pie"><span>Fuentes: RENAPER e INDEC, Censo 2022</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, e INDEC, Censo 2022</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-extranjeros">
@@ -637,27 +638,28 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h3 class="bloque-grupo" id="pub-tit-poblacion">Qué hacer con estos datos</h3>
       <p class="publicos-sub">Preguntas para empezar, según quién mira.</p>
       <div class="tema-cierre tres">
-      <div id="pub-poblacion-vecinos">
-        <h4>Vecinos y vecinas</h4>
+      <div id="pub-poblacion-decidir">
+        <h4>Decisores</h4>
         <ul>
-        <li>¿Cuántos chicos nacen hoy y cuántos nacían antes? ¿Qué cambia eso en las escuelas y las maternidades? <a class="pub-ir" href="#f-nacimientos">Nacimientos</a></li>
-        <li>¿Cómo va a cambiar la población de tu provincia de acá a 2040? <a class="pub-ir" href="#f-piramide">Pirámide de población</a></li>
         <li>¿Cómo se sostiene el sistema previsional si hay menos personas en edad de trabajar por cada persona mayor? <a class="pub-ir" href="#f-jubilaciones">Aportantes por jubilación</a></li>
-        </ul>
-      </div>
-      <div id="pub-poblacion-emprender">
-        <h4>Quienes emprenden</h4>
-        <ul>
         <li>Una población que envejece demanda cuidados, salud, vivienda adaptada y servicios para personas mayores. <a class="pub-ir" href="#f-envejecimiento">Personas mayores</a></li>
-        <li>La caída de la natalidad invita a repensar la oferta educativa y a reconvertir parte de la infraestructura. <a class="pub-ir" href="#f-nacimientos">Nacimientos</a></li>
+        <li>La caída de la natalidad obliga a repensar la oferta de escuelas y maternidades. <a class="pub-ir" href="#f-nacimientos">Nacimientos</a></li>
         </ul>
       </div>
-      <div id="pub-poblacion-estudiar">
-        <h4>Estudiantes</h4>
+      <div id="pub-poblacion-contar">
+        <h4>Periodistas</h4>
         <ul>
-        <li>¿La baja de los embarazos adolescentes fue pareja en todas las provincias? Compará la tuya con otras. <a class="pub-ir" href="#f-adolescentes">Madres adolescentes</a></li>
-        <li>Que dos datos se muevan juntos no prueba que uno cause el otro. Mirá cómo lo aclara la ficha de madres adolescentes y nivel socioeconómico. <a class="pub-ir" href="#f-adolescentes-nse">Madres adolescentes y nivel socioeconómico</a></li>
-        <li>¿Qué provincias tienen la población más joven y cuáles la más envejecida? <a class="pub-ir" href="#f-envejecimiento">Personas mayores</a></li>
+        <li>Los nacimientos salen de las estadísticas vitales de la DEIS, el total oficial: otros registros, como el del RENAPER, cuentan menos. <a class="pub-ir" href="#f-nacimientos">Nacimientos</a></li>
+        <li>Que dos datos se muevan juntos no prueba que uno cause el otro: la ficha de madres adolescentes y nivel socioeconómico lo aclara. <a class="pub-ir" href="#f-adolescentes-nse">Madres adolescentes y nivel socioeconómico</a></li>
+        <li>Las personas nacidas en otro país se cuentan según el domicilio de su DNI, no según dónde viven hoy. <a class="pub-ir" href="#f-extranjeros">Nacidos en otro país</a></li>
+        </ul>
+      </div>
+      <div id="pub-poblacion-curiosidad">
+        <h4>Gente curiosa</h4>
+        <ul>
+        <li>¿Cuántos chicos nacen hoy y cuántos nacían antes? <a class="pub-ir" href="#f-nacimientos">Nacimientos</a></li>
+        <li>¿Cómo va a cambiar la población de tu provincia de acá a 2040? <a class="pub-ir" href="#f-piramide">Pirámide de población</a></li>
+        <li>¿La baja de los embarazos adolescentes fue pareja en todas las provincias? <a class="pub-ir" href="#f-adolescentes">Madres adolescentes</a></li>
         </ul>
       </div>
       </div>
@@ -763,7 +765,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="transferencias" data-forma="barras"></div>
       <p class="nota" data-t="transferencias-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año, miles de millones (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia, millones (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-apoyo">

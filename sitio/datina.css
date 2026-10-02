@@ -139,16 +139,16 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .barra-izq,.barra .temas,.barra-der{transition:transform var(--dur-3) var(--ease-out)}
 .barra.compacta{transform:translateY(-14px)}
 .barra.compacta .barra-izq,.barra.compacta .temas,.barra.compacta .barra-der{transform:translateY(7px)}
-.barra.compacta .marca{transform:scale(.82)}
+.barra.compacta .marca{transform:scale(.9)}
 /* en el celular la barra ya es baja: se compacta menos */
 @media (max-width:760px){.barra.compacta{transform:translateY(-8px)}.barra.compacta .barra-izq,.barra.compacta .barra-der{transform:translateY(4px)}.barra.compacta .marca{transform:scale(.88)}}
 .barra-der{grid-column:3;display:flex;align-items:center;gap:var(--e-2);min-width:0}
-.barra .marca{transform-origin:0 70%;transition:transform var(--dur-3) var(--ease-out),color var(--dur-3) var(--ease-out);padding-top:9px;font-size:38px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;
+.barra .marca{transform-origin:0 70%;transition:transform var(--dur-3) var(--ease-out),color var(--dur-3) var(--ease-out);padding-top:9px;font-size:46px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;
   color:#fff;text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .barra.clara .marca{color:var(--azul)}
 body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* navegación: el mismo estilo en la barra, la fila de secciones del celular y el pie */
-.barra .temas{grid-column:2;justify-self:end;display:flex;gap:var(--e-6);font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+.barra .temas{grid-column:2;justify-self:center;display:flex;gap:var(--e-6);font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   font-variation-settings:"wdth" 60,"opsz" 14;color:var(--en-azul-texto)}
 .barra .temas a{padding:6px 0;text-decoration:none;white-space:nowrap;transition:color var(--dur-1) var(--ease-out)}
 .barra .temas a[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
@@ -159,11 +159,15 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   font:500 12px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   color:#fff;background:transparent;border:1px solid var(--en-azul-borde);border-radius:var(--r-control);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .lupa-btn{width:40px;padding:0}
+/* "Secciones" pesa menos que la marca y los temas: sin borde, como texto con ícono (octubre de 2026) */
+.menu-btn{border-color:transparent;padding:0 var(--e-2)}
+@media (hover:hover) and (pointer:fine){.menu-btn:hover{background:var(--en-azul-velo)}.barra.clara .menu-btn:hover{background:var(--celeste-suave)}}
 .lupa-btn .ico{width:19px;height:19px}
 .menu-btn .ico,.chip-borrar .ico{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
 .lupa-btn:active,.menu-btn:active{transform:scale(.97)}
 .lupa-btn[aria-expanded="true"],.menu-btn[aria-expanded="true"]{background:#fff;color:var(--azul)}
 .barra.clara .lupa-btn,.barra.clara .menu-btn{color:var(--azul);border-color:var(--azul)}
+.barra.clara .menu-btn{border-color:transparent}
 .barra.clara .lupa-btn[aria-expanded="true"],.barra.clara .menu-btn[aria-expanded="true"]{background:var(--azul);color:#fff}
 /* provincia elegida: bandera y nombre (llevan al perfil) y un botón para volver a todo el país */
 .prov-chip{display:flex;align-items:stretch;min-width:0;height:40px;color:#fff;border:1px solid var(--en-azul-borde);border-radius:var(--r-control);overflow:hidden}
@@ -260,7 +264,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
    Jerarquía: DATINA, qué es y "Elegí tu provincia". A la derecha, la Argentina con sus 24 provincias y el sol. */
 .portada{position:relative;overflow:hidden;background:var(--azul);color:#fff}
 .portada-grid{position:relative;max-width:var(--ancho-max);margin:0 auto;padding:var(--e-6) var(--margen) var(--e-7);display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;gap:var(--e-6);pointer-events:none}
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:stretch;gap:var(--e-4);pointer-events:none}
 .portada-texto{position:relative;isolation:isolate;align-self:center;pointer-events:auto}
 .portada-texto::before{content:"";position:absolute;inset:-36px -40px;z-index:-1;background:radial-gradient(closest-side,rgba(44,116,181,.92) 60%,rgba(44,116,181,0))}
 /* entrada corta y escalonada: "Elegí tu provincia" está lista antes de los 450 ms */
@@ -276,12 +280,33 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .portada .bajada{margin:0 0 var(--e-6);max-width:26em;font-size:var(--t-5);line-height:1.45;color:rgba(255,255,255,.88)}
 .atajos{display:flex;flex-wrap:wrap;gap:var(--e-3)}
 /* cifras del sitio: texto simple, no se tocan */
-.estado{margin:var(--e-5) 0 0;font:500 var(--t-2)/1.5 var(--mono);letter-spacing:.02em;color:var(--en-azul-texto)}
+/* información secundaria: más chica y más tenue que los botones (octubre de 2026) */
+.estado{margin:var(--e-4) 0 0;font:400 var(--t-1)/1.5 var(--mono);letter-spacing:.04em;color:#fff}
 .estado span{white-space:nowrap}
 /* lugar del mapa: el país lo dibuja datina.js en el fondo, con la misma proyección que el mundo */
 .portada-mapa{position:relative;min-height:480px}
 .portada-mapa .sol{position:absolute;top:0;right:0;width:200px}
-.mapa-ayuda{position:absolute;left:0;right:0;bottom:0;margin:0;font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto)}
+/* la ayuda va pegada debajo del país (la ubica datina.js): es la instrucción del mapa */
+.mapa-ayuda{position:absolute;left:50%;bottom:0;margin:0;transform:translateX(-50%);white-space:nowrap;text-align:center;
+  font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto)}
+.mapa-ayuda[style*="top"]{bottom:auto}
+/* tarjeta al tocar una provincia: al lado del país en pantallas anchas, debajo del mapa en el celular */
+.mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);background:#fff;border-radius:var(--r-panel);
+  box-shadow:var(--sombra-panel);pointer-events:auto}
+.mapa-tarjeta.abierta{display:block}
+.mt-cab{display:flex;align-items:center;justify-content:space-between;gap:var(--e-2);margin-bottom:var(--e-3);font-size:var(--t-5);font-weight:600}
+.mt-cerrar{width:32px;height:32px;flex:none;font-size:22px;line-height:1;color:var(--muted);background:none;border:0;border-radius:var(--r-control);cursor:pointer}
+.mapa-tarjeta ul{margin:0 0 var(--e-4);padding:0;list-style:none}
+.mapa-tarjeta li{display:grid;grid-template-columns:1fr auto;gap:0 var(--e-2);padding:var(--e-2) 0;border-top:1px solid var(--line)}
+.mt-lab{font-size:var(--t-3)}
+.mapa-tarjeta li b{font-size:var(--t-3);font-weight:600;font-variant-numeric:tabular-nums}
+.mapa-tarjeta li small{grid-column:1/-1;font-size:var(--t-1);color:var(--muted)}
+.mapa-tarjeta .boton{width:100%}
+.mapa-tarjeta .boton.principal{--b-fondo:var(--azul);--b-tinta:#fff;--b-borde:var(--azul)}
+@media (hover:hover) and (pointer:fine){.mapa-tarjeta .boton.principal:hover{--b-fondo:var(--azul-hondo);--b-borde:var(--azul-hondo)}}
+.mapa-fondo .provs a.tocada path,.mapa-fondo .provs a.tocada circle{fill:#fff;stroke:var(--azul-hondo)}
+/* en el celular, un panel fijo abajo de la pantalla: el mapa sigue a la vista */
+@media (max-width:760px){.mapa-tarjeta{position:fixed;left:12px;right:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;z-index:30}}
 @media (max-width:1080px){.portada-mapa{min-height:420px}.portada-mapa .sol{width:170px}}
 @media (max-width:760px){
   .portada-grid{grid-template-columns:1fr;gap:var(--e-4);padding:var(--e-4) var(--margen) var(--e-6)}
@@ -338,28 +363,27 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .preguntas{background:#fff;border-bottom:1px solid var(--borde)}
 .rotador{max-width:880px;margin:0 auto;padding:var(--e-7) var(--margen) var(--e-6);text-align:center}
 .rot-eb{margin:0 0 var(--e-4);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-hondo)}
-.rot-control{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--e-3)}
-.rot-cuenta{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px;font:500 var(--t-2)/1 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.rot-control{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--e-3);margin-top:var(--e-5)}
+.rot-cuenta{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px;margin:0 auto;font:500 var(--t-2)/1 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .rot-barra{display:block;width:96px;height:2px;overflow:hidden;background:var(--line)}
 .rot-barra i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--sol)}
 .rot-pausa{margin-left:var(--e-4)}
-.rot-cuerpo{margin-top:var(--e-5)}
+.rot-cuerpo{display:flex;flex-direction:column;justify-content:center;margin-top:var(--e-4)}
 .rot-q{display:block;margin:0 auto var(--e-2);max-width:30em;font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.015em;color:var(--azul);
   text-decoration:none;font-variation-settings:"wdth" 75,"opsz" 32;transition:color var(--dur-1) var(--ease-out)}
 .rot-a{margin:0 auto;max-width:40em;line-height:1.5;color:var(--ink)}
 @media (hover:hover) and (pointer:fine){.rot-q:hover{color:var(--azul-hondo);text-decoration:underline;text-decoration-color:var(--celeste)}}
 @media (max-width:560px){
   .rotador{padding-top:var(--e-6)}
-  .rot-control{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--e-2)}
-  .rot-cuenta{min-width:72px}
-  .rot-barra{width:64px}
-  .rot-pausa{grid-column:1/-1;justify-self:center;margin:var(--e-1) 0 0}
+  .rot-control{gap:var(--e-2)}
+  .rot-pausa{margin-left:0}
 }
 
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
 .bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-9);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144}
-.bloque-sub{margin:0 0 var(--e-6);max-width:var(--medida);line-height:var(--i-chico);color:var(--muted)}
-.destacados,.articulos-home,.secciones{padding-top:var(--ritmo)}
+.bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
+.destacados,.articulos-home,.secciones{padding-top:calc(var(--ritmo) * 1.5)}
+.rotador{padding-bottom:var(--e-7)}
 
 /* destacados: tres tarjetas de color con un ícono grande y el Sol de Mayo como señal de entrada */
 .dest-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--e-4)}
@@ -416,6 +440,18 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* secciones: una tarjeta por sección, con su ícono */
 .secciones-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));grid-auto-rows:1fr;gap:var(--e-4)}
+/* secciones: columnas fijas por ancho (4, 3 y 2) para que "Ver todas" muestre dos filas justas */
+#secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+#secciones-grid.plegada>:nth-child(n+9){display:none}
+@media (max-width:1079px){#secciones-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#secciones-grid.plegada>:nth-child(n+7){display:none}}
+@media (max-width:760px){#secciones-grid{grid-template-columns:1fr 1fr}#secciones-grid.plegada>:nth-child(n+5){display:none}}
+.ver-todas{margin-top:var(--e-5)}
+/* herramientas: tres tarjetas en una fila, o una debajo de la otra en pantallas angostas (nunca una sola en la última fila) */
+#herramientas-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){#herramientas-grid{grid-template-columns:1fr}}
+/* los tres artículos de la portada: una fila de tres o una columna (nunca uno solo en la última fila) */
+#art-grid-home{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:1079px){#art-grid-home{grid-template-columns:1fr}}
 /* las herramientas, en su propio grupo con título: se distinguen por eso y no por el color */
 .bloque-grupo{margin:var(--e-8) 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144}
 .sec-tarjeta{gap:6px}
@@ -1031,6 +1067,12 @@ html:not(.js) .esqueleto{display:none}
   .esp-cab{padding:var(--e-3) var(--e-4)}
   .esp-cuerpo{padding:var(--e-4)}
 }
+/* comparación con la OCDE con un dato de más de tres años: el botón lleva una marca y la nota un aviso */
+.ocde-conm .boton.viejo::after{content:"";display:inline-block;width:7px;height:7px;margin-left:6px;border-radius:50%;background:var(--sol-fuerte);vertical-align:1px}
+.ocde-aviso{color:var(--sol-borde);font-weight:600}
+/* quiebre de serie marcado arriba del gráfico (escolarización, SUBE) */
+.aviso-serie{display:flex;align-items:center;gap:var(--e-2);margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+.aviso-serie::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--sol-fuerte)}
 .vt-matriz td.plat a{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;color:var(--celeste-fuerte)}
 .vt-matriz tr[role="button"]{cursor:pointer}
 .vt-matriz tr[role="button"]:hover td.ley,.vt-matriz tr[role="button"]:focus-visible td.ley{text-decoration:underline}
@@ -1088,16 +1130,19 @@ html:not(.js) .esqueleto{display:none}
 
 /* ---------- pie de página: a todo el ancho, alineado con la barra ---------- */
 .pie-sitio{margin-top:var(--ritmo);padding:var(--e-9) 0 var(--e-10);background:#fff;border-top:3px solid var(--azul);font-size:var(--t-3);line-height:1.5;color:var(--muted)}
-.pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:1.1fr 1.7fr 1fr;gap:var(--e-8)}
+.pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2fr) minmax(0,1fr);gap:var(--e-8)}
 .pie-sitio .marca{display:inline-block;padding-top:12px;font-size:46px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;
   color:var(--azul);text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .pie-lema,.pie-sitio h2{margin:var(--e-2) 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
+/* más aire entre la marca, el lema y el texto (octubre de 2026) */
+.pie-marca .pie-lema{margin:var(--e-4) 0 var(--e-5)}
+.pie-marca p:last-child{line-height:1.6}
 .pie-sitio h2{margin-top:0}
 .pie-sitio p{max-width:30em;margin:0 0 var(--e-3)}
 .pie-mapa{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--e-6)}
 .pie-sitio ul{margin:0 0 var(--e-6);padding:0;list-style:none}
 .pie-col:first-child ul{columns:2;column-gap:var(--e-5)}
-.pie-sitio li{margin:0 0 6px;break-inside:avoid}
+.pie-sitio li{margin:0 0 var(--e-2);break-inside:avoid}
 .pie-mapa a{color:var(--azul);text-decoration:none}
 .pie-mapa a[aria-current="true"]{color:var(--ink);font-weight:600}
 @media (hover:hover) and (pointer:fine){.pie-mapa a:hover{text-decoration:underline}}

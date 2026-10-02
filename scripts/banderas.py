@@ -5,7 +5,7 @@ con Chrome en un recuadro de 72 x 48 píxeles (proporción 3:2, recortada al cen
 datos/manual/banderas/{codigo}.png, junto con fuentes.csv: autor, licencia y página de cada archivo.
 Los originales pesan hasta 760 KB por los escudos dibujados en detalle: en miniatura cada una pesa unos pocos KB.
 Las banderas no cambian, así que se corre una sola vez (o cuando una provincia cambie la suya).
-Requiere Google Chrome. Uso: python scripts/banderas.py
+Requiere Google Chrome. Uso: python scripts/banderas.py [códigos]  (con códigos, rehace solo esas y conserva las demás en fuentes.csv)
 """
 import csv, html, json, pathlib, re, subprocess, tempfile, time, urllib.error, urllib.parse, urllib.request
 
@@ -18,6 +18,7 @@ ANCHO, ALTO = 72, 48
 # Código INDEC y archivo de Commons. Son los que indica Wikidata, salvo Jujuy: Wikidata enlaza una versión
 # "no oficial mejorada" de la Bandera de la Libertad Civil y se usa el archivo de la provincia.
 ARCHIVOS = {
+    "00": "Flag of Argentina.svg",   # "Todo el país" (octubre de 2026, pedido del autor)
     "02": "Bandera de la Ciudad de Buenos Aires.svg",
     "06": "Bandera de la Provincia de Buenos Aires.svg",
     "10": "Bandera de la Provincia de Catamarca.svg",
@@ -89,13 +90,18 @@ def datos_commons(archivos):
     return res
 
 
-def main():
+def main(solo=None):
     SALIDA.mkdir(parents=True, exist_ok=True)
-    info = datos_commons(ARCHIVOS.values())
+    pedidas = {c: a for c, a in ARCHIVOS.items() if not solo or c in solo}
+    info = datos_commons(pedidas.values())
+    previas = {}
+    if solo and (SALIDA / "fuentes.csv").exists():
+        with open(SALIDA / "fuentes.csv", encoding="utf-8") as f:
+            previas = {r["codigo_indec"]: r for r in csv.DictReader(f)}
     filas = []
     with tempfile.TemporaryDirectory() as tmp:
         tmp = pathlib.Path(tmp)
-        for cod, arch in ARCHIVOS.items():
+        for cod, arch in pedidas.items():
             d = info[arch]
             svg = tmp / f"{cod}.svg"
             # algunos archivos no traen viewBox: sin él, el navegador no escala el dibujo y muestra solo una esquina
@@ -116,6 +122,8 @@ def main():
             assert png.exists(), f"no se dibujó la bandera {cod}"
             filas.append({"codigo_indec": cod, "archivo": arch, **{k: d[k] for k in ("autor", "licencia", "url_licencia", "pagina")}})
             print(cod, arch, f"{png.stat().st_size // 1024} KB")
+    nuevas = {r["codigo_indec"]: r for r in filas}
+    filas = [nuevas.get(c) or previas[c] for c in ARCHIVOS if c in nuevas or c in previas]
     with open(SALIDA / "fuentes.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(filas[0]))
         w.writeheader()
@@ -124,4 +132,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(set(sys.argv[1:]) or None)

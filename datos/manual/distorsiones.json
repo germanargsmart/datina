@@ -1,0 +1,14 @@
+{
+ "_nota": "Casos que el lugar de registro o un error de la fuente distorsionan (pedido del autor, octubre de 2026, punto A6). Clave: tabla.columna y código de jurisdicción. accion 'aclarar' suma el motivo en la misma oración que nombra el máximo, 'excluir' lo saca del texto de máximos y dice por qué. Los usan 02_procesar.py (textos) y pruebas_datos.py (acepta el hallazgo). El motivo se muestra tal cual: sin cifras.",
+ "empleo_provincias.cada_100": {
+  "02": {"accion": "aclarar", "motivo": "el SIPA cuenta cada empleo en la provincia donde declara la empresa, así que la Ciudad suma también a muchas personas que viven en el conurbano"}
+ },
+ "internet_fijo_provincias.accesos_100_hogares": {
+  "02": {"accion": "aclarar", "motivo": "ENACOM cuenta también los accesos de empresas y organizaciones, por eso puede haber más accesos que hogares"},
+  "74": {"accion": "aclarar", "motivo": "ENACOM cuenta también los accesos de empresas y organizaciones, por eso puede haber más accesos que hogares"},
+  "42": {"accion": "aclarar", "motivo": "ENACOM cuenta también los accesos de empresas y organizaciones, por eso puede haber más accesos que hogares"}
+ },
+ "patentamientos_provincias.motos_1000": {
+  "94": {"accion": "excluir", "motivo": "su dato del DNRPA salta durante 2025 a valores decenas de veces mayores que los de los años anteriores y siguientes, y las cámaras del sector no registran ese aumento: es probable un error en el dato abierto"}
+ }
+}

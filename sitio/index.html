@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18b12eeb8c">
+<link rel="stylesheet" href="datina.css?v=9b055cd5f1">
 </head>
 <body data-pagina="inicio">
 <header class="barra">
@@ -93,13 +93,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <section class="preguntas" aria-labelledby="preg-tit">
   <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-labelledby="preg-tit">
     <h2 class="rot-eb" id="preg-tit">Datos rápidos</h2>
+    <span class="rot-cuenta"><span id="rot-cuenta"></span><span class="rot-barra" aria-hidden="true"><i></i></span></span>
+    <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
     <div class="rot-control">
       <button type="button" class="boton chico rot-ant"><span aria-hidden="true">&larr;</span> Anterior</button>
-      <span class="rot-cuenta"><span id="rot-cuenta"></span><span class="rot-barra" aria-hidden="true"><i></i></span></span>
       <button type="button" class="boton chico rot-sig">Siguiente <span aria-hidden="true">&rarr;</span></button>
       <button type="button" class="boton chico rot-pausa" aria-pressed="false">Pausar</button>
     </div>
-    <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
   </div>
 </section>
 
@@ -189,7 +189,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=ef55cfa307"></script>
-<script src="datina.js?v=23f03b71e0"></script>
+<script src="datos/fichas.js?v=432af2f401"></script>
+<script src="datina.js?v=1eb23c7d34"></script>
 </body>
 </html>
