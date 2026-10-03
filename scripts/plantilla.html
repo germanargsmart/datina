@@ -51,7 +51,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="menu-grupo" data-nivel="1" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
     </div>
     <div class="menu-col">
-      <div class="menu-grupo" data-nivel="2" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <div class="menu-grupo" data-nivel="2" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
       <div class="menu-grupo" data-nivel="2" style="--i:2"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Todos los artículos</a></li></ul></div>
     </div>
     <div class="menu-col">
@@ -816,10 +816,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="energia">
     <h2>Energía</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Cuánta electricidad usamos y quién la usa?</p>
-      <p>Cuánto consumen los hogares, cómo se mueve la demanda con la economía y en qué meses se concentra.</p>
+      <p class="pregunta" data-corta="¿Cuánta energía usamos y producimos?">¿Cuánta energía usamos, cuánta producimos y de dónde sale?</p>
+      <p>La electricidad que consumen los hogares y la economía, y el petróleo y el gas: la producción mes a mes y por provincia, el peso de Vaca Muerta, los pozos, las empresas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar del país en el mundo.</p>
     </div>
     <!--EXPLICADOR:energia-->
+
+    <h3 class="bloque-grupo" id="g-electricidad">Electricidad</h3>
 
     <article class="ficha" id="f-hogares">
       <h3>Participación de los hogares en la demanda eléctrica, {{energia.anio_ini}} a {{energia.anio_ult}}</h3>
@@ -845,15 +847,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-  </section>
+    <h3 class="bloque-grupo" id="g-petroleo">Petróleo y gas</h3>
 
-  <section class="tema" id="petroleo">
-    <h2>Petróleo y gas</h2>
-    <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuánto petróleo y gas sacamos y de dónde?">¿Cuánto petróleo y gas produce la Argentina, de dónde sale y a quién le llega?</p>
-      <p>La producción mes a mes y por provincia, el peso de Vaca Muerta, los pozos, las empresas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar del país en el mundo.</p>
-    </div>
-    <!--EXPLICADOR:petroleo-->
+    <article class="ficha" id="f-gas-hogares">
+      <h3>Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</h3>
+      <p class="lead" data-t="gas-hogares"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="gas-hogares-vista" data-dib="gas-hogares">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa del gas de red</button>
+      </div>
+      <div class="pol-ley" id="gas-hogares-ley" aria-hidden="true"></div>
+      <div class="grafico mp-mapa" data-g="gas-hogares" data-forma="barras" style="--filas:25"></div>
+      <p class="nota" data-t="gas-hogares-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
 
     <article class="ficha" id="f-petroleo">
       <h3>Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</h3>
@@ -877,19 +884,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="gas" data-forma="lineas"></div>
       <p class="nota" data-t="gas-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-gas-hogares">
-      <h3>Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</h3>
-      <p class="lead" data-t="gas-hogares"></p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="gas-hogares-vista" data-dib="gas-hogares">
-        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
-        <button type="button" data-m="mapa" aria-pressed="false">Mapa del gas de red</button>
-      </div>
-      <div class="pol-ley" id="gas-hogares-ley" aria-hidden="true"></div>
-      <div class="grafico mp-mapa" data-g="gas-hogares" data-forma="barras" style="--filas:25"></div>
-      <p class="nota" data-t="gas-hogares-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-hidro-provincias">
@@ -988,6 +982,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
   </section>
+
 
   <section class="tema" id="turismo">
     <h2>Turismo</h2>

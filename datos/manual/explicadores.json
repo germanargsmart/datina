@@ -2034,7 +2034,7 @@
  "energia": {
   "bloques": [
    {
-    "titulo": "El marco: la Ley 24.065",
+    "titulo": "El mercado eléctrico: la Ley 24.065",
     "texto": "La Ley 24.065, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico. Reconoce cuatro tipos de actores del Mercado Eléctrico Mayorista (MEM): generadores, transportistas, distribuidores y grandes usuarios. El texto ordenado vigente se aprobó con el Decreto 450 de 2025. En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias.",
     "fuentes": [
      {
@@ -2061,7 +2061,7 @@
     ]
    },
    {
-    "titulo": "Cómo se clasifica la demanda",
+    "titulo": "Cómo se clasifica la demanda eléctrica",
     "texto": "La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares.",
     "fuentes": [
      {
@@ -2070,15 +2070,15 @@
       "cita": "contrata, en forma independiente y para consumo propio, su abastecimiento de energía eléctrica."
      },
      {
-      "nombre": "Resolución SE 884/2023, artículo 9",
+      "nombre": "Resolución SE 884/2023, considerandos",
       "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto",
-      "cita": "Demandas Menores a 300 kW (No Residencial)"
+      "cita": "Demandas Menores a TRESCIENTOS KILOVATIOS (300 kW) –No Residencial–"
      }
     ]
    },
    {
-    "titulo": "De dónde sale la serie",
-    "texto": "Las fichas usan la serie mensual de demanda de electricidad de la API de Series de Tiempo del Estado nacional. La publica la Subsecretaría de Programación Macroeconómica con datos de CAMMESA, en gigavatios hora. La demanda total empieza en 2001 y la residencial en 2005. Como el dato es mensual, permite ver qué meses concentran más consumo y compararlo con la actividad económica. La copia de CAMMESA en datos.gob.ar terminó en febrero de 2020 y no se usa.",
+    "titulo": "De dónde sale la serie de demanda eléctrica",
+    "texto": "Las fichas de electricidad usan la serie mensual de demanda de electricidad de la API de Series de Tiempo del Estado nacional. La publica la Subsecretaría de Programación Macroeconómica con datos de CAMMESA, en gigavatios hora. La demanda total empieza en 2001 y la residencial en 2005. Como el dato es mensual, permite ver qué meses concentran más consumo y compararlo con la actividad económica. La copia de CAMMESA en datos.gob.ar terminó en febrero de 2020 y no se usa.",
     "fuentes": [
      {
       "nombre": "API de Series de Tiempo, metadatos de la serie 367.3",
@@ -2086,53 +2086,7 @@
       "cita": "Compañía Administradora del Mercado Mayorista Eléctrico S.A. (CAMMESA)"
      }
     ]
-   }
-  ],
-  "glosario": [
-   {
-    "termino": "Mercado Eléctrico Mayorista (MEM)",
-    "definicion": "Mercado donde operan generadores, transportistas, distribuidores y grandes usuarios, administrado por CAMMESA.",
-    "fuente": {
-     "nombre": "Decreto 1192/1992",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto"
-    }
    },
-   {
-    "termino": "SADI",
-    "definicion": "Sistema Argentino de Interconexión, la red eléctrica que despacha CAMMESA.",
-    "fuente": {
-     "nombre": "Decreto 1173/1998",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto"
-    }
-   },
-   {
-    "termino": "Distribuidor",
-    "definicion": "Empresa que abastece a los usuarios de su zona de concesión que no contratan por su cuenta.",
-    "fuente": {
-     "nombre": "Ley 24.065, texto actualizado",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
-    }
-   },
-   {
-    "termino": "Gran usuario",
-    "definicion": "Quien contrata su energía en forma independiente y para consumo propio.",
-    "fuente": {
-     "nombre": "Ley 24.065, texto actualizado",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
-    }
-   },
-   {
-    "termino": "GUDI",
-    "definicion": "Demanda de más de 300 kW abastecida por una distribuidora.",
-    "fuente": {
-     "nombre": "Resolución SE 884/2023, artículo 9",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto"
-    }
-   }
-  ]
- },
- "petroleo": {
-  "bloques": [
    {
     "titulo": "De quién son el petróleo y el gas",
     "texto": "La Ley 26.197, sancionada el 6 de diciembre de 2006, establece que los yacimientos de petróleo y gas pertenecen a la provincia en cuyo territorio están, incluido el mar frente a su costa hasta las 12 millas marinas, y al Estado nacional los que están más allá, hasta el límite de la plataforma continental. Desde esa ley, cada provincia administra los permisos y las concesiones de su territorio. Por eso las fichas muestran aparte, como \"Mar argentino\", la producción del mar de jurisdicción nacional, que no se suma a ninguna provincia.",
@@ -2176,7 +2130,7 @@
     ]
    },
    {
-    "titulo": "De dónde salen los datos de producción",
+    "titulo": "De dónde salen los datos de petróleo y gas",
     "texto": "Las empresas declaran a la Secretaría de Energía la producción de cada pozo según el Capítulo IV de la Resolución 319 de 1993, y esas presentaciones tienen carácter de declaración jurada. La Secretaría publica el detalle mensual por pozo, yacimiento, concesión y provincia, con el petróleo en metros cúbicos y el gas en miles de metros cúbicos. Las fichas pasan el petróleo a barriles por día y el gas a millones de metros cúbicos por día, dividiendo cada mes por su cantidad de días. Como las presentaciones de los últimos meses pueden llegar incompletas, las comparaciones por provincia y por empresa usan los doce meses que terminan en el último mes en el que la suma de lo declarado coincide con el total del país que publica la misma Secretaría, con menos de 1% de diferencia, y la de los pozos usa el último mes que cumple esa misma condición.",
     "fuentes": [
      {
@@ -2264,7 +2218,7 @@
     ]
    },
    {
-    "titulo": "El empleo en el sector",
+    "titulo": "El empleo en el petróleo y el gas",
     "texto": "El empleo es el de asalariados registrados del sector privado en la rama de extracción de petróleo crudo y gas natural, que incluye las actividades relacionadas con la extracción, salvo la prospección. Lo publica cada trimestre el Observatorio de Empleo y Dinámica Empresarial con los registros del Sistema Integrado Previsional Argentino (SIPA). Cada puesto se cuenta en la provincia donde la empresa declara a sus trabajadores, que puede no ser la del yacimiento.",
     "fuentes": [
      {
@@ -2290,7 +2244,7 @@
     ]
    },
    {
-    "titulo": "El comercio exterior y el mundo",
+    "titulo": "El comercio exterior de energía y el mundo",
     "texto": "La balanza energética resta a las exportaciones de combustibles y energía las importaciones de combustibles y lubricantes, en millones de dólares, dos rubros del Intercambio Comercial Argentino que publica el INDEC. Como son rubros con nombres y contenidos distintos, el saldo es una aproximación. Para comparar con otros países, la ficha del mundo usa para todos, la Argentina incluida, las estadísticas internacionales de energía de la Administración de Información Energética de los Estados Unidos (EIA). Ahí el petróleo incluye el condensado, un líquido liviano que se separa en los pozos de gas, y el gas es gas seco: la producción comercializada menos los líquidos que se le extraen. Por eso las cifras de la Argentina en esa ficha pueden diferir de las de la Secretaría de Energía.",
     "fuentes": [
      {
@@ -2317,6 +2271,46 @@
    }
   ],
   "glosario": [
+   {
+    "termino": "Mercado Eléctrico Mayorista (MEM)",
+    "definicion": "Mercado donde operan generadores, transportistas, distribuidores y grandes usuarios, administrado por CAMMESA.",
+    "fuente": {
+     "nombre": "Decreto 1192/1992",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto"
+    }
+   },
+   {
+    "termino": "SADI",
+    "definicion": "Sistema Argentino de Interconexión, la red eléctrica que despacha CAMMESA.",
+    "fuente": {
+     "nombre": "Decreto 1173/1998",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto"
+    }
+   },
+   {
+    "termino": "Distribuidor",
+    "definicion": "Empresa que abastece a los usuarios de su zona de concesión que no contratan por su cuenta.",
+    "fuente": {
+     "nombre": "Ley 24.065, texto actualizado",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
+    }
+   },
+   {
+    "termino": "Gran usuario",
+    "definicion": "Quien contrata su energía en forma independiente y para consumo propio.",
+    "fuente": {
+     "nombre": "Ley 24.065, texto actualizado",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
+    }
+   },
+   {
+    "termino": "GUDI",
+    "definicion": "Demanda de más de 300 kW abastecida por una distribuidora.",
+    "fuente": {
+     "nombre": "Resolución SE 884/2023, considerandos",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto"
+    }
+   },
    {
     "termino": "Barril",
     "definicion": "Unidad de volumen del petróleo: 42 galones estadounidenses, unos 159 litros. Las fichas expresan la producción en miles de barriles por día.",

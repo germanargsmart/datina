@@ -2959,7 +2959,6 @@ const EXTRA = {
 };
 const EN_CIFRAS = {
   construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "f-trabajadores", "x-viviendas-construccion", "f-insumos"],
-  petroleo: ["f-petroleo", "x-pet-shale", "f-gas", "f-mundo-petroleo", "f-reservas", "x-vaca-muerta", "f-pozos", "f-balanza-energetica", "f-regalias"],
   trabajo: ["f-empleo", "f-rotacion", "f-exportaciones", "f-fiscal"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
@@ -2968,7 +2967,9 @@ const EN_CIFRAS = {
   poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes", "f-extranjeros"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
   movilidad: ["f-sube", "x-sube-var", "f-sube-modos", "f-patentes", "f-patentes-prov"],
-  energia: ["f-hogares", "x-hogares-crec", "f-actividad", "x-demanda-ytd", "f-meses", "x-demanda-total"],
+  // Energía con petróleo y gas (octubre de 2026): la electricidad y los hidrocarburos se alternan en las primeras cuatro
+  energia: ["f-hogares", "f-petroleo", "x-demanda-ytd", "f-gas", "f-mundo-petroleo", "x-pet-shale", "x-hogares-crec", "f-actividad", "f-reservas",
+    "x-vaca-muerta", "f-pozos", "f-balanza-energetica", "f-regalias", "f-meses", "x-demanda-total"],
   turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
   naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio"],
   curiosidades: ["f-nombres", "f-carne", "f-vino", "f-yerba", "f-clima", "f-glaciares"],
@@ -3811,7 +3812,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
@@ -3820,8 +3821,12 @@ const tarjetaSec = sec => {
     `<b style="view-transition-name:t-${sec.id}">${sec.t}</b><span class="sec-preg">${sec.c || sec.p}</span></a>`;
 };
 // en la tarjeta va la pregunta corta de la sección, si tiene una (data-corta en la plantilla)
-// sin la tarjeta de Artículos, que tienen su bloque más arriba: con 12 tarjetas ninguna fila queda con una sola, en ningún ancho
-if (grillaSec) grillaSec.innerHTML = Object.values(SEC).filter(s => !s.herr && s.id !== "articulos").map(tarjetaSec).join("");
+// sin la tarjeta de Artículos, que tienen su bloque más arriba. "Tu provincia" abre la grilla, como en el menú (octubre de 2026,
+// cuando Petróleo y gas pasó a Energía): con las 13 secciones quedan 14 tarjetas y ninguna fila con una sola, en ningún ancho.
+// Va sin nombre de transición, porque la página de Tu provincia no tiene un título que lo reciba
+const tarjetaProv = `<a class="tarjeta sec-tarjeta" href="${urlPagina("provincia")}">${icono(SEC_ICONO.provincia, "sec-ico")}` +
+  `<span class="sec-tipo">Perfil provincial</span><b>Tu provincia</b><span class="sec-preg">¿Cómo está tu provincia frente al país?</span></a>`;
+if (grillaSec) grillaSec.innerHTML = tarjetaProv + Object.values(SEC).filter(s => !s.herr && s.id !== "articulos").map(tarjetaSec).join("");
 // Mostrar menos de entrada (octubre de 2026): dos filas de secciones y un botón que despliega el resto en el lugar. Las tarjetas
 // ocultas siguen en la página: solo las esconde el CSS, con la cantidad justa para cada ancho (dos filas de 4, 3 o 2)
 if (grillaSec) {
