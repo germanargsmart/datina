@@ -847,6 +847,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-centrales">
+      <h3>Centrales eléctricas, {{energia.cen_fecha}}, y potencia instalada por tecnología, {{energia.pot_desde}} a {{energia.pot_anio}}</h3>
+      <p class="lead" data-t="centrales"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="centrales">
+        <button type="button" data-m="mapa" aria-pressed="true">Mapa de centrales</button>
+        <button type="button" data-m="potencia" aria-pressed="false">Potencia del país</button>
+      </div>
+      <div class="pol-ley" id="centrales-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="centrales" data-forma="mapa" style="--alto:820px;--alto-c:500px"></div>
+      <p class="nota" data-t="centrales-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo</span><a href="datos/centrales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <h3 class="bloque-grupo" id="g-petroleo">Petróleo y gas</h3>
 
     <article class="ficha" id="f-gas-hogares">

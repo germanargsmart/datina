@@ -242,7 +242,7 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # fichas.js lleva la huella de cada una para que el navegador no use una version vieja.
 DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
-             "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion"]
+             "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:

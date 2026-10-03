@@ -159,6 +159,10 @@ const EM = R.empresas;
 // Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
 const PG = R.petroleo, CN = R.construccion, VV = CN.viv;
+// centrales eléctricas: un color por tecnología, el mismo en el mapa y en la potencia del país
+const TEC_CEN = [{k: "termica", lab: "Térmica", c: "#8C9AAB"}, {k: "hidraulica", lab: "Hidroeléctrica", c: "#2C74B5"}, {k: "nuclear", lab: "Nuclear", c: "#85340A"},
+  {k: "eolica", lab: "Eólica", c: "#74ACDF"}, {k: "solar", lab: "Solar", c: "#F6B40E"}, {k: "biogas", lab: "Biomasa y biogás", c: "#5E9E6E"}];
+const COL_CEN = Object.fromEntries(TEC_CEN.map(t => [t.lab, t.c]));
 // nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes
 const tituloArea = s => String(s || "").trim().toLowerCase().replace(/(^|[\s\-(])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
   .replace(/ (De|Del|Y) /g, (m, w) => ` ${w.toLowerCase()} `);
@@ -292,6 +296,14 @@ const LEAD = {
     `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
     `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
     (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
+  centrales: v => v === "potencia"
+    ? `En ${e.pot_anio} el país tenía ${n0(e.pot_total)} megavatios de potencia eléctrica instalada: ${pct(e.pot_pct.termica)} térmica, ${pct(e.pot_pct.hidraulica)} hidráulica, ` +
+      `${pct(e.pot_pct.nuclear)} nuclear, ${pct(e.pot_pct.eolica)} eólica y ${pct(e.pot_pct.solar)} solar. La eólica y la solar sumaban ${n0(e.pot_renov_ult)} megavatios, ` +
+      `el ${pct(e.pot_pct_renov_ult)} del total, contra ${n0(e.pot_renov_ini)} megavatios (${pct(e.pot_pct_renov_ini)}) en ${e.pot_ini}.`
+    : `El listado de centrales de la Secretaría de Energía, actualizado en ${e.cen_fecha}, tiene ${n0(e.cen_n)} centrales: ${n0(e.cen_tec["Térmica"])} térmicas, ` +
+      `${n0(e.cen_tec["Solar"])} solares, ${n0(e.cen_tec["Eólica"])} eólicas, ${n0(e.cen_tec["Hidroeléctrica"])} hidroeléctricas, ${n0(e.cen_tec["Biomasa y biogás"])} de biomasa o biogás ` +
+      `y ${n0(e.cen_tec["Nuclear"])} nucleares. La provincia con más centrales eólicas es ${e.cen_top_eol[0]} (${n0(e.cen_top_eol[1])}) y la que tiene más solares, ` +
+      `${e.cen_top_sol[0]} (${n0(e.cen_top_sol[1])}).`,
   insumos: v => v === "var_ytd"
     ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
@@ -327,6 +339,11 @@ const TX = {
     `Las empresas informan con demora, así que las de ${PG.fr_ult} todavía pueden sumar más. La rama horizontal y las etapas por pozo son promedios de los pozos de Vaca Muerta ` +
     `según el año de su primera fractura, y la rama cuenta solo los pozos que la informan. La fuente aclara que son datos preliminares, sujetos a revisión.`,
   "pozos-terminados": LEAD["pozos-terminados"]("anio"),
+  centrales: LEAD.centrales("mapa"),
+  "centrales-nota": `Centrales del listado de la Secretaría de Energía, con datos de CAMMESA, actualizado en ${e.cen_fecha}. El tamaño de cada círculo es su potencia, y las ` +
+    `${n0(e.cen_sin_pot)} centrales que no la informan (${n0(e.cen_mem_sin_pot)} de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma ` +
+    `por provincia. La potencia del país es la que publica CAMMESA para cada año, por tecnología: la térmica reúne ciclos combinados, turbinas a gas, turbinas de vapor y motores diésel, ` +
+    `y la hidráulica incluye las centrales de menos de 50 megavatios.`,
   "mapa-pozos": LEAD["mapa-pozos"]("cuenca"),
   "mapa-pozos-nota": `Cada punto es un pozo no convencional que produjo petróleo o gas alguna vez, según la producción por pozo del Capítulo IV, en la ubicación que informa ` +
     `la Secretaría de Energía (en unos pocos pozos la latitud y la longitud vienen cambiadas y se corrigen). El color dice el año en que empezó a producir, y los que no produjeron en ` +
@@ -1323,6 +1340,41 @@ function mapaPozos(el, cfg) {
   const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
 }
 
+/* Mapa de las centrales eléctricas (etapa 19): un círculo por central, con el color de su tecnología y el tamaño de su potencia. Las que no
+   informan potencia van vacías, con un tamaño fijo. Al pasar el mouse (o tocar), la central más cercana a menos de 12 píxeles. */
+function mapaCentrales(el, cfg) {
+  if (!GEO) {
+    if (!el.querySelector("svg")) esperando(el);
+    cargarGeo().then(() => mapaCentrales(el, cfg)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+    return;
+  }
+  const w = Math.min(560, Math.max(300, el.clientWidth)), h = Math.round(w * 1.55);
+  el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
+  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
+    .attr("aria-label", `Mapa de las ${n0(T.centrales.length)} centrales eléctricas del listado de la Secretaría de Energía, por tecnología y potencia`);
+  const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], GEO), camino = d3.geoPath(proy);
+  svg.append("g").selectAll("path").data(GEO.features).join("path").attr("d", camino).attr("fill", css("--superficie-2")).attr("stroke", css("--borde")).attr("stroke-width", .8);
+  const radio = d3.scaleSqrt().domain([0, d3.max(T.centrales, c => c.potencia_mw)]).range([2.2, w > 400 ? 15 : 11]);
+  const vis = T.centrales.map(c => { const [px, py] = proy([c.x, c.y]); return {...c, px, py, r: c.potencia_mw ? radio(c.potencia_mw) : 2.8}; })
+    .sort((a, b) => b.r - a.r);  // las grandes abajo, así no tapan a las chicas
+  const circ = svg.append("g").selectAll("circle").data(vis).join("circle").attr("cx", c => c.px).attr("cy", c => c.py).attr("r", c => c.r)
+    .attr("fill", c => c.potencia_mw ? COL_CEN[c.tecnologia] : "#fff").attr("fill-opacity", .85)
+    .attr("stroke", c => c.potencia_mw ? "#fff" : COL_CEN[c.tecnologia]).attr("stroke-width", c => c.potencia_mw ? .6 : 1.4);
+  if (cfg.anim && !REDUCIR) circ.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+  const anillo = svg.append("circle").attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.5).attr("opacity", 0);
+  const dl = d3.Delaunay.from(vis, c => c.px, c => c.py);
+  const tip = c => `<b>${tituloArea(c.nombre)}</b><br>${c.detalle}<br>${c.potencia_mw ? n0(c.potencia_mw) + " megavatios" : "Sin dato de potencia en el listado"}` +
+    `<br>${[c.departamento, c.provincia].filter(Boolean).join(", ")}<br>${c.sistema}`;
+  const ver = ev => {
+    const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), c = vis[dl.find(sx, sy)];
+    if (c && Math.hypot(c.px - sx, c.py - sy) < Math.max(12, c.r)) { anillo.attr("cx", c.px).attr("cy", c.py).attr("r", c.r + 3).attr("opacity", 1); return mostrarTip(el, tip(c), ex, ey); }
+    anillo.attr("opacity", 0); ocultarTip();
+  };
+  svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y")
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });
+  const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
+}
+
 /* ---------- fichas ---------- */
 const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult"};
 const M = v => n1(v / 1e6) + " M";
@@ -1465,7 +1517,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1598,6 +1650,14 @@ Object.assign(DIB, {
     $t("mapa-pozos").textContent = LEAD["mapa-pozos"](k);
     leyenda("mapa-pozos-ley", [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]})));
     mapaPozos(G("mapa-pozos"), {anim: a, vista: k});
+  }),
+  centrales: conTablas("centrales", () => MED.centrales === "mapa" ? ["centrales"] : [], a => {
+    const k = MED.centrales;
+    $t("centrales").textContent = LEAD.centrales(k);
+    leyenda("centrales-ley", TEC_CEN);
+    if (k === "mapa") return mapaCentrales(G("centrales"), {anim: a});
+    columnasApiladas(G("centrales"), {anim: a, claves: TEC_CEN, cadaTick: 3, vf: n0, af: v => v >= 1000 ? n0(v / 1000) + " mil" : n0(v), l: 46,
+      unidad: "megavatios", data: T.potencia_instalada});
   }),
   "balanza-energetica": a => lineas(G("balanza-energetica"), {anim: a, data: T.balanza_energetica, x: "anio", ref: 0,
     series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--ink"), w: 1.8, dash: "4 3"}],
@@ -3039,6 +3099,7 @@ const CLAVE = {
   "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
   "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
   "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`],
+  "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
   "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
   "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
   "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],

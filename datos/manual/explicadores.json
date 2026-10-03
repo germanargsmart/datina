@@ -2151,8 +2151,8 @@
     ]
    },
    {
-    "titulo": "Fracturas y pozos terminados",
-    "texto": "En las formaciones no convencionales, como Vaca Muerta, los pozos tienen una rama horizontal dentro de la roca y se fracturan por etapas a lo largo de ella. Las empresas informan cada fractura a la Secretaría de Energía, que publica el detalle por pozo: la longitud de la rama horizontal, la cantidad de etapas, la arena bombeada y el agua inyectada. La fuente aclara que son datos preliminares, sujetos a revisión, y como las fracturas se informan con demora, las fichas cuentan años completos. Los pozos terminados salen de otra serie de la misma Secretaría, con el detalle mensual de la perforación por tipo de pozo y provincia.",
+    "titulo": "Fracturas, pozos terminados y productividad",
+    "texto": "En las formaciones no convencionales, como Vaca Muerta, los pozos tienen una rama horizontal dentro de la roca y se fracturan por etapas a lo largo de ella. Las empresas informan cada fractura a la Secretaría de Energía, que publica el detalle por pozo: la longitud de la rama horizontal, la cantidad de etapas, la arena bombeada y el agua inyectada. La fuente aclara que son datos preliminares, sujetos a revisión, y como las fracturas se informan con demora, las fichas cuentan años completos. Los pozos terminados salen de otra serie de la misma Secretaría, con el detalle mensual de la perforación por tipo de pozo y provincia. La productividad se compara, como lo hace la Secretaría, según el año en que cada pozo empezó a producir: el petróleo que sacan en sus primeros doce meses los pozos de shale de Vaca Muerta clasificados como petrolíferos, por pozo y por cada 1.000 metros de rama horizontal. Así no se mezclan pozos nuevos con otros que llevan años produciendo y ya rinden menos.",
     "fuentes": [
      {
       "nombre": "Secretaría de Energía, infografía de hidrocarburos no convencionales",
@@ -2173,13 +2173,7 @@
       "nombre": "Secretaría de Energía, perforación de pozos de petróleo y gas",
       "url": "http://datos.energia.gob.ar/dataset/perforacion-de-pozos-de-petroleo-y-gas",
       "cita": "Detalle mensual de trabajos Geofísicos realizados y perforación de Pozos"
-     }
-    ]
-   },
-   {
-    "titulo": "Productividad de los pozos según el año en que empezaron",
-    "texto": "La Secretaría de Energía mide la productividad de los pozos de shale según el año en que empezaron a producir. Las fichas siguen ese criterio con los datos mensuales de cada pozo: el petróleo que sacan en sus primeros doce meses los pozos de shale de Vaca Muerta clasificados como petrolíferos, por pozo y por cada 1.000 metros de rama horizontal, y su producción acumulada mes a mes. Comparar por año de inicio evita mezclar pozos nuevos con pozos que llevan años produciendo y ya rinden menos.",
-    "fuentes": [
+     },
      {
       "nombre": "Secretaría de Energía, infografía de hidrocarburos no convencionales",
       "url": "http://www.energia.gob.ar/contenidos/archivos/Reorganizacion/planeamiento/infografias/lamina_dneype_C_01.pdf",

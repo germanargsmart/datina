@@ -216,6 +216,8 @@ FUENTES.update({
     "se_fracturas.csv": ckan_recurso(SE, "datos-de-fractura-de-pozos-adjunto-iv", "fractura de pozos",
         f"{SE}/dataset/71fa2e84-0316-4a1b-af68-7f35e41f58d7/resource/2280ad92-6ed3-403e-a095-50139863ab0d/download/datos-de-fractura-de-pozos-de-hidrocarburos-adjunto-iv-actualizacin-diaria.csv"),
     # Pozos terminados por mes, tipo (explotación, exploración, avanzada y servicio) y provincia, desde 2009 (Secretaría de Energía)
+    # Potencia instalada del país por tecnología, MW por año (CAMMESA, publicada por la Subsecretaría de Programación Macroeconómica)
+    "potencia_instalada.csv": API + "367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IDOS__36,367.1_POTENCIA_IGAS__32,367.1_POTENCIA_IPOR__29,367.1_POTENCIA_ISEL__31,367.1_POTENCIA_IICA__29,367.1_POTENCIA_IBLE__39,367.1_POTENCIA_IEAR__26,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24,367.1_POTENCIA_IGAS__25",
     "se_pozos_terminados.csv": ckan_recurso(SE, "perforacion-de-pozos-de-petroleo-y-gas", "pozos terminados por tipo de pozo y provincia",
         f"{SE}/dataset/7ea2ac77-d7a0-4129-9fbf-6f1a25d94e21/resource/66b0266a-b028-4812-b95f-1da31835b0aa/download/pozos-terminados-por-tipo-de-pozo-y-provincia.csv"),
 })
@@ -307,6 +309,7 @@ VALIDA.update({
     "ipc_nacional.csv": lambda b: b.startswith(b"indice_tiempo,"),
     "se_fracturas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"id_base_fractura_adjiv,idpozo"),
     "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
+    "potencia_instalada.csv": lambda b: b.startswith(b"indice_tiempo,potencia_instalada_total"),
 })
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
@@ -742,12 +745,28 @@ def pozos_no_convencionales():
     return f"{SE} producción por pozo no convencional ({len(w):,} pozos)"
 
 
+
+def centrales_electricas():
+    """Listado de centrales de generación eléctrica de la Secretaría de Energía (con datos de CAMMESA): nombre, tecnología, potencia,
+    provincia, departamento, sistema y ubicación de cada una (etapa 19). El archivo no trae fecha: se guarda la de su última
+    actualización en el catálogo (se_centrales_meta.json). El SHP y el CSV tienen el mismo nombre: se elige por formato."""
+    recursos = json.loads(leer(f"{SE}/api/3/action/package_show?id=generacion-electrica-centrales-de-generacion-", 60))["result"]["resources"]
+    r = next(x for x in recursos if (x.get("format") or "").upper() == "CSV")
+    datos = leer(r["url"].replace("https://", "http://"), 120)
+    if not datos.lstrip(b"\xef\xbb\xbf").startswith(b"nombre,central,tecnologia_etiqueta"):
+        raise ValueError("formato inesperado en el listado de centrales")
+    (CRUDO / "se_centrales.csv").write_bytes(datos)
+    (CRUDO / "se_centrales_meta.json").write_text(json.dumps({"actualizado": (r.get("last_modified") or r.get("created") or "")[:10]}), encoding="utf-8")
+    return r["url"]
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
                     ("petróleo y gas (resúmenes del Capítulo IV)", hidrocarburos), ("reservas de petróleo y gas", reservas_hidrocarburos),
                     ("empleo por rama y provincia (OEDE)", oede_empleo), ("producción de petróleo y gas por país (EIA)", eia_internacional),
-                    ("producción por pozo no convencional", pozos_no_convencionales)]:
+                    ("producción por pozo no convencional", pozos_no_convencionales),
+                    ("centrales de generación eléctrica", centrales_electricas)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

@@ -1576,6 +1576,37 @@ areas_prod = pd.DataFrame({"codigo": _ap.idareapermisoconcesion, "nombre": _ap.a
                            "gas_mmm3d": _ap.prod_gas / _dias_a / 1000,
                            "pct_pet_nc": (_ap.pet_nc / _ap.prod_pet.where(_ap.prod_pet > 0) * 100)}).round({"pet_kbd": 2, "gas_mmm3d": 3, "pct_pet_nc": 1})
 
+# Centrales eléctricas (etapa 19): el listado de la Secretaría de Energía, con datos de CAMMESA, trae cada central con su tecnología,
+# potencia, provincia y ubicación, pero 177 de 474 no informan potencia (102 de ellas en el mercado mayorista): por eso el mapa las
+# muestra sin tamaño y la potencia del país sale de la serie anual de CAMMESA por tecnología. Las tecnologías se agrupan en seis.
+cen_ = pd.read_csv(CRUDO / "se_centrales.csv")
+cen_["nombre"] = cen_.nombre.map(lambda s: s.encode("latin-1").decode("utf-8") if isinstance(s, str) and "Ã" in s else s)  # doble codificación
+GRUPO_CEN = {"Térmica": "Térmica", "Hidroeléctrica": "Hidroeléctrica", "Hidroeléctrica (Menor a 50 Mw)": "Hidroeléctrica", "Nuclear": "Nuclear",
+             "Eólica": "Eólica", "Fotovoltaica": "Solar", "Biogas": "Biomasa y biogás", "Biomasa": "Biomasa y biogás"}
+assert set(cen_.tecnologia_etiqueta) <= set(GRUPO_CEN), set(cen_.tecnologia_etiqueta) - set(GRUPO_CEN)
+cen_["codigo_indec"] = cen_.provincia.map(lambda t: None if pd.isna(t) else "02" if norm(t).startswith("ciudad autonoma") else codigo(t))
+# alguna central viene sin provincia en la fuente: queda en el mapa, sin provincia
+assert cen_[cen_.provincia.notna()].codigo_indec.notna().all(), f"provincias sin código en las centrales: {cen_[cen_.provincia.notna() & cen_.codigo_indec.isna()].provincia.unique()}"
+_xy = cen_.geojson.map(lambda g: json.loads(g)["coordinates"])
+centrales = pd.DataFrame({"nombre": cen_.nombre.str.strip(), "tecnologia": cen_.tecnologia_etiqueta.map(GRUPO_CEN), "detalle": cen_.tecnologia_etiqueta,
+                          "potencia_mw": cen_.potencia_instalada_mw, "codigo_indec": cen_.codigo_indec, "provincia": cen_.codigo_indec.map(CORTO),
+                          "departamento": cen_.departamento, "sistema": cen_.sistema, "x": _xy.str[0].round(4), "y": _xy.str[1].round(4)})
+CEN_FECHA = json.loads((CRUDO / "se_centrales_meta.json").read_text(encoding="utf-8"))["actualizado"]
+_cn = centrales.tecnologia.value_counts()
+_cen_top = {t: centrales[centrales.tecnologia == t].provincia.value_counts() for t in ("Eólica", "Solar")}
+# Potencia instalada del país por tecnología (CAMMESA vía API de Series de Tiempo), MW al cierre de cada año
+pot_ = pd.read_csv(CRUDO / "potencia_instalada.csv")
+pot_["anio"] = pot_.indice_tiempo.str[:4].astype(int)
+potencia = pd.DataFrame({"anio": pot_.anio,
+    "termica": pot_.potencia_instalada_ciclos_combinados + pot_.potencia_instalada_turbina_a_gas + pot_.potencia_instalada_turbovapor + pot_.potencia_instalada_motor_diesel,
+    "hidraulica": pot_.potencia_instalada_hidraulica + pot_.potencia_instalada_hidraulica_renovable, "nuclear": pot_.potencia_instalada_nuclear,
+    "eolica": pot_.potencia_instalada_eolica, "solar": pot_.potencia_instalada_solar, "biogas": pot_.potencia_instalada_biogas, "total": pot_.potencia_instalada_total}).fillna(0)
+assert (potencia[["termica", "hidraulica", "nuclear", "eolica", "solar", "biogas"]].sum(axis=1) - potencia.total).abs().max() < 1, "las tecnologías no suman la potencia total"
+POT_U = potencia.iloc[-1]
+POT_I = potencia[potencia.anio == int(POT_U.anio) - 10].iloc[0]  # diez años antes
+agregar(potencia.rename(columns={"anio": "periodo", "total": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "potencia_instalada", "MW", "CAMMESA, via API de Series de Tiempo")
+
 # Reservas comprobadas al 31 de diciembre (hasta el final de la vida útil de los yacimientos), con el horizonte: cuántos años
 # alcanzarían al ritmo de producción de ese año. Desde 2017 la fuente separa convencional y no convencional, y trae la provincia
 rv_ = pd.read_csv(CRUDO / "se_reservas_resumen.csv")
@@ -2701,6 +2732,8 @@ tablas = {
     "energia_hogares": anual[["anio", "total", "residencial", "resto", "pct_residencial",
                               "idx_residencial", "idx_resto", "idx_demanda", "idx_emae"]],
     "energia_estacionalidad": perfil.round(0),
+    "centrales": centrales,
+    "potencia_instalada": potencia.round(1),
     "nacimientos": nac_df,
     "madres_adolescentes_provincias": ado_prov.round(1),
     "aprender_diagnostico": dx,
@@ -2827,6 +2860,14 @@ resumen = {
         "mes_min": MES[int(perfil.loc[perfil.gwh.idxmin(), "mes"]) - 1],
         "dif_max_min": r1((perfil.gwh.max() / perfil.gwh.min() - 1) * 100),
         "ultimo_mes": f"{MES[ult.indice_tiempo.month - 1]} de {ult.indice_tiempo.year}",
+        # centrales eléctricas (listado de la Secretaría de Energía) y potencia instalada del país (CAMMESA)
+        "cen_fecha": f"{MES[int(CEN_FECHA[5:7]) - 1]} de {CEN_FECHA[:4]}", "cen_n": int(len(centrales)), "cen_tec": {k: int(v) for k, v in _cn.items()},
+        "cen_sin_pot": int(centrales.potencia_mw.isna().sum()), "cen_mem_sin_pot": int((centrales.potencia_mw.isna() & centrales.sistema.eq("Interconectado MEM")).sum()),
+        "cen_top_eol": [_cen_top["Eólica"].index[0], int(_cen_top["Eólica"].iloc[0])], "cen_top_sol": [_cen_top["Solar"].index[0], int(_cen_top["Solar"].iloc[0])],
+        "pot_anio": int(POT_U.anio), "pot_desde": int(potencia.anio.min()), "pot_total": round(float(POT_U.total)), "pot_ini": int(POT_I.anio),
+        "pot_pct": {k: r1(POT_U[k] / POT_U.total * 100) for k in ("termica", "hidraulica", "nuclear", "eolica", "solar", "biogas")},
+        "pot_renov_ini": round(float(POT_I.eolica + POT_I.solar)), "pot_renov_ult": round(float(POT_U.eolica + POT_U.solar)),
+        "pot_pct_renov_ini": r1((POT_I.eolica + POT_I.solar) / POT_I.total * 100), "pot_pct_renov_ult": r1((POT_U.eolica + POT_U.solar) / POT_U.total * 100),
     },
     "nacimientos": {
         "anio_ini": int(nac_df.iloc[0].anio), "anio_ult": int(n24.anio),
