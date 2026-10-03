@@ -13,8 +13,10 @@ with tempfile.TemporaryDirectory() as tmp:
     origen = pathlib.Path(tmp) / "departamentos.geojson"
     req = urllib.request.Request(URL, headers={"User-Agent": "Mozilla/5.0 (argentina-en-datos)"})
     origen.write_bytes(urllib.request.urlopen(req, timeout=300).read())
-    # se quitan los sectores antartico y de islas del Atlantico Sur (sin datos) y se simplifica conservando la topologia
-    subprocess.run(["npx", "--yes", "mapshaper", str(origen), "-filter", "!['94021','94028'].includes(id)",
+    # se quitan los sectores antartico y de islas del Atlantico Sur (sin datos) y se simplifica conservando la topologia. Antes,
+    # snap une los vertices casi iguales y -clean rellena los huecos entre departamentos vecinos: sin eso, al simplificar quedaban
+    # huecos blancos entre las comunas de la Ciudad (etapa 19)
+    subprocess.run(["npx", "--yes", "mapshaper", str(origen), "snap", "-filter", "!['94021','94028'].includes(id)", "-clean",
                     "-simplify", "8%", "keep-shapes", "-each", "prov=provincia.id", "-filter-fields", "id,nombre,prov",
                     "-o", "format=topojson", "quantization=1e5", str(SALIDA)], check=True, shell=True)
 print("listo", SALIDA, SALIDA.stat().st_size, "bytes")

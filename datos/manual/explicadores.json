@@ -2034,20 +2034,14 @@
  "energia": {
   "bloques": [
    {
-    "titulo": "El mercado eléctrico: la Ley 24.065",
-    "texto": "La Ley 24.065, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico. Reconoce cuatro tipos de actores del Mercado Eléctrico Mayorista (MEM): generadores, transportistas, distribuidores y grandes usuarios. El texto ordenado vigente se aprobó con el Decreto 450 de 2025. En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias.",
+    "titulo": "El mercado eléctrico y CAMMESA",
+    "texto": "La Ley 24.065, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico. Reconoce cuatro tipos de actores del Mercado Eléctrico Mayorista (MEM): generadores, transportistas, distribuidores y grandes usuarios. El texto ordenado vigente se aprobó con el Decreto 450 de 2025. En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias. La Compañía Administradora del Mercado Mayorista Eléctrico (CAMMESA) se constituyó por el Decreto 1192 del 10 de julio de 1992, según el artículo 35 de la Ley 24.065. Es una sociedad anónima sin fines de lucro que despacha el Sistema Argentino de Interconexión (SADI): decide qué centrales generan en cada momento para abastecer la demanda. Su capital se reparte entre el Estado Nacional y cuatro asociaciones civiles de generadores, transportistas, distribuidores y grandes usuarios. Es la fuente de los datos de demanda de este sitio.",
     "fuentes": [
      {
       "nombre": "Ley 24.065, texto actualizado",
       "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion",
       "cita": "generadores o productores independientemente de la fuente"
-     }
-    ]
-   },
-   {
-    "titulo": "Qué es CAMMESA",
-    "texto": "La Compañía Administradora del Mercado Mayorista Eléctrico (CAMMESA) se constituyó por el Decreto 1192 del 10 de julio de 1992, según el artículo 35 de la Ley 24.065. Es una sociedad anónima sin fines de lucro que despacha el Sistema Argentino de Interconexión (SADI): decide qué centrales generan en cada momento para abastecer la demanda. Su capital se reparte entre el Estado Nacional y cuatro asociaciones civiles de generadores, transportistas, distribuidores y grandes usuarios. Es la fuente de los datos de demanda de este sitio.",
-    "fuentes": [
+     },
      {
       "nombre": "Decreto 1192/1992",
       "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto",
@@ -2084,6 +2078,22 @@
       "nombre": "API de Series de Tiempo, metadatos de la serie 367.3",
       "url": "https://apis.datos.gob.ar/series/api/series/?ids=367.3_DEMANDA_TOTAL__13,367.3_DEMANDA_REIAL__19&metadata=full",
       "cita": "Compañía Administradora del Mercado Mayorista Eléctrico S.A. (CAMMESA)"
+     }
+    ]
+   },
+   {
+    "titulo": "Centrales y potencia instalada",
+    "texto": "El mapa de centrales sale del listado de centrales de generación eléctrica de la Secretaría de Energía, con su tecnología, su potencia, su provincia y su ubicación. No todas las centrales informan su potencia: el mapa las muestra sin tamaño y por eso la potencia no se suma por provincia. La potencia instalada del país por tecnología es la serie anual que se publica en la API de Series de Tiempo, en megavatios, con datos de CAMMESA.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Energía, centrales de generación eléctrica",
+      "url": "http://datos.energia.gob.ar/dataset/generacion-electrica-centrales-de-generacion-",
+      "cita": "Centrales de Generación de Energía Eléctrica"
+     },
+     {
+      "nombre": "API de Series de Tiempo, potencia instalada (CAMMESA)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24&metadata=full&last=1",
+      "cita": "Potencia Instalada Total"
      }
     ]
    },
@@ -2433,6 +2443,14 @@
     "fuente": {
      "nombre": "Secretaría de Energía, infografía de hidrocarburos no convencionales",
      "url": "http://www.energia.gob.ar/contenidos/archivos/Reorganizacion/planeamiento/infografias/lamina_dneype_C_01.pdf"
+    }
+   },
+   {
+    "termino": "Potencia instalada",
+    "definicion": "Capacidad de generación de las centrales eléctricas, en megavatios (MW).",
+    "fuente": {
+     "nombre": "API de Series de Tiempo, potencia instalada",
+     "url": "https://apis.datos.gob.ar/series/api/series/?ids=367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24&metadata=full&last=1"
     }
    }
   ]
