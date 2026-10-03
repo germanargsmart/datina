@@ -359,6 +359,8 @@ if sin_forma:
 bloque_js = lambda ini, fin: js[js.index(ini):js.index(fin, js.index(ini))]
 CON_CLAVE = set(re.findall(r'^\s+"(f-[\w-]+)":\s*\[', bloque_js("const CLAVE = {", "\n};"), re.M))
 CON_PERFIL = re.findall(r'\{id:"(f-[\w-]+)"', bloque_js("const INDP = [", "\n];"))
+# secciones con "En cifras": cinco tarjetas en todas (etapa 15)
+CON_CIFRAS = set(re.findall(r"^\s+(\w+):\s*\[", bloque_js("const EN_CIFRAS = {", "\n};"), re.M))
 tarjetas_vacias = lambda n, cls: "".join(f'<span class="tarjeta {cls}"></span>' for _ in range(n))
 
 
@@ -372,8 +374,8 @@ def siluetas(h, id_):
         blo = h[b["ini"]:b["fin"]]
         ids = set(re.findall(r'<article class="ficha[^"]*" id="(f-[\w-]+)"', blo))
         # la misma cuenta que pintarCifras() sin provincia elegida: una tarjeta por cifra destacada y una que invita a elegirla
-        n = len(ids & CON_CLAVE) + (1 if ids & set(CON_PERFIL) else 0)
-        if n >= 2:
+        n = 5 if id_ in CON_CIFRAS else 0
+        if n:
             vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
             blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + vacias, blo, 1, re.S)
             h = h[:b["ini"]] + blo + h[b["fin"]:]

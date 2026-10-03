@@ -2437,6 +2437,57 @@ const CLAVE = {
   "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`],
   "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
 };
+/* "En cifras" (etapa 15, pedido del autor: todas las secciones con la misma cantidad de tarjetas que Trabajo y finanzas, del mismo
+   ancho y llenando la fila, "siempre con valores que agreguen valor, no solo de relleno"). Cinco tarjetas en cada sección.
+   EN_CIFRAS lleva las candidatas de cada sección en orden de prioridad: un id de ficha usa su cifra destacada (CLAVE) y un id que
+   empieza con "x-" usa una cifra de EXTRA ([ficha a la que lleva, cifra, texto, y true si es la versión del país de un indicador
+   provincial]). Sin una provincia elegida: las cuatro primeras y "Tu provincia" si la sección tiene datos por provincia (INDP), o las
+   cinco primeras si no tiene. Con una provincia: sus indicadores primero y después las cifras del país que no los repiten, hasta cinco,
+   con la bandera argentina para que se lean como del país. Todas salen de resumen, sin cifras escritas a mano, y sin suicidio. */
+const ELU = R.elecciones.filter(x => x.vuelta > 0).at(-1);
+const ESP_DIP = Object.keys(CG.dip).sort((a, b) => CG.dip[b] - CG.dip[a]);
+const masMenos = (v, mas, menos) => v < 0 ? menos : mas;
+const EXTRA = {
+  "x-emp-top": ["f-empresas", n1(EM.top_v), `empresas privadas cada 1.000 habitantes en ${EM.top}, la jurisdicción con más, en ${EM.anio}. En ${EM.low}, ${n1(EM.low_v)}`],
+  "x-emp-saldo": ["f-dinamica-empresas", `${EM.positivas} de 24`, `jurisdicciones abrieron más empresas de las que cerraron en ${EM.ult}. En el país abrieron ${n1(EM.te)} y cerraron ${n1(EM.ts)} de cada 100`],
+  "x-emp-negativos": ["f-dinamica-empresas", n0(EM.anios_negativos), `años con más cierres que aperturas de empresas desde ${EM.ini}, entre ellos ${lista(EM.ultimos_negativos.map(String))}`],
+  "x-indigencia": ["f-pobreza", pct(R.pobreza.ind), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de indigencia en el ${R.pobreza.sem}`],
+  "x-ev-brecha": ["f-esperanza", `${n1(nv.ev_m - nv.ev_v)} años`, `más es la esperanza de vida al nacer de las mujeres que la de los varones: ${n1(nv.ev_m)} contra ${n1(nv.ev_v)}, ${nv.ev_anio}`],
+  "x-mi-reducibles": ["f-causas-infantiles", pct(R.mi_causas.reducibles.neonatal), `de las muertes de menores de 28 días de ${R.mi_causas.reducibles.anio} eran reducibles con prevención, diagnóstico o tratamiento oportunos`],
+  "x-mi-inicio": ["f-mortalidad", n1(mo.tasa_inicio), `muertes de menores de un año cada 1.000 nacidos vivos en ${mo.anio_inicio}. En ${mo.anio}, ${n1(mo.tasa)}`],
+  "x-aprender-len": ["f-aprender", pct(ap.len), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en lengua en Aprender ${ap.anio}`, true],
+  "x-aprender-debajo": ["f-aprender", pct(ap.mat_debajo), `de los estudiantes de 6° grado quedó por debajo del nivel básico en matemática en Aprender ${ap.anio}`],
+  "x-nacimientos": ["f-nacimientos", n0(nac.n_2024), `nacimientos se registraron en 2024, ${pct(Math.abs(nac.caida))} menos que en ${nac.anio_pico}`],
+  "x-edad-mediana": ["f-piramide", `${PI.edad_mediana_hoy} años`, `es la edad mediana de la población en ${PI.anio}. En 2040 será de ${PI.edad_mediana_2040}, según las proyecciones del INDEC`],
+  "x-vejez": ["f-envejecimiento", n1(EV.hoy), `personas de 65 años o más por cada 100 de 15 a 64 en ${EV.anio}. En 2040 serán ${n1(EV.fin)}`],
+  "x-jubilaciones": ["f-jubilaciones", n2(JU.ratio), `aportantes por cada jubilación o pensión de ANSES en ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio}. En ${JU.max_anio} eran ${n2(JU.max)}`],
+  "x-balotaje": ["f-elecciones", pct(ELU.pct_ganador), `de los votos positivos obtuvo la fórmula encabezada por ${ELU.ganador} en ${ELU.vuelta === 2 ? "el balotaje" : "la primera vuelta"} de ${ELU.anio}` +
+    (ELU.vuelta === 2 ? `, y ${pct(100 - ELU.pct_ganador)} la de ${ELU.candidatos.find(c => c.c !== ELU.ganador).c}` : "") + (ELU.provisorio ? ". Escrutinio provisorio" : "")],
+  "x-representacion": ["f-representacion", `${n1(CG.rep_max_v / CG.rep_min_v)} veces`, `más habitantes por banca de diputado hay en ${CG.rep_max} (${n0(CG.rep_max_v)}) que en ${CG.rep_min} (${n0(CG.rep_min_v)}), ${CG.anio}`],
+  "x-congreso": ["f-congreso", `${CG.dip[ESP_DIP[0]]} de ${CG.n_dip}`, `bancas de Diputados tenía ${ESP_TXT[ESP_DIP[0]]} al ${CG.fecha}, el espacio con más. Le seguía ${ESP_TXT[ESP_DIP[1]]}, con ${CG.dip[ESP_DIP[1]]}`],
+  "x-atn": ["f-atn", n0(TRR.n_atn_ult), `provincias recibieron aportes del Tesoro Nacional (ATN) en ${TRR.ult}, por ${milM(TRR.atn_ult)} de pesos. No hay una fórmula de reparto`],
+  "x-presidentes": ["f-presidentes", `${PRR.amba} de ${PRR.n}`, `presidentes desde 1983 nacieron en el AMBA, donde vive el ${pct(PRR.amba_pob)} de la población`],
+  "x-sube-var": ["f-sube", pct(Math.abs(su.var_anual)), `${masMenos(su.var_anual, "más", "menos")} tarjetas SUBE se usaron en un día hábil típico de ${su.mes} que en ${su.mes_prev}`],
+  "x-hogares-crec": ["f-hogares", sg(e.crec_res), `creció la demanda eléctrica de los hogares entre 2005 y 2025. La del resto de los usuarios, ${sg(e.crec_resto)}`],
+  "x-demanda-ytd": R.ytd?.demanda && ["f-actividad", sg(R.ytd.demanda.var), `${masMenos(R.ytd.demanda.var, "creció", "cayó")} la demanda eléctrica entre enero y ${MESES[R.ytd.demanda.mes - 1]} de ${R.ytd.demanda.anio}, frente a los mismos meses de ${R.ytd.demanda.anio - 1}`],
+  "x-demanda-total": ["f-actividad", n0(e.gwh_2025), "gigavatios hora de electricidad se demandaron en el país en 2025"],
+  "x-turistas-doce": ["f-receptivo", pct(Math.abs(tu.doce_var)), `${masMenos(tu.doce_var, "más", "menos")} turistas no residentes llegaron en los doce meses hasta ${tu.doce_hasta} que en los doce anteriores${tu.provisorio ? ". Datos provisorios" : ""}`],
+  "x-hoteles-nr": ["f-hoteles", pct(tu.eoh_nr_pct), `de los viajeros hospedados en hoteles y parahoteles en ${tu.eoh_anio} no residía en el país`],
+};
+const EN_CIFRAS = {
+  trabajo: ["f-empleo", "f-rotacion", "f-exportaciones", "f-fiscal"],
+  empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
+  pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
+  salud: ["f-esperanza", "x-ev-brecha", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
+  educacion: ["f-aprender", "x-aprender-len", "f-escolarizacion", "f-pisa", "x-aprender-debajo"],
+  poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes", "f-extranjeros"],
+  politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
+  movilidad: ["f-sube", "x-sube-var", "f-sube-modos", "f-patentes", "f-patentes-prov"],
+  energia: ["f-hogares", "x-hogares-crec", "f-actividad", "x-demanda-ytd", "f-meses", "x-demanda-total"],
+  turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
+  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio"],
+  curiosidades: ["f-nombres", "f-carne", "f-vino", "f-yerba", "f-clima", "f-glaciares"],
+};
 const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
 // nombre de una provincia con su bandera (tablas, listas, buscador, migas)
 function conBandera(c, nombre) { return `<span class="con-bandera">${bandera(c)}<span>${esc(nombre)}</span></span>`; }
@@ -3281,24 +3332,30 @@ const grillaHerr = document.getElementById("herramientas-grid");
 if (grillaHerr) grillaHerr.innerHTML = Object.values(SEC).filter(s => s.herr).map(tarjetaSec).join("");
 
 /* La respuesta primero (idea de USAFacts): las cifras clave de la sección arriba, antes de la explicación.
-   Salen de CLAVE y del perfil provincial (INDP), así que no hay cifras nuevas escritas a mano y el suicidio queda afuera.
-   Con una provincia elegida, sus indicadores reemplazan a la cifra del país de la misma ficha. */
+   Salen de EN_CIFRAS (ver arriba) y del perfil provincial (INDP), así que no hay cifras nuevas escritas a mano y el suicidio queda afuera.
+   Con una provincia elegida, sus indicadores reemplazan a la cifra del país de la misma ficha. Siempre cinco tarjetas (etapa 15). */
 const pintarCifras = () => {
-  const sec = document.getElementById(PAGINA), intro = sec?.querySelector(".tema-intro");
-  if (sec && intro && !sec.classList.contains("herramienta")) {
+  const sec = document.getElementById(PAGINA), intro = sec?.querySelector(".tema-intro"), orden = EN_CIFRAS[PAGINA];
+  if (sec && intro && orden && !sec.classList.contains("herramienta")) {
     sec.querySelector(".en-cifras")?.remove();
     const ids = new Set([...sec.querySelectorAll("article.ficha")].map(f => f.id)), conProv = new Set(), tarjetas = [];
-    if (prov && NOMBRES[prov]) INDP.forEach(c => {
+    const indp = INDP.filter(c => ids.has(c.id));
+    if (prov && NOMBRES[prov]) indp.forEach(c => {
       const fila = ids.has(c.id) && c.d.find(d => d.codigo_indec === prov); if (!fila) return;
       conProv.add(c.id);
       const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
       tarjetas.push(`<a class="tarjeta cifra prov" href="#${c.id}"><span class="c-lab con-bandera">${bandera(prov)}<span>${NOMBRES[prov]}</span></span><span class="c-num">${c.f(fila[c.k])}</span>` +
         `<span class="c-txt">${c.lab}: ${c.det}.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`} Posición ${orden} de ${c.d.length}, de mayor a menor.</span></a>`);
     });
-    ids.forEach(id => { const c = CLAVE[id]; if (c && !conProv.has(id)) tarjetas.push(`<a class="tarjeta cifra" href="#${id}"><span class="c-num">${c[0]}</span><span class="c-txt">${c[1]}</span></a>`); });
-    if (!conProv.size && INDP.some(c => ids.has(c.id)))
+    // las cifras del país: una cifra destacada (CLAVE) se saca si su ficha ya muestra la de la provincia, y una de EXTRA solo si es la versión del país
+    const pais = orden.map(k => k.startsWith("x-") ? EXTRA[k] && {id: EXTRA[k][0], n: EXTRA[k][1], t: EXTRA[k][2], prov: EXTRA[k][3]} : CLAVE[k] && {id: k, n: CLAVE[k][0], t: CLAVE[k][1], prov: true})
+      .filter(c => c && ids.has(c.id) && !(c.prov && conProv.has(c.id)));
+    const lugar = conProv.size ? 5 - tarjetas.length : indp.length ? 4 : 5;
+    const marca = conProv.size ? `<span class="c-lab con-bandera">${bandera("00")}<span>Todo el país</span></span>` : "";
+    pais.slice(0, Math.max(0, lugar)).forEach(c => tarjetas.push(`<a class="tarjeta cifra" href="#${c.id}">${marca}<span class="c-num">${c.n}</span><span class="c-txt">${c.t}</span></a>`));
+    if (!conProv.size && indp.length)
       tarjetas.push(`<a class="tarjeta cifra invita" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
-    if (tarjetas.length >= 2) intro.insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.join("")}</div></div>`);
+    intro.insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.slice(0, 5).join("")}</div></div>`);
   }
 };
 if (PAGINA !== "inicio") {

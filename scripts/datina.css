@@ -722,20 +722,23 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .sobre>summary::-webkit-details-marker{display:none}
 @media (hover:hover) and (pointer:fine){.sobre>summary:hover{color:var(--ink)}}
 /* "En cifras": la cifra clave de cada ficha, o la de la provincia elegida, antes de la explicación */
-.en-cifras{margin:0 0 var(--e-7)}
+/* Cinco tarjetas en todas las secciones (etapa 15): del mismo ancho y llenando la fila cuando entran (880 píxeles de ancho o más),
+   y si no, en una sola fila que se desliza de costado (antes se partían en dos filas con una sola en la segunda) */
+.en-cifras{margin:0 0 var(--e-7);container-type:inline-size}
 .cifras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--e-3)}
+@container (min-width:880px){.cifras-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@container (max-width:879px){
+  .cifras-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:calc((100% - 2 * var(--e-3)) / 3.2);overflow-x:auto;
+    scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--margen));padding:2px var(--margen) var(--e-3);scroll-padding:0 var(--margen);scrollbar-width:thin}
+  .cifra{scroll-snap-align:start}
+}
+@container (max-width:560px){.cifras-grid{grid-auto-columns:74%;scrollbar-width:none}.cifras-grid::-webkit-scrollbar{display:none}}
 .cifra{gap:6px;padding:var(--e-4)}
 .cifra.prov{background:var(--celeste-suave);border-color:var(--celeste)}
 .cifra.invita{justify-content:center;border-style:dashed;border-color:var(--azul)}
 .c-lab{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .c-num{font-size:var(--t-8);line-height:1;font-weight:500;color:var(--azul);font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 45,"opsz" 144;font-family:var(--f-c45)}
 .c-txt{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
-@media (max-width:760px){
-  .cifras-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:74%;overflow-x:auto;scroll-snap-type:x mandatory;
-    margin:0 calc(-1 * var(--margen));padding:2px var(--margen) var(--e-3);scroll-padding:0 var(--margen);scrollbar-width:none}
-  .cifras-grid::-webkit-scrollbar{display:none}
-  .cifra{scroll-snap-align:start}
-}
 /* líneas de ayuda antes de las fichas de suicidio */
 .ayuda{max-width:var(--medida);margin:var(--e-6) 0 0;padding:var(--e-5) var(--e-6);background:var(--celeste-suave);border-radius:var(--r-tarjeta)}
 .ayuda strong{font-weight:600}
@@ -753,17 +756,6 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .programa dd small{display:block;margin-top:2px;font-size:var(--t-2);color:var(--muted)}
 .programa .enlace{margin-top:auto;padding-top:var(--e-2);font-size:var(--t-3)}
 @media (max-width:760px){.programa{padding:var(--e-5)}}
-/* públicos (etapa 9, muestra en Trabajo y Población): arriba, por dónde empezar según quién mira, y al final tres tarjetas,
-   una por público, con preguntas que llevan a la ficha que las responde */
-.pub-atajos{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-1) var(--e-4);margin:calc(-1 * var(--e-2)) 0 var(--e-7);font-size:var(--t-3)}
-.pub-atajos span{font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.pub-atajos a{color:var(--azul)}
-.publicos .bloque-grupo{margin-top:var(--e-9)}
-.publicos-sub{margin:0;font-size:var(--t-3);color:var(--muted)}
-.publicos .tema-cierre{margin-top:var(--e-5)}
-.tema-cierre.tres{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.tema-cierre .pub-ir{display:block;width:fit-content;margin-top:2px;font-size:var(--t-2);color:var(--azul)}
-.tema-cierre .pub-ir::after{content:" \2192"}
 /* "Para pensar" y "Oportunidades" */
 .tema-cierre{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-4);margin:var(--e-8) 0 0}
 .tema-cierre>div{padding:var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
