@@ -164,8 +164,8 @@ const TEC_CEN = [{k: "termica", lab: "Térmica", c: "#8C9AAB"}, {k: "hidraulica"
   {k: "eolica", lab: "Eólica", c: "#74ACDF"}, {k: "solar", lab: "Solar", c: "#F6B40E"}, {k: "biogas", lab: "Biomasa y biogás", c: "#5E9E6E"}];
 const COL_CEN = Object.fromEntries(TEC_CEN.map(t => [t.lab, t.c]));
 // nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes
-const tituloArea = s => String(s || "").trim().toLowerCase().replace(/(^|[\s\-(])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
-  .replace(/ (De|Del|Y) /g, (m, w) => ` ${w.toLowerCase()} `);
+const tituloArea = s => String(s || "").trim().toLowerCase().replace(/(^|[\s\-(.])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
+  .replace(/ (De|Del|Y) /g, (m, w) => ` ${w.toLowerCase()} `).replace(/ Sa$/, " SA");
 // mapa de pozos no convencionales: un tono por grupo de años de inicio, del más viejo (claro) al más nuevo (oscuro)
 const COL_POZOS = ["#B9D3EC", "#7FB0DD", "#3F86C6", "#1F5E97", "#0B2F52"];
 const masPct = v => (v > 0 ? "+" : "") + pct(v);

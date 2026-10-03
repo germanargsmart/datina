@@ -1459,7 +1459,8 @@ fr_ = fr_[fr_.ini.notna() & (fr_.ini <= _carga_fr) & fr_.tipo_reservorio.eq("NO 
 fr_["anio"] = fr_.ini.dt.year
 fr_["vm"] = fr_.formacion_productiva.fillna("").str.strip().str.lower().eq("vaca muerta")
 fr_["arena_tn"] = fr_.arena_bombeada_nacional_tn.fillna(0) + fr_.arena_bombeada_importada_tn.fillna(0)
-FR_INI, FR_ULT = 2013, int(_carga_fr.year) - 1  # el año de la última carga todavía no terminó
+# un año cuenta recién cuando pasó medio año de carga: a los seis meses ya llegó la mayor parte de sus fracturas
+FR_INI, FR_ULT = 2013, int(_carga_fr.year) - (1 if _carga_fr.month >= 7 else 2)
 assert FR_ULT >= 2024, "los datos de fracturas no llegan al último año completo"
 _fra = fr_[fr_.anio.between(FR_INI, FR_ULT)]
 fracturas = _fra.groupby("anio").agg(etapas=("cantidad_fracturas", "sum"), pozos=("idpozo", "nunique"), arena_tn=("arena_tn", "sum"),

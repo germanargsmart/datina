@@ -698,10 +698,18 @@ def pozos_no_convencionales():
     d = pd.read_csv(io.BytesIO(datos), low_memory=False, usecols=["anio", "mes", "idpozo", "prod_pet", "prod_gas", "tipopozo", "formprod",
         "sub_tipo_recurso", "empresa", "sigla", "areapermisoconcesion", "idareapermisoconcesion", "provincia", "coordenadax", "coordenaday"])
     d["t"] = d.anio * 12 + d.mes - 1  # meses corridos desde el año 0
-    d = d.sort_values(["idpozo", "t"])
+    # el último mes puede llegar incompleto: se usa el último en el que el petróleo y el gas llegan al 90% del promedio de los tres
+    # meses anteriores (como en la producción por pozo de la etapa 18), y lo posterior se descarta
+    tot = d.groupby("t")[["prod_pet", "prod_gas"]].sum()
+    ultimo = int(d.t.max())
+    for _ in range(6):
+        prev = tot.reindex(range(ultimo - 3, ultimo))
+        if (tot.loc[ultimo] >= .9 * prev.mean()).all():
+            break
+        ultimo -= 1
+    d = d[d.t <= ultimo].sort_values(["idpozo", "t"])
     prod = d[(d.prod_pet > 0) | (d.prod_gas > 0)]
     ini, fin = prod.groupby("idpozo").t.min(), prod.groupby("idpozo").t.max()
-    ultimo = int(d.t.max())
     d["k"] = d.t - d.idpozo.map(ini)  # meses desde el inicio (0 = el primer mes con producción)
     p12 = d[d.k.between(0, 11)].groupby("idpozo")[["prod_pet", "prod_gas"]].sum()
     um = d[d.t == ultimo].set_index("idpozo")[["prod_pet", "prod_gas"]]
