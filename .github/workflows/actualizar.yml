@@ -20,6 +20,12 @@ jobs:
       # si una prueba de los datos falla, el trabajo se detiene acá y no se publica nada
       - run: python scripts/pruebas_datos.py
       - run: python scripts/03_construir_sitio.py
+      # revisa las paginas armadas en Chrome sin ventana (scripts/prueba_paginas.mjs): sin errores, sin NaN ni undefined en los
+      # textos y "En cifras" completa. Si algo falla, el trabajo se detiene aca y no se guarda ni se publica nada
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/prueba_paginas.mjs
       - name: Guardar cambios
         run: |
           git config user.name "actualizador"

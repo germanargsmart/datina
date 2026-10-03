@@ -10,7 +10,7 @@ Tambien copia la tabla larga al sitio para que se pueda descargar
 y el sitio de consultas de pobreza ya construido.
 Uso: python scripts/03_construir_sitio.py
 """
-import csv, hashlib, html, json, math, pathlib, re, shutil, sys
+import csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 # Antes de armar nada, las pruebas de los datos (scripts/pruebas_datos.py): si alguna falla, el sitio no se arma ni se publica
@@ -25,6 +25,62 @@ e = lambda t: html.escape(str(t), quote=True)
 texto = lambda h: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
 
 plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8")
+
+# Años recientes escritos a mano (etapa 17): con la actualización siguiente quedarían viejos. En la plantilla van como {{ruta}}
+# (ver abajo) y en datina.js salen del resumen (R). Solo pueden quedar escritos los hechos fijos de FIJOS, reconocidos por el texto
+# que los rodea. Un año reciente escrito a mano en otro lugar hace que el sitio no se arme.
+# (la SUBE desde diciembre de 2024 y mayo de 2025, la encuesta que el INDEC reformula desde 2026, el cambio de fuente de los nacimientos
+# y el nombre de las proyecciones de población del INDEC)
+FIJOS = ["diciembre de 2024 el subte", "diciembre de 2024 parte de los viajes", "mayo de 2025 pagos con qr", "desde 2026 el indec reformula",
+         "hasta octubre de 2026 el sitio", "2022 a 2040, base censo"]
+
+
+def anios_a_mano(nombre, fuente):
+    desde = datetime.date.today().year - 2
+    malos, comentario = [], False
+    for i, linea in enumerate(fuente.split("\n"), 1):
+        s = linea
+        # fuera de los comentarios: los de JavaScript (// y /* */) y los de HTML (<!-- -->)
+        if comentario:
+            fin = re.search(r"\*/|-->", s)
+            if not fin:
+                continue
+            s, comentario = s[fin.end():], False
+        s = re.sub(r"/\*.*?\*/|<!--.*?-->", " ", s)
+        ini = re.search(r"/\*|<!--", s)
+        if ini:
+            s, comentario = s[:ini.start()], True
+        s = re.sub(r"(^|\s)//.*$", "", s)
+        for m in re.finditer(r"(?<![\w./-])(20\d\d)(?!\w)", s):
+            if int(m.group(1)) < desde:
+                continue
+            cerca = s[max(0, m.start() - 60): m.end() + 60].lower()
+            if not any(f in cerca for f in FIJOS):
+                malos.append(f"{nombre}, línea {i}: ...{s[max(0, m.start() - 50): m.end() + 30].strip()}...")
+    return malos
+
+
+malos = anios_a_mano("plantilla.html", plantilla) + anios_a_mano("datina.js", (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8"))
+if malos:
+    sys.exit("Hay años recientes escritos a mano en los textos: quedarían viejos con la próxima actualización. Usar {{ruta}} en la "
+             "plantilla o un dato de R en datina.js, o sumarlo a FIJOS si es un hecho fijo:\n" + "\n".join(malos))
+
+# Años y otros datos en los textos fijos de la plantilla (etapa 17): {{ruta}} con una ruta del resumen de los datos, por ejemplo
+# {{nacimientos.anio_ult}}. Se completan acá en cada actualización, así un título o una nota no quedan con el año viejo. Si la
+# ruta no existe en el resumen, el sitio no se arma.
+RESUMEN = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))["resumen"]
+
+
+def dato_resumen(m):
+    v = RESUMEN
+    for parte in m.group(1).split("."):
+        if not isinstance(v, dict) or parte not in v:
+            sys.exit(f"La plantilla pide {{{{{m.group(1)}}}}}, que no está en el resumen de los datos (02_procesar.py): el sitio no se armó.")
+        v = v[parte]
+    return e(v)
+
+
+plantilla = re.sub(r"\{\{([\w.]+)\}\}", dato_resumen, plantilla)
 ruta_exp = RAIZ / "datos" / "manual" / "explicadores.json"
 EXP = json.loads(ruta_exp.read_text(encoding="utf-8")) if ruta_exp.exists() else {}
 

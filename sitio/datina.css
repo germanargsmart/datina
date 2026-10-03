@@ -621,6 +621,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .dp-det{min-height:2.8em;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 .dp-tira{display:block;width:100%;height:26px;margin:6px 0 2px;overflow:visible}
 .dp-pos{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+/* aclaración de un dato distorsionado (distorsiones.json) en las tarjetas: con la barra del sol, como el aviso de quiebre de serie */
+.dp-aclara,.c-aclara,.mapa-tarjeta li .mt-aclara{display:block;margin-top:var(--e-2);padding:1px 0 1px var(--e-2);border-left:2px solid var(--sol-fuerte);
+  font-size:var(--t-1);line-height:var(--i-chico);color:var(--muted)}
+.dp-aclara:empty{display:none}
 /* provincias parecidas y "si tu provincia fuera un país" */
 #prov-band:not(:empty){display:inline-block;margin-right:16px;vertical-align:.08em}
 #prov-band .bandera{display:block}
@@ -681,7 +685,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
    con la misma proporción que las fichas horizontales. Cada botón abre su texto justo debajo, de a uno. Letra negra: el azul queda
    para el signo, el mouse y el foco. Sin JavaScript se ven todos los textos, con los títulos como encabezados */
 .explicador{margin:0 0 var(--e-7);padding-top:var(--e-5);border-top:1px dotted var(--azul)}
-.en-cifras>h3,.tema-cierre h3,.tema-cierre h4{margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.en-cifras>h3{margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 /* el título con el mismo estilo que "Seguí explorando", el de los bloques de la portada */
 .exp-cab .bloque-grupo{margin:0 0 var(--e-3)}
 .exp-cab p{max-width:22em;margin:0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
@@ -759,16 +763,12 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .programa dd small{display:block;margin-top:2px;font-size:var(--t-2);color:var(--muted)}
 .programa .enlace{margin-top:auto;padding-top:var(--e-2);font-size:var(--t-3)}
 @media (max-width:760px){.programa{padding:var(--e-5)}}
-/* "Para pensar" y "Oportunidades" */
-.tema-cierre{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-4);margin:var(--e-8) 0 0}
-.tema-cierre>div{padding:var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
-.tema-cierre ul{max-width:var(--medida);margin:0;line-height:1.5}
 /* Listas sin viñetas (etapa 14, pedido del autor: "no me gustan los bullets en ningún lugar"): sin marcador y con una línea fina
    entre un ítem y el siguiente, como las listas de Apple, GOV.UK o Stripe. Las listas numeradas (los rankings) conservan el número */
-.tema-cierre ul,.nota-limites ul,.dx-lista,.dx-no-dice ul,.prov-extra ul,.creditos ul{list-style:none;padding-left:0}
-.tema-cierre li,.nota-limites li,.dx-lista li,.dx-no-dice li,.prov-extra ul>li{margin:0;padding:var(--e-3) 0;border-top:1px solid var(--borde)}
-.tema-cierre li:first-child,.nota-limites li:first-child,.dx-lista li:first-child,.dx-no-dice li:first-child,.prov-extra ul>li:first-child{border-top:0;padding-top:0}
-.tema-cierre li:last-child,.nota-limites li:last-child,.dx-lista li:last-child,.dx-no-dice li:last-child,.prov-extra ul>li:last-child{padding-bottom:0}
+.nota-limites ul,.dx-lista,.dx-no-dice ul,.prov-extra ul,.creditos ul{list-style:none;padding-left:0}
+.nota-limites li,.dx-lista li,.dx-no-dice li,.prov-extra ul>li{margin:0;padding:var(--e-3) 0;border-top:1px solid var(--borde)}
+.nota-limites li:first-child,.dx-lista li:first-child,.dx-no-dice li:first-child,.prov-extra ul>li:first-child{border-top:0;padding-top:0}
+.nota-limites li:last-child,.dx-lista li:last-child,.dx-no-dice li:last-child,.prov-extra ul>li:last-child{padding-bottom:0}
 /* desplegables chicos (Cruces y los créditos de Sobre nosotros): sin el triángulo del navegador, con el signo + de "Para entender
    los datos" en chico, que gira hasta ser una cruz al abrir */
 .cx-detalle>summary,.creditos>summary{display:inline-flex;align-items:center;gap:var(--e-2);list-style:none}
@@ -776,7 +776,6 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .cx-detalle>summary::after,.creditos>summary::after{content:"+";flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;
   font:600 15px/1 var(--f);color:var(--azul);background:var(--celeste-suave);transition:transform var(--dur-2) var(--ease-out)}
 .cx-detalle[open]>summary::after,.creditos[open]>summary::after{transform:rotate(45deg);color:#fff;background:var(--azul)}
-@media (max-width:760px){.tema-cierre{grid-template-columns:1fr}}
 /* final de página: "Seguí explorando" (2 de octubre de 2026, pedido del autor, como el de usafacts.org). El título, el enlace a
    todas las secciones y cuatro tarjetas grises con el ícono en un recuadro blanco: la anterior, la siguiente y dos relacionadas */
 .pasos{margin:var(--e-9) 0 0}

@@ -72,6 +72,10 @@ _pv = pd.concat([_pv, _pv.groupby(level="anio").sum().assign(codigo_indec="00").
 _pv["vejez"] = _pv.mayores / _pv.activos * 100  # personas de 65 y mas cada 100 de 15 a 64
 _pv["pct_mayores"] = _pv.mayores / _pv[["menores", "activos", "mayores"]].sum(axis=1) * 100
 ANIO_PROY = int(pd.Timestamp.now().year)
+# Fin de las proyecciones del INDEC (2022 a 2040): las tablas lo llevan en el nombre de la columna y los textos lo leen del resumen
+# ("anio_fin"). Si el INDEC publica otras proyecciones con otro final, este control avisa antes de que algo quede mal
+ANIO_FIN_PROY = 2040
+assert int(proy.anio.max()) == ANIO_FIN_PROY, f"las proyecciones del INDEC terminan en {int(proy.anio.max())}: revisar envejecimiento y pirámide"
 envejec = _pv.vejez.unstack("anio").reset_index()
 envejec = envejec[envejec.codigo_indec != "00"][["codigo_indec", ANIO_PROY, 2040]].rename(columns={ANIO_PROY: "vejez_hoy", 2040: "vejez_2040"})
 envejec["territorio"] = envejec.codigo_indec.map(CORTO)
@@ -81,7 +85,7 @@ _eo = envejec.sort_values("vejez_hoy")
 env_res = {"anio": ANIO_PROY, "hoy": r1(_ep.vejez[ANIO_PROY]), "ini": r1(_ep.vejez[2022]), "fin": r1(_ep.vejez[2040]),
            "trab_hoy": round(100 / float(_ep.vejez[ANIO_PROY]), 1), "trab_fin": round(100 / float(_ep.vejez[2040]), 1),
            "max": _eo.iloc[-1].territorio, "max_v": r1(_eo.vejez_hoy.max()), "min": _eo.iloc[0].territorio, "min_v": r1(_eo.vejez_hoy.min()),
-           "pct_mayores_hoy": r1(_ep.pct_mayores[ANIO_PROY]), "pct_mayores_fin": r1(_ep.pct_mayores[2040])}
+           "pct_mayores_hoy": r1(_ep.pct_mayores[ANIO_PROY]), "pct_mayores_fin": r1(_ep.pct_mayores[2040]), "anio_fin": ANIO_FIN_PROY}
 envejec = envejec.round({"vejez_hoy": 1, "vejez_2040": 1})
 d = _pv.reset_index()
 d = d[d.codigo_indec != "00"].rename(columns={"anio": "periodo", "vejez": "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
@@ -101,9 +105,9 @@ piramide["territorio"] = piramide.codigo_indec.map(lambda c: "Total del país" i
 piramide = piramide[["codigo_indec", "territorio", "sexo", "edad", "personas_hoy", "personas_2040"]].round(0)
 _pp = piramide[piramide.codigo_indec == "00"]
 _med = lambda col: float(np.interp(_pp.groupby("edad")[col].sum().sum() / 2, _pp.groupby("edad")[col].sum().cumsum().values, _pp.groupby("edad")[col].sum().index.values + 5))
-pir_res = {"anio": ANIO_PROY, "edad_mediana_hoy": round(_med("personas_hoy")), "edad_mediana_2040": round(_med("personas_2040")),
+pir_res = {"anio": ANIO_PROY, "edad_mediana_hoy": round(_med("personas_hoy")), "anio_fin": ANIO_FIN_PROY, "edad_mediana_fin": round(_med("personas_2040")),
            "menores15_hoy": r1(_pp[_pp.edad < 15].personas_hoy.sum() / _pp.personas_hoy.sum() * 100),
-           "menores15_2040": r1(_pp[_pp.edad < 15].personas_2040.sum() / _pp.personas_2040.sum() * 100)}
+           "menores15_fin": r1(_pp[_pp.edad < 15].personas_2040.sum() / _pp.personas_2040.sum() * 100)}
 
 # Aportantes por beneficio previsional (Boletin Estadistico de la Seguridad Social, cuadro 4.1.1.1): regimenes de ANSES,
 # promedio anual, el ultimo anio es el ultimo mes disponible. No se compara entre provincias: trece provincias tienen su
@@ -133,7 +137,10 @@ if (CRUDO / "bess_indicadores.xlsx").exists():
 # ---------------------------------------------------------------- energia
 e = pd.read_csv(CRUDO / "energia_emae.csv", parse_dates=["indice_tiempo"])
 e["anio"] = e.indice_tiempo.dt.year
-anual = (e[e.anio.between(2005, 2025)].groupby("anio")
+# el último año con los doce meses de las tres series (antes el corte en 2025 estaba escrito a mano)
+_meses_e = e.dropna(subset=["demanda_total", "demanda_residencial", "emae_original"]).groupby("anio").indice_tiempo.nunique()
+ULT_E = int(_meses_e[_meses_e == 12].index.max())
+anual = (e[e.anio.between(2005, ULT_E)].groupby("anio")
          .agg(total=("demanda_total", "sum"), residencial=("demanda_residencial", "sum"),
               emae=("emae_original", "mean")).reset_index())
 anual["resto"] = anual.total - anual.residencial
@@ -152,7 +159,7 @@ for col, var, uni in [("total", "demanda_electrica_total", "GWh"),
     agregar(d, var, uni, "Secretaria de Energia / INDEC, API Series de Tiempo")
 
 ult = e.dropna(subset=["demanda_total"]).iloc[-1]
-perfil = (e[e.anio.between(2023, 2025)].groupby(e.indice_tiempo.dt.month)
+perfil = (e[e.anio.between(ULT_E - 2, ULT_E)].groupby(e.indice_tiempo.dt.month)
           .demanda_total.mean().reset_index().rename(columns={"indice_tiempo": "mes", "demanda_total": "gwh"}))
 
 # ---------------------------------------------------------------- nacimientos
@@ -188,8 +195,10 @@ _n24 = nd[nd.prov.isin([c for c in CORTO if c != "00"])]
 tot_p = _n24.groupby(["prov", "anio"]).c.sum()
 ado_p = _n24[_n24.ado].groupby(["prov", "anio"]).c.sum()
 pp = (ado_p / tot_p * 100).rename("pct").reset_index().rename(columns={"prov": "provincia_id"})
-ado_prov = pp.pivot(index="provincia_id", columns="anio", values="pct")[[2012, 2024]].reset_index()
-ado_prov.columns = ["codigo_indec", "pct_2012", "pct_2024"]
+# primer y último año de la DEIS (antes 2012 y 2024 escritos a mano). Las columnas llevan el año, y datina.js arma su nombre con el resumen
+NAC_INI, NAC_ULT = ANIOS_NAC[0], ANIOS_NAC[-1]
+ado_prov = pp.pivot(index="provincia_id", columns="anio", values="pct")[[NAC_INI, NAC_ULT]].reset_index()
+ado_prov.columns = ["codigo_indec", f"pct_{NAC_INI}", f"pct_{NAC_ULT}"]
 ado_prov["territorio"] = ado_prov.codigo_indec.map(CORTO)
 
 d = nac_df.rename(columns={"anio": "periodo", "nacimientos": "valor"})
@@ -313,8 +322,8 @@ NSE_IND = {"pct_pob_solo_cobertura_publica": "Población sin obra social ni prep
            "pct_25mas_secundario_completo_o_mas": "Adultos de 25 años o más con secundario completo", "pct_hog_cloaca": "Hogares con desagüe a red cloacal"}
 nse = nse[["codigo_indec"] + list(NSE_IND)]
 spearman = lambda a, b: round(float(pd.Series(a).rank().corr(pd.Series(b).rank())), 2)
-nse_ado = nse.merge(ado_prov[["codigo_indec", "territorio", "pct_2024"]], on="codigo_indec")
-ado_nse_res = {"anio": 2024, "indicadores": [{"k": k, "lab": v, "r": spearman(nse_ado[k].values, nse_ado.pct_2024.values)} for k, v in NSE_IND.items()]}
+nse_ado = nse.merge(ado_prov[["codigo_indec", "territorio", f"pct_{NAC_ULT}"]], on="codigo_indec")
+ado_nse_res = {"anio": NAC_ULT, "indicadores": [{"k": k, "lab": v, "r": spearman(nse_ado[k].values, nse_ado[f"pct_{NAC_ULT}"].values)} for k, v in NSE_IND.items()]}
 
 # Muertes de menores de un anio por grupo de causa (DEIS, defunciones por causa CIE-10 y provincia de residencia).
 # Tres anios juntos, porque en las provincias chicas hay pocas muertes por anio. Nacimientos de la misma fuente.
@@ -1204,6 +1213,9 @@ if (CRUDO / "eph_antiguedad_resumen.csv").exists():
                "casos": int(rotacion[rotacion.dimension == "total"].casos.iloc[0])}
 
 # Personas nacidas en otro pais identificadas por el RENAPER, cada 100 habitantes
+# Corte del archivo del RENAPER que baja 01_descargar.py (el nombre del archivo lo dice). Cuando se cambie el archivo, cambiar este texto:
+# los títulos, las tarjetas y Cruces lo leen de acá
+RENAPER_CORTE = "junio de 2026"
 rx = pd.read_csv(CRUDO / "renaper_extranjeros.csv")
 rx["codigo_indec"] = rx.provincia_id.map(lambda x: f"{int(x):02d}")
 extranjeros = rx.groupby("codigo_indec").cantidad.sum().rename("personas").reset_index()
@@ -1973,7 +1985,7 @@ def columna(tabla, col):
 
 
 cru["mortalidad_infantil"] = columna(mi_prov, "tmi_actual")
-cru["madres_adolescentes"] = columna(ado_prov, "pct_2024")
+cru["madres_adolescentes"] = columna(ado_prov, f"pct_{NAC_ULT}")
 cru["escolarizacion"] = columna(esc_prov, "tasa_final")
 cru["aprender_mat"] = columna(ap_prov, "mat_logra")
 cru["aprender_len"] = columna(ap_prov, "len_logra")
@@ -2011,10 +2023,10 @@ cru["voto_oficialismo_2023"] = cru.codigo_indec.map(ofi[ofi.eleccion == "2023"].
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
-    "poblacion": ("Población", "habitantes", "2025", "Población", "INDEC, proyecciones de población 2022 a 2040", "", 0),
-    "densidad": ("Densidad de población", "habitantes por km²", "2025", "Población", "INDEC y Ministerio de Ambiente", "", 1),
+    "poblacion": ("Población", "habitantes", str(ANIO_POB), "Población", "INDEC, proyecciones de población 2022 a 2040", "", 0),
+    "densidad": ("Densidad de población", "habitantes por km²", str(ANIO_POB), "Población", "INDEC y Ministerio de Ambiente", "", 1),
     "mortalidad_infantil": ("Mortalidad infantil", "muertes de menores de 1 año cada 1.000 nacidos vivos, promedio 3 años", f"{TRI_ACT[0]} a {TRI_ACT[1]}", "Salud", "DEIS, Ministerio de Salud", "f-mortalidad", 1),
-    "madres_adolescentes": ("Maternidad adolescente", "% de los nacimientos con madres menores de 20 años", "2024", "Población", "DEIS, Ministerio de Salud", "f-adolescentes", 1),
+    "madres_adolescentes": ("Maternidad adolescente", "% de los nacimientos con madres menores de 20 años", str(NAC_ULT), "Población", "DEIS, Ministerio de Salud", "f-adolescentes", 1),
     "escolarizacion": ("Escolarización secundaria", "tasa neta, %", str(ESC_FIN), "Educación", "Ministerio de Educación", "f-escolarizacion", 1),
     "aprender_mat": ("Aprender, matemática", "% de 6° grado con nivel satisfactorio o avanzado", str(meta_ap["anio"]), "Educación", "Ministerio de Educación", "f-aprender", 1),
     "aprender_len": ("Aprender, lengua", "% de 6° grado con nivel satisfactorio o avanzado", str(meta_ap["anio"]), "Educación", "Ministerio de Educación", "f-aprender", 1),
@@ -2041,7 +2053,7 @@ CRUCES_META = {
     "autonomia_fiscal": ("Recursos propios", "% de los ingresos totales de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "resultado_fiscal": ("Resultado fiscal", "superávit o déficit financiero, % de los ingresos totales", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
     "gasto_personal": ("Gasto en personal", "% del gasto total de la provincia", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-fiscal", 1),
-    "peso_voto": ("Peso de cada habitante en el Congreso", "bancas de diputados y senadores sobre la proporción de población, 1 = proporcional", "2025", "Política", "Ley 22.847 y proyecciones del INDEC", "f-representacion", 2),
+    "peso_voto": ("Peso de cada habitante en el Congreso", "bancas de diputados y senadores sobre la proporción de población, 1 = proporcional", str(ANIO_POB), "Política", "Ley 22.847 y proyecciones del INDEC", "f-representacion", 2),
     "pct_pob_solo_cobertura_publica": ("Población sin obra social ni prepaga", "% de la población, solo cobertura pública", "2022", "Salud", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_hog_nbi_2022": ("Hogares con necesidades básicas insatisfechas", "% de los hogares", "2022", "Pobreza", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
     "pct_25mas_secundario_completo_o_mas": ("Adultos con secundario completo", "% de la población de 25 años o más", "2022", "Educación", "INDEC, Censo 2022", "f-adolescentes-nse", 1),
@@ -2056,7 +2068,7 @@ CRUCES_META = {
     "voto_milei_2023": ("Voto a Milei en el balotaje", "% de los votos positivos, segunda vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "voto_oficialismo_2023": ("Voto al oficialismo nacional", "% de los votos positivos a la fórmula del gobierno, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
-    "extranjeros": ("Nacidos en otro país", "personas identificadas por el RENAPER cada 100 habitantes", "junio de 2026", "Población", "RENAPER", "", 1),
+    "extranjeros": ("Nacidos en otro país", "personas identificadas por el RENAPER cada 100 habitantes", RENAPER_CORTE, "Población", "RENAPER", "", 1),
 }
 
 # ---------------------------------------------------------------- series por provincia para animar los cruces
@@ -2207,24 +2219,25 @@ top_sui, low_sui = sui_prov.sort_values("tasa").iloc[-1], sui_prov.sort_values("
 resumen = {
     "actualizado": pd.Timestamp.now().strftime("%d/%m/%Y"),
     "energia": {
-        "pct_res_2005": r1(a05.pct_residencial), "pct_res_2025": r1(a25.pct_residencial),
+        "anio_ini": int(a05.anio), "anio_ult": int(a25.anio), "pct_res_ini": r1(a05.pct_residencial), "pct_res_ult": r1(a25.pct_residencial),
         "crec_res": r1((a25.residencial / a05.residencial - 1) * 100),
         "crec_resto": r1((a25.resto / a05.resto - 1) * 100),
         "crec_total": r1((a25.total / a05.total - 1) * 100),
         "crec_emae": r1((a25.emae / a05.emae - 1) * 100),
-        "gwh_2025": round(float(a25.total)),
+        "gwh_ult": round(float(a25.total)), "meses_desde": ULT_E - 2, "meses_hasta": ULT_E,
         "mes_max": MES[int(perfil.loc[perfil.gwh.idxmax(), "mes"]) - 1],
         "mes_min": MES[int(perfil.loc[perfil.gwh.idxmin(), "mes"]) - 1],
         "dif_max_min": r1((perfil.gwh.max() / perfil.gwh.min() - 1) * 100),
         "ultimo_mes": f"{MES[ult.indice_tiempo.month - 1]} de {ult.indice_tiempo.year}",
     },
     "nacimientos": {
-        "anio_pico": int(pico.anio), "pico": int(pico.nacimientos), "n_2024": int(n24.nacimientos),
+        "anio_ini": int(nac_df.iloc[0].anio), "anio_ult": int(n24.anio),
+        "anio_pico": int(pico.anio), "pico": int(pico.nacimientos), "n_ult": int(n24.nacimientos),
         "caida": r1((n24.nacimientos / pico.nacimientos - 1) * 100),
         "ado_pico": int(ado_pico.madres_menores_20), "ado_anio_pico": int(ado_pico.anio),
-        "ado_2024": int(n24.madres_menores_20),
+        "ado_ult": int(n24.madres_menores_20),
         "ado_caida": r1((n24.madres_menores_20 / ado_pico.madres_menores_20 - 1) * 100),
-        "pct_2012": r1(nac_df.iloc[0].pct_madres_menores_20), "pct_2024": r1(n24.pct_madres_menores_20),
+        "pct_ini": r1(nac_df.iloc[0].pct_madres_menores_20), "pct_ult": r1(n24.pct_madres_menores_20),
         "ocde_ult": int(nac_df.dropna(subset=["idx_ocde"]).anio.max()),
         "ocde_caida": r1((nac_df.dropna(subset=["idx_ocde"]).iloc[-1].nacimientos_ocde / nac_df.set_index("anio").nacimientos_ocde[int(pico.anio)] - 1) * 100),
         "arg_caida_ocde_ult": r1((nac_df.dropna(subset=["idx_ocde"]).iloc[-1].nacimientos / pico.nacimientos - 1) * 100),
@@ -2237,6 +2250,7 @@ resumen = {
         "top": top_sui.territorio, "top_tasa": r1(top_sui.tasa),
         "low": low_sui.territorio, "low_tasa": r1(low_sui.tasa),
         "pct_jovenes": r1(pct_jovenes), "pct_varones": r1(pct_varones), "n_sat": n_sat,
+        "serie_ini": int(tasa_sui.anio.min()), "sat_desde": int(sat.anio.min()), "sat_hasta": int(sat.anio.max()),
         "anio_cruce": int(next(a for a in muertes.anio.sort_values()
                                if (muertes[muertes.anio >= a].suicidios > muertes[muertes.anio >= a].siniestros_viales).all())),
     },
@@ -2407,6 +2421,8 @@ resumen["fiscal"] = {
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta
+resumen["elecciones_ult"] = max(x["anio"] for x in el_meta)   # el título de la ficha de elecciones
+resumen["anio_pob"] = ANIO_POB   # año de la población de las tasas por habitante (notas y títulos)
 resumen["congreso"] = congreso_res
 resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res
@@ -2432,7 +2448,7 @@ resumen["nuevos"] = {
     "ex_top": _ex_t.territorio, "ex_top_v": round(float(_ex_t.usd_por_habitante)), "ex_low": _ex_b.territorio, "ex_low_v": round(float(_ex_b.usd_por_habitante)),
     "ex_provincial_pct": r1(exp_prov.millones_usd.sum() / EXP_TOTAL * 100), "ex_sem": EX_SEM,
     "xt_pais": r1(extranjeros.personas.sum() / POB_PAIS * 100), "xt_top": extranjeros.sort_values("cada_100").iloc[-1].territorio,
-    "xt_top_v": r1(extranjeros.cada_100.max()), "xt_origen": list(top_origen.index[:3]),
+    "xt_top_v": r1(extranjeros.cada_100.max()), "xt_origen": list(top_origen.index[:3]), "xt_corte": RENAPER_CORTE,
 }
 resumen["cruces"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                      for k, v in CRUCES_META.items()]

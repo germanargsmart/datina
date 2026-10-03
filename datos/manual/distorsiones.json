@@ -1,7 +1,7 @@
 {
- "_nota": "Casos que el lugar de registro o un error de la fuente distorsionan (pedido del autor, octubre de 2026, punto A6). Clave: tabla.columna y código de jurisdicción. accion 'aclarar' suma el motivo en la misma oración que nombra el máximo, 'excluir' lo saca del texto de máximos y dice por qué. Los usan 02_procesar.py (textos) y pruebas_datos.py (acepta el hallazgo). El motivo se muestra tal cual: sin cifras.",
+ "_nota": "Casos que el lugar de registro o un error de la fuente distorsionan (pedido del autor, octubre de 2026, punto A6). Clave: tabla.columna y código de jurisdicción. accion 'aclarar' suma el motivo en la misma oración que nombra el máximo, 'excluir' lo saca del texto de máximos y dice por qué. Los usan 02_procesar.py (textos) y pruebas_datos.py (acepta el hallazgo). El motivo se muestra tal cual: sin cifras. El campo corto es la versión para las tarjetas (perfil provincial, En cifras y el mapa de la portada), que tienen poco lugar.",
  "empleo_provincias.cada_100": {
-  "02": {"accion": "aclarar", "motivo": "el SIPA cuenta cada empleo en la provincia donde declara la empresa, así que la Ciudad suma también a muchas personas que viven en el conurbano"}
+  "02": {"accion": "aclarar", "motivo": "el SIPA cuenta cada empleo en la provincia donde declara la empresa, así que la Ciudad suma también a muchas personas que viven en el conurbano", "corto": "Cada empleo se cuenta donde declara la empresa: incluye a muchas personas que viven en el conurbano."}
  },
  "internet_fijo_provincias.accesos_100_hogares": {
   "02": {"accion": "aclarar", "motivo": "ENACOM cuenta también los accesos de empresas y organizaciones, por eso puede haber más accesos que hogares"},
@@ -12,9 +12,9 @@
   "94": {"accion": "excluir", "motivo": "su dato del DNRPA salta durante 2025 a valores decenas de veces mayores que los de los años anteriores y siguientes, y las cámaras del sector no registran ese aumento: es probable un error en el dato abierto"}
  },
  "aprender_provincias.mat_logra": {
-  "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo"}
+  "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo", "corto": "Dato a título informativo: la participación en Aprender quedó por debajo del umbral de representatividad."}
  },
  "aprender_provincias.len_logra": {
-  "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo"}
+  "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo", "corto": "Dato a título informativo: la participación en Aprender quedó por debajo del umbral de representatividad."}
  }
 }

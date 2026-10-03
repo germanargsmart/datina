@@ -229,7 +229,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <p class="clave-color" id="clave-empleo" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
       <div class="grafico" data-g="empleo" data-forma="barras"></div>
-      <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección 2025 del INDEC usada por el SNIC.</p>
+      <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección {{anio_pob}} del INDEC usada por el SNIC.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -303,27 +303,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="dinamica-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_serie_pais.csv" download>Descargar tabla (CSV)</a></div>
     </article>
-
-    <aside class="tema-cierre" aria-label="Para cerrar la sección">
-      <div>
-        <h3>Problemas para resolver</h3>
-        <ul>
-        <li><a href="#f-internet">Conectividad</a>: las provincias con menos accesos a internet fijo y menor velocidad.</li>
-        <li><a href="#f-censo">Servicios en el hogar</a>: cloacas, agua de red y computadora, provincia por provincia.</li>
-        <li><a href="#f-rotacion">Empleo inestable</a>: quiénes cambian más seguido de trabajo.</li>
-        <li><a href="#f-mortalidad">Salud materno infantil</a>: dónde la mortalidad infantil sigue alta.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Tendencias y mercados</h3>
-        <ul>
-        <li><a href="#f-piramide">Una población que envejece</a>: más demanda de cuidados, salud y servicios para personas mayores.</li>
-        <li><a href="#f-exportaciones">Exportaciones por provincia</a>: qué produce cada una y cuánto crecen en el último semestre.</li>
-        <li><a href="#f-receptivo">Turismo internacional</a>: cuántos visitantes llegan al país.</li>
-        <li><a href="#cruces">Cruces</a>: compará la creación de empresas con cualquier otro indicador.</li>
-        </ul>
-      </div>
-    </aside>
   </section>
 
   <section class="tema" id="pobreza">
@@ -413,7 +392,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
 
     <article class="ficha" id="f-muertes">
-      <h3>Muertes por suicidio, homicidio, siniestros viales y femicidio, 2000 a 2025</h3>
+      <h3>Muertes por suicidio, homicidio, siniestros viales y femicidio, {{suicidio.serie_ini}} a {{suicidio.anio}}</h3>
       <p class="lead" data-t="muertes"></p>
       <div class="grafico" data-g="muertes" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="muertes-nota"></p>
@@ -421,7 +400,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-suicidio">
-      <h3>Tasa de suicidios por cada 100.000 habitantes de 5 años y más, 2000 a 2025</h3>
+      <h3>Tasa de suicidios por cada 100.000 habitantes de 5 años y más, {{suicidio.serie_ini}} a {{suicidio.anio}}</h3>
       <p class="lead" data-t="suicidio"></p>
       <div class="grafico" data-g="suicidio" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. El SNIC calcula esta tasa sobre las personas de 5 años y más, con el criterio de la OPS y la OMS, y la de homicidios sobre toda la población: por eso las dos tasas no se comparan entre sí, y se comparan las cantidades. Las tasas por sexo están disponibles desde 2017.</p>
@@ -436,7 +415,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-edad">
-      <h3>Distribución de los suicidios por edad y sexo, 2017 a 2024</h3>
+      <h3>Distribución de los suicidios por edad y sexo, {{suicidio.sat_desde}} a {{suicidio.sat_hasta}}</h3>
       <p class="lead" data-t="edad"></p>
       <div class="grafico" data-g="edad" data-forma="piramide" style="--alto:370px;--alto-c:370px"></div>
       <p class="nota">Porcentaje sobre el total de casos del período con edad y sexo registrados. Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan.</p>
@@ -501,10 +480,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:poblacion-->
 
     <article class="ficha" id="f-nacimientos">
-      <h3>Nacimientos por año en la Argentina y en la OCDE, 2012 a 2024</h3>
+      <h3>Nacimientos por año en la Argentina y en la OCDE, {{nacimientos.anio_ini}} a {{nacimientos.anio_ult}}</h3>
       <p class="lead" data-t="nacimientos"></p>
       <div class="grafico" data-g="nacimientos" data-forma="lineas" style="--alto:398px;--alto-c:378px"></div>
-      <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
+      <p class="nota">Índice con base {{nacimientos.anio_ini}} = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con {{nacimientos.anio_ini}}. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -533,11 +512,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-adolescentes">
-      <h3>Nacimientos de madres menores de 20 años por provincia, 2012 y 2024</h3>
+      <h3>Nacimientos de madres menores de 20 años por provincia, {{nacimientos.anio_ini}} y {{nacimientos.anio_ult}}</h3>
       <p class="lead" data-t="adolescentes"></p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="adolescentes" data-forma="pesas"></div>
-      <p class="nota">Porcentaje de los nacidos vivos de cada provincia, según el lugar donde vive la madre, cuya madre tenía menos de 20 años. El círculo claro marca 2012 y el oscuro 2024.</p>
+      <p class="nota">Porcentaje de los nacidos vivos de cada provincia, según el lugar donde vive la madre, cuya madre tenía menos de 20 años. El círculo claro marca {{nacimientos.anio_ini}} y el oscuro {{nacimientos.anio_ult}}.</p>
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -569,7 +548,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:politica-->
 
     <article class="ficha" id="f-elecciones">
-      <h3>Elecciones presidenciales y PASO por provincia, 1983 a 2023</h3>
+      <h3>Elecciones presidenciales y PASO por provincia, 1983 a {{elecciones_ult}}</h3>
       <p class="lead" data-t="elecciones"></p>
       <label class="selector-ficha"><span>Elección</span><select data-g="elecciones" id="el-sel"></select></label>
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
@@ -591,10 +570,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-representacion">
-      <h3>Habitantes por banca de diputado nacional según provincia, 2025</h3>
+      <h3>Habitantes por banca de diputado nacional según provincia, {{anio_pob}}</h3>
       <p class="lead" data-t="representacion"></p>
       <div class="grafico" data-g="representacion" data-forma="barras"></div>
-      <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
+      <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para {{anio_pob}}. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
       <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
@@ -758,7 +737,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:energia-->
 
     <article class="ficha" id="f-hogares">
-      <h3>Participación de los hogares en la demanda eléctrica, 2005 a 2025</h3>
+      <h3>Participación de los hogares en la demanda eléctrica, {{energia.anio_ini}} a {{energia.anio_ult}}</h3>
       <p class="lead" data-t="hogares"></p>
       <div class="grafico" data-g="hogares" data-forma="lineas"></div>
       <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
@@ -766,7 +745,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-actividad">
-      <h3>Demanda eléctrica y nivel de actividad económica, 2005 a 2025</h3>
+      <h3>Demanda eléctrica y nivel de actividad económica, {{energia.anio_ini}} a {{energia.anio_ult}}</h3>
       <p class="lead" data-t="actividad"></p>
       <div class="grafico" data-g="actividad" data-forma="lineas"></div>
       <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
@@ -774,7 +753,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-meses">
-      <h3>Demanda eléctrica promedio por mes, 2023 a 2025</h3>
+      <h3>Demanda eléctrica promedio por mes, {{energia.meses_desde}} a {{energia.meses_hasta}}</h3>
       <p class="lead" data-t="meses"></p>
       <div class="grafico" data-g="meses" data-forma="columnas" style="--alto:280px;--alto-c:280px"></div>
       <p class="nota" data-t="meses-nota"></p>
