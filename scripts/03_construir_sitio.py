@@ -177,7 +177,7 @@ for b in TEMAS:
 # las cifras de la portada van escritas desde el principio (etapa 13): si las pusiera solo datina.js, la portada saltaría al llegar
 _estado = '<p class="estado" id="estado"></p>'
 assert base.count(_estado) == 1
-base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f in FICHAS if not f[5])} fichas</span> · <span>24 jurisdicciones</span> · '
+base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f in FICHAS if not f[5])} fichas</span> <span>24 jurisdicciones</span> '
                              f'<span>{len(NOTAS)} artículos</span></p>')
 INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC}
 

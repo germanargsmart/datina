@@ -1137,7 +1137,7 @@ DIB.legisladores = () => {
     });
   };
   const li = b => `<li><i style="background:${ESP_COLOR[LGP.espacios[b.h[5]]]}"></i><span>${nom(b.h[3])}${b.texto}</span>` +
-    `<small>${LGP.bloques[b.h[4]]}${b.h[6] && b.h[6] !== "sin fecha" ? ` · desde ${lgMes(b.h[6])}` : ""}</small></li>`;
+    `<small>${LGP.bloques[b.h[4]]}${b.h[6] && b.h[6] !== "sin fecha" ? `, desde ${lgMes(b.h[6])}` : ""}</small></li>`;
   const dip = bancas(0), sen = bancas(1);
   const cuenta = arr => CG.espacios.filter(k => arr.some(b => LGP.espacios[b.h[5]] === k))
     .map(k => `${arr.filter(b => LGP.espacios[b.h[5]] === k).length} de ${ESP_TXT[k]}`.replace(" de el ", " del "));
@@ -1252,7 +1252,7 @@ const PLATAFORMA_2023 = {
 };
 const plataformaCelda = e => {
   const pl = PLATAFORMA_2023[e];
-  return pl ? `<td class="plat"><a href="${CNE_2023 + encodeURIComponent(pl[1])}" target="_blank" rel="noopener" title="Plataforma de ${pl[0]}, elecciones 2023">PDF</a></td>` : `<td class="sin">·</td>`;
+  return pl ? `<td class="plat"><a href="${CNE_2023 + encodeURIComponent(pl[1])}" target="_blank" rel="noopener" title="Plataforma de ${pl[0]}, elecciones 2023">PDF</a></td>` : `<td class="sin">—</td>`;
 };
 DIB.vtmatriz = a => {
   const cam = MED.vtmatriz, el = G("vtmatriz"), soloEd = MED.vtfiltro === "ed";
@@ -1263,14 +1263,14 @@ DIB.vtmatriz = a => {
   const celda = (l, e) => {
     const c = l.camaras[cam] && l.camaras[cam].espacios[e];
     if (!l.camaras[cam]) return "";
-    if (!c || !d3.sum(c)) return `<td class="sin">·</td>`;
+    if (!c || !d3.sum(c)) return `<td class="sin">—</td>`;
     const tit = `${e}: ${c[0]} a favor, ${c[1]} en contra, ${c[2]} abstenciones y ${c[3]} ausentes`;
     if (postura(c) === "aus") return `<td class="sin" title="${tit}">aus.</td>`;
     const p = c[0] / (c[0] + c[1] + c[2]) * 100, fondo = col(p);
     return `<td title="${tit}" style="background:${fondo};color:${Math.abs(p - 50) > 30 ? "#fff" : "#18212B"}">${Math.round(p)}</td>`;
   };
   el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th><button type="button" class="esp-btn" data-e="${e}" aria-haspopup="dialog">${ESP_CORTO[e]}</button></th>`).join("")}</tr></thead><tbody>` +
-    [...filas].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? " · efecto directo" : ""}</small></td>` +
+    [...filas].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", efecto directo" : ""}</small></td>` +
       (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody>" +
     `<tfoot><tr><td class="ley">Plataforma 2023<small>qué propuso</small></td>${esp.map(plataformaCelda).join("")}</tr></tfoot></table>`;
   el.querySelectorAll("tr[data-k]").forEach(tr => {
@@ -3238,7 +3238,7 @@ if (nosCifras) {
 
 /* recuadro de estado de la portada */
 const estado = document.getElementById("estado");
-if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ART.length} artículos`].map(t => `<span>${t}</span>`).join(" · ");
+if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ART.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
 
 /* Enlaces a fichas que viven en otra página (perfil provincial, preguntas, cruces): llevan a esa página */
 document.querySelectorAll('a[href^="#"]').forEach(a => { const u = destinoDe(a.getAttribute("href")); if (u) a.href = u; });

@@ -41,6 +41,7 @@
   --celeste:#74ACDF; --celeste-fuerte:#2C74B5; --celeste-suave:#DCEBF8;
   --azul:#2C74B5; --azul-hondo:#1F5E97;
   --sol:#F6B40E; --sol-fuerte:#B27A00; --sol-suave:#FDF0CC; --sol-borde:#85340A;
+  --sol-texto:#7F5500;  /* dorado del sol para texto chico: pasa 4,5 a 1 sobre el blanco y sobre el vidrio del menú encima del azul */
   --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
   --ocde:#7A4FA0; --ocde-suave:#ECE3F5; /* promedio de los países de la OCDE, solo dentro de los gráficos */
   /* sobre el azul de la portada */
@@ -121,6 +122,18 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .iso .w{fill:var(--ic-detalle);stroke:none}
 .iso .wl{fill:none;stroke:var(--ic-detalle)}
 .iso .k{fill:none;stroke:var(--ic)}
+/* Íconos de las tarjetas (etapa 14, pedido del autor): al pasar el mouse por la tarjeta, el ícono se eleva y se inclina apenas,
+   como gira el sol de los destacados, en 300 ms. Lo mismo, más chico, en los íconos de la barra */
+.tarjeta .iso{transition:transform var(--dur-4) var(--ease-out);transform-origin:50% 85%}
+.lupa-btn .ico,.chip-borrar .ico{transition:transform var(--dur-2) var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .tarjeta:hover .iso{transform:translateY(-4px) rotate(-5deg)}
+  /* en los destacados ya gira el sol: el dibujo solo se eleva */
+  .dest:hover .iso{transform:translateY(-4px)}
+  .lupa-btn:hover .ico{transform:rotate(-12deg) scale(1.08)}
+  .chip-borrar:hover .ico{transform:rotate(90deg)}
+  .menu-btn:not([aria-expanded="true"]):hover .ico .h2{transform:scaleX(.6)}
+}
 .tono-azul{--ic:#2C74B5}
 
 /* ---------- botones, enlaces y tarjetas ----------
@@ -247,13 +260,20 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .menu-col{display:flex;flex-direction:column;gap:var(--e-5);min-width:0}
 .menu-grupo{opacity:0;transform:translateY(8px);transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-3) var(--ease-out)}
 .menu-panel.abierto .menu-grupo{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 30ms)}
-.menu-panel .menu-tit{margin:0 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* rótulos de los grupos (pedido del autor: "en otra fuente ... en amarillo como del sol"): la letra condensada de los temas de la barra,
+   en el dorado del sol, con una línea fina del amarillo del sol que sigue hasta el borde del grupo */
+.menu-panel .menu-tit{display:flex;align-items:center;gap:var(--e-3);margin:0 0 var(--e-2);font-family:var(--f-c60);font-size:13px;line-height:1.2;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--sol-texto);font-variation-settings:"wdth" 60,"opsz" 14}
+.menu-panel .menu-tit::after{content:"";flex:1;height:2px;border-radius:1px;background:linear-gradient(90deg,var(--sol),rgba(246,180,14,0))}
 .menu-panel ul{margin:0;padding:0;list-style:none}
 .menu-panel a{display:flex;align-items:center;gap:var(--e-2);margin:0 calc(-1 * var(--e-3));padding:6px var(--e-3);border-radius:var(--r-control);
   font-size:var(--t-4);font-weight:500;line-height:1.3;color:var(--ink);text-decoration:none;transition:background-color var(--dur-1) var(--ease-out)}
 /* la página actual: en negrita y con la marca amarilla de la navegación */
-.menu-panel a[aria-current="true"]{font-weight:650}
-.menu-panel a[aria-current="true"]::after{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--sol)}
+.menu-panel a[aria-current="true"]{font-weight:650;background:var(--sol-suave)}
+/* jerarquía: los temas principales más grandes, los demás grupos al tamaño del texto y Datina más chico y gris */
+.menu-grupo[data-nivel="1"] a{font-size:18px;font-weight:600}
+.menu-grupo[data-nivel="3"] a{font-size:var(--t-3);color:var(--muted)}
+.menu-grupo[data-nivel="3"] a[aria-current="true"]{color:var(--ink)}
 .menu-panel a:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 .teclado .menu-panel,.teclado .menu-grupo{transition:none}
 .teclado .elige-panel{transition:none}
@@ -266,6 +286,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .lupa-btn:hover,.menu-btn:hover,.chip-prov:hover,.chip-borrar:hover{background:var(--en-azul-velo)}
   .barra.clara .lupa-btn:hover,.barra.clara .menu-btn:hover,.barra.clara .chip-prov:hover,.barra.clara .chip-borrar:hover{background:var(--celeste-suave)}
   .menu-panel a:hover{background:rgba(44,116,181,.09)}
+  .menu-panel a[aria-current="true"]:hover{background:var(--sol-suave)}
 }
 @media (max-width:1180px){.barra .temas{gap:var(--e-4);font-size:12px}}
 @media (max-width:1080px){.barra .temas{display:none}}
@@ -279,8 +300,11 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
     background:rgba(246,248,251,.82);border:0;border-top:1px solid rgba(44,116,181,.18);border-radius:0;box-shadow:none;transform:translateY(-8px)}
   .barra.compacta ~ .menu-panel{translate:0 -8px}
   .menu-col{gap:var(--e-6)}
-  .menu-panel a{padding:9px var(--e-3);font-size:22px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+  .menu-panel a{padding:8px var(--e-3);font-size:19px;font-weight:550;letter-spacing:-.01em;line-height:1.25}
+  .menu-grupo[data-nivel="1"] a{padding:9px var(--e-3);font-size:24px;font-weight:650}
+  .menu-grupo[data-nivel="3"] a{font-size:16px;font-weight:500}
   .menu-panel a[aria-current="true"]{font-weight:750}
+  .menu-panel .menu-tit{font-size:14px}
   /* la página queda quieta detrás del menú */
   html.menu-abierto{overflow:hidden}
 }
@@ -344,6 +368,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* información secundaria: más chica y más tenue que los botones (octubre de 2026) */
 .estado{margin:var(--e-4) 0 0;font:400 var(--t-1)/1.5 var(--mono);letter-spacing:.04em;color:#fff}
 .estado span{white-space:nowrap}
+.estado span+span{margin-left:6px;padding-left:12px;border-left:1px solid rgba(255,255,255,.55)}
 /* lugar del mapa: el país lo dibuja datina.js en el fondo, con la misma proyección que el mundo */
 .portada-mapa{position:relative;min-height:480px}
 .portada-mapa .sol{position:absolute;top:0;right:0;width:200px}
@@ -599,7 +624,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .prov-extra{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-5);margin-top:var(--e-6)}
 .prov-extra>div{border-top:1px dotted var(--azul);padding-top:var(--e-3)}
 .prov-extra h3{margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
-.prov-extra ol,.prov-extra ul{margin:0;padding-left:20px;font-size:var(--t-3);line-height:var(--i-texto)}
+.prov-extra ol,.prov-extra ul{margin:0;font-size:var(--t-3);line-height:var(--i-texto)}
+.prov-extra ol{padding-left:20px}
 .prov-extra .suave{color:var(--muted);font-size:var(--t-2)}
 @media (max-width:760px){
   /* en el celular los indicadores de la provincia se deslizan de costado */
@@ -741,8 +767,20 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* "Para pensar" y "Oportunidades" */
 .tema-cierre{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-4);margin:var(--e-8) 0 0}
 .tema-cierre>div{padding:var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
-.tema-cierre ul{max-width:var(--medida);margin:0;padding-left:18px;line-height:1.5}
-.tema-cierre li{margin:0 0 var(--e-2)}
+.tema-cierre ul{max-width:var(--medida);margin:0;line-height:1.5}
+/* Listas sin viñetas (etapa 14, pedido del autor: "no me gustan los bullets en ningún lugar"): sin marcador y con una línea fina
+   entre un ítem y el siguiente, como las listas de Apple, GOV.UK o Stripe. Las listas numeradas (los rankings) conservan el número */
+.tema-cierre ul,.nota-limites ul,.dx-lista,.dx-no-dice ul,.prov-extra ul,.creditos ul{list-style:none;padding-left:0}
+.tema-cierre li,.nota-limites li,.dx-lista li,.dx-no-dice li,.prov-extra ul>li{margin:0;padding:var(--e-3) 0;border-top:1px solid var(--borde)}
+.tema-cierre li:first-child,.nota-limites li:first-child,.dx-lista li:first-child,.dx-no-dice li:first-child,.prov-extra ul>li:first-child{border-top:0;padding-top:0}
+.tema-cierre li:last-child,.nota-limites li:last-child,.dx-lista li:last-child,.dx-no-dice li:last-child,.prov-extra ul>li:last-child{padding-bottom:0}
+/* desplegables chicos (Cruces y los créditos de Sobre nosotros): sin el triángulo del navegador, con el signo + de "Para entender
+   los datos" en chico, que gira hasta ser una cruz al abrir */
+.cx-detalle>summary,.creditos>summary{display:inline-flex;align-items:center;gap:var(--e-2);list-style:none}
+.cx-detalle>summary::-webkit-details-marker,.creditos>summary::-webkit-details-marker{display:none}
+.cx-detalle>summary::after,.creditos>summary::after{content:"+";flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;
+  font:600 15px/1 var(--f);color:var(--azul);background:var(--celeste-suave);transition:transform var(--dur-2) var(--ease-out)}
+.cx-detalle[open]>summary::after,.creditos[open]>summary::after{transform:rotate(45deg);color:#fff;background:var(--azul)}
 @media (max-width:760px){.tema-cierre{grid-template-columns:1fr}}
 /* final de página: "Seguí explorando" (2 de octubre de 2026, pedido del autor, como el de usafacts.org). El título, el enlace a
    todas las secciones y cuatro tarjetas grises con el ícono en un recuadro blanco: la anterior, la siguiente y dos relacionadas */
@@ -1048,8 +1086,7 @@ html:not(.js) .esqueleto{display:none}
 .dx-pos,.dx-linea,.dx-lista,.dx-conjunto,.dx-contexto,.dx-ayuda{font-size:var(--t-2);line-height:var(--i-texto);max-width:var(--medida)}
 .dx-pos{margin:0 0 var(--e-2);color:var(--ink)}
 .dx-linea{margin:var(--e-3) 0 0}
-.dx-lista{margin:0;padding-left:1.2em}
-.dx-lista li+li{margin-top:var(--e-2)}
+.dx-lista{margin:0}
 .dx-salida cite,.dx-tabla small{font:400 var(--t-1)/1.4 var(--mono);font-style:normal;color:var(--muted)}
 .dx-tabla small{display:block;margin-top:2px}
 .dx-tabla{font-size:var(--t-2)}
@@ -1059,8 +1096,7 @@ html:not(.js) .esqueleto{display:none}
 .dx-conjunto,.dx-contexto{margin:0 0 var(--e-4);padding:var(--e-4);background:var(--superficie-2);border-radius:var(--r-interno)}
 .dx-ayuda{margin:var(--e-4) 0 0;color:var(--muted)}
 .dx-no-dice{margin-top:var(--e-6);padding-top:var(--e-5);border-top:1px dotted var(--azul)}
-.dx-no-dice ul{margin:0;padding-left:1.2em;font-size:var(--t-2);line-height:var(--i-texto);max-width:var(--medida)}
-.dx-no-dice li+li{margin-top:var(--e-2)}
+.dx-no-dice ul{margin:0;font-size:var(--t-2);line-height:var(--i-texto);max-width:var(--medida)}
 @media (max-width:760px){.dx-prov{padding:var(--e-4)}.dx-cifra b{font-size:var(--t-5)}}
 /* en pantallas angostas cada fila de la tabla es un bloque: el indicador arriba y sus tres valores con su rótulo */
 @media (max-width:560px){
@@ -1183,11 +1219,12 @@ html:not(.js) .esqueleto{display:none}
   .esp-cuerpo{padding:var(--e-4)}
 }
 /* comparación con la OCDE con un dato de más de tres años: el botón lleva una marca y la nota un aviso */
-.ocde-conm .boton.viejo::after{content:"";display:inline-block;width:7px;height:7px;margin-left:6px;border-radius:50%;background:var(--sol-fuerte);vertical-align:1px}
+.ocde-conm .boton.viejo::after{content:"";display:inline-block;width:12px;height:12px;margin-left:6px;vertical-align:-2px;background:var(--sol-fuerte);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6.3'/%3E%3Cpath d='M8 4.6V8l2.4 1.6'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6.3'/%3E%3Cpath d='M8 4.6V8l2.4 1.6'/%3E%3C/svg%3E") center/contain no-repeat}
 .ocde-aviso{color:var(--sol-borde);font-weight:600}
 /* quiebre de serie marcado arriba del gráfico (escolarización, SUBE) */
-.aviso-serie{display:flex;align-items:center;gap:var(--e-2);margin:var(--e-3) 0 0;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
-.aviso-serie::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--sol-fuerte)}
+.aviso-serie{margin:var(--e-3) 0 0;padding:2px 0 2px var(--e-3);border-left:3px solid var(--sol-fuerte);font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 .vt-matriz td.plat a{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;color:var(--celeste-fuerte)}
 .vt-matriz tr[role="button"]{cursor:pointer}
 .vt-matriz tr[role="button"]:hover td.ley,.vt-matriz tr[role="button"]:focus-visible td.ley{text-decoration:underline}
@@ -1231,8 +1268,8 @@ html:not(.js) .esqueleto{display:none}
 .nota .nota-pie-graf{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
 .nota-limites{margin:var(--e-8) 0 0;padding-top:var(--e-5);border-top:3px solid var(--azul)}
 .nota-limites h2{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
-.nota-limites ul{margin:0;padding-left:20px}
-.nota-limites li{margin:0 0 var(--e-2);line-height:1.5}
+.nota-limites ul{margin:0}
+.nota-limites li{line-height:1.5}
 .nota-fuentes{margin-top:var(--e-7);padding-top:var(--e-4);border-top:1px dotted var(--azul)}
 .nota .nota-fuentes p{font-size:var(--t-3);color:var(--muted)}
 .nota-fuentes .acciones{margin-left:0}
@@ -1280,8 +1317,8 @@ html:not(.js) .esqueleto{display:none}
 .form-gracias{max-width:34em;font-size:var(--t-5)}
 .no-acciones{display:flex;flex-wrap:wrap;gap:var(--e-3);margin:var(--e-6) 0 0}
 /* autores y licencias de las banderas, en Sobre nosotros */
-.creditos ul{margin:0 0 var(--e-4);padding-left:18px;font-size:var(--t-2);line-height:var(--i-chico);columns:2 240px;column-gap:var(--e-7)}
-.creditos li{margin:0 0 var(--e-1);break-inside:avoid}
+.creditos ul{margin:0 0 var(--e-4);font-size:var(--t-2);line-height:var(--i-chico);columns:2 240px;column-gap:var(--e-7)}
+.creditos li{margin:0 0 var(--e-2);break-inside:avoid}
 
 /* ---------- transiciones entre páginas (View Transitions entre documentos) ----------
    La barra queda anclada (también resuelve el paso de azul a clara), la página que se va se funde en 200 ms
@@ -1317,6 +1354,7 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   .menu-panel,.elige-panel,.tip,.menu-grupo{transform:none!important}
   .barra.compacta ~ .menu-panel{translate:none}
   .menu-btn .ico path{transition:none}
+  .tarjeta .iso,.lupa-btn .ico,.chip-borrar .ico,.menu-btn .ico .h2{transform:none!important}
   .barra,.barra-izq,.barra .temas,.barra-der,.barra .marca{transform:none!important}
   .mapa-fondo .provs path{transition:none}
   /* entre páginas: solo un fundido, nada viaja */
