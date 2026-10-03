@@ -41,7 +41,10 @@
   --celeste:#74ACDF; --celeste-fuerte:#2C74B5; --celeste-suave:#DCEBF8;
   --azul:#2C74B5; --azul-hondo:#1F5E97;
   --sol:#F6B40E; --sol-fuerte:#B27A00; --sol-suave:#FDF0CC; --sol-borde:#85340A;
-  --sol-texto:#7F5500;  /* dorado del sol para texto chico: pasa 4,5 a 1 sobre el blanco y sobre el vidrio del menú encima del azul */
+  --sol-texto:#7F5500;
+  /* cambio bueno o malo (etapa 16): verde azulado y bermellón de la paleta de Okabe e Ito, que se distinguen también con daltonismo.
+     Solo donde la dirección no se discute (ver "Reglas de diseño" en CLAUDE.md). Los de texto pasan 4,5 a 1 sobre el blanco */
+  --bueno:#009E73; --bueno-suave:#BFE7DA; --bueno-texto:#007A59; --malo:#D55E00; --malo-suave:#F5D2B8; --malo-texto:#B34700;  /* dorado del sol para texto chico: pasa 4,5 a 1 sobre el blanco y sobre el vidrio del menú encima del azul */
   --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
   --ocde:#7A4FA0; --ocde-suave:#ECE3F5; /* promedio de los países de la OCDE, solo dentro de los gráficos */
   /* sobre el azul de la portada */
@@ -850,6 +853,17 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .tabla-datos{margin:var(--e-4) 0 0}
 .tabla-datos .tabla-desliza{max-height:360px;margin:0}
 .tabla-nota{margin:6px 0 0;font-size:var(--t-2);color:var(--muted)}
+/* "Ver tabla" (etapa 16): en cada columna de números, el 20% más alto en azul y negrita y lo que queda debajo de la mitad en gris */
+.tabla-areas td.q-alto{color:var(--azul);font-weight:650}
+.tabla-areas td.q-bajo{color:var(--muted)}
+/* qué quiere decir cada color en los gráficos de cambios (etapa 16) */
+.clave-color{margin:0 0 var(--e-2);font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
+.c-bueno{color:var(--bueno-texto);font-weight:650}
+.c-malo{color:var(--malo-texto);font-weight:650}
+/* Cruces: lo que quedó fuera del cálculo */
+.cx-fuera{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-3);margin:var(--e-3) 0 0}
+.cx-fuera-lab{font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cx-reponer{font-size:var(--t-2)}
 @media (hover:hover) and (pointer:fine){.ficha:hover{border-color:var(--azul);box-shadow:0 0 0 1px var(--azul),var(--sombra-tarjeta)}}
 @media (max-width:760px){
   .ficha{margin:var(--e-4) 0;padding:var(--e-5) var(--e-4) var(--e-4)}
@@ -996,6 +1010,7 @@ html:not(.js) .esqueleto{display:none}
 .tip{position:absolute;z-index:5;padding:7px 10px;font-family:var(--mono);font-size:12px;line-height:1.35;white-space:nowrap;color:var(--bg);background:var(--azul-hondo);border-radius:var(--r-interno);
   pointer-events:none;opacity:0;transform:translateY(4px) scale(.96);transform-origin:50% 100%;transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .tip.on{opacity:1;transform:none}
+.tip .tip-pais{opacity:.82}
 /* tablas */
 .tabla-desliza{max-height:420px;overflow:auto;margin:var(--e-6) 0 var(--e-2);border:1px solid var(--line);border-radius:var(--r-interno)}
 .tabla-areas{width:100%;border-collapse:collapse;font-size:var(--t-3);font-variant-numeric:tabular-nums}

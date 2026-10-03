@@ -564,7 +564,11 @@ function barrasH(el, cfg) {
   const marca = cfg.marcar ? (d => cfg.marcar.has(d.codigo_indec)) : (d => d.codigo_indec === prov);
   const hayMarca = cfg.marcar ? cfg.marcar.size > 0 : !!prov;
   const claseProv = (d, base) => marca(d) ? "etq-fuerte" : base;
-  const relleno = d => marca(d) ? css("--celeste-fuerte") : (cfg.color ? cfg.color(d) : css("--celeste"));
+  // cfg.mejor ("sube" o "baja", etapa 16): verde si el cambio es bueno y rojo si es malo. Cuando el color dice algo (cfg.mejor o
+  // cfg.color), la provincia elegida se distingue solo por la opacidad de las demás y su nombre en negrita, sin pisar el color
+  const bueno = d => cfg.mejor === "baja" ? d[cfg.k] < 0 : d[cfg.k] > 0;
+  const colorCambio = (d, t) => d[cfg.k] === 0 ? css("--faint") : css(bueno(d) ? (t ? "--bueno-texto" : "--bueno") : (t ? "--malo-texto" : "--malo"));
+  const relleno = d => cfg.mejor ? colorCambio(d) : cfg.color ? cfg.color(d) : marca(d) ? css("--celeste-fuerte") : css("--celeste");
   const opac = d => hayMarca && !marca(d) ? .55 : 1;
   const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth()))
     .attr("width", d => Math.abs(x(d[cfg.k]) - x(0))).attr("fill", relleno).attr("opacity", opac);
@@ -572,6 +576,7 @@ function barrasH(el, cfg) {
     .attr("class", d => claseProv(d, "etq")).text(d => d.territorio);
   const valores = filas.append("text").attr("x", d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em")
     .attr("class", d => claseProv(d, "etq-suave")).text(d => (cfg.vf || n1)(d[cfg.k]));
+  if (cfg.mejor) valores.style("fill", d => colorCambio(d, true));
   // si los datos mismos cambian con la provincia (los nombres más frecuentes), se redibuja
   if (cfg.marcar) el.resaltar = () => {};
   else if (!cfg.cambiaConProv) el.resaltar = () => {
@@ -583,10 +588,17 @@ function barrasH(el, cfg) {
       .attr("x", d => x(Math.min(0, d[cfg.k]))).attr("width", d => Math.abs(x(d[cfg.k]) - x(0)));
     valores.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   }
-  if (cfg.tip) {
+  // el cuadro (etapa 16): los valores absolutos de cfg.tip, o el valor de la fila, y siempre que haya dato del país una fila "País"
+  // (cfg.ref es la línea del país en el gráfico, cfg.pais el valor sin línea). Con cfg.dif = "puntos", también la diferencia en puntos.
+  // Sin cuadro en el gráfico de suicidios (cfg.sinTip)
+  const vf = cfg.vf || n1, pais = cfg.ref ?? cfg.pais, r1v = v => +(+v).toFixed(1);
+  const filaPais = d => pais == null ? "" : `<br><span class="tip-pais">País: ${vf(pais)}` + (cfg.dif === "puntos" && r1v(d[cfg.k]) !== r1v(pais)
+    ? `, ${n1(Math.abs(r1v(d[cfg.k]) - r1v(pais)))} puntos ${r1v(d[cfg.k]) > r1v(pais) ? "más" : "menos"}` : "") + "</span>";
+  const tipFila = cfg.sinTip ? null : cfg.tip ? (d => cfg.tip(d) + filaPais(d)) : pais != null ? (d => `<b>${d.territorio}</b><br>${vf(d[cfg.k])}` + filaPais(d)) : null;
+  if (tipFila) {
     // toda la fila responde, no solo la barra, y el cuadro muestra los valores absolutos que la barra no dice
     filas.insert("rect", ":first-child").attr("x", -izq).attr("width", iw + izq + 54).attr("height", y.bandwidth()).attr("fill", "transparent");
-    filas.on("pointerenter", (ev, d) => mostrarTip(el, cfg.tip(d), izq + x(Math.max(0, d[cfg.k])), 24 + y(d.codigo_indec)))
+    filas.on("pointerenter", (ev, d) => mostrarTip(el, tipFila(d), izq + x(Math.max(0, d[cfg.k])), 24 + y(d.codigo_indec)))
       .on("pointerleave", ocultarTip);
   }
   if (cfg.ref != null) {
@@ -616,22 +628,32 @@ function pesas(el, cfg) {
     g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 6).attr("class","etq-fuerte").attr("fill",css("--ocde")).text(cfg.refLab);
   }
-  const opac = d => prov && d.codigo_indec !== prov ? .45 : 1, relleno = d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste");
+  // cfg.mejor ("sube" o "baja", etapa 16): el punto de después y el tramo en verde si el cambio es bueno y en rojo si es malo, y la
+  // provincia elegida se distingue solo por la opacidad de las demás y su nombre en negrita
+  const mejoro = d => cfg.mejor === "baja" ? d[b] < d[a] : d[b] > d[a];
+  const tono = (d, suave) => d[b] === d[a] ? css("--faint") : css(`--${mejoro(d) ? "bueno" : "malo"}${suave ? "-suave" : ""}`);
+  const opac = d => prov && d.codigo_indec !== prov ? .45 : 1;
+  const relleno = d => cfg.mejor ? tono(d) : d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste");
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.codigo_indec) + y.bandwidth()/2})`)
     .attr("opacity", opac);
-  const tramo = f.append("line").attr("x1", d => x(d[b])).attr("x2", d => x(d[a])).attr("stroke", css("--celeste-suave")).attr("stroke-width", 5).attr("stroke-linecap","round");
-  f.append("circle").attr("cx", d => x(d[a])).attr("r", 5).attr("fill", css("--bg")).attr("stroke", css("--celeste")).attr("stroke-width", 2);
+  const tramo = f.append("line").attr("x1", d => x(d[b])).attr("x2", d => x(d[a])).attr("stroke", d => cfg.mejor ? tono(d, true) : css("--celeste-suave")).attr("stroke-width", 5).attr("stroke-linecap","round");
+  f.append("circle").attr("cx", d => x(d[a])).attr("r", 5).attr("fill", css("--bg")).attr("stroke", css(cfg.mejor ? "--faint" : "--celeste")).attr("stroke-width", 2);
   const punto = f.append("circle").attr("cx", d => x(d[b])).attr("r", 5.5).attr("fill", relleno);
   const nombres = f.append("text").attr("x", -10).attr("dy",".35em").attr("text-anchor","end").attr("class", d => claseProv(d, "etq")).text(d => d.territorio);
   el.resaltar = () => { pasar(f).attr("opacity", opac); pasar(punto).attr("fill", relleno); nombres.attr("class", d => claseProv(d, "etq")); };
   const valor = f.append("text").attr("x", d => x(Math.max(d[a], d[b])) + 10).attr("dy",".35em").attr("class","etq-suave").text(d => vf(d[b]));
+  if (cfg.mejor) valor.style("fill", d => d[b] === d[a] ? null : css(mejoro(d) ? "--bueno-texto" : "--malo-texto"));
   if (cfg.anim) {
     // el punto viaja desde el valor de antes hasta el de después: la animación cuenta el cambio
     tramo.attr("x1", d => x(d[a])).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x1", d => x(d[b]));
     punto.attr("cx", d => x(d[a])).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("cx", d => x(d[b]));
     valor.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   }
-  f.on("pointerenter", function(ev, d) { const yy = y(d.codigo_indec) + 24; mostrarTip(el, `<b>${d.territorio}</b><br>${la}: ${vf(d[a])}<br>${lb}: ${vf(d[b])}`, x(d[b]) + (angosto?118:150), yy); })
+  // el cuadro (etapa 16): los dos valores, el cambio en palabras si es un cambio en el tiempo y los valores del país (cfg.pais)
+  const r1v = v => +(+v).toFixed(1);
+  const cambioTxt = d => { const c = r1v(r1v(d[b]) - r1v(d[a])); return c === 0 ? "Sin cambio" : `${c < 0 ? "Bajó" : "Subió"} ${n1(Math.abs(c))}${cfg.uDif || ""}`; };
+  f.on("pointerenter", function(ev, d) { const yy = y(d.codigo_indec) + 24; mostrarTip(el, `<b>${d.territorio}</b><br>${la}: ${vf(d[a])}<br>${lb}: ${vf(d[b])}` +
+      (cfg.mejor ? `<br>${cambioTxt(d)}` : "") + (cfg.pais ? `<br><span class="tip-pais">País: ${vf(cfg.pais[0])} y ${vf(cfg.pais[1])}</span>` : ""), x(d[b]) + (angosto?118:150), yy); })
    .on("pointerleave", ocultarTip);
 }
 
@@ -928,9 +950,12 @@ const DIB = {
     lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:40, ref:100, refLab: `${T.nacimientos[0].anio} = 100`, yf: v => v, vf: n0,
       xl: d => `${d.anio}<br><span class="suave">Argentina: ${n0(d.nacimientos)} nacimientos${d.nacimientos_ocde ? `<br>OCDE: ${n1(d.nacimientos_ocde / 1e6)} millones` : ""}</span>`,
       series:[{k:"idx_argentina", lab:"Argentina", c:NAR, w:3}, {k:"idx_ocde", lab:"OCDE", c:css("--ocde"), w:2.6}]}); },
-  envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb:"2040", vf: n1, af: v => v}),
-  adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a:"pct_2012", b:"pct_2024", la:"2012", lb:"2024"}),
+  envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb:"2040", vf: n1, af: v => v,
+    pais: [EV.hoy, EV.fin]}),
+  adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a:"pct_2012", b:"pct_2024", la:"2012", lb:"2024",
+    mejor: "baja", uDif: " puntos", pais: [nac.pct_2012, nac.pct_2024]}),
   mortalidad: a => pesas(G("mortalidad"), {anim:a, data: T.mortalidad_infantil_provincias, a:"tmi_base", b:"tmi_actual", la: mo.tri_base, lb: mo.tri_act,
+    mejor: "baja", pais: [mo.pais_base, mo.pais_act],
     vf: n1, af: v => v, ref: OC.mortalidad_infantil.ocde, refLab: `Promedio OCDE ${OC.mortalidad_infantil.anio}: ${n1(OC.mortalidad_infantil.ocde)}`}),
   sube: a => lineas(G("sube"), {anim:a, data: T.sube_dia_habil, x:"t", y0:0, mensual:true, huecos:true, ref: su.pre_millones * 1e6,
     refLab: "Marzo de 2020, antes del aislamiento", refLabCorto: "Marzo de 2020", vf: v => n2(v / 1e6) + " M", yf: v => n1(v / 1e6) + " M",
@@ -938,15 +963,14 @@ const DIB = {
     series:[{k:"total", lab:"Tarjetas", c:NAR, w:2.4}]}),
   suicidio: a => lineas(G("suicidio"), {anim:a, data: T.suicidio_serie, x:"anio", y0:0, vf: n1, yf: v => v,
     series:[{k:"tasa_varones", lab:"Varones", c:NAR, w:2}, {k:"tasa", lab:"Total", c:css("--ink"), w:2.6}, {k:"tasa_mujeres", lab:"Mujeres", c:FRI, w:2}]}),
-  "suicidio-prov": a => barrasH(G("suicidio-prov"), {anim:a, data: T.suicidio_provincias, k:"tasa", ref: R.suicidio.tasa, refLab:`País ${n1(R.suicidio.tasa)}`}),
+  "suicidio-prov": a => barrasH(G("suicidio-prov"), {anim:a, data: T.suicidio_provincias, k:"tasa", ref: R.suicidio.tasa, refLab:`País ${n1(R.suicidio.tasa)}`, sinTip: true}),
   edad: a => piramide(G("edad"), {anim:a, data: T.suicidio_edad_sexo}),
   empresas: a => barrasH(G("empresas"), {anim:a, data: T.empresas_provincias, k:"cada_1000_hab", ref: EM.pais_1000,
     tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_hab)} cada 1.000 habitantes<br>${n0(d.empresas)} empresas con empleados`, refLab: `País ${n1(EM.pais_1000)}`}),
-  dinamica: a => MED.dinamica === "pais"
-    ? lineas(G("dinamica"), {anim:a, data: T.empresas_serie_pais, x:"anio", y0:0, vf: v => n1(v) + "%", yf: v => v + "%",
+  dinamica: a => ($("clave-dinamica").hidden = MED.dinamica === "pais") ? lineas(G("dinamica"), {anim:a, data: T.empresas_serie_pais, x:"anio", y0:0, vf: v => n1(v) + "%", yf: v => v + "%",
         series: [{k:"tasa_entrada", c: css("--celeste-fuerte"), lab:"Aperturas"}, {k:"tasa_salida", c: css("--sol-fuerte"), lab:"Cierres"}]})
     : barrasH(G("dinamica"), {anim:a, data: T.empresas_provincias, k:`tasa_neta_${EM.ult}`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
-        ref: EM.neta, refLab: `País ${n1(EM.neta)}%`, color: d => d[`tasa_neta_${EM.ult}`] < 0 ? css("--sol") : css("--celeste")}),
+        ref: EM.neta, refLab: `País ${n1(EM.neta)}%`, mejor: "sube"}),
   rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
     k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
   piramide: conTablas("piramide", ["piramide_poblacion"], a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio})),
@@ -958,13 +982,13 @@ const DIB = {
   pisa: a => lineas(G("pisa"), {anim:a, data: T.pisa_argentina_ocde, x:"anio", y0:340, yf: v => v,
     series:[{k:`arg_${MED.pisa}_grafico`, lab:"Argentina", c:NAR, w:3}, {k:`ocde_${MED.pisa}`, lab:"Promedio OCDE", c:css("--ocde"), w:2.6}]}),
   escolarizacion: a => pesas(G("escolarizacion"), {anim:a, data: T.escolarizacion_secundaria_provincias, a:"tasa_inicio", b:"tasa_final",
-    la: String(es.ini), lb: String(es.fin), x0: 50}),
+    la: String(es.ini), lb: String(es.fin), x0: 50, mejor: "sube", uDif: " puntos", pais: [es.pais_ini, es.pais_fin]}),
   aprender: a => barrasH(G("aprender"), {anim:a, data: T.aprender_provincias, k:`${MED.aprender}_logra`,
     ref: MED.aprender === "mat" ? ap.mat : ap.len, refLab: `País ${pct(MED.aprender === "mat" ? ap.mat : ap.len)}`,
-    vf: v => n1(v) + "%", af: v => v + "%"}),
+    vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"}),
   protegida: a => MED.protegida === "pct_territorio"
     ? barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"pct_territorio", ref: nt.pct, refLab:`País ${pct(nt.pct)}`,
-        ref2: OC.protegida.ocde, ref2Lab: `Promedio OCDE ${OC.protegida.anio}: ${pct(OC.protegida.ocde)}`, vf: v => n1(v) + "%", af: v => v + "%"})
+        ref2: OC.protegida.ocde, ref2Lab: `Promedio OCDE ${OC.protegida.anio}: ${pct(OC.protegida.ocde)}`, vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"})
     : barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"m2_por_habitante", ref: nt.m2_pais, refLab:`País ${n0(nt.m2_pais)} m²`,
         vf: v => n0(v) + " m²", af: v => n0(v)}),
   parques: a => lineas(G("parques"), {anim:a, data: T.parques_nacionales_historia, x:"anio", y0:0, escalones:true, vf: v => M(v) + " ha", yf: M,
@@ -1013,7 +1037,8 @@ const DIB = {
   glaciares: a => barrasH(G("glaciares"), {anim:a, data: T.glaciares_provincias, k:"glaciares", vf: n0, af: n0}),
   clima: a => franjas(G("clima"), {anim:a, data: T.clima_desvio, k:"desvio_temperatura"}),
   esperanza: a => pesas(G("esperanza"), {anim:a, data: T.esperanza_vida_provincias, a:"varones", b:"mujeres", la:"Varones", lb:"Mujeres",
-    vf: v => n1(v) + " años", af: v => v, x0: 66, ref: OC.esperanza_vida.ocde, refLab: `Promedio OCDE ${OC.esperanza_vida.anio}: ${n1(OC.esperanza_vida.ocde)}`}),
+    vf: v => n1(v) + " años", af: v => v, x0: 66, ref: OC.esperanza_vida.ocde, refLab: `Promedio OCDE ${OC.esperanza_vida.anio}: ${n1(OC.esperanza_vida.ocde)}`,
+    pais: [nv.ev_v, nv.ev_m]}),
   exportaciones: a => barrasH(G("exportaciones"), {anim:a, data: T.exportaciones_provincias, k:"usd_por_habitante", ref: nv.ex_pc_pais,
     tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} US$ por habitante<br>${n0(d.millones_usd)} millones de US$ en total`,
     refLab: `País ${n0(nv.ex_pc_pais)}`, vf: v => n0(v) + " US$", af: n0}),
@@ -1030,18 +1055,17 @@ const DIB = {
   censo: a => {
     document.querySelector('[data-t="censo"]').textContent = textoCenso(MED.censo);
     barrasH(G("censo"), {anim:a, data: T.censo2022_provincias, k: MED.censo, ref: nv.censo[MED.censo], refLab: `País ${pct(nv.censo[MED.censo])}`,
-      vf: v => n1(v) + "%", af: v => v + "%"});
+      vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"});
   },
   internet: a => MED.internet === "mbps"
     ? barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"mbps", vf: v => n0(v) + " Mbps", af: n0})
     : barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", vf: n1, af: n0}),
   extranjeros: a => barrasH(G("extranjeros"), {anim:a, data: T.extranjeros_provincias, k:"cada_100", ref: nv.xt_pais, refLab: `País ${n1(nv.xt_pais)}`, vf: n1, af: n0}),
-  empleo: a => MED.empleo === "cada_100"
-    ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais,
+  empleo: a => ($("clave-empleo").hidden = MED.empleo === "cada_100") ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais,
         tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100)} cada 100 habitantes<br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.poblacion)} habitantes`, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
     : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m",
         tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
-        color: d => d.var_12m < 0 ? css("--sol") : css("--celeste")}),
+        mejor: "sube", pais: R.empleo.var_nac}),
 };
 
 /* ---------- política ---------- */
@@ -1728,12 +1752,14 @@ const VISTA = {};
 Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
   const art = document.getElementById(id), graf = G(g); if (!art || !graf) return;
   VISTA[g] = null;
-  graf.insertAdjacentHTML("beforebegin", `<div class="ocde-conm" role="group" aria-label="Qué muestra el gráfico">` +
+  // la línea que explica los colores (etapa 16) queda entre los botones y el gráfico
+  const ancla = graf.previousElementSibling?.classList.contains("clave-color") ? graf.previousElementSibling : graf;
+  ancla.insertAdjacentHTML("beforebegin", `<div class="ocde-conm" role="group" aria-label="Qué muestra el gráfico">` +
     `<button type="button" class="boton chico propio" aria-pressed="true">${propio}</button>` +
     ks.map(k => `<button type="button" class="boton chico${ocdeViejo(k) ? " viejo" : ""}" data-k="${k}" aria-pressed="false">OCDE: ${OCDE_BOTON[k]}, ${OC[k].anio}</button>`).join("") + `</div>`);
   graf.insertAdjacentHTML("afterend", `<p class="nota ocde-nota" hidden></p>`);
-  const conm = graf.previousElementSibling, nota = graf.nextElementSibling, lead = art.querySelector(".lead");
-  const propios = [...art.querySelectorAll(".sobre, .nota:not(.ocde-nota), .selector-ficha, .conmutador:not(.pestanas), .aviso-serie")];
+  const conm = ancla.previousElementSibling, nota = graf.nextElementSibling, lead = art.querySelector(".lead");
+  const propios = [...art.querySelectorAll(".sobre, .nota:not(.ocde-nota), .selector-ficha, .conmutador:not(.pestanas), .aviso-serie, .clave-color")];
   conm.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
     if (VISTA[g] === (b.dataset.k || null)) return;
     VISTA[g] = b.dataset.k || null;
@@ -1908,6 +1934,12 @@ const CX = (() => {
     });
     document.getElementById("cx-tam").checked = st.tam;
     document.getElementById("cx-caba").setAttribute("aria-pressed", st.fuera.has("02"));
+    // lo que quedó fuera del cálculo (etapa 16): cada jurisdicción con su cruz, y "Volver a sumar todas" solo si hay alguna afuera
+    const fuera = FILAS.filter(f => st.fuera.has(f.codigo_indec)).sort((p, q) => p.territorio.localeCompare(q.territorio, "es"));
+    document.getElementById("cx-fuera").hidden = !fuera.length;
+    document.getElementById("cx-fuera-lista").innerHTML = fuera.map(f => `<li><span class="con-bandera">${bandera(f.codigo_indec)}<span>${f.territorio}</span></span>` +
+      `<button type="button" class="dx-quitar" data-c="${f.codigo_indec}" aria-label="Volver a sumar ${f.territorio}"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 3l6 6M9 3l-6 6"/></svg></button></li>`).join("");
+    document.getElementById("cx-fuera-estado").textContent = fuera.length ? `Fuera del cálculo: ${lista(fuera.map(f => f.territorio))}.` : "";
     listaMX.querySelectorAll("input").forEach(i => { i.checked = st.mx.includes(i.value); i.disabled = i.value === st.my; });
   };
   const barraTiempo = () => {
@@ -1944,7 +1976,16 @@ const CX = (() => {
   document.getElementById("cx-cambiar").addEventListener("click", () => { [st.x, st.y] = [st.y, st.x]; [st.logx, st.logy] = [st.logy, st.logx]; todo(true); });
   ["tam", "logx", "logy"].forEach(k => document.getElementById(`cx-${k}`).addEventListener("change", ev => { st[k] = ev.target.checked; todo(true); }));
   document.getElementById("cx-caba").addEventListener("click", () => { st.fuera.has("02") ? st.fuera.delete("02") : st.fuera.add("02"); todo(true); });
-  document.getElementById("cx-reponer").addEventListener("click", () => { st.fuera.clear(); todo(true); });
+  // al volver a sumar todas, el botón desaparece: el foco pasa a "Sin CABA"
+  document.getElementById("cx-reponer").addEventListener("click", () => { st.fuera.clear(); todo(true); document.getElementById("cx-caba").focus({preventScroll: true}); });
+  // la cruz de cada jurisdicción la vuelve a sumar, y el foco pasa a la que quedó en su lugar (o a "Sin CABA" si no queda ninguna)
+  document.getElementById("cx-fuera-lista").addEventListener("click", ev => {
+    const bt = ev.target.closest(".dx-quitar"); if (!bt) return;
+    const i = [...document.querySelectorAll("#cx-fuera-lista .dx-quitar")].indexOf(bt);
+    st.fuera.delete(bt.dataset.c); todo(true);
+    const quedan = [...document.querySelectorAll("#cx-fuera-lista .dx-quitar")];
+    (quedan[Math.min(i, quedan.length - 1)] || document.getElementById("cx-caba")).focus({preventScroll: true});
+  });
   document.getElementById("cx-sug").addEventListener("click", ev => {
     const b = ev.target.closest(".cx-chip"); if (!b) return;
     [st.x, st.y] = SUG[+b.dataset.i]; st.logx = false; st.logy = false; todo(true);
@@ -2493,16 +2534,28 @@ const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">
 function conBandera(c, nombre) { return `<span class="con-bandera">${bandera(c)}<span>${esc(nombre)}</span></span>`; }
 const nTabla = loc.format(",.2~f");
 // Tabla de la ficha dentro de la tarjeta (idea de USAFacts), con las mismas filas que el CSV
-function tablaDatos(filas) {
+function tablaDatos(filas, ficha = "") {
   const MAX = 300, todas = Object.keys(filas[0]);
   const cols = todas.includes("territorio") ? ["territorio", ...todas.filter(c => c !== "territorio" && c !== "codigo_indec")] : todas;
   const anio = c => filas.every(r => r[c] == null || (Number.isInteger(r[c]) && r[c] >= 1800 && r[c] <= 2100));
   const num = Object.fromEntries(cols.map(c => [c, filas.some(r => typeof r[c] === "number")]));
   const v = (r, c) => r[c] == null ? "" : typeof r[c] === "number" ? (anio(c) ? String(r[c]) : nTabla(r[c])) : Array.isArray(r[c]) ? r[c].join(", ") : typeof r[c] === "object" ? JSON.stringify(r[c]) : r[c];
+  // Resaltado (etapa 16, idea de un tablero que compartió el autor): en cada columna de números, el 20% más alto en azul y negrita y lo
+  // que queda debajo de la mitad en gris, para leer la tabla sin el gráfico. Se calcula sobre las filas que se ven, sin el total del país.
+  // No va en las fichas de suicidio (nada que se lea como ranking) ni en columnas de años, meses, códigos, edades o coordenadas
+  const vistas = filas.slice(0, MAX), esTotal = r => r.codigo_indec === "00" || /^total/i.test(String(r.territorio || ""));
+  const corte = {};
+  if (!/suicid|f-muertes|f-edad/.test(ficha)) cols.forEach(c => {
+    if (!num[c] || anio(c) || /^(codigo_indec|anio|mes|semestre|trimestre|t|orden|edad|lat|lng)$/.test(c)) return;
+    const xs = vistas.filter(r => !esTotal(r) && typeof r[c] === "number").map(r => r[c]).sort(d3.ascending);
+    if (xs.length >= 6 && new Set(xs).size > 2) corte[c] = [d3.quantile(xs, .8), d3.quantile(xs, .5)];
+  });
+  const clase = (r, c) => !corte[c] || typeof r[c] !== "number" || esTotal(r) ? "" : r[c] >= corte[c][0] ? " q-alto" : r[c] < corte[c][1] ? " q-bajo" : "";
   return `<div class="tabla-desliza"><table class="tabla-areas"><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
-    filas.slice(0, MAX).map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ' class="n"' : ""}>${
+    vistas.map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ` class="n${clase(r, c)}"` : ""}>${
       c === "territorio" && (NOMBRES[r.codigo_indec] || r.codigo_indec === "00") ? conBandera(r.codigo_indec, v(r, c)) : esc(v(r, c))}</td>`).join("")}</tr>`).join("") +
-    `</tbody></table></div><p class="tabla-nota">${filas.length > MAX ? `Primeras ${MAX} filas de ${n0(filas.length)}. ` : ""}La tabla completa está en el CSV.</p>`;
+    `</tbody></table></div><p class="tabla-nota">${filas.length > MAX ? `Primeras ${MAX} filas de ${n0(filas.length)}. ` : ""}La tabla completa está en el CSV.` +
+    (Object.keys(corte).length ? ` En cada columna de números, en azul y negrita el 20% de los valores más altos y en gris los que quedan debajo de la mitad${filas.length > MAX ? " (entre las filas que se ven)" : ""}.` : "") + `</p>`;
 }
 // Imagen de la ficha: título, texto, gráfico y fuente en un PNG de doble resolución
 const svgUnico = f => { const v = [...f.querySelectorAll(".grafico svg")].filter(s => s.getBoundingClientRect().width > 0 && s.viewBox?.baseVal?.width); return v.length === 1 ? v[0] : null; };
@@ -2569,7 +2622,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
     const b = ev.currentTarget, abierta = b.getAttribute("aria-expanded") === "true";
     if (b.dataset.cargando) return;
     let caja = f.querySelector(".tabla-datos");
-    if (!caja) { b.dataset.cargando = "1"; const t = await cargarTabla(nombre).finally(() => delete b.dataset.cargando); caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(t); pie.before(caja); }
+    if (!caja) { b.dataset.cargando = "1"; const t = await cargarTabla(nombre).finally(() => delete b.dataset.cargando); caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(t, f.id); pie.before(caja); }
     caja.hidden = abierta; b.setAttribute("aria-expanded", String(!abierta));
     b.querySelector(".lbl").textContent = abierta ? "Ver tabla" : "Ocultar tabla";
   });

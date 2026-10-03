@@ -227,6 +227,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="cada_100" aria-pressed="true">Cada 100 habitantes</button>
         <button type="button" data-m="var_12m" aria-pressed="false">Variación en 12 meses</button>
       </div>
+      <p class="clave-color" id="clave-empleo" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
       <div class="grafico" data-g="empleo" data-forma="barras"></div>
       <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección 2025 del INDEC usada por el SNIC.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -297,6 +298,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="pais" aria-pressed="true">Serie del país</button>
         <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
       </div>
+      <p class="clave-color" id="clave-dinamica" hidden><span class="c-bueno">En verde</span>, donde abrieron más empresas de las que cerraron. <span class="c-malo">En rojo</span>, donde cerraron más.</p>
       <div class="grafico" data-g="dinamica" data-forma="lineas"></div>
       <p class="nota" data-t="dinamica-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_serie_pais.csv" download>Descargar tabla (CSV)</a></div>
@@ -391,6 +393,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-mortalidad">
       <h3 data-t="mortalidad-titulo">Tasa de mortalidad infantil por provincia</h3>
       <p class="lead" data-t="mortalidad"></p>
+      <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="mortalidad" data-forma="pesas" style="--extra:12px"></div>
       <p class="nota" data-t="mortalidad-nota"></p>
       <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -466,6 +469,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
       <p class="lead" data-t="escolarizacion"></p>
       <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
+      <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa subió. <span class="c-malo">En rojo</span>, donde bajó.</p>
       <div class="grafico" data-g="escolarizacion" data-forma="pesas"></div>
       <p class="nota" data-t="escolarizacion-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -531,6 +535,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-adolescentes">
       <h3>Nacimientos de madres menores de 20 años por provincia, 2012 y 2024</h3>
       <p class="lead" data-t="adolescentes"></p>
+      <p class="clave-color"><span class="c-bueno">En verde</span>, donde bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="adolescentes" data-forma="pesas"></div>
       <p class="nota">Porcentaje de los nacidos vivos de cada provincia, según el lugar donde vive la madre, cuya madre tenía menos de 20 años. El círculo claro marca 2012 y el oscuro 2024.</p>
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -996,8 +1001,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <label><input type="checkbox" id="cx-logx"> Horizontal logarítmico</label>
           <label><input type="checkbox" id="cx-logy"> Vertical logarítmico</label>
           <button type="button" class="boton chico cx-boton" id="cx-caba" aria-pressed="false">Sin CABA</button>
-          <button type="button" class="boton chico cx-boton" id="cx-reponer">Todas las provincias</button>
         </div>
+        <!-- jurisdicciones fuera del cálculo (etapa 16): cada una con su cruz para volver a sumarla, y "Volver a sumar todas" solo cuando hay alguna afuera -->
+        <div class="cx-fuera" id="cx-fuera" hidden>
+          <span class="cx-fuera-lab" id="cx-fuera-lab">Fuera del cálculo</span>
+          <ul class="dx-chips" id="cx-fuera-lista" aria-labelledby="cx-fuera-lab"></ul>
+          <button type="button" class="enlace cx-reponer" id="cx-reponer">Volver a sumar todas</button>
+        </div>
+        <p class="solo-lector" id="cx-fuera-estado" aria-live="polite"></p>
         <div class="cx-sug"><span class="cx-sug-lab">Para empezar</span><span id="cx-sug"></span></div>
         <div class="cx-cuerpo">
           <div>

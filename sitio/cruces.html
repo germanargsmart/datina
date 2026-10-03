@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=54cb7427de">
+<link rel="stylesheet" href="datina.css?v=d4fe4e51f0">
 </head>
 <body data-pagina="cruces">
 <header class="barra clara">
@@ -133,8 +133,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <label><input type="checkbox" id="cx-logx"> Horizontal logarítmico</label>
           <label><input type="checkbox" id="cx-logy"> Vertical logarítmico</label>
           <button type="button" class="boton chico cx-boton" id="cx-caba" aria-pressed="false">Sin CABA</button>
-          <button type="button" class="boton chico cx-boton" id="cx-reponer">Todas las provincias</button>
         </div>
+        <!-- jurisdicciones fuera del cálculo (etapa 16): cada una con su cruz para volver a sumarla, y "Volver a sumar todas" solo cuando hay alguna afuera -->
+        <div class="cx-fuera" id="cx-fuera" hidden>
+          <span class="cx-fuera-lab" id="cx-fuera-lab">Fuera del cálculo</span>
+          <ul class="dx-chips" id="cx-fuera-lista" aria-labelledby="cx-fuera-lab"></ul>
+          <button type="button" class="enlace cx-reponer" id="cx-reponer">Volver a sumar todas</button>
+        </div>
+        <p class="solo-lector" id="cx-fuera-estado" aria-live="polite"></p>
         <div class="cx-sug"><span class="cx-sug-lab">Para empezar</span><span id="cx-sug"></span></div>
         <div class="cx-cuerpo">
           <div>
@@ -204,7 +210,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=90b3651fdd"></script>
-<script src="datina.js?v=45dd131710"></script>
+<script src="datos/fichas.js?v=4d9bafa2f3"></script>
+<script src="datina.js?v=a92540f377"></script>
 </body>
 </html>

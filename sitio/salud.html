@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=54cb7427de">
+<link rel="stylesheet" href="datina.css?v=d4fe4e51f0">
 </head>
 <body data-pagina="salud">
 <header class="barra clara">
@@ -107,6 +107,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-mortalidad">
       <h3 data-t="mortalidad-titulo">Tasa de mortalidad infantil por provincia</h3>
       <p class="lead" data-t="mortalidad"></p>
+      <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="mortalidad" data-forma="pesas" style="--extra:12px"></div>
       <p class="nota" data-t="mortalidad-nota"></p>
       <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -204,7 +205,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=90b3651fdd"></script>
-<script src="datina.js?v=45dd131710"></script>
+<script src="datos/fichas.js?v=4d9bafa2f3"></script>
+<script src="datina.js?v=a92540f377"></script>
 </body>
 </html>
