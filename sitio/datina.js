@@ -3057,17 +3057,32 @@ const PREG = [
   mostrar(0, false);
 })();
 
-/* menú de temas */
+/* menú de secciones (etapa 14): un panel de vidrio fuera de la barra, alineado con el botón. En el celular ocupa la pantalla
+   debajo de la barra y la página queda quieta detrás (clase menu-abierto en la raíz) */
 (() => {
-  const btn = document.getElementById("menu-btn"), panel = document.getElementById("menu-panel");
+  const btn = document.getElementById("menu-btn"), panel = document.getElementById("menu-panel"), raiz = document.documentElement;
   let t;
-  const abrir = () => { clearTimeout(t); panel.hidden = false; btn.setAttribute("aria-expanded", "true"); requestAnimationFrame(() => panel.classList.add("abierto")); panel.querySelector("a").focus({preventScroll: true}); };
+  const abierto = () => btn.getAttribute("aria-expanded") === "true", primero = () => panel.querySelector("a");
+  const ubicar = () => panel.style.setProperty("--menu-izq", Math.round(btn.getBoundingClientRect().left) + "px");
   // los botones de la barra están fijos arriba: sin preventScroll, Chrome corre la página para "mostrarlos" al darles el foco
-  const cerrar = (volver) => { panel.classList.remove("abierto"); btn.setAttribute("aria-expanded", "false"); t = setTimeout(() => panel.hidden = true, 160); if (volver) btn.focus({preventScroll: true}); };
-  btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
+  const abrir = () => {
+    clearTimeout(t); ubicar(); panel.hidden = false; btn.setAttribute("aria-expanded", "true"); raiz.classList.add("menu-abierto");
+    requestAnimationFrame(() => panel.classList.add("abierto")); primero().focus({preventScroll: true});
+  };
+  const cerrar = (volver) => {
+    panel.classList.remove("abierto"); btn.setAttribute("aria-expanded", "false"); raiz.classList.remove("menu-abierto");
+    t = setTimeout(() => panel.hidden = true, 160); if (volver) btn.focus({preventScroll: true});
+  };
+  btn.addEventListener("click", () => abierto() ? cerrar(true) : abrir());
   panel.addEventListener("click", ev => { if (ev.target.closest("a")) cerrar(false); });
-  document.addEventListener("keydown", ev => { if (ev.key === "Escape" && btn.getAttribute("aria-expanded") === "true") cerrar(true); });
-  document.addEventListener("pointerdown", ev => { if (!panel.contains(ev.target) && !btn.contains(ev.target) && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
+  document.addEventListener("keydown", ev => { if (ev.key === "Escape" && abierto()) cerrar(true); });
+  document.addEventListener("pointerdown", ev => { if (abierto() && !panel.contains(ev.target) && !btn.contains(ev.target)) cerrar(false); });
+  // el panel va después de la barra en la página: con Tab se entra desde el botón, con Mayúscula y Tab se vuelve a él, y si el
+  // foco sale hacia otro lugar de la página el menú se cierra
+  btn.addEventListener("keydown", ev => { if (ev.key === "Tab" && !ev.shiftKey && abierto()) { ev.preventDefault(); primero().focus({preventScroll: true}); } });
+  panel.addEventListener("keydown", ev => { if (ev.key === "Tab" && ev.shiftKey && document.activeElement === primero()) { ev.preventDefault(); btn.focus({preventScroll: true}); } });
+  panel.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (abierto() && a && !panel.contains(a) && a !== btn) cerrar(false); });
+  addEventListener("resize", () => { if (abierto()) ubicar(); });
 })();
 
 /* ---------- artículos: preguntas respondidas cruzando dos indicadores de las 24 jurisdicciones ----------

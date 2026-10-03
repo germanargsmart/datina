@@ -7,20 +7,30 @@
    El texto "Ver todo el país" del indicador de provincia aparece recién desde 1320 px, cuando entra junto a los temas. */
 
 /* ---------- valores del sistema ---------- */
-/* Letras de reemplazo (etapa 13, octubre de 2026): mientras llegan Roboto Flex y Roboto Mono, el navegador usa Arial (o Consolas)
-   achicada para que ocupe el mismo ancho, así los renglones no cambian cuando llega la letra y la página no salta. Una por estilo:
-   el texto común y los títulos condensados (el número es su ancho, "wdth"). Medido en Chrome: Roboto Flex mide el 97,8% de Arial
-   en el texto y los títulos condensados, entre el 38% y el 88%. Los títulos de una sola palabra (DATINA, la marca) no empujan nada
-   y quedan con el reemplazo común. El lema ("wdth" 30) va al 55% y no al 38% que daría su ancho: tan chico no se leía, y al 55%
-   sigue entrando en un renglón desde los 360 píxeles. En Android, sin Arial, sigue Roboto, que mide casi lo mismo. Cada reemplazo cubre solo los
-   caracteres de la parte latina de Roboto Flex que baja el sitio: los demás (las flechas, por ejemplo) se dibujan como antes. */
-@font-face{font-family:"Datina Texto";src:local("Arial"),local("ArialMT"),local("Liberation Sans"),local("Arimo");font-weight:100 550;size-adjust:97.8%;ascent-override:95.1%;descent-override:24.5%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Datina Texto";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("Arimo Bold");font-weight:551 900;size-adjust:97%;ascent-override:95.9%;descent-override:24.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Datina C30";src:local("Arial"),local("ArialMT"),local("Liberation Sans"),local("Arimo");font-weight:100 900;size-adjust:55%;ascent-override:169.1%;descent-override:43.6%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Datina C45";src:local("Arial"),local("ArialMT"),local("Liberation Sans"),local("Arimo");font-weight:100 900;size-adjust:52.7%;ascent-override:176.5%;descent-override:45.5%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Datina C55";src:local("Arial"),local("ArialMT"),local("Liberation Sans"),local("Arimo");font-weight:100 900;size-adjust:58.5%;ascent-override:159.0%;descent-override:41.0%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Datina C60";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("Arimo Bold");font-weight:100 900;size-adjust:88.3%;ascent-override:105.3%;descent-override:27.2%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Datina C75";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("Arimo Bold");font-weight:100 900;size-adjust:85.2%;ascent-override:109.2%;descent-override:28.2%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* Letras de reemplazo (etapa 13, y desde la etapa 14 sin Arial, pedido del autor): mientras llegan Roboto Flex y Roboto Mono,
+   el navegador usa Roboto (Android, ChromeOS y quien la tenga instalada) o, si no está, Verdana (Windows, Mac y iOS), achicadas
+   para que ocupen el mismo ancho, así los renglones no cambian cuando llega la letra y la página no salta. Para el código, Consolas.
+   Una familia por letra y por estilo, porque cada una se achica distinto: el texto común y los títulos condensados (el número es su
+   ancho, "wdth"). Medido en el navegador: Roboto Flex mide el 98,7% de Roboto y el 86,4% de Verdana en el texto, y los títulos
+   condensados, entre el 36% y el 95%. Si una letra no está instalada, el navegador pasa a la siguiente. Los títulos de una sola
+   palabra (DATINA, la marca) no empujan nada y quedan con el reemplazo común. El lema ("wdth" 30) va un poco más grande que su
+   ancho (tan chico no se leía) y sigue entrando en un renglón desde los 360 píxeles. Cada reemplazo cubre solo los caracteres de la
+   parte latina de Roboto Flex que baja el sitio: los demás (las flechas, por ejemplo) se dibujan como antes.
+   Antes de la etapa 13 el reemplazo era Verdana sin achicar, que ocupa un 16% más de ancho: por eso la página saltaba. */
+@font-face{font-family:"Datina Roboto";src:local("Roboto"),local("Roboto Regular"),local("Roboto-Regular");font-weight:100 550;size-adjust:98.7%;ascent-override:94.2%;descent-override:24.3%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Roboto";src:local("Roboto Bold"),local("Roboto-Bold");font-weight:551 900;size-adjust:101.6%;ascent-override:91.5%;descent-override:23.6%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana";src:local("Verdana");font-weight:100 550;size-adjust:86.4%;ascent-override:107.6%;descent-override:27.8%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana";src:local("Verdana Bold"),local("Verdana-Bold");font-weight:551 900;size-adjust:80.9%;ascent-override:115.0%;descent-override:29.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Roboto C30";src:local("Roboto"),local("Roboto Regular"),local("Roboto-Regular");font-weight:100 900;size-adjust:55.5%;ascent-override:167.6%;descent-override:43.2%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana C30";src:local("Verdana");font-weight:100 900;size-adjust:48.6%;ascent-override:191.4%;descent-override:49.4%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Roboto C45";src:local("Roboto"),local("Roboto Regular"),local("Roboto-Regular");font-weight:100 900;size-adjust:53.2%;ascent-override:174.8%;descent-override:45.1%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana C45";src:local("Verdana");font-weight:100 900;size-adjust:46.5%;ascent-override:200.0%;descent-override:51.6%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Roboto C55";src:local("Roboto"),local("Roboto Regular"),local("Roboto-Regular");font-weight:100 900;size-adjust:59.0%;ascent-override:157.6%;descent-override:40.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana C55";src:local("Verdana");font-weight:100 900;size-adjust:51.6%;ascent-override:180.2%;descent-override:46.5%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Roboto C60";src:local("Roboto Bold"),local("Roboto-Bold");font-weight:100 900;size-adjust:94.9%;ascent-override:98.0%;descent-override:25.3%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana C60";src:local("Verdana Bold"),local("Verdana-Bold");font-weight:100 900;size-adjust:77.9%;ascent-override:119.4%;descent-override:30.8%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Roboto C75";src:local("Roboto Bold"),local("Roboto-Bold");font-weight:100 900;size-adjust:90.2%;ascent-override:103.1%;descent-override:26.6%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana C75";src:local("Verdana Bold"),local("Verdana-Bold");font-weight:100 900;size-adjust:71.8%;ascent-override:129.5%;descent-override:33.4%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Datina Mono";src:local("Consolas");font-weight:100 900;size-adjust:109.1%;ascent-override:96.2%;descent-override:24.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
   color-scheme:light;
@@ -36,9 +46,10 @@
   /* sobre el azul de la portada */
   --en-azul-texto:rgba(255,255,255,.86); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);
   /* letra: diez tamaños y nada más. Los que van entre dos valores se ajustan al ancho de la pantalla */
-  --f:"Roboto Flex","Datina Texto", Roboto, Verdana, system-ui, sans-serif;
-  --f-c30:"Roboto Flex","Datina C30",var(--f); --f-c45:"Roboto Flex","Datina C45",var(--f); --f-c55:"Roboto Flex","Datina C55",var(--f);
-  --f-c60:"Roboto Flex","Datina C60",var(--f); --f-c75:"Roboto Flex","Datina C75",var(--f);
+  --f:"Roboto Flex","Datina Roboto","Datina Verdana", Roboto, Verdana, system-ui, sans-serif;
+  --f-c30:"Roboto Flex","Datina Roboto C30","Datina Verdana C30",var(--f); --f-c45:"Roboto Flex","Datina Roboto C45","Datina Verdana C45",var(--f);
+  --f-c55:"Roboto Flex","Datina Roboto C55","Datina Verdana C55",var(--f);
+  --f-c60:"Roboto Flex","Datina Roboto C60","Datina Verdana C60",var(--f); --f-c75:"Roboto Flex","Datina Roboto C75","Datina Verdana C75",var(--f);
   --mono:"Roboto Mono","Datina Mono",ui-monospace,Menlo,Consolas,monospace;
   --t-1:11px;                          /* etiquetas en mayúsculas */
   --t-2:13px;                          /* notas, pies y datos chicos */
@@ -186,6 +197,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .barra.clara .lupa-btn,.barra.clara .menu-btn{color:var(--azul);border-color:var(--azul)}
 .barra.clara .menu-btn{border-color:transparent}
 .barra.clara .lupa-btn[aria-expanded="true"],.barra.clara .menu-btn[aria-expanded="true"]{background:var(--azul);color:#fff}
+/* "Secciones" abierto (etapa 14): un fondo suave y las tres rayas que se vuelven una cruz en 200 ms */
+.menu-btn[aria-expanded="true"]{background:var(--en-azul-velo);color:#fff}
+.barra.clara .menu-btn[aria-expanded="true"]{background:var(--celeste-suave);color:var(--azul)}
+.menu-btn .ico path{transform-box:view-box;transition:transform var(--dur-2) var(--ease-out),opacity var(--dur-1) var(--ease-out)}
+.menu-btn .ico .h1{transform-origin:10px 5px}.menu-btn .ico .h2{transform-origin:10px 10px}.menu-btn .ico .h3{transform-origin:10px 15px}
+.menu-btn[aria-expanded="true"] .ico .h1{transform:translateY(5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .ico .h2{opacity:0;transform:scaleX(.2)}
+.menu-btn[aria-expanded="true"] .ico .h3{transform:translateY(-5px) rotate(-45deg)}
 /* provincia elegida: bandera y nombre (llevan al perfil) y un botón para volver a todo el país */
 .prov-chip{display:flex;align-items:stretch;min-width:0;height:40px;color:#fff;border:1px solid var(--en-azul-borde);border-radius:var(--r-control);overflow:hidden}
 .prov-chip[hidden]{display:none}
@@ -208,28 +227,45 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .barra.clara .prov-chip{color:var(--azul);border-color:var(--azul)}
 .barra.clara .chip-borrar{border-left-color:var(--borde-claro)}
 @media (min-width:1320px){.chip-txt{display:inline}}
-/* menú de secciones: se abre debajo del botón, a la izquierda */
-.menu-panel{position:absolute;left:var(--margen);top:calc(100% + 4px);z-index:60;width:min(680px,calc(100vw - 2 * var(--margen)));max-height:calc(100dvh - 100px);overflow:auto;
-  display:grid;grid-template-columns:2fr 1fr;padding:10px 0 12px;background:#fff;border:1px solid var(--azul);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);
-  transform-origin:top left;opacity:0;transform:scale(.97) translateY(-4px);transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
-.menu-panel.abierto{opacity:1;transform:none}
-.teclado .menu-panel,.teclado .elige-panel{transition:none}
+/* Menú de secciones (etapa 14, pedido del autor: "moderno, transparente", con la idea del video "Stop adding columns to mobile
+   menus" de Zander Whitehurst). Va fuera de la barra: dentro de ella, que ya desenfoca lo que tiene detrás y tiene nombre de
+   transición, el vidrio no desenfocaba la página. Vidrio claro (blanco al 80% con la página desenfocada detrás, así el texto se
+   lee igual sobre el azul de la portada), grupos con un rótulo chico y enlaces más grandes. En la computadora, tres columnas
+   debajo del botón. En el celular, una sola columna que ocupa la pantalla debajo de la barra, con la página quieta detrás.
+   Al abrir, el panel aparece en 200 ms y los grupos entran de a uno (30 ms entre uno y otro, 120 en total) */
+.menu-panel{position:fixed;z-index:30;left:var(--menu-izq,var(--margen));top:calc(env(safe-area-inset-top,0px) + 80px);
+  width:min(780px,calc(100vw - 2 * var(--margen)));max-height:calc(100dvh - 104px);overflow:auto;overscroll-behavior:contain;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--e-6);padding:var(--e-6) var(--e-6) var(--e-7);
+  background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);backdrop-filter:blur(24px) saturate(1.8);
+  border:1px solid rgba(255,255,255,.75);border-radius:var(--r-panel);
+  box-shadow:0 0 0 1px rgba(44,116,181,.14),0 24px 56px -18px rgba(31,94,151,.38),inset 0 1px 0 rgba(255,255,255,.9);
+  transform-origin:top left;opacity:0;transform:translateY(-6px) scale(.98);
+  transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-2) var(--ease-out),translate var(--dur-3) var(--ease-out)}
+.menu-panel.abierto{opacity:1;transform:none;transition-duration:var(--dur-2),var(--dur-2),var(--dur-3)}
+/* la barra sube 14 píxeles al bajar por la página: el panel la sigue con el mismo movimiento */
+.barra.compacta ~ .menu-panel{translate:0 -14px}
+.menu-col{display:flex;flex-direction:column;gap:var(--e-5);min-width:0}
+.menu-grupo{opacity:0;transform:translateY(8px);transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-3) var(--ease-out)}
+.menu-panel.abierto .menu-grupo{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 30ms)}
+.menu-panel .menu-tit{margin:0 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.menu-panel ul{margin:0;padding:0;list-style:none}
+.menu-panel a{display:flex;align-items:center;gap:var(--e-2);margin:0 calc(-1 * var(--e-3));padding:6px var(--e-3);border-radius:var(--r-control);
+  font-size:var(--t-4);font-weight:500;line-height:1.3;color:var(--ink);text-decoration:none;transition:background-color var(--dur-1) var(--ease-out)}
+/* la página actual: en negrita y con la marca amarilla de la navegación */
+.menu-panel a[aria-current="true"]{font-weight:650}
+.menu-panel a[aria-current="true"]::after{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--sol)}
+.menu-panel a:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+.teclado .menu-panel,.teclado .menu-grupo{transition:none}
+.teclado .elige-panel{transition:none}
+/* sin vidrio en el navegador: blanco */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.menu-panel{background:#fff}}
 .teclado .buscador:not([hidden]){animation:none}
-.menu-col{display:flex;flex-direction:column}
-/* los temas, en dos columnas que se leen de arriba abajo */
-.menu-col:first-child{display:block;columns:2;column-gap:0}
-.menu-col:first-child .menu-tit{column-span:all}
-.menu-col:first-child a{display:block;break-inside:avoid}
-.menu-panel .menu-tit{margin:8px 16px 4px;font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.menu-panel a{padding:7px 16px;font-size:var(--t-3);color:var(--ink);text-decoration:none}
-.menu-panel a[aria-current="true"]{box-shadow:inset 3px 0 0 var(--sol);font-weight:600}
-.menu-panel a:focus-visible{outline:2px solid var(--sol);outline-offset:-2px}
 @media (hover:hover) and (pointer:fine){
   .barra .temas a:hover{color:#fff}
   .barra.clara .temas a:hover{color:var(--ink)}
   .lupa-btn:hover,.menu-btn:hover,.chip-prov:hover,.chip-borrar:hover{background:var(--en-azul-velo)}
   .barra.clara .lupa-btn:hover,.barra.clara .menu-btn:hover,.barra.clara .chip-prov:hover,.barra.clara .chip-borrar:hover{background:var(--celeste-suave)}
-  .menu-panel a:hover{background:var(--celeste-suave)}
+  .menu-panel a:hover{background:rgba(44,116,181,.09)}
 }
 @media (max-width:1180px){.barra .temas{gap:var(--e-4);font-size:12px}}
 @media (max-width:1080px){.barra .temas{display:none}}
@@ -237,6 +273,16 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .barra .envoltura{height:62px;gap:var(--e-3)}
   .barra-izq{gap:var(--e-3)}
   .barra .marca{font-size:32px}
+  /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra) */
+  .menu-panel{left:0;right:0;width:auto;top:calc(env(safe-area-inset-top,0px) + 62px);bottom:-8px;max-height:none;
+    grid-template-columns:1fr;gap:var(--e-6);padding:var(--e-6) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
+    background:rgba(246,248,251,.82);border:0;border-top:1px solid rgba(44,116,181,.18);border-radius:0;box-shadow:none;transform:translateY(-8px)}
+  .barra.compacta ~ .menu-panel{translate:0 -8px}
+  .menu-col{gap:var(--e-6)}
+  .menu-panel a{padding:9px var(--e-3);font-size:22px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+  .menu-panel a[aria-current="true"]{font-weight:750}
+  /* la página queda quieta detrás del menú */
+  html.menu-abierto{overflow:hidden}
 }
 @media (max-width:560px){
   /* "Secciones" queda como ícono (el nombre sigue para los lectores de pantalla) */
@@ -246,8 +292,6 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .chip-prov{gap:6px;padding:0 var(--e-2);font-size:var(--t-2)}
   .chip-nom{max-width:7.5em}
   .chip-borrar{padding:0 10px}
-  .menu-panel{grid-template-columns:1fr}
-  .menu-col:first-child{columns:1}
 }
 
 /* buscador de la lupa: panel debajo de la barra */
@@ -1270,7 +1314,9 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   .buscador:not([hidden]){animation:none}
   .sobre[open]>.sobre-panel{animation:vt-funde var(--dur-2) var(--ease-out)}
   /* menús, cuadros y barra: solo fundidos */
-  .menu-panel,.elige-panel,.tip{transform:none!important}
+  .menu-panel,.elige-panel,.tip,.menu-grupo{transform:none!important}
+  .barra.compacta ~ .menu-panel{translate:none}
+  .menu-btn .ico path{transition:none}
   .barra,.barra-izq,.barra .temas,.barra-der,.barra .marca{transform:none!important}
   .mapa-fondo .provs path{transition:none}
   /* entre páginas: solo un fundido, nada viaja */
@@ -1280,4 +1326,5 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 /* Transparencia reducida: la barra clara con fondo sólido */
 @media (prefers-reduced-transparency:reduce){
   .barra.clara{background:var(--fondo);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .menu-panel{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
