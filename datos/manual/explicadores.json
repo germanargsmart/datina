@@ -2151,6 +2151,32 @@
     ]
    },
    {
+    "titulo": "Fracturas y pozos terminados",
+    "texto": "En las formaciones no convencionales, como Vaca Muerta, los pozos tienen una rama horizontal dentro de la roca y se fracturan por etapas a lo largo de ella. Las empresas informan cada fractura a la Secretaría de Energía, que publica el detalle por pozo: la longitud de la rama horizontal, la cantidad de etapas, la arena bombeada y el agua inyectada. La fuente aclara que son datos preliminares, sujetos a revisión, y como las fracturas se informan con demora, las fichas cuentan años completos. Los pozos terminados salen de otra serie de la misma Secretaría, con el detalle mensual de la perforación por tipo de pozo y provincia.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Energía, infografía de hidrocarburos no convencionales",
+      "url": "http://www.energia.gob.ar/contenidos/archivos/Reorganizacion/planeamiento/infografias/lamina_dneype_C_01.pdf",
+      "cita": "Características de los pozos: cantidad de fracturas y longitud de rama horizontal"
+     },
+     {
+      "nombre": "Secretaría de Energía, datos de fractura de pozos (Adjunto IV)",
+      "url": "http://datos.energia.gob.ar/dataset/datos-de-fractura-de-pozos-adjunto-iv",
+      "cita": "longitud de rama horizontal (m), cantidad de etapas de fractura"
+     },
+     {
+      "nombre": "Secretaría de Energía, datos de fractura de pozos (Adjunto IV)",
+      "url": "http://datos.energia.gob.ar/dataset/datos-de-fractura-de-pozos-adjunto-iv",
+      "cita": "Datos preliminares sujetos a revisión"
+     },
+     {
+      "nombre": "Secretaría de Energía, perforación de pozos de petróleo y gas",
+      "url": "http://datos.energia.gob.ar/dataset/perforacion-de-pozos-de-petroleo-y-gas",
+      "cita": "Detalle mensual de trabajos Geofísicos realizados y perforación de Pozos"
+     }
+    ]
+   },
+   {
     "titulo": "Reservas comprobadas y horizonte",
     "texto": "Desde la Resolución 324 de 2006, las empresas presentan cada año a la Secretaría de Energía sus reservas al 31 de diciembre, hasta el 31 de marzo del año siguiente y certificadas por auditores externos. Las reservas comprobadas son las que, según los datos geológicos y de ingeniería, pueden estimarse con razonable certeza como comercialmente recuperables de reservorios conocidos, con las condiciones económicas, el régimen legal y las prácticas de producción de la fecha de la estimación. Las probables y las posibles no son comprobadas y las fichas no las suman. El horizonte divide las reservas comprobadas por la producción de ese año: cuántos años durarían si se produjera lo mismo y no se sumaran reservas nuevas. Las fichas usan las reservas hasta el final de la vida útil de cada yacimiento, que puede ir más allá del fin de la concesión.",
     "fuentes": [
@@ -2381,6 +2407,22 @@
     "fuente": {
      "nombre": "EIA, glosario",
      "url": "https://www.eia.gov/tools/glossary/index.php?id=D"
+    }
+   },
+   {
+    "termino": "Rama horizontal",
+    "definicion": "Tramo del pozo que avanza en horizontal dentro de la formación productiva.",
+    "fuente": {
+     "nombre": "Secretaría de Energía, datos de fractura de pozos",
+     "url": "http://datos.energia.gob.ar/dataset/datos-de-fractura-de-pozos-adjunto-iv"
+    }
+   },
+   {
+    "termino": "Etapa de fractura",
+    "definicion": "Cada uno de los tramos de la rama horizontal que se fracturan por separado.",
+    "fuente": {
+     "nombre": "Secretaría de Energía, infografía de hidrocarburos no convencionales",
+     "url": "http://www.energia.gob.ar/contenidos/archivos/Reorganizacion/planeamiento/infografias/lamina_dneype_C_01.pdf"
     }
    }
   ]

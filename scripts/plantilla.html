@@ -911,6 +911,33 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV por pozo</span><a href="datos/pozos_tipo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-fracturas">
+      <h3>Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, {{petroleo.fr_ini}} a {{petroleo.fr_ult}}</h3>
+      <p class="lead" data-t="fracturas"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="fracturas" style="--n:3">
+        <button type="button" data-m="etapas" aria-pressed="true">Etapas por año</button>
+        <button type="button" data-m="rama" aria-pressed="false">Rama horizontal</button>
+        <button type="button" data-m="etapas_pozo" aria-pressed="false">Etapas por pozo</button>
+      </div>
+      <div class="pol-ley" id="fracturas-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="fracturas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="nota" data-t="fracturas-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV)</span><a href="datos/fracturas_anual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-pozos-terminados">
+      <h3>Pozos de petróleo y gas terminados por año, {{petroleo.pt_ini}} a {{petroleo.pt_anio}}, y por provincia</h3>
+      <p class="lead" data-t="pozos-terminados"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pozos-terminados">
+        <button type="button" data-m="anio" aria-pressed="true">Por año</button>
+        <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
+      </div>
+      <div class="pol-ley" id="pozos-terminados-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="pozos-terminados" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="nota" data-t="pozos-terminados-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, perforación de pozos de petróleo y gas</span><a href="datos/pozos_terminados.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-empresas-hidro">
       <h3>Producción de petróleo y gas por empresa, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</h3>
       <p class="lead" data-t="empresas-hidro"></p>

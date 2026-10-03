@@ -211,6 +211,13 @@ FUENTES.update({
     "indec_icc.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/icc_variaciones_indices_2016.xls",
     # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
     "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
+    # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
+    # rama horizontal, la arena y el agua (etapa 19)
+    "se_fracturas.csv": ckan_recurso(SE, "datos-de-fractura-de-pozos-adjunto-iv", "fractura de pozos",
+        f"{SE}/dataset/71fa2e84-0316-4a1b-af68-7f35e41f58d7/resource/2280ad92-6ed3-403e-a095-50139863ab0d/download/datos-de-fractura-de-pozos-de-hidrocarburos-adjunto-iv-actualizacin-diaria.csv"),
+    # Pozos terminados por mes, tipo (explotación, exploración, avanzada y servicio) y provincia, desde 2009 (Secretaría de Energía)
+    "se_pozos_terminados.csv": ckan_recurso(SE, "perforacion-de-pozos-de-petroleo-y-gas", "pozos terminados por tipo de pozo y provincia",
+        f"{SE}/dataset/7ea2ac77-d7a0-4129-9fbf-6f1a25d94e21/resource/66b0266a-b028-4812-b95f-1da31835b0aa/download/pozos-terminados-por-tipo-de-pozo-y-provincia.csv"),
 })
 
 # Indicadores provinciales que no publica Argendata (Fundar), para las fichas nuevas y el explorador de cruces
@@ -298,6 +305,8 @@ VALIDA.update({
     "isac_insumos.csv": lambda b: b.startswith(b"indice_tiempo,isac_articulos_sanitarios"),
     "indec_icc.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "ipc_nacional.csv": lambda b: b.startswith(b"indice_tiempo,"),
+    "se_fracturas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"id_base_fractura_adjiv,idpozo"),
+    "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
 })
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b

@@ -1446,6 +1446,74 @@ pozos_prov["territorio"] = pozos_prov.codigo_indec.map(lambda c: "Mar argentino"
 pozos_prov = pozos_prov[["codigo_indec", "territorio", "convencional", "shale", "tight", "total"]].sort_values("total", ascending=False)
 _pt = pozos_tipo.set_index("tipo")
 
+# Fracturas de pozos (Adjunto IV de la Secretaría de Energía, etapa 19): una fila por fractura informada, con la fecha de inicio, las
+# etapas, la rama horizontal, la arena y el agua. Se cuentan las de formaciones no convencionales (shale y tight) por el año en que
+# empezó la fractura, desde 2013: desde ese año las fracturas informadas cubren casi todos los pozos de Vaca Muerta que empiezan a
+# producir. Las empresas las informan con demora (en 2022 a 2025, a los cuatro meses de terminado el mes estaba cargado cerca del 60%
+# de sus etapas y al año, cerca del 85%): por eso van años completos y no meses, y el último año completo puede subir. Las fechas
+# posteriores a la última carga son errores de la fuente y no se usan.
+fr_ = pd.read_csv(CRUDO / "se_fracturas.csv", low_memory=False)
+fr_["ini"] = pd.to_datetime(fr_.fecha_inicio_fractura, errors="coerce")
+_carga_fr = pd.to_datetime(fr_.fecha_data, errors="coerce").max()
+fr_ = fr_[fr_.ini.notna() & (fr_.ini <= _carga_fr) & fr_.tipo_reservorio.eq("NO CONVENCIONAL")].copy()
+fr_["anio"] = fr_.ini.dt.year
+fr_["vm"] = fr_.formacion_productiva.fillna("").str.strip().str.lower().eq("vaca muerta")
+fr_["arena_tn"] = fr_.arena_bombeada_nacional_tn.fillna(0) + fr_.arena_bombeada_importada_tn.fillna(0)
+FR_INI, FR_ULT = 2013, int(_carga_fr.year) - 1  # el año de la última carga todavía no terminó
+assert FR_ULT >= 2024, "los datos de fracturas no llegan al último año completo"
+_fra = fr_[fr_.anio.between(FR_INI, FR_ULT)]
+fracturas = _fra.groupby("anio").agg(etapas=("cantidad_fracturas", "sum"), pozos=("idpozo", "nunique"), arena_tn=("arena_tn", "sum"),
+                                    agua_m3=("agua_inyectada_m3", "sum"))
+fracturas["etapas_vm"] = _fra[_fra.vm].groupby("anio").cantidad_fracturas.sum()
+fracturas = fracturas.reindex(range(FR_INI, FR_ULT + 1)).fillna(0)
+fracturas["etapas_otras"] = fracturas.etapas - fracturas.etapas_vm
+fracturas = fracturas.reset_index()[["anio", "etapas", "etapas_vm", "etapas_otras", "pozos", "arena_tn", "agua_m3"]]
+for c in ["etapas", "etapas_vm", "etapas_otras", "pozos"]:
+    fracturas[c] = fracturas[c].astype(int)
+# Diseño de los pozos de Vaca Muerta por año: cada pozo una vez (algunos tienen más de una fractura informada), en el año de su
+# primera fractura. Rama horizontal: la más larga informada para el pozo, solo si es mayor que cero (los verticales informan cero)
+_pvm = fr_[fr_.vm].groupby("idpozo").agg(anio=("anio", "min"), etapas=("cantidad_fracturas", "sum"), rama=("longitud_rama_horizontal_m", "max"),
+                                         arena_tn=("arena_tn", "sum"))
+_pvm = _pvm[_pvm.anio.between(FR_INI, FR_ULT)]
+diseno_vm = _pvm.groupby("anio").agg(pozos=("etapas", "size"), etapas_pozo=("etapas", "mean"), arena_pozo_tn=("arena_tn", "mean")).join(
+    _pvm[_pvm.rama > 0].groupby("anio").rama.mean().rename("rama_m")).reset_index()
+diseno_vm = diseno_vm[["anio", "pozos", "rama_m", "etapas_pozo", "arena_pozo_tn"]]
+_dv = diseno_vm.set_index("anio")
+DV_INI = int(diseno_vm[diseno_vm.pozos >= 50].anio.min())  # el primer año con al menos 50 pozos, para no comparar con un puñado
+FR_U, FR_A = fracturas.set_index("anio").loc[FR_ULT], fracturas.set_index("anio").loc[FR_ULT - 1]
+agregar(fracturas.rename(columns={"anio": "periodo", "etapas": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "etapas_fractura_no_convencional", "etapas de fractura por año", "Secretaria de Energia, datos de fractura de pozos (Adjunto IV)")
+
+# Pozos terminados por mes, tipo y provincia (Secretaría de Energía, desde 2009): por año completo y, por provincia, los doce meses
+# más recientes ("Estado Nacional" es el mar a más de 12 millas, como en la producción)
+pt_ = pd.read_csv(CRUDO / "se_pozos_terminados.csv")
+pt_["periodo"] = pt_.anio.astype(str) + "-" + pt_.mes.astype(str).str.zfill(2)
+pt_["codigo_indec"] = pt_.provincia.map(lambda t: MAR if norm(t) == "estado nacional" else codigo(t))
+assert pt_.codigo_indec.notna().all(), f"provincias sin código en los pozos terminados: {pt_[pt_.codigo_indec.isna()].provincia.unique()}"
+TIPOS_PT = {"Explotación": "explotacion", "Exploración": "exploracion", "Avanzada": "avanzada", "Servicio": "servicio"}
+assert set(pt_.tipo_pozo) <= set(TIPOS_PT), set(pt_.tipo_pozo) - set(TIPOS_PT)
+pt_["tipo"] = pt_.tipo_pozo.map(TIPOS_PT)
+PT_ULT_M = pt_.periodo.max()
+PT_ULT = int(PT_ULT_M[:4]) - (0 if PT_ULT_M.endswith("-12") else 1)  # último año completo
+pozos_term = pt_[pt_.anio <= PT_ULT].pivot_table(index="anio", columns="tipo", values="cantidad_pozos", aggfunc="sum").reindex(
+    columns=list(TIPOS_PT.values())).fillna(0).astype(int)
+pozos_term["total"] = pozos_term.sum(axis=1)
+pozos_term = pozos_term.reset_index()
+_v12 = [str(p) for p in pd.period_range(end=pd.Period(PT_ULT_M, "M"), periods=12, freq="M")]
+_v12a = [str(p) for p in pd.period_range(end=pd.Period(PT_ULT_M, "M") - 12, periods=12, freq="M")]
+pozos_term_prov = pt_[pt_.periodo.isin(_v12)].pivot_table(index="codigo_indec", columns="tipo", values="cantidad_pozos", aggfunc="sum").reindex(
+    columns=list(TIPOS_PT.values())).fillna(0).astype(int)
+pozos_term_prov["total"] = pozos_term_prov.sum(axis=1)
+pozos_term_prov["total_antes"] = pt_[pt_.periodo.isin(_v12a)].groupby("codigo_indec").cantidad_pozos.sum().reindex(pozos_term_prov.index).fillna(0).astype(int)
+pozos_term_prov = pozos_term_prov[pozos_term_prov.total > 0].reset_index()
+pozos_term_prov["territorio"] = pozos_term_prov.codigo_indec.map(lambda c: "Mar argentino" if c == MAR else CORTO[c])
+pozos_term_prov["pct"] = pozos_term_prov.total / pozos_term_prov.total.sum() * 100
+pozos_term_prov = pozos_term_prov[["codigo_indec", "territorio", "explotacion", "exploracion", "avanzada", "servicio", "total", "total_antes", "pct"]].sort_values("total", ascending=False)
+_ptu, _pta = pozos_term.set_index("anio").loc[PT_ULT], pozos_term.set_index("anio")
+_pt_max = pozos_term.loc[pozos_term.total.idxmax()]
+agregar(pozos_term.rename(columns={"anio": "periodo", "total": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "pozos_terminados", "pozos terminados por año", "Secretaria de Energia, perforacion de pozos de petroleo y gas")
+
 # Reservas comprobadas al 31 de diciembre (hasta el final de la vida útil de los yacimientos), con el horizonte: cuántos años
 # alcanzarían al ritmo de producción de ese año. Desde 2017 la fuente separa convencional y no convencional, y trae la provincia
 rv_ = pd.read_csv(CRUDO / "se_reservas_resumen.csv")
@@ -2642,6 +2710,10 @@ tablas = {
     "hidrocarburos_empresas": hidro_emp,
     "pozos_tipo": pozos_tipo,
     "pozos_provincias": pozos_prov,
+    "fracturas_anual": fracturas,
+    "diseno_pozos_vm": diseno_vm,
+    "pozos_terminados": pozos_term,
+    "pozos_terminados_provincias": pozos_term_prov,
     "reservas_hidrocarburos": reservas,
     "reservas_provincias": reservas_prov,
     "regalias_provincias": reg_prov,
@@ -2954,6 +3026,20 @@ resumen["petroleo"] = {
     "bpd_conv": r1(_pt.bpd_pozo_pet["convencional"]), "bpd_shale": round(float(_pt.bpd_pozo_pet["shale"])),
     "veces": round(float(_pt.m3d_pozo_pet["shale"] / _pt.m3d_pozo_pet["convencional"])),
     "pozos_top": pozos_prov.iloc[0].territorio, "pozos_top_n": int(pozos_prov.iloc[0].total),
+    # fracturas (Adjunto IV): años completos de formaciones no convencionales, y el diseño de los pozos de Vaca Muerta
+    "fr_ini": FR_INI, "fr_ult": FR_ULT, "fr_etapas": int(FR_U.etapas), "fr_etapas_ant": int(FR_A.etapas), "fr_etapas_ini": int(fracturas.etapas.iloc[0]),
+    "fr_var": r1((FR_U.etapas / FR_A.etapas - 1) * 100), "fr_veces": round(float(FR_U.etapas / fracturas.etapas.iloc[0])),
+    "fr_vm_pct": r1(FR_U.etapas_vm / FR_U.etapas * 100), "fr_pozos": int(FR_U.pozos), "fr_arena_mt": r1(FR_U.arena_tn / 1e6),
+    "fr_record": bool(FR_U.etapas >= fracturas.etapas.max()),
+    "dv_ini": DV_INI, "dv_rama_ini": round(float(_dv.rama_m[DV_INI])), "dv_rama_ult": round(float(_dv.rama_m[FR_ULT])),
+    "dv_etapas_ini": r1(_dv.etapas_pozo[DV_INI]), "dv_etapas_ult": r1(_dv.etapas_pozo[FR_ULT]), "dv_arena_ini": round(float(_dv.arena_pozo_tn[DV_INI])),
+    "dv_arena_ult": round(float(_dv.arena_pozo_tn[FR_ULT])), "dv_pozos_ult": int(_dv.pozos[FR_ULT]),
+    # pozos terminados: años completos y, por provincia, los doce meses más recientes
+    "pt_anio": PT_ULT, "pt_ini": int(pozos_term.anio.min()), "pt_total": int(_ptu.total), "pt_explot": int(_ptu.explotacion),
+    "pt_explor": int(_ptu.exploracion + _ptu.avanzada), "pt_max": int(_pt_max.total), "pt_max_anio": int(_pt_max.anio),
+    "pt_mes": mes_txt(PT_ULT_M), "pt_v_desde": mes_txt(_v12[0]), "pt_12m": int(pt_[pt_.periodo.isin(_v12)].cantidad_pozos.sum()),
+    "pt_12m_ant": int(pt_[pt_.periodo.isin(_v12a)].cantidad_pozos.sum()), "pt_top": pozos_term_prov.iloc[0].territorio,
+    "pt_top_n": int(pozos_term_prov.iloc[0].total), "pt_top_pct": r1(pozos_term_prov.iloc[0].pct), "pt_n_prov": int(len(pozos_term_prov)),
     # reservas
     "res_anio": int(RV_ULT.anio), "res_ini": int(RV_INI.anio), "res_pet": round(float(RV_ULT.pet_millones_m3)), "res_bbl": r1(RV_ULT.pet_miles_millones_bbl),
     "res_gas": round(float(RV_ULT.gas_miles_millones_m3)), "res_hor_pet": r1(RV_ULT.horizonte_pet), "res_hor_gas": r1(RV_ULT.horizonte_gas),
