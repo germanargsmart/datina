@@ -242,11 +242,16 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # fichas.js lleva la huella de cada una para que el navegador no use una version vieja.
 DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
-             "empleo_construccion_serie"]
+             "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
-    t = json.dumps(D["datos"].pop(nombre), ensure_ascii=False, separators=(",", ":"))
+    filas = D["datos"].pop(nombre)
+    assert isinstance(filas, list), nombre
+    # en columnas, con cada nombre una sola vez (etapa 19): pesa bastante menos que una lista de objetos, y datina.js vuelve a armar
+    # los objetos al cargarla (deColumnas)
+    cols = list(dict.fromkeys(k for f in filas for k in f))
+    t = json.dumps({"c": cols, "f": [[f.get(k) for k in cols] for f in filas]}, ensure_ascii=False, separators=(",", ":"))
     (SITIO / "datos" / f"{nombre}.json").write_text(t, encoding="utf-8")
     D["diferidas"][nombre] = huella(t)
 D["indice"] = INDICE

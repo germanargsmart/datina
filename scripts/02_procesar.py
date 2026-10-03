@@ -1549,6 +1549,33 @@ _cv = curvas_vm.set_index("mes")
 agregar(productividad_vm.rename(columns={"anio": "periodo", "pet_12m_kbbl": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "petroleo_primer_anio_pozo_vaca_muerta", "miles de barriles por pozo en sus primeros doce meses", "Secretaria de Energia, produccion por pozo (Capitulo IV)")
 
+# Mapa de los pozos no convencionales (etapa 19): cada pozo que produjo alguna vez, con su ubicación, su empresa, su área, el año en
+# que empezó y lo que produjo el último mes de datos. Las áreas de concesión (sitio/datos/concesiones.topo.json, de
+# scripts/geometria_concesiones.py) llevan la producción del último año completo de la producción por área, unida por el código SESCO.
+pozos_nc = pnc_.copy()
+pozos_nc["empresa"] = pozos_nc.empresa.map(nombre_empresa)
+pozos_nc["tipo"] = pozos_nc.tipo_pozo.map({"Petrolífero": "Petróleo", "Gasífero": "Gas"}).fillna("Otro")
+pozos_nc["recurso"] = pozos_nc.subtipo.str.capitalize()
+_dias_u = _ult_nc.days_in_month
+pozos_nc["pet_bpd"] = pozos_nc.pet_ult_m3 * BBL / _dias_u
+pozos_nc["gas_miles_m3d"] = pozos_nc.gas_ult_miles_m3 / _dias_u
+pozos_nc["area"] = pozos_nc.area.str.strip()
+pozos_nc = pozos_nc[["sigla", "empresa", "area", "area_id", "provincia", "recurso", "tipo", "inicio", "x", "y", "pet_bpd", "gas_miles_m3d"]].round(
+    {"x": 4, "y": 4, "pet_bpd": 1, "gas_miles_m3d": 1})
+_activo = (pozos_nc.pet_bpd > 0) | (pozos_nc.gas_miles_m3d > 0)
+_act_nq = pozos_nc[_activo].provincia.map(lambda t: codigo(t)).eq("58")
+MAP_CORTES = [2015, 2018, 2021, _ult_nc.year - 2]  # cinco grupos por año de inicio: hasta 2015, 2016 a 2018, ...
+assert MAP_CORTES[2] < MAP_CORTES[3], "los grupos de años del mapa se superponen"
+_top_areas = pozos_nc[_activo].groupby("area").size().sort_values(ascending=False).head(3)
+_ap = pd.read_csv(CRUDO / "se_produccion_areas.csv")
+AREAS_ANIO = int(_ap.anio.max()) - 1  # el último año completo
+_ap = _ap[_ap.anio == AREAS_ANIO].copy()
+_dias_a = 366 if AREAS_ANIO % 4 == 0 else 365
+areas_prod = pd.DataFrame({"codigo": _ap.idareapermisoconcesion, "nombre": _ap.area.str.strip(), "provincia": _ap.provincia,
+                           "empresa": _ap.empresa.map(nombre_empresa), "pet_kbd": _ap.prod_pet / _dias_a * BBL / 1000,
+                           "gas_mmm3d": _ap.prod_gas / _dias_a / 1000,
+                           "pct_pet_nc": (_ap.pet_nc / _ap.prod_pet.where(_ap.prod_pet > 0) * 100)}).round({"pet_kbd": 2, "gas_mmm3d": 3, "pct_pet_nc": 1})
+
 # Reservas comprobadas al 31 de diciembre (hasta el final de la vida útil de los yacimientos), con el horizonte: cuántos años
 # alcanzarían al ritmo de producción de ese año. Desde 2017 la fuente separa convencional y no convencional, y trae la provincia
 rv_ = pd.read_csv(CRUDO / "se_reservas_resumen.csv")
@@ -2750,6 +2777,8 @@ tablas = {
     "pozos_terminados": pozos_term,
     "pozos_terminados_provincias": pozos_term_prov,
     "productividad_vm": productividad_vm,
+    "pozos_no_convencionales": pozos_nc,
+    "areas_produccion": areas_prod,
     "curvas_vm": curvas_vm,
     "reservas_hidrocarburos": reservas,
     "reservas_provincias": reservas_prov,
@@ -3085,6 +3114,11 @@ resumen["petroleo"] = {
     "bpm_max_anio": int(_pvd_m.bbl_por_1000m.idxmax()), "bpm_var": r1((_pvd_m.bbl_por_1000m[COS_ULT] / _pvd_m.bbl_por_1000m.max() - 1) * 100),
     "rama_m_ult": round(float(_pvd_m.rama_m[COS_ULT])), "rama_m_bpm_max": round(float(_pvd_m.rama_m[_pvd_m.bbl_por_1000m.idxmax()])),
     "curvas": COS_CURVAS, "curva12_ult": r1(_cv[f"c{COS_ULT}"][12]), "curva12_ini": r1(_cv[f"c{COS_CURVAS[0]}"][12]),
+    # mapa de los pozos no convencionales y de las áreas de concesión
+    "map_n": int(len(pozos_nc)), "map_activos": int(_activo.sum()), "map_mes": mes_txt(str(_ult_nc)), "map_pct_nq": r1(_act_nq.mean() * 100),
+    "map_top_areas": [[a, int(n)] for a, n in _top_areas.items()], "map_cortes": MAP_CORTES, "map_ini": int(pozos_nc.inicio.str[:4].astype(int).min()),
+    "map_otras": [[CORTO[c], int(n)] for c, n in pozos_nc[_activo].provincia.map(lambda t: codigo(t)).value_counts().items() if c not in ("58", "62", "50", "42")],
+    "map_shale": int((pozos_nc[_activo].recurso == "Shale").sum()), "map_tight": int((pozos_nc[_activo].recurso == "Tight").sum()), "areas_anio": AREAS_ANIO,
     # reservas
     "res_anio": int(RV_ULT.anio), "res_ini": int(RV_INI.anio), "res_pet": round(float(RV_ULT.pet_millones_m3)), "res_bbl": r1(RV_ULT.pet_miles_millones_bbl),
     "res_gas": round(float(RV_ULT.gas_miles_millones_m3)), "res_hor_pet": r1(RV_ULT.horizonte_pet), "res_hor_gas": r1(RV_ULT.horizonte_gas),

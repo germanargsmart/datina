@@ -1,0 +1,257 @@
+codigo,nombre,provincia,empresa,pet_kbd,gas_mmm3d,pct_pet_nc
+AAB,ANTICLINAL AGUADA BANDERA,Santa Cruz,Quintana E&P Argentina,0.21,0.002,0.0
+AAMA,JARILLA QUEMADA,Rio Negro,Petrolera Aconcagua Energia,0.0,0.018,0.0
+ACA,ACAMBUCO,Salta,Pan American Energy,0.74,1.333,0.0
+ADP,ALTIPLANICIE DEL PAYUN,Mendoza,YPF,0.12,0.001,0.0
+AFED,AGUADA FEDERAL,Neuquén,Vista Energy Argentina,4.26,0.115,100.0
+AFU,ANTICLINAL FUNES,Chubut,Pan American Energy,0.37,0.004,0.0
+AGA,AGUADA DE LA ARENA,Neuquén,YPF,0.15,4.362,91.0
+AGCA,AGUADA DE CASTRO,Neuquén,Pan American Energy,0.0,0.538,
+AGCO,AGUADA CÁNEPA,Neuquén,Pan American Energy,4.83,0.039,100.0
+AGMO,AGUILA MORA,Neuquén,Vista Energy Argentina,0.41,0.027,100.0
+AGO,ANGOSTURA (CA-14),Tierra del Fuego,Roch,0.39,0.007,0.0
+AGU,AGUARAGÜE,Salta,Tecpetrol,0.79,0.805,0.0
+AGUH,AGUADA DEL CHAÑAR,Neuquén,YPF,16.69,0.192,100.0
+AGZ,AGUADA DEL CHIVATO - AGUADA BOCAREY,Neuquén,Patagonia Energy,0.38,0.016,0.9
+ALI,RESTINGA ALI,Chubut,YPF,0.3,0.044,0.0
+ANC,ANTICLINAL CAMPAMENTO,Neuquén,Oilstone Energia,0.05,0.122,0.0
+ANEX,ATUEL NORTE EXPLOTACION,Mendoza,Petrolera Aconcagua Energia,0.03,0.001,0.0
+ANG,ANTICLINAL GRANDE - CERRO DRAGON,Chubut,Pan American Energy,63.91,5.19,0.0
+ANT,SAN ANTONIO SUR,Salta,Tecpetrol,0.03,0.091,0.0
+APE,AGUADA PICHANA ESTE,Neuquén,Total Austral,1.85,11.237,95.9
+APO,AGUADA PICHANA OESTE,Neuquén,Pan American Energy,0.0,7.193,
+ATA,ATAMISQUI,Mendoza,Petrolera El Trebol,0.12,0.0,0.0
+AVN,AGUADA VILLANUEVA NORTE,Neuquén,Pluspetrol,0.62,0.16,100.0
+BAG,AGUADA BAGUALES,Neuquén,Oilstone Energia,0.54,0.021,0.0
+BAJ,BAJO DEL PICHE,Rio Negro,Petroleos Sudamericanos,0.22,0.014,0.0
+BANE,BAJADA DE AÑELO,Neuquén,Shell Argentina,1.51,0.248,100.0
+BAPE,BAJADA DEL PALO ESTE,Neuquén,Vista Energy Argentina,12.9,0.106,100.0
+BAPO,BAJADA DEL PALO OESTE,Neuquén,Vista Energy Argentina,51.18,1.004,99.9
+BAR,BARRANCAS,Mendoza,Petroleos Sudamericanos,4.92,0.023,0.0
+BAS,LOS BASTOS,Neuquén,Tecpetrol,0.16,0.046,0.0
+BBA,BAJO BAGUALES,Neuquén,Oilstone Energia,0.0,0.002,
+BCLI,BAJO DEL CHOIQUE - LA INVERNADA,Neuquén,Pluspetrol Cuenca Neuquina,12.27,0.814,100.0
+BDTO,BAJO DEL TORO,Neuquén,YPF,0.0,0.0,100.0
+BEH,MANANTIALES BEHR,Chubut,YPF,25.2,0.511,0.0
+BLO,BLOQUE 127,Santa Cruz,CGC Energia,0.14,0.0,0.0
+BNDC,BANDURRIA CENTRO,Neuquén,Pan American Energy,1.17,0.045,100.0
+BNDN,BANDURRIA NORTE,Neuquén,Vista Energy Argentina,0.12,0.012,100.0
+BNDS,BANDURRIA SUR,Neuquén,YPF,61.26,1.921,100.0
+BRE,CAMPO BREMEN,Santa Cruz,Interoil Argentina,0.01,0.015,0.0
+BTN,BAJO DEL TORO NORTE,Neuquén,YPF,3.96,0.124,100.0
+BVOI,BELLA VISTA OESTE - BLOQUE I,Chubut,Capex,1.3,0.0,0.0
+BYK,BARRANCA YANKOWSKY,Santa Cruz,YPF,0.0,0.042,0.0
+CABO,CAMPO BOLEADORAS,Santa Cruz,Compañía General de Combustibles,0.04,0.043,0.0
+CAC,CACHEUTA,Mendoza,Venoil,0.09,0.0,0.0
+CAI,CAIMANCITO,Jujuy,Jujuy Hidrocarburos,0.17,0.008,0.0
+CAIN,CAMPO INDIO,Santa Cruz,Compañía General de Combustibles,0.19,0.149,0.0
+CAJ,CAJON DE LOS CABALLOS,Mendoza,Roch,0.13,0.002,0.0
+CAM,CAÑADON AMARILLO,Mendoza,YPF,0.89,0.017,0.0
+CANC,COIRON AMARGO SUR ESTE,Neuquén,Pan American Energy,10.04,0.101,100.0
+CAO,AGUA DEL CAJON,Neuquén,Capex,2.32,0.662,89.5
+CAOS,COIRON AMARGO SUR OESTE,Neuquén,Shell Argentina,7.59,0.116,100.0
+CAP,CATRIEL OESTE,Rio Negro,Petrolera Aconcagua Energia,0.25,0.002,0.0
+CAS,CAÑADON SECO,Santa Cruz,CGC Energia,2.18,0.547,35.7
+CAU,CUENCA MARINA AUSTRAL 1,Tierra del Fuego,Total Austral,4.75,20.847,0.0
+CBA,CERRO BANDERA,Neuquén,Oilstone Energia,0.57,0.098,0.0
+CBY,SEÑAL CERRO BAYO,Neuquén,Bentia Energy,0.77,0.048,0.0
+CCC,CAMPAMENTO CENTRAL - CAÑADON PERDIDO,Chubut,Pecom Servicios Energia,2.6,0.008,0.0
+CCNO,CUTRAL CO NORTE,Neuquén,Petrolsur Energia,0.0,0.028,0.0
+CCS,CUTRAL CO SUR,Neuquén,Oilstone Energia,0.0,0.019,0.0
+CCSO,CAJON DE LOS CABALLOS (SECTOR ORIENTAL),Mendoza,YPF,0.0,0.014,
+CDLO,CRUZ DE LORENA,Neuquén,Shell Argentina,12.22,0.206,100.0
+CEA,CERRO HAMACA,Neuquén,Petroleos Sudamericanos,0.6,0.01,0.0
+CEE,CENTRO ESTE,Rio Negro,Petroleos Sudamericanos,0.56,0.011,0.0
+CEF,CEFERINO,Mendoza,Petroleos Sudamericanos,0.06,0.0,0.0
+CEME,CERRO MORADO ESTE,Mendoza,YPF,0.98,0.015,0.0
+CENC,CENTENARIO CENTRO,Neuquén,Pluspetrol,0.25,0.944,29.4
+CENE,CERRO NEGRO,Chubut,Pilgrim Energy,0.19,0.027,0.0
+CFO,CERRO FORTUNOSO,Mendoza,YPF,2.31,0.181,0.0
+CHA,CHAÑARES HERRADOS,Mendoza,Petrolera Aconcagua Energia,0.82,0.005,0.0
+CHAS,CHACHAHUEN SUR,Mendoza,YPF,11.59,0.048,0.0
+CHDP,CHARCO DEL PALENQUE,Rio Negro,Petrolera Aconcagua Energia,0.21,0.014,0.0
+CHI,EL CHIVIL,Formosa,Recursos y Energia Formo,0.03,0.0,0.0
+CHO,CHORRILLOS,Santa Cruz,Interoil Argentina,0.08,0.097,0.0
+CHS,CHIHUIDO DE LA SALINA,Mendoza,YPF,0.27,0.187,0.0
+CHU,CHULENGO,Chubut,Pan American Energy,0.46,0.008,0.0
+CIEC,CAMPO INDIO ESTE - EL CERRITO,Santa Cruz,Compañía General de Combustibles,0.73,2.831,61.3
+CLE,CAÑADON LEON,Santa Cruz,CGC Energia,0.74,0.02,0.0
+CLM,CAÑADON LEON - MESETA ESPINOSA,Santa Cruz,YPF,6.48,0.19,0.0
+CMOE,CERRO MOLLAR OESTE,Mendoza,Petroquimica Comodoro Rivadavia,0.13,0.003,0.0
+CN7A,CN VII A,Mendoza,YPF,0.18,0.07,100.0
+CNO,CONFLUENCIA NORTE,Rio Negro,Petrolera El Trebol,3.15,0.024,100.0
+CON,CONFLUENCIA SUR,Mendoza,Petrolera Aconcagua Energia,0.72,0.012,0.0
+COR,EL CORDON,Santa Cruz,CGC Energia,0.05,0.0,0.0
+COV,CERRO OVERO,Santa Cruz,CGC Energia,0.09,0.0,0.0
+CPG,CERRO PIEDRA - CERRO GUADAL NORTE,Santa Cruz,YPF,0.46,0.018,0.0
+CRRD,CERRO DRAGON,Santa Cruz,Pan American Energy,7.53,0.326,0.0
+CSN,CHIHUIDO DE LA SIERRA NEGRA,Neuquén,YPF,6.29,0.282,2.2
+CSS,CHIHUIDO DE LA SALINA SUR,Mendoza,YPF,0.19,0.089,0.0
+CSU,CONFLUENCIA SUR,Rio Negro,Petrolera El Trebol,0.52,0.005,100.0
+CTO,CERRO TORTUGA - LAS FLORES,Chubut,Pan American Energy,3.14,0.096,0.0
+CUY,EL GUADAL - LOMAS DEL CUY,Santa Cruz,YPF,3.49,0.028,0.0
+CVA,CAÑADON VASCO,Santa Cruz,YPF,0.08,0.002,0.0
+DAD,DADIN,Neuquén,Bentia Energy,0.1,0.04,30.2
+DEM,DEL MOSQUITO,Santa Cruz,Fomicruz S.E,0.08,0.002,0.0
+DFUA,TIERRA DEL FUEGO - FRACCION A,Tierra del Fuego,YPF,0.36,0.057,0.0
+DFUD,TIERRA DEL FUEGO - FRACCION D,Tierra del Fuego,YPF,0.1,0.0,0.0
+DHA,DOS HERMANAS,Neuquén,Oilstone Energia,0.01,0.0,0.0
+DHE,DOS HERMANOS,Santa Cruz,Compañía General de Combustibles,0.0,0.002,0.0
+DIA,DIADEMA,Chubut,Compañías Asociadas Petroleras,9.88,0.077,0.0
+ECH,ESTANCIA LA ESCONDIDA,Chubut,Colhue Huapi,0.39,0.004,0.0
+EDIP,PUESTO MORALES ESTE,Rio Negro,Madalena Energy Argentina,0.02,0.003,0.0
+ELH,EL HUEMUL - KOLUEL KAIKE,Santa Cruz,CGC Energia,4.61,0.683,0.0
+ELM,ESTANCIA LA MARIPOSA,Santa Cruz,Alianza Petrolera Argentina,0.0,0.049,0.0
+ELO,ENTRE LOMAS,Rio Negro,Petrolera Aconcagua Energia,2.49,0.272,1.0
+ELOR,EL OREJANO,Neuquén,YPF,0.02,1.48,100.0
+ELT,EL TORDILLO,Chubut,Tecpetrol,4.27,0.188,0.5
+EME,EL MEDANITO,Rio Negro,Petroleos Sudamericanos,1.15,0.066,0.0
+EMO,EL MANZANO OESTE (AGRIO),Mendoza,Venoil,0.04,0.005,0.0
+EMOR,EL MANZANO OESTE (RESTO),Mendoza,YPF,0.01,0.0,0.0
+EPMD,EL PORTON_MENDOZA,Mendoza,Quintana E&P Argentina,0.02,0.019,0.0
+EPNQ,EL PORTON_NEUQUEN,Neuquén,Quintana E&P Argentina,0.27,0.585,0.0
+ESAF,ESTANCIA AGUA FRESCA,Santa Cruz,Compañía General de Combustibles,0.21,0.005,0.0
+ESC,CAÑADON DE LA ESCONDIDA - LAS HERAS,Santa Cruz,YPF,8.8,0.057,0.0
+ESI,MESETA ESPINOSA (CGSJ-10),Santa Cruz,CGC Energia,0.71,0.228,0.0
+ESO,EL SOSNEADO,Mendoza,Petroquimica Comodoro Rivadavia,0.65,0.017,0.0
+ETE,EL TRAPIAL ESTE,Neuquén,Chevron Argentina,15.17,1.01,91.3
+FAR,FARO VIRGENES,Santa Cruz,Petrofaro,0.01,0.019,0.0
+FEO,ESTACION FERNANDEZ ORO,Rio Negro,Quintana E&P Argentina,1.19,0.725,80.8
+FIM,FILO MORADO,Neuquén,YPF,0.11,0.058,23.2
+FOR,FORTIN DE PIEDRA,Neuquén,Tecpetrol,8.15,16.076,99.2
+GAV,GOBERNADOR AYALA V,La Pampa,Petroquimica Comodoro Rivadavia,0.03,0.011,0.0
+GIII,GOBERNADOR AYALA III,La Pampa,Pluspetrol,0.91,0.006,0.0
+GRU,EL MANGRULLO,Neuquén,Pampa Energia,0.03,6.583,91.1
+INE,MARIA INES,Santa Cruz,Compañía General de Combustibles,0.04,0.001,0.0
+JCPA,JAGÜEL CASA DE PIEDRA,Mendoza,Pluspetrol,8.76,0.068,0.0
+JMLP,JAGÜEL DE LOS MACHOS LP,La Pampa,Petroquimica Comodoro Rivadavia,1.0,0.078,0.0
+JMRN,JAGÜEL DE LOS MACHOS RN,Rio Negro,Petrolera Aconcagua Energia,1.48,0.068,0.0
+K20,KM. 20,Chubut,Compañías Asociadas Petroleras,0.98,0.0,0.0
+KOL,KOLUEL KAIKE - EL VALLE,Santa Cruz,Crown Point Energia,0.99,0.015,0.0
+LAB,LA BREA,Mendoza,Petroquimica Comodoro Rivadavia,0.05,0.003,0.0
+LAC,LA AMARGA CHICA,Neuquén,YPF,72.4,1.375,100.0
+LAES,LA ESCALONADA,Neuquén,Total Austral,3.84,0.224,100.0
+LAGO,LAGUNA DEL ORO,Santa Cruz,Compañía General de Combustibles,0.03,0.026,0.0
+LAS,LAS HERAS,Santa Cruz,CGC Energia,0.39,0.032,0.0
+LAS1,LA ANGOSTURA SUR I,Neuquén,YPF,22.08,0.771,100.0
+LAS2,LA ANGOSTURA SUR II,Neuquén,YPF,4.09,0.294,96.5
+LAT,LINDERO ATRAVESADO,Neuquén,Pan American Energy,14.51,1.087,99.7
+LAV,LA VENTANA,Mendoza,Petroleos Sudamericanos,2.6,0.019,0.0
+LBLS,LOS BLANCOS,Salta,High Luck Group LTD. -,0.13,0.0,0.0
+LCA,LA CALERA,Neuquén,Pluspetrol,23.22,9.915,100.0
+LCAM,LOMA CAMPANA,Neuquén,YPF,88.69,3.016,99.8
+LCH,LOS CHORRILLOS,Tierra del Fuego,YPF,0.17,0.001,0.0
+LDL,LOMA LA LATA - SIERRA BARROSA,Neuquén,YPF,4.32,5.284,4.2
+LDM,LOMA DE LA MINA,Mendoza,E.M.E,0.17,0.002,0.0
+LDPA,LINDERO DE PIEDRA,Mendoza,Hattrick Energy Sas,0.88,0.0,0.0
+LGF,LAGO FUEGO,Tierra del Fuego,YPF,0.1,0.187,0.0
+LGU,LOMA GUADALOSA,Rio Negro,Petrolera Aconcagua Energia,0.04,0.001,0.0
+LLA,LLANCANELO,Mendoza,Petroquimica Comodoro Rivadavia,1.65,0.002,0.0
+LMO,LOMA MONTOSA OESTE,Neuquén,Petroleos Sudamericanos,0.09,0.0,0.0
+LNE,LOMA NEGRA,Rio Negro,Capex,1.68,0.413,15.1
+LOCA,LOS CALDENES,Rio Negro,YPF,0.23,0.021,1.6
+LOJE,LOMA JARILLOSA ESTE,Neuquén,Pluspetrol,1.83,0.024,100.0
+LOR,BARRANCA DE LOS LOROS,Rio Negro,Petroleos Sudamericanos,0.01,0.0,0.0
+LRIB,LA RIBERA BLOQUE I,Neuquén,YPF,0.55,0.564,100.0
+LSMA,LAS MANADAS,Neuquén,Bentia Energy,0.23,0.001,0.0
+LTE2,LOS TOLDOS II ESTE,Neuquén,Tecpetrol,1.83,0.066,100.0
+LTII,LAS TACANAS II,Neuquén,YPF,0.31,0.201,100.0
+LTN1,LOS TOLDOS I NORTE,Neuquén,Tecpetrol,1.4,0.223,100.0
+LTS1,LOS TOLDOS I SUR,Neuquén,Pluspetrol Cuenca Neuquina,0.24,0.085,100.0
+MAG,MAGALLANES,Estado Nacional,Enap Sipetrol Argentina,2.24,1.632,0.0
+MAN,EL MANZANO ESTE,Mendoza,YPF,0.09,0.015,0.0
+MBE1,MESETA BUENA ESPERANZA I,Neuquén,Pluspetrol,0.1,0.075,100.0
+MCCH,MESETA CERON CHICO,Santa Cruz,Pan American Energy,0.11,0.003,0.0
+MED,MEDIANERA,Rio Negro,Medanito,0.09,0.004,0.0
+MEDS,MEDANITO SUR,La Pampa,Pampetrol S.A.P.E.M,0.21,0.003,0.0
+MESI,MESETA ESPINOSA,Santa Cruz,CGC Energia,1.33,0.361,0.0
+MEVE,MESA VERDE,Mendoza,Petroleos Sudamericanos,0.75,0.004,0.0
+MIN,CAÑADON MINERALES,Santa Cruz,CGC Energia,1.03,0.013,0.0
+MIO,MARIA INES OESTE,Santa Cruz,Compañía General de Combustibles,0.02,0.005,0.0
+MMN,MATA MORA NORTE,Neuquén,Kilwer,11.09,0.128,100.0
+MMO,MATAMAGALLANES OESTE,Chubut,Interoil Argentina,0.01,0.001,0.0
+MON,LOS MONOS,Santa Cruz,YPF,0.09,0.001,0.0
+MOY,MOY AIKE,Santa Cruz,Interoil Argentina,0.03,0.001,0.0
+MSI,MESETA SIRVEN,Santa Cruz,CGC Energia,0.12,0.002,0.0
+NDD,AL NORTE DE LA DORSAL,Neuquén,Bentia Energy,0.3,0.174,18.1
+NIT,MEDANITO,La Pampa,Petroquimica Comodoro Rivadavia,3.47,0.271,0.0
+NRBN,NARAMBUENA,Neuquén,YPF,0.06,0.001,0.0
+OCE,OCEANO,Santa Cruz,Interoil Argentina,0.02,0.043,0.0
+OCT,OCTOGONO,Neuquén,Bentia Energy,0.52,0.152,1.1
+ODO,GOBERNADOR AYALA,Mendoza,Pluspetrol,4.53,0.022,0.0
+PALA,PALMAR LARGO,Formosa,Recursos y Energia Formo,0.36,0.012,0.0
+PAM,PAMPA DEL CASTILLO - LA GUITARRA,Chubut,Capex,4.6,0.025,0.0
+PAYO,PAYUN OESTE,Mendoza,Petrolera Aconcagua Energia,0.0,0.0,0.0
+PAZ,LA PAZ,Santa Cruz,Compañía General de Combustibles,0.04,0.071,0.0
+PBN,PASO DE LAS BARDAS NORTE,Mendoza,YPF,0.21,0.215,39.3
+PCL,PIEDRA CLAVADA,Santa Cruz,Crown Point Energia,1.9,0.008,0.0
+PCO,PIEDRAS COLORADAS - ESTRUCTURA INTERMEDIA,Mendoza,Venoil,1.19,0.008,0.0
+PDYI,PAMPA DE LAS YEGUAS I,Neuquén,Pluspetrol Cuenca Neuquina,0.0,0.148,100.0
+PER,LOS PERALES - LAS MESETAS,Santa Cruz,YPF,7.83,0.261,0.0
+PFEV,PUESTO FLORES - ESTANCIA VIEJA,Rio Negro,President Petroleum,0.68,0.005,0.0
+PGU,PUESTO GUARDIAN,Salta,President Petroleum,0.09,0.001,28.5
+PHE,PUESTO HERNANDEZ,Mendoza,YPF,2.37,0.041,0.0
+PICL,PIEDRA CLAVADA (CGSJ-IV),Santa Cruz,CGC Energia,3.18,0.076,0.0
+POR,EL PORVENIR,Neuquén,Oilstone Energia,0.27,0.0,1.5
+PPCR,PUESTO POZO CERCADO ORIENTAL,Mendoza,Petrolera Aconcagua Energia,0.16,0.002,0.0
+PPT,PUESTO PETER,Santa Cruz,Compañía General de Combustibles,0.13,0.03,0.0
+PSOE,PUESTO SILVA OESTE,Neuquén,Pluspetrol,0.04,0.0,100.0
+PTC,PICO TRUNCADO - EL CORDON,Santa Cruz,YPF,1.79,0.093,0.0
+PTO,PUESTO TOUQUET,Neuquén,Oilstone Energia,0.0,0.035,0.0
+PUCO,PUESTO CORTADERA,Neuquén,Oilstone Energia,0.0,0.042,0.0
+PUOL,PUESTO OLIVERIO,Santa Cruz,Compañía General de Combustibles,0.0,0.0,0.0
+PUP,PUESTO PARADA,Neuquén,Tecpetrol,5.24,0.075,97.9
+PUPI,CNQ 7/A,La Pampa,Pluspetrol,4.02,0.01,0.0
+PUPR,PUESTO PRADO,Rio Negro,President Petroleum,0.04,0.0,0.0
+PURO,PUESTO ROJAS,Mendoza,Petroquimica Comodoro Rivadavia,0.4,0.031,63.8
+PUSE,PUNTA SENILLOSA,Neuquén,Tecpetrol,0.05,0.107,58.5
+PZU,PUESTO ZUÑIGA,Rio Negro,Capex,0.3,0.329,0.0
+QUI,PUESTO QUIROGA,Chubut,Tecpetrol,0.21,0.006,0.0
+RAM,RAMOS,Salta,Tecpetrol,0.46,0.826,0.0
+RDA,RINCON DE ARANDA,Neuquén,Pampa Energia,9.53,0.107,100.0
+RDM,RINCON DEL MANGRULLO,Neuquén,YPF,0.15,4.517,100.0
+RGO,RIO NEUQUEN,Neuquén,YPF,2.44,3.933,97.1
+RIM,RIO MAYO,Chubut,Patagonia Resources,0.02,0.006,0.0
+RIPM,RINCONADA - PUESTO MORALES,La Pampa,Pampetrol S.A.P.E.M,0.0,0.0,0.0
+RLCZ,RINCON LA CENIZA,Neuquén,Total Austral,0.23,0.046,100.0
+RPMR,RINCONADA PUESTO MORALES RN,Rio Negro,Madalena Energy Argentina,0.21,0.027,0.0
+S2FA,SANTA CRUZ II - FRACCION A,Santa Cruz,Venoil,0.0,0.009,0.0
+SAL,AGUA SALADA,Rio Negro,Tecpetrol,0.82,0.442,0.0
+SAN,EL SANTIAGUEÑO,Rio Negro,Petroleos Sudamericanos,0.35,0.038,0.0
+SBI,SURUBI,Formosa,Recursos y Energia Formo,0.14,0.0,0.0
+SBLA,SIERRAS BLANCAS,Neuquén,Shell Argentina,8.78,0.139,100.0
+SC1D,SANTA CRUZ I - FRACCION D,Santa Cruz,Venoil,0.05,0.007,0.0
+SC2B,SANTA CRUZ II - FRACCION B,Santa Cruz,Venoil,0.03,0.076,0.0
+SCA,ESCALANTE - EL TREBOL,Chubut,Pecom Servicios Energia,6.05,0.031,0.0
+SCIA,SANTA CRUZ I - FRACCION A,Santa Cruz,Compañía General de Combustibles,0.04,0.12,0.0
+SCIB,SANTA CRUZ I - FRACCION B,Santa Cruz,Compañía General de Combustibles,0.03,0.001,0.0
+SCIC,SANTA CRUZ I - FRACCION C,Santa Cruz,Venoil,0.22,0.078,0.0
+SDD,AL SUR DE LA DORSAL,Neuquén,Oilstone Energia,0.28,0.213,5.5
+SGRI,SALINA GRANDE I,La Pampa,Pampetrol S.A.P.E.M,0.02,0.0,0.0
+SICH,SIERRA CHATA,Neuquén,Pampa Energia,0.09,5.571,94.2
+SIND,SINDICATO,Chubut,Compañías Asociadas Petroleras,0.03,0.0,0.0
+SOLN,SOLANO,Chubut,Compañías Asociadas Petroleras,0.01,0.0,0.0
+SPC,SUR PIEDRA CLAVADA,Santa Cruz,CGC Energia,1.14,0.077,0.0
+SPR,SEÑAL PICADA - PUNTA BARDA,Rio Negro,YPF,4.01,0.098,0.0
+SRO,SAN ROQUE,Neuquén,Total Austral,0.53,1.522,17.2
+TAP,LA TAPERA,Chubut,Tecpetrol,0.04,0.0,0.0
+TDFB,TIERRA DEL FUEGO - FRACCION B,Tierra del Fuego,YPF,0.44,0.484,0.0
+TPI,TRES PICOS,Santa Cruz,CGC Energia,0.77,0.033,0.0
+TUN,RIO TUNUYAN,Mendoza,Petroleos Sudamericanos,0.16,0.001,0.0
+TUP,REFUGIO TUPUNGATO,Mendoza,Petrolera El Trebol,0.73,0.014,0.0
+VAL,EL VALLE,Santa Cruz,Ingenieria Alpa,0.3,0.004,0.0
+VEGA,VEGA GRANDE,Mendoza,G y G Oil Service,0.05,0.004,28.5
+VELP,25 DE MAYO - MEDANITO SUD ESTE LP,La Pampa,Petroquimica Comodoro Rivadavia,1.73,0.098,0.0
+VERN,25 DE MAYO - MEDANITO SUD ESTE RN,Rio Negro,Petrolera Aconcagua Energia,1.57,0.074,0.0
+VIE,CATRIEL VIEJO,Rio Negro,Petrolera Aconcagua Energia,0.07,0.0,0.0
+VIO,LAS VIOLETAS,Tierra del Fuego,Roch,0.2,0.246,0.0
+VIZ,VIZCACHERAS,Mendoza,Petroleos Sudamericanos,2.93,0.029,0.0
+VOL,VOLCAN AUCA MAHUIDA,Neuquén,Bentia Energy,1.1,0.059,0.0
+VRG,VALLE DEL RIO GRANDE,Mendoza,YPF,2.15,0.105,0.0
+WEL,CERRO WENCESLAO,Santa Cruz,CGC Energia,0.39,0.007,0.0
+YAT,CAÑADON YATEL,Santa Cruz,YPF,2.15,0.293,0.0
+Z038,COIRON AMARGO NORTE,Neuquén,Vista Energy Argentina,0.01,0.0,0.0
+Z039,COLLON CURA,Neuquén,Oilstone Energia,0.0,0.0,0.0
+Z053,LA YESERA,Rio Negro,Capex,0.55,0.06,0.0
+Z060,PARVA NEGRA ESTE,Neuquén,Pampa Energia,0.0,0.043,
+ZNI,LOMA NEGRA NI,Neuquén,Oilstone Energia,0.01,0.074,0.0

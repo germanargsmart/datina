@@ -38,7 +38,9 @@ const $ = id => document.getElementById(id) || document.createElement("div");
 // Las tablas más pesadas (elecciones, transferencias por provincia, pirámide y apoyo al gobierno) van en archivos aparte
 // y se bajan recién cuando se dibuja una ficha que las usa, como la lista de legisladores
 const DIFERIDAS = D.diferidas || {}, pedidas = {};
-const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = t)));
+// las tablas diferidas llegan en columnas ({c: nombres, f: filas}, etapa 19): se vuelven a armar como objetos
+const deColumnas = t => Array.isArray(t) ? t : t.f.map(r => Object.fromEntries(t.c.map((k, i) => [k, r[i]])));
+const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = deColumnas(t))));
 /* Mientras llegan los datos de un gráfico, el contenedor queda vacío y muestra la silueta de su forma (data-forma en la plantilla,
    dibujada por datina.css) con el alto que va a tener, así nada salta cuando llega. Los lectores de pantalla oyen "Cargando". */
 const esperando = el => { el.innerHTML = '<span class="solo-lector">Cargando los datos</span>'; el.setAttribute("aria-busy", "true"); };
@@ -157,6 +159,11 @@ const EM = R.empresas;
 // Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
 const PG = R.petroleo, CN = R.construccion, VV = CN.viv;
+// nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes
+const tituloArea = s => String(s || "").trim().toLowerCase().replace(/(^|[\s\-(])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
+  .replace(/ (De|Del|Y) /g, (m, w) => ` ${w.toLowerCase()} `);
+// mapa de pozos no convencionales: un tono por grupo de años de inicio, del más viejo (claro) al más nuevo (oscuro)
+const COL_POZOS = ["#B9D3EC", "#7FB0DD", "#3F86C6", "#1F5E97", "#0B2F52"];
 const masPct = v => (v > 0 ? "+" : "") + pct(v);
 const creceCae = (v, sube = "creció", baja = "cayó") => `${v < 0 ? baja : sube} ${pct(Math.abs(v))}`;
 const TRIM_N = ["primer", "segundo", "tercer", "cuarto"];
@@ -281,6 +288,10 @@ const LEAD = {
     : `Un pozo petrolero de shale de Vaca Muerta que empezó a producir en ${PG.cos_ult} sacó en promedio ${n0(PG.cos_kbbl_ult)} mil barriles de petróleo en sus primeros doce meses, ` +
       `${n1(PG.cos_veces)} veces lo que uno de ${PG.cos_ini}` +
       (PG.cos_max !== PG.cos_ult ? `. El máximo fue el de los pozos de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles.` : `, el máximo de la serie.`),
+  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas, y ${n0(PG.map_activos)} siguieron produciendo en ${PG.map_mes}: ` +
+    `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
+    `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
+    (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
   insumos: v => v === "var_ytd"
     ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
@@ -316,6 +327,11 @@ const TX = {
     `Las empresas informan con demora, así que las de ${PG.fr_ult} todavía pueden sumar más. La rama horizontal y las etapas por pozo son promedios de los pozos de Vaca Muerta ` +
     `según el año de su primera fractura, y la rama cuenta solo los pozos que la informan. La fuente aclara que son datos preliminares, sujetos a revisión.`,
   "pozos-terminados": LEAD["pozos-terminados"]("anio"),
+  "mapa-pozos": LEAD["mapa-pozos"]("cuenca"),
+  "mapa-pozos-nota": `Cada punto es un pozo no convencional que produjo petróleo o gas alguna vez, según la producción por pozo del Capítulo IV, en la ubicación que informa ` +
+    `la Secretaría de Energía (en unos pocos pozos la latitud y la longitud vienen cambiadas y se corrigen). El color dice el año en que empezó a producir, y los que no produjeron en ` +
+    `${PG.map_mes} van más claros. Las áreas son las concesiones de explotación, con una geometría simplificada: al pasar el mouse por un área se ve lo que produjo en ${PG.areas_anio}. ` +
+    `La vista de la cuenca Neuquina abarca Neuquén, Río Negro, Mendoza y La Pampa.`,
   productividad: LEAD.productividad("pozo"),
   "productividad-nota": `Pozos de shale de Vaca Muerta que la producción por pozo del Capítulo IV clasifica como petrolíferos, según el año del primer mes con producción. ` +
     `El primer año son los doce meses desde ese inicio, y los meses sin declaración cuentan como cero. Van solo los años de inicio en los que todos los pozos ya tienen doce meses de historia ` +
@@ -1243,6 +1259,70 @@ function mapaDep(el, cfg) {
     .attr("text-anchor", i ? "middle" : "start").text(t));
 }
 
+/* Mapa de los pozos no convencionales (etapa 19): cada pozo es un punto con el color del año en que empezó a producir, sobre las áreas de
+   concesión. Dos vistas: la cuenca Neuquina y todo el país. Al pasar el mouse (o tocar), el pozo más cercano, a menos de 10 píxeles, o el
+   área que queda debajo. No sigue a la provincia elegida: la cuenca cruza provincias, y la provincia se elige solo en Tu provincia. */
+let TOPO_CONC = null;
+const cargarConc = () => TOPO_CONC ? Promise.resolve(TOPO_CONC) : d3.json("datos/concesiones.topo.json").then(t => (TOPO_CONC = t));
+const PROV_CUENCA = new Set(["Neuquén", "Rio Negro", "Mendoza", "La Pampa"]);
+function mapaPozos(el, cfg) {
+  if (!GEO || !TOPO_CONC) {
+    if (!el.querySelector("svg")) esperando(el);
+    Promise.all([cargarGeo(), cargarConc()]).then(() => mapaPozos(el, cfg)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+    return;
+  }
+  const cuenca = cfg.vista !== "pais", pozos = T.pozos_no_convencionales;
+  const w = Math.min(640, Math.max(300, el.clientWidth)), h = Math.round(w * (cuenca ? .92 : 1.55));
+  el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
+  // el fondo (provincias y áreas) se dibuja entero: el gráfico lo recorta a su recuadro
+  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img").style("overflow", "hidden")
+    .attr("aria-label", `Mapa de los ${n0(pozos.length)} pozos no convencionales${cuenca ? " de la cuenca Neuquina" : " del país"} sobre las áreas de concesión`);
+  // la cuenca se encuadra con el 96% central de sus pozos, así unos pocos alejados no achican el resto
+  const enC = pozos.filter(p => PROV_CUENCA.has(p.provincia)), qx = enC.map(p => p.x).sort(d3.ascending), qy = enC.map(p => p.y).sort(d3.ascending);
+  const [x0, x1, y0, y1] = [d3.quantile(qx, .02), d3.quantile(qx, .98), d3.quantile(qy, .02), d3.quantile(qy, .98)];
+  const marco = cuenca ? {type: "MultiPoint", coordinates: [[x0, y0], [x1, y0], [x1, y1], [x0, y1]]} : GEO;
+  const proy = d3.geoMercator().fitExtent([[10, 10], [w - 10, h - 10]], marco), camino = d3.geoPath(proy);
+  const areas = topojson.feature(TOPO_CONC, TOPO_CONC.objects.concesiones).features;
+  const prodArea = Object.fromEntries(T.areas_produccion.map(a => [a.codigo, a]));
+  svg.append("g").selectAll("path").data(GEO.features).join("path").attr("d", camino).attr("fill", css("--superficie-2")).attr("stroke", css("--borde")).attr("stroke-width", .8);
+  svg.append("g").selectAll("path").data(areas).join("path").attr("d", camino).attr("fill", "#DCE8F4").attr("stroke", "#9DB9D6").attr("stroke-width", .5);
+  // en la cuenca, el nombre de cada provincia en el centro de la parte que se ve, debajo de los pozos
+  if (cuenca) svg.append("g").selectAll("text").data(GEO.features.map(f => {
+    const [[a, b], [c, d]] = camino.bounds(f), x0 = Math.max(a, 0), x1 = Math.min(c, w), y0 = Math.max(b, 0), y1 = Math.min(d, h);
+    return {n: NOMBRES[f.properties.codigo_indec] || f.properties.nombre, x: (x0 + x1) / 2, y: (y0 + y1) / 2, ok: x1 - x0 > 80 && y1 - y0 > 40};
+  }).filter(d => d.ok)).join("text").attr("class", "etq-suave").attr("x", d => d.x).attr("y", d => d.y).attr("text-anchor", "middle").attr("opacity", .8).text(d => d.n);
+  const cortes = PG.map_cortes, r = cuenca ? 2.3 : 1.6;
+  const vis = pozos.map(p => { const [px, py] = proy([p.x, p.y]); return {...p, px, py, c: d3.bisectLeft(cortes, +p.inicio.slice(0, 4)), act: p.pet_bpd > 0 || p.gas_miles_m3d > 0}; })
+    .filter(p => p.px >= 0 && p.px <= w && p.py >= 0 && p.py <= h).sort((a, b) => a.act - b.act || a.c - b.c);  // los que producen y los más nuevos, arriba
+  const opac = p => p.act ? .95 : .35;
+  const puntos = svg.append("g").selectAll("circle").data(vis).join("circle").attr("cx", p => p.px).attr("cy", p => p.py).attr("r", r)
+    .attr("fill", p => COL_POZOS[p.c]).attr("opacity", opac);
+  if (cfg.anim && !REDUCIR) puntos.attr("opacity", 0).transition().delay(p => p.c * 35).duration(DUR_G).attr("opacity", opac);
+  const borde = svg.append("path").attr("fill", "none").attr("stroke", css("--celeste-fuerte")).attr("stroke-width", 1.6).attr("opacity", 0);
+  const anillo = svg.append("circle").attr("r", r + 3.5).attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.5).attr("opacity", 0);
+  const dl = d3.Delaunay.from(vis, p => p.px, p => p.py);
+  const fecha = p => `${MESES[+p.inicio.slice(5, 7) - 1]} de ${p.inicio.slice(0, 4)}`;
+  const tipPozo = p => `<b>${p.sigla}</b><br>${p.empresa}<br>Área ${tituloArea(p.area)}<br>${p.recurso}, pozo de ${p.tipo.toLowerCase()}<br>Empezó a producir en ${fecha(p)}<br>` +
+    (p.act ? `En ${PG.map_mes}: ${n0(p.pet_bpd)} barriles de petróleo y ${n1(p.gas_miles_m3d)} mil m³ de gas por día` : `No produjo en ${PG.map_mes}`);
+  const tipArea = (f, a) => `<b>${tituloArea(f.properties.nombre)}</b>` + (a ? `<br>${a.empresa}<br>En ${PG.areas_anio}: ${kbdF(a.pet_kbd)} mil barriles de petróleo ` +
+    `y ${n1(a.gas_mmm3d)} millones de m³ de gas por día` + (a.pct_pet_nc > 0 ? `<br>No convencional: ${pct(a.pct_pet_nc)} del petróleo` : "") : `<br>Sin producción en ${PG.areas_anio}`);
+  const ver = ev => {
+    const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), p = vis[dl.find(sx, sy)];
+    if (p && Math.hypot(p.px - sx, p.py - sy) < 10) {
+      anillo.attr("cx", p.px).attr("cy", p.py).attr("opacity", 1); borde.attr("opacity", 0);
+      return mostrarTip(el, tipPozo(p), ex, ey);
+    }
+    anillo.attr("opacity", 0);
+    const ll = proy.invert([sx, sy]), f = ll && areas.find(f => d3.geoContains(f, ll));
+    if (f) { borde.attr("d", camino(f)).attr("opacity", 1); return mostrarTip(el, tipArea(f, prodArea[f.properties.codigo]), ex, ey); }
+    borde.attr("opacity", 0); ocultarTip();
+  };
+  svg.append("rect").attr("width", w).attr("height", h).attr("fill", "transparent").style("touch-action", "pan-y")
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); borde.attr("opacity", 0); ocultarTip(); });
+  // el mapa termina de dibujarse después de bajar la geometría: recién ahí se sabe si va "Descargar imagen"
+  const fi = el.closest(".ficha"), bi = fi?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(fi);
+}
+
 /* ---------- fichas ---------- */
 const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult"};
 const M = v => n1(v / 1e6) + " M";
@@ -1385,7 +1465,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {"mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1513,6 +1593,12 @@ Object.assign(DIB, {
       data: metro ? T.productividad_vm.filter(r => r.bbl_por_1000m != null) : T.productividad_vm,
       claves: [{k: metro ? "bbl_por_1000m" : "pet_12m_kbbl", lab: "Primer año", c: COL_TIPO.shale}]});
   },
+  "mapa-pozos": conTablas("mapa-pozos", ["pozos_no_convencionales", "areas_produccion"], a => {
+    const k = MED["mapa-pozos"], c = PG.map_cortes;
+    $t("mapa-pozos").textContent = LEAD["mapa-pozos"](k);
+    leyenda("mapa-pozos-ley", [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]})));
+    mapaPozos(G("mapa-pozos"), {anim: a, vista: k});
+  }),
   "balanza-energetica": a => lineas(G("balanza-energetica"), {anim: a, data: T.balanza_energetica, x: "anio", ref: 0,
     series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--ink"), w: 1.8, dash: "4 3"}],
     y0: Math.min(0, d3.min(T.balanza_energetica, r => r.saldo)), vf: n0, yf: n0}),
@@ -2952,6 +3038,7 @@ const CLAVE = {
   "f-fracturas": [`${n0(PG.dv_rama_ult)} m`, `de rama horizontal tuvo en promedio un pozo de Vaca Muerta fracturado en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`],
   "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
   "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
+  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`],
   "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
   "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
   "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],

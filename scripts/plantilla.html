@@ -898,6 +898,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-mapa-pozos">
+      <h3>Pozos no convencionales y áreas de concesión, {{petroleo.map_mes}}</h3>
+      <p class="lead" data-t="mapa-pozos"></p>
+      <div class="conmutador" role="group" aria-label="Zona" data-g="mapa-pozos">
+        <button type="button" data-m="cuenca" aria-pressed="true">Cuenca Neuquina</button>
+        <button type="button" data-m="pais" aria-pressed="false">Todo el país</button>
+      </div>
+      <div class="pol-ley" id="mapa-pozos-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="mapa-pozos" data-forma="mapa" style="--alto:490px;--alto-c:300px"></div>
+      <p class="nota" data-t="mapa-pozos-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y concesiones de explotación</span><a href="datos/pozos_no_convencionales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-pozos">
       <h3>Pozos en producción y lo que produce cada uno, {{petroleo.pozos_mes}}</h3>
       <p class="lead" data-t="pozos"></p>

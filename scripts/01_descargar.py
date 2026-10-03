@@ -693,7 +693,7 @@ def pozos_no_convencionales():
     if not datos.lstrip(b"\xef\xbb\xbf").startswith(b"idempresa,anio,mes,idpozo"):
         raise ValueError("formato inesperado en la producción por pozo no convencional")
     d = pd.read_csv(io.BytesIO(datos), low_memory=False, usecols=["anio", "mes", "idpozo", "prod_pet", "prod_gas", "tipopozo", "formprod",
-        "sub_tipo_recurso", "empresa", "sigla", "areapermisoconcesion", "provincia", "coordenadax", "coordenaday"])
+        "sub_tipo_recurso", "empresa", "sigla", "areapermisoconcesion", "idareapermisoconcesion", "provincia", "coordenadax", "coordenaday"])
     d["t"] = d.anio * 12 + d.mes - 1  # meses corridos desde el año 0
     d = d.sort_values(["idpozo", "t"])
     prod = d[(d.prod_pet > 0) | (d.prod_gas > 0)]
@@ -702,7 +702,7 @@ def pozos_no_convencionales():
     d["k"] = d.t - d.idpozo.map(ini)  # meses desde el inicio (0 = el primer mes con producción)
     p12 = d[d.k.between(0, 11)].groupby("idpozo")[["prod_pet", "prod_gas"]].sum()
     um = d[d.t == ultimo].set_index("idpozo")[["prod_pet", "prod_gas"]]
-    w = d.groupby("idpozo").agg(sigla=("sigla", "last"), empresa=("empresa", "last"), area=("areapermisoconcesion", "last"), provincia=("provincia", "last"),
+    w = d.groupby("idpozo").agg(sigla=("sigla", "last"), empresa=("empresa", "last"), area=("areapermisoconcesion", "last"), area_id=("idareapermisoconcesion", "last"), provincia=("provincia", "last"),
         formacion=("formprod", "last"), subtipo=("sub_tipo_recurso", "last"), tipo_pozo=("tipopozo", "last"), x=("coordenadax", "first"), y=("coordenaday", "first"),
         acum_pet_m3=("prod_pet", "sum"), acum_gas_miles_m3=("prod_gas", "sum"))
     cambiadas = (w.x > -53) & (w.y < -53)
