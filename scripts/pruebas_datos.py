@@ -46,6 +46,18 @@ ACEPTADAS = {
     "fuentes|mortalidad_infantil": "la comparación con la OCDE usa la estimación armonizada del grupo interinstitucional de las Naciones Unidas, rotulada como estimación con su año; el dato principal es el de la DEIS",
     "fuentes|esperanza_vida|2022": "la comparación con la OCDE usa la estimación de la División de Población de las Naciones Unidas, rotulada como estimación; el dato principal es el del INDEC",
     "fuentes|protegida|2025": "miden cosas distintas: la base mundial no cuenta dos veces las superposiciones y el CIAM suma cada designación (lo explican las dos notas)",
+    # petróleo, gas, construcción y vivienda (etapa 18, octubre de 2026)
+    **{f"mediana|{k}|{c}": "real: regalías de petróleo y gas (y de minería e hidroelectricidad, que la ficha también cuenta)"
+       for k in ("regalias_provincias.pct_regalias", "regalias_pct_ingresos.valor") for c in ("26", "50", "58", "62", "78")},
+    **{f"mediana|{k}|58": "real: el empleo en obras ligadas a Vaca Muerta (el SIPA lo asigna a la provincia del empleador)"
+       for k in ("empleo_construccion_provincias.construccion_cada_1000", "empleo_construccion_cada_1000_hab.valor")},
+    "mediana|vivienda_provincias.pct_electricidad|02": "real: en la Ciudad muchos departamentos cocinan con electricidad",
+    **{f"mediana|vivienda_provincias.pct_lena|{c}": "real: provincias con poca o ninguna red de gas, donde se cocina con leña o carbón"
+       for c in ("18", "22", "34", "54", "66", "86")},
+    "mediana|vivienda_provincias.pct_materiales_4|70": "real: en San Juan es común el techo de caña o tabla con barro, que el Censo clasifica en la calidad más baja (lo dice la nota)",
+    **{f"mediana|vivienda_provincias.pct_ocupados_minas|{c}": "real: provincias petroleras y mineras" for c in ("26", "58", "78")},
+    **{f"fuentes|petroleo|{a}": "la EIA estima el crudo con condensado con su propio método: el sitio usa la serie de la Secretaría de Energía "
+       "y la EIA solo para comparar países (lo dice la nota de la ficha)" for a in (2019, 2020)},
 }
 
 
@@ -105,6 +117,24 @@ def prueba_sumas(d, t):
     s, n = ad.drop("00").n.sum(), ad.loc["00", "n"]
     if abs(s - n) > 1:
         sale.append(("total|aprender", f"Aprender: las provincias suman {s:,.0f} estudiantes y el país {n:,.0f}"))
+    # petróleo y gas (etapa 18): las provincias y el mar suman el país en los doce meses de la ficha (archivo agrupado contra la serie
+    # del país), los pozos por provincia suman los pozos por tipo, y el Censo da los totales que publica el INDEC
+    r = d["resumen"]
+    hp = pd.DataFrame(d["datos"]["hidrocarburos_provincias"])
+    hm = pd.DataFrame(d["datos"]["hidrocarburos_mensual"]).set_index("periodo")
+    meses = [str(p) for p in pd.period_range(end=pd.Period(r["petroleo"]["v_hasta_p"], "M"), periods=12, freq="M")]
+    dias = sum(pd.Period(p, "M").days_in_month for p in meses)
+    for k in ("pet_total", "gas_total"):
+        pais = sum(hm.loc[p, k] * pd.Period(p, "M").days_in_month for p in meses) / dias
+        s = hp["pet_kbd" if k == "pet_total" else "gas_mmm3d"].sum()
+        if abs(s / pais - 1) > .01:
+            sale.append((f"total|hidrocarburos_{k}", f"{k}: las provincias suman {s:,.1f} y el país {pais:,.1f} en los doce meses de la ficha"))
+    if sum(f["total"] for f in d["datos"]["pozos_provincias"]) != sum(f["pozos"] for f in d["datos"]["pozos_tipo"]):
+        sale.append(("total|pozos", "pozos: las provincias no suman lo mismo que los tipos de recurso"))
+    va = r["construccion"]["viv_abs"]
+    for k, v in {"hogares": 15932302, "gas_red": 8390191, "garrafa": 6203636}.items():  # INDEC, cuadro c2022_tp_hogares_c4.xlsx
+        if va[k] != v:
+            sale.append((f"total|censo_{k}", f"Censo 2022, {k}: el resumen por radio da {va[k]:,} y el cuadro del INDEC {v:,}"))
     dep = pd.DataFrame(d["datos"]["aprender_departamentos"]).groupby("codigo_indec").n.sum()
     oculto = d["resumen"]["diagnostico"]["enmascarados"]["alumnos"]
     if abs(dep.sum() + oculto - n) > 2:
@@ -257,6 +287,9 @@ def prueba_fuentes(d, t):
     r = d["resumen"]
     comparar("esperanza_vida|2022", "esperanza de vida 2022", tl("bm_esperanza_vida", "00", 2022), r["nuevos"].get("ev_pais"), "Banco Mundial", "INDEC")
     comparar("protegida|2025", "territorio protegido 2025", tl("bm_protegida", "00", 2025), r["naturaleza"].get("pct"), "Banco Mundial", "CIAM")
+    # petróleo: la estimación de la EIA contra la serie de la Secretaría de Energía, año por año desde 2015
+    for a in range(2015, r["petroleo"]["anio_ult"] + 1):
+        comparar(f"petroleo|{a}", f"producción de petróleo {a}", tl("eia_produccion_crudo", "00", a), tl("produccion_petroleo", "00", a), "EIA", "Secretaría de Energía")
     return sale
 
 

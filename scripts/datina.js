@@ -154,6 +154,115 @@ const EV = R.envejecimiento;
 const ADO_INI = "pct_" + nac.anio_ini, ADO_ULT = "pct_" + nac.anio_ult;
 const PI = R.piramide, JU = R.jubilaciones;
 const EM = R.empresas;
+// Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
+// (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
+const PG = R.petroleo, CN = R.construccion, VV = CN.viv;
+const masPct = v => (v > 0 ? "+" : "") + pct(v);
+const creceCae = (v, sube = "creció", baja = "cayó") => `${v < 0 ? baja : sube} ${pct(Math.abs(v))}`;
+const TRIM_N = ["primer", "segundo", "tercer", "cuarto"];
+// en el celular, los nombres largos de los insumos van abreviados (el nombre completo está en la tabla)
+const CORTO_INS = {"Mosaicos graníticos y calcáreos": "Mosaicos", "Pisos y revestimientos cerámicos": "Pisos cerámicos", "Resto (grifería, tubos y vidrio)": "Grifería, tubos, vidrio"};
+const NOMBRE_INS = n => n.startsWith("Resto") ? "el grupo de grifería, tubos de acero sin costura y vidrio plano" : n.charAt(0).toLowerCase() + n.slice(1);
+const CUENCA_N = {neuquina: "la Neuquina", gsj: "la del Golfo San Jorge", austral: "la Austral", noroeste: "la del Noroeste", cuyana: "la Cuyana"};
+const cuencasTxt = c => lista(Object.entries(c).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${CUENCA_N[k]} (${pct(v)})`));
+const topViv = k => [...T.vivienda_provincias].sort((a, b) => b[k] - a[k]);
+const VIV_IND = {
+  pct_alquila: {nombre: "Hogares que alquilan", f: pct,
+    t: () => `En el Censo 2022, el ${pct(VV.pct_alquila)} de los hogares alquilaba su vivienda y el ${pct(VV.pct_propia)} era propietario. ` +
+      `El alquiler era más común en ${CN.viv_top.pct_alquila[0]} (${pct(CN.viv_top.pct_alquila[1])}) y menos en ${CN.viv_low.pct_alquila[0]} (${pct(CN.viv_low.pct_alquila[1])}).`},
+  pct_hacinamiento: {nombre: "Hogares con hacinamiento crítico", f: pct,
+    t: () => `En el Censo 2022, el ${pct(VV.pct_hacinamiento)} de los hogares vivía con más de tres personas por cuarto, lo que el INDEC llama hacinamiento crítico. ` +
+      `Iba del ${pct(CN.viv_top.pct_hacinamiento[1])} en ${CN.viv_top.pct_hacinamiento[0]} al ${pct(CN.viv_low.pct_hacinamiento[1])} en ${CN.viv_low.pct_hacinamiento[0]}.`},
+  pct_materiales_4: {nombre: "Hogares en viviendas de calidad IV", f: pct,
+    t: () => `En el Censo 2022, el ${pct(VV.pct_materiales_4)} de los hogares vivía en una vivienda con pisos y techos de la calidad más baja de las cuatro que distingue el INDEC. ` +
+      `Iba del ${pct(CN.viv_top.pct_materiales_4[1])} en ${CN.viv_top.pct_materiales_4[0]} al ${pct(CN.viv_low.pct_materiales_4[1])} en ${CN.viv_low.pct_materiales_4[0]}.`},
+  construccion_cada_1000: {nombre: "Viviendas en construcción cada 1.000", f: n1,
+    t: () => `El día del Censo 2022 había ${n0(CN.viv_abs.en_construccion)} viviendas en construcción, ${n1(VV.construccion_cada_1000)} cada 1.000 viviendas particulares. ` +
+      `La proporción más alta era la de ${CN.viv_top.construccion_cada_1000[0]} (${n1(CN.viv_top.construccion_cada_1000[1])}) y la más baja, la de ${CN.viv_low.construccion_cada_1000[0]} (${n1(CN.viv_low.construccion_cada_1000[1])}).`},
+  pct_alquiler_venta: {nombre: "Viviendas en alquiler o venta, sin habitar", f: pct,
+    t: () => `El día del Censo 2022, el ${pct(VV.pct_alquiler_venta)} de las viviendas particulares no tenía residentes porque se ofrecía en alquiler o en venta. ` +
+      `La proporción más alta era la de ${CN.viv_top.pct_alquiler_venta[0]} (${pct(CN.viv_top.pct_alquiler_venta[1])}) y la más baja, la de ${CN.viv_low.pct_alquiler_venta[0]} (${pct(CN.viv_low.pct_alquiler_venta[1])}).`},
+  pct_uso_temporal: {nombre: "Viviendas de uso temporal", f: pct,
+    t: () => `El día del Censo 2022, el ${pct(VV.pct_uso_temporal)} de las viviendas particulares se usaba para vacaciones, fines de semana o como segunda residencia, sin residentes habituales. ` +
+      `La proporción más alta era la de ${CN.viv_top.pct_uso_temporal[0]} (${pct(CN.viv_top.pct_uso_temporal[1])}) y la más baja, la de ${CN.viv_low.pct_uso_temporal[0]} (${pct(CN.viv_low.pct_uso_temporal[1])}).`},
+};
+const NOTA_VIV = k => `Datos del Censo 2022 sumados desde los radios censales. Un hogar son las personas que comparten la vivienda y los gastos de comida. ` +
+  (k === "pct_materiales_4" ? `La calidad de los materiales es una clasificación del INDEC según el material de los pisos y los techos y la presencia de cielorraso: la calidad IV es la de materiales de baja calidad tanto en el piso como en el techo. Se calcula sobre los hogares con dato. ` : "") +
+  `El día del censo, el ${pct(VV.pct_sin_personas)} de las viviendas particulares no tenía personas presentes, y el INDEC registró el motivo: uso temporal, oficina o comercio, alquiler o venta, construcción, residentes que no estaban ese día u otra situación. ` +
+  `Por eso el selector muestra motivos por separado y no un total de viviendas vacías: una parte de las viviendas sin personas presentes tiene residentes habituales. ` +
+  `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`;
+const LEAD = {
+  petroleo: v => v === "cuenca"
+    ? `En ${PG.mes}, el petróleo salió de cinco cuencas: ${cuencasTxt(PG.cuencas_pet)}. La Neuquina abarca Neuquén y partes de Mendoza, Río Negro y La Pampa.`
+    : `En ${PG.mes} la Argentina produjo ${n0(PG.kbd)} mil barriles de petróleo por día${PG.record ? `, el valor más alto de la serie, que empieza en ${PG.anio_ini}` : ""}. ` +
+      `El ${pct(PG.pct_shale)} salió de pozos de shale. Entre enero y ${MESES[PG.ytd.pet.mes - 1]} la producción ${creceCae(PG.ytd.pet.var)} frente a los mismos meses de ${PG.ytd.pet.anio - 1}. ` +
+      `El promedio anual más bajo de la serie fue el de ${PG.anio_min}, con ${n0(PG.kbd_min)} mil barriles por día.`,
+  gas: v => v === "cuenca"
+    ? `En ${PG.mes}, el gas salió de estas cuencas: ${cuencasTxt(PG.cuencas_gas)}. La Austral incluye los yacimientos del mar frente a Tierra del Fuego.`
+    : `En ${PG.mes} se produjeron ${n1(PG.gas)} millones de metros cúbicos de gas natural por día, el ${pct(PG.pct_gas_nc)} de pozos no convencionales. ` +
+      `Entre enero y ${MESES[PG.ytd.gas.mes - 1]} la producción ${creceCae(PG.ytd.gas.var)} frente a los mismos meses de ${PG.ytd.gas.anio - 1}. ` +
+      `En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones por día. El más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,
+  "gas-hogares": () => {
+    const alto = topViv("pct_gas_red").slice(0, 3);
+    return `En el Censo 2022, el ${pct(VV.pct_gas_red)} de los hogares cocinaba con gas de red y el ${pct(VV.pct_garrafa)} con gas en garrafa. ` +
+      (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100 hogares cocinaba con gas de red. ` : "") +
+      `Donde más hogares lo tenían era en ${lista(alto.map(r => `${r.territorio} (${pct(r.pct_gas_red)})`))}.`;
+  },
+  "hidro-provincias": v => {
+    const fila = c => T.hidrocarburos_provincias.find(r => r.territorio === c) || {};
+    if (v === "gas_mmm3d") {
+      const t = fila(PG.top_gas);
+      return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top_gas} produjo el ${pct(PG.top_gas_pct)} del gas del país: ${n1(t.gas_mmm3d)} millones de metros cúbicos por día, contra ${n1(t.gas_mmm3d_antes)} en los mismos meses de diez años antes. ` +
+        `Los yacimientos del mar argentino aportaron el ${pct(PG.mar_gas_pct)}.`;
+    }
+    return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top} produjo el ${pct(PG.top_pct)} del petróleo del país: ${n0(PG.top_kbd)} mil barriles por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
+      `${PG.segundo}, la segunda, produjo ${n0(PG.segundo_kbd)} mil, contra ${n0(PG.segundo_antes)} mil. En total, ${PG.n_prov} provincias producen petróleo o gas. La formación Vaca Muerta dio el ${pct(PG.vm_pct)} del petróleo del país.`;
+  },
+  pozos: () => {
+    const p = T.pozos_provincias.find(r => r.territorio === PG.pozos_top) || {};
+    return `En ${PG.pozos_mes} produjeron petróleo o gas ${n0(PG.pozos)} pozos. Los ${n0(PG.pozos_shale)} de shale, el ${pct(PG.pct_pozos_shale)} del total, dieron el ${pct(PG.pct_pet_shale_pozos)} del petróleo. ` +
+      `Un pozo de shale produjo en promedio ${n0(PG.bpd_shale)} barriles por día y uno convencional, ${n1(PG.bpd_conv)}: ${PG.veces} veces menos. ` +
+      `${PG.pozos_top} es la provincia con más pozos en producción: ${n0(PG.pozos_top_n)}, ${n0(p.convencional)} de ellos convencionales.`;
+  },
+  "empresas-hidro": v => {
+    const e = [...T.hidrocarburos_empresas].filter(r => r.nombre !== "Otras empresas").sort((a, b) => b.pct_gas - a.pct_gas);
+    return v === "pct_gas"
+      ? `Entre ${PG.v_desde} y ${PG.v_hasta}, la empresa que más gas produjo fue ${e[0].nombre}, con el ${pct(e[0].pct_gas)} del país, seguida por ${e[1].nombre} (${pct(e[1].pct_gas)}) y ${e[2].nombre} (${pct(e[2].pct_gas)}).`
+      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.emp_top} produjo el ${pct(PG.emp_top_pct)} del petróleo del país. Declararon producción de petróleo ${PG.n_empresas} empresas, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}.`;
+  },
+  "empleo-hidro": () => `En el ${CN.emp_trim}, la extracción de petróleo y gas y sus servicios tenía ${n0(CN.pet_emp)} puestos asalariados registrados en el sector privado. ` +
+    `Frente al mismo trimestre del año anterior, en las provincias con dato en los dos trimestres, los puestos ${creceCae(CN.pet_emp_var, "crecieron", "cayeron")}. ${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}.`,
+  regalias: v => v === "usd_crudo_hab"
+    ? `En ${PG.reg_usd_anio}, las regalías de petróleo crudo sumaron ${n0(PG.reg_usd_total)} millones de dólares. En ${PG.reg_usd_top} equivalieron a ${n0(PG.reg_usd_top_hab)} dólares por habitante. ` +
+      `El año más alto de la serie, que empieza en ${PG.reg_usd_ini}, fue ${PG.reg_usd_max_anio}, con ${n0(PG.reg_usd_max)} millones.`
+    : `En ${PG.reg_anio}, las regalías fueron el ${pct(PG.reg_top_pct)} de los ingresos totales de ${PG.reg_top}. Superaron el 10% de los ingresos en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, menos del 1%.`,
+  reservas: v => v === "horizonte"
+    ? `Al ritmo de producción de ${PG.res_anio}, las reservas comprobadas alcanzaban para ${n1(PG.res_hor_pet)} años de petróleo y ${n1(PG.res_hor_gas)} años de gas. En ${PG.res_ini} eran ${n1(PG.res_hor_pet_ini)} y ${n1(PG.res_hor_gas_ini)} años.`
+    : v === "gas"
+    ? `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de gas eran de ${n0(PG.res_gas)} mil millones de metros cúbicos, ${n1(PG.res_hor_gas)} años de producción al ritmo de ese año. ` +
+      `El ${pct(PG.res_nc_gas)} era no convencional y el ${pct(PG.res_nq_gas)} estaba en Neuquén. En ${PG.res_ini} eran ${n0(PG.res_gas_ini)} mil millones.`
+    : `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de petróleo eran de ${n0(PG.res_pet)} millones de metros cúbicos, unos ${n1(PG.res_bbl)} mil millones de barriles: ${n1(PG.res_hor_pet)} años de producción al ritmo de ese año. ` +
+      `${PG.res_var_pet >= 0 ? "Crecieron" : "Cayeron"} ${pct(Math.abs(PG.res_var_pet))} frente a ${PG.res_anio_ant}. El ${pct(PG.res_nc_pet)} era no convencional y el ${pct(PG.res_nq_pet)} estaba en Neuquén.`,
+  "balanza-energetica": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía e importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes: un saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} de ${n0(Math.abs(PG.bal_saldo))} millones. ` +
+    (PG.bal_def_n ? `Entre ${PG.bal_def_desde} y ${PG.bal_def_hasta} el saldo fue negativo en ${PG.bal_def_n} de ${PG.bal_def_hasta - PG.bal_def_desde + 1} años, con el déficit más grande en ${PG.bal_def_max_anio}: ${n0(PG.bal_def_max)} millones. ` : "") +
+    `Entre enero y ${MESES[PG.bal_ytd.mes - 1]} de ${PG.bal_ytd.anio}, el saldo fue de ${n0(PG.bal_ytd.saldo)} millones y las exportaciones ${creceCae(PG.bal_ytd_expo.var, "crecieron", "cayeron")} frente a los mismos meses del año anterior.`,
+  "mundo-petroleo": v => {
+    const m = PG.mundo, q = m.neuquen;
+    return v === "gas_bcm"
+      ? `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en gas natural la Argentina fue el productor número ${m.gas_bcm.puesto} del mundo en ${m.gas_bcm.anio}, con ${n1(m.gas_bcm.arg)} mil millones de metros cúbicos, el ${pct(m.gas_bcm.pct)} del total mundial.`
+      : `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en ${m.crudo_kbd.anio} la Argentina fue el productor de petróleo número ${m.crudo_kbd.puesto} del mundo, con ${n0(m.crudo_kbd.arg)} mil barriles por día, el ${pct(m.crudo_kbd.pct)} del total mundial.` +
+        (q ? ` Si Neuquén fuera un país, con ${n0(q.kbd)} mil barriles por día estaría en el puesto ${q.puesto}, entre ${q.arriba} y ${q.abajo}.` : "");
+  },
+  insumos: v => v === "var_ytd"
+    ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
+      `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
+    : `En los doce meses hasta ${CN.ins_mes}, el consumo aparente subió en ${CN.ins_suben} de los ${CN.ins_n} insumos que sigue el ISAC frente a los doce meses anteriores. ` +
+      `El que más creció fue ${NOMBRE_INS(CN.ins_top)} (${masPct(CN.ins_top_v)}) y el que más cayó, ${NOMBRE_INS(CN.ins_low)} (${masPct(CN.ins_low_v)}). El consumo aparente de cemento portland varió ${masPct(CN.cemento_12m)}.`,
+  "empleo-construccion": v => `En el ${CN.emp_trim} había ${n0(CN.emp_total)} puestos asalariados registrados en la construcción privada, el ${pct(CN.emp_pct)} del empleo privado registrado y ${n1(CN.emp_cada_1000)} cada 1.000 habitantes. ` +
+    `Frente al ${CN.emp_trim_ant}, los puestos ${creceCae(CN.emp_var, "crecieron", "cayeron")}` +
+    (v === "var_construccion" ? ` y ${CN.emp_suben} de las 24 jurisdicciones tuvieron más que un año antes.` : v === "serie" ? `. El máximo de la serie fue de ${n0(CN.emp_max)} puestos, en el ${CN.emp_max_trim}.` :
+      `. ${CN.emp_top} tenía ${n1(CN.emp_top_v)} cada 1.000 habitantes y ${CN.emp_low}, ${n1(CN.emp_low_v)}.`),
+};
 const RO = R.rotacion, trim = t => `${["primer", "segundo", "tercer", "cuarto"][t[1] - 1]} trimestre de ${t[0]}`;
 // casos distorsionados por el lugar de registro o por un error de la fuente (datos/manual/distorsiones.json): el motivo va en
 // la misma oración que nombra el máximo, o el caso queda fuera del máximo
@@ -163,6 +272,61 @@ const aclara = (clave, terr) => DIST[clave]?.[terr]?.accion === "aclarar" ? ` ($
 const notaDist = (c, cod) => { const d = c.dist && DIST[c.dist]?.[NOMBRES[cod]]; return d ? d.corto || d.motivo : ""; };
 const sinContar = (clave, terrs) => terrs.length ? `, sin contar ${terrs.join(" y ")}: ${terrs.map(t => DIST[clave][t].motivo).join(". ")}` : "";
 const TX = {
+  // ---- construcción y vivienda (etapa 18)
+  isac: `En ${CN.isac_mes}, la actividad de la construcción medida por el ISAC ${creceCae(CN.isac_var)} frente al mismo mes del año anterior. ` +
+    `Entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio} ${creceCae(CN.isac_ytd.var)} contra los mismos meses de ${CN.isac_ytd.anio - 1}. ` +
+    `Sin el efecto de la estacionalidad, el índice está ${pct(Math.abs(CN.isac_dif_max))} ${CN.isac_dif_max < 0 ? "por debajo" : "por encima"} del máximo de la serie, de ${CN.isac_max_mes}.`,
+  "isac-nota": `El ISAC del INDEC sigue la actividad de la construcción con el consumo aparente de un conjunto de insumos, como cemento, hierro, ladrillos, asfalto y pinturas: lo que se despacha al mercado interno de la producción nacional más lo que se importa. ` +
+    `Es un índice con base 2004 = 100. La serie sin estacionalidad saca los movimientos que se repiten todos los años en los mismos meses, como los de las vacaciones, y sirve para comparar un mes con el anterior. ` +
+    `Desde ${CN.isac_ini}, el promedio anual más alto fue el de ${CN.isac_anual_max} y el más bajo, el de ${CN.isac_anual_min}. En ${CN.isac_anio_ult} el promedio fue ${n1(CN.isac_anual_ult)}, contra ${n1(CN.isac_anual_ant)} el año anterior.`,
+  insumos: LEAD.insumos("var_12m"),
+  "insumos-nota": `Variación del consumo aparente de cada insumo (lo despachado al mercado interno de la producción nacional más lo importado), medida con su índice del ISAC (base 2004 = 100): los doce meses hasta ${CN.ins_mes} contra los doce anteriores, o lo que va del año contra los mismos meses del año anterior. ` +
+    `El INDEC publica juntos la grifería, los tubos de acero sin costura y el vidrio plano, porque por el secreto estadístico no puede difundir sus variaciones por separado.`,
+  "empleo-construccion": LEAD["empleo-construccion"]("construccion_cada_1000"),
+  "empleo-construccion-nota": `Asalariados registrados del sector privado en la construcción (rama 45 de la clasificación de actividades), según el SIPA, en promedio del trimestre. ` +
+    `El SIPA asigna cada puesto a la provincia donde declara el empleador, no donde está la obra: una empresa con sede en la Ciudad que construye en otra provincia suma en la Ciudad. ` +
+    `No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó ${n0(CN.viv_abs.constructores)} personas ocupadas en la construcción, con o sin registro (ver la ficha de abajo). ` +
+    `La población es la proyección ${R.anio_pob} del INDEC. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.`,
+  trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción: el ${pct(VV.pct_ocupados_construccion)} de las personas ocupadas que informaron la rama de actividad. ` +
+    `La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}.`,
+  "trabajadores-nota": `Personas ocupadas según la actividad de la empresa, el negocio o la institución donde trabajan, contadas en el lugar donde viven y no donde está la obra. ` +
+    `Incluye a asalariados con y sin registro, a quienes trabajan por su cuenta y a patrones. El porcentaje se calcula sobre las personas ocupadas con la rama informada: el ${pct(VV.pct_sin_rama)} no respondió o su respuesta no alcanzó para clasificarla. ` +
+    `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
+  costo: `En los doce meses hasta ${CN.costo_mes}, el costo de construir en el Gran Buenos Aires subió ${pct(CN.icc_12)} y los precios al consumidor, ${pct(CN.ipc_12)}. Los materiales subieron ${pct(CN.mat_12)} y la mano de obra, ${pct(CN.mo_12)}. ` +
+    `Medido contra los precios al consumidor, el costo de construir quedó ${pct(Math.abs(CN.icc_real))} ${CN.icc_real < 0 ? "por debajo" : "por encima"} de su nivel de ${CN.costo_desde}.`,
+  "costo-nota": `Índice del Costo de la Construcción del INDEC para el Gran Buenos Aires: lo que cuesta construir viviendas modelo, con materiales, mano de obra y gastos generales. ` +
+    `Para compararlo con la inflación, cada índice se divide por el Índice de Precios al Consumidor nacional y se lleva a 100 en ${CN.costo_desde} (la línea punteada): arriba de 100, construir se encareció más que el promedio de los precios, y abajo, menos. ` +
+    `El INDEC publica el índice como variación de cada mes desde noviembre de 2015, y el sitio encadena esas variaciones (el resultado coincide con el índice que el INDEC publica desde enero de 2022).`,
+  vivienda: VIV_IND.pct_alquila.t(),
+  "vivienda-nota": NOTA_VIV("pct_alquila"),
+  // ---- petróleo y gas (etapa 18)
+  petroleo: LEAD["petroleo"]("tipo"), "petroleo-nota": `Producción declarada por las empresas en el Capítulo IV de la Resolución SE 319/1993, que la Secretaría de Energía publica en metros cúbicos. ` +
+    `Para pasarla a barriles por día se usan los días de cada mes y el mismo factor que la Secretaría aplica en su serie, ${n2(PG.bbl)} barriles por metro cúbico. ` +
+    `Shale y tight son las dos formas de explotación no convencional que define la Ley 27.007: el shale sale de formaciones de esquisto o pizarra y el tight, de areniscas compactas. ` +
+    `El último mes puede cambiar cuando lleguen declaraciones atrasadas.`,
+  gas: LEAD["gas"]("tipo"), "gas-nota": `Millones de metros cúbicos por día: la producción de cada mes, que la Secretaría de Energía publica en miles de metros cúbicos, dividida por sus días. ` +
+    `El tight gas es el que sale de areniscas compactas y el shale gas, de formaciones de esquisto o pizarra (Ley 27.007). El último mes puede cambiar cuando lleguen declaraciones atrasadas.`,
+  "gas-hogares": LEAD["gas-hogares"](), "gas-hogares-nota": `Combustible que el hogar usa principalmente para cocinar, según el Censo 2022. El gas de red es el que llega por cañería de una distribuidora. El zeppelin es un tanque de gas a granel en el lugar. ` +
+    `En el mapa, cada departamento muestra el porcentaje de hogares que cocina con gas de red, en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
+  "hidro-provincias": LEAD["hidro-provincias"]("pet_kbd"), "hidro-provincias-nota": `Promedio de los doce meses en miles de barriles de petróleo y en millones de metros cúbicos de gas por día. ` +
+    `"Mar argentino" son los yacimientos del mar a más de doce millas de la costa, que son del Estado nacional (la fuente los llama Estado Nacional). Al pasar el mouse, cada barra muestra la parte del país, la parte no convencional y la producción de los mismos meses diez años antes, entre ${PG.v10_desde} y ${PG.v10_hasta}.`,
+  pozos: LEAD["pozos"](), "pozos-nota": `Pozos que declararon producción de petróleo o de gas en el mes. La producción de petróleo por pozo divide el petróleo del mes por los días del mes y por los pozos que produjeron petróleo, así que un pozo que produjo solo algunos días baja el promedio. Un mismo pozo puede producir petróleo y gas. ` +
+    `Con el factor de la Secretaría, un barril equivale a unos ${n0(1000 / PG.bbl)} litros.`,
+  "empresas-hidro": LEAD["empresas-hidro"]("pct_pet"), "empresas-hidro-nota": `Producción declarada por cada empresa en el Capítulo IV, como operadora de sus áreas: en las áreas compartidas, la producción figura a nombre de la empresa que la declara. ` +
+    `Los nombres se muestran sin la forma societaria y la tabla los trae como los publica la fuente. Un mismo grupo puede declarar con más de una razón social. Las demás ${PG.n_empresas - PG.emp_n} empresas que declararon producción sumaron el ${pct(PG.emp_resto_pct)} del petróleo.`,
+  "empleo-hidro": LEAD["empleo-hidro"](), "empleo-hidro-nota": `Asalariados registrados del sector privado en la extracción de petróleo y gas y sus servicios (rama 11 de la clasificación de actividades), según el SIPA, en promedio del trimestre. ` +
+    `El SIPA asigna cada puesto a la provincia donde declara el empleador: por eso la Ciudad de Buenos Aires, donde tienen sede muchas empresas, aparece con empleo petrolero. ` +
+    `Las provincias con pocos puestos no se muestran porque el OEDE no publica esos datos por el secreto estadístico. La serie del país suma las provincias con dato.`,
+  regalias: LEAD["regalias"]("pct_regalias"), "regalias-nota": `Las regalías son lo que las empresas pagan a la provincia dueña del recurso por lo que extraen. El porcentaje sale de las cuentas de cada provincia (esquema ahorro-inversión-financiamiento del Ministerio de Economía) e incluye todas las regalías, también las mineras y las hidroeléctricas, sobre los ingresos totales.` +
+    (Object.keys(PG.reg_atrasadas).length ? ` ${lista(Object.entries(PG.reg_atrasadas).map(([p, a]) => `${p} va con ${a}`))}, su último año publicado.` : "") +
+    ` Los dólares por habitante son solo las regalías de petróleo crudo que publica la Secretaría de Energía, divididas por la población ${R.anio_pob}. La Secretaría publica las de gas en pesos y no se suman acá. Las del mar argentino, ${n1(PG.reg_usd_mar)} millones de dólares en ${PG.reg_usd_anio}, son del Estado nacional.`,
+  reservas: LEAD["reservas"]("pet"), "reservas-nota": `Reservas comprobadas al 31 de diciembre que las empresas declaran a la Secretaría de Energía según la Resolución SE 324/2006, hasta el final de la vida útil de los yacimientos: lo que se puede extraer con razonable certeza con la técnica y los precios de ese momento. ` +
+    `Desde 2017 la Secretaría separa las convencionales de las no convencionales. Los años de producción dividen las reservas por la producción de ese año: no son un pronóstico, porque las reservas cambian con la exploración, la tecnología y los precios.`,
+  "balanza-energetica": LEAD["balanza-energetica"](), "balanza-energetica-nota": `Exportaciones del rubro combustibles y energía e importaciones de combustibles y lubricantes, según el Intercambio Comercial Argentino del INDEC, en millones de dólares de cada año. ` +
+    `Son dos clasificaciones distintas, una por rubro y otra por uso económico, pero cubren lo mismo en lo principal: petróleo crudo, gas y combustibles.`,
+  "mundo-petroleo": LEAD["mundo-petroleo"]("crudo_kbd"), "mundo-petroleo-nota": `Petróleo crudo con condensado y gas natural seco, según las estadísticas internacionales de la Administración de Información Energética de los Estados Unidos (EIA), que estima a todos los países con un mismo criterio. ` +
+    (PG.mundo.crudo_kbd.anio === PG.anio_ult ? `Para la Argentina estima ${n0(PG.mundo.crudo_kbd.arg)} mil barriles por día en ${PG.anio_ult}, y la serie de la Secretaría de Energía que usa el resto de la página da ${n0(PG.kbd_ult)} mil. ` : "") +
+    `El dato de Neuquén es de la Secretaría de Energía. El gas llega hasta ${PG.mundo.gas_bcm.anio}, el último año que la EIA publica para casi todos los países. Se muestran los países que producen más que la Argentina y algunos de los que siguen.`,
   "adonse-titulo": `Madres menores de 20 años y nivel socioeconómico por provincia`,
   "adonse-nota": `Cada punto es una provincia. En el eje vertical, el porcentaje de los nacimientos de ${R.ado_nse.anio} cuya madre tenía menos de 20 años (DEIS, estadísticas vitales). En el horizontal, el indicador elegido del Censo 2022. La línea punteada es solo una guía de la tendencia. ` +
     `La correlación es la de rangos de Spearman, que va de menos 1 a 1: cerca de 0 no hay relación, cerca de 1 o de menos 1 la relación es fuerte. Con 24 provincias, valores menores a 0,4 pueden deberse al azar. Una correlación no prueba que una cosa cause la otra: muestra que van juntas.`,
@@ -551,6 +715,72 @@ function lineas(el, cfg) {
     });
 }
 
+/* Áreas apiladas por mes (etapa 18): la producción de petróleo y de gas por tipo de recurso o por cuenca. La misma grilla, los mismos
+   ejes y la misma lectura que las líneas: arriba del gráfico, el último mes y, al pasar el mouse o deslizar el dedo, el mes elegido
+   con cada parte y el total. Cada capa lleva su nombre a la derecha, a la altura de su último tramo, si tiene lugar. */
+function areasApiladas(el, cfg) {
+  const angosto = el.clientWidth < 520;
+  const C = lienzo(el, angosto ? 300 : 340, {t:14, r: angosto ? 96 : 132, b:30, l:44});
+  const {g, iw, ih} = C, data = cfg.data, series = cfg.series, vf = cfg.vf || n0;
+  const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
+  const pila = d3.stack().keys(series.map(s => s.k)).value((d, k) => Math.max(0, d[k] || 0))(data);
+  const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).range([0, iw]);
+  const y = d3.scaleLinear().domain([0, d3.max(pila[pila.length - 1], d => d[1]) * 1.06]).nice().range([ih, 0]);
+  g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  const anios = d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1);
+  const paso = Math.ceil(anios.length / (angosto ? 5 : 10));
+  g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`)
+    .call(d3.axisBottom(x).tickValues(anios.filter(v => (v - anios[0]) % paso === 0)).tickFormat(d3.format("d")).tickSizeOuter(0));
+  const area = d3.area().x(d => x(d.data[cfg.x])).y0(d => y(d[0])).y1(d => y(d[1])).curve(d3.curveMonotoneX);
+  const capas = g.append("g");
+  capas.selectAll("path").data(pila).join("path").attr("fill", (s, i) => series[i].c).attr("d", area);
+  // el borde de arriba de la pila, para leer el total
+  const tope = g.append("path").datum(data).attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.2).attr("stroke-opacity", .55)
+    .attr("d", d3.line().x(d => x(d[cfg.x])).y(d => y(d3.sum(series, s => Math.max(0, d[s.k] || 0)))).curve(d3.curveMonotoneX));
+  if (cfg.anim) {
+    // el dibujo entra de izquierda a derecha, como el trazo de las líneas
+    const id = `ap${++nRecorte}`, r = C.svg.append("defs").append("clipPath").attr("id", id).append("rect").attr("x", -2).attr("y", -20).attr("height", ih + 40).attr("width", 0);
+    capas.attr("clip-path", `url(#${id})`); tope.attr("clip-path", `url(#${id})`);
+    r.transition().duration(DUR_G).ease(EASE).attr("width", iw + 4).on("end", () => { capas.attr("clip-path", null); tope.attr("clip-path", null); });
+  }
+  // nombres a la derecha, a la mitad del último tramo de cada capa, sin pisarse
+  const ult = pila.map((s, i) => ({s: series[i], y0: s[s.length - 1][0], y1: s[s.length - 1][1]})).filter(o => y(o.y0) - y(o.y1) > 9);
+  const etq = ult.map(o => ({o, y: (y(o.y0) + y(o.y1)) / 2})).sort((a, b) => b.y - a.y);
+  for (let i = 1; i < etq.length; i++) if (etq[i - 1].y - etq[i].y < 15) etq[i].y = etq[i - 1].y - 15;
+  const fin = g.append("g");
+  etq.forEach(e => fin.append("text").attr("x", iw + 8).attr("y", e.y).attr("dy", ".35em").attr("class", "etq-fuerte").style("fill", e.o.s.c === "#A9CBEA" ? css("--celeste-fuerte") : e.o.s.c).text(e.o.s.lab));
+  if (cfg.anim) aparecer(fin, 150);
+  const total = d => d3.sum(series, s => d[s.k] || 0);
+  const leer = d => `<b>${cfg.xl ? cfg.xl(d) : d[cfg.x]}</b><span>Total ${vf(total(d))}${cfg.unidad ? " " + cfg.unidad : ""}</span>` +
+    [...series].reverse().map(s => `<span><i style="background:${s.c}"></i>${s.lab} ${vf(d[s.k] || 0)}</span>`).join("");
+  const u = data[data.length - 1];
+  lec.html(leer(u));
+  const regla = g.append("line").attr("y1", 0).attr("y2", ih).attr("stroke", css("--ink")).attr("stroke-opacity", .5).attr("opacity", 0);
+  const leerEn = ev => {
+    const [mx] = d3.pointer(ev), xv = x.invert(mx), d = d3.least(data, r => Math.abs(r[cfg.x] - xv)); if (!d) return;
+    regla.attr("x1", x(d[cfg.x])).attr("x2", x(d[cfg.x])).attr("opacity", 1); lec.html(leer(d));
+  };
+  C.svg.style("touch-action", "pan-y");
+  g.append("rect").attr("width", iw).attr("height", ih).attr("fill", "transparent").on("pointerdown", leerEn).on("pointermove", leerEn)
+    .on("pointerleave", ev => { if (ev.pointerType !== "mouse") return; regla.attr("opacity", 0); lec.html(leer(u)); });
+}
+
+// un nombre que se saldría de la tarjeta se corta con puntos suspensivos y el nombre completo queda al pasar el mouse
+// (antes lo cortaba el borde de la pantalla, sobre todo en el celular). Puede ocupar el margen de la tarjeta, como siempre
+function recortarEtq(nodo, max) {
+  if (!(nodo.getComputedTextLength() > max)) return;
+  const completo = nodo.textContent;
+  let t = completo;
+  while (t.length > 1 && nodo.getComputedTextLength() > max) { t = t.slice(0, -1).trimEnd(); nodo.textContent = t + "…"; }
+  d3.select(nodo).append("title").text(completo);
+}
+
+// lugar de más a la izquierda del gráfico: el margen de la tarjeta (en las fichas horizontales, lo mismo hacia el texto)
+const margenIzq = el => { const t = el.closest(".ficha"), s = el.querySelector("svg"); if (!t || !s) return 0;
+  const borde = s.getBoundingClientRect().left - t.getBoundingClientRect().left - 4;
+  return Math.max(0, Math.min(borde, parseFloat(getComputedStyle(t).paddingLeft) || 0)); };
+
 function barrasH(el, cfg) {
   const data = [...cfg.data].sort((a,b) => d3.descending(a[cfg.k], b[cfg.k]));
   const angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
@@ -576,8 +806,10 @@ function barrasH(el, cfg) {
   const opac = d => hayMarca && !marca(d) ? .55 : 1;
   const barras = filas.append("rect").attr("x", d => x(Math.min(0, d[cfg.k]))).attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth()))
     .attr("width", d => Math.abs(x(d[cfg.k]) - x(0))).attr("fill", relleno).attr("opacity", opac);
+  // el nombre se vuelve a poner (y a cortar si no entra) también al cambiar de provincia, porque en negrita ocupa más
+  const ponerNombre = function(d) { this.textContent = angosto && cfg.corto ? cfg.corto(d) : d.territorio; recortarEtq(this, izq - 10 + margenIzq(el)); };
   const nombres = filas.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end")
-    .attr("class", d => claseProv(d, "etq")).text(d => d.territorio);
+    .attr("class", d => claseProv(d, "etq")).each(ponerNombre);
   const valores = filas.append("text").attr("x", d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em")
     .attr("class", d => claseProv(d, "etq-suave")).text(d => (cfg.vf || n1)(d[cfg.k]));
   if (cfg.mejor) valores.style("fill", d => colorCambio(d, true));
@@ -585,7 +817,7 @@ function barrasH(el, cfg) {
   if (cfg.marcar) el.resaltar = () => {};
   else if (!cfg.cambiaConProv) el.resaltar = () => {
     pasar(barras).attr("fill", relleno).attr("opacity", opac);
-    nombres.attr("class", d => claseProv(d, "etq")); valores.attr("class", d => claseProv(d, "etq-suave"));
+    nombres.attr("class", d => claseProv(d, "etq")).each(ponerNombre); valores.attr("class", d => claseProv(d, "etq-suave"));
   };
   if (cfg.anim) {
     barras.attr("x", x(0)).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
@@ -931,6 +1163,46 @@ function mapaAreas(anim) {
   ley.append("text").attr("x", 0).attr("y", -6).text("% del territorio protegido");
 }
 
+/* Mapa por departamento (etapa 18): un indicador del Censo 2022 en los 527 departamentos, con la geometría de la herramienta de
+   departamentos (se baja una sola vez para todas las fichas). El color divide a los departamentos en cinco grupos del mismo tamaño.
+   Con una provincia elegida en Tu provincia, el mapa se acerca a ella y la mantiene en su escala de colores del país. Tocar el mapa
+   no elige la provincia: eso se hace solo en Tu provincia. */
+let TOPO_DEP = null;
+const cargarTopoDep = () => TOPO_DEP ? Promise.resolve(TOPO_DEP) : d3.json("datos/departamentos.topo.json").then(t => (TOPO_DEP = t));
+const COLORES_DEP = ["#EEF5FC", "#BBD6EF", "#7FB0DD", "#3F86C6", "#1F5E97"];
+function mapaDep(el, cfg) {
+  if (!TOPO_DEP) {
+    if (!el.querySelector("svg")) esperando(el);
+    cargarTopoDep().then(() => mapaDep(el, cfg)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+    return;
+  }
+  const obj = TOPO_DEP.objects.departamentos, todos = topojson.feature(TOPO_DEP, obj).features;
+  const val = Object.fromEntries(cfg.filas.map(r => [r.codigo_dep, r[cfg.k]]));
+  const enProv = NOMBRES[prov] ? todos.filter(f => f.properties.prov === prov) : todos;
+  const w = Math.min(560, Math.max(300, el.clientWidth)), h = NOMBRES[prov] ? Math.round(w * 1.1) : Math.round(w * 1.55);
+  el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
+  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h + 44}`).attr("role", "img")
+    .attr("aria-label", `Mapa por departamento: ${cfg.nombre.toLowerCase()}${NOMBRES[prov] ? ", " + NOMBRES[prov] : ""}`);
+  const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], {type: "FeatureCollection", features: enProv}), camino = d3.geoPath(proy);
+  const vals = todos.map(f => val[f.properties.id]).filter(v => v != null).sort(d3.ascending);
+  const cortes = [.2, .4, .6, .8].map(q => d3.quantile(vals, q));
+  const escala = d3.scaleThreshold().domain(cortes).range(COLORES_DEP);
+  const deps = svg.append("g").selectAll("path").data(enProv).join("path").attr("class", "dep").attr("d", camino)
+    .attr("fill", f => val[f.properties.id] == null ? css("--line") : escala(val[f.properties.id]));
+  if (cfg.anim && !REDUCIR) deps.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+  const geoms = NOMBRES[prov] ? {type: "GeometryCollection", geometries: obj.geometries.filter(x => x.properties.prov === prov)} : obj;
+  svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(TOPO_DEP, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
+  deps.on("pointermove", (ev, f) => {
+    const v = val[f.properties.id], [mx, my] = d3.pointer(ev, el);
+    mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? "sin dato" : cfg.vf(v)}`, mx, my);
+  }).on("pointerleave", ocultarTip);
+  // leyenda: los cinco grupos con sus cortes
+  const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
+  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("rx", 2).attr("fill", c));
+  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26)
+    .attr("text-anchor", i ? "middle" : "start").text(t));
+}
+
 /* ---------- fichas ---------- */
 const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult"};
 const M = v => n1(v / 1e6) + " M";
@@ -1071,6 +1343,145 @@ const DIB = {
         tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
         mejor: "sube", pais: R.empleo.var_nac}),
 };
+
+/* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
+Object.assign(MED, {petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
+  "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
+  "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
+const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
+const SERIES_TIPO = p => [{k: `${p}_conv`, lab: "Convencional", c: COL_TIPO.conv}, {k: `${p}_tight`, lab: "Tight", c: COL_TIPO.tight}, {k: `${p}_shale`, lab: "Shale", c: COL_TIPO.shale}];
+const SERIES_CUENCA = p => [["cuyana", "Cuyana", "#C3CAD2"], ["noroeste", "Noroeste", "#F6B40E"], ["austral", "Austral", "#A9CBEA"], ["gsj", "Golfo San Jorge", "#74ACDF"],
+  ["neuquina", "Neuquina", "#1F5E97"]].map(([k, lab, c]) => ({k: `${p}_${k}`, lab, c}));
+const conT = r => ({...r, t: r.anio + (r.mes - 1) / 12});
+const mesP = r => `${MESES[r.mes - 1]} de ${r.anio}`;
+const mesPer = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
+const tPer = p => +p.slice(0, 4) + (+p.slice(5, 7) - 1) / 12;
+const leyenda = (id, claves) => { $(id).innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join(""); };
+// los gráficos que cambian entre barras y mapa: la leyenda de las barras se oculta con el mapa
+const kbdF = v => v >= 10 ? n0(v) : n1(v);
+const bblF = v => v >= 100 ? n0(v) : n1(v);
+Object.assign(DIB, {
+  petroleo: conTablas("petroleo", ["hidrocarburos_mensual"], a => {
+    $t("petroleo").textContent = LEAD.petroleo(MED.petroleo);
+    areasApiladas(G("petroleo"), {anim: a, data: T.hidrocarburos_mensual.map(conT), x: "t", series: MED.petroleo === "cuenca" ? SERIES_CUENCA("pet") : SERIES_TIPO("pet"),
+      vf: kbdF, yf: n0, xl: mesP, unidad: "mil barriles por día"});
+  }),
+  gas: conTablas("gas", ["hidrocarburos_mensual"], a => {
+    $t("gas").textContent = LEAD.gas(MED.gas);
+    areasApiladas(G("gas"), {anim: a, data: T.hidrocarburos_mensual.map(conT), x: "t", series: MED.gas === "cuenca" ? SERIES_CUENCA("gas") : SERIES_TIPO("gas"),
+      vf: n1, yf: n0, xl: mesP, unidad: "millones de m³ por día"});
+  }),
+  "gas-hogares": conTablas("gas-hogares", () => MED["gas-hogares-vista"] === "mapa" ? ["vivienda_departamentos"] : [], a => {
+    const mapa = MED["gas-hogares-vista"] === "mapa";
+    $("gas-hogares-ley").hidden = mapa;
+    if (mapa) return mapaDep(G("gas-hogares"), {anim: a, filas: T.vivienda_departamentos, k: "pct_gas_red", nombre: "Hogares que cocinan con gas de red", vf: pct});
+    const cl = [{k: "pct_gas_red", lab: "Gas de red", c: "#1F5E97"}, {k: "pct_zeppelin", lab: "Gas a granel (zeppelin)", c: "#74ACDF", texto: "#18212B"},
+      {k: "pct_garrafa", lab: "Garrafa", c: "#F6B40E", texto: "#18212B"}, {k: "pct_electricidad", lab: "Electricidad", c: "#C6DCF1", texto: "#18212B"},
+      {k: "pct_lena", lab: "Leña o carbón", c: "#85340A"}];
+    leyenda("gas-hogares-ley", cl);
+    const filas = [{codigo_indec: "00", territorio: "Todo el país", ...VV}, ...[...T.vivienda_provincias].sort((p, q) => q.pct_gas_red - p.pct_gas_red)];
+    apiladasH(G("gas-hogares"), {anim: a, claves: cl, data: filas});
+  }),
+  "hidro-provincias": a => {
+    const k = MED["hidro-provincias"], gas = k === "gas_mmm3d";
+    $t("hidro-provincias").textContent = LEAD["hidro-provincias"](k);
+    barrasH(G("hidro-provincias"), {anim: a, data: T.hidrocarburos_provincias.filter(d => d[k] > .005), k, vf: gas ? n1 : kbdF, af: n0,
+      tip: d => `<b>${d.territorio}</b><br>` + (gas ? `${n1(d.gas_mmm3d)} millones de m³ por día<br>${pct(d.pct_gas_pais)} del gas del país<br>No convencional: ${pct(d.pct_gas_nc || 0)}<br>Diez años antes: ${n1(d.gas_mmm3d_antes)}`
+        : `${kbdF(d.pet_kbd)} mil barriles por día<br>${pct(d.pct_pet_pais)} del petróleo del país<br>No convencional: ${pct(d.pct_pet_nc || 0)}<br>Diez años antes: ${kbdF(d.pet_kbd_antes)}`)});
+  },
+  pozos: a => {
+    const t = T.pozos_tipo;
+    $("pozos-ley").hidden = MED.pozos === "pozo";
+    if (MED.pozos === "pozo") return barrasH(G("pozos"), {anim: a, data: t.map(r => ({...r, codigo_indec: r.tipo, territorio: r.nombre})), k: "bpd_pozo_pet", vf: v => bblF(v) + " barriles", af: n0,
+      tip: d => `<b>${d.nombre}</b><br>${bblF(d.bpd_pozo_pet)} barriles de petróleo por día por pozo<br>${n0(d.pozos_pet)} pozos que produjeron petróleo<br>${n0(d.pozos)} pozos con petróleo o gas`});
+    const cl = [{k: "convencional", lab: "Convencionales", c: COL_TIPO.conv, texto: "#18212B"}, {k: "tight", lab: "Tight", c: COL_TIPO.tight, texto: "#18212B"}, {k: "shale", lab: "Shale", c: COL_TIPO.shale}];
+    leyenda("pozos-ley", cl);
+    const fila = (id, nombre, col) => ({codigo_indec: id, territorio: nombre, ...Object.fromEntries(t.map(r => [r.tipo, r[col]]))});
+    apiladasH(G("pozos"), {anim: a, claves: cl, data: [fila("pozos", "Pozos", "pct_pozos"), fila("pet", "Petróleo", "pct_pet"), fila("gas", "Gas", "pct_gas")]});
+  },
+  "empresas-hidro": a => {
+    const k = MED["empresas-hidro"], gas = k === "pct_gas";
+    $t("empresas-hidro").textContent = LEAD["empresas-hidro"](k);
+    barrasH(G("empresas-hidro"), {anim: a, data: T.hidrocarburos_empresas.filter(r => r.nombre !== "Otras empresas").map((r, i) => ({...r, codigo_indec: "e" + i, territorio: r.nombre})),
+      k, vf: pct, af: v => v + "%", l: 196, lAngosto: 158,
+      tip: d => `<b>${d.nombre}</b><br>${pct(d[k])} del ${gas ? "gas" : "petróleo"} del país<br>` + (gas ? `${n1(d.gas_mmm3d)} millones de m³ por día` : `${kbdF(d.pet_kbd)} mil barriles por día`)});
+  },
+  "empleo-hidro": conTablas("empleo-hidro", () => MED["empleo-hidro"] === "serie" ? ["empleo_construccion_serie"] : [], a => {
+    if (MED["empleo-hidro"] === "serie") return lineas(G("empleo-hidro"), {anim: a, data: T.empleo_construccion_serie.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})), x: "t",
+      series: [{k: "petroleo_gas", lab: "País", c: NAR}], y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => `${TRIM_N[r.trimestre - 1]} trimestre de ${r.anio}`});
+    barrasH(G("empleo-hidro"), {anim: a, data: T.empleo_construccion_provincias.filter(d => d.petroleo_gas > 0), k: "petroleo_gas", vf: n0, af: n0,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.petroleo_gas)} puestos asalariados registrados<br>${n1(d.petroleo_gas_cada_1000)} cada 1.000 habitantes`});
+  }),
+  regalias: a => {
+    const k = MED.regalias, usd = k === "usd_crudo_hab";
+    $t("regalias").textContent = LEAD.regalias(k);
+    barrasH(G("regalias"), {anim: a, data: usd ? T.regalias_provincias.filter(d => d.usd_crudo_hab > 0) : T.regalias_provincias, k,
+      vf: usd ? n0 : v => n1(v) + "%", af: usd ? n0 : v => v + "%",
+      tip: d => `<b>${d.territorio}</b><br>Regalías: ${pct(d.pct_regalias)} de los ingresos totales en ${d.anio_aif}` +
+        (d.usd_crudo_hab > 0 ? `<br>Petróleo crudo: ${n1(d.usd_crudo_millones)} millones de dólares en ${PG.reg_usd_anio}, ${n0(d.usd_crudo_hab)} por habitante` : "")});
+  },
+  reservas: a => {
+    const k = MED.reservas, d = T.reservas_hidrocarburos;
+    $t("reservas").textContent = LEAD.reservas(k);
+    $("reservas-ley").hidden = k === "horizonte";
+    if (k === "horizonte") return lineas(G("reservas"), {anim: a, data: d, x: "anio", series: [{k: "horizonte_pet", lab: "Petróleo", c: NAR}, {k: "horizonte_gas", lab: "Gas", c: FRI}],
+      y0: 0, vf: v => n1(v) + " años", yf: n0});
+    const gas = k === "gas", tot = gas ? "gas_miles_millones_m3" : "pet_millones_m3", pc = gas ? "pct_gas_nc" : "pct_pet_nc";
+    const cl = [{k: "sd", lab: "Sin separar (hasta 2016)", c: "#C3CAD2"}, {k: "conv", lab: "Convencionales", c: COL_TIPO.conv}, {k: "nc", lab: "No convencionales", c: COL_TIPO.shale}];
+    leyenda("reservas-ley", cl);
+    columnasApiladas(G("reservas"), {anim: a, claves: cl, cadaTick: 2, vf: n0, af: n0, unidad: gas ? "miles de millones de m³" : "millones de m³",
+      data: d.map(r => r[pc] == null ? {anio: r.anio, sd: r[tot]} : {anio: r.anio, conv: r[tot] * (1 - r[pc] / 100), nc: r[tot] * r[pc] / 100})});
+  },
+  "balanza-energetica": a => lineas(G("balanza-energetica"), {anim: a, data: T.balanza_energetica, x: "anio", ref: 0,
+    series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--ink"), w: 1.8, dash: "4 3"}],
+    y0: Math.min(0, d3.min(T.balanza_energetica, r => r.saldo)), vf: n0, yf: n0}),
+  "mundo-petroleo": a => {
+    const k = MED["mundo-petroleo"], gas = k === "gas_bcm", q = PG.mundo.neuquen;
+    $t("mundo-petroleo").textContent = LEAD["mundo-petroleo"](k);
+    const filas = T.mundo_hidrocarburos.filter(r => r.variable === k).map(r => ({codigo_indec: r.iso3, territorio: r.pais, v: r.valor, puesto: r.puesto}));
+    if (!gas && q) filas.push({codigo_indec: "NQN", territorio: "Neuquén (provincia)", v: q.kbd});
+    barrasH(G("mundo-petroleo"), {anim: a, data: filas, k: "v", vf: gas ? n1 : n0, af: n0, l: 168, lAngosto: 142, marcar: new Set(["ARG", "NQN"]),
+      color: d => d.codigo_indec === "ARG" ? css("--celeste-fuerte") : d.codigo_indec === "NQN" ? css("--sol") : css("--celeste"),
+      tip: d => `<b>${d.territorio}</b><br>${gas ? n1(d.v) + " mil millones de m³" : n0(d.v) + " mil barriles por día"}<br>` +
+        (d.puesto ? `Puesto ${d.puesto} en el mundo` : `Provincia de la Argentina: estaría en el puesto ${q.puesto}`)});
+  },
+  isac: conTablas("isac", ["isac_mensual"], a => lineas(G("isac"), {anim: a, data: T.isac_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
+    y0: Math.floor(d3.min(T.isac_mensual, r => Math.min(r.original, r.desestacionalizada)) / 20) * 20,
+    series: [{k: "original", lab: "Original", c: css("--celeste"), w: 1.6}, {k: "desestacionalizada", lab: "Sin estacionalidad", c: NAR}], vf: n1, yf: n0, xl: r => mesPer(r.periodo)})),
+  insumos: a => {
+    const k = MED.insumos;
+    $t("insumos").textContent = LEAD.insumos(k);
+    barrasH(G("insumos"), {anim: a, data: T.isac_insumos, k, vf: masPct, af: v => v + "%", l: 210, lAngosto: 152, corto: d => CORTO_INS[d.territorio] || d.territorio});
+  },
+  "empleo-construccion": conTablas("empleo-construccion", () => MED["empleo-construccion"] === "serie" ? ["empleo_construccion_serie"] : [], a => {
+    const k = MED["empleo-construccion"];
+    $t("empleo-construccion").textContent = LEAD["empleo-construccion"](k);
+    $("clave-empleo-construccion").hidden = k !== "var_construccion";
+    if (k === "serie") return lineas(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_serie.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})), x: "t",
+      series: [{k: "construccion", lab: "País", c: NAR}], y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => `${TRIM_N[r.trimestre - 1]} trimestre de ${r.anio}`});
+    const tip = d => `<b>${d.territorio}</b><br>${n0(d.construccion)} puestos asalariados registrados<br>${n1(d.construccion_cada_1000)} cada 1.000 habitantes<br>${pct(d.pct_construccion)} del empleo privado registrado`;
+    if (k === "var_construccion") return barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: masPct, af: v => v + "%", mejor: "sube", pais: CN.emp_var, tip});
+    barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: n1, af: n0, ref: CN.emp_cada_1000, refLab: `País ${n1(CN.emp_cada_1000)}`, tip});
+  }),
+  trabajadores: conTablas("trabajadores", () => MED["trabajadores-vista"] === "mapa" ? ["vivienda_departamentos"] : [], a => MED["trabajadores-vista"] === "mapa"
+    ? mapaDep(G("trabajadores"), {anim: a, filas: T.vivienda_departamentos, k: "pct_ocupados_construccion", nombre: "Personas ocupadas en la construcción", vf: pct})
+    : barrasH(G("trabajadores"), {anim: a, data: T.vivienda_provincias, k: "pct_ocupados_construccion", ref: VV.pct_ocupados_construccion,
+        refLab: `País ${pct(VV.pct_ocupados_construccion)}`, vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"})),
+  costo: conTablas("costo", ["costo_construccion"], a => lineas(G("costo"), {anim: a, data: T.costo_construccion.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
+    y0: Math.floor(d3.min(T.costo_construccion, r => Math.min(r.icc_real, r.materiales_real, r.mano_obra_real)) / 10) * 10,
+    ref: 100,
+    series: [{k: "icc_real", lab: "Costo total", c: NAR}, {k: "materiales_real", lab: "Materiales", c: css("--celeste"), w: 1.8}, {k: "mano_obra_real", lab: "Mano de obra", c: FRI, w: 1.8}],
+    vf: n1, yf: n0, xl: r => mesPer(r.periodo)})),
+  vivienda: conTablas("vivienda", () => MED["vivienda-vista"] === "mapa" ? ["vivienda_departamentos"] : [], a => {
+    const k = MED.vivienda, ind = VIV_IND[k];
+    $t("vivienda").textContent = ind.t();
+    $t("vivienda-nota").textContent = NOTA_VIV(k);
+    if (MED["vivienda-vista"] === "mapa") return mapaDep(G("vivienda"), {anim: a, filas: T.vivienda_departamentos, k, nombre: ind.nombre, vf: ind.f});
+    const pc = k.startsWith("pct");
+    barrasH(G("vivienda"), {anim: a, data: T.vivienda_provincias, k, ref: VV[k], refLab: `País ${pc ? pct(VV[k]) : n1(VV[k])}`,
+      vf: pc ? (v => n1(v) + "%") : n1, af: pc ? (v => v + "%") : n0, dif: pc ? "puntos" : null});
+  }),
+});
 
 /* ---------- política ---------- */
 const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " y " + arr[arr.length - 1] : arr[0];
@@ -1647,6 +2058,8 @@ function cambiarVista(g, dibujar = () => DIB[g](false)) {
   if (!el || REDUCIR || !VT_TIPOS || document.hidden) return dibujar();
   el.style.viewTransitionName = "grafico";
   const t = document.startViewTransition({update: dibujar, types: ["grafico"]});
+  // si otra vista empieza antes de que termine esta (dos toques seguidos), el navegador la saltea: no es un error
+  t.ready.catch(() => {});
   t.finished.finally(() => { el.style.viewTransitionName = ""; });
 }
 /* Al cambiar de provincia (etapa 6), según qué cambia en cada lugar:
@@ -1669,6 +2082,7 @@ function repintarProv() {
   const nombrar = () => lugares.forEach((l, i) => { const el = l(); if (el && enPantalla(el)) el.style.viewTransitionName = `cambio-${i}`; });
   nombrar();
   const t = document.startViewTransition({update: () => { cambiar(); nombrar(); }, types: ["provincia"]});
+  t.ready.catch(() => {});
   t.finished.finally(() => lugares.forEach(l => { const el = l(); if (el) el.style.viewTransitionName = ""; }));
 }
 // Solo se redibujan los gráficos de tarjetas que ya entraron en pantalla: el resto se dibuja al llegar
@@ -2406,7 +2820,7 @@ document.querySelectorAll(".conmutador:not(.pestanas)").forEach(conm => {
     MED[k] = b.dataset.m;
     conm.style.setProperty("--i", i);
     conm.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    cambiarVista(k);
+    cambiarVista(conm.dataset.dib || k);
   }));
 });
 
@@ -2444,6 +2858,23 @@ function tablaAreas() {
 const sg = v => (v > 0 ? "+" : "") + pct(v);
 // Cifra destacada de cada ficha. La sección de salud mental no lleva cifra destacada, para no dramatizar.
 const CLAVE = {
+  "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
+  "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`],
+  "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`],
+  "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`],
+  "f-pozos": [`${PG.veces} veces`, `más petróleo por día produjo un pozo de shale que uno convencional en ${PG.pozos_mes}`],
+  "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`],
+  "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`],
+  "f-regalias": [pct(PG.reg_top_pct), `de los ingresos totales de ${PG.reg_top} fueron regalías en ${PG.reg_anio}`],
+  "f-reservas": [`${n1(PG.res_hor_pet)} años`, `de producción de petróleo alcanzan las reservas comprobadas, al ritmo de ${PG.res_anio}`],
+  "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`],
+  "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
+  "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
+  "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],
+  "f-empleo-construccion": [n0(CN.emp_total), `puestos asalariados registrados en la construcción privada en el ${CN.emp_trim}`],
+  "f-trabajadores": [pct(VV.pct_ocupados_construccion), `de las personas ocupadas trabajaba en la construcción en el Censo 2022, con o sin registro`],
+  "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir desde ${CN.costo_desde}`],
+  "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`],
   "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`],
   "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`],
   "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`],
@@ -2495,6 +2926,11 @@ const ELU = R.elecciones.filter(x => x.vuelta > 0).at(-1);
 const ESP_DIP = Object.keys(CG.dip).sort((a, b) => CG.dip[b] - CG.dip[a]);
 const masMenos = (v, mas, menos) => v < 0 ? menos : mas;
 const EXTRA = {
+  "x-pet-shale": ["f-petroleo", pct(PG.pct_shale), `del petróleo de ${PG.mes} salió de pozos de shale. En ${PG.anio_ult}, la producción no convencional fue el ${pct(PG.pct_nc_ult)} del total`],
+  "x-pet-ytd": ["f-petroleo", pct(Math.abs(PG.ytd.pet.var)), `${PG.ytd.pet.var < 0 ? "cayó" : "creció"} la producción de petróleo entre enero y ${MESES[PG.ytd.pet.mes - 1]} de ${PG.ytd.pet.anio}, frente a los mismos meses de ${PG.ytd.pet.anio - 1}`],
+  "x-vaca-muerta": ["f-hidro-provincias", pct(PG.vm_pct), `del petróleo del país salió de la formación Vaca Muerta entre ${PG.v_desde} y ${PG.v_hasta}`],
+  "x-construccion-ytd": ["f-isac", pct(Math.abs(CN.isac_ytd.var)), `${CN.isac_ytd.var < 0 ? "cayó" : "creció"} la actividad de la construcción entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio}, frente a los mismos meses del año anterior`],
+  "x-viviendas-construccion": ["f-vivienda", n0(CN.viv_abs.en_construccion), `viviendas estaban en construcción el día del Censo 2022, ${n1(VV.construccion_cada_1000)} cada 1.000`],
   "x-emp-top": ["f-empresas", n1(EM.top_v), `empresas privadas cada 1.000 habitantes en ${EM.top}, la jurisdicción con más, en ${EM.anio}. En ${EM.low}, ${n1(EM.low_v)}`],
   "x-emp-saldo": ["f-dinamica-empresas", `${EM.positivas} de 24`, `jurisdicciones abrieron más empresas de las que cerraron en ${EM.ult}. En el país abrieron ${n1(EM.te)} y cerraron ${n1(EM.ts)} de cada 100`],
   "x-emp-negativos": ["f-dinamica-empresas", n0(EM.anios_negativos), `años con más cierres que aperturas de empresas desde ${EM.ini}, entre ellos ${lista(EM.ultimos_negativos.map(String))}`],
@@ -2522,6 +2958,8 @@ const EXTRA = {
   "x-hoteles-nr": ["f-hoteles", pct(tu.eoh_nr_pct), `de los viajeros hospedados en hoteles y parahoteles en ${tu.eoh_anio} no residía en el país`],
 };
 const EN_CIFRAS = {
+  construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "f-trabajadores", "x-viviendas-construccion", "f-insumos"],
+  petroleo: ["f-petroleo", "x-pet-shale", "f-gas", "f-mundo-petroleo", "f-reservas", "x-vaca-muerta", "f-pozos", "f-balanza-energetica", "f-regalias"],
   trabajo: ["f-empleo", "f-rotacion", "f-exportaciones", "f-fiscal"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
@@ -2998,6 +3436,12 @@ const INDP = [
     d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.mediana, f:pct},
   {id:"f-eti", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
+  {id:"f-gas-hogares", lab:"Gas de red para cocinar", det:"% de los hogares, Censo 2022",
+    d:T.vivienda_provincias, k:"pct_gas_red", pais:VV.pct_gas_red, f:pct},
+  {id:"f-vivienda", lab:"Hogares que alquilan", det:"% de los hogares, Censo 2022",
+    d:T.vivienda_provincias, k:"pct_alquila", pais:VV.pct_alquila, f:pct},
+  {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
+    d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
 ];
 const grilla = document.getElementById("prov-grid") || document.createElement("div");
 grilla.innerHTML = INDP.map((c, i) => `<a class="tarjeta dp" href="#${c.id}" data-i="${i}"><span class="dp-lab">${c.lab}</span>
@@ -3048,6 +3492,12 @@ function pintarPanel(animar) {
 /* ---------- preguntas que rotan de a una ---------- */
 const veces = (a, b) => n1(a / b).replace(/,0$/, "");
 const PREG = [
+  ["¿Cuánto petróleo produce la Argentina?",
+   `${n0(PG.kbd)} mil barriles por día en ${PG.mes}, el ${pct(PG.pct_shale)} de pozos de shale. Según la EIA, en ${PG.mundo.crudo_kbd.anio} fue el productor número ${PG.mundo.crudo_kbd.puesto} del mundo.`, "#f-petroleo"],
+  ["¿Cuántos hogares cocinan con gas de red?",
+   `El ${pct(VV.pct_gas_red)} en el Censo 2022. ` + (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100.` : ""), "#f-gas-hogares"],
+  ["¿Cuántos hogares alquilan su vivienda?",
+   `El ${pct(VV.pct_alquila)} en el Censo 2022: del ${pct(CN.viv_top.pct_alquila[1])} en ${CN.viv_top.pct_alquila[0]} al ${pct(CN.viv_low.pct_alquila[1])} en ${CN.viv_low.pct_alquila[0]}.`, "#f-vivienda"],
   ["¿Cuánto varía la mortalidad infantil entre provincias?",
    `En el promedio de ${mo.tri_act} murieron ${n1(mo.top_v)} de cada 1.000 nacidos vivos en ${mo.top} y ${n1(mo.low_v)} en ${mo.low}: ${veces(mo.top_v, mo.low_v)} veces más.`, "#f-mortalidad"],
   ["¿Cuántos años de esperanza de vida separan a las provincias?",
@@ -3430,6 +3880,24 @@ const serieM = (tit, d, f, n = 10, hl = null) => ({tit, d: d.filter(x => x[1] !=
 const provM = (tit, filas, k, pais, f) => ({tit, prov: filas.filter(r => r[k] != null && NOMBRES[r.codigo_indec]).map(r => ({c: r.codigo_indec, v: r[k]})), pais, f});
 const TOT_DIP = (() => { const r = T.representacion_provincias || []; return r.length ? d3.sum(r, x => x.poblacion) / d3.sum(r, x => x.diputados) : null; })();
 const SERIE_CIFRA = {
+  "f-petroleo": () => serieM("Producción de petróleo, miles de barriles por día, promedio de cada año", T.hidrocarburos_anual.map(r => [r.anio, r.pet_total]), n0),
+  "x-pet-shale": () => serieM("Petróleo no convencional, % de la producción de cada año", T.hidrocarburos_anual.map(r => [r.anio, r.pct_pet_nc]), pct),
+  "x-pet-ytd": () => SERIE_CIFRA["f-petroleo"](),
+  "f-gas": () => serieM("Producción de gas natural, millones de m³ por día, promedio de cada año", T.hidrocarburos_anual.map(r => [r.anio, r.gas_total]), n1),
+  "f-gas-hogares": () => provM("Hogares que cocinan con gas de red, en %, Censo 2022", T.vivienda_provincias, "pct_gas_red", VV.pct_gas_red, pct),
+  "f-hidro-provincias": () => provM("Petróleo, miles de barriles por día, doce meses más recientes", T.hidrocarburos_provincias, "pet_kbd", null, n0),
+  "x-vaca-muerta": () => SERIE_CIFRA["f-hidro-provincias"](),
+  "f-reservas": () => serieM("Reservas comprobadas de petróleo, años de producción", T.reservas_hidrocarburos.map(r => [r.anio, r.horizonte_pet]), n1),
+  "f-regalias": () => provM("Regalías, % de los ingresos totales de cada provincia", T.regalias_provincias, "pct_regalias", null, pct),
+  "f-balanza-energetica": () => serieM("Saldo del comercio exterior de energía, millones de dólares por año", T.balanza_energetica.map(r => [r.anio, r.saldo]), n0),
+  "f-empleo-hidro": () => provM("Puestos asalariados registrados en petróleo y gas", T.empleo_construccion_provincias.filter(r => r.petroleo_gas > 0), "petroleo_gas", null, n0),
+  "f-isac": () => serieM("Actividad de la construcción, promedio de cada año, índice 2004 = 100", T.isac_anual.map(r => [r.anio, r.isac]), n1),
+  "x-construccion-ytd": () => SERIE_CIFRA["f-isac"](),
+  "f-empleo-construccion": () => provM("Asalariados registrados en la construcción cada 1.000 habitantes", T.empleo_construccion_provincias, "construccion_cada_1000", CN.emp_cada_1000, n1),
+  "f-trabajadores": () => provM("Personas ocupadas en la construcción, % de las ocupadas, Censo 2022", T.vivienda_provincias, "pct_ocupados_construccion", VV.pct_ocupados_construccion, pct),
+  "f-costo": () => serieM("Costo de la construcción dividido por los precios al consumidor, diciembre de cada año y el último mes", T.costo_anual.map(r => [r.periodo.endsWith("-12") ? r.periodo.slice(0, 4) : MESES[+r.periodo.slice(5, 7) - 1].slice(0, 3) + " " + r.periodo.slice(2, 4), r.icc_real]), n1),
+  "f-vivienda": () => provM("Hogares que alquilan, en %, Censo 2022", T.vivienda_provincias, "pct_alquila", VV.pct_alquila, pct),
+  "x-viviendas-construccion": () => provM("Viviendas en construcción cada 1.000 viviendas, Censo 2022", T.vivienda_provincias, "construccion_cada_1000", VV.construccion_cada_1000, n1),
   "f-empleo": () => provM("Asalariados privados registrados cada 100 habitantes", T.empleo_provincias, "cada_100", R.empleo.cada_100_pais, n1),
   "f-exportaciones": () => provM("Dólares exportados por habitante", T.exportaciones_provincias, "usd_por_habitante", nv.ex_pc_pais, n0),
   "f-fiscal": () => provM("Recursos propios, en % de los ingresos de cada provincia", T.fiscal_provincias, "autonomia", null, pct),

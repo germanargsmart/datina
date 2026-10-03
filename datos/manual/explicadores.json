@@ -1813,6 +1813,224 @@
    }
   ]
  },
+ "construccion": {
+  "bloques": [
+   {
+    "titulo": "Cómo se mide la actividad",
+    "texto": "El Indicador Sintético de la Actividad de la Construcción (ISAC) del INDEC sigue cada mes la evolución del sector a partir del consumo aparente de los insumos que usa la construcción: los despachos al mercado interno de la producción nacional más las importaciones. Reúne asfalto, cales, cemento portland, grifería, hierro redondo y aceros, hormigón elaborado, ladrillos huecos, mosaicos, pinturas, pisos y revestimientos cerámicos, placas de yeso, sanitarios de cerámica, tubos de acero sin costura, vidrio plano y yeso, medidos en volumen físico. Es un índice con base 2004 igual a 100. El INDEC publica la serie original y una desestacionalizada, sin los movimientos que se repiten todos los años en los mismos meses. En la ficha de insumos, la grifería, los tubos de acero sin costura y el vidrio plano van juntos, como los publica el INDEC.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Indicadores de coyuntura de la actividad de la construcción, aspectos metodológicos",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf",
+      "cita": "tomando como referencia los consumos aparentes de insumos requeridos en la construcción"
+     },
+     {
+      "nombre": "INDEC, Indicadores de coyuntura de la actividad de la construcción, aspectos metodológicos",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf",
+      "cita": "El consumo aparente se calcula como la suma de los despachos al mercado interno de producción nacional más las importaciones"
+     },
+     {
+      "nombre": "INDEC, Indicadores de coyuntura de la actividad de la construcción, aspectos metodológicos",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf",
+      "cita": "Los insumos que componen el ISAC, medidos en términos de volumen físico, son"
+     },
+     {
+      "nombre": "INDEC, Indicadores de coyuntura de la actividad de la construcción, aspectos metodológicos",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf",
+      "cita": "Para el ajuste estacional del nivel general del ISAC"
+     },
+     {
+      "nombre": "INDEC, Indicadores de coyuntura de la actividad de la construcción, aspectos metodológicos",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf",
+      "cita": "Incluye grifería, tubos de acero sin costura y vidrio plano"
+     },
+     {
+      "nombre": "API de Series de Tiempo, metadatos de la serie 33.2",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=33.2_ISAC_NIVELRAL_0_M_18_63&metadata=full&last=1",
+      "cita": "Índice 2004=100"
+     }
+    ]
+   },
+   {
+    "titulo": "El costo de construir",
+    "texto": "El Índice del Costo de la Construcción (ICC) del INDEC mide cada mes cuánto varía el costo de construir edificios privados de vivienda en la Ciudad de Buenos Aires y los 24 partidos del conurbano. Se divide en tres capítulos: materiales, mano de obra y gastos generales. La mano de obra sigue el acuerdo salarial de la UOCRA, el sindicato de la construcción. La ficha divide el ICC por el índice de precios al consumidor (IPC) nacional del INDEC, así muestra si construir se encareció más o menos que el resto de los precios. La comparación empieza en diciembre de 2016, el mes base del IPC nacional.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Índice del costo de la construcción, síntesis metodológica",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/icc_08_261DF284E37A.pdf",
+      "cita": "mide las variaciones mensuales que experimenta el costo de la construcción privada de edificios destinados a viviendas"
+     },
+     {
+      "nombre": "INDEC, Índice del costo de la construcción, síntesis metodológica",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/icc_08_261DF284E37A.pdf",
+      "cita": "refleja el acuerdo salarial de la Unión Obrera de la Construcción de la República Argentina (UOCRA)"
+     },
+     {
+      "nombre": "API de Series de Tiempo, metadatos de la serie 148.3 (INDEC, IPC)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26&metadata=full&last=1",
+      "cita": "Índice de Precios al Consumidor Nacional. Base diciembre 2016."
+     }
+    ]
+   },
+   {
+    "titulo": "Dos maneras de contar el empleo",
+    "texto": "El Observatorio de Empleo y Dinámica Empresarial cuenta cada trimestre a los asalariados registrados del sector privado en la construcción, con los registros del SIPA. Cada puesto se cuenta en la provincia donde la empresa declara a sus trabajadores, que puede no ser la de la obra. El Censo 2022, en cambio, contó a cada persona donde vive habitualmente y tomó como ocupada a toda persona que trabajó al menos una hora en la semana anterior, con o sin registro y en cualquier categoría. A cada una le preguntó la actividad del lugar donde trabaja. Por eso las dos cifras no coinciden y no se pueden restar.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Capital Humano, estadísticas provinciales del OEDE",
+      "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales",
+      "cita": "Evolución del empleo (Serie trimestral a dos dígitos)"
+     },
+     {
+      "nombre": "Secretaría de Trabajo, Situación y evolución del trabajo registrado, notas metodológicas",
+      "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf",
+      "cita": "se realizan de acuerdo a la zona geográfica en donde las empresas declaran a los trabajadores"
+     },
+     {
+      "nombre": "INDEC, preguntas frecuentes del Censo 2022",
+      "url": "https://censo.gob.ar/index.php/preguntas-frecuentes/",
+      "cita": "En un censo de derecho las personas son contabilizadas según su lugar de residencia habitual"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "Corresponde al trabajo de las personas durante por lo menos una hora en la semana anterior al momento del Censo"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "refiere a la actividad principal de la empresa, el negocio, la institución o el lugar de trabajo"
+     }
+    ]
+   },
+   {
+    "titulo": "La vivienda en el Censo 2022",
+    "texto": "Los indicadores de vivienda salen del Censo Nacional de Población, Hogares y Viviendas 2022 y se calculan sobre el total de hogares de cada departamento. Un hogar alquila cuando paga por usar toda la vivienda o una parte, exista o no un contrato. Hay hacinamiento crítico cuando viven más de tres personas por cuarto, sin contar baños ni cocinas. Los materiales de calidad IV son los de baja calidad, tanto en el piso como en el techo. El combustible para cocinar es el que el hogar usa con más frecuencia: electricidad, gas de red, gas en tubo o a granel, gas en garrafa, leña o carbón u otro.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "el hogar paga por la utilización de toda la vivienda o una parte, exista o no un contrato de alquiler"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "hogares que tienen más de tres personas por cuarto"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "Se excluyen baños, cocinas usadas exclusivamente para cocinar"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "la vivienda presenta materiales de baja calidad, tanto en el piso como en el techo"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "fuente de energía que se utiliza con mayor frecuencia para la cocción de los alimentos"
+     }
+    ]
+   },
+   {
+    "titulo": "Viviendas sin personas presentes",
+    "texto": "El día del Censo había viviendas sin residentes habituales presentes, y para cada una se anotó el motivo: uso para vacaciones, fin de semana u otro uso temporal, oficina o comercio, alquiler o venta, en construcción, personas que viven ahí pero no estaban, u otra situación. No todas son viviendas vacías. La ficha de vivienda muestra, sobre el total de viviendas de cada departamento, las de uso temporal y las que estaban en alquiler o venta, y cuántas estaban en construcción cada 1.000 viviendas.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "establece si hay residentes habituales en la vivienda y estos se encontraban presentes"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "motivo por el cual no se realizó la entrevista en las viviendas sin personas residentes habituales"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "Habitualmente viven personas, pero no se encuentran presentes"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Consumo aparente",
+    "definicion": "Despachos al mercado interno de la producción nacional de un insumo más sus importaciones.",
+    "fuente": {
+     "nombre": "INDEC, ISAC",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf"
+    }
+   },
+   {
+    "termino": "Índice base 2004",
+    "definicion": "Número que muestra cuánto cambió algo respecto de 2004, al que se le asigna el valor 100.",
+    "fuente": {
+     "nombre": "API de Series de Tiempo, serie 33.2",
+     "url": "https://apis.datos.gob.ar/series/api/series/?ids=33.2_ISAC_NIVELRAL_0_M_18_63&metadata=full&last=1"
+    }
+   },
+   {
+    "termino": "Serie desestacionalizada",
+    "definicion": "Serie sin los movimientos que se repiten todos los años en los mismos meses. Sirve para comparar un mes con el anterior.",
+    "fuente": {
+     "nombre": "INDEC, ISAC",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf"
+    }
+   },
+   {
+    "termino": "Variación interanual",
+    "definicion": "Cambio de un mes respecto del mismo mes del año anterior.",
+    "fuente": {
+     "nombre": "INDEC, ISAC",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf"
+    }
+   },
+   {
+    "termino": "Valor real",
+    "definicion": "Valor en pesos dividido por un índice de precios, para quitar el efecto de la inflación.",
+    "fuente": {
+     "nombre": "API de Series de Tiempo, IPC nacional",
+     "url": "https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26&metadata=full&last=1"
+    }
+   },
+   {
+    "termino": "Asalariado registrado",
+    "definicion": "Persona en relación de dependencia que figura en los registros de la seguridad social.",
+    "fuente": {
+     "nombre": "Secretaría de Trabajo, trabajo registrado",
+     "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf"
+    }
+   },
+   {
+    "termino": "Hacinamiento crítico",
+    "definicion": "Más de tres personas por cuarto en un hogar, sin contar baños ni cocinas.",
+    "fuente": {
+     "nombre": "INDEC, definiciones del Censo 2022",
+     "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf"
+    }
+   },
+   {
+    "termino": "Calidad de los materiales IV",
+    "definicion": "Vivienda con materiales de baja calidad tanto en el piso como en el techo.",
+    "fuente": {
+     "nombre": "INDEC, definiciones del Censo 2022",
+     "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf"
+    }
+   },
+   {
+    "termino": "Censo de derecho",
+    "definicion": "Censo que cuenta a cada persona en su lugar de residencia habitual. El de 2022 fue el primero de la Argentina.",
+    "fuente": {
+     "nombre": "INDEC, preguntas frecuentes del Censo 2022",
+     "url": "https://censo.gob.ar/index.php/preguntas-frecuentes/"
+    }
+   }
+  ]
+ },
  "energia": {
   "bloques": [
    {
@@ -1909,6 +2127,266 @@
     "fuente": {
      "nombre": "Resolución SE 884/2023, artículo 9",
      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto"
+    }
+   }
+  ]
+ },
+ "petroleo": {
+  "bloques": [
+   {
+    "titulo": "De quién son el petróleo y el gas",
+    "texto": "La Ley 26.197, sancionada el 6 de diciembre de 2006, establece que los yacimientos de petróleo y gas pertenecen a la provincia en cuyo territorio están, incluido el mar frente a su costa hasta las 12 millas marinas, y al Estado nacional los que están más allá, hasta el límite de la plataforma continental. Desde esa ley, cada provincia administra los permisos y las concesiones de su territorio. Por eso las fichas muestran aparte, como \"Mar argentino\", la producción del mar de jurisdicción nacional, que no se suma a ninguna provincia.",
+    "fuentes": [
+     {
+      "nombre": "Ley 26.197",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26197-123780/texto",
+      "cita": "Pertenecen al Estado nacional los yacimientos de hidrocarburos que se hallaren a partir de las DOCE (12) millas marinas"
+     },
+     {
+      "nombre": "Ley 26.197",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26197-123780/texto",
+      "cita": "incluyendo los situados en el mar adyacente a sus costas hasta una distancia de DOCE (12) millas marinas"
+     },
+     {
+      "nombre": "Ley 26.197",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26197-123780/texto",
+      "cita": "las provincias asumirán en forma plena el ejercicio del dominio originario y la administración sobre los yacimientos de hidrocarburos"
+     }
+    ]
+   },
+   {
+    "titulo": "Convencional, shale y tight",
+    "texto": "La Ley 27.007, publicada el 31 de octubre de 2014, sumó a la Ley de Hidrocarburos la explotación no convencional: la extracción de petróleo y gas con técnicas de estimulación no convencionales en rocas de esquisto o pizarra (shale), en areniscas compactas (tight) y en otras formaciones. El resto de la producción es convencional. Vaca Muerta no es un yacimiento sino una formación de rocas sedimentarias de la Cuenca Neuquina. Las fichas usan la clasificación de cada yacimiento y de cada formación que publica la Secretaría de Energía, y cuentan como Vaca Muerta la producción que sale de esa formación.",
+    "fuentes": [
+     {
+      "nombre": "Ley 17.319 de Hidrocarburos, texto actualizado",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion",
+      "cita": "formaciones geológicas de rocas esquisto o pizarra (shale gas o shale oil), areniscas compactas (tight sands, tight gas, tight oil)"
+     },
+     {
+      "nombre": "Ley 17.319 de Hidrocarburos, texto actualizado",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion",
+      "cita": "Ley N° 27.007 B.O. 31/10/2014"
+     },
+     {
+      "nombre": "Argentina.gob.ar, historia de Vaca Muerta",
+      "url": "https://www.argentina.gob.ar/vaca-muerta/historia",
+      "cita": "Vaca Muerta no es un yacimiento, es una formación sedimentaria depositada en un mar de edad jurásica, en la Cuenca Neuquina"
+     }
+    ]
+   },
+   {
+    "titulo": "De dónde salen los datos de producción",
+    "texto": "Las empresas declaran a la Secretaría de Energía la producción de cada pozo según el Capítulo IV de la Resolución 319 de 1993, y esas presentaciones tienen carácter de declaración jurada. La Secretaría publica el detalle mensual por pozo, yacimiento, concesión y provincia, con el petróleo en metros cúbicos y el gas en miles de metros cúbicos. Las fichas pasan el petróleo a barriles por día y el gas a millones de metros cúbicos por día, dividiendo cada mes por su cantidad de días. Como las presentaciones de los últimos meses pueden llegar incompletas, las comparaciones por provincia y por empresa usan los doce meses que terminan en el último mes en el que la suma de lo declarado coincide con el total del país que publica la misma Secretaría, con menos de 1% de diferencia, y la de los pozos usa el último mes que cumple esa misma condición.",
+    "fuentes": [
+     {
+      "nombre": "Resolución SE 319/1993",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/312880/texto",
+      "cita": "Análisis de la Producción por Pozo y Yacimiento (Capítulo IV)"
+     },
+     {
+      "nombre": "Resolución SE 319/1993",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/312880/texto",
+      "cita": "revestirán el carácter de declaración jurada"
+     },
+     {
+      "nombre": "Secretaría de Energía, producción de petróleo y gas por pozo",
+      "url": "http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c",
+      "cita": "Detalle mensual de producción por pozo, yacimiento, concesión y provincia"
+     }
+    ]
+   },
+   {
+    "titulo": "Reservas comprobadas y horizonte",
+    "texto": "Desde la Resolución 324 de 2006, las empresas presentan cada año a la Secretaría de Energía sus reservas al 31 de diciembre, hasta el 31 de marzo del año siguiente y certificadas por auditores externos. Las reservas comprobadas son las que, según los datos geológicos y de ingeniería, pueden estimarse con razonable certeza como comercialmente recuperables de reservorios conocidos, con las condiciones económicas, el régimen legal y las prácticas de producción de la fecha de la estimación. Las probables y las posibles no son comprobadas y las fichas no las suman. El horizonte divide las reservas comprobadas por la producción de ese año: cuántos años durarían si se produjera lo mismo y no se sumaran reservas nuevas. Las fichas usan las reservas hasta el final de la vida útil de cada yacimiento, que puede ir más allá del fin de la concesión.",
+    "fuentes": [
+     {
+      "nombre": "Resolución SE 324/2006",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-114769/texto",
+      "cita": "la que deberá estar certificada por auditores externos a dichas empresas"
+     },
+     {
+      "nombre": "Resolución SE 324/2006",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-114769/texto",
+      "cita": "a efectuarse hasta el 31 de marzo del año siguiente al que se certifica"
+     },
+     {
+      "nombre": "Resolución SE 324/2006",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-114769/texto",
+      "cita": "pueden ser estimadas con razonable certeza sobre la base de ser comercialmente recuperables de reservorios conocidos"
+     },
+     {
+      "nombre": "Resolución SE 324/2006",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-114769/texto",
+      "cita": "bajo las condiciones económicas, el régimen legal y las prácticas de producción imperantes a la fecha de esa estimación"
+     },
+     {
+      "nombre": "Resolución SE 324/2006",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/norma-114769/texto",
+      "cita": "tanto hasta el final del período de cada concesión, como hasta el final de la vida útil de cada yacimiento"
+     },
+     {
+      "nombre": "Secretaría de Energía, reservas de petróleo y gas",
+      "url": "http://datos.energia.gob.ar/dataset/reservas-de-petroleo-y-gas",
+      "cita": "Datos de Reservas Comprobadas, Probables, posibles y recursos de Petróleo y Gas"
+     }
+    ]
+   },
+   {
+    "titulo": "Regalías",
+    "texto": "Quien tiene una concesión de explotación paga cada mes a quien se la otorgó, la provincia o el Estado nacional, una regalía: un porcentaje de lo producido y efectivamente aprovechado. Desde la Ley 27.742, publicada el 8 de julio de 2024, ese porcentaje es el que se fija al adjudicar cada concesión, y los contratos que ya estaban vigentes conservan la regalía convenida. La ficha muestra el peso de las regalías en los ingresos de cada provincia, con el esquema ahorro-inversión-financiamiento que publica el Ministerio de Economía, que las informa en una sola línea, sin separar las de petróleo y gas de las de otros recursos. También muestra las regalías de petróleo crudo por habitante, en dólares, con los datos de la Secretaría de Energía.",
+    "fuentes": [
+     {
+      "nombre": "Ley 17.319 de Hidrocarburos, artículo 59",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion",
+      "cita": "pagará mensualmente al concedente, en concepto de regalía sobre el producido y efectivamente aprovechado"
+     },
+     {
+      "nombre": "Ley 17.319 de Hidrocarburos, artículo 59",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion",
+      "cita": "un porcentaje equivalente al determinado en el proceso de adjudicación"
+     },
+     {
+      "nombre": "Ley 17.319 de Hidrocarburos, artículo 59",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion",
+      "cita": "Para los contratos vigentes a la fecha de sanción de la Ley de Bases y Puntos de Partida para la Libertad de los Argentinos la regalía será la que se haya convenido"
+     },
+     {
+      "nombre": "Ley 17.319 de Hidrocarburos, artículo 59",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion",
+      "cita": "Ley N° 27.742 B.O. 8/7/2024"
+     },
+     {
+      "nombre": "Ministerio de Economía, ejecución presupuestaria provincial",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial",
+      "cita": "proyectando el esquema de ahorro-inversión-financiamiento para las 24 jurisdicciones"
+     }
+    ]
+   },
+   {
+    "titulo": "El empleo en el sector",
+    "texto": "El empleo es el de asalariados registrados del sector privado en la rama de extracción de petróleo crudo y gas natural, que incluye las actividades relacionadas con la extracción, salvo la prospección. Lo publica cada trimestre el Observatorio de Empleo y Dinámica Empresarial con los registros del Sistema Integrado Previsional Argentino (SIPA). Cada puesto se cuenta en la provincia donde la empresa declara a sus trabajadores, que puede no ser la del yacimiento.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Capital Humano, estadísticas provinciales del OEDE",
+      "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales",
+      "cita": "Evolución del empleo (Serie trimestral a dos dígitos)"
+     },
+     {
+      "nombre": "Ministerio de Capital Humano, estadísticas provinciales del OEDE",
+      "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales",
+      "cita": "el Sistema Integrado Previsional Argentino (SIPA)"
+     },
+     {
+      "nombre": "OEDE, empleo por rama de actividad a dos dígitos",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empleo_trimestral_2dig_7.xlsx",
+      "cita": "actividades relacionadas con la extracción de petroleo y gas, excepto las actividades de prospeccion"
+     },
+     {
+      "nombre": "Secretaría de Trabajo, Situación y evolución del trabajo registrado, notas metodológicas",
+      "url": "https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf",
+      "cita": "se realizan de acuerdo a la zona geográfica en donde las empresas declaran a los trabajadores"
+     }
+    ]
+   },
+   {
+    "titulo": "El comercio exterior y el mundo",
+    "texto": "La balanza energética resta a las exportaciones de combustibles y energía las importaciones de combustibles y lubricantes, en millones de dólares, dos rubros del Intercambio Comercial Argentino que publica el INDEC. Como son rubros con nombres y contenidos distintos, el saldo es una aproximación. Para comparar con otros países, la ficha del mundo usa para todos, la Argentina incluida, las estadísticas internacionales de energía de la Administración de Información Energética de los Estados Unidos (EIA). Ahí el petróleo incluye el condensado, un líquido liviano que se separa en los pozos de gas, y el gas es gas seco: la producción comercializada menos los líquidos que se le extraen. Por eso las cifras de la Argentina en esa ficha pueden diferir de las de la Secretaría de Energía.",
+    "fuentes": [
+     {
+      "nombre": "API de Series de Tiempo, metadatos de las series 74.3 (INDEC, Intercambio Comercial Argentino)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=74.3_IECE_0_M_35,74.3_IICL_0_M_42&metadata=full&last=1",
+      "cita": "Exportación de combustibles y energía. En millones de dólares."
+     },
+     {
+      "nombre": "API de Series de Tiempo, metadatos de las series 74.3 (INDEC, Intercambio Comercial Argentino)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=74.3_IECE_0_M_35,74.3_IICL_0_M_42&metadata=full&last=1",
+      "cita": "Importaciones de combustibles y lubricantes. En millones de dólares."
+     },
+     {
+      "nombre": "EIA, glosario: condensado",
+      "url": "https://www.eia.gov/tools/glossary/index.php?id=L",
+      "cita": "Light liquid hydrocarbons recovered from lease separators or field facilities at associated and non-associated natural gas wells"
+     },
+     {
+      "nombre": "EIA, glosario: gas natural seco",
+      "url": "https://www.eia.gov/tools/glossary/index.php?id=D",
+      "cita": "Dry natural gas production equals marketed production less extraction loss"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Barril",
+    "definicion": "Unidad de volumen del petróleo: 42 galones estadounidenses, unos 159 litros. Las fichas expresan la producción en miles de barriles por día.",
+    "fuente": {
+     "nombre": "EIA, glosario",
+     "url": "https://www.eia.gov/tools/glossary/index.php?id=B"
+    }
+   },
+   {
+    "termino": "Cuenca",
+    "definicion": "Región geológica donde se formaron y se acumulan el petróleo y el gas. La Secretaría de Energía informa la producción de las cuencas Neuquina, Golfo San Jorge, Austral, Noroeste y Cuyana.",
+    "fuente": {
+     "nombre": "Secretaría de Energía, producción por pozo",
+     "url": "http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c"
+    }
+   },
+   {
+    "termino": "Shale",
+    "definicion": "Petróleo o gas que se extrae de rocas de esquisto o pizarra con técnicas de estimulación no convencionales.",
+    "fuente": {
+     "nombre": "Ley 17.319, artículo 27 bis",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion"
+    }
+   },
+   {
+    "termino": "Tight",
+    "definicion": "Petróleo o gas que se extrae de areniscas compactas con técnicas de estimulación no convencionales.",
+    "fuente": {
+     "nombre": "Ley 17.319, artículo 27 bis",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion"
+    }
+   },
+   {
+    "termino": "Concesión de explotación",
+    "definicion": "Derecho exclusivo de explotar los yacimientos de un área durante un plazo, que otorga la provincia o el Estado nacional.",
+    "fuente": {
+     "nombre": "Ley 17.319, artículo 27",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion"
+    }
+   },
+   {
+    "termino": "Reservas comprobadas",
+    "definicion": "Petróleo o gas que se puede recuperar con razonable certeza de reservorios conocidos, con las condiciones económicas y técnicas de la fecha de la estimación.",
+    "fuente": {
+     "nombre": "Resolución SE 324/2006",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-114769/texto"
+    }
+   },
+   {
+    "termino": "Horizonte de reservas",
+    "definicion": "Reservas comprobadas divididas por la producción de un año: cuántos años durarían al mismo ritmo y sin reservas nuevas.",
+    "fuente": {
+     "nombre": "Secretaría de Energía, reservas",
+     "url": "http://datos.energia.gob.ar/dataset/reservas-de-petroleo-y-gas"
+    }
+   },
+   {
+    "termino": "Regalía",
+    "definicion": "Porcentaje de lo producido que quien explota un yacimiento paga cada mes a la provincia o al Estado nacional.",
+    "fuente": {
+     "nombre": "Ley 17.319, artículo 59",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-17319-16078/actualizacion"
+    }
+   },
+   {
+    "termino": "Gas seco",
+    "definicion": "Gas natural sin los líquidos que se le extraen, como lo mide la EIA para comparar países.",
+    "fuente": {
+     "nombre": "EIA, glosario",
+     "url": "https://www.eia.gov/tools/glossary/index.php?id=D"
     }
    }
   ]

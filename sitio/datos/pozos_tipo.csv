@@ -1,0 +1,4 @@
+tipo,nombre,pozos,pozos_pet,pozos_gas,m3d_pozo_pet,bpd_pozo_pet,miles_m3d_pozo_gas,pct_pozos,pct_pet,pct_gas
+convencional,Convencionales,19400,18874,12868,2.2194,13.9593,3.5902,82.3499,28.0457,29.7945
+shale,Shale,2922,2709,2915,39.4125,247.8972,32.754,12.4034,71.4857,61.5756
+tight,Tight,1236,1059,1235,0.6489,4.0816,10.6895,5.2466,0.4601,8.5139

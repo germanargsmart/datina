@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Construcción y vivienda | Datina</title>
+<meta name="description" content="Construcción y vivienda: ¿Cuánto se construye, cuánto cuesta y cómo viven los hogares? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js");
+// transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
+window.LLEGADA = {activa: false};
+addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = true; e.viewTransition.finished.finally(() => { LLEGADA.activa = false; }); } });</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<link rel="stylesheet" href="datina.css?v=3eb9573504">
+</head>
+<body data-pagina="construccion">
+<header class="barra clara">
+  <div class="envoltura">
+    <div class="barra-izq">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="h1" d="M2 5h16"/><path class="h2" d="M2 10h16"/><path class="h3" d="M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    </div>
+    <nav class="temas" aria-label="Temas principales">
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+    </nav>
+    <div class="barra-der">
+      <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
+      <div class="prov-chip" id="prov-chip" hidden>
+        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
+      </div>
+      <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
+    </div>
+  </div>
+  <div class="buscador" id="buscador" hidden>
+    <div class="buscador-caja">
+      <label class="buscador-lab" for="busca">Buscar en Datina</label>
+      <input type="search" id="busca" placeholder="Un tema, una provincia o una pregunta: empleo, Salta, cloacas" autocomplete="off" spellcheck="false">
+      <div class="busca-res" id="busca-res" aria-live="polite"></div>
+    </div>
+  </div>
+</header>
+<!-- menú de secciones (etapa 14): va fuera de la barra para que el vidrio desenfoque la página (dentro de la barra, que ya
+     desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
+<nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
+    <div class="menu-col">
+      <div class="menu-grupo" data-nivel="1" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
+    </div>
+    <div class="menu-col">
+      <div class="menu-grupo" data-nivel="2" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <div class="menu-grupo" data-nivel="2" style="--i:2"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Todos los artículos</a></li></ul></div>
+    </div>
+    <div class="menu-col">
+      <div class="menu-grupo" data-nivel="2" style="--i:3"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li></ul></div>
+      <div class="menu-grupo" data-nivel="3" style="--i:4"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+    </div>
+</nav>
+
+
+
+
+
+<main class="envoltura">
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <section class="tema" id="construccion"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a><a href="construccion.html" aria-current="page">Construcción y vivienda</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Construcción y vivienda</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-construccion">Construcción y vivienda</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuánto se construye y cómo vivimos?">¿Cuánto se construye, cuánto cuesta y cómo viven los hogares?</p>
+      <p>La actividad de la construcción mes a mes, sus insumos y su costo, el empleo que genera en cada provincia y cómo son las viviendas según el Censo 2022.</p>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
+    <div class="explicador"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3><p>Qué se mide, cómo se calcula y de dónde sale cada dato de esta página.</p></div><div class="exp-lista"><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-construccion-0-b" aria-expanded="false" aria-controls="exp-construccion-0"><span>Cómo se mide la actividad</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-construccion-0" role="region" aria-labelledby="exp-construccion-0-b"><div class="exp-cont"><p>El Indicador Sintético de la Actividad de la Construcción (ISAC) del INDEC sigue cada mes la evolución del sector a partir del consumo aparente de los insumos que usa la construcción: los despachos al mercado interno de la producción nacional más las importaciones. Reúne asfalto, cales, cemento portland, grifería, hierro redondo y aceros, hormigón elaborado, ladrillos huecos, mosaicos, pinturas, pisos y revestimientos cerámicos, placas de yeso, sanitarios de cerámica, tubos de acero sin costura, vidrio plano y yeso, medidos en volumen físico. Es un índice con base 2004 igual a 100. El INDEC publica la serie original y una desestacionalizada, sin los movimientos que se repiten todos los años en los mismos meses. En la ficha de insumos, la grifería, los tubos de acero sin costura y el vidrio plano van juntos, como los publica el INDEC.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf" target="_blank" rel="noopener">INDEC, Indicadores de coyuntura de la actividad de la construcción, aspectos metodológicos</a>, <a href="https://apis.datos.gob.ar/series/api/series/?ids=33.2_ISAC_NIVELRAL_0_M_18_63&amp;metadata=full&amp;last=1" target="_blank" rel="noopener">API de Series de Tiempo, metadatos de la serie 33.2</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-construccion-1-b" aria-expanded="false" aria-controls="exp-construccion-1"><span>El costo de construir</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-construccion-1" role="region" aria-labelledby="exp-construccion-1-b"><div class="exp-cont"><p>El Índice del Costo de la Construcción (ICC) del INDEC mide cada mes cuánto varía el costo de construir edificios privados de vivienda en la Ciudad de Buenos Aires y los 24 partidos del conurbano. Se divide en tres capítulos: materiales, mano de obra y gastos generales. La mano de obra sigue el acuerdo salarial de la UOCRA, el sindicato de la construcción. La ficha divide el ICC por el índice de precios al consumidor (IPC) nacional del INDEC, así muestra si construir se encareció más o menos que el resto de los precios. La comparación empieza en diciembre de 2016, el mes base del IPC nacional.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/uploads/informesdeprensa/icc_08_261DF284E37A.pdf" target="_blank" rel="noopener">INDEC, Índice del costo de la construcción, síntesis metodológica</a>, <a href="https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26&amp;metadata=full&amp;last=1" target="_blank" rel="noopener">API de Series de Tiempo, metadatos de la serie 148.3 (INDEC, IPC)</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-construccion-2-b" aria-expanded="false" aria-controls="exp-construccion-2"><span>Dos maneras de contar el empleo</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-construccion-2" role="region" aria-labelledby="exp-construccion-2-b"><div class="exp-cont"><p>El Observatorio de Empleo y Dinámica Empresarial cuenta cada trimestre a los asalariados registrados del sector privado en la construcción, con los registros del SIPA. Cada puesto se cuenta en la provincia donde la empresa declara a sus trabajadores, que puede no ser la de la obra. El Censo 2022, en cambio, contó a cada persona donde vive habitualmente y tomó como ocupada a toda persona que trabajó al menos una hora en la semana anterior, con o sin registro y en cualquier categoría. A cada una le preguntó la actividad del lugar donde trabaja. Por eso las dos cifras no coinciden y no se pueden restar.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales" target="_blank" rel="noopener">Ministerio de Capital Humano, estadísticas provinciales del OEDE</a>, <a href="https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf" target="_blank" rel="noopener">Secretaría de Trabajo, Situación y evolución del trabajo registrado, notas metodológicas</a>, <a href="https://censo.gob.ar/index.php/preguntas-frecuentes/" target="_blank" rel="noopener">INDEC, preguntas frecuentes del Censo 2022</a>, <a href="https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf" target="_blank" rel="noopener">INDEC, definiciones de la base de datos del Censo 2022</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-construccion-3-b" aria-expanded="false" aria-controls="exp-construccion-3"><span>La vivienda en el Censo 2022</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-construccion-3" role="region" aria-labelledby="exp-construccion-3-b"><div class="exp-cont"><p>Los indicadores de vivienda salen del Censo Nacional de Población, Hogares y Viviendas 2022 y se calculan sobre el total de hogares de cada departamento. Un hogar alquila cuando paga por usar toda la vivienda o una parte, exista o no un contrato. Hay hacinamiento crítico cuando viven más de tres personas por cuarto, sin contar baños ni cocinas. Los materiales de calidad IV son los de baja calidad, tanto en el piso como en el techo. El combustible para cocinar es el que el hogar usa con más frecuencia: electricidad, gas de red, gas en tubo o a granel, gas en garrafa, leña o carbón u otro.</p><p class="exp-fuente">Fuente: <a href="https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf" target="_blank" rel="noopener">INDEC, definiciones de la base de datos del Censo 2022</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-construccion-4-b" aria-expanded="false" aria-controls="exp-construccion-4"><span>Viviendas sin personas presentes</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-construccion-4" role="region" aria-labelledby="exp-construccion-4-b"><div class="exp-cont"><p>El día del Censo había viviendas sin residentes habituales presentes, y para cada una se anotó el motivo: uso para vacaciones, fin de semana u otro uso temporal, oficina o comercio, alquiler o venta, en construcción, personas que viven ahí pero no estaban, u otra situación. No todas son viviendas vacías. La ficha de vivienda muestra, sobre el total de viviendas de cada departamento, las de uso temporal y las que estaban en alquiler o venta, y cuántas estaban en construcción cada 1.000 viviendas.</p><p class="exp-fuente">Fuente: <a href="https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf" target="_blank" rel="noopener">INDEC, definiciones de la base de datos del Censo 2022</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-construccion-5-b" aria-expanded="false" aria-controls="exp-construccion-5"><span>Glosario</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-construccion-5" role="region" aria-labelledby="exp-construccion-5-b"><div class="exp-cont"><dl class="glosario"><div><dt>Consumo aparente</dt><dd>Despachos al mercado interno de la producción nacional de un insumo más sus importaciones. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf" target="_blank" rel="noopener">INDEC, ISAC</a></dd></div><div><dt>Índice base 2004</dt><dd>Número que muestra cuánto cambió algo respecto de 2004, al que se le asigna el valor 100. <a href="https://apis.datos.gob.ar/series/api/series/?ids=33.2_ISAC_NIVELRAL_0_M_18_63&amp;metadata=full&amp;last=1" target="_blank" rel="noopener">API de Series de Tiempo, serie 33.2</a></dd></div><div><dt>Serie desestacionalizada</dt><dd>Serie sin los movimientos que se repiten todos los años en los mismos meses. Sirve para comparar un mes con el anterior. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf" target="_blank" rel="noopener">INDEC, ISAC</a></dd></div><div><dt>Variación interanual</dt><dd>Cambio de un mes respecto del mismo mes del año anterior. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/isac_08_260D1D561E94.pdf" target="_blank" rel="noopener">INDEC, ISAC</a></dd></div><div><dt>Valor real</dt><dd>Valor en pesos dividido por un índice de precios, para quitar el efecto de la inflación. <a href="https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26&amp;metadata=full&amp;last=1" target="_blank" rel="noopener">API de Series de Tiempo, IPC nacional</a></dd></div><div><dt>Asalariado registrado</dt><dd>Persona en relación de dependencia que figura en los registros de la seguridad social. <a href="https://www.argentina.gob.ar/sites/default/files/trabajoregistrado_2309_informe_1.pdf" target="_blank" rel="noopener">Secretaría de Trabajo, trabajo registrado</a></dd></div><div><dt>Hacinamiento crítico</dt><dd>Más de tres personas por cuarto en un hogar, sin contar baños ni cocinas. <a href="https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf" target="_blank" rel="noopener">INDEC, definiciones del Censo 2022</a></dd></div><div><dt>Calidad de los materiales IV</dt><dd>Vivienda con materiales de baja calidad tanto en el piso como en el techo. <a href="https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf" target="_blank" rel="noopener">INDEC, definiciones del Censo 2022</a></dd></div><div><dt>Censo de derecho</dt><dd>Censo que cuenta a cada persona en su lugar de residencia habitual. El de 2022 fue el primero de la Argentina. <a href="https://censo.gob.ar/index.php/preguntas-frecuentes/" target="_blank" rel="noopener">INDEC, preguntas frecuentes del Censo 2022</a></dd></div></dl></div></div></div></div></div>
+
+    <article class="ficha" id="f-isac">
+      <h3>Actividad de la construcción por mes, 2012 a 2026</h3>
+      <p class="lead" data-t="isac"></p>
+      <div class="grafico" data-g="isac" data-forma="lineas"></div>
+      <p class="nota" data-t="isac-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Indicador Sintético de la Actividad de la Construcción (ISAC), publicado en datos.gob.ar</span><a href="datos/isac_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-insumos">
+      <h3>Consumo aparente de insumos para la construcción, variación a julio de 2026</h3>
+      <p class="lead" data-t="insumos"></p>
+      <div class="conmutador" role="group" aria-label="Período" data-g="insumos">
+        <button type="button" data-m="var_12m" aria-pressed="true">Últimos doce meses</button>
+        <button type="button" data-m="var_ytd" aria-pressed="false">En lo que va del año</button>
+      </div>
+      <div class="grafico" data-g="insumos" data-forma="barras" style="--filas:13"></div>
+      <p class="nota" data-t="insumos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, insumos del ISAC, publicado en datos.gob.ar</span><a href="datos/isac_insumos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-empleo-construccion">
+      <h3>Empleo registrado en la construcción por provincia, primer trimestre de 2026</h3>
+      <p class="lead" data-t="empleo-construccion"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
+        <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
+        <button type="button" data-m="var_construccion" aria-pressed="false">Variación en un año</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
+      </div>
+      <p class="clave-color" id="clave-empleo-construccion" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
+      <div class="grafico" data-g="empleo-construccion" data-forma="barras"></div>
+      <p class="nota" data-t="empleo-construccion-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-trabajadores">
+      <h3>Personas ocupadas en la construcción por provincia y departamento, 2022</h3>
+      <p class="lead" data-t="trabajadores"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+      </div>
+      <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
+      <p class="nota" data-t="trabajadores-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-costo">
+      <h3>Costo de la construcción frente a los precios al consumidor, diciembre de 2016 a agosto de 2026</h3>
+      <p class="lead" data-t="costo"></p>
+      <div class="grafico" data-g="costo" data-forma="lineas"></div>
+      <p class="nota" data-t="costo-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor</span><a href="datos/costo_construccion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-vivienda">
+      <h3>Cómo son las viviendas y los hogares, por provincia y departamento, 2022</h3>
+      <p class="lead" data-t="vivienda"></p>
+      <label class="selector-ficha"><span>Indicador</span>
+        <select data-g="vivienda">
+          <option value="pct_alquila" selected>Hogares que alquilan</option>
+          <option value="pct_hacinamiento">Hacinamiento crítico</option>
+          <option value="pct_materiales_4">Pisos y techos de la calidad más baja</option>
+          <option value="construccion_cada_1000">Viviendas en construcción</option>
+          <option value="pct_alquiler_venta">Viviendas en alquiler o venta, sin habitar</option>
+          <option value="pct_uso_temporal">Viviendas de uso temporal</option>
+        </select></label>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="vivienda-vista" data-dib="vivienda">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+      </div>
+      <div class="grafico mp-mapa" data-g="vivienda" data-forma="barras"></div>
+      <p class="nota" data-t="vivienda-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todas las secciones <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="movilidad.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.121) translate(-18.4 -3.7)"><path class="l" d="M-22.9 7.2L36.9 41.7L36.9 12.9L-22.9 -21.6Z"/><path class="s" d="M59.8 28.5L36.9 41.7L36.9 12.9L59.8 -0.3Z"/><path class="l" d="M0 -34.8L59.8 -0.3L36.9 12.9L-22.9 -21.6Z"/><path class="s" d="M-7.3 1.8L-0.8 5.5L-0.8 -4.7L-7.3 -8.4Z"/><path class="s" d="M1.3 6.7L7.8 10.5L7.8 0.3L1.3 -3.5Z"/><path class="s" d="M9.9 11.7L16.4 15.4L16.4 5.2L9.9 1.5Z"/><path class="s" d="M18.4 16.6L24.9 20.4L24.9 10.2L18.4 6.4Z"/><path class="s" d="M27 21.6L33.5 25.3L33.5 15.1L27 11.4Z"/><path class="s" d="M-18.7 4.8L-11.4 9L-11.4 -10.8L-18.7 -15Z"/><path class="w" d="M57.2 16.2L39.5 26.4L39.5 14.4L57.2 4.2Z"/><path class="s" d="M0.3 20.2L0.1 18.5L-0.4 16.6L-1.2 14.8L-2.2 13L-3.4 11.4L-4.8 10L-6.2 9L-7.7 8.4L-9.1 8.1L-10.3 8.3L-11.3 8.9L-12.1 9.9L-12.6 11.2L-12.7 12.7L-12.6 14.5L-12.1 16.4L-11.3 18.2L-10.3 20L-9.1 21.6L-7.7 23L-6.2 24L-4.8 24.6L-3.4 24.9L-2.2 24.7L-1.2 24.1L-0.4 23.1L0.1 21.8Z"/><path class="w" d="M-3.9 17.8L-4 17.1L-4.2 16.3L-4.6 15.5L-5.1 14.8L-5.6 14.2L-6.2 13.8L-6.8 13.5L-7.4 13.5L-7.9 13.6L-8.3 14L-8.5 14.5L-8.6 15.1L-8.5 15.9L-8.3 16.7L-7.9 17.5L-7.4 18.2L-6.8 18.8L-6.2 19.2L-5.6 19.5L-5.1 19.5L-4.6 19.4L-4.2 19L-4 18.5Z"/><path class="s" d="M30.4 37.6L30.2 35.9L29.8 34L29 32.2L28 30.4L26.7 28.8L25.3 27.4L23.9 26.4L22.5 25.8L21.1 25.5L19.9 25.7L18.8 26.3L18.1 27.3L17.6 28.6L17.4 30.1L17.6 31.9L18.1 33.8L18.8 35.6L19.9 37.4L21.1 39L22.5 40.4L23.9 41.4L25.3 42L26.7 42.3L28 42.1L29 41.5L29.8 40.5L30.2 39.2Z"/><path class="w" d="M26.2 35.2L26.2 34.5L25.9 33.7L25.6 32.9L25.1 32.2L24.5 31.6L23.9 31.2L23.3 30.9L22.7 30.9L22.2 31L21.9 31.4L21.6 31.9L21.6 32.5L21.6 33.3L21.9 34.1L22.2 34.9L22.7 35.6L23.3 36.2L23.9 36.6L24.5 36.9L25.1 36.9L25.6 36.8L25.9 36.4L26.2 35.9Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-movilidad">Movilidad</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="energia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.350) translate(-17.7 16.2)"><ellipse class="s" cx="17.7" cy="17.4" rx="26.5" ry="5.9"/><path class="l" d="M7.3 4.2L35.3 -18.6L26.5 -13.5L-1.6 9.3Z"/><path class="l" d="M35.3 -18.6L20.3 -27.3L11.4 -22.2L26.5 -13.5Z"/><path class="l" d="M20.3 -27.3L30.1 -46.2L21.3 -41.1L11.4 -22.2Z"/><path class="l" d="M30.1 -46.2L13.5 -55.8L4.7 -50.7L21.3 -41.1Z"/><path class="s" d="M4.7 -50.7L-7.8 -23.7L6.2 -15.6L-1.6 9.3L26.5 -13.5L11.4 -22.2L21.3 -41.1Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-energia">Energía</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="provincia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.123) translate(-6.5 -22.3)"><path class="s" d="M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z"/><path class="l" d="M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z"/><path class="s" d="M36.4 21L54.6 26.1L13 50.1L-5.2 45Z"/><path class="wl" d="M-30.1 21L-9.4 15.2L0.5 15.3"/><path class="k" d="M0.5 15.3L12.5 19.7L24.9 27.6"/><path class="s" d="M27 33.5L16.6 10.6L37.4 10.6Z"/><circle class="s" cx="27" cy="5.9" r="11.4"/><circle class="w" cx="27" cy="5.9" r="4.8"/></g></svg></span><span class="explora-txt"><b>Tu provincia</b><small>Perfil provincial</small></span></a><a class="tarjeta explora" href="cruces.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.083) translate(-0 -27.1)"><path class="s" d="M-49.9 28.8L0 57.6L0 54.3L-49.9 25.5Z"/><path class="s" d="M49.9 28.8L0 57.6L0 54.3L49.9 25.5Z"/><path class="l" d="M0 -3.3L49.9 25.5L0 54.3L-49.9 25.5Z"/><path class="s" d="M-23.1 25L-17.1 28.5L-17.1 19.5L-23.1 16Z"/><path class="s" d="M-11.2 25L-17.1 28.5L-17.1 19.5L-11.2 16Z"/><path class="l" d="M-17.1 12.6L-11.2 16L-17.1 19.5L-23.1 16Z"/><path class="s" d="M23.1 25.3L29.1 28.8L29.1 8.4L23.1 4.9Z"/><path class="s" d="M35.1 25.3L29.1 28.8L29.1 8.4L35.1 4.9Z"/><path class="l" d="M29.1 1.5L35.1 4.9L29.1 8.4L23.1 4.9Z"/><path class="s" d="M-40.8 25.6L-34.8 29.1L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-28.8 25.6L-34.8 29.1L-34.8 24.3L-28.8 20.8Z"/><path class="l" d="M-34.8 17.4L-28.8 20.8L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-1.3 25.6L4.7 29.1L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M10.7 25.6L4.7 29.1L4.7 14.7L10.7 11.2Z"/><path class="l" d="M4.7 7.8L10.7 11.2L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M-21 33.4L-15.1 36.9L-15.1 30.3L-21 26.8Z"/><path class="s" d="M-9.1 33.4L-15.1 36.9L-15.1 30.3L-9.1 26.8Z"/><path class="l" d="M-15.1 23.4L-9.1 26.8L-15.1 30.3L-21 26.8Z"/><path class="s" d="M18.4 33.4L24.4 36.9L24.4 19.5L18.4 16Z"/><path class="s" d="M30.4 33.4L24.4 36.9L24.4 19.5L30.4 16Z"/><path class="l" d="M24.4 12.6L30.4 16L24.4 19.5L18.4 16Z"/><path class="s" d="M1.8 34.6L7.8 38.1L7.8 26.1L1.8 22.6Z"/><path class="s" d="M13.8 34.6L7.8 38.1L7.8 26.1L13.8 22.6Z"/><path class="l" d="M7.8 19.2L13.8 22.6L7.8 26.1L1.8 22.6Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-cruces">Cruces</b><small>Herramienta</small></span></a></div></nav></section>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</main>
+
+<footer class="pie-sitio">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="articulos.html">Artículos</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p data-t="actualizado"></p>
+      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
+<script src="datos/fichas.js?v=818d9efa5a"></script>
+<script src="datina.js?v=7970209daf"></script>
+</body>
+</html>

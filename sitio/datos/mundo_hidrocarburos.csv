@@ -1,0 +1,49 @@
+variable,anio,puesto,iso3,pais,valor
+crudo_kbd,2025,1,USA,Estados Unidos,13586.0869
+crudo_kbd,2025,2,RUS,Rusia,9885.109
+crudo_kbd,2025,3,SAU,Arabia Saudita,9556.054
+crudo_kbd,2025,4,CAN,Canadá,4963.9349
+crudo_kbd,2025,5,IRQ,Iraq,4388.0685
+crudo_kbd,2025,6,CHN,China,4324.6849
+crudo_kbd,2025,7,IRN,Irán,4051.4247
+crudo_kbd,2025,8,ARE,Emiratos Árabes Unidos,3771.2192
+crudo_kbd,2025,9,BRA,Brasil,3769.407
+crudo_kbd,2025,10,KWT,Kuwait,2583.5479
+crudo_kbd,2025,11,KAZ,Kazajstán,2046.6102
+crudo_kbd,2025,12,NOR,Noruega,1858.4642
+crudo_kbd,2025,13,MEX,México,1726.0461
+crudo_kbd,2025,14,NGA,Nigeria,1605.4143
+crudo_kbd,2025,15,LBY,Libia,1363.0411
+crudo_kbd,2025,16,QAT,Qatar,1297.3844
+crudo_kbd,2025,17,DZA,Argelia,1142.9589
+crudo_kbd,2025,18,AGO,Angola,1030.8147
+crudo_kbd,2025,19,OMN,Omán,1002.0692
+crudo_kbd,2025,20,VEN,Venezuela,972.6164
+crudo_kbd,2025,21,ARG,Argentina,794.0044
+crudo_kbd,2025,22,GUY,Guyana,747.4321
+crudo_kbd,2025,23,COL,Colombia,746.479
+crudo_kbd,2025,24,GBR,Reino Unido,615.7787
+crudo_kbd,2025,25,IDN,Indonesia,581.6685
+crudo_kbd,2025,26,IND,India,580.6004
+crudo_kbd,2025,27,AZE,Azerbaiyán,560.621
+crudo_kbd,2025,28,MYS,Malasia,512.6701
+gas_bcm,2024,1,USA,Estados Unidos,1069.4312
+gas_bcm,2024,2,RUS,Rusia,642.041
+gas_bcm,2024,3,IRN,Irán,279.0015
+gas_bcm,2024,4,CHN,China,258.4436
+gas_bcm,2024,5,CAN,Canadá,198.9522
+gas_bcm,2024,6,QAT,Qatar,169.9544
+gas_bcm,2024,7,AUS,Australia,152.1763
+gas_bcm,2024,8,NOR,Noruega,130.918
+gas_bcm,2024,9,SAU,Arabia Saudita,123.3852
+gas_bcm,2024,10,DZA,Argelia,98.8051
+gas_bcm,2024,11,MYS,Malasia,80.5776
+gas_bcm,2024,12,TKM,Turkmenistán,77.6001
+gas_bcm,2024,13,IDN,Indonesia,69.7969
+gas_bcm,2024,14,ARE,Emiratos Árabes Unidos,59.4113
+gas_bcm,2024,15,EGY,Egipto,47.4723
+gas_bcm,2024,16,ARG,Argentina,46.7801
+gas_bcm,2024,17,UZB,Uzbekistán,46.1985
+gas_bcm,2024,18,OMN,Omán,44.3493
+gas_bcm,2024,19,NGA,Nigeria,39.0891
+gas_bcm,2024,20,AZE,Azerbaiyán,37.8751

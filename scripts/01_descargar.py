@@ -189,6 +189,30 @@ FUENTES = {
 
 FUENTES.update(femicidios())
 
+# Petróleo, gas y construcción (etapa 18, octubre de 2026)
+SE = "http://datos.energia.gob.ar"  # portal de datos de la Secretaría de Energía: responde solo por http (https redirige a http)
+SE_POZO = "c846e79c-026c-4040-897f-1ad3543b407c"  # producción de petróleo y gas por pozo (Capítulo IV de la Resolución SE 319/1993)
+SE_REG = "https://www.energia.gob.ar/contenidos/archivos/Reorganizacion/informacion_del_mercado/mercado_hidrocarburos/informacion_estadistica/regalias/"
+ISAC = "https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/"
+FUENTES.update({
+    # Producción mensual de petróleo y de gas del país por cuenca y por tipo de recurso (shale, tight y el resto), Capítulo IV
+    "se_petroleo_cuenca.csv": ckan_recurso(SE, SE_POZO, "producción de petróleo por cuenca y sub tipo",
+        f"{SE}/dataset/{SE_POZO}/resource/af8c50bb-fde0-43b7-98eb-7cd14daf586c/download/serie-histrica-de-produccin-de-petrleo-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv"),
+    "se_gas_cuenca.csv": ckan_recurso(SE, SE_POZO, "producción de gas natural por cuenca y sub tipo",
+        f"{SE}/dataset/{SE_POZO}/resource/a3244ddd-38bc-4800-a700-360b649d2f3a/download/serie-histrica-de-produccin-de-gas-natural-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv"),
+    # Regalías de petróleo crudo por provincia, en dólares, mensual desde 1991, con los precios de cada tipo de crudo (Secretaría de Energía)
+    "se_regalias_crudo.zip": SE_REG + "Regalias_CRUDO.zip",
+    # Exportaciones de combustibles y energía e importaciones de combustibles y lubricantes, millones de dólares (INDEC, ICA)
+    "indec_ica_energia.csv": API + "74.3_IECE_0_M_35,74.3_IICL_0_M_42",
+    # Indicador Sintético de la Actividad de la Construcción (INDEC): nivel general y despachos de insumos, base 2004 = 100
+    "isac.csv": ISAC + "33.2/download/indicador-sintetico-actividad-construccion-valores-mensuales-base-2004.csv",
+    "isac_insumos.csv": ISAC + "33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv",
+    # Índice del Costo de la Construcción en el Gran Buenos Aires (INDEC): variaciones desde noviembre de 2015 e índices desde 2022
+    "indec_icc.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/icc_variaciones_indices_2016.xls",
+    # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
+    "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
+})
+
 # Indicadores provinciales que no publica Argendata (Fundar), para las fichas nuevas y el explorador de cruces
 FUENTES.update({
     # Tablas de mortalidad 2020 a 2022 del INDEC: esperanza de vida al nacer por provincia y sexo
@@ -265,6 +289,16 @@ VALIDA.update({
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
 })
 VALIDA["bm_paises.json"] = lambda b: b'"capitalCity"' in b
+VALIDA.update({
+    "se_petroleo_cuenca.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"indice_tiempo,cuenca_austral"),
+    "se_gas_cuenca.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"indice_tiempo,produccion_gas_natural_cuenca_austral"),
+    "se_regalias_crudo.zip": lambda b: b[:2] == b"PK",
+    "indec_ica_energia.csv": lambda b: b.startswith(b"indice_tiempo,ica_exportacion_combustible_energia"),
+    "isac.csv": lambda b: b.startswith(b"indice_tiempo,isac_nivel_general"),
+    "isac_insumos.csv": lambda b: b.startswith(b"indice_tiempo,isac_articulos_sanitarios"),
+    "indec_icc.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
+    "ipc_nacional.csv": lambda b: b.startswith(b"indice_tiempo,"),
+})
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
 for _ind in BM_INDICADORES:
@@ -441,9 +475,204 @@ def oede_empresas():
     return url
 
 
+def hidrocarburos():
+    """Producción de petróleo y gas (Capítulo IV de la Resolución SE 319/1993, Secretaría de Energía): las empresas declaran cada
+    mes la producción de cada pozo. Los archivos son grandes (unos 125 MB el agrupado por yacimiento y formación, y unos 300 MB cada
+    año por pozo): se bajan a memoria y se guardan solo resúmenes chicos en datos/crudo/.
+    - se_produccion_resumen.csv: producción por mes, provincia y tipo de recurso (convencional, shale, tight u otro), separando la
+      formación Vaca Muerta, desde 2006 (archivo agrupado por yacimiento y formación productiva).
+    - se_produccion_empresas.csv: producción por mes y empresa desde 2018.
+    - se_produccion_areas.csv: producción por año y área de concesión, con su provincia, cuenca y la empresa que más produjo.
+    - se_pozos_resumen.csv: pozos que produjeron petróleo o gas y su producción, por mes, provincia y tipo, de los archivos por pozo
+      del año en curso y del anterior (los meses más viejos quedan del resumen anterior).
+    Hay dos juegos de archivos por pozo: se usa el común (no el de "DDJJ abiertas y cerradas"), que coincide con la serie del país.
+    Algunos años aparecen dos veces con el mismo nombre (guion largo y corto): se toma el modificado más recientemente."""
+    import io, pandas as pd
+    recursos = json.loads(leer(f"{SE}/api/3/action/package_show?id={SE_POZO}", 60))["result"]["resources"]
+
+    def url(cond):
+        r = sorted([x for x in recursos if cond(x["name"].lower())], key=lambda x: x.get("last_modified") or "")
+        if not r:
+            raise ValueError("no se encontró el archivo en el catálogo de la Secretaría de Energía")
+        return r[-1]["url"].replace("https://", "http://")
+
+    def tipo(d):
+        t = pd.Series("otro", index=d.index)
+        t[d.tipo_de_recurso.eq("CONVENCIONAL")] = "convencional"
+        nc = d.tipo_de_recurso.eq("NO CONVENCIONAL")
+        t[nc & d.sub_tipo_recurso.eq("SHALE")] = "shale"
+        t[nc & d.sub_tipo_recurso.eq("TIGHT")] = "tight"
+        return t
+
+    def csv_grande(u, columnas):
+        datos = leer(u, 900)
+        if not datos.lstrip(b"\xef\xbb\xbf").startswith(b"idempresa,anio,mes"):
+            raise ValueError(f"formato inesperado en {u.rsplit('/', 1)[-1]}")
+        return pd.read_csv(io.BytesIO(datos), usecols=columnas, low_memory=False)
+
+    ag = csv_grande(url(lambda n: "agrupada por yacimiento y formación" in n),
+                    ["anio", "mes", "prod_pet", "prod_gas", "empresa", "formacion", "idareapermisoconcesion", "areapermisoconcesion",
+                     "tipo_de_recurso", "sub_tipo_recurso", "cuenca", "provincia"])
+    ag["tipo"] = tipo(ag)
+    ag["vaca_muerta"] = ag.formacion.fillna("").str.strip().str.lower().eq("vaca muerta")
+    (ag.groupby(["anio", "mes", "provincia", "tipo", "vaca_muerta"], as_index=False)[["prod_pet", "prod_gas"]].sum()
+     .round(3).to_csv(CRUDO / "se_produccion_resumen.csv", index=False))
+    (ag[ag.anio >= 2018].groupby(["anio", "mes", "empresa"], as_index=False)[["prod_pet", "prod_gas"]].sum()
+     .query("prod_pet > 0 or prod_gas > 0").round(3).to_csv(CRUDO / "se_produccion_empresas.csv", index=False))
+    ag["nc"] = ag.tipo.isin(["shale", "tight"])
+    ag["pet_nc"], ag["gas_nc"] = ag.prod_pet.where(ag.nc, 0), ag.prod_gas.where(ag.nc, 0)
+    claves = ["anio", "idareapermisoconcesion"]
+    areas = ag.groupby(claves, as_index=False).agg(area=("areapermisoconcesion", "first"), provincia=("provincia", "first"),
+        cuenca=("cuenca", "first"), prod_pet=("prod_pet", "sum"), prod_gas=("prod_gas", "sum"), pet_nc=("pet_nc", "sum"), gas_nc=("gas_nc", "sum"))
+    por_emp = ag.assign(v=ag.prod_pet + ag.prod_gas).groupby(claves + ["empresa"], as_index=False).v.sum()
+    areas = areas.merge(por_emp.sort_values("v").drop_duplicates(claves, keep="last")[claves + ["empresa"]], on=claves, how="left")
+    areas[(areas.prod_pet > 0) | (areas.prod_gas > 0)].round(3).to_csv(CRUDO / "se_produccion_areas.csv", index=False)
+    # pozos que produjeron: archivos por pozo del año en curso y del anterior
+    hoy = datetime.date.today().year
+    filas = []
+    for a in (hoy - 1, hoy):
+        try:
+            u = url(lambda n: "producción de pozos de gas y petróleo" in n and n.rstrip().endswith(str(a)) and "ddjj" not in n)
+        except ValueError:
+            continue
+        d = csv_grande(u, ["anio", "mes", "idpozo", "prod_pet", "prod_gas", "tipo_de_recurso", "sub_tipo_recurso", "provincia"])
+        d["tipo"] = tipo(d)
+        d["con_pet"], d["con_gas"] = d.prod_pet > 0, d.prod_gas > 0
+        d["produce"] = d.con_pet | d.con_gas
+        filas.append(d.groupby(["anio", "mes", "provincia", "tipo"], as_index=False).agg(
+            pozos=("produce", "sum"), pozos_pet=("con_pet", "sum"), pozos_gas=("con_gas", "sum"), prod_pet=("prod_pet", "sum"), prod_gas=("prod_gas", "sum")))
+    if not filas:
+        raise ValueError("no se encontraron los archivos por pozo")
+    nuevo = pd.concat(filas)
+    previo = CRUDO / "se_pozos_resumen.csv"
+    if previo.exists():
+        viejo = pd.read_csv(previo)
+        nuevo = pd.concat([viejo[viejo.anio < nuevo.anio.min()], nuevo])
+    nuevo.round(3).to_csv(previo, index=False)
+    return f"{SE} Capítulo IV ({len(ag):,} filas agrupadas)"
+
+
+def reservas_hidrocarburos():
+    """Reservas de petróleo y gas al 31 de diciembre de cada año hasta el final de la vida útil de los yacimientos (Secretaría de
+    Energía, un ZIP por año; se usan desde 2006, cuando empezó a regir la Resolución SE 324/2006). Dos formatos: hasta 2016, una planilla por cuenca y provincia que termina con la fila
+    "TOTAL PAIS"; desde 2017, una fila por yacimiento con un bloque convencional y otro no convencional (y la provincia). Se guarda
+    solo el total del país por año y, desde 2017, por provincia y tipo (se_reservas_resumen.csv). Petróleo en miles de m3 y gas en
+    millones de m3, como los publica la fuente."""
+    import io, zipfile, pandas as pd
+    recursos = json.loads(leer(f"{SE}/api/3/action/package_show?id=reservas-de-petroleo-y-gas", 60))["result"]["resources"]
+    filas = []
+    for r in recursos:
+        anio = re.search(r"31/12/(\d{4})", r["name"])
+        if not anio or "vida útil" not in r["name"].lower() or not r["url"].lower().endswith(".zip"):
+            continue
+        anio = int(anio.group(1))
+        if anio < 2006:  # desde 2006 rige la Resolución SE 324/2006 y el formato es parejo (2004 y 2005 tienen otras planillas)
+            continue
+        z = zipfile.ZipFile(io.BytesIO(leer(r["url"], 120)))
+        nombre = next(n for n in z.namelist() if n.lower().endswith((".xls", ".xlsx")))
+        x = pd.ExcelFile(io.BytesIO(z.read(nombre)))
+        hoja = next((s for s in x.sheet_names if "vid" in s.lower() or "fvu" in s.lower()), x.sheet_names[0])
+        d = pd.read_excel(x, hoja, header=None)
+        texto = d.astype(str).apply(lambda c: c.str.strip().str.upper())
+        fila_de = lambda v: next(i for i in d.index if (texto.loc[i] == v).any())
+        if anio <= 2016:
+            tot = d[texto[0].str.match(rf"TOTAL PA[IÍ]S\s*{anio}")].iloc[0]
+            filas.append({"anio": anio, "provincia": "Total", "tipo": "total", "pet_comprobadas": tot[2], "gas_comprobadas": tot[3],
+                          "pet_probables": tot[4], "gas_probables": tot[5]})
+            continue
+        bloque, categoria, fluido = (texto.loc[fila_de(v)].where(texto.loc[fila_de(v)] != "NAN").ffill() for v in ("CONVENCIONAL", "COMPROBADAS", "PET"))
+        inicio = fila_de("OPERADOR") + 1
+        datos = d.loc[inicio:][d.loc[inicio:, 1].notna() & d.loc[inicio:, 2].notna()]
+        for b, t in (("CONVENCIONAL", "convencional"), ("NO CONVENCIONAL", "no_convencional")):
+            fila = {}
+            for cat in ("COMPROBADAS", "PROBABLES"):
+                for fl, pre in (("PET", "pet"), ("GAS", "gas")):
+                    col = [c for c in d.columns if bloque[c] == b and categoria[c] == cat and fluido[c] == fl]
+                    if len(col) != 1:
+                        raise ValueError(f"reservas {anio}: no se encontró la columna {b} {cat} {fl}")
+                    fila[f"{pre}_{cat.lower()}"] = pd.to_numeric(datos[col[0]], errors="coerce").fillna(0)
+            prov = datos[2].astype(str).str.strip()
+            por_prov = pd.DataFrame(fila).groupby(prov).sum()
+            for pv, v in por_prov.iterrows():
+                filas.append({"anio": anio, "provincia": pv, "tipo": t, **v.to_dict()})
+    res = pd.DataFrame(filas)
+    if res.anio.nunique() < 15:
+        raise ValueError("faltan años de reservas")
+    res.round(3).to_csv(CRUDO / "se_reservas_resumen.csv", index=False)
+    return f"{SE} reservas {res.anio.min()} a {res.anio.max()}"
+
+
+def oede_empleo():
+    """Observatorio de Empleo y Dinámica Empresarial (Ministerio de Capital Humano): asalariados registrados del sector privado por
+    provincia y rama de actividad (CIIU revisión 3 a dos dígitos), trimestral desde 1996, con base en el SIPA. Una hoja por provincia
+    (Buenos Aires viene separada en partidos del GBA y resto). Se guardan solo construcción (sección F), extracción de petróleo y gas
+    (rama 11) y el total de cada provincia (oede_empleo_ramas.csv). El nombre del Excel cambia con cada edición: se lee de la página."""
+    import io, pandas as pd
+    pagina = leer("https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales", 60).decode("utf-8", "ignore")
+    enlace = re.search(r'href="(/sites/default/files/provinciales_serie_empleo_trimestral_2dig[^"]*\.xlsx)"', pagina)
+    if not enlace:
+        raise ValueError("no se encontró la serie de empleo por rama en la página del OEDE")
+    x = pd.ExcelFile(io.BytesIO(leer("https://www.argentina.gob.ar" + enlace.group(1), 300)))
+    filas = []
+    for hoja in x.sheet_names:
+        if hoja in ("Carátula", "Indice", "Descriptores de actividad"):
+            continue
+        d = pd.read_excel(x, hoja, header=None)
+        trims = {j: v for j, v in d.iloc[3].items() if isinstance(v, str) and "Trim" in v}
+        if not trims:
+            continue
+        cod = d[0].astype(str).str.strip()
+        sel = {"construccion": cod.eq("F"), "petroleo_gas": cod.eq("11"), "total": d[1].astype(str).str.strip().str.upper().eq("TOTAL")}
+        for rama, m in sel.items():
+            if m.sum() != 1:
+                raise ValueError(f"OEDE {hoja}: no se encontró una única fila de {rama}")
+            f = d[m].iloc[0]
+            for j, tr in trims.items():
+                n, a = re.match(r"(\d)\D+(\d{4})", tr).groups()
+                filas.append({"hoja": hoja, "rama": rama, "anio": int(a), "trimestre": int(n), "valor": f[j]})
+    out = pd.DataFrame(filas)
+    out["valor"] = pd.to_numeric(out.valor, errors="coerce")  # "s.d.": secreto estadístico
+    if out.hoja.nunique() < 25:
+        raise ValueError("faltan provincias en el empleo por rama del OEDE")
+    out.to_csv(CRUDO / "oede_empleo_ramas.csv", index=False)
+    return "https://www.argentina.gob.ar" + enlace.group(1)
+
+
+def eia_internacional():
+    """Producción de petróleo crudo (con condensado, miles de barriles por día) y de gas natural seco (miles de millones de m3) de
+    cada país, según las estadísticas internacionales de energía de la Administración de Información Energética de los Estados
+    Unidos (EIA, archivo masivo INTL.zip, de dominio público, unos 24 MB). Se guardan solo esas dos series de los países (no los
+    agregados regionales) desde 1990 (eia_produccion_paises.csv)."""
+    import io, zipfile
+    z = zipfile.ZipFile(io.BytesIO(leer("https://www.eia.gov/opendata/bulk/INTL.zip", 300)))
+    filas = []
+    with z.open(z.namelist()[0]) as f:
+        for linea in f:
+            s = json.loads(linea)
+            sid = s.get("series_id", "")
+            var = "crudo_kbd" if sid.startswith("INTL.57-1-") and sid.endswith("-TBPD.A") else \
+                  "gas_bcm" if sid.startswith("INTL.26-1-") and sid.endswith("-BCM.A") else None
+            iso = sid.split("-")[2] if var else ""
+            if not var or len(iso) != 3:
+                continue
+            nombre = s.get("name", "").split(", ")[1] if ", " in s.get("name", "") else iso
+            for anio, valor in s.get("data") or []:
+                if isinstance(valor, (int, float)) and int(anio) >= 1990:
+                    filas.append([iso, nombre, var, int(anio), valor])
+    if len({f[0] for f in filas}) < 150:
+        raise ValueError("formato inesperado en el archivo de la EIA")
+    with open(CRUDO / "eia_produccion_paises.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["iso3", "nombre", "variable", "anio", "valor"])
+        w.writerows(filas)
+    return "https://www.eia.gov/opendata/bulk/INTL.zip"
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
-                    ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas)]:
+                    ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
+                    ("petróleo y gas (resúmenes del Capítulo IV)", hidrocarburos), ("reservas de petróleo y gas", reservas_hidrocarburos),
+                    ("empleo por rama y provincia (OEDE)", oede_empleo), ("producción de petróleo y gas por país (EIA)", eia_internacional)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

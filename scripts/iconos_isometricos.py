@@ -585,6 +585,41 @@ def _(ic):
         ic.linea([(1.5, y, z), (6.7, y, z)], "k")
     ic.caja(2.8, -.1, 9.9, 2.6, 1.1, 1.2, "s", "s", "s")
 
+@icono("ciguena", "azul")
+def _(ic):
+    # petróleo y gas (etapa 18): un bombeador de pozo, la "cigüeña" de los yacimientos, sobre su base y con la boca de pozo
+    ic.sombra(7.0, 2.2, 6.0, 1.8)
+    ic.caja(0, 0, 0, 11.2, 3.2, .6)
+    ic.caja(.5, .6, .6, 2.8, 2.0, 2.0)
+    ic.circulo_vertical(1.9, 2.6, 2.6, 1.9, "s")
+    ic.circulo_vertical(1.9, 2.6, 2.6, .55, "w", 20)
+    y0, prof = 1.2, .7
+    for pata in ([(4.0, .6), (4.8, .6), (6.1, 6.6), (5.5, 6.6)], [(7.6, .6), (8.4, .6), (6.5, 6.6), (5.9, 6.6)]):
+        ic.extruir(pata, (0, y0, 0), (1, 0, 0), (0, 0, 1), (0, prof, 0), "s", "s")
+    ic.linea([(1.9, 2.7, 3.9), (1.5, 2.7, 6.6)], "k")
+    ic.extruir([(.8, 6.2), (10.0, 7.4), (10.0, 8.3), (.8, 7.1)], (0, y0, 0), (1, 0, 0), (0, 0, 1), (0, prof + .2, 0), "l", "s")
+    ic.extruir([(9.6, 6.0), (11.0, 6.4), (11.6, 7.4), (11.6, 8.6), (10.6, 9.4), (9.8, 8.4)], (0, y0, 0), (1, 0, 0), (0, 0, 1), (0, prof + .2, 0), "s", "s")
+    ic.linea([(11.1, 1.65, 6.3), (11.1, 1.65, 1.7)], "k")
+    ic.cilindro(11.1, 1.65, .6, .55, 1.1)
+
+
+@icono("grua", "azul")
+def _(ic):
+    # construcción y vivienda (etapa 18): una grúa torre junto a un edificio en obra, con una carga colgando
+    ic.sombra(6.0, 4.0, 6.4, 2.4)
+    ic.caja(0, 2.4, 0, 6.0, 5.6, 3.4)
+    for x in (.2, 2.7, 5.2):
+        ic.caja(x, 7.2, 3.4, .6, .6, 2.6, "s", "s", "s")
+    ic.caja(0, 2.4, 6.0, 6.0, 5.6, .5)
+    ic.caja(8.0, 3.6, 0, 1.1, 1.1, 11.2, "s", "l", "s")
+    for z in (1.0, 3.2, 5.4, 7.6):
+        ic.linea([(8.0, 4.7, z), (9.1, 4.7, z + 2.2)], "k")
+    ic.caja(2.0, 3.8, 11.2, 11.0, .7, .7)
+    ic.caja(2.2, 3.6, 10.0, 1.5, 1.1, 1.2, "s", "s", "s")
+    ic.linea([(11.6, 4.15, 11.2), (11.6, 4.15, 6.8)], "k")
+    ic.caja(11.0, 3.6, 5.6, 1.2, 1.2, 1.2, "s", "s", "s")
+
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}

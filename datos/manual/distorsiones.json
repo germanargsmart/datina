@@ -11,6 +11,9 @@
  "patentamientos_provincias.motos_1000": {
   "94": {"accion": "excluir", "motivo": "su dato del DNRPA salta durante 2025 a valores decenas de veces mayores que los de los años anteriores y siguientes, y las cámaras del sector no registran ese aumento: es probable un error en el dato abierto"}
  },
+ "empleo_construccion_provincias.construccion_cada_1000": {
+  "02": {"accion": "aclarar", "motivo": "el SIPA cuenta cada empleo en la provincia donde declara la empresa, no donde está la obra, así que la Ciudad suma también puestos de obras en otras provincias", "corto": "Cada empleo se cuenta donde declara la empresa, no donde está la obra."}
+ },
  "aprender_provincias.mat_logra": {
   "58": {"accion": "aclarar", "motivo": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo", "corto": "Dato a título informativo: la participación en Aprender quedó por debajo del umbral de representatividad."}
  },

@@ -1,0 +1,224 @@
+anio,provincia,tipo,pet_comprobadas,gas_comprobadas,pet_probables,gas_probables
+2025,Chubut,convencional,124091.08,16761.24,45406.69,4724.74
+2025,Estado Nacional,convencional,2357.259,48520.664,2585.37,51676.61
+2025,Formosa,convencional,106.01,21.27,28.7,5.54
+2025,Jujuy,convencional,88.0,28.0,0.0,0.0
+2025,La Pampa,convencional,3403.186,617.428,975.759,114.15
+2025,Mendoza,convencional,21057.978,1616.402,9966.625,186.221
+2025,Neuquén,convencional,4474.577,20614.768,2268.319,5872.219
+2025,Rio Negro,convencional,5187.427,2631.619,865.179,284.319
+2025,Salta,convencional,678.744,6291.313,266.89,2015.043
+2025,Santa Cruz,convencional,47366.077,14927.877,22497.63,6651.7
+2025,Tierra del Fuego,convencional,880.766,9063.066,573.291,5367.0
+2025,Chubut,no_convencional,0.0,70.4,0.0,0.0
+2025,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2025,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2025,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2025,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2025,Mendoza,no_convencional,31.0,0.0,0.0,0.0
+2025,Neuquén,no_convencional,410858.765,453667.995,285824.672,163473.09
+2025,Rio Negro,no_convencional,3602.0,3104.9,972.0,4540.0
+2025,Salta,no_convencional,0.0,0.0,0.0,0.0
+2025,Santa Cruz,no_convencional,535.31,5282.13,80.8,1264.61
+2025,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2024,Chubut,convencional,127542.28,21211.98,36518.55,4997.36
+2024,Estado Nacional,convencional,2366.432,49928.141,2931.054,57180.526
+2024,Formosa,convencional,155.26,32.23,47.81,10.06
+2024,Jujuy,convencional,125.0,35.2,0.0,0.0
+2024,La Pampa,convencional,4392.274,846.475,800.632,142.073
+2024,Mendoza,convencional,15616.328,709.622,10745.582,190.341
+2024,Neuquén,convencional,3496.826,20147.273,998.44,6162.259
+2024,Rio Negro,convencional,8292.065,4049.59,980.823,550.883
+2024,Salta,convencional,881.83,7877.4,239.81,2007.9
+2024,Santa Cruz,convencional,34397.091,11358.726,15808.842,6064.36
+2024,Tierra del Fuego,convencional,971.315,9430.793,923.258,6418.727
+2024,Chubut,no_convencional,0.0,0.0,0.0,0.0
+2024,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2024,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2024,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2024,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2024,Mendoza,no_convencional,0.0,0.0,0.0,0.0
+2024,Neuquén,no_convencional,292018.008,412773.001,224395.907,174723.454
+2024,Rio Negro,no_convencional,664.1,2002.7,1.0,6.0
+2024,Salta,no_convencional,340.47,24.61,777.941,65.361
+2024,Santa Cruz,no_convencional,576.82,5843.87,88.93,1373.56
+2024,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2023,Chubut,convencional,150733.101,24091.479,51820.532,6485.564
+2023,Estado Nacional,convencional,2823.512,54336.244,2684.02,56968.0
+2023,Formosa,convencional,238.569,63.816,97.901,28.166
+2023,Jujuy,convencional,124.0,35.0,0.0,0.0
+2023,La Pampa,convencional,5152.171,938.7,1451.576,186.857
+2023,Mendoza,convencional,19660.674,897.545,4228.289,129.316
+2023,Neuquén,convencional,4670.202,21963.938,1389.235,5773.578
+2023,Rio Negro,convencional,6222.877,2859.46,858.16,1022.48
+2023,Salta,convencional,1085.967,9468.583,271.979,2096.81
+2023,Santa Cruz,convencional,38494.113,13182.269,17781.802,6249.673
+2023,Tierra del Fuego,convencional,1258.738,12280.884,1111.27,5812.35
+2023,Chubut,no_convencional,0.0,0.0,0.0,0.0
+2023,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2023,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2023,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2023,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2023,Mendoza,no_convencional,0.0,0.0,0.0,0.0
+2023,Neuquén,no_convencional,245433.245,338326.243,155920.725,164591.458
+2023,Rio Negro,no_convencional,408.826,2847.0,1.0,196.0
+2023,Salta,no_convencional,340.5,31.0,751.9,65.9
+2023,Santa Cruz,no_convencional,623.3,6149.47,81.6,1118.68
+2023,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2022,Chubut,convencional,155243.57,25286.15,59035.51,9610.52
+2022,Estado Nacional,convencional,2899.249,54075.0,2552.987,44786.0
+2022,Formosa,convencional,209.67,65.9,65.86,24.76
+2022,Jujuy,convencional,120.0,3.0,0.0,0.0
+2022,LA PAMPA,convencional,116.3,9.0,0.0,0.0
+2022,La Pampa,convencional,6070.985,1171.953,1629.887,150.201
+2022,Mendoza,convencional,18991.158,1216.838,8016.41,321.662
+2022,Neuquén,convencional,5813.93,27727.141,2032.916,6874.428
+2022,Rio Negro,convencional,7346.403,3920.8,2272.68,1592.12
+2022,Salta,convencional,1308.764,10316.719,163.679,1294.623
+2022,Santa Cruz,convencional,45255.688,13557.35,22212.61,6587.454
+2022,Tierra del Fuego,convencional,1485.278,15496.1,980.513,16677.34
+2022,Chubut,no_convencional,0.0,0.0,0.0,0.0
+2022,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2022,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2022,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2022,LA PAMPA,no_convencional,0.0,0.0,0.0,0.0
+2022,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2022,Mendoza,no_convencional,0.0,0.0,0.0,0.0
+2022,Neuquén,no_convencional,218415.582,287369.51,152832.166,133821.604
+2022,Rio Negro,no_convencional,684.0,4804.0,6.0,58.0
+2022,Salta,no_convencional,801.0,143.2,687.0,78.2
+2022,Santa Cruz,no_convencional,662.05,6600.23,51.8,868.83
+2022,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2021,Chubut,convencional,161292.93,27760.58,59800.08,11806.62
+2021,Estado Nacional,convencional,3180.09,59027.156,2682.807,53621.565
+2021,Formosa,convencional,52.67,7.9,57.1,8.56
+2021,JUJUY,convencional,0.0,0.0,0.0,0.0
+2021,Jujuy,convencional,122.0,35.0,0.0,0.0
+2021,La Pampa,convencional,5414.936,1283.583,1814.464,263.719
+2021,Mendoza,convencional,25205.192,1271.251,8491.582,178.923
+2021,Neuquén,convencional,12032.889,34062.54,6168.7,8641.07
+2021,Rio Negro,convencional,12687.168,4681.184,2519.212,979.741
+2021,Salta,convencional,1469.676,10881.974,189.653,1478.708
+2021,Santa Cruz,convencional,50111.682,15415.518,24740.806,5877.445
+2021,Tierra del Fuego,convencional,2437.315,16972.552,859.891,4370.09
+2021,Chubut,no_convencional,0.0,709.0,0.0,1530.0
+2021,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2021,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2021,JUJUY,no_convencional,0.0,0.0,0.0,0.0
+2021,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2021,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2021,Mendoza,no_convencional,7.0,4.3,0.0,0.0
+2021,Neuquén,no_convencional,174936.947,231049.549,126947.554,92117.08
+2021,Rio Negro,no_convencional,1001.54,6332.31,139.5,883.85
+2021,Salta,no_convencional,847.48,149.66,802.67,76.82
+2021,Santa Cruz,no_convencional,431.61,6344.29,38.09,916.06
+2021,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2020,CHUBUT,convencional,21.2,13.683,34.7,17.436
+2020,Chubut,convencional,164563.319,28703.0,62555.6,11878.67
+2020,Estado Nacional,convencional,3449.2,63144.0,2601.0,52383.0
+2020,Formosa,convencional,76.71,11.51,6.8,1.0
+2020,JUJUY,convencional,0.0,0.0,0.0,0.0
+2020,Jujuy,convencional,114.0,34.0,0.0,0.0
+2020,La Pampa,convencional,6102.864,1773.098,2366.529,298.737
+2020,Mendoza,convencional,19416.397,1426.851,6805.302,188.509
+2020,Neuquén,convencional,10172.862,36541.006,3484.691,11093.191
+2020,Rio Negro,convencional,10814.064,4811.642,2420.202,1458.321
+2020,SANTA CRUZ,convencional,0.0,0.0,1.0,0.0
+2020,Salta,convencional,1649.159,11939.499,203.783,1252.433
+2020,Santa Cruz,convencional,45654.8,15070.2,17287.41,4744.31
+2020,Tierra del Fuego,convencional,2845.6,19563.24,758.04,5319.12
+2020,CHUBUT,no_convencional,0.0,0.0,0.0,0.0
+2020,Chubut,no_convencional,0.0,0.0,0.0,0.0
+2020,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2020,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2020,JUJUY,no_convencional,0.0,0.0,0.0,0.0
+2020,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2020,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2020,Mendoza,no_convencional,71.0,9.0,71.0,3.0
+2020,Neuquén,no_convencional,116202.419,201636.036,94150.853,101437.689
+2020,Rio Negro,no_convencional,880.09,6409.5,25.0,136.0
+2020,SANTA CRUZ,no_convencional,0.0,0.0,0.0,0.0
+2020,Salta,no_convencional,780.87,131.28,1024.57,101.8
+2020,Santa Cruz,no_convencional,465.74,6028.87,68.12,1347.97
+2020,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2019,Chubut,convencional,172389.585,31814.38,59148.34,11710.4
+2019,Estado Nacional,convencional,3597.4,65469.4,2851.0,54687.0
+2019,Formosa,convencional,228.9,98.2,202.2,52.3
+2019,Jujuy,convencional,107.15,31.0,0.0,0.0
+2019,La Pampa,convencional,7385.61,2262.156,2122.023,199.475
+2019,Mendoza,convencional,25730.285,1746.932,9280.304,296.031
+2019,Neuquén,convencional,13736.037,46570.833,7997.171,10680.683
+2019,Rio Negro,convencional,13953.073,6147.895,4131.899,1353.138
+2019,Salta,convencional,1623.062,13313.652,205.369,1533.282
+2019,Santa Cruz,convencional,54885.88,20680.99,17695.05,7909.53
+2019,Tierra del Fuego,convencional,3751.49,19959.84,1144.48,5792.83
+2019,Chubut,no_convencional,0.0,0.0,0.0,0.0
+2019,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2019,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2019,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2019,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2019,Mendoza,no_convencional,422.0,17.6,159.0,24.0
+2019,Neuquén,no_convencional,107222.443,180350.224,68790.308,94549.181
+2019,Rio Negro,no_convencional,898.0,6051.0,12.0,214.0
+2019,Salta,no_convencional,1068.0,138.0,648.0,90.0
+2019,Santa Cruz,no_convencional,421.51,5578.98,65.72,1463.41
+2019,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2018,Chubut,convencional,172619.849,32892.424,61086.721,13074.767
+2018,Estado Nacional,convencional,3461.6,68485.0,2823.0,56981.0
+2018,Formosa,convencional,230.0,47.0,180.0,34.0
+2018,Jujuy,convencional,121.0,29.0,0.0,0.0
+2018,La Pampa,convencional,6864.935,2785.058,887.516,207.487
+2018,Mendoza,convencional,34851.079,2629.848,9612.467,882.718
+2018,Neuquén,convencional,17471.772,49924.364,8716.52,21272.363
+2018,Rio Negro,convencional,13146.059,5369.58,4001.34,1080.021
+2018,Salta,convencional,2866.195,14824.24,1153.786,1985.334
+2018,Santa Cruz,convencional,62863.184,21855.437,16990.93,6674.396
+2018,Tierra del Fuego,convencional,3716.84,23090.7,1284.61,6712.95
+2018,Chubut,no_convencional,0.0,0.0,0.0,10.0
+2018,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2018,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2018,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2018,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2018,Mendoza,no_convencional,113.0,0.0,0.0,0.0
+2018,Neuquén,no_convencional,59104.859,135140.695,56080.546,77256.26
+2018,Rio Negro,no_convencional,1798.0,9279.0,325.0,1135.85
+2018,Salta,no_convencional,0.0,0.0,0.0,0.0
+2018,Santa Cruz,no_convencional,567.43,5213.61,114.28,1300.15
+2018,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2017,Chubut,convencional,164623.825,32470.2,56321.7,11556.6
+2017,Estado Nacional,convencional,4205.0,71559.0,3617.0,65554.0
+2017,Formosa,convencional,382.0,93.0,100.0,4.0
+2017,Jujuy,convencional,24.0,6.0,485.0,121.0
+2017,La Pampa,convencional,6644.581,2698.154,2143.685,741.797
+2017,La Rioja,convencional,0.0,0.0,0.0,0.0
+2017,Mendoza,convencional,32845.527,3199.234,10371.222,277.796
+2017,Neuquén,convencional,16562.123,58181.528,4879.008,24002.056
+2017,Rio Negro,convencional,9955.46,4071.93,3624.56,780.82
+2017,Salta,convencional,2126.78,17068.189,108.534,528.746
+2017,San Juan,convencional,0.0,0.0,0.0,0.0
+2017,Santa Cruz,convencional,59615.589,28638.646,17937.953,6903.306
+2017,Tierra del Fuego,convencional,2830.054,24861.272,1087.357,8534.924
+2017,Chubut,no_convencional,0.0,0.0,0.0,0.0
+2017,Estado Nacional,no_convencional,0.0,0.0,0.0,0.0
+2017,Formosa,no_convencional,0.0,0.0,0.0,0.0
+2017,Jujuy,no_convencional,0.0,0.0,0.0,0.0
+2017,La Pampa,no_convencional,0.0,0.0,0.0,0.0
+2017,La Rioja,no_convencional,0.0,0.0,0.0,0.0
+2017,Mendoza,no_convencional,0.0,0.0,31.0,0.0
+2017,Neuquén,no_convencional,17169.3,97911.32,14080.31,64777.75
+2017,Rio Negro,no_convencional,2195.0,11516.5,625.0,3529.0
+2017,Salta,no_convencional,1422.0,191.0,1195.0,147.0
+2017,San Juan,no_convencional,0.0,0.0,0.0,0.0
+2017,Santa Cruz,no_convencional,314.59,3081.46,154.31,1532.31
+2017,Tierra del Fuego,no_convencional,0.0,0.0,0.0,0.0
+2016,Total,total,344524.588,336525.863,119986.987,148577.622
+2015,Total,total,380730.043,350483.224,131343.624,160441.039
+2014,Total,total,380027.551,332217.433,135099.835,149561.952
+2013,Total,total,370374.283,328259.697,132287.292,142010.743
+2012,Total,total,374289.399,315507.714,124248.504,143269.445
+2011,Total,total,393996.13,332510.223,131534.272,137397.513
+2010,Total,total,401308.056,358725.857,138161.918,132788.713
+2009,Total,total,399296.369,378819.647,136128.952,156399.92
+2008,Total,total,400697.464,398529.223,131643.991,141511.903
+2007,Total,total,415913.163,441973.587,150139.791,202673.463
+2006,Total,total,411262.281,446155.97,148663.544,227038.681

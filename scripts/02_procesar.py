@@ -1262,12 +1262,15 @@ for hoja in xl.sheet_names[1:]:
     gas, _ = fila("vii. gastos totales")
     per, _ = fila("personal")
     res, _ = fila("viii. resultado financiero")
+    reg_f, _ = fila("regalias", i_ic)
+    ird_f, _ = fila("inversion real directa")
     for j, a in anios_f.items():
         v = lambda r: float(r[j])
         if not v(tot) > 0:  # anios sin datos en la planilla
             continue
         fisc.append({"codigo_indec": cod, "anio": a, "autonomia": (v(ic) - v(nac) - v(trc) + v(rpc)) / v(tot) * 100,
-                     "resultado": v(res) / v(tot) * 100, "personal": v(per) / v(gas) * 100})
+                     "resultado": v(res) / v(tot) * 100, "personal": v(per) / v(gas) * 100,
+                     "regalias": v(reg_f) / v(tot) * 100, "regalias_millones": v(reg_f), "ird_millones": v(ird_f), "ingresos_millones": v(tot)})
 fisc = pd.DataFrame(fisc)
 assert fisc.codigo_indec.nunique() == 24, "Faltan provincias en las cuentas fiscales"
 # ultimo anio con dato para al menos 20 provincias. Las que todavia no lo publicaron van con su ultimo anio disponible
@@ -1288,6 +1291,425 @@ na["codigo_indec"] = na.k.str.replace("natalidad_", "").map(lambda x: "00" if x 
 assert na.codigo_indec.notna().all(), "Hay provincias de natalidad sin codigo"
 ANIO_NAT = int(na.anio.max())
 natalidad = na[na.anio == ANIO_NAT].set_index("codigo_indec").valor
+
+# ---------------------------------------------------------------- petróleo y gas (etapa 18, octubre de 2026)
+# Capítulo IV de la Resolución SE 319/1993: las empresas declaran cada mes la producción de cada pozo (Secretaría de Energía).
+# El país sale de la serie mensual por cuenca y tipo de recurso que publica la Secretaría, la más al día. Provincias, empresas y
+# Vaca Muerta salen del archivo agrupado por yacimiento y formación y los pozos de los archivos por pozo (resumidos en
+# 01_descargar.py), que suman lo mismo que esa serie (verificado mes a mes en octubre de 2026). Las declaraciones llegan con atraso:
+# en esos archivos un mes cuenta solo si suma al menos el 99% de la serie del país. Petróleo en m3 y gas en miles de m3; los
+# barriles usan el mismo factor que la Secretaría aplica en su serie (se lee de la serie, no se escribe a mano).
+sp_ = pd.read_csv(CRUDO / "se_petroleo_cuenca.csv", encoding="utf-8-sig")
+sg_ = pd.read_csv(CRUDO / "se_gas_cuenca.csv", encoding="utf-8-sig")
+BBL = float((sp_.kbbl_diario * 1000 / sp_.total_diario).median())  # barriles por metro cúbico
+assert 6.28 < BBL < 6.30, f"factor de barriles inesperado: {BBL}"
+sp_ = sp_.rename(columns=lambda c: c if c == "indice_tiempo" else c + "_p")
+sg_ = sg_.rename(columns=lambda c: c if c == "indice_tiempo" else c.replace("produccion_gas_natural_", "").replace("produccion_", "").replace("_gas", "") + "_g")
+hm = sp_.merge(sg_, on="indice_tiempo")
+hm["fecha"] = pd.to_datetime(hm.indice_tiempo + "-01")
+hm["dias"] = hm.fecha.dt.days_in_month
+CUENCAS = {"neuquina": "Neuquina", "gsj": "Golfo San Jorge", "austral": "Austral", "noroeste": "Noroeste", "cuyana": "Cuyana"}
+hidro_m = pd.DataFrame({"periodo": hm.indice_tiempo, "anio": hm.fecha.dt.year, "mes": hm.fecha.dt.month})
+kbd = lambda m3: m3 / hm.dias * BBL / 1000          # m3 en el mes -> miles de barriles por día
+mmd = lambda km3: km3 / hm.dias / 1000              # miles de m3 en el mes -> millones de m3 por día
+hidro_m["pet_conv"] = kbd(hm.total_p - hm.shale_p - hm.tight_p)
+hidro_m["pet_shale"], hidro_m["pet_tight"], hidro_m["pet_total"] = kbd(hm.shale_p), kbd(hm.tight_p), kbd(hm.total_p)
+hidro_m["gas_conv"] = mmd(hm.total_g - hm.shale_g - hm.tight_g)
+hidro_m["gas_shale"], hidro_m["gas_tight"], hidro_m["gas_total"] = mmd(hm.shale_g), mmd(hm.tight_g), mmd(hm.total_g)
+for k in CUENCAS:
+    hidro_m[f"pet_{k}"], hidro_m[f"gas_{k}"] = kbd(hm[f"cuenca_{k}_p"]), mmd(hm[f"cuenca_{k}_g"])
+hidro_m["pct_pet_nc"] = (hidro_m.pet_shale + hidro_m.pet_tight) / hidro_m.pet_total * 100
+hidro_m["pct_gas_nc"] = (hidro_m.gas_shale + hidro_m.gas_tight) / hidro_m.gas_total * 100
+# el último mes cuenta si su total llega al 90% del promedio de los tres anteriores (las declaraciones llegan con atraso).
+# Solo se miran los últimos meses: una caída real en el medio de la serie, como la de 2020, no se toca
+while len(hidro_m) > 4 and any(hidro_m[k].iloc[-1] < .9 * hidro_m[k].iloc[-4:-1].mean() for k in ("pet_total", "gas_total")):
+    hidro_m = hidro_m.iloc[:-1]
+HM_ULT = hidro_m.iloc[-1]
+_cols_h = ["pet_conv", "pet_shale", "pet_tight", "pet_total", "gas_conv", "gas_shale", "gas_tight", "gas_total"]
+_dias_m = hidro_m.periodo.map(hm.set_index("indice_tiempo").dias)
+_pond = hidro_m[_cols_h].mul(_dias_m, axis=0).assign(dias=_dias_m, anio=hidro_m.anio).groupby("anio").sum()
+_n_meses = hidro_m.groupby("anio").size()
+hidro_a = _pond[_cols_h].div(_pond.dias, axis=0)[_n_meses == 12].reset_index()
+hidro_a["pct_pet_nc"] = (hidro_a.pet_shale + hidro_a.pet_tight) / hidro_a.pet_total * 100
+hidro_a["pct_gas_nc"] = (hidro_a.gas_shale + hidro_a.gas_tight) / hidro_a.gas_total * 100
+HA_ULT, HA_INI = hidro_a.iloc[-1], hidro_a.iloc[0]
+_ha_min_p, _ha_min_g = hidro_a.loc[hidro_a.pet_total.idxmin()], hidro_a.loc[hidro_a.gas_total.idxmin()]
+_pm = hidro_m.set_index("periodo")
+_max_previo = hidro_m.iloc[:-1].loc[hidro_m.iloc[:-1].pet_total.idxmax()]
+_hc = hm[hm.indice_tiempo.isin(hidro_m.periodo)]
+YTD_H = {"pet": en_lo_que_va(_hc.fecha, _hc.total_p), "gas": en_lo_que_va(_hc.fecha, _hc.total_g)}
+for col, var, uni in [("pet_total", "produccion_petroleo", "miles de barriles por dia"), ("gas_total", "produccion_gas_natural", "millones de m3 por dia"),
+                      ("pct_pet_nc", "petroleo_no_convencional", "% de la produccion de petroleo"), ("pct_gas_nc", "gas_no_convencional", "% de la produccion de gas")]:
+    d = hidro_a[["anio", col]].rename(columns={"anio": "periodo", col: "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, var, uni, "Secretaria de Energia, Capitulo IV (Res. SE 319/1993)")
+
+# Provincias, empresas y Vaca Muerta: los doce meses completos más recientes del archivo agrupado
+pr_ = pd.read_csv(CRUDO / "se_produccion_resumen.csv")
+pr_["periodo"] = pr_.anio.astype(str) + "-" + pr_.mes.astype(str).str.zfill(2)
+_tot = pr_.groupby("periodo")[["prod_pet", "prod_gas"]].sum()
+_ref = hm.set_index("indice_tiempo")[["total_p", "total_g"]]
+_comp = [p for p in _tot.index if p in _ref.index and _tot.prod_pet[p] >= .99 * _ref.total_p[p] and _tot.prod_gas[p] >= .99 * _ref.total_g[p]]
+AG_ULT = max(_comp)
+VENTANA = [str(x) for x in pd.period_range(end=AG_ULT, periods=12, freq="M")]
+assert all(p in _comp for p in VENTANA), "faltan meses completos en el archivo agrupado de producción"
+VENTANA_10 = [str(x) for x in pd.period_range(end=pd.Period(AG_ULT, "M") - 120, periods=12, freq="M")]
+_dias_v = sum(pd.Period(p, "M").days_in_month for p in VENTANA)
+MAR = "mar"  # yacimientos en el mar a más de 12 millas: jurisdicción nacional ("Estado Nacional" en la fuente)
+pr_["codigo_indec"] = pr_.provincia.map(lambda t: MAR if norm(t) == "estado nacional" else codigo(t))
+assert pr_.codigo_indec.notna().all(), f"provincias sin código en la producción: {pr_[pr_.codigo_indec.isna()].provincia.unique()}"
+pr_["nc"] = pr_.tipo.isin(["shale", "tight"])
+
+
+def ventana(d, meses):
+    x = d[d.periodo.isin(meses)]
+    dias = sum(pd.Period(p, "M").days_in_month for p in meses)
+    g = x.groupby("codigo_indec")
+    out = pd.DataFrame({"pet_kbd": g.prod_pet.sum() / dias * BBL / 1000, "gas_mmm3d": g.prod_gas.sum() / dias / 1000,
+                        "pet_nc": x[x.nc].groupby("codigo_indec").prod_pet.sum() / dias * BBL / 1000,
+                        "gas_nc": x[x.nc].groupby("codigo_indec").prod_gas.sum() / dias / 1000,
+                        "pet_vm": x[x.vaca_muerta].groupby("codigo_indec").prod_pet.sum() / dias * BBL / 1000}).fillna(0)
+    return out
+
+
+_v, _v10 = ventana(pr_, VENTANA), ventana(pr_, VENTANA_10)
+hidro_prov = _v.join(_v10[["pet_kbd", "gas_mmm3d"]].rename(columns=lambda c: c + "_antes"), how="outer").fillna(0).reset_index()
+hidro_prov = hidro_prov[(hidro_prov.pet_kbd + hidro_prov.gas_mmm3d + hidro_prov.pet_kbd_antes + hidro_prov.gas_mmm3d_antes) > .05]
+hidro_prov["territorio"] = hidro_prov.codigo_indec.map(lambda c: "Mar argentino" if c == MAR else CORTO[c])
+hidro_prov["pct_pet_pais"] = hidro_prov.pet_kbd / hidro_prov.pet_kbd.sum() * 100
+hidro_prov["pct_gas_pais"] = hidro_prov.gas_mmm3d / hidro_prov.gas_mmm3d.sum() * 100
+hidro_prov["pct_pet_nc"] = (hidro_prov.pet_nc / hidro_prov.pet_kbd * 100).where(hidro_prov.pet_kbd > 0)
+hidro_prov["pct_gas_nc"] = (hidro_prov.gas_nc / hidro_prov.gas_mmm3d * 100).where(hidro_prov.gas_mmm3d > 0)
+hidro_prov = hidro_prov[["codigo_indec", "territorio", "pet_kbd", "gas_mmm3d", "pct_pet_pais", "pct_gas_pais", "pct_pet_nc", "pct_gas_nc",
+                         "pet_vm", "pet_kbd_antes", "gas_mmm3d_antes"]].sort_values("pet_kbd", ascending=False)
+_vm_kbd = float(hidro_prov.pet_vm.sum())
+# producción anual de cada provincia (años completos del archivo agrupado), para "si Neuquén fuera un país"
+_pa = pr_[pr_.periodo.isin(_comp)].groupby(["anio", "codigo_indec"])[["prod_pet", "prod_gas"]].sum().reset_index()
+_meses_pa = pr_[pr_.periodo.isin(_comp)].groupby("anio").periodo.nunique()
+_pa = _pa[_pa.anio.map(_meses_pa) == 12]
+_pa["dias"] = _pa.anio.map(lambda a: 366 if pd.Timestamp(f"{a}-12-31").is_leap_year else 365)
+_pa["pet_kbd"], _pa["gas_mmm3d"] = _pa.prod_pet / _pa.dias * BBL / 1000, _pa.prod_gas / _pa.dias / 1000
+# La serie anual por provincia no va a la tabla larga: el archivo agrupado tiene algunos meses viejos incompletos (enero de 2007,
+# junio de 2015, enero de 2019 y septiembre de 2024 suman entre 84% y 96% de la serie del país) y esos años quedarían con huecos
+
+
+FORMA_SOC = re.compile(r"[\s,]*(\(?sucursal[^)]*\)?|ltd\.?|s\.?\s?a\.?\s?u\.?|s\.?\s?a\.?|s\.?\s?r\.?\s?l\.?|s\.?\s?l\.?|sau)$", re.I)
+SIGLAS_EMP = {"YPF", "CGC", "PCR", "GYP"}
+
+
+def nombre_empresa(n):
+    """Nombre corto de una empresa para los gráficos, sin la forma societaria (la tabla conserva el nombre de la fuente)."""
+    t, antes = str(n).strip(), None
+    while t != antes:
+        antes, t = t, FORMA_SOC.sub("", t).strip(" .,")
+    return " ".join(w if w.upper() in SIGLAS_EMP or not w.isalpha() else w.lower() if i and w.lower() in ("de", "del", "la", "las", "los", "y") else w.capitalize()
+                    for i, w in enumerate(t.split()))
+
+
+emp_h = pd.read_csv(CRUDO / "se_produccion_empresas.csv")
+emp_h["periodo"] = emp_h.anio.astype(str) + "-" + emp_h.mes.astype(str).str.zfill(2)
+_e = emp_h[emp_h.periodo.isin(VENTANA)].groupby("empresa")[["prod_pet", "prod_gas"]].sum()
+_e["pct_pet"], _e["pct_gas"] = _e.prod_pet / _e.prod_pet.sum() * 100, _e.prod_gas / _e.prod_gas.sum() * 100
+_top = sorted(set(_e.nlargest(8, "prod_pet").index) | set(_e.nlargest(8, "prod_gas").index), key=lambda x: -_e.loc[x, "prod_pet"])
+hidro_emp = _e.loc[_top].reset_index()
+_resto = _e.drop(_top).sum()
+hidro_emp = pd.concat([hidro_emp, pd.DataFrame([{"empresa": "Otras empresas", **_resto[["prod_pet", "prod_gas", "pct_pet", "pct_gas"]].to_dict()}])], ignore_index=True)
+hidro_emp["nombre"] = [nombre_empresa(x) if x != "Otras empresas" else x for x in hidro_emp.empresa]
+hidro_emp["pet_kbd"], hidro_emp["gas_mmm3d"] = hidro_emp.prod_pet / _dias_v * BBL / 1000, hidro_emp.prod_gas / _dias_v / 1000
+hidro_emp = hidro_emp[["nombre", "empresa", "pet_kbd", "pct_pet", "gas_mmm3d", "pct_gas"]]
+_n_emp_pet = int((_e.prod_pet > 0).sum())
+
+# Pozos que produjeron petróleo o gas: el último mes completo de los archivos por pozo. La producción por pozo es la del mes
+# dividida por los días del mes, contando solo los pozos que produjeron (no por los días efectivos de cada pozo)
+po_ = pd.read_csv(CRUDO / "se_pozos_resumen.csv")
+po_["periodo"] = po_.anio.astype(str) + "-" + po_.mes.astype(str).str.zfill(2)
+_tp = po_.groupby("periodo")[["prod_pet", "prod_gas"]].sum()
+_pc = [p for p in _tp.index if p in _ref.index and _tp.prod_pet[p] >= .99 * _ref.total_p[p] and _tp.prod_gas[p] >= .99 * _ref.total_g[p]]
+PO_ULT = max(_pc)
+_dpo = pd.Period(PO_ULT, "M").days_in_month
+_u = po_[po_.periodo == PO_ULT]
+TIPOS_H = {"convencional": "Convencionales", "shale": "Shale", "tight": "Tight"}
+pozos_tipo = _u[_u.tipo.isin(TIPOS_H)].groupby("tipo")[["pozos", "pozos_pet", "pozos_gas", "prod_pet", "prod_gas"]].sum().reindex(list(TIPOS_H)).reset_index()
+pozos_tipo["nombre"] = pozos_tipo.tipo.map(TIPOS_H)
+pozos_tipo["m3d_pozo_pet"] = pozos_tipo.prod_pet / pozos_tipo.pozos_pet / _dpo
+pozos_tipo["bpd_pozo_pet"] = pozos_tipo.m3d_pozo_pet * BBL
+pozos_tipo["miles_m3d_pozo_gas"] = pozos_tipo.prod_gas / pozos_tipo.pozos_gas / _dpo
+pozos_tipo["pct_pozos"] = pozos_tipo.pozos / pozos_tipo.pozos.sum() * 100
+pozos_tipo["pct_pet"] = pozos_tipo.prod_pet / _u.prod_pet.sum() * 100
+pozos_tipo["pct_gas"] = pozos_tipo.prod_gas / _u.prod_gas.sum() * 100
+pozos_tipo = pozos_tipo[["tipo", "nombre", "pozos", "pozos_pet", "pozos_gas", "m3d_pozo_pet", "bpd_pozo_pet", "miles_m3d_pozo_gas", "pct_pozos", "pct_pet", "pct_gas"]]
+_u = _u.assign(codigo_indec=_u.provincia.map(lambda t: MAR if norm(t) == "estado nacional" else codigo(t)))
+pozos_prov = _u.pivot_table(index="codigo_indec", columns="tipo", values="pozos", aggfunc="sum").reindex(columns=list(TIPOS_H)).fillna(0).astype(int)
+pozos_prov["total"] = pozos_prov.sum(axis=1)
+pozos_prov = pozos_prov[pozos_prov.total > 0].reset_index()
+pozos_prov["territorio"] = pozos_prov.codigo_indec.map(lambda c: "Mar argentino" if c == MAR else CORTO[c])
+pozos_prov = pozos_prov[["codigo_indec", "territorio", "convencional", "shale", "tight", "total"]].sort_values("total", ascending=False)
+_pt = pozos_tipo.set_index("tipo")
+
+# Reservas comprobadas al 31 de diciembre (hasta el final de la vida útil de los yacimientos), con el horizonte: cuántos años
+# alcanzarían al ritmo de producción de ese año. Desde 2017 la fuente separa convencional y no convencional, y trae la provincia
+rv_ = pd.read_csv(CRUDO / "se_reservas_resumen.csv")
+_rt = rv_.groupby("anio")[["pet_comprobadas", "gas_comprobadas"]].sum()
+_rnc = rv_[rv_.tipo == "no_convencional"].groupby("anio")[["pet_comprobadas", "gas_comprobadas"]].sum()
+_prod_anual = hm.groupby(hm.fecha.dt.year)[["total_p", "total_g"]].sum()
+reservas = pd.DataFrame({"anio": _rt.index, "pet_millones_m3": _rt.pet_comprobadas.values / 1000, "gas_miles_millones_m3": _rt.gas_comprobadas.values / 1000})
+reservas["pet_miles_millones_bbl"] = reservas.pet_millones_m3 * BBL / 1000
+reservas["pct_pet_nc"] = reservas.anio.map(_rnc.pet_comprobadas / _rt.pet_comprobadas * 100)
+reservas["pct_gas_nc"] = reservas.anio.map(_rnc.gas_comprobadas / _rt.gas_comprobadas * 100)
+reservas["horizonte_pet"] = reservas.anio.map(_rt.pet_comprobadas * 1000 / _prod_anual.total_p)
+reservas["horizonte_gas"] = reservas.anio.map(_rt.gas_comprobadas * 1e6 / (_prod_anual.total_g * 1000))
+_meses_h = hm.groupby(hm.fecha.dt.year).size()
+reservas = reservas[reservas.anio.isin(_meses_h[_meses_h == 12].index)]
+RV_ULT, RV_INI = reservas.iloc[-1], reservas.iloc[0]
+_rp = rv_[rv_.anio == int(RV_ULT.anio)].copy()
+_rp["codigo_indec"] = _rp.provincia.map(lambda t: MAR if norm(t) == "estado nacional" else codigo(t))
+assert _rp.codigo_indec.notna().all(), f"provincias sin código en reservas: {_rp[_rp.codigo_indec.isna()].provincia.unique()}"
+reservas_prov = _rp.groupby("codigo_indec")[["pet_comprobadas", "gas_comprobadas"]].sum()
+reservas_prov = (reservas_prov / reservas_prov.sum() * 100).rename(columns={"pet_comprobadas": "pct_pet", "gas_comprobadas": "pct_gas"}).reset_index()
+reservas_prov["territorio"] = reservas_prov.codigo_indec.map(lambda c: "Mar argentino" if c == MAR else CORTO[c])
+for col, var, uni in [("pet_millones_m3", "reservas_comprobadas_petroleo", "millones de m3"), ("gas_miles_millones_m3", "reservas_comprobadas_gas", "miles de millones de m3")]:
+    d = reservas[["anio", col]].rename(columns={"anio": "periodo", col: "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, var, uni, "Secretaria de Energia, reservas al 31 de diciembre (Res. SE 324/2006)")
+
+# Regalías: (1) el peso de todas las regalías (petróleo, gas, minería e hidroelectricidad) en los ingresos totales de cada provincia,
+# del esquema ahorro-inversión-financiamiento (pesos sobre pesos, las 24); (2) las regalías de petróleo crudo en dólares que publica la
+# Secretaría de Energía por provincia. Las de gas se publican en pesos y no se suman con las de crudo.
+reg_prov = fisc[["codigo_indec", "anio", "regalias"]].copy()
+reg_hist = reg_prov.copy()
+reg_prov = reg_prov[reg_prov.anio <= ANIO_FISC].sort_values("anio").drop_duplicates("codigo_indec", keep="last")
+reg_prov["territorio"] = reg_prov.codigo_indec.map(CORTO)
+_zr = zipfile.ZipFile(CRUDO / "se_regalias_crudo.zip")
+_rx = pd.read_excel(io.BytesIO(_zr.read(_zr.namelist()[0])), "Tabla regalías", header=None)
+_fila_enc = next(i for i in _rx.index if str(_rx.iat[i, 0]).strip().upper() in ("AÑO", "ANO"))
+_rx.columns = [str(c).strip() for c in _rx.iloc[_fila_enc]]
+_rx = _rx.iloc[_fila_enc + 1:]
+_rx["AÑO"] = pd.to_numeric(_rx["AÑO"], errors="coerce").ffill()
+_rx["MES"] = pd.to_numeric(_rx["MES"], errors="coerce")
+_rx = _rx.dropna(subset=["MES"])
+_cols_r = [c for c in _rx.columns if c not in ("AÑO", "MES", "TOTAL PROVINCIA", "nan")]
+_rl = _rx.melt(id_vars=["AÑO", "MES"], value_vars=_cols_r, var_name="provincia", value_name="usd")
+_rl["usd"] = pd.to_numeric(_rl.usd, errors="coerce").fillna(0)
+_meses_r = _rl[_rl.usd > 0].groupby("AÑO").MES.nunique()
+REG_ULT = int(_meses_r[_meses_r == 12].index.max())
+_rl["codigo_indec"] = _rl.provincia.map(lambda t: MAR if norm(t) == "estado nacional" else codigo(t))
+assert _rl.codigo_indec.notna().all(), f"provincias sin código en regalías: {_rl[_rl.codigo_indec.isna()].provincia.unique()}"
+reg_crudo = _rl[_rl["AÑO"] == REG_ULT].groupby("codigo_indec").usd.sum()
+reg_prov["usd_crudo_millones"] = reg_prov.codigo_indec.map(reg_crudo / 1e6).fillna(0)
+reg_prov["usd_crudo_hab"] = reg_prov.codigo_indec.map(reg_crudo).fillna(0) / reg_prov.codigo_indec.map(POB)
+reg_prov = reg_prov.rename(columns={"regalias": "pct_regalias", "anio": "anio_aif"})[["codigo_indec", "territorio", "anio_aif", "pct_regalias", "usd_crudo_millones", "usd_crudo_hab"]]
+regalias_serie = (_rl[_rl["AÑO"] <= REG_ULT].groupby("AÑO").usd.sum() / 1e6).rename("usd_crudo_millones").reset_index().rename(columns={"AÑO": "anio"})
+regalias_serie["anio"] = regalias_serie.anio.astype(int)
+_reg_mar = float(reg_crudo.get(MAR, 0) / 1e6)
+d = reg_hist.rename(columns={"anio": "periodo", "regalias": "valor"})
+d["territorio"] = d.codigo_indec.map(CORTO)
+agregar(d, "regalias_pct_ingresos", "% de los ingresos totales", "Ministerio de Economia, cuentas provinciales (esquema AIF)")
+
+# Comercio exterior de energía (INDEC, Intercambio Comercial Argentino): exportaciones de combustibles y energía e importaciones
+# de combustibles y lubricantes, millones de dólares. Años completos y lo que va del año
+ica = pd.read_csv(CRUDO / "indec_ica_energia.csv", parse_dates=["indice_tiempo"]).dropna()
+ica["anio"] = ica.indice_tiempo.dt.year
+_mi = ica.groupby("anio").size()
+balanza = ica[ica.anio.isin(_mi[_mi == 12].index)].groupby("anio")[["ica_exportacion_combustible_energia", "ica_importaciones_combustibles_lubricantes"]].sum()
+balanza.columns = ["exportaciones", "importaciones"]
+balanza["saldo"] = balanza.exportaciones - balanza.importaciones
+balanza = balanza.reset_index()
+YTD_BAL = {"expo": en_lo_que_va(ica.indice_tiempo, ica.ica_exportacion_combustible_energia),
+           "impo": en_lo_que_va(ica.indice_tiempo, ica.ica_importaciones_combustibles_lubricantes)}
+_u_ica = ica[ica.anio == ica.anio.max()]
+_bal_ytd = {"anio": int(_u_ica.anio.max()), "mes": int(_u_ica.indice_tiempo.dt.month.max()),
+            "saldo": round(float(_u_ica.ica_exportacion_combustible_energia.sum() - _u_ica.ica_importaciones_combustibles_lubricantes.sum()))}
+BA_ULT = balanza.iloc[-1]
+_bal_def = balanza[balanza.saldo < 0]
+for col, var in [("exportaciones", "exportaciones_combustibles_energia"), ("importaciones", "importaciones_combustibles_lubricantes")]:
+    d = balanza[["anio", col]].rename(columns={"anio": "periodo", col: "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, var, "millones de dolares", "INDEC, Intercambio Comercial Argentino")
+
+# La Argentina entre los productores del mundo: Administración de Información Energética de los Estados Unidos (EIA), petróleo crudo
+# con condensado (miles de barriles por día) y gas natural seco (miles de millones de m3). Último año con dato para al menos el 95% de
+# los países productores de los años anteriores (unos 100).
+# Es una estimación propia de la EIA: para la Argentina difiere apenas de la serie de la Secretaría de Energía (se compara en las pruebas)
+eia = pd.read_csv(CRUDO / "eia_produccion_paises.csv", keep_default_na=False, na_values=[""])
+eia = eia[eia.valor > 0]
+# nombres en español del Banco Mundial, sin la forma de gobierno ("Irán, República Islámica del" -> "Irán")
+NOMBRE_PAIS_ES = {x["id"]: {"Federación de Rusia": "Rusia"}.get(x["name"].split(",")[0], x["name"].split(",")[0])
+                  for x in json.loads((CRUDO / "bm_paises.json").read_text(encoding="utf-8"))[1]}
+RANKING, MUNDO = {}, {}
+for var in ("crudo_kbd", "gas_bcm"):
+    x = eia[eia.variable == var]
+    n_anio = x.groupby("anio").iso3.nunique()
+    anio = int(n_anio[n_anio >= .95 * n_anio.max()].index.max())
+    x = x[x.anio == anio].sort_values("valor", ascending=False).reset_index(drop=True)
+    x["puesto"] = x.index + 1
+    x["pais"] = x.iso3.map(NOMBRE_PAIS_ES).fillna(x.nombre)
+    arg = x[x.iso3 == "ARG"].iloc[0]
+    MUNDO[var] = {"anio": anio, "arg": float(arg.valor), "puesto": int(arg.puesto), "n": int(len(x)), "mundo": float(x.valor.sum()),
+                  "pct": float(arg.valor / x.valor.sum() * 100)}
+    RANKING[var] = x
+# "Si Neuquén fuera un país": su producción de petróleo del mismo año que la EIA, en el ranking de países
+_nq = _pa[(_pa.codigo_indec == "58") & (_pa.anio == MUNDO["crudo_kbd"]["anio"])]
+_xc = eia[(eia.variable == "crudo_kbd") & (eia.anio == MUNDO["crudo_kbd"]["anio"])].sort_values("valor", ascending=False).reset_index(drop=True)
+if len(_nq):
+    _nqv = float(_nq.pet_kbd.iloc[0])
+    _pos = int((_xc.valor > _nqv).sum())
+    MUNDO["neuquen"] = {"anio": MUNDO["crudo_kbd"]["anio"], "kbd": round(_nqv), "puesto": _pos + 1,
+                        "arriba": NOMBRE_PAIS_ES.get(_xc.iso3[_pos - 1], _xc.nombre[_pos - 1]) if _pos > 0 else None,
+                        "abajo": NOMBRE_PAIS_ES.get(_xc.iso3[_pos], _xc.nombre[_pos]) if _pos < len(_xc) else None}
+d = eia[(eia.iso3 == "ARG") & (eia.variable == "crudo_kbd")][["anio", "valor"]].rename(columns={"anio": "periodo"})
+d["codigo_indec"], d["territorio"] = "00", "Argentina"
+agregar(d, "eia_produccion_crudo", "miles de barriles por dia", "EIA, estadisticas internacionales de energia (estimacion)")
+# el gráfico muestra los países que producen más que la Argentina, algunos de los que siguen y, en petróleo, los dos entre los que
+# quedaría Neuquén
+_lim = {"crudo_kbd": max(20, MUNDO["crudo_kbd"]["puesto"] + 4, MUNDO.get("neuquen", {}).get("puesto", 0)), "gas_bcm": max(20, MUNDO["gas_bcm"]["puesto"] + 4)}
+mundo_hidro = pd.concat([x[x.puesto <= _lim[v]].assign(variable=v)[["variable", "anio", "puesto", "iso3", "pais", "valor"]] for v, x in RANKING.items()], ignore_index=True)
+
+# Empleo registrado en la construcción y en la extracción de petróleo y gas, por provincia (OEDE, SIPA): asalariados del sector
+# privado, último trimestre con las 24 provincias, contra el mismo trimestre del año anterior. Buenos Aires suma los partidos del
+# GBA y el resto de la provincia. Las celdas en secreto estadístico ("s.d.") quedan sin dato
+oe = pd.read_csv(CRUDO / "oede_empleo_ramas.csv")
+oe["codigo_indec"] = oe.hoja.map(lambda h: "06" if norm(h) in ("partidos de gba", "resto de buenos aires") else codigo(h))
+assert oe.codigo_indec.notna().all(), f"hojas del OEDE sin provincia: {oe[oe.codigo_indec.isna()].hoja.unique()}"
+oe = oe.groupby(["codigo_indec", "rama", "anio", "trimestre"], as_index=False).valor.sum(min_count=1)
+oe["t"] = oe.anio * 10 + oe.trimestre
+_tc = oe[oe.rama == "construccion"].groupby("t").valor.count()
+OE_T = int(_tc[_tc == 24].index.max())
+OE_ANT = OE_T - 10
+_w = oe.pivot_table(index=["codigo_indec", "t"], columns="rama", values="valor").reset_index()
+_wu, _wa = _w[_w.t == OE_T].set_index("codigo_indec"), _w[_w.t == OE_ANT].set_index("codigo_indec")
+empleo_sec = pd.DataFrame({"codigo_indec": sorted(_wu.index)})
+empleo_sec["territorio"] = empleo_sec.codigo_indec.map(CORTO)
+empleo_sec["construccion"] = empleo_sec.codigo_indec.map(_wu.construccion)
+empleo_sec["construccion_cada_1000"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(POB) * 1000
+empleo_sec["pct_construccion"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(_wu.total) * 100
+empleo_sec["var_construccion"] = (empleo_sec.construccion / empleo_sec.codigo_indec.map(_wa.construccion) - 1) * 100
+empleo_sec["petroleo_gas"] = empleo_sec.codigo_indec.map(_wu.petroleo_gas)
+empleo_sec["petroleo_gas_cada_1000"] = empleo_sec.petroleo_gas / empleo_sec.codigo_indec.map(POB) * 1000
+_ser_c = oe[oe.rama.isin(["construccion", "petroleo_gas", "total"])].groupby(["t", "anio", "trimestre", "rama"]).valor.sum().unstack().reset_index()
+empleo_constr_serie = _ser_c[_ser_c.t <= OE_T][["anio", "trimestre", "construccion", "petroleo_gas", "total"]]
+_ec_u = empleo_constr_serie.iloc[-1]
+_ec_a = empleo_constr_serie[(empleo_constr_serie.anio == _ec_u.anio - 1) & (empleo_constr_serie.trimestre == _ec_u.trimestre)].iloc[0]
+_ec_max = empleo_constr_serie.loc[empleo_constr_serie.construccion.idxmax()]
+TRIM_TXT = ["primer", "segundo", "tercer", "cuarto"]
+# variación del empleo en petróleo y gas: solo las provincias con dato en los dos trimestres (algunas tienen celdas en secreto estadístico)
+_pe = oe[(oe.rama == "petroleo_gas") & oe.t.isin([OE_T, OE_ANT])].pivot_table(index="codigo_indec", columns="t", values="valor").dropna()
+PET_EMP_VAR = float((_pe[OE_T].sum() / _pe[OE_ANT].sum() - 1) * 100)
+for col, var, uni in [("construccion_cada_1000", "empleo_construccion_cada_1000_hab", "asalariados registrados cada 1.000 habitantes")]:
+    d = empleo_sec[["codigo_indec", "territorio", col]].rename(columns={col: "valor"})
+    d["periodo"] = str(OE_T // 10)
+    agregar(d, var, uni, "OEDE, Ministerio de Capital Humano (SIPA)")
+
+# Actividad de la construcción (ISAC, INDEC): índice base 2004 = 100, serie original y desestacionalizada, mensual desde 2012
+isac = pd.read_csv(CRUDO / "isac.csv", parse_dates=["indice_tiempo"]).dropna(subset=["isac_nivel_general"])
+isac_m = pd.DataFrame({"periodo": isac.indice_tiempo.dt.strftime("%Y-%m"), "original": isac.isac_nivel_general,
+                       "desestacionalizada": isac.isac_sin_estacionalidad, "var_interanual": isac.isac_variacion_interanual * 100})
+IS_ULT = isac_m.iloc[-1]
+_is_max = isac_m.loc[isac_m.desestacionalizada.idxmax()]
+YTD_IS = en_lo_que_va(isac.indice_tiempo, isac.isac_nivel_general)
+isac["anio"] = isac.indice_tiempo.dt.year
+_ia = isac.groupby("anio").isac_nivel_general.agg(["mean", "size"])
+isac_anual = _ia[_ia["size"] == 12]["mean"].rename("isac").reset_index()
+d = isac_anual.rename(columns={"anio": "periodo", "isac": "valor"})
+d["codigo_indec"], d["territorio"] = "00", "Argentina"
+agregar(d, "isac_promedio_anual", "indice 2004=100", "INDEC, ISAC")
+# Insumos: el consumo aparente (despachos de producción nacional más importaciones) de los últimos doce meses contra los doce anteriores (variación del índice de cada insumo)
+ins = pd.read_csv(CRUDO / "isac_insumos.csv", parse_dates=["indice_tiempo"]).set_index("indice_tiempo")
+INSUMOS = {"isac_cemento_portland": "Cemento portland", "isac_hierro_redondo_y_aceros_para_la_construccion": "Hierro redondo y aceros",
+           "isac_hormigon_elaborado": "Hormigón elaborado", "isac_ladrillos_huecos": "Ladrillos huecos", "isac_asfalto": "Asfalto",
+           "isac_pinturas_para_construccion": "Pinturas", "isac_placas_de_yeso": "Placas de yeso", "isac_yeso": "Yeso", "isac_cales": "Cales",
+           "isac_pisos_y_revestimientos_ceramicos": "Pisos y revestimientos cerámicos", "isac_articulos_sanitarios_de_ceramica": "Sanitarios de cerámica",
+           "isac_mosaicos_graniticos_y_calcareos": "Mosaicos graníticos y calcáreos", "isac_resto": "Resto (grifería, tubos y vidrio)"}
+INS_ULT = ins[list(INSUMOS)].dropna(how="all").index.max()
+_ins = []
+for k, v in INSUMOS.items():
+    s = ins[k].dropna()
+    if s.index.max() != INS_ULT:  # un insumo que dejó de publicarse no se compara con meses distintos
+        continue
+    _ins.append({"codigo_indec": k.replace("isac_", ""), "territorio": v, "var_12m": (s.iloc[-12:].sum() / s.iloc[-24:-12].sum() - 1) * 100,
+                 "var_ytd": en_lo_que_va(pd.Series(s.index), s)["var"]})
+isac_insumos = pd.DataFrame(_ins)
+
+# Costo de la construcción (ICC, INDEC, Gran Buenos Aires) contra los precios al consumidor (IPC nacional, INDEC). El ICC se publica
+# como variación mensual desde noviembre de 2015 (y como índice desde enero de 2022): se encadenan las variaciones y se pasa a
+# diciembre de 2016 = 100, la base del IPC. El cociente muestra si construir se encareció más o menos que el resto de los precios
+_icc = pd.read_excel(CRUDO / "indec_icc.xls", "Nivel general y capítulos_var%", header=None)
+_fa = next(i for i in _icc.index if any(str(v).strip().isdigit() and len(str(v).strip()) == 4 for v in _icc.loc[i, 1:]))
+_anios = _icc.loc[_fa].ffill()
+def _mes_num(v):
+    m = re.sub(r"[^a-záéíóúñ]", "", str(v).lower())
+    return MES.index(m) + 1 if m in MES else None
+
+
+_meses = _icc.loc[_fa + 1].map(_mes_num)
+_cap = {"nivel general": "icc", "materiales": "materiales", "mano de obra": "mano_obra", "gastos generales": "gastos_generales"}
+es_fila = lambda celda, k: re.fullmatch(re.escape(k) + r"(\s*\(\d\))?", norm(str(celda))) is not None  # "Mano de obra (1)"
+_filas_icc = {v: next(i for i in _icc.index if es_fila(_icc.iat[i, 0], k)) for k, v in _cap.items()}
+_icc_l = [{"fecha": pd.Timestamp(int(float(_anios[j])), int(_meses[j]), 1), **{v: float(pd.to_numeric(_icc.loc[i, j], errors="coerce")) for v, i in _filas_icc.items()}}
+          for j in _icc.columns[1:] if pd.notna(_meses[j]) and pd.notna(pd.to_numeric(_icc.loc[_filas_icc["icc"], j], errors="coerce"))]
+icc = pd.DataFrame(_icc_l).sort_values("fecha").set_index("fecha")
+assert icc.index.is_unique and len(icc) > 100, "ICC: meses repetidos o faltantes"
+icc = (1 + icc / 100).cumprod()
+ipc = pd.read_csv(CRUDO / "ipc_nacional.csv", parse_dates=["indice_tiempo"]).dropna().set_index("indice_tiempo").iloc[:, 0]
+_base = pd.Timestamp("2016-12-01")
+costo = icc.div(icc.loc[_base]).mul(100).join(ipc.rename("ipc"), how="inner")
+costo = costo[costo.index >= _base]
+for c in ("icc", "materiales", "mano_obra"):
+    costo[f"{c}_real"] = costo[c] / costo.ipc * 100
+costo = costo.reset_index().rename(columns={"index": "fecha", "indice_tiempo": "fecha"})
+costo["periodo"] = costo.fecha.dt.strftime("%Y-%m")
+costo = costo[["periodo", "icc", "materiales", "mano_obra", "ipc", "icc_real", "materiales_real", "mano_obra_real"]]
+CO_ULT = costo.iloc[-1]
+# para el minigráfico de "En cifras": diciembre de cada año y el último mes publicado
+costo_anual = costo[costo.periodo.str.endswith("-12") | (costo.index == costo.index[-1])][["periodo", "icc_real"]]
+CO_12 = costo.iloc[-13]
+# control: el índice encadenado reproduce el índice que publica el INDEC (enero de 2022 = 100)
+_ind = pd.read_excel(CRUDO / "indec_icc.xls", "Nivel general y capítulos_ind", header=None)
+_fi = next(i for i in _ind.index if es_fila(_ind.iat[i, 0], "nivel general"))
+_ult_ind = pd.to_numeric(_ind.loc[_fi, 1:], errors="coerce").dropna().iloc[-1]
+_icc22 = icc.icc / icc.icc.loc[pd.Timestamp("2022-01-01")] * 100
+assert abs(_icc22.iloc[-1] / _ult_ind - 1) < .005, f"ICC encadenado {_icc22.iloc[-1]:.2f} contra el índice del INDEC {_ult_ind:.2f}"
+
+# Vivienda y combustible para cocinar (Censo 2022, INDEC), por provincia y departamento: resumen por radio censal armado una sola vez
+# con scripts/censo_2022_vivienda.py. "Sin personas presentes" incluye las viviendas cuyos residentes no estaban el día del censo
+# (una de las categorías del motivo): por eso los textos usan los motivos por separado
+cv = pd.read_csv(RAIZ / "datos" / "manual" / "censo2022_departamentos.csv", dtype={"codigo_dep": str, "codigo_indec": str})
+
+
+def vivienda(g):
+    con_rama = g.ocupados - g.ocupados_sin_respuesta - g.ocupados_sin_codificar
+    return pd.DataFrame({
+        "hogares": g.hogares, "viviendas": g.viviendas,
+        "pct_gas_red": g.cocina_gas_red / g.hogares * 100, "pct_garrafa": g.cocina_garrafa / g.hogares * 100,
+        "pct_zeppelin": g.cocina_zeppelin / g.hogares * 100, "pct_electricidad": g.cocina_electricidad / g.hogares * 100,
+        "pct_lena": g.cocina_lena / g.hogares * 100,
+        "pct_alquila": g.alquilada / g.hogares * 100, "pct_propia": g.propia / g.hogares * 100,
+        "pct_hacinamiento": g.hac_mas_3 / g.hogares * 100,
+        "pct_materiales_4": g.materiales_4 / (g.hogares - g.materiales_ignorado) * 100,
+        "pct_sin_personas": g.sin_personas / g.viviendas * 100,
+        "pct_uso_temporal": g.uso_temporal / g.viviendas * 100, "pct_alquiler_venta": g.alquiler_venta / g.viviendas * 100,
+        "construccion_cada_1000": g.en_construccion / g.viviendas * 1000,
+        "pct_ocupados_construccion": g.ocupados_construccion / con_rama * 100,
+        "pct_ocupados_minas": g.ocupados_minas / con_rama * 100,
+        "pct_sin_rama": (g.ocupados_sin_respuesta + g.ocupados_sin_codificar) / g.ocupados * 100,
+    })
+
+
+_cvp = cv.drop(columns=["codigo_dep"]).groupby("codigo_indec").sum()
+vivienda_prov = vivienda(_cvp).reset_index()
+vivienda_prov.insert(1, "territorio", vivienda_prov.codigo_indec.map(CORTO))
+VIV_PAIS = vivienda(_cvp.sum().to_frame().T).iloc[0]
+vivienda_dep = vivienda(cv.set_index("codigo_dep")).reset_index()
+vivienda_dep = vivienda_dep[["codigo_dep", "hogares", "pct_gas_red", "pct_garrafa", "pct_lena", "pct_alquila", "pct_hacinamiento", "pct_materiales_4",
+                             "pct_uso_temporal", "pct_alquiler_venta", "construccion_cada_1000", "pct_ocupados_construccion", "pct_ocupados_minas"]]
+VIV_ABS = {"hogares": int(_cvp.hogares.sum()), "viviendas": int(_cvp.viviendas.sum()), "gas_red": int(_cvp.cocina_gas_red.sum()),
+           "en_construccion": int(_cvp.en_construccion.sum()), "alquilan": int(_cvp.alquilada.sum()), "garrafa": int(_cvp.cocina_garrafa.sum()),
+           "ausentes": int(_cvp.residentes_ausentes.sum()), "sin_personas": int(_cvp.sin_personas.sum()),
+           "constructores": int(_cvp.ocupados_construccion.sum())}
+for col, var in [("pct_gas_red", "hogares_gas_de_red_cocina"), ("pct_alquila", "hogares_alquilan"), ("pct_hacinamiento", "hogares_hacinamiento_critico"),
+                 ("pct_ocupados_construccion", "ocupados_construccion_censo")]:
+    d = vivienda_prov[["codigo_indec", "territorio", col]].rename(columns={col: "valor"})
+    d["periodo"] = "2022"
+    agregar(d, var, "% de los hogares" if col != "pct_ocupados_construccion" else "% de las personas ocupadas", "INDEC, Censo 2022")
 
 # ---------------------------------------------------------------- departamentos
 # Indicadores de los 529 departamentos para el mapa. Los codigos de la Ciudad (comunas), Chascomus, Quilmes,
@@ -2020,6 +2442,12 @@ _b23 = pres_w[pres_w.eleccion == "2023-2"]
 cru["voto_milei_2023"] = columna(_b23, "Milei")
 cru["participacion_2023"] = cru.codigo_indec.map(tot_el[tot_el.eleccion == "2023"].set_index("codigo_indec").participacion)
 cru["voto_oficialismo_2023"] = cru.codigo_indec.map(ofi[ofi.eleccion == "2023"].set_index("codigo_indec").valor)
+cru["gas_red"] = columna(vivienda_prov, "pct_gas_red")
+cru["alquila"] = columna(vivienda_prov, "pct_alquila")
+cru["hacinamiento"] = columna(vivienda_prov, "pct_hacinamiento")
+cru["ocupados_construccion"] = columna(vivienda_prov, "pct_ocupados_construccion")
+cru["empleo_construccion"] = columna(empleo_sec, "construccion_cada_1000")
+cru["regalias"] = columna(reg_prov, "pct_regalias")
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
@@ -2069,6 +2497,12 @@ CRUCES_META = {
     "voto_oficialismo_2023": ("Voto al oficialismo nacional", "% de los votos positivos a la fórmula del gobierno, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "extranjeros": ("Nacidos en otro país", "personas identificadas por el RENAPER cada 100 habitantes", RENAPER_CORTE, "Población", "RENAPER", "", 1),
+    "gas_red": ("Hogares que cocinan con gas de red", "% de los hogares", "2022", "Energía", "INDEC, Censo 2022", "f-gas-hogares", 1),
+    "alquila": ("Hogares que alquilan", "% de los hogares", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
+    "hacinamiento": ("Hacinamiento crítico", "% de los hogares con más de tres personas por cuarto", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
+    "ocupados_construccion": ("Personas ocupadas en la construcción", "% de las personas ocupadas, incluye el trabajo no registrado", "2022", "Construcción", "INDEC, Censo 2022", "f-trabajadores", 1),
+    "empleo_construccion": ("Empleo registrado en la construcción", "asalariados privados cada 1.000 habitantes", f"{TRIM_TXT[OE_T % 10 - 1]} trimestre de {OE_T // 10}", "Construcción", "OEDE, Ministerio de Capital Humano (SIPA)", "f-empleo-construccion", 1),
+    "regalias": ("Peso de las regalías", "% de los ingresos totales de la provincia (petróleo, gas, minería e hidroelectricidad)", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-regalias", 1),
 }
 
 # ---------------------------------------------------------------- series por provincia para animar los cruces
@@ -2119,6 +2553,9 @@ a_serie(transf.rename(columns={"atn_hab": "valor"}), "atn_hab")
 a_serie(transf.rename(columns={"otras_hab": "valor"}), "transf_no_aut_hab")
 a_serie(apoyo.rename(columns={"apoyo": "valor"}), "apoyo_gobierno")
 a_serie(tot_el[tot_el.vuelta == 1].rename(columns={"participacion": "valor"}), "participacion_2023")
+a_serie(reg_hist.rename(columns={"regalias": "valor"}), "regalias")
+_oa = oe[oe.rama == "construccion"].groupby(["codigo_indec", "anio"]).valor.agg(["mean", "count"]).reset_index()
+a_serie(por_hab(_oa[_oa["count"] == 4].rename(columns={"mean": "valor"})[["codigo_indec", "anio", "valor"]], 1000), "empleo_construccion")
 cruces_series = pd.concat(ser, ignore_index=True)
 cruces_series["valor"] = cruces_series.valor.round(2)
 cruces_series = cruces_series.dropna()[["id", "codigo_indec", "anio", "valor"]].sort_values(["id", "codigo_indec", "anio"])
@@ -2198,6 +2635,29 @@ tablas = {
     "gabinetes_origen": gabinetes,
     "ministros_provincias": ministros_prov,
     "pobreza_serie": pobreza[["periodo", "anio", "semestre", "t", "pobreza_personas", "indigencia_personas", "pobreza_hogares", "indigencia_hogares"]],
+    # petróleo y gas (etapa 18)
+    "hidrocarburos_mensual": hidro_m,
+    "hidrocarburos_anual": hidro_a,
+    "hidrocarburos_provincias": hidro_prov,
+    "hidrocarburos_empresas": hidro_emp,
+    "pozos_tipo": pozos_tipo,
+    "pozos_provincias": pozos_prov,
+    "reservas_hidrocarburos": reservas,
+    "reservas_provincias": reservas_prov,
+    "regalias_provincias": reg_prov,
+    "regalias_crudo_serie": regalias_serie,
+    "balanza_energetica": balanza,
+    "mundo_hidrocarburos": mundo_hidro,
+    # construcción y vivienda (etapa 18)
+    "empleo_construccion_provincias": empleo_sec,
+    "empleo_construccion_serie": empleo_constr_serie,
+    "isac_mensual": isac_m,
+    "isac_anual": isac_anual,
+    "isac_insumos": isac_insumos,
+    "costo_construccion": costo,
+    "costo_anual": costo_anual,
+    "vivienda_provincias": vivienda_prov,
+    "vivienda_departamentos": vivienda_dep,
 }
 # Redondeo único (pedido del autor, octubre de 2026): las tablas guardan cuatro decimales y cada número se redondea una sola vez,
 # al mostrarlo. Antes se guardaban con dos y el gráfico volvía a redondear a uno: 38,4499 se guardaba 38,45 y se veía 38,5,
@@ -2449,6 +2909,104 @@ resumen["nuevos"] = {
     "ex_provincial_pct": r1(exp_prov.millones_usd.sum() / EXP_TOTAL * 100), "ex_sem": EX_SEM,
     "xt_pais": r1(extranjeros.personas.sum() / POB_PAIS * 100), "xt_top": extranjeros.sort_values("cada_100").iloc[-1].territorio,
     "xt_top_v": r1(extranjeros.cada_100.max()), "xt_origen": list(top_origen.index[:3]), "xt_corte": RENAPER_CORTE,
+}
+# petróleo y gas, y construcción y vivienda (etapa 18): todo lo que dicen los textos, sin años escritos a mano
+mes_txt = lambda p: f"{MES[int(str(p)[5:7]) - 1]} de {str(p)[:4]}"
+_hp = hidro_prov.set_index("codigo_indec")
+_top_p = hidro_prov.sort_values("pet_kbd").iloc[-1]
+_top_g = hidro_prov.sort_values("gas_mmm3d").iloc[-1]
+_prov_prod = hidro_prov[hidro_prov.codigo_indec != MAR]
+_def = balanza[balanza.saldo < 0]
+_rp_ult = reg_prov[reg_prov.anio_aif == ANIO_FISC].sort_values("pct_regalias")
+_reg_hab = reg_prov.sort_values("usd_crudo_hab").iloc[-1]
+_ep = empleo_sec.dropna(subset=["petroleo_gas"]).sort_values("petroleo_gas").iloc[-1]
+_ec = empleo_sec.sort_values("construccion_cada_1000")
+_ins = isac_insumos.sort_values("var_12m")
+_vp = vivienda_prov.set_index("codigo_indec")
+_t_txt = lambda t: f"{TRIM_TXT[int(t) % 10 - 1]} trimestre de {int(t) // 10}"
+resumen["petroleo"] = {
+    "mes": mes_txt(HM_ULT.periodo), "anio_mes": int(HM_ULT.anio), "kbd": round(float(HM_ULT.pet_total)), "gas": r1(HM_ULT.gas_total),
+    "pct_shale": r1(HM_ULT.pet_shale / HM_ULT.pet_total * 100), "pct_nc": r1(HM_ULT.pct_pet_nc), "pct_gas_nc": r1(HM_ULT.pct_gas_nc),
+    "record": bool(HM_ULT.pet_total >= hidro_m.pet_total.max()), "max_mes": mes_txt(hidro_m.loc[hidro_m.pet_total.idxmax()].periodo),
+    "max_previo_mes": mes_txt(_max_previo.periodo), "max_previo_kbd": round(float(_max_previo.pet_total)),
+    "anio_ini": int(HA_INI.anio), "anio_ult": int(HA_ULT.anio), "kbd_ini": round(float(HA_INI.pet_total)), "kbd_ult": round(float(HA_ULT.pet_total)),
+    "kbd_min": round(float(_ha_min_p.pet_total)), "anio_min": int(_ha_min_p.anio),
+    "gas_ini": r1(HA_INI.gas_total), "gas_ult": r1(HA_ULT.gas_total), "gas_min": r1(_ha_min_g.gas_total), "anio_min_gas": int(_ha_min_g.anio),
+    "pct_nc_ult": r1(HA_ULT.pct_pet_nc), "pct_gas_nc_ult": r1(HA_ULT.pct_gas_nc),
+    "neuquina_pct": r1(HM_ULT.pet_neuquina / HM_ULT.pet_total * 100), "neuquina_gas_pct": r1(HM_ULT.gas_neuquina / HM_ULT.gas_total * 100),
+    "ytd": YTD_H, "bbl": round(BBL, 2),
+    "cuencas_pet": {k: r1(HM_ULT[f"pet_{k}"] / HM_ULT.pet_total * 100) for k in CUENCAS}, "cuencas_gas": {k: r1(HM_ULT[f"gas_{k}"] / HM_ULT.gas_total * 100) for k in CUENCAS},
+    # provincias, Vaca Muerta y empresas: los doce meses completos más recientes del archivo agrupado
+    "v_desde": mes_txt(VENTANA[0]), "v_hasta": mes_txt(VENTANA[-1]), "v_desde_p": VENTANA[0], "v_hasta_p": VENTANA[-1], "v10_desde": mes_txt(VENTANA_10[0]), "v10_hasta": mes_txt(VENTANA_10[-1]),
+    "n_prov": int(((_prov_prod.pet_kbd + _prov_prod.gas_mmm3d) > .05).sum()),
+    "top": _top_p.territorio, "top_pct": r1(_top_p.pct_pet_pais), "top_gas": _top_g.territorio, "top_gas_pct": r1(_top_g.pct_gas_pais),
+    "top_kbd": round(float(_top_p.pet_kbd)), "top_antes": round(float(_top_p.pet_kbd_antes)),
+    "segundo": _prov_prod.sort_values("pet_kbd").iloc[-2].territorio, "segundo_kbd": round(float(_prov_prod.sort_values("pet_kbd").iloc[-2].pet_kbd)),
+    "segundo_antes": round(float(_prov_prod.sort_values("pet_kbd").iloc[-2].pet_kbd_antes)),
+    "mar_gas_pct": r1(_hp.pct_gas_pais.get(MAR, 0)), "vm_kbd": round(_vm_kbd), "vm_pct": r1(_vm_kbd / hidro_prov.pet_kbd.sum() * 100),
+    "emp_top": hidro_emp.iloc[0].nombre, "emp_top_pct": r1(hidro_emp.iloc[0].pct_pet),
+    "emp_top_gas": hidro_emp[hidro_emp.nombre != "Otras empresas"].sort_values("pct_gas").iloc[-1].nombre,
+    "emp_top_gas_pct": r1(hidro_emp[hidro_emp.nombre != "Otras empresas"].pct_gas.max()), "n_empresas": _n_emp_pet,
+    "emp_n": int(len(hidro_emp) - 1), "emp_resto_pct": r1(hidro_emp.iloc[-1].pct_pet),
+    # pozos: el último mes completo de los archivos por pozo
+    "pozos_mes": mes_txt(PO_ULT), "pozos": int(pozos_tipo.pozos.sum()), "pozos_conv": int(_pt.pozos["convencional"]), "pozos_shale": int(_pt.pozos["shale"]),
+    "pozos_tight": int(_pt.pozos["tight"]), "pct_pozos_shale": r1(_pt.pct_pozos["shale"]), "pct_pet_shale_pozos": r1(_pt.pct_pet["shale"]),
+    "bpd_conv": r1(_pt.bpd_pozo_pet["convencional"]), "bpd_shale": round(float(_pt.bpd_pozo_pet["shale"])),
+    "veces": round(float(_pt.m3d_pozo_pet["shale"] / _pt.m3d_pozo_pet["convencional"])),
+    "pozos_top": pozos_prov.iloc[0].territorio, "pozos_top_n": int(pozos_prov.iloc[0].total),
+    # reservas
+    "res_anio": int(RV_ULT.anio), "res_ini": int(RV_INI.anio), "res_pet": round(float(RV_ULT.pet_millones_m3)), "res_bbl": r1(RV_ULT.pet_miles_millones_bbl),
+    "res_gas": round(float(RV_ULT.gas_miles_millones_m3)), "res_hor_pet": r1(RV_ULT.horizonte_pet), "res_hor_gas": r1(RV_ULT.horizonte_gas),
+    "res_pet_ini": round(float(RV_INI.pet_millones_m3)), "res_gas_ini": round(float(RV_INI.gas_miles_millones_m3)),
+    "res_hor_pet_ini": r1(RV_INI.horizonte_pet), "res_hor_gas_ini": r1(RV_INI.horizonte_gas),
+    "res_var_pet": r1((RV_ULT.pet_millones_m3 / reservas.iloc[-2].pet_millones_m3 - 1) * 100), "res_anio_ant": int(reservas.iloc[-2].anio),
+    "res_nc_pet": r1(RV_ULT.pct_pet_nc), "res_nc_gas": r1(RV_ULT.pct_gas_nc),
+    "res_nq_pet": r1(reservas_prov.set_index("codigo_indec").pct_pet.get("58", 0)), "res_nq_gas": r1(reservas_prov.set_index("codigo_indec").pct_gas.get("58", 0)),
+    # regalías
+    "reg_anio": ANIO_FISC, "reg_top": _rp_ult.iloc[-1].territorio, "reg_top_pct": r1(_rp_ult.iloc[-1].pct_regalias),
+    "reg_n_10": int((reg_prov.pct_regalias >= 10).sum()), "reg_n_1": int((reg_prov.pct_regalias >= 1).sum()),
+    "reg_atrasadas": {CORTO[c]: int(a) for c, a in zip(reg_prov.codigo_indec, reg_prov.anio_aif) if a < ANIO_FISC},
+    "reg_usd_anio": REG_ULT, "reg_usd_total": round(float(reg_prov.usd_crudo_millones.sum() + _reg_mar)), "reg_usd_mar": round(_reg_mar, 1),
+    "reg_usd_top": _reg_hab.territorio, "reg_usd_top_hab": round(float(_reg_hab.usd_crudo_hab)),
+    "reg_usd_ini": int(regalias_serie.anio.min()), "reg_usd_max": round(float(regalias_serie.usd_crudo_millones.max())),
+    "reg_usd_max_anio": int(regalias_serie.loc[regalias_serie.usd_crudo_millones.idxmax()].anio),
+    # comercio exterior de energía
+    "bal_ini": int(balanza.anio.min()), "bal_anio": int(BA_ULT.anio), "bal_expo": round(float(BA_ULT.exportaciones)), "bal_impo": round(float(BA_ULT.importaciones)),
+    "bal_saldo": round(float(BA_ULT.saldo)), "bal_def_desde": int(_def.anio.min()) if len(_def) else None, "bal_def_hasta": int(_def.anio.max()) if len(_def) else None,
+    "bal_def_n": int(len(_def)), "bal_def_max": round(float(-_def.saldo.min())) if len(_def) else None, "bal_def_max_anio": int(_def.loc[_def.saldo.idxmin()].anio) if len(_def) else None,
+    "bal_ytd": _bal_ytd, "bal_ytd_expo": YTD_BAL["expo"], "bal_ytd_impo": YTD_BAL["impo"],
+    # el mundo
+    "mundo": MUNDO,
+}
+resumen["construccion"] = {
+    "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
+    "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),
+    "isac_dif_max": r1((IS_ULT.desestacionalizada / _is_max.desestacionalizada - 1) * 100), "isac_ytd": YTD_IS,
+    "isac_ini": str(isac_m.periodo.iloc[0])[:4], "isac_anio_ult": int(isac_anual.anio.max()),
+    "isac_anual_ult": r1(isac_anual.isac.iloc[-1]), "isac_anual_ant": r1(isac_anual.isac.iloc[-2]),
+    "isac_anual_min": int(isac_anual.loc[isac_anual.isac.idxmin()].anio), "isac_anual_max": int(isac_anual.loc[isac_anual.isac.idxmax()].anio),
+    "ins_mes": mes_txt(INS_ULT.strftime("%Y-%m")), "ins_n": int(len(isac_insumos)), "ins_suben": int((isac_insumos.var_12m > 0).sum()),
+    "ins_top": _ins.iloc[-1].territorio, "ins_top_v": r1(_ins.iloc[-1].var_12m), "ins_low": _ins.iloc[0].territorio, "ins_low_v": r1(_ins.iloc[0].var_12m),
+    "cemento_12m": r1(isac_insumos.set_index("codigo_indec").var_12m.get("cemento_portland")),
+    "emp_trim": _t_txt(OE_T), "emp_trim_ant": _t_txt(OE_ANT), "emp_total": int(_ec_u.construccion), "emp_var": r1((_ec_u.construccion / _ec_a.construccion - 1) * 100),
+    "emp_max": int(_ec_max.construccion), "emp_max_trim": _t_txt(int(_ec_max.anio) * 10 + int(_ec_max.trimestre)),
+    "emp_pct": r1(_ec_u.construccion / _ec_u.total * 100), "emp_cada_1000": r1(_ec_u.construccion / POB_PAIS * 1000),
+    "emp_ini": int(empleo_constr_serie.anio.min()),
+    "emp_top": _ec.iloc[-1].territorio, "emp_top_v": r1(_ec.iloc[-1].construccion_cada_1000),
+    "emp_low": _ec.iloc[0].territorio, "emp_low_v": r1(_ec.iloc[0].construccion_cada_1000),
+    "emp_suben": int((empleo_sec.var_construccion > 0).sum()),
+    "pet_emp": int(_ec_u.petroleo_gas), "pet_emp_var": r1(PET_EMP_VAR),
+    "pet_emp_top": _ep.territorio, "pet_emp_top_v": int(_ep.petroleo_gas),
+    "costo_mes": mes_txt(CO_ULT.periodo), "costo_desde": mes_txt(costo.periodo.iloc[0]),
+    "icc_12": r1((CO_ULT.icc / CO_12.icc - 1) * 100), "ipc_12": r1((CO_ULT.ipc / CO_12.ipc - 1) * 100),
+    "mat_12": r1((CO_ULT.materiales / CO_12.materiales - 1) * 100), "mo_12": r1((CO_ULT.mano_obra / CO_12.mano_obra - 1) * 100),
+    "icc_real": r1(CO_ULT.icc_real - 100), "mat_real": r1(CO_ULT.materiales_real - 100), "mo_real": r1(CO_ULT.mano_obra_real - 100),
+    "viv": {k: r1(v) for k, v in VIV_PAIS.items() if k not in ("hogares", "viviendas")},
+    "viv_top": {k: [vivienda_prov.sort_values(k).iloc[-1].territorio, r1(vivienda_prov[k].max())] for k in vivienda_prov.columns if k.startswith(("pct_", "construccion_"))},
+    "viv_low": {k: [vivienda_prov.sort_values(k).iloc[0].territorio, r1(vivienda_prov[k].min())] for k in vivienda_prov.columns if k.startswith(("pct_", "construccion_"))},
+    "viv_abs": VIV_ABS,
+    "gas_nea": [CORTO[c] for c in _vp[_vp.pct_gas_red < 5].index], "gas_nea_max": r1(_vp[_vp.pct_gas_red < 5].pct_gas_red.max()) if (_vp.pct_gas_red < 5).any() else None,
+    "gas_mas_90": [CORTO[c] for c in _vp[_vp.pct_gas_red >= 85].index],
 }
 resumen["cruces"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                      for k, v in CRUCES_META.items()]

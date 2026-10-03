@@ -51,7 +51,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="menu-grupo" data-nivel="1" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
     </div>
     <div class="menu-col">
-      <div class="menu-grupo" data-nivel="2" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="energia.html">Energía</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <div class="menu-grupo" data-nivel="2" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
       <div class="menu-grupo" data-nivel="2" style="--i:2"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Todos los artículos</a></li></ul></div>
     </div>
     <div class="menu-col">
@@ -728,6 +728,91 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
+  <section class="tema" id="construccion">
+    <h2>Construcción y vivienda</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuánto se construye y cómo vivimos?">¿Cuánto se construye, cuánto cuesta y cómo viven los hogares?</p>
+      <p>La actividad de la construcción mes a mes, sus insumos y su costo, el empleo que genera en cada provincia y cómo son las viviendas según el Censo 2022.</p>
+    </div>
+    <!--EXPLICADOR:construccion-->
+
+    <article class="ficha" id="f-isac">
+      <h3>Actividad de la construcción por mes, {{construccion.isac_ini}} a {{construccion.isac_anio}}</h3>
+      <p class="lead" data-t="isac"></p>
+      <div class="grafico" data-g="isac" data-forma="lineas"></div>
+      <p class="nota" data-t="isac-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Indicador Sintético de la Actividad de la Construcción (ISAC), publicado en datos.gob.ar</span><a href="datos/isac_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-insumos">
+      <h3>Consumo aparente de insumos para la construcción, variación a {{construccion.ins_mes}}</h3>
+      <p class="lead" data-t="insumos"></p>
+      <div class="conmutador" role="group" aria-label="Período" data-g="insumos">
+        <button type="button" data-m="var_12m" aria-pressed="true">Últimos doce meses</button>
+        <button type="button" data-m="var_ytd" aria-pressed="false">En lo que va del año</button>
+      </div>
+      <div class="grafico" data-g="insumos" data-forma="barras" style="--filas:13"></div>
+      <p class="nota" data-t="insumos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, insumos del ISAC, publicado en datos.gob.ar</span><a href="datos/isac_insumos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-empleo-construccion">
+      <h3>Empleo registrado en la construcción por provincia, {{construccion.emp_trim}}</h3>
+      <p class="lead" data-t="empleo-construccion"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
+        <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
+        <button type="button" data-m="var_construccion" aria-pressed="false">Variación en un año</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
+      </div>
+      <p class="clave-color" id="clave-empleo-construccion" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
+      <div class="grafico" data-g="empleo-construccion" data-forma="barras"></div>
+      <p class="nota" data-t="empleo-construccion-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-trabajadores">
+      <h3>Personas ocupadas en la construcción por provincia y departamento, 2022</h3>
+      <p class="lead" data-t="trabajadores"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+      </div>
+      <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
+      <p class="nota" data-t="trabajadores-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-costo">
+      <h3>Costo de la construcción frente a los precios al consumidor, {{construccion.costo_desde}} a {{construccion.costo_mes}}</h3>
+      <p class="lead" data-t="costo"></p>
+      <div class="grafico" data-g="costo" data-forma="lineas"></div>
+      <p class="nota" data-t="costo-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor</span><a href="datos/costo_construccion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-vivienda">
+      <h3>Cómo son las viviendas y los hogares, por provincia y departamento, 2022</h3>
+      <p class="lead" data-t="vivienda"></p>
+      <label class="selector-ficha"><span>Indicador</span>
+        <select data-g="vivienda">
+          <option value="pct_alquila" selected>Hogares que alquilan</option>
+          <option value="pct_hacinamiento">Hacinamiento crítico</option>
+          <option value="pct_materiales_4">Pisos y techos de la calidad más baja</option>
+          <option value="construccion_cada_1000">Viviendas en construcción</option>
+          <option value="pct_alquiler_venta">Viviendas en alquiler o venta, sin habitar</option>
+          <option value="pct_uso_temporal">Viviendas de uso temporal</option>
+        </select></label>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="vivienda-vista" data-dib="vivienda">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
+      </div>
+      <div class="grafico mp-mapa" data-g="vivienda" data-forma="barras"></div>
+      <p class="nota" data-t="vivienda-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
   <section class="tema" id="energia">
     <h2>Energía</h2>
     <div class="tema-intro">
@@ -758,6 +843,148 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="meses" data-forma="columnas" style="--alto:280px;--alto-c:280px"></div>
       <p class="nota" data-t="meses-nota"></p>
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
+  <section class="tema" id="petroleo">
+    <h2>Petróleo y gas</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuánto petróleo y gas sacamos y de dónde?">¿Cuánto petróleo y gas produce la Argentina, de dónde sale y a quién le llega?</p>
+      <p>La producción mes a mes y por provincia, el peso de Vaca Muerta, los pozos, las empresas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar del país en el mundo.</p>
+    </div>
+    <!--EXPLICADOR:petroleo-->
+
+    <article class="ficha" id="f-petroleo">
+      <h3>Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</h3>
+      <p class="lead" data-t="petroleo"></p>
+      <div class="conmutador" role="group" aria-label="Separar por" data-g="petroleo">
+        <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
+        <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
+      </div>
+      <div class="grafico" data-g="petroleo" data-forma="lineas"></div>
+      <p class="nota" data-t="petroleo-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-gas">
+      <h3>Producción de gas natural por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</h3>
+      <p class="lead" data-t="gas"></p>
+      <div class="conmutador" role="group" aria-label="Separar por" data-g="gas">
+        <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
+        <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
+      </div>
+      <div class="grafico" data-g="gas" data-forma="lineas"></div>
+      <p class="nota" data-t="gas-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-gas-hogares">
+      <h3>Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</h3>
+      <p class="lead" data-t="gas-hogares"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="gas-hogares-vista" data-dib="gas-hogares">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa del gas de red</button>
+      </div>
+      <div class="pol-ley" id="gas-hogares-ley" aria-hidden="true"></div>
+      <div class="grafico mp-mapa" data-g="gas-hogares" data-forma="barras" style="--filas:25"></div>
+      <p class="nota" data-t="gas-hogares-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-hidro-provincias">
+      <h3>Producción de petróleo y gas por provincia, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</h3>
+      <p class="lead" data-t="hidro-provincias"></p>
+      <div class="conmutador" role="group" aria-label="Producto" data-g="hidro-provincias">
+        <button type="button" data-m="pet_kbd" aria-pressed="true">Petróleo</button>
+        <button type="button" data-m="gas_mmm3d" aria-pressed="false">Gas</button>
+      </div>
+      <div class="grafico" data-g="hidro-provincias" data-forma="barras" style="--filas:11"></div>
+      <p class="nota" data-t="hidro-provincias-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-pozos">
+      <h3>Pozos en producción y lo que produce cada uno, {{petroleo.pozos_mes}}</h3>
+      <p class="lead" data-t="pozos"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pozos">
+        <button type="button" data-m="pozo" aria-pressed="true">Petróleo por pozo</button>
+        <button type="button" data-m="partes" aria-pressed="false">Pozos y producción</button>
+      </div>
+      <div class="pol-ley" id="pozos-ley" aria-hidden="true" hidden></div>
+      <div class="grafico" data-g="pozos" data-forma="barras" style="--filas:3"></div>
+      <p class="nota" data-t="pozos-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV por pozo</span><a href="datos/pozos_tipo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-empresas-hidro">
+      <h3>Producción de petróleo y gas por empresa, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</h3>
+      <p class="lead" data-t="empresas-hidro"></p>
+      <div class="conmutador" role="group" aria-label="Producto" data-g="empresas-hidro">
+        <button type="button" data-m="pct_pet" aria-pressed="true">Petróleo</button>
+        <button type="button" data-m="pct_gas" aria-pressed="false">Gas</button>
+      </div>
+      <div class="grafico" data-g="empresas-hidro" data-forma="barras" style="--filas:13"></div>
+      <p class="nota" data-t="empresas-hidro-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_empresas.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-empleo-hidro">
+      <h3>Empleo registrado en la extracción de petróleo y gas, {{construccion.emp_trim}}</h3>
+      <p class="lead" data-t="empleo-hidro"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-hidro">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
+      </div>
+      <div class="grafico" data-g="empleo-hidro" data-forma="barras" style="--filas:12"></div>
+      <p class="nota" data-t="empleo-hidro-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-regalias">
+      <h3>Regalías en los ingresos de cada provincia, {{petroleo.reg_anio}}</h3>
+      <p class="lead" data-t="regalias"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="regalias">
+        <button type="button" data-m="pct_regalias" aria-pressed="true">% de los ingresos</button>
+        <button type="button" data-m="usd_crudo_hab" aria-pressed="false">Dólares por habitante, petróleo</button>
+      </div>
+      <div class="grafico" data-g="regalias" data-forma="barras"></div>
+      <p class="nota" data-t="regalias-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo</span><a href="datos/regalias_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-reservas">
+      <h3>Reservas comprobadas de petróleo y gas, {{petroleo.res_ini}} a {{petroleo.res_anio}}</h3>
+      <p class="lead" data-t="reservas"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="reservas" style="--n:3">
+        <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
+        <button type="button" data-m="gas" aria-pressed="false">Gas</button>
+        <button type="button" data-m="horizonte" aria-pressed="false">Años de producción</button>
+      </div>
+      <div class="pol-ley" id="reservas-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="reservas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="nota" data-t="reservas-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006)</span><a href="datos/reservas_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-balanza-energetica">
+      <h3>Exportaciones e importaciones de energía, {{petroleo.bal_ini}} a {{petroleo.bal_anio}}</h3>
+      <p class="lead" data-t="balanza-energetica"></p>
+      <div class="grafico" data-g="balanza-energetica" data-forma="lineas"></div>
+      <p class="nota" data-t="balanza-energetica-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo</span><a href="datos/balanza_energetica.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-mundo-petroleo">
+      <h3>La Argentina entre los productores de petróleo y gas del mundo, {{petroleo.mundo.crudo_kbd.anio}}</h3>
+      <p class="lead" data-t="mundo-petroleo"></p>
+      <div class="conmutador" role="group" aria-label="Producto" data-g="mundo-petroleo">
+        <button type="button" data-m="crudo_kbd" aria-pressed="true">Petróleo</button>
+        <button type="button" data-m="gas_bcm" aria-pressed="false">Gas</button>
+      </div>
+      <div class="grafico" data-g="mundo-petroleo" data-forma="barras" style="--filas:29"></div>
+      <p class="nota" data-t="mundo-petroleo-nota"></p>
+      <div class="pie"><span>Fuente: Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén</span><a href="datos/mundo_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
