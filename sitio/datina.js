@@ -270,6 +270,17 @@ const LEAD = {
     : `En ${PG.pt_anio} se terminaron ${n0(PG.pt_total)} pozos de petróleo y gas: ${n0(PG.pt_explot)} de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +
       (PG.pt_total < PG.pt_max ? `El máximo de la serie fue en ${PG.pt_max_anio}, con ${n0(PG.pt_max)}. Hoy se terminan menos pozos, pero en Vaca Muerta cada uno tiene una rama horizontal ` +
         `${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.` : "Es el máximo de la serie."),
+  // productividad de los pozos de Vaca Muerta por año de inicio (etapa 19): años completos
+  productividad: v => v === "metro"
+    ? `Por cada 1.000 metros de rama horizontal, los pozos que empezaron a producir en ${PG.cos_ult} sacaron en su primer año ${n0(PG.bpm_ult)} barriles de petróleo. ` +
+      (PG.bpm_ult < PG.bpm_max ? `El máximo fue el de los pozos de ${PG.bpm_max_anio}, con ${n0(PG.bpm_max)}: los pozos de ${PG.cos_ult} son más largos (${n0(PG.rama_m_ult)} metros de rama en promedio, ` +
+        `contra ${n0(PG.rama_m_bpm_max)}), pero cada metro rindió ${pct(-PG.bpm_var)} menos.` : `Es el máximo desde ${PG.rama_desde}.`)
+    : v === "curvas"
+    ? `Producción acumulada promedio de un pozo según los meses desde que empezó a producir, por año de inicio. A los doce meses, un pozo de ${PG.cos_ult} ` +
+      `había sacado ${n0(PG.curva12_ult)} mil barriles de petróleo y uno de ${PG.curvas[0]}, ${n0(PG.curva12_ini)} mil.`
+    : `Un pozo petrolero de shale de Vaca Muerta que empezó a producir en ${PG.cos_ult} sacó en promedio ${n0(PG.cos_kbbl_ult)} mil barriles de petróleo en sus primeros doce meses, ` +
+      `${n1(PG.cos_veces)} veces lo que uno de ${PG.cos_ini}` +
+      (PG.cos_max !== PG.cos_ult ? `. El máximo fue el de los pozos de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles.` : `, el máximo de la serie.`),
   insumos: v => v === "var_ytd"
     ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
@@ -305,6 +316,11 @@ const TX = {
     `Las empresas informan con demora, así que las de ${PG.fr_ult} todavía pueden sumar más. La rama horizontal y las etapas por pozo son promedios de los pozos de Vaca Muerta ` +
     `según el año de su primera fractura, y la rama cuenta solo los pozos que la informan. La fuente aclara que son datos preliminares, sujetos a revisión.`,
   "pozos-terminados": LEAD["pozos-terminados"]("anio"),
+  productividad: LEAD.productividad("pozo"),
+  "productividad-nota": `Pozos de shale de Vaca Muerta que la producción por pozo del Capítulo IV clasifica como petrolíferos, según el año del primer mes con producción. ` +
+    `El primer año son los doce meses desde ese inicio, y los meses sin declaración cuentan como cero. Van solo los años de inicio en los que todos los pozos ya tienen doce meses de historia ` +
+    `(los datos llegan a ${MESES[+PG.cos_ult_nc.slice(5, 7) - 1]} de ${PG.cos_ult_nc.slice(0, 4)}). La rama horizontal sale de los datos de fractura: por cada 1.000 metros cuentan los pozos que la informan, desde ${PG.rama_desde}, ` +
+    `el primer año con al menos 50. Las curvas siguen a cada año de inicio mientras al menos el 80% de sus pozos tiene esos meses de historia.`,
   "pozos-terminados-nota": `Pozos terminados por tipo, según la Secretaría de Energía. Por provincia, los doce meses más recientes, entre ${PG.pt_v_desde} y ${PG.pt_mes}.` +
     (T.pozos_terminados_provincias.some(r => r.codigo_indec === "mar") ? ` "Mar argentino" son los pozos del mar a más de doce millas de la costa, de jurisdicción nacional.` : ""),
   "empleo-construccion-nota": `Asalariados registrados del sector privado en la construcción (rama 45 de la clasificación de actividades), según el SIPA, en promedio del trimestre. ` +
@@ -1369,7 +1385,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1482,6 +1498,20 @@ Object.assign(DIB, {
       {k: "avanzada", lab: "Avanzada", c: "#74ACDF"}, {k: "servicio", lab: "Servicio", c: "#C3CAD2"}];
     leyenda("pozos-terminados-ley", cl);
     columnasApiladas(G("pozos-terminados"), {anim: a, claves: cl, cadaTick: 2, vf: n0, af: n0, l: 40, unidad: "pozos", data: T.pozos_terminados});
+  },
+  productividad: a => {
+    const k = MED.productividad;
+    $t("productividad").textContent = LEAD.productividad(k);
+    if (k === "curvas") {
+      const tonos = ["#BBD6EF", "#7FB0DD", "#3F86C6", "#2C74B5", "#1F5E97", "#0F3D66"].slice(-PG.curvas.length);
+      return lineas(G("productividad"), {anim: a, data: T.curvas_vm, x: "mes", y0: 0, vf: v => n0(v) + " mil", yf: n0, xl: r => `Mes ${r.mes}`,
+        series: PG.curvas.map((c, i) => ({k: `c${c}`, lab: String(c), c: tonos[i], w: c === PG.cos_ult ? 3 : 2}))});
+    }
+    const metro = k === "metro";
+    columnasApiladas(G("productividad"), {anim: a, cadaTick: 2, l: metro ? 50 : 40, vf: n0, af: metro ? v => n0(v / 1000) + " mil" : n0,
+      unidad: metro ? "barriles cada 1.000 m de rama" : "mil barriles por pozo",
+      data: metro ? T.productividad_vm.filter(r => r.bbl_por_1000m != null) : T.productividad_vm,
+      claves: [{k: metro ? "bbl_por_1000m" : "pet_12m_kbbl", lab: "Primer año", c: COL_TIPO.shale}]});
   },
   "balanza-energetica": a => lineas(G("balanza-energetica"), {anim: a, data: T.balanza_energetica, x: "anio", ref: 0,
     series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--ink"), w: 1.8, dash: "4 3"}],
@@ -2921,6 +2951,7 @@ const CLAVE = {
   "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`],
   "f-fracturas": [`${n0(PG.dv_rama_ult)} m`, `de rama horizontal tuvo en promedio un pozo de Vaca Muerta fracturado en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`],
   "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
+  "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
   "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
   "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
   "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],

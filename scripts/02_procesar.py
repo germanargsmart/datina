@@ -1514,6 +1514,41 @@ _pt_max = pozos_term.loc[pozos_term.total.idxmax()]
 agregar(pozos_term.rename(columns={"anio": "periodo", "total": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "pozos_terminados", "pozos terminados por año", "Secretaria de Energia, perforacion de pozos de petroleo y gas")
 
+# Productividad de los pozos de shale de Vaca Muerta según el año en que empezaron a producir (etapa 19, como la infografía de la
+# Secretaría de Energía): producción del primer año de los pozos petrolíferos (doce meses calendario desde el primer mes con
+# producción, los meses sin declaración cuentan cero), por pozo y por cada 1.000 metros de rama horizontal (la rama sale de las
+# fracturas), y las curvas de producción acumulada por año de inicio. Solo años de inicio completos: los que tienen a todos sus
+# pozos con doce meses de historia (los de diciembre necesitan datos hasta noviembre del año siguiente).
+pnc_ = pd.read_csv(CRUDO / "se_pozos_nc.csv")
+cos_ = pd.read_csv(CRUDO / "se_pozos_nc_cosechas.csv")
+_ult_nc = pd.Period(pnc_.ultimo_mes.max(), "M")
+COS_ULT = (_ult_nc - 11).year - (0 if (_ult_nc - 11).month == 12 else 1)
+_vmo = pnc_[pnc_.formacion.str.upper().eq("VMUT") & pnc_.subtipo.eq("SHALE") & pnc_.tipo_pozo.eq("Petrolífero") & pnc_.pet_12m_m3.notna()].copy()
+_vmo["anio"] = _vmo.inicio.str[:4].astype(int)
+_vmo["rama"] = _vmo.idpozo.map(fr_.groupby("idpozo").longitud_rama_horizontal_m.max())
+_porp = _vmo.groupby("anio").agg(pozos=("idpozo", "size"), pet_12m_m3=("pet_12m_m3", "mean"))
+COS_INI = int(_porp[_porp.pozos >= 30].index.min())  # el primer año con al menos 30 pozos, para no comparar con un puñado
+_conr = _vmo[_vmo.rama > 100]
+_porm = _conr.groupby("anio").agg(pozos_rama=("idpozo", "size"), rama_m=("rama", "mean"))
+_porm["m3_por_1000m"] = (_conr.pet_12m_m3 / _conr.rama * 1000).groupby(_conr.anio).mean()
+RAMA_DESDE = int(_porm[_porm.pozos_rama >= 50].index.min())  # desde ahí casi todos los pozos informan la rama
+productividad_vm = _porp.join(_porm).loc[COS_INI:COS_ULT].reset_index()
+productividad_vm["pet_12m_kbbl"] = productividad_vm.pet_12m_m3 * BBL / 1000
+productividad_vm["bbl_por_1000m"] = (productividad_vm.m3_por_1000m * BBL).where(productividad_vm.anio >= RAMA_DESDE)
+productividad_vm.loc[productividad_vm.anio < RAMA_DESDE, ["pozos_rama", "rama_m"]] = None
+productividad_vm = productividad_vm[["anio", "pozos", "pet_12m_kbbl", "pozos_rama", "rama_m", "bbl_por_1000m"]]
+_pvd = productividad_vm.set_index("anio")
+_pvd_m = _pvd.dropna(subset=["bbl_por_1000m"])
+# curvas de producción acumulada (miles de barriles por pozo) de un año de inicio cada dos, terminando en el último completo
+_c = cos_[cos_.tipo_pozo.eq("Petrolífero") & cos_.cosecha.between(COS_INI, COS_ULT)]
+COS_CURVAS = [a for a in range(COS_ULT, COS_INI - 1, -2)][::-1]
+curvas_vm = _c[_c.cosecha.isin(COS_CURVAS)].pivot_table(index="mes", columns="cosecha", values="acum_pet_m3").mul(BBL / 1000)
+curvas_vm.columns = [f"c{a}" for a in curvas_vm.columns]
+curvas_vm = curvas_vm.reset_index()
+_cv = curvas_vm.set_index("mes")
+agregar(productividad_vm.rename(columns={"anio": "periodo", "pet_12m_kbbl": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "petroleo_primer_anio_pozo_vaca_muerta", "miles de barriles por pozo en sus primeros doce meses", "Secretaria de Energia, produccion por pozo (Capitulo IV)")
+
 # Reservas comprobadas al 31 de diciembre (hasta el final de la vida útil de los yacimientos), con el horizonte: cuántos años
 # alcanzarían al ritmo de producción de ese año. Desde 2017 la fuente separa convencional y no convencional, y trae la provincia
 rv_ = pd.read_csv(CRUDO / "se_reservas_resumen.csv")
@@ -2714,6 +2749,8 @@ tablas = {
     "diseno_pozos_vm": diseno_vm,
     "pozos_terminados": pozos_term,
     "pozos_terminados_provincias": pozos_term_prov,
+    "productividad_vm": productividad_vm,
+    "curvas_vm": curvas_vm,
     "reservas_hidrocarburos": reservas,
     "reservas_provincias": reservas_prov,
     "regalias_provincias": reg_prov,
@@ -3040,6 +3077,14 @@ resumen["petroleo"] = {
     "pt_mes": mes_txt(PT_ULT_M), "pt_v_desde": mes_txt(_v12[0]), "pt_12m": int(pt_[pt_.periodo.isin(_v12)].cantidad_pozos.sum()),
     "pt_12m_ant": int(pt_[pt_.periodo.isin(_v12a)].cantidad_pozos.sum()), "pt_top": pozos_term_prov.iloc[0].territorio,
     "pt_top_n": int(pozos_term_prov.iloc[0].total), "pt_top_pct": r1(pozos_term_prov.iloc[0].pct), "pt_n_prov": int(len(pozos_term_prov)),
+    # productividad de los pozos petrolíferos de shale de Vaca Muerta por año de inicio (años completos)
+    "cos_ini": COS_INI, "cos_ult": COS_ULT, "cos_kbbl_ini": r1(_pvd.pet_12m_kbbl[COS_INI]), "cos_kbbl_ult": r1(_pvd.pet_12m_kbbl[COS_ULT]),
+    "cos_veces": r1(_pvd.pet_12m_kbbl[COS_ULT] / _pvd.pet_12m_kbbl[COS_INI]), "cos_pozos_ult": int(_pvd.pozos[COS_ULT]),
+    "cos_max": int(_pvd.pet_12m_kbbl.idxmax()), "cos_kbbl_max": r1(_pvd.pet_12m_kbbl.max()), "cos_ult_nc": str(_ult_nc),
+    "rama_desde": RAMA_DESDE, "bpm_ult": round(float(_pvd_m.bbl_por_1000m[COS_ULT])), "bpm_max": round(float(_pvd_m.bbl_por_1000m.max())),
+    "bpm_max_anio": int(_pvd_m.bbl_por_1000m.idxmax()), "bpm_var": r1((_pvd_m.bbl_por_1000m[COS_ULT] / _pvd_m.bbl_por_1000m.max() - 1) * 100),
+    "rama_m_ult": round(float(_pvd_m.rama_m[COS_ULT])), "rama_m_bpm_max": round(float(_pvd_m.rama_m[_pvd_m.bbl_por_1000m.idxmax()])),
+    "curvas": COS_CURVAS, "curva12_ult": r1(_cv[f"c{COS_ULT}"][12]), "curva12_ini": r1(_cv[f"c{COS_CURVAS[0]}"][12]),
     # reservas
     "res_anio": int(RV_ULT.anio), "res_ini": int(RV_INI.anio), "res_pet": round(float(RV_ULT.pet_millones_m3)), "res_bbl": r1(RV_ULT.pet_miles_millones_bbl),
     "res_gas": round(float(RV_ULT.gas_miles_millones_m3)), "res_hor_pet": r1(RV_ULT.horizonte_pet), "res_hor_gas": r1(RV_ULT.horizonte_gas),

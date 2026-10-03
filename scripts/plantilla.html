@@ -925,6 +925,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV)</span><a href="datos/fracturas_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-productividad">
+      <h3>Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, {{petroleo.cos_ini}} a {{petroleo.cos_ult}}</h3>
+      <p class="lead" data-t="productividad"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="productividad" style="--n:3">
+        <button type="button" data-m="pozo" aria-pressed="true">Por pozo</button>
+        <button type="button" data-m="metro" aria-pressed="false">Cada 1.000 m de rama</button>
+        <button type="button" data-m="curvas" aria-pressed="false">Mes a mes</button>
+      </div>
+      <div class="grafico" data-g="productividad" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="nota" data-t="productividad-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV)</span><a href="datos/productividad_vm.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-pozos-terminados">
       <h3>Pozos de petróleo y gas terminados por año, {{petroleo.pt_ini}} a {{petroleo.pt_anio}}, y por provincia</h3>
       <p class="lead" data-t="pozos-terminados"></p>

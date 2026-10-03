@@ -2177,6 +2177,22 @@
     ]
    },
    {
+    "titulo": "Productividad de los pozos según el año en que empezaron",
+    "texto": "La Secretaría de Energía mide la productividad de los pozos de shale según el año en que empezaron a producir. Las fichas siguen ese criterio con los datos mensuales de cada pozo: el petróleo que sacan en sus primeros doce meses los pozos de shale de Vaca Muerta clasificados como petrolíferos, por pozo y por cada 1.000 metros de rama horizontal, y su producción acumulada mes a mes. Comparar por año de inicio evita mezclar pozos nuevos con pozos que llevan años produciendo y ya rinden menos.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Energía, infografía de hidrocarburos no convencionales",
+      "url": "http://www.energia.gob.ar/contenidos/archivos/Reorganizacion/planeamiento/infografias/lamina_dneype_C_01.pdf",
+      "cita": "Productividad promedio por pozo según año de inicio"
+     },
+     {
+      "nombre": "Secretaría de Energía, producción de petróleo y gas por pozo",
+      "url": "http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c",
+      "cita": "Detalle mensual de producción por pozo, yacimiento, concesión y provincia"
+     }
+    ]
+   },
+   {
     "titulo": "Reservas comprobadas y horizonte",
     "texto": "Desde la Resolución 324 de 2006, las empresas presentan cada año a la Secretaría de Energía sus reservas al 31 de diciembre, hasta el 31 de marzo del año siguiente y certificadas por auditores externos. Las reservas comprobadas son las que, según los datos geológicos y de ingeniería, pueden estimarse con razonable certeza como comercialmente recuperables de reservorios conocidos, con las condiciones económicas, el régimen legal y las prácticas de producción de la fecha de la estimación. Las probables y las posibles no son comprobadas y las fichas no las suman. El horizonte divide las reservas comprobadas por la producción de ese año: cuántos años durarían si se produjera lo mismo y no se sumaran reservas nuevas. Las fichas usan las reservas hasta el final de la vida útil de cada yacimiento, que puede ir más allá del fin de la concesión.",
     "fuentes": [

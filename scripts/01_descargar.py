@@ -677,11 +677,77 @@ def eia_internacional():
     return "https://www.eia.gov/opendata/bulk/INTL.zip"
 
 
+
+def pozos_no_convencionales():
+    """Producción mensual de cada pozo no convencional desde 2006 (Capítulo IV de la Resolución SE 319/1993, Secretaría de Energía,
+    unos 150 MB): se baja a memoria y se guardan dos resúmenes chicos (etapa 19).
+    - se_pozos_nc.csv: una fila por pozo, con su ubicación, empresa, área, provincia, formación, tipo (shale o tight, petrolífero o
+      gasífero), el primer y el último mes con producción, la producción del último mes y la de sus primeros doce meses. Algunas
+      coordenadas vienen con la latitud y la longitud cambiadas: se corrigen (en la Argentina la longitud va de -74 a -53).
+    - se_pozos_nc_cosechas.csv: para los pozos de shale de Vaca Muerta, la producción acumulada promedio por pozo según el año en
+      que empezaron a producir y los meses desde ese inicio (1 a 60), contando también los meses sin producción."""
+    import io, pandas as pd, numpy as np
+    recursos = json.loads(leer(f"{SE}/api/3/action/package_show?id={SE_POZO}", 60))["result"]["resources"]
+    u = next(x["url"] for x in recursos if "pozos de gas y petróleo no convencional" in x["name"].lower()).replace("https://", "http://")
+    datos = leer(u, 900)
+    if not datos.lstrip(b"\xef\xbb\xbf").startswith(b"idempresa,anio,mes,idpozo"):
+        raise ValueError("formato inesperado en la producción por pozo no convencional")
+    d = pd.read_csv(io.BytesIO(datos), low_memory=False, usecols=["anio", "mes", "idpozo", "prod_pet", "prod_gas", "tipopozo", "formprod",
+        "sub_tipo_recurso", "empresa", "sigla", "areapermisoconcesion", "provincia", "coordenadax", "coordenaday"])
+    d["t"] = d.anio * 12 + d.mes - 1  # meses corridos desde el año 0
+    d = d.sort_values(["idpozo", "t"])
+    prod = d[(d.prod_pet > 0) | (d.prod_gas > 0)]
+    ini, fin = prod.groupby("idpozo").t.min(), prod.groupby("idpozo").t.max()
+    ultimo = int(d.t.max())
+    d["k"] = d.t - d.idpozo.map(ini)  # meses desde el inicio (0 = el primer mes con producción)
+    p12 = d[d.k.between(0, 11)].groupby("idpozo")[["prod_pet", "prod_gas"]].sum()
+    um = d[d.t == ultimo].set_index("idpozo")[["prod_pet", "prod_gas"]]
+    w = d.groupby("idpozo").agg(sigla=("sigla", "last"), empresa=("empresa", "last"), area=("areapermisoconcesion", "last"), provincia=("provincia", "last"),
+        formacion=("formprod", "last"), subtipo=("sub_tipo_recurso", "last"), tipo_pozo=("tipopozo", "last"), x=("coordenadax", "first"), y=("coordenaday", "first"),
+        acum_pet_m3=("prod_pet", "sum"), acum_gas_miles_m3=("prod_gas", "sum"))
+    cambiadas = (w.x > -53) & (w.y < -53)
+    w.loc[cambiadas, ["x", "y"]] = w.loc[cambiadas, ["y", "x"]].values
+    w = w.join(ini.rename("t_ini")).join(fin.rename("t_fin")).dropna(subset=["t_ini"])
+    w["inicio"] = [f"{int(t) // 12}-{int(t) % 12 + 1:02d}" for t in w.t_ini]
+    w["ultimo_mes"] = [f"{int(t) // 12}-{int(t) % 12 + 1:02d}" for t in w.t_fin]
+    w["meses_historia"] = ultimo - w.t_ini + 1
+    w = w.join(p12.rename(columns={"prod_pet": "pet_12m_m3", "prod_gas": "gas_12m_miles_m3"})).join(
+        um.rename(columns={"prod_pet": "pet_ult_m3", "prod_gas": "gas_ult_miles_m3"})).fillna({"pet_ult_m3": 0, "gas_ult_miles_m3": 0})
+    w.loc[w.meses_historia < 12, ["pet_12m_m3", "gas_12m_miles_m3"]] = np.nan  # sin doce meses de historia no hay primer año completo
+    if len(w) < 4000 or not (w.x.between(-74, -53) & w.y.between(-56, -21)).mean() > .99:
+        raise ValueError("la producción por pozo no convencional no tiene los pozos o las coordenadas esperados")
+    w = w.drop(columns=["t_ini", "t_fin"]).reset_index()
+    w.round({"x": 5, "y": 5, "acum_pet_m3": 1, "acum_gas_miles_m3": 1, "pet_12m_m3": 1, "gas_12m_miles_m3": 1, "pet_ult_m3": 1, "gas_ult_miles_m3": 1}).to_csv(
+        CRUDO / "se_pozos_nc.csv", index=False)
+    # producción acumulada promedio de los pozos de shale de Vaca Muerta, por año de inicio y meses desde el inicio
+    vm = w[w.formacion.str.upper().eq("VMUT") & w.subtipo.eq("SHALE")].set_index("idpozo")
+    c = d[d.idpozo.isin(vm.index) & d.k.between(0, 59)].copy()
+    c["cosecha"] = c.idpozo.map(ini) // 12
+    c["tipo_pozo"] = c.idpozo.map(vm.tipo_pozo)
+    c = c.sort_values(["idpozo", "k"])
+    c["acum_pet"], c["acum_gas"] = c.groupby("idpozo").prod_pet.cumsum(), c.groupby("idpozo").prod_gas.cumsum()
+    filas = []
+    for (cos, tp), g in c.groupby(["cosecha", "tipo_pozo"]):
+        n_pozos = g.idpozo.nunique()
+        for k in range(60):
+            # solo los pozos que ya tienen k + 1 meses de historia, para no promediar pozos que todavía no llegaron a ese mes
+            elegibles = [p for p in g.idpozo.unique() if ultimo - ini[p] >= k]
+            if len(elegibles) < max(5, .8 * n_pozos):
+                break
+            # un pozo sin fila en ese mes (sin declaración) arrastra su acumulado anterior
+            prev = g[g.k <= k].groupby("idpozo")[["acum_pet", "acum_gas"]].last().reindex(elegibles).fillna(0)
+            filas.append({"cosecha": int(cos), "tipo_pozo": tp, "mes": k + 1, "pozos": len(elegibles),
+                          "acum_pet_m3": prev.acum_pet.mean(), "acum_gas_miles_m3": prev.acum_gas.mean()})
+    pd.DataFrame(filas).round(1).to_csv(CRUDO / "se_pozos_nc_cosechas.csv", index=False)
+    return f"{SE} producción por pozo no convencional ({len(w):,} pozos)"
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
                     ("petróleo y gas (resúmenes del Capítulo IV)", hidrocarburos), ("reservas de petróleo y gas", reservas_hidrocarburos),
-                    ("empleo por rama y provincia (OEDE)", oede_empleo), ("producción de petróleo y gas por país (EIA)", eia_internacional)]:
+                    ("empleo por rama y provincia (OEDE)", oede_empleo), ("producción de petróleo y gas por país (EIA)", eia_internacional),
+                    ("producción por pozo no convencional", pozos_no_convencionales)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
