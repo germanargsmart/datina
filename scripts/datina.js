@@ -430,7 +430,7 @@ function lienzo(el, h, m) {
 }
 function mostrarTip(el, html, x, y) {
   const r = el.getBoundingClientRect(), pr = document.body.getBoundingClientRect();
-  tip.innerHTML = html; tip.classList.add("on");
+  tip.classList.remove("tip-cifra", "abajo"); tip.innerHTML = html; tip.classList.add("on");
   const tw = tip.offsetWidth;
   let left = r.left - pr.left + x - tw / 2;
   left = Math.max(8, Math.min(left, document.documentElement.clientWidth - tw - 8));
@@ -3397,20 +3397,142 @@ const pintarCifras = () => {
       const fila = ids.has(c.id) && c.d.find(d => d.codigo_indec === prov); if (!fila) return;
       conProv.add(c.id);
       const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
-      tarjetas.push(`<a class="tarjeta cifra prov" href="#${c.id}"><span class="c-lab con-bandera">${bandera(prov)}<span>${NOMBRES[prov]}</span></span><span class="c-num">${c.f(fila[c.k])}</span>` +
+      tarjetas.push(`<a class="tarjeta cifra prov" href="#${c.id}" data-k="p:${INDP.indexOf(c)}"><span class="c-lab con-bandera">${bandera(prov)}<span>${NOMBRES[prov]}</span></span><span class="c-num">${c.f(fila[c.k])}</span>` +
         `<span class="c-txt">${c.lab}: ${c.det}.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`} Posición ${orden} de ${c.d.length}, de mayor a menor.</span></a>`);
     });
     // las cifras del país: una cifra destacada (CLAVE) se saca si su ficha ya muestra la de la provincia, y una de EXTRA solo si es la versión del país
-    const pais = orden.map(k => k.startsWith("x-") ? EXTRA[k] && {id: EXTRA[k][0], n: EXTRA[k][1], t: EXTRA[k][2], prov: EXTRA[k][3]} : CLAVE[k] && {id: k, n: CLAVE[k][0], t: CLAVE[k][1], prov: true})
+    const pais = orden.map(k => k.startsWith("x-") ? EXTRA[k] && {k, id: EXTRA[k][0], n: EXTRA[k][1], t: EXTRA[k][2], prov: EXTRA[k][3]} : CLAVE[k] && {k, id: k, n: CLAVE[k][0], t: CLAVE[k][1], prov: true})
       .filter(c => c && ids.has(c.id) && !(c.prov && conProv.has(c.id)));
     const lugar = conProv.size ? 5 - tarjetas.length : indp.length ? 4 : 5;
     const marca = conProv.size ? `<span class="c-lab con-bandera">${bandera("00")}<span>Todo el país</span></span>` : "";
-    pais.slice(0, Math.max(0, lugar)).forEach(c => tarjetas.push(`<a class="tarjeta cifra" href="#${c.id}">${marca}<span class="c-num">${c.n}</span><span class="c-txt">${c.t}</span></a>`));
+    pais.slice(0, Math.max(0, lugar)).forEach(c => tarjetas.push(`<a class="tarjeta cifra" href="#${c.id}" data-k="${c.k}">${marca}<span class="c-num">${c.n}</span><span class="c-txt">${c.t}</span></a>`));
     if (!conProv.size && indp.length)
       tarjetas.push(`<a class="tarjeta cifra invita" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
     intro.insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.slice(0, 5).join("")}</div></div>`);
   }
 };
+/* Minigráfico de cada tarjeta de "En cifras" (etapa 16, idea de un tablero que compartió el autor). Resuelve lo que en octubre de 2026
+   descartó los minigráficos dentro de las tarjetas (a 48 x 18 píxeles no se leían): al pasar el mouse por una tarjeta, o con el foco del
+   teclado, un cuadro más grande muestra la serie del país de esa cifra (hasta diez datos, con el de la tarjeta resaltado en amarillo) o,
+   si la ficha solo tiene datos por provincia, las 24 provincias ordenadas con la línea del país. En las pantallas táctiles no aparece:
+   tocar la tarjeta lleva a la ficha. Las tarjetas sin datos para eso (por ejemplo las de Política, salvo los ATN) no muestran nada. */
+const semCorto = r => `${r.semestre === 1 ? "1.er" : "2.º"} sem. ${r.anio}`;
+const mesCorto = p => { const [y, m] = p.split("-"); return `${MESES[+m - 1].slice(0, 3)} ${y}`; };
+const serieM = (tit, d, f, n = 10, hl = null) => ({tit, d: d.filter(x => x[1] != null && isFinite(x[1])).slice(-n), f, hl});
+const provM = (tit, filas, k, pais, f) => ({tit, prov: filas.filter(r => r[k] != null && NOMBRES[r.codigo_indec]).map(r => ({c: r.codigo_indec, v: r[k]})), pais, f});
+const TOT_DIP = (() => { const r = T.representacion_provincias || []; return r.length ? d3.sum(r, x => x.poblacion) / d3.sum(r, x => x.diputados) : null; })();
+const SERIE_CIFRA = {
+  "f-empleo": () => provM("Asalariados privados registrados cada 100 habitantes", T.empleo_provincias, "cada_100", R.empleo.cada_100_pais, n1),
+  "f-exportaciones": () => provM("Dólares exportados por habitante", T.exportaciones_provincias, "usd_por_habitante", nv.ex_pc_pais, n0),
+  "f-fiscal": () => provM("Recursos propios, en % de los ingresos de cada provincia", T.fiscal_provincias, "autonomia", null, pct),
+  "f-empresas": () => provM("Empresas privadas con empleados cada 1.000 habitantes", T.empresas_provincias, "cada_1000_hab", EM.pais_1000, n1),
+  "x-emp-top": () => SERIE_CIFRA["f-empresas"](),
+  "f-dinamica-empresas": () => serieM("Saldo de empresas por año: aperturas menos cierres, en % del total", T.empresas_serie_pais.map(r => [r.anio, r.tasa_neta]), sg),
+  "x-emp-saldo": () => SERIE_CIFRA["f-dinamica-empresas"](),
+  "x-emp-negativos": () => SERIE_CIFRA["f-dinamica-empresas"](),
+  "f-pobreza": () => serieM("Pobreza en los 31 aglomerados urbanos, por semestre", T.pobreza_serie.map(r => [semCorto(r), r.pobreza_personas]), pct, 8),
+  "x-indigencia": () => serieM("Indigencia en los 31 aglomerados urbanos, por semestre", T.pobreza_serie.map(r => [semCorto(r), r.indigencia_personas]), pct, 8),
+  "f-censo": () => provM("Hogares con desagüe a red cloacal, en %, Censo 2022", T.censo2022_provincias, "cloaca", nv.censo.cloaca, pct),
+  "f-internet": () => provM("Accesos a internet fijo cada 100 hogares", T.internet_fijo_provincias, "accesos_100_hogares", null, n1),
+  "f-esperanza": () => provM(`Esperanza de vida al nacer, en años, ${nv.ev_anio}`, T.esperanza_vida_provincias, "total", nv.ev_pais, n1),
+  "x-ev-brecha": () => provM(`Años más de esperanza de vida de las mujeres que de los varones, ${nv.ev_anio}`,
+    T.esperanza_vida_provincias.map(r => ({...r, brecha: r.mujeres - r.varones})), "brecha", nv.ev_m - nv.ev_v, n1),
+  "f-mortalidad": () => provM(`Mortalidad infantil cada 1.000 nacidos vivos, promedio de ${mo.tri_act}`, T.mortalidad_infantil_provincias, "tmi_actual", mo.pais_act, n1),
+  "f-aprender": () => provM(`Matemática en 6° grado: % en nivel satisfactorio o avanzado, Aprender ${ap.anio}`, T.aprender_provincias, "mat_logra", ap.mat, pct),
+  "x-aprender-len": () => provM(`Lengua en 6° grado: % en nivel satisfactorio o avanzado, Aprender ${ap.anio}`, T.aprender_provincias, "len_logra", ap.len, pct),
+  "x-aprender-debajo": () => provM(`Matemática en 6° grado: % por debajo del nivel básico, Aprender ${ap.anio}`, T.aprender_provincias, "mat_debajo", ap.mat_debajo, pct),
+  "f-escolarizacion": () => provM(`Escolarización secundaria, en %, ${es.fin}`, T.escolarizacion_secundaria_provincias, "tasa_final", es.pais_fin, pct),
+  "f-pisa": () => serieM("Argentina en matemática en PISA, por edición (sin 2015, que no es comparable)", T.pisa_argentina_ocde.map(r => [r.anio, r.arg_mat_grafico]), n0),
+  "x-nacimientos": () => serieM("Nacimientos por año", T.nacimientos.map(r => [r.anio, r.nacimientos]), n0),
+  "f-adolescentes": () => serieM("Nacimientos de madres menores de 20 años, cada 100, por año", T.nacimientos.map(r => [r.anio, r.pct_madres_menores_20]), n1),
+  "x-vejez": () => serieM("Personas de 65 años o más cada 100 de 15 a 64, proyección del INDEC",
+    T.envejecimiento_pais.filter(r => (r.anio - T.envejecimiento_pais[0].anio) % 2 === 0 || r.anio === EV.anio).map(r => [r.anio, r.vejez]), n1, 12, EV.anio),
+  "x-jubilaciones": () => serieM("Aportantes por cada jubilación o pensión de ANSES, por año", T.jubilaciones_aportantes.map(r => [r.anio, r.aportantes_por_beneficio]), n2),
+  "f-extranjeros": () => provM("Personas nacidas en otro país cada 100 habitantes", T.extranjeros_provincias, "cada_100", nv.xt_pais, n1),
+  "x-representacion": () => provM("Habitantes por banca de diputado", T.representacion_provincias, "hab_por_diputado", TOT_DIP, n0),
+  "x-atn": () => serieM(`Aportes del Tesoro Nacional por año, en miles de millones de pesos de ${TRR.ult}`, T.transferencias_serie.map(r => [r.anio, r.atn]), n0),
+  "f-sube": () => serieM("Tarjetas SUBE por día hábil, en millones, por mes", T.sube_dia_habil.map(r => [mesCorto(r.periodo), r.total == null ? null : r.total / 1e6]), n2),
+  "x-sube-var": () => SERIE_CIFRA["f-sube"](),
+  "f-sube-modos": () => serieM("Tarjetas SUBE en trenes por día hábil, en miles, por mes", T.sube_dia_habil.map(r => [mesCorto(r.periodo), r.tren == null ? null : r.tren / 1e3]), n0),
+  "f-patentes": () => serieM("Motos nuevas inscriptas por año", T.patentamientos_anual.map(r => [r.anio, r.motos]), n0),
+  "f-patentes-prov": () => provM("Autos nuevos cada 1.000 habitantes", T.patentamientos_provincias, "autos_1000", au.pais_1000, n1),
+  "f-hogares": () => serieM("Parte de la demanda eléctrica de los hogares, por año", T.energia_hogares.map(r => [r.anio, r.pct_residencial]), pct),
+  "x-hogares-crec": () => serieM(`Demanda eléctrica de los hogares, índice ${T.energia_hogares[0].anio} = 100`, T.energia_hogares.map(r => [r.anio, r.idx_residencial]), n0),
+  "f-actividad": () => serieM(`Demanda eléctrica total, índice ${T.energia_hogares[0].anio} = 100`, T.energia_hogares.map(r => [r.anio, r.idx_demanda]), n0),
+  "x-demanda-total": () => serieM("Demanda eléctrica total por año, en gigavatios hora", T.energia_hogares.map(r => [r.anio, r.total]), n0),
+  "x-demanda-ytd": () => SERIE_CIFRA["x-demanda-total"](),
+  "f-meses": () => serieM("Demanda eléctrica por mes, en gigavatios hora", T.energia_estacionalidad.map(r => [MESES[r.mes - 1].slice(0, 3), r.gwh]), n0, 12, e.mes_max.slice(0, 3)),
+  "f-receptivo": () => serieM("Turistas no residentes por año, en millones", T.turistas_no_residentes_anual.map(r => [r.anio, r.turistas / 1e6]), n1),
+  "x-turistas-doce": () => SERIE_CIFRA["f-receptivo"](),
+  "f-hoteles": () => serieM("Viajeros en hoteles y parahoteles por año, en millones", T.viajeros_hoteles_anual.map(r => [r.anio, r.total / 1e6]), n1),
+  "x-hoteles-nr": () => serieM("Viajeros en hoteles que no residen en el país, en % del total", T.viajeros_hoteles_anual.map(r => [r.anio, r.no_residentes / r.total * 100]), pct),
+  "f-eti": () => provM("Turistas extranjeros cada 1.000 habitantes", T.turistas_extranjeros_provincias, "cada_1000", null, n1),
+  "f-protegida": () => provM("Territorio dentro de áreas protegidas, en %", T.areas_protegidas_provincias, "pct_territorio", nt.pct, pct),
+  "f-parques": () => serieM("Áreas protegidas nacionales, por año", T.parques_nacionales_historia.map(r => [r.anio, r.areas]), n0),
+  "f-visitas": () => serieM("Visitas a parques nacionales por año, en millones", T.visitas_parques_nacionales.map(r => [r.anio, r.total / 1e6]), n1),
+  "f-pesca": () => serieM("Pescados y mariscos desembarcados por año, en toneladas", T.desembarques_especies.map(r => [r.anio, r.Total]), n0),
+  "f-carne": () => serieM("Carne vacuna por habitante, en kilos por año", T.carne_vacuna.map(r => [r.anio, r.kg_por_habitante]), n1),
+  "f-vino": () => serieM("Vino vendido en el país, en millones de litros por año", T.vino_mercado_interno.map(r => [r.anio, r.millones_litros]), n0),
+  "f-yerba": () => serieM("Yerba mate que salió de los molinos, en millones de kilos por año", T.yerba_molino.map(r => [r.anio, r.millones_kg]), n1),
+  "f-clima": () => serieM("Desvío de la temperatura media anual respecto de la referencia del SMN, en °C", T.clima_desvio.map(r => [r.anio, r.desvio_temperatura]), grados, 10, cu.cl_max_anio),
+};
+// la tarjeta de una provincia elegida: sus 24 valores, con la provincia resaltada
+const miniIndp = i => { const c = INDP[i]; return c && provM(`${c.lab}: ${c.det}`, c.d, c.k, c.pais, c.f); };
+// el dibujo: barras de una serie (la de la tarjeta en amarillo, con su valor) o las 24 provincias ordenadas, con la línea del país
+function htmlMini(o) {
+  const W = 252, H = 92, top = 16, base = H - 16, esc2 = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
+  if (o.prov) {
+    // un punto por provincia, ordenadas de mayor a menor: sin barras, la escala no necesita empezar en cero y se ven las diferencias
+    // aunque los valores estén cerca (la esperanza de vida va de 72 a 79 años)
+    const d = [...o.prov].sort((a, b) => b.v - a.v), n = d.length, paso = (W - 12) / (n - 1);
+    const vs = d.map(x => x.v).concat(o.pais == null ? [] : [o.pais]), lo = d3.min(vs), hi = d3.max(vs), pad = (hi - lo) * .08 || 1;
+    const y = v => base - (v - lo + pad) / (hi - lo + 2 * pad) * (base - top);
+    const barras = d.map((x, i) => `<circle cx="${(6 + i * paso).toFixed(1)}" cy="${y(x.v).toFixed(1)}" r="${x.c === prov ? 4.5 : 3}" class="${x.c === prov ? "mini-hl" : "mini-b"}"/>`).join("");
+    const linea = o.pais == null ? "" : `<line x1="0" x2="${W}" y1="${y(o.pais).toFixed(1)}" y2="${y(o.pais).toFixed(1)}" class="mini-pais"/>`;
+    const elegida = prov && d.find(x => x.c === prov);
+    const pie = `Más alto: ${esc2(NOMBRES[d[0].c])} (${o.f(d[0].v)}). Más bajo: ${esc2(NOMBRES[d[n - 1].c])} (${o.f(d[n - 1].v)}).` +
+      (o.pais != null ? ` País: ${o.f(o.pais)}${linea ? ", la línea punteada" : ""}.` : "") + (elegida ? ` En amarillo, ${esc2(NOMBRES[prov])} (${o.f(elegida.v)}).` : "");
+    return `<span class="mini-tit">${esc2(o.tit)}. Las 24 provincias, de mayor a menor</span><svg class="mini" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">${barras}${linea}</svg><span class="mini-pie">${pie}</span>`;
+  }
+  const d = o.d, n = d.length, g = 4, bw = (W - g * (n - 1)) / n, hi = o.hl != null ? Math.max(0, d.findIndex(x => String(x[0]) === String(o.hl))) : n - 1;
+  const max = Math.max(0, d3.max(d, x => x[1])), min = Math.min(0, d3.min(d, x => x[1])), y = v => base - (v - min) / (max - min || 1) * (base - top);
+  const barras = d.map((x, i) => `<rect x="${(i * (bw + g)).toFixed(1)}" y="${Math.min(y(x[1]), y(0)).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(1, Math.abs(y(x[1]) - y(0))).toFixed(1)}" rx="2" class="${i === hi ? "mini-hl" : "mini-b"}"/>`).join("");
+  const cx = hi * (bw + g) + bw / 2, ancla = cx < 40 ? "start" : cx > W - 40 ? "end" : "middle";
+  const valor = `<text x="${(ancla === "start" ? hi * (bw + g) : ancla === "end" ? hi * (bw + g) + bw : cx).toFixed(1)}" y="${(Math.min(y(d[hi][1]), y(0)) - 4).toFixed(1)}" text-anchor="${ancla}" class="mini-v">${esc2(o.f(d[hi][1]))}</text>`;
+  const cero = min < 0 ? `<line x1="0" x2="${W}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}" class="mini-cero"/>` : "";
+  const rotulos = `<text x="0" y="${H - 2}" class="mini-x">${esc2(d[0][0])}</text><text x="${W}" y="${H - 2}" text-anchor="end" class="mini-x">${esc2(d[n - 1][0])}</text>`;
+  return `<span class="mini-tit">${esc2(o.tit)}</span><svg class="mini" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">${cero}${barras}${valor}${rotulos}</svg>`;
+}
+(() => {
+  const PUNTERO = matchMedia("(hover: hover) and (pointer: fine)");
+  let actual = null;
+  const datoDe = c => { const k = c.dataset.k || ""; return k.startsWith("p:") ? miniIndp(+k.slice(2)) : SERIE_CIFRA[k]?.(); };
+  const ver = c => {
+    const o = datoDe(c); if (!o || (o.prov ? o.prov.length < 4 : o.d.length < 3)) return;
+    tip.innerHTML = htmlMini(o); tip.classList.add("tip-cifra", "on"); actual = c; c.setAttribute("aria-describedby", "tip");
+    const r = c.getBoundingClientRect(), pr = document.body.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+    // arriba de la tarjeta, o debajo si arriba no entra (la barra fija ocupa los primeros 72 píxeles)
+    const arriba = r.top - th - 12 > 88;
+    tip.classList.toggle("abajo", !arriba);
+    tip.style.left = Math.max(8, Math.min(r.left - pr.left + r.width / 2 - tw / 2, document.documentElement.clientWidth - tw - 8)) + "px";
+    tip.style.top = (arriba ? r.top - pr.top - th - 10 : r.bottom - pr.top + 10) + "px";
+  };
+  const ocultar = () => { if (!actual) return; actual.removeAttribute("aria-describedby"); actual = null; tip.classList.remove("on"); };
+  const tarjeta = ev => ev.target.closest?.(".en-cifras .cifra");
+  document.addEventListener("pointerover", ev => { const c = tarjeta(ev); if (c && c !== actual && ev.pointerType === "mouse" && PUNTERO.matches) ver(c); });
+  document.addEventListener("pointerout", ev => { const c = tarjeta(ev); if (c && c === actual && !c.contains(ev.relatedTarget)) ocultar(); });
+  document.addEventListener("focusin", ev => { const c = tarjeta(ev); if (c) ver(c); });
+  document.addEventListener("focusout", ev => { if (tarjeta(ev)) ocultar(); });
+  document.addEventListener("keydown", ev => { if (ev.key === "Escape") ocultar(); });
+  // al bajar por la página el cuadro se cierra, salvo que la tarjeta tenga el foco del teclado (el navegador corre la página al darle
+  // el foco para que no quede debajo de la barra): ahí el cuadro se reacomoda
+  let cuadro = 0;
+  addEventListener("scroll", () => {
+    if (!actual) return;
+    if (actual !== document.activeElement) return ocultar();
+    cancelAnimationFrame(cuadro); cuadro = requestAnimationFrame(() => actual && ver(actual));
+  }, {passive: true});
+})();
 if (PAGINA !== "inicio") {
   pintarCifras(); alCambiarProv.push(pintarCifras);
   // en el celular, la fila de secciones (la escribe el constructor) se desliza hasta la actual

@@ -1011,6 +1011,18 @@ html:not(.js) .esqueleto{display:none}
   pointer-events:none;opacity:0;transform:translateY(4px) scale(.96);transform-origin:50% 100%;transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .tip.on{opacity:1;transform:none}
 .tip .tip-pais{opacity:.82}
+/* minigráfico de las tarjetas de "En cifras" (etapa 16): el mismo cuadro, más ancho, arriba de la tarjeta o debajo si no entra */
+.tip.tip-cifra{width:276px;padding:10px 12px;white-space:normal;transform-origin:50% 100%}
+.tip.tip-cifra.abajo{transform-origin:50% 0}
+.mini-tit{display:block;margin:0 0 8px;font:600 12px/1.35 var(--f)}
+.mini{display:block;overflow:visible}
+.mini .mini-b{fill:rgba(255,255,255,.55)}
+.mini .mini-hl{fill:var(--sol)}
+.mini .mini-pais{stroke:#fff;stroke-width:1.2;stroke-dasharray:3 3}
+.mini .mini-cero{stroke:rgba(255,255,255,.5);stroke-width:1}
+.mini .mini-v{fill:#fff;font:600 11px var(--mono)}
+.mini .mini-x{fill:rgba(255,255,255,.75);font:400 10px var(--mono)}
+.mini-pie{display:block;margin:8px 0 0;font:400 11px/1.4 var(--f);opacity:.88}
 /* tablas */
 .tabla-desliza{max-height:420px;overflow:auto;margin:var(--e-6) 0 var(--e-2);border:1px solid var(--line);border-radius:var(--r-interno)}
 .tabla-areas{width:100%;border-collapse:collapse;font-size:var(--t-3);font-variant-numeric:tabular-nums}
