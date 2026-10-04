@@ -955,6 +955,7 @@ OCDE_META = {
     "secundaria": ("SE.SEC.CMPT.LO.ZS", "la tasa de finalización del ciclo básico de la secundaria", "% de la población en edad de terminarlo", 1, "Instituto de Estadística de la UNESCO"),
     "internet": ("IT.NET.USER.ZS", "el uso de internet", "% de la población", 1, "Unión Internacional de Telecomunicaciones"),
     "credito_hogares": ("WS_TC", "el crédito a los hogares", "% del producto interno bruto", 1, "Banco de Pagos Internacionales"),
+    "eolica_solar": ("owid_energy", "la participación de la energía eólica y la solar", "% de la electricidad generada", 1, "Ember"),
 }
 # Crédito a los hogares (% del PBI) del Banco de Pagos Internacionales, al cuarto trimestre de cada año, para la ficha de créditos
 # hipotecarios (etapa 20). Publica 31 de los 38 miembros de la OCDE: el promedio es el de los que tienen dato.
@@ -970,10 +971,18 @@ def bis_hogares():
     return pd.DataFrame({"pais": b.pais.map(BIS_ISO3), "anio": b.periodo.str[:4].astype(int), "valor": b.pct_pbi})
 
 
-OCDE_FUENTE = {"credito_hogares": "Banco de Pagos Internacionales, crédito al sector privado no financiero (serie de crédito a los hogares)"}
-OCDE_VAR = {"credito_hogares": "bis_credito_hogares"}
+
+
+def ember_eolica_solar():  # participación de la eólica y la solar en la electricidad generada (Ember, vía Our World in Data), etapa 20
+    o = pd.read_csv(CRUDO / "owid_electricidad.csv")
+    return pd.DataFrame({"pais": o.pais, "anio": o.anio, "valor": o.eolica.fillna(0) + o.solar.fillna(0)})
+
+
+OCDE_FUENTE = {"credito_hogares": "Banco de Pagos Internacionales, crédito al sector privado no financiero (serie de crédito a los hogares)",
+               "eolica_solar": "Ember, datos anuales de electricidad, publicados por Our World in Data"}
+OCDE_VAR = {"credito_hogares": "bis_credito_hogares", "eolica_solar": "ember_eolica_solar"}
 OCDE_DERIVADO = {"turistas": lambda: por_habitante("ST.INT.ARVL", 100), "pesca": lambda: por_habitante("ER.FSH.CAPT.MT", 1000),
-                 "credito_hogares": bis_hogares}
+                 "credito_hogares": bis_hogares, "eolica_solar": ember_eolica_solar}
 ocde_filas, ocde_res = [], {}
 for k, (o_serie, frase, unidad, dec, origen) in OCDE_META.items():
     o_d = OCDE_DERIVADO[k]() if k in OCDE_DERIVADO else bm(o_serie)

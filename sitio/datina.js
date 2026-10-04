@@ -2436,11 +2436,12 @@ const OCDE_VISTA = {  // ficha: [gráfico, nombre de la vista propia, indicadore
   "f-receptivo": ["receptivo", "Turistas por año", ["turistas"]],
   "f-pesca": ["pesca", "Por especie", ["pesca"]],
   "f-hipotecas": ["hipotecas", "Créditos nuevos", ["credito_hogares"]],
+  "f-centrales": ["centrales", "Centrales y potencia", ["eolica_solar"]],
 };
 const OCDE_BOTON = {fecundidad: "Hijos por mujer", fecundidad_adolescente: "Fecundidad adolescente", gasto_salud: "Gasto en salud",
   secundaria: "Terminan el ciclo básico", suicidio: "Tasa estimada por la OMS", homicidios: "Homicidios", viales: "Siniestros viales",
   empleo: "Tasa de empleo", desocupacion: "Desocupación", pobreza_relativa: "Pobreza relativa", gini: "Gini", internet: "Uso de internet",
-  electricidad: "Electricidad por habitante", co2: "CO₂ por habitante", turistas: "Turistas por habitante", pesca: "Pesca por habitante", credito_hogares: "Crédito a los hogares"};
+  electricidad: "Electricidad por habitante", co2: "CO₂ por habitante", turistas: "Turistas por habitante", pesca: "Pesca por habitante", credito_hogares: "Crédito a los hogares", eolica_solar: "Eólica y solar en la generación"};
 const OCDE_Y0 = {esperanza_vida: 65, secundaria: 60, empleo: 40, internet: 0};
 const OCDE_NOTA = {
   pobreza_relativa: "Es una medida de pobreza relativa, la que usa la OCDE, distinta de la pobreza por canastas del INDEC. En la Argentina el Banco Mundial la calcula con la EPH, que cubre solo los aglomerados urbanos.",
@@ -2449,6 +2450,8 @@ const OCDE_NOTA = {
   internet: "Personas que usaron internet en los últimos tres meses, desde cualquier dispositivo.",
   pesca: "Toneladas de pesca de captura, marítima y continental, dividido por la población de cada país.",
   suicidio: "Estimaciones de la OMS ajustadas por edad, distintas de los registros del SNIC y de la DEIS que usa esta sección.",
+  eolica_solar: "Participación de la energía eólica y la solar en la electricidad generada en el año, no en la potencia instalada que muestra el resto de la ficha. " +
+    "Ember arma sus cifras con fuentes de cada país y pueden diferir de las de CAMMESA.",
   credito_hogares: `Préstamos de todos los sectores a las familias y a las instituciones sin fines de lucro que las sirven, como porcentaje del producto interno bruto, al cierre de cada año: ` +
     `incluye los créditos hipotecarios, los personales y los de tarjetas. El Banco de Pagos Internacionales publica este dato para ${OC.credito_hogares.n} de los 38 miembros de la OCDE, y el promedio es el de esos países.`,
   protegida: "Mide la superficie terrestre dentro de áreas protegidas sin contar dos veces las superposiciones, por eso difiere de la cifra nacional de esta ficha.",
@@ -2457,7 +2460,7 @@ const fOC = k => loc.format(`,.${OC[k].dec}f`);
 // un dato de la OCDE con más de tres años lleva una marca visible (en el botón y arriba de la nota)
 const ANIO_DATOS = +R.actualizado.slice(-4), ocdeViejo = k => OC[k].anio < ANIO_DATOS - 3;
 // "de la División de Población...", "del Grupo Interinstitucional...": el organismo que estima cada serie, con su artículo
-const deOrganismo = t => (/^(Grupo|Banco|Programa|Fondo|Sistema|Instituto)\b/.test(t) ? "del " : /^ONU\b/.test(t) ? "de " : "de la ") + t;
+const deOrganismo = t => (/^(Grupo|Banco|Programa|Fondo|Sistema|Instituto)\b/.test(t) ? "del " : /^(ONU|Ember)\b/.test(t) ? "de " : "de la ") + t;
 const conUnidad = (k, v) => OC[k].unidad.startsWith("%") ? fOC(k)(v) + OC[k].unidad : `${fOC(k)(v)} ${OC[k].unidad}`;
 function textoOCDE(k) {
   const o = OC[k], f = fOC(k);
@@ -2507,7 +2510,7 @@ Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
     ks.map(k => `<button type="button" class="boton chico${ocdeViejo(k) ? " viejo" : ""}" data-k="${k}" aria-pressed="false">OCDE: ${OCDE_BOTON[k]}, ${OC[k].anio}</button>`).join("") + `</div>`);
   graf.insertAdjacentHTML("afterend", `<p class="nota ocde-nota" hidden></p>`);
   const conm = ancla.previousElementSibling, nota = graf.nextElementSibling, lead = art.querySelector(".lead");
-  const propios = [...art.querySelectorAll(".sobre, .nota:not(.ocde-nota), .selector-ficha, .conmutador:not(.pestanas), .aviso-serie, .clave-color")];
+  const propios = [...art.querySelectorAll(".sobre, .nota:not(.ocde-nota), .selector-ficha, .conmutador:not(.pestanas), .aviso-serie, .clave-color, .pol-ley")];
   conm.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
     if (VISTA[g] === (b.dataset.k || null)) return;
     VISTA[g] = b.dataset.k || null;

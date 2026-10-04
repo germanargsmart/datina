@@ -923,6 +923,31 @@ def bis_credito_hogares():
     return url
 
 
+def owid_electricidad():
+    """Participación de la energía eólica, la solar y la baja en carbono en la electricidad generada, por país y año (Ember, publicado por
+    Our World in Data con licencia CC BY), para la comparación con la OCDE de la ficha de centrales (etapa 20). El archivo completo pesa
+    unos 9 MB: se guardan solo la Argentina y los miembros de la OCDE, y solo esas columnas (owid_electricidad.csv). Si el catálogo nuevo
+    de Our World in Data falla, se usa la copia anterior de GitHub, que nombra las columnas de otra manera."""
+    import io, pandas as pd
+    fuentes = [("https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv",
+                {"wind_electricity_share_pct": "eolica", "solar_electricity_share_pct": "solar", "low_carbon_electricity_share_pct": "baja_carbono"}),
+               ("https://raw.githubusercontent.com/owid/energy-data/master/owid-energy-data.csv",
+                {"wind_share_elec": "eolica", "solar_share_elec": "solar", "low_carbon_share_elec": "baja_carbono"})]
+    for url, cols in fuentes:
+        try:
+            d = pd.read_csv(io.BytesIO(leer(url, 300)), usecols=["iso_code", "year", *cols], low_memory=False)
+            break
+        except Exception as e:
+            print("  aviso: Our World in Data", url.split("/")[2], e)
+    else:
+        raise ValueError("no se pudo bajar la electricidad por país de Our World in Data")
+    d = d[d.iso_code.isin(["ARG", *OCDE])].rename(columns={"iso_code": "pais", "year": "anio", **cols}).dropna(subset=["eolica", "solar"], how="all")
+    if "ARG" not in set(d.pais) or d.pais.nunique() < 30 or d.anio.max() < datetime.date.today().year - 2:
+        raise ValueError("la electricidad por país de Our World in Data vino incompleta")
+    d.round(3).to_csv(CRUDO / "owid_electricidad.csv", index=False)
+    return url
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
@@ -932,7 +957,7 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("centrales de generación eléctrica", centrales_electricas), ("gas entregado por provincia (ENARGAS)", gas_entregado),
                     ("consumo de gas por medidor en Gran Bretaña (DESNZ)", gas_reino_unido),
                     ("permisos de edificación (INDEC)", permisos_edificacion), ("créditos hipotecarios UVA (BCRA)", hipotecas_uva),
-                    ("crédito a los hogares por país (BIS)", bis_credito_hogares)]:
+                    ("crédito a los hogares por país (BIS)", bis_credito_hogares), ("electricidad por país (Ember, vía Our World in Data)", owid_electricidad)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
