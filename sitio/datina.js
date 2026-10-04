@@ -4830,7 +4830,8 @@ const ART_SERIE = [{
       `con reales. Frente al mismo mes del año anterior, la correlación entre lo que cambió ese tipo de cambio y lo que cambiaron las llegadas desde Brasil es de ` +
       `${rTxt(t.rs_brasil)}, una relación ${fz(t.rs_brasil)}. Con Chile es de ${rTxt(t.rs_chile)}, ${fz(t.rs_chile)}, y con Uruguay, de ${rTxt(t.rs_uruguay)}, ${fz(t.rs_uruguay)}.`;
     const lim = [`Los meses entre ${t.pand_ini} y ${t.pand_fin} quedaron fuera de las correlaciones principales: con las fronteras cerradas o con restricciones, ` +
-      "los viajes no dependían del dólar. También quedaron afuera los meses que se comparan con uno de ese período.",
+      "los viajes no dependían del dólar. También quedaron afuera los meses que se comparan con uno de ese período. La ventana sale de los datos: son los meses " +
+      "desde 2020 en que llegó menos de la mitad de los turistas que en el mismo mes de 2019, así que el mes en que empezaron a caer los viajes queda en las correlaciones.",
       "Son meses de una sola economía, y los meses seguidos no son casos independientes: una misma devaluación o una misma temporada pesa en varios a la vez.",
       "Una correlación no prueba que una cosa cause la otra. También cuentan los ingresos en cada país, los vuelos y los pasos de frontera, las temporadas y los feriados.",
       "El índice de tipo de cambio real usa los tipos de cambio oficiales. Entre fines de 2011 y fines de 2015, y entre septiembre de 2019 y abril de 2025, las " +
@@ -4894,7 +4895,7 @@ const ART_SERIE = [{
       "2015, y entre septiembre de 2019 y abril de 2025, las personas tuvieron límites para comprar dólares, y con otros tipos de cambio el precio en dólares de esos años sería más bajo.",
       "Es la mediana de los precios que declaran las estaciones de servicio de todo el país para la nafta súper: la mitad cobraba más y la otra mitad, menos. " +
       "No es el precio de una estación ni de una marca.",
-      "El Brent es un precio internacional de referencia, el del petróleo del Mar del Norte. Las refinerías del país no siempre pagan el petróleo a ese precio.",
+      "El Brent es un precio internacional de referencia, el del petróleo del Mar del Norte. El petróleo que procesan las refinerías del país puede tener otro precio.",
       "Una correlación no prueba que una cosa cause la otra, y los meses seguidos no son casos independientes: una misma devaluación pesa en varios a la vez.",
       "Los promedios de cada año cuentan solo los años completos."];
     return {respuesta, bajada, contexto, lim, secciones: [
