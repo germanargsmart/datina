@@ -337,9 +337,20 @@ const LEAD = {
       `El consumo más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
       `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}.`;
   },
-  // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes
+  // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes,
+  // y desde la etapa 22 año por año desde el primer año completo de la Resolución 1104/2004, en pesos del último año con deflactor
   combustibles: (p, v) => {
     const nom = p === "gasoil" ? "el gasoil" : "la nafta súper", nomDe = p === "gasoil" ? "del gasoil" : "de la nafta súper", alto = CB[p + "_alto"], bajo = CB[p + "_bajo"];
+    if (v === "anio") {
+      // el último año contra el más caro y el más barato, sin nombrar dos veces el mismo año
+      const a = CB.anual_ult, ini = CB.anual_ini, maxA = CB[p + "_anual_max_anio"], minA = CB[p + "_anual_min_anio"], ps = x => `${n0(x)} pesos`;
+      const ext = [maxA !== a ? `el año más caro fue ${maxA}, con ${ps(CB[p + "_anual_max"])} por litro` : "",
+        minA !== a ? `el más barato fue ${minA}, con ${ps(CB[p + "_anual_min"])}` : ""].filter(Boolean);
+      return `En ${a}, el litro ${nomDe} costó en promedio ${ps(CB[p + "_anual"])} en el surtidor (el promedio de la mediana de cada mes)` +
+        (a === maxA ? `, el precio más alto desde ${ini} en pesos de igual valor` : a === minA ? `, el precio más bajo desde ${ini} en pesos de igual valor` : "") + "." +
+        (ext.length ? ` En pesos de ${a}, ${ext.join(", y ")}.` : "") +
+        (ini !== maxA && ini !== minA ? ` En ${ini}, el primer año completo de la serie, costaba ${ps(CB[p + "_anual_real_ini"])}.` : "");
+    }
     // el máximo en pesos del último mes se nombra una sola vez: puede ser el primer mes, el último u otro
     const mx = CB[p + "_max_real_mes"];
     if (v === "mes") return `En pesos de ${CB.mes}, el precio mediano ${nomDe} en el surtidor pasó de ${n0(CB[p + "_ini_real"])} pesos por litro en ${CB.ini}` +
@@ -640,7 +651,9 @@ const TX = {
     `(Resolución 1104/2004): la mitad de las estaciones cobra más y la otra mitad, menos. Solo la venta al público en bocas de expendio con movimiento en el mes, y sin los precios ` +
     `que se alejan a menos de la mitad o a más del doble de la mediana del país, en su mayoría cargados divididos por mil. La nafta súper es la de 92 a 95 octanos y el gasoil, el de grado 2. ` +
     `Las estaciones declaran con demora: el último mes es el más reciente en el que declararon casi todas (${n0(CB.estaciones)} vendieron nafta súper al público en ${CB.mes}). ` +
-    `La serie mes a mes pasa los precios a pesos de ${CB.mes} con el índice de precios al consumidor del INDEC.`,
+    `La serie mes a mes pasa los precios a pesos de ${CB.mes} con el índice de precios al consumidor del INDEC. La serie año por año es el promedio de la mediana ` +
+    `de los doce meses de cada año, desde ${CB.anual_ini}, el primer año completo desde que rige la resolución, y pasa los precios a pesos de ${CB.anual_ult} con el deflactor ` +
+    `del producto interno bruto que publica el Banco Mundial, porque el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016.`,
   "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección ${R.anio_pob} del INDEC.`,
   "nombres-titulo": `Nombres más elegidos para los bebés, ${cu.nom_anio}`,
   nombres: `En ${cu.nom_anio} los nombres más inscriptos en el país fueron ${cu.nena} (${n0(cu.nena_n)}) para las nenas y ${cu.varon} (${n0(cu.varon_n)}) para los varones. En ${cu.nom_ini} habían sido ${cu.nena0} y ${cu.varon0}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
@@ -1914,6 +1927,15 @@ Object.assign(DIB, {
   combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
     const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
     let txt = LEAD.combustibles(p, MED["combustibles-vista"]);
+    if (MED["combustibles-vista"] === "anio") {
+      // el país y, con una provincia elegida, su línea (en pesos del último año)
+      const suya = fp ? new Map(T.combustibles_anual.filter(r => r.codigo_indec === prov).map(r => [r.anio, r[p + "_real"]])) : null;
+      if (fp && suya.has(CB.anual_ult)) txt += ` En ${fp.territorio}, ${n0(suya.get(CB.anual_ult))} pesos en ${CB.anual_ult}.`;
+      $t("combustibles").textContent = txt;
+      return lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: n0,
+        data: T.combustibles_anual.filter(r => r.codigo_indec === "00").map(r => ({anio: r.anio, pais: r[p + "_real"], prov: suya ? suya.get(r.anio) ?? null : null})),
+        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
+    }
     if (MED["combustibles-vista"] === "mes") {
       // el país y, con una provincia elegida, su línea
       const suya = fp ? new Map(T.combustibles_mensual.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r[p + "_real"]])) : null;

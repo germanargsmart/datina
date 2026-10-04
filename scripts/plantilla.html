@@ -727,15 +727,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-combustibles">
-      <h3>Precio de la nafta súper y del gasoil en el surtidor, por provincia, {{combustibles.anio_ini}} a {{combustibles.anio_ult}}</h3>
+      <h3>Precio de la nafta súper y del gasoil en el surtidor, {{combustibles.anual_ini}} a {{combustibles.anio_ult}}</h3>
       <p class="lead" data-t="combustibles"></p>
       <div class="conmutador" role="group" aria-label="Combustible" data-g="combustibles">
         <button type="button" data-m="nafta" aria-pressed="true">Nafta súper</button>
         <button type="button" data-m="gasoil" aria-pressed="false">Gasoil</button>
       </div>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="combustibles-vista" data-dib="combustibles">
+      <div class="conmutador" role="group" aria-label="Vista" data-g="combustibles-vista" data-dib="combustibles" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+        <button type="button" data-m="anio" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="combustibles" data-forma="barras"></div>
       <p class="nota" data-t="combustibles-nota"></p>

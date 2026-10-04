@@ -2687,6 +2687,34 @@ def _cb_ext(p):  # el país, la provincia más cara y la más barata, el cambio 
 
 CB_RES = {"mes": _mes_per(CB_ULT), "periodo": CB_ULT, "mes_antes": _mes_per(CB_ANT), "ini": _mes_per(cb_.periodo.min()),
           "anio_ini": int(cb_.periodo.min()[:4]), "anio_ult": int(CB_ULT[:4]), "estaciones": int(_cbeu.loc["00", "nafta"]), **_cb_ext("nafta"), **_cb_ext("gasoil")}
+# La serie larga (etapa 22): la mediana del país de cada mes desde diciembre de 2004, con los archivos anuales que resumió una sola vez
+# scripts/combustibles_historia.py (datos/manual/combustibles_2004_2023.csv), unida con la de 01_descargar.py (en los meses repetidos manda
+# la de 01). Por año, el promedio de las medianas de los doce meses, del país y de cada provincia, en pesos del último año con deflactor del
+# PBI (TR_ULT), como las transferencias: el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016. Solo
+# años completos.
+_cbh = pd.read_csv(RAIZ / "datos" / "manual" / "combustibles_2004_2023.csv")
+_cbl = pd.concat([pd.read_csv(CRUDO / "se_precios_combustibles.csv"), _cbh]).drop_duplicates(["periodo", "producto", "provincia"])
+_cbl = _cbl[_cbl.periodo <= CB_ULT]
+assert _cbl[_cbl.provincia.eq("TOTAL DEL PAIS")].groupby("producto").periodo.nunique().min() ==     (pd.Period(CB_ULT, "M") - pd.Period("2004-12", "M")).n + 1, "faltan meses en la serie larga de los precios de los combustibles"
+_cba_ = _cbl.assign(anio=_cbl.periodo.str[:4].astype(int), codigo_indec=_cbl.provincia.map(lambda t: "00" if t == "TOTAL DEL PAIS" else codigo(t)))
+assert _cba_.codigo_indec.notna().all(), "provincias sin código en la serie larga de los combustibles"
+_cba_ = _cba_.groupby(["anio", "codigo_indec", "producto"]).mediana.agg(["mean", "count"]).unstack()
+_cba_ = _cba_[(_cba_["count"] == 12).all(axis=1)]["mean"].reset_index()
+combustibles_anual = _cba_[_cba_.anio <= TR_ULT][["anio", "codigo_indec", "nafta", "gasoil"]].copy()
+for _cb_p in ("nafta", "gasoil"):
+    combustibles_anual[_cb_p + "_real"] = combustibles_anual[_cb_p] * defl[TR_ULT] / combustibles_anual.anio.map(defl)
+combustibles_anual = combustibles_anual.round(4)
+_cba_p = combustibles_anual[combustibles_anual.codigo_indec == "00"]
+assert combustibles_anual.notna().all().all() and _cba_p.anio.max() == TR_ULT and _cba_p.anio.diff().dropna().eq(1).all(),     "la serie anual de los combustibles tiene huecos o no llega al último año con deflactor"
+
+
+def _cb_anual(p):  # el último año, el primero y el más caro y el más barato, en pesos del último año
+    s = _cba_p.set_index("anio")[p + "_real"]
+    return {p + "_anual": float(_cba_p[p].iloc[-1]), p + "_anual_real_ini": float(s.iloc[0]),
+            p + "_anual_max_anio": int(s.idxmax()), p + "_anual_max": float(s.max()), p + "_anual_min_anio": int(s.idxmin()), p + "_anual_min": float(s.min())}
+
+
+CB_RES.update({"anual_ini": int(_cba_p.anio.min()), "anual_ult": int(_cba_p.anio.max()), **_cb_anual("nafta"), **_cb_anual("gasoil")})
 # Consumo eléctrico de los hogares por provincia (etapa 21): la demanda residencial que los distribuidores declaran al mercado eléctrico
 # mayorista (CAMMESA), por mes y provincia, desde 2014, por habitante: con las proyecciones del INDEC desde 2022 y con la población
 # implícita en las tasas del SNIC antes, como las otras series por provincia. CAMMESA registra a Edenor y Edesur en la provincia de
@@ -2751,8 +2779,12 @@ _el_tp = _el_a[_el_a.codigo_indec == "00"]
 agregar(_el_tp.assign(territorio="Argentina", periodo=_el_tp.anio.astype(str), valor=_el_tp.mwh / 1000)[["codigo_indec", "territorio", "periodo", "valor"]],
         "electricidad_residencial_gwh", "GWh por año", "CAMMESA, demanda mensual por provincia y tipo de usuario")
 
+_cbh = _cbh[_cbh.periodo < combustibles_mensual.periodo.min()]
+_cbh = _cbh.assign(codigo_indec=_cbh.provincia.map(lambda t: "00" if t == "TOTAL DEL PAIS" else codigo(t)))
+assert _cbh.codigo_indec.notna().all(), "provincias sin código en la serie larga de los combustibles"
+_cbh = _cbh.pivot_table(index=["periodo", "codigo_indec"], columns="producto", values="mediana").reset_index()
 for _cb_p, _cb_var in (("nafta", "precio_nafta_super_surtidor"), ("gasoil", "precio_gasoil_grado_2_surtidor")):
-    _cb_d = combustibles_mensual.rename(columns={_cb_p: "valor"})
+    _cb_d = pd.concat([_cbh, combustibles_mensual]).rename(columns={_cb_p: "valor"})
     agregar(_cb_d.assign(territorio=_cb_d.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]))[["codigo_indec", "territorio", "periodo", "valor"]],
             _cb_var, "pesos por litro, mediana de las estaciones", "Secretaria de Energia, precios en estaciones de servicio (Res. 1104/2004)")
 
@@ -3245,6 +3277,7 @@ tablas = {
     "subsidios_energia": subsidios_energia,
     "combustibles_provincias": combustibles_provincias,
     "combustibles_mensual": combustibles_mensual,
+    "combustibles_anual": combustibles_anual,
     "electricidad_provincias": electricidad_provincias,
     "electricidad_serie": electricidad_serie,
     "electricidad_mensual": electricidad_mensual,
