@@ -188,11 +188,11 @@ const cambioPct = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambió" : `${v 
 // millones de pesos en los gráficos, como en el resto del sitio: "4,09 M" en las barras y "2 M" en los ejes
 const millonesM = v => n2(v / 1e6) + " M", ejeM = v => v === 0 ? "0" : n1(v / 1e6) + " M";
 // nombres cortos de los tipos de delito, para el gráfico en el celular
-const CORTO_DEL = {"Otros delitos contra la propiedad": "Otros c. la propiedad", "Lesiones culposas en siniestros viales": "Lesiones en tránsito",
+const CORTO_DEL = {"Otros delitos contra la propiedad": "Otros contra la propiedad", "Lesiones culposas en siniestros viales": "Lesiones en tránsito",
   "Infracciones a la ley de estupefacientes": "Estupefacientes", "Delitos de otras leyes especiales": "Otras leyes especiales",
-  "Delitos contra la administración pública": "Administración pública", "Otros delitos contra las personas": "Otros c. las personas",
-  "Otros delitos contra la integridad sexual": "Otros delitos sexuales", "Abusos sexuales con acceso carnal": "Abusos c. acceso carnal",
-  "Delitos contra la seguridad pública": "Seguridad pública", "Otros delitos contra la libertad": "Otros c. la libertad",
+  "Delitos contra la administración pública": "Administración pública", "Otros delitos contra las personas": "Otros contra las personas",
+  "Otros delitos contra la integridad sexual": "Otros delitos sexuales", "Abusos sexuales con acceso carnal": "Abusos con acceso carnal",
+  "Delitos contra la seguridad pública": "Seguridad pública", "Otros delitos contra la libertad": "Otros contra la libertad",
   "Homicidios dolosos": "Homicidios dolosos", "Lesiones culposas por otros hechos": "Otras lesiones culposas",
   "Tentativas de homicidio doloso": "Tentativas de homicidio", "Muertes en siniestros viales": "Muertes en tránsito"};
 const deLas24 = n => n === 24 ? "en las 24 jurisdicciones" : n === 0 ? "en ninguna de las 24 jurisdicciones" : `en ${n} de las 24 jurisdicciones`;
