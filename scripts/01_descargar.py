@@ -964,7 +964,7 @@ def precios_combustibles(urls=None):
     trae los meses desde diciembre de 2024 y pesa unos 130 MB) se baja a memoria y se guarda un resumen por mes, provincia y producto
     (nafta súper y gasoil grado 2, venta al público en bocas de expendio con movimiento en el mes): cantidad de estaciones y mediana del
     precio en el surtidor, también la del país. Se descartan los precios a menos de la mitad o a más del doble de la mediana del país de su
-    mes y producto (un 0,3% de las filas, casi todas con el precio dividido por mil). Los meses que ya no trae el archivo vigente quedan del
+    mes y producto (un 0,3% de las filas, la mayoría con el precio dividido por mil). Los meses que ya no trae el archivo vigente quedan del
     resumen anterior: 2024 se sumó una sola vez desde su archivo anual (urls). Los archivos anuales llaman distinto a algunas columnas."""
     import io, pandas as pd
     if urls is None:
