@@ -15106,3 +15106,13 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 86,Santiago del Estero,2025,obra_publica_nacion_por_habitante,24694.65656800799,pesos de 2025 por habitante,"Presupuesto Abierto, Secretaría de Hacienda (crédito devengado)"
 90,Tucumán,2025,obra_publica_nacion_por_habitante,15268.636256763913,pesos de 2025 por habitante,"Presupuesto Abierto, Secretaría de Hacienda (crédito devengado)"
 94,Tierra del Fuego,2025,obra_publica_nacion_por_habitante,15137.230155546884,pesos de 2025 por habitante,"Presupuesto Abierto, Secretaría de Hacienda (crédito devengado)"
+00,Argentina,2016,subsidios_economicos_energia_pct_pbi,2.5425,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2017,subsidios_economicos_energia_pct_pbi,1.1787,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2018,subsidios_economicos_energia_pct_pbi,1.2064,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2019,subsidios_economicos_energia_pct_pbi,0.9933,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2020,subsidios_economicos_energia_pct_pbi,1.8094,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2021,subsidios_economicos_energia_pct_pbi,2.2735,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2022,subsidios_economicos_energia_pct_pbi,2.0009,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2023,subsidios_economicos_energia_pct_pbi,1.5219,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2024,subsidios_economicos_energia_pct_pbi,1.1096,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2025,subsidios_economicos_energia_pct_pbi,0.6718,% del PBI,Secretaria de Hacienda (IMIG) e INDEC

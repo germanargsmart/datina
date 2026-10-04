@@ -212,6 +212,11 @@ FUENTES.update({
     # Gas entregado a los usuarios residenciales de todo el país, millones de m³ por año (ENARGAS, vía API de Series de Tiempo): sirve
     # para controlar la suma de las provincias del cuadro I.10 (etapa 20)
     "gas_residencial_pais.csv": API + "364.1_RESIDENCIAIAL__11",
+    # Subsidios económicos a la energía por mes (Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional
+    # no Financiero, desde 2016) y producto interno bruto a precios corrientes (INDEC, trimestral: cada trimestre viene en valor anual, el
+    # promedio de los cuatro da el PBI del año, por ejemplo 715.904 millones en 2006, igual que el total anual), etapa 21
+    "subsidios_energia.csv": API + "452.2_ENERGIAGIA_0_T_7_56",
+    "pib_corriente.csv": API + "166.2_PPIB_0_0_3",
     # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
     "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
@@ -314,6 +319,8 @@ VALIDA.update({
     "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
     "potencia_instalada.csv": lambda b: b.startswith(b"indice_tiempo,potencia_instalada_total"),
     "gas_residencial_pais.csv": lambda b: b.startswith(b"indice_tiempo,residencial"),
+    "subsidios_energia.csv": lambda b: b.startswith(b"indice_tiempo,energia"),
+    "pib_corriente.csv": lambda b: b.startswith(b"indice_tiempo,pib"),
 })
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b

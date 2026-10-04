@@ -889,6 +889,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo</span><a href="datos/centrales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-subsidios">
+      <h3>Subsidios económicos a la energía, {{energia.sub_ini}} a {{energia.sub_ult}}</h3>
+      <p class="lead" data-t="subsidios"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="subsidios">
+        <button type="button" data-m="pbi" aria-pressed="true">Parte del PBI</button>
+        <button type="button" data-m="pesos" aria-pressed="false">En pesos de {{energia.sub_ult}}</button>
+      </div>
+      <div class="grafico" data-g="subsidios" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="nota" data-t="subsidios-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero, e INDEC, producto interno bruto a precios corrientes, vía API de Series de Tiempo</span><a href="datos/subsidios_energia.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <h3 class="bloque-grupo" id="g-petroleo">Petróleo y gas</h3>
 
     <article class="ficha" id="f-gas-hogares">

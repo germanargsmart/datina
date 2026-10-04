@@ -2471,10 +2471,12 @@ ministros_lista.to_csv(SITIO / "ministros_nacionales.csv", index=False)
 # Desde 2000, primer anio con los ATN asignados a cada provincia, hasta el ultimo anio completo.
 # Pesos del ultimo anio con el deflactor del PBI (INDEC, via Banco Mundial). Por habitante con las proyecciones del INDEC.
 trf = pd.read_csv(RAIZ / "datos" / "manual" / "transferencias_provincias.csv", dtype={"codigo_indec": str})
-TR_ULT = int(HOY.year - 1)
 defl = bm("NY.GDP.DEFL.ZS")
-defl = defl[defl.pais == "ARG"].set_index("anio").valor
-assert TR_ULT in defl.index and trf.anio.max() >= TR_ULT
+defl = defl[defl.pais == "ARG"].set_index("anio").valor.dropna()
+# el último año completo, salvo que todavía no esté su deflactor (el Banco Mundial lo publica a mitad del año siguiente): sin esto, en
+# enero la actualización se cortaba al no encontrar el deflactor del año que acaba de terminar
+TR_ULT = int(min(HOY.year - 1, defl.index.max()))
+assert trf.anio.max() >= TR_ULT
 trf = trf[(trf.anio >= 2000) & (trf.anio <= TR_ULT)].copy()
 trf["real"] = trf.millones_corrientes * defl[TR_ULT] / trf.anio.map(defl)  # millones de pesos del ultimo anio
 _hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
@@ -2605,6 +2607,43 @@ HIP_RES = {
     "hip_anual_max_anio": int(_hip_a.idxmax()), "hip_anual_max": r1(_hip_a.max()),
     "hip_anual_min_anio": int(_hip_a.idxmin()), "hip_anual_min": r1(_hip_a.min()),
 }
+
+# Subsidios económicos a la energía (etapa 21): la serie mensual del Informe Mensual de Ingresos y Gastos del Sector Público Nacional no
+# Financiero de la Secretaría de Hacienda (base caja, millones de pesos), desde 2016. Por año, en pesos del último año completo con el
+# deflactor del PBI, como las transferencias, y como porcentaje del PBI a precios corrientes del INDEC (el promedio de sus cuatro
+# trimestres, que vienen en valor anual). Lo que va del año, en pesos del último mes con el IPC nacional. Se usa la serie oficial tal cual:
+# el sitio no arma su propia definición de subsidio.
+sub_ = pd.read_csv(CRUDO / "subsidios_energia.csv").dropna()
+sub_["periodo"] = sub_.indice_tiempo.str[:7]
+sub_["anio"] = sub_.periodo.str[:4].astype(int)
+_sub_n = sub_.groupby("anio").periodo.nunique()
+SUB_ULT = int(min(_sub_n[_sub_n == 12].index.max(), defl.index.max()))
+_pib_ = pd.read_csv(CRUDO / "pib_corriente.csv").dropna()
+_pib_["anio"] = _pib_.indice_tiempo.str[:4].astype(int)
+_pib_a = _pib_.groupby("anio").pib.agg(["mean", "size"])
+_pib_a = _pib_a[_pib_a["size"] == 4]["mean"]  # millones de pesos de cada año completo
+_sub_a = sub_[sub_.anio <= SUB_ULT].groupby("anio").energia.sum()
+subsidios_energia = pd.DataFrame({"anio": _sub_a.index, "millones_corrientes": _sub_a.values,
+                                  "miles_millones_reales": (_sub_a * defl[SUB_ULT] / _sub_a.index.map(defl) / 1000).values,
+                                  "pct_pbi": (_sub_a / _sub_a.index.map(_pib_a) * 100).values}).round(4)
+_sub_r = subsidios_energia.set_index("anio")
+_sub_p = _sub_r.pct_pbi.dropna()
+assert len(_sub_p) >= 5, "faltan años con el PBI para los subsidios a la energía"
+# lo que va del año en pesos del último mes con IPC, contra los mismos meses del año anterior
+_sm = sub_[sub_.periodo.isin(_hip_ipc.index)]
+_sm_ult = _sm.periodo.max()
+_sub_ytd = en_lo_que_va(_sm.periodo + "-01", _sm.energia * _hip_ipc[_sm_ult] / _sm.periodo.map(_hip_ipc))
+SUB_RES = {
+    "sub_ini": int(_sub_a.index.min()), "sub_ult": SUB_ULT, "sub_ult_real": float(_sub_r.miles_millones_reales[SUB_ULT]),
+    "sub_ult_millones": float(_sub_a[SUB_ULT]), "sub_mes": _mes_per(sub_.periodo.max()),
+    "sub_pbi_anio": int(_sub_p.index.max()), "sub_pbi": float(_sub_p.iloc[-1]),
+    "sub_pbi_max_anio": int(_sub_p.idxmax()), "sub_pbi_max": float(_sub_p.max()), "sub_pbi_min_anio": int(_sub_p.idxmin()), "sub_pbi_min": float(_sub_p.min()),
+    "sub_real_max_anio": int(_sub_r.miles_millones_reales.idxmax()), "sub_real_max": float(_sub_r.miles_millones_reales.max()),
+    "sub_real_min_anio": int(_sub_r.miles_millones_reales.idxmin()), "sub_real_min": float(_sub_r.miles_millones_reales.min()),
+    "sub_ytd": {**_sub_ytd, "millones": float(sub_[(sub_.anio == _sub_ytd["anio"]) & (sub_.periodo <= _sm_ult)].energia.sum())} if _sub_ytd["anio"] > SUB_ULT else None,
+}
+agregar(subsidios_energia.rename(columns={"anio": "periodo", "pct_pbi": "valor"}).dropna(subset=["valor"]).assign(codigo_indec="00", territorio="Argentina"),
+        "subsidios_economicos_energia_pct_pbi", "% del PBI", "Secretaria de Hacienda (IMIG) e INDEC")
 
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
@@ -3092,6 +3131,7 @@ tablas = {
     "obra_publica_serie": obra_publica_serie,
     "permisos_mensual": permisos_mensual,
     "hipotecas_mensual": hipotecas_mensual,
+    "subsidios_energia": subsidios_energia,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -3137,6 +3177,8 @@ resumen = {
         "pot_pct_renov_ini": r1((POT_I.eolica + POT_I.solar) / POT_I.total * 100), "pot_pct_renov_ult": r1((POT_U.eolica + POT_U.solar) / POT_U.total * 100),
         # consumo de gas por usuario residencial (ENARGAS) y la referencia de Gran Bretaña
         **GAS_RES,
+        # subsidios económicos a la energía (Secretaría de Hacienda)
+        **SUB_RES,
     },
     "nacimientos": {
         "anio_ini": int(nac_df.iloc[0].anio), "anio_ult": int(n24.anio),

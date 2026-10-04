@@ -2197,6 +2197,37 @@
     ]
    },
    {
+    "titulo": "Los subsidios a la energía",
+    "texto": "La Secretaría de Hacienda publica cada mes los ingresos y gastos del Sector Público Nacional no Financiero en base caja, y entre los gastos corrientes primarios separa los subsidios económicos a la energía. La ficha usa esa serie tal como la publica Hacienda, sin una definición propia de subsidio, y la compara con el producto interno bruto a precios corrientes del INDEC. La Oficina de Presupuesto del Congreso también sigue estos subsidios, pero considera los gastos en la etapa del devengado, y por eso sus cifras pueden no coincidir con las de Hacienda.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos (API de Series de Tiempo)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=452.2_ENERGIAGIA_0_T_7_56&metadata=full&limit=1&format=json",
+      "cita": "IMIG. Gastos primarios. Gastos corrientes primarios. Subsidios económicos. Energía"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos (API de Series de Tiempo)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=452.2_ENERGIAGIA_0_T_7_56&metadata=full&limit=1&format=json",
+      "cita": "Informe Mensual de Ingresos y Gastos del Sector Público Nacional No Financiero"
+     },
+     {
+      "nombre": "Ministerio de Economía, resultado fiscal del Sector Público Nacional de agosto de 2026",
+      "url": "https://www.argentina.gob.ar/noticias/en-agosto-el-sector-publico-nacional-mantuvo-el-resultado-financiero-superavitario-635529-0",
+      "cita": "Base Caja - En millones de pesos"
+     },
+     {
+      "nombre": "INDEC, producto interno bruto a precios corrientes (API de Series de Tiempo)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=166.2_PPIB_0_0_3&metadata=full&limit=1&format=json",
+      "cita": "Millones de pesos a precios corrientes"
+     },
+     {
+      "nombre": "Oficina de Presupuesto del Congreso, metodología",
+      "url": "https://opc.gob.ar/download/48280/",
+      "cita": "Para los gastos se considera la etapa del devengado"
+     }
+    ]
+   },
+   {
     "titulo": "El gas en los hogares",
     "texto": "El consumo por usuario divide el gas que las distribuidoras entregan en el año a sus usuarios residenciales por la cantidad promedio de esos usuarios, según los datos operativos del ENARGAS. Es el gas entregado, que no coincide con el que se factura cada mes. El ENARGAS cuenta clientes y no medidores ni hogares, y entre los usuarios residenciales están las calderas centrales de los edificios de departamentos, cada una como un solo usuario. Los usuarios de las subdistribuidoras, que conectan a un grupo de usuarios con la red de una distribuidora, no figuran. Al comparar provincias hay que tener en cuenta el clima y también la tarifa. La ley 25.565 creó un fondo que compensa las tarifas diferenciales de los usuarios residenciales de la Región Patagónica, el departamento de Malargüe y la Puna (el régimen de zona fría), y en 2021 la ley 27.637 lo prorrogó hasta 2031 y lo amplió a otras zonas frías. Como referencia de otro país, el gobierno del Reino Unido publica el consumo medio de gas por medidor residencial en Gran Bretaña, corregido por el clima.",
     "fuentes": [

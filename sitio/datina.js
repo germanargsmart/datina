@@ -319,6 +319,20 @@ const LEAD = {
     `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
     `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
     (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
+  // subsidios económicos a la energía (etapa 21): la serie oficial de la Secretaría de Hacienda
+  subsidios: v => {
+    const pbi = x => n2(x) + "%", y = e.sub_ytd;
+    const ytd = y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} sumaron un ${pct(Math.abs(y.var))} ${y.var < 0 ? "menos" : "más"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor.` : "";
+    // el año del dato contra el máximo y el mínimo de la serie, sin repetir un año que ya se nombró
+    const ext = (a, maxA, maxV, minA, minV, f) => (a === minA ? `, el valor más bajo de la serie, que empieza en ${e.sub_ini}` : a === maxA ? `, el valor más alto de la serie, que empieza en ${e.sub_ini}` : "") + "." +
+      (maxA !== a ? ` El más alto fue el de ${maxA}${maxA === e.sub_ini ? ", el primer año" : ""}, con ${f(maxV)}` + (minA !== a ? `, y el más bajo, el de ${minA}, con ${f(minV)}.` : ".")
+        : minA !== a ? ` El más bajo fue el de ${minA}, con ${f(minV)}.` : "");
+    return v === "pesos"
+      ? `En pesos de ${e.sub_ult}, los subsidios económicos a la energía que registra la Secretaría de Hacienda sumaron ${n0(e.sub_ult_real)} miles de millones en ${e.sub_ult}` +
+        ext(e.sub_ult, e.sub_real_max_anio, e.sub_real_max, e.sub_real_min_anio, e.sub_real_min, x => n0(x) + " miles de millones") + ytd
+      : `En ${e.sub_pbi_anio}, los subsidios económicos a la energía que registra la Secretaría de Hacienda fueron el ${pbi(e.sub_pbi)} del producto interno bruto` +
+        ext(e.sub_pbi_anio, e.sub_pbi_max_anio, e.sub_pbi_max, e.sub_pbi_min_anio, e.sub_pbi_min, x => "el " + pbi(x)) + ytd;
+  },
   "gas-consumo": v => {
     if (v === "mes") return `Entre ${e.gas_est_desde} y ${e.gas_est_hasta}, un usuario residencial consumió en promedio ${n0(e.gas_mes_max_m3)} metros cúbicos de gas en ${e.gas_mes_max} ` +
       `y ${n0(e.gas_mes_min_m3)} en ${e.gas_mes_min}: ${n1(e.gas_mes_max_m3 / e.gas_mes_min_m3)} veces más en el mes de mayor consumo.` +
@@ -417,6 +431,10 @@ const TX = {
     `${n0(e.cen_sin_pot)} centrales que no la informan (${n0(e.cen_mem_sin_pot)} de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma ` +
     `por provincia. La potencia del país es la que publica CAMMESA para cada año, por tecnología: la térmica reúne ciclos combinados, turbinas a gas, turbinas de vapor y motores diésel, ` +
     `y la hidráulica incluye las centrales de menos de 50 megavatios.`,
+  subsidios: LEAD.subsidios("pbi"), "subsidios-nota": `Gasto corriente en subsidios económicos a la energía del Sector Público Nacional no Financiero, en base caja, ` +
+    `según el Informe Mensual de Ingresos y Gastos que la Secretaría de Hacienda publica desde ${e.sub_ini}. Es la serie oficial tal como la publica Hacienda: el sitio no arma su propia definición de subsidio. ` +
+    `El PBI es el del INDEC a precios corrientes. Los pesos de ${e.sub_ult} usan el deflactor del PBI, y la comparación de lo que va del año, el índice de precios al consumidor del INDEC. ` +
+    `La Oficina de Presupuesto del Congreso sigue los subsidios con otro criterio (cuenta los gastos devengados de la Administración Nacional), y sus cifras pueden diferir.`,
   "mapa-pozos": LEAD["mapa-pozos"]("cuenca"),
   "mapa-pozos-nota": `Cada punto es un pozo no convencional que produjo petróleo o gas alguna vez, según la producción por pozo del Capítulo IV, en la ubicación que informa ` +
     `la Secretaría de Energía (en unos pocos pozos la latitud y la longitud vienen cambiadas y se corrigen). El color dice el año en que empezó a producir, y los que no produjeron en ` +
@@ -1595,7 +1613,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1816,6 +1834,13 @@ Object.assign(DIB, {
     columnasApiladas(G("centrales"), {anim: a, claves: TEC_CEN, cadaTick: 3, vf: n0, af: v => v >= 1000 ? n0(v / 1000) + " mil" : n0(v), l: 46,
       unidad: "megavatios", data: T.potencia_instalada});
   }),
+  subsidios: a => {
+    const pbi = MED.subsidios === "pbi";
+    $t("subsidios").textContent = LEAD.subsidios(MED.subsidios);
+    columnasApiladas(G("subsidios"), {anim: a, cadaTick: 2, l: 44, data: pbi ? T.subsidios_energia.filter(r => r.pct_pbi != null) : T.subsidios_energia,
+      vf: pbi ? v => n2(v) + "%" : n0, af: pbi ? v => n1(v) + "%" : n0, unidad: pbi ? "del PBI" : `miles de millones de pesos de ${e.sub_ult}`,
+      claves: [{k: pbi ? "pct_pbi" : "miles_millones_reales", lab: "Subsidios a la energía", c: NAR}]});
+  },
   "balanza-energetica": a => lineas(G("balanza-energetica"), {anim: a, data: T.balanza_energetica, x: "anio", ref: 0,
     series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--ink"), w: 1.8, dash: "4 3"}],
     y0: Math.min(0, d3.min(T.balanza_energetica, r => r.saldo)), vf: n0, yf: n0}),
@@ -3289,6 +3314,7 @@ const CLAVE = {
     (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : "")],
   "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`],
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
+  "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
   "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
   "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
   "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
@@ -3929,6 +3955,8 @@ const PREG = [
    `El ${pct(VV.pct_gas_red)} en el Censo 2022. ` + (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100.` : ""), "#f-gas-hogares"],
   ["¿Cuánto prestan los bancos para comprar una vivienda?",
    `${n0(CN.hip_ult)} mil millones de pesos en créditos hipotecarios UVA en ${CN.hip_mes}. En todo ${CN.hip_anio}, ${n0(CN.hip_anual)} mil millones, contra ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, en pesos de igual valor.`, "#f-hipotecas"],
+  ["¿Cuánto se destina a subsidiar la energía?",
+   `Según la Secretaría de Hacienda, en ${e.sub_pbi_anio} los subsidios económicos a la energía fueron el ${n2(e.sub_pbi)}% del producto interno bruto. En ${e.sub_pbi_max_anio}, el ${n2(e.sub_pbi_max)}%.`, "#f-subsidios"],
   ["¿Cuánto gas consume por año un usuario residencial?",
    `${n0(e.gas_pais)} metros cúbicos en promedio en ${e.gas_anio}. En ${e.gas_top[0][0]}, ${n0(e.gas_top[0][1])}, ${veces(e.gas_top[0][1], e.gas_pais)} veces el promedio del país.`, "#f-gas-consumo"],
   ["¿Cuántos hogares alquilan su vivienda?",
