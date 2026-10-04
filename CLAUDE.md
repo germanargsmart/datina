@@ -343,6 +343,7 @@ El 4 de octubre de 2026 el autor pidió seguir con las etapas, "subir consumo po
 - La energía eólica y solar en la generación frente a la OCDE, en `f-centrales` (Ember).
 - Quedaron para la etapa 21: una vista por área de concesión o yacimiento (como Norsk Petroleum), las frases de "veces el promedio del país" en más textos y en el perfil provincial, los subsidios a la energía (la serie la tendría que armar el sitio con el Presupuesto Abierto y es un tema delicado), los precios de los combustibles por provincia y el consumo eléctrico por usuario y provincia (la base mensual de CAMMESA existe pero se baja con JavaScript). No se adoptaron, por ser cambios de diseño, un selector de medida en las fichas de producción y potencia ni un formato corto de artículos.
 - Largo: Energía tiene 20 fichas y Construcción y vivienda, 9.
+- "Para entender los datos": Energía queda con 13 bloques y un glosario de 20 términos (se sumó "El gas en los hogares"), Construcción y vivienda con 8 bloques y 13 términos (obra pública, permisos y crédito hipotecario) y Departamentos con el censo como tercera fuente.
 
 ## Ronda de iteración por etapas (octubre de 2026, pedido del autor)
 
