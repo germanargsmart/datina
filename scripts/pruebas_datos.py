@@ -34,6 +34,7 @@ ACEPTADAS = {
     "mediana|turistas_extranjeros_provincias.cada_1000|02": "la Encuesta de Turismo Internacional solo cuenta a quienes salen por Ezeiza y Aeroparque: favorece a la Ciudad y a los destinos con vuelos internacionales (lo dice la nota)",
     "mediana|turistas_extranjeros_provincias.cada_1000|54": "ídem", "mediana|turistas_extranjeros_provincias.cada_1000|62": "ídem",
     "mediana|turistas_extranjeros_provincias.cada_1000|78": "ídem", "mediana|turistas_extranjeros_provincias.cada_1000|94": "ídem",
+    "mediana|electricidad_industrial_por_habitante.valor|26": "real: casi toda la demanda industrial de Chubut es de grandes usuarios del mercado mayorista que CAMMESA registra en la provincia (lo dice la nota)",
     "mediana|cruces_provincias.densidad|02": "la Ciudad es un distrito urbano: su densidad es real", "mediana|cruces_provincias.densidad|06": "real: incluye el conurbano",
     "mediana|cruces_provincias.densidad|90": "real: Tucumán es la provincia más chica del continente",
     "mediana|exportaciones_provincias.usd_por_habitante|58": "real: petróleo y gas de Vaca Muerta", "mediana|exportaciones_provincias.usd_por_habitante|78": "real: minería y petróleo",

@@ -2772,6 +2772,48 @@ ELEC_RES = {
     "el_est_desde": EL_ULT - 2, "el_mes_max": MES[int(_el_cal.idxmax()) - 1], "el_mes_max_kwh": float(_el_cal.max()),
     "el_mes_min": MES[int(_el_cal.idxmin()) - 1], "el_mes_min_kwh": float(_el_cal.min()),
 }
+# Demanda eléctrica de comercios e industrias por provincia (etapa 23): las otras dos categorías de tarifa del mismo archivo de CAMMESA, por
+# habitante como la de los hogares. "Comercial" reúne a los usuarios no residenciales de las distribuidoras de menos de 300 kW (comercios,
+# servicios, pequeñas industrias, clubes) y el alumbrado público, e "Industrial/Comercial Grande", a las demandas de 300 kW o más: las que
+# abastecen las distribuidoras (GUDI) y los grandes usuarios que compran en el mercado mayorista (GUMA y GUME), que CAMMESA registra en la
+# provincia donde consumen. La Ciudad y la provincia de Buenos Aires van juntas y no hay datos de Tierra del Fuego, como en los hogares.
+_els_cat = {"Residencial": "res", "Comercial": "com", "Industrial/Comercial Grande": "ind"}
+assert set(el_.categoria) == set(_els_cat), f"CAMMESA cambió las categorías de tarifa: {sorted(set(el_.categoria))}"
+_els_a = {k: _el_por_hab(el_[(el_.categoria == c) & (el_.anio <= EL_ULT)], "anio") for c, k in _els_cat.items()}
+_els_u = pd.DataFrame({k: v[v.anio == EL_ULT].set_index("codigo_indec").kwh_hab for k, v in _els_a.items()})
+_els_g = pd.DataFrame({k: v[v.anio == EL_ULT].set_index("codigo_indec").mwh / 1000 for k, v in _els_a.items()})
+electricidad_sectores = pd.DataFrame({"codigo_indec": _els_u.index, "territorio": [EL_NOM(c) for c in _els_u.index]})
+for _els_k in ("res", "com", "ind"):
+    electricidad_sectores["kwh_hab_" + _els_k] = _els_u[_els_k].values
+    electricidad_sectores["pct_" + _els_k] = (_els_g[_els_k] / _els_g.sum(axis=1) * 100).values
+electricidad_sectores["gwh"] = _els_g.sum(axis=1).values
+electricidad_sectores = electricidad_sectores.round(4).sort_values("kwh_hab_ind", ascending=False)
+assert len(electricidad_sectores) == 23 and electricidad_sectores.notna().all().all(), "faltan provincias en la demanda por categoría de CAMMESA"
+# la demanda de cada categoría en el país por año, en GWh (el texto compara el primer año con el último)
+electricidad_sectores_serie = pd.DataFrame({"anio": sorted(_els_a["res"].anio.unique())})
+for _els_k, _els_v in _els_a.items():
+    electricidad_sectores_serie["gwh_" + _els_k] = electricidad_sectores_serie.anio.map(_els_v[_els_v.codigo_indec == "00"].set_index("anio").mwh / 1000)
+electricidad_sectores_serie = electricidad_sectores_serie.round(4)
+_els_p = electricidad_sectores[electricidad_sectores.codigo_indec != "00"]
+_els_0 = electricidad_sectores.set_index("codigo_indec").loc["00"]
+_els_s = electricidad_sectores_serie.set_index("anio")
+_els_x = lambda d, k: [d.iloc[0].territorio, float(d.iloc[0][k])]  # territorio y valor de la primera fila
+ELS_RES = {
+    "els_ind": float(_els_0.kwh_hab_ind), "els_com": float(_els_0.kwh_hab_com),
+    "els_pct": {k: r1(float(_els_0["pct_" + k])) for k in ("res", "com", "ind")},
+    "els_ind_top": _els_x(_els_p.sort_values("kwh_hab_ind", ascending=False), "kwh_hab_ind"),
+    "els_ind_bajo": _els_x(_els_p.sort_values("kwh_hab_ind"), "kwh_hab_ind"),
+    "els_com_top": _els_x(_els_p.sort_values("kwh_hab_com", ascending=False), "kwh_hab_com"),
+    "els_com_bajo": _els_x(_els_p.sort_values("kwh_hab_com"), "kwh_hab_com"),
+    "els_pct_ind_top": [_els_p.sort_values("pct_ind").iloc[-1].territorio, r1(float(_els_p.pct_ind.max()))],
+    "els_pct_ind_bajo": [_els_p.sort_values("pct_ind").iloc[0].territorio, r1(float(_els_p.pct_ind.min()))],
+    "els_gwh_ini": {k: float(_els_s["gwh_" + k].iloc[0]) for k in ("res", "com", "ind")},
+    "els_gwh_ult": {k: float(_els_s["gwh_" + k].iloc[-1]) for k in ("res", "com", "ind")},
+}
+for _els_k, _els_var in (("com", "electricidad_comercial_por_habitante"), ("ind", "electricidad_industrial_por_habitante")):
+    _els_t = _els_a[_els_k][_els_a[_els_k].codigo_indec != EL_BA]
+    agregar(_els_t.assign(territorio=_els_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), periodo=_els_t.anio.astype(str), valor=_els_t.kwh_hab)[
+        ["codigo_indec", "territorio", "periodo", "valor"]], _els_var, "kWh por habitante por año", "CAMMESA, demanda mensual por provincia y tipo de usuario")
 _el_tl = _el_a[_el_a.codigo_indec != EL_BA]
 agregar(_el_tl.assign(territorio=_el_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), periodo=_el_tl.anio.astype(str), valor=_el_tl.kwh_hab)[
     ["codigo_indec", "territorio", "periodo", "valor"]], "electricidad_residencial_por_habitante", "kWh por habitante por año", "CAMMESA, demanda mensual por provincia y tipo de usuario")
@@ -3375,6 +3417,7 @@ tablas = {
     "electricidad_provincias": electricidad_provincias,
     "electricidad_serie": electricidad_serie,
     "electricidad_mensual": electricidad_mensual,
+    "electricidad_sectores": electricidad_sectores,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -3424,6 +3467,8 @@ resumen = {
         **SUB_RES,
         # consumo eléctrico de los hogares por provincia (CAMMESA)
         **ELEC_RES,
+        # demanda eléctrica de comercios e industrias por provincia (CAMMESA, etapa 23)
+        **ELS_RES,
     },
     "nacimientos": {
         "anio_ini": int(nac_df.iloc[0].anio), "anio_ult": int(n24.anio),

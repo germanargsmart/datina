@@ -2171,7 +2171,7 @@
    },
    {
     "titulo": "Cómo se clasifica la demanda eléctrica",
-    "texto": "La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares. CAMMESA, que administra el mercado eléctrico mayorista, publica cada mes la demanda de cada distribuidor por provincia, separada en tres categorías de tarifa: residencial, comercial e industrial o comercial grande. No separa la Ciudad de Buenos Aires de la provincia y no informa la demanda de Tierra del Fuego, por eso la ficha por provincia muestra juntas a la Ciudad y a la provincia de Buenos Aires.",
+    "texto": "La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares. CAMMESA, que administra el mercado eléctrico mayorista, publica cada mes la demanda de cada distribuidor y de cada gran usuario por provincia, separada en tres categorías de tarifa: residencial, comercial e industrial o comercial grande. La comercial reúne a los usuarios que no son hogares y demandan menos de 300 kW, con los clubes y el alumbrado público. La industrial o comercial grande reúne a las demandas de más de 300 kW de las distribuidoras y a los grandes usuarios que compran su energía en el mercado mayorista. No separa la Ciudad de Buenos Aires de la provincia y no informa la demanda de Tierra del Fuego, por eso las fichas por provincia muestran juntas a la Ciudad y a la provincia de Buenos Aires.",
     "fuentes": [
      {
       "nombre": "Ley 24.065, artículo 10",
@@ -2192,6 +2192,16 @@
       "nombre": "CAMMESA, demanda mensual (Informe Síntesis Mensual)",
       "url": "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/Sintesis%20Mensual/Estadisticas/Demanda%20Mensual.xlsx",
       "cita": "Industrial/Comercial Grande"
+     },
+     {
+      "nombre": "CAMMESA, demanda mensual (Informe Síntesis Mensual)",
+      "url": "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/Sintesis%20Mensual/Estadisticas/Demanda%20Mensual.xlsx",
+      "cita": "GUMAS/AUTOGENERADORES"
+     },
+     {
+      "nombre": "CAMMESA, demanda mensual (Informe Síntesis Mensual)",
+      "url": "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/Sintesis%20Mensual/Estadisticas/Demanda%20Mensual.xlsx",
+      "cita": "Alumbrado Publico"
      }
     ]
    },

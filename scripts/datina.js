@@ -337,6 +337,27 @@ const LEAD = {
       `El consumo más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
       `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}.`;
   },
+  // demanda eléctrica de comercios e industrias por provincia (etapa 23, CAMMESA): por habitante en cada categoría de tarifa y las partes de
+  // la demanda de cada provincia. La Ciudad y la provincia de Buenos Aires van juntas, como en los hogares
+  "electricidad-sectores": v => {
+    const P = e.els_pct, g0 = e.els_gwh_ini, g1 = e.els_gwh_ult;
+    // cuánto cambió la demanda de cada categoría en el país desde el primer año
+    const cambio = k => { const v = (g1[k] / g0[k] - 1) * 100; return `${v < 0 ? "bajó" : "creció"} ${pct(Math.abs(v))}`; };
+    if (v === "partes") return `En ${e.el_ult}, los hogares usaron el ${pct(P.res)} de la electricidad que registra CAMMESA, los comercios y servicios el ${pct(P.com)} ` +
+      `y las industrias y los grandes comercios el ${pct(P.ind)}. La parte de las industrias y los grandes comercios va del ${pct(e.els_pct_ind_top[1])} ` +
+      `de la demanda en ${e.els_pct_ind_top[0]} al ${pct(e.els_pct_ind_bajo[1])} en ${e.els_pct_ind_bajo[0]}. Entre ${e.el_ini} y ${e.el_ult}, la demanda de los hogares ` +
+      `${cambio("res")}, la de los comercios y servicios ${cambio("com")} y la de las industrias y los grandes comercios ${cambio("ind")}.`;
+    if (v === "com") {
+      const t = e.els_com_top, b = e.els_com_bajo;
+      return `En ${e.el_ult}, los comercios, los servicios y el alumbrado público (los usuarios que no son hogares y demandan menos de 300 kW) usaron ${n0(e.els_com)} kWh ` +
+        `de electricidad por habitante en el país, el ${pct(P.com)} de la demanda. El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_com)}, ` +
+        `y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.els_com)}.`;
+    }
+    const t = e.els_ind_top, b = e.els_ind_bajo;
+    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país, ` +
+      `el ${pct(P.ind)} de la demanda. El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
+      `con ${n0(b[1])}${conVeces(b[1], e.els_ind)}.`;
+  },
   // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes,
   // y desde la etapa 22 año por año desde el primer año completo de la Resolución 1104/2004, en pesos del último año con deflactor
   combustibles: (p, v) => {
@@ -647,6 +668,13 @@ const TX = {
     `que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa la Ciudad de Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: ` +
     `el valor del país es el de las demás jurisdicciones. La serie empieza en ${e.el_ini} porque antes CAMMESA contaba el alumbrado público como residencial. ` +
     `Los últimos meses son provisorios (el último publicado es ${e.el_hasta}). Si elegís la Ciudad o la provincia de Buenos Aires en Tu provincia, el gráfico resalta la fila de las dos.`,
+  "electricidad-sectores": LEAD["electricidad-sectores"]("ind"), "electricidad-sectores-nota": `Demanda que los distribuidores y los grandes usuarios declaran ` +
+    `cada mes a CAMMESA, por provincia y categoría de tarifa, dividida por la población del año (proyecciones del INDEC). Comercios y servicios son los usuarios de las ` +
+    `distribuidoras que no son hogares y demandan menos de 300 kW, con los clubes y el alumbrado público. Industrias y grandes comercios son las demandas de 300 kW o más: ` +
+    `las que abastecen las distribuidoras y los grandes usuarios que compran su energía en el mercado mayorista, que CAMMESA registra en la provincia donde consumen. ` +
+    `Por eso, donde hay una gran planta industrial o minera, una sola empresa puede explicar buena parte de la demanda de la provincia. CAMMESA no separa la Ciudad de ` +
+    `Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: el valor del país es el de las demás jurisdicciones. ` +
+    `Los últimos meses son provisorios (el último publicado es ${e.el_hasta}).`,
   combustibles: LEAD.combustibles("nafta", "prov"), "combustibles-nota": `La mediana de los precios en el surtidor que cada estación de servicio declara para el mes a la Secretaría de Energía ` +
     `(Resolución 1104/2004): la mitad de las estaciones cobra más y la otra mitad, menos. Solo la venta al público en bocas de expendio con movimiento en el mes, y sin los precios ` +
     `que se alejan a menos de la mitad o a más del doble de la mediana del país, en su mayoría cargados divididos por mil. La nafta súper es la de 92 a 95 octanos y el gasoil, el de grado 2. ` +
@@ -1666,7 +1694,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"electricidad-provincias": "prov", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {"electricidad-provincias": "prov", "electricidad-sectores": "ind", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1924,6 +1952,33 @@ Object.assign(DIB, {
     $t("electricidad-provincias").textContent = txt;
     lineas(el, {anim: a, data: filas(T.electricidad_serie, "anio"), x: "anio", series, y0: 0, vf: n0, yf: n0});
   }),
+  // comercios e industrias (etapa 23): kWh por habitante de cada categoría o las partes de la demanda de cada provincia
+  "electricidad-sectores": a => {
+    const k = MED["electricidad-sectores"], el = G("electricidad-sectores");
+    // la Ciudad y la provincia de Buenos Aires son una sola fila en CAMMESA: con cualquiera de las dos elegida, se usa esa fila
+    const cod = prov === "02" || prov === "06" ? "02-06" : prov, fp = prov ? T.electricidad_sectores.find(r => r.codigo_indec === cod) : null;
+    const cl = [{k: "pct_res", lab: "Hogares", c: "#74ACDF", texto: "#18212B"}, {k: "pct_com", lab: "Comercios y servicios", c: "#F6B40E", texto: "#18212B"},
+      {k: "pct_ind", lab: "Industrias y grandes comercios", c: "#1F5E97"}];
+    let txt = LEAD["electricidad-sectores"](k);
+    $("electricidad-sectores-ley").hidden = k !== "partes";
+    if (k === "partes") {
+      leyenda("electricidad-sectores-ley", cl);
+      if (fp) txt += ` En ${fp.territorio}, los hogares son el ${pct(fp.pct_res)} de la demanda, los comercios y servicios el ${pct(fp.pct_com)} y las industrias y los grandes comercios el ${pct(fp.pct_ind)}.`;
+      $t("electricidad-sectores").textContent = txt;
+      // la fila de la Ciudad y la provincia lleva el código de la que está elegida, para que se resalte; con otra provincia se vuelve a dibujar
+      const pais = T.electricidad_sectores.find(r => r.codigo_indec === "00"), suya = r => r.codigo_indec === "02-06" && cod === "02-06" ? {...r, codigo_indec: prov} : r;
+      apiladasH(el, {anim: a, claves: cl, data: [{...pais, territorio: "Todo el país"}, ...T.electricidad_sectores.filter(r => r.codigo_indec !== "00").sort((p, q) => q.pct_ind - p.pct_ind).map(suya)]});
+      el.resaltar = null;
+      return;
+    }
+    const col = k === "com" ? "kwh_hab_com" : "kwh_hab_ind", ref = k === "com" ? e.els_com : e.els_ind;
+    if (fp) txt += ` En ${fp.territorio}, ${n0(fp[col])} kWh por habitante${conVeces(fp[col], ref)}.`;
+    $t("electricidad-sectores").textContent = txt;
+    barrasH(el, {anim: a, data: T.electricidad_sectores.filter(r => r.codigo_indec !== "00"), k: col, vf: n0, af: n0, ref, refLab: `País ${n0(ref)}`, marcar: new Set(fp ? [cod] : []),
+      tip: d => `<b>${d.territorio}</b><br>${n0(d[col])} kWh por habitante en ${e.el_ult}<br>De su demanda: hogares ${pct(d.pct_res)}, comercios y servicios ${pct(d.pct_com)}, ` +
+        `industrias y grandes comercios ${pct(d.pct_ind)}`});
+    el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
+  },
   combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
     const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
     let txt = LEAD.combustibles(p, MED["combustibles-vista"]);
@@ -3430,6 +3485,7 @@ const CLAVE = {
   "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`],
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
   "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`],
+  "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
   "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
   "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
   "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
@@ -4082,6 +4138,9 @@ const PREG = [
    `${n0(CN.hip_ult)} mil millones de pesos en créditos hipotecarios UVA en ${CN.hip_mes}. En todo ${CN.hip_anio}, ${n0(CN.hip_anual)} mil millones, contra ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, en pesos de igual valor.`, "#f-hipotecas"],
   ["¿Cuánta electricidad consumen los hogares?",
    `En ${e.el_ult}, ${n0(e.el_pais)} kilovatios hora por habitante en el país. En ${e.el_top[0]}, ${n0(e.el_top[1])}, y en ${e.el_bajo[0]}, ${n0(e.el_bajo[1])}.`, "#f-electricidad-provincias"],
+  ["¿Qué parte de la electricidad usan las industrias?",
+   `En ${e.el_ult}, el ${pct(e.els_pct.ind)} de la demanda eléctrica del país fue de industrias y grandes comercios. En ${e.els_pct_ind_top[0]}, el ${pct(e.els_pct_ind_top[1])}, ` +
+   `y en ${e.els_pct_ind_bajo[0]}, el ${pct(e.els_pct_ind_bajo[1])}.`, "#f-electricidad-sectores"],
   ["¿Cuánto cuesta un litro de nafta?",
    `En ${CB.mes}, la mitad de las estaciones del país vendía la nafta súper a más de ${n0(CB.nafta)} pesos por litro. La mediana fue de ${n0(CB.nafta_alto[1])} en ${CB.nafta_alto[0]} y de ${n0(CB.nafta_bajo[1])} en ${CB.nafta_bajo[0]}.`, "#f-combustibles"],
   ["¿Cuánto se destina a subsidiar la energía?",

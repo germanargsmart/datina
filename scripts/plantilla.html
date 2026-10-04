@@ -891,6 +891,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población</span><a href="datos/electricidad_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-electricidad-sectores">
+      <h3>Demanda eléctrica de comercios e industrias por habitante, por provincia, {{energia.el_ult}}</h3>
+      <p class="lead" data-t="electricidad-sectores"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="electricidad-sectores" style="--n:3">
+        <button type="button" data-m="ind" aria-pressed="true">Industrias</button>
+        <button type="button" data-m="com" aria-pressed="false">Comercios</button>
+        <button type="button" data-m="partes" aria-pressed="false">Partes</button>
+      </div>
+      <div class="pol-ley" id="electricidad-sectores-ley" aria-hidden="true" hidden></div>
+      <div class="grafico" data-g="electricidad-sectores" data-forma="barras" style="--filas:22"></div>
+      <p class="nota" data-t="electricidad-sectores-nota"></p>
+      <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población</span><a href="datos/electricidad_sectores.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-actividad">
       <h3>Demanda eléctrica y nivel de actividad económica, {{energia.anio_ini}} a {{energia.anio_ult}}</h3>
       <p class="lead" data-t="actividad"></p>

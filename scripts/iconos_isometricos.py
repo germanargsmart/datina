@@ -638,6 +638,20 @@ def _(ic):
     ic.elipse_piso(x + 1.7, y + d / 2, len(pila) * h, .5, "s")
 
 
+@icono("escudo", "azul")
+def _(ic):
+    # Seguridad (etapa 23): un escudo parado, con una estrella de cinco puntas en el frente
+    ic.sombra(5.0, 1.4, 4.4, 1.6)
+    borde = [(0, 9.0), (2.0, 9.45), (4, 9.65), (6.0, 9.45), (8, 9.0), (8, 5.4), (7.6, 3.5), (6.6, 1.9), (5.3, .7), (4, 0),
+             (2.7, .7), (1.4, 1.9), (.4, 3.5), (0, 5.4)]
+    ic.extruir(borde, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 1.6, 0), "s", "l")
+    # la estrella va sobre el frente (la cara de y = 1.6, la que se ve)
+    cx, cz, r1, r2 = 4.0, 5.3, 2.35, .95
+    estrella = [(cx + (r1 if i % 2 == 0 else r2) * math.sin(math.pi * i / 5), 1.6, cz + (r1 if i % 2 == 0 else r2) * math.cos(math.pi * i / 5))
+                for i in range(10)]
+    ic.poli(estrella, "w")
+
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}
