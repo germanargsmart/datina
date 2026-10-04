@@ -248,7 +248,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
    transición, el vidrio no desenfocaba la página. Vidrio claro (blanco al 80% con la página desenfocada detrás, así el texto se
    lee igual sobre el azul de la portada), grupos con un rótulo chico y enlaces más grandes. En la computadora, tres columnas
    debajo del botón. En el celular, una sola columna que ocupa la pantalla debajo de la barra, con la página quieta detrás.
-   Al abrir, el panel aparece en 200 ms y los grupos entran de a uno (30 ms entre uno y otro, 120 en total) */
+   Al abrir, el panel aparece en 200 ms y los grupos entran de a uno (30 ms entre uno y otro, 120 en total).
+   Etapa 23 (pedido del autor: "cambiá las fuentes, dejá a todas con el mismo tamaño, y ninguna en negrita, parece muy vibecodeado",
+   con el menú de usafacts.org como referencia): todos los enlaces con la letra del texto, del mismo tamaño y sin negrita, y los
+   grupos separados por una línea fina, sin rótulos a la vista (los rótulos siguen para los lectores de pantalla) */
 .menu-panel{position:fixed;z-index:30;left:var(--menu-izq,var(--margen));top:calc(env(safe-area-inset-top,0px) + 80px);
   width:min(780px,calc(100vw - 2 * var(--margen)));max-height:calc(100dvh - 104px);overflow:auto;overscroll-behavior:contain;
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--e-6);padding:var(--e-6) var(--e-6) var(--e-7);
@@ -260,23 +263,19 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .menu-panel.abierto{opacity:1;transform:none;transition-duration:var(--dur-2),var(--dur-2),var(--dur-3)}
 /* la barra sube 14 píxeles al bajar por la página: el panel la sigue con el mismo movimiento */
 .barra.compacta ~ .menu-panel{translate:0 -14px}
-.menu-col{display:flex;flex-direction:column;gap:var(--e-5);min-width:0}
+.menu-col{display:flex;flex-direction:column;gap:var(--e-4);min-width:0}
 .menu-grupo{opacity:0;transform:translateY(8px);transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-3) var(--ease-out)}
 .menu-panel.abierto .menu-grupo{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 30ms)}
-/* rótulos de los grupos (pedido del autor: "en otra fuente ... en amarillo como del sol"): la letra condensada de los temas de la barra,
-   en el dorado del sol, con una línea fina del amarillo del sol que sigue hasta el borde del grupo */
-.menu-panel .menu-tit{display:flex;align-items:center;gap:var(--e-3);margin:0 0 var(--e-2);font-family:var(--f-c60);font-size:13px;line-height:1.2;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--sol-texto);font-variation-settings:"wdth" 60,"opsz" 14}
-.menu-panel .menu-tit::after{content:"";flex:1;height:2px;border-radius:1px;background:linear-gradient(90deg,var(--sol),rgba(246,180,14,0))}
+/* los rótulos de los grupos quedan solo para los lectores de pantalla: a la vista, una línea fina separa un grupo del siguiente */
+.menu-panel .menu-tit{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.menu-grupo + .menu-grupo{padding-top:var(--e-4);border-top:1px solid var(--borde)}
 .menu-panel ul{margin:0;padding:0;list-style:none}
+/* todos los enlaces iguales: la letra del texto, el mismo tamaño y sin negrita */
 .menu-panel a{display:flex;align-items:center;gap:var(--e-2);margin:0 calc(-1 * var(--e-3));padding:6px var(--e-3);border-radius:var(--r-control);
-  font-size:var(--t-4);font-weight:500;line-height:1.3;color:var(--ink);text-decoration:none;transition:background-color var(--dur-1) var(--ease-out)}
-/* la página actual: en negrita y con la marca amarilla de la navegación */
-.menu-panel a[aria-current="true"]{font-weight:650;background:var(--sol-suave)}
-/* jerarquía: los temas principales más grandes, los demás grupos al tamaño del texto y Datina más chico y gris */
-.menu-grupo[data-nivel="1"] a{font-size:18px;font-weight:600}
-.menu-grupo[data-nivel="3"] a{font-size:var(--t-3);color:var(--muted)}
-.menu-grupo[data-nivel="3"] a[aria-current="true"]{color:var(--ink)}
+  font-family:var(--f);font-size:var(--t-4);font-weight:400;font-variation-settings:normal;letter-spacing:normal;line-height:1.3;
+  color:var(--ink);text-decoration:none;transition:background-color var(--dur-1) var(--ease-out)}
+/* la página actual: la marca amarilla de la navegación, sin negrita */
+.menu-panel a[aria-current="true"]{background:var(--sol-suave)}
 .menu-panel a:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
 .teclado .menu-panel,.teclado .menu-grupo{transition:none}
 .teclado .elige-panel{transition:none}
@@ -299,15 +298,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .barra .marca{font-size:32px}
   /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra) */
   .menu-panel{left:0;right:0;width:auto;top:calc(env(safe-area-inset-top,0px) + 62px);bottom:-8px;max-height:none;
-    grid-template-columns:1fr;gap:var(--e-6);padding:var(--e-6) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
+    grid-template-columns:1fr;gap:var(--e-5);padding:var(--e-6) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
     background:rgba(246,248,251,.82);border:0;border-top:1px solid rgba(44,116,181,.18);border-radius:0;box-shadow:none;transform:translateY(-8px)}
   .barra.compacta ~ .menu-panel{translate:0 -8px}
-  .menu-col{gap:var(--e-6)}
-  .menu-panel a{padding:8px var(--e-3);font-size:19px;font-weight:550;letter-spacing:-.01em;line-height:1.25}
-  .menu-grupo[data-nivel="1"] a{padding:9px var(--e-3);font-size:24px;font-weight:650}
-  .menu-grupo[data-nivel="3"] a{font-size:16px;font-weight:500}
-  .menu-panel a[aria-current="true"]{font-weight:750}
-  .menu-panel .menu-tit{font-size:14px}
+  .menu-col{gap:var(--e-5)}
+  /* en una sola columna, la línea fina también separa una columna de la siguiente */
+  .menu-col + .menu-col{padding-top:var(--e-5);border-top:1px solid var(--borde)}
+  .menu-grupo + .menu-grupo{padding-top:var(--e-5)}
+  .menu-panel a{padding:9px var(--e-3);font-size:18px;line-height:1.25}
   /* la página queda quieta detrás del menú */
   html.menu-abierto{overflow:hidden}
 }
