@@ -1768,6 +1768,22 @@
       "cita": "directamente por ante esta Dirección Nacional, en el marco de un servicio de inscripción remoto, abierto, accesible y estandarizado, bajo jurisdicción nacional."
      }
     ]
+   },
+   {
+    "titulo": "El precio de los combustibles",
+    "texto": "Las estaciones de servicio inscriptas en el padrón de la Resolución 1104 de 2004 informan cada mes a la Secretaría de Energía los precios de venta y los volúmenes de cada combustible, separados por canal de comercialización. La ficha usa el precio en el surtidor de la venta al público de la nafta súper y del gasoil de grado 2, y muestra la mediana de las estaciones de cada provincia: la mitad cobra más y la otra mitad, menos. Como las estaciones pueden presentar su información con demora, el último mes que se muestra es el más reciente en el que declararon casi todas.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004)",
+      "url": "http://datos.energia.gob.ar/dataset/708f9ab4-829b-4f02-b507-f303c5bc4800",
+      "cita": "según informan mensualmente los operadores inscriptos en el padrón creado por la Resolución 1104/2004"
+     },
+     {
+      "nombre": "Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004)",
+      "url": "http://datos.energia.gob.ar/dataset/708f9ab4-829b-4f02-b507-f303c5bc4800",
+      "cita": "Precios de venta de los hidrocarburos en los distintos canales de comercialización para todo el territorio nacional"
+     }
+    ]
    }
   ],
   "glosario": [
@@ -2155,7 +2171,7 @@
    },
    {
     "titulo": "Cómo se clasifica la demanda eléctrica",
-    "texto": "La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares.",
+    "texto": "La ley distingue dos formas de comprar energía. Los distribuidores abastecen a quienes no pueden contratar por su cuenta dentro de su zona de concesión, y los grandes usuarios contratan su energía en forma independiente y para consumo propio. Dentro de la demanda de las distribuidoras, la Secretaría de Energía agrupa a los usuarios en residenciales, no residenciales de menos de 300 kW, demandas de más de 300 kW (GUDI) y alumbrado público. La categoría residencial corresponde a los hogares. CAMMESA, que administra el mercado eléctrico mayorista, publica cada mes la demanda de cada distribuidor por provincia, separada en tres categorías de tarifa: residencial, comercial e industrial o comercial grande. No separa la Ciudad de Buenos Aires de la provincia y no informa la demanda de Tierra del Fuego, por eso la ficha por provincia muestra juntas a la Ciudad y a la provincia de Buenos Aires.",
     "fuentes": [
      {
       "nombre": "Ley 24.065, artículo 10",
@@ -2166,6 +2182,16 @@
       "nombre": "Resolución SE 884/2023, considerandos",
       "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto",
       "cita": "Demandas Menores a TRESCIENTOS KILOVATIOS (300 kW) –No Residencial–"
+     },
+     {
+      "nombre": "CAMMESA, demanda mensual (Informe Síntesis Mensual)",
+      "url": "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/Sintesis%20Mensual/Estadisticas/Demanda%20Mensual.xlsx",
+      "cita": "DEMANDA TOTAL PASO MENSUAL"
+     },
+     {
+      "nombre": "CAMMESA, demanda mensual (Informe Síntesis Mensual)",
+      "url": "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/Sintesis%20Mensual/Estadisticas/Demanda%20Mensual.xlsx",
+      "cita": "Industrial/Comercial Grande"
      }
     ]
    },

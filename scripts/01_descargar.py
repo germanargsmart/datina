@@ -955,6 +955,83 @@ def owid_electricidad():
     return url
 
 
+SE_EESS = "708f9ab4-829b-4f02-b507-f303c5bc4800"  # precios y volúmenes de las estaciones de servicio (Resolución 1104/2004)
+
+
+def precios_combustibles(urls=None):
+    """Precios de los combustibles en el surtidor (Secretaría de Energía, Resolución 1104/2004, etapa 21): cada estación de servicio
+    declara cada mes el precio y el volumen de cada producto, por canal de venta. El archivo vigente (el de año más alto del catálogo, que
+    trae los meses desde diciembre de 2024 y pesa unos 130 MB) se baja a memoria y se guarda un resumen por mes, provincia y producto
+    (nafta súper y gasoil grado 2, venta al público en bocas de expendio con movimiento en el mes): cantidad de estaciones y mediana del
+    precio en el surtidor, también la del país. Se descartan los precios a menos de la mitad o a más del doble de la mediana del país de su
+    mes y producto (un 0,3% de las filas, casi todas con el precio dividido por mil). Los meses que ya no trae el archivo vigente quedan del
+    resumen anterior: 2024 se sumó una sola vez desde su archivo anual (urls). Los archivos anuales llaman distinto a algunas columnas."""
+    import io, pandas as pd
+    if urls is None:
+        recursos = json.loads(leer(f"{SE}/api/3/action/package_show?id={SE_EESS}", 60))["result"]["resources"]
+        anuales = [(int(m.group(1)), r["url"]) for r in recursos if (m := re.search(r"precios-eess-(\d{4})-?\.csv$", r["url"]))]
+        if not anuales:
+            raise ValueError("no se encontró el archivo de precios por estación en el catálogo de la Secretaría de Energía")
+        urls = [max(anuales)[1].replace("https://", "http://")]
+    PROD = {"Nafta (súper) entre 92 y 95 Ron": "nafta", "Gas Oil Grado 2": "gasoil"}
+    partes = []
+    for u in urls:
+        datos = leer(u, 900)
+        if not datos.lstrip(b"\xef\xbb\xbf").startswith((b"fecha,periodo,operador", b"anio,mes,operador")):
+            raise ValueError(f"formato inesperado en {u.rsplit('/', 1)[-1]}")
+        d = pd.read_csv(io.BytesIO(datos), low_memory=False, encoding="utf-8-sig").rename(columns={"no_novimientos": "no_movimientos"})
+        if "periodo" not in d:
+            d["periodo"] = d.anio.astype(int).astype(str) + "/" + d.mes.astype(int).astype(str).str.zfill(2)
+        d = d[d.producto.isin(PROD) & d.canal_de_comercializacion.eq("Al público") & d.tipo_negocio.str.startswith("Bocas de expendio", na=False)
+              & d.no_movimientos.ne("SI") & (d.precio_surtidor > 0)]
+        d = d.assign(producto=d.producto.map(PROD), periodo=d.periodo.str.replace("/", "-")).drop_duplicates(["periodo", "nro_inscripcion", "producto"])
+        med = d.groupby(["periodo", "producto"]).precio_surtidor.transform("median")
+        d = d[d.precio_surtidor.between(med * .5, med * 2)]
+
+        def resumen(g):
+            return g.agg(estaciones=("nro_inscripcion", "nunique"), mediana=("precio_surtidor", "median")).reset_index()
+        partes.append(pd.concat([resumen(d.groupby(["periodo", "provincia", "producto"])),
+                                 resumen(d.groupby(["periodo", "producto"])).assign(provincia="TOTAL DEL PAIS")]))
+    nuevo = pd.concat(partes[::-1]).drop_duplicates(["periodo", "provincia", "producto"])  # en los meses repetidos manda el archivo más nuevo
+    f = CRUDO / "se_precios_combustibles.csv"
+    if f.exists():
+        viejo = pd.read_csv(f)
+        nuevo = pd.concat([nuevo, viejo[~viejo.periodo.isin(nuevo.periodo)]])
+    nuevo[["periodo", "producto", "provincia", "estaciones", "mediana"]].sort_values(["periodo", "producto", "provincia"]).round({"mediana": 2}).to_csv(f, index=False)
+    return urls[-1]
+
+
+def cammesa_demanda():
+    """Demanda de energía eléctrica por mes, provincia y tipo de usuario (CAMMESA, Informe Síntesis Mensual, etapa 21). El archivo vigente
+    (dirección fija, unos 4 MB) trae los últimos años: la tabla de detalle de su hoja DEMANDA (empieza en la fila cuya primera celda dice
+    AÑO, y las columnas se leen por nombre) se suma por mes, provincia y categoría de tarifa (Residencial, Comercial e Industrial/Comercial
+    Grande) y se une con lo que ya estaba guardado: en cada mes manda el archivo más nuevo, los meses que el archivo vigente ya no trae
+    quedan del resumen anterior, y 2014 a 2022 salen de datos/manual/cammesa_demanda_2014_2022.csv (scripts/cammesa_historia.py). CAMMESA
+    registra a Edenor y Edesur en la provincia de Buenos Aires, así que la Ciudad va junto con la provincia, y no informa Tierra del Fuego.
+    Los últimos meses son provisorios."""
+    import io, pandas as pd
+    datos = leer("https://cammesaweb.cammesa.com/?wpdmdl=41426", 300)
+    if datos[:2] != b"PK":
+        raise ValueError("el archivo de demanda mensual de CAMMESA no es un Excel")
+    hoja = pd.read_excel(io.BytesIO(datos), sheet_name="DEMANDA", header=None)
+    fila = hoja.index[hoja.iloc[:, 0].astype(str).str.strip().eq("AÑO")][0]
+    d = hoja.iloc[fila + 1:].set_axis([str(c).strip() for c in hoja.iloc[fila]], axis=1)
+    d = d[d["CATEGORIA TARIFA"].isin(["Residencial", "Comercial", "Industrial/Comercial Grande"])]
+    d = d.assign(mes=pd.to_datetime(d["MES"]).dt.strftime("%Y-%m"), mwh=pd.to_numeric(d["DEMANDA [MWh]"], errors="coerce"))
+    nuevo = d.groupby(["mes", "PROVINCIA", "CATEGORIA TARIFA"], as_index=False).mwh.sum().set_axis(["mes", "provincia", "categoria", "mwh"], axis=1)
+    if nuevo.mes.nunique() < 12 or nuevo.provincia.nunique() < 20:
+        raise ValueError("el archivo de demanda mensual de CAMMESA trae menos meses o provincias de lo esperado")
+    f = CRUDO / "cammesa_demanda_provincias.csv"
+    partes, vistos = [nuevo] + ([pd.read_csv(f)] if f.exists() else []) + [pd.read_csv(RAIZ / "datos" / "manual" / "cammesa_demanda_2014_2022.csv")], set()
+    salida = []
+    for p in partes:  # en cada mes manda la primera fuente que lo trae: el archivo nuevo, después lo guardado y por último la historia
+        p = p[~p.mes.isin(vistos)]
+        salida.append(p)
+        vistos |= set(p.mes)
+    pd.concat(salida).sort_values(["mes", "provincia", "categoria"]).round(3).to_csv(f, index=False)
+    return "https://cammesaweb.cammesa.com/?wpdmdl=41426"
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
@@ -964,7 +1041,9 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("centrales de generación eléctrica", centrales_electricas), ("gas entregado por provincia (ENARGAS)", gas_entregado),
                     ("consumo de gas por medidor en Gran Bretaña (DESNZ)", gas_reino_unido),
                     ("permisos de edificación (INDEC)", permisos_edificacion), ("créditos hipotecarios UVA (BCRA)", hipotecas_uva),
-                    ("crédito a los hogares por país (BIS)", bis_credito_hogares), ("electricidad por país (Ember, vía Our World in Data)", owid_electricidad)]:
+                    ("crédito a los hogares por país (BIS)", bis_credito_hogares), ("electricidad por país (Ember, vía Our World in Data)", owid_electricidad),
+                    ("precios de los combustibles por estación (Res. 1104/2004)", precios_combustibles),
+                    ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

@@ -300,6 +300,14 @@ def prueba_fuentes(d, t):
             if a <= r["energia"]["gas_anio"]:
                 comparar(f"gas_residencial|{a}", f"gas entregado a usuarios residenciales {a}", tl("gas_residencial_entregado", "00", a), float(f[1]),
                          "ENARGAS por provincia", "API de Series de Tiempo")
+    # electricidad residencial: la suma de las provincias de CAMMESA contra la serie del país de la API de Series de Tiempo (367.3)
+    if (CRUDO / "energia_emae.csv").exists():
+        _em = pd.read_csv(CRUDO / "energia_emae.csv").dropna(subset=["demanda_residencial"])
+        _em = _em.groupby(_em.indice_tiempo.str[:4]).demanda_residencial.agg(["sum", "size"])
+        for a, f in _em[_em["size"] == 12].iterrows():
+            if r["energia"]["el_ini"] <= int(a) <= r["energia"]["el_ult"]:
+                comparar(f"electricidad_residencial|{a}", f"demanda eléctrica residencial {a}", tl("electricidad_residencial_gwh", "00", int(a)), float(f["sum"]),
+                         "CAMMESA por provincia", "API de Series de Tiempo")
     for a in range(2015, r["petroleo"]["anio_ult"] + 1):
         comparar(f"petroleo|{a}", f"producción de petróleo {a}", tl("eia_produccion_crudo", "00", a), tl("produccion_petroleo", "00", a), "EIA", "Secretaría de Energía")
     return sale

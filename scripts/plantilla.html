@@ -726,6 +726,22 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: DNRPA, Ministerio de Justicia</span><a href="datos/patentamientos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-combustibles">
+      <h3>Precio de la nafta súper y del gasoil en el surtidor, por provincia, {{combustibles.anio_ini}} a {{combustibles.anio_ult}}</h3>
+      <p class="lead" data-t="combustibles"></p>
+      <div class="conmutador" role="group" aria-label="Combustible" data-g="combustibles">
+        <button type="button" data-m="nafta" aria-pressed="true">Nafta súper</button>
+        <button type="button" data-m="gasoil" aria-pressed="false">Gasoil</button>
+      </div>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="combustibles-vista" data-dib="combustibles">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+      </div>
+      <div class="grafico" data-g="combustibles" data-forma="barras"></div>
+      <p class="nota" data-t="combustibles-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004)</span><a href="datos/combustibles_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema" id="construccion">
@@ -858,6 +874,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="hogares" data-forma="lineas"></div>
       <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
       <div class="pie"><span>Fuente: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-electricidad-provincias">
+      <h3>Consumo eléctrico de los hogares por habitante, por provincia, {{energia.el_ini}} a {{energia.el_ult}}</h3>
+      <p class="lead" data-t="electricidad-provincias"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="electricidad-provincias" style="--n:3">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="electricidad-provincias" data-forma="barras" style="--filas:22"></div>
+      <p class="nota" data-t="electricidad-provincias-nota"></p>
+      <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población</span><a href="datos/electricidad_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-actividad">

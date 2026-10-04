@@ -172,6 +172,7 @@ const EM = R.empresas;
 // Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
 const PG = R.petroleo, CN = R.construccion, VV = CN.viv;
+const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa 21)
 // centrales eléctricas: un color por tecnología, el mismo en el mapa y en la potencia del país
 const TEC_CEN = [{k: "termica", lab: "Térmica", c: "#8C9AAB"}, {k: "hidraulica", lab: "Hidroeléctrica", c: "#2C74B5"}, {k: "nuclear", lab: "Nuclear", c: "#85340A"},
   {k: "eolica", lab: "Eólica", c: "#74ACDF"}, {k: "solar", lab: "Solar", c: "#F6B40E"}, {k: "biogas", lab: "Biomasa y biogás", c: "#5E9E6E"}];
@@ -319,6 +320,30 @@ const LEAD = {
     `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
     `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
     (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
+  // consumo eléctrico de los hogares por provincia (etapa 21, CAMMESA): la Ciudad y la provincia de Buenos Aires van juntas
+  "electricidad-provincias": v => {
+    if (v === "mes") return `Entre ${e.el_est_desde} y ${e.el_ult}, el mes en que más electricidad consumieron los hogares del país fue ${e.el_mes_max}, con ${n0(e.el_mes_max_kwh)} kWh por habitante, ` +
+      `y el de menor consumo, ${e.el_mes_min}, con ${n0(e.el_mes_min_kwh)}.`;
+    if (v === "serie") return `En ${e.el_ini}, los hogares consumían ${n0(e.el_pais_ini)} kWh de electricidad por habitante por año, y en ${e.el_ult}, ${n0(e.el_pais)}` +
+      (e.el_max_anio === e.el_ult ? ", el valor más alto de la serie." : `. El año de mayor consumo fue ${e.el_max_anio}, con ${n0(e.el_max)}.`) +
+      (e.el_min_anio !== e.el_ini ? ` El de menor consumo fue ${e.el_min_anio}, con ${n0(e.el_min)}.` : "");
+    const t = e.el_top, b = e.el_bajo;
+    return `En ${e.el_ult}, los hogares consumieron ${n0(e.el_pais)} kilovatios hora (kWh) de electricidad por habitante, según la demanda residencial que registra CAMMESA. ` +
+      `El consumo más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
+      `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}.`;
+  },
+  // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes
+  combustibles: (p, v) => {
+    const nom = p === "gasoil" ? "el gasoil" : "la nafta súper", nomDe = p === "gasoil" ? "del gasoil" : "de la nafta súper", alto = CB[p + "_alto"], bajo = CB[p + "_bajo"];
+    // el máximo en pesos del último mes se nombra una sola vez: puede ser el primer mes, el último u otro
+    const mx = CB[p + "_max_real_mes"];
+    if (v === "mes") return `En pesos de ${CB.mes}, el precio mediano ${nomDe} en el surtidor pasó de ${n0(CB[p + "_ini_real"])} pesos por litro en ${CB.ini}` +
+      `${mx === CB.ini ? ", el más alto de la serie," : ""} a ${n0(CB[p])} en ${CB.mes}${mx === CB.mes ? ", el más alto de la serie" : ""}.` +
+      (mx !== CB.ini && mx !== CB.mes ? ` El más alto fue el de ${mx}, con ${n0(CB[p + "_max_real"])} pesos.` : "");
+    return `En ${CB.mes}, la mitad de las estaciones de servicio del país vendía ${nom} a más de ${n0(CB[p])} pesos por litro y la otra mitad, a menos. ` +
+      `La mediana más alta fue la de ${alto[0]} (${n0(alto[1])}) y la más baja, la de ${bajo[0]} (${n0(bajo[1])}). ` +
+      `Frente a ${CB.mes_antes}, el precio ${CB[p + "_var"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var"]))}: descontada la inflación, ${CB[p + "_var_real"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var_real"]))}.`;
+  },
   // subsidios económicos a la energía (etapa 21): la serie oficial de la Secretaría de Hacienda
   subsidios: v => {
     const pbi = x => n2(x) + "%", y = e.sub_ytd;
@@ -601,6 +626,16 @@ const TX = {
   "patentes-nota": `Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en ${au.motos_ini}.`,
   "patentes-prov-titulo": `Autos y motos nuevos por cada 1.000 habitantes, por provincia, ${au.anio}`,
   "patentes-prov": `En ${au.anio} se inscribieron ${n1(au.pais_1000)} autos y ${n1(au.motos_pais_1000)} motos nuevos cada 1.000 habitantes. En autos el valor más alto fue el de ${au.top} (${n1(au.top_v)}) y el más bajo el de ${au.low} (${n1(au.low_v)}). En motos el más alto fue el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}.`,
+  "electricidad-provincias": LEAD["electricidad-provincias"]("prov"), "electricidad-provincias-nota": `Demanda residencial que los distribuidores declaran cada mes a CAMMESA, por provincia, ` +
+    `dividida por la población de cada año (proyecciones del INDEC desde 2022 y la población implícita en las tasas del SNIC antes). La parte de los hogares se calcula sobre las tres categorías de tarifa ` +
+    `que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa la Ciudad de Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: ` +
+    `el valor del país es el de las demás jurisdicciones. La serie empieza en ${e.el_ini} porque antes CAMMESA contaba el alumbrado público como residencial. ` +
+    `Los últimos meses son provisorios (el último publicado es ${e.el_hasta}). Si elegís la Ciudad o la provincia de Buenos Aires en Tu provincia, el gráfico resalta la fila de las dos.`,
+  combustibles: LEAD.combustibles("nafta", "prov"), "combustibles-nota": `La mediana de los precios en el surtidor que cada estación de servicio declara para el mes a la Secretaría de Energía ` +
+    `(Resolución 1104/2004): la mitad de las estaciones cobra más y la otra mitad, menos. Solo la venta al público en bocas de expendio con movimiento en el mes, y sin los precios ` +
+    `que se alejan a menos de la mitad o a más del doble de la mediana del país, casi todos cargados divididos por mil. La nafta súper es la de 92 a 95 octanos y el gasoil, el de grado 2. ` +
+    `Las estaciones declaran con demora: el último mes es el más reciente en el que declararon casi todas (${n0(CB.estaciones)} vendieron nafta súper al público en ${CB.mes}). ` +
+    `La serie mes a mes pasa los precios a pesos de ${CB.mes} con el índice de precios al consumidor del INDEC.`,
   "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección ${R.anio_pob} del INDEC.`,
   "nombres-titulo": `Nombres más elegidos para los bebés, ${cu.nom_anio}`,
   nombres: `En ${cu.nom_anio} los nombres más inscriptos en el país fueron ${cu.nena} (${n0(cu.nena_n)}) para las nenas y ${cu.varon} (${n0(cu.varon_n)}) para los varones. En ${cu.nom_ini} habían sido ${cu.nena0} y ${cu.varon0}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
@@ -1613,7 +1648,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {"electricidad-provincias": "prov", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1833,6 +1868,59 @@ Object.assign(DIB, {
     if (k === "mapa") return mapaCentrales(G("centrales"), {anim: a});
     columnasApiladas(G("centrales"), {anim: a, claves: TEC_CEN, cadaTick: 3, vf: n0, af: v => v >= 1000 ? n0(v / 1000) + " mil" : n0(v), l: 46,
       unidad: "megavatios", data: T.potencia_instalada});
+  }),
+  "electricidad-provincias": conTablas("electricidad-provincias", () => ({mes: ["electricidad_mensual"], serie: ["electricidad_serie"]})[MED["electricidad-provincias"]] || [], a => {
+    const k = MED["electricidad-provincias"], el = G("electricidad-provincias");
+    // la Ciudad y la provincia de Buenos Aires son una sola fila en CAMMESA: con cualquiera de las dos elegida, se usa esa fila
+    const cod = prov === "02" || prov === "06" ? "02-06" : prov, fp = T.electricidad_provincias.find(r => r.codigo_indec === cod);
+    let txt = LEAD["electricidad-provincias"](k);
+    if (k === "prov") {
+      $t("electricidad-provincias").textContent = txt;
+      barrasH(el, {anim: a, data: T.electricidad_provincias, k: "kwh_hab", vf: n0, af: n0, ref: e.el_pais, refLab: `País ${n0(e.el_pais)}`, marcar: new Set(fp ? [cod] : []),
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.kwh_hab)} kWh por habitante<br>${n0(d.gwh)} GWh residenciales en ${e.el_ult}<br>Los hogares, ${pct(d.pct_residencial)} de la demanda` +
+          (d.kwh_hab_antes != null ? `<br>En ${e.el_ult - 10}: ${n0(d.kwh_hab_antes)} kWh por habitante` : "")});
+      el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
+      return;
+    }
+    // el país y, con una provincia elegida, su línea
+    const filas = (tabla, x) => {
+      const suya = fp ? new Map(tabla.filter(r => r.codigo_indec === cod).map(r => [r[x], r.kwh_hab])) : null;
+      return tabla.filter(r => r.codigo_indec === "00").map(r => ({[x]: r[x], pais: r.kwh_hab, prov: suya ? suya.get(r[x]) ?? null : null}));
+    };
+    const series = [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])];
+    if (k === "mes") {
+      if (fp) {
+        const m = d3.rollup(T.electricidad_mensual.filter(r => r.codigo_indec === cod && +r.periodo.slice(0, 4) >= e.el_est_desde && +r.periodo.slice(0, 4) <= e.el_ult),
+          v => d3.mean(v, r => r.kwh_hab), r => +r.periodo.slice(5, 7));
+        const mx = d3.greatest(m, ([, v]) => v), mn = d3.least(m, ([, v]) => v);
+        txt += ` En ${fp.territorio}, el de más consumo fue ${MESES[mx[0] - 1]}, con ${n0(mx[1])} kWh por habitante, y el de menos, ${MESES[mn[0] - 1]}, con ${n0(mn[1])}.`;
+      }
+      $t("electricidad-provincias").textContent = txt;
+      return lineas(el, {anim: a, data: filas(T.electricidad_mensual, "periodo").map(r => ({...r, t: tPer(r.periodo)})), x: "t", series, y0: 0, vf: n0, yf: n0,
+        xl: r => mesPer(r.periodo), mensual: true});
+    }
+    if (fp) {
+      const s = T.electricidad_serie.filter(r => r.codigo_indec === cod);
+      txt += ` En ${fp.territorio}, ${n0(s[0].kwh_hab)} kWh por habitante en ${s[0].anio} y ${n0(fp.kwh_hab)} en ${e.el_ult}.`;
+    }
+    $t("electricidad-provincias").textContent = txt;
+    lineas(el, {anim: a, data: filas(T.electricidad_serie, "anio"), x: "anio", series, y0: 0, vf: n0, yf: n0});
+  }),
+  combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
+    const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.combustibles(p, MED["combustibles-vista"]);
+    if (MED["combustibles-vista"] === "mes") {
+      // el país y, con una provincia elegida, su línea
+      const suya = fp ? new Map(T.combustibles_mensual.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r[p + "_real"]])) : null;
+      if (fp) txt += ` En ${fp.territorio}, ${n0(suya.get(CB.periodo))} pesos en ${CB.mes}.`;
+      $t("combustibles").textContent = txt;
+      return lineas(el, {anim: a, x: "t", y0: 0, vf: n0, yf: n0, xl: r => mesPer(r.periodo), mensual: true,
+        data: T.combustibles_mensual.filter(r => r.codigo_indec === "00").map(r => ({t: tPer(r.periodo), periodo: r.periodo, pais: r[p + "_real"], prov: suya ? suya.get(r.periodo) ?? null : null})),
+        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
+    }
+    $t("combustibles").textContent = txt;
+    barrasH(el, {anim: a, data: T.combustibles_provincias, k: p, vf: n0, af: n0, ref: CB[p], refLab: `País ${n0(CB[p])}`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d[p])} pesos por litro<br>${n0(d[p + "_estaciones"])} estaciones<br>En ${CB.mes_antes}: ${n0(d[p + "_antes"])}`});
   }),
   subsidios: a => {
     const pbi = MED.subsidios === "pbi";
@@ -3314,6 +3402,8 @@ const CLAVE = {
     (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : "")],
   "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`],
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
+  "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`],
+  "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
   "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
   "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
   "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
@@ -3414,7 +3504,7 @@ const EN_CIFRAS = {
   educacion: ["f-aprender", "x-aprender-len", "f-escolarizacion", "f-pisa", "x-aprender-debajo"],
   poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes", "f-extranjeros"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
-  movilidad: ["f-sube", "x-sube-var", "f-sube-modos", "f-patentes", "f-patentes-prov"],
+  movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
   // Energía con petróleo y gas (octubre de 2026): la electricidad y los hidrocarburos se alternan en las primeras cuatro
   energia: ["f-hogares", "f-petroleo", "x-demanda-ytd", "f-gas", "f-mundo-petroleo", "x-pet-shale", "x-hogares-crec", "f-actividad", "f-reservas",
     "x-vaca-muerta", "f-pozos", "f-balanza-energetica", "f-regalias", "f-meses", "x-demanda-total"],
@@ -3893,6 +3983,11 @@ const INDP = [
     d:T.vivienda_provincias, k:"pct_alquila", pais:VV.pct_alquila, f:pct},
   {id:"f-obra-publica", lab:"Obra pública de la Nación", veces:true, det:`pesos por habitante, ${CN.op_ult}`,
     d:T.obra_publica_provincias, k:"total_hab", pais:CN.op_hab_pais, f:n0},
+  // CAMMESA no separa la Ciudad de la provincia de Buenos Aires ni informa Tierra del Fuego: esas tres muestran el valor del país
+  {id:"f-electricidad-provincias", lab:"Consumo eléctrico de los hogares", det:`kWh por habitante, ${e.el_ult}`, veces:true,
+    d:T.electricidad_provincias.filter(r => r.codigo_indec !== "02-06"), k:"kwh_hab", pais:e.el_pais, f:n0},
+  {id:"f-combustibles", lab:"Precio de la nafta súper", det:`pesos por litro en el surtidor, mediana de las estaciones, ${CB.mes}`,
+    d:T.combustibles_provincias, k:"nafta", pais:CB.nafta, f:n0},
   {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
     d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
 ];
@@ -3955,6 +4050,10 @@ const PREG = [
    `El ${pct(VV.pct_gas_red)} en el Censo 2022. ` + (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100.` : ""), "#f-gas-hogares"],
   ["¿Cuánto prestan los bancos para comprar una vivienda?",
    `${n0(CN.hip_ult)} mil millones de pesos en créditos hipotecarios UVA en ${CN.hip_mes}. En todo ${CN.hip_anio}, ${n0(CN.hip_anual)} mil millones, contra ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, en pesos de igual valor.`, "#f-hipotecas"],
+  ["¿Cuánta electricidad consumen los hogares?",
+   `En ${e.el_ult}, ${n0(e.el_pais)} kilovatios hora por habitante en el país. En ${e.el_top[0]}, ${n0(e.el_top[1])}, y en ${e.el_bajo[0]}, ${n0(e.el_bajo[1])}.`, "#f-electricidad-provincias"],
+  ["¿Cuánto cuesta un litro de nafta?",
+   `En ${CB.mes}, la mitad de las estaciones del país vendía la nafta súper a más de ${n0(CB.nafta)} pesos por litro. La mediana fue de ${n0(CB.nafta_alto[1])} en ${CB.nafta_alto[0]} y de ${n0(CB.nafta_bajo[1])} en ${CB.nafta_bajo[0]}.`, "#f-combustibles"],
   ["¿Cuánto se destina a subsidiar la energía?",
    `Según la Secretaría de Hacienda, en ${e.sub_pbi_anio} los subsidios económicos a la energía fueron el ${n2(e.sub_pbi)}% del producto interno bruto. En ${e.sub_pbi_max_anio}, el ${n2(e.sub_pbi_max)}%.`, "#f-subsidios"],
   ["¿Cuánto gas consume por año un usuario residencial?",
@@ -4399,6 +4498,7 @@ const SERIE_CIFRA = {
   "f-sube-modos": () => serieM("Tarjetas SUBE en trenes por día hábil, en miles, por mes", T.sube_dia_habil.map(r => [mesCorto(r.periodo), r.tren == null ? null : r.tren / 1e3]), n0),
   "f-patentes": () => serieM("Motos nuevas inscriptas por año", T.patentamientos_anual.map(r => [r.anio, r.motos]), n0),
   "f-patentes-prov": () => provM("Autos nuevos cada 1.000 habitantes", T.patentamientos_provincias, "autos_1000", au.pais_1000, n1),
+  "f-combustibles": () => provM(`Nafta súper, pesos por litro, mediana de las estaciones, ${CB.mes}`, T.combustibles_provincias, "nafta", CB.nafta, n0),
   "f-hogares": () => serieM("Parte de la demanda eléctrica de los hogares, por año", T.energia_hogares.map(r => [r.anio, r.pct_residencial]), pct),
   "x-hogares-crec": () => serieM(`Demanda eléctrica de los hogares, índice ${T.energia_hogares[0].anio} = 100`, T.energia_hogares.map(r => [r.anio, r.idx_residencial]), n0),
   "f-actividad": () => serieM(`Demanda eléctrica total, índice ${T.energia_hogares[0].anio} = 100`, T.energia_hogares.map(r => [r.anio, r.idx_demanda]), n0),

@@ -2645,6 +2645,117 @@ SUB_RES = {
 agregar(subsidios_energia.rename(columns={"anio": "periodo", "pct_pbi": "valor"}).dropna(subset=["valor"]).assign(codigo_indec="00", territorio="Argentina"),
         "subsidios_economicos_energia_pct_pbi", "% del PBI", "Secretaria de Hacienda (IMIG) e INDEC")
 
+# Precios de los combustibles en el surtidor (etapa 21): la mediana de los precios que las estaciones de servicio declaran cada mes a la
+# Secretaría de Energía (Resolución 1104/2004), nafta súper y gasoil grado 2, por provincia y del país, desde enero de 2024 (el resumen lo
+# arma 01_descargar.py). Las estaciones declaran con demora: el último mes que se usa es el más reciente en el que declararon al menos el
+# 95% de las estaciones del país y el 80% de las de cada provincia, contra la mediana de sus doce meses anteriores. La serie mes a mes va
+# en pesos del último mes con el IPC nacional.
+cb_ = pd.read_csv(CRUDO / "se_precios_combustibles.csv")
+cb_["codigo_indec"] = cb_.provincia.map(lambda t: "00" if t == "TOTAL DEL PAIS" else codigo(t))
+assert cb_.codigo_indec.notna().all(), f"provincias sin código en los precios de los combustibles: {cb_[cb_.codigo_indec.isna()].provincia.unique()}"
+_cb_n = cb_[cb_.producto.eq("nafta")].pivot_table(index="periodo", columns="codigo_indec", values="estaciones").sort_index()
+_cb_ref = _cb_n.rolling(12, min_periods=12).median().shift(1)
+_cb_ok = (_cb_n["00"] >= .95 * _cb_ref["00"]) & (_cb_n.drop(columns="00") >= .8 * _cb_ref.drop(columns="00")).all(axis=1)
+CB_ULT = _cb_ok[_cb_ok].index.max()
+assert pd.Period(CB_ULT, "M") >= pd.Period(cb_.periodo.max(), "M") - 4, "los precios de los combustibles no tienen un mes completo reciente"
+assert CB_ULT in _hip_ipc.index, "falta el IPC del último mes de los precios de los combustibles"
+cb_ = cb_[cb_.periodo <= CB_ULT]
+_cbp = cb_.pivot_table(index=["periodo", "codigo_indec"], columns="producto", values="mediana").reset_index()
+_cbe = cb_.pivot_table(index=["periodo", "codigo_indec"], columns="producto", values="estaciones").reset_index()
+for _cb_p in ("nafta", "gasoil"):
+    _cbp[_cb_p + "_real"] = _cbp[_cb_p] * _hip_ipc[CB_ULT] / _cbp.periodo.map(_hip_ipc)
+combustibles_mensual = _cbp[["periodo", "codigo_indec", "nafta", "gasoil", "nafta_real", "gasoil_real"]].round(2)
+CB_ANT = str(pd.Period(CB_ULT, "M") - 12)
+_cbu = _cbp[_cbp.periodo == CB_ULT].set_index("codigo_indec")
+_cba = _cbp[_cbp.periodo == CB_ANT].set_index("codigo_indec")
+_cbeu = _cbe[_cbe.periodo == CB_ULT].set_index("codigo_indec")
+_cb24 = [c for c in _cbu.index if c != "00"]
+assert len(_cb24) == 24, "faltan provincias en los precios de los combustibles"
+combustibles_provincias = pd.DataFrame({
+    "codigo_indec": _cb24, "territorio": [CORTO[c] for c in _cb24], "nafta": _cbu.nafta[_cb24].values, "gasoil": _cbu.gasoil[_cb24].values,
+    "nafta_estaciones": _cbeu.nafta[_cb24].astype(int).values, "gasoil_estaciones": _cbeu.gasoil[_cb24].astype(int).values,
+    "nafta_antes": _cba.nafta.reindex(_cb24).values, "gasoil_antes": _cba.gasoil.reindex(_cb24).values}).round(2).sort_values("nafta", ascending=False)
+
+
+def _cb_ext(p):  # el país, la provincia más cara y la más barata, el cambio en doce meses y la serie en pesos del último mes
+    s = combustibles_provincias.sort_values(p)
+    serie = combustibles_mensual[combustibles_mensual.codigo_indec == "00"].set_index("periodo")[p + "_real"]
+    return {p: float(_cbu.loc["00", p]), p + "_alto": [s.iloc[-1].territorio, float(s.iloc[-1][p])], p + "_bajo": [s.iloc[0].territorio, float(s.iloc[0][p])],
+            p + "_var": r1((_cbu.loc["00", p] / _cba.loc["00", p] - 1) * 100), p + "_var_real": r1((_cbu.loc["00", p + "_real"] / _cba.loc["00", p + "_real"] - 1) * 100),
+            p + "_ini_real": float(serie.iloc[0]), p + "_max_real": float(serie.max()), p + "_max_real_mes": _mes_per(serie.idxmax())}
+
+
+CB_RES = {"mes": _mes_per(CB_ULT), "periodo": CB_ULT, "mes_antes": _mes_per(CB_ANT), "ini": _mes_per(cb_.periodo.min()),
+          "anio_ini": int(cb_.periodo.min()[:4]), "anio_ult": int(CB_ULT[:4]), "estaciones": int(_cbeu.loc["00", "nafta"]), **_cb_ext("nafta"), **_cb_ext("gasoil")}
+# Consumo eléctrico de los hogares por provincia (etapa 21): la demanda residencial que los distribuidores declaran al mercado eléctrico
+# mayorista (CAMMESA), por mes y provincia, desde 2014, por habitante: con las proyecciones del INDEC desde 2022 y con la población
+# implícita en las tasas del SNIC antes, como las otras series por provincia. CAMMESA registra a Edenor y Edesur en la provincia de
+# Buenos Aires, así que la Ciudad y la provincia van juntas (código EL_BA), y no informa Tierra del Fuego: el país es la suma de las otras
+# jurisdicciones, sobre su población. Los últimos meses son provisorios. La parte residencial es la de las tres categorías de tarifa.
+el_ = pd.read_csv(CRUDO / "cammesa_demanda_provincias.csv")
+EL_BA = "02-06"
+el_["codigo_indec"] = el_.provincia.map(lambda t: EL_BA if norm(t) == "buenos aires" else "86" if norm(t).startswith("sgo") else codigo(t))
+assert el_.codigo_indec.notna().all(), f"provincias sin código en la demanda de CAMMESA: {el_[el_.codigo_indec.isna()].provincia.unique()}"
+assert "94" not in set(el_.codigo_indec) and "02" not in set(el_.codigo_indec), "CAMMESA empezó a separar la Ciudad o a informar Tierra del Fuego: revisar"
+el_["anio"] = el_.mes.str[:4].astype(int)
+_el_meses = el_.groupby("anio").mes.nunique()
+EL_ULT, EL_INI = int(_el_meses[_el_meses == 12].index.max()), int(el_.anio.min())
+_el_pr = proy.groupby(["codigo_indec", "anio"]).pob.sum()  # proy y no _pr: _pr se vuelve a usar más arriba, en las exportaciones
+
+
+def _el_pob(c, a):  # población del año: proyecciones del INDEC desde 2022 y la implícita en las tasas del SNIC antes
+    return sum(float(_el_pr[(x, a)]) if a >= 2022 else float(POB_T[(x, a)]) for x in c.split("-"))
+
+
+def _el_por_hab(d, clave):  # suma la demanda residencial por año o por mes, le agrega el país y la divide por la población del año
+    d = d.groupby(["codigo_indec", clave]).mwh.sum().reset_index()
+    if clave != "anio":
+        d["anio"] = d[clave].str[:4].astype(int)
+    d["pob"] = [_el_pob(c, a) for c, a in zip(d.codigo_indec, d.anio)]
+    pais = d.groupby([clave] if clave == "anio" else [clave, "anio"])[["mwh", "pob"]].sum().reset_index().assign(codigo_indec="00")
+    d = pd.concat([d, pais])
+    return d.assign(kwh_hab=d.mwh * 1000 / d.pob)
+
+
+_el_res = el_[el_.categoria == "Residencial"]
+_el_a = _el_por_hab(_el_res[_el_res.anio <= EL_ULT], "anio")
+_el_m = _el_por_hab(_el_res[_el_res.anio >= EL_ULT - 4], "mes")
+EL_NOM = lambda c: "Todo el país" if c == "00" else "CABA y Buenos Aires" if c == EL_BA else CORTO[c]
+electricidad_serie = _el_a[["anio", "codigo_indec", "kwh_hab"]].round(4).sort_values(["codigo_indec", "anio"])
+electricidad_mensual = _el_m.rename(columns={"mes": "periodo"})[["periodo", "codigo_indec", "kwh_hab"]].round(4).sort_values(["codigo_indec", "periodo"])
+_elu = _el_a[_el_a.anio == EL_ULT].set_index("codigo_indec")
+_el10 = _el_a[_el_a.anio == EL_ULT - 10].set_index("codigo_indec")
+_el_tot = el_[el_.anio == EL_ULT].groupby("codigo_indec").mwh.sum()
+_el_cod = [c for c in _elu.index if c != "00"]
+electricidad_provincias = pd.DataFrame({
+    "codigo_indec": _el_cod, "territorio": [EL_NOM(c) for c in _el_cod], "kwh_hab": _elu.kwh_hab[_el_cod].values, "gwh": (_elu.mwh[_el_cod] / 1000).values,
+    "pct_residencial": (_elu.mwh[_el_cod] / _el_tot[_el_cod] * 100).values, "kwh_hab_antes": _el10.kwh_hab.reindex(_el_cod).values,
+}).round(4).sort_values("kwh_hab", ascending=False)
+# el mes de más y de menos consumo de los hogares del país, en promedio de los tres últimos años completos
+_el_est = _el_m[(_el_m.codigo_indec == "00") & _el_m.anio.between(EL_ULT - 2, EL_ULT)]
+_el_cal = _el_est.groupby(_el_est.mes.str[5:7].astype(int)).kwh_hab.mean()
+_elp, _elr = electricidad_provincias.sort_values("kwh_hab"), electricidad_provincias.sort_values("pct_residencial")
+_el_s = _el_a[_el_a.codigo_indec == "00"].set_index("anio").kwh_hab
+ELEC_RES = {
+    "el_ini": EL_INI, "el_ult": EL_ULT, "el_hasta": _mes_per(el_.mes.max()), "el_pais": float(_el_s[EL_ULT]), "el_pais_ini": float(_el_s[EL_INI]),
+    "el_max_anio": int(_el_s.idxmax()), "el_max": float(_el_s.max()), "el_min_anio": int(_el_s.idxmin()), "el_min": float(_el_s.min()),
+    "el_top": [_elp.iloc[-1].territorio, float(_elp.iloc[-1].kwh_hab)], "el_bajo": [_elp.iloc[0].territorio, float(_elp.iloc[0].kwh_hab)],
+    "el_res_top": [_elr.iloc[-1].territorio, r1(_elr.iloc[-1].pct_residencial)], "el_res_bajo": [_elr.iloc[0].territorio, r1(_elr.iloc[0].pct_residencial)],
+    "el_est_desde": EL_ULT - 2, "el_mes_max": MES[int(_el_cal.idxmax()) - 1], "el_mes_max_kwh": float(_el_cal.max()),
+    "el_mes_min": MES[int(_el_cal.idxmin()) - 1], "el_mes_min_kwh": float(_el_cal.min()),
+}
+_el_tl = _el_a[_el_a.codigo_indec != EL_BA]
+agregar(_el_tl.assign(territorio=_el_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), periodo=_el_tl.anio.astype(str), valor=_el_tl.kwh_hab)[
+    ["codigo_indec", "territorio", "periodo", "valor"]], "electricidad_residencial_por_habitante", "kWh por habitante por año", "CAMMESA, demanda mensual por provincia y tipo de usuario")
+_el_tp = _el_a[_el_a.codigo_indec == "00"]
+agregar(_el_tp.assign(territorio="Argentina", periodo=_el_tp.anio.astype(str), valor=_el_tp.mwh / 1000)[["codigo_indec", "territorio", "periodo", "valor"]],
+        "electricidad_residencial_gwh", "GWh por año", "CAMMESA, demanda mensual por provincia y tipo de usuario")
+
+for _cb_p, _cb_var in (("nafta", "precio_nafta_super_surtidor"), ("gasoil", "precio_gasoil_grado_2_surtidor")):
+    _cb_d = combustibles_mensual.rename(columns={_cb_p: "valor"})
+    agregar(_cb_d.assign(territorio=_cb_d.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]))[["codigo_indec", "territorio", "periodo", "valor"]],
+            _cb_var, "pesos por litro, mediana de las estaciones", "Secretaria de Energia, precios en estaciones de servicio (Res. 1104/2004)")
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3132,6 +3243,11 @@ tablas = {
     "permisos_mensual": permisos_mensual,
     "hipotecas_mensual": hipotecas_mensual,
     "subsidios_energia": subsidios_energia,
+    "combustibles_provincias": combustibles_provincias,
+    "combustibles_mensual": combustibles_mensual,
+    "electricidad_provincias": electricidad_provincias,
+    "electricidad_serie": electricidad_serie,
+    "electricidad_mensual": electricidad_mensual,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -3179,6 +3295,8 @@ resumen = {
         **GAS_RES,
         # subsidios económicos a la energía (Secretaría de Hacienda)
         **SUB_RES,
+        # consumo eléctrico de los hogares por provincia (CAMMESA)
+        **ELEC_RES,
     },
     "nacimientos": {
         "anio_ini": int(nac_df.iloc[0].anio), "anio_ult": int(n24.anio),
@@ -3496,6 +3614,7 @@ resumen["petroleo"] = {
     "mundo": MUNDO,
     **AR_RES,  # producción por área de concesión
 }
+resumen["combustibles"] = CB_RES  # precios de los combustibles en el surtidor (etapa 21)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),
