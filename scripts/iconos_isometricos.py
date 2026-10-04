@@ -652,6 +652,53 @@ def _(ic):
     ic.poli(estrella, "w")
 
 
+@icono("carrito", "azul")
+def _(ic):
+    # Economía y precios (etapa 25): un carrito de compras, con la canasta enrejada, la manija y dos ruedas
+    ic.sombra(5.2, 2.4, 5.4, 1.8)
+    canasta = [(0, 5.2), (8, 5.2), (7, 1.7), (1, 1.7)]
+    ic.extruir(canasta, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 2.8, 0), "l", "s")
+    y = 2.8   # el frente que se ve es la cara de y = 2.8
+    for u in (2.67, 5.33):
+        ic.linea([(u, y, 5.2), (1 + u / 8 * 6, y, 1.7)], "k")
+    ic.linea([(.5, y, 3.45), (7.5, y, 3.45)], "k")
+    # la manija y la barra de abajo
+    ic.linea([(8, .3, 5.2), (9.7, .3, 6.8), (9.7, 2.5, 6.8), (8, 2.5, 5.2)], "k")
+    ic.linea([(1.1, y, 1.0), (7.4, y, 1.0)], "k")
+    for cx in (1.9, 6.6):
+        ic.circulo_vertical(cx, y + .05, .6, .62, "l")   # claras: sobre la sombra se ven
+
+
+@icono("globo", "azul")
+def _(ic):
+    # Migraciones (etapa 25): un globo terráqueo en dos tonos sobre su pie, con el ecuador y dos paralelos
+    ic.sombra(6.4, 4.6, 3.8, 1.5)
+    ic.cilindro(5, 5, 0, 2.2, .5, arriba="l", lado="s")
+    ic.cilindro(5, 5, .5, .3, 2.0, arriba="s", lado="s")
+    zc, r = 6.3, 3.8
+    ic.esfera((5, 5, zc), r, mitad="der")
+    for dz in (-2.0, 0, 2.0):
+        rr = (r * r - dz * dz) ** .5
+        ic.arco_frente(5, 5, zc + dz, rr, "k", desde=45, hasta=135)
+        ic.arco_frente(5, 5, zc + dz, rr, "wl", desde=-45, hasta=45)
+
+
+@icono("mastil", "azul")
+def _(ic):
+    # Gobierno (etapa 25): un mástil con la bandera, tres franjas y el sol, sobre un pedestal
+    ic.sombra(6.2, 5.4, 4.2, 1.6)
+    ic.caja(3.6, 3.6, 0, 2.8, 2.8, .8)
+    ic.cilindro(5, 5, .8, .28, 10.6, arriba="s", lado="s")
+    xs = [5.3, 7.5, 9.7, 11.9]
+    arriba = [11.2, 11.6, 11.1, 11.5]
+    alto = 4.2
+    f = lambda z0, z1: [(x, 5, z) for x, z in zip(xs, z0)] + [(x, 5, z) for x, z in zip(xs[::-1], z1[::-1])]
+    ic.poli(f(arriba, [z - alto for z in arriba]), "s")
+    ic.poli(f([z - alto / 3 for z in arriba], [z - 2 * alto / 3 for z in arriba]), "w")
+    x, y = proy((8.6, 5, 11.35 - alto / 2))
+    ic.plano_circulo(x, y, .42 * ESC, "s")
+
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}
