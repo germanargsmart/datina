@@ -953,6 +953,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-areas-hidro">
+      <h3>Producción de petróleo y gas por área de concesión, {{petroleo.areas_ini}} a {{petroleo.areas_anio}}</h3>
+      <p class="lead" data-t="areas-hidro"></p>
+      <div class="conmutador" role="group" aria-label="Producto" data-g="areas-hidro">
+        <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
+        <button type="button" data-m="gas" aria-pressed="false">Gas</button>
+      </div>
+      <label class="selector-ficha"><span>Área</span><select id="ar-sel"><option value="">Las 15 que más producen</option></select></label>
+      <div class="pol-ley" id="areas-hidro-ley" aria-hidden="true" hidden></div>
+      <div class="grafico" data-g="areas-hidro" data-forma="barras" style="--filas:15"></div>
+      <p class="nota" data-t="areas-hidro-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/areas_produccion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-mapa-pozos">
       <h3>Pozos no convencionales y áreas de concesión, {{petroleo.map_mes}}</h3>
       <p class="lead" data-t="mapa-pozos"></p>

@@ -60,6 +60,19 @@ const conTablas = (g, nombres, dibujo) => a => {
 const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
 const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
 const pct = v => n1(v) + "%";
+const kbdF = v => v >= 10 ? n0(v) : n1(v);
+// una cifra sobre otra, con un decimal y sin ",0": "2 veces", "2,3 veces"
+const veces = (a, b) => n1(a / b).replace(/,0$/, "");
+// cuánto se aparta una provincia del país (etapa 21, como los perfiles del regulador de energía de Canadá): solo si llega a 1,5 veces o
+// queda por debajo de la mitad, y solo para valores por habitante, tasas y porcentajes, nunca para variaciones con signo. Con soloDebajo
+// (porcentajes que llegan a 100, como las cloacas), solo si queda muy por debajo
+const vecesPais = (v, pais, soloDebajo) => {
+  if (!(v >= 0 && pais > 0)) return "";
+  const r = v / pais;
+  return r >= 1.5 && !soloDebajo ? `${veces(v, pais)} veces el promedio del país` : r < .1 ? "menos de la décima parte del promedio del país"
+    : r < .25 ? "menos de la cuarta parte del promedio del país" : r < .5 ? "menos de la mitad del promedio del país" : "";
+};
+const conVeces = (v, pais) => { const t = vecesPais(v, pais); return t ? ` (${t})` : ""; };
 const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
 const tip = document.getElementById("tip");
 /* Cortes de línea: una palabra sola en la última línea ("cada / año") queda fea. Además de text-wrap en el CSS, que no todos
@@ -229,6 +242,16 @@ const LEAD = {
     return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top} produjo el ${pct(PG.top_pct)} del petróleo del país: ${n0(PG.top_kbd)} mil barriles por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
       `${PG.segundo}, la segunda, produjo ${n0(PG.segundo_kbd)} mil, contra ${n0(PG.segundo_antes)} mil. En total, ${PG.n_prov} provincias producen petróleo o gas. La formación Vaca Muerta dio el ${pct(PG.vm_pct)} del petróleo del país.`;
   },
+  // áreas de concesión (etapa 21): el último año completo. El texto de un área elegida lo arma textoArea()
+  "areas-hidro": v => {
+    const gas = v === "gas", t = gas ? PG.areas_gas_top : PG.areas_pet_top;
+    const cant = x => gas ? `${n1(x)} millones de metros cúbicos de gas por día` : `${kbdF(x)} mil barriles de petróleo por día`;
+    return `En ${PG.areas_anio}, ${PG.areas_n} áreas de concesión produjeron petróleo o gas. La mitad del ${gas ? "gas" : "petróleo"} del país salió de ${gas ? PG.areas_n50_gas : PG.areas_n50_pet} de ellas, ` +
+      `y las diez que más produjeron sumaron el ${pct(gas ? PG.areas_top10_gas : PG.areas_top10_pet)}. ` +
+      `La primera fue ${tituloArea(t.nombre)}, ${t.territorio === "Mar argentino" ? "en el mar argentino" : "en " + t.territorio}, con ${cant(t.v)}, el ${pct(t.pct)} del país` +
+      (t.nc >= 99.95 ? ", todo de formaciones no convencionales" : t.nc >= 95 ? ", casi todo de formaciones no convencionales" : t.nc > 0 ? `, el ${pct(t.nc)} de formaciones no convencionales` : ", todo de formaciones convencionales") +
+      `. ${t.antes > 0 ? `En ${PG.areas_anio - 10} producía ${cant(t.antes)}.` : `En ${PG.areas_anio - 10} no producía.`}`;
+  },
   pozos: () => {
     const p = T.pozos_provincias.find(r => r.territorio === PG.pozos_top) || {};
     return `En ${PG.pozos_mes} produjeron petróleo o gas ${n0(PG.pozos)} pozos. Los ${n0(PG.pozos_shale)} de shale, el ${pct(PG.pct_pozos_shale)} del total, dieron el ${pct(PG.pct_pet_shale_pozos)} del petróleo. ` +
@@ -320,8 +343,8 @@ const LEAD = {
     ? `En pesos de ${CN.op_ult}, la Nación invirtió ${n0(CN.op_total)} miles de millones en obra pública en ${CN.op_ult}: ${n0(CN.op_obras)} en obras propias y ${n0(CN.op_transf)} en transferencias de capital a provincias y municipios. ` +
       `El máximo de la serie fue en ${CN.op_max_anio}, con ${n0(CN.op_max)} miles de millones, y el mínimo, en ${CN.op_min_anio}, con ${n0(CN.op_min)}.` +
       (CN.op_min_anio !== CN.op_ult - 1 ? ` En ${CN.op_ult - 1} había sido de ${n0(CN.op_ant)} miles de millones.` : "")
-    : `En ${CN.op_ult}, la obra pública de la Nación con provincia asignada sumó ${n0(CN.op_hab_pais)} pesos por habitante. ${CN.op_top[0]} recibió la mayor inversión por habitante, ${n0(CN.op_top[1])} pesos, ` +
-      `y ${CN.op_bajo[0]} la menor, ${n0(CN.op_bajo[1])}. La Dirección Nacional de Vialidad ejecutó el ${pct(CN.op_vialidad_pct)} de las obras propias de la Nación, y el ${pct(CN.op_sin_pct)} de esas obras no tiene una provincia asignada.`,
+    : `En ${CN.op_ult}, la obra pública de la Nación con provincia asignada sumó ${n0(CN.op_hab_pais)} pesos por habitante. ${CN.op_top[0]} recibió la mayor inversión por habitante, ${n0(CN.op_top[1])} pesos${conVeces(CN.op_top[1], CN.op_hab_pais)}, ` +
+      `y ${CN.op_bajo[0]} la menor, ${n0(CN.op_bajo[1])}${conVeces(CN.op_bajo[1], CN.op_hab_pais)}. La Dirección Nacional de Vialidad ejecutó el ${pct(CN.op_vialidad_pct)} de las obras propias de la Nación, y el ${pct(CN.op_sin_pct)} de esas obras no tiene una provincia asignada.`,
   insumos: v => v === "var_ytd"
     ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
@@ -330,7 +353,7 @@ const LEAD = {
   "empleo-construccion": v => `En el ${CN.emp_trim} había ${n0(CN.emp_total)} puestos asalariados registrados en la construcción privada, el ${pct(CN.emp_pct)} del empleo privado registrado y ${n1(CN.emp_cada_1000)} cada 1.000 habitantes. ` +
     `Frente al ${CN.emp_trim_ant}, los puestos ${creceCae(CN.emp_var, "crecieron", "cayeron")}` +
     (v === "var_construccion" ? ` y ${CN.emp_suben} de las 24 jurisdicciones tuvieron más que un año antes.` : v === "serie" ? `. El máximo de la serie fue de ${n0(CN.emp_max)} puestos, en el ${CN.emp_max_trim}.` :
-      `. ${CN.emp_top} tenía ${n1(CN.emp_top_v)} cada 1.000 habitantes y ${CN.emp_low}, ${n1(CN.emp_low_v)}.`),
+      `. ${CN.emp_top} tenía ${n1(CN.emp_top_v)} cada 1.000 habitantes${conVeces(CN.emp_top_v, CN.emp_cada_1000)} y ${CN.emp_low}, ${n1(CN.emp_low_v)}${conVeces(CN.emp_low_v, CN.emp_cada_1000)}.`),
 };
 const RO = R.rotacion, trim = t => `${["primer", "segundo", "tercer", "cuarto"][t[1] - 1]} trimestre de ${t[0]}`;
 // casos distorsionados por el lugar de registro o por un error de la fuente (datos/manual/distorsiones.json): el motivo va en
@@ -433,6 +456,11 @@ const TX = {
     `En el mapa, cada departamento muestra el porcentaje de hogares que cocina con gas de red, en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
   "hidro-provincias": LEAD["hidro-provincias"]("pet_kbd"), "hidro-provincias-nota": `Promedio de los doce meses en miles de barriles de petróleo y en millones de metros cúbicos de gas por día. ` +
     `"Mar argentino" son los yacimientos del mar a más de doce millas de la costa, que son del Estado nacional (la fuente los llama Estado Nacional). Al pasar el mouse, cada barra muestra la parte del país, la parte no convencional y la producción de los mismos meses diez años antes, entre ${PG.v10_desde} y ${PG.v10_hasta}.`,
+  "areas-hidro": LEAD["areas-hidro"]("pet"), "areas-hidro-nota": `Promedio de cada año en miles de barriles de petróleo y en millones de metros cúbicos de gas por día, según lo que declaran las empresas para cada área de concesión en el Capítulo IV. ` +
+    `La empresa de cada área es la que declaró la mayor parte de su producción en ${PG.areas_anio}. No convencional es lo que sale de formaciones de shale y tight, y convencional, el resto. ` +
+    `"Mar argentino" son las áreas del mar a más de doce millas de la costa, que son del Estado nacional. ` +
+    (PG.areas_incompletos.length ? `En ${lista(PG.areas_incompletos.map(String))} la fuente tiene algún mes que no llega al 99% del total del país: en esos años, lo que produjo cada área puede quedar algo por debajo. ` : "") +
+    `Elegí un área en la lista para ver lo que produjo cada año desde ${PG.areas_ini}. Si elegiste una provincia en Tu provincia, sus áreas se resaltan entre las 15 que más producen.`,
   pozos: LEAD["pozos"](), "pozos-nota": `Pozos que declararon producción de petróleo o de gas en el mes. La producción de petróleo por pozo divide el petróleo del mes por los días del mes y por los pozos que produjeron petróleo, así que un pozo que produjo solo algunos días baja el promedio. Un mismo pozo puede producir petróleo y gas. ` +
     `Con el factor de la Secretaría, un barril equivale a unos ${n0(1000 / PG.bbl)} litros.`,
   "empresas-hidro": LEAD["empresas-hidro"]("pct_pet"), "empresas-hidro-nota": `Producción declarada por cada empresa en el Capítulo IV, como operadora de sus áreas: en las áreas compartidas, la producción figura a nombre de la empresa que la declara. ` +
@@ -521,7 +549,7 @@ const TX = {
   aprender: `En Aprender ${ap.anio}, el ${pct(ap.mat)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en matemática y el ${pct(ap.len)} en lengua. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
   "aprender-nota": `Aprender es la evaluación nacional del Ministerio de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes están calculados sobre la base agregada por departamento, sector y ámbito que publica el Ministerio, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial.${DIST["aprender_provincias.mat_logra"]?.["Neuquén"] ? ` En Neuquén, ${DIST["aprender_provincias.mat_logra"]["Neuquén"].motivo}.` : ""}`,
   "protegida-titulo": `Superficie protegida por provincia, ${nt.anio}`,
-  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas: el ${pct(nt.pct)} del territorio continental del país, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie y ${nt.low} el ${pct(nt.low_v)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
+  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas: el ${pct(nt.pct)} del territorio continental del país, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low} el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
   "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población ${R.anio_pob} proyectada por el INDEC. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.protegida.anio} según el Banco Mundial, que usa otra base (la Base Mundial de Áreas Protegidas) y no suma superposiciones.`,
   "parques-titulo": `Superficie de las áreas protegidas nacionales según año de creación, ${nt.anio_ini} a ${nt.anio_fin}`,
   parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy la Administración de Parques Nacionales tiene ${nt.pn_n} áreas protegidas, con ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
@@ -589,7 +617,7 @@ const TX = {
   esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer en el país era de ${n1(nv.ev_pais)} años: ${n1(nv.ev_m)} para las mujeres y ${n1(nv.ev_v)} para los varones. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
   "exportaciones-titulo": `Exportaciones por habitante según provincia de origen, ${nv.ex_anio}`,
-  exportaciones: `En ${nv.ex_anio} el país exportó bienes por ${n0(nv.ex_total)} millones de dólares, unos ${n0(nv.ex_pc_pais)} dólares por habitante. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : ""),
+  exportaciones: `En ${nv.ex_anio} el país exportó bienes por ${n0(nv.ex_total)} millones de dólares, unos ${n0(nv.ex_pc_pais)} dólares por habitante. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : ""),
   "exportaciones-nota": `Valor FOB de los bienes exportados según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
   "censo-titulo": `Servicios, equipamiento y cobertura de salud por provincia, Censo 2022`,
   "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
@@ -1567,7 +1595,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {"obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1580,8 +1608,21 @@ const mesPer = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
 const tPer = p => +p.slice(0, 4) + (+p.slice(5, 7) - 1) / 12;
 const leyenda = (id, claves) => { $(id).innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join(""); };
 // los gráficos que cambian entre barras y mapa: la leyenda de las barras se oculta con el mapa
-const kbdF = v => v >= 10 ? n0(v) : n1(v);
 const bblF = v => v >= 100 ? n0(v) : n1(v);
+// áreas de concesión (etapa 21): las chicas se cuentan en barriles o en miles de metros cúbicos, para que no digan "0,0 mil"
+const CUENCA_DE = {"Golfo San Jorge": "del Golfo San Jorge", Noroeste: "del Noroeste", Noreste: "del Noreste"};
+const cantArea = (v, gas) => gas ? (v >= .1 ? `${n1(v)} millones de metros cúbicos` : `${n0(v * 1000)} mil metros cúbicos`) + " de gas por día"
+  : (v >= 1 ? `${kbdF(v)} mil barriles` : `${n0(v * 1000)} barriles`) + " de petróleo por día";
+function textoArea(r, tot, gas) {
+  const k = gas ? "gas_mmm3d" : "pet_kbd", nc = gas ? r.pct_gas_nc : r.pct_pet_nc, p = gas ? r.pct_gas_pais : r.pct_pet_pais;
+  const t = `${tituloArea(r.nombre)} está ${r.territorio === "Mar argentino" ? "en el mar argentino, a más de doce millas de la costa" : "en " + r.territorio}, en la cuenca ${CUENCA_DE[r.cuenca] || r.cuenca}. `;
+  if (!(r[k] > 0)) return t + `En ${PG.areas_anio} no produjo ${gas ? "gas" : "petróleo"}.`;
+  const mx = d3.greatest(tot, d => d.v);
+  return t + `En ${PG.areas_anio} produjo ${cantArea(r[k], gas)}, ${p < .05 ? "menos del 0,1%" : "el " + pct(p)} del país, ` +
+    (nc >= 99.95 ? "todo de formaciones no convencionales" : nc > 0 ? `el ${pct(nc)} de formaciones no convencionales` : "todo de formaciones convencionales") +
+    `, y ${r.empresa} declaró la mayor parte. ` +
+    (mx.anio === PG.areas_anio ? `Es su año de mayor producción desde ${PG.areas_ini}.` : `Su año de mayor producción fue ${mx.anio}, con ${cantArea(mx.v, gas)}.`);
+}
 Object.assign(DIB, {
   petroleo: conTablas("petroleo", ["hidrocarburos_mensual"], a => {
     $t("petroleo").textContent = LEAD.petroleo(MED.petroleo);
@@ -1611,6 +1652,38 @@ Object.assign(DIB, {
       tip: d => `<b>${d.territorio}</b><br>` + (gas ? `${n1(d.gas_mmm3d)} millones de m³ por día<br>${pct(d.pct_gas_pais)} del gas del país<br>No convencional: ${pct(d.pct_gas_nc || 0)}<br>Diez años antes: ${n1(d.gas_mmm3d_antes)}`
         : `${kbdF(d.pet_kbd)} mil barriles por día<br>${pct(d.pct_pet_pais)} del petróleo del país<br>No convencional: ${pct(d.pct_pet_nc || 0)}<br>Diez años antes: ${kbdF(d.pet_kbd_antes)}`)});
   },
+  "areas-hidro": conTablas("areas-hidro", () => MED.arArea ? ["areas_produccion", "areas_serie"] : ["areas_produccion"], a => {
+    const gas = MED["areas-hidro"] === "gas", k = gas ? "gas_mmm3d" : "pet_kbd", el = G("areas-hidro"), sel = $("ar-sel");
+    // la lista se arma la primera vez: las áreas de cada provincia, en orden alfabético
+    if (sel.options.length < 2) d3.groups(T.areas_produccion, r => r.territorio).sort((p, q) => p[0].localeCompare(q[0], "es")).forEach(([t, rs]) => {
+      const g = document.createElement("optgroup"); g.label = t;
+      rs.map(r => [r.codigo, tituloArea(r.nombre)]).sort((p, q) => p[1].localeCompare(q[1], "es")).forEach(([c, n]) => g.append(new Option(n, c)));
+      sel.append(g);
+    });
+    const r = MED.arArea && T.areas_produccion.find(x => x.codigo === MED.arArea);
+    $("areas-hidro-ley").hidden = !r;
+    if (!r) {
+      $t("areas-hidro").textContent = LEAD["areas-hidro"](MED["areas-hidro"]);
+      const filas = [...T.areas_produccion].sort((p, q) => q[k] - p[k]).slice(0, 15).map(x => ({...x, provNom: x.territorio, prov: x.codigo_indec, codigo_indec: x.codigo, territorio: tituloArea(x.nombre)}));
+      barrasH(el, {anim: a, data: filas, k, vf: gas ? n1 : kbdF, af: n0, l: 196, lAngosto: 150, marcar: new Set(filas.filter(x => x.prov === prov).map(x => x.codigo_indec)),
+        tip: d => `<b>${d.territorio}</b><br>${d.provNom}, cuenca ${CUENCA_DE[d.cuenca] || d.cuenca}<br>${d.empresa}<br>${cantArea(d[k], gas)}<br>${pct(gas ? d.pct_gas_pais : d.pct_pet_pais)} del país<br>` +
+          `No convencional: ${pct((gas ? d.pct_gas_nc : d.pct_pet_nc) || 0)}<br>En ${PG.areas_anio - 10}: ${d[k + "_antes"] > 0 ? cantArea(d[k + "_antes"], gas) : "sin producción"}`});
+      el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar, con sus áreas resaltadas
+      return;
+    }
+    const p = gas ? "gas" : "pet", porAnio = new Map(T.areas_serie.filter(x => x.codigo === r.codigo).map(x => [x.anio, x]));
+    const tot = d3.range(PG.areas_ini, PG.areas_anio + 1).map(y => { const x = porAnio.get(y) || {}; return {anio: y, conv: x[p + "_conv"] || 0, nc: x[p + "_nc"] || 0}; })
+      .map(d => ({...d, v: d.conv + d.nc}));
+    $t("areas-hidro").textContent = textoArea(r, tot, gas);
+    const cl = [{k: "conv", lab: "Convencional", c: COL_TIPO.conv}, {k: "nc", lab: "No convencional", c: COL_TIPO.shale}];
+    leyenda("areas-hidro-ley", cl);
+    const mx = d3.max(tot, d => d.v);
+    if (!mx) return sinDatos(el, `${tituloArea(r.nombre)} no produjo ${gas ? "gas" : "petróleo"} entre ${PG.areas_ini} y ${PG.areas_anio}.`);
+    // las áreas chicas, en barriles o en miles de metros cúbicos por día
+    const m = (gas ? mx < .1 : mx < 1) ? 1000 : 1, data = tot.map(d => ({anio: d.anio, conv: d.conv * m, nc: d.nc * m})), alto = mx * m;
+    columnasApiladas(el, {anim: a, claves: cl, cadaTick: 2, l: 44, data, vf: alto >= 10 ? n0 : n1, af: alto >= 10 ? n0 : n1,
+      unidad: gas ? (m > 1 ? "mil m³ de gas por día" : "millones de m³ de gas por día") : (m > 1 ? "barriles de petróleo por día" : "mil barriles de petróleo por día")});
+  }),
   pozos: a => {
     const t = T.pozos_tipo;
     $("pozos-ley").hidden = MED.pozos === "pozo";
@@ -2415,6 +2488,7 @@ function repintarProv() {
 // Solo se redibujan los gráficos de tarjetas que ya entraron en pantalla: el resto se dibuja al llegar
 function dibujarTodo() { Object.keys(DIB).forEach(k => { const el = G(k); if (el && el.closest(".visto")) DIB[k](false); }); }
 
+$("ar-sel").addEventListener("change", ev => { MED.arArea = ev.target.value; cambiarVista("areas-hidro"); });
 document.querySelectorAll(".selector-ficha select[data-g]").forEach(sel => sel.addEventListener("change", () => {
   MED[sel.dataset.g] = sel.value; cambiarVista(sel.dataset.g);
 }));
@@ -3199,6 +3273,7 @@ const CLAVE = {
   "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`],
   "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`],
   "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`],
+  "f-areas-hidro": [pct(PG.areas_top10_pet), `del petróleo del país salió de las diez áreas de concesión que más produjeron en ${PG.areas_anio}`],
   "f-pozos": [`${PG.veces} veces`, `más petróleo por día produjo un pozo de shale que uno convencional en ${PG.pozos_mes}`],
   "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`],
   "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`],
@@ -3754,9 +3829,9 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
 /* ---------- las 24: perfil de la provincia elegida ---------- */
 // Solo indicadores con dato por provincia. Las tasas de suicidio quedan fuera: no se presentan como ranking.
 const INDP = [
-  {id:"f-mortalidad", lab:"Mortalidad infantil", det:`muertes de menores de un año cada 1.000 nacidos vivos, promedio ${mo.tri_act}`,
+  {id:"f-mortalidad", lab:"Mortalidad infantil", veces:true, det:`muertes de menores de un año cada 1.000 nacidos vivos, promedio ${mo.tri_act}`,
     d:T.mortalidad_infantil_provincias, k:"tmi_actual", pais:mo.pais_act, f:n1, ocde:OC.mortalidad_infantil.ocde},
-  {id:"f-adolescentes", lab:"Maternidad adolescente", det:`% de los nacimientos de ${nac.anio_ult} con madres menores de 20 años`,
+  {id:"f-adolescentes", lab:"Maternidad adolescente", veces:true, det:`% de los nacimientos de ${nac.anio_ult} con madres menores de 20 años`,
     d:T.madres_adolescentes_provincias, k:ADO_ULT, pais:nac.pct_ult, f:pct},
   {id:"f-escolarizacion", lab:"Escolarización secundaria", det:`tasa neta de escolarización, ${es.fin}`,
     d:T.escolarizacion_secundaria_provincias, k:"tasa_final", pais:es.pais_fin, f:pct},
@@ -3764,35 +3839,35 @@ const INDP = [
     d:T.aprender_provincias, k:"mat_logra", pais:ap.mat, f:pct, dist:"aprender_provincias.mat_logra"},
   {id:"f-aprender", lab:"Aprender, lengua", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
     d:T.aprender_provincias, k:"len_logra", pais:ap.len, f:pct, dist:"aprender_provincias.len_logra"},
-  {id:"f-empleo", lab:"Empleo privado registrado", det:`asalariados cada 100 habitantes, ${em.mes}`,
+  {id:"f-empleo", lab:"Empleo privado registrado", veces:true, det:`asalariados cada 100 habitantes, ${em.mes}`,
     d:T.empleo_provincias, k:"cada_100", pais:em.cada_100_pais, f:n1, dist:"empleo_provincias.cada_100"},
   {id:"f-empleo", lab:"Variación del empleo privado", det:`% en los doce meses a ${em.mes}`,
     d:T.empleo_provincias, k:"var_12m", pais:em.var_nac, f:sg},
-  {id:"f-protegida", lab:"Territorio protegido", det:`% de la superficie dentro de áreas protegidas, ${nt.anio}`,
+  {id:"f-protegida", lab:"Territorio protegido", veces:true, det:`% de la superficie dentro de áreas protegidas, ${nt.anio}`,
     d:T.areas_protegidas_provincias, k:"pct_territorio", pais:nt.pct, f:pct, ocde:OC.protegida.ocde},
   {id:"f-esperanza", lab:"Esperanza de vida", det:`años al nacer, ambos sexos, ${nv.ev_anio}`,
     d:T.esperanza_vida_provincias, k:"total", pais:nv.ev_pais, f:n1, ocde:OC.esperanza_vida.ocde},
-  {id:"f-censo", lab:"Sin cobertura de salud", det:"% de las personas sin obra social, prepaga ni plan estatal, 2022",
+  {id:"f-censo", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, 2022",
     d:T.censo2022_provincias, k:"sin_cobertura", pais:nv.censo.sin_cobertura, f:pct},
-  {id:"f-censo", lab:"Cloacas", det:"% de los hogares con desagüe a red cloacal, 2022",
+  {id:"f-censo", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, 2022",
     d:T.censo2022_provincias, k:"cloaca", pais:nv.censo.cloaca, f:pct},
   {id:"f-censo", lab:"Internet en el hogar", det:"% de los hogares, 2022",
     d:T.censo2022_provincias, k:"internet", pais:nv.censo.internet, f:pct},
-  {id:"f-exportaciones", lab:"Exportaciones", det:`dólares por habitante, ${nv.ex_anio}`,
+  {id:"f-exportaciones", lab:"Exportaciones", veces:true, det:`dólares por habitante, ${nv.ex_anio}`,
     d:T.exportaciones_provincias, k:"usd_por_habitante", pais:nv.ex_pc_pais, f:n0},
   {id:"f-fiscal", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}`,
     d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.mediana, f:pct},
   {id:"f-eti", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
-  {id:"f-gas-hogares", lab:"Gas de red para cocinar", det:"% de los hogares, Censo 2022",
+  {id:"f-gas-hogares", lab:"Gas de red para cocinar", veces:"debajo", det:"% de los hogares, Censo 2022",
     d:T.vivienda_provincias, k:"pct_gas_red", pais:VV.pct_gas_red, f:pct},
-  {id:"f-gas-consumo", lab:"Consumo de gas por usuario", det:`m³ por usuario residencial de gas natural, ${e.gas_anio}`,
+  {id:"f-gas-consumo", lab:"Consumo de gas por usuario", veces:true, det:`m³ por usuario residencial de gas natural, ${e.gas_anio}`,
     d:T.gas_usuario_provincias, k:"m3_usuario", pais:e.gas_pais, f:n0},
-  {id:"f-vivienda", lab:"Hogares que alquilan", det:"% de los hogares, Censo 2022",
+  {id:"f-vivienda", lab:"Hogares que alquilan", veces:true, det:"% de los hogares, Censo 2022",
     d:T.vivienda_provincias, k:"pct_alquila", pais:VV.pct_alquila, f:pct},
-  {id:"f-obra-publica", lab:"Obra pública de la Nación", det:`pesos por habitante, ${CN.op_ult}`,
+  {id:"f-obra-publica", lab:"Obra pública de la Nación", veces:true, det:`pesos por habitante, ${CN.op_ult}`,
     d:T.obra_publica_provincias, k:"total_hab", pais:CN.op_hab_pais, f:n0},
-  {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
+  {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
     d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
 ];
 const grilla = document.getElementById("prov-grid") || document.createElement("div");
@@ -3831,7 +3906,8 @@ function pintarPanel(animar) {
     const c = INDP[+el.dataset.i], fila = c.d.find(d => d.codigo_indec === prov);
     const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
     cambiarTexto(el.querySelector(".dp-num"), fila ? c.f(fila[c.k]) : c.pais == null ? "Elegí una" : c.f(c.pais), animar);
-    el.querySelector(".dp-pos").textContent = fila ? `Posición ${orden} de ${c.d.length}, de mayor a menor.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`}${c.ocde == null ? "" : ` OCDE: ${c.f(c.ocde)}.`}` : c.pais == null ? "Sin total nacional comparable" : "Total del país";
+    const vz = fila && c.veces && c.pais != null ? vecesPais(fila[c.k], c.pais, c.veces === "debajo") : "";
+    el.querySelector(".dp-pos").textContent = fila ? `Posición ${orden} de ${c.d.length}, de mayor a menor.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`}${vz ? ` Es ${vz}.` : ""}${c.ocde == null ? "" : ` OCDE: ${c.f(c.ocde)}.`}` : c.pais == null ? "Sin total nacional comparable" : "Total del país";
     el.querySelector(".dp-aclara").textContent = fila ? notaDist(c, prov) : "";
     const punto = d3.select(el).select("circle.elegida");
     if (!fila) { punto.attr("opacity", 0); return; }
@@ -3842,18 +3918,19 @@ function pintarPanel(animar) {
 }
 
 /* ---------- preguntas que rotan de a una ---------- */
-const veces = (a, b) => n1(a / b).replace(/,0$/, "");
 const PREG = [
   ["¿Cuánto cambiaron los pozos de Vaca Muerta?",
    `En ${PG.dv_ini}, un pozo tenía en promedio ${n0(PG.dv_rama_ini)} metros de rama horizontal y ${n1(PG.dv_etapas_ini)} etapas de fractura. En ${PG.fr_ult}, ${n0(PG.dv_rama_ult)} metros y ${n1(PG.dv_etapas_ult)} etapas.`, "#f-fracturas"],
   ["¿Cuánto petróleo produce la Argentina?",
    `${n0(PG.kbd)} mil barriles por día en ${PG.mes}, el ${pct(PG.pct_shale)} de pozos de shale. Según la EIA, en ${PG.mundo.crudo_kbd.anio} fue el productor número ${PG.mundo.crudo_kbd.puesto} del mundo.`, "#f-petroleo"],
+  ["¿Cuánto petróleo sale de una sola área de concesión?",
+   `En ${PG.areas_anio}, ${tituloArea(PG.areas_pet_top.nombre)}, en ${PG.areas_pet_top.territorio}, produjo ${kbdF(PG.areas_pet_top.v)} mil barriles por día, el ${pct(PG.areas_pet_top.pct)} del petróleo del país.`, "#f-areas-hidro"],
   ["¿Cuántos hogares cocinan con gas de red?",
    `El ${pct(VV.pct_gas_red)} en el Censo 2022. ` + (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100.` : ""), "#f-gas-hogares"],
   ["¿Cuánto prestan los bancos para comprar una vivienda?",
    `${n0(CN.hip_ult)} mil millones de pesos en créditos hipotecarios UVA en ${CN.hip_mes}. En todo ${CN.hip_anio}, ${n0(CN.hip_anual)} mil millones, contra ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, en pesos de igual valor.`, "#f-hipotecas"],
   ["¿Cuánto gas consume por año un usuario residencial?",
-   `${n0(e.gas_pais)} metros cúbicos en promedio en ${e.gas_anio}. En ${e.gas_top[0][0]}, ${n0(e.gas_top[0][1])}: ${veces(e.gas_top[0][1], e.gas_pais)} veces más.`, "#f-gas-consumo"],
+   `${n0(e.gas_pais)} metros cúbicos en promedio en ${e.gas_anio}. En ${e.gas_top[0][0]}, ${n0(e.gas_top[0][1])}, ${veces(e.gas_top[0][1], e.gas_pais)} veces el promedio del país.`, "#f-gas-consumo"],
   ["¿Cuántos hogares alquilan su vivienda?",
    `El ${pct(VV.pct_alquila)} en el Censo 2022: del ${pct(CN.viv_top.pct_alquila[1])} en ${CN.viv_top.pct_alquila[0]} al ${pct(CN.viv_low.pct_alquila[1])} en ${CN.viv_low.pct_alquila[0]}.`, "#f-vivienda"],
   ["¿Cuánto varía la mortalidad infantil entre provincias?",

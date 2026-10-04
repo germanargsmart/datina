@@ -1597,12 +1597,59 @@ assert MAP_CORTES[2] < MAP_CORTES[3], "los grupos de años del mapa se superpone
 _top_areas = pozos_nc[_activo].groupby("area").size().sort_values(ascending=False).head(3)
 _ap = pd.read_csv(CRUDO / "se_produccion_areas.csv")
 AREAS_ANIO = int(_ap.anio.max()) - 1  # el último año completo
-_ap = _ap[_ap.anio == AREAS_ANIO].copy()
-_dias_a = 366 if AREAS_ANIO % 4 == 0 else 365
-areas_prod = pd.DataFrame({"codigo": _ap.idareapermisoconcesion, "nombre": _ap.area.str.strip(), "provincia": _ap.provincia,
-                           "empresa": _ap.empresa.map(nombre_empresa), "pet_kbd": _ap.prod_pet / _dias_a * BBL / 1000,
-                           "gas_mmm3d": _ap.prod_gas / _dias_a / 1000,
-                           "pct_pet_nc": (_ap.pet_nc / _ap.prod_pet.where(_ap.prod_pet > 0) * 100)}).round({"pet_kbd": 2, "gas_mmm3d": 3, "pct_pet_nc": 1})
+# Producción por área de concesión (etapa 21, como las páginas por yacimiento de Norsk Petroleum): las áreas que produjeron petróleo o gas
+# en el último año completo, con su provincia, su cuenca y la empresa que más produjo en ellas, y lo que produjo cada una cada año desde el
+# primero del archivo, convencional y no convencional (shale y tight; lo convencional incluye lo poco que la fuente no clasifica). Sale del
+# archivo agrupado por yacimiento y formación, que tiene algunos meses incompletos (ver la producción anual por provincia, más arriba): en
+# esos años la producción de cada área puede quedar algo por debajo, la nota los nombra y la serie por área no va a la tabla larga. El mapa
+# de los pozos usa la misma tabla de áreas.
+CUENCA_AREA = {"NEUQUINA": "Neuquina", "GOLFO SAN JORGE": "Golfo San Jorge", "AUSTRAL": "Austral", "CUYANA": "Cuyana", "NOROESTE": "Noroeste",
+               "NORESTE": "Noreste"}
+_ar = _ap[_ap.anio <= AREAS_ANIO].copy()
+_ar["codigo_indec"] = _ar.provincia.map(lambda t: MAR if norm(t) == "estado nacional" else codigo(t))
+assert _ar.codigo_indec.notna().all(), f"provincias sin código en las áreas de concesión: {_ar[_ar.codigo_indec.isna()].provincia.unique()}"
+assert set(_ar.cuenca.dropna()) <= set(CUENCA_AREA), f"cuencas nuevas en las áreas de concesión: {set(_ar.cuenca.dropna()) - set(CUENCA_AREA)}"
+_ar_d = _ar.anio.map(lambda a: 366 if pd.Timestamp(f"{a}-12-31").is_leap_year else 365)
+_ar["pet_kbd"], _ar["gas_mmm3d"] = _ar.prod_pet / _ar_d * BBL / 1000, _ar.prod_gas / _ar_d / 1000
+_ar["pet_nc_kbd"], _ar["gas_nc_mmm3d"] = _ar.pet_nc / _ar_d * BBL / 1000, _ar.gas_nc / _ar_d / 1000
+_ar["pet_conv"], _ar["gas_conv"] = (_ar.pet_kbd - _ar.pet_nc_kbd).clip(lower=0), (_ar.gas_mmm3d - _ar.gas_nc_mmm3d).clip(lower=0)
+_aru = _ar[_ar.anio == AREAS_ANIO].set_index("idareapermisoconcesion")
+assert _aru.index.is_unique and _aru.empresa.notna().all(), "áreas repetidas o sin empresa en el último año completo"
+_ar10 = _ar[_ar.anio == AREAS_ANIO - 10].set_index("idareapermisoconcesion")
+areas_prod = pd.DataFrame({
+    "codigo": _aru.index, "nombre": _aru.area.str.strip().values, "codigo_indec": _aru.codigo_indec.values,
+    "territorio": [("Mar argentino" if c == MAR else CORTO[c]) for c in _aru.codigo_indec], "cuenca": _aru.cuenca.map(CUENCA_AREA).values,
+    "empresa": _aru.empresa.map(nombre_empresa).values,
+    "pet_kbd": _aru.pet_kbd.values, "pct_pet_pais": (_aru.pet_kbd / _aru.pet_kbd.sum() * 100).values,
+    "pct_pet_nc": (_aru.pet_nc_kbd / _aru.pet_kbd.where(_aru.pet_kbd > 0) * 100).values,
+    "pet_kbd_antes": _ar10.pet_kbd.reindex(_aru.index).fillna(0).values,
+    "gas_mmm3d": _aru.gas_mmm3d.values, "pct_gas_pais": (_aru.gas_mmm3d / _aru.gas_mmm3d.sum() * 100).values,
+    "pct_gas_nc": (_aru.gas_nc_mmm3d / _aru.gas_mmm3d.where(_aru.gas_mmm3d > 0) * 100).values,
+    "gas_mmm3d_antes": _ar10.gas_mmm3d.reindex(_aru.index).fillna(0).values,
+}).round(4).sort_values("pet_kbd", ascending=False)
+# lo que produjo cada área cada año (solo las que produjeron en el último año completo y los años en que produjeron algo)
+areas_serie = _ar.loc[_ar.idareapermisoconcesion.isin(_aru.index), ["idareapermisoconcesion", "anio", "pet_conv", "pet_nc_kbd", "gas_conv", "gas_nc_mmm3d"]].set_axis(
+    ["codigo", "anio", "pet_conv", "pet_nc", "gas_conv", "gas_nc"], axis=1).round(4)
+areas_serie = areas_serie[areas_serie[["pet_conv", "pet_nc", "gas_conv", "gas_nc"]].sum(axis=1) > 0].sort_values(["codigo", "anio"])
+# años con algún mes incompleto en el archivo agrupado: menos del 99% del total del país en petróleo o en gas
+AR_INC = sorted({int(p[:4]) for p in _tot.index if p in _ref.index and p not in _comp and int(_ar.anio.min()) <= int(p[:4]) <= AREAS_ANIO})
+
+
+def _ar_top(k, pct, nc, antes):  # el área que más produjo de un producto en el último año completo
+    r = areas_prod.sort_values(k, ascending=False).iloc[0]
+    return {"nombre": r.nombre, "territorio": r.territorio, "empresa": r.empresa, "v": float(r[k]), "pct": r1(r[pct]),
+            "nc": r1(r[nc]), "antes": float(r[antes])}
+
+
+def _ar_n50(s):  # cuántas áreas, de mayor a menor, hacen falta para llegar a la mitad del país
+    return int((s.sort_values(ascending=False).cumsum() / s.sum() < .5).sum() + 1)
+
+
+AR_RES = {"areas_ini": int(_ar.anio.min()), "areas_n": int(len(areas_prod)), "areas_n_nc": int(((_aru.pet_nc_kbd > 0) | (_aru.gas_nc_mmm3d > 0)).sum()),
+          "areas_top10_pet": r1(areas_prod.pct_pet_pais.nlargest(10).sum()), "areas_top10_gas": r1(areas_prod.pct_gas_pais.nlargest(10).sum()),
+          "areas_n50_pet": _ar_n50(_aru.pet_kbd), "areas_n50_gas": _ar_n50(_aru.gas_mmm3d),
+          "areas_pet_top": _ar_top("pet_kbd", "pct_pet_pais", "pct_pet_nc", "pet_kbd_antes"),
+          "areas_gas_top": _ar_top("gas_mmm3d", "pct_gas_pais", "pct_gas_nc", "gas_mmm3d_antes"), "areas_incompletos": AR_INC}
 
 # Centrales eléctricas (etapa 19): el listado de la Secretaría de Energía, con datos de CAMMESA, trae cada central con su tecnología,
 # potencia, provincia y ubicación, pero 177 de 474 no informan potencia (102 de ellas en el mercado mayorista): por eso el mapa las
@@ -3027,6 +3074,7 @@ tablas = {
     "productividad_vm": productividad_vm,
     "pozos_no_convencionales": pozos_nc,
     "areas_produccion": areas_prod,
+    "areas_serie": areas_serie,
     "curvas_vm": curvas_vm,
     "reservas_hidrocarburos": reservas,
     "reservas_provincias": reservas_prov,
@@ -3404,6 +3452,7 @@ resumen["petroleo"] = {
     "bal_ytd": _bal_ytd, "bal_ytd_expo": YTD_BAL["expo"], "bal_ytd_impo": YTD_BAL["impo"],
     # el mundo
     "mundo": MUNDO,
+    **AR_RES,  # producción por área de concesión
 }
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
