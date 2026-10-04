@@ -183,11 +183,14 @@ def siguiente(p):
     if "S" in p:  # semestres: 1S2017
         s, a = int(p[0]), int(p[2:])
         return f"{2 if s == 1 else 1}S{a + (s == 2)}"
+    if "T" in p:  # trimestres: 2T2026 (etapa 23)
+        q, a = int(p[0]), int(p[2:])
+        return f"{1 if q == 4 else q + 1}T{a + (q == 4)}"
     return None
 
 
 def orden(p):
-    return (int(p[2:]), int(p[0])) if "S" in p else p
+    return (int(p[2:]), int(p[0])) if "S" in p or "T" in p else p
 
 
 # series que por diseño no tienen un dato por año: elecciones cada dos o cuatro años y PISA cada tres

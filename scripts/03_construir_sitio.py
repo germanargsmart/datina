@@ -244,7 +244,8 @@ DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",
-             "dolar_inversion_trimestral", "compras_dolares_anual"]
+             "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "inversion_educativa_serie",
+             "seguridad_serie_prov"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
@@ -271,7 +272,7 @@ css = (RAIZ / "scripts" / "datina.css").read_text(encoding="utf-8")
 js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
-             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "turismo": "valija",
+             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
              "diagnostico": "portapapeles"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})

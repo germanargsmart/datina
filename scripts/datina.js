@@ -178,6 +178,24 @@ const EM = R.empresas;
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
 const PG = R.petroleo, CN = R.construccion, VV = CN.viv;
 const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa 21)
+// salarios, salario docente, inversión en educación y seguridad (etapa 23)
+const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
+// un caso cada cuántos habitantes, redondeado a la centena (la equivalencia que usa usafacts.org: "uno cada 27.600 habitantes")
+const unoCada = tasa => n0(Math.round(1e5 / tasa / 100) * 100);
+// cuánto cambió un valor, en palabras: "bajó 1,3%", "subió 4,0%" o "no cambió"
+const cambioPct = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambió" : `${v < 0 ? "bajó" : "subió"} ${pct(Math.abs(v))}`;
+// en cuántas de las 24 jurisdicciones pasó algo: "en 5 de las 24", "en las 24" o "en ninguna"
+// millones de pesos en los gráficos, como en el resto del sitio: "4,09 M" en las barras y "2 M" en los ejes
+const millonesM = v => n2(v / 1e6) + " M", ejeM = v => v === 0 ? "0" : n1(v / 1e6) + " M";
+// nombres cortos de los tipos de delito, para el gráfico en el celular
+const CORTO_DEL = {"Otros delitos contra la propiedad": "Otros c. la propiedad", "Lesiones culposas en siniestros viales": "Lesiones en tránsito",
+  "Infracciones a la ley de estupefacientes": "Estupefacientes", "Delitos de otras leyes especiales": "Otras leyes especiales",
+  "Delitos contra la administración pública": "Administración pública", "Otros delitos contra las personas": "Otros c. las personas",
+  "Otros delitos contra la integridad sexual": "Otros delitos sexuales", "Abusos sexuales con acceso carnal": "Abusos c. acceso carnal",
+  "Delitos contra la seguridad pública": "Seguridad pública", "Otros delitos contra la libertad": "Otros c. la libertad",
+  "Homicidios dolosos": "Homicidios dolosos", "Lesiones culposas por otros hechos": "Otras lesiones culposas",
+  "Tentativas de homicidio doloso": "Tentativas de homicidio", "Muertes en siniestros viales": "Muertes en tránsito"};
+const deLas24 = n => n === 24 ? "en las 24 jurisdicciones" : n === 0 ? "en ninguna de las 24 jurisdicciones" : `en ${n} de las 24 jurisdicciones`;
 // centrales eléctricas: un color por tecnología, el mismo en el mapa y en la potencia del país
 const TEC_CEN = [{k: "termica", lab: "Térmica", c: "#8C9AAB"}, {k: "hidraulica", lab: "Hidroeléctrica", c: "#2C74B5"}, {k: "nuclear", lab: "Nuclear", c: "#85340A"},
   {k: "eolica", lab: "Eólica", c: "#74ACDF"}, {k: "solar", lab: "Solar", c: "#F6B40E"}, {k: "biogas", lab: "Biomasa y biogás", c: "#5E9E6E"}];
@@ -357,6 +375,79 @@ const LEAD = {
     return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país, ` +
       `el ${pct(P.ind)} de la demanda. El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
       `con ${n0(b[1])}${conVeces(b[1], e.els_ind)}.`;
+  },
+  // salarios de los asalariados registrados privados por provincia (etapa 23, OEDE): el último mes sin aguinaldo o la serie en pesos de igual valor
+  salarios: v => {
+    if (v === "mes") {
+      const max = SA.real_max_mes === SA.real_desde ? `el de su primer mes, ${SA.real_max_mes}` : `el de ${SA.real_max_mes}`;
+      return `En pesos de igual valor (descontada la inflación con el índice de precios al consumidor del INDEC), el salario promedio del país de ${SA.mes} fue ` +
+        `${pct(Math.abs(SA.real_vs_ini))} ${SA.real_vs_ini < 0 ? "más bajo" : "más alto"} que el de ${SA.real_ini_mes}. El más alto de la serie fue ${max}, ` +
+        `con ${n0(SA.real_max)} pesos de ${SA.mes}, y el más bajo, el de ${SA.real_min_mes}, con ${n0(SA.real_min)}. El gráfico no muestra junio ni diciembre, que incluyen el aguinaldo.`;
+    }
+    return `En ${SA.mes}, el salario bruto promedio de los asalariados registrados del sector privado fue de ${n0(SA.pais)} pesos en el país. ` +
+      `El más alto fue el de ${SA.top[0]}, con ${n0(SA.top[1])}${conVeces(SA.top[1], SA.pais)}, y el más bajo, el de ${SA.bajo[0]}, con ${n0(SA.bajo[1])}${conVeces(SA.bajo[1], SA.pais)}. ` +
+      `Descontada la inflación, el salario del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant}, y subió ${deLas24(SA.n_suben)}.`;
+  },
+  // salario de un maestro de grado con 10 años de antigüedad (etapa 23, Coordinación de Evaluación de Costos Educativos)
+  "salario-docente": v => {
+    if (v === "serie") return `En pesos de igual valor (con el índice de precios al consumidor del INDEC), el salario promedio de un maestro de grado del país en ${DC.trim} fue ` +
+      `${pct(Math.abs(DC.real_vs_ini))} ${DC.real_vs_ini < 0 ? "más bajo" : "más alto"} que en ${DC.real_ini}` +
+      (DC.real_max_trim === DC.real_desde ? `. El trimestre más alto de la serie fue el primero, ${DC.real_desde}, y el más bajo, el de ${DC.real_min_trim}.`
+        : `. Desde ${DC.real_desde}, el trimestre más alto fue el de ${DC.real_max_trim} y el más bajo, el de ${DC.real_min_trim}.`) + ` Hasta ${DC.fonid_fin} el salario incluía el Fondo Nacional de Incentivo Docente y la conectividad que pagaba la Nación, y desde ${DC.fonid_ini} ` +
+      `no los incluye. Entre esos dos trimestres, el promedio del país ${cambioPct(DC.fonid_var)} en pesos de igual valor.`;
+    const ex = DC.extra.length === 1 ? ` En ${DC.extra[0][0]}, ese salario incluye una suma extraordinaria de ${n0(DC.extra[0][1])} pesos.`
+      : DC.extra.length ? ` En ${lista(DC.extra.map(x => x[0]))}, ese salario incluye sumas extraordinarias.` : "";
+    return `En ${DC.trim}, un maestro de grado de primaria con 10 años de antigüedad y jornada simple cobraba un salario bruto de ${n0(DC.pais)} pesos por mes en promedio en el país. ` +
+      `El más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])}${conVeces(DC.top[1], DC.pais)}, y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` +
+      ex + ` Descontada la inflación, el promedio del país ${cambioPct(DC.var_real_12m)} frente a ${DC.ant}.`;
+  },
+  // inversión en educación por alumno de gestión estatal (etapa 23, Coordinación de Evaluación de Costos Educativos)
+  "inversion-educativa": v => {
+    if (v === "pct") return `En ${IE.anio}, la educación fue el ${pct(IE.pct_pais)} del gasto público de las provincias en el total del país. La parte más alta fue la de ` +
+      `${IE.pct_top[0]}, con el ${pct(IE.pct_top[1])}, y la más baja, la de ${IE.pct_bajo[0]}, con el ${pct(IE.pct_bajo[1])}.`;
+    if (v === "serie") return `En pesos de ${IE.anio} (con el deflactor del PBI), la inversión por alumno de gestión estatal del país pasó de ${n0(IE.real_ini)} en ${IE.ini} a ` +
+      `${n0(IE.pais)} en ${IE.anio}. La más alta fue la de ${IE.real_max_anio}, con ${n0(IE.real_max)}, y la más baja, la de ${IE.real_min_anio}, con ${n0(IE.real_min)}.`;
+    return `En ${IE.anio}, el Estado invirtió ${n0(IE.pais)} pesos por cada alumno de las escuelas de gestión estatal del país, con lo que gastan las provincias en educación ` +
+      `y lo que les transfiere la Nación. El valor más alto fue el de ${IE.top[0]}, con ${n0(IE.top[1])}${conVeces(IE.top[1], IE.pais)}, y el más bajo, el de ${IE.bajo[0]}, ` +
+      `con ${n0(IE.bajo[1])}${conVeces(IE.bajo[1], IE.pais)}.`;
+  },
+  // seguridad (etapa 23, SNIC y SNEEP): delitos por tipo, robos y hurtos, homicidios dolosos y personas privadas de libertad
+  delitos: v => {
+    const t = SG.total_tasa / SG.total_tasa_ant * 100 - 100;
+    if (v === "serie") return `Desde ${SG.anio_ini}, la tasa de robos del país fue la más alta en ${SG.robos_max_anio}, con ${n0(SG.robos_max)} cada 100.000 habitantes, y en ${SG.anio} ` +
+      `fue de ${n0(SG.robos)}. Los hurtos pasaron de ${n0(SG.hurtos_ini)} en ${SG.anio_ini} a ${n0(SG.hurtos)} en ${SG.anio}. Las estafas y defraudaciones por medios virtuales, ` +
+      `que el SNIC cuenta aparte desde ${SG.estafas_ini}, pasaron de ${n0(SG.estafas_tasa_ini)} a ${n0(SG.estafas_tasa)} cada 100.000 habitantes.`;
+    return `En ${SG.anio}, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país, ${n0(SG.total_tasa)} cada 100.000 habitantes, ` +
+      `un ${pct(Math.abs(t))} ${t < 0 ? "menos" : "más"} que en ${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(([d, , p]) => `${d.toLowerCase()} (${pct(p)})`))}.`;
+  },
+  robos: v => {
+    const r = SG.robos / SG.robos_ant * 100 - 100, h = SG.hurtos / SG.hurtos_ant * 100 - 100;
+    // la Ciudad recibe cada día a muchas personas que viven en otras jurisdicciones: se dice en la misma oración que la nombra
+    const deDia = t => t === "CABA" ? ", que cada día recibe a muchas personas que viven en otras jurisdicciones" : "";
+    if (v === "serie") return `Desde ${SG.anio_ini}, la tasa de robos del país fue la más alta en ${SG.robos_max_anio}, con ${n0(SG.robos_max)} cada 100.000 habitantes. ` +
+      `En ${SG.anio} fue de ${n0(SG.robos)}, y la de hurtos, de ${n0(SG.hurtos)} (en ${SG.anio_ini}, ${n0(SG.robos_ini)} y ${n0(SG.hurtos_ini)}).`;
+    if (v === "hurtos") return `En ${SG.anio} se registraron ${n0(SG.hurtos)} hurtos cada 100.000 habitantes en el país, un ${pct(Math.abs(h))} ${h < 0 ? "menos" : "más"} que en ${SG.anio - 1}. ` +
+      `La tasa más alta fue la de ${SG.hurtos_top[0]}, con ${n0(SG.hurtos_top[1])}${conVeces(SG.hurtos_top[1], SG.hurtos)}${deDia(SG.hurtos_top[0])}, y la más baja, la de ` +
+      `${SG.hurtos_bajo[0]}, con ${n0(SG.hurtos_bajo[1])}${conVeces(SG.hurtos_bajo[1], SG.hurtos)}.`;
+    return `En ${SG.anio} se registraron ${n0(SG.robos)} robos cada 100.000 habitantes en el país, un ${pct(Math.abs(r))} ${r < 0 ? "menos" : "más"} que en ${SG.anio - 1}, y la tasa ` +
+      `bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +
+      `y la más baja, la de ${SG.robos_bajo[0]}, con ${n0(SG.robos_bajo[1])}${conVeces(SG.robos_bajo[1], SG.robos)}.`;
+  },
+  homicidios: v => {
+    if (v === "serie") return `La tasa de víctimas de homicidios dolosos del país pasó de ${n1(SG.hom_ini)} cada 100.000 habitantes en ${SG.anio_ini} a ${n1(SG.hom_tasa)} en ` +
+      `${SG.anio}. La más alta fue la de ${SG.hom_max_anio}, con ${n1(SG.hom_max)}` + (SG.hom_min_anio === SG.anio ? `, y la de ${SG.anio} es la más baja de la serie.` : ".");
+    return `En ${SG.anio}, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país, ${n1(SG.hom_tasa)} cada 100.000 habitantes: una cada ` +
+      `${unoCada(SG.hom_tasa)} habitantes` + (SG.hom_min_anio === SG.anio ? `, la tasa más baja desde ${SG.anio_ini}` : "") + `. El ${pct(SG.hom_varones)} eran varones. ` +
+      `Entre ${SG.hom3_desde} y ${SG.anio}, la tasa más alta fue la de ${SG.hom3_top[0]}, con ${n1(SG.hom3_top[1])} por año${conVeces(SG.hom3_top[1], SG.hom3_pais)}, ` +
+      `y la más baja, la de ${SG.hom3_bajo[0]}, con ${n1(SG.hom3_bajo[1])}${conVeces(SG.hom3_bajo[1], SG.hom3_pais)}.`;
+  },
+  carceles: v => {
+    if (v === "prov") return `Al 31 de diciembre de ${SG.sn_anio}, la tasa más alta de los servicios penitenciarios provinciales fue la de ${SG.sn_top[0]}, con ${n0(SG.sn_top[1])} ` +
+      `personas privadas de libertad cada 100.000 habitantes de la provincia, y la más baja, la de ${SG.sn_bajo[0]}, con ${n0(SG.sn_bajo[1])}. Las cárceles del Servicio ` +
+      `Penitenciario Federal alojaban a ${n0(SG.sn_spf)} personas. La Ciudad de Buenos Aires no tiene un servicio penitenciario propio.`;
+    return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país, ${n0(SG.sn_tasa)} cada 100.000 habitantes. ` +
+      `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
+      `con la causa en trámite, o en otra situación.`;
   },
   // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes,
   // y desde la etapa 22 año por año desde el primer año completo de la Resolución 1104/2004, en pesos del último año con deflactor
@@ -675,6 +766,33 @@ const TX = {
     `Por eso, donde hay una gran planta industrial o minera, una sola empresa puede explicar buena parte de la demanda de la provincia. CAMMESA no separa la Ciudad de ` +
     `Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: el valor del país es el de las demás jurisdicciones. ` +
     `Los últimos meses son provisorios (el último publicado es ${e.el_hasta}).`,
+  salarios: LEAD.salarios("prov"), "salarios-nota": `Remuneración bruta promedio por todo concepto (antes de los aportes y las contribuciones) de los asalariados ` +
+    `registrados del sector privado, por puesto de trabajo: una persona con dos empleos cuenta dos veces. Cada puesto se cuenta en la provincia donde el trabajador ` +
+    `está declarado. Es un promedio y no una mediana, así que unos pocos sueldos muy altos lo suben. Junio y diciembre incluyen el aguinaldo: por eso la comparación ` +
+    `entre provincias usa ${SA.mes}, el último mes publicado sin aguinaldo (el último es ${SA.ult}). La provincia de Buenos Aires reúne los partidos del Gran Buenos Aires ` +
+    `y el resto de la provincia, pesados por su empleo. No incluye el empleo público ni el trabajo no registrado. Los dos últimos años son provisorios.`,
+  "salario-docente": LEAD["salario-docente"]("prov"), "salario-docente-nota": `Salario bruto por mes de un cargo de referencia, no el promedio de lo que cobran los ` +
+    `docentes: maestro de grado de primaria, jornada simple, con 10 años de antigüedad, con lo que paga cada provincia. Incluye los adicionales comunes al cargo, como ` +
+    `zona o residencia donde se pagan, y las sumas extraordinarias del trimestre. Hasta ${DC.fonid_fin} incluía también el Fondo Nacional de Incentivo Docente y la ` +
+    `conectividad que pagaba la Nación. El país es el promedio ponderado que publica la fuente. Los datos son provisorios y cada edición revisa trimestres anteriores.`,
+  "inversion-educativa": LEAD["inversion-educativa"]("alumno"), "inversion-educativa-nota": `Gasto público en educación por alumno de gestión estatal: lo que gasta ` +
+    `cada provincia en educación más las transferencias no automáticas de la Nación, sin lo que se transfiere a las escuelas de gestión privada, dividido por los ` +
+    `alumnos de las escuelas estatales. La parte del gasto público no cuenta esas transferencias de la Nación. Pesos de cada año, y en la serie, pesos de ${IE.anio} ` +
+    `con el deflactor del PBI. Datos provisorios.`,
+  delitos: LEAD.delitos("tipo"), "delitos-nota": `El SNIC reúne los hechos que registran las fuerzas policiales y de seguridad, y en algunas provincias el Ministerio Público ` +
+    `Fiscal, en sus primeras actuaciones: los delitos que nadie denuncia ni detecta no figuran, y algunos de los registrados pueden no confirmarse después. Cada hecho ` +
+    `cuenta un delito. El total suma los delitos de todos los tipos salvo las contravenciones, y el gráfico muestra los catorce más frecuentes (la tabla tiene todos). Tasas cada 100.000 habitantes con las proyecciones de población del INDEC ` +
+    `de cada momento (desde 2022, con base en el Censo 2022). Entre 2009 y 2013, el SNIC completó el total del país porque faltan datos de Buenos Aires y de Córdoba.`,
+  robos: LEAD.robos("robos"), "robos-nota": `Hechos que registran las fuerzas policiales y de seguridad, cada 100.000 habitantes. El robo es quedarse con algo ajeno con fuerza ` +
+    `en las cosas o violencia en las personas, y el hurto, sin fuerza ni violencia. Los robos no incluyen las tentativas ni los agravados por el resultado de lesiones o ` +
+    `muertes, que el SNIC cuenta aparte. Las diferencias entre provincias dependen también de cuánto se denuncia y de cómo registra cada fuerza.`,
+  homicidios: LEAD.homicidios("prov"), "homicidios-nota": `Víctimas de homicidios dolosos, cuando se quita la vida a una persona con intención de hacerlo, que registran ` +
+    `las fuerzas policiales y de seguridad. En las provincias, la tasa suma ${SG.hom3_desde} a ${SG.anio} sobre la población del INDEC de esos años, porque donde hay ` +
+    `pocos casos la tasa de un solo año cambia mucho. Las muertes en siniestros viales y los femicidios están en la ficha de muertes de Salud.`,
+  carceles: LEAD.carceles("serie"), "carceles-nota": `Censo de las personas alojadas en establecimientos penitenciarios al 31 de diciembre de cada año. No incluye a las ` +
+    `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia: ` +
+    `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
+    `El salto de 2004 viene del dato de la provincia de Buenos Aires de ese año, mucho más alto que el de los años vecinos.`,
   combustibles: LEAD.combustibles("nafta", "prov"), "combustibles-nota": `La mediana de los precios en el surtidor que cada estación de servicio declara para el mes a la Secretaría de Energía ` +
     `(Resolución 1104/2004): la mitad de las estaciones cobra más y la otra mitad, menos. Solo la venta al público en bocas de expendio con movimiento en el mes, y sin los precios ` +
     `que se alejan a menos de la mitad o a más del doble de la mediana del país, en su mayoría cargados divididos por mil. La nafta súper es la de 92 a 95 octanos y el gasoil, el de grado 2. ` +
@@ -1694,7 +1812,8 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"electricidad-provincias": "prov", "electricidad-sectores": "ind", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {"electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1978,6 +2097,120 @@ Object.assign(DIB, {
       tip: d => `<b>${d.territorio}</b><br>${n0(d[col])} kWh por habitante en ${e.el_ult}<br>De su demanda: hogares ${pct(d.pct_res)}, comercios y servicios ${pct(d.pct_com)}, ` +
         `industrias y grandes comercios ${pct(d.pct_ind)}`});
     el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
+  },
+  // salarios (etapa 23): por provincia en el último mes sin aguinaldo, o mes a mes en pesos de igual valor con la línea de la provincia elegida
+  salarios: conTablas("salarios", () => MED.salarios === "mes" ? ["salarios_serie"] : [], a => {
+    const el = G("salarios"), fp = T.salarios_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.salarios(MED.salarios);
+    if (MED.salarios === "mes") {
+      const suya = fp ? new Map(T.salarios_serie.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r.salario_real])) : null;
+      const data = T.salarios_serie.filter(r => r.codigo_indec === "00").map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r.salario_real, prov: suya ? suya.get(r.periodo) ?? null : null}));
+      if (fp) txt += ` En ${fp.territorio}, el salario de ${SA.mes} ${cambioPct(fp.var_real_12m)} frente a ${SA.ant} en pesos de igual valor.`;
+      $t("salarios").textContent = txt;
+      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millonesM, yf: ejeM, xl: r => mesPer(r.periodo), mensual: true,
+        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
+    }
+    if (fp && fp.territorio !== SA.top[0] && fp.territorio !== SA.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.salario)} pesos${conVeces(fp.salario, SA.pais)}.`;
+    $t("salarios").textContent = txt;
+    barrasH(el, {anim: a, data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k: "salario", vf: millonesM, af: ejeM, ref: SA.pais, refLab: `País ${millonesM(SA.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.salario)} pesos en ${SA.mes}<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${SA.ant}`});
+  }),
+  // salario de un maestro de grado (etapa 23): por provincia en el último trimestre, o trimestre a trimestre en pesos de igual valor
+  "salario-docente": conTablas("salario-docente", () => MED["salario-docente"] === "serie" ? ["salario_docente_serie"] : [], a => {
+    const el = G("salario-docente"), fp = T.salario_docente.find(r => r.codigo_indec === prov);
+    let txt = LEAD["salario-docente"](MED["salario-docente"]);
+    if (MED["salario-docente"] === "serie") {
+      const suya = fp ? new Map(T.salario_docente_serie.filter(r => r.codigo_indec === prov).map(r => [r.periodo, r.bruto_real])) : null;
+      const data = T.salario_docente_serie.filter(r => r.codigo_indec === "00").map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r.bruto_real, prov: suya ? suya.get(r.periodo) ?? null : null}));
+      if (fp) txt += ` En ${fp.territorio}, el salario de ${DC.trim} ${cambioPct(fp.var_real_12m)} frente a ${DC.ant} en pesos de igual valor.`;
+      $t("salario-docente").textContent = txt;
+      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millonesM, yf: ejeM, xl: r => mesPer(r.periodo),
+        series: [{k: "pais", lab: "Promedio del país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
+    }
+    if (fp && fp.territorio !== DC.top[0] && fp.territorio !== DC.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.bruto)} pesos${conVeces(fp.bruto, DC.pais)}.`;
+    $t("salario-docente").textContent = txt;
+    barrasH(el, {anim: a, data: T.salario_docente.filter(r => r.codigo_indec !== "00"), k: "bruto", vf: millonesM, af: ejeM, ref: DC.pais, refLab: `País ${millonesM(DC.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.bruto)} pesos brutos en ${DC.trim}` + (d.extra > 0 ? `<br>Incluye una suma extraordinaria de ${n0(d.extra)}` : "") +
+        `<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${DC.ant}`});
+  }),
+  // inversión en educación (etapa 23): por alumno, como parte del gasto público o año por año en pesos del último año
+  "inversion-educativa": conTablas("inversion-educativa", () => MED["inversion-educativa"] === "serie" ? ["inversion_educativa_serie"] : [], a => {
+    const k = MED["inversion-educativa"], el = G("inversion-educativa"), fp = T.inversion_educativa.find(r => r.codigo_indec === prov);
+    let txt = LEAD["inversion-educativa"](k);
+    if (k === "serie") {
+      const suya = fp ? new Map(T.inversion_educativa_serie.filter(r => r.codigo_indec === prov).map(r => [r.anio, r.por_alumno_real])) : null;
+      const data = T.inversion_educativa_serie.filter(r => r.codigo_indec === "00").map(r => ({anio: r.anio, pais: r.por_alumno_real, prov: suya ? suya.get(r.anio) ?? null : null}));
+      if (fp) txt += ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno en ${IE.anio}.`;
+      $t("inversion-educativa").textContent = txt;
+      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: millonesM, yf: ejeM,
+        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
+    }
+    const pctV = k === "pct", col = pctV ? "pct_gasto" : "gasto_por_alumno", ref = pctV ? IE.pct_pais : IE.pais, f = pctV ? pct : millonesM;
+    const nombradas = pctV ? [IE.pct_top[0], IE.pct_bajo[0]] : [IE.top[0], IE.bajo[0]];
+    if (fp && !nombradas.includes(fp.territorio)) txt += pctV ? ` En ${fp.territorio}, el ${pct(fp.pct_gasto)}.` : ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno${conVeces(fp.gasto_por_alumno, IE.pais)}.`;
+    $t("inversion-educativa").textContent = txt;
+    barrasH(el, {anim: a, data: T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k: col, vf: f, af: pctV ? f : ejeM, ref, refLab: `País ${f(ref)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.gasto_por_alumno)} pesos por alumno de gestión estatal<br>La educación, ${pct(d.pct_gasto)} del gasto público, ${IE.anio}`});
+  }),
+  // delitos por tipo en el país (etapa 23): los catorce tipos más frecuentes (la tabla tiene todos), o las tasas año por año.
+  // En el celular, los nombres largos van en una versión corta
+  delitos: a => {
+    const el = G("delitos");
+    $t("delitos").textContent = LEAD.delitos(MED.delitos);
+    if (MED.delitos === "serie") return lineas(el, {anim: a, data: T.delitos_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "robos", lab: "Robos", c: NAR},
+      {k: "hurtos", lab: "Hurtos", c: FRI}, {k: "amenazas", lab: "Amenazas", c: css("--azul-hondo")}, {k: "lesiones", lab: "Lesiones dolosas", c: css("--muted")}]});
+    // los códigos van con una letra delante: un código de delito no tiene que coincidir con el de la provincia elegida
+    const data = T.delitos_tipo.slice(0, 14).map(r => ({codigo_indec: "d" + r.codigo, territorio: r.delito, tasa: r.tasa, hechos: r.hechos, pct: r.pct}));
+    barrasH(el, {anim: a, data, k: "tasa", vf: n0, af: n0, l: 236, lAngosto: 150, corto: d => CORTO_DEL[d.territorio] || d.territorio,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.hechos)} hechos en ${SG.anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct)} de los delitos registrados`});
+  },
+  // robos y hurtos por provincia (etapa 23), o la serie del país con las líneas de la provincia elegida
+  robos: conTablas("robos", () => MED.robos === "serie" ? ["seguridad_serie_prov"] : [], a => {
+    const k = MED.robos, el = G("robos"), fp = T.robos_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.robos(k);
+    if (k === "serie") {
+      const suya = fp ? new Map(T.seguridad_serie_prov.filter(r => r.codigo_indec === prov).map(r => [r.anio, r])) : null;
+      const data = T.delitos_serie.map(r => ({anio: r.anio, robos: r.robos, hurtos: r.hurtos, robos_p: suya?.get(r.anio)?.robos ?? null, hurtos_p: suya?.get(r.anio)?.hurtos ?? null}));
+      if (fp) txt += ` En ${fp.territorio}, ${n0(fp.robos)} robos y ${n0(fp.hurtos)} hurtos cada 100.000 habitantes en ${SG.anio}.`;
+      $t("robos").textContent = txt;
+      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "robos", lab: "Robos en el país", c: NAR}, {k: "hurtos", lab: "Hurtos en el país", c: css("--azul-hondo")},
+        ...(fp ? [{k: "robos_p", lab: `Robos en ${fp.territorio}`, c: FRI}, {k: "hurtos_p", lab: `Hurtos en ${fp.territorio}`, c: css("--sol-borde")}] : [])]});
+    }
+    const ref = k === "hurtos" ? SG.hurtos : SG.robos, nombradas = k === "hurtos" ? [SG.hurtos_top[0], SG.hurtos_bajo[0]] : [SG.robos_top[0], SG.robos_bajo[0]];
+    if (fp && !nombradas.includes(fp.territorio)) txt += ` En ${fp.territorio}, ${n0(fp[k])} cada 100.000 habitantes${conVeces(fp[k], ref)}.`;
+    $t("robos").textContent = txt;
+    barrasH(el, {anim: a, data: T.robos_provincias.filter(r => r.codigo_indec !== "00"), k, vf: n0, af: n0, ref, refLab: `País ${n0(ref)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d[k])} ${k} cada 100.000 habitantes en ${SG.anio}<br>En ${SG.anio - 1}, ${n0(d[k + "_ant"])}`});
+  }),
+  // homicidios dolosos (etapa 23): tasa de tres años por provincia, o la serie del país con la línea de la provincia elegida
+  homicidios: conTablas("homicidios", () => MED.homicidios === "serie" ? ["seguridad_serie_prov"] : [], a => {
+    const el = G("homicidios"), fp = T.homicidios_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.homicidios(MED.homicidios);
+    if (MED.homicidios === "serie") {
+      const suya = fp ? new Map(T.seguridad_serie_prov.filter(r => r.codigo_indec === prov).map(r => [r.anio, r.homicidios])) : null;
+      const data = T.delitos_serie.map(r => ({anio: r.anio, pais: r.homicidios, prov: suya ? suya.get(r.anio) ?? null : null}));
+      if (fp) txt += ` En ${fp.territorio}, ${n1(fp.tasa)} en ${SG.anio}.`;
+      $t("homicidios").textContent = txt;
+      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: n1, yf: n0,
+        series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
+    }
+    if (fp && fp.territorio !== SG.hom3_top[0] && fp.territorio !== SG.hom3_bajo[0]) txt += ` En ${fp.territorio}, ${n1(fp.tasa_3)} por año entre ${SG.hom3_desde} y ${SG.anio}${conVeces(fp.tasa_3, SG.hom3_pais)}: ${n0(fp.victimas_3)} víctimas en tres años.`;
+    $t("homicidios").textContent = txt;
+    barrasH(el, {anim: a, data: T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k: "tasa_3", vf: n1, af: n0, ref: SG.hom3_pais, refLab: `País ${n1(SG.hom3_pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.tasa_3)} víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}<br>${n0(d.victimas_3)} víctimas en esos tres años<br>En ${SG.anio}: ${n0(d.victimas)}`});
+  }),
+  // personas privadas de libertad (etapa 23, SNEEP): el país año por año o cada servicio penitenciario provincial
+  carceles: a => {
+    const el = G("carceles"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.carceles(MED.carceles);
+    if (MED.carceles === "prov") {
+      if (fp) txt += ` En ${fp.territorio}, ${n0(fp.tasa)} cada 100.000 habitantes: ${n0(fp.personas)} personas, el ${pct(fp.pct_condenados)} con condena.`;
+      $t("carceles").textContent = txt;
+      return barrasH(el, {anim: a, data: T.carceles_provincias, k: "tasa", vf: n0, af: n0,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en el servicio penitenciario provincial al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct_condenados)} con condena`});
+    }
+    $t("carceles").textContent = txt;
+    lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "tasa", lab: "Todo el país", c: NAR}]});
   },
   combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
     const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
@@ -3485,6 +3718,13 @@ const CLAVE = {
   "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`],
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
   "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`],
+  "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`],
+  "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`],
+  "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`],
+  "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`],
+  "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`],
+  "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`],
+  "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
   "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
   "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
   "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
@@ -3555,6 +3795,7 @@ const EXTRA = {
   "x-emp-top": ["f-empresas", n1(EM.top_v), `empresas privadas cada 1.000 habitantes en ${EM.top}, la jurisdicción con más, en ${EM.anio}. En ${EM.low}, ${n1(EM.low_v)}`],
   "x-emp-saldo": ["f-dinamica-empresas", `${EM.positivas} de 24`, `jurisdicciones abrieron más empresas de las que cerraron en ${EM.ult}. En el país abrieron ${n1(EM.te)} y cerraron ${n1(EM.ts)} de cada 100`],
   "x-emp-negativos": ["f-dinamica-empresas", n0(EM.anios_negativos), `años con más cierres que aperturas de empresas desde ${EM.ini}, entre ellos ${lista(EM.ultimos_negativos.map(String))}`],
+  "x-hurtos": ["f-robos", n0(SG.hurtos), `hurtos registrados cada 100.000 habitantes en ${SG.anio}. En ${SG.anio - 1}, ${n0(SG.hurtos_ant)}`],
   "x-indigencia": ["f-pobreza", pct(R.pobreza.ind), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de indigencia en el ${R.pobreza.sem}`],
   "x-ev-brecha": ["f-esperanza", `${n1(nv.ev_m - nv.ev_v)} años`, `más es la esperanza de vida al nacer de las mujeres que la de los varones: ${n1(nv.ev_m)} contra ${n1(nv.ev_v)}, ${nv.ev_anio}`],
   "x-mi-reducibles": ["f-causas-infantiles", pct(R.mi_causas.reducibles.neonatal), `de las muertes de menores de 28 días de ${R.mi_causas.reducibles.anio} eran reducibles con prevención, diagnóstico o tratamiento oportunos`],
@@ -3580,11 +3821,13 @@ const EXTRA = {
 };
 const EN_CIFRAS = {
   construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "f-trabajadores", "x-viviendas-construccion", "f-insumos"],
-  trabajo: ["f-empleo", "f-rotacion", "f-exportaciones", "f-fiscal"],
+  trabajo: ["f-empleo", "f-salarios", "f-rotacion", "f-exportaciones", "f-fiscal"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
   salud: ["f-esperanza", "x-ev-brecha", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
-  educacion: ["f-aprender", "x-aprender-len", "f-escolarizacion", "f-pisa", "x-aprender-debajo"],
+  // Seguridad (etapa 23): tiene datos por provincia (homicidios y robos) y suma la tarjeta "Tu provincia"
+  seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
+  educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
   poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes", "f-extranjeros"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
   movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
@@ -4072,6 +4315,16 @@ const INDP = [
   // CAMMESA no separa la Ciudad de la provincia de Buenos Aires ni informa Tierra del Fuego: esas tres muestran el valor del país
   {id:"f-electricidad-provincias", lab:"Consumo eléctrico de los hogares", det:`kWh por habitante, ${e.el_ult}`, veces:true,
     d:T.electricidad_provincias.filter(r => r.codigo_indec !== "02-06"), k:"kwh_hab", pais:e.el_pais, f:n0},
+  {id:"f-salarios", lab:"Salario promedio de los asalariados registrados privados", veces:true, det:`pesos por mes, bruto, ${SA.mes}`,
+    d:T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k:"salario", pais:SA.pais, f:n0},
+  {id:"f-salario-docente", lab:"Salario de un maestro de grado", veces:true, det:`pesos por mes, bruto, con 10 años de antigüedad, ${DC.trim}`,
+    d:T.salario_docente.filter(r => r.codigo_indec !== "00"), k:"bruto", pais:DC.pais, f:n0},
+  {id:"f-inversion-educativa", lab:"Inversión en educación por alumno", veces:true, det:`pesos por alumno de gestión estatal, ${IE.anio}`,
+    d:T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k:"gasto_por_alumno", pais:IE.pais, f:n0},
+  {id:"f-homicidios", lab:"Homicidios dolosos", veces:true, det:`víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}`,
+    d:T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_3", pais:SG.hom3_pais, f:n1},
+  {id:"f-robos", lab:"Robos registrados", veces:true, det:`cada 100.000 habitantes, ${SG.anio}`,
+    d:T.robos_provincias.filter(r => r.codigo_indec !== "00"), k:"robos", pais:SG.robos, f:n0, dist:"robos_provincias.robos"},
   {id:"f-combustibles", lab:"Precio de la nafta súper", det:`pesos por litro en el surtidor, mediana de las estaciones, ${CB.mes}`,
     d:T.combustibles_provincias, k:"nafta", pais:CB.nafta, f:n0},
   {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
@@ -4138,6 +4391,14 @@ const PREG = [
    `${n0(CN.hip_ult)} mil millones de pesos en créditos hipotecarios UVA en ${CN.hip_mes}. En todo ${CN.hip_anio}, ${n0(CN.hip_anual)} mil millones, contra ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, en pesos de igual valor.`, "#f-hipotecas"],
   ["¿Cuánta electricidad consumen los hogares?",
    `En ${e.el_ult}, ${n0(e.el_pais)} kilovatios hora por habitante en el país. En ${e.el_top[0]}, ${n0(e.el_top[1])}, y en ${e.el_bajo[0]}, ${n0(e.el_bajo[1])}.`, "#f-electricidad-provincias"],
+  ["¿Cuánto gana en promedio un asalariado registrado?",
+   `En ${SA.mes}, ${n0(SA.pais)} pesos brutos por mes en el sector privado del país. En ${SA.top[0]}, ${n0(SA.top[1])}, y en ${SA.bajo[0]}, ${n0(SA.bajo[1])}.`, "#f-salarios"],
+  ["¿Cuánto cobra un maestro de grado?",
+   `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
+  ["¿Cuántos homicidios hay por año?",
+   `En ${SG.anio}, ${n0(SG.hom_victimas)} víctimas de homicidios dolosos, ${n1(SG.hom_tasa)} cada 100.000 habitantes. En ${SG.hom_max_anio}, el año más alto desde ${SG.anio_ini}, ${n1(SG.hom_max)}.`, "#f-homicidios"],
+  ["¿Cuántas personas están presas?",
+   `Al 31 de diciembre de ${SG.sn_anio}, ${n0(SG.sn_personas)} personas en cárceles, ${n0(SG.sn_tasa)} cada 100.000 habitantes. En ${SG.sn_ini}, ${n0(SG.sn_personas_ini)}.`, "#f-carceles"],
   ["¿Qué parte de la electricidad usan las industrias?",
    `En ${e.el_ult}, el ${pct(e.els_pct.ind)} de la demanda eléctrica del país fue de industrias y grandes comercios. En ${e.els_pct_ind_top[0]}, el ${pct(e.els_pct_ind_top[1])}, ` +
    `y en ${e.els_pct_ind_bajo[0]}, el ${pct(e.els_pct_ind_bajo[1])}.`, "#f-electricidad-sectores"],
@@ -4672,6 +4933,14 @@ const SERIE_CIFRA = {
   "f-gas": () => serieM("Producción de gas natural, millones de m³ por día, promedio de cada año", T.hidrocarburos_anual.map(r => [r.anio, r.gas_total]), n1),
   "f-gas-hogares": () => provM("Hogares que cocinan con gas de red, en %, Censo 2022", T.vivienda_provincias, "pct_gas_red", VV.pct_gas_red, pct),
   "f-gas-consumo": () => provM(`Gas natural por usuario residencial, m³ en ${e.gas_anio}`, T.gas_usuario_provincias, "m3_usuario", e.gas_pais, n0),
+  "f-salarios": () => provM(`Salario bruto promedio, pesos en ${SA.mes}`, T.salarios_provincias, "salario", SA.pais, n0),
+  "f-salario-docente": () => provM(`Salario bruto de un maestro de grado, pesos en ${DC.trim}`, T.salario_docente, "bruto", DC.pais, n0),
+  "f-inversion-educativa": () => provM(`Inversión por alumno de gestión estatal, pesos en ${IE.anio}`, T.inversion_educativa, "gasto_por_alumno", IE.pais, n0),
+  "f-homicidios": () => serieM("Víctimas de homicidios dolosos cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.homicidios]), n1),
+  "f-robos": () => serieM("Robos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.robos]), n0),
+  "x-hurtos": () => serieM("Hurtos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.hurtos]), n0),
+  "f-delitos": () => serieM("Delitos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.total]), n0),
+  "f-carceles": () => serieM("Personas privadas de libertad cada 100.000 habitantes", T.carceles_serie.map(r => [r.anio, r.tasa]), n0),
   "f-electricidad-provincias": () => provM(`Electricidad de los hogares, kWh por habitante en ${e.el_ult}`, T.electricidad_provincias, "kwh_hab", e.el_pais, n0),
   "f-subsidios": () => serieM("Subsidios económicos a la energía, % del PBI de cada año", T.subsidios_energia.map(r => [r.anio, r.pct_pbi]), v => n2(v) + "%"),
   "f-hidro-provincias": () => provM("Petróleo, miles de barriles por día, doce meses más recientes", T.hidrocarburos_provincias, "pet_kbd", null, n0),

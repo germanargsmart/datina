@@ -3,6 +3,9 @@
  "empleo_provincias.cada_100": {
   "02": {"accion": "aclarar", "motivo": "el SIPA cuenta cada empleo en la provincia donde declara la empresa, así que la Ciudad suma también a muchas personas que viven en el conurbano", "corto": "Cada empleo se cuenta donde declara la empresa: incluye a muchas personas que viven en el conurbano."}
  },
+ "robos_provincias.robos": {
+  "02": {"accion": "aclarar", "motivo": "la tasa se calcula sobre quienes viven en la Ciudad, que recibe cada día a muchas personas que viven en otras jurisdicciones", "corto": "La tasa se calcula sobre quienes viven en la Ciudad, que recibe cada día a muchas personas de otras jurisdicciones."}
+ },
  "internet_fijo_provincias.accesos_100_hogares": {
   "02": {"accion": "aclarar", "motivo": "ENACOM cuenta también los accesos de empresas y organizaciones, por eso puede haber más accesos que hogares"},
   "74": {"accion": "aclarar", "motivo": "ENACOM cuenta también los accesos de empresas y organizaciones, por eso puede haber más accesos que hogares"},

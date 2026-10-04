@@ -110,6 +110,7 @@ def ckan_csv(portal, paquete, respaldo):
         return respaldo
 
 API = "https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids="
+SNEEP = "https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/"  # series del SNEEP (Ministerio de Justicia)
 
 # Asalariados privados registrados, serie original por provincia (SIPA, publicada por la SSPM)
 SIPA = [
@@ -226,6 +227,10 @@ FUENTES.update({
     "tipo_cambio_a3500.csv": API + "168.1_T_CAMBI500_D_0_0_17&collapse=month&collapse_aggregation=avg",
     "inversion_trimestral.csv": API + "4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32,4.2_DGIEDPI_2004_T_55,4.2_DGIEDPN_2004_T_54,4.4_DGIC_2004_T_32&header=ids",
     "compras_dolares_privados.csv": API + "182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56&header=ids",
+    # Personas privadas de libertad en establecimientos penitenciarios al 31 de diciembre de cada año desde 2002, por servicio penitenciario
+    # (23 provinciales y el federal), y cuántas tienen condena (SNEEP, Ministerio de Justicia, etapa 23)
+    "sneep_poblacion.csv": SNEEP + "7d10bdae-a3a8-416e-96ce-094c96ecf7d9/download/sneep-poblacion-total.csv",
+    "sneep_condenados.csv": SNEEP + "414604b9-4937-4568-aba8-c346d8f38ade/download/sneep-situacion-legal-condenados-condenadas.csv",
     # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
     "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
@@ -333,6 +338,8 @@ VALIDA.update({
     "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500"),
     "inversion_trimestral.csv": lambda b: b.startswith(b"indice_tiempo,4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32"),
     "compras_dolares_privados.csv": lambda b: b.startswith(b"indice_tiempo,182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"),
+    "sneep_poblacion.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf,total_arg" in b[:400],
+    "sneep_condenados.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf," in b[:400],
 })
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
@@ -1044,6 +1051,144 @@ def cammesa_demanda():
     return "https://cammesaweb.cammesa.com/?wpdmdl=41426"
 
 
+def oede_remuneraciones():
+    """Remuneración promedio de los asalariados registrados del sector privado por provincia (OEDE, Secretaría de Trabajo, etapa 23):
+    el Cuadro 1 (hoja Total) del boletín mensual de remuneraciones provinciales, desde enero de 1995, en pesos corrientes y por todo
+    concepto (en junio y diciembre incluye el aguinaldo). La Ciudad, los partidos del Gran Buenos Aires y el resto de la provincia de
+    Buenos Aires vienen por separado. El nombre del Excel (unos 11 MB) cambia con cada edición trimestral: se lee desde la página de
+    estadísticas provinciales del OEDE, y se guarda solo la hoja Total. Antes de guardarla se controla que ningún mes repita los valores
+    de otro (la edición de junio de 2026 copió los meses de 2026 sobre los de fines de 2025) y que el aguinaldo esté solo en junio y
+    diciembre: si algo falla, queda el archivo anterior."""
+    import io, pandas as pd
+    pagina = leer("https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales", 60).decode("utf-8", "ignore")
+    enlace = re.search(r'href="(/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig[^"]*\.xlsx)"', pagina)
+    if not enlace:
+        raise ValueError("no se encontró el boletín de remuneraciones provinciales en la página del OEDE")
+    url = "https://www.argentina.gob.ar" + enlace.group(1)
+    datos = leer(url, 300)
+    if datos[:2] != b"PK":
+        raise ValueError("el boletín de remuneraciones del OEDE no es un Excel")
+    hoja = pd.read_excel(io.BytesIO(datos), sheet_name="Total", header=None)
+    fila = hoja.index[hoja.iloc[:, 0].astype(str).str.strip().eq("Provincia")][0]
+    fechas = pd.to_datetime(hoja.iloc[fila, 1:], errors="coerce")
+    cols = [c for c in fechas.index if pd.notna(fechas[c])]
+    zonas = hoja.iloc[fila + 1:, 0].astype(str).str.strip()
+    fin = zonas.index[zonas.eq("Total")][0]
+    t = hoja.loc[fila + 1:fin, [0] + cols]
+    t.columns = ["zona"] + [fechas[c].strftime("%Y-%m") for c in cols]
+    t = t.assign(zona=t.zona.astype(str).str.strip()).set_index("zona").apply(pd.to_numeric, errors="coerce")
+    meses = list(t.columns)
+    if len(t) != 26 or t.isna().any().any() or len(meses) < 300 or len(pd.period_range(meses[0], meses[-1], freq="M")) != len(meses):
+        raise ValueError("el boletín de remuneraciones del OEDE cambió de formato o tiene meses vacíos")
+    if (pd.Period.now("M") - pd.Period(meses[-1], "M")).n > 9:
+        raise ValueError(f"el boletín de remuneraciones del OEDE termina en {meses[-1]}")
+    if t.T.round(2).duplicated().any():
+        raise ValueError("el boletín de remuneraciones del OEDE repite los valores de un mes en otro")
+    r = (t.loc["Total"] / t.loc["Total"].shift(1))[[m for m in meses if m >= "2017-01"]]
+    sac = r.index.str[5:7].isin(["06", "12"])
+    if (r[sac] < 1.2).any() or (r[~sac] > 1.3).any():
+        raise ValueError("el aguinaldo del boletín de remuneraciones del OEDE no está en junio y diciembre")
+    t.reset_index().melt(id_vars="zona", var_name="mes", value_name="remuneracion").round(2).to_csv(CRUDO / "oede_remuneraciones_provincias.csv", index=False)
+    return url
+
+
+def _cgecse_planilla(datos):
+    """Lee una planilla de las series del salario docente: jurisdicciones en la columna B, año (celdas combinadas) y mes de cada columna en
+    las dos filas que siguen a la que empieza con "Jurisdic". Devuelve una fila por jurisdicción y trimestre."""
+    import io, openpyxl, pandas as pd
+    hoja = openpyxl.load_workbook(io.BytesIO(datos), data_only=True).worksheets[0]
+    f0 = next(r for r in range(1, 20) if str(hoja.cell(r, 2).value or "").startswith("Jurisdic"))
+    meses_n = {"marzo": 3, "junio": 6, "septiembre": 9, "diciembre": 12}
+    cols, anio = [], None
+    for c in range(3, hoja.max_column + 1):
+        a, m = hoja.cell(f0, c).value, hoja.cell(f0 + 1, c).value
+        if a is not None:
+            anio = int(a)
+        if m is not None and str(m).strip().lower() in meses_n:
+            cols.append((c, anio, meses_n[str(m).strip().lower()]))
+    filas = []
+    for r in range(f0 + 2, f0 + 40):
+        etq = hoja.cell(r, 2).value
+        if not isinstance(etq, str) or not etq.strip():
+            continue
+        if etq.startswith(("Notas", "(", "Fuente", "Para el caso")):
+            break
+        nombre = re.sub(r"\s*\(\d+\)", "", etq).strip()
+        for c, a, m in cols:
+            v = hoja.cell(r, c).value
+            filas.append([nombre, a, m, v if isinstance(v, (int, float)) else None])
+    return pd.DataFrame(filas, columns=["jurisdiccion", "anio", "mes", "valor"])
+
+
+def cgecse_salario_docente():
+    """Salario bruto del maestro de grado de primaria con 10 años de antigüedad y jornada simple (el cargo testigo), por jurisdicción y
+    trimestre desde marzo de 2003, y las sumas extraordinarias que ese bruto incluye (Coordinación de Evaluación de Costos Educativos,
+    ex CGECSE, Secretaría de Educación, etapa 23). Las planillas se buscan en la página de series del salario docente por su título,
+    porque el sufijo del nombre cambia. Cada edición revisa trimestres anteriores: se guarda la serie entera. Hasta diciembre de 2023 el
+    bruto incluye los componentes que pagaba la Nación (FONID y Conectividad), que no se pagan desde 2024."""
+    import html, pandas as pd
+    pagina = leer("https://www.argentina.gob.ar/capital-humano/educacion/informacion-y-evaluacion-educativa/series-salario-docente", 60).decode("utf-8", "ignore")
+    pagina = pagina[pagina.find("<main"):]  # las metaetiquetas también nombran las series
+    enlaces = {}
+    for clave, titulo in (("bruto", "Salario Bruto"), ("extra", "Sumas adicionales")):
+        i = pagina.find(titulo)
+        m = re.search(r'href="([^"]+\.xlsx)"', pagina[i:]) if i >= 0 else None
+        if not m:
+            raise ValueError(f"no se encontró la planilla '{titulo}' en la página del salario docente")
+        u = html.unescape(m.group(1))
+        enlaces[clave] = u if u.startswith("http") else "https://www.argentina.gob.ar" + u
+    partes = {}
+    for clave, u in enlaces.items():
+        datos = leer(u, 120)
+        if datos[:2] != b"PK":
+            raise ValueError("una planilla del salario docente no es un Excel")
+        partes[clave] = _cgecse_planilla(datos).rename(columns={"valor": clave})
+    d = partes["bruto"].merge(partes["extra"], on=["jurisdiccion", "anio", "mes"], how="left")
+    if d.jurisdiccion.nunique() != 25 or d.anio.min() > 2003 or d.groupby(["anio", "mes"]).ngroups < 80:
+        raise ValueError("las planillas del salario docente cambiaron de formato")
+    ult = d.dropna(subset=["bruto"])
+    if (pd.Period.now("M") - pd.Period(f"{int(ult.anio.max())}-{int(ult[ult.anio == ult.anio.max()].mes.max()):02d}", "M")).n > 12:
+        raise ValueError("las planillas del salario docente no tienen datos del último año")
+    d.to_csv(CRUDO / "cgecse_salario_docente.csv", index=False)
+    return enlaces["bruto"]
+
+
+def cgecse_inversion():
+    """Inversión en educación por jurisdicción desde 2001 (Coordinación de Evaluación de Costos Educativos, etapa 23): el gasto educativo
+    como parte del gasto público de cada provincia y el gasto público en educación por alumno de gestión estatal, en pesos corrientes (incluye
+    las transferencias no automáticas de la Nación y descuenta lo que se transfiere a las escuelas de gestión privada). Un ZIP de dirección
+    fija con un Excel por jurisdicción y el total del país, que se reemplaza en el mismo lugar."""
+    import io, zipfile, openpyxl, pandas as pd
+    url = "https://www.argentina.gob.ar/sites/default/files/2018/01/indicadores_seleccionados.zip"
+    datos = leer(url, 120)
+    if datos[:2] != b"PK":
+        raise ValueError("los indicadores de inversión educativa no son un ZIP")
+    filas = []
+    with zipfile.ZipFile(io.BytesIO(datos)) as z:
+        for nombre in z.namelist():
+            if not nombre.lower().endswith(".xlsx"):
+                continue
+            hoja = openpyxl.load_workbook(io.BytesIO(z.read(nombre)), data_only=True).worksheets[0]
+            jur = str(hoja.cell(2, 2).value).strip()
+            fa = next(r for r in range(1, 12) if hoja.cell(r, 3).value == 2001)
+            anios = {c: int(hoja.cell(fa, c).value) for c in range(3, hoja.max_column + 1) if isinstance(hoja.cell(fa, c).value, (int, float))}
+            for r in range(fa + 1, fa + 8):
+                ind = str(hoja.cell(r, 2).value or "")
+                clave = ("pct_gasto_publico" if ind.startswith("Gasto Educativo") and ind.rstrip().endswith("/Gasto Público") else
+                         "gasto_por_alumno" if "por alumno de gestión estatal ($)" in ind else None)
+                for c, a in anios.items():
+                    v = hoja.cell(r, c).value
+                    if clave and isinstance(v, (int, float)):
+                        filas.append([jur, a, clave, float(v)])
+    d = pd.DataFrame(filas, columns=["jurisdiccion", "anio", "indicador", "valor"]).pivot_table(index=["jurisdiccion", "anio"], columns="indicador", values="valor").reset_index()
+    if d.jurisdiccion.nunique() != 25 or set(d.columns) != {"jurisdiccion", "anio", "pct_gasto_publico", "gasto_por_alumno"}:
+        raise ValueError("los indicadores de inversión educativa cambiaron de formato")
+    if d.anio.max() < pd.Timestamp.now().year - 3:
+        raise ValueError(f"los indicadores de inversión educativa terminan en {d.anio.max()}")
+    d.to_csv(CRUDO / "cgecse_inversion_educativa.csv", index=False)
+    return url
+
+
 def tipo_cambio_real():
     """Índice de tipo de cambio real multilateral del BCRA (base 17 de diciembre de 2015 = 100), promedio de cada mes desde 1997 (etapa 22).
     La planilla trae los valores de cada día y los promedios de cada mes de todos los índices bilaterales y pesa unos 4 MB: se guarda solo la
@@ -1079,7 +1224,9 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("crédito a los hogares por país (BIS)", bis_credito_hogares), ("electricidad por país (Ember, vía Our World in Data)", owid_electricidad),
                     ("precios de los combustibles por estación (Res. 1104/2004)", precios_combustibles),
                     ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda),
-                    ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real)]:
+                    ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real),
+                    ("remuneraciones por provincia (OEDE)", oede_remuneraciones), ("salario docente por provincia (CECE)", cgecse_salario_docente),
+                    ("inversión educativa por provincia (CECE)", cgecse_inversion)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

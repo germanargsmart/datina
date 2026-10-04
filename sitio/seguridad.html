@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seguridad | Datina</title>
+<meta name="description" content="Seguridad: ¿Cuántos delitos se registran en cada provincia y cuántas personas están presas? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js");
+// transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
+window.LLEGADA = {activa: false};
+addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = true; e.viewTransition.finished.finally(() => { LLEGADA.activa = false; }); } });</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<link rel="stylesheet" href="datina.css?v=89c98810ac">
+</head>
+<body data-pagina="seguridad">
+<header class="barra clara">
+  <div class="envoltura">
+    <div class="barra-izq">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="h1" d="M2 5h16"/><path class="h2" d="M2 10h16"/><path class="h3" d="M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    </div>
+    <nav class="temas" aria-label="Temas principales">
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="seguridad.html">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+    </nav>
+    <div class="barra-der">
+      <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
+      <div class="prov-chip" id="prov-chip" hidden>
+        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
+      </div>
+      <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
+    </div>
+  </div>
+  <div class="buscador" id="buscador" hidden>
+    <div class="buscador-caja">
+      <label class="buscador-lab" for="busca">Buscar en Datina</label>
+      <input type="search" id="busca" placeholder="Un tema, una provincia o una pregunta: empleo, Salta, cloacas" autocomplete="off" spellcheck="false">
+      <div class="busca-res" id="busca-res" aria-live="polite"></div>
+    </div>
+  </div>
+</header>
+<!-- menú de secciones (etapa 14): va fuera de la barra para que el vidrio desenfoque la página (dentro de la barra, que ya
+     desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
+<nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
+    <div class="menu-col">
+      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
+    </div>
+    <div class="menu-col">
+      <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <div class="menu-grupo" style="--i:2"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Todos los artículos</a></li></ul></div>
+    </div>
+    <div class="menu-col">
+      <div class="menu-grupo" style="--i:3"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li></ul></div>
+      <div class="menu-grupo" style="--i:4"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+    </div>
+</nav>
+
+
+
+
+
+<main class="envoltura">
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <section class="tema" id="seguridad"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="trabajo.html">Trabajo y finanzas</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a><a href="seguridad.html" aria-current="page">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a><a href="construccion.html">Construcción y vivienda</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Seguridad</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-seguridad">Seguridad</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuántos delitos se registran?">¿Cuántos delitos se registran en cada provincia y cuántas personas están presas?</p>
+      <p>Primero, los delitos que registran las fuerzas policiales y de seguridad y cuáles son los más frecuentes. Después, los robos y los hurtos, los homicidios y las personas privadas de libertad en las cárceles. Son registros de hechos denunciados o detectados: los delitos que nadie denuncia no figuran. Los homicidios y los robos por departamento están en <a href="departamentos.html">Departamentos</a>, y las muertes por homicidio, en siniestros viales y por femicidio, en <a href="salud.html#f-muertes">Salud</a>.</p>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
+    <div class="explicador"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3><p>Qué se mide, cómo se calcula y de dónde sale cada dato de esta página.</p></div><div class="exp-lista"><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-seguridad-0-b" aria-expanded="false" aria-controls="exp-seguridad-0"><span>Qué registra el SNIC</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-seguridad-0" role="region" aria-labelledby="exp-seguridad-0-b"><div class="exp-cont"><p>El Sistema Nacional de Información Criminal del Ministerio de Seguridad Nacional reúne los hechos que registran las fuerzas policiales y de seguridad, y en algunas provincias otros organismos que toman denuncias, en sus primeras actuaciones. Por eso cuenta hechos presuntamente delictivos: algunos pueden no confirmarse después, y los que nadie denuncia ni detecta no figuran. Cada hecho cuenta como un solo delito.</p><p class="exp-fuente">Fuente: <a href="https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-seguridad-1-b" aria-expanded="false" aria-controls="exp-seguridad-1"><span>Homicidio doloso, robo y hurto</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-seguridad-1" role="region" aria-labelledby="exp-seguridad-1-b"><div class="exp-cont"><p>Un homicidio es doloso cuando alguien le quita la vida a otra persona con intención de hacerlo. Hay robo cuando alguien se queda con algo ajeno usando fuerza sobre las cosas o violencia sobre las personas, y hurto cuando lo hace sin fuerza ni violencia. Los homicidios se cuentan por víctima, y los robos y los hurtos, por hecho.</p><p class="exp-fuente">Fuente: <a href="https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, SNIC, glosario delictual</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-seguridad-2-b" aria-expanded="false" aria-controls="exp-seguridad-2"><span>Las tasas cada 100.000 habitantes</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-seguridad-2" role="region" aria-labelledby="exp-seguridad-2-b"><div class="exp-cont"><p>La tasa divide los hechos o las víctimas de un año por la población del lugar y la multiplica por 100.000, así se pueden comparar lugares con distinta cantidad de habitantes. Desde 2022 el SNIC usa las proyecciones de población del INDEC basadas en el Censo 2022, y antes, las proyecciones vigentes en cada momento.</p><p class="exp-fuente">Fuentes: <a href="https://cloud-snic.minseg.gob.ar/Bases/SNIC/Manual_de_usuario_Base_SNIC.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, SNIC, manual de usuario de la base</a>, <a href="https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-seguridad-3-b" aria-expanded="false" aria-controls="exp-seguridad-3"><span>Comparar provincias</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-seguridad-3" role="region" aria-labelledby="exp-seguridad-3-b"><div class="exp-cont"><p>Las diferencias entre provincias dependen también de cuánto se denuncia en cada lugar y de cómo registra cada fuerza. El propio SNIC advierte que no reflejan necesariamente diferencias en la cantidad de delitos. Además, la tasa se calcula sobre quienes viven en cada provincia, y la Ciudad de Buenos Aires recibe cada día a muchas personas que viven en otras jurisdicciones.</p><p class="exp-fuente">Fuente: <a href="https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-seguridad-4-b" aria-expanded="false" aria-controls="exp-seguridad-4"><span>Lo que no se denuncia</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-seguridad-4" role="region" aria-labelledby="exp-seguridad-4-b"><div class="exp-cont"><p>En 2017 el INDEC y el Ministerio de Seguridad hicieron la Encuesta Nacional de Victimización, que preguntó a las personas si habían sido víctimas de un delito y si lo habían denunciado. Las encuestas de este tipo buscan medir la llamada cifra negra: los delitos que no se denuncian o que la policía no registra. La fuente principal sobre los delitos sigue siendo el registro de las fuerzas policiales y de la justicia.</p><p class="exp-fuente">Fuente: <a href="https://www.indec.gob.ar/uploads/informesdeprensa/env_2017_02_18.pdf" target="_blank" rel="noopener">INDEC, Encuesta Nacional de Victimización 2017</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-seguridad-5-b" aria-expanded="false" aria-controls="exp-seguridad-5"><span>Las personas privadas de libertad</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-seguridad-5" role="region" aria-labelledby="exp-seguridad-5-b"><div class="exp-cont"><p>El Sistema Nacional de Estadísticas sobre Ejecución de la Pena, del Ministerio de Justicia, es un censo de las personas alojadas en los establecimientos penitenciarios del país el 31 de diciembre de cada año. No cuenta a las personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Distingue a las personas condenadas de las procesadas, cuya causa todavía está en trámite.</p><p class="exp-fuente">Fuentes: <a href="https://www.argentina.gob.ar/justicia/politicacriminal/estadisticas/sneep" target="_blank" rel="noopener">Ministerio de Justicia, SNEEP</a>, <a href="https://www.argentina.gob.ar/sites/default/files/2025/09/informe_sneep_argentina_2024_8.pdf" target="_blank" rel="noopener">Ministerio de Justicia, informe del SNEEP con los datos de 2024</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-seguridad-6-b" aria-expanded="false" aria-controls="exp-seguridad-6"><span>Glosario</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-seguridad-6" role="region" aria-labelledby="exp-seguridad-6-b"><div class="exp-cont"><dl class="glosario"><div><dt>Hecho delictivo</dt><dd>Cada hecho presuntamente delictivo que registra una fuerza policial o de seguridad: cuenta como un delito. <a href="https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025</a></dd></div><div><dt>Homicidio doloso</dt><dd>Quitarle la vida a una persona con intención de hacerlo. <a href="https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, SNIC, glosario delictual</a></dd></div><div><dt>Robo</dt><dd>Quedarse con algo ajeno con fuerza en las cosas o violencia en las personas. <a href="https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, SNIC, glosario delictual</a></dd></div><div><dt>Hurto</dt><dd>Quedarse con algo ajeno sin fuerza ni violencia. <a href="https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, SNIC, glosario delictual</a></dd></div><div><dt>Tasa cada 100.000 habitantes</dt><dd>Los hechos o las víctimas de un año divididos por la población y multiplicados por 100.000. <a href="https://cloud-snic.minseg.gob.ar/Bases/SNIC/Manual_de_usuario_Base_SNIC.pdf" target="_blank" rel="noopener">Ministerio de Seguridad Nacional, SNIC, manual de usuario de la base</a></dd></div><div><dt>Cifra negra</dt><dd>Los delitos que no se denuncian o que la policía no registra. <a href="https://www.indec.gob.ar/uploads/informesdeprensa/env_2017_02_18.pdf" target="_blank" rel="noopener">INDEC, Encuesta Nacional de Victimización 2017</a></dd></div><div><dt>SNEEP</dt><dd>Sistema Nacional de Estadísticas sobre Ejecución de la Pena: la estadística penitenciaria oficial del país. <a href="https://www.argentina.gob.ar/justicia/politicacriminal/estadisticas/sneep" target="_blank" rel="noopener">Ministerio de Justicia, SNEEP</a></dd></div></dl></div></div></div></div></div>
+
+    <article class="ficha" id="f-delitos">
+      <h3>Delitos registrados en el país por tipo, 2000 a 2025</h3>
+      <p class="lead" data-t="delitos"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="delitos">
+        <button type="button" data-m="tipo" aria-pressed="true">Por tipo</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="delitos" data-forma="barras" style="--filas:14"></div>
+      <p class="nota" data-t="delitos-nota"></p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional</span><a href="datos/delitos_tipo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-robos">
+      <h3>Robos y hurtos registrados cada 100.000 habitantes por provincia, 2000 a 2025</h3>
+      <p class="lead" data-t="robos"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="robos" style="--n:3">
+        <button type="button" data-m="robos" aria-pressed="true">Robos</button>
+        <button type="button" data-m="hurtos" aria-pressed="false">Hurtos</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="robos" data-forma="barras"></div>
+      <p class="nota" data-t="robos-nota"></p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional</span><a href="datos/robos_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-homicidios">
+      <h3>Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, 2000 a 2025</h3>
+      <p class="lead" data-t="homicidios"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="homicidios">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="homicidios" data-forma="barras"></div>
+      <p class="nota" data-t="homicidios-nota"></p>
+      <div class="pie"><span>Fuentes: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población</span><a href="datos/homicidios_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-carceles">
+      <h3>Personas privadas de libertad en cárceles cada 100.000 habitantes, 2002 a 2024</h3>
+      <p class="lead" data-t="carceles"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="carceles">
+        <button type="button" data-m="serie" aria-pressed="true">Todo el país</button>
+        <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
+      </div>
+      <div class="grafico" data-g="carceles" data-forma="lineas"></div>
+      <p class="nota" data-t="carceles-nota"></p>
+      <div class="pie"><span>Fuentes: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población</span><a href="datos/carceles_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todas las secciones <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="salud.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.015) translate(-23.9 -0.9)"><ellipse class="s" cx="29.1" cy="27.6" rx="42.6" ry="9.3"/><path class="l" d="M-23.9 13.8L19.7 39L19.7 1.8L-23.9 -23.4Z"/><path class="s" d="M43.6 25.2L19.7 39L19.7 1.8L43.6 -12Z"/><path class="l" d="M0 -37.2L43.6 -12L19.7 1.8L-23.9 -23.4Z"/><path class="s" d="M7 -25.7L7 -21.2L4.2 -19.5L4.2 -24Z"/><path class="s" d="M4.2 -30.6L18.7 -22.2L15.8 -20.6L1.3 -29Z"/><path class="s" d="M18.7 -22.2L18.7 -14.4L15.8 -12.8L15.8 -20.6Z"/><path class="s" d="M1.3 -21.2L1.3 -29L15.8 -20.6L15.8 -12.8L13 -14.4L13 -18.9L4.2 -24L4.2 -19.5Z"/><path class="s" d="M-6 18.1L1.8 22.6L1.8 14.5L8.8 18.6L8.8 9.6L1.8 5.5L1.8 -2.6L-6 -7.1L-6 1L-13 -3L-13 6L-6 10Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-salud">Salud</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="educacion.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.043) translate(-1.8 -12.4)"><path class="l" d="M-22.8 13.2L-22 9.8L-18.1 5.2L-11.4 1.8L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L-8.2 41.4L-15.1 38.7L-19.7 34.7L-21.1 31.6L-21.3 30Z"/><path class="s" d="M0 0L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L0 42Z"/><path class="s" d="M47.8 13.2L0 40.8L0 37.8L47.8 10.2Z"/><path class="s" d="M0 40.8L-47.8 13.2L-47.8 10.2L0 37.8Z"/><path class="s" d="M0 -17.4L47.8 10.2L0 37.8L-47.8 10.2Z"/><path class="s" d="M-4 10.2A4 2.3 0 0 0 4 10.2L4 8.4A4 2.3 0 0 1 -4 8.4Z"/><ellipse class="l" cx="0" cy="8.4" rx="4" ry="2.3"/><path class="wl" d="M0 8.4L47.8 10.2"/><path class="k" d="M47.8 10.2L47.8 25.2"/><path class="s" d="M44.2 31.8L47.8 33.9L47.8 26.1L44.2 24Z"/><path class="s" d="M51.4 31.8L47.8 33.9L47.8 26.1L51.4 24Z"/><path class="s" d="M47.8 21.9L51.4 24L47.8 26.1L44.2 24Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-educacion">Educación</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="provincia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.123) translate(-6.5 -22.3)"><path class="s" d="M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z"/><path class="l" d="M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z"/><path class="s" d="M36.4 21L54.6 26.1L13 50.1L-5.2 45Z"/><path class="wl" d="M-30.1 21L-9.4 15.2L0.5 15.3"/><path class="k" d="M0.5 15.3L12.5 19.7L24.9 27.6"/><path class="s" d="M27 33.5L16.6 10.6L37.4 10.6Z"/><circle class="s" cx="27" cy="5.9" r="11.4"/><circle class="w" cx="27" cy="5.9" r="4.8"/></g></svg></span><span class="explora-txt"><b>Tu provincia</b><small>Perfil provincial</small></span></a><a class="tarjeta explora" href="cruces.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.083) translate(-0 -27.1)"><path class="s" d="M-49.9 28.8L0 57.6L0 54.3L-49.9 25.5Z"/><path class="s" d="M49.9 28.8L0 57.6L0 54.3L49.9 25.5Z"/><path class="l" d="M0 -3.3L49.9 25.5L0 54.3L-49.9 25.5Z"/><path class="s" d="M-23.1 25L-17.1 28.5L-17.1 19.5L-23.1 16Z"/><path class="s" d="M-11.2 25L-17.1 28.5L-17.1 19.5L-11.2 16Z"/><path class="l" d="M-17.1 12.6L-11.2 16L-17.1 19.5L-23.1 16Z"/><path class="s" d="M23.1 25.3L29.1 28.8L29.1 8.4L23.1 4.9Z"/><path class="s" d="M35.1 25.3L29.1 28.8L29.1 8.4L35.1 4.9Z"/><path class="l" d="M29.1 1.5L35.1 4.9L29.1 8.4L23.1 4.9Z"/><path class="s" d="M-40.8 25.6L-34.8 29.1L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-28.8 25.6L-34.8 29.1L-34.8 24.3L-28.8 20.8Z"/><path class="l" d="M-34.8 17.4L-28.8 20.8L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-1.3 25.6L4.7 29.1L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M10.7 25.6L4.7 29.1L4.7 14.7L10.7 11.2Z"/><path class="l" d="M4.7 7.8L10.7 11.2L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M-21 33.4L-15.1 36.9L-15.1 30.3L-21 26.8Z"/><path class="s" d="M-9.1 33.4L-15.1 36.9L-15.1 30.3L-9.1 26.8Z"/><path class="l" d="M-15.1 23.4L-9.1 26.8L-15.1 30.3L-21 26.8Z"/><path class="s" d="M18.4 33.4L24.4 36.9L24.4 19.5L18.4 16Z"/><path class="s" d="M30.4 33.4L24.4 36.9L24.4 19.5L30.4 16Z"/><path class="l" d="M24.4 12.6L30.4 16L24.4 19.5L18.4 16Z"/><path class="s" d="M1.8 34.6L7.8 38.1L7.8 26.1L1.8 22.6Z"/><path class="s" d="M13.8 34.6L7.8 38.1L7.8 26.1L13.8 22.6Z"/><path class="l" d="M7.8 19.2L13.8 22.6L7.8 26.1L1.8 22.6Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-cruces">Cruces</b><small>Herramienta</small></span></a></div></nav></section>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</main>
+
+<footer class="pie-sitio">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="articulos.html">Artículos</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p data-t="actualizado"></p>
+      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
+<script src="datos/fichas.js?v=7c49a1ce63"></script>
+<script src="datina.js?v=45430103f3"></script>
+</body>
+</html>

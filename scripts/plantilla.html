@@ -25,7 +25,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     </div>
     <nav class="temas" aria-label="Temas principales">
-      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="seguridad.html">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
     </nav>
     <div class="barra-der">
       <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
@@ -48,7 +48,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
+      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
     </div>
     <div class="menu-col">
       <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
@@ -232,6 +232,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="empleo" data-forma="barras"></div>
       <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección {{anio_pob}} del INDEC usada por el SNIC.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-salarios">
+      <h3>Salario promedio de los asalariados registrados del sector privado por provincia, {{salarios.mes}}</h3>
+      <p class="lead" data-t="salarios"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="salarios">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+      </div>
+      <div class="grafico" data-g="salarios" data-forma="barras"></div>
+      <p class="nota" data-t="salarios-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, en base al SIPA, e INDEC, índice de precios al consumidor</span><a href="datos/salarios_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-rotacion">
@@ -425,13 +437,82 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
+  <section class="tema" id="seguridad">
+    <h2>Seguridad</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuántos delitos se registran?">¿Cuántos delitos se registran en cada provincia y cuántas personas están presas?</p>
+      <p>Primero, los delitos que registran las fuerzas policiales y de seguridad y cuáles son los más frecuentes. Después, los robos y los hurtos, los homicidios y las personas privadas de libertad en las cárceles. Son registros de hechos denunciados o detectados: los delitos que nadie denuncia no figuran. Los homicidios y los robos por departamento están en <a href="departamentos.html">Departamentos</a>, y las muertes por homicidio, en siniestros viales y por femicidio, en <a href="salud.html#f-muertes">Salud</a>.</p>
+    </div>
+    <!--EXPLICADOR:seguridad-->
+
+    <article class="ficha" id="f-delitos">
+      <h3>Delitos registrados en el país por tipo, {{seguridad.anio_ini}} a {{seguridad.anio}}</h3>
+      <p class="lead" data-t="delitos"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="delitos">
+        <button type="button" data-m="tipo" aria-pressed="true">Por tipo</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="delitos" data-forma="barras" style="--filas:14"></div>
+      <p class="nota" data-t="delitos-nota"></p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional</span><a href="datos/delitos_tipo.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-robos">
+      <h3>Robos y hurtos registrados cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</h3>
+      <p class="lead" data-t="robos"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="robos" style="--n:3">
+        <button type="button" data-m="robos" aria-pressed="true">Robos</button>
+        <button type="button" data-m="hurtos" aria-pressed="false">Hurtos</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="robos" data-forma="barras"></div>
+      <p class="nota" data-t="robos-nota"></p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional</span><a href="datos/robos_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-homicidios">
+      <h3>Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</h3>
+      <p class="lead" data-t="homicidios"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="homicidios">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="homicidios" data-forma="barras"></div>
+      <p class="nota" data-t="homicidios-nota"></p>
+      <div class="pie"><span>Fuentes: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población</span><a href="datos/homicidios_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-carceles">
+      <h3>Personas privadas de libertad en cárceles cada 100.000 habitantes, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}</h3>
+      <p class="lead" data-t="carceles"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="carceles">
+        <button type="button" data-m="serie" aria-pressed="true">Todo el país</button>
+        <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
+      </div>
+      <div class="grafico" data-g="carceles" data-forma="lineas"></div>
+      <p class="nota" data-t="carceles-nota"></p>
+      <div class="pie"><span>Fuentes: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población</span><a href="datos/carceles_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
   <section class="tema" id="educacion">
     <h2>Educación</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Qué aprenden los chicos en cada provincia?</p>
-      <p>Primero, cuántos alumnos de sexto grado alcanzan el nivel esperado en lengua y matemática. Después, cuántos adolescentes van a la secundaria y cómo le va al país frente al mundo en las pruebas PISA.</p>
+      <p class="pregunta" data-corta="¿Qué aprenden los chicos?">¿Qué aprenden los chicos en cada provincia y cuánto se invierte en su educación?</p>
+      <p>Primero, cuántos adolescentes van a la secundaria y cuántos alumnos de sexto grado alcanzan el nivel esperado en lengua y matemática. Después, cómo le va al país frente al mundo en las pruebas PISA. Al final, cuánto cobra un maestro de grado en cada provincia y cuánto invierte el Estado por alumno.</p>
     </div>
     <!--EXPLICADOR:educacion-->
+
+    <article class="ficha" id="f-escolarizacion">
+      <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
+      <p class="lead" data-t="escolarizacion"></p>
+      <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
+      <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa subió. <span class="c-malo">En rojo</span>, donde bajó.</p>
+      <div class="grafico" data-g="escolarizacion" data-forma="pesas"></div>
+      <p class="nota" data-t="escolarizacion-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
 
     <article class="ficha" id="f-aprender">
       <h3 data-t="aprender-titulo">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia</h3>
@@ -445,16 +526,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Ministerio de Educación, evaluación Aprender, base agregada</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-escolarizacion">
-      <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
-      <p class="lead" data-t="escolarizacion"></p>
-      <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
-      <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa subió. <span class="c-malo">En rojo</span>, donde bajó.</p>
-      <div class="grafico" data-g="escolarizacion" data-forma="pesas"></div>
-      <p class="nota" data-t="escolarizacion-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
     <article class="ficha" id="f-pisa">
       <h3 data-t="pisa-titulo">Resultados de la Argentina en las pruebas PISA</h3>
       <p class="lead" data-t="pisa"></p>
@@ -466,6 +537,31 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="pisa" data-forma="lineas"></div>
       <p class="nota" data-t="pisa-nota"></p>
       <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-salario-docente">
+      <h3>Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, {{docentes.trim}}</h3>
+      <p class="lead" data-t="salario-docente"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="salario-docente">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Trimestre a trimestre</button>
+      </div>
+      <div class="grafico" data-g="salario-docente" data-forma="barras"></div>
+      <p class="nota" data-t="salario-docente-nota"></p>
+      <div class="pie"><span>Fuente: Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor</span><a href="datos/salario_docente.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-inversion-educativa">
+      <h3>Inversión en educación por alumno de gestión estatal por provincia, {{inversion_edu.anio}}</h3>
+      <p class="lead" data-t="inversion-educativa"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="inversion-educativa" style="--n:3">
+        <button type="button" data-m="alumno" aria-pressed="true">Por alumno</button>
+        <button type="button" data-m="pct" aria-pressed="false">Parte del gasto</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="inversion-educativa" data-forma="barras"></div>
+      <p class="nota" data-t="inversion-educativa-nota"></p>
+      <div class="pie"><span>Fuente: Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI</span><a href="datos/inversion_educativa.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <!--PROGRAMAS:educacion-->

@@ -1,0 +1,31 @@
+codigo,delito,hechos,tasa,pct
+15,Robos,360946,778.1172,19.5553
+19,Hurtos,308523,665.1052,16.7151
+21,Otros delitos contra la propiedad,228054,491.6324,12.3555
+13,Amenazas,217883,469.706,11.8044
+5,Lesiones dolosas,179710,387.4138,9.7363
+6,Lesiones culposas en siniestros viales,101312,218.4056,5.4889
+28,Infracciones a la ley de estupefacientes,99806,215.159,5.4073
+29,Delitos de otras leyes especiales,79544,171.4787,4.3095
+26,Delitos contra la administración pública,63075,135.9753,3.4173
+8,Otros delitos contra las personas,52996,114.2473,2.8712
+16,Tentativas de robo,28884,62.2673,1.5649
+11,Otros delitos contra la integridad sexual,27054,58.3223,1.4657
+20,Tentativas de hurto,17762,38.2908,0.9623
+14,Otros delitos contra la libertad,17728,38.2175,0.9605
+7,Lesiones culposas por otros hechos,16715,36.0337,0.9056
+22,Delitos contra la seguridad pública,12390,26.71,0.6713
+17,Robos agravados por lesiones o muertes,8293,17.8778,0.4493
+10,Abusos sexuales con acceso carnal,6344,13.6762,0.3437
+27,Delitos contra la fe pública,5674,12.2318,0.3074
+3,Muertes en siniestros viales,3244,6.9933,0.1758
+23,Delitos contra el orden público,1750,3.7726,0.0948
+1,Homicidios dolosos,1613,3.4773,0.0874
+18,Tentativas de robos agravados,1553,3.3479,0.0841
+2,Tentativas de homicidio doloso,1464,3.156,0.0793
+9,Delitos contra el honor,1428,3.0784,0.0774
+32,Delitos contra el orden económico y financiero,902,1.9445,0.0489
+25,Delitos contra los poderes públicos,493,1.0628,0.0267
+4,Homicidios culposos por otros hechos,485,1.0455,0.0263
+12,Delitos contra el estado civil,119,0.2565,0.0064
+24,Delitos contra la seguridad de la nación,30,0.0647,0.0016

@@ -171,6 +171,42 @@
       "cita": "La asignación del origen provincial de las exportaciones se revisa periódicamente ante la actualización"
      }
     ]
+   },
+   {
+    "titulo": "El salario de los asalariados registrados",
+    "texto": "El Observatorio de Empleo y Dinámica Empresarial de la Secretaría de Trabajo calcula cada mes la remuneración promedio de los asalariados registrados del sector privado con los registros de la seguridad social. Cuenta cada relación laboral entre una empresa y un trabajador, así que una persona con dos empleos aparece dos veces. Es lo que declara la empresa antes de los aportes y las contribuciones, por todo concepto: incluye las horas extra, los viáticos, el aguinaldo y la bonificación por vacaciones, y por eso junio y diciembre son más altos. Cada puesto se cuenta en la provincia donde el trabajador está declarado, no en la del domicilio fiscal de la empresa. Como muchas empresas presentan sus declaraciones con atraso, los datos de los dos últimos años son provisorios.",
+    "fuentes": [
+     {
+      "nombre": "OEDE, Secretaría de Trabajo, boletín de remuneraciones provinciales, hoja Metodología",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx",
+      "cita": "Esta base contiene las relaciones laborales definidas como combinaciones CUIT/CUIL"
+     },
+     {
+      "nombre": "OEDE, Secretaría de Trabajo, boletín de remuneraciones provinciales, hoja Metodología",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx",
+      "cita": "Cobertura por tipo de empleo: Asalariados registrados."
+     },
+     {
+      "nombre": "OEDE, Secretaría de Trabajo, boletín de remuneraciones provinciales, hoja Metodología",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx",
+      "cita": "previa a las deducciones por cargas sociales"
+     },
+     {
+      "nombre": "OEDE, Secretaría de Trabajo, boletín de remuneraciones provinciales, hoja Metodología",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx",
+      "cita": "Incluye adicionales de periodicidad no mensual, horas extraordinarias, viáticos, sueldo anual complementario y bonificación por vacaciones."
+     },
+     {
+      "nombre": "OEDE, Secretaría de Trabajo, boletín de remuneraciones provinciales, hoja Metodología",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx",
+      "cita": "la jurisdicción donde el trabajador se encuentra declarado. Por lo tanto, no se toma el domicilio fiscal de la empresa involucrada."
+     },
+     {
+      "nombre": "OEDE, Secretaría de Trabajo, boletín de remuneraciones provinciales, hoja Metodología",
+      "url": "https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx",
+      "cita": "la información sobre remuneraciones de los últimos dos años es provisoria"
+     }
+    ]
    }
   ],
   "glosario": [
@@ -244,6 +280,14 @@
      "nombre": "INDEC, OPEX primer semestre de 2026",
      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf",
      "cita": "el origen provincial de las exportaciones (OPEX), que detalla el aporte de cada región y provincia"
+    }
+   },
+   {
+    "termino": "Sueldo anual complementario",
+    "definicion": "El aguinaldo: se paga en dos cuotas, en junio y en diciembre, y por eso la remuneración de esos meses es más alta.",
+    "fuente": {
+     "nombre": "Ley de Contrato de Trabajo 20.744, artículo 122",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-20744-25552/actualizacion"
     }
    }
   ]
@@ -1220,6 +1264,174 @@
    }
   ]
  },
+ "seguridad": {
+  "bloques": [
+   {
+    "titulo": "Qué registra el SNIC",
+    "texto": "El Sistema Nacional de Información Criminal del Ministerio de Seguridad Nacional reúne los hechos que registran las fuerzas policiales y de seguridad, y en algunas provincias otros organismos que toman denuncias, en sus primeras actuaciones. Por eso cuenta hechos presuntamente delictivos: algunos pueden no confirmarse después, y los que nadie denuncia ni detecta no figuran. Cada hecho cuenta como un solo delito.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025",
+      "url": "https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf",
+      "cita": "El SNIC es un sistema de recolección y consolidación de datos para el análisis de información estadística criminal en la Argentina"
+     },
+     {
+      "nombre": "Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025",
+      "url": "https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf",
+      "cita": "El SNIC contabiliza hechos presuntamente delictuosos debido a que se nutre de lo relevado en las primeras actuaciones policiales u otros organismos de toma de denuncias"
+     },
+     {
+      "nombre": "Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025",
+      "url": "https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf",
+      "cita": "corresponde 1 hecho = 1 delito"
+     }
+    ]
+   },
+   {
+    "titulo": "Homicidio doloso, robo y hurto",
+    "texto": "Un homicidio es doloso cuando alguien le quita la vida a otra persona con intención de hacerlo. Hay robo cuando alguien se queda con algo ajeno usando fuerza sobre las cosas o violencia sobre las personas, y hurto cuando lo hace sin fuerza ni violencia. Los homicidios se cuentan por víctima, y los robos y los hurtos, por hecho.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Seguridad Nacional, SNIC, glosario delictual",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf",
+      "cita": "El homicidio doloso es un delito que se configura cuando se quita la vida a una o más personas con \"dolo\", es decir, con intención de provocar la muerte de la o las víctimas."
+     },
+     {
+      "nombre": "Ministerio de Seguridad Nacional, SNIC, glosario delictual",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf",
+      "cita": "Existe robo cuando una persona se apodera ilegítimamente de una cosa mueble, total o parcialmente ajena, con fuerza en las cosas o con violencia física en las personas"
+     },
+     {
+      "nombre": "Ministerio de Seguridad Nacional, SNIC, glosario delictual",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf",
+      "cita": "Este tipo delictual implica la apropiación ilegal de una cosa mueble que sea total o parcialmente ajena, sin que medie fuerza sobre la/s cosa/s o sobre la/s persona/s."
+     }
+    ]
+   },
+   {
+    "titulo": "Las tasas cada 100.000 habitantes",
+    "texto": "La tasa divide los hechos o las víctimas de un año por la población del lugar y la multiplica por 100.000, así se pueden comparar lugares con distinta cantidad de habitantes. Desde 2022 el SNIC usa las proyecciones de población del INDEC basadas en el Censo 2022, y antes, las proyecciones vigentes en cada momento.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Seguridad Nacional, SNIC, manual de usuario de la base",
+      "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Manual_de_usuario_Base_SNIC.pdf",
+      "cita": "Contabiliza la tasa cada 100.000 habitantes de hechos de un registro correspondiente a una unidad territorial y temporal"
+     },
+     {
+      "nombre": "Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025",
+      "url": "https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf",
+      "cita": "se utilizaron las proyecciones de población elaboradas por el Instituto Nacional de Estadística y Censos (INDEC), basadas en los resultados del Censo Nacional de Población, Hogares y Viviendas 2022."
+     }
+    ]
+   },
+   {
+    "titulo": "Comparar provincias",
+    "texto": "Las diferencias entre provincias dependen también de cuánto se denuncia en cada lugar y de cómo registra cada fuerza. El propio SNIC advierte que no reflejan necesariamente diferencias en la cantidad de delitos. Además, la tasa se calcula sobre quienes viven en cada provincia, y la Ciudad de Buenos Aires recibe cada día a muchas personas que viven en otras jurisdicciones.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025",
+      "url": "https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf",
+      "cita": "las variaciones observadas entre jurisdicciones no necesariamente reflejan diferencias en la magnitud o características de los fenómenos delictivos"
+     }
+    ]
+   },
+   {
+    "titulo": "Lo que no se denuncia",
+    "texto": "En 2017 el INDEC y el Ministerio de Seguridad hicieron la Encuesta Nacional de Victimización, que preguntó a las personas si habían sido víctimas de un delito y si lo habían denunciado. Las encuestas de este tipo buscan medir la llamada cifra negra: los delitos que no se denuncian o que la policía no registra. La fuente principal sobre los delitos sigue siendo el registro de las fuerzas policiales y de la justicia.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Encuesta Nacional de Victimización 2017",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/env_2017_02_18.pdf",
+      "cita": "La principal fuente de información oficial sobre los hechos delictivos son los registros administrativos policiales y judiciales."
+     },
+     {
+      "nombre": "INDEC, Encuesta Nacional de Victimización 2017",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/env_2017_02_18.pdf",
+      "cita": "delitos que no se denunciaban o que no eran registrados por la policía"
+     }
+    ]
+   },
+   {
+    "titulo": "Las personas privadas de libertad",
+    "texto": "El Sistema Nacional de Estadísticas sobre Ejecución de la Pena, del Ministerio de Justicia, es un censo de las personas alojadas en los establecimientos penitenciarios del país el 31 de diciembre de cada año. No cuenta a las personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Distingue a las personas condenadas de las procesadas, cuya causa todavía está en trámite.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Justicia, SNEEP",
+      "url": "https://www.argentina.gob.ar/justicia/politicacriminal/estadisticas/sneep",
+      "cita": "es la estadística penitenciaria oficial del país y muestra la evolución y las características de la población privada de libertad en unidades penitenciarias."
+     },
+     {
+      "nombre": "Ministerio de Justicia, informe del SNEEP con los datos de 2024",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2025/09/informe_sneep_argentina_2024_8.pdf",
+      "cita": "un censo sobre el total de la población detenida al día 31 de diciembre de cada año en cada establecimiento"
+     },
+     {
+      "nombre": "Ministerio de Justicia, informe del SNEEP con los datos de 2024",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2025/09/informe_sneep_argentina_2024_8.pdf",
+      "cita": "Es importante aclarar que existe población privada de libertad por una imputación penal que no se encuentra en establecimientos penitenciarios."
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Hecho delictivo",
+    "definicion": "Cada hecho presuntamente delictivo que registra una fuerza policial o de seguridad: cuenta como un delito.",
+    "fuente": {
+     "nombre": "Ministerio de Seguridad Nacional, Sistema Nacional de Información Criminal, informe nacional con los datos de 2025",
+     "url": "https://cloud-snic.minseg.gob.ar/Informes/SNIC/Informe_SNIC_Nacional_2025.pdf"
+    }
+   },
+   {
+    "termino": "Homicidio doloso",
+    "definicion": "Quitarle la vida a una persona con intención de hacerlo.",
+    "fuente": {
+     "nombre": "Ministerio de Seguridad Nacional, SNIC, glosario delictual",
+     "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf"
+    }
+   },
+   {
+    "termino": "Robo",
+    "definicion": "Quedarse con algo ajeno con fuerza en las cosas o violencia en las personas.",
+    "fuente": {
+     "nombre": "Ministerio de Seguridad Nacional, SNIC, glosario delictual",
+     "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf"
+    }
+   },
+   {
+    "termino": "Hurto",
+    "definicion": "Quedarse con algo ajeno sin fuerza ni violencia.",
+    "fuente": {
+     "nombre": "Ministerio de Seguridad Nacional, SNIC, glosario delictual",
+     "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Glosario_Delictual_2024.pdf"
+    }
+   },
+   {
+    "termino": "Tasa cada 100.000 habitantes",
+    "definicion": "Los hechos o las víctimas de un año divididos por la población y multiplicados por 100.000.",
+    "fuente": {
+     "nombre": "Ministerio de Seguridad Nacional, SNIC, manual de usuario de la base",
+     "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/Manual_de_usuario_Base_SNIC.pdf"
+    }
+   },
+   {
+    "termino": "Cifra negra",
+    "definicion": "Los delitos que no se denuncian o que la policía no registra.",
+    "fuente": {
+     "nombre": "INDEC, Encuesta Nacional de Victimización 2017",
+     "url": "https://www.indec.gob.ar/uploads/informesdeprensa/env_2017_02_18.pdf"
+    }
+   },
+   {
+    "termino": "SNEEP",
+    "definicion": "Sistema Nacional de Estadísticas sobre Ejecución de la Pena: la estadística penitenciaria oficial del país.",
+    "fuente": {
+     "nombre": "Ministerio de Justicia, SNEEP",
+     "url": "https://www.argentina.gob.ar/justicia/politicacriminal/estadisticas/sneep"
+    }
+   }
+  ]
+ },
  "educacion": {
   "bloques": [
    {
@@ -1391,6 +1603,63 @@
       "cita": "tienen la obligación de universalizar los servicios educativos para los/as niños/as de tres (3) años de edad"
      }
     ]
+   },
+   {
+    "titulo": "El salario de un maestro de grado",
+    "texto": "La Secretaría de Educación sigue cada trimestre el salario de un conjunto de cargos docentes de referencia en cada jurisdicción. El sitio muestra el del maestro de grado de primaria con jornada simple y 10 años de antigüedad. Es lo que paga cada provincia por ese cargo, no el promedio de lo que cobran todos los docentes. El salario bruto incluye los adicionales comunes al cargo, como el de zona o residencia donde se paga, y las sumas extraordinarias de cada trimestre. El Fondo Nacional de Incentivo Docente, creado por la Ley 25.053, se prorrogó por dos años desde el 1 de enero de 2022, y desde 2024 la Nación dejó de pagarlo junto con el componente de conectividad: la serie tiene ese corte.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Educación, Coordinación General de Estudio de Costos del Sistema Educativo",
+      "url": "https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/cgecse",
+      "cita": "Relevamiento de la estructura salarial de un conjunto de cargos docentes testigos."
+     },
+     {
+      "nombre": "Secretaría de Educación, series del salario docente, salario bruto del maestro de grado",
+      "url": "https://www.argentina.gob.ar/sites/default/files/1._salario_bruto_mg10.xlsx",
+      "cita": "Educación Primaria: Maestro de Grado - Jornada Simple con 10 años de antigüedad."
+     },
+     {
+      "nombre": "Secretaría de Educación, series del salario docente, salario bruto del maestro de grado",
+      "url": "https://www.argentina.gob.ar/sites/default/files/1._salario_bruto_mg10.xlsx",
+      "cita": "Incluye \"Zona/residencia\" como componente común al cargo."
+     },
+     {
+      "nombre": "Secretaría de Educación, series del salario docente, salario bruto del maestro de grado",
+      "url": "https://www.argentina.gob.ar/sites/default/files/1._salario_bruto_mg10.xlsx",
+      "cita": "Incluye sumas adicionales de carácter extraordinario en los casos que corresponda"
+     },
+     {
+      "nombre": "Decreto 88/2022, artículo 3",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-88-2022-361189/texto",
+      "cita": "Prorrógase la vigencia del FONDO NACIONAL DE INCENTIVO DOCENTE, creado por la Ley N° 25.053 y sus modificaciones, por el término de DOS (2) años a partir del 1º de enero de 2022."
+     },
+     {
+      "nombre": "Secretaría de Educación, informe indicativo del salario docente, primer trimestre de 2024",
+      "url": "https://www.argentina.gob.ar/sites/default/files/informe_indicativo_del_salario_docente_-_i_trim_2024_1_1.pdf",
+      "cita": "el cese de fondos nacionales para FONID y Conectividad Nacional"
+     }
+    ]
+   },
+   {
+    "titulo": "La inversión en educación por alumno",
+    "texto": "La Secretaría de Educación calcula cada año, con las ejecuciones presupuestarias de cada provincia, cuánto gasta el Estado en educación por cada alumno de las escuelas de gestión estatal. Suma lo que gasta la provincia y las transferencias no automáticas que le hace la Nación, y descuenta lo que se transfiere a las escuelas de gestión privada. La parte de la educación en el gasto público de cada provincia no cuenta las transferencias de la Nación destinadas a escuelas, a personas ni las que se entregan como bienes.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Educación, indicadores de inversión educativa (Total País)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2018/01/indicadores_seleccionados.zip",
+      "cita": "En el Gasto Público en Educación por alumno se descuentan los montos transferidos a la educación de gestión privada."
+     },
+     {
+      "nombre": "Secretaría de Educación, indicadores de inversión educativa (Total País)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2018/01/indicadores_seleccionados.zip",
+      "cita": "El gasto por alumno incluye todos los tipos de TNA del Gobierno Nacional."
+     },
+     {
+      "nombre": "Secretaría de Educación, indicadores de inversión educativa (Total País)",
+      "url": "https://www.argentina.gob.ar/sites/default/files/2018/01/indicadores_seleccionados.zip",
+      "cita": "No se incluyen las transferencias no automáticas (TNA) del Gobierno Nacional destinadas a escuelas, a personas y aquellas efectivizadas a través de la entrega de bienes."
+     }
+    ]
    }
   ],
   "glosario": [
@@ -1464,6 +1733,22 @@
      "nombre": "Tasas de escolarización (2023)",
      "url": "https://www.argentina.gob.ar/sites/default/files/tasa_de_escolarizacion_-_consideraciones_sobre_las_fuentes_y_metodos_de_calculo.pdf",
      "cita": "El Relevamiento Anual es un operativo de carácter censal que recoge al 30 de abril de cada año la información consolidada"
+    }
+   },
+   {
+    "termino": "Cargo testigo",
+    "definicion": "Un cargo docente de referencia, como el maestro de grado con 10 años de antigüedad, que se usa para comparar salarios entre provincias y en el tiempo.",
+    "fuente": {
+     "nombre": "Secretaría de Educación, Coordinación General de Estudio de Costos del Sistema Educativo",
+     "url": "https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/cgecse"
+    }
+   },
+   {
+    "termino": "FONID",
+    "definicion": "Fondo Nacional de Incentivo Docente, creado por la Ley 25.053: un componente del salario docente que pagaba la Nación.",
+    "fuente": {
+     "nombre": "Decreto 88/2022",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-88-2022-361189/texto"
     }
    }
   ]

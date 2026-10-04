@@ -2922,6 +2922,262 @@ agregar(_di_tcr[_di_tcr.mes >= "2004-01"].rename(columns={"mes": "periodo", "itc
 agregar(compras_dolares_anual.rename(columns={"anio": "periodo", "millones_usd": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "compras_netas_billetes_divisas_sector_privado", "millones de dolares", "BCRA, balance cambiario")
 
+# ---------------------------------------------------------------- salarios de los asalariados registrados privados por provincia (etapa 23)
+# Remuneración promedio por todo concepto de los asalariados registrados del sector privado (OEDE, Secretaría de Trabajo, en base al SIPA),
+# por mes y provincia, en pesos corrientes y por puesto (cada relación entre una empresa y un trabajador). Cada puesto se cuenta en la
+# provincia donde el trabajador está declarado. Junio y diciembre incluyen el aguinaldo: la comparación entre provincias usa el último mes
+# sin aguinaldo, y la serie en pesos de igual valor (IPC nacional del INDEC, desde enero de 2017) deja afuera esos dos meses. La provincia
+# de Buenos Aires viene partida en los partidos del Gran Buenos Aires y el resto: se une con el empleo registrado de cada parte en el
+# trimestre (OEDE, o el último trimestre publicado). Los dos últimos años son provisorios.
+sal_ = pd.read_csv(CRUDO / "oede_remuneraciones_provincias.csv")
+_sal_w = sal_.pivot_table(index="mes", columns="zona", values="remuneracion")
+assert len(_sal_w.columns) == 26, "cambiaron las zonas del boletín de remuneraciones del OEDE"
+_sal_e = pd.read_csv(CRUDO / "oede_empleo_ramas.csv")
+_sal_e = _sal_e[_sal_e.rama == "total"].assign(q=lambda x: x.anio.astype(str) + "Q" + x.trimestre.astype(str)).pivot_table(index="q", columns="hoja", values="valor")
+_sal_q = pd.Series(pd.PeriodIndex(_sal_w.index, freq="M").asfreq("Q").astype(str), index=_sal_w.index)
+_sal_q = _sal_q.where(_sal_q <= _sal_e.index.max(), _sal_e.index.max()).where(_sal_q >= _sal_e.index.min(), _sal_e.index.min())
+_SAL_ZONA = {"GRAN BUENOS AIRES": "Partidos de GBA", "CAPITAL FEDERAL": "CABA", "BUENOS AIRES": "Resto de Buenos Aires"}
+_sal_emp = lambda z: _sal_e.loc[_sal_q.values, _SAL_ZONA.get(z) or next(h for h in _sal_e.columns if norm(h) == norm(z))].values
+_sal_pg, _sal_pr = _sal_emp("GRAN BUENOS AIRES"), _sal_emp("BUENOS AIRES")
+_sal_w["06"] = (_sal_w["GRAN BUENOS AIRES"] * _sal_pg + _sal_w["BUENOS AIRES"] * _sal_pr) / (_sal_pg + _sal_pr)
+# control: el promedio de las 25 zonas pesado por su empleo tiene que dar el total del país (hoy difiere menos de 0,3%)
+_sal_z = [z for z in _sal_w.columns if z not in ("Total", "06")]
+_sal_dif = (sum(_sal_w[z] * _sal_emp(z) for z in _sal_z) / sum(_sal_emp(z) for z in _sal_z) / _sal_w["Total"] - 1).abs().iloc[-12:]
+assert (_sal_dif < .01).all(), f"el promedio de las provincias del OEDE se aleja del total del país: {_sal_dif.max():.2%}"
+_sal_cod = {z: "02" if z == "CAPITAL FEDERAL" else "00" if z == "Total" else codigo(z) for z in _sal_w.columns if z not in ("GRAN BUENOS AIRES", "BUENOS AIRES", "06")}
+assert all(_sal_cod.values()), f"zonas sin código en el boletín de remuneraciones: {[z for z, c in _sal_cod.items() if not c]}"
+sal_m = _sal_w.rename(columns=_sal_cod)[sorted(set(_sal_cod.values()) | {"06"})]
+assert len(sal_m.columns) == 25, "faltan provincias en las remuneraciones del OEDE"
+SAL_MES = max(m for m in sal_m.index if m[5:7] not in ("06", "12"))  # el último mes sin aguinaldo
+_sal_ant = f"{int(SAL_MES[:4]) - 1}{SAL_MES[4:]}"
+assert SAL_MES in _hip_ipc.index and _sal_ant in _hip_ipc.index, "falta el IPC del mes de los salarios"
+salarios_provincias = pd.DataFrame({"codigo_indec": sal_m.columns, "salario": sal_m.loc[SAL_MES].values, "salario_ant": sal_m.loc[_sal_ant].values})
+salarios_provincias["var_real_12m"] = (salarios_provincias.salario / salarios_provincias.salario_ant / (_hip_ipc[SAL_MES] / _hip_ipc[_sal_ant]) - 1) * 100
+salarios_provincias["territorio"] = salarios_provincias.codigo_indec.map(lambda c: "Todo el país" if c == "00" else CORTO[c])
+salarios_provincias = salarios_provincias[["codigo_indec", "territorio", "salario", "salario_ant", "var_real_12m"]].round(4).sort_values("salario", ascending=False)
+# la serie en pesos del último mes sin aguinaldo, sin junio ni diciembre
+_sal_r = sal_m[(sal_m.index >= "2017-01") & (sal_m.index <= SAL_MES) & ~sal_m.index.str[5:7].isin(["06", "12"])]
+assert _sal_r.index.isin(_hip_ipc.index).all(), "falta el IPC de algún mes de los salarios"
+_sal_r = _sal_r.mul(_hip_ipc[SAL_MES] / _sal_r.index.map(_hip_ipc).values, axis=0)
+salarios_serie = _sal_r.reset_index().melt(id_vars="mes", var_name="codigo_indec", value_name="salario_real").rename(columns={"mes": "periodo"}).round(1)
+_sal_p = salarios_provincias[salarios_provincias.codigo_indec != "00"]
+_sal_0 = salarios_provincias.set_index("codigo_indec").loc["00"]
+_sal_s = _sal_r["00"]
+_sal_ini = f"{_sal_s.index.min()[:4]}{SAL_MES[4:]}"  # el mismo mes del primer año de la serie
+SAL_RES = {
+    "mes": _mes_per(SAL_MES), "mes_iso": SAL_MES, "ult": _mes_per(sal_m.index.max()), "ant": _mes_per(_sal_ant), "pais": float(_sal_0.salario),
+    "top": [_sal_p.iloc[0].territorio, float(_sal_p.iloc[0].salario)], "bajo": [_sal_p.iloc[-1].territorio, float(_sal_p.iloc[-1].salario)],
+    "var_real_12m": r1(float(_sal_0.var_real_12m)), "n_suben": int((_sal_p.var_real_12m > 0).sum()),
+    "real_desde": _mes_per(_sal_s.index.min()), "real_ini_mes": _mes_per(_sal_ini), "real_vs_ini": r1(float(_sal_s[SAL_MES] / _sal_s[_sal_ini] - 1) * 100),
+    "real_max_mes": _mes_per(_sal_s.idxmax()), "real_max": float(_sal_s.max()), "real_min_mes": _mes_per(_sal_s.idxmin()), "real_min": float(_sal_s.min()),
+}
+_sal_tl = sal_m[sal_m.index >= "2017-01"].reset_index().melt(id_vars="mes", var_name="codigo_indec", value_name="valor").rename(columns={"mes": "periodo"})
+agregar(_sal_tl.assign(territorio=_sal_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])), "remuneracion_promedio_asalariados_privados",
+        "pesos corrientes por mes, promedio por puesto, con aguinaldo en junio y diciembre", "OEDE, Secretaria de Trabajo (SIPA)")
+
+# ---------------------------------------------------------------- salario docente por provincia (etapa 23)
+# Salario bruto mensual del maestro de grado de primaria con 10 años de antigüedad y jornada simple, el cargo testigo de la Coordinación de
+# Evaluación de Costos Educativos (ex CGECSE), por jurisdicción y trimestre desde marzo de 2003, en pesos corrientes. Incluye las sumas
+# extraordinarias de cada trimestre, que la fuente informa aparte, y hasta diciembre de 2023 los componentes que pagaba la Nación (FONID y
+# Conectividad). El país es el promedio ponderado que publica la fuente. La serie en pesos de igual valor usa el IPC nacional desde marzo
+# de 2017. Los datos son provisorios y cada edición revisa trimestres anteriores.
+doc_ = pd.read_csv(CRUDO / "cgecse_salario_docente.csv")
+doc_["codigo_indec"] = doc_.jurisdiccion.map(lambda t: "00" if norm(t) == "promedio ponderado" else codigo(t))
+assert doc_.codigo_indec.notna().all() and doc_.codigo_indec.nunique() == 25, "jurisdicciones sin código en el salario docente"
+doc_["periodo"] = doc_.anio.astype(str) + "-" + doc_.mes.map("{:02d}".format)
+_doc_ok = doc_.dropna(subset=["bruto"])
+DOC_ULT = _doc_ok.periodo.max()
+_doc_u = _doc_ok[_doc_ok.periodo == DOC_ULT]
+assert len(_doc_u) == 25, "al último trimestre del salario docente le faltan jurisdicciones"
+_doc_ant = f"{int(DOC_ULT[:4]) - 1}{DOC_ULT[4:]}"
+assert DOC_ULT in _hip_ipc.index and _doc_ant in _hip_ipc.index, "falta el IPC del trimestre del salario docente"
+salario_docente = _doc_u.assign(bruto_ant=_doc_u.codigo_indec.map(_doc_ok[_doc_ok.periodo == _doc_ant].set_index("codigo_indec").bruto),
+                                territorio=_doc_u.codigo_indec.map(lambda c: "Todo el país" if c == "00" else CORTO[c]))[["codigo_indec", "territorio", "bruto", "extra", "bruto_ant"]]
+salario_docente["var_real_12m"] = (salario_docente.bruto / salario_docente.bruto_ant / (_hip_ipc[DOC_ULT] / _hip_ipc[_doc_ant]) - 1) * 100
+salario_docente = salario_docente.round(4).sort_values("bruto", ascending=False)
+_doc_r = _doc_ok[_doc_ok.periodo >= "2017-03"].copy()
+assert _doc_r.periodo.isin(_hip_ipc.index).all(), "falta el IPC de algún trimestre del salario docente"
+_doc_r["bruto_real"] = _doc_r.bruto * _hip_ipc[DOC_ULT] / _doc_r.periodo.map(_hip_ipc)
+salario_docente_serie = _doc_r[["periodo", "codigo_indec", "bruto_real"]].round(1)
+_doc_p = salario_docente[salario_docente.codigo_indec != "00"]
+_doc_0 = salario_docente.set_index("codigo_indec").loc["00"]
+_doc_s = _doc_r[_doc_r.codigo_indec == "00"].set_index("periodo").bruto_real
+# el último trimestre con los componentes nacionales y el primero sin ellos (hecho fijo: la Nación dejó de pagarlos desde 2024)
+_doc_f0, _doc_f1 = "2023-12", "2024-03"
+_doc_ini = f"{_doc_s.index.min()[:4]}{DOC_ULT[4:]}"
+DOC_RES = {
+    "trim": _mes_per(DOC_ULT), "ant": _mes_per(_doc_ant), "pais": float(_doc_0.bruto), "var_real_12m": r1(float(_doc_0.var_real_12m)),
+    "top": [_doc_p.iloc[0].territorio, float(_doc_p.iloc[0].bruto)], "bajo": [_doc_p.iloc[-1].territorio, float(_doc_p.iloc[-1].bruto)],
+    "extra": [[x.territorio, float(x.extra)] for x in _doc_p[_doc_p.extra > 0].itertuples()],
+    # contra el mismo trimestre del primer año de la serie en pesos de igual valor (los aumentos llegan en distintos meses del año)
+    "real_desde": _mes_per(_doc_s.index.min()), "real_ini": _mes_per(_doc_ini), "real_vs_ini": r1(float(_doc_s[DOC_ULT] / _doc_s[_doc_ini] - 1) * 100),
+    "real_max_trim": _mes_per(_doc_s.idxmax()), "real_max": float(_doc_s.max()), "real_min_trim": _mes_per(_doc_s.idxmin()), "real_min": float(_doc_s.min()),
+    "fonid_fin": _mes_per(_doc_f0), "fonid_ini": _mes_per(_doc_f1), "fonid_var": r1(float(_doc_s[_doc_f1] / _doc_s[_doc_f0] - 1) * 100),
+}
+_doc_tl = _doc_ok[_doc_ok.anio >= 2017]
+# en la tabla larga, el trimestre se escribe como los semestres de la pobreza: 2T2026
+agregar(_doc_tl.assign(territorio=_doc_tl.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), valor=_doc_tl.bruto,
+                       periodo=(_doc_tl.mes // 3).astype(str) + "T" + _doc_tl.anio.astype(str))[["codigo_indec", "territorio", "periodo", "valor"]],
+        "salario_bruto_maestro_grado_10_anios", "pesos corrientes por mes", "Coordinacion de Evaluacion de Costos Educativos, Secretaria de Educacion")
+
+# ---------------------------------------------------------------- inversión en educación por provincia (etapa 23)
+# Gasto público en educación por alumno de gestión estatal (incluye las transferencias no automáticas de la Nación y descuenta lo que se
+# transfiere a las escuelas de gestión privada) y gasto educativo como parte del gasto público de cada provincia (sin esas transferencias),
+# de la Coordinación de Evaluación de Costos Educativos, por año desde 2001. Por alumno, en pesos del último año con el deflactor del PBI,
+# como las otras series anuales largas. Provisorio.
+ie_ = pd.read_csv(CRUDO / "cgecse_inversion_educativa.csv")
+ie_["codigo_indec"] = ie_.jurisdiccion.map(lambda t: "06" if norm(t) == "provincia de buenos aires" else codigo(t))
+assert ie_.codigo_indec.notna().all() and ie_.codigo_indec.nunique() == 25, "jurisdicciones sin código en la inversión educativa"
+INV_ULT = int(ie_.dropna().anio.max())
+assert INV_ULT in defl.index, "falta el deflactor del último año de la inversión educativa"
+_ie_u = ie_[ie_.anio == INV_ULT].dropna()
+assert len(_ie_u) == 25, "al último año de la inversión educativa le faltan jurisdicciones"
+inversion_educativa = _ie_u.assign(territorio=_ie_u.codigo_indec.map(lambda c: "Todo el país" if c == "00" else CORTO[c]),
+                                    pct_gasto=_ie_u.pct_gasto_publico * 100)[["codigo_indec", "territorio", "gasto_por_alumno", "pct_gasto"]].round(4)
+_ie_s = ie_.dropna(subset=["gasto_por_alumno"])
+_ie_s = _ie_s[_ie_s.anio.isin(defl.index)].assign(por_alumno_real=lambda x: x.gasto_por_alumno * defl[INV_ULT] / x.anio.map(defl))
+inversion_educativa_serie = _ie_s[["anio", "codigo_indec", "por_alumno_real"]].round(1)
+_ie_p = inversion_educativa[inversion_educativa.codigo_indec != "00"]
+_ie_0 = inversion_educativa.set_index("codigo_indec").loc["00"]
+_ie_ps = _ie_s[_ie_s.codigo_indec == "00"].set_index("anio").por_alumno_real
+_ie_a, _ie_g = _ie_p.sort_values("gasto_por_alumno"), _ie_p.sort_values("pct_gasto")
+INV_RES = {
+    "anio": INV_ULT, "pais": float(_ie_0.gasto_por_alumno), "pct_pais": r1(float(_ie_0.pct_gasto)),
+    "top": [_ie_a.iloc[-1].territorio, float(_ie_a.iloc[-1].gasto_por_alumno)], "bajo": [_ie_a.iloc[0].territorio, float(_ie_a.iloc[0].gasto_por_alumno)],
+    "pct_top": [_ie_g.iloc[-1].territorio, r1(float(_ie_g.iloc[-1].pct_gasto))], "pct_bajo": [_ie_g.iloc[0].territorio, r1(float(_ie_g.iloc[0].pct_gasto))],
+    "ini": int(_ie_ps.index.min()), "real_ini": float(_ie_ps.iloc[0]), "real_max_anio": int(_ie_ps.idxmax()), "real_max": float(_ie_ps.max()),
+    "real_min_anio": int(_ie_ps.idxmin()), "real_min": float(_ie_ps.min()),
+}
+agregar(ie_.dropna(subset=["gasto_por_alumno"]).assign(territorio=lambda x: x.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]),
+                                                       periodo=lambda x: x.anio.astype(str), valor=lambda x: x.gasto_por_alumno)[["codigo_indec", "territorio", "periodo", "valor"]],
+        "gasto_educativo_por_alumno_estatal", "pesos corrientes por alumno de gestion estatal por año", "Coordinacion de Evaluacion de Costos Educativos, Secretaria de Educacion")
+
+# ---------------------------------------------------------------- seguridad (etapa 23)
+# Delitos que registran las fuerzas policiales y de seguridad, y en algunas provincias el Ministerio Público Fiscal (SNIC, Ministerio de
+# Seguridad Nacional), por provincia y año desde 2000, con las tasas cada 100.000 habitantes que publica el SNIC. Se suman solo los códigos
+# principales: desde 2017 cada uno es igual a la suma de sus subcódigos. El total de delitos no cuenta las contravenciones (código 30) ni el
+# código 31, que no es un delito. Los homicidios dolosos se cuentan por víctimas y lo demás por hechos. Los robos son el código 15 (sin los
+# agravados por el resultado de lesiones o muertes, que van aparte y en siete provincias valen cero), como en Cruces. Para comparar provincias
+# en homicidios se suman tres años (víctimas sobre la población del INDEC), porque en las provincias chicas la tasa de un año salta mucho.
+# El total del país de 2009 a 2013 lo completó el SNIC porque faltan datos de Buenos Aires y Córdoba.
+_seg_p = pd.read_csv(CRUDO / "snic_pais.csv", sep=";", decimal=",", dtype={"codigo_delito_snic_id": str})
+_seg_v = pd.read_csv(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str, "codigo_delito_snic_id": str})
+_SEG_FUERA = {"30", "31"}
+_seg_pr = lambda d: d[~d.codigo_delito_snic_id.str.contains("_") & ~d.codigo_delito_snic_id.isin(_SEG_FUERA)]
+_seg_pob = (_seg_p[_seg_p.codigo_delito_snic_id == "19"].set_index("anio").pipe(lambda x: x.cantidad_hechos / x.tasa_hechos * 1e5))
+_seg_tot = _seg_pr(_seg_p).groupby("anio").cantidad_hechos.sum()
+_seg_cod = lambda d, c, col="tasa_hechos": d[d.codigo_delito_snic_id == c].set_index("anio")[col]
+delitos_serie = pd.DataFrame({"anio": _seg_tot.index, "total": (_seg_tot / _seg_pob * 1e5).values}).set_index("anio")
+for _seg_k, _seg_c, _seg_col in (("homicidios", "1", "tasa_victimas"), ("robos", "15", "tasa_hechos"), ("hurtos", "19", "tasa_hechos"),
+                                 ("lesiones", "5", "tasa_hechos"), ("amenazas", "13", "tasa_hechos")):
+    delitos_serie[_seg_k] = _seg_cod(_seg_p, _seg_c, _seg_col)
+delitos_serie = delitos_serie.reset_index().round(4)
+SEG_ULT, SEG_INI = int(_seg_tot.index.max()), int(_seg_tot.index.min())
+assert SEG_ULT == ANIO_SNIC and delitos_serie.notna().all().all(), "la serie de delitos del SNIC tiene huecos"
+# delitos por tipo en el país, el último año (nombres cortos de los códigos principales)
+_SEG_NOM = {"1": "Homicidios dolosos", "2": "Tentativas de homicidio doloso", "3": "Muertes en siniestros viales", "4": "Homicidios culposos por otros hechos",
+            "5": "Lesiones dolosas", "6": "Lesiones culposas en siniestros viales", "7": "Lesiones culposas por otros hechos",
+            "8": "Otros delitos contra las personas", "9": "Delitos contra el honor", "10": "Abusos sexuales con acceso carnal",
+            "11": "Otros delitos contra la integridad sexual", "12": "Delitos contra el estado civil", "13": "Amenazas",
+            "14": "Otros delitos contra la libertad", "15": "Robos", "16": "Tentativas de robo", "17": "Robos agravados por lesiones o muertes",
+            "18": "Tentativas de robos agravados", "19": "Hurtos", "20": "Tentativas de hurto", "21": "Otros delitos contra la propiedad",
+            "22": "Delitos contra la seguridad pública", "23": "Delitos contra el orden público", "24": "Delitos contra la seguridad de la nación",
+            "25": "Delitos contra los poderes públicos", "26": "Delitos contra la administración pública", "27": "Delitos contra la fe pública",
+            "28": "Infracciones a la ley de estupefacientes", "29": "Delitos de otras leyes especiales", "32": "Delitos contra el orden económico y financiero"}
+_seg_u = _seg_pr(_seg_p[_seg_p.anio == SEG_ULT])
+assert set(_seg_u.codigo_delito_snic_id) <= set(_SEG_NOM), f"códigos nuevos en el SNIC: {set(_seg_u.codigo_delito_snic_id) - set(_SEG_NOM)}"
+delitos_tipo = _seg_u.assign(delito=_seg_u.codigo_delito_snic_id.map(_SEG_NOM), pct=_seg_u.cantidad_hechos / _seg_u.cantidad_hechos.sum() * 100)[
+    ["codigo_delito_snic_id", "delito", "cantidad_hechos", "tasa_hechos", "pct"]].rename(columns={"codigo_delito_snic_id": "codigo", "cantidad_hechos": "hechos", "tasa_hechos": "tasa"})
+delitos_tipo = delitos_tipo.sort_values("hechos", ascending=False).round(4)
+# homicidios dolosos por provincia: tres años, víctimas sobre la población del INDEC (la misma que usa el SNIC desde 2022)
+_seg_h = _seg_v[_seg_v.codigo_delito_snic_id == "1"]
+_seg_h3 = _seg_h[_seg_h.anio > SEG_ULT - 3]
+assert _seg_h3.anio.nunique() == 3 and SEG_ULT - 2 >= 2022, "faltan años de homicidios en el SNIC"
+_seg_pob3 = proy[proy.anio.between(SEG_ULT - 2, SEG_ULT)].groupby("codigo_indec").pob.sum()
+_seg_hv = _seg_h3.groupby("provincia_id").cantidad_victimas.sum()
+_seg_hu = _seg_h[_seg_h.anio == SEG_ULT].set_index("provincia_id")
+homicidios_provincias = pd.DataFrame({"codigo_indec": _seg_hv.index, "victimas_3": _seg_hv.values})
+homicidios_provincias["tasa_3"] = homicidios_provincias.victimas_3 / homicidios_provincias.codigo_indec.map(_seg_pob3) * 1e5
+homicidios_provincias["victimas"] = homicidios_provincias.codigo_indec.map(_seg_hu.cantidad_victimas)
+homicidios_provincias["tasa"] = homicidios_provincias.codigo_indec.map(_seg_hu.tasa_victimas)
+homicidios_provincias["pct_varones"] = homicidios_provincias.codigo_indec.map(_seg_hu.cantidad_victimas_masc / _seg_hu.cantidad_victimas * 100)
+_seg_hp = _seg_p[(_seg_p.codigo_delito_snic_id == "1") & (_seg_p.anio > SEG_ULT - 3)]
+homicidios_provincias.loc[len(homicidios_provincias)] = {"codigo_indec": "00", "victimas_3": _seg_hp.cantidad_victimas.sum(),
+    "tasa_3": _seg_hp.cantidad_victimas.sum() / _seg_pob3.sum() * 1e5, "victimas": float(_seg_cod(_seg_p, "1", "cantidad_victimas")[SEG_ULT]),
+    "tasa": float(_seg_cod(_seg_p, "1", "tasa_victimas")[SEG_ULT]),
+    "pct_varones": float(_seg_cod(_seg_p, "1", "cantidad_victimas_masc")[SEG_ULT] / _seg_cod(_seg_p, "1", "cantidad_victimas")[SEG_ULT] * 100)}
+homicidios_provincias["territorio"] = homicidios_provincias.codigo_indec.map(lambda c: "Todo el país" if c == "00" else CORTO[c])
+homicidios_provincias = homicidios_provincias.round(4).sort_values("tasa_3", ascending=False)
+assert len(homicidios_provincias) == 25 and homicidios_provincias[["victimas_3", "tasa_3", "victimas", "tasa"]].notna().all().all(), "faltan provincias en los homicidios del SNIC"
+# robos y hurtos por provincia, el último año y el anterior
+_seg_rh = lambda d, c: d[d.codigo_delito_snic_id == c].pivot_table(index="provincia_id", columns="anio", values="tasa_hechos")
+_seg_ro, _seg_hu2 = _seg_rh(_seg_v, "15"), _seg_rh(_seg_v, "19")
+robos_provincias = pd.DataFrame({"codigo_indec": _seg_ro.index, "robos": _seg_ro[SEG_ULT].values, "robos_ant": _seg_ro[SEG_ULT - 1].values,
+                                 "hurtos": _seg_hu2[SEG_ULT].reindex(_seg_ro.index).values, "hurtos_ant": _seg_hu2[SEG_ULT - 1].reindex(_seg_ro.index).values})
+robos_provincias.loc[len(robos_provincias)] = {"codigo_indec": "00", "robos": float(_seg_cod(_seg_p, "15")[SEG_ULT]), "robos_ant": float(_seg_cod(_seg_p, "15")[SEG_ULT - 1]),
+                                               "hurtos": float(_seg_cod(_seg_p, "19")[SEG_ULT]), "hurtos_ant": float(_seg_cod(_seg_p, "19")[SEG_ULT - 1])}
+robos_provincias["territorio"] = robos_provincias.codigo_indec.map(lambda c: "Todo el país" if c == "00" else CORTO[c])
+robos_provincias = robos_provincias.round(4).sort_values("robos", ascending=False)
+assert len(robos_provincias) == 25 and robos_provincias.notna().all().all(), "faltan provincias en los robos del SNIC"
+# serie de cada provincia (homicidios, robos y hurtos, tasas del SNIC), para la línea de la provincia elegida
+_seg_sp = []
+for _seg_k, _seg_c, _seg_col in (("homicidios", "1", "tasa_victimas"), ("robos", "15", "tasa_hechos"), ("hurtos", "19", "tasa_hechos")):
+    _seg_sp.append(_seg_v[_seg_v.codigo_delito_snic_id == _seg_c].set_index(["provincia_id", "anio"])[_seg_col].rename(_seg_k))
+seguridad_serie_prov = pd.concat(_seg_sp, axis=1).reset_index().rename(columns={"provincia_id": "codigo_indec"}).round(2)
+# personas privadas de libertad en establecimientos penitenciarios al 31 de diciembre (SNEEP, Ministerio de Justicia), por servicio
+# penitenciario: 23 provinciales (la Ciudad no tiene uno propio) y el federal. No incluye a las personas detenidas en comisarías ni a las que
+# tienen prisión domiciliaria. Cada 100.000 habitantes: el país con la población implícita en las tasas del SNIC de cada año, y cada
+# servicio provincial con la población de su provincia del último año (proyecciones del INDEC)
+_sn = pd.read_csv(CRUDO / "sneep_poblacion.csv", encoding="utf-8-sig").set_index("indice_tiempo")
+_snc = pd.read_csv(CRUDO / "sneep_condenados.csv", encoding="utf-8-sig").set_index("indice_tiempo")
+assert (_sn.drop(columns="total_arg").sum(axis=1) == _sn.total_arg).all(), "los servicios penitenciarios no suman el total del SNEEP"
+SN_ULT, SN_INI = int(_sn.index.max()), int(_sn.index.min())
+assert SN_ULT in _seg_pob.index, "falta la población del último año del SNEEP"
+carceles_serie = pd.DataFrame({"anio": _sn.index, "personas": _sn.total_arg.values, "tasa": (_sn.total_arg / _sn.index.map(_seg_pob) * 1e5).values,
+                               "pct_condenados": (_snc.total_arg.reindex(_sn.index) / _sn.total_arg * 100).values}).round(4)
+_sn_cod = {c: "94" if c == "tierra_del_fuego" else "86" if c == "santiago_del_estero" else codigo(c.replace("_", " ")) for c in _sn.columns if c not in ("spf", "total_arg")}
+assert all(_sn_cod.values()) and len(set(_sn_cod.values())) == 23, f"servicios penitenciarios sin código: {_sn_cod}"
+_sn_pob = proy[proy.anio == SN_ULT].groupby("codigo_indec").pob.sum()
+carceles_provincias = pd.DataFrame({"codigo_indec": [_sn_cod[c] for c in _sn_cod], "personas": [float(_sn.loc[SN_ULT, c]) for c in _sn_cod],
+                                    "condenados": [float(_snc.loc[SN_ULT, c]) for c in _sn_cod]})
+carceles_provincias["tasa"] = carceles_provincias.personas / carceles_provincias.codigo_indec.map(_sn_pob) * 1e5
+carceles_provincias["pct_condenados"] = carceles_provincias.condenados / carceles_provincias.personas * 100
+carceles_provincias["territorio"] = carceles_provincias.codigo_indec.map(CORTO)
+carceles_provincias = carceles_provincias.round(4).sort_values("tasa", ascending=False)
+_seg_s = delitos_serie.set_index("anio")
+_seg_hom = homicidios_provincias[homicidios_provincias.codigo_indec != "00"]
+_seg_rob = robos_provincias[robos_provincias.codigo_indec != "00"]
+_seg_cs = carceles_serie.set_index("anio")
+_seg_ev = _seg_cod(_seg_p, "21_4")
+SEG_RES = {
+    "anio": SEG_ULT, "anio_ini": SEG_INI, "total": int(_seg_tot[SEG_ULT]), "total_tasa": float(_seg_s.total[SEG_ULT]), "total_tasa_ant": float(_seg_s.total[SEG_ULT - 1]),
+    "tipos": [[x.delito, float(x.tasa), r1(float(x.pct))] for x in delitos_tipo.head(3).itertuples()],
+    "robos": float(_seg_s.robos[SEG_ULT]), "robos_ant": float(_seg_s.robos[SEG_ULT - 1]), "hurtos": float(_seg_s.hurtos[SEG_ULT]), "hurtos_ant": float(_seg_s.hurtos[SEG_ULT - 1]),
+    "robos_max_anio": int(_seg_s.robos.idxmax()), "robos_max": float(_seg_s.robos.max()),
+    "hom_ini": float(_seg_s.homicidios[SEG_INI]), "robos_ini": float(_seg_s.robos[SEG_INI]), "hurtos_ini": float(_seg_s.hurtos[SEG_INI]),
+    "hom_victimas": int(homicidios_provincias.set_index("codigo_indec").victimas["00"]), "hom_tasa": float(_seg_s.homicidios[SEG_ULT]),
+    "hom_max_anio": int(_seg_s.homicidios.idxmax()), "hom_max": float(_seg_s.homicidios.max()), "hom_min_anio": int(_seg_s.homicidios.idxmin()),
+    "hom_varones": r1(float(homicidios_provincias.set_index("codigo_indec").pct_varones["00"])),
+    "hom3_desde": SEG_ULT - 2, "hom3_pais": float(homicidios_provincias.set_index("codigo_indec").tasa_3["00"]),
+    "hom3_top": [_seg_hom.iloc[0].territorio, float(_seg_hom.iloc[0].tasa_3)], "hom3_bajo": [_seg_hom.iloc[-1].territorio, float(_seg_hom.iloc[-1].tasa_3)],
+    "robos_top": [_seg_rob.iloc[0].territorio, float(_seg_rob.iloc[0].robos)], "robos_bajo": [_seg_rob.iloc[-1].territorio, float(_seg_rob.iloc[-1].robos)],
+    "hurtos_top": [_seg_rob.sort_values("hurtos").iloc[-1].territorio, float(_seg_rob.hurtos.max())],
+    "hurtos_bajo": [_seg_rob.sort_values("hurtos").iloc[0].territorio, float(_seg_rob.hurtos.min())],
+    "n_robos_bajan": int((_seg_rob.robos < _seg_rob.robos_ant).sum()),
+    "estafas_ini": int(_seg_ev.index.min()), "estafas_tasa_ini": float(_seg_ev.iloc[0]), "estafas_tasa": float(_seg_ev[SEG_ULT]),
+    "sn_anio": SN_ULT, "sn_ini": SN_INI, "sn_personas": int(_seg_cs.personas[SN_ULT]), "sn_tasa": float(_seg_cs.tasa[SN_ULT]),
+    "sn_personas_ini": int(_seg_cs.personas[SN_INI]), "sn_tasa_ini": float(_seg_cs.tasa[SN_INI]), "sn_condenados": r1(float(_seg_cs.pct_condenados[SN_ULT])),
+    "sn_spf": int(_sn.loc[SN_ULT, "spf"]),
+    "sn_top": [carceles_provincias.iloc[0].territorio, float(carceles_provincias.iloc[0].tasa)], "sn_bajo": [carceles_provincias.iloc[-1].territorio, float(carceles_provincias.iloc[-1].tasa)],
+}
+for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolosos", "víctimas cada 100.000 habitantes"),
+                                   ("robos", "tasa_robos", "hechos cada 100.000 habitantes"), ("hurtos", "tasa_hurtos", "hechos cada 100.000 habitantes")):
+    _seg_t = seguridad_serie_prov[["codigo_indec", "anio", _seg_k]].rename(columns={"anio": "periodo", _seg_k: "valor"})
+    _seg_t = pd.concat([_seg_t, delitos_serie[["anio", _seg_k]].rename(columns={"anio": "periodo", _seg_k: "valor"}).assign(codigo_indec="00")])
+    agregar(_seg_t.assign(territorio=_seg_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])), _seg_var, _seg_uni, "SNIC, Ministerio de Seguridad")
+agregar(carceles_serie.rename(columns={"anio": "periodo", "personas": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "personas_privadas_de_libertad_establecimientos_penitenciarios", "personas al 31 de diciembre", "SNEEP, Ministerio de Justicia")
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3184,6 +3440,9 @@ cru["hacinamiento"] = columna(vivienda_prov, "pct_hacinamiento")
 cru["ocupados_construccion"] = columna(vivienda_prov, "pct_ocupados_construccion")
 cru["empleo_construccion"] = columna(empleo_sec, "construccion_cada_1000")
 cru["regalias"] = columna(reg_prov, "pct_regalias")
+cru["salario"] = columna(salarios_provincias, "salario")
+cru["salario_docente"] = columna(salario_docente, "bruto")
+cru["gasto_alumno"] = columna(inversion_educativa, "gasto_por_alumno")
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
@@ -3196,8 +3455,14 @@ CRUCES_META = {
     "aprender_len": ("Aprender, lengua", "% de 6° grado con nivel satisfactorio o avanzado", str(meta_ap["anio"]), "Educación", "Ministerio de Educación", "f-aprender", 1),
     "empleo_privado": ("Empleo privado registrado", "asalariados cada 100 habitantes", f"{MES[fin.month - 1]} de {fin.year}", "Trabajo", "SIPA", "f-empleo", 1),
     "empleo_var": ("Variación del empleo privado", "% en doce meses", f"{MES[fin.month - 1]} de {fin.year}", "Trabajo", "SIPA", "f-empleo", 1),
-    "homicidios": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-muertes", 1),
-    "robos": ("Robos", "hechos cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "", 0),
+    "homicidios": ("Homicidios dolosos", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-homicidios", 1),
+    "robos": ("Robos", "hechos cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-robos", 0),
+    "salario": ("Salario promedio de los asalariados registrados privados", "pesos por mes, bruto, promedio por puesto", SAL_RES["mes"], "Trabajo",
+                "OEDE, Secretaría de Trabajo (SIPA)", "f-salarios", 0),
+    "salario_docente": ("Salario de un maestro de grado", "pesos por mes, bruto, con 10 años de antigüedad y jornada simple", DOC_RES["trim"], "Educación",
+                        "Coordinación de Evaluación de Costos Educativos", "f-salario-docente", 0),
+    "gasto_alumno": ("Inversión educativa por alumno", "pesos por alumno de gestión estatal por año", str(INV_ULT), "Educación",
+                     "Coordinación de Evaluación de Costos Educativos", "f-inversion-educativa", 0),
     "viales": ("Muertes viales", "víctimas cada 100.000 habitantes", str(ANIO_SNIC), "Seguridad", "SNIC, Ministerio de Seguridad", "f-muertes", 1),
     "protegida": ("Territorio protegido", "% de la superficie", str(anio_ap), "Flora y fauna", "Ministerio de Ambiente, CIAM", "f-protegida", 1),
     "turistas_eti": ("Turistas extranjeros", "cada 1.000 habitantes, salidos por Ezeiza o Aeroparque", str(ANIO_ETI), "Turismo", "Encuesta de Turismo Internacional", "f-eti", 1),
@@ -3418,6 +3683,19 @@ tablas = {
     "electricidad_serie": electricidad_serie,
     "electricidad_mensual": electricidad_mensual,
     "electricidad_sectores": electricidad_sectores,
+    "salarios_provincias": salarios_provincias,
+    "salarios_serie": salarios_serie,
+    "salario_docente": salario_docente,
+    "salario_docente_serie": salario_docente_serie,
+    "inversion_educativa": inversion_educativa,
+    "inversion_educativa_serie": inversion_educativa_serie,
+    "delitos_serie": delitos_serie,
+    "delitos_tipo": delitos_tipo,
+    "homicidios_provincias": homicidios_provincias,
+    "robos_provincias": robos_provincias,
+    "seguridad_serie_prov": seguridad_serie_prov,
+    "carceles_serie": carceles_serie,
+    "carceles_provincias": carceles_provincias,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -3788,6 +4066,10 @@ resumen["petroleo"] = {
 }
 resumen["combustibles"] = CB_RES  # precios de los combustibles en el surtidor (etapa 21)
 resumen["dolar"] = DOL_RES  # artículo del dólar, la inversión y la construcción (etapa 22)
+resumen["salarios"] = SAL_RES  # salarios de los asalariados registrados privados por provincia (etapa 23)
+resumen["docentes"] = DOC_RES  # salario de un maestro de grado por provincia (etapa 23)
+resumen["inversion_edu"] = INV_RES  # inversión en educación por alumno y por provincia (etapa 23)
+resumen["seguridad"] = SEG_RES  # delitos (SNIC) y personas privadas de libertad (SNEEP), etapa 23
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

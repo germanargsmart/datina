@@ -536,7 +536,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 #secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 #secciones-grid.plegada>:nth-child(n+9){display:none}
 @media (max-width:1079px){#secciones-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#secciones-grid.plegada>:nth-child(n+7){display:none}}
-@media (max-width:760px){#secciones-grid{grid-template-columns:1fr 1fr}#secciones-grid.plegada>:nth-child(n+5){display:none}}
+@media (max-width:760px){#secciones-grid{grid-template-columns:1fr 1fr}#secciones-grid.plegada>:nth-child(n+5){display:none}
+  /* con una cantidad impar de secciones (15 desde la etapa 23, con Seguridad), la última ocupa las dos columnas: ninguna queda sola a un costado */
+  #secciones-grid:not(.plegada)>:last-child:nth-child(odd){grid-column:1 / -1}}
 .ver-todas{margin-top:var(--e-5)}
 /* herramientas: cuatro tarjetas en una fila, dos y dos, o una debajo de la otra en pantallas angostas (nunca una sola en la última fila) */
 #herramientas-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
