@@ -29,10 +29,10 @@ plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8")
 # Años recientes escritos a mano (etapa 17): con la actualización siguiente quedarían viejos. En la plantilla van como {{ruta}}
 # (ver abajo) y en datina.js salen del resumen (R). Solo pueden quedar escritos los hechos fijos de FIJOS, reconocidos por el texto
 # que los rodea. Un año reciente escrito a mano en otro lugar hace que el sitio no se arme.
-# (la SUBE desde diciembre de 2024 y mayo de 2025, la encuesta que el INDEC reformula desde 2026, el cambio de fuente de los nacimientos
-# y el nombre de las proyecciones de población del INDEC)
+# (la SUBE desde diciembre de 2024 y mayo de 2025, la encuesta que el INDEC reformula desde 2026, el cambio de fuente de los nacimientos,
+# el nombre de las proyecciones de población del INDEC y los límites para comprar dólares que rigieron hasta abril de 2025)
 FIJOS = ["diciembre de 2024 el subte", "diciembre de 2024 parte de los viajes", "mayo de 2025 pagos con qr", "desde 2026 el indec reformula",
-         "hasta octubre de 2026 el sitio", "2022 a 2040, base censo"]
+         "hasta octubre de 2026 el sitio", "2022 a 2040, base censo", "septiembre de 2019 y abril de 2025"]
 
 
 def anios_a_mano(nombre, fuente):
@@ -243,7 +243,8 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
-             "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual"]
+             "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",
+             "dolar_inversion_trimestral", "compras_dolares_anual"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:

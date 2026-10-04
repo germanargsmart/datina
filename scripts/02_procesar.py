@@ -2788,6 +2788,98 @@ for _cb_p, _cb_var in (("nafta", "precio_nafta_super_surtidor"), ("gasoil", "pre
     agregar(_cb_d.assign(territorio=_cb_d.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]))[["codigo_indec", "territorio", "periodo", "valor"]],
             _cb_var, "pesos por litro, mediana de las estaciones", "Secretaria de Energia, precios en estaciones de servicio (Res. 1104/2004)")
 
+# ---------------------------------------------------------------- artículo: el dólar, la inversión y la construcción (etapa 22)
+# Por trimestre desde 2004: el índice de tipo de cambio real multilateral del BCRA (promedio de los tres meses), el tipo de cambio de
+# referencia (Comunicación "A" 3500, promedio de los tres meses), la inversión bruta interna fija en pesos de 2004 (total, construcción y
+# equipo durable de producción importado y nacional) y el precio implícito de la construcción (la construcción a precios corrientes sobre
+# la de pesos de 2004), pasado a dólares con el tipo de cambio de referencia. Los dos índices van con el promedio de toda la serie = 100.
+# Las variaciones son contra el mismo trimestre del año anterior, porque la inversión tiene estacionalidad, y la construcción del año
+# siguiente es la variación de los cuatro trimestres que siguen. Las compras netas de billetes y divisas del sector privado no financiero
+# (personas y empresas) del balance cambiario del BCRA van por año. Las correlaciones son de Spearman (sobre rangos), como en los
+# artículos de cruces, y los tercios se arman con los trimestres que tienen los dos datos. Sin años escritos a mano: todo sale de los datos.
+_dq = lambda s: pd.to_datetime(s).dt.to_period("Q")
+_TRI = ["primer", "segundo", "tercer", "cuarto"]
+_tri = lambda q: f"{_TRI[q.quarter - 1]} trimestre de {q.year}"
+di_ = pd.read_csv(CRUDO / "inversion_trimestral.csv")
+assert list(di_.columns) == ["indice_tiempo", "4.2_DGIT_2004_T_25", "4.2_DGIC_2004_T_32", "4.2_DGIEDPI_2004_T_55", "4.2_DGIEDPN_2004_T_54",
+                             "4.4_DGIC_2004_T_32"], "cambiaron las columnas de la inversión trimestral"
+di_.columns = ["t", "inversion_total", "construccion", "equipo_importado", "equipo_nacional", "construccion_corriente"]
+di_ = di_.assign(q=_dq(di_.t)).set_index("q").drop(columns="t")
+_di_tcr = pd.read_csv(CRUDO / "bcra_itcrm.csv")
+_di_a35 = pd.read_csv(CRUDO / "tipo_cambio_a3500.csv")
+
+
+def _di_trim(d, fecha, col):  # promedio de cada trimestre, solo con sus tres meses
+    t = d.assign(q=_dq(d[fecha])).groupby("q")[col].agg(["mean", "size"])
+    return t[t["size"] == 3]["mean"].rename(col)
+
+
+di_ = di_.join(_di_trim(_di_tcr, "mes", "itcrm"), how="inner").join(_di_trim(_di_a35, "indice_tiempo", "tipo_cambio_a3500"), how="inner").dropna()
+assert di_.index.min() == pd.Period("2004Q1") and (pd.Series(di_.index).diff().dropna().map(lambda x: x.n) == 1).all(), "faltan trimestres en el artículo del dólar"
+assert di_.index.max() >= pd.Period(HOY, "Q") - 6, "la inversión trimestral del INDEC no llega a un trimestre reciente"
+di_["costo_usd"] = di_.construccion_corriente / di_.construccion / di_.tipo_cambio_a3500
+di_["indice_dolar_real"] = di_.itcrm / di_.itcrm.mean() * 100
+di_["indice_construccion_usd"] = di_.costo_usd / di_.costo_usd.mean() * 100
+di_["pct_equipo_importado"] = di_.equipo_importado / di_.inversion_total * 100
+for _di_c in ("itcrm", "inversion_total", "construccion", "equipo_importado", "equipo_nacional"):
+    di_["var_" + _di_c] = (di_[_di_c] / di_[_di_c].shift(4) - 1) * 100
+di_["construccion_anio_siguiente"] = (di_.construccion.shift(-4) / di_.construccion - 1) * 100
+# compras netas de billetes y divisas (compras menos ventas) del sector privado no financiero, millones de dólares por mes
+_di_f = pd.read_csv(CRUDO / "compras_dolares_privados.csv")
+assert list(_di_f.columns) == ["indice_tiempo", "182.1_C_K_FINC_CINC_0_M_57", "182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"], "cambiaron las columnas del balance cambiario"
+_di_f.columns = ["t", "ventas", "compras"]
+_di_f = _di_f.assign(anio=_di_f.t.str[:4].astype(int), mes=_di_f.t.str[5:7].astype(int), neto=_di_f.compras - _di_f.ventas)
+_di_fq = _di_f.assign(q=_dq(_di_f.t)).groupby("q").neto.agg(["sum", "size"])
+di_ = di_.join(_di_fq[_di_fq["size"] == 3]["sum"].rename("compras_netas_usd"))
+_di_sp = lambda a, b, d=None: round(float((di_ if d is None else d)[[a, b]].dropna().rank().corr().iloc[0, 1]), 2) + 0.0  # sin "-0.0"
+_di_n = lambda a, b: int(di_[[a, b]].dropna().shape[0])
+dolar_inversion_trimestral = di_.reset_index().assign(periodo=lambda x: x.q.astype(str).str.replace("Q", "-T"), anio=lambda x: x.q.dt.year,
+                                                     trimestre=lambda x: x.q.dt.quarter)[
+    ["periodo", "anio", "trimestre", "itcrm", "tipo_cambio_a3500", "indice_dolar_real", "indice_construccion_usd", "inversion_total", "construccion",
+     "equipo_importado", "equipo_nacional", "pct_equipo_importado", "var_itcrm", "var_inversion_total", "var_construccion", "var_equipo_importado",
+     "var_equipo_nacional", "construccion_anio_siguiente", "compras_netas_usd"]].round(4)
+# tercios: los trimestres de dólar real más barato, medio y más caro (con la parte importada de la inversión), y los de construcción más
+# barata, media y más cara en dólares (con lo que cambió la construcción en el año siguiente)
+_di_t1 = di_.assign(tercio=pd.qcut(di_.itcrm, 3, labels=False)).groupby("tercio").pct_equipo_importado.mean()
+_di_s = di_.dropna(subset=["construccion_anio_siguiente"])
+_di_s = _di_s.assign(tercio=pd.qcut(_di_s.indice_construccion_usd, 3, labels=False))
+_di_t2 = _di_s.groupby("tercio").construccion_anio_siguiente.median()
+_di_ult, _di_q0 = di_.iloc[-1], di_.index[0]
+_di_fa = _di_f.groupby("anio").agg(millones_usd=("neto", "sum"), meses=("neto", "size"))
+compras_dolares_anual = _di_fa[_di_fa.meses == 12].millones_usd.round(1).reset_index()
+_di_fu = compras_dolares_anual.iloc[-1]
+_di_fm = compras_dolares_anual.set_index("anio").millones_usd
+_di_ya = int(_di_f.anio.max())
+_di_ym = int(_di_f[_di_f.anio == _di_ya].mes.max())
+DOL_RES = {
+    "desde": _tri(_di_q0), "desde_anio": int(_di_q0.year), "ult": _tri(di_.index[-1]), "n": len(di_),
+    "itcrm_vs_prom": r1(float(_di_ult.indice_dolar_real) - 100), "itcrm_max": _tri(di_.itcrm.idxmax()), "itcrm_min": _tri(di_.itcrm.idxmin()),
+    "costo_vs_prom": r1(float(_di_ult.indice_construccion_usd) - 100), "costo_max": _tri(di_.indice_construccion_usd.idxmax()),
+    "costo_min": _tri(di_.indice_construccion_usd.idxmin()), "rs_espejo": _di_sp("itcrm", "indice_construccion_usd"),
+    "imp_ult": float(_di_ult.pct_equipo_importado), "imp_dolar_caro": float(_di_t1[2]), "imp_dolar_barato": float(_di_t1[0]),
+    "rs_imp": _di_sp("itcrm", "pct_equipo_importado"),
+    "rs_var_total": _di_sp("var_itcrm", "var_inversion_total"), "rs_var_imp": _di_sp("var_itcrm", "var_equipo_importado"),
+    "rs_var_nac": _di_sp("var_itcrm", "var_equipo_nacional"), "rs_var_cons": _di_sp("var_itcrm", "var_construccion"),
+    "n_var": _di_n("var_itcrm", "var_inversion_total"),
+    "rs_sig": _di_sp("indice_construccion_usd", "construccion_anio_siguiente"), "n_sig": len(_di_s),
+    "sig_barato": float(_di_t2[0]), "sig_medio": float(_di_t2[1]), "sig_caro": float(_di_t2[2]),
+    # cuántos de los trimestres de construcción más barata en dólares son de los seis primeros años de la serie
+    "barato_primeros": int((_di_s[_di_s.tercio == 0].index.year < _di_q0.year + 6).sum()), "barato_n": int((_di_s.tercio == 0).sum()),
+    "primeros_hasta": int(_di_q0.year + 5),
+    # las mismas relaciones sin esos seis primeros años: muestran cuánto pesan en el resultado
+    "rs_imp_sin": _di_sp("itcrm", "pct_equipo_importado", di_[di_.index.year > _di_q0.year + 5]),
+    "rs_sig_sin": _di_sp("indice_construccion_usd", "construccion_anio_siguiente", di_[di_.index.year > _di_q0.year + 5]),
+    "fae_anio": int(_di_fu.anio), "fae_ult": float(_di_fu.millones_usd), "fae_max_anio": int(_di_fm.idxmax()), "fae_max": float(_di_fm.max()),
+    "fae_ini": int(compras_dolares_anual.anio.min()), "fae_neg": [int(a) for a in _di_fm[_di_fm < 0].index],
+    "fae_ytd": {"anio": _di_ya, "mes": _di_ym, "millones": float(_di_f[_di_f.anio == _di_ya].neto.sum()),
+                "ant": float(_di_f[(_di_f.anio == _di_ya - 1) & (_di_f.mes <= _di_ym)].neto.sum())} if _di_ya > int(_di_fu.anio) else None,
+    "rs_fae": _di_sp("itcrm", "compras_netas_usd"),
+}
+agregar(_di_tcr[_di_tcr.mes >= "2004-01"].rename(columns={"mes": "periodo", "itcrm": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "tipo_cambio_real_multilateral", "indice, 17 de diciembre de 2015 = 100", "BCRA, indice de tipo de cambio real multilateral")
+agregar(compras_dolares_anual.rename(columns={"anio": "periodo", "millones_usd": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "compras_netas_billetes_divisas_sector_privado", "millones de dolares", "BCRA, balance cambiario")
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3278,6 +3370,8 @@ tablas = {
     "combustibles_provincias": combustibles_provincias,
     "combustibles_mensual": combustibles_mensual,
     "combustibles_anual": combustibles_anual,
+    "dolar_inversion_trimestral": dolar_inversion_trimestral,
+    "compras_dolares_anual": compras_dolares_anual,
     "electricidad_provincias": electricidad_provincias,
     "electricidad_serie": electricidad_serie,
     "electricidad_mensual": electricidad_mensual,
@@ -3648,6 +3742,7 @@ resumen["petroleo"] = {
     **AR_RES,  # producción por área de concesión
 }
 resumen["combustibles"] = CB_RES  # precios de los combustibles en el surtidor (etapa 21)
+resumen["dolar"] = DOL_RES  # artículo del dólar, la inversión y la construcción (etapa 22)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

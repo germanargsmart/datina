@@ -4353,10 +4353,143 @@ ART.forEach(a => {
     marcar: [c.arriba, c.abajo, c.cook].map(f => f.codigo_indec),
     fx: v => n0(v) + px, fy: v => n0(v) + py, vx: v => a.t.vx({[a.x]: v}), vy: v => a.t.vy({[a.y]: v})});
 });
+/* ---------- artículos con series del país (etapa 22): preguntas que se responden cruzando series en el tiempo ----------
+   Las cifras salen del resumen (02_procesar.py las calcula sobre los trimestres) y las tablas de los gráficos se bajan aparte, al abrir el
+   artículo. A mano van solo la pregunta (data-titulo en el marcado), el contexto y los límites propios, sin cifras. Las correlaciones se
+   describen con la misma escala que los artículos de cruces, leída sobre el valor que se muestra, y la respuesta destacada sale de los datos.
+   Para sumar uno: su nota en la plantilla, sus cifras en el resumen, sus tablas en DIFERIDAS y su entrada acá. */
+const DL = R.dolar;
+const r100 = r => Math.round(r * 100) / 100, fz = r => fuerzaArt(r100(r)), ab = r => Math.abs(r100(r));
+const ORD_T = ["1.er", "2.º", "3.er", "4.º"], triCorto = r => `${ORD_T[r.trimestre - 1]} trim. ${r.anio}`;
+const pctAbs = v => pct(Math.abs(v));
+const PLURAL = {"fuerte": "fuertes", "moderada": "moderadas", "débil": "débiles", "casi nula": "casi nulas"};
+// dos relaciones a la vez: "las dos relaciones son débiles" o "la primera relación es fuerte y la segunda, moderada"
+const dosRel = (r1, r2) => fz(r1) === fz(r2) ? `las dos relaciones son ${PLURAL[fz(r1)]}` : `la primera relación es ${fz(r1)} y la segunda, ${fz(r2)}`;
+const ART_SERIE = [{
+  id: "a-dolar-inversion", frec: "Se actualiza cada trimestre", tablas: ["dolar_inversion_trimestral", "compras_dolares_anual"],
+  dek: "El dólar en términos reales, la inversión en máquinas importadas y en construcción, lo que cuesta construir medido en dólares y las compras de dólares de personas y empresas.",
+  fichas: [["f-isac", "actividad de la construcción"], ["f-costo", "costo de la construcción"], ["f-hipotecas", "créditos hipotecarios"]],
+  csv: [["dolar_inversion_trimestral", "Descargar CSV por trimestre"], ["compras_dolares_anual", "Descargar CSV de las compras de dólares"]],
+  fuentes: "Banco Central de la República Argentina, índice de tipo de cambio real multilateral, e INDEC y Banco Central vía API de Series de Tiempo: " +
+    "inversión bruta interna fija (oferta y demanda globales), tipo de cambio de referencia (Comunicación \"A\" 3500) y balance cambiario",
+  texto: () => {
+    const d = DL, sin = d.primeros_hasta + 1;
+    // la respuesta: las dos relaciones más claras (la parte importada de la inversión y la construcción del año siguiente), en toda la
+    // serie y sin sus seis primeros años
+    const full = Math.max(ab(d.rs_imp), ab(d.rs_sig)), sinP = Math.max(ab(d.rs_imp_sin), ab(d.rs_sig_sin));
+    const respuesta = full < .4 ? "No hay un patrón claro." : sinP < .4 ? "En parte, y sobre todo en los primeros años de la serie." : "Sí, en general.";
+    const dirImp = d.rs_imp < 0 ? "pesaron menos" : "pesaron más", dirSig = d.rs_sig < 0 ? "crecer más" : "crecer menos";
+    const bajada = `Desde el ${d.desde}, con el dólar más caro en términos reales, las máquinas y equipos importados ${dirImp} en la inversión, ` +
+      `y cuando construir fue más barato en dólares, la inversión en construcción tendió a ${dirSig} en el año siguiente. ` +
+      `En toda la serie, ${dosRel(d.rs_imp, d.rs_sig)}, y desde ${sin}, ${dosRel(d.rs_imp_sin, d.rs_sig_sin)}. ` +
+      `Cuánto se invierte en total, de un año a otro, tiene una relación ${fz(d.rs_var_total)} con lo que cambia el dólar.`;
+    const contexto = "El tipo de cambio mueve los precios relativos. Con un dólar caro, lo que se trae de afuera cuesta más pesos, y lo que se hace en el país, " +
+      `como una obra, cuesta menos dólares. Este artículo pone al lado, trimestre por trimestre desde ${d.desde_anio}, el dólar en términos reales, la inversión ` +
+      "en máquinas y equipos y en construcción, lo que cuesta construir medido en dólares y las compras de dólares de personas y empresas.";
+    // 1. el dólar real y lo que cuesta construir en dólares
+    const extremo = (q, max, min, nom) => q === max ? `, el ${nom} más alto de la serie` : q === min ? `, el ${nom} más bajo de la serie` : "";
+    const s1 = `El índice de tipo de cambio real multilateral del Banco Central compara los precios de la Argentina con los de sus principales socios comerciales, ` +
+      `medidos en la misma moneda. Cuando sube, el dólar y las otras monedas están más caros frente a los precios del país. En el ${d.ult}, el índice estaba ` +
+      `${pctAbs(d.itcrm_vs_prom)} ${d.itcrm_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio desde ${d.desde_anio}${extremo(d.ult, d.itcrm_max, d.itcrm_min, "valor")}.` +
+      (d.itcrm_max !== d.ult ? ` El más alto fue el del ${d.itcrm_max}` + (d.itcrm_min !== d.ult ? `, y el más bajo, el del ${d.itcrm_min}.` : ".") : ` El más bajo fue el del ${d.itcrm_min}.`) +
+      ` Lo que cuesta construir medido en dólares ${ab(d.rs_espejo) >= .7 ? "va casi en espejo" : "tiende a moverse en sentido contrario"}: la correlación de Spearman entre los dos índices es de ${rTxt(d.rs_espejo)}, en una escala que va ` +
+      `de menos 1 a 1. Es lo esperable, porque los dos comparan los precios del país con el dólar, en sentido contrario. En el ${d.ult}, construir costaba en dólares un ` +
+      `${pctAbs(d.costo_vs_prom)} ${d.costo_vs_prom < 0 ? "menos" : "más"} que el promedio${extremo(d.ult, d.costo_max, d.costo_min, "valor")}.` +
+      (d.costo_max !== d.ult ? ` El trimestre más caro fue el ${d.costo_max}.` : "");
+    // 2. qué parte de la inversión va a equipos importados, y cuánto cambia la inversión con el dólar
+    const sImp = ab(d.rs_imp) < .2 ? `La parte de la inversión que va a máquinas, equipos y vehículos importados casi no se mueve con el dólar real.`
+      : `La parte de la inversión que va a máquinas, equipos y vehículos importados es mayor cuando el dólar está ${d.rs_imp < 0 ? "barato" : "caro"} en términos reales.`;
+    const maxVar = Math.max(ab(d.rs_var_total), ab(d.rs_var_imp), ab(d.rs_var_nac), ab(d.rs_var_cons));
+    const s2 = `${sImp} En el tercio de los trimestres con el dólar real más bajo, fue en promedio el ${pct(d.imp_dolar_barato)} de toda la inversión, y en el tercio ` +
+      `con el dólar más alto, el ${pct(d.imp_dolar_caro)}. La correlación de Spearman es de ${rTxt(d.rs_imp)}, una relación ${fz(d.rs_imp)}, y desde ${sin} es de ` +
+      `${rTxt(d.rs_imp_sin)}, una relación ${fz(d.rs_imp_sin)}. En el ${d.ult}, la parte importada era del ${pct(d.imp_ult)}.`;
+    const s2b = `Frente al mismo trimestre del año anterior, la correlación entre lo que cambió el dólar real y lo que cambió la inversión es de ${rTxt(d.rs_var_total)} ` +
+      `para la inversión total, de ${rTxt(d.rs_var_imp)} para los equipos importados, de ${rTxt(d.rs_var_nac)} para los nacionales y de ${rTxt(d.rs_var_cons)} ` +
+      `para la construcción. ` + (maxVar < .2 ? "Con valores tan cerca de cero, el cambio del dólar casi no anticipa cuánto cambia la inversión ese año."
+        : maxVar < .4 ? `Son relaciones débiles: cuando el dólar real sube, la inversión de ese año tiende a ${d.rs_var_total < 0 ? "caer" : "subir"}, con muchas excepciones.`
+        : `Cuando el dólar real sube, la inversión de ese año tiende a ${d.rs_var_total < 0 ? "caer" : "subir"}.`);
+    // 3. lo que cuesta construir en dólares y la construcción del año siguiente
+    const cambio = v => `${v < 0 ? "cayó" : "creció"} ${pctAbs(v)}`;
+    const s3 = (ab(d.rs_sig) < .2 ? `Lo que costaba construir en dólares casi no anticipa lo que pasó con la construcción en el año siguiente. `
+      : `Cuando construir fue más barato en dólares, la inversión en construcción tendió a ${dirSig} en el año siguiente. `) +
+      `En el tercio de los trimestres con la construcción más barata en dólares, la inversión en construcción ${cambio(d.sig_barato)} en los cuatro trimestres ` +
+      `siguientes, si se toma el valor del medio de esos trimestres (la mediana). En el tercio intermedio ${cambio(d.sig_medio)} y en el más caro, ${cambio(d.sig_caro)}. ` +
+      `La correlación de Spearman es de ${rTxt(d.rs_sig)}, una relación ${fz(d.rs_sig)}. ` +
+      `Pero ${d.barato_primeros} de esos ${d.barato_n} trimestres más baratos son de ${d.desde_anio} a ${d.primeros_hasta}, los primeros años de la serie, después de la ` +
+      `devaluación de 2002. Desde ${sin}, la correlación es de ${rTxt(d.rs_sig_sin)}, una relación ${fz(d.rs_sig_sin)}.`;
+    // 4. las compras de dólares de personas y empresas
+    const y = d.fae_ytd;
+    const s4 = `En ${d.fae_anio}, las personas y las empresas compraron en neto ${n0(d.fae_ult)} millones de dólares en billetes y divisas en el mercado oficial de cambios` +
+      (d.fae_max_anio === d.fae_anio ? `, el monto más alto desde ${d.fae_ini}.` : `. El año más alto desde ${d.fae_ini} fue ${d.fae_max_anio}, con ${n0(d.fae_max)} millones.`) +
+      (y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} compraron ${n0(y.millones)} millones, frente a ${n0(y.ant)} en los mismos meses de ${y.anio - 1}.` : "") +
+      (d.fae_neg.length ? ` En ${listaY(d.fae_neg.map(String))}, vendieron más de lo que compraron.` : "") +
+      ` Por trimestre, estas compras ${ab(d.rs_fae) < .2 ? "no muestran una relación con el nivel del dólar real" : `tienen una relación ${fz(d.rs_fae)} con el nivel del dólar real`} ` +
+      `(la correlación de Spearman es de ${rTxt(d.rs_fae)}). En buena parte de estos años hubo límites para comprar dólares, que cambian cuánto se puede comprar.`;
+    const lim = [`Son ${d.n} trimestres de una sola economía, y los trimestres seguidos no son casos independientes: una misma crisis o una misma recuperación pesa ` +
+      "en varios a la vez, y eso puede hacer que una relación parezca más fuerte de lo que es.",
+      "Una correlación no prueba que una cosa cause la otra. En los mismos trimestres cambiaron también la actividad, el crédito, las tasas de interés, los " +
+      "impuestos y las reglas para comprar dólares.",
+      "La pandemia de COVID-19 hizo caer la construcción en 2020 y rebotar en 2021: esos trimestres son los puntos más alejados del gráfico de la construcción. " +
+      "La correlación de Spearman, que usa el orden de los valores y no su tamaño, pesa menos esos extremos.",
+      "El índice de tipo de cambio real compara con una canasta de monedas de los principales socios comerciales, no solo con el dólar estadounidense, y usa " +
+      "los tipos de cambio oficiales. Entre fines de 2011 y fines de 2015, y entre septiembre de 2019 y abril de 2025, las personas tuvieron límites para comprar " +
+      "dólares al tipo de cambio oficial.",
+      "Lo que cuesta construir en dólares es el índice de precios implícitos de la inversión en construcción del INDEC (lo invertido en construcción a precios de " +
+      "cada año, dividido por lo mismo a precios de 2004), pasado a dólares con el tipo de cambio de referencia del Banco Central. No es el precio del metro " +
+      "cuadrado de una vivienda.",
+      "Las compras de dólares son las del mercado oficial de cambios que registra el Banco Central, del sector privado no financiero (personas, empresas e " +
+      "inversores institucionales), en neto: compras menos ventas. " +
+      "No dicen en qué se usaron esos dólares, si quedaron guardados, si se depositaron en un banco del país o si sirvieron para comprar una vivienda o hacer una obra.",
+      "La inversión se mide en pesos de 2004, y el INDEC revisa los últimos trimestres en cada publicación."];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "dolar-espejo", tit: "El dólar real y lo que cuesta construir en dólares, por trimestre", forma: "lineas",
+        pie: `Índices, con el promedio desde ${d.desde_anio} = 100. Un índice más alto del dólar real es un dólar más caro frente a los precios del país.`, txt: [s1]},
+      {g: "dolar-equipos", tit: "Parte de la inversión que va a máquinas y equipos importados, según el dólar real", forma: "puntos",
+        pie: "Cada punto es un trimestre. La línea punteada muestra la tendencia. La inversión se mide en pesos de 2004.", txt: [s2, s2b]},
+      {g: "dolar-construccion", tit: "Lo que cuesta construir en dólares y lo que cambia la construcción en el año siguiente", forma: "puntos",
+        pie: `Cada punto es un trimestre: lo que costaba construir en dólares (promedio desde ${d.desde_anio} = 100) y cuánto cambió la inversión en construcción en los cuatro trimestres siguientes.`, txt: [s3]},
+      {g: "dolar-compras", tit: "Compras netas de dólares de personas y empresas, por año", forma: "lineas",
+        pie: "Millones de dólares de cada año: compras menos ventas de billetes y divisas del sector privado no financiero (personas, empresas e inversores institucionales) en el mercado oficial de cambios.", txt: [s4]},
+    ]};
+  },
+  // los gráficos de cada sección, con las tablas del artículo ya cargadas
+  dib: {
+    "dolar-espejo": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: n0, yf: n0, xl: triCorto,
+      data: T.dolar_inversion_trimestral.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})),
+      series: [{k: "indice_dolar_real", lab: "Dólar real", c: NAR}, {k: "indice_construccion_usd", lab: "Construir en dólares", c: FRI}]}),
+    "dolar-equipos": (el, a) => dispersion(el, {anim: a, x: "itcrm", y: "pct_equipo_importado", yAuto: true,
+      data: T.dolar_inversion_trimestral.map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)})),
+      marcar: [T.dolar_inversion_trimestral.at(-1).periodo], xLab: "Dólar real (índice del Banco Central)", yLab: "Equipos importados, % de la inversión",
+      fx: n0, fy: v => n0(v) + "%", vx: n1, vy: pct}),
+    "dolar-construccion": (el, a) => dispersion(el, {anim: a, x: "indice_construccion_usd", y: "construccion_anio_siguiente", yAuto: true,
+      data: T.dolar_inversion_trimestral.filter(r => r.construccion_anio_siguiente != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)})),
+      xLab: "Lo que cuesta construir en dólares (índice)", yLab: "Cambio de la construcción en el año siguiente",
+      fx: n0, fy: v => n0(v) + "%", vx: n1, vy: v => (v > 0 ? "+" : "") + pct(v)}),
+    "dolar-compras": (el, a) => lineas(el, {anim: a, x: "anio", y0: Math.min(0, d3.min(T.compras_dolares_anual, r => r.millones_usd)), ref: 0, vf: n0, yf: n0,
+      data: T.compras_dolares_anual, series: [{k: "millones_usd", lab: "Compras netas", c: NAR}]}),
+  },
+}];
+ART_SERIE.forEach(a => {
+  Object.assign(a, DAT_ART[a.id]);
+  const nota = document.getElementById(a.id); if (!nota) return;
+  const t = a.texto(), ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
+  nota.innerHTML =
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
+    `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${t.contexto}</p>` +
+    t.secciones.map(s => `<div class="nota-graf"><h3>${s.tit}</h3><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"></div>` +
+      `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("")).join("") +
+    `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
+    `<div class="nota-fuentes"><p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
+    a.fichas.filter(([id]) => ficha(id)).map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom}</a>`).join("") +
+    a.csv.map(([n, lab]) => `<a class="boton chico accion" href="datos/${n}.csv" download>${lab}</a>`).join("") + `</div></div>`;
+  Object.entries(a.dib).forEach(([g, f]) => { DIB["art-" + g] = conTablas("art-" + g, a.tablas, anim => f(G("art-" + g), anim)); });
+});
+// todos los artículos, primero los de series (los más nuevos)
+const ARTS = [...ART_SERIE, ...ART];
 const artGrid = document.getElementById("art-grid");
-if (artGrid) artGrid.innerHTML = ART.map(tarjetaArt).join("");
+if (artGrid) artGrid.innerHTML = ARTS.map(tarjetaArt).join("");
 const artHome = document.getElementById("art-grid-home");
-if (artHome) artHome.innerHTML = ART.slice(0, 3).map(tarjetaArt).join("");   // una fila: el resto, en "Todos los artículos"
+if (artHome) artHome.innerHTML = ARTS.slice(0, 3).map(tarjetaArt).join("");   // una fila: el resto, en "Todos los artículos"
 
 /* portada: tres destacados. El artículo destacado es el de la relación más marcada */
 const destGrid = document.getElementById("dest-grid");
@@ -4386,12 +4519,12 @@ const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
   const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos").length;
   nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
-    [temas, "secciones temáticas"], [ART.length, "artículos de cruces"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
+    [temas, "secciones temáticas"], [ARTS.length, "artículos de cruces"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }
 
 /* recuadro de estado de la portada */
 const estado = document.getElementById("estado");
-if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ART.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
+if (estado) estado.innerHTML = [`${NFICHAS} fichas`, "24 jurisdicciones", `${ARTS.length} artículos`].map(t => `<span>${t}</span>`).join(" ");
 
 /* Enlaces a fichas que viven en otra página (perfil provincial, preguntas, cruces): llevan a esa página */
 document.querySelectorAll('a[href^="#"]').forEach(a => { const u = destinoDe(a.getAttribute("href")); if (u) a.href = u; });

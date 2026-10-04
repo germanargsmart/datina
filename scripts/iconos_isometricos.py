@@ -620,6 +620,24 @@ def _(ic):
     ic.caja(11.0, 3.6, 5.6, 1.2, 1.2, 1.2, "s", "s", "s")
 
 
+@icono("billetes", "azul")
+def _(ic):
+    # el artículo del dólar, la inversión y la construcción (etapa 22): cuatro fajos de billetes apilados, cada uno con su faja, y el
+    # óvalo del billete de arriba
+    ic.sombra(5.6, 3.0, 5.8, 2.2)
+    w, d, h = 8.4, 4.4, 1.25
+    pila = [(0, .7), (.8, 0), (.2, .9), (.7, .3)]
+    for i, (x, y) in enumerate(pila):
+        z = i * h
+        ic.caja(x, y, z, w, d, h)
+        ic.linea([(x, y + d, z + h / 2), (x + w, y + d, z + h / 2)], "k")
+        ic.poli([(x + 3.5, y, z + h), (x + 4.9, y, z + h), (x + 4.9, y + d, z + h), (x + 3.5, y + d, z + h)], "s")
+        ic.poli([(x + 3.5, y + d, z), (x + 4.9, y + d, z), (x + 4.9, y + d, z + h), (x + 3.5, y + d, z + h)], "s")
+    x, y = pila[-1]
+    ic.elipse_piso(x + 6.7, y + d / 2, len(pila) * h, .95, "s")
+    ic.elipse_piso(x + 1.7, y + d / 2, len(pila) * h, .5, "s")
+
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}

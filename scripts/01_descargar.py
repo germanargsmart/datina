@@ -217,6 +217,15 @@ FUENTES.update({
     # promedio de los cuatro da el PBI del año, por ejemplo 715.904 millones en 2006, igual que el total anual), etapa 21
     "subsidios_energia.csv": API + "452.2_ENERGIAGIA_0_T_7_56",
     "pib_corriente.csv": API + "166.2_PPIB_0_0_3",
+    # El dólar, la inversión y la construcción (artículo de la etapa 22): el tipo de cambio de referencia del BCRA (Comunicación "A" 3500),
+    # promedio de cada mes; la inversión bruta interna fija por trimestre en pesos de 2004 (total, construcción y equipo durable de producción
+    # importado y nacional) y la construcción a precios corrientes, para su precio implícito (INDEC, oferta y demanda globales); y las
+    # compras y ventas de moneda extranjera del sector privado no financiero (personas y empresas) del balance cambiario del BCRA, que la
+    # API llama todavía "formación de activos externos". Las columnas van con el código de cada serie (header=ids): dos series de la
+    # inversión tienen el mismo nombre
+    "tipo_cambio_a3500.csv": API + "168.1_T_CAMBI500_D_0_0_17&collapse=month&collapse_aggregation=avg",
+    "inversion_trimestral.csv": API + "4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32,4.2_DGIEDPI_2004_T_55,4.2_DGIEDPN_2004_T_54,4.4_DGIC_2004_T_32&header=ids",
+    "compras_dolares_privados.csv": API + "182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56&header=ids",
     # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
     "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
@@ -321,6 +330,9 @@ VALIDA.update({
     "gas_residencial_pais.csv": lambda b: b.startswith(b"indice_tiempo,residencial"),
     "subsidios_energia.csv": lambda b: b.startswith(b"indice_tiempo,energia"),
     "pib_corriente.csv": lambda b: b.startswith(b"indice_tiempo,pib"),
+    "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500"),
+    "inversion_trimestral.csv": lambda b: b.startswith(b"indice_tiempo,4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32"),
+    "compras_dolares_privados.csv": lambda b: b.startswith(b"indice_tiempo,182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"),
 })
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
@@ -1032,6 +1044,29 @@ def cammesa_demanda():
     return "https://cammesaweb.cammesa.com/?wpdmdl=41426"
 
 
+def tipo_cambio_real():
+    """Índice de tipo de cambio real multilateral del BCRA (base 17 de diciembre de 2015 = 100), promedio de cada mes desde 1997 (etapa 22).
+    La planilla trae los valores de cada día y los promedios de cada mes de todos los índices bilaterales y pesa unos 4 MB: se guarda solo la
+    columna del índice multilateral de la hoja de promedios mensuales, que empieza debajo de la fila cuya primera celda dice Período. La copia
+    de la API de Series de Tiempo quedó en diciembre de 2024. El BCRA avisa que los datos son provisorios."""
+    import io, pandas as pd
+    url = "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/ITCRMSerie.xlsx"
+    datos = leer(url, 300)
+    if datos[:2] != b"PK":
+        raise ValueError("la planilla del tipo de cambio real del BCRA no es un Excel")
+    hoja = pd.read_excel(io.BytesIO(datos), sheet_name="ITCRM y bilaterales prom. mens.", header=None)
+    fila = hoja.index[hoja.iloc[:, 0].astype(str).str.strip().str.lower().isin(["período", "periodo"])][0]
+    if str(hoja.iloc[fila, 1]).strip() != "ITCRM":
+        raise ValueError("la planilla del tipo de cambio real del BCRA cambió de formato")
+    d = hoja.iloc[fila + 1:, :2].set_axis(["mes", "itcrm"], axis=1)
+    d = d[pd.to_datetime(d.mes, errors="coerce").notna()]
+    d = d.assign(mes=pd.to_datetime(d.mes).dt.strftime("%Y-%m"), itcrm=pd.to_numeric(d.itcrm, errors="coerce")).dropna()
+    if len(d) < 300 or d.mes.max() < (datetime.date.today() - datetime.timedelta(days=100)).strftime("%Y-%m"):
+        raise ValueError("la serie del tipo de cambio real del BCRA vino incompleta o vieja")
+    d.round(4).to_csv(CRUDO / "bcra_itcrm.csv", index=False)
+    return url
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
@@ -1043,7 +1078,8 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("permisos de edificación (INDEC)", permisos_edificacion), ("créditos hipotecarios UVA (BCRA)", hipotecas_uva),
                     ("crédito a los hogares por país (BIS)", bis_credito_hogares), ("electricidad por país (Ember, vía Our World in Data)", owid_electricidad),
                     ("precios de los combustibles por estación (Res. 1104/2004)", precios_combustibles),
-                    ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda)]:
+                    ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda),
+                    ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
