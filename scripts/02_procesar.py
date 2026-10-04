@@ -2480,8 +2480,7 @@ acum_t = acum_t.round({"atn_hab": 0, "otras_hab": 0, "ley_hab": 0, "atn_pct": 2,
 # por provincia, desde 2000. Pesos del último año con el mismo deflactor del PBI que las transferencias y, por habitante, la misma
 # población (POB_T). Lo que no tiene provincia (obras nacionales, interprovinciales, binacionales o sin clasificar) suma solo en el país.
 inv_ = pd.read_csv(RAIZ / "datos" / "manual" / "inversion_provincias.csv", dtype={"codigo_indec": str})
-OP_ULT = TR_ULT
-assert inv_.anio.max() >= OP_ULT
+OP_ULT = min(TR_ULT, int(inv_.anio.max()))  # el programa guarda solo años completos: si no se volvió a correr, queda el último que tiene
 inv_ = inv_[(inv_.anio >= 2000) & (inv_.anio <= OP_ULT)].copy()
 inv_["real"] = inv_.millones_corrientes * defl[OP_ULT] / inv_.anio.map(defl)  # millones de pesos del último año
 inv_["k"] = inv_.tipo.map({"Obras de la Nación": "obras", "Transferencias de capital a provincias y municipios": "transf"})

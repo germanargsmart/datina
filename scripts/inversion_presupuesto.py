@@ -9,7 +9,8 @@ Se toman dos partes, con la provincia donde se registra el gasto (ubicación geo
   partida principal 8, parciales 1 y 6), con el ministerio que transfiere. Son las mismas transferencias de capital que suma
   transferencias_presupuesto.py en "Otras no automáticas" (y, si las hubiera, en las otras categorías).
 Las obras nacionales, interprovinciales, binacionales o sin clasificar quedan como "sin provincia". Antes de 2000 casi todas las
-transferencias figuran sin provincia: se empieza en 2000. Montos en millones de pesos corrientes. El año en curso es parcial.
+transferencias figuran sin provincia: se empieza en 2000. Montos en millones de pesos corrientes. Solo años completos: el año en curso no se
+guarda, así 02_procesar.py sigue mostrando el último año completo hasta que se vuelva a correr este programa.
 Guarda datos/manual/inversion_provincias.csv. Volver a correrlo cada año, como el de transferencias.
 Uso: python scripts/inversion_presupuesto.py (baja unos 90 MB; TRANSF_CACHE=carpeta para usar los ZIP ya bajados).
 """
@@ -37,7 +38,7 @@ def anio_zip(anio):
 
 if __name__ == "__main__":
     out = []
-    for anio in range(2000, pd.Timestamp.now().year + 1):
+    for anio in range(2000, pd.Timestamp.now().year):
         z = zipfile.ZipFile(anio_zip(anio))
         with z.open(z.namelist()[0]) as f:
             d = pd.read_csv(f, encoding="utf-8-sig", usecols=COLS, decimal=",", low_memory=False)
