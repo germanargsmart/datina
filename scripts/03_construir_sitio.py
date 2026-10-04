@@ -245,7 +245,8 @@ DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",
              "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "inversion_educativa_serie",
-             "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual"]
+             "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual",
+             "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:

@@ -4919,6 +4919,74 @@ const ART_SERIE = [{
     "nafta-veces": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n1, yf: n0, data: T.nafta_dolares_anual,
       series: [{k: "veces", lab: "Veces", c: NAR}]}),
   },
+}, {
+  // etapa 24: las cantidades exportadas por rubro y el dólar real, trimestre por trimestre (INDEC y BCRA)
+  id: "a-exportaciones-dolar", frec: "Se actualiza cada trimestre", tablas: ["exportaciones_dolar_trimestral", "exportaciones_cantidades_anual"],
+  dek: "Las cantidades que exporta el país, sin el efecto de los precios, por gran rubro y trimestre por trimestre, frente al dólar en términos reales.",
+  fichas: [["f-exportaciones", "exportaciones por provincia"]],
+  csv: [["exportaciones_dolar_trimestral", "Descargar CSV por trimestre"], ["exportaciones_cantidades_anual", "Descargar CSV por año"]],
+  fuentes: "INDEC, índices de valor, precio y cantidad de las exportaciones de bienes e intercambio comercial argentino, vía API de Series de Tiempo, y Banco " +
+    "Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil",
+  texto: () => {
+    const t = R.exportaciones_dolar, rs = t.rs, mx = Math.max(ab(rs.total), ab(t.rs_moi_brasil));
+    const respuesta = mx >= .4 ? "Sí, en general." : mx >= .2 ? "Apenas." : "No hay un patrón claro.";
+    const sube = rs.total > 0 ? "crecer" : "caer";
+    const bajada = `Cuando el dólar real sube frente al año anterior, las cantidades que exporta el país medio año después tienden a ${sube} ` +
+      `un poco: la relación es ${fz(rs.total)}. En el mismo trimestre, la relación es ${fz(t.rs_mismo)}. Las cantidades de combustibles y de productos ` +
+      "primarios cambiaron mucho en estos años, con el dólar caro o barato.";
+    const contexto = "Con un dólar caro, lo que se produce en el país cuesta menos dólares en el exterior y cada dólar que se vende rinde más pesos. Pero " +
+      "cuánto se exporta depende también de las cosechas, de los precios en el mundo, de lo que se puede producir y de los impuestos a las exportaciones. " +
+      `Este artículo compara, trimestre por trimestre desde ${t.desde_anio}, las cantidades que exporta el país, sin el efecto de los precios, con el dólar ` +
+      "en términos reales.";
+    const P = t.pct;
+    const s1 = `En los doce meses hasta ${t.doce_hasta}, el país exportó ${n0(t.doce_total)} millones de dólares: el ${pct(P.moa)} fueron manufacturas de ` +
+      `origen agropecuario, el ${pct(P.moi)}, manufacturas de origen industrial, el ${pct(P.primarios)}, productos primarios, y el ${pct(P.combustibles)}, ` +
+      `combustibles y energía. Medidas en cantidades, sin el efecto de los precios, las exportaciones de ${t.anio_ult} fueron ` +
+      (t.total_max_anio === t.anio_ult ? `las más altas desde ${t.desde_anio}. ` : `menores que las de ${t.total_max_anio}, el año más alto desde ${t.desde_anio}. `) +
+      `Las de combustibles se multiplicaron por ${n1(t.comb_veces)} desde ${t.comb_min_anio}, y las de productos primarios tuvieron su mayor caída en ` +
+      `${t.pp_caida_anio}, cuando bajaron ${pctAbs(t.pp_caida)} frente al año anterior.`;
+    const s2 = `Si se compara cada trimestre con el mismo del año anterior, la correlación de Spearman entre lo que cambió el dólar real medio año antes y ` +
+      `lo que cambiaron las cantidades exportadas es de ${rTxt(rs.total)}, una relación ${fz(rs.total)}, en una escala que va de menos 1 a 1, y desde ` +
+      `${t.sin_desde}, de ${rTxt(t.rs_sin)}. Con el dólar del mismo trimestre es de ${rTxt(t.rs_mismo)}, y con el de un año antes, de ${rTxt(t.rs_anio)}. ` +
+      `Por rubro, con medio año de rezago, es de ${rTxt(rs.primarios)} en los productos primarios, de ${rTxt(rs.moa)} en las manufacturas de origen ` +
+      `agropecuario, de ${rTxt(rs.moi)} en las de origen industrial y de ${rTxt(rs.combustibles)} en los combustibles.`;
+    const s3 = "Brasil es uno de los principales socios comerciales del país. Con el tipo de cambio real con Brasil de medio año antes, la relación de las " +
+      `manufacturas de origen industrial es de ${rTxt(t.rs_moi_brasil)}, una relación ${fz(t.rs_moi_brasil)}` +
+      (ab(t.rs_moi_brasil) > ab(rs.moi) ? `, algo más marcada que con el dólar real multilateral (${rTxt(rs.moi)})` : `, frente a ${rTxt(rs.moi)} con el dólar real multilateral`) +
+      `, y desde ${t.sin_desde}, de ${rTxt(t.rs_moi_brasil_sin)}.`;
+    const lim = ["Son trimestres de una sola economía, y los trimestres seguidos no son casos independientes: una misma crisis o una misma cosecha pesa en varios a la vez.",
+      "Una correlación no prueba que una cosa cause la otra. En los mismos años cambiaron las cosechas, los precios internacionales, la producción de petróleo " +
+      "y gas, los impuestos a las exportaciones y las reglas para cobrar los dólares de lo que se exporta.",
+      "El índice de tipo de cambio real usa los tipos de cambio oficiales. En algunos períodos, los exportadores pudieron cobrar parte de sus ventas a tipos " +
+      "de cambio distintos del oficial.",
+      "Los índices de cantidad del INDEC son trimestrales, con 2004 = 100, y el INDEC revisa los últimos trimestres en cada publicación.",
+      "La parte de cada rubro en las exportaciones se mide en dólares, así que cambia también con los precios internacionales."];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "export-cantidades", tit: "Cantidades exportadas por gran rubro, promedio de cada año", forma: "lineas",
+        pie: `Índices de cantidad del INDEC, ${t.desde_anio} = 100, sin el efecto de los precios. Años completos.`, txt: [s1]},
+      {g: "export-dolar", tit: "Cuánto cambió el dólar real medio año antes y cuánto cambiaron las cantidades exportadas", forma: "puntos",
+        pie: "Cada punto es un trimestre, frente al mismo trimestre del año anterior. La línea punteada muestra la tendencia.", txt: [s2]},
+      {g: "export-brasil", tit: "El tipo de cambio real con Brasil y las manufacturas de origen industrial", forma: "puntos",
+        pie: "Cada punto es un trimestre: el cambio del tipo de cambio real con Brasil de medio año antes y el de las cantidades de manufacturas de origen industrial exportadas.", txt: [s3]},
+    ]};
+  },
+  dib: {
+    "export-cantidades": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: n0, data: T.exportaciones_cantidades_anual,
+      series: [{k: "primarios", lab: "Productos primarios", c: NAR}, {k: "moa", lab: "Manufacturas agropecuarias", c: FRI},
+        {k: "moi", lab: "Manufacturas industriales", c: css("--azul-hondo")}, {k: "combustibles", lab: "Combustibles", c: css("--sol-borde")}]}),
+    "export-dolar": (el, a) => {
+      const data = T.exportaciones_dolar_trimestral.filter(r => r.var_tcr_antes != null && r.var_total != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)}));
+      return dispersion(el, {anim: a, data, x: "var_tcr_antes", y: "var_total", yAuto: true, marcar: [data.at(-1).periodo],
+        xLab: "Cambio del dólar real, medio año antes", yLab: "Cambio de las cantidades exportadas", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
+    "export-brasil": (el, a) => {
+      const data = T.exportaciones_dolar_trimestral.filter(r => r.var_tcr_brasil_antes != null && r.var_moi != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)}));
+      return dispersion(el, {anim: a, data, x: "var_tcr_brasil_antes", y: "var_moi", yAuto: true, marcar: [data.at(-1).periodo],
+        xLab: "Cambio del tipo de cambio real con Brasil, medio año antes", yLab: "Cambio de las manufacturas industriales", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
+  },
 }];
 ART_SERIE.forEach(a => {
   Object.assign(a, DAT_ART[a.id]);
@@ -4987,7 +5055,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;

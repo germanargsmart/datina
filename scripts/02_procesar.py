@@ -3277,6 +3277,57 @@ agregar(pd.DataFrame({"periodo": nf_.index, "valor": nf_.nafta_usd}).assign(codi
         "Secretaria de Energia (Res. 1104/2004) y BCRA")
 # el Brent no va a la tabla larga, que tiene solo datos de la Argentina y sus jurisdicciones: queda en la tabla del artículo
 
+# ---------------------------------------------------------------- artículo: las exportaciones y el dólar (etapa 24)
+# Por trimestre desde 2004: los índices de cantidad de las exportaciones del INDEC (sin el efecto de los precios, 2004 = 100) del total y de
+# cada gran rubro, frente al índice de tipo de cambio real multilateral del BCRA (promedio de los tres meses) y, para las manufacturas de origen
+# industrial, el bilateral con Brasil. Los índices "Agro" e "Industria" de la API son las manufacturas de origen agropecuario e industrial:
+# verificado el 4 de octubre de 2026, sus índices de valor crecen igual que las exportaciones en dólares de cada rubro (correlación de 0,996 y
+# 0,988 entre las variaciones). Las exportaciones responden con rezago: la relación principal usa el cambio del dólar real de medio año antes
+# (dos trimestres), y el texto dice también la del mismo trimestre y la de un año antes. Las variaciones son contra el mismo trimestre del año
+# anterior. Las exportaciones en dólares de cada rubro (mensuales) dan solo la parte de cada uno en los últimos doce meses.
+_xd_q = pd.read_csv(CRUDO / "exportaciones_cantidades.csv")
+assert list(_xd_q.columns) == ["indice_tiempo", "80.2_IICENG_0_T_47", "80.2_IICENPP_0_T_59", "80.2_IICENA_0_T_44", "80.2_IICENI_0_T_49", "80.2_IICENC_0_T_52"], \
+    "cambiaron las columnas de los índices de cantidad de las exportaciones"
+_xd_q.columns = ["t", "total", "primarios", "moa", "moi", "combustibles"]
+xd_ = _xd_q.assign(q=_dq(_xd_q.t)).set_index("q").drop(columns="t")
+xd_ = xd_.join(_di_trim(_di_tcr, "mes", "itcrm").rename("tcr"), how="inner").join(_di_trim(_di_tcr, "mes", "brasil").rename("tcr_brasil"), how="inner").dropna()
+assert (pd.Series(xd_.index).diff().dropna().map(lambda x: x.n) == 1).all(), "faltan trimestres en las cantidades exportadas"
+for _xd_k in ("total", "primarios", "moa", "moi", "combustibles", "tcr", "tcr_brasil"):
+    xd_["var_" + _xd_k] = (xd_[_xd_k] / xd_[_xd_k].shift(4) - 1) * 100
+for _xd_k in ("tcr", "tcr_brasil"):
+    xd_["var_" + _xd_k + "_antes"] = xd_["var_" + _xd_k].shift(2)  # el cambio del dólar real de medio año antes
+_xd_sp = lambda a, b, d=xd_: round(float(d[[a, b]].dropna().rank().corr().iloc[0, 1]), 2) + 0.0
+_xd_sin = xd_[xd_.index.year >= xd_.index[0].year + 6]
+exportaciones_dolar_trimestral = xd_.reset_index().assign(periodo=lambda x: x.q.astype(str).str.replace("Q", "-T"), anio=lambda x: x.q.dt.year,
+                                                         trimestre=lambda x: x.q.dt.quarter).drop(columns="q").round(4)
+_xd_y = xd_.groupby(xd_.index.year)[["total", "primarios", "moa", "moi", "combustibles"]].agg(["mean", "size"])
+_xd_y = pd.DataFrame({k: _xd_y[(k, "mean")] for k in ("total", "primarios", "moa", "moi", "combustibles")})[_xd_y[("total", "size")] == 4]
+exportaciones_cantidades_anual = _xd_y.rename_axis("anio").reset_index().round(2)
+_xd_pp = (_xd_y.primarios / _xd_y.primarios.shift(1) - 1) * 100
+# la parte de cada rubro en lo que se exportó en los últimos doce meses, en dólares
+_xd_v = pd.read_csv(CRUDO / "exportaciones_rubros.csv")
+assert list(_xd_v.columns) == ["indice_tiempo", "74.3_IET_0_M_16", "74.3_IEPP_0_M_35", "74.3_IEMOA_0_M_48", "74.3_IEMOI_0_M_46", "74.3_IECE_0_M_35"], \
+    "cambiaron las columnas de las exportaciones por rubro"
+_xd_v.columns = ["t", "total", "primarios", "moa", "moi", "combustibles"]
+_xd_v = _xd_v.dropna().tail(12)
+assert len(_xd_v) == 12 and abs(_xd_v[["primarios", "moa", "moi", "combustibles"]].sum().sum() / _xd_v.total.sum() - 1) < .01, "los rubros no suman el total de las exportaciones"
+_xd_u = xd_.index[-1]
+XD_RES = {
+    "desde": _tri(xd_.dropna(subset=["var_total"]).index[0]), "desde_anio": int(xd_.index[0].year), "ult": _tri(_xd_u), "n": int(xd_.var_total.notna().sum()),
+    "rs": {k: _xd_sp("var_tcr_antes", "var_" + k) for k in ("total", "primarios", "moa", "moi", "combustibles")},
+    "rs_mismo": _xd_sp("var_tcr", "var_total"), "rs_anio": _xd_sp("var_tcr", "var_total", xd_.assign(var_tcr=xd_.var_tcr.shift(4))),
+    "rs_sin": _xd_sp("var_tcr_antes", "var_total", _xd_sin), "sin_desde": int(xd_.index[0].year + 6),
+    "rs_moi_brasil": _xd_sp("var_tcr_brasil_antes", "var_moi"), "rs_moi_brasil_sin": _xd_sp("var_tcr_brasil_antes", "var_moi", _xd_sin),
+    "pct": {k: r1(float(_xd_v[k].sum() / _xd_v.total.sum() * 100)) for k in ("primarios", "moa", "moi", "combustibles")},
+    "doce_hasta": _mes_per(_xd_v.t.iloc[-1][:7]), "doce_total": float(_xd_v.total.sum()),
+    "anio_ult": int(_xd_y.index.max()),
+    "comb_veces": round(float(_xd_y.combustibles.iloc[-1] / _xd_y.combustibles.min()), 1), "comb_min_anio": int(_xd_y.combustibles.idxmin()),
+    "pp_caida_anio": int(_xd_pp.idxmin()), "pp_caida": r1(float(_xd_pp.min())),
+    "total_max_anio": int(_xd_y.total.idxmax()),
+}
+agregar(pd.DataFrame({"periodo": xd_.index.astype(str).str.replace("Q", "T").map(lambda p: p[-1] + "T" + p[:4]), "valor": xd_.total.values}).assign(codigo_indec="00", territorio="Argentina"),
+        "indice_cantidad_exportaciones", "indice, 2004 = 100", "INDEC, indices de valor, precio y cantidad de las exportaciones")
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3798,6 +3849,8 @@ tablas = {
     "turismo_dolar_mensual": turismo_dolar_mensual,
     "nafta_dolares_mensual": nafta_dolares_mensual,
     "nafta_dolares_anual": nafta_dolares_anual,
+    "exportaciones_dolar_trimestral": exportaciones_dolar_trimestral,
+    "exportaciones_cantidades_anual": exportaciones_cantidades_anual,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -4174,6 +4227,7 @@ resumen["inversion_edu"] = INV_RES  # inversión en educación por alumno y por 
 resumen["seguridad"] = SEG_RES  # delitos (SNIC) y personas privadas de libertad (SNEEP), etapa 23
 resumen["turismo_dolar"] = TU_RES  # artículo del turismo y el dólar (etapa 24)
 resumen["nafta_dolares"] = NF_RES  # artículo de la nafta en dólares y el petróleo (etapa 24)
+resumen["exportaciones_dolar"] = XD_RES  # artículo de las exportaciones y el dólar (etapa 24)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

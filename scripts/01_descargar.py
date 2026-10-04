@@ -234,6 +234,10 @@ FUENTES.update({
     # (23 provinciales y el federal), y cuántas tienen condena (SNEEP, Ministerio de Justicia, etapa 23)
     "sneep_poblacion.csv": SNEEP + "7d10bdae-a3a8-416e-96ce-094c96ecf7d9/download/sneep-poblacion-total.csv",
     "sneep_condenados.csv": SNEEP + "414604b9-4937-4568-aba8-c346d8f38ade/download/sneep-situacion-legal-condenados-condenadas.csv",
+    # Índices de cantidad de las exportaciones por gran rubro (INDEC, trimestral, 2004 = 100) y exportaciones por rubro en millones de dólares
+    # (mensual): el artículo de las exportaciones y el dólar (etapa 24). "Agro" e "Industria" son las manufacturas de origen agropecuario e industrial
+    "exportaciones_cantidades.csv": API + "80.2_IICENG_0_T_47,80.2_IICENPP_0_T_59,80.2_IICENA_0_T_44,80.2_IICENI_0_T_49,80.2_IICENC_0_T_52&header=ids",
+    "exportaciones_rubros.csv": API + "74.3_IET_0_M_16,74.3_IEPP_0_M_35,74.3_IEMOA_0_M_48,74.3_IEMOI_0_M_46,74.3_IECE_0_M_35&header=ids",
     # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
     "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
@@ -342,6 +346,8 @@ VALIDA.update({
     "inversion_trimestral.csv": lambda b: b.startswith(b"indice_tiempo,4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32"),
     "compras_dolares_privados.csv": lambda b: b.startswith(b"indice_tiempo,182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"),
     "sinta_turistas_residentes.csv": lambda b: b"viajes_de_turistas_residentes" in b[:300],
+    "exportaciones_cantidades.csv": lambda b: b.startswith(b"indice_tiempo,80.2_IICENG_0_T_47,80.2_IICENPP_0_T_59"),
+    "exportaciones_rubros.csv": lambda b: b.startswith(b"indice_tiempo,74.3_IET_0_M_16,74.3_IEPP_0_M_35"),
     "sneep_poblacion.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf,total_arg" in b[:400],
     "sneep_condenados.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf," in b[:400],
 })
