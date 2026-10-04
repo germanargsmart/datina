@@ -57,6 +57,9 @@ ACEPTADAS = {
     "mediana|vivienda_provincias.pct_materiales_4|70": "real: en San Juan es común el techo de caña o tabla con barro, que el Censo clasifica en la calidad más baja (lo dice la nota)",
     "mediana|gas_consumo_usuario_residencial.valor|94": "real: el invierno más largo y frío del país, con la tarifa diferencial de zona fría (lo dicen la nota y Para entender los datos)",
     "mediana|gas_consumo_usuario_residencial.valor|78": "ídem",
+    "mediana|obra_publica_provincias.obras_hab|38": "real: la autopista de las rutas nacionales 66 y 34 en el corredor del NOA, que hace Vialidad Nacional con un préstamo del Banco Mundial",
+    "mediana|obra_publica_provincias.transf_hab|10": "real: obras de agua potable y saneamiento financiadas con préstamos del BID y de la AFD",
+    "mediana|obra_publica_provincias.transf_hab|46": "real: obras viales fuera de la red nacional que la Nación transfiere a la provincia y a sus municipios",
     **{f"mediana|vivienda_provincias.pct_ocupados_minas|{c}": "real: provincias petroleras y mineras" for c in ("26", "58", "78")},
     **{f"fuentes|petroleo|{a}": "la EIA estima el crudo con condensado con su propio método: el sitio usa la serie de la Secretaría de Energía "
        "y la EIA solo para comparar países (lo dice la nota de la ficha)" for a in (2019, 2020)},

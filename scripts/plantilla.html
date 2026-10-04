@@ -756,6 +756,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, insumos del ISAC, publicado en datos.gob.ar</span><a href="datos/isac_insumos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-obra-publica">
+      <h3>Obra pública de la Nación por provincia, {{construccion.op_desde}} a {{construccion.op_ult}}</h3>
+      <p class="lead" data-t="obra-publica"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="obra-publica">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
+      </div>
+      <div class="pol-ley" id="obra-publica-ley" aria-hidden="true" hidden></div>
+      <div class="grafico" data-g="obra-publica" data-forma="barras"></div>
+      <p class="nota" data-t="obra-publica-nota"></p>
+      <div class="pie"><span>Fuente: Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado)</span><a href="datos/obra_publica_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-empleo-construccion">
       <h3>Empleo registrado en la construcción por provincia, {{construccion.emp_trim}}</h3>
       <p class="lead" data-t="empleo-construccion"></p>

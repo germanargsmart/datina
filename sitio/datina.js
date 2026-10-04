@@ -316,6 +316,12 @@ const LEAD = {
       `${n0(e.cen_tec["Solar"])} solares, ${n0(e.cen_tec["Eólica"])} eólicas, ${n0(e.cen_tec["Hidroeléctrica"])} hidroeléctricas, ${n0(e.cen_tec["Biomasa y biogás"])} de biomasa o biogás ` +
       `y ${n0(e.cen_tec["Nuclear"])} nucleares. La provincia con más centrales eólicas es ${e.cen_top_eol[0]} (${n0(e.cen_top_eol[1])}) y la que tiene más solares, ` +
       `${e.cen_top_sol[0]} (${n0(e.cen_top_sol[1])}).`,
+  "obra-publica": v => v === "serie"
+    ? `En pesos de ${CN.op_ult}, la Nación invirtió ${n0(CN.op_total)} miles de millones en obra pública en ${CN.op_ult}: ${n0(CN.op_obras)} en obras propias y ${n0(CN.op_transf)} en transferencias de capital a provincias y municipios. ` +
+      `El máximo de la serie fue en ${CN.op_max_anio}, con ${n0(CN.op_max)} miles de millones, y el mínimo, en ${CN.op_min_anio}, con ${n0(CN.op_min)}.` +
+      (CN.op_min_anio !== CN.op_ult - 1 ? ` En ${CN.op_ult - 1} había sido de ${n0(CN.op_ant)} miles de millones.` : "")
+    : `En ${CN.op_ult}, la obra pública de la Nación con provincia asignada sumó ${n0(CN.op_hab_pais)} pesos por habitante. ${CN.op_top[0]} recibió la mayor inversión por habitante, ${n0(CN.op_top[1])} pesos, ` +
+      `y ${CN.op_bajo[0]} la menor, ${n0(CN.op_bajo[1])}. La Dirección Nacional de Vialidad ejecutó el ${pct(CN.op_vialidad_pct)} de las obras propias de la Nación, y el ${pct(CN.op_sin_pct)} de esas obras no tiene una provincia asignada.`,
   insumos: v => v === "var_ytd"
     ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
@@ -340,6 +346,11 @@ const TX = {
     `Entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio} ${creceCae(CN.isac_ytd.var)} contra los mismos meses de ${CN.isac_ytd.anio - 1}. ` +
     `Sin el efecto de la estacionalidad, ${creceCae(CN.isac_mes_desest)} frente al mes anterior y ${creceCae(CN.isac_3m)} entre ${CN.isac_3m_desde} y ${CN.isac_mes} contra los tres meses anteriores. ` +
     `El índice sin estacionalidad está ${pct(Math.abs(CN.isac_dif_max))} ${CN.isac_dif_max < 0 ? "por debajo" : "por encima"} del máximo de la serie, de ${CN.isac_max_mes}.`,
+  "obra-publica": LEAD["obra-publica"]("prov"),
+  "obra-publica-nota": `Crédito devengado de la Administración Pública Nacional, según Presupuesto Abierto, en pesos de ${CN.op_ult} con el deflactor del producto interno bruto. ` +
+    `Las obras propias son las construcciones que paga la Nación, como rutas, diques o edificios, incluidas las de participación público-privada. Las transferencias de capital son los fondos que la Nación da a provincias y municipios para sus propias obras y equipos, ` +
+    `y también forman parte de las transferencias "otras no automáticas" de la sección Política. Cada gasto se asigna a la provincia donde está la obra: las que abarcan varias provincias o todo el país quedan sin provincia y se cuentan solo en el total del país. ` +
+    `Por habitante, con la población de cada año. No incluye lo que la Nación transfiere para obras a empresas del Estado y fondos fiduciarios, que no figuran con su provincia.`,
   "isac-nota": `El ISAC del INDEC sigue la actividad de la construcción con el consumo aparente de un conjunto de insumos, como cemento, hierro, ladrillos, asfalto y pinturas: lo que se despacha al mercado interno de la producción nacional más lo que se importa. ` +
     `Es un índice con base 2004 = 100. La serie sin estacionalidad saca los movimientos que se repiten todos los años en los mismos meses, como los de las vacaciones, y sirve para comparar un mes con el anterior. Como un solo mes puede moverse mucho, el texto suma la comparación de los tres últimos meses con los tres anteriores, la que usa la oficina de estadística del Reino Unido para la construcción. ` +
     `Desde ${CN.isac_ini}, el promedio anual más alto fue el de ${CN.isac_anual_max} y el más bajo, el de ${CN.isac_anual_min}. En ${CN.isac_anio_ult} el promedio fue ${n1(CN.isac_anual_ult)}, contra ${n1(CN.isac_anual_ant)} el año anterior.`,
@@ -1541,7 +1552,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {"obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1729,6 +1740,18 @@ Object.assign(DIB, {
       color: d => d.codigo_indec === "ARG" ? css("--celeste-fuerte") : d.codigo_indec === "NQN" ? css("--sol") : css("--celeste"),
       tip: d => `<b>${d.territorio}</b><br>${gas ? n1(d.v) + " mil millones de m³" : n0(d.v) + " mil barriles por día"}<br>` +
         (d.puesto ? `Puesto ${d.puesto} en el mundo` : `Provincia de la Argentina: estaría en el puesto ${q.puesto}`)});
+  },
+  "obra-publica": a => {
+    const k = MED["obra-publica"];
+    $t("obra-publica").textContent = LEAD["obra-publica"](k);
+    const cl = [{k: "obras", lab: "Obras de la Nación", c: "#1F5E97"}, {k: "transf", lab: "Transferencias de capital a provincias y municipios", c: "#74ACDF", texto: "#18212B"}];
+    $("obra-publica-ley").hidden = k !== "serie";
+    if (k === "serie") {
+      leyenda("obra-publica-ley", cl);
+      return columnasApiladas(G("obra-publica"), {anim: a, claves: cl, cadaTick: 5, vf: n0, af: n0, l: 46, unidad: `miles de millones de pesos de ${CN.op_ult}`, data: T.obra_publica_serie});
+    }
+    barrasH(G("obra-publica"), {anim: a, data: T.obra_publica_provincias, k: "total_hab", vf: n0, af: v => n0(v / 1000) + " mil", ref: CN.op_hab_pais, refLab: `País ${n0(CN.op_hab_pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.total_hab)} pesos por habitante<br>Obras de la Nación: ${n0(d.obras_hab)}<br>Transferencias de capital: ${n0(d.transf_hab)}`});
   },
   isac: conTablas("isac", ["isac_mensual"], a => lineas(G("isac"), {anim: a, data: T.isac_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
     y0: Math.floor(d3.min(T.isac_mensual, r => Math.min(r.original, r.desestacionalizada)) / 20) * 20,
@@ -3162,6 +3185,7 @@ const CLAVE = {
   "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
   "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`],
   "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`],
+  "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
   "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
   "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
   "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
@@ -3738,6 +3762,8 @@ const INDP = [
     d:T.gas_usuario_provincias, k:"m3_usuario", pais:e.gas_pais, f:n0},
   {id:"f-vivienda", lab:"Hogares que alquilan", det:"% de los hogares, Censo 2022",
     d:T.vivienda_provincias, k:"pct_alquila", pais:VV.pct_alquila, f:pct},
+  {id:"f-obra-publica", lab:"Obra pública de la Nación", det:`pesos por habitante, ${CN.op_ult}`,
+    d:T.obra_publica_provincias, k:"total_hab", pais:CN.op_hab_pais, f:n0},
   {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
     d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
 ];

@@ -1873,6 +1873,47 @@
     ]
    },
    {
+    "titulo": "La obra pública de la Nación",
+    "texto": "La obra pública de la Nación suma dos partes del presupuesto nacional. Las obras propias son las construcciones que paga la Administración Nacional, como caminos, diques, puentes y edificios, incluidos los contratos de participación público-privada. Las transferencias de capital son los fondos que la Nación da a provincias y municipios para financiar sus gastos de capital, sin que tengan que devolverlos. Cada gasto se registra en la provincia donde está la obra, y el que abarca varias provincias se clasifica como interprovincial. Los montos son el gasto devengado, que se registra con la entrega de los bienes o los avances de obra.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Hacienda, Manual de Clasificaciones Presupuestarias para el Sector Público Nacional, séptima edición",
+      "url": "https://www.argentina.gob.ar/sites/default/files/manual_de_clasificaciones_presupuestarias_para_el_sector_publico_nacional_-_septima_edicion_-_2026.pdf",
+      "cita": "Comprende la realización de obras que permanecen con carácter de adherencia al suelo"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Manual de Clasificaciones Presupuestarias para el Sector Público Nacional, séptima edición",
+      "url": "https://www.argentina.gob.ar/sites/default/files/manual_de_clasificaciones_presupuestarias_para_el_sector_publico_nacional_-_septima_edicion_-_2026.pdf",
+      "cita": "Se consideran como tales caminos, diques, puentes, edificios"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Manual de Clasificaciones Presupuestarias para el Sector Público Nacional, séptima edición",
+      "url": "https://www.argentina.gob.ar/sites/default/files/manual_de_clasificaciones_presupuestarias_para_el_sector_publico_nacional_-_septima_edicion_-_2026.pdf",
+      "cita": "Incluye los Contratos de Participación Público-Privada"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Manual de Clasificaciones Presupuestarias para el Sector Público Nacional, séptima edición",
+      "url": "https://www.argentina.gob.ar/sites/default/files/manual_de_clasificaciones_presupuestarias_para_el_sector_publico_nacional_-_septima_edicion_-_2026.pdf",
+      "cita": "Subvenciones destinadas a los estados provinciales y municipales que tengan por objeto financiar sus gastos de capital"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Manual de Clasificaciones Presupuestarias para el Sector Público Nacional, séptima edición",
+      "url": "https://www.argentina.gob.ar/sites/default/files/manual_de_clasificaciones_presupuestarias_para_el_sector_publico_nacional_-_septima_edicion_-_2026.pdf",
+      "cita": "mediante una asistencia financiera no reintegrable y gratuita"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Manual de Clasificaciones Presupuestarias para el Sector Público Nacional, séptima edición",
+      "url": "https://www.argentina.gob.ar/sites/default/files/manual_de_clasificaciones_presupuestarias_para_el_sector_publico_nacional_-_septima_edicion_-_2026.pdf",
+      "cita": "si el gasto está asociado a dos o más jurisdicciones pero no a todas"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Manual de Clasificaciones Presupuestarias para el Sector Público Nacional, séptima edición",
+      "url": "https://www.argentina.gob.ar/sites/default/files/manual_de_clasificaciones_presupuestarias_para_el_sector_publico_nacional_-_septima_edicion_-_2026.pdf",
+      "cita": "se devengan como gastos por la entrega de bienes, prestación de servicios y avances de obra"
+     }
+    ]
+   },
+   {
     "titulo": "Dos maneras de contar el empleo",
     "texto": "El Observatorio de Empleo y Dinámica Empresarial cuenta cada trimestre a los asalariados registrados del sector privado en la construcción, con los registros del SIPA. Cada puesto se cuenta en la provincia donde la empresa declara a sus trabajadores, que puede no ser la de la obra. El Censo 2022, en cambio, contó a cada persona donde vive habitualmente y tomó como ocupada a toda persona que trabajó al menos una hora en la semana anterior, con o sin registro y en cualquier categoría. A cada una le preguntó la actividad del lugar donde trabaja. Por eso las dos cifras no coinciden y no se pueden restar.",
     "fuentes": [
@@ -2028,6 +2069,14 @@
      "nombre": "INDEC, preguntas frecuentes del Censo 2022",
      "url": "https://censo.gob.ar/index.php/preguntas-frecuentes/"
     }
+   },
+   {
+    "termino": "Gasto devengado",
+    "definicion": "Gasto que el Estado registra cuando recibe el bien, el servicio o el avance de obra, aunque todavía no lo haya pagado."
+   },
+   {
+    "termino": "Transferencia de capital",
+    "definicion": "Fondos que la Nación da a una provincia o un municipio para obras o equipos, sin que tengan que devolverlos."
    }
   ]
  },

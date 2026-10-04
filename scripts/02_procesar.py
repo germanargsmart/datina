@@ -2447,6 +2447,52 @@ transf = transf.round({"atn": 2, "otras": 2, "ley": 2, "pob": 0, "atn_hab": 0, "
 transf_serie = transf_serie.round(2)
 acum_t = acum_t.round({"atn_hab": 0, "otras_hab": 0, "ley_hab": 0, "atn_pct": 2, "pob_pct": 2})
 
+# ---------------------------------------------------------------- obra pública de la Nación por provincia (etapa 20)
+# Presupuesto Abierto (scripts/inversion_presupuesto.py): las construcciones que paga la propia Administración Nacional (inciso 4,
+# partida principal 2) y las transferencias de capital a provincias y municipios (inciso 5, partida principal 8, parciales 1 y 6),
+# por provincia, desde 2000. Pesos del último año con el mismo deflactor del PBI que las transferencias y, por habitante, la misma
+# población (POB_T). Lo que no tiene provincia (obras nacionales, interprovinciales, binacionales o sin clasificar) suma solo en el país.
+inv_ = pd.read_csv(RAIZ / "datos" / "manual" / "inversion_provincias.csv", dtype={"codigo_indec": str})
+OP_ULT = TR_ULT
+assert inv_.anio.max() >= OP_ULT
+inv_ = inv_[(inv_.anio >= 2000) & (inv_.anio <= OP_ULT)].copy()
+inv_["real"] = inv_.millones_corrientes * defl[OP_ULT] / inv_.anio.map(defl)  # millones de pesos del último año
+inv_["k"] = inv_.tipo.map({"Obras de la Nación": "obras", "Transferencias de capital a provincias y municipios": "transf"})
+assert inv_.k.notna().all()
+obra_publica_serie = (inv_.pivot_table(index="anio", columns="k", values="real", aggfunc="sum").fillna(0) / 1000).reset_index()  # miles de millones
+obra_publica_serie["total"] = obra_publica_serie.obras + obra_publica_serie.transf
+obra_publica_serie["obras_sin_provincia"] = obra_publica_serie.anio.map(
+    inv_[(inv_.k == "obras") & (inv_.codigo_indec == "sin provincia")].groupby("anio").real.sum() / 1000).fillna(0)
+_op_p = inv_[inv_.codigo_indec != "sin provincia"].pivot_table(index=["anio", "codigo_indec"], columns="k", values="real", aggfunc="sum")
+op_prov = _op_p.reindex(pd.MultiIndex.from_product([range(2000, OP_ULT + 1), sorted(DIP_LEY)], names=["anio", "codigo_indec"])).fillna(0).reset_index()
+op_prov["pob"] = [POB_T.get((c, a)) for c, a in zip(op_prov.codigo_indec, op_prov.anio)]
+assert op_prov.pob.notna().all()
+op_prov["total"] = op_prov.obras + op_prov.transf
+for k in ["obras", "transf", "total"]:
+    op_prov[f"{k}_hab"] = op_prov[k] * 1e6 / op_prov.pob  # pesos del último año por habitante
+_op_u = op_prov[op_prov.anio == OP_ULT]
+obra_publica_provincias = _op_u[["codigo_indec", "obras", "transf", "total", "obras_hab", "transf_hab", "total_hab"]].copy()
+obra_publica_provincias.insert(1, "territorio", obra_publica_provincias.codigo_indec.map(CORTO))
+obra_publica_provincias = obra_publica_provincias.round({"obras": 1, "transf": 1, "total": 1, "obras_hab": 0, "transf_hab": 0, "total_hab": 0})
+obra_publica_provincias = obra_publica_provincias.sort_values("total_hab", ascending=False).reset_index(drop=True)
+_op_s = obra_publica_serie.set_index("anio")
+_op_o = inv_[(inv_.anio == OP_ULT) & (inv_.k == "obras")]
+_op_d = op_prov.assign(territorio=op_prov.codigo_indec.map(NOMBRE), periodo=op_prov.anio.astype(str), valor=op_prov.total_hab)
+agregar(_op_d[["codigo_indec", "territorio", "periodo", "valor"]], "obra_publica_nacion_por_habitante", f"pesos de {OP_ULT} por habitante",
+        "Presupuesto Abierto, Secretaría de Hacienda (crédito devengado)")
+OP_RES = {
+    "op_ult": OP_ULT, "op_desde": int(obra_publica_serie.anio.min()),
+    "op_total": r1(_op_s.total[OP_ULT]), "op_obras": r1(_op_s.obras[OP_ULT]), "op_transf": r1(_op_s.transf[OP_ULT]), "op_ant": r1(_op_s.total[OP_ULT - 1]),
+    "op_sin_pct": r1(_op_s.obras_sin_provincia[OP_ULT] / _op_s.obras[OP_ULT] * 100),
+    "op_hab_pais": round(float(_op_u.total.sum() * 1e6 / _op_u.pob.sum())),
+    "op_top": [obra_publica_provincias.iloc[0].territorio, int(obra_publica_provincias.iloc[0].total_hab)],
+    "op_bajo": [obra_publica_provincias.iloc[-1].territorio, int(obra_publica_provincias.iloc[-1].total_hab)],
+    "op_max_anio": int(_op_s.total.idxmax()), "op_max": r1(_op_s.total.max()),
+    "op_min_anio": int(_op_s.total.idxmin()), "op_min": r1(_op_s.total.min()),
+    "op_vialidad_pct": r1(_op_o[_op_o.organismo.str.contains("Vialidad", case=False)].real.sum() / _op_o.real.sum() * 100),
+}
+obra_publica_serie = obra_publica_serie.round(1)
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -2928,6 +2974,8 @@ tablas = {
     "isac_mensual": isac_m,
     "isac_anual": isac_anual,
     "isac_insumos": isac_insumos,
+    "obra_publica_provincias": obra_publica_provincias,
+    "obra_publica_serie": obra_publica_serie,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -3322,6 +3370,7 @@ resumen["construccion"] = {
     "viv_abs": VIV_ABS,
     "gas_nea": [CORTO[c] for c in _vp[_vp.pct_gas_red < 5].index], "gas_nea_max": r1(_vp[_vp.pct_gas_red < 5].pct_gas_red.max()) if (_vp.pct_gas_red < 5).any() else None,
     "gas_mas_90": [CORTO[c] for c in _vp[_vp.pct_gas_red >= 85].index],
+    **OP_RES,  # obra pública de la Nación por provincia
 }
 resumen["cruces"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                      for k, v in CRUCES_META.items()]
