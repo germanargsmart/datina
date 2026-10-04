@@ -4825,7 +4825,15 @@ const vistas = new IntersectionObserver(es => {
     }, retraso);
   });
 }, {threshold: .12, rootMargin: "0px 0px -8% 0px"});
-document.querySelectorAll("article.ficha, article.nota").forEach(f => vistas.observe(f));
+document.querySelectorAll("article.ficha").forEach(f => vistas.observe(f));
+// En los artículos se mira cada gráfico por separado (etapa 22): un artículo con varios gráficos es más alto que la pantalla, y en el
+// celular el 12% del artículo no entraba nunca a la vista, así que sus gráficos no se dibujaban
+const vistasG = new IntersectionObserver(es => es.forEach(en => {
+  if (!en.isIntersecting) return;
+  vistasG.unobserve(en.target);
+  if (en.target.offsetParent) DIB[en.target.dataset.g](!REDUCIR && !LLEGADA.activa);
+}), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
+document.querySelectorAll("article.nota .grafico[data-g]").forEach(gr => vistasG.observe(gr));
 
 /* navegación activa: la sección de esta página, en la barra, el menú y el pie */
 document.querySelectorAll(".temas a, .menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
