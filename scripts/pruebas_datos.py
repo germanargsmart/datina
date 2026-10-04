@@ -55,6 +55,8 @@ ACEPTADAS = {
     **{f"mediana|vivienda_provincias.pct_lena|{c}": "real: provincias con poca o ninguna red de gas, donde se cocina con leña o carbón"
        for c in ("18", "22", "34", "54", "66", "86")},
     "mediana|vivienda_provincias.pct_materiales_4|70": "real: en San Juan es común el techo de caña o tabla con barro, que el Censo clasifica en la calidad más baja (lo dice la nota)",
+    "mediana|gas_consumo_usuario_residencial.valor|94": "real: el invierno más largo y frío del país, con la tarifa diferencial de zona fría (lo dicen la nota y Para entender los datos)",
+    "mediana|gas_consumo_usuario_residencial.valor|78": "ídem",
     **{f"mediana|vivienda_provincias.pct_ocupados_minas|{c}": "real: provincias petroleras y mineras" for c in ("26", "58", "78")},
     **{f"fuentes|petroleo|{a}": "la EIA estima el crudo con condensado con su propio método: el sitio usa la serie de la Secretaría de Energía "
        "y la EIA solo para comparar países (lo dice la nota de la ficha)" for a in (2019, 2020)},
@@ -288,6 +290,13 @@ def prueba_fuentes(d, t):
     comparar("esperanza_vida|2022", "esperanza de vida 2022", tl("bm_esperanza_vida", "00", 2022), r["nuevos"].get("ev_pais"), "Banco Mundial", "INDEC")
     comparar("protegida|2025", "territorio protegido 2025", tl("bm_protegida", "00", 2025), r["naturaleza"].get("pct"), "Banco Mundial", "CIAM")
     # petróleo: la estimación de la EIA contra la serie de la Secretaría de Energía, año por año desde 2015
+    # gas residencial: la suma de las provincias del cuadro I.10 del ENARGAS contra la serie del país de la API de Series de Tiempo
+    if (CRUDO / "gas_residencial_pais.csv").exists():
+        for f in pd.read_csv(CRUDO / "gas_residencial_pais.csv").itertuples(index=False):
+            a = int(str(f[0])[:4])
+            if a <= r["energia"]["gas_anio"]:
+                comparar(f"gas_residencial|{a}", f"gas entregado a usuarios residenciales {a}", tl("gas_residencial_entregado", "00", a), float(f[1]),
+                         "ENARGAS por provincia", "API de Series de Tiempo")
     for a in range(2015, r["petroleo"]["anio_ult"] + 1):
         comparar(f"petroleo|{a}", f"producción de petróleo {a}", tl("eia_produccion_crudo", "00", a), tl("produccion_petroleo", "00", a), "EIA", "Secretaría de Energía")
     return sale

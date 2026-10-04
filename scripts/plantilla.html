@@ -875,6 +875,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-gas-consumo">
+      <h3>Consumo de gas natural por usuario residencial, {{energia.gas_ini}} a {{energia.gas_hasta}}</h3>
+      <p class="lead" data-t="gas-consumo"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="gas-consumo" style="--n:3">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+        <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="gas-consumo" data-forma="barras" style="--filas:20"></div>
+      <p class="nota" data-t="gas-consumo-nota"></p>
+      <div class="pie"><span>Fuente: ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario)</span><a href="datos/gas_usuario_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-petroleo">
       <h3>Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</h3>
       <p class="lead" data-t="petroleo"></p>

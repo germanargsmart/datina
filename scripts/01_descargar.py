@@ -209,6 +209,9 @@ FUENTES.update({
     "isac_insumos.csv": ISAC + "33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv",
     # Índice del Costo de la Construcción en el Gran Buenos Aires (INDEC): variaciones desde noviembre de 2015 e índices desde 2022
     "indec_icc.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/icc_variaciones_indices_2016.xls",
+    # Gas entregado a los usuarios residenciales de todo el país, millones de m³ por año (ENARGAS, vía API de Series de Tiempo): sirve
+    # para controlar la suma de las provincias del cuadro I.10 (etapa 20)
+    "gas_residencial_pais.csv": API + "364.1_RESIDENCIAIAL__11",
     # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
     "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
@@ -310,6 +313,7 @@ VALIDA.update({
     "se_fracturas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"id_base_fractura_adjiv,idpozo"),
     "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
     "potencia_instalada.csv": lambda b: b.startswith(b"indice_tiempo,potencia_instalada_total"),
+    "gas_residencial_pais.csv": lambda b: b.startswith(b"indice_tiempo,residencial"),
 })
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
@@ -768,13 +772,79 @@ def centrales_electricas():
     return r["url"]
 
 
+def gas_entregado():
+    """Gas entregado y usuarios por provincia y tipo de usuario del ENARGAS (cuadro I.10 de sus datos operativos, mensual desde 1993), para
+    el consumo de gas por usuario residencial (etapa 20). El Excel guarda los datos en las cachés de sus tablas dinámicas, que pandas no
+    lee completas: se busca la caché que tiene provincia y tipo de usuario, se leen sus registros y se guardan los usuarios domiciliarios
+    (residenciales) y su gas por mes y provincia, sumando las distribuidoras (enargas_gas_residencial.csv, gas en miles de m³ de
+    9.300 kilocalorías)."""
+    import io, zipfile, xml.etree.ElementTree as ET, pandas as pd
+    url = "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/datos-estadisticos/GED/GED.xlsx"
+    z = zipfile.ZipFile(io.BytesIO(leer(url, 300)))
+    M = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+    buscado = {"Periodo", "Provincia", "TipoDeCliente", "Variable", "Cantidad"}
+    for n in sorted(x for x in z.namelist() if re.search(r"pivotCacheDefinition\d+\.xml$", x)):
+        campos = []
+        for f in ET.fromstring(z.read(n)).find(M + "cacheFields"):
+            if f.get("databaseField") != "0":  # los campos agrupados (años, trimestres) no están en los registros
+                si = f.find(M + "sharedItems")
+                campos.append((f.get("name"), [x.get("v") for x in si] if si is not None and len(si) else None))
+        if buscado <= {c for c, _ in campos}:
+            break
+    else:
+        raise ValueError("no se encontró la tabla de gas entregado por provincia y tipo de usuario")
+    filas = []
+    with z.open(n.replace("Definition", "Records")) as fh:
+        for _, el in ET.iterparse(fh):
+            if el.tag == M + "r":
+                filas.append([items[int(c.get("v"))] if c.tag == M + "x" else (float(c.get("v")) if c.tag == M + "n" else c.get("v"))
+                              for (_, items), c in zip(campos, el)])
+                el.clear()
+    d = pd.DataFrame(filas, columns=[c for c, _ in campos])
+    d = d[d.TipoDeCliente == "DOMICILIARIOS"]
+    d = d.pivot_table(index=["Periodo", "Provincia"], columns="Variable", values="Cantidad", aggfunc="sum").reset_index()
+    d = pd.DataFrame({"periodo": d.Periodo.str[:7], "provincia": d.Provincia, "usuarios": d.NroClientes.round(0).astype("Int64"),
+                      "miles_m3": d.Volumen.round(3)}).sort_values(["periodo", "provincia"])
+    ult = d[d.periodo == d.periodo.max()]
+    if d.provincia.nunique() < 20 or ult.usuarios.sum() < 5_000_000 or pd.Period(d.periodo.max(), "M") < pd.Period(pd.Timestamp.now(), "M") - 8:
+        raise ValueError("el gas entregado por provincia vino incompleto")
+    d.to_csv(CRUDO / "enargas_gas_residencial.csv", index=False)
+    return url
+
+
+def gas_reino_unido():
+    """Consumo medio de gas por medidor doméstico en Gran Bretaña desde 2005 (Departamento de Seguridad Energética y Cero Neto, DESNZ,
+    estadísticas de consumo de gas por región y autoridad local, corregidas por el clima), para comparar con el consumo por usuario
+    residencial del ENARGAS (etapa 20). La dirección del Excel cambia en cada edición: se toma de la API de contenidos de gov.uk. Se guarda
+    la fila de Gran Bretaña de cada año (desnz_gas_domestico.csv)."""
+    import io, pandas as pd
+    pag = json.loads(leer("https://www.gov.uk/api/content/government/statistics/regional-and-local-authority-gas-consumption-statistics", 60))
+    url = next(a["url"] for a in pag["details"]["attachments"] if re.search(r"/Subnational_gas_consumption_statistics_2005-\d{4}\.xlsx$", a.get("url", "")))
+    filas = []
+    for hoja, d in pd.read_excel(io.BytesIO(leer(url, 120)), sheet_name=None, header=None).items():
+        if not re.fullmatch(r"\d{4}", str(hoja).strip()):
+            continue
+        enc = d.loc[d.index[d[0].astype(str).str.strip() == "Code"][0]].astype(str).str.replace(r"\s+", " ", regex=True)
+        gb = d[d[1].astype(str).str.strip().str.startswith("Great Britain")].iloc[0]
+        col = lambda inicio: next((i for i, c in enc.items() if c.startswith(inicio) and c.rstrip().endswith(": Domestic")), None)
+        med = col("Median consumption")  # la mediana se publica desde 2012
+        filas.append({"anio": int(hoja), "kwh_medidor": round(float(gb[col("Mean consumption")]), 1),
+                      "kwh_mediana": None if med is None else round(float(gb[med]), 1), "medidores_miles": round(float(gb[col("Number of meters")]), 3)})
+    d = pd.DataFrame(filas).sort_values("anio")
+    if len(d) < 15 or not d.kwh_medidor.between(5000, 30000).all():
+        raise ValueError("el consumo de gas de Gran Bretaña vino incompleto")
+    d.to_csv(CRUDO / "desnz_gas_domestico.csv", index=False)
+    return url
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
                     ("petróleo y gas (resúmenes del Capítulo IV)", hidrocarburos), ("reservas de petróleo y gas", reservas_hidrocarburos),
                     ("empleo por rama y provincia (OEDE)", oede_empleo), ("producción de petróleo y gas por país (EIA)", eia_internacional),
                     ("producción por pozo no convencional", pozos_no_convencionales),
-                    ("centrales de generación eléctrica", centrales_electricas)]:
+                    ("centrales de generación eléctrica", centrales_electricas), ("gas entregado por provincia (ENARGAS)", gas_entregado),
+                    ("consumo de gas por medidor en Gran Bretaña (DESNZ)", gas_reino_unido)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

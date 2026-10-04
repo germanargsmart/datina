@@ -296,6 +296,18 @@ const LEAD = {
     `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
     `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
     (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
+  "gas-consumo": v => {
+    if (v === "mes") return `Entre ${e.gas_est_desde} y ${e.gas_est_hasta}, un usuario residencial consumió en promedio ${n0(e.gas_mes_max_m3)} metros cúbicos de gas en ${e.gas_mes_max} ` +
+      `y ${n0(e.gas_mes_min_m3)} en ${e.gas_mes_min}: ${n1(e.gas_mes_max_m3 / e.gas_mes_min_m3)} veces más en el mes de mayor consumo.` +
+      (e.gas_ytd ? ` Entre enero y ${MESES[e.gas_ytd.mes - 1]} de ${e.gas_ytd.anio} consumió ${n0(e.gas_ytd.m3)} metros cúbicos, ${pct(Math.abs(e.gas_ytd.var))} ${e.gas_ytd.var < 0 ? "menos" : "más"} que en los mismos meses de ${e.gas_ytd.anio - 1}.` : "");
+    if (v === "serie") return `En ${e.gas_ini}, un usuario residencial consumía en promedio ${n0(e.gas_pais_ini)} metros cúbicos de gas por año, y en ${e.gas_anio}, ${n0(e.gas_pais)}. ` +
+      `El año de mayor consumo fue ${e.gas_max_anio}, con ${n0(e.gas_max)}, y el de menor, ${e.gas_min_anio}, con ${n0(e.gas_min)}. ` +
+      `En el mismo período, los usuarios residenciales pasaron de ${n1(e.gas_usuarios_ini / 1e6)} a ${n1(e.gas_usuarios / 1e6)} millones.`;
+    const t = e.gas_top;
+    return `En ${e.gas_anio}, un usuario residencial de gas natural consumió en promedio ${n0(e.gas_pais)} metros cúbicos. En ${t[0][0]} el promedio fue de ${n0(t[0][1])}, ` +
+      `${n1(e.gas_veces_top)} veces el del país, y le siguieron ${t[1][0]} (${n0(t[1][1])}) y ${t[2][0]} (${n0(t[2][1])}). El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}). ` +
+      `Las cinco provincias patagónicas tienen el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales y recibieron el ${pct(e.gas_pat_gas)} de su gas.`;
+  },
   centrales: v => v === "potencia"
     ? `En ${e.pot_anio} el país tenía ${n0(e.pot_total)} megavatios de potencia eléctrica instalada: ${pct(e.pot_pct.termica)} térmica, ${pct(e.pot_pct.hidraulica)} hidráulica, ` +
       `${pct(e.pot_pct.nuclear)} nuclear, ${pct(e.pot_pct.eolica)} eólica y ${pct(e.pot_pct.solar)} solar. La eólica y la solar sumaban ${n0(e.pot_renov_ult)} megavatios, ` +
@@ -340,6 +352,17 @@ const TX = {
     `Las empresas informan con demora, así que las de ${PG.fr_ult} todavía pueden sumar más. La rama horizontal y las etapas por pozo son promedios de los pozos de Vaca Muerta ` +
     `según el año de su primera fractura, y la rama cuenta solo los pozos que la informan. La fuente aclara que son datos preliminares, sujetos a revisión.`,
   "pozos-terminados": LEAD["pozos-terminados"]("anio"),
+  "gas-consumo": LEAD["gas-consumo"]("prov"),
+  "gas-consumo-nota": `Gas que las distribuidoras entregaron en el año a sus usuarios residenciales (domiciliarios), dividido por el promedio de esos usuarios, según los datos operativos del ENARGAS. ` +
+    `El ENARGAS cuenta clientes y no hogares: un edificio con caldera central para calefacción o agua caliente es un solo usuario, y los usuarios de las subdistribuidoras, que llevan el gas desde la red de una distribuidora hasta un grupo de usuarios, no figuran. ` +
+    `Es el gas entregado en cada mes, que no coincide exactamente con el facturado. El consumo depende del clima de cada lugar y de lo frío que sea cada invierno, y también de la tarifa: ` +
+    `la Patagonia, el departamento de Malargüe y la Puna tienen el régimen de zona fría (ver Para entender los datos). ` +
+    (e.gas_chicas.length ? `${lista(e.gas_chicas.map(([t, u]) => `${t} (${n0(u)} usuarios)`))} ${e.gas_chicas.length > 1 ? "tienen" : "tiene"} menos de ${n0(e.gas_min_usuarios)} usuarios residenciales ` +
+      `y no se ${e.gas_chicas.length > 1 ? "comparan" : "compara"}. ` : "") +
+    (e.gas_sin.length ? `${lista(e.gas_sin)} no ${e.gas_sin.length > 1 ? "figuran" : "figura"} en los datos de las distribuidoras. ` : "") +
+    `Para tener una referencia, en Gran Bretaña un medidor residencial consumió en promedio ${n0(e.gas_ru.kwh)} kilovatios hora de gas en ${e.gas_ru.anio}, con la corrección por clima de su fuente, ` +
+    `el Departamento de Seguridad Energética y Cero Neto del Reino Unido: unos ${n0(e.gas_ru.m3)} metros cúbicos de gas de 9.300 kilocalorías, en una conversión aproximada.` +
+    (e.gas_ru.ar ? ` Ese año, un usuario residencial de la Argentina consumió ${n0(e.gas_ru.ar)}.` : ""),
   centrales: LEAD.centrales("mapa"),
   "centrales-nota": `Centrales del listado de la Secretaría de Energía, con datos de CAMMESA, actualizado en ${e.cen_fecha}. El tamaño de cada círculo es su potencia, y las ` +
     `${n0(e.cen_sin_pot)} centrales que no la informan (${n0(e.cen_mem_sin_pot)} de ellas conectadas al mercado eléctrico mayorista) van como círculos vacíos: por eso la potencia no se suma ` +
@@ -1518,7 +1541,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
+Object.assign(MED, {"gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -1651,6 +1674,40 @@ Object.assign(DIB, {
     $t("mapa-pozos").textContent = LEAD["mapa-pozos"](k);
     leyenda("mapa-pozos-ley", [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]})));
     mapaPozos(G("mapa-pozos"), {anim: a, vista: k});
+  }),
+  "gas-consumo": conTablas("gas-consumo", () => ({mes: ["gas_usuario_mensual"], serie: ["gas_usuario_serie"]})[MED["gas-consumo"]] || [], a => {
+    const k = MED["gas-consumo"], el = G("gas-consumo"), fp = T.gas_usuario_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["gas-consumo"](k);
+    if (k === "prov") {
+      $t("gas-consumo").textContent = txt;
+      const antes = "m3_usuario_" + (e.gas_anio - 10);
+      return barrasH(el, {anim: a, data: T.gas_usuario_provincias, k: "m3_usuario", vf: n0, af: n0, ref: e.gas_pais, refLab: `País ${n0(e.gas_pais)}`,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.m3_usuario)} m³ por usuario, ${n1(d.veces_pais)} veces el promedio del país<br>${n0(d.usuarios)} usuarios residenciales` +
+          (d[antes] != null ? `<br>En ${e.gas_anio - 10}: ${n0(d[antes])} m³ por usuario` : "")});
+    }
+    // el país y, si la provincia elegida tiene dato, su línea
+    const filas = (tabla, x) => {
+      const suya = fp ? new Map(tabla.filter(r => r.codigo_indec === prov).map(r => [r[x], r.m3_usuario])) : null;
+      return tabla.filter(r => r.codigo_indec === "00").map(r => ({[x]: r[x], pais: r.m3_usuario, prov: suya ? suya.get(r[x]) ?? null : null}));
+    };
+    const series = [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])];
+    if (k === "mes") {
+      if (fp) {
+        const m = d3.rollup(T.gas_usuario_mensual.filter(r => r.codigo_indec === prov && +r.periodo.slice(0, 4) >= e.gas_est_desde && +r.periodo.slice(0, 4) <= e.gas_est_hasta),
+          v => d3.mean(v, r => r.m3_usuario), r => +r.periodo.slice(5, 7));
+        const mx = d3.greatest(m, ([, v]) => v), mn = d3.least(m, ([, v]) => v);
+        txt += ` En ${fp.territorio}, ${n0(mx[1])} metros cúbicos en ${MESES[mx[0] - 1]} y ${n0(mn[1])} en ${MESES[mn[0] - 1]}.`;
+      }
+      $t("gas-consumo").textContent = txt;
+      return lineas(el, {anim: a, data: filas(T.gas_usuario_mensual, "periodo").map(r => ({...r, t: tPer(r.periodo)})), x: "t", series, y0: 0, vf: n0, yf: n0,
+        xl: r => mesPer(r.periodo)});
+    }
+    if (fp) {
+      const s = T.gas_usuario_serie.filter(r => r.codigo_indec === prov);
+      txt += ` En ${fp.territorio}, ${n0(s[0].m3_usuario)} metros cúbicos en ${s[0].anio} y ${n0(fp.m3_usuario)} en ${e.gas_anio}.`;
+    }
+    $t("gas-consumo").textContent = txt;
+    lineas(el, {anim: a, data: filas(T.gas_usuario_serie, "anio"), x: "anio", series, y0: 0, vf: n0, yf: n0});
   }),
   centrales: conTablas("centrales", () => MED.centrales === "mapa" ? ["centrales"] : [], a => {
     const k = MED.centrales;
@@ -3104,6 +3161,7 @@ const CLAVE = {
   "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
   "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
   "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`],
+  "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`],
   "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
   "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
   "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
@@ -3676,6 +3734,8 @@ const INDP = [
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
   {id:"f-gas-hogares", lab:"Gas de red para cocinar", det:"% de los hogares, Censo 2022",
     d:T.vivienda_provincias, k:"pct_gas_red", pais:VV.pct_gas_red, f:pct},
+  {id:"f-gas-consumo", lab:"Consumo de gas por usuario", det:`m³ por usuario residencial de gas natural, ${e.gas_anio}`,
+    d:T.gas_usuario_provincias, k:"m3_usuario", pais:e.gas_pais, f:n0},
   {id:"f-vivienda", lab:"Hogares que alquilan", det:"% de los hogares, Censo 2022",
     d:T.vivienda_provincias, k:"pct_alquila", pais:VV.pct_alquila, f:pct},
   {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
@@ -3736,6 +3796,8 @@ const PREG = [
    `${n0(PG.kbd)} mil barriles por día en ${PG.mes}, el ${pct(PG.pct_shale)} de pozos de shale. Según la EIA, en ${PG.mundo.crudo_kbd.anio} fue el productor número ${PG.mundo.crudo_kbd.puesto} del mundo.`, "#f-petroleo"],
   ["¿Cuántos hogares cocinan con gas de red?",
    `El ${pct(VV.pct_gas_red)} en el Censo 2022. ` + (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100.` : ""), "#f-gas-hogares"],
+  ["¿Cuánto gas consume por año un usuario residencial?",
+   `${n0(e.gas_pais)} metros cúbicos en promedio en ${e.gas_anio}. En ${e.gas_top[0][0]}, ${n0(e.gas_top[0][1])}: ${veces(e.gas_top[0][1], e.gas_pais)} veces más.`, "#f-gas-consumo"],
   ["¿Cuántos hogares alquilan su vivienda?",
    `El ${pct(VV.pct_alquila)} en el Censo 2022: del ${pct(CN.viv_top.pct_alquila[1])} en ${CN.viv_top.pct_alquila[0]} al ${pct(CN.viv_low.pct_alquila[1])} en ${CN.viv_low.pct_alquila[0]}.`, "#f-vivienda"],
   ["¿Cuánto varía la mortalidad infantil entre provincias?",

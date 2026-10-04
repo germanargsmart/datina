@@ -2098,6 +2098,52 @@
     ]
    },
    {
+    "titulo": "El gas en los hogares",
+    "texto": "El consumo por usuario divide el gas que las distribuidoras entregan en el año a sus usuarios residenciales por la cantidad promedio de esos usuarios, según los datos operativos del ENARGAS. Es el gas entregado, que no coincide con el que se factura cada mes. El ENARGAS cuenta clientes y no medidores ni hogares, y entre los usuarios residenciales están las calderas centrales de los edificios de departamentos, cada una como un solo usuario. Los usuarios de las subdistribuidoras, que conectan a un grupo de usuarios con la red de una distribuidora, no figuran. Al comparar provincias hay que tener en cuenta el clima y también la tarifa. La ley 25.565 creó un fondo que compensa las tarifas diferenciales de los usuarios residenciales de la Región Patagónica, el departamento de Malargüe y la Puna (el régimen de zona fría), y en 2021 la ley 27.637 lo prorrogó hasta 2031 y lo amplió a otras zonas frías. Como referencia de otro país, el gobierno del Reino Unido publica el consumo medio de gas por medidor residencial en Gran Bretaña, corregido por el clima.",
+    "fuentes": [
+     {
+      "nombre": "ENARGAS, glosario de los datos operativos",
+      "url": "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/glosario.pdf",
+      "cita": "Estos volúmenes no se corresponden con el gas facturado en cada mes"
+     },
+     {
+      "nombre": "ENARGAS, glosario de los datos operativos",
+      "url": "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/glosario.pdf",
+      "cita": "se consigna el número de clientes y no de medidores"
+     },
+     {
+      "nombre": "ENARGAS, glosario de los datos operativos",
+      "url": "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/glosario.pdf",
+      "cita": "centrales con calderas para agua caliente y/o calefacción en edificios de propiedad horizontal para vivienda"
+     },
+     {
+      "nombre": "ENARGAS, glosario de los datos operativos",
+      "url": "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/glosario.pdf",
+      "cita": "operan cañerías de gas que conectan el Sistema de Distribución de una Distribuidora con un grupo de usuarios"
+     },
+     {
+      "nombre": "Decreto 486/2021, reglamentación del régimen de zona fría",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-486-2021-352540/texto",
+      "cita": "las compensaciones tarifarias para la Región Patagónica, Departamento Malargüe de la Provincia de MENDOZA"
+     },
+     {
+      "nombre": "Ley 27.637, régimen de zona fría",
+      "url": "https://biblioteca.afip.gob.ar/dcp/LEY_C_027637_2021_06_24",
+      "cita": "se prorroga hasta el 31 de diciembre de 2031"
+     },
+     {
+      "nombre": "Ley 27.637, régimen de zona fría",
+      "url": "https://biblioteca.afip.gob.ar/dcp/LEY_C_027637_2021_06_24",
+      "cita": "Se amplía el beneficio establecido"
+     },
+     {
+      "nombre": "Departamento de Seguridad Energética y Cero Neto del Reino Unido, consumo de gas por región y autoridad local",
+      "url": "https://assets.publishing.service.gov.uk/media/69f9bf208f3213f7384ecae6/Subnational_gas_consumption_statistics_2005-2024.xlsx",
+      "cita": "These estimates are weather-corrected"
+     }
+    ]
+   },
+   {
     "titulo": "De quién son el petróleo y el gas",
     "texto": "La Ley 26.197, sancionada el 6 de diciembre de 2006, establece que los yacimientos de petróleo y gas pertenecen a la provincia en cuyo territorio están, incluido el mar frente a su costa hasta las 12 millas marinas, y al Estado nacional los que están más allá, hasta el límite de la plataforma continental. Desde esa ley, cada provincia administra los permisos y las concesiones de su territorio. Por eso las fichas muestran aparte, como \"Mar argentino\", la producción del mar de jurisdicción nacional, que no se suma a ninguna provincia.",
     "fuentes": [
@@ -2452,6 +2498,18 @@
      "nombre": "API de Series de Tiempo, potencia instalada",
      "url": "https://apis.datos.gob.ar/series/api/series/?ids=367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24&metadata=full&last=1"
     }
+   },
+   {
+    "termino": "Usuario residencial de gas",
+    "definicion": "Cliente de una distribuidora que usa el gas en su vivienda, para cocinar, calefaccionar o calentar agua. Un edificio con caldera central es un solo usuario."
+   },
+   {
+    "termino": "Subdistribuidora",
+    "definicion": "Empresa o cooperativa que lleva el gas desde la red de una distribuidora hasta un grupo de usuarios."
+   },
+   {
+    "termino": "Zona fría",
+    "definicion": "Régimen que da una tarifa de gas diferencial a los usuarios residenciales de las zonas más frías del país."
    }
   ]
  },

@@ -424,7 +424,7 @@ def norm(t):
 COD_NOMBRE = {norm(v): k for k, v in NOMBRE.items()}
 COD_NOMBRE.update({"ciudad de buenos aires": "02", "ciudad autonoma de buenos aires": "02", "caba": "02",
                    "tierra del fuego": "94", "tierra del fuego, antartida e islas del atlantico sur": "94",
-                   "total pais": "00"})
+                   "total pais": "00", "capital federal": "02"})
 codigo = lambda t: COD_NOMBRE.get(norm(t))
 
 # PISA: Argentina y promedio de los paises de la OCDE (OCDE, via Our World in Data)
@@ -1608,6 +1608,95 @@ POT_I = potencia[potencia.anio == int(POT_U.anio) - 10].iloc[0]  # diez años an
 agregar(potencia.rename(columns={"anio": "periodo", "total": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "potencia_instalada", "MW", "CAMMESA, via API de Series de Tiempo")
 
+# Consumo de gas por usuario residencial (ENARGAS, etapa 20): gas entregado a los usuarios domiciliarios de las distribuidoras y cantidad
+# de esos usuarios, por provincia y mes (cuadro I.10 de los datos operativos). El consumo de un año divide el gas de sus doce meses por el
+# promedio de usuarios del año. Las provincias con menos de GAS_MIN usuarios residenciales (redes que recién empiezan) no se comparan.
+gas_ = pd.read_csv(CRUDO / "enargas_gas_residencial.csv")
+gas_["codigo_indec"] = gas_.provincia.map(codigo)
+assert gas_.codigo_indec.notna().all(), gas_[gas_.codigo_indec.isna()].provincia.unique()
+gas_["anio"] = gas_.periodo.str[:4].astype(int)
+GAS_MIN = 1000
+_gas_meses = gas_.groupby("anio").periodo.nunique()
+GAS_ULT = int(_gas_meses[_gas_meses == 12].index.max())  # último año completo
+GAS_INI = int(gas_.anio.min())
+GAS_UM = gas_.periodo.max()  # último mes publicado
+
+
+def gas_anual(g):  # gas de los meses del año (miles de m³) y promedio de usuarios
+    return pd.Series({"usuarios": g.usuarios.mean(), "miles_m3": g.miles_m3.sum()})
+
+
+_gas_pm = gas_.groupby("periodo")[["usuarios", "miles_m3"]].sum().reset_index()
+_gas_pm["anio"] = _gas_pm.periodo.str[:4].astype(int)
+gas_pais_a = _gas_pm[_gas_pm.anio <= GAS_ULT].groupby("anio").apply(gas_anual)
+gas_pais_a["m3_usuario"] = gas_pais_a.miles_m3 / gas_pais_a.usuarios * 1000
+gas_prov_a = gas_[gas_.anio <= GAS_ULT].groupby(["codigo_indec", "anio"]).apply(gas_anual).reset_index()
+gas_prov_a["m3_usuario"] = gas_prov_a.miles_m3 / gas_prov_a.usuarios * 1000
+GAS_PAIS = gas_pais_a.loc[GAS_ULT]
+_gas_u = gas_prov_a[gas_prov_a.anio == GAS_ULT].set_index("codigo_indec")
+_gas_ok = _gas_u[_gas_u.usuarios >= GAS_MIN]
+_gas_10 = gas_prov_a[(gas_prov_a.anio == GAS_ULT - 10) & (gas_prov_a.usuarios >= GAS_MIN)].set_index("codigo_indec").m3_usuario
+gas_usuario_provincias = pd.DataFrame({
+    "codigo_indec": _gas_ok.index, "territorio": _gas_ok.index.map(CORTO), "usuarios": _gas_ok.usuarios.round(0).astype(int).values,
+    "millones_m3": (_gas_ok.miles_m3 / 1000).round(1).values, "m3_usuario": _gas_ok.m3_usuario.round(1).values,
+    "veces_pais": (_gas_ok.m3_usuario / GAS_PAIS.m3_usuario).round(2).values,
+    "m3_usuario_10": _gas_ok.index.map(_gas_10).values.round(1),
+}).sort_values("m3_usuario", ascending=False).reset_index(drop=True)
+gas_usuario_provincias = gas_usuario_provincias.rename(columns={"m3_usuario_10": f"m3_usuario_{GAS_ULT - 10}"})
+# serie anual del país y de cada provincia (solo los años con al menos GAS_MIN usuarios), y meses de los últimos cinco años
+_gas_s = gas_prov_a[gas_prov_a.usuarios >= GAS_MIN][["anio", "codigo_indec", "m3_usuario"]]
+gas_usuario_serie = pd.concat([gas_pais_a.reset_index()[["anio", "m3_usuario"]].assign(codigo_indec="00"), _gas_s], ignore_index=True)
+gas_usuario_serie["territorio"] = gas_usuario_serie.codigo_indec.map(lambda c: "Todo el país" if c == "00" else CORTO[c])
+gas_usuario_serie = gas_usuario_serie[["anio", "codigo_indec", "territorio", "m3_usuario"]].round({"m3_usuario": 1})
+GAS_MES_DESDE = f"{GAS_ULT - 4}-01"
+gas_usuario_mensual = pd.concat([_gas_pm[_gas_pm.periodo >= GAS_MES_DESDE].assign(codigo_indec="00"),
+                                 gas_[(gas_.periodo >= GAS_MES_DESDE) & gas_.codigo_indec.isin(_gas_ok.index)]], ignore_index=True)
+gas_usuario_mensual["m3_usuario"] = (gas_usuario_mensual.miles_m3 / gas_usuario_mensual.usuarios * 1000).round(2)
+gas_usuario_mensual = gas_usuario_mensual[["periodo", "codigo_indec", "m3_usuario"]]
+# mes de mayor y de menor consumo, en promedio de los tres últimos años completos
+_gas_3 = _gas_pm[(_gas_pm.anio > GAS_ULT - 3) & (_gas_pm.anio <= GAS_ULT)]
+_gas_est = (_gas_3.miles_m3 / _gas_3.usuarios * 1000).groupby(_gas_3.periodo.str[5:7].astype(int)).mean()
+
+
+def gas_hasta_mes(anio, mes):  # m³ por usuario entre enero y ese mes
+    x = _gas_pm[(_gas_pm.anio == anio) & (_gas_pm.periodo.str[5:7].astype(int) <= mes)]
+    return x.miles_m3.sum() / x.usuarios.mean() * 1000
+
+
+_gas_ua, _gas_umes = int(GAS_UM[:4]), int(GAS_UM[5:7])
+GAS_YTD = None if _gas_ua == GAS_ULT else {
+    "anio": _gas_ua, "mes": _gas_umes, "m3": r1(gas_hasta_mes(_gas_ua, _gas_umes)), "m3_ant": r1(gas_hasta_mes(_gas_ua - 1, _gas_umes)),
+    "var": r1((gas_hasta_mes(_gas_ua, _gas_umes) / gas_hasta_mes(_gas_ua - 1, _gas_umes) - 1) * 100)}
+_gas_pat = _gas_u.loc[[c for c in ("26", "58", "62", "78", "94") if c in _gas_u.index]]  # las cinco provincias patagónicas
+# Gran Bretaña (DESNZ): consumo medio por medidor doméstico, corregido por clima, en kWh. Un m³ de 9.300 kilocalorías son unos 10,82 kWh
+gas_ru_ = pd.read_csv(CRUDO / "desnz_gas_domestico.csv").iloc[-1]
+GAS_KWH_M3 = 9300 * 4.1868 / 3600
+for _gas_t, _gas_var, _gas_uni in [(gas_prov_a[gas_prov_a.usuarios >= GAS_MIN].assign(valor=lambda x: x.m3_usuario), "gas_consumo_usuario_residencial", "m³ por usuario por año"),
+                                   (gas_pais_a.reset_index().assign(codigo_indec="00", valor=lambda x: x.m3_usuario), "gas_consumo_usuario_residencial", "m³ por usuario por año"),
+                                   (gas_pais_a.reset_index().assign(codigo_indec="00", valor=lambda x: x.miles_m3 / 1000), "gas_residencial_entregado", "millones de m³")]:
+    _gas_d = _gas_t.assign(territorio=_gas_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c]), periodo=_gas_t.anio.astype(str))
+    agregar(_gas_d[["codigo_indec", "territorio", "periodo", "valor"]], _gas_var, _gas_uni, "ENARGAS, datos operativos de gas natural (cuadro I.10)")
+GAS_RES = {
+    "gas_anio": GAS_ULT, "gas_ini": GAS_INI, "gas_hasta": f"{MES[int(GAS_UM[5:7]) - 1]} de {GAS_UM[:4]}", "gas_mes_desde": int(GAS_MES_DESDE[:4]),
+    "gas_pais": r1(GAS_PAIS.m3_usuario), "gas_pais_ini": r1(gas_pais_a.loc[GAS_INI].m3_usuario),
+    "gas_max": r1(gas_pais_a.m3_usuario.max()), "gas_max_anio": int(gas_pais_a.m3_usuario.idxmax()),
+    "gas_min": r1(gas_pais_a.m3_usuario.min()), "gas_min_anio": int(gas_pais_a.m3_usuario.idxmin()),
+    "gas_usuarios": round(float(GAS_PAIS.usuarios)), "gas_usuarios_ini": round(float(gas_pais_a.loc[GAS_INI].usuarios)),
+    "gas_usuarios_ult": int(_gas_pm[_gas_pm.periodo == GAS_UM].usuarios.iloc[0]),
+    "gas_top": [[r.territorio, r1(r.m3_usuario)] for r in gas_usuario_provincias.head(3).itertuples()],
+    "gas_bajo": [gas_usuario_provincias.iloc[-1].territorio, r1(gas_usuario_provincias.iloc[-1].m3_usuario)],
+    "gas_veces_top": r1(gas_usuario_provincias.iloc[0].m3_usuario / GAS_PAIS.m3_usuario),
+    "gas_pat_usuarios": r1(_gas_pat.usuarios.sum() / _gas_u.usuarios.sum() * 100), "gas_pat_gas": r1(_gas_pat.miles_m3.sum() / _gas_u.miles_m3.sum() * 100),
+    "gas_est_desde": GAS_ULT - 2, "gas_est_hasta": GAS_ULT,
+    "gas_mes_max": MES[int(_gas_est.idxmax()) - 1], "gas_mes_max_m3": r1(_gas_est.max()),
+    "gas_mes_min": MES[int(_gas_est.idxmin()) - 1], "gas_mes_min_m3": r1(_gas_est.min()),
+    "gas_ytd": GAS_YTD, "gas_min_usuarios": GAS_MIN,
+    "gas_chicas": [[CORTO[c], int(round(u))] for c, u in _gas_u[_gas_u.usuarios < GAS_MIN].usuarios.items()],
+    "gas_sin": [NOMBRE[c] for c in NOMBRE if c not in set(gas_.codigo_indec)],
+    "gas_ru": {"anio": int(gas_ru_.anio), "kwh": round(float(gas_ru_.kwh_medidor)), "m3": round(float(gas_ru_.kwh_medidor) / GAS_KWH_M3),
+               "ar": r1(gas_pais_a.loc[int(gas_ru_.anio)].m3_usuario) if int(gas_ru_.anio) in gas_pais_a.index else None},
+}
+
 # Reservas comprobadas al 31 de diciembre (hasta el final de la vida útil de los yacimientos), con el horizonte: cuántos años
 # alcanzarían al ritmo de producción de ese año. Desde 2017 la fuente separa convencional y no convencional, y trae la provincia
 rv_ = pd.read_csv(CRUDO / "se_reservas_resumen.csv")
@@ -2745,6 +2834,9 @@ tablas = {
     "energia_estacionalidad": perfil.round(0),
     "centrales": centrales,
     "potencia_instalada": potencia.round(1),
+    "gas_usuario_provincias": gas_usuario_provincias,
+    "gas_usuario_serie": gas_usuario_serie,
+    "gas_usuario_mensual": gas_usuario_mensual,
     "nacimientos": nac_df,
     "madres_adolescentes_provincias": ado_prov.round(1),
     "aprender_diagnostico": dx,
@@ -2879,6 +2971,8 @@ resumen = {
         "pot_pct": {k: r1(POT_U[k] / POT_U.total * 100) for k in ("termica", "hidraulica", "nuclear", "eolica", "solar", "biogas")},
         "pot_renov_ini": round(float(POT_I.eolica + POT_I.solar)), "pot_renov_ult": round(float(POT_U.eolica + POT_U.solar)),
         "pot_pct_renov_ini": r1((POT_I.eolica + POT_I.solar) / POT_I.total * 100), "pot_pct_renov_ult": r1((POT_U.eolica + POT_U.solar) / POT_U.total * 100),
+        # consumo de gas por usuario residencial (ENARGAS) y la referencia de Gran Bretaña
+        **GAS_RES,
     },
     "nacimientos": {
         "anio_ini": int(nac_df.iloc[0].anio), "anio_ult": int(n24.anio),
