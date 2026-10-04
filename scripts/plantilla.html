@@ -51,7 +51,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="menu-grupo" data-nivel="1" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
     </div>
     <div class="menu-col">
-      <div class="menu-grupo" data-nivel="2" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <div class="menu-grupo" data-nivel="2" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
       <div class="menu-grupo" data-nivel="2" style="--i:2"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Todos los artículos</a></li></ul></div>
     </div>
     <div class="menu-col">
@@ -861,8 +861,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema" id="energia">
     <h2>Energía</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuánta energía usamos y producimos?">¿Cuánta energía usamos, cuánta producimos y de dónde sale?</p>
-      <p>La electricidad que consumen los hogares y la economía, y el petróleo y el gas: la producción mes a mes y por provincia, el peso de Vaca Muerta, los pozos, las empresas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar del país en el mundo.</p>
+      <p class="pregunta" data-corta="¿Cuánta energía usamos?">¿Cuánta electricidad y cuánto gas usamos, y de dónde sale la electricidad?</p>
+      <p>La electricidad que consumen los hogares y la economía, por provincia y mes a mes, las centrales que la generan, el gas de red en los hogares y los subsidios del Estado nacional a la energía. La producción de petróleo y gas tiene su propia página: <a class="enlace" href="petroleo.html">Petróleo y gas</a>.</p>
     </div>
     <!--EXPLICADOR:energia-->
 
@@ -918,19 +918,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo</span><a href="datos/centrales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-subsidios">
-      <h3>Subsidios económicos a la energía, {{energia.sub_ini}} a {{energia.sub_ult}}</h3>
-      <p class="lead" data-t="subsidios"></p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="subsidios">
-        <button type="button" data-m="pbi" aria-pressed="true">Parte del PBI</button>
-        <button type="button" data-m="pesos" aria-pressed="false">En pesos de {{energia.sub_ult}}</button>
-      </div>
-      <div class="grafico" data-g="subsidios" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
-      <p class="nota" data-t="subsidios-nota"></p>
-      <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero, e INDEC, producto interno bruto a precios corrientes, vía API de Series de Tiempo</span><a href="datos/subsidios_energia.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <h3 class="bloque-grupo" id="g-petroleo">Petróleo y gas</h3>
+    <h3 class="bloque-grupo" id="g-gas">Gas en los hogares</h3>
 
     <article class="ficha" id="f-gas-hogares">
       <h3>Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</h3>
@@ -957,6 +945,31 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="gas-consumo-nota"></p>
       <div class="pie"><span>Fuente: ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario)</span><a href="datos/gas_usuario_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <h3 class="bloque-grupo" id="g-subsidios">Subsidios a la energía</h3>
+
+    <article class="ficha" id="f-subsidios">
+      <h3>Subsidios económicos a la energía, {{energia.sub_ini}} a {{energia.sub_ult}}</h3>
+      <p class="lead" data-t="subsidios"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="subsidios">
+        <button type="button" data-m="pbi" aria-pressed="true">Parte del PBI</button>
+        <button type="button" data-m="pesos" aria-pressed="false">En pesos de {{energia.sub_ult}}</button>
+      </div>
+      <div class="grafico" data-g="subsidios" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="nota" data-t="subsidios-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero, e INDEC, producto interno bruto a precios corrientes, vía API de Series de Tiempo</span><a href="datos/subsidios_energia.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
+
+  <section class="tema" id="petroleo">
+    <h2>Petróleo y gas</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuánto petróleo y gas producimos?">¿Cuánto petróleo y gas produce el país, dónde y quién lo produce?</p>
+      <p>La producción mes a mes, por provincia y por área de concesión, el peso de Vaca Muerta, los pozos y sus fracturas, las empresas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar del país entre los productores del mundo. El consumo de electricidad y de gas de los hogares está en <a class="enlace" href="energia.html">Energía</a>.</p>
+    </div>
+    <!--EXPLICADOR:petroleo-->
 
     <article class="ficha" id="f-petroleo">
       <h3>Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</h3>

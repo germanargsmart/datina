@@ -2223,37 +2223,6 @@
     ]
    },
    {
-    "titulo": "Los subsidios a la energía",
-    "texto": "La Secretaría de Hacienda publica cada mes los ingresos y gastos del Sector Público Nacional no Financiero en base caja, y entre los gastos corrientes primarios separa los subsidios económicos a la energía. La ficha usa esa serie tal como la publica Hacienda, sin una definición propia de subsidio, y la compara con el producto interno bruto a precios corrientes del INDEC. La Oficina de Presupuesto del Congreso también sigue estos subsidios, pero considera los gastos en la etapa del devengado, y por eso sus cifras pueden no coincidir con las de Hacienda.",
-    "fuentes": [
-     {
-      "nombre": "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos (API de Series de Tiempo)",
-      "url": "https://apis.datos.gob.ar/series/api/series/?ids=452.2_ENERGIAGIA_0_T_7_56&metadata=full&limit=1&format=json",
-      "cita": "IMIG. Gastos primarios. Gastos corrientes primarios. Subsidios económicos. Energía"
-     },
-     {
-      "nombre": "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos (API de Series de Tiempo)",
-      "url": "https://apis.datos.gob.ar/series/api/series/?ids=452.2_ENERGIAGIA_0_T_7_56&metadata=full&limit=1&format=json",
-      "cita": "Informe Mensual de Ingresos y Gastos del Sector Público Nacional No Financiero"
-     },
-     {
-      "nombre": "Ministerio de Economía, resultado fiscal del Sector Público Nacional de agosto de 2026",
-      "url": "https://www.argentina.gob.ar/noticias/en-agosto-el-sector-publico-nacional-mantuvo-el-resultado-financiero-superavitario-635529-0",
-      "cita": "Base Caja - En millones de pesos"
-     },
-     {
-      "nombre": "INDEC, producto interno bruto a precios corrientes (API de Series de Tiempo)",
-      "url": "https://apis.datos.gob.ar/series/api/series/?ids=166.2_PPIB_0_0_3&metadata=full&limit=1&format=json",
-      "cita": "Millones de pesos a precios corrientes"
-     },
-     {
-      "nombre": "Oficina de Presupuesto del Congreso, metodología",
-      "url": "https://opc.gob.ar/download/48280/",
-      "cita": "Para los gastos se considera la etapa del devengado"
-     }
-    ]
-   },
-   {
     "titulo": "El gas en los hogares",
     "texto": "El consumo por usuario divide el gas que las distribuidoras entregan en el año a sus usuarios residenciales por la cantidad promedio de esos usuarios, según los datos operativos del ENARGAS. Es el gas entregado, que no coincide con el que se factura cada mes. El ENARGAS cuenta clientes y no medidores ni hogares, y entre los usuarios residenciales están las calderas centrales de los edificios de departamentos, cada una como un solo usuario. Los usuarios de las subdistribuidoras, que conectan a un grupo de usuarios con la red de una distribuidora, no figuran. Al comparar provincias hay que tener en cuenta el clima y también la tarifa. La ley 25.565 creó un fondo que compensa las tarifas diferenciales de los usuarios residenciales de la Región Patagónica, el departamento de Malargüe y la Puna (el régimen de zona fría), y en 2021 la ley 27.637 lo prorrogó hasta 2031 y lo amplió a otras zonas frías. Como referencia de otro país, el gobierno del Reino Unido publica el consumo medio de gas por medidor residencial en Gran Bretaña, corregido por el clima.",
     "fuentes": [
@@ -2299,6 +2268,103 @@
      }
     ]
    },
+   {
+    "titulo": "Los subsidios a la energía",
+    "texto": "La Secretaría de Hacienda publica cada mes los ingresos y gastos del Sector Público Nacional no Financiero en base caja, y entre los gastos corrientes primarios separa los subsidios económicos a la energía. La ficha usa esa serie tal como la publica Hacienda, sin una definición propia de subsidio, y la compara con el producto interno bruto a precios corrientes del INDEC. La Oficina de Presupuesto del Congreso también sigue estos subsidios, pero considera los gastos en la etapa del devengado, y por eso sus cifras pueden no coincidir con las de Hacienda.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos (API de Series de Tiempo)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=452.2_ENERGIAGIA_0_T_7_56&metadata=full&limit=1&format=json",
+      "cita": "IMIG. Gastos primarios. Gastos corrientes primarios. Subsidios económicos. Energía"
+     },
+     {
+      "nombre": "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos (API de Series de Tiempo)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=452.2_ENERGIAGIA_0_T_7_56&metadata=full&limit=1&format=json",
+      "cita": "Informe Mensual de Ingresos y Gastos del Sector Público Nacional No Financiero"
+     },
+     {
+      "nombre": "Ministerio de Economía, resultado fiscal del Sector Público Nacional de agosto de 2026",
+      "url": "https://www.argentina.gob.ar/noticias/en-agosto-el-sector-publico-nacional-mantuvo-el-resultado-financiero-superavitario-635529-0",
+      "cita": "Base Caja - En millones de pesos"
+     },
+     {
+      "nombre": "INDEC, producto interno bruto a precios corrientes (API de Series de Tiempo)",
+      "url": "https://apis.datos.gob.ar/series/api/series/?ids=166.2_PPIB_0_0_3&metadata=full&limit=1&format=json",
+      "cita": "Millones de pesos a precios corrientes"
+     },
+     {
+      "nombre": "Oficina de Presupuesto del Congreso, metodología",
+      "url": "https://opc.gob.ar/download/48280/",
+      "cita": "Para los gastos se considera la etapa del devengado"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Mercado Eléctrico Mayorista (MEM)",
+    "definicion": "Mercado donde operan generadores, transportistas, distribuidores y grandes usuarios, administrado por CAMMESA.",
+    "fuente": {
+     "nombre": "Decreto 1192/1992",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto"
+    }
+   },
+   {
+    "termino": "SADI",
+    "definicion": "Sistema Argentino de Interconexión, la red eléctrica que despacha CAMMESA.",
+    "fuente": {
+     "nombre": "Decreto 1173/1998",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto"
+    }
+   },
+   {
+    "termino": "Distribuidor",
+    "definicion": "Empresa que abastece a los usuarios de su zona de concesión que no contratan por su cuenta.",
+    "fuente": {
+     "nombre": "Ley 24.065, texto actualizado",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
+    }
+   },
+   {
+    "termino": "Gran usuario",
+    "definicion": "Quien contrata su energía en forma independiente y para consumo propio.",
+    "fuente": {
+     "nombre": "Ley 24.065, texto actualizado",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
+    }
+   },
+   {
+    "termino": "GUDI",
+    "definicion": "Demanda de más de 300 kW abastecida por una distribuidora.",
+    "fuente": {
+     "nombre": "Resolución SE 884/2023, considerandos",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto"
+    }
+   },
+   {
+    "termino": "Potencia instalada",
+    "definicion": "Capacidad de generación de las centrales eléctricas, en megavatios (MW).",
+    "fuente": {
+     "nombre": "API de Series de Tiempo, potencia instalada",
+     "url": "https://apis.datos.gob.ar/series/api/series/?ids=367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24&metadata=full&last=1"
+    }
+   },
+   {
+    "termino": "Usuario residencial de gas",
+    "definicion": "Cliente de una distribuidora que usa el gas en su vivienda, para cocinar, calefaccionar o calentar agua. Un edificio con caldera central es un solo usuario."
+   },
+   {
+    "termino": "Subdistribuidora",
+    "definicion": "Empresa o cooperativa que lleva el gas desde la red de una distribuidora hasta un grupo de usuarios."
+   },
+   {
+    "termino": "Zona fría",
+    "definicion": "Régimen que da una tarifa de gas diferencial a los usuarios residenciales de las zonas más frías del país."
+   }
+  ]
+ },
+ "petroleo": {
+  "bloques": [
    {
     "titulo": "De quién son el petróleo y el gas",
     "texto": "La Ley 26.197, sancionada el 6 de diciembre de 2006, establece que los yacimientos de petróleo y gas pertenecen a la provincia en cuyo territorio están, incluido el mar frente a su costa hasta las 12 millas marinas, y al Estado nacional los que están más allá, hasta el límite de la plataforma continental. Desde esa ley, cada provincia administra los permisos y las concesiones de su territorio. Por eso las fichas muestran aparte, como \"Mar argentino\", la producción del mar de jurisdicción nacional, que no se suma a ninguna provincia.",
@@ -2520,46 +2586,6 @@
   ],
   "glosario": [
    {
-    "termino": "Mercado Eléctrico Mayorista (MEM)",
-    "definicion": "Mercado donde operan generadores, transportistas, distribuidores y grandes usuarios, administrado por CAMMESA.",
-    "fuente": {
-     "nombre": "Decreto 1192/1992",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-1192-1992-9615/texto"
-    }
-   },
-   {
-    "termino": "SADI",
-    "definicion": "Sistema Argentino de Interconexión, la red eléctrica que despacha CAMMESA.",
-    "fuente": {
-     "nombre": "Decreto 1173/1998",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-53591/texto"
-    }
-   },
-   {
-    "termino": "Distribuidor",
-    "definicion": "Empresa que abastece a los usuarios de su zona de concesión que no contratan por su cuenta.",
-    "fuente": {
-     "nombre": "Ley 24.065, texto actualizado",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
-    }
-   },
-   {
-    "termino": "Gran usuario",
-    "definicion": "Quien contrata su energía en forma independiente y para consumo propio.",
-    "fuente": {
-     "nombre": "Ley 24.065, texto actualizado",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24065-464/actualizacion"
-    }
-   },
-   {
-    "termino": "GUDI",
-    "definicion": "Demanda de más de 300 kW abastecida por una distribuidora.",
-    "fuente": {
-     "nombre": "Resolución SE 884/2023, considerandos",
-     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-392525/texto"
-    }
-   },
-   {
     "termino": "Barril",
     "definicion": "Unidad de volumen del petróleo: 42 galones estadounidenses, unos 159 litros. Las fichas expresan la producción en miles de barriles por día.",
     "fuente": {
@@ -2646,26 +2672,6 @@
      "nombre": "Secretaría de Energía, infografía de hidrocarburos no convencionales",
      "url": "http://www.energia.gob.ar/contenidos/archivos/Reorganizacion/planeamiento/infografias/lamina_dneype_C_01.pdf"
     }
-   },
-   {
-    "termino": "Potencia instalada",
-    "definicion": "Capacidad de generación de las centrales eléctricas, en megavatios (MW).",
-    "fuente": {
-     "nombre": "API de Series de Tiempo, potencia instalada",
-     "url": "https://apis.datos.gob.ar/series/api/series/?ids=367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24&metadata=full&last=1"
-    }
-   },
-   {
-    "termino": "Usuario residencial de gas",
-    "definicion": "Cliente de una distribuidora que usa el gas en su vivienda, para cocinar, calefaccionar o calentar agua. Un edificio con caldera central es un solo usuario."
-   },
-   {
-    "termino": "Subdistribuidora",
-    "definicion": "Empresa o cooperativa que lleva el gas desde la red de una distribuidora hasta un grupo de usuarios."
-   },
-   {
-    "termino": "Zona fría",
-    "definicion": "Régimen que da una tarifa de gas diferencial a los usuarios residenciales de las zonas más frías del país."
    }
   ]
  },

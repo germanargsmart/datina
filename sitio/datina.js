@@ -31,6 +31,11 @@ if (PAGINA === "inicio") {
   const destino = h === "provincias" || (q.has("prov") && !h) ? "provincia"
     : p && p !== "inicio" ? p : q.has("cx") || q.has("cy") ? "cruces" : q.has("ix") ? "indice" : q.has("dx") ? "diagnostico" : null;
   if (destino) { location.replace(urlPagina(destino, location.search + (h === destino || h === "provincias" ? "" : location.hash))); return; }
+} else {
+  // y en cualquier página, un enlace a una ficha que pasó a otra página (energia.html#f-petroleo, de cuando Petróleo y gas estaba en
+  // Energía) lleva a la página donde está ahora
+  const h = location.hash.slice(1).split("?")[0], p = h && paginaDe(h);
+  if (p && p !== PAGINA && p !== h) { location.replace(urlPagina(p, location.search + location.hash)); return; }
 }
 const R = D.resumen, T = D.datos, OC = R.ocde;
 // Elementos de una ficha que puede no estar en esta página: si falta, se usa uno suelto y esas líneas no tienen efecto
@@ -3505,9 +3510,12 @@ const EN_CIFRAS = {
   poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes", "f-extranjeros"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
   movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
-  // Energía con petróleo y gas (octubre de 2026): la electricidad y los hidrocarburos se alternan en las primeras cuatro
-  energia: ["f-hogares", "f-petroleo", "x-demanda-ytd", "f-gas", "f-mundo-petroleo", "x-pet-shale", "x-hogares-crec", "f-actividad", "f-reservas",
-    "x-vaca-muerta", "f-pozos", "f-balanza-energetica", "f-regalias", "f-meses", "x-demanda-total"],
+  // Energía y Petróleo y gas, en dos páginas desde la etapa 22: Energía tiene datos por provincia (la electricidad y el gas de los
+  // hogares) y suma la tarjeta "Tu provincia", Petróleo y gas no
+  energia: ["f-hogares", "f-electricidad-provincias", "x-demanda-ytd", "f-gas-hogares", "f-subsidios", "x-hogares-crec", "f-gas-consumo",
+    "f-actividad", "f-meses", "x-demanda-total"],
+  petroleo: ["f-petroleo", "f-gas", "x-pet-shale", "f-reservas", "f-hidro-provincias", "x-vaca-muerta", "f-mundo-petroleo", "f-balanza-energetica",
+    "f-pozos", "f-regalias", "f-empleo-hidro"],
   turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
   naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio"],
   curiosidades: ["f-nombres", "f-carne", "f-vino", "f-yerba", "f-clima", "f-glaciares"],
@@ -4373,7 +4381,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
@@ -4382,12 +4390,10 @@ const tarjetaSec = sec => {
     `<b style="view-transition-name:t-${sec.id}">${sec.t}</b><span class="sec-preg">${sec.c || sec.p}</span></a>`;
 };
 // en la tarjeta va la pregunta corta de la sección, si tiene una (data-corta en la plantilla)
-// sin la tarjeta de Artículos, que tienen su bloque más arriba. "Tu provincia" abre la grilla, como en el menú (octubre de 2026,
-// cuando Petróleo y gas pasó a Energía): con las 13 secciones quedan 14 tarjetas y ninguna fila con una sola, en ningún ancho.
-// Va sin nombre de transición, porque la página de Tu provincia no tiene un título que lo reciba
-const tarjetaProv = `<a class="tarjeta sec-tarjeta" href="${urlPagina("provincia")}">${icono(SEC_ICONO.provincia, "sec-ico")}` +
-  `<span class="sec-tipo">Perfil provincial</span><b>Tu provincia</b><span class="sec-preg">¿Cómo está tu provincia frente al país?</span></a>`;
-if (grillaSec) grillaSec.innerHTML = tarjetaProv + Object.values(SEC).filter(s => !s.herr && s.id !== "articulos").map(tarjetaSec).join("");
+// sin la tarjeta de Artículos, que tienen su bloque más arriba. Con las 14 secciones (Petróleo y gas volvió a tener su página en la
+// etapa 22) ninguna fila queda con una sola tarjeta, en ningún ancho: por eso "Tu provincia", que se sumó cuando eran 13 para llegar a
+// 14, ya no va en la grilla (se llega por el primer destacado, "Elegí tu provincia" y el menú)
+if (grillaSec) grillaSec.innerHTML = Object.values(SEC).filter(s => !s.herr && s.id !== "articulos").map(tarjetaSec).join("");
 // Mostrar menos de entrada (octubre de 2026): dos filas de secciones y un botón que despliega el resto en el lugar. Las tarjetas
 // ocultas siguen en la página: solo las esconde el CSS, con la cantidad justa para cada ancho (dos filas de 4, 3 o 2)
 if (grillaSec) {
@@ -4451,6 +4457,9 @@ const SERIE_CIFRA = {
   "x-pet-ytd": () => SERIE_CIFRA["f-petroleo"](),
   "f-gas": () => serieM("Producción de gas natural, millones de m³ por día, promedio de cada año", T.hidrocarburos_anual.map(r => [r.anio, r.gas_total]), n1),
   "f-gas-hogares": () => provM("Hogares que cocinan con gas de red, en %, Censo 2022", T.vivienda_provincias, "pct_gas_red", VV.pct_gas_red, pct),
+  "f-gas-consumo": () => provM(`Gas natural por usuario residencial, m³ en ${e.gas_anio}`, T.gas_usuario_provincias, "m3_usuario", e.gas_pais, n0),
+  "f-electricidad-provincias": () => provM(`Electricidad de los hogares, kWh por habitante en ${e.el_ult}`, T.electricidad_provincias, "kwh_hab", e.el_pais, n0),
+  "f-subsidios": () => serieM("Subsidios económicos a la energía, % del PBI de cada año", T.subsidios_energia.map(r => [r.anio, r.pct_pbi]), v => n2(v) + "%"),
   "f-hidro-provincias": () => provM("Petróleo, miles de barriles por día, doce meses más recientes", T.hidrocarburos_provincias, "pet_kbd", null, n0),
   "x-vaca-muerta": () => SERIE_CIFRA["f-hidro-provincias"](),
   "f-reservas": () => serieM("Reservas comprobadas de petróleo, años de producción", T.reservas_hidrocarburos.map(r => [r.anio, r.horizonte_pet]), n1),
