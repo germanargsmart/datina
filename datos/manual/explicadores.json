@@ -292,6 +292,178 @@
    }
   ]
  },
+ "economia": {
+  "bloques": [
+   {
+    "titulo": "El índice de precios al consumidor",
+    "texto": "El INDEC mide la inflación con el índice de precios al consumidor: cada mes releva los precios de una canasta fija de bienes y servicios que compran los hogares de las ciudades del país y compara cuánto cuesta con lo que costaba en el mes base, diciembre de 2016. Qué hay en la canasta y cuánto pesa cada cosa sale de la encuesta de gastos de los hogares de 2004 y 2005. El índice de todo el país empieza en diciembre de 2016, así que no hay una serie nacional anterior para compararlo.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "cita": "representativos del gasto de consumo de los hogares residentes en áreas urbanas"
+     },
+     {
+      "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "cita": "variación porcentual de los precios de una canasta fija de bienes y servicios"
+     },
+     {
+      "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "cita": "esta metodología el mes base es diciembre de 2016"
+     },
+     {
+      "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "cita": "se calcularon las ponderaciones fue la Encuesta de Gastos de los Hogares 2004/05"
+     }
+    ]
+   },
+   {
+    "titulo": "Las regiones y las categorías del índice",
+    "texto": "Además del índice del país, el INDEC publica uno para cada una de sus seis regiones estadísticas: Gran Buenos Aires, Pampeana, Noreste, Noroeste, Cuyo y Patagonia. Son grupos de ciudades donde se relevan los precios, no provincias: el Gran Buenos Aires es la Ciudad de Buenos Aires y los 24 partidos que la rodean, y el resto de la provincia de Buenos Aires está en la región Pampeana. También agrupa los precios en categorías: los regulados, que están sujetos a regulación o tienen un alto componente de impuestos, los estacionales, que cambian con la temporada, y los demás, que forman la inflación núcleo. Y separa los bienes de los servicios.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "cita": "Se calculan índices para el total del país y para seis regiones estadísticas"
+     },
+     {
+      "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "cita": "Ciudad Autónoma de Buenos Aires y 24 partidos del Gran Buenos Aires"
+     },
+     {
+      "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "cita": "son las categorías núcleo, estacional, regulados, bienes y servicios"
+     }
+    ]
+   },
+   {
+    "titulo": "Las canastas básicas y las líneas de pobreza",
+    "texto": "La canasta básica alimentaria reúne los alimentos que cubren las necesidades de energía y de proteínas de una persona, y la canasta básica total suma los demás bienes y servicios, como la ropa, el transporte, la educación y la salud. El INDEC las calcula para un varón adulto de actividad moderada, el adulto equivalente, y con una tabla de equivalencias según la edad y el sexo obtiene las de cada hogar. Un hogar es indigente si sus ingresos no alcanzan para su canasta alimentaria, y pobre si no alcanzan para la total. Los alimentos de la canasta se valorizan cada mes con los precios del índice de precios al consumidor.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, La medición de la pobreza y la indigencia en la Argentina (Metodología 22), 2016",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "el conjunto de alimentos que satisfacen ciertos requerimientos nutricionales"
+     },
+     {
+      "nombre": "INDEC, La medición de la pobreza y la indigencia en la Argentina (Metodología 22), 2016",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "correspondiente a un hombre adulto de actividad moderada"
+     },
+     {
+      "nombre": "INDEC, La medición de la pobreza y la indigencia en la Argentina (Metodología 22), 2016",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf",
+      "cita": "Los componentes de la CBA se valorizan con los precios relevados por el Índice de Precios al Consumidor"
+     }
+    ]
+   },
+   {
+    "titulo": "El índice de salarios",
+    "texto": "El índice de salarios del INDEC estima cuánto cambian de un mes a otro los salarios del sector privado registrado, del sector público y del sector privado no registrado, con octubre de 2016 como base. El del sector no registrado sale de la Encuesta Permanente de Hogares y llega con rezago. Para ver si los salarios suben más o menos que los precios, el sitio divide el índice de salarios por el de precios al consumidor.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Índice de salarios y coeficiente de variación salarial, metodología",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/cvs_metodologia.pdf",
+      "cita": "El Indice de Salarios estima a partir de la comparación de meses sucesivos las variaciones de los salarios"
+     },
+     {
+      "nombre": "INDEC, Índice de salarios y coeficiente de variación salarial, metodología",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/cvs_metodologia.pdf",
+      "cita": "Por esa razón la información tiene un rezago"
+     },
+     {
+      "nombre": "INDEC, metadatos de las series del índice de salarios",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/metadatos_series_salarios.txt",
+      "cita": "Año base: octubre 2016=100"
+     }
+    ]
+   },
+   {
+    "titulo": "El Estimador Mensual de Actividad Económica",
+    "texto": "El EMAE del INDEC es un indicador provisorio de cómo cambia mes a mes la producción de la economía, el producto interno bruto, a precios constantes. Se arma con información parcial y el INDEC revisa la serie completa con cada publicación. La serie desestacionalizada quita el efecto de la época del año, como las cosechas o las vacaciones, para comparar un mes con el anterior.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Estimador Mensual de Actividad Económica, metodología (Metodología 20), 2016",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf",
+      "cita": "un indicador provisorio de la evolución del PIB a precios constantes de 2004"
+     },
+     {
+      "nombre": "INDEC, Estimador Mensual de Actividad Económica, metodología (Metodología 20), 2016",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf",
+      "cita": "el EMAE se elabora con información parcial, de carácter provisorio"
+     },
+     {
+      "nombre": "INDEC, Estimador Mensual de Actividad Económica, metodología (Metodología 20), 2016",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf",
+      "cita": "El ajuste estacional del indicador, agregado de la manera descripta, se realiza por el método indirecto"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Inflación",
+    "definicion": "La suba de los precios en general. En el sitio, la variación del índice de precios al consumidor del INDEC.",
+    "fuente": {
+     "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf"
+    }
+   },
+   {
+    "termino": "Variación en doce meses",
+    "definicion": "Cuánto cambió un valor frente al mismo mes del año anterior. También se la llama interanual.",
+    "fuente": {
+     "nombre": "INDEC, Índice de precios al consumidor, qué es y cómo se usa",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/ipc_nacional_que_es_06_18.pdf"
+    }
+   },
+   {
+    "termino": "Inflación núcleo",
+    "definicion": "La de los precios que no son regulados ni estacionales.",
+    "fuente": {
+     "nombre": "INDEC, Metodología del índice de precios al consumidor (Metodología 32), 2019",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf"
+    }
+   },
+   {
+    "termino": "Adulto equivalente",
+    "definicion": "Las necesidades de un varón adulto de actividad moderada: con esa medida se calcula la canasta de cada persona y la de cada hogar.",
+    "fuente": {
+     "nombre": "INDEC, La medición de la pobreza y la indigencia en la Argentina (Metodología 22), 2016",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf"
+    }
+   },
+   {
+    "termino": "Línea de pobreza",
+    "definicion": "La canasta básica total de un hogar: si sus ingresos no la alcanzan, el hogar es pobre.",
+    "fuente": {
+     "nombre": "INDEC, La medición de la pobreza y la indigencia en la Argentina (Metodología 22), 2016",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/EPH_metodologia_22_pobreza.pdf"
+    }
+   },
+   {
+    "termino": "Pesos de igual valor",
+    "definicion": "Montos de meses distintos llevados a los precios de un mismo mes con el índice de precios al consumidor, para compararlos descontada la inflación.",
+    "fuente": {
+     "nombre": "INDEC, Índice de precios al consumidor, qué es y cómo se usa",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/ipc_nacional_que_es_06_18.pdf"
+    }
+   },
+   {
+    "termino": "Serie desestacionalizada",
+    "definicion": "Una serie a la que se le quitó el efecto de la época del año, para comparar cada mes con el anterior.",
+    "fuente": {
+     "nombre": "INDEC, Estimador Mensual de Actividad Económica, metodología (Metodología 20), 2016",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf"
+    }
+   }
+  ]
+ },
  "empresas": {
   "bloques": [
    {

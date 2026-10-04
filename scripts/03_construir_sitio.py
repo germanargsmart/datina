@@ -25,6 +25,11 @@ e = lambda t: html.escape(str(t), quote=True)
 texto = lambda h: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
 
 plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8")
+# Cada id una sola vez en la plantilla (etapa 25): una ficha nueva repitió el id de otra (f-actividad) y, como sus claves en datina.js salen
+# del id, sus textos, su gráfico y su cifra pisaron los de la otra sin dar ningún error
+_ids = re.findall(r'\sid="([^"]+)"', plantilla)
+_rep = sorted({i for i in _ids if _ids.count(i) > 1})
+assert not _rep, f"ids repetidos en la plantilla: {_rep}"
 
 # Años recientes escritos a mano (etapa 17): con la actualización siguiente quedarían viejos. En la plantilla van como {{ruta}}
 # (ver abajo) y en datina.js salen del resumen (R). Solo pueden quedar escritos los hechos fijos de FIJOS, reconocidos por el texto
@@ -246,7 +251,8 @@ DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",
              "dolar_inversion_trimestral", "compras_dolares_anual", "salarios_serie", "salario_docente_serie", "inversion_educativa_serie",
              "seguridad_serie_prov", "turismo_dolar_mensual", "nafta_dolares_mensual", "nafta_dolares_anual",
-             "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual"]
+             "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
+             "inflacion_mensual", "canasta_mensual", "salario_real_mensual", "actividad_mensual"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
@@ -271,9 +277,19 @@ ICONOS = {n: {"t": tono, "d": re.sub(r"^<svg[^>]*>|</svg>\s*$", "", (DIR_ICONOS 
 # Diseño y comportamiento: un solo archivo de cada uno para todas las paginas, que el navegador guarda despues de la primera visita
 css = (RAIZ / "scripts" / "datina.css").read_text(encoding="utf-8")
 js = (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
+# Ninguna clave repetida en los objetos principales de datina.js (etapa 25): en un objeto de JavaScript la segunda pisa a la primera sin aviso.
+# Se miran las claves que abren cada línea con dos espacios de sangría en el objeto y en los Object.assign que lo completan, que es como se
+# escriben, y las que se asignan sueltas más abajo (DIB.congreso = ..., TX["vprov"] = ...)
+for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
+    _bl = [m.group(1) for m in re.finditer(r"\n(?:const " + _obj + r" = |Object\.assign\(" + _obj + r", )\{\n(.*?)\n\}\)?;?\n", js, re.S)]
+    assert _bl, f"no se encontró {_obj} en datina.js"
+    _cl = [a or b for b_ in _bl for a, b in re.findall(r'^  (?:"([^"]+)"|([\w$]+)):', b_, re.M)]
+    _cl += [a or b for a, b in re.findall(r"^" + _obj + r'(?:\["([^"]+)"\]|\.([\w$]+)) = ', js, re.M)]
+    _rep = sorted({c for c in _cl if _cl.count(c) > 1})
+    assert not _rep, f"claves repetidas en {_obj} de datina.js: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
-             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija",
+             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
              "diagnostico": "portapapeles"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})

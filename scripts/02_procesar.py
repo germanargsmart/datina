@@ -1974,7 +1974,23 @@ _icc_l = [{"fecha": pd.Timestamp(int(float(_anios[j])), int(_meses[j]), 1), **{v
 icc = pd.DataFrame(_icc_l).sort_values("fecha").set_index("fecha")
 assert icc.index.is_unique and len(icc) > 100, "ICC: meses repetidos o faltantes"
 icc = (1 + icc / 100).cumprod()
-ipc = pd.read_csv(CRUDO / "ipc_nacional.csv", parse_dates=["indice_tiempo"]).dropna().set_index("indice_tiempo").iloc[:, 0]
+# Índice de precios al consumidor del INDEC, base diciembre de 2016 = 100, del país y de sus seis regiones, con sus divisiones, categorías y
+# bienes y servicios. Desde la etapa 25 sale del archivo que publica el propio INDEC (serie_ipc_divisiones.csv, en windows-1252, con coma
+# decimal), el mismo de la sección Economía y precios: la copia de la API de Series de Tiempo (148.3) que se usaba antes difería en abril de
+# 2019. El nivel general del país es el que pasa a pesos de igual valor los salarios, los créditos, los subsidios y los precios del sitio
+_ipc_b = (CRUDO / "indec_ipc_divisiones.csv").read_bytes()
+try:
+    _ipc_t = _ipc_b.decode("utf-8-sig")
+except UnicodeDecodeError:
+    _ipc_t = _ipc_b.decode("cp1252")
+IPC_INDEC = pd.read_csv(io.StringIO(_ipc_t), sep=";", decimal=",", na_values="NA", dtype={"Codigo": str, "Periodo": str})
+assert list(IPC_INDEC.columns) == ["Codigo", "Descripcion", "Clasificador", "Periodo", "Indice_IPC", "v_m_IPC", "v_i_a_IPC", "Region"], \
+    "cambiaron las columnas del IPC del INDEC"
+IPC_INDEC["periodo"] = IPC_INDEC.Periodo.str[:4] + "-" + IPC_INDEC.Periodo.str[4:6]
+_ipc_ng = IPC_INDEC[(IPC_INDEC.Region == "Nacional") & (IPC_INDEC.Codigo == "0")].set_index("periodo").Indice_IPC.sort_index()
+assert _ipc_ng.index.is_unique and _ipc_ng.index[0] == "2016-12" and abs(_ipc_ng.iloc[0] - 100) < 1e-9, "el IPC del INDEC no empieza en diciembre de 2016 = 100"
+assert list(_ipc_ng.index) == list(pd.period_range(_ipc_ng.index[0], _ipc_ng.index[-1], freq="M").strftime("%Y-%m")), "faltan meses en el IPC del INDEC"
+ipc = pd.Series(_ipc_ng.values, index=pd.to_datetime(_ipc_ng.index + "-01"))
 _base = pd.Timestamp("2016-12-01")
 costo = icc.div(icc.loc[_base]).mul(100).join(ipc.rename("ipc"), how="inner")
 costo = costo[costo.index >= _base]
@@ -2588,8 +2604,7 @@ PER_RES = {
 # Créditos hipotecarios UVA acordados cada mes con el sector privado, en pesos del último mes con el IPC nacional del INDEC (que empieza
 # en diciembre de 2016: la serie va desde enero de 2017). En miles de millones de pesos.
 hip_ = pd.read_csv(CRUDO / "bcra_hipotecas_uva.csv")
-_hip_ipc = pd.read_csv(CRUDO / "ipc_nacional.csv").dropna()
-_hip_ipc = pd.Series(_hip_ipc.iloc[:, 1].values, index=_hip_ipc.indice_tiempo.str[:7])
+_hip_ipc = _ipc_ng  # el IPC del INDEC por mes ("2026-08"), el mismo de la sección Economía y precios
 hip_ = hip_[(hip_.periodo >= "2017-01") & hip_.periodo.isin(_hip_ipc.index)].reset_index(drop=True)
 HIP_UM = hip_.periodo.max()
 hip_["miles_millones"] = hip_.monto_miles / 1e6 * _hip_ipc[HIP_UM] / hip_.periodo.map(_hip_ipc)
@@ -3328,6 +3343,233 @@ XD_RES = {
 agregar(pd.DataFrame({"periodo": xd_.index.astype(str).str.replace("Q", "T").map(lambda p: p[-1] + "T" + p[:4]), "valor": xd_.total.values}).assign(codigo_indec="00", territorio="Argentina"),
         "indice_cantidad_exportaciones", "indice, 2004 = 100", "INDEC, indices de valor, precio y cantidad de las exportaciones")
 
+# ---------------------------------------------------------------- economía y precios (etapa 25)
+# Todo sale del INDEC (pedido del autor: "los datos de inflación salen todos del indec"): el índice de precios al consumidor del país y de sus
+# seis regiones con sus divisiones, categorías y bienes y servicios (IPC_INDEC, más arriba), las canastas básicas alimentaria y total del Gran
+# Buenos Aires por mes y de las seis regiones del informe semestral de pobreza, el índice de salarios y el Estimador Mensual de Actividad
+# Económica. Las variaciones del IPC son las que publica el INDEC, con un decimal: se controla que coincidan con las que salen del índice. Las
+# regiones son grupos de aglomerados (Cuadro 5 de la metodología del IPC de 2019), no provincias: no van al perfil provincial, a Cruces ni a la
+# tabla larga.
+ECO_REG = {"Nacional": "nacional", "GBA": "gba", "Pampeana": "pampeana", "Noreste": "noreste", "Noroeste": "noroeste", "Cuyo": "cuyo", "Patagonia": "patagonia"}
+ECO_NOM = {"nacional": "Todo el país", "gba": "Gran Buenos Aires", "pampeana": "Pampeana", "noreste": "Noreste", "noroeste": "Noroeste", "cuyo": "Cuyo",
+           "patagonia": "Patagonia"}
+assert set(IPC_INDEC.Region) == set(ECO_REG), "cambiaron las regiones del IPC del INDEC"
+_ipr = IPC_INDEC.assign(reg=IPC_INDEC.Region.map(ECO_REG))
+_ipr_ng = _ipr[_ipr.Codigo == "0"]
+_ipr_i = _ipr_ng.pivot(index="periodo", columns="reg", values="Indice_IPC")
+_ipr_m = _ipr_ng.pivot(index="periodo", columns="reg", values="v_m_IPC")
+_ipr_a = _ipr_ng.pivot(index="periodo", columns="reg", values="v_i_a_IPC")
+# control: lo que publica el INDEC con un decimal coincide con lo que sale del índice (la diferencia de redondeo no pasa de una décima)
+for _ipr_pub, _ipr_n in ((_ipr_m, 1), (_ipr_a, 12)):
+    _ipr_d = ((_ipr_i / _ipr_i.shift(_ipr_n) - 1) * 100 - _ipr_pub).abs().stack().dropna()
+    assert len(_ipr_d) > 500 and _ipr_d.max() <= .1 + 1e-6, f"las variaciones del IPC no coinciden con el índice en {_ipr_d.idxmax()}"
+_ipr_u = _ipr_i.index[-1]
+_ipr_dic = f"{int(_ipr_u[:4]) - 1}-12"
+_ipr_ant = f"{int(_ipr_u[:4]) - 1}{_ipr_u[4:]}"
+ECO_REGIONES = [r for r in ECO_NOM if r != "nacional"]
+inflacion_mensual = pd.DataFrame({"periodo": _ipr_i.index, "indice": _ipr_i.nacional.values, "mensual": _ipr_m.nacional.values,
+                                  "interanual": _ipr_a.nacional.values, **{f"mensual_{r}": _ipr_m[r].values for r in ECO_REGIONES},
+                                  **{f"interanual_{r}": _ipr_a[r].values for r in ECO_REGIONES}})
+# la inflación de cada año completo, de diciembre a diciembre: la variación interanual de diciembre que publica el INDEC
+_ipr_dd = _ipr_a[_ipr_a.index.str.endswith("-12")].dropna(subset=["nacional"])
+inflacion_anual = pd.DataFrame({"anio": _ipr_dd.index.str[:4].astype(int), **{r: _ipr_dd[r].values for r in ECO_NOM}})
+# por región en el último mes: en doce meses y en el mes (lo que publica el INDEC), en lo que va del año y cuántas veces subieron los precios
+# desde diciembre de 2016 (del índice)
+inflacion_regiones = pd.DataFrame([{"codigo": r, "region": ECO_NOM[r], "interanual": _ipr_a.at[_ipr_u, r], "mensual": _ipr_m.at[_ipr_u, r],
+                                    "en_el_anio": (_ipr_i.at[_ipr_u, r] / _ipr_i.at[_ipr_dic, r] - 1) * 100,
+                                    "veces_desde_dic_2016": _ipr_i.at[_ipr_u, r] / 100} for r in ECO_NOM])
+# por rubro en el último mes: las doce divisiones, las tres categorías y los bienes y los servicios, en el país y en cada región
+ECO_CLAS = {"Nivel general y divisiones COICOP": "division", "Categorias": "categoria", "Categorías": "categoria", "Bienes y servicios": "bienes_servicios"}
+ECO_CORTO = {"01": "Alimentos", "02": "Alcohol y tabaco", "03": "Ropa y calzado", "04": "Vivienda, agua, luz y gas", "05": "Equipamiento del hogar",
+             "06": "Salud", "07": "Transporte", "08": "Comunicación", "09": "Recreación y cultura", "10": "Educación", "11": "Restaurantes y hoteles",
+             "12": "Otros bienes y servicios", "Estacional": "Estacionales", "Núcleo": "Núcleo", "Regulados": "Regulados", "B": "Bienes", "S": "Servicios"}
+_ipr_r = _ipr[(_ipr.periodo == _ipr_u) & (_ipr.Codigo != "0")]
+assert set(_ipr_r.Codigo) == set(ECO_CORTO) and set(_ipr_r.Clasificador) <= set(ECO_CLAS), "cambiaron los rubros del IPC del INDEC"
+_ipr_ra = _ipr_r.pivot(index="Codigo", columns="reg", values="v_i_a_IPC")
+_ipr_nom = _ipr_r[_ipr_r.reg == "nacional"].set_index("Codigo")
+inflacion_rubros = pd.DataFrame([{"codigo": c, "grupo": ECO_CLAS[_ipr_nom.at[c, "Clasificador"]],
+                                  "rubro": " ".join(str(_ipr_nom.at[c, "Descripcion"]).split()) if ECO_CLAS[_ipr_nom.at[c, "Clasificador"]] == "division" else ECO_CORTO[c],
+                                  "corto": ECO_CORTO[c], "interanual": _ipr_nom.at[c, "v_i_a_IPC"], "mensual": _ipr_nom.at[c, "v_m_IPC"],
+                                  **{f"interanual_{r}": _ipr_ra.at[c, r] for r in ECO_REGIONES}} for c in ECO_CORTO])
+_ipr_div = inflacion_rubros[inflacion_rubros.grupo == "division"].sort_values("interanual")
+# lo que va del año, del índice del país
+_ipr_ytd = (_ipr_i.at[_ipr_u, "nacional"] / _ipr_i.at[_ipr_dic, "nacional"] - 1) * 100
+_ipr_mx = _ipr_a.nacional.dropna()
+_ipr_rg = inflacion_regiones[inflacion_regiones.codigo != "nacional"].sort_values("interanual")
+_ipr_cat = inflacion_rubros.set_index("codigo")
+IPC_RES = {
+    "periodo": _ipr_u, "mes": _mes_per(_ipr_u), "anio": int(_ipr_u[:4]), "mes_ant": _mes_per(_ipr_ant),
+    "mensual": float(_ipr_m.at[_ipr_u, "nacional"]), "interanual": float(_ipr_a.at[_ipr_u, "nacional"]), "en_el_anio": r1(_ipr_ytd),
+    "ia_ant": float(_ipr_a.at[_ipr_ant, "nacional"]) if _ipr_ant in _ipr_a.index and pd.notna(_ipr_a.at[_ipr_ant, "nacional"]) else None,
+    "anio_ult": int(inflacion_anual.anio.max()), "anual": float(inflacion_anual.nacional.iloc[-1]), "anio_ini": int(inflacion_anual.anio.min()),
+    "anual_max_anio": int(inflacion_anual.loc[inflacion_anual.nacional.idxmax(), "anio"]), "anual_max": float(inflacion_anual.nacional.max()),
+    "anual_min_anio": int(inflacion_anual.loc[inflacion_anual.nacional.idxmin(), "anio"]), "anual_min": float(inflacion_anual.nacional.min()),
+    "ia_max": float(_ipr_mx.max()), "ia_max_mes": _mes_per(_ipr_mx.idxmax()), "ia_min": float(_ipr_mx.min()), "ia_min_mes": _mes_per(_ipr_mx.idxmin()),
+    "ia_desde": _mes_per(_ipr_mx.index[0]), "m_desde": _mes_per(_ipr_m.nacional.dropna().index[0]), "base": _mes_per(_ipr_i.index[0]),
+    "m_max": float(_ipr_m.nacional.max()), "m_max_mes": _mes_per(_ipr_m.nacional.idxmax()),
+    "m_min": float(_ipr_m.nacional.min()), "m_min_mes": _mes_per(_ipr_m.nacional.idxmin()),
+    "veces": round(float(_ipr_i.at[_ipr_u, "nacional"] / 100), 1),
+    "reg_max": [_ipr_rg.iloc[-1].region, float(_ipr_rg.iloc[-1].interanual)], "reg_min": [_ipr_rg.iloc[0].region, float(_ipr_rg.iloc[0].interanual)],
+    "div_max": [_ipr_div.iloc[-1].rubro, float(_ipr_div.iloc[-1].interanual)], "div_min": [_ipr_div.iloc[0].rubro, float(_ipr_div.iloc[0].interanual)],
+    "div_alim": float(_ipr_cat.at["01", "interanual"]),
+    "nucleo": float(_ipr_cat.at["Núcleo", "interanual"]), "regulados": float(_ipr_cat.at["Regulados", "interanual"]),
+    "estacionales": float(_ipr_cat.at["Estacional", "interanual"]), "bienes": float(_ipr_cat.at["B", "interanual"]),
+    "servicios": float(_ipr_cat.at["S", "interanual"]),
+    # para el minigráfico de "En cifras": los últimos diez meses
+    "mini_ia": [[p, float(v)] for p, v in _ipr_a.nacional.dropna().iloc[-10:].items()],
+    "mini_m": [[p, float(v)] for p, v in _ipr_m.nacional.dropna().iloc[-10:].items()],
+}
+agregar(pd.DataFrame({"periodo": _ipr_i.index, "valor": _ipr_i.nacional.values}).assign(codigo_indec="00", territorio="Argentina"),
+        "indice_precios_consumidor", "indice, diciembre de 2016 = 100", "INDEC, Indice de precios al consumidor")
+
+# Canastas básicas alimentaria (línea de indigencia) y total (línea de pobreza) del Gran Buenos Aires, por mes desde abril de 2016: por adulto
+# equivalente y para el hogar 2 de los tres hogares de ejemplo del INDEC (cuatro integrantes: un varón de 35 años, una mujer de 31, un hijo
+# de 6 y una hija de 8), con las variaciones que publica el INDEC. Y las de las seis regiones, por adulto equivalente, del anexo del informe
+# semestral de pobreza (01_descargar.py las suma edición por edición).
+_cbx = pd.ExcelFile(CRUDO / "indec_canastas.xls")
+es_mes = lambda x: isinstance(x, datetime.datetime)
+_cnt_a = pd.read_excel(_cbx, "CBA-CBT", header=None)
+_cnt_h = _cnt_a.index[_cnt_a[0].astype(str).str.strip().eq("Mes")][0]
+assert "alimentaria" in str(_cnt_a.iat[_cnt_h, 1]).lower() and "total" in str(_cnt_a.iat[_cnt_h, 3]).lower(), "cambió la hoja de canastas del INDEC"
+_cnt_a = _cnt_a[_cnt_a[0].map(es_mes)]
+cnt_ = pd.DataFrame({"periodo": _cnt_a[0].map(lambda x: x.strftime("%Y-%m")).values, "cba": _cnt_a[1].astype(float).values,
+                     "cbt": _cnt_a[3].astype(float).values})
+_cnt_g = pd.read_excel(_cbx, "Hogares", header=None)
+assert _cnt_g[0].astype(str).str.contains("Hogar 2: de cuatro integrantes, compuesto por un varón de 35 años, una mujer de 31 años, un hijo de 6 años "
+                                         "y una hija de 8 años", regex=False).any(), "cambió el hogar 2 de las canastas del INDEC"
+_cnt_gh = _cnt_g.index[_cnt_g[1].astype(str).str.strip().eq("Hogar 1")][0]
+_cnt_c2 = [j for j in range(_cnt_g.shape[1]) if str(_cnt_g.iat[_cnt_gh, j]).strip() == "Hogar 2"]
+assert len(_cnt_c2) == 2, "cambió la hoja de hogares de las canastas del INDEC"
+_cnt_g = _cnt_g[_cnt_g[0].map(es_mes)]
+cnt_ = cnt_.merge(pd.DataFrame({"periodo": _cnt_g[0].map(lambda x: x.strftime("%Y-%m")).values, "cba_hogar": _cnt_g[_cnt_c2[0]].astype(float).values,
+                                "cbt_hogar": _cnt_g[_cnt_c2[1]].astype(float).values}), on="periodo", how="left", validate="1:1")
+_cnt_v = pd.read_excel(_cbx, "Variaciones", header=None)
+_cnt_vh = _cnt_v.index[_cnt_v[0].astype(str).str.strip().eq("Mes")][0]
+assert "alimentaria" in str(_cnt_v.iat[_cnt_vh, 1]).lower() and "total" in str(_cnt_v.iat[_cnt_vh, 4]).lower(), "cambió la hoja de variaciones de las canastas"
+_cnt_v = _cnt_v[_cnt_v[0].map(es_mes)]
+cnt_ = cnt_.merge(pd.DataFrame({"periodo": _cnt_v[0].map(lambda x: x.strftime("%Y-%m")).values,
+                                **{k: pd.to_numeric(_cnt_v[j], errors="coerce").values for k, j in (("mensual_cba", 1), ("interanual_cba", 2), ("mensual_cbt", 4), ("interanual_cbt", 5))}}),
+                  on="periodo", how="left", validate="1:1")
+assert cnt_.periodo.is_unique and cnt_.periodo.is_monotonic_increasing and cnt_.cbt_hogar.notna().all(), "faltan meses en las canastas del INDEC"
+assert (cnt_.cbt_hogar / cnt_.cbt).between(3.08, 3.10).all(), "el hogar 2 de las canastas ya no es de 3,09 adultos equivalentes"
+cnt_["interanual_ipc_gba"] = cnt_.periodo.map(_ipr_a.gba)
+canasta_mensual = cnt_
+_cnt_u = cnt_.iloc[-1]
+_cnt_r = pd.read_csv(CRUDO / "indec_canastas_regiones.csv")
+_cnt_ru = _cnt_r.periodo.max()
+_cnt_rl = _cnt_r[_cnt_r.periodo == _cnt_ru].set_index("region")
+_cnt_ra = _cnt_r[_cnt_r.periodo == f"{int(_cnt_ru[:4]) - 1}{_cnt_ru[4:]}"].set_index("region")
+assert len(_cnt_rl) == 6, "faltan regiones en las canastas del último mes"
+# control: la canasta total del Gran Buenos Aires del informe semestral es la misma que la de la serie mensual
+_cnt_gba = cnt_.set_index("periodo").cbt.get(_cnt_ru)
+assert _cnt_gba is None or abs(_cnt_rl.at["gba", "cbt"] / _cnt_gba - 1) < .001, "las canastas por región no coinciden con la del Gran Buenos Aires"
+canasta_regiones = pd.DataFrame([{"codigo": r, "region": ECO_NOM[r], "periodo": _cnt_ru, "cba": _cnt_rl.at[r, "cba"], "cbt": _cnt_rl.at[r, "cbt"],
+                                  "cbt_anio_anterior": _cnt_ra.at[r, "cbt"] if r in _cnt_ra.index else None,
+                                  "interanual_cbt": (_cnt_rl.at[r, "cbt"] / _cnt_ra.at[r, "cbt"] - 1) * 100 if r in _cnt_ra.index else None}
+                                 for r in ECO_REGIONES])
+_cnt_ro = canasta_regiones.sort_values("cbt")
+CNT_RES = {
+    "periodo": _cnt_u.periodo, "mes": _mes_per(_cnt_u.periodo), "desde": _mes_per(cnt_.periodo.iloc[0]), "anio_ini": int(cnt_.periodo.iloc[0][:4]),
+    "anio": int(_cnt_u.periodo[:4]), "adultos_hogar": round(float(_cnt_u.cbt_hogar / _cnt_u.cbt), 2),
+    "cba": float(_cnt_u.cba), "cbt": float(_cnt_u.cbt), "cba_hogar": float(_cnt_u.cba_hogar), "cbt_hogar": float(_cnt_u.cbt_hogar),
+    "ia_cba": float(_cnt_u.interanual_cba), "ia_cbt": float(_cnt_u.interanual_cbt), "m_cbt": float(_cnt_u.mensual_cbt),
+    "ia_ipc_gba": float(_cnt_u.interanual_ipc_gba) if pd.notna(_cnt_u.interanual_ipc_gba) else None,
+    "reg_mes": _mes_per(_cnt_ru), "reg_max": [_cnt_ro.iloc[-1].region, float(_cnt_ro.iloc[-1].cbt)], "reg_min": [_cnt_ro.iloc[0].region, float(_cnt_ro.iloc[0].cbt)],
+    "reg_gba": float(_cnt_rl.at["gba", "cbt"]),
+    "mini": [[p, float(v)] for p, v in cnt_.set_index("periodo").cbt_hogar.iloc[-10:].items()],
+}
+
+# Índice de salarios del INDEC (octubre de 2016 = 100): sector privado registrado, sector público y total registrado, en pesos de igual valor
+# con el IPC del país (diciembre de 2016 = 100, el primer mes del IPC). El del sector no registrado no se compara con los precios del mismo mes:
+# sale de la Encuesta Permanente de Hogares y tiene cinco meses de rezago.
+_srl = pd.read_csv(CRUDO / "indec_indice_salarios.csv", sep=";", decimal=",", na_values="NA", encoding="cp1252")
+assert list(_srl.columns) == ["periodo", "IS_sector_privado_registrado", "IS_sector_publico", "IS_total_registrado", "IS_sector_no_registrado", "IS_indice_total"], \
+    "cambiaron las columnas del índice de salarios del INDEC"
+_srl = _srl.assign(periodo=pd.to_datetime(_srl.periodo, format="%d/%m/%Y").dt.strftime("%Y-%m")).set_index("periodo")
+_srl.columns = ["privado", "publico", "registrado", "no_registrado", "total"]
+assert abs(_srl.at["2016-10", "privado"] - 100) < 1e-6 and _srl.index.is_unique, "el índice de salarios del INDEC cambió de base"
+_srl_n = _srl.loc[(_srl.index >= "2016-12") & _srl.index.isin(_ipc_ng.index), ["privado", "publico", "registrado"]].dropna()
+_srl_r = _srl_n.div(_srl_n.loc["2016-12"]).mul(100).div(_ipc_ng[_srl_n.index].values / 100, axis=0)
+_srl_ia = (_srl_r / _srl_r.shift(12) - 1) * 100
+_srl_u = _srl_r.index[-1]
+_srl_12 = f"{int(_srl_u[:4]) - 1}{_srl_u[4:]}"
+salario_real_mensual = pd.DataFrame({"periodo": _srl_r.index, **{k: _srl_r[k].values for k in _srl_r.columns},
+                                     **{f"interanual_real_{k}": _srl_ia[k].values for k in _srl_r.columns}})
+_srl_pmax, _srl_pmin = _srl_r.privado.idxmax(), _srl_r.privado.idxmin()
+SRL_RES = {
+    "periodo": _srl_u, "mes": _mes_per(_srl_u), "mes_ant": _mes_per(_srl_12), "base": _mes_per("2016-12"),
+    "anio_ini": int(_srl_r.index[0][:4]), "anio": int(_srl_u[:4]),
+    "real_priv": r1(_srl_ia.at[_srl_u, "privado"]), "real_pub": r1(_srl_ia.at[_srl_u, "publico"]), "real_reg": r1(_srl_ia.at[_srl_u, "registrado"]),
+    "nom_priv": r1((_srl.at[_srl_u, "privado"] / _srl.at[_srl_12, "privado"] - 1) * 100),
+    "nom_pub": r1((_srl.at[_srl_u, "publico"] / _srl.at[_srl_12, "publico"] - 1) * 100),
+    "ipc": float(_ipr_a.at[_srl_u, "nacional"]),
+    "vs_base_priv": r1(_srl_r.at[_srl_u, "privado"] - 100), "vs_base_pub": r1(_srl_r.at[_srl_u, "publico"] - 100),
+    "max_priv_mes": _mes_per(_srl_pmax), "max_priv": r1(_srl_r.at[_srl_pmax, "privado"]),
+    "min_priv_mes": _mes_per(_srl_pmin), "min_priv": r1(_srl_r.at[_srl_pmin, "privado"]),
+    "mini": [[p, float(v)] for p, v in _srl_ia.privado.dropna().iloc[-10:].items()],
+}
+
+# Estimador Mensual de Actividad Económica (INDEC, base 2004 = 100): la serie original con su variación contra el mismo mes del año anterior
+# y la desestacionalizada con su variación contra el mes anterior, desde 2004, y los quince sectores (sin los impuestos netos de subsidios).
+# El INDEC revisa toda la serie cada mes.
+_ema = pd.read_excel(CRUDO / "indec_emae.xls", header=None)
+_ema_h = _ema.index[_ema[0].astype(str).str.strip().str.lower().str.startswith("per")][0]
+assert "original" in str(_ema.iat[_ema_h, 2]).lower() and "desestacionalizada" in str(_ema.iat[_ema_h, 4]).lower(), "cambió el EMAE del INDEC"
+_ema = _ema.iloc[_ema_h + 1:].assign(anio=lambda x: pd.to_numeric(x[0], errors="coerce").ffill())
+_ema = _ema[_ema[1].astype(str).str.strip().str.lower().isin(MES)]
+_ema_per = [f"{int(a)}-{MES.index(str(m).strip().lower()) + 1:02d}" for a, m in zip(_ema.anio, _ema[1])]
+actividad_mensual = pd.DataFrame({"periodo": _ema_per, "original": pd.to_numeric(_ema[2]).values, "interanual": pd.to_numeric(_ema[3]).values,
+                                  "desestacionalizada": pd.to_numeric(_ema[4]).values, "mensual_desest": pd.to_numeric(_ema[5], errors="coerce").values})
+actividad_mensual.loc[actividad_mensual.periodo < "2005-01", "interanual"] = None  # el primer año no tiene con qué compararse
+assert actividad_mensual.periodo.is_unique and list(actividad_mensual.periodo) == list(pd.period_range(actividad_mensual.periodo.iloc[0],
+       actividad_mensual.periodo.iloc[-1], freq="M").strftime("%Y-%m")), "faltan meses en el EMAE del INDEC"
+_ems = pd.read_excel(CRUDO / "indec_emae_actividad.xls", "Tabla Letras", header=None)
+_ems_h = _ems.index[_ems[0].astype(str).str.strip().str.lower().str.startswith("per")][0]
+EMA_SECTOR = {"A": ("Agricultura, ganadería, caza y silvicultura", "Agro", "el agro"), "B": ("Pesca", "Pesca", "la pesca"),
+              "C": ("Explotación de minas y canteras", "Minas y canteras", "la explotación de minas y canteras"),
+              "D": ("Industria manufacturera", "Industria", "la industria"), "E": ("Electricidad, gas y agua", "Electricidad, gas y agua", "la electricidad, el gas y el agua"),
+              "F": ("Construcción", "Construcción", "la construcción"), "G": ("Comercio mayorista, minorista y reparaciones", "Comercio", "el comercio"),
+              "H": ("Hoteles y restaurantes", "Hoteles y restaurantes", "los hoteles y restaurantes"),
+              "I": ("Transporte y comunicaciones", "Transporte", "el transporte y las comunicaciones"), "J": ("Intermediación financiera", "Finanzas", "la intermediación financiera"),
+              "K": ("Actividades inmobiliarias, empresariales y de alquiler", "Inmobiliarias", "las actividades inmobiliarias y empresariales"),
+              "L": ("Administración pública, defensa y seguridad social obligatoria", "Administración pública", "la administración pública"),
+              "M": ("Enseñanza", "Enseñanza", "la enseñanza"), "N": ("Servicios sociales y de salud", "Salud", "los servicios sociales y de salud"),
+              "O": ("Otros servicios comunitarios, sociales y personales", "Otros servicios", "los otros servicios comunitarios, sociales y personales")}
+_ems_cols = {str(_ems.iat[_ems_h, j]).strip()[:1]: j for j in range(2, _ems.shape[1]) if re.match(r"^[A-O] -", str(_ems.iat[_ems_h, j]).strip())}
+assert list(_ems_cols) == list(EMA_SECTOR), "cambiaron los sectores del EMAE del INDEC"
+_ems = _ems.iloc[_ems_h + 1:].assign(anio=lambda x: pd.to_numeric(x[0], errors="coerce").ffill())
+_ems = _ems[_ems[1].astype(str).str.strip().str.lower().isin(MES)]
+_ems_i = pd.DataFrame({s: pd.to_numeric(_ems[j]).values for s, j in _ems_cols.items()},
+                      index=[f"{int(a)}-{MES.index(str(m).strip().lower()) + 1:02d}" for a, m in zip(_ems.anio, _ems[1])])
+assert _ems_i.index[-1] == actividad_mensual.periodo.iloc[-1], "el EMAE por sector no llega al mismo mes que el total"
+_ema_o = actividad_mensual.set_index("periodo").original
+actividad_sectores = pd.DataFrame([{"letra": s, "sector": n, "corto": c, "doce_meses": (_ems_i[s].iloc[-12:].mean() / _ems_i[s].iloc[-24:-12].mean() - 1) * 100,
+                                    "interanual": (_ems_i[s].iloc[-1] / _ems_i[s].iloc[-13] - 1) * 100} for s, (n, c, _) in EMA_SECTOR.items()])
+_ema_art = {n: art for n, _, art in EMA_SECTOR.values()}
+_ema_u = actividad_mensual.iloc[-1]
+_ema_a = actividad_mensual.assign(anio=actividad_mensual.periodo.str[:4].astype(int)).groupby("anio").original.agg(["mean", "size"])
+_ema_a = _ema_a[_ema_a["size"] == 12]["mean"]
+actividad_anual = pd.DataFrame({"anio": _ema_a.index[1:], "variacion": ((_ema_a / _ema_a.shift(1) - 1) * 100).iloc[1:].values})
+_ema_y = en_lo_que_va(actividad_mensual.periodo + "-01", actividad_mensual.original)
+_ema_so = actividad_sectores.sort_values("doce_meses")
+_ema_ia = actividad_mensual.dropna(subset=["interanual"]).set_index("periodo").interanual
+EMA_RES = {
+    "periodo": _ema_u.periodo, "mes": _mes_per(_ema_u.periodo), "desde": int(actividad_mensual.periodo.iloc[0][:4]), "anio": int(_ema_u.periodo[:4]),
+    "mes_ant": _mes_per(f"{int(_ema_u.periodo[:4]) - 1}{_ema_u.periodo[4:]}"),
+    "interanual": r1(_ema_u.interanual), "mensual_desest": r1(_ema_u.mensual_desest), "en_el_anio": _ema_y,
+    "doce": r1((_ema_o.iloc[-12:].mean() / _ema_o.iloc[-24:-12].mean() - 1) * 100),
+    "anio_ult": int(actividad_anual.anio.iloc[-1]), "anual": r1(actividad_anual.variacion.iloc[-1]),
+    "anual_max_anio": int(actividad_anual.loc[actividad_anual.variacion.idxmax(), "anio"]), "anual_max": r1(actividad_anual.variacion.max()),
+    "anual_min_anio": int(actividad_anual.loc[actividad_anual.variacion.idxmin(), "anio"]), "anual_min": r1(actividad_anual.variacion.min()),
+    "sec_max": [_ema_art[_ema_so.iloc[-1].sector], r1(_ema_so.iloc[-1].doce_meses)], "sec_max2": [_ema_art[_ema_so.iloc[-2].sector], r1(_ema_so.iloc[-2].doce_meses)],
+    "sec_min": [_ema_art[_ema_so.iloc[0].sector], r1(_ema_so.iloc[0].doce_meses)], "sec_min2": [_ema_art[_ema_so.iloc[1].sector], r1(_ema_so.iloc[1].doce_meses)],
+    "sec_suben": int((actividad_sectores.doce_meses.map(r1) > 0).sum()),
+    "mini": [[p, float(v)] for p, v in _ema_ia.iloc[-10:].items()],
+}
+agregar(actividad_mensual[["periodo", "original"]].rename(columns={"original": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
+        "estimador_mensual_actividad_economica", "indice, 2004 = 100", "INDEC, Estimador Mensual de Actividad Economica")
+ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES}
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3851,6 +4093,16 @@ tablas = {
     "nafta_dolares_anual": nafta_dolares_anual,
     "exportaciones_dolar_trimestral": exportaciones_dolar_trimestral,
     "exportaciones_cantidades_anual": exportaciones_cantidades_anual,
+    "inflacion_mensual": inflacion_mensual,
+    "inflacion_anual": inflacion_anual,
+    "inflacion_regiones": inflacion_regiones,
+    "inflacion_rubros": inflacion_rubros,
+    "canasta_mensual": canasta_mensual,
+    "canasta_regiones": canasta_regiones,
+    "salario_real_mensual": salario_real_mensual,
+    "actividad_mensual": actividad_mensual,
+    "actividad_anual": actividad_anual,
+    "actividad_sectores": actividad_sectores,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -4228,6 +4480,7 @@ resumen["seguridad"] = SEG_RES  # delitos (SNIC) y personas privadas de libertad
 resumen["turismo_dolar"] = TU_RES  # artículo del turismo y el dólar (etapa 24)
 resumen["nafta_dolares"] = NF_RES  # artículo de la nafta en dólares y el petróleo (etapa 24)
 resumen["exportaciones_dolar"] = XD_RES  # artículo de las exportaciones y el dólar (etapa 24)
+resumen["economia"] = ECO_RES  # sección Economía y precios (etapa 25)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

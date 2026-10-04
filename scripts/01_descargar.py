@@ -238,8 +238,17 @@ FUENTES.update({
     # (mensual): el artículo de las exportaciones y el dólar (etapa 24). "Agro" e "Industria" son las manufacturas de origen agropecuario e industrial
     "exportaciones_cantidades.csv": API + "80.2_IICENG_0_T_47,80.2_IICENPP_0_T_59,80.2_IICENA_0_T_44,80.2_IICENI_0_T_49,80.2_IICENC_0_T_52&header=ids",
     "exportaciones_rubros.csv": API + "74.3_IET_0_M_16,74.3_IEPP_0_M_35,74.3_IEMOA_0_M_48,74.3_IEMOI_0_M_46,74.3_IECE_0_M_35&header=ids",
-    # Índice de precios al consumidor, nivel general nacional, base diciembre de 2016 (INDEC)
-    "ipc_nacional.csv": API + "148.3_INIVELNAL_DICI_M_26",
+    # Precios, salarios, canastas y actividad, de los archivos que publica el propio INDEC (etapa 25, sección Economía y precios). Toda la
+    # inflación del sitio sale del índice de precios al consumidor del INDEC (pedido del autor): el del país y el de sus seis regiones, con sus
+    # divisiones, categorías y bienes y servicios, base diciembre de 2016 = 100. También lo usan los pesos de igual valor de las demás
+    # secciones (antes, la copia de la API de Series de Tiempo, 148.3, que difería del INDEC en abril de 2019). Además, el índice de salarios
+    # (octubre de 2016 = 100), las canastas básicas alimentaria y total del Gran Buenos Aires (por adulto equivalente y para los tres hogares
+    # de ejemplo) y el Estimador Mensual de Actividad Económica (base 2004 = 100), el total y por sector
+    "indec_ipc_divisiones.csv": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv",
+    "indec_indice_salarios.csv": "https://www.indec.gob.ar/ftp/cuadros/sociedad/indice_salarios.csv",
+    "indec_canastas.xls": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls",
+    "indec_emae.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls",
+    "indec_emae_actividad.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
     # rama horizontal, la arena y el agua (etapa 19)
     "se_fracturas.csv": ckan_recurso(SE, "datos-de-fractura-de-pozos-adjunto-iv", "fractura de pozos",
@@ -335,7 +344,11 @@ VALIDA.update({
     "isac.csv": lambda b: b.startswith(b"indice_tiempo,isac_nivel_general"),
     "isac_insumos.csv": lambda b: b.startswith(b"indice_tiempo,isac_articulos_sanitarios"),
     "indec_icc.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
-    "ipc_nacional.csv": lambda b: b.startswith(b"indice_tiempo,"),
+    "indec_ipc_divisiones.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"Codigo;Descripcion;Clasificador;Periodo;Indice_IPC;v_m_IPC;v_i_a_IPC;Region"),
+    "indec_indice_salarios.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"periodo;IS_sector_privado_registrado;IS_sector_publico;IS_total_registrado"),
+    "indec_canastas.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
+    "indec_emae.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
+    "indec_emae_actividad.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "se_fracturas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"id_base_fractura_adjiv,idpozo"),
     "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
     "potencia_instalada.csv": lambda b: b.startswith(b"indice_tiempo,potencia_instalada_total"),
@@ -1247,6 +1260,60 @@ def tipo_cambio_real():
     return url
 
 
+def indec_canastas_regiones():
+    """Canastas básicas alimentaria y total de las seis regiones del INDEC, por adulto equivalente (etapa 25). Solo se publican en el anexo del
+    informe semestral de pobreza (cuadros_informe_pobreza_MM_YY.xls, hoja "Series canastas anexo", con los seis meses del semestre): sale en
+    marzo (segundo semestre del año anterior) y en septiembre (primer semestre), y las ediciones anteriores siguen en línea. Se baja la más
+    nueva que exista y se suma a lo guardado, así la serie crece con cada edición. Si todavía no hay nada guardado, se bajan las de los últimos
+    tres años. La copia de la API de Series de Tiempo (444.1) coincidía con el INDEC, pero quedó en diciembre de 2025."""
+    import io, pandas as pd
+    MESES_ES = {m: i + 1 for i, m in enumerate(["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+                                                "octubre", "noviembre", "diciembre"])}
+    REGIONES = {"Gran Buenos Aires": "gba", "Pampeana": "pampeana", "Noreste": "noreste", "Noroeste": "noroeste", "Cuyo": "cuyo", "Patagonia": "patagonia"}
+
+    def leer_hoja(datos):
+        h = pd.read_excel(io.BytesIO(datos), sheet_name="Series canastas anexo", header=None)
+        filas = []
+        for titulo, col in (("canasta básica alimentaria", "cba"), ("canasta básica total", "cbt")):
+            i = h.index[h.iloc[:, 0].astype(str).str.lower().str.startswith("serie " + titulo)][0]
+            anio = int(h.iat[i + 2, 1])
+            if str(h.iat[i + 2, 0]).strip().lower() not in ("región", "region"):
+                raise ValueError("la hoja de canastas por región cambió de formato")
+            meses = [MESES_ES[str(m).strip().lower()] for m in h.iloc[i + 3, 1:7]]
+            for j in range(i + 4, i + 12):
+                reg = str(h.iat[j, 0]).strip()
+                if reg in REGIONES:
+                    for m, v in zip(meses, h.iloc[j, 1:7]):
+                        filas.append({"region": REGIONES[reg], "periodo": f"{anio}-{m:02d}", "canasta": col, "valor": float(v)})
+        d = pd.DataFrame(filas).pivot_table(index=["region", "periodo"], columns="canasta", values="valor").reset_index()
+        if len(d) != 36 or d.isna().any().any() or not (d.cbt > d.cba).all():
+            raise ValueError("la hoja de canastas por región vino incompleta")
+        return d
+
+    hoy = datetime.date.today()
+    archivo = CRUDO / "indec_canastas_regiones.csv"
+    ediciones = [(a, m) for a in range(hoy.year, hoy.year - 3, -1) for m in (9, 3) if datetime.date(a, m, 1) <= hoy]
+    nuevas, primera = [], None
+    for a, m in ediciones:
+        url = f"https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_{m:02d}_{a % 100:02d}.xls"
+        try:
+            datos = leer(url, 120)
+        except urllib.error.HTTPError:
+            continue
+        if datos[:4] != bytes.fromhex("d0cf11e0"):
+            continue
+        nuevas.append(leer_hoja(datos))
+        primera = primera or url
+        if archivo.exists():
+            break
+    if not nuevas:
+        raise ValueError("no se encontró el informe semestral de pobreza del INDEC")
+    d = pd.concat(([pd.read_csv(archivo)] if archivo.exists() else []) + nuevas[::-1])
+    d = d.drop_duplicates(["region", "periodo"], keep="last").sort_values(["periodo", "region"])
+    d.round(4).to_csv(archivo, index=False)
+    return primera
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
@@ -1261,7 +1328,8 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda),
                     ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real),
                     ("remuneraciones por provincia (OEDE)", oede_remuneraciones), ("salario docente por provincia (CECE)", cgecse_salario_docente),
-                    ("inversión educativa por provincia (CECE)", cgecse_inversion), ("precio del petróleo Brent (EIA)", eia_brent)]:
+                    ("inversión educativa por provincia (CECE)", cgecse_inversion), ("precio del petróleo Brent (EIA)", eia_brent),
+                    ("canastas básicas por región (INDEC)", indec_canastas_regiones)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

@@ -1,0 +1,16 @@
+letra,sector,corto,doce_meses,interanual
+A,"Agricultura, ganadería, caza y silvicultura",Agro,10.3842,0.6521
+B,Pesca,Pesca,44.0021,424.5118
+C,Explotación de minas y canteras,Minas y canteras,11.463,8.43
+D,Industria manufacturera,Industria,-3.1618,-4.5802
+E,"Electricidad, gas y agua","Electricidad, gas y agua",2.1669,1.8954
+F,Construcción,Construcción,0.6125,-3.2764
+G,"Comercio mayorista, minorista y reparaciones",Comercio,-1.2243,-5.0541
+H,Hoteles y restaurantes,Hoteles y restaurantes,3.0686,2.4637
+I,Transporte y comunicaciones,Transporte,1.8085,-1.4626
+J,Intermediación financiera,Finanzas,11.7881,-3.048
+K,"Actividades inmobiliarias, empresariales y de alquiler",Inmobiliarias,1.4643,0.0222
+L,"Administración pública, defensa y seguridad social obligatoria",Administración pública,-1.3393,-1.4581
+M,Enseñanza,Enseñanza,0.1948,-0.0694
+N,Servicios sociales y de salud,Salud,0.3422,0.9959
+O,"Otros servicios comunitarios, sociales y personales",Otros servicios,0.4353,-1.3164

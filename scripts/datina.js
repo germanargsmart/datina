@@ -180,6 +180,29 @@ const PG = R.petroleo, CN = R.construccion, VV = CN.viv;
 const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa 21)
 // salarios, salario docente, inversión en educación y seguridad (etapa 23)
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
+// Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
+const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad;
+// regiones del índice de precios del INDEC (Cuadro 5 de su metodología de 2019): grupos de ciudades, no provincias. La provincia de Buenos
+// Aires está en dos: los 24 partidos, en el Gran Buenos Aires, y el resto, en la Pampeana
+const REG_IPC = {"02": ["gba"], "06": ["gba", "pampeana"], "10": ["noroeste"], "14": ["pampeana"], "18": ["noreste"], "22": ["noreste"], "26": ["patagonia"],
+  "30": ["pampeana"], "34": ["noreste"], "38": ["noroeste"], "42": ["pampeana"], "46": ["noroeste"], "50": ["cuyo"], "54": ["noreste"], "58": ["patagonia"],
+  "62": ["patagonia"], "66": ["noroeste"], "70": ["cuyo"], "74": ["cuyo"], "78": ["patagonia"], "82": ["pampeana"], "86": ["noroeste"], "90": ["noroeste"],
+  "94": ["patagonia"]};
+const REG_ART = {"Gran Buenos Aires": "el Gran Buenos Aires", "Pampeana": "la región Pampeana", "Noreste": "el Noreste", "Noroeste": "el Noroeste", "Cuyo": "Cuyo",
+  "Patagonia": "la Patagonia"};
+// la región de la provincia elegida, en una frase, con el valor de una tabla de regiones: "Chaco está en el Noreste: 37,0%."
+const enSuRegion = (filas, k, f) => {
+  const regs = REG_IPC[prov]; if (!regs) return "";
+  const v = r => filas.find(x => x.codigo === r);
+  if (regs.length === 2) return ` La provincia de Buenos Aires está en dos regiones: los 24 partidos, en el Gran Buenos Aires, con ${f(v("gba")[k])}, y el resto, ` +
+    `en la región Pampeana, con ${f(v("pampeana")[k])}.`;
+  return ` ${NOMBRES[prov]} está en ${REG_ART[v(regs[0]).region]}: ${f(v(regs[0])[k])}.`;
+};
+const inicialMin = t => t.charAt(0).toLowerCase() + t.slice(1);
+// como cambioPct, para un sujeto en plural: "subieron 4,0%", "bajaron 1,3%" o "no cambiaron"
+const cambioPl = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambiaron" : `${v < 0 ? "bajaron" : "subieron"} ${pct(Math.abs(v))}`;
+// el segundo de dos cambios seguidos, sin repetir el verbo si va en la misma dirección que el primero: "subió 1,7% frente al mes anterior y 33,5% en un año"
+const yCambio = (a, b) => Math.round(Math.abs(a) * 10) && Math.round(Math.abs(b) * 10) && (a < 0) === (b < 0) ? pct(Math.abs(b)) : cambioPct(b);
 // un caso cada cuántos habitantes, redondeado a la centena (la equivalencia que usa usafacts.org: "uno cada 27.600 habitantes")
 const unoCada = tasa => n0(Math.round(1e5 / tasa / 100) * 100);
 // cuánto cambió un valor, en palabras: "bajó 1,3%", "subió 4,0%" o "no cambió"
@@ -448,6 +471,52 @@ const LEAD = {
     return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país, ${n0(SG.sn_tasa)} cada 100.000 habitantes. ` +
       `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
       `con la causa en trámite, o en otra situación.`;
+  },
+  // ---- economía y precios (etapa 25): todo del INDEC
+  inflacion: v => {
+    if (v === "mes") return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior, según el INDEC. ` +
+      `Desde ${EIP.m_desde}, la suba de un mes más alta fue la de ${EIP.m_max_mes}, ${pct(EIP.m_max)}, y la más baja, la de ${EIP.m_min_mes}, ${pct(EIP.m_min)}.`;
+    if (v === "region") return `En los doce meses hasta ${EIP.mes}, los precios subieron más en ${REG_ART[EIP.reg_max[0]]}, ${pct(EIP.reg_max[1])}, y menos en ` +
+      `${REG_ART[EIP.reg_min[0]]}, ${pct(EIP.reg_min[1])}. En todo el país, ${pct(EIP.interanual)}. Las regiones del INDEC son grupos de ciudades donde se relevan ` +
+      `los precios, no provincias.`;
+    const dic = EIP.periodo.endsWith("-12");
+    return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior y ${yCambio(EIP.mensual, EIP.interanual)} frente a ` +
+      `${EIP.mes_ant}, según el INDEC. ` + (dic ? "" : `En lo que va del año, ${cambioPct(EIP.en_el_anio)}, y en ${EIP.anio_ult}, de diciembre a diciembre, ` +
+      `la inflación fue de ${pct(EIP.anual)}. `) + `Desde ${EIP.ia_desde}, la variación en doce meses más alta fue la de ${EIP.ia_max_mes}, ${pct(EIP.ia_max)}, ` +
+      `y la más baja, la de ${EIP.ia_min_mes}, ${pct(EIP.ia_min)}.`;
+  },
+  "inflacion-rubros": v => {
+    if (v === "categoria") return `En los doce meses hasta ${EIP.mes}, los precios regulados, los que están sujetos a regulación o tienen un alto componente de ` +
+      `impuestos, ${cambioPl(EIP.regulados)}, los estacionales, que cambian con la temporada, ${cambioPl(EIP.estacionales)}, y los demás, la inflación núcleo, ` +
+      `${cambioPl(EIP.nucleo)}, según el INDEC. Los precios de los servicios ${cambioPl(EIP.servicios)} y los de los bienes, ${pct(EIP.bienes)}. El nivel ` +
+      `general, ${pct(EIP.interanual)}.`;
+    return `En los doce meses hasta ${EIP.mes}, el rubro con la suba más alta fue ${inicialMin(EIP.div_max[0])}, ${pct(EIP.div_max[1])}, y el de la más baja, ` +
+      `${inicialMin(EIP.div_min[0])}, ${pct(EIP.div_min[1])}, según el INDEC.` + (/^Alimentos/.test(EIP.div_max[0] + EIP.div_min[0]) ? "" :
+      ` Los alimentos y las bebidas no alcohólicas ${cambioPl(EIP.div_alim)}.`) + ` El nivel general, ${pct(EIP.interanual)}.`;
+  },
+  canastas: v => {
+    const base = `En ${ECB.mes}, un hogar de cuatro integrantes del Gran Buenos Aires (un varón de 35 años, una mujer de 31, un hijo de 6 y una hija de 8) ` +
+      `necesitaba ${n0(ECB.cbt_hogar)} pesos por mes para no quedar bajo la línea de pobreza, el valor de su canasta básica total según el INDEC, y ` +
+      `${n0(ECB.cba_hogar)} para no quedar bajo la línea de indigencia, el de su canasta básica alimentaria. `;
+    if (v === "precios") return base + `En doce meses, la canasta básica total ${cambioPct(ECB.ia_cbt)} y la alimentaria ${cambioPct(ECB.ia_cba)}, ` +
+      `y los precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;
+    return base + `Por adulto equivalente, en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +
+      `${n0(ECB.reg_min[1])} pesos en ${REG_ART[ECB.reg_min[0]]} a ${n0(ECB.reg_max[1])} en ${REG_ART[ECB.reg_max[0]]}.`;
+  },
+  "salario-real": () => `En los doce meses hasta ${ESR.mes}, según el índice de salarios del INDEC, el salario de los asalariados registrados del sector ` +
+    `privado ${cambioPct(ESR.nom_priv)} y el del sector público, ${pct(ESR.nom_pub)}, y los precios subieron ${pct(ESR.ipc)}. Descontada la inflación, el ` +
+    `salario registrado privado ${cambioPct(ESR.real_priv)} y el público ${cambioPct(ESR.real_pub)}. Frente a ${ESR.base}, en pesos de igual valor, el privado ` +
+    `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
+    `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie, descontada la inflación, fue el de ${ESR.max_priv_mes} ` +
+    `y el más bajo, el de ${ESR.min_priv_mes}.`,
+  emae: v => {
+    if (v === "sector") return `En los doce meses hasta ${EMA.mes}, frente a los doce anteriores, crecieron ${EMA.sec_suben} de los 15 sectores de la economía, ` +
+      `según el INDEC. Los que más crecieron fueron ${EMA.sec_max[0]}, ${pct(EMA.sec_max[1])}, y ${EMA.sec_max2[0]}, ${pct(EMA.sec_max2[1])}. ` +
+      (EMA.sec_min[1] < 0 ? `El que más cayó fue ${EMA.sec_min[0]}, ${pct(-EMA.sec_min[1])}.` : `El que menos creció fue ${EMA.sec_min[0]}, ${pct(EMA.sec_min[1])}.`) +
+      ` Toda la economía, ${pct(EMA.doce)}.`;
+    return `En ${EMA.mes}, la actividad económica ${cambioPct(EMA.interanual)} frente a ${EMA.mes_ant} y ${yCambio(EMA.interanual, EMA.mensual_desest)} frente al mes anterior, ` +
+      `sin el efecto de la época del año, según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año ${cambioPct(EMA.en_el_anio.var)} ` +
+      `frente a los mismos meses del año anterior, y en los últimos doce meses, ${cambioPct(EMA.doce)}. En ${EMA.anio_ult}, ${cambioPct(EMA.anual)}.`;
   },
   // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes,
   // y desde la etapa 22 año por año desde el primer año completo de la Resolución 1104/2004, en pesos del último año con deflactor
@@ -793,6 +862,33 @@ const TX = {
     `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia: ` +
     `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
     `El salto de 2004 viene del dato de la provincia de Buenos Aires de ese año, mucho más alto que el de los años vecinos.`,
+  // ---- economía y precios (etapa 25)
+  inflacion: LEAD.inflacion("doce"), "inflacion-nota": `Índice de precios al consumidor del INDEC, base diciembre de 2016 = 100: mide cuánto cambia el costo de una ` +
+    `canasta fija de bienes y servicios que compran los hogares de las ciudades del país. Las variaciones del mes y de doce meses son las que publica el INDEC, con ` +
+    `un decimal, y la de lo que va del año sale del índice. El índice del país empieza en diciembre de 2016: no hay uno anterior para todo el país. Las regiones son ` +
+    `grupos de ciudades donde se relevan los precios. El Gran Buenos Aires es la Ciudad de Buenos Aires y los 24 partidos que la rodean. La región Pampeana reúne el ` +
+    `resto de la provincia de Buenos Aires, con el Gran La Plata, y Córdoba, Entre Ríos, La Pampa y Santa Fe. Las demás reúnen estas provincias: Noreste (Corrientes, ` +
+    `Chaco, Formosa y Misiones), Noroeste (Catamarca, Jujuy, La Rioja, Salta, Santiago del Estero y Tucumán), Cuyo (Mendoza, San Juan y San Luis) y Patagonia (Chubut, ` +
+    `Neuquén, Río Negro, Santa Cruz y Tierra del Fuego). Con una provincia elegida, el gráfico muestra su región.`,
+  "inflacion-rubros": LEAD["inflacion-rubros"]("division"), "inflacion-rubros-nota": `Variación de los precios de cada rubro en los doce meses hasta ${EIP.mes}, ` +
+    `en todo el país, según el INDEC. Los rubros son las doce divisiones de la clasificación del consumo que usa el índice. Los precios regulados son los de los ` +
+    `combustibles para la vivienda, la electricidad, el agua, los sistemas de salud, el transporte público, el funcionamiento y el mantenimiento de los vehículos, ` +
+    `con la nafta, el correo, el teléfono, la educación formal y los cigarrillos. Los estacionales, los de las frutas, las verduras, la ropa exterior, el transporte ` +
+    `por turismo y el alojamiento. La inflación núcleo es la de los demás. La tabla tiene también la variación de cada rubro en las seis regiones.`,
+  canastas: LEAD.canastas("region"), "canastas-nota": `Canasta básica alimentaria: los alimentos que cubren las necesidades de energía y de proteínas de un varón ` +
+    `adulto de actividad moderada, el adulto equivalente. La canasta básica total suma los demás bienes y servicios, como la ropa, el transporte, la educación y la ` +
+    `salud. Las dos se valorizan con los precios del índice de precios al consumidor. Un hogar es pobre si sus ingresos no alcanzan para su canasta básica total, e ` +
+    `indigente si no alcanzan para la alimentaria. Lo que necesita cada hogar depende de cuántas personas lo forman, su edad y su sexo: el hogar de cuatro ` +
+    `integrantes del ejemplo del INDEC equivale a ${n2(ECB.adultos_hogar)} adultos equivalentes. Las canastas de las seis regiones salen cada semestre, con el informe ` +
+    `de pobreza del INDEC: la última es de ${ECB.reg_mes}. Cuántas personas son pobres está en Pobreza y hogares.`,
+  "salario-real": LEAD["salario-real"](), "salario-real-nota": `Índice de salarios del INDEC dividido por el índice de precios al consumidor del país, con ` +
+    `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
+    `cobra en promedio cada persona. El del sector privado no registrado no se compara con los precios del mismo mes, porque sale de la Encuesta Permanente de ` +
+    `Hogares y llega con cinco meses de rezago. Los salarios promedio de cada provincia están en Trabajo y finanzas.`,
+  emae: LEAD.emae("mes"), "emae-nota": `Estimador Mensual de Actividad Económica del INDEC, base 2004 = 100: un indicador provisorio de cómo ` +
+    `cambia el producto interno bruto a precios constantes, que se arma con información parcial. El INDEC revisa la serie completa con cada publicación. La serie sin ` +
+    `estacionalidad quita el efecto de la época del año, para comparar un mes con el anterior. Por sector, los últimos doce meses frente a los doce anteriores, ` +
+    `porque algunos, como la pesca y el agro, cambian mucho de un mes a otro. Sin los impuestos netos de subsidios, que el INDEC suma al total.`,
   combustibles: LEAD.combustibles("nafta", "prov"), "combustibles-nota": `La mediana de los precios en el surtidor que cada estación de servicio declara para el mes a la Secretaría de Energía ` +
     `(Resolución 1104/2004): la mitad de las estaciones cobra más y la otra mitad, menos. Solo la venta al público en bocas de expendio con movimiento en el mes, y sin los precios ` +
     `que se alejan a menos de la mitad o a más del doble de la mediana del país, en su mayoría cargados divididos por mil. La nafta súper es la de 92 a 95 octanos y el gasoil, el de grado 2. ` +
@@ -1018,8 +1114,12 @@ function lineas(el, cfg) {
   const y = d3.scaleLinear().domain([cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  // en las series mensuales, un año en cada marca (en el celular, uno cada dos), y si son muchos años, uno cada dos o cada cuatro (etapa 25:
+  // el EMAE desde 2004 amontonaba 23 años)
+  const anios = d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1);
+  const paso = angosto ? Math.max(2, Math.ceil(anios.length / 6)) : Math.max(1, Math.ceil(anios.length / 12));
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(cfg.mensual
-    ? d3.axisBottom(x).tickValues(d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1).filter(v => !angosto || v % 2 === 0)).tickFormat(d3.format("d")).tickSizeOuter(0)
+    ? d3.axisBottom(x).tickValues(anios.filter(v => v % paso === 0)).tickFormat(d3.format("d")).tickSizeOuter(0)
     : d3.axisBottom(x).ticks(angosto ? 4 : 7).tickFormat(d3.format("d")).tickSizeOuter(0));
   if (cfg.ref != null) {
     g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(cfg.ref)).attr("y2",y(cfg.ref)).attr("stroke",css("--faint")).attr("stroke-width",1).attr("stroke-dasharray", cfg.refLab ? "4 4" : null);
@@ -1049,7 +1149,7 @@ function lineas(el, cfg) {
   for (let i = 1; i < etiquetas.length; i++) if (etiquetas[i].y - etiquetas[i-1].y < 32) etiquetas[i].y = etiquetas[i-1].y + 32;
   etiquetas.forEach(l => {
     const t = fin.append("text").attr("x", iw + 10).attr("y", l.y - 4).attr("class","etq-fuerte").style("fill", l.s.c);
-    t.append("tspan").text(l.s.lab);
+    t.append("tspan").text(l.s.corto || l.s.lab);
     t.append("tspan").attr("x", iw + 10).attr("dy", 15).attr("class","etq-suave").text((cfg.vf || n0)(l.v));
   });
   if (cfg.anim) aparecer(fin, 800);
@@ -1196,7 +1296,7 @@ function barrasH(el, cfg) {
   // (cfg.ref es la línea del país en el gráfico, cfg.pais el valor sin línea). Con cfg.dif = "puntos", también la diferencia en puntos.
   // Sin cuadro en el gráfico de suicidios (cfg.sinTip)
   const vf = cfg.vf || n1, pais = cfg.ref ?? cfg.pais, r1v = v => +(+v).toFixed(1);
-  const filaPais = d => pais == null ? "" : `<br><span class="tip-pais">País: ${vf(pais)}` + (cfg.dif === "puntos" && r1v(d[cfg.k]) !== r1v(pais)
+  const filaPais = d => pais == null ? "" : `<br><span class="tip-pais">${cfg.paisLab || "País"}: ${vf(pais)}` + (cfg.dif === "puntos" && r1v(d[cfg.k]) !== r1v(pais)
     ? `, ${n1(Math.abs(r1v(d[cfg.k]) - r1v(pais)))} puntos ${r1v(d[cfg.k]) > r1v(pais) ? "más" : "menos"}` : "") + "</span>";
   const tipFila = cfg.sinTip ? null : cfg.tip ? (d => cfg.tip(d) + filaPais(d)) : pais != null ? (d => `<b>${d.territorio}</b><br>${vf(d[cfg.k])}` + filaPais(d)) : null;
   if (tipFila) {
@@ -1812,7 +1912,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
+Object.assign(MED, {inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
   delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
@@ -2212,6 +2312,77 @@ Object.assign(DIB, {
     $t("carceles").textContent = txt;
     lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "tasa", lab: "Todo el país", c: NAR}]});
   },
+  // inflación (etapa 25): en doce meses o mes a mes, el país y la región de la provincia elegida, o las seis regiones en el último mes
+  inflacion: conTablas("inflacion", () => MED.inflacion === "region" ? [] : ["inflacion_mensual"], a => {
+    const v = MED.inflacion, el = G("inflacion"), regs = REG_IPC[prov] || [];
+    let txt = LEAD.inflacion(v);
+    if (v === "region") {
+      txt += enSuRegion(T.inflacion_regiones, "interanual", pct);
+      $t("inflacion").textContent = txt;
+      const data = T.inflacion_regiones.filter(r => r.codigo !== "nacional").map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, ia: r.interanual,
+        m: r.mensual, anio: r.en_el_anio}));
+      barrasH(el, {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `País ${pct(EIP.interanual)}`, l: 150, lAngosto: 128,
+        marcar: new Set(regs.map(r => "r-" + r)),
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.ia)} en los doce meses hasta ${EIP.mes}<br>${pct(d.m)} en el mes<br>${pct(d.anio)} en lo que va del año`});
+      el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
+      return;
+    }
+    const k = v === "mes" ? "mensual" : "interanual";
+    txt += enSuRegion(T.inflacion_regiones, v === "mes" ? "mensual" : "interanual", pct);
+    $t("inflacion").textContent = txt;
+    const nom = Object.fromEntries(T.inflacion_regiones.map(r => [r.codigo, r.region]));
+    const data = T.inflacion_mensual.filter(r => r[k] != null).map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r[k],
+      ...Object.fromEntries(regs.map(g => [g, r[k + "_" + g]]))}));
+    lineas(el, {anim: a, data, x: "t", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.periodo), mensual: true,
+      series: [{k: "pais", lab: "Todo el país", c: NAR}, ...regs.map((g, i) => ({k: g, lab: nom[g], c: i ? css("--sol-borde") : FRI}))]});
+  }),
+  // inflación por rubro (etapa 25): las doce divisiones, las tres categorías o los bienes y los servicios, en los doce meses hasta el último mes
+  "inflacion-rubros": a => {
+    const g = MED["inflacion-rubros"];
+    $t("inflacion-rubros").textContent = LEAD["inflacion-rubros"](g);
+    // los códigos van con una letra delante: un código de rubro no tiene que coincidir con el de la provincia elegida
+    const data = T.inflacion_rubros.filter(r => r.grupo === g).map(r => ({codigo_indec: "i" + r.codigo, territorio: r.rubro, corto: r.corto, ia: r.interanual, m: r.mensual}));
+    barrasH(G("inflacion-rubros"), {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `Nivel general ${pct(EIP.interanual)}`,
+      paisLab: "Nivel general", l: g === "division" ? 236 : 150, lAngosto: 150, corto: d => d.corto,
+      tip: d => `<b>${d.territorio}</b><br>${pct(d.ia)} en los doce meses hasta ${EIP.mes}<br>${pct(d.m)} en el mes`});
+  },
+  // canastas básicas (etapa 25): las seis regiones en el último mes del informe semestral, o la del Gran Buenos Aires frente a los precios
+  canastas: conTablas("canastas", () => MED.canastas === "precios" ? ["canasta_mensual"] : [], a => {
+    const v = MED.canastas, el = G("canastas"), regs = REG_IPC[prov] || [];
+    let txt = LEAD.canastas(v);
+    if (v === "precios") {
+      $t("canastas").textContent = txt;
+      const data = T.canasta_mensual.filter(r => r.interanual_cbt != null).map(r => ({periodo: r.periodo, t: tPer(r.periodo), cbt: r.interanual_cbt,
+        cba: r.interanual_cba, ipc: r.interanual_ipc_gba}));
+      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.periodo), mensual: true,
+        series: [{k: "cbt", lab: "Canasta básica total", corto: "Total", c: NAR}, {k: "cba", lab: "Canasta básica alimentaria", corto: "Alimentaria", c: FRI},
+          {k: "ipc", lab: "Precios del Gran Buenos Aires", corto: "Precios", c: css("--muted"), dash: "4 3"}]});
+    }
+    txt += enSuRegion(T.canasta_regiones, "cbt", v => n0(v) + " pesos por adulto equivalente");
+    $t("canastas").textContent = txt;
+    const data = T.canasta_regiones.map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, cbt: r.cbt, cba: r.cba, ia: r.interanual_cbt}));
+    barrasH(el, {anim: a, data, k: "cbt", vf: n0, af: v => n0(v / 1000) + " mil", l: 150, lAngosto: 128, marcar: new Set(regs.map(r => "r-" + r)),
+      tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.cbt)} pesos<br>Canasta básica alimentaria: ${n0(d.cba)} pesos` +
+        (d.ia != null ? `<br>La total, en doce meses: ${cambioPct(d.ia)}` : "")});
+    el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
+  }),
+  // salarios registrados descontada la inflación (etapa 25): índice del INDEC dividido por el IPC, diciembre de 2016 = 100
+  "salario-real": conTablas("salario-real", () => ["salario_real_mensual"], a => {
+    $t("salario-real").textContent = LEAD["salario-real"]();
+    lineas(G("salario-real"), {anim: a, data: T.salario_real_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
+      xl: r => mesPer(r.periodo), mensual: true, series: [{k: "privado", lab: "Privado registrado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]});
+  }),
+  // actividad económica (etapa 25): el EMAE sin estacionalidad mes a mes, o cada sector en los últimos doce meses
+  emae: conTablas("emae", () => MED.emae === "mes" ? ["actividad_mensual"] : [], a => {
+    const v = MED.emae, el = G("emae");
+    $t("emae").textContent = LEAD.emae(v);
+    if (v === "mes") return lineas(el, {anim: a, data: T.actividad_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
+      xl: r => mesPer(r.periodo), mensual: true, series: [{k: "desestacionalizada", lab: "Sin estacionalidad", corto: "Actividad", c: NAR}]});
+    const data = T.actividad_sectores.map(r => ({codigo_indec: "s" + r.letra, territorio: r.sector, corto: r.corto, v: r.doce_meses, ia: r.interanual}));
+    barrasH(el, {anim: a, data, k: "v", vf: pct, af: v => n0(v) + "%", ref: EMA.doce, refLab: `Toda la economía ${pct(EMA.doce)}`, paisLab: "Toda la economía",
+      l: 236, lAngosto: 150, corto: d => d.corto,
+      tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} en los doce meses hasta ${EMA.mes}, frente a los doce anteriores<br>${pct(d.ia)} en el mes, frente a ${EMA.mes_ant}`});
+  }),
   combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
     const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
     let txt = LEAD.combustibles(p, MED["combustibles-vista"]);
@@ -3725,6 +3896,11 @@ const CLAVE = {
   "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`],
   "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`],
   "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
+  "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`],
+  "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`],
+  "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`],
+  "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`],
+  "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`],
   "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
   "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
   "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
@@ -3796,6 +3972,7 @@ const EXTRA = {
   "x-emp-saldo": ["f-dinamica-empresas", `${EM.positivas} de 24`, `jurisdicciones abrieron más empresas de las que cerraron en ${EM.ult}. En el país abrieron ${n1(EM.te)} y cerraron ${n1(EM.ts)} de cada 100`],
   "x-emp-negativos": ["f-dinamica-empresas", n0(EM.anios_negativos), `años con más cierres que aperturas de empresas desde ${EM.ini}, entre ellos ${lista(EM.ultimos_negativos.map(String))}`],
   "x-hurtos": ["f-robos", n0(SG.hurtos), `hurtos registrados cada 100.000 habitantes en ${SG.anio}. En ${SG.anio - 1}, ${n0(SG.hurtos_ant)}`],
+  "x-inflacion-mes": ["f-inflacion", pct(EIP.mensual), `subieron los precios al consumidor en ${EIP.mes} frente al mes anterior, según el INDEC`],
   "x-indigencia": ["f-pobreza", pct(R.pobreza.ind), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de indigencia en el ${R.pobreza.sem}`],
   "x-ev-brecha": ["f-esperanza", `${n1(nv.ev_m - nv.ev_v)} años`, `más es la esperanza de vida al nacer de las mujeres que la de los varones: ${n1(nv.ev_m)} contra ${n1(nv.ev_v)}, ${nv.ev_anio}`],
   "x-mi-reducibles": ["f-causas-infantiles", pct(R.mi_causas.reducibles.neonatal), `de las muertes de menores de 28 días de ${R.mi_causas.reducibles.anio} eran reducibles con prevención, diagnóstico o tratamiento oportunos`],
@@ -3822,6 +3999,7 @@ const EXTRA = {
 const EN_CIFRAS = {
   construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "f-trabajadores", "x-viviendas-construccion", "f-insumos"],
   trabajo: ["f-empleo", "f-salarios", "f-rotacion", "f-exportaciones", "f-fiscal"],
+  economia: ["f-inflacion", "x-inflacion-mes", "f-canastas", "f-salario-real", "f-emae"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
   salud: ["f-esperanza", "x-ev-brecha", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
@@ -4397,6 +4575,12 @@ const PREG = [
    `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
   ["¿Cuántos homicidios hay por año?",
    `En ${SG.anio}, ${n0(SG.hom_victimas)} víctimas de homicidios dolosos, ${n1(SG.hom_tasa)} cada 100.000 habitantes. En ${SG.hom_max_anio}, el año más alto desde ${SG.anio_ini}, ${n1(SG.hom_max)}.`, "#f-homicidios"],
+  ["¿Cuánto subieron los precios en el último año?",
+   `${pct(EIP.interanual)} en los doce meses hasta ${EIP.mes}, según el INDEC, y ${pct(EIP.mensual)} en el mes. La región con la suba más alta, ${REG_ART[EIP.reg_max[0]]}, con ${pct(EIP.reg_max[1])}.`, "#f-inflacion"],
+  ["¿Cuánto necesita un hogar para no ser pobre?",
+   `${n0(ECB.cbt_hogar)} pesos por mes en ${ECB.mes}, un hogar de cuatro integrantes del Gran Buenos Aires, según la canasta básica total del INDEC.`, "#f-canastas"],
+  ["¿Le ganan los salarios a la inflación?",
+   `En los doce meses hasta ${ESR.mes}, descontada la inflación, el salario registrado del sector privado ${cambioPct(ESR.real_priv)} y el del sector público ${cambioPct(ESR.real_pub)}.`, "#f-salario-real"],
   ["¿Cuántas personas están presas?",
    `Al 31 de diciembre de ${SG.sn_anio}, ${n0(SG.sn_personas)} personas en cárceles, ${n0(SG.sn_tasa)} cada 100.000 habitantes. En ${SG.sn_ini}, ${n0(SG.sn_personas_ini)}.`, "#f-carceles"],
   ["¿Qué parte de la electricidad usan las industrias?",
@@ -5141,6 +5325,12 @@ const SERIE_CIFRA = {
   "x-hurtos": () => serieM("Hurtos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.hurtos]), n0),
   "f-delitos": () => serieM("Delitos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.total]), n0),
   "f-carceles": () => serieM("Personas privadas de libertad cada 100.000 habitantes", T.carceles_serie.map(r => [r.anio, r.tasa]), n0),
+  // economía y precios (etapa 25): los últimos diez meses de cada cifra
+  "f-inflacion": () => serieM("Inflación en doce meses, mes a mes", EIP.mini_ia.map(([p, v]) => [mesCorto(p), v]), pct),
+  "x-inflacion-mes": () => serieM("Inflación de cada mes", EIP.mini_m.map(([p, v]) => [mesCorto(p), v]), pct),
+  "f-canastas": () => serieM("Canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires, pesos", ECB.mini.map(([p, v]) => [mesCorto(p), v]), n0),
+  "f-salario-real": () => serieM("Salario registrado privado descontada la inflación, cambio en doce meses", ESR.mini.map(([p, v]) => [mesCorto(p), v]), pct),
+  "f-emae": () => serieM("Actividad económica, cambio frente al mismo mes del año anterior", EMA.mini.map(([p, v]) => [mesCorto(p), v]), pct),
   "f-electricidad-provincias": () => provM(`Electricidad de los hogares, kWh por habitante en ${e.el_ult}`, T.electricidad_provincias, "kwh_hab", e.el_pais, n0),
   "f-subsidios": () => serieM("Subsidios económicos a la energía, % del PBI de cada año", T.subsidios_energia.map(r => [r.anio, r.pct_pbi]), v => n2(v) + "%"),
   "f-hidro-provincias": () => provM("Petróleo, miles de barriles por día, doce meses más recientes", T.hidrocarburos_provincias, "pet_kbd", null, n0),

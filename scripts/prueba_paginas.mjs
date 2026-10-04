@@ -13,8 +13,8 @@ import { abrirChrome, espera } from "./cdp.mjs";
 const SITIO = normalize(fileURLToPath(new URL("../sitio/", import.meta.url)));
 // páginas que solo redirigen a otra
 const SALTEAR = new Set(["emprendedores.html"]);
-// las 15 secciones con "En cifras" y dos provincias para probarla: Neuquén (con la aclaración de Aprender) y la Ciudad (con la de empleo)
-const SECCIONES = ["trabajo", "empresas", "pobreza", "salud", "seguridad", "educacion", "poblacion", "politica", "movilidad", "construccion", "energia", "petroleo",
+// las 16 secciones con "En cifras" y dos provincias para probarla: Neuquén (con la aclaración de Aprender) y la Ciudad (con la de empleo)
+const SECCIONES = ["trabajo", "economia", "empresas", "pobreza", "salud", "seguridad", "educacion", "poblacion", "politica", "movilidad", "construccion", "energia", "petroleo",
   "turismo", "naturaleza", "curiosidades"];
 const PROVINCIAS = ["58", "02"];
 

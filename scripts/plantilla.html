@@ -48,7 +48,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
+      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
     </div>
     <div class="menu-col">
       <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
@@ -288,6 +288,73 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="fiscal" data-forma="barras"></div>
       <p class="nota" data-t="fiscal-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
+  <section class="tema" id="economia">
+    <h2>Economía y precios</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>
+      <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica. Todos los datos son del INDEC. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo y finanzas</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
+    </div>
+    <!--EXPLICADOR:economia-->
+
+    <article class="ficha" id="f-inflacion">
+      <h3>Inflación del país y de sus seis regiones, mes a mes y en doce meses, {{economia.ipc.anio_ini}} a {{economia.ipc.anio}}</h3>
+      <p class="lead" data-t="inflacion"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion" style="--n:3">
+        <button type="button" data-m="doce" aria-pressed="true">Doce meses</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+        <button type="button" data-m="region" aria-pressed="false">Por región</button>
+      </div>
+      <div class="grafico" data-g="inflacion" data-forma="lineas"></div>
+      <p class="nota" data-t="inflacion-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-inflacion-rubros">
+      <h3>Inflación por rubro en los doce meses hasta {{economia.ipc.mes}}</h3>
+      <p class="lead" data-t="inflacion-rubros"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros">
+        <button type="button" data-m="division" aria-pressed="true">Rubros</button>
+        <button type="button" data-m="categoria" aria-pressed="false">Categorías</button>
+      </div>
+      <div class="grafico" data-g="inflacion-rubros" data-forma="barras" style="--filas:12"></div>
+      <p class="nota" data-t="inflacion-rubros-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_rubros.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-canastas">
+      <h3>Canasta básica alimentaria y canasta básica total, por región y mes a mes, {{economia.canasta.anio_ini}} a {{economia.canasta.anio}}</h3>
+      <p class="lead" data-t="canastas"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="canastas">
+        <button type="button" data-m="region" aria-pressed="true">Por región</button>
+        <button type="button" data-m="precios" aria-pressed="false">Mes a mes</button>
+      </div>
+      <div class="grafico" data-g="canastas" data-forma="barras" style="--filas:6"></div>
+      <p class="nota" data-t="canastas-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia</span><a href="datos/canasta_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-salario-real">
+      <h3>Salarios registrados del sector privado y del sector público descontada la inflación, {{economia.salarios.anio_ini}} a {{economia.salarios.anio}}</h3>
+      <p class="lead" data-t="salario-real"></p>
+      <div class="grafico" data-g="salario-real" data-forma="lineas"></div>
+      <p class="nota" data-t="salario-real-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Índice de salarios e Índice de precios al consumidor</span><a href="datos/salario_real_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-emae">
+      <h3>Actividad económica mes a mes y por sector, {{economia.actividad.desde}} a {{economia.actividad.anio}}</h3>
+      <p class="lead" data-t="emae"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="emae">
+        <button type="button" data-m="mes" aria-pressed="true">Mes a mes</button>
+        <button type="button" data-m="sector" aria-pressed="false">Por sector</button>
+      </div>
+      <div class="grafico" data-g="emae" data-forma="lineas"></div>
+      <p class="nota" data-t="emae-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Estimador Mensual de Actividad Económica</span><a href="datos/actividad_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
