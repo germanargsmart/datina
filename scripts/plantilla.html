@@ -744,6 +744,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Indicador Sintético de la Actividad de la Construcción (ISAC), publicado en datos.gob.ar</span><a href="datos/isac_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-permisos">
+      <h3>Superficie autorizada por los permisos de edificación, por mes, {{construccion.per_desde}} a {{construccion.per_mes}}</h3>
+      <p class="lead" data-t="permisos"></p>
+      <div class="grafico" data-g="permisos" data-forma="lineas"></div>
+      <p class="nota" data-t="permisos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, indicadores de coyuntura de la actividad de la construcción (permisos de edificación)</span><a href="datos/permisos_mensual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-insumos">
       <h3>Consumo aparente de insumos para la construcción, variación a {{construccion.ins_mes}}</h3>
       <p class="lead" data-t="insumos"></p>
@@ -801,6 +809,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="costo" data-forma="lineas"></div>
       <p class="nota" data-t="costo-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor</span><a href="datos/costo_construccion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-hipotecas">
+      <h3>Créditos hipotecarios UVA nuevos por mes, {{construccion.hip_desde}} a {{construccion.hip_mes}}</h3>
+      <p class="lead" data-t="hipotecas"></p>
+      <div class="grafico" data-g="hipotecas" data-forma="lineas"></div>
+      <p class="nota" data-t="hipotecas-nota"></p>
+      <div class="pie"><span>Fuentes: Banco Central de la República Argentina, préstamos en UVA (serie mensual), e INDEC, índice de precios al consumidor</span><a href="datos/hipotecas_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-vivienda">

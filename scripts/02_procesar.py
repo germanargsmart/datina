@@ -954,8 +954,26 @@ OCDE_META = {
     "gini": ("SI.POV.GINI", "el índice de Gini (0 es igualdad total y 100 desigualdad máxima)", "puntos", 1, "Plataforma de Pobreza y Desigualdad del Banco Mundial"),
     "secundaria": ("SE.SEC.CMPT.LO.ZS", "la tasa de finalización del ciclo básico de la secundaria", "% de la población en edad de terminarlo", 1, "Instituto de Estadística de la UNESCO"),
     "internet": ("IT.NET.USER.ZS", "el uso de internet", "% de la población", 1, "Unión Internacional de Telecomunicaciones"),
+    "credito_hogares": ("WS_TC", "el crédito a los hogares", "% del producto interno bruto", 1, "Banco de Pagos Internacionales"),
 }
-OCDE_DERIVADO = {"turistas": lambda: por_habitante("ST.INT.ARVL", 100), "pesca": lambda: por_habitante("ER.FSH.CAPT.MT", 1000)}
+# Crédito a los hogares (% del PBI) del Banco de Pagos Internacionales, al cuarto trimestre de cada año, para la ficha de créditos
+# hipotecarios (etapa 20). Publica 31 de los 38 miembros de la OCDE: el promedio es el de los que tienen dato.
+BIS_ISO3 = {"AR": "ARG", "AT": "AUT", "AU": "AUS", "BE": "BEL", "CA": "CAN", "CH": "CHE", "CL": "CHL", "CO": "COL", "CZ": "CZE", "DE": "DEU",
+            "DK": "DNK", "ES": "ESP", "FI": "FIN", "FR": "FRA", "GB": "GBR", "GR": "GRC", "HU": "HUN", "IE": "IRL", "IL": "ISR", "IT": "ITA",
+            "JP": "JPN", "KR": "KOR", "LU": "LUX", "MX": "MEX", "NL": "NLD", "NO": "NOR", "NZ": "NZL", "PL": "POL", "PT": "PRT", "SE": "SWE",
+            "TR": "TUR", "US": "USA"}
+
+
+def bis_hogares():
+    b = pd.read_csv(CRUDO / "bis_credito_hogares.csv")
+    b = b[b.periodo.str.endswith("Q4") & b.pais.isin(BIS_ISO3)]
+    return pd.DataFrame({"pais": b.pais.map(BIS_ISO3), "anio": b.periodo.str[:4].astype(int), "valor": b.pct_pbi})
+
+
+OCDE_FUENTE = {"credito_hogares": "Banco de Pagos Internacionales, crédito al sector privado no financiero (serie de crédito a los hogares)"}
+OCDE_VAR = {"credito_hogares": "bis_credito_hogares"}
+OCDE_DERIVADO = {"turistas": lambda: por_habitante("ST.INT.ARVL", 100), "pesca": lambda: por_habitante("ER.FSH.CAPT.MT", 1000),
+                 "credito_hogares": bis_hogares}
 ocde_filas, ocde_res = [], {}
 for k, (o_serie, frase, unidad, dec, origen) in OCDE_META.items():
     o_d = OCDE_DERIVADO[k]() if k in OCDE_DERIVADO else bm(o_serie)
@@ -973,7 +991,7 @@ for k, (o_serie, frase, unidad, dec, origen) in OCDE_META.items():
     o_u, o_p = o_comun.iloc[-1], o_comun.iloc[0]
     o_ult = o_mie[o_mie.anio == o_u.anio]
     ocde_res[k] = {
-        "serie": o_serie, "frase": frase, "unidad": unidad, "dec": dec, "origen": origen,
+        "serie": o_serie, "frase": frase, "unidad": unidad, "dec": dec, "origen": origen, "fuente": OCDE_FUENTE.get(k),
         "anio": int(o_u.anio), "arg": round(float(o_u.argentina), dec), "ocde": round(float(o_u.ocde_promedio), dec),
         "p25": round(float(o_u.ocde_p25), dec), "p75": round(float(o_u.ocde_p75), dec),
         "mediana": round(float(o_u.ocde_mediana), dec), "n": int(o_u.ocde_paises),
@@ -982,7 +1000,7 @@ for k, (o_serie, frase, unidad, dec, origen) in OCDE_META.items():
     }
     o_a = o_arg.reset_index().rename(columns={"anio": "periodo"})
     o_a["codigo_indec"], o_a["territorio"] = "00", "Argentina"
-    agregar(o_a, f"bm_{k}", unidad, f"Banco Mundial ({o_serie}), {origen}")
+    agregar(o_a, OCDE_VAR.get(k, f"bm_{k}"), unidad, OCDE_FUENTE.get(k, f"Banco Mundial ({o_serie}), {origen}"))
 ocde_tabla = pd.concat(ocde_filas, ignore_index=True)
 ocde_tabla = ocde_tabla[["indicador", "anio", "argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75", "ocde_paises"]]
 ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]] = ocde_tabla[["argentina", "ocde_promedio", "ocde_mediana", "ocde_p25", "ocde_p75"]].round(2)
@@ -2493,6 +2511,46 @@ OP_RES = {
 }
 obra_publica_serie = obra_publica_serie.round(1)
 
+# ---------------------------------------------------------------- permisos de edificación (INDEC) y créditos hipotecarios UVA (BCRA), etapa 20
+# Permisos: superficie cubierta autorizada para construcciones nuevas y ampliaciones en la nómina vigente de municipios del INDEC, desde
+# 2021 (las nóminas anteriores son otras muestras y no se unen). Sin serie desestacionalizada: se compara con el mismo mes del año
+# anterior, con los mismos meses y los últimos doce meses contra los doce anteriores.
+per_ = pd.read_csv(CRUDO / "indec_permisos.csv")
+_per_u = per_.iloc[-1]
+_per_ant = per_[per_.periodo == f"{int(_per_u.periodo[:4]) - 1}{_per_u.periodo[4:]}"]
+per_["m2_12m"] = per_.superficie_m2.rolling(12).mean()  # promedio de doce meses
+permisos_mensual = per_[["periodo", "superficie_m2", "m2_12m", "permisos"]].round({"m2_12m": 0})
+_mes_per = lambda p: f"{MES[int(p[5:7]) - 1]} de {p[:4]}"
+PER_RES = {
+    "per_mes": _mes_per(_per_u.periodo), "per_desde": int(per_.periodo.min()[:4]), "per_municipios": int(_per_u.municipios),
+    "per_m2": int(_per_u.superficie_m2), "per_permisos": int(_per_u.permisos),
+    "per_var": r1((_per_u.superficie_m2 / _per_ant.superficie_m2.iloc[0] - 1) * 100) if len(_per_ant) else None,
+    "per_ytd": en_lo_que_va(per_.periodo + "-01", per_.superficie_m2),
+    "per_12m": r1(per_.superficie_m2.iloc[-12:].sum() / 1e6), "per_12m_var": r1((per_.superficie_m2.iloc[-12:].sum() / per_.superficie_m2.iloc[-24:-12].sum() - 1) * 100),
+}
+# Créditos hipotecarios UVA acordados cada mes con el sector privado, en pesos del último mes con el IPC nacional del INDEC (que empieza
+# en diciembre de 2016: la serie va desde enero de 2017). En miles de millones de pesos.
+hip_ = pd.read_csv(CRUDO / "bcra_hipotecas_uva.csv")
+_hip_ipc = pd.read_csv(CRUDO / "ipc_nacional.csv").dropna()
+_hip_ipc = pd.Series(_hip_ipc.iloc[:, 1].values, index=_hip_ipc.indice_tiempo.str[:7])
+hip_ = hip_[(hip_.periodo >= "2017-01") & hip_.periodo.isin(_hip_ipc.index)].reset_index(drop=True)
+HIP_UM = hip_.periodo.max()
+hip_["miles_millones"] = hip_.monto_miles / 1e6 * _hip_ipc[HIP_UM] / hip_.periodo.map(_hip_ipc)
+_hip_u, _hip_max = hip_.iloc[-1], hip_.loc[hip_.miles_millones.idxmax()]
+_hip_ant = hip_[hip_.periodo == f"{int(HIP_UM[:4]) - 1}{HIP_UM[4:]}"]
+_hip_a = hip_.groupby(hip_.periodo.str[:4].astype(int)).agg(m=("miles_millones", "sum"), n=("miles_millones", "size"))
+_hip_a = _hip_a[_hip_a.n == 12].m
+hipotecas_mensual = hip_[["periodo", "miles_millones", "tasa"]].round({"miles_millones": 1, "tasa": 2})
+HIP_RES = {
+    "hip_mes": _mes_per(HIP_UM), "hip_desde": int(hip_.periodo.min()[:4]), "hip_ult": r1(_hip_u.miles_millones), "hip_tasa": r1(_hip_u.tasa),
+    "hip_var": r1((_hip_u.miles_millones / _hip_ant.miles_millones.iloc[0] - 1) * 100) if len(_hip_ant) and _hip_ant.miles_millones.iloc[0] > 0 else None,
+    "hip_max": r1(_hip_max.miles_millones), "hip_max_mes": _mes_per(_hip_max.periodo),
+    "hip_ytd": en_lo_que_va(hip_.periodo + "-01", hip_.miles_millones),
+    "hip_anio": int(_hip_a.index.max()), "hip_anual": r1(_hip_a.iloc[-1]),
+    "hip_anual_max_anio": int(_hip_a.idxmax()), "hip_anual_max": r1(_hip_a.max()),
+    "hip_anual_min_anio": int(_hip_a.idxmin()), "hip_anual_min": r1(_hip_a.min()),
+}
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -2976,6 +3034,8 @@ tablas = {
     "isac_insumos": isac_insumos,
     "obra_publica_provincias": obra_publica_provincias,
     "obra_publica_serie": obra_publica_serie,
+    "permisos_mensual": permisos_mensual,
+    "hipotecas_mensual": hipotecas_mensual,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -3371,6 +3431,7 @@ resumen["construccion"] = {
     "gas_nea": [CORTO[c] for c in _vp[_vp.pct_gas_red < 5].index], "gas_nea_max": r1(_vp[_vp.pct_gas_red < 5].pct_gas_red.max()) if (_vp.pct_gas_red < 5).any() else None,
     "gas_mas_90": [CORTO[c] for c in _vp[_vp.pct_gas_red >= 85].index],
     **OP_RES,  # obra pública de la Nación por provincia
+    **PER_RES, **HIP_RES,  # permisos de edificación y créditos hipotecarios UVA
 }
 resumen["cruces"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                      for k, v in CRUCES_META.items()]

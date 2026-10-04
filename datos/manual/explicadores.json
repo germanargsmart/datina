@@ -1852,6 +1852,27 @@
     ]
    },
    {
+    "titulo": "Los permisos de edificación",
+    "texto": "Los permisos de edificación son las autorizaciones que dan los municipios para construir, y anticipan la actividad de la construcción de los meses siguientes. El INDEC publica cada mes la superficie cubierta que registran los permisos de construcciones nuevas y ampliaciones de una nómina de municipios, y la cantidad de permisos. No es el total del país ni se publica por provincia.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, actualización metodológica de los permisos de edificación",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/actualizacion_metodologica_permisos_edificacion.pdf",
+      "cita": "anticipan la futura actividad de la construcción"
+     },
+     {
+      "nombre": "INDEC, actualización metodológica de los permisos de edificación",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/actualizacion_metodologica_permisos_edificacion.pdf",
+      "cita": "total de superficie cubierta registrada para construcciones nuevas y ampliaciones, y a la cantidad de permisos otorgados"
+     },
+     {
+      "nombre": "INDEC, actualización metodológica de los permisos de edificación",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/actualizacion_metodologica_permisos_edificacion.pdf",
+      "cita": "de una nómina de 246 municipios"
+     }
+    ]
+   },
+   {
     "titulo": "El costo de construir",
     "texto": "El Índice del Costo de la Construcción (ICC) del INDEC mide cada mes cuánto varía el costo de construir edificios privados de vivienda en la Ciudad de Buenos Aires y los 24 partidos del conurbano. Se divide en tres capítulos: materiales, mano de obra y gastos generales. La mano de obra sigue el acuerdo salarial de la UOCRA, el sindicato de la construcción. La ficha divide el ICC por el índice de precios al consumidor (IPC) nacional del INDEC, así muestra si construir se encareció más o menos que el resto de los precios. La comparación empieza en diciembre de 2016, el mes base del IPC nacional.",
     "fuentes": [
@@ -1941,6 +1962,27 @@
       "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
       "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
       "cita": "refiere a la actividad principal de la empresa, el negocio, la institución o el lugar de trabajo"
+     }
+    ]
+   },
+   {
+    "titulo": "El crédito hipotecario",
+    "texto": "Un crédito hipotecario es un préstamo instrumentado con una hipoteca sobre un inmueble. La ficha muestra los que se dan en unidades de valor adquisitivo (UVA), cuyo valor se actualiza por el coeficiente de estabilización de referencia (CER). El Banco Central publica cada mes los montos acordados, pero no por provincia: su estadística de préstamos por localidad asigna cada préstamo a la sucursal que lo otorga.",
+    "fuentes": [
+     {
+      "nombre": "Banco Central, metodología de los préstamos y depósitos por localidad",
+      "url": "https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/metloc.pdf",
+      "cita": "Capitales de préstamos instrumentados directamente mediante hipoteca"
+     },
+     {
+      "nombre": "Banco Central, préstamos de UVA y UVI, serie mensual",
+      "url": "https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/finuva_mensual.xls",
+      "cita": "Unidades de Valor Adquisitivo (UVA) actualizables por"
+     },
+     {
+      "nombre": "Banco Central, metodología de los préstamos y depósitos por localidad",
+      "url": "https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/metloc.pdf",
+      "cita": "según la ubicación geográfica de la casa o sucursal otorgante del crédito"
      }
     ]
    },
@@ -2077,6 +2119,14 @@
    {
     "termino": "Transferencia de capital",
     "definicion": "Fondos que la Nación da a una provincia o un municipio para obras o equipos, sin que tengan que devolverlos."
+   },
+   {
+    "termino": "Permiso de edificación",
+    "definicion": "Autorización que da un municipio para hacer una obra privada, nueva o una ampliación."
+   },
+   {
+    "termino": "UVA",
+    "definicion": "Unidad de valor adquisitivo: una unidad que se actualiza por el coeficiente de estabilización de referencia (CER), usada en créditos y depósitos."
    }
   ]
  },

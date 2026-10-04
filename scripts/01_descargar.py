@@ -837,6 +837,92 @@ def gas_reino_unido():
     return url
 
 
+def permisos_edificacion():
+    """Superficie cubierta autorizada por los permisos de edificación privada (construcciones nuevas y ampliaciones) y cantidad de
+    permisos, por mes, en la nómina vigente de municipios del INDEC (etapa 20). Sale del Excel de los indicadores de coyuntura de la
+    construcción, cuyo nombre lleva el año (sh_isac_AAAA.xls): se prueba el del año en curso y, si todavía no está, el del anterior. Se usa
+    el cuadro de la nómina vigente (el que no dice "Período" en el título): las nóminas anteriores son otras muestras y no se unen."""
+    import io, pandas as pd
+    meses = {m: i + 1 for i, m in enumerate(["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+                                             "octubre", "noviembre", "diciembre"])}
+    libro = url = None
+    for anio in (datetime.date.today().year, datetime.date.today().year - 1):
+        try:
+            url = f"https://www.indec.gob.ar/ftp/cuadros/economia/sh_isac_{anio}.xls"
+            libro = pd.read_excel(io.BytesIO(leer(url, 120)), sheet_name=None, header=None)
+            break
+        except Exception:
+            libro = None
+    if libro is None:
+        raise ValueError("no se encontró el Excel de los indicadores de coyuntura de la construcción")
+    for hoja in libro.values():
+        tit = str(hoja.iloc[0, 0])
+        n_mun = re.search(r"de (\d+) municipios", tit)
+        if "permisos de edificaci" in tit.lower() and n_mun and not re.search(r"per[ií]odo", tit, re.I):
+            break
+    else:
+        raise ValueError("no se encontró el cuadro de permisos de edificación de la nómina vigente")
+    filas, anio_f = [], None
+    for _, r in hoja.iterrows():
+        if isinstance(r[0], (int, float)) and not pd.isna(r[0]) and 1990 < r[0] < 2100:
+            anio_f = int(r[0])
+        mes = meses.get(re.sub(r"[^a-záéíóú]", "", str(r[1]).lower()))
+        if anio_f and mes and isinstance(r[2], (int, float)) and not pd.isna(r[2]):
+            filas.append({"periodo": f"{anio_f}-{mes:02d}", "superficie_m2": round(float(r[2])),
+                          "permisos": int(r[5]) if isinstance(r[5], (int, float)) and not pd.isna(r[5]) else None, "municipios": int(n_mun.group(1))})
+    d = pd.DataFrame(filas)
+    if len(d) < 48 or pd.Period(d.periodo.max(), "M") < pd.Period(pd.Timestamp.now(), "M") - 10:
+        raise ValueError("los permisos de edificación vinieron incompletos")
+    d.to_csv(CRUDO / "indec_permisos.csv", index=False)
+    return url
+
+
+def hipotecas_uva():
+    """Préstamos hipotecarios en UVA acordados cada mes con el sector privado (Banco Central, préstamos de UVA y UVI, serie mensual, hoja de
+    altas del sector privado), etapa 20: el monto en miles de pesos corrientes, sumando los tramos de monto, y la tasa promedio ponderada
+    por el monto. Las filas de total anual, que no tienen mes, se descartan (bcra_hipotecas_uva.csv)."""
+    import io, pandas as pd
+    url = "https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/finuva_mensual.xls"
+    d = pd.read_excel(io.BytesIO(leer(url, 120)), sheet_name="fin_altas_sector_privado", header=None)
+    enc = d.iloc[:12].ffill(axis=1).astype(str)
+    hip = [c for c in d.columns if enc[c].str.contains("Hipotecario").any()]
+    montos = [c for c in hip if enc[c].str.strip().eq("Monto").any()]
+    tasas = [c for c in hip if enc[c].str.contains("Tasa").any()]
+    if not montos or len(montos) != len(tasas):
+        raise ValueError("no se encontraron las columnas de los préstamos hipotecarios")
+    meses = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7, "ago": 8, "set": 9, "sep": 9, "oct": 10, "nov": 11, "dic": 12}
+    filas = []
+    for _, r in d.iterrows():
+        mes = meses.get(str(r[1]).strip().lower()[:3])
+        anio = re.match(r"(\d{4})", str(r[0]))
+        if not mes or not anio:
+            continue
+        m = [float(r[c]) if isinstance(r[c], (int, float)) and not pd.isna(r[c]) else 0 for c in montos]
+        t = [float(r[c]) if isinstance(r[c], (int, float)) and not pd.isna(r[c]) else 0 for c in tasas]
+        total = sum(m)
+        filas.append({"periodo": f"{anio.group(1)}-{mes:02d}", "monto_miles": round(total, 1),
+                      "tasa": round(sum(a * b for a, b in zip(m, t)) / total, 2) if total > 0 else None})
+    d = pd.DataFrame(filas)
+    if len(d) < 100 or pd.Period(d.periodo.max(), "M") < pd.Period(pd.Timestamp.now(), "M") - 6:
+        raise ValueError("los préstamos hipotecarios UVA vinieron incompletos")
+    d.to_csv(CRUDO / "bcra_hipotecas_uva.csv", index=False)
+    return url
+
+
+def bis_credito_hogares():
+    """Crédito a los hogares como porcentaje del PBI, trimestral, de todos los países que publica el Banco de Pagos Internacionales
+    (crédito total al sector privado no financiero, a valor de mercado y ajustado por quiebres de serie), para la comparación con la OCDE
+    de la ficha de créditos hipotecarios (etapa 20). Se guardan el país (código de dos letras), el trimestre y el valor."""
+    import io, pandas as pd
+    url = "https://stats.bis.org/api/v1/data/WS_TC/Q..H.A.M.770.A?format=csv&startPeriod=2000-Q1"
+    d = pd.read_csv(io.BytesIO(leer(url, 180)), usecols=["BORROWERS_CTY", "TIME_PERIOD", "OBS_VALUE"]).dropna()
+    d = d.rename(columns={"BORROWERS_CTY": "pais", "TIME_PERIOD": "periodo", "OBS_VALUE": "pct_pbi"})
+    if "AR" not in set(d.pais) or d.pais.nunique() < 30:
+        raise ValueError("el crédito a los hogares del BIS vino incompleto")
+    d.to_csv(CRUDO / "bis_credito_hogares.csv", index=False)
+    return url
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
@@ -844,7 +930,9 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("empleo por rama y provincia (OEDE)", oede_empleo), ("producción de petróleo y gas por país (EIA)", eia_internacional),
                     ("producción por pozo no convencional", pozos_no_convencionales),
                     ("centrales de generación eléctrica", centrales_electricas), ("gas entregado por provincia (ENARGAS)", gas_entregado),
-                    ("consumo de gas por medidor en Gran Bretaña (DESNZ)", gas_reino_unido)]:
+                    ("consumo de gas por medidor en Gran Bretaña (DESNZ)", gas_reino_unido),
+                    ("permisos de edificación (INDEC)", permisos_edificacion), ("créditos hipotecarios UVA (BCRA)", hipotecas_uva),
+                    ("crédito a los hogares por país (BIS)", bis_credito_hogares)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
