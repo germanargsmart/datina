@@ -4596,6 +4596,14 @@ const ART = [
     dek: "La conexión a internet en los hogares según el último censo, frente a los resultados de 6° grado en la evaluación Aprender.",
     contexto: "Internet en el hogar suele acompañar a otras ventajas, como más ingresos o más años de estudio de los adultos. Por eso este cruce sirve para ver una desigualdad, no para medir el efecto de internet en el aprendizaje.",
     limites: ["El cálculo propio de Aprender sobre la base agregada difiere levemente del informe oficial."]},
+  // etapa 24: la inversión por alumno (Coordinación de Evaluación de Costos Educativos) frente a Aprender
+  {id: "a-inversion-aprender", x: "gasto_alumno", y: "aprender_mat", espera: 1, frec: "Se actualiza cada año",
+    lx: "inversión en educación por alumno", ly: "matemática en Aprender", ux: "pesos por alumno de gestión estatal por año", uy: "% de 6° grado en nivel satisfactorio o avanzado",
+    dek: "Lo que invierte el Estado por cada alumno de las escuelas estatales de cada provincia, frente a los resultados de 6° grado en la evaluación Aprender.",
+    contexto: "La mayor parte de lo que se invierte en educación son los salarios docentes, y sostener escuelas cuesta distinto en cada territorio. Este cruce mira si las provincias que más invierten por alumno son también las que tienen mejores resultados en matemática.",
+    limites: ["La inversión está en pesos de cada año, sin ajustar por lo que cuesta vivir en cada provincia ni por el tamaño de las escuelas: donde hay pocos alumnos por escuela o los salarios son más altos, cada alumno cuesta más.",
+      "Aprender evalúa a los alumnos de 6° grado de las escuelas estatales y privadas, y la inversión cuenta solo a los de gestión estatal.",
+      "El cálculo propio de Aprender sobre la base agregada difiere levemente del informe oficial."]},
   {id: "a-milei-empleo", x: "empleo_privado", y: "voto_milei_2023", espera: 1, frec: "El empleo se actualiza cada mes",
     lx: "empleo privado registrado", ly: "voto a Milei en el balotaje", ux: "asalariados cada 100 habitantes", uy: "% de los votos positivos",
     dek: "Cómo se repartió el voto del balotaje presidencial según el peso del empleo privado registrado en cada provincia.",
@@ -4605,6 +4613,8 @@ const ART = [
 ];
 const META_CX = Object.fromEntries(R.cruces.map(m => [m.id, m]));
 const rTxt = r => n2(r).replace(/[-−]/, "menos ");
+// la primera letra en minúscula, salvo que el nombre empiece con un nombre propio (antes se bajaba todo: "voto a milei", etapa 24)
+const minusc = t => /^(Aprender|PISA|ATN)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
 const fuerzaArt = r => { const a = Math.abs(r); return a >= .6 ? "fuerte" : a >= .4 ? "moderada" : a >= .2 ? "débil" : "casi nula"; };
 // "% de los hogares" se pega al número (45,2%) y el resto de la unidad va después
 const partesU = u => u.startsWith("%") ? ["%", u.replace(/^%\s*/, "")] : ["", u];
@@ -4661,7 +4671,7 @@ ART.forEach(a => {
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
-    `<div class="nota-graf"><h3>${Mx.nombre} y ${My.nombre.toLowerCase()} por jurisdicción</h3><div class="grafico" data-g="${key}"></div>` +
+    `<div class="nota-graf"><h3>${Mx.nombre} y ${minusc(My.nombre)} por jurisdicción</h3><div class="grafico" data-g="${key}"></div>` +
     `<p class="nota-pie-graf">Cada punto es una jurisdicción. La línea punteada muestra la tendencia.</p></div>` +
     `<p>${t.extremos}</p><p>${t.excep}</p><p>${t.peso}</p>` +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
@@ -4856,7 +4866,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
