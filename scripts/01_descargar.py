@@ -159,6 +159,9 @@ FUENTES = {
     # Visitas mensuales a parques nacionales desde 2008 (SINTA)
     "sinta_visitas_parques.csv": ckan_id(YV, "parques-nacionales", "a570af75-ed33-427c-9797-980fc0cd8fd1",
         YV + "/dataset/458bcbe1-855c-4bc3-a1c9-cd4e84fedbbc/resource/a570af75-ed33-427c-9797-980fc0cd8fd1/download/visitas-residentes-y-no-residentes.csv"),
+    # Turistas residentes que viajan al exterior (turismo emisivo), mensual desde 2010, del mismo conjunto (etapa 24)
+    "sinta_turistas_residentes.csv": ckan_id(YV, "turismo-internacional-total-pais", "fd710cb7-1981-43ea-aba3-7a14c356446b",
+                                             "https://datos.yvera.gob.ar/dataset/4cbf7d4a-702a-4911-8c1e-717a45214902/resource/fd710cb7-1981-43ea-aba3-7a14c356446b/download/turistas-residentes-serie.csv"),
     # Turistas no residentes que llegan al pais, mensual desde 2010 (SINTA)
     "sinta_turistas_no_residentes.csv": ckan_id(YV, "turismo-internacional-total-pais", "fdfe0ae4-4acc-4421-aa48-6149a02bc615",
         YV + "/dataset/4cbf7d4a-702a-4911-8c1e-717a45214902/resource/fdfe0ae4-4acc-4421-aa48-6149a02bc615/download/turistas-no-residentes-serie.csv"),
@@ -338,6 +341,7 @@ VALIDA.update({
     "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500"),
     "inversion_trimestral.csv": lambda b: b.startswith(b"indice_tiempo,4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32"),
     "compras_dolares_privados.csv": lambda b: b.startswith(b"indice_tiempo,182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"),
+    "sinta_turistas_residentes.csv": lambda b: b"viajes_de_turistas_residentes" in b[:300],
     "sneep_poblacion.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf,total_arg" in b[:400],
     "sneep_condenados.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf," in b[:400],
 })
@@ -1191,9 +1195,10 @@ def cgecse_inversion():
 
 def tipo_cambio_real():
     """Índice de tipo de cambio real multilateral del BCRA (base 17 de diciembre de 2015 = 100), promedio de cada mes desde 1997 (etapa 22).
-    La planilla trae los valores de cada día y los promedios de cada mes de todos los índices bilaterales y pesa unos 4 MB: se guarda solo la
-    columna del índice multilateral de la hoja de promedios mensuales, que empieza debajo de la fila cuya primera celda dice Período. La copia
-    de la API de Series de Tiempo quedó en diciembre de 2024. El BCRA avisa que los datos son provisorios."""
+    La planilla trae los valores de cada día y los promedios de cada mes de todos los índices bilaterales y pesa unos 4 MB: se guardan solo el
+    índice multilateral y, desde la etapa 24, los bilaterales con Brasil, Chile, Uruguay, Estados Unidos y la zona del euro (el artículo de
+    turismo), de la hoja de promedios mensuales, que empieza debajo de la fila cuya primera celda dice Período. Las columnas se buscan por su
+    nombre. La copia de la API de Series de Tiempo quedó en diciembre de 2024. El BCRA avisa que los datos son provisorios."""
     import io, pandas as pd
     url = "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/ITCRMSerie.xlsx"
     datos = leer(url, 300)
@@ -1201,11 +1206,14 @@ def tipo_cambio_real():
         raise ValueError("la planilla del tipo de cambio real del BCRA no es un Excel")
     hoja = pd.read_excel(io.BytesIO(datos), sheet_name="ITCRM y bilaterales prom. mens.", header=None)
     fila = hoja.index[hoja.iloc[:, 0].astype(str).str.strip().str.lower().isin(["período", "periodo"])][0]
-    if str(hoja.iloc[fila, 1]).strip() != "ITCRM":
+    cab = [str(c).strip() for c in hoja.iloc[fila]]
+    bil = {"ITCRB Brasil": "brasil", "ITCRB Chile": "chile", "ITCRB Uruguay": "uruguay", "ITCRB Estados Unidos": "eeuu", "ITCRB Zona Euro": "euro"}
+    if cab[1] != "ITCRM" or any(k not in cab for k in bil):
         raise ValueError("la planilla del tipo de cambio real del BCRA cambió de formato")
-    d = hoja.iloc[fila + 1:, :2].set_axis(["mes", "itcrm"], axis=1)
+    d = hoja.iloc[fila + 1:, [0, 1] + [cab.index(k) for k in bil]].set_axis(["mes", "itcrm", *bil.values()], axis=1)
     d = d[pd.to_datetime(d.mes, errors="coerce").notna()]
-    d = d.assign(mes=pd.to_datetime(d.mes).dt.strftime("%Y-%m"), itcrm=pd.to_numeric(d.itcrm, errors="coerce")).dropna()
+    d = d.assign(mes=pd.to_datetime(d.mes).dt.strftime("%Y-%m"), **{c: pd.to_numeric(d[c], errors="coerce") for c in ["itcrm", *bil.values()]})
+    d = d.dropna(subset=["itcrm"])
     if len(d) < 300 or d.mes.max() < (datetime.date.today() - datetime.timedelta(days=100)).strftime("%Y-%m"):
         raise ValueError("la serie del tipo de cambio real del BCRA vino incompleta o vieja")
     d.round(4).to_csv(CRUDO / "bcra_itcrm.csv", index=False)

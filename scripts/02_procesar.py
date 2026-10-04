@@ -3178,6 +3178,65 @@ for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolo
 agregar(carceles_serie.rename(columns={"anio": "periodo", "personas": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "personas_privadas_de_libertad_establecimientos_penitenciarios", "personas al 31 de diciembre", "SNEEP, Ministerio de Justicia")
 
+# ---------------------------------------------------------------- artículo: el turismo y el dólar (etapa 24)
+# Por mes: los viajes de turistas no residentes que llegan al país (desde 2010) y de residentes que viajan al exterior (desde 2016), del SINTA,
+# frente al índice de tipo de cambio real multilateral del BCRA y al bilateral con Brasil, Chile y Uruguay (los países de los que llegan más
+# turistas de América del Sur). Las variaciones son contra el mismo mes del año anterior, porque los viajes tienen temporadas. Los meses de la
+# pandemia quedan fuera de las correlaciones principales, porque con las fronteras cerradas los viajes no dependían del dólar: la ventana sale de
+# los datos (los meses desde 2020 en que llegó menos de la mitad de los turistas del mismo mes de 2019, el año de referencia antes de la
+# pandemia), y también quedan afuera las variaciones cuyo mes de comparación cae en ella. Con la pandemia adentro, las correlaciones van como
+# control. Correlaciones de Spearman, como en los otros artículos. Sin años escritos a mano, salvo 2019, que es fijo.
+_tu_r = pd.read_csv(CRUDO / "sinta_turistas_no_residentes.csv").assign(mes=lambda x: x.indice_tiempo.str[:7])
+_tu_e = pd.read_csv(CRUDO / "sinta_turistas_residentes.csv").assign(mes=lambda x: x.indice_tiempo.str[:7])
+_tu_t = pd.read_csv(CRUDO / "bcra_itcrm.csv").set_index("mes")
+tu_ = pd.DataFrame({"llegan": _tu_r.groupby("mes").viajes_de_turistas_no_residentes.sum(), "salen": _tu_e.groupby("mes").viajes_de_turistas_residentes.sum()})
+for _tu_p, _tu_k in (("Brasil", "brasil"), ("Chile", "chile"), ("Uruguay", "uruguay")):
+    tu_["llegan_" + _tu_k] = _tu_r[_tu_r.pais_origen == _tu_p].groupby("mes").viajes_de_turistas_no_residentes.sum()
+tu_ = tu_.join(_tu_t[["itcrm", "brasil", "chile", "uruguay"]].add_prefix("tcr_"), how="inner")
+assert len(pd.period_range(tu_.index.min(), tu_.index.max(), freq="M")) == len(tu_), "faltan meses en el turismo internacional o en el tipo de cambio real"
+assert tu_.index.min() <= "2010-01" and tu_.salen.first_valid_index() <= "2016-01", "cambió el comienzo de las series de turismo internacional"
+# la pandemia, desde los datos
+_tu_19 = tu_.llegan[tu_.index.str[:4] == "2019"].set_axis(tu_.index[tu_.index.str[:4] == "2019"].str[5:7])
+_tu_w = [m for m in tu_.index if m >= "2020-01" and tu_.llegan[m] < .5 * _tu_19[m[5:7]]]
+assert _tu_w and len(pd.period_range(_tu_w[0], _tu_w[-1], freq="M")) == len(_tu_w), "la ventana de la pandemia no es seguida"
+tu_["pandemia"] = tu_.index.isin(_tu_w)
+for _tu_k in ("llegan", "salen", "llegan_brasil", "llegan_chile", "llegan_uruguay", "tcr_itcrm", "tcr_brasil", "tcr_chile", "tcr_uruguay"):
+    tu_["var_" + _tu_k] = (tu_[_tu_k] / tu_[_tu_k].shift(12) - 1) * 100
+# las variaciones válidas: ni el mes ni el de un año antes están en la pandemia
+tu_["var_valida"] = ~tu_.pandemia & ~tu_.pandemia.shift(12, fill_value=False)
+for _tu_k in ("llegan", "salen"):
+    tu_[_tu_k + "_12m"] = tu_[_tu_k].rolling(12).sum()
+tu_["balanza_12m"] = tu_.llegan_12m - tu_.salen_12m
+tu_["tcr_12m"] = tu_.tcr_itcrm.rolling(12).mean()
+# los doce meses que no tocan la pandemia
+tu_["doce_validos"] = tu_.pandemia.astype(int).rolling(12).max().eq(0)
+_tu_sp = lambda a, b, f: round(float(tu_.loc[f, [a, b]].dropna().rank().corr().iloc[0, 1]), 2) + 0.0
+_tu_n = lambda a, b, f: int(tu_.loc[f, [a, b]].dropna().shape[0])
+_tu_v, _tu_todas = tu_.var_valida, tu_.index == tu_.index
+turismo_dolar_mensual = tu_.reset_index().rename(columns={"index": "mes"}).round(4)
+_tu_u = tu_.iloc[-1]
+_tu_12 = tu_[tu_.index > tu_.index[-13]]
+TU_RES = {
+    "desde": _mes_per(tu_.index[0]), "desde_salen": _mes_per(tu_.salen.first_valid_index()), "ult": _mes_per(tu_.index[-1]),
+    "llegan_12m": int(_tu_u.llegan_12m), "salen_12m": int(_tu_u.salen_12m), "balanza_12m": int(_tu_u.balanza_12m),
+    "llegan_12m_max": int(tu_.llegan_12m.max()), "llegan_12m_max_mes": _mes_per(tu_.llegan_12m.idxmax()),
+    "salen_12m_max": int(tu_.salen_12m.max()), "salen_12m_max_mes": _mes_per(tu_.salen_12m.idxmax()),
+    "pand_ini": _mes_per(_tu_w[0]), "pand_fin": _mes_per(_tu_w[-1]), "pand_n": len(_tu_w),
+    "rs_llegan": _tu_sp("var_tcr_itcrm", "var_llegan", _tu_v), "rs_salen": _tu_sp("var_tcr_itcrm", "var_salen", _tu_v),
+    "n_llegan": _tu_n("var_tcr_itcrm", "var_llegan", _tu_v), "n_salen": _tu_n("var_tcr_itcrm", "var_salen", _tu_v),
+    "rs_llegan_con": _tu_sp("var_tcr_itcrm", "var_llegan", _tu_todas), "rs_salen_con": _tu_sp("var_tcr_itcrm", "var_salen", _tu_todas),
+    "rs_balanza": _tu_sp("tcr_12m", "balanza_12m", tu_.doce_validos), "n_balanza": _tu_n("tcr_12m", "balanza_12m", tu_.doce_validos),
+    "rs_brasil": _tu_sp("var_tcr_brasil", "var_llegan_brasil", _tu_v), "rs_chile": _tu_sp("var_tcr_chile", "var_llegan_chile", _tu_v),
+    "rs_uruguay": _tu_sp("var_tcr_uruguay", "var_llegan_uruguay", _tu_v),
+    "pct_brasil": r1(float(_tu_12.llegan_brasil.sum() / _tu_12.llegan.sum() * 100)),
+    # Brasil frente a las demás categorías de origen del SINTA (países y regiones, como Europa) en los últimos doce meses
+    "brasil_primero": bool(_tu_r[_tu_r.mes.isin(_tu_12.index)].groupby("pais_origen").viajes_de_turistas_no_residentes.sum().idxmax() == "Brasil"),
+    "tcr_vs_prom": r1(float(_tu_u.tcr_itcrm / tu_.tcr_itcrm.mean() * 100 - 100)), "tcr_ult": _mes_per(tu_.index[-1]),
+    "provisorio_desde": _mes_per(_tu_r[_tu_r.observaciones.fillna("").str.contains("provisori", case=False)].mes.min()),
+}
+agregar(pd.DataFrame({"periodo": tu_.index, "valor": tu_.salen}).dropna().assign(codigo_indec="00", territorio="Argentina"),
+        "viajes_turistas_residentes_al_exterior", "viajes por mes", "Ministerio de Turismo y Deportes, SINTA, estimacion de turismo internacional")
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3696,6 +3755,7 @@ tablas = {
     "seguridad_serie_prov": seguridad_serie_prov,
     "carceles_serie": carceles_serie,
     "carceles_provincias": carceles_provincias,
+    "turismo_dolar_mensual": turismo_dolar_mensual,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -4070,6 +4130,7 @@ resumen["salarios"] = SAL_RES  # salarios de los asalariados registrados privado
 resumen["docentes"] = DOC_RES  # salario de un maestro de grado por provincia (etapa 23)
 resumen["inversion_edu"] = INV_RES  # inversión en educación por alumno y por provincia (etapa 23)
 resumen["seguridad"] = SEG_RES  # delitos (SNIC) y personas privadas de libertad (SNEEP), etapa 23
+resumen["turismo_dolar"] = TU_RES  # artículo del turismo y el dólar (etapa 24)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

@@ -4798,6 +4798,71 @@ const ART_SERIE = [{
     "dolar-compras": (el, a) => lineas(el, {anim: a, x: "anio", y0: Math.min(0, d3.min(T.compras_dolares_anual, r => r.millones_usd)), ref: 0, vf: n0, yf: n0,
       data: T.compras_dolares_anual, series: [{k: "millones_usd", lab: "Compras netas", c: NAR}]}),
   },
+}, {
+  // etapa 24: el turismo internacional y el dólar real, mes por mes (SINTA y BCRA)
+  id: "a-turismo-dolar", frec: "Se actualiza cada mes", tablas: ["turismo_dolar_mensual"],
+  dek: "Cuántos turistas extranjeros llegan y cuántos residentes viajan al exterior, mes por mes, frente al dólar en términos reales.",
+  fichas: [["f-receptivo", "turistas extranjeros"]],
+  csv: [["turismo_dolar_mensual", "Descargar CSV por mes"]],
+  fuentes: "Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional (viajes de turistas no residentes y residentes), y Banco Central " +
+    "de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
+  texto: () => {
+    const t = R.turismo_dolar;
+    const respuesta = ab(t.rs_llegan) >= .4 && ab(t.rs_salen) >= .4 ? "Sí, en general." : ab(t.rs_llegan) >= .4 || ab(t.rs_salen) >= .4 ? "En parte." : "No hay un patrón claro.";
+    const salen = t.rs_salen < 0 ? "viajan menos" : "viajan más", llegan = t.rs_llegan > 0 ? "llegan más" : "llegan menos";
+    const bajada = `Cuando el dólar real sube frente al mismo mes del año anterior, ${salen} residentes al exterior y ${llegan} turistas extranjeros: ` +
+      `${dosRel(t.rs_salen, t.rs_llegan)}. Los meses de la pandemia, con las fronteras cerradas o con restricciones, no se cuentan.`;
+    const contexto = "Un dólar caro abarata los viajes a la Argentina para quien llega con otra moneda y encarece los viajes al exterior para quien cobra " +
+      "en pesos. Este artículo pone al lado, mes por mes, cuántos turistas extranjeros llegan, cuántos residentes viajan al exterior y el dólar en términos reales.";
+    const dif = t.balanza_12m < 0 ? `salieron ${n0(-t.balanza_12m)} más de los que llegaron` : `llegaron ${n0(t.balanza_12m)} más de los que salieron`;
+    const s1 = `En los doce meses hasta ${t.ult} llegaron ${n0(t.llegan_12m)} turistas extranjeros y viajaron al exterior ${n0(t.salen_12m)} residentes: ${dif}. ` +
+      `Las llegadas fueron las más altas de la serie en los doce meses hasta ${t.llegan_12m_max_mes}, con ${n0(t.llegan_12m_max)}, y las salidas, en los doce meses ` +
+      `hasta ${t.salen_12m_max_mes}, con ${n0(t.salen_12m_max)}. Entre ${t.pand_ini} y ${t.pand_fin} llegó menos de la mitad de los turistas que en el mismo mes ` +
+      `de 2019. En ${t.tcr_ult}, el dólar real estaba ${pctAbs(t.tcr_vs_prom)} ${t.tcr_vs_prom < 0 ? "por debajo" : "por encima"} de su promedio desde ${t.desde}.`;
+    const s2 = `Si se compara cada mes con el mismo mes del año anterior, cuando el dólar real sube, ${salen} residentes al exterior: la correlación de Spearman ` +
+      `entre los dos cambios es de ${rTxt(t.rs_salen)}, una relación ${fz(t.rs_salen)}, en una escala que va de menos 1 a 1. Para las llegadas de turistas ` +
+      `extranjeros es de ${rTxt(t.rs_llegan)}, una relación ${fz(t.rs_llegan)}. Con los meses de la pandemia adentro, las correlaciones son de ` +
+      `${rTxt(t.rs_salen_con)} y de ${rTxt(t.rs_llegan_con)}. La balanza de los últimos doce meses, las llegadas menos las salidas, tiene una relación ` +
+      `${fz(t.rs_balanza)} con el dólar real promedio de esos doce meses (${rTxt(t.rs_balanza)}): ` +
+      (t.rs_balanza > 0 ? "con el dólar más caro, la diferencia se inclina hacia las llegadas." : "con el dólar más caro, la diferencia se inclina hacia las salidas.");
+    const s3 = `${t.brasil_primero ? "Brasil es el país del que llegan más turistas" : "Brasil es uno de los países de los que llegan más turistas"}: fue el ` +
+      `${pct(t.pct_brasil)} de las llegadas de los últimos doce meses. El tipo de cambio real con Brasil sube cuando la Argentina se abarata para quien viaja ` +
+      `con reales. Frente al mismo mes del año anterior, la correlación entre lo que cambió ese tipo de cambio y lo que cambiaron las llegadas desde Brasil es de ` +
+      `${rTxt(t.rs_brasil)}, una relación ${fz(t.rs_brasil)}. Con Chile es de ${rTxt(t.rs_chile)}, ${fz(t.rs_chile)}, y con Uruguay, de ${rTxt(t.rs_uruguay)}, ${fz(t.rs_uruguay)}.`;
+    const lim = [`Los meses entre ${t.pand_ini} y ${t.pand_fin} quedaron fuera de las correlaciones principales: con las fronteras cerradas o con restricciones, ` +
+      "los viajes no dependían del dólar. También quedaron afuera los meses que se comparan con uno de ese período.",
+      "Son meses de una sola economía, y los meses seguidos no son casos independientes: una misma devaluación o una misma temporada pesa en varios a la vez.",
+      "Una correlación no prueba que una cosa cause la otra. También cuentan los ingresos en cada país, los vuelos y los pasos de frontera, las temporadas y los feriados.",
+      "El índice de tipo de cambio real usa los tipos de cambio oficiales. Entre fines de 2011 y fines de 2015, y entre septiembre de 2019 y abril de 2025, las " +
+      "personas tuvieron límites para comprar dólares, y los gastos con tarjeta en el exterior tuvieron recargos e impuestos: lo que pagaba un turista podía estar lejos del tipo de cambio oficial.",
+      "Se cuentan viajes de turistas, no personas: quien viaja dos veces en un año cuenta dos veces.",
+      `Los datos desde ${t.provisorio_desde} son provisorios.`];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "turismo-flujos", tit: "Turistas que llegan y que salen en los últimos doce meses", forma: "lineas",
+        pie: `Viajes de turistas en los doce meses que terminan en cada mes, en millones. Las salidas de residentes empiezan en ${t.desde_salen}.`, txt: [s1]},
+      {g: "turismo-salidas", tit: "Cuánto cambió el dólar real y cuánto cambiaron los viajes de residentes al exterior", forma: "puntos",
+        pie: "Cada punto es un mes, frente al mismo mes del año anterior. Sin los meses de la pandemia. La línea punteada muestra la tendencia.", txt: [s2]},
+      {g: "turismo-brasil", tit: "El tipo de cambio real con Brasil y los turistas que llegan desde Brasil", forma: "puntos",
+        pie: "Cada punto es un mes, frente al mismo mes del año anterior. Sin los meses de la pandemia. La línea punteada muestra la tendencia.", txt: [s3]},
+    ]};
+  },
+  dib: {
+    "turismo-flujos": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: v => n1(v / 1e6) + " M", yf: v => v === 0 ? "0" : n0(v / 1e6) + " M", xl: r => mesPer(r.mes),
+      data: T.turismo_dolar_mensual.filter(r => r.llegan_12m != null).map(r => ({...r, t: tPer(r.mes)})), mensual: true,
+      series: [{k: "llegan_12m", lab: "Llegan", c: NAR}, {k: "salen_12m", lab: "Salen", c: FRI}]}),
+    "turismo-salidas": (el, a) => {
+      const data = T.turismo_dolar_mensual.filter(r => r.var_valida && r.var_salen != null && r.var_tcr_itcrm != null).map(r => ({...r, codigo_indec: r.mes, territorio: mesPer(r.mes)}));
+      return dispersion(el, {anim: a, data, x: "var_tcr_itcrm", y: "var_salen", yAuto: true, marcar: [data.at(-1).mes],
+        xLab: "Cambio del dólar real", yLab: "Cambio de los viajes al exterior", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
+    "turismo-brasil": (el, a) => {
+      const data = T.turismo_dolar_mensual.filter(r => r.var_valida && r.var_llegan_brasil != null && r.var_tcr_brasil != null).map(r => ({...r, codigo_indec: r.mes, territorio: mesPer(r.mes)}));
+      return dispersion(el, {anim: a, data, x: "var_tcr_brasil", y: "var_llegan_brasil", yAuto: true, marcar: [data.at(-1).mes],
+        xLab: "Cambio del tipo de cambio real con Brasil", yLab: "Cambio de los turistas de Brasil", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
+  },
 }];
 ART_SERIE.forEach(a => {
   Object.assign(a, DAT_ART[a.id]);
@@ -4866,7 +4931,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
