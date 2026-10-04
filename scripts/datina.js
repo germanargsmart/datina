@@ -326,9 +326,10 @@ const TX = {
   // ---- construcción y vivienda (etapa 18)
   isac: `En ${CN.isac_mes}, la actividad de la construcción medida por el ISAC ${creceCae(CN.isac_var)} frente al mismo mes del año anterior. ` +
     `Entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio} ${creceCae(CN.isac_ytd.var)} contra los mismos meses de ${CN.isac_ytd.anio - 1}. ` +
-    `Sin el efecto de la estacionalidad, el índice está ${pct(Math.abs(CN.isac_dif_max))} ${CN.isac_dif_max < 0 ? "por debajo" : "por encima"} del máximo de la serie, de ${CN.isac_max_mes}.`,
+    `Sin el efecto de la estacionalidad, ${creceCae(CN.isac_mes_desest)} frente al mes anterior y ${creceCae(CN.isac_3m)} entre ${CN.isac_3m_desde} y ${CN.isac_mes} contra los tres meses anteriores. ` +
+    `El índice sin estacionalidad está ${pct(Math.abs(CN.isac_dif_max))} ${CN.isac_dif_max < 0 ? "por debajo" : "por encima"} del máximo de la serie, de ${CN.isac_max_mes}.`,
   "isac-nota": `El ISAC del INDEC sigue la actividad de la construcción con el consumo aparente de un conjunto de insumos, como cemento, hierro, ladrillos, asfalto y pinturas: lo que se despacha al mercado interno de la producción nacional más lo que se importa. ` +
-    `Es un índice con base 2004 = 100. La serie sin estacionalidad saca los movimientos que se repiten todos los años en los mismos meses, como los de las vacaciones, y sirve para comparar un mes con el anterior. ` +
+    `Es un índice con base 2004 = 100. La serie sin estacionalidad saca los movimientos que se repiten todos los años en los mismos meses, como los de las vacaciones, y sirve para comparar un mes con el anterior. Como un solo mes puede moverse mucho, el texto suma la comparación de los tres últimos meses con los tres anteriores, la que usa la oficina de estadística del Reino Unido para la construcción. ` +
     `Desde ${CN.isac_ini}, el promedio anual más alto fue el de ${CN.isac_anual_max} y el más bajo, el de ${CN.isac_anual_min}. En ${CN.isac_anio_ult} el promedio fue ${n1(CN.isac_anual_ult)}, contra ${n1(CN.isac_anual_ant)} el año anterior.`,
   insumos: LEAD.insumos("var_12m"),
   "insumos-nota": `Variación del consumo aparente de cada insumo (lo despachado al mercado interno de la producción nacional más lo importado), medida con su índice del ISAC (base 2004 = 100): los doce meses hasta ${CN.ins_mes} contra los doce anteriores, o lo que va del año contra los mismos meses del año anterior. ` +
@@ -553,7 +554,7 @@ const TX = {
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
     Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
   "mapa-dep-titulo": `Indicadores de los ${R.departamentos.n} departamentos del país`,
-  "mapa-dep": `Cada provincia se divide en departamentos, partidos o comunas. Este mapa muestra datos de seguridad del SNIC y la estructura de edad y el origen de la población identificada por el RENAPER en cada uno. Elegí una provincia arriba para acercarte.`,
+  "mapa-dep": `Cada provincia se divide en departamentos, partidos o comunas. Este mapa muestra datos de seguridad del SNIC, la estructura de edad y el origen de la población identificada por el RENAPER y cómo son las viviendas y los hogares según el Censo 2022 en cada uno. Tocá una provincia para acercarte.`,
   actualizado: `Datos descargados y procesados el ${R.actualizado}.`
 };
 document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
@@ -2860,19 +2861,21 @@ const MAPA_DEP = (() => {
   const META = R.departamentos.meta, sel = document.getElementById("mp-ind");
   if (!sel) return;
   sel.innerHTML = Object.entries(META).map(([k, m]) => `<option value="${k}">${m.nombre}</option>`).join("");
-  let ind = "homicidios", topo = null, filas = null, cargando = null;
+  // cerca: la provincia que se acercó en este mapa y la del sitio en ese momento (si la del sitio cambia, el mapa vuelve a seguirla)
+  let ind = "homicidios", topo = null, filas = null, cargando = null, cerca = null;
   sel.addEventListener("change", () => { ind = sel.value; cambiarVista("mapa-dep"); });
-  document.getElementById("mp-pais").addEventListener("click", () => elegir(""));
+  document.getElementById("mp-pais").addEventListener("click", () => { cerca = {c: "", de: prov}; cambiarVista("mapa-dep"); });
   const cargar = () => cargando || (cargando = Promise.all([d3.json("datos/departamentos.topo.json"), d3.csv("datos/departamentos.csv", d3.autoType)])
     .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }));
-  const MIN_POB = 10000;
+  const MIN_POB = 10000, MIN_HOG = 3000;  // las listas del censo se cortan por hogares, las demás por personas identificadas
   function dibujar(anim) {
     const el = G("mapa-dep"); if (!el || !el.offsetParent) return;
     if (!topo) { cargar().then(() => dibujar(anim)); return; }
-    const m = META[ind], obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
-    const enProv = NOMBRES[prov] ? todos.filter(f => f.properties.prov === prov) : todos;
+    const m = META[ind], censo = m.fuente.startsWith("INDEC"), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
+    const pv = cerca && cerca.de === prov ? cerca.c : prov;  // tocar una provincia la acerca sin elegirla en todo el sitio
+    const enProv = NOMBRES[pv] ? todos.filter(f => f.properties.prov === pv) : todos;
     el.innerHTML = "";
-    const w = Math.min(560, el.clientWidth), h = NOMBRES[prov] ? Math.round(w * 1.1) : Math.round(w * 1.55);
+    const w = Math.min(560, el.clientWidth), h = NOMBRES[pv] ? Math.round(w * 1.1) : Math.round(w * 1.55);
     const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h + 44}`).attr("role", "img").attr("aria-label", `Mapa de ${m.nombre} por departamento`);
     const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], {type: "FeatureCollection", features: enProv}), camino = d3.geoPath(proy);
     const vals = todos.map(f => filas[f.properties.id]?.[ind]).filter(v => v != null);
@@ -2882,31 +2885,33 @@ const MAPA_DEP = (() => {
     const deps = svg.append("g").selectAll("path").data(enProv).join("path").attr("class", "dep").attr("d", camino)
       .attr("fill", f => { const v = filas[f.properties.id]?.[ind]; return v == null ? "#E4E9EF" : escala(v); });
     if (anim && !REDUCIR) deps.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-    const geoms = NOMBRES[prov] ? {type: "GeometryCollection", geometries: obj.geometries.filter(g => g.properties.prov === prov)} : obj;
+    const geoms = NOMBRES[pv] ? {type: "GeometryCollection", geometries: obj.geometries.filter(g => g.properties.prov === pv)} : obj;
     svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(topo, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
     const f1 = d3.format(",.1f"), fv = v => v == null ? "sin dato" : loc.format(",.1f")(v);
     deps.on("pointermove", (ev, f) => {
       const r = filas[f.properties.id] || {}, [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${f.properties.nombre}</b>, ${r.provincia || ""}<br>${m.nombre}: ${fv(r[ind])}` +
-        (r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas` : ""), mx, my);
+        (censo ? (r.hogares ? `<br>${n0(r.hogares)} hogares en el Censo 2022` : "") : r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas` : ""), mx, my);
     }).on("pointerleave", ocultarTip)
-      .on("click", (ev, f) => { if (!NOMBRES[prov]) elegir(f.properties.prov); });
+      .on("click", (ev, f) => { if (!NOMBRES[pv]) { cerca = {c: f.properties.prov, de: prov}; ocultarTip(); cambiarVista("mapa-dep"); } });
     // leyenda de quintiles
     const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
     colores.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("fill", c));
     ["", ...cortes.map(v => loc.format(",.1f")(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26).attr("text-anchor", i ? "middle" : "start").text(t));
     // lista lateral
-    const lugar = NOMBRES[prov] || "Todo el país";
-    document.getElementById("mp-lugar").innerHTML = conBandera(NOMBRES[prov] ? prov : "00", `${lugar}: ${m.nombre.toLowerCase()}`);
-    document.getElementById("mp-pais").hidden = !NOMBRES[prov];
-    const lista = enProv.map(f => ({f, r: filas[f.properties.id]})).filter(o => o.r && o.r[ind] != null && (o.r.poblacion_identificada || 0) >= MIN_POB)
+    const lugar = NOMBRES[pv] || "Todo el país";
+    document.getElementById("mp-lugar").innerHTML = conBandera(NOMBRES[pv] ? pv : "00", `${lugar}: ${m.nombre.toLowerCase()}`);
+    document.getElementById("mp-pais").hidden = !NOMBRES[pv];
+    const lista = enProv.map(f => ({f, r: filas[f.properties.id]})).filter(o => o.r && o.r[ind] != null && (censo ? (o.r.hogares || 0) >= MIN_HOG : (o.r.poblacion_identificada || 0) >= MIN_POB))
       .sort((a, b) => b.r[ind] - a.r[ind]);
-    const item = o => `<li>${o.f.properties.nombre}${NOMBRES[prov] ? "" : ` (${o.r.provincia})`} <span>${fv(o.r[ind])}</span></li>`;
+    const item = o => `<li>${o.f.properties.nombre}${NOMBRES[pv] ? "" : ` (${o.r.provincia})`} <span>${fv(o.r[ind])}</span></li>`;
     document.getElementById("mp-lista").innerHTML = lista.length
       ? `<h4>Valores más altos</h4><ol>${lista.slice(0, 5).map(item).join("")}</ol><h4>Valores más bajos</h4><ol>${lista.slice(-5).reverse().map(item).join("")}</ol>` : "";
-    document.getElementById("mp-nota").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos en cinco grupos del mismo tamaño. ` +
-      `En los departamentos con poca población, unos pocos casos mueven mucho una tasa, por eso las listas solo incluyen los que tienen al menos ${n0(MIN_POB)} personas identificadas y las tasas del SNIC usan el promedio de tres años. ` +
-      `Los datos del SNIC son hechos registrados por las fuerzas de seguridad según el lugar donde ocurrieron. El RENAPER cuenta personas con DNI según el domicilio que declararon, que puede no ser donde viven hoy: es un registro de domicilios, no un conteo de residentes. Publica la Ciudad de Buenos Aires sin separar por comuna, así que sus 15 comunas muestran el mismo valor. Tocá una provincia en el mapa para acercarte.`;
+    document.getElementById("mp-nota").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos en cinco grupos del mismo tamaño. ` + (censo
+      ? `Los porcentajes del Censo 2022 se calculan sobre todos los hogares (o todas las viviendas) de cada departamento, y el censo cuenta a cada persona en la vivienda donde vive habitualmente. ` +
+        `A diferencia del RENAPER, separa las 15 comunas de la Ciudad de Buenos Aires. Las listas solo incluyen los departamentos con al menos ${n0(MIN_HOG)} hogares. Tocá una provincia en el mapa para acercarte.`
+      : `En los departamentos con poca población, unos pocos casos mueven mucho una tasa, por eso las listas solo incluyen los que tienen al menos ${n0(MIN_POB)} personas identificadas y las tasas del SNIC usan el promedio de tres años. ` +
+      `Los datos del SNIC son hechos registrados por las fuerzas de seguridad según el lugar donde ocurrieron. El RENAPER cuenta personas con DNI según el domicilio que declararon, que puede no ser donde viven hoy: es un registro de domicilios, no un conteo de residentes. Publica la Ciudad de Buenos Aires sin separar por comuna, así que sus 15 comunas muestran el mismo valor. Tocá una provincia en el mapa para acercarte.`);
   }
   DIB["mapa-dep"] = dibujar;
 })();

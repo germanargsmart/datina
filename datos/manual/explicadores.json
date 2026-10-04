@@ -2908,7 +2908,7 @@
    },
    {
     "titulo": "De dónde salen los datos",
-    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, por departamento donde ocurrió el hecho. La edad y el origen de la población vienen del Registro Nacional de las Personas (RENAPER), con las personas identificadas según su domicilio. El RENAPER publica la Ciudad de Buenos Aires sin dividirla en comunas.",
+    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, por departamento donde ocurrió el hecho. La edad y el origen de la población vienen del Registro Nacional de las Personas (RENAPER), con las personas identificadas según su domicilio. El RENAPER publica la Ciudad de Buenos Aires sin dividirla en comunas. Los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de la Ciudad.",
     "fuentes": [
      {
       "nombre": "SNIC, estadísticas criminales por departamento",
@@ -2917,6 +2917,11 @@
      {
       "nombre": "RENAPER, datos abiertos",
       "url": "https://www.argentina.gob.ar/interior/renaper"
+     },
+     {
+      "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
+      "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
+      "cita": "hogares que tienen más de tres personas por cuarto"
      }
     ]
    },
@@ -2934,6 +2939,14 @@
    {
     "termino": "Tasa cada 100.000 habitantes",
     "definicion": "Cantidad de hechos dividida por la población y multiplicada por cien mil. Permite comparar lugares de distinto tamaño."
+   },
+   {
+    "termino": "Hacinamiento crítico",
+    "definicion": "Más de tres personas por cuarto en un hogar, sin contar baños ni cocinas.",
+    "fuente": {
+     "nombre": "INDEC, definiciones del Censo 2022",
+     "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf"
+    }
    }
   ]
  },

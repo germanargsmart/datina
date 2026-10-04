@@ -1908,6 +1908,10 @@ clave_ren = departamentos.id.where(~departamentos.id.str.startswith("02"), "0200
 for c in ren_dep.columns:
     departamentos[c] = clave_ren.map(ren_dep[c])
 departamentos["provincia"] = departamentos.id.str[:2].map(CORTO)
+# Censo 2022 (INDEC): los códigos de departamento del censo coinciden con los de Georef, y a diferencia del RENAPER separa las comunas
+_dep_censo = vivienda_dep.set_index("codigo_dep")
+for c in ["hogares", "pct_alquila", "pct_hacinamiento", "pct_materiales_4", "pct_gas_red", "pct_lena", "pct_uso_temporal"]:
+    departamentos[c] = departamentos.id.map(_dep_censo[c])
 departamentos = departamentos.round(2)
 DEP_META = {
     "homicidios": ("Homicidios dolosos", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
@@ -1916,6 +1920,12 @@ DEP_META = {
     "mayores_65": ("Personas de 65 años o más", "% de la población identificada, junio de 2026", "RENAPER"),
     "menores_15": ("Menores de 15 años", "% de la población identificada, junio de 2026", "RENAPER"),
     "nacidos_otro_pais": ("Nacidos en otro país", "% de la población identificada, junio de 2026", "RENAPER"),
+    "pct_alquila": ("Hogares que alquilan", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
+    "pct_hacinamiento": ("Hacinamiento crítico", "% de los hogares con más de tres personas por cuarto, Censo 2022", "INDEC, Censo 2022"),
+    "pct_materiales_4": ("Pisos y techos de la calidad más baja", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
+    "pct_gas_red": ("Hogares que cocinan con gas de red", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
+    "pct_lena": ("Hogares que cocinan con leña o carbón", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
+    "pct_uso_temporal": ("Viviendas de uso temporal", "% de las viviendas, Censo 2022", "INDEC, Censo 2022"),
 }
 departamentos.to_csv(SITIO / "departamentos.csv", index=False)
 
@@ -3189,6 +3199,10 @@ resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),
     "isac_dif_max": r1((IS_ULT.desestacionalizada / _is_max.desestacionalizada - 1) * 100), "isac_ytd": YTD_IS,
+    # sin estacionalidad: el mes contra el anterior y, como la ONS, los tres últimos meses contra los tres anteriores (un solo mes mueve mucho)
+    "isac_mes_desest": r1((IS_ULT.desestacionalizada / isac_m.desestacionalizada.iloc[-2] - 1) * 100),
+    "isac_3m": r1((isac_m.desestacionalizada.iloc[-3:].mean() / isac_m.desestacionalizada.iloc[-6:-3].mean() - 1) * 100),
+    "isac_3m_desde": MES[int(isac_m.periodo.iloc[-3][5:7]) - 1] + ("" if isac_m.periodo.iloc[-3][:4] == str(IS_ULT.periodo)[:4] else " de " + isac_m.periodo.iloc[-3][:4]),
     "isac_ini": str(isac_m.periodo.iloc[0])[:4], "isac_anio_ult": int(isac_anual.anio.max()),
     "isac_anual_ult": r1(isac_anual.isac.iloc[-1]), "isac_anual_ant": r1(isac_anual.isac.iloc[-2]),
     "isac_anual_min": int(isac_anual.loc[isac_anual.isac.idxmin()].anio), "isac_anual_max": int(isac_anual.loc[isac_anual.isac.idxmax()].anio),
