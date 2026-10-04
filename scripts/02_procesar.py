@@ -3237,6 +3237,46 @@ TU_RES = {
 agregar(pd.DataFrame({"periodo": tu_.index, "valor": tu_.salen}).dropna().assign(codigo_indec="00", territorio="Argentina"),
         "viajes_turistas_residentes_al_exterior", "viajes por mes", "Ministerio de Turismo y Deportes, SINTA, estimacion de turismo internacional")
 
+# ---------------------------------------------------------------- artículo: la nafta en dólares y el petróleo (etapa 24)
+# El precio de la nafta súper en el surtidor (la mediana de las estaciones de todo el país, Resolución 1104/2004, desde diciembre de 2004)
+# pasado a dólares con el tipo de cambio de referencia del BCRA (Comunicación "A" 3500, promedio del mes), frente al petróleo Brent (EIA,
+# dólares por barril, pasados a dólares por litro: un barril tiene 158,987 litros). Variaciones contra el mismo mes del año anterior y
+# promedios de cada año, con los años completos. Correlaciones de Spearman, como en los otros artículos. Al tipo de cambio oficial: en los años
+# con límites para comprar dólares, con otros tipos de cambio el precio en dólares sería más bajo, y los textos lo dicen.
+nf_ = pd.concat([_cbh, combustibles_mensual])
+nf_ = nf_[nf_.codigo_indec == "00"][["periodo", "nafta"]].set_index("periodo").nafta.rename("nafta").to_frame()
+_nf_a = pd.read_csv(CRUDO / "tipo_cambio_a3500.csv")
+_nf_b = pd.read_csv(CRUDO / "eia_brent_mensual.csv").set_index("mes").usd_barril
+nf_["a3500"] = pd.Series(_nf_a.tipo_cambio_a3500.values, index=_nf_a.indice_tiempo.str[:7])
+nf_["brent"] = _nf_b
+nf_ = nf_.dropna()
+assert nf_.index.min() == "2004-12" and len(pd.period_range(nf_.index.min(), nf_.index.max(), freq="M")) == len(nf_), "faltan meses en la nafta en dólares"
+nf_["nafta_usd"] = nf_.nafta / nf_.a3500
+nf_["brent_litro"] = nf_.brent / 158.987
+for _nf_k in ("nafta_usd", "brent"):
+    nf_["var_" + _nf_k] = (nf_[_nf_k] / nf_[_nf_k].shift(12) - 1) * 100
+nafta_dolares_mensual = nf_.reset_index().rename(columns={"periodo": "mes"}).round(4)
+_nf_y = nf_.assign(anio=nf_.index.str[:4].astype(int)).groupby("anio").agg(nafta_usd=("nafta_usd", "mean"), brent_litro=("brent_litro", "mean"), meses=("nafta", "size"))
+_nf_y = _nf_y[_nf_y.meses == 12].drop(columns="meses")
+_nf_y["veces"] = _nf_y.nafta_usd / _nf_y.brent_litro
+nafta_dolares_anual = _nf_y.reset_index().round(4)
+_nf_sp = lambda a, b, d: round(float(d[[a, b]].dropna().rank().corr().iloc[0, 1]), 2) + 0.0
+_nf_u = nf_.iloc[-1]
+NF_RES = {
+    "desde": _mes_per(nf_.index[0]), "ult": _mes_per(nf_.index[-1]), "nafta": float(_nf_u.nafta), "nafta_usd": float(_nf_u.nafta_usd),
+    "brent_litro": float(_nf_u.brent_litro), "brent": float(_nf_u.brent),
+    "usd_max_mes": _mes_per(nf_.nafta_usd.idxmax()), "usd_max": float(nf_.nafta_usd.max()), "usd_min_mes": _mes_per(nf_.nafta_usd.idxmin()), "usd_min": float(nf_.nafta_usd.min()),
+    "rs_nivel": _nf_sp("brent", "nafta_usd", nf_), "rs_var": _nf_sp("var_brent", "var_nafta_usd", nf_), "n_var": int(nf_[["var_brent", "var_nafta_usd"]].dropna().shape[0]),
+    "rs_var_sin": _nf_sp("var_brent", "var_nafta_usd", nf_[nf_.index >= f"{int(nf_.index[0][:4]) + 6}-01"]), "sin_desde": int(nf_.index[0][:4]) + 6,
+    "veces_max_anio": int(_nf_y.veces.idxmax()), "veces_max": float(_nf_y.veces.max()), "veces_min_anio": int(_nf_y.veces.idxmin()), "veces_min": float(_nf_y.veces.min()),
+    "veces_ult_anio": int(_nf_y.index.max()), "veces_ult": float(_nf_y.veces.iloc[-1]),
+    "usd_anio_ult": float(_nf_y.nafta_usd.iloc[-1]), "usd_anio_max_anio": int(_nf_y.nafta_usd.idxmax()), "usd_anio_max": float(_nf_y.nafta_usd.max()),
+}
+agregar(pd.DataFrame({"periodo": nf_.index, "valor": nf_.nafta_usd}).assign(codigo_indec="00", territorio="Argentina"),
+        "precio_nafta_super_surtidor_dolares", "dolares por litro al tipo de cambio de referencia (Com. A 3500), mediana de las estaciones",
+        "Secretaria de Energia (Res. 1104/2004) y BCRA")
+# el Brent no va a la tabla larga, que tiene solo datos de la Argentina y sus jurisdicciones: queda en la tabla del artículo
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3756,6 +3796,8 @@ tablas = {
     "carceles_serie": carceles_serie,
     "carceles_provincias": carceles_provincias,
     "turismo_dolar_mensual": turismo_dolar_mensual,
+    "nafta_dolares_mensual": nafta_dolares_mensual,
+    "nafta_dolares_anual": nafta_dolares_anual,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -4131,6 +4173,7 @@ resumen["docentes"] = DOC_RES  # salario de un maestro de grado por provincia (e
 resumen["inversion_edu"] = INV_RES  # inversión en educación por alumno y por provincia (etapa 23)
 resumen["seguridad"] = SEG_RES  # delitos (SNIC) y personas privadas de libertad (SNEEP), etapa 23
 resumen["turismo_dolar"] = TU_RES  # artículo del turismo y el dólar (etapa 24)
+resumen["nafta_dolares"] = NF_RES  # artículo de la nafta en dólares y el petróleo (etapa 24)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

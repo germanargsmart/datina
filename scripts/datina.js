@@ -4863,6 +4863,62 @@ const ART_SERIE = [{
         vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
     },
   },
+}, {
+  // etapa 24: la nafta súper en dólares al tipo de cambio oficial y el petróleo Brent, mes por mes
+  id: "a-nafta-dolares", frec: "Se actualiza cada mes", tablas: ["nafta_dolares_mensual", "nafta_dolares_anual"],
+  dek: "El precio de la nafta súper en el surtidor medido en dólares al tipo de cambio oficial, frente al precio internacional del petróleo.",
+  fichas: [["f-combustibles", "precio de los combustibles"]],
+  csv: [["nafta_dolares_mensual", "Descargar CSV por mes"], ["nafta_dolares_anual", "Descargar CSV por año"]],
+  fuentes: "Secretaría de Energía, precios en estaciones de servicio (Resolución 1104/2004), Banco Central de la República Argentina, tipo de cambio de " +
+    "referencia (Comunicación \"A\" 3500), y Administración de Información Energética de los Estados Unidos (EIA), precio del petróleo Brent",
+  texto: () => {
+    const t = R.nafta_dolares, usd = v => n2(v), m = Math.max(ab(t.rs_var), ab(t.rs_nivel));
+    const respuesta = m >= .6 ? "Sí, en general." : m >= .4 ? "En parte." : "No hay un patrón claro.";
+    const bajada = `Al tipo de cambio oficial, cuando el petróleo Brent sube frente al mismo mes del año anterior, la nafta en dólares tiende a ` +
+      `${t.rs_var > 0 ? "subir" : "bajar"}: la relación es ${fz(t.rs_var)}. Entre los precios de cada mes, la relación es ${fz(t.rs_nivel)}` +
+      (ab(t.rs_nivel) < .4 ? ": hubo años con el petróleo caro y la nafta barata en dólares, y al revés." : ".");
+    const contexto = "La nafta se hace con petróleo, que se compra y se vende en dólares en todo el mundo. En el precio del surtidor también pesan los impuestos, " +
+      `la refinación, el transporte y la distribución. Este artículo compara, mes por mes desde ${t.desde}, el precio de la nafta súper medido en dólares al ` +
+      "tipo de cambio oficial con el del petróleo Brent, una referencia internacional.";
+    const s1 = `En ${t.ult}, el litro de nafta súper costaba ${n0(t.nafta)} pesos en la mediana de las estaciones del país: ${usd(t.nafta_usd)} dólares al tipo de ` +
+      `cambio oficial de referencia. Un litro de petróleo Brent costaba ${usd(t.brent_litro)} dólares (${n2(t.brent)} el barril). Medida en dólares, la nafta ` +
+      `fue la más cara en ${t.usd_max_mes}, con ${usd(t.usd_max)}, y la más barata en ${t.usd_min_mes}, con ${usd(t.usd_min)}.`;
+    const s2 = `Si se compara cada mes con el mismo mes del año anterior, la correlación de Spearman entre lo que cambió el Brent y lo que cambió la nafta en ` +
+      `dólares es de ${rTxt(t.rs_var)}, una relación ${fz(t.rs_var)}, en una escala que va de menos 1 a 1, y desde ${t.sin_desde}, de ${rTxt(t.rs_var_sin)}, ` +
+      `${fz(t.rs_var_sin)}. Entre los precios de cada mes, sin compararlos con el año anterior, es de ${rTxt(t.rs_nivel)}, una relación ${fz(t.rs_nivel)}.`;
+    const s3 = "Un litro de nafta cuesta más que un litro de petróleo, porque suma la refinación, los impuestos, el transporte y la distribución. Pero esa " +
+      `diferencia cambió mucho: en ${t.veces_min_anio}, la nafta costó en promedio ${n1(t.veces_min)} veces lo que un litro de Brent, y en ${t.veces_max_anio}, ` +
+      `${n1(t.veces_max)} veces. En ${t.veces_ult_anio} fueron ${n1(t.veces_ult)} veces. El año más caro de la nafta en dólares fue ${t.usd_anio_max_anio}, con ` +
+      `${usd(t.usd_anio_max)} dólares por litro en promedio. En ${t.veces_ult_anio} costó ${usd(t.usd_anio_ult)}.`;
+    const lim = ["El precio en dólares usa el tipo de cambio oficial de referencia del Banco Central (Comunicación \"A\" 3500). Entre fines de 2011 y fines de " +
+      "2015, y entre septiembre de 2019 y abril de 2025, las personas tuvieron límites para comprar dólares, y con otros tipos de cambio el precio en dólares de esos años sería más bajo.",
+      "Es la mediana de los precios que declaran las estaciones de servicio de todo el país para la nafta súper: la mitad cobraba más y la otra mitad, menos. " +
+      "No es el precio de una estación ni de una marca.",
+      "El Brent es un precio internacional de referencia, el del petróleo del Mar del Norte. Las refinerías del país no siempre pagan el petróleo a ese precio.",
+      "Una correlación no prueba que una cosa cause la otra, y los meses seguidos no son casos independientes: una misma devaluación pesa en varios a la vez.",
+      "Los promedios de cada año cuentan solo los años completos."];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "nafta-dolares", tit: "La nafta súper y el petróleo Brent, en dólares por litro", forma: "lineas",
+        pie: "Dólares por litro. La nafta, al tipo de cambio oficial de referencia, mediana de las estaciones del país. El Brent, promedio de cada mes (un barril tiene 158,987 litros).", txt: [s1]},
+      {g: "nafta-cambios", tit: "Cuánto cambió el petróleo y cuánto cambió la nafta en dólares", forma: "puntos",
+        pie: "Cada punto es un mes, frente al mismo mes del año anterior. La línea punteada muestra la tendencia.", txt: [s2]},
+      {g: "nafta-veces", tit: "Cuántas veces costó un litro de nafta lo que un litro de petróleo, por año", forma: "lineas",
+        pie: "Promedio de cada año completo: la nafta en dólares dividida por el Brent por litro.", txt: [s3]},
+    ]};
+  },
+  dib: {
+    "nafta-dolares": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: n2, yf: n1, xl: r => mesPer(r.mes), mensual: true,
+      data: T.nafta_dolares_mensual.map(r => ({...r, t: tPer(r.mes)})),
+      series: [{k: "nafta_usd", lab: "Nafta súper", c: NAR}, {k: "brent_litro", lab: "Petróleo Brent", c: FRI}]}),
+    "nafta-cambios": (el, a) => {
+      const data = T.nafta_dolares_mensual.filter(r => r.var_brent != null && r.var_nafta_usd != null).map(r => ({...r, codigo_indec: r.mes, territorio: mesPer(r.mes)}));
+      return dispersion(el, {anim: a, data, x: "var_brent", y: "var_nafta_usd", yAuto: true, marcar: [data.at(-1).mes],
+        xLab: "Cambio del Brent", yLab: "Cambio de la nafta en dólares", fx: v => n0(v) + "%", fy: v => n0(v) + "%",
+        vx: v => (v > 0 ? "+" : "") + pct(v), vy: v => (v > 0 ? "+" : "") + pct(v)});
+    },
+    "nafta-veces": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n1, yf: n0, data: T.nafta_dolares_anual,
+      series: [{k: "veces", lab: "Veces", c: NAR}]}),
+  },
 }];
 ART_SERIE.forEach(a => {
   Object.assign(a, DAT_ART[a.id]);

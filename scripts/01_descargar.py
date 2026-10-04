@@ -1193,6 +1193,27 @@ def cgecse_inversion():
     return url
 
 
+def eia_brent():
+    """Precio del petróleo Brent en dólares por barril, promedio de cada mes desde 1987 (Administración de Información Energética de los Estados
+    Unidos, EIA, de dominio público, etapa 24): la planilla RBRTEm.xls, hoja "Data 1", con dos filas de título antes del encabezado. Se guarda
+    una fila por mes. Lo usa el artículo de la nafta en dólares."""
+    import io, pandas as pd
+    url = "https://www.eia.gov/dnav/pet/hist_xls/RBRTEm.xls"
+    datos = leer(url, 120)
+    if datos[:4] != bytes([0xD0, 0xCF, 0x11, 0xE0]):
+        raise ValueError("la planilla del Brent de la EIA no es un Excel")
+    hoja = pd.read_excel(io.BytesIO(datos), sheet_name="Data 1", header=None)
+    fila = hoja.index[hoja.iloc[:, 0].astype(str).str.strip().eq("Date")][0]
+    if "Brent" not in str(hoja.iloc[fila, 1]):
+        raise ValueError("la planilla del Brent de la EIA cambió de formato")
+    d = hoja.iloc[fila + 1:, :2].set_axis(["fecha", "usd_barril"], axis=1)
+    d = pd.DataFrame({"mes": pd.to_datetime(d.fecha, errors="coerce").dt.strftime("%Y-%m"), "usd_barril": pd.to_numeric(d.usd_barril, errors="coerce")}).dropna()
+    if len(d) < 400 or d.mes.duplicated().any() or d.mes.max() < (datetime.date.today() - datetime.timedelta(days=120)).strftime("%Y-%m"):
+        raise ValueError("la serie del Brent de la EIA vino incompleta o vieja")
+    d.round(4).to_csv(CRUDO / "eia_brent_mensual.csv", index=False)
+    return url
+
+
 def tipo_cambio_real():
     """Índice de tipo de cambio real multilateral del BCRA (base 17 de diciembre de 2015 = 100), promedio de cada mes desde 1997 (etapa 22).
     La planilla trae los valores de cada día y los promedios de cada mes de todos los índices bilaterales y pesa unos 4 MB: se guardan solo el
@@ -1234,7 +1255,7 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("demanda eléctrica por provincia y tipo de usuario (CAMMESA)", cammesa_demanda),
                     ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real),
                     ("remuneraciones por provincia (OEDE)", oede_remuneraciones), ("salario docente por provincia (CECE)", cgecse_salario_docente),
-                    ("inversión educativa por provincia (CECE)", cgecse_inversion)]:
+                    ("inversión educativa por provincia (CECE)", cgecse_inversion), ("precio del petróleo Brent (EIA)", eia_brent)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
