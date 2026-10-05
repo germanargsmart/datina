@@ -5190,21 +5190,32 @@ const CV_EPH = (() => {
   const n = N.length ? `${N.length > 1 ? "las" : "la"} de ${lista(N)} ${N.length > 1 ? "pasan" : "pasa"} de 25%` : "ninguna pasa de 25%";
   return `${ini} En el ${r.semestre}, ${c}, y ${n}.`;
 })();
+// La unidad de los artículos de la EPH: el aglomerado, que no es el municipio del censo
+const LIM_AGLO = "Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares, que en algunos casos junta dos ciudades, como Rawson con Trelew o Ushuaia con Río Grande. Es un área distinta del municipio que usan los artículos de las viviendas, que salen del censo.";
 const ART = [
-  // etapa 27: dos artículos de las capitales con la Encuesta Permanente de Hogares (tabla capitales_eph, por aglomerado)
+  // etapa 27: tres artículos de las capitales con la Encuesta Permanente de Hogares (tabla capitales_eph, por aglomerado)
   {id: "a-pobreza-desocupacion", tabla: "capitales_eph", x: "desocupacion", y: "pobreza", espera: 1, frec: "Se actualiza cada seis meses",
     lx: "desocupación", ly: "pobreza", ux: "% de la población económicamente activa", uy: "% de las personas",
     dek: "La desocupación de cada capital de provincia en el último año, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares.",
     contexto: "La desocupación y la pobreza miden cosas distintas: una cuenta a quienes buscan trabajo y no lo consiguen, y la otra mira si los ingresos del hogar alcanzan para la canasta básica. Este cruce pone una al lado de la otra, capital por capital, con la Encuesta Permanente de Hogares del INDEC.",
-    limites: ["Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares, que en algunos casos junta dos ciudades, como Rawson con Trelew o Ushuaia con Río Grande. Es un área distinta del municipio que usan los artículos de las viviendas, que salen del censo.",
+    limites: [LIM_AGLO,
       "La EPH es una encuesta por muestra, y en los aglomerados chicos la desocupación de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres: si en uno el INDEC no publicó el dato por tener pocos casos, el promedio usa los otros tres.",
       CV_EPH,
       "Una persona puede tener trabajo y ser pobre: la desocupación no dice cuánto se gana."]},
+  {id: "a-empleo-pobreza", tabla: "capitales_eph", x: "empleo", y: "pobreza", espera: -1, frec: "Se actualiza cada seis meses",
+    lx: "empleo", ly: "pobreza", ux: "% de la población", uy: "% de las personas",
+    dek: "La parte de la población de cada capital de provincia que trabaja, en el último año, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares.",
+    contexto: "La desocupación cuenta solo a quienes buscan trabajo y no lo consiguen: quien dejó de buscar, o no busca, no figura. La tasa de empleo mira otra cosa, la parte de toda la población que trabaja. Este cruce la compara, capital por capital, con la parte de las personas bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.",
+    limites: [LIM_AGLO,
+      "La tasa de empleo se calcula sobre toda la población, con los chicos y las personas mayores: una capital con una parte mayor de personas en edad de trabajar tiende a tener, solo por eso, una tasa más alta.",
+      "La EPH es una encuesta por muestra, y en los aglomerados chicos la tasa de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres.",
+      CV_EPH,
+      "Tener trabajo no dice cuánto se gana ni si el trabajo está registrado."]},
   {id: "a-alquiler-pobreza", tabla: "capitales_eph", x: "pobreza", y: "alquila", espera: -1, frec: "Se actualiza cada seis meses",
     lx: "pobreza", ly: "hogares que alquilan", ux: "% de las personas", uy: "% de los hogares",
     dek: "La parte de los habitantes de cada capital de provincia bajo la línea de pobreza, frente a la parte de sus hogares que alquila, según la Encuesta Permanente de Hogares.",
     contexto: "Quien no tiene una vivienda propia suele alquilarla, y para alquilar hacen falta ingresos con los que pagar el contrato. Este cruce compara, capital por capital, la parte de las personas bajo la línea de pobreza con la parte de los hogares que alquila, según la Encuesta Permanente de Hogares del INDEC.",
-    limites: ["Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares, que en algunos casos junta dos ciudades, como Rawson con Trelew o Ushuaia con Río Grande. Es un área distinta del municipio que usan los artículos de las viviendas, que salen del censo.",
+    limites: [LIM_AGLO,
       "La parte de los hogares que alquila es un cálculo propio con las bases de la EPH de los últimos cuatro trimestres publicados. El censo de 2022, que cuenta todo el municipio, da cifras parecidas pero no iguales.",
       "La EPH pregunta si el hogar alquila la vivienda, no cuánto paga ni desde cuándo.",
       CV_EPH]},
