@@ -3630,7 +3630,6 @@ _su_r = _su_r.T.groupby(lambda j: _su_jur[j][0]).sum().T
 _su_d = lambda s: (s.iloc[-12:].sum() / s.iloc[-24:-12].sum() - 1) * 100
 supermercados_provincias = pd.DataFrame({"codigo_indec": _su_r.columns, "territorio": _su_r.columns.map(CORTO),
                                          "region": [ECO_NOM[_SU_REG.get(c, "gba")] if c != "06" else "Gran Buenos Aires y Pampeana" for c in _su_r.columns],
-                                         "ventas_12m": _su_r.iloc[-12:].sum().values / 1000,
                                          "var_12m": [_su_d(_su_r[c]) for c in _su_r.columns],
                                          "var_mes": ((_su_r.iloc[-1] / _su_r.iloc[-13] - 1) * 100).values})
 _su_pais = _su_d(_su_r.sum(axis=1))
