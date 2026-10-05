@@ -7571,6 +7571,7 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 00,Argentina,2026-06,tarjetas_sube_dia_habil_mediana,5295436.5,tarjetas,"Ministerio de Transporte, datos abiertos"
 00,Argentina,2026-07,tarjetas_sube_dia_habil_mediana,4191943.0,tarjetas,"Ministerio de Transporte, datos abiertos"
 00,Argentina,2026-08,tarjetas_sube_dia_habil_mediana,5168679.0,tarjetas,"Ministerio de Transporte, datos abiertos"
+00,Argentina,2026-09,tarjetas_sube_dia_habil_mediana,5079400.5,tarjetas,"Ministerio de Transporte, datos abiertos"
 00,Argentina,2006,pisa_puntaje_matematica,381.2539,puntos,"OCDE PISA, via Our World in Data"
 00,Argentina,2009,pisa_puntaje_matematica,388.0681,puntos,"OCDE PISA, via Our World in Data"
 00,Argentina,2012,pisa_puntaje_matematica,388.4317,puntos,"OCDE PISA, via Our World in Data"
