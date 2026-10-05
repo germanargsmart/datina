@@ -2159,6 +2159,155 @@
    }
   ]
  },
+ "migraciones": {
+  "bloques": [
+   {
+    "titulo": "Quiénes cuenta el Censo 2022",
+    "texto": "El Censo 2022 del INDEC contó a cada persona en el lugar donde vive habitualmente: fue el primer censo de derecho del país. A cada persona le preguntó dónde nació, en la misma provincia, en otra provincia o en otro país, y en ese caso en cuál. Los resultados de migraciones son de la población en viviendas particulares. Cuando una persona nacida en otro país no dijo en cuál, el censo la registra como de país ignorado.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+      "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf",
+      "cita": "las personas se contabilizaron en su lugar de residencia habitual"
+     },
+     {
+      "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+      "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf",
+      "cita": "el país en el caso de los extranjeros"
+     },
+     {
+      "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+      "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf",
+      "cita": "La categoría Ignorado incluye a las personas no nativas que no especificaron su país de nacimiento"
+     }
+    ]
+   },
+   {
+    "titulo": "La inmigración en los censos desde 1869",
+    "texto": "Los censos nacionales registran desde el primero, el de 1869, cuántas personas nacieron en otro país. Esa parte de la población llegó a lo más alto en los censos de 1895 y 1914, con la llegada de inmigrantes de Europa, y desde mediados del siglo veinte fue bajando. Hasta el censo de 1980, Europa fue el principal origen, y desde el de 1991 predominan las personas nacidas en los países limítrofes. Los censos anteriores al de 2022 contaban a cada persona donde pasaba la noche del censo.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Aquí se cuenta, número 12: tendencias recientes de la inmigración internacional (2004)",
+      "url": "https://www.indec.gob.ar/micro_sitios/webcenso/aquisecuenta/aqui12.pdf",
+      "cita": "reflejan el impacto de las vastas corrientes migratorias de origen europeo"
+     },
+     {
+      "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+      "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf",
+      "cita": "Hasta el Censo de 1980, Europa fue el principal origen de la población no nativa"
+     },
+     {
+      "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+      "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf",
+      "cita": "empleó la metodología de censo de derecho"
+     }
+    ]
+   },
+   {
+    "titulo": "El RENAPER y el Censo cuentan distinto",
+    "texto": "El Registro Nacional de las Personas tiene a su cargo la inscripción y la identificación de las personas: registra a quienes tienen documento argentino, con el domicilio que declararon y que deben actualizar cuando se mudan. Por eso no cuenta a quienes viven en el país sin documento argentino, y sí a quienes se fueron o se mudaron sin avisar. El Censo, en cambio, cuenta a quienes viven en cada vivienda. Por eso los dos dan números distintos de personas nacidas en otro país.",
+    "fuentes": [
+     {
+      "nombre": "Ley 17.671 (InfoLEG)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/28130/texact.htm",
+      "cita": "Compete al Registro Nacional de las Personas, ejercer las siguientes funciones: a) La inscripción e identificación de las personas"
+     },
+     {
+      "nombre": "Ley 17.671 (InfoLEG)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/28130/texact.htm",
+      "cita": "el cambio de domicilio, dentro de los treinta días de haberse producido la novedad"
+     }
+    ]
+   },
+   {
+    "titulo": "Las residencias que otorga Migraciones",
+    "texto": "La ley de migraciones distingue la residencia permanente, para quien quiere establecerse en el país, y la temporaria, para quien viene por un tiempo y un motivo, como trabajar o estudiar. Las personas nacidas en los países del Mercosur, en Chile y en Bolivia pueden pedir la residencia temporaria por su nacionalidad. La Dirección Nacional de Migraciones publica cada año cuántos trámites de residencia resolvió a favor, por categoría y por nacionalidad, pero no por provincia.",
+    "fuentes": [
+     {
+      "nombre": "Ley 25.871 de Migraciones, texto actualizado (InfoLEG)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/90000-94999/92016/texact.htm",
+      "cita": "a todo extranjero que, con el propósito de establecerse definitivamente en el país"
+     },
+     {
+      "nombre": "Ley 25.871 de Migraciones, texto actualizado (InfoLEG)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/90000-94999/92016/texact.htm",
+      "cita": "Ciudadanos nativos de Estados Parte del MERCOSUR, Chile y Bolivia"
+     },
+     {
+      "nombre": "Ministerio del Interior, movimientos migratorios y trámites de radicación resueltos (datos abiertos)",
+      "url": "https://datos.mininterior.gob.ar/dataset/movimientos_migratorios_de_ingreso_y_egreso_al_pais_y_tramites_de_radicacion_resueltos",
+      "cita": "trámites de Radicación resueltos favorablemente por la Dirección Nacional de Migraciones"
+     }
+    ]
+   },
+   {
+    "titulo": "Los argentinos en el exterior",
+    "texto": "La División de Población de las Naciones Unidas estima cuántas personas viven en un país distinto del que nacieron, con los censos, las encuestas y los registros de cada país de destino. En la mayoría de los países cuenta a las personas nacidas afuera y en algunos, a las de otra nacionalidad, y las cifras son a mediados de cada año. Es una estimación, no un conteo, y no se compara con los censos del país.",
+    "fuentes": [
+     {
+      "nombre": "Naciones Unidas, División de Población, International Migrant Stock 2024 (planilla por destino y origen)",
+      "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx",
+      "cita": "B, which indicates that estimates were derived from data on the foreign-born population"
+     },
+     {
+      "nombre": "Naciones Unidas, División de Población, International Migrant Stock 2024 (planilla por destino y origen)",
+      "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx",
+      "cita": "Years given refer to 1 July."
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Censo de derecho",
+    "definicion": "El que cuenta a cada persona en el lugar donde vive habitualmente, y no donde está el día del censo.",
+    "fuente": {
+     "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+     "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf"
+    }
+   },
+   {
+    "termino": "Población en viviendas particulares",
+    "definicion": "Las personas que viven en casas y departamentos, sin las que viven en viviendas colectivas, como hogares de ancianos, cuarteles o cárceles.",
+    "fuente": {
+     "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+     "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf"
+    }
+   },
+   {
+    "termino": "Países limítrofes",
+    "definicion": "Los que tienen frontera con la Argentina: Bolivia, Brasil, Chile, Paraguay y Uruguay.",
+    "fuente": {
+     "nombre": "INDEC, Censo 2022, Migraciones: resultados definitivos (2024)",
+     "url": "https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf"
+    }
+   },
+   {
+    "termino": "Residencia permanente",
+    "definicion": "La que se otorga a quien quiere establecerse en el país.",
+    "fuente": {
+     "nombre": "Ley 25.871 de Migraciones, texto actualizado (InfoLEG)",
+     "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/90000-94999/92016/texact.htm"
+    }
+   },
+   {
+    "termino": "Residencia temporaria",
+    "definicion": "La que se otorga a quien viene por un tiempo y un motivo, como trabajar o estudiar.",
+    "fuente": {
+     "nombre": "Ley 25.871 de Migraciones, texto actualizado (InfoLEG)",
+     "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/90000-94999/92016/texact.htm"
+    }
+   },
+   {
+    "termino": "Migrante internacional",
+    "definicion": "Para las Naciones Unidas, una persona que vive en un país distinto del que nació.",
+    "fuente": {
+     "nombre": "Naciones Unidas, División de Población, International Migrant Stock 2024 (planilla por destino y origen)",
+     "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
+    }
+   }
+  ]
+ },
  "movilidad": {
   "bloques": [
    {

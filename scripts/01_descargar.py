@@ -249,6 +249,10 @@ FUENTES.update({
     "indec_canastas.xls": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls",
     "indec_emae.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls",
     "indec_emae_actividad.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls",
+    # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra o en otro país) y por país de
+    # nacimiento, según jurisdicción (sección Migraciones, etapa 25)
+    "censo2022_migraciones_c1.xlsx": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx",
+    "censo2022_migraciones_c10.xlsx": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
     # rama horizontal, la arena y el agua (etapa 19)
     "se_fracturas.csv": ckan_recurso(SE, "datos-de-fractura-de-pozos-adjunto-iv", "fractura de pozos",
@@ -349,6 +353,8 @@ VALIDA.update({
     "indec_canastas.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_emae.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_emae_actividad.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
+    "censo2022_migraciones_c1.xlsx": lambda b: b[:2] == b"PK",
+    "censo2022_migraciones_c10.xlsx": lambda b: b[:2] == b"PK",
     "se_fracturas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"id_base_fractura_adjiv,idpozo"),
     "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
     "potencia_instalada.csv": lambda b: b.startswith(b"indice_tiempo,potencia_instalada_total"),
@@ -1314,6 +1320,91 @@ def indec_canastas_regiones():
     return primera
 
 
+def dnm_radicaciones():
+    """Trámites de radicación resueltos favorablemente por la Dirección Nacional de Migraciones, por año, categoría (residencia permanente o
+    temporaria) y nacionalidad, desde 2019 (portal de datos del Ministerio del Interior, un CSV por año y apertura, etapa 25). Solo para todo el
+    país: la DNM no publica las radicaciones por provincia. Los números vienen con punto de miles y perdieron los ceros del final al exportarse
+    ("66.51" es 66.510): cada grupo después del primer punto se completa a tres cifras, y se controla que las nacionalidades sumen el total de
+    cada categoría en todos los años. Cuentan trámites, no personas."""
+    import io, csv as csv_mod, pandas as pd
+    base = "https://datos.mininterior.gob.ar"
+    paquete = json.loads(leer(f"{base}/api/3/action/package_show?id=movimientos_migratorios_de_ingreso_y_egreso_al_pais_y_tramites_de_radicacion_resueltos", 60))
+    urls = {}
+    for r in paquete["result"]["resources"]:
+        m = re.search(r"ano-(\d{4})-radicaciones-resueltas_por-(categoria|nacionalidad)\.csv$", r.get("url") or "")
+        if m:
+            urls[(int(m.group(1)), m.group(2))] = r["url"].replace("http://", "https://")
+    anios = sorted({a for a, _ in urls if (a, "categoria") in urls and (a, "nacionalidad") in urls})
+    if len(anios) < 6:
+        raise ValueError("faltan años de radicaciones en el catálogo del Ministerio del Interior")
+
+    def num(v):
+        v = str(v).strip()
+        if re.fullmatch(r"\d{1,3}(\.\d{1,3})+", v):
+            partes = v.split(".")
+            return int(partes[0] + "".join(p.ljust(3, "0") for p in partes[1:]))
+        if re.fullmatch(r"\d+", v):
+            return int(v)
+        raise ValueError(f"número no reconocido en las radicaciones: {v!r}")
+
+    def tabla(url):
+        filas = [f for f in csv_mod.reader(io.StringIO(leer(url, 60).decode("utf-8-sig"))) if any(c.strip() for c in f)]
+        cab = [c.strip() for c in filas[0]]
+        salto = 1 if cab[0] == "" else 0
+        cab = ["nombre"] + [c.upper().replace("TOTAL GENERAL", "TOTAL") for c in cab[salto + 1:]]
+        datos = [[f[salto].strip()] + [num(x) for x in f[salto + 1:salto + len(cab)]] for f in filas[1:]
+                 if len(f) > salto and f[salto].strip() and not f[salto].strip().startswith("(")]
+        return pd.DataFrame(datos, columns=cab)
+
+    filas = []
+    for a in anios:
+        cat = tabla(urls[(a, "categoria")]).set_index("nombre")
+        cat.index = cat.index.str.upper()
+        nac = tabla(urls[(a, "nacionalidad")])
+        tot = nac[nac.nombre.str.upper().isin(["TOTAL GENERAL", "TOTAL"])]
+        cuerpo = nac.drop(tot.index)
+        if len(tot) != 1 or set(cuerpo.columns) != {"nombre", "PERMANENTE", "TEMPORARIA", "TOTAL"}:
+            raise ValueError(f"las radicaciones de {a} cambiaron de formato")
+        for c in ("PERMANENTE", "TEMPORARIA", "TOTAL"):
+            if cuerpo[c].sum() != tot[c].iloc[0]:
+                raise ValueError(f"las nacionalidades de {a} no suman el total ({c})")
+        if tot.PERMANENTE.iloc[0] != cat.iloc[:, 0].get("PERMANENTE") or tot.TEMPORARIA.iloc[0] != cat.iloc[:, 0].get("TEMPORARIA"):
+            raise ValueError(f"las radicaciones de {a} por nacionalidad no coinciden con las de cada categoría")
+        for f in pd.concat([cuerpo, tot.assign(nombre="TOTAL")]).itertuples(index=False):
+            filas.append({"anio": a, "nacionalidad": f.nombre, "permanentes": f.PERMANENTE, "temporarias": f.TEMPORARIA, "total": f.TOTAL})
+    pd.DataFrame(filas).to_csv(CRUDO / "dnm_radicaciones.csv", index=False)
+    return base
+
+
+def onu_migrantes():
+    """Personas nacidas en la Argentina que viven en otro país, por país de destino: estimación de la División de Población de las Naciones
+    Unidas (International Migrant Stock 2024, al 1 de julio de 1990, 1995, 2000, 2005, 2010, 2015, 2020 y 2024, licencia CC BY 3.0 IGO, etapa 25).
+    La planilla pesa unos 6 MB y trae todos los países de origen y de destino: se guarda solo lo que tiene como origen a la Argentina (código 32),
+    el total del mundo (código 900) y cada país. Las nuevas ediciones salen cada cuatro o cinco años, con otra dirección."""
+    import io, pandas as pd
+    url = ("https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/"
+           "undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx")
+    datos = leer(url, 300)
+    if datos[:2] != b"PK":
+        raise ValueError("la planilla de migrantes de las Naciones Unidas no es un Excel")
+    crudo = pd.read_excel(io.BytesIO(datos), sheet_name="Table 1", header=None)
+    fila = crudo.index[crudo[0].astype(str).str.strip() == "Index"][0]
+    cab = crudo.iloc[fila].tolist()
+    anios = [int(float(c)) for c in cab[7:15]]
+    if anios[0] != 1990 or anios[-1] < 2024 or len(cab) != 31:
+        raise ValueError("la planilla de migrantes de las Naciones Unidas cambió de formato")
+    d = crudo.iloc[fila + 1:, [1, 3, 4, 6] + list(range(7, 15))].copy()
+    d.columns = ["destino", "tipo_dato", "cod_destino", "cod_origen"] + [str(a) for a in anios]
+    d = d[(pd.to_numeric(d.cod_origen, errors="coerce") == 32) & pd.to_numeric(d.cod_destino, errors="coerce").notna()]
+    d["cod_destino"] = d.cod_destino.astype(float).astype(int)
+    d = d[(d.cod_destino < 900) | (d.cod_destino == 900)].drop(columns="cod_origen")
+    d["destino"] = d.destino.astype(str).str.strip().str.rstrip("*").str.strip()
+    if (d.cod_destino == 900).sum() != 1 or (d.cod_destino < 900).sum() < 30:
+        raise ValueError("faltan datos de los argentinos en el exterior en la planilla de las Naciones Unidas")
+    d.to_csv(CRUDO / "onu_migrantes_argentina.csv", index=False)
+    return url
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
@@ -1329,7 +1420,9 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("tipo de cambio real multilateral (BCRA)", tipo_cambio_real),
                     ("remuneraciones por provincia (OEDE)", oede_remuneraciones), ("salario docente por provincia (CECE)", cgecse_salario_docente),
                     ("inversión educativa por provincia (CECE)", cgecse_inversion), ("precio del petróleo Brent (EIA)", eia_brent),
-                    ("canastas básicas por región (INDEC)", indec_canastas_regiones)]:
+                    ("canastas básicas por región (INDEC)", indec_canastas_regiones),
+                    ("residencias otorgadas por la Dirección Nacional de Migraciones", dnm_radicaciones),
+                    ("personas nacidas en la Argentina que viven en otro país (Naciones Unidas)", onu_migrantes)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])

@@ -3570,6 +3570,156 @@ agregar(actividad_mensual[["periodo", "original"]].rename(columns={"original": "
         "estimador_mensual_actividad_economica", "indice, 2004 = 100", "INDEC, Estimador Mensual de Actividad Economica")
 ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES}
 
+# ---------------------------------------------------------------- migraciones (etapa 25)
+# Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
+# país de nacimiento, según jurisdicción. La serie de los censos desde 1869 (datos/manual/censos_nacidos_otro_pais.csv, de dos publicaciones
+# del INDEC). Las residencias que otorga la Dirección Nacional de Migraciones, solo para todo el país. Y las personas nacidas en la Argentina
+# que viven en otro país, estimadas por las Naciones Unidas. El RENAPER (extranjeros, más arriba) identifica más personas nacidas en otro país
+# que el Censo: cuenta documentos con el domicilio que cada persona declaró, no residentes.
+_mg1 = pd.read_excel(CRUDO / "censo2022_migraciones_c1.xlsx", "Cuadro 1_24 partidos", header=None)
+_mg1_h = _mg1.index[_mg1[3].astype(str).str.strip().eq("En esta provincia")][0]
+assert str(_mg1.iat[_mg1_h, 4]).strip() == "En otra provincia" and str(_mg1.iat[_mg1_h, 5]).strip() == "Otro país", "cambió el cuadro 1 de migraciones del Censo"
+_mg1_f = []
+for _, _mg_r in _mg1.iloc[_mg1_h + 1:].iterrows():
+    _mg_c = str(_mg_r[0]).strip()
+    if _mg_c == "Total" or (_mg_c.isdigit() and len(_mg_c) == 2):
+        _mg1_f.append({"codigo_indec": "00" if _mg_c == "Total" else _mg_c, "poblacion": int(_mg_r[2]), "en_la_provincia": int(_mg_r[3]),
+                       "en_otra_provincia": int(_mg_r[4]), "en_otro_pais": int(_mg_r[5])})
+mg_nac = pd.DataFrame(_mg1_f)
+assert len(mg_nac) == 25 and set(mg_nac.codigo_indec) - {"00"} == set(POB), "faltan jurisdicciones en el cuadro 1 de migraciones del Censo"
+_mg_p = mg_nac.set_index("codigo_indec")
+assert (_mg_p.drop("00").sum() == _mg_p.loc["00"]).all(), "las jurisdicciones no suman el país en el cuadro 1 de migraciones del Censo"
+assert (_mg_p.en_la_provincia + _mg_p.en_otra_provincia + _mg_p.en_otro_pais == _mg_p.poblacion).all(), "los lugares de nacimiento no suman la población"
+# país de nacimiento según jurisdicción (cuadro 10): las celdas combinadas del título corren el nombre de algunas provincias, así que los
+# nombres se toman en orden y se asignan a las columnas "Total" (una cada tres), y se controla cada una contra el cuadro 1
+_mg10 = pd.read_excel(CRUDO / "censo2022_migraciones_c10.xlsx", "Cuadro 10", header=None)
+_mg10_p = _mg10.index[_mg10[1].astype(str).str.startswith("País de nacimiento")][0]
+_mg10_n = [" ".join(str(v).replace("(1)", "").split()) for v in _mg10.iloc[_mg10_p, 3:].tolist() if pd.notna(v)]
+_mg10_t = [j for j in range(3, _mg10.shape[1]) if str(_mg10.iat[_mg10_p + 1, j]).strip() == "Total"]
+assert len(_mg10_n) == len(_mg10_t) == 24, "cambió el cuadro 10 de migraciones del Censo"
+_mg10_c = {2: "00", **{j: COD_NOMBRE[norm(n)] for j, n in zip(_mg10_t, _mg10_n)}}
+assert sorted(_mg10_c.values()) == sorted(mg_nac.codigo_indec), "faltan jurisdicciones en el cuadro 10 de migraciones del Censo"
+_mg10_l, _mg_cont = [], None
+for _mg_i in range(_mg10_p + 2, _mg10.shape[0]):
+    _mg_a, _mg_b = _mg10.iat[_mg_i, 0], _mg10.iat[_mg_i, 1]
+    if pd.isna(_mg_b):
+        continue
+    if pd.notna(_mg_a):
+        _mg_cont = " ".join(str(_mg_a).split())
+    _mg_pn = " ".join(str(_mg_b).split())
+    if _mg_pn.startswith(("Nota", "Fuente")):
+        break
+    for _mg_j, _mg_c in _mg10_c.items():
+        _mg_v = _mg10.iat[_mg_i, _mg_j]
+        _mg10_l.append({"continente": _mg_cont, "pais": _mg_pn, "codigo_indec": _mg_c,
+                        "personas": 0 if pd.isna(_mg_v) or str(_mg_v).strip() == "-" else int(_mg_v)})
+mg_pais = pd.DataFrame(_mg10_l)
+_mg_tot = mg_pais[mg_pais.pais == "Total"].set_index("codigo_indec").personas
+assert (_mg_tot == _mg_p.en_otro_pais.reindex(_mg_tot.index)).all(), "el cuadro 10 no coincide con el cuadro 1 de migraciones del Censo"
+mg_pais = mg_pais[mg_pais.pais != "Total"]
+assert mg_pais.groupby("codigo_indec").personas.sum().reindex(_mg_tot.index).eq(_mg_tot).all(), "los países de nacimiento no suman el total del cuadro 10"
+mg_pais["ignorado"] = mg_pais.pais.str.upper().eq("IGNORADO")
+mg_pais["pais"] = mg_pais.pais.where(~mg_pais.ignorado, "País no declarado")
+mg_pais["pct"] = mg_pais.personas / mg_pais.codigo_indec.map(_mg_tot) * 100
+LIMITROFES = ["Bolivia", "Brasil", "Chile", "Paraguay", "Uruguay"]
+assert set(LIMITROFES) <= set(mg_pais.pais), "faltan países limítrofes en el cuadro 10 de migraciones"
+_mg_conoc = mg_pais[~mg_pais.ignorado]
+_mg_prim = _mg_conoc.sort_values("personas", ascending=False).groupby("codigo_indec").head(1).set_index("codigo_indec")
+mg_nac["territorio"] = mg_nac.codigo_indec.map(CORTO).fillna("Todo el país")
+for _mg_k, _mg_c in (("pct_otro_pais", "en_otro_pais"), ("pct_otra_provincia", "en_otra_provincia"), ("pct_la_provincia", "en_la_provincia")):
+    mg_nac[_mg_k] = mg_nac[_mg_c] / mg_nac.poblacion * 100
+mg_nac["primer_pais"] = mg_nac.codigo_indec.map(_mg_prim.pais)
+# el primer país, como parte de las personas nacidas en otro país con el país declarado, y cuántas no lo declararon
+mg_nac["pct_primer_pais"] = mg_nac.codigo_indec.map(_mg_prim.personas) / mg_nac.codigo_indec.map(_mg_conoc.groupby("codigo_indec").personas.sum()) * 100
+mg_nac["pct_pais_no_declarado"] = mg_nac.codigo_indec.map(mg_pais[mg_pais.ignorado].set_index("codigo_indec").pct)
+nacidos_otro_pais_provincias = mg_nac[["codigo_indec", "territorio", "poblacion", "en_otro_pais", "pct_otro_pais", "en_otra_provincia", "pct_otra_provincia",
+                                       "en_la_provincia", "pct_la_provincia", "primer_pais", "pct_primer_pais", "pct_pais_no_declarado"]]
+# los doce países de nacimiento más frecuentes de cada jurisdicción y del país, y los que no lo declararon
+nacidos_otro_pais_paises = (pd.concat([_mg_conoc.sort_values("personas", ascending=False).groupby("codigo_indec").head(12), mg_pais[mg_pais.ignorado]])
+                            .assign(territorio=lambda x: x.codigo_indec.map(CORTO).fillna("Todo el país"))
+                            [["codigo_indec", "territorio", "pais", "continente", "personas", "pct"]].sort_values(["codigo_indec", "personas"], ascending=[True, False]))
+_mg_pp = _mg_conoc[_mg_conoc.codigo_indec == "00"]
+_mg_nd = mg_pais[(mg_pais.codigo_indec == "00") & mg_pais.ignorado].iloc[0]
+_mg_n = mg_nac[mg_nac.codigo_indec != "00"].assign(r=lambda x: x.pct_otro_pais.map(r1), ro=lambda x: x.pct_otra_provincia.map(r1))
+_mg_00 = mg_nac[mg_nac.codigo_indec == "00"].iloc[0]
+# la serie de los censos: la parte nacida en países limítrofes en 2022 la calcula el sitio con el cuadro 10 (sobre toda la población)
+migracion_censos = pd.read_csv(RAIZ / "datos" / "manual" / "censos_nacidos_otro_pais.csv")
+assert migracion_censos.anio.max() == 2022 and abs(migracion_censos.set_index("anio").nacidos_otro_pais_pct[2022] - r1(_mg_00.pct_otro_pais)) < .05, \
+    "la serie de los censos no termina con el Censo 2022"
+_mg_lim = float(_mg_pp[_mg_pp.pais.isin(LIMITROFES)].personas.sum())
+migracion_censos.loc[migracion_censos.anio == 2022, "limitrofes_pct"] = _mg_lim / _mg_00.poblacion * 100
+migracion_censos = migracion_censos.drop(columns="fuente")
+_mg_hmx = migracion_censos.loc[migracion_censos.nacidos_otro_pais_pct.idxmax()]
+# residencias otorgadas por la Dirección Nacional de Migraciones (trámites, no personas), por año y nacionalidad
+_mg_dn = pd.read_csv(CRUDO / "dnm_radicaciones.csv")
+_mg_dn["nacionalidad"] = _mg_dn.nacionalidad.str.strip().str.capitalize().replace({"Otras": "Otras nacionalidades", "Total": "Total"})
+radicaciones_anual = _mg_dn[_mg_dn.nacionalidad == "Total"].drop(columns="nacionalidad").reset_index(drop=True)
+assert list(radicaciones_anual.anio) == list(range(radicaciones_anual.anio.min(), radicaciones_anual.anio.max() + 1)), "faltan años de radicaciones"
+radicaciones_nacionalidad = _mg_dn[_mg_dn.nacionalidad != "Total"].assign(
+    pct=lambda x: x.total / x.anio.map(radicaciones_anual.set_index("anio").total) * 100).sort_values(["anio", "total"], ascending=[True, False])
+_mg_da = radicaciones_anual.set_index("anio").total
+_mg_du = int(_mg_da.index.max())
+_mg_dt = radicaciones_nacionalidad[(radicaciones_nacionalidad.anio == _mg_du) & (radicaciones_nacionalidad.nacionalidad != "Otras nacionalidades")]
+# personas nacidas en la Argentina que viven en otro país (Naciones Unidas), con el nombre de cada país en castellano (código M49). Las
+# Malvinas no se listan como un país de destino
+ONU_PAIS = {724: "España", 840: "Estados Unidos", 380: "Italia", 152: "Chile", 600: "Paraguay", 68: "Bolivia", 376: "Israel", 858: "Uruguay",
+            76: "Brasil", 604: "Perú", 36: "Australia", 484: "México", 124: "Canadá", 756: "Suiza", 862: "Venezuela", 156: "China", 170: "Colombia",
+            208: "Dinamarca", 554: "Nueva Zelanda", 591: "Panamá", 56: "Bélgica", 392: "Japón", 218: "Ecuador", 188: "Costa Rica", 620: "Portugal",
+            578: "Noruega", 214: "República Dominicana", 710: "Sudáfrica", 20: "Andorra", 630: "Puerto Rico", 300: "Grecia", 320: "Guatemala",
+            246: "Finlandia", 348: "Hungría", 705: "Eslovenia", 332: "Haití", 442: "Luxemburgo", 616: "Polonia", 558: "Nicaragua", 222: "El Salvador",
+            340: "Honduras", 191: "Croacia", 100: "Bulgaria", 352: "Islandia", 44: "Bahamas", 324: "Guinea", 112: "Belarús", 703: "Eslovaquia",
+            674: "San Marino", 196: "Chipre", 478: "Mauritania", 440: "Lituania", 233: "Estonia", 516: "Namibia", 688: "Serbia", 470: "Malta",
+            531: "Curazao", 438: "Liechtenstein", 192: "Cuba", 428: "Letonia", 268: "Georgia", 136: "Islas Caimán", 132: "Cabo Verde",
+            276: "Alemania", 250: "Francia", 826: "Reino Unido", 528: "Países Bajos", 752: "Suecia", 40: "Austria", 372: "Irlanda"}
+_mg_on = pd.read_csv(CRUDO / "onu_migrantes_argentina.csv")
+_mg_oa = [c for c in _mg_on.columns if c.isdigit()]
+_mg_ow = _mg_on[_mg_on.cod_destino == 900].iloc[0]
+argentinos_exterior = pd.DataFrame({"anio": [int(a) for a in _mg_oa], "personas": [float(_mg_ow[a]) for a in _mg_oa]})
+_mg_od = _mg_on[(_mg_on.cod_destino < 900) & (_mg_on.cod_destino != 238)].sort_values(_mg_oa[-1], ascending=False)
+assert _mg_od.head(15).cod_destino.isin(ONU_PAIS).all(), f"falta el nombre en castellano de algún destino: {set(_mg_od.head(15).cod_destino) - set(ONU_PAIS)}"
+argentinos_exterior_destinos = pd.DataFrame({"pais": _mg_od.cod_destino.map(ONU_PAIS).fillna(_mg_od.destino).values,
+                                             "personas": _mg_od[_mg_oa[-1]].values, "personas_inicio": _mg_od[_mg_oa[0]].values,
+                                             "pct": (_mg_od[_mg_oa[-1]] / _mg_ow[_mg_oa[-1]] * 100).values})
+_mg_ot = argentinos_exterior_destinos.head(5)
+MG_RES = {
+    "censo": {
+        "pct": r1(_mg_00.pct_otro_pais), "personas": int(_mg_00.en_otro_pais), "poblacion": int(_mg_00.poblacion),
+        "top": [_mg_n.loc[_mg_n.pct_otro_pais.idxmax(), "territorio"], r1(_mg_n.pct_otro_pais.max())],
+        "bajos": [list(_mg_n[_mg_n.r == _mg_n.r.min()].sort_values("territorio").territorio), float(_mg_n.r.min())],
+        "otra_pct": r1(_mg_00.pct_otra_provincia), "otra_personas": int(_mg_00.en_otra_provincia),
+        "otra_top": [_mg_n.loc[_mg_n.pct_otra_provincia.idxmax(), "territorio"], r1(_mg_n.pct_otra_provincia.max())],
+        "otra_bajos": [list(_mg_n[_mg_n.ro == _mg_n.ro.min()].sort_values("territorio").territorio), float(_mg_n.ro.min())],
+        "paises": [[f.pais, int(f.personas), r1(f.pct)] for f in _mg_pp.sort_values("personas", ascending=False).head(5).itertuples()],
+        "no_declarado": int(_mg_nd.personas), "no_declarado_pct": r1(_mg_nd.pct),
+        "limitrofes_pct": r1(_mg_lim / _mg_pp.personas.sum() * 100),
+        "europa_pct": r1(_mg_pp[_mg_pp.continente == "Europa"].personas.sum() / _mg_pp.personas.sum() * 100),
+        "primer_pais_n": int((nacidos_otro_pais_provincias[nacidos_otro_pais_provincias.codigo_indec != "00"].primer_pais
+                              == _mg_prim.at["00", "pais"]).sum()),
+    },
+    "renaper": {"personas": int(extranjeros.personas.sum()), "corte": RENAPER_CORTE,
+                "mas": r1((extranjeros.personas.sum() / _mg_00.en_otro_pais - 1) * 100)},
+    "historia": {"ini": int(migracion_censos.anio.min()), "ini_pct": float(migracion_censos.nacidos_otro_pais_pct.iloc[0]),
+                 "max_anio": int(_mg_hmx.anio), "max_pct": float(_mg_hmx.nacidos_otro_pais_pct), "censos": int(len(migracion_censos)),
+                 "lim_ult": r1(migracion_censos.limitrofes_pct.iloc[-1])},
+    "dnm": {"anio": _mg_du, "desde": int(_mg_da.index.min()), "total": int(_mg_da[_mg_du]),
+            "permanentes": int(radicaciones_anual.set_index("anio").permanentes[_mg_du]),
+            "temporarias": int(radicaciones_anual.set_index("anio").temporarias[_mg_du]),
+            "var": r1((_mg_da[_mg_du] / _mg_da[_mg_du - 1] - 1) * 100), "max_anio": int(_mg_da.idxmax()), "max": int(_mg_da.max()),
+            "min_anio": int(_mg_da.idxmin()), "min": int(_mg_da.min()),
+            "top": [[f.nacionalidad, int(f.total), r1(f.pct)] for f in _mg_dt.head(3).itertuples()]},
+    "onu": {"anio": int(_mg_oa[-1]), "desde": int(_mg_oa[0]), "personas": int(_mg_ow[_mg_oa[-1]]), "personas_ini": int(_mg_ow[_mg_oa[0]]),
+            "anio_ant": int(_mg_oa[-2]), "personas_ant": int(_mg_ow[_mg_oa[-2]]),
+            "top": [[f.pais, int(f.personas), r1(f.pct)] for f in _mg_ot.itertuples()]},
+}
+agregar(mg_nac.assign(periodo="2022", valor=mg_nac.pct_otro_pais, territorio=mg_nac.territorio.replace("Todo el país", "Argentina")), "poblacion_nacida_en_otro_pais", "% de la poblacion en viviendas particulares",
+        "INDEC, Censo 2022")
+agregar(mg_nac.assign(periodo="2022", valor=mg_nac.pct_otra_provincia, territorio=mg_nac.territorio.replace("Todo el país", "Argentina")), "poblacion_nacida_en_otra_provincia", "% de la poblacion en viviendas particulares",
+        "INDEC, Censo 2022")
+agregar(radicaciones_anual.assign(periodo=radicaciones_anual.anio.astype(str), valor=radicaciones_anual.total, codigo_indec="00", territorio="Argentina"),
+        "residencias_otorgadas", "tramites", "Direccion Nacional de Migraciones")
+agregar(argentinos_exterior.assign(periodo=argentinos_exterior.anio.astype(str), valor=argentinos_exterior.personas, codigo_indec="00", territorio="Argentina"),
+        "nacidos_en_argentina_en_otro_pais", "personas", "Naciones Unidas, International Migrant Stock 2024")
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3810,7 +3960,8 @@ cru["exportaciones"] = columna(exp_prov, "usd_por_habitante")
 if empresas is not None:
     cru["empresas"] = columna(empresas, "cada_1000_hab")
     cru["empresas_neta"] = columna(empresas, f"tasa_neta_{emp_res['ult'] - 4}_{emp_res['ult']}")
-cru["extranjeros"] = columna(extranjeros, "cada_100")
+cru["extranjeros"] = columna(nacidos_otro_pais_provincias, "pct_otro_pais")
+cru["otra_provincia"] = columna(nacidos_otro_pais_provincias, "pct_otra_provincia")
 cru["natalidad"] = cru.codigo_indec.map(natalidad)
 cru["autonomia_fiscal"] = columna(fiscal, "autonomia")
 cru["resultado_fiscal"] = columna(fiscal, "resultado")
@@ -3889,7 +4040,8 @@ CRUCES_META = {
     "voto_milei_2023": ("Voto a Milei en el balotaje", "% de los votos positivos, segunda vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "voto_oficialismo_2023": ("Voto al oficialismo nacional", "% de los votos positivos a la fórmula del gobierno, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
-    "extranjeros": ("Nacidos en otro país", "personas identificadas por el RENAPER cada 100 habitantes", RENAPER_CORTE, "Población", "RENAPER", "", 1),
+    "extranjeros": ("Nacidos en otro país", "% de la población en viviendas particulares", "2022", "Migraciones", "INDEC, Censo 2022", "f-nacidos-otro-pais", 1),
+    "otra_provincia": ("Nacidos en otra provincia", "% de la población en viviendas particulares", "2022", "Migraciones", "INDEC, Censo 2022", "f-migracion-interna", 1),
     "gas_red": ("Hogares que cocinan con gas de red", "% de los hogares", "2022", "Energía", "INDEC, Censo 2022", "f-gas-hogares", 1),
     "alquila": ("Hogares que alquilan", "% de los hogares", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
     "hacinamiento": ("Hacinamiento crítico", "% de los hogares con más de tres personas por cuarto", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
@@ -4103,6 +4255,13 @@ tablas = {
     "actividad_mensual": actividad_mensual,
     "actividad_anual": actividad_anual,
     "actividad_sectores": actividad_sectores,
+    "nacidos_otro_pais_provincias": nacidos_otro_pais_provincias,
+    "nacidos_otro_pais_paises": nacidos_otro_pais_paises,
+    "migracion_censos": migracion_censos,
+    "radicaciones_anual": radicaciones_anual,
+    "radicaciones_nacionalidad": radicaciones_nacionalidad,
+    "argentinos_exterior": argentinos_exterior,
+    "argentinos_exterior_destinos": argentinos_exterior_destinos,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -4481,6 +4640,7 @@ resumen["turismo_dolar"] = TU_RES  # artículo del turismo y el dólar (etapa 24
 resumen["nafta_dolares"] = NF_RES  # artículo de la nafta en dólares y el petróleo (etapa 24)
 resumen["exportaciones_dolar"] = XD_RES  # artículo de las exportaciones y el dólar (etapa 24)
 resumen["economia"] = ECO_RES  # sección Economía y precios (etapa 25)
+resumen["migraciones"] = MG_RES  # sección Migraciones (etapa 25)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

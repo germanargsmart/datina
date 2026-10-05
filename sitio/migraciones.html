@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Migraciones | Datina</title>
+<meta name="description" content="Migraciones: ¿Quiénes llegan al país, de dónde vienen y cuántos argentinos viven afuera? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js");
+// transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
+window.LLEGADA = {activa: false};
+addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = true; e.viewTransition.finished.finally(() => { LLEGADA.activa = false; }); } });</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<link rel="stylesheet" href="datina.css?v=89c98810ac">
+</head>
+<body data-pagina="migraciones">
+<header class="barra clara">
+  <div class="envoltura">
+    <div class="barra-izq">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="h1" d="M2 5h16"/><path class="h2" d="M2 10h16"/><path class="h3" d="M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    </div>
+    <nav class="temas" aria-label="Temas principales">
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="seguridad.html">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+    </nav>
+    <div class="barra-der">
+      <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
+      <div class="prov-chip" id="prov-chip" hidden>
+        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
+      </div>
+      <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
+    </div>
+  </div>
+  <div class="buscador" id="buscador" hidden>
+    <div class="buscador-caja">
+      <label class="buscador-lab" for="busca">Buscar en Datina</label>
+      <input type="search" id="busca" placeholder="Un tema, una provincia o una pregunta: empleo, Salta, cloacas" autocomplete="off" spellcheck="false">
+      <div class="busca-res" id="busca-res" aria-live="polite"></div>
+    </div>
+  </div>
+</header>
+<!-- menú de secciones (etapa 14): va fuera de la barra para que el vidrio desenfoque la página (dentro de la barra, que ya
+     desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
+<nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
+    <div class="menu-col">
+      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li></ul></div>
+    </div>
+    <div class="menu-col">
+      <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <div class="menu-grupo" style="--i:2"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Todos los artículos</a></li></ul></div>
+    </div>
+    <div class="menu-col">
+      <div class="menu-grupo" style="--i:3"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li></ul></div>
+      <div class="menu-grupo" style="--i:4"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+    </div>
+</nav>
+
+
+
+
+
+<main class="envoltura">
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <section class="tema" id="migraciones"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="trabajo.html">Trabajo y finanzas</a><a href="economia.html">Economía y precios</a><a href="empresas.html">Empresas y oportunidades</a><a href="pobreza.html">Pobreza y hogares</a><a href="salud.html">Salud</a><a href="seguridad.html">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="migraciones.html" aria-current="page">Migraciones</a><a href="politica.html">Política</a><a href="movilidad.html">Movilidad</a><a href="construccion.html">Construcción y vivienda</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="turismo.html">Turismo</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Migraciones</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-migraciones">Migraciones</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Quiénes llegan al país?">¿Quiénes llegan al país, de dónde vienen y cuántos argentinos viven afuera?</p>
+      <p>Primero, cuántas personas nacidas en otro país viven en la Argentina y en cada provincia, y cuántas viven en una provincia distinta de la que nacieron, según el Censo 2022. Después, cómo cambió la inmigración desde el primer censo, cuántas personas nacidas en otro país tienen documento argentino, cuántas residencias otorga Migraciones cada año y cuántas personas nacidas en la Argentina viven en otro país.</p>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
+    <div class="explicador"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3><p>Qué se mide, cómo se calcula y de dónde sale cada dato de esta página.</p></div><div class="exp-lista"><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-migraciones-0-b" aria-expanded="false" aria-controls="exp-migraciones-0"><span>Quiénes cuenta el Censo 2022</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-migraciones-0" role="region" aria-labelledby="exp-migraciones-0-b"><div class="exp-cont"><p>El Censo 2022 del INDEC contó a cada persona en el lugar donde vive habitualmente: fue el primer censo de derecho del país. A cada persona le preguntó dónde nació, en la misma provincia, en otra provincia o en otro país, y en ese caso en cuál. Los resultados de migraciones son de la población en viviendas particulares. Cuando una persona nacida en otro país no dijo en cuál, el censo la registra como de país ignorado.</p><p class="exp-fuente">Fuente: <a href="https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf" target="_blank" rel="noopener">INDEC, Censo 2022, Migraciones: resultados definitivos (2024)</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-migraciones-1-b" aria-expanded="false" aria-controls="exp-migraciones-1"><span>La inmigración en los censos desde 1869</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-migraciones-1" role="region" aria-labelledby="exp-migraciones-1-b"><div class="exp-cont"><p>Los censos nacionales registran desde el primero, el de 1869, cuántas personas nacieron en otro país. Esa parte de la población llegó a lo más alto en los censos de 1895 y 1914, con la llegada de inmigrantes de Europa, y desde mediados del siglo veinte fue bajando. Hasta el censo de 1980, Europa fue el principal origen, y desde el de 1991 predominan las personas nacidas en los países limítrofes. Los censos anteriores al de 2022 contaban a cada persona donde pasaba la noche del censo.</p><p class="exp-fuente">Fuentes: <a href="https://www.indec.gob.ar/micro_sitios/webcenso/aquisecuenta/aqui12.pdf" target="_blank" rel="noopener">INDEC, Aquí se cuenta, número 12: tendencias recientes de la inmigración internacional (2004)</a>, <a href="https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf" target="_blank" rel="noopener">INDEC, Censo 2022, Migraciones: resultados definitivos (2024)</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-migraciones-2-b" aria-expanded="false" aria-controls="exp-migraciones-2"><span>El RENAPER y el Censo cuentan distinto</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-migraciones-2" role="region" aria-labelledby="exp-migraciones-2-b"><div class="exp-cont"><p>El Registro Nacional de las Personas tiene a su cargo la inscripción y la identificación de las personas: registra a quienes tienen documento argentino, con el domicilio que declararon y que deben actualizar cuando se mudan. Por eso no cuenta a quienes viven en el país sin documento argentino, y sí a quienes se fueron o se mudaron sin avisar. El Censo, en cambio, cuenta a quienes viven en cada vivienda. Por eso los dos dan números distintos de personas nacidas en otro país.</p><p class="exp-fuente">Fuente: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/28130/texact.htm" target="_blank" rel="noopener">Ley 17.671 (InfoLEG)</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-migraciones-3-b" aria-expanded="false" aria-controls="exp-migraciones-3"><span>Las residencias que otorga Migraciones</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-migraciones-3" role="region" aria-labelledby="exp-migraciones-3-b"><div class="exp-cont"><p>La ley de migraciones distingue la residencia permanente, para quien quiere establecerse en el país, y la temporaria, para quien viene por un tiempo y un motivo, como trabajar o estudiar. Las personas nacidas en los países del Mercosur, en Chile y en Bolivia pueden pedir la residencia temporaria por su nacionalidad. La Dirección Nacional de Migraciones publica cada año cuántos trámites de residencia resolvió a favor, por categoría y por nacionalidad, pero no por provincia.</p><p class="exp-fuente">Fuentes: <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/90000-94999/92016/texact.htm" target="_blank" rel="noopener">Ley 25.871 de Migraciones, texto actualizado (InfoLEG)</a>, <a href="https://datos.mininterior.gob.ar/dataset/movimientos_migratorios_de_ingreso_y_egreso_al_pais_y_tramites_de_radicacion_resueltos" target="_blank" rel="noopener">Ministerio del Interior, movimientos migratorios y trámites de radicación resueltos (datos abiertos)</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-migraciones-4-b" aria-expanded="false" aria-controls="exp-migraciones-4"><span>Los argentinos en el exterior</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-migraciones-4" role="region" aria-labelledby="exp-migraciones-4-b"><div class="exp-cont"><p>La División de Población de las Naciones Unidas estima cuántas personas viven en un país distinto del que nacieron, con los censos, las encuestas y los registros de cada país de destino. En la mayoría de los países cuenta a las personas nacidas afuera y en algunos, a las de otra nacionalidad, y las cifras son a mediados de cada año. Es una estimación, no un conteo, y no se compara con los censos del país.</p><p class="exp-fuente">Fuente: <a href="https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx" target="_blank" rel="noopener">Naciones Unidas, División de Población, International Migrant Stock 2024 (planilla por destino y origen)</a></p></div></div></div><div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-migraciones-5-b" aria-expanded="false" aria-controls="exp-migraciones-5"><span>Glosario</span><span class="desp-signo" aria-hidden="true"></span></button></h4><div class="exp-bloque" id="exp-migraciones-5" role="region" aria-labelledby="exp-migraciones-5-b"><div class="exp-cont"><dl class="glosario"><div><dt>Censo de derecho</dt><dd>El que cuenta a cada persona en el lugar donde vive habitualmente, y no donde está el día del censo. <a href="https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf" target="_blank" rel="noopener">INDEC, Censo 2022, Migraciones: resultados definitivos (2024)</a></dd></div><div><dt>Población en viviendas particulares</dt><dd>Las personas que viven en casas y departamentos, sin las que viven en viviendas colectivas, como hogares de ancianos, cuarteles o cárceles. <a href="https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf" target="_blank" rel="noopener">INDEC, Censo 2022, Migraciones: resultados definitivos (2024)</a></dd></div><div><dt>Países limítrofes</dt><dd>Los que tienen frontera con la Argentina: Bolivia, Brasil, Chile, Paraguay y Uruguay. <a href="https://censo.gob.ar/wp-content/uploads/2024/01/censo2022_migraciones.pdf" target="_blank" rel="noopener">INDEC, Censo 2022, Migraciones: resultados definitivos (2024)</a></dd></div><div><dt>Residencia permanente</dt><dd>La que se otorga a quien quiere establecerse en el país. <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/90000-94999/92016/texact.htm" target="_blank" rel="noopener">Ley 25.871 de Migraciones, texto actualizado (InfoLEG)</a></dd></div><div><dt>Residencia temporaria</dt><dd>La que se otorga a quien viene por un tiempo y un motivo, como trabajar o estudiar. <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/90000-94999/92016/texact.htm" target="_blank" rel="noopener">Ley 25.871 de Migraciones, texto actualizado (InfoLEG)</a></dd></div><div><dt>Migrante internacional</dt><dd>Para las Naciones Unidas, una persona que vive en un país distinto del que nació. <a href="https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx" target="_blank" rel="noopener">Naciones Unidas, División de Población, International Migrant Stock 2024 (planilla por destino y origen)</a></dd></div></dl></div></div></div></div></div>
+
+    <article class="ficha" id="f-nacidos-otro-pais">
+      <h3>Personas nacidas en otro país por provincia y por país de nacimiento, 2022</h3>
+      <p class="lead" data-t="nacidos-otro-pais"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="nacidos-otro-pais">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="pais" aria-pressed="false">Por país</button>
+      </div>
+      <div class="grafico" data-g="nacidos-otro-pais" data-forma="barras"></div>
+      <p class="nota" data-t="nacidos-otro-pais-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-migracion-interna">
+      <h3>Dónde nacieron las personas que viven en cada provincia, 2022</h3>
+      <p class="lead" data-t="migracion-interna"></p>
+      <div class="pol-ley" id="migracion-interna-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="migracion-interna" data-forma="barras" style="--filas:25"></div>
+      <p class="nota" data-t="migracion-interna-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-migracion-historia">
+      <h3>Personas nacidas en otro país en cada censo nacional, 1869 a 2022</h3>
+      <p class="lead" data-t="migracion-historia"></p>
+      <div class="grafico" data-g="migracion-historia" data-forma="lineas"></div>
+      <p class="nota" data-t="migracion-historia-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, censos nacionales de población</span><a href="datos/migracion_censos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-extranjeros">
+      <h3 data-t="extranjeros-titulo"></h3>
+      <p class="lead" data-t="extranjeros"></p>
+      <div class="grafico" data-g="extranjeros" data-forma="barras"></div>
+      <p class="nota" data-t="extranjeros-nota"></p>
+      <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-radicaciones">
+      <h3>Residencias otorgadas por la Dirección Nacional de Migraciones, 2019 a 2024</h3>
+      <p class="lead" data-t="radicaciones"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="radicaciones">
+        <button type="button" data-m="anio" aria-pressed="true">Por año</button>
+        <button type="button" data-m="nacionalidad" aria-pressed="false">Por nacionalidad</button>
+      </div>
+      <div class="pol-ley" id="radicaciones-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="radicaciones" data-forma="columnas"></div>
+      <p class="nota" data-t="radicaciones-nota"></p>
+      <div class="pie"><span>Fuente: Dirección Nacional de Migraciones, trámites de radicación resueltos</span><a href="datos/radicaciones_nacionalidad.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-argentinos-exterior">
+      <h3>Personas nacidas en la Argentina que viven en otro país, 1990 a 2024</h3>
+      <p class="lead" data-t="argentinos-exterior"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="argentinos-exterior">
+        <button type="button" data-m="anio" aria-pressed="true">Por año</button>
+        <button type="button" data-m="pais" aria-pressed="false">Por país</button>
+      </div>
+      <div class="grafico" data-g="argentinos-exterior" data-forma="lineas"></div>
+      <p class="nota" data-t="argentinos-exterior-nota"></p>
+      <div class="pie"><span>Fuente: Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO)</span><a href="datos/argentinos_exterior_destinos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todas las secciones <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="poblacion.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.204) translate(-0 -16.4)"><path class="s" d="M-36.6 24.6A10.7 6.2 0 0 0 -15.3 24.6L-15.3 10.2A10.7 6.2 0 0 1 -36.6 10.2Z"/><path class="l" d="M-36.6 10.2A10.7 10.7 0 0 1 -15.3 10.2A10.7 6.2 0 0 1 -36.6 10.2Z"/><path class="s" d="M-26 -0.5A10.7 10.7 0 0 1 -15.3 10.2A10.7 6.2 0 0 1 -26 16.4Z"/><circle class="l" cx="-26" cy="-3.9" r="7"/><path class="s" d="M-26 -10.9A7 7 0 0 1 -26 3.1Z"/><path class="s" d="M15.3 24.6A10.7 6.2 0 0 0 36.6 24.6L36.6 10.2A10.7 6.2 0 0 1 15.3 10.2Z"/><path class="l" d="M15.3 10.2A10.7 10.7 0 0 1 36.6 10.2A10.7 6.2 0 0 1 15.3 10.2Z"/><path class="s" d="M26 -0.5A10.7 10.7 0 0 1 36.6 10.2A10.7 6.2 0 0 1 26 16.4Z"/><circle class="l" cx="26" cy="-3.9" r="7"/><path class="s" d="M26 -10.9A7 7 0 0 1 26 3.1Z"/><path class="s" d="M-13.2 36A13.2 7.6 0 0 0 13.2 36L13.2 18A13.2 7.6 0 0 1 -13.2 18Z"/><path class="l" d="M-13.2 18A13.2 13.2 0 0 1 13.2 18A13.2 7.6 0 0 1 -13.2 18Z"/><path class="s" d="M0 4.8A13.2 13.2 0 0 1 13.2 18A13.2 7.6 0 0 1 0 25.6Z"/><circle class="l" cx="0" cy="0.5" r="8.7"/><path class="s" d="M0 -8.2A8.7 8.7 0 0 1 0 9.2Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-poblacion">Población</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="politica.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(0.885) translate(-9.4 -15.5)"><path class="l" d="M-43.6 25.2L18.7 61.2L18.7 56.4L-43.6 20.4Z"/><path class="s" d="M62.4 36L18.7 61.2L18.7 56.4L62.4 31.2Z"/><path class="l" d="M0 -4.8L62.4 31.2L18.7 56.4L-43.6 20.4Z"/><path class="l" d="M-34.3 19.8L19.7 51L19.7 28.2L-34.3 -3Z"/><path class="s" d="M54 31.2L19.7 51L19.7 28.2L54 8.4Z"/><path class="l" d="M0 -22.8L54 8.4L19.7 28.2L-34.3 -3Z"/><path class="s" d="M-30.7 20.1L-27 22.2L-27 4.2L-30.7 2.1Z"/><path class="s" d="M-21.6 25.3L-17.9 27.4L-17.9 9.5L-21.6 7.3Z"/><path class="s" d="M-12.5 30.6L-8.8 32.7L-8.8 14.7L-12.5 12.6Z"/><path class="s" d="M-3.4 35.8L0.3 37.9L0.3 20L-3.4 17.8Z"/><path class="s" d="M5.7 41.1L9.4 43.2L9.4 25.2L5.7 23.1Z"/><path class="s" d="M14.8 46.3L18.4 48.4L18.4 30.4L14.8 28.3Z"/><path class="l" d="M-17.7 6.6L3.1 18.6L-7.3 4.8Z"/><path class="s" d="M-7.3 4.8L-17.7 6.6L-11.4 3L-1 1.2Z"/><path class="s" d="M3.1 18.6L-7.3 4.8L-1 1.2L9.4 15Z"/><path class="s" d="M-7 2.7A16.9 9.8 0 0 0 26.8 2.7L26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z"/><ellipse class="l" cx="9.9" cy="-6.3" rx="16.9" ry="9.8"/><path class="l" d="M-7 -6.3A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z"/><path class="s" d="M9.9 -23.2A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 9.9 3.5Z"/><path class="s" d="M6.6 -22.8A3.3 1.9 0 0 0 13.2 -22.8L13.2 -28.2A3.3 1.9 0 0 1 6.6 -28.2Z"/><ellipse class="l" cx="9.9" cy="-28.2" rx="3.3" ry="1.9"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-politica">Política</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="provincia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.123) translate(-6.5 -22.3)"><path class="s" d="M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z"/><path class="l" d="M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z"/><path class="s" d="M36.4 21L54.6 26.1L13 50.1L-5.2 45Z"/><path class="wl" d="M-30.1 21L-9.4 15.2L0.5 15.3"/><path class="k" d="M0.5 15.3L12.5 19.7L24.9 27.6"/><path class="s" d="M27 33.5L16.6 10.6L37.4 10.6Z"/><circle class="s" cx="27" cy="5.9" r="11.4"/><circle class="w" cx="27" cy="5.9" r="4.8"/></g></svg></span><span class="explora-txt"><b>Tu provincia</b><small>Perfil provincial</small></span></a><a class="tarjeta explora" href="cruces.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.083) translate(-0 -27.1)"><path class="s" d="M-49.9 28.8L0 57.6L0 54.3L-49.9 25.5Z"/><path class="s" d="M49.9 28.8L0 57.6L0 54.3L49.9 25.5Z"/><path class="l" d="M0 -3.3L49.9 25.5L0 54.3L-49.9 25.5Z"/><path class="s" d="M-23.1 25L-17.1 28.5L-17.1 19.5L-23.1 16Z"/><path class="s" d="M-11.2 25L-17.1 28.5L-17.1 19.5L-11.2 16Z"/><path class="l" d="M-17.1 12.6L-11.2 16L-17.1 19.5L-23.1 16Z"/><path class="s" d="M23.1 25.3L29.1 28.8L29.1 8.4L23.1 4.9Z"/><path class="s" d="M35.1 25.3L29.1 28.8L29.1 8.4L35.1 4.9Z"/><path class="l" d="M29.1 1.5L35.1 4.9L29.1 8.4L23.1 4.9Z"/><path class="s" d="M-40.8 25.6L-34.8 29.1L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-28.8 25.6L-34.8 29.1L-34.8 24.3L-28.8 20.8Z"/><path class="l" d="M-34.8 17.4L-28.8 20.8L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-1.3 25.6L4.7 29.1L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M10.7 25.6L4.7 29.1L4.7 14.7L10.7 11.2Z"/><path class="l" d="M4.7 7.8L10.7 11.2L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M-21 33.4L-15.1 36.9L-15.1 30.3L-21 26.8Z"/><path class="s" d="M-9.1 33.4L-15.1 36.9L-15.1 30.3L-9.1 26.8Z"/><path class="l" d="M-15.1 23.4L-9.1 26.8L-15.1 30.3L-21 26.8Z"/><path class="s" d="M18.4 33.4L24.4 36.9L24.4 19.5L18.4 16Z"/><path class="s" d="M30.4 33.4L24.4 36.9L24.4 19.5L30.4 16Z"/><path class="l" d="M24.4 12.6L30.4 16L24.4 19.5L18.4 16Z"/><path class="s" d="M1.8 34.6L7.8 38.1L7.8 26.1L1.8 22.6Z"/><path class="s" d="M13.8 34.6L7.8 38.1L7.8 26.1L13.8 22.6Z"/><path class="l" d="M7.8 19.2L13.8 22.6L7.8 26.1L1.8 22.6Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-cruces">Cruces</b><small>Herramienta</small></span></a></div></nav></section>
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</main>
+
+<footer class="pie-sitio">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="articulos.html">Artículos</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p data-t="actualizado"></p>
+      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
+<script src="datos/fichas.js?v=a9d9b774c6"></script>
+<script src="datina.js?v=e5c3b45c8e"></script>
+</body>
+</html>

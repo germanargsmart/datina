@@ -48,7 +48,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="politica.html">Política</a></li></ul></div>
+      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li></ul></div>
     </div>
     <div class="menu-col">
       <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
@@ -643,7 +643,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Población</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué pasa si nacen cada vez menos chicos?">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
-      <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. También importa quién llega: las personas que migran desde otros países.</p>
+      <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. Quién llega desde otros países y desde otras provincias está en <a href="migraciones.html">Migraciones</a>.</p>
     </div>
     <!--EXPLICADOR:poblacion-->
 
@@ -697,12 +697,76 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, e INDEC, Censo 2022</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+  </section>
+
+  <section class="tema" id="migraciones">
+    <h2>Migraciones</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Quiénes llegan al país?">¿Quiénes llegan al país, de dónde vienen y cuántos argentinos viven afuera?</p>
+      <p>Primero, cuántas personas nacidas en otro país viven en la Argentina y en cada provincia, y cuántas viven en una provincia distinta de la que nacieron, según el Censo 2022. Después, cómo cambió la inmigración desde el primer censo, cuántas personas nacidas en otro país tienen documento argentino, cuántas residencias otorga Migraciones cada año y cuántas personas nacidas en la Argentina viven en otro país.</p>
+    </div>
+    <!--EXPLICADOR:migraciones-->
+
+    <article class="ficha" id="f-nacidos-otro-pais">
+      <h3>Personas nacidas en otro país por provincia y por país de nacimiento, 2022</h3>
+      <p class="lead" data-t="nacidos-otro-pais"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="nacidos-otro-pais">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="pais" aria-pressed="false">Por país</button>
+      </div>
+      <div class="grafico" data-g="nacidos-otro-pais" data-forma="barras"></div>
+      <p class="nota" data-t="nacidos-otro-pais-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-migracion-interna">
+      <h3>Dónde nacieron las personas que viven en cada provincia, 2022</h3>
+      <p class="lead" data-t="migracion-interna"></p>
+      <div class="pol-ley" id="migracion-interna-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="migracion-interna" data-forma="barras" style="--filas:25"></div>
+      <p class="nota" data-t="migracion-interna-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-migracion-historia">
+      <h3>Personas nacidas en otro país en cada censo nacional, {{migraciones.historia.ini}} a 2022</h3>
+      <p class="lead" data-t="migracion-historia"></p>
+      <div class="grafico" data-g="migracion-historia" data-forma="lineas"></div>
+      <p class="nota" data-t="migracion-historia-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, censos nacionales de población</span><a href="datos/migracion_censos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-extranjeros">
       <h3 data-t="extranjeros-titulo"></h3>
       <p class="lead" data-t="extranjeros"></p>
       <div class="grafico" data-g="extranjeros" data-forma="barras"></div>
       <p class="nota" data-t="extranjeros-nota"></p>
       <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-radicaciones">
+      <h3>Residencias otorgadas por la Dirección Nacional de Migraciones, {{migraciones.dnm.desde}} a {{migraciones.dnm.anio}}</h3>
+      <p class="lead" data-t="radicaciones"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="radicaciones">
+        <button type="button" data-m="anio" aria-pressed="true">Por año</button>
+        <button type="button" data-m="nacionalidad" aria-pressed="false">Por nacionalidad</button>
+      </div>
+      <div class="pol-ley" id="radicaciones-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="radicaciones" data-forma="columnas"></div>
+      <p class="nota" data-t="radicaciones-nota"></p>
+      <div class="pie"><span>Fuente: Dirección Nacional de Migraciones, trámites de radicación resueltos</span><a href="datos/radicaciones_nacionalidad.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-argentinos-exterior">
+      <h3>Personas nacidas en la Argentina que viven en otro país, {{migraciones.onu.desde}} a {{migraciones.onu.anio}}</h3>
+      <p class="lead" data-t="argentinos-exterior"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="argentinos-exterior">
+        <button type="button" data-m="anio" aria-pressed="true">Por año</button>
+        <button type="button" data-m="pais" aria-pressed="false">Por país</button>
+      </div>
+      <div class="grafico" data-g="argentinos-exterior" data-forma="lineas"></div>
+      <p class="nota" data-t="argentinos-exterior-nota"></p>
+      <div class="pie"><span>Fuente: Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO)</span><a href="datos/argentinos_exterior_destinos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>

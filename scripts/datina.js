@@ -201,6 +201,8 @@ const enSuRegion = (filas, k, f) => {
 const inicialMin = t => t.charAt(0).toLowerCase() + t.slice(1);
 // como cambioPct, para un sujeto en plural: "subieron 4,0%", "bajaron 1,3%" o "no cambiaron"
 const cambioPl = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambiaron" : `${v < 0 ? "bajaron" : "subieron"} ${pct(Math.abs(v))}`;
+// Migraciones (etapa 25): el Censo 2022, la serie de los censos, las residencias de la DNM y los argentinos en el exterior (Naciones Unidas)
+const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.historia;
 // el segundo de dos cambios seguidos, sin repetir el verbo si va en la misma dirección que el primero: "subió 1,7% frente al mes anterior y 33,5% en un año"
 const yCambio = (a, b) => Math.round(Math.abs(a) * 10) && Math.round(Math.abs(b) * 10) && (a < 0) === (b < 0) ? pct(Math.abs(b)) : cambioPct(b);
 // un caso cada cuántos habitantes, redondeado a la centena (la equivalencia que usa usafacts.org: "uno cada 27.600 habitantes")
@@ -471,6 +473,40 @@ const LEAD = {
     return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país, ${n0(SG.sn_tasa)} cada 100.000 habitantes. ` +
       `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
       `con la causa en trámite, o en otra situación.`;
+  },
+  // ---- migraciones (etapa 25)
+  "nacidos-otro-pais": v => {
+    if (v === "pais") return `Los países de nacimiento más frecuentes de las personas nacidas en otro país que vivían en la Argentina en 2022 eran ` +
+      `${lista(MGC.paises.slice(0, 3).map(p => `${p[0]} (${pct(p[2])})`))}, según el Censo. Las nacidas en países limítrofes eran el ${pct(MGC.limitrofes_pct)} ` +
+      `de las que declararon su país, y las nacidas en Europa, el ${pct(MGC.europa_pct)}. El ${pct(MGC.no_declarado_pct)} no declaró su país de nacimiento.`;
+    return `En el Censo 2022, el ${pct(MGC.pct)} de las personas que vivían en el país había nacido en otro país: ${n0(MGC.personas)} personas. La parte ` +
+      `más alta era la de ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y la más baja, la de ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
+      `El país de nacimiento más frecuente era ${MGC.paises[0][0]} en ${MGC.primer_pais_n} de las 24 jurisdicciones.`;
+  },
+  "migracion-interna": () => `En el Censo 2022, el ${pct(MGC.otra_pct)} de las personas que vivían en el país había nacido en otra provincia: ` +
+    `${n0(MGC.otra_personas)} personas. La parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
+    `provincia: ${pct(MGC.otra_top[1])}` : `, ${pct(MGC.otra_top[1])}`) + `, y la más baja, la de ${lista(MGC.otra_bajos[0])}, ${pct(MGC.otra_bajos[1])}. ` +
+    `Y el ${pct(MGC.pct)} había nacido en otro país.`,
+  "migracion-historia": () => {
+    const lim = T.migracion_censos.map(r => r.limitrofes_pct).filter(v => v != null);
+    return `En el primer censo nacional, el de ${MGH.ini}, el ${pct(MGH.ini_pct)} de la población había nacido en otro país. La parte más alta fue la del ` +
+      `censo de ${MGH.max_anio}, ${pct(MGH.max_pct)}, y desde entonces bajó: en el Censo 2022 fue el ${pct(MGC.pct)}. Las personas nacidas en países limítrofes ` +
+      `fueron en todos los censos entre el ${pct(d3.min(lim))} y el ${pct(d3.max(lim))} de la población. Hasta el censo de 1980, la mayoría de las personas ` +
+      `nacidas en otro país venía de Europa, y desde el de 1991, de los países limítrofes: en 2022, el ${pct(MGC.limitrofes_pct)} de las que declararon su país.`;
+  },
+  radicaciones: v => {
+    if (v === "nacionalidad") return `En ${MGD.anio}, las nacionalidades con más residencias otorgadas fueron ${lista(MGD.top.map(t => `la ${t[0].toLowerCase()} ` +
+      `(${pct(t[2])})`))}. La Dirección Nacional de Migraciones no publica las residencias por provincia.`;
+    return `En ${MGD.anio}, la Dirección Nacional de Migraciones resolvió a favor ${n0(MGD.total)} trámites de residencia: ${n0(MGD.permanentes)} ` +
+      `permanentes y ${n0(MGD.temporarias)} temporarias. Fueron ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? "menos" : "más"} que en el año anterior. Desde ` +
+      `${MGD.desde}, el año con más fue ${MGD.max_anio}, con ${n0(MGD.max)}, y el que menos, ${MGD.min_anio}, con ${n0(MGD.min)}` +
+      (MGD.min_anio === 2020 ? ", el año de la pandemia." : ".");
+  },
+  "argentinos-exterior": v => {
+    if (v === "pais") return `A mediados de ${MGO.anio}, los destinos más frecuentes de las personas nacidas en la Argentina que vivían en otro país eran ` +
+      `${lista(MGO.top.slice(0, 3).map(t => `${t[0]} (${pct(t[2])})`))}, según la estimación de las Naciones Unidas.`;
+    return `Según la estimación de las Naciones Unidas, a mediados de ${MGO.anio} vivían en otro país ${n0(MGO.personas)} personas nacidas en la Argentina, ` +
+      `${n1(MGO.personas / MGO.personas_ini)} veces las de ${MGO.desde}. En ${MGO.anio_ant} eran ${n0(MGO.personas_ant)}.`;
   },
   // ---- economía y precios (etapa 25): todo del INDEC
   inflacion: v => {
@@ -862,6 +898,28 @@ const TX = {
     `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia: ` +
     `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
     `El salto de 2004 viene del dato de la provincia de Buenos Aires de ese año, mucho más alto que el de los años vecinos.`,
+  // ---- migraciones (etapa 25)
+  "nacidos-otro-pais": LEAD["nacidos-otro-pais"]("prov"), "nacidos-otro-pais-nota": `Personas que vivían en viviendas particulares y nacieron en ` +
+    `otro país, según el Censo 2022 del INDEC, como parte de toda la población en viviendas particulares de cada provincia. Es el primer censo de derecho: ` +
+    `cuenta a cada persona donde vive habitualmente. El país de nacimiento es el que declaró cada persona, y el ${pct(MGC.no_declarado_pct)} no lo declaró ` +
+    `(en algunas provincias, muchas más: el texto lo aclara cuando pasa de la quinta parte). Con una provincia elegida, la vista por país muestra los de ` +
+    `esa provincia. El RENAPER identifica más personas nacidas en otro país, porque cuenta documentos con el domicilio declarado: está en la ficha de abajo.`,
+  "migracion-interna": LEAD["migracion-interna"](), "migracion-interna-nota": `Personas que vivían en viviendas particulares según dónde nacieron: en la ` +
+    `misma provincia, en otra provincia o en otro país, según el Censo 2022 del INDEC. Cuenta dónde nació cada persona y dónde vive, no cuándo se mudó ni ` +
+    `cuántas veces.`,
+  "migracion-historia": LEAD["migracion-historia"](), "migracion-historia-nota": `Personas nacidas en otro país como parte de la población total de ` +
+    `cada censo nacional. Hasta 2001, según el INDEC (Aquí se cuenta, número 12, 2004), y en 2010 y 2022, según la publicación del Censo 2022 sobre ` +
+    `migraciones. Los nacidos en países limítrofes (Bolivia, Brasil, Chile, Paraguay y Uruguay) hasta 2001 son los de esa publicación del INDEC, y los de ` +
+    `2022 los calcula el sitio con el cuadro de países de nacimiento del Censo 2022, sobre la población en viviendas particulares. Para 2010 no hay un dato ` +
+    `publicado con la misma definición. Hasta 2001 los censos contaban a cada persona donde pasó la noche del censo, y el de 2022, donde vive habitualmente.`,
+  radicaciones: LEAD.radicaciones("anio"), "radicaciones-nota": `Trámites de residencia resueltos a favor por la Dirección Nacional de Migraciones, ` +
+    `por año y nacionalidad. Cuenta trámites, no personas: alguien puede recibir una residencia temporaria un año y la permanente otro. La residencia ` +
+    `permanente es para quien quiere establecerse en el país, y la temporaria, para quien viene por un tiempo, por ejemplo a trabajar o a estudiar. ` +
+    `Las personas de los países del Mercosur y asociados tienen un trámite propio por nacionalidad. No hay datos por provincia.`,
+  "argentinos-exterior": LEAD["argentinos-exterior"]("anio"), "argentinos-exterior-nota": `Estimación de la División de Población de las Naciones Unidas ` +
+    `(International Migrant Stock), a mediados de cada año, con los censos y los registros de cada país de destino: no es un conteo. En la mayoría de los ` +
+    `países cuenta a las personas nacidas en la Argentina, y en algunos, a las de nacionalidad argentina. No es comparable con las cifras de los censos ` +
+    `del país. La lista de destinos no incluye las Islas Malvinas.`,
   // ---- economía y precios (etapa 25)
   inflacion: LEAD.inflacion("doce"), "inflacion-nota": `Índice de precios al consumidor del INDEC, base diciembre de 2016 = 100: mide cuánto cambia el costo de una ` +
     `canasta fija de bienes y servicios que compran los hogares de las ciudades del país. Las variaciones del mes y de doce meses son las que publica el INDEC, con ` +
@@ -937,8 +995,10 @@ const TX = {
   "internet-titulo": `Internet fijo por provincia, ${nv.in_trim}`,
   internet: `En el ${nv.in_trim}, ${nv.in_top} tenía ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares${aclara("internet_fijo_provincias.accesos_100_hogares", nv.in_top)} y ${nv.in_low}, ${n1(nv.in_low_v)}. La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
   "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
-  "extranjeros-titulo": `Personas nacidas en otro país por provincia, ${nv.xt_corte}`,
-  extranjeros: `Por cada 100 habitantes del país hay ${n1(nv.xt_pais)} personas nacidas en otro país con documento argentino. ${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)}. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}.`,
+  "extranjeros-titulo": `Personas nacidas en otro país con documento argentino por provincia, ${nv.xt_corte}`,
+  extranjeros: `Por cada 100 habitantes del país hay ${n1(nv.xt_pais)} personas nacidas en otro país con documento argentino. ${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)}. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}. ` +
+    `En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +
+    `cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda.`,
   "extranjeros-nota": `Personas nacidas en el extranjero identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección ${R.anio_pob} del INDEC.`,
   "fiscal-titulo": `Recursos propios, resultado fiscal y gasto en personal por provincia, ${R.fiscal.anio}`,
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
@@ -1912,7 +1972,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
+Object.assign(MED, {"nacidos-otro-pais": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
   delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
@@ -2382,6 +2442,72 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data, k: "v", vf: pct, af: v => n0(v) + "%", ref: EMA.doce, refLab: `Toda la economía ${pct(EMA.doce)}`, paisLab: "Toda la economía",
       l: 236, lAngosto: 150, corto: d => d.corto,
       tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} en los doce meses hasta ${EMA.mes}, frente a los doce anteriores<br>${pct(d.ia)} en el mes, frente a ${EMA.mes_ant}`});
+  }),
+  // personas nacidas en otro país (etapa 25, Censo 2022): por provincia, o los países de nacimiento del país o de la provincia elegida
+  "nacidos-otro-pais": conTablas("nacidos-otro-pais", () => MED["nacidos-otro-pais"] === "pais" ? ["nacidos_otro_pais_paises"] : [], a => {
+    const v = MED["nacidos-otro-pais"], el = G("nacidos-otro-pais"), fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["nacidos-otro-pais"](v);
+    const nd = fp && fp.pct_pais_no_declarado > 20 ? ` El ${pct(fp.pct_pais_no_declarado)} no declaró su país de nacimiento.` : "";
+    if (v === "pais") {
+      const cod = fp ? prov : "00", filas = T.nacidos_otro_pais_paises.filter(r => r.codigo_indec === cod && r.pais !== "País no declarado");
+      // con una provincia elegida, el gráfico muestra sus países: el texto lo dice primero
+      if (fp) txt = `En ${fp.territorio}, los países de nacimiento más frecuentes de las personas nacidas en otro país eran ` +
+        `${lista(filas.slice(0, 3).map(r => `${r.pais} (${pct(r.pct)})`))}, según el Censo 2022.${nd} En todo el país: ` + inicialMin(txt.replace(/, según el Censo\./, "."));
+      $t("nacidos-otro-pais").textContent = txt;
+      barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "p" + i, territorio: r.pais, personas: r.personas, pct: r.pct})), k: "personas",
+        vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118, cambiaConProv: true,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas<br>${pct(d.pct)} de las nacidas en otro país${fp ? " que vivían en " + fp.territorio : ""}`});
+      return;
+    }
+    if (fp && fp.territorio !== MGC.top[0] && !MGC.bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otro_pais)}` +
+      `${conVeces(fp.pct_otro_pais, MGC.pct)}: ${n0(fp.en_otro_pais)} personas, sobre todo de ${fp.primer_pais}.${nd}`;
+    $t("nacidos-otro-pais").textContent = txt;
+    barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_otro_pais", vf: n1, af: n0, ref: MGC.pct,
+      refLab: `País ${n1(MGC.pct)}`, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otro_pais)} de la población<br>${n0(d.en_otro_pais)} personas<br>` +
+        `País más frecuente: ${d.primer_pais}`});
+  }),
+  // dónde nacieron las personas que viven en cada provincia (etapa 25, Censo 2022)
+  "migracion-interna": a => {
+    const cl = [{k: "pct_la_provincia", lab: "En la provincia", c: "#1F5E97"}, {k: "pct_otra_provincia", lab: "En otra provincia", c: "#74ACDF", texto: "#18212B"},
+      {k: "pct_otro_pais", lab: "En otro país", c: "#F6B40E", texto: "#18212B"}];
+    leyenda("migracion-interna-ley", cl);
+    const fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["migracion-interna"]();
+    if (fp && fp.territorio !== MGC.otra_top[0] && !MGC.otra_bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otra_provincia)}` +
+      ` había nacido en otra provincia y el ${pct(fp.pct_otro_pais)}, en otro país.`;
+    $t("migracion-interna").textContent = txt;
+    const pais = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === "00");
+    apiladasH(G("migracion-interna"), {anim: a, claves: cl, data: [{...pais, territorio: "Todo el país"},
+      ...T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00").sort((p, q) => q.pct_la_provincia - p.pct_la_provincia)]});
+  },
+  // personas nacidas en otro país en cada censo nacional (etapa 25)
+  "migracion-historia": a => lineas(G("migracion-historia"), {anim: a, data: T.migracion_censos, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
+    series: [{k: "nacidos_otro_pais_pct", lab: "Nacidos en otro país", corto: "Otro país", c: NAR},
+      {k: "limitrofes_pct", lab: "Nacidos en países limítrofes", corto: "Limítrofes", c: FRI}]}),
+  // residencias otorgadas por la Dirección Nacional de Migraciones (etapa 25): por año, o por nacionalidad en el último año
+  radicaciones: conTablas("radicaciones", () => MED.radicaciones === "nacionalidad" ? ["radicaciones_nacionalidad"] : [], a => {
+    const v = MED.radicaciones, el = G("radicaciones"), cl = [{k: "permanentes", lab: "Permanentes", c: NAR}, {k: "temporarias", lab: "Temporarias", c: css("--celeste")}];
+    $t("radicaciones").textContent = LEAD.radicaciones(v);
+    leyenda("radicaciones-ley", cl);
+    $("radicaciones-ley").hidden = v !== "anio";
+    if (v === "nacionalidad") {
+      const filas = T.radicaciones_nacionalidad.filter(r => r.anio === MGD.anio && r.nacionalidad !== "Otras nacionalidades").slice(0, 12);
+      return barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad, total: r.total, permanentes: r.permanentes,
+        temporarias: r.temporarias, pct: r.pct})), k: "total", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.total)} residencias en ${MGD.anio}<br>${n0(d.permanentes)} permanentes y ${n0(d.temporarias)} temporarias<br>` +
+          `${pct(d.pct)} del total`});
+    }
+    columnasApiladas(el, {anim: a, data: T.radicaciones_anual, vf: n0, af: v => n0(v / 1e3) + " mil", unidad: "residencias otorgadas", cadaTick: 1, claves: cl});
+  }),
+  // personas nacidas en la Argentina que viven en otro país (etapa 25, Naciones Unidas): por año, o por país de destino
+  "argentinos-exterior": conTablas("argentinos-exterior", () => MED["argentinos-exterior"] === "pais" ? ["argentinos_exterior_destinos"] : [], a => {
+    const v = MED["argentinos-exterior"], el = G("argentinos-exterior");
+    $t("argentinos-exterior").textContent = LEAD["argentinos-exterior"](v);
+    if (v === "pais") return barrasH(el, {anim: a, data: T.argentinos_exterior_destinos.slice(0, 12).map((r, i) => ({codigo_indec: "d" + i, territorio: r.pais,
+      personas: r.personas, inicio: r.personas_inicio, pct: r.pct})), k: "personas", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en ${MGO.anio}<br>${pct(d.pct)} del total<br>En ${MGO.desde}, ${n0(d.inicio)}`});
+    lineas(el, {anim: a, data: T.argentinos_exterior, x: "anio", y0: 0, vf: n0, yf: v => v === 0 ? "0" : n1(v / 1e6) + " M",
+      series: [{k: "personas", lab: "Nacidos en la Argentina", corto: "Personas", c: NAR}]});
   }),
   combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
     const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
@@ -3896,6 +4022,11 @@ const CLAVE = {
   "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`],
   "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`],
   "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
+  "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`],
+  "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`],
+  "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`],
+  "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`],
+  "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`],
   "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`],
   "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`],
   "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`],
@@ -3972,6 +4103,8 @@ const EXTRA = {
   "x-emp-saldo": ["f-dinamica-empresas", `${EM.positivas} de 24`, `jurisdicciones abrieron más empresas de las que cerraron en ${EM.ult}. En el país abrieron ${n1(EM.te)} y cerraron ${n1(EM.ts)} de cada 100`],
   "x-emp-negativos": ["f-dinamica-empresas", n0(EM.anios_negativos), `años con más cierres que aperturas de empresas desde ${EM.ini}, entre ellos ${lista(EM.ultimos_negativos.map(String))}`],
   "x-hurtos": ["f-robos", n0(SG.hurtos), `hurtos registrados cada 100.000 habitantes en ${SG.anio}. En ${SG.anio - 1}, ${n0(SG.hurtos_ant)}`],
+  "x-primer-pais": ["f-nacidos-otro-pais", pct(MGC.paises[0][2]), `de las personas nacidas en otro país que vivían en la Argentina en 2022 había ` +
+    `nacido en ${MGC.paises[0][0]}`],
   "x-inflacion-mes": ["f-inflacion", pct(EIP.mensual), `subieron los precios al consumidor en ${EIP.mes} frente al mes anterior, según el INDEC`],
   "x-indigencia": ["f-pobreza", pct(R.pobreza.ind), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de indigencia en el ${R.pobreza.sem}`],
   "x-ev-brecha": ["f-esperanza", `${n1(nv.ev_m - nv.ev_v)} años`, `más es la esperanza de vida al nacer de las mujeres que la de los varones: ${n1(nv.ev_m)} contra ${n1(nv.ev_v)}, ${nv.ev_anio}`],
@@ -4006,7 +4139,8 @@ const EN_CIFRAS = {
   // Seguridad (etapa 23): tiene datos por provincia (homicidios y robos) y suma la tarjeta "Tu provincia"
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
-  poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes", "f-extranjeros"],
+  poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
+  migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
   movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
   // Energía y Petróleo y gas, en dos páginas desde la etapa 22: Energía tiene datos por provincia (la electricidad y el gas de los
@@ -4503,6 +4637,10 @@ const INDP = [
     d:T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_3", pais:SG.hom3_pais, f:n1},
   {id:"f-robos", lab:"Robos registrados", veces:true, det:`cada 100.000 habitantes, ${SG.anio}`,
     d:T.robos_provincias.filter(r => r.codigo_indec !== "00"), k:"robos", pais:SG.robos, f:n0, dist:"robos_provincias.robos"},
+  {id:"f-nacidos-otro-pais", lab:"Nacidos en otro país", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
+    d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k:"pct_otro_pais", pais:MGC.pct, f:n1},
+  {id:"f-migracion-interna", lab:"Nacidos en otra provincia", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
+    d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k:"pct_otra_provincia", pais:MGC.otra_pct, f:n1},
   {id:"f-combustibles", lab:"Precio de la nafta súper", det:`pesos por litro en el surtidor, mediana de las estaciones, ${CB.mes}`,
     d:T.combustibles_provincias, k:"nafta", pais:CB.nafta, f:n0},
   {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
@@ -4575,6 +4713,10 @@ const PREG = [
    `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
   ["¿Cuántos homicidios hay por año?",
    `En ${SG.anio}, ${n0(SG.hom_victimas)} víctimas de homicidios dolosos, ${n1(SG.hom_tasa)} cada 100.000 habitantes. En ${SG.hom_max_anio}, el año más alto desde ${SG.anio_ini}, ${n1(SG.hom_max)}.`, "#f-homicidios"],
+  ["¿Cuántas personas nacidas en otro país viven en la Argentina?",
+   `${n0(MGC.personas)} en el Censo 2022, el ${pct(MGC.pct)} de la población. El país de nacimiento más frecuente, ${MGC.paises[0][0]}: ${pct(MGC.paises[0][2])}.`, "#f-nacidos-otro-pais"],
+  ["¿Cuántos argentinos viven en otro país?",
+   `${n0(MGO.personas)} personas nacidas en la Argentina a mediados de ${MGO.anio}, según las Naciones Unidas. El ${pct(MGO.top[0][2])}, en ${MGO.top[0][0]}.`, "#f-argentinos-exterior"],
   ["¿Cuánto subieron los precios en el último año?",
    `${pct(EIP.interanual)} en los doce meses hasta ${EIP.mes}, según el INDEC, y ${pct(EIP.mensual)} en el mes. La región con la suba más alta, ${REG_ART[EIP.reg_max[0]]}, con ${pct(EIP.reg_max[1])}.`, "#f-inflacion"],
   ["¿Cuánto necesita un hogar para no ser pobre?",
@@ -5325,6 +5467,13 @@ const SERIE_CIFRA = {
   "x-hurtos": () => serieM("Hurtos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.hurtos]), n0),
   "f-delitos": () => serieM("Delitos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.total]), n0),
   "f-carceles": () => serieM("Personas privadas de libertad cada 100.000 habitantes", T.carceles_serie.map(r => [r.anio, r.tasa]), n0),
+  // migraciones (etapa 25)
+  "f-nacidos-otro-pais": () => provM("Personas nacidas en otro país, % de la población, 2022", T.nacidos_otro_pais_provincias, "pct_otro_pais", MGC.pct, pct),
+  "f-migracion-interna": () => provM("Personas nacidas en otra provincia, % de la población, 2022", T.nacidos_otro_pais_provincias, "pct_otra_provincia", MGC.otra_pct, pct),
+  "f-migracion-historia": () => serieM("Personas nacidas en otro país, % de la población de cada censo", T.migracion_censos.map(r => [r.anio, r.nacidos_otro_pais_pct]),
+    pct, 11, MGH.max_anio),
+  "f-radicaciones": () => serieM("Residencias otorgadas por año", T.radicaciones_anual.map(r => [r.anio, r.total]), n0),
+  "f-argentinos-exterior": () => serieM("Personas nacidas en la Argentina que viven en otro país", T.argentinos_exterior.map(r => [r.anio, r.personas]), n0),
   // economía y precios (etapa 25): los últimos diez meses de cada cifra
   "f-inflacion": () => serieM("Inflación en doce meses, mes a mes", EIP.mini_ia.map(([p, v]) => [mesCorto(p), v]), pct),
   "x-inflacion-mes": () => serieM("Inflación de cada mes", EIP.mini_m.map(([p, v]) => [mesCorto(p), v]), pct),
