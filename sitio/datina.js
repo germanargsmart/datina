@@ -5032,6 +5032,24 @@ const PREG = [
    Las advertencias generales (pocos casos, correlación no es causalidad, promedios provinciales, períodos distintos,
    Spearman y Pearson que difieren) se agregan siempre que corresponden. */
 const ART = [
+  // etapa 26: artículos de las 24 capitales de provincia, con la tabla de las capitales (Censo 2022 por municipio). Van antes que los de
+  // las provincias porque son los más nuevos
+  {id: "a-viviendas-hacinamiento", tabla: "capitales", x: "viviendas_1000", y: "hacinamiento", espera: -1, frec: "Se actualiza con cada censo",
+    lx: "viviendas por habitante", ly: "hacinamiento crítico", ux: "viviendas cada 1.000 habitantes", uy: "% de los hogares",
+    dek: "Cuántas viviendas hay cada 1.000 habitantes en cada capital de provincia, frente a la parte de sus hogares con más de tres personas por cuarto.",
+    contexto: "Para saber si alcanzan las viviendas suele contarse cuántas hay cada 1.000 habitantes, la misma medida que se usa para comparar países. En la Argentina no hay una estadística oficial de precios de la vivienda que permita comparar las capitales, pero el censo sí cuenta cuántas personas viven en cada cuarto. Este cruce pone una cosa al lado de la otra, capital por capital.",
+    limites: ["Las viviendas por habitante dependen también de cuántas personas viven en cada hogar: donde los hogares son más grandes hay menos viviendas por habitante, aunque cada hogar tenga la suya.",
+      "Las viviendas incluyen las que no tenían personas presentes el día del censo, como las de uso temporal, las que estaban en alquiler o venta y las que se estaban construyendo.",
+      "Cada capital es su municipio, y la Ciudad de Buenos Aires, sus 15 comunas. En Mendoza y San Juan el municipio es solo el centro de una ciudad mucho más grande, y el de San Miguel de Tucumán incluye una parte del departamento de Lules.",
+      "No hay una estadística oficial de precios de venta o de alquiler de viviendas que permita comparar las 24 capitales. Por eso este cruce no dice si las viviendas cuestan más o menos donde hay más."]},
+  {id: "a-viviendas-alquiler", tabla: "capitales", x: "viviendas_1000", y: "alquila", espera: 1, frec: "Se actualiza con cada censo",
+    lx: "viviendas por habitante", ly: "hogares que alquilan", ux: "viviendas cada 1.000 habitantes", uy: "% de los hogares",
+    dek: "Cuántas viviendas hay cada 1.000 habitantes en cada capital de provincia, frente a la parte de sus hogares que alquila la vivienda donde vive.",
+    contexto: "Quien no tiene una vivienda propia suele alquilarla, y para eso tiene que haber viviendas en alquiler. Este cruce compara, capital por capital, cuántas viviendas hay por habitante con la parte de los hogares que alquila, según el último censo.",
+    limites: ["Las viviendas por habitante dependen también de cuántas personas viven en cada hogar: donde los hogares son más grandes hay menos viviendas por habitante, aunque cada hogar tenga la suya.",
+      "El censo pregunta si el hogar alquila la vivienda, no cuánto paga ni desde cuándo.",
+      "Cada capital es su municipio, y la Ciudad de Buenos Aires, sus 15 comunas. En Mendoza y San Juan el municipio es solo el centro de una ciudad mucho más grande, y el de San Miguel de Tucumán incluye una parte del departamento de Lules.",
+      "No hay una estadística oficial de precios de venta o de alquiler de viviendas que permita comparar las 24 capitales. Por eso este cruce no dice si alquilar cuesta más o menos donde hay más viviendas."]},
   {id: "a-exportaciones-empleo", x: "exportaciones", y: "empleo_privado", espera: 1, frec: "Se actualiza cada año",
     lx: "exportaciones por habitante", ly: "empleo privado registrado", ux: "dólares por habitante", uy: "asalariados cada 100 habitantes",
     dek: "Lo que cada provincia le vende al mundo, frente a cuántas personas tienen un empleo privado registrado.",
@@ -5080,6 +5098,13 @@ const ART = [
       "El resultado es el del escrutinio provisorio, el único publicado como datos abiertos para esa elección."]},
 ];
 const META_CX = Object.fromEntries(R.cruces.map(m => [m.id, m]));
+// cada artículo de cruces usa la tabla de las provincias o, con tabla: "capitales", la de las 24 capitales (etapa 26), con su metadato y su
+// forma de nombrar los casos
+const tablaArt = a => a.tabla || "cruces_provincias";
+const META_TAB = {cruces_provincias: META_CX, capitales: Object.fromEntries(R.capitales.map(m => [m.id, m]))};
+const CASOS_ART = {
+  cruces_provincias: {s: "jurisdicción", pl: "jurisdicciones", prom: "Son promedios de cada jurisdicción: no dicen qué pasa con cada persona ni con los municipios de una misma provincia."},
+  capitales: {s: "capital", pl: "capitales", prom: "Son promedios de cada ciudad: no dicen qué pasa con cada persona ni con los barrios de una misma ciudad."}};
 const rTxt = r => n2(r).replace(/[-−]/, "menos ");
 // la primera letra en minúscula, salvo que el nombre empiece con un nombre propio (antes se bajaba todo: "voto a milei", etapa 24)
 const minusc = t => /^(Aprender|PISA|ATN)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
@@ -5087,36 +5112,36 @@ const fuerzaArt = r => { const a = Math.abs(r); return a >= .6 ? "fuerte" : a >=
 // "% de los hogares" se pega al número (45,2%) y el resto de la unidad va después
 const partesU = u => u.startsWith("%") ? ["%", u.replace(/^%\s*/, "")] : ["", u];
 function calcularArt(a) {
-  const F = T.cruces_provincias.filter(f => f[a.x] != null && f[a.y] != null);
+  const F = T[tablaArt(a)].filter(f => f[a.x] != null && f[a.y] != null);
   const xs = F.map(f => f[a.x]), ys = F.map(f => f[a.y]);
   const S = CX.simple(xs, ys), iCook = d3.maxIndex(S.cook), sinC = F.filter((_, i) => i !== iCook);
   return {F, n: F.length, rs: CX.spearman(xs, ys), rp: CX.pearson(xs, ys), rs2: CX.spearman(sinC.map(f => f[a.x]), sinC.map(f => f[a.y])),
     cook: F[iCook], arriba: F[d3.maxIndex(S.res)], abajo: F[d3.minIndex(S.res)]};
 }
 function textoArt(a, c) {
-  const Mx = META_CX[a.x], My = META_CX[a.y];
+  const Mx = META_TAB[tablaArt(a)][a.x], My = META_TAB[tablaArt(a)][a.y], U = CASOS_ART[tablaArt(a)];
   const fx = v => loc.format(`,.${Mx.dec}f`)(v), fy = v => loc.format(`,.${My.dec}f`)(v);
   const [px, rx] = partesU(a.ux), [py, ry] = partesU(a.uy);
   const vx = f => `${fx(f[a.x])}${px} ${rx}`, vy = f => `${fy(f[a.y])}${py} ${ry}`;
   const ab = Math.abs(c.rs), mismo = Math.sign(c.rs) === a.espera;
   const respuesta = ab < .2 ? "No hay un patrón claro." : !mismo ? "No: la relación va en sentido contrario." : ab >= .4 ? "Sí, en general." : "Apenas.";
   const bajada = ab < .2
-    ? `En las ${c.n} jurisdicciones con dato, conocer el nivel de ${a.lx} casi no ayuda a anticipar el de ${a.ly}. La correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`
-    : `En las ${c.n} jurisdicciones con dato, las que tienen más ${a.lx} tienden a tener valores ${c.rs > 0 ? "más altos" : "más bajos"} de ${a.ly}. La relación es ${fuerzaArt(c.rs)}: la correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`;
+    ? `En las ${c.n} ${U.pl} con dato, conocer el nivel de ${a.lx} casi no ayuda a anticipar el de ${a.ly}. La correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`
+    : `En las ${c.n} ${U.pl} con dato, las que tienen más ${a.lx} tienden a tener valores ${c.rs > 0 ? "más altos" : "más bajos"} de ${a.ly}. La relación es ${fuerzaArt(c.rs)}: la correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`;
   const ord = [...c.F].sort((p, q) => q[a.x] - p[a.x]), top = ord.slice(0, 3), bajo = ord.slice(-3).reverse();
   // "22,0 en Neuquén, 14,9 en Santa Cruz y 13,7 en Santa Fe": el nombre separa los números, sin ambigüedad con la coma decimal
   const enProv = fs => listaY(fs.map(f => `${fy(f[a.y])}${py} en ${f.territorio}`));
-  const extremos = `Las tres jurisdicciones con más ${a.lx} son ${listaY(top.map(f => `${f.territorio} (${vx(f)})`))}. ` +
+  const extremos = `Las tres ${U.pl} con más ${a.lx} son ${listaY(top.map(f => `${f.territorio} (${vx(f)})`))}. ` +
     `En ${a.ly}, los valores son ${enProv(top)} (${ry}). ` +
     `Las tres con menos son ${listaY(bajo.map(f => `${f.territorio} (${vx(f)})`))}. En ${a.ly}, esas tres tienen ${enProv(bajo)}.`;
   const excep = `Las que más se apartan de la tendencia son ${c.arriba.territorio}, con ${vy(c.arriba)} y ${vx(c.arriba)}, por encima de la línea del gráfico, ` +
     `y ${c.abajo.territorio}, con ${vy(c.abajo)} y ${vx(c.abajo)}, por debajo.`;
-  const peso = `${c.cook.territorio} es la jurisdicción que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05
+  const peso = `${c.cook.territorio} es la ${U.s} que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05
     ? `Sin ella, la correlación casi no cambia: pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}, así que el resultado no depende de un solo caso.`
     : `Sin ella, la correlación de Spearman pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerzaArt(c.rs2) !== fuerzaArt(c.rs) ? `, una relación ${fuerzaArt(c.rs2)}.` : "."));
-  const lim = [`Son ${c.n} casos. Con tan pocos, una o dos jurisdicciones pueden cambiar el resultado.`,
+  const lim = [`Son ${c.n} casos. Con tan pocos, una o dos ${U.pl} pueden cambiar el resultado.`,
     "Una correlación no prueba que una cosa cause la otra. Las dos pueden responder a otros factores que este cruce no mide.",
-    "Son promedios de cada jurisdicción: no dicen qué pasa con cada persona ni con los municipios de una misma provincia.",
+    U.prom,
     ...(Mx.periodo !== My.periodo ? [`Los períodos no coinciden: el dato de ${a.lx} es de ${Mx.periodo} y el de ${a.ly}, de ${My.periodo}.`] : []),
     ...(Math.abs(c.rs - c.rp) > .2 ? [`La correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}. La diferencia con la de Spearman indica que unos pocos casos influyen mucho.`] : []),
     ...a.limites];
@@ -5131,21 +5156,22 @@ const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><
 const DAT_ART = Object.fromEntries(SITIO.articulos.map(([id, titulo, icono, sec]) => [id, {titulo, icono, sec}]));
 ART.forEach(a => { Object.assign(a, DAT_ART[a.id]); a.c = calcularArt(a); a.t = textoArt(a, a.c); });
 ART.forEach(a => {
-  const {c, t} = a, Mx = META_CX[a.x], My = META_CX[a.y], key = "art-" + a.id;
+  const {c, t} = a, tabla = tablaArt(a), Mx = META_TAB[tabla][a.x], My = META_TAB[tabla][a.y], U = CASOS_ART[tabla], key = "art-" + a.id;
   const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   const fichas = [...new Map([[Mx.ficha, Mx.nombre], [My.ficha, My.nombre]]).entries()].filter(([id]) => ficha(id));
-  const [px] = partesU(a.ux), [py] = partesU(a.uy);
+  const [px] = partesU(a.ux), [py] = partesU(a.uy), fts = [...new Set([fuenteArt(Mx), fuenteArt(My)])];
   const nota = document.getElementById(a.id); if (!nota) return;
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
-    `<div class="nota-graf"><h3>${Mx.nombre} y ${minusc(My.nombre)} por jurisdicción</h3><div class="grafico" data-g="${key}"></div>` +
-    `<p class="nota-pie-graf">Cada punto es una jurisdicción. La línea punteada muestra la tendencia.</p></div>` +
+    `<div class="nota-graf"><h3>${Mx.nombre} y ${minusc(My.nombre)} por ${U.s}</h3><div class="grafico" data-g="${key}"></div>` +
+    `<p class="nota-pie-graf">Cada punto es una ${U.s}. La línea punteada muestra la tendencia.</p></div>` +
     `<p>${t.extremos}</p><p>${t.excep}</p><p>${t.peso}</p>` +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
-    `<div class="nota-fuentes"><p>Fuentes: ${fuenteArt(Mx)} y ${fuenteArt(My)}.</p><div class="acciones">` +
+    `<div class="nota-fuentes"><p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
     fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom.toLowerCase()}</a>`).join("") +
-    `<a class="boton chico accion" href="cruces.html?cx=${a.x}&cy=${a.y}">Abrir en Cruces</a><a class="boton chico accion" href="datos/cruces_provincias.csv" download>Descargar CSV</a></div></div>`;
+    (tabla === "cruces_provincias" ? `<a class="boton chico accion" href="cruces.html?cx=${a.x}&cy=${a.y}">Abrir en Cruces</a>` : "") +
+    `<a class="boton chico accion" href="datos/${tabla}.csv" download>Descargar CSV</a></div></div>`;
   // en el gráfico van con nombre las jurisdicciones que menciona el texto
   DIB[key] = anim => dispersion(G(key), {anim, data: c.F, x: a.x, y: a.y, yAuto: a.yAuto, xLab: Mx.nombre, yLab: My.nombre,
     marcar: [c.arriba, c.abajo, c.cook].map(f => f.codigo_indec),
@@ -5524,7 +5550,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;

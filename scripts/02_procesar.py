@@ -4233,6 +4233,51 @@ CRUCES_META = {
     "regalias": ("Peso de las regalías", "% de los ingresos totales de la provincia (petróleo, gas, minería e hidroelectricidad)", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-regalias", 1),
 }
 
+# ---------------------------------------------------------------- capitales de provincia (etapa 26)
+# Censo 2022 (INDEC): las 24 capitales, cada una con su municipio (gobierno local, la Ciudad de Buenos Aires con sus 15 comunas). Las viviendas
+# particulares y la población salen del cuadro del INDEC por gobierno local, y la tenencia, el hacinamiento y la ocupación de las viviendas, de
+# la base por radio censal (scripts/censo_2022_capitales.py, una sola vez), con las mismas definiciones que la vivienda por provincia. Una fila
+# por capital con el código de su provincia, así las banderas y el resaltado de la provincia elegida funcionan igual que en los cruces. Las
+# variables del censo de las capitales no se cruzan con las de la EPH, que cubre el aglomerado (otra área) y no el municipio.
+_glx = pd.ExcelFile(CRUDO / "indec_gobiernos_locales.xlsx")
+_gl = pd.read_excel(_glx, [s for s in _glx.sheet_names if s != "Definiciones"][0], header=None, dtype=str)
+_gl = _gl[_gl[2].fillna("").str.strip().str.fullmatch(r"\d{6}")].iloc[:, :12]
+_gl.columns = ["jur", "jurisdiccion", "cod_gl", "categoria", "gobierno_local", "viviendas", "poblacion", "viv_part", "pob_viv_part",
+               "viv_col", "pob_viv_col", "pob_calle"]
+_gl["cod_gl"] = _gl.cod_gl.str.strip()
+for c_ in ["viviendas", "poblacion", "viv_part", "pob_viv_part"]:
+    _gl[c_] = pd.to_numeric(_gl[c_])
+assert len(_gl) > 2000 and _gl.cod_gl.is_unique and _gl.poblacion.sum() == 45892285, (len(_gl), _gl.poblacion.sum())
+_cap_c = pd.read_csv(RAIZ / "datos" / "manual" / "censo2022_capitales.csv", dtype={"codigo_indec": str, "cod_gl": str})
+_glc = _gl.set_index("cod_gl")
+_cap_of = pd.DataFrame([_gl[_gl.jur == "02"][["viv_part", "poblacion"]].sum() if g == "02" else _glc.loc[g, ["viv_part", "poblacion"]]
+                        for g in _cap_c.cod_gl]).reset_index(drop=True)
+# las viviendas de la base por radio coinciden con las del cuadro, salvo diferencias mínimas de la propia fuente (en Neuquén, 33 viviendas)
+assert ((_cap_c.viviendas / _cap_of.viv_part - 1).abs() < .001).all(), _cap_c.assign(of=_cap_of.viv_part)[["capital", "viviendas", "of"]]
+capitales = pd.DataFrame({"codigo_indec": _cap_c.codigo_indec, "territorio": _cap_c.capital, "provincia": _cap_c.codigo_indec.map(CORTO)})
+capitales["poblacion"] = _cap_of.poblacion
+capitales["viviendas"] = _cap_of.viv_part
+capitales["viviendas_1000"] = _cap_of.viv_part / _cap_of.poblacion * 1000
+capitales["personas_hogar"] = _cap_c.personas / _cap_c.hogares
+capitales["alquila"] = _cap_c.alquilada / _cap_c.hogares * 100
+capitales["hacinamiento"] = _cap_c.hac_mas_3 / _cap_c.hogares * 100
+capitales["sin_personas"] = _cap_c.sin_personas / _cap_c.viviendas * 100
+capitales["uso_temporal"] = _cap_c.uso_temporal / _cap_c.viviendas * 100
+capitales["en_departamento"] = _cap_c.departamento / _cap_c.viviendas * 100
+assert len(capitales) == 24 and capitales.notna().all().all() and set(capitales.codigo_indec) == set(REGION)
+# id: (nombre, unidad, anio, tema, fuente, ficha, decimales), como CRUCES_META
+CAPITALES_META = {
+    "poblacion": ("Población", "habitantes", "2022", "Población", "INDEC, Censo 2022", "", 0),
+    "viviendas_1000": ("Viviendas cada 1.000 habitantes", "viviendas particulares cada 1.000 habitantes", "2022", "Vivienda", "INDEC, Censo 2022", "", 0),
+    "personas_hogar": ("Personas por hogar", "personas en viviendas particulares por hogar", "2022", "Vivienda", "INDEC, Censo 2022", "", 2),
+    "alquila": ("Hogares que alquilan", "% de los hogares", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
+    "hacinamiento": ("Hacinamiento crítico", "% de los hogares con más de tres personas por cuarto", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
+    "sin_personas": ("Viviendas sin personas presentes", "% de las viviendas particulares", "2022", "Vivienda", "INDEC, Censo 2022", "", 1),
+    "uso_temporal": ("Viviendas de uso temporal", "% de las viviendas particulares", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
+    "en_departamento": ("Viviendas que son departamentos", "% de las viviendas particulares", "2022", "Vivienda", "INDEC, Censo 2022", "", 1),
+}
+CAP_PAIS = {"viviendas_1000": r1(_gl.viv_part.sum() / _gl.poblacion.sum() * 1000)}
+
 # ---------------------------------------------------------------- series por provincia para animar los cruces
 # Una fila por provincia, anio e indicador, desde 2000. Se carga aparte, solo cuando alguien pide ver la evolucion.
 hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
@@ -4341,6 +4386,7 @@ tablas = {
     "clima_desvio": clima,
     "ocde_comparacion": ocde_tabla,
     "cruces_provincias": cru.round(3),
+    "capitales": capitales.round(3),
     "mundo_paises": mundo,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
@@ -4872,6 +4918,10 @@ resumen["construccion"] = {
 resumen["cruces"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                      for k, v in CRUCES_META.items()]
 assert all(m["id"] in cru.columns for m in resumen["cruces"])
+resumen["capitales"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
+                        for k, v in CAPITALES_META.items()]
+assert all(m["id"] in capitales.columns for m in resumen["capitales"])
+resumen["capitales_pais"] = CAP_PAIS
 resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
 
 (SITIO / "fichas.json").write_text(json.dumps({

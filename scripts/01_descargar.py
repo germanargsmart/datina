@@ -255,6 +255,10 @@ FUENTES.update({
     # nacimiento, según jurisdicción (sección Migraciones, etapa 25)
     "censo2022_migraciones_c1.xlsx": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx",
     "censo2022_migraciones_c10.xlsx": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx",
+    # Censo 2022 (INDEC): viviendas y población de cada gobierno local (municipio o comuna), para comparar las capitales de provincia (etapa 26).
+    # La tenencia, el hacinamiento y la ocupación de las viviendas de cada capital salen de la base por radio censal
+    # (scripts/censo_2022_capitales.py, una sola vez)
+    "indec_gobiernos_locales.xlsx": "https://www.indec.gob.ar/ftp/cuadros/poblacion/c2022_tp_gobierno_local_c1.xlsx",
     # Gobierno (etapa 25): el Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero de la Secretaría de Hacienda (base
     # caja, millones de pesos, desde 2016, con el ingreso de cada impuesto, el gasto de cada tipo y los resultados), la recaudación de cada
     # impuesto nacional (Dirección Nacional de Investigaciones y Análisis Fiscal, desde 1997) y la dotación de la administración pública nacional,
@@ -364,6 +368,7 @@ VALIDA.update({
     "indec_emae_actividad.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "censo2022_migraciones_c1.xlsx": lambda b: b[:2] == b"PK",
     "censo2022_migraciones_c10.xlsx": lambda b: b[:2] == b"PK",
+    "indec_gobiernos_locales.xlsx": lambda b: b[:2] == b"PK",
     "imig_mensual.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"indice_tiempo,iva_neto_reintegros,ganancias,aportes_contribuciones_seguridad_social"),
     "recaudacion_mensual.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"indice_tiempo,ganancias,ganancias_dgi,ganancias_dga,iva"),
     "indec_dotacion_apn.xlsx": lambda b: b[:2] == b"PK",
