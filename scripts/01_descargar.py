@@ -1417,15 +1417,19 @@ def onu_migrantes():
     return url
 
 
-def _enlace_en_pagina(pagina, patron):
-    """El primer enlace de una página de argentina.gob.ar que coincide con el patrón (las planillas que cambian de nombre con cada edición).
+def _enlace_en_pagina(pagina, patron, orden=None):
+    """El enlace de una página de argentina.gob.ar que coincide con el patrón (las planillas que cambian de nombre con cada edición): el
+    primero, o con orden (una función del enlace) el mayor, así una página que cambia el orden de sus enlaces no lleva a una edición vieja.
     Algunas páginas escriben los enlaces con el prefijo "blank:#", que se saca."""
     texto = leer(pagina, 90).decode("utf-8", "ignore")
+    enlaces = []
     for m in re.finditer(r'href="([^"]+)"', texto):
         href = m.group(1).replace("blank:#", "")
         if re.search(patron, href):
-            return href if href.startswith("http") else "https://www.argentina.gob.ar" + href
-    raise ValueError(f"no se encontró el enlace {patron} en {pagina}")
+            enlaces.append(href if href.startswith("http") else "https://www.argentina.gob.ar" + href)
+    if not enlaces:
+        raise ValueError(f"no se encontró el enlace {patron} en {pagina}")
+    return max(enlaces, key=orden) if orden else enlaces[0]
 
 
 def deuda_publica():
@@ -1434,7 +1438,8 @@ def deuda_publica():
     fecha de la planilla (hoja A.1.1) y la deuda bruta en porcentaje del PBI que publica la Secretaría para cada año desde 2000 y cada trimestre del
     año en curso (hoja A.4.7, la fila de toda la deuda bruta, con la elegible pendiente de reestructuración)."""
     import io, pandas as pd
-    url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/finanzas/datos-trimestrales-de-la-deuda", r"deuda_publica_\d{2}-\d{2}-\d{4}[^/]*\.xlsx$")
+    url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/finanzas/datos-trimestrales-de-la-deuda", r"deuda_publica_\d{2}-\d{2}-\d{4}[^/]*\.xlsx$",
+                            lambda u: re.search(r"(\d{2})-(\d{2})-(\d{4})", u.rsplit("/", 1)[-1]).group(3, 2, 1))
     datos = leer(url, 120)
     if datos[:2] != b"PK":
         raise ValueError("la planilla de la deuda pública no es un Excel")
@@ -1512,7 +1517,8 @@ def dnap_recaudacion():
     año va con "//" (La Pampa en 2025): queda vacía."""
     import io, pandas as pd
     url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/direccion-de-recursos-provinciales/"
-                            "recursos-tributarios-de-origen-provincial-top", r"serie_top_1984_\d{4}[^/]*\.xlsx$")
+                            "recursos-tributarios-de-origen-provincial-top", r"serie_top_1984_\d{4}[^/]*\.xlsx$",
+                            lambda u: re.search(r"serie_top_1984_(\d{4})", u).group(1))
     datos = leer(url, 120)
     if datos[:2] != b"PK":
         raise ValueError("la serie de recursos tributarios provinciales no es un Excel")
