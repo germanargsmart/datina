@@ -159,7 +159,10 @@ document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(e
 /* ---------- textos ---------- */
 const nv = R.nuevos;
 const au = R.autos, cu = R.curiosidades, pe = R.pesca, vpq = R.visitas_parque;
-const lista = xs => xs.length > 1 ? xs.slice(0, -1).join(", ") + " y " + xs[xs.length - 1] : xs.join("");
+// La "y" pasa a "e" delante de una palabra que empieza con el sonido de la i ("Misiones e Iguazú", "e INDEC"), salvo si la i forma
+// un diptongo ("agua y hielo"). yE(s) devuelve la conjunción con la palabra, sin mirar las etiquetas ni los signos del principio.
+const yE = s => (/^h?[ií](?![aeiouáéíóú])/i.test(String(s).replace(/<[^>]*>/g, "").replace(/^[^\p{L}\d]+/u, "")) ? "e " : "y ") + s;
+const lista = xs => xs.length > 1 ? xs.slice(0, -1).join(", ") + " " + yE(xs[xs.length - 1]) : xs.join("");
 const grados = v => (v > 0 ? "+" : "") + n2(v) + " °C";
 const e = R.energia, nac = R.nacimientos, s = R.suicidio, em = R.empleo, mo = R.mortalidad, su = R.sube,
   pz = R.pisa, es = R.escolarizacion, ap = R.aprender, nt = R.naturaleza, tu = R.turismo;
@@ -643,7 +646,7 @@ const LEAD = {
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
   emae: v => {
     if (v === "sector") return `En los doce meses hasta ${EMA.mes}, frente a los doce anteriores, crecieron ${EMA.sec_suben} de los 15 sectores de la economía, ` +
-      `según el INDEC. Los que más crecieron fueron ${EMA.sec_max[0]}, ${pct(EMA.sec_max[1])}, y ${EMA.sec_max2[0]}, ${pct(EMA.sec_max2[1])}. ` +
+      `según el INDEC. Los que más crecieron fueron ${EMA.sec_max[0]}, ${pct(EMA.sec_max[1])}, ${yE(EMA.sec_max2[0])}, ${pct(EMA.sec_max2[1])}. ` +
       (EMA.sec_min[1] < 0 ? `El que más cayó fue ${EMA.sec_min[0]}, ${pct(-EMA.sec_min[1])}.` : `El que menos creció fue ${EMA.sec_min[0]}, ${pct(EMA.sec_min[1])}.`) +
       ` Toda la economía, ${pct(EMA.doce)}.`;
     return `En ${EMA.mes}, la actividad económica ${cambioPct(EMA.interanual)} frente a ${EMA.mes_ant} y ${yCambio(EMA.interanual, EMA.mensual_desest)} frente al mes anterior, ` +
@@ -1093,7 +1096,7 @@ const TX = {
     `del producto interno bruto que publica el Banco Mundial, porque el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016.`,
   "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección ${R.anio_pob} del INDEC.`,
   "nombres-titulo": `Nombres más elegidos para los bebés, ${cu.nom_anio}`,
-  nombres: `En ${cu.nom_anio} los nombres más inscriptos en el país fueron ${cu.nena} (${n0(cu.nena_n)}) para las nenas y ${cu.varon} (${n0(cu.varon_n)}) para los varones. En ${cu.nom_ini} habían sido ${cu.nena0} y ${cu.varon0}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
+  nombres: `En ${cu.nom_anio} los nombres más inscriptos en el país fueron ${cu.nena} (${n0(cu.nena_n)}) para las nenas ${yE(cu.varon)} (${n0(cu.varon_n)}) para los varones. En ${cu.nom_ini} habían sido ${cu.nena0} ${yE(cu.varon0)}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
   "nombres-nota": `Cantidad de veces que cada nombre fue inscripto como nombre de pila en el Registro Nacional de las Personas. Los nombres se muestran como los registra el RENAPER, sin tildes. Al elegir una provincia, el gráfico muestra sus diez nombres más frecuentes.`,
   "carne-titulo": `Consumo de carne vacuna por habitante, ${cu.carne_ini} a ${cu.carne_anio}`,
   carne: `En ${cu.carne_anio} cada habitante consumió en promedio ${n1(cu.carne_v)} kilos de carne vacuna, contra ${n1(cu.carne_ini_v)} en ${cu.carne_ini}. En lo que va de ${cu.carne_ytd_hasta.slice(-4)}, hasta ${cu.carne_ytd_hasta}, el ritmo es de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", el más bajo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,
@@ -1116,7 +1119,7 @@ const TX = {
   "vp-b1": String(vpq.ult), "vp-b2": vpq.par ? `${vpq.par}, ene a ${MESES[vpq.par_mes - 1].slice(0, 3)}` : "",
   "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso. El tablero de la Secretaría de Turismo no tiene un enlace de descarga fijo: la exportación completa, mes a mes desde 2008, se guarda en el repositorio y hay que renovarla a mano.`,
   "pesca-titulo": `Desembarques de pesca marítima de las tres especies principales, ${pe.ini} a ${pe.anio}`,
-  pesca: `En ${pe.anio} se desembarcaron ${n0(pe.total)} toneladas de pescados y mariscos en los puertos del país, contra ${n0(pe.total_ini)} en ${pe.ini}. Las especies principales fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) y ${pe.top[2].toLowerCase()} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
+  pesca: `En ${pe.anio} se desembarcaron ${n0(pe.total)} toneladas de pescados y mariscos en los puertos del país, contra ${n0(pe.total_ini)} en ${pe.ini}. Las especies principales fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) ${yE(pe.top[2].toLowerCase())} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
   "pesca-nota": `Capturas de la flota comercial desembarcadas en puertos argentinos, en toneladas, según la Subsecretaría de Pesca y Acuicultura. La tabla descargable incluye el total de todas las especies.`,
   "pesca-rio-titulo": `Pesca comercial en ríos por especie, ${pe.rio_anio}`,
   "pesca-rio": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. El ${pct(pe.rio_top_pct)} fue ${pe.rio_top.toLowerCase()}. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,
@@ -2849,7 +2852,7 @@ Object.assign(DIB, {
 });
 
 /* ---------- política ---------- */
-const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " y " + arr[arr.length - 1] : arr[0];
+const listaY = arr => arr.length > 1 ? arr.slice(0, -1).join(", ") + " " + yE(arr[arr.length - 1]) : arr[0];
 const ESP_COLOR = {"Peronismo": "#2C74B5", "UCR y aliados": "#D9453B", "PRO": "#F6B40E", "Cambiemos y Juntos por el Cambio": "#F08A24",
   "La Libertad Avanza": "#4A2C6F", "Izquierda": "#7A1F2B", "Fuerzas provinciales": "#74ACDF", "Otras fuerzas": "#98A2AE"};
 const ESP_VARIANTE = {"Peronismo": ["#2C74B5", "#6FA3D8", "#A9CBEA"], "Otras fuerzas": ["#56606C", "#98A2AE", "#C3CAD2"]};
@@ -3714,7 +3717,7 @@ const CX = (() => {
                ["densidad", "robos"], ["protegida", "turistas_eti"], ["escolarizacion", "aprender_len"]]
     .filter(([a, b]) => META[a] && META[b]);
   document.getElementById("cx-sug").innerHTML = SUG.map(([a, b], i) =>
-    `<button type="button" class="enlace cx-chip" data-i="${i}">${META[a].nombre} y ${META[b].nombre.toLowerCase()}</button>`).join("");
+    `<button type="button" class="enlace cx-chip" data-i="${i}">${META[a].nombre} ${yE(META[b].nombre.toLowerCase())}</button>`).join("");
 
   const sincronizar = () => {
     selX.value = st.x; selY.value = st.y; selMY.value = st.my;
@@ -3800,7 +3803,7 @@ const CX = (() => {
     const angosto = el.clientWidth < 560;
     const C = lienzo(el, angosto ? 400 : 500, {t: 34, r: angosto ? 14 : 24, b: 50, l: angosto ? 44 : 58});
     const {g, iw, ih, svg} = C;
-    svg.attr("aria-label", `Diagrama de dispersión de ${X.nombre} y ${Y.nombre} por provincia`);
+    svg.attr("aria-label", `Diagrama de dispersión de ${X.nombre} ${yE(Y.nombre)} por provincia`);
     const esc = (id, log, rango) => {
       const ext = d3.extent(todosAnios(id).filter(v => !log || v > 0));
       if (log) return d3.scaleLog().domain([ext[0] / 1.15, ext[1] * 1.15]).range(rango);
@@ -3910,7 +3913,7 @@ const CX = (() => {
       const resto = datos.filter((_, i) => i !== imax), r2 = pearson(resto.map(f => tx(st.x, st.logx)(f[st.x])), resto.map(f => tx(st.y, st.logy)(f[st.y])));
       t += `${datos[imax].territorio} es la jurisdicción que más mueve la recta: sin ella, r sería ${fr(r2)}. `;
     }
-    if (X.periodo !== Y.periodo) t += `Los datos no son del mismo período: ${X.nombre} es de ${X.periodo} y ${Y.nombre}, de ${Y.periodo}. `;
+    if (X.periodo !== Y.periodo) t += `Los datos no son del mismo período: ${X.nombre} es de ${X.periodo} ${yE(Y.nombre)}, de ${Y.periodo}. `;
     lect.textContent = t.trim();
     if (st.anio != null && SER && conSerie()) t += ` Mostrando ${st.anio}: los valores son anuales y pueden diferir del último dato, que en algunos indicadores es un promedio de varios años.`;
     lect.textContent = t.trim();
@@ -3944,7 +3947,7 @@ const CX = (() => {
     }));
     const g = svg.append("g").attr("transform", `translate(${izq},4)`);
     const cel = g.selectAll("g").data(celdas).join("g").attr("transform", d => `translate(${d.j * lado},${d.i * lado})`).attr("class", "cx-celda").attr("tabindex", 0).attr("role", "button")
-      .attr("aria-label", d => `${META[d.a].nombre} y ${META[d.b].nombre}: r ${fr(d.r)}`);
+      .attr("aria-label", d => `${META[d.a].nombre} ${yE(META[d.b].nombre)}: r ${fr(d.r)}`);
     cel.append("rect").attr("width", lado - 2).attr("height", lado - 2).attr("fill", d => color(d.r));
     if (lado >= 26) cel.append("text").attr("x", (lado - 2) / 2).attr("y", (lado - 2) / 2).attr("dy", ".35em").attr("text-anchor", "middle")
       .attr("class", d => "cx-r" + (d.p < .05 ? " sig" : "")).attr("fill", d => Math.abs(d.r) > .55 ? "#fff" : css("--ink")).text(d => loc.format(".1f")(d.r).replace("-0,0", "0,0"));
@@ -4314,7 +4317,7 @@ const CLAVE = {
   "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`],
   "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`],
   "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`],
-  "f-nombres": [cu.nena, `y ${cu.varon} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`],
+  "f-nombres": [cu.nena, `${yE(cu.varon)} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`],
   "f-carne": [`${n1(cu.carne_v)} kg`, `de carne vacuna por habitante en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)} kg`],
   "f-vino": [n0(cu.vino_v), `millones de litros de vino vendidos en el país en ${cu.vino_anio}`],
   "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`],
@@ -5341,7 +5344,7 @@ ART.forEach(a => {
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
-    `<div class="nota-graf"><h3>${Mx.nombre} y ${minusc(My.nombre)} por ${U.s}</h3><div class="grafico" data-g="${key}"></div>` +
+    `<div class="nota-graf"><h3>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h3><div class="grafico" data-g="${key}"></div>` +
     `<p class="nota-pie-graf">Cada punto es una ${U.s}. La línea punteada muestra la tendencia.</p></div>` +
     `<p>${t.extremos}</p><p>${t.excep}</p><p>${t.peso}</p>` +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
