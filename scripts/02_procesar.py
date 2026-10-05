@@ -3589,7 +3589,71 @@ EMA_RES = {
 }
 agregar(actividad_mensual[["periodo", "original"]].rename(columns={"original": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "estimador_mensual_actividad_economica", "indice, 2004 = 100", "INDEC, Estimador Mensual de Actividad Economica")
-ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES}
+# ventas en supermercados (etapa 26): la Encuesta de Supermercados del INDEC, un panel fijo de empresas con alguna boca de 200 m² o más. El país,
+# con el índice del INDEC a precios constantes, que descuenta los precios de cada grupo de artículos con el IPC del país. Cada provincia, con sus
+# ventas a precios corrientes llevadas a pesos del último mes con el IPC de los bienes de su región (la provincia de Buenos Aires en dos partes:
+# los 24 partidos con el del Gran Buenos Aires y el resto con el de la región Pampeana). Con el nivel general, que incluye los servicios y las
+# tarifas, la caída del país en doce meses daba cuatro veces la del INDEC, y con los bienes queda cerca. No hay ventas por habitante: dependen de
+# cuántas bocas del panel hay en cada provincia, más que de lo que se consume
+_su_x = pd.ExcelFile(CRUDO / "indec_supermercados.xlsx")
+_su_h = {s.strip().rstrip("."): s for s in _su_x.sheet_names}
+_su_1 = pd.read_excel(_su_x, _su_h["Cuadro 1"], header=None)
+assert "original" in str(_su_1.iat[2, 1]).lower() and "desestacionalizada" in str(_su_1.iat[2, 5]).lower() and "acumulada" in str(_su_1.iat[4, 3]).lower(), \
+    "cambió el cuadro 1 de la Encuesta de Supermercados"
+_su_1 = _su_1[pd.to_datetime(_su_1[0], errors="coerce").notna()]
+supermercados_mensual = pd.DataFrame({"periodo": pd.to_datetime(_su_1[0]).dt.strftime("%Y-%m").values, "original": pd.to_numeric(_su_1[1]).values,
+                                      "interanual": pd.to_numeric(_su_1[2], errors="coerce").values,
+                                      "acumulada": pd.to_numeric(_su_1[3], errors="coerce").values,
+                                      "desestacionalizada": pd.to_numeric(_su_1[5]).values})
+assert list(supermercados_mensual.periodo) == list(pd.period_range(supermercados_mensual.periodo.iloc[0], supermercados_mensual.periodo.iloc[-1],
+                                                                   freq="M").strftime("%Y-%m")), "faltan meses en la Encuesta de Supermercados"
+_su_5 = pd.read_excel(_su_x, _su_h["Cuadro 5"], header=None)
+_su_j = {str(_su_5.iat[2, c]).strip(): c for c in range(1, _su_5.shape[1]) if pd.notna(_su_5.iat[2, c])}
+assert len(_su_j) == 26 and all(str(_su_5.iat[3, c]).strip() == "Total" for c in _su_j.values()), "cambió el cuadro 5 de la Encuesta de Supermercados"
+_su_f = _su_5[pd.to_datetime(_su_5[0], errors="coerce").notna()]
+_su_v = pd.DataFrame({j: pd.to_numeric(_su_f[c]).values for j, c in _su_j.items()}, index=pd.to_datetime(_su_f[0]).dt.strftime("%Y-%m").values)
+assert _su_v.notna().all().all() and list(_su_v.index) == list(supermercados_mensual.periodo)
+# las jurisdicciones suman el total del país
+assert ((_su_v.drop(columns="Total del país").sum(axis=1) / _su_v["Total del país"] - 1).abs() < 1e-6).all(), "las provincias no suman el país"
+_SU_REG = {"02": "gba", "10": "noroeste", "14": "pampeana", "18": "noreste", "22": "noreste", "26": "patagonia", "30": "pampeana", "34": "noreste",
+           "38": "noroeste", "42": "pampeana", "46": "noroeste", "50": "cuyo", "54": "noreste", "58": "patagonia", "62": "patagonia", "66": "noroeste",
+           "70": "cuyo", "74": "cuyo", "78": "patagonia", "82": "pampeana", "86": "noroeste", "90": "noroeste", "94": "patagonia"}
+_su_jur = {"24 partidos del Gran Buenos Aires": ("06", "gba"), "Resto de Buenos Aires": ("06", "pampeana")}
+_su_jur.update({j: (codigo(j), _SU_REG[codigo(j)]) for j in _su_j if j not in _su_jur and j != "Total del país"})
+assert sorted({c for c, _ in _su_jur.values()}) == sorted(CORTO), "faltan provincias en la Encuesta de Supermercados"
+_su_ipc = _ipr[_ipr.Codigo == "B"].pivot(index="periodo", columns="reg", values="Indice_IPC").reindex(_su_v.index)
+assert _su_ipc.notna().all().all(), "el IPC por región no cubre todos los meses de la Encuesta de Supermercados"
+SU_ULT = _su_v.index[-1]
+# ventas de cada provincia en miles de pesos del último mes
+_su_r = pd.DataFrame({j: _su_v[j] / _su_ipc[r] * _su_ipc.at[SU_ULT, r] for j, (_, r) in _su_jur.items()})
+_su_r = _su_r.T.groupby(lambda j: _su_jur[j][0]).sum().T
+_su_d = lambda s: (s.iloc[-12:].sum() / s.iloc[-24:-12].sum() - 1) * 100
+supermercados_provincias = pd.DataFrame({"codigo_indec": _su_r.columns, "territorio": _su_r.columns.map(CORTO),
+                                         "region": [ECO_NOM[_SU_REG.get(c, "gba")] if c != "06" else "Gran Buenos Aires y Pampeana" for c in _su_r.columns],
+                                         "ventas_12m": _su_r.iloc[-12:].sum().values / 1000,
+                                         "var_12m": [_su_d(_su_r[c]) for c in _su_r.columns],
+                                         "var_mes": ((_su_r.iloc[-1] / _su_r.iloc[-13] - 1) * 100).values})
+_su_pais = _su_d(_su_r.sum(axis=1))
+_su_o = supermercados_mensual.set_index("periodo")
+_su_s = supermercados_provincias.sort_values("var_12m")
+_su_ds = _su_o.desestacionalizada
+SUP_RES = {
+    "periodo": SU_ULT, "mes": _mes_per(SU_ULT), "mes_ant": _mes_per(f"{int(SU_ULT[:4]) - 1}{SU_ULT[4:]}"), "desde": int(_su_o.index[0][:4]),
+    "anio": int(SU_ULT[:4]), "interanual": r1(_su_o.interanual.iloc[-1]), "acumulada": r1(_su_o.acumulada.iloc[-1]),
+    "doce": r1((_su_o.original.iloc[-12:].mean() / _su_o.original.iloc[-24:-12].mean() - 1) * 100),
+    "max_mes": _mes_per(_su_ds.idxmax()), "vs_max": r1((_su_ds.iloc[-1] / _su_ds.max() - 1) * 100),
+    "prov": {"desde": _mes_per(_su_r.index[-12]), "pais": r1(_su_pais), "suben": int((_su_s.var_12m.map(r1) > 0).sum()),
+             "bajan": int((_su_s.var_12m.map(r1) < 0).sum()), "top": [_su_s.iloc[-1].territorio, r1(_su_s.iloc[-1].var_12m)],
+             "bajo": [_su_s.iloc[0].territorio, r1(_su_s.iloc[0].var_12m)]},
+    "mini": [[p, float(v)] for p, v in _su_o.interanual.dropna().iloc[-10:].items()],
+}
+agregar(supermercados_mensual.rename(columns={"original": "valor"})[["periodo", "valor"]].assign(codigo_indec="00", territorio="Argentina"),
+        "indice_ventas_supermercados_precios_constantes", "indice, 2017 = 100", "INDEC, Encuesta de Supermercados")
+_su_l = (_su_v.drop(columns="Total del país").T.groupby(lambda j: _su_jur[j][0]).sum().T.rename_axis("periodo").reset_index()
+         .melt(id_vars="periodo", var_name="codigo_indec", value_name="valor"))
+agregar(_su_l.assign(territorio=_su_l.codigo_indec.map(CORTO)), "ventas_supermercados_precios_corrientes", "miles de pesos",
+        "INDEC, Encuesta de Supermercados")
+ECO_RES = {"ipc": IPC_RES, "canasta": CNT_RES, "salarios": SRL_RES, "actividad": EMA_RES, "super": SUP_RES}
 
 # ---------------------------------------------------------------- migraciones (etapa 25)
 # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra provincia o en otro país) y por
@@ -3681,6 +3745,56 @@ radicaciones_nacionalidad = _mg_dn[_mg_dn.nacionalidad != "Total"].assign(
 _mg_da = radicaciones_anual.set_index("anio").total
 _mg_du = int(_mg_da.index.max())
 _mg_dt = radicaciones_nacionalidad[(radicaciones_nacionalidad.anio == _mg_du) & (radicaciones_nacionalidad.nacionalidad != "Otras nacionalidades")]
+# refugio (etapa 26): las solicitudes de reconocimiento de la condición de persona refugiada por año desde 1985 y por nacionalidad, y las personas
+# reconocidas como refugiadas, de la Comisión Nacional para los Refugiados (CONARE, que publica solo en PDF: datos/manual/conare_*.csv, de su
+# edición más nueva), y las personas refugiadas y solicitantes de asilo que viven en la Argentina y las de origen argentino en otros países, de
+# ACNUR, que reúne lo que informa cada gobierno a fin de año. "Otras personas que necesitan protección internacional" es una categoría aparte de
+# ACNUR: no se suma a las refugiadas
+refugio_solicitudes = pd.read_csv(RAIZ / "datos" / "manual" / "conare_solicitudes.csv").drop(columns="fuente")
+_rf_n = pd.read_csv(RAIZ / "datos" / "manual" / "conare_nacionalidades.csv")
+RF_ULT = int(refugio_solicitudes.anio.max())
+assert int(_rf_n.anio.max()) == RF_ULT and pd.notna(refugio_solicitudes.reconocidas.iloc[-1]), "las tablas de la CONARE no llegan al mismo año"
+_RF_NOM = {"RUSA": "Rusa", "BRASILEÑA": "Brasileña", "CUBANA": "Cubana", "VENEZOLANA": "Venezolana", "COLOMBIANA": "Colombiana",
+           "BIELORRUSA": "Bielorrusa", "SENEGALESA": "Senegalesa", "MARROQUI": "Marroquí", "ARMENIA": "Armenia", "DOMINICANA": "Dominicana",
+           "UCRANIANA": "Ucraniana", "SIRIA": "Siria", "PALESTINA": "Palestina", "ECUATORIANA": "Ecuatoriana", "TURCA": "Turca", "PARAGUAYA": "Paraguaya"}
+_RF_CONT = {"AFRICA": "África", "AMERICA": "América", "ASIA": "Asia", "EUROPA": "Europa"}
+def _rf_nombre(n):
+    m = re.fullmatch(r"Resto de (\w+) \((\d+)\)", n)
+    return f"Otras de {_RF_CONT[m.group(1)]} ({m.group(2)} nacionalidades)" if m else _RF_NOM[n]
+_rf_nu = _rf_n[(_rf_n.anio == RF_ULT) & (_rf_n.solicitudes > 0)].copy()
+_rf_nu["nacionalidad"] = _rf_nu.nacionalidad.map(_rf_nombre)
+_rf_nu["pct"] = _rf_nu.solicitudes / _rf_nu.solicitudes.sum() * 100
+refugio_nacionalidades = _rf_nu[["nacionalidad", "solicitudes", "pct"]].sort_values("solicitudes", ascending=False).reset_index(drop=True)
+_rf_top = refugio_nacionalidades[~refugio_nacionalidades.nacionalidad.str.startswith("Otras")].head(3)
+refugio_acnur = pd.read_csv(CRUDO / "acnur_asilo_argentina.csv")[["anio", "refugiados", "solicitantes", "otras_proteccion"]].sort_values("anio")
+RA_ULT = int(refugio_acnur.anio.max())
+_rf_au = refugio_acnur.iloc[-1]
+_rf_ao = pd.read_csv(CRUDO / "acnur_asilo_argentina_origen.csv")
+_rf_ao = _rf_ao[_rf_ao.anio == RA_ULT]
+_rf_oip = _rf_ao.sort_values("otras_proteccion").iloc[-1]
+_rf_fo = pd.read_csv(CRUDO / "acnur_origen_argentina.csv").sort_values("anio").iloc[-1]
+_rf_fd = pd.read_csv(CRUDO / "acnur_origen_argentina_destino.csv")
+_rf_fd = _rf_fd[_rf_fd.anio == RA_ULT].assign(total=lambda x: x.refugiados + x.solicitantes).sort_values("total", ascending=False)
+_RF_PAIS = {"ESP": "España", "USA": "Estados Unidos", "ITA": "Italia", "CAN": "Canadá", "MEX": "México", "BRA": "Brasil", "CHL": "Chile",
+            "URY": "Uruguay", "FRA": "Francia", "DEU": "Alemania", "GBR": "Reino Unido", "AUS": "Australia", "PRY": "Paraguay", "BOL": "Bolivia",
+            "PER": "Perú", "ISR": "Israel", "CHE": "Suiza", "NLD": "Países Bajos", "BEL": "Bélgica", "SWE": "Suecia", "PRT": "Portugal",
+            "IRL": "Irlanda", "NZL": "Nueva Zelanda", "AUT": "Austria", "NOR": "Noruega", "DNK": "Dinamarca", "ECU": "Ecuador", "COL": "Colombia"}
+assert _rf_fd.head(3).destino_iso.isin(_RF_PAIS).all(), f"falta el nombre en castellano de un destino: {list(_rf_fd.head(3).destino_iso)}"
+_rf_ant = refugio_solicitudes.iloc[-2]
+_rf_ult = refugio_solicitudes.iloc[-1]
+_rf_max = refugio_solicitudes.loc[refugio_solicitudes.solicitudes.idxmax()]
+RF_RES = {"anio": RF_ULT, "ini": int(refugio_solicitudes.anio.min()), "solicitudes": int(_rf_ult.solicitudes), "sol_ant": int(_rf_ant.solicitudes),
+          "mujeres_pct": r1(_rf_ult.mujeres / _rf_ult.solicitudes * 100), "total": int(refugio_solicitudes.solicitudes.sum()),
+          "max_anio": int(_rf_max.anio), "max": int(_rf_max.solicitudes), "reconocidas": int(_rf_ult.reconocidas), "rec_ant": int(_rf_ant.reconocidas),
+          "rec_desde": int(refugio_solicitudes.dropna(subset=["reconocidas"]).anio.min()),
+          "top": [[f.nacionalidad, int(f.solicitudes), r1(f.pct)] for f in _rf_top.itertuples()],
+          "acnur": {"anio": RA_ULT, "desde": int(refugio_acnur.anio.min()), "refugiados": int(_rf_au.refugiados), "solicitantes": int(_rf_au.solicitantes),
+                    "otras": int(_rf_au.otras_proteccion), "otras_origen": "Venezuela" if _rf_oip.origen_iso == "VEN" else str(_rf_oip.origen),
+                    "otras_todas": bool(_rf_oip.otras_proteccion == _rf_au.otras_proteccion)},
+          "afuera": {"anio": RA_ULT, "refugiados": int(_rf_fo.refugiados), "solicitantes": int(_rf_fo.solicitantes),
+                     "destinos": [_RF_PAIS[i] for i in _rf_fd.head(3).destino_iso]}}
+agregar(refugio_solicitudes.assign(periodo=refugio_solicitudes.anio.astype(str), valor=refugio_solicitudes.solicitudes, codigo_indec="00", territorio="Argentina"),
+        "solicitudes_de_refugio", "solicitudes", "CONARE")
 # personas nacidas en la Argentina que viven en otro país (Naciones Unidas), con el nombre de cada país en castellano (código M49). Las
 # Malvinas no se listan como un país de destino
 ONU_PAIS = {724: "España", 840: "Estados Unidos", 380: "Italia", 152: "Chile", 600: "Paraguay", 68: "Bolivia", 376: "Israel", 858: "Uruguay",
@@ -3725,6 +3839,7 @@ MG_RES = {
                                    for f in mig_dep[mig_dep.poblacion_vp >= 10000].nlargest(3, "pct_otra_provincia").itertuples()],
                       "menos_1": int((mig_dep.pct_otro_pais.map(r1) < 1).sum()),
                       "otra_mitad": int((mig_dep.pct_otra_provincia.map(r1) > 50).sum())},
+    "refugio": RF_RES,
     "renaper": {"personas": int(extranjeros.personas.sum()), "corte": RENAPER_CORTE,
                 "mas": r1((extranjeros.personas.sum() / _mg_00.en_otro_pais - 1) * 100)},
     "historia": {"ini": int(migracion_censos.anio.min()), "ini_pct": float(migracion_censos.nacidos_otro_pais_pct.iloc[0]),
@@ -4515,9 +4630,14 @@ tablas = {
     "actividad_mensual": actividad_mensual,
     "actividad_anual": actividad_anual,
     "actividad_sectores": actividad_sectores,
+    "supermercados_mensual": supermercados_mensual,
+    "supermercados_provincias": supermercados_provincias,
     "nacidos_otro_pais_provincias": nacidos_otro_pais_provincias,
     "nacidos_otro_pais_paises": nacidos_otro_pais_paises,
     "migraciones_departamentos": migraciones_departamentos,
+    "refugio_solicitudes": refugio_solicitudes,
+    "refugio_nacionalidades": refugio_nacionalidades,
+    "refugio_acnur": refugio_acnur,
     "migracion_censos": migracion_censos,
     "radicaciones_anual": radicaciones_anual,
     "radicaciones_nacionalidad": radicaciones_nacionalidad,

@@ -181,7 +181,8 @@ const CB = R.combustibles;  // precios de los combustibles en el surtidor (etapa
 // salarios, salario docente, inversión en educación y seguridad (etapa 23)
 const SA = R.salarios, DC = R.docentes, IE = R.inversion_edu, SG = R.seguridad;
 // Economía y precios (etapa 25): la inflación, las canastas, los salarios y la actividad, todo del INDEC
-const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad;
+const EIP = R.economia.ipc, ECB = R.economia.canasta, ESR = R.economia.salarios, EMA = R.economia.actividad, ESU = R.economia.super;
+const conSigno = v => (v > 0 ? "+" : "") + pct(v);
 // regiones del índice de precios del INDEC (Cuadro 5 de su metodología de 2019): grupos de ciudades, no provincias. La provincia de Buenos
 // Aires está en dos: los 24 partidos, en el Gran Buenos Aires, y el resto, en la Pampeana
 const REG_IPC = {"02": ["gba"], "06": ["gba", "pampeana"], "10": ["noroeste"], "14": ["pampeana"], "18": ["noreste"], "22": ["noreste"], "26": ["patagonia"],
@@ -202,7 +203,7 @@ const inicialMin = t => t.charAt(0).toLowerCase() + t.slice(1);
 // como cambioPct, para un sujeto en plural: "subieron 4,0%", "bajaron 1,3%" o "no cambiaron"
 const cambioPl = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambiaron" : `${v < 0 ? "bajaron" : "subieron"} ${pct(Math.abs(v))}`;
 // Migraciones (etapa 25): el Censo 2022, la serie de los censos, las residencias de la DNM y los argentinos en el exterior (Naciones Unidas)
-const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.historia, MGP = MG.departamentos;
+const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.historia, MGP = MG.departamentos, MGR = MG.refugio;
 // los departamentos más altos: "Comuna 1 (24,6%), Comuna 3 (20,3%) y Comuna 8 (20,2%), las tres de CABA" si son de la misma provincia, y si no,
 // "Lago Argentino (Santa Cruz, 56,4%), ..."
 const depsTop = top => top.every(d => d[1] === top[0][1])
@@ -532,6 +533,37 @@ const LEAD = {
     `pesos por habitante, según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. Iba de ${n0(GBP.bajo[1])} pesos ` +
     `por habitante en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +
     (GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? "tienen" : "tiene"} datos completos del año.` : ""),
+  // refugio (etapa 26): las solicitudes y las personas reconocidas de la CONARE, y las personas refugiadas y solicitantes de asilo de ACNUR
+  refugio: v => {
+    if (v === "nacionalidad") return `En ${MGR.anio}, las nacionalidades con más solicitudes de refugio fueron la ${MGR.top[0][0].toLowerCase()}, con ` +
+      `${n0(MGR.top[0][1])}, la ${MGR.top[1][0].toLowerCase()}, con ${n0(MGR.top[1][1])}, y la ${MGR.top[2][0].toLowerCase()}, con ${n0(MGR.top[2][1])}, ` +
+      `según la Comisión Nacional para los Refugiados (CONARE).`;
+    if (v === "acnur") {
+      const A = MGR.acnur, F = MGR.afuera;
+      return `Según ACNUR, que reúne las cifras de cada gobierno, a fines de ${A.anio} vivían en la Argentina ${n0(A.refugiados)} personas refugiadas y ` +
+        `${n0(A.solicitantes)} solicitantes de asilo. ACNUR cuenta aparte a ${n0(A.otras)} personas${A.otras_todas && A.otras_origen === "Venezuela" ? " venezolanas" : ""} ` +
+        `que no figuran como refugiadas ni como solicitantes pero que probablemente necesitan protección internacional. A la vez, ${n0(F.refugiados)} personas ` +
+        `de origen argentino eran refugiadas y ${n0(F.solicitantes)} solicitaban asilo en otros países, sobre todo en ${lista(F.destinos)}.`;
+    }
+    return `En ${MGR.anio} se presentaron ${n0(MGR.solicitudes)} solicitudes de reconocimiento de la condición de persona refugiada ante la Comisión ` +
+      `Nacional para los Refugiados (CONARE), ${MGR.solicitudes < MGR.sol_ant ? "menos" : "más"} que las ${n0(MGR.sol_ant)} de ${MGR.anio - 1}. El año con ` +
+      `más solicitudes desde ${MGR.ini} fue ${MGR.max_anio}, con ${n0(MGR.max)}. En ${MGR.anio}, la CONARE reconoció como refugiadas a ` +
+      `${n0(MGR.reconocidas)} personas, contra ${n0(MGR.rec_ant)} en ${MGR.anio - 1}.`;
+  },
+  // ventas en supermercados (etapa 26): el país con el índice del INDEC, y cada provincia con sus ventas llevadas a pesos de igual valor con
+  // el índice de precios de su región
+  supermercados: v => {
+    if (v === "mes") return `En ${ESU.mes}, las ventas de los supermercados en pesos de igual valor fueron ${pct(Math.abs(ESU.interanual))} ` +
+      `${ESU.interanual < 0 ? "menores" : "mayores"} que en ${ESU.mes_ant}, según el INDEC. En los doce meses hasta ${ESU.mes} ` +
+      `${ESU.doce < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.doce))} frente a los doce anteriores. ` +
+      (ESU.vs_max < 0 ? `Sin la estacionalidad, están ${pct(Math.abs(ESU.vs_max))} por debajo de ${ESU.max_mes}, el mes más alto de la serie, que empieza en ${ESU.desde}.`
+        : `Sin la estacionalidad, están en el nivel más alto de la serie, que empieza en ${ESU.desde}.`);
+    const P = ESU.prov;
+    return `En los doce meses hasta ${ESU.mes}, las ventas de los supermercados en pesos de igual valor ${P.pais < 0 ? "cayeron" : "crecieron"} ` +
+      `${pct(Math.abs(P.pais))} en todo el país frente a los doce anteriores, con los precios de los bienes de cada región. ` + (P.suben && P.bajan
+        ? `Subieron en ${P.suben} jurisdicciones y bajaron en ${P.bajan}: la variación fue de ${conSigno(P.top[1])} en ${P.top[0]} a ${conSigno(P.bajo[1])} en ${P.bajo[0]}.`
+        : `${P.suben ? "Subieron" : "Bajaron"} en todas las jurisdicciones, de ${conSigno(P.bajo[1])} en ${P.bajo[0]} a ${conSigno(P.top[1])} en ${P.top[0]}.`);
+  },
   // ---- migraciones (etapa 25)
   "nacidos-otro-pais": v => {
     // vista Mapa (etapa 26): los tres departamentos más altos entre los de 10.000 habitantes o más
@@ -988,6 +1020,18 @@ const TX = {
     `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
     `rentas de cada provincia. Por habitante con la población del INDEC. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
     `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en Trabajo y finanzas.`,
+  refugio: LEAD.refugio("anio"), "refugio-nota": `Solicitudes de reconocimiento de la condición de persona refugiada presentadas cada año ante la ` +
+    `CONARE, que decide quién es reconocida como refugiada, y personas reconocidas, según sus estadísticas de ${MGR.anio}. La CONARE las publica solo ` +
+    `en PDF: el sitio copia sus cuadros. Las cifras de ACNUR son las personas refugiadas y solicitantes de asilo que vivían en el país a fin de cada ` +
+    `año, que informa cada gobierno: no se suman a las solicitudes, que son trámites de cada año. ACNUR cuenta aparte a las otras personas que ` +
+    `necesitan protección internacional, que no figuran como refugiadas ni como solicitantes de asilo.`,
+  supermercados: LEAD.supermercados("prov"), "supermercados-nota": `Encuesta de Supermercados del INDEC: un panel fijo de empresas de supermercados ` +
+    `con alguna boca de 200 m² o más, o que suman esa superficie entre todas sus bocas, que no es una muestra al azar. Las ventas incluyen el IVA. La serie mes a mes es el índice del país que publica el ` +
+    `INDEC a precios constantes, que descuenta los precios de cada grupo de artículos con el índice de precios al consumidor del país. El INDEC publica ` +
+    `las ventas de cada provincia solo a precios corrientes: el sitio las lleva a pesos de ${ESU.mes} con el índice de precios de los bienes de su región ` +
+    `(en la provincia de Buenos Aires, los 24 partidos del Gran Buenos Aires con el de esa región y el resto con el de la región Pampeana), así que la ` +
+    `variación del país de ese gráfico difiere un poco de la del índice del INDEC. No se comparan las ventas por habitante: dependen de cuántos locales ` +
+    `del panel hay en cada provincia.`,
   // ---- migraciones (etapa 25)
   "nacidos-otro-pais": LEAD["nacidos-otro-pais"]("prov"), "nacidos-otro-pais-nota": `Personas que vivían en viviendas particulares y nacieron en ` +
     `otro país, según el Censo 2022 del INDEC, como parte de toda la población en viviendas particulares de cada provincia. Es el primer censo de derecho: ` +
@@ -2066,7 +2110,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
+Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
   delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
@@ -2536,6 +2580,34 @@ Object.assign(DIB, {
     barrasH(el, {anim: a, data, k: "v", vf: pct, af: v => n0(v) + "%", ref: EMA.doce, refLab: `Toda la economía ${pct(EMA.doce)}`, paisLab: "Toda la economía",
       l: 236, lAngosto: 150, corto: d => d.corto,
       tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} en los doce meses hasta ${EMA.mes}, frente a los doce anteriores<br>${pct(d.ia)} en el mes, frente a ${EMA.mes_ant}`});
+  }),
+  // refugio (etapa 26): solicitudes por año, por nacionalidad en el último año, o personas refugiadas y solicitantes de asilo en el país
+  refugio: conTablas("refugio", () => ({nacionalidad: ["refugio_nacionalidades"], acnur: ["refugio_acnur"]})[MED.refugio] || [], a => {
+    const v = MED.refugio, el = G("refugio");
+    $t("refugio").textContent = LEAD.refugio(v);
+    if (v === "nacionalidad") return barrasH(el, {anim: a, data: T.refugio_nacionalidades.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad,
+      solicitudes: r.solicitudes, pct: r.pct})), k: "solicitudes", vf: n0, af: n0, l: 236, lAngosto: 150,
+      corto: d => d.territorio.replace(/ \(\d+ nacionalidades\)/, ""),
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.solicitudes)} solicitudes en ${MGR.anio}<br>${pct(d.pct)} del total`});
+    if (v === "acnur") return lineas(el, {anim: a, data: T.refugio_acnur, x: "anio", y0: 0, vf: n0, yf: n0,
+      series: [{k: "refugiados", lab: "Personas refugiadas", corto: "Refugiadas", c: NAR}, {k: "solicitantes", lab: "Solicitantes de asilo", corto: "Solicitantes", c: FRI}]});
+    columnasApiladas(el, {anim: a, data: T.refugio_solicitudes, vf: n0, af: n0, unidad: "solicitudes",
+      claves: [{k: "solicitudes", lab: "Solicitudes", c: css("--celeste-fuerte")}]});
+  }),
+  // ventas en supermercados (etapa 26): la variación de cada provincia en doce meses, o el índice del país mes a mes
+  supermercados: conTablas("supermercados", () => MED.supermercados === "mes" ? ["supermercados_mensual"] : [], a => {
+    const v = MED.supermercados, el = G("supermercados"), fp = T.supermercados_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.supermercados(v);
+    if (v === "mes") {
+      $t("supermercados").textContent = txt;
+      return lineas(el, {anim: a, data: T.supermercados_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
+        xl: r => mesPer(r.periodo), mensual: true, series: [{k: "desestacionalizada", lab: "Sin estacionalidad", corto: "Ventas", c: NAR}]});
+    }
+    if (fp && fp.territorio !== ESU.prov.top[0] && fp.territorio !== ESU.prov.bajo[0]) txt += ` En ${fp.territorio}, ${conSigno(fp.var_12m)}.`;
+    $t("supermercados").textContent = txt;
+    barrasH(el, {anim: a, data: T.supermercados_provincias, k: "var_12m", vf: conSigno, af: v => n0(v) + "%", ref: ESU.prov.pais,
+      refLab: `País ${conSigno(ESU.prov.pais)}`, tip: d => `<b>${d.territorio}</b><br>${conSigno(d.var_12m)} en los doce meses hasta ${ESU.mes}, ` +
+        `frente a los doce anteriores<br>${conSigno(d.var_mes)} en ${ESU.mes}, frente a ${ESU.mes_ant}<br>Precios de la región ${d.region}`});
   }),
   // personas nacidas en otro país (etapa 25, Censo 2022): por provincia, o los países de nacimiento del país o de la provincia elegida
   "nacidos-otro-pais": conTablas("nacidos-otro-pais", () => ({pais: ["nacidos_otro_pais_paises"], mapa: ["migraciones_departamentos"]})[MED["nacidos-otro-pais"]] || [], a => {
@@ -4205,6 +4277,9 @@ const CLAVE = {
   "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`],
   "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`],
   "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`],
+  "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`],
+  "f-supermercados": [pct(Math.abs(ESU.interanual)), `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados en pesos de igual ` +
+    `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`],
   "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
   "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
   "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
@@ -4305,7 +4380,7 @@ const EXTRA = {
 const EN_CIFRAS = {
   construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "f-trabajadores", "x-viviendas-construccion", "f-insumos"],
   trabajo: ["f-empleo", "f-salarios", "f-rotacion", "f-exportaciones", "f-fiscal"],
-  economia: ["f-inflacion", "x-inflacion-mes", "f-canastas", "f-salario-real", "f-emae"],
+  economia: ["f-inflacion", "x-inflacion-mes", "f-canastas", "f-salario-real", "f-emae", "f-supermercados"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
   salud: ["f-esperanza", "x-ev-brecha", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
@@ -4819,6 +4894,8 @@ const INDP = [
     d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k:"pct_otro_pais", pais:MGC.pct, f:n1},
   {id:"f-migracion-interna", lab:"Nacidos en otra provincia", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
     d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k:"pct_otra_provincia", pais:MGC.otra_pct, f:n1},
+  {id:"f-supermercados", lab:"Ventas en supermercados", det:`variación en pesos de igual valor, doce meses hasta ${ESU.mes}`,
+    d:T.supermercados_provincias, k:"var_12m", pais:ESU.prov.pais, f:conSigno},
   {id:"f-combustibles", lab:"Precio de la nafta súper", det:`pesos por litro en el surtidor, mediana de las estaciones, ${CB.mes}`,
     d:T.combustibles_provincias, k:"nafta", pais:CB.nafta, f:n0},
   {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
@@ -4901,6 +4978,12 @@ const PREG = [
    `${n0(MGO.personas)} personas nacidas en la Argentina a mediados de ${MGO.anio}, según las Naciones Unidas. El ${pct(MGO.top[0][2])}, en ${MGO.top[0][0]}.`, "#f-argentinos-exterior"],
   ["¿Cuánto subieron los precios en el último año?",
    `${pct(EIP.interanual)} en los doce meses hasta ${EIP.mes}, según el INDEC, y ${pct(EIP.mensual)} en el mes. La región con la suba más alta, ${REG_ART[EIP.reg_max[0]]}, con ${pct(EIP.reg_max[1])}.`, "#f-inflacion"],
+  ["¿Cuántas personas pidieron refugio en la Argentina el último año?",
+   `En ${MGR.anio}, ${n0(MGR.solicitudes)} solicitudes, según la Comisión Nacional para los Refugiados. Ese año reconoció como refugiadas a ` +
+   `${n0(MGR.reconocidas)} personas.`, "#f-refugio"],
+  ["¿Venden más o menos los supermercados que hace un año?",
+   `${ESU.interanual < 0 ? "Menos" : "Más"}: en ${ESU.mes}, las ventas en pesos de igual valor fueron ${pct(Math.abs(ESU.interanual))} ` +
+   `${ESU.interanual < 0 ? "menores" : "mayores"} que en ${ESU.mes_ant}, según el INDEC.`, "#f-supermercados"],
   ["¿Cuánto necesita un hogar para no ser pobre?",
    `${n0(ECB.cbt_hogar)} pesos por mes en ${ECB.mes}, un hogar de cuatro integrantes del Gran Buenos Aires, según la canasta básica total del INDEC.`, "#f-canastas"],
   ["¿Le ganan los salarios a la inflación?",
@@ -5694,6 +5777,7 @@ const SERIE_CIFRA = {
   "f-canastas": () => serieM("Canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires, pesos", ECB.mini.map(([p, v]) => [mesCorto(p), v]), n0),
   "f-salario-real": () => serieM("Salario registrado privado descontada la inflación, cambio en doce meses", ESR.mini.map(([p, v]) => [mesCorto(p), v]), pct),
   "f-emae": () => serieM("Actividad económica, cambio frente al mismo mes del año anterior", EMA.mini.map(([p, v]) => [mesCorto(p), v]), pct),
+  "f-supermercados": () => serieM("Ventas en supermercados, cambio frente al mismo mes del año anterior", ESU.mini.map(([p, v]) => [mesCorto(p), v]), pct),
   "f-electricidad-provincias": () => provM(`Electricidad de los hogares, kWh por habitante en ${e.el_ult}`, T.electricidad_provincias, "kwh_hab", e.el_pais, n0),
   "f-subsidios": () => serieM("Subsidios económicos a la energía, % del PBI de cada año", T.subsidios_energia.map(r => [r.anio, r.pct_pbi]), v => n2(v) + "%"),
   "f-hidro-provincias": () => provM("Petróleo, miles de barriles por día, doce meses más recientes", T.hidrocarburos_provincias, "pet_kbd", null, n0),

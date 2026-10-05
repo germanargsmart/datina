@@ -255,7 +255,7 @@ DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide
              "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
              "inflacion_mensual", "canasta_mensual", "salario_real_mensual", "actividad_mensual",
              "nacidos_otro_pais_paises", "radicaciones_nacionalidad", "argentinos_exterior_destinos",
-             "migraciones_departamentos"]
+             "migraciones_departamentos", "supermercados_mensual"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:

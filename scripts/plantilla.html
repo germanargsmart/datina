@@ -359,6 +359,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Estimador Mensual de Actividad Económica</span><a href="datos/actividad_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-supermercados">
+      <h3>Ventas en supermercados en pesos de igual valor, por provincia y mes a mes, {{economia.super.desde}} a {{economia.super.anio}}</h3>
+      <p class="lead" data-t="supermercados"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="supermercados">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
+      </div>
+      <div class="grafico" data-g="supermercados" data-forma="barras"></div>
+      <p class="nota" data-t="supermercados-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta de Supermercados e índice de precios al consumidor</span><a href="datos/supermercados_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema" id="empresas">
@@ -762,6 +774,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="radicaciones" data-forma="columnas"></div>
       <p class="nota" data-t="radicaciones-nota"></p>
       <div class="pie"><span>Fuente: Dirección Nacional de Migraciones, trámites de radicación resueltos</span><a href="datos/radicaciones_nacionalidad.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-refugio">
+      <h3>Solicitudes de refugio por año y nacionalidad, {{migraciones.refugio.ini}} a {{migraciones.refugio.anio}}, y personas refugiadas en el país</h3>
+      <p class="lead" data-t="refugio"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="refugio" style="--n:3">
+        <button type="button" data-m="anio" aria-pressed="true">Por año</button>
+        <button type="button" data-m="nacionalidad" aria-pressed="false">Nacionalidad</button>
+        <button type="button" data-m="acnur" aria-pressed="false">Refugiados</button>
+      </div>
+      <div class="grafico" data-g="refugio" data-forma="columnas"></div>
+      <p class="nota" data-t="refugio-nota"></p>
+      <div class="pie"><span>Fuentes: Comisión Nacional para los Refugiados (CONARE) y ACNUR</span><a href="datos/refugio_solicitudes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-argentinos-exterior">

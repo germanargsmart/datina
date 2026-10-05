@@ -403,6 +403,37 @@
       "cita": "El ajuste estacional del indicador, agregado de la manera descripta, se realiza por el método indirecto"
      }
     ]
+   },
+   {
+    "titulo": "Las ventas en supermercados",
+    "texto": "La Encuesta de Supermercados del INDEC releva cada mes las ventas de un panel fijo de empresas de supermercados que tienen alguna boca de expendio de 200 metros cuadrados o más, o que suman esa superficie entre todas sus bocas. No es una muestra al azar, así que no representa a todos los comercios. Las ventas incluyen el IVA. El INDEC publica el índice del país a precios constantes, que descuenta los precios de cada grupo de artículos con el índice de precios al consumidor, y las ventas de cada provincia a precios corrientes. Para compararlas, el sitio las lleva a pesos de igual valor con el índice de precios de los bienes de su región.",
+    "fuentes": [
+     {
+      "nombre": "INDEC, Metodología de la Encuesta de Supermercados y la Encuesta de Autoservicios Mayoristas",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia30_supermercados_mayoristas.pdf",
+      "cita": "nómina de empresas de supermercados que cuentan por lo menos con alguna boca de expendio"
+     },
+     {
+      "nombre": "INDEC, Metodología de la Encuesta de Supermercados y la Encuesta de Autoservicios Mayoristas",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia30_supermercados_mayoristas.pdf",
+      "cita": "la suma de la superficie del salón de ventas de todas sus bocas de expendio"
+     },
+     {
+      "nombre": "INDEC, Metodología de la Encuesta de Supermercados y la Encuesta de Autoservicios Mayoristas",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia30_supermercados_mayoristas.pdf",
+      "cita": "Tipo de encuesta: panel no probabilístico"
+     },
+     {
+      "nombre": "INDEC, Metodología de la Encuesta de Supermercados y la Encuesta de Autoservicios Mayoristas",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia30_supermercados_mayoristas.pdf",
+      "cita": "se incluye el valor del IVA"
+     },
+     {
+      "nombre": "INDEC, Encuesta de supermercados y de autoservicios mayoristas, julio de 2026",
+      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/super_09_260FBFF11FE1.pdf",
+      "cita": "elaborados a partir de distintas desagregaciones del índice de precios del consumidor"
+     }
+    ]
    }
   ],
   "glosario": [
@@ -460,6 +491,14 @@
     "fuente": {
      "nombre": "INDEC, Estimador Mensual de Actividad Económica, metodología (Metodología 20), 2016",
      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf"
+    }
+   },
+   {
+    "termino": "Boca de expendio",
+    "definicion": "Cada local de venta de una empresa de supermercados.",
+    "fuente": {
+     "nombre": "INDEC, Metodología de la Encuesta de Supermercados y la Encuesta de Autoservicios Mayoristas",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia30_supermercados_mayoristas.pdf"
     }
    }
   ]
@@ -2404,6 +2443,36 @@
       "cita": "Years given refer to 1 July."
      }
     ]
+   },
+   {
+    "titulo": "El refugio",
+    "texto": "Una persona refugiada es la que está fuera de su país por temor fundado a ser perseguida o porque su vida, su seguridad o su libertad están amenazadas por la violencia generalizada, un conflicto o violaciones masivas de los derechos humanos. En la Argentina, la Comisión Nacional para los Refugiados (CONARE) decide quién es reconocida como refugiada. Mientras su pedido no se resuelve, la persona es solicitante. ACNUR, la agencia de las Naciones Unidas para los refugiados, reúne las cifras que informa cada gobierno.",
+    "fuentes": [
+     {
+      "nombre": "CONARE, Estadísticas 2025",
+      "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_conare-2026_.pdf",
+      "cita": "fundados temores de ser perseguida"
+     },
+     {
+      "nombre": "CONARE, Estadísticas 2025",
+      "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_conare-2026_.pdf",
+      "cita": "violencia generalizada, la agresión extranjera, los conflictos internos"
+     },
+     {
+      "nombre": "CONARE, Estadísticas 2025",
+      "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_conare-2026_.pdf",
+      "cita": "es el órgano competente para la determinación de la condición de persona refugiada"
+     },
+     {
+      "nombre": "CONARE, Estadísticas 2025",
+      "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_conare-2026_.pdf",
+      "cita": "cuyo pedido de protección internacional todavía no ha sido resuelto"
+     },
+     {
+      "nombre": "ACNUR, Refugee Data Finder",
+      "url": "https://www.unhcr.org/refugee-statistics/"
+     }
+    ]
    }
   ],
   "glosario": [
@@ -2453,6 +2522,14 @@
     "fuente": {
      "nombre": "Naciones Unidas, División de Población, International Migrant Stock 2024 (planilla por destino y origen)",
      "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
+    }
+   },
+   {
+    "termino": "Persona refugiada",
+    "definicion": "La que fue reconocida como tal porque no puede volver a su país sin correr peligro por persecución, violencia o conflicto.",
+    "fuente": {
+     "nombre": "CONARE, Estadísticas 2025",
+     "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_conare-2026_.pdf"
     }
    }
   ]

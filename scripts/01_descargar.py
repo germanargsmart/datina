@@ -251,6 +251,9 @@ FUENTES.update({
     "indec_canastas.xls": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls",
     "indec_emae.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls",
     "indec_emae_actividad.xls": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls",
+    # Encuesta de Supermercados del INDEC (etapa 26): el índice del país a precios constantes y las ventas de cada provincia a precios corrientes.
+    # El nombre es fijo y el INDEC lo reemplaza con cada publicación
+    "indec_supermercados.xlsx": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_supermercados.xlsx",
     # Censo 2022 (INDEC): población en viviendas particulares por lugar de nacimiento (en la provincia, en otra o en otro país) y por país de
     # nacimiento, según jurisdicción (sección Migraciones, etapa 25)
     "censo2022_migraciones_c1.xlsx": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx",
@@ -366,6 +369,8 @@ VALIDA.update({
     "indec_canastas.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_emae.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "indec_emae_actividad.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
+    # si el archivo no existe, el INDEC responde una página con código 200: se controla que sea una planilla
+    "indec_supermercados.xlsx": lambda b: b[:2] == b"PK",
     "censo2022_migraciones_c1.xlsx": lambda b: b[:2] == b"PK",
     "censo2022_migraciones_c10.xlsx": lambda b: b[:2] == b"PK",
     "indec_gobiernos_locales.xlsx": lambda b: b[:2] == b"PK",
@@ -1422,6 +1427,31 @@ def onu_migrantes():
     return url
 
 
+def acnur_refugio():
+    """Personas refugiadas y solicitantes de asilo según ACNUR (Refugee Population Statistics Database, licencia CC BY 4.0, etapa 26): las que
+    viven en la Argentina, por año y por país de origen, y las de origen argentino que viven en otros países, por año y por país de destino.
+    Son las cifras que informa cada gobierno (en la Argentina, la CONARE) a fin de cada año. La API no pide clave y devuelve JSON. Los números
+    llegan a veces como texto ("0" o "-"), que vale cero. "oip" son otras personas con necesidad de protección internacional, una categoría
+    aparte de las refugiadas."""
+    import json, pandas as pd
+    base = "https://api.unhcr.org/population/v1/population/?limit=10000&cf_type=ISO&yearFrom=2000&yearTo=2100&"
+    num = lambda v: int(v) if isinstance(v, (int, float)) or str(v).strip().isdigit() else 0
+    salidas = {"acnur_asilo_argentina.csv": "coa=ARG", "acnur_asilo_argentina_origen.csv": "coa=ARG&coo_all=true",
+               "acnur_origen_argentina.csv": "coo=ARG", "acnur_origen_argentina_destino.csv": "coo=ARG&coa_all=true"}
+    for archivo, filtro in salidas.items():
+        items = json.loads(leer(base + filtro, 120))["items"]
+        d = pd.DataFrame([{"anio": int(x["year"]), "origen": str(x["coo_name"]).strip(), "origen_iso": x["coo_iso"],
+                           "destino": str(x["coa_name"]).strip(), "destino_iso": x["coa_iso"], "refugiados": num(x["refugees"]),
+                           "solicitantes": num(x["asylum_seekers"]), "otras_proteccion": num(x.get("oip")), "apatridas": num(x.get("stateless"))}
+                          for x in items])
+        if d.empty or d.anio.max() < 2024 or d.anio.min() > 2000:
+            raise ValueError(f"la API de ACNUR no devolvió la serie esperada ({filtro})")
+        if "_all" in filtro:
+            d = d[d.anio >= d.anio.max() - 4]  # por país: los últimos cinco años alcanzan
+        d.to_csv(CRUDO / archivo, index=False)
+    return base
+
+
 def _enlace_en_pagina(pagina, patron, orden=None):
     """El enlace de una página de argentina.gob.ar que coincide con el patrón (las planillas que cambian de nombre con cada edición): el
     primero, o con orden (una función del enlace) el mayor, así una página que cambia el orden de sus enlaces no lleva a una edición vieja.
@@ -1568,6 +1598,7 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("canastas básicas por región (INDEC)", indec_canastas_regiones),
                     ("residencias otorgadas por la Dirección Nacional de Migraciones", dnm_radicaciones),
                     ("personas nacidas en la Argentina que viven en otro país (Naciones Unidas)", onu_migrantes),
+                    ("personas refugiadas y solicitantes de asilo (ACNUR)", acnur_refugio),
                     ("deuda pública de la Administración Central (Secretaría de Finanzas)", deuda_publica),
                     ("cargos en las administraciones provinciales (DNAP)", dnap_cargos),
                     ("recursos tributarios de origen provincial (DNAP)", dnap_recaudacion)]:
