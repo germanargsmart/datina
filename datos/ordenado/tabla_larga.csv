@@ -36518,3 +36518,118 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 00,Argentina,2015,nacidos_en_argentina_en_otro_pais,895980.0,personas,"Naciones Unidas, International Migrant Stock 2024"
 00,Argentina,2020,nacidos_en_argentina_en_otro_pais,1014400.0,personas,"Naciones Unidas, International Migrant Stock 2024"
 00,Argentina,2024,nacidos_en_argentina_en_otro_pais,1183381.0,personas,"Naciones Unidas, International Migrant Stock 2024"
+00,Argentina,2016,resultado_primario_sector_publico_nacional_pct_pbi,-4.174998332538463,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2017,resultado_primario_sector_publico_nacional_pct_pbi,-3.7911223028363574,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2018,resultado_primario_sector_publico_nacional_pct_pbi,-2.2990278235492387,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2019,resultado_primario_sector_publico_nacional_pct_pbi,-0.4412261819159488,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2020,resultado_primario_sector_publico_nacional_pct_pbi,-6.431345619579316,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2021,resultado_primario_sector_publico_nacional_pct_pbi,-2.1208568313161633,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2022,resultado_primario_sector_publico_nacional_pct_pbi,-2.004283382055331,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2023,resultado_primario_sector_publico_nacional_pct_pbi,-2.662922536998425,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2024,resultado_primario_sector_publico_nacional_pct_pbi,1.7806671726730106,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2025,resultado_primario_sector_publico_nacional_pct_pbi,1.3842234537328988,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2016,resultado_financiero_sector_publico_nacional_pct_pbi,-5.770251792295783,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2017,resultado_financiero_sector_publico_nacional_pct_pbi,-5.900900719964378,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2018,resultado_financiero_sector_publico_nacional_pct_pbi,-4.936837209597743,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2019,resultado_financiero_sector_publico_nacional_pct_pbi,-3.8008624107059417,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2020,resultado_financiero_sector_publico_nacional_pct_pbi,-8.426482731289141,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2021,resultado_financiero_sector_publico_nacional_pct_pbi,-3.6012866192574573,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2022,resultado_financiero_sector_publico_nacional_pct_pbi,-3.8072158542314063,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2023,resultado_financiero_sector_publico_nacional_pct_pbi,-4.340620815576191,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2024,resultado_financiero_sector_publico_nacional_pct_pbi,0.3019943575294762,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2025,resultado_financiero_sector_publico_nacional_pct_pbi,0.1709893024338858,% del PBI,Secretaria de Hacienda (IMIG) e INDEC
+00,Argentina,2004,recaudacion_tributaria_nacional_pct_pbi,20.26476740803137,% del PBI,DNIAF e INDEC
+00,Argentina,2005,recaudacion_tributaria_nacional_pct_pbi,20.471163265129167,% del PBI,DNIAF e INDEC
+00,Argentina,2006,recaudacion_tributaria_nacional_pct_pbi,20.95374104998897,% del PBI,DNIAF e INDEC
+00,Argentina,2007,recaudacion_tributaria_nacional_pct_pbi,22.272689288893947,% del PBI,DNIAF e INDEC
+00,Argentina,2008,recaudacion_tributaria_nacional_pct_pbi,23.431121562607817,% del PBI,DNIAF e INDEC
+00,Argentina,2009,recaudacion_tributaria_nacional_pct_pbi,24.434925406544526,% del PBI,DNIAF e INDEC
+00,Argentina,2010,recaudacion_tributaria_nacional_pct_pbi,24.667252333742358,% del PBI,DNIAF e INDEC
+00,Argentina,2011,recaudacion_tributaria_nacional_pct_pbi,24.787883279024634,% del PBI,DNIAF e INDEC
+00,Argentina,2012,recaudacion_tributaria_nacional_pct_pbi,25.77032452033275,% del PBI,DNIAF e INDEC
+00,Argentina,2013,recaudacion_tributaria_nacional_pct_pbi,25.64975639173027,% del PBI,DNIAF e INDEC
+00,Argentina,2014,recaudacion_tributaria_nacional_pct_pbi,25.544019075309414,% del PBI,DNIAF e INDEC
+00,Argentina,2015,recaudacion_tributaria_nacional_pct_pbi,25.828287928913678,% del PBI,DNIAF e INDEC
+00,Argentina,2016,recaudacion_tributaria_nacional_pct_pbi,25.159377800054024,% del PBI,DNIAF e INDEC
+00,Argentina,2017,recaudacion_tributaria_nacional_pct_pbi,24.189060854500966,% del PBI,DNIAF e INDEC
+00,Argentina,2018,recaudacion_tributaria_nacional_pct_pbi,22.941254049107844,% del PBI,DNIAF e INDEC
+00,Argentina,2019,recaudacion_tributaria_nacional_pct_pbi,23.30208106374196,% del PBI,DNIAF e INDEC
+00,Argentina,2020,recaudacion_tributaria_nacional_pct_pbi,24.385459888510773,% del PBI,DNIAF e INDEC
+00,Argentina,2021,recaudacion_tributaria_nacional_pct_pbi,23.810481138908358,% del PBI,DNIAF e INDEC
+00,Argentina,2022,recaudacion_tributaria_nacional_pct_pbi,24.13050573918558,% del PBI,DNIAF e INDEC
+00,Argentina,2023,recaudacion_tributaria_nacional_pct_pbi,22.16172681628685,% del PBI,DNIAF e INDEC
+00,Argentina,2024,recaudacion_tributaria_nacional_pct_pbi,22.478245421878036,% del PBI,DNIAF e INDEC
+00,Argentina,2025,recaudacion_tributaria_nacional_pct_pbi,21.536185034468055,% del PBI,DNIAF e INDEC
+00,Argentina,2000,deuda_bruta_administracion_central_pct_pbi,45.65386800078761,% del PBI,Secretaria de Finanzas
+00,Argentina,2001,deuda_bruta_administracion_central_pct_pbi,53.67464329045557,% del PBI,Secretaria de Finanzas
+00,Argentina,2002,deuda_bruta_administracion_central_pct_pbi,166.65871638753543,% del PBI,Secretaria de Finanzas
+00,Argentina,2003,deuda_bruta_administracion_central_pct_pbi,139.1996566136632,% del PBI,Secretaria de Finanzas
+00,Argentina,2004,deuda_bruta_administracion_central_pct_pbi,118.08397745855407,% del PBI,Secretaria de Finanzas
+00,Argentina,2005,deuda_bruta_administracion_central_pct_pbi,80.50690079712565,% del PBI,Secretaria de Finanzas
+00,Argentina,2006,deuda_bruta_administracion_central_pct_pbi,70.6197154042343,% del PBI,Secretaria de Finanzas
+00,Argentina,2007,deuda_bruta_administracion_central_pct_pbi,62.09327574328896,% del PBI,Secretaria de Finanzas
+00,Argentina,2008,deuda_bruta_administracion_central_pct_pbi,53.78736349732796,% del PBI,Secretaria de Finanzas
+00,Argentina,2009,deuda_bruta_administracion_central_pct_pbi,55.44522931944896,% del PBI,Secretaria de Finanzas
+00,Argentina,2010,deuda_bruta_administracion_central_pct_pbi,43.45650204838805,% del PBI,Secretaria de Finanzas
+00,Argentina,2011,deuda_bruta_administracion_central_pct_pbi,38.94209310959798,% del PBI,Secretaria de Finanzas
+00,Argentina,2012,deuda_bruta_administracion_central_pct_pbi,40.44180390974042,% del PBI,Secretaria de Finanzas
+00,Argentina,2013,deuda_bruta_administracion_central_pct_pbi,43.516089281031896,% del PBI,Secretaria de Finanzas
+00,Argentina,2014,deuda_bruta_administracion_central_pct_pbi,44.696850197945295,% del PBI,Secretaria de Finanzas
+00,Argentina,2015,deuda_bruta_administracion_central_pct_pbi,52.56264334429582,% del PBI,Secretaria de Finanzas
+00,Argentina,2016,deuda_bruta_administracion_central_pct_pbi,53.06017951024039,% del PBI,Secretaria de Finanzas
+00,Argentina,2017,deuda_bruta_administracion_central_pct_pbi,56.52124447228152,% del PBI,Secretaria de Finanzas
+00,Argentina,2018,deuda_bruta_administracion_central_pct_pbi,85.17984819436471,% del PBI,Secretaria de Finanzas
+00,Argentina,2019,deuda_bruta_administracion_central_pct_pbi,89.75580601573198,% del PBI,Secretaria de Finanzas
+00,Argentina,2020,deuda_bruta_administracion_central_pct_pbi,103.7771356245632,% del PBI,Secretaria de Finanzas
+00,Argentina,2021,deuda_bruta_administracion_central_pct_pbi,80.7505206910941,% del PBI,Secretaria de Finanzas
+00,Argentina,2022,deuda_bruta_administracion_central_pct_pbi,84.82203154086724,% del PBI,Secretaria de Finanzas
+00,Argentina,2023,deuda_bruta_administracion_central_pct_pbi,154.51239924776792,% del PBI,Secretaria de Finanzas
+00,Argentina,2024,deuda_bruta_administracion_central_pct_pbi,82.49744637158581,% del PBI,Secretaria de Finanzas
+00,Argentina,2025,deuda_bruta_administracion_central_pct_pbi,78.11284686635707,% del PBI,Secretaria de Finanzas
+02,CABA,2025,cargos_administracion_provincial_cada_1000_habitantes,63.44308412730267,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+06,Buenos Aires,2025,cargos_administracion_provincial_cada_1000_habitantes,37.577056966584976,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+10,Catamarca,2025,cargos_administracion_provincial_cada_1000_habitantes,102.51087260225712,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+14,Córdoba,2025,cargos_administracion_provincial_cada_1000_habitantes,32.83428945997518,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+18,Corrientes,2025,cargos_administracion_provincial_cada_1000_habitantes,50.45345493761275,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+22,Chaco,2025,cargos_administracion_provincial_cada_1000_habitantes,68.02074845479657,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+26,Chubut,2025,cargos_administracion_provincial_cada_1000_habitantes,78.53256478536217,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+30,Entre Ríos,2025,cargos_administracion_provincial_cada_1000_habitantes,59.95722260828327,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+34,Formosa,2025,cargos_administracion_provincial_cada_1000_habitantes,66.63294231167156,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+38,Jujuy,2025,cargos_administracion_provincial_cada_1000_habitantes,83.82533410594813,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+42,La Pampa,2025,cargos_administracion_provincial_cada_1000_habitantes,77.75601522317234,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+46,La Rioja,2025,cargos_administracion_provincial_cada_1000_habitantes,109.773269206785,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+50,Mendoza,2025,cargos_administracion_provincial_cada_1000_habitantes,43.85534193117267,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+54,Misiones,2025,cargos_administracion_provincial_cada_1000_habitantes,50.45932363757542,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+58,Neuquén,2025,cargos_administracion_provincial_cada_1000_habitantes,113.38259231434685,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+62,Río Negro,2025,cargos_administracion_provincial_cada_1000_habitantes,76.65887283630336,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+66,Salta,2025,cargos_administracion_provincial_cada_1000_habitantes,48.701180903638054,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+70,San Juan,2025,cargos_administracion_provincial_cada_1000_habitantes,57.74979576823139,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+74,San Luis,2025,cargos_administracion_provincial_cada_1000_habitantes,73.25620648559327,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+78,Santa Cruz,2025,cargos_administracion_provincial_cada_1000_habitantes,106.49613527868091,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+82,Santa Fe,2025,cargos_administracion_provincial_cada_1000_habitantes,41.43945309337141,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+86,Santiago del Estero,2025,cargos_administracion_provincial_cada_1000_habitantes,51.52946609208781,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+90,Tucumán,2025,cargos_administracion_provincial_cada_1000_habitantes,52.79170921275222,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+94,Tierra del Fuego,2025,cargos_administracion_provincial_cada_1000_habitantes,139.07298231347838,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+02,CABA,2025,recursos_tributarios_provinciales_por_habitante,3257959.8252838356,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+06,Buenos Aires,2025,recursos_tributarios_provinciales_por_habitante,804697.5378384409,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+10,Catamarca,2025,recursos_tributarios_provinciales_por_habitante,512539.42476732476,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+14,Córdoba,2025,recursos_tributarios_provinciales_por_habitante,807058.7183215539,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+18,Corrientes,2025,recursos_tributarios_provinciales_por_habitante,314279.5403291788,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+22,Chaco,2025,recursos_tributarios_provinciales_por_habitante,353641.7527399537,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+26,Chubut,2025,recursos_tributarios_provinciales_por_habitante,984876.3004764356,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+30,Entre Ríos,2025,recursos_tributarios_provinciales_por_habitante,673755.1763132906,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+34,Formosa,2025,recursos_tributarios_provinciales_por_habitante,261175.86601384505,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+38,Jujuy,2025,recursos_tributarios_provinciales_por_habitante,364451.6916487417,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+46,La Rioja,2025,recursos_tributarios_provinciales_por_habitante,383731.47962656437,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+50,Mendoza,2025,recursos_tributarios_provinciales_por_habitante,678278.1261439656,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+54,Misiones,2025,recursos_tributarios_provinciales_por_habitante,759661.9838470046,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+58,Neuquén,2025,recursos_tributarios_provinciales_por_habitante,2477601.0660284623,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+62,Río Negro,2025,recursos_tributarios_provinciales_por_habitante,882059.1435070713,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+66,Salta,2025,recursos_tributarios_provinciales_por_habitante,515093.1297250889,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+70,San Juan,2025,recursos_tributarios_provinciales_por_habitante,380462.9480282224,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+74,San Luis,2025,recursos_tributarios_provinciales_por_habitante,626989.6172833955,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+78,Santa Cruz,2025,recursos_tributarios_provinciales_por_habitante,1122605.5792484318,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+82,Santa Fe,2025,recursos_tributarios_provinciales_por_habitante,782026.6742370599,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+86,Santiago del Estero,2025,recursos_tributarios_provinciales_por_habitante,256360.16783153257,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+90,Tucumán,2025,recursos_tributarios_provinciales_por_habitante,634112.8347561721,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
+94,Tierra del Fuego,2025,recursos_tributarios_provinciales_por_habitante,1678571.4229103918,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC

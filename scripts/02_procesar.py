@@ -2633,7 +2633,7 @@ sub_["periodo"] = sub_.indice_tiempo.str[:7]
 sub_["anio"] = sub_.periodo.str[:4].astype(int)
 _sub_n = sub_.groupby("anio").periodo.nunique()
 SUB_ULT = int(min(_sub_n[_sub_n == 12].index.max(), defl.index.max()))
-_pib_ = pd.read_csv(CRUDO / "pib_corriente.csv").dropna()
+_pib_ = pd.read_csv(CRUDO / "pib_corriente.csv").dropna().rename(columns={"oferta_global_pib": "pib"})
 _pib_["anio"] = _pib_.indice_tiempo.str[:4].astype(int)
 _pib_a = _pib_.groupby("anio").pib.agg(["mean", "size"])
 _pib_a = _pib_a[_pib_a["size"] == 4]["mean"]  # millones de pesos de cada año completo
@@ -3720,6 +3720,185 @@ agregar(radicaciones_anual.assign(periodo=radicaciones_anual.anio.astype(str), v
 agregar(argentinos_exterior.assign(periodo=argentinos_exterior.anio.astype(str), valor=argentinos_exterior.personas, codigo_indec="00", territorio="Argentina"),
         "nacidos_en_argentina_en_otro_pais", "personas", "Naciones Unidas, International Migrant Stock 2024")
 
+# ---------------------------------------------------------------- gobierno (etapa 25)
+# Las cuentas del Sector Público Nacional no Financiero (Informe Mensual de Ingresos y Gastos de la Secretaría de Hacienda, base caja, desde
+# 2016), la recaudación de cada impuesto nacional (DNIAF, desde 1997), la deuda bruta de la Administración Central (Secretaría de Finanzas),
+# los cargos en las administraciones provinciales (DNAP), la dotación de la administración nacional (INDEC) y los recursos tributarios de cada
+# provincia (DNAP). Lo que va como porcentaje del PBI usa el PBI a precios corrientes del INDEC de cada año completo (_pib_a, más arriba).
+# Las finanzas de cada provincia están en Trabajo (fiscal), las transferencias a las provincias en Política y los subsidios en Energía.
+_gbn = pd.read_csv(CRUDO / "imig_mensual.csv")
+_gbn["periodo"] = _gbn.indice_tiempo.str[:7]
+_gbn["anio"] = _gbn.periodo.str[:4].astype(int)
+GBN_ING = ["iva_neto_reintegros", "ganancias", "aportes_contribuciones_seguridad_social", "debitos_creditos", "bienes_personales", "impuestos_internos",
+           "combustibles", "derechos_exportacion", "derechos_importacion", "resto_tributarios", "fgs_cobradas_sector_privado_sector_publico_financiero",
+           "resto_rentas_propiedad", "ingresos_no_tributarios", "transferencias_corrientes", "resto_ingresos_corrientes", "ingresos_capital"]
+GBN_GASTO = {"Jubilaciones, pensiones y otras prestaciones sociales": ["jubilaciones_pensiones_contributivas", "asignacion_familiares_hijo",
+                                                                      "pensiones_no_contributivas", "prestaciones_inssjp", "otros_programas"],
+             "Salarios": ["salarios"], "Subsidios económicos": ["energia", "transporte", "otras_funciones"],
+             "Otros gastos de funcionamiento": ["otros_gastos_funcionamiento"],
+             "Transferencias corrientes a las provincias": [c for c in _gbn.columns if c.startswith("transferencias_corrientes_provincias_")],
+             "Universidades": ["otros_corrientes_transferencias_universidades"],
+             "Otros gastos corrientes": ["otros_corrientes_deficit_operativo_empresas_publicas", "otros_corrientes_resto"],
+             "Gasto de capital": [c for c in _gbn.columns if c.startswith("capital_")] + ["fondo_federal_solidario"]}
+assert all(c in _gbn.columns for cs in GBN_GASTO.values() for c in cs) and all(c in _gbn.columns for c in GBN_ING), "cambiaron las columnas del IMIG"
+_gbn["ingresos"] = _gbn[GBN_ING].sum(axis=1)
+for _gbn_k, _gbn_c in GBN_GASTO.items():
+    _gbn[_gbn_k] = _gbn[_gbn_c].sum(axis=1)
+_gbn["gasto_primario"] = _gbn[list(GBN_GASTO)].sum(axis=1)
+# control: los ingresos menos el gasto primario dan el resultado primario que publica Hacienda, y el primario menos los intereses, el financiero
+assert ((_gbn.ingresos - _gbn.gasto_primario - _gbn.resultado_primario).abs() < 1).all(), "el IMIG no cierra: ingresos menos gasto primario"
+assert ((_gbn.resultado_primario - _gbn.intereses_netos - _gbn.resultado_financiero).abs() < 1).all(), "el IMIG no cierra: primario menos intereses"
+_gbn_n = _gbn.groupby("anio").periodo.nunique()
+_gbn_a = _gbn[_gbn.anio.isin(_gbn_n[_gbn_n == 12].index) & _gbn.anio.isin(_pib_a.index)].groupby("anio")[
+    ["ingresos", "gasto_primario", "intereses_netos", "resultado_primario", "resultado_financiero", *GBN_GASTO]].sum()
+GBN_ULT = int(_gbn_a.index.max())
+cuentas_nacion = pd.DataFrame({"anio": _gbn_a.index, **{f"{k}_pbi": (_gbn_a[k] / _gbn_a.index.map(_pib_a) * 100).values
+                                                      for k in ("ingresos", "gasto_primario", "intereses_netos", "resultado_primario", "resultado_financiero")},
+                               **{f"{k}_millones": _gbn_a[k].values for k in ("ingresos", "gasto_primario", "resultado_primario", "resultado_financiero")}})
+gasto_nacion_tipo = pd.DataFrame({"tipo": list(GBN_GASTO), "millones": [_gbn_a.at[GBN_ULT, k] for k in GBN_GASTO],
+                                  "pct_gasto_primario": [_gbn_a.at[GBN_ULT, k] / _gbn_a.at[GBN_ULT, "gasto_primario"] * 100 for k in GBN_GASTO],
+                                  "pct_pbi": [_gbn_a.at[GBN_ULT, k] / _pib_a[GBN_ULT] * 100 for k in GBN_GASTO]}).sort_values("millones", ascending=False)
+_gbn_c = cuentas_nacion.set_index("anio")
+# lo que va del año, en millones de pesos corrientes (sin comparar con el año anterior: la inflación cambia mucho el valor de los pesos)
+_gbn_u = _gbn.periodo.max()
+_gbn_y = _gbn[(_gbn.anio == int(_gbn_u[:4]))]
+GBN_RES = {
+    "anio": GBN_ULT, "desde": int(_gbn_c.index.min()), "primario": r1(_gbn_c.at[GBN_ULT, "resultado_primario_pbi"]),
+    "financiero": r1(_gbn_c.at[GBN_ULT, "resultado_financiero_pbi"]), "ingresos": r1(_gbn_c.at[GBN_ULT, "ingresos_pbi"]),
+    "gasto": r1(_gbn_c.at[GBN_ULT, "gasto_primario_pbi"]), "intereses": r1(_gbn_c.at[GBN_ULT, "intereses_netos_pbi"]),
+    "fin_max_anio": int(_gbn_c.resultado_financiero_pbi.idxmax()), "fin_max": r1(_gbn_c.resultado_financiero_pbi.max()),
+    "fin_min_anio": int(_gbn_c.resultado_financiero_pbi.idxmin()), "fin_min": r1(_gbn_c.resultado_financiero_pbi.min()),
+    "gasto_tipos": [[f.tipo, r1(f.pct_gasto_primario)] for f in gasto_nacion_tipo.head(3).itertuples()],
+    "mes": _mes_per(_gbn_u), "en_el_anio": int(_gbn_u[:4]) > GBN_ULT,
+    "ytd_primario": float(_gbn_y.resultado_primario.sum()), "ytd_financiero": float(_gbn_y.resultado_financiero.sum()),
+    "mini": [[int(a), float(v)] for a, v in _gbn_c.resultado_primario_pbi.items()],
+}
+# recaudación de cada impuesto nacional (DNIAF): como parte del PBI cada año completo, y la parte de cada impuesto en los últimos doce meses
+_gbr = pd.read_csv(CRUDO / "recaudacion_mensual.csv")
+_gbr["periodo"] = _gbr.indice_tiempo.str[:7]
+_gbr["anio"] = _gbr.periodo.str[:4].astype(int)
+GBR_IMP = {"IVA": ["iva"], "Ganancias": ["ganancias"], "Aportes y contribuciones a la seguridad social": ["sistema_seguridad_social"],
+           "Débitos y créditos bancarios": ["creditos_debitos_cta_cte"], "Derechos de exportación": ["derechos_exportacion"],
+           "Derechos de importación y tasa de estadística": ["derechos_importacion_otros"], "Combustibles": ["total_combustibles"],
+           "Bienes personales": ["bienes_personales"], "Impuesto PAIS": ["impuesto_pais"], "Impuestos internos": ["internos_coparticipados"]}
+assert all(c in _gbr.columns for cs in GBR_IMP.values() for c in cs) and "total_recursos_tributarios" in _gbr.columns, "cambiaron las columnas de la recaudación"
+for _gbr_k, _gbr_c in GBR_IMP.items():
+    _gbr[_gbr_k] = _gbr[_gbr_c].sum(axis=1)
+_gbr["Otros"] = _gbr.total_recursos_tributarios - _gbr[list(GBR_IMP)].sum(axis=1)
+# en algunos meses viejos los impuestos sueltos suman algo más que el total (devoluciones y ajustes chicos): se controlan los doce meses que se usan
+assert _gbr.tail(12).Otros.sum() > -1, "los impuestos de la recaudación suman más que el total en los últimos doce meses"
+_gbr_n = _gbr.groupby("anio").periodo.nunique()
+_gbr_a = _gbr[_gbr.anio.isin(_gbr_n[_gbr_n == 12].index) & _gbr.anio.isin(_pib_a.index)].groupby("anio")[["total_recursos_tributarios", *GBR_IMP, "Otros"]].sum()
+recaudacion_anual = pd.DataFrame({"anio": _gbr_a.index, "total_pbi": (_gbr_a.total_recursos_tributarios / _gbr_a.index.map(_pib_a) * 100).values,
+                                  "millones": _gbr_a.total_recursos_tributarios.values})
+_gbr_12 = _gbr.tail(12)
+assert _gbr_12.periodo.nunique() == 12
+recaudacion_impuestos = pd.DataFrame({"impuesto": [*GBR_IMP, "Otros"], "millones_12_meses": [float(_gbr_12[k].sum()) for k in [*GBR_IMP, "Otros"]]})
+recaudacion_impuestos["pct"] = recaudacion_impuestos.millones_12_meses / _gbr_12.total_recursos_tributarios.sum() * 100
+recaudacion_impuestos = recaudacion_impuestos[recaudacion_impuestos.pct.abs() >= .05].sort_values("millones_12_meses", ascending=False)
+# lo que va del año contra los mismos meses del año anterior, en pesos de igual valor con el IPC del INDEC (hasta el último mes con IPC)
+_gbr_m = _gbr[_gbr.periodo.isin(_ipc_ng.index)]
+_gbr_y = en_lo_que_va(_gbr_m.periodo + "-01", _gbr_m.total_recursos_tributarios * _ipc_ng[_gbr_m.periodo.max()] / _gbr_m.periodo.map(_ipc_ng))
+_gbr_r = recaudacion_anual.set_index("anio").total_pbi
+_gbr_ri = recaudacion_impuestos.set_index("impuesto").pct
+GBR_RES = {
+    "anio": int(_gbr_r.index.max()), "desde": int(_gbr_r.index.min()), "pbi": r1(_gbr_r.iloc[-1]),
+    "pbi_max_anio": int(_gbr_r.idxmax()), "pbi_max": r1(_gbr_r.max()), "pbi_min_anio": int(_gbr_r.idxmin()), "pbi_min": r1(_gbr_r.min()),
+    "doce_hasta": _mes_per(_gbr_12.periodo.iloc[-1]), "doce_millones": float(_gbr_12.total_recursos_tributarios.sum()),
+    "iva": r1(_gbr_ri["IVA"]), "ganancias": r1(_gbr_ri["Ganancias"]), "seguridad_social": r1(_gbr_ri["Aportes y contribuciones a la seguridad social"]),
+    "exportacion": r1(_gbr_ri["Derechos de exportación"]), "ytd": _gbr_y, "mes": _mes_per(_gbr.periodo.max()),
+}
+# deuda bruta de la Administración Central (Secretaría de Finanzas): el porcentaje del PBI que publica para cada año y cada trimestre del año
+# en curso, y el total en dólares a la fecha de la última planilla
+_gbd = pd.read_csv(CRUDO / "deuda_publica.csv", dtype={"periodo": str})
+_gbd["x"] = [float(p) if p.isdigit() else int(p[2:]) + (int(p[0]) - 1) / 4 + .125 for p in _gbd.periodo]
+_gbd_a = _gbd[_gbd.periodo.str.fullmatch(r"\d{4}")]
+_gbd_u = _gbd.iloc[-1]
+deuda_pbi = _gbd[["periodo", "x", "pct_pbi"]]
+_gbd_f = pd.Timestamp(_gbd_u.fecha)
+GBD_RES = {
+    "fecha": f"{_gbd_f.day} de {MES[_gbd_f.month - 1]} de {_gbd_f.year}", "usd_millones": float(_gbd_u.usd_millones), "pct": r1(_gbd_u.pct_pbi),
+    "desde": int(_gbd_a.periodo.iloc[0]), "anio": int(_gbd_a.periodo.iloc[-1]), "pct_anio": r1(_gbd_a.pct_pbi.iloc[-1]),
+    "max_anio": int(_gbd_a.loc[_gbd_a.pct_pbi.idxmax(), "periodo"]), "max": r1(_gbd_a.pct_pbi.max()),
+    "min_anio": int(_gbd_a.loc[_gbd_a.pct_pbi.idxmin(), "periodo"]), "min": r1(_gbd_a.pct_pbi.min()),
+    "mini": [[p, float(v)] for p, v in zip(_gbd_a.periodo.tail(10), _gbd_a.pct_pbi.tail(10))],
+}
+# cargos ocupados en las administraciones provinciales (DNAP), cada 1.000 habitantes con la población del INDEC del módulo del sitio
+_gbc = pd.read_csv(CRUDO / "dnap_cargos_provinciales.csv")
+_gbc["marca"] = _gbc.jurisdiccion.str.contains(r"\(\*\*\)", regex=True)  # (**): cargos presupuestados, según la nota de la planilla
+_gbc["nombre"] = _gbc.jurisdiccion.str.replace(r"\(?\*+\)?", "", regex=True).str.strip()
+_gbc["codigo_indec"] = _gbc.nombre.map(lambda n: "02" if n.upper() == "G.C.B.A." else codigo(n))
+assert _gbc.codigo_indec.notna().all() and _gbc.groupby("anio").codigo_indec.nunique().eq(24).all(), "faltan provincias en los cargos de la DNAP"
+GBC_ULT = int(_gbc.anio.max())
+_gbc_u = _gbc[_gbc.anio == GBC_ULT].set_index("codigo_indec")
+_gbc_10 = _gbc[_gbc.anio == _gbc.anio.min()].set_index("codigo_indec")
+assert (abs(_gbc_u.habitantes / pd.Series(POB) - 1) < .001).all(), "la población de la planilla de cargos no es la proyección del INDEC del sitio"
+empleo_publico_provincias = pd.DataFrame({"codigo_indec": _gbc_u.index, "territorio": _gbc_u.index.map(CORTO), "cargos": _gbc_u.planta.values,
+                                          "cada_1000": (_gbc_u.planta / _gbc_u.index.map(POB) * 1000).values,
+                                          "cargos_inicio": _gbc_u.index.map(_gbc_10.planta).values,
+                                          "gasto_medio_mensual": _gbc_u.gasto_medio.values, "presupuestados": _gbc_u.marca.values}).sort_values("codigo_indec")
+_gbc_p = _gbc_u.planta.sum() / sum(POB.values()) * 1000
+_gbc_o = empleo_publico_provincias.sort_values("cada_1000")
+# dotación de la administración pública nacional, las empresas y las sociedades del Estado (INDEC), por mes desde julio de 2022
+_gbx = pd.read_excel(CRUDO / "indec_dotacion_apn.xlsx", sheet_name=0, header=None)
+_gbx_f = {str(v).strip(): i for i, v in enumerate(_gbx.iloc[:, 0].tolist())}
+assert {"Total", "Administración pública nacional", "Empresas y sociedades"} <= set(_gbx_f), "cambió la planilla de dotación del INDEC"
+_gbx_c = _gbx.index[_gbx.iloc[:, 0].astype(str).str.strip().eq("Estructura organizativa")][0] + 1
+_gbx_mes = {m[:3]: i + 1 for i, m in enumerate(MES)}
+def _gbx_per(v):
+    if isinstance(v, datetime.datetime):
+        return v.strftime("%Y-%m")
+    m = re.match(r"([a-z]{3})\w*-(\d{2})", str(v).strip().lower())
+    return f"20{m.group(2)}-{_gbx_mes[m.group(1)]:02d}" if m else None
+_gbx_p = {j: _gbx_per(_gbx.iat[_gbx_c, j]) for j in range(1, _gbx.shape[1])}
+dotacion_nacion = pd.DataFrame([{"periodo": p, "total": float(_gbx.iat[_gbx_f["Total"], j]),
+                                 "administracion": float(_gbx.iat[_gbx_f["Administración pública nacional"], j]),
+                                 "empresas": float(_gbx.iat[_gbx_f["Empresas y sociedades"], j])} for j, p in _gbx_p.items() if p])
+assert dotacion_nacion.periodo.is_unique and dotacion_nacion.periodo.is_monotonic_increasing and len(dotacion_nacion) > 30, "la dotación del INDEC vino incompleta"
+_gbx_u, _gbx_0 = dotacion_nacion.iloc[-1], dotacion_nacion.iloc[0]
+GBC_RES = {
+    "anio": GBC_ULT, "inicio": int(_gbc.anio.min()), "cargos": float(_gbc_u.planta.sum()), "cada_1000": r1(_gbc_p),
+    "top": [_gbc_o.iloc[-1].territorio, r1(_gbc_o.iloc[-1].cada_1000)], "bajo": [_gbc_o.iloc[0].territorio, r1(_gbc_o.iloc[0].cada_1000)],
+    "presupuestados": list(empleo_publico_provincias[empleo_publico_provincias.presupuestados].territorio),
+    "dot_mes": _mes_per(_gbx_u.periodo), "dot_desde": _mes_per(_gbx_0.periodo), "dot_total": float(_gbx_u.total), "dot_total_ini": float(_gbx_0.total),
+    "dot_adm": float(_gbx_u.administracion), "dot_emp": float(_gbx_u.empresas),
+    "dot_var": r1((_gbx_u.total / _gbx_0.total - 1) * 100),
+}
+# recursos tributarios de origen provincial (DNAP), por habitante en el último año: una provincia sin datos completos de ese año queda afuera
+_gbp = pd.read_csv(CRUDO / "dnap_recaudacion_provincial.csv")
+_gbp = _gbp[~_gbp.provincia.isin(["Provincias", "Total"])].copy()
+_gbp["codigo_indec"] = _gbp.provincia.map(lambda n: {"c.a.b.a.": "02", "sgo. del estero": "86"}.get(norm(n), codigo(n)))
+assert _gbp.codigo_indec.notna().all() and _gbp.codigo_indec.nunique() == 24, "faltan provincias en los recursos tributarios provinciales"
+GBP_ULT = int(_gbp.anio.max())
+_gbp_u = _gbp[_gbp.anio == GBP_ULT].set_index("codigo_indec")
+GBP_FALTAN = sorted(c for c in POB if c not in _gbp_u.index or pd.isna(_gbp_u.at[c, "total"]) or _gbp_u.at[c, "total"] <= 0)
+impuestos_provinciales = pd.DataFrame({"codigo_indec": sorted(POB), "territorio": [CORTO[c] for c in sorted(POB)]})
+impuestos_provinciales["millones"] = impuestos_provinciales.codigo_indec.map(_gbp_u.total).where(~impuestos_provinciales.codigo_indec.isin(GBP_FALTAN))
+impuestos_provinciales["por_habitante"] = impuestos_provinciales.millones * 1e6 / impuestos_provinciales.codigo_indec.map(POB)
+impuestos_provinciales["pct_ingresos_brutos"] = impuestos_provinciales.codigo_indec.map(_gbp_u.ingresos_brutos) / impuestos_provinciales.millones * 100
+_gbp_t = impuestos_provinciales.dropna(subset=["por_habitante"])
+_gbp_pais = _gbp_t.millones.sum() * 1e6 / sum(POB[c] for c in _gbp_t.codigo_indec)
+_gbp_o = _gbp_t.sort_values("por_habitante")
+GBP_RES = {
+    "anio": GBP_ULT, "pais": float(_gbp_pais), "faltan": [CORTO[c] for c in GBP_FALTAN],
+    "top": [_gbp_o.iloc[-1].territorio, float(_gbp_o.iloc[-1].por_habitante)], "bajo": [_gbp_o.iloc[0].territorio, float(_gbp_o.iloc[0].por_habitante)],
+    "iibb": r1(_gbp_t.codigo_indec.map(_gbp_u.ingresos_brutos).sum() / _gbp_t.millones.sum() * 100),
+    "millones": float(_gbp_t.millones.sum()),
+}
+GOB_RES = {"nacion": GBN_RES, "recaudacion": GBR_RES, "deuda": GBD_RES, "empleo": GBC_RES, "provincial": GBP_RES}
+agregar(cuentas_nacion.assign(periodo=cuentas_nacion.anio.astype(str), valor=cuentas_nacion.resultado_primario_pbi, codigo_indec="00", territorio="Argentina"),
+        "resultado_primario_sector_publico_nacional_pct_pbi", "% del PBI", "Secretaria de Hacienda (IMIG) e INDEC")
+agregar(cuentas_nacion.assign(periodo=cuentas_nacion.anio.astype(str), valor=cuentas_nacion.resultado_financiero_pbi, codigo_indec="00", territorio="Argentina"),
+        "resultado_financiero_sector_publico_nacional_pct_pbi", "% del PBI", "Secretaria de Hacienda (IMIG) e INDEC")
+agregar(recaudacion_anual.assign(periodo=recaudacion_anual.anio.astype(str), valor=recaudacion_anual.total_pbi, codigo_indec="00", territorio="Argentina"),
+        "recaudacion_tributaria_nacional_pct_pbi", "% del PBI", "DNIAF e INDEC")
+agregar(_gbd_a.assign(valor=_gbd_a.pct_pbi, codigo_indec="00", territorio="Argentina"), "deuda_bruta_administracion_central_pct_pbi", "% del PBI",
+        "Secretaria de Finanzas")
+agregar(empleo_publico_provincias.assign(periodo=str(GBC_ULT), valor=empleo_publico_provincias.cada_1000), "cargos_administracion_provincial_cada_1000_habitantes",
+        "cargos cada 1.000 habitantes", "Direccion Nacional de Asuntos Provinciales e INDEC")
+agregar(impuestos_provinciales.dropna(subset=["por_habitante"]).assign(periodo=str(GBP_ULT), valor=lambda x: x.por_habitante),
+        "recursos_tributarios_provinciales_por_habitante", "pesos por habitante", "Direccion Nacional de Asuntos Provinciales e INDEC")
+
 # ---------------------------------------------------------------- votaciones nominales en el Congreso
 # Actas de votacion nominal de Diputados (votaciones.hcdn.gob.ar, desde 1993) y del Senado (senado.gob.ar/votaciones/actas,
 # desde 2005), en la copia que mantiene el proyecto abierto Como Voto (github.com/rquiroga7/como_voto). 01_descargar.py la
@@ -3962,6 +4141,8 @@ if empresas is not None:
     cru["empresas_neta"] = columna(empresas, f"tasa_neta_{emp_res['ult'] - 4}_{emp_res['ult']}")
 cru["extranjeros"] = columna(nacidos_otro_pais_provincias, "pct_otro_pais")
 cru["otra_provincia"] = columna(nacidos_otro_pais_provincias, "pct_otra_provincia")
+cru["empleo_publico"] = columna(empleo_publico_provincias, "cada_1000")
+cru["impuestos_provinciales"] = columna(impuestos_provinciales, "por_habitante")
 cru["natalidad"] = cru.codigo_indec.map(natalidad)
 cru["autonomia_fiscal"] = columna(fiscal, "autonomia")
 cru["resultado_fiscal"] = columna(fiscal, "resultado")
@@ -4042,6 +4223,8 @@ CRUCES_META = {
     "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "extranjeros": ("Nacidos en otro país", "% de la población en viviendas particulares", "2022", "Migraciones", "INDEC, Censo 2022", "f-nacidos-otro-pais", 1),
     "otra_provincia": ("Nacidos en otra provincia", "% de la población en viviendas particulares", "2022", "Migraciones", "INDEC, Censo 2022", "f-migracion-interna", 1),
+    "empleo_publico": ("Cargos en la administración provincial", "cada 1.000 habitantes", str(GBC_ULT), "Gobierno", "DNAP", "f-empleo-publico", 1),
+    "impuestos_provinciales": ("Impuestos provinciales", "pesos por habitante", str(GBP_ULT), "Gobierno", "DNAP", "f-impuestos-provinciales", 0),
     "gas_red": ("Hogares que cocinan con gas de red", "% de los hogares", "2022", "Energía", "INDEC, Censo 2022", "f-gas-hogares", 1),
     "alquila": ("Hogares que alquilan", "% de los hogares", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
     "hacinamiento": ("Hacinamiento crítico", "% de los hogares con más de tres personas por cuarto", "2022", "Vivienda", "INDEC, Censo 2022", "f-vivienda", 1),
@@ -4262,6 +4445,14 @@ tablas = {
     "radicaciones_nacionalidad": radicaciones_nacionalidad,
     "argentinos_exterior": argentinos_exterior,
     "argentinos_exterior_destinos": argentinos_exterior_destinos,
+    "cuentas_nacion": cuentas_nacion,
+    "gasto_nacion_tipo": gasto_nacion_tipo,
+    "recaudacion_anual": recaudacion_anual,
+    "recaudacion_impuestos": recaudacion_impuestos,
+    "deuda_pbi": deuda_pbi,
+    "empleo_publico_provincias": empleo_publico_provincias,
+    "dotacion_nacion": dotacion_nacion,
+    "impuestos_provinciales": impuestos_provinciales,
     "costo_construccion": costo,
     "costo_anual": costo_anual,
     "vivienda_provincias": vivienda_prov,
@@ -4641,6 +4832,7 @@ resumen["nafta_dolares"] = NF_RES  # artículo de la nafta en dólares y el petr
 resumen["exportaciones_dolar"] = XD_RES  # artículo de las exportaciones y el dólar (etapa 24)
 resumen["economia"] = ECO_RES  # sección Economía y precios (etapa 25)
 resumen["migraciones"] = MG_RES  # sección Migraciones (etapa 25)
+resumen["gobierno"] = GOB_RES  # sección Gobierno (etapa 25)
 resumen["construccion"] = {
     "isac_mes": mes_txt(IS_ULT.periodo), "isac_anio": int(str(IS_ULT.periodo)[:4]), "isac_var": r1(IS_ULT.var_interanual), "isac_desest": r1(IS_ULT.desestacionalizada),
     "isac_max_mes": mes_txt(_is_max.periodo), "isac_max": r1(_is_max.desestacionalizada),

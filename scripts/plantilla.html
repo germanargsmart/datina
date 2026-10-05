@@ -48,7 +48,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li></ul></div>
+      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li></ul></div>
     </div>
     <div class="menu-col">
       <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
@@ -910,6 +910,68 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="ministros" data-forma="barras" style="--filas:10"></div>
       <p class="nota">Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.</p>
       <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
+  <section class="tema" id="gobierno">
+    <h2>Gobierno</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda y cuánto gasta el Estado, y cuánto debe?</p>
+      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto se recauda de cada impuesto nacional, cuánto debe el Estado nacional, cuántos cargos tienen las administraciones provinciales y cuánto recauda cada provincia de impuestos propios. Las finanzas de cada provincia están en <a href="trabajo.html#f-fiscal">Trabajo y finanzas</a>, las transferencias de la Nación a las provincias, en <a href="politica.html#f-transferencias">Política</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
+    </div>
+    <!--EXPLICADOR:gobierno-->
+
+    <article class="ficha" id="f-cuentas-nacion">
+      <h3>Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, {{gobierno.nacion.desde}} a {{gobierno.nacion.anio}}</h3>
+      <p class="lead" data-t="cuentas-nacion"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="cuentas-nacion">
+        <button type="button" data-m="resultado" aria-pressed="true">Resultado</button>
+        <button type="button" data-m="gasto" aria-pressed="false">En qué se gasta</button>
+      </div>
+      <div class="grafico" data-g="cuentas-nacion" data-forma="lineas"></div>
+      <p class="nota" data-t="cuentas-nacion-nota"></p>
+      <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC</span><a href="datos/cuentas_nacion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-recaudacion">
+      <h3>Recaudación de impuestos nacionales, por impuesto y como parte del PBI, {{gobierno.recaudacion.desde}} a {{gobierno.recaudacion.anio}}</h3>
+      <p class="lead" data-t="recaudacion"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="recaudacion">
+        <button type="button" data-m="impuesto" aria-pressed="true">Por impuesto</button>
+        <button type="button" data-m="anio" aria-pressed="false">Año por año</button>
+      </div>
+      <div class="grafico" data-g="recaudacion" data-forma="barras" style="--filas:10"></div>
+      <p class="nota" data-t="recaudacion-nota"></p>
+      <div class="pie"><span>Fuentes: Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC</span><a href="datos/recaudacion_impuestos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-deuda">
+      <h3>Deuda bruta de la Administración Central como parte del PBI, {{gobierno.deuda.desde}} a {{gobierno.deuda.anio}} y el último trimestre</h3>
+      <p class="lead" data-t="deuda"></p>
+      <div class="grafico" data-g="deuda" data-forma="lineas"></div>
+      <p class="nota" data-t="deuda-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública</span><a href="datos/deuda_pbi.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-empleo-publico">
+      <h3>Cargos en las administraciones provinciales cada 1.000 habitantes, {{gobierno.empleo.anio}}, y dotación de la administración nacional</h3>
+      <p class="lead" data-t="empleo-publico"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-publico">
+        <button type="button" data-m="prov" aria-pressed="true">Provincias</button>
+        <button type="button" data-m="nacion" aria-pressed="false">Nación</button>
+      </div>
+      <div class="grafico" data-g="empleo-publico" data-forma="barras"></div>
+      <p class="nota" data-t="empleo-publico-nota"></p>
+      <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC</span><a href="datos/empleo_publico_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-impuestos-provinciales">
+      <h3>Impuestos provinciales por habitante, {{gobierno.provincial.anio}}</h3>
+      <p class="lead" data-t="impuestos-provinciales"></p>
+      <div class="grafico" data-g="impuestos-provinciales" data-forma="barras"></div>
+      <p class="nota" data-t="impuestos-provinciales-nota"></p>
+      <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población</span><a href="datos/impuestos_provinciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>

@@ -203,6 +203,12 @@ const inicialMin = t => t.charAt(0).toLowerCase() + t.slice(1);
 const cambioPl = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambiaron" : `${v < 0 ? "bajaron" : "subieron"} ${pct(Math.abs(v))}`;
 // Migraciones (etapa 25): el Censo 2022, la serie de los censos, las residencias de la DNM y los argentinos en el exterior (Naciones Unidas)
 const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.historia;
+// Gobierno (etapa 25): las cuentas de la Nación, la recaudación, la deuda, el empleo público y los impuestos de las provincias
+const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda, GBC = GOB.empleo, GBP = GOB.provincial;
+// superávit o déficit, en palabras
+const sobra = v => v < 0 ? "déficit" : "superávit";
+// millones de pesos en billones (un millón de millones)
+const billones = millones => `${n1(millones / 1e6)} billones de pesos`;
 // el segundo de dos cambios seguidos, sin repetir el verbo si va en la misma dirección que el primero: "subió 1,7% frente al mes anterior y 33,5% en un año"
 const yCambio = (a, b) => Math.round(Math.abs(a) * 10) && Math.round(Math.abs(b) * 10) && (a < 0) === (b < 0) ? pct(Math.abs(b)) : cambioPct(b);
 // un caso cada cuántos habitantes, redondeado a la centena (la equivalencia que usa usafacts.org: "uno cada 27.600 habitantes")
@@ -474,6 +480,44 @@ const LEAD = {
       `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
       `con la causa en trámite, o en otra situación.`;
   },
+  // ---- gobierno (etapa 25)
+  "cuentas-nacion": v => {
+    if (v === "gasto") return `En ${GBN.anio}, el ${pct(GBN.gasto_tipos[0][1])} del gasto primario de la Nación, el que no cuenta los intereses de la deuda, ` +
+      `fue en ${inicialMin(GBN.gasto_tipos[0][0])}, el ${pct(GBN.gasto_tipos[1][1])} en ${inicialMin(GBN.gasto_tipos[1][0])} y el ${pct(GBN.gasto_tipos[2][1])} ` +
+      `en ${inicialMin(GBN.gasto_tipos[2][0])}, según la Secretaría de Hacienda. Las transferencias de la Nación a cada provincia están en Política, y los ` +
+      `subsidios a la energía, en Energía.`;
+    return `En ${GBN.anio}, los ingresos del Sector Público Nacional fueron el ${pct(GBN.ingresos)} del PBI y el gasto sin los intereses de la deuda, el ` +
+      `${pct(GBN.gasto)}: el resultado primario fue un ${sobra(GBN.primario)} de ${pct(Math.abs(GBN.primario))} del PBI. Después de pagar los intereses ` +
+      `(${pct(GBN.intereses)} del PBI), el resultado financiero fue un ${sobra(GBN.financiero)} de ${pct(Math.abs(GBN.financiero))}, según la Secretaría ` +
+      `de Hacienda. Desde ${GBN.desde}, el ${sobra(GBN.fin_min)} financiero más grande fue el de ${GBN.fin_min_anio}, ${pct(Math.abs(GBN.fin_min))} del PBI.` +
+      (GBN.en_el_anio ? ` Hasta ${GBN.mes}, el resultado primario del año fue un ${sobra(GBN.ytd_primario)} de ${billones(Math.abs(GBN.ytd_primario))}, y el ` +
+        `financiero, un ${sobra(GBN.ytd_financiero)} de ${billones(Math.abs(GBN.ytd_financiero))}.` : "");
+  },
+  recaudacion: v => {
+    if (v === "anio") return `En ${GRT.anio}, la recaudación de impuestos nacionales fue el ${pct(GRT.pbi)} del PBI. Desde ${GRT.desde}, el valor más alto ` +
+      `fue el de ${GRT.pbi_max_anio}, ${pct(GRT.pbi_max)}, y el más bajo, el de ${GRT.pbi_min_anio}, ${pct(GRT.pbi_min)}. Una parte de lo recaudado se reparte ` +
+      `en forma automática con las provincias por la coparticipación.`;
+    return `En los doce meses hasta ${GRT.doce_hasta}, la recaudación de impuestos nacionales sumó ${billones(GRT.doce_millones)}: el ${pct(GRT.iva)} fue IVA, ` +
+      `el ${pct(GRT.seguridad_social)}, aportes y contribuciones a la seguridad social, y el ${pct(GRT.ganancias)}, Ganancias. Los derechos de exportación ` +
+      `aportaron el ${pct(GRT.exportacion)}. Entre enero y ${MESES[GRT.ytd.mes - 1]} de ${GRT.ytd.anio}, descontada la inflación, la recaudación ` +
+      `${cambioPct(GRT.ytd.var)} frente a los mismos meses del año anterior.`;
+  },
+  deuda: () => `Al ${GBD.fecha}, la deuda bruta de la Administración Central era de ${n0(GBD.usd_millones)} millones de dólares, el ${pct(GBD.pct)} ` +
+    `del PBI, según la Secretaría de Finanzas. A fin de ${GBD.anio} era el ${pct(GBD.pct_anio)}. Desde ${GBD.desde}, el valor más alto fue el de ` +
+    `${GBD.max_anio}, ${pct(GBD.max)}, y el más bajo, el de ${GBD.min_anio}, ${pct(GBD.min)}. Como buena parte de la deuda está en moneda extranjera, el ` +
+    `porcentaje sube cuando el peso se devalúa, aunque la deuda en dólares no cambie.`,
+  "empleo-publico": v => {
+    if (v === "nacion") return `En ${GBC.dot_mes}, la administración pública nacional, las empresas y las sociedades del Estado tenían ${n0(GBC.dot_total)} ` +
+      `personas, según el INDEC: ${n0(GBC.dot_adm)} en la administración y ${n0(GBC.dot_emp)} en las empresas y sociedades. Desde ${GBC.dot_desde}, el primer ` +
+      `mes de la serie, la dotación ${cambioPct(GBC.dot_var)}: eran ${n0(GBC.dot_total_ini)} personas.`;
+    return `En ${GBC.anio}, las administraciones de las provincias y de la Ciudad tenían ${n0(GBC.cargos)} cargos ocupados, ${n1(GBC.cada_1000)} cada 1.000 ` +
+      `habitantes, según la Dirección Nacional de Asuntos Provinciales. Iban de ${n1(GBC.bajo[1])} en ${GBC.bajo[0]} a ${n1(GBC.top[1])} en ${GBC.top[0]}` +
+      `${conVeces(GBC.top[1], GBC.cada_1000)}. Cuenta cargos, no personas, y no incluye a los municipios ni a las empresas provinciales.`;
+  },
+  "impuestos-provinciales": () => `En ${GBP.anio}, las provincias y la Ciudad recaudaron ${billones(GBP.millones)} de impuestos propios, ${n0(GBP.pais)} ` +
+    `pesos por habitante, según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. Iba de ${n0(GBP.bajo[1])} pesos ` +
+    `por habitante en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +
+    (GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? "tienen" : "tiene"} datos completos del año.` : ""),
   // ---- migraciones (etapa 25)
   "nacidos-otro-pais": v => {
     if (v === "pais") return `Los países de nacimiento más frecuentes de las personas nacidas en otro país que vivían en la Argentina en 2022 eran ` +
@@ -898,6 +942,32 @@ const TX = {
     `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia: ` +
     `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
     `El salto de 2004 viene del dato de la provincia de Buenos Aires de ese año, mucho más alto que el de los años vecinos.`,
+  // ---- gobierno (etapa 25)
+  "cuentas-nacion": LEAD["cuentas-nacion"]("resultado"), "cuentas-nacion-nota": `Informe mensual de ingresos y gastos del Sector Público Nacional ` +
+    `no Financiero de la Secretaría de Hacienda, en base caja: lo que efectivamente entra y sale cada mes. Como parte del PBI a precios corrientes del ` +
+    `INDEC de cada año completo, y los últimos años del PBI son provisorios. Los ingresos son los que le quedan a la Nación: lo que se reparte en forma ` +
+    `automática con las provincias por la coparticipación no está. Las utilidades que transfiere el Banco Central no cuentan como ingreso, y los intereses ` +
+    `son netos de los que se paga el propio Estado. Las transferencias corrientes a las provincias son las que no son automáticas. ` +
+    `Los ingresos de enero de 2026 incluyen la venta de las acciones del Estado en centrales hidroeléctricas.`,
+  recaudacion: LEAD.recaudacion("impuesto"), "recaudacion-nota": `Recursos tributarios nacionales de la Dirección Nacional de Investigaciones y Análisis ` +
+    `Fiscal: lo que cobran la ARCA y otros organismos nacionales, antes de repartir entre la Nación y las provincias. Como parte del PBI a precios ` +
+    `corrientes del INDEC de cada año completo. Lo que va del año, en pesos de igual valor con el índice de precios al consumidor del INDEC. La ley de ` +
+    `coparticipación reparte con las provincias casi todos los impuestos nacionales, pero no los derechos de exportación y de importación.`,
+  deuda: LEAD.deuda(), "deuda-nota": `Deuda bruta de la Administración Central según la Secretaría de Finanzas: la deuda en situación de pago normal, ` +
+    `los atrasos y la deuda que todavía no entró en las reestructuraciones, también la que tienen otros organismos del propio Estado. Como parte del ` +
+    `PBI, como la publica la Secretaría para cada fin de año y para cada trimestre del año en curso. No incluye la deuda de las provincias ni la del ` +
+    `Banco Central.`,
+  "empleo-publico": LEAD["empleo-publico"]("prov"), "empleo-publico-nota": `Cargos ocupados en las administraciones públicas provinciales (administración ` +
+    `central, organismos descentralizados y cuentas especiales) del personal permanente y temporario, según la Dirección Nacional de Asuntos ` +
+    `Provinciales, con la población del INDEC del año. Cuenta cargos, no personas: alguien puede tener dos cargos. Cada provincia informa los suyos` +
+    (GBC.presupuestados.length ? `, y ${lista(GBC.presupuestados)} ${GBC.presupuestados.length > 1 ? "informan" : "informa"} los cargos ` +
+      `presupuestados en lugar de los ocupados` : "") + `. La vista de la Nación es la dotación de la administración pública nacional, las empresas y ` +
+    `las sociedades del Estado que publica el INDEC: no incluye las universidades, el sistema de ciencia y tecnología, el servicio exterior ni el ` +
+    `personal militar y de seguridad, y tiene meses con datos estimados por el INDEC.`,
+  "impuestos-provinciales": LEAD["impuestos-provinciales"](), "impuestos-provinciales-nota": `Recursos tributarios de origen provincial: ingresos ` +
+    `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
+    `rentas de cada provincia. Por habitante con la población del INDEC. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
+    `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en Trabajo y finanzas.`,
   // ---- migraciones (etapa 25)
   "nacidos-otro-pais": LEAD["nacidos-otro-pais"]("prov"), "nacidos-otro-pais-nota": `Personas que vivían en viviendas particulares y nacieron en ` +
     `otro país, según el Censo 2022 del INDEC, como parte de toda la población en viviendas particulares de cada provincia. Es el primer censo de derecho: ` +
@@ -1972,7 +2042,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"nacidos-otro-pais": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
+Object.assign(MED, {"cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
   delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
@@ -2509,6 +2579,64 @@ Object.assign(DIB, {
     lineas(el, {anim: a, data: T.argentinos_exterior, x: "anio", y0: 0, vf: n0, yf: v => v === 0 ? "0" : n1(v / 1e6) + " M",
       series: [{k: "personas", lab: "Nacidos en la Argentina", corto: "Personas", c: NAR}]});
   }),
+  // cuentas del Sector Público Nacional (etapa 25): el resultado primario y el financiero como parte del PBI, o en qué se gasta
+  "cuentas-nacion": a => {
+    const v = MED["cuentas-nacion"], el = G("cuentas-nacion");
+    $t("cuentas-nacion").textContent = LEAD["cuentas-nacion"](v);
+    if (v === "gasto") return barrasH(el, {anim: a, data: T.gasto_nacion_tipo.map((r, i) => ({codigo_indec: "g" + i, territorio: r.tipo, corto: r.tipo
+      .replace("Jubilaciones, pensiones y otras prestaciones sociales", "Prestaciones sociales").replace("Transferencias corrientes a las provincias", "A provincias")
+      .replace("Otros gastos de funcionamiento", "Otros de funcionamiento"), pct: r.pct_gasto_primario, pbi: r.pct_pbi, millones: r.millones})), k: "pct", vf: pct,
+      af: v => n0(v) + "%", l: 290, lAngosto: 150, corto: d => d.corto,
+      tip: d => `<b>${d.territorio}</b><br>${pct(d.pct)} del gasto primario de ${GBN.anio}<br>${n2(d.pbi)}% del PBI<br>${billones(d.millones)}`});
+    const lo = d3.min(T.cuentas_nacion, r => Math.min(r.resultado_primario_pbi, r.resultado_financiero_pbi));
+    lineas(el, {anim: a, data: T.cuentas_nacion, x: "anio", y0: Math.floor(lo) - 1, ref: 0, vf: pct, yf: v => n0(v) + "%",
+      series: [{k: "resultado_primario_pbi", lab: "Resultado primario", corto: "Primario", c: NAR}, {k: "resultado_financiero_pbi", lab: "Resultado financiero", corto: "Financiero", c: FRI}]});
+  },
+  // recaudación de impuestos nacionales (etapa 25): cada impuesto en los últimos doce meses, o el total como parte del PBI año por año
+  recaudacion: a => {
+    const v = MED.recaudacion, el = G("recaudacion");
+    $t("recaudacion").textContent = LEAD.recaudacion(v);
+    if (v === "anio") return lineas(el, {anim: a, data: T.recaudacion_anual, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
+      series: [{k: "total_pbi", lab: "Recaudación nacional", corto: "Recaudación", c: NAR}]});
+    barrasH(el, {anim: a, data: T.recaudacion_impuestos.map((r, i) => ({codigo_indec: "t" + i, territorio: r.impuesto, corto: r.impuesto
+      .replace("Aportes y contribuciones a la seguridad social", "Seguridad social").replace("Derechos de importación y tasa de estadística", "Derechos de importación")
+      .replace("Débitos y créditos bancarios", "Débitos y créditos"), pct: r.pct, millones: r.millones_12_meses})), k: "pct", vf: pct, af: v => n0(v) + "%",
+      l: 290, lAngosto: 150, corto: d => d.corto, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct)} de lo recaudado<br>${billones(d.millones)} en doce meses`});
+  },
+  // deuda bruta de la Administración Central como parte del PBI (etapa 25): cada fin de año y los trimestres del año en curso
+  deuda: a => {
+    $t("deuda").textContent = LEAD.deuda();
+    lineas(G("deuda"), {anim: a, data: T.deuda_pbi, x: "x", y0: 0, vf: pct, yf: v => n0(v) + "%",
+      xl: r => r.periodo.includes("T") ? `${["primer", "segundo", "tercer", "cuarto"][+r.periodo[0] - 1]} trimestre de ${r.periodo.slice(2)}` : `fin de ${r.periodo}`,
+      series: [{k: "pct_pbi", lab: "Deuda bruta", corto: "Deuda", c: NAR}]});
+  },
+  // empleo público (etapa 25): cargos en las administraciones provinciales cada 1.000 habitantes, o la dotación de la administración nacional
+  "empleo-publico": a => {
+    const v = MED["empleo-publico"], el = G("empleo-publico"), fp = T.empleo_publico_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["empleo-publico"](v);
+    if (v === "nacion") {
+      $t("empleo-publico").textContent = txt;
+      return lineas(el, {anim: a, data: T.dotacion_nacion.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n0, yf: v => v === 0 ? "0" : n0(v / 1e3) + " mil",
+        xl: r => mesPer(r.periodo), mensual: true, series: [{k: "total", lab: "Total", c: NAR}, {k: "administracion", lab: "Administración pública nacional",
+        corto: "Administración", c: css("--azul-hondo")}, {k: "empresas", lab: "Empresas y sociedades del Estado", corto: "Empresas", c: FRI}]});
+    }
+    if (fp && fp.territorio !== GBC.top[0] && fp.territorio !== GBC.bajo[0]) txt += ` En ${fp.territorio}, ${n1(fp.cada_1000)}${conVeces(fp.cada_1000, GBC.cada_1000)}: ` +
+      `${n0(fp.cargos)} cargos.`;
+    $t("empleo-publico").textContent = txt;
+    barrasH(el, {anim: a, data: T.empleo_publico_provincias, k: "cada_1000", vf: n1, af: n0, ref: GBC.cada_1000, refLab: `País ${n1(GBC.cada_1000)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000)} cargos cada 1.000 habitantes<br>${n0(d.cargos)} cargos en ${GBC.anio}<br>En ${GBC.inicio}, ${n0(d.cargos_inicio)}`});
+  },
+  // impuestos provinciales por habitante (etapa 25)
+  "impuestos-provinciales": a => {
+    const fp = T.impuestos_provinciales.find(r => r.codigo_indec === prov && r.por_habitante != null);
+    let txt = LEAD["impuestos-provinciales"]();
+    if (fp && fp.territorio !== GBP.top[0] && fp.territorio !== GBP.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.por_habitante)} pesos por habitante` +
+      `${conVeces(fp.por_habitante, GBP.pais)}, y el ${pct(fp.pct_ingresos_brutos)} de ingresos brutos.`;
+    $t("impuestos-provinciales").textContent = txt;
+    barrasH(G("impuestos-provinciales"), {anim: a, data: T.impuestos_provinciales.filter(r => r.por_habitante != null), k: "por_habitante", vf: millonesM, af: ejeM,
+      ref: GBP.pais, refLab: `País ${millonesM(GBP.pais)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${GBP.anio}<br>` +
+        `${billones(d.millones)}<br>${pct(d.pct_ingresos_brutos)} de ingresos brutos`});
+  },
   combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
     const p = MED.combustibles, el = G("combustibles"), fp = T.combustibles_provincias.find(r => r.codigo_indec === prov);
     let txt = LEAD.combustibles(p, MED["combustibles-vista"]);
@@ -4022,6 +4150,11 @@ const CLAVE = {
   "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`],
   "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`],
   "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
+  "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`],
+  "f-recaudacion": [pct(GRT.pbi), `del PBI fue la recaudación de impuestos nacionales en ${GRT.anio}`],
+  "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`],
+  "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`],
+  "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y la Ciudad en ${GBP.anio}`],
   "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`],
   "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`],
   "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`],
@@ -4140,6 +4273,7 @@ const EN_CIFRAS = {
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
   poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
+  gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
   movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],
@@ -4637,6 +4771,10 @@ const INDP = [
     d:T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_3", pais:SG.hom3_pais, f:n1},
   {id:"f-robos", lab:"Robos registrados", veces:true, det:`cada 100.000 habitantes, ${SG.anio}`,
     d:T.robos_provincias.filter(r => r.codigo_indec !== "00"), k:"robos", pais:SG.robos, f:n0, dist:"robos_provincias.robos"},
+  {id:"f-empleo-publico", lab:"Cargos en la administración provincial", veces:true, det:`cada 1.000 habitantes, ${GBC.anio}`,
+    d:T.empleo_publico_provincias, k:"cada_1000", pais:GBC.cada_1000, f:n1},
+  {id:"f-impuestos-provinciales", lab:"Impuestos provinciales", veces:true, det:`pesos por habitante, ${GBP.anio}`,
+    d:T.impuestos_provinciales.filter(r => r.por_habitante != null), k:"por_habitante", pais:GBP.pais, f:n0},
   {id:"f-nacidos-otro-pais", lab:"Nacidos en otro país", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
     d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k:"pct_otro_pais", pais:MGC.pct, f:n1},
   {id:"f-migracion-interna", lab:"Nacidos en otra provincia", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
@@ -4713,6 +4851,10 @@ const PREG = [
    `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
   ["¿Cuántos homicidios hay por año?",
    `En ${SG.anio}, ${n0(SG.hom_victimas)} víctimas de homicidios dolosos, ${n1(SG.hom_tasa)} cada 100.000 habitantes. En ${SG.hom_max_anio}, el año más alto desde ${SG.anio_ini}, ${n1(SG.hom_max)}.`, "#f-homicidios"],
+  ["¿Cuánto debe el Estado nacional?",
+   `${n0(GBD.usd_millones)} millones de dólares al ${GBD.fecha}, el ${pct(GBD.pct)} del PBI, según la Secretaría de Finanzas.`, "#f-deuda"],
+  ["¿En qué gasta la Nación?",
+   `En ${GBN.anio}, el ${pct(GBN.gasto_tipos[0][1])} del gasto primario fue en ${inicialMin(GBN.gasto_tipos[0][0])} y el ${pct(GBN.gasto_tipos[1][1])} en ${inicialMin(GBN.gasto_tipos[1][0])}.`, "#f-cuentas-nacion"],
   ["¿Cuántas personas nacidas en otro país viven en la Argentina?",
    `${n0(MGC.personas)} en el Censo 2022, el ${pct(MGC.pct)} de la población. El país de nacimiento más frecuente, ${MGC.paises[0][0]}: ${pct(MGC.paises[0][2])}.`, "#f-nacidos-otro-pais"],
   ["¿Cuántos argentinos viven en otro país?",
@@ -5382,7 +5524,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
@@ -5467,6 +5609,12 @@ const SERIE_CIFRA = {
   "x-hurtos": () => serieM("Hurtos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.hurtos]), n0),
   "f-delitos": () => serieM("Delitos registrados cada 100.000 habitantes", T.delitos_serie.map(r => [r.anio, r.total]), n0),
   "f-carceles": () => serieM("Personas privadas de libertad cada 100.000 habitantes", T.carceles_serie.map(r => [r.anio, r.tasa]), n0),
+  // gobierno (etapa 25)
+  "f-cuentas-nacion": () => serieM("Resultado primario del Sector Público Nacional, % del PBI", GBN.mini, pct),
+  "f-recaudacion": () => serieM("Recaudación de impuestos nacionales, % del PBI", T.recaudacion_anual.map(r => [r.anio, r.total_pbi]), pct),
+  "f-deuda": () => serieM("Deuda bruta de la Administración Central, % del PBI", T.deuda_pbi.map(r => [r.periodo.includes("T") ? `${r.periodo[0]}T ${r.periodo.slice(2)}` : r.periodo, r.pct_pbi]), pct),
+  "f-empleo-publico": () => provM(`Cargos en la administración provincial cada 1.000 habitantes, ${GBC.anio}`, T.empleo_publico_provincias, "cada_1000", GBC.cada_1000, n1),
+  "f-impuestos-provinciales": () => provM(`Impuestos provinciales, pesos por habitante, ${GBP.anio}`, T.impuestos_provinciales, "por_habitante", GBP.pais, n0),
   // migraciones (etapa 25)
   "f-nacidos-otro-pais": () => provM("Personas nacidas en otro país, % de la población, 2022", T.nacidos_otro_pais_provincias, "pct_otro_pais", MGC.pct, pct),
   "f-migracion-interna": () => provM("Personas nacidas en otra provincia, % de la población, 2022", T.nacidos_otro_pais_provincias, "pct_otra_provincia", MGC.otra_pct, pct),

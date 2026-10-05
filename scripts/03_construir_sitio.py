@@ -37,7 +37,8 @@ assert not _rep, f"ids repetidos en la plantilla: {_rep}"
 # (la SUBE desde diciembre de 2024 y mayo de 2025, la encuesta que el INDEC reformula desde 2026, el cambio de fuente de los nacimientos,
 # el nombre de las proyecciones de población del INDEC y los límites para comprar dólares que rigieron hasta abril de 2025)
 FIJOS = ["diciembre de 2024 el subte", "diciembre de 2024 parte de los viajes", "mayo de 2025 pagos con qr", "desde 2026 el indec reformula",
-         "hasta octubre de 2026 el sitio", "2022 a 2040, base censo", "septiembre de 2019 y abril de 2025"]
+         "hasta octubre de 2026 el sitio", "2022 a 2040, base censo", "septiembre de 2019 y abril de 2025",
+         "enero de 2026 incluyen la venta"]
 
 
 def anios_a_mano(nombre, fuente):
@@ -290,7 +291,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
     assert not _rep, f"claves repetidas en {_obj} de datina.js: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
-             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "turismo": "valija",
+             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
              "diagnostico": "portapapeles"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})

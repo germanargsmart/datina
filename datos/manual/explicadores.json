@@ -1162,6 +1162,155 @@
    }
   ]
  },
+ "gobierno": {
+  "bloques": [
+   {
+    "titulo": "Las cuentas de la Nación",
+    "texto": "La Secretaría de Hacienda publica cada mes los ingresos y los gastos del Sector Público Nacional no Financiero con el esquema de ahorro, inversión y financiamiento, en base caja: lo que efectivamente entra y sale. El resultado primario es lo que queda de los ingresos después del gasto, sin contar los intereses de la deuda. El resultado financiero es el que queda después de pagar los intereses: si es negativo, es el déficit que hay que financiar. Los intereses se cuentan netos de los que se paga el propio Estado.",
+    "fuentes": [
+     {
+      "nombre": "Resolución 507/1999 de la Secretaría de Hacienda, esquema ahorro, inversión y financiamiento",
+      "url": "https://www.argentina.gob.ar/normativa/recurso/60927/texact/htm",
+      "cita": "surge de relacionar la clasificación económica de los recursos públicos con la clasificación económica de los gastos públicos"
+     },
+     {
+      "nombre": "Resolución 507/1999 de la Secretaría de Hacienda, esquema ahorro, inversión y financiamiento",
+      "url": "https://www.argentina.gob.ar/normativa/recurso/60927/texact/htm",
+      "cita": "presupuesto, ejecución del presupuesto (base devengado), ejecución de tesorería (base caja)"
+     },
+     {
+      "nombre": "Contaduría General de la Nación, informe abreviado para el ciudadano 2023",
+      "url": "https://www.argentina.gob.ar/sites/default/files/informe_abreviado_para_el_ciudadano_2023.pdf",
+      "cita": "El Resultado Primario es el total de recursos menos el total de gastos (excluidos los intereses de la deuda)"
+     },
+     {
+      "nombre": "Resolución 507/1999 de la Secretaría de Hacienda, esquema ahorro, inversión y financiamiento",
+      "url": "https://www.argentina.gob.ar/normativa/recurso/60927/texact/htm",
+      "cita": "El más relevante de esos indicadores es el resultado financiero, o sea el superávit o déficit fiscal o público"
+     },
+     {
+      "nombre": "Ministerio de Economía, resultado fiscal de agosto de 2026",
+      "url": "https://www.argentina.gob.ar/noticias/en-agosto-el-sector-publico-nacional-mantuvo-el-resultado-financiero-superavitario-635529-0",
+      "cita": "el pago de intereses de deuda pública neto de los intra-sector público"
+     }
+    ]
+   },
+   {
+    "titulo": "Los impuestos nacionales y la coparticipación",
+    "texto": "Los impuestos nacionales los cobran la ARCA y otros organismos nacionales. La ley de coparticipación reparte en forma automática entre la Nación y las provincias lo recaudado por casi todos los impuestos nacionales: quedan afuera, entre otros, los derechos de importación y de exportación. Por eso los ingresos de la Nación son menores que lo que se recauda.",
+    "fuentes": [
+     {
+      "nombre": "Ley 23.548 de coparticipación federal (InfoLEG)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "La masa de fondos a distribuir estará integrada por el producido de la recaudación de todos los impuestos nacionales existentes o a crearse"
+     },
+     {
+      "nombre": "Ley 23.548 de coparticipación federal (InfoLEG)",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "Derechos de importación y exportación previstos en el artículo 4 de la Constitución Nacional"
+     }
+    ]
+   },
+   {
+    "titulo": "La deuda de la Administración Central",
+    "texto": "La deuda bruta de la Administración Central reúne la deuda que se paga normalmente, los atrasos y la deuda que todavía no entró en las reestructuraciones, también la que tienen otros organismos del propio Estado. La Secretaría de Finanzas la publica cada trimestre en dólares, para poder comparar deudas en monedas distintas, y como parte del PBI.",
+    "fuentes": [
+     {
+      "nombre": "Secretaría de Finanzas, deuda pública, presentación del segundo trimestre de 2026",
+      "url": "https://www.argentina.gob.ar/sites/default/files/presentacion_grafica_2do_trim_26.pdf",
+      "cita": "Se define a la Deuda Bruta de la Administración Central como la Deuda Performing, Atrasos y Deuda Elegible pendiente de reestructuración."
+     },
+     {
+      "nombre": "Secretaría de Finanzas, deuda pública, presentación del segundo trimestre de 2026",
+      "url": "https://www.argentina.gob.ar/sites/default/files/presentacion_grafica_2do_trim_26.pdf",
+      "cita": "se utiliza el dólar como unidad de cuenta para dar comparabilidad y estandarizar las estadísticas"
+     }
+    ]
+   },
+   {
+    "titulo": "El empleo público",
+    "texto": "La Dirección Nacional de Asuntos Provinciales publica cada año los cargos ocupados en las administraciones de las provincias y de la Ciudad, con el personal permanente y el temporario, que informa cada provincia. Para la Nación, el INDEC publica cada mes la dotación de la administración pública nacional, las empresas y las sociedades del Estado: todas las personas que trabajan en cada organismo.",
+    "fuentes": [
+     {
+      "nombre": "Dirección Nacional de Asuntos Provinciales, ocupación y salarios",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ocupacion-y",
+      "cita": "La información refiere a los cargos ocupados con remuneración de haberes, del personal permanente y temporario"
+     },
+     {
+      "nombre": "INDEC, dotación de personal de la administración pública nacional, nota metodológica",
+      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/nota_metodologica_dotacion_personal_apn.pdf",
+      "cita": "Se entiende por dotación a todo el personal que se desempeña en una institución realizando tareas propias de esta o vinculadas a su administración"
+     }
+    ]
+   },
+   {
+    "titulo": "Los impuestos de las provincias",
+    "texto": "Cada provincia cobra sus propios impuestos, como ingresos brutos, inmobiliario, sellos y automotor, con su dirección de rentas. La Dirección Nacional de Asuntos Provinciales reúne lo que publica cada una sin cambiarlo, y su serie anual puede no coincidir con la mensual, porque las fuentes y los criterios son distintos.",
+    "fuentes": [
+     {
+      "nombre": "Dirección Nacional de Asuntos Provinciales, recursos tributarios de origen provincial",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/direccion-de-recursos-provinciales/recursos-tributarios-de-origen-provincial-top",
+      "cita": "esta Dirección Nacional sólo replica la información tal como la divulgan dichos organismos"
+     },
+     {
+      "nombre": "Dirección Nacional de Asuntos Provinciales, recursos tributarios de origen provincial",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/direccion-de-recursos-provinciales/recursos-tributarios-de-origen-provincial-top",
+      "cita": "Los valores de las series trimestral y anual no necesariamente coinciden con la serie mensual"
+     }
+    ]
+   }
+  ],
+  "glosario": [
+   {
+    "termino": "Resultado primario",
+    "definicion": "Los ingresos menos el gasto, sin contar los intereses de la deuda.",
+    "fuente": {
+     "nombre": "Contaduría General de la Nación, informe abreviado para el ciudadano 2023",
+     "url": "https://www.argentina.gob.ar/sites/default/files/informe_abreviado_para_el_ciudadano_2023.pdf"
+    }
+   },
+   {
+    "termino": "Resultado financiero",
+    "definicion": "Lo que queda después de pagar también los intereses: el superávit o el déficit fiscal.",
+    "fuente": {
+     "nombre": "Resolución 507/1999 de la Secretaría de Hacienda, esquema ahorro, inversión y financiamiento",
+     "url": "https://www.argentina.gob.ar/normativa/recurso/60927/texact/htm"
+    }
+   },
+   {
+    "termino": "Base caja",
+    "definicion": "Cuenta los ingresos y los gastos cuando efectivamente se cobran y se pagan.",
+    "fuente": {
+     "nombre": "Resolución 507/1999 de la Secretaría de Hacienda, esquema ahorro, inversión y financiamiento",
+     "url": "https://www.argentina.gob.ar/normativa/recurso/60927/texact/htm"
+    }
+   },
+   {
+    "termino": "Coparticipación",
+    "definicion": "El reparto automático de los impuestos nacionales entre la Nación y las provincias que fija la ley.",
+    "fuente": {
+     "nombre": "Ley 23.548 de coparticipación federal (InfoLEG)",
+     "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm"
+    }
+   },
+   {
+    "termino": "Deuda bruta",
+    "definicion": "Toda la deuda de la Administración Central, también la que está en manos de organismos del propio Estado.",
+    "fuente": {
+     "nombre": "Secretaría de Finanzas, deuda pública, presentación del segundo trimestre de 2026",
+     "url": "https://www.argentina.gob.ar/sites/default/files/presentacion_grafica_2do_trim_26.pdf"
+    }
+   },
+   {
+    "termino": "Dotación",
+    "definicion": "Todas las personas que trabajan en un organismo.",
+    "fuente": {
+     "nombre": "INDEC, dotación de personal de la administración pública nacional, nota metodológica",
+     "url": "https://www.indec.gob.ar/ftp/cuadros/economia/nota_metodologica_dotacion_personal_apn.pdf"
+    }
+   }
+  ]
+ },
  "salud": {
   "bloques": [
    {

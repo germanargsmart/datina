@@ -220,7 +220,9 @@ FUENTES.update({
     # no Financiero, desde 2016) y producto interno bruto a precios corrientes (INDEC, trimestral: cada trimestre viene en valor anual, el
     # promedio de los cuatro da el PBI del año, por ejemplo 715.904 millones en 2006, igual que el total anual), etapa 21
     "subsidios_energia.csv": API + "452.2_ENERGIAGIA_0_T_7_56",
-    "pib_corriente.csv": API + "166.2_PPIB_0_0_3",
+    # producto interno bruto a precios corrientes, trimestral con cada trimestre en valor anual (INDEC, oferta y demanda globales): desde la
+    # etapa 25, la serie 4.4, igual a la 166.2 que se usaba en todos los trimestres que comparten, pero al día (la otra terminaba en 2025)
+    "pib_corriente.csv": API + "4.4_OGP_2004_T_17",
     # El dólar, la inversión y la construcción (artículo de la etapa 22): el tipo de cambio de referencia del BCRA (Comunicación "A" 3500),
     # promedio de cada mes; la inversión bruta interna fija por trimestre en pesos de 2004 (total, construcción y equipo durable de producción
     # importado y nacional) y la construcción a precios corrientes, para su precio implícito (INDEC, oferta y demanda globales); y las
@@ -253,6 +255,13 @@ FUENTES.update({
     # nacimiento, según jurisdicción (sección Migraciones, etapa 25)
     "censo2022_migraciones_c1.xlsx": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx",
     "censo2022_migraciones_c10.xlsx": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx",
+    # Gobierno (etapa 25): el Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero de la Secretaría de Hacienda (base
+    # caja, millones de pesos, desde 2016, con el ingreso de cada impuesto, el gasto de cada tipo y los resultados), la recaudación de cada
+    # impuesto nacional (Dirección Nacional de Investigaciones y Análisis Fiscal, desde 1997) y la dotación de la administración pública nacional,
+    # las empresas y las sociedades del Estado (INDEC, desde julio de 2022)
+    "imig_mensual.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/452/distribution/452.3/download/imig-mensual.csv",
+    "recaudacion_mensual.csv": "https://infra.datos.gob.ar/catalog/sspm/dataset/142/distribution/142.3/download/recursos-tributarios-totales-por-tributo-mensual-base-2001.csv",
+    "indec_dotacion_apn.xlsx": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_dotacion_apn.xlsx",
     # Fracturas de pozos (Adjunto IV, Secretaría de Energía, se actualiza a diario): por pozo, la fecha, las etapas de fractura, la
     # rama horizontal, la arena y el agua (etapa 19)
     "se_fracturas.csv": ckan_recurso(SE, "datos-de-fractura-de-pozos-adjunto-iv", "fractura de pozos",
@@ -355,12 +364,15 @@ VALIDA.update({
     "indec_emae_actividad.xls": lambda b: b[:4] == bytes.fromhex("d0cf11e0"),
     "censo2022_migraciones_c1.xlsx": lambda b: b[:2] == b"PK",
     "censo2022_migraciones_c10.xlsx": lambda b: b[:2] == b"PK",
+    "imig_mensual.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"indice_tiempo,iva_neto_reintegros,ganancias,aportes_contribuciones_seguridad_social"),
+    "recaudacion_mensual.csv": lambda b: b.removeprefix(bytes.fromhex("efbbbf")).startswith(b"indice_tiempo,ganancias,ganancias_dgi,ganancias_dga,iva"),
+    "indec_dotacion_apn.xlsx": lambda b: b[:2] == b"PK",
     "se_fracturas.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"id_base_fractura_adjiv,idpozo"),
     "se_pozos_terminados.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"anio,mes,indice_tiempo,tipo_pozo,provincia"),
     "potencia_instalada.csv": lambda b: b.startswith(b"indice_tiempo,potencia_instalada_total"),
     "gas_residencial_pais.csv": lambda b: b.startswith(b"indice_tiempo,residencial"),
     "subsidios_energia.csv": lambda b: b.startswith(b"indice_tiempo,energia"),
-    "pib_corriente.csv": lambda b: b.startswith(b"indice_tiempo,pib"),
+    "pib_corriente.csv": lambda b: b.startswith(b"indice_tiempo,oferta_global_pib"),
     "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500"),
     "inversion_trimestral.csv": lambda b: b.startswith(b"indice_tiempo,4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32"),
     "compras_dolares_privados.csv": lambda b: b.startswith(b"indice_tiempo,182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"),
@@ -1405,6 +1417,128 @@ def onu_migrantes():
     return url
 
 
+def _enlace_en_pagina(pagina, patron):
+    """El primer enlace de una página de argentina.gob.ar que coincide con el patrón (las planillas que cambian de nombre con cada edición).
+    Algunas páginas escriben los enlaces con el prefijo "blank:#", que se saca."""
+    texto = leer(pagina, 90).decode("utf-8", "ignore")
+    for m in re.finditer(r'href="([^"]+)"', texto):
+        href = m.group(1).replace("blank:#", "")
+        if re.search(patron, href):
+            return href if href.startswith("http") else "https://www.argentina.gob.ar" + href
+    raise ValueError(f"no se encontró el enlace {patron} en {pagina}")
+
+
+def deuda_publica():
+    """Deuda bruta de la Administración Central (Secretaría de Finanzas, etapa 25): la planilla trimestral cambia de nombre con cada edición
+    (deuda_publica_DD-MM-AAAA.xlsx), así que se lee el primer enlace de la página de datos trimestrales. Se guardan la deuda bruta en dólares a la
+    fecha de la planilla (hoja A.1.1) y la deuda bruta en porcentaje del PBI que publica la Secretaría para cada año desde 2000 y cada trimestre del
+    año en curso (hoja A.4.7, la fila de toda la deuda bruta, con la elegible pendiente de reestructuración)."""
+    import io, pandas as pd
+    url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/finanzas/datos-trimestrales-de-la-deuda", r"deuda_publica_\d{2}-\d{2}-\d{4}[^/]*\.xlsx$")
+    datos = leer(url, 120)
+    if datos[:2] != b"PK":
+        raise ValueError("la planilla de la deuda pública no es un Excel")
+    hojas = pd.read_excel(io.BytesIO(datos), sheet_name=["A.1.1", "A.4.7"], header=None)
+    a11 = hojas["A.1.1"]
+    arriba = " ".join(str(x) for x in a11.iloc[:12].values.ravel())
+    fecha = re.search(r"(\d{2})/(\d{2})/(\d{4})", arriba)
+    fila = a11.index[a11.iloc[:, 1].astype(str).str.strip().str.startswith("II- DEUDA BRUTA")]
+    if not fecha or len(fila) != 1 or "u$s" not in arriba:
+        raise ValueError("la hoja A.1.1 de la deuda pública cambió de formato")
+    total = float(pd.to_numeric(a11.iat[fila[0], 2]))
+    a47 = hojas["A.4.7"]
+    cab = a47.index[a47.iloc[:, 2].astype(str).str.strip().eq("INDICADORES")][0]
+    f = a47.index[a47.iloc[:, 2].astype(str).str.strip().eq("Deuda Bruta de la Administración Central")]
+    if len(f) != 1:
+        raise ValueError("la hoja A.4.7 de la deuda pública cambió de formato")
+    filas = []
+    for j in range(3, a47.shape[1]):
+        etq, v = str(a47.iat[cab, j]).strip(), pd.to_numeric(a47.iat[f[0], j], errors="coerce")
+        anio = re.search(r"(\d{4})", etq)
+        if pd.isna(v) or not anio:
+            continue
+        trim = re.search(r"(\d)\w*\.?\s*Trim", etq)
+        filas.append({"periodo": f"{trim.group(1)}T{anio.group(1)}" if trim else anio.group(1), "pct_pbi": float(v) * 100})
+    d = pd.DataFrame(filas)
+    if len(d) < 25 or not d.periodo.str.fullmatch(r"\d{4}").head(20).all():
+        raise ValueError("la serie de la deuda en porcentaje del PBI vino incompleta")
+    d["usd_millones"] = None
+    d.loc[d.index[-1], "usd_millones"] = total / 1000
+    d["fecha"] = None
+    d.loc[d.index[-1], "fecha"] = f"{fecha.group(3)}-{fecha.group(2)}-{fecha.group(1)}"
+    d.to_csv(CRUDO / "deuda_publica.csv", index=False)
+    return url
+
+
+def dnap_cargos():
+    """Cargos ocupados en las administraciones públicas provinciales (administración central, organismos descentralizados y cuentas especiales),
+    por provincia, una hoja por año desde 1987 (Dirección Nacional de Asuntos Provinciales, etapa 25). El nombre de la planilla cambia, así que se
+    lee el enlace de su página. Se guardan los últimos diez años: gasto en personal, planta ocupada, gasto medio y habitantes de cada provincia."""
+    import io, pandas as pd
+    url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ocupacion-y",
+                            r"ocupacion_salarios[^/]*\.xlsx$")
+    datos = leer(url, 120)
+    if datos[:2] != b"PK":
+        raise ValueError("la planilla de ocupación provincial no es un Excel")
+    libro = pd.ExcelFile(io.BytesIO(datos))
+    anios = sorted(int(h) for h in libro.sheet_names if re.fullmatch(r"\d{4}", h.strip()))
+    filas = []
+    for a in anios[-10:]:
+        h = pd.read_excel(libro, sheet_name=str(a), header=None)
+        cab = h.index[h.iloc[:, 1].astype(str).str.strip().eq("JURISDICCIONES")]
+        if len(cab) != 1 or "PLANTA" not in str(h.iat[cab[0], 3]).upper():
+            raise ValueError(f"la hoja {a} de ocupación provincial cambió de formato")
+        for i in range(cab[0] + 1, h.shape[0]):
+            nom = str(h.iat[i, 1]).strip()
+            if nom in ("", "nan"):
+                continue
+            if nom.upper() == "TOTAL":
+                break
+            filas.append({"anio": a, "jurisdiccion": nom, "gasto_personal_miles": pd.to_numeric(h.iat[i, 2], errors="coerce"),
+                          "planta": pd.to_numeric(h.iat[i, 3], errors="coerce"), "gasto_medio": pd.to_numeric(h.iat[i, 4], errors="coerce"),
+                          "habitantes": pd.to_numeric(h.iat[i, 5], errors="coerce"),
+                          "presupuestados": str(h.iat[i, 1]).count("*") > 0 or "(**)" in nom})
+    d = pd.DataFrame(filas)
+    if d.groupby("anio").size().min() < 24:
+        raise ValueError("faltan provincias en la planilla de ocupación provincial")
+    d.to_csv(CRUDO / "dnap_cargos_provinciales.csv", index=False)
+    return url
+
+
+def dnap_recaudacion():
+    """Recursos tributarios de origen provincial por provincia y año, desde 1984, en millones de pesos (Dirección Nacional de Asuntos Provinciales,
+    etapa 25): la planilla anual cambia de nombre cada año (serie_top_1984_AAAA.xlsx) y su página escribe los enlaces con el prefijo "blank:#".
+    Se guardan el total y los ingresos brutos. La DNAP replica lo que publica cada dirección de rentas, y una provincia sin datos completos de un
+    año va con "//" (La Pampa en 2025): queda vacía."""
+    import io, pandas as pd
+    url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/direccion-de-recursos-provinciales/"
+                            "recursos-tributarios-de-origen-provincial-top", r"serie_top_1984_\d{4}[^/]*\.xlsx$")
+    datos = leer(url, 120)
+    if datos[:2] != b"PK":
+        raise ValueError("la serie de recursos tributarios provinciales no es un Excel")
+    hojas = pd.read_excel(io.BytesIO(datos), sheet_name=["Total", "Ingresos Brutos"], header=None)
+    largo = []
+    for hoja, col in (("Total", "total"), ("Ingresos Brutos", "ingresos_brutos")):
+        h = hojas[hoja]
+        cab = h.index[h.iloc[:, 1].astype(str).str.strip().eq("PROVINCIAS")]  # en mayúsculas: "Provincias" es el subtotal
+        if len(cab) != 1:
+            raise ValueError(f"la hoja {hoja} de recursos tributarios provinciales cambió de formato")
+        anios = {j: int(float(h.iat[cab[0], j])) for j in range(2, h.shape[1]) if pd.notna(pd.to_numeric(h.iat[cab[0], j], errors="coerce"))}
+        for i in range(cab[0] + 1, h.shape[0]):
+            nom = str(h.iat[i, 1]).strip()
+            if nom in ("", "nan") or nom.startswith("No se"):
+                continue
+            for j, a in anios.items():
+                largo.append({"provincia": nom, "anio": a, "concepto": col, "millones": pd.to_numeric(h.iat[i, j], errors="coerce")})
+            if nom.upper() == "TOTAL":
+                break
+    d = pd.DataFrame(largo).pivot_table(index=["provincia", "anio"], columns="concepto", values="millones", aggfunc="first").reset_index()
+    if d.anio.max() < datetime.date.today().year - 2 or d.provincia.nunique() < 26:
+        raise ValueError("la serie de recursos tributarios provinciales vino incompleta o vieja")
+    d.to_csv(CRUDO / "dnap_recaudacion_provincial.csv", index=False)
+    return url
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
@@ -1422,7 +1556,10 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("inversión educativa por provincia (CECE)", cgecse_inversion), ("precio del petróleo Brent (EIA)", eia_brent),
                     ("canastas básicas por región (INDEC)", indec_canastas_regiones),
                     ("residencias otorgadas por la Dirección Nacional de Migraciones", dnm_radicaciones),
-                    ("personas nacidas en la Argentina que viven en otro país (Naciones Unidas)", onu_migrantes)]:
+                    ("personas nacidas en la Argentina que viven en otro país (Naciones Unidas)", onu_migrantes),
+                    ("deuda pública de la Administración Central (Secretaría de Finanzas)", deuda_publica),
+                    ("cargos en las administraciones provinciales (DNAP)", dnap_cargos),
+                    ("recursos tributarios de origen provincial (DNAP)", dnap_recaudacion)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
