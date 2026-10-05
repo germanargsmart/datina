@@ -4423,6 +4423,69 @@ CAPITALES_META = {
 }
 CAP_PAIS = {"viviendas_1000": r1(_gl.viv_part.sum() / _gl.poblacion.sum() * 1000)}
 
+# ---------------------------------------------------------------- capitales con la EPH (etapa 27)
+# La Encuesta Permanente de Hogares del INDEC mide cada capital con su aglomerado urbano, que en algunos casos junta dos ciudades (Rawson con
+# Trelew, Ushuaia con Río Grande): es otra área que el municipio del censo, así que va en su propia tabla y nunca en el mismo gráfico que las
+# variables del censo de las capitales. Pobreza e indigencia del último semestre (con el coeficiente de variación que publica el INDEC), y
+# desocupación y empleo como promedio de los últimos cuatro trimestres, porque en los aglomerados chicos la tasa de un trimestre es poco precisa
+# (en Viedma-Carmen de Patagones, un coeficiente de variación de 58% en el segundo trimestre de 2026). La parte de los hogares que alquila sale
+# de las bases de hogares de los mismos cuatro trimestres que usa la antigüedad en el empleo (II7 = 3, con PONDERA).
+# código de aglomerado de la EPH -> (provincia, nombre del aglomerado, nombres de los cuadros del INDEC sin tildes, espacios ni guiones)
+EPH_CAP = {
+    32: ("02", "CABA", ["ciudadautonomadebuenosaires"]), 2: ("06", "Gran La Plata", ["granlaplata"]),
+    22: ("10", "Gran Catamarca", ["grancatamarca"]), 13: ("14", "Gran Córdoba", ["grancordoba"]), 12: ("18", "Corrientes", ["corrientes"]),
+    8: ("22", "Gran Resistencia", ["granresistencia"]), 91: ("26", "Rawson-Trelew", ["rawsontrelew"]), 6: ("30", "Gran Paraná", ["granparana"]),
+    15: ("34", "Formosa", ["formosa"]), 19: ("38", "Jujuy-Palpalá", ["jujuypalpala"]), 30: ("42", "Santa Rosa-Toay", ["santarosatoay"]),
+    25: ("46", "La Rioja", ["larioja"]), 10: ("50", "Gran Mendoza", ["granmendoza"]), 7: ("54", "Posadas", ["posadas"]),
+    17: ("58", "Neuquén-Plottier", ["neuquenplottier"]), 93: ("62", "Viedma-Carmen de Patagones", ["viedmacarmendepatagones"]),
+    23: ("66", "Salta", ["salta", "gransalta"]), 27: ("70", "Gran San Juan", ["gransanjuan"]), 26: ("74", "Gran San Luis", ["gransanluis"]),
+    20: ("78", "Río Gallegos", ["riogallegos"]), 5: ("82", "Gran Santa Fe", ["gransantafe"]),
+    18: ("86", "Santiago del Estero-La Banda", ["santiagodelesterolabanda"]), 29: ("90", "Gran Tucumán-Tafí Viejo", ["grantucumantafiviejo"]),
+    31: ("94", "Ushuaia-Río Grande", ["ushuaiariogrande"]),
+}
+_eph_nom = lambda t: re.sub(r"[^a-z0-9]", "", norm(t))
+_eph_cod = {n: c for c, (_, _, ns) in EPH_CAP.items() for n in ns}
+_cxp = pd.read_csv(CRUDO / "indec_pobreza_aglomerados.csv")
+_cxp["cod"] = _cxp.aglomerado.map(_eph_nom).map(_eph_cod)
+_cxp = _cxp.dropna(subset=["cod"])
+assert sorted(_cxp.cod.astype(int)) == sorted(EPH_CAP), "faltan capitales en el informe de pobreza del INDEC"
+_cxt = pd.read_csv(CRUDO / "indec_eph_aglomerados.csv")
+_cxt["cod"] = _cxt.aglomerado.map(_eph_nom).map(_eph_cod)
+_cxt = _cxt.dropna(subset=["cod"])
+assert sorted(_cxt.cod.astype(int).unique()) == sorted(EPH_CAP), "faltan capitales en las tasas del mercado de trabajo del INDEC"
+EPH_TRIMS = sorted(_cxt.periodo.unique())[-4:]
+# si en un trimestre el INDEC no publicó el dato de un aglomerado por tener pocos casos ("///"), el promedio usa los otros tres
+_cxt_n = _cxt[_cxt.periodo.isin(EPH_TRIMS)].groupby(["cod", "indicador"]).size()
+assert len(_cxt_n) == 48 and _cxt_n.min() >= 3, "faltan trimestres de alguna capital en las tasas del mercado de trabajo"
+_cxt4 = _cxt[_cxt.periodo.isin(EPH_TRIMS)].pivot_table(index="cod", columns="indicador", values="valor", aggfunc="mean")
+_cxh = pd.read_csv(CRUDO / "eph_tenencia_aglomerados.csv").set_index("aglomerado")
+assert set(EPH_CAP) <= set(_cxh.index) and _cxh.hogares.min() > 300, "la tenencia de la EPH no trae todas las capitales"
+_cxpi = _cxp.set_index(_cxp.cod.astype(int))
+capitales_eph = pd.DataFrame([{"codigo_indec": p, "territorio": nom, "aglomerado": c, "pobreza": _cxpi.at[c, "pobreza"], "cv_pobreza": _cxpi.at[c, "cv_pobreza"],
+                               "indigencia": _cxpi.at[c, "indigencia"], "cv_indigencia": _cxpi.at[c, "cv_indigencia"],
+                               "desocupacion": _cxt4.at[c, "desocupacion"], "empleo": _cxt4.at[c, "empleo"], "alquila": _cxh.at[c, "pct_inquilino"],
+                               "hogares_encuestados": int(_cxh.at[c, "hogares"])} for c, (p, nom, _) in EPH_CAP.items()]).sort_values("codigo_indec")
+assert capitales_eph.notna().all().all() and capitales_eph.pobreza.between(5, 80).all() and capitales_eph.desocupacion.between(0, 30).all()
+_eph_sem = _cxp.semestre.iloc[0]
+EPH_SEM_TXT = f"{'primer' if _eph_sem[0] == '1' else 'segundo'} semestre de {_eph_sem[2:]}"
+_eph_ord = ["primero", "segundo", "tercero", "cuarto"]
+EPH_TRIM_TXT = f"los cuatro trimestres hasta el {_eph_ord[int(EPH_TRIMS[-1][-1]) - 1]} de {EPH_TRIMS[-1][:4]}"
+_eph_tt = json.loads((CRUDO / "eph_antiguedad_meta.json").read_text(encoding="utf-8"))["trimestres"]
+EPH_TEN_TXT = f"los cuatro trimestres hasta el {_eph_ord[_eph_tt[-1][1] - 1]} de {_eph_tt[-1][0]}"
+# id: (nombre, unidad, período, tema, fuente, ficha, decimales), como CAPITALES_META
+CAPITALES_EPH_META = {
+    "pobreza": ("Pobreza", "% de las personas bajo la línea de pobreza", EPH_SEM_TXT, "Pobreza", "INDEC, Encuesta Permanente de Hogares", "f-pobreza", 1),
+    "indigencia": ("Indigencia", "% de las personas bajo la línea de indigencia", EPH_SEM_TXT, "Pobreza", "INDEC, Encuesta Permanente de Hogares", "f-pobreza", 1),
+    "desocupacion": ("Desocupación", "% de la población económicamente activa, promedio de cuatro trimestres", EPH_TRIM_TXT, "Trabajo",
+                     "INDEC, Encuesta Permanente de Hogares", "", 1),
+    "empleo": ("Tasa de empleo", "% de la población, promedio de cuatro trimestres", EPH_TRIM_TXT, "Trabajo", "INDEC, Encuesta Permanente de Hogares", "", 1),
+    "alquila": ("Hogares que alquilan", "% de los hogares, promedio de cuatro trimestres", EPH_TEN_TXT, "Vivienda",
+                "INDEC, Encuesta Permanente de Hogares, procesamiento propio de las bases", "", 1),
+}
+CAP_EPH_RES = {"semestre": EPH_SEM_TXT, "trimestres": EPH_TRIM_TXT, "cuidado": capitales_eph[capitales_eph.cv_pobreza.between(16, 25)].territorio.tolist(),
+               "no_confiable": capitales_eph[capitales_eph.cv_pobreza > 25].territorio.tolist(),
+               "alquila_pais": float(_cxh.at[0, "pct_inquilino"]), "hogares_min": int(capitales_eph.hogares_encuestados.min())}
+
 # ---------------------------------------------------------------- series por provincia para animar los cruces
 # Una fila por provincia, anio e indicador, desde 2000. Se carga aparte, solo cuando alguien pide ver la evolucion.
 hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
@@ -4532,6 +4595,7 @@ tablas = {
     "ocde_comparacion": ocde_tabla,
     "cruces_provincias": cru.round(3),
     "capitales": capitales.round(3),
+    "capitales_eph": capitales_eph.round(3),
     "mundo_paises": mundo,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
@@ -5073,6 +5137,10 @@ resumen["capitales"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2
                         for k, v in CAPITALES_META.items()]
 assert all(m["id"] in capitales.columns for m in resumen["capitales"])
 resumen["capitales_pais"] = CAP_PAIS
+resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
+                            for k, v in CAPITALES_EPH_META.items()]
+assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])
+resumen["capitales_eph_res"] = CAP_EPH_RES
 resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
 
 (SITIO / "fichas.json").write_text(json.dumps({

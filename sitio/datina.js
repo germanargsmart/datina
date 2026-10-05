@@ -4908,11 +4908,11 @@ const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["economia", "Economía"], ["salu
   ["poblacion", "Población y migraciones"], ["gobierno", "Gobierno"], ["vivienda", "Vivienda y servicios"], ["energia", "Energía"],
   ["turismo", "Turismo y naturaleza"], ["capital", "La capital"]];
 const CAP_P = [
-  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, lab:"Viviendas por habitante", det:"viviendas particulares cada 1.000 habitantes, Censo 2022",
+  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, veces:true, lab:"Viviendas por habitante", det:"viviendas particulares cada 1.000 habitantes, Censo 2022",
     d:T.capitales, k:"viviendas_1000", pais:R.capitales_pais.viviendas_1000, f:n0},
-  {id:"a-viviendas-alquiler", g:"capital", cap:true, lab:"Hogares que alquilan", det:"% de los hogares, Censo 2022",
+  {id:"a-viviendas-alquiler", g:"capital", cap:true, veces:true, lab:"Hogares que alquilan", det:"% de los hogares, Censo 2022",
     d:T.capitales, k:"alquila", pais:VV.pct_alquila, f:pct},
-  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, lab:"Hacinamiento crítico", det:"% de los hogares con más de tres personas por cuarto, Censo 2022",
+  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, veces:true, lab:"Hacinamiento crítico", det:"% de los hogares con más de tres personas por cuarto, Censo 2022",
     d:T.capitales, k:"hacinamiento", pais:VV.pct_hacinamiento, f:pct},
 ];
 const PERFIL = [...INDP, ...CAP_P];
@@ -5177,7 +5177,34 @@ const PREG = [
    A mano van solo la pregunta (data-titulo en el marcado), el contexto y los límites propios de cada cruce, sin cifras.
    Las advertencias generales (pocos casos, correlación no es causalidad, promedios provinciales, períodos distintos,
    Spearman y Pearson que difieren) se agregan siempre que corresponden. */
+// La precisión de la pobreza de cada capital, como la califica la nota del INDEC: con un coeficiente de variación de entre 16% y 25%, con
+// cuidado, y de más de 25%, no confiable (etapa 27). Las capitales de cada grupo salen del resumen.
+const CV_EPH = (() => {
+  const r = R.capitales_eph_res, C = r.cuidado, N = r.no_confiable;
+  const ini = "El INDEC publica la precisión de cada estimación de pobreza (su coeficiente de variación): pide considerar con cuidado las que tienen entre 16% y 25%, y como no confiables las que pasan de 25%.";
+  if (!C.length && !N.length) return `${ini} En el ${r.semestre}, ninguna capital llega a 16%.`;
+  const c = C.length ? `${C.length > 1 ? "las" : "la"} de ${lista(C)} ${C.length > 1 ? "están" : "está"} entre 16% y 25%` : "ninguna capital está entre 16% y 25%";
+  const n = N.length ? `${N.length > 1 ? "las" : "la"} de ${lista(N)} ${N.length > 1 ? "pasan" : "pasa"} de 25%` : "ninguna pasa de 25%";
+  return `${ini} En el ${r.semestre}, ${c}, y ${n}.`;
+})();
 const ART = [
+  // etapa 27: dos artículos de las capitales con la Encuesta Permanente de Hogares (tabla capitales_eph, por aglomerado)
+  {id: "a-pobreza-desocupacion", tabla: "capitales_eph", x: "desocupacion", y: "pobreza", espera: 1, frec: "Se actualiza cada seis meses",
+    lx: "desocupación", ly: "pobreza", ux: "% de la población económicamente activa", uy: "% de las personas",
+    dek: "La desocupación de cada capital de provincia en el último año, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares.",
+    contexto: "La desocupación y la pobreza miden cosas distintas: una cuenta a quienes buscan trabajo y no lo consiguen, y la otra mira si los ingresos del hogar alcanzan para la canasta básica. Este cruce pone una al lado de la otra, capital por capital, con la Encuesta Permanente de Hogares del INDEC.",
+    limites: ["Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares, que en algunos casos junta dos ciudades, como Rawson con Trelew o Ushuaia con Río Grande. Es un área distinta del municipio que usan los artículos de las viviendas, que salen del censo.",
+      "La EPH es una encuesta por muestra, y en los aglomerados chicos la desocupación de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres: si en uno el INDEC no publicó el dato por tener pocos casos, el promedio usa los otros tres.",
+      CV_EPH,
+      "Una persona puede tener trabajo y ser pobre: la desocupación no dice cuánto se gana."]},
+  {id: "a-alquiler-pobreza", tabla: "capitales_eph", x: "pobreza", y: "alquila", espera: -1, frec: "Se actualiza cada seis meses",
+    lx: "pobreza", ly: "hogares que alquilan", ux: "% de las personas", uy: "% de los hogares",
+    dek: "La parte de los habitantes de cada capital de provincia bajo la línea de pobreza, frente a la parte de sus hogares que alquila, según la Encuesta Permanente de Hogares.",
+    contexto: "Quien no tiene una vivienda propia suele alquilarla, y para alquilar hacen falta ingresos con los que pagar el contrato. Este cruce compara, capital por capital, la parte de las personas bajo la línea de pobreza con la parte de los hogares que alquila, según la Encuesta Permanente de Hogares del INDEC.",
+    limites: ["Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares, que en algunos casos junta dos ciudades, como Rawson con Trelew o Ushuaia con Río Grande. Es un área distinta del municipio que usan los artículos de las viviendas, que salen del censo.",
+      "La parte de los hogares que alquila es un cálculo propio con las bases de la EPH de los últimos cuatro trimestres publicados. El censo de 2022, que cuenta todo el municipio, da cifras parecidas pero no iguales.",
+      "La EPH pregunta si el hogar alquila la vivienda, no cuánto paga ni desde cuándo.",
+      CV_EPH]},
   // etapa 26: artículos de las 24 capitales de provincia, con la tabla de las capitales (Censo 2022 por municipio). Van antes que los de
   // las provincias porque son los más nuevos
   {id: "a-viviendas-hacinamiento", tabla: "capitales", x: "viviendas_1000", y: "hacinamiento", espera: -1, frec: "Se actualiza con cada censo",
@@ -5247,10 +5274,14 @@ const META_CX = Object.fromEntries(R.cruces.map(m => [m.id, m]));
 // cada artículo de cruces usa la tabla de las provincias o, con tabla: "capitales", la de las 24 capitales (etapa 26), con su metadato y su
 // forma de nombrar los casos
 const tablaArt = a => a.tabla || "cruces_provincias";
-const META_TAB = {cruces_provincias: META_CX, capitales: Object.fromEntries(R.capitales.map(m => [m.id, m]))};
+const META_TAB = {cruces_provincias: META_CX, capitales: Object.fromEntries(R.capitales.map(m => [m.id, m])),
+  capitales_eph: Object.fromEntries(R.capitales_eph.map(m => [m.id, m]))};
 const CASOS_ART = {
   cruces_provincias: {s: "jurisdicción", pl: "jurisdicciones", prom: "Son promedios de cada jurisdicción: no dicen qué pasa con cada persona ni con los municipios de una misma provincia."},
-  capitales: {s: "capital", pl: "capitales", prom: "Son promedios de cada ciudad: no dicen qué pasa con cada persona ni con los barrios de una misma ciudad."}};
+  capitales: {s: "capital", pl: "capitales", prom: "Son promedios de cada ciudad: no dicen qué pasa con cada persona ni con los barrios de una misma ciudad."},
+  capitales_eph: {s: "capital", pl: "capitales", prom: "Son promedios de cada aglomerado: no dicen qué pasa con cada persona ni con los barrios de una misma ciudad."}};
+// "del primer semestre de 2026", "de los cuatro trimestres hasta...", "de 2022": el período detrás de "es de" (etapa 27)
+const delPer = p => /^(primer|segundo|tercer|cuarto) /.test(p) ? "del " + p : "de " + p;
 const rTxt = r => n2(r).replace(/[-−]/, "menos ");
 // la primera letra en minúscula, salvo que el nombre empiece con un nombre propio (antes se bajaba todo: "voto a milei", etapa 24)
 const minusc = t => /^(Aprender|PISA|ATN)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
@@ -5288,7 +5319,7 @@ function textoArt(a, c) {
   const lim = [`Son ${c.n} casos. Con tan pocos, una o dos ${U.pl} pueden cambiar el resultado.`,
     "Una correlación no prueba que una cosa cause la otra. Las dos pueden responder a otros factores que este cruce no mide.",
     U.prom,
-    ...(Mx.periodo !== My.periodo ? [`Los períodos no coinciden: el dato de ${a.lx} es de ${Mx.periodo} y el de ${a.ly}, de ${My.periodo}.`] : []),
+    ...(Mx.periodo !== My.periodo ? [`Los períodos no coinciden: el dato de ${a.lx} es ${delPer(Mx.periodo)} y el de ${a.ly}, ${delPer(My.periodo)}.`] : []),
     ...(Math.abs(c.rs - c.rp) > .2 ? [`La correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}. La diferencia con la de Spearman indica que unos pocos casos influyen mucho.`] : []),
     ...a.limites];
   return {respuesta, bajada, extremos, excep, peso, lim, vx, vy};
@@ -5696,7 +5727,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-alquiler-pobreza": "casa", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna"};
 const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;

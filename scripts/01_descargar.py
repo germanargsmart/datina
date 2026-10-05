@@ -475,6 +475,75 @@ def bess():
     return url
 
 
+def indec_eph_aglomerados():
+    """Pobreza e indigencia (informe semestral) y tasas de empleo y desocupación de cada trimestre desde 2016 (informe trimestral del
+    mercado de trabajo) de los 31 aglomerados de la Encuesta Permanente de Hogares del INDEC, para comparar las capitales (etapa 27). Los
+    cuadros cambian de nombre con cada edición (cuadros_informe_pobreza_MM_YY.xls en marzo y septiembre, cuadros_eph_informe_MM_YY.xls cada
+    trimestre): se baja la más nueva y se guardan solo los aglomerados. Si el archivo no existe, el INDEC responde una página con código 200:
+    se controla que sea una planilla. La pobreza trae el coeficiente de variación que publica el INDEC."""
+    import io, pandas as pd
+    hoy = datetime.date.today()
+
+    def ultima(patron, meses):
+        for a in range(hoy.year, hoy.year - 2, -1):
+            for m in meses:
+                if datetime.date(a, m, 1) > hoy:
+                    continue
+                url = "https://www.indec.gob.ar/ftp/cuadros/sociedad/" + patron.format(m=m, a=a % 100)
+                try:
+                    datos = leer(url, 120)
+                except urllib.error.HTTPError:
+                    continue
+                if datos[:4] == bytes.fromhex("d0cf11e0"):
+                    return url, datos
+        raise ValueError(f"no se encontró ninguna edición de {patron}")
+
+    # pobreza e indigencia de las personas, con su coeficiente de variación (cuadros 4.1 y 4.2)
+    url_p, datos = ultima("cuadros_informe_pobreza_{m:02d}_{a:02d}.xls", (9, 3))
+    filas = {}
+    for hoja, col in (("Cuadro 4.1", "pobreza"), ("Cuadro 4.2", "indigencia")):
+        h = pd.read_excel(io.BytesIO(datos), sheet_name=hoja, header=None)
+        sem = re.search(r"(primer|segundo) semestre de (\d{4})", str(h.iat[0, 0]), re.I)
+        if not sem or str(h.iat[4, 6]).strip() != "Incidencia" or str(h.iat[4, 7]).strip() != "CV":
+            raise ValueError(f"cambió el {hoja} del informe de pobreza del INDEC")
+        for i in range(5, len(h)):
+            nom = str(h.iat[i, 0]).strip()
+            if nom and nom != "nan" and pd.notna(pd.to_numeric(h.iat[i, 6], errors="coerce")):
+                f = filas.setdefault(nom, {"aglomerado": nom, "semestre": f"{1 if sem.group(1).lower() == 'primer' else 2}S{sem.group(2)}"})
+                f[col], f["cv_" + col] = float(h.iat[i, 6]), float(h.iat[i, 7])
+    d = pd.DataFrame(filas.values())
+    if len(d) < 31 or d.pobreza.isna().any():
+        raise ValueError("el informe de pobreza del INDEC vino sin los aglomerados")
+    d.to_csv(CRUDO / "indec_pobreza_aglomerados.csv", index=False)
+    # tasas de empleo y desocupación de cada trimestre (cuadros 1.7 y 1.8): el año está en la fila 2 y el trimestre en la 4
+    url_t, datos = ultima("cuadros_eph_informe_{m:02d}_{a:02d}.xls", (12, 9, 6, 3))
+    largo = []
+    for hoja, col in (("Cuadro 1.7", "empleo"), ("Cuadro 1.8", "desocupacion")):
+        h = pd.read_excel(io.BytesIO(datos), sheet_name=hoja, header=None)
+        if col[:5] not in str(h.iat[0, 0]).lower():
+            raise ValueError(f"cambió el {hoja} del informe del mercado de trabajo del INDEC")
+        anio, cols = None, []
+        for j in range(1, h.shape[1]):
+            a = re.search(r"(\d{4})", str(h.iat[2, j]))
+            anio = int(a.group(1)) if a else anio
+            t = re.match(r"([1-4])", str(h.iat[4, j]).strip())
+            if anio and t:
+                cols.append((j, f"{anio}T{t.group(1)}"))
+        for i in range(5, len(h)):
+            nom = str(h.iat[i, 0]).strip()
+            if not nom or nom == "nan":
+                continue
+            for j, per in cols:
+                v = pd.to_numeric(h.iat[i, j], errors="coerce")
+                if pd.notna(v):
+                    largo.append({"aglomerado": nom, "periodo": per, "indicador": col, "valor": float(v)})
+    t = pd.DataFrame(largo)
+    if t.empty or t.aglomerado.nunique() < 31 or t.periodo.max() < "2025T1":
+        raise ValueError("las tasas por aglomerado de la EPH vinieron incompletas")
+    t.to_csv(CRUDO / "indec_eph_aglomerados.csv", index=False)
+    return url_p + " y " + url_t
+
+
 def eph_antiguedad():
     """Encuesta Permanente de Hogares (INDEC), bases usuarias de los cuatro ultimos trimestres publicados.
     Se bajan a memoria y se guarda solo un resumen: porcentaje de asalariados (sin servicio domestico, que no responde
@@ -488,7 +557,7 @@ def eph_antiguedad():
     import io, zipfile, pandas as pd
     hoy = datetime.date.today()
     candidatos = [(a, t) for a in range(hoy.year, hoy.year - 3, -1) for t in (4, 3, 2, 1)]
-    bases = []
+    bases, hogares = [], []
     for a, t in candidatos:
         url = f"https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{t}_Trim_{a}_txt.zip"
         try:
@@ -500,6 +569,9 @@ def eph_antiguedad():
                         usecols=["ANO4", "TRIMESTRE", "ESTADO", "CAT_OCUP", "PP07A", "PP07H", "CH06", "NIVEL_ED", "P_DECCF", "PONDERA", "PONDIH",
                                  "PP04A", "PP04C", "PP04C99", "PP04D_COD"], dtype={"PP04D_COD": str})
         bases.append(d)
+        # la tenencia de la vivienda por aglomerado (etapa 27): la base de hogares del mismo trimestre
+        hog = next(n for n in z.namelist() if "hogar" in n.lower())
+        hogares.append(pd.read_csv(z.open(hog), sep=";", low_memory=False, decimal=",", usecols=["ANO4", "TRIMESTRE", "AGLOMERADO", "PONDERA", "II7"]))
         if len(bases) == 4:
             break
     if len(bases) < 4:
@@ -547,6 +619,15 @@ def eph_antiguedad():
                           "pct_un_anio_o_menos": round(float((w * d.corto[m]).sum() / w.sum() * 100), 1),
                           "pct_mas_de_cinco_anios": round(float((w * d.largo[m]).sum() / w.sum() * 100), 1)})
     pd.DataFrame(filas).to_csv(CRUDO / "eph_antiguedad_resumen.csv", index=False)
+    # hogares inquilinos (II7 = 3) por aglomerado, con PONDERA, juntando los cuatro trimestres: II7 = 0 es sin dato. El aglomerado 0 es el total
+    hg = pd.concat(hogares)
+    hg = hg[pd.to_numeric(hg.II7, errors="coerce").between(1, 9)].copy()
+    hg["inq"] = hg.II7.eq(3) * hg.PONDERA
+    ten = pd.concat([hg.assign(AGLOMERADO=0), hg]).groupby("AGLOMERADO").agg(hogares=("II7", "size"), inq=("inq", "sum"), peso=("PONDERA", "sum"))
+    ten["pct_inquilino"] = (ten.inq / ten.peso * 100).round(2)
+    if len(ten) < 32:
+        raise ValueError("la EPH no trae los 31 aglomerados en la base de hogares")
+    ten[["hogares", "pct_inquilino"]].reset_index().rename(columns={"AGLOMERADO": "aglomerado"}).to_csv(CRUDO / "eph_tenencia_aglomerados.csv", index=False)
     trims = sorted({(int(a), int(t)) for a, t in d[["ANO4", "TRIMESTRE"]].drop_duplicates().values})
     (CRUDO / "eph_antiguedad_meta.json").write_text(json.dumps({"trimestres": trims}), encoding="utf-8")
     return "indec.gob.ar EPH bases usuarias " + ", ".join(f"{t}T{a}" for a, t in trims)
@@ -1582,7 +1663,8 @@ def dnap_recaudacion():
 
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
-                    ("EPH antiguedad en el empleo", eph_antiguedad), ("empresas por provincia (OEDE)", oede_empresas),
+                    ("EPH antiguedad en el empleo", eph_antiguedad),
+                    ("EPH, pobreza y mercado de trabajo por aglomerado", indec_eph_aglomerados), ("empresas por provincia (OEDE)", oede_empresas),
                     ("petróleo y gas (resúmenes del Capítulo IV)", hidrocarburos), ("reservas de petróleo y gas", reservas_hidrocarburos),
                     ("empleo por rama y provincia (OEDE)", oede_empleo), ("producción de petróleo y gas por país (EIA)", eia_internacional),
                     ("producción por pozo no convencional", pozos_no_convencionales),
