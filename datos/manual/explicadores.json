@@ -3,7 +3,7 @@
   "bloques": [
    {
     "titulo": "Qué se mide",
-    "texto": "Esta sección reúne tres miradas sobre la economía de cada provincia. La primera cuenta a las personas asalariadas registradas en el sector privado, con datos mensuales que publica la Secretaría de Trabajo a partir de los registros de la seguridad social. La segunda muestra cuánto exporta cada provincia según el origen de los bienes vendidos al exterior, una estadística del INDEC llamada OPEX. La tercera describe las cuentas públicas provinciales con el esquema de ahorro, inversión y financiamiento del Ministerio de Economía: qué parte de los ingresos recauda la propia provincia, si cerró el año con superávit o déficit y cuánto pesa el gasto en personal.",
+    "texto": "Esta sección reúne dos miradas sobre la economía de cada provincia. La primera cuenta a las personas asalariadas registradas en el sector privado, con datos mensuales que publica la Secretaría de Trabajo a partir de los registros de la seguridad social. La segunda muestra cuánto exporta cada provincia según el origen de los bienes vendidos al exterior, una estadística del INDEC llamada OPEX.",
     "fuentes": [
      {
       "nombre": "API de Series de Tiempo, metadatos de la serie 154.1 (Secretaría de Trabajo, publicada por la Subsecretaría de Programación Macroeconómica)",
@@ -14,17 +14,12 @@
       "nombre": "INDEC, Origen provincial de las exportaciones. Bienes. Primer semestre de 2026",
       "url": "https://www.indec.gob.ar/uploads/informesdeprensa/opex_09_262EF52B6A56.pdf",
       "cita": "el origen provincial de las exportaciones (OPEX), que detalla el aporte de cada región y provincia"
-     },
-     {
-      "nombre": "Ministerio de Economía, Ejecución presupuestaria provincial",
-      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial",
-      "cita": "proyectando el esquema de ahorro-inversión-financiamiento para las 24 jurisdicciones"
      }
     ]
    },
    {
     "titulo": "Desde cuándo",
-    "texto": "El registro previsional que hoy se usa para medir el empleo formal tiene su base en la ley 24.241, sancionada el 23 de septiembre de 1993, que creó el Sistema Integrado de Jubilaciones y Pensiones. En 2008 la ley 26.425 unificó ese sistema en un único régimen público llamado Sistema Integrado Previsional Argentino, el SIPA. La serie de asalariados privados por provincia que usa el sitio comienza en 2009. La estadística de exportaciones por provincia de origen tiene datos desde 1993. El Ministerio de Economía publica las cuentas provinciales con el esquema actual desde 2005 y conserva registros anteriores, desde 1983, de la administración central y los organismos descentralizados.",
+    "texto": "El registro previsional que hoy se usa para medir el empleo formal tiene su base en la ley 24.241, sancionada el 23 de septiembre de 1993, que creó el Sistema Integrado de Jubilaciones y Pensiones. En 2008 la ley 26.425 unificó ese sistema en un único régimen público llamado Sistema Integrado Previsional Argentino, el SIPA. La serie de asalariados privados por provincia que usa el sitio comienza en 2009. La estadística de exportaciones por provincia de origen tiene datos desde 1993.",
     "fuentes": [
      {
       "nombre": "Ley 24.241",
@@ -45,11 +40,6 @@
       "nombre": "INDEC, planilla OPEX 1993 a 2025",
       "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
       "cita": "según grandes rubros, en millones de USD. Años 1993-1996"
-     },
-     {
-      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF",
-      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
-      "cita": "Serie anual 24 jurisdicciones y por jurisdicción"
      }
     ]
    },
@@ -111,55 +101,9 @@
     ]
    },
    {
-    "titulo": "Coparticipación y recursos propios",
-    "texto": "Las provincias se financian con impuestos que cobran ellas mismas y con recursos que recauda la Nación y les transfiere. El canal principal es la coparticipación federal de impuestos, regida por la ley 23.548, que estableció desde el 1 de enero de 1988 un régimen transitorio. La ley fijó su vigencia hasta fines de 1989, con prórroga automática mientras no hubiera un régimen que la reemplazara. El Banco de la Nación transfiere en forma automática a cada provincia lo que le corresponde. La reforma constitucional de 1994 previó una nueva ley convenio, a dictarse antes de que terminara 1996. En la ficha, los recursos propios son los que la provincia recauda por su cuenta.",
+    "titulo": "Las exportaciones de cada provincia",
+    "texto": "En exportaciones, una parte del total no se asigna a ninguna provincia y figura como Indeterminado o como Extranjero y plataforma continental. El INDEC revisa la asignación periódicamente.",
     "fuentes": [
-     {
-      "nombre": "Ley 23.548, art. 1",
-      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
-      "cita": "Establécese a partir del 1 de enero de 1988, el Régimen Transitorio de Distribución de Recursos Fiscales"
-     },
-     {
-      "nombre": "Ley 23.548, art. 15",
-      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
-      "cita": "Su vigencia se prorrogará automáticamente ante la inexistencia de un régimen sustitutivo"
-     },
-     {
-      "nombre": "Ley 23.548, art. 6",
-      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
-      "cita": "El Banco de la Nación Argentina, transferirá automáticamente a cada provincia"
-     },
-     {
-      "nombre": "Constitución Nacional, art. 75 inc. 2 y disposición transitoria sexta",
-      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
-      "cita": "serán establecidos antes de la finalización del año 1996"
-     },
-     {
-      "nombre": "Ministerio de Economía, Recursos de Origen Nacional",
-      "url": "https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/ron",
-      "cita": "Los Recursos de Origen Nacional, incluyen Distribución Secundaria de la Coparticipación Federal de Impuestos (Ley Nº 23.548 y Modificatorias)"
-     }
-    ]
-   },
-   {
-    "titulo": "Resultado financiero y advertencias",
-    "texto": "Las cuentas provinciales abarcan la administración pública no financiera: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social. Registran los recursos percibidos y los gastos devengados. El resultado financiero es, en términos generales, la diferencia entre los ingresos corrientes y de capital y los gastos del período: si es positivo hay superávit y si es negativo, déficit. La ley 25.917 de Responsabilidad Fiscal, de 2004, usa esa lógica para medir el equilibrio financiero. En exportaciones, una parte del total no se asigna a ninguna provincia y figura como Indeterminado o como Extranjero y plataforma continental. El INDEC revisa la asignación periódicamente.",
-    "fuentes": [
-     {
-      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF, consideraciones metodológicas",
-      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
-      "cita": "incluye la Administración Central, Organismos Descentralizados, Fondos Fiduciarios e Instituciones de la Seguridad Social"
-     },
-     {
-      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF, consideraciones metodológicas",
-      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
-      "cita": "el esquema presenta los recursos percibidos y los gastos devengados, en ambos casos con sus clasificaciones económicas"
-     },
-     {
-      "nombre": "Ley 25.917, art. 19",
-      "url": "https://www.argentina.gob.ar/normativa/nacional/97698/texto",
-      "cita": "la diferencia entre los recursos percibidos [...] de naturaleza corriente y de capital [...] y los gastos devengados"
-     },
      {
       "nombre": "INDEC, planilla OPEX 1993 a 2025 (categoría de la tabla)",
       "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls",
@@ -253,24 +197,6 @@
      "nombre": "INDEC, Mercado de trabajo (EPH), segundo trimestre de 2026",
      "url": "https://www.indec.gob.ar/uploads/informesdeprensa/mercado_trabajo_eph_2trim26433FCBC5A8.pdf",
      "cita": "población ocupada asalariada que no tiene descuento jubilatorio como atributo del puesto de trabajo"
-    }
-   },
-   {
-    "termino": "Coparticipación federal",
-    "definicion": "Régimen por el que la recaudación de impuestos nacionales se reparte entre la Nación y las provincias, con transferencias automáticas a través del Banco de la Nación. Lo regula la ley 23.548.",
-    "fuente": {
-     "nombre": "Ley 23.548, art. 2",
-     "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
-     "cita": "La masa de fondos a distribuir estará integrada por el producido de la recaudación de todos los impuestos nacionales"
-    }
-   },
-   {
-    "termino": "Administración Pública No Financiera",
-    "definicion": "Universo que cubren las cuentas provinciales del Ministerio de Economía: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social.",
-    "fuente": {
-     "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF",
-     "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
-     "cita": "incluye la Administración Central, Organismos Descentralizados, Fondos Fiduciarios e Instituciones de la Seguridad Social"
     }
    },
    {
@@ -1297,6 +1223,68 @@
       "cita": "Los valores de las series trimestral y anual no necesariamente coinciden con la serie mensual"
      }
     ]
+   },
+   {
+    "titulo": "Coparticipación y recursos propios",
+    "texto": "Las provincias se financian con impuestos que cobran ellas mismas y con recursos que recauda la Nación y les transfiere. El canal principal es la coparticipación federal de impuestos, regida por la ley 23.548, que estableció desde el 1 de enero de 1988 un régimen transitorio. La ley fijó su vigencia hasta fines de 1989, con prórroga automática mientras no hubiera un régimen que la reemplazara. El Banco de la Nación transfiere en forma automática a cada provincia lo que le corresponde. La reforma constitucional de 1994 previó una nueva ley convenio, a dictarse antes de que terminara 1996. En la ficha, los recursos propios son los que la provincia recauda por su cuenta.",
+    "fuentes": [
+     {
+      "nombre": "Ley 23.548, art. 1",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "Establécese a partir del 1 de enero de 1988, el Régimen Transitorio de Distribución de Recursos Fiscales"
+     },
+     {
+      "nombre": "Ley 23.548, art. 15",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "Su vigencia se prorrogará automáticamente ante la inexistencia de un régimen sustitutivo"
+     },
+     {
+      "nombre": "Ley 23.548, art. 6",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/20000-24999/21108/texact.htm",
+      "cita": "El Banco de la Nación Argentina, transferirá automáticamente a cada provincia"
+     },
+     {
+      "nombre": "Constitución Nacional, art. 75 inc. 2 y disposición transitoria sexta",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "serán establecidos antes de la finalización del año 1996"
+     },
+     {
+      "nombre": "Ministerio de Economía, Recursos de Origen Nacional",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/ron",
+      "cita": "Los Recursos de Origen Nacional, incluyen Distribución Secundaria de la Coparticipación Federal de Impuestos (Ley Nº 23.548 y Modificatorias)"
+     }
+    ]
+   },
+   {
+    "titulo": "Las finanzas de las provincias",
+    "texto": "El Ministerio de Economía describe las cuentas públicas de cada provincia con el esquema de ahorro, inversión y financiamiento: qué parte de los ingresos recauda la propia provincia, si cerró el año con superávit o déficit y cuánto pesa el gasto en personal. Las cuentas provinciales abarcan la administración pública no financiera: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social. Registran los recursos percibidos y los gastos devengados. El resultado financiero es, en términos generales, la diferencia entre los ingresos corrientes y de capital y los gastos del período: si es positivo hay superávit y si es negativo, déficit. La ley 25.917 de Responsabilidad Fiscal, de 2004, usa esa lógica para medir el equilibrio financiero. El Ministerio de Economía publica las cuentas provinciales con el esquema actual desde 2005 y conserva registros anteriores, desde 1983, de la administración central y los organismos descentralizados.",
+    "fuentes": [
+     {
+      "nombre": "Ministerio de Economía, Ejecución presupuestaria provincial",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial",
+      "cita": "proyectando el esquema de ahorro-inversión-financiamiento para las 24 jurisdicciones"
+     },
+     {
+      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF, consideraciones metodológicas",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+      "cita": "incluye la Administración Central, Organismos Descentralizados, Fondos Fiduciarios e Instituciones de la Seguridad Social"
+     },
+     {
+      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF, consideraciones metodológicas",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+      "cita": "el esquema presenta los recursos percibidos y los gastos devengados, en ambos casos con sus clasificaciones económicas"
+     },
+     {
+      "nombre": "Ley 25.917, art. 19",
+      "url": "https://www.argentina.gob.ar/normativa/nacional/97698/texto",
+      "cita": "la diferencia entre los recursos percibidos [...] de naturaleza corriente y de capital [...] y los gastos devengados"
+     },
+     {
+      "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF",
+      "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+      "cita": "Serie anual 24 jurisdicciones y por jurisdicción"
+     }
+    ]
    }
   ],
   "glosario": [
@@ -1346,6 +1334,15 @@
     "fuente": {
      "nombre": "INDEC, dotación de personal de la administración pública nacional, nota metodológica",
      "url": "https://www.indec.gob.ar/ftp/cuadros/economia/nota_metodologica_dotacion_personal_apn.pdf"
+    }
+   },
+   {
+    "termino": "Administración Pública No Financiera",
+    "definicion": "Universo que cubren las cuentas provinciales del Ministerio de Economía: administración central, organismos descentralizados, fondos fiduciarios e instituciones de la seguridad social.",
+    "fuente": {
+     "nombre": "Ministerio de Economía, Ejecuciones presupuestarias APNF",
+     "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ejecuciones",
+     "cita": "incluye la Administración Central, Organismos Descentralizados, Fondos Fiduciarios e Instituciones de la Seguridad Social"
     }
    }
   ]

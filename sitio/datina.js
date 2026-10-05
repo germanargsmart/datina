@@ -1019,7 +1019,7 @@ const TX = {
   "impuestos-provinciales": LEAD["impuestos-provinciales"](), "impuestos-provinciales-nota": `Recursos tributarios de origen provincial: ingresos ` +
     `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
     `rentas de cada provincia. Por habitante con la población del INDEC. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
-    `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en Trabajo y finanzas.`,
+    `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en la ficha siguiente.`,
   refugio: LEAD.refugio("anio"), "refugio-nota": `Solicitudes de reconocimiento de la condición de persona refugiada presentadas cada año ante la ` +
     `CONARE, que decide quién es reconocida como refugiada, y personas reconocidas, según sus estadísticas de ${MGR.anio}. La CONARE las publica solo ` +
     `en PDF: el sitio copia sus cuadros. Las cifras de ACNUR son las personas refugiadas y solicitantes de asilo que vivían en el país a fin de cada ` +
@@ -1079,7 +1079,7 @@ const TX = {
   "salario-real": LEAD["salario-real"](), "salario-real-nota": `Índice de salarios del INDEC dividido por el índice de precios al consumidor del país, con ` +
     `${ESR.base} = 100, el primer mes del índice de precios del país. El índice de salarios tiene ponderaciones fijas: mide cuánto cambian los salarios, no cuánto ` +
     `cobra en promedio cada persona. El del sector privado no registrado no se compara con los precios del mismo mes, porque sale de la Encuesta Permanente de ` +
-    `Hogares y llega con cinco meses de rezago. Los salarios promedio de cada provincia están en Trabajo y finanzas.`,
+    `Hogares y llega con cinco meses de rezago. Los salarios promedio de cada provincia están en Trabajo.`,
   emae: LEAD.emae("mes"), "emae-nota": `Estimador Mensual de Actividad Económica del INDEC, base 2004 = 100: un indicador provisorio de cómo ` +
     `cambia el producto interno bruto a precios constantes, que se arma con información parcial. El INDEC revisa la serie completa con cada publicación. La serie sin ` +
     `estacionalidad quita el efecto de la época del año, para comparar un mes con el anterior. Por sector, los últimos doce meses frente a los doce anteriores, ` +
@@ -4379,7 +4379,7 @@ const EXTRA = {
 };
 const EN_CIFRAS = {
   construccion: ["f-isac", "f-empleo-construccion", "f-costo", "f-vivienda", "x-construccion-ytd", "f-trabajadores", "x-viviendas-construccion", "f-insumos"],
-  trabajo: ["f-empleo", "f-salarios", "f-rotacion", "f-exportaciones", "f-fiscal"],
+  trabajo: ["f-empleo", "f-salarios", "f-rotacion", "f-exportaciones"],
   economia: ["f-inflacion", "x-inflacion-mes", "f-canastas", "f-salario-real", "f-emae", "f-supermercados"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
@@ -4388,7 +4388,7 @@ const EN_CIFRAS = {
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
   poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
-  gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales"],
+  gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales", "f-fiscal"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
   movilidad: ["f-sube", "f-combustibles", "x-sube-var", "f-patentes", "f-sube-modos", "f-patentes-prov"],

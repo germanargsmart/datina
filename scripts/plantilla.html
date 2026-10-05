@@ -48,7 +48,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo y finanzas</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li></ul></div>
+      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li></ul></div>
     </div>
     <div class="menu-col">
       <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
@@ -220,10 +220,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="tema" id="trabajo">
-    <h2>Trabajo y finanzas</h2>
+    <h2>Trabajo</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Dónde se crea empleo formal?">¿Dónde se crea empleo formal y de qué viven las provincias?</p>
-      <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen lo que cada provincia le vende al mundo y cuánto depende de los fondos que le manda la Nación.</p>
+      <p class="pregunta" data-corta="¿Dónde se crea empleo formal?">¿Dónde se crea empleo formal y cuánto se gana en cada provincia?</p>
+      <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen los salarios, cuánto dura un empleo y lo que cada provincia le vende al mundo. Las finanzas de cada provincia están en <a href="gobierno.html#f-fiscal">Gobierno</a>.</p>
     </div>
     <!--EXPLICADOR:trabajo-->
 
@@ -279,18 +279,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-fiscal">
-      <h3 data-t="fiscal-titulo"></h3>
-      <p class="lead" data-t="fiscal"></p>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="fiscal" style="--n:3">
-        <button type="button" data-m="autonomia" aria-pressed="true">Recursos propios</button>
-        <button type="button" data-m="resultado" aria-pressed="false">Resultado</button>
-        <button type="button" data-m="personal" aria-pressed="false">Personal</button>
-      </div>
-      <div class="grafico" data-g="fiscal" data-forma="barras"></div>
-      <p class="nota" data-t="fiscal-nota"></p>
-      <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
 
   </section>
 
@@ -298,7 +286,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Economía y precios</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>
-      <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica. Todos los datos son del INDEC. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo y finanzas</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
+      <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica. Todos los datos son del INDEC. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
     </div>
     <!--EXPLICADOR:economia-->
 
@@ -950,7 +938,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Gobierno</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda y cuánto gasta el Estado, y cuánto debe?</p>
-      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto se recauda de cada impuesto nacional, cuánto debe el Estado nacional, cuántos cargos tienen las administraciones provinciales y cuánto recauda cada provincia de impuestos propios. Las finanzas de cada provincia están en <a href="trabajo.html#f-fiscal">Trabajo y finanzas</a>, las transferencias de la Nación a las provincias, en <a href="politica.html#f-transferencias">Política</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
+      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto se recauda de cada impuesto nacional, cuánto debe el Estado nacional, cuántos cargos tienen las administraciones provinciales, cuánto recauda cada provincia de impuestos propios y cómo son las finanzas de cada provincia: qué parte de sus ingresos recauda por su cuenta, si le sobra o le falta y cuánto gasta en personal. Las transferencias de la Nación a las provincias están en <a href="politica.html#f-transferencias">Política</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
     </div>
     <!--EXPLICADOR:gobierno-->
 
@@ -1004,6 +992,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="impuestos-provinciales" data-forma="barras"></div>
       <p class="nota" data-t="impuestos-provinciales-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población</span><a href="datos/impuestos_provinciales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-fiscal">
+      <h3 data-t="fiscal-titulo"></h3>
+      <p class="lead" data-t="fiscal"></p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="fiscal" style="--n:3">
+        <button type="button" data-m="autonomia" aria-pressed="true">Recursos propios</button>
+        <button type="button" data-m="resultado" aria-pressed="false">Resultado</button>
+        <button type="button" data-m="personal" aria-pressed="false">Personal</button>
+      </div>
+      <div class="grafico" data-g="fiscal" data-forma="barras"></div>
+      <p class="nota" data-t="fiscal-nota"></p>
+      <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
