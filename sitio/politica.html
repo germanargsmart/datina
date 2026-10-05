@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=89c98810ac">
+<link rel="stylesheet" href="datina.css?v=cd466b9239">
 </head>
 <body data-pagina="politica">
 <header class="barra clara">
@@ -115,7 +115,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="elecciones" data-forma="barras" style="--filas:25;--extra:-4px"></div>
       <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
-      <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior. Se actualiza con cada elección.</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha ancha" id="f-legisladores">
@@ -127,7 +127,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico lg-lista" data-g="legisladores" data-forma="lista" style="--alto:657px;--alto-c:1449px"></div>
       <p class="nota">Cada período legislativo va del 10 de diciembre de un año impar al 9 de diciembre dos años después, cuando se renueva la mitad de la Cámara de Diputados. Entre paréntesis figura quién dejó la banca durante el período, o poco antes de empezar, y quién la ocupó después, por renuncia, licencia, fallecimiento o fin de mandato. En el Senado, hasta 2001 los mandatos eran de nueve años y se renovaban por tercios en distintas fechas. En 1995 la reforma constitucional sumó un tercer senador por provincia, que figura con la fecha en que asumió. Cada reemplazo se enlaza con la banca que dejó alguien de la misma provincia en la fecha más cercana. Antes de 2007 algunos reemplazos de diputados no tienen fecha de asunción en la fuente. Bloque parlamentario para los diputados desde 2007, y partido o alianza por la que fueron electos para los diputados anteriores y para los senadores. El historial completo está en las tablas de <a href="datos/diputados_nacionales.csv" download>diputados</a> y <a href="datos/senadores_nacionales.csv" download>senadores</a>.</p>
-      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. Se actualiza con cada renovación del Congreso.</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-representacion">
@@ -135,7 +135,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="representacion"></p>
       <div class="grafico" data-g="representacion" data-forma="barras"></div>
       <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
-      <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-congreso">
@@ -147,7 +147,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="cg-ley"></div>
       <div class="grafico" data-g="congreso" data-forma="columnas"></div>
       <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
-      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. Se actualiza con cada renovación del Congreso.</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-votaciones">
@@ -160,7 +160,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="votaciones" data-forma="puntos" style="--alto:364px;--alto-c:439px"></div>
       <p class="nota" data-t="votaciones-nota"></p>
-      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?. Se actualiza cuando se suma una ley a la selección.</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha ancha" id="f-votaciones-espacios">
@@ -176,7 +176,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico vt-matriz" data-g="vtmatriz" data-forma="lista" style="--alto:858px;--alto-c:1148px"></div>
       <p class="nota" data-t="vtm-nota"></p>
-      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?. Se actualiza cuando se suma una ley a la selección.</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-voto-provincia">
@@ -185,7 +185,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
       <div class="grafico" data-g="vprov" data-forma="puntos"></div>
       <p class="nota" data-t="vprov-nota"></p>
-      <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?. Se actualiza con cada elección.</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-atn">
@@ -194,7 +194,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
       <div class="grafico" data-g="atn" data-forma="columnas"></div>
       <p class="nota" data-t="atn-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial. Se actualiza cada año.</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-transferencias">
@@ -204,7 +204,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="transferencias" data-forma="barras"></div>
       <p class="nota" data-t="transferencias-nota"></p>
-      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año, miles de millones (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia, millones (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial. Se actualiza cada año.</span><a href="datos/transferencias_serie.csv" download>Total por año, miles de millones (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia, millones (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-apoyo">
@@ -216,7 +216,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="apoyo" data-forma="puntos"></div>
       <p class="nota" data-t="apoyo-nota"></p>
-      <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda. Se actualiza cada año.</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presidentes">
@@ -226,7 +226,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="grafico" data-g="presidentes" data-forma="bloque" style="--alto:74px;--alto-c:74px"></div>
       <ol class="pr-lista" id="pr-lista"></ol>
       <p class="nota">AMBA: la Ciudad de Buenos Aires y los 24 partidos del Gran Buenos Aires según el INDEC. La Plata, donde nació Cristina Fernández de Kirchner, no forma parte de esa definición. Incluye a los presidentes interinos de diciembre de 2001. La proporción de población del AMBA sale de las personas identificadas por el RENAPER.</p>
-      <div class="pie"><span>Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos</span><a href="datos/presidentes.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos. Se actualiza con cada cambio de presidente.</span><a href="datos/presidentes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-ministros">
@@ -238,7 +238,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="mi-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="ministros" data-forma="barras" style="--filas:10"></div>
       <p class="nota">Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.</p>
-      <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada. Se actualiza con cada cambio de gabinete.</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todas las secciones <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="migraciones.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.189) translate(-4.7 -1.8)"><ellipse class="s" cx="9.4" cy="33" rx="27.9" ry="6.4"/><path class="s" d="M-16.2 30A16.2 9.3 0 0 0 16.2 30L16.2 27A16.2 9.3 0 0 1 -16.2 27Z"/><ellipse class="l" cx="0" cy="27" rx="16.2" ry="9.3"/><path class="s" d="M-2.2 27A2.2 1.3 0 0 0 2.2 27L2.2 15A2.2 1.3 0 0 1 -2.2 15Z"/><ellipse class="s" cx="0" cy="15" rx="2.2" ry="1.3"/><circle class="l" cx="0" cy="-7.8" r="27.9"/><path class="s" d="M0 -35.7A27.9 27.9 0 0 1 0 20.1Z"/><path class="k" d="M0 17.9A23.7 13.7 0 0 1 -23.7 4.2"/><path class="wl" d="M23.7 4.2A23.7 13.7 0 0 1 0 17.9"/><path class="k" d="M0 8.3A27.9 16.1 0 0 1 -27.9 -7.8"/><path class="wl" d="M27.9 -7.8A27.9 16.1 0 0 1 0 8.3"/><path class="k" d="M0 -6.1A23.7 13.7 0 0 1 -23.7 -19.8"/><path class="wl" d="M23.7 -19.8A23.7 13.7 0 0 1 0 -6.1"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-migraciones">Migraciones</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="gobierno.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.330) translate(-4.6 -1)"><ellipse class="s" cx="4.2" cy="34.8" rx="30.9" ry="6.8"/><path class="l" d="M-14.5 30L0 38.4L0 33.6L-14.5 25.2Z"/><path class="s" d="M14.5 30L0 38.4L0 33.6L14.5 25.2Z"/><path class="l" d="M0 16.8L14.5 25.2L0 33.6L-14.5 25.2Z"/><path class="s" d="M-2.1 25.2A2.1 1.2 0 0 0 2.1 25.2L2.1 -38.4A2.1 1.2 0 0 1 -2.1 -38.4Z"/><ellipse class="s" cx="0" cy="-38.4" rx="2.1" ry="1.2"/><path class="s" d="M1.6 -36.3L13 -32.1L24.4 -22.5L35.9 -18.3L35.9 6.9L24.4 2.7L13 -6.9L1.6 -11.1Z"/><path class="w" d="M1.6 -27.9L13 -23.7L24.4 -14.1L35.9 -9.9L35.9 -1.5L24.4 -5.7L13 -15.3L1.6 -19.5Z"/><circle class="s" cx="18.7" cy="-14.7" r="2.5"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-gobierno">Gobierno</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="a-milei-empleo.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(0.934) translate(-7.5 -2.4)"><ellipse class="s" cx="22.9" cy="28.8" rx="33.8" ry="9.3"/><path class="l" d="M-41.6 24L0 48L0 10.8L-41.6 -13.2Z"/><path class="s" d="M41.6 24L0 48L0 10.8L41.6 -13.2Z"/><path class="l" d="M0 -37.2L41.6 -13.2L0 10.8L-41.6 -13.2Z"/><path class="s" d="M-9.1 -21.2L13.8 -8L9.1 -5.3L-13.8 -18.5Z"/><path class="l" d="M-8.3 -18L8.3 -8.4L8.3 -33.6L-8.3 -43.2Z"/><path class="k" d="M-4.7 -30.3L-1 -23.4L5.2 -30.6"/><path class="s" d="M-33.3 14.4L-8.3 28.8L-8.3 21.6L-33.3 7.2Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-a-milei-empleo">¿Votaron más a Milei las provincias con más empleo privado?</b><small>Artículo</small></span></a><a class="tarjeta explora" href="provincia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.123) translate(-6.5 -22.3)"><path class="s" d="M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z"/><path class="l" d="M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z"/><path class="s" d="M36.4 21L54.6 26.1L13 50.1L-5.2 45Z"/><path class="wl" d="M-30.1 21L-9.4 15.2L0.5 15.3"/><path class="k" d="M0.5 15.3L12.5 19.7L24.9 27.6"/><path class="s" d="M27 33.5L16.6 10.6L37.4 10.6Z"/><circle class="s" cx="27" cy="5.9" r="11.4"/><circle class="w" cx="27" cy="5.9" r="4.8"/></g></svg></span><span class="explora-txt"><b>Tu provincia</b><small>Perfil provincial</small></span></a></div></nav></section>

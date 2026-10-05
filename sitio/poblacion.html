@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=89c98810ac">
+<link rel="stylesheet" href="datina.css?v=cd466b9239">
 </head>
 <body data-pagina="poblacion">
 <header class="barra clara">
@@ -109,7 +109,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="nacimientos"></p>
       <div class="grafico" data-g="nacimientos" data-forma="lineas" style="--alto:398px;--alto-c:378px"></div>
       <p class="nota">Índice con base 2012 = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con 2012. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
-      <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales. Se actualiza cada año.</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-piramide">
@@ -117,7 +117,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="piramide"></p>
       <div class="grafico" data-g="piramide" data-forma="piramide" style="--alto:444px;--alto-c:387px"></div>
       <p class="nota" data-t="piramide-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-envejecimiento">
@@ -125,7 +125,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="envejecimiento"></p>
       <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
       <p class="nota" data-t="envejecimiento-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-jubilaciones">
@@ -133,7 +133,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="jubilaciones"></p>
       <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
       <p class="nota" data-t="jubilaciones-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES. Se actualiza cada tres meses.</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes">
@@ -142,7 +142,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="adolescentes" data-forma="pesas"></div>
       <p class="nota">Porcentaje de los nacidos vivos de cada provincia, según el lugar donde vive la madre, cuya madre tenía menos de 20 años. El círculo claro marca 2012 y el oscuro 2024.</p>
-      <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales. Se actualiza cada año.</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes-nse">
@@ -151,7 +151,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>Indicador del Censo 2022</span><select id="adonse-sel"></select></label>
       <div class="grafico" data-g="adonse" data-forma="puntos"></div>
       <p class="nota" data-t="adonse-nota"></p>
-      <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, e INDEC, Censo 2022</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, e INDEC, Censo 2022. Se actualiza cada año.</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todas las secciones <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="educacion.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.043) translate(-1.8 -12.4)"><path class="l" d="M-22.8 13.2L-22 9.8L-18.1 5.2L-11.4 1.8L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L-8.2 41.4L-15.1 38.7L-19.7 34.7L-21.1 31.6L-21.3 30Z"/><path class="s" d="M0 0L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L0 42Z"/><path class="s" d="M47.8 13.2L0 40.8L0 37.8L47.8 10.2Z"/><path class="s" d="M0 40.8L-47.8 13.2L-47.8 10.2L0 37.8Z"/><path class="s" d="M0 -17.4L47.8 10.2L0 37.8L-47.8 10.2Z"/><path class="s" d="M-4 10.2A4 2.3 0 0 0 4 10.2L4 8.4A4 2.3 0 0 1 -4 8.4Z"/><ellipse class="l" cx="0" cy="8.4" rx="4" ry="2.3"/><path class="wl" d="M0 8.4L47.8 10.2"/><path class="k" d="M47.8 10.2L47.8 25.2"/><path class="s" d="M44.2 31.8L47.8 33.9L47.8 26.1L44.2 24Z"/><path class="s" d="M51.4 31.8L47.8 33.9L47.8 26.1L51.4 24Z"/><path class="s" d="M47.8 21.9L51.4 24L47.8 26.1L44.2 24Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-educacion">Educación</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="migraciones.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.189) translate(-4.7 -1.8)"><ellipse class="s" cx="9.4" cy="33" rx="27.9" ry="6.4"/><path class="s" d="M-16.2 30A16.2 9.3 0 0 0 16.2 30L16.2 27A16.2 9.3 0 0 1 -16.2 27Z"/><ellipse class="l" cx="0" cy="27" rx="16.2" ry="9.3"/><path class="s" d="M-2.2 27A2.2 1.3 0 0 0 2.2 27L2.2 15A2.2 1.3 0 0 1 -2.2 15Z"/><ellipse class="s" cx="0" cy="15" rx="2.2" ry="1.3"/><circle class="l" cx="0" cy="-7.8" r="27.9"/><path class="s" d="M0 -35.7A27.9 27.9 0 0 1 0 20.1Z"/><path class="k" d="M0 17.9A23.7 13.7 0 0 1 -23.7 4.2"/><path class="wl" d="M23.7 4.2A23.7 13.7 0 0 1 0 17.9"/><path class="k" d="M0 8.3A27.9 16.1 0 0 1 -27.9 -7.8"/><path class="wl" d="M27.9 -7.8A27.9 16.1 0 0 1 0 8.3"/><path class="k" d="M0 -6.1A23.7 13.7 0 0 1 -23.7 -19.8"/><path class="wl" d="M23.7 -19.8A23.7 13.7 0 0 1 0 -6.1"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-migraciones">Migraciones</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="a-cobertura-adolescentes.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.350) translate(-9.2 -6.5)"><ellipse class="s" cx="12.5" cy="30" rx="22" ry="5.5"/><path class="s" d="M-14.3 30A14.3 8.3 0 0 0 14.3 30L14.3 7.8A14.3 8.3 0 0 1 -14.3 7.8Z"/><path class="l" d="M-14.3 7.8A14.3 8.3 0 0 0 14.3 7.8L14.3 -3.6A14.3 8.3 0 0 1 -14.3 -3.6Z"/><path class="wl" d="M4.9 30.6A14.3 8.3 0 0 1 -7.2 30"/><path class="wl" d="M4.9 24.6A14.3 8.3 0 0 1 -7.2 24"/><path class="wl" d="M4.9 18.6A14.3 8.3 0 0 1 -7.2 18"/><path class="k" d="M4.9 12.6A14.3 8.3 0 0 1 -7.2 12"/><path class="s" d="M-16.2 -3.6A16.2 9.3 0 0 0 16.2 -3.6L16.2 -10.2A16.2 9.3 0 0 1 -16.2 -10.2Z"/><ellipse class="l" cx="0" cy="-10.2" rx="16.2" ry="9.3"/><path class="l" d="M-9.6 -10.2L-8.1 -15.1L0 -23.7L3.4 -22.4L9 -12.9L9.2 -8.8L4.8 -5.4L-4.8 -5.4L-9.2 -8.8L-9.5 -9.5Z"/><path class="s" d="M0 -23.7L0 -23.7L3.4 -22.4L9 -12.9L9.2 -8.8L4.8 -5.4L0 -5.4Z"/><path class="l" d="M-3.7 -21.6A3.7 3.7 0 0 1 3.7 -21.6A3.7 2.1 0 0 1 -3.7 -21.6Z"/><path class="s" d="M0 -25.3A3.7 3.7 0 0 1 3.7 -21.6A3.7 2.1 0 0 1 0 -19.5Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-a-cobertura-adolescentes">¿Hay más madres adolescentes donde menos gente tiene obra social o prepaga?</b><small>Artículo</small></span></a><a class="tarjeta explora" href="provincia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.123) translate(-6.5 -22.3)"><path class="s" d="M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z"/><path class="l" d="M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z"/><path class="s" d="M36.4 21L54.6 26.1L13 50.1L-5.2 45Z"/><path class="wl" d="M-30.1 21L-9.4 15.2L0.5 15.3"/><path class="k" d="M0.5 15.3L12.5 19.7L24.9 27.6"/><path class="s" d="M27 33.5L16.6 10.6L37.4 10.6Z"/><circle class="s" cx="27" cy="5.9" r="11.4"/><circle class="w" cx="27" cy="5.9" r="4.8"/></g></svg></span><span class="explora-txt"><b>Tu provincia</b><small>Perfil provincial</small></span></a></div></nav></section>

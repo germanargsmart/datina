@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=89c98810ac">
+<link rel="stylesheet" href="datina.css?v=cd466b9239">
 </head>
 <body data-pagina="petroleo">
 <header class="barra clara">
@@ -128,7 +128,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="petroleo" data-forma="lineas"></div>
       <p class="nota" data-t="petroleo-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso. Se actualiza cada mes.</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-gas">
@@ -140,7 +140,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="gas" data-forma="lineas"></div>
       <p class="nota" data-t="gas-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso. Se actualiza cada mes.</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-hidro-provincias">
@@ -152,7 +152,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="hidro-provincias" data-forma="barras" style="--filas:11"></div>
       <p class="nota" data-t="hidro-provincias-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva. Se actualiza cada mes.</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-areas-hidro">
@@ -166,7 +166,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="areas-hidro-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="areas-hidro" data-forma="barras" style="--filas:15"></div>
       <p class="nota" data-t="areas-hidro-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/areas_produccion.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva. Se actualiza cada año.</span><a href="datos/areas_produccion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mapa-pozos">
@@ -179,7 +179,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="mapa-pozos-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="mapa-pozos" data-forma="mapa" style="--alto:490px;--alto-c:300px"></div>
       <p class="nota" data-t="mapa-pozos-nota"></p>
-      <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y concesiones de explotación</span><a href="datos/pozos_no_convencionales.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y concesiones de explotación. Se actualiza cada mes.</span><a href="datos/pozos_no_convencionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pozos">
@@ -192,7 +192,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="pozos-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="pozos" data-forma="barras" style="--filas:3"></div>
       <p class="nota" data-t="pozos-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV por pozo</span><a href="datos/pozos_tipo.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV por pozo. Se actualiza cada mes.</span><a href="datos/pozos_tipo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-fracturas">
@@ -206,7 +206,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="fracturas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="fracturas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
       <p class="nota" data-t="fracturas-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV)</span><a href="datos/fracturas_anual.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV). Se actualiza cada año.</span><a href="datos/fracturas_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-productividad">
@@ -219,7 +219,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="productividad" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
       <p class="nota" data-t="productividad-nota"></p>
-      <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV)</span><a href="datos/productividad_vm.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV). Se actualiza cada año.</span><a href="datos/productividad_vm.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pozos-terminados">
@@ -232,7 +232,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="pozos-terminados-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="pozos-terminados" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
       <p class="nota" data-t="pozos-terminados-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, perforación de pozos de petróleo y gas</span><a href="datos/pozos_terminados.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, perforación de pozos de petróleo y gas. Se actualiza cada mes.</span><a href="datos/pozos_terminados.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empresas-hidro">
@@ -244,7 +244,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="empresas-hidro" data-forma="barras" style="--filas:13"></div>
       <p class="nota" data-t="empresas-hidro-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_empresas.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva. Se actualiza cada mes.</span><a href="datos/hidrocarburos_empresas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empleo-hidro">
@@ -256,7 +256,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="empleo-hidro" data-forma="barras" style="--filas:12"></div>
       <p class="nota" data-t="empleo-hidro-nota"></p>
-      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA. Se actualiza cada tres meses.</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-regalias">
@@ -268,7 +268,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="regalias" data-forma="barras"></div>
       <p class="nota" data-t="regalias-nota"></p>
-      <div class="pie"><span>Fuentes: Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo</span><a href="datos/regalias_provincias.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo. Se actualiza cada año.</span><a href="datos/regalias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-reservas">
@@ -282,7 +282,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pol-ley" id="reservas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="reservas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
       <p class="nota" data-t="reservas-nota"></p>
-      <div class="pie"><span>Fuente: Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006)</span><a href="datos/reservas_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006). Se actualiza cada año.</span><a href="datos/reservas_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-balanza-energetica">
@@ -290,7 +290,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="balanza-energetica"></p>
       <div class="grafico" data-g="balanza-energetica" data-forma="lineas"></div>
       <p class="nota" data-t="balanza-energetica-nota"></p>
-      <div class="pie"><span>Fuente: INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo</span><a href="datos/balanza_energetica.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/balanza_energetica.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mundo-petroleo">
@@ -302,7 +302,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="mundo-petroleo" data-forma="barras" style="--filas:29"></div>
       <p class="nota" data-t="mundo-petroleo-nota"></p>
-      <div class="pie"><span>Fuente: Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén</span><a href="datos/mundo_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
+      <div class="pie"><span>Fuente: Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén. Se actualiza cada año.</span><a href="datos/mundo_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todas las secciones <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="energia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.350) translate(-17.7 16.2)"><ellipse class="s" cx="17.7" cy="17.4" rx="26.5" ry="5.9"/><path class="l" d="M7.3 4.2L35.3 -18.6L26.5 -13.5L-1.6 9.3Z"/><path class="l" d="M35.3 -18.6L20.3 -27.3L11.4 -22.2L26.5 -13.5Z"/><path class="l" d="M20.3 -27.3L30.1 -46.2L21.3 -41.1L11.4 -22.2Z"/><path class="l" d="M30.1 -46.2L13.5 -55.8L4.7 -50.7L21.3 -41.1Z"/><path class="s" d="M4.7 -50.7L-7.8 -23.7L6.2 -15.6L-1.6 9.3L26.5 -13.5L11.4 -22.2L21.3 -41.1Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-energia">Energía</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="turismo.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.137) translate(-18.2 8.3)"><ellipse class="s" cx="21.8" cy="21" rx="32.3" ry="7.6"/><path class="s" d="M-14.1 11.4A3.7 2.1 0 0 0 -6.7 11.4L-6.7 8.1A3.7 2.1 0 0 1 -14.1 8.1Z"/><path class="s" d="M7.8 24A3.7 2.1 0 0 0 15.1 24L15.1 20.7A3.7 2.1 0 0 1 7.8 20.7Z"/><path class="l" d="M-17.7 6.9L14.5 25.5L14.5 -16.5L-17.7 -35.1Z"/><path class="s" d="M32.2 15.3L14.5 25.5L14.5 -16.5L32.2 -26.7Z"/><path class="l" d="M0 -45.3L32.2 -26.7L14.5 -16.5L-17.7 -35.1Z"/><path class="s" d="M-10.9 10.8L-7.8 12.6L-7.8 -29.4L-10.9 -31.2Z"/><path class="s" d="M4.7 19.8L7.8 21.6L7.8 -20.4L4.7 -22.2Z"/><path class="s" d="M6.2 -38.7L6.2 -33.3L3.1 -31.5L3.1 -36.9Z"/><path class="s" d="M3.1 -44.1L14.5 -37.5L11.4 -35.7L0 -42.3Z"/><path class="s" d="M14.5 -37.5L14.5 -28.5L11.4 -26.7L11.4 -35.7Z"/><path class="s" d="M0 -33.3L0 -42.3L11.4 -35.7L11.4 -26.7L8.3 -28.5L8.3 -33.9L3.1 -36.9L3.1 -31.5Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-turismo">Turismo</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="provincia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.123) translate(-6.5 -22.3)"><path class="s" d="M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z"/><path class="l" d="M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z"/><path class="s" d="M36.4 21L54.6 26.1L13 50.1L-5.2 45Z"/><path class="wl" d="M-30.1 21L-9.4 15.2L0.5 15.3"/><path class="k" d="M0.5 15.3L12.5 19.7L24.9 27.6"/><path class="s" d="M27 33.5L16.6 10.6L37.4 10.6Z"/><circle class="s" cx="27" cy="5.9" r="11.4"/><circle class="w" cx="27" cy="5.9" r="4.8"/></g></svg></span><span class="explora-txt"><b>Tu provincia</b><small>Perfil provincial</small></span></a><a class="tarjeta explora" href="cruces.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.083) translate(-0 -27.1)"><path class="s" d="M-49.9 28.8L0 57.6L0 54.3L-49.9 25.5Z"/><path class="s" d="M49.9 28.8L0 57.6L0 54.3L49.9 25.5Z"/><path class="l" d="M0 -3.3L49.9 25.5L0 54.3L-49.9 25.5Z"/><path class="s" d="M-23.1 25L-17.1 28.5L-17.1 19.5L-23.1 16Z"/><path class="s" d="M-11.2 25L-17.1 28.5L-17.1 19.5L-11.2 16Z"/><path class="l" d="M-17.1 12.6L-11.2 16L-17.1 19.5L-23.1 16Z"/><path class="s" d="M23.1 25.3L29.1 28.8L29.1 8.4L23.1 4.9Z"/><path class="s" d="M35.1 25.3L29.1 28.8L29.1 8.4L35.1 4.9Z"/><path class="l" d="M29.1 1.5L35.1 4.9L29.1 8.4L23.1 4.9Z"/><path class="s" d="M-40.8 25.6L-34.8 29.1L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-28.8 25.6L-34.8 29.1L-34.8 24.3L-28.8 20.8Z"/><path class="l" d="M-34.8 17.4L-28.8 20.8L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-1.3 25.6L4.7 29.1L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M10.7 25.6L4.7 29.1L4.7 14.7L10.7 11.2Z"/><path class="l" d="M4.7 7.8L10.7 11.2L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M-21 33.4L-15.1 36.9L-15.1 30.3L-21 26.8Z"/><path class="s" d="M-9.1 33.4L-15.1 36.9L-15.1 30.3L-9.1 26.8Z"/><path class="l" d="M-15.1 23.4L-9.1 26.8L-15.1 30.3L-21 26.8Z"/><path class="s" d="M18.4 33.4L24.4 36.9L24.4 19.5L18.4 16Z"/><path class="s" d="M30.4 33.4L24.4 36.9L24.4 19.5L30.4 16Z"/><path class="l" d="M24.4 12.6L30.4 16L24.4 19.5L18.4 16Z"/><path class="s" d="M1.8 34.6L7.8 38.1L7.8 26.1L1.8 22.6Z"/><path class="s" d="M13.8 34.6L7.8 38.1L7.8 26.1L13.8 22.6Z"/><path class="l" d="M7.8 19.2L13.8 22.6L7.8 26.1L1.8 22.6Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-cruces">Cruces</b><small>Herramienta</small></span></a></div></nav></section>

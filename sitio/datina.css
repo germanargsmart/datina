@@ -846,6 +846,8 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .lectura-serie i{display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:50%}
 /* pie: fuente y acciones */
 .pie{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-5);margin-top:var(--e-5);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}
+/* la fuente, con la frecuencia de actualización (etapa 27), se acomoda en dos renglones antes de mandar los botones a otra fila */
+@media (min-width:761px){.pie>span{flex:1 1 16em;min-width:0}}  /* en el celular el pie es una columna */
 .acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-left:auto}
 .accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:opacity var(--dur-1) var(--ease-out)}
 .accion .lbl.cambia{opacity:0}

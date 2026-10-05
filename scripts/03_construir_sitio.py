@@ -87,6 +87,90 @@ def dato_resumen(m):
 
 
 plantilla = re.sub(r"\{\{([\w.]+)\}\}", dato_resumen, plantilla)
+
+# Cada cuánto se actualiza el dato de cada ficha (etapa 27, pedido del autor, como USAFacts): una frase después de la fuente, en el pie, que
+# está siempre a la vista. Es la frecuencia con la que el sitio recibe datos nuevos de la fuente. Toda ficha nueva necesita la suya, o el sitio
+# no se arma. Las herramientas (fichas "explorador": Cruces, Tu índice, Departamentos y Diagnóstico) no llevan.
+FRASE_FRECUENCIA = {
+    "mes": "Se actualiza cada mes.", "trimestre": "Se actualiza cada tres meses.", "semestre": "Se actualiza cada seis meses.",
+    "anio": "Se actualiza cada año.", "censo": "Se actualiza con cada censo.", "eleccion": "Se actualiza con cada elección.",
+    "congreso": "Se actualiza con cada renovación del Congreso.", "aprender": "Se actualiza con cada evaluación Aprender.",
+    "pisa": "Se actualiza con cada evaluación PISA.", "leyes": "Se actualiza cuando se suma una ley a la selección.",
+    "presidente": "Se actualiza con cada cambio de presidente.", "gabinete": "Se actualiza con cada cambio de gabinete.",
+    "onu": "Se actualiza cada cuatro o cinco años.", "inventario": "Se actualiza con cada inventario.",
+    "pausa": "La encuesta está en pausa: el INDEC la está reformulando.",
+}
+FRECUENCIA = {
+    # Trabajo
+    "f-empleo": "mes", "f-salarios": "trimestre", "f-rotacion": "trimestre", "f-exportaciones": "semestre",
+    # Economía y precios
+    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes",
+    # Empresas y oportunidades
+    "f-empresas": "anio", "f-dinamica-empresas": "anio",
+    # Pobreza y hogares
+    "f-pobreza": "semestre", "f-censo": "censo", "f-internet": "trimestre",
+    # Salud
+    "f-esperanza": "censo", "f-mortalidad": "anio", "f-causas-infantiles": "anio", "f-muertes": "anio", "f-suicidio": "anio",
+    "f-suicidio-prov": "anio", "f-edad": "anio",
+    # Seguridad
+    "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio",
+    # Educación
+    "f-escolarizacion": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio",
+    # Población
+    "f-nacimientos": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-jubilaciones": "trimestre", "f-adolescentes": "anio",
+    "f-adolescentes-nse": "anio",
+    # Migraciones
+    "f-nacidos-otro-pais": "censo", "f-migracion-interna": "censo", "f-migracion-historia": "censo", "f-extranjeros": "anio",
+    "f-radicaciones": "anio", "f-refugio": "anio", "f-argentinos-exterior": "onu",
+    # Política
+    "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
+    "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio",
+    "f-presidentes": "presidente", "f-ministros": "gabinete",
+    # Gobierno
+    "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio",
+    "f-fiscal": "anio",
+    # Movilidad
+    "f-sube": "mes", "f-sube-modos": "mes", "f-patentes": "mes", "f-patentes-prov": "mes", "f-combustibles": "mes",
+    # Construcción y vivienda
+    "f-isac": "mes", "f-permisos": "mes", "f-insumos": "mes", "f-obra-publica": "anio", "f-empleo-construccion": "trimestre",
+    "f-trabajadores": "censo", "f-costo": "mes", "f-hipotecas": "mes", "f-vivienda": "censo",
+    # Energía
+    "f-hogares": "mes", "f-electricidad-provincias": "mes", "f-electricidad-sectores": "mes", "f-actividad": "mes", "f-meses": "mes",
+    "f-centrales": "anio", "f-gas-hogares": "censo", "f-gas-consumo": "mes", "f-subsidios": "mes",
+    # Petróleo y gas
+    "f-petroleo": "mes", "f-gas": "mes", "f-hidro-provincias": "mes", "f-areas-hidro": "anio", "f-mapa-pozos": "mes", "f-pozos": "mes",
+    "f-fracturas": "anio", "f-productividad": "anio", "f-pozos-terminados": "mes", "f-empresas-hidro": "mes", "f-empleo-hidro": "trimestre",
+    "f-regalias": "anio", "f-reservas": "anio", "f-balanza-energetica": "mes", "f-mundo-petroleo": "anio",
+    # Turismo
+    "f-receptivo": "mes", "f-hoteles": "pausa", "f-eti": "pausa",
+    # Naturaleza
+    "f-protegida": "anio", "f-parques": "anio", "f-visitas": "mes", "f-visitas-parque": "anio", "f-especies": "anio", "f-pesca": "anio",
+    "f-pesca-rio": "anio",
+    # Curiosidades
+    "f-nombres": "anio", "f-carne": "mes", "f-vino": "mes", "f-yerba": "mes", "f-glaciares": "inventario", "f-clima": "anio",
+}
+_fichas = re.findall(r'<article class="(ficha[^"]*)" id="(f-[^"]+)"', plantilla)
+_herramientas = {i for c, i in _fichas if "explorador" in c.split()}
+_faltan = [i for c, i in _fichas if i not in _herramientas and i not in FRECUENCIA]
+_sobran = [i for i in FRECUENCIA if i not in {j for _, j in _fichas} or i in _herramientas or FRECUENCIA[i] not in FRASE_FRECUENCIA]
+if _faltan or _sobran:
+    sys.exit(f"Frecuencia de actualización: faltan {_faltan} y sobran o no tienen frase {_sobran} (FRECUENCIA en 03_construir_sitio.py).")
+
+
+def con_frecuencia(m):
+    """La frase de la frecuencia después de la fuente del pie de cada ficha."""
+    clase, ident, cuerpo = m.group(1), m.group(2), m.group(3)
+    if ident in _herramientas:
+        return m.group(0)
+    pie = re.search(r'(<div class="pie"><span>)([^<]*)(</span>)', cuerpo)
+    if not pie:
+        sys.exit(f"La ficha {ident} no tiene la fuente en el pie: no se puede sumar la frecuencia.")
+    fuente = pie.group(2).rstrip()
+    nuevo = f"{pie.group(1)}{fuente}{'' if fuente.endswith('.') else '.'} {FRASE_FRECUENCIA[FRECUENCIA[ident]]}{pie.group(3)}"
+    return f'<article class="{clase}" id="{ident}">{cuerpo[:pie.start()]}{nuevo}{cuerpo[pie.end():]}</article>'
+
+
+plantilla = re.sub(r'<article class="(ficha[^"]*)" id="(f-[^"]+)">(.*?)</article>', con_frecuencia, plantilla, flags=re.S)
 ruta_exp = RAIZ / "datos" / "manual" / "explicadores.json"
 EXP = json.loads(ruta_exp.read_text(encoding="utf-8")) if ruta_exp.exists() else {}
 
