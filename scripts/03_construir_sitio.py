@@ -529,6 +529,21 @@ if sin_forma:
 bloque_js = lambda ini, fin: js[js.index(ini):js.index(fin, js.index(ini))]
 CON_CLAVE = set(re.findall(r'^\s+"(f-[\w-]+)":\s*\[', bloque_js("const CLAVE = {", "\n};"), re.M))
 CON_PERFIL = re.findall(r'\{id:"(f-[\w-]+)"', bloque_js("const INDP = [", "\n];"))
+# el perfil por tema (etapa 27): los grupos y el tema de cada indicador salen de datina.js, así la silueta tiene la misma forma
+PERFIL_GRUPOS = re.findall(r'\["(\w+)", "([^"]+)"\]', bloque_js("const PERFIL_GRUPOS = [", "];"))
+PERFIL_G = (re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_js("const INDP = [", "\n];")) +
+            re.findall(r'\{id:"[\w-]+", g:"(\w+)"', bloque_js("const CAP_P = [", "\n];")))
+assert len(PERFIL_G) >= len(CON_PERFIL) and set(PERFIL_G) <= {g for g, _ in PERFIL_GRUPOS}, "el perfil tiene indicadores sin tema"
+
+
+def perfil_vacio():
+    """El índice y los grupos del perfil con tarjetas vacías, igual a lo que arma datina.js."""
+    indice = "".join(f'<li><a class="enlace" href="#pg-{g}">{i + 1}. {t}</a></li>' for i, (g, t) in enumerate(PERFIL_GRUPOS))
+    grupos = "".join(f'<section class="perfil-grupo" id="pg-{g}" aria-labelledby="pg-{g}-t"><div class="perfil-cab"><h3 class="bloque-grupo" '
+                     f'id="pg-{g}-t">{i + 1}. <span>{t}</span></h3><a class="enlace" href="#perfil-indice">Volver al índice</a></div>'
+                     f'<div class="perfil-tarjetas">{tarjetas_vacias(PERFIL_G.count(g), "dp esqueleto")}</div></section>'
+                     for i, (g, t) in enumerate(PERFIL_GRUPOS))
+    return f'<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>{indice}</ol></nav>{grupos}'
 # secciones con "En cifras": cinco tarjetas en todas (etapa 15)
 CON_CIFRAS = set(re.findall(r"^\s+(\w+):\s*\[", bloque_js("const EN_CIFRAS = {", "\n};"), re.M))
 tarjetas_vacias = lambda n, cls: "".join(f'<span class="tarjeta {cls}"></span>' for _ in range(n))
@@ -550,7 +565,7 @@ def siluetas(h, id_):
             blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + vacias, blo, 1, re.S)
             h = h[:b["ini"]] + blo + h[b["fin"]:]
     return h.replace('<div class="prov-grid" id="prov-grid"></div>',
-                     f'<div class="prov-grid" id="prov-grid">{tarjetas_vacias(len(CON_PERFIL), "dp esqueleto")}</div>', 1)
+                     f'<div class="prov-grid" id="prov-grid">{perfil_vacio()}</div>', 1)
 
 
 def pagina(id_, titulo, descripcion, quedan, recorte=None):

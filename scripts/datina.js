@@ -4835,79 +4835,99 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
 /* ---------- las 24: perfil de la provincia elegida ---------- */
 // Solo indicadores con dato por provincia. Las tasas de suicidio quedan fuera: no se presentan como ranking.
 const INDP = [
-  {id:"f-mortalidad", lab:"Mortalidad infantil", veces:true, det:`muertes de menores de un año cada 1.000 nacidos vivos, promedio ${mo.tri_act}`,
+  {id:"f-mortalidad", g:"salud", lab:"Mortalidad infantil", veces:true, det:`muertes de menores de un año cada 1.000 nacidos vivos, promedio ${mo.tri_act}`,
     d:T.mortalidad_infantil_provincias, k:"tmi_actual", pais:mo.pais_act, f:n1, ocde:OC.mortalidad_infantil.ocde},
-  {id:"f-adolescentes", lab:"Maternidad adolescente", veces:true, det:`% de los nacimientos de ${nac.anio_ult} con madres menores de 20 años`,
+  {id:"f-adolescentes", g:"poblacion", lab:"Maternidad adolescente", veces:true, det:`% de los nacimientos de ${nac.anio_ult} con madres menores de 20 años`,
     d:T.madres_adolescentes_provincias, k:ADO_ULT, pais:nac.pct_ult, f:pct},
-  {id:"f-escolarizacion", lab:"Escolarización secundaria", det:`tasa neta de escolarización, ${es.fin}`,
+  {id:"f-escolarizacion", g:"educacion", lab:"Escolarización secundaria", det:`tasa neta de escolarización, ${es.fin}`,
     d:T.escolarizacion_secundaria_provincias, k:"tasa_final", pais:es.pais_fin, f:pct},
-  {id:"f-aprender", lab:"Aprender, matemática", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
+  {id:"f-aprender", g:"educacion", lab:"Aprender, matemática", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
     d:T.aprender_provincias, k:"mat_logra", pais:ap.mat, f:pct, dist:"aprender_provincias.mat_logra"},
-  {id:"f-aprender", lab:"Aprender, lengua", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
+  {id:"f-aprender", g:"educacion", lab:"Aprender, lengua", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
     d:T.aprender_provincias, k:"len_logra", pais:ap.len, f:pct, dist:"aprender_provincias.len_logra"},
-  {id:"f-empleo", lab:"Empleo privado registrado", veces:true, det:`asalariados cada 100 habitantes, ${em.mes}`,
+  {id:"f-empleo", g:"trabajo", lab:"Empleo privado registrado", veces:true, det:`asalariados cada 100 habitantes, ${em.mes}`,
     d:T.empleo_provincias, k:"cada_100", pais:em.cada_100_pais, f:n1, dist:"empleo_provincias.cada_100"},
-  {id:"f-empleo", lab:"Variación del empleo privado", det:`% en los doce meses a ${em.mes}`,
+  {id:"f-empleo", g:"trabajo", lab:"Variación del empleo privado", det:`% en los doce meses a ${em.mes}`,
     d:T.empleo_provincias, k:"var_12m", pais:em.var_nac, f:sg},
-  {id:"f-protegida", lab:"Territorio protegido", veces:true, det:`% de la superficie dentro de áreas protegidas, ${nt.anio}`,
+  {id:"f-protegida", g:"turismo", lab:"Territorio protegido", veces:true, det:`% de la superficie dentro de áreas protegidas, ${nt.anio}`,
     d:T.areas_protegidas_provincias, k:"pct_territorio", pais:nt.pct, f:pct, ocde:OC.protegida.ocde},
-  {id:"f-esperanza", lab:"Esperanza de vida", det:`años al nacer, ambos sexos, ${nv.ev_anio}`,
+  {id:"f-esperanza", g:"salud", lab:"Esperanza de vida", det:`años al nacer, ambos sexos, ${nv.ev_anio}`,
     d:T.esperanza_vida_provincias, k:"total", pais:nv.ev_pais, f:n1, ocde:OC.esperanza_vida.ocde},
-  {id:"f-censo", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, 2022",
+  {id:"f-censo", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, 2022",
     d:T.censo2022_provincias, k:"sin_cobertura", pais:nv.censo.sin_cobertura, f:pct},
-  {id:"f-censo", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, 2022",
+  {id:"f-censo", g:"vivienda", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, 2022",
     d:T.censo2022_provincias, k:"cloaca", pais:nv.censo.cloaca, f:pct},
-  {id:"f-censo", lab:"Internet en el hogar", det:"% de los hogares, 2022",
+  {id:"f-censo", g:"vivienda", lab:"Internet en el hogar", det:"% de los hogares, 2022",
     d:T.censo2022_provincias, k:"internet", pais:nv.censo.internet, f:pct},
-  {id:"f-exportaciones", lab:"Exportaciones", veces:true, det:`dólares por habitante, ${nv.ex_anio}`,
+  {id:"f-exportaciones", g:"economia", lab:"Exportaciones", veces:true, det:`dólares por habitante, ${nv.ex_anio}`,
     d:T.exportaciones_provincias, k:"usd_por_habitante", pais:nv.ex_pc_pais, f:n0},
-  {id:"f-fiscal", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}`,
+  {id:"f-fiscal", g:"gobierno", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}`,
     d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.mediana, f:pct},
-  {id:"f-eti", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
+  {id:"f-eti", g:"turismo", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
-  {id:"f-gas-hogares", lab:"Gas de red para cocinar", veces:"debajo", det:"% de los hogares, Censo 2022",
+  {id:"f-gas-hogares", g:"energia", lab:"Gas de red para cocinar", veces:"debajo", det:"% de los hogares, Censo 2022",
     d:T.vivienda_provincias, k:"pct_gas_red", pais:VV.pct_gas_red, f:pct},
-  {id:"f-gas-consumo", lab:"Consumo de gas por usuario", veces:true, det:`m³ por usuario residencial de gas natural, ${e.gas_anio}`,
+  {id:"f-gas-consumo", g:"energia", lab:"Consumo de gas por usuario", veces:true, det:`m³ por usuario residencial de gas natural, ${e.gas_anio}`,
     d:T.gas_usuario_provincias, k:"m3_usuario", pais:e.gas_pais, f:n0},
-  {id:"f-vivienda", lab:"Hogares que alquilan", veces:true, det:"% de los hogares, Censo 2022",
+  {id:"f-vivienda", g:"vivienda", lab:"Hogares que alquilan", veces:true, det:"% de los hogares, Censo 2022",
     d:T.vivienda_provincias, k:"pct_alquila", pais:VV.pct_alquila, f:pct},
-  {id:"f-obra-publica", lab:"Obra pública de la Nación", veces:true, det:`pesos por habitante, ${CN.op_ult}`,
+  {id:"f-obra-publica", g:"gobierno", lab:"Obra pública de la Nación", veces:true, det:`pesos por habitante, ${CN.op_ult}`,
     d:T.obra_publica_provincias, k:"total_hab", pais:CN.op_hab_pais, f:n0},
   // CAMMESA no separa la Ciudad de la provincia de Buenos Aires ni informa Tierra del Fuego: esas tres muestran el valor del país
-  {id:"f-electricidad-provincias", lab:"Consumo eléctrico de los hogares", det:`kWh por habitante, ${e.el_ult}`, veces:true,
+  {id:"f-electricidad-provincias", g:"energia", lab:"Consumo eléctrico de los hogares", det:`kWh por habitante, ${e.el_ult}`, veces:true,
     d:T.electricidad_provincias.filter(r => r.codigo_indec !== "02-06"), k:"kwh_hab", pais:e.el_pais, f:n0},
-  {id:"f-salarios", lab:"Salario promedio de los asalariados registrados privados", veces:true, det:`pesos por mes, bruto, ${SA.mes}`,
+  {id:"f-salarios", g:"trabajo", lab:"Salario promedio de los asalariados registrados privados", veces:true, det:`pesos por mes, bruto, ${SA.mes}`,
     d:T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k:"salario", pais:SA.pais, f:n0},
-  {id:"f-salario-docente", lab:"Salario de un maestro de grado", veces:true, det:`pesos por mes, bruto, con 10 años de antigüedad, ${DC.trim}`,
+  {id:"f-salario-docente", g:"educacion", lab:"Salario de un maestro de grado", veces:true, det:`pesos por mes, bruto, con 10 años de antigüedad, ${DC.trim}`,
     d:T.salario_docente.filter(r => r.codigo_indec !== "00"), k:"bruto", pais:DC.pais, f:n0},
-  {id:"f-inversion-educativa", lab:"Inversión en educación por alumno", veces:true, det:`pesos por alumno de gestión estatal, ${IE.anio}`,
+  {id:"f-inversion-educativa", g:"educacion", lab:"Inversión en educación por alumno", veces:true, det:`pesos por alumno de gestión estatal, ${IE.anio}`,
     d:T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k:"gasto_por_alumno", pais:IE.pais, f:n0},
-  {id:"f-homicidios", lab:"Homicidios dolosos", veces:true, det:`víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}`,
+  {id:"f-homicidios", g:"seguridad", lab:"Homicidios dolosos", veces:true, det:`víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}`,
     d:T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_3", pais:SG.hom3_pais, f:n1},
-  {id:"f-robos", lab:"Robos registrados", veces:true, det:`cada 100.000 habitantes, ${SG.anio}`,
+  {id:"f-robos", g:"seguridad", lab:"Robos registrados", veces:true, det:`cada 100.000 habitantes, ${SG.anio}`,
     d:T.robos_provincias.filter(r => r.codigo_indec !== "00"), k:"robos", pais:SG.robos, f:n0, dist:"robos_provincias.robos"},
-  {id:"f-empleo-publico", lab:"Cargos en la administración provincial", veces:true, det:`cada 1.000 habitantes, ${GBC.anio}`,
+  {id:"f-empleo-publico", g:"gobierno", lab:"Cargos en la administración provincial", veces:true, det:`cada 1.000 habitantes, ${GBC.anio}`,
     d:T.empleo_publico_provincias, k:"cada_1000", pais:GBC.cada_1000, f:n1},
-  {id:"f-impuestos-provinciales", lab:"Impuestos provinciales", veces:true, det:`pesos por habitante, ${GBP.anio}`,
+  {id:"f-impuestos-provinciales", g:"gobierno", lab:"Impuestos provinciales", veces:true, det:`pesos por habitante, ${GBP.anio}`,
     d:T.impuestos_provinciales.filter(r => r.por_habitante != null), k:"por_habitante", pais:GBP.pais, f:n0},
-  {id:"f-nacidos-otro-pais", lab:"Nacidos en otro país", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
+  {id:"f-nacidos-otro-pais", g:"poblacion", lab:"Nacidos en otro país", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
     d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k:"pct_otro_pais", pais:MGC.pct, f:n1},
-  {id:"f-migracion-interna", lab:"Nacidos en otra provincia", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
+  {id:"f-migracion-interna", g:"poblacion", lab:"Nacidos en otra provincia", veces:true, det:"% de la población en viviendas particulares, Censo 2022",
     d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k:"pct_otra_provincia", pais:MGC.otra_pct, f:n1},
-  {id:"f-supermercados", lab:"Ventas en supermercados", det:`variación en pesos de igual valor, doce meses hasta ${ESU.mes}`,
+  {id:"f-supermercados", g:"economia", lab:"Ventas en supermercados", det:`variación en pesos de igual valor, doce meses hasta ${ESU.mes}`,
     d:T.supermercados_provincias, k:"var_12m", pais:ESU.prov.pais, f:conSigno},
-  {id:"f-combustibles", lab:"Precio de la nafta súper", det:`pesos por litro en el surtidor, mediana de las estaciones, ${CB.mes}`,
+  {id:"f-combustibles", g:"economia", lab:"Precio de la nafta súper", det:`pesos por litro en el surtidor, mediana de las estaciones, ${CB.mes}`,
     d:T.combustibles_provincias, k:"nafta", pais:CB.nafta, f:n0},
-  {id:"f-empleo-construccion", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
+  {id:"f-empleo-construccion", g:"trabajo", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
     d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
 ];
+// el perfil por tema, con un índice arriba (etapa 27, pedido del autor, como los perfiles de USAFacts). Cada indicador lleva su tema en g. El
+// último grupo es la capital de la provincia, con los datos del censo de su municipio y su puesto entre las 24 capitales. El constructor
+// deja la misma estructura con tarjetas vacías mientras carga (lee PERFIL_GRUPOS y los g de acá)
+const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["economia", "Economía"], ["salud", "Salud"], ["educacion", "Educación"], ["seguridad", "Seguridad"],
+  ["poblacion", "Población y migraciones"], ["gobierno", "Gobierno"], ["vivienda", "Vivienda y servicios"], ["energia", "Energía"],
+  ["turismo", "Turismo y naturaleza"], ["capital", "La capital"]];
+const CAP_P = [
+  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, lab:"Viviendas por habitante", det:"viviendas particulares cada 1.000 habitantes, Censo 2022",
+    d:T.capitales, k:"viviendas_1000", pais:R.capitales_pais.viviendas_1000, f:n0},
+  {id:"a-viviendas-alquiler", g:"capital", cap:true, lab:"Hogares que alquilan", det:"% de los hogares, Censo 2022",
+    d:T.capitales, k:"alquila", pais:VV.pct_alquila, f:pct},
+  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, lab:"Hacinamiento crítico", det:"% de los hogares con más de tres personas por cuarto, Censo 2022",
+    d:T.capitales, k:"hacinamiento", pais:VV.pct_hacinamiento, f:pct},
+];
+const PERFIL = [...INDP, ...CAP_P];
 const grilla = document.getElementById("prov-grid") || document.createElement("div");
-grilla.innerHTML = INDP.map((c, i) => `<a class="tarjeta dp" href="#${c.id}" data-i="${i}"><span class="dp-lab">${c.lab}</span>
-  <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span><span class="dp-aclara"></span></a>`).join("");
+grilla.innerHTML = `<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>` +
+  PERFIL_GRUPOS.map(([g, tit], i) => `<li><a class="enlace" href="#pg-${g}">${i + 1}. ${tit}</a></li>`).join("") + `</ol></nav>` +
+  PERFIL_GRUPOS.map(([g, tit], i) => `<section class="perfil-grupo" id="pg-${g}" aria-labelledby="pg-${g}-t"><div class="perfil-cab">` +
+    `<h3 class="bloque-grupo" id="pg-${g}-t">${i + 1}. <span>${tit}</span></h3><a class="enlace" href="#perfil-indice">Volver al índice</a></div>` +
+    `<div class="perfil-tarjetas">` + PERFIL.map((c, j) => c.g !== g ? "" : `<a class="tarjeta dp" href="#${c.id}" data-i="${j}"><span class="dp-lab">${c.lab}</span>
+  <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span><span class="dp-aclara"></span></a>`).join("") +
+    `</div></section>`).join("");
 // Tira con las 24 provincias: puntos claros, raya oscura para el país y punto grande para la elegida
 function tiras() {
   grilla.querySelectorAll(".dp").forEach(el => {
-    const c = INDP[+el.dataset.i], nodo = el.querySelector(".dp-tira"), svg = d3.select(nodo);
+    const c = PERFIL[+el.dataset.i], nodo = el.querySelector(".dp-tira"), svg = d3.select(nodo);
     const w = Math.max(160, nodo.clientWidth || 200), h = 26;
     svg.attr("viewBox", `0 0 ${w} ${h}`).selectAll("*").remove();
     c.x = d3.scaleLinear().domain(d3.extent([...c.d.map(d => d[c.k]), ...(c.pais == null ? [] : [c.pais])])).range([7, w - 7]);
@@ -4933,12 +4953,15 @@ function pintarPanel(animar) {
   cambiarTexto($("prov-titulo-txt"), nombre ? `${nombre} en números` : "Elegí una de las 24", animar);
   const pb = $("prov-band"), nueva = nombre ? bandera(prov, "grande") : "";
   if (pb.innerHTML !== nueva) { pb.innerHTML = nueva; if (animar && !REDUCIR && nueva) pb.animate([{opacity: 0}, {opacity: 1}], {duration: DUR_C, easing: "ease-out"}); }
+  // el título del grupo de la capital lleva su nombre
+  const capF = T.capitales.find(r => r.codigo_indec === prov), capT = document.querySelector("#pg-capital-t span");
+  if (capT) capT.textContent = !capF ? "La capital" : prov === "02" ? "La Ciudad, entre las capitales" : `Su capital, ${capF.territorio}`;
   grilla.querySelectorAll(".dp").forEach(el => {
-    const c = INDP[+el.dataset.i], fila = c.d.find(d => d.codigo_indec === prov);
+    const c = PERFIL[+el.dataset.i], fila = c.d.find(d => d.codigo_indec === prov);
     const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
     cambiarTexto(el.querySelector(".dp-num"), fila ? c.f(fila[c.k]) : c.pais == null ? "Elegí una" : c.f(c.pais), animar);
     const vz = fila && c.veces && c.pais != null ? vecesPais(fila[c.k], c.pais, c.veces === "debajo") : "";
-    el.querySelector(".dp-pos").textContent = fila ? `Posición ${orden} de ${c.d.length}, de mayor a menor.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`}${vz ? ` Es ${vz}.` : ""}${c.ocde == null ? "" : ` OCDE: ${c.f(c.ocde)}.`}` : c.pais == null ? "Sin total nacional comparable" : "Total del país";
+    el.querySelector(".dp-pos").textContent = fila ? `${c.cap ? `Puesto ${orden} entre las ${c.d.length} capitales` : `Posición ${orden} de ${c.d.length}`}, de mayor a menor.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`}${vz ? ` Es ${vz}.` : ""}${c.ocde == null ? "" : ` OCDE: ${c.f(c.ocde)}.`}` : c.pais == null ? "Sin total nacional comparable" : "Total del país";
     el.querySelector(".dp-aclara").textContent = fila ? notaDist(c, prov) : "";
     const punto = d3.select(el).select("circle.elegida");
     if (!fila) { punto.attr("opacity", 0); return; }

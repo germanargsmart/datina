@@ -614,8 +614,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .elige-btn:hover{border-color:var(--borde-claro);background:#FAFCFE}
   .elige-lista li:hover{background:var(--celeste-suave)}
 }
-/* perfil: un indicador por tarjeta, con la tira de las 24 */
-.prov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--e-4);margin-top:var(--e-5)}
+/* perfil: un indicador por tarjeta, con la tira de las 24, agrupados por tema con un índice arriba (etapa 27) */
+.prov-grid{margin-top:var(--e-5)}
+.perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-5);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
+.perfil-grupo{scroll-margin-top:96px}
+.perfil-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-5);margin:var(--e-8) 0 var(--e-4)}
+.perfil-cab .bloque-grupo{margin:0}
+.perfil-cab .enlace{font-size:var(--t-2)}
+.perfil-tarjetas{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--e-4)}
 .dp{gap:2px;padding:var(--e-4) var(--e-5)}
 .dp-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .dp-num{font-size:var(--t-8);line-height:1.1;font-weight:500;letter-spacing:-.03em;color:var(--azul);font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 45,"opsz" 144;font-family:var(--f-c45)}
@@ -637,9 +643,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .prov-extra .suave{color:var(--muted);font-size:var(--t-2)}
 @media (max-width:760px){
   /* en el celular los indicadores de la provincia se deslizan de costado */
-  .prov-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;
-    margin:var(--e-4) calc(-1 * var(--margen)) 0;padding:2px var(--margen) var(--e-3);scroll-padding:0 var(--margen);scrollbar-width:none}
-  .prov-grid::-webkit-scrollbar{display:none}
+  .perfil-tarjetas{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 calc(-1 * var(--margen));padding:2px var(--margen) var(--e-3);scroll-padding:0 var(--margen);scrollbar-width:none}
+  .perfil-tarjetas::-webkit-scrollbar{display:none}
+  .perfil-cab{margin-top:var(--e-6)}
   .dp{scroll-snap-align:start}
   .prov-extra{grid-template-columns:1fr}
 }
