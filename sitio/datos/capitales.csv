@@ -1,5 +1,5 @@
 codigo_indec,territorio,provincia,poblacion,viviendas,viviendas_1000,personas_hogar,alquila,hacinamiento,sin_personas,uso_temporal,en_departamento
-02,Ciudad de Buenos Aires,CABA,3121707,1614354,517.138,2.2,36.806,1.0,13.82,0.66,74.703
+02,CABA,CABA,3121707,1614354,517.138,2.2,36.806,1.0,13.82,0.66,74.703
 06,La Plata,Buenos Aires,768547,331998,431.981,2.534,26.212,1.602,10.988,0.613,31.023
 10,San Fernando del Valle de Catamarca,Catamarca,186947,63346,338.845,3.124,14.766,2.404,7.836,0.466,10.809
 14,Córdoba,Córdoba,1505250,612979,407.227,2.707,34.31,2.077,10.962,0.542,33.316

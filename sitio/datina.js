@@ -202,7 +202,21 @@ const inicialMin = t => t.charAt(0).toLowerCase() + t.slice(1);
 // como cambioPct, para un sujeto en plural: "subieron 4,0%", "bajaron 1,3%" o "no cambiaron"
 const cambioPl = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambiaron" : `${v < 0 ? "bajaron" : "subieron"} ${pct(Math.abs(v))}`;
 // Migraciones (etapa 25): el Censo 2022, la serie de los censos, las residencias de la DNM y los argentinos en el exterior (Naciones Unidas)
-const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.historia;
+const MG = R.migraciones, MGC = MG.censo, MGD = MG.dnm, MGO = MG.onu, MGH = MG.historia, MGP = MG.departamentos;
+// los departamentos más altos: "Comuna 1 (24,6%), Comuna 3 (20,3%) y Comuna 8 (20,2%), las tres de CABA" si son de la misma provincia, y si no,
+// "Lago Argentino (Santa Cruz, 56,4%), ..."
+const depsTop = top => top.every(d => d[1] === top[0][1])
+  ? `${lista(top.map(d => `${d[0]} (${pct(d[2])})`))}, ${top.length === 3 ? "las tres" : "todos"} de ${top[0][1]}`
+  : lista(top.map(d => `${d[0]} (${d[1]}, ${pct(d[2])})`));
+// en los mapas de Migraciones, con una provincia elegida: de dónde a dónde va el valor entre sus departamentos de 10.000 habitantes o más
+// (si tiene menos de dos, entre todos)
+const rangoDep = (filas, k, que) => {
+  const enP = filas.filter(r => r.codigo_indec === prov), grandes = enP.filter(r => r.poblacion_vp >= MGP.min_pob), base = grandes.length > 1 ? grandes : enP;
+  if (base.length < 2) return "";
+  const hi = base.reduce((p, q) => q[k] > p[k] ? q : p), lo = base.reduce((p, q) => q[k] < p[k] ? q : p);
+  return `En ${NOMBRES[prov]}, la parte de la población ${que} va de ${pct(lo[k])} en ${lo.departamento} a ${pct(hi[k])} en ${hi.departamento}` +
+    (base === grandes && grandes.length < enP.length ? `, entre los departamentos de ${n0(MGP.min_pob)} habitantes o más.` : ".");
+};
 // Gobierno (etapa 25): las cuentas de la Nación, la recaudación, la deuda, el empleo público y los impuestos de las provincias
 const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda, GBC = GOB.empleo, GBP = GOB.provincial;
 // superávit o déficit, en palabras
@@ -520,6 +534,9 @@ const LEAD = {
     (GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? "tienen" : "tiene"} datos completos del año.` : ""),
   // ---- migraciones (etapa 25)
   "nacidos-otro-pais": v => {
+    // vista Mapa (etapa 26): los tres departamentos más altos entre los de 10.000 habitantes o más
+    if (v === "mapa") return `Por departamento, entre los de ${n0(MGP.min_pob)} habitantes o más, la parte de la población nacida en otro país es más ` +
+      `alta en ${depsTop(MGP.top)}. En ${MGP.menos_1} de los ${MGP.n} departamentos del país, menos del 1% de la población nació en otro país.`;
     if (v === "pais") return `Los países de nacimiento más frecuentes de las personas nacidas en otro país que vivían en la Argentina en 2022 eran ` +
       `${lista(MGC.paises.slice(0, 3).map(p => `${p[0]} (${pct(p[2])})`))}, según el Censo. Las nacidas en países limítrofes eran el ${pct(MGC.limitrofes_pct)} ` +
       `de las que declararon su país, y las nacidas en Europa, el ${pct(MGC.europa_pct)}. El ${pct(MGC.no_declarado_pct)} no declaró su país de nacimiento.`;
@@ -527,7 +544,10 @@ const LEAD = {
       `más alta era la de ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y la más baja, la de ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
       `El país de nacimiento más frecuente era ${MGC.paises[0][0]} en ${MGC.primer_pais_n} de las 24 jurisdicciones.`;
   },
-  "migracion-interna": () => `En el Censo 2022, el ${pct(MGC.otra_pct)} de las personas que vivían en el país había nacido en otra provincia: ` +
+  "migracion-interna": v => v === "mapa" ? `Por departamento, entre los de ${n0(MGP.min_pob)} habitantes o más, la parte de la población nacida en ` +
+    `otra provincia es más alta en ${depsTop(MGP.otra_top)}.` +
+    (MGP.otra_mitad ? ` En ${MGP.otra_mitad} de los ${MGP.n} departamentos del país, más de la mitad de la población nació en otra provincia.` : "")
+    : `En el Censo 2022, el ${pct(MGC.otra_pct)} de las personas que vivían en el país había nacido en otra provincia: ` +
     `${n0(MGC.otra_personas)} personas. La parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
     `provincia: ${pct(MGC.otra_top[1])}` : `, ${pct(MGC.otra_top[1])}`) + `, y la más baja, la de ${lista(MGC.otra_bajos[0])}, ${pct(MGC.otra_bajos[1])}. ` +
     `Y el ${pct(MGC.pct)} había nacido en otro país.`,
@@ -973,10 +993,13 @@ const TX = {
     `otro país, según el Censo 2022 del INDEC, como parte de toda la población en viviendas particulares de cada provincia. Es el primer censo de derecho: ` +
     `cuenta a cada persona donde vive habitualmente. El país de nacimiento es el que declaró cada persona, y el ${pct(MGC.no_declarado_pct)} no lo declaró ` +
     `(en algunas provincias, muchas más: el texto lo aclara cuando pasa de la quinta parte). Con una provincia elegida, la vista por país muestra los de ` +
-    `esa provincia. El RENAPER identifica más personas nacidas en otro país, porque cuenta documentos con el domicilio declarado: está en la ficha de abajo.`,
+    `esa provincia. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna: al pasar el mouse muestra también el ` +
+    `origen más frecuente entre quienes declararon su país, donde lo declararon al menos 100 personas. El RENAPER identifica más personas nacidas en ` +
+    `otro país, porque cuenta documentos con el domicilio declarado: está en la ficha de abajo.`,
   "migracion-interna": LEAD["migracion-interna"](), "migracion-interna-nota": `Personas que vivían en viviendas particulares según dónde nacieron: en la ` +
     `misma provincia, en otra provincia o en otro país, según el Censo 2022 del INDEC. Cuenta dónde nació cada persona y dónde vive, no cuándo se mudó ni ` +
-    `cuántas veces.`,
+    `cuántas veces. El mapa usa los cuadros de cada provincia, con un dato por departamento, partido o comuna, y divide a los departamentos en cinco ` +
+    `grupos del mismo tamaño.`,
   "migracion-historia": LEAD["migracion-historia"](), "migracion-historia-nota": `Personas nacidas en otro país como parte de la población total de ` +
     `cada censo nacional. Hasta 2001, según el INDEC (Aquí se cuenta, número 12, 2004), y en 2010 y 2022, según la publicación del Censo 2022 sobre ` +
     `migraciones. Los nacidos en países limítrofes (Bolivia, Brasil, Chile, Paraguay y Uruguay) hasta 2001 son los de esa publicación del INDEC, y los de ` +
@@ -1074,7 +1097,7 @@ const TX = {
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
     Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
   "mapa-dep-titulo": `Indicadores de los ${R.departamentos.n} departamentos del país`,
-  "mapa-dep": `Cada provincia se divide en departamentos, partidos o comunas. Este mapa muestra datos de seguridad del SNIC, la estructura de edad y el origen de la población identificada por el RENAPER y cómo son las viviendas y los hogares según el Censo 2022 en cada uno. Tocá una provincia para acercarte.`,
+  "mapa-dep": `Cada provincia se divide en departamentos, partidos o comunas. Este mapa muestra datos de seguridad del SNIC, la estructura de edad de la población identificada por el RENAPER y, según el Censo 2022, dónde nació la población y cómo son las viviendas y los hogares en cada uno. Tocá una provincia para acercarte.`,
   actualizado: `Datos descargados y procesados el ${R.actualizado}.`
 };
 document.querySelectorAll("[data-t]").forEach(el => { if (TX[el.dataset.t]) el.textContent = TX[el.dataset.t]; });
@@ -1792,7 +1815,8 @@ function mapaDep(el, cfg) {
   svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(TOPO_DEP, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
   deps.on("pointermove", (ev, f) => {
     const v = val[f.properties.id], [mx, my] = d3.pointer(ev, el);
-    mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? "sin dato" : cfg.vf(v)}`, mx, my);
+    mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? "sin dato" : cfg.vf(v)}` +
+      (cfg.extra ? cfg.extra(f.properties.id) : ""), mx, my);
   }).on("pointerleave", ocultarTip);
   // leyenda: los cinco grupos con sus cortes
   const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
@@ -2042,7 +2066,7 @@ const DIB = {
 };
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
-Object.assign(MED, {"cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
+Object.assign(MED, {"cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
   delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
@@ -2514,10 +2538,20 @@ Object.assign(DIB, {
       tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} en los doce meses hasta ${EMA.mes}, frente a los doce anteriores<br>${pct(d.ia)} en el mes, frente a ${EMA.mes_ant}`});
   }),
   // personas nacidas en otro país (etapa 25, Censo 2022): por provincia, o los países de nacimiento del país o de la provincia elegida
-  "nacidos-otro-pais": conTablas("nacidos-otro-pais", () => MED["nacidos-otro-pais"] === "pais" ? ["nacidos_otro_pais_paises"] : [], a => {
+  "nacidos-otro-pais": conTablas("nacidos-otro-pais", () => ({pais: ["nacidos_otro_pais_paises"], mapa: ["migraciones_departamentos"]})[MED["nacidos-otro-pais"]] || [], a => {
     const v = MED["nacidos-otro-pais"], el = G("nacidos-otro-pais"), fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov);
     let txt = LEAD["nacidos-otro-pais"](v);
     const nd = fp && fp.pct_pais_no_declarado > 20 ? ` El ${pct(fp.pct_pais_no_declarado)} no declaró su país de nacimiento.` : "";
+    if (v === "mapa") {
+      const filas = T.migraciones_departamentos, porDep = Object.fromEntries(filas.map(r => [r.codigo_dep, r]));
+      $t("nacidos-otro-pais").textContent = (fp ? rangoDep(filas, "pct_otro_pais", "nacida en otro país") + " " : "") + txt;
+      return mapaDep(el, {anim: a, filas, k: "pct_otro_pais", nombre: "Nacidos en otro país", vf: pct, extra: id => {
+        const r = porDep[id];
+        // en dos renglones cortos: el cuadro no corta las líneas y en el celular no entraría en uno
+        return (r && r.primer_pais ? `<br>Origen más frecuente: ${r.primer_pais}<br>${pct(r.pct_primer_pais)} de quienes declararon su país` : "") +
+          (r && r.pct_no_declarado > 20 ? `<br>No declaró su país: ${pct(r.pct_no_declarado)}` : "");
+      }});
+    }
     if (v === "pais") {
       const cod = fp ? prov : "00", filas = T.nacidos_otro_pais_paises.filter(r => r.codigo_indec === cod && r.pais !== "País no declarado");
       // con una provincia elegida, el gráfico muestra sus países: el texto lo dice primero
@@ -2537,11 +2571,17 @@ Object.assign(DIB, {
         `País más frecuente: ${d.primer_pais}`});
   }),
   // dónde nacieron las personas que viven en cada provincia (etapa 25, Censo 2022)
-  "migracion-interna": a => {
+  "migracion-interna": conTablas("migracion-interna", () => MED["migracion-interna"] === "mapa" ? ["migraciones_departamentos"] : [], a => {
+    const fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov), mapa = MED["migracion-interna"] === "mapa";
+    $("migracion-interna-ley").hidden = mapa;
+    if (mapa) {
+      $t("migracion-interna").textContent = (fp ? rangoDep(T.migraciones_departamentos, "pct_otra_provincia", "nacida en otra provincia") + " " : "") +
+        LEAD["migracion-interna"]("mapa");
+      return mapaDep(G("migracion-interna"), {anim: a, filas: T.migraciones_departamentos, k: "pct_otra_provincia", nombre: "Nacidos en otra provincia", vf: pct});
+    }
     const cl = [{k: "pct_la_provincia", lab: "En la provincia", c: "#1F5E97"}, {k: "pct_otra_provincia", lab: "En otra provincia", c: "#74ACDF", texto: "#18212B"},
       {k: "pct_otro_pais", lab: "En otro país", c: "#F6B40E", texto: "#18212B"}];
     leyenda("migracion-interna-ley", cl);
-    const fp = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === prov);
     let txt = LEAD["migracion-interna"]();
     if (fp && fp.territorio !== MGC.otra_top[0] && !MGC.otra_bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otra_provincia)}` +
       ` había nacido en otra provincia y el ${pct(fp.pct_otro_pais)}, en otro país.`;
@@ -2549,7 +2589,7 @@ Object.assign(DIB, {
     const pais = T.nacidos_otro_pais_provincias.find(r => r.codigo_indec === "00");
     apiladasH(G("migracion-interna"), {anim: a, claves: cl, data: [{...pais, territorio: "Todo el país"},
       ...T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00").sort((p, q) => q.pct_la_provincia - p.pct_la_provincia)]});
-  },
+  }),
   // personas nacidas en otro país en cada censo nacional (etapa 25)
   "migracion-historia": a => lineas(G("migracion-historia"), {anim: a, data: T.migracion_censos, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
     series: [{k: "nacidos_otro_pais_pct", lab: "Nacidos en otro país", corto: "Otro país", c: NAR},

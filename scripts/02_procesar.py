@@ -2078,7 +2078,6 @@ ren_dep = pd.DataFrame({
     "poblacion_identificada": por_dep,
     "mayores_65": rd[edad_ini >= 65].groupby("id").cantidad.sum() / por_dep * 100,
     "menores_15": rd[edad_ini < 15].groupby("id").cantidad.sum() / por_dep * 100,
-    "nacidos_otro_pais": rd[rd.pais_nacimiento != "ARGENTINA"].groupby("id").cantidad.sum() / por_dep * 100,
 })
 geo_ids = [g["properties"]["id"] for g in list(json.loads((SITIO / "departamentos.topo.json").read_text(encoding="utf-8"))["objects"].values())[0]["geometries"]]
 departamentos = pd.DataFrame({"id": geo_ids})
@@ -2091,6 +2090,27 @@ departamentos["provincia"] = departamentos.id.str[:2].map(CORTO)
 _dep_censo = vivienda_dep.set_index("codigo_dep")
 for c in ["hogares", "pct_alquila", "pct_hacinamiento", "pct_materiales_4", "pct_gas_red", "pct_lena", "pct_uso_temporal"]:
     departamentos[c] = departamentos.id.map(_dep_censo[c])
+# lugar de nacimiento por departamento (Censo 2022, cuadros de migraciones de cada provincia: scripts/censo_2022_migraciones.py, una sola vez).
+# Desde la etapa 26 reemplaza a los nacidos en otro país del RENAPER: el censo cuenta a cada persona donde vive y separa las comunas de la
+# Ciudad. El origen más frecuente de cada departamento se calcula sin quienes no declararon su país y solo donde lo declararon 100 personas o más
+mig_dep = pd.read_csv(RAIZ / "datos" / "manual" / "censo2022_migraciones_departamentos.csv", dtype={"codigo_dep": str, "codigo_indec": str})
+mig_dep["pct_otro_pais"] = mig_dep.en_otro_pais / mig_dep.poblacion_vp * 100
+mig_dep["pct_otra_provincia"] = mig_dep.en_otra_provincia / mig_dep.poblacion_vp * 100
+_MD_PAIS = {"bolivia": "Bolivia", "brasil": "Brasil", "chile": "Chile", "paraguay": "Paraguay", "uruguay": "Uruguay", "colombia": "Colombia",
+            "peru": "Perú", "venezuela": "Venezuela", "resto_america": "otros países de América", "espana": "España", "italia": "Italia",
+            "resto_europa": "otros países de Europa", "asia": "Asia", "africa": "África", "oceania": "Oceanía"}
+_mdp = mig_dep[list(_MD_PAIS)]
+mig_dep["declarado"] = mig_dep.en_otro_pais - mig_dep.ignorado
+mig_dep["primer_pais"] = _mdp.idxmax(axis=1).map(_MD_PAIS).where(mig_dep.declarado >= 100)
+mig_dep["pct_primer_pais"] = (_mdp.max(axis=1) / mig_dep.declarado * 100).where(mig_dep.declarado >= 100)
+mig_dep["pct_no_declarado"] = (mig_dep.ignorado / mig_dep.en_otro_pais * 100).where(mig_dep.en_otro_pais > 0)
+assert len(mig_dep) == 527 and mig_dep.en_otro_pais.sum() == 1933463
+_md = mig_dep.set_index("codigo_dep")
+departamentos["nacidos_otro_pais"] = departamentos.id.map(_md.pct_otro_pais)
+departamentos["nacidos_otra_provincia"] = departamentos.id.map(_md.pct_otra_provincia)
+assert departamentos.nacidos_otro_pais.notna().all(), "hay departamentos del mapa sin el lugar de nacimiento del censo"
+migraciones_departamentos = mig_dep[["codigo_dep", "codigo_indec", "departamento", "poblacion_vp", "en_otro_pais", "pct_otro_pais", "en_otra_provincia",
+                                     "pct_otra_provincia", "primer_pais", "pct_primer_pais", "pct_no_declarado"]]
 departamentos = departamentos.round(2)
 DEP_META = {
     "homicidios": ("Homicidios dolosos", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
@@ -2098,7 +2118,8 @@ DEP_META = {
     "viales": ("Muertes viales", f"víctimas cada 100.000 habitantes, promedio {ANIO_DEP - 2} a {ANIO_DEP}", "SNIC, Ministerio de Seguridad"),
     "mayores_65": ("Personas de 65 años o más", "% de la población identificada, junio de 2026", "RENAPER"),
     "menores_15": ("Menores de 15 años", "% de la población identificada, junio de 2026", "RENAPER"),
-    "nacidos_otro_pais": ("Nacidos en otro país", "% de la población identificada, junio de 2026", "RENAPER"),
+    "nacidos_otro_pais": ("Nacidos en otro país", "% de la población en viviendas particulares, Censo 2022", "INDEC, Censo 2022"),
+    "nacidos_otra_provincia": ("Nacidos en otra provincia", "% de la población en viviendas particulares, Censo 2022", "INDEC, Censo 2022"),
     "pct_alquila": ("Hogares que alquilan", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
     "pct_hacinamiento": ("Hacinamiento crítico", "% de los hogares con más de tres personas por cuarto, Censo 2022", "INDEC, Censo 2022"),
     "pct_materiales_4": ("Pisos y techos de la calidad más baja", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
@@ -3696,6 +3717,14 @@ MG_RES = {
         "primer_pais_n": int((nacidos_otro_pais_provincias[nacidos_otro_pais_provincias.codigo_indec != "00"].primer_pais
                               == _mg_prim.at["00", "pais"]).sum()),
     },
+    # por departamento (etapa 26): los tres más altos entre los de 10.000 habitantes o más, como las listas de Departamentos
+    "departamentos": {"n": int(len(mig_dep)), "min_pob": 10000,
+                      "top": [[f.departamento, CORTO[f.codigo_indec], r1(f.pct_otro_pais)]
+                              for f in mig_dep[mig_dep.poblacion_vp >= 10000].nlargest(3, "pct_otro_pais").itertuples()],
+                      "otra_top": [[f.departamento, CORTO[f.codigo_indec], r1(f.pct_otra_provincia)]
+                                   for f in mig_dep[mig_dep.poblacion_vp >= 10000].nlargest(3, "pct_otra_provincia").itertuples()],
+                      "menos_1": int((mig_dep.pct_otro_pais.map(r1) < 1).sum()),
+                      "otra_mitad": int((mig_dep.pct_otra_provincia.map(r1) > 50).sum())},
     "renaper": {"personas": int(extranjeros.personas.sum()), "corte": RENAPER_CORTE,
                 "mas": r1((extranjeros.personas.sum() / _mg_00.en_otro_pais - 1) * 100)},
     "historia": {"ini": int(migracion_censos.anio.min()), "ini_pct": float(migracion_censos.nacidos_otro_pais_pct.iloc[0]),
@@ -4254,7 +4283,9 @@ _cap_of = pd.DataFrame([_gl[_gl.jur == "02"][["viv_part", "poblacion"]].sum() if
                         for g in _cap_c.cod_gl]).reset_index(drop=True)
 # las viviendas de la base por radio coinciden con las del cuadro, salvo diferencias mínimas de la propia fuente (en Neuquén, 33 viviendas)
 assert ((_cap_c.viviendas / _cap_of.viv_part - 1).abs() < .001).all(), _cap_c.assign(of=_cap_of.viv_part)[["capital", "viviendas", "of"]]
-capitales = pd.DataFrame({"codigo_indec": _cap_c.codigo_indec, "territorio": _cap_c.capital, "provincia": _cap_c.codigo_indec.map(CORTO)})
+# la Ciudad de Buenos Aires se nombra como en los demás cruces (CABA)
+capitales = pd.DataFrame({"codigo_indec": _cap_c.codigo_indec, "territorio": _cap_c.capital.where(_cap_c.codigo_indec != "02", CORTO["02"]),
+                          "provincia": _cap_c.codigo_indec.map(CORTO)})
 capitales["poblacion"] = _cap_of.poblacion
 capitales["viviendas"] = _cap_of.viv_part
 capitales["viviendas_1000"] = _cap_of.viv_part / _cap_of.poblacion * 1000
@@ -4486,6 +4517,7 @@ tablas = {
     "actividad_sectores": actividad_sectores,
     "nacidos_otro_pais_provincias": nacidos_otro_pais_provincias,
     "nacidos_otro_pais_paises": nacidos_otro_pais_paises,
+    "migraciones_departamentos": migraciones_departamentos,
     "migracion_censos": migracion_censos,
     "radicaciones_anual": radicaciones_anual,
     "radicaciones_nacionalidad": radicaciones_nacionalidad,

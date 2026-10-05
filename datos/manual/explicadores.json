@@ -3893,7 +3893,7 @@
    },
    {
     "titulo": "De dónde salen los datos",
-    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, por departamento donde ocurrió el hecho. La edad y el origen de la población vienen del Registro Nacional de las Personas (RENAPER), con las personas identificadas según su domicilio. El RENAPER publica la Ciudad de Buenos Aires sin dividirla en comunas. Los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de la Ciudad.",
+    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, por departamento donde ocurrió el hecho. La edad de la población viene del Registro Nacional de las Personas (RENAPER), con las personas identificadas según su domicilio. El RENAPER publica la Ciudad de Buenos Aires sin dividirla en comunas. El lugar de nacimiento y los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de la Ciudad.",
     "fuentes": [
      {
       "nombre": "SNIC, estadísticas criminales por departamento",
@@ -3907,6 +3907,11 @@
       "nombre": "INDEC, definiciones de la base de datos del Censo 2022",
       "url": "https://infra.datos.gob.ar/catalog/indec/dataset/48/distribution/48.29/download/Redatam_Definiciones_de_la_base_de_datos.pdf",
       "cita": "hogares que tienen más de tres personas por cuarto"
+     },
+     {
+      "nombre": "INDEC, Censo 2022, resultados definitivos de cada provincia",
+      "url": "https://censo.gob.ar/index.php/datos_definitivos_cordoba/",
+      "cita": "por lugar de nacimiento"
      }
     ]
    },

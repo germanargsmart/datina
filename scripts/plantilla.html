@@ -710,22 +710,27 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:migraciones-->
 
     <article class="ficha" id="f-nacidos-otro-pais">
-      <h3>Personas nacidas en otro país por provincia y por país de nacimiento, 2022</h3>
+      <h3>Personas nacidas en otro país por provincia, departamento y país de nacimiento, 2022</h3>
       <p class="lead" data-t="nacidos-otro-pais"></p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="nacidos-otro-pais">
+      <div class="conmutador" role="group" aria-label="Vista" data-g="nacidos-otro-pais" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="pais" aria-pressed="false">Por país</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
       </div>
-      <div class="grafico" data-g="nacidos-otro-pais" data-forma="barras"></div>
+      <div class="grafico mp-mapa" data-g="nacidos-otro-pais" data-forma="barras"></div>
       <p class="nota" data-t="nacidos-otro-pais-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-migracion-interna">
-      <h3>Dónde nacieron las personas que viven en cada provincia, 2022</h3>
+      <h3>Dónde nacieron las personas que viven en cada provincia y departamento, 2022</h3>
       <p class="lead" data-t="migracion-interna"></p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="migracion-interna">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
+      </div>
       <div class="pol-ley" id="migracion-interna-ley" aria-hidden="true"></div>
-      <div class="grafico" data-g="migracion-interna" data-forma="barras" style="--filas:25"></div>
+      <div class="grafico mp-mapa" data-g="migracion-interna" data-forma="barras" style="--filas:25"></div>
       <p class="nota" data-t="migracion-interna-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
