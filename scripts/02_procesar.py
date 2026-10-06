@@ -4326,6 +4326,15 @@ def _pv_cam(cam):
 
 PRESUP_RES = {"dip": _pv_cam("Diputados"), "sen": _pv_cam("Senado")}
 PRESUP_RES["desde"], PRESUP_RES["hasta"] = PRESUP_RES["dip"]["desde"], max(PRESUP_RES["dip"]["hasta"], PRESUP_RES["sen"]["hasta"])
+# apoyo al presupuesto por provincia (etapa 28, para Cruces y su artículo): de todos los votos de los diputados y senadores de cada provincia de
+# fuera del bloque oficialista en las votaciones en general de los presupuestos desde que hay actas de las dos cámaras, la parte a favor (las
+# ausencias cuentan). Son pocas personas que votan muchas veces: la cantidad de votos queda en la tabla
+PV_DESDE = int(presupuesto_votos[presupuesto_votos.camara == "Senado"].ejercicio.min())
+_pv_v = votos.merge(presupuesto_votos[presupuesto_votos.ejercicio >= PV_DESDE][["camara", "acta", "bloque_oficialista"]].rename(columns={"acta": "vid"}),
+                    on=["camara", "vid"])
+_pv_v = _pv_v[(_pv_v.bloque != _pv_v.bloque_oficialista) & _pv_v.codigo_indec.notna()]
+apoyo_presupuesto = _pv_v.groupby("codigo_indec").agg(apoyo=("voto", lambda s: round(100 * (s == 1).mean(), 2)), votos=("voto", "size")).reset_index()
+assert len(apoyo_presupuesto) == 24 and apoyo_presupuesto.votos.min() >= 30, "el apoyo al presupuesto no tiene las 24 provincias o tiene muy pocos votos"
 # ---- voto de los legisladores en las leyes clave y voto de su provincia al presidente
 # Por gobierno y provincia: porcentaje de los votos de sus diputados y senadores presentes que coincidieron con la posicion
 # del bloque oficialista en las leyes clave, contra el porcentaje de votos positivos que ese presidente saco en la
@@ -4449,6 +4458,7 @@ for k_ in ["pct_pob_solo_cobertura_publica", "pct_hog_nbi_2022", "pct_25mas_secu
 cru["atn_hab"] = columna(acum_t.assign(v=acum_t.atn_hab / (TR_ULT - 1999)), "v")
 cru["transf_no_aut_hab"] = columna(transf[transf.anio == TR_ULT], "otras_hab")
 cru["apoyo_gobierno"] = columna(apoyo[apoyo.anio == apoyo_res["hasta"]], "apoyo")
+cru["apoyo_presupuesto"] = columna(apoyo_presupuesto, "apoyo")
 _b23 = pres_w[pres_w.eleccion == "2023-2"]
 cru["voto_milei_2023"] = columna(_b23, "Milei")
 cru["participacion_2023"] = cru.codigo_indec.map(tot_el[tot_el.eleccion == "2023"].set_index("codigo_indec").participacion)
@@ -4513,6 +4523,8 @@ CRUCES_META = {
     "atn_hab": ("ATN por habitante", f"pesos de {TR_ULT} por habitante por año, promedio 2000 a {TR_ULT}", f"2000 a {TR_ULT}", "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-atn", 0),
     "transf_no_aut_hab": ("Transferencias no automáticas por habitante", f"pesos de {TR_ULT} por habitante", str(TR_ULT), "Política", "Presupuesto Abierto, Secretaría de Hacienda", "f-transferencias", 0),
     "apoyo_gobierno": ("Apoyo al gobierno de sus legisladores", "% de los votos de diputados y senadores de fuera del bloque oficialista que coincidieron con él en votaciones divididas", str(apoyo_res["hasta"]), "Política", "Actas de votación de Diputados y del Senado, vía Cómo Votó", "f-apoyo", 1),
+    "apoyo_presupuesto": ("Apoyo al presupuesto de sus legisladores", "% de los votos de diputados y senadores de fuera del bloque oficialista a favor del presupuesto, con las ausencias",
+                          f"los presupuestos de {PV_DESDE} a {PRESUP_RES['hasta']}", "Política", "Actas de votación de Diputados y del Senado, vía Cómo Votó", "f-presupuesto", 1),
     "voto_milei_2023": ("Voto a Milei en el balotaje", "% de los votos positivos, segunda vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "voto_oficialismo_2023": ("Voto al oficialismo nacional", "% de los votos positivos a la fórmula del gobierno, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
     "participacion_2023": ("Participación electoral", "% de los electores habilitados que votó, primera vuelta presidencial", "2023, escrutinio provisorio", "Política", "Dirección Nacional Electoral", "f-elecciones", 1),
