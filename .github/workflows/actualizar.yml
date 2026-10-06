@@ -8,10 +8,11 @@ permissions:
   contents: write
 jobs:
   actualizar:
-    runs-on: ubuntu-latest
+    # maquina fija (ubuntu-latest pasa a Ubuntu 26 desde el 19 de octubre de 2026) y las versiones de las acciones que corren en Node 24
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
@@ -22,7 +23,7 @@ jobs:
       - run: python scripts/03_construir_sitio.py
       # revisa las paginas armadas en Chrome sin ventana (scripts/prueba_paginas.mjs): sin errores, sin NaN ni undefined en los
       # textos y "En cifras" completa. Si algo falla, el trabajo se detiene aca y no se guarda ni se publica nada
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
       - run: node scripts/prueba_paginas.mjs
