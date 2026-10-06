@@ -124,7 +124,7 @@ FRECUENCIA = {
     "f-radicaciones": "anio", "f-refugio": "anio", "f-argentinos-exterior": "onu",
     # Política
     "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
-    "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio",
+    "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio", "f-presupuesto": "anio",
     "f-presidentes": "presidente", "f-ministros": "gabinete",
     # Gobierno
     "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio",

@@ -1719,7 +1719,8 @@ function apiladasH(el, cfg) {
   g.append("g").attr("class","eje").call(d3.axisTop(x).tickValues(cfg.ticks || [0, 25, 50, 75, 100]).tickFormat(cfg.ejeF || (v => v + "%")).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   const f = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
   const clase = d => (cfg.fuerte ? cfg.fuerte(d) : d.codigo_indec === prov || d.codigo_indec === "00") ? "etq-fuerte" : "etq";
-  const opac = d => prov && d.codigo_indec !== prov && d.codigo_indec !== "00" ? .55 : 1;
+  // con cfg.sinProv, las filas no son provincias (personas, años) y la provincia elegida no aclara las demás
+  const opac = d => !cfg.sinProv && prov && d.codigo_indec !== prov && d.codigo_indec !== "00" ? .55 : 1;
   const nombres = f.append("text").attr("x", xNom).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class", clase).text(d => d.territorio);
   // nombres largos (personas): se cortan con puntos suspensivos y el completo queda en el cuadro
   if (cfg.recortar) nombres.each(function() { recortarEtq(this, izq + xNom - 4); });
@@ -3049,7 +3050,7 @@ DIB.anioscong = conTablas("anioscong", ["anios_congreso"], a => {
     dip: v === "sen" ? 0 : d.anios_diputados, sen: v === "dip" ? 0 : d.anios_senado}));
   const tope = (d3.max(filas, d => d[k]) || 1) * 1.18, marcas = d3.range(0, tope, 10);
   apiladasH(el, {anim: a, data, claves, bandera: d => d.prov, max: tope, ticks: marcas, ejeF: x => x === marcas[marcas.length - 1] ? `${x} años` : x,
-    izq: angosto => angosto ? 176 : 236, recortar: true, tipF: x => `${n1(x)} años`, alFinal: d => n1(d[k]), fuerte: d => d.sigue,
+    izq: angosto => angosto ? 176 : 236, recortar: true, sinProv: true, tipF: x => `${n1(x)} años`, alFinal: d => n1(d[k]), fuerte: d => d.sigue,
     tipExtra: d => `<br>${bandera(d.prov)}${d.provincias}` + (d.periodos_diputados ? `<br>Diputados: ${d.periodos_diputados}` : "") +
       (d.periodos_senado ? `<br>Senado: ${d.periodos_senado}` : "") + `<br>${d.espacios}` + (d.sigue ? "<br>Sigue en el cargo" : "")});
   // con otra provincia cambian las filas: el gráfico se vuelve a dibujar
@@ -3295,6 +3296,31 @@ TX["votaciones-nota"] = $t("votaciones-nota").textContent = `Votación en genera
     `El Senado no publica el acta nominal de ${listaY(R.votaciones.leyes.filter(l => !l.camaras.Senado).map(l => `${l.nombre.charAt(0).toLowerCase() + l.nombre.slice(1)} de ${l.anio}`))}. ` +
     `Las actas salen de la copia de los sitios oficiales que mantiene el proyecto abierto ¿Cómo Votó?, de Rodrigo Quiroga, con ${n0(R.votaciones.n_dip)} votaciones de Diputados desde ${R.votaciones.dip_desde} y ${n0(R.votaciones.n_sen)} del Senado desde ${R.votaciones.sen_desde}, hasta el ${fechaLarga(R.votaciones.ult)}. ` +
     `Se cotejaron con los datos abiertos de la Cámara de Diputados (todas las actas de 2011 a 2019) y con el sitio del Senado (todas las de estas leyes y una muestra), sin diferencias.`;
+/* ---------- cómo votaron el presupuesto los legisladores de fuera del bloque oficialista (etapa 28) ----------
+   Votación en general de cada presupuesto en cada cámara (datos/manual/presupuestos.csv). Las barras reparten a todos los legisladores de fuera
+   del bloque oficialista entre a favor, en contra, abstención y ausente: las ausencias cuentan */
+const PV = R.presupuesto, PV_K = ["fuera_a_favor", "fuera_en_contra", "fuera_abstencion", "fuera_ausente"];
+const PV_CLAVES = [1, 2, 3, 4].map((v, i) => ({k: PV_K[i], lab: VOTO_LAB[v], c: VOTO_COL[v], texto: v >= 3 ? css("--ink") : null}));
+if ($("pv-ley")) $("pv-ley").innerHTML = PV_CLAVES.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
+MED.presupuesto = "Diputados";
+function textoPresupuesto(cam) {
+  const r = PV[cam === "Diputados" ? "dip" : "sen"];
+  let t = `${cam === "Diputados" ? "En Diputados" : "En el Senado"}, en la votación en general de los ${r.n} presupuestos con acta entre ${r.desde} y ${r.hasta}, ` +
+    `la parte de los legisladores de fuera del bloque oficialista que votó a favor fue de ${pct(r.min.v)} a ${pct(r.max.v)}. ` +
+    `La más alta fue la del presupuesto ${r.max.anio}, con el gobierno de ${r.max.pres}, y la más baja, la del ${r.min.anio}, con el de ${r.min.pres}.`;
+  r.rechazados.forEach(x => { t += ` El presupuesto ${x.anio} fue rechazado el ${fechaLarga(x.fecha)}, con ${x.si} votos a favor y ${x.no} en contra.`; });
+  return t + ` En el del ${r.ult.anio}, votado el ${fechaLarga(r.ult.fecha)}, votó a favor el ${pct(r.ult.v)} de los legisladores de fuera del bloque oficialista.`;
+}
+TX["presupuesto"] = $t("presupuesto").textContent = textoPresupuesto("Diputados");
+DIB.presupuesto = a => {
+  const cam = MED.presupuesto, el = G("presupuesto"); if (!el) return;
+  const data = T.presupuesto_votos.filter(d => d.camara === cam).map(d => ({...d, codigo_indec: String(d.ejercicio), territorio: `${d.ejercicio}, ${d.presidente}`}));
+  apiladasH(el, {anim: a, data, claves: PV_CLAVES, sinProv: true, izq: angosto => angosto ? 150 : 214, recortar: true,
+    tipExtra: d => `<br>Votado el ${fechaLarga(d.fecha)}<br>Resultado: ${d.a_favor} a favor y ${d.en_contra} en contra${d.aprobado ? "" : ", rechazado"}` +
+      `<br>Bloque oficialista: ${d.bloque_oficialista}<br>De fuera: ${d.fuera} legisladores`});
+  $t("presupuesto").textContent = textoPresupuesto(cam);
+};
+
 /* voto de los legisladores y voto de su provincia al presidente */
 const RV = R.votaciones.representacion.filter(g => g.r != null);
 const rvClave = g => g.presidente + "|" + g.eleccion;

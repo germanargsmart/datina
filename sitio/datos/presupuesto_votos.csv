@@ -1,0 +1,37 @@
+ejercicio,camara,fecha,presidente,bloque_oficialista,a_favor,en_contra,abstenciones,ausentes,fuera,fuera_a_favor,fuera_en_contra,fuera_abstencion,fuera_ausente,apoyo_oficialismo,acta,aprobado
+1996,Diputados,1995-12-08,Menem,Justicialista,87,51,3,115,135,4.44,37.78,2.22,55.56,100.0,3585,True
+1997,Diputados,1996-11-20,Menem,Justicialista,122,97,0,37,127,4.72,76.38,0.0,18.9,100.0,3527,True
+2001,Diputados,2000-11-29,De la Rúa,Unión Cívica Radical,122,99,9,26,175,26.86,56.57,5.14,11.43,100.0,3402,True
+2002,Diputados,2002-03-01,Duhalde,Justicialista,156,60,6,34,141,43.26,41.13,2.84,12.77,95.96,3378,True
+2005,Diputados,2004-11-04,Kirchner,Justicialista,146,81,1,28,128,21.88,63.28,0.0,14.84,99.16,2873,True
+2006,Diputados,2005-12-15,Kirchner,Frente para la Victoria - PJ,162,53,3,38,145,37.24,36.55,2.07,24.14,100.0,2839,True
+2008,Diputados,2007-11-22,Kirchner,Frente para la Victoria - PJ,123,62,0,71,147,18.37,42.18,0.0,39.46,100.0,2234,True
+2010,Diputados,2009-10-15,Fernández de Kirchner,Frente para la Victoria - PJ,138,89,3,26,149,22.15,59.73,2.01,16.11,100.0,1991,True
+2012,Diputados,2011-12-14,Fernández de Kirchner,Frente para la Victoria - PJ,141,104,0,11,143,20.98,72.73,0.0,6.29,100.0,479,True
+2013,Diputados,2012-10-11,Fernández de Kirchner,Frente para la Victoria - PJ,142,87,0,27,142,20.42,61.27,0.0,18.31,100.0,334,True
+2014,Diputados,2013-09-26,Fernández de Kirchner,Frente para la Victoria - PJ,134,113,0,9,144,17.36,76.39,0.0,6.25,97.32,202,True
+2015,Diputados,2014-10-09,Fernández de Kirchner,Frente para la Victoria - PJ,133,112,0,11,142,14.79,78.87,0.0,6.34,100.0,100,True
+2016,Diputados,2015-10-07,Fernández de Kirchner,Frente para la Victoria - PJ,137,80,1,38,143,18.88,55.94,0.7,24.48,100.0,2,True
+2017,Diputados,2016-11-03,Macri,Unión PRO,177,58,4,17,215,63.26,26.98,1.86,7.91,100.0,3099,True
+2018,Diputados,2017-12-22,Macri,Pro,165,64,1,26,202,54.95,31.68,0.5,12.87,100.0,3741,True
+2019,Diputados,2018-10-25,Macri,Pro,138,103,8,7,202,41.58,50.99,3.96,3.47,100.0,3832,True
+2021,Diputados,2020-10-29,Fernández,Frente De Todos,139,15,90,5,132,17.42,11.36,68.18,3.03,100.0,4026,True
+2022,Diputados,2021-12-17,Fernández,Frente De Todos,121,132,1,2,139,3.6,94.96,0.72,0.72,100.0,4208,False
+2023,Diputados,2022-10-26,Fernández,Frente De Todos,180,22,49,5,139,47.48,15.83,35.25,1.44,100.0,4635,True
+2026,Diputados,2025-12-18,Milei,La Libertad Avanza,132,97,19,7,161,23.6,60.25,11.8,4.35,100.0,5822,True
+2006,Senado,2005-12-22,Kirchner,PJ FRENTE PARA LA VICTORIA,38,13,0,20,36,30.56,36.11,0.0,33.33,100.0,2323,True
+2007,Senado,2006-12-13,Kirchner,PJ FRENTE PARA LA VICTORIA,42,22,0,8,36,30.56,61.11,0.0,8.33,100.0,1742,True
+2008,Senado,2007-12-05,Kirchner,PJ FRENTE PARA LA VICTORIA,36,13,0,21,36,27.78,36.11,0.0,36.11,100.0,1416,True
+2009,Senado,2008-11-05,Fernández de Kirchner,PJ FRENTE PARA LA VICTORIA,48,14,0,10,36,36.11,38.89,0.0,25.0,100.0,1627,True
+2010,Senado,2009-11-11,Fernández de Kirchner,PJ FRENTE PARA LA VICTORIA,42,25,0,5,36,19.44,66.67,0.0,13.89,97.22,1643,True
+2012,Senado,2011-12-21,Fernández de Kirchner,PJ FRENTE PARA LA VICTORIA,44,26,0,2,41,31.71,63.41,0.0,4.88,100.0,981,True
+2013,Senado,2012-10-31,Fernández de Kirchner,PJ FRENTE PARA LA VICTORIA,43,23,0,6,41,29.27,56.1,0.0,14.63,100.0,827,True
+2014,Senado,2013-10-09,Fernández de Kirchner,PJ FRENTE PARA LA VICTORIA,40,27,0,5,41,21.95,65.85,0.0,12.2,100.0,662,True
+2015,Senado,2014-10-29,Fernández de Kirchner,PJ FRENTE PARA LA VICTORIA,39,22,0,11,51,35.29,43.14,0.0,21.57,100.0,575,True
+2016,Senado,2015-10-28,Fernández de Kirchner,PJ FRENTE PARA LA VICTORIA,39,28,0,5,51,35.29,54.9,0.0,9.8,100.0,470,True
+2017,Senado,2016-11-30,Macri,FRENTE PRO,59,8,0,5,66,80.3,12.12,0.0,7.58,100.0,137,True
+2018,Senado,2017-12-27,Macri,FRENTE PRO,54,14,0,4,63,71.43,22.22,0.0,6.35,100.0,306,True
+2019,Senado,2018-11-14,Macri,FRENTE PRO,45,24,1,2,63,57.14,38.1,1.59,3.17,100.0,392,True
+2021,Senado,2020-11-12,Fernández,FRENTE DE TODOS,45,2,23,2,55,52.73,3.64,41.82,1.82,100.0,1241,True
+2023,Senado,2022-11-16,Fernández,FRENTE NACIONAL Y POPULAR,37,0,0,35,60,43.33,0.0,0.0,56.67,100.0,2401,True
+2026,Senado,2025-12-26,Milei,LA LIBERTAD AVANZA,46,25,1,0,51,49.02,49.02,1.96,0.0,100.0,2607,True

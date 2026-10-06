@@ -2477,22 +2477,22 @@ def _an_texto(tramos, sigue):
 
 
 _anr, ANIOS_SOLAPADOS = [], []
-for k_, g_ in _an.sort_values("inicio").groupby("k"):
-    r_ = {"nombre": _an_nombre(g_.nombre.unique()), "sigue": bool(((g_.inicio <= HOY) & (g_.fin >= HOY)).any())}
-    sen_ = _an_tramos(g_[g_.camara == "Senado"])
-    dip0_ = _an_tramos(g_[g_.camara == "Diputados"])
-    dip_ = _an_resta(dip0_, sen_)
-    if sum((b - a).days for a, b in dip0_) - sum((b - a).days for a, b in dip_) > 31:
-        ANIOS_SOLAPADOS.append(r_["nombre"])
-    for col, tramos in (("diputados", dip_), ("senado", sen_)):
-        r_["anios_" + col] = round(sum((f_ - i_).days for i_, f_ in tramos) / 365.25, 2)
-        r_["periodos_" + col] = _an_texto(tramos, r_["sigue"])
-    dias_p = (g_.fin_h - g_.inicio).dt.days.groupby(g_.codigo_indec).sum()
-    r_["codigo_indec"] = dias_p.idxmax()
-    r_["provincias"] = _any([CORTO[c] for c in dict.fromkeys(g_.codigo_indec)])
-    r_["espacios"] = _any(list(dict.fromkeys(g_.espacio)))
-    r_["desde"] = int(g_.inicio.min().year)
-    _anr.append(r_)
+for _an_k, _an_g in _an.sort_values("inicio").groupby("k"):
+    _an_r = {"nombre": _an_nombre(_an_g.nombre.unique()), "sigue": bool(((_an_g.inicio <= HOY) & (_an_g.fin >= HOY)).any())}
+    _an_sen = _an_tramos(_an_g[_an_g.camara == "Senado"])
+    _an_dip0 = _an_tramos(_an_g[_an_g.camara == "Diputados"])
+    _an_dip = _an_resta(_an_dip0, _an_sen)
+    if sum((b - a).days for a, b in _an_dip0) - sum((b - a).days for a, b in _an_dip) > 31:
+        ANIOS_SOLAPADOS.append(_an_r["nombre"])
+    for _an_col, _an_tr in (("diputados", _an_dip), ("senado", _an_sen)):
+        _an_r["anios_" + _an_col] = round(sum((f_ - i_).days for i_, f_ in _an_tr) / 365.25, 2)
+        _an_r["periodos_" + _an_col] = _an_texto(_an_tr, _an_r["sigue"])
+    _an_dias = (_an_g.fin_h - _an_g.inicio).dt.days.groupby(_an_g.codigo_indec).sum()
+    _an_r["codigo_indec"] = _an_dias.idxmax()
+    _an_r["provincias"] = _any([CORTO[c] for c in dict.fromkeys(_an_g.codigo_indec)])
+    _an_r["espacios"] = _any(list(dict.fromkeys(_an_g.espacio)))
+    _an_r["desde"] = int(_an_g.inicio.min().year)
+    _anr.append(_an_r)
 anios_congreso = pd.DataFrame(_anr)
 # los casos conocidos de la fuente de Diputados anterior a 2007: si aparece otro, hay que revisarlo antes de publicar
 assert len(ANIOS_SOLAPADOS) <= 5, f"más personas en las dos cámaras a la vez: {ANIOS_SOLAPADOS}"
@@ -4285,6 +4285,47 @@ for a in AP_ANIOS:
                                "n_atn": int(len(con)), "max": t.sort_values("apoyo").iloc[-1].territorio, "max_v": round1(t.apoyo.max()),
                                "min": t.sort_values("apoyo").iloc[0].territorio, "min_v": round1(t.apoyo.min())})
 apoyo = apoyo[apoyo.anio.isin(AP_ANIOS)].round({"apoyo": 1})
+# ---- presupuesto (etapa 28): en la votación en general de cada presupuesto (datos/manual/presupuestos.csv, con el acta de cada cámara,
+# armada a mano porque los títulos de las actas cambian), cómo votaron los legisladores de fuera del bloque oficialista: a favor, en contra,
+# abstención o ausente, sobre todos ellos (las ausencias cuentan: en el Senado, en noviembre de 2022, faltaron 35 de 72). El bloque
+# oficialista es el más numeroso del espacio del presidente en esa votación, como en el apoyo al gobierno, así que los aliados del gobierno
+# de otros bloques y los bloques que se separaron del oficialismo cuentan como de fuera
+_pv_l = pd.read_csv(RAIZ / "datos" / "manual" / "presupuestos.csv", dtype={"acta": str})
+_pv_r = []
+for _pv_x in _pv_l.itertuples():
+    _pv_g = votos[(votos.camara == _pv_x.camara) & (votos.vid == _pv_x.acta)]
+    assert len(_pv_g), f"no está el acta {_pv_x.acta} del presupuesto {_pv_x.ejercicio} en {_pv_x.camara}"
+    _, _pv_p, _pv_e = gobierno(_pv_g.fecha.iloc[0])
+    _pv_b = _pv_g[_pv_g.espacio.isin(_pv_e)].bloque.value_counts().index[0]
+    _pv_f, _pv_o = _pv_g[_pv_g.bloque != _pv_b], _pv_g[(_pv_g.bloque == _pv_b) & (_pv_g.voto <= 3)]
+    _pv_r.append({"ejercicio": int(_pv_x.ejercicio), "camara": _pv_x.camara, "fecha": _pv_g.fecha.iloc[0].strftime("%Y-%m-%d"), "presidente": _pv_p,
+                  "bloque_oficialista": _pv_b, "a_favor": int((_pv_g.voto == 1).sum()), "en_contra": int((_pv_g.voto == 2).sum()),
+                  "abstenciones": int((_pv_g.voto == 3).sum()), "ausentes": int((_pv_g.voto == 4).sum()),
+                  "fuera": int(len(_pv_f)), **{f"fuera_{k}": round(100 * (_pv_f.voto == v).mean(), 2) for k, v in
+                                                   (("a_favor", 1), ("en_contra", 2), ("abstencion", 3), ("ausente", 4))},
+                  "apoyo_oficialismo": round(100 * (_pv_o.voto == 1).mean(), 2), "acta": _pv_x.acta})
+presupuesto_votos = pd.DataFrame(_pv_r).sort_values(["camara", "ejercicio"]).reset_index(drop=True)
+presupuesto_votos["aprobado"] = presupuesto_votos.a_favor > presupuesto_votos.en_contra
+# el resultado de cada acta en la fuente (AFIRMATIVO o NEGATIVO) tiene que coincidir con la cuenta de los votos
+_pv_res = {(cam, str(e["id"])): e["r"] for cam, arch in [("Diputados", "diputados"), ("Senado", "senadores")]
+           for e in json.loads(gzip.decompress((CRUDO / f"congreso_votaciones_{arch}.json.gz").read_bytes()))["votaciones"]}
+assert all((_pv_res[(r_.camara, r_.acta)] == "AFIRMATIVO") == r_.aprobado for r_ in presupuesto_votos.itertuples()), "un presupuesto no da el resultado del acta"
+assert presupuesto_votos.fuera.min() >= 10, "una votación del presupuesto con muy pocos legisladores de fuera del bloque oficialista"
+
+
+def _pv_cam(cam):
+    t_ = presupuesto_votos[presupuesto_votos.camara == cam]
+    mx_, mn_, ul_ = t_.loc[t_.fuera_a_favor.idxmax()], t_.loc[t_.fuera_a_favor.idxmin()], t_.iloc[-1]
+    return {"n": int(len(t_)), "desde": int(t_.ejercicio.min()), "hasta": int(t_.ejercicio.max()),
+            "max": {"anio": int(mx_.ejercicio), "v": float(mx_.fuera_a_favor), "pres": mx_.presidente},
+            "min": {"anio": int(mn_.ejercicio), "v": float(mn_.fuera_a_favor), "pres": mn_.presidente},
+            "ult": {"anio": int(ul_.ejercicio), "v": float(ul_.fuera_a_favor), "pres": ul_.presidente, "fecha": ul_.fecha,
+                    "si": int(ul_.a_favor), "no": int(ul_.en_contra)},
+            "rechazados": [{"anio": int(x.ejercicio), "fecha": x.fecha, "si": int(x.a_favor), "no": int(x.en_contra)} for x in t_[~t_.aprobado].itertuples()]}
+
+
+PRESUP_RES = {"dip": _pv_cam("Diputados"), "sen": _pv_cam("Senado")}
+PRESUP_RES["desde"], PRESUP_RES["hasta"] = PRESUP_RES["dip"]["desde"], max(PRESUP_RES["dip"]["hasta"], PRESUP_RES["sen"]["hasta"])
 # ---- voto de los legisladores en las leyes clave y voto de su provincia al presidente
 # Por gobierno y provincia: porcentaje de los votos de sus diputados y senadores presentes que coincidieron con la posicion
 # del bloque oficialista en las leyes clave, contra el porcentaje de votos positivos que ese presidente saco en la
@@ -4717,6 +4758,7 @@ tablas = {
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
+    "presupuesto_votos": presupuesto_votos,
     "representacion_provincias": representacion,
     "envejecimiento_provincias": envejec,
     "mortalidad_infantil_causas": mi_causas,
@@ -5254,6 +5296,7 @@ resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo":
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])
 resumen["capitales_eph_res"] = CAP_EPH_RES
 resumen["anios_congreso"] = ANIOS_CONG
+resumen["presupuesto"] = PRESUP_RES
 resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
 
 (SITIO / "fichas.json").write_text(json.dumps({

@@ -783,7 +783,7 @@
      {
       "nombre": "Constitución Nacional, artículo 98",
       "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
-      "cita": "el cuarenta por ciento por lo menos de los votos afirmativos válidamente emitidos y existiere diferencia mayor de diez puntos porcentuales"
+      "cita": "el cuarenta por ciento por lo menos de los votos afirmativos válidamente emitidos y, además, existiere una diferencia mayor de diez puntos porcentuales"
      },
      {
       "nombre": "Constitución Nacional, artículo 96",
@@ -891,7 +891,7 @@
      {
       "nombre": "HCDN, Congreso Explicado (integrantes)",
       "url": "https://www.hcdn.gob.ar/congreso_explicado/index.html",
-      "cita": "Integrantes: de la Cámara de Diputados en la actualidad son 257"
+      "cita": "de la Cámara de Diputados en la actualidad son 257"
      },
      {
       "nombre": "Ley 22.847, artículo 3",
@@ -1030,6 +1030,27 @@
       "nombre": "Ministerio de Economía, Boletín Fiscal, capítulo Provincias",
       "url": "https://www.mecon.gob.ar/onp/documentos/boletin/3ertrim02/capitulos/capitulo4.htm",
       "cita": "Las remesas no automáticas del ejercicio 2002"
+     }
+    ]
+   },
+   {
+    "titulo": "El presupuesto en el Congreso",
+    "texto": "La Constitución le encarga al Congreso fijar cada año el presupuesto general de gastos y el cálculo de recursos de la administración nacional. El Poder Ejecutivo envía el proyecto a la Cámara de Diputados antes del 15 de septiembre del año anterior. Si al empezar el año no hay un presupuesto aprobado, rige el del año anterior, con los ajustes que fija la ley de Administración Financiera. En la ficha del presupuesto, la votación de cada año es la votación en general de cada cámara, según su acta.",
+    "fuentes": [
+     {
+      "nombre": "Constitución Nacional, artículo 75 inciso 8",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/804/norma.htm",
+      "cita": "el presupuesto general de gastos y cálculo de recursos de la administración nacional"
+     },
+     {
+      "nombre": "Ley 24.156, artículo 26",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/554/texact.htm",
+      "cita": "presentará el proyecto de ley de presupuesto general a la Cámara de Diputados de la Nación, antes del 15 de setiembre del año anterior para el que regirá"
+     },
+     {
+      "nombre": "Ley 24.156, artículo 27",
+      "url": "https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/554/texact.htm",
+      "cita": "Si al inicio del ejercicio financiero no se encontrare aprobado el presupuesto general"
      }
     ]
    }
