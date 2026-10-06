@@ -3303,13 +3303,20 @@ const PV = R.presupuesto, PV_K = ["fuera_a_favor", "fuera_en_contra", "fuera_abs
 const PV_CLAVES = [1, 2, 3, 4].map((v, i) => ({k: PV_K[i], lab: VOTO_LAB[v], c: VOTO_COL[v], texto: v >= 3 ? css("--ink") : null}));
 if ($("pv-ley")) $("pv-ley").innerHTML = PV_CLAVES.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
 MED.presupuesto = "Diputados";
+// años seguidos como un tramo: "1998 a 2000, 2003, 2004 y 2007"
+const tramosAnios = xs => lista(xs.reduce((acc, a) => { const u = acc[acc.length - 1]; if (u && a === u[1] + 1) u[1] = a; else acc.push([a, a]); return acc; }, [])
+  .flatMap(([a, b]) => b - a >= 2 ? [`${a} a ${b}`] : b > a ? [String(a), String(b)] : [String(a)]));
 function textoPresupuesto(cam) {
   const r = PV[cam === "Diputados" ? "dip" : "sen"];
   let t = `${cam === "Diputados" ? "En Diputados" : "En el Senado"}, en la votación en general de los ${r.n} presupuestos con acta entre ${r.desde} y ${r.hasta}, ` +
     `la parte de los legisladores de fuera del bloque oficialista que votó a favor fue de ${pct(r.min.v)} a ${pct(r.max.v)}. ` +
-    `La más alta fue la del presupuesto ${r.max.anio}, con el gobierno de ${r.max.pres}, y la más baja, la del ${r.min.anio}, con el de ${r.min.pres}.`;
+    `La más alta fue la del presupuesto ${r.max.anio}, con el gobierno de ${r.max.pres}, y la más baja, la del presupuesto ${r.min.anio}, con el gobierno de ${r.min.pres}.`;
   r.rechazados.forEach(x => { t += ` El presupuesto ${x.anio} fue rechazado el ${fechaLarga(x.fecha)}, con ${x.si} votos a favor y ${x.no} en contra.`; });
-  return t + ` En el del ${r.ult.anio}, votado el ${fechaLarga(r.ult.fecha)}, votó a favor el ${pct(r.ult.v)} de los legisladores de fuera del bloque oficialista.`;
+  t += ` En el del ${r.ult.anio}, votado el ${fechaLarga(r.ult.fecha)}, votó a favor el ${pct(r.ult.v)} de los legisladores de fuera del bloque oficialista.`;
+  // los años sin votación en general en las actas, desde los datos
+  const con = new Set(T.presupuesto_votos.filter(d => d.camara === cam).map(d => d.ejercicio));
+  const faltan = d3.range(r.desde, r.hasta + 1).filter(a => !con.has(a));
+  return t + (faltan.length ? ` No figuran los presupuestos ${tramosAnios(faltan)}, que no tienen una votación en general en las actas de la fuente.` : "");
 }
 TX["presupuesto"] = $t("presupuesto").textContent = textoPresupuesto("Diputados");
 DIB.presupuesto = a => {
