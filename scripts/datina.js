@@ -2922,6 +2922,42 @@ const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_p
   DIB.legisladores();
 }));
 const lgMes = t => t === "sin fecha" ? "sin fecha" : `${MESES[+t.slice(5, 7) - 1]} de ${t.slice(0, 4)}`;
+/* Hemiciclo (etapa 28): un punto por banca, en filas de semicírculos, agrupadas por espacio en el orden de la leyenda de la composición
+   (de izquierda a derecha) y, dentro de cada espacio, por provincia. Con una provincia elegida, sus bancas quedan resaltadas, y al pasar
+   el mouse o tocar cerca de una banca, el cuadro dice quién la ocupa. Las bancas se reparten entre las filas según su largo */
+function hemiciclo(el, bancas, prov, tipBanca) {
+  el.innerHTML = "";
+  const n = bancas.length, W = Math.max(240, el.clientWidth), filas = n > 150 ? 9 : n > 60 ? 6 : 4;
+  // el radio de afuera deja lugar para el punto de la banca, así las de los bordes no se cortan
+  const geo = R => {
+    const r0 = R * (n > 150 ? .36 : .34), radios = d3.range(filas).map(i => r0 + (R - r0) * i / (filas - 1));
+    const porFila = radios.map(r => Math.floor(n * r / d3.sum(radios)));
+    for (let i = filas - 1, falta = n - d3.sum(porFila); falta > 0; falta--, i = (i + filas - 1) % filas) porFila[i]++;
+    return {radios, porFila, rb: Math.min((R - r0) / (filas - 1), Math.PI * r0 / Math.max(1, porFila[0] - 1)) * .42};
+  };
+  const R = W / 2 - geo(W / 2).rb - 1, {radios, porFila, rb} = geo(R), H = R + 2 * rb + 2;
+  const pos = radios.flatMap((r, i) => d3.range(porFila[i]).map(j => {
+    const t = Math.PI * (1 - j / Math.max(1, porFila[i] - 1));
+    return {x: W / 2 + r * Math.cos(t), y: R + rb + 1 - r * Math.sin(t), t, r};
+  })).sort((p, q) => q.t - p.t || p.r - q.r);
+  const orden = [...bancas].sort((p, q) => p.e - q.e || p.prov.localeCompare(q.prov) || p.nom.localeCompare(q.nom, "es"));
+  orden.forEach((b, i) => Object.assign(b, pos[i]));
+  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img")
+    .attr("aria-label", `${n} bancas: ` + listaY(CG.espacios.filter(k => orden.some(b => LGP.espacios[b.e] === k))
+      .map(k => `${orden.filter(b => LGP.espacios[b.e] === k).length} ${deEsp(k)}`)));
+  svg.selectAll("circle.banca").data(orden).join("circle").attr("class", "banca").attr("cx", b => b.x).attr("cy", b => b.y).attr("r", rb)
+    .attr("fill", b => ESP_COLOR[LGP.espacios[b.e]]).attr("opacity", b => !prov || b.prov === prov ? 1 : .45);
+  const anillo = svg.append("circle").attr("r", rb + 2.5).attr("fill", "none").attr("stroke", "var(--ink)").attr("stroke-width", 1.5)
+    .attr("opacity", 0).attr("pointer-events", "none");
+  const dl = d3.Delaunay.from(orden, b => b.x, b => b.y);
+  const ver = ev => {
+    const [sx, sy] = d3.pointer(ev, svg.node()), [ex, ey] = d3.pointer(ev, el), b = orden[dl.find(sx, sy)];
+    if (b && Math.hypot(b.x - sx, b.y - sy) < rb * 3) { anillo.attr("cx", b.x).attr("cy", b.y).attr("opacity", 1); return mostrarTip(el, tipBanca(b), ex, ey); }
+    anillo.attr("opacity", 0); ocultarTip();
+  };
+  svg.append("rect").attr("width", W).attr("height", H).attr("fill", "transparent").style("touch-action", "pan-y")
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });
+}
 DIB.legisladores = () => {
   const c = MED.legisladores || prov || "02", per = MED.lgPer, el = G("legisladores");
   document.getElementById("lg-sel").value = c; document.getElementById("lg-per").value = per;
@@ -2954,7 +2990,22 @@ DIB.legisladores = () => {
     (cambios ? `Hubo ${cambios === 1 ? "un cambio" : `${cambios} cambios`} de legislador ${per === LG_ULT ? "en lo que va del" : "durante el"} período, que ${cambios === 1 ? "figura" : "figuran"} entre paréntesis.`
       : `No hubo cambios de legisladores ${per === LG_ULT ? "en lo que va del" : "durante el"} período.`);
   el.removeAttribute("aria-busy");
-  el.innerHTML = `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
+  // hemiciclos de las dos cámaras, arriba de la lista: quién ocupa cada banca en la fecha de la composición del período
+  const bh = (LGP.hemiciclo[per] || []).map(([cam, p, i, bl, e]) => ({cam, prov: p, nom: nom(i), bloque: LGP.bloques[bl], e}));
+  const ley = arr => CG.espacios.filter(k => arr.some(b => LGP.espacios[b.e] === k))
+    .map(k => `<span><i style="background:${ESP_COLOR[k]}"></i>${k} <b>${arr.filter(b => LGP.espacios[b.e] === k).length}</b></span>`).join("");
+  // las bancas se resaltan solo con una provincia elegida (en el sitio o en la lista): sin elegir, la lista muestra CABA pero el hemiciclo, todo
+  const marcada = MED.legisladores || (NOMBRES[prov] ? prov : "");
+  const cuantas = cam => bh.filter(b => b.cam === cam).length;
+  const hemi = cam => `<figure class="hemi ha-f${cam}"><h4>${cam ? "Senado" : "Diputados"}, ${cuantas(cam)} bancas</h4><div class="hemi-svg" data-cam="${cam}"></div></figure>`;
+  el.innerHTML = `<div class="lg-hemis">${hemi(0)}${hemi(1)}` +
+    [0, 1].map(cam => `<div class="pol-ley ha-l${cam}">${ley(bh.filter(b => b.cam === cam))}</div>`).join("") +
+    `<p class="hemi-pie">Cada punto es una banca, con quien la ocupaba ${per === LG_ULT ? "hoy" : `el ${fechaLarga(LGP.hemiciclo_fecha[per])}`}. ` +
+    `Los espacios van en el orden de la leyenda y, dentro de cada uno, por provincia. ` +
+    (marcada ? `Las bancas de ${NOMBRES[marcada]} quedan resaltadas.` : "Al elegir una provincia, sus bancas quedan resaltadas.") + `</p></div>` +
+    `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
+  const tipBanca = b => `<b>${b.nom}</b><br>${bandera(b.prov)}${NOMBRES[b.prov]}<br>${b.bloque}`;
+  el.querySelectorAll(".hemi-svg").forEach(h => hemiciclo(h, bh.filter(b => b.cam === +h.dataset.cam), marcada, tipBanca));
 };
 
 

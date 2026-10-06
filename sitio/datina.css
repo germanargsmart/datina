@@ -1195,7 +1195,17 @@ html:not(.js) .esqueleto{display:none}
 .lg-lista li i{grid-row:1/3;width:10px;height:10px;margin-top:4px}
 .lg-lista li small{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.03em;color:var(--muted)}
 .lg-lista .senado ul{columns:1}
-@media (max-width:760px){.lg-lista{grid-template-columns:1fr}}
+/* hemiciclos de la lista de legisladores (etapa 28): Diputados y el Senado lado a lado, arriba de la lista, cada uno con su leyenda */
+/* las leyendas van en su propia fila, así los dos semicírculos apoyan en la misma línea aunque una leyenda sea más larga */
+.lg-lista .lg-hemis{grid-column:1/-1;display:grid;grid-template-columns:1.6fr 1fr;grid-template-areas:"f0 f1" "l0 l1" "pie pie";align-items:end;
+  gap:var(--e-3) var(--e-7);margin-bottom:var(--e-4)}
+.hemi{margin:0}
+.hemi-svg svg{display:block;width:100%;height:auto}
+.lg-hemis .pol-ley{align-self:start;margin:0}
+.ha-f0{grid-area:f0}.ha-f1{grid-area:f1}.ha-l0{grid-area:l0}.ha-l1{grid-area:l1}
+.hemi-pie{grid-area:pie;margin:var(--e-2) 0 0;font-size:var(--t-2);line-height:1.4;color:var(--muted)}
+@media (max-width:760px){.lg-lista{grid-template-columns:1fr}
+  .lg-lista .lg-hemis{grid-template-columns:1fr;grid-template-areas:"f0" "l0" "f1" "l1" "pie"}.ha-f1{margin-top:var(--e-4)}}
 /* tabla de leyes clave por espacio */
 .vt-matriz{overflow-x:auto;min-height:0;margin-top:var(--e-5)}
 .vt-matriz table{width:100%;min-width:600px;border-collapse:separate;border-spacing:2px}

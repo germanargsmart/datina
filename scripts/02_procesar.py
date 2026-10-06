@@ -2387,15 +2387,32 @@ leg_p = pd.concat(filas_p, ignore_index=True).sort_values(["periodo", "camara", 
 leg_p["territorio"] = leg_p.codigo_indec.map(CORTO)
 leg_p[["periodo", "camara", "codigo_indec", "territorio", "nombre", "bloque", "espacio", "desde", "hasta", "reemplaza_a"]].rename(
     columns={"periodo": "periodo_inicio"}).to_csv(SITIO / "legisladores_por_periodo.csv", index=False)
+# hemiciclo (etapa 28): quién ocupa cada banca en la fecha de la composición de cada período (el 1 de marzo) y hoy en el período
+# actual, con su provincia y su bloque y su espacio en esa fecha
+HEMI, HEMI_FECHA = {}, {}
+for a in PERIODOS:
+    _hmf = HOY if a == max(PERIODOS) else min(pd.Timestamp(f"{a + 1}-03-01"), HOY)
+    _hm = en_la_banca(_hmf)
+    _hm = _hm.join(espacio_en(_hm.assign(fecha=_hmf)[["camara", "id", "mandato_fin", "fecha"]]), on=["camara", "id", "mandato_fin"])
+    _hm = _hm.merge(man[["camara", "id", "mandato_fin", "nombre", "codigo_indec"]], on=["camara", "id", "mandato_fin"], how="left")
+    assert _hm.nombre.notna().all() and _hm.espacio.isin(ESPACIOS).all(), f"hay bancas sin nombre o sin espacio en el hemiciclo de {a}"
+    if a < max(PERIODOS):  # el mismo cálculo que la composición del Congreso: tienen que dar lo mismo
+        _hmc = {(c["camara"], c["espacio"]): c["bancas"] for c in comp if c["anio"] == a}
+        assert {k: int(v) for k, v in _hm.groupby(["camara", "espacio"]).id.count().items()} == _hmc, f"el hemiciclo de {a} no coincide con la composición"
+    HEMI[a], HEMI_FECHA[a] = _hm, _hmf.strftime("%Y-%m-%d")
 # version compacta para la pagina, que se carga al abrir la ficha: nombres y bloques en listas aparte
-_nom = sorted(set(leg_p.nombre) | set(leg_p.reemplaza_a.dropna()))
-_blo = sorted(set(leg_p.bloque.fillna("Sin dato")))
+_nom = sorted(set(leg_p.nombre) | set(leg_p.reemplaza_a.dropna()) | {n for _hm in HEMI.values() for n in _hm.nombre})
+_blo = sorted(set(leg_p.bloque.fillna("Sin dato")) | {b if isinstance(b, str) else "Sin dato" for _hm in HEMI.values() for b in _hm.bloque})
 _in, _ib = {n: i for i, n in enumerate(_nom)}, {b: i for i, b in enumerate(_blo)}
 (SITIO / "legisladores_por_periodo.json").write_text(json.dumps({
     "espacios": ESPACIOS, "nombres": _nom, "bloques": _blo,
     "filas": [[int(r.periodo), 0 if r.camara == "Diputados" else 1, r.codigo_indec, _in[r.nombre], _ib[r.bloque if isinstance(r.bloque, str) else "Sin dato"],
                ESPACIOS.index(r.espacio), r.desde, r.hasta, _in[r.reemplaza_a] if isinstance(r.reemplaza_a, str) else -1]
-              for r in leg_p.itertuples()]}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+              for r in leg_p.itertuples()],
+    # banca: [cámara, provincia, nombre, bloque, espacio]
+    "hemiciclo": {str(a): [[0 if r.camara == "Diputados" else 1, r.codigo_indec, _in[r.nombre], _ib[r.bloque if isinstance(r.bloque, str) else "Sin dato"],
+                            ESPACIOS.index(r.espacio)] for r in _hm.itertuples()] for a, _hm in HEMI.items()},
+    "hemiciclo_fecha": {str(a): f for a, f in HEMI_FECHA.items()}}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 # hoy
 # composición de hoy con el mismo criterio que cada período: quien ocupa la banca ese día
 act = en_la_banca(HOY)
