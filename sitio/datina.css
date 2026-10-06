@@ -547,6 +547,11 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 @media (max-width:560px){#herramientas-grid{grid-template-columns:1fr}}
 /* los tres artículos de la portada: una fila de tres o una columna (nunca uno solo en la última fila) */
 #art-grid-home{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* todos los artículos: tres columnas, dos en pantallas medianas y una en el celular. Con una cantidad impar en dos columnas (17 desde la
+   etapa 27), la última ocupa las dos, como en las secciones de la portada: ninguna queda sola a un costado */
+#art-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (min-width:761px) and (max-width:1079px){#art-grid{grid-template-columns:1fr 1fr}#art-grid>:last-child:nth-child(odd){grid-column:1 / -1}}
+@media (max-width:760px){#art-grid{grid-template-columns:1fr}}
 @media (max-width:1079px){#art-grid-home{grid-template-columns:1fr}}
 /* las herramientas, en su propio grupo con título: se distinguen por eso y no por el color */
 .bloque-grupo{margin:var(--e-8) 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}

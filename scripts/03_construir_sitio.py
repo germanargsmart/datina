@@ -630,8 +630,15 @@ def solo_nota(id_):
     return recorte
 
 
+# La descripción de cada artículo dice qué cruza: series del país (ART_SERIE), las 24 capitales (tabla de las capitales en ART)
+# o las 24 jurisdicciones (los demás artículos de cruces)
+ART_SERIES = set(re.findall(r'^\s+id: "(a-[\w-]+)"', bloque_js("const ART_SERIE = [", "\n}];"), re.M))
+ART_CAPITALES = set(re.findall(r'\{id: "(a-[\w-]+)", tabla: "capitales', bloque_js("const ART = [", "\n];")))
+assert ART_SERIES and ART_CAPITALES, "no se encontraron los artículos de series o de las capitales en datina.js"
+CRUZA = lambda id_: ("series oficiales del país" if id_ in ART_SERIES else
+                     "datos oficiales de las 24 capitales de provincia" if id_ in ART_CAPITALES else "datos oficiales de las 24 jurisdicciones")
 for id_, _, _, titulo in NOTAS:
-    descr = f"{html.unescape(titulo)} Un cruce de datos oficiales de las 24 jurisdicciones, con sus fuentes y sus límites."
+    descr = f"{html.unescape(titulo)} Un cruce de {CRUZA(id_)}, con sus fuentes y sus límites."
     pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_))
 
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
