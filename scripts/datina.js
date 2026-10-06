@@ -1709,17 +1709,20 @@ function franjas(el, cfg) {
 function apiladasH(el, cfg) {
   const data = cfg.data, angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
   // con banderas, el lugar de los nombres crece lo que ocupa la bandera y un poco más ("Fernández de Kirchner" entra entero en el celular)
-  const izq = cfg.bandera ? (angosto ? 172 : 190) : (angosto ? 112 : 150), xNom = cfg.bandera ? -40 : -10;
+  const izq = cfg.izq ? cfg.izq(angosto) : cfg.bandera ? (angosto ? 172 : 190) : (angosto ? 112 : 150), xNom = cfg.bandera ? -40 : -10;
   // a la derecha, lugar para que el "100%" del eje no se corte
   const C = lienzo(el, data.length * fila + 30, {t:22, r:18, b:6, l: izq});
   const {g, iw} = C;
-  const x = d3.scaleLinear().domain([0, 100]).range([0, iw]);
+  // por defecto, porcentajes de 0 a 100 (cfg.max, cfg.ticks y cfg.ejeF cambian la escala, como en los años en el Congreso)
+  const x = d3.scaleLinear().domain([0, cfg.max || 100]).range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.22);
-  g.append("g").attr("class","eje").call(d3.axisTop(x).tickValues([0, 25, 50, 75, 100]).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisTop(x).tickValues(cfg.ticks || [0, 25, 50, 75, 100]).tickFormat(cfg.ejeF || (v => v + "%")).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   const f = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
-  const clase = d => d.codigo_indec === prov || d.codigo_indec === "00" ? "etq-fuerte" : "etq";
+  const clase = d => (cfg.fuerte ? cfg.fuerte(d) : d.codigo_indec === prov || d.codigo_indec === "00") ? "etq-fuerte" : "etq";
   const opac = d => prov && d.codigo_indec !== prov && d.codigo_indec !== "00" ? .55 : 1;
   const nombres = f.append("text").attr("x", xNom).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class", clase).text(d => d.territorio);
+  // nombres largos (personas): se cortan con puntos suspensivos y el completo queda en el cuadro
+  if (cfg.recortar) nombres.each(function() { recortarEtq(this, izq + xNom - 4); });
   // banderas con las esquinas redondeadas como en el resto del sitio: un recorte para todas (en proporción a cada imagen)
   let esquinas = "";
   if (cfg.bandera) {
@@ -1752,9 +1755,12 @@ function apiladasH(el, cfg) {
       .attr("fill", p => p.k.texto || "#fff").text(p => n0(p.v));
     if (cfg.anim) { r.attr("width", 0).transition().duration(DUR_G).ease(EASE).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0)));
       aparecer(t, 150); }
+    // un texto al final de la barra (el total de años)
+    if (cfg.alFinal) { const tf = d3.select(this).append("text").attr("x", x(acc) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("font-size", 11.5)
+      .attr("font-family","var(--mono)").attr("fill", "var(--ink)").text(cfg.alFinal(d)); if (cfg.anim) aparecer(tf, 150); }
   });
   f.on("pointerenter", function(ev, d) {
-      mostrarTip(el, `<b>${d.territorio}</b>${cfg.tipExtra ? cfg.tipExtra(d) : ""}<br>` + cfg.claves.filter(k => d[k.k] != null).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${pct(d[k.k])}`).join("<br>"),
+      mostrarTip(el, `<b>${d.territorio}</b>${cfg.tipExtra ? cfg.tipExtra(d) : ""}<br>` + cfg.claves.filter(k => d[k.k] != null).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.tipF || pct)(d[k.k])}`).join("<br>"),
         izq + iw / 2, y(d.codigo_indec) + 22); })
    .on("pointerleave", ocultarTip);
 }
@@ -3009,6 +3015,47 @@ DIB.legisladores = () => {
 };
 
 
+
+
+/* ---------- legisladores con más años en el Congreso desde 1983 (etapa 28) ----------
+   Los años de cada persona en cada cámara salen de 02_procesar.py (tabla anios_congreso, que se baja al dibujar la ficha). Sin provincia,
+   las 15 personas con más años, y con una provincia, las 10 de esa provincia (cada persona va con la provincia por la que estuvo más años) */
+const AC = R.anios_congreso, AC_K = {total: "anios_total", dip: "anios_diputados", sen: "anios_senado"};
+const AC_CAM = {total: "", dip: " en Diputados", sen: " en el Senado"};
+function textoAnios(filas, v, p) {
+  const k = AC_K[v], [a, ...resto] = filas;
+  if (!a) return `${NOMBRES[p]} no tuvo legisladores${AC_CAM[v]} desde 1983.`;
+  const partes = d => v !== "total" ? "" : !(d.anios_senado > 0) ? ", todos en Diputados" : !(d.anios_diputados > 0) ? ", todos en el Senado"
+    : `, ${n1(d.anios_diputados)} en Diputados y ${n1(d.anios_senado)} en el Senado`;
+  let t = (p ? `De ${NOMBRES[p]}, quien más años sumó${AC_CAM[v] || " en el Congreso"} desde 1983 es `
+    : `Desde 1983, quien más años sumó${AC_CAM[v] || " en el Congreso nacional"} es `) + `${a.nombre}: ${n1(a[k])} años${partes(a)}${a.sigue ? ", y sigue en el cargo" : ""}.`;
+  const sig = resto.slice(0, 2).map(d => `${d.nombre} (${n1(d[k])})`);
+  if (sig.length) t += ` Le ${sig.length > 1 ? "siguen" : "sigue"} ${listaY(sig)}.`;
+  if (!p && v === "total") t += ` En total, ${n0(AC.personas)} personas ocuparon una banca en ese tiempo, ${n0(AC.dos_camaras)} de ellas en las dos cámaras, ` +
+    `y ${AC.veinte} sumaron 20 años o más (${AC.veinte_siguen === 1 ? "una sigue" : `${AC.veinte_siguen} siguen`} en el cargo).`;
+  return t;
+}
+TX["anioscong"] = $t("anioscong").textContent = textoAnios(AC.top.map(d => ({nombre: d.nombre, anios_total: d.total, anios_diputados: d.dip,
+  anios_senado: d.sen, sigue: d.sigue})), "total", "");
+MED.anioscong = "total";
+DIB.anioscong = conTablas("anioscong", ["anios_congreso"], a => {
+  const el = G("anioscong"); if (!el) return;
+  const v = MED.anioscong, k = AC_K[v], p = NOMBRES[prov] ? prov : "";
+  const filas = T.anios_congreso.filter(d => d[k] > 0 && (!p || d.codigo_indec === p))
+    .sort((x, y) => y[k] - x[k] || x.nombre.localeCompare(y.nombre, "es")).slice(0, p ? 10 : 15);
+  const claves = [{k: "dip", lab: "Diputados", c: css("--azul")}, {k: "sen", lab: "Senado", c: css("--celeste"), texto: css("--ink")}]
+    .filter(c => v === "total" || c.k === v);
+  const data = filas.map((d, i) => ({...d, codigo_indec: "a" + i, prov: d.codigo_indec, territorio: d.nombre,
+    dip: v === "sen" ? 0 : d.anios_diputados, sen: v === "dip" ? 0 : d.anios_senado}));
+  const tope = (d3.max(filas, d => d[k]) || 1) * 1.18, marcas = d3.range(0, tope, 10);
+  apiladasH(el, {anim: a, data, claves, bandera: d => d.prov, max: tope, ticks: marcas, ejeF: x => x === marcas[marcas.length - 1] ? `${x} años` : x,
+    izq: angosto => angosto ? 176 : 236, recortar: true, tipF: x => `${n1(x)} años`, alFinal: d => n1(d[k]), fuerte: d => d.sigue,
+    tipExtra: d => `<br>${bandera(d.prov)}${d.provincias}` + (d.periodos_diputados ? `<br>Diputados: ${d.periodos_diputados}` : "") +
+      (d.periodos_senado ? `<br>Senado: ${d.periodos_senado}` : "") + `<br>${d.espacios}` + (d.sigue ? "<br>Sigue en el cargo" : "")});
+  // con otra provincia cambian las filas: el gráfico se vuelve a dibujar
+  el.resaltar = null;
+  $t("anioscong").textContent = textoAnios(filas, v, p);
+});
 
 
 /* ---------- votaciones nominales en el Congreso ---------- */
@@ -4384,6 +4431,7 @@ const CLAVE = {
   "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
   "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`],
   "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
+  "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`],
 };
 /* "En cifras" (etapa 15, pedido del autor: todas las secciones con la misma cantidad de tarjetas que Trabajo y finanzas, del mismo
    ancho y llenando la fila, "siempre con valores que agreguen valor, no solo de relleno"). Cinco tarjetas en cada sección.
@@ -5136,6 +5184,9 @@ const PREG = [
    `${cu.cl_max_anio}, con una temperatura media ${n2(cu.cl_max)} °C por encima del valor de referencia.`, "#f-clima"],
   ["¿Cómo cambió la maternidad adolescente?",
    `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos eran de madres menores de 20 años. En ${nac.anio_ult}, ${n1(nac.pct_ult)}.`, "#f-adolescentes"],
+  ["¿Quién estuvo más años en el Congreso desde 1983?",
+   `${AC.top[0].nombre}: ${n1(AC.top[0].total)} años` + (AC.top[0].dip > 0 && AC.top[0].sen > 0 ? " entre Diputados y el Senado" : AC.top[0].sen > 0 ? " en el Senado" : " en Diputados") +
+   `${AC.top[0].sigue ? ", y sigue en el cargo" : ""}. Le siguen ${AC.top[1].nombre} (${n1(AC.top[1].total)}) y ${AC.top[2].nombre} (${n1(AC.top[2].total)}).`, "#f-anios-congreso"],
 ];
 (function carrusel() {
   const rot = document.getElementById("rotador"); if (!rot) return;

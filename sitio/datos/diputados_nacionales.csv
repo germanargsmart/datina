@@ -1188,9 +1188,9 @@ nombre,codigo_indec,territorio,inicio,fin,mandato_fin,bloque,espacio,fuente
 "Kent de Saadi, María del Pilar Isabel",10,Catamarca,1997-12-10,2001-12-09,2001-12-09,Frente Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Pernasetti, Horacio Francisco",10,Catamarca,1997-12-10,2001-12-09,2001-12-09,Frente Cívico y Social,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Ayala, Juan Carlos",22,Chaco,1997-12-10,2001-12-09,2001-12-09,Partido Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Curletti, Miriam Belén",22,Chaco,1997-12-10,2001-12-09,2001-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Romero, Héctor Ramón",22,Chaco,1997-12-10,2001-12-09,2001-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Saquer, José Luis",22,Chaco,1997-12-10,2001-12-09,2001-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Curletti, Miriam Belén",22,Chaco,1997-12-10,2001-12-09,2001-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Romero, Héctor Ramón",22,Chaco,1997-12-10,2001-12-09,2001-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Saquer, José Luis",22,Chaco,1997-12-10,2001-12-09,2001-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Aubía, Jorge Eduardo",26,Chubut,1997-12-10,1999-12-09,2001-12-09,Unión Cívica Radical,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Corchuelo Blasco, José Manuel",26,Chubut,1997-12-10,2001-12-09,2001-12-09,Partido Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Caputo, Dante Mario Antonio",02,CABA,1997-12-10,1999-12-10,2001-12-09,"Alianza por el Trabajo, la Justicia y la Educación",UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
@@ -1325,8 +1325,8 @@ nombre,codigo_indec,territorio,inicio,fin,mandato_fin,bloque,espacio,fuente
 "Vázquez, Ricardo Héctor",06,Buenos Aires,1999-12-10,2003-12-09,2003-12-09,"Alianza por el Trabajo, la Justicia y la Educación",UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Hernández, Simón Fermín G.",10,Catamarca,1999-12-10,2003-12-09,2003-12-09,"Alianza por el Trabajo, la Justicia y la Educación",UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Saadi, Ramón Eduardo",10,Catamarca,1999-12-10,2003-12-09,2003-12-09,Alianza Unidos por Catamarca,Fuerzas provinciales,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Carrió, Elisa María Avelina",22,Chaco,1999-12-10,2003-12-09,2003-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Geijo, Ángel Oscar",22,Chaco,1999-12-10,2003-12-09,2003-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Carrió, Elisa María Avelina",22,Chaco,1999-12-10,2003-12-09,2003-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Geijo, Ángel Oscar",22,Chaco,1999-12-10,2003-12-09,2003-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Honcheruk, Atlanto",22,Chaco,1999-12-10,2003-12-09,2003-12-09,Unión para el Nuevo Chaco,Otras fuerzas,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Cambareri, Fortunato Rafael",26,Chubut,1999-12-10,2003-12-09,2003-12-09,"Alianza por el Trabajo, la Justicia y la Educación",UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Das Neves, Mario",26,Chubut,1999-12-10,2002-03-01,2003-12-09,Partido Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
@@ -1491,10 +1491,10 @@ nombre,codigo_indec,territorio,inicio,fin,mandato_fin,bloque,espacio,fuente
 "Cerezo, Octavio Néstor",10,Catamarca,2001-12-10,2005-12-09,2005-12-09,Partido Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Maldonado, Aída Francisca",10,Catamarca,2001-12-10,2005-12-09,2005-12-09,Frente Cívico y Social,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Pernasetti, Horacio Francisco",10,Catamarca,2001-12-10,2005-12-09,2005-12-09,,Otras fuerzas,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Bayonzo, Liliana Amelia",22,Chaco,2001-12-10,2005-12-09,2005-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Bayonzo, Liliana Amelia",22,Chaco,2001-12-10,2005-12-09,2005-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "González, Rafael Alfredo",22,Chaco,2001-12-10,2005-12-09,2005-12-09,Partido Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Goy, Beatriz Norma",22,Chaco,2001-12-10,2005-12-09,2005-12-09,Partido Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Romero, Héctor Ramón",22,Chaco,2001-12-10,2005-12-09,2005-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Romero, Héctor Ramón",22,Chaco,2001-12-10,2005-12-09,2005-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Cisterna, Víctor Hugo",26,Chubut,2001-12-10,2005-12-09,2005-12-09,Partido Justicialista,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Di Benedetto, Gustavo Daniel",26,Chubut,2001-12-10,2005-12-09,2005-12-09,Unión Cívica Radical,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Lernoud, María Teresa",26,Chubut,2001-12-10,2003-12-09,2003-12-09,,Otras fuerzas,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
@@ -1813,7 +1813,7 @@ nombre,codigo_indec,territorio,inicio,fin,mandato_fin,bloque,espacio,fuente
 "Sesma, Laura Judith",14,Córdoba,2005-12-10,2009-12-09,2009-12-09,Partido Socialista,Otras fuerzas,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Vaca Narvaja, Patricia",14,Córdoba,2005-12-10,2009-12-09,2009-12-09,Frente para la Victoria,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Carmona, María Araceli",18,Corrientes,2005-12-10,2009-12-09,2009-12-09,Frente para la Victoria,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Colombi, Horacio Ricardo",18,Corrientes,2005-12-10,2007-11-28,2009-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Colombi, Horacio Ricardo",18,Corrientes,2005-12-10,2007-11-28,2009-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Galantini, Eduardo Daniel",18,Corrientes,2005-12-10,2009-12-09,2009-12-09,Frente para la Victoria,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Lauritto, José Eduardo",30,Entre Ríos,2005-12-10,2007-12-11,2009-12-09,Frente para la Victoria,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Martínez Garbino, Emilio Raúl",30,Entre Ríos,2005-12-10,2009-12-09,2009-12-09,Concertación Entrerriana,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
@@ -1891,7 +1891,7 @@ nombre,codigo_indec,territorio,inicio,fin,mandato_fin,bloque,espacio,fuente
 "Albarracín, Jorge Luis",50,Mendoza,2007-10-12,2009-12-09,2009-12-09,Unión Cívica Radical,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Morgado, Claudio Marcelo",02,CABA,2007-11-08,2009-12-09,2009-12-09,Frente para la Victoria,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Bulacio, Nancy Evángelina",90,Tucumán,2007-11-08,2007-12-09,2007-12-09,Fuerza Republicana,Fuerzas provinciales,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
-"Roldán, José María",18,Corrientes,2007-11-29,2009-12-09,2009-12-09,Frente de Todos,Peronismo,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
+"Roldán, José María",18,Corrientes,2007-11-29,2009-12-09,2009-12-09,Frente de Todos,UCR y aliados,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Díez Gubau, María Inés",66,Salta,2007-12-05,2009-12-09,2009-12-09,Partido Renovador de Salta,Fuerzas provinciales,apym.hcdn.gob.ar Patrimonio Legislativo (scrape)
 "Alcuaz, Horacio Alberto",06,Buenos Aires,2007-12-10,2009-11-11,2011-12-09,COALICION CIVICA - ARI - GEN - UPT,Otras fuerzas,datos.hcdn.gob.ar diputados2.0.csv
 "Alvarez, Juan Jose",06,Buenos Aires,2007-12-10,2009-12-09,2011-12-09,UNION CELESTE Y BLANCO,Otras fuerzas,datos.hcdn.gob.ar diputados2.0.csv
@@ -1957,7 +1957,7 @@ nombre,codigo_indec,territorio,inicio,fin,mandato_fin,bloque,espacio,fuente
 "Storni, Silvia",14,Córdoba,2007-12-10,2011-12-09,2011-12-09,UCR,UCR y aliados,datos.hcdn.gob.ar diputados2.0.csv
 "Vega, Juan Carlos",14,Córdoba,2007-12-10,2009-12-09,2011-12-09,COALICION CIVICA - ARI - GEN - UPT,Otras fuerzas,datos.hcdn.gob.ar diputados2.0.csv
 "Arbo, Jose Ameghino",18,Corrientes,2007-12-10,2011-12-09,2011-12-09,PARTIDO LIBERAL DE CORRIENTES,Fuerzas provinciales,datos.hcdn.gob.ar diputados2.0.csv
-"Areta, Maria Josefa",18,Corrientes,2007-12-10,2011-12-09,2011-12-09,FRENTE DE TODOS,Peronismo,datos.hcdn.gob.ar diputados2.0.csv
+"Areta, Maria Josefa",18,Corrientes,2007-12-10,2011-12-09,2011-12-09,FRENTE DE TODOS,UCR y aliados,datos.hcdn.gob.ar diputados2.0.csv
 "Perie, Hugo Ruben",18,Corrientes,2007-12-10,2011-08-15,2011-12-09,FRENTE PARA LA VICTORIA - PJ,Peronismo,datos.hcdn.gob.ar diputados2.0.csv
 "Portela, Agustin Alberto",18,Corrientes,2007-12-10,2011-12-09,2011-12-09,UCR,UCR y aliados,datos.hcdn.gob.ar diputados2.0.csv
 "Cremer De Busti, Maria Cristina",30,Entre Ríos,2007-12-10,2009-07-27,2011-12-09,FRENTE PARA LA VICTORIA - PJ,Peronismo,datos.hcdn.gob.ar diputados2.0.csv

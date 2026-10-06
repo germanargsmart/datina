@@ -2285,7 +2285,12 @@ _obs = leg.observaciones.fillna("").str.extract(r"(?i)(?:REEMPLAZA|COMPLETA)(.*)
 leg["reemplaza"] = leg.reemplaza.where(leg.camara == "Diputados", _obs)
 leg["codigo_indec"] = leg.provincia.map(codigo)
 assert leg.codigo_indec.notna().all(), leg[leg.codigo_indec.isna()].provincia.unique()
+# "Frente de Todos" fue antes de 2019 el nombre de los frentes que encabezaba la UCR en Chaco (desde 1995) y en Corrientes (desde 2005), no
+# el de la coalición peronista que se llamó igual desde 2019: con fecha anterior va con la UCR y aliados (etapa 28: la regla por nombre de
+# scripts/legisladores/familias.py los ponía en el peronismo)
+FDT_HASTA = pd.Timestamp("2019-06-01")
 leg["espacio"] = [espacio_leg(b, f) for b, f in zip(leg.bloque, leg.familia)]
+leg.loc[leg.bloque.fillna("").str.upper().str.contains("FRENTE DE TODOS") & (leg.inicio < FDT_HASTA), "espacio"] = "UCR y aliados"
 leg["fin"] = leg.fin.fillna(pd.Timestamp("2100-01-01"))
 # la fuente repite a algunas personas con dos códigos para el mismo mandato (por ejemplo, el nombre con y sin tilde): se unifican
 _persona = leg.nombre.map(lambda n: re.sub(r"[^A-Z]", "", norm(n).upper()))
@@ -2414,6 +2419,94 @@ _in, _ib = {n: i for i, n in enumerate(_nom)}, {b: i for i, b in enumerate(_blo)
                             ESPACIOS.index(r.espacio)] for r in _hm.itertuples()] for a, _hm in HEMI.items()},
     "hemiciclo_fecha": {str(a): f for a, f in HEMI_FECHA.items()}}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 # hoy
+# años en el Congreso desde 1983 (etapa 28): por persona, los días en la banca de cada cámara hasta hoy (los tramos que separa una semana
+# o menos se unen), la provincia por la que estuvo más tiempo, los espacios y si sigue en el cargo. Una misma persona escrita de otra forma
+# en cada cámara se une por el nombre sin tildes ni signos, y dos homónimos de distinta provincia son personas distintas. Nadie ocupa las
+# dos cámaras a la vez: cuando el registro de Diputados anterior a 2007 (armado con el Patrimonio Legislativo, por mandato) pone a alguien en
+# esa cámara mientras era senador (José Luis Gioja de 1995 a 1999, Oscar Lamberto de 2001 a 2003 y otros tres), cuentan las fechas del Senado
+HOMONIMOS = {"lopez, juan carlos", "fernandez, anibal"}
+_an = leg[leg.inicio <= HOY].copy()
+_an["fin_h"] = _an.fin.clip(upper=HOY)
+_an["k"] = _an.nombre.map(lambda n: re.sub(r"[^a-z, ]", "", norm(n)).strip())
+_an["k"] = np.where(_an.k.isin(HOMONIMOS), _an.k + "|" + _an.codigo_indec, _an.k)
+_anc = lambda n: sum(ch in "áéíóúüñÁÉÍÓÚÜÑ" for ch in n)
+_ant = lambda s: re.sub(r"\b(De|Del|La|Las|Los|Y)\b", lambda m: m.group(1).lower(), s.title()) if s.isupper() else s
+
+
+def _an_nombre(variantes):
+    """La forma del nombre con más tildes, como "Nombre Apellido"."""
+    n = max(variantes, key=lambda v: (_anc(v), not v.isupper()))
+    ape, _, nom = n.partition(", ")
+    return _ant(f"{nom} {ape}".strip())
+
+
+def _an_tramos(g):
+    t = []
+    for i_, f_ in zip(g.inicio, g.fin_h):
+        if t and i_ <= t[-1][1] + pd.Timedelta(days=7):
+            t[-1][1] = max(t[-1][1], f_)
+        else:
+            t.append([i_, f_])
+    return t
+
+
+def _an_resta(tramos, quitar):
+    """Los tramos sin el tiempo que cubren otros (el de Diputados sin el que la persona estuvo en el Senado)."""
+    out = []
+    for a, b in tramos:
+        piezas = [[a, b]]
+        for c, d in quitar:
+            piezas = [q for x, y in piezas for q in ([[x, y]] if d <= x or c >= y else [[x, c]] * (x < c) + [[d, y]] * (d < y))]
+        out += [p for p in piezas if (p[1] - p[0]).days > 0]
+    return out
+
+
+# una lista en el texto ("UCR y aliados, Peronismo y Otras fuerzas"), con "e" delante de una palabra que empieza con el sonido de la i
+_any = lambda xs: (", ".join(xs[:-1]) + (" e " if re.match(r"(?i)h?[ií](?![aeiouáéíóú])", xs[-1]) else " y ") + xs[-1]) if len(xs) > 1 else "".join(xs)
+
+
+def _an_texto(tramos, sigue):
+    """Los años de cada tramo ("1993 a 2001 y desde 2023"): en el texto, los tramos que separan menos de tres meses van juntos."""
+    t = []
+    for i_, f_ in tramos:
+        if t and (i_ - t[-1][1]).days < 90:
+            t[-1][1] = f_
+        else:
+            t.append([i_, f_])
+    return _any([f"desde {i_.year}" if f_ >= HOY and sigue else f"{i_.year} a {f_.year}" if f_.year > i_.year else str(i_.year) for i_, f_ in t])
+
+
+_anr, ANIOS_SOLAPADOS = [], []
+for k_, g_ in _an.sort_values("inicio").groupby("k"):
+    r_ = {"nombre": _an_nombre(g_.nombre.unique()), "sigue": bool(((g_.inicio <= HOY) & (g_.fin >= HOY)).any())}
+    sen_ = _an_tramos(g_[g_.camara == "Senado"])
+    dip0_ = _an_tramos(g_[g_.camara == "Diputados"])
+    dip_ = _an_resta(dip0_, sen_)
+    if sum((b - a).days for a, b in dip0_) - sum((b - a).days for a, b in dip_) > 31:
+        ANIOS_SOLAPADOS.append(r_["nombre"])
+    for col, tramos in (("diputados", dip_), ("senado", sen_)):
+        r_["anios_" + col] = round(sum((f_ - i_).days for i_, f_ in tramos) / 365.25, 2)
+        r_["periodos_" + col] = _an_texto(tramos, r_["sigue"])
+    dias_p = (g_.fin_h - g_.inicio).dt.days.groupby(g_.codigo_indec).sum()
+    r_["codigo_indec"] = dias_p.idxmax()
+    r_["provincias"] = _any([CORTO[c] for c in dict.fromkeys(g_.codigo_indec)])
+    r_["espacios"] = _any(list(dict.fromkeys(g_.espacio)))
+    r_["desde"] = int(g_.inicio.min().year)
+    _anr.append(r_)
+anios_congreso = pd.DataFrame(_anr)
+# los casos conocidos de la fuente de Diputados anterior a 2007: si aparece otro, hay que revisarlo antes de publicar
+assert len(ANIOS_SOLAPADOS) <= 5, f"más personas en las dos cámaras a la vez: {ANIOS_SOLAPADOS}"
+anios_congreso["anios_total"] = (anios_congreso.anios_diputados + anios_congreso.anios_senado).round(2)
+anios_congreso["territorio"] = anios_congreso.codigo_indec.map(CORTO)
+anios_congreso = anios_congreso.sort_values(["anios_total", "nombre"], ascending=[False, True]).reset_index(drop=True)
+assert anios_congreso.anios_total.max() <= (HOY - pd.Timestamp("1983-11-29")).days / 365.25 + .01, "alguien suma más años de los que pasaron desde 1983"
+_ant3 = anios_congreso.head(3)
+ANIOS_CONG = {"personas": int(len(anios_congreso)), "dos_camaras": int(((anios_congreso.anios_diputados > 0) & (anios_congreso.anios_senado > 0)).sum()),
+              "veinte": int((anios_congreso.anios_total >= 20).sum()), "veinte_siguen": int(((anios_congreso.anios_total >= 20) & anios_congreso.sigue).sum()),
+              "top": [{"nombre": r.nombre, "total": float(r.anios_total), "dip": float(r.anios_diputados), "sen": float(r.anios_senado),
+                       "sigue": bool(r.sigue), "prov": r.territorio} for r in _ant3.itertuples()]}
+anios_congreso = anios_congreso[["nombre", "codigo_indec", "territorio", "provincias", "anios_total", "anios_diputados", "anios_senado", "sigue",
+                                 "periodos_diputados", "periodos_senado", "espacios", "desde"]]
 # composición de hoy con el mismo criterio que cada período: quien ocupa la banca ese día
 act = en_la_banca(HOY)
 act = act.join(espacio_en(act.assign(fecha=HOY)[["camara", "id", "mandato_fin", "fecha"]]), on=["camara", "id", "mandato_fin"])
@@ -4093,6 +4186,7 @@ for cam, arch in [("Diputados", "diputados"), ("Senado", "senadores")]:
 votos = pd.concat(_filas_v, ignore_index=True)
 votos = votos.merge(pd.DataFrame(_meta_v, columns=["camara", "vid", "fecha"]), on=["camara", "vid"])
 votos["codigo_indec"] = votos.codigo_indec.where(votos.codigo_indec.isin(DIP_LEY))
+votos.loc[votos.bloque.str.upper().str.contains("FRENTE DE TODOS") & (votos.fecha < FDT_HASTA), "espacio"] = "UCR y aliados"  # ver FDT_HASTA
 
 # Espacio del gobierno nacional en cada fecha (presidentes desde 1989). En el gobierno de Macri, el PRO y la alianza
 # Cambiemos. El bloque oficialista de cada votacion es el bloque mas numeroso de ese espacio en la camara.
@@ -4622,6 +4716,7 @@ tablas = {
     "fiscal_provincias": fiscal,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
+    "anios_congreso": anios_congreso,
     "representacion_provincias": representacion,
     "envejecimiento_provincias": envejec,
     "mortalidad_infantil_causas": mi_causas,
@@ -5158,6 +5253,7 @@ resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo":
                             for k, v in CAPITALES_EPH_META.items()]
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])
 resumen["capitales_eph_res"] = CAP_EPH_RES
+resumen["anios_congreso"] = ANIOS_CONG
 resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
 
 (SITIO / "fichas.json").write_text(json.dumps({

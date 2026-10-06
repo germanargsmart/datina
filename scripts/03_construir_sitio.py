@@ -123,7 +123,7 @@ FRECUENCIA = {
     "f-nacidos-otro-pais": "censo", "f-migracion-interna": "censo", "f-migracion-historia": "censo", "f-extranjeros": "anio",
     "f-radicaciones": "anio", "f-refugio": "anio", "f-argentinos-exterior": "onu",
     # Política
-    "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
+    "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
     "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio",
     "f-presidentes": "presidente", "f-ministros": "gabinete",
     # Gobierno
@@ -330,7 +330,7 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
 # fichas.js lleva la huella de cada una para que el navegador no use una version vieja.
-DIFERIDAS = ["elecciones_presidenciales", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
+DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_provincias", "piramide_poblacion", "apoyo_gobierno_provincias", "aprender_departamentos",
              "hidrocarburos_mensual", "vivienda_departamentos", "isac_mensual", "costo_construccion",
              "empleo_construccion_serie", "pozos_no_convencionales", "areas_produccion", "centrales",
              "gas_usuario_serie", "gas_usuario_mensual", "areas_serie", "combustibles_mensual", "electricidad_serie", "electricidad_mensual",

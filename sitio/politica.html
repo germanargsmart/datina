@@ -130,6 +130,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. Se actualiza con cada renovación del Congreso.</span><a href="datos/legisladores_por_periodo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-anios-congreso">
+      <h3>Legisladores nacionales con más años en el Congreso, 1983 a hoy</h3>
+      <p class="lead" data-t="anioscong"></p>
+      <div class="conmutador" role="group" aria-label="Cámara" data-g="anioscong" style="--n:3">
+        <button type="button" data-m="total" aria-pressed="true">Total</button>
+        <button type="button" data-m="dip" aria-pressed="false">Diputados</button>
+        <button type="button" data-m="sen" aria-pressed="false">Senado</button>
+      </div>
+      <div class="grafico" data-g="anioscong" data-forma="barras" style="--filas:15"></div>
+      <div class="pol-ley"><span><i style="background:var(--azul)"></i>Años en Diputados</span><span><i style="background:var(--celeste)"></i>Años en el Senado</span><span>En negrita, quienes siguen en el cargo</span></div>
+      <p class="nota">Suma los días que cada persona ocupó una banca de diputado o de senador nacional desde que asumió en 1983 hasta hoy, según el registro de cada cámara, y une los tramos separados por una semana o menos. Cada persona figura con la provincia por la que estuvo más años. Una misma persona con el nombre escrito de otra forma en cada cámara se cuenta una sola vez, y dos personas con el mismo nombre en distintas provincias, por separado. En algunos casos, el registro de Diputados anterior a 2007, armado por mandato, pone a alguien en esa cámara mientras era senador: ahí cuentan las fechas del Senado. Sin una provincia elegida, el gráfico muestra las 15 personas con más años, y con una provincia, las 10 de esa provincia.</p>
+      <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. Se actualiza con cada renovación del Congreso.</span><a href="datos/anios_congreso.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-representacion">
       <h3>Habitantes por banca de diputado nacional según provincia, 2025</h3>
       <p class="lead" data-t="representacion"></p>
@@ -291,7 +305,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=0181dc50f6"></script>
-<script src="datina.js?v=d1084d842e"></script>
+<script src="datos/fichas.js?v=476ccdd4ca"></script>
+<script src="datina.js?v=444c147c95"></script>
 </body>
 </html>
