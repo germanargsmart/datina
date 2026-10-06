@@ -376,7 +376,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .portada-mapa .sol{position:absolute;top:0;right:0;width:200px}
 /* la ayuda va pegada debajo del país (la ubica datina.js): es la instrucción del mapa */
 .mapa-ayuda{position:absolute;left:50%;bottom:0;margin:0;transform:translateX(-50%);white-space:nowrap;text-align:center;
-  font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto)}
+  font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto);transition:opacity var(--dur-4) var(--ease-out)}
 .mapa-ayuda[style*="top"]{bottom:auto}
 /* tarjeta al tocar una provincia: al lado del país en pantallas anchas, debajo del mapa en el celular */
 .mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);background:#fff;border-radius:var(--r-panel);
@@ -413,7 +413,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .mapa-fondo .tierra{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.28);stroke-width:.6}
 .mapa-fondo .anillo{fill:none;stroke:#fff;stroke-opacity:.32;stroke-width:1;stroke-dasharray:1 6;stroke-linecap:round}
 /* las 24 provincias: cada una lleva a su perfil. La elegida va en amarillo */
-.mapa-fondo .provs a{pointer-events:auto;cursor:pointer}
+.mapa-fondo .provs a{pointer-events:auto;cursor:pointer;transform-box:fill-box;transform-origin:center}
 /* sin el recuadro de foco que el navegador dibuja al hacer clic: era el rectángulo que contiene a la provincia y quedaba cruzado sobre
    las vecinas. El mapa no recibe el foco del teclado ("Elegí tu provincia" lleva a lo mismo) */
 .mapa-fondo .provs a:focus,.mapa-fondo .provs a:focus-visible{outline:none}
@@ -428,7 +428,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .sol .disco{fill:var(--sol);stroke:var(--sol-borde);stroke-width:.9}
 .sol .rasgo{fill:none;stroke:var(--sol-borde);stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
 .sol .pupila{fill:var(--sol-borde)}
-.sol .rafaga{opacity:.55;transform-box:view-box;transform-origin:0 0;animation:girar 240s linear infinite reverse}
+.sol .rafaga{opacity:.55;transform-box:view-box;transform-origin:0 0;animation:girar 240s linear infinite reverse;transition:opacity 1.2s var(--ease-out)}
 .sol .rafaga line{stroke:#fff;stroke-width:.32;stroke-linecap:round}
 /* pestañeo: los dos ojos se cierran juntos un instante, a intervalos irregulares (a veces doble) */
 .sol .ojo{transform-box:fill-box;transform-origin:50% 55%;animation:pestanear 6.4s ease-in-out infinite 1.6s}
@@ -445,6 +445,16 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 @keyframes girar{to{transform:rotate(360deg)}}
 @keyframes nace{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
 @keyframes latir{from{transform:scale(.95)}to{transform:scale(1.05)}}
+/* Rompecabezas de la portada (6 de octubre de 2026, pedido del autor): mientras las provincias se arman en el país, el sol espera
+   quieto y sin verse (sus animaciones, detenidas en el primer cuadro), la ayuda no se ve y las provincias no se tocan. La portada trae
+   "armando" en la plantilla, así el sol no empieza a nacer antes de tiempo, y datina.js lo saca al terminar. Solo con JavaScript y con
+   movimiento: con movimiento reducido no hay rompecabezas y todo se ve desde el principio */
+@media (prefers-reduced-motion:no-preference){
+  .js .portada.armando .sol *{animation-play-state:paused!important}
+  .js .portada.armando .sol .rafaga{opacity:0}
+  .js .portada.armando .mapa-ayuda{opacity:0}
+  .js .portada.armando .provs a{pointer-events:none}
+}
 
 /* "Datos rápidos": preguntas que rotan de a una, en una franja propia debajo de la portada.
    Arriba los controles (anterior, cuál es de cuántas, siguiente y pausa) y abajo la pregunta con su respuesta. */

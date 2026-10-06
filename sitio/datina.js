@@ -6285,14 +6285,43 @@ if (location.hash.includes("?")) {
 async function mapa() {
   const el = document.getElementById("mapa"), por = document.querySelector(".portada");
   const caja = document.getElementById("portada-mapa"), ayuda = document.getElementById("mapa-ayuda");
+  // Rompecabezas (6 de octubre de 2026, pedido del autor): las provincias llegan desde afuera y se arman en el país, de la más lejana
+  // del centro a la más cercana, y con el país armado nace el sol. Mientras tanto la portada lleva "armando" (ver datina.css). Se arma
+  // una sola vez, con el dibujo definitivo: un redibujo en medio (la letra que llega tarde, un cambio de ancho) deja todo en su lugar.
+  // Con movimiento reducido no hay rompecabezas
+  let pendiente = !REDUCIR && por.classList.contains("armando"), vuelo = null;
+  const soltar = () => { clearTimeout(seguro); clearTimeout(vuelo); vuelo = null; pendiente = false; por.classList.remove("armando"); };
+  const seguro = setTimeout(soltar, 10000);   // el sol nunca se queda esperando, aunque los datos del mapa tarden
+  if (!pendiente) soltar();
+  // Cada provincia sale de afuera, sobre la línea que la une con el centro del país (el de los anillos), con un poco de desvío y de giro,
+  // como una pieza suelta. El desvío sale del código de la provincia, así el rompecabezas es siempre el mismo
+  const CENTRO = [-64, -38], DUR_P = 750, PASO_P = 50;
+  const azar = (c, k) => { const v = Math.sin(+c * 12.9898 + k * 78.233) * 43758.5453; return v - Math.floor(v); };
+  const rompecabezas = (enlaces, camino, proy, bp) => {
+    pendiente = false;
+    const [cx, cy] = proy(CENTRO), alto = bp[1][1] - bp[0][1];
+    const piezas = enlaces.nodes().map(a => {
+      const d = d3.select(a).datum(), c = d.properties.codigo_indec, [x, y] = camino.centroid(d);
+      const ang = Math.atan2(y - cy, x - cx) + (azar(c, 1) - .5) * .6, lejos = alto * (.55 + .3 * azar(c, 2));
+      return {a, dist: d3.geoDistance(d3.geoCentroid(d), CENTRO), dx: Math.cos(ang) * lejos, dy: Math.sin(ang) * lejos, giro: (azar(c, 3) - .5) * 50};
+    }).sort((p, q) => q.dist - p.dist);
+    piezas.forEach((p, i) => {
+      const t = {delay: i * PASO_P, fill: "backwards"};
+      p.a.animate([{transform: `translate(${p.dx.toFixed(1)}px,${p.dy.toFixed(1)}px) rotate(${p.giro.toFixed(1)}deg)`}, {transform: "none"}],
+        {...t, duration: DUR_P, easing: "cubic-bezier(.16,1,.3,1)"});
+      p.a.animate([{opacity: 0}, {opacity: 1}], {...t, duration: 300, easing: "ease-out"});
+    });
+    // el sol empieza a nacer cuando la última pieza está llegando
+    vuelo = setTimeout(soltar, (piezas.length - 1) * PASO_P + DUR_P * .7);
+  };
   let mundo;
-  try { [mundo] = await Promise.all([fetch("datos/mundo-110m.json").then(r => r.json()), cargarGeo()]); } catch (_) { return; }
+  try { [mundo] = await Promise.all([fetch("datos/mundo-110m.json").then(r => r.json()), cargarGeo()]); } catch (_) { soltar(); return; }
   // la Argentina y las Malvinas del mapa del mundo no se dibujan: van las provincias, con su contorno oficial
   const paises = topojson.feature(mundo, mundo.objects.countries).features.filter(d => d.id !== "032" && d.id !== "238");
   // con mouse se hace clic, en el celular se toca
   const AYUDA = matchMedia("(hover:hover) and (pointer:fine)").matches ? "Hacé clic en una provincia para ver sus datos" : ayuda.textContent;
   ayuda.textContent = AYUDA;
-  const dibujar = () => {
+  const dibujar = (armar = false) => {
     const W = por.clientWidth, H = por.clientHeight, angosto = W < 760;
     const pr = por.getBoundingClientRect(), c = caja.getBoundingClientRect(), sl = document.getElementById("sol").getBoundingClientRect();
     // el país ocupa el lugar del mapa. En pantallas anchas deja libre la esquina del sol
@@ -6320,6 +6349,10 @@ async function mapa() {
     // la Ciudad de Buenos Aires es un punto a esta escala: un círculo para poder tocarla
     const [cx, cy] = proy(d3.geoCentroid(GEO.features.find(f => f.properties.codigo_indec === "02")));
     g.select('a[data-c="02"]').raise().append("circle").attr("cx", cx).attr("cy", cy).attr("r", angosto ? 6 : 5);
+    // el rompecabezas: mientras está pendiente, las provincias esperan sin verse hasta el dibujo definitivo
+    if (vuelo) soltar();
+    if (armar && pendiente) rompecabezas(enlaces, camino, proy, bp);
+    else if (pendiente) g.style("opacity", 0);
     enlaces.on("pointerenter", (ev, d) => { const c = d.properties.codigo_indec; ayuda.innerHTML = conBandera(c, `${NOMBRES[c]}: ver sus datos`); })
       .on("pointerleave", () => { ayuda.textContent = AYUDA; })
       // tocar una provincia abre una tarjeta con datos de su perfil (pedido del autor, octubre de 2026). No la elige: eso se hace
@@ -6329,8 +6362,12 @@ async function mapa() {
     el.classList.add("listo");
   };
   dibujar();
-  // la tipografía condensada cambia el alto del texto: se recalcula cuando termina de cargar
-  if (document.fonts) document.fonts.ready.then(dibujar);
+  // la tipografía condensada cambia el alto del texto: se recalcula cuando termina de cargar, y ese es el dibujo que se arma como
+  // rompecabezas. Si la letra tarda más de dos segundos y medio, se arma igual, y el redibujo de cuando llegue deja todo en su lugar
+  let armado = false;
+  const armar = () => { if (!armado) { armado = true; dibujar(true); } };
+  if (document.fonts) document.fonts.ready.then(() => armado ? dibujar() : armar()); else armar();
+  setTimeout(armar, 2500);
   let ancho = por.clientWidth, t;
   new ResizeObserver(() => { if (por.clientWidth === ancho) return; ancho = por.clientWidth; clearTimeout(t); t = setTimeout(dibujar, 150); }).observe(por);
 }
