@@ -5194,7 +5194,7 @@ const CV_EPH = (() => {
 const LIM_AGLO = "Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares, que en algunos casos junta dos ciudades, como Rawson con Trelew o Ushuaia con Río Grande. Es un área distinta del municipio que usan los artículos de las viviendas, que salen del censo.";
 const ART = [
   // etapa 27: tres artículos de las capitales con la Encuesta Permanente de Hogares (tabla capitales_eph, por aglomerado)
-  {id: "a-pobreza-desocupacion", tabla: "capitales_eph", x: "desocupacion", y: "pobreza", espera: 1, frec: "Se actualiza cada seis meses",
+  {id: "a-pobreza-desocupacion", tabla: "capitales_eph", x: "desocupacion", y: "pobreza", espera: 1, frec: "La desocupación se actualiza cada trimestre",
     lx: "desocupación", ly: "pobreza", ux: "% de la población económicamente activa", uy: "% de las personas",
     dek: "La desocupación de cada capital de provincia en el último año, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares.",
     contexto: "La desocupación y la pobreza miden cosas distintas: una cuenta a quienes buscan trabajo y no lo consiguen, y la otra mira si los ingresos del hogar alcanzan para la canasta básica. Este cruce pone una al lado de la otra, capital por capital, con la Encuesta Permanente de Hogares del INDEC.",
@@ -5202,7 +5202,7 @@ const ART = [
       "La EPH es una encuesta por muestra, y en los aglomerados chicos la desocupación de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres: si en uno el INDEC no publicó el dato por tener pocos casos, el promedio usa los otros tres.",
       CV_EPH,
       "Una persona puede tener trabajo y ser pobre: la desocupación no dice cuánto se gana."]},
-  {id: "a-empleo-pobreza", tabla: "capitales_eph", x: "empleo", y: "pobreza", espera: -1, frec: "Se actualiza cada seis meses",
+  {id: "a-empleo-pobreza", tabla: "capitales_eph", x: "empleo", y: "pobreza", espera: -1, frec: "El empleo se actualiza cada trimestre",
     lx: "empleo", ly: "pobreza", ux: "% de la población", uy: "% de las personas",
     dek: "La parte de la población de cada capital de provincia que trabaja, en el último año, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares.",
     contexto: "La desocupación cuenta solo a quienes buscan trabajo y no lo consiguen: quien dejó de buscar, o no busca, no figura. La tasa de empleo mira otra cosa, la parte de toda la población que trabaja. Este cruce la compara, capital por capital, con la parte de las personas bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.",
@@ -5211,7 +5211,7 @@ const ART = [
       "La EPH es una encuesta por muestra, y en los aglomerados chicos la tasa de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres.",
       CV_EPH,
       "Tener trabajo no dice cuánto se gana ni si el trabajo está registrado."]},
-  {id: "a-alquiler-pobreza", tabla: "capitales_eph", x: "pobreza", y: "alquila", espera: -1, frec: "Se actualiza cada seis meses",
+  {id: "a-alquiler-pobreza", tabla: "capitales_eph", x: "pobreza", y: "alquila", espera: -1, frec: "La parte de los hogares que alquila se actualiza cada trimestre",
     lx: "pobreza", ly: "hogares que alquilan", ux: "% de las personas", uy: "% de los hogares",
     dek: "La parte de los habitantes de cada capital de provincia bajo la línea de pobreza, frente a la parte de sus hogares que alquila, según la Encuesta Permanente de Hogares.",
     contexto: "Quien no tiene una vivienda propia suele alquilarla, y para alquilar hacen falta ingresos con los que pagar el contrato. Este cruce compara, capital por capital, la parte de las personas bajo la línea de pobreza con la parte de los hogares que alquila, según la Encuesta Permanente de Hogares del INDEC.",
