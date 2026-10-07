@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=b97bd03063">
+<link rel="stylesheet" href="datina.css?v=ceb7e462b6">
 </head>
 <body data-pagina="salud">
 <header class="barra clara">
@@ -81,6 +81,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <!-- Laboratorio (etapa 33, 6 de octubre de 2026, pedido del autor: "agregá o sustituí alguna sección con esto
        https://usafacts.org/the-viz-lab/"): piezas visuales grandes, como The Viz Lab de USAFacts, cada una con su gráfico vivo y un
        texto corto que calcula datina.js. Arriba lo más nuevo y abajo "Más del Laboratorio". Las que salen de una ficha llevan a ella -->
+  
+
+  <!-- La Corte Suprema (etapa 33, pedido del autor: "agregá algo de la justicia argentina, del poder judicial nacional, miembros, cantidad de
+       miembros, designados por tipo de gobierno, radical, peronista, pan, etc, desde 1853 en adelante"): pieza del Laboratorio con página
+       propia, como "The Supreme Court has had 116 justices. Here's who put them there" de USAFacts. El texto y los tres gráficos los arma
+       datina.js (PIEZA_CORTE) con las tablas que calcula 02_procesar.py -->
   
 
   
@@ -222,7 +228,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=b115977e45"></script>
-<script src="datina.js?v=6a0fcf23ba"></script>
+<script src="datos/fichas.js?v=44b5ebbc54"></script>
+<script src="datina.js?v=e353d32d27"></script>
 </body>
 </html>

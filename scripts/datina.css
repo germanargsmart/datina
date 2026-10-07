@@ -687,6 +687,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .lab-pieza>.enlace,.lab-texto>.enlace{justify-self:start;align-self:start;font-size:var(--t-3)}
 /* el mapa de los pozos guarda la proporción de su dibujo (mapaPozos: el alto es el 92% del ancho), así su silueta mide lo mismo en cualquier ancho */
 .js .grafico[data-g="lab-pozos"]:is(:empty,[aria-busy="true"])::before{height:auto;aspect-ratio:1/.92}
+/* la línea de los jueces que fija la ley, en la leyenda de la composición de la Corte */
+.pol-ley i.co-ley{width:16px;height:0;border-radius:0;background:none;border-top:1.6px dashed var(--ink)}
+.lab-pieza.grande .lab-graf>.pol-ley{margin-bottom:var(--e-2)}
 .pol-ley i.lab-ini{width:9px;height:9px;border-radius:50%;background:#fff;border:1.5px solid var(--celeste)}
 .pol-ley i.lab-fin{width:10px;height:10px;border-radius:50%;background:var(--celeste)}
 .lab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--e-5)}
@@ -708,6 +711,13 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .lab-pieza{margin:var(--e-4) 0;padding:var(--e-5) var(--e-4) var(--e-4)}
 }
 @media (hover:hover) and (pointer:fine){.lab-pieza:hover{border-color:var(--azul);box-shadow:0 0 0 1px var(--azul),var(--sombra-tarjeta)}}
+
+/* una pieza con página propia (la Corte Suprema): el texto en una columna de lectura, como los artículos, y los gráficos a todo el ancho */
+.pieza{padding-top:var(--e-2)}
+.pieza>.migas{margin-top:var(--e-7)}
+.pieza .nota{max-width:none}
+.pieza .nota>:not(.nota-graf){max-width:740px}
+.pieza>.pasos{margin-top:var(--e-8)}
 
 /* ---------- páginas de sección: pregunta de entrada, explicación, cifras y cierre ---------- */
 .tema-intro{max-width:42em;margin:-4px 0 var(--e-7)}

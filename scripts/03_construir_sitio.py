@@ -38,7 +38,7 @@ assert not _rep, f"ids repetidos en la plantilla: {_rep}"
 # el nombre de las proyecciones de población del INDEC y los límites para comprar dólares que rigieron hasta abril de 2025)
 FIJOS = ["diciembre de 2024 el subte", "diciembre de 2024 parte de los viajes", "mayo de 2025 pagos con qr", "desde 2026 el indec reformula",
          "hasta octubre de 2026 el sitio", "2022 a 2040, base censo", "septiembre de 2019 y abril de 2025",
-         "enero de 2026 incluyen la venta"]
+         "enero de 2026 incluyen la venta", "internet archive de septiembre de 2024"]
 
 
 def anios_a_mano(nombre, fuente):
@@ -284,14 +284,23 @@ def bloques(h):
 PAGINA_DE_BLOQUE = {"portada": "inicio", "preguntas": "inicio", "destacados": "inicio", "articulos-home": "inicio", "secciones": "inicio",
                     "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404",
                     "laboratorio": "laboratorio"}
+def pagina_de(b):
+    """Página de un bloque: cada sección (tema) y cada pieza del Laboratorio (etapa 33) tiene la suya, con su id. El resto, según su clase."""
+    if "tema" in b["clases"] or "pieza" in b["clases"]:
+        return b["id"]
+    return next((PAGINA_DE_BLOQUE[c] for c in b["clases"] if c in PAGINA_DE_BLOQUE), None)
+
+
 BLOQUES = bloques(base)
 for b in BLOQUES:
-    b["pagina"] = b["id"] if "tema" in b["clases"] else next((PAGINA_DE_BLOQUE[c] for c in b["clases"] if c in PAGINA_DE_BLOQUE), None)
+    b["pagina"] = pagina_de(b)
     assert b["pagina"], f"bloque sin página: {b['clases']} {b['id']}"
 TEMAS = [b for b in BLOQUES if "tema" in b["clases"]]
 # artículos: id, título, ícono y sección (data-ico y data-sec en la plantilla)
 NOTAS = re.findall(r'<article class="nota" id="(a-[\w-]+)" data-ico="([\w-]+)" data-sec="([\w-]+)" data-titulo="([^"]+)"', base)
 assert NOTAS, "no se encontraron los artículos en la plantilla"
+# piezas del Laboratorio con página propia (etapa 33): id, ícono, título y descripción (data-ico, data-titulo y data-descr en la plantilla)
+PIEZAS = re.findall(r'<section class="pieza" id="([\w-]+)" data-ico="([\w-]+)" data-titulo="([^"]+)" data-descr="([^"]+)"', base)
 
 
 def ubicar(pos):
@@ -348,7 +357,7 @@ DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_prov
              "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
              "inflacion_mensual", "canasta_mensual", "salario_real_mensual", "actividad_mensual",
              "nacidos_otro_pais_paises", "radicaciones_nacionalidad", "argentinos_exterior_destinos",
-             "migraciones_departamentos", "supermercados_mensual"]
+             "migraciones_departamentos", "supermercados_mensual", "corte_jueces", "corte_composicion", "corte_presidentes"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
@@ -389,6 +398,7 @@ SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
              "diagnostico": "portapapeles", "laboratorio": "matraz"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
+SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO}.items():
     assert marca in js, marca
@@ -402,7 +412,7 @@ for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__
 # las posiciones de los bloques cambian con el reemplazo de arriba: se vuelven a ubicar
 BLOQUES = bloques(base)
 for b in BLOQUES:
-    b["pagina"] = b["id"] if "tema" in b["clases"] else next(PAGINA_DE_BLOQUE[c] for c in b["clases"] if c in PAGINA_DE_BLOQUE)
+    b["pagina"] = pagina_de(b)
 
 TITULO = "<title>Datina | Las 24 Argentinas en números</title>"
 DESCR = re.search(r'<meta name="description" content="[^"]*">', base).group(0)
@@ -419,6 +429,7 @@ LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
 assert LAB_PIEZAS, "no se encontraron las piezas del Laboratorio en la plantilla"
 FLECHA_ANT, FLECHA_SIG = '<span aria-hidden="true">\u2190</span> ', ' <span aria-hidden="true">\u2192</span>'
 TIT_NOTA = {i: html.unescape(t) for i, _, _, t in NOTAS}
+TITULO_DE.update({i: html.unescape(t) for i, _, t, _ in PIEZAS})
 
 
 def sol_svg():
@@ -450,7 +461,7 @@ def carta(pid, meta=None):
 def pasos(ant, sig, relacionadas, todas):
     """Final de página ("Seguí explorando", como el de usafacts.org, pedido del autor el 2 de octubre de 2026): cuatro tarjetas
     con ícono, la anterior y la siguiente (con su flecha) y dos relacionadas, y el enlace a todas las secciones o artículos."""
-    cartas = [carta(ant, FLECHA_ANT + "Anterior"), carta(sig, "Siguiente" + FLECHA_SIG)]
+    cartas = [carta(ant, FLECHA_ANT + "Anterior"), carta(sig, "Siguiente" + FLECHA_SIG)] if ant else []
     cartas += [carta(r) for r in relacionadas]
     t = "".join(f'<a class="tarjeta explora" href="{u}"><span class="explora-ico">{icono_svg(ic)}</span><span class="explora-txt">'
                 f'<b{f" style={chr(34)}view-transition-name:{vt}{chr(34)}" if vt else ""}>{e(tit)}</b><small>{meta}</small></span></a>'
@@ -503,6 +514,13 @@ def navegacion(h, pagina):
     b = next((b for b in bloques(h) if b["id"] == ident), None)
     if not b or pagina in ("inicio", "404"):
         return h
+    # una pieza del Laboratorio (etapa 33): las migas pasan por el Laboratorio, y al final cuatro tarjetas sin anterior ni siguiente
+    if "pieza" in b["clases"]:
+        blo = h[b["ini"]:b["fin"]]
+        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("laboratorio.html", "Laboratorio"), ("", TITULO_DE[pagina]), prov=False), blo)
+        blo = blo[:-len("</section>")] + pasos(None, None, ["laboratorio", "politica", "gobierno", "articulos"],
+                                                ("laboratorio.html", "Todo el Laboratorio")) + "</section>"
+        return h[:b["ini"]] + blo + h[b["fin"]:]
     blo = h[b["ini"]:b["fin"]]
     # "Para entender los datos" (etapa 31): al final de la página, después de las fichas y antes de "Seguí explorando"
     final = ""
@@ -541,7 +559,7 @@ assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
 BLOQUES = bloques(base)
 for b in BLOQUES:
-    b["pagina"] = b["id"] if "tema" in b["clases"] else next(PAGINA_DE_BLOQUE[c] for c in b["clases"] if c in PAGINA_DE_BLOQUE)
+    b["pagina"] = pagina_de(b)
 
 # Formas de carga (etapa 6): mientras llegan los datos y el código, cada ficha muestra su silueta y cada gráfico reserva su alto.
 # La forma de cada gráfico va en la plantilla (data-forma). Las tarjetas de "En cifras" y del perfil provincial las arma
@@ -634,6 +652,8 @@ pagina("nosotros", "Sobre nosotros",
 pagina("laboratorio", "Laboratorio",
        "Datos difíciles, en gráficos: cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
        {"laboratorio"})
+for id_, _, titulo, descr in PIEZAS:
+    pagina(id_, html.unescape(titulo), html.unescape(descr), {id_})
 # Contacto: formulario del proyecto (se activa al publicar en Netlify)
 pagina("contacto", "Contacto", "Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.", {"contacto"})
 # Página para las direcciones que no existen

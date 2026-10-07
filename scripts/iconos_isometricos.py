@@ -717,6 +717,25 @@ def _(ic):
     ic.elipse_piso(5, 5, 8.3, .82, "s")
 
 
+@icono("balanza", "azul")
+def _(ic):
+    # la Corte Suprema (etapa 33): una balanza de dos platos hondos sobre su columna, con el brazo en diagonal como todo lo isométrico
+    ic.sombra(6.4, 5.0, 3.6, 1.5)
+    ic.cilindro(5, 5, 0, 2.1, .55)
+    ic.cilindro(5, 5, .55, 1.2, .45)
+
+    def plato(cx):
+        for dx in (-1.25, 1.25):
+            ic.linea([(cx, 5, 8.0), (cx + dx, 5, 4.4)], "k")
+        ic.revolucion(cx, 5, [(3.0, .45), (4.4, 1.6)], "s")
+        ic.elipse_piso(cx, 5, 4.4, 1.6, "l")
+    plato(1.3)
+    ic.cilindro(5, 5, 1.0, .36, 6.9, arriba="s", lado="s")
+    ic.caja(.9, 4.72, 7.75, 8.2, .56, .5, "s", "l", "s")
+    ic.cupula((5, 5, 8.25), .62)
+    plato(8.7)
+
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}

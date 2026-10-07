@@ -14,7 +14,8 @@ document.documentElement.classList.add("listo");
    está cada ancla) sale del índice del sitio, que arma el constructor desde la plantilla (D.indice). */
 const PAGINA = document.body.dataset.pagina || "inicio";
 // sección a la que pertenece la página: en un artículo es "articulos"
-const SECCION = PAGINA.startsWith("a-") ? "articulos" : PAGINA;
+// en una pieza del Laboratorio con página propia (etapa 33), "laboratorio"
+const SECCION = PAGINA.startsWith("a-") ? "articulos" : document.querySelector("section.pieza") ? "laboratorio" : PAGINA;
 const SITIO = D.indice, UBIC = SITIO.ubic;
 // página donde está un ancla (una ficha, una sección o un artículo)
 const paginaDe = id => UBIC[id];
@@ -1773,11 +1774,13 @@ function columnasApiladas(el, cfg) {
   const {g, iw, ih} = C;
   const x = d3.scaleBand().domain(data.map(d => d.anio)).range([0, iw]).padding(.18);
   const tot = d => d3.sum(cfg.claves, k => d[k.k] || 0);
-  const y = d3.scaleLinear().domain([0, d3.max(data, tot)]).nice().range([ih, 0]);
+  // cfg.linea (etapa 33): una línea escalonada encima de las columnas, como los jueces que fija la ley en la composición de la Corte
+  const y = d3.scaleLinear().domain([0, d3.max(data, d => Math.max(tot(d), cfg.linea ? d[cfg.linea.k] || 0 : 0))]).nice().range([ih, 0]);
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(cfg.af || null)).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`)
-    .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter((a, i) => cfg.cadaTick ? i % (angosto ? cfg.cadaTick * 2 : cfg.cadaTick) === 0 : a % (angosto ? 8 : 4) === 0))
+    .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter((a, i) => cfg.cadaAnio ? a % (angosto ? cfg.cadaAnio * 2 : cfg.cadaAnio) === 0
+      : cfg.cadaTick ? i % (angosto ? cfg.cadaTick * 2 : cfg.cadaTick) === 0 : a % (angosto ? 8 : 4) === 0))
       .tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   const col = g.selectAll("g.c").data(data).join("g").attr("class","c").attr("transform", d => `translate(${x(d.anio)},0)`);
   col.each(function(d) {
@@ -1789,9 +1792,23 @@ function columnasApiladas(el, cfg) {
     if (cfg.anim) r.attr("y", ih).attr("height", 0).transition().delay(x(d.anio) / iw * 150).duration(DUR_G).ease(EASE)
       .attr("y", p => y(p.y0 + p.v)).attr("height", p => y(p.y0) - y(p.y0 + p.v));
   });
+  if (cfg.linea) {
+    // un tramo horizontal por columna, unido al anterior en cada cambio; sin dato, la línea se corta
+    let camino = "", antes = null;
+    data.forEach(d => {
+      const v = d[cfg.linea.k];
+      if (v == null) { antes = null; return; }
+      const x0 = x(d.anio) - (x.step() - x.bandwidth()) / 2, yy = y(v);
+      camino += `${antes == null ? "M" : "L"}${x0.toFixed(1)},${yy.toFixed(1)}H${(x0 + x.step()).toFixed(1)}`;
+      antes = v;
+    });
+    g.append("path").attr("d", camino).attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.4).attr("stroke-dasharray", "3 3")
+      .attr("pointer-events", "none");
+  }
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
     .on("pointerenter", function(ev, d) {
-      mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>"), (cfg.l || 36) + x(d.anio) + x.bandwidth() / 2, 10); })
+      mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>") +
+        (cfg.linea && d[cfg.linea.k] != null ? `<br>${cfg.linea.lab}: ${d[cfg.linea.k]}` : ""), (cfg.l || 36) + x(d.anio) + x.bandwidth() / 2, 10); })
     .on("pointerleave", ocultarTip);
 }
 
@@ -3173,6 +3190,142 @@ function trayectorias(el, cfg) {
   };
   svg.append("rect").attr("width", C.w).attr("height", C.h).attr("fill", "transparent").style("touch-action", "pan-y")
     .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarTip);
+}
+/* ---------- La Corte Suprema (etapa 33): pieza del Laboratorio con página propia ----------
+   Como "The Supreme Court has had 116 justices. Here's who put them there" de USAFacts: cuánto estuvo cada juez, quiénes estaban cada año
+   y cuántos designó cada presidente, con el color del grupo del gobierno que designó a cada uno (la clasificación que aprobó el autor está
+   en 02_procesar.py). Los textos salen del resumen (R.corte) y las tablas se bajan al dibujar. Describe quién designó a cada juez, no
+   cómo votó */
+const CO = R.corte, CO_G = Object.fromEntries(CO.grupos.map(g => [g.k, g]));
+const CO_TABLAS = ["corte_jueces", "corte_composicion", "corte_presidentes"];
+// con los colores claros, el texto de encima va oscuro
+const coClaves = () => CO.grupos.map(g => ({k: g.k, lab: g.lab, c: g.c, texto: ["#9FB86B", "#74ACDF", "#F6B40E"].includes(g.c) ? css("--ink") : "#fff"}));
+const CO_DE = {liberales: "de los liberales de Mitre", pan: "del PAN", ucr: "de la UCR", facto: "de gobiernos de facto", concordancia: "de la Concordancia",
+  peronismo: "del peronismo", pro: "del PRO", lla: "de La Libertad Avanza"};
+const coAnios = j => j.en_funciones ? `desde ${j.anio_desde}` : j.anio_hasta === j.anio_desde ? `en ${j.anio_desde}` : `de ${j.anio_desde} a ${j.anio_hasta}`;
+// frases sin género: tres juezas pasaron por la Corte
+const coMotivo = {"renuncia": "Renunció", "fallecimiento": "Murió en el cargo", "jubilación": "Se jubiló", "juicio político": "Salió por juicio político",
+  "cesanteado por un gobierno de facto": "Salió por la cesantía que dispuso un gobierno de facto", "límite de edad": "Llegó al límite de edad",
+  "otro": "", "en funciones": "Sigue en el cargo"};
+const tipJuez = j => `<b>${j.nombre}</b><br>${mayus(coAnios(j))}, ${n1(j.anios)} años<br>Designación de ${j.designado_por}` +
+  `<br><span style="color:${CO_G[j.grupo].c}">■</span> ${CO_G[j.grupo].lab}` + (j.confirmado ? `<br>${j.confirmado}` : "") +
+  (j.segunda_designacion ? "<br>Segunda designación" : "") + (coMotivo[j.motivo_cese] ? `<br>${coMotivo[j.motivo_cese]}` : "");
+
+/* Línea de tiempo de los jueces: cada uno es una barra en su carril, desde que juró (o desde su decreto) hasta que dejó el cargo, con el
+   color del grupo que lo designó. Hay tantos carriles como jueces a la vez (los arma 02_procesar.py). En pantallas angostas el tiempo corre
+   hacia abajo y los carriles son columnas. Al pasar el mouse o tocar, el juez del carril y la fecha que quedan debajo */
+function lineaCorte(el, cfg) {
+  const J = T.corte_jueces, L = CO.carriles, vertical = el.clientWidth < 560;
+  const ini = new Date(CO.desde, 0, 1), fin = new Date(), hasta = j => j.hasta ? new Date(j.hasta) : fin, desde = j => new Date(j.dib_desde);
+  const C = lienzo(el, vertical ? Math.round((fin.getFullYear() - CO.desde) * 4.4) + 40 : L * 22 + 34,
+    vertical ? {t: 10, r: 8, b: 10, l: 40} : {t: 6, r: 12, b: 28, l: 8});
+  const {svg, g, iw, ih} = C;
+  svg.attr("aria-label", `Línea de tiempo de los ${CO.designaciones} jueces de la Corte Suprema desde ${CO.desde}, con el color del gobierno que designó a cada uno`);
+  const t = d3.scaleTime().domain([ini, fin]).range(vertical ? [0, ih] : [0, iw]);
+  const c = d3.scaleBand().domain(d3.range(L)).range(vertical ? [0, iw] : [0, ih]).padding(.2);
+  const marcas = d3.range(Math.ceil(CO.desde / 20) * 20, fin.getFullYear() + 1, 20).map(a => new Date(a, 0, 1));
+  g.append("g").attr("class", "grilla").selectAll("line").data(marcas).join("line")
+    .attr(vertical ? "y1" : "x1", d => t(d)).attr(vertical ? "y2" : "x2", d => t(d)).attr(vertical ? "x2" : "y2", vertical ? iw : ih);
+  g.append("g").attr("class", "eje").selectAll("text").data(marcas).join("text").text(d => d.getFullYear())
+    .attr(vertical ? "y" : "x", d => t(d)).attr(vertical ? "x" : "y", vertical ? -8 : ih + 18).attr("text-anchor", vertical ? "end" : "middle").attr("dy", vertical ? ".35em" : 0);
+  const grosor = c.bandwidth(), rx = rBarra(grosor);
+  const barras = g.selectAll("rect.juez").data(J).join("rect").attr("class", "juez").attr("fill", j => CO_G[j.grupo].c).attr("rx", rx)
+    .attr(vertical ? "x" : "y", j => c(j.carril)).attr(vertical ? "width" : "height", grosor)
+    .attr(vertical ? "y" : "x", j => t(desde(j))).attr(vertical ? "height" : "width", j => Math.max(1.5, t(hasta(j)) - t(desde(j))));
+  if (cfg.anim) barras.attr(vertical ? "height" : "width", 0).transition().delay(j => t(desde(j)) / (vertical ? ih : iw) * 150).duration(DUR_G).ease(EASE)
+    .attr(vertical ? "height" : "width", j => Math.max(1.5, t(hasta(j)) - t(desde(j))));
+  const marco = g.append("rect").attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.5).attr("rx", rx + 1).attr("opacity", 0).attr("pointer-events", "none");
+  const ver = ev => {
+    const [px, py] = d3.pointer(ev, g.node()), [ex, ey] = d3.pointer(ev, el);
+    const k = Math.max(0, Math.min(L - 1, Math.round(((vertical ? px : py) - c(0) - grosor / 2) / c.step())));
+    const f = t.invert(vertical ? py : px), tol = 4 / (vertical ? ih : iw) * (fin - ini);
+    const j = J.filter(j => j.carril === k).find(j => desde(j) - tol <= f && f <= +hasta(j) + tol);
+    if (!j) { marco.attr("opacity", 0); return ocultarTip(); }
+    const a = t(desde(j)), b = Math.max(a + 1.5, t(hasta(j)));
+    marco.attr(vertical ? "x" : "y", c(k) - 1.5).attr(vertical ? "width" : "height", grosor + 3).attr(vertical ? "y" : "x", a - 1.5)
+      .attr(vertical ? "height" : "width", b - a + 3).attr("opacity", 1);
+    mostrarTip(el, tipJuez(j), ex, ey);
+  };
+  svg.append("rect").attr("width", C.w).attr("height", C.h).attr("fill", "transparent").style("touch-action", "pan-y")
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { marco.attr("opacity", 0); ocultarTip(); });
+}
+const coComposicion = (el, a) => columnasApiladas(el, {anim: a, data: T.corte_composicion, claves: coClaves(), cadaAnio: 20, unidad: "jueces", l: 30,
+  linea: {k: "ley", lab: "Jueces que fija la ley"}});
+const coPresidentes = (el, a) => {
+  const data = T.corte_presidentes.map((p, i) => ({...p, codigo_indec: "p" + i, territorio: `${p.presidente} (${p.inicio.slice(0, 4)})`, [p.grupo]: p.designados}));
+  const tope = d3.max(data, d => d.designados) * 1.15;
+  apiladasH(el, {anim: a, data, claves: coClaves(), max: tope, ticks: d3.range(0, tope, 2), ejeF: x => x, izq: angosto => angosto ? 168 : 246, recortar: true,
+    sinProv: true, tipF: x => `${x} ${x === 1 ? "juez" : "jueces"}`, alFinal: d => d.designados, tipExtra: d => `<br>${d.nombres}`});
+  el.resaltar = () => {};
+};
+// la pieza grande del Laboratorio: quiénes estaban cada año
+TX["lab-corte"] = $t("lab-corte").textContent = `Desde ${CO.desde}, ${CO.personas} personas fueron jueces de la Corte Suprema, designadas por ${CO.presidentes} presidentes. ` +
+  `Cada columna muestra los jueces en funciones al final de cada año, con el color del gobierno que designó a cada uno, y la línea punteada, cuántos fija la ley.`;
+DIB["lab-corte"] = conTablas("lab-corte", CO_TABLAS, a => {
+  leyenda("lab-corte-ley", coClaves());
+  coComposicion(G("lab-corte"), a);
+  G("lab-corte").resaltar = () => {};
+});
+// la página de la pieza
+const notaCorte = document.getElementById("l-corte");
+if (notaCorte) {
+  const hoy = CO.hoy, porQuien = d3.groups(hoy, j => j.designado_por);
+  // sin género ("llegó", "por designación de"): la frase sirve para cualquier integrante
+  const quienes = porQuien.map(([p, js]) => `${listaY(js.map(j => j.nombre))} ${js.length > 1 ? "llegaron" : "llegó"} en ${js[0].desde}, por designación de ${p}.`).join(" ");
+  const grupos = Object.entries(CO.por_grupo).sort((p, q) => q[1] - p[1]).map(([k, n], i) => `${n}${i ? "" : " fueron"} ${CO_DE[k]}`);
+  const cambios = CO.cambios_ley.filter((c, i, a) => !i || c.jueces !== a[i - 1].jueces);
+  const top = CO.top_presidentes, ma = CO.mas_anios;
+  const noAs = CO.no_asumieron_lista.map(x => `${x.nombre} (${x.anio})`);
+  const tiempo = j => j.hasta ? `de ${j.desde} a ${j.hasta}` : `desde ${j.desde}`;
+  const nAnios = CO.anios_composicion;
+  notaCorte.innerHTML =
+    `<div class="nota-cab"><span class="nota-ico">${icono("balanza")}</span><div><p class="nota-meta">Laboratorio. Se actualiza con cada cambio en la Corte</p>` +
+    `<h2 class="nota-tit" style="view-transition-name:t-corte-suprema">La Corte Suprema tuvo ${CO.personas} jueces desde ${CO.desde}. Quién los designó</h2></div></div>` +
+    `<p class="nota-bajada"><mark>Hoy la Corte tiene ${hoy.length} jueces, de los ${CO.ley_hoy} que fija la ley.</mark> ${quienes}</p>` +
+    `<p>Desde que se instaló, en ${CO.desde}, la Corte Suprema de Justicia de la Nación tuvo ${CO.personas} jueces en ${CO.designaciones} designaciones, porque ` +
+    `${CO.dos_veces.length === 4 ? "cuatro" : CO.dos_veces.length} llegaron dos veces: ${listaY(CO.dos_veces)}. Los designaron ${CO.presidentes} presidentes. ` +
+    `Según el gobierno que firmó cada una, ${listaY(grupos)}.</p>` +
+    `<p>La Constitución de 1853 fijaba nueve jueces, pero los que designó Urquiza en 1854 no llegaron a formar la Corte. Desde la reforma de 1860, ` +
+    `el número lo fija una ley: ${listaY(cambios.map(c => `${{5: "cinco", 7: "siete", 9: "nueve"}[c.jueces] || c.jueces} desde ${c.anio}`))}. ` +
+    (/26\.183/.test(cambios.at(-1).norma) ? `La última reducción, de la ley 26.183, se cumplió de a poco, a medida que quedaban cargos vacantes.` : "") + `</p>` +
+    `<div class="nota-graf"><h3>Cuánto estuvo cada juez en la Corte</h3><div class="pol-ley" aria-hidden="true">${coClaves().map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("")}</div>` +
+    `<div class="grafico" data-g="cs-tiempo" data-forma="bloque" style="--alto:${CO.carriles * 22 + 34}px;--alto-c:${(new Date().getFullYear() - CO.desde) * 4.4 + 40}px"></div>` +
+    `<p class="nota-pie-graf">Cada barra es un juez, desde que juró (o desde su decreto, si falta la jura) hasta que dejó el cargo, con el color del gobierno que lo designó. ` +
+    `Hay una fila por cada juez que podía haber a la vez: cuando uno se va, el que llega puede ocupar su lugar.</p></div>` +
+    `<p>${ma[0].nombre} es quien más tiempo estuvo en la Corte: ${n1(ma[0].anios)} años, ${tiempo(ma[0])}. Le siguen ${ma[1].nombre} (${n1(ma[1].anios)}) y ${ma[2].nombre} (${n1(ma[2].anios)}). ` +
+    `La mitad de los jueces estuvo ${n1(CO.mediana_anios)} años o menos. Los gobiernos de facto cesaron a ${CO.cesanteados} jueces, y ${CO.juicio_politico} salieron por juicio político.</p>` +
+    `<div class="nota-graf"><h3>Los jueces de cada año, según quién los designó</h3><div class="pol-ley" aria-hidden="true">${coClaves().map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("")}` +
+    `<span><i class="co-ley"></i>Jueces que fija la ley</span></div><div class="grafico" data-g="cs-composicion" data-forma="columnas"></div>` +
+    `<p class="nota-pie-graf">Jueces en funciones al 31 de diciembre de cada año (en el año en curso, hoy), con el color del gobierno que designó a cada uno.</p></div>` +
+    `<p>En ${CO.anios_un_grupo} de esos ${nAnios} años, todos los jueces en funciones habían sido designados por gobiernos de un mismo grupo. La última vez fue en ${CO.un_grupo_ult}. ` +
+    `Los gobiernos de facto hicieron ${CO.por_grupo.facto} de las designaciones, todas sin acuerdo del Senado.</p>` +
+    `<div class="nota-graf"><h3>Cuántos jueces designó cada presidente</h3><div class="pol-ley" aria-hidden="true">${coClaves().map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("")}</div>` +
+    `<div class="grafico" data-g="cs-presidentes" data-forma="barras" style="--filas:${CO.presidentes + 1}"></div>` +
+    `<p class="nota-pie-graf">Jueces que juraron, por el presidente que los designó, en orden. Los presidentes que no designaron jueces no figuran.</p></div>` +
+    `<p>${listaY(top[0].nombres)} ${top[0].nombres.length > 1 ? "designaron" : "designó"} ${top[0].n} jueces, más que cualquier otro presidente. ` +
+    `Le siguen ${listaY(top[1].nombres)}, con ${top[1].n}, y ${listaY(top[2].nombres)}, con ${top[2].n}${top[2].nombres.length > 1 ? " cada uno" : ""}. ` +
+    `La última designación que llegó a la jura fue la de ${CO.ultimo.nombre}, de ${CO.ultimo.designado_por}, en ${CO.ultimo.anio}.</p>` +
+    `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>` +
+    `<li>Quién designó a un juez no dice cómo votó en cada causa: esta pieza no analiza fallos.</li>` +
+    `<li>El grupo de cada gobierno es una clasificación propia y revisable. Sarmiento va con el PAN, que se formó en 1874 con el autonomismo que lo apoyó. ` +
+    `Los radicales van juntos: la UCRI de Frondizi y la UCRP de Illia, con la UCR. Guido asumió en 1962 por la ley de acefalía, pero gobernó con un acta firmada ante las ` +
+    `Fuerzas Armadas y cerró el Congreso: va con los gobiernos de facto.</li>` +
+    `<li>${listaY(CO.confirmados)}, designados por gobiernos de facto, siguieron con un decreto nuevo y el acuerdo del Senado de un gobierno constitucional. ` +
+    `Como en la nómina de la Corte, cuentan con el gobierno que los designó primero.</li>` +
+    `<li>No cuentan las designaciones que no llegaron a la jura: los ${CO.urquiza} jueces que designó Urquiza en 1854, para una Corte que no se formó, y ${listaY(noAs)}. ` +
+    `Rosatti y Rosenkrantz asumieron después por otra designación, con acuerdo del Senado.</li>` +
+    `<li>Muchas fechas de designación del siglo XIX y de 1976 a 1983 tienen solo el mes o el año: los gráficos las ubican a mitad de ese período y los cuadros muestran años.</li>` +
+    `</ul></div>` +
+    `<div class="nota-fuentes"><p>Fuentes: Corte Suprema de Justicia de la Nación, nómina de jueces históricos y biografías (copia del Internet Archive de septiembre de 2024: ` +
+    `la Corte ya no la muestra en su sitio), decretos del Boletín Oficial, leyes de InfoLEG y Casa Rosada. Algunas fechas salen solo de Wikipedia: la tabla con las fuentes lo dice, fila por fila.</p>` +
+    `<div class="acciones"><a class="boton chico accion" href="datos/corte_jueces_fuentes.csv" download>Jueces, con fuentes y notas (CSV)</a>` +
+    `<a class="boton chico accion" href="datos/corte_composicion.csv" download>Composición por año (CSV)</a>` +
+    `<a class="boton chico accion" href="datos/corte_presidentes.csv" download>Designaciones por presidente (CSV)</a></div></div>`;
+  // cada gráfico queda marcado como visto al dibujarse, así se vuelve a dibujar al cambiar el ancho (la línea de tiempo se da vuelta en el celular)
+  const visto = el => el.closest(".nota-graf").classList.add("visto");
+  DIB["cs-tiempo"] = conTablas("cs-tiempo", CO_TABLAS, a => { const el = G("cs-tiempo"); lineaCorte(el, {anim: a}); el.resaltar = () => {}; visto(el); });
+  DIB["cs-composicion"] = conTablas("cs-composicion", CO_TABLAS, a => { const el = G("cs-composicion"); coComposicion(el, a); el.resaltar = () => {}; visto(el); });
+  DIB["cs-presidentes"] = conTablas("cs-presidentes", CO_TABLAS, a => { const el = G("cs-presidentes"); coPresidentes(el, a); visto(el); });
 }
 
 
@@ -6285,6 +6438,8 @@ if (PAGINA !== "inicio") {
     Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, s: "Tu provincia", u: `provincia.html?prov=${c}`, x: n, sec: 2, c}));
     IDX.push({t: "Sobre nosotros", s: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace"});
     IDX.push({t: "Laboratorio", s: "Gráficos", u: "laboratorio.html", x: "piezas visuales hemiciclo bancas pozos vaca muerta congreso años natalidad mortalidad evolución", sec: 1});
+    IDX.push({t: "La Corte Suprema: quién designó a cada juez", s: "Laboratorio", u: "corte-suprema.html",
+      x: "corte suprema justicia jueces ministros designación presidentes gobiernos de facto poder judicial", sec: 1});
     SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda]) => {
       // el título y el texto de muchas fichas se calculan (TX): en otra página se leen de ahí
       const h = (TX[kt] || tit || "").trim(); if (!h) return;

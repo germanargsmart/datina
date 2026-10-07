@@ -97,8 +97,8 @@ Conrado Hugo Storani,14,Córdoba,Córdoba,13.0,3.99,9.01,False,1985 a 1989,1989 
 César Mac Karthy,26,Chubut,Chubut,13.0,3.99,9.01,False,1985 a 1989,1989 a 1998,Peronismo,1985
 Ana María Ianni,78,Santa Cruz,Santa Cruz,12.82,6.82,6.0,True,2011 a 2015 y desde 2023,2017 a 2023,Peronismo,2011
 María Teresa García,06,Buenos Aires,Buenos Aires,12.82,12.82,0.0,True,2005 a 2017 y desde 2025,,Peronismo,2005
+Luis Alfredo Juez,14,Córdoba,Córdoba,12.81,1.99,10.82,True,2019 a 2021,2009 a 2015 y desde 2021,"Fuerzas provinciales, PRO y Cambiemos y Juntos por el Cambio",2009
 Patricia Bullrich,02,CABA,CABA,12.81,11.99,0.82,True,1993 a 1997 y 2007 a 2015,desde 2025,"Peronismo, Otras fuerzas, PRO y La Libertad Avanza",1993
-Luis Alfredo Juez,14,Córdoba,Córdoba,12.8,1.99,10.81,True,2019 a 2021,2009 a 2015 y desde 2021,"Fuerzas provinciales, PRO y Cambiemos y Juntos por el Cambio",2009
 María Carolina Moisés,38,Jujuy,Jujuy,12.79,9.97,2.82,True,2005 a 2009 y 2017 a 2023,desde 2023,Peronismo,2005
 Felipe Carlos Solá,06,Buenos Aires,Buenos Aires,12.56,12.56,0.0,False,"1991 a 1993, 2007 a 2009 y 2009 a 2019",,Peronismo y Otras fuerzas,1991
 Nilda Celia Garré,02,CABA,CABA,12.43,12.43,0.0,False,"1995 a 2000, 2001 a 2005 y 2015 a 2019",,Otras fuerzas y Peronismo,1995
@@ -185,7 +185,7 @@ Juan Pablo Cafiero,06,Buenos Aires,Buenos Aires,11.39,11.39,0.0,False,1989 a 200
 Adriana Victoria Puiggrós,06,Buenos Aires,CABA y Buenos Aires,11.21,11.21,0.0,False,1997 a 2001 y 2007 a 2015,,UCR y aliados y Peronismo,1997
 Alicia Terada,22,Chaco,Chaco,11.13,11.13,0.0,False,2009 a 2013 y 2014 a 2021,,Otras fuerzas,2009
 Edgardo Fernando Depetri,06,Buenos Aires,Buenos Aires,11.1,11.1,0.0,False,2005 a 2009 y 2010 a 2017,,Peronismo,2005
-Martín Lousteau,02,CABA,CABA,11.03,5.03,6.0,True,"2013 a 2016, 2017 a 2019 y desde 2025",2019 a 2025,"Otras fuerzas, UCR y aliados, Cambiemos y Juntos por el Cambio y Fuerzas provinciales",2013
+Martín Lousteau,02,CABA,CABA,11.04,5.04,6.0,True,"2013 a 2016, 2017 a 2019 y desde 2025",2019 a 2025,"Otras fuerzas, UCR y aliados, Cambiemos y Juntos por el Cambio y Fuerzas provinciales",2013
 Deolindo Felipe Bittel,22,Chaco,Chaco,11.0,0.0,11.0,False,,1983 a 1987 y 1989 a 1997,Peronismo,1983
 Juan Ramon Aguirre Lanari,18,Corrientes,Corrientes,10.98,0.0,10.98,False,,1987 a 1998,Fuerzas provinciales,1987
 Luis Francisco Jorge Cigogna,06,Buenos Aires,Buenos Aires,10.98,10.98,0.0,False,"2001 a 2005, 2009 a 2013 y 2014 a 2017",,Peronismo,2001
@@ -251,7 +251,7 @@ Maurice Fabián Closs,54,Misiones,Misiones,9.98,2.0,7.98,False,2015 a 2017,2005 
 Ana Carolina Gaillard,30,Entre Ríos,Entre Ríos,9.97,9.97,0.0,False,2013 a 2017 y 2019 a 2025,,Peronismo,2013
 Jose Alberto Herrera,86,Santiago del Estero,Santiago del Estero,9.91,9.91,0.0,False,2007 a 2017,,Fuerzas provinciales,2007
 Ricardo Argentino Bussi,90,Tucumán,Tucumán,9.91,6.0,3.91,False,1997 a 2003,2003 a 2007,Fuerzas provinciales,1997
-Nicolas Del Caño,06,Buenos Aires,Mendoza y Buenos Aires,9.85,9.85,0.0,True,"2013 a 2015, 2017 a 2021, 2021 a 2025 y desde 2025",,Izquierda,2013
+Nicolas Del Caño,06,Buenos Aires,Mendoza y Buenos Aires,9.86,9.86,0.0,True,"2013 a 2015, 2017 a 2021, 2021 a 2025 y desde 2025",,Izquierda,2013
 Javier Reynaldo Meneghini,86,Santiago del Estero,Santiago del Estero,9.82,4.0,5.82,False,1991 a 1995,1996 a 2001,UCR y aliados,1991
 Norma Elena Morandini,14,Córdoba,Córdoba,9.79,4.0,5.79,False,2005 a 2009,2010 a 2015,Fuerzas provinciales,2005
 Martin Maquieyra,42,La Pampa,La Pampa,9.77,9.77,0.0,False,2016 a 2025,,PRO,2016
@@ -284,11 +284,11 @@ Alejandra María Vigo,14,Córdoba,Córdoba,8.82,4.0,4.82,True,2017 a 2021,desde 
 Beatriz Luisa Avila,90,Tucumán,Tucumán,8.82,4.0,4.82,True,2017 a 2021,desde 2021,Otras fuerzas y Cambiemos y Juntos por el Cambio,2017
 Gisela Scaglia,82,Santa Fe,Santa Fe,8.82,8.82,0.0,True,2013 a 2021 y desde 2025,,PRO y Fuerzas provinciales,2013
 Hugo Yasky,06,Buenos Aires,Buenos Aires,8.82,8.82,0.0,True,desde 2017,,Peronismo,2017
+Lucía Benigna Corpacci,10,Catamarca,Catamarca,8.82,2.0,6.82,True,2019 a 2021,2009 a 2011 y desde 2021,Peronismo,2009
 Luis Petri,50,Mendoza,Mendoza,8.82,8.82,0.0,True,2013 a 2021 y desde 2025,,UCR y aliados y La Libertad Avanza,2013
 Mariana Juri,50,Mendoza,Mendoza,8.82,4.0,4.82,True,2009 a 2013,desde 2021,UCR y aliados,2009
 Pablo Raúl Yedlin,90,Tucumán,Tucumán,8.82,6.82,2.0,True,2017 a 2021 y desde 2023,2021 a 2023,Peronismo,2017
 Vanesa Raquel Siley,06,Buenos Aires,Buenos Aires,8.82,8.82,0.0,True,desde 2017,,Peronismo,2017
-Lucía Benigna Corpacci,10,Catamarca,Catamarca,8.81,2.0,6.81,True,2019 a 2021,2009 a 2011 y desde 2021,Peronismo,2009
 Esteban José Bullrich,02,CABA,CABA y Buenos Aires,8.77,4.72,4.05,False,2005 a 2010,2017 a 2021,PRO y Cambiemos y Juntos por el Cambio,2005
 Juan Carlos Maqueda,14,Córdoba,Córdoba,8.65,7.6,1.05,False,1991 a 1999,2001 a 2002,Otras fuerzas y Peronismo,1991
 Hipolito Solari Yrigoyen,26,Chubut,Chubut,8.57,0.0,8.57,False,,1987 a 1995,UCR y aliados,1987
@@ -296,7 +296,7 @@ Pedro Guillermo Villarroel,10,Catamarca,Catamarca,8.56,0.0,8.56,False,,1993 a 20
 Jorge Jose Massat,82,Santa Fe,Santa Fe,8.5,0.0,8.5,False,,1993 a 2001,Peronismo,1993
 Andres Larroque,02,CABA,CABA y Buenos Aires,8.39,8.39,0.0,False,2011 a 2020,,Peronismo,2011
 Felipe Rodolfo Sapag,58,Neuquén,Neuquén,8.27,0.0,8.27,False,,1993 a 2001,Fuerzas provinciales,1993
-Juan Schiaretti,14,Córdoba,Córdoba,8.23,8.23,0.0,True,"1993 a 1997, 2001 a 2003, 2013 a 2015 y desde 2026",,Peronismo y Fuerzas provinciales,1993
+Juan Schiaretti,14,Córdoba,Córdoba,8.24,8.24,0.0,True,"1993 a 1997, 2001 a 2003, 2013 a 2015 y desde 2026",,Peronismo y Fuerzas provinciales,1993
 Julio Argentino San Millan,66,Salta,Salta,8.22,0.0,8.22,False,,1992 a 1995 y 1995 a 2001,Peronismo,1992
 Mario Das Neves,26,Chubut,Chubut,8.22,8.22,0.0,False,1995 a 2002 y 2013 a 2015,,Peronismo y Otras fuerzas,1995
 Felipe Ernesto Ludueña,78,Santa Cruz,Santa Cruz,8.2,0.0,8.2,False,,1990 a 1998,Peronismo,1990
@@ -557,17 +557,19 @@ Eduardo Ariel Arnold,78,Santa Cruz,Santa Cruz,7.0,4.0,3.0,False,2003 a 2007,1998
 Horacio Massaccesi,62,Río Negro,Río Negro,6.98,1.99,4.99,False,1985 a 1987,1996 a 2001,UCR y aliados,1985
 Hector Daniel Tomas,70,San Juan,San Juan,6.92,6.92,0.0,False,2009 a 2016,,Peronismo,2009
 Hector Antonio Stefani,94,Tierra del Fuego,Tierra del Fuego,6.84,6.84,0.0,False,2017 a 2024,,PRO,2017
+Carlos Daniel Castagneto,06,Buenos Aires,Buenos Aires,6.83,6.83,0.0,True,2015 a 2019 y desde 2023,,Peronismo,2015
 Aldo Leiva,22,Chaco,Chaco,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
 Ariel Rauschenberger,42,La Pampa,La Pampa,6.82,6.82,0.0,True,2017 a 2021 y desde 2023,,Peronismo,2017
 Carlos Cisneros,90,Tucumán,Tucumán,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
-Carlos Daniel Castagneto,06,Buenos Aires,Buenos Aires,6.82,6.82,0.0,True,2015 a 2019 y desde 2023,,Peronismo,2015
 Carlos Gutierrez,14,Córdoba,Córdoba,6.82,6.82,0.0,True,desde 2019,,"Peronismo, Otras fuerzas y Fuerzas provinciales",2019
 Cristian A. Ritondo,06,Buenos Aires,Buenos Aires,6.82,6.82,0.0,True,desde 2019,,PRO,2019
 Eduardo Felix Valdes,02,CABA,CABA,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
 Gerardo Cipolini,22,Chaco,Chaco,6.82,6.82,0.0,True,desde 2019,,UCR y aliados,2019
 German Pedro Martinez,82,Santa Fe,Santa Fe,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
 Gladys Medina,90,Tucumán,Tucumán,6.82,6.82,0.0,True,2017 a 2021 y desde 2023,,Peronismo y Fuerzas provinciales,2017
+Horacio Pietragalla Corti,06,Buenos Aires,Buenos Aires,6.82,6.82,0.0,True,"2011 a 2015, 2017 a 2019 y desde 2025",,Peronismo,2011
 Itai Hagman,02,CABA,CABA,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
+Jorge Milton Capitanich,22,Chaco,Chaco,6.82,0.0,6.82,True,,2001 a 2007 y desde 2025,Otras fuerzas y Peronismo,2001
 Jorge Rizzotti,38,Jujuy,Jujuy,6.82,6.82,0.0,True,desde 2019,,UCR y aliados y Fuerzas provinciales,2019
 José Emilio Neder,86,Santiago del Estero,Santiago del Estero,6.82,0.0,6.82,True,,desde 2019,Otras fuerzas y Peronismo,2019
 Luana Volnovich,06,Buenos Aires,Buenos Aires,6.82,6.82,0.0,True,2015 a 2019 y desde 2023,,Peronismo,2015
@@ -582,15 +584,13 @@ Paula Andrea Penacca,02,CABA,CABA,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
 Ramiro Gutierrez,06,Buenos Aires,Buenos Aires,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
 Ricardo Daives,86,Santiago del Estero,Santiago del Estero,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
 Sergio Guillermo Casas,46,La Rioja,La Rioja,6.82,6.82,0.0,True,desde 2019,,Peronismo,2019
-Horacio Pietragalla Corti,06,Buenos Aires,Buenos Aires,6.81,6.81,0.0,True,"2011 a 2015, 2017 a 2019 y desde 2025",,Peronismo,2011
-Jorge Milton Capitanich,22,Chaco,Chaco,6.81,0.0,6.81,True,,2001 a 2007 y desde 2025,Otras fuerzas y Peronismo,2001
 Eduardo Aníbal Endeiza,74,San Luis,San Luis,6.8,6.8,0.0,False,1985 a 1992,,Peronismo,1985
 Oscar Ermelindo Massei,58,Neuquén,Neuquén,6.79,6.79,0.0,False,"1985 a 1987, 1997 a 1999 y 2005 a 2008",,Peronismo y Otras fuerzas,1985
 Juan Carlos Oyarzun,94,Tierra del Fuego,Tierra del Fuego,6.78,0.0,6.78,False,,1992 a 1998,Fuerzas provinciales,1992
 María Graciela Ocaña,06,Buenos Aires,Buenos Aires,6.72,6.72,0.0,False,1999 a 2006,,UCR y aliados y Otras fuerzas,1999
 Bernardo Jose Herrera,86,Santiago del Estero,Santiago del Estero,6.68,6.68,0.0,False,2019 a 2025,,Fuerzas provinciales y Peronismo,2019
 Sergio Tomas Massa,06,Buenos Aires,Buenos Aires,6.64,6.64,0.0,False,2013 a 2017 y 2019 a 2022,,Peronismo,2013
-Juan Fernando Brügge,14,Córdoba,Córdoba,6.59,6.59,0.0,True,2016 a 2019 y desde 2023,,"Peronismo, Otras fuerzas y Fuerzas provinciales",2016
+Juan Fernando Brügge,14,Córdoba,Córdoba,6.6,6.6,0.0,True,2016 a 2019 y desde 2023,,"Peronismo, Otras fuerzas y Fuerzas provinciales",2016
 Mario Nallib Fadel,10,Catamarca,Catamarca,6.56,4.0,2.56,False,1995 a 1999,1993 a 1995,Peronismo y Otras fuerzas,1993
 Alberto Oscar Roberti,06,Buenos Aires,Buenos Aires,6.43,6.43,0.0,False,2011 a 2018,,Peronismo y Otras fuerzas,2011
 Eduardo Varela Cid,02,CABA,Córdoba y CABA,6.42,6.42,0.0,False,1989 a 1995,,Peronismo,1989
@@ -2167,11 +2167,12 @@ Jorge Alberto Rodríguez,42,La Pampa,La Pampa,2.98,2.98,0.0,False,1989 a 1992,,P
 Orieta Cecilia Vera Gonzalez,10,Catamarca,Catamarca,2.96,2.96,0.0,False,2016 a 2019,,Otras fuerzas,2016
 Juan Manuel Abal Medina,06,Buenos Aires,Buenos Aires,2.95,0.0,2.95,False,,2014 a 2017,Peronismo,2014
 Leonor Ester Tolomeo,70,San Juan,San Juan,2.95,2.95,0.0,False,1994 a 1997,,Peronismo,1994
-Elia Marina Fernandez,90,Tucumán,Tucumán,2.92,2.92,0.0,True,desde 2023,,Peronismo y Fuerzas provinciales,2023
+Elia Marina Fernandez,90,Tucumán,Tucumán,2.93,2.93,0.0,True,desde 2023,,Peronismo y Fuerzas provinciales,2023
 Kenneth W. Woodley,26,Chubut,Chubut,2.87,0.0,2.87,False,,1983 a 1986,UCR y aliados,1983
 Luis Maria Fernandez Basualdo,34,Formosa,Formosa,2.86,2.86,0.0,False,2007 a 2010,,Peronismo,2007
 Orlando Alberto Zicarelli,06,Buenos Aires,Buenos Aires,2.85,2.85,0.0,False,1993 a 1995,,Peronismo,1993
 Cándida Cristina López,94,Tierra del Fuego,Tierra del Fuego,2.83,0.0,2.83,True,,desde 2023,Otras fuerzas y Peronismo,2023
+Juan Luis Manzur,90,Tucumán,Tucumán,2.83,0.0,2.83,True,,desde 2023,Peronismo,2023
 Nicolas Emma,02,CABA,CABA,2.83,2.83,0.0,True,desde 2023,,La Libertad Avanza,2023
 Alberto Arrua,54,Misiones,Misiones,2.82,2.82,0.0,True,desde 2023,,Fuerzas provinciales,2023
 Alejandra Torres,14,Córdoba,Córdoba,2.82,2.82,0.0,True,desde 2023,,"Peronismo, Otras fuerzas y Fuerzas provinciales",2023
@@ -2219,7 +2220,6 @@ Jose Luis Garrido,78,Santa Cruz,Santa Cruz,2.82,2.82,0.0,True,desde 2023,,Fuerza
 Jose Peluc,70,San Juan,San Juan,2.82,2.82,0.0,True,desde 2023,,La Libertad Avanza,2023
 José María Carambia,78,Santa Cruz,Santa Cruz,2.82,0.0,2.82,True,,desde 2023,Fuerzas provinciales,2023
 Juan Carlos Pagotto,46,La Rioja,La Rioja,2.82,0.0,2.82,True,,desde 2023,La Libertad Avanza,2023
-Juan Luis Manzur,90,Tucumán,Tucumán,2.82,0.0,2.82,True,,desde 2023,Peronismo,2023
 Julia Strada,06,Buenos Aires,Buenos Aires,2.82,2.82,0.0,True,desde 2023,,Peronismo y Otras fuerzas,2023
 Juliana Santillan Juarez Brahim,06,Buenos Aires,Buenos Aires,2.82,2.82,0.0,True,desde 2023,,La Libertad Avanza,2023
 Julio Moreno Ovalle,66,Salta,Salta,2.82,2.82,0.0,True,desde 2023,,Peronismo y La Libertad Avanza,2023
@@ -2780,8 +2780,8 @@ Aldo Juan Marconetto,26,Chubut,Chubut,0.81,0.81,0.0,False,2005 a 2006,,Peronismo
 Veronica Carolina Couly,06,Buenos Aires,Buenos Aires,0.81,0.81,0.0,False,2017,,Peronismo,2017
 Atilio Basualdo,34,Formosa,Formosa,0.8,0.8,0.0,True,desde 2025,,La Libertad Avanza,2025
 Stefania Cora,30,Entre Ríos,Entre Ríos,0.8,0.0,0.8,False,,2025,Peronismo,2025
+Enzo Paolo Fullone,62,Río Negro,Río Negro,0.78,0.0,0.78,True,,desde 2025,La Libertad Avanza,2025
 Fernando Alfredo Cantero,02,CABA,CABA,0.78,0.78,0.0,False,2001,,UCR y aliados,2001
-Enzo Paolo Fullone,62,Río Negro,Río Negro,0.77,0.0,0.77,True,,desde 2025,La Libertad Avanza,2025
 Juan Emilio Ameri,66,Salta,Salta,0.77,0.77,0.0,False,2019 a 2020,,Peronismo,2019
 Mariano Utrera,86,Santiago del Estero,Santiago del Estero,0.73,0.0,0.73,False,,1987,Peronismo,1987
 María Ilse Oscos,58,Neuquén,Neuquén,0.72,0.72,0.0,False,2005 a 2006,,Fuerzas provinciales,2005

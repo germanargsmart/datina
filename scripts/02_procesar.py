@@ -2580,6 +2580,175 @@ pres_res = {"n": int(len(pr)), "amba": int(len(_amba_pr)), "amba_nombres": list(
             "anios_amba": round1(_amba_pr.dias.sum() / 365.25), "anios": round1(pr.dias.sum() / 365.25),
             "pct_tiempo_amba": round1(_amba_pr.dias.sum() / pr.dias.sum() * 100), "amba_pob": round1(AMBA_PCT),
             "prov_distintas": int(pr.provincia.nunique())}
+
+# ---------- La Corte Suprema (etapa 33): quién designó a cada juez desde 1863 ----------
+# Pieza del Laboratorio (pedido del autor del 6 de octubre de 2026). Cuatro tablas armadas con un agente de investigación, cada fila con
+# sus fuentes (datos/manual/corte_jueces.csv, corte_no_asumieron.csv, corte_tamano.csv y presidentes_fuerza.csv): la nómina de jueces
+# históricos de la propia Corte (csjn.gov.ar, copia del Internet Archive de septiembre de 2024, porque la Corte la sacó de su sitio en
+# 2025) y sus biografías, los decretos del Boletín Oficial, las leyes de InfoLEG y Casa Rosada para los presidentes. Cada juez va con
+# la fuerza política del presidente que lo designó (CORTE_FUERZA y CORTE_PRESIDENTE, clasificación aprobada por el autor). Las fechas
+# sin día (muchos decretos del siglo XIX y de 1976 a 1983) se dibujan a mitad del mes o del año. pruebas_datos.py controla las tablas.
+cj = pd.read_csv(RAIZ / "datos" / "manual" / "corte_jueces.csv", dtype=str)
+cpf = pd.read_csv(RAIZ / "datos" / "manual" / "presidentes_fuerza.csv", dtype=str)
+ctam = pd.read_csv(RAIZ / "datos" / "manual" / "corte_tamano.csv", dtype=str)
+cna = pd.read_csv(RAIZ / "datos" / "manual" / "corte_no_asumieron.csv", dtype=str)
+# la tabla de los jueces con las fuentes y las notas de cada fila, tal como se armó, para descargar desde la pieza
+cj.to_csv(SITIO / "corte_jueces_fuentes.csv", index=False)
+cna.to_csv(SITIO / "corte_no_asumieron.csv", index=False)
+# grupos de los gráficos, en el orden en que llegan a la Corte, con su color: los espacios políticos del sitio usan los suyos (ESP_COLOR)
+# y los nuevos se eligieron para que se distingan también con daltonismo entre los que conviven en la Corte
+CORTE_GRUPOS = [("liberales", "Liberales (Mitre)", "#9FB86B"), ("pan", "PAN", "#2E8B6E"), ("ucr", "UCR", "#D9453B"),
+                ("facto", "Gobiernos de facto", "#4B5560"), ("concordancia", "Concordancia", "#74ACDF"), ("peronismo", "Peronismo", "#2C74B5"),
+                ("pro", "PRO", "#F6B40E"), ("lla", "La Libertad Avanza", "#4A2C6F")]
+CORTE_FUERZA = {"Liberales (Mitre)": "liberales", "Partido Autonomista Nacional (PAN)": "pan", "Unión Cívica Radical": "ucr", "Alianza": "ucr",
+                "Gobierno de facto": "facto", "Concordancia": "concordancia", "Peronismo": "peronismo", "PRO y Cambiemos": "pro",
+                "La Libertad Avanza": "lla", "Federales (Confederación)": "federales"}
+# Casos discutibles (respuestas del autor del 6 de octubre de 2026): Sarmiento va con el PAN, como antecedente (el PAN se formó en 1874 con
+# el autonomismo que lo apoyó), los radicales van en un solo grupo (la UCRI de Frondizi y la UCRP de Illia, con la UCR) y los cuatro jueces
+# confirmados cuentan con el gobierno que los designó primero. Guido, que asumió por la ley de acefalía pero gobernó con un acta firmada
+# ante las Fuerzas Armadas y cerró el Congreso, va con los gobiernos de facto (presidentes_fuerza.csv lo ubica en la UCRI, como Casa Rosada)
+CORTE_PRESIDENTE = {"José María Guido": "facto"}
+
+
+def _cfecha(s, modo="medio"):
+    """AAAA, AAAA-MM o AAAA-MM-DD. Sin día: la mitad del período ("medio", para dibujar), su principio ("ini") o su final ("fin")."""
+    if not isinstance(s, str) or not s.strip():
+        return pd.NaT
+    s = s.strip()
+    if len(s) == 10:
+        return pd.Timestamp(s)
+    a = pd.Timestamp(s + ("-01-01" if len(s) == 4 else "-01"))
+    b = a + (pd.offsets.YearEnd(0) if len(s) == 4 else pd.offsets.MonthEnd(0))
+    return {"ini": a, "fin": b, "medio": (a + (b - a) / 2).normalize()}[modo]
+
+
+cpf["ini"] = pd.to_datetime(cpf.inicio)
+cpf["fin_"] = pd.to_datetime(cpf.fin).fillna(HOY)
+cpf["nom"] = cpf.presidente.str.replace(r" \(.*\)$", "", regex=True)
+cpf["grupo"] = [CORTE_PRESIDENTE.get(n, CORTE_FUERZA[f]) for n, f in zip(cpf.nom, cpf.fuerza)]
+_cj_en = cj.motivo_cese.fillna("").eq("en funciones")
+_cj_ini = [a if isinstance(a, str) else b for a, b in zip(cj.fecha_jura, cj.fecha_decreto)]
+cj["desde"] = [_cfecha(x) for x in _cj_ini]
+cj["hasta"] = [HOY if e else _cfecha(c) for c, e in zip(cj.fecha_cese, _cj_en)]
+cj["aprox"] = [len(x) < 10 or (not e and len(str(c)) < 10) for x, c, e in zip(_cj_ini, cj.fecha_cese, _cj_en)]
+assert cj.desde.notna().all() and cj.hasta.notna().all(), "un juez de la Corte sin fecha de inicio o de fin"
+assert (cj.hasta >= cj.desde).all(), "un juez de la Corte termina antes de empezar"
+
+
+def _cpresidente(r):
+    """El período presidencial en el que se firmó la designación (el decreto o, si falta, la jura, con su intervalo si no tiene día)."""
+    s = r.fecha_decreto if isinstance(r.fecha_decreto, str) else r.fecha_jura
+    a, b = _cfecha(s, "ini"), _cfecha(s, "fin")
+    c = cpf[(cpf.nom == r.designado_por) & (cpf.ini <= b) & (cpf.fin_ >= a)]
+    assert len(c) == 1, f"no se encuentra el período presidencial de la designación de {r.nombre} ({r.designado_por}, {s})"
+    return c.index[0]
+
+
+cj["pres_i"] = [_cpresidente(r) for r in cj.itertuples()]
+cj["grupo"] = cj.pres_i.map(cpf.grupo)
+# Cuatro jueces designados por un gobierno de facto siguieron en el cargo con un decreto nuevo y el acuerdo del Senado de un gobierno
+# constitucional (Pera, Casares, Orgaz y Villegas Basavilbaso). Como en la nómina de la Corte, cuentan una sola vez, con el gobierno
+# que los designó primero, y la confirmación queda en su cuadro
+_co_conf = cj[cj.tipo_designacion == "confirmación"]
+cj["confirmado"] = ""
+for _co_r in _co_conf.itertuples():
+    _co_i = cj[(cj.nombre == _co_r.nombre) & (cj.tipo_designacion != "confirmación") & (cj.desde < _co_r.desde)].index.max()
+    cj.loc[_co_i, ["hasta", "motivo_cese", "fecha_cese"]] = [_co_r.hasta, _co_r.motivo_cese, _co_r.fecha_cese]
+    cj.loc[_co_i, "confirmado"] = f"Confirmación de {_co_r.designado_por}, con acuerdo del Senado, en {_co_r.desde.year}"
+cj = cj[cj.tipo_designacion != "confirmación"].sort_values(["desde", "hasta", "nombre"]).reset_index(drop=True)
+_cj_en = cj.motivo_cese.fillna("").eq("en funciones")
+# carriles de la línea de tiempo: cada juez va en un carril libre (el primero), así hay tantos carriles como jueces a la vez. Con las fechas
+# sin día, dibujadas a mitad del mes o del año, un reemplazo puede parecer que empieza antes de que se vaya su antecesor: en ese caso, si
+# no hay un carril libre, va en el que se libera antes (hasta 200 días después) y su barra empieza ese día (dib_desde). Con fechas
+# exactas, dos jueces a la vez van siempre en carriles distintos
+_co_ini_aprox = [len(a if isinstance(a, str) else b) < 10 for a, b in zip(cj.fecha_jura, cj.fecha_decreto)]
+_co_fin_aprox = [not e and len(str(c)) < 10 for c, e in zip(cj.fecha_cese, cj.motivo_cese.fillna("").eq("en funciones"))]
+_co_fin, _co_fin_ap, _co_carril, _co_dib = [], [], [], []
+for _co_i, _co_r in enumerate(cj.itertuples()):
+    _co_lib = [k for k, f in enumerate(_co_fin) if f <= _co_r.desde]
+    _co_casi = [k for k, f in enumerate(_co_fin) if f - pd.Timedelta(days=200) < _co_r.desde and (_co_ini_aprox[_co_i] or _co_fin_ap[k])]
+    _co_k = _co_lib[0] if _co_lib else (min(_co_casi, key=lambda k: _co_fin[k]) if _co_casi else None)
+    if _co_k is None:
+        _co_fin.append(_co_r.hasta); _co_fin_ap.append(_co_fin_aprox[_co_i]); _co_carril.append(len(_co_fin) - 1); _co_dib.append(_co_r.desde)
+    else:
+        _co_dib.append(max(_co_r.desde, _co_fin[_co_k] + pd.Timedelta(days=1)))
+        _co_fin[_co_k], _co_fin_ap[_co_k] = _co_r.hasta, _co_fin_aprox[_co_i]; _co_carril.append(_co_k)
+cj["carril"], cj["dib_desde"] = _co_carril, _co_dib
+
+
+def corte_ley(d):
+    """Jueces que fijaba la ley en una fecha. La ley 26.183 (2006) bajó a cinco de a poco: siete hasta la siguiente vacante (la muerte de
+    Carmen Argibay el 10/5/2014), seis hasta la otra (la de Enrique Petracchi el 12/10/2014) y cinco desde entonces."""
+    if pd.Timestamp("2006-12-18") <= d < pd.Timestamp("2014-05-10"):
+        return 7
+    if pd.Timestamp("2014-05-10") <= d < pd.Timestamp("2014-10-12"):
+        return 6
+    for _co_r in ctam.itertuples():
+        if pd.Timestamp(_co_r.desde) <= d and (not isinstance(_co_r.hasta, str) or d < pd.Timestamp(_co_r.hasta)):
+            return int(float(_co_r.cantidad_de_jueces)) if isinstance(_co_r.cantidad_de_jueces, str) else None
+    return None
+
+
+# composición de cada año al 31 de diciembre (en el año en curso, hoy), por el grupo del gobierno que designó a cada juez
+_co_g = [k for k, _, _ in CORTE_GRUPOS]
+assert set(cj.grupo) <= set(_co_g), f"jueces en un grupo sin color: {set(cj.grupo) - set(_co_g)}"
+_co_comp = []
+for _co_a in range(1863, HOY.year + 1):
+    _co_d = min(pd.Timestamp(f"{_co_a}-12-31"), HOY)
+    _co_s = cj[(cj.desde <= _co_d) & (cj.hasta >= _co_d) & ~((cj.hasta == _co_d) & ~_cj_en)]
+    _co_comp.append({"anio": _co_a, **{k: int((_co_s.grupo == k).sum()) for k in _co_g}, "jueces": int(len(_co_s)), "ley": corte_ley(_co_d)})
+corte_composicion = pd.DataFrame(_co_comp)
+# designaciones de cada presidente que llegaron a jurar, en orden
+_co_pd = cj.groupby("pres_i").agg(designados=("nombre", "size"), nombres=("nombre", lambda s: ", ".join(s)))
+corte_presidentes = cpf.loc[_co_pd.index, ["nom", "inicio", "fin", "tipo", "grupo"]].join(_co_pd).rename(columns={"nom": "presidente"})
+corte_presidentes["fin"] = corte_presidentes.fin.fillna("")
+corte_presidentes = corte_presidentes.sort_values("inicio").reset_index(drop=True)
+corte_jueces = pd.DataFrame({
+    "nombre": cj.nombre, "desde": cj.desde.dt.strftime("%Y-%m-%d"), "hasta": [("" if e else h.strftime("%Y-%m-%d")) for h, e in zip(cj.hasta, _cj_en)],
+    "anio_desde": cj.desde.dt.year, "anio_hasta": [(None if e else h.year) for h, e in zip(cj.hasta, _cj_en)],
+    "anios": ((cj.hasta - cj.desde).dt.days / 365.25).round(2), "en_funciones": _cj_en, "motivo_cese": cj.motivo_cese,
+    "designado_por": cj.designado_por, "grupo": cj.grupo, "gobierno": cj.gobierno, "acuerdo_senado": cj.acuerdo_senado,
+    "presidio_la_corte": cj.presidente_de_la_corte.eq("sí"), "segunda_designacion": cj.tipo_designacion.eq("segunda designación"),
+    "confirmado": cj.confirmado, "fecha_aproximada": cj.aprox, "carril": cj.carril, "dib_desde": cj.dib_desde.dt.strftime("%Y-%m-%d")})
+_cj_hoy = corte_jueces[corte_jueces.en_funciones]
+_co_ley_hoy = corte_ley(HOY)
+_co_pp = corte_presidentes.sort_values(["designados", "inicio"], ascending=[False, True])
+_co_dur = corte_jueces.groupby("nombre").anios.sum()
+_co_largo = _co_dur.sort_values(ascending=False)
+# años en los que todos los jueces en funciones al 31 de diciembre venían de un mismo grupo
+_co_un = corte_composicion[(corte_composicion[_co_g].gt(0).sum(axis=1) == 1) & (corte_composicion.jueces > 0)]
+CORTE_RES = {
+    "grupos": [{"k": k, "lab": l, "c": c} for k, l, c in CORTE_GRUPOS if k in set(cj.grupo)],
+    "designaciones": int(len(corte_jueces)), "personas": int(corte_jueces.nombre.nunique()),
+    "dos_veces": sorted(corte_jueces[corte_jueces.segunda_designacion].nombre.tolist()),
+    "desde": int(corte_jueces.anio_desde.min()), "carriles": int(cj.carril.max() + 1),
+    "por_grupo": {k: int((corte_jueces.grupo == k).sum()) for k in _co_g if (corte_jueces.grupo == k).any()},
+    "por_gobierno": {k: int((corte_jueces.gobierno == k).sum()) for k in corte_jueces.gobierno.unique()},
+    "hoy": [{"nombre": r.nombre, "designado_por": r.designado_por, "grupo": r.grupo, "desde": int(r.anio_desde)} for r in _cj_hoy.itertuples()],
+    "ley_hoy": _co_ley_hoy, "vacantes": int(_co_ley_hoy - len(_cj_hoy)),
+    "presidentes": int(corte_presidentes.presidente.nunique()),
+    # los tres primeros puestos por cantidad de jueces designados, con los empates juntos y cada presidente con sus años de gobierno
+    "top_presidentes": [{"n": int(n), "nombres": [f"{r.presidente} ({r.inicio[:4]})" if (corte_presidentes.presidente == r.presidente).sum() > 1 else r.presidente
+                                                  for r in _co_pp[_co_pp.designados == n].itertuples()]}
+                        for n in sorted(_co_pp.designados.unique(), reverse=True)[:3]],
+    "mas_anios": [{"nombre": n, "anios": round(float(v), 1), "desde": int(corte_jueces[corte_jueces.nombre == n].anio_desde.min()),
+                   "hasta": (None if corte_jueces[corte_jueces.nombre == n].en_funciones.any() else int(corte_jueces[corte_jueces.nombre == n].anio_hasta.max()))}
+                  for n, v in _co_largo.head(3).items()],
+    "mediana_anios": r1(float(_co_dur.median())),
+    "cesanteados": int(corte_jueces.motivo_cese.fillna("").str.startswith("cesanteado").sum()),
+    "juicio_politico": int(corte_jueces.motivo_cese.eq("juicio político").sum()),
+    "sin_acuerdo": int((~corte_jueces.acuerdo_senado.eq("sí")).sum()),
+    "confirmados": [r.nombre for r in corte_jueces[corte_jueces.confirmado != ""].itertuples()],
+    "anios_un_grupo": int(len(_co_un)), "un_grupo_ult": int(_co_un.anio.max()) if len(_co_un) else None,
+    "no_asumieron": int(len(cna)), "urquiza": int(cna.designado_por.eq("Justo José de Urquiza").sum()),
+    # las designaciones que no llegaron a la jura, salvo las de Urquiza (van juntas): nombre, año y quién designó
+    "no_asumieron_lista": [{"nombre": r.nombre, "anio": int(r.fecha_designacion[:4]), "designado_por": r.designado_por}
+                           for r in cna.itertuples() if r.designado_por != "Justo José de Urquiza"],
+    "anios_composicion": int(len(corte_composicion)),
+    "ultimo": {"nombre": corte_jueces.iloc[-1].nombre, "anio": int(corte_jueces.iloc[-1].anio_desde), "designado_por": corte_jueces.iloc[-1].designado_por},
+    "cambios_ley": [{"anio": int(str(r.desde)[:4]), "jueces": int(float(r.cantidad_de_jueces)), "norma": r.norma}
+                    for r in ctam.itertuples() if isinstance(r.cantidad_de_jueces, str) and int(str(r.desde)[:4]) >= 1862],
+}
 mi = pd.read_csv(RAIZ / "datos" / "manual" / "ministros.csv")
 mi["origen"] = [origen(a, b) for a, b in zip(mi.provincia_nacimiento, mi.amba)]
 INTERINOS = {"Ramón Puerta", "Adolfo Rodríguez Saá", "Eduardo Camaño"}
@@ -4781,6 +4950,7 @@ tablas = {
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
     "presidentes": presidentes,
+    "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
     "voto_legisladores_y_provincia": rep_voto,
     "apoyo_gobierno_provincias": apoyo[["anio", "codigo_indec", "territorio", "presidente", "apoyo", "votos", "atn_hab", "otras_hab"]],
     "transferencias_provincias": transf[["anio", "codigo_indec", "territorio", "atn", "otras", "ley", "atn_hab", "otras_hab", "ley_hab", "atn_indice", "otras_indice", "pob"]],
@@ -5308,6 +5478,7 @@ resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo":
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])
 resumen["capitales_eph_res"] = CAP_EPH_RES
 resumen["anios_congreso"] = ANIOS_CONG
+resumen["corte"] = CORTE_RES
 resumen["presupuesto"] = PRESUP_RES
 resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
 

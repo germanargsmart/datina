@@ -10,6 +10,7 @@ Qué revisan:
   4. Valores a más de cinco veces la mediana de su indicador entre las 24 jurisdicciones.
   5. Indicadores con más de una fuente y diferencia mayor al 2%.
   6. Mandatos presidenciales sin huecos ni superposiciones.
+  7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -70,6 +71,9 @@ ACEPTADAS = {
     **{f"mediana|vivienda_provincias.pct_ocupados_minas|{c}": "real: provincias petroleras y mineras" for c in ("26", "58", "78")},
     **{f"fuentes|petroleo|{a}": "la EIA estima el crudo con condensado con su propio método: el sitio usa la serie de la Secretaría de Energía "
        "y la EIA solo para comparar países (lo dice la nota de la ficha)" for a in (2019, 2020)},
+    # la Corte Suprema (etapa 33)
+    "corte|exceso|1975-09-30": "las dos fechas son de la propia Corte: dice que Pablo Ramella entró a fines de septiembre de 1975 en lugar de "
+                               "Manuel Arauz Castex y que Arauz Castex renunció el 2 de octubre",
 }
 
 
@@ -336,8 +340,84 @@ def prueba_mandatos(d, t):
     return sale
 
 
+# ---------------------------------------------------------------- 7. la Corte Suprema (etapa 33)
+# Las tablas de la pieza del Laboratorio se arman a mano (datos/manual/corte_*.csv y presidentes_fuerza.csv): estas pruebas buscan errores
+# de carga. Para contar jueces a la vez, las fechas sin día van del lado prudente (un ingreso desde el final de su mes o año y una salida
+# desde su principio), así una fecha incompleta no inventa una superposición
+def fecha_corte(s, modo):
+    if not isinstance(s, str) or not s.strip():
+        return pd.NaT
+    s = s.strip()
+    if len(s) == 10:
+        return pd.Timestamp(s)
+    a = pd.Timestamp(s + ("-01-01" if len(s) == 4 else "-01"))
+    return a if modo == "ini" else a + (pd.offsets.YearEnd(0) if len(s) == 4 else pd.offsets.MonthEnd(0))
+
+
+def ley_corte(tam, d):
+    """Jueces que fija la ley, con la reducción gradual de la ley 26.183: siete hasta la muerte de Argibay y seis hasta la de Petracchi."""
+    if pd.Timestamp("2006-12-18") <= d < pd.Timestamp("2014-05-10"):
+        return 7
+    if pd.Timestamp("2014-05-10") <= d < pd.Timestamp("2014-10-12"):
+        return 6
+    for r in tam.itertuples():
+        if pd.Timestamp(r.desde) <= d and (not isinstance(r.hasta, str) or d < pd.Timestamp(r.hasta)):
+            return float(r.cantidad_de_jueces) if isinstance(r.cantidad_de_jueces, str) else None
+    return None
+
+
+def prueba_corte(d, t):
+    sale, hoy = [], pd.Timestamp.now().normalize()
+    j = pd.read_csv(MANUAL / "corte_jueces.csv", dtype=str)
+    p = pd.read_csv(MANUAL / "presidentes_fuerza.csv", dtype=str)
+    tam = pd.read_csv(MANUAL / "corte_tamano.csv", dtype=str)
+    en = j.motivo_cese.fillna("").eq("en funciones")
+    ini = [a if isinstance(a, str) else b for a, b in zip(j.fecha_jura, j.fecha_decreto)]
+    j["d0"], j["d1"] = [fecha_corte(x, "fin") for x in ini], [fecha_corte(x, "ini") for x in ini]
+    j["h0"] = [hoy if e else fecha_corte(c, "ini") for c, e in zip(j.fecha_cese, en)]
+    j["h1"] = [hoy if e else fecha_corte(c, "fin") for c, e in zip(j.fecha_cese, en)]
+    for r in j.itertuples():
+        if pd.isna(r.d1) or pd.isna(r.h1):
+            sale.append((f"corte|fecha|{r.nombre}", f"{r.nombre}: falta la fecha de inicio o de fin"))
+        elif r.h1 < r.d1:
+            sale.append((f"corte|fecha|{r.nombre}", f"{r.nombre} termina ({r.fecha_cese}) antes de empezar ({r.fecha_jura or r.fecha_decreto})"))
+    # quién designó: el presidente que gobernaba en la fecha del decreto (o de la jura, si falta)
+    p["ini"], p["fin_"] = pd.to_datetime(p.inicio), pd.to_datetime(p.fin).fillna(hoy)
+    p["nom"] = p.presidente.str.replace(r" \(.*\)$", "", regex=True)
+    for r in j.itertuples():
+        s = r.fecha_decreto if isinstance(r.fecha_decreto, str) else r.fecha_jura
+        if p[(p.nom == r.designado_por) & (p.ini <= fecha_corte(s, "fin")) & (p.fin_ >= fecha_corte(s, "ini"))].empty:
+            sale.append((f"corte|designado|{r.nombre}|{s}", f"{r.nombre}: {r.designado_por} no gobernaba en {s}"))
+    pp = p.sort_values("ini")
+    for a, b in zip(pp.itertuples(), list(pp.itertuples())[1:]):
+        if b.ini < a.fin_:
+            sale.append((f"corte|presidentes|{a.nom}|{b.nom}", f"{a.presidente} termina el {a.fin} y {b.presidente} empieza antes, el {b.inicio}"))
+    # desde 1983, los mismos presidentes y fechas que la ficha de presidentes
+    for r in pd.read_csv(MANUAL / "presidentes.csv", dtype=str).itertuples():
+        m = p[(p.nom == r.nombre) & (p.inicio == r.inicio)]
+        if m.empty or (isinstance(r.fin, str) and m.iloc[0].fin != r.fin):
+            sale.append((f"corte|presidente_sitio|{r.nombre}", f"{r.nombre}: las fechas de presidentes_fuerza.csv no son las de presidentes.csv"))
+    # una confirmación sigue al mismo juez: no es otra persona a la vez
+    c = j[j.tipo_designacion != "confirmación"].copy()
+    for r in j[j.tipo_designacion == "confirmación"].itertuples():
+        c.loc[c[c.nombre == r.nombre].index.max(), "h0"] = r.h0
+    for n, g in c.groupby("nombre"):
+        g = g.sort_values("d0")
+        for a, b in zip(g.itertuples(), list(g.itertuples())[1:]):
+            if b.d0 < a.h0:
+                sale.append((f"corte|superpuesto|{n}", f"{n} tiene dos períodos superpuestos en la Corte"))
+    for dia in sorted(set(c.d0.dropna()) | set(c.h0.dropna())):
+        if dia < pd.Timestamp("1863-01-15") or dia > hoy:
+            continue
+        n, ley = int(((c.d0 <= dia) & (c.h0 > dia)).sum()), ley_corte(tam, dia)
+        if ley and n > ley:
+            sale.append((f"corte|exceso|{dia.date()}", f"el {dia.date()} hay {n} jueces y la ley fija {int(ley)}"))
+    return sale
+
+
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
-           ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos)]
+           ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
+           ("La Corte Suprema", prueba_corte)]
 
 
 def correr(mostrar=True):

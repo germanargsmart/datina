@@ -203,7 +203,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p>Piezas para mirar con tiempo: muchos datos en un solo dibujo, como cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha, con la tabla para descargar.</p>
     </div>
     <h3 class="bloque-grupo">Lo último</h3>
-    <article class="lab-pieza grande" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
+    <article class="lab-pieza grande" id="l-corte-lab" aria-labelledby="l-corte-t">
+      <div class="lab-texto">
+        <span class="etiqueta">Justicia</span>
+        <h3 id="l-corte-t" style="view-transition-name:t-corte-suprema">La Corte Suprema, juez por juez: quién designó a cada uno</h3>
+        <p class="lab-lead" data-t="lab-corte"></p>
+        <a class="enlace" href="corte-suprema.html">Ver la pieza completa <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="lab-graf">
+        <div class="pol-ley" id="lab-corte-ley" aria-hidden="true"></div>
+        <div class="grafico" data-g="lab-corte" data-forma="columnas"></div>
+      </div>
+    </article>
+    <article class="lab-pieza grande invertida" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
       <div class="lab-texto">
         <span class="etiqueta">Política</span>
         <h3 id="l-hemiciclo-t">Diputados y senadores, banca por banca</h3>
@@ -251,6 +263,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <a class="enlace" href="cruces.html?cx=natalidad&amp;cy=mortalidad_infantil">Ver la evolución año por año en Cruces <span aria-hidden="true">&rarr;</span></a>
       </article>
     </div>
+  </section>
+
+  <!-- La Corte Suprema (etapa 33, pedido del autor: "agregá algo de la justicia argentina, del poder judicial nacional, miembros, cantidad de
+       miembros, designados por tipo de gobierno, radical, peronista, pan, etc, desde 1853 en adelante"): pieza del Laboratorio con página
+       propia, como "The Supreme Court has had 116 justices. Here's who put them there" de USAFacts. El texto y los tres gráficos los arma
+       datina.js (PIEZA_CORTE) con las tablas que calcula 02_procesar.py -->
+  <section class="pieza" id="corte-suprema" data-ico="balanza" data-titulo="La Corte Suprema: quién designó a cada juez" data-descr="Cada juez de la Corte Suprema de Justicia de la Nación desde 1863, cuánto estuvo en el cargo y qué gobierno lo designó, con la composición de cada año y las leyes que fijaron cuántos jueces tiene.">
+    <article class="nota" id="l-corte"></article>
   </section>
 
   <section class="tema" id="articulos">
