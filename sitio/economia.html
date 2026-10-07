@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="economia">
 <header class="barra clara">
@@ -93,7 +93,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
-  <section class="tema" id="economia"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html" aria-current="page">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+  <section class="tema con-pregunta" id="economia"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html" aria-current="page">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="economia.html">Economía</a></li><li><span aria-current="page">Precios y actividad</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-economia">Precios y actividad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>
@@ -102,70 +102,76 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <article class="ficha" id="f-inflacion">
-      <h3>Inflación del país y de sus seis regiones, mes a mes y en doce meses, 2017 a 2026</h3>
-      <p class="lead" data-t="inflacion"></p>
+      <h3>¿Cuánto suben los precios en cada región?</h3>
+      <p class="ficha-sub">Inflación del país y de sus seis regiones, mes a mes y en doce meses, 2017 a 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion" style="--n:3">
         <button type="button" data-m="doce" aria-pressed="true">Doce meses</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
         <button type="button" data-m="region" aria-pressed="false">Por región</button>
       </div>
       <div class="grafico" data-g="inflacion" data-forma="lineas"></div>
+      <p class="lead" data-t="inflacion"></p>
       <p class="nota" data-t="inflacion-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/inflacion_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-inflacion-rubros">
-      <h3>Inflación por rubro en los doce meses hasta agosto de 2026</h3>
-      <p class="lead" data-t="inflacion-rubros"></p>
+      <h3>¿Qué rubros subieron más en los últimos doce meses?</h3>
+      <p class="ficha-sub">Inflación por rubro en los doce meses hasta agosto de 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros">
         <button type="button" data-m="division" aria-pressed="true">Rubros</button>
         <button type="button" data-m="categoria" aria-pressed="false">Categorías</button>
       </div>
       <div class="grafico" data-g="inflacion-rubros" data-forma="barras" style="--filas:12"></div>
+      <p class="lead" data-t="inflacion-rubros"></p>
       <p class="nota" data-t="inflacion-rubros-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/inflacion_rubros.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-canastas">
-      <h3>Canasta básica alimentaria y canasta básica total, por región y mes a mes, 2016 a 2026</h3>
-      <p class="lead" data-t="canastas"></p>
+      <h3>¿Cuánto necesita un hogar para cubrir lo básico?</h3>
+      <p class="ficha-sub">Canasta básica alimentaria y canasta básica total, por región y mes a mes, 2016 a 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="canastas">
         <button type="button" data-m="region" aria-pressed="true">Por región</button>
         <button type="button" data-m="precios" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="canastas" data-forma="barras" style="--filas:6"></div>
+      <p class="lead" data-t="canastas"></p>
       <p class="nota" data-t="canastas-nota"></p>
       <div class="pie"><span>Fuente: INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia. Se actualiza cada mes.</span><a href="datos/canasta_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-salario-real">
-      <h3>Salarios registrados del sector privado y del sector público descontada la inflación, 2016 a 2026</h3>
-      <p class="lead" data-t="salario-real"></p>
+      <h3>¿Cuánto cambió el poder de compra de los salarios?</h3>
+      <p class="ficha-sub">Salarios registrados del sector privado y del sector público descontada la inflación, 2016 a 2026</p>
       <div class="grafico" data-g="salario-real" data-forma="lineas"></div>
+      <p class="lead" data-t="salario-real"></p>
       <p class="nota" data-t="salario-real-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice de salarios e Índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/salario_real_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-emae">
-      <h3>Actividad económica mes a mes y por sector, 2004 a 2026</h3>
-      <p class="lead" data-t="emae"></p>
+      <h3>¿Cuánto crece o cae la actividad económica?</h3>
+      <p class="ficha-sub">Actividad económica mes a mes y por sector, 2004 a 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="emae">
         <button type="button" data-m="mes" aria-pressed="true">Mes a mes</button>
         <button type="button" data-m="sector" aria-pressed="false">Por sector</button>
       </div>
       <div class="grafico" data-g="emae" data-forma="lineas"></div>
+      <p class="lead" data-t="emae"></p>
       <p class="nota" data-t="emae-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Estimador Mensual de Actividad Económica. Se actualiza cada mes.</span><a href="datos/actividad_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-supermercados">
-      <h3>Ventas en supermercados en pesos de igual valor, por provincia y mes a mes, 2017 a 2026</h3>
-      <p class="lead" data-t="supermercados"></p>
+      <h3>¿Cuánto cambiaron las ventas en supermercados en cada provincia?</h3>
+      <p class="ficha-sub">Ventas en supermercados en pesos de igual valor, por provincia y mes a mes, 2017 a 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="supermercados">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="supermercados" data-forma="barras"></div>
+      <p class="lead" data-t="supermercados"></p>
       <p class="nota" data-t="supermercados-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta de Supermercados e índice de precios al consumidor. Se actualiza cada mes.</span><a href="datos/supermercados_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -236,7 +242,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

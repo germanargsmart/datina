@@ -318,6 +318,7 @@ for id_, *_ in NOTAS:
     UBIC[id_] = id_
 
 SECCIONES, FICHAS = [], []
+TEXTO_ANTES = {"f-muertes", "f-suicidio", "f-suicidio-prov", "f-edad"}   # como NOTA_A_LA_VISTA en datina.js
 for b in TEMAS:
     h = base[b["ini"]:b["fin"]]
     titulo = texto(re.search(r"<h2>(.*?)</h2>", h).group(1))
@@ -333,6 +334,10 @@ for b in TEMAS:
         sub = re.search(r'<p class="ficha-sub"(?: data-t="([^"]+)")?>(.*?)</p>', m.group(3), re.S)
         explorador = "explorador" in m.group(1)
         n += not explorador
+        # etapa 37 (orden de prioridad del autor: la pregunta, el dato y después la interpretación): el texto va después del gráfico, salvo
+        # en las fichas de suicidio, que lo ponen en contexto antes, y en las anchas, cuyo gráfico es una lista larga
+        if "herramienta" not in b["clases"] and "ancha" not in m.group(1) and m.group(2) not in TEXTO_ANTES and kl:
+            assert 0 <= m.group(3).find('class="grafico') < kl.start(), f"{m.group(2)}: el texto (p.lead) va después del gráfico"
         # [id, sección, título fijo, clave del título calculado, clave del texto, explorador, después de las líneas de ayuda,
         #  descripción fija, clave de la descripción calculada]
         FICHAS.append([m.group(2), b["id"], texto(h3.group(2)) if h3 else "", kt.group(1) if kt else "", kl.group(1) if kl else "",

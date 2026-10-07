@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Turismo | Datina</title>
-<meta name="description" content="Turismo: ¿Quién viaja por la Argentina y adónde va? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<meta name="description" content="Turismo: ¿Cuántos turistas llegan y a qué provincias van? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
 // transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="turismo">
 <header class="barra clara">
@@ -123,38 +123,41 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   
 
 
-  <section class="tema" id="turismo"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html" aria-current="page">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+  <section class="tema con-pregunta" id="turismo"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html" aria-current="page">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="poblacion.html">Población</a></li><li><span aria-current="page">Turismo</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-turismo">Turismo</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Quién viaja por la Argentina y adónde va?</p>
+      <p class="pregunta" data-corta="¿Cuántos turistas llegan?">¿Cuántos turistas llegan y a qué provincias van?</p>
       <p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>
     </div><nav class="subsecciones" aria-label="Población"><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html" aria-current="page">Turismo</a></nav><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <article class="ficha" id="f-receptivo">
-      <h3 data-t="receptivo-titulo"></h3>
-      <p class="lead" data-t="receptivo"></p>
+      <h3>¿Cuántos turistas extranjeros llegan al país?</h3>
+      <p class="ficha-sub">Turistas no residentes que llegaron a la Argentina, 2010 a 2025</p>
       <div class="grafico" data-g="receptivo" data-forma="lineas"></div>
+      <p class="lead" data-t="receptivo"></p>
       <p class="nota" data-t="receptivo-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional. Se actualiza cada mes.</span><a href="datos/turistas_no_residentes_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-hoteles">
-      <h3 data-t="hoteles-titulo"></h3>
-      <p class="lead" data-t="hoteles"></p>
+      <h3>¿Cuántos viajeros se alojan en hoteles?</h3>
+      <p class="ficha-sub">Viajeros hospedados en hoteles y parahoteles, 2007 a 2024</p>
       <div class="grafico" data-g="hoteles" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="hoteles"></p>
       <p class="nota" data-t="hoteles-nota"></p>
       <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Ocupación Hotelera. La encuesta está en pausa: el INDEC la está reformulando.</span><a href="datos/viajeros_hoteles_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-eti">
-      <h3 data-t="eti-titulo"></h3>
-      <p class="lead" data-t="eti"></p>
+      <h3>¿Qué provincias visitan los turistas extranjeros?</h3>
+      <p class="ficha-sub">Turistas extranjeros que visitaron cada provincia y salieron por Ezeiza o Aeroparque, 2025</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="eti">
         <button type="button" data-m="cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
         <button type="button" data-m="turistas" aria-pressed="false">Cantidad de turistas</button>
       </div>
       <div class="grafico" data-g="eti" data-forma="barras"></div>
+      <p class="lead" data-t="eti"></p>
       <p class="nota" data-t="eti-nota"></p>
       <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Turismo Internacional. La encuesta está en pausa: el INDEC la está reformulando.</span><a href="datos/turistas_extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -195,7 +198,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

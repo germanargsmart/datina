@@ -4567,6 +4567,9 @@ votaciones_res = {
     "ult": votos.fecha.max().strftime("%Y-%m-%d"), "descartadas": len(VOT_DESCARTADAS),
     "apoyo": apoyo_res,
     "representacion": rep_res,
+    # los años de las descripciones de las fichas (etapa 37): las leyes clave y los gobiernos con correlación
+    "leyes_ini": leyes_v[0]["anio"], "leyes_fin": leyes_v[-1]["anio"],
+    "rep_ini": [g for g in rep_res if g.get("r") is not None][0]["anios"][0], "rep_fin": [g for g in rep_res if g.get("r") is not None][-1]["anios"][1],
 }
 
 # ---------------------------------------------------------------- cruces entre indicadores provinciales
@@ -5233,7 +5236,9 @@ resumen = {
     "visitas_parque": {"ult": VP_ULT, "par": VP_PAR, "par_mes": VP_MES, "top": vp_top.area, "top_lugar": vp_top.lugar, "top_v": int(vp_top.visitas_ult),
                        "top_nr": int(vp_top.no_residentes_ult), "dos": vp_2.area, "dos_v": int(vp_2.visitas_ult),
                        "pct_top": r1(vp_top.visitas_ult / vp_tot * 100), "top_2019": int(vp_top.visitas_pre), "n": int(len(vpp)),
-                       "tot": int(vp_tot), "par_var": r1((vpp.visitas_par.sum() / vpp.visitas_par_ant.sum() - 1) * 100) if VP_PAR else None},
+                       "tot": int(vp_tot), "par_var": r1((vpp.visitas_par.sum() / vpp.visitas_par_ant.sum() - 1) * 100) if VP_PAR else None,
+                       # los años de la descripción de la ficha (etapa 37): "2025 y 2026" o un solo año
+                       "anios": f"{VP_ULT} y {VP_PAR}" if VP_PAR else str(VP_ULT)},
     "curiosidades": {
         "nom_anio": ANIO_N, "nom_ini": ini_n, "nena": top_f.mostrar, "nena_n": int(top_f.cantidad), "varon": top_m.mostrar, "varon_n": int(top_m.cantidad),
         "nena0": top_f0.mostrar, "varon0": top_m0.mostrar,
@@ -5259,7 +5264,7 @@ resumen = {
         "cl_pos_desde2000": int((clima[clima.anio >= 2000].desvio_temperatura > 0).sum()), "cl_n_desde2000": int((clima.anio >= 2000).sum()),
     },
     "sube": {
-        "mes": f"{MES[int(su.n_mes) - 1]} de {int(su.anio)}", "mes_prev": f"{MES[int(su.n_mes) - 1]} de {int(su.anio) - 1}",
+        "mes": f"{MES[int(su.n_mes) - 1]} de {int(su.anio)}", "mes_prev": f"{MES[int(su.n_mes) - 1]} de {int(su.anio) - 1}", "anio_ult": int(su.anio),
         "total_millones": round(float(su.total) / 1e6, 2),
         "var_anual": r1((su.total / su_prev.total.iloc[0] - 1) * 100) if len(su_prev) and pd.notna(su_prev.total.iloc[0]) else None,
         "colectivo_millones": round(float(su.colectivo) / 1e6, 2), "tren_miles": round(float(su.tren) / 1e3),
@@ -5307,6 +5312,7 @@ resumen["elecciones"] = el_meta
 resumen["elecciones_ult"] = max(x["anio"] for x in el_meta)   # el título de la ficha de elecciones
 resumen["anio_pob"] = ANIO_POB   # año de la población de las tasas por habitante (notas y títulos)
 resumen["congreso"] = congreso_res
+congreso_res["anio_fin"] = congreso_res["anio"] + 2   # fin del período legislativo en curso (la descripción de la ficha, etapa 37)
 resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res
 resumen["piramide"] = pir_res

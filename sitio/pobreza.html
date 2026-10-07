@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pobreza y hogares | Datina</title>
-<meta name="description" content="Pobreza y hogares: ¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<meta name="description" content="Pobreza y hogares: ¿Cuántas personas no llegan a cubrir lo básico y qué servicios tienen los hogares? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
 // transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="pobreza">
 <header class="barra clara">
@@ -100,7 +100,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema con-pregunta" id="pobreza"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html" aria-current="page">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Pobreza y hogares</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-pobreza">Pobreza y hogares</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
+      <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántas personas no llegan a cubrir lo básico y qué servicios tienen los hogares?</p>
       <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
     </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
@@ -108,17 +108,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-pobreza">
       <h3>¿Cuántas personas viven bajo la línea de pobreza?</h3>
       <p class="ficha-sub">Pobreza e indigencia en los 31 aglomerados urbanos, 2016 a 2026</p>
-      <p class="lead" data-t="pobreza"></p>
       <div class="grafico" data-g="pobreza" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="pobreza-nota"></p>
+      <p class="lead" data-t="pobreza"></p>
       <p class="ir-consultas"><a class="boton principal" href="pobreza/">Consultar pobreza por aglomerado, partido y comuna</a></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares. Se actualiza cada seis meses.</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-censo">
-      <h3>¿Cómo viven los hogares de cada provincia?</h3>
+      <h3>¿Cuántos hogares tienen cloacas, agua de red y computadora?</h3>
       <p class="ficha-sub">Servicios, equipamiento y cobertura de salud por provincia, Censo 2022</p>
-      <p class="lead" data-t="censo"></p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="censo">
           <option value="cloaca" selected>Cloacas</option>
@@ -129,19 +128,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="sin_cobertura">Sin obra social, prepaga ni plan estatal</option>
         </select></label>
       <div class="grafico" data-g="censo" data-forma="barras"></div>
+      <p class="lead" data-t="censo"></p>
       <p class="nota" data-t="censo-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal. Se actualiza con cada censo.</span><a href="datos/censo2022_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-internet">
-      <h3>¿Qué tan conectada está cada provincia?</h3>
+      <h3>¿Cuántos accesos a internet fijo hay cada 100 hogares?</h3>
       <p class="ficha-sub">Internet fijo por provincia, 2.º trimestre de 2026</p>
-      <p class="lead" data-t="internet"></p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="internet">
         <button type="button" data-m="accesos_100_hogares" aria-pressed="true">Accesos</button>
         <button type="button" data-m="mbps" aria-pressed="false">Velocidad</button>
       </div>
       <div class="grafico" data-g="internet" data-forma="barras"></div>
+      <p class="lead" data-t="internet"></p>
       <p class="nota" data-t="internet-nota"></p>
       <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM). Se actualiza cada tres meses.</span><a href="datos/internet_fijo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -208,7 +208,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

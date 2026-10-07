@@ -1013,14 +1013,20 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   .acciones{margin-left:0}
 }
 
-/* fichas horizontales: texto a la izquierda y gráfico a la derecha, desde 1080 px. Más angosto se apilan como siempre */
-.ficha-texto,.ficha-grafico{display:contents}
+/* fichas horizontales: la cabeza y el texto a la izquierda y el gráfico a la derecha, desde 1080 px. La fila del texto toma el alto que
+   sobra del gráfico, así el texto queda pegado a la cabeza. Más angosto se apilan: la pregunta, el gráfico y el texto (etapa 37) */
+.ficha-cab,.ficha-texto,.ficha-grafico{display:contents}
 @media (min-width:1080px){
-  .ficha.horizontal{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--e-8);align-items:start}
-  .ficha.horizontal>.ficha-texto,.ficha.horizontal>.ficha-grafico{display:block;min-width:0}
+  .ficha.horizontal{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;column-gap:var(--e-8);align-items:start}
+  .ficha.horizontal>:is(.ficha-cab,.ficha-texto,.ficha-grafico){display:block;min-width:0}
+  .ficha.horizontal>.ficha-cab{grid-area:1/1}
+  .ficha.horizontal>.ficha-texto{grid-area:2/1}
+  .ficha.horizontal>.ficha-grafico{grid-area:1/2/3/3}
   .ficha.horizontal>.pie,.ficha.horizontal>.tabla-datos{grid-column:1/-1}
-  .ficha-grafico>:first-child{margin-top:0}
+  .ficha-grafico>:first-child,.ficha-texto>:first-child{margin-top:0}
 }
+/* el texto que sigue al gráfico se separa de él como el gráfico de la cabeza (en la plantilla, antes de que llegue el código, y después) */
+@media (max-width:1079px){.ficha>:not(h3,.ficha-sub,.etiqueta,.clave)+.lead,.ficha-grafico+.ficha-texto>.lead:first-child{margin-top:var(--e-5)}}
 
 /* ---------- formas de carga (etapa 6) ----------
    Mientras llegan el código o los datos, cada ficha muestra su silueta: el título y el texto como renglones, y el gráfico
@@ -1132,6 +1138,8 @@ html:not(.js) .esqueleto{display:none}
   background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px;background-repeat:no-repeat}
 .cx-campo select:focus-visible,.selector-ficha select:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
 .ir-consultas{margin:var(--e-5) 0 0}
+/* el botón a las consultas de pobreza es largo: en pantallas angostas pasa a dos renglones en lugar de salirse de la ficha */
+.ir-consultas .boton{max-width:100%;white-space:normal;padding-block:10px;text-align:center}
 /* la OCDE dentro de cada gráfico: botones que cambian lo que muestra, en violeta */
 .ocde-conm{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:var(--e-4) 0 2px}
 .ocde-conm .boton:not(.propio){--b-tinta:var(--ocde);--b-borde:var(--ocde)}

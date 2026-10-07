@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="petroleo">
 <header class="barra clara">
@@ -120,7 +120,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   
 
 
-  <section class="tema" id="petroleo"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html" aria-current="page">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+  <section class="tema con-pregunta" id="petroleo"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html" aria-current="page">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="energia.html">Energía</a></li><li><span aria-current="page">Petróleo y gas</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-petroleo">Petróleo y gas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto petróleo y gas producimos?">¿Cuánto petróleo y gas produce el país, dónde y quién lo produce?</p>
@@ -129,44 +129,47 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <article class="ficha" id="f-petroleo">
-      <h3>Producción de petróleo por mes, 2006 a 2026</h3>
-      <p class="lead" data-t="petroleo"></p>
+      <h3>¿Cuánto petróleo produce el país?</h3>
+      <p class="ficha-sub">Producción de petróleo por mes, 2006 a 2026</p>
       <div class="conmutador" role="group" aria-label="Separar por" data-g="petroleo">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
         <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
       </div>
       <div class="grafico" data-g="petroleo" data-forma="lineas"></div>
+      <p class="lead" data-t="petroleo"></p>
       <p class="nota" data-t="petroleo-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso. Se actualiza cada mes.</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-gas">
-      <h3>Producción de gas natural por mes, 2006 a 2026</h3>
-      <p class="lead" data-t="gas"></p>
+      <h3>¿Cuánto gas produce el país?</h3>
+      <p class="ficha-sub">Producción de gas natural por mes, 2006 a 2026</p>
       <div class="conmutador" role="group" aria-label="Separar por" data-g="gas">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
         <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
       </div>
       <div class="grafico" data-g="gas" data-forma="lineas"></div>
+      <p class="lead" data-t="gas"></p>
       <p class="nota" data-t="gas-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso. Se actualiza cada mes.</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-hidro-provincias">
-      <h3>Producción de petróleo y gas por provincia, septiembre de 2025 a agosto de 2026</h3>
-      <p class="lead" data-t="hidro-provincias"></p>
+      <h3>¿Cuánto petróleo y gas produce cada provincia?</h3>
+      <p class="ficha-sub">Producción de petróleo y gas por provincia, septiembre de 2025 a agosto de 2026</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="hidro-provincias">
         <button type="button" data-m="pet_kbd" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas_mmm3d" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="hidro-provincias" data-forma="barras" style="--filas:11"></div>
+      <p class="lead" data-t="hidro-provincias"></p>
       <p class="nota" data-t="hidro-provincias-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva. Se actualiza cada mes.</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-areas-hidro">
-      <h3>Producción de petróleo y gas por área de concesión, 2006 a 2025</h3>
-      <p class="lead" data-t="areas-hidro"></p>
+      <h3>¿Qué áreas producen más petróleo y gas?</h3>
+      <p class="ficha-sub">Producción de petróleo y gas por área de concesión, 2006 a 2025</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="areas-hidro">
         <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas" aria-pressed="false">Gas</button>
@@ -174,39 +177,42 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>Área</span><select id="ar-sel"><option value="">Las 15 que más producen</option></select></label>
       <div class="pol-ley" id="areas-hidro-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="areas-hidro" data-forma="barras" style="--filas:15"></div>
+      <p class="lead" data-t="areas-hidro"></p>
       <p class="nota" data-t="areas-hidro-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva. Se actualiza cada año.</span><a href="datos/areas_produccion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mapa-pozos">
-      <h3>Pozos no convencionales y áreas de concesión, agosto de 2026</h3>
-      <p class="lead" data-t="mapa-pozos"></p>
+      <h3>¿Dónde están los pozos no convencionales?</h3>
+      <p class="ficha-sub">Pozos no convencionales y áreas de concesión, agosto de 2026</p>
       <div class="conmutador" role="group" aria-label="Zona" data-g="mapa-pozos">
         <button type="button" data-m="cuenca" aria-pressed="true">Cuenca Neuquina</button>
         <button type="button" data-m="pais" aria-pressed="false">Todo el país</button>
       </div>
       <div class="pol-ley" id="mapa-pozos-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="mapa-pozos" data-forma="mapa" style="--alto:490px;--alto-c:300px"></div>
+      <p class="lead" data-t="mapa-pozos"></p>
       <p class="nota" data-t="mapa-pozos-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y concesiones de explotación. Se actualiza cada mes.</span><a href="datos/pozos_no_convencionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pozos">
-      <h3>Pozos en producción y lo que produce cada uno, agosto de 2026</h3>
-      <p class="lead" data-t="pozos"></p>
+      <h3>¿Cuántos pozos producen y cuánto saca cada uno?</h3>
+      <p class="ficha-sub">Pozos en producción y lo que produce cada uno, agosto de 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="pozos">
         <button type="button" data-m="pozo" aria-pressed="true">Petróleo por pozo</button>
         <button type="button" data-m="partes" aria-pressed="false">Pozos y producción</button>
       </div>
       <div class="pol-ley" id="pozos-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="pozos" data-forma="barras" style="--filas:3"></div>
+      <p class="lead" data-t="pozos"></p>
       <p class="nota" data-t="pozos-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV por pozo. Se actualiza cada mes.</span><a href="datos/pozos_tipo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-fracturas">
-      <h3>Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, 2013 a 2025</h3>
-      <p class="lead" data-t="fracturas"></p>
+      <h3>¿Cuántas etapas de fractura se hacen por año?</h3>
+      <p class="ficha-sub">Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, 2013 a 2025</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fracturas" style="--n:3">
         <button type="button" data-m="etapas" aria-pressed="true">Etapas por año</button>
         <button type="button" data-m="rama" aria-pressed="false">Rama horizontal</button>
@@ -214,75 +220,81 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="fracturas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="fracturas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="fracturas"></p>
       <p class="nota" data-t="fracturas-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV). Se actualiza cada año.</span><a href="datos/fracturas_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-productividad">
-      <h3>Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, 2013 a 2024</h3>
-      <p class="lead" data-t="productividad"></p>
+      <h3>¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año?</h3>
+      <p class="ficha-sub">Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, 2013 a 2024</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="productividad" style="--n:3">
         <button type="button" data-m="pozo" aria-pressed="true">Por pozo</button>
         <button type="button" data-m="metro" aria-pressed="false">Cada 1.000 m de rama</button>
         <button type="button" data-m="curvas" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="productividad" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="productividad"></p>
       <p class="nota" data-t="productividad-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV). Se actualiza cada año.</span><a href="datos/productividad_vm.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pozos-terminados">
-      <h3>Pozos de petróleo y gas terminados por año, 2009 a 2025, y por provincia</h3>
-      <p class="lead" data-t="pozos-terminados"></p>
+      <h3>¿Cuántos pozos se terminan por año?</h3>
+      <p class="ficha-sub">Pozos de petróleo y gas terminados por año, 2009 a 2025, y por provincia</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="pozos-terminados">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
         <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
       </div>
       <div class="pol-ley" id="pozos-terminados-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="pozos-terminados" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="pozos-terminados"></p>
       <p class="nota" data-t="pozos-terminados-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, perforación de pozos de petróleo y gas. Se actualiza cada mes.</span><a href="datos/pozos_terminados.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empresas-hidro">
-      <h3>Producción de petróleo y gas por empresa, septiembre de 2025 a agosto de 2026</h3>
-      <p class="lead" data-t="empresas-hidro"></p>
+      <h3>¿Qué empresas producen más petróleo y gas?</h3>
+      <p class="ficha-sub">Producción de petróleo y gas por empresa, septiembre de 2025 a agosto de 2026</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="empresas-hidro">
         <button type="button" data-m="pct_pet" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="pct_gas" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="empresas-hidro" data-forma="barras" style="--filas:13"></div>
+      <p class="lead" data-t="empresas-hidro"></p>
       <p class="nota" data-t="empresas-hidro-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva. Se actualiza cada mes.</span><a href="datos/hidrocarburos_empresas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empleo-hidro">
-      <h3>Empleo registrado en la extracción de petróleo y gas, primer trimestre de 2026</h3>
-      <p class="lead" data-t="empleo-hidro"></p>
+      <h3>¿Cuánto empleo registrado da el petróleo y el gas?</h3>
+      <p class="ficha-sub">Empleo registrado en la extracción de petróleo y gas, primer trimestre de 2026</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-hidro">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
       </div>
       <div class="grafico" data-g="empleo-hidro" data-forma="barras" style="--filas:12"></div>
+      <p class="lead" data-t="empleo-hidro"></p>
       <p class="nota" data-t="empleo-hidro-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA. Se actualiza cada tres meses.</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-regalias">
-      <h3>Regalías en los ingresos de cada provincia, 2025</h3>
-      <p class="lead" data-t="regalias"></p>
+      <h3>¿Cuánto pesan las regalías en los ingresos de cada provincia?</h3>
+      <p class="ficha-sub">Regalías en los ingresos de cada provincia, 2025</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="regalias">
         <button type="button" data-m="pct_regalias" aria-pressed="true">% de los ingresos</button>
         <button type="button" data-m="usd_crudo_hab" aria-pressed="false">Dólares por habitante, petróleo</button>
       </div>
       <div class="grafico" data-g="regalias" data-forma="barras"></div>
+      <p class="lead" data-t="regalias"></p>
       <p class="nota" data-t="regalias-nota"></p>
       <div class="pie"><span>Fuentes: Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo. Se actualiza cada año.</span><a href="datos/regalias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-reservas">
-      <h3>Reservas comprobadas de petróleo y gas, 2006 a 2025</h3>
-      <p class="lead" data-t="reservas"></p>
+      <h3>¿Para cuántos años alcanzan las reservas de petróleo y gas?</h3>
+      <p class="ficha-sub">Reservas comprobadas de petróleo y gas, 2006 a 2025</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="reservas" style="--n:3">
         <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas" aria-pressed="false">Gas</button>
@@ -290,26 +302,29 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="reservas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="reservas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="reservas"></p>
       <p class="nota" data-t="reservas-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006). Se actualiza cada año.</span><a href="datos/reservas_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-balanza-energetica">
-      <h3>Exportaciones e importaciones de energía, 2004 a 2025</h3>
-      <p class="lead" data-t="balanza-energetica"></p>
+      <h3>¿Cuánta energía exporta e importa el país?</h3>
+      <p class="ficha-sub">Exportaciones e importaciones de energía, 2004 a 2025</p>
       <div class="grafico" data-g="balanza-energetica" data-forma="lineas"></div>
+      <p class="lead" data-t="balanza-energetica"></p>
       <p class="nota" data-t="balanza-energetica-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/balanza_energetica.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mundo-petroleo">
-      <h3>La Argentina entre los productores de petróleo y gas del mundo, 2025</h3>
-      <p class="lead" data-t="mundo-petroleo"></p>
+      <h3>¿Qué lugar ocupa la Argentina entre los productores del mundo?</h3>
+      <p class="ficha-sub">La Argentina entre los productores de petróleo y gas del mundo, 2025</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="mundo-petroleo">
         <button type="button" data-m="crudo_kbd" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas_bcm" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="mundo-petroleo" data-forma="barras" style="--filas:29"></div>
+      <p class="lead" data-t="mundo-petroleo"></p>
       <p class="nota" data-t="mundo-petroleo-nota"></p>
       <div class="pie"><span>Fuente: Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén. Se actualiza cada año.</span><a href="datos/mundo_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -353,7 +368,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

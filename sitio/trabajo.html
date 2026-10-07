@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="trabajo">
 <header class="barra clara">
@@ -102,34 +102,33 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-empleo">
       <h3>¿Cuánto empleo privado registrado hay en cada provincia?</h3>
       <p class="ficha-sub">Asalariados privados registrados por provincia, junio de 2026</p>
-      <p class="lead" data-t="empleo"></p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="empleo">
         <button type="button" data-m="cada_100" aria-pressed="true">Cada 100 habitantes</button>
         <button type="button" data-m="var_12m" aria-pressed="false">Variación en 12 meses</button>
       </div>
       <p class="clave-color" id="clave-empleo" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
       <div class="grafico" data-g="empleo" data-forma="barras"></div>
+      <p class="lead" data-t="empleo"></p>
       <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección 2025 del INDEC usada por el SNIC.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica. Se actualiza cada mes.</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-salarios">
-      <h3>¿Cuánto se gana en un empleo privado registrado en cada provincia?</h3>
+      <h3>¿Dónde se gana más en un empleo privado registrado?</h3>
       <p class="ficha-sub">Salario promedio de los asalariados registrados del sector privado por provincia, mayo de 2026</p>
-      <p class="lead" data-t="salarios"></p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="salarios">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="salarios" data-forma="barras"></div>
+      <p class="lead" data-t="salarios"></p>
       <p class="nota" data-t="salarios-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, en base al SIPA, e INDEC, índice de precios al consumidor. Se actualiza cada tres meses.</span><a href="datos/salarios_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-rotacion">
-      <h3>¿Quiénes llevan poco tiempo en su empleo?</h3>
+      <h3>¿Cuántos asalariados llevan un año o menos en su empleo?</h3>
       <p class="ficha-sub">Asalariados con un año o menos en su empleo actual, 2025 y 2026</p>
-      <p class="lead" data-t="rotacion"></p>
       <label class="selector-ficha"><span>Según</span>
         <select data-g="rotacion">
           <option value="edad" selected>Edad</option>
@@ -142,6 +141,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="calificacion">Calificación de la tarea</option>
         </select></label>
       <div class="grafico" data-g="rotacion" data-forma="barras" style="--alto:232px;--alto-c:232px"></div>
+      <p class="lead" data-t="rotacion"></p>
       <p class="nota" data-t="rotacion-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). Se actualiza cada tres meses.</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -149,8 +149,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-exportaciones">
       <h3>¿Cuánto le vende al mundo cada provincia?</h3>
       <p class="ficha-sub">Exportaciones por habitante según provincia de origen, 2025</p>
-      <p class="lead" data-t="exportaciones"></p>
       <div class="grafico" data-g="exportaciones" data-forma="barras"></div>
+      <p class="lead" data-t="exportaciones"></p>
       <p class="nota" data-t="exportaciones-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio). Se actualiza cada seis meses.</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -224,7 +224,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

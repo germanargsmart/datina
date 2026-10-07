@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Flora y fauna | Datina</title>
-<meta name="description" content="Flora y fauna: ¿Cuánto territorio está protegido y qué vive en él? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<meta name="description" content="Flora y fauna: ¿Cuánto territorio está protegido y cuántas especies se registran en él? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
 // transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="naturaleza">
 <header class="barra clara">
@@ -125,29 +125,30 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
-  <section class="tema" id="naturaleza"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html" aria-current="page">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+  <section class="tema con-pregunta" id="naturaleza"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html" aria-current="page">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Flora y fauna</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-naturaleza">Flora y fauna</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Cuánto territorio está protegido y qué vive en él?</p>
+      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido y cuántas especies se registran en él?</p>
       <p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>
     </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <article class="ficha" id="f-protegida">
-      <h3 data-t="protegida-titulo"></h3>
-      <p class="lead" data-t="protegida"></p>
+      <h3>¿Cuánto territorio protegido tiene cada provincia?</h3>
+      <p class="ficha-sub">Superficie protegida por provincia, 2025</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="protegida">
         <button type="button" data-m="pct_territorio" aria-pressed="true">% del territorio</button>
         <button type="button" data-m="m2_por_habitante" aria-pressed="false">m² por habitante</button>
       </div>
       <div class="grafico" data-g="protegida" data-forma="barras" style="--extra:14px"></div>
+      <p class="lead" data-t="protegida"></p>
       <p class="nota" data-t="protegida-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente, Centro de Información Ambiental (CIAM). Se actualiza cada año.</span><a href="datos/areas_protegidas_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-parques">
-      <h3 data-t="parques-titulo"></h3>
-      <p class="lead" data-t="parques"></p>
+      <h3>¿Cuánta superficie protegen los parques nacionales y desde cuándo?</h3>
+      <p class="ficha-sub">Superficie de las áreas protegidas nacionales según año de creación, 1934 a 2023</p>
       <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:3">
         <button type="button" role="tab" id="pt-evolucion" aria-controls="pp-evolucion" aria-selected="true">Evolución</button>
         <button type="button" role="tab" id="pt-mapa" aria-controls="pp-mapa" aria-selected="false" tabindex="-1">Mapa</button>
@@ -165,50 +166,56 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="tabla-desliza"><table class="tabla-areas" id="tabla-areas"></table></div>
         <p class="nota" data-t="lista-areas-nota"></p>
       </div>
+      <p class="lead" data-t="parques"></p>
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales. Se actualiza cada año.</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-visitas">
-      <h3 data-t="visitas-titulo"></h3>
-      <p class="lead" data-t="visitas"></p>
+      <h3>¿Cuántas personas visitan los parques nacionales?</h3>
+      <p class="ficha-sub">Visitas a parques nacionales, 2008 a 2025</p>
       <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="visitas"></p>
       <p class="nota" data-t="visitas-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA). Se actualiza cada mes.</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-visitas-parque">
-      <h3 data-t="visitas-parque-titulo"></h3>
-      <p class="lead" data-t="visitas-parque"></p>
+      <h3>¿Qué parques nacionales reciben más visitas?</h3>
+      <p class="ficha-sub">Visitas por parque nacional, 2025 y 2026</p>
       <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
         <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
         <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
         <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
       </div>
       <div class="grafico" data-g="visitas-parque" data-forma="barras" style="--filas:41"></div>
+      <p class="lead" data-t="visitas-parque"></p>
       <p class="nota" data-t="visitas-parque-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales. Se actualiza cada año.</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-especies">
-      <h3 data-t="especies-titulo"></h3>
-      <p class="lead" data-t="especies"></p>
+      <h3>¿Qué animales se registran más en las áreas protegidas?</h3>
+      <p class="ficha-sub">Especies animales registradas en las áreas protegidas nacionales, las 15 con más registros</p>
       <div class="grafico" data-g="especies" data-forma="barras" style="--filas:15"></div>
+      <p class="lead" data-t="especies"></p>
       <p class="nota" data-t="especies-nota"></p>
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales. Se actualiza cada año.</span><a href="datos/especies_areas_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pesca">
-      <h3 data-t="pesca-titulo"></h3>
-      <p class="lead" data-t="pesca"></p>
+      <h3>¿Cuánto se pesca en el mar?</h3>
+      <p class="ficha-sub">Desembarques de pesca marítima de las tres especies principales, 2012 a 2025</p>
       <div class="grafico" data-g="pesca" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="pesca"></p>
       <p class="nota" data-t="pesca-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura. Se actualiza cada año.</span><a href="datos/desembarques_especies.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pesca-rio">
-      <h3 data-t="pesca-rio-titulo"></h3>
-      <p class="lead" data-t="pesca-rio"></p>
+      <h3>¿Qué especies se pescan más en los ríos?</h3>
+      <p class="ficha-sub">Pesca comercial en ríos por especie, 2024</p>
       <div class="grafico" data-g="pesca-rio" data-forma="barras" style="--filas:6"></div>
+      <p class="lead" data-t="pesca-rio"></p>
       <p class="nota" data-t="pesca-rio-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura. Se actualiza cada año.</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -247,7 +254,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

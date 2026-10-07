@@ -313,34 +313,33 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-empleo">
       <h3>¿Cuánto empleo privado registrado hay en cada provincia?</h3>
       <p class="ficha-sub">Asalariados privados registrados por provincia, {{empleo.mes}}</p>
-      <p class="lead" data-t="empleo"></p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="empleo">
         <button type="button" data-m="cada_100" aria-pressed="true">Cada 100 habitantes</button>
         <button type="button" data-m="var_12m" aria-pressed="false">Variación en 12 meses</button>
       </div>
       <p class="clave-color" id="clave-empleo" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
       <div class="grafico" data-g="empleo" data-forma="barras"></div>
+      <p class="lead" data-t="empleo"></p>
       <p class="nota">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección {{anio_pob}} del INDEC usada por el SNIC.</p>
       <div class="pie"><span>Fuente: SIPA, publicado por la Subsecretaría de Programación Macroeconómica</span><a href="datos/empleo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-salarios">
-      <h3>¿Cuánto se gana en un empleo privado registrado en cada provincia?</h3>
+      <h3>¿Dónde se gana más en un empleo privado registrado?</h3>
       <p class="ficha-sub">Salario promedio de los asalariados registrados del sector privado por provincia, {{salarios.mes}}</p>
-      <p class="lead" data-t="salarios"></p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="salarios">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="salarios" data-forma="barras"></div>
+      <p class="lead" data-t="salarios"></p>
       <p class="nota" data-t="salarios-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, en base al SIPA, e INDEC, índice de precios al consumidor</span><a href="datos/salarios_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-rotacion">
-      <h3>¿Quiénes llevan poco tiempo en su empleo?</h3>
+      <h3>¿Cuántos asalariados llevan un año o menos en su empleo?</h3>
       <p class="ficha-sub">Asalariados con un año o menos en su empleo actual, {{rotacion.anios}}</p>
-      <p class="lead" data-t="rotacion"></p>
       <label class="selector-ficha"><span>Según</span>
         <select data-g="rotacion">
           <option value="edad" selected>Edad</option>
@@ -353,6 +352,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="calificacion">Calificación de la tarea</option>
         </select></label>
       <div class="grafico" data-g="rotacion" data-forma="barras" style="--alto:232px;--alto-c:232px"></div>
+      <p class="lead" data-t="rotacion"></p>
       <p class="nota" data-t="rotacion-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio)</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -360,8 +360,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-exportaciones">
       <h3>¿Cuánto le vende al mundo cada provincia?</h3>
       <p class="ficha-sub">Exportaciones por habitante según provincia de origen, {{nuevos.ex_anio}}</p>
-      <p class="lead" data-t="exportaciones"></p>
       <div class="grafico" data-g="exportaciones" data-forma="barras"></div>
+      <p class="lead" data-t="exportaciones"></p>
       <p class="nota" data-t="exportaciones-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -369,7 +369,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
-  <section class="tema" id="economia">
+  <section class="tema con-pregunta" id="economia">
     <h2>Precios y actividad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>
@@ -378,101 +378,109 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:economia-->
 
     <article class="ficha" id="f-inflacion">
-      <h3>Inflación del país y de sus seis regiones, mes a mes y en doce meses, {{economia.ipc.anio_ini}} a {{economia.ipc.anio}}</h3>
-      <p class="lead" data-t="inflacion"></p>
+      <h3>¿Cuánto suben los precios en cada región?</h3>
+      <p class="ficha-sub">Inflación del país y de sus seis regiones, mes a mes y en doce meses, {{economia.ipc.anio_ini}} a {{economia.ipc.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion" style="--n:3">
         <button type="button" data-m="doce" aria-pressed="true">Doce meses</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
         <button type="button" data-m="region" aria-pressed="false">Por región</button>
       </div>
       <div class="grafico" data-g="inflacion" data-forma="lineas"></div>
+      <p class="lead" data-t="inflacion"></p>
       <p class="nota" data-t="inflacion-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-inflacion-rubros">
-      <h3>Inflación por rubro en los doce meses hasta {{economia.ipc.mes}}</h3>
-      <p class="lead" data-t="inflacion-rubros"></p>
+      <h3>¿Qué rubros subieron más en los últimos doce meses?</h3>
+      <p class="ficha-sub">Inflación por rubro en los doce meses hasta {{economia.ipc.mes}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros">
         <button type="button" data-m="division" aria-pressed="true">Rubros</button>
         <button type="button" data-m="categoria" aria-pressed="false">Categorías</button>
       </div>
       <div class="grafico" data-g="inflacion-rubros" data-forma="barras" style="--filas:12"></div>
+      <p class="lead" data-t="inflacion-rubros"></p>
       <p class="nota" data-t="inflacion-rubros-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_rubros.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-canastas">
-      <h3>Canasta básica alimentaria y canasta básica total, por región y mes a mes, {{economia.canasta.anio_ini}} a {{economia.canasta.anio}}</h3>
-      <p class="lead" data-t="canastas"></p>
+      <h3>¿Cuánto necesita un hogar para cubrir lo básico?</h3>
+      <p class="ficha-sub">Canasta básica alimentaria y canasta básica total, por región y mes a mes, {{economia.canasta.anio_ini}} a {{economia.canasta.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="canastas">
         <button type="button" data-m="region" aria-pressed="true">Por región</button>
         <button type="button" data-m="precios" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="canastas" data-forma="barras" style="--filas:6"></div>
+      <p class="lead" data-t="canastas"></p>
       <p class="nota" data-t="canastas-nota"></p>
       <div class="pie"><span>Fuente: INDEC, canasta básica alimentaria y canasta básica total, e informe de pobreza e indigencia</span><a href="datos/canasta_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-salario-real">
-      <h3>Salarios registrados del sector privado y del sector público descontada la inflación, {{economia.salarios.anio_ini}} a {{economia.salarios.anio}}</h3>
-      <p class="lead" data-t="salario-real"></p>
+      <h3>¿Cuánto cambió el poder de compra de los salarios?</h3>
+      <p class="ficha-sub">Salarios registrados del sector privado y del sector público descontada la inflación, {{economia.salarios.anio_ini}} a {{economia.salarios.anio}}</p>
       <div class="grafico" data-g="salario-real" data-forma="lineas"></div>
+      <p class="lead" data-t="salario-real"></p>
       <p class="nota" data-t="salario-real-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice de salarios e Índice de precios al consumidor</span><a href="datos/salario_real_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-emae">
-      <h3>Actividad económica mes a mes y por sector, {{economia.actividad.desde}} a {{economia.actividad.anio}}</h3>
-      <p class="lead" data-t="emae"></p>
+      <h3>¿Cuánto crece o cae la actividad económica?</h3>
+      <p class="ficha-sub">Actividad económica mes a mes y por sector, {{economia.actividad.desde}} a {{economia.actividad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="emae">
         <button type="button" data-m="mes" aria-pressed="true">Mes a mes</button>
         <button type="button" data-m="sector" aria-pressed="false">Por sector</button>
       </div>
       <div class="grafico" data-g="emae" data-forma="lineas"></div>
+      <p class="lead" data-t="emae"></p>
       <p class="nota" data-t="emae-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Estimador Mensual de Actividad Económica</span><a href="datos/actividad_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-supermercados">
-      <h3>Ventas en supermercados en pesos de igual valor, por provincia y mes a mes, {{economia.super.desde}} a {{economia.super.anio}}</h3>
-      <p class="lead" data-t="supermercados"></p>
+      <h3>¿Cuánto cambiaron las ventas en supermercados en cada provincia?</h3>
+      <p class="ficha-sub">Ventas en supermercados en pesos de igual valor, por provincia y mes a mes, {{economia.super.desde}} a {{economia.super.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="supermercados">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="supermercados" data-forma="barras"></div>
+      <p class="lead" data-t="supermercados"></p>
       <p class="nota" data-t="supermercados-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta de Supermercados e índice de precios al consumidor</span><a href="datos/supermercados_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="empresas">
+  <section class="tema con-pregunta" id="empresas">
     <h2>Sector privado</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Dónde abren y cierran empresas?">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
+      <p class="pregunta" data-corta="¿Cuántas empresas abren y cierran?">¿Cuántas empresas hay en cada provincia y cuántas abren y cierran?</p>
       <p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>
     </div>
     <!--EXPLICADOR:empresas-->
 
     <article class="ficha" id="f-empresas">
-      <h3 data-t="empresas-titulo"></h3>
-      <p class="lead" data-t="empresas"></p>
+      <h3>¿Cuántas empresas privadas hay en cada provincia?</h3>
+      <p class="ficha-sub">Empresas privadas con empleados cada 1.000 habitantes, {{empresas.anio}}</p>
       <div class="grafico" data-g="empresas" data-forma="barras"></div>
+      <p class="lead" data-t="empresas"></p>
       <p class="nota" data-t="empresas-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-dinamica-empresas">
-      <h3 data-t="dinamica-titulo"></h3>
-      <p class="lead" data-t="dinamica"></p>
+      <h3>¿Cuántas empresas abren y cuántas cierran?</h3>
+      <p class="ficha-sub">Apertura y cierre de empresas privadas, {{empresas.ini}} a {{empresas.ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="dinamica">
         <button type="button" data-m="pais" aria-pressed="true">Serie del país</button>
         <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
       </div>
       <p class="clave-color" id="clave-dinamica" hidden><span class="c-bueno">En verde</span>, donde abrieron más empresas de las que cerraron. <span class="c-malo">En rojo</span>, donde cerraron más.</p>
       <div class="grafico" data-g="dinamica" data-forma="lineas"></div>
+      <p class="lead" data-t="dinamica"></p>
       <p class="nota" data-t="dinamica-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empresas_serie_pais.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -481,7 +489,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema con-pregunta" id="pobreza">
     <h2>Pobreza y hogares</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
+      <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántas personas no llegan a cubrir lo básico y qué servicios tienen los hogares?</p>
       <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
     </div>
     <!--EXPLICADOR:pobreza-->
@@ -489,17 +497,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-pobreza">
       <h3>¿Cuántas personas viven bajo la línea de pobreza?</h3>
       <p class="ficha-sub">Pobreza e indigencia en los 31 aglomerados urbanos, {{pobreza.ini}} a {{pobreza.fin}}</p>
-      <p class="lead" data-t="pobreza"></p>
       <div class="grafico" data-g="pobreza" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="pobreza-nota"></p>
+      <p class="lead" data-t="pobreza"></p>
       <p class="ir-consultas"><a class="boton principal" href="pobreza/">Consultar pobreza por aglomerado, partido y comuna</a></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-censo">
-      <h3>¿Cómo viven los hogares de cada provincia?</h3>
+      <h3>¿Cuántos hogares tienen cloacas, agua de red y computadora?</h3>
       <p class="ficha-sub">Servicios, equipamiento y cobertura de salud por provincia, Censo 2022</p>
-      <p class="lead" data-t="censo"></p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="censo">
           <option value="cloaca" selected>Cloacas</option>
@@ -510,19 +517,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="sin_cobertura">Sin obra social, prepaga ni plan estatal</option>
         </select></label>
       <div class="grafico" data-g="censo" data-forma="barras"></div>
+      <p class="lead" data-t="censo"></p>
       <p class="nota" data-t="censo-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/censo2022_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-internet">
-      <h3>¿Qué tan conectada está cada provincia?</h3>
+      <h3>¿Cuántos accesos a internet fijo hay cada 100 hogares?</h3>
       <p class="ficha-sub">Internet fijo por provincia, {{nuevos.in_trim}}</p>
-      <p class="lead" data-t="internet"></p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="internet">
         <button type="button" data-m="accesos_100_hogares" aria-pressed="true">Accesos</button>
         <button type="button" data-m="mbps" aria-pressed="false">Velocidad</button>
       </div>
       <div class="grafico" data-g="internet" data-forma="barras"></div>
+      <p class="lead" data-t="internet"></p>
       <p class="nota" data-t="internet-nota"></p>
       <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM)</span><a href="datos/internet_fijo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -540,18 +548,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-esperanza">
       <h3>¿Cuántos años se vive en cada provincia?</h3>
       <p class="ficha-sub">Esperanza de vida al nacer por provincia y sexo, {{nuevos.ev_anio}}</p>
-      <p class="lead" data-t="esperanza"></p>
       <div class="grafico" data-g="esperanza" data-forma="pesas" style="--extra:12px"></div>
+      <p class="lead" data-t="esperanza"></p>
       <p class="nota" data-t="esperanza-nota"></p>
       <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mortalidad">
-      <h3>¿Cómo cambió la mortalidad infantil en cada provincia?</h3>
+      <h3>¿Cuántos bebés mueren antes del año en cada provincia?</h3>
       <p class="ficha-sub">Tasa de mortalidad infantil por provincia, {{mortalidad.tri_base}} y {{mortalidad.tri_act}}</p>
-      <p class="lead" data-t="mortalidad"></p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="mortalidad" data-forma="pesas" style="--extra:12px"></div>
+      <p class="lead" data-t="mortalidad"></p>
       <p class="nota" data-t="mortalidad-nota"></p>
       <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -559,9 +567,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-causas-infantiles">
       <h3>¿De qué mueren los bebés antes de cumplir un año?</h3>
       <p class="ficha-sub">Muertes de menores de un año por grupo de causa y provincia, {{mi_causas.desde}} a {{mi_causas.hasta}}</p>
-      <p class="lead" data-t="causas"></p>
       <div class="pol-ley" id="causas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="causas" data-forma="barras" style="--filas:25;--extra:-4px"></div>
+      <p class="lead" data-t="causas"></p>
       <p class="nota" data-t="causas-nota"></p>
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -587,7 +595,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-suicidio-prov">
-      <h3 data-t="suicidio-prov-titulo">Tasa de suicidios por provincia</h3>
+      <h3>Tasa de suicidios por provincia, {{suicidio.anio}}</h3>
       <p class="lead" data-t="suicidio-prov"></p>
       <div class="grafico" data-g="suicidio-prov" data-forma="barras"></div>
       <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -603,7 +611,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
-  <section class="tema" id="seguridad">
+  <section class="tema con-pregunta" id="seguridad">
     <h2>Seguridad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuántos delitos se registran?">¿Cuántos delitos se registran en cada provincia y cuántas personas están presas?</p>
@@ -612,50 +620,54 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:seguridad-->
 
     <article class="ficha" id="f-delitos">
-      <h3>Delitos registrados en el país por tipo, {{seguridad.anio_ini}} a {{seguridad.anio}}</h3>
-      <p class="lead" data-t="delitos"></p>
+      <h3>¿Cuántos delitos se registran y de qué tipo?</h3>
+      <p class="ficha-sub">Delitos registrados en el país por tipo, {{seguridad.anio_ini}} a {{seguridad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="delitos">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="delitos" data-forma="barras" style="--filas:14"></div>
+      <p class="lead" data-t="delitos"></p>
       <p class="nota" data-t="delitos-nota"></p>
       <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional</span><a href="datos/delitos_tipo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-robos">
-      <h3>Robos y hurtos registrados cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</h3>
-      <p class="lead" data-t="robos"></p>
+      <h3>¿Cuántos robos y hurtos se registran en cada provincia?</h3>
+      <p class="ficha-sub">Robos y hurtos registrados cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="robos" style="--n:3">
         <button type="button" data-m="robos" aria-pressed="true">Robos</button>
         <button type="button" data-m="hurtos" aria-pressed="false">Hurtos</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="robos" data-forma="barras"></div>
+      <p class="lead" data-t="robos"></p>
       <p class="nota" data-t="robos-nota"></p>
       <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional</span><a href="datos/robos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-homicidios">
-      <h3>Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</h3>
-      <p class="lead" data-t="homicidios"></p>
+      <h3>¿Cuántas víctimas de homicidio hay en cada provincia?</h3>
+      <p class="ficha-sub">Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="homicidios">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="homicidios" data-forma="barras"></div>
+      <p class="lead" data-t="homicidios"></p>
       <p class="nota" data-t="homicidios-nota"></p>
       <div class="pie"><span>Fuentes: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población</span><a href="datos/homicidios_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-carceles">
-      <h3>Personas privadas de libertad en cárceles cada 100.000 habitantes, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}</h3>
-      <p class="lead" data-t="carceles"></p>
+      <h3>¿Cuántas personas hay en las cárceles?</h3>
+      <p class="ficha-sub">Personas privadas de libertad en cárceles cada 100.000 habitantes, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="carceles">
         <button type="button" data-m="serie" aria-pressed="true">Todo el país</button>
         <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
       </div>
       <div class="grafico" data-g="carceles" data-forma="lineas"></div>
+      <p class="lead" data-t="carceles"></p>
       <p class="nota" data-t="carceles-nota"></p>
       <div class="pie"><span>Fuentes: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población</span><a href="datos/carceles_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -665,7 +677,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema con-pregunta" id="educacion">
     <h2>Educación</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Qué aprenden los chicos?">¿Qué aprenden los chicos en cada provincia y cuánto se invierte en su educación?</p>
+      <p class="pregunta" data-corta="¿Cuántos chicos aprenden lo esperado?">¿Cuántos chicos aprenden lo esperado y cuánto se invierte en su educación?</p>
       <p>Primero, cuántos adolescentes van a la secundaria y cuántos alumnos de sexto grado alcanzan el nivel esperado en lengua y matemática. Después, cómo le va al país frente al mundo en las pruebas PISA. Al final, cuánto cobra un maestro de grado en cada provincia y cuánto invierte el Estado por alumno.</p>
     </div>
     <!--EXPLICADOR:educacion-->
@@ -673,37 +685,37 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-escolarizacion">
       <h3>¿Cuántos adolescentes van a la secundaria?</h3>
       <p class="ficha-sub">Tasa neta de escolarización secundaria por provincia, {{escolarizacion.ini}} y {{escolarizacion.fin}}</p>
-      <p class="lead" data-t="escolarizacion"></p>
       <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa subió. <span class="c-malo">En rojo</span>, donde bajó.</p>
       <div class="grafico" data-g="escolarizacion" data-forma="pesas"></div>
+      <p class="lead" data-t="escolarizacion"></p>
       <p class="nota" data-t="escolarizacion-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span><a href="datos/escolarizacion_secundaria_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-aprender">
-      <h3>¿Cómo les va en Aprender a los chicos de 6° grado?</h3>
+      <h3>¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender?</h3>
       <p class="ficha-sub">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia, {{aprender.anio}}</p>
-      <p class="lead" data-t="aprender"></p>
       <div class="conmutador" role="group" aria-label="Área evaluada" data-g="aprender">
         <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
         <button type="button" data-m="len" aria-pressed="false">Lengua</button>
       </div>
       <div class="grafico" data-g="aprender" data-forma="barras"></div>
+      <p class="lead" data-t="aprender"></p>
       <p class="nota" data-t="aprender-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Educación, evaluación Aprender, base agregada</span><a href="datos/aprender_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pisa">
-      <h3>¿Cómo le va a la Argentina en las pruebas PISA?</h3>
+      <h3>¿Qué puntaje saca la Argentina en las pruebas PISA?</h3>
       <p class="ficha-sub">Resultados de la Argentina en las pruebas PISA, 2000 a {{pisa.anio}}</p>
-      <p class="lead" data-t="pisa"></p>
       <div class="conmutador" role="group" aria-label="Área evaluada" data-g="pisa" style="--n:3">
         <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
         <button type="button" data-m="lec" aria-pressed="false">Lectura</button>
         <button type="button" data-m="cie" aria-pressed="false">Ciencias</button>
       </div>
       <div class="grafico" data-g="pisa" data-forma="lineas"></div>
+      <p class="lead" data-t="pisa"></p>
       <p class="nota" data-t="pisa-nota"></p>
       <div class="pie"><span>Fuente: OCDE, Programa para la Evaluación Internacional de Alumnos (PISA), vía Our World in Data</span><a href="datos/pisa_argentina_ocde.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -711,26 +723,26 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-salario-docente">
       <h3>¿Cuánto cobra un maestro en cada provincia?</h3>
       <p class="ficha-sub">Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, {{docentes.trim}}</p>
-      <p class="lead" data-t="salario-docente"></p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="salario-docente">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="serie" aria-pressed="false">Trimestre a trimestre</button>
       </div>
       <div class="grafico" data-g="salario-docente" data-forma="barras"></div>
+      <p class="lead" data-t="salario-docente"></p>
       <p class="nota" data-t="salario-docente-nota"></p>
       <div class="pie"><span>Fuente: Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, series del salario docente, e INDEC, índice de precios al consumidor</span><a href="datos/salario_docente.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-inversion-educativa">
-      <h3>¿Cuánto invierte cada provincia en educación?</h3>
+      <h3>¿Cuánto invierte cada provincia por alumno?</h3>
       <p class="ficha-sub">Inversión en educación por alumno de gestión estatal por provincia, {{inversion_edu.anio}}</p>
-      <p class="lead" data-t="inversion-educativa"></p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inversion-educativa" style="--n:3">
         <button type="button" data-m="alumno" aria-pressed="true">Por alumno</button>
         <button type="button" data-m="pct" aria-pressed="false">Parte del gasto</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="inversion-educativa" data-forma="barras"></div>
+      <p class="lead" data-t="inversion-educativa"></p>
       <p class="nota" data-t="inversion-educativa-nota"></p>
       <div class="pie"><span>Fuente: Coordinación de Evaluación de Costos Educativos, Secretaría de Educación, indicadores de inversión educativa, y Banco Mundial, deflactor del PBI</span><a href="datos/inversion_educativa.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -742,7 +754,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema con-pregunta" id="poblacion">
     <h2>Población</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Qué pasa si nacen cada vez menos chicos?">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
+      <p class="pregunta" data-corta="¿Qué tan rápido envejece la población?">¿Cuántos chicos nacen y qué tan rápido envejece la población?</p>
       <p>Menos nacimientos hoy son menos alumnos dentro de unos años y, más adelante, menos personas en edad de trabajar por cada jubilado. Quién llega desde otros países y desde otras provincias está en <a href="migraciones.html">Migraciones</a>.</p>
     </div>
     <!--EXPLICADOR:poblacion-->
@@ -750,26 +762,26 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-nacimientos">
       <h3>¿Cuántos chicos nacen por año?</h3>
       <p class="ficha-sub">Nacimientos por año en la Argentina y en la OCDE, {{nacimientos.anio_ini}} a {{nacimientos.anio_ult}}</p>
-      <p class="lead" data-t="nacimientos"></p>
       <div class="grafico" data-g="nacimientos" data-forma="lineas" style="--alto:398px;--alto-c:378px"></div>
+      <p class="lead" data-t="nacimientos"></p>
       <p class="nota">Índice con base {{nacimientos.anio_ini}} = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con {{nacimientos.anio_ini}}. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-piramide">
-      <h3>¿Cómo va a cambiar la población por edad?</h3>
+      <h3>¿Cuántos chicos y cuántas personas mayores va a haber?</h3>
       <p class="ficha-sub">Población por edad y sexo, {{piramide.anio}} y {{piramide.anio_fin}}</p>
-      <p class="lead" data-t="piramide"></p>
       <div class="grafico" data-g="piramide" data-forma="piramide" style="--alto:444px;--alto-c:387px"></div>
+      <p class="lead" data-t="piramide"></p>
       <p class="nota" data-t="piramide-nota"></p>
       <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia, sexo y edad 2022 a 2040, base Censo 2022</span><a href="datos/piramide_poblacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-envejecimiento">
-      <h3>¿Qué tan envejecida está la población de cada provincia?</h3>
+      <h3>¿Cuántas personas mayores hay por cada 100 en edad de trabajar?</h3>
       <p class="ficha-sub">Personas de 65 años o más por cada 100 en edad de trabajar, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}</p>
-      <p class="lead" data-t="envejecimiento"></p>
       <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
+      <p class="lead" data-t="envejecimiento"></p>
       <p class="nota" data-t="envejecimiento-nota"></p>
       <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/envejecimiento_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -777,144 +789,153 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-jubilaciones">
       <h3>¿Cuántos aportan por cada jubilación?</h3>
       <p class="ficha-sub">Aportantes por cada beneficio previsional de ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>
-      <p class="lead" data-t="jubilaciones"></p>
       <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
+      <p class="lead" data-t="jubilaciones"></p>
       <p class="nota" data-t="jubilaciones-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes">
-      <h3>¿Cómo cambió la maternidad adolescente en cada provincia?</h3>
+      <h3>¿Cuántos bebés tienen madres menores de 20 años?</h3>
       <p class="ficha-sub">Nacimientos de madres menores de 20 años por provincia, {{nacimientos.anio_ini}} y {{nacimientos.anio_ult}}</p>
-      <p class="lead" data-t="adolescentes"></p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="adolescentes" data-forma="pesas"></div>
+      <p class="lead" data-t="adolescentes"></p>
       <p class="nota">Porcentaje de los nacidos vivos de cada provincia, según el lugar donde vive la madre, cuya madre tenía menos de 20 años. El círculo claro marca {{nacimientos.anio_ini}} y el oscuro {{nacimientos.anio_ult}}.</p>
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/madres_adolescentes_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes-nse">
-      <h3>¿Se relaciona la maternidad adolescente con el nivel socioeconómico?</h3>
+      <h3>¿Hay más madres adolescentes en las provincias con más carencias?</h3>
       <p class="ficha-sub">Madres menores de 20 años y nivel socioeconómico por provincia</p>
-      <p class="lead" data-t="adonse"></p>
       <label class="selector-ficha"><span>Indicador del Censo 2022</span><select id="adonse-sel"></select></label>
       <div class="grafico" data-g="adonse" data-forma="puntos"></div>
+      <p class="lead" data-t="adonse"></p>
       <p class="nota" data-t="adonse-nota"></p>
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, e INDEC, Censo 2022</span><a href="datos/madres_adolescentes_nse.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="migraciones">
+  <section class="tema con-pregunta" id="migraciones">
     <h2>Migraciones</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Quiénes llegan al país?">¿Quiénes llegan al país, de dónde vienen y cuántos argentinos viven afuera?</p>
+      <p class="pregunta" data-corta="¿Cuántos nacieron en otro país?">¿Cuántas personas nacieron en otro país y cuántos argentinos viven afuera?</p>
       <p>Primero, cuántas personas nacidas en otro país viven en la Argentina y en cada provincia, y cuántas viven en una provincia distinta de la que nacieron, según el Censo 2022. Después, cómo cambió la inmigración desde el primer censo, cuántas personas nacidas en otro país tienen documento argentino, cuántas residencias otorga Migraciones cada año y cuántas personas nacidas en la Argentina viven en otro país.</p>
     </div>
     <!--EXPLICADOR:migraciones-->
 
     <article class="ficha" id="f-nacidos-otro-pais">
-      <h3>Personas nacidas en otro país por provincia, departamento y país de nacimiento, 2022</h3>
-      <p class="lead" data-t="nacidos-otro-pais"></p>
+      <h3>¿Dónde viven las personas nacidas en otro país?</h3>
+      <p class="ficha-sub">Personas nacidas en otro país por provincia, departamento y país de nacimiento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="nacidos-otro-pais" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="pais" aria-pressed="false">Por país</button>
         <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
       </div>
       <div class="grafico mp-mapa" data-g="nacidos-otro-pais" data-forma="barras"></div>
+      <p class="lead" data-t="nacidos-otro-pais"></p>
       <p class="nota" data-t="nacidos-otro-pais-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-migracion-interna">
-      <h3>Dónde nacieron las personas que viven en cada provincia y departamento, 2022</h3>
-      <p class="lead" data-t="migracion-interna"></p>
+      <h3>¿Cuántos viven en una provincia distinta de la que nacieron?</h3>
+      <p class="ficha-sub">Dónde nacieron las personas que viven en cada provincia y departamento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="migracion-interna">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
       </div>
       <div class="pol-ley" id="migracion-interna-ley" aria-hidden="true"></div>
       <div class="grafico mp-mapa" data-g="migracion-interna" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="migracion-interna"></p>
       <p class="nota" data-t="migracion-interna-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/nacidos_otro_pais_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-migracion-historia">
-      <h3>Personas nacidas en otro país en cada censo nacional, {{migraciones.historia.ini}} a 2022</h3>
-      <p class="lead" data-t="migracion-historia"></p>
+      <h3>¿Cuántas personas nacidas en otro país contó cada censo?</h3>
+      <p class="ficha-sub">Personas nacidas en otro país en cada censo nacional, {{migraciones.historia.ini}} a 2022</p>
       <div class="grafico" data-g="migracion-historia" data-forma="lineas"></div>
+      <p class="lead" data-t="migracion-historia"></p>
       <p class="nota" data-t="migracion-historia-nota"></p>
       <div class="pie"><span>Fuente: INDEC, censos nacionales de población</span><a href="datos/migracion_censos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-extranjeros">
-      <h3 data-t="extranjeros-titulo"></h3>
-      <p class="lead" data-t="extranjeros"></p>
+      <h3>¿Cuántas personas nacidas en otro país tienen documento argentino?</h3>
+      <p class="ficha-sub">Personas nacidas en otro país con documento argentino por provincia, {{nuevos.xt_corte}}</p>
       <div class="grafico" data-g="extranjeros" data-forma="barras"></div>
+      <p class="lead" data-t="extranjeros"></p>
       <p class="nota" data-t="extranjeros-nota"></p>
       <div class="pie"><span>Fuente: RENAPER, población extranjera identificada por provincia</span><a href="datos/extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-radicaciones">
-      <h3>Residencias otorgadas por la Dirección Nacional de Migraciones, {{migraciones.dnm.desde}} a {{migraciones.dnm.anio}}</h3>
-      <p class="lead" data-t="radicaciones"></p>
+      <h3>¿Cuántas residencias otorga Migraciones por año?</h3>
+      <p class="ficha-sub">Residencias otorgadas por la Dirección Nacional de Migraciones, {{migraciones.dnm.desde}} a {{migraciones.dnm.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="radicaciones">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
         <button type="button" data-m="nacionalidad" aria-pressed="false">Por nacionalidad</button>
       </div>
       <div class="pol-ley" id="radicaciones-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="radicaciones" data-forma="columnas"></div>
+      <p class="lead" data-t="radicaciones"></p>
       <p class="nota" data-t="radicaciones-nota"></p>
       <div class="pie"><span>Fuente: Dirección Nacional de Migraciones, trámites de radicación resueltos</span><a href="datos/radicaciones_nacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-refugio">
-      <h3>Solicitudes de refugio por año y nacionalidad, {{migraciones.refugio.ini}} a {{migraciones.refugio.anio}}, y personas refugiadas en el país</h3>
-      <p class="lead" data-t="refugio"></p>
+      <h3>¿Cuántas personas piden refugio en la Argentina?</h3>
+      <p class="ficha-sub">Solicitudes de refugio por año y nacionalidad, {{migraciones.refugio.ini}} a {{migraciones.refugio.anio}}, y personas refugiadas en el país</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="refugio" style="--n:3">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
         <button type="button" data-m="nacionalidad" aria-pressed="false">Nacionalidad</button>
         <button type="button" data-m="acnur" aria-pressed="false">Refugiados</button>
       </div>
       <div class="grafico" data-g="refugio" data-forma="columnas"></div>
+      <p class="lead" data-t="refugio"></p>
       <p class="nota" data-t="refugio-nota"></p>
       <div class="pie"><span>Fuentes: Comisión Nacional para los Refugiados (CONARE) y ACNUR</span><a href="datos/refugio_solicitudes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-argentinos-exterior">
-      <h3>Personas nacidas en la Argentina que viven en otro país, {{migraciones.onu.desde}} a {{migraciones.onu.anio}}</h3>
-      <p class="lead" data-t="argentinos-exterior"></p>
+      <h3>¿Cuántos argentinos viven en otro país?</h3>
+      <p class="ficha-sub">Personas nacidas en la Argentina que viven en otro país, {{migraciones.onu.desde}} a {{migraciones.onu.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="argentinos-exterior">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
         <button type="button" data-m="pais" aria-pressed="false">Por país</button>
       </div>
       <div class="grafico" data-g="argentinos-exterior" data-forma="lineas"></div>
+      <p class="lead" data-t="argentinos-exterior"></p>
       <p class="nota" data-t="argentinos-exterior-nota"></p>
       <div class="pie"><span>Fuente: Naciones Unidas, División de Población, International Migrant Stock (CC BY 3.0 IGO)</span><a href="datos/argentinos_exterior_destinos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="politica">
+  <section class="tema con-pregunta" id="politica">
     <h2>Instituciones políticas</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Quién decide y cómo se reparten los fondos?">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
+      <p class="pregunta" data-corta="¿Cómo se reparten bancas y fondos?">¿Cómo se reparten las bancas, los votos y los fondos entre las provincias?</p>
       <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
     </div>
     <!--EXPLICADOR:politica-->
 
     <article class="ficha" id="f-elecciones">
-      <h3>Elecciones presidenciales y PASO por provincia, 1983 a {{elecciones_ult}}</h3>
-      <p class="lead" data-t="elecciones"></p>
+      <h3>¿Cómo votó cada provincia para presidente?</h3>
+      <p class="ficha-sub">Elecciones presidenciales y PASO por provincia, 1983 a {{elecciones_ult}}</p>
       <label class="selector-ficha"><span>Elección</span><select data-g="elecciones" id="el-sel"></select></label>
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="elecciones" data-forma="barras" style="--filas:25;--extra:-4px"></div>
+      <p class="lead" data-t="elecciones"></p>
       <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha ancha" id="f-legisladores">
-      <h3>Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</h3>
+      <h3>¿Quiénes ocupan las bancas de cada provincia?</h3>
+      <p class="ficha-sub">Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</p>
       <p class="lead" data-t="legisladores"></p>
       <div class="lg-sels">
         <label class="selector-ficha"><span>Período</span><select id="lg-per"></select></label>
@@ -926,8 +947,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-anios-congreso">
-      <h3>Legisladores nacionales con más años en el Congreso, 1983 a hoy</h3>
-      <p class="lead" data-t="anioscong"></p>
+      <h3>¿Quiénes pasaron más años en el Congreso?</h3>
+      <p class="ficha-sub">Legisladores nacionales con más años en el Congreso, 1983 a hoy</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="anioscong" style="--n:3">
         <button type="button" data-m="total" aria-pressed="true">Total</button>
         <button type="button" data-m="dip" aria-pressed="false">Diputados</button>
@@ -935,45 +956,50 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="anioscong" data-forma="barras" style="--filas:15"></div>
       <div class="pol-ley"><span><i style="background:var(--azul)"></i>Años en Diputados</span><span><i style="background:var(--celeste)"></i>Años en el Senado</span><span>En negrita, quienes siguen en el cargo</span></div>
+      <p class="lead" data-t="anioscong"></p>
       <p class="nota">Suma los días que cada persona ocupó una banca de diputado o de senador nacional desde que asumió en 1983 hasta hoy, según el registro de cada cámara, y une los tramos separados por una semana o menos. Cada persona figura con la provincia por la que estuvo más años. Una misma persona con el nombre escrito de otra forma en cada cámara se cuenta una sola vez, y dos personas con el mismo nombre en distintas provincias, por separado. En algunos casos, el registro de Diputados anterior a 2007, armado por mandato, pone a alguien en esa cámara mientras era senador: ahí cuentan las fechas del Senado. Sin una provincia elegida, el gráfico muestra las 15 personas con más años, y con una provincia, las 10 de esa provincia.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/anios_congreso.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-representacion">
-      <h3>Habitantes por banca de diputado nacional según provincia, {{anio_pob}}</h3>
-      <p class="lead" data-t="representacion"></p>
+      <h3>¿Cuántos habitantes hay por cada banca de diputado?</h3>
+      <p class="ficha-sub">Habitantes por banca de diputado nacional según provincia, {{anio_pob}}</p>
       <div class="grafico" data-g="representacion" data-forma="barras"></div>
+      <p class="lead" data-t="representacion"></p>
       <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para {{anio_pob}}. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
       <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-congreso">
-      <h3 data-t="congreso-titulo"></h3>
-      <p class="lead" data-t="congreso"></p>
+      <h3>¿Cuántas bancas tuvo cada espacio político?</h3>
+      <p class="ficha-sub">Composición del Congreso por espacio político en cada período legislativo, 1983 a {{congreso.anio_fin}}</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="congreso">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="cg-ley"></div>
       <div class="grafico" data-g="congreso" data-forma="columnas"></div>
+      <p class="lead" data-t="congreso"></p>
       <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-votaciones">
-      <h3 data-t="votaciones-titulo"></h3>
-      <p class="lead" data-t="votaciones"></p>
+      <h3>¿Cómo votó cada legislador las leyes clave?</h3>
+      <p class="ficha-sub">Voto de cada legislador y de cada espacio político en las leyes clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}</p>
       <label class="selector-ficha"><span>Ley</span><select id="vt-sel"></select></label>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="votaciones">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="votaciones" data-forma="puntos" style="--alto:364px;--alto-c:439px"></div>
+      <p class="lead" data-t="votaciones"></p>
       <p class="nota" data-t="votaciones-nota"></p>
       <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha ancha" id="f-votaciones-espacios">
-      <h3 data-t="vtm-titulo"></h3>
+      <h3>¿Qué parte de cada espacio votó a favor de cada ley?</h3>
+      <p class="ficha-sub">Parte de cada espacio político que votó a favor de las leyes clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}</p>
       <p class="lead" data-t="vtm"></p>
       <div class="vt-controles">
         <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
@@ -989,82 +1015,89 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-voto-provincia">
-      <h3 data-t="vprov-titulo"></h3>
-      <p class="lead" data-t="vprov"></p>
+      <h3>¿Votan más con el gobierno los legisladores de las provincias que más lo votaron?</h3>
+      <p class="ficha-sub">Voto de los legisladores en las leyes clave y voto de su provincia al presidente, {{votaciones.rep_ini}} a {{votaciones.rep_fin}}</p>
       <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
       <div class="grafico" data-g="vprov" data-forma="puntos"></div>
+      <p class="lead" data-t="vprov"></p>
       <p class="nota" data-t="vprov-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-atn">
-      <h3 data-t="atn-titulo"></h3>
-      <p class="lead" data-t="atn"></p>
+      <h3>¿Cuánto recibe cada provincia en ATN?</h3>
+      <p class="ficha-sub">Aportes del Tesoro Nacional (ATN) a las provincias, {{transferencias.desde}} a {{transferencias.ult}}</p>
       <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
       <div class="grafico" data-g="atn" data-forma="columnas"></div>
+      <p class="lead" data-t="atn"></p>
       <p class="nota" data-t="atn-nota"></p>
       <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-transferencias">
-      <h3 data-t="transferencias-titulo"></h3>
-      <p class="lead" data-t="transferencias"></p>
+      <h3>¿Cuánto recibe cada provincia en transferencias no automáticas?</h3>
+      <p class="ficha-sub">Transferencias no automáticas de la Nación a las provincias, {{transferencias.desde}} a {{transferencias.ult}}</p>
       <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
       <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="transferencias" data-forma="barras"></div>
+      <p class="lead" data-t="transferencias"></p>
       <p class="nota" data-t="transferencias-nota"></p>
       <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial</span><a href="datos/transferencias_serie.csv" download>Total por año, miles de millones (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia, millones (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-apoyo">
-      <h3 data-t="apoyo-titulo"></h3>
-      <p class="lead" data-t="apoyo"></p>
+      <h3>¿Votan más con el gobierno los legisladores de las provincias que reciben más fondos?</h3>
+      <p class="ficha-sub">Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, {{votaciones.apoyo.desde}} a {{votaciones.apoyo.hasta}}</p>
       <label class="selector-ficha"><span>Año</span><select id="ap-sel"></select></label>
       <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
         <button type="button" data-m="atn_hab" aria-pressed="true">ATN</button><button type="button" data-m="otras_hab" aria-pressed="false">Otras no automáticas</button>
       </div>
       <div class="grafico" data-g="apoyo" data-forma="puntos"></div>
+      <p class="lead" data-t="apoyo"></p>
       <p class="nota" data-t="apoyo-nota"></p>
       <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presupuesto">
-      <h3>Cómo votaron el presupuesto los legisladores de fuera del bloque oficialista, {{presupuesto.desde}} a {{presupuesto.hasta}}</h3>
-      <p class="lead" data-t="presupuesto"></p>
+      <h3>¿Qué parte de los legisladores de fuera del oficialismo votó el presupuesto?</h3>
+      <p class="ficha-sub">Cómo votaron el presupuesto los legisladores de fuera del bloque oficialista, {{presupuesto.desde}} a {{presupuesto.hasta}}</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="presupuesto">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="pv-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="presupuesto" data-forma="barras" style="--filas:20"></div>
+      <p class="lead" data-t="presupuesto"></p>
       <p class="nota">Votación en general de cada presupuesto en cada cámara, según su acta (en algunos años, la primera votación del proyecto: el acta de cada uno está en la tabla). Los años que no figuran no tienen una votación en general en las actas de la fuente: puede ser porque no hubo un presupuesto aprobado o porque la copia de las actas no la tiene (en Diputados, la de los presupuestos 1995 y 1998 solo tiene votaciones de algunos artículos). El Senado figura desde 2005. El bloque oficialista es el más numeroso del espacio del presidente en esa votación, como en el apoyo al gobierno: los aliados del gobierno de otros bloques, como la UCR en el gobierno de Macri, y los bloques que se separaron del oficialismo cuentan como de fuera. Las ausencias cuentan: en el Senado, en noviembre de 2022, no estuvo en la votación la mayoría de los senadores de fuera del bloque oficialista.</p>
       <div class="pie"><span>Fuente: actas de votación nominal del Congreso, vía ¿Cómo Votó?</span><a href="datos/presupuesto_votos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presidentes">
-      <h3>Presidentes de la Nación desde 1983 según lugar de nacimiento</h3>
-      <p class="lead" data-t="presidentes"></p>
+      <h3>¿Dónde nacieron los presidentes?</h3>
+      <p class="ficha-sub">Presidentes de la Nación desde 1983 según lugar de nacimiento</p>
       <div class="pol-ley" id="pr-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="presidentes" data-forma="bloque" style="--alto:74px;--alto-c:74px"></div>
       <ol class="pr-lista" id="pr-lista"></ol>
+      <p class="lead" data-t="presidentes"></p>
       <p class="nota">AMBA: la Ciudad de Buenos Aires y los 24 partidos del Gran Buenos Aires según el INDEC. La Plata, donde nació Cristina Fernández de Kirchner, no forma parte de esa definición. Incluye a los presidentes interinos de diciembre de 2001. La proporción de población del AMBA sale de las personas identificadas por el RENAPER.</p>
       <div class="pie"><span>Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos</span><a href="datos/presidentes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-ministros">
-      <h3 data-t="ministros-titulo"></h3>
-      <p class="lead" data-t="ministros"></p>
+      <h3>¿Dónde nacieron los ministros de cada gobierno?</h3>
+      <p class="ficha-sub">Ministros nacionales según lugar de nacimiento, 1983 a hoy</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="ministros">
         <button type="button" data-m="gobierno" aria-pressed="true">Por gobierno</button><button type="button" data-m="provincia" aria-pressed="false">Por provincia</button>
       </div>
       <div class="pol-ley" id="mi-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="ministros" data-forma="barras" style="--filas:10"></div>
+      <p class="lead" data-t="ministros"></p>
       <p class="nota">Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.</p>
       <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="gobierno">
+  <section class="tema con-pregunta" id="gobierno">
     <h2>Cuentas públicas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda y cuánto gasta el Estado, y cuánto debe?</p>
@@ -1073,119 +1106,129 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:gobierno-->
 
     <article class="ficha" id="f-cuentas-nacion">
-      <h3>Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, {{gobierno.nacion.desde}} a {{gobierno.nacion.anio}}</h3>
-      <p class="lead" data-t="cuentas-nacion"></p>
+      <h3>¿Cuánto ingresa y cuánto gasta el Estado nacional?</h3>
+      <p class="ficha-sub">Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, {{gobierno.nacion.desde}} a {{gobierno.nacion.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="cuentas-nacion">
         <button type="button" data-m="resultado" aria-pressed="true">Resultado</button>
         <button type="button" data-m="gasto" aria-pressed="false">En qué se gasta</button>
       </div>
       <div class="grafico" data-g="cuentas-nacion" data-forma="lineas"></div>
+      <p class="lead" data-t="cuentas-nacion"></p>
       <p class="nota" data-t="cuentas-nacion-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC</span><a href="datos/cuentas_nacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-recaudacion">
-      <h3>Recaudación de impuestos nacionales, por impuesto y como parte del PBI, {{gobierno.recaudacion.desde}} a {{gobierno.recaudacion.anio}}</h3>
-      <p class="lead" data-t="recaudacion"></p>
+      <h3>¿Cuánto recauda cada impuesto nacional?</h3>
+      <p class="ficha-sub">Recaudación de impuestos nacionales, por impuesto y como parte del PBI, {{gobierno.recaudacion.desde}} a {{gobierno.recaudacion.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="recaudacion">
         <button type="button" data-m="impuesto" aria-pressed="true">Por impuesto</button>
         <button type="button" data-m="anio" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="recaudacion" data-forma="barras" style="--filas:10"></div>
+      <p class="lead" data-t="recaudacion"></p>
       <p class="nota" data-t="recaudacion-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC</span><a href="datos/recaudacion_impuestos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-deuda">
-      <h3>Deuda bruta de la Administración Central como parte del PBI, {{gobierno.deuda.desde}} a {{gobierno.deuda.anio}} y el último trimestre</h3>
-      <p class="lead" data-t="deuda"></p>
+      <h3>¿Cuánto debe el Estado nacional?</h3>
+      <p class="ficha-sub">Deuda bruta de la Administración Central como parte del PBI, {{gobierno.deuda.desde}} a {{gobierno.deuda.anio}} y el último trimestre</p>
       <div class="grafico" data-g="deuda" data-forma="lineas"></div>
+      <p class="lead" data-t="deuda"></p>
       <p class="nota" data-t="deuda-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública</span><a href="datos/deuda_pbi.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empleo-publico">
-      <h3>Cargos en las administraciones provinciales cada 1.000 habitantes, {{gobierno.empleo.anio}}, y dotación de la administración nacional</h3>
-      <p class="lead" data-t="empleo-publico"></p>
+      <h3>¿Cuántos cargos públicos tiene cada provincia?</h3>
+      <p class="ficha-sub">Cargos en las administraciones provinciales cada 1.000 habitantes, {{gobierno.empleo.anio}}, y dotación de la administración nacional</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-publico">
         <button type="button" data-m="prov" aria-pressed="true">Provincias</button>
         <button type="button" data-m="nacion" aria-pressed="false">Nación</button>
       </div>
       <div class="grafico" data-g="empleo-publico" data-forma="barras"></div>
+      <p class="lead" data-t="empleo-publico"></p>
       <p class="nota" data-t="empleo-publico-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC</span><a href="datos/empleo_publico_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-impuestos-provinciales">
-      <h3>Impuestos provinciales por habitante, {{gobierno.provincial.anio}}</h3>
-      <p class="lead" data-t="impuestos-provinciales"></p>
+      <h3>¿Cuánto recauda cada provincia por habitante?</h3>
+      <p class="ficha-sub">Impuestos provinciales por habitante, {{gobierno.provincial.anio}}</p>
       <div class="grafico" data-g="impuestos-provinciales" data-forma="barras"></div>
+      <p class="lead" data-t="impuestos-provinciales"></p>
       <p class="nota" data-t="impuestos-provinciales-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población</span><a href="datos/impuestos_provinciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-fiscal">
-      <h3 data-t="fiscal-titulo"></h3>
-      <p class="lead" data-t="fiscal"></p>
+      <h3>¿Cuánto financia cada provincia con recursos propios?</h3>
+      <p class="ficha-sub">Recursos propios, resultado fiscal y gasto en personal por provincia, {{fiscal.anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fiscal" style="--n:3">
         <button type="button" data-m="autonomia" aria-pressed="true">Recursos propios</button>
         <button type="button" data-m="resultado" aria-pressed="false">Resultado</button>
         <button type="button" data-m="personal" aria-pressed="false">Personal</button>
       </div>
       <div class="grafico" data-g="fiscal" data-forma="barras"></div>
+      <p class="lead" data-t="fiscal"></p>
       <p class="nota" data-t="fiscal-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="movilidad">
+  <section class="tema con-pregunta" id="movilidad">
     <h2>Movilidad</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Cómo nos movemos y qué dice eso de la economía?</p>
+      <p class="pregunta" data-corta="¿Cuánto se usa el transporte público?">¿Cuánto se usa el transporte público y cuánto cuesta moverse en auto?</p>
       <p>Los viajes en transporte público y la venta de autos y motos nuevas acompañan el nivel de actividad y el poder de compra.</p>
     </div>
     <!--EXPLICADOR:movilidad-->
 
     <article class="ficha" id="f-sube">
-      <h3 data-t="sube-titulo">Tarjetas SUBE usadas por día hábil</h3>
-      <p class="lead" data-t="sube"></p>
+      <h3>¿Cuántas tarjetas SUBE se usan por día?</h3>
+      <p class="ficha-sub">Tarjetas SUBE usadas por día hábil, 2020 a {{sube.anio_ult}}</p>
       <div class="grafico" data-g="sube" data-forma="lineas"></div>
+      <p class="lead" data-t="sube"></p>
       <p class="nota" data-t="sube-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-sube-modos">
-      <h3 data-t="sube-modos-titulo"></h3>
-      <p class="lead" data-t="sube-modos"></p>
+      <h3>¿Cuánto se usan los trenes y los subtes?</h3>
+      <p class="ficha-sub">Tarjetas SUBE usadas por día hábil en trenes y subtes, 2020 a {{sube.anio_ult}}</p>
       <div class="grafico" data-g="sube-modos" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="sube-modos"></p>
       <p class="nota" data-t="sube-modos-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Transporte, datos abiertos de SUBE</span><a href="datos/sube_dia_habil.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-patentes">
-      <h3 data-t="patentes-titulo"></h3>
-      <p class="lead" data-t="patentes"></p>
+      <h3>¿Cuántos autos y motos nuevos se patentan por año?</h3>
+      <p class="ficha-sub">Autos y motos nuevos inscriptos por año, {{autos.ini}} a {{autos.anio}}</p>
       <div class="grafico" data-g="patentes" data-forma="lineas"></div>
+      <p class="lead" data-t="patentes"></p>
       <p class="nota" data-t="patentes-nota"></p>
       <div class="pie"><span>Fuente: Dirección Nacional de los Registros de la Propiedad Automotor (DNRPA), Ministerio de Justicia</span><a href="datos/patentamientos_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-patentes-prov">
-      <h3 data-t="patentes-prov-titulo"></h3>
-      <p class="lead" data-t="patentes-prov"></p>
+      <h3>¿Dónde se patentan más autos y motos nuevos?</h3>
+      <p class="ficha-sub">Autos y motos nuevos por cada 1.000 habitantes, por provincia, {{autos.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vehículo" data-g="patentes-prov">
         <button type="button" data-m="autos_1000" aria-pressed="true">Autos</button>
         <button type="button" data-m="motos_1000" aria-pressed="false">Motos</button>
       </div>
       <div class="grafico" data-g="patentes-prov" data-forma="barras"></div>
+      <p class="lead" data-t="patentes-prov"></p>
       <p class="nota" data-t="patentes-prov-nota"></p>
       <div class="pie"><span>Fuente: DNRPA, Ministerio de Justicia</span><a href="datos/patentamientos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-combustibles">
-      <h3>Precio de la nafta súper y del gasoil en el surtidor, {{combustibles.anual_ini}} a {{combustibles.anio_ult}}</h3>
-      <p class="lead" data-t="combustibles"></p>
+      <h3>¿Cuánto cuesta la nafta en cada provincia?</h3>
+      <p class="ficha-sub">Precio de la nafta súper y del gasoil en el surtidor, {{combustibles.anual_ini}} a {{combustibles.anio_ult}}</p>
       <div class="conmutador" role="group" aria-label="Combustible" data-g="combustibles">
         <button type="button" data-m="nafta" aria-pressed="true">Nafta súper</button>
         <button type="button" data-m="gasoil" aria-pressed="false">Gasoil</button>
@@ -1196,64 +1239,69 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="anio" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="combustibles" data-forma="barras"></div>
+      <p class="lead" data-t="combustibles"></p>
       <p class="nota" data-t="combustibles-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004)</span><a href="datos/combustibles_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="construccion">
+  <section class="tema con-pregunta" id="construccion">
     <h2>Construcción y vivienda</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuánto se construye y cómo vivimos?">¿Cuánto se construye, cuánto cuesta y cómo viven los hogares?</p>
+      <p class="pregunta" data-corta="¿Cuánto se construye y cuánto cuesta?">¿Cuánto se construye, cuánto cuesta y cuántos hogares alquilan?</p>
       <p>La actividad de la construcción mes a mes, sus insumos y su costo, el empleo que genera en cada provincia y cómo son las viviendas según el Censo 2022.</p>
     </div>
     <!--EXPLICADOR:construccion-->
 
     <article class="ficha" id="f-isac">
-      <h3>Actividad de la construcción por mes, {{construccion.isac_ini}} a {{construccion.isac_anio}}</h3>
-      <p class="lead" data-t="isac"></p>
+      <h3>¿Cuánto crece o cae la construcción?</h3>
+      <p class="ficha-sub">Actividad de la construcción por mes, {{construccion.isac_ini}} a {{construccion.isac_anio}}</p>
       <div class="grafico" data-g="isac" data-forma="lineas"></div>
+      <p class="lead" data-t="isac"></p>
       <p class="nota" data-t="isac-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Indicador Sintético de la Actividad de la Construcción (ISAC), publicado en datos.gob.ar</span><a href="datos/isac_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-permisos">
-      <h3>Superficie autorizada por los permisos de edificación, por mes, {{construccion.per_desde}} a {{construccion.per_mes}}</h3>
-      <p class="lead" data-t="permisos"></p>
+      <h3>¿Cuántos metros cuadrados se autorizan para construir?</h3>
+      <p class="ficha-sub">Superficie autorizada por los permisos de edificación, por mes, {{construccion.per_desde}} a {{construccion.per_mes}}</p>
       <div class="grafico" data-g="permisos" data-forma="lineas"></div>
+      <p class="lead" data-t="permisos"></p>
       <p class="nota" data-t="permisos-nota"></p>
       <div class="pie"><span>Fuente: INDEC, indicadores de coyuntura de la actividad de la construcción (permisos de edificación)</span><a href="datos/permisos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-insumos">
-      <h3>Consumo aparente de insumos para la construcción, variación a {{construccion.ins_mes}}</h3>
-      <p class="lead" data-t="insumos"></p>
+      <h3>¿Cuánto cambió el consumo de cada insumo de la construcción?</h3>
+      <p class="ficha-sub">Consumo aparente de insumos para la construcción, variación a {{construccion.ins_mes}}</p>
       <div class="conmutador" role="group" aria-label="Período" data-g="insumos">
         <button type="button" data-m="var_12m" aria-pressed="true">Últimos doce meses</button>
         <button type="button" data-m="var_ytd" aria-pressed="false">En lo que va del año</button>
       </div>
       <div class="grafico" data-g="insumos" data-forma="barras" style="--filas:13"></div>
+      <p class="lead" data-t="insumos"></p>
       <p class="nota" data-t="insumos-nota"></p>
       <div class="pie"><span>Fuente: INDEC, insumos del ISAC, publicado en datos.gob.ar</span><a href="datos/isac_insumos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-obra-publica">
-      <h3>Obra pública de la Nación por provincia, {{construccion.op_desde}} a {{construccion.op_ult}}</h3>
-      <p class="lead" data-t="obra-publica"></p>
+      <h3>¿Cuánta obra pública paga la Nación en cada provincia?</h3>
+      <p class="ficha-sub">Obra pública de la Nación por provincia, {{construccion.op_desde}} a {{construccion.op_ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="obra-publica">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
       </div>
       <div class="pol-ley" id="obra-publica-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="obra-publica" data-forma="barras"></div>
+      <p class="lead" data-t="obra-publica"></p>
       <p class="nota" data-t="obra-publica-nota"></p>
       <div class="pie"><span>Fuente: Presupuesto Abierto, Secretaría de Hacienda del Ministerio de Economía, ejecución del gasto de la Administración Pública Nacional (crédito devengado)</span><a href="datos/obra_publica_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empleo-construccion">
-      <h3>Empleo registrado en la construcción por provincia, {{construccion.emp_trim}}</h3>
-      <p class="lead" data-t="empleo-construccion"></p>
+      <h3>¿Cuánto empleo registrado tiene la construcción en cada provincia?</h3>
+      <p class="ficha-sub">Empleo registrado en la construcción por provincia, {{construccion.emp_trim}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
         <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
         <button type="button" data-m="var_construccion" aria-pressed="false">Variación en un año</button>
@@ -1261,41 +1309,45 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <p class="clave-color" id="clave-empleo-construccion" hidden><span class="c-bueno">En verde</span>, donde el empleo creció. <span class="c-malo">En rojo</span>, donde cayó.</p>
       <div class="grafico" data-g="empleo-construccion" data-forma="barras"></div>
+      <p class="lead" data-t="empleo-construccion"></p>
       <p class="nota" data-t="empleo-construccion-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-trabajadores">
-      <h3>Personas ocupadas en la construcción por provincia y departamento, 2022</h3>
-      <p class="lead" data-t="trabajadores"></p>
+      <h3>¿Cuántas personas trabajan en la construcción en cada provincia?</h3>
+      <p class="ficha-sub">Personas ocupadas en la construcción por provincia y departamento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
       </div>
       <div class="grafico mp-mapa" data-g="trabajadores" data-forma="barras"></div>
+      <p class="lead" data-t="trabajadores"></p>
       <p class="nota" data-t="trabajadores-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-costo">
-      <h3>Costo de la construcción frente a los precios al consumidor, {{construccion.costo_desde}} a {{construccion.costo_mes}}</h3>
-      <p class="lead" data-t="costo"></p>
+      <h3>¿Cuánto subió el costo de construir frente a los precios?</h3>
+      <p class="ficha-sub">Costo de la construcción frente a los precios al consumidor, {{construccion.costo_desde}} a {{construccion.costo_mes}}</p>
       <div class="grafico" data-g="costo" data-forma="lineas"></div>
+      <p class="lead" data-t="costo"></p>
       <p class="nota" data-t="costo-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice del Costo de la Construcción (Gran Buenos Aires) e Índice de Precios al Consumidor</span><a href="datos/costo_construccion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-hipotecas">
-      <h3>Créditos hipotecarios UVA nuevos por mes, {{construccion.hip_desde}} a {{construccion.hip_mes}}</h3>
-      <p class="lead" data-t="hipotecas"></p>
+      <h3>¿Cuánto se presta por mes en créditos hipotecarios?</h3>
+      <p class="ficha-sub">Créditos hipotecarios UVA nuevos por mes, {{construccion.hip_desde}} a {{construccion.hip_mes}}</p>
       <div class="grafico" data-g="hipotecas" data-forma="lineas"></div>
+      <p class="lead" data-t="hipotecas"></p>
       <p class="nota" data-t="hipotecas-nota"></p>
       <div class="pie"><span>Fuentes: Banco Central de la República Argentina, préstamos en UVA (serie mensual), e INDEC, índice de precios al consumidor</span><a href="datos/hipotecas_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-vivienda">
-      <h3>Cómo son las viviendas y los hogares, por provincia y departamento, 2022</h3>
-      <p class="lead" data-t="vivienda"></p>
+      <h3>¿Cuántos hogares alquilan o viven hacinados?</h3>
+      <p class="ficha-sub">Cómo son las viviendas y los hogares, por provincia y departamento, 2022</p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="vivienda">
           <option value="pct_alquila" selected>Hogares que alquilan</option>
@@ -1310,13 +1362,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <button type="button" data-m="mapa" aria-pressed="false">Mapa por departamento</button>
       </div>
       <div class="grafico mp-mapa" data-g="vivienda" data-forma="barras"></div>
+      <p class="lead" data-t="vivienda"></p>
       <p class="nota" data-t="vivienda-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="energia">
+  <section class="tema con-pregunta" id="energia">
     <h2>Energía</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánta energía usamos?">¿Cuánta electricidad y cuánto gas usamos, y de dónde sale la electricidad?</p>
@@ -1327,29 +1380,31 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h3 class="bloque-grupo" id="g-electricidad">Electricidad</h3>
 
     <article class="ficha" id="f-hogares">
-      <h3>Participación de los hogares en la demanda eléctrica, {{energia.anio_ini}} a {{energia.anio_ult}}</h3>
-      <p class="lead" data-t="hogares"></p>
+      <h3>¿Qué parte de la electricidad consumen los hogares?</h3>
+      <p class="ficha-sub">Participación de los hogares en la demanda eléctrica, {{energia.anio_ini}} a {{energia.anio_ult}}</p>
       <div class="grafico" data-g="hogares" data-forma="lineas"></div>
+      <p class="lead" data-t="hogares"></p>
       <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
       <div class="pie"><span>Fuente: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-electricidad-provincias">
-      <h3>Consumo eléctrico de los hogares por habitante, por provincia, {{energia.el_ini}} a {{energia.el_ult}}</h3>
-      <p class="lead" data-t="electricidad-provincias"></p>
+      <h3>¿Cuánta electricidad consumen los hogares de cada provincia?</h3>
+      <p class="ficha-sub">Consumo eléctrico de los hogares por habitante, por provincia, {{energia.el_ini}} a {{energia.el_ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="electricidad-provincias" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="electricidad-provincias" data-forma="barras" style="--filas:22"></div>
+      <p class="lead" data-t="electricidad-provincias"></p>
       <p class="nota" data-t="electricidad-provincias-nota"></p>
       <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población</span><a href="datos/electricidad_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-electricidad-sectores">
-      <h3>Demanda eléctrica de comercios e industrias por habitante, por provincia, {{energia.el_ult}}</h3>
-      <p class="lead" data-t="electricidad-sectores"></p>
+      <h3>¿Cuánta electricidad usan los comercios y las industrias de cada provincia?</h3>
+      <p class="ficha-sub">Demanda eléctrica de comercios e industrias por habitante, por provincia, {{energia.el_ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="electricidad-sectores" style="--n:3">
         <button type="button" data-m="ind" aria-pressed="true">Industrias</button>
         <button type="button" data-m="com" aria-pressed="false">Comercios</button>
@@ -1357,35 +1412,39 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="electricidad-sectores-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="electricidad-sectores" data-forma="barras" style="--filas:22"></div>
+      <p class="lead" data-t="electricidad-sectores"></p>
       <p class="nota" data-t="electricidad-sectores-nota"></p>
       <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población</span><a href="datos/electricidad_sectores.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-actividad">
-      <h3>Demanda eléctrica y nivel de actividad económica, {{energia.anio_ini}} a {{energia.anio_ult}}</h3>
-      <p class="lead" data-t="actividad"></p>
+      <h3>¿Cuánto acompaña la demanda eléctrica a la actividad económica?</h3>
+      <p class="ficha-sub">Demanda eléctrica y nivel de actividad económica, {{energia.anio_ini}} a {{energia.anio_ult}}</p>
       <div class="grafico" data-g="actividad" data-forma="lineas"></div>
+      <p class="lead" data-t="actividad"></p>
       <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
       <div class="pie"><span>Fuentes: CAMMESA e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-meses">
-      <h3>Demanda eléctrica promedio por mes, {{energia.meses_desde}} a {{energia.meses_hasta}}</h3>
-      <p class="lead" data-t="meses"></p>
+      <h3>¿En qué meses se usa más electricidad?</h3>
+      <p class="ficha-sub">Demanda eléctrica promedio por mes, {{energia.meses_desde}} a {{energia.meses_hasta}}</p>
       <div class="grafico" data-g="meses" data-forma="columnas" style="--alto:280px;--alto-c:280px"></div>
+      <p class="lead" data-t="meses"></p>
       <p class="nota" data-t="meses-nota"></p>
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-centrales">
-      <h3>Centrales eléctricas, {{energia.cen_fecha}}, y potencia instalada por tecnología, {{energia.pot_desde}} a {{energia.pot_anio}}</h3>
-      <p class="lead" data-t="centrales"></p>
+      <h3>¿Con qué y dónde se genera la electricidad?</h3>
+      <p class="ficha-sub">Centrales eléctricas, {{energia.cen_fecha}}, y potencia instalada por tecnología, {{energia.pot_desde}} a {{energia.pot_anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="centrales">
         <button type="button" data-m="mapa" aria-pressed="true">Mapa de centrales</button>
         <button type="button" data-m="potencia" aria-pressed="false">Potencia del país</button>
       </div>
       <div class="pol-ley" id="centrales-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="centrales" data-forma="mapa" style="--alto:820px;--alto-c:500px"></div>
+      <p class="lead" data-t="centrales"></p>
       <p class="nota" data-t="centrales-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo</span><a href="datos/centrales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -1393,27 +1452,29 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h3 class="bloque-grupo" id="g-gas">Gas en los hogares</h3>
 
     <article class="ficha" id="f-gas-hogares">
-      <h3>Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</h3>
-      <p class="lead" data-t="gas-hogares"></p>
+      <h3>¿Cuántos hogares cocinan con gas de red?</h3>
+      <p class="ficha-sub">Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="gas-hogares-vista" data-dib="gas-hogares">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mapa" aria-pressed="false">Mapa del gas de red</button>
       </div>
       <div class="pol-ley" id="gas-hogares-ley" aria-hidden="true"></div>
       <div class="grafico mp-mapa" data-g="gas-hogares" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="gas-hogares"></p>
       <p class="nota" data-t="gas-hogares-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022, resultados por radio censal</span><a href="datos/vivienda_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-gas-consumo">
-      <h3>Consumo de gas natural por usuario residencial, {{energia.gas_ini}} a {{energia.gas_hasta}}</h3>
-      <p class="lead" data-t="gas-consumo"></p>
+      <h3>¿Cuánto gas consume un usuario residencial en cada provincia?</h3>
+      <p class="ficha-sub">Consumo de gas natural por usuario residencial, {{energia.gas_ini}} a {{energia.gas_hasta}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="gas-consumo" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="mes" aria-pressed="false">Mes a mes</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="gas-consumo" data-forma="barras" style="--filas:20"></div>
+      <p class="lead" data-t="gas-consumo"></p>
       <p class="nota" data-t="gas-consumo-nota"></p>
       <div class="pie"><span>Fuente: ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario)</span><a href="datos/gas_usuario_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -1421,13 +1482,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h3 class="bloque-grupo" id="g-subsidios">Subsidios a la energía</h3>
 
     <article class="ficha" id="f-subsidios">
-      <h3>Subsidios económicos a la energía, {{energia.sub_ini}} a {{energia.sub_ult}}</h3>
-      <p class="lead" data-t="subsidios"></p>
+      <h3>¿Cuánto gasta el Estado en subsidios a la energía?</h3>
+      <p class="ficha-sub">Subsidios económicos a la energía, {{energia.sub_ini}} a {{energia.sub_ult}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="subsidios">
         <button type="button" data-m="pbi" aria-pressed="true">Parte del PBI</button>
         <button type="button" data-m="pesos" aria-pressed="false">En pesos de {{energia.sub_ult}}</button>
       </div>
       <div class="grafico" data-g="subsidios" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="subsidios"></p>
       <p class="nota" data-t="subsidios-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero, e INDEC, producto interno bruto a precios corrientes, vía API de Series de Tiempo</span><a href="datos/subsidios_energia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -1435,7 +1497,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
 
-  <section class="tema" id="petroleo">
+  <section class="tema con-pregunta" id="petroleo">
     <h2>Petróleo y gas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto petróleo y gas producimos?">¿Cuánto petróleo y gas produce el país, dónde y quién lo produce?</p>
@@ -1444,44 +1506,47 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:petroleo-->
 
     <article class="ficha" id="f-petroleo">
-      <h3>Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</h3>
-      <p class="lead" data-t="petroleo"></p>
+      <h3>¿Cuánto petróleo produce el país?</h3>
+      <p class="ficha-sub">Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>
       <div class="conmutador" role="group" aria-label="Separar por" data-g="petroleo">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
         <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
       </div>
       <div class="grafico" data-g="petroleo" data-forma="lineas"></div>
+      <p class="lead" data-t="petroleo"></p>
       <p class="nota" data-t="petroleo-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-gas">
-      <h3>Producción de gas natural por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</h3>
-      <p class="lead" data-t="gas"></p>
+      <h3>¿Cuánto gas produce el país?</h3>
+      <p class="ficha-sub">Producción de gas natural por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>
       <div class="conmutador" role="group" aria-label="Separar por" data-g="gas">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
         <button type="button" data-m="cuenca" aria-pressed="false">Por cuenca</button>
       </div>
       <div class="grafico" data-g="gas" data-forma="lineas"></div>
+      <p class="lead" data-t="gas"></p>
       <p class="nota" data-t="gas-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span><a href="datos/hidrocarburos_mensual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-hidro-provincias">
-      <h3>Producción de petróleo y gas por provincia, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</h3>
-      <p class="lead" data-t="hidro-provincias"></p>
+      <h3>¿Cuánto petróleo y gas produce cada provincia?</h3>
+      <p class="ficha-sub">Producción de petróleo y gas por provincia, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="hidro-provincias">
         <button type="button" data-m="pet_kbd" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas_mmm3d" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="hidro-provincias" data-forma="barras" style="--filas:11"></div>
+      <p class="lead" data-t="hidro-provincias"></p>
       <p class="nota" data-t="hidro-provincias-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-areas-hidro">
-      <h3>Producción de petróleo y gas por área de concesión, {{petroleo.areas_ini}} a {{petroleo.areas_anio}}</h3>
-      <p class="lead" data-t="areas-hidro"></p>
+      <h3>¿Qué áreas producen más petróleo y gas?</h3>
+      <p class="ficha-sub">Producción de petróleo y gas por área de concesión, {{petroleo.areas_ini}} a {{petroleo.areas_anio}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="areas-hidro">
         <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas" aria-pressed="false">Gas</button>
@@ -1489,39 +1554,42 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <label class="selector-ficha"><span>Área</span><select id="ar-sel"><option value="">Las 15 que más producen</option></select></label>
       <div class="pol-ley" id="areas-hidro-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="areas-hidro" data-forma="barras" style="--filas:15"></div>
+      <p class="lead" data-t="areas-hidro"></p>
       <p class="nota" data-t="areas-hidro-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/areas_produccion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mapa-pozos">
-      <h3>Pozos no convencionales y áreas de concesión, {{petroleo.map_mes}}</h3>
-      <p class="lead" data-t="mapa-pozos"></p>
+      <h3>¿Dónde están los pozos no convencionales?</h3>
+      <p class="ficha-sub">Pozos no convencionales y áreas de concesión, {{petroleo.map_mes}}</p>
       <div class="conmutador" role="group" aria-label="Zona" data-g="mapa-pozos">
         <button type="button" data-m="cuenca" aria-pressed="true">Cuenca Neuquina</button>
         <button type="button" data-m="pais" aria-pressed="false">Todo el país</button>
       </div>
       <div class="pol-ley" id="mapa-pozos-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="mapa-pozos" data-forma="mapa" style="--alto:490px;--alto-c:300px"></div>
+      <p class="lead" data-t="mapa-pozos"></p>
       <p class="nota" data-t="mapa-pozos-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y concesiones de explotación</span><a href="datos/pozos_no_convencionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pozos">
-      <h3>Pozos en producción y lo que produce cada uno, {{petroleo.pozos_mes}}</h3>
-      <p class="lead" data-t="pozos"></p>
+      <h3>¿Cuántos pozos producen y cuánto saca cada uno?</h3>
+      <p class="ficha-sub">Pozos en producción y lo que produce cada uno, {{petroleo.pozos_mes}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="pozos">
         <button type="button" data-m="pozo" aria-pressed="true">Petróleo por pozo</button>
         <button type="button" data-m="partes" aria-pressed="false">Pozos y producción</button>
       </div>
       <div class="pol-ley" id="pozos-ley" aria-hidden="true" hidden></div>
       <div class="grafico" data-g="pozos" data-forma="barras" style="--filas:3"></div>
+      <p class="lead" data-t="pozos"></p>
       <p class="nota" data-t="pozos-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV por pozo</span><a href="datos/pozos_tipo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-fracturas">
-      <h3>Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, {{petroleo.fr_ini}} a {{petroleo.fr_ult}}</h3>
-      <p class="lead" data-t="fracturas"></p>
+      <h3>¿Cuántas etapas de fractura se hacen por año?</h3>
+      <p class="ficha-sub">Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, {{petroleo.fr_ini}} a {{petroleo.fr_ult}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fracturas" style="--n:3">
         <button type="button" data-m="etapas" aria-pressed="true">Etapas por año</button>
         <button type="button" data-m="rama" aria-pressed="false">Rama horizontal</button>
@@ -1529,75 +1597,81 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="fracturas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="fracturas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="fracturas"></p>
       <p class="nota" data-t="fracturas-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, datos de fractura de pozos de hidrocarburos (Adjunto IV)</span><a href="datos/fracturas_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-productividad">
-      <h3>Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, {{petroleo.cos_ini}} a {{petroleo.cos_ult}}</h3>
-      <p class="lead" data-t="productividad"></p>
+      <h3>¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año?</h3>
+      <p class="ficha-sub">Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, {{petroleo.cos_ini}} a {{petroleo.cos_ult}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="productividad" style="--n:3">
         <button type="button" data-m="pozo" aria-pressed="true">Por pozo</button>
         <button type="button" data-m="metro" aria-pressed="false">Cada 1.000 m de rama</button>
         <button type="button" data-m="curvas" aria-pressed="false">Mes a mes</button>
       </div>
       <div class="grafico" data-g="productividad" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="productividad"></p>
       <p class="nota" data-t="productividad-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Energía, producción por pozo no convencional (Capítulo IV) y datos de fractura de pozos (Adjunto IV)</span><a href="datos/productividad_vm.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pozos-terminados">
-      <h3>Pozos de petróleo y gas terminados por año, {{petroleo.pt_ini}} a {{petroleo.pt_anio}}, y por provincia</h3>
-      <p class="lead" data-t="pozos-terminados"></p>
+      <h3>¿Cuántos pozos se terminan por año?</h3>
+      <p class="ficha-sub">Pozos de petróleo y gas terminados por año, {{petroleo.pt_ini}} a {{petroleo.pt_anio}}, y por provincia</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="pozos-terminados">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
         <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
       </div>
       <div class="pol-ley" id="pozos-terminados-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="pozos-terminados" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="pozos-terminados"></p>
       <p class="nota" data-t="pozos-terminados-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, perforación de pozos de petróleo y gas</span><a href="datos/pozos_terminados.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empresas-hidro">
-      <h3>Producción de petróleo y gas por empresa, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</h3>
-      <p class="lead" data-t="empresas-hidro"></p>
+      <h3>¿Qué empresas producen más petróleo y gas?</h3>
+      <p class="ficha-sub">Producción de petróleo y gas por empresa, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="empresas-hidro">
         <button type="button" data-m="pct_pet" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="pct_gas" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="empresas-hidro" data-forma="barras" style="--filas:13"></div>
+      <p class="lead" data-t="empresas-hidro"></p>
       <p class="nota" data-t="empresas-hidro-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span><a href="datos/hidrocarburos_empresas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empleo-hidro">
-      <h3>Empleo registrado en la extracción de petróleo y gas, {{construccion.emp_trim}}</h3>
-      <p class="lead" data-t="empleo-hidro"></p>
+      <h3>¿Cuánto empleo registrado da el petróleo y el gas?</h3>
+      <p class="ficha-sub">Empleo registrado en la extracción de petróleo y gas, {{construccion.emp_trim}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-hidro">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="serie" aria-pressed="false">Evolución del país</button>
       </div>
       <div class="grafico" data-g="empleo-hidro" data-forma="barras" style="--filas:12"></div>
+      <p class="lead" data-t="empleo-hidro"></p>
       <p class="nota" data-t="empleo-hidro-nota"></p>
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span><a href="datos/empleo_construccion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-regalias">
-      <h3>Regalías en los ingresos de cada provincia, {{petroleo.reg_anio}}</h3>
-      <p class="lead" data-t="regalias"></p>
+      <h3>¿Cuánto pesan las regalías en los ingresos de cada provincia?</h3>
+      <p class="ficha-sub">Regalías en los ingresos de cada provincia, {{petroleo.reg_anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="regalias">
         <button type="button" data-m="pct_regalias" aria-pressed="true">% de los ingresos</button>
         <button type="button" data-m="usd_crudo_hab" aria-pressed="false">Dólares por habitante, petróleo</button>
       </div>
       <div class="grafico" data-g="regalias" data-forma="barras"></div>
+      <p class="lead" data-t="regalias"></p>
       <p class="nota" data-t="regalias-nota"></p>
       <div class="pie"><span>Fuentes: Ministerio de Economía, cuentas provinciales (esquema ahorro-inversión-financiamiento), y Secretaría de Energía, regalías de petróleo crudo</span><a href="datos/regalias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-reservas">
-      <h3>Reservas comprobadas de petróleo y gas, {{petroleo.res_ini}} a {{petroleo.res_anio}}</h3>
-      <p class="lead" data-t="reservas"></p>
+      <h3>¿Para cuántos años alcanzan las reservas de petróleo y gas?</h3>
+      <p class="ficha-sub">Reservas comprobadas de petróleo y gas, {{petroleo.res_ini}} a {{petroleo.res_anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="reservas" style="--n:3">
         <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas" aria-pressed="false">Gas</button>
@@ -1605,26 +1679,29 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="pol-ley" id="reservas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="reservas" data-forma="columnas" style="--alto:340px;--alto-c:300px"></div>
+      <p class="lead" data-t="reservas"></p>
       <p class="nota" data-t="reservas-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Energía, reservas de petróleo y gas al 31 de diciembre (Resolución SE 324/2006)</span><a href="datos/reservas_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-balanza-energetica">
-      <h3>Exportaciones e importaciones de energía, {{petroleo.bal_ini}} a {{petroleo.bal_anio}}</h3>
-      <p class="lead" data-t="balanza-energetica"></p>
+      <h3>¿Cuánta energía exporta e importa el país?</h3>
+      <p class="ficha-sub">Exportaciones e importaciones de energía, {{petroleo.bal_ini}} a {{petroleo.bal_anio}}</p>
       <div class="grafico" data-g="balanza-energetica" data-forma="lineas"></div>
+      <p class="lead" data-t="balanza-energetica"></p>
       <p class="nota" data-t="balanza-energetica-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Intercambio Comercial Argentino, vía API de Series de Tiempo</span><a href="datos/balanza_energetica.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mundo-petroleo">
-      <h3>La Argentina entre los productores de petróleo y gas del mundo, {{petroleo.mundo.crudo_kbd.anio}}</h3>
-      <p class="lead" data-t="mundo-petroleo"></p>
+      <h3>¿Qué lugar ocupa la Argentina entre los productores del mundo?</h3>
+      <p class="ficha-sub">La Argentina entre los productores de petróleo y gas del mundo, {{petroleo.mundo.crudo_kbd.anio}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="mundo-petroleo">
         <button type="button" data-m="crudo_kbd" aria-pressed="true">Petróleo</button>
         <button type="button" data-m="gas_bcm" aria-pressed="false">Gas</button>
       </div>
       <div class="grafico" data-g="mundo-petroleo" data-forma="barras" style="--filas:29"></div>
+      <p class="lead" data-t="mundo-petroleo"></p>
       <p class="nota" data-t="mundo-petroleo-nota"></p>
       <div class="pie"><span>Fuente: Administración de Información Energética de los Estados Unidos (EIA), estadísticas internacionales de energía, y Secretaría de Energía para Neuquén</span><a href="datos/mundo_hidrocarburos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -1632,67 +1709,71 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
 
-  <section class="tema" id="turismo">
+  <section class="tema con-pregunta" id="turismo">
     <h2>Turismo</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Quién viaja por la Argentina y adónde va?</p>
+      <p class="pregunta" data-corta="¿Cuántos turistas llegan?">¿Cuántos turistas llegan y a qué provincias van?</p>
       <p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>
     </div>
     <!--EXPLICADOR:turismo-->
 
     <article class="ficha" id="f-receptivo">
-      <h3 data-t="receptivo-titulo"></h3>
-      <p class="lead" data-t="receptivo"></p>
+      <h3>¿Cuántos turistas extranjeros llegan al país?</h3>
+      <p class="ficha-sub">Turistas no residentes que llegaron a la Argentina, {{turismo.anio_ini}} a {{turismo.anio}}</p>
       <div class="grafico" data-g="receptivo" data-forma="lineas"></div>
+      <p class="lead" data-t="receptivo"></p>
       <p class="nota" data-t="receptivo-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional</span><a href="datos/turistas_no_residentes_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-hoteles">
-      <h3 data-t="hoteles-titulo"></h3>
-      <p class="lead" data-t="hoteles"></p>
+      <h3>¿Cuántos viajeros se alojan en hoteles?</h3>
+      <p class="ficha-sub">Viajeros hospedados en hoteles y parahoteles, {{turismo.eoh_ini}} a {{turismo.eoh_anio}}</p>
       <div class="grafico" data-g="hoteles" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="hoteles"></p>
       <p class="nota" data-t="hoteles-nota"></p>
       <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Ocupación Hotelera</span><a href="datos/viajeros_hoteles_anual.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-eti">
-      <h3 data-t="eti-titulo"></h3>
-      <p class="lead" data-t="eti"></p>
+      <h3>¿Qué provincias visitan los turistas extranjeros?</h3>
+      <p class="ficha-sub">Turistas extranjeros que visitaron cada provincia y salieron por Ezeiza o Aeroparque, {{turismo.eti_anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="eti">
         <button type="button" data-m="cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
         <button type="button" data-m="turistas" aria-pressed="false">Cantidad de turistas</button>
       </div>
       <div class="grafico" data-g="eti" data-forma="barras"></div>
+      <p class="lead" data-t="eti"></p>
       <p class="nota" data-t="eti-nota"></p>
       <div class="pie"><span>Fuente: INDEC y Ministerio de Turismo y Deportes, Encuesta de Turismo Internacional</span><a href="datos/turistas_extranjeros_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="naturaleza">
+  <section class="tema con-pregunta" id="naturaleza">
     <h2>Flora y fauna</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Cuánto territorio está protegido y qué vive en él?</p>
+      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido y cuántas especies se registran en él?</p>
       <p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>
     </div>
     <!--EXPLICADOR:naturaleza-->
 
     <article class="ficha" id="f-protegida">
-      <h3 data-t="protegida-titulo"></h3>
-      <p class="lead" data-t="protegida"></p>
+      <h3>¿Cuánto territorio protegido tiene cada provincia?</h3>
+      <p class="ficha-sub">Superficie protegida por provincia, {{naturaleza.anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="protegida">
         <button type="button" data-m="pct_territorio" aria-pressed="true">% del territorio</button>
         <button type="button" data-m="m2_por_habitante" aria-pressed="false">m² por habitante</button>
       </div>
       <div class="grafico" data-g="protegida" data-forma="barras" style="--extra:14px"></div>
+      <p class="lead" data-t="protegida"></p>
       <p class="nota" data-t="protegida-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente, Centro de Información Ambiental (CIAM)</span><a href="datos/areas_protegidas_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-parques">
-      <h3 data-t="parques-titulo"></h3>
-      <p class="lead" data-t="parques"></p>
+      <h3>¿Cuánta superficie protegen los parques nacionales y desde cuándo?</h3>
+      <p class="ficha-sub">Superficie de las áreas protegidas nacionales según año de creación, {{naturaleza.anio_ini}} a {{naturaleza.anio_fin}}</p>
       <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:3">
         <button type="button" role="tab" id="pt-evolucion" aria-controls="pp-evolucion" aria-selected="true">Evolución</button>
         <button type="button" role="tab" id="pt-mapa" aria-controls="pp-mapa" aria-selected="false" tabindex="-1">Mapa</button>
@@ -1710,113 +1791,125 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <div class="tabla-desliza"><table class="tabla-areas" id="tabla-areas"></table></div>
         <p class="nota" data-t="lista-areas-nota"></p>
       </div>
+      <p class="lead" data-t="parques"></p>
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/parques_nacionales_historia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-visitas">
-      <h3 data-t="visitas-titulo"></h3>
-      <p class="lead" data-t="visitas"></p>
+      <h3>¿Cuántas personas visitan los parques nacionales?</h3>
+      <p class="ficha-sub">Visitas a parques nacionales, {{naturaleza.vis_ini_anio}} a {{naturaleza.vis_anio}}</p>
       <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="visitas"></p>
       <p class="nota" data-t="visitas-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA)</span><a href="datos/visitas_parques_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-visitas-parque">
-      <h3 data-t="visitas-parque-titulo"></h3>
-      <p class="lead" data-t="visitas-parque"></p>
+      <h3>¿Qué parques nacionales reciben más visitas?</h3>
+      <p class="ficha-sub">Visitas por parque nacional, {{visitas_parque.anios}}</p>
       <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
         <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
         <button type="button" data-m="visitas_par" aria-pressed="false" data-t="vp-b2"></button>
         <button type="button" data-m="visitas_pre" aria-pressed="false">2019</button>
       </div>
       <div class="grafico" data-g="visitas-parque" data-forma="barras" style="--filas:41"></div>
+      <p class="lead" data-t="visitas-parque"></p>
       <p class="nota" data-t="visitas-parque-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Turismo, tablero de áreas protegidas, con datos de la Administración de Parques Nacionales</span><a href="datos/visitas_por_parque.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-especies">
-      <h3 data-t="especies-titulo"></h3>
-      <p class="lead" data-t="especies"></p>
+      <h3>¿Qué animales se registran más en las áreas protegidas?</h3>
+      <p class="ficha-sub">Especies animales registradas en las áreas protegidas nacionales, las 15 con más registros</p>
       <div class="grafico" data-g="especies" data-forma="barras" style="--filas:15"></div>
+      <p class="lead" data-t="especies"></p>
       <p class="nota" data-t="especies-nota"></p>
       <div class="pie"><span>Fuente: Sistema de Información de Biodiversidad, Administración de Parques Nacionales</span><a href="datos/especies_areas_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pesca">
-      <h3 data-t="pesca-titulo"></h3>
-      <p class="lead" data-t="pesca"></p>
+      <h3>¿Cuánto se pesca en el mar?</h3>
+      <p class="ficha-sub">Desembarques de pesca marítima de las tres especies principales, {{pesca.ini}} a {{pesca.anio}}</p>
       <div class="grafico" data-g="pesca" data-forma="lineas" style="--alto-c:342px"></div>
+      <p class="lead" data-t="pesca"></p>
       <p class="nota" data-t="pesca-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/desembarques_especies.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-pesca-rio">
-      <h3 data-t="pesca-rio-titulo"></h3>
-      <p class="lead" data-t="pesca-rio"></p>
+      <h3>¿Qué especies se pescan más en los ríos?</h3>
+      <p class="ficha-sub">Pesca comercial en ríos por especie, {{pesca.rio_anio}}</p>
       <div class="grafico" data-g="pesca-rio" data-forma="barras" style="--filas:6"></div>
+      <p class="lead" data-t="pesca-rio"></p>
       <p class="nota" data-t="pesca-rio-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
 
-  <section class="tema" id="curiosidades">
+  <section class="tema con-pregunta" id="curiosidades">
     <h2>Curiosidades</h2>
     <div class="tema-intro">
-      <p class="pregunta">¿Qué dicen los datos de lo cotidiano?</p>
+      <p class="pregunta" data-corta="¿Cuánta carne y yerba consumimos?">¿Cuánta carne, vino y yerba consumimos, y cuánto se calentó el país?</p>
       <p>Los nombres más elegidos, el consumo de carne, vino y yerba, los glaciares y el clima.</p>
     </div>
     <!--EXPLICADOR:curiosidades-->
 
     <article class="ficha" id="f-nombres">
-      <h3 data-t="nombres-titulo"></h3>
-      <p class="lead" data-t="nombres"></p>
+      <h3>¿Qué nombres se eligen más para los bebés?</h3>
+      <p class="ficha-sub">Nombres más elegidos para los bebés, {{curiosidades.nom_anio}}</p>
       <div class="conmutador" role="group" aria-label="Sexo" data-g="nombres">
         <button type="button" data-m="F" aria-pressed="true">Nenas</button>
         <button type="button" data-m="M" aria-pressed="false">Varones</button>
       </div>
       <p class="contexto-grafico" id="contexto-nombres"></p>
       <div class="grafico" data-g="nombres" data-forma="barras" style="--filas:10"></div>
+      <p class="lead" data-t="nombres"></p>
       <p class="nota" data-t="nombres-nota"></p>
       <div class="pie"><span>Fuente: Registro Nacional de las Personas (RENAPER), nombres propios frecuentes</span><a href="datos/nombres_top.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-carne">
-      <h3 data-t="carne-titulo"></h3>
-      <p class="lead" data-t="carne"></p>
+      <h3>¿Cuánta carne vacuna come cada habitante?</h3>
+      <p class="ficha-sub">Consumo de carne vacuna por habitante, {{curiosidades.carne_ini}} a {{curiosidades.carne_anio}}</p>
       <div class="grafico" data-g="carne" data-forma="lineas"></div>
+      <p class="lead" data-t="carne"></p>
       <p class="nota" data-t="carne-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía, indicadores sectoriales (SSPMI), con datos del Ministerio de Agricultura</span><a href="datos/carne_vacuna.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-vino">
-      <h3 data-t="vino-titulo"></h3>
-      <p class="lead" data-t="vino"></p>
+      <h3>¿Cuánto vino se vende en el país?</h3>
+      <p class="ficha-sub">Vino vendido en el mercado interno, {{curiosidades.vino_ini}} a {{curiosidades.vino_anio}}</p>
       <div class="grafico" data-g="vino" data-forma="lineas"></div>
+      <p class="lead" data-t="vino"></p>
       <p class="nota" data-t="vino-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de Vitivinicultura</span><a href="datos/vino_mercado_interno.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-yerba">
-      <h3 data-t="yerba-titulo"></h3>
-      <p class="lead" data-t="yerba"></p>
+      <h3>¿Cuánta yerba mate sale de los molinos?</h3>
+      <p class="ficha-sub">Yerba mate que salió de los molinos, {{curiosidades.yerba_ini}} a {{curiosidades.yerba_anio}}</p>
       <div class="grafico" data-g="yerba" data-forma="lineas"></div>
+      <p class="lead" data-t="yerba"></p>
       <p class="nota" data-t="yerba-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate</span><a href="datos/yerba_molino.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-glaciares">
-      <h3 data-t="glaciares-titulo"></h3>
-      <p class="lead" data-t="glaciares"></p>
+      <h3>¿Cuántos glaciares tiene cada provincia?</h3>
+      <p class="ficha-sub">Glaciares por provincia</p>
       <div class="grafico" data-g="glaciares" data-forma="barras" style="--filas:12"></div>
+      <p class="lead" data-t="glaciares"></p>
       <p class="nota" data-t="glaciares-nota"></p>
       <div class="pie"><span>Fuente: Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM)</span><a href="datos/glaciares_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-clima">
-      <h3 data-t="clima-titulo"></h3>
-      <p class="lead" data-t="clima"></p>
+      <h3>¿Cuánto se calentó el país?</h3>
+      <p class="ficha-sub">Diferencia de la temperatura media anual del país con su valor de referencia, {{curiosidades.cl_ini}} a {{curiosidades.cl_fin}}</p>
       <div class="grafico" data-g="clima" data-forma="franjas"></div>
+      <p class="lead" data-t="clima"></p>
       <p class="nota" data-t="clima-nota"></p>
       <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
     </article>

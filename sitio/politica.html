@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Instituciones políticas | Datina</title>
-<meta name="description" content="Instituciones políticas: ¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<meta name="description" content="Instituciones políticas: ¿Cómo se reparten las bancas, los votos y los fondos entre las provincias? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
 // transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="politica">
 <header class="barra clara">
@@ -109,26 +109,28 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
-  <section class="tema" id="politica"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html" aria-current="page">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+  <section class="tema con-pregunta" id="politica"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html" aria-current="page">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Instituciones políticas</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-politica">Instituciones políticas</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Quién decide y cómo se reparten los fondos?">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
+      <p class="pregunta" data-corta="¿Cómo se reparten bancas y fondos?">¿Cómo se reparten las bancas, los votos y los fondos entre las provincias?</p>
       <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
     </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <article class="ficha" id="f-elecciones">
-      <h3>Elecciones presidenciales y PASO por provincia, 1983 a 2023</h3>
-      <p class="lead" data-t="elecciones"></p>
+      <h3>¿Cómo votó cada provincia para presidente?</h3>
+      <p class="ficha-sub">Elecciones presidenciales y PASO por provincia, 1983 a 2023</p>
       <label class="selector-ficha"><span>Elección</span><select data-g="elecciones" id="el-sel"></select></label>
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="elecciones" data-forma="barras" style="--filas:25;--extra:-4px"></div>
+      <p class="lead" data-t="elecciones"></p>
       <p class="nota">Porcentaje de los votos positivos, sin contar blancos ni nulos. Cada fórmula se nombra por quien la encabezaba. Se muestran las cuatro más votadas del país y el resto va a "Otras". El color indica el espacio político, el mismo que en la composición del Congreso. En las PASO, desde 2011, cada barra es una agrupación con todas sus listas internas sumadas. En 2019 y 2023 el recuento oficial de las PASO se informó sobre los votos válidos, que incluyen los votos en blanco, así que aquí los porcentajes son algo más altos. Escrutinio definitivo de 1983 a 2019, salvo las PASO de 2019. Escrutinio provisorio en las PASO de 2019 y en todo 2023, porque el definitivo no está publicado como datos abiertos. Las PASO de 2023 salen de la copia del archivo oficial guardada en el Internet Archive, porque el enlace original dejó de funcionar. Los resultados se cotejaron con los de electorAr, que usa el escrutinio provisorio.</p>
       <div class="pie"><span>Fuente: Dirección Nacional Electoral, Ministerio del Interior. Se actualiza con cada elección.</span><a href="datos/elecciones_presidenciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha ancha" id="f-legisladores">
-      <h3>Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</h3>
+      <h3>¿Quiénes ocupan las bancas de cada provincia?</h3>
+      <p class="ficha-sub">Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</p>
       <p class="lead" data-t="legisladores"></p>
       <div class="lg-sels">
         <label class="selector-ficha"><span>Período</span><select id="lg-per"></select></label>
@@ -140,8 +142,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-anios-congreso">
-      <h3>Legisladores nacionales con más años en el Congreso, 1983 a hoy</h3>
-      <p class="lead" data-t="anioscong"></p>
+      <h3>¿Quiénes pasaron más años en el Congreso?</h3>
+      <p class="ficha-sub">Legisladores nacionales con más años en el Congreso, 1983 a hoy</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="anioscong" style="--n:3">
         <button type="button" data-m="total" aria-pressed="true">Total</button>
         <button type="button" data-m="dip" aria-pressed="false">Diputados</button>
@@ -149,45 +151,50 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </div>
       <div class="grafico" data-g="anioscong" data-forma="barras" style="--filas:15"></div>
       <div class="pol-ley"><span><i style="background:var(--azul)"></i>Años en Diputados</span><span><i style="background:var(--celeste)"></i>Años en el Senado</span><span>En negrita, quienes siguen en el cargo</span></div>
+      <p class="lead" data-t="anioscong"></p>
       <p class="nota">Suma los días que cada persona ocupó una banca de diputado o de senador nacional desde que asumió en 1983 hasta hoy, según el registro de cada cámara, y une los tramos separados por una semana o menos. Cada persona figura con la provincia por la que estuvo más años. Una misma persona con el nombre escrito de otra forma en cada cámara se cuenta una sola vez, y dos personas con el mismo nombre en distintas provincias, por separado. En algunos casos, el registro de Diputados anterior a 2007, armado por mandato, pone a alguien en esa cámara mientras era senador: ahí cuentan las fechas del Senado. Sin una provincia elegida, el gráfico muestra las 15 personas con más años, y con una provincia, las 10 de esa provincia.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. Se actualiza con cada renovación del Congreso.</span><a href="datos/anios_congreso.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-representacion">
-      <h3>Habitantes por banca de diputado nacional según provincia, 2025</h3>
-      <p class="lead" data-t="representacion"></p>
+      <h3>¿Cuántos habitantes hay por cada banca de diputado?</h3>
+      <p class="ficha-sub">Habitantes por banca de diputado nacional según provincia, 2025</p>
       <div class="grafico" data-g="representacion" data-forma="barras"></div>
+      <p class="lead" data-t="representacion"></p>
       <p class="nota">Diputados por provincia según la ley 22.847 de 1983, que fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Población proyectada por el INDEC para 2025. El peso en el Congreso compara la proporción de bancas de las dos cámaras que tiene cada provincia con su proporción de la población: 1 es proporcional.</p>
       <div class="pie"><span>Fuentes: Ley 22.847 e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/representacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-congreso">
-      <h3 data-t="congreso-titulo"></h3>
-      <p class="lead" data-t="congreso"></p>
+      <h3>¿Cuántas bancas tuvo cada espacio político?</h3>
+      <p class="ficha-sub">Composición del Congreso por espacio político en cada período legislativo, 1983 a 2027</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="congreso">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="cg-ley"></div>
       <div class="grafico" data-g="congreso" data-forma="columnas"></div>
+      <p class="lead" data-t="congreso"></p>
       <p class="nota">Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período, cuando empiezan las sesiones ordinarias y ya asumieron los reemplazos de diciembre. Desde 2007 los diputados figuran con el bloque en el que se sentaban. Antes de 2007, y en el Senado, con el partido o la alianza por la que fueron electos. Los espacios agrupan bloques y partidos afines y la clasificación es propia. La UCR y el PRO van por separado, porque el PRO no existía como fuerza nacional antes de 2005. Cambiemos y Juntos por el Cambio figuran como tales cuando la fuente solo registra la alianza, como en el Senado. La Alianza de 1997 a 2001, de la UCR y el Frepaso, va con la UCR. La Coalición Cívica y el ARI van en otras fuerzas. Algunos totales no suman 257 diputados o 72 senadores por bancas vacantes en esa fecha o por reemplazos que la fuente no fecha. Hasta 2001 los senadores eran 46 o 48 y los elegían las legislaturas provinciales. Desde ese año son 72, tres por provincia, elegidos por voto directo.</p>
       <div class="pie"><span>Fuentes: Senado de la Nación y Cámara de Diputados de la Nación, datos abiertos y Patrimonio Legislativo. Se actualiza con cada renovación del Congreso.</span><a href="datos/congreso_composicion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-votaciones">
-      <h3 data-t="votaciones-titulo"></h3>
-      <p class="lead" data-t="votaciones"></p>
+      <h3>¿Cómo votó cada legislador las leyes clave?</h3>
+      <p class="ficha-sub">Voto de cada legislador y de cada espacio político en las leyes clave, 2008 a 2026</p>
       <label class="selector-ficha"><span>Ley</span><select id="vt-sel"></select></label>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="votaciones">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="vt-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="votaciones" data-forma="puntos" style="--alto:364px;--alto-c:439px"></div>
+      <p class="lead" data-t="votaciones"></p>
       <p class="nota" data-t="votaciones-nota"></p>
       <div class="pie"><span>Fuentes: Cámara de Diputados y Senado de la Nación, actas de votación nominal, vía ¿Cómo Votó?. Se actualiza cuando se suma una ley a la selección.</span><a href="datos/votaciones_leyes_clave.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha ancha" id="f-votaciones-espacios">
-      <h3 data-t="vtm-titulo"></h3>
+      <h3>¿Qué parte de cada espacio votó a favor de cada ley?</h3>
+      <p class="ficha-sub">Parte de cada espacio político que votó a favor de las leyes clave, 2008 a 2026</p>
       <p class="lead" data-t="vtm"></p>
       <div class="vt-controles">
         <div class="conmutador" role="group" aria-label="Cámara" data-g="vtmatriz">
@@ -203,75 +210,82 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-voto-provincia">
-      <h3 data-t="vprov-titulo"></h3>
-      <p class="lead" data-t="vprov"></p>
+      <h3>¿Votan más con el gobierno los legisladores de las provincias que más lo votaron?</h3>
+      <p class="ficha-sub">Voto de los legisladores en las leyes clave y voto de su provincia al presidente, 2008 a 2026</p>
       <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
       <div class="grafico" data-g="vprov" data-forma="puntos"></div>
+      <p class="lead" data-t="vprov"></p>
       <p class="nota" data-t="vprov-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional Electoral y actas de votación nominal de Diputados y del Senado, vía ¿Cómo Votó?. Se actualiza con cada elección.</span><a href="datos/voto_legisladores_y_provincia.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-atn">
-      <h3 data-t="atn-titulo"></h3>
-      <p class="lead" data-t="atn"></p>
+      <h3>¿Cuánto recibe cada provincia en ATN?</h3>
+      <p class="ficha-sub">Aportes del Tesoro Nacional (ATN) a las provincias, 2000 a 2025</p>
       <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
       <div class="grafico" data-g="atn" data-forma="columnas"></div>
+      <p class="lead" data-t="atn"></p>
       <p class="nota" data-t="atn-nota"></p>
       <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial. Se actualiza cada año.</span><a href="datos/transferencias_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-transferencias">
-      <h3 data-t="transferencias-titulo"></h3>
-      <p class="lead" data-t="transferencias"></p>
+      <h3>¿Cuánto recibe cada provincia en transferencias no automáticas?</h3>
+      <p class="ficha-sub">Transferencias no automáticas de la Nación a las provincias, 2000 a 2025</p>
       <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
       <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="transferencias" data-forma="barras"></div>
+      <p class="lead" data-t="transferencias"></p>
       <p class="nota" data-t="transferencias-nota"></p>
       <div class="pie"><span>Fuentes: Presupuesto Abierto, Secretaría de Hacienda (crédito devengado), INDEC y Banco Mundial. Se actualiza cada año.</span><a href="datos/transferencias_serie.csv" download>Total por año, miles de millones (CSV)</a><a href="datos/transferencias_provincias.csv" download>Por provincia, millones (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-apoyo">
-      <h3 data-t="apoyo-titulo"></h3>
-      <p class="lead" data-t="apoyo"></p>
+      <h3>¿Votan más con el gobierno los legisladores de las provincias que reciben más fondos?</h3>
+      <p class="ficha-sub">Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, 2005 a 2025</p>
       <label class="selector-ficha"><span>Año</span><select id="ap-sel"></select></label>
       <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
         <button type="button" data-m="atn_hab" aria-pressed="true">ATN</button><button type="button" data-m="otras_hab" aria-pressed="false">Otras no automáticas</button>
       </div>
       <div class="grafico" data-g="apoyo" data-forma="puntos"></div>
+      <p class="lead" data-t="apoyo"></p>
       <p class="nota" data-t="apoyo-nota"></p>
       <div class="pie"><span>Fuentes: actas de votación nominal del Congreso, vía ¿Cómo Votó?, y Presupuesto Abierto, Secretaría de Hacienda. Se actualiza cada año.</span><a href="datos/apoyo_gobierno_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presupuesto">
-      <h3>Cómo votaron el presupuesto los legisladores de fuera del bloque oficialista, 1996 a 2026</h3>
-      <p class="lead" data-t="presupuesto"></p>
+      <h3>¿Qué parte de los legisladores de fuera del oficialismo votó el presupuesto?</h3>
+      <p class="ficha-sub">Cómo votaron el presupuesto los legisladores de fuera del bloque oficialista, 1996 a 2026</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="presupuesto">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
       </div>
       <div class="pol-ley" id="pv-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="presupuesto" data-forma="barras" style="--filas:20"></div>
+      <p class="lead" data-t="presupuesto"></p>
       <p class="nota">Votación en general de cada presupuesto en cada cámara, según su acta (en algunos años, la primera votación del proyecto: el acta de cada uno está en la tabla). Los años que no figuran no tienen una votación en general en las actas de la fuente: puede ser porque no hubo un presupuesto aprobado o porque la copia de las actas no la tiene (en Diputados, la de los presupuestos 1995 y 1998 solo tiene votaciones de algunos artículos). El Senado figura desde 2005. El bloque oficialista es el más numeroso del espacio del presidente en esa votación, como en el apoyo al gobierno: los aliados del gobierno de otros bloques, como la UCR en el gobierno de Macri, y los bloques que se separaron del oficialismo cuentan como de fuera. Las ausencias cuentan: en el Senado, en noviembre de 2022, no estuvo en la votación la mayoría de los senadores de fuera del bloque oficialista.</p>
       <div class="pie"><span>Fuente: actas de votación nominal del Congreso, vía ¿Cómo Votó?. Se actualiza cada año.</span><a href="datos/presupuesto_votos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-presidentes">
-      <h3>Presidentes de la Nación desde 1983 según lugar de nacimiento</h3>
-      <p class="lead" data-t="presidentes"></p>
+      <h3>¿Dónde nacieron los presidentes?</h3>
+      <p class="ficha-sub">Presidentes de la Nación desde 1983 según lugar de nacimiento</p>
       <div class="pol-ley" id="pr-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="presidentes" data-forma="bloque" style="--alto:74px;--alto-c:74px"></div>
       <ol class="pr-lista" id="pr-lista"></ol>
+      <p class="lead" data-t="presidentes"></p>
       <p class="nota">AMBA: la Ciudad de Buenos Aires y los 24 partidos del Gran Buenos Aires según el INDEC. La Plata, donde nació Cristina Fernández de Kirchner, no forma parte de esa definición. Incluye a los presidentes interinos de diciembre de 2001. La proporción de población del AMBA sale de las personas identificadas por el RENAPER.</p>
       <div class="pie"><span>Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos. Se actualiza con cada cambio de presidente.</span><a href="datos/presidentes.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-ministros">
-      <h3 data-t="ministros-titulo"></h3>
-      <p class="lead" data-t="ministros"></p>
+      <h3>¿Dónde nacieron los ministros de cada gobierno?</h3>
+      <p class="ficha-sub">Ministros nacionales según lugar de nacimiento, 1983 a hoy</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="ministros">
         <button type="button" data-m="gobierno" aria-pressed="true">Por gobierno</button><button type="button" data-m="provincia" aria-pressed="false">Por provincia</button>
       </div>
       <div class="pol-ley" id="mi-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="ministros" data-forma="barras" style="--filas:10"></div>
+      <p class="lead" data-t="ministros"></p>
       <p class="nota">Ministros con rango de ministro y jefes de gabinete desde el 10 de diciembre de 1983. Cada persona cuenta una vez por gobierno aunque haya ocupado varios ministerios, y en la vista por provincia cuenta una sola vez. No se incluyen las secretarías de gobierno de 2018 a 2019, que no tenían rango de ministro. Los porcentajes se calculan sobre quienes tienen lugar de nacimiento conocido. Tabla armada con los anexos de gabinete de Wikipedia, revisados contra los anexos de cada ministerio y contra Wikidata. Las correcciones están anotadas en la tabla.</p>
       <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada. Se actualiza con cada cambio de gabinete.</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -326,7 +340,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

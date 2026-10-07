@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="seguridad">
 <header class="barra clara">
@@ -101,7 +101,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
-  <section class="tema" id="seguridad"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html" aria-current="page">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+  <section class="tema con-pregunta" id="seguridad"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html" aria-current="page">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Seguridad</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-seguridad">Seguridad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuántos delitos se registran?">¿Cuántos delitos se registran en cada provincia y cuántas personas están presas?</p>
@@ -110,50 +110,54 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <article class="ficha" id="f-delitos">
-      <h3>Delitos registrados en el país por tipo, 2000 a 2025</h3>
-      <p class="lead" data-t="delitos"></p>
+      <h3>¿Cuántos delitos se registran y de qué tipo?</h3>
+      <p class="ficha-sub">Delitos registrados en el país por tipo, 2000 a 2025</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="delitos">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="delitos" data-forma="barras" style="--filas:14"></div>
+      <p class="lead" data-t="delitos"></p>
       <p class="nota" data-t="delitos-nota"></p>
       <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional. Se actualiza cada año.</span><a href="datos/delitos_tipo.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-robos">
-      <h3>Robos y hurtos registrados cada 100.000 habitantes por provincia, 2000 a 2025</h3>
-      <p class="lead" data-t="robos"></p>
+      <h3>¿Cuántos robos y hurtos se registran en cada provincia?</h3>
+      <p class="ficha-sub">Robos y hurtos registrados cada 100.000 habitantes por provincia, 2000 a 2025</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="robos" style="--n:3">
         <button type="button" data-m="robos" aria-pressed="true">Robos</button>
         <button type="button" data-m="hurtos" aria-pressed="false">Hurtos</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="robos" data-forma="barras"></div>
+      <p class="lead" data-t="robos"></p>
       <p class="nota" data-t="robos-nota"></p>
       <div class="pie"><span>Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional. Se actualiza cada año.</span><a href="datos/robos_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-homicidios">
-      <h3>Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, 2000 a 2025</h3>
-      <p class="lead" data-t="homicidios"></p>
+      <h3>¿Cuántas víctimas de homicidio hay en cada provincia?</h3>
+      <p class="ficha-sub">Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, 2000 a 2025</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="homicidios">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
         <button type="button" data-m="serie" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="homicidios" data-forma="barras"></div>
+      <p class="lead" data-t="homicidios"></p>
       <p class="nota" data-t="homicidios-nota"></p>
       <div class="pie"><span>Fuentes: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/homicidios_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-carceles">
-      <h3>Personas privadas de libertad en cárceles cada 100.000 habitantes, 2002 a 2024</h3>
-      <p class="lead" data-t="carceles"></p>
+      <h3>¿Cuántas personas hay en las cárceles?</h3>
+      <p class="ficha-sub">Personas privadas de libertad en cárceles cada 100.000 habitantes, 2002 a 2024</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="carceles">
         <button type="button" data-m="serie" aria-pressed="true">Todo el país</button>
         <button type="button" data-m="prov" aria-pressed="false">Por provincia</button>
       </div>
       <div class="grafico" data-g="carceles" data-forma="lineas"></div>
+      <p class="lead" data-t="carceles"></p>
       <p class="nota" data-t="carceles-nota"></p>
       <div class="pie"><span>Fuentes: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/carceles_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -216,7 +220,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

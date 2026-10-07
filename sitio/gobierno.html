@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="gobierno">
 <header class="barra clara">
@@ -111,7 +111,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
-  <section class="tema" id="gobierno"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html" aria-current="page">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
+  <section class="tema con-pregunta" id="gobierno"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html" aria-current="page">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
     <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="economia.html">Economía</a></li><li><span aria-current="page">Cuentas públicas</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-gobierno">Cuentas públicas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda y cuánto gasta el Estado, y cuánto debe?</p>
@@ -120,66 +120,72 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
 
     <article class="ficha" id="f-cuentas-nacion">
-      <h3>Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, 2016 a 2025</h3>
-      <p class="lead" data-t="cuentas-nacion"></p>
+      <h3>¿Cuánto ingresa y cuánto gasta el Estado nacional?</h3>
+      <p class="ficha-sub">Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, 2016 a 2025</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="cuentas-nacion">
         <button type="button" data-m="resultado" aria-pressed="true">Resultado</button>
         <button type="button" data-m="gasto" aria-pressed="false">En qué se gasta</button>
       </div>
       <div class="grafico" data-g="cuentas-nacion" data-forma="lineas"></div>
+      <p class="lead" data-t="cuentas-nacion"></p>
       <p class="nota" data-t="cuentas-nacion-nota"></p>
       <div class="pie"><span>Fuentes: Secretaría de Hacienda, Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero, e INDEC. Se actualiza cada mes.</span><a href="datos/cuentas_nacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-recaudacion">
-      <h3>Recaudación de impuestos nacionales, por impuesto y como parte del PBI, 2004 a 2025</h3>
-      <p class="lead" data-t="recaudacion"></p>
+      <h3>¿Cuánto recauda cada impuesto nacional?</h3>
+      <p class="ficha-sub">Recaudación de impuestos nacionales, por impuesto y como parte del PBI, 2004 a 2025</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="recaudacion">
         <button type="button" data-m="impuesto" aria-pressed="true">Por impuesto</button>
         <button type="button" data-m="anio" aria-pressed="false">Año por año</button>
       </div>
       <div class="grafico" data-g="recaudacion" data-forma="barras" style="--filas:10"></div>
+      <p class="lead" data-t="recaudacion"></p>
       <p class="nota" data-t="recaudacion-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Investigaciones y Análisis Fiscal, Ministerio de Economía, e INDEC. Se actualiza cada mes.</span><a href="datos/recaudacion_impuestos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-deuda">
-      <h3>Deuda bruta de la Administración Central como parte del PBI, 2000 a 2025 y el último trimestre</h3>
-      <p class="lead" data-t="deuda"></p>
+      <h3>¿Cuánto debe el Estado nacional?</h3>
+      <p class="ficha-sub">Deuda bruta de la Administración Central como parte del PBI, 2000 a 2025 y el último trimestre</p>
       <div class="grafico" data-g="deuda" data-forma="lineas"></div>
+      <p class="lead" data-t="deuda"></p>
       <p class="nota" data-t="deuda-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Finanzas, Ministerio de Economía, datos trimestrales de la deuda pública. Se actualiza cada tres meses.</span><a href="datos/deuda_pbi.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-empleo-publico">
-      <h3>Cargos en las administraciones provinciales cada 1.000 habitantes, 2025, y dotación de la administración nacional</h3>
-      <p class="lead" data-t="empleo-publico"></p>
+      <h3>¿Cuántos cargos públicos tiene cada provincia?</h3>
+      <p class="ficha-sub">Cargos en las administraciones provinciales cada 1.000 habitantes, 2025, y dotación de la administración nacional</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-publico">
         <button type="button" data-m="prov" aria-pressed="true">Provincias</button>
         <button type="button" data-m="nacion" aria-pressed="false">Nación</button>
       </div>
       <div class="grafico" data-g="empleo-publico" data-forma="barras"></div>
+      <p class="lead" data-t="empleo-publico"></p>
       <p class="nota" data-t="empleo-publico-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC. Se actualiza cada año.</span><a href="datos/empleo_publico_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-impuestos-provinciales">
-      <h3>Impuestos provinciales por habitante, 2025</h3>
-      <p class="lead" data-t="impuestos-provinciales"></p>
+      <h3>¿Cuánto recauda cada provincia por habitante?</h3>
+      <p class="ficha-sub">Impuestos provinciales por habitante, 2025</p>
       <div class="grafico" data-g="impuestos-provinciales" data-forma="barras"></div>
+      <p class="lead" data-t="impuestos-provinciales"></p>
       <p class="nota" data-t="impuestos-provinciales-nota"></p>
       <div class="pie"><span>Fuentes: Dirección Nacional de Asuntos Provinciales, Ministerio de Economía, e INDEC, proyecciones de población. Se actualiza cada año.</span><a href="datos/impuestos_provinciales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-fiscal">
-      <h3 data-t="fiscal-titulo"></h3>
-      <p class="lead" data-t="fiscal"></p>
+      <h3>¿Cuánto financia cada provincia con recursos propios?</h3>
+      <p class="ficha-sub">Recursos propios, resultado fiscal y gasto en personal por provincia, 2025</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fiscal" style="--n:3">
         <button type="button" data-m="autonomia" aria-pressed="true">Recursos propios</button>
         <button type="button" data-m="resultado" aria-pressed="false">Resultado</button>
         <button type="button" data-m="personal" aria-pressed="false">Personal</button>
       </div>
       <div class="grafico" data-g="fiscal" data-forma="barras"></div>
+      <p class="lead" data-t="fiscal"></p>
       <p class="nota" data-t="fiscal-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento. Se actualiza cada año.</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -232,7 +238,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>

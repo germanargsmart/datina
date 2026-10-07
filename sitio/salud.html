@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=18ec9d75cc">
+<link rel="stylesheet" href="datina.css?v=485bed74cb">
 </head>
 <body data-pagina="salud">
 <header class="barra clara">
@@ -110,18 +110,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-esperanza">
       <h3>¿Cuántos años se vive en cada provincia?</h3>
       <p class="ficha-sub">Esperanza de vida al nacer por provincia y sexo, 2022</p>
-      <p class="lead" data-t="esperanza"></p>
       <div class="grafico" data-g="esperanza" data-forma="pesas" style="--extra:12px"></div>
+      <p class="lead" data-t="esperanza"></p>
       <p class="nota" data-t="esperanza-nota"></p>
       <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción. Se actualiza con cada censo.</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mortalidad">
-      <h3>¿Cómo cambió la mortalidad infantil en cada provincia?</h3>
+      <h3>¿Cuántos bebés mueren antes del año en cada provincia?</h3>
       <p class="ficha-sub">Tasa de mortalidad infantil por provincia, 2012 a 2014 y 2022 a 2024</p>
-      <p class="lead" data-t="mortalidad"></p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="mortalidad" data-forma="pesas" style="--extra:12px"></div>
+      <p class="lead" data-t="mortalidad"></p>
       <p class="nota" data-t="mortalidad-nota"></p>
       <div class="pie"><span>Fuente: Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud. Se actualiza cada año.</span><a href="datos/mortalidad_infantil_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -129,9 +129,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="ficha" id="f-causas-infantiles">
       <h3>¿De qué mueren los bebés antes de cumplir un año?</h3>
       <p class="ficha-sub">Muertes de menores de un año por grupo de causa y provincia, 2022 a 2024</p>
-      <p class="lead" data-t="causas"></p>
       <div class="pol-ley" id="causas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="causas" data-forma="barras" style="--filas:25;--extra:-4px"></div>
+      <p class="lead" data-t="causas"></p>
       <p class="nota" data-t="causas-nota"></p>
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022. Se actualiza cada año.</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
@@ -157,7 +157,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-suicidio-prov">
-      <h3 data-t="suicidio-prov-titulo">Tasa de suicidios por provincia</h3>
+      <h3>Tasa de suicidios por provincia, 2025</h3>
       <p class="lead" data-t="suicidio-prov"></p>
       <div class="grafico" data-g="suicidio-prov" data-forma="barras"></div>
       <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad. Se actualiza cada año.</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
@@ -231,7 +231,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bcf3c21fee"></script>
-<script src="datina.js?v=4f90ab206e"></script>
+<script src="datos/fichas.js?v=60703fb6bf"></script>
+<script src="datina.js?v=e7a9c40083"></script>
 </body>
 </html>
