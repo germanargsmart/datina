@@ -1204,7 +1204,7 @@ const desplegable = (() => {
   if (!caja) return {marcar() {}};
   const btn = document.getElementById("elige-btn"), panel = document.getElementById("elige-panel");
   const buscar = document.getElementById("elige-buscar"), lista = document.getElementById("elige-lista"), vacio = document.getElementById("elige-vacio");
-  const valor = document.getElementById("elige-valor"), band = document.getElementById("elige-band");
+  const valor = document.getElementById("elige-valor");
   const sinTilde = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   lista.innerHTML = [["", "Todo el país"], ...PROV].map(([c, n], i) =>
     `<li role="option" id="op-${c || "pais"}" data-c="${c}" aria-selected="false"${i === 0 ? ' class="primera"' : ""}>${bandera(c || "00")}<span>${n}</span></li>`).join("");
@@ -1245,8 +1245,8 @@ const desplegable = (() => {
   lista.addEventListener("click", ev => { const li = ev.target.closest("li"); if (li) { elegir(li.dataset.c); cerrar(true); } });
   document.addEventListener("pointerdown", ev => { if (!caja.contains(ev.target) && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
   const marcar = () => {
+    // el botón cerrado, sin bandera (etapa 30): la de la provincia elegida ya está en la barra y en el título del perfil
     valor.textContent = NOMBRES[prov] || "Todo el país";
-    band.innerHTML = bandera(NOMBRES[prov] ? prov : "00");
     items.forEach(li => li.setAttribute("aria-selected", li.dataset.c === prov));
   };
   marcar();
@@ -5848,7 +5848,7 @@ const pintarDestacados = () => {
   const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
   const D3 = [
     {cls: "azul", ico: "pin", eb: "Tu provincia", href: "provincia.html",
-      tit: prov && NOMBRES[prov] ? `${NOMBRES[prov]} en números` : "Las 24, una por una", band: prov && NOMBRES[prov] ? bandera(prov) : "",
+      tit: prov && NOMBRES[prov] ? `${NOMBRES[prov]} en números` : "Las 24, una por una",
       txt: "Cada provincia junto al total del país y su posición entre las 24, en todos los indicadores con dato provincial."},
     {cls: "amarilla", ico: fuerte.icono, eb: "Artículo", href: urlPagina(fuerte.id), tit: fuerte.titulo, txt: fuerte.dek},
     {cls: "hondo", ico: "congreso", eb: "Congreso", href: "#f-votaciones-espacios",
@@ -5856,7 +5856,7 @@ const pintarDestacados = () => {
       txt: "Los votos nominales de diputados y senadores, ley por ley, junto a la plataforma electoral que presentó cada alianza."},
   ];
   destGrid.innerHTML = D3.map(d => `<a class="tarjeta dest ${d.cls}" href="${d.href}"><span class="dest-arte">${icono(d.ico)}</span>` +
-    `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.band ? `<span class="con-bandera">${d.band}<span>${d.tit}</span></span>` : d.tit}</b><span class="dest-txt">${d.txt}</span>` +
+    `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.tit}</b><span class="dest-txt">${d.txt}</span>` +
     `<span class="dest-ir" aria-hidden="true">${SOL_BOTON}</span></span></a>`).join("");
 };
 if (destGrid) { pintarDestacados(); alCambiarProv.push(pintarDestacados); }
@@ -5929,7 +5929,8 @@ const pintarCifras = () => {
       const fila = ids.has(c.id) && c.d.find(d => d.codigo_indec === prov); if (!fila) return;
       conProv.add(c.id);
       const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
-      tarjetas.push(`<a class="tarjeta cifra prov" href="#${c.id}" data-k="p:${INDP.indexOf(c)}"><span class="c-lab con-bandera">${bandera(prov)}<span>${NOMBRES[prov]}</span></span><span class="c-num">${c.f(fila[c.k])}</span>` +
+      // sin bandera (etapa 30): la de la provincia elegida ya está en la barra, y el nombre distingue sus tarjetas de las del país
+      tarjetas.push(`<a class="tarjeta cifra prov" href="#${c.id}" data-k="p:${INDP.indexOf(c)}"><span class="c-lab">${NOMBRES[prov]}</span><span class="c-num">${c.f(fila[c.k])}</span>` +
         `<span class="c-txt">${c.lab}: ${c.det}.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`} Posición ${orden} de ${c.d.length}, de mayor a menor.</span>` +
         (notaDist(c, prov) ? `<span class="c-aclara">${notaDist(c, prov)}</span>` : "") + `</a>`);
     });
@@ -5937,7 +5938,7 @@ const pintarCifras = () => {
     const pais = orden.map(k => k.startsWith("x-") ? EXTRA[k] && {k, id: EXTRA[k][0], n: EXTRA[k][1], t: EXTRA[k][2], prov: EXTRA[k][3]} : CLAVE[k] && {k, id: k, n: CLAVE[k][0], t: CLAVE[k][1], prov: true})
       .filter(c => c && ids.has(c.id) && !(c.prov && conProv.has(c.id)));
     const lugar = conProv.size ? 5 - tarjetas.length : indp.length ? 4 : 5;
-    const marca = conProv.size ? `<span class="c-lab con-bandera">${bandera("00")}<span>Todo el país</span></span>` : "";
+    const marca = conProv.size ? `<span class="c-lab">Todo el país</span>` : "";
     pais.slice(0, Math.max(0, lugar)).forEach(c => tarjetas.push(`<a class="tarjeta cifra" href="#${c.id}" data-k="${c.k}">${marca}<span class="c-num">${c.n}</span><span class="c-txt">${c.t}</span></a>`));
     if (!conProv.size && indp.length)
       tarjetas.push(`<a class="tarjeta cifra invita" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
@@ -6231,7 +6232,8 @@ const pintarChip = () => {
       document.getElementById("chip-borrar").setAttribute("aria-label", `Ver todo el país en lugar de ${nom}`);
     }
   }
-  document.querySelectorAll(".migas-prov").forEach(li => { li.hidden = !nom; li.innerHTML = nom ? conBandera(prov, nom) : ""; });
+  // en las migas, solo el nombre (etapa 30): la bandera de la provincia elegida va en la barra y en el título de su perfil
+  document.querySelectorAll(".migas-prov").forEach(li => { li.hidden = !nom; li.textContent = nom || ""; });
 };
 pintarChip(); alCambiarProv.push(pintarChip);
 document.getElementById("chip-borrar")?.addEventListener("click", () => {

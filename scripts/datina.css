@@ -235,7 +235,6 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .bandera.vacia{outline:0}
 .bandera.grande{width:36px;height:24px;border-radius:4px}
 .con-bandera{display:inline-flex;align-items:center;gap:8px;min-width:0}
-#elige-band:empty{display:none}
 .portada .bandera,.dest.azul .bandera,.dest.hondo .bandera,.tip .bandera{outline-color:rgba(255,255,255,.55)}
 .tip .bandera{width:18px;height:12px;margin-right:2px;vertical-align:-1px;border-radius:2px}
 .chip-borrar{display:inline-flex;align-items:center;gap:var(--e-2);padding:0 var(--e-3);font:500 var(--t-1)/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
