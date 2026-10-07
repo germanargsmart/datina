@@ -503,7 +503,7 @@ const LEAD = {
   "cuentas-nacion": v => {
     if (v === "gasto") return `En ${GBN.anio}, el ${pct(GBN.gasto_tipos[0][1])} del gasto primario de la Nación, el que no cuenta los intereses de la deuda, ` +
       `fue en ${inicialMin(GBN.gasto_tipos[0][0])}, el ${pct(GBN.gasto_tipos[1][1])} en ${inicialMin(GBN.gasto_tipos[1][0])} y el ${pct(GBN.gasto_tipos[2][1])} ` +
-      `en ${inicialMin(GBN.gasto_tipos[2][0])}, según la Secretaría de Hacienda. Las transferencias de la Nación a cada provincia están en Política, y los ` +
+      `en ${inicialMin(GBN.gasto_tipos[2][0])}, según la Secretaría de Hacienda. Las transferencias de la Nación a cada provincia están en Instituciones políticas, y los ` +
       `subsidios a la energía, en Energía.`;
     return `En ${GBN.anio}, los ingresos del Sector Público Nacional fueron el ${pct(GBN.ingresos)} del PBI y el gasto sin los intereses de la deuda, el ` +
       `${pct(GBN.gasto)}: el resultado primario fue un ${sobra(GBN.primario)} de ${pct(Math.abs(GBN.primario))} del PBI. Después de pagar los intereses ` +
@@ -6392,23 +6392,18 @@ const tarjetaSec = sec => {
 // sin la tarjeta de Artículos, que tienen su bloque más arriba. Con las 14 secciones (Petróleo y gas volvió a tener su página en la
 // etapa 22) ninguna fila queda con una sola tarjeta, en ningún ancho: por eso "Tu provincia", que se sumó cuando eran 13 para llegar a
 // 14, ya no va en la grilla (se llega por el primer destacado, "Elegí tu provincia" y el menú)
-if (grillaSec) grillaSec.innerHTML = Object.values(SEC).filter(s => !s.herr && s.id !== "articulos").map(tarjetaSec).join("");
-// Mostrar menos de entrada (octubre de 2026): dos filas de secciones y un botón que despliega el resto en el lugar. Las tarjetas
-// ocultas siguen en la página: solo las esconde el CSS, con la cantidad justa para cada ancho (dos filas de 4, 3 o 2)
-if (grillaSec) {
-  grillaSec.classList.add("plegada");
-  grillaSec.insertAdjacentHTML("afterend", `<button type="button" class="boton ver-todas" aria-expanded="false" aria-controls="secciones-grid">Ver todas las secciones</button>`);
-  const bTodas = grillaSec.nextElementSibling;
-  bTodas.addEventListener("click", () => {
-    const antes = new Set([...grillaSec.children].filter(t => t.offsetParent));
-    const abrir = grillaSec.classList.contains("plegada");
-    grillaSec.classList.toggle("plegada", !abrir);
-    bTodas.setAttribute("aria-expanded", String(abrir)); bTodas.textContent = abrir ? "Ver menos secciones" : "Ver todas las secciones";
-    if (abrir) [...grillaSec.children].filter(t => !antes.has(t)).forEach((t, k) =>
-      t.animate(REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 0, transform: "translateY(8px)"}, {opacity: 1, transform: "none"}],
-        {duration: 250, delay: Math.min(150, k * 30), easing: "cubic-bezier(.23,1,.32,1)", fill: "backwards"}));
-  });
-}
+/* Los temas de la portada (etapa 36, pedido del autor: "Explorá la Argentina por tema", "no mostrar 19 botones idénticos"): cuatro grupos,
+   cada uno en un panel con sus secciones una debajo de otra (ícono, nombre y pregunta corta). Una categoría lleva a su página de entrada y
+   debajo nombra a las demás (Población: Migraciones y Turismo). Los grupos salen de GRUPOS en el constructor (SITIO.grupos). Curiosidades,
+   aparte, ocupa el ancho entero. Reemplaza a la grilla de tarjetas iguales con "Ver todas las secciones" */
+const temaPortada = it => {
+  const [nom, subs] = Array.isArray(it) ? it : [null, [it]], sec = SEC[subs[0]];
+  return `<li class="tg-item"><a class="tg-link" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "tg-ico")}<span class="tg-txt">` +
+    `<b style="view-transition-name:t-${sec.id}">${nom || sec.t}</b><span class="tg-preg">${sec.c || sec.p}</span></span></a>` +
+    (subs.length > 1 ? `<p class="tg-subs">${subs.slice(1).map(s => `<a href="${urlPagina(s)}">${SEC[s].t}</a>`).join("")}</p>` : "") + `</li>`;
+};
+if (grillaSec) grillaSec.innerHTML = (SITIO.grupos || []).map(([g, nom, items]) => `<section class="tg tg-${g}" aria-labelledby="tg-${g}">` +
+  `<h3 class="tg-tit" id="tg-${g}">${nom}</h3><ul class="tg-lista">${items.map(temaPortada).join("")}</ul></section>`).join("");
 const grillaHerr = document.getElementById("herramientas-grid");
 if (grillaHerr) grillaHerr.innerHTML = Object.values(SEC).filter(s => s.herr).map(tarjetaSec).join("");
 
@@ -6438,7 +6433,8 @@ const pintarCifras = () => {
     pais.slice(0, Math.max(0, lugar)).forEach(c => tarjetas.push(`<a class="tarjeta cifra" href="#${c.id}" data-k="${c.k}">${marca}<span class="c-num">${c.n}</span><span class="c-txt">${c.t}</span></a>`));
     if (!conProv.size && indp.length)
       tarjetas.push(`<a class="tarjeta cifra invita" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
-    intro.insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.slice(0, 5).join("")}</div></div>`);
+    // en una categoría (etapa 36), después de su fila de secciones, donde el constructor dejó las tarjetas vacías
+    (intro.nextElementSibling?.matches(".subsecciones") ? intro.nextElementSibling : intro).insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.slice(0, 5).join("")}</div></div>`);
   }
 };
 /* Minigráfico de cada tarjeta de "En cifras" (etapa 16, idea de un tablero que compartió el autor). Resuelve lo que en octubre de 2026
@@ -6618,6 +6614,9 @@ if (PAGINA !== "inicio") {
   // en el celular, la fila de secciones (la escribe el constructor) se desliza hasta la actual
   const cur = document.querySelector(".pildoras [aria-current]");
   if (cur) requestAnimationFrame(() => { cur.parentElement.scrollLeft = cur.offsetLeft - 22; });
+  // la fila de la categoría (etapa 36), igual: la sección actual a la vista
+  const sub = document.querySelector(".subsecciones [aria-current]");
+  if (sub) requestAnimationFrame(() => { sub.parentElement.scrollLeft = Math.max(0, sub.offsetLeft - sub.parentElement.offsetLeft - 22); });
 }
 
 /* buscador de la lupa: secciones, fichas, preguntas y artículos de todo el sitio (cada página tiene todo el marcado) */
@@ -6719,8 +6718,9 @@ const vistasL = new IntersectionObserver(es => es.forEach(en => {
 }), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
 document.querySelectorAll(".lab-pieza").forEach(f => vistasL.observe(f));
 
-/* navegación activa: la sección de esta página, en la barra, el menú y el pie */
-document.querySelectorAll(".temas a, .menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
+/* navegación activa: la sección de esta página, en el menú y el pie, y en la barra su categoría (etapa 36: en Sector privado, "Economía") */
+document.querySelectorAll(".menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
+document.querySelectorAll(".temas a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === (SITIO.cat?.[SECCION] || SECCION) + ".html"));
 
 /* Provincia elegida: un indicador en la barra con su bandera, que lleva al perfil y la borra ("Ver todo el país").
    No la elige: eso se hace solo en provincia.html. También aparece al final de las migas. */

@@ -346,7 +346,30 @@ _estado = '<p class="estado" id="estado"></p>'
 assert base.count(_estado) == 1
 base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f in FICHAS if not f[5])} fichas</span> <span>24 jurisdicciones</span> '
                              f'<span>{len(NOTAS)} artículos</span></p>')
-INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC}
+# Grupos y categorías (etapa 36, pedido del autor del 7 de octubre de 2026: "empezá a unificar, tipo energía es la categoría general de
+# petróleo y gas", y sus respuestas: categorías con subsecciones, los grupos de su mensaje). Cuatro grupos, como en la portada ("Explorá la
+# Argentina por tema"), y Curiosidades aparte. Un elemento de un grupo es una sección o una categoría: un nombre y sus secciones, la primera
+# es su página de entrada. Cada sección conserva su página y su dirección. De acá salen la barra, el menú "Más", la fila del celular, las
+# migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada (datina.js)
+GRUPOS = [
+    ("personas", "Personas", [("Población", ["poblacion", "migraciones", "turismo"]), "salud", "educacion", "pobreza"]),
+    ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"])]),
+    ("estado", "Estado y sociedad", ["politica", "seguridad"]),
+    ("territorio", "Territorio y recursos", [("Energía", ["energia", "petroleo"]), "movilidad", "naturaleza"]),
+    ("otros", "Y además", ["curiosidades"]),
+]
+# la barra: el texto de cada enlace y su página (una categoría lleva a su página de entrada)
+BARRA = [("Población", "poblacion"), ("Salud", "salud"), ("Educación", "educacion"), ("Pobreza", "pobreza"), ("Trabajo", "trabajo"),
+         ("Economía", "economia"), ("Instituciones", "politica"), ("Seguridad", "seguridad")]
+CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
+ORDEN_TEMAS = [s for _, _, items in GRUPOS for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
+_temas = [x[0] for x in SECCIONES if not x[4] and x[0] != "articulos"]
+assert sorted(ORDEN_TEMAS) == sorted(_temas), f"las secciones y los grupos no coinciden: {set(ORDEN_TEMAS) ^ set(_temas)}"
+assert {s for _, s in BARRA} <= set(ORDEN_TEMAS)
+HERRAMIENTAS = [x[0] for x in SECCIONES if x[4]]
+INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
+          "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
+          "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()}}
 
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
@@ -425,7 +448,7 @@ TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 
 
 # Recorrido de "Anterior / Siguiente": artículos, el Laboratorio (etapa 33), tu provincia, las secciones y las herramientas, y Sobre nosotros
-ORDEN = ["articulos", "laboratorio", "provincia"] + [x[0] for x in SECCIONES if x[0] != "articulos"] + ["nosotros"]
+ORDEN = ["articulos", "laboratorio", "provincia"] + ORDEN_TEMAS + HERRAMIENTAS + ["nosotros"]
 TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto", "laboratorio": "Laboratorio"})
 # piezas del Laboratorio: las cuenta la tarjeta que lleva a él en "Seguí explorando"
 LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
@@ -499,7 +522,18 @@ def migas(*partes, prov=True):
 
 def pildoras(seccion):
     return '<nav class="pildoras" aria-label="Secciones">' + "".join(
-        f'<a href="{url_pagina(x[0])}"{" aria-current=" + chr(34) + "page" + chr(34) if x[0] == seccion else ""}>{e(x[1])}</a>' for x in SECCIONES) + "</nav>"
+        f'<a href="{url_pagina(s)}"{" aria-current=" + chr(34) + "page" + chr(34) if s == seccion else ""}>{e(TITULO_DE[s])}</a>'
+        for s in ["articulos"] + ORDEN_TEMAS + HERRAMIENTAS) + "</nav>"
+
+
+def subsecciones(seccion):
+    """La fila de una categoría (etapa 36): su nombre y sus secciones, con la actual marcada. Va al final de la entrada de la página, antes
+    de "En cifras"."""
+    nombre, subs = CATEGORIA[seccion]
+    # el nombre de la categoría va adelante salvo que la primera sección se llame igual (Población, Energía)
+    cat = "" if TITULO_DE[subs[0]] == nombre else f'<span class="sub-cat">{e(nombre)}</span>'
+    return (f'<nav class="subsecciones" aria-label="{e(nombre)}">{cat}' + "".join(
+        f'<a href="{url_pagina(s)}"{" aria-current=" + chr(34) + "page" + chr(34) if s == seccion else ""}>{e(TITULO_DE[s])}</a>' for s in subs) + "</nav>")
 
 
 def navegacion(h, pagina):
@@ -532,7 +566,13 @@ def navegacion(h, pagina):
         blo = blo.replace(m.group(0), "", 1)
         final = explicador(m.group(1))
     # migas arriba del título y fila de secciones (solo en el celular) arriba de todo
-    blo = blo.replace("<h2", migas(("", TITULO_DE[pagina]), prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
+    partes = [("", TITULO_DE[pagina])]
+    if pagina in CATEGORIA and CATEGORIA[pagina][0] != TITULO_DE[pagina]:
+        partes.insert(0, (url_pagina(CATEGORIA[pagina][1][0]), CATEGORIA[pagina][0]))
+    blo = blo.replace("<h2", migas(*partes, prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
+    # la fila de la categoría, después de la entrada (datina.js pone "En cifras" después de ella)
+    if pagina in CATEGORIA:
+        blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + subsecciones(pagina), blo, 1, re.S)
     # transición entre páginas: el título viaja desde su tarjeta de la portada (mismo nombre en las dos páginas)
     if pagina in [x[0] for x in SECCIONES]:
         blo = re.sub(r"<h2>", f'<h2 style="view-transition-name:t-{pagina}">', blo, 1)
@@ -542,7 +582,7 @@ def navegacion(h, pagina):
         i = ORDEN.index(pagina)
         vecino = lambda j: ORDEN[j] if 0 <= j < len(ORDEN) else "inicio"
         ant, sig = vecino(i - 1), vecino(i + 1)
-        blo = blo[:-len("</section>")] + final + pasos(ant, sig, relacionadas(pagina, {ant, sig}), ("./#secciones", "Todas las secciones")) + "</section>"
+        blo = blo[:-len("</section>")] + final + pasos(ant, sig, relacionadas(pagina, {ant, sig}), ("./#secciones", "Todos los temas")) + "</section>"
     elif final:
         blo = blo[:-len("</section>")] + final + "</section>"
     return h[:b["ini"]] + blo + h[b["fin"]:]
@@ -553,13 +593,26 @@ def lista(items):
     return "<ul>" + "".join(f'<li><a href="{u}">{e(t)}</a></li>' for u, t in items) + "</ul>"
 
 
-MAPA = ('<div class="pie-col"><h2>Temas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if not x[4] and x[0] != "articulos"]) + "</div>"
-        '<div class="pie-col"><h2>Herramientas</h2>' + lista([(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] + [("articulos.html", "Artículos"),
-                                                                                                                       ("laboratorio.html", "Laboratorio")]) +
+_secs_grupo = lambda items: [(url_pagina(s), TITULO_DE[s]) for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
+_col = lambda g: f'<h2>{e(g[1])}</h2>' + lista(_secs_grupo(g[2]))
+MAPA = (f'<div class="pie-col">{_col(GRUPOS[0])}</div><div class="pie-col">{_col(GRUPOS[1])}</div>'
+        f'<div class="pie-col">{_col(GRUPOS[2])}{_col(GRUPOS[4])}</div><div class="pie-col">{_col(GRUPOS[3])}</div>'
+        '<div class="pie-col"><h2>Herramientas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] +
+                                                                [("articulos.html", "Artículos"), ("laboratorio.html", "Laboratorio")]) +
         '<h2>Datina</h2>' + lista([("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
                                    ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]) + "</div>")
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
+# la barra y la lista de temas del menú "Más" (etapa 36): salen de BARRA y GRUPOS. En el menú, los temas que también están en la barra
+# llevan en-barra (se ven solo cuando la barra no los muestra), salvo las secciones de una categoría, que van siempre juntas
+_li = lambda s: (f'<li{" class=" + chr(34) + "en-barra" + chr(34) if s in {b for _, b in BARRA} and s not in CATEGORIA else ""}>'
+                 f'<a href="{url_pagina(s)}">{e(TITULO_DE[s])}</a></li>')
+_menu = ('<div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div>' +
+         "".join(f'<div class="menu-grupo"><p class="menu-tit" id="mt-{g}">{e(n)}</p><ul aria-labelledby="mt-{g}">' +
+                 "".join(_li(s) for it in items for s in (it[1] if isinstance(it, tuple) else [it])) + "</ul></div>" for g, n, items in GRUPOS))
+for marca, valor in {"<!--TEMAS-BARRA-->": "".join(f'<a href="{url_pagina(s)}">{e(n)}</a>' for n, s in BARRA), "<!--TEMAS-MENU-->": _menu}.items():
+    assert base.count(marca) == 1, marca
+    base = base.replace(marca, valor)
 BLOQUES = bloques(base)
 for b in BLOQUES:
     b["pagina"] = pagina_de(b)
@@ -606,7 +659,7 @@ def siluetas(h, id_):
         n = 5 if id_ in CON_CIFRAS else 0
         if n:
             vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
-            blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + vacias, blo, 1, re.S)
+            blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + vacias, blo, 1, re.S)
             h = h[:b["ini"]] + blo + h[b["fin"]:]
     return h.replace('<div class="prov-grid" id="prov-grid"></div>',
                      f'<div class="prov-grid" id="prov-grid">{perfil_vacio()}</div>', 1)

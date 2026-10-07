@@ -24,7 +24,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     </div>
     <nav class="temas" aria-label="Temas principales">
-      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="seguridad.html">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+      <!--TEMAS-BARRA-->
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Más<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
     </nav>
     <div class="barra-der">
@@ -49,7 +49,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      que ya están en la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <!--TEMAS-MENU-->
     </div>
     <div class="menu-col">
       <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos y Laboratorio</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div>
@@ -136,8 +136,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
-    <h2 class="bloque-tit" id="sec-titulo">Secciones</h2>
-    <p class="bloque-sub">Cada sección tiene su página: qué se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
+    <h2 class="bloque-tit" id="sec-titulo">Explorá la Argentina por tema</h2>
+    <p class="bloque-sub">Cuatro grandes temas. Cada sección tiene su página, con lo que se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
     <div class="secciones-grid" id="secciones-grid"></div>
     <h3 class="bloque-grupo" id="herr-titulo">Herramientas</h3>
     <p class="bloque-sub">Para cruzar indicadores entre provincias, armar un ranking con tus propias prioridades, ver los números por departamento y describir la situación educativa de cada provincia.</p>
@@ -190,7 +190,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="no-encontrada" id="no-encontrada" aria-labelledby="no-tit">
     <h2 id="no-tit">Esta página no existe</h2>
     <p class="nos-bajada">Puede que la dirección tenga un error o que la página se haya mudado. Los datos siguen acá: elegí una sección o buscá con la lupa.</p>
-    <p class="no-acciones"><a class="boton principal" href="./">Ir a la portada</a><a class="boton" href="./#secciones">Ver todas las secciones</a></p>
+    <p class="no-acciones"><a class="boton principal" href="./">Ir a la portada</a><a class="boton" href="./#secciones">Ver todos los temas</a></p>
   </section>
 
   <!-- Laboratorio (etapa 33, 6 de octubre de 2026, pedido del autor: "agregá o sustituí alguna sección con esto
@@ -217,7 +217,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
     <article class="lab-pieza grande invertida" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
       <div class="lab-texto">
-        <span class="etiqueta">Política</span>
+        <span class="etiqueta">Instituciones políticas</span>
         <h3 id="l-hemiciclo-t">Diputados y senadores, banca por banca</h3>
         <p class="lab-lead" data-t="lab-hemiciclo"></p>
         <a class="enlace" href="#f-legisladores">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
@@ -240,7 +240,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       </article>
       <article class="lab-pieza" id="l-anios" aria-labelledby="l-anios-t">
         <div class="lab-texto">
-          <span class="etiqueta">Política</span>
+          <span class="etiqueta">Instituciones políticas</span>
           <h3 id="l-anios-t">Quiénes estuvieron más años en el Congreso</h3>
           <p class="lab-lead" data-t="lab-anios"></p>
         </div>
@@ -306,7 +306,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Trabajo</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Dónde se crea empleo formal?">¿Dónde se crea empleo formal y cuánto se gana en cada provincia?</p>
-      <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen los salarios, cuánto dura un empleo y lo que cada provincia le vende al mundo. Las finanzas de cada provincia están en <a href="gobierno.html#f-fiscal">Gobierno</a>.</p>
+      <p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen los salarios, cuánto dura un empleo y lo que cada provincia le vende al mundo. Las finanzas de cada provincia están en <a href="gobierno.html#f-fiscal">Cuentas públicas</a>.</p>
     </div>
     <!--EXPLICADOR:trabajo-->
 
@@ -370,7 +370,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="tema" id="economia">
-    <h2>Economía y precios</h2>
+    <h2>Precios y actividad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>
       <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica. Todos los datos son del INDEC. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
@@ -449,7 +449,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="tema" id="empresas">
-    <h2>Empresas y oportunidades</h2>
+    <h2>Sector privado</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Dónde abren y cierran empresas?">¿Dónde abren y cierran empresas, y qué problemas esperan una solución?</p>
       <p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>
@@ -896,7 +896,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="tema" id="politica">
-    <h2>Política</h2>
+    <h2>Instituciones políticas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Quién decide y cómo se reparten los fondos?">¿Quién decide en la Argentina y cómo se reparten los fondos entre provincias?</p>
       <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
@@ -1065,10 +1065,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="tema" id="gobierno">
-    <h2>Gobierno</h2>
+    <h2>Cuentas públicas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto recauda y gasta el Estado?">¿Cuánto recauda y cuánto gasta el Estado, y cuánto debe?</p>
-      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto se recauda de cada impuesto nacional, cuánto debe el Estado nacional, cuántos cargos tienen las administraciones provinciales, cuánto recauda cada provincia de impuestos propios y cómo son las finanzas de cada provincia: qué parte de sus ingresos recauda por su cuenta, si le sobra o le falta y cuánto gasta en personal. Las transferencias de la Nación a las provincias están en <a href="politica.html#f-transferencias">Política</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
+      <p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto se recauda de cada impuesto nacional, cuánto debe el Estado nacional, cuántos cargos tienen las administraciones provinciales, cuánto recauda cada provincia de impuestos propios y cómo son las finanzas de cada provincia: qué parte de sus ingresos recauda por su cuenta, si le sobra o le falta y cuánto gasta en personal. Las transferencias de la Nación a las provincias están en <a href="politica.html#f-transferencias">Instituciones políticas</a>, y los subsidios a la energía, en <a href="energia.html#f-subsidios">Energía</a>.</p>
     </div>
     <!--EXPLICADOR:gobierno-->
 
