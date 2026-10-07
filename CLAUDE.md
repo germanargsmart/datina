@@ -546,7 +546,7 @@ El autor pasó un pedido largo (arquitectura, movimiento, UX/UI y contenido) y u
 
 ## Pendientes y próximos pasos (al 1 de octubre de 2026)
 
-Auditoría de diseño del 6 de octubre de 2026 y plan (pedido del autor: "quiero que seas crítico con la auditoría y luego armes un plan de trabajo"). El autor compartió un rediseño "editorial" escrito por otro, con letra con serif, fondo color papel, paleta nueva, esquinas casi rectas, tres cifras por sección y títulos como preguntas. Le pidió a Claude que no tomara en cuenta lo que dice del Sol de Mayo.
+Auditoría de diseño del 6 de octubre de 2026 y plan (pedido del autor: "quiero que seas crítico con la auditoría y luego armes un plan de trabajo"). El autor compartió una auditoría suya de rediseño "editorial", con letra con serif, fondo color papel, paleta nueva, esquinas casi rectas, tres cifras por sección y títulos como preguntas. Le pidió a Claude que no tomara en cuenta lo que dice del Sol de Mayo.
 - La crítica de Claude:
   - Varias afirmaciones no corresponden al sitio: no hay clases `card-*`, el empleo ya va en barras (solo 4 de 122 fichas abren con un mapa), las pesas ya existen y el SIPA no es un organismo.
   - Su gris más claro da 4,1 a 1 sobre su fondo. Su rojo y su verde tienen el mismo brillo: en blanco y negro son el mismo gris, y con daltonismo rojo-verde se distinguen peor que los de Datina.
