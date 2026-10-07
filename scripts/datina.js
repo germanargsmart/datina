@@ -856,7 +856,7 @@ const TX = {
     `El dato de Neuquén es de la Secretaría de Energía. El gas llega hasta ${PG.mundo.gas_bcm.anio}, el último año que la EIA publica para casi todos los países. Se muestran los países que producen más que la Argentina y algunos de los que siguen.`,
   "adonse-titulo": `Madres menores de 20 años y nivel socioeconómico por provincia`,
   "adonse-nota": `Cada punto es una provincia. En el eje vertical, el porcentaje de los nacimientos de ${R.ado_nse.anio} cuya madre tenía menos de 20 años (DEIS, estadísticas vitales). En el horizontal, el indicador elegido del Censo 2022. La línea punteada es solo una guía de la tendencia. ` +
-    `La correlación es la de rangos de Spearman, que va de menos 1 a 1: cerca de 0 no hay relación, cerca de 1 o de menos 1 la relación es fuerte. Con 24 provincias, valores menores a 0,4 pueden deberse al azar. Una correlación no prueba que una cosa cause la otra: muestra que van juntas.`,
+    `La correlación es la de rangos de Spearman, que va de menos 1 a 1: cerca de 0 no hay relación, cerca de 1 o de menos 1 la relación es fuerte. Con 24 jurisdicciones, valores menores a 0,4 pueden deberse al azar. Una correlación no prueba que una cosa cause la otra: muestra que van juntas.`,
   "causas-titulo": `De qué mueren los bebés antes del primer año, por provincia, ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]}`,
   "causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
     `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que solo traen la causa con tres caracteres. ` +
@@ -1482,16 +1482,45 @@ function barrasH(el, cfg) {
   const valores = filas.append("text").attr("x", d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em")
     .attr("class", d => claseProv(d, "etq-suave")).text(d => (cfg.vf || n1)(d[cfg.k]));
   if (cfg.mejor) valores.style("fill", d => colorCambio(d, true));
+  // cfg.anota (etapa 34, prueba en tres fichas, pedido del autor: "una anotación por gráfico, junto al dato"): una nota corta pegada
+  // a la barra, calculada de los datos: la jurisdicción más alta y, con una provincia elegida, la tuya con su puesto. Va después del
+  // valor si entra, si no adentro de la barra, y si tampoco, con un texto más corto o nada. Se rehace al cambiar de provincia
+  const notas = g.append("g").attr("class", "anotas").attr("pointer-events", "none");
+  const anotar = () => {
+    notas.selectAll("*").remove();
+    if (!cfg.anota) return;
+    const borde = C.w - izq - 4;
+    const poner = (d, textos) => {
+      const yy = y(d.codigo_indec) + y.bandwidth() / 2, fin = x(Math.max(0, d[cfg.k])), largo = fin - x(0);
+      const vw = valores.filter(v => v === d).node().getComputedTextLength();
+      for (const tx of textos) {
+        const t = notas.append("text").attr("class", "anota").attr("y", yy).attr("dy", ".35em").text(tx), w = t.node().getComputedTextLength();
+        if (fin + 6 + vw + 10 + w <= borde) return t.attr("x", fin + 6 + vw + 10);
+        // adentro, con un borde del color que se ve de la barra, así la línea del país no cruza las letras
+        if (largo >= w + 16) return t.attr("x", fin - 8).attr("text-anchor", "end").attr("class", "anota adentro" + (marca(d) && !cfg.mejor && !cfg.color ? " sobre-fuerte" : ""))
+          .style("stroke", d3.interpolateRgb(css("--bg"), relleno(d))(opac(d)));
+        t.remove();
+      }
+    };
+    const alta = data[0], mia = hayMarca && !cfg.marcar ? data.find(marca) : null, n = data.length;
+    // si no entra todo, queda lo que la barra no dice: tu provincia ya se ve resaltada, la más alta o el puesto no
+    if (mia === alta) return poner(alta, ["tu provincia, la más alta", "la más alta"]);
+    poner(alta, ["la más alta"]);
+    if (mia) { const i = data.indexOf(mia) + 1; poner(mia, [`tu provincia, puesto ${i} de ${n}`, `puesto ${i} de ${n}`, `${i}.º de ${n}`]); }
+  };
+  anotar();
   // si los datos mismos cambian con la provincia (los nombres más frecuentes), se redibuja
   if (cfg.marcar) el.resaltar = () => {};
   else if (!cfg.cambiaConProv) el.resaltar = () => {
     pasar(barras).attr("fill", relleno).attr("opacity", opac);
     nombres.attr("class", d => claseProv(d, "etq")).each(ponerNombre); valores.attr("class", d => claseProv(d, "etq-suave"));
+    anotar();
   };
   if (cfg.anim) {
     barras.attr("x", x(0)).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
       .attr("x", d => x(Math.min(0, d[cfg.k]))).attr("width", d => Math.abs(x(d[cfg.k]) - x(0)));
     valores.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+    aparecer(notas, 150);
   }
   // el cuadro (etapa 16): los valores absolutos de cfg.tip, o el valor de la fila, y siempre que haya dato del país una fila "País"
   // (cfg.ref es la línea del país en el gráfico, cfg.pais el valor sin línea). Con cfg.dif = "puntos", también la diferencia en puntos.
@@ -1516,6 +1545,8 @@ function barrasH(el, cfg) {
     g.append("text").attr("x", x(cfg.ref2) + (der ? 5 : -5)).attr("y", data.length*fila + 18).attr("text-anchor", der ? "start" : "end")
       .attr("class","etq-fuerte").attr("fill",css("--ocde")).text(cfg.ref2Lab);
   }
+  // las anotaciones van por encima de las líneas de referencia
+  notas.raise();
 }
 
 function pesas(el, cfg) {
@@ -2421,7 +2452,7 @@ Object.assign(DIB, {
     }
     if (fp && fp.territorio !== SA.top[0] && fp.territorio !== SA.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.salario)} pesos${conVeces(fp.salario, SA.pais)}.`;
     $t("salarios").textContent = txt;
-    barrasH(el, {anim: a, data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k: "salario", vf: millonesM, af: ejeM, ref: SA.pais, refLab: `País ${millonesM(SA.pais)}`,
+    barrasH(el, {anim: a, data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k: "salario", vf: millonesM, af: ejeM, ref: SA.pais, refLab: `País ${millonesM(SA.pais)}`, anota: true,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.salario)} pesos en ${SA.mes}<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${SA.ant}`});
   }),
   // salario de un maestro de grado (etapa 23): por provincia en el último trimestre, o trimestre a trimestre en pesos de igual valor
@@ -2458,7 +2489,7 @@ Object.assign(DIB, {
     const nombradas = pctV ? [IE.pct_top[0], IE.pct_bajo[0]] : [IE.top[0], IE.bajo[0]];
     if (fp && !nombradas.includes(fp.territorio)) txt += pctV ? ` En ${fp.territorio}, el ${pct(fp.pct_gasto)}.` : ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno${conVeces(fp.gasto_por_alumno, IE.pais)}.`;
     $t("inversion-educativa").textContent = txt;
-    barrasH(el, {anim: a, data: T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k: col, vf: f, af: pctV ? f : ejeM, ref, refLab: `País ${f(ref)}`,
+    barrasH(el, {anim: a, data: T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k: col, vf: f, af: pctV ? f : ejeM, ref, refLab: `País ${f(ref)}`, anota: true,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.gasto_por_alumno)} pesos por alumno de gestión estatal<br>La educación, ${pct(d.pct_gasto)} del gasto público, ${IE.anio}`});
   }),
   // delitos por tipo en el país (etapa 23): los catorce tipos más frecuentes (la tabla tiene todos), o las tasas año por año.
@@ -2650,7 +2681,7 @@ Object.assign(DIB, {
       `${conVeces(fp.pct_otro_pais, MGC.pct)}: ${n0(fp.en_otro_pais)} personas, sobre todo de ${fp.primer_pais}.${nd}`;
     $t("nacidos-otro-pais").textContent = txt;
     barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_otro_pais", vf: n1, af: n0, ref: MGC.pct,
-      refLab: `País ${n1(MGC.pct)}`, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otro_pais)} de la población<br>${n0(d.en_otro_pais)} personas<br>` +
+      refLab: `País ${n1(MGC.pct)}`, anota: true, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otro_pais)} de la población<br>${n0(d.en_otro_pais)} personas<br>` +
         `País más frecuente: ${d.primer_pais}`});
   }),
   // dónde nacieron las personas que viven en cada provincia (etapa 25, Censo 2022)
@@ -5323,7 +5354,7 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
     `<thead><tr><th>Indicador</th><th class="n">Valor</th><th class="n">Puesto</th><th class="n">Todo el país</th></tr></thead><tbody>` +
     Object.keys(IND).filter(k => IND[k].v(c) != null).map(k => `<tr${tm().ind.includes(k) ? ' class="elegida"' : ""}><td>${IND[k].nombre}<small>${IND[k].cita}</small></td>` +
       `<td class="n" data-l="Valor">${pct(IND[k].v(c))}</td><td class="n" data-l="Puesto">${puesto(k, c)} de ${ST[k].vals.length}</td><td class="n" data-l="Todo el país">${pct(IND[k].pais)}</td></tr>`).join("") +
-    `</tbody></table></div><p class="dx-pie-tabla">Puesto entre las 24 provincias, ordenadas de mayor a menor valor.</p>`;
+    `</tbody></table></div><p class="dx-pie-tabla">Puesto entre las 24 jurisdicciones, ordenadas de mayor a menor valor.</p>`;
   function tarjeta(c) {
     const t = tm(), avisos = new Set(t.ind.map(k => motivo(k, c)).filter(Boolean));
     let h = `<article class="dx-prov"><h4>${conBandera(c, NOMBRES[c])}</h4>`;
@@ -5401,7 +5432,7 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
     salida.innerHTML = conjunto() + (sel.length ? sel.map(tarjeta).join("") : tarjetaPais()) + contexto();
     document.getElementById("dx-no-dice").innerHTML = noDice();
     const k = tm().ind[0];
-    document.getElementById("dx-grafico-tit").textContent = `${IND[k].nombre}, ${IND[k].anio}. Las 24 provincias, de mayor a menor`;
+    document.getElementById("dx-grafico-tit").textContent = `${IND[k].nombre}, ${IND[k].anio}. Las 24 jurisdicciones, de mayor a menor`;
     document.getElementById("dx-estado").textContent = `Diagnóstico de ${tm().nombre.toLowerCase()} para ${sel.length ? lista(sel.map(c => NOMBRES[c])) : "todo el país"}.`;
     if (cambio) {
       salida.animate([{opacity: 0}, {opacity: 1}], {duration: 200, easing: "cubic-bezier(.23,1,.32,1)"});
@@ -5528,7 +5559,7 @@ grilla.innerHTML = `<nav class="perfil-indice" id="perfil-indice" aria-label="Te
     `<div class="perfil-tarjetas">` + PERFIL.map((c, j) => c.g !== g ? "" : `<a class="tarjeta dp" href="#${c.id}" data-i="${j}"><span class="dp-lab">${c.lab}</span>
   <span class="dp-num"></span><span class="dp-det">${c.det}</span><svg class="dp-tira" aria-hidden="true"></svg><span class="dp-pos"></span><span class="dp-aclara"></span></a>`).join("") +
     `</div></section>`).join("");
-// Tira con las 24 provincias: puntos claros, raya oscura para el país y punto grande para la elegida
+// Tira con las 24 jurisdicciones: puntos claros, raya oscura para el país y punto grande para la elegida
 function tiras() {
   grilla.querySelectorAll(".dp").forEach(el => {
     const c = PERFIL[+el.dataset.i], nodo = el.querySelector(".dp-tira"), svg = d3.select(nodo);
@@ -6423,7 +6454,7 @@ const pintarCifras = () => {
 /* Minigráfico de cada tarjeta de "En cifras" (etapa 16, idea de un tablero que compartió el autor). Resuelve lo que en octubre de 2026
    descartó los minigráficos dentro de las tarjetas (a 48 x 18 píxeles no se leían): al pasar el mouse por una tarjeta, o con el foco del
    teclado, un cuadro más grande muestra la serie del país de esa cifra (hasta diez datos, con el de la tarjeta resaltado en amarillo) o,
-   si la ficha solo tiene datos por provincia, las 24 provincias ordenadas con la línea del país. En las pantallas táctiles no aparece:
+   si la ficha solo tiene datos por provincia, las 24 jurisdicciones ordenadas con la línea del país. En las pantallas táctiles no aparece:
    tocar la tarjeta lleva a la ficha. Las tarjetas sin datos para eso (por ejemplo las de Política, salvo los ATN) no muestran nada. */
 const semCorto = r => `${r.semestre === 1 ? "1.er" : "2.º"} sem. ${r.anio}`;
 const mesCorto = p => { const [y, m] = p.split("-"); return `${MESES[+m - 1].slice(0, 3)} ${y}`; };
@@ -6537,7 +6568,7 @@ const SERIE_CIFRA = {
 };
 // la tarjeta de una provincia elegida: sus 24 valores, con la provincia resaltada
 const miniIndp = i => { const c = INDP[i]; return c && provM(`${c.lab}: ${c.det}`, c.d, c.k, c.pais, c.f); };
-// el dibujo: barras de una serie (la de la tarjeta en amarillo, con su valor) o las 24 provincias ordenadas, con la línea del país
+// el dibujo: barras de una serie (la de la tarjeta en amarillo, con su valor) o las 24 jurisdicciones ordenadas, con la línea del país
 function htmlMini(o) {
   const W = 252, H = 92, top = 16, base = H - 16, esc2 = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
   if (o.prov) {
@@ -6551,7 +6582,7 @@ function htmlMini(o) {
     const elegida = prov && d.find(x => x.c === prov);
     const pie = `Más alto: ${esc2(NOMBRES[d[0].c])} (${o.f(d[0].v)}). Más bajo: ${esc2(NOMBRES[d[n - 1].c])} (${o.f(d[n - 1].v)}).` +
       (o.pais != null ? ` País: ${o.f(o.pais)}${linea ? ", la línea punteada" : ""}.` : "") + (elegida ? ` En amarillo, ${esc2(NOMBRES[prov])} (${o.f(elegida.v)}).` : "");
-    return `<span class="mini-tit">${esc2(o.tit)}. Las 24 provincias, de mayor a menor</span><svg class="mini" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">${barras}${linea}</svg><span class="mini-pie">${pie}</span>`;
+    return `<span class="mini-tit">${esc2(o.tit)}. Las 24 jurisdicciones, de mayor a menor</span><svg class="mini" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">${barras}${linea}</svg><span class="mini-pie">${pie}</span>`;
   }
   const d = o.d, n = d.length, g = 4, bw = (W - g * (n - 1)) / n, hi = o.hl != null ? Math.max(0, d.findIndex(x => String(x[0]) === String(o.hl))) : n - 1;
   const max = Math.max(0, d3.max(d, x => x[1])), min = Math.min(0, d3.min(d, x => x[1])), y = v => base - (v - min) / (max - min || 1) * (base - top);

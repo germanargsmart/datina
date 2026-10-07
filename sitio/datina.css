@@ -36,6 +36,7 @@
   color-scheme:light;
   /* colores: la bandera y los neutros */
   --bg:#FFFFFF; --fondo:#F6F8FB; --ink:#18212B; --muted:#56606C; --faint:#98A2AE; --line:#E4E9EF;
+  --faint-texto:#687280;   /* el gris de los textos chicos que dicen algo (etapa 34): 4,9 a 1 sobre blanco, --faint da 2,6 */
   --borde:#D9E3EE; --borde-claro:#C6DCF1; --superficie:#F7FAFD; --superficie-2:#EDF2F8; --superficie-3:#E2EAF3;
   --esqueleto:#EDF2F8;   /* formas de carga (el mismo valor va escrito en los dibujos de datina.css) */
   --celeste:#74ACDF; --celeste-fuerte:#2C74B5; --celeste-suave:#DCEBF8; --celeste-suave-2:#D1E4F5;
@@ -1105,6 +1106,9 @@ html:not(.js) .esqueleto{display:none}
 .etq-suave{font-size:12.5px;fill:var(--muted);font-family:var(--f)}
 .etq-fuerte{font-size:13px;font-weight:650;fill:var(--ink);font-family:var(--f)}
 .etq,.etq-suave,.etq-fuerte{paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
+.anota{font-family:var(--f);font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
+.anota.adentro{fill:var(--ink);font-weight:500;stroke-width:3px}
+.anota.sobre-fuerte{fill:#fff}
 /* cuadro flotante */
 .tip{position:absolute;z-index:5;padding:7px 10px;font-family:var(--mono);font-size:12px;line-height:1.35;white-space:nowrap;color:var(--bg);background:var(--azul-hondo);border-radius:var(--r-interno);
   pointer-events:none;opacity:0;transform:translateY(4px) scale(.96);transform-origin:50% 100%;transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
@@ -1238,7 +1242,7 @@ html:not(.js) .esqueleto{display:none}
 .cx-eje-tit{font-family:var(--mono);font-size:11px;letter-spacing:.03em;fill:var(--muted)}
 .cx-lab{font-size:11px;fill:var(--muted);pointer-events:none}
 .cx-lab.elegida{font-size:12px;font-weight:700;fill:var(--ink)}
-.cx-lab.fuera{fill:var(--faint)}
+.cx-lab.fuera{fill:var(--faint-texto)}
 .cx-punto{cursor:pointer;outline:none}
 .cx-punto:focus-visible circle{stroke:var(--sol);stroke-width:3}
 .cx-leyenda{display:flex;flex-wrap:wrap;gap:4px 16px;margin:6px 0 0;font-family:var(--mono);font-size:var(--t-1);color:var(--muted)}
@@ -1299,7 +1303,7 @@ html:not(.js) .esqueleto{display:none}
 .vt-matriz td{height:30px;min-width:44px;text-align:center;font-size:12.5px;font-variant-numeric:tabular-nums;border-radius:4px}
 .vt-matriz td.ley{position:sticky;left:0;z-index:1;min-width:0;padding:0 10px 0 0;text-align:left;font-size:var(--t-2);line-height:1.2;background:var(--bg)}
 .vt-matriz td.ley small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
-.vt-matriz td.sin{font-size:11.5px;color:var(--faint)}
+.vt-matriz td.sin{font-size:11.5px;color:var(--faint-texto)}
 .vt-matriz tfoot td{padding-top:6px;border-top:1px dotted var(--azul)}
 /* el nombre de cada espacio abre su perfil: se lee como enlace */
 .vt-matriz th .esp-btn{padding:4px 2px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--azul);background:none;border:0;cursor:pointer;
@@ -1338,7 +1342,7 @@ html:not(.js) .esqueleto{display:none}
 .esp-votos span{font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .esp-votos em{display:inline-flex;align-items:center;gap:6px;font-style:normal;font-weight:600}
 .esp-votos em::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--pv)}
-.esp-votos em.sin{font-weight:400;color:var(--faint)}
+.esp-votos em.sin{font-weight:400;color:var(--faint-texto)}
 .esp-votos em.sin::before{display:none}
 .esp-votos small{color:var(--muted)}
 .esp-ver{font-size:var(--t-2)}
