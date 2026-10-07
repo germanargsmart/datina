@@ -311,7 +311,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:trabajo-->
 
     <article class="ficha" id="f-empleo">
-      <h3 data-t="empleo-titulo">Asalariados privados registrados por provincia</h3>
+      <h3>¿Cuánto empleo privado registrado hay en cada provincia?</h3>
+      <p class="ficha-sub">Asalariados privados registrados por provincia, {{empleo.mes}}</p>
       <p class="lead" data-t="empleo"></p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="empleo">
         <button type="button" data-m="cada_100" aria-pressed="true">Cada 100 habitantes</button>
@@ -324,7 +325,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-salarios">
-      <h3>Salario promedio de los asalariados registrados del sector privado por provincia, {{salarios.mes}}</h3>
+      <h3>¿Cuánto se gana en un empleo privado registrado en cada provincia?</h3>
+      <p class="ficha-sub">Salario promedio de los asalariados registrados del sector privado por provincia, {{salarios.mes}}</p>
       <p class="lead" data-t="salarios"></p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="salarios">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -336,7 +338,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-rotacion">
-      <h3 data-t="rotacion-titulo"></h3>
+      <h3>¿Quiénes llevan poco tiempo en su empleo?</h3>
+      <p class="ficha-sub" data-t="rotacion-titulo"></p>
       <p class="lead" data-t="rotacion"></p>
       <label class="selector-ficha"><span>Según</span>
         <select data-g="rotacion">
@@ -355,7 +358,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-exportaciones">
-      <h3 data-t="exportaciones-titulo"></h3>
+      <h3>¿Cuánto le vende al mundo cada provincia?</h3>
+      <p class="ficha-sub">Exportaciones por habitante según provincia de origen, {{nuevos.ex_anio}}</p>
       <p class="lead" data-t="exportaciones"></p>
       <div class="grafico" data-g="exportaciones" data-forma="barras"></div>
       <p class="nota" data-t="exportaciones-nota"></p>

@@ -570,6 +570,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* el mini sol de los títulos */
 .tema>h2::after,.provincias>h2::after,.nosotros>h2::after,.contacto>h2::after,.no-encontrada>h2::after,.laboratorio>h2::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
   background:radial-gradient(circle,var(--sol) 34%,transparent 37%),repeating-conic-gradient(var(--sol) 0 7deg,transparent 7deg 22.5deg)}
+/* La pregunta como título (etapa 35, prueba solo en Trabajo, pedido del autor tras la auditoría de diseño del 6 de octubre de 2026): el nombre
+   de la sección queda chico arriba, en el estilo de la etiqueta de las fichas y con el sol, y la pregunta pasa a ser el título grande, en la
+   letra de los títulos de ficha. El h2 sigue siendo el encabezado de la página (el constructor lo lee para el índice, los menús y las migas) */
+#trabajo>h2{margin:var(--e-6) 0 var(--e-3);padding-left:18px;font:500 var(--t-2)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+  font-variation-settings:normal}
+#trabajo>h2::after{top:.24em;right:auto;left:0;width:12px;height:12px}
+#trabajo .tema-intro .pregunta{max-width:20em;margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-9);line-height:1.08;font-weight:600;letter-spacing:-.01em;
+  color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32}
 
 /* migas: Datina, la sección y la provincia elegida, arriba del título */
 .migas{margin:var(--e-7) 0 0;font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -908,6 +916,8 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .listo .ficha.visto{opacity:1;transform:none}
 .etiqueta{display:inline-block;margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .etiqueta::before{content:"# ";color:var(--azul)}
+/* con el título como pregunta (etapa 35), la descripción con el período va debajo, más chica */
+.ficha-sub{max-width:var(--medida);margin:calc(-1 * var(--e-2)) 0 var(--e-3);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
 .ficha h3{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;font-family:var(--f-c75)}
 .clave{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px var(--e-4);margin:2px 0 var(--e-3)}
 .clave .num{font-size:var(--t-cifra);line-height:1;font-weight:500;letter-spacing:-.01em;color:var(--celeste-fuerte);font-variant-numeric:tabular-nums;
@@ -996,11 +1006,16 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   /* el texto ocupa muchas filas para no quedar debajo del gráfico: las filas vacías no miden nada */
   .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>h3{grid-column:1;grid-row:1}
   .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>.lead{grid-column:1;grid-row:2/span 30}
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>.ficha-sub{grid-column:1;grid-row:2}
+  .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha):has(>.ficha-sub)>.lead{grid-row:3/span 30}
   .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>.grafico{grid-row:span 30}
   .js:not(.listo) .tema:not(.herramienta)>.ficha:not(.ancha)>.pie{grid-column:1/-1}
 }
 .js .ficha h3:empty::before,.js .ficha .lead:empty::before{content:"";display:block;border-radius:2px;animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
 .js .ficha h3:empty::before{height:.75lh;margin:.12lh 0;width:min(24em,80%);background:var(--esqueleto)}
+/* la descripción que se calcula ocupa dos renglones mientras llega, como cuando se completa */
+.js .ficha .ficha-sub:empty::before{content:"";display:block;height:2lh;width:min(22em,80%);border-radius:2px;background:linear-gradient(var(--esqueleto) 0 70%,transparent 70%) 0 0/100% 1lh;
+  animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
 .js .ficha .lead:empty::before{height:4lh;background:repeating-linear-gradient(var(--esqueleto) 0 .62lh,transparent .62lh 1lh);
   -webkit-mask:linear-gradient(#000 0 0) 0 0/100% 3lh no-repeat,linear-gradient(#000 0 0) 0 3lh/58% 1lh no-repeat;
   mask:linear-gradient(#000 0 0) 0 0/100% 3lh no-repeat,linear-gradient(#000 0 0) 0 3lh/58% 1lh no-repeat}

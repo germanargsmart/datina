@@ -902,7 +902,6 @@ const TX = {
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
   muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. En ${R.femicidios.anio} la Justicia registró ${n0(R.femicidios.n)} víctimas directas de femicidio.`,
   "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
-  "empleo-titulo": `Asalariados privados registrados por provincia, ${em.mes}`,
   empleo: `En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado, ${n1(em.cada_100_pais)} por cada 100 habitantes. En los doce meses previos el total nacional ${signo(em.var_nac)} y ${em.suben} de las 24 jurisdicciones registraron aumentos.`,
   "mortalidad-titulo": `Tasa de mortalidad infantil por provincia, ${mo.tri_base} y ${mo.tri_act}`,
   mortalidad: `En ${mo.anio} murieron en el país ${n1(mo.tasa)} de cada 1.000 nacidos vivos antes de cumplir un año. En ${mo.anio-1} la tasa había sido ${n1(mo.tasa_prev)} y en ${mo.anio_inicio}, ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
@@ -1128,7 +1127,6 @@ const TX = {
   "esperanza-titulo": `Esperanza de vida al nacer por provincia y sexo, ${nv.ev_anio}`,
   esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer en el país era de ${n1(nv.ev_pais)} años: ${n1(nv.ev_m)} para las mujeres y ${n1(nv.ev_v)} para los varones. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
-  "exportaciones-titulo": `Exportaciones por habitante según provincia de origen, ${nv.ex_anio}`,
   exportaciones: `En ${nv.ex_anio} el país exportó bienes por ${n0(nv.ex_total)} millones de dólares, unos ${n0(nv.ex_pc_pais)} dólares por habitante. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : ""),
   "exportaciones-nota": `Valor FOB de los bienes exportados según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
   "censo-titulo": `Servicios, equipamiento y cobertura de salud por provincia, Censo 2022`,
@@ -5069,15 +5067,20 @@ async function imagenFicha(f) {
     t.split(/\s+/).filter(Boolean).forEach(p => { const n = l ? l + " " + p : p; if (l && med.measureText(n).width > W - pad * 2) { lin.push(l); l = p; } else l = n; });
     if (l) lin.push(l); return lin;
   };
-  const fT = `600 24px ${F}`, fL = `400 15px ${F}`, fP = `400 12px ${F}`;
+  const fT = `600 24px ${F}`, fS = `400 15px ${F}`, fL = `400 15px ${F}`, fP = `400 12px ${F}`;
   const tit = envolver(f.querySelector("h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
-  const pieL = envolver(`${f.querySelector(".pie > span")?.textContent || ""}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
-  const H = pad + tit.length * 30 + 10 + lead.length * 21 + 18 + h + 22 + pieL.length * 17 + pad;
+  // con el título como pregunta (etapa 35), la descripción con el período va debajo
+  const sub = envolver(f.querySelector(".ficha-sub")?.textContent || "", fS);
+  // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo
+  const pieL = envolver(`${(f.querySelector(".pie > span")?.textContent || "").trim().replace(/\.$/, "")}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
+  const H = pad + tit.length * 30 + (sub.length ? sub.length * 21 + 6 : 0) + 10 + lead.length * 21 + 18 + h + 22 + pieL.length * 17 + pad;
   const cv = document.createElement("canvas"); cv.width = W * E; cv.height = H * E;
   const ctx = cv.getContext("2d"); ctx.scale(E, E); ctx.textBaseline = "top";
   ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
   let yy = pad;
-  ctx.fillStyle = css("--azul"); ctx.font = fT; tit.forEach(l => { ctx.fillText(l, pad, yy); yy += 30; }); yy += 10;
+  ctx.fillStyle = css("--azul"); ctx.font = fT; tit.forEach(l => { ctx.fillText(l, pad, yy); yy += 30; });
+  if (sub.length) { yy += 6; ctx.fillStyle = css("--muted"); ctx.font = fS; sub.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); }
+  yy += 10;
   ctx.fillStyle = css("--ink"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); yy += 18;
   ctx.drawImage(img, pad + (W - pad * 2 - w) / 2, yy, w, h); yy += h + 12;
   ctx.strokeStyle = css("--azul"); ctx.setLineDash([1, 3]); ctx.beginPath(); ctx.moveTo(pad, yy); ctx.lineTo(W - pad, yy); ctx.stroke(); yy += 10;
@@ -5093,7 +5096,8 @@ document.querySelectorAll("article.ficha").forEach(f => {
   const tema = f.closest(".tema")?.querySelector("h2")?.textContent;
   if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
-  if (c) h3.insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[1]}</span></p>`);
+  // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
+  if (c) (f.querySelector(".ficha-sub") || h3).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[1]}</span></p>`);
   const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a");
   const acc = document.createElement("div"); acc.className = "acciones";
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre];
@@ -5141,7 +5145,7 @@ document.querySelectorAll(".tema:not(.herramienta) > article.ficha:not(.ancha)")
   texto.className = "ficha-texto"; graf.className = "ficha-grafico";
   [...f.children].forEach(el => {
     if (el.matches(".pie, .tabla-datos")) return;
-    (el.matches(".etiqueta, h3, .clave, .lead, .nota:not(.ocde-nota)") ? texto : graf).appendChild(el);
+    (el.matches(".etiqueta, h3, .ficha-sub, .clave, .lead, .nota:not(.ocde-nota)") ? texto : graf).appendChild(el);
   });
   f.prepend(texto, graf);
   f.classList.add("horizontal");
@@ -6647,12 +6651,12 @@ if (PAGINA !== "inicio") {
     IDX.push({t: "Laboratorio", s: "Gráficos", u: "laboratorio.html", x: "piezas visuales hemiciclo bancas pozos vaca muerta congreso años natalidad mortalidad evolución", sec: 1});
     IDX.push({t: "La Corte Suprema: quién designó a cada juez", s: "Laboratorio", u: "corte-suprema.html",
       x: "corte suprema justicia jueces ministros designación presidentes gobiernos de facto poder judicial", sec: 1});
-    SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda]) => {
+    SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda, sub, ks]) => {
       // el título y el texto de muchas fichas se calculan (TX): en otra página se leen de ahí
       const h = (TX[kt] || tit || "").trim(); if (!h) return;
       // las fichas de suicidio llevan a las líneas de ayuda, que van justo antes
       const ancla = NOTA_A_LA_VISTA.has(id) && trasAyuda ? "#ayuda-suicidio" : "#" + id;
-      IDX.push({t: h, s: nombreSec(sec), u: ir(id, ancla), x: (TX[kl] || "") + " " + (CLAVE[id]?.[1] || "")});
+      IDX.push({t: h, s: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || "")});
     });
     PREG.forEach(([q, a, h]) => { if (paginaDe(h.slice(1))) IDX.push({t: q, s: "Pregunta", u: ir(h.slice(1), h), x: a}); });
     ART.forEach(a => IDX.push({t: a.titulo, s: "Artículo", u: urlPagina(a.id), x: a.dek + " " + a.t.bajada, sec: 1}));

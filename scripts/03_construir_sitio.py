@@ -329,11 +329,14 @@ for b in TEMAS:
         h3 = re.search(r"<h3([^>]*)>(.*?)</h3>", m.group(3), re.S)
         kt = re.search(r'data-t="([^"]+)"', h3.group(1)) if h3 else None
         kl = re.search(r'<p class="lead" data-t="([^"]+)"', m.group(3))
+        # etapa 35 (prueba en Trabajo): el título es una pregunta y la descripción con el período va debajo (p.ficha-sub), fija o calculada
+        sub = re.search(r'<p class="ficha-sub"(?: data-t="([^"]+)")?>(.*?)</p>', m.group(3), re.S)
         explorador = "explorador" in m.group(1)
         n += not explorador
-        # [id, sección, título fijo, clave del título calculado, clave del texto, explorador, después de las líneas de ayuda]
+        # [id, sección, título fijo, clave del título calculado, clave del texto, explorador, después de las líneas de ayuda,
+        #  descripción fija, clave de la descripción calculada]
         FICHAS.append([m.group(2), b["id"], texto(h3.group(2)) if h3 else "", kt.group(1) if kt else "", kl.group(1) if kl else "",
-                       int(explorador), int(0 <= ayuda < m.start())])
+                       int(explorador), int(0 <= ayuda < m.start()), texto(sub.group(2)) if sub else "", (sub.group(1) or "") if sub else ""])
     # [id, título, pregunta, texto de entrada, herramienta, fichas, artículos, pregunta corta para la tarjeta de la portada]
     SECCIONES.append([b["id"], titulo, texto(preg.group(2)) if preg else "", texto(intro.group(1)) if intro else "",
                       int("herramienta" in b["clases"]), n, len(re.findall(r'<article class="nota"', h)),
