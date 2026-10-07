@@ -546,6 +546,24 @@ El autor pasó un pedido largo (arquitectura, movimiento, UX/UI y contenido) y u
 
 ## Pendientes y próximos pasos (al 1 de octubre de 2026)
 
+Auditoría de diseño del 6 de octubre de 2026 y plan (pedido del autor: "quiero que seas crítico con la auditoría y luego armes un plan de trabajo"). El autor compartió un rediseño "editorial" escrito por otro, con letra con serif, fondo color papel, paleta nueva, esquinas casi rectas, tres cifras por sección y títulos como preguntas. Le pidió a Claude que no tomara en cuenta lo que dice del Sol de Mayo.
+- La crítica de Claude:
+  - Varias afirmaciones no corresponden al sitio: no hay clases `card-*`, el empleo ya va en barras (solo 4 de 122 fichas abren con un mapa), las pesas ya existen y el SIPA no es un organismo.
+  - Su gris más claro da 4,1 a 1 sobre su fondo. Su rojo y su verde tienen el mismo brillo: en blanco y negro son el mismo gris, y con daltonismo rojo-verde se distinguen peor que los de Datina.
+  - Propone cosas sin datos oficiales: pobreza por provincia (la EPH mide aglomerados) y el producto de cada provincia.
+  - Choca con decisiones del autor: nada de serif, todo blanco, esquinas redondeadas, tarjetas grises, cinco cifras, provincia elegida solo en "Tu provincia" e íconos isométricos.
+- Respuestas del autor el mismo día: probar la pregunta como protagonista en Trabajo, agrupar las secciones de la portada en cuatro temas, una anotación por gráfico en tres fichas de prueba y dos fichas nuevas. No eligió el bloque de organismos en la portada.
+- Plan, una etapa por vez, mostrando el resultado antes de seguir:
+  - Etapa 29, hecha: el rompecabezas de la portada (ver "Reglas de diseño").
+  - Etapa 30: "24 jurisdicciones" en los cuatro textos que dicen "24 provincias" (en `datina.js`: la nota de correlación de los artículos, el diagnóstico educativo y el minigráfico de "En cifras"). También oscurecer `--faint` (2,6 a 1) donde informa algo (`.cx-lab.fuera`, `.vt-matriz td.sin`, `.esp-votos em.sin`) y una anotación pegada al dato en tres fichas de prueba, siempre calculada desde los datos.
+  - Etapa 31: en Trabajo, la pregunta pasa a ser el título grande de la página, con el nombre de la sección chico arriba. Cada ficha se titula con una pregunta, con la descripción y el período debajo. Es una prueba que deja de lado, solo ahí, la regla "Títulos de ficha descriptivos ... Las preguntas van solo en el índice". Si al autor le gusta, sigue en Pobreza, Salud, Educación y Población.
+  - Etapa 32: las 18 secciones de la portada agrupadas en Personas, Trabajo y economía, Estado y sociedad, y Territorio y recursos, con Curiosidades al final.
+  - Etapa 33: dos fichas nuevas. Una, cuánto crece o se achica la población de cada provincia hasta 2040, con las proyecciones del INDEC. La otra, las causas de muerte por provincia, con la base de defunciones de la DEIS que ya baja el sitio (todas las edades, por causa CIE-10 y provincia de residencia). Las causas van con tasas ajustadas por edad y con las causas externas agrupadas, sin separar el suicidio.
+- No se hace, para que no vuelva:
+  - Diseño: letra con serif, fondo color papel, paleta nueva, el rojo y el verde nuevos, esquinas rectas y tarjetas sin gris.
+  - Portada y navegación: tres cifras en "En cifras", elegir la provincia en la portada, sacar los íconos, una barra de cuatro palabras (se perdería el indicador de provincia), sacar la fila de secciones del celular y "Argentina en tres números".
+  - Contenido: la metodología en tres columnas fijas, el ranking de pobreza por provincia, el gráfico de producción por provincia y "autor y fecha" en los artículos.
+
 Paquete de datos y portada (2 de octubre de 2026), terminado, aprobado ese día y guardado en GitHub. Además de las reglas del pipeline (ver "Formato de datos"):
 - Nacimientos: de la DEIS (nacidos vivos por residencia de la madre, un archivo por año desde 2012, `deis_nacidos_AAAA.csv`) en lugar del RENAPER, que registraba entre 1,3% y 3,9% menos. Cada archivo suma exactamente el total del anuario "Estadísticas vitales" (2014 777.012, 2023 460.902, 2024 413.135). También las madres menores de 20 años por provincia (IMEDAD 1 y 2), que alimentan Cruces, el artículo de cobertura y madres adolescentes y la correlación con el nivel socioeconómico. El RENAPER queda para los nombres.
 - Tasa de suicidios: el SNIC la calcula sobre la población de 5 años y más (criterio OPS y OMS, confirmado en su informe y con los datos). Título, textos, nota y tabla larga (`tasa_suicidios_100mil_5_anios_y_mas`) lo dicen, y la nota pide no compararla con la de homicidios.
