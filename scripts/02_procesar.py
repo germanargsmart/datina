@@ -2717,6 +2717,14 @@ _co_dur = corte_jueces.groupby("nombre").anios.sum()
 _co_largo = _co_dur.sort_values(ascending=False)
 # años en los que todos los jueces en funciones al 31 de diciembre venían de un mismo grupo
 _co_un = corte_composicion[(corte_composicion[_co_g].gt(0).sum(axis=1) == 1) & (corte_composicion.jueces > 0)]
+# los gobiernos de facto (con Guido, por la clasificación del autor), unidos cuando uno sigue al otro con días de junta en el medio:
+# son las franjas grises de la línea de tiempo de los jueces
+_co_fac = []
+for _co_r in cpf[cpf.grupo.eq("facto")].sort_values("ini").itertuples():
+    if _co_fac and (_co_r.ini - _co_fac[-1][1]).days <= 31:
+        _co_fac[-1][1] = max(_co_fac[-1][1], _co_r.fin_)
+    else:
+        _co_fac.append([_co_r.ini, _co_r.fin_])
 CORTE_RES = {
     "grupos": [{"k": k, "lab": l, "c": c} for k, l, c in CORTE_GRUPOS if k in set(cj.grupo)],
     "designaciones": int(len(corte_jueces)), "personas": int(corte_jueces.nombre.nunique()),
@@ -2726,7 +2734,7 @@ CORTE_RES = {
     "por_gobierno": {k: int((corte_jueces.gobierno == k).sum()) for k in corte_jueces.gobierno.unique()},
     "hoy": [{"nombre": r.nombre, "designado_por": r.designado_por, "grupo": r.grupo, "desde": int(r.anio_desde)} for r in _cj_hoy.itertuples()],
     "ley_hoy": _co_ley_hoy, "vacantes": int(_co_ley_hoy - len(_cj_hoy)),
-    "presidentes": int(corte_presidentes.presidente.nunique()),
+    "presidentes": int(corte_presidentes.presidente.nunique()), "presidencias": int(len(corte_presidentes)),
     # los tres primeros puestos por cantidad de jueces designados, con los empates juntos y cada presidente con sus años de gobierno
     "top_presidentes": [{"n": int(n), "nombres": [f"{r.presidente} ({r.inicio[:4]})" if (corte_presidentes.presidente == r.presidente).sum() > 1 else r.presidente
                                                   for r in _co_pp[_co_pp.designados == n].itertuples()]}
@@ -2745,6 +2753,7 @@ CORTE_RES = {
     "no_asumieron_lista": [{"nombre": r.nombre, "anio": int(r.fecha_designacion[:4]), "designado_por": r.designado_por}
                            for r in cna.itertuples() if r.designado_por != "Justo José de Urquiza"],
     "anios_composicion": int(len(corte_composicion)),
+    "facto": [{"desde": a.strftime("%Y-%m-%d"), "hasta": b.strftime("%Y-%m-%d")} for a, b in _co_fac if b.year >= 1863],
     "ultimo": {"nombre": corte_jueces.iloc[-1].nombre, "anio": int(corte_jueces.iloc[-1].anio_desde), "designado_por": corte_jueces.iloc[-1].designado_por},
     "cambios_ley": [{"anio": int(str(r.desde)[:4]), "jueces": int(float(r.cantidad_de_jueces)), "norma": r.norma}
                     for r in ctam.itertuples() if isinstance(r.cantidad_de_jueces, str) and int(str(r.desde)[:4]) >= 1862],

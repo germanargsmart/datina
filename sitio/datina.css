@@ -687,8 +687,31 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .lab-pieza>.enlace,.lab-texto>.enlace{justify-self:start;align-self:start;font-size:var(--t-3)}
 /* el mapa de los pozos guarda la proporción de su dibujo (mapaPozos: el alto es el 92% del ancho), así su silueta mide lo mismo en cualquier ancho */
 .js .grafico[data-g="lab-pozos"]:is(:empty,[aria-busy="true"])::before{height:auto;aspect-ratio:1/.92}
-/* la línea de los jueces que fija la ley, en la leyenda de la composición de la Corte */
-.pol-ley i.co-ley{width:16px;height:0;border-radius:0;background:none;border-top:1.6px dashed var(--ink)}
+/* Gráficos de la Corte Suprema (rehechos el 7 de octubre de 2026): la línea de los jueces que fija la ley y los lugares vacantes rayados,
+   en la leyenda y en la lectura, los nombres pegados a las barras, las franjas de los gobiernos de facto y los cuadrados de los presidentes */
+.pol-ley i.co-ley{width:16px;height:0;border-radius:0;background:none;border-top:1.5px solid var(--ink)}
+:is(.pol-ley,.lectura-serie) i.co-vac{background:repeating-linear-gradient(-45deg,var(--faint) 0 1.5px,transparent 1.5px 4px);box-shadow:inset 0 0 0 1px var(--line)}
+.lectura-serie i.co-vac{border-radius:2px}
+.co-facto rect{fill:var(--superficie-2)}
+.pol-ley i.co-banda{width:16px;background:var(--superficie-2);box-shadow:inset 0 0 0 1px var(--borde)}
+.co-nom{font-family:var(--f);font-size:11px;fill:var(--ink)}
+.angosto .co-nom{font-size:10.5px}
+.co-nom.fuerte{font-weight:650}
+.co-nom.activo{font-weight:650;fill:var(--azul-hondo,var(--ink))}
+.co-marco{fill:none;stroke:var(--ink);stroke-width:1.5px;pointer-events:none}
+.co-franja{stroke:#fff;stroke-width:1px;stroke-linejoin:round}
+.co-ley-linea{fill:none;stroke:var(--ink);stroke-width:1.5px}
+.co-rot{font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em}
+.angosto .co-rot{font-size:11px}
+.co-regla{stroke:var(--ink);stroke-width:1px;stroke-opacity:.55;pointer-events:none}
+.co-pres{font-family:var(--f);font-size:13px;fill:var(--ink)}
+.angosto .co-pres{font-size:11.5px}
+.co-anio{font-family:var(--mono);font-size:11px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.co-cuenta{font-family:var(--mono);font-size:11.5px;font-weight:600;fill:var(--ink)}
+.co-cuad.activo{stroke:var(--ink);stroke-width:1.5px}
+.co-prot{cursor:default}
+/* el gráfico de los presidentes va en dos columnas desde 760 píxeles: entre 520 y 759, en una, con su propio alto mientras carga */
+@container (min-width:520px) and (max-width:759px){ .js .grafico[data-g="cs-presidentes"]::before{height:var(--alto-m)} }
 .lab-pieza.grande .lab-graf>.pol-ley{margin-bottom:var(--e-2)}
 .pol-ley i.lab-ini{width:9px;height:9px;border-radius:50%;background:#fff;border:1.5px solid var(--celeste)}
 .pol-ley i.lab-fin{width:10px;height:10px;border-radius:50%;background:var(--celeste)}
@@ -1281,11 +1304,13 @@ html:not(.js) .esqueleto{display:none}
 /* el nombre de cada espacio abre su perfil: se lee como enlace */
 .vt-matriz th .esp-btn{padding:4px 2px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--azul);background:none;border:0;cursor:pointer;
   text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
-.pol-ley .esp-btn{display:inline-flex;align-items:center;gap:6px;min-height:32px;margin:-4px -8px;padding:4px 8px;font:inherit;color:inherit;text-align:left;
+.pol-ley :is(.esp-btn,.co-btn){display:inline-flex;align-items:center;gap:6px;min-height:32px;margin:-4px -8px;padding:4px 8px;font:inherit;color:inherit;text-align:left;
   background:none;border:1px solid transparent;border-radius:var(--r-control);cursor:pointer;transition:border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out)}
+/* la leyenda de la Corte resalta un grupo: el elegido queda marcado como presionado */
+.pol-ley .co-btn[aria-pressed="true"]{background:var(--superficie-2);border-color:var(--borde)}
 @media (hover:hover) and (pointer:fine){
   .vt-matriz th .esp-btn:hover{text-decoration-color:var(--azul)}
-  .pol-ley .esp-btn:hover{background:var(--superficie);border-color:var(--borde)}
+  .pol-ley :is(.esp-btn,.co-btn):hover{background:var(--superficie);border-color:var(--borde)}
 }
 /* perfil de un espacio político (etapa 9): un cuadro encima de la página, con el radio y la sombra de los paneles */
 .esp-dialogo{width:min(720px,calc(100% - 32px));max-height:min(86vh,920px);padding:0;color:var(--ink);background:#fff;border:1px solid var(--borde);

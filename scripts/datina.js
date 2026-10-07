@@ -1774,13 +1774,11 @@ function columnasApiladas(el, cfg) {
   const {g, iw, ih} = C;
   const x = d3.scaleBand().domain(data.map(d => d.anio)).range([0, iw]).padding(.18);
   const tot = d => d3.sum(cfg.claves, k => d[k.k] || 0);
-  // cfg.linea (etapa 33): una línea escalonada encima de las columnas, como los jueces que fija la ley en la composición de la Corte
-  const y = d3.scaleLinear().domain([0, d3.max(data, d => Math.max(tot(d), cfg.linea ? d[cfg.linea.k] || 0 : 0))]).nice().range([ih, 0]);
+  const y = d3.scaleLinear().domain([0, d3.max(data, tot)]).nice().range([ih, 0]);
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(cfg.af || null)).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`)
-    .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter((a, i) => cfg.cadaAnio ? a % (angosto ? cfg.cadaAnio * 2 : cfg.cadaAnio) === 0
-      : cfg.cadaTick ? i % (angosto ? cfg.cadaTick * 2 : cfg.cadaTick) === 0 : a % (angosto ? 8 : 4) === 0))
+    .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter((a, i) => cfg.cadaTick ? i % (angosto ? cfg.cadaTick * 2 : cfg.cadaTick) === 0 : a % (angosto ? 8 : 4) === 0))
       .tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   const col = g.selectAll("g.c").data(data).join("g").attr("class","c").attr("transform", d => `translate(${x(d.anio)},0)`);
   col.each(function(d) {
@@ -1792,23 +1790,9 @@ function columnasApiladas(el, cfg) {
     if (cfg.anim) r.attr("y", ih).attr("height", 0).transition().delay(x(d.anio) / iw * 150).duration(DUR_G).ease(EASE)
       .attr("y", p => y(p.y0 + p.v)).attr("height", p => y(p.y0) - y(p.y0 + p.v));
   });
-  if (cfg.linea) {
-    // un tramo horizontal por columna, unido al anterior en cada cambio; sin dato, la línea se corta
-    let camino = "", antes = null;
-    data.forEach(d => {
-      const v = d[cfg.linea.k];
-      if (v == null) { antes = null; return; }
-      const x0 = x(d.anio) - (x.step() - x.bandwidth()) / 2, yy = y(v);
-      camino += `${antes == null ? "M" : "L"}${x0.toFixed(1)},${yy.toFixed(1)}H${(x0 + x.step()).toFixed(1)}`;
-      antes = v;
-    });
-    g.append("path").attr("d", camino).attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.4).attr("stroke-dasharray", "3 3")
-      .attr("pointer-events", "none");
-  }
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
     .on("pointerenter", function(ev, d) {
-      mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>") +
-        (cfg.linea && d[cfg.linea.k] != null ? `<br>${cfg.linea.lab}: ${d[cfg.linea.k]}` : ""), (cfg.l || 36) + x(d.anio) + x.bandwidth() / 2, 10); })
+      mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>"), (cfg.l || 36) + x(d.anio) + x.bandwidth() / 2, 10); })
     .on("pointerleave", ocultarTip);
 }
 
@@ -3211,58 +3195,244 @@ const tipJuez = j => `<b>${j.nombre}</b><br>${mayus(coAnios(j))}, ${n1(j.anios)}
   `<br><span style="color:${CO_G[j.grupo].c}">■</span> ${CO_G[j.grupo].lab}` + (j.confirmado ? `<br>${j.confirmado}` : "") +
   (j.segunda_designacion ? "<br>Segunda designación" : "") + (coMotivo[j.motivo_cese] ? `<br>${coMotivo[j.motivo_cese]}` : "");
 
-/* Línea de tiempo de los jueces: cada uno es una barra en su carril, desde que juró (o desde su decreto) hasta que dejó el cargo, con el
-   color del grupo que lo designó. Hay tantos carriles como jueces a la vez (los arma 02_procesar.py). En pantallas angostas el tiempo corre
-   hacia abajo y los carriles son columnas. Al pasar el mouse o tocar, el juez del carril y la fecha que quedan debajo */
-function lineaCorte(el, cfg) {
-  const J = T.corte_jueces, L = CO.carriles, vertical = el.clientWidth < 560;
-  const ini = new Date(CO.desde, 0, 1), fin = new Date(), hasta = j => j.hasta ? new Date(j.hasta) : fin, desde = j => new Date(j.dib_desde);
-  const C = lienzo(el, vertical ? Math.round((fin.getFullYear() - CO.desde) * 4.4) + 40 : L * 22 + 34,
-    vertical ? {t: 10, r: 8, b: 10, l: 40} : {t: 6, r: 12, b: 28, l: 8});
+/* Los gráficos de la Corte se rehicieron el 7 de octubre de 2026 (pedido del autor: "los gráficos de jueces son horribles, hacelos muchos
+   más lindos y entendibles"). Antes eran una línea de tiempo por carriles sin nombres, 164 columnas separadas y barras con el número
+   repetido. Ahora: una fila por juez con su nombre, franjas sin cortes con los lugares vacantes a la vista y un cuadrado por juez.
+   La leyenda de los tres resalta un grupo: al pasar el mouse, con el foco o al tocarlo (tocar de nuevo lo suelta). El grupo elegido
+   queda en la tarjeta del gráfico (data-grupo), así sigue elegido si el gráfico se vuelve a dibujar, y cada gráfico deja en su
+   contenedor la función grupo(), que aclara a los demás */
+const coLeyenda = (extra = "") => coClaves().map(k => `<button type="button" class="co-btn" data-k="${k.k}" aria-pressed="false" aria-label="Resaltar ${k.lab}">` +
+  `<i style="background:${k.c}"></i>${k.lab}</button>`).join("") + extra;
+const CO_VAC = `<span><i class="co-vac"></i>Lugares vacantes</span><span><i class="co-ley"></i>Jueces que fija la ley</span>`;
+const CO_FACTO = `<span><i class="co-banda"></i>Años de gobierno de facto</span>`;
+// nombres cortos para escribir dentro de las franjas, donde el nombre de la leyenda no entra
+const CO_CORTO = {liberales: "Liberales", facto: "De facto"};
+const coCaja = el => el.closest(".nota-graf, .lab-graf");
+const coAplicar = (caja, k) => caja?.querySelector(".grafico")?.grupo?.(k || null);
+const coGrupoInicial = el => { const k = coCaja(el)?.dataset.grupo; if (k) el.grupo(k); };
+document.addEventListener("pointerover", ev => { const b = ev.target.closest?.(".co-btn"); if (b && ev.pointerType === "mouse") coAplicar(coCaja(b), b.dataset.k); });
+document.addEventListener("pointerout", ev => { const b = ev.target.closest?.(".co-btn");
+  if (b && ev.pointerType === "mouse" && !b.contains(ev.relatedTarget)) coAplicar(coCaja(b), coCaja(b).dataset.grupo); });
+document.addEventListener("focusin", ev => { const b = ev.target.closest?.(".co-btn"); if (b) coAplicar(coCaja(b), b.dataset.k); });
+document.addEventListener("focusout", ev => { const b = ev.target.closest?.(".co-btn"); if (b) coAplicar(coCaja(b), coCaja(b).dataset.grupo); });
+document.addEventListener("click", ev => {
+  const b = ev.target.closest?.(".co-btn"); if (!b) return;
+  const caja = coCaja(b), k = caja.dataset.grupo === b.dataset.k ? "" : b.dataset.k;
+  caja.dataset.grupo = k;
+  caja.querySelectorAll(".co-btn").forEach(x => x.setAttribute("aria-pressed", x.dataset.k === k));
+  coAplicar(caja, k);
+});
+// aclarar lo que no es del grupo elegido, con un fundido corto
+const coAclarar = (sel, k, clave, baja = .18) => sel.transition("grupo").duration(DUR_C).ease(d3.easeCubicOut).attr("opacity", d => !k || clave(d) === k ? 1 : baja);
+
+/* Cuánto estuvo cada juez: una fila por designación, en el orden en que llegaron, como la línea de tiempo de USAFacts. La barra va desde
+   la jura (o desde el decreto, si falta la jura) hasta que dejó el cargo, con el color del grupo del gobierno que lo designó, y el nombre
+   va pegado a la barra: antes, si entra, y si no, después. Detrás, las franjas grises son los gobiernos de facto (R.corte.facto), y quienes
+   siguen en el cargo van en negrita. Al pasar el mouse o tocar, el cuadro del juez de esa fila */
+function filasCorte(el, cfg) {
+  const J = T.corte_jueces, n = J.length, angosto = el.clientWidth < 560, FILA = CO_FILA, GROSOR = angosto ? 6 : 7;
+  const ini = new Date(CO.desde, 0, 1), fin = new Date(), desde = j => new Date(j.desde), hasta = j => j.hasta ? new Date(j.hasta) : fin;
+  const C = lienzo(el, n * FILA + 52, {t: 26, r: 6, b: 26, l: 6});
   const {svg, g, iw, ih} = C;
-  svg.attr("aria-label", `Línea de tiempo de los ${CO.designaciones} jueces de la Corte Suprema desde ${CO.desde}, con el color del gobierno que designó a cada uno`);
-  const t = d3.scaleTime().domain([ini, fin]).range(vertical ? [0, ih] : [0, iw]);
-  const c = d3.scaleBand().domain(d3.range(L)).range(vertical ? [0, iw] : [0, ih]).padding(.2);
+  svg.classed("angosto", angosto).attr("aria-label", `Línea de tiempo de las ${n} designaciones de jueces de la Corte Suprema desde ${CO.desde}, una por fila, ` +
+    `con el nombre de cada juez y el color del gobierno que lo designó`);
+  const t = d3.scaleTime().domain([ini, fin]).range([0, iw]);
+  const x0 = j => t(desde(j)), ancho = j => Math.max(2, t(hasta(j)) - x0(j));
+  g.append("g").attr("class", "co-facto").selectAll("rect").data(CO.facto).join("rect")
+    .attr("x", p => t(Math.max(+ini, +new Date(p.desde)))).attr("width", p => t(new Date(p.hasta)) - t(Math.max(+ini, +new Date(p.desde))))
+    .attr("y", -6).attr("height", ih + 12);
+  // una línea cada 20 años, y en el celular, un año escrito cada 40, para que no se toquen
   const marcas = d3.range(Math.ceil(CO.desde / 20) * 20, fin.getFullYear() + 1, 20).map(a => new Date(a, 0, 1));
-  g.append("g").attr("class", "grilla").selectAll("line").data(marcas).join("line")
-    .attr(vertical ? "y1" : "x1", d => t(d)).attr(vertical ? "y2" : "x2", d => t(d)).attr(vertical ? "x2" : "y2", vertical ? iw : ih);
-  g.append("g").attr("class", "eje").selectAll("text").data(marcas).join("text").text(d => d.getFullYear())
-    .attr(vertical ? "y" : "x", d => t(d)).attr(vertical ? "x" : "y", vertical ? -8 : ih + 18).attr("text-anchor", vertical ? "end" : "middle").attr("dy", vertical ? ".35em" : 0);
-  const grosor = c.bandwidth(), rx = rBarra(grosor);
-  const barras = g.selectAll("rect.juez").data(J).join("rect").attr("class", "juez").attr("fill", j => CO_G[j.grupo].c).attr("rx", rx)
-    .attr(vertical ? "x" : "y", j => c(j.carril)).attr(vertical ? "width" : "height", grosor)
-    .attr(vertical ? "y" : "x", j => t(desde(j))).attr(vertical ? "height" : "width", j => Math.max(1.5, t(hasta(j)) - t(desde(j))));
-  if (cfg.anim) barras.attr(vertical ? "height" : "width", 0).transition().delay(j => t(desde(j)) / (vertical ? ih : iw) * 150).duration(DUR_G).ease(EASE)
-    .attr(vertical ? "height" : "width", j => Math.max(1.5, t(hasta(j)) - t(desde(j))));
-  const marco = g.append("rect").attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-width", 1.5).attr("rx", rx + 1).attr("opacity", 0).attr("pointer-events", "none");
+  g.append("g").attr("class", "grilla").selectAll("line").data(marcas).join("line").attr("x1", t).attr("x2", t).attr("y1", -6).attr("y2", ih + 6);
+  for (const yy of [-13, ih + 21]) g.append("g").attr("class", "eje").selectAll("text").data(marcas.filter(d => !angosto || d.getFullYear() % 40 === 0)).join("text")
+    .attr("x", t).attr("y", yy).attr("text-anchor", "middle").text(d => d.getFullYear());
+  const filas = g.selectAll("g.co-fila").data(J).join("g").attr("class", "co-fila").attr("transform", (j, i) => `translate(0,${i * FILA})`);
+  const barras = filas.append("rect").attr("y", (FILA - GROSOR) / 2).attr("height", GROSOR).attr("rx", rBarra(GROSOR))
+    .attr("x", x0).attr("width", ancho).attr("fill", j => CO_G[j.grupo].c);
+  const nombres = filas.append("text").attr("class", j => "co-nom" + (j.en_funciones ? " fuerte" : "")).attr("y", FILA / 2).attr("dy", ".35em").text(j => j.nombre);
+  // el nombre antes de la barra si entra, si no después, y si no entra en ningún lado, del lado con más lugar y recortado
+  nombres.each(function(j) {
+    const a = x0(j), b = a + ancho(j), w = this.getComputedTextLength(), antes = a - 6, despues = iw - b - 6;
+    const izq = w <= antes || (w > despues && antes >= despues);
+    d3.select(this).attr("x", izq ? a - 5 : b + 5).attr("text-anchor", izq ? "end" : "start");
+    recortarEtq(this, izq ? antes : despues);
+  });
+  if (cfg.anim) {
+    barras.attr("width", 0).transition().delay((j, i) => i / n * 150).duration(DUR_G).ease(EASE).attr("width", ancho);
+    aparecer(nombres, 100);
+  }
+  const marco = g.append("rect").attr("class", "co-marco").attr("height", GROSOR + 4).attr("rx", rBarra(GROSOR) + 2).attr("opacity", 0);
+  let activa = -1;
+  const soltar = () => { activa = -1; marco.attr("opacity", 0); nombres.classed("activo", false); ocultarTip(); };
   const ver = ev => {
-    const [px, py] = d3.pointer(ev, g.node()), [ex, ey] = d3.pointer(ev, el);
-    const k = Math.max(0, Math.min(L - 1, Math.round(((vertical ? px : py) - c(0) - grosor / 2) / c.step())));
-    const f = t.invert(vertical ? py : px), tol = 4 / (vertical ? ih : iw) * (fin - ini);
-    const j = J.filter(j => j.carril === k).find(j => desde(j) - tol <= f && f <= +hasta(j) + tol);
-    if (!j) { marco.attr("opacity", 0); return ocultarTip(); }
-    const a = t(desde(j)), b = Math.max(a + 1.5, t(hasta(j)));
-    marco.attr(vertical ? "x" : "y", c(k) - 1.5).attr(vertical ? "width" : "height", grosor + 3).attr(vertical ? "y" : "x", a - 1.5)
-      .attr(vertical ? "height" : "width", b - a + 3).attr("opacity", 1);
-    mostrarTip(el, tipJuez(j), ex, ey);
+    const [px, py] = d3.pointer(ev, g.node()), i = Math.floor(py / FILA), j = J[i];
+    if (!j || py < 0) return soltar();
+    if (i !== activa) {
+      activa = i;
+      marco.attr("x", x0(j) - 2).attr("y", i * FILA + (FILA - GROSOR) / 2 - 2).attr("width", ancho(j) + 4).attr("opacity", 1);
+      nombres.classed("activo", (d, k) => k === i);
+    }
+    mostrarTip(el, tipJuez(j), 6 + Math.max(x0(j), Math.min(px, x0(j) + ancho(j))), 26 + i * FILA);
   };
   svg.append("rect").attr("width", C.w).attr("height", C.h).attr("fill", "transparent").style("touch-action", "pan-y")
-    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { marco.attr("opacity", 0); ocultarTip(); });
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", soltar);
+  el.grupo = k => coAclarar(filas, k, j => j.grupo, .16);
+  coGrupoInicial(el);
 }
-const coComposicion = (el, a) => columnasApiladas(el, {anim: a, data: T.corte_composicion, claves: coClaves(), cadaAnio: 20, unidad: "jueces", l: 30,
-  linea: {k: "ley", lab: "Jueces que fija la ley"}});
-const coPresidentes = (el, a) => {
-  const data = T.corte_presidentes.map((p, i) => ({...p, codigo_indec: "p" + i, territorio: `${p.presidente} (${p.inicio.slice(0, 4)})`, [p.grupo]: p.designados}));
-  const tope = d3.max(data, d => d.designados) * 1.15;
-  apiladasH(el, {anim: a, data, claves: coClaves(), max: tope, ticks: d3.range(0, tope, 2), ejeF: x => x, izq: angosto => angosto ? 168 : 246, recortar: true,
-    sinProv: true, tipF: x => `${x} ${x === 1 ? "juez" : "jueces"}`, alFinal: d => d.designados, tipExtra: d => `<br>${d.nombres}`});
-  el.resaltar = () => {};
-};
+// alto de cada fila de la línea de tiempo: con él se reserva el lugar del gráfico mientras carga
+const CO_FILA = 12;
+
+/* Los jueces de cada año: una franja por grupo, apiladas y sin cortes entre un año y otro, con los jueces en funciones al 31 de diciembre
+   (en el año en curso, hoy). Encima, rayados, los lugares vacantes hasta los jueces que fija la ley, que es la línea de arriba. La lectura
+   de arriba del gráfico, como en los gráficos de líneas, dice el año y cuántos jueces había de cada grupo, y arranca con hoy. Cada franja
+   lleva su nombre donde entra entero, en el lugar más amplio que deja */
+function areasCorte(el, cfg) {
+  const data = T.corte_composicion, angosto = el.clientWidth < 520, alto = angosto ? 323 : 363, claves = coClaves().filter(k => data.some(d => d[k.k]));
+  const anioHoy = new Date().getFullYear(), ult = data[data.length - 1];
+  const leer = d => {
+    const vac = d.ley != null ? d.ley - d.jueces : 0;
+    return `<b>${d.anio === anioHoy ? "Hoy" : d.anio}</b><span>${d.jueces} ${d.jueces === 1 ? "juez" : "jueces"}${d.ley != null ? `, la ley fija ${d.ley}` : ""}</span>` +
+      claves.filter(k => d[k.k]).map(k => `<span><i style="background:${k.c}"></i>${k.lab} ${d[k.k]}</span>`).join("") +
+      (vac > 0 ? `<span><i class="co-vac"></i>${vac} ${vac === 1 ? "lugar vacante" : "lugares vacantes"}</span>` : "");
+  };
+  const M = {t: 10, r: 8, b: 28, l: 26};
+  const C = lienzo(el, alto, M);
+  const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
+  // la lectura más larga fija el alto de la línea, así nada se corre al pasar el mouse, y el dibujo usa lo que queda del alto reservado
+  let hl = 0;
+  for (const d of data) { lec.html(leer(d)); hl = Math.max(hl, lec.node().offsetHeight); }
+  lec.style("min-height", hl + "px").html(leer(ult));
+  // el margen de la lectura cambia según dónde está el gráfico (en las notas, los párrafos llevan más aire)
+  const cs = getComputedStyle(lec.node()), hs = Math.max(200, alto - hl - parseFloat(cs.marginTop) - parseFloat(cs.marginBottom));
+  const ih = hs - M.t - M.b, {svg, g, iw} = C;
+  svg.attr("viewBox", `0 0 ${C.w} ${hs}`).classed("angosto", angosto).attr("aria-label", `Jueces de la Corte Suprema en funciones al final de cada año desde ${CO.desde}, ` +
+    `según el grupo del gobierno que designó a cada uno, con los lugares vacantes hasta los que fija la ley`);
+  const a0 = data[0].anio, x = d3.scaleLinear().domain([a0, ult.anio + 1]).range([0, iw]);
+  const tope = d3.max(data, d => Math.max(d.jueces, d.ley || 0));
+  const y = d3.scaleLinear().domain([0, tope + .4]).range([ih, 0]);
+  // marcas en los tamaños que fijó la ley (cinco, siete y nueve), no en números redondos
+  const marcasY = [0, ...new Set(data.map(d => d.ley).filter(v => v != null))].sort(d3.ascending);
+  g.append("g").attr("class", "grilla").selectAll("line").data(marcasY.slice(1)).join("line").attr("x1", 0).attr("x2", iw).attr("y1", y).attr("y2", y);
+  g.append("g").attr("class", "eje").selectAll("text").data(marcasY).join("text").attr("x", -8).attr("y", y).attr("dy", ".35em").attr("text-anchor", "end").text(v => v);
+  const cada = angosto ? 40 : 20, marcasX = d3.range(Math.ceil(a0 / cada) * cada, ult.anio + 1, cada);
+  g.append("g").attr("class", "eje").selectAll("text").data(marcasX).join("text").attr("x", x).attr("y", ih + 20).attr("text-anchor", "middle").text(a => a);
+  // el último año se repite un año después, así su tramo tiene ancho
+  const serie = [...data, {...ult, anio: ult.anio + 1}];
+  const pila = d3.stack().keys(claves.map(k => k.k))(serie);
+  const dib = g.append("g");
+  const rayas = `rayas${++nRecorte}`;
+  svg.append("defs").append("pattern").attr("id", rayas).attr("patternUnits", "userSpaceOnUse").attr("width", 5).attr("height", 5)
+    .attr("patternTransform", "rotate(45)").append("rect").attr("width", 1.5).attr("height", 5).attr("fill", css("--faint"));
+  dib.append("path").attr("fill", `url(#${rayas})`).attr("opacity", .75)
+    .attr("d", d3.area().curve(d3.curveStepAfter).x(d => x(d.anio)).y0(d => y(d.jueces)).y1(d => y(Math.max(d.jueces, d.ley ?? d.jueces)))(serie));
+  const franjas = dib.selectAll("path.co-franja").data(pila).join("path").attr("class", "co-franja").attr("fill", s => CO_G[s.key].c)
+    .attr("d", d3.area().curve(d3.curveStepAfter).x(d => x(d.data.anio)).y0(d => y(d[0])).y1(d => y(d[1])));
+  dib.append("path").attr("class", "co-ley-linea")
+    .attr("d", d3.line().curve(d3.curveStepAfter).defined(d => d.ley != null).x(d => x(d.anio)).y(d => y(d.ley))(serie));
+  // el nombre de cada franja, en el rectángulo más amplio que entra dentro de ella (si no entra, queda solo en la leyenda)
+  const rotulos = dib.append("g").attr("pointer-events", "none");
+  for (const s of pila) {
+    const k = claves.find(c => c.k === s.key), txt = rotulos.append("text").attr("class", "co-rot").datum(s).attr("fill", k.texto).text(CO_CORTO[k.k] || k.lab);
+    const w = txt.node().getComputedTextLength() + 12, hmin = 16;
+    let mejor = null;
+    for (let i = 0; i < data.length; i++) {
+      let arriba = -Infinity, abajo = Infinity;
+      for (let j = i; j < data.length; j++) {
+        arriba = Math.max(arriba, y(s[j][1])); abajo = Math.min(abajo, y(s[j][0]));
+        if (abajo - arriba < hmin) break;
+        const ancho = x(data[j].anio + 1) - x(data[i].anio), area = ancho * (abajo - arriba);
+        if (ancho >= w && (!mejor || area > mejor.area)) mejor = {area, cx: (x(data[i].anio) + x(data[j].anio + 1)) / 2, cy: (arriba + abajo) / 2};
+      }
+    }
+    if (mejor) txt.attr("x", mejor.cx).attr("y", mejor.cy).attr("dy", ".35em").attr("text-anchor", "middle");
+    else txt.remove();
+  }
+  // al dibujarse, el gráfico se descubre de izquierda a derecha, como corre el tiempo
+  const corte = `rb${++nRecorte}`, tapa = svg.append("defs").append("clipPath").attr("id", corte).append("rect")
+    .attr("x", -2).attr("y", -M.t).attr("width", iw + 4).attr("height", ih + M.t + 2);
+  dib.attr("clip-path", `url(#${corte})`);
+  if (cfg.anim) tapa.attr("width", 0).transition().duration(DUR_G).ease(EASE).attr("width", iw + 4);
+  const regla = g.append("line").attr("class", "co-regla").attr("y1", 0).attr("y2", ih).attr("opacity", 0);
+  const porAnio = new Map(data.map(d => [d.anio, d]));
+  const leerEn = ev => {
+    const [mx] = d3.pointer(ev, g.node()), a = Math.max(a0, Math.min(ult.anio, Math.floor(x.invert(mx)))), d = porAnio.get(a);
+    if (!d) return;
+    regla.attr("x1", (x(a) + x(a + 1)) / 2).attr("x2", (x(a) + x(a + 1)) / 2).attr("opacity", 1);
+    lec.html(leer(d));
+  };
+  svg.style("touch-action", "pan-y");
+  g.append("rect").attr("width", iw).attr("height", ih).attr("fill", "transparent").on("pointerdown", leerEn).on("pointermove", leerEn)
+    .on("pointerleave", ev => { if (ev.pointerType !== "mouse") return; regla.attr("opacity", 0); lec.html(leer(ult)); });
+  el.grupo = k => { coAclarar(franjas, k, s => s.key); coAclarar(rotulos.selectAll("text"), k, s => s.key, 0); };
+  coGrupoInicial(el);
+}
+
+/* Cuántos jueces designó cada presidente: un cuadrado por juez, con el color de su grupo, y los presidentes en el orden en que
+   gobernaron (los que no designaron jueces no figuran). Con lugar, en dos columnas. Al pasar el mouse o tocar un cuadrado, el cuadro
+   de ese juez, y sobre el nombre del presidente, todos los que designó */
+const CO_PRES = {fila: 24, filaC: 22, dos: 760};
+// un nombre que no entra abrevia primero los nombres de pila ("M. E. Martínez de Perón"), sin tocar el apellido (lo que sigue a "de"
+// o la última palabra), y solo si sigue sin entrar se corta con puntos suspensivos. El nombre completo queda al pasar el mouse
+function coAbreviar(nodo, max) {
+  if (!(nodo.getComputedTextLength() > max)) return;
+  const completo = nodo.textContent, pal = completo.split(" "), part = w => /^(de|del|la|las|los|y)$/i.test(w || "");
+  for (let i = 0; i < pal.length - 1 && nodo.getComputedTextLength() > max; i++) {
+    if (part(pal[i]) || part(pal[i + 1]) || i === pal.length - 1) break;
+    pal[i] = pal[i][0] + "."; nodo.textContent = pal.join(" ");
+  }
+  if (nodo.getComputedTextLength() > max) { nodo.textContent = completo; recortarEtq(nodo, max); }
+  else d3.select(nodo).append("title").text(completo);
+}
+function cuadradosCorte(el, cfg) {
+  const P = T.corte_presidentes, w0 = el.clientWidth, dos = w0 >= CO_PRES.dos, angosto = w0 < 520;
+  const FILA = angosto ? CO_PRES.filaC : CO_PRES.fila, porCol = dos ? Math.ceil(P.length / 2) : P.length;
+  const C = lienzo(el, porCol * FILA + 8, {t: 4, r: 4, b: 4, l: 4});
+  const {svg, g, iw} = C;
+  svg.classed("angosto", angosto).attr("aria-label", `Jueces de la Corte Suprema que designó cada presidente desde ${CO.desde}, un cuadrado por juez`);
+  // los jueces de cada presidente salen de la tabla de jueces, en el orden de la lista de nombres de cada fila (o: el orden de todos,
+  // para que aparezcan en el orden en que fueron designados)
+  const usados = new Set(), J = T.corte_jueces;
+  let o = 0;
+  const filasP = P.map((p, i) => ({...p, i, jueces: p.nombres.split(", ").map(nom => {
+    const k = J.findIndex((j, k) => !usados.has(k) && j.nombre === nom && j.designado_por === p.presidente);
+    usados.add(k); return {...J[k], o: o++};
+  })}));
+  const sep = dos ? 40 : 0, colW = (iw - sep) / (dos ? 2 : 1), maxN = d3.max(P, p => p.designados), anioW = angosto ? 37 : 40;
+  const filas = g.selectAll("g.co-pfila").data(filasP).join("g").attr("class", "co-pfila")
+    .attr("transform", p => `translate(${Math.floor(p.i / porCol) * (colW + sep)},${(p.i % porCol) * FILA})`);
+  const rotulo = filas.append("g").attr("class", "co-prot");
+  const fondo = rotulo.append("rect").attr("x", -4).attr("height", FILA).attr("fill", "transparent");
+  const nom = rotulo.append("text").attr("class", "co-pres").attr("y", FILA / 2).attr("dy", ".35em").attr("text-anchor", "end").text(p => p.presidente);
+  // la columna de los nombres mide lo que el más largo, si deja lugar para los cuadrados (de 8 píxeles como mínimo): si no, se recorta
+  const nomW = Math.min(d3.max(nom.nodes(), n => n.getComputedTextLength()) + 8, colW - anioW - maxN * 11 - 22);
+  const lado = Math.max(8, Math.min(15, Math.floor((colW - nomW - anioW - 24) / maxN) - 3)), paso = lado + 3;
+  nom.attr("x", nomW).each(function() { coAbreviar(this, nomW - 4); });
+  fondo.attr("width", nomW + anioW + 4);
+  rotulo.append("text").attr("class", "co-anio").attr("x", nomW + 6).attr("y", FILA / 2).attr("dy", ".35em").text(p => p.inicio.slice(0, 4));
+  const x0 = nomW + anioW;
+  const cuad = filas.selectAll("rect.co-cuad").data(p => p.jueces).join("rect").attr("class", "co-cuad")
+    .attr("x", (j, k) => x0 + k * paso).attr("y", (FILA - lado) / 2).attr("width", lado).attr("height", lado).attr("rx", Math.min(3, lado / 4))
+    .attr("fill", j => CO_G[j.grupo].c);
+  filas.append("text").attr("class", "co-cuenta").attr("x", p => x0 + p.designados * paso + 4).attr("y", FILA / 2).attr("dy", ".35em").text(p => p.designados);
+  if (cfg.anim) cuad.attr("opacity", 0).transition().delay(j => j.o / o * 150).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
+  const yFila = p => 4 + (p.i % porCol) * FILA, xCol = p => 4 + Math.floor(p.i / porCol) * (colW + sep);
+  cuad.on("pointerenter", function(ev, j) {
+      const p = d3.select(this.parentNode).datum();
+      d3.select(this).classed("activo", true);
+      mostrarTip(el, tipJuez(j), xCol(p) + +this.getAttribute("x") + lado / 2, yFila(p) + (FILA - lado) / 2);
+    }).on("pointerleave", function() { d3.select(this).classed("activo", false); ocultarTip(); });
+  rotulo.on("pointerenter", (ev, p) => mostrarTip(el, `<b>${p.presidente}</b>, desde ${p.inicio.slice(0, 4)}<br>` +
+      `${p.designados} ${p.designados === 1 ? "juez" : "jueces"}: ${listaY(p.jueces.map(j => j.nombre))}`, xCol(p) + nomW / 2, yFila(p)))
+    .on("pointerleave", ocultarTip);
+  el.grupo = k => coAclarar(filas, k, p => p.grupo, .16);
+  coGrupoInicial(el);
+}
+const coComposicion = (el, a) => areasCorte(el, {anim: a});
 // la pieza grande del Laboratorio: quiénes estaban cada año
 TX["lab-corte"] = $t("lab-corte").textContent = `Desde ${CO.desde}, ${CO.personas} personas fueron jueces de la Corte Suprema, designadas por ${CO.presidentes} presidentes. ` +
-  `Cada columna muestra los jueces en funciones al final de cada año, con el color del gobierno que designó a cada uno, y la línea punteada, cuántos fija la ley.`;
+  `Las franjas muestran cuántos jueces había al final de cada año, con el color del gobierno que designó a cada uno, y lo rayado, los lugares vacantes hasta los que fija la ley.`;
+if ($("lab-corte-ley")) $("lab-corte-ley").innerHTML = coLeyenda(CO_VAC);
 DIB["lab-corte"] = conTablas("lab-corte", CO_TABLAS, a => {
-  leyenda("lab-corte-ley", coClaves());
   coComposicion(G("lab-corte"), a);
   G("lab-corte").resaltar = () => {};
 });
@@ -3278,6 +3448,8 @@ if (notaCorte) {
   const noAs = CO.no_asumieron_lista.map(x => `${x.nombre} (${x.anio})`);
   const tiempo = j => j.hasta ? `de ${j.desde} a ${j.hasta}` : `desde ${j.desde}`;
   const nAnios = CO.anios_composicion;
+  // filas del gráfico de los presidentes (Roca está dos veces, una por cada presidencia), para reservar su alto mientras carga
+  const nPres = CO.presidencias;
   notaCorte.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono("balanza")}</span><div><p class="nota-meta">Laboratorio. Se actualiza con cada cambio en la Corte</p>` +
     `<h2 class="nota-tit" style="view-transition-name:t-corte-suprema">La Corte Suprema tuvo ${CO.personas} jueces desde ${CO.desde}. Quién los designó</h2></div></div>` +
@@ -3288,20 +3460,24 @@ if (notaCorte) {
     `<p>La Constitución de 1853 fijaba nueve jueces, pero los que designó Urquiza en 1854 no llegaron a formar la Corte. Desde la reforma de 1860, ` +
     `el número lo fija una ley: ${listaY(cambios.map(c => `${{5: "cinco", 7: "siete", 9: "nueve"}[c.jueces] || c.jueces} desde ${c.anio}`))}. ` +
     (/26\.183/.test(cambios.at(-1).norma) ? `La última reducción, de la ley 26.183, se cumplió de a poco, a medida que quedaban cargos vacantes.` : "") + `</p>` +
-    `<div class="nota-graf"><h3>Cuánto estuvo cada juez en la Corte</h3><div class="pol-ley" aria-hidden="true">${coClaves().map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("")}</div>` +
-    `<div class="grafico" data-g="cs-tiempo" data-forma="bloque" style="--alto:${CO.carriles * 22 + 34}px;--alto-c:${(new Date().getFullYear() - CO.desde) * 4.4 + 40}px"></div>` +
-    `<p class="nota-pie-graf">Cada barra es un juez, desde que juró (o desde su decreto, si falta la jura) hasta que dejó el cargo, con el color del gobierno que lo designó. ` +
-    `Hay una fila por cada juez que podía haber a la vez: cuando uno se va, el que llega puede ocupar su lugar.</p></div>` +
+    `<div class="nota-graf"><h3>Cuánto estuvo cada juez en la Corte</h3><div class="pol-ley">${coLeyenda(CO_FACTO)}</div>` +
+    `<div class="grafico" data-g="cs-tiempo" data-forma="bloque" style="--alto:${CO.designaciones * CO_FILA + 52}px;--alto-c:${CO.designaciones * CO_FILA + 52}px"></div>` +
+    `<p class="nota-pie-graf">Una fila por designación, en el orden en que llegaron. La barra va desde la jura (o desde el decreto, si falta la jura) hasta que ` +
+    `dejó el cargo, con el color del gobierno que designó a cada juez. Las franjas grises son los gobiernos de facto, y en negrita van quienes siguen en el cargo. ` +
+    `Elegí un grupo en la leyenda para resaltar a sus jueces.</p></div>` +
     `<p>${ma[0].nombre} es quien más tiempo estuvo en la Corte: ${n1(ma[0].anios)} años, ${tiempo(ma[0])}. Le siguen ${ma[1].nombre} (${n1(ma[1].anios)}) y ${ma[2].nombre} (${n1(ma[2].anios)}). ` +
     `La mitad de los jueces estuvo ${n1(CO.mediana_anios)} años o menos. Los gobiernos de facto cesaron a ${CO.cesanteados} jueces, y ${CO.juicio_politico} salieron por juicio político.</p>` +
-    `<div class="nota-graf"><h3>Los jueces de cada año, según quién los designó</h3><div class="pol-ley" aria-hidden="true">${coClaves().map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("")}` +
-    `<span><i class="co-ley"></i>Jueces que fija la ley</span></div><div class="grafico" data-g="cs-composicion" data-forma="columnas"></div>` +
-    `<p class="nota-pie-graf">Jueces en funciones al 31 de diciembre de cada año (en el año en curso, hoy), con el color del gobierno que designó a cada uno.</p></div>` +
+    `<div class="nota-graf"><h3>Los jueces de cada año, según quién los designó</h3><div class="pol-ley">${coLeyenda(CO_VAC)}</div>` +
+    `<div class="grafico" data-g="cs-composicion" data-forma="lineas"></div>` +
+    `<p class="nota-pie-graf">Jueces en funciones al 31 de diciembre de cada año (en el año en curso, hoy), con el color del gobierno que designó a cada uno. ` +
+    `Lo rayado son los lugares vacantes, hasta los jueces que fija la ley, que marca la línea de arriba.</p></div>` +
     `<p>En ${CO.anios_un_grupo} de esos ${nAnios} años, todos los jueces en funciones habían sido designados por gobiernos de un mismo grupo. La última vez fue en ${CO.un_grupo_ult}. ` +
     `Los gobiernos de facto hicieron ${CO.por_grupo.facto} de las designaciones, todas sin acuerdo del Senado.</p>` +
-    `<div class="nota-graf"><h3>Cuántos jueces designó cada presidente</h3><div class="pol-ley" aria-hidden="true">${coClaves().map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("")}</div>` +
-    `<div class="grafico" data-g="cs-presidentes" data-forma="barras" style="--filas:${CO.presidentes + 1}"></div>` +
-    `<p class="nota-pie-graf">Jueces que juraron, por el presidente que los designó, en orden. Los presidentes que no designaron jueces no figuran.</p></div>` +
+    `<div class="nota-graf"><h3>Cuántos jueces designó cada presidente</h3><div class="pol-ley">${coLeyenda()}</div>` +
+    `<div class="grafico" data-g="cs-presidentes" data-forma="lista" style="--alto:${Math.ceil(nPres / 2) * CO_PRES.fila + 8}px;` +
+    `--alto-m:${nPres * CO_PRES.fila + 8}px;--alto-c:${nPres * CO_PRES.filaC + 8}px"></div>` +
+    `<p class="nota-pie-graf">Un cuadrado por cada juez que juró, junto al presidente que lo designó, en el orden en que gobernaron. ` +
+    `Los presidentes que no designaron jueces no figuran.</p></div>` +
     `<p>${listaY(top[0].nombres)} ${top[0].nombres.length > 1 ? "designaron" : "designó"} ${top[0].n} jueces, más que cualquier otro presidente. ` +
     `Le siguen ${listaY(top[1].nombres)}, con ${top[1].n}, y ${listaY(top[2].nombres)}, con ${top[2].n}${top[2].nombres.length > 1 ? " cada uno" : ""}. ` +
     `La última designación que llegó a la jura fue la de ${CO.ultimo.nombre}, de ${CO.ultimo.designado_por}, en ${CO.ultimo.anio}.</p>` +
@@ -3323,9 +3499,9 @@ if (notaCorte) {
     `<a class="boton chico accion" href="datos/corte_presidentes.csv" download>Designaciones por presidente (CSV)</a></div></div>`;
   // cada gráfico queda marcado como visto al dibujarse, así se vuelve a dibujar al cambiar el ancho (la línea de tiempo se da vuelta en el celular)
   const visto = el => el.closest(".nota-graf").classList.add("visto");
-  DIB["cs-tiempo"] = conTablas("cs-tiempo", CO_TABLAS, a => { const el = G("cs-tiempo"); lineaCorte(el, {anim: a}); el.resaltar = () => {}; visto(el); });
+  DIB["cs-tiempo"] = conTablas("cs-tiempo", CO_TABLAS, a => { const el = G("cs-tiempo"); filasCorte(el, {anim: a}); el.resaltar = () => {}; visto(el); });
   DIB["cs-composicion"] = conTablas("cs-composicion", CO_TABLAS, a => { const el = G("cs-composicion"); coComposicion(el, a); el.resaltar = () => {}; visto(el); });
-  DIB["cs-presidentes"] = conTablas("cs-presidentes", CO_TABLAS, a => { const el = G("cs-presidentes"); coPresidentes(el, a); visto(el); });
+  DIB["cs-presidentes"] = conTablas("cs-presidentes", CO_TABLAS, a => { const el = G("cs-presidentes"); cuadradosCorte(el, {anim: a}); el.resaltar = () => {}; visto(el); });
 }
 
 
