@@ -5305,16 +5305,22 @@ const PREG = [
   mostrar(0, false);
 })();
 
-/* menú de secciones (etapa 14): un panel de vidrio fuera de la barra, alineado con el botón. En el celular ocupa la pantalla
-   debajo de la barra y la página queda quieta detrás (clase menu-abierto en la raíz) */
+/* "Más" (etapa 32, como el menú "More" de usafacts.org): una lista blanca debajo del botón, que termina la fila de temas de la barra.
+   En el celular ocupa la pantalla debajo de la barra y la página queda quieta detrás (clase menu-abierto en la raíz). Los temas que
+   ya están en la barra se ven en la lista solo cuando la barra no los muestra */
 (() => {
   const btn = document.getElementById("menu-btn"), panel = document.getElementById("menu-panel"), raiz = document.documentElement;
   let t;
-  const abierto = () => btn.getAttribute("aria-expanded") === "true", primero = () => panel.querySelector("a");
-  const ubicar = () => panel.style.setProperty("--menu-izq", Math.round(btn.getBoundingClientRect().left) + "px");
+  const abierto = () => btn.getAttribute("aria-expanded") === "true";
+  const primero = () => [...panel.querySelectorAll("a")].find(a => a.offsetParent);
+  // alineada con el botón, sin salirse de la pantalla a la derecha
+  const ubicar = () => {
+    const b = btn.getBoundingClientRect(), ancho = panel.offsetWidth || 0;
+    panel.style.setProperty("--menu-izq", Math.round(Math.max(12, Math.min(b.left - 12, innerWidth - ancho - 12))) + "px");
+  };
   // los botones de la barra están fijos arriba: sin preventScroll, Chrome corre la página para "mostrarlos" al darles el foco
   const abrir = () => {
-    clearTimeout(t); ubicar(); panel.hidden = false; btn.setAttribute("aria-expanded", "true"); raiz.classList.add("menu-abierto");
+    clearTimeout(t); panel.hidden = false; ubicar(); btn.setAttribute("aria-expanded", "true"); raiz.classList.add("menu-abierto");
     requestAnimationFrame(() => panel.classList.add("abierto")); primero().focus({preventScroll: true});
   };
   const cerrar = (volver) => {

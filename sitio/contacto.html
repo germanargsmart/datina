@@ -15,17 +15,17 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=7225445f5f">
+<link rel="stylesheet" href="datina.css?v=60a16546d4">
 </head>
 <body data-pagina="contacto">
 <header class="barra clara">
   <div class="envoltura">
     <div class="barra-izq">
-      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path class="h1" d="M2 5h16"/><path class="h2" d="M2 10h16"/><path class="h3" d="M2 15h16"/></svg><span class="menu-txt">Secciones</span></button>
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     </div>
     <nav class="temas" aria-label="Temas principales">
       <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="seguridad.html">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Más<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
     </nav>
     <div class="barra-der">
       <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
@@ -44,19 +44,17 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
   </div>
 </header>
-<!-- menú de secciones (etapa 14): va fuera de la barra para que el vidrio desenfoque la página (dentro de la barra, que ya
-     desenfoca lo que tiene detrás, no puede). Mismo orden que antes: los temas en dos grupos, los artículos, las herramientas y Datina -->
-<nav class="menu-panel" id="menu-panel" aria-label="Todas las secciones" hidden>
+<!-- "Más" (etapa 32, 6 de octubre de 2026, pedido del autor: "que el menú desaparezca y lo dejes como usafacts"): la lista que abre el
+     botón "Más", al final de los temas de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
+     que ya están en la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
+<nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo" style="--i:0"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li></ul></div>
+      <div class="menu-grupo"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
     </div>
     <div class="menu-col">
-      <div class="menu-grupo" style="--i:1"><p class="menu-tit" id="mt-mas">Más temas</p><ul aria-labelledby="mt-mas"><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
-      <div class="menu-grupo" style="--i:2"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Todos los artículos</a></li></ul></div>
-    </div>
-    <div class="menu-col">
-      <div class="menu-grupo" style="--i:3"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li></ul></div>
-      <div class="menu-grupo" style="--i:4"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
+      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li></ul></div>
+      <div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li></ul></div>
+      <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
     </div>
 </nav>
 
@@ -165,6 +163,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=2ef026fd99"></script>
-<script src="datina.js?v=56b6902189"></script>
+<script src="datina.js?v=3cf6280219"></script>
 </body>
 </html>
