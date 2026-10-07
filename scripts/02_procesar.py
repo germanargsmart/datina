@@ -378,7 +378,8 @@ for k, _, _ in GRUPOS_MI:
 _cz = causas_tasa.drop("00").join(nse.set_index("codigo_indec"))
 _pp = causas_pct.loc["00"]
 mi_causas_res = {
-    "anios": [ANIOS_CAUSA[0], ANIOS_CAUSA[-1]], "muertes": int(_tot_mi["00"]),
+    # desde y hasta van también sueltos, para el título de la ficha en la plantilla ({{mi_causas.desde}}), que no lee listas
+    "anios": [ANIOS_CAUSA[0], ANIOS_CAUSA[-1]], "desde": ANIOS_CAUSA[0], "hasta": ANIOS_CAUSA[-1], "muertes": int(_tot_mi["00"]),
     "grupos": [{"k": k, "lab": lab, "pct": r1(_pp[k]),
                 "r_cobertura": spearman(_cz[k].values, _cz.pct_pob_solo_cobertura_publica.values),
                 "max": CORTO[causas_tasa[k].drop("00").idxmax()], "max_v": round(float(causas_tasa[k].drop("00").max()), 2),

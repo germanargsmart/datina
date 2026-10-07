@@ -302,7 +302,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
   </section>
 
-  <section class="tema" id="trabajo">
+  <section class="tema con-pregunta" id="trabajo">
     <h2>Trabajo</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Dónde se crea empleo formal?">¿Dónde se crea empleo formal y cuánto se gana en cada provincia?</p>
@@ -478,7 +478,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
   </section>
 
-  <section class="tema" id="pobreza">
+  <section class="tema con-pregunta" id="pobreza">
     <h2>Pobreza y hogares</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántos no llegan a cubrir lo básico y cómo viven los hogares?</p>
@@ -487,7 +487,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:pobreza-->
 
     <article class="ficha" id="f-pobreza">
-      <h3 data-t="pobreza-titulo"></h3>
+      <h3>¿Cuántas personas viven bajo la línea de pobreza?</h3>
+      <p class="ficha-sub">Pobreza e indigencia en los 31 aglomerados urbanos, {{pobreza.ini}} a {{pobreza.fin}}</p>
       <p class="lead" data-t="pobreza"></p>
       <div class="grafico" data-g="pobreza" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="pobreza-nota"></p>
@@ -496,7 +497,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-censo">
-      <h3 data-t="censo-titulo"></h3>
+      <h3>¿Cómo viven los hogares de cada provincia?</h3>
+      <p class="ficha-sub">Servicios, equipamiento y cobertura de salud por provincia, Censo 2022</p>
       <p class="lead" data-t="censo"></p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="censo">
@@ -513,7 +515,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-internet">
-      <h3 data-t="internet-titulo"></h3>
+      <h3>¿Qué tan conectada está cada provincia?</h3>
+      <p class="ficha-sub">Internet fijo por provincia, {{nuevos.in_trim}}</p>
       <p class="lead" data-t="internet"></p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="internet">
         <button type="button" data-m="accesos_100_hogares" aria-pressed="true">Accesos</button>
@@ -526,7 +529,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
-  <section class="tema" id="salud">
+  <section class="tema con-pregunta" id="salud">
     <h2>Salud</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto vivimos y de qué nos morimos?">¿Cuánto vivimos y de qué nos morimos antes de tiempo?</p>
@@ -535,7 +538,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:salud-->
 
     <article class="ficha" id="f-esperanza">
-      <h3 data-t="esperanza-titulo"></h3>
+      <h3>¿Cuántos años se vive en cada provincia?</h3>
+      <p class="ficha-sub">Esperanza de vida al nacer por provincia y sexo, {{nuevos.ev_anio}}</p>
       <p class="lead" data-t="esperanza"></p>
       <div class="grafico" data-g="esperanza" data-forma="pesas" style="--extra:12px"></div>
       <p class="nota" data-t="esperanza-nota"></p>
@@ -543,7 +547,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-mortalidad">
-      <h3 data-t="mortalidad-titulo">Tasa de mortalidad infantil por provincia</h3>
+      <h3>¿Cómo cambió la mortalidad infantil en cada provincia?</h3>
+      <p class="ficha-sub">Tasa de mortalidad infantil por provincia, {{mortalidad.tri_base}} y {{mortalidad.tri_act}}</p>
       <p class="lead" data-t="mortalidad"></p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="mortalidad" data-forma="pesas" style="--extra:12px"></div>
@@ -552,7 +557,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-causas-infantiles">
-      <h3 data-t="causas-titulo"></h3>
+      <h3>¿De qué mueren los bebés antes de cumplir un año?</h3>
+      <p class="ficha-sub">Muertes de menores de un año por grupo de causa y provincia, {{mi_causas.desde}} a {{mi_causas.hasta}}</p>
       <p class="lead" data-t="causas"></p>
       <div class="pol-ley" id="causas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="causas" data-forma="barras" style="--filas:25;--extra:-4px"></div>
@@ -656,7 +662,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
-  <section class="tema" id="educacion">
+  <section class="tema con-pregunta" id="educacion">
     <h2>Educación</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué aprenden los chicos?">¿Qué aprenden los chicos en cada provincia y cuánto se invierte en su educación?</p>
@@ -665,7 +671,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:educacion-->
 
     <article class="ficha" id="f-escolarizacion">
-      <h3 data-t="escolarizacion-titulo">Tasa neta de escolarización secundaria por provincia</h3>
+      <h3>¿Cuántos adolescentes van a la secundaria?</h3>
+      <p class="ficha-sub">Tasa neta de escolarización secundaria por provincia, {{escolarizacion.ini}} y {{escolarizacion.fin}}</p>
       <p class="lead" data-t="escolarizacion"></p>
       <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa subió. <span class="c-malo">En rojo</span>, donde bajó.</p>
@@ -675,7 +682,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-aprender">
-      <h3 data-t="aprender-titulo">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia</h3>
+      <h3>¿Cómo les va en Aprender a los chicos de 6° grado?</h3>
+      <p class="ficha-sub">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia, {{aprender.anio}}</p>
       <p class="lead" data-t="aprender"></p>
       <div class="conmutador" role="group" aria-label="Área evaluada" data-g="aprender">
         <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
@@ -687,7 +695,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-pisa">
-      <h3 data-t="pisa-titulo">Resultados de la Argentina en las pruebas PISA</h3>
+      <h3>¿Cómo le va a la Argentina en las pruebas PISA?</h3>
+      <p class="ficha-sub">Resultados de la Argentina en las pruebas PISA, 2000 a {{pisa.anio}}</p>
       <p class="lead" data-t="pisa"></p>
       <div class="conmutador" role="group" aria-label="Área evaluada" data-g="pisa" style="--n:3">
         <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
@@ -700,7 +709,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-salario-docente">
-      <h3>Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, {{docentes.trim}}</h3>
+      <h3>¿Cuánto cobra un maestro en cada provincia?</h3>
+      <p class="ficha-sub">Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, {{docentes.trim}}</p>
       <p class="lead" data-t="salario-docente"></p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="salario-docente">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -712,7 +722,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-inversion-educativa">
-      <h3>Inversión en educación por alumno de gestión estatal por provincia, {{inversion_edu.anio}}</h3>
+      <h3>¿Cuánto invierte cada provincia en educación?</h3>
+      <p class="ficha-sub">Inversión en educación por alumno de gestión estatal por provincia, {{inversion_edu.anio}}</p>
       <p class="lead" data-t="inversion-educativa"></p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inversion-educativa" style="--n:3">
         <button type="button" data-m="alumno" aria-pressed="true">Por alumno</button>
@@ -728,7 +739,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
-  <section class="tema" id="poblacion">
+  <section class="tema con-pregunta" id="poblacion">
     <h2>Población</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué pasa si nacen cada vez menos chicos?">¿Qué pasa en un país donde nacen cada vez menos chicos?</p>
@@ -737,7 +748,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:poblacion-->
 
     <article class="ficha" id="f-nacimientos">
-      <h3>Nacimientos por año en la Argentina y en la OCDE, {{nacimientos.anio_ini}} a {{nacimientos.anio_ult}}</h3>
+      <h3>¿Cuántos chicos nacen por año?</h3>
+      <p class="ficha-sub">Nacimientos por año en la Argentina y en la OCDE, {{nacimientos.anio_ini}} a {{nacimientos.anio_ult}}</p>
       <p class="lead" data-t="nacimientos"></p>
       <div class="grafico" data-g="nacimientos" data-forma="lineas" style="--alto:398px;--alto-c:378px"></div>
       <p class="nota">Índice con base {{nacimientos.anio_ini}} = 100: cada línea muestra cuántos nacimientos hubo cada año en relación con {{nacimientos.anio_ini}}. Argentina: nacidos vivos registrados en las estadísticas vitales de la DEIS (Ministerio de Salud), el total oficial de cada año. Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER, que registra menos nacimientos que las estadísticas vitales. <span class="ocde-marca">OCDE</span>: suma de los nacimientos de los 38 países miembros, estimados con la tasa bruta de natalidad y la población del Banco Mundial.</p>
@@ -745,7 +757,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-piramide">
-      <h3 data-t="piramide-titulo"></h3>
+      <h3>¿Cómo va a cambiar la población por edad?</h3>
+      <p class="ficha-sub">Población por edad y sexo, {{piramide.anio}} y {{piramide.anio_fin}}</p>
       <p class="lead" data-t="piramide"></p>
       <div class="grafico" data-g="piramide" data-forma="piramide" style="--alto:444px;--alto-c:387px"></div>
       <p class="nota" data-t="piramide-nota"></p>
@@ -753,7 +766,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-envejecimiento">
-      <h3 data-t="envejecimiento-titulo"></h3>
+      <h3>¿Qué tan envejecida está la población de cada provincia?</h3>
+      <p class="ficha-sub">Personas de 65 años o más por cada 100 en edad de trabajar, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}</p>
       <p class="lead" data-t="envejecimiento"></p>
       <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
       <p class="nota" data-t="envejecimiento-nota"></p>
@@ -761,7 +775,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-jubilaciones">
-      <h3 data-t="jubilaciones-titulo"></h3>
+      <h3>¿Cuántos aportan por cada jubilación?</h3>
+      <p class="ficha-sub">Aportantes por cada beneficio previsional de ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>
       <p class="lead" data-t="jubilaciones"></p>
       <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
       <p class="nota" data-t="jubilaciones-nota"></p>
@@ -769,7 +784,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-adolescentes">
-      <h3>Nacimientos de madres menores de 20 años por provincia, {{nacimientos.anio_ini}} y {{nacimientos.anio_ult}}</h3>
+      <h3>¿Cómo cambió la maternidad adolescente en cada provincia?</h3>
+      <p class="ficha-sub">Nacimientos de madres menores de 20 años por provincia, {{nacimientos.anio_ini}} y {{nacimientos.anio_ult}}</p>
       <p class="lead" data-t="adolescentes"></p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="adolescentes" data-forma="pesas"></div>
@@ -778,7 +794,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-adolescentes-nse">
-      <h3 data-t="adonse-titulo"></h3>
+      <h3>¿Se relaciona la maternidad adolescente con el nivel socioeconómico?</h3>
+      <p class="ficha-sub">Madres menores de 20 años y nivel socioeconómico por provincia</p>
       <p class="lead" data-t="adonse"></p>
       <label class="selector-ficha"><span>Indicador del Censo 2022</span><select id="adonse-sel"></select></label>
       <div class="grafico" data-g="adonse" data-forma="puntos"></div>

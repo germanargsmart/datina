@@ -570,13 +570,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* el mini sol de los títulos */
 .tema>h2::after,.provincias>h2::after,.nosotros>h2::after,.contacto>h2::after,.no-encontrada>h2::after,.laboratorio>h2::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
   background:radial-gradient(circle,var(--sol) 34%,transparent 37%),repeating-conic-gradient(var(--sol) 0 7deg,transparent 7deg 22.5deg)}
-/* La pregunta como título (etapa 35, prueba solo en Trabajo, pedido del autor tras la auditoría de diseño del 6 de octubre de 2026): el nombre
-   de la sección queda chico arriba, en el estilo de la etiqueta de las fichas y con el sol, y la pregunta pasa a ser el título grande, en la
-   letra de los títulos de ficha. El h2 sigue siendo el encabezado de la página (el constructor lo lee para el índice, los menús y las migas) */
-#trabajo>h2{margin:var(--e-6) 0 var(--e-3);padding-left:18px;font:500 var(--t-2)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+/* La pregunta como título (etapa 35, pedido del autor tras la auditoría de diseño del 6 de octubre de 2026: primero en Trabajo y después, con la
+   decisión que el autor dejó en manos de Claude, en Pobreza, Salud, Educación y Población, las secciones con class="tema con-pregunta"): el nombre de la sección queda chico
+   arriba, en el estilo de la etiqueta de las fichas y con el sol, y la pregunta pasa a ser el título grande, en la letra de los títulos de
+   ficha. El h2 sigue siendo el encabezado de la página (el constructor lo lee para el índice, los menús y las migas) */
+.tema.con-pregunta>h2{margin:var(--e-6) 0 var(--e-3);padding-left:18px;font:500 var(--t-2)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
   font-variation-settings:normal}
-#trabajo>h2::after{top:.24em;right:auto;left:0;width:12px;height:12px}
-#trabajo .tema-intro .pregunta{max-width:20em;margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-9);line-height:1.08;font-weight:600;letter-spacing:-.01em;
+.tema.con-pregunta>h2::after{top:.24em;right:auto;left:0;width:12px;height:12px}
+.con-pregunta .tema-intro .pregunta{max-width:20em;margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-9);line-height:1.08;font-weight:600;letter-spacing:-.01em;
   color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32}
 
 /* migas: Datina, la sección y la provincia elegida, arriba del título */
