@@ -1230,7 +1230,8 @@ if (CRUDO / "eph_antiguedad_resumen.csv").exists():
     rotacion = pd.read_csv(CRUDO / "eph_antiguedad_resumen.csv")
     _tr = json.loads((CRUDO / "eph_antiguedad_meta.json").read_text(encoding="utf-8"))["trimestres"]
     _g = lambda dim, grupo, col="pct_un_anio_o_menos": float(rotacion[(rotacion.dimension == dim) & (rotacion.grupo == grupo)][col].iloc[0])
-    rot_res = {"desde": _tr[0], "hasta": _tr[-1], "total": _g("total", "Total de asalariados"), "total_largo": _g("total", "Total de asalariados", "pct_mas_de_cinco_anios"),
+    # los años de los trimestres, para el título de la ficha ("2025 y 2026" o un solo año), que la plantilla completa al armar el sitio
+    rot_res = {"desde": _tr[0], "hasta": _tr[-1], "anios": str(_tr[-1][0]) if _tr[0][0] == _tr[-1][0] else f"{_tr[0][0]} y {_tr[-1][0]}", "total": _g("total", "Total de asalariados"), "total_largo": _g("total", "Total de asalariados", "pct_mas_de_cinco_anios"),
                "jovenes": _g("edad", "Hasta 24 años"), "e45": _g("edad", "45 a 54"), "sin_desc": _g("registro", "Sin descuento jubilatorio"),
                "con_desc": _g("registro", "Con descuento jubilatorio"), "q1": _g("ingreso", "Quintil 1"), "q5": _g("ingreso", "Quintil 5"),
                "sec_inc": _g("educacion", "Secundaria incompleta"), "sup_comp": _g("educacion", "Superior completo"),
