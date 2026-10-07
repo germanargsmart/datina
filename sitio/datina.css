@@ -702,36 +702,36 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .pildoras a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--sol)}
   .tema>.pildoras+h2{margin-top:var(--e-7)}
 }
-/* "Para entender los datos" (2 de octubre de 2026, segunda versión a pedido del autor: "queda super desordenada, poco armónica").
-   A la izquierda el título y una línea de qué es, a la derecha una tarjeta con un botón de despliegue por tema, uno debajo del otro,
-   con la misma proporción que las fichas horizontales. Cada botón abre su texto justo debajo, de a uno. Letra negra: el azul queda
-   para el signo, el mouse y el foco. Sin JavaScript se ven todos los textos, con los títulos como encabezados */
-.explicador{margin:0 0 var(--e-7);padding-top:var(--e-5);border-top:1px dotted var(--azul)}
+/* "Para entender los datos" (etapa 31, 6 de octubre de 2026, pedido del autor: "reordenar esto, queda rarísimo así, poco responsive",
+   con los principios de diseño de Apple y de Emil Kowalski). El autor eligió entre cuatro opciones probadas sobre la página real, después
+   de comparar cómo lo hacen Pew, The Pudding, ProPublica, la ONS, Full Fact e INSEE. Va al final de la página, después de las fichas y antes
+   de "Seguí explorando", como los métodos en The Pudding o ProPublica, y arriba queda una línea que lleva hasta ahí (.exp-gancho).
+   Desde 761 px es un índice y una lectura, como el índice de los informes de la ONS: el título y los temas a la izquierda, y el texto del
+   tema elegido en una tarjeta a la derecha. Siempre hay un tema a la vista (el primero al llegar) y cambiar de tema no mueve la página.
+   En el celular es una lista que se abre de a uno, con una flecha. Sin JavaScript se ven todos los textos, con los títulos como encabezados.
+   Antes (2 de octubre de 2026) estaba arriba de las fichas: el título a la izquierda y una tarjeta con un + en un círculo por tema a la
+   derecha, que dejaba la columna izquierda vacía y, en pantallas medianas, el signo lejos de su texto */
+.exp-gancho{margin:0 0 var(--e-7);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+.exp-gancho a{font-weight:500}
+.explicador{margin:var(--ritmo) 0 var(--e-8);padding-top:var(--e-5);border-top:1px dotted var(--azul);scroll-margin-top:96px}
 .en-cifras>h3{margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 /* el título con el mismo estilo que "Seguí explorando", el de los bloques de la portada */
 .exp-cab .bloque-grupo{margin:0 0 var(--e-3)}
 .exp-cab p{max-width:22em;margin:0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
 .exp-lista{margin-top:var(--e-5);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);overflow:hidden}
-@media (min-width:1080px){
-  .explicador{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:var(--e-8);align-items:start}
-  .exp-lista{margin-top:0}
-}
 .exp-fila+.exp-fila{border-top:1px solid var(--line)}
 .exp-fila h4{margin:0}
-/* botón de despliegue: el título en letra normal y un + en un círculo celeste, que al abrir se llena de azul y gira hasta ser una cruz */
-.despliegue{display:flex;align-items:center;justify-content:space-between;gap:var(--e-4);width:100%;min-height:60px;padding:var(--e-3) var(--e-6);
+/* botón de despliegue (en el celular): el título en letra normal y una flecha que apunta abajo y gira al abrir. El + en un círculo de
+   antes se leía como "agregar" */
+.despliegue{display:flex;align-items:center;justify-content:space-between;gap:var(--e-4);width:100%;min-height:52px;padding:var(--e-3) var(--e-6);
   font:500 var(--t-4)/var(--i-tarjeta) var(--f);color:var(--ink);text-align:left;background:none;border:0;border-radius:0;cursor:pointer;
   transition:background-color var(--dur-1) var(--ease-out)}
 .despliegue:focus-visible{outline-offset:-3px}
-.desp-signo{position:relative;flex:none;width:28px;height:28px;border-radius:50%;color:var(--azul);background:var(--celeste-suave);
-  transition:transform var(--dur-2) var(--ease-out),background-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out)}
-.desp-signo::before,.desp-signo::after{content:"";position:absolute;left:8px;right:8px;top:50%;height:2px;margin-top:-1px;border-radius:1px;background:currentColor}
-.desp-signo::after{transform:rotate(90deg)}
-.despliegue[aria-expanded="true"] .desp-signo{transform:rotate(45deg);color:#fff;background:var(--azul)}
-@media (hover:hover) and (pointer:fine){
-  .despliegue:hover{background:var(--superficie)}
-  .despliegue[aria-expanded="false"]:hover .desp-signo{background:var(--celeste-suave);box-shadow:inset 0 0 0 1.5px var(--celeste)}
-}
+.desp-signo{position:relative;flex:none;width:20px;height:20px;color:var(--muted);transition:transform var(--dur-2) var(--ease-out),color var(--dur-1) var(--ease-out)}
+.desp-signo::before{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:translate(-50%,-70%) rotate(45deg)}
+.despliegue[aria-expanded="true"] .desp-signo{transform:rotate(180deg);color:var(--azul)}
+@media (hover:hover) and (pointer:fine){.despliegue:hover{background:var(--superficie)}}
 html:not(.js) .desp-signo{display:none}
 html:not(.js) .despliegue{cursor:default}
 .js .exp-bloque:not(.abierto){display:none}
@@ -743,8 +743,29 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .glosario dt{font-size:var(--t-3);font-weight:600;color:var(--ink)}
 .glosario dd{margin:2px 0 0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
 @media (max-width:760px){
-  .despliegue{min-height:56px;padding:var(--e-3) var(--e-4)}
+  .despliegue{padding:var(--e-3) var(--e-4)}
   .exp-cont{padding:0 var(--e-4) var(--e-5)}
+}
+/* desde 761 px, índice y lectura. Una sola lista en el documento: las filas no forman caja (display: contents) y el texto abierto ocupa
+   la columna derecha de arriba abajo. Las filas que sobran de la grilla no ocupan lugar, y la última, flexible, se queda con el alto de
+   más cuando el texto es más largo que el índice (así los temas no se separan) */
+@media (min-width:761px){
+  .js .explicador{display:grid;grid-template-columns:minmax(220px,4fr) minmax(0,8fr);column-gap:var(--e-8);grid-template-rows:repeat(14,auto) 1fr;align-items:start}
+  .js .exp-cab{grid-column:1;margin-bottom:var(--e-4)}
+  .js .exp-cab .bloque-grupo{margin-bottom:var(--e-2)}
+  .js .exp-lista,.js .exp-fila{display:contents}
+  .js .exp-fila h4{grid-column:1}
+  .js .despliegue{min-height:38px;padding:7px var(--e-3) 7px var(--e-4);font-size:var(--t-3);font-weight:400;line-height:1.35;color:var(--muted);
+    border-left:2px solid var(--line)}
+  .js .despliegue[aria-expanded="true"]{color:var(--ink);font-weight:600;border-left-color:var(--azul)}
+  .js .desp-signo{display:none}
+  .js .exp-bloque{grid-column:2;grid-row:1/-1;align-self:start}
+  .js .exp-bloque.abierto{background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+  .js .exp-cont{padding:var(--e-6) var(--e-7)}
+}
+@media (hover:hover) and (pointer:fine) and (min-width:761px){
+  .js .despliegue:hover{color:var(--ink);background:none;border-left-color:var(--celeste)}
+  .js .despliegue[aria-expanded="true"]:hover{border-left-color:var(--azul)}
 }
 .sobre>summary{display:flex;align-items:center;gap:var(--e-2);min-height:44px;cursor:pointer;list-style:none;
   font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}

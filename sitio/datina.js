@@ -4670,9 +4670,12 @@ document.querySelectorAll(".tema:not(.herramienta) > article.ficha:not(.ancha)")
   f.classList.add("horizontal");
 });
 
-/* "Para entender los datos" (octubre de 2026): una lista de botones de despliegue, cada uno con su texto justo debajo, de a uno.
-   Abrir: el texto crece hasta su alto (250 ms) y entra con un fundido y 8 px hacia arriba. Si había otro abierto, se cierra al mismo
-   tiempo. Cerrar: se achica en 200 ms. Con movimiento reducido el alto cambia de una vez y queda el fundido. */
+/* "Para entender los datos" (etapa 31, 6 de octubre de 2026): va al final de la página. Desde 761 px es un índice y una lectura: siempre
+   hay un tema a la vista (el primero al llegar), tocar otro cambia el texto en su lugar con un fundido de 150 ms, sin mover la página, y
+   las flechas de arriba y abajo recorren los temas. En el celular es la lista de botones de despliegue de octubre de 2026, cada uno con
+   su texto justo debajo, de a uno. Abrir: el texto crece hasta su alto (250 ms) y entra con un fundido y 8 px hacia arriba. Si había otro
+   abierto, se cierra al mismo tiempo. Cerrar: se achica en 200 ms. Con movimiento reducido el alto cambia de una vez y queda el fundido. */
+const INDICE_EXP = matchMedia("(min-width: 761px)");
 document.querySelectorAll(".explicador").forEach(ex => {
   const botones = [...ex.querySelectorAll(".despliegue")];
   const OUT = "cubic-bezier(.23,1,.32,1)", curso = new Map();
@@ -4699,9 +4702,18 @@ document.querySelectorAll(".explicador").forEach(ex => {
       if (btn.getAttribute("aria-expanded") === "false") { r.classList.remove("abierto"); parar(r); }
     }, () => {});
   };
+  // índice y lectura: muestra un tema y oculta los demás, sin animar el alto
+  const mostrar = (btn, fundido) => {
+    botones.forEach(b => { const r = region(b); parar(r); if (b !== btn) { b.setAttribute("aria-expanded", "false"); r.classList.remove("abierto"); } });
+    btn.setAttribute("aria-expanded", "true");
+    const r = region(btn);
+    r.classList.add("abierto");
+    if (fundido) animar(r, r.firstElementChild, [{opacity: 0}, {opacity: 1}], {duration: 150});
+  };
   let turno = 0;
   botones.forEach(btn => btn.addEventListener("click", async () => {
     const mio = ++turno;
+    if (INDICE_EXP.matches) { if (btn.getAttribute("aria-expanded") !== "true") mostrar(btn, true); return; }
     if (btn.getAttribute("aria-expanded") === "true") return alternar(btn, false);
     const otro = botones.find(b => b !== btn && b.getAttribute("aria-expanded") === "true");
     if (otro && otro.compareDocumentPosition(btn) & Node.DOCUMENT_POSITION_FOLLOWING) {
@@ -4722,6 +4734,17 @@ document.querySelectorAll(".explicador").forEach(ex => {
     if (otro) alternar(otro, false);
     alternar(btn, true);
   }));
+  ex.addEventListener("keydown", ev => {
+    const b = ev.target.closest(".despliegue");
+    if (!b || !INDICE_EXP.matches || (ev.key !== "ArrowDown" && ev.key !== "ArrowUp")) return;
+    const j = botones.indexOf(b) + (ev.key === "ArrowDown" ? 1 : -1);
+    if (j < 0 || j >= botones.length) return;
+    ev.preventDefault(); botones[j].focus(); mostrar(botones[j], true);
+  });
+  // en pantallas anchas siempre hay un tema a la vista
+  const asegurar = () => { if (INDICE_EXP.matches && botones.length && !botones.some(b => b.getAttribute("aria-expanded") === "true")) mostrar(botones[0], false); };
+  asegurar();
+  INDICE_EXP.addEventListener("change", asegurar);
 });
 
 /* "Ver más": los textos de las fichas que pasan de siete líneas se muestran en seis, con un botón para leer el resto.

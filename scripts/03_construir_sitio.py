@@ -191,8 +191,9 @@ def fuentes(lista):
 
 
 def explicador(sec):
-    """"Para entender los datos": una lista de botones de despliegue dentro de una tarjeta, uno por bloque y uno para el
-    glosario. Cada botón abre su texto justo debajo (lo maneja datina.js), de a uno. Sin JavaScript se ven todos los textos."""
+    """"Para entender los datos": un botón de despliegue por bloque y uno para el glosario. Desde la etapa 31 va al final de la
+    página, después de las fichas (lo ubica navegacion()): en pantallas anchas es un índice y una lectura, y en el celular cada botón abre
+    su texto justo debajo, de a uno (lo maneja datina.js). Sin JavaScript se ven todos los textos."""
     x = EXP.get(sec)
     if not x:
         return ""
@@ -207,7 +208,7 @@ def explicador(sec):
         f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button></h4>'
         f'<div class="exp-bloque" id="exp-{sec}-{i}" role="region" aria-labelledby="exp-{sec}-{i}-b"><div class="exp-cont">{c}</div></div></div>'
         for i, (t, c) in enumerate(partes))
-    return ('<div class="explicador"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3>'
+    return ('<div class="explicador" id="para-entender"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3>'
             '<p>Qué se mide, cómo se calcula y de dónde sale cada dato de esta página.</p></div>'
             f'<div class="exp-lista">{filas}</div></div>')
 
@@ -233,7 +234,14 @@ def programas(sec):
             f'<div class="programas-grid">{tarjetas}</div></section>')
 
 
-base = re.sub(r"<!--EXPLICADOR:(\w+)-->", lambda m: explicador(m.group(1)), plantilla)
+def gancho(sec):
+    """Etapa 31: donde estaba "Para entender los datos" queda una línea que lleva hasta el bloque, al final de la página."""
+    return ('<p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, '
+            'al final de la página ↓</p>') if EXP.get(sec) else ""
+
+
+# el bloque entero se guarda en una marca y navegacion() lo pone al final de la página, antes de "Seguí explorando"
+base = re.sub(r"<!--EXPLICADOR:(\w+)-->", lambda m: gancho(m.group(1)) + (f"<!--EXPLICADOR-FINAL:{m.group(1)}-->" if EXP.get(m.group(1)) else ""), plantilla)
 base = re.sub(r"<!--PROGRAMAS:(\w+)-->", lambda m: programas(m.group(1)), base)
 
 # Banderas provinciales (las baja y achica scripts/banderas.py): van al sitio, y su autor y licencia a Sobre nosotros
@@ -490,6 +498,12 @@ def navegacion(h, pagina):
     if not b or pagina in ("inicio", "404"):
         return h
     blo = h[b["ini"]:b["fin"]]
+    # "Para entender los datos" (etapa 31): al final de la página, después de las fichas y antes de "Seguí explorando"
+    final = ""
+    m = re.search(r"<!--EXPLICADOR-FINAL:(\w+)-->", blo)
+    if m:
+        blo = blo.replace(m.group(0), "", 1)
+        final = explicador(m.group(1))
     # migas arriba del título y fila de secciones (solo en el celular) arriba de todo
     blo = blo.replace("<h2", migas(("", TITULO_DE[pagina]), prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
     # transición entre páginas: el título viaja desde su tarjeta de la portada (mismo nombre en las dos páginas)
@@ -501,7 +515,9 @@ def navegacion(h, pagina):
         i = ORDEN.index(pagina)
         vecino = lambda j: ORDEN[j] if 0 <= j < len(ORDEN) else "inicio"
         ant, sig = vecino(i - 1), vecino(i + 1)
-        blo = blo[:-len("</section>")] + pasos(ant, sig, relacionadas(pagina, {ant, sig}), ("./#secciones", "Todas las secciones")) + "</section>"
+        blo = blo[:-len("</section>")] + final + pasos(ant, sig, relacionadas(pagina, {ant, sig}), ("./#secciones", "Todas las secciones")) + "</section>"
+    elif final:
+        blo = blo[:-len("</section>")] + final + "</section>"
     return h[:b["ini"]] + blo + h[b["fin"]:]
 
 
