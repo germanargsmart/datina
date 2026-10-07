@@ -31,6 +31,10 @@
 @font-face{font-family:"Datina Verdana C60";src:local("Verdana Bold"),local("Verdana-Bold");font-weight:100 900;size-adjust:77.9%;ascent-override:119.4%;descent-override:30.8%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Datina Roboto C75";src:local("Roboto Bold"),local("Roboto-Bold");font-weight:100 900;size-adjust:90.2%;ascent-override:103.1%;descent-override:26.6%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Datina Verdana C75";src:local("Verdana Bold"),local("Verdana-Bold");font-weight:100 900;size-adjust:71.8%;ascent-override:129.5%;descent-override:33.4%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* la bajada (etapa 38): Roboto Flex en 340 y con el tamaño óptico de 28 mide el 92,4% de Roboto y el 80,9% de Verdana (medido en el navegador con
+   el texto de todas las bajadas), así que tiene su propio reemplazo: sin él, la bajada perdía un renglón al llegar la letra y la página saltaba */
+@font-face{font-family:"Datina Roboto B";src:local("Roboto"),local("Roboto Regular"),local("Roboto-Regular");font-weight:100 900;size-adjust:92.4%;ascent-override:100.6%;descent-override:26.0%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Datina Verdana B";src:local("Verdana");font-weight:100 900;size-adjust:80.9%;ascent-override:114.9%;descent-override:29.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Datina Mono";src:local("Consolas");font-weight:100 900;size-adjust:109.1%;ascent-override:96.2%;descent-override:24.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
   color-scheme:light;
@@ -52,6 +56,7 @@
   --en-azul-texto:rgba(255,255,255,.86); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);
   /* letra: diez tamaños y nada más. Los que van entre dos valores se ajustan al ancho de la pantalla */
   --f:"Roboto Flex","Datina Roboto","Datina Verdana", Roboto, Verdana, system-ui, sans-serif;
+  --f-bajada:"Roboto Flex","Datina Roboto B","Datina Verdana B", Roboto, Verdana, system-ui, sans-serif;
   --f-c30:"Roboto Flex","Datina Roboto C30","Datina Verdana C30",var(--f); --f-c45:"Roboto Flex","Datina Roboto C45","Datina Verdana C45",var(--f);
   --f-c55:"Roboto Flex","Datina Roboto C55","Datina Verdana C55",var(--f);
   --f-c60:"Roboto Flex","Datina Roboto C60","Datina Verdana C60",var(--f); --f-c75:"Roboto Flex","Datina Roboto C75","Datina Verdana C75",var(--f);
@@ -68,10 +73,17 @@
   --t-10:clamp(40px,5.2vw,64px);       /* títulos de página */
   --t-cifra:clamp(38px,4.6vw,54px);    /* cifra destacada de cada ficha */
   --i-titulo:1.1; --i-tarjeta:1.25; --i-chico:1.4; --i-texto:1.55;
-  /* espacios: múltiplos de 4 */
-  --e-1:4px; --e-2:8px; --e-3:12px; --e-4:16px; --e-5:20px; --e-6:24px; --e-7:32px; --e-8:48px; --e-9:64px; --e-10:96px;
+  /* espacios: la escala del autor (etapa 38), 4, 8, 12, 16, 24, 32, 48, 72, 96 y 144. No hay --e-5: los 20 píxeles no están en la
+     escala y pasaron a 24 (--e-6), y --e-9 pasó de 64 a 72 */
+  --e-1:4px; --e-2:8px; --e-3:12px; --e-4:16px; --e-6:24px; --e-7:32px; --e-8:48px; --e-9:72px; --e-10:96px; --e-11:144px;
+  /* tres ritmos editoriales ("aire editorial, no de dashboard"): dentro de un componente, de 16 a 24 (--e-4 y --e-6). Entre bloques
+     (una ficha y la siguiente, el gráfico de un artículo), de 48 en el celular a 72 en la computadora. Entre capítulos de una página
+     (la entrada con "En cifras", las fichas, "Para entender los datos" y "Seguí explorando", y los bloques de la portada), de 96 a 144 */
+  --bloque:clamp(48px,5vw,72px);
+  --capitulo:clamp(96px,10vw,144px);
   --margen:22px;          /* margen lateral de la página */
-  --ritmo:var(--e-9);     /* separación entre bloques de una página (48 en el celular) */
+  --ritmo:var(--bloque);  /* separación entre bloques de una página */
+  --tinta-bajada:#2B3440; /* la bajada de cada página: más oscura que --muted, más clara que --ink */
   /* anchos */
   --medida:40em;          /* largo máximo de un párrafo */
   --col:1180px;          /* ancho del contenido, alineado con la barra (etapa 5: antes 800) */
@@ -93,7 +105,7 @@
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (max-width:760px){:root{--t-4:16px;--ritmo:var(--e-8)}}
+@media (max-width:760px){:root{--t-4:16px}}
 
 /* ---------- base ---------- */
 *,*::before,*::after{box-sizing:inherit}
@@ -159,7 +171,7 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .en-azul .boton.principal,.en-azul .boton[aria-pressed="true"]{--b-fondo:#fff;--b-tinta:var(--azul);--b-borde:#fff}
 .enlace{padding:0;font:inherit;text-align:left;color:var(--azul);background:none;border:0;cursor:pointer;
   text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
-.tarjeta{display:flex;flex-direction:column;gap:var(--e-2);padding:var(--e-5);color:var(--ink);text-decoration:none;
+.tarjeta{display:flex;flex-direction:column;gap:var(--e-2);padding:var(--e-6);color:var(--ink);text-decoration:none;
   background:var(--superficie-2);border:1px solid transparent;border-radius:var(--r-tarjeta);box-shadow:none;transition:background-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .tarjeta:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){
@@ -180,7 +192,7 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
   transition:background-color var(--dur-3) var(--ease-out),box-shadow var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out)}
 .barra.clara{background:rgba(246,248,251,.94);box-shadow:0 1px 0 rgba(44,116,181,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .barra .envoltura{position:relative;max-width:var(--ancho-max);height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--e-6)}
-.barra-izq{grid-column:1;display:flex;align-items:center;gap:var(--e-5)}
+.barra-izq{grid-column:1;display:flex;align-items:center;gap:var(--e-6)}
 /* al bajar, la barra se compacta: sube 14 px, su contenido baja 7 y la marca se achica. Al subir vuelve */
 .barra-izq,.barra .temas,.barra-der{transition:transform var(--dur-3) var(--ease-out)}
 .barra.compacta{transform:translateY(-14px)}
@@ -312,7 +324,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .buscador{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--borde);box-shadow:var(--sombra-panel)}
 .buscador:not([hidden]){animation:abre-buscador var(--dur-2) var(--ease-out)}
 @keyframes abre-buscador{from{transform:translateY(-8px)}}
-.buscador-caja{max-width:760px;margin:0 auto;padding:var(--e-5) var(--margen) var(--e-6)}
+.buscador-caja{max-width:760px;margin:0 auto;padding:var(--e-6) var(--margen) var(--e-6)}
 .buscador-lab{display:block;margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 #busca{width:100%;padding:12px 16px;font:inherit;font-size:var(--t-5);color:var(--ink);background:#fff;border:1.5px solid var(--azul);border-radius:var(--r-control)}
 #busca::placeholder{color:#7A8794}
@@ -323,7 +335,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .busca-res small{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}
 .busca-sug{margin:var(--e-2) 6px 2px;font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.busca-res a:hover{background:var(--superficie-2)}}
-@media (max-width:760px){.buscador-caja{padding:var(--e-4) var(--margen) var(--e-5)}}
+@media (max-width:760px){.buscador-caja{padding:var(--e-4) var(--margen) var(--e-6)}}
 
 /* ---------- marca: gorro frigio sobre la i, como sobre la pica del escudo ---------- */
 .i-gorro{position:relative;display:inline-block}
@@ -350,7 +362,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 @keyframes aparece{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .portada h1{margin:0 0 var(--e-3);padding-top:.28em;font-size:clamp(76px,9vw,136px);line-height:.8;font-weight:400;letter-spacing:-.005em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 25,"opsz" 144}
-.portada .lema{margin:0 0 var(--e-5);font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
+.portada .lema{margin:0 0 var(--e-6);font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 30,"opsz" 144;font-family:var(--f-c30)}
 .portada .bajada{margin:0 0 var(--e-6);max-width:26em;font-size:var(--t-5);line-height:1.45;color:rgba(255,255,255,.88)}
 .atajos{display:flex;flex-wrap:wrap;gap:var(--e-3)}
@@ -449,7 +461,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .preguntas{background:#fff;border-bottom:1px solid var(--borde)}
 .rotador{max-width:880px;margin:0 auto;padding:var(--e-7) var(--margen) var(--e-6);text-align:center}
 .rot-eb{margin:0 0 var(--e-4);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-hondo)}
-.rot-control{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--e-3);margin-top:var(--e-5)}
+.rot-control{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--e-3);margin-top:var(--e-6)}
 .rot-cuenta{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px;margin:0 auto;font:500 var(--t-2)/1 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .rot-barra{display:block;width:96px;height:2px;overflow:hidden;background:var(--line)}
 .rot-barra i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--sol)}
@@ -473,7 +485,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
 .bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-9);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
-.destacados,.articulos-home,.secciones{padding-top:calc(var(--ritmo) * 1.5)}
+.destacados,.articulos-home,.secciones{padding-top:var(--capitulo)}
 .rotador{padding-bottom:var(--e-7)}
 
 /* destacados: tres tarjetas de color con un ícono grande y el Sol de Mayo como señal de entrada */
@@ -488,7 +500,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .dest .iso{--ic:#fff;--ic-claro:var(--c-claro);--ic-detalle:var(--c)}
 .dest.amarilla .iso{--ic:var(--ink);--ic-claro:#FBD36E;--ic-detalle:var(--sol)}
 .dest-arte .iso{position:absolute;right:20px;bottom:0;z-index:1;width:150px;height:150px;--trazo:2.2px}
-.dest-cuerpo{flex:1;display:flex;flex-direction:column;gap:var(--e-3);padding:var(--e-5) var(--e-6) var(--e-6)}
+.dest-cuerpo{flex:1;display:flex;flex-direction:column;gap:var(--e-3);padding:var(--e-6) var(--e-6) var(--e-6)}
 .dest-eb{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase}
 .dest-cuerpo b{font-size:var(--t-7);line-height:var(--i-titulo);font-weight:600;font-variation-settings:"wdth" 75,"opsz" 32;font-family:var(--f-c75)}
 .dest-txt{max-width:30em;font-size:var(--t-3);line-height:var(--i-chico)}
@@ -510,7 +522,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .dest{min-height:380px;padding:0;scroll-snap-align:start}
   .dest-arte{height:150px}
   .dest-arte .iso{width:118px;height:118px;right:12px}
-  .dest-cuerpo{padding:var(--e-4) var(--e-5) var(--e-5)}
+  .dest-cuerpo{padding:var(--e-4) var(--e-6) var(--e-6)}
 }
 
 /* artículos: tarjetas con ícono */
@@ -521,7 +533,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .art-txt{display:flex;flex-direction:column;gap:var(--e-2)}
 .art-txt b{font-size:var(--t-4);line-height:var(--i-tarjeta);font-weight:600}
 .art-txt small{font-size:var(--t-2);color:var(--muted)}
-.ver-todos{margin-top:var(--e-5)}
+.ver-todos{margin-top:var(--e-6)}
 @media (max-width:760px){
   .art-grid{grid-template-columns:1fr;gap:var(--e-3)}
   .art-card{grid-template-columns:64px 1fr;gap:var(--e-3);padding:var(--e-3)}
@@ -536,7 +548,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 #secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:stretch}
 @media (max-width:1079px){#secciones-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){#secciones-grid{grid-template-columns:1fr}}
-.tg{padding:var(--e-5) var(--e-4) var(--e-3);background:var(--superficie-2);border-radius:var(--r-tarjeta)}
+.tg{padding:var(--e-6) var(--e-4) var(--e-3);background:var(--superficie-2);border-radius:var(--r-tarjeta)}
 .tg-otros{grid-column:1/-1}
 .tg-tit{margin:0 var(--e-2) var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .tg-lista{margin:0;padding:0;list-style:none}
@@ -610,10 +622,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .migas-prov{color:var(--azul)}
 .migas-prov[hidden]{display:none}
 .migas+h2{margin-top:var(--e-4)!important}
-.pildoras+.migas{margin-top:var(--e-5)}
+.pildoras+.migas{margin-top:var(--e-6)}
 /* la fila de una categoría (etapa 36): al final de la entrada de la página, antes de "En cifras", con el estilo de la navegación (letra en
    mayúsculas y la marca amarilla en la página actual). Si no entra, se desliza de costado */
-.subsecciones{display:flex;align-items:baseline;gap:var(--e-5);max-width:100%;margin:calc(-1 * var(--e-4)) 0 var(--e-7);overflow-x:auto;scrollbar-width:none;
+.subsecciones{display:flex;align-items:baseline;gap:var(--e-6);max-width:100%;margin:calc(-1 * var(--e-4)) 0 var(--e-7);overflow-x:auto;scrollbar-width:none;
   border-bottom:1px solid var(--line);font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
 .subsecciones::-webkit-scrollbar{display:none}
 .sub-cat{flex:none;font-family:var(--mono);font-weight:500;color:var(--muted)}
@@ -654,14 +666,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .elige-lista li:hover{background:var(--celeste-suave)}
 }
 /* perfil: un indicador por tarjeta, con la tira de las 24, agrupados por tema con un índice arriba (etapa 27) */
-.prov-grid{margin-top:var(--e-5)}
-.perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-5);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
+.prov-grid{margin-top:var(--e-6)}
+.perfil-indice ol{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-6);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
 .perfil-grupo{scroll-margin-top:96px}
-.perfil-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-5);margin:var(--e-8) 0 var(--e-4)}
+.perfil-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-6);margin:var(--e-8) 0 var(--e-4)}
 .perfil-cab .bloque-grupo{margin:0}
 .perfil-cab .enlace{font-size:var(--t-2)}
 .perfil-tarjetas{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--e-4)}
-.dp{gap:2px;padding:var(--e-4) var(--e-5)}
+.dp{gap:2px;padding:var(--e-4) var(--e-6)}
 .dp-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .dp-num{font-size:var(--t-8);line-height:1.1;font-weight:500;letter-spacing:-.03em;color:var(--azul);font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 45,"opsz" 144;font-family:var(--f-c45)}
 .dp-det{min-height:2.8em;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
@@ -674,7 +686,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* provincias parecidas y "si tu provincia fuera un país" */
 #prov-band:not(:empty){display:inline-block;margin-right:16px;vertical-align:.08em}
 #prov-band .bandera{display:block}
-.prov-extra{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-5);margin-top:var(--e-6)}
+.prov-extra{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-6);margin-top:var(--e-6)}
 .prov-extra>div{border-top:1px dotted var(--azul);padding-top:var(--e-3)}
 .prov-extra h3{margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
 .prov-extra ol,.prov-extra ul{margin:0;font-size:var(--t-3);line-height:var(--i-texto)}
@@ -716,7 +728,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
    Cada pieza es una tarjeta blanca, como las fichas, con su texto corto, su gráfico vivo y el enlace a su ficha. Las grandes llevan el
    texto a un costado desde 1080 píxeles. Las de "Más del Laboratorio" van en una grilla de tres, dos o una columna, y sus filas se
    comparten (subgrid): los gráficos empiezan a la misma altura y los enlaces quedan en la misma línea aunque los textos midan distinto */
-.lab-pieza{position:relative;display:flex;flex-direction:column;gap:var(--e-3);margin:var(--e-5) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px);
+.lab-pieza{position:relative;display:flex;flex-direction:column;gap:var(--e-3);margin:var(--e-6) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px);
   background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
 .lab-pieza h3{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;font-family:var(--f-c75)}
 .lab-lead{margin:0 0 var(--e-3);max-width:var(--medida)}
@@ -754,8 +766,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .lab-pieza.grande .lab-graf>.pol-ley{margin-bottom:var(--e-2)}
 .pol-ley i.lab-ini{width:9px;height:9px;border-radius:50%;background:#fff;border:1.5px solid var(--celeste)}
 .pol-ley i.lab-fin{width:10px;height:10px;border-radius:50%;background:var(--celeste)}
-.lab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--e-5)}
-.lab-grid>.lab-pieza{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:var(--e-3);margin:var(--e-2) 0 var(--e-5)}
+.lab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--e-6)}
+.lab-grid>.lab-pieza{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:var(--e-3);margin:var(--e-2) 0 var(--e-6)}
 .lab-grid .lab-lead{margin:0;font-size:var(--t-3)}
 @media (min-width:1080px){
   .lab-pieza.grande{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);column-gap:var(--e-8);align-items:center}
@@ -770,7 +782,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 }
 @media (max-width:760px){
   .lab-grid{grid-template-columns:1fr}
-  .lab-pieza{margin:var(--e-4) 0;padding:var(--e-5) var(--e-4) var(--e-4)}
+  .lab-pieza{margin:var(--e-4) 0;padding:var(--e-6) var(--e-4) var(--e-4)}
 }
 @media (hover:hover) and (pointer:fine){.lab-pieza:hover{border-color:var(--azul);box-shadow:0 0 0 1px var(--azul),var(--sombra-tarjeta)}}
 
@@ -782,13 +794,22 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .pieza>.pasos{margin-top:var(--e-8)}
 
 /* ---------- páginas de sección: pregunta de entrada, explicación, cifras y cierre ---------- */
-.tema-intro{max-width:42em;margin:-4px 0 var(--e-7)}
+.tema-intro{max-width:42em;margin:-4px 0 var(--e-8)}
 .tema-intro .pregunta{margin:0 0 var(--e-3);font-size:var(--t-6);line-height:1.15;font-weight:500;color:var(--ink)}
 .tema-intro p{margin:0;line-height:1.5;color:var(--muted)}
+/* La bajada (etapa 38, pedido del autor: "poné una fuente más linda para todo lo que sea subtítulos después del título ... Cambiá la fuente
+   para todos", y la opción A que eligió): Roboto Flex más grande (20 píxeles, 18 en el celular) y más liviana (340), con el tamaño óptico
+   de 28 y un gris más oscuro que el de los textos secundarios. En las páginas donde la pregunta todavía es el subtítulo (las herramientas,
+   el Laboratorio y Artículos) la pregunta toma la misma letra, un tamaño más grande */
+.tema-intro p:not(.pregunta),.prov-sub,.nos-bajada,.bloque-sub,.nota .nota-bajada{font-family:var(--f-bajada);font-size:var(--t-5);line-height:1.5;
+  font-weight:340;font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--tinta-bajada)}
+.tema:not(.con-pregunta) .tema-intro .pregunta,.laboratorio .tema-intro .pregunta{font-family:var(--f-bajada);font-weight:340;font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--ink)}
+/* en la portada, sobre el azul, la misma letra con su tamaño y su blanco */
+.portada .bajada{font-family:var(--f-bajada);font-weight:340;font-variation-settings:"opsz" 28;letter-spacing:-.003em}
 /* en el celular, una fila de secciones que se desliza de costado, con el mismo estilo que la barra */
 .pildoras{display:none}
 @media (max-width:760px){
-  .pildoras{display:flex;gap:var(--e-5);overflow-x:auto;margin:0 calc(-1 * var(--margen));padding:var(--e-2) var(--margen) 0;scrollbar-width:none;
+  .pildoras{display:flex;gap:var(--e-6);overflow-x:auto;margin:0 calc(-1 * var(--margen));padding:var(--e-2) var(--margen) 0;scrollbar-width:none;
     border-bottom:1px solid var(--line)}
   .pildoras::-webkit-scrollbar{display:none}
   .pildoras a{flex:none;padding:12px 0 10px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;
@@ -805,14 +826,16 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
    En el celular es una lista que se abre de a uno, con una flecha. Sin JavaScript se ven todos los textos, con los títulos como encabezados.
    Antes (2 de octubre de 2026) estaba arriba de las fichas: el título a la izquierda y una tarjeta con un + en un círculo por tema a la
    derecha, que dejaba la columna izquierda vacía y, en pantallas medianas, el signo lejos de su texto */
-.exp-gancho{margin:0 0 var(--e-7);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+.exp-gancho{margin:0 0 var(--capitulo);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+/* en las herramientas, después de la línea viene una sola ficha: la separación de un bloque, no la de un capítulo */
+.herramienta>.exp-gancho{margin-bottom:var(--bloque)}
 .exp-gancho a{font-weight:500}
-.explicador{margin:var(--ritmo) 0 var(--e-8);padding-top:var(--e-5);border-top:1px dotted var(--azul);scroll-margin-top:96px}
+.explicador{margin:var(--capitulo) 0 0;padding-top:var(--e-6);border-top:1px dotted var(--azul);scroll-margin-top:96px}
 .en-cifras>h3{margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 /* el título con el mismo estilo que "Seguí explorando", el de los bloques de la portada */
 .exp-cab .bloque-grupo{margin:0 0 var(--e-3)}
 .exp-cab p{max-width:22em;margin:0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
-.exp-lista{margin-top:var(--e-5);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);overflow:hidden}
+.exp-lista{margin-top:var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);overflow:hidden}
 .exp-fila+.exp-fila{border-top:1px solid var(--line)}
 .exp-fila h4{margin:0}
 /* botón de despliegue (en el celular): el título en letra normal y una flecha que apunta abajo y gira al abrir. El + en un círculo de
@@ -838,7 +861,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .glosario dd{margin:2px 0 0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
 @media (max-width:760px){
   .despliegue{padding:var(--e-3) var(--e-4)}
-  .exp-cont{padding:0 var(--e-4) var(--e-5)}
+  .exp-cont{padding:0 var(--e-4) var(--e-6)}
 }
 /* desde 761 px, índice y lectura. Una sola lista en el documento: las filas no forman caja (display: contents) y el texto abierto ocupa
    la columna derecha de arriba abajo. Las filas que sobran de la grilla no ocupan lugar, y la última, flexible, se queda con el alto de
@@ -868,7 +891,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* "En cifras": la cifra clave de cada ficha, o la de la provincia elegida, antes de la explicación */
 /* Cinco tarjetas en todas las secciones (etapa 15): del mismo ancho y llenando la fila cuando entran (880 píxeles de ancho o más),
    y si no, en una sola fila que se desliza de costado (antes se partían en dos filas con una sola en la segunda) */
-.en-cifras{margin:0 0 var(--e-7);container-type:inline-size}
+.en-cifras{margin:0 0 var(--e-8);container-type:inline-size}
 .cifras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--e-3)}
 @container (min-width:880px){.cifras-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @container (max-width:879px){
@@ -884,11 +907,14 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .c-num{font-size:var(--t-8);line-height:1;font-weight:500;color:var(--azul);font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 45,"opsz" 144;font-family:var(--f-c45)}
 .c-txt{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 /* líneas de ayuda antes de las fichas de suicidio */
-.ayuda{max-width:var(--medida);margin:var(--e-6) 0 0;padding:var(--e-5) var(--e-6);background:var(--celeste-suave);border-radius:var(--r-tarjeta)}
+.ayuda{max-width:var(--medida);margin:var(--e-6) 0 0;padding:var(--e-6) var(--e-6);background:var(--celeste-suave);border-radius:var(--r-tarjeta)}
 .ayuda strong{font-weight:600}
+/* los grupos de una página (Energía) abren un capítulo, y su primera ficha y la que sigue a las líneas de ayuda van pegadas (etapa 38) */
+.tema>.bloque-grupo{margin-top:var(--capitulo)}
+:is(.bloque-grupo,.ayuda)+.ficha{margin-top:var(--e-6)}
 /* programas con evaluación oficial (Educación, etapa 9): tarjetas blancas como las de cierre, del mismo alto */
-.programas .bloque-grupo{margin-top:var(--e-9)}
-.programas-sub{max-width:var(--medida);margin:0 0 var(--e-5);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+.programas .bloque-grupo{margin-top:var(--capitulo)}
+.programas-sub{max-width:var(--medida);margin:0 0 var(--e-6);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
 .programas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--e-4)}
 .programa{display:flex;flex-direction:column;gap:var(--e-3);padding:var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
 .programa h4{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600}
@@ -899,7 +925,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .programa dd{margin:2px 0 0;font-size:var(--t-3);line-height:var(--i-chico)}
 .programa dd small{display:block;margin-top:2px;font-size:var(--t-2);color:var(--muted)}
 .programa .enlace{margin-top:auto;padding-top:var(--e-2);font-size:var(--t-3)}
-@media (max-width:760px){.programa{padding:var(--e-5)}}
+@media (max-width:760px){.programa{padding:var(--e-6)}}
 /* Listas sin viñetas (etapa 14, pedido del autor: "no me gustan los bullets en ningún lugar"): sin marcador y con una línea fina
    entre un ítem y el siguiente, como las listas de Apple, GOV.UK o Stripe. Las listas numeradas (los rankings) conservan el número */
 .nota-limites ul,.dx-lista,.dx-no-dice ul,.prov-extra ul,.creditos ul{list-style:none;padding-left:0}
@@ -915,11 +941,11 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .cx-detalle[open]>summary::after,.creditos[open]>summary::after{transform:rotate(45deg);color:#fff;background:var(--azul)}
 /* final de página: "Seguí explorando" (2 de octubre de 2026, pedido del autor, como el de usafacts.org). El título, el enlace a
    todas las secciones y cuatro tarjetas grises con el ícono en un recuadro blanco: la anterior, la siguiente y dos relacionadas */
-.pasos{margin:var(--e-9) 0 0}
-.pasos-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-5);margin-bottom:var(--e-5)}
+.pasos{margin:var(--capitulo) 0 0}
+.pasos-cab{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--e-2) var(--e-6);margin-bottom:var(--e-6)}
 .pasos-cab .bloque-grupo{margin:0}
 .pasos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e-4)}
-.tarjeta.explora{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:var(--e-5);padding:var(--e-4);
+.tarjeta.explora{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:var(--e-6);padding:var(--e-4);
   background:var(--superficie-2);border-color:var(--superficie-2);box-shadow:none}
 .explora-ico{display:grid;place-items:center;width:96px;height:96px;background:#fff;border-radius:var(--r-icono);box-shadow:var(--sombra-tarjeta)}
 .explora-ico .iso{width:72px;height:72px;--trazo:1.5px}
@@ -937,7 +963,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 }
 
 /* ---------- fichas: redondeadas, como todas las tarjetas ---------- */
-.ficha{position:relative;margin:var(--e-5) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px) var(--e-5);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out)}
+.ficha{position:relative;margin:var(--bloque) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px) var(--e-6);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out)}
 /* La tarjeta aparece una sola vez, al entrar en pantalla (datina.js pone "listo" en la página y "visto" en cada ficha).
    Mientras el código no llegó, se ve con su silueta desde los 400 ms (ver "formas de carga"): si llega antes, nunca se ve vacía */
 .js:not(.listo) .ficha{animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
@@ -963,7 +989,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .sobre[open]>summary{color:var(--ink)}
 /* el cuadro con las notas: arriba del pie, sale desde el ícono */
 .sobre-panel{position:absolute;z-index:6;left:clamp(16px,3vw,32px);right:clamp(16px,3vw,32px);max-width:46em;max-height:min(60vh,520px);overflow:auto;
-  padding:var(--e-4) var(--e-5);background:#fff;border:1px solid var(--azul);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);transform-origin:0 100%}
+  padding:var(--e-4) var(--e-6);background:#fff;border:1px solid var(--azul);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);transform-origin:0 100%}
 .sobre[open]>.sobre-panel{animation:abre-sobre var(--dur-2) var(--ease-out)}
 @keyframes abre-sobre{from{opacity:0;transform:translateY(6px) scale(.98)}}
 .sobre-panel .nota{margin:0 0 var(--e-2)!important;max-width:none}
@@ -984,7 +1010,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .lectura-serie span{white-space:nowrap}
 .lectura-serie i{display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:50%}
 /* pie: fuente y acciones */
-.pie{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-5);margin-top:var(--e-5);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}
+.pie{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-6);margin-top:var(--e-6);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}
 /* la fuente, con la frecuencia de actualización (etapa 27), se acomoda en dos renglones antes de mandar los botones a otra fila */
 @media (min-width:761px){.pie>span{flex:1 1 16em;min-width:0}}  /* en el celular el pie es una columna */
 .acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-left:auto}
@@ -1006,9 +1032,9 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .cx-reponer{font-size:var(--t-2)}
 @media (hover:hover) and (pointer:fine){.ficha:hover{border-color:var(--azul);box-shadow:0 0 0 1px var(--azul),var(--sombra-tarjeta)}}
 @media (max-width:760px){
-  .ficha{margin:var(--e-4) 0;padding:var(--e-5) var(--e-4) var(--e-4)}
+  .ficha{padding:var(--e-6) var(--e-4) var(--e-4)}
   .ficha .nota{font-size:var(--t-2)}
-  .grafico{margin:var(--e-5) 0 6px}
+  .grafico{margin:var(--e-6) 0 6px}
   .pie{flex-direction:column;align-items:flex-start}
   .acciones{margin-left:0}
 }
@@ -1026,7 +1052,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   .ficha-grafico>:first-child,.ficha-texto>:first-child{margin-top:0}
 }
 /* el texto que sigue al gráfico se separa de él como el gráfico de la cabeza (en la plantilla, antes de que llegue el código, y después) */
-@media (max-width:1079px){.ficha>:not(h3,.ficha-sub,.etiqueta,.clave)+.lead,.ficha-grafico+.ficha-texto>.lead:first-child{margin-top:var(--e-5)}}
+@media (max-width:1079px){.ficha>:not(h3,.ficha-sub,.etiqueta,.clave)+.lead,.ficha-grafico+.ficha-texto>.lead:first-child{margin-top:var(--e-6)}}
 
 /* ---------- formas de carga (etapa 6) ----------
    Mientras llegan el código o los datos, cada ficha muestra su silueta: el título y el texto como renglones, y el gráfico
@@ -1115,7 +1141,7 @@ html:not(.js) .esqueleto{display:none}
 
 /* ---------- controles de las fichas: rectos ---------- */
 /* conmutador: botones de opción con un indicador que se desliza */
-.conmutador{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);margin:var(--e-5) 0 0;padding:2px;border:1px solid var(--azul);border-radius:var(--r-control)}
+.conmutador{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);margin:var(--e-6) 0 0;padding:2px;border:1px solid var(--azul);border-radius:var(--r-control)}
 .conmutador::before{content:"";position:absolute;top:2px;bottom:2px;left:2px;width:calc((100% - 4px) / var(--n,2));background:var(--azul);border-radius:calc(var(--r-control) - 3px);
   transform:translateX(calc(var(--i,0) * 100%));transition:transform var(--dur-2) var(--ease-out)}
 .conmutador button{position:relative;min-height:34px;padding:0 var(--e-4);font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--azul);
@@ -1130,14 +1156,14 @@ html:not(.js) .esqueleto{display:none}
 }
 /* listas desplegables de las fichas y de las herramientas */
 .cx-campo,.selector-ficha{display:flex;flex-direction:column;gap:6px;flex:1 1 260px;min-width:0}
-.selector-ficha{max-width:420px;margin:var(--e-5) 0 0}
+.selector-ficha{max-width:420px;margin:var(--e-6) 0 0}
 .cx-campo span,.selector-ficha span,.cm-xs legend,.cx-sug-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .cx-campo select,.selector-ficha select{width:100%;min-width:0;min-height:44px;padding:0 38px 0 12px;font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);
   border:1px solid var(--azul);border-radius:var(--r-control);appearance:none;-webkit-appearance:none;cursor:pointer;
   background-image:linear-gradient(45deg,transparent 50%,var(--azul) 50%),linear-gradient(135deg,var(--azul) 50%,transparent 50%);
   background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px;background-repeat:no-repeat}
 .cx-campo select:focus-visible,.selector-ficha select:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
-.ir-consultas{margin:var(--e-5) 0 0}
+.ir-consultas{margin:var(--e-6) 0 0}
 /* el botón a las consultas de pobreza es largo: en pantallas angostas pasa a dos renglones en lugar de salirse de la ficha */
 .ir-consultas .boton{max-width:100%;white-space:normal;padding-block:10px;text-align:center}
 /* la OCDE dentro de cada gráfico: botones que cambian lo que muestra, en violeta */
@@ -1195,7 +1221,7 @@ html:not(.js) .esqueleto{display:none}
 
 /* ---------- herramientas ---------- */
 /* Tu índice */
-.ix-cuerpo{display:grid;grid-template-columns:260px minmax(0,1fr);gap:var(--e-7);align-items:start;margin-top:var(--e-5)}
+.ix-cuerpo{display:grid;grid-template-columns:260px minmax(0,1fr);gap:var(--e-7);align-items:start;margin-top:var(--e-6)}
 .ix-pesos{position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--e-3)}
 .ix-peso{display:grid;grid-template-columns:12px 1fr auto;align-items:center;gap:4px 8px;font-size:var(--t-3)}
 .ix-peso i{width:10px;height:10px;border-radius:50%}
@@ -1224,9 +1250,9 @@ html:not(.js) .esqueleto{display:none}
 .mp-ley{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
 @media (max-width:760px){.mp-cuerpo{grid-template-columns:1fr}}
 /* explorador de cruces */
-.cx-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-3);margin:var(--e-5) 0 var(--e-3)}
+.cx-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-3);margin:var(--e-6) 0 var(--e-3)}
 .cx-controles .cx-boton{flex:0 0 auto;min-height:44px}
-.cx-opciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-5);font-size:var(--t-3);color:var(--muted)}
+.cx-opciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-6);font-size:var(--t-3);color:var(--muted)}
 .cx-opciones label{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
 .cx-opciones input,.cm-xs input{width:15px;height:15px;accent-color:var(--azul)}
 .cx-opciones input:disabled+*,.cx-opciones label:has(input:disabled){opacity:.45;cursor:default}
@@ -1235,12 +1261,12 @@ html:not(.js) .esqueleto{display:none}
 .cx-sug>span:last-child{display:flex;flex-wrap:nowrap;gap:var(--e-4);min-width:0;padding-bottom:var(--e-1);overflow-x:auto;scrollbar-width:thin}
 .cx-sug-lab{flex:none;white-space:nowrap}
 .cx-sug .cx-chip{flex:0 0 auto;font-size:var(--t-3);white-space:nowrap}
-.cx-cuerpo{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:var(--e-5);align-items:start;margin-top:var(--e-4)}
+.cx-cuerpo{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:var(--e-6);align-items:start;margin-top:var(--e-4)}
 .cx-cuerpo>*{min-width:0}
 /* diagnóstico educativo (etapa 10): controles, provincias elegidas, una tarjeta interna por provincia y el gráfico al costado */
 .vt-controles{display:flex;flex-wrap:wrap;gap:0 var(--e-4);align-items:end}
-.dx-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-4);margin:var(--e-5) 0 var(--e-3)}
-.dx-elegidas{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3);min-height:36px;margin-bottom:var(--e-5)}
+.dx-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-4);margin:var(--e-6) 0 var(--e-3)}
+.dx-elegidas{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3);min-height:36px;margin-bottom:var(--e-6)}
 .dx-chips{display:flex;flex-wrap:wrap;gap:var(--e-2);margin:0;padding:0;list-style:none}
 .dx-chips li{display:inline-flex;align-items:center;gap:var(--e-2);min-height:36px;padding:0 4px 0 var(--e-3);font-size:var(--t-2);border:1px solid var(--borde);border-radius:var(--r-control);background:var(--bg)}
 .dx-quitar{display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer;
@@ -1253,9 +1279,9 @@ html:not(.js) .esqueleto{display:none}
 .dx-cuerpo>*{min-width:0}
 @media (min-width:1080px){.dx-cuerpo{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}.dx-grafico-caja{position:sticky;top:96px}}
 .dx-grafico-tit,.dx-prov h5,.dx-no-dice h4{margin:0 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.dx-prov{margin:0 0 var(--e-4);padding:var(--e-5);border:1px solid var(--borde);border-radius:var(--r-interno);background:var(--bg)}
+.dx-prov{margin:0 0 var(--e-4);padding:var(--e-6);border:1px solid var(--borde);border-radius:var(--r-interno);background:var(--bg)}
 .dx-prov h4{margin:0 0 var(--e-3);font-size:var(--t-4);font-weight:600}
-.dx-prov h5{margin-top:var(--e-5)}
+.dx-prov h5{margin-top:var(--e-6)}
 .dx-cifra{margin:var(--e-3) 0 var(--e-1);font-size:var(--t-3);line-height:var(--i-texto);max-width:var(--medida)}
 .dx-cifra b{display:block;font-size:var(--t-6);line-height:1.1;font-weight:700;color:var(--azul);font-variant-numeric:tabular-nums}
 .dx-pos,.dx-linea,.dx-lista,.dx-conjunto,.dx-contexto,.dx-ayuda{font-size:var(--t-2);line-height:var(--i-texto);max-width:var(--medida)}
@@ -1270,7 +1296,7 @@ html:not(.js) .esqueleto{display:none}
 .dx-aviso{margin:0 0 var(--e-3);padding:var(--e-3) var(--e-4);font-size:var(--t-2);line-height:var(--i-texto);background:var(--sol-suave);border-left:3px solid var(--sol-fuerte);border-radius:var(--r-interno)}
 .dx-conjunto,.dx-contexto{margin:0 0 var(--e-4);padding:var(--e-4);background:var(--superficie-2);border-radius:var(--r-interno)}
 .dx-ayuda{margin:var(--e-4) 0 0;color:var(--muted)}
-.dx-no-dice{margin-top:var(--e-6);padding-top:var(--e-5);border-top:1px dotted var(--azul)}
+.dx-no-dice{margin-top:var(--e-6);padding-top:var(--e-6);border-top:1px dotted var(--azul)}
 .dx-no-dice ul{margin:0;font-size:var(--t-2);line-height:var(--i-texto);max-width:var(--medida)}
 @media (max-width:760px){.dx-prov{padding:var(--e-4)}.dx-cifra b{font-size:var(--t-5)}}
 /* en pantallas angostas cada fila de la tabla es un bloque: el indicador arriba y sus tres valores con su rótulo */
@@ -1301,7 +1327,7 @@ html:not(.js) .esqueleto{display:none}
 .cx-leyenda{display:flex;flex-wrap:wrap;gap:4px 16px;margin:6px 0 0;font-family:var(--mono);font-size:var(--t-1);color:var(--muted)}
 .cx-leyenda i{display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:50%;vertical-align:-1px}
 .cx-lectura{max-width:46em;margin:var(--e-4) 0 0;color:var(--ink)}
-.cx-residuos{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-5);margin:var(--e-4) 0 0}
+.cx-residuos{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-6);margin:var(--e-4) 0 0}
 .cx-residuos h4{margin:0 0 6px;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
 .cx-residuos ol{margin:0;padding-left:20px;font-size:var(--t-3);color:var(--muted)}
 .cx-residuos b{margin-right:6px;font-weight:500;color:var(--ink)}
@@ -1328,7 +1354,7 @@ html:not(.js) .esqueleto{display:none}
 .pol-ley b{font-weight:600}
 .pol-ley small{font-size:var(--t-2);color:var(--muted)}
 /* legisladores de cada provincia */
-.lg-sels{display:flex;flex-wrap:wrap;gap:0 var(--e-5)}
+.lg-sels{display:flex;flex-wrap:wrap;gap:0 var(--e-6)}
 .lg-sels .selector-ficha{flex:1 1 220px}
 .lg-lista{display:grid;grid-template-columns:1fr 2fr;gap:var(--e-2) var(--e-7);margin-top:var(--e-4)}
 .lg-lista h4{margin:0 0 6px;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -1349,7 +1375,7 @@ html:not(.js) .esqueleto{display:none}
 @media (max-width:760px){.lg-lista{grid-template-columns:1fr}
   .lg-lista .lg-hemis,.lab-hemi .lg-hemis{grid-template-columns:1fr;grid-template-areas:"f0" "l0" "f1" "l1" "pie"}.ha-f1{margin-top:var(--e-4)}}
 /* tabla de leyes clave por espacio */
-.vt-matriz{overflow-x:auto;min-height:0;margin-top:var(--e-5)}
+.vt-matriz{overflow-x:auto;min-height:0;margin-top:var(--e-6)}
 .vt-matriz table{width:100%;min-width:600px;border-collapse:separate;border-spacing:2px}
 .vt-matriz th{padding:0 2px 6px;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:center;vertical-align:bottom}
 .vt-matriz th:first-child{position:sticky;left:0;z-index:1;text-align:left;background:var(--bg)}
@@ -1378,8 +1404,8 @@ html:not(.js) .esqueleto{display:none}
 .esp-cab h3{margin:2px 0 0;font-size:var(--t-6);line-height:var(--i-titulo);font-weight:600}
 .esp-cab .esp-cerrar{margin-left:auto}
 .esp-eb{margin:0;font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.esp-cuerpo{padding:var(--e-5) var(--e-6) var(--e-6)}
-.esp-res{max-width:var(--medida);margin:0 0 var(--e-5);font-size:var(--t-4);line-height:var(--i-texto)}
+.esp-cuerpo{padding:var(--e-6) var(--e-6) var(--e-6)}
+.esp-res{max-width:var(--medida);margin:0 0 var(--e-6);font-size:var(--t-4);line-height:var(--i-texto)}
 .esp-plat{padding:var(--e-4);background:var(--superficie);border-radius:var(--r-interno)}
 .esp-plat p:last-child{margin:var(--e-1) 0 0;font-size:var(--t-3);line-height:var(--i-chico)}
 .esp-plat small{color:var(--muted)}
@@ -1399,7 +1425,7 @@ html:not(.js) .esqueleto{display:none}
 .esp-votos em.sin::before{display:none}
 .esp-votos small{color:var(--muted)}
 .esp-ver{font-size:var(--t-2)}
-.esp-cuerpo>.nota{margin:var(--e-5) 0 0}
+.esp-cuerpo>.nota{margin:var(--e-6) 0 0}
 @media (max-width:760px){
   .esp-dialogo{width:calc(100% - 16px);max-height:92vh}
   .esp-cab{padding:var(--e-3) var(--e-4)}
@@ -1441,7 +1467,7 @@ html:not(.js) .esqueleto{display:none}
 /* en el celular, el título del artículo no se repite en las migas: va justo debajo */
 @media (max-width:760px){.notas>.migas li:has(>[aria-current]){display:none}}
 .notas>.pasos{max-width:740px}
-.nota-cab{display:grid;grid-template-columns:76px 1fr;gap:var(--e-5);align-items:center;margin:var(--e-5) 0 var(--e-6)}
+.nota-cab{display:grid;grid-template-columns:76px 1fr;gap:var(--e-6);align-items:center;margin:var(--e-6) 0 var(--e-6)}
 .nota-ico{display:grid;place-items:center;width:76px;height:76px;background:var(--superficie-2);color:var(--azul);border-radius:var(--r-icono)}
 .nota-ico .iso{width:66px;height:66px;--trazo:1.5px}
 .nota-meta{margin:0 0 6px!important;font-size:var(--t-2)!important;color:var(--muted)}
@@ -1449,11 +1475,11 @@ html:not(.js) .esqueleto{display:none}
 .nota p{margin:0 0 var(--e-4);line-height:1.6}
 .nota .nota-bajada{font-size:var(--t-5);line-height:1.5}
 .nota mark{padding:0 .2em;font-weight:600;color:var(--ink);background:var(--sol-suave)}
-.nota-graf{margin:var(--e-7) 0;padding:var(--e-6) var(--e-6) var(--e-5);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.nota-graf{margin:var(--bloque) 0;padding:var(--e-6) var(--e-6) var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
 .nota-graf h3{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul)}
-.nota-graf .grafico{margin-top:var(--e-5)}
+.nota-graf .grafico{margin-top:var(--e-6)}
 .nota .nota-pie-graf{margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
-.nota-limites{margin:var(--e-8) 0 0;padding-top:var(--e-5);border-top:3px solid var(--azul)}
+.nota-limites{margin:var(--capitulo) 0 0;padding-top:var(--e-6);border-top:3px solid var(--azul)}
 .nota-limites h2{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:1.05;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .nota-limites ul{margin:0}
 .nota-limites li{line-height:1.5}
@@ -1475,7 +1501,7 @@ html:not(.js) .esqueleto{display:none}
   color:var(--azul);text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .pie-lema,.pie-sitio h2{margin:var(--e-2) 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
 /* más aire entre la marca, el lema y el texto (octubre de 2026) */
-.pie-marca .pie-lema{margin:var(--e-4) 0 var(--e-5)}
+.pie-marca .pie-lema{margin:var(--e-4) 0 var(--e-6)}
 .pie-marca p:last-child{line-height:1.6}
 .pie-sitio h2{margin-top:0}
 .pie-sitio p{max-width:30em;margin:0 0 var(--e-3)}
