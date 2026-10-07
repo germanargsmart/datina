@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=60a16546d4">
+<link rel="stylesheet" href="datina.css?v=b97bd03063">
 </head>
 <body data-pagina="movilidad">
 <header class="barra clara">
@@ -52,7 +52,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="menu-grupo"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
     </div>
     <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li></ul></div>
+      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos y Laboratorio</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div>
       <div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li></ul></div>
       <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
     </div>
@@ -76,6 +76,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
+  
+
+  <!-- Laboratorio (etapa 33, 6 de octubre de 2026, pedido del autor: "agregá o sustituí alguna sección con esto
+       https://usafacts.org/the-viz-lab/"): piezas visuales grandes, como The Viz Lab de USAFacts, cada una con su gráfico vivo y un
+       texto corto que calcula datina.js. Arriba lo más nuevo y abajo "Más del Laboratorio". Las que salen de una ficha llevan a ella -->
   
 
   
@@ -196,7 +201,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pie-lema">Las 24 Argentinas en números</p>
       <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
     </div>
-    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="articulos.html">Artículos</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
     <div class="pie-datos">
       <h2>Los datos</h2>
       <p data-t="actualizado"></p>
@@ -209,7 +214,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=2ef026fd99"></script>
-<script src="datina.js?v=3cf6280219"></script>
+<script src="datos/fichas.js?v=b115977e45"></script>
+<script src="datina.js?v=6a0fcf23ba"></script>
 </body>
 </html>

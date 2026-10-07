@@ -699,6 +699,24 @@ def _(ic):
     ic.plano_circulo(x, y, .42 * ESC, "s")
 
 
+@icono("matraz", "azul")
+def _(ic):
+    # Laboratorio (etapa 33): un matraz de vidrio claro con el líquido lleno hasta un poco menos de la mitad, dos burbujas y dos marcas
+    ic.sombra(6.4, 4.4, 3.9, 1.6)
+    ic.revolucion(5, 5, [(0, 3.5), (.35, 3.55), (4.7, 1.05), (5.0, .98)], "l")
+    ic.revolucion(5, 5, [(0, 3.5), (.35, 3.55), (2.4, 2.4)], "s")
+    ic.arco_frente(5, 5, 2.4, 2.4, "wl", desde=-30, hasta=120)
+    for x0, y0, z0, r in ((4.2, 6.2, 1.2, .34), (5.9, 4.9, .8, .24)):
+        x, y = proy((x0, y0, z0))
+        ic.plano_circulo(x, y, r * ESC, "w")
+    for z in (3.2, 4.0):
+        rr = 3.55 - (3.55 - 1.05) * (z - .35) / (4.7 - .35)
+        ic.arco_frente(5, 5, z, rr, "k", desde=40, hasta=90)
+    ic.cilindro(5, 5, 4.9, .98, 2.9, arriba=None, lado="l")
+    ic.cilindro(5, 5, 7.8, 1.3, .5, arriba="l", lado="l")
+    ic.elipse_piso(5, 5, 8.3, .82, "s")
+
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}

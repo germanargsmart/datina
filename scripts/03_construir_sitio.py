@@ -282,7 +282,8 @@ def bloques(h):
 
 # página a la que pertenece cada bloque
 PAGINA_DE_BLOQUE = {"portada": "inicio", "preguntas": "inicio", "destacados": "inicio", "articulos-home": "inicio", "secciones": "inicio",
-                    "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404"}
+                    "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404",
+                    "laboratorio": "laboratorio"}
 BLOQUES = bloques(base)
 for b in BLOQUES:
     b["pagina"] = b["id"] if "tema" in b["clases"] else next((PAGINA_DE_BLOQUE[c] for c in b["clases"] if c in PAGINA_DE_BLOQUE), None)
@@ -386,7 +387,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles"}
+             "diagnostico": "portapapeles", "laboratorio": "matraz"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO}.items():
@@ -410,9 +411,12 @@ url_pagina = lambda p: "./" if p == "inicio" else f"{p}.html"
 TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 
 
-# Recorrido de "Anterior / Siguiente": artículos, tu provincia, las secciones y las herramientas, y Sobre nosotros
-ORDEN = ["articulos", "provincia"] + [x[0] for x in SECCIONES if x[0] != "articulos"] + ["nosotros"]
-TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto"})
+# Recorrido de "Anterior / Siguiente": artículos, el Laboratorio (etapa 33), tu provincia, las secciones y las herramientas, y Sobre nosotros
+ORDEN = ["articulos", "laboratorio", "provincia"] + [x[0] for x in SECCIONES if x[0] != "articulos"] + ["nosotros"]
+TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto", "laboratorio": "Laboratorio"})
+# piezas del Laboratorio: las cuenta la tarjeta que lleva a él en "Seguí explorando"
+LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
+assert LAB_PIEZAS, "no se encontraron las piezas del Laboratorio en la plantilla"
 FLECHA_ANT, FLECHA_SIG = '<span aria-hidden="true">\u2190</span> ', ' <span aria-hidden="true">\u2192</span>'
 TIT_NOTA = {i: html.unescape(t) for i, _, _, t in NOTAS}
 
@@ -437,7 +441,8 @@ def carta(pid, meta=None):
     if pid.startswith("a-"):
         return (f"{pid}.html", TIT_NOTA[pid], meta or "Artículo", SEC_ICONO[pid], f"t-{pid}")
     sec = next((x for x in SECCIONES if x[0] == pid), None)
-    desc = {"provincia": "Perfil provincial", "nosotros": "Qué es Datina", "articulos": f"{len(NOTAS)} artículos"}.get(pid) or (
+    desc = {"provincia": "Perfil provincial", "nosotros": "Qué es Datina", "articulos": f"{len(NOTAS)} artículos",
+            "laboratorio": f"{LAB_PIEZAS} piezas visuales"}.get(pid) or (
         "Herramienta" if sec and sec[4] else f"{sec[5]} fichas" if sec else "")
     return (url_pagina(pid), TITULO_DE[pid], meta or desc, SEC_ICONO.get(pid, "sol"), f"t-{pid}" if sec else "")
 
@@ -457,7 +462,8 @@ def pasos(ant, sig, relacionadas, todas):
 def relacionadas(pagina, ya):
     """Las dos tarjetas que acompañan a la anterior y la siguiente: los artículos de la sección y, si faltan, tu provincia, Cruces y
     las páginas que siguen en el recorrido. Nunca la página actual ni una que ya está."""
-    candidatas = [i for i, _, sec, _ in NOTAS if sec == pagina] + ["provincia", "cruces"]
+    # el Laboratorio lleva a las secciones de sus piezas
+    candidatas = [i for i, _, sec, _ in NOTAS if sec == pagina] + (["politica", "petroleo"] if pagina == "laboratorio" else []) + ["provincia", "cruces"]
     if pagina in ORDEN:
         i = ORDEN.index(pagina)
         candidatas += ORDEN[i + 2:] + ORDEN[:i]
@@ -527,7 +533,8 @@ def lista(items):
 
 
 MAPA = ('<div class="pie-col"><h2>Temas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if not x[4] and x[0] != "articulos"]) + "</div>"
-        '<div class="pie-col"><h2>Herramientas</h2>' + lista([(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] + [("articulos.html", "Artículos")]) +
+        '<div class="pie-col"><h2>Herramientas</h2>' + lista([(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] + [("articulos.html", "Artículos"),
+                                                                                                                       ("laboratorio.html", "Laboratorio")]) +
         '<h2>Datina</h2>' + lista([("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
                                    ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]) + "</div>")
 assert "<!--MAPA-->" in base
@@ -623,6 +630,10 @@ pagina("provincia", "Tu provincia",
 pagina("nosotros", "Sobre nosotros",
        "Qué es Datina, para qué existe, de dónde salen sus datos y cómo se hace. Estadísticas públicas de las 24 jurisdicciones de la Argentina.",
        {"nosotros"})
+# Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts
+pagina("laboratorio", "Laboratorio",
+       "Datos difíciles, en gráficos: cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
+       {"laboratorio"})
 # Contacto: formulario del proyecto (se activa al publicar en Netlify)
 pagina("contacto", "Contacto", "Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.", {"contacto"})
 # Página para las direcciones que no existen

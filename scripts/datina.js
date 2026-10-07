@@ -2929,6 +2929,16 @@ const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_p
   DIB.legisladores();
 }));
 const lgMes = t => t === "sin fecha" ? "sin fecha" : `${MESES[+t.slice(5, 7) - 1]} de ${t.slice(0, 4)}`;
+// nombre de un legislador como "Nombre Apellido" (la lista los guarda como "Apellido, Nombre")
+const lgNom = i => { const n = LGP.nombres[i], k = n.indexOf(", "); return k < 0 ? n : `${n.slice(k + 2)} ${n.slice(0, k)}`; };
+// Quién ocupa cada banca en la fecha de la composición del período, su leyenda y su cuadro: los usan los hemiciclos de la ficha y del
+// Laboratorio (etapa 33)
+const bancasHemi = per => (LGP.hemiciclo[per] || []).map(([cam, p, i, bl, e]) => ({cam, prov: p, nom: lgNom(i), bloque: LGP.bloques[bl], e}));
+const leyHemi = arr => CG.espacios.filter(k => arr.some(b => LGP.espacios[b.e] === k))
+  .map(k => `<span><i style="background:${ESP_COLOR[k]}"></i>${k} <b>${arr.filter(b => LGP.espacios[b.e] === k).length}</b></span>`).join("");
+const tipBanca = b => `<b>${b.nom}</b><br>${bandera(b.prov)}${NOMBRES[b.prov]}<br>${b.bloque}`;
+const hemiFig = (bh, cam) => `<figure class="hemi ha-f${cam}"><h4>${cam ? "Senado" : "Diputados"}, ${bh.filter(b => b.cam === cam).length} bancas</h4>` +
+  `<div class="hemi-svg" data-cam="${cam}"></div></figure>`;
 /* Hemiciclo (etapa 28): un punto por banca, en filas de semicírculos, agrupadas por espacio en el orden de la leyenda de la composición
    (de izquierda a derecha) y, dentro de cada espacio, por provincia. Con una provincia elegida, sus bancas quedan resaltadas, y al pasar
    el mouse o tocar cerca de una banca, el cuadro dice quién la ocupa. Las bancas se reparten entre las filas según su largo */
@@ -2971,7 +2981,7 @@ DIB.legisladores = () => {
   if (!LGP) { esperando(el); lgCargar().then(DIB.legisladores).catch(() => sinDatos(el, "No se pudo cargar la lista.")); return; }
   // fila: [periodo, cámara, provincia, nombre, bloque, espacio, desde, hasta, a quién reemplaza]
   const F = LGP.filas.filter(f => f[0] === per && f[2] === c);
-  const nom = i => { const n = LGP.nombres[i], k = n.indexOf(", "); return k < 0 ? n : `${n.slice(k + 2)} ${n.slice(0, k)}`; };
+  const nom = lgNom;
   const bancas = cam => {
     const filas = F.filter(f => f[1] === cam), sig = new Map(filas.filter(f => f[8] >= 0).map(f => [f[8], f]));
     return filas.filter(f => f[8] < 0).sort((p, q) => LGP.nombres[p[3]].localeCompare(LGP.nombres[q[3]], "es")).map(h => {
@@ -2998,20 +3008,15 @@ DIB.legisladores = () => {
       : `No hubo cambios de legisladores ${per === LG_ULT ? "en lo que va del" : "durante el"} período.`);
   el.removeAttribute("aria-busy");
   // hemiciclos de las dos cámaras, arriba de la lista: quién ocupa cada banca en la fecha de la composición del período
-  const bh = (LGP.hemiciclo[per] || []).map(([cam, p, i, bl, e]) => ({cam, prov: p, nom: nom(i), bloque: LGP.bloques[bl], e}));
-  const ley = arr => CG.espacios.filter(k => arr.some(b => LGP.espacios[b.e] === k))
-    .map(k => `<span><i style="background:${ESP_COLOR[k]}"></i>${k} <b>${arr.filter(b => LGP.espacios[b.e] === k).length}</b></span>`).join("");
+  const bh = bancasHemi(per);
   // las bancas se resaltan solo con una provincia elegida (en el sitio o en la lista): sin elegir, la lista muestra CABA pero el hemiciclo, todo
   const marcada = MED.legisladores || (NOMBRES[prov] ? prov : "");
-  const cuantas = cam => bh.filter(b => b.cam === cam).length;
-  const hemi = cam => `<figure class="hemi ha-f${cam}"><h4>${cam ? "Senado" : "Diputados"}, ${cuantas(cam)} bancas</h4><div class="hemi-svg" data-cam="${cam}"></div></figure>`;
-  el.innerHTML = `<div class="lg-hemis">${hemi(0)}${hemi(1)}` +
-    [0, 1].map(cam => `<div class="pol-ley ha-l${cam}">${ley(bh.filter(b => b.cam === cam))}</div>`).join("") +
+  el.innerHTML = `<div class="lg-hemis">${hemiFig(bh, 0)}${hemiFig(bh, 1)}` +
+    [0, 1].map(cam => `<div class="pol-ley ha-l${cam}">${leyHemi(bh.filter(b => b.cam === cam))}</div>`).join("") +
     `<p class="hemi-pie">Cada punto es una banca, con quien la ocupaba ${per === LG_ULT ? "hoy" : `el ${fechaLarga(LGP.hemiciclo_fecha[per])}`}. ` +
     `Los espacios van en el orden de la leyenda y, dentro de cada uno, por provincia. ` +
     (marcada ? `Las bancas de ${NOMBRES[marcada]} quedan resaltadas.` : "Al elegir una provincia, sus bancas quedan resaltadas.") + `</p></div>` +
     `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
-  const tipBanca = b => `<b>${b.nom}</b><br>${bandera(b.prov)}${NOMBRES[b.prov]}<br>${b.bloque}`;
   el.querySelectorAll(".hemi-svg").forEach(h => hemiciclo(h, bh.filter(b => b.cam === +h.dataset.cam), marcada, tipBanca));
 };
 
@@ -3057,6 +3062,118 @@ DIB.anioscong = conTablas("anioscong", ["anios_congreso"], a => {
   el.resaltar = null;
   $t("anioscong").textContent = textoAnios(filas, v, p);
 });
+
+
+/* ---------- Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts ----------
+   Cada pieza usa el mismo dibujo que su ficha, con un texto corto que sale del resumen. Se dibujan al entrar en pantalla (vistasL, al
+   final) y se vuelven a dibujar al cambiar el ancho o la provincia, como las fichas */
+TX["lab-hemiciclo"] = $t("lab-hemiciclo").textContent = `Las ${n0(CG.n_dip)} bancas de la Cámara de Diputados y las ${CG.n_sen} del Senado, cada una con ` +
+  `quien la ocupa hoy, agrupadas por espacio político y, dentro de cada espacio, por provincia. Al pasar el mouse o tocar una banca, el cuadro dice quién la ocupa.`;
+DIB["lab-hemiciclo"] = () => {
+  const el = G("lab-hemiciclo"); if (!el) return;
+  if (!LGP) { esperando(el); lgCargar().then(DIB["lab-hemiciclo"]).catch(() => sinDatos(el, "No se pudo cargar el hemiciclo.")); return; }
+  el.removeAttribute("aria-busy");
+  const bh = bancasHemi(LG_ULT), marcada = NOMBRES[prov] ? prov : "";
+  el.innerHTML = `<div class="lg-hemis">${hemiFig(bh, 0)}${hemiFig(bh, 1)}` +
+    [0, 1].map(cam => `<div class="pol-ley ha-l${cam}">${leyHemi(bh.filter(b => b.cam === cam))}</div>`).join("") +
+    `<p class="hemi-pie">Cada punto es una banca. Los espacios van en el orden de la leyenda y, dentro de cada uno, por provincia. ` +
+    (marcada ? `Las bancas de ${NOMBRES[marcada]} quedan resaltadas.` : "Con una provincia elegida, sus bancas quedan resaltadas.") + `</p></div>`;
+  el.querySelectorAll(".hemi-svg").forEach(h => hemiciclo(h, bh.filter(b => b.cam === +h.dataset.cam), marcada, tipBanca));
+};
+const COL_CORTES = c => [`Hasta ${c[0]}`, `${c[0] + 1} a ${c[1]}`, `${c[1] + 1} a ${c[2]}`, `${c[2] + 1} a ${c[3]}`, `Desde ${c[3] + 1}`].map((lab, i) => ({lab, c: COL_POZOS[i]}));
+TX["lab-pozos"] = $t("lab-pozos").textContent = `Cada punto es uno de los ${n0(PG.map_n)} pozos no convencionales que produjeron petróleo o gas desde ${PG.map_ini}, ` +
+  `con el color del año en que empezó a producir y más claro si no produjo en ${PG.map_mes}. Debajo, las áreas de concesión.`;
+DIB["lab-pozos"] = conTablas("lab-pozos", ["pozos_no_convencionales", "areas_produccion"], a => {
+  leyenda("lab-pozos-ley", COL_CORTES(PG.map_cortes));
+  mapaPozos(G("lab-pozos"), {anim: a, vista: "cuenca"});
+});
+TX["lab-anios"] = $t("lab-anios").textContent = `Desde 1983, ${n0(AC.personas)} personas ocuparon una banca en el Congreso nacional y ${AC.veinte} sumaron ` +
+  `20 años o más. Las barras separan los años en Diputados y en el Senado, y en negrita van quienes siguen en el cargo.`;
+DIB["lab-anios"] = conTablas("lab-anios", ["anios_congreso"], a => {
+  const el = G("lab-anios"); if (!el) return;
+  // siempre del país: el texto de la pieza habla de todo el Congreso
+  const filas = T.anios_congreso.filter(d => d.anios_total > 0)
+    .sort((x, y) => y.anios_total - x.anios_total || x.nombre.localeCompare(y.nombre, "es")).slice(0, 10);
+  // en la tarjeta el eje es angosto: la unidad va en la leyenda
+  const claves = [{k: "dip", lab: "Años en Diputados", c: css("--azul")}, {k: "sen", lab: "Años en el Senado", c: css("--celeste"), texto: css("--ink")}];
+  leyenda("lab-anios-ley", claves);
+  const data = filas.map((d, i) => ({...d, codigo_indec: "a" + i, prov: d.codigo_indec, territorio: d.nombre, dip: d.anios_diputados, sen: d.anios_senado}));
+  const tope = (d3.max(filas, d => d.anios_total) || 1) * 1.18, marcas = d3.range(0, tope, 10);
+  // en la tarjeta, sin banderas, así entran los nombres: la provincia va en el cuadro
+  apiladasH(el, {anim: a, data, claves, max: tope, ticks: marcas, ejeF: x => x,
+    izq: () => 172, recortar: true, sinProv: true, tipF: n1, alFinal: d => n1(d.anios_total), fuerte: d => d.sigue,
+    tipExtra: d => `<br>${bandera(d.prov)}${d.provincias}` + (d.sigue ? "<br>Sigue en el cargo" : "")});
+  el.resaltar = null;
+});
+/* Las 24 año por año: cada jurisdicción es una línea que va de su natalidad y su mortalidad infantil del primer año con las dos series a las del
+   último, con un punto vacío al principio y uno lleno al final. Es lo que Cruces anima año por año, en un solo dibujo */
+const LAB_X = "natalidad", LAB_Y = "mortalidad_infantil", CRU_SR = R.cruces_series || {};
+const LAB_A0 = Math.max(CRU_SR[LAB_X][0], CRU_SR[LAB_Y][0]), LAB_A1 = Math.min(CRU_SR[LAB_X][1], CRU_SR[LAB_Y][1]);
+const CRU_META = Object.fromEntries(R.cruces.map(m => [m.id, m]));
+TX["lab-cruces"] = $t("lab-cruces").textContent = `Cada línea es una jurisdicción: va de su natalidad y su mortalidad infantil en ${LAB_A0} a las de ${LAB_A1}. ` +
+  `En Cruces se ven año por año, con este par de indicadores o con cualquier otro que tenga serie.`;
+let SERIES_CRU = null;
+const cargarSeriesCru = () => SERIES_CRU ? Promise.resolve(SERIES_CRU) : d3.csv("datos/cruces_series.csv", d3.autoType).then(filas => {
+  const s = {};
+  filas.forEach(r => { const c = String(r.codigo_indec).padStart(2, "0"); ((s[r.id] ||= {})[c] ||= {})[r.anio] = r.valor; });
+  return (SERIES_CRU = s);
+});
+DIB["lab-cruces"] = a => {
+  const el = G("lab-cruces"); if (!el) return;
+  if (!SERIES_CRU) { esperando(el); cargarSeriesCru().then(() => DIB["lab-cruces"](a)).catch(() => sinDatos(el, "No se pudieron cargar las series.")); return; }
+  const v = (k, c, an) => SERIES_CRU[k]?.[c]?.[an] ?? null;
+  const data = PROV.map(([c, nom]) => ({c, nom, x0: v(LAB_X, c, LAB_A0), y0: v(LAB_Y, c, LAB_A0), x1: v(LAB_X, c, LAB_A1), y1: v(LAB_Y, c, LAB_A1)}))
+    .filter(d => [d.x0, d.y0, d.x1, d.y1].every(x => x != null));
+  const mx = CRU_META[LAB_X], my = CRU_META[LAB_Y];
+  $("lab-cruces-ley").innerHTML = `<span><i class="lab-ini"></i>En ${LAB_A0}</span><span><i class="lab-fin"></i>En ${LAB_A1}</span>`;
+  trayectorias(el, {anim: a, data, xLab: mx.nombre, yLab: my.nombre, fx: loc.format(`,.${mx.dec}f`), fy: loc.format(`,.${my.dec}f`), a0: LAB_A0, a1: LAB_A1});
+  const bajaX = data.filter(d => d.x1 < d.x0).length, bajaY = data.filter(d => d.y1 < d.y0).length;
+  el.insertAdjacentHTML("beforeend", `<p class="contexto-grafico">La natalidad bajó en ${bajaX === data.length ? `las ${data.length}` : `${bajaX} de las ${data.length}`} jurisdicciones ` +
+    `y la mortalidad infantil en ${bajaY === data.length ? `las ${data.length}` : `${bajaY} de las ${data.length}`}. ${mx.nombre}: ${mx.unidad}. ${my.nombre}: ${my.unidad}.</p>`);
+};
+function trayectorias(el, cfg) {
+  const angosto = el.clientWidth < 520, data = cfg.data;
+  const C = lienzo(el, angosto ? 300 : 320, {t: 30, r: 14, b: 42, l: 40});
+  const {svg, g, iw, ih} = C;
+  svg.attr("aria-label", `${cfg.yLab} y ${cfg.xLab.toLowerCase()} de ${data.length} jurisdicciones en ${cfg.a0} y en ${cfg.a1}`);
+  const x = d3.scaleLinear().domain(d3.extent(data.flatMap(d => [d.x0, d.x1]))).nice().range([6, iw]);
+  // como en Cruces, la escala va de punta a punta de los datos: no es una suma, así que no hace falta que empiece en cero
+  const y = d3.scaleLinear().domain(d3.extent(data.flatMap(d => [d.y0, d.y1]))).nice().range([ih, 0]);
+  g.append("g").attr("class", "grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(e => e.select(".domain").remove());
+  g.append("g").attr("class", "eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6)).call(e => e.select(".domain").remove());
+  g.append("g").attr("class", "eje").attr("transform", `translate(0,${ih})`).call(d3.axisBottom(x).ticks(angosto ? 4 : 6).tickSize(0).tickPadding(8))
+    .call(e => e.select(".domain").remove());
+  g.append("text").attr("class", "etq-suave").attr("x", iw).attr("y", ih + 36).attr("text-anchor", "end").text(cfg.xLab);
+  g.append("text").attr("class", "etq-suave").attr("x", -34).attr("y", -16).text(cfg.yLab);
+  // la provincia elegida, arriba y en el azul fuerte. Las demás, más claras
+  const orden = [...data].sort((p, q) => (p.c === prov) - (q.c === prov));
+  const col = d => d.c === prov ? css("--celeste-fuerte") : css("--celeste"), op = d => !NOMBRES[prov] || d.c === prov ? 1 : .45;
+  const lin = g.selectAll("line.tray").data(orden).join("line").attr("class", "tray").attr("x1", d => x(d.x0)).attr("y1", d => y(d.y0))
+    .attr("x2", d => x(d.x1)).attr("y2", d => y(d.y1)).attr("stroke", col).attr("stroke-width", d => d.c === prov ? 2.4 : 1.4).attr("opacity", op);
+  g.selectAll("circle.ini").data(orden).join("circle").attr("class", "ini").attr("cx", d => x(d.x0)).attr("cy", d => y(d.y0)).attr("r", 2.6)
+    .attr("fill", "#fff").attr("stroke", col).attr("stroke-width", 1.2).attr("opacity", op);
+  const fin = g.selectAll("circle.fin").data(orden).join("circle").attr("class", "fin").attr("cx", d => x(d.x1)).attr("cy", d => y(d.y1)).attr("r", 4.2)
+    .attr("fill", col).attr("stroke", "#fff").attr("opacity", op);
+  if (NOMBRES[prov]) {
+    const d = data.find(d => d.c === prov);
+    if (d) g.append("text").attr("class", "etq-fuerte").attr("x", x(d.x1) + (x(d.x1) > iw * .7 ? -8 : 8)).attr("y", y(d.y1) + 4)
+      .attr("text-anchor", x(d.x1) > iw * .7 ? "end" : "start").text(d.nom);
+  }
+  // con movimiento, cada línea crece desde el primer año y su punto lleno viaja con ella
+  if (cfg.anim) {
+    lin.attr("x2", d => x(d.x0)).attr("y2", d => y(d.y0)).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x2", d => x(d.x1)).attr("y2", d => y(d.y1));
+    fin.attr("cx", d => x(d.x0)).attr("cy", d => y(d.y0)).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("cx", d => x(d.x1)).attr("cy", d => y(d.y1));
+  }
+  const tip = d => `<b>${d.nom}</b><br>${cfg.xLab}: ${cfg.fx(d.x0)} en ${cfg.a0} y ${cfg.fx(d.x1)} en ${cfg.a1}<br>${cfg.yLab}: ${cfg.fy(d.y0)} en ${cfg.a0} y ${cfg.fy(d.y1)} en ${cfg.a1}`;
+  const dl = d3.Delaunay.from(data, d => x(d.x1), d => y(d.y1));
+  const ver = ev => {
+    const [sx, sy] = d3.pointer(ev, g.node()), [ex, ey] = d3.pointer(ev, el), d = data[dl.find(sx, sy)];
+    if (d && Math.hypot(x(d.x1) - sx, y(d.y1) - sy) < 16) return mostrarTip(el, tip(d), ex, ey);
+    ocultarTip();
+  };
+  svg.append("rect").attr("width", C.w).attr("height", C.h).attr("fill", "transparent").style("touch-action", "pan-y")
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarTip);
+}
 
 
 /* ---------- votaciones nominales en el Congreso ---------- */
@@ -6167,6 +6284,7 @@ if (PAGINA !== "inicio") {
     IDX.push({t: "Tu provincia", s: "Sección", u: "provincia.html", x: "perfil provincia provincias comparar país posición", sec: 1});
     Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, s: "Tu provincia", u: `provincia.html?prov=${c}`, x: n, sec: 2, c}));
     IDX.push({t: "Sobre nosotros", s: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace"});
+    IDX.push({t: "Laboratorio", s: "Gráficos", u: "laboratorio.html", x: "piezas visuales hemiciclo bancas pozos vaca muerta congreso años natalidad mortalidad evolución", sec: 1});
     SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda]) => {
       // el título y el texto de muchas fichas se calculan (TX): en otra página se leen de ahí
       const h = (TX[kt] || tit || "").trim(); if (!h) return;
@@ -6240,6 +6358,14 @@ const vistasG = new IntersectionObserver(es => es.forEach(en => {
   if (en.target.offsetParent) DIB[en.target.dataset.g](!REDUCIR && !LLEGADA.activa);
 }), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
 document.querySelectorAll("article.nota .grafico[data-g]").forEach(gr => vistasG.observe(gr));
+// En el Laboratorio (etapa 33) cada pieza se dibuja al entrar en pantalla y queda marcada como vista, así se vuelve a dibujar al cambiar
+// el ancho o la provincia, como las fichas
+const vistasL = new IntersectionObserver(es => es.forEach(en => {
+  if (!en.isIntersecting) return;
+  const f = en.target; vistasL.unobserve(f); f.classList.add("visto");
+  f.querySelectorAll(".grafico[data-g]").forEach(gr => { if (gr.offsetParent) DIB[gr.dataset.g](!REDUCIR && !LLEGADA.activa); });
+}), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
+document.querySelectorAll(".lab-pieza").forEach(f => vistasL.observe(f));
 
 /* navegación activa: la sección de esta página, en la barra, el menú y el pie */
 document.querySelectorAll(".temas a, .menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));

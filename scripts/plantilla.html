@@ -52,7 +52,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="menu-grupo"><p class="menu-tit" id="mt-temas">Temas</p><ul aria-labelledby="mt-temas"><li><a href="provincia.html">Tu provincia</a></li><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
     </div>
     <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li></ul></div>
+      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos y Laboratorio</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div>
       <div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li></ul></div>
       <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
     </div>
@@ -191,6 +191,66 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2 id="no-tit">Esta página no existe</h2>
     <p class="nos-bajada">Puede que la dirección tenga un error o que la página se haya mudado. Los datos siguen acá: elegí una sección o buscá con la lupa.</p>
     <p class="no-acciones"><a class="boton principal" href="./">Ir a la portada</a><a class="boton" href="./#secciones">Ver todas las secciones</a></p>
+  </section>
+
+  <!-- Laboratorio (etapa 33, 6 de octubre de 2026, pedido del autor: "agregá o sustituí alguna sección con esto
+       https://usafacts.org/the-viz-lab/"): piezas visuales grandes, como The Viz Lab de USAFacts, cada una con su gráfico vivo y un
+       texto corto que calcula datina.js. Arriba lo más nuevo y abajo "Más del Laboratorio". Las que salen de una ficha llevan a ella -->
+  <section class="laboratorio" id="laboratorio" aria-labelledby="lab-tit">
+    <h2 id="lab-tit">Laboratorio</h2>
+    <div class="tema-intro">
+      <p class="pregunta">Datos difíciles, en gráficos.</p>
+      <p>Piezas para mirar con tiempo: muchos datos en un solo dibujo, como cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha, con la tabla para descargar.</p>
+    </div>
+    <h3 class="bloque-grupo">Lo último</h3>
+    <article class="lab-pieza grande" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
+      <div class="lab-texto">
+        <span class="etiqueta">Política</span>
+        <h3 id="l-hemiciclo-t">Diputados y senadores, banca por banca</h3>
+        <p class="lab-lead" data-t="lab-hemiciclo"></p>
+        <a class="enlace" href="#f-legisladores">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="grafico lab-hemi" data-g="lab-hemiciclo" data-forma="bloque" style="--alto:490px;--alto-c:775px"></div>
+    </article>
+    <h3 class="bloque-grupo">Más del Laboratorio</h3>
+    <div class="lab-grid">
+      <article class="lab-pieza" id="l-pozos" aria-labelledby="l-pozos-t">
+        <div class="lab-texto">
+          <span class="etiqueta">Petróleo y gas</span>
+          <h3 id="l-pozos-t">Cada pozo de Vaca Muerta</h3>
+          <p class="lab-lead" data-t="lab-pozos"></p>
+        </div>
+        <div class="lab-graf">
+          <div class="pol-ley" id="lab-pozos-ley" aria-hidden="true"></div>
+          <div class="grafico" data-g="lab-pozos" data-forma="mapa"></div>
+        </div>
+        <a class="enlace" href="#f-mapa-pozos">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="lab-pieza" id="l-anios" aria-labelledby="l-anios-t">
+        <div class="lab-texto">
+          <span class="etiqueta">Política</span>
+          <h3 id="l-anios-t">Quiénes estuvieron más años en el Congreso</h3>
+          <p class="lab-lead" data-t="lab-anios"></p>
+        </div>
+        <div class="lab-graf">
+          <div class="pol-ley" id="lab-anios-ley" aria-hidden="true"></div>
+          <div class="grafico" data-g="lab-anios" data-forma="barras" style="--filas:10;--alto:230px;--alto-c:225px"></div>
+        </div>
+        <a class="enlace" href="#f-anios-congreso">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="lab-pieza" id="l-cruces" aria-labelledby="l-cruces-t">
+        <div class="lab-texto">
+          <span class="etiqueta">Cruces</span>
+          <h3 id="l-cruces-t">Las 24, año por año</h3>
+          <p class="lab-lead" data-t="lab-cruces"></p>
+        </div>
+        <div class="lab-graf">
+          <div class="pol-ley" id="lab-cruces-ley" aria-hidden="true"></div>
+          <div class="grafico" data-g="lab-cruces" data-forma="puntos" style="--alto:375px;--alto-c:400px"></div>
+        </div>
+        <a class="enlace" href="cruces.html?cx=natalidad&amp;cy=mortalidad_infantil">Ver la evolución año por año en Cruces <span aria-hidden="true">&rarr;</span></a>
+      </article>
+    </div>
   </section>
 
   <section class="tema" id="articulos">
