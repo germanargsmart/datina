@@ -373,7 +373,8 @@
     if (E.fuente) q.set("o", E.fuente);
     if (E.q) q.set("q", E.q);
     const s = q.toString();
-    history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash);
+    // dentro de un marco con restricciones el historial puede no estar disponible: el explorador sigue funcionando sin guardar el enlace
+    try { history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash); } catch (e) { /* sin enlace */ }
   }
 
   // ---------- filtros ----------
