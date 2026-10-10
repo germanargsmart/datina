@@ -424,9 +424,9 @@ const LEAD = {
         `${pct(Math.abs(SA.real_vs_ini))} ${SA.real_vs_ini < 0 ? "más bajo" : "más alto"} que el de ${SA.real_ini_mes}. El más alto de la serie fue ${max}, ` +
         `con ${n0(SA.real_max)} pesos de ${SA.mes}, y el más bajo, el de ${SA.real_min_mes}, con ${n0(SA.real_min)}. El gráfico no muestra junio ni diciembre, que incluyen el aguinaldo.`;
     }
-    return `En ${SA.mes}, el salario bruto promedio de los asalariados registrados del sector privado fue de ${n0(SA.pais)} pesos en el país. ` +
-      `El más alto fue el de ${SA.top[0]}, con ${n0(SA.top[1])}${conVeces(SA.top[1], SA.pais)}, y el más bajo, el de ${SA.bajo[0]}, con ${n0(SA.bajo[1])}${conVeces(SA.bajo[1], SA.pais)}. ` +
-      `Descontada la inflación, el salario del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant}, y subió ${deLas24(SA.n_suben)}.`;
+    // la cifra destacada y la descripción ya dicen el salario del país y su mes: el texto empieza por lo que el gráfico no muestra
+    return `Descontada la inflación, el salario del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant}, y subió ${deLas24(SA.n_suben)}. ` +
+      `El más alto fue el de ${SA.top[0]}, con ${n0(SA.top[1])} pesos${conVeces(SA.top[1], SA.pais)}, y el más bajo, el de ${SA.bajo[0]}, con ${n0(SA.bajo[1])}${conVeces(SA.bajo[1], SA.pais)}.`;
   },
   // salario de un maestro de grado con 10 años de antigüedad (etapa 23, Coordinación de Evaluación de Costos Educativos)
   "salario-docente": v => {
@@ -858,7 +858,7 @@ const TX = {
     `La tasa de entrada más alta de la serie fue ${pct(EM.te_max)}, en ${EM.te_max_anio}. Desde ${EM.ini}, el cambio neto fue negativo en ${EM.anios_negativos} años.`,
   "dinamica-nota": `Se cuentan las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su personal, así que las provincias suman el total del país. Una empresa abre cuando declara empleados por primera vez y cierra cuando pasa un año (cuatro trimestres) sin declarar personal, con el cierre fechado en el primer trimestre sin empleo: por eso la serie llega hasta un año antes que el empleo. El OEDE no marca ese último año como provisorio. ` +
     `Las tasas dividen aperturas y cierres por todas las empresas activas en el año. La vista por provincia muestra el cambio neto de ${EM.ult}. El OEDE separa la provincia de Buenos Aires en partidos del Gran Buenos Aires y resto, que acá se suman.`,
-  rotacion: `Entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}, el ${pct(RO.total)} de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo y el ${pct(RO.total_largo)} más de cinco años. ` +
+  rotacion: `En el otro extremo, el ${pct(RO.total_largo)} de las personas asalariadas llevaba más de cinco años en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}. ` +
     `La rotación se concentra en quienes tienen menos de 25 años (${pct(RO.jovenes)}), en los empleos sin descuento jubilatorio (${pct(RO.sin_desc)}, contra ${pct(RO.con_desc)} en los registrados) y en los hogares del quintil de menores ingresos (${pct(RO.q1)}, contra ${pct(RO.q5)} en el de mayores ingresos). ` +
     `Según el tipo de trabajo, es más común en el empleo privado (${pct(RO.privado)}) que en el estatal (${pct(RO.estatal)}), en los lugares donde trabajan hasta cinco personas (${pct(RO.chico)}, contra ${pct(RO.grande)} donde trabajan más de 40) y en las tareas no calificadas (${pct(RO.no_calif)}, contra ${pct(RO.profesional)} en las profesionales).`,
   "rotacion-nota": `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC, con ${n0(RO.casos)} respuestas de los cuatro últimos trimestres publicados. Se usa la pregunta sobre cuánto tiempo hace que la persona trabaja en ese empleo en forma continua, que se hace a los asalariados salvo el servicio doméstico. ` +
@@ -883,7 +883,7 @@ const TX = {
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
   muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. En ${R.femicidios.anio} la Justicia registró ${n0(R.femicidios.n)} víctimas directas de femicidio.`,
   "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
-  empleo: `En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado, ${n1(em.cada_100_pais)} por cada 100 habitantes. En los doce meses previos el total nacional ${signo(em.var_nac)} y ${em.suben} de las 24 jurisdicciones registraron aumentos.`,
+  empleo: `En los doce meses hasta ${em.mes}, el total del país ${signo(em.var_nac)} y el empleo creció ${deLas24(em.suben)}. En total eran ${n1(em.total_millones)} millones de personas.`,
   mortalidad: `En ${mo.anio} murieron en el país ${n1(mo.tasa)} de cada 1.000 nacidos vivos antes de cumplir un año. En ${mo.anio-1} la tasa había sido ${n1(mo.tasa_prev)} y en ${mo.anio_inicio}, ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
   "mortalidad-nota": `Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca ${mo.tri_base} y el lleno ${mo.tri_act}. La tabla descargable incluye también el valor de ${mo.anio}. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`,
   sube: `En ${su.mes}, en un día hábil típico se usaron ${n2(su.total_millones)} millones de tarjetas SUBE distintas en colectivos, trenes, subtes y lanchas${su.var_anual == null ? "" : `, ${n1(Math.abs(su.var_anual))}% ${su.var_anual < 0 ? "menos" : "más"} que en ${su.mes_prev}`}. En los primeros días hábiles de marzo de 2020, antes del aislamiento, eran ${n2(su.pre_millones)} millones.`,
@@ -1082,7 +1082,8 @@ const TX = {
   "pesca-rio-nota": `Captura comercial registrada en ríos y lagunas de las provincias que informan datos, en toneladas. No incluye la pesca deportiva ni la de subsistencia. La tabla descargable muestra cada especie por provincia.`,
   esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer en el país era de ${n1(nv.ev_pais)} años: ${n1(nv.ev_m)} para las mujeres y ${n1(nv.ev_v)} para los varones. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
-  exportaciones: `En ${nv.ex_anio} el país exportó bienes por ${n0(nv.ex_total)} millones de dólares, unos ${n0(nv.ex_pc_pais)} dólares por habitante. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : ""),
+  exportaciones: `En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
+    ` Por habitante, las producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.`,
   "exportaciones-nota": `Valor FOB de los bienes exportados según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
   "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
   internet: `En el ${nv.in_trim}, ${nv.in_top} tenía ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares${aclara("internet_fijo_provincias.accesos_100_hogares", nv.in_top)} y ${nv.in_low}, ${n1(nv.in_low_v)}. La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
@@ -4785,6 +4786,9 @@ function tablaAreas() {
 /* ---------- tarjetas: etiqueta, cifra clave y acciones ---------- */
 const sg = v => (v > 0 ? "+" : "") + pct(v);
 // Cifra destacada de cada ficha. La sección de salud mental no lleva cifra destacada, para no dramatizar.
+// [cifra, texto completo, leyenda corta]. El texto completo va en "En cifras" y en el buscador, que se leen sin la descripción de la
+// ficha. Dentro de la ficha va la leyenda corta, que dice solo lo que la descripción no dice (el alcance o la población de referencia):
+// así la descripción, la cifra y el comienzo del texto no repiten la misma frase (pedido del autor, 10 de octubre de 2026)
 const CLAVE = {
   "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
   "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`],
@@ -4807,7 +4811,7 @@ const CLAVE = {
   "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`],
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
   "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`],
-  "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`],
+  "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`, "promedio bruto del país"],
   "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`],
   "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`],
   "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`],
@@ -4851,7 +4855,7 @@ const CLAVE = {
   "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`],
   "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`],
   "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`],
-  "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`],
+  "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`, "cada 100 habitantes en el país"],
   "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`],
   "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`],
   "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`],
@@ -4873,14 +4877,15 @@ const CLAVE = {
   "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`],
   "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`],
   "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`],
-  "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`],
+  "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares, promedio del país"],
   "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`],
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`],
   "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`],
   "f-fiscal": [pct(R.fiscal.mediana), `de los ingresos de la provincia del medio fueron recursos propios en ${R.fiscal.anio}. El resto llegó de la Nación`],
   "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
   "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
-  "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`],
+  "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`,
+    "de los asalariados de 31 aglomerados urbanos"],
   "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
   "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`],
 };
@@ -5015,15 +5020,18 @@ async function imagenFicha(f) {
   const tit = envolver(f.querySelector("h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
   // con el título como pregunta (etapa 35), la descripción con el período va debajo
   const sub = envolver(f.querySelector(".ficha-sub")?.textContent || "", fS);
+  // y la cifra destacada con su leyenda corta, que el texto ya no repite
+  const fC = `500 17px ${F}`, cla = f.querySelector(".clave"), clave = cla ? envolver(`${cla.querySelector(".num").textContent} ${cla.querySelector(".txt").textContent}`, fC) : [];
   // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo
   const pieL = envolver(`${(f.querySelector(".pie > span")?.textContent || "").trim().replace(/\.$/, "")}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
-  const H = pad + tit.length * 30 + (sub.length ? sub.length * 21 + 6 : 0) + 10 + lead.length * 21 + 18 + h + 22 + pieL.length * 17 + pad;
+  const H = pad + tit.length * 30 + (sub.length ? sub.length * 21 + 6 : 0) + (clave.length ? clave.length * 23 + 8 : 0) + 10 + lead.length * 21 + 18 + h + 22 + pieL.length * 17 + pad;
   const cv = document.createElement("canvas"); cv.width = W * E; cv.height = H * E;
   const ctx = cv.getContext("2d"); ctx.scale(E, E); ctx.textBaseline = "top";
   ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
   let yy = pad;
   ctx.fillStyle = css("--azul"); ctx.font = fT; tit.forEach(l => { ctx.fillText(l, pad, yy); yy += 30; });
   if (sub.length) { yy += 6; ctx.fillStyle = css("--muted"); ctx.font = fS; sub.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); }
+  if (clave.length) { yy += 8; ctx.fillStyle = css("--celeste-fuerte"); ctx.font = fC; clave.forEach(l => { ctx.fillText(l, pad, yy); yy += 23; }); }
   yy += 10;
   const texto = () => { ctx.fillStyle = css("--ink"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); };
   const grafico = () => { ctx.drawImage(img, pad + (W - pad * 2 - w) / 2, yy, w, h); yy += h; };
@@ -5046,7 +5054,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
   if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
   // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
-  if (c) (f.querySelector(".ficha-sub") || h3).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[1]}</span></p>`);
+  if (c) (f.querySelector(".ficha-sub") || h3).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[2] || c[1]}</span></p>`);
   const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a");
   const acc = document.createElement("div"); acc.className = "acciones";
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre];

@@ -53,10 +53,19 @@ Pedido del autor: "demasiado espacio en blanco sin sentido y poco de diseñador"
 - La portada: lo azul con el mapa, "Explorá la Argentina por tema" (columnas sin panel gris, escritas por el constructor), Artículos (el de la relación más marcada primero, que era el destacado) y Herramientas. Sin Destacados: "Tu provincia" ya está en lo azul y las votaciones, en Instituciones políticas.
 - Verificado: armado, sintaxis, prueba de páginas (49), la barra en seis anchos con y sin provincia, los menús con el mouse y el teclado, el celular, el buscador y la página quieta al cargar (portada 0,001 en la computadora y 0 en el celular).
 
-## Próxima tarea
+## La misma frase una sola vez: muestra en Trabajo (10 de octubre de 2026)
+
+Medido en el sitio armado (Chrome sin ventana, 1440 píxeles): 116 fichas con pregunta, 97 con cifra destacada y unas 100 donde la leyenda de la cifra y la primera oración del texto (o la descripción y el texto) dicen casi lo mismo. Regla propuesta, cada pieza con un solo trabajo:
+- Descripción (`p.ficha-sub`): qué mide, por dónde y cuándo. No cambia.
+- Cifra destacada: el número con su unidad y una leyenda corta que dice solo lo que la descripción no dice (el alcance o la población de referencia: "promedio bruto del país", "cada 100 habitantes en el país"). Va como tercer elemento de `CLAVE` (`[cifra, texto completo, leyenda corta]`). El texto completo sigue en "En cifras" y en el buscador, que se leen sin la descripción. Sin leyenda corta, la ficha usa el texto completo como antes.
+- Texto (`p.lead`): empieza por lo que ni la cifra ni el gráfico dicen (el cambio en el tiempo, la distancia entre extremos, el total, el contexto) y no repite la cifra destacada. Conserva las unidades y los períodos de cada cifra nueva.
+- La imagen que baja "Descargar imagen" suma la cifra con su leyenda debajo de la descripción, porque el texto ya no la repite.
+
+Aplicado en las cuatro fichas de Trabajo (empleo, salarios, rotación y exportaciones). Salarios ya no necesita "Ver más" en la computadora.
+
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
-1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha (en salarios, la misma frase tres veces): la cifra con una leyenda corta y el texto que empiece por lo que el gráfico no dice. Afecta las 114 fichas con pregunta.
+1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha (en salarios, la misma frase tres veces). Muestra en Trabajo hecha (arriba): falta la aprobación del autor y, después, aplicarlo sección por sección al resto.
 2. La línea del país en las barras por provincia tapa los valores de las provincias cercanas al promedio.
 3. Etapa 40: la población de cada provincia hasta 2040 (proyecciones del INDEC) y las causas de muerte por provincia (DEIS, tasas ajustadas por edad, causas externas agrupadas sin separar el suicidio). Cada ficha nueva necesita su origen en `relaciones.json`.
 4. Opcional: la silueta de "En cifras" de Trabajo mide 140 píxeles y las tarjetas más, y con una red muy lenta la página salta 45 píxeles al llegar el código.
