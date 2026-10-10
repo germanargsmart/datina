@@ -2,7 +2,7 @@
    Colores por tipo: organismo en azul hondo, archivo en celeste y ficha en el amarillo del sol, con su borde fuerte para pasar 3 a 1 sobre el
    blanco. Nunca el verde y el rojo de bueno y malo ni el violeta de la OCDE. La forma también dice el tipo (círculo, cuadrado y rombo). */
 .rx{--rx-fuente:var(--azul-hondo);--rx-fuente-borde:var(--azul-hondo);--rx-conjunto:var(--celeste);--rx-conjunto-borde:var(--celeste-fuerte);
-  --rx-indicador:var(--sol);--rx-indicador-borde:var(--sol-fuerte);--rx-linea:#B9C6D4;--rx-alto:min(72vh,760px);padding-bottom:var(--ritmo)}
+  --rx-indicador:var(--sol);--rx-indicador-borde:var(--sol-fuerte);--rx-linea:#7F91A6;--rx-alto:min(72vh,760px);padding-bottom:var(--ritmo)}
 .rx-oculto{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .rx-saltar{position:absolute;left:var(--e-4);top:-60px;z-index:50;padding:var(--e-2) var(--e-4);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
 .rx-saltar:focus{top:var(--e-4)}
@@ -15,12 +15,13 @@
 .rx-controles .cx-campo{flex:1 1 200px}
 .rx-controles .rx-buscar{flex:2 1 320px}
 .rx-controles input{width:100%;min-height:44px;padding:0 12px;font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);
-  border:1px solid var(--borde);border-radius:var(--r-control)}
-.rx-controles input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+  border:1px solid var(--azul);border-radius:var(--r-control)}
+/* el foco en celeste fuerte, como en el resto del sitio (el amarillo del sol no llega a 3 a 1 sobre el blanco) */
+.rx-controles input:focus-visible,.rx-controles select:focus-visible,.rx-tipo:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:2px}
 .rx-tipos{display:flex;flex-wrap:wrap;gap:var(--e-2);margin:0;padding:0;border:0;min-width:0}
 .rx-tipos legend{padding:0 0 6px;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .rx-tipo{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 var(--e-3);font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;
-  text-transform:uppercase;color:var(--muted);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-control);cursor:pointer;
+  text-transform:uppercase;color:var(--muted);background:var(--bg);border:1px solid var(--muted);border-radius:var(--r-control);cursor:pointer;
   transition:color var(--dur-1) var(--ease-out),border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out)}
 .rx-tipo[aria-pressed="true"]{color:var(--ink);border-color:var(--azul);background:var(--celeste-suave)}
 .rx-tipo svg{width:14px;height:14px;flex:none}
@@ -41,7 +42,7 @@
 .rx-grafo{position:relative;height:var(--rx-alto);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);overflow:hidden}
 .rx-grafo svg#rx-svg{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
 .rx-grafo svg#rx-svg:active{cursor:grabbing}
-.rx-grafo svg#rx-svg:focus-visible{outline:3px solid var(--sol);outline-offset:-3px;border-radius:var(--r-tarjeta)}
+.rx-grafo svg#rx-svg:focus-visible{outline:3px solid var(--celeste-fuerte);outline-offset:-3px;border-radius:var(--r-tarjeta)}
 .rx-zoom{position:absolute;top:var(--e-3);right:var(--e-3);z-index:2;display:flex;gap:var(--e-1)}
 .rx-zoom .boton{background:var(--bg);min-width:34px}
 .rx-ayuda{margin:var(--e-3) 0 0;font-size:var(--t-2);color:var(--muted)}
@@ -57,26 +58,32 @@
 .rx-arista.calcula,.rx-l-calcula{stroke:var(--muted);stroke-dasharray:4 3;fill:none;stroke-width:1.5px}
 .rx-arista.vecina{stroke:var(--azul);stroke-width:2px}
 .rx-nodo{cursor:pointer;transition:opacity var(--dur-1) var(--ease-out)}
-.rx-nodo path{stroke-width:1.5px;vector-effect:non-scaling-stroke}
-.rx-nodo.fuente path{fill:var(--rx-fuente);stroke:var(--rx-fuente-borde)}
-.rx-nodo.conjunto path{fill:var(--rx-conjunto);stroke:var(--rx-conjunto-borde)}
-.rx-nodo.indicador path{fill:var(--rx-indicador);stroke:var(--rx-indicador-borde)}
+.rx-forma{stroke-width:1.5px;vector-effect:non-scaling-stroke}
+.rx-nodo.fuente .rx-forma{fill:var(--rx-fuente);stroke:var(--rx-fuente-borde)}
+.rx-nodo.conjunto .rx-forma{fill:var(--rx-conjunto);stroke:var(--rx-conjunto-borde)}
+.rx-nodo.indicador .rx-forma{fill:var(--rx-indicador);stroke:var(--rx-indicador-borde)}
+/* zona de toque de 24 píxeles (invisible) y anillo del foco del teclado */
+.rx-toque{fill:transparent}
+.rx-anillo{fill:none;stroke:var(--celeste-fuerte);stroke-width:2.5px;vector-effect:non-scaling-stroke;opacity:0}
+.rx-nodo.foco .rx-anillo{opacity:1}
 .rx-nodo text{font-family:var(--f);font-weight:500;fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;pointer-events:none;opacity:0;
   transition:opacity var(--dur-1) var(--ease-out)}
-.rx-nodo.fuente text,.rx-fichas-con-nombre .rx-nodo.indicador text,.rx-nodo.vecina text,.rx-nodo.elegido text,.rx-nodo.encontrado text,.rx-nodo:hover text,.rx-cerca .rx-nodo text{opacity:1}
+.rx-nodo.fuente text,.rx-fichas-con-nombre .rx-nodo.indicador text,.rx-nodo.foco text,.rx-nodo.vecina text,.rx-nodo.elegido text,.rx-nodo.encontrado text,.rx-nodo:hover text,.rx-cerca .rx-nodo text{opacity:1}
 .rx-nodo.fuente text{font-weight:700}
-.rx-nodo.elegido path{stroke:var(--ink);stroke-width:3px}
-.rx-nodo.foco path{stroke:var(--ink);stroke-width:3px;stroke-dasharray:3 2}
+.rx-nodo.elegido .rx-forma{stroke:var(--ink);stroke-width:3px}
 .rx-tenue{opacity:.14}
 .rx-grafo .rx-nodo.rx-tenue text{opacity:0}
 
 /* tabla */
 .rx-tabla-env{overflow-x:auto;background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
 .rx-tabla table{width:100%;border-collapse:collapse;font-size:var(--t-3)}
-.rx-tabla th{position:sticky;top:0;padding:var(--e-3);text-align:left;font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--superficie);border-bottom:1px solid var(--borde)}
-.rx-tabla td{padding:var(--e-3);vertical-align:top;border-bottom:1px solid var(--line)}
-.rx-tabla tr:last-child td{border-bottom:0}
-.rx-tabla tr.elegido td{background:var(--sol-suave)}
+.rx-tabla thead th{position:sticky;top:0;padding:var(--e-3);text-align:left;font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--superficie);border-bottom:1px solid var(--borde)}
+.rx-tabla td,.rx-tabla tbody th{padding:var(--e-3);vertical-align:top;text-align:left;font-weight:400;border-bottom:1px solid var(--line)}
+.rx-tabla tr:last-child>*{border-bottom:0}
+/* fila elegida: fondo del sol, una barra al costado (el color no va solo) y enlaces más oscuros para pasar 4,5 a 1 */
+.rx-tabla tr.elegido>*{background:var(--sol-suave)}
+.rx-tabla tr.elegido>:first-child{box-shadow:inset 4px 0 0 var(--sol-fuerte)}
+.rx-tabla tr.elegido .enlace{color:var(--azul-hondo)}
 .rx-tabla td:first-child{white-space:nowrap;color:var(--muted);font-size:var(--t-2)}
 .rx-tabla td:first-child svg{width:12px;height:12px;margin-right:6px;vertical-align:-1px}
 .rx-rel{display:flex;flex-wrap:wrap;gap:var(--e-1) var(--e-3);margin:0;padding:0;list-style:none;font-size:var(--t-2)}
@@ -100,8 +107,12 @@
 .rx-panel ul{margin:0;padding:0;list-style:none}
 .rx-panel li{padding:var(--e-2) 0;border-top:1px solid var(--line);font-size:var(--t-3)}
 .rx-panel li:first-child{border-top:0}
-.rx-panel code{display:block;margin-top:var(--e-1);padding:var(--e-2);font:400 12px/1.4 var(--mono);color:var(--ink);background:var(--superficie-2);border-radius:6px;overflow-x:auto;white-space:pre}
-.rx-panel .rx-ev{font-size:var(--t-2);color:var(--muted)}
+/* la evidencia se lee entera, sin desplazar: corta donde haga falta */
+.rx-panel code{display:block;margin-top:var(--e-1);padding:var(--e-2);font:400 12px/1.45 var(--mono);color:var(--ink);background:var(--superficie-2);border-radius:6px;white-space:pre-wrap;overflow-wrap:anywhere}
+.rx-ev{margin-top:var(--e-2);font-size:var(--t-2);color:var(--muted)}
+.rx-ev p{margin:0}
+.rx-nota{display:block;margin:var(--e-1) 0 0;font-size:var(--t-2);color:var(--muted)}
+.rx-error{max-width:var(--medida);margin:0 0 var(--e-6);padding:var(--e-3) var(--e-4);border-left:4px solid var(--rojo);background:#FBE9EC;border-radius:0 var(--r-interno) var(--r-interno) 0;font-size:var(--t-3)}
 .rx-acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-top:var(--e-5)}
 .rx-acciones .boton{text-decoration:none}
 
@@ -114,17 +125,25 @@
 .rx-definiciones p{color:var(--muted)}
 
 @media (max-width:1080px){
+  /* hasta 1080 píxeles el panel va debajo de la vista, en el flujo de la página: no tapa nada y la página lo lleva a la vista al elegir */
   .rx-cuerpo{grid-template-columns:minmax(0,1fr)}
-  /* en pantallas angostas el panel sube desde abajo, sobre la página */
-  .rx-panel{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:30;max-height:72vh;border-radius:var(--r-tarjeta) var(--r-tarjeta) 0 0;
-    box-shadow:var(--sombra-panel);padding-bottom:calc(var(--e-6) + env(safe-area-inset-bottom,0px))}
+  .rx-panel{position:static;max-height:none;overflow:visible;scroll-margin-top:96px}
 }
 @media (max-width:760px){
-  .rx{--rx-alto:62vh}
+  .rx{--rx-alto:55vh}
   .rx-controles .cx-campo,.rx-controles .rx-buscar{flex:1 1 100%}
-  .rx-tabla th:nth-child(3),.rx-tabla td:nth-child(3){display:none}
+  .rx-controles input{font-size:16px}
+  /* en el celular, cada fila de la tabla es un bloque con sus cinco datos uno debajo del otro: no se corta nada */
+  .rx-tabla thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .rx-tabla table,.rx-tabla tbody,.rx-tabla tr{display:block}
+  .rx-tabla tr{padding:var(--e-2) 0;border-bottom:1px solid var(--line)}
+  .rx-tabla tr:last-child{border-bottom:0}
+  .rx-tabla td,.rx-tabla tbody th{display:grid;grid-template-columns:6.5em minmax(0,1fr);gap:var(--e-3);padding:var(--e-1) var(--e-4);border:0}
+  .rx-tabla td::before,.rx-tabla tbody th::before{content:attr(data-col);font:500 var(--t-1)/1.6 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+  .rx-tabla td:first-child{white-space:normal}
   .barra .barra-der .boton{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   .rx-arista,.rx-nodo,.rx-nodo text,.rx-tipo{transition:none}
+  .rx-tipo:active{transform:none}
 }

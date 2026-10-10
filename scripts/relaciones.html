@@ -32,6 +32,7 @@
     <p class="pregunta">¿De dónde sale cada número?</p>
     <p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>
   </div>
+  <p class="rx-error" id="rx-error" role="alert" hidden></p>
   <p class="rx-aviso" id="rx-muestra" hidden>Es una muestra: todavía no están todas las fichas del sitio.</p>
 
   <div class="rx-controles" role="search" aria-label="Buscar y filtrar">
@@ -63,12 +64,12 @@
           <button type="button" class="boton chico" id="rx-mas" aria-label="Acercar">+</button>
           <button type="button" class="boton chico" id="rx-menos" aria-label="Alejar">−</button>
           <button type="button" class="boton chico" id="rx-centrar" aria-label="Centrar en lo elegido">Centrar</button>
-          <button type="button" class="boton chico" id="rx-reset" aria-label="Volver a la vista inicial">Inicio</button>
+          <button type="button" class="boton chico" id="rx-reset" aria-label="Inicio: volver a la vista inicial">Inicio</button>
         </div>
         <svg id="rx-svg" tabindex="0" role="application" aria-roledescription="grafo" aria-describedby="rx-ayuda-grafo" aria-label="Grafo de organismos, archivos y fichas"></svg>
         <p class="rx-vacio" id="rx-vacio-grafo" hidden></p>
       </div>
-        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan.</p>
+        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.</p>
 
       <div class="rx-tabla" id="rx-tabla" hidden>
         <p class="rx-vacio" id="rx-vacio-tabla" hidden></p>
@@ -85,14 +86,14 @@
         <li><svg viewBox="0 0 28 10" aria-hidden="true"><path d="M1 5H27" class="rx-l-calcula"/></svg>Se calcula a partir de otra ficha</li>
       </ul>
     </div>
-    <aside class="rx-panel" id="rx-panel" aria-labelledby="rx-p-titulo" tabindex="-1" hidden>
+    <section class="rx-panel" id="rx-panel" aria-labelledby="rx-p-titulo" tabindex="-1" hidden>
       <div class="rx-panel-cab">
         <p class="rx-p-tipo" id="rx-p-tipo"></p>
         <button type="button" class="rx-cerrar" id="rx-cerrar" aria-label="Cerrar el detalle"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
       </div>
       <h3 id="rx-p-titulo"></h3>
       <div id="rx-p-cuerpo"></div>
-    </aside>
+    </section>
   </div>
   <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
 

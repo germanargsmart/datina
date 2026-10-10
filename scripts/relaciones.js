@@ -7,17 +7,22 @@
   const raiz = document.getElementById("relaciones");
   if (!raiz || !window.d3) return;
   const $ = id => document.getElementById(id);
-  const REDUCIR = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const MOV = matchMedia("(prefers-reduced-motion: reduce)");
+  const dur = ms => MOV.matches ? 0 : ms;
   const ANGOSTO = matchMedia("(max-width: 760px)");
+  // hasta 1080 píxeles el panel va debajo de la vista, en el flujo de la página (nunca tapa nada); más ancho, en su columna
+  const MAS_ANGOSTO = matchMedia("(max-width: 1080px)");
   const TIPO_NOMBRE = {fuente: "Organismo", conjunto: "Archivo", indicador: "Ficha"};
+  const ELEGIDO = {fuente: "elegido", conjunto: "elegido", indicador: "elegida"};
   const TIPO_ORDEN = {fuente: 0, conjunto: 1, indicador: 2};
   const SIMBOLO = {fuente: d3.symbolCircle, conjunto: d3.symbolSquare, indicador: d3.symbolDiamond};
   const TAM = {fuente: 150, conjunto: 70, indicador: 90};
-  const REL = {publica: "publica", alimenta: "alimenta", calcula: "se calcula a partir de"};
   const ICONO = {fuente: '<circle r="6" class="rx-n-fuente"/>', conjunto: '<rect x="-5.5" y="-5.5" width="11" height="11" class="rx-n-conjunto"/>',
     indicador: '<path d="M0-7L7 0 0 7-7 0Z" class="rx-n-indicador"/>'};
   const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"})[c]);
   const sinTildes = t => String(t ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const plural = (k, uno, varios) => `${k} ${k === 1 ? uno : varios}`;
+  const lista_ = v => Array.isArray(v) ? v : [];
 
   const Q = new URLSearchParams(location.search);
   const E = {vista: Q.get("v") || (ANGOSTO.matches ? "tabla" : "grafo"), elegido: null, foco: null, q: Q.get("q") || "", tema: Q.get("t") || "",
@@ -25,26 +30,41 @@
   if (!["grafo", "tabla"].includes(E.vista)) E.vista = "grafo";
   const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   const fecha = f => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(f || ""); return m ? `${+m[3]} de ${MESES[m[2] - 1]} de ${m[1]}` : f; };
-  let pasoFicha = 20;
+  let pasoFicha = 20, anchoDibujo = 0;
   let D, N, porId, entra, sale, visibles = [], zoom, svg, capa, transformacion = d3.zoomIdentity, inicial = d3.zoomIdentity;
 
-  fetch(raiz.dataset.datos).then(r => r.json()).then(datos => { D = datos; preparar(); llenarFiltros(); dibujarTodo(); elegir(Q.get("n") && porId.has(Q.get("n")) ? Q.get("n") : null, false); centrar(); })
-    .catch(() => { $("rx-vacio-grafo").hidden = false; $("rx-vacio-grafo").textContent = "No se pudieron cargar los datos del explorador."; });
+  fetch(raiz.dataset.datos)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(datos => { D = datos; preparar(); llenarFiltros(); dibujarTodo(); elegir(Q.get("n") && porId.has(Q.get("n")) ? Q.get("n") : null, false); centrar(); })
+    .catch(err => {
+      console.warn("Explorador de relaciones:", err);
+      const p = $("rx-error");
+      p.hidden = false;
+      p.textContent = D ? "Algunos datos del explorador vinieron incompletos y no se pudo dibujar todo. La tabla puede seguir sirviendo." :
+        "No se pudieron cargar los datos del explorador. Probá recargar la página.";
+    });
 
+  // datos raros (una relación con un extremo que no está, un nombre que falta) no rompen la página: se completan o se dejan afuera
   function preparar() {
-    N = D.nodos;
+    N = lista_(D.nodos).filter(n => n && n.id && TIPO_NOMBRE[n.tipo]);
+    for (const n of N) { n.nombre = String(n.nombre || n.id); n.unidad = lista_(n.unidad); n.csv = lista_(n.csv); }
+    D.secciones = lista_(D.secciones);
     porId = new Map(N.map(n => [n.id, n]));
+    D.aristas = lista_(D.aristas).filter(a => a && porId.has(a.de) && porId.has(a.a));
+    for (const a of D.aristas) a.evidencia = lista_(a.evidencia).filter(e => e && e.archivo);
     entra = new Map(N.map(n => [n.id, []]));
     sale = new Map(N.map(n => [n.id, []]));
     for (const a of D.aristas) { sale.get(a.de).push(a); entra.get(a.a).push(a); }
     // tema de cada nodo: el de sus fichas (un archivo o un organismo puede servir a varias secciones)
-    const temas = n => {
+    const temas = (n, en = new Set()) => {
       if (n._temas) return n._temas;
-      n._temas = new Set(n.tipo === "indicador" ? [n.seccion] : []);
-      for (const a of sale.get(n.id)) if (a.tipo !== "calcula") for (const t of temas(porId.get(a.a))) n._temas.add(t);
-      return n._temas;
+      if (en.has(n.id)) return new Set();
+      en.add(n.id);
+      const t = new Set(n.tipo === "indicador" && n.seccion ? [n.seccion] : []);
+      for (const a of sale.get(n.id)) if (a.tipo !== "calcula") for (const x of temas(porId.get(a.a), en)) t.add(x);
+      return (n._temas = t);
     };
-    N.forEach(temas);
+    N.forEach(n => temas(n));
     $("rx-muestra").hidden = !D.muestra;
   }
 
@@ -73,8 +93,10 @@
 
   function dibujarTodo() {
     const v = calcularVisibles();
+    // lo elegido que deja de verse con los filtros se suelta (el panel no muestra algo que no está)
+    if (E.elegido && !visibles.some(n => n.id === E.elegido)) elegir(null, false);
     contar(v);
-    dibujarGrafo(v);
+    if (E.vista === "grafo") dibujarGrafo(v);
     dibujarTabla(v);
     vacio(v);
     mostrarVista();
@@ -83,13 +105,13 @@
 
   function contar(v) {
     const n = t => v.nodos.filter(x => x.tipo === t).length;
-    const plural = (k, uno, varios) => `${k} ${k === 1 ? uno : varios}`;
     let t = `${plural(n("fuente"), "organismo", "organismos")}, ${plural(n("conjunto"), "archivo", "archivos")} y ${plural(n("indicador"), "ficha", "fichas")}`;
     if (E.q) {
-      const k = v.nodos.filter(x => coincide(x)).length;
+      const k = v.nodos.filter(coincide).length;
       t = k ? `${plural(k, "resultado", "resultados")} para «${E.q}», entre ${t}` : `Ningún resultado para «${E.q}»`;
     }
     $("rx-cuenta").textContent = t;
+    return t;
   }
 
   // ---------- buscador ----------
@@ -111,6 +133,7 @@
   function dibujarGrafo(v) {
     const caja = $("rx-grafo");
     const ancho = caja.clientWidth || 900, alto = caja.clientHeight || 600;
+    anchoDibujo = ancho;
     svg = d3.select("#rx-svg").attr("viewBox", `0 0 ${ancho} ${alto}`);
     svg.selectAll("*").remove();
     svg.append("defs").append("marker").attr("id", "rx-flecha").attr("viewBox", "0 -4 8 8").attr("refX", 14).attr("markerWidth", 7)
@@ -128,7 +151,7 @@
     const Halto = PASO * Math.max(col.fuente.length, col.conjunto.length, col.indicador.length, 8);
     const k0 = Math.max(0.6, Math.min(1.4, (alto - 90) / Halto));
     const W = (ancho - 60) / k0;
-    const X = {fuente: W * 0.16, conjunto: W * 0.45, indicador: W * 0.70};
+    const X = {fuente: W * 0.16, conjunto: W * 0.45, indicador: W * 0.68};
     const vis = new Set(nodos.map(n => n.id));
     const vecinosEn = (n, tipo) => [...entra.get(n.id).map(a => a.de), ...sale.get(n.id).map(a => a.a)]
       .filter(id => vis.has(id) && porId.get(id).tipo === tipo).map(id => porId.get(id));
@@ -169,19 +192,21 @@
       .attr("marker-end", d => d.tipo === "calcula" ? "url(#rx-flecha)" : null);
     const g = capa.append("g").selectAll("g").data(nodos, n => n.id).join("g")
       .attr("class", n => `rx-nodo ${n.tipo}`)
-      .on("click", (ev, n) => { ev.stopPropagation(); elegir(n.id); });
-    g.append("path").attr("d", n => d3.symbol(SIMBOLO[n.tipo], TAM[n.tipo])());
+      .on("click", (ev, n) => { ev.stopPropagation(); E.foco = n.id; elegir(n.id); });
+    // zona de toque de 24 píxeles, más grande que el dibujo del punto
+    g.append("circle").attr("class", "rx-toque").attr("r", 12);
+    g.append("circle").attr("class", "rx-anillo").attr("r", 11);
+    g.append("path").attr("class", "rx-forma").attr("d", n => d3.symbol(SIMBOLO[n.tipo], TAM[n.tipo])());
     g.append("text").attr("x", n => n.tipo === "fuente" ? -10 : 9).attr("dy", "0.32em")
       .attr("text-anchor", n => n.tipo === "fuente" ? "end" : "start").text(n => n.tipo === "fuente" ? (n.sigla || n.nombre) : corto(n.nombre));
     g.append("title").text(n => `${TIPO_NOMBRE[n.tipo]}: ${n.nombre}`);
-    svg.on("click", () => elegir(null));
+    svg.on("click", () => elegir(null, false));
 
     zoom = d3.zoom().scaleExtent([0.15, 6]).filter(ev => (ev.type !== "wheel" || ev.ctrlKey || ev.metaKey) && !ev.button)
       .on("zoom", ev => {
         transformacion = ev.transform;
         capa.attr("transform", ev.transform);
         escalar(ev.transform.k);
-        $("rx-grafo").classList.toggle("rx-cerca", ev.transform.k > 1.6);
       });
     svg.call(zoom).on("dblclick.zoom", null);
     // vista inicial: todo el ancho, desde arriba (con muchos puntos el alto no entra: se baja arrastrando)
@@ -192,65 +217,82 @@
       inicial = d3.zoomIdentity.translate(30, ty).scale(k0);
       svg.call(zoom.transform, inicial);
     }
-    if (!REDUCIR) capa.attr("opacity", 0).transition().duration(300).attr("opacity", 1);
+    if (dur(300)) capa.attr("opacity", 0).transition().duration(300).attr("opacity", 1);
     resaltar();
   }
 
-  const corto = t => t.length > 48 ? t.slice(0, 46) + "…" : t;
+  const corto = t => t.length > 40 ? t.slice(0, 38) + "…" : t;
   // al alejar, los puntos y los nombres se achican menos que el dibujo, así se siguen viendo y leyendo
   function escalar(k) {
     const s = Math.min(1.7, Math.max(1, 1 / k));
     capa.selectAll(".rx-nodo").attr("transform", n => `translate(${n.x},${n.y}) scale(${s})`);
     capa.selectAll(".rx-nodo text").attr("font-size", n => (n.tipo === "fuente" ? 12 : 11) / (k * s));
-    // los nombres de las fichas se ven siempre cuando hay lugar entre una y otra
+    // los nombres de las fichas se ven siempre cuando hay lugar entre una y otra; los de los archivos, al acercarse
     $("rx-grafo").classList.toggle("rx-fichas-con-nombre", pasoFicha * k >= 14);
+    $("rx-grafo").classList.toggle("rx-cerca", k >= 1.3);
   }
 
   // lo que se resalta al elegir un punto: toda la cadena hacia arriba (de dónde sale) y hacia abajo (a qué lleva)
   function vecinos(id) {
-    const s = new Set([id]);
-    if (!id) return s;
-    const subir = x => { for (const a of entra.get(x)) if (!s.has(a.de)) { s.add(a.de); subir(a.de); } };
-    const bajar = x => { for (const a of sale.get(x)) if (!s.has(a.a)) { s.add(a.a); bajar(a.a); } };
-    subir(id); bajar(id);
+    if (!id) return new Set();
+    const s = cadena(id, "arriba");
+    for (const x of cadena(id, "abajo")) s.add(x);
     return s;
   }
 
   function resaltar() {
-    if (!capa) return;
     const sel = E.elegido, vec = vecinos(sel), q = !!E.q;
-    capa.selectAll(".rx-nodo").classed("elegido", n => n.id === sel).classed("vecina", n => sel && vec.has(n.id) && n.id !== sel)
-      .classed("foco", n => n.id === E.foco).classed("encontrado", n => q && !sel && coincide(n))
-      .classed("rx-tenue", n => sel ? !vec.has(n.id) : q && !coincide(n));
-    const enCadena = d => vec.has(d.source.id) && vec.has(d.target.id);
-    capa.selectAll(".rx-arista").classed("vecina", d => sel && enCadena(d)).classed("rx-tenue", d => sel ? !enCadena(d) : q && !(coincide(d.source) && coincide(d.target)));
-    document.querySelectorAll("#rx-filas tr").forEach(tr => tr.classList.toggle("elegido", tr.dataset.id === sel));
+    if (capa) {
+      capa.selectAll(".rx-nodo").classed("elegido", n => n.id === sel).classed("vecina", n => sel && vec.has(n.id) && n.id !== sel)
+        .classed("foco", n => n.id === E.foco).classed("encontrado", n => q && !sel && coincide(n))
+        .classed("rx-tenue", n => n.id !== E.foco && (sel ? !vec.has(n.id) : q && !coincide(n)));
+      const enCadena = d => vec.has(d.source.id) && vec.has(d.target.id);
+      capa.selectAll(".rx-arista").classed("vecina", d => sel && enCadena(d)).classed("rx-tenue", d => sel ? !enCadena(d) : q && !(coincide(d.source) && coincide(d.target)));
+      capa.selectAll(".rx-nodo.foco").raise();
+    }
+    document.querySelectorAll("#rx-filas tr").forEach(tr => {
+      const si = tr.dataset.id === sel;
+      tr.classList.toggle("elegido", si);
+      const b = tr.querySelector("th [data-ir]");
+      if (b) si ? b.setAttribute("aria-current", "true") : b.removeAttribute("aria-current");
+    });
   }
 
+  // ---------- elegir y el panel de detalle ----------
   let origen = null;
+  // mover: llevar el foco al panel (al tocar un punto, una fila o un enlace del panel). Con Enter en el grafo el foco se queda ahí
   function elegir(id, mover = true) {
     if (id && !porId.has(id)) id = null;
     const antes = E.elegido;
     E.elegido = id;
+    if (id) E.foco = id;
     resaltar();
     panel(id ? porId.get(id) : null);
-    const n = id && porId.get(id);
-    $("rx-estado").textContent = n ? `${TIPO_NOMBRE[n.tipo]} elegido: ${n.nombre}. ${entra.get(id).length + sale.get(id).length} relaciones.` : "";
     guardarEnlace();
-    if (n && mover) {
-      if (!antes && document.activeElement && !$("rx-panel").contains(document.activeElement)) origen = document.activeElement;
-      $("rx-panel").focus({preventScroll: !ANGOSTO.matches && !matchMedia("(max-width: 1080px)").matches});
+    const n = id && porId.get(id);
+    if (!n) return;
+    const rel = entra.get(id).length + sale.get(id).length;
+    if (mover) {
+      // el panel se anuncia por su título al recibir el foco: no se repite en la región de estado
+      const a = document.activeElement;
+      if (!antes && a && a !== document.body && !$("rx-panel").contains(a)) origen = a;
+      $("rx-panel").scrollTop = 0;
+      $("rx-panel").focus({preventScroll: !MAS_ANGOSTO.matches});
+    } else {
+      anunciar(`${TIPO_NOMBRE[n.tipo]} ${ELEGIDO[n.tipo]}: ${n.nombre}. ${plural(rel, "relación", "relaciones")}. El detalle está a continuación: apretá Tab.`);
     }
   }
+  const anunciar = t => { $("rx-estado").textContent = ""; requestAnimationFrame(() => { $("rx-estado").textContent = t; }); };
 
-  // ---------- panel de detalle ----------
-  const MAS_ANGOSTO = matchMedia("(max-width: 1080px)");
-  const ev = e => e ? `<p class="rx-ev">${esc(e.archivo)}, línea ${e.linea}<code>${esc(e.texto)}</code></p>` : "";
-  const ir = id => { const n = porId.get(id); return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.nombre)}${n.tipo === "fuente" && n.sigla && n.sigla !== n.nombre ? ` (${esc(n.sigla)})` : ""}</button>`; };
+  const ev = e => e ? `<div class="rx-ev"><p>${esc(e.archivo)}, línea ${esc(e.linea)}</p><code>${esc(e.texto)}</code></div>` : "";
+  const ir = id => {
+    const n = porId.get(id);
+    if (!n) return esc(id);
+    return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.nombre)}${n.tipo === "fuente" && n.sigla && n.sigla !== n.nombre ? ` (${esc(n.sigla)})` : ""}</button>`;
+  };
   const fila = (t, v) => v ? `<dt>${t}</dt><dd>${v}</dd>` : "";
   function panel(n) {
     const p = $("rx-panel"), cuerpo = $("rx-p-cuerpo");
-    $("rx-cuerpo").classList.toggle("abierto", !!n);
     $("rx-cerrar").hidden = !n;
     if (!n) {
       $("rx-p-tipo").textContent = "Detalle";
@@ -271,23 +313,23 @@
       h += `<h4>Fichas que usan sus datos (${fichas.length})</h4><ul>${ordenados(fichas).map(x => `<li>${ir(x.id)}</li>`).join("")}</ul>`;
     } else if (n.tipo === "conjunto") {
       const d = n.descarga;
-      h += `<dl>${fila("Lo publica", ir(n.fuente))}${fila("Archivo", `<code>${esc(n.ruta)}</code>`)}${fila("Dirección de descarga", !n.url ? "" : /[{}]|\.\.\.|AAAA/.test(n.url)
-        ? `<code>${esc(n.url)}</code><span class="rx-ev">La dirección cambia con cada edición: el programa la arma o la busca en la página del organismo.</span>`
+      h += `<dl>${fila("Lo publica", n.fuente ? ir(n.fuente) : "")}${fila("Archivo", `<code>${esc(n.ruta)}</code>`)}${fila("Dirección de descarga", !n.url ? "" : /[{}]|\.\.\.|AAAA/.test(n.url)
+        ? `<code>${esc(n.url)}</code><span class="rx-nota">La dirección cambia con cada edición: el programa la arma o la busca en la página del organismo.</span>`
         : `<a class="enlace" href="${esc(n.url)}" rel="noopener">${esc(n.url)}</a>`)}`
         + `${fila("Cómo llega", esc(n.origen))}${fila("Última descarga", d ? esc(fecha(d.fecha)) + (d.estado === "ok" ? ", se bajó bien" : ", falló: el sitio usa el archivo anterior") : "")}`
         + `${fila("Dónde lo baja o lo arma el sitio", ev(n.evidencia))}</dl>`;
       h += `<h4>Alimenta ${a.length === 1 ? "una ficha" : a.length + " fichas"}</h4><ul>${a.map(x => `<li>${ir(x.a)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
     } else {
-      h += `<dl>${fila("Sección", n.url ? `<a class="enlace" href="${esc(n.seccion + ".html")}">${esc(n.seccion_nombre)}</a>` : esc(n.seccion_nombre))}`
+      h += `<dl>${fila("Sección", n.seccion ? `<a class="enlace" href="${esc(n.seccion + ".html")}">${esc(n.seccion_nombre || n.seccion)}</a>` : "")}`
         + `${fila("Fuente, como figura en la ficha", esc(n.fuente_texto))}${fila("Frecuencia", esc(n.frecuencia))}`
-        + `${fila("Unidad", esc((n.unidad || []).join(", ")))}${fila("Período de la tabla", esc(n.periodo))}${fila("Cobertura", esc(n.cobertura))}`
+        + `${fila("Unidad", esc(n.unidad.join(", ")))}${fila("Período de la tabla", esc(n.periodo))}${fila("Cobertura", esc(n.cobertura))}`
         + `${fila("Nota de la ficha", esc(n.nota))}</dl>`;
       const arch = de.filter(x => x.tipo === "alimenta"), calc = de.filter(x => x.tipo === "calcula"), usa = a.filter(x => x.tipo === "calcula");
-      h += `<h4>De dónde salen sus datos</h4><ul>${arch.map(x => { const c = porId.get(x.de); return `<li>${ir(x.de)}${c.fuente ? `<br><small>Lo publica ${ir(c.fuente)}</small>` : ""}${x.evidencia.map(ev).join("")}</li>`; }).join("")}</ul>`;
+      h += `<h4>De dónde salen sus datos</h4><ul>${arch.map(x => { const c = porId.get(x.de); return `<li>${ir(x.de)}${c.fuente && porId.has(c.fuente) ? `<p class="rx-nota">Lo publica ${ir(c.fuente)}</p>` : ""}${x.evidencia.map(ev).join("")}</li>`; }).join("")}</ul>`;
       if (calc.length) h += `<h4>Se calcula a partir de</h4><ul>${calc.map(x => `<li>${ir(x.de)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
       if (usa.length) h += `<h4>Se usa para calcular</h4><ul>${usa.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
       h += `<div class="rx-acciones">${n.url ? `<a class="boton principal chico" href="${esc(n.url)}">Abrir la ficha</a>` : ""}`
-        + (n.csv || []).map(c => `<a class="boton chico" href="${esc(c)}" download>Descargar ${esc(c.replace(/^datos\//, ""))}</a>`).join("") + "</div>";
+        + n.csv.map(c => `<a class="boton chico" href="${esc(c)}" download>Descargar ${esc(String(c).replace(/^datos\//, ""))}</a>`).join("") + "</div>";
     }
     cuerpo.innerHTML = h;
   }
@@ -295,16 +337,24 @@
     const b = e.target.closest("[data-ir]");
     if (!b) return;
     elegir(b.dataset.ir);
-    if (E.vista === "grafo") centrar();
+    centrar();
   });
   function cerrarPanel() {
+    const id = E.elegido;
     elegir(null, false);
-    const o = origen && document.contains(origen) && !origen.closest("[hidden]") ? origen : (E.vista === "grafo" ? $("rx-svg") : $("rx-buscar"));
+    // el foco vuelve a donde estaba; si se perdió (en algunos navegadores tocar no enfoca), a la fila o al grafo
+    const fila = id && document.querySelector(`#rx-filas tr[data-id="${CSS.escape(id)}"] th [data-ir]`);
+    const o = origen && document.contains(origen) && !origen.closest("[hidden]") ? origen : (E.vista === "tabla" && fila) || (E.vista === "grafo" ? $("rx-svg") : $("rx-buscar"));
     origen = null;
-    o.focus({preventScroll: true});
+    o.focus({preventScroll: !MAS_ANGOSTO.matches});
   }
   $("rx-cerrar").addEventListener("click", cerrarPanel);
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && E.elegido && !e.defaultPrevented && document.activeElement !== $("rx-svg")) cerrarPanel(); });
+  // Escape cierra el panel, salvo que se esté escribiendo en el buscador o eligiendo en una lista (ahí Escape es de ese control)
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape" || !E.elegido || e.defaultPrevented) return;
+    if (e.target.closest && (e.target.closest(".rx-controles") || e.target === $("rx-svg"))) return;
+    cerrarPanel();
+  });
   MAS_ANGOSTO.addEventListener("change", () => panel(E.elegido ? porId.get(E.elegido) : null));
 
   // ---------- el estado queda en el enlace, para compartirlo ----------
@@ -329,88 +379,101 @@
     org.value = porId.has(E.fuente) ? E.fuente : (E.fuente = "");
     $("rx-buscar").value = E.q;
   }
-  $("rx-tema").addEventListener("change", e => { E.tema = e.target.value; dibujarTodo(); });
-  $("rx-fuente").addEventListener("change", e => { E.fuente = e.target.value; dibujarTodo(); });
-  let tecla;
-  $("rx-buscar").addEventListener("input", e => {
+  $("rx-tema").addEventListener("change", e => { E.tema = e.target.value; dibujarTodo(); anunciar(contar(calcularVisibles())); });
+  $("rx-fuente").addEventListener("change", e => { E.fuente = e.target.value; dibujarTodo(); anunciar(contar(calcularVisibles())); });
+  let tecla, aviso;
+  function buscar() {
     clearTimeout(tecla);
-    tecla = setTimeout(() => {
-      E.q = e.target.value.trim();
-      if (E.elegido) { E.elegido = null; panel(null); }
-      const v = calcularVisibles();
-      contar(v); dibujarTabla(v); vacio(v); resaltar(); guardarEnlace();
-    }, 150);
-  });
-  // Enter en el buscador elige el primer resultado
+    const q = $("rx-buscar").value.trim();
+    if (q === E.q) return;
+    E.q = q;
+    if (E.elegido) elegir(null, false);
+    const v = calcularVisibles();
+    const t = contar(v);
+    dibujarTabla(v); vacio(v); resaltar(); guardarEnlace();
+    encuadrarResultados();
+    // el resultado se anuncia cuando se deja de escribir, no con cada letra
+    clearTimeout(aviso);
+    aviso = setTimeout(() => anunciar(t), 700);
+  }
+  $("rx-buscar").addEventListener("input", () => { clearTimeout(tecla); tecla = setTimeout(buscar, 150); });
+  // Enter en el buscador elige la mejor coincidencia: primero lo que empieza con lo buscado, después las fichas, los organismos y los archivos
   $("rx-buscar").addEventListener("keydown", e => {
     if (e.key !== "Enter") return;
     e.preventDefault();
-    // primero lo que empieza con lo buscado, después las fichas, los organismos y los archivos
+    buscar();
     const q = sinTildes(E.q), rango = {indicador: 0, fuente: 1, conjunto: 2};
-    const r = visibles.filter(coincide).sort((a, b) =>
-      (sinTildes(a.nombre).startsWith(q) || sinTildes(a.sigla).startsWith(q) ? 0 : 1) - (sinTildes(b.nombre).startsWith(q) || sinTildes(b.sigla).startsWith(q) ? 0 : 1)
-      || rango[a.tipo] - rango[b.tipo] || a.nombre.localeCompare(b.nombre, "es"));
+    const empieza = n => sinTildes(n.nombre).startsWith(q) || sinTildes(n.sigla).startsWith(q) ? 0 : 1;
+    const r = visibles.filter(coincide).sort((a, b) => empieza(a) - empieza(b) || rango[a.tipo] - rango[b.tipo] || a.nombre.localeCompare(b.nombre, "es"));
     if (E.q && r.length) { elegir(r[0].id); centrar(); }
   });
 
-  // zoom con los botones y el teclado
-  const zoomPor = k => svg.transition().duration(REDUCIR ? 0 : 200).call(zoom.scaleBy, k);
+  // ---------- zoom con los botones y el teclado ----------
+  const zoomPor = k => svg && svg.transition().duration(dur(200)).call(zoom.scaleBy, k);
   $("rx-mas").addEventListener("click", () => zoomPor(1.5));
   $("rx-menos").addEventListener("click", () => zoomPor(1 / 1.5));
-  $("rx-reset").addEventListener("click", () => svg.transition().duration(REDUCIR ? 0 : 200).call(zoom.transform, inicial));
-  $("rx-centrar").addEventListener("click", centrar);
-  // encuadra la cadena del punto elegido (o el punto con el foco del teclado)
-  function centrar() {
-    if (!svg || E.vista !== "grafo") return;
-    const id = E.elegido || E.foco, n = porId.get(id);
-    if (!n || n.x == null) return;
+  $("rx-reset").addEventListener("click", () => svg && svg.transition().duration(dur(200)).call(zoom.transform, inicial));
+  $("rx-centrar").addEventListener("click", () => centrar());
+  function encuadrar(pts, kMax = 1.6) {
+    if (!svg || E.vista !== "grafo" || !pts.length) return;
     const caja = $("rx-grafo"), w = caja.clientWidth, h = caja.clientHeight;
-    const pts = [...(E.elegido ? vecinos(id) : [id])].map(x => porId.get(x)).filter(x => x && x.x != null && visibles.includes(x));
     const [x0, x1] = d3.extent(pts, x => x.x), [y0, y1] = d3.extent(pts, x => x.y);
-    const k = Math.max(0.3, Math.min(1.6, (w - 320) / Math.max(1, x1 - x0), (h - 120) / Math.max(1, y1 - y0)));
-    svg.transition().duration(REDUCIR ? 0 : 250).call(zoom.transform,
-      d3.zoomIdentity.translate(w / 2, h / 2).scale(k).translate(-(x0 + x1) / 2 - 60 / k, -(y0 + y1) / 2));
+    const k = Math.max(0.3, Math.min(kMax, (w - 300) / Math.max(1, x1 - x0), (h - 120) / Math.max(1, y1 - y0)));
+    svg.transition().duration(dur(250)).call(zoom.transform,
+      d3.zoomIdentity.translate(w / 2, h / 2).scale(k).translate(-(x0 + x1) / 2 - 80 / k, -(y0 + y1) / 2));
+  }
+  const conPos = ids => [...ids].map(x => porId.get(x)).filter(x => x && x.x != null && visibles.includes(x));
+  // Centrar encuadra la cadena del punto elegido o, con el teclado, el punto que tiene el foco
+  function centrar(soloFoco = false) {
+    const id = soloFoco ? E.foco : (E.elegido || E.foco);
+    if (!id) return;
+    encuadrar(conPos(!soloFoco && E.elegido ? vecinos(id) : [id]), soloFoco ? Math.max(1.3, transformacion.k) : 1.6);
+  }
+  function encuadrarResultados() {
+    if (!E.q) return;
+    const r = conPos(visibles.filter(coincide).map(n => n.id));
+    if (r.length && r.length <= 60) encuadrar(r, 1.4);
   }
   // teclado en el grafo: las flechas recorren los puntos en el orden de la tabla, Enter elige, Escape suelta
-  $("rx-svg").addEventListener("keydown", ev => {
+  $("rx-svg").addEventListener("keydown", e => {
     const orden = ordenados(visibles);
     if (!orden.length) return;
     let i = orden.findIndex(n => n.id === E.foco);
-    if (["ArrowDown", "ArrowRight"].includes(ev.key)) i = Math.min(orden.length - 1, i + 1);
-    else if (["ArrowUp", "ArrowLeft"].includes(ev.key)) i = Math.max(0, i - 1);
-    else if (ev.key === "Home") i = 0;
-    else if (ev.key === "End") i = orden.length - 1;
-    else if (ev.key === "Enter" || ev.key === " ") { if (E.foco) elegir(E.foco, false); ev.preventDefault(); return; }
-    else if (ev.key === "Escape") { if (E.elegido) { elegir(null, false); ev.preventDefault(); } return; }
-    else if (ev.key === "+" || ev.key === "=") { zoomPor(1.5); return; }
-    else if (ev.key === "-") { zoomPor(1 / 1.5); return; }
-    else if (ev.key === "0") { svg.call(zoom.transform, inicial); return; }
+    if (["ArrowDown", "ArrowRight"].includes(e.key)) i = Math.min(orden.length - 1, i + 1);
+    else if (["ArrowUp", "ArrowLeft"].includes(e.key)) i = Math.max(0, i - 1);
+    else if (e.key === "Home") i = 0;
+    else if (e.key === "End") i = orden.length - 1;
+    else if (e.key === "Enter" || e.key === " ") { if (E.foco) elegir(E.foco, false); e.preventDefault(); return; }
+    else if (e.key === "Escape") { if (E.elegido) { elegir(null, false); anunciar("Sin elegir."); e.preventDefault(); } return; }
+    else if (e.key === "+" || e.key === "=") { zoomPor(1.5); return; }
+    else if (e.key === "-") { zoomPor(1 / 1.5); return; }
+    else if (e.key === "0") { svg.call(zoom.transform, inicial); return; }
     else return;
-    ev.preventDefault();
+    e.preventDefault();
     E.foco = orden[Math.max(0, i)].id;
     const n = porId.get(E.foco);
-    $("rx-estado").textContent = `${TIPO_NOMBRE[n.tipo]}: ${n.nombre}. ${i + 1} de ${orden.length}.`;
+    anunciar(`${TIPO_NOMBRE[n.tipo]}: ${n.nombre}. ${i + 1} de ${orden.length}.`);
     resaltar();
-    centrar();
+    centrar(true);
   });
 
   const ordenados = lista => lista.slice().sort((a, b) => TIPO_ORDEN[a.tipo] - TIPO_ORDEN[b.tipo] || a.nombre.localeCompare(b.nombre, "es"));
 
-  // ---------- tabla ----------
+  // ---------- tabla: lo mismo que el grafo, en filas ----------
   function dibujarTabla(v) {
     const vis = new Set(v.nodos.map(n => n.id));
     const boton = id => { const n = porId.get(id); return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.tipo === "fuente" ? (n.sigla || n.nombre) : n.nombre)}</button>`; };
-    const lista = arr => arr.length ? `<ul class="rx-rel">${arr.map(x => `<li>${x}</li>`).join("")}</ul>` : "<span aria-label=\"ninguna\">—</span>";
+    const lista = arr => arr.length ? `<ul class="rx-rel">${arr.map(x => `<li>${x}</li>`).join("")}</ul>` : '<span aria-hidden="true">—</span><span class="rx-oculto">ninguna</span>';
     const tema = n => [...n._temas].map(t => (D.secciones.find(s => s[0] === t) || [, t])[1]).join(", ");
     $("rx-filas").innerHTML = ordenados(v.nodos.filter(coincide)).map(n => `<tr data-id="${esc(n.id)}">
-      <td><svg viewBox="-8 -8 16 16" aria-hidden="true">${ICONO[n.tipo]}</svg>${TIPO_NOMBRE[n.tipo]}</td>
-      <td>${boton(n.id)}</td><td>${esc(tema(n))}</td>
-      <td>${lista(entra.get(n.id).filter(a => vis.has(a.de)).map(a => boton(a.de) + (a.tipo === "calcula" ? " (se calcula a partir de)" : "")))}</td>
-      <td>${lista(sale.get(n.id).filter(a => vis.has(a.a)).map(a => boton(a.a)))}</td></tr>`).join("");
+      <td data-col="Tipo"><span><svg viewBox="-8 -8 16 16" aria-hidden="true">${ICONO[n.tipo]}</svg>${TIPO_NOMBRE[n.tipo]}</span></td>
+      <th scope="row" data-col="Nombre">${boton(n.id)}</th><td data-col="Tema">${esc(tema(n)) || '<span aria-hidden="true">—</span>'}</td>
+      <td data-col="Viene de">${lista(entra.get(n.id).filter(a => vis.has(a.de)).map(a => boton(a.de) + (a.tipo === "calcula" ? " (se calcula a partir de esta)" : "")))}</td>
+      <td data-col="Lleva a">${lista(sale.get(n.id).filter(a => vis.has(a.a)).map(a => boton(a.a) + (a.tipo === "calcula" ? " (se calcula a partir de esta)" : "")))}</td></tr>`).join("");
     resaltar();
   }
-  $("rx-filas").addEventListener("click", ev => {
-    const b = ev.target.closest("[data-ir]");
+  $("rx-filas").addEventListener("click", e => {
+    const b = e.target.closest("[data-ir]");
     if (b) elegir(b.dataset.ir);
   });
 
@@ -426,8 +489,8 @@
       if (si) conm.style.setProperty("--i", i);
     });
   }
-  $("rx-vista").addEventListener("click", ev => {
-    const b = ev.target.closest("button[data-vista]");
+  $("rx-vista").addEventListener("click", e => {
+    const b = e.target.closest("button[data-vista]");
     if (!b || b.dataset.vista === E.vista) return;
     E.vista = b.dataset.vista;
     mostrarVista();
@@ -437,11 +500,20 @@
   });
   document.querySelectorAll(".rx-tipo").forEach(b => b.addEventListener("click", () => {
     const t = b.dataset.tipo, si = b.getAttribute("aria-pressed") !== "true";
-    if (!si && E.tipos.size === 1) return;
+    if (!si && E.tipos.size === 1) { anunciar("Tiene que quedar al menos un tipo a la vista."); return; }
     b.setAttribute("aria-pressed", si);
     si ? E.tipos.add(t) : E.tipos.delete(t);
+    document.querySelectorAll(".rx-tipo").forEach(x => x.setAttribute("aria-disabled", E.tipos.size === 1 && x.getAttribute("aria-pressed") === "true"));
     dibujarTodo();
   }));
+  // solo se redibuja si cambia el ancho (en el celular, la barra del navegador cambia el alto al bajar) y se conserva lo elegido
   let espera;
-  addEventListener("resize", () => { clearTimeout(espera); espera = setTimeout(() => { if (D && E.vista === "grafo") dibujarGrafo(calcularVisibles()); }, 200); });
+  addEventListener("resize", () => {
+    clearTimeout(espera);
+    espera = setTimeout(() => {
+      if (!D || E.vista !== "grafo" || $("rx-grafo").clientWidth === anchoDibujo) return;
+      dibujarGrafo(calcularVisibles());
+      centrar();
+    }, 200);
+  });
 })();
