@@ -255,7 +255,7 @@ def publicar(cat, plantilla, secciones, ubic):
         unidades = sorted({largo[v]["unidad"] for v in meta.get("variables", []) if v in largo})
         pagina = ubic.get(i, "")
         sec = pagina
-        fuente_texto = texto(pie.group(1)) if pie else ""
+        fuente_texto = re.sub(r"^Fuentes?: ", "", texto(pie.group(1))) if pie else ""
         frase = re.search(r"(Se actualiza [^.]*\.|La encuesta está en pausa[^.]*\.[^.]*\.)$", fuente_texto)
         nodos.append({"id": i, "tipo": "indicador", "nombre": (texto(h3.group(1)) if h3 else "") or meta.get("nombre", i),
                       "seccion": sec, "seccion_nombre": tit_sec.get(sec, ""), "url": f"{pagina}.html#{i}" if pagina else "",

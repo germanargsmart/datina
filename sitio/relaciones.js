@@ -19,10 +19,15 @@
   const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"})[c]);
   const sinTildes = t => String(t ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 
-  const E = {vista: ANGOSTO.matches ? "tabla" : "grafo", elegido: null, foco: null, tipos: new Set(["fuente", "conjunto", "indicador"])};
+  const Q = new URLSearchParams(location.search);
+  const E = {vista: Q.get("v") || (ANGOSTO.matches ? "tabla" : "grafo"), elegido: null, foco: null, q: Q.get("q") || "", tema: Q.get("t") || "",
+    fuente: Q.get("o") || "", tipos: new Set(["fuente", "conjunto", "indicador"])};
+  if (!["grafo", "tabla"].includes(E.vista)) E.vista = "grafo";
+  const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const fecha = f => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(f || ""); return m ? `${+m[3]} de ${MESES[m[2] - 1]} de ${m[1]}` : f; };
   let D, N, porId, entra, sale, visibles = [], zoom, svg, capa, transformacion = d3.zoomIdentity, inicial = d3.zoomIdentity;
 
-  fetch(raiz.dataset.datos).then(r => r.json()).then(datos => { D = datos; preparar(); dibujarTodo(); })
+  fetch(raiz.dataset.datos).then(r => r.json()).then(datos => { D = datos; preparar(); llenarFiltros(); dibujarTodo(); elegir(Q.get("n") && porId.has(Q.get("n")) ? Q.get("n") : null, false); })
     .catch(() => { $("rx-vacio-grafo").hidden = false; $("rx-vacio-grafo").textContent = "No se pudieron cargar los datos del explorador."; });
 
   function preparar() {
@@ -43,8 +48,24 @@
   }
 
   // ---------- qué se ve ----------
+  function cadena(id, dir) {
+    const s = new Set([id]);
+    const ir = x => { for (const a of (dir === "arriba" ? entra : sale).get(x)) { const y = dir === "arriba" ? a.de : a.a; if (!s.has(y)) { s.add(y); ir(y); } } };
+    ir(id);
+    return s;
+  }
   function calcularVisibles() {
-    visibles = N.filter(n => E.tipos.has(n.tipo));
+    let base = N;
+    if (E.tema) {
+      const s = new Set();
+      for (const n of N) if (n.tipo === "indicador" && n.seccion === E.tema) for (const x of cadena(n.id, "arriba")) s.add(x);
+      base = base.filter(n => s.has(n.id));
+    }
+    if (E.fuente && porId.has(E.fuente)) {
+      const s = cadena(E.fuente, "abajo");
+      base = base.filter(n => s.has(n.id));
+    }
+    visibles = base.filter(n => E.tipos.has(n.tipo));
     const vis = new Set(visibles.map(n => n.id));
     return {nodos: visibles, aristas: D.aristas.filter(a => vis.has(a.de) && vis.has(a.a))};
   }
@@ -54,12 +75,35 @@
     contar(v);
     dibujarGrafo(v);
     dibujarTabla(v);
+    vacio(v);
     mostrarVista();
+    guardarEnlace();
   }
 
   function contar(v) {
     const n = t => v.nodos.filter(x => x.tipo === t).length;
-    $("rx-cuenta").textContent = `${n("fuente")} organismos, ${n("conjunto")} archivos y ${n("indicador")} fichas`;
+    const plural = (k, uno, varios) => `${k} ${k === 1 ? uno : varios}`;
+    let t = `${plural(n("fuente"), "organismo", "organismos")}, ${plural(n("conjunto"), "archivo", "archivos")} y ${plural(n("indicador"), "ficha", "fichas")}`;
+    if (E.q) {
+      const k = v.nodos.filter(x => coincide(x)).length;
+      t = k ? `${plural(k, "resultado", "resultados")} para «${E.q}», entre ${t}` : `Ningún resultado para «${E.q}»`;
+    }
+    $("rx-cuenta").textContent = t;
+  }
+
+  // ---------- buscador ----------
+  const palabras = () => sinTildes(E.q).split(/\s+/).filter(Boolean);
+  function coincide(n) {
+    const ps = palabras();
+    if (!ps.length) return true;
+    if (!n._busca) n._busca = sinTildes([n.nombre, n.sigla, n.id, n.ruta, n.fuente_texto, n.depende, n.seccion_nombre].filter(Boolean).join(" "));
+    return ps.every(p => n._busca.includes(p));
+  }
+  function vacio(v) {
+    const k = E.q ? v.nodos.filter(coincide).length : v.nodos.length;
+    const msj = !v.nodos.length ? "No hay nada para mostrar con estos filtros. Probá con otro tema u organismo."
+      : `Ningún organismo, archivo ni ficha coincide con «${E.q}». Probá con otra palabra o sacá los filtros.`;
+    for (const id of ["rx-vacio-grafo", "rx-vacio-tabla"]) { $(id).hidden = k > 0; $(id).textContent = k > 0 ? "" : msj; }
   }
 
   // ---------- grafo ----------
@@ -142,8 +186,6 @@
       svg.call(zoom.transform, inicial);
     }
     if (!REDUCIR) capa.attr("opacity", 0).transition().duration(300).attr("opacity", 1);
-    $("rx-vacio-grafo").hidden = nodos.length > 0;
-    if (!nodos.length) $("rx-vacio-grafo").textContent = "No hay nada para mostrar con estos filtros.";
     resaltar();
   }
 
@@ -161,20 +203,140 @@
 
   function resaltar() {
     if (!capa) return;
-    const sel = E.elegido, vec = vecinos(sel);
+    const sel = E.elegido, vec = vecinos(sel), q = !!E.q;
     capa.selectAll(".rx-nodo").classed("elegido", n => n.id === sel).classed("vecina", n => sel && vec.has(n.id) && n.id !== sel)
-      .classed("foco", n => n.id === E.foco).classed("rx-tenue", n => sel && !vec.has(n.id));
+      .classed("foco", n => n.id === E.foco).classed("encontrado", n => q && !sel && coincide(n))
+      .classed("rx-tenue", n => sel ? !vec.has(n.id) : q && !coincide(n));
     const enCadena = d => vec.has(d.source.id) && vec.has(d.target.id);
-    capa.selectAll(".rx-arista").classed("vecina", d => sel && enCadena(d)).classed("rx-tenue", d => sel && !enCadena(d));
+    capa.selectAll(".rx-arista").classed("vecina", d => sel && enCadena(d)).classed("rx-tenue", d => sel ? !enCadena(d) : q && !(coincide(d.source) && coincide(d.target)));
     document.querySelectorAll("#rx-filas tr").forEach(tr => tr.classList.toggle("elegido", tr.dataset.id === sel));
   }
 
-  function elegir(id) {
+  let origen = null;
+  function elegir(id, mover = true) {
+    if (id && !porId.has(id)) id = null;
+    const antes = E.elegido;
     E.elegido = id;
     resaltar();
+    panel(id ? porId.get(id) : null);
     const n = id && porId.get(id);
     $("rx-estado").textContent = n ? `${TIPO_NOMBRE[n.tipo]} elegido: ${n.nombre}. ${entra.get(id).length + sale.get(id).length} relaciones.` : "";
+    guardarEnlace();
+    if (n && mover) {
+      if (!antes && document.activeElement && !$("rx-panel").contains(document.activeElement)) origen = document.activeElement;
+      $("rx-panel").focus({preventScroll: !ANGOSTO.matches && !matchMedia("(max-width: 1080px)").matches});
+    }
   }
+
+  // ---------- panel de detalle ----------
+  const MAS_ANGOSTO = matchMedia("(max-width: 1080px)");
+  const ev = e => e ? `<p class="rx-ev">${esc(e.archivo)}, línea ${e.linea}<code>${esc(e.texto)}</code></p>` : "";
+  const ir = id => { const n = porId.get(id); return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.nombre)}${n.tipo === "fuente" && n.sigla && n.sigla !== n.nombre ? ` (${esc(n.sigla)})` : ""}</button>`; };
+  const fila = (t, v) => v ? `<dt>${t}</dt><dd>${v}</dd>` : "";
+  function panel(n) {
+    const p = $("rx-panel"), cuerpo = $("rx-p-cuerpo");
+    $("rx-cuerpo").classList.toggle("abierto", !!n);
+    $("rx-cerrar").hidden = !n;
+    if (!n) {
+      $("rx-p-tipo").textContent = "Detalle";
+      $("rx-p-titulo").textContent = "Elegí un punto o una fila";
+      cuerpo.innerHTML = '<p class="rx-p-vacio">Acá aparece de dónde sale y a qué lleva cada organismo, archivo o ficha, con la evidencia de cada relación.</p>';
+      p.hidden = MAS_ANGOSTO.matches;
+      return;
+    }
+    p.hidden = false;
+    $("rx-p-tipo").textContent = TIPO_NOMBRE[n.tipo];
+    $("rx-p-titulo").textContent = n.nombre;
+    let h = "";
+    const de = entra.get(n.id), a = sale.get(n.id);
+    if (n.tipo === "fuente") {
+      const fichas = [...cadena(n.id, "abajo")].map(x => porId.get(x)).filter(x => x.tipo === "indicador");
+      h += `<dl>${fila("Sigla", esc(n.sigla))}${fila("Depende de", esc(n.depende))}${fila("Sitio", n.url ? `<a class="enlace" href="${esc(n.url)}" rel="noopener">${esc(n.url.replace(/^https?:\/\//, ""))}</a>` : "")}</dl>`;
+      h += `<h4>Publica ${a.length === 1 ? "un archivo que usa" : a.length + " archivos que usa"} Datina</h4><ul>${a.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
+      h += `<h4>Fichas que usan sus datos (${fichas.length})</h4><ul>${ordenados(fichas).map(x => `<li>${ir(x.id)}</li>`).join("")}</ul>`;
+    } else if (n.tipo === "conjunto") {
+      const d = n.descarga;
+      h += `<dl>${fila("Lo publica", ir(n.fuente))}${fila("Archivo", `<code>${esc(n.ruta)}</code>`)}${fila("Dirección de descarga", !n.url ? "" : /[{}]|\.\.\.|AAAA/.test(n.url)
+        ? `<code>${esc(n.url)}</code><span class="rx-ev">La dirección cambia con cada edición: el programa la arma o la busca en la página del organismo.</span>`
+        : `<a class="enlace" href="${esc(n.url)}" rel="noopener">${esc(n.url)}</a>`)}`
+        + `${fila("Cómo llega", esc(n.origen))}${fila("Última descarga", d ? esc(fecha(d.fecha)) + (d.estado === "ok" ? ", se bajó bien" : ", falló: el sitio usa el archivo anterior") : "")}`
+        + `${fila("Dónde lo baja o lo arma el sitio", ev(n.evidencia))}</dl>`;
+      h += `<h4>Alimenta ${a.length === 1 ? "una ficha" : a.length + " fichas"}</h4><ul>${a.map(x => `<li>${ir(x.a)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
+    } else {
+      h += `<dl>${fila("Sección", n.url ? `<a class="enlace" href="${esc(n.seccion + ".html")}">${esc(n.seccion_nombre)}</a>` : esc(n.seccion_nombre))}`
+        + `${fila("Fuente, como figura en la ficha", esc(n.fuente_texto))}${fila("Frecuencia", esc(n.frecuencia))}`
+        + `${fila("Unidad", esc((n.unidad || []).join(", ")))}${fila("Período de la tabla", esc(n.periodo))}${fila("Cobertura", esc(n.cobertura))}`
+        + `${fila("Nota de la ficha", esc(n.nota))}</dl>`;
+      const arch = de.filter(x => x.tipo === "alimenta"), calc = de.filter(x => x.tipo === "calcula"), usa = a.filter(x => x.tipo === "calcula");
+      h += `<h4>De dónde salen sus datos</h4><ul>${arch.map(x => { const c = porId.get(x.de); return `<li>${ir(x.de)}${c.fuente ? `<br><small>Lo publica ${ir(c.fuente)}</small>` : ""}${x.evidencia.map(ev).join("")}</li>`; }).join("")}</ul>`;
+      if (calc.length) h += `<h4>Se calcula a partir de</h4><ul>${calc.map(x => `<li>${ir(x.de)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
+      if (usa.length) h += `<h4>Se usa para calcular</h4><ul>${usa.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
+      h += `<div class="rx-acciones">${n.url ? `<a class="boton principal chico" href="${esc(n.url)}">Abrir la ficha</a>` : ""}`
+        + (n.csv || []).map(c => `<a class="boton chico" href="${esc(c)}" download>Descargar ${esc(c.replace(/^datos\//, ""))}</a>`).join("") + "</div>";
+    }
+    cuerpo.innerHTML = h;
+  }
+  $("rx-p-cuerpo").addEventListener("click", e => {
+    const b = e.target.closest("[data-ir]");
+    if (!b) return;
+    elegir(b.dataset.ir);
+    if (E.vista === "grafo") centrar();
+  });
+  function cerrarPanel() {
+    elegir(null, false);
+    const o = origen && document.contains(origen) && !origen.closest("[hidden]") ? origen : (E.vista === "grafo" ? $("rx-svg") : $("rx-buscar"));
+    origen = null;
+    o.focus({preventScroll: true});
+  }
+  $("rx-cerrar").addEventListener("click", cerrarPanel);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && E.elegido && !e.defaultPrevented && document.activeElement !== $("rx-svg")) cerrarPanel(); });
+  MAS_ANGOSTO.addEventListener("change", () => panel(E.elegido ? porId.get(E.elegido) : null));
+
+  // ---------- el estado queda en el enlace, para compartirlo ----------
+  function guardarEnlace() {
+    const q = new URLSearchParams();
+    if (E.elegido) q.set("n", E.elegido);
+    if (E.vista !== (ANGOSTO.matches ? "tabla" : "grafo")) q.set("v", E.vista);
+    if (E.tema) q.set("t", E.tema);
+    if (E.fuente) q.set("o", E.fuente);
+    if (E.q) q.set("q", E.q);
+    const s = q.toString();
+    history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash);
+  }
+
+  // ---------- filtros ----------
+  function llenarFiltros() {
+    const tema = $("rx-tema"), org = $("rx-fuente");
+    for (const [id, t] of D.secciones) tema.add(new Option(t, id));
+    for (const n of N.filter(x => x.tipo === "fuente").sort((a, b) => a.nombre.localeCompare(b.nombre, "es")))
+      org.add(new Option(n.sigla && n.sigla !== n.nombre ? `${n.nombre} (${n.sigla})` : n.nombre, n.id));
+    tema.value = D.secciones.some(s => s[0] === E.tema) ? E.tema : (E.tema = "");
+    org.value = porId.has(E.fuente) ? E.fuente : (E.fuente = "");
+    $("rx-buscar").value = E.q;
+  }
+  $("rx-tema").addEventListener("change", e => { E.tema = e.target.value; dibujarTodo(); });
+  $("rx-fuente").addEventListener("change", e => { E.fuente = e.target.value; dibujarTodo(); });
+  let tecla;
+  $("rx-buscar").addEventListener("input", e => {
+    clearTimeout(tecla);
+    tecla = setTimeout(() => {
+      E.q = e.target.value.trim();
+      if (E.elegido) { E.elegido = null; panel(null); }
+      const v = calcularVisibles();
+      contar(v); dibujarTabla(v); vacio(v); resaltar(); guardarEnlace();
+    }, 150);
+  });
+  // Enter en el buscador elige el primer resultado
+  $("rx-buscar").addEventListener("keydown", e => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    // primero lo que empieza con lo buscado, después las fichas, los organismos y los archivos
+    const q = sinTildes(E.q), rango = {indicador: 0, fuente: 1, conjunto: 2};
+    const r = visibles.filter(coincide).sort((a, b) =>
+      (sinTildes(a.nombre).startsWith(q) || sinTildes(a.sigla).startsWith(q) ? 0 : 1) - (sinTildes(b.nombre).startsWith(q) || sinTildes(b.sigla).startsWith(q) ? 0 : 1)
+      || rango[a.tipo] - rango[b.tipo] || a.nombre.localeCompare(b.nombre, "es"));
+    if (E.q && r.length) elegir(r[0].id);
+  });
 
   // zoom con los botones y el teclado
   const zoomPor = k => svg.transition().duration(REDUCIR ? 0 : 200).call(zoom.scaleBy, k);
@@ -198,8 +360,8 @@
     else if (["ArrowUp", "ArrowLeft"].includes(ev.key)) i = Math.max(0, i - 1);
     else if (ev.key === "Home") i = 0;
     else if (ev.key === "End") i = orden.length - 1;
-    else if (ev.key === "Enter" || ev.key === " ") { if (E.foco) elegir(E.foco); ev.preventDefault(); return; }
-    else if (ev.key === "Escape") { elegir(null); return; }
+    else if (ev.key === "Enter" || ev.key === " ") { if (E.foco) elegir(E.foco, false); ev.preventDefault(); return; }
+    else if (ev.key === "Escape") { if (E.elegido) { elegir(null, false); ev.preventDefault(); } return; }
     else if (ev.key === "+" || ev.key === "=") { zoomPor(1.5); return; }
     else if (ev.key === "-") { zoomPor(1 / 1.5); return; }
     else if (ev.key === "0") { svg.call(zoom.transform, inicial); return; }
@@ -220,13 +382,11 @@
     const boton = id => { const n = porId.get(id); return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.tipo === "fuente" ? (n.sigla || n.nombre) : n.nombre)}</button>`; };
     const lista = arr => arr.length ? `<ul class="rx-rel">${arr.map(x => `<li>${x}</li>`).join("")}</ul>` : "<span aria-label=\"ninguna\">—</span>";
     const tema = n => [...n._temas].map(t => (D.secciones.find(s => s[0] === t) || [, t])[1]).join(", ");
-    $("rx-filas").innerHTML = ordenados(v.nodos).map(n => `<tr data-id="${esc(n.id)}">
+    $("rx-filas").innerHTML = ordenados(v.nodos.filter(coincide)).map(n => `<tr data-id="${esc(n.id)}">
       <td><svg viewBox="-8 -8 16 16" aria-hidden="true">${ICONO[n.tipo]}</svg>${TIPO_NOMBRE[n.tipo]}</td>
       <td>${boton(n.id)}</td><td>${esc(tema(n))}</td>
       <td>${lista(entra.get(n.id).filter(a => vis.has(a.de)).map(a => boton(a.de) + (a.tipo === "calcula" ? " (se calcula a partir de)" : "")))}</td>
       <td>${lista(sale.get(n.id).filter(a => vis.has(a.a)).map(a => boton(a.a)))}</td></tr>`).join("");
-    $("rx-vacio-tabla").hidden = v.nodos.length > 0;
-    $("rx-vacio-tabla").textContent = "No hay nada para mostrar con estos filtros.";
     resaltar();
   }
   $("rx-filas").addEventListener("click", ev => {
@@ -252,6 +412,7 @@
     mostrarVista();
     // el grafo se dibuja con el tamaño real de su caja, que es cero mientras está oculta
     if (E.vista === "grafo") dibujarGrafo(calcularVisibles());
+    guardarEnlace();
   });
   document.querySelectorAll(".rx-tipo").forEach(b => b.addEventListener("click", () => {
     const t = b.dataset.tipo, si = b.getAttribute("aria-pressed") !== "true";
