@@ -123,8 +123,8 @@ a:hover{text-decoration-color:var(--celeste-fuerte)}
 .en-azul :focus-visible{outline-color:var(--sol)}
 select option{background:var(--bg);color:var(--ink)}
 /* cortes de línea: títulos con líneas parejas y textos sin una palabra sola al final */
-h1,h2,h3,h4,.art-txt b,.dest-cuerpo b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
-p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
+h1,h2,h3,h4,.art-txt b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
+p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 .envoltura{max-width:var(--col);margin:0 auto;padding:0 var(--margen)}
 /* bloques anchos de la portada, más allá de la columna de texto */
 .ancho{width:min(var(--ancho-bloques),calc(100vw - 2 * var(--margen)));margin-left:calc(50% - min(var(--ancho-bloques) / 2,50vw - var(--margen)))}
@@ -140,13 +140,11 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .iso .wl{fill:none;stroke:var(--ic-detalle)}
 .iso .k{fill:none;stroke:var(--ic)}
 /* Íconos de las tarjetas (etapa 14, pedido del autor): al pasar el mouse por la tarjeta, el ícono se eleva y se inclina apenas,
-   como gira el sol de los destacados, en 300 ms. Lo mismo, más chico, en los íconos de la barra */
+   como gira el sol de "Seguí explorando", en 300 ms. Lo mismo, más chico, en los íconos de la barra */
 .tarjeta .iso{transition:transform var(--dur-4) var(--ease-out);transform-origin:50% 85%}
 .lupa-btn .ico,.chip-borrar .ico{transition:transform var(--dur-2) var(--ease-out)}
 @media (hover:hover) and (pointer:fine){
   .tarjeta:hover .iso{transform:translateY(-4px) rotate(-5deg)}
-  /* en los destacados ya gira el sol: el dibujo solo se eleva */
-  .dest:hover .iso{transform:translateY(-4px)}
   .lupa-btn:hover .ico{transform:rotate(-12deg) scale(1.08)}
   .chip-borrar:hover .ico{transform:rotate(90deg)}
 }
@@ -181,7 +179,7 @@ p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
   .en-azul .boton:hover{--b-fondo:var(--en-azul-velo)}
   .en-azul .boton.principal:hover,.en-azul .boton[aria-pressed="true"]:hover{--b-fondo:var(--celeste-suave);--b-borde:var(--celeste-suave)}
   .enlace:hover{text-decoration-color:var(--azul)}
-  .tarjeta:not(.dest):hover{background:var(--superficie-3)}
+  .tarjeta:hover{background:var(--superficie-3)}
   .tarjeta.cifra.prov:hover{background:var(--celeste-suave-2)}
 }
 @media (max-width:760px){.tarjeta{padding:var(--e-4)}}
