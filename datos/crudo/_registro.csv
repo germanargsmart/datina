@@ -1,152 +1,152 @@
 archivo,url,descargado,estado
-votaciones nominales,github.com/rquiroga7/como_voto,2026-10-10T18:42:32,ok
-exportaciones por semestre,https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_02_09_26.xls,2026-10-10T18:43:03,ok
-seguridad social (BESS),https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_indicadores_06-2026.xlsx,2026-10-10T18:43:04,ok
-EPH antiguedad en el empleo,"indec.gob.ar EPH bases usuarias 2T2025, 3T2025, 4T2025, 1T2026",2026-10-10T18:43:18,ok
-"EPH, pobreza y mercado de trabajo por aglomerado",https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_09_26.xls y https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_eph_informe_09_26.xls,2026-10-10T18:43:21,ok
-empresas por provincia (OEDE),https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx,2026-10-10T18:43:23,ok
-petróleo y gas (resúmenes del Capítulo IV),"http://datos.energia.gob.ar Capítulo IV (686,978 filas agrupadas)",2026-10-10T18:44:45,ok
-reservas de petróleo y gas,http://datos.energia.gob.ar reservas 2006 a 2025,2026-10-10T18:45:18,ok
-empleo por rama y provincia (OEDE),https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empleo_trimestral_2dig_7.xlsx,2026-10-10T18:45:22,ok
-producción de petróleo y gas por país (EIA),https://www.eia.gov/opendata/bulk/INTL.zip,2026-10-10T18:45:34,ok
-producción por pozo no convencional,"http://datos.energia.gob.ar producción por pozo no convencional (4,940 pozos)",2026-10-10T18:46:05,ok
-centrales de generación eléctrica,http://datos.energia.gob.ar/dataset/c62df6c6-73af-4039-b956-db081ff6eebe/resource/230fdf38-8f12-4017-a1e8-d7a1bc4a1c1c/download/generacin-elctrica-centrales-de-generacin.csv,2026-10-10T18:46:07,ok
-gas entregado por provincia (ENARGAS),https://www.enargas.gob.ar/secciones/transporte-y-distribucion/datos-estadisticos/GED/GED.xlsx,2026-10-10T18:46:11,ok
-consumo de gas por medidor en Gran Bretaña (DESNZ),https://assets.publishing.service.gov.uk/media/69f9bf208f3213f7384ecae6/Subnational_gas_consumption_statistics_2005-2024.xlsx,2026-10-10T18:46:13,ok
-permisos de edificación (INDEC),https://www.indec.gob.ar/ftp/cuadros/economia/sh_isac_2026.xls,2026-10-10T18:46:15,ok
-créditos hipotecarios UVA (BCRA),https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/finuva_mensual.xls,2026-10-10T18:46:17,ok
-crédito a los hogares por país (BIS),https://stats.bis.org/api/v1/data/WS_TC/Q..H.A.M.770.A?format=csv&startPeriod=2000-Q1,2026-10-10T18:46:20,ok
-"electricidad por país (Ember, vía Our World in Data)",https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv,2026-10-10T18:46:20,ok
-precios de los combustibles por estación (Res. 1104/2004),http://datos.energia.gob.ar/dataset/708f9ab4-829b-4f02-b507-f303c5bc4800/resource/3cbdd364-a12c-46b7-b791-dd8e8bcfb32d/download/precios-eess-2025-.csv,2026-10-10T18:46:39,ok
-demanda eléctrica por provincia y tipo de usuario (CAMMESA),https://cammesaweb.cammesa.com/?wpdmdl=41426,2026-10-10T18:46:49,ok
-tipo de cambio real multilateral (BCRA),https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/ITCRMSerie.xlsx,2026-10-10T18:46:55,ok
-remuneraciones por provincia (OEDE),https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx,2026-10-10T18:46:58,ok
-salario docente por provincia (CECE),https://www.argentina.gob.ar/sites/default/files/1._salario_bruto_mg10.xlsx,2026-10-10T18:47:02,ok
-inversión educativa por provincia (CECE),https://www.argentina.gob.ar/sites/default/files/2018/01/indicadores_seleccionados.zip,2026-10-10T18:47:03,ok
-precio del petróleo Brent (EIA),https://www.eia.gov/dnav/pet/hist_xls/RBRTEm.xls,2026-10-10T18:47:11,ok
-canastas básicas por región (INDEC),https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_09_26.xls,2026-10-10T18:47:13,ok
-residencias otorgadas por la Dirección Nacional de Migraciones,https://datos.mininterior.gob.ar,2026-10-10T18:47:29,ok
-personas nacidas en la Argentina que viven en otro país (Naciones Unidas),https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx,2026-10-10T18:47:34,ok
-personas refugiadas y solicitantes de asilo (ACNUR),https://api.unhcr.org/population/v1/population/?limit=10000&cf_type=ISO&yearFrom=2000&yearTo=2100&,2026-10-10T18:47:40,ok
-deuda pública de la Administración Central (Secretaría de Finanzas),https://www.argentina.gob.ar/sites/default/files/deuda_publica_30-06-2026_0.xlsx,2026-10-10T18:47:40,ok
-cargos en las administraciones provinciales (DNAP),https://www.argentina.gob.ar/sites/default/files/ejec-presupuestaria-ocupacion_salarios_2.xlsx,2026-10-10T18:47:43,ok
-recursos tributarios de origen provincial (DNAP),https://www.argentina.gob.ar/sites/default/files/serie_top_1984_2025_0.xlsx,2026-10-10T18:47:46,ok
-departamentos (resumen),SNIC y RENAPER por departamento,2026-10-10T18:47:55,ok
-energia_emae.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=367.3_DEMANDA_TOTAL__13,367.3_DEMANDA_REIAL__19,143.3_NO_PR_2004_A_21",2026-10-10T18:48:15,ok
-sipa_provincias.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=154.1_CABA_C_0_0_4,154.1_BOS_AIRRES_C_0_0_12,154.1_CMARCARCA_C_0_0_9,154.1_COACO_C_0_0_5,154.1_CUTBUT_C_0_0_6,154.1_COBAOBA_C_0_0_7,154.1_CIENTESTES_C_0_0_10,154.1_EE_RIOSIOS_C_0_0_10,154.1_FOSAOSA_C_0_0_7,154.1_JYJUY_C_0_0_5,154.1_LAMPAMPA_C_0_0_8,154.1_LIOJAOJA_C_0_0_8,154.1_MOZAOZA_C_0_0_7,154.1_MONESNES_C_0_0_8,154.1_NUENUEN_C_0_0_7,154.1_RNEGROGRO_C_0_0_9,154.1_SALTA_C_0_0_5,154.1_SJUANUAN_C_0_0_8,154.1_SLUISUIS_C_0_0_8,154.1_SA_CRUZRUZ_C_0_0_10,154.1_SA_FE_FE_C_0_0_8,154.1_SIAGO_EERO_C_0_0_15,154.1_TRA_FUEEGO_C_0_0_12,154.1_TMANMAN_C_0_0_7",2026-10-10T18:48:47,ok
-snic_provincias.csv,https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv,2026-10-10T18:48:49,ok
-snic_pais.csv,https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-pais.csv,2026-10-10T18:48:50,ok
-snic_sat_suicidios.csv,https://cloud-snic.minseg.gob.ar/Bases/SAT/SS/SAT-SS-BU_2017-2024.csv,2026-10-10T18:48:53,ok
-deis_mortalidad_infantil.csv,https://datos.salud.gob.ar/dataset/2eff770c-1c2b-4a22-9281-c3b5e9412086/resource/c1253897-d507-41f7-a3e1-6ed756e7243b/download/tasa-mortalidad-infantil-deis-1990-2024.csv,2026-10-10T18:48:54,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-sube_usuarios_dia.csv,https://archivos-datos.transporte.gob.ar/upload/Sube/total-usuarios-por-dia.csv,2026-10-10T18:48:55,ok
-pisa_owid.csv,https://ourworldindata.org/grapher/average-performance-of-15-year-olds-in-mathematics-reading-and-science.csv?v=1&csvType=full&useColumnShortNames=true,2026-10-10T18:48:56,ok
-educ_escolarizacion.zip,https://www.argentina.gob.ar/sites/default/files/2018/04/tasas_de_escolarizacion_1.zip,2026-10-10T18:48:56,ok
-aprender_primaria_matematica.csv,https://ministeriodeeducaciondelanacion-my.sharepoint.com/:x:/g/personal/santiago_pomeranz_educacion_gob_ar/IQCO2WWPegYkTKeidcU6XvnrAY4jm1DgTa6gCTAf9TBmUgU?e=VoJT3L&download=1,2026-10-10T18:48:57,ok
-aprender_primaria_lengua.csv,https://ministeriodeeducaciondelanacion-my.sharepoint.com/:x:/g/personal/santiago_pomeranz_educacion_gob_ar/IQAO72ZpmrWPS5B5jXAnaP1JAdeRnrjddVPO7fXpEIT8AsQ?e=Rl14Gl&download=1,2026-10-10T18:48:58,ok
-ciam_areas_protegidas_provincias.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=394,2026-10-10T18:48:59,ok
-ciam_superficie_provincias.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=596,2026-10-10T18:49:00,ok
-sib_areas_protegidas.json,https://sib.gob.ar/api/2.0.0/ficha-area-protegida/areas-protegidas,2026-10-10T18:49:02,ok
-sinta_visitas_parques.csv,https://datos.yvera.gob.ar/dataset/458bcbe1-855c-4bc3-a1c9-cd4e84fedbbc/resource/a570af75-ed33-427c-9797-980fc0cd8fd1/download/visitas-residentes-y-no-residentes.csv,2026-10-10T18:49:03,ok
-sinta_turistas_residentes.csv,https://datos.yvera.gob.ar/dataset/4cbf7d4a-702a-4911-8c1e-717a45214902/resource/fd710cb7-1981-43ea-aba3-7a14c356446b/download/turistas-residentes-serie.csv,2026-10-10T18:49:04,ok
-sinta_turistas_no_residentes.csv,https://datos.yvera.gob.ar/dataset/4cbf7d4a-702a-4911-8c1e-717a45214902/resource/fdfe0ae4-4acc-4421-aa48-6149a02bc615/download/turistas-no-residentes-serie.csv,2026-10-10T18:49:06,ok
-sinta_eoh_viajeros_region.csv,https://datos.yvera.gob.ar/dataset/93db331e-6970-4d74-8589-c1223ac9c282/resource/1f6b78aa-d3b4-440a-bd7d-30d76e1728aa/download/viajeros-hospedados-residentes-y-no-residentes-por-destino.csv,2026-10-10T18:49:07,ok
-sinta_eti_provincias.csv,https://datos.yvera.gob.ar/dataset/78b880c1-50d5-4a0c-9c87-7350e70548c2/resource/4af57562-9ca5-4301-8865-e04e9bfdf327/download/turistas_pernoctes_por_provincia_segun_origen_y_destinos_visitados_ezeiza_aeroparque.csv,2026-10-10T18:49:09,ok
-sspmi_carne_vacuna.csv,https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv,2026-10-10T18:49:15,error: HTTP Error 404: Not Found
-sspmi_vitivinicultura.csv,https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_vitivinicultura.csv,2026-10-10T18:49:17,error: HTTP Error 404: Not Found
-sspmi_yerba_mate.csv,https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_yerba-mate.csv,2026-10-10T18:49:19,error: HTTP Error 404: Not Found
-renaper_nombres_frecuentes.csv,https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv,2026-10-10T18:49:21,ok
-ciam_glaciares.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=383,2026-10-10T18:49:22,ok
-ciam_anomalia_temperatura.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=467,2026-10-10T18:49:22,ok
-ciam_desembarques_especie.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=572,2026-10-10T18:49:23,ok
-ciam_pesca_continental.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=574,2026-10-10T18:49:23,ok
-dnrpa_autos_nuevos.csv,https://datos.jus.gob.ar/dataset/1ab0cc03-ab9b-4520-975c-5757d87d1061/resource/4358c995-bb04-4ad9-be4a-a9076dc3e42c/download/estadistica-inscripciones-iniciales-automotores-2000-01-2026-09.csv,2026-10-10T18:49:25,ok
-dnrpa_motos_nuevas.csv,https://datos.jus.gob.ar/dataset/72d85f23-b751-4d12-935b-25e32ed9445e/resource/d523dd08-5c12-467e-b947-aa3206a24d21/download/estadistica-inscripciones-iniciales-motovehiculos-2007-01-2026-09.csv,2026-10-10T18:49:28,ok
-csjn_femicidios_2021.sav,https://datos.csjn.gob.ar/dataset/155cba1c-0668-440c-9465-74e64e12576e/resource/2483c379-1d87-4f71-830a-5fa1032150ca/download/victimas-2021--datos-abiertos.sav,2026-10-10T18:49:29,ok
-csjn_femicidios_2020.sav,https://datos.csjn.gob.ar/dataset/781fce25-5fa1-47fb-94ad-883bd0f13031/resource/74ffd753-1f38-462b-bc02-241b2ccb368d/download/victimas-2020--datos-abiertos.sav,2026-10-10T18:50:30,error: HTTP Error 504: Gateway Time-out
-csjn_femicidios_2019.sav,https://datos.csjn.gob.ar/dataset/d50f22df-3891-4dc8-a14c-2486d654e721/resource/67eb3889-1dd4-4cd7-bf4c-b197ba20ff45/download/victimas-2019--datos-abiertos.sav,2026-10-10T18:50:31,ok
-csjn_femicidios_2018.sav,https://datos.csjn.gob.ar/dataset/29bf7928-4abb-42af-b105-b65f095d0b6d/resource/e8ccb5dc-5072-488c-9af5-f559826f97f9/download/victimas-2018--datos-abiertos.sav,2026-10-10T18:50:32,ok
-csjn_femicidios_2017.sav,https://datos.csjn.gob.ar/dataset/dfb4f68f-c385-4a41-a52a-3a430994f7db/resource/a7388b4f-7914-45a7-9bc3-41c69bb69cdf/download/victimas-2017--datos-abiertos.sav,2026-10-10T18:50:33,ok
-csjn_femicidios_2024.sav,https://datos.csjn.gob.ar/dataset/6f32e12b-c0f6-4d41-b648-0d1fd8986e28/resource/024d4484-9931-4d28-852f-b287b9e14fbb/download/victimas-2024-datos-abiertos.sav,2026-10-10T18:50:35,ok
-csjn_femicidios_2023.sav,https://datos.csjn.gob.ar/dataset/967fd750-7e34-4797-ab1d-72516aa070ba/resource/26f63218-59c4-4831-a01a-1e906bc076ff/download/victimas-femicidios-2023-datos-abiertos.sav,2026-10-10T18:50:36,ok
-csjn_femicidios_2022.sav,https://datos.csjn.gob.ar/dataset/80077204-cb1c-44b8-8051-492f05747911/resource/4c619040-0720-49bb-97ce-f8eb00b19c04/download/victimas-2022-datos-abiertos.sav,2026-10-10T18:50:37,ok
-se_petroleo_cuenca.csv,http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c/resource/af8c50bb-fde0-43b7-98eb-7cd14daf586c/download/serie-histrica-de-produccin-de-petrleo-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv,2026-10-10T18:50:38,ok
-se_gas_cuenca.csv,http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c/resource/a3244ddd-38bc-4800-a700-360b649d2f3a/download/serie-histrica-de-produccin-de-gas-natural-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv,2026-10-10T18:50:39,ok
-se_regalias_crudo.zip,https://www.energia.gob.ar/contenidos/archivos/Reorganizacion/informacion_del_mercado/mercado_hidrocarburos/informacion_estadistica/regalias/Regalias_CRUDO.zip,2026-10-10T18:50:39,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-indec_ica_energia.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=74.3_IECE_0_M_35,74.3_IICL_0_M_42",2026-10-10T18:50:45,ok
-isac.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.2/download/indicador-sintetico-actividad-construccion-valores-mensuales-base-2004.csv,2026-10-10T18:50:46,ok
-isac_insumos.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv,2026-10-10T18:50:46,ok
-indec_icc.xls,https://www.indec.gob.ar/ftp/cuadros/economia/icc_variaciones_indices_2016.xls,2026-10-10T18:50:50,ok
-gas_residencial_pais.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=364.1_RESIDENCIAIAL__11,2026-10-10T18:51:07,ok
-subsidios_energia.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=452.2_ENERGIAGIA_0_T_7_56,2026-10-10T18:51:25,ok
-pib_corriente.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=4.4_OGP_2004_T_17,2026-10-10T18:51:38,ok
-tipo_cambio_a3500.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=168.1_T_CAMBI500_D_0_0_17&collapse=month&collapse_aggregation=avg,2026-10-10T18:51:54,ok
-inversion_trimestral.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32,4.2_DGIEDPI_2004_T_55,4.2_DGIEDPN_2004_T_54,4.4_DGIC_2004_T_32&header=ids",2026-10-10T18:52:05,ok
-compras_dolares_privados.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56&header=ids",2026-10-10T18:52:25,ok
-sneep_poblacion.csv,https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/7d10bdae-a3a8-416e-96ce-094c96ecf7d9/download/sneep-poblacion-total.csv,2026-10-10T18:52:26,ok
-sneep_condenados.csv,https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/414604b9-4937-4568-aba8-c346d8f38ade/download/sneep-situacion-legal-condenados-condenadas.csv,2026-10-10T18:52:27,ok
-exportaciones_cantidades.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=80.2_IICENG_0_T_47,80.2_IICENPP_0_T_59,80.2_IICENA_0_T_44,80.2_IICENI_0_T_49,80.2_IICENC_0_T_52&header=ids",2026-10-10T18:52:32,ok
-exportaciones_rubros.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=74.3_IET_0_M_16,74.3_IEPP_0_M_35,74.3_IEMOA_0_M_48,74.3_IEMOI_0_M_46,74.3_IECE_0_M_35&header=ids",2026-10-10T18:53:02,ok
-indec_ipc_divisiones.csv,https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv,2026-10-10T18:53:05,ok
-indec_indice_salarios.csv,https://www.indec.gob.ar/ftp/cuadros/sociedad/indice_salarios.csv,2026-10-10T18:53:06,ok
-indec_canastas.xls,https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls,2026-10-10T18:53:07,ok
-indec_emae.xls,https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls,2026-10-10T18:53:08,ok
-indec_emae_actividad.xls,https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls,2026-10-10T18:53:10,ok
-indec_supermercados.xlsx,https://www.indec.gob.ar/ftp/cuadros/economia/serie_supermercados.xlsx,2026-10-10T18:53:12,ok
-censo2022_migraciones_c1.xlsx,https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx,2026-10-10T18:53:15,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-censo2022_migraciones_c10.xlsx,https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx,2026-10-10T18:53:16,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-indec_gobiernos_locales.xlsx,https://www.indec.gob.ar/ftp/cuadros/poblacion/c2022_tp_gobierno_local_c1.xlsx,2026-10-10T18:53:17,ok
-imig_mensual.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/452/distribution/452.3/download/imig-mensual.csv,2026-10-10T18:53:18,ok
-recaudacion_mensual.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/142/distribution/142.3/download/recursos-tributarios-totales-por-tributo-mensual-base-2001.csv,2026-10-10T18:53:19,ok
-indec_dotacion_apn.xlsx,https://www.indec.gob.ar/ftp/cuadros/economia/serie_dotacion_apn.xlsx,2026-10-10T18:53:22,ok
-se_fracturas.csv,http://datos.energia.gob.ar/dataset/71fa2e84-0316-4a1b-af68-7f35e41f58d7/resource/2280ad92-6ed3-403e-a095-50139863ab0d/download/datos-de-fractura-de-pozos-de-hidrocarburos-adjunto-iv-actualizacin-diaria.csv,2026-10-10T18:53:24,ok
-potencia_instalada.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IDOS__36,367.1_POTENCIA_IGAS__32,367.1_POTENCIA_IPOR__29,367.1_POTENCIA_ISEL__31,367.1_POTENCIA_IICA__29,367.1_POTENCIA_IBLE__39,367.1_POTENCIA_IEAR__26,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24,367.1_POTENCIA_IGAS__25",2026-10-10T18:53:54,ok
-se_pozos_terminados.csv,http://datos.energia.gob.ar/dataset/7ea2ac77-d7a0-4129-9fbf-6f1a25d94e21/resource/66b0266a-b028-4812-b95f-1da31835b0aa/download/pozos-terminados-por-tipo-de-pozo-y-provincia.csv,2026-10-10T18:53:57,ok
-indec_tablas_mortalidad.csv,https://censo.gob.ar/wp-content/uploads/2025/10/tabla_mortalidad_2020_2022_base_csv.csv,2026-10-10T18:54:00,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-enacom_internet_accesos.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv,2026-10-10T18:54:01,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-enacom_internet_velocidad.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv,2026-10-10T18:54:01,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-exportaciones_provincias.xls,https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls,2026-10-10T18:54:03,ok
-renaper_extranjeros.csv,https://datosabiertos.renaper.gob.ar/poblacion_extranjera_identificada_provincia_junio_206.csv,2026-10-10T18:54:05,ok
-deis_defunciones_2022.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/defweb22_0.csv,2026-10-10T18:54:06,ok
-deis_defunciones_2023.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/defweb23.csv,2026-10-10T18:54:07,ok
-deis_defunciones_2024.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/datos_sobre_defunciones_2024.csv,2026-10-10T18:54:08,ok
-deis_nacidos_2012.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb12.csv,2026-10-10T18:54:09,ok
-deis_nacidos_2013.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb13.csv,2026-10-10T18:54:11,ok
-deis_nacidos_2014.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb14.csv,2026-10-10T18:54:13,ok
-deis_nacidos_2015.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb15.csv,2026-10-10T18:54:13,ok
-deis_nacidos_2016.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb16.csv,2026-10-10T18:54:13,ok
-deis_nacidos_2017.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb17.csv,2026-10-10T18:54:14,ok
-deis_nacidos_2018.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb18.csv,2026-10-10T18:54:15,ok
-deis_nacidos_2019.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb19.csv,2026-10-10T18:54:16,ok
-deis_nacidos_2020.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb20_0.csv,2026-10-10T18:54:16,ok
-deis_nacidos_2021.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb21_0.csv,2026-10-10T18:54:17,ok
-deis_nacidos_2022.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb22_0.csv,2026-10-10T18:54:18,ok
-deis_nacidos_2023.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb23.csv,2026-10-10T18:54:19,ok
-deis_nacidos_2024.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/datos_sobre_nacidos_vivos_2024.csv,2026-10-10T18:54:20,ok
-indec_proyecciones_provincias.csv,https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv,2026-10-10T18:54:20,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-aif_provincias.xlsx,https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx,2026-10-10T18:54:21,ok
-deis_natalidad.csv,http://datos.salud.gob.ar/dataset/314e08d7-70a1-4704-aa2f-e86ce03b359d/resource/0f68d5c6-e667-40ca-90fd-4784336e092e/download/tasa-natalidad-deis-2000-2023.csv,2026-10-10T18:54:23,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
-bm_paises.json,https://api.worldbank.org/v2/es/country?format=json&per_page=400,2026-10-10T18:54:23,ok
-bm_mundo_SP.DYN.LE00.IN.json,https://api.worldbank.org/v2/es/country/all/indicator/SP.DYN.LE00.IN?format=json&per_page=20000&date=2015:2030,2026-10-10T18:54:39,ok
-bm_mundo_SP.DYN.IMRT.IN.json,https://api.worldbank.org/v2/es/country/all/indicator/SP.DYN.IMRT.IN?format=json&per_page=20000&date=2015:2030,2026-10-10T18:54:42,ok
-bm_SP.DYN.TFRT.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.TFRT.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T18:54:45,ok
-bm_SP.ADO.TFRT.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.ADO.TFRT?format=json&per_page=20000&date=1990:2030,2026-10-10T18:54:50,ok
-bm_SP.DYN.IMRT.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.IMRT.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T18:54:55,ok
-bm_SP.DYN.LE00.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.LE00.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T18:54:58,ok
-bm_SH.XPD.CHEX.GD.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SH.XPD.CHEX.GD.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T18:55:05,ok
-bm_SH.STA.SUIC.P5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SH.STA.SUIC.P5?format=json&per_page=20000&date=1990:2030,2026-10-10T18:55:13,ok
-bm_VC.IHR.PSRC.P5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/VC.IHR.PSRC.P5?format=json&per_page=20000&date=1990:2030,2026-10-10T18:55:22,ok
-bm_SH.STA.TRAF.P5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SH.STA.TRAF.P5?format=json&per_page=20000&date=1990:2030,2026-10-10T18:55:27,ok
-bm_SL.UEM.TOTL.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SL.UEM.TOTL.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T18:55:33,ok
-bm_SL.EMP.TOTL.SP.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SL.EMP.TOTL.SP.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T18:56:34,ok
-bm_EG.USE.ELEC.KH.PC.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/EG.USE.ELEC.KH.PC?format=json&per_page=20000&date=1990:2030,2026-10-10T18:56:36,ok
-bm_EN.GHG.CO2.PC.CE.AR5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/EN.GHG.CO2.PC.CE.AR5?format=json&per_page=20000&date=1990:2030,2026-10-10T18:56:45,ok
-bm_ER.LND.PTLD.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/ER.LND.PTLD.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T18:56:47,ok
-bm_ST.INT.ARVL.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/ST.INT.ARVL?format=json&per_page=20000&date=1990:2030,2026-10-10T18:56:51,ok
-bm_ER.FSH.CAPT.MT.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/ER.FSH.CAPT.MT?format=json&per_page=20000&date=1990:2030,2026-10-10T18:57:03,ok
-bm_SP.POP.TOTL.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.POP.TOTL?format=json&per_page=20000&date=1990:2030,2026-10-10T18:57:05,ok
-bm_SI.DST.50MD.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SI.DST.50MD?format=json&per_page=20000&date=1990:2030,2026-10-10T18:57:09,ok
-bm_SI.POV.GINI.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SI.POV.GINI?format=json&per_page=20000&date=1990:2030,2026-10-10T18:57:20,ok
-bm_SE.SEC.CMPT.LO.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SE.SEC.CMPT.LO.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:00:20,error: The read operation timed out
-bm_IT.NET.USER.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/IT.NET.USER.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:00:24,ok
-bm_SP.DYN.CBRT.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.CBRT.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T19:00:30,ok
-bm_NY.GDP.DEFL.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/NY.GDP.DEFL.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:00:43,ok
+votaciones nominales,github.com/rquiroga7/como_voto,2026-10-10T19:36:18,ok
+exportaciones por semestre,https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_02_09_26.xls,2026-10-10T19:36:43,ok
+seguridad social (BESS),https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_indicadores_06-2026.xlsx,2026-10-10T19:36:44,ok
+EPH antiguedad en el empleo,"indec.gob.ar EPH bases usuarias 2T2025, 3T2025, 4T2025, 1T2026",2026-10-10T19:36:57,ok
+"EPH, pobreza y mercado de trabajo por aglomerado",https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_09_26.xls y https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_eph_informe_09_26.xls,2026-10-10T19:36:59,ok
+empresas por provincia (OEDE),https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empresas2_2.xlsx,2026-10-10T19:37:00,ok
+petróleo y gas (resúmenes del Capítulo IV),,2026-10-10T19:42:39,error: HTTP Error 504: Gateway Time-out
+reservas de petróleo y gas,,2026-10-10T19:43:40,error: timed out
+empleo por rama y provincia (OEDE),https://www.argentina.gob.ar/sites/default/files/provinciales_serie_empleo_trimestral_2dig_7.xlsx,2026-10-10T19:43:42,ok
+producción de petróleo y gas por país (EIA),https://www.eia.gov/opendata/bulk/INTL.zip,2026-10-10T19:43:54,ok
+producción por pozo no convencional,,2026-10-10T19:44:55,error: timed out
+centrales de generación eléctrica,http://datos.energia.gob.ar/dataset/c62df6c6-73af-4039-b956-db081ff6eebe/resource/230fdf38-8f12-4017-a1e8-d7a1bc4a1c1c/download/generacin-elctrica-centrales-de-generacin.csv,2026-10-10T19:46:37,ok
+gas entregado por provincia (ENARGAS),https://www.enargas.gob.ar/secciones/transporte-y-distribucion/datos-estadisticos/GED/GED.xlsx,2026-10-10T19:46:41,ok
+consumo de gas por medidor en Gran Bretaña (DESNZ),https://assets.publishing.service.gov.uk/media/69f9bf208f3213f7384ecae6/Subnational_gas_consumption_statistics_2005-2024.xlsx,2026-10-10T19:46:43,ok
+permisos de edificación (INDEC),https://www.indec.gob.ar/ftp/cuadros/economia/sh_isac_2026.xls,2026-10-10T19:46:45,ok
+créditos hipotecarios UVA (BCRA),https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/finuva_mensual.xls,2026-10-10T19:46:46,ok
+crédito a los hogares por país (BIS),https://stats.bis.org/api/v1/data/WS_TC/Q..H.A.M.770.A?format=csv&startPeriod=2000-Q1,2026-10-10T19:46:48,ok
+"electricidad por país (Ember, vía Our World in Data)",https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv,2026-10-10T19:46:48,ok
+precios de los combustibles por estación (Res. 1104/2004),http://datos.energia.gob.ar/dataset/708f9ab4-829b-4f02-b507-f303c5bc4800/resource/3cbdd364-a12c-46b7-b791-dd8e8bcfb32d/download/precios-eess-2025-.csv,2026-10-10T19:48:38,ok
+demanda eléctrica por provincia y tipo de usuario (CAMMESA),https://cammesaweb.cammesa.com/?wpdmdl=41426,2026-10-10T19:48:46,ok
+tipo de cambio real multilateral (BCRA),https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/ITCRMSerie.xlsx,2026-10-10T19:48:50,ok
+remuneraciones por provincia (OEDE),https://www.argentina.gob.ar/sites/default/files/provinciales_serie_remuneraciones_mensual_2dig_9.xlsx,2026-10-10T19:48:51,ok
+salario docente por provincia (CECE),https://www.argentina.gob.ar/sites/default/files/1._salario_bruto_mg10.xlsx,2026-10-10T19:48:52,ok
+inversión educativa por provincia (CECE),https://www.argentina.gob.ar/sites/default/files/2018/01/indicadores_seleccionados.zip,2026-10-10T19:48:52,ok
+precio del petróleo Brent (EIA),https://www.eia.gov/dnav/pet/hist_xls/RBRTEm.xls,2026-10-10T19:49:03,ok
+canastas básicas por región (INDEC),https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_09_26.xls,2026-10-10T19:49:04,ok
+residencias otorgadas por la Dirección Nacional de Migraciones,https://datos.mininterior.gob.ar,2026-10-10T19:49:14,ok
+personas nacidas en la Argentina que viven en otro país (Naciones Unidas),https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx,2026-10-10T19:49:17,ok
+personas refugiadas y solicitantes de asilo (ACNUR),https://api.unhcr.org/population/v1/population/?limit=10000&cf_type=ISO&yearFrom=2000&yearTo=2100&,2026-10-10T19:49:23,ok
+deuda pública de la Administración Central (Secretaría de Finanzas),https://www.argentina.gob.ar/sites/default/files/deuda_publica_30-06-2026_0.xlsx,2026-10-10T19:49:23,ok
+cargos en las administraciones provinciales (DNAP),https://www.argentina.gob.ar/sites/default/files/ejec-presupuestaria-ocupacion_salarios_2.xlsx,2026-10-10T19:49:23,ok
+recursos tributarios de origen provincial (DNAP),https://www.argentina.gob.ar/sites/default/files/serie_top_1984_2025_0.xlsx,2026-10-10T19:49:24,ok
+departamentos (resumen),SNIC y RENAPER por departamento,2026-10-10T19:49:34,ok
+energia_emae.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=367.3_DEMANDA_TOTAL__13,367.3_DEMANDA_REIAL__19,143.3_NO_PR_2004_A_21",2026-10-10T19:49:53,ok
+sipa_provincias.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=154.1_CABA_C_0_0_4,154.1_BOS_AIRRES_C_0_0_12,154.1_CMARCARCA_C_0_0_9,154.1_COACO_C_0_0_5,154.1_CUTBUT_C_0_0_6,154.1_COBAOBA_C_0_0_7,154.1_CIENTESTES_C_0_0_10,154.1_EE_RIOSIOS_C_0_0_10,154.1_FOSAOSA_C_0_0_7,154.1_JYJUY_C_0_0_5,154.1_LAMPAMPA_C_0_0_8,154.1_LIOJAOJA_C_0_0_8,154.1_MOZAOZA_C_0_0_7,154.1_MONESNES_C_0_0_8,154.1_NUENUEN_C_0_0_7,154.1_RNEGROGRO_C_0_0_9,154.1_SALTA_C_0_0_5,154.1_SJUANUAN_C_0_0_8,154.1_SLUISUIS_C_0_0_8,154.1_SA_CRUZRUZ_C_0_0_10,154.1_SA_FE_FE_C_0_0_8,154.1_SIAGO_EERO_C_0_0_15,154.1_TRA_FUEEGO_C_0_0_12,154.1_TMANMAN_C_0_0_7",2026-10-10T19:50:39,ok
+snic_provincias.csv,https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv,2026-10-10T19:50:42,ok
+snic_pais.csv,https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-pais.csv,2026-10-10T19:50:43,ok
+snic_sat_suicidios.csv,https://cloud-snic.minseg.gob.ar/Bases/SAT/SS/SAT-SS-BU_2017-2024.csv,2026-10-10T19:50:46,ok
+deis_mortalidad_infantil.csv,https://datos.salud.gob.ar/dataset/2eff770c-1c2b-4a22-9281-c3b5e9412086/resource/c1253897-d507-41f7-a3e1-6ed756e7243b/download/tasa-mortalidad-infantil-deis-1990-2024.csv,2026-10-10T19:50:47,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+sube_usuarios_dia.csv,https://archivos-datos.transporte.gob.ar/upload/Sube/total-usuarios-por-dia.csv,2026-10-10T19:50:48,ok
+pisa_owid.csv,https://ourworldindata.org/grapher/average-performance-of-15-year-olds-in-mathematics-reading-and-science.csv?v=1&csvType=full&useColumnShortNames=true,2026-10-10T19:50:48,ok
+educ_escolarizacion.zip,https://www.argentina.gob.ar/sites/default/files/2018/04/tasas_de_escolarizacion_1.zip,2026-10-10T19:50:49,ok
+aprender_primaria_matematica.csv,https://ministeriodeeducaciondelanacion-my.sharepoint.com/:x:/g/personal/santiago_pomeranz_educacion_gob_ar/IQCO2WWPegYkTKeidcU6XvnrAY4jm1DgTa6gCTAf9TBmUgU?e=VoJT3L&download=1,2026-10-10T19:50:49,ok
+aprender_primaria_lengua.csv,https://ministeriodeeducaciondelanacion-my.sharepoint.com/:x:/g/personal/santiago_pomeranz_educacion_gob_ar/IQAO72ZpmrWPS5B5jXAnaP1JAdeRnrjddVPO7fXpEIT8AsQ?e=Rl14Gl&download=1,2026-10-10T19:50:50,ok
+ciam_areas_protegidas_provincias.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=394,2026-10-10T19:50:51,ok
+ciam_superficie_provincias.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=596,2026-10-10T19:50:52,ok
+sib_areas_protegidas.json,https://sib.gob.ar/api/2.0.0/ficha-area-protegida/areas-protegidas,2026-10-10T19:50:54,ok
+sinta_visitas_parques.csv,https://datos.yvera.gob.ar/dataset/458bcbe1-855c-4bc3-a1c9-cd4e84fedbbc/resource/a570af75-ed33-427c-9797-980fc0cd8fd1/download/visitas-residentes-y-no-residentes.csv,2026-10-10T19:50:55,ok
+sinta_turistas_residentes.csv,https://datos.yvera.gob.ar/dataset/4cbf7d4a-702a-4911-8c1e-717a45214902/resource/fd710cb7-1981-43ea-aba3-7a14c356446b/download/turistas-residentes-serie.csv,2026-10-10T19:50:56,ok
+sinta_turistas_no_residentes.csv,https://datos.yvera.gob.ar/dataset/4cbf7d4a-702a-4911-8c1e-717a45214902/resource/fdfe0ae4-4acc-4421-aa48-6149a02bc615/download/turistas-no-residentes-serie.csv,2026-10-10T19:50:58,ok
+sinta_eoh_viajeros_region.csv,https://datos.yvera.gob.ar/dataset/93db331e-6970-4d74-8589-c1223ac9c282/resource/1f6b78aa-d3b4-440a-bd7d-30d76e1728aa/download/viajeros-hospedados-residentes-y-no-residentes-por-destino.csv,2026-10-10T19:50:59,ok
+sinta_eti_provincias.csv,https://datos.yvera.gob.ar/dataset/78b880c1-50d5-4a0c-9c87-7350e70548c2/resource/4af57562-9ca5-4301-8865-e04e9bfdf327/download/turistas_pernoctes_por_provincia_segun_origen_y_destinos_visitados_ezeiza_aeroparque.csv,2026-10-10T19:51:02,ok
+sspmi_carne_vacuna.csv,https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv,2026-10-10T19:51:06,error: HTTP Error 404: Not Found
+sspmi_vitivinicultura.csv,https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_vitivinicultura.csv,2026-10-10T19:51:09,error: HTTP Error 404: Not Found
+sspmi_yerba_mate.csv,https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_yerba-mate.csv,2026-10-10T19:51:12,error: HTTP Error 404: Not Found
+renaper_nombres_frecuentes.csv,https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv,2026-10-10T19:51:15,ok
+ciam_glaciares.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=383,2026-10-10T19:51:15,ok
+ciam_anomalia_temperatura.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=467,2026-10-10T19:51:16,ok
+ciam_desembarques_especie.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=572,2026-10-10T19:51:17,ok
+ciam_pesca_continental.csv,https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=574,2026-10-10T19:51:17,ok
+dnrpa_autos_nuevos.csv,https://datos.jus.gob.ar/dataset/1ab0cc03-ab9b-4520-975c-5757d87d1061/resource/4358c995-bb04-4ad9-be4a-a9076dc3e42c/download/estadistica-inscripciones-iniciales-automotores-2000-01-2026-09.csv,2026-10-10T19:51:19,ok
+dnrpa_motos_nuevas.csv,https://datos.jus.gob.ar/dataset/72d85f23-b751-4d12-935b-25e32ed9445e/resource/d523dd08-5c12-467e-b947-aa3206a24d21/download/estadistica-inscripciones-iniciales-motovehiculos-2007-01-2026-09.csv,2026-10-10T19:51:21,ok
+csjn_femicidios_2021.sav,https://datos.csjn.gob.ar/dataset/155cba1c-0668-440c-9465-74e64e12576e/resource/2483c379-1d87-4f71-830a-5fa1032150ca/download/victimas-2021--datos-abiertos.sav,2026-10-10T19:51:23,ok
+csjn_femicidios_2020.sav,https://datos.csjn.gob.ar/dataset/781fce25-5fa1-47fb-94ad-883bd0f13031/resource/74ffd753-1f38-462b-bc02-241b2ccb368d/download/victimas-2020--datos-abiertos.sav,2026-10-10T19:51:24,ok
+csjn_femicidios_2019.sav,https://datos.csjn.gob.ar/dataset/d50f22df-3891-4dc8-a14c-2486d654e721/resource/67eb3889-1dd4-4cd7-bf4c-b197ba20ff45/download/victimas-2019--datos-abiertos.sav,2026-10-10T19:51:25,ok
+csjn_femicidios_2018.sav,https://datos.csjn.gob.ar/dataset/29bf7928-4abb-42af-b105-b65f095d0b6d/resource/e8ccb5dc-5072-488c-9af5-f559826f97f9/download/victimas-2018--datos-abiertos.sav,2026-10-10T19:51:26,ok
+csjn_femicidios_2017.sav,https://datos.csjn.gob.ar/dataset/dfb4f68f-c385-4a41-a52a-3a430994f7db/resource/a7388b4f-7914-45a7-9bc3-41c69bb69cdf/download/victimas-2017--datos-abiertos.sav,2026-10-10T19:51:27,ok
+csjn_femicidios_2024.sav,https://datos.csjn.gob.ar/dataset/6f32e12b-c0f6-4d41-b648-0d1fd8986e28/resource/024d4484-9931-4d28-852f-b287b9e14fbb/download/victimas-2024-datos-abiertos.sav,2026-10-10T19:51:28,ok
+csjn_femicidios_2023.sav,https://datos.csjn.gob.ar/dataset/967fd750-7e34-4797-ab1d-72516aa070ba/resource/26f63218-59c4-4831-a01a-1e906bc076ff/download/victimas-femicidios-2023-datos-abiertos.sav,2026-10-10T19:51:30,ok
+csjn_femicidios_2022.sav,https://datos.csjn.gob.ar/dataset/80077204-cb1c-44b8-8051-492f05747911/resource/4c619040-0720-49bb-97ce-f8eb00b19c04/download/victimas-2022-datos-abiertos.sav,2026-10-10T19:51:31,ok
+se_petroleo_cuenca.csv,http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c/resource/af8c50bb-fde0-43b7-98eb-7cd14daf586c/download/serie-histrica-de-produccin-de-petrleo-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv,2026-10-10T19:52:02,ok
+se_gas_cuenca.csv,http://datos.energia.gob.ar/dataset/c846e79c-026c-4040-897f-1ad3543b407c/resource/a3244ddd-38bc-4800-a700-360b649d2f3a/download/serie-histrica-de-produccin-de-gas-natural-por-cuenca-y-sub-tipo-de-recurso-captulo-iv-.csv,2026-10-10T19:52:23,ok
+se_regalias_crudo.zip,https://www.energia.gob.ar/contenidos/archivos/Reorganizacion/informacion_del_mercado/mercado_hidrocarburos/informacion_estadistica/regalias/Regalias_CRUDO.zip,2026-10-10T19:52:24,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+indec_ica_energia.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=74.3_IECE_0_M_35,74.3_IICL_0_M_42",2026-10-10T19:52:36,ok
+isac.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.2/download/indicador-sintetico-actividad-construccion-valores-mensuales-base-2004.csv,2026-10-10T19:52:37,ok
+isac_insumos.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv,2026-10-10T19:52:38,ok
+indec_icc.xls,https://www.indec.gob.ar/ftp/cuadros/economia/icc_variaciones_indices_2016.xls,2026-10-10T19:52:39,ok
+gas_residencial_pais.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=364.1_RESIDENCIAIAL__11,2026-10-10T19:52:46,ok
+subsidios_energia.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=452.2_ENERGIAGIA_0_T_7_56,2026-10-10T19:52:51,ok
+pib_corriente.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=4.4_OGP_2004_T_17,2026-10-10T19:52:53,ok
+tipo_cambio_a3500.csv,https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=168.1_T_CAMBI500_D_0_0_17&collapse=month&collapse_aggregation=avg,2026-10-10T19:52:55,ok
+inversion_trimestral.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32,4.2_DGIEDPI_2004_T_55,4.2_DGIEDPN_2004_T_54,4.4_DGIC_2004_T_32&header=ids",2026-10-10T19:53:03,ok
+compras_dolares_privados.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56&header=ids",2026-10-10T19:53:14,ok
+sneep_poblacion.csv,https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/7d10bdae-a3a8-416e-96ce-094c96ecf7d9/download/sneep-poblacion-total.csv,2026-10-10T19:53:15,ok
+sneep_condenados.csv,https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/414604b9-4937-4568-aba8-c346d8f38ade/download/sneep-situacion-legal-condenados-condenadas.csv,2026-10-10T19:53:16,ok
+exportaciones_cantidades.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=80.2_IICENG_0_T_47,80.2_IICENPP_0_T_59,80.2_IICENA_0_T_44,80.2_IICENI_0_T_49,80.2_IICENC_0_T_52&header=ids",2026-10-10T19:53:27,ok
+exportaciones_rubros.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=74.3_IET_0_M_16,74.3_IEPP_0_M_35,74.3_IEMOA_0_M_48,74.3_IEMOI_0_M_46,74.3_IECE_0_M_35&header=ids",2026-10-10T19:54:27,error: HTTP Error 522: <none>
+indec_ipc_divisiones.csv,https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv,2026-10-10T19:54:30,ok
+indec_indice_salarios.csv,https://www.indec.gob.ar/ftp/cuadros/sociedad/indice_salarios.csv,2026-10-10T19:54:31,ok
+indec_canastas.xls,https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls,2026-10-10T19:54:32,ok
+indec_emae.xls,https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls,2026-10-10T19:54:34,ok
+indec_emae_actividad.xls,https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls,2026-10-10T19:54:35,ok
+indec_supermercados.xlsx,https://www.indec.gob.ar/ftp/cuadros/economia/serie_supermercados.xlsx,2026-10-10T19:54:38,ok
+censo2022_migraciones_c1.xlsx,https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx,2026-10-10T19:54:38,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+censo2022_migraciones_c10.xlsx,https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx,2026-10-10T19:54:39,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+indec_gobiernos_locales.xlsx,https://www.indec.gob.ar/ftp/cuadros/poblacion/c2022_tp_gobierno_local_c1.xlsx,2026-10-10T19:54:40,ok
+imig_mensual.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/452/distribution/452.3/download/imig-mensual.csv,2026-10-10T19:55:00,error: HTTP Error 522: <none>
+recaudacion_mensual.csv,https://infra.datos.gob.ar/catalog/sspm/dataset/142/distribution/142.3/download/recursos-tributarios-totales-por-tributo-mensual-base-2001.csv,2026-10-10T19:55:19,error: HTTP Error 522: <none>
+indec_dotacion_apn.xlsx,https://www.indec.gob.ar/ftp/cuadros/economia/serie_dotacion_apn.xlsx,2026-10-10T19:55:20,ok
+se_fracturas.csv,http://datos.energia.gob.ar/dataset/71fa2e84-0316-4a1b-af68-7f35e41f58d7/resource/2280ad92-6ed3-403e-a095-50139863ab0d/download/datos-de-fractura-de-pozos-de-hidrocarburos-adjunto-iv-actualizacin-diaria.csv,2026-10-10T19:55:22,ok
+potencia_instalada.csv,"https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids=367.1_POTENCIA_ITAL__24,367.1_POTENCIA_IDOS__36,367.1_POTENCIA_IGAS__32,367.1_POTENCIA_IPOR__29,367.1_POTENCIA_ISEL__31,367.1_POTENCIA_IICA__29,367.1_POTENCIA_IBLE__39,367.1_POTENCIA_IEAR__26,367.1_POTENCIA_IICA__25,367.1_POTENCIA_ILAR__24,367.1_POTENCIA_IGAS__25",2026-10-10T19:55:34,ok
+se_pozos_terminados.csv,http://datos.energia.gob.ar/dataset/7ea2ac77-d7a0-4129-9fbf-6f1a25d94e21/resource/66b0266a-b028-4812-b95f-1da31835b0aa/download/pozos-terminados-por-tipo-de-pozo-y-provincia.csv,2026-10-10T19:55:36,ok
+indec_tablas_mortalidad.csv,https://censo.gob.ar/wp-content/uploads/2025/10/tabla_mortalidad_2020_2022_base_csv.csv,2026-10-10T19:55:37,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+enacom_internet_accesos.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv,2026-10-10T19:55:37,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+enacom_internet_velocidad.csv,https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv,2026-10-10T19:55:38,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+exportaciones_provincias.xls,https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls,2026-10-10T19:55:40,ok
+renaper_extranjeros.csv,https://datosabiertos.renaper.gob.ar/poblacion_extranjera_identificada_provincia_junio_206.csv,2026-10-10T19:55:45,ok
+deis_defunciones_2022.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/defweb22_0.csv,2026-10-10T19:55:46,ok
+deis_defunciones_2023.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/defweb23.csv,2026-10-10T19:55:46,ok
+deis_defunciones_2024.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/datos_sobre_defunciones_2024.csv,2026-10-10T19:55:46,ok
+deis_nacidos_2012.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb12.csv,2026-10-10T19:55:46,ok
+deis_nacidos_2013.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb13.csv,2026-10-10T19:55:46,ok
+deis_nacidos_2014.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb14.csv,2026-10-10T19:55:47,ok
+deis_nacidos_2015.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb15.csv,2026-10-10T19:55:47,ok
+deis_nacidos_2016.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb16.csv,2026-10-10T19:55:47,ok
+deis_nacidos_2017.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb17.csv,2026-10-10T19:55:47,ok
+deis_nacidos_2018.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb18.csv,2026-10-10T19:55:47,ok
+deis_nacidos_2019.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb19.csv,2026-10-10T19:55:47,ok
+deis_nacidos_2020.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb20_0.csv,2026-10-10T19:55:48,ok
+deis_nacidos_2021.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb21_0.csv,2026-10-10T19:55:48,ok
+deis_nacidos_2022.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb22_0.csv,2026-10-10T19:55:48,ok
+deis_nacidos_2023.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/nacweb23.csv,2026-10-10T19:55:48,ok
+deis_nacidos_2024.csv,https://www.argentina.gob.ar/sites/default/files/2021/03/datos_sobre_nacidos_vivos_2024.csv,2026-10-10T19:55:48,ok
+indec_proyecciones_provincias.csv,https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv,2026-10-10T19:55:49,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+aif_provincias.xlsx,https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx,2026-10-10T19:55:49,ok
+deis_natalidad.csv,http://datos.salud.gob.ar/dataset/314e08d7-70a1-4704-aa2f-e86ce03b359d/resource/0f68d5c6-e667-40ca-90fd-4784336e092e/download/tasa-natalidad-deis-2000-2023.csv,2026-10-10T19:55:50,error: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>
+bm_paises.json,https://api.worldbank.org/v2/es/country?format=json&per_page=400,2026-10-10T19:55:51,ok
+bm_mundo_SP.DYN.LE00.IN.json,https://api.worldbank.org/v2/es/country/all/indicator/SP.DYN.LE00.IN?format=json&per_page=20000&date=2015:2030,2026-10-10T19:55:51,ok
+bm_mundo_SP.DYN.IMRT.IN.json,https://api.worldbank.org/v2/es/country/all/indicator/SP.DYN.IMRT.IN?format=json&per_page=20000&date=2015:2030,2026-10-10T19:55:51,ok
+bm_SP.DYN.TFRT.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.TFRT.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:51,ok
+bm_SP.ADO.TFRT.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.ADO.TFRT?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:51,ok
+bm_SP.DYN.IMRT.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.IMRT.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:52,ok
+bm_SP.DYN.LE00.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.LE00.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:52,ok
+bm_SH.XPD.CHEX.GD.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SH.XPD.CHEX.GD.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:52,ok
+bm_SH.STA.SUIC.P5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SH.STA.SUIC.P5?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:52,ok
+bm_VC.IHR.PSRC.P5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/VC.IHR.PSRC.P5?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:52,ok
+bm_SH.STA.TRAF.P5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SH.STA.TRAF.P5?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:53,ok
+bm_SL.UEM.TOTL.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SL.UEM.TOTL.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:53,ok
+bm_SL.EMP.TOTL.SP.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SL.EMP.TOTL.SP.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:53,ok
+bm_EG.USE.ELEC.KH.PC.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/EG.USE.ELEC.KH.PC?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:53,ok
+bm_EN.GHG.CO2.PC.CE.AR5.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/EN.GHG.CO2.PC.CE.AR5?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:53,ok
+bm_ER.LND.PTLD.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/ER.LND.PTLD.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:53,ok
+bm_ST.INT.ARVL.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/ST.INT.ARVL?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:53,ok
+bm_ER.FSH.CAPT.MT.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/ER.FSH.CAPT.MT?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:54,ok
+bm_SP.POP.TOTL.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.POP.TOTL?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:54,ok
+bm_SI.DST.50MD.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SI.DST.50MD?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:54,ok
+bm_SI.POV.GINI.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SI.POV.GINI?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:54,ok
+bm_SE.SEC.CMPT.LO.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SE.SEC.CMPT.LO.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:55,ok
+bm_IT.NET.USER.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/IT.NET.USER.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:55,ok
+bm_SP.DYN.CBRT.IN.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/SP.DYN.CBRT.IN?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:56,ok
+bm_NY.GDP.DEFL.ZS.json,https://api.worldbank.org/v2/country/ARG;AUS;AUT;BEL;CAN;CHL;COL;CRI;CZE;DNK;EST;FIN;FRA;DEU;GRC;HUN;ISL;IRL;ISR;ITA;JPN;KOR;LVA;LTU;LUX;MEX;NLD;NZL;NOR;POL;PRT;SVK;SVN;ESP;SWE;CHE;TUR;GBR;USA/indicator/NY.GDP.DEFL.ZS?format=json&per_page=20000&date=1990:2030,2026-10-10T19:55:56,ok
