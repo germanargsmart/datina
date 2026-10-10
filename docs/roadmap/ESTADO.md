@@ -34,9 +34,16 @@ Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 
 - D5-01: el explorador está enlazado desde el menú "Secciones" (Herramientas), el mapa del pie de todas las páginas y "Cómo se hace" de Sobre nosotros, sin tocar `datina.js`. Definiciones, límites, dudas del catálogo y mantenimiento en `EXPLORADOR.md`; "Cómo agregar una ficha" suma el paso del catálogo.
 
+- D7-01 y D7-02: `docs/deploy/ARQUITECTURA.md` (qué se publica, comparación de opciones y decisión), `RUNBOOK.md` y `CHANGELOG_DEPLOY.md`. Decisión: publicación estática (Netlify, ya configurado). Nada necesita contenedor: Dokploy (el nombre correcto de "Docploy", verificado) tendría sentido recién con un servicio propio. Sin instalar nada ni tocar servidores.
+
 ## Próxima tarea
 
-D7-01 y D7-02 (despliegue, solo documentación): en `docs/deploy/`. Después, lo que necesita al autor: elegir dónde publicar y conectar la cuenta (D7-03 a D7-06).
+Todo lo que se podía hacer sin el autor está hecho. Lo que sigue necesita al autor:
+1. Revisar y unir el PR del plan.
+2. D7-03 a D7-06: elegir dónde publicar (recomendado: Netlify), conectar el repositorio y el dominio, activar el formulario, verificar y probar volver atrás (`docs/deploy/RUNBOOK.md`).
+3. Revisar las decisiones dudosas del catálogo (`EXPLORADOR.md`).
+
+Siguiente caso de uso sugerido (Fase 6, según uso): un enlace "¿De dónde sale este dato?" en el pie de cada ficha que abra el explorador en esa ficha (`relaciones.html?n=f-...`). Es un cambio visual en todas las fichas: consultarlo antes.
 
 ## Pendientes heredados del sitio
 
