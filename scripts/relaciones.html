@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Explorador de relaciones | Datina</title>
+<meta name="description" content="De dónde sale cada número de Datina: qué organismo publica cada dato, qué archivo baja el sitio y qué fichas arma con él, con la evidencia en el código.">
+<!--ICONO-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link rel="stylesheet" href="datina.css?v=__V_CSS__">
+<link rel="stylesheet" href="relaciones.css?v=__V_RX_CSS__">
+</head>
+<body data-pagina="relaciones">
+<a class="rx-saltar" href="#rx-buscar">Ir al buscador</a>
+<!-- Página aparte (plan Datina Lab): la arma scripts/relaciones.py, no la plantilla, y no carga datina.js.
+     La barra y el pie son los del sitio, sin el menú, el buscador ni la provincia, que necesitan datina.js -->
+<header class="barra clara">
+  <div class="envoltura">
+    <div class="barra-izq"><!--MARCA--></div>
+    <!--TEMAS-->
+    <div class="barra-der"><a class="boton chico" href="./">Volver a Datina</a></div>
+  </div>
+</header>
+<main class="envoltura">
+<section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=__V_RX_DATOS__">
+  <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Explorador de relaciones</span></li></ol></nav>
+  <h2>Explorador de relaciones</h2>
+  <div class="tema-intro">
+    <p class="pregunta">¿De dónde sale cada número?</p>
+    <p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>
+  </div>
+  <p class="rx-aviso" id="rx-muestra" hidden>Es una muestra: todavía no están todas las fichas del sitio.</p>
+
+  <div class="rx-controles" role="search" aria-label="Buscar y filtrar">
+    <label class="cx-campo rx-buscar"><span>Buscar</span>
+      <input type="search" id="rx-buscar" placeholder="Un organismo, un archivo o una ficha: INDEC, snic, homicidios" autocomplete="off" spellcheck="false">
+    </label>
+    <label class="cx-campo"><span>Tema</span><select id="rx-tema"><option value="">Todos los temas</option></select></label>
+    <label class="cx-campo"><span>Organismo</span><select id="rx-fuente"><option value="">Todos los organismos</option></select></label>
+    <fieldset class="rx-tipos">
+      <legend>Mostrar</legend>
+      <button type="button" class="rx-tipo" data-tipo="fuente" aria-pressed="true"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6"/></svg>Organismos</button>
+      <button type="button" class="rx-tipo" data-tipo="conjunto" aria-pressed="true"><svg viewBox="-8 -8 16 16" aria-hidden="true"><rect x="-5.5" y="-5.5" width="11" height="11"/></svg>Archivos</button>
+      <button type="button" class="rx-tipo" data-tipo="indicador" aria-pressed="true"><svg viewBox="-8 -8 16 16" aria-hidden="true"><path d="M0-7L7 0 0 7-7 0Z"/></svg>Fichas</button>
+    </fieldset>
+  </div>
+
+  <div class="rx-barra-vista">
+    <div class="conmutador" id="rx-vista" role="group" aria-label="Vista" style="--n:2">
+      <button type="button" data-vista="grafo" aria-pressed="true">Grafo</button>
+      <button type="button" data-vista="tabla" aria-pressed="false">Tabla</button>
+    </div>
+    <p class="rx-cuenta" id="rx-cuenta" aria-live="polite"></p>
+  </div>
+
+  <div class="rx-cuerpo">
+    <div class="rx-vistas">
+      <div class="rx-grafo" id="rx-grafo">
+        <div class="rx-zoom" role="group" aria-label="Acercar y alejar">
+          <button type="button" class="boton chico" id="rx-mas" aria-label="Acercar">+</button>
+          <button type="button" class="boton chico" id="rx-menos" aria-label="Alejar">−</button>
+          <button type="button" class="boton chico" id="rx-centrar" aria-label="Centrar en lo elegido">Centrar</button>
+          <button type="button" class="boton chico" id="rx-reset" aria-label="Volver a la vista inicial">Inicio</button>
+        </div>
+        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan.</p>
+        <svg id="rx-svg" tabindex="0" role="application" aria-roledescription="grafo" aria-describedby="rx-ayuda-grafo" aria-label="Grafo de organismos, archivos y fichas"></svg>
+        <p class="rx-vacio" id="rx-vacio-grafo" hidden></p>
+      </div>
+      <div class="rx-tabla" id="rx-tabla" hidden>
+        <p class="rx-vacio" id="rx-vacio-tabla" hidden></p>
+        <div class="rx-tabla-env"><table>
+          <caption class="rx-oculto">Organismos, archivos y fichas con sus relaciones</caption>
+          <thead><tr><th scope="col">Tipo</th><th scope="col">Nombre</th><th scope="col">Tema</th><th scope="col">Viene de</th><th scope="col">Lleva a</th></tr></thead>
+          <tbody id="rx-filas"></tbody>
+        </table></div>
+      </div>
+      <ul class="rx-leyenda" aria-label="Qué es cada forma">
+        <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6" class="rx-n-fuente"/></svg>Organismo que publica</li>
+        <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><rect x="-5.5" y="-5.5" width="11" height="11" class="rx-n-conjunto"/></svg>Archivo que baja o arma Datina</li>
+        <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><path d="M0-7L7 0 0 7-7 0Z" class="rx-n-indicador"/></svg>Ficha del sitio</li>
+        <li><svg viewBox="0 0 28 10" aria-hidden="true"><path d="M1 5H27" class="rx-l-calcula"/></svg>Se calcula a partir de otra ficha</li>
+      </ul>
+    </div>
+    <aside class="rx-panel" id="rx-panel" aria-labelledby="rx-p-titulo" tabindex="-1" hidden>
+      <div class="rx-panel-cab">
+        <p class="rx-p-tipo" id="rx-p-tipo"></p>
+        <button type="button" class="rx-cerrar" id="rx-cerrar" aria-label="Cerrar el detalle"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+      </div>
+      <h3 id="rx-p-titulo"></h3>
+      <div id="rx-p-cuerpo"></div>
+    </aside>
+  </div>
+  <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
+
+  <section class="rx-definiciones" aria-labelledby="rx-def-tit">
+    <h3 id="rx-def-tit">Qué es una relación acá</h3>
+    <dl>
+      <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>
+      <dt>Alimenta</dt><dd>Un programa del sitio lee el archivo para armar la tabla de la ficha. La evidencia es la línea que lo lee.</dd>
+      <dt>Se calcula a partir de</dt><dd>La cifra de una ficha usa la de otra ficha del sitio.</dd>
+    </dl>
+    <p>Qué no muestra: si un indicador influye en otro o si dos indicadores van juntos. Para eso están <a class="enlace" href="cruces.html">Cruces</a> y los <a class="enlace" href="articulos.html">artículos</a>. Dos fichas del mismo tema no quedan unidas por eso. Las fichas sobre suicidios no están en el explorador.</p>
+  </section>
+</section>
+</main>
+<!--PIE-->
+<script src="relaciones.js?v=__V_RX_JS__"></script>
+</body>
+</html>

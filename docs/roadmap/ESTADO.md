@@ -19,9 +19,12 @@ Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 
 - D1-02 (borrador): `PROPUESTA_EXPLORADOR.md` con el modelo, las relaciones, las validaciones, lo que no se puede afirmar, la muestra y la pantalla. Cinco decisiones "pendiente" en `DECISIONES.md`.
 
+- Aprobación del autor (10/10/2026): "aprobá todo", seguir el plan hasta el final.
+- D2-01: `relaciones.html` aislada, armada por `scripts/relaciones.py` desde el catálogo (`datos/manual/relaciones.json`, por ahora la muestra de Seguridad y Salud: 6 organismos, 16 archivos, 8 fichas). Grafo en tres columnas y tabla con las mismas entidades, conmutador entre las dos y filtro por tipo. Sin tocar `datina.js` ni la plantilla. Pruebas: armado bien, catálogo bien, sintaxis bien, prueba de páginas en el banco: 47 páginas, "Todo en orden".
+
 ## Próxima tarea
 
-Esperar la aprobación del autor de las decisiones pendientes de D1-02. Con el sí, D2-01: página aislada con grafo y tabla de la muestra.
+D2-02: buscador, filtros por tema y organismo, y panel de detalle.
 
 ## Pendientes heredados del sitio
 

@@ -1,0 +1,130 @@
+/* Explorador de relaciones (plan Datina Lab). Solo para relaciones.html: todo lleva el prefijo rx- y usa los valores de :root de datina.css.
+   Colores por tipo: organismo en azul hondo, archivo en celeste y ficha en el amarillo del sol, con su borde fuerte para pasar 3 a 1 sobre el
+   blanco. Nunca el verde y el rojo de bueno y malo ni el violeta de la OCDE. La forma también dice el tipo (círculo, cuadrado y rombo). */
+.rx{--rx-fuente:var(--azul-hondo);--rx-fuente-borde:var(--azul-hondo);--rx-conjunto:var(--celeste);--rx-conjunto-borde:var(--celeste-fuerte);
+  --rx-indicador:var(--sol);--rx-indicador-borde:var(--sol-fuerte);--rx-linea:#B9C6D4;--rx-alto:min(72vh,760px);padding-bottom:var(--ritmo)}
+.rx-oculto{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.rx-saltar{position:absolute;left:var(--e-4);top:-60px;z-index:50;padding:var(--e-2) var(--e-4);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
+.rx-saltar:focus{top:var(--e-4)}
+.rx .migas{margin-top:var(--e-6)}
+.rx>h2{margin-top:var(--e-4)}
+.rx-aviso{max-width:var(--medida);margin:0 0 var(--e-6);padding:var(--e-3) var(--e-4);border-left:4px solid var(--sol);background:var(--sol-suave);border-radius:0 var(--r-interno) var(--r-interno) 0;font-size:var(--t-3)}
+
+/* controles */
+.rx-controles{display:flex;flex-wrap:wrap;gap:var(--e-4);align-items:flex-end}
+.rx-controles .cx-campo{flex:1 1 200px}
+.rx-controles .rx-buscar{flex:2 1 320px}
+.rx-controles input{width:100%;min-height:44px;padding:0 12px;font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);
+  border:1px solid var(--borde);border-radius:var(--r-control)}
+.rx-controles input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+.rx-tipos{display:flex;flex-wrap:wrap;gap:var(--e-2);margin:0;padding:0;border:0;min-width:0}
+.rx-tipos legend{padding:0 0 6px;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rx-tipo{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 var(--e-3);font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;
+  text-transform:uppercase;color:var(--muted);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-control);cursor:pointer;
+  transition:color var(--dur-1) var(--ease-out),border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out)}
+.rx-tipo[aria-pressed="true"]{color:var(--ink);border-color:var(--azul);background:var(--celeste-suave)}
+.rx-tipo svg{width:14px;height:14px;flex:none}
+.rx-tipo[data-tipo="fuente"] svg *,.rx-n-fuente{fill:var(--rx-fuente);stroke:var(--rx-fuente-borde)}
+.rx-tipo[data-tipo="conjunto"] svg *,.rx-n-conjunto{fill:var(--rx-conjunto);stroke:var(--rx-conjunto-borde)}
+.rx-tipo[data-tipo="indicador"] svg *,.rx-n-indicador{fill:var(--rx-indicador);stroke:var(--rx-indicador-borde)}
+.rx-tipo[aria-pressed="false"] svg *{fill:none}
+.rx-tipo:active{transform:scale(.97)}
+.rx-barra-vista{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--e-4);margin:var(--e-6) 0 var(--e-4)}
+.rx-barra-vista .conmutador{margin:0}
+.rx-cuenta{margin:0;font-size:var(--t-2);color:var(--muted)}
+
+/* cuerpo: la vista y el panel al costado */
+.rx-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--e-6);align-items:start}
+.rx-cuerpo.con-panel{grid-template-columns:minmax(0,1fr) minmax(300px,380px)}
+.rx-vistas{min-width:0}
+.rx-grafo{position:relative;height:var(--rx-alto);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);overflow:hidden}
+.rx-grafo svg#rx-svg{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.rx-grafo svg#rx-svg:active{cursor:grabbing}
+.rx-grafo svg#rx-svg:focus-visible{outline:3px solid var(--sol);outline-offset:-3px;border-radius:var(--r-tarjeta)}
+.rx-zoom{position:absolute;top:var(--e-3);right:var(--e-3);z-index:2;display:flex;gap:var(--e-1)}
+.rx-zoom .boton{background:var(--bg);min-width:34px}
+.rx-ayuda{position:absolute;left:var(--e-4);bottom:var(--e-3);right:var(--e-4);z-index:1;margin:0;font-size:var(--t-2);color:var(--muted);pointer-events:none}
+.rx-vacio{margin:var(--e-6) 0;padding:var(--e-4);background:var(--superficie-2);border-radius:var(--r-interno);font-size:var(--t-3)}
+.rx-grafo .rx-vacio{position:absolute;top:30%;left:50%;transform:translateX(-50%);width:min(90%,28em);text-align:center}
+.rx-leyenda{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-5);margin:var(--e-3) 0 0;padding:0;list-style:none;font-size:var(--t-2);color:var(--muted)}
+.rx-leyenda li{display:inline-flex;align-items:center;gap:6px}
+.rx-leyenda svg{width:14px;height:14px}
+.rx-leyenda li:last-child svg{width:28px;height:10px}
+
+/* el dibujo del grafo */
+.rx-arista{fill:none;stroke:var(--rx-linea);stroke-width:1px;vector-effect:non-scaling-stroke;transition:opacity var(--dur-1) var(--ease-out),stroke var(--dur-1) var(--ease-out)}
+.rx-arista.calcula,.rx-l-calcula{stroke:var(--muted);stroke-dasharray:4 3;fill:none;stroke-width:1.5px}
+.rx-arista.vecina{stroke:var(--azul);stroke-width:2px}
+.rx-nodo{cursor:pointer;transition:opacity var(--dur-1) var(--ease-out)}
+.rx-nodo path{stroke-width:1.5px;vector-effect:non-scaling-stroke}
+.rx-nodo.fuente path{fill:var(--rx-fuente);stroke:var(--rx-fuente-borde)}
+.rx-nodo.conjunto path{fill:var(--rx-conjunto);stroke:var(--rx-conjunto-borde)}
+.rx-nodo.indicador path{fill:var(--rx-indicador);stroke:var(--rx-indicador-borde)}
+.rx-nodo text{font:500 11px/1 var(--f);fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;pointer-events:none;opacity:0;
+  transition:opacity var(--dur-1) var(--ease-out)}
+.rx-nodo.fuente text,.rx-nodo.vecina text,.rx-nodo.elegido text,.rx-nodo.encontrado text,.rx-nodo:hover text,.rx-cerca .rx-nodo text{opacity:1}
+.rx-nodo.fuente text{font-weight:700;font-size:12px}
+.rx-nodo.elegido path{stroke:var(--ink);stroke-width:3px}
+.rx-nodo.foco path{stroke:var(--ink);stroke-width:3px;stroke-dasharray:3 2}
+.rx-tenue{opacity:.14}
+.rx-nodo.rx-tenue text{opacity:0}
+
+/* tabla */
+.rx-tabla-env{overflow-x:auto;background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.rx-tabla table{width:100%;border-collapse:collapse;font-size:var(--t-3)}
+.rx-tabla th{position:sticky;top:0;padding:var(--e-3);text-align:left;font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--superficie);border-bottom:1px solid var(--borde)}
+.rx-tabla td{padding:var(--e-3);vertical-align:top;border-bottom:1px solid var(--line)}
+.rx-tabla tr:last-child td{border-bottom:0}
+.rx-tabla tr.elegido td{background:var(--sol-suave)}
+.rx-tabla td:first-child{white-space:nowrap;color:var(--muted);font-size:var(--t-2)}
+.rx-tabla td:first-child svg{width:12px;height:12px;margin-right:6px;vertical-align:-1px}
+.rx-rel{display:flex;flex-wrap:wrap;gap:var(--e-1) var(--e-3);margin:0;padding:0;list-style:none;font-size:var(--t-2)}
+.rx-tabla .enlace{font-size:inherit}
+.rx-tabla td:nth-child(2) .enlace{font-weight:500}
+
+/* panel de detalle */
+.rx-panel{position:sticky;top:96px;max-height:calc(100vh - 120px);overflow:auto;padding:var(--e-5) var(--e-6) var(--e-6);background:var(--bg);
+  border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.rx-panel:focus{outline:none}
+.rx-panel:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:3px}
+.rx-panel-cab{display:flex;justify-content:space-between;align-items:center;gap:var(--e-3)}
+.rx-p-tipo{margin:0;font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rx-cerrar{display:grid;place-items:center;width:44px;height:44px;margin:-8px -12px 0 0;padding:0;color:var(--azul);background:none;border:0;border-radius:var(--r-control);cursor:pointer}
+.rx-cerrar svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.rx-panel h3{margin:var(--e-2) 0 var(--e-4);font-size:var(--t-6);line-height:var(--i-tarjeta);font-weight:500;text-wrap:balance}
+.rx-panel dl{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--e-1);margin:0 0 var(--e-4);font-size:var(--t-3)}
+.rx-panel dt{margin-top:var(--e-3);font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.rx-panel dd{margin:0;line-height:var(--i-chico);overflow-wrap:anywhere}
+.rx-panel h4{margin:var(--e-5) 0 var(--e-2);font-size:var(--t-3);font-weight:600}
+.rx-panel ul{margin:0;padding:0;list-style:none}
+.rx-panel li{padding:var(--e-2) 0;border-top:1px solid var(--line);font-size:var(--t-3)}
+.rx-panel li:first-child{border-top:0}
+.rx-panel code{display:block;margin-top:var(--e-1);padding:var(--e-2);font:400 12px/1.4 var(--mono);color:var(--ink);background:var(--superficie-2);border-radius:6px;overflow-x:auto;white-space:pre}
+.rx-panel .rx-ev{font-size:var(--t-2);color:var(--muted)}
+.rx-acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-top:var(--e-5)}
+.rx-acciones .boton{text-decoration:none}
+
+/* definiciones */
+.rx-definiciones{max-width:var(--medida);margin-top:var(--ritmo)}
+.rx-definiciones h3{font-size:var(--t-6);font-weight:500;margin:0 0 var(--e-3)}
+.rx-definiciones dl{margin:0 0 var(--e-4)}
+.rx-definiciones dt{font-weight:600;margin-top:var(--e-3)}
+.rx-definiciones dd{margin:var(--e-1) 0 0;color:var(--muted)}
+.rx-definiciones p{color:var(--muted)}
+
+@media (max-width:1080px){
+  .rx-cuerpo.con-panel{grid-template-columns:minmax(0,1fr)}
+  /* en pantallas angostas el panel sube desde abajo, sobre la página */
+  .rx-panel{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:30;max-height:72vh;border-radius:var(--r-tarjeta) var(--r-tarjeta) 0 0;
+    box-shadow:var(--sombra-panel);padding-bottom:calc(var(--e-6) + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:760px){
+  .rx{--rx-alto:62vh}
+  .rx-controles .cx-campo,.rx-controles .rx-buscar{flex:1 1 100%}
+  .rx-tabla th:nth-child(3),.rx-tabla td:nth-child(3){display:none}
+  .rx-ayuda{display:none}
+  .barra .barra-der .boton{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .rx-arista,.rx-nodo,.rx-nodo text,.rx-tipo{transition:none}
+}

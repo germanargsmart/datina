@@ -1,0 +1,631 @@
+{
+ "_leeme": "Catálogo del Explorador de relaciones (scripts/relaciones.py). Fuentes: organismos que publican. Conjuntos: archivos que baja o arma Datina, cada uno con su fuente (de ahí sale la relación 'publica'). Aristas: 'alimenta' (archivo a ficha) y 'calcula' (ficha que se calcula a partir de otra), cada una con su evidencia: un texto exacto que tiene que estar en una línea del archivo citado. fichas.f-x.nombre: el nombre de las fichas cuyo título se calcula en datina.js. Validar: python scripts/relaciones.py",
+ "fuentes": [
+  {
+   "id": "org:banco-mundial",
+   "nombre": "Banco Mundial",
+   "sigla": "Banco Mundial",
+   "depende": "",
+   "url": "https://data.worldbank.org",
+   "alias": [
+    "Banco Mundial",
+    "Indicadores del Desarrollo Mundial",
+    "World Bank"
+   ]
+  },
+  {
+   "id": "org:csjn",
+   "nombre": "Registro Nacional de Femicidios de la Justicia Argentina",
+   "sigla": "CSJN",
+   "depende": "Corte Suprema de Justicia de la Nación",
+   "url": "https://datos.csjn.gob.ar",
+   "alias": [
+    "Registro Nacional de Femicidios de la Justicia Argentina",
+    "Registro Nacional de Femicidios de la Justicia Argentina (CSJN)",
+    "Corte Suprema"
+   ]
+  },
+  {
+   "id": "org:deis",
+   "nombre": "Dirección de Estadísticas e Información de Salud",
+   "sigla": "DEIS",
+   "depende": "Ministerio de Salud",
+   "url": "https://datos.salud.gob.ar",
+   "alias": [
+    "DEIS",
+    "Dirección de Estadísticas e Información en Salud",
+    "Dirección de Estadísticas e Información de Salud",
+    "DEIS, Ministerio de Salud",
+    "Dirección de Estadísticas e Información de la Salud"
+   ]
+  },
+  {
+   "id": "org:indec",
+   "nombre": "Instituto Nacional de Estadística y Censos",
+   "sigla": "INDEC",
+   "depende": "Ministerio de Economía",
+   "url": "https://www.indec.gob.ar",
+   "alias": [
+    "INDEC",
+    "Instituto Nacional de Estadística y Censos",
+    "INDEC, Censo",
+    "Censo Nacional de Población, Hogares y Viviendas 2022",
+    "INDEC, ISAC",
+    "INDEC, Censo 2022"
+   ]
+  },
+  {
+   "id": "org:sneep",
+   "nombre": "Sistema Nacional de Estadísticas sobre Ejecución de la Pena",
+   "sigla": "SNEEP",
+   "depende": "Ministerio de Justicia",
+   "url": "https://datos.jus.gob.ar",
+   "alias": [
+    "SNEEP",
+    "Sistema Nacional de Estadísticas sobre Ejecución de la Pena"
+   ]
+  },
+  {
+   "id": "org:snic",
+   "nombre": "Sistema Nacional de Información Criminal",
+   "sigla": "SNIC",
+   "depende": "Ministerio de Seguridad Nacional",
+   "url": "https://www.argentina.gob.ar/seguridad/estadisticascriminales",
+   "alias": [
+    "SNIC",
+    "Sistema Nacional de Información Criminal"
+   ]
+  }
+ ],
+ "conjuntos": [
+  {
+   "id": "ds:bm_SH.STA.TRAF.P5.json",
+   "nombre": "Tasa de muertes en siniestros viales: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SH.STA.TRAF.P5.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SH.STA.TRAF.P5?format=json"
+  },
+  {
+   "id": "ds:bm_SH.XPD.CHEX.GD.ZS.json",
+   "nombre": "Gasto corriente en salud (% del PBI): Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SH.XPD.CHEX.GD.ZS.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SH.XPD.CHEX.GD.ZS?format=json"
+  },
+  {
+   "id": "ds:bm_SP.DYN.IMRT.IN.json",
+   "nombre": "Tasa de mortalidad infantil: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SP.DYN.IMRT.IN.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SP.DYN.IMRT.IN?format=json"
+  },
+  {
+   "id": "ds:bm_SP.DYN.LE00.IN.json",
+   "nombre": "Esperanza de vida al nacer: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SP.DYN.LE00.IN.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SP.DYN.LE00.IN?format=json"
+  },
+  {
+   "id": "ds:bm_VC.IHR.PSRC.P5.json",
+   "nombre": "Tasa de homicidios intencionales: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_VC.IHR.PSRC.P5.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/VC.IHR.PSRC.P5?format=json"
+  },
+  {
+   "id": "ds:csjn_femicidios_AAAA.sav",
+   "nombre": "Víctimas de femicidio del Registro Nacional de Femicidios (un archivo por año)",
+   "fuente": "org:csjn",
+   "ruta": "datos/crudo/csjn_femicidios_AAAA.sav",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "salida[f\"csjn_femicidios_{anio.group(1)}.sav\"] = r[\"url\"]"
+   },
+   "url": "https://datos.csjn.gob.ar/api/3/action/package_search?q=femicidio&rows=50"
+  },
+  {
+   "id": "ds:deis_defunciones_AAAA.csv",
+   "nombre": "Defunciones por causa CIE-10, provincia, sexo y edad (un archivo por año)",
+   "fuente": "org:deis",
+   "ruta": "datos/crudo/deis_defunciones_AAAA.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "**{f\"deis_defunciones_{a}.csv\": \"https://www.argentina.gob.ar/sites/default/files/2021/03/\""
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/2021/03/"
+  },
+  {
+   "id": "ds:deis_mortalidad_infantil.csv",
+   "nombre": "Tasa de mortalidad infantil por jurisdicción, 1990 en adelante",
+   "fuente": "org:deis",
+   "ruta": "datos/crudo/deis_mortalidad_infantil.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"deis_mortalidad_infantil.csv\": ckan_csv("
+   },
+   "url": "https://datos.salud.gob.ar/dataset/2eff770c-1c2b-4a22-9281-c3b5e9412086/resource/c1253897-d507-41f7-a3e1-6ed756e7243b/download/tasa-mortalidad-infantil-deis-1990-2024.csv"
+  },
+  {
+   "id": "ds:deis_nacidos_AAAA.csv",
+   "nombre": "Nacidos vivos por provincia de residencia (un archivo por año)",
+   "fuente": "org:deis",
+   "ruta": "datos/crudo/deis_nacidos_AAAA.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "**{f\"deis_nacidos_{a}.csv\": \"https://www.argentina.gob.ar/sites/default/files/2021/03/\""
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/2021/03/"
+  },
+  {
+   "id": "ds:indec_proyecciones_provincias.csv",
+   "nombre": "Proyecciones de población por provincia, sexo y edad 2022-2040",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_proyecciones_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_proyecciones_provincias.csv\": \"https://censo.gob.ar"
+   },
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  },
+  {
+   "id": "ds:indec_tablas_mortalidad.csv",
+   "nombre": "Tablas de mortalidad por jurisdicción 2020-2022",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_tablas_mortalidad.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_tablas_mortalidad.csv\": \"https://censo.gob.ar"
+   },
+   "url": "https://censo.gob.ar/wp-content/uploads/2025/10/tabla_mortalidad_2020_2022_base_csv.csv"
+  },
+  {
+   "id": "ds:manual/nse_censo2022_provincias.csv",
+   "nombre": "Censo 2022: nivel socioeconómico por provincia (NBI, cobertura de salud, educación, cloacas)",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/nse_censo2022_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "nse = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"nse_censo2022_provincias.csv\")"
+   }
+  },
+  {
+   "id": "ds:sneep_condenados.csv",
+   "nombre": "Personas condenadas por servicio penitenciario",
+   "fuente": "org:sneep",
+   "ruta": "datos/crudo/sneep_condenados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sneep_condenados.csv\": SNEEP +"
+   },
+   "url": "https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/414604b9-4937-4568-aba8-c346d8f38ade/download/sneep-situacion-legal-condenados-condenadas.csv"
+  },
+  {
+   "id": "ds:sneep_poblacion.csv",
+   "nombre": "Personas privadas de libertad por servicio penitenciario",
+   "fuente": "org:sneep",
+   "ruta": "datos/crudo/sneep_poblacion.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sneep_poblacion.csv\": SNEEP +"
+   },
+   "url": "https://datos.jus.gob.ar/dataset/70fc10e1-aa70-4dc9-9dfb-478875f684d8/resource/7d10bdae-a3a8-416e-96ce-094c96ecf7d9/download/sneep-poblacion-total.csv"
+  },
+  {
+   "id": "ds:snic_pais.csv",
+   "nombre": "Estadísticas criminales del país por año",
+   "fuente": "org:snic",
+   "ruta": "datos/crudo/snic_pais.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"snic_pais.csv\": \"https://cloud-snic.minseg.gob.ar"
+   },
+   "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-pais.csv"
+  },
+  {
+   "id": "ds:snic_provincias.csv",
+   "nombre": "Estadísticas criminales por provincia y año",
+   "fuente": "org:snic",
+   "ruta": "datos/crudo/snic_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"snic_provincias.csv\": \"https://cloud-snic.minseg.gob.ar"
+   },
+   "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv"
+  }
+ ],
+ "aristas": [
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_tablas_mortalidad.csv",
+   "a": "f-esperanza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "tm = pd.read_csv(CRUDO / \"indec_tablas_mortalidad.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"esperanza_vida_provincias\": ev,"
+    }
+   ],
+   "tabla": "esperanza_vida_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.DYN.LE00.IN.json",
+   "a": "f-esperanza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"esperanza_vida\": (\"SP.DYN.LE00.IN\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "ref: OC.esperanza_vida.ocde, refLab:"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:deis_mortalidad_infantil.csv",
+   "a": "f-mortalidad",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "mi = pd.read_csv(CRUDO / \"deis_mortalidad_infantil.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mortalidad_infantil_provincias\": mi_prov,"
+    }
+   ],
+   "tabla": "mortalidad_infantil_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.DYN.IMRT.IN.json",
+   "a": "f-mortalidad",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mortalidad_infantil\": (\"SP.DYN.IMRT.IN\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "ref: OC.mortalidad_infantil.ocde, refLab:"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SH.XPD.CHEX.GD.ZS.json",
+   "a": "f-mortalidad",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"SH.XPD.CHEX.GD.ZS\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-mortalidad\": [\"mortalidad\", \"Por provincia\", [\"gasto_salud\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:deis_defunciones_AAAA.csv",
+   "a": "f-causas-infantiles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "d = deis_csv(f\"deis_defunciones_{a}.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mortalidad_infantil_causas\": mi_causas,"
+    }
+   ],
+   "tabla": "mortalidad_infantil_causas"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:deis_nacidos_AAAA.csv",
+   "a": "f-causas-infantiles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "n = deis_csv(f\"deis_nacidos_{a}.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "causas_tasa = causas.div(pd.Series({**nac_prov[nac_prov.index.isin(PROV24)].to_dict()"
+    }
+   ],
+   "tabla": "mortalidad_infantil_causas"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/nse_censo2022_provincias.csv",
+   "a": "f-causas-infantiles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cz = causas_tasa.drop(\"00\").join(nse.set_index(\"codigo_indec\"))"
+    }
+   ],
+   "tabla": "mortalidad_infantil_causas"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_pais.csv",
+   "a": "f-muertes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sp = pd.read_csv(CRUDO / \"snic_pais.csv\", sep=\";\", decimal=\",\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"muertes_violentas\": muertes,"
+    }
+   ],
+   "tabla": "muertes_violentas"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:csjn_femicidios_AAAA.sav",
+   "a": "f-muertes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for f in sorted(CRUDO.glob(\"csjn_femicidios_*.sav\")):"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "muertes = muertes.merge(femi, on=\"anio\", how=\"left\")"
+    }
+   ],
+   "tabla": "muertes_violentas"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_VC.IHR.PSRC.P5.json",
+   "a": "f-muertes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"VC.IHR.PSRC.P5\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-muertes\": [\"muertes\", \"Cantidad por año\", [\"homicidios\", \"viales\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SH.STA.TRAF.P5.json",
+   "a": "f-muertes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"SH.STA.TRAF.P5\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-muertes\": [\"muertes\", \"Cantidad por año\", [\"homicidios\", \"viales\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_pais.csv",
+   "a": "f-delitos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_seg_p = pd.read_csv(CRUDO / \"snic_pais.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"delitos_tipo\": delitos_tipo,"
+    }
+   ],
+   "tabla": "delitos_tipo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_provincias.csv",
+   "a": "f-robos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_seg_v = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"robos_provincias\": robos_provincias,"
+    }
+   ],
+   "tabla": "robos_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_pais.csv",
+   "a": "f-robos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_seg_p = pd.read_csv(CRUDO / \"snic_pais.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "robos_provincias.loc[len(robos_provincias)] = {\"codigo_indec\": \"00\", \"robos\": float(_seg_cod(_seg_p, \"15\")[SEG_ULT])"
+    }
+   ],
+   "tabla": "robos_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_provincias.csv",
+   "a": "f-homicidios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_seg_v = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"homicidios_provincias\": homicidios_provincias,"
+    }
+   ],
+   "tabla": "homicidios_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_pais.csv",
+   "a": "f-homicidios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_seg_hp = _seg_p[(_seg_p.codigo_delito_snic_id == \"1\")"
+    }
+   ],
+   "tabla": "homicidios_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-homicidios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_seg_pob3 = proy[proy.anio.between(SEG_ULT - 2, SEG_ULT)].groupby(\"codigo_indec\").pob.sum()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    }
+   ],
+   "tabla": "homicidios_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sneep_poblacion.csv",
+   "a": "f-carceles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sn = pd.read_csv(CRUDO / \"sneep_poblacion.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"carceles_serie\": carceles_serie,"
+    }
+   ],
+   "tabla": "carceles_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sneep_condenados.csv",
+   "a": "f-carceles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_snc = pd.read_csv(CRUDO / \"sneep_condenados.csv\""
+    }
+   ],
+   "tabla": "carceles_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_pais.csv",
+   "a": "f-carceles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_seg_pob = (_seg_p[_seg_p.codigo_delito_snic_id == \"19\"].set_index(\"anio\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "carceles_serie = pd.DataFrame({\"anio\": _sn.index"
+    }
+   ],
+   "tabla": "carceles_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-carceles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sn_pob = proy[proy.anio == SN_ULT].groupby(\"codigo_indec\").pob.sum()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    }
+   ],
+   "tabla": "carceles_serie"
+  }
+ ],
+ "fichas": {
+  "f-esperanza": {
+   "variables": [
+    "esperanza_vida_al_nacer"
+   ],
+   "nombre": "Esperanza de vida al nacer por provincia y sexo"
+  },
+  "f-mortalidad": {
+   "variables": [
+    "tasa_mortalidad_infantil"
+   ]
+  },
+  "f-muertes": {
+   "variables": [
+    "victimas_directas_femicidio"
+   ]
+  },
+  "f-causas-infantiles": {
+   "nombre": "De qué mueren los bebés antes del primer año, por provincia"
+  }
+ },
+ "muestra": true,
+ "alcance": [
+  "f-delitos",
+  "f-robos",
+  "f-homicidios",
+  "f-carceles",
+  "f-esperanza",
+  "f-mortalidad",
+  "f-causas-infantiles",
+  "f-muertes"
+ ]
+}

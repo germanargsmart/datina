@@ -67,6 +67,8 @@ def anios_a_mano(nombre, fuente):
 
 
 malos = anios_a_mano("plantilla.html", plantilla) + anios_a_mano("datina.js", (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8"))
+# también la página del Explorador de relaciones, que no sale de la plantilla
+malos += [m for n in ("relaciones.html", "relaciones.js") for m in anios_a_mano(n, (RAIZ / "scripts" / n).read_text(encoding="utf-8"))]
 if malos:
     sys.exit("Hay años recientes escritos a mano en los textos: quedarían viejos con la próxima actualización. Usar {{ruta}} en la "
              "plantilla o un dato de R en datina.js, o sumarlo a FIJOS si es un hecho fijo:\n" + "\n".join(malos))
@@ -658,4 +660,10 @@ dist = RAIZ / "pobreza" / "dist"
 if dist.exists():
     shutil.rmtree(SITIO / "pobreza", ignore_errors=True)
     shutil.copytree(dist, SITIO / "pobreza")
+# Explorador de relaciones (plan Datina Lab): de dónde sale cada número. Página aparte que arma scripts/relaciones.py desde el catálogo
+# datos/manual/relaciones.json. Si el catálogo tiene un error (una relación sin evidencia, una ficha sin origen), el sitio no se arma.
+import relaciones  # noqa: E402
+_rx = relaciones.construir(plantilla, base, SECCIONES, UBIC, huella(css))
+if _rx:
+    sys.exit("El catálogo del Explorador de relaciones tiene problemas: el sitio no se armó.\n" + "\n".join(_rx))
 print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos" + (" y sitio/pobreza/" if dist.exists() else ""))
