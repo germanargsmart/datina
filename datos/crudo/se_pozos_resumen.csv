@@ -559,7 +559,7 @@ anio,mes,provincia,tipo,pozos,pozos_pet,pozos_gas,prod_pet,prod_gas
 2026,7,Rio Negro,shale,7,7,7,26083.105,1762.677
 2026,7,Rio Negro,tight,177,176,176,6115.443,38066.746
 2026,7,Salta,convencional,39,39,39,9683.224,81607.509
-2026,7,Santa Cruz,convencional,5826,5751,3399,258295.779,119500.038
+2026,7,Santa Cruz,convencional,6198,6119,3462,270568.038,121748.742
 2026,7,Santa Cruz,otro,3,2,1,85.194,886.624
 2026,7,Santa Cruz,shale,4,4,4,359.305,2528.919
 2026,7,Santa Cruz,tight,189,176,189,3730.288,56291.194
@@ -593,8 +593,15 @@ anio,mes,provincia,tipo,pozos,pozos_pet,pozos_gas,prod_pet,prod_gas
 2026,8,Santa Cruz,shale,4,4,4,357.007,2604.294
 2026,8,Santa Cruz,tight,189,181,189,3631.216,55208.434
 2026,8,Tierra del Fuego,convencional,91,91,87,9340.787,91912.05
-2026,9,Chubut,convencional,0,0,0,0.0,0.0
+2026,9,Chubut,convencional,26,22,17,1303.24,1137.175
+2026,9,Formosa,convencional,11,11,6,2449.98,261.0
 2026,9,Jujuy,convencional,12,12,12,865.854,266.979
 2026,9,Jujuy,otro,0,0,0,0.0,0.0
-2026,9,Rio Negro,convencional,34,29,33,1195.819,821.77
+2026,9,Neuquén,convencional,509,412,500,18253.003,28552.872
+2026,9,Neuquén,otro,0,0,0,0.0,0.0
+2026,9,Neuquén,shale,16,16,13,19170.546,1240.472
+2026,9,Neuquén,tight,162,96,162,370.585,14489.268
+2026,9,Rio Negro,convencional,68,59,67,3857.759,946.934
+2026,9,Rio Negro,otro,0,0,0,0.0,0.0
+2026,9,Salta,convencional,1,1,1,436.974,3.476
 2026,9,Santa Cruz,convencional,5,4,1,315.7,45.0
