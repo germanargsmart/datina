@@ -45,6 +45,8 @@ Todo lo que se podía hacer sin el autor está hecho. Lo que sigue necesita al a
 
 Fase 6, primer caso de uso (pedido del autor, 10/10/2026: "hacé lo del enlace en el pie de cada ficha"): botón "De dónde sale" entre las acciones del pie de las 115 fichas del explorador, que abre `relaciones.html?n=<ficha>` con el detalle de esa ficha a la vista. No va en las herramientas ni en las fichas de suicidios (la lista sale de `scripts/relaciones.py`, `EXCLUIDAS`, y el constructor se la pasa a `datina.js`). Verificado: 115 botones, todos hacia una ficha del explorador y con su título asociado para lectores de pantalla, pie en una fila en la computadora y en tres en el celular, prueba de páginas 47, "Todo en orden".
 
+- D6-02: la tabla del explorador muestra de a 40 filas con "Mostrar 40 más" (el foco pasa a la primera fila nueva) y vuelve a 40 al cambiar un filtro o la búsqueda. En el celular la página pasó de unos 90.000 a 17.000 píxeles. Prueba de páginas: 47, "Todo en orden".
+
 ## Pendientes heredados del sitio
 
 Detalle en `docs/historico/etapas-previas.md`, sección "Pendientes y próximos pasos" y estado de la etapa 28.

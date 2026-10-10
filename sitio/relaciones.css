@@ -88,6 +88,7 @@
 .rx-tabla td:first-child svg{width:12px;height:12px;margin-right:6px;vertical-align:-1px}
 .rx-rel{display:flex;flex-wrap:wrap;gap:var(--e-1) var(--e-3);margin:0;padding:0;list-style:none;font-size:var(--t-2)}
 .rx-tabla .enlace{font-size:inherit}
+.rx-mas-filas{margin-top:var(--e-4)}
 .rx-tabla td:nth-child(2) .enlace{font-weight:500}
 
 /* panel de detalle */
