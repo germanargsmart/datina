@@ -15,9 +15,11 @@ Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 
 - D0-02: `CLAUDE.md` breve (89 líneas). El texto anterior completo, sin cambios, en `docs/historico/etapas-previas.md`. Reglas por tema en `.claude/rules/` y tres revisores de solo lectura en `.claude/agents/`.
 
+- D1-01: `INVENTARIO.md`. Hallazgo principal: no hay metadatos de fuente por ficha que se puedan leer con un programa (los pies son texto libre y el organismo de cada archivo descargado va en comentarios), así que el explorador necesita un catálogo escrito a mano y validado. Recomendación: página aislada armada por el constructor, sin tocar `datina.js` ni la plantilla.
+
 ## Próxima tarea
 
-D1-01: inventario técnico en `docs/roadmap/INVENTARIO.md` (solo lectura).
+D1-02: modelo, relaciones y pantalla, para aprobar (sin código).
 
 ## Pendientes heredados del sitio
 
