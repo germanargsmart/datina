@@ -26,9 +26,11 @@ Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 
 - D3-01: catálogo completo en `datos/manual/relaciones.json`: 42 organismos, 143 archivos, 115 fichas (todas salvo las tres de suicidios y las cuatro herramientas), 236 relaciones "alimenta" y 5 "se calcula a partir de", cada una con su evidencia. Lo rastrearon seis agentes por grupo de secciones y lo validó el programa. Los títulos que calcula `datina.js` se leen de ahí al armar (no se copian a mano). El grafo encuadra la cadena del punto elegido, reparte los organismos en todo el alto y muestra los nombres de las fichas cuando hay lugar. `sitio/datos/relaciones.json` pesa 257 KB. Prueba de páginas: 47, "Todo en orden".
 
+- D3-02: `scripts/prueba_relaciones.py` rompe una copia del catálogo de 18 formas (relaciones huérfanas, evidencia que no está en el código o fuera del repositorio, tipos que no corresponden, fichas sin origen, archivos y organismos sin uso, ciclos, fichas de suicidio, pies que no nombran al organismo, repetidos) y controla que el validador marque cada una. 03 la corre antes de armar el explorador (0,8 segundos). Las evidencias se buscan una sola vez por corrida.
+
 ## Próxima tarea
 
-D3-02: pruebas automáticas del validador del catálogo (que fallen con relaciones huérfanas, evidencias que no existen o metadatos incompletos).
+D4-01: revisión de teclado, celular, movimiento reducido y accesibilidad (revisor de solo lectura) y corrección por lotes.
 
 ## Pendientes heredados del sitio
 

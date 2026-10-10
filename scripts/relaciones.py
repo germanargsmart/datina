@@ -31,7 +31,7 @@ def fichas_de(plantilla):
 
 
 class Lineas:
-    """Las líneas de cada archivo del repositorio, leídas una sola vez."""
+    """Las líneas de cada archivo del repositorio, leídas una sola vez por corrida."""
     def __init__(self):
         self.c = {}
 
@@ -43,10 +43,20 @@ class Lineas:
         return self.c[archivo]
 
 
+_UBICADAS = {}
+
+
 def ubicar_evidencia(ev, lineas):
     """(línea, texto de la línea) de la primera línea del archivo que contiene el texto citado, o un error."""
     if not isinstance(ev, dict) or not ev.get("archivo") or not ev.get("contiene"):
         return None, f"evidencia mal formada: {ev}"
+    clave = (ev["archivo"], ev["contiene"])
+    if clave not in _UBICADAS:
+        _UBICADAS[clave] = _ubicar(ev, lineas)
+    return _UBICADAS[clave]
+
+
+def _ubicar(ev, lineas):
     ls = lineas(ev["archivo"])
     if ls is None:
         return None, f"no existe el archivo {ev['archivo']}"
@@ -75,7 +85,8 @@ def nombre_ficha(cuerpo, js, cat_nombre=""):
     return (texto(h3.group(1)) if h3 else "") or titulo_calculado(cuerpo, js) or cat_nombre
 
 
-JS = lambda: (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
+_JS = []
+JS = lambda: _JS[0] if _JS else _JS.append((RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")) or _JS[0]
 
 
 def norm(t):
@@ -86,10 +97,13 @@ def norm(t):
     return re.sub(r"\s+", " ", t)
 
 
+LINEAS = Lineas()
+
+
 def validar(cat, plantilla):
     """Lista de errores del catálogo. Vacía si está bien."""
     err = []
-    lineas = Lineas()
+    lineas = LINEAS
     js = JS()
     fichas = fichas_de(plantilla)
     todas = set(re.findall(r'<article class="ficha[^"]*" id="(f-[^"]+)"', plantilla))
@@ -230,7 +244,7 @@ def describir_tabla(filas):
 
 def publicar(cat, plantilla, secciones, ubic):
     """El JSON que lee la página: nodos con sus datos y relaciones con su evidencia ubicada en el archivo."""
-    lineas = Lineas()
+    lineas = LINEAS
     js = JS()
     fichas = fichas_de(plantilla)
     alcance = list(cat.get("alcance") or fichas)

@@ -663,6 +663,11 @@ if dist.exists():
 # Explorador de relaciones (plan Datina Lab): de dónde sale cada número. Página aparte que arma scripts/relaciones.py desde el catálogo
 # datos/manual/relaciones.json. Si el catálogo tiene un error (una relación sin evidencia, una ficha sin origen), el sitio no se arma.
 import relaciones  # noqa: E402
+import prueba_relaciones  # noqa: E402
+# antes, las pruebas del propio validador: el catálogo roto a propósito de varias formas tiene que dar error
+_rx = prueba_relaciones.correr(mostrar=False)
+if _rx:
+    sys.exit("El validador del Explorador de relaciones no marcó un error que debía marcar: el sitio no se armó.\n" + "\n".join(_rx))
 _rx = relaciones.construir(plantilla, base, SECCIONES, UBIC, huella(css))
 if _rx:
     sys.exit("El catálogo del Explorador de relaciones tiene problemas: el sitio no se armó.\n" + "\n".join(_rx))

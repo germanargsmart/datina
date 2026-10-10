@@ -20,6 +20,7 @@ scripts/03_construir_sitio.py  corre pruebas_datos.py y escribe sitio/datos/fich
 scripts/plantilla.html         el marcado de todas las secciones: títulos, textos fijos y fichas
 scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5 desde cdnjs) y comportamiento
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
+scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
@@ -36,6 +37,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - No correr `01_descargar.py` para cambios visuales ni sin aprobación del autor: baja cientos de MB.
 - Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`).
 - Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`.
+- Catálogo del Explorador de relaciones: `python scripts/relaciones.py` (lo valida) y `python scripts/prueba_relaciones.py` (prueba el validador). 03 corre los dos.
 - Ver el sitio: `cd sitio && python -m http.server 8765`.
 - Detalle por tipo de cambio y cómo probar en un entorno sin acceso a las CDN: `.claude/rules/pruebas.md`.
 
