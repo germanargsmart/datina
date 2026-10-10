@@ -45,8 +45,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </div>
 </header>
 <!-- "Más" (etapa 32, 6 de octubre de 2026, pedido del autor: "que el menú desaparezca y lo dejes como usafacts"): la lista que abre el
-     botón "Más", al final de los temas de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
-     que ya están en la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
+     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
+     que ya están en los grupos de la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
     <div class="menu-col">
       <!--TEMAS-MENU-->
@@ -57,6 +57,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
     </div>
 </nav>
+<!-- los menús de los cuatro grupos de la barra (etapa 39): los arma el constructor desde GRUPOS -->
+<!--GRUPOS-MENU-->
 
 <section class="portada en-azul armando" id="inicio">
   <!-- mapa: el mundo visto desde la Argentina y las 24 jurisdicciones, que llevan a su perfil (lo dibuja datina.js). "armando": el
@@ -88,33 +90,24 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </div>
 </section>
 
-<section class="preguntas" aria-labelledby="preg-tit">
-  <div class="rotador" id="rotador" role="region" aria-roledescription="carrusel" aria-labelledby="preg-tit">
-    <h2 class="rot-eb" id="preg-tit">Datos rápidos</h2>
-    <span class="rot-cuenta"><span id="rot-cuenta"></span><span class="rot-barra" aria-hidden="true"><i></i></span></span>
-    <div class="rot-cuerpo"><a class="rot-q" href="#"></a><p class="rot-a"></p></div>
-    <div class="rot-control">
-      <button type="button" class="boton chico rot-ant"><span aria-hidden="true">&larr;</span> Anterior</button>
-      <button type="button" class="boton chico rot-sig">Siguiente <span aria-hidden="true">&rarr;</span></button>
-      <button type="button" class="boton chico rot-pausa" aria-pressed="false">Pausar</button>
-    </div>
-  </div>
-</section>
-
 <main class="envoltura">
-  <section class="destacados ancho" id="destacados" aria-labelledby="dest-tit">
-    <h2 class="bloque-tit" id="dest-tit">Destacados</h2>
-    <p class="bloque-sub">Tres entradas a los datos de las 24 jurisdicciones.</p>
-    <div class="dest-grid" id="dest-grid"></div>
+  <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
+    <h2 class="bloque-tit" id="sec-titulo">Explorá la Argentina por tema</h2>
+    <div class="secciones-grid" id="secciones-grid"></div>
   </section>
 
   <section class="articulos-home ancho" aria-labelledby="arth-tit">
     <h2 class="bloque-tit" id="arth-tit">Artículos</h2>
-    <p class="bloque-sub">Preguntas respondidas cruzando datos oficiales. Los números se recalculan cada vez que se actualiza una fuente.</p>
+    <p class="bloque-sub">Preguntas respondidas cruzando datos oficiales. Los números se recalculan con cada actualización.</p>
     <div class="art-grid" id="art-grid-home"></div>
     <a class="boton ver-todos" href="articulos.html">Todos los artículos</a>
   </section>
 
+  <section class="herramientas-home ancho" aria-labelledby="herr-titulo">
+    <h2 class="bloque-tit" id="herr-titulo">Herramientas</h2>
+    <p class="bloque-sub">Para cruzar indicadores, armar tu propio ranking, mirar cada departamento y describir la educación de cada provincia.</p>
+    <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"></div>
+  </section>
 
   <section class="provincias" id="provincias" aria-labelledby="prov-titulo">
     <h2 id="prov-titulo"><span id="prov-band"></span><span id="prov-titulo-txt">Elegí una de las 24</span></h2>
@@ -135,14 +128,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="prov-extra" id="prov-extra"></div>
   </section>
 
-  <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
-    <h2 class="bloque-tit" id="sec-titulo">Explorá la Argentina por tema</h2>
-    <p class="bloque-sub">Cuatro grandes temas. Cada sección tiene su página, con lo que se mide, desde cuándo, cómo se calcula y las fichas con sus datos.</p>
-    <div class="secciones-grid" id="secciones-grid"></div>
-    <h3 class="bloque-grupo" id="herr-titulo">Herramientas</h3>
-    <p class="bloque-sub">Para cruzar indicadores entre provincias, armar un ranking con tus propias prioridades, ver los números por departamento y describir la situación educativa de cada provincia.</p>
-    <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"></div>
-  </section>
 
   <section class="nosotros" id="nosotros" aria-labelledby="nos-tit">
     <h2 id="nos-tit">Sobre nosotros</h2>

@@ -44,12 +44,21 @@ La rama del plan salió del commit b4b1fc1 (5 de octubre) y, mientras tanto, la 
 - El Explorador toma el nombre de cada ficha de su `h3`, que ahora es la pregunta. El catálogo validó sin cambios (241 relaciones con evidencia).
 - Verificado: armado, sintaxis, catálogo y validador, prueba de páginas, el Explorador y el pie con "De dónde sale" en 1440 y 390 píxeles.
 
+## Etapa 39: menos espacio, barra y portada con el mismo orden (10 de octubre de 2026)
+
+Pedido del autor: "demasiado espacio en blanco sin sentido y poco de diseñador", "es rarísimo que en la portada tengas Explorá la Argentina por tema y una categorización, mientras que en las pestañas del header tengas los temas sueltos" y "sacá ese recuadro de preguntas que van pasando". Respuestas: "4 grupos con menú" y la portada "Sin Destacados".
+- Sin "Datos rápidos". Sus preguntas (`PREG`) siguen en el buscador.
+- Espaciado: `--bloque` de 24 a 40 y `--capitulo` de 48 a 72 (eran 48 a 72 y 96 a 144), la línea de "Para entender los datos" a un bloque de la primera ficha, fichas con 28 de relleno y el pie con 48. La portada pasó de 4.461 a 2.844 píxeles de alto en la computadora y de 6.510 a 5.007 en el celular, Trabajo de 6.366 a 5.788 (de 9.217 a 8.841 en el celular) y Precios y actividad de 7.260 a 6.636. Medido con una herramienta que busca franjas sin texto, imagen ni control: en las secciones no queda ninguna de 48 píxeles o más en la computadora.
+- La barra: los cuatro grupos de la portada, cada uno con su menú (el mismo código que "Más", de a uno abierto), el de la página actual marcado, y "Más" con Tu provincia, Curiosidades, los artículos, las herramientas y Datina. Entra de 1081 a 1440 píxeles con Tierra del Fuego elegida (24 de margen en el peor caso). En el Explorador de relaciones, que no carga `datina.js`, los grupos son enlaces a su columna de la portada.
+- La portada: lo azul con el mapa, "Explorá la Argentina por tema" (columnas sin panel gris, escritas por el constructor), Artículos (el de la relación más marcada primero, que era el destacado) y Herramientas. Sin Destacados: "Tu provincia" ya está en lo azul y las votaciones, en Instituciones políticas.
+- Verificado: armado, sintaxis, prueba de páginas (49), la barra en seis anchos con y sin provincia, los menús con el mouse y el teclado, el celular, el buscador y la página quieta al cargar (portada 0,001 en la computadora y 0 en el celular).
+
 ## Próxima tarea
 
-Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local):
+Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
 1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha (en salarios, la misma frase tres veces): la cifra con una leyenda corta y el texto que empiece por lo que el gráfico no dice. Afecta las 114 fichas con pregunta.
 2. La línea del país en las barras por provincia tapa los valores de las provincias cercanas al promedio.
-3. Etapa 39: la población de cada provincia hasta 2040 (proyecciones del INDEC) y las causas de muerte por provincia (DEIS, tasas ajustadas por edad, causas externas agrupadas sin separar el suicidio). Cada ficha nueva necesita su origen en `relaciones.json`.
+3. Etapa 40: la población de cada provincia hasta 2040 (proyecciones del INDEC) y las causas de muerte por provincia (DEIS, tasas ajustadas por edad, causas externas agrupadas sin separar el suicidio). Cada ficha nueva necesita su origen en `relaciones.json`.
 4. Opcional: la silueta de "En cifras" de Trabajo mide 140 píxeles y las tarjetas más, y con una red muy lenta la página salta 45 píxeles al llegar el código.
 
 ## Plan del Explorador (anterior a la unión)

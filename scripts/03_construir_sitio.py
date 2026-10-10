@@ -266,7 +266,7 @@ base = base.replace("<!--BANDERAS-->",
 
 # ---------- índice del sitio ----------
 # Bloques de primer nivel: la portada y cada sección hija de <main>. Se cuentan las <section> anidadas
-# (los bloques de "Para entender los datos" y "Datos rápidos" van dentro de otras secciones).
+# (los bloques de "Para entender los datos" van dentro de otras secciones).
 def bloques(h):
     res, pila = [], []
     for m in re.finditer(r"<section\b([^>]*)>|</section>", h):
@@ -283,7 +283,7 @@ def bloques(h):
 
 
 # página a la que pertenece cada bloque
-PAGINA_DE_BLOQUE = {"portada": "inicio", "preguntas": "inicio", "destacados": "inicio", "articulos-home": "inicio", "secciones": "inicio",
+PAGINA_DE_BLOQUE = {"portada": "inicio", "secciones": "inicio", "articulos-home": "inicio", "herramientas-home": "inicio",
                     "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404",
                     "laboratorio": "laboratorio"}
 def pagina_de(b):
@@ -365,14 +365,15 @@ GRUPOS = [
     ("territorio", "Territorio y recursos", [("Energía", ["energia", "petroleo"]), "movilidad", "naturaleza"]),
     ("otros", "Y además", ["curiosidades"]),
 ]
-# la barra: el texto de cada enlace y su página (una categoría lleva a su página de entrada)
-BARRA = [("Población", "poblacion"), ("Salud", "salud"), ("Educación", "educacion"), ("Pobreza", "pobreza"), ("Trabajo", "trabajo"),
-         ("Economía", "economia"), ("Instituciones", "politica"), ("Seguridad", "seguridad")]
+# la barra (etapa 39, respuesta del autor del 10/10/2026: "4 grupos con menú"): los mismos grupos de la portada, cada uno con un menú con
+# sus secciones. "Y además" (Curiosidades) va en "Más". Hasta entonces eran ocho temas sueltos escritos a mano, lo único que no salía de GRUPOS
+GRUPOS_BARRA = [x for x in GRUPOS if x[0] != "otros"]
+_secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
+EN_BARRA = {s for _, _, items in GRUPOS_BARRA for s in _secs_de(items)}
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
 ORDEN_TEMAS = [s for _, _, items in GRUPOS for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 _temas = [x[0] for x in SECCIONES if not x[4] and x[0] != "articulos"]
 assert sorted(ORDEN_TEMAS) == sorted(_temas), f"las secciones y los grupos no coinciden: {set(ORDEN_TEMAS) ^ set(_temas)}"
-assert {s for _, s in BARRA} <= set(ORDEN_TEMAS)
 HERRAMIENTAS = [x[0] for x in SECCIONES if x[4]]
 INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
@@ -612,14 +613,44 @@ MAPA = (f'<div class="pie-col">{_col(GRUPOS[0])}</div><div class="pie-col">{_col
                                    ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]) + "</div>")
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
-# la barra y la lista de temas del menú "Más" (etapa 36): salen de BARRA y GRUPOS. En el menú, los temas que también están en la barra
-# llevan en-barra (se ven solo cuando la barra no los muestra), salvo las secciones de una categoría, que van siempre juntas
-_li = lambda s: (f'<li{" class=" + chr(34) + "en-barra" + chr(34) if s in {b for _, b in BARRA} and s not in CATEGORIA else ""}>'
+# la barra, sus menús y la lista de temas de "Más" (etapas 36 y 39): salen de GRUPOS. En "Más", los temas de los grupos de la barra llevan
+# en-barra: se ven solo cuando la barra no muestra los grupos (hasta 1080 píxeles)
+_li = lambda s: (f'<li{" class=" + chr(34) + "en-barra" + chr(34) if s in EN_BARRA else ""}>'
                  f'<a href="{url_pagina(s)}">{e(TITULO_DE[s])}</a></li>')
+_FLECHA = '<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>'
+# cada grupo: un botón en la barra (data-secs: sus secciones, para marcar la actual; data-ir: adónde lleva donde no hay menú, como el
+# Explorador de relaciones) y su menú, con las secciones en el orden de la portada y las de una categoría debajo de su entrada
+_barra = "".join(f'<button type="button" class="menu-btn grupo-btn" id="gb-{g}" aria-expanded="false" aria-controls="gm-{g}" '
+                 f'data-secs="{" ".join(_secs_de(items))}" data-ir="./#tg-{g}">{e(n)}{_FLECHA}</button>' for g, n, items in GRUPOS_BARRA)
+_gm_li = lambda it: (f'<li><a href="{url_pagina(it[1][0])}">{e(it[0])}</a></li>' + "".join(f'<li class="sub"><a href="{url_pagina(s)}">{e(TITULO_DE[s])}</a></li>' for s in it[1][1:])
+                     if isinstance(it, tuple) else f'<li><a href="{url_pagina(it)}">{e(TITULO_DE[it])}</a></li>')
+_grupos_menu = "".join(f'<nav class="menu-panel grupo-panel" id="gm-{g}" aria-labelledby="gb-{g}" hidden><ul>' + "".join(_gm_li(it) for it in items) + "</ul></nav>"
+                       for g, n, items in GRUPOS_BARRA)
 _menu = ('<div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div>' +
          "".join(f'<div class="menu-grupo"><p class="menu-tit" id="mt-{g}">{e(n)}</p><ul aria-labelledby="mt-{g}">' +
                  "".join(_li(s) for it in items for s in (it[1] if isinstance(it, tuple) else [it])) + "</ul></div>" for g, n, items in GRUPOS))
-for marca, valor in {"<!--TEMAS-BARRA-->": "".join(f'<a href="{url_pagina(s)}">{e(n)}</a>' for n, s in BARRA), "<!--TEMAS-MENU-->": _menu}.items():
+# Los temas de la portada (etapa 36): cada grupo con sus secciones (ícono, nombre y pregunta corta), y debajo de una categoría sus otras
+# secciones. Desde la etapa 39 los escribe el constructor: van justo debajo de lo azul y, si los pusiera datina.js al llegar, Artículos saltaba
+# hacia abajo. Cada grupo es una columna, y "Y además" (Curiosidades) va debajo del grupo con menos secciones
+_SEC = {s[0]: s for s in SECCIONES}
+
+
+def _tema_portada(it):
+    nom, subs = it if isinstance(it, tuple) else (None, [it])
+    s = _SEC[subs[0]]
+    ico = icono_svg(SEC_ICONO[s[0]]).replace('class="iso ', 'class="iso tg-ico ', 1)
+    otras = ('<p class="tg-subs">' + "".join(f'<a href="{url_pagina(x)}">{e(TITULO_DE[x])}</a>' for x in subs[1:]) + "</p>") if len(subs) > 1 else ""
+    return (f'<li class="tg-item"><a class="tg-link" href="{url_pagina(s[0])}">{ico}<span class="tg-txt">'
+            f'<b style="view-transition-name:t-{s[0]}">{e(nom or s[1])}</b><span class="tg-preg">{e(s[7] or s[2])}</span></span></a>{otras}</li>')
+
+
+_grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelledby="tg-{g}"><h3 class="tg-tit" id="tg-{g}">{e(n)}</h3>'
+                                      '<ul class="tg-lista">' + "".join(_tema_portada(it) for it in items) + "</ul></section>")
+_otros = next((x for x in GRUPOS if x[0] == "otros"), None)
+_corta = min(GRUPOS_BARRA, key=lambda x: len(_secs_de(x[2])))
+_temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}{_grupo_portada(*_otros) if x is _corta and _otros else ""}</div>' for x in GRUPOS_BARRA)
+for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu,
+                     '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
     base = base.replace(marca, valor)
 BLOQUES = bloques(base)

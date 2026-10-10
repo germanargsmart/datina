@@ -76,11 +76,12 @@
   /* espacios: la escala del autor (etapa 38), 4, 8, 12, 16, 24, 32, 48, 72, 96 y 144. No hay --e-5: los 20 píxeles no están en la
      escala y pasaron a 24 (--e-6), y --e-9 pasó de 64 a 72 */
   --e-1:4px; --e-2:8px; --e-3:12px; --e-4:16px; --e-6:24px; --e-7:32px; --e-8:48px; --e-9:72px; --e-10:96px; --e-11:144px;
-  /* tres ritmos editoriales ("aire editorial, no de dashboard"): dentro de un componente, de 16 a 24 (--e-4 y --e-6). Entre bloques
-     (una ficha y la siguiente, el gráfico de un artículo), de 48 en el celular a 72 en la computadora. Entre capítulos de una página
-     (la entrada con "En cifras", las fichas, "Para entender los datos" y "Seguí explorando", y los bloques de la portada), de 96 a 144 */
-  --bloque:clamp(48px,5vw,72px);
-  --capitulo:clamp(96px,10vw,144px);
+  /* tres ritmos: dentro de un componente, de 16 a 24 (--e-4 y --e-6). Entre bloques (una ficha y la siguiente, el gráfico de un
+     artículo), de 24 en el celular a 40 en la computadora. Entre capítulos, solo donde cambia el tema de la página (las fichas y "Para
+     entender los datos", "Seguí explorando", los grupos de Energía y los bloques de la portada), de 48 a 72. En la etapa 38 eran de 48 a
+     72 y de 96 a 144, y el capítulo separaba también cosas que van juntas: el autor vio "demasiado espacio en blanco sin sentido" (10/10/2026) */
+  --bloque:clamp(24px,3vw,40px);
+  --capitulo:clamp(48px,5vw,72px);
   --margen:22px;          /* margen lateral de la página */
   --ritmo:var(--bloque);  /* separación entre bloques de una página */
   --tinta-bajada:#2B3440; /* la bajada de cada página: más oscura que --muted, más clara que --ink */
@@ -122,7 +123,7 @@ a:hover{text-decoration-color:var(--celeste-fuerte)}
 .en-azul :focus-visible{outline-color:var(--sol)}
 select option{background:var(--bg);color:var(--ink)}
 /* cortes de línea: títulos con líneas parejas y textos sin una palabra sola al final */
-h1,h2,h3,h4,.art-txt b,.dest-cuerpo b,.sec-tarjeta b,.rot-q,.tema-intro .pregunta{text-wrap:balance}
+h1,h2,h3,h4,.art-txt b,.dest-cuerpo b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
 p,li,dd,dt,small,.sec-preg,.dest-txt,.c-txt,.dp-det{text-wrap:pretty}
 .envoltura{max-width:var(--col);margin:0 auto;padding:0 var(--margen)}
 /* bloques anchos de la portada, más allá de la columna de texto */
@@ -212,6 +213,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .barra .temas a[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
 .barra.clara .temas{color:var(--azul)}
 .barra.clara .temas a[aria-current="true"]{color:var(--ink)}
+/* los cuatro grupos (etapa 39): el de la página actual, con la misma marca que un tema */
+.barra .temas .grupo-btn[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
+.barra.clara .temas .grupo-btn[aria-current="true"]{color:var(--ink)}
 /* controles de la barra: Secciones, la lupa y el indicador de provincia, con el mismo alto y el mismo borde */
 .lupa-btn{min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);padding:0 var(--e-4);
   font:500 12px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;
@@ -245,7 +249,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .bandera.vacia{outline:0}
 .bandera.grande{width:36px;height:24px;border-radius:4px}
 .con-bandera{display:inline-flex;align-items:center;gap:8px;min-width:0}
-.portada .bandera,.dest.azul .bandera,.dest.hondo .bandera,.tip .bandera{outline-color:rgba(255,255,255,.55)}
+.portada .bandera,.tip .bandera{outline-color:rgba(255,255,255,.55)}
 .tip .bandera{width:18px;height:12px;margin-right:2px;vertical-align:-1px;border-radius:2px}
 .chip-borrar{display:inline-flex;align-items:center;gap:var(--e-2);padding:0 var(--e-3);font:500 var(--t-1)/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
   color:inherit;background:none;border:0;border-left:1px solid var(--en-azul-linea);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
@@ -297,7 +301,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .menu-panel a[aria-current="true"]:hover{background:var(--sol-suave)}
 }
 @media (max-width:1180px){.barra .temas{gap:var(--e-4);font-size:12px}}
-@media (max-width:1080px){.barra .temas a{display:none}}
+@media (max-width:1080px){.barra .temas a,.barra .temas .grupo-btn,.grupo-panel{display:none}}
+/* el menú de un grupo: una sola columna, con las secciones de una categoría (Migraciones y Turismo debajo de Población) un poco adentro */
+.grupo-panel{grid-template-columns:1fr;width:min(290px,calc(100vw - 24px))}
+.grupo-panel .sub a{padding-left:calc(var(--e-3) + var(--e-4))}
 @media (max-width:760px){
   .barra .envoltura{height:62px;gap:var(--e-3)}
   .barra-izq{gap:var(--e-3)}
@@ -456,74 +463,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .js .portada.armando .provs a{pointer-events:none}
 }
 
-/* "Datos rápidos": preguntas que rotan de a una, en una franja propia debajo de la portada.
-   Arriba los controles (anterior, cuál es de cuántas, siguiente y pausa) y abajo la pregunta con su respuesta. */
-.preguntas{background:#fff;border-bottom:1px solid var(--borde)}
-.rotador{max-width:880px;margin:0 auto;padding:var(--e-7) var(--margen) var(--e-6);text-align:center}
-.rot-eb{margin:0 0 var(--e-4);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--azul-hondo)}
-.rot-control{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--e-3);margin-top:var(--e-6)}
-.rot-cuenta{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px;margin:0 auto;font:500 var(--t-2)/1 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
-.rot-barra{display:block;width:96px;height:2px;overflow:hidden;background:var(--line)}
-.rot-barra i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--sol)}
-.rot-pausa{margin-left:var(--e-4)}
-.rot-cuerpo{display:flex;flex-direction:column;justify-content:center;margin-top:var(--e-4);min-height:140px}
-/* alto parecido al que reserva datina.js para la pregunta más larga, así la portada no salta mientras llega el código (etapa 13) */
-@media (max-width:760px){.rot-cuerpo{min-height:150px}}
-@media (max-width:560px){.rot-cuerpo{min-height:207px}}
-@media (max-width:400px){.rot-cuerpo{min-height:231px}}
-@media (max-width:340px){.rot-cuerpo{min-height:300px}}
-.rot-q{display:block;margin:0 auto var(--e-2);max-width:30em;font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.015em;color:var(--azul);
-  text-decoration:none;font-variation-settings:"wdth" 75,"opsz" 32;transition:color var(--dur-1) var(--ease-out);font-family:var(--f-c75)}
-.rot-a{margin:0 auto;max-width:40em;line-height:1.5;color:var(--ink)}
-@media (hover:hover) and (pointer:fine){.rot-q:hover{color:var(--azul-hondo);text-decoration:underline;text-decoration-color:var(--celeste)}}
-@media (max-width:560px){
-  .rotador{padding-top:var(--e-6)}
-  .rot-control{gap:var(--e-2)}
-  .rot-pausa{margin-left:0}
-}
-
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
 .bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-9);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
-.destacados,.articulos-home,.secciones{padding-top:var(--capitulo)}
-.rotador{padding-bottom:var(--e-7)}
+.secciones,.articulos-home,.herramientas-home{padding-top:var(--capitulo)}
 
-/* destacados: tres tarjetas de color con un ícono grande y el Sol de Mayo como señal de entrada */
-.dest-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--e-4)}
-.dest{--c:var(--azul);--c-claro:#5E97CE;--c-ico:#fff;--c-txt:#fff;position:relative;min-height:420px;padding:0;gap:0;overflow:hidden;
-  background:var(--c);color:var(--c-txt);border-color:transparent}
-.dest.amarilla{--c:var(--sol);--c-claro:#FBD36E;--c-ico:var(--ink);--c-txt:var(--ink)}
-.dest.hondo{--c:var(--azul-hondo);--c-claro:#4D84B8;--c-ico:#fff;--c-txt:#fff}
-.dest-arte{position:relative;flex:none;height:196px;overflow:hidden;background:var(--c-claro)}
-.dest-arte::after{content:"";position:absolute;left:-35%;right:-12%;top:60%;height:200%;border-radius:50%;background:var(--c)}
-/* sobre las tarjetas de color los íconos se invierten: contorno blanco (o tinta sobre el amarillo) y caras claras del tono de la tarjeta */
-.dest .iso{--ic:#fff;--ic-claro:var(--c-claro);--ic-detalle:var(--c)}
-.dest.amarilla .iso{--ic:var(--ink);--ic-claro:#FBD36E;--ic-detalle:var(--sol)}
-.dest-arte .iso{position:absolute;right:20px;bottom:0;z-index:1;width:150px;height:150px;--trazo:2.2px}
-.dest-cuerpo{flex:1;display:flex;flex-direction:column;gap:var(--e-3);padding:var(--e-6) var(--e-6) var(--e-6)}
-.dest-eb{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase}
-.dest-cuerpo b{font-size:var(--t-7);line-height:var(--i-titulo);font-weight:600;font-variation-settings:"wdth" 75,"opsz" 32;font-family:var(--f-c75)}
-.dest-txt{max-width:30em;font-size:var(--t-3);line-height:var(--i-chico)}
-.dest-ir{margin-top:auto;width:50px;height:50px;display:grid;place-items:center;border-radius:50%;background:#fff;color:var(--c);box-shadow:var(--sombra-boton);
-  transition:transform var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
-.dest:active .dest-ir{transform:scale(.97)}
-/* el Sol de Mayo de la señal de entrada gira al pasar el mouse */
+/* el Sol de Mayo chico de "Seguí explorando", que gira al pasar el mouse */
 .sol-ir{width:32px;height:32px;transition:transform var(--dur-4) var(--ease-out)}
 .sol-ir path,.sol-ir circle{fill:var(--sol);stroke:var(--sol-borde);stroke-width:3.2;stroke-linejoin:round}
-@media (hover:hover) and (pointer:fine){
-  .dest:hover{border-color:transparent}
-  .dest:hover .sol-ir{transform:rotate(45deg)}
-  .dest:hover .dest-ir{transform:translateY(-2px);box-shadow:0 5px 0 rgba(24,33,43,.14)}
-}
-@media (max-width:760px){
-  .dest-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;
-    margin:0 calc(-1 * var(--margen));padding:0 var(--margen) var(--e-2);scroll-padding:0 var(--margen);scrollbar-width:none}
-  .dest-grid::-webkit-scrollbar{display:none}
-  .dest{min-height:380px;padding:0;scroll-snap-align:start}
-  .dest-arte{height:150px}
-  .dest-arte .iso{width:118px;height:118px;right:12px}
-  .dest-cuerpo{padding:var(--e-4) var(--e-6) var(--e-6)}
-}
 
 /* artículos: tarjetas con ícono */
 .art-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));grid-auto-rows:1fr;gap:var(--e-4)}
@@ -543,17 +490,17 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* secciones: una tarjeta por sección, con su ícono */
 .secciones-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));grid-auto-rows:1fr;gap:var(--e-4)}
-/* Los temas de la portada (etapa 36): cuatro grupos, cada uno en un panel gris plano como las tarjetas, con sus secciones una debajo de otra
-   y una línea fina entre ellas. Cuatro columnas, dos en pantallas medianas y una en el celular. Curiosidades ocupa el ancho entero */
-#secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:stretch}
+/* Los temas de la portada (etapa 36): cuatro grupos con sus secciones una debajo de otra y una línea fina entre ellas. Cuatro columnas,
+   dos en pantallas medianas y una en el celular. Desde el 10 de octubre de 2026, sin panel gris (el grupo más corto dejaba un panel medio
+   vacío): cada grupo es una columna con su nombre sobre una línea, y Curiosidades va debajo de la columna más corta */
+#secciones-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:start;gap:var(--e-7) var(--e-7)}
 @media (max-width:1079px){#secciones-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){#secciones-grid{grid-template-columns:1fr}}
-.tg{padding:var(--e-6) var(--e-4) var(--e-3);background:var(--superficie-2);border-radius:var(--r-tarjeta)}
-.tg-otros{grid-column:1/-1}
-.tg-tit{margin:0 var(--e-2) var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+@media (max-width:640px){#secciones-grid{grid-template-columns:1fr;gap:var(--e-6)}.tg-col{gap:var(--e-6)}}
+.tg-col{display:flex;flex-direction:column;gap:var(--e-7)}
+.tg{padding-top:var(--e-3);border-top:2px solid var(--azul)}
+.tg-tit{margin:0 0 var(--e-2);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .tg-lista{margin:0;padding:0;list-style:none}
 .tg-item+.tg-item{border-top:1px solid var(--borde)}
-.tg-otros .tg-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 .tg-link{display:grid;grid-template-columns:44px minmax(0,1fr);gap:var(--e-3);align-items:center;margin:0 calc(-1 * var(--e-2));padding:var(--e-3) var(--e-2);
   color:inherit;text-decoration:none;border-radius:var(--r-control);transition:background-color var(--dur-1) var(--ease-out)}
 .tg-ico{width:44px;height:44px;color:var(--azul);--trazo:1.2px}
@@ -794,7 +741,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .pieza>.pasos{margin-top:var(--e-8)}
 
 /* ---------- páginas de sección: pregunta de entrada, explicación, cifras y cierre ---------- */
-.tema-intro{max-width:42em;margin:-4px 0 var(--e-8)}
+.tema-intro{max-width:42em;margin:-4px 0 var(--e-7)}
 .tema-intro .pregunta{margin:0 0 var(--e-3);font-size:var(--t-6);line-height:1.15;font-weight:500;color:var(--ink)}
 .tema-intro p{margin:0;line-height:1.5;color:var(--muted)}
 /* La bajada (etapa 38, pedido del autor: "poné una fuente más linda para todo lo que sea subtítulos después del título ... Cambiá la fuente
@@ -826,7 +773,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
    En el celular es una lista que se abre de a uno, con una flecha. Sin JavaScript se ven todos los textos, con los títulos como encabezados.
    Antes (2 de octubre de 2026) estaba arriba de las fichas: el título a la izquierda y una tarjeta con un + en un círculo por tema a la
    derecha, que dejaba la columna izquierda vacía y, en pantallas medianas, el signo lejos de su texto */
-.exp-gancho{margin:0 0 var(--capitulo);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+.exp-gancho{margin:0 0 var(--bloque);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
 /* en las herramientas, después de la línea viene una sola ficha: la separación de un bloque, no la de un capítulo */
 .herramienta>.exp-gancho{margin-bottom:var(--bloque)}
 .exp-gancho a{font-weight:500}
@@ -891,7 +838,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* "En cifras": la cifra clave de cada ficha, o la de la provincia elegida, antes de la explicación */
 /* Cinco tarjetas en todas las secciones (etapa 15): del mismo ancho y llenando la fila cuando entran (880 píxeles de ancho o más),
    y si no, en una sola fila que se desliza de costado (antes se partían en dos filas con una sola en la segunda) */
-.en-cifras{margin:0 0 var(--e-8);container-type:inline-size}
+.en-cifras{margin:0 0 var(--e-6);container-type:inline-size}
 .cifras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--e-3)}
 @container (min-width:880px){.cifras-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @container (max-width:879px){
@@ -963,7 +910,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 }
 
 /* ---------- fichas: redondeadas, como todas las tarjetas ---------- */
-.ficha{position:relative;margin:var(--bloque) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px) var(--e-6);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out)}
+.ficha{position:relative;margin:var(--bloque) 0;padding:clamp(16px,2.2vw,28px) clamp(16px,2.2vw,28px) var(--e-4);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out)}
 /* La tarjeta aparece una sola vez, al entrar en pantalla (datina.js pone "listo" en la página y "visto" en cada ficha).
    Mientras el código no llegó, se ve con su silueta desde los 400 ms (ver "formas de carga"): si llega antes, nunca se ve vacía */
 .js:not(.listo) .ficha{animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
@@ -1494,7 +1441,7 @@ html:not(.js) .esqueleto{display:none}
 }
 
 /* ---------- pie de página: a todo el ancho, alineado con la barra ---------- */
-.pie-sitio{margin-top:var(--ritmo);padding:var(--e-9) 0 var(--e-10);background:#fff;border-top:3px solid var(--azul);font-size:var(--t-3);line-height:1.5;color:var(--muted)}
+.pie-sitio{margin-top:var(--ritmo);padding:var(--e-8) 0 var(--e-8);background:#fff;border-top:3px solid var(--azul);font-size:var(--t-3);line-height:1.5;color:var(--muted)}
 .pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"marca datos" "mapa mapa";gap:var(--e-8)}
 .pie-marca{grid-area:marca}.pie-mapa{grid-area:mapa}.pie-datos{grid-area:datos}
 .pie-sitio .marca{display:inline-block;padding-top:12px;font-size:46px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;
@@ -1559,7 +1506,7 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   .listo .ficha{transform:none!important;transition:opacity var(--dur-3) var(--ease-out)!important}
   .conmutador::before,.boton,.tarjeta,.lupa-btn,.menu-btn,.mas-flecha,.chip-prov,.chip-borrar{transition:none!important}
   .boton:active,.tarjeta:active,.lupa-btn:active,.elige-btn:active{transform:none}
-  .dest-ir,.sol-ir{transition:none!important;transform:none!important}
+  .sol-ir{transition:none!important;transform:none!important}
   .buscador:not([hidden]){animation:none}
   .sobre[open]>.sobre-panel{animation:vt-funde var(--dur-2) var(--ease-out)}
   /* menús, cuadros y barra: solo fundidos */

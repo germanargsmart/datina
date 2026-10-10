@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=c7832e8cdf">
+<link rel="stylesheet" href="datina.css?v=8525eec2f7">
 </head>
 <body data-pagina="a-empleo-pobreza">
 <header class="barra clara">
@@ -24,7 +24,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     </div>
     <nav class="temas" aria-label="Temas principales">
-      <a href="poblacion.html">Población</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Economía</a><a href="politica.html">Instituciones</a><a href="seguridad.html">Seguridad</a>
+      <button type="button" class="menu-btn grupo-btn" id="gb-personas" aria-expanded="false" aria-controls="gm-personas" data-secs="poblacion migraciones turismo salud educacion pobreza" data-ir="./#tg-personas">Personas<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-economia" aria-expanded="false" aria-controls="gm-economia" data-secs="trabajo economia empresas construccion gobierno" data-ir="./#tg-economia">Trabajo y economía<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-estado" aria-expanded="false" aria-controls="gm-estado" data-secs="politica seguridad" data-ir="./#tg-estado">Estado y sociedad<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-territorio" aria-expanded="false" aria-controls="gm-territorio" data-secs="energia petroleo movilidad naturaleza" data-ir="./#tg-territorio">Territorio y recursos<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Más<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
     </nav>
     <div class="barra-der">
@@ -45,11 +45,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </div>
 </header>
 <!-- "Más" (etapa 32, 6 de octubre de 2026, pedido del autor: "que el menú desaparezca y lo dejes como usafacts"): la lista que abre el
-     botón "Más", al final de los temas de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
-     que ya están en la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
+     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
+     que ya están en los grupos de la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
 <nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
     <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-personas">Personas</p><ul aria-labelledby="mt-personas"><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="turismo.html">Turismo</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-economia">Trabajo y economía</p><ul aria-labelledby="mt-economia"><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Precios y actividad</a></li><li><a href="empresas.html">Sector privado</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="gobierno.html">Cuentas públicas</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-estado">Estado y sociedad</p><ul aria-labelledby="mt-estado"><li class="en-barra"><a href="politica.html">Instituciones políticas</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-territorio">Territorio y recursos</p><ul aria-labelledby="mt-territorio"><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-otros">Y además</p><ul aria-labelledby="mt-otros"><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
+      <div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-personas">Personas</p><ul aria-labelledby="mt-personas"><li class="en-barra"><a href="poblacion.html">Población</a></li><li class="en-barra"><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="turismo.html">Turismo</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-economia">Trabajo y economía</p><ul aria-labelledby="mt-economia"><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li class="en-barra"><a href="economia.html">Precios y actividad</a></li><li class="en-barra"><a href="empresas.html">Sector privado</a></li><li class="en-barra"><a href="construccion.html">Construcción y vivienda</a></li><li class="en-barra"><a href="gobierno.html">Cuentas públicas</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-estado">Estado y sociedad</p><ul aria-labelledby="mt-estado"><li class="en-barra"><a href="politica.html">Instituciones políticas</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-territorio">Territorio y recursos</p><ul aria-labelledby="mt-territorio"><li class="en-barra"><a href="energia.html">Energía</a></li><li class="en-barra"><a href="petroleo.html">Petróleo y gas</a></li><li class="en-barra"><a href="movilidad.html">Movilidad</a></li><li class="en-barra"><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-otros">Y además</p><ul aria-labelledby="mt-otros"><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
     </div>
     <div class="menu-col">
       <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos y Laboratorio</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div>
@@ -57,8 +57,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
     </div>
 </nav>
-
-
+<!-- los menús de los cuatro grupos de la barra (etapa 39): los arma el constructor desde GRUPOS -->
+<nav class="menu-panel grupo-panel" id="gm-personas" aria-labelledby="gb-personas" hidden><ul><li><a href="poblacion.html">Población</a></li><li class="sub"><a href="migraciones.html">Migraciones</a></li><li class="sub"><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-economia" aria-labelledby="gb-economia" hidden><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía</a></li><li class="sub"><a href="empresas.html">Sector privado</a></li><li class="sub"><a href="construccion.html">Construcción y vivienda</a></li><li class="sub"><a href="gobierno.html">Cuentas públicas</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-estado" aria-labelledby="gb-estado" hidden><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-territorio" aria-labelledby="gb-territorio" hidden><ul><li><a href="energia.html">Energía</a></li><li class="sub"><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></nav>
 
 
 
@@ -67,10 +67,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
-
   
 
   
+
 
   
 
@@ -163,7 +163,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=bbfc4ebf28"></script>
-<script src="datina.js?v=48cbc97b39"></script>
+<script src="datos/fichas.js?v=b7c1999af8"></script>
+<script src="datina.js?v=c885d569db"></script>
 </body>
 </html>

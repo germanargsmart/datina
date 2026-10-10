@@ -93,7 +93,7 @@ function sinViuda(t) {
   while (i > 1 && p[i - 1].length <= 3 && grupo.length + p[i - 1].length < 16) { i--; grupo = p[i] + NBSP + grupo; }
   return [...p.slice(0, i), grupo].join(" ");
 }
-const CON_TEXTO = "p, li, dd, dt, h2, h3, h4, b, small, .sec-preg, .dest-txt, .c-txt, .rot-q";
+const CON_TEXTO = "p, li, dd, dt, h2, h3, h4, b, small, .sec-preg, .c-txt";
 const atarTexto = el => {
   if (!el.matches?.(CON_TEXTO) || el.closest("svg")) return;
   const n = el.lastChild;
@@ -110,16 +110,6 @@ const vigiaTextos = new MutationObserver(ms => ms.forEach(m => {
 // Cada uno tiene su tono (azul, hondo u oro) y el CSS decide los colores según dónde va.
 const ICONOS = /*ICONOS*/{};
 const icono = (n, cls = "") => ICONOS[n] ? `<svg class="iso tono-${ICONOS[n].t} ${cls}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">${ICONOS[n].d}</svg>` : "";
-// Sol de Mayo chico para los botones de entrada: 16 rayos alternados y el disco, gira al pasar el mouse
-const SOL_BOTON = (() => {
-  const p = (a, r) => `${(Math.sin(a) * r).toFixed(1)} ${(-Math.cos(a) * r).toFixed(1)}`;
-  let rayos = "";
-  for (let i = 0; i < 16; i++) {
-    const a = i * Math.PI / 8, w = .12, L = i % 2 ? 36 : 47;
-    rayos += `M${p(a - w, 19)}L${p(a, L)}L${p(a + w, 19)}Z`;
-  }
-  return `<svg class="sol-ir" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false"><path d="${rayos}"/><circle r="21"/></svg>`;
-})();
 document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(el.dataset.icono); });
 
 /* ---------- Sol de Mayo ---------- */
@@ -5571,7 +5561,9 @@ function pintarPanel(animar) {
   });
 }
 
-/* ---------- preguntas que rotan de a una ---------- */
+/* ---------- preguntas con su respuesta, para el buscador ----------
+   Hasta el 10 de octubre de 2026 rotaban de a una en "Datos rápidos", debajo de la portada. El autor pidió sacarlo ("es muy malo"):
+   quedan como entradas del buscador, que muestra la pregunta y lleva a la ficha que la responde */
 const PREG = [
   ["¿Cuánto cambiaron los pozos de Vaca Muerta?",
    `En ${PG.dv_ini}, un pozo tenía en promedio ${n0(PG.dv_rama_ini)} metros de rama horizontal y ${n1(PG.dv_etapas_ini)} etapas de fractura. En ${PG.fr_ult}, ${n0(PG.dv_rama_ult)} metros y ${n1(PG.dv_etapas_ult)} etapas.`, "#f-fracturas"],
@@ -5686,72 +5678,14 @@ const PREG = [
    `${AC.top[0].nombre}: ${n1(AC.top[0].total)} años` + (AC.top[0].dip > 0 && AC.top[0].sen > 0 ? " entre Diputados y el Senado" : AC.top[0].sen > 0 ? " en el Senado" : " en Diputados") +
    `${AC.top[0].sigue ? ", y sigue en el cargo" : ""}. Le siguen ${AC.top[1].nombre} (${n1(AC.top[1].total)}) y ${AC.top[2].nombre} (${n1(AC.top[2].total)}).`, "#f-anios-congreso"],
 ];
-(function carrusel() {
-  const rot = document.getElementById("rotador"); if (!rot) return;
-  const q = rot.querySelector(".rot-q"), a = rot.querySelector(".rot-a");
-  const cuerpo = rot.querySelector(".rot-cuerpo"), barra = rot.querySelector(".rot-barra i"), cuenta = document.getElementById("rot-cuenta");
-  const bPausa = rot.querySelector(".rot-pausa"), bSig = rot.querySelector(".rot-sig"), bAnt = rot.querySelector(".rot-ant");
-  const DUR = 7000, freno = {pausa: REDUCIR, puntero: false, foco: false, fuera: false};
-  // con movimiento reducido arranca en pausa: "Seguir" lo pone en marcha
-  if (REDUCIR) { bPausa.setAttribute("aria-pressed", "true"); bPausa.textContent = "Seguir"; }
-  let i = 0, prog;
-  const frenado = () => Object.values(freno).some(Boolean);
-  const aplicar = () => { if (prog) frenado() ? prog.pause() : prog.play(); };
-  function correr() {
-    prog?.cancel();
-    prog = barra.animate([{transform:"scaleX(0)"}, {transform:"scaleX(1)"}], {duration: DUR, easing: "linear", fill: "forwards"});
-    prog.onfinish = () => mostrar(i + 1, true);
-    aplicar();
-  }
-  const poner = () => {
-    const [pq, pa, h] = PREG[i];
-    q.textContent = pq; q.href = destinoDe(h) || h; a.textContent = pa;
-    cuenta.textContent = `${i + 1} de ${PREG.length}`;
-  };
-  function mostrar(n, animar, paso = 1) {
-    i = (n + PREG.length) % PREG.length;
-    const entrar = () => {
-      poner();
-      if (animar) cuerpo.animate(REDUCIR ? [{opacity:0}, {opacity:1}]
-        : [{opacity:0, transform:`translateX(${paso * 12}px)`}, {opacity:1, transform:"none"}],
-        {duration: REDUCIR ? 200 : 300, easing: "cubic-bezier(.23,1,.32,1)"});
-      correr();
-    };
-    if (!animar) return entrar();
-    const sale = cuerpo.animate(REDUCIR ? [{opacity:1}, {opacity:0}]
-      : [{opacity:1, transform:"none"}, {opacity:0, transform:`translateX(${-paso * 8}px)`}],
-      {duration: 150, easing: "ease-out", fill: "forwards"});
-    sale.onfinish = () => { entrar(); sale.cancel(); };
-  }
-  bPausa.addEventListener("click", () => {
-    freno.pausa = !freno.pausa; bPausa.setAttribute("aria-pressed", freno.pausa);
-    bPausa.textContent = freno.pausa ? "Seguir" : "Pausar"; aplicar();
-  });
-  bSig.addEventListener("click", () => mostrar(i + 1, true, 1));
-  bAnt.addEventListener("click", () => mostrar(i - 1, true, -1));
-  rot.addEventListener("pointerenter", () => { freno.puntero = true; aplicar(); });
-  rot.addEventListener("pointerleave", () => { freno.puntero = false; aplicar(); });
-  rot.addEventListener("focusin", () => { freno.foco = true; aplicar(); });
-  rot.addEventListener("focusout", () => { freno.foco = false; aplicar(); });
-  new IntersectionObserver(([en]) => { freno.fuera = !en.isIntersecting; aplicar(); }).observe(rot);
-  // Reserva el alto de la pregunta más larga para que la página no salte. Desde octubre de 2026 los controles van debajo del
-  // texto (orden de lectura): el texto se centra en el alto reservado, así los botones no se mueven al cambiar de pregunta
-  const medir = () => {
-    cuerpo.style.minHeight = "0px"; let alto = 0;
-    PREG.forEach(([pq, pa]) => { q.textContent = pq; a.textContent = pa; alto = Math.max(alto, cuerpo.offsetHeight); });
-    cuerpo.style.minHeight = alto + "px";
-    poner();
-  };
-  // y otra vez cuando termina de llegar la letra: medido con la de reemplazo, el alto podía quedar de más (etapa 13)
-  medir(); new ResizeObserver(() => medir()).observe(rot.parentElement); document.fonts?.ready.then(medir);
-  mostrar(0, false);
-})();
-
-/* "Más" (etapa 32, como el menú "More" de usafacts.org): una lista blanca debajo del botón, que termina la fila de temas de la barra.
+/* "Más" (etapa 32, como el menú "More" de usafacts.org): una lista blanca debajo del botón, que termina la fila de la barra.
    En el celular ocupa la pantalla debajo de la barra y la página queda quieta detrás (clase menu-abierto en la raíz). Los temas que
-   ya están en la barra se ven en la lista solo cuando la barra no los muestra */
-(() => {
-  const btn = document.getElementById("menu-btn"), panel = document.getElementById("menu-panel"), raiz = document.documentElement;
+   ya están en la barra se ven en la lista solo cuando la barra no los muestra. Desde la etapa 39 los cuatro grupos de la barra abren
+   cada uno su lista con el mismo código, y abrir una cierra la que estaba abierta */
+const MENUS = [];
+const menuBarra = (btn, panel) => {
+  if (!btn || !panel) return;
+  const raiz = document.documentElement;
   let t;
   const abierto = () => btn.getAttribute("aria-expanded") === "true";
   const primero = () => [...panel.querySelectorAll("a")].find(a => a.offsetParent);
@@ -5762,6 +5696,7 @@ const PREG = [
   };
   // los botones de la barra están fijos arriba: sin preventScroll, Chrome corre la página para "mostrarlos" al darles el foco
   const abrir = () => {
+    MENUS.forEach(m => m !== yo && m.abierto() && m.cerrar(false));
     clearTimeout(t); panel.hidden = false; ubicar(); btn.setAttribute("aria-expanded", "true"); raiz.classList.add("menu-abierto");
     requestAnimationFrame(() => panel.classList.add("abierto")); primero().focus({preventScroll: true});
   };
@@ -5779,7 +5714,11 @@ const PREG = [
   panel.addEventListener("keydown", ev => { if (ev.key === "Tab" && ev.shiftKey && document.activeElement === primero()) { ev.preventDefault(); btn.focus({preventScroll: true}); } });
   panel.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (abierto() && a && !panel.contains(a) && a !== btn) cerrar(false); });
   addEventListener("resize", () => { if (abierto()) ubicar(); });
-})();
+  const yo = {abierto, cerrar};
+  MENUS.push(yo);
+};
+menuBarra(document.getElementById("menu-btn"), document.getElementById("menu-panel"));
+document.querySelectorAll(".grupo-btn").forEach(b => menuBarra(b, document.getElementById(b.getAttribute("aria-controls"))));
 
 /* ---------- artículos: preguntas respondidas cruzando dos indicadores de las 24 jurisdicciones ----------
    Los números y las frases que dependen de ellos se calculan acá desde la tabla de cruces, así se actualizan solos.
@@ -6307,30 +6246,13 @@ ART_SERIE.forEach(a => {
 const ARTS = [...ART_SERIE, ...ART];
 const artGrid = document.getElementById("art-grid");
 if (artGrid) artGrid.innerHTML = ARTS.map(tarjetaArt).join("");
+// la portada: una fila de tres, con el artículo de la relación más marcada primero (hasta el 10 de octubre de 2026 era el destacado
+// amarillo) y después los más nuevos. Los de política no se eligen por un cálculo automático. El resto, en "Todos los artículos"
 const artHome = document.getElementById("art-grid-home");
-if (artHome) artHome.innerHTML = ARTS.slice(0, 3).map(tarjetaArt).join("");   // una fila: el resto, en "Todos los artículos"
-
-/* portada: tres destacados. El artículo destacado es el de la relación más marcada */
-const destGrid = document.getElementById("dest-grid");
-// el gorro frigio de la marca, en un botón redondo: invita a entrar sin usar una flecha genérica
-
-const pintarDestacados = () => {
-  // los artículos de política no van destacados por un cálculo automático
+if (artHome) {
   const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
-  const D3 = [
-    {cls: "azul", ico: "pin", eb: "Tu provincia", href: "provincia.html",
-      tit: prov && NOMBRES[prov] ? `${NOMBRES[prov]} en números` : "Las 24, una por una",
-      txt: "Cada provincia junto al total del país y su posición entre las 24, en todos los indicadores con dato provincial."},
-    {cls: "amarilla", ico: fuerte.icono, eb: "Artículo", href: urlPagina(fuerte.id), tit: fuerte.titulo, txt: fuerte.dek},
-    {cls: "hondo", ico: "congreso", eb: "Congreso", href: "#f-votaciones-espacios",
-      tit: "Qué votó cada espacio en las leyes clave",
-      txt: "Los votos nominales de diputados y senadores, ley por ley, junto a la plataforma electoral que presentó cada alianza."},
-  ];
-  destGrid.innerHTML = D3.map(d => `<a class="tarjeta dest ${d.cls}" href="${d.href}"><span class="dest-arte">${icono(d.ico)}</span>` +
-    `<span class="dest-cuerpo"><span class="dest-eb">${d.eb}</span><b>${d.tit}</b><span class="dest-txt">${d.txt}</span>` +
-    `<span class="dest-ir" aria-hidden="true">${SOL_BOTON}</span></span></a>`).join("");
-};
-if (destGrid) { pintarDestacados(); alCambiarProv.push(pintarDestacados); }
+  artHome.innerHTML = [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join("");
+}
 
 /* Sobre nosotros: cifras contadas en el propio sitio */
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
@@ -6356,7 +6278,6 @@ document.addEventListener("click", ev => {
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
 const SEC_ICONO = /*SEC_ICONO*/{};
-const grillaSec = document.getElementById("secciones-grid");
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
   return `<a class="tarjeta sec-tarjeta${sec.herr ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
@@ -6367,18 +6288,13 @@ const tarjetaSec = sec => {
 // sin la tarjeta de Artículos, que tienen su bloque más arriba. Con las 14 secciones (Petróleo y gas volvió a tener su página en la
 // etapa 22) ninguna fila queda con una sola tarjeta, en ningún ancho: por eso "Tu provincia", que se sumó cuando eran 13 para llegar a
 // 14, ya no va en la grilla (se llega por el primer destacado, "Elegí tu provincia" y el menú)
-/* Los temas de la portada (etapa 36, pedido del autor: "Explorá la Argentina por tema", "no mostrar 19 botones idénticos"): cuatro grupos,
+/* Los temas de la portada (etapa 36, pedido del autor: "Explorá la Argentina por tema", "no mostrar 19 botones idénticos"). Desde la etapa 39
+   los escribe el constructor (no saltan al llegar el código). Lo que sigue es la historia del diseño: cuatro grupos,
    cada uno en un panel con sus secciones una debajo de otra (ícono, nombre y pregunta corta). Una categoría lleva a su página de entrada y
    debajo nombra a las demás (Población: Migraciones y Turismo). Los grupos salen de GRUPOS en el constructor (SITIO.grupos). Curiosidades,
-   aparte, ocupa el ancho entero. Reemplaza a la grilla de tarjetas iguales con "Ver todas las secciones" */
-const temaPortada = it => {
-  const [nom, subs] = Array.isArray(it) ? it : [null, [it]], sec = SEC[subs[0]];
-  return `<li class="tg-item"><a class="tg-link" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "tg-ico")}<span class="tg-txt">` +
-    `<b style="view-transition-name:t-${sec.id}">${nom || sec.t}</b><span class="tg-preg">${sec.c || sec.p}</span></span></a>` +
-    (subs.length > 1 ? `<p class="tg-subs">${subs.slice(1).map(s => `<a href="${urlPagina(s)}">${SEC[s].t}</a>`).join("")}</p>` : "") + `</li>`;
-};
-if (grillaSec) grillaSec.innerHTML = (SITIO.grupos || []).map(([g, nom, items]) => `<section class="tg tg-${g}" aria-labelledby="tg-${g}">` +
-  `<h3 class="tg-tit" id="tg-${g}">${nom}</h3><ul class="tg-lista">${items.map(temaPortada).join("")}</ul></section>`).join("");
+   aparte, ocupa el ancho entero. Reemplaza a la grilla de tarjetas iguales con "Ver todas las secciones". Desde el 10 de octubre de 2026
+   (pedido del autor: "demasiado espacio en blanco") los grupos son columnas sin panel, con su nombre sobre una línea, y Curiosidades va
+   debajo de Estado y sociedad, la columna más corta, como en el pie */
 const grillaHerr = document.getElementById("herramientas-grid");
 if (grillaHerr) grillaHerr.innerHTML = Object.values(SEC).filter(s => s.herr).map(tarjetaSec).join("");
 
@@ -6695,7 +6611,8 @@ document.querySelectorAll(".lab-pieza").forEach(f => vistasL.observe(f));
 
 /* navegación activa: la sección de esta página, en el menú y el pie, y en la barra su categoría (etapa 36: en Sector privado, "Economía") */
 document.querySelectorAll(".menu-panel a, .pie-mapa a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === SECCION + ".html"));
-document.querySelectorAll(".temas a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === (SITIO.cat?.[SECCION] || SECCION) + ".html"));
+// en la barra, el grupo de la página actual (etapa 39: en Sector privado, "Trabajo y economía")
+document.querySelectorAll(".grupo-btn").forEach(b => b.setAttribute("aria-current", b.dataset.secs.split(" ").includes(SECCION)));
 
 /* Provincia elegida: un indicador en la barra con su bandera, que lleva al perfil y la borra ("Ver todo el país").
    No la elige: eso se hace solo en provincia.html. También aparece al final de las migas. */
