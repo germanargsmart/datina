@@ -43,7 +43,7 @@ Todo lo que se podía hacer sin el autor está hecho. Lo que sigue necesita al a
 2. D7-03 a D7-06: elegir dónde publicar (recomendado: Netlify), conectar el repositorio y el dominio, activar el formulario, verificar y probar volver atrás (`docs/deploy/RUNBOOK.md`).
 3. Revisar las decisiones dudosas del catálogo (`EXPLORADOR.md`).
 
-Siguiente caso de uso sugerido (Fase 6, según uso): un enlace "¿De dónde sale este dato?" en el pie de cada ficha que abra el explorador en esa ficha (`relaciones.html?n=f-...`). Es un cambio visual en todas las fichas: consultarlo antes.
+Fase 6, primer caso de uso (pedido del autor, 10/10/2026: "hacé lo del enlace en el pie de cada ficha"): botón "De dónde sale" entre las acciones del pie de las 115 fichas del explorador, que abre `relaciones.html?n=<ficha>` con el detalle de esa ficha a la vista. No va en las herramientas ni en las fichas de suicidios (la lista sale de `scripts/relaciones.py`, `EXCLUIDAS`, y el constructor se la pasa a `datina.js`). Verificado: 115 botones, todos hacia una ficha del explorador y con su título asociado para lectores de pantalla, pie en una fila en la computadora y en tres en el celular, prueba de páginas 47, "Todo en orden".
 
 ## Pendientes heredados del sitio
 

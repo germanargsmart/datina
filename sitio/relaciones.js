@@ -35,7 +35,12 @@
 
   fetch(raiz.dataset.datos)
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(datos => { D = datos; preparar(); llenarFiltros(); dibujarTodo(); elegir(Q.get("n") && porId.has(Q.get("n")) ? Q.get("n") : null, false); centrar(); })
+    .then(datos => {
+      D = datos; preparar(); llenarFiltros(); dibujarTodo();
+      // al llegar desde "De dónde sale" de una ficha, el detalle de esa ficha recibe el foco (en pantallas angostas la página baja hasta él)
+      const n = Q.get("n");
+      if (n && porId.has(n)) { elegir(n, true); centrar(); } else elegir(null, false);
+    })
     .catch(err => {
       console.warn("Explorador de relaciones:", err);
       const p = $("rx-error");
@@ -277,7 +282,9 @@
       const a = document.activeElement;
       if (!antes && a && a !== document.body && !$("rx-panel").contains(a)) origen = a;
       $("rx-panel").scrollTop = 0;
-      $("rx-panel").focus({preventScroll: !MAS_ANGOSTO.matches});
+      // en pantallas angostas el panel va debajo de la vista: la página baja hasta su título (el panel puede ser más alto que la pantalla)
+      $("rx-panel").focus({preventScroll: true});
+      if (MAS_ANGOSTO.matches) $("rx-panel").scrollIntoView({block: "start"});
     } else {
       anunciar(`${TIPO_NOMBRE[n.tipo]} ${ELEGIDO[n.tipo]}: ${n.nombre}. ${plural(rel, "relación", "relaciones")}. El detalle está a continuación: apretá Tab.`);
     }

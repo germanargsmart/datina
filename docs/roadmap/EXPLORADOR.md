@@ -1,6 +1,6 @@
 # Explorador de relaciones: definiciones, límites y mantenimiento
 
-Página `relaciones.html` (enlazada desde el menú "Secciones", grupo Herramientas, el mapa del pie y "Cómo se hace" de Sobre nosotros). Responde "¿de dónde sale cada número?".
+Página `relaciones.html` (enlazada desde el menú "Secciones", grupo Herramientas, el mapa del pie, "Cómo se hace" de Sobre nosotros y el botón "De dónde sale" del pie de cada ficha, que la abre con esa ficha elegida: `relaciones.html?n=f-...`). Responde "¿de dónde sale cada número?".
 
 ## Qué muestra
 

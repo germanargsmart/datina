@@ -383,7 +383,8 @@ SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin",
              "diagnostico": "portapapeles"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
-for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO}.items():
+import relaciones  # noqa: E402
+for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS)}.items():
     assert marca in js, marca
     js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
 (SITIO / "datina.css").write_text(css, encoding="utf-8")
