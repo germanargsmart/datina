@@ -47,6 +47,14 @@ Fase 6, primer caso de uso (pedido del autor, 10/10/2026: "hacé lo del enlace e
 
 - D6-02: la tabla del explorador muestra de a 40 filas con "Mostrar 40 más" (el foco pasa a la primera fila nueva) y vuelve a 40 al cambiar un filtro o la búsqueda. En el celular la página pasó de unos 90.000 a 17.000 píxeles. Prueba de páginas: 47, "Todo en orden".
 
+- D6-01: auditoría del catálogo por tres revisores de solo lectura (242 relaciones): se sacaron 3, se corrigieron 2 organismos y 2 evidencias, y se precisó la definición de "alimenta" (tabla, cifras o notas de la ficha, incluidas sus vistas de comparación). Quedan 41 organismos, 143 archivos, 235 "alimenta" y 3 "se calcula a partir de". Detalle en `EXPLORADOR.md`. Pregunta abierta para el autor: quién publica el tablero del que sale `pobreza/datos/crudo/ALL.json`.
+- Vista previa del explorador publicada en claude.ai (privada, del autor): https://claude.ai/artifact/7Cu4uwhBXMKzA4TtGmnBKA. Es una copia: se vuelve a publicar a mano cuando cambia el explorador.
+
+## Próximos pasos posibles (Fase 6, según uso)
+
+- Cuando el sitio esté publicado: mirar qué fichas abren más el explorador y con qué búsquedas, antes de sumar otro caso de uso.
+- Consultas libres o DuckDB (plan, Fase 6): recién con evidencia de uso.
+
 ## Pendientes heredados del sitio
 
 Detalle en `docs/historico/etapas-previas.md`, sección "Pendientes y próximos pasos" y estado de la etapa 28.
