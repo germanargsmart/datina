@@ -17,9 +17,11 @@ Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 
 - D1-01: `INVENTARIO.md`. Hallazgo principal: no hay metadatos de fuente por ficha que se puedan leer con un programa (los pies son texto libre y el organismo de cada archivo descargado va en comentarios), así que el explorador necesita un catálogo escrito a mano y validado. Recomendación: página aislada armada por el constructor, sin tocar `datina.js` ni la plantilla.
 
+- D1-02 (borrador): `PROPUESTA_EXPLORADOR.md` con el modelo, las relaciones, las validaciones, lo que no se puede afirmar, la muestra y la pantalla. Cinco decisiones "pendiente" en `DECISIONES.md`.
+
 ## Próxima tarea
 
-D1-02: modelo, relaciones y pantalla, para aprobar (sin código).
+Esperar la aprobación del autor de las decisiones pendientes de D1-02. Con el sí, D2-01: página aislada con grafo y tabla de la muestra.
 
 ## Pendientes heredados del sitio
 
