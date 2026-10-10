@@ -11,6 +11,19 @@ Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 - `node scripts/prueba_paginas.mjs`: en la nube las CDN de D3 y topojson están bloqueadas y la prueba falla por eso. Con el banco local de `.claude/rules/pruebas.md`: 46 páginas, 18 secciones con "En cifras", "Todo en orden" (3 min 41 s).
 - No se corrió `01_descargar.py` ni `02_procesar.py`.
 
+## Hecho
+
+- D0-02: `CLAUDE.md` breve (89 líneas). El texto anterior completo, sin cambios, en `docs/historico/etapas-previas.md`. Reglas por tema en `.claude/rules/` y tres revisores de solo lectura en `.claude/agents/`.
+
 ## Próxima tarea
 
-D0-02: achicar `CLAUDE.md` y mover el historial sin perderlo.
+D1-01: inventario técnico en `docs/roadmap/INVENTARIO.md` (solo lectura).
+
+## Pendientes heredados del sitio
+
+Detalle en `docs/historico/etapas-previas.md`, sección "Pendientes y próximos pasos" y estado de la etapa 28.
+
+- Volver a correr `scripts/transferencias_presupuesto.py` a principios de 2027.
+- Revisar que la actualización mensual del 5 de noviembre termine bien (primera con `ubuntu-24.04` fijo y las acciones en su versión 7).
+- Conectar el repositorio a Netlify y activar los formularios (contacto).
+- Preguntas abiertas al autor: precios de la vivienda por capital (solo fuentes privadas), ingresos por aglomerado de la EPH y votaciones anteriores a 2008.
