@@ -232,18 +232,6 @@
    ]
   },
   {
-   "id": "org:ember",
-   "nombre": "Ember",
-   "sigla": "Ember",
-   "depende": "",
-   "url": "https://ember-energy.org",
-   "alias": [
-    "Ember",
-    "Ember, datos anuales de electricidad, publicados por Our World in Data",
-    "Our World in Data"
-   ]
-  },
-  {
    "id": "org:enacom",
    "nombre": "Ente Nacional de Comunicaciones",
    "sigla": "ENACOM",
@@ -321,18 +309,6 @@
    ]
   },
   {
-   "id": "org:ocde",
-   "nombre": "Organización para la Cooperación y el Desarrollo Económicos",
-   "sigla": "OCDE",
-   "depende": "",
-   "url": "https://www.oecd.org/en/about/programmes/pisa.html",
-   "alias": [
-    "OCDE",
-    "OCDE PISA, via Our World in Data",
-    "Programa para la Evaluación Internacional de Alumnos (PISA)"
-   ]
-  },
-  {
    "id": "org:oede",
    "nombre": "Observatorio de Empleo y Dinámica Empresarial",
    "sigla": "OEDE",
@@ -355,6 +331,16 @@
     "Naciones Unidas",
     "División de Población",
     "International Migrant Stock"
+   ]
+  },
+  {
+   "id": "org:owid",
+   "nombre": "Our World in Data",
+   "sigla": "OWID",
+   "depende": "Universidad de Oxford y Global Change Data Lab",
+   "url": "https://ourworldindata.org",
+   "alias": [
+    "Our World in Data"
    ]
   },
   {
@@ -586,7 +572,7 @@
   {
    "id": "ds:aprender_meta.json",
    "nombre": "Año y nivel de la base de Aprender (registro que arma la descarga)",
-   "fuente": "org:educacion",
+   "fuente": "org:datina",
    "ruta": "datos/crudo/aprender_meta.json",
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
@@ -1662,8 +1648,8 @@
   },
   {
    "id": "ds:owid_electricidad.csv",
-   "nombre": "Participación de la energía eólica y la solar en la electricidad generada, por país",
-   "fuente": "org:ember",
+   "nombre": "Participación de la energía eólica y la solar en la electricidad generada, por país, con datos de Ember",
+   "fuente": "org:owid",
    "ruta": "datos/crudo/owid_electricidad.csv",
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
@@ -1684,8 +1670,8 @@
   },
   {
    "id": "ds:pisa_owid.csv",
-   "nombre": "PISA: puntajes de Argentina y promedio OCDE (republicación de Our World in Data)",
-   "fuente": "org:ocde",
+   "nombre": "Puntajes PISA de la Argentina y promedio de la OCDE, republicados por Our World in Data",
+   "fuente": "org:owid",
    "ruta": "datos/crudo/pisa_owid.csv",
    "url": "https://ourworldindata.org/grapher/average-performance-of-15-year-olds-in-mathematics-reading-and-science.csv?v=1&csvType=full&useColumnShortNames=true",
    "evidencia": {
@@ -3344,7 +3330,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "assert migracion_censos.anio.max() == 2022 and abs(migracion_censos.set_index(\"anio\").nacidos_otro_pais_pct[2022] - r1(_mg_00.pct_otro_pais)) < .05, \\"
+     "contiene": "migracion_censos.loc[migracion_censos.anio == 2022, \"limitrofes_pct\"] = _mg_lim / _mg_00.poblacion * 100"
     }
    ],
    "tabla": "migracion_censos"
@@ -3988,36 +3974,6 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "apoyo = apoyo.merge(transf[[\"anio\", \"codigo_indec\", \"atn_hab\", \"otras_hab\"]], on=[\"anio\", \"codigo_indec\"], how=\"left\")"
-    }
-   ]
-  },
-  {
-   "tipo": "calcula",
-   "de": "f-votaciones",
-   "a": "f-voto-provincia",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "for r in lc.itertuples():"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "g = votos[(votos.camara == cam) & (votos.vid == vid) & (votos.voto <= 3) & votos.codigo_indec.notna()]"
-    }
-   ]
-  },
-  {
-   "tipo": "calcula",
-   "de": "f-elecciones",
-   "a": "f-voto-provincia",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "_pp = el.groupby([\"eleccion\", \"candidato\", \"codigo_indec\"]).votos.sum().reset_index().merge("
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "_pp[\"pct_presidente\"] = _pp.votos / _pp.positivos * 100"
     }
    ]
   },
@@ -4923,22 +4879,6 @@
   },
   {
    "tipo": "alimenta",
-   "de": "ds:snic_provincias.csv",
-   "a": "f-electricidad-sectores",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "return sum(float(_el_pr[(x, a)]) if a >= 2022 else float(POB_T[(x, a)]) for x in c.split(\"-\"))"
-    }
-   ],
-   "tabla": "electricidad_sectores"
-  },
-  {
-   "tipo": "alimenta",
    "de": "ds:se_centrales.csv",
    "a": "f-centrales",
    "evidencia": [
@@ -5509,6 +5449,10 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "(CRUDO / \"bm_paises.json\").read_text"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "NOMBRE_PAIS_ES = {x[\"id\"]: {\"Federación de Rusia\": \"Rusia\"}"
     }
    ]
   },

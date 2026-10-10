@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <link rel="stylesheet" href="datina.css?v=d586b21597">
-<link rel="stylesheet" href="relaciones.css?v=017080bd22">
+<link rel="stylesheet" href="relaciones.css?v=027e770f14">
 </head>
 <body data-pagina="relaciones">
 <a class="rx-saltar" href="#rx-buscar">Ir al buscador</a>
@@ -27,7 +27,7 @@
   </div>
 </header>
 <main class="envoltura">
-<section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=1634c25ded">
+<section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=e5acdc1ed1">
   <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Explorador de relaciones</span></li></ol></nav>
   <h2>Explorador de relaciones</h2>
   <div class="tema-intro">
@@ -80,6 +80,7 @@
           <thead><tr><th scope="col">Tipo</th><th scope="col">Nombre</th><th scope="col">Tema</th><th scope="col">Viene de</th><th scope="col">Lleva a</th></tr></thead>
           <tbody id="rx-filas"></tbody>
         </table></div>
+        <button type="button" class="boton chico rx-mas-filas" id="rx-mas-filas" hidden></button>
       </div>
       <ul class="rx-leyenda" aria-label="Qué es cada forma">
         <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6" class="rx-n-fuente"/></svg>Organismo que publica</li>
@@ -103,7 +104,7 @@
     <h3 id="rx-def-tit">Qué es una relación acá</h3>
     <dl>
       <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>
-      <dt>Alimenta</dt><dd>Un programa del sitio lee el archivo para armar la tabla de la ficha. La evidencia es la línea que lo lee.</dd>
+      <dt>Alimenta</dt><dd>Un programa del sitio lee el archivo para armar la tabla, las cifras o las notas de la ficha, incluidas sus vistas de comparación (por ejemplo, con la OCDE). La evidencia es la línea que lo lee o que lo lleva a la ficha.</dd>
       <dt>Se calcula a partir de</dt><dd>La cifra de una ficha usa la de otra ficha del sitio.</dd>
     </dl>
     <p>Qué no muestra: si un indicador influye en otro o si dos indicadores van juntos. Para eso están <a class="enlace" href="cruces.html">Cruces</a> y los <a class="enlace" href="articulos.html">artículos</a>. Dos fichas del mismo tema no quedan unidas por eso. Las fichas sobre suicidios no están en el explorador.</p>
@@ -125,6 +126,6 @@
     </div>
   </div>
 </footer>
-<script src="relaciones.js?v=0689d22158"></script>
+<script src="relaciones.js?v=f562ba0e8d"></script>
 </body>
 </html>

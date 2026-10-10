@@ -373,7 +373,8 @@
     if (E.fuente) q.set("o", E.fuente);
     if (E.q) q.set("q", E.q);
     const s = q.toString();
-    history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash);
+    // dentro de un marco con restricciones el historial puede no estar disponible: el explorador sigue funcionando sin guardar el enlace
+    try { history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash); } catch (e) { /* sin enlace */ }
   }
 
   // ---------- filtros ----------
@@ -467,12 +468,21 @@
   const ordenados = lista => lista.slice().sort((a, b) => TIPO_ORDEN[a.tipo] - TIPO_ORDEN[b.tipo] || a.nombre.localeCompare(b.nombre, "es"));
 
   // ---------- tabla: lo mismo que el grafo, en filas ----------
-  function dibujarTabla(v) {
+  // la tabla muestra de a 40 filas, con un botón para ver más: con todo a la vista, en el celular medía unos 90.000 píxeles
+  const LOTE = 40;
+  let filasMostradas = LOTE;
+  function dibujarTabla(v, mantener = false) {
+    if (!mantener) filasMostradas = LOTE;
     const vis = new Set(v.nodos.map(n => n.id));
     const boton = id => { const n = porId.get(id); return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.tipo === "fuente" ? (n.sigla || n.nombre) : n.nombre)}</button>`; };
     const lista = arr => arr.length ? `<ul class="rx-rel">${arr.map(x => `<li>${x}</li>`).join("")}</ul>` : '<span aria-hidden="true">—</span><span class="rx-oculto">ninguna</span>';
     const tema = n => [...n._temas].map(t => (D.secciones.find(s => s[0] === t) || [, t])[1]).join(", ");
-    $("rx-filas").innerHTML = ordenados(v.nodos.filter(coincide)).map(n => `<tr data-id="${esc(n.id)}">
+    const todas = ordenados(v.nodos.filter(coincide));
+    const quedan = todas.length - filasMostradas;
+    const mas = $("rx-mas-filas");
+    mas.hidden = quedan <= 0;
+    mas.textContent = `Mostrar ${Math.min(LOTE, quedan)} más (quedan ${quedan})`;
+    $("rx-filas").innerHTML = todas.slice(0, filasMostradas).map(n => `<tr data-id="${esc(n.id)}">
       <td data-col="Tipo"><span><svg viewBox="-8 -8 16 16" aria-hidden="true">${ICONO[n.tipo]}</svg>${TIPO_NOMBRE[n.tipo]}</span></td>
       <th scope="row" data-col="Nombre">${boton(n.id)}</th><td data-col="Tema">${esc(tema(n)) || '<span aria-hidden="true">—</span>'}</td>
       <td data-col="Viene de">${lista(entra.get(n.id).filter(a => vis.has(a.de)).map(a => boton(a.de) + (a.tipo === "calcula" ? " (se calcula a partir de esta)" : "")))}</td>
@@ -482,6 +492,14 @@
   $("rx-filas").addEventListener("click", e => {
     const b = e.target.closest("[data-ir]");
     if (b) elegir(b.dataset.ir);
+  });
+  // "Mostrar más": suma un lote y el foco pasa a la primera fila nueva
+  $("rx-mas-filas").addEventListener("click", () => {
+    const antes = filasMostradas;
+    filasMostradas += LOTE;
+    dibujarTabla(calcularVisibles(), true);
+    const primera = $("rx-filas").children[antes];
+    if (primera) primera.querySelector("th [data-ir]").focus();
   });
 
   // ---------- vista y filtros de tipo ----------
