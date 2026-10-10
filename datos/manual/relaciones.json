@@ -1,6 +1,17 @@
 {
- "_leeme": "Catálogo del Explorador de relaciones (scripts/relaciones.py). Fuentes: organismos que publican. Conjuntos: archivos que baja o arma Datina, cada uno con su fuente (de ahí sale la relación 'publica'). Aristas: 'alimenta' (archivo a ficha) y 'calcula' (ficha que se calcula a partir de otra), cada una con su evidencia: un texto exacto que tiene que estar en una línea del archivo citado. fichas.f-x.nombre: el nombre de las fichas cuyo título se calcula en datina.js. Validar: python scripts/relaciones.py",
+ "_leeme": "Catálogo del Explorador de relaciones (scripts/relaciones.py). Fuentes: organismos que publican. Conjuntos: archivos que baja o arma Datina, cada uno con su fuente (de ahí sale la relación 'publica'). Aristas: 'alimenta' (archivo a ficha) y 'calcula' (ficha que se calcula a partir de otra), cada una con su evidencia: un texto exacto que tiene que estar en una línea del archivo citado. fichas.f-x.variables: las variables de la tabla larga de cada ficha (dan la unidad). fichas.f-x.nombre: solo si el título no está en la plantilla ni en TX de datina.js. Validar: python scripts/relaciones.py",
  "fuentes": [
+  {
+   "id": "org:acnur",
+   "nombre": "Alto Comisionado de las Naciones Unidas para los Refugiados",
+   "sigla": "ACNUR",
+   "depende": "Naciones Unidas",
+   "url": "https://www.unhcr.org/refugee-statistics",
+   "alias": [
+    "ACNUR",
+    "UNHCR Refugee Population Statistics Database"
+   ]
+  },
   {
    "id": "org:banco-mundial",
    "nombre": "Banco Mundial",
@@ -14,6 +25,79 @@
    ]
   },
   {
+   "id": "org:bcra",
+   "nombre": "Banco Central de la República Argentina",
+   "sigla": "BCRA",
+   "depende": "",
+   "url": "https://www.bcra.gob.ar",
+   "alias": [
+    "BCRA",
+    "Banco Central de la República Argentina"
+   ]
+  },
+  {
+   "id": "org:bis",
+   "nombre": "Banco de Pagos Internacionales",
+   "sigla": "BIS",
+   "depende": "",
+   "url": "https://data.bis.org",
+   "alias": [
+    "BIS",
+    "Banco de Pagos Internacionales"
+   ]
+  },
+  {
+   "id": "org:cammesa",
+   "nombre": "Compañía Administradora del Mercado Mayorista Eléctrico",
+   "sigla": "CAMMESA",
+   "depende": "Secretaría de Energía",
+   "url": "https://cammesaweb.cammesa.com",
+   "alias": [
+    "CAMMESA",
+    "CAMMESA, vía API de Series de Tiempo",
+    "CAMMESA, demanda mensual por provincia y tipo de usuario"
+   ]
+  },
+  {
+   "id": "org:ciam",
+   "nombre": "Centro de Información Ambiental",
+   "sigla": "CIAM",
+   "depende": "Ministerio de Ambiente",
+   "url": "https://ciam.ambiente.gob.ar",
+   "alias": [
+    "CIAM",
+    "Centro de Información Ambiental",
+    "Ministerio de Ambiente",
+    "Servicio Meteorologico Nacional, via CIAM",
+    "Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)",
+    "Inventario Nacional de Glaciares"
+   ]
+  },
+  {
+   "id": "org:como-voto",
+   "nombre": "¿Cómo Votó?",
+   "sigla": "Cómo Votó",
+   "depende": "Proyecto abierto de Rodrigo Quiroga (copia de las actas oficiales de la HCDN y del Senado)",
+   "url": "https://github.com/rquiroga7/como_voto",
+   "alias": [
+    "¿Cómo Votó?",
+    "Cómo Votó",
+    "Como Voto",
+    "actas de votación nominal"
+   ]
+  },
+  {
+   "id": "org:conare",
+   "nombre": "Comisión Nacional para los Refugiados",
+   "sigla": "CONARE",
+   "depende": "Ministerio de Seguridad Nacional",
+   "url": "https://www.argentina.gob.ar/seguridad/conare",
+   "alias": [
+    "CONARE",
+    "Comisión Nacional para los Refugiados"
+   ]
+  },
+  {
    "id": "org:csjn",
    "nombre": "Registro Nacional de Femicidios de la Justicia Argentina",
    "sigla": "CSJN",
@@ -23,6 +107,16 @@
     "Registro Nacional de Femicidios de la Justicia Argentina",
     "Registro Nacional de Femicidios de la Justicia Argentina (CSJN)",
     "Corte Suprema"
+   ]
+  },
+  {
+   "id": "org:datina",
+   "nombre": "Datina (selección propia)",
+   "sigla": "Datina",
+   "depende": "",
+   "url": "",
+   "alias": [
+    "Datina"
    ]
   },
   {
@@ -40,6 +134,178 @@
    ]
   },
   {
+   "id": "org:desnz",
+   "nombre": "Departamento de Seguridad Energética y Cero Neto del Reino Unido",
+   "sigla": "DESNZ",
+   "depende": "Gobierno del Reino Unido",
+   "url": "https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero",
+   "alias": [
+    "DESNZ"
+   ]
+  },
+  {
+   "id": "org:dine",
+   "nombre": "Dirección Nacional Electoral",
+   "sigla": "DINE",
+   "depende": "Ministerio del Interior",
+   "url": "https://www.argentina.gob.ar/interior/direccion-nacional-electoral",
+   "alias": [
+    "Dirección Nacional Electoral",
+    "Direccion Nacional Electoral"
+   ]
+  },
+  {
+   "id": "org:dnap",
+   "nombre": "Dirección Nacional de Asuntos Provinciales",
+   "sigla": "DNAP",
+   "depende": "Secretaría de Hacienda, Ministerio de Economía",
+   "url": "https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales",
+   "alias": [
+    "Dirección Nacional de Asuntos Provinciales",
+    "Direccion Nacional de Asuntos Provinciales",
+    "DNAP",
+    "cuentas provinciales (esquema AIF)"
+   ]
+  },
+  {
+   "id": "org:dniaf",
+   "nombre": "Dirección Nacional de Investigaciones y Análisis Fiscal",
+   "sigla": "DNIAF",
+   "depende": "Secretaría de Hacienda, Ministerio de Economía",
+   "url": "https://www.argentina.gob.ar/economia/sechacienda/dniaf",
+   "alias": [
+    "Dirección Nacional de Investigaciones y Análisis Fiscal",
+    "DNIAF"
+   ]
+  },
+  {
+   "id": "org:dnm",
+   "nombre": "Dirección Nacional de Migraciones",
+   "sigla": "DNM",
+   "depende": "Ministerio del Interior",
+   "url": "https://www.argentina.gob.ar/interior/migraciones",
+   "alias": [
+    "Dirección Nacional de Migraciones",
+    "DNM"
+   ]
+  },
+  {
+   "id": "org:dnrpa",
+   "nombre": "Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios",
+   "sigla": "DNRPA",
+   "depende": "Ministerio de Justicia",
+   "url": "https://datos.jus.gob.ar",
+   "alias": [
+    "DNRPA",
+    "DNRPA, Ministerio de Justicia",
+    "Dirección Nacional de los Registros de la Propiedad Automotor"
+   ]
+  },
+  {
+   "id": "org:educacion",
+   "nombre": "Secretaría de Educación",
+   "sigla": "Educación",
+   "depende": "Ministerio de Capital Humano",
+   "url": "https://www.argentina.gob.ar/capital-humano/educacion",
+   "alias": [
+    "Ministerio de Educación",
+    "Ministerio de Educacion, DiNIEE",
+    "Ministerio de Educacion, Aprender",
+    "Dirección Nacional de Información y Estadística Educativa",
+    "Coordinación de Evaluación de Costos Educativos",
+    "Coordinacion de Evaluacion de Costos Educativos",
+    "Secretaría de Educación",
+    "Secretaria de Educacion",
+    "Aprender"
+   ]
+  },
+  {
+   "id": "org:eia",
+   "nombre": "Administración de Información Energética de los Estados Unidos",
+   "sigla": "EIA",
+   "depende": "Departamento de Energía de los Estados Unidos",
+   "url": "https://www.eia.gov",
+   "alias": [
+    "EIA",
+    "Administración de Información Energética de los Estados Unidos",
+    "EIA, estadisticas internacionales de energia"
+   ]
+  },
+  {
+   "id": "org:ember",
+   "nombre": "Ember",
+   "sigla": "Ember",
+   "depende": "",
+   "url": "https://ember-energy.org",
+   "alias": [
+    "Ember",
+    "Ember, datos anuales de electricidad, publicados por Our World in Data",
+    "Our World in Data"
+   ]
+  },
+  {
+   "id": "org:enacom",
+   "nombre": "Ente Nacional de Comunicaciones",
+   "sigla": "ENACOM",
+   "depende": "Jefatura de Gabinete de Ministros",
+   "url": "https://indicadores.enacom.gob.ar",
+   "alias": [
+    "ENACOM",
+    "Ente Nacional de Comunicaciones"
+   ]
+  },
+  {
+   "id": "org:enargas",
+   "nombre": "Ente Nacional Regulador del Gas",
+   "sigla": "ENARGAS",
+   "depende": "",
+   "url": "https://www.enargas.gob.ar",
+   "alias": [
+    "ENARGAS",
+    "ENARGAS, datos operativos de gas natural"
+   ]
+  },
+  {
+   "id": "org:finanzas",
+   "nombre": "Secretaría de Finanzas",
+   "sigla": "Finanzas",
+   "depende": "Ministerio de Economía",
+   "url": "https://www.argentina.gob.ar/economia/finanzas",
+   "alias": [
+    "Secretaría de Finanzas",
+    "Secretaria de Finanzas"
+   ]
+  },
+  {
+   "id": "org:hacienda",
+   "nombre": "Secretaría de Hacienda",
+   "sigla": "Hacienda",
+   "depende": "Ministerio de Economía",
+   "url": "https://www.argentina.gob.ar/economia/sechacienda",
+   "alias": [
+    "Secretaría de Hacienda",
+    "Secretaria de Hacienda (IMIG)",
+    "Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero",
+    "Secretaría de Hacienda, Informe Mensual de Ingresos y Gastos del Sector Público Nacional no Financiero",
+    "Ministerio de Economía, cuentas provinciales",
+    "Ministerio de Economia, cuentas provinciales (esquema AIF)",
+    "esquema ahorro-inversión-financiamiento"
+   ]
+  },
+  {
+   "id": "org:hcdn",
+   "nombre": "Cámara de Diputados de la Nación",
+   "sigla": "HCDN",
+   "depende": "Congreso de la Nación",
+   "url": "https://datos.hcdn.gob.ar",
+   "alias": [
+    "Cámara de Diputados de la Nación",
+    "Cámara de Diputados",
+    "Patrimonio Legislativo",
+    "HCDN"
+   ]
+  },
+  {
    "id": "org:indec",
    "nombre": "Instituto Nacional de Estadística y Censos",
    "sigla": "INDEC",
@@ -52,6 +318,130 @@
     "Censo Nacional de Población, Hogares y Viviendas 2022",
     "INDEC, ISAC",
     "INDEC, Censo 2022"
+   ]
+  },
+  {
+   "id": "org:ocde",
+   "nombre": "Organización para la Cooperación y el Desarrollo Económicos",
+   "sigla": "OCDE",
+   "depende": "",
+   "url": "https://www.oecd.org/en/about/programmes/pisa.html",
+   "alias": [
+    "OCDE",
+    "OCDE PISA, via Our World in Data",
+    "Programa para la Evaluación Internacional de Alumnos (PISA)"
+   ]
+  },
+  {
+   "id": "org:oede",
+   "nombre": "Observatorio de Empleo y Dinámica Empresarial",
+   "sigla": "OEDE",
+   "depende": "Secretaría de Trabajo, Ministerio de Capital Humano",
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales",
+   "alias": [
+    "OEDE",
+    "Observatorio de Empleo y Dinámica Empresarial",
+    "OEDE, Ministerio de Capital Humano (SIPA)",
+    "Observatorio de Empleo y Dinamica Empresarial"
+   ]
+  },
+  {
+   "id": "org:onu-poblacion",
+   "nombre": "Naciones Unidas, División de Población",
+   "sigla": "ONU Población",
+   "depende": "Naciones Unidas",
+   "url": "https://www.un.org/development/desa/pd/content/international-migrant-stock",
+   "alias": [
+    "Naciones Unidas",
+    "División de Población",
+    "International Migrant Stock"
+   ]
+  },
+  {
+   "id": "org:presupuesto-abierto",
+   "nombre": "Presupuesto Abierto",
+   "sigla": "Presupuesto Abierto",
+   "depende": "Secretaría de Hacienda, Ministerio de Economía",
+   "url": "https://www.presupuestoabierto.gob.ar",
+   "alias": [
+    "Presupuesto Abierto",
+    "Presupuesto Abierto, Secretaría de Hacienda"
+   ]
+  },
+  {
+   "id": "org:renaper",
+   "nombre": "Registro Nacional de las Personas",
+   "sigla": "RENAPER",
+   "depende": "Ministerio del Interior",
+   "url": "https://datosabiertos.renaper.gob.ar",
+   "alias": [
+    "RENAPER",
+    "Registro Nacional de las Personas"
+   ]
+  },
+  {
+   "id": "org:secretaria-energia",
+   "nombre": "Secretaría de Energía",
+   "sigla": "SE",
+   "depende": "Ministerio de Economía",
+   "url": "https://datos.energia.gob.ar",
+   "alias": [
+    "Secretaría de Energía",
+    "Secretaria de Energia",
+    "Secretaría de Energía, precios y volúmenes de las estaciones de servicio (Resolución 1104/2004)",
+    "Secretaría de Energía, centrales de generación eléctrica",
+    "Secretaría de Energía de la Nación"
+   ]
+  },
+  {
+   "id": "org:seguridad-social",
+   "nombre": "Secretaría de Seguridad Social",
+   "sigla": "Seguridad Social",
+   "depende": "Ministerio de Capital Humano",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "alias": [
+    "Secretaría de Seguridad Social",
+    "Secretaria de Seguridad Social, BESS",
+    "Boletín Estadístico de la Seguridad Social"
+   ]
+  },
+  {
+   "id": "org:senado",
+   "nombre": "Senado de la Nación",
+   "sigla": "Senado",
+   "depende": "Congreso de la Nación",
+   "url": "https://www.senado.gob.ar/micrositios/DatosAbiertos",
+   "alias": [
+    "Senado de la Nación"
+   ]
+  },
+  {
+   "id": "org:sib",
+   "nombre": "Sistema de Información de Biodiversidad",
+   "sigla": "SIB",
+   "depende": "Administración de Parques Nacionales",
+   "url": "https://sib.gob.ar",
+   "alias": [
+    "SIB",
+    "Sistema de Información de Biodiversidad",
+    "Sistema de Informacion de Biodiversidad (APN)",
+    "Administración de Parques Nacionales"
+   ]
+  },
+  {
+   "id": "org:sinta",
+   "nombre": "Sistema de Información Turística de la Argentina",
+   "sigla": "SINTA",
+   "depende": "Ministerio de Turismo y Deportes (Secretaría de Turismo)",
+   "url": "https://datos.yvera.gob.ar",
+   "alias": [
+    "SINTA",
+    "Sistema de Información Turística de la Argentina",
+    "Ministerio de Turismo y Deportes",
+    "Secretaría de Turismo",
+    "Encuesta de Ocupación Hotelera",
+    "Encuesta de Turismo Internacional",
+    "Ministerio de Turismo"
    ]
   },
   {
@@ -75,9 +465,258 @@
     "SNIC",
     "Sistema Nacional de Información Criminal"
    ]
+  },
+  {
+   "id": "org:sspm",
+   "nombre": "Subsecretaría de Programación Macroeconómica (API de Series de Tiempo)",
+   "sigla": "SSPM",
+   "depende": "Ministerio de Economía",
+   "url": "https://apis.datos.gob.ar/series/",
+   "alias": [
+    "SSPM",
+    "Subsecretaría de Programación Macroeconómica",
+    "SIPA, SSPM, API Series de Tiempo",
+    "SIPA"
+   ]
+  },
+  {
+   "id": "org:sspmi",
+   "nombre": "Subsecretaría de Programación Microeconómica",
+   "sigla": "SSPMI",
+   "depende": "Ministerio de Economía",
+   "url": "https://www.economia.gob.ar/catalogo-sspmi/",
+   "alias": [
+    "SSPMI",
+    "Ministerio de Economía, SSPMI",
+    "Ministerio de Economia, SSPMI",
+    "indicadores sectoriales"
+   ]
+  },
+  {
+   "id": "org:transporte",
+   "nombre": "Ministerio de Transporte",
+   "sigla": "Transporte",
+   "depende": "Presidencia de la Nación",
+   "url": "https://datos.transporte.gob.ar",
+   "alias": [
+    "Ministerio de Transporte",
+    "Ministerio de Transporte, datos abiertos",
+    "Ministerio de Transporte, datos abiertos de SUBE",
+    "SUBE"
+   ]
+  },
+  {
+   "id": "org:wikimedia",
+   "nombre": "Wikimedia (Wikipedia y Wikidata)",
+   "sigla": "Wikimedia",
+   "depende": "Fundación Wikimedia",
+   "url": "https://es.wikipedia.org",
+   "alias": [
+    "Wikipedia",
+    "Wikidata"
+   ]
   }
  ],
  "conjuntos": [
+  {
+   "id": "ds:ALL.json",
+   "nombre": "Pobreza e indigencia de los 31 aglomerados urbanos por semestre (extracto del tablero del INDEC)",
+   "fuente": "org:indec",
+   "ruta": "pobreza/datos/crudo/ALL.json",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "\"pobreza\" / \"datos\" / \"crudo\" / \"ALL.json\""
+   }
+  },
+  {
+   "id": "ds:acnur_asilo_argentina.csv",
+   "nombre": "ACNUR: personas refugiadas y solicitantes de asilo que viven en la Argentina, por año",
+   "fuente": "org:acnur",
+   "ruta": "datos/crudo/acnur_asilo_argentina.csv",
+   "url": "https://api.unhcr.org/population/v1/population/",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "salidas = {\"acnur_asilo_argentina.csv\": \"coa=ARG\""
+   }
+  },
+  {
+   "id": "ds:acnur_asilo_argentina_origen.csv",
+   "nombre": "ACNUR: refugiadas y solicitantes de asilo en la Argentina, por país de origen",
+   "fuente": "org:acnur",
+   "ruta": "datos/crudo/acnur_asilo_argentina_origen.csv",
+   "url": "https://api.unhcr.org/population/v1/population/",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"acnur_asilo_argentina_origen.csv\": \"coa=ARG&coo_all=true\""
+   }
+  },
+  {
+   "id": "ds:acnur_origen_argentina.csv",
+   "nombre": "ACNUR: personas de origen argentino refugiadas o solicitantes de asilo en otros países, por año",
+   "fuente": "org:acnur",
+   "ruta": "datos/crudo/acnur_origen_argentina.csv",
+   "url": "https://api.unhcr.org/population/v1/population/",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"acnur_origen_argentina.csv\": \"coo=ARG\""
+   }
+  },
+  {
+   "id": "ds:acnur_origen_argentina_destino.csv",
+   "nombre": "ACNUR: personas de origen argentino refugiadas o solicitantes de asilo, por país de destino",
+   "fuente": "org:acnur",
+   "ruta": "datos/crudo/acnur_origen_argentina_destino.csv",
+   "url": "https://api.unhcr.org/population/v1/population/",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"acnur_origen_argentina_destino.csv\": \"coo=ARG&coa_all=true\""
+   }
+  },
+  {
+   "id": "ds:aif_provincias.xlsx",
+   "nombre": "Cuentas fiscales de cada provincia (esquema ahorro-inversión-financiamiento), anual desde 2005",
+   "fuente": "org:dnap",
+   "ruta": "datos/crudo/aif_provincias.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"aif_provincias.xlsx\": \"https://www.argentina.gob.ar"
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/serie_aif-apnf-2025.xlsx"
+  },
+  {
+   "id": "ds:aprender_meta.json",
+   "nombre": "Año y nivel de la base de Aprender (registro que arma la descarga)",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/aprender_meta.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "(CRUDO / \"aprender_meta.json\").write_text("
+   }
+  },
+  {
+   "id": "ds:aprender_primaria_lengua.csv",
+   "nombre": "Aprender, 6° grado de primaria, lengua: base agregada de desempeño",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/aprender_primaria_lengua.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"aprender_primaria_lengua.csv\": aprender(\"Lengua\")"
+   }
+  },
+  {
+   "id": "ds:aprender_primaria_matematica.csv",
+   "nombre": "Aprender, 6° grado de primaria, matemática: base agregada de desempeño",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/aprender_primaria_matematica.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"aprender_primaria_matematica.csv\": aprender(\"Matem\")"
+   }
+  },
+  {
+   "id": "ds:bcra_hipotecas_uva.csv",
+   "nombre": "Préstamos hipotecarios en UVA acordados por mes con el sector privado",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_hipotecas_uva.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"bcra_hipotecas_uva.csv\", index=False)"
+   },
+   "url": "https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/finuva_mensual.xls"
+  },
+  {
+   "id": "ds:bess_indicadores.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social, cuadro de indicadores (4.1.1.1)",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_indicadores.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "(CRUDO / \"bess_indicadores.xlsx\").write_bytes(datos)"
+   }
+  },
+  {
+   "id": "ds:bis_credito_hogares.csv",
+   "nombre": "Crédito a los hogares como porcentaje del PBI por país",
+   "fuente": "org:bis",
+   "ruta": "datos/crudo/bis_credito_hogares.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"bis_credito_hogares.csv\", index=False)"
+   },
+   "url": "https://stats.bis.org/api/v1/data/WS_TC/Q..H.A.M.770.A?format=csv&startPeriod=2000-Q1"
+  },
+  {
+   "id": "ds:bm_EG.USE.ELEC.KH.PC.json",
+   "nombre": "Consumo de electricidad por habitante (Banco Mundial, para la comparación con la OCDE)",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_EG.USE.ELEC.KH.PC.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"EG.USE.ELEC.KH.PC\", \"EN.GHG.CO2.PC.CE.AR5\""
+   }
+  },
+  {
+   "id": "ds:bm_EN.GHG.CO2.PC.CE.AR5.json",
+   "nombre": "Emisión de dióxido de carbono por habitante (Banco Mundial, para la comparación con la OCDE)",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_EN.GHG.CO2.PC.CE.AR5.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"EG.USE.ELEC.KH.PC\", \"EN.GHG.CO2.PC.CE.AR5\""
+   }
+  },
+  {
+   "id": "ds:bm_ER.FSH.CAPT.MT.json",
+   "nombre": "Pesca de captura, Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_ER.FSH.CAPT.MT.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ER.FSH.CAPT.MT\","
+   }
+  },
+  {
+   "id": "ds:bm_ER.LND.PTLD.ZS.json",
+   "nombre": "Superficie terrestre protegida (% del territorio), Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_ER.LND.PTLD.ZS.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ER.LND.PTLD.ZS\", \"ST.INT.ARVL\""
+   }
+  },
+  {
+   "id": "ds:bm_IT.NET.USER.ZS.json",
+   "nombre": "Uso de internet: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_IT.NET.USER.ZS.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/IT.NET.USER.ZS?format=json"
+  },
+  {
+   "id": "ds:bm_NY.GDP.DEFL.ZS.json",
+   "nombre": "Deflactor del PBI de la Argentina (Banco Mundial, NY.GDP.DEFL.ZS)",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_NY.GDP.DEFL.ZS.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"SP.DYN.CBRT.IN\", \"NY.GDP.DEFL.ZS\"]"
+   }
+  },
+  {
+   "id": "ds:bm_SE.SEC.CMPT.LO.ZS.json",
+   "nombre": "Finalización del ciclo básico de la secundaria (Banco Mundial, SE.SEC.CMPT.LO.ZS), Argentina y OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SE.SEC.CMPT.LO.ZS.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"SE.SEC.CMPT.LO.ZS\", \"IT.NET.USER.ZS\""
+   }
+  },
   {
    "id": "ds:bm_SH.STA.TRAF.P5.json",
    "nombre": "Tasa de muertes en siniestros viales: Argentina y países de la OCDE",
@@ -99,6 +738,70 @@
     "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
    },
    "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SH.XPD.CHEX.GD.ZS?format=json"
+  },
+  {
+   "id": "ds:bm_SI.DST.50MD.json",
+   "nombre": "Personas con ingresos bajo la mitad de la mediana: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SI.DST.50MD.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SI.DST.50MD?format=json"
+  },
+  {
+   "id": "ds:bm_SI.POV.GINI.json",
+   "nombre": "Índice de Gini: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SI.POV.GINI.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SI.POV.GINI?format=json"
+  },
+  {
+   "id": "ds:bm_SL.EMP.TOTL.SP.ZS.json",
+   "nombre": "Tasa de empleo: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SL.EMP.TOTL.SP.ZS.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SL.EMP.TOTL.SP.ZS?format=json"
+  },
+  {
+   "id": "ds:bm_SL.UEM.TOTL.ZS.json",
+   "nombre": "Tasa de desocupación: Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SL.UEM.TOTL.ZS.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
+   },
+   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SL.UEM.TOTL.ZS?format=json"
+  },
+  {
+   "id": "ds:bm_SP.ADO.TFRT.json",
+   "nombre": "Fecundidad adolescente (Banco Mundial, SP.ADO.TFRT), Argentina y OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SP.ADO.TFRT.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "BM_INDICADORES = [\"SP.DYN.TFRT.IN\", \"SP.ADO.TFRT\""
+   }
+  },
+  {
+   "id": "ds:bm_SP.DYN.CBRT.IN.json",
+   "nombre": "Tasa bruta de natalidad (Banco Mundial, SP.DYN.CBRT.IN), Argentina y OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SP.DYN.CBRT.IN.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"SP.DYN.CBRT.IN\", \"NY.GDP.DEFL.ZS\"]"
+   }
   },
   {
    "id": "ds:bm_SP.DYN.IMRT.IN.json",
@@ -123,6 +826,36 @@
    "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SP.DYN.LE00.IN?format=json"
   },
   {
+   "id": "ds:bm_SP.DYN.TFRT.IN.json",
+   "nombre": "Tasa global de fecundidad (Banco Mundial, SP.DYN.TFRT.IN), Argentina y OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SP.DYN.TFRT.IN.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "BM_INDICADORES = [\"SP.DYN.TFRT.IN\", \"SP.ADO.TFRT\""
+   }
+  },
+  {
+   "id": "ds:bm_SP.POP.TOTL.json",
+   "nombre": "Población total (Banco Mundial, SP.POP.TOTL), Argentina y OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_SP.POP.TOTL.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"SP.POP.TOTL\", \"SI.DST.50MD\""
+   }
+  },
+  {
+   "id": "ds:bm_ST.INT.ARVL.json",
+   "nombre": "Llegadas de turistas internacionales, Argentina y países de la OCDE",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_ST.INT.ARVL.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ST.INT.ARVL\", \"ER.FSH.CAPT.MT\""
+   }
+  },
+  {
    "id": "ds:bm_VC.IHR.PSRC.P5.json",
    "nombre": "Tasa de homicidios intencionales: Argentina y países de la OCDE",
    "fuente": "org:banco-mundial",
@@ -132,6 +865,159 @@
     "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
    },
    "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/VC.IHR.PSRC.P5?format=json"
+  },
+  {
+   "id": "ds:bm_paises.json",
+   "nombre": "Lista de países del Banco Mundial (nombres en español)",
+   "fuente": "org:banco-mundial",
+   "ruta": "datos/crudo/bm_paises.json",
+   "url": "https://api.worldbank.org/v2/es/country?format=json&per_page=400",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "FUENTES[\"bm_paises.json\"] = \"https://api.worldbank.org"
+   }
+  },
+  {
+   "id": "ds:cammesa_demanda_provincias.csv",
+   "nombre": "Demanda eléctrica mensual por provincia y tipo de usuario",
+   "fuente": "org:cammesa",
+   "ruta": "datos/crudo/cammesa_demanda_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "f = CRUDO / \"cammesa_demanda_provincias.csv\""
+   },
+   "url": "https://cammesaweb.cammesa.com/?wpdmdl=41426"
+  },
+  {
+   "id": "ds:censo2022_migraciones_c1.xlsx",
+   "nombre": "Censo 2022, migraciones, cuadro 1: lugar de nacimiento por jurisdicción",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/censo2022_migraciones_c1.xlsx",
+   "url": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"censo2022_migraciones_c1.xlsx\": \"https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c1.xlsx\""
+   }
+  },
+  {
+   "id": "ds:censo2022_migraciones_c10.xlsx",
+   "nombre": "Censo 2022, migraciones, cuadro 10: país de nacimiento por jurisdicción",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/censo2022_migraciones_c10.xlsx",
+   "url": "https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"censo2022_migraciones_c10.xlsx\": \"https://censo.gob.ar/wp-content/uploads/2024/01/c2022_tp_migraciones_c10.xlsx\""
+   }
+  },
+  {
+   "id": "ds:cgecse_inversion_educativa.csv",
+   "nombre": "Inversión educativa por jurisdicción: gasto por alumno estatal y parte del gasto público",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/cgecse_inversion_educativa.csv",
+   "url": "https://www.argentina.gob.ar/sites/default/files/2018/01/indicadores_seleccionados.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"cgecse_inversion_educativa.csv\", index=False)"
+   }
+  },
+  {
+   "id": "ds:cgecse_salario_docente.csv",
+   "nombre": "Salario docente por jurisdicción y trimestre (bruto y sumas adicionales)",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/cgecse_salario_docente.csv",
+   "url": "https://www.argentina.gob.ar/capital-humano/educacion/informacion-y-evaluacion-educativa/series-salario-docente",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"cgecse_salario_docente.csv\", index=False)"
+   }
+  },
+  {
+   "id": "ds:ciam_anomalia_temperatura.csv",
+   "nombre": "Anomalía de la temperatura y la precipitación anual desde 1961 (Servicio Meteorológico Nacional)",
+   "fuente": "org:ciam",
+   "ruta": "datos/crudo/ciam_anomalia_temperatura.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ciam_anomalia_temperatura.csv\": \"https://ciam"
+   },
+   "url": "https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=467"
+  },
+  {
+   "id": "ds:ciam_areas_protegidas_provincias.csv",
+   "nombre": "Áreas protegidas por provincia",
+   "fuente": "org:ciam",
+   "ruta": "datos/crudo/ciam_areas_protegidas_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ciam_areas_protegidas_provincias.csv\": \"https://ciam"
+   },
+   "url": "https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=394"
+  },
+  {
+   "id": "ds:ciam_desembarques_especie.csv",
+   "nombre": "Desembarques de pesca marítima por especie",
+   "fuente": "org:ciam",
+   "ruta": "datos/crudo/ciam_desembarques_especie.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ciam_desembarques_especie.csv\": \"https://ciam"
+   },
+   "url": "https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=572"
+  },
+  {
+   "id": "ds:ciam_glaciares.csv",
+   "nombre": "Inventario Nacional de Glaciares por provincia (IANIGLA)",
+   "fuente": "org:ciam",
+   "ruta": "datos/crudo/ciam_glaciares.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ciam_glaciares.csv\": \"https://ciam"
+   },
+   "url": "https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=383"
+  },
+  {
+   "id": "ds:ciam_pesca_continental.csv",
+   "nombre": "Pesca continental comercial por especie y provincia",
+   "fuente": "org:ciam",
+   "ruta": "datos/crudo/ciam_pesca_continental.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"ciam_pesca_continental.csv\": \"https://ciam"
+   },
+   "url": "https://ciam.ambiente.gob.ar/dt_csv.php?dt_id=574"
+  },
+  {
+   "id": "ds:concesiones.topo.json",
+   "nombre": "Áreas de concesión de explotación de hidrocarburos, geometría simplificada",
+   "fuente": "org:secretaria-energia",
+   "ruta": "sitio/datos/concesiones.topo.json",
+   "evidencia": {
+    "archivo": "scripts/geometria_concesiones.py",
+    "contiene": "SALIDA = RAIZ / \"sitio\" / \"datos\" / \"concesiones.topo.json\""
+   }
+  },
+  {
+   "id": "ds:congreso_votaciones_diputados.json.gz",
+   "nombre": "Actas de votación nominal de Diputados (copia comprimida de ¿Cómo Votó?)",
+   "fuente": "org:como-voto",
+   "ruta": "datos/crudo/congreso_votaciones_diputados.json.gz",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "f\"congreso_votaciones_{camara}.json.gz\""
+   },
+   "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/diputados.json"
+  },
+  {
+   "id": "ds:congreso_votaciones_senadores.json.gz",
+   "nombre": "Actas de votación nominal del Senado (copia comprimida de ¿Cómo Votó?)",
+   "fuente": "org:como-voto",
+   "ruta": "datos/crudo/congreso_votaciones_senadores.json.gz",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "f\"congreso_votaciones_{camara}.json.gz\""
+   },
+   "url": "https://raw.githubusercontent.com/rquiroga7/como_voto/main/data/senadores.json"
   },
   {
    "id": "ds:csjn_femicidios_AAAA.sav",
@@ -178,6 +1064,301 @@
    "url": "https://www.argentina.gob.ar/sites/default/files/2021/03/"
   },
   {
+   "id": "ds:desnz_gas_domestico.csv",
+   "nombre": "Consumo medio de gas por medidor doméstico en Gran Bretaña",
+   "fuente": "org:desnz",
+   "ruta": "datos/crudo/desnz_gas_domestico.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"desnz_gas_domestico.csv\", index=False)"
+   },
+   "url": "https://www.gov.uk/government/statistics/regional-and-local-authority-gas-consumption-statistics"
+  },
+  {
+   "id": "ds:deuda_publica.csv",
+   "nombre": "Deuda bruta de la Administración Central: porcentaje del PBI y total en dólares",
+   "fuente": "org:finanzas",
+   "ruta": "datos/crudo/deuda_publica.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"deuda_publica.csv\""
+   },
+   "url": "https://www.argentina.gob.ar/economia/finanzas/datos-trimestrales-de-la-deuda"
+  },
+  {
+   "id": "ds:dnap_cargos_provinciales.csv",
+   "nombre": "Cargos ocupados en las administraciones públicas provinciales",
+   "fuente": "org:dnap",
+   "ruta": "datos/crudo/dnap_cargos_provinciales.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"dnap_cargos_provinciales.csv\""
+   },
+   "url": "https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ocupacion-y"
+  },
+  {
+   "id": "ds:dnap_recaudacion_provincial.csv",
+   "nombre": "Recursos tributarios de origen provincial por provincia y año",
+   "fuente": "org:dnap",
+   "ruta": "datos/crudo/dnap_recaudacion_provincial.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"dnap_recaudacion_provincial.csv\""
+   },
+   "url": "https://www.argentina.gob.ar/economia/sechacienda/asuntosprovinciales/direccion-de-recursos-provinciales/recursos-tributarios-de-origen-provincial-top"
+  },
+  {
+   "id": "ds:dnm_radicaciones.csv",
+   "nombre": "Trámites de radicación resueltos por año, categoría y nacionalidad",
+   "fuente": "org:dnm",
+   "ruta": "datos/crudo/dnm_radicaciones.csv",
+   "url": "https://datos.mininterior.gob.ar",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "pd.DataFrame(filas).to_csv(CRUDO / \"dnm_radicaciones.csv\", index=False)"
+   }
+  },
+  {
+   "id": "ds:dnrpa_autos_nuevos.csv",
+   "nombre": "Inscripciones iniciales de automotores por provincia y mes",
+   "fuente": "org:dnrpa",
+   "ruta": "datos/crudo/dnrpa_autos_nuevos.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"dnrpa_autos_nuevos.csv\": ckan_id("
+   },
+   "url": "https://datos.jus.gob.ar/dataset/1ab0cc03-ab9b-4520-975c-5757d87d1061/resource/4358c995-bb04-4ad9-be4a-a9076dc3e42c/download/estadistica-inscripciones-iniciales-automotores-2000-01-2026-08.csv"
+  },
+  {
+   "id": "ds:dnrpa_motos_nuevas.csv",
+   "nombre": "Inscripciones iniciales de motovehículos por provincia y mes",
+   "fuente": "org:dnrpa",
+   "ruta": "datos/crudo/dnrpa_motos_nuevas.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"dnrpa_motos_nuevas.csv\": ckan_id("
+   },
+   "url": "https://datos.jus.gob.ar/dataset/72d85f23-b751-4d12-935b-25e32ed9445e/resource/d523dd08-5c12-467e-b947-aa3206a24d21/download/estadistica-inscripciones-iniciales-motovehiculos-2007-01-2026-08.csv"
+  },
+  {
+   "id": "ds:educ_escolarizacion.zip",
+   "nombre": "Tasas de escolarización por provincia (Indicadores Educativos)",
+   "fuente": "org:educacion",
+   "ruta": "datos/crudo/educ_escolarizacion.zip",
+   "url": "https://www.argentina.gob.ar/sites/default/files/2018/04/tasas_de_escolarizacion_1.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"educ_escolarizacion.zip\": ckan_recurso("
+   }
+  },
+  {
+   "id": "ds:eia_produccion_paises.csv",
+   "nombre": "Producción de petróleo y gas por país (estadísticas internacionales de energía)",
+   "fuente": "org:eia",
+   "ruta": "datos/crudo/eia_produccion_paises.csv",
+   "url": "https://www.eia.gov/opendata/bulk/INTL.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"eia_produccion_paises.csv\""
+   }
+  },
+  {
+   "id": "ds:enacom_internet_accesos.csv",
+   "nombre": "Accesos a internet fijo y penetración por provincia",
+   "fuente": "org:enacom",
+   "ruta": "datos/crudo/enacom_internet_accesos.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"enacom_internet_accesos.csv\": \"https://indicadores.enacom.gob.ar"
+   },
+   "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_accesos_penetracion_provincias.csv"
+  },
+  {
+   "id": "ds:enacom_internet_velocidad.csv",
+   "nombre": "Velocidad media de bajada de internet fijo por provincia",
+   "fuente": "org:enacom",
+   "ruta": "datos/crudo/enacom_internet_velocidad.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"enacom_internet_velocidad.csv\": \"https://indicadores.enacom.gob.ar"
+   },
+   "url": "https://indicadores.enacom.gob.ar/Files/DatosAbiertos/internet_velocidad_media_descarga_provincias.csv"
+  },
+  {
+   "id": "ds:enargas_gas_residencial.csv",
+   "nombre": "Gas entregado y usuarios residenciales por provincia y mes",
+   "fuente": "org:enargas",
+   "ruta": "datos/crudo/enargas_gas_residencial.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"enargas_gas_residencial.csv\", index=False)"
+   },
+   "url": "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/datos-estadisticos/GED/GED.xlsx"
+  },
+  {
+   "id": "ds:energia_emae.csv",
+   "nombre": "Demanda eléctrica total y residencial y EMAE (series de tiempo)",
+   "fuente": "org:cammesa",
+   "ruta": "datos/crudo/energia_emae.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"energia_emae.csv\": API + \"367.3_DEMANDA_TOTAL__13"
+   }
+  },
+  {
+   "id": "ds:eph_antiguedad_resumen.csv",
+   "nombre": "Antigüedad en el empleo de asalariados, resumen de la EPH de cuatro trimestres",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/eph_antiguedad_resumen.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "pd.DataFrame(filas).to_csv(CRUDO / \"eph_antiguedad_resumen.csv\""
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
+  },
+  {
+   "id": "ds:exportaciones_provincias.xls",
+   "nombre": "Origen provincial de las exportaciones por rubro, 1993 en adelante",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/exportaciones_provincias.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"exportaciones_provincias.xls\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_opex_regiones_economicas_grubros_1993_2025.xls"
+  },
+  {
+   "id": "ds:exportaciones_semestre.xls",
+   "nombre": "Origen provincial de las exportaciones, anexo del último semestre",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/exportaciones_semestre.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "(CRUDO / \"exportaciones_semestre.xls\").write_bytes(datos)"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_{DD_MM_YY}.xls"
+  },
+  {
+   "id": "ds:imig_mensual.csv",
+   "nombre": "Informe mensual de ingresos y gastos del Sector Público Nacional no Financiero (base caja)",
+   "fuente": "org:hacienda",
+   "ruta": "datos/crudo/imig_mensual.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"imig_mensual.csv\": \"https://infra.datos.gob.ar"
+   },
+   "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/452/distribution/452.3/download/imig-mensual.csv"
+  },
+  {
+   "id": "ds:indec_canastas.xls",
+   "nombre": "Canastas básicas alimentaria y total del Gran Buenos Aires (serie mensual)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_canastas.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_canastas.xls\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/serie_cba_cbt.xls"
+  },
+  {
+   "id": "ds:indec_canastas_regiones.csv",
+   "nombre": "Canastas básicas por región (del informe semestral de pobreza)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_canastas_regiones.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "archivo = CRUDO / \"indec_canastas_regiones.csv\""
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_{MM}_{AA}.xls"
+  },
+  {
+   "id": "ds:indec_dotacion_apn.xlsx",
+   "nombre": "Dotación de la administración pública nacional, empresas y sociedades del Estado",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_dotacion_apn.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_dotacion_apn.xlsx\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_dotacion_apn.xlsx"
+  },
+  {
+   "id": "ds:indec_emae.xls",
+   "nombre": "Estimador Mensual de Actividad Económica, nivel general (base 2004)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_emae.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_emae.xls\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls"
+  },
+  {
+   "id": "ds:indec_emae_actividad.xls",
+   "nombre": "Estimador Mensual de Actividad Económica por sector (base 2004)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_emae_actividad.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_emae_actividad.xls\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls"
+  },
+  {
+   "id": "ds:indec_ica_energia.csv",
+   "nombre": "Exportaciones de combustibles y energía e importaciones de combustibles y lubricantes (Intercambio Comercial Argentino)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_ica_energia.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_ica_energia.csv\": API + \"74.3_IECE_0_M_35"
+   }
+  },
+  {
+   "id": "ds:indec_icc.xls",
+   "nombre": "Índice del Costo de la Construcción en el Gran Buenos Aires",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_icc.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_icc.xls\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/icc_variaciones_indices_2016.xls"
+  },
+  {
+   "id": "ds:indec_indice_salarios.csv",
+   "nombre": "Índice de salarios",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_indice_salarios.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_indice_salarios.csv\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/indice_salarios.csv"
+  },
+  {
+   "id": "ds:indec_ipc_divisiones.csv",
+   "nombre": "Índice de precios al consumidor por región, división, categoría y bienes y servicios",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_ipc_divisiones.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_ipc_divisiones.csv\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_ipc_divisiones.csv"
+  },
+  {
+   "id": "ds:indec_permisos.csv",
+   "nombre": "Permisos de edificación: superficie autorizada por mes en la nómina de municipios",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_permisos.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"indec_permisos.csv\", index=False)"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/sh_isac_AAAA.xls"
+  },
+  {
    "id": "ds:indec_proyecciones_provincias.csv",
    "nombre": "Proyecciones de población por provincia, sexo y edad 2022-2040",
    "fuente": "org:indec",
@@ -187,6 +1368,17 @@
     "contiene": "\"indec_proyecciones_provincias.csv\": \"https://censo.gob.ar"
    },
    "url": "https://censo.gob.ar/wp-content/uploads/2025/10/proyecciones_jurisdicciones_2022_2040_base.csv"
+  },
+  {
+   "id": "ds:indec_supermercados.xlsx",
+   "nombre": "Encuesta de Supermercados (ventas por jurisdicción)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_supermercados.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_supermercados.xlsx\": \"https://www.indec.gob.ar"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/economia/serie_supermercados.xlsx"
   },
   {
    "id": "ds:indec_tablas_mortalidad.csv",
@@ -200,6 +1392,156 @@
    "url": "https://censo.gob.ar/wp-content/uploads/2025/10/tabla_mortalidad_2020_2022_base_csv.csv"
   },
   {
+   "id": "ds:isac.csv",
+   "nombre": "Indicador Sintético de la Actividad de la Construcción (ISAC), nivel general",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/isac.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"isac.csv\": ISAC + \"33.2/download"
+   },
+   "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.2/download/indicador-sintetico-actividad-construccion-valores-mensuales-base-2004.csv"
+  },
+  {
+   "id": "ds:isac_insumos.csv",
+   "nombre": "ISAC, consumo aparente de insumos de la construcción",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/isac_insumos.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"isac_insumos.csv\": ISAC + \"33.3/download"
+   },
+   "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/33/distribution/33.3/download/indicador-sintetico-actividad-construccion-insumos-serie-original.csv"
+  },
+  {
+   "id": "ds:manual/cammesa_demanda_2014_2022.csv",
+   "nombre": "Demanda eléctrica mensual por provincia y tipo de usuario, 2014 a 2022",
+   "fuente": "org:cammesa",
+   "ruta": "datos/manual/cammesa_demanda_2014_2022.csv",
+   "evidencia": {
+    "archivo": "scripts/cammesa_historia.py",
+    "contiene": "SALIDA = Path(__file__).resolve().parents[1] / \"datos\" / \"manual\" / \"cammesa_demanda_2014_2022.csv\""
+   },
+   "url": "https://microfe.cammesa.com/static-content/CammesaWeb/download-manager-files/Sintesis%20Mensual/BASE_INFORME_MENSUAL_{}.zip"
+  },
+  {
+   "id": "ds:manual/censo2022_departamentos.csv",
+   "nombre": "Censo 2022: vivienda, combustible para cocinar y rama de actividad por departamento",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/censo2022_departamentos.csv",
+   "evidencia": {
+    "archivo": "scripts/censo_2022_vivienda.py",
+    "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"censo2022_departamentos.csv\""
+   },
+   "url": "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+  },
+  {
+   "id": "ds:manual/censo2022_migraciones_departamentos.csv",
+   "nombre": "Censo 2022: lugar y país de nacimiento por departamento",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/censo2022_migraciones_departamentos.csv",
+   "url": "https://censo.gob.ar/index.php/datos_definitivos_{provincia}/",
+   "evidencia": {
+    "archivo": "scripts/censo_2022_migraciones.py",
+    "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"censo2022_migraciones_departamentos.csv\""
+   }
+  },
+  {
+   "id": "ds:manual/censo2022_provincias.csv",
+   "nombre": "Censo 2022: servicios, equipamiento y cobertura de salud por provincia",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/censo2022_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/censo_2022.py",
+    "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"censo2022_provincias.csv\""
+   },
+   "url": "https://datos.gob.ar/api/3/action/package_show?id=censo-nacional-de-poblacion-hogares-y-viviendas-2022"
+  },
+  {
+   "id": "ds:manual/censos_nacidos_otro_pais.csv",
+   "nombre": "Serie de los censos nacionales desde 1869: población nacida en otro país (cargada a mano de publicaciones del INDEC)",
+   "fuente": "org:indec",
+   "ruta": "datos/manual/censos_nacidos_otro_pais.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "migracion_censos = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censos_nacidos_otro_pais.csv\")"
+   }
+  },
+  {
+   "id": "ds:manual/combustibles_2004_2023.csv",
+   "nombre": "Precios de la nafta súper y del gasoil por mes y provincia, 2004 a 2023",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/manual/combustibles_2004_2023.csv",
+   "evidencia": {
+    "archivo": "scripts/combustibles_historia.py",
+    "contiene": "SALIDA = RAIZ / \"datos\" / \"manual\" / \"combustibles_2004_2023.csv\""
+   },
+   "url": "http://datos.energia.gob.ar/api/3/action/package_show?id=708f9ab4-829b-4f02-b507-f303c5bc4800"
+  },
+  {
+   "id": "ds:manual/conare_nacionalidades.csv",
+   "nombre": "Solicitudes de refugio por nacionalidad y año (extraído del informe en PDF de la CONARE)",
+   "fuente": "org:conare",
+   "ruta": "datos/manual/conare_nacionalidades.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "_rf_n = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"conare_nacionalidades.csv\")"
+   }
+  },
+  {
+   "id": "ds:manual/conare_solicitudes.csv",
+   "nombre": "Solicitudes de refugio por año desde 1985 y personas reconocidas (extraído del informe en PDF de la CONARE)",
+   "fuente": "org:conare",
+   "ruta": "datos/manual/conare_solicitudes.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "refugio_solicitudes = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"conare_solicitudes.csv\")"
+   }
+  },
+  {
+   "id": "ds:manual/diputados_nacionales.csv",
+   "nombre": "Diputados nacionales desde 1983: bancas, bloques y mandatos",
+   "fuente": "org:hcdn",
+   "ruta": "datos/manual/diputados_nacionales.csv",
+   "evidencia": {
+    "archivo": "scripts/legisladores/build.py",
+    "contiene": "to_csv(MANUAL / \"diputados_nacionales.csv\""
+   },
+   "url": "https://datos.hcdn.gob.ar"
+  },
+  {
+   "id": "ds:manual/inversion_provincias.csv",
+   "nombre": "Obra pública de la Nación por provincia (construcciones y transferencias de capital)",
+   "fuente": "org:presupuesto-abierto",
+   "ruta": "datos/manual/inversion_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/inversion_presupuesto.py",
+    "contiene": "SALIDA = Path(__file__).resolve().parents[1] / \"datos\" / \"manual\" / \"inversion_provincias.csv\""
+   },
+   "url": "https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/{a}/credito-anual-{a}.zip"
+  },
+  {
+   "id": "ds:manual/leyes_clave.csv",
+   "nombre": "Selección de leyes clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
+   "fuente": "org:datina",
+   "ruta": "datos/manual/leyes_clave.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "RAIZ / \"datos\" / \"manual\" / \"leyes_clave.csv\""
+   }
+  },
+  {
+   "id": "ds:manual/ministros.csv",
+   "nombre": "Ministros y jefes de gabinete desde 1983 con lugar de nacimiento",
+   "fuente": "org:wikimedia",
+   "ruta": "datos/manual/ministros.csv",
+   "evidencia": {
+    "archivo": "scripts/ejecutivo/build_ministros.py",
+    "contiene": "g.to_csv(os.path.join(HERE, \"ministros.csv\")"
+   },
+   "url": "https://es.wikipedia.org"
+  },
+  {
    "id": "ds:manual/nse_censo2022_provincias.csv",
    "nombre": "Censo 2022: nivel socioeconómico por provincia (NBI, cobertura de salud, educación, cloacas)",
    "fuente": "org:indec",
@@ -208,6 +1550,405 @@
     "archivo": "scripts/02_procesar.py",
     "contiene": "nse = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"nse_censo2022_provincias.csv\")"
    }
+  },
+  {
+   "id": "ds:manual/presidenciales_provincia.csv",
+   "nombre": "Elecciones presidenciales 1983 a 2023 por provincia (definitivos, provisorios 2023 y PASO)",
+   "fuente": "org:dine",
+   "ruta": "datos/manual/presidenciales_provincia.csv",
+   "evidencia": {
+    "archivo": "scripts/elecciones_presidenciales.py",
+    "contiene": "SALIDA = Path(__file__)"
+   },
+   "url": "https://www.argentina.gob.ar/sites/default/files/"
+  },
+  {
+   "id": "ds:manual/presidentes.csv",
+   "nombre": "Presidentes desde 1983 con lugar de nacimiento",
+   "fuente": "org:wikimedia",
+   "ruta": "datos/manual/presidentes.csv",
+   "evidencia": {
+    "archivo": "scripts/ejecutivo/build_presidentes.py",
+    "contiene": "df.to_csv(os.path.join(HERE, \"presidentes.csv\")"
+   },
+   "url": "https://es.wikipedia.org"
+  },
+  {
+   "id": "ds:manual/presupuestos.csv",
+   "nombre": "Acta de la votación en general de cada presupuesto en cada cámara",
+   "fuente": "org:datina",
+   "ruta": "datos/manual/presupuestos.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "RAIZ / \"datos\" / \"manual\" / \"presupuestos.csv\""
+   }
+  },
+  {
+   "id": "ds:manual/senadores_nacionales.csv",
+   "nombre": "Senadores nacionales desde 1983: bancas, bloques y mandatos",
+   "fuente": "org:senado",
+   "ruta": "datos/manual/senadores_nacionales.csv",
+   "evidencia": {
+    "archivo": "scripts/legisladores/build.py",
+    "contiene": "to_csv(MANUAL / \"senadores_nacionales.csv\""
+   },
+   "url": "https://www.senado.gob.ar/micrositios/DatosAbiertos/ExportarListadoSenadoresHistorico/json"
+  },
+  {
+   "id": "ds:manual/transferencias_provincias.csv",
+   "nombre": "Transferencias de la Nación a gobiernos provinciales y municipales por provincia y tipo (crédito devengado, millones corrientes)",
+   "fuente": "org:presupuesto-abierto",
+   "ruta": "datos/manual/transferencias_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/transferencias_presupuesto.py",
+    "contiene": "SALIDA = Path(__file__)"
+   },
+   "url": "https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/{a}/credito-anual-{a}.zip"
+  },
+  {
+   "id": "ds:manual/visitas_parques_nacionales_mensual.csv",
+   "nombre": "Visitas mensuales por parque nacional (exportación del tablero de áreas protegidas)",
+   "fuente": "org:sinta",
+   "ruta": "datos/manual/visitas_parques_nacionales_mensual.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "Tablero de areas protegidas de la Secretaria de Turismo (tableros.yvera.tur.ar/tablero_areas_protegidas)"
+   },
+   "url": "https://tableros.yvera.tur.ar/tablero_areas_protegidas"
+  },
+  {
+   "id": "ds:oede_empleo_ramas.csv",
+   "nombre": "Empleo registrado privado por provincia y rama (construcción, petróleo y gas, total)",
+   "fuente": "org:oede",
+   "ruta": "datos/crudo/oede_empleo_ramas.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "out.to_csv(CRUDO / \"oede_empleo_ramas.csv\""
+   },
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+  },
+  {
+   "id": "ds:oede_empresas_provincias.xlsx",
+   "nombre": "Empresas empleadoras, aperturas y cierres por provincia",
+   "fuente": "org:oede",
+   "ruta": "datos/crudo/oede_empresas_provincias.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "(CRUDO / \"oede_empresas_provincias.xlsx\").write_bytes(datos)"
+   },
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+  },
+  {
+   "id": "ds:oede_remuneraciones_provincias.csv",
+   "nombre": "Remuneración promedio de asalariados registrados privados por provincia y mes",
+   "fuente": "org:oede",
+   "ruta": "datos/crudo/oede_remuneraciones_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"oede_remuneraciones_provincias.csv\""
+   },
+   "url": "https://www.argentina.gob.ar/trabajo/estadisticas/oede-estadisticas-provinciales"
+  },
+  {
+   "id": "ds:onu_migrantes_argentina.csv",
+   "nombre": "International Migrant Stock 2024: personas nacidas en la Argentina por país de destino",
+   "fuente": "org:onu-poblacion",
+   "ruta": "datos/crudo/onu_migrantes_argentina.csv",
+   "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"onu_migrantes_argentina.csv\", index=False)"
+   }
+  },
+  {
+   "id": "ds:owid_electricidad.csv",
+   "nombre": "Participación de la energía eólica y la solar en la electricidad generada, por país",
+   "fuente": "org:ember",
+   "ruta": "datos/crudo/owid_electricidad.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.round(3).to_csv(CRUDO / \"owid_electricidad.csv\", index=False)"
+   },
+   "url": "https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv"
+  },
+  {
+   "id": "ds:pib_corriente.csv",
+   "nombre": "PBI a precios corrientes, trimestral (oferta y demanda globales)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/pib_corriente.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"pib_corriente.csv\": API + \"4.4_OGP_2004_T_17\""
+   },
+   "url": "https://apis.datos.gob.ar/series/api/series/?ids=4.4_OGP_2004_T_17"
+  },
+  {
+   "id": "ds:pisa_owid.csv",
+   "nombre": "PISA: puntajes de Argentina y promedio OCDE (republicación de Our World in Data)",
+   "fuente": "org:ocde",
+   "ruta": "datos/crudo/pisa_owid.csv",
+   "url": "https://ourworldindata.org/grapher/average-performance-of-15-year-olds-in-mathematics-reading-and-science.csv?v=1&csvType=full&useColumnShortNames=true",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"pisa_owid.csv\": \"https://ourworldindata.org/grapher/"
+   }
+  },
+  {
+   "id": "ds:potencia_instalada.csv",
+   "nombre": "Potencia instalada del país por tecnología",
+   "fuente": "org:cammesa",
+   "ruta": "datos/crudo/potencia_instalada.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"potencia_instalada.csv\": API + \"367.1_POTENCIA_ITAL__24"
+   }
+  },
+  {
+   "id": "ds:recaudacion_mensual.csv",
+   "nombre": "Recursos tributarios nacionales por tributo, mensual",
+   "fuente": "org:dniaf",
+   "ruta": "datos/crudo/recaudacion_mensual.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"recaudacion_mensual.csv\": \"https://infra.datos.gob.ar"
+   },
+   "url": "https://infra.datos.gob.ar/catalog/sspm/dataset/142/distribution/142.3/download/recursos-tributarios-totales-por-tributo-mensual-base-2001.csv"
+  },
+  {
+   "id": "ds:renaper_departamentos_resumen.csv",
+   "nombre": "Población identificada por departamento, edad y país de nacimiento (resumen)",
+   "fuente": "org:renaper",
+   "ruta": "datos/crudo/renaper_departamentos_resumen.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "ren.to_csv(CRUDO / \"renaper_departamentos_resumen.csv\""
+   },
+   "url": "https://datosabiertos.renaper.gob.ar/poblacion_identificada_departamento_junio_2026.csv"
+  },
+  {
+   "id": "ds:renaper_extranjeros.csv",
+   "nombre": "Población extranjera identificada por provincia de residencia",
+   "fuente": "org:renaper",
+   "ruta": "datos/crudo/renaper_extranjeros.csv",
+   "url": "https://datosabiertos.renaper.gob.ar/poblacion_extranjera_identificada_provincia_junio_206.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"renaper_extranjeros.csv\": \"https://datosabiertos.renaper.gob.ar/"
+   }
+  },
+  {
+   "id": "ds:renaper_nombres_frecuentes.csv",
+   "nombre": "Nombres propios más frecuentes por año, sexo y provincia",
+   "fuente": "org:renaper",
+   "ruta": "datos/crudo/renaper_nombres_frecuentes.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"renaper_nombres_frecuentes.csv\": \"https://datosabiertos"
+   },
+   "url": "https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv"
+  },
+  {
+   "id": "ds:se_centrales.csv",
+   "nombre": "Listado de centrales de generación eléctrica",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_centrales.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "(CRUDO / \"se_centrales.csv\").write_bytes(datos)"
+   }
+  },
+  {
+   "id": "ds:se_fracturas.csv",
+   "nombre": "Datos de fractura de pozos de hidrocarburos (Adjunto IV)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_fracturas.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"se_fracturas.csv\": ckan_recurso("
+   }
+  },
+  {
+   "id": "ds:se_gas_cuenca.csv",
+   "nombre": "Producción de gas natural por cuenca y tipo de recurso (Capítulo IV)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_gas_cuenca.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"se_gas_cuenca.csv\": ckan_recurso(SE, SE_POZO,"
+   }
+  },
+  {
+   "id": "ds:se_petroleo_cuenca.csv",
+   "nombre": "Producción de petróleo por cuenca y tipo de recurso (Capítulo IV)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_petroleo_cuenca.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"se_petroleo_cuenca.csv\": ckan_recurso(SE, SE_POZO,"
+   }
+  },
+  {
+   "id": "ds:se_pozos_nc.csv",
+   "nombre": "Pozos no convencionales: ubicación, empresa, área y producción (resumen del archivo por pozo no convencional)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_pozos_nc.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"se_pozos_nc.csv\", index=False"
+   }
+  },
+  {
+   "id": "ds:se_pozos_nc_cosechas.csv",
+   "nombre": "Producción acumulada por pozo de shale de Vaca Muerta según el año de inicio",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_pozos_nc_cosechas.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"se_pozos_nc_cosechas.csv\""
+   }
+  },
+  {
+   "id": "ds:se_pozos_resumen.csv",
+   "nombre": "Pozos que produjeron y su producción por mes, provincia y tipo (resumen de los archivos por pozo)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_pozos_resumen.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "previo = CRUDO / \"se_pozos_resumen.csv\""
+   }
+  },
+  {
+   "id": "ds:se_pozos_terminados.csv",
+   "nombre": "Pozos terminados por mes, tipo de pozo y provincia",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_pozos_terminados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"se_pozos_terminados.csv\": ckan_recurso("
+   }
+  },
+  {
+   "id": "ds:se_precios_combustibles.csv",
+   "nombre": "Precios de la nafta súper y del gasoil por mes y provincia (resumen de la Resolución 1104/2004)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_precios_combustibles.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "f = CRUDO / \"se_precios_combustibles.csv\""
+   },
+   "url": "http://datos.energia.gob.ar/api/3/action/package_show?id=708f9ab4-829b-4f02-b507-f303c5bc4800"
+  },
+  {
+   "id": "ds:se_produccion_areas.csv",
+   "nombre": "Producción anual por área de concesión (resumen del archivo agrupado)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_produccion_areas.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"se_produccion_areas.csv\""
+   }
+  },
+  {
+   "id": "ds:se_produccion_empresas.csv",
+   "nombre": "Producción mensual por empresa desde 2018 (resumen del archivo agrupado)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_produccion_empresas.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"se_produccion_empresas.csv\""
+   }
+  },
+  {
+   "id": "ds:se_produccion_resumen.csv",
+   "nombre": "Producción mensual por provincia y tipo de recurso, con Vaca Muerta aparte (resumen del archivo agrupado por yacimiento y formación)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_produccion_resumen.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"se_produccion_resumen.csv\""
+   }
+  },
+  {
+   "id": "ds:se_regalias_crudo.zip",
+   "nombre": "Regalías de petróleo crudo por provincia, en dólares",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_regalias_crudo.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"se_regalias_crudo.zip\": SE_REG"
+   }
+  },
+  {
+   "id": "ds:se_reservas_resumen.csv",
+   "nombre": "Reservas de petróleo y gas al 31 de diciembre (resumen de un ZIP por año)",
+   "fuente": "org:secretaria-energia",
+   "ruta": "datos/crudo/se_reservas_resumen.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "CRUDO / \"se_reservas_resumen.csv\""
+   }
+  },
+  {
+   "id": "ds:sib_areas_protegidas.json",
+   "nombre": "Áreas protegidas con año de creación, superficie y especies registradas",
+   "fuente": "org:sib",
+   "ruta": "datos/crudo/sib_areas_protegidas.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sib_areas_protegidas.json\": \"https://sib.gob.ar"
+   },
+   "url": "https://sib.gob.ar/api/2.0.0/ficha-area-protegida/areas-protegidas"
+  },
+  {
+   "id": "ds:sinta_eoh_viajeros_region.csv",
+   "nombre": "Viajeros hospedados en hoteles y parahoteles por región (Encuesta de Ocupación Hotelera)",
+   "fuente": "org:sinta",
+   "ruta": "datos/crudo/sinta_eoh_viajeros_region.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sinta_eoh_viajeros_region.csv\": ckan_id("
+   }
+  },
+  {
+   "id": "ds:sinta_eti_provincias.csv",
+   "nombre": "Turistas extranjeros por provincia visitada (Encuesta de Turismo Internacional)",
+   "fuente": "org:sinta",
+   "ruta": "datos/crudo/sinta_eti_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sinta_eti_provincias.csv\": ckan_id("
+   }
+  },
+  {
+   "id": "ds:sinta_turistas_no_residentes.csv",
+   "nombre": "Turistas no residentes que llegan al país, mensual desde 2010",
+   "fuente": "org:sinta",
+   "ruta": "datos/crudo/sinta_turistas_no_residentes.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sinta_turistas_no_residentes.csv\": ckan_id("
+   }
+  },
+  {
+   "id": "ds:sinta_visitas_parques.csv",
+   "nombre": "Visitas mensuales a parques nacionales, residentes y no residentes",
+   "fuente": "org:sinta",
+   "ruta": "datos/crudo/sinta_visitas_parques.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sinta_visitas_parques.csv\": ckan_id("
+   }
+  },
+  {
+   "id": "ds:sipa_provincias.csv",
+   "nombre": "Asalariados privados registrados por provincia (SIPA)",
+   "fuente": "org:sspm",
+   "ruta": "datos/crudo/sipa_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sipa_provincias.csv\": API + \",\".join(SIPA),"
+   },
+   "url": "https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&start_date=2004-01-01&ids="
   },
   {
    "id": "ds:sneep_condenados.csv",
@@ -252,9 +1993,546 @@
     "contiene": "\"snic_provincias.csv\": \"https://cloud-snic.minseg.gob.ar"
    },
    "url": "https://cloud-snic.minseg.gob.ar/Bases/SNIC/snic-provincias.csv"
+  },
+  {
+   "id": "ds:sspmi_carne_vacuna.csv",
+   "nombre": "Indicadores de la cadena de carne vacuna",
+   "fuente": "org:sspmi",
+   "ruta": "datos/crudo/sspmi_carne_vacuna.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sspmi_carne_vacuna.csv\": \"https://www.economia"
+   },
+   "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv"
+  },
+  {
+   "id": "ds:sspmi_vitivinicultura.csv",
+   "nombre": "Indicadores de la vitivinicultura",
+   "fuente": "org:sspmi",
+   "ruta": "datos/crudo/sspmi_vitivinicultura.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sspmi_vitivinicultura.csv\": \"https://www.economia"
+   },
+   "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_vitivinicultura.csv"
+  },
+  {
+   "id": "ds:sspmi_yerba_mate.csv",
+   "nombre": "Indicadores de la yerba mate",
+   "fuente": "org:sspmi",
+   "ruta": "datos/crudo/sspmi_yerba_mate.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sspmi_yerba_mate.csv\": \"https://www.economia"
+   },
+   "url": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_yerba-mate.csv"
+  },
+  {
+   "id": "ds:sube_usuarios_dia.csv",
+   "nombre": "Tarjetas SUBE usadas por día",
+   "fuente": "org:transporte",
+   "ruta": "datos/crudo/sube_usuarios_dia.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"sube_usuarios_dia.csv\": \"https://archivos-datos.transporte.gob.ar"
+   },
+   "url": "https://archivos-datos.transporte.gob.ar/upload/Sube/total-usuarios-por-dia.csv"
+  },
+  {
+   "id": "ds:subsidios_energia.csv",
+   "nombre": "Subsidios económicos a la energía por mes",
+   "fuente": "org:hacienda",
+   "ruta": "datos/crudo/subsidios_energia.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"subsidios_energia.csv\": API + \"452.2_ENERGIAGIA_0_T_7_56\""
+   }
   }
  ],
  "aristas": [
+  {
+   "tipo": "alimenta",
+   "de": "ds:sipa_provincias.csv",
+   "a": "f-empleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "s = pd.read_csv(CRUDO / \"sipa_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"empleo_provincias\": emp,"
+    }
+   ],
+   "tabla": "empleo_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-empleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "emp[\"poblacion\"] = emp.codigo_indec.map(POB)"
+    }
+   ],
+   "tabla": "empleo_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SL.EMP.TOTL.SP.ZS.json",
+   "a": "f-empleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"SL.EMP.TOTL.SP.ZS\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-empleo\": [\"empleo\", \"Por provincia\", [\"empleo\", \"desocupacion\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SL.UEM.TOTL.ZS.json",
+   "a": "f-empleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"SL.UEM.TOTL.ZS\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-empleo\": [\"empleo\", \"Por provincia\", [\"empleo\", \"desocupacion\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_remuneraciones_provincias.csv",
+   "a": "f-salarios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sal_ = pd.read_csv(CRUDO / \"oede_remuneraciones_provincias.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"salarios_provincias\": salarios_provincias,"
+    }
+   ],
+   "tabla": "salarios_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_empleo_ramas.csv",
+   "a": "f-salarios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sal_e = pd.read_csv(CRUDO / \"oede_empleo_ramas.csv\")"
+    }
+   ],
+   "tabla": "salarios_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-salarios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hip_ipc = _ipc_ng"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "salarios_provincias[\"var_real_12m\"] = (salarios_provincias.salario / salarios_provincias.salario_ant / (_hip_ipc[SAL_MES]"
+    }
+   ],
+   "tabla": "salarios_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:eph_antiguedad_resumen.csv",
+   "a": "f-rotacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "rotacion = pd.read_csv(CRUDO / \"eph_antiguedad_resumen.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"rotacion_laboral\": rotacion"
+    }
+   ],
+   "tabla": "rotacion_laboral"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_provincias.xls",
+   "a": "f-exportaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_xe = pd.ExcelFile(CRUDO / \"exportaciones_provincias.xls\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"exportaciones_provincias\": exp_prov,"
+    }
+   ],
+   "tabla": "exportaciones_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_semestre.xls",
+   "a": "f-exportaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "if (CRUDO / \"exportaciones_semestre.xls\").exists():"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-exportaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "exp_prov[\"usd_por_habitante\"] = exp_prov.millones_usd * 1e6 / exp_prov.codigo_indec.map(POB)"
+    }
+   ],
+   "tabla": "exportaciones_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-inflacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipr = IPC_INDEC.assign(reg=IPC_INDEC.Region.map(ECO_REG))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "inflacion_mensual = pd.DataFrame({\"periodo\": _ipr_i.index"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"inflacion_mensual\": inflacion_mensual,"
+    }
+   ],
+   "tabla": "inflacion_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-inflacion-rubros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipr_r = _ipr[(_ipr.periodo == _ipr_u) & (_ipr.Codigo != \"0\")]"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"inflacion_rubros\": inflacion_rubros,"
+    }
+   ],
+   "tabla": "inflacion_rubros"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_canastas.xls",
+   "a": "f-canastas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cbx = pd.ExcelFile(CRUDO / \"indec_canastas.xls\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"canasta_mensual\": canasta_mensual,"
+    }
+   ],
+   "tabla": "canasta_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_canastas_regiones.csv",
+   "a": "f-canastas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cnt_r = pd.read_csv(CRUDO / \"indec_canastas_regiones.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"canasta_regiones\": canasta_regiones,"
+    }
+   ],
+   "tabla": "canasta_regiones"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-canastas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cnt_[\"interanual_ipc_gba\"] = cnt_.periodo.map(_ipr_a.gba)"
+    }
+   ],
+   "tabla": "canasta_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_indice_salarios.csv",
+   "a": "f-salario-real",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_srl = pd.read_csv(CRUDO / \"indec_indice_salarios.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"salario_real_mensual\": salario_real_mensual,"
+    }
+   ],
+   "tabla": "salario_real_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-salario-real",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_srl_r = _srl_n.div(_srl_n.loc[\"2016-12\"]).mul(100).div(_ipc_ng[_srl_n.index].values / 100, axis=0)"
+    }
+   ],
+   "tabla": "salario_real_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_emae.xls",
+   "a": "f-emae",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ema = pd.read_excel(CRUDO / \"indec_emae.xls\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"actividad_mensual\": actividad_mensual,"
+    }
+   ],
+   "tabla": "actividad_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_emae_actividad.xls",
+   "a": "f-emae",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ems = pd.read_excel(CRUDO / \"indec_emae_actividad.xls\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"actividad_sectores\": actividad_sectores,"
+    }
+   ],
+   "tabla": "actividad_sectores"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_supermercados.xlsx",
+   "a": "f-supermercados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_su_x = pd.ExcelFile(CRUDO / \"indec_supermercados.xlsx\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"supermercados_provincias\": supermercados_provincias,"
+    }
+   ],
+   "tabla": "supermercados_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-supermercados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_su_ipc = _ipr[_ipr.Codigo == \"B\"].pivot(index=\"periodo\", columns=\"reg\", values=\"Indice_IPC\")"
+    }
+   ],
+   "tabla": "supermercados_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_empresas_provincias.xlsx",
+   "a": "f-empresas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_xo = pd.ExcelFile(CRUDO / \"oede_empresas_provincias.xlsx\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"empresas_provincias\": empresas"
+    }
+   ],
+   "tabla": "empresas_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-empresas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "empresas[\"cada_1000_hab\"] = empresas.empresas / empresas.codigo_indec.map(POB) * 1000"
+    }
+   ],
+   "tabla": "empresas_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_empresas_provincias.xlsx",
+   "a": "f-dinamica-empresas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_xo = pd.ExcelFile(CRUDO / \"oede_empresas_provincias.xlsx\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"empresas_serie_pais\": empresas_serie"
+    }
+   ],
+   "tabla": "empresas_serie_pais"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:ALL.json",
+   "a": "f-pobreza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "todo_pob = json.loads((RAIZ / \"pobreza\" / \"datos\" / \"crudo\" / \"ALL.json\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pobreza_serie\": pobreza["
+    }
+   ],
+   "tabla": "pobreza_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SI.DST.50MD.json",
+   "a": "f-pobreza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"SI.DST.50MD\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-pobreza\": [\"pobreza\", \"Pobreza e indigencia\", [\"pobreza_relativa\", \"gini\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SI.POV.GINI.json",
+   "a": "f-pobreza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"SI.POV.GINI\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-pobreza\": [\"pobreza\", \"Pobreza e indigencia\", [\"pobreza_relativa\", \"gini\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censo2022_provincias.csv",
+   "a": "f-censo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "censo = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"censo2022_provincias\": censo,"
+    }
+   ],
+   "tabla": "censo2022_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:enacom_internet_accesos.csv",
+   "a": "f-internet",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ia = pd.read_csv(CRUDO / \"enacom_internet_accesos.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"internet_fijo_provincias\": internet_fijo,"
+    }
+   ],
+   "tabla": "internet_fijo_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:enacom_internet_velocidad.csv",
+   "a": "f-internet",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "iv = pd.read_csv(CRUDO / \"enacom_internet_velocidad.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"internet_fijo_provincias\": internet_fijo,"
+    }
+   ],
+   "tabla": "internet_fijo_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_IT.NET.USER.ZS.json",
+   "a": "f-internet",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(\"IT.NET.USER.ZS\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-internet\": [\"internet\", \"Por provincia\", [\"internet\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
   {
    "tipo": "alimenta",
    "de": "ds:indec_tablas_mortalidad.csv",
@@ -594,14 +2872,3282 @@
     }
    ],
    "tabla": "carceles_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:educ_escolarizacion.zip",
+   "a": "f-escolarizacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "with zipfile.ZipFile(CRUDO / \"educ_escolarizacion.zip\") as z:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"escolarizacion_secundaria_provincias\": esc_prov["
+    }
+   ],
+   "tabla": "escolarizacion_secundaria_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SE.SEC.CMPT.LO.ZS.json",
+   "a": "f-escolarizacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"secundaria\": (\"SE.SEC.CMPT.LO.ZS\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-escolarizacion\": [\"escolarizacion\", \"Por provincia\", [\"secundaria\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:aprender_primaria_matematica.csv",
+   "a": "f-aprender",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ap_m, ap_l = aprender(\"aprender_primaria_matematica.csv\", \"m\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"aprender_provincias\": ap_prov.round(1)"
+    }
+   ],
+   "tabla": "aprender_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:aprender_primaria_lengua.csv",
+   "a": "f-aprender",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "aprender(\"aprender_primaria_lengua.csv\", \"l\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"aprender_provincias\": ap_prov.round(1)"
+    }
+   ],
+   "tabla": "aprender_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:aprender_meta.json",
+   "a": "f-aprender",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "meta_ap = json.loads((CRUDO / \"aprender_meta.json\").read_text(encoding=\"utf-8\"))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "d[\"periodo\"] = meta_ap[\"anio\"]"
+    }
+   ],
+   "tabla": "aprender_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:pisa_owid.csv",
+   "a": "f-pisa",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pz = pd.read_csv(CRUDO / \"pisa_owid.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pisa_argentina_ocde\": pisa.round(1)"
+    }
+   ],
+   "tabla": "pisa_argentina_ocde"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:cgecse_salario_docente.csv",
+   "a": "f-salario-docente",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "doc_ = pd.read_csv(CRUDO / \"cgecse_salario_docente.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"salario_docente\": salario_docente,"
+    }
+   ],
+   "tabla": "salario_docente"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-salario-docente",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipc_b = (CRUDO / \"indec_ipc_divisiones.csv\").read_bytes()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hip_ipc = _ipc_ng"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_doc_r[\"bruto_real\"] = _doc_r.bruto * _hip_ipc[DOC_ULT]"
+    }
+   ],
+   "tabla": "salario_docente_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:cgecse_inversion_educativa.csv",
+   "a": "f-inversion-educativa",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ie_ = pd.read_csv(CRUDO / \"cgecse_inversion_educativa.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"inversion_educativa\": inversion_educativa,"
+    }
+   ],
+   "tabla": "inversion_educativa"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_NY.GDP.DEFL.ZS.json",
+   "a": "f-inversion-educativa",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "defl = bm(\"NY.GDP.DEFL.ZS\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "por_alumno_real=lambda x: x.gasto_por_alumno * defl[INV_ULT]"
+    }
+   ],
+   "tabla": "inversion_educativa_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:deis_nacidos_AAAA.csv",
+   "a": "f-nacimientos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "x = leer_deis(f\"deis_nacidos_{a}.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"nacimientos\": nac_df,"
+    }
+   ],
+   "tabla": "nacimientos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.DYN.CBRT.IN.json",
+   "a": "f-nacimientos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "o_nac = bm(\"SP.DYN.CBRT.IN\").merge(bm_pob, on=[\"pais\", \"anio\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "nac_df[\"idx_ocde\"] = nac_df.anio.map(o_nac / o_nac[NAC_BASE] * 100)"
+    }
+   ],
+   "tabla": "nacimientos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.POP.TOTL.json",
+   "a": "f-nacimientos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "bm_pob = bm(\"SP.POP.TOTL\").rename(columns={\"valor\": \"pob\"})"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "o_nac = bm(\"SP.DYN.CBRT.IN\").merge(bm_pob, on=[\"pais\", \"anio\"])"
+    }
+   ],
+   "tabla": "nacimientos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.DYN.TFRT.IN.json",
+   "a": "f-nacimientos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"fecundidad\": (\"SP.DYN.TFRT.IN\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-nacimientos\": [\"nacimientos\", \"Nacimientos\", [\"fecundidad\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-piramide",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pi = proy[proy.anio.isin([ANIO_PROY, 2040])].copy()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"piramide_poblacion\": piramide,"
+    }
+   ],
+   "tabla": "piramide_poblacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-envejecimiento",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "envejec = _pv.vejez.unstack(\"anio\").reset_index()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"envejecimiento_provincias\": envejec,"
+    }
+   ],
+   "tabla": "envejecimiento_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_indicadores.xlsx",
+   "a": "f-jubilaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "t = pd.read_excel(CRUDO / \"bess_indicadores.xlsx\", sheet_name=\"4.1.1.1\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"jubilaciones_aportantes\": jubil} if jubil is not None else {}),"
+    }
+   ],
+   "tabla": "jubilaciones_aportantes"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:deis_nacidos_AAAA.csv",
+   "a": "f-adolescentes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "x = leer_deis(f\"deis_nacidos_{a}.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ado_prov = pp.pivot(index=\"provincia_id\", columns=\"anio\", values=\"pct\")[[NAC_INI, NAC_ULT]].reset_index()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"madres_adolescentes_provincias\": ado_prov.round(1),"
+    }
+   ],
+   "tabla": "madres_adolescentes_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.ADO.TFRT.json",
+   "a": "f-adolescentes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"fecundidad_adolescente\": (\"SP.ADO.TFRT\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-adolescentes\": [\"adolescentes\", \"Por provincia\", [\"fecundidad_adolescente\"]]"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/nse_censo2022_provincias.csv",
+   "a": "f-adolescentes-nse",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "nse = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"nse_censo2022_provincias.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "nse_ado = nse.merge(ado_prov[[\"codigo_indec\", \"territorio\", f\"pct_{NAC_ULT}\"]], on=\"codigo_indec\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"madres_adolescentes_nse\": nse_ado,"
+    }
+   ],
+   "tabla": "madres_adolescentes_nse"
+  },
+  {
+   "tipo": "calcula",
+   "de": "f-adolescentes",
+   "a": "f-adolescentes-nse",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "nse_ado = nse.merge(ado_prov[[\"codigo_indec\", \"territorio\", f\"pct_{NAC_ULT}\"]], on=\"codigo_indec\")"
+    }
+   ],
+   "tabla": "madres_adolescentes_nse"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:censo2022_migraciones_c1.xlsx",
+   "a": "f-nacidos-otro-pais",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_mg1 = pd.read_excel(CRUDO / \"censo2022_migraciones_c1.xlsx\", \"Cuadro 1_24 partidos\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"nacidos_otro_pais_provincias\": nacidos_otro_pais_provincias,"
+    }
+   ],
+   "tabla": "nacidos_otro_pais_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:censo2022_migraciones_c10.xlsx",
+   "a": "f-nacidos-otro-pais",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_mg10 = pd.read_excel(CRUDO / \"censo2022_migraciones_c10.xlsx\", \"Cuadro 10\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"nacidos_otro_pais_paises\": nacidos_otro_pais_paises,"
+    }
+   ],
+   "tabla": "nacidos_otro_pais_paises"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censo2022_migraciones_departamentos.csv",
+   "a": "f-nacidos-otro-pais",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "mig_dep = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_migraciones_departamentos.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"migraciones_departamentos\": migraciones_departamentos,"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "mapa: [\"migraciones_departamentos\"]"
+    }
+   ],
+   "tabla": "migraciones_departamentos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:censo2022_migraciones_c1.xlsx",
+   "a": "f-migracion-interna",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_mg1 = pd.read_excel(CRUDO / \"censo2022_migraciones_c1.xlsx\", \"Cuadro 1_24 partidos\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"nacidos_otro_pais_provincias\": nacidos_otro_pais_provincias,"
+    }
+   ],
+   "tabla": "nacidos_otro_pais_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censo2022_migraciones_departamentos.csv",
+   "a": "f-migracion-interna",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "mig_dep = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_migraciones_departamentos.csv\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"migracion-interna\": conTablas(\"migracion-interna\", () => MED[\"migracion-interna\"] === \"mapa\" ? [\"migraciones_departamentos\"] : [], a => {"
+    }
+   ],
+   "tabla": "migraciones_departamentos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censos_nacidos_otro_pais.csv",
+   "a": "f-migracion-historia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "migracion_censos = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censos_nacidos_otro_pais.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"migracion_censos\": migracion_censos,"
+    }
+   ],
+   "tabla": "migracion_censos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:censo2022_migraciones_c10.xlsx",
+   "a": "f-migracion-historia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "migracion_censos.loc[migracion_censos.anio == 2022, \"limitrofes_pct\"] = _mg_lim / _mg_00.poblacion * 100"
+    }
+   ],
+   "tabla": "migracion_censos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:censo2022_migraciones_c1.xlsx",
+   "a": "f-migracion-historia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "assert migracion_censos.anio.max() == 2022 and abs(migracion_censos.set_index(\"anio\").nacidos_otro_pais_pct[2022] - r1(_mg_00.pct_otro_pais)) < .05, \\"
+    }
+   ],
+   "tabla": "migracion_censos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:renaper_extranjeros.csv",
+   "a": "f-extranjeros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "rx = pd.read_csv(CRUDO / \"renaper_extranjeros.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"extranjeros_provincias\": extranjeros,"
+    }
+   ],
+   "tabla": "extranjeros_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-extranjeros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "extranjeros[\"cada_100\"] = extranjeros.personas / extranjeros.codigo_indec.map(POB) * 100"
+    }
+   ],
+   "tabla": "extranjeros_provincias"
+  },
+  {
+   "tipo": "calcula",
+   "de": "f-nacidos-otro-pais",
+   "a": "f-extranjeros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mas\": r1((extranjeros.personas.sum() / _mg_00.en_otro_pais - 1) * 100)}"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:dnm_radicaciones.csv",
+   "a": "f-radicaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_mg_dn = pd.read_csv(CRUDO / \"dnm_radicaciones.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"radicaciones_nacionalidad\": radicaciones_nacionalidad,"
+    }
+   ],
+   "tabla": "radicaciones_nacionalidad"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/conare_solicitudes.csv",
+   "a": "f-refugio",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "refugio_solicitudes = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"conare_solicitudes.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"refugio_solicitudes\": refugio_solicitudes,"
+    }
+   ],
+   "tabla": "refugio_solicitudes"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/conare_nacionalidades.csv",
+   "a": "f-refugio",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rf_n = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"conare_nacionalidades.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"refugio_nacionalidades\": refugio_nacionalidades,"
+    }
+   ],
+   "tabla": "refugio_nacionalidades"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:acnur_asilo_argentina.csv",
+   "a": "f-refugio",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "refugio_acnur = pd.read_csv(CRUDO / \"acnur_asilo_argentina.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"refugio_acnur\": refugio_acnur,"
+    }
+   ],
+   "tabla": "refugio_acnur"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:acnur_asilo_argentina_origen.csv",
+   "a": "f-refugio",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rf_ao = pd.read_csv(CRUDO / \"acnur_asilo_argentina_origen.csv\")"
+    }
+   ],
+   "tabla": "refugio_acnur"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:acnur_origen_argentina.csv",
+   "a": "f-refugio",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rf_fo = pd.read_csv(CRUDO / \"acnur_origen_argentina.csv\").sort_values(\"anio\").iloc[-1]"
+    }
+   ],
+   "tabla": "refugio_acnur"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:acnur_origen_argentina_destino.csv",
+   "a": "f-refugio",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rf_fd = pd.read_csv(CRUDO / \"acnur_origen_argentina_destino.csv\")"
+    }
+   ],
+   "tabla": "refugio_acnur"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:onu_migrantes_argentina.csv",
+   "a": "f-argentinos-exterior",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_mg_on = pd.read_csv(CRUDO / \"onu_migrantes_argentina.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"argentinos_exterior_destinos\": argentinos_exterior_destinos,"
+    }
+   ],
+   "tabla": "argentinos_exterior_destinos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presidenciales_provincia.csv",
+   "a": "f-elecciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "RAIZ / \"datos\" / \"manual\" / \"presidenciales_provincia.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"elecciones_presidenciales\": presidenciales,"
+    }
+   ],
+   "tabla": "elecciones_presidenciales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presidenciales_provincia.csv",
+   "a": "f-voto-provincia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "RAIZ / \"datos\" / \"manual\" / \"presidenciales_provincia.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pp = el.groupby([\"eleccion\", \"candidato\", \"codigo_indec\"]).votos.sum().reset_index().merge("
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"voto_legisladores_y_provincia\": rep_voto,"
+    }
+   ],
+   "tabla": "voto_legisladores_y_provincia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/diputados_nacionales.csv",
+   "a": "f-legisladores",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for camara, archivo in [(\"Diputados\", \"diputados_nacionales.csv\"), (\"Senado\", \"senadores_nacionales.csv\")]:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": ".to_csv(SITIO / \"legisladores_por_periodo.csv\", index=False)"
+    }
+   ],
+   "tabla": "legisladores_por_periodo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/diputados_nacionales.csv",
+   "a": "f-congreso",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for camara, archivo in [(\"Diputados\", \"diputados_nacionales.csv\"), (\"Senado\", \"senadores_nacionales.csv\")]:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"congreso_composicion\": congreso,"
+    }
+   ],
+   "tabla": "congreso_composicion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/diputados_nacionales.csv",
+   "a": "f-anios-congreso",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for camara, archivo in [(\"Diputados\", \"diputados_nacionales.csv\"), (\"Senado\", \"senadores_nacionales.csv\")]:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"anios_congreso\": anios_congreso,"
+    }
+   ],
+   "tabla": "anios_congreso"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/senadores_nacionales.csv",
+   "a": "f-legisladores",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for camara, archivo in [(\"Diputados\", \"diputados_nacionales.csv\"), (\"Senado\", \"senadores_nacionales.csv\")]:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": ".to_csv(SITIO / \"legisladores_por_periodo.csv\", index=False)"
+    }
+   ],
+   "tabla": "legisladores_por_periodo"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/senadores_nacionales.csv",
+   "a": "f-congreso",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for camara, archivo in [(\"Diputados\", \"diputados_nacionales.csv\"), (\"Senado\", \"senadores_nacionales.csv\")]:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"congreso_composicion\": congreso,"
+    }
+   ],
+   "tabla": "congreso_composicion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/senadores_nacionales.csv",
+   "a": "f-anios-congreso",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for camara, archivo in [(\"Diputados\", \"diputados_nacionales.csv\"), (\"Senado\", \"senadores_nacionales.csv\")]:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"anios_congreso\": anios_congreso,"
+    }
+   ],
+   "tabla": "anios_congreso"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-representacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "representacion[\"poblacion\"] = representacion.codigo_indec.map(POB).round(0)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"representacion_provincias\": representacion,"
+    }
+   ],
+   "tabla": "representacion_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_diputados.json.gz",
+   "a": "f-votaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "votos_clave.to_csv(SITIO / \"votaciones_leyes_clave.csv\", index=False)"
+    }
+   ],
+   "tabla": "votaciones_leyes_clave"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_diputados.json.gz",
+   "a": "f-votaciones-espacios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "votos_clave.to_csv(SITIO / \"votaciones_leyes_clave.csv\", index=False)"
+    }
+   ],
+   "tabla": "votaciones_leyes_clave"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_diputados.json.gz",
+   "a": "f-voto-provincia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rv.append(g.assign(ley=r.clave, presidente=pv.presidente.iloc[0], coincide=(g.voto == pv.pos.iloc[0])))"
+    }
+   ],
+   "tabla": "voto_legisladores_y_provincia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_diputados.json.gz",
+   "a": "f-apoyo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ap = votos.merge(_vd, on=[\"camara\", \"vid\"])"
+    }
+   ],
+   "tabla": "apoyo_gobierno_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_diputados.json.gz",
+   "a": "f-presupuesto",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pv_g = votos[(votos.camara == _pv_x.camara) & (votos.vid == _pv_x.acta)]"
+    }
+   ],
+   "tabla": "presupuesto_votos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_senadores.json.gz",
+   "a": "f-votaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "votos_clave.to_csv(SITIO / \"votaciones_leyes_clave.csv\", index=False)"
+    }
+   ],
+   "tabla": "votaciones_leyes_clave"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_senadores.json.gz",
+   "a": "f-votaciones-espacios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "votos_clave.to_csv(SITIO / \"votaciones_leyes_clave.csv\", index=False)"
+    }
+   ],
+   "tabla": "votaciones_leyes_clave"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_senadores.json.gz",
+   "a": "f-voto-provincia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rv.append(g.assign(ley=r.clave, presidente=pv.presidente.iloc[0], coincide=(g.voto == pv.pos.iloc[0])))"
+    }
+   ],
+   "tabla": "voto_legisladores_y_provincia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_senadores.json.gz",
+   "a": "f-apoyo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ap = votos.merge(_vd, on=[\"camara\", \"vid\"])"
+    }
+   ],
+   "tabla": "apoyo_gobierno_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:congreso_votaciones_senadores.json.gz",
+   "a": "f-presupuesto",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "db = json.loads(gzip.decompress((CRUDO / f\"congreso_votaciones_{arch}.json.gz\").read_bytes()))"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pv_g = votos[(votos.camara == _pv_x.camara) & (votos.vid == _pv_x.acta)]"
+    }
+   ],
+   "tabla": "presupuesto_votos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/leyes_clave.csv",
+   "a": "f-votaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "RAIZ / \"datos\" / \"manual\" / \"leyes_clave.csv\""
+    }
+   ],
+   "tabla": "votaciones_leyes_clave"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/leyes_clave.csv",
+   "a": "f-votaciones-espacios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "RAIZ / \"datos\" / \"manual\" / \"leyes_clave.csv\""
+    }
+   ],
+   "tabla": "votaciones_leyes_clave"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/leyes_clave.csv",
+   "a": "f-voto-provincia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "RAIZ / \"datos\" / \"manual\" / \"leyes_clave.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for r in lc.itertuples():"
+    }
+   ],
+   "tabla": "voto_legisladores_y_provincia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presupuestos.csv",
+   "a": "f-presupuesto",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "RAIZ / \"datos\" / \"manual\" / \"presupuestos.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"presupuesto_votos\": presupuesto_votos,"
+    }
+   ],
+   "tabla": "presupuesto_votos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/transferencias_provincias.csv",
+   "a": "f-atn",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "trf = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"transferencias_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"transferencias_provincias\": transf["
+    }
+   ],
+   "tabla": "transferencias_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_NY.GDP.DEFL.ZS.json",
+   "a": "f-atn",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "defl = bm(\"NY.GDP.DEFL.ZS\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "trf[\"real\"] = trf.millones_corrientes * defl[TR_ULT] / trf.anio.map(defl)"
+    }
+   ],
+   "tabla": "transferencias_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_provincias.csv",
+   "a": "f-atn",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hp = snic_prov[snic_prov.codigo_delito_snic_nombre == \"Hurtos\"].copy()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "POB_T = (_hp.cantidad_hechos / _hp.tasa_hechos * 1e5).groupby([_hp.provincia_id, _hp.anio]).first()"
+    }
+   ],
+   "tabla": "transferencias_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/transferencias_provincias.csv",
+   "a": "f-transferencias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "trf = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"transferencias_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"transferencias_serie\": transf_serie,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"transferencias_provincias\": transf["
+    }
+   ],
+   "tabla": "transferencias_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_NY.GDP.DEFL.ZS.json",
+   "a": "f-transferencias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "defl = bm(\"NY.GDP.DEFL.ZS\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "trf[\"real\"] = trf.millones_corrientes * defl[TR_ULT] / trf.anio.map(defl)"
+    }
+   ],
+   "tabla": "transferencias_serie"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_provincias.csv",
+   "a": "f-transferencias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hp = snic_prov[snic_prov.codigo_delito_snic_nombre == \"Hurtos\"].copy()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "POB_T = (_hp.cantidad_hechos / _hp.tasa_hechos * 1e5).groupby([_hp.provincia_id, _hp.anio]).first()"
+    }
+   ],
+   "tabla": "transferencias_serie"
+  },
+  {
+   "tipo": "calcula",
+   "de": "f-transferencias",
+   "a": "f-apoyo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "apoyo = apoyo.merge(transf[[\"anio\", \"codigo_indec\", \"atn_hab\", \"otras_hab\"]], on=[\"anio\", \"codigo_indec\"], how=\"left\")"
+    }
+   ]
+  },
+  {
+   "tipo": "calcula",
+   "de": "f-votaciones",
+   "a": "f-voto-provincia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for r in lc.itertuples():"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "g = votos[(votos.camara == cam) & (votos.vid == vid) & (votos.voto <= 3) & votos.codigo_indec.notna()]"
+    }
+   ]
+  },
+  {
+   "tipo": "calcula",
+   "de": "f-elecciones",
+   "a": "f-voto-provincia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pp = el.groupby([\"eleccion\", \"candidato\", \"codigo_indec\"]).votos.sum().reset_index().merge("
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pp[\"pct_presidente\"] = _pp.votos / _pp.positivos * 100"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presidentes.csv",
+   "a": "f-presidentes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pr = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"presidentes.csv\", parse_dates=[\"inicio\", \"fin\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"presidentes\": presidentes,"
+    }
+   ],
+   "tabla": "presidentes"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:renaper_departamentos_resumen.csv",
+   "a": "f-presidentes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rdp = pd.read_csv(CRUDO / \"renaper_departamentos_resumen.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"amba_pob\": round1(AMBA_PCT)"
+    }
+   ],
+   "tabla": "presidentes"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/ministros.csv",
+   "a": "f-ministros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "mi = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"ministros.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ministros_lista.to_csv(SITIO / \"ministros_nacionales.csv\", index=False)"
+    }
+   ],
+   "tabla": "ministros_nacionales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:imig_mensual.csv",
+   "a": "f-cuentas-nacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_gbn = pd.read_csv(CRUDO / \"imig_mensual.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"cuentas_nacion\": cuentas_nacion,"
+    }
+   ],
+   "tabla": "cuentas_nacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:pib_corriente.csv",
+   "a": "f-cuentas-nacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pib_ = pd.read_csv(CRUDO / \"pib_corriente.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(_gbn_a[k] / _gbn_a.index.map(_pib_a) * 100).values"
+    }
+   ],
+   "tabla": "cuentas_nacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:recaudacion_mensual.csv",
+   "a": "f-recaudacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_gbr = pd.read_csv(CRUDO / \"recaudacion_mensual.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"recaudacion_impuestos\": recaudacion_impuestos,"
+    }
+   ],
+   "tabla": "recaudacion_impuestos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:pib_corriente.csv",
+   "a": "f-recaudacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pib_ = pd.read_csv(CRUDO / \"pib_corriente.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(_gbr_a.total_recursos_tributarios / _gbr_a.index.map(_pib_a) * 100).values"
+    }
+   ],
+   "tabla": "recaudacion_impuestos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-recaudacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipc_b = (CRUDO / \"indec_ipc_divisiones.csv\").read_bytes()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_gbr_y = en_lo_que_va(_gbr_m.periodo + \"-01\", _gbr_m.total_recursos_tributarios * _ipc_ng[_gbr_m.periodo.max()] / _gbr_m.periodo.map(_ipc_ng))"
+    }
+   ],
+   "tabla": "recaudacion_impuestos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:deuda_publica.csv",
+   "a": "f-deuda",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_gbd = pd.read_csv(CRUDO / \"deuda_publica.csv\", dtype={\"periodo\": str})"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"deuda_pbi\": deuda_pbi,"
+    }
+   ],
+   "tabla": "deuda_pbi"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:dnap_cargos_provinciales.csv",
+   "a": "f-empleo-publico",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_gbc = pd.read_csv(CRUDO / \"dnap_cargos_provinciales.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"empleo_publico_provincias\": empleo_publico_provincias,"
+    }
+   ],
+   "tabla": "empleo_publico_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_dotacion_apn.xlsx",
+   "a": "f-empleo-publico",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_gbx = pd.read_excel(CRUDO / \"indec_dotacion_apn.xlsx\", sheet_name=0, header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"dotacion_nacion\": dotacion_nacion,"
+    }
+   ],
+   "tabla": "dotacion_nacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-empleo-publico",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"cada_1000\": (_gbc_u.planta / _gbc_u.index.map(POB) * 1000).values"
+    }
+   ],
+   "tabla": "empleo_publico_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:dnap_recaudacion_provincial.csv",
+   "a": "f-impuestos-provinciales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_gbp = pd.read_csv(CRUDO / \"dnap_recaudacion_provincial.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"impuestos_provinciales\": impuestos_provinciales,"
+    }
+   ],
+   "tabla": "impuestos_provinciales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-impuestos-provinciales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "impuestos_provinciales[\"por_habitante\"] = impuestos_provinciales.millones * 1e6 / impuestos_provinciales.codigo_indec.map(POB)"
+    }
+   ],
+   "tabla": "impuestos_provinciales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:aif_provincias.xlsx",
+   "a": "f-fiscal",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "xl = pd.ExcelFile(CRUDO / \"aif_provincias.xlsx\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"fiscal_provincias\": fiscal,"
+    }
+   ],
+   "tabla": "fiscal_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sube_usuarios_dia.csv",
+   "a": "f-sube",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sube = pd.read_csv(CRUDO / \"sube_usuarios_dia.csv\", parse_dates=[\"indice_tiempo\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"sube_dia_habil\": sube_m["
+    }
+   ],
+   "tabla": "sube_dia_habil"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sube_usuarios_dia.csv",
+   "a": "f-sube-modos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sube = pd.read_csv(CRUDO / \"sube_usuarios_dia.csv\", parse_dates=[\"indice_tiempo\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"sube_dia_habil\": sube_m["
+    }
+   ],
+   "tabla": "sube_dia_habil"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:dnrpa_autos_nuevos.csv",
+   "a": "f-patentes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "au, mo_ = patentes(\"dnrpa_autos_nuevos.csv\", \"autos\"), patentes(\"dnrpa_motos_nuevas.csv\", \"motos\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"patentamientos_anual\": patent,"
+    }
+   ],
+   "tabla": "patentamientos_anual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:dnrpa_motos_nuevas.csv",
+   "a": "f-patentes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "au, mo_ = patentes(\"dnrpa_autos_nuevos.csv\", \"autos\"), patentes(\"dnrpa_motos_nuevas.csv\", \"motos\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"patentamientos_anual\": patent,"
+    }
+   ],
+   "tabla": "patentamientos_anual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:dnrpa_autos_nuevos.csv",
+   "a": "f-patentes-prov",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "au, mo_ = patentes(\"dnrpa_autos_nuevos.csv\", \"autos\"), patentes(\"dnrpa_motos_nuevas.csv\", \"motos\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"patentamientos_provincias\": pat_prov["
+    }
+   ],
+   "tabla": "patentamientos_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:dnrpa_motos_nuevas.csv",
+   "a": "f-patentes-prov",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "au, mo_ = patentes(\"dnrpa_autos_nuevos.csv\", \"autos\"), patentes(\"dnrpa_motos_nuevas.csv\", \"motos\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"patentamientos_provincias\": pat_prov["
+    }
+   ],
+   "tabla": "patentamientos_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-patentes-prov",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "POB = {f\"{int(j):02d}\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pat_prov[\"autos_1000\"] = pat_prov.autos / pat_prov.codigo_indec.map(POB) * 1000"
+    }
+   ],
+   "tabla": "patentamientos_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_precios_combustibles.csv",
+   "a": "f-combustibles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cb_ = pd.read_csv(CRUDO / \"se_precios_combustibles.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"combustibles_provincias\": combustibles_provincias,"
+    }
+   ],
+   "tabla": "combustibles_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/combustibles_2004_2023.csv",
+   "a": "f-combustibles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cbh = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"combustibles_2004_2023.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"combustibles_anual\": combustibles_anual,"
+    }
+   ],
+   "tabla": "combustibles_anual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-combustibles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipc_b = (CRUDO / \"indec_ipc_divisiones.csv\").read_bytes()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cbp[_cb_p + \"_real\"] = _cbp[_cb_p] * _hip_ipc[CB_ULT] / _cbp.periodo.map(_hip_ipc)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"combustibles_mensual\": combustibles_mensual,"
+    }
+   ],
+   "tabla": "combustibles_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_NY.GDP.DEFL.ZS.json",
+   "a": "f-combustibles",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "defl = bm(\"NY.GDP.DEFL.ZS\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "combustibles_anual[_cb_p + \"_real\"] = combustibles_anual[_cb_p] * defl[TR_ULT] / combustibles_anual.anio.map(defl)"
+    }
+   ],
+   "tabla": "combustibles_anual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:isac.csv",
+   "a": "f-isac",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "isac = pd.read_csv(CRUDO / \"isac.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"isac_mensual\": isac_m,"
+    }
+   ],
+   "tabla": "isac_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:isac_insumos.csv",
+   "a": "f-insumos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ins = pd.read_csv(CRUDO / \"isac_insumos.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"isac_insumos\": isac_insumos,"
+    }
+   ],
+   "tabla": "isac_insumos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_permisos.csv",
+   "a": "f-permisos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "per_ = pd.read_csv(CRUDO / \"indec_permisos.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"permisos_mensual\": permisos_mensual,"
+    }
+   ],
+   "tabla": "permisos_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/inversion_provincias.csv",
+   "a": "f-obra-publica",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "inv_ = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"inversion_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"obra_publica_provincias\": obra_publica_provincias,"
+    }
+   ],
+   "tabla": "obra_publica_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_NY.GDP.DEFL.ZS.json",
+   "a": "f-obra-publica",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "defl = bm(\"NY.GDP.DEFL.ZS\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "inv_[\"real\"] = inv_.millones_corrientes * defl[OP_ULT] / inv_.anio.map(defl)"
+    }
+   ],
+   "tabla": "obra_publica_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_provincias.csv",
+   "a": "f-obra-publica",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "POB_T = (_hp.cantidad_hechos / _hp.tasa_hechos * 1e5).groupby([_hp.provincia_id, _hp.anio]).first()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "op_prov[\"pob\"] = [POB_T.get((c, a)) for c, a in zip(op_prov.codigo_indec, op_prov.anio)]"
+    }
+   ],
+   "tabla": "obra_publica_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_empleo_ramas.csv",
+   "a": "f-empleo-construccion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "oe = pd.read_csv(CRUDO / \"oede_empleo_ramas.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"empleo_construccion_provincias\": empleo_sec,"
+    }
+   ],
+   "tabla": "empleo_construccion_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-empleo-construccion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "POB = {f\"{int(j):02d}\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "empleo_sec[\"construccion_cada_1000\"] = empleo_sec.construccion / empleo_sec.codigo_indec.map(POB) * 1000"
+    }
+   ],
+   "tabla": "empleo_construccion_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censo2022_departamentos.csv",
+   "a": "f-trabajadores",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cv = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_departamentos.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vivienda_prov = vivienda(_cvp).reset_index()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"vivienda_provincias\": vivienda_prov,"
+    }
+   ],
+   "tabla": "vivienda_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censo2022_departamentos.csv",
+   "a": "f-vivienda",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cv = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_departamentos.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vivienda_prov = vivienda(_cvp).reset_index()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"vivienda_provincias\": vivienda_prov,"
+    }
+   ],
+   "tabla": "vivienda_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/censo2022_departamentos.csv",
+   "a": "f-gas-hogares",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cv = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_departamentos.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vivienda_prov = vivienda(_cvp).reset_index()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"vivienda_provincias\": vivienda_prov,"
+    }
+   ],
+   "tabla": "vivienda_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_icc.xls",
+   "a": "f-costo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_icc = pd.read_excel(CRUDO / \"indec_icc.xls\", \"Nivel general y capítulos_var%\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"costo_construccion\": costo,"
+    }
+   ],
+   "tabla": "costo_construccion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-costo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipc_b = (CRUDO / \"indec_ipc_divisiones.csv\").read_bytes()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "costo = icc.div(icc.loc[_base]).mul(100).join(ipc.rename(\"ipc\"), how=\"inner\")"
+    }
+   ],
+   "tabla": "costo_construccion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_hipotecas_uva.csv",
+   "a": "f-hipotecas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "hip_ = pd.read_csv(CRUDO / \"bcra_hipotecas_uva.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"hipotecas_mensual\": hipotecas_mensual,"
+    }
+   ],
+   "tabla": "hipotecas_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-hipotecas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipc_b = (CRUDO / \"indec_ipc_divisiones.csv\").read_bytes()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "hip_[\"miles_millones\"] = hip_.monto_miles / 1e6 * _hip_ipc[HIP_UM] / hip_.periodo.map(_hip_ipc)"
+    }
+   ],
+   "tabla": "hipotecas_mensual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bis_credito_hogares.csv",
+   "a": "f-hipotecas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "b = pd.read_csv(CRUDO / \"bis_credito_hogares.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"credito_hogares\": bis_hogares,"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-hipotecas\": [\"hipotecas\", \"Créditos nuevos\", [\"credito_hogares\"]],"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:energia_emae.csv",
+   "a": "f-hogares",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "e = pd.read_csv(CRUDO / \"energia_emae.csv\", parse_dates=[\"indice_tiempo\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"energia_hogares\": anual[[\"anio\", \"total\", \"residencial\", \"resto\", \"pct_residencial\","
+    }
+   ],
+   "tabla": "energia_hogares"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:energia_emae.csv",
+   "a": "f-actividad",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "e = pd.read_csv(CRUDO / \"energia_emae.csv\", parse_dates=[\"indice_tiempo\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"energia_hogares\": anual[[\"anio\", \"total\", \"residencial\", \"resto\", \"pct_residencial\","
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "series:[{k:\"idx_demanda\", lab:\"Electricidad\", c:NAR, w:3}, {k:\"idx_emae\", lab:\"Actividad\", c:GRIS}]"
+    }
+   ],
+   "tabla": "energia_hogares"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:energia_emae.csv",
+   "a": "f-meses",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "e = pd.read_csv(CRUDO / \"energia_emae.csv\", parse_dates=[\"indice_tiempo\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"energia_estacionalidad\": perfil.round(0),"
+    }
+   ],
+   "tabla": "energia_estacionalidad"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_EG.USE.ELEC.KH.PC.json",
+   "a": "f-hogares",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"electricidad\": (\"EG.USE.ELEC.KH.PC\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-hogares\": [\"hogares\", \"Hogares y resto\", [\"electricidad\", \"co2\"]],"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_EN.GHG.CO2.PC.CE.AR5.json",
+   "a": "f-hogares",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"co2\": (\"EN.GHG.CO2.PC.CE.AR5\""
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-hogares\": [\"hogares\", \"Hogares y resto\", [\"electricidad\", \"co2\"]],"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:cammesa_demanda_provincias.csv",
+   "a": "f-electricidad-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "el_ = pd.read_csv(CRUDO / \"cammesa_demanda_provincias.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"electricidad_provincias\": electricidad_provincias,"
+    }
+   ],
+   "tabla": "electricidad_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/cammesa_demanda_2014_2022.csv",
+   "a": "f-electricidad-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/01_descargar.py",
+     "contiene": "pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"cammesa_demanda_2014_2022.csv\")"
+    },
+    {
+     "archivo": "scripts/01_descargar.py",
+     "contiene": "f = CRUDO / \"cammesa_demanda_provincias.csv\""
+    }
+   ],
+   "tabla": "electricidad_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-electricidad-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_el_pr = proy.groupby([\"codigo_indec\", \"anio\"]).pob.sum()"
+    }
+   ],
+   "tabla": "electricidad_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_provincias.csv",
+   "a": "f-electricidad-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "return sum(float(_el_pr[(x, a)]) if a >= 2022 else float(POB_T[(x, a)]) for x in c.split(\"-\"))"
+    }
+   ],
+   "tabla": "electricidad_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:cammesa_demanda_provincias.csv",
+   "a": "f-electricidad-sectores",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "el_ = pd.read_csv(CRUDO / \"cammesa_demanda_provincias.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"electricidad_sectores\": electricidad_sectores,"
+    }
+   ],
+   "tabla": "electricidad_sectores"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/cammesa_demanda_2014_2022.csv",
+   "a": "f-electricidad-sectores",
+   "evidencia": [
+    {
+     "archivo": "scripts/01_descargar.py",
+     "contiene": "pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"cammesa_demanda_2014_2022.csv\")"
+    },
+    {
+     "archivo": "scripts/01_descargar.py",
+     "contiene": "f = CRUDO / \"cammesa_demanda_provincias.csv\""
+    }
+   ],
+   "tabla": "electricidad_sectores"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-electricidad-sectores",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_el_pr = proy.groupby([\"codigo_indec\", \"anio\"]).pob.sum()"
+    }
+   ],
+   "tabla": "electricidad_sectores"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:snic_provincias.csv",
+   "a": "f-electricidad-sectores",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "return sum(float(_el_pr[(x, a)]) if a >= 2022 else float(POB_T[(x, a)]) for x in c.split(\"-\"))"
+    }
+   ],
+   "tabla": "electricidad_sectores"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_centrales.csv",
+   "a": "f-centrales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cen_ = pd.read_csv(CRUDO / \"se_centrales.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"centrales\": centrales,"
+    }
+   ],
+   "tabla": "centrales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:potencia_instalada.csv",
+   "a": "f-centrales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pot_ = pd.read_csv(CRUDO / \"potencia_instalada.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"potencia_instalada\": potencia.round(1),"
+    }
+   ],
+   "tabla": "potencia_instalada"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:owid_electricidad.csv",
+   "a": "f-centrales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "o = pd.read_csv(CRUDO / \"owid_electricidad.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"eolica_solar\": ember_eolica_solar}"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "\"f-centrales\": [\"centrales\", \"Centrales y potencia\", [\"eolica_solar\"]],"
+    }
+   ],
+   "tabla": "ocde_comparacion"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:enargas_gas_residencial.csv",
+   "a": "f-gas-consumo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "gas_ = pd.read_csv(CRUDO / \"enargas_gas_residencial.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"gas_usuario_provincias\": gas_usuario_provincias,"
+    }
+   ],
+   "tabla": "gas_usuario_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:desnz_gas_domestico.csv",
+   "a": "f-gas-consumo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "gas_ru_ = pd.read_csv(CRUDO / \"desnz_gas_domestico.csv\").iloc[-1]"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "GAS_KWH_M3 = 9300 * 4.1868 / 3600"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:subsidios_energia.csv",
+   "a": "f-subsidios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sub_ = pd.read_csv(CRUDO / \"subsidios_energia.csv\").dropna()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"subsidios_energia\": subsidios_energia,"
+    }
+   ],
+   "tabla": "subsidios_energia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:pib_corriente.csv",
+   "a": "f-subsidios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pib_ = pd.read_csv(CRUDO / \"pib_corriente.csv\").dropna().rename(columns={\"oferta_global_pib\": \"pib\"})"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pct_pbi\": (_sub_a / _sub_a.index.map(_pib_a) * 100).values}).round(4)"
+    }
+   ],
+   "tabla": "subsidios_energia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_NY.GDP.DEFL.ZS.json",
+   "a": "f-subsidios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "defl = bm(\"NY.GDP.DEFL.ZS\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"miles_millones_reales\": (_sub_a * defl[SUB_ULT] / _sub_a.index.map(defl) / 1000).values,"
+    }
+   ],
+   "tabla": "subsidios_energia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-subsidios",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipc_b = (CRUDO / \"indec_ipc_divisiones.csv\").read_bytes()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sub_ytd = en_lo_que_va(_sm.periodo + \"-01\", _sm.energia * _hip_ipc[_sm_ult] / _sm.periodo.map(_hip_ipc))"
+    }
+   ],
+   "tabla": "subsidios_energia"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_petroleo_cuenca.csv",
+   "a": "f-petroleo",
+   "tabla": "hidrocarburos_mensual",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sp_ = pd.read_csv(CRUDO / \"se_petroleo_cuenca.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"hidrocarburos_mensual\": hidro_m,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_gas_cuenca.csv",
+   "a": "f-gas",
+   "tabla": "hidrocarburos_mensual",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sg_ = pd.read_csv(CRUDO / \"se_gas_cuenca.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"hidrocarburos_mensual\": hidro_m,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_produccion_resumen.csv",
+   "a": "f-hidro-provincias",
+   "tabla": "hidrocarburos_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pr_ = pd.read_csv(CRUDO / \"se_produccion_resumen.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"hidrocarburos_provincias\": hidro_prov,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_produccion_resumen.csv",
+   "a": "f-mundo-petroleo",
+   "tabla": "mundo_hidrocarburos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pa = pr_[pr_.periodo.isin(_comp)].groupby"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_nq = _pa[(_pa.codigo_indec == \"58\")"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_produccion_resumen.csv",
+   "a": "f-areas-hidro",
+   "tabla": "areas_produccion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "AR_INC = sorted({int(p[:4]) for p in _tot.index"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_produccion_areas.csv",
+   "a": "f-areas-hidro",
+   "tabla": "areas_produccion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ap = pd.read_csv(CRUDO / \"se_produccion_areas.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"areas_produccion\": areas_prod,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_produccion_areas.csv",
+   "a": "f-mapa-pozos",
+   "tabla": "pozos_no_convencionales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "AREAS_ANIO = int(_ap.anio.max()) - 1"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "const prodArea = Object.fromEntries(T.areas_produccion.map(a => [a.codigo, a]));"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:concesiones.topo.json",
+   "a": "f-mapa-pozos",
+   "tabla": "pozos_no_convencionales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sitio/datos/concesiones.topo.json, de"
+    },
+    {
+     "archivo": "scripts/datina.js",
+     "contiene": "d3.json(\"datos/concesiones.topo.json\")"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_pozos_nc.csv",
+   "a": "f-mapa-pozos",
+   "tabla": "pozos_no_convencionales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pnc_ = pd.read_csv(CRUDO / \"se_pozos_nc.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pozos_nc = pnc_.copy()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pozos_no_convencionales\": pozos_nc,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_pozos_resumen.csv",
+   "a": "f-pozos",
+   "tabla": "pozos_tipo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "po_ = pd.read_csv(CRUDO / \"se_pozos_resumen.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pozos_tipo\": pozos_tipo,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_fracturas.csv",
+   "a": "f-fracturas",
+   "tabla": "fracturas_anual",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "fr_ = pd.read_csv(CRUDO / \"se_fracturas.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"fracturas_anual\": fracturas,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_fracturas.csv",
+   "a": "f-productividad",
+   "tabla": "productividad_vm",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_vmo[\"rama\"] = _vmo.idpozo.map(fr_.groupby(\"idpozo\")"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_pozos_nc.csv",
+   "a": "f-productividad",
+   "tabla": "productividad_vm",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_vmo = pnc_[pnc_.formacion.str.upper()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"productividad_vm\": productividad_vm,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_pozos_nc_cosechas.csv",
+   "a": "f-productividad",
+   "tabla": "productividad_vm",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cos_ = pd.read_csv(CRUDO / \"se_pozos_nc_cosechas.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "curvas_vm = _c[_c.cosecha.isin(COS_CURVAS)]"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_pozos_terminados.csv",
+   "a": "f-pozos-terminados",
+   "tabla": "pozos_terminados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pt_ = pd.read_csv(CRUDO / \"se_pozos_terminados.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pozos_terminados\": pozos_term,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_produccion_empresas.csv",
+   "a": "f-empresas-hidro",
+   "tabla": "hidrocarburos_empresas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "emp_h = pd.read_csv(CRUDO / \"se_produccion_empresas.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"hidrocarburos_empresas\": hidro_emp,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:oede_empleo_ramas.csv",
+   "a": "f-empleo-hidro",
+   "tabla": "empleo_construccion_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "oe = pd.read_csv(CRUDO / \"oede_empleo_ramas.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "empleo_sec[\"petroleo_gas\"] = empleo_sec.codigo_indec.map(_wu.petroleo_gas)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"empleo_construccion_provincias\": empleo_sec,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-empleo-hidro",
+   "tabla": "empleo_construccion_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "empleo_sec[\"petroleo_gas_cada_1000\"] = empleo_sec.petroleo_gas / empleo_sec.codigo_indec.map(POB) * 1000"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_regalias_crudo.zip",
+   "a": "f-regalias",
+   "tabla": "regalias_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_zr = zipfile.ZipFile(CRUDO / \"se_regalias_crudo.zip\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"regalias_provincias\": reg_prov,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:aif_provincias.xlsx",
+   "a": "f-regalias",
+   "tabla": "regalias_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "xl = pd.ExcelFile(CRUDO / \"aif_provincias.xlsx\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "reg_prov = fisc[[\"codigo_indec\", \"anio\", \"regalias\"]].copy()"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-regalias",
+   "tabla": "regalias_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "reg_prov[\"usd_crudo_hab\"] = reg_prov.codigo_indec.map(reg_crudo).fillna(0) / reg_prov.codigo_indec.map(POB)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_reservas_resumen.csv",
+   "a": "f-reservas",
+   "tabla": "reservas_hidrocarburos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "rv_ = pd.read_csv(CRUDO / \"se_reservas_resumen.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"reservas_hidrocarburos\": reservas,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_petroleo_cuenca.csv",
+   "a": "f-reservas",
+   "tabla": "reservas_hidrocarburos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_prod_anual = hm.groupby(hm.fecha.dt.year)[[\"total_p\", \"total_g\"]].sum()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sp_ = pd.read_csv(CRUDO / \"se_petroleo_cuenca.csv\""
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:se_gas_cuenca.csv",
+   "a": "f-reservas",
+   "tabla": "reservas_hidrocarburos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_prod_anual = hm.groupby(hm.fecha.dt.year)[[\"total_p\", \"total_g\"]].sum()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sg_ = pd.read_csv(CRUDO / \"se_gas_cuenca.csv\""
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ica_energia.csv",
+   "a": "f-balanza-energetica",
+   "tabla": "balanza_energetica",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ica = pd.read_csv(CRUDO / \"indec_ica_energia.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"balanza_energetica\": balanza,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:eia_produccion_paises.csv",
+   "a": "f-mundo-petroleo",
+   "tabla": "mundo_hidrocarburos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "eia = pd.read_csv(CRUDO / \"eia_produccion_paises.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"mundo_hidrocarburos\": mundo_hidro,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_paises.json",
+   "a": "f-mundo-petroleo",
+   "tabla": "mundo_hidrocarburos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "NOMBRE_PAIS_ES = {x[\"id\"]:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "(CRUDO / \"bm_paises.json\").read_text"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sinta_turistas_no_residentes.csv",
+   "a": "f-receptivo",
+   "tabla": "turistas_no_residentes_anual",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "tr = pd.read_csv(CRUDO / \"sinta_turistas_no_residentes.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"turistas_no_residentes_anual\": receptivo,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_ST.INT.ARVL.json",
+   "a": "f-receptivo",
+   "tabla": "ocde_comparacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"turistas\": (\"ST.INT.ARVL\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "OCDE_DERIVADO = {\"turistas\": lambda: por_habitante(\"ST.INT.ARVL\", 100)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.POP.TOTL.json",
+   "a": "f-receptivo",
+   "tabla": "ocde_comparacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "bm_pob = bm(\"SP.POP.TOTL\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "d = bm(serie).merge(bm_pob, on=[\"pais\", \"anio\"])"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sinta_eoh_viajeros_region.csv",
+   "a": "f-hoteles",
+   "tabla": "viajeros_hoteles_anual",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "eoh = pd.read_csv(CRUDO / \"sinta_eoh_viajeros_region.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"viajeros_hoteles_anual\": hoteles,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sinta_eti_provincias.csv",
+   "a": "f-eti",
+   "tabla": "turistas_extranjeros_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "eti = pd.read_csv(CRUDO / \"sinta_eti_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"turistas_extranjeros_provincias\": etp,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-eti",
+   "tabla": "turistas_extranjeros_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "etp[\"cada_1000\"] = etp.turistas / etp.codigo_indec.map(POB) * 1000"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:ciam_areas_protegidas_provincias.csv",
+   "a": "f-protegida",
+   "tabla": "areas_protegidas_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "apr = pd.read_csv(CRUDO / \"ciam_areas_protegidas_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"areas_protegidas_provincias\": area,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-protegida",
+   "tabla": "areas_protegidas_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "area[\"m2_por_habitante\"] = area.ha_terrestres * 1e4 / area.codigo_indec.map(POB)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_ER.LND.PTLD.ZS.json",
+   "a": "f-protegida",
+   "tabla": "ocde_comparacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"protegida\": (\"ER.LND.PTLD.ZS\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "o_d = OCDE_DERIVADO[k]() if k in OCDE_DERIVADO else bm(o_serie)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sib_areas_protegidas.json",
+   "a": "f-parques",
+   "tabla": "parques_nacionales_historia",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sib = pd.DataFrame(json.loads((CRUDO / \"sib_areas_protegidas.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"parques_nacionales_historia\": pn_hist.round(0),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sinta_visitas_parques.csv",
+   "a": "f-visitas",
+   "tabla": "visitas_parques_nacionales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vp = pd.read_csv(CRUDO / \"sinta_visitas_parques.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"visitas_parques_nacionales\": visitas,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/visitas_parques_nacionales_mensual.csv",
+   "a": "f-visitas-parque",
+   "tabla": "visitas_por_parque",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vpm = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"visitas_parques_nacionales_mensual.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"visitas_por_parque\": visitas_parque,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sib_areas_protegidas.json",
+   "a": "f-visitas-parque",
+   "tabla": "visitas_por_parque",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "lugares = {sin_esp(n): l for n, l in zip(pn_lista.nombre, pn_lista.lugar)}"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vpp[\"lugar\"] = vpp.area.map(lugar_parque)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sib_areas_protegidas.json",
+   "a": "f-especies",
+   "tabla": "especies_areas_nacionales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "sib = pd.DataFrame(json.loads((CRUDO / \"sib_areas_protegidas.json\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"especies_areas_nacionales\": esp,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:ciam_desembarques_especie.csv",
+   "a": "f-pesca",
+   "tabla": "desembarques_especies",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ds = pd.read_csv(CRUDO / \"ciam_desembarques_especie.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"desembarques_especies\": pesca,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_ER.FSH.CAPT.MT.json",
+   "a": "f-pesca",
+   "tabla": "ocde_comparacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pesca\": (\"ER.FSH.CAPT.MT\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pesca\": lambda: por_habitante(\"ER.FSH.CAPT.MT\", 1000)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bm_SP.POP.TOTL.json",
+   "a": "f-pesca",
+   "tabla": "ocde_comparacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "bm_pob = bm(\"SP.POP.TOTL\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "d = bm(serie).merge(bm_pob, on=[\"pais\", \"anio\"])"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:ciam_pesca_continental.csv",
+   "a": "f-pesca-rio",
+   "tabla": "pesca_continental_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pc = pd.read_csv(CRUDO / \"ciam_pesca_continental.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pesca_continental_provincias\": pesca_rio_prov,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:renaper_nombres_frecuentes.csv",
+   "a": "f-nombres",
+   "tabla": "nombres_top",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "nom = pd.read_csv(CRUDO / \"renaper_nombres_frecuentes.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"nombres_top\": nombres_top,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sspmi_carne_vacuna.csv",
+   "a": "f-carne",
+   "tabla": "carne_vacuna",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cv = sspmi(\"sspmi_carne_vacuna.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"carne_vacuna\": carne.round(1),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sspmi_vitivinicultura.csv",
+   "a": "f-vino",
+   "tabla": "vino_mercado_interno",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "vi = sspmi(\"sspmi_vitivinicultura.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"vino_mercado_interno\": vino,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sspmi_yerba_mate.csv",
+   "a": "f-yerba",
+   "tabla": "yerba_molino",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "ym = sspmi(\"sspmi_yerba_mate.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"yerba_molino\": yerba,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:ciam_glaciares.csv",
+   "a": "f-glaciares",
+   "tabla": "glaciares_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "gl = pd.read_csv(CRUDO / \"ciam_glaciares.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"glaciares_provincias\": glaciares,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:ciam_anomalia_temperatura.csv",
+   "a": "f-clima",
+   "tabla": "clima_desvio",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "cl = pd.read_csv(CRUDO / \"ciam_anomalia_temperatura.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"clima_desvio\": clima,"
+    }
+   ]
   }
  ],
  "fichas": {
+  "f-actividad": {
+   "variables": [
+    "demanda_electrica_total",
+    "emae_promedio_anual"
+   ]
+  },
+  "f-adolescentes": {
+   "variables": [
+    "pct_nacimientos_madres_menores_20",
+    "bm_fecundidad_adolescente"
+   ]
+  },
+  "f-aprender": {
+   "variables": [
+    "aprender_matematica_satisfactorio_o_avanzado",
+    "aprender_lengua_satisfactorio_o_avanzado"
+   ]
+  },
+  "f-balanza-energetica": {
+   "variables": [
+    "exportaciones_combustibles_energia",
+    "importaciones_combustibles_lubricantes"
+   ]
+  },
+  "f-carne": {
+   "variables": [
+    "consumo_carne_vacuna_por_habitante"
+   ]
+  },
+  "f-centrales": {
+   "variables": [
+    "potencia_instalada"
+   ]
+  },
+  "f-clima": {
+   "variables": [
+    "desvio_temperatura_media_anual"
+   ]
+  },
+  "f-cuentas-nacion": {
+   "variables": [
+    "resultado_primario_sector_publico_nacional_pct_pbi",
+    "resultado_financiero_sector_publico_nacional_pct_pbi"
+   ]
+  },
+  "f-deuda": {
+   "variables": [
+    "deuda_bruta_administracion_central_pct_pbi"
+   ]
+  },
+  "f-elecciones": {
+   "variables": [
+    "participacion_presidencial",
+    "voto_presidente_1983_alende",
+    "voto_presidente_1983_alfonsin",
+    "voto_presidente_1983_frigerio",
+    "voto_presidente_1983_luder",
+    "voto_presidente_1983_otras",
+    "voto_presidente_1989_alsogaray",
+    "voto_presidente_1989_angeloz",
+    "voto_presidente_1989_menem",
+    "voto_presidente_1989_otras",
+    "voto_presidente_1989_vicente",
+    "voto_presidente_1995_bordon",
+    "voto_presidente_1995_massaccesi",
+    "voto_presidente_1995_menem",
+    "voto_presidente_1995_otras",
+    "voto_presidente_1995_rico",
+    "voto_presidente_1999_cavallo",
+    "voto_presidente_1999_de_la_rua",
+    "voto_presidente_1999_duhalde",
+    "voto_presidente_1999_otras",
+    "voto_presidente_1999_walsh",
+    "voto_presidente_2003_kirchner",
+    "voto_presidente_2003_lopez_murphy",
+    "voto_presidente_2003_menem",
+    "voto_presidente_2003_otras",
+    "voto_presidente_2003_rodriguez_saa",
+    "voto_presidente_2007_carrio",
+    "voto_presidente_2007_fernandez_de_kirchner",
+    "voto_presidente_2007_lavagna",
+    "voto_presidente_2007_otras",
+    "voto_presidente_2007_rodriguez_saa",
+    "voto_presidente_2011-paso_alfonsin",
+    "voto_presidente_2011-paso_binner",
+    "voto_presidente_2011-paso_duhalde",
+    "voto_presidente_2011-paso_fernandez_de_kirchner",
+    "voto_presidente_2011-paso_otras",
+    "voto_presidente_2011_alfonsin",
+    "voto_presidente_2011_binner",
+    "voto_presidente_2011_fernandez_de_kirchner",
+    "voto_presidente_2011_otras",
+    "voto_presidente_2011_rodriguez_saa",
+    "voto_presidente_2015-2_macri",
+    "voto_presidente_2015-2_scioli",
+    "voto_presidente_2015-paso_macri",
+    "voto_presidente_2015-paso_massa",
+    "voto_presidente_2015-paso_otras",
+    "voto_presidente_2015-paso_scioli",
+    "voto_presidente_2015-paso_stolbizer",
+    "voto_presidente_2015_del_cano",
+    "voto_presidente_2015_macri",
+    "voto_presidente_2015_massa",
+    "voto_presidente_2015_otras",
+    "voto_presidente_2015_scioli",
+    "voto_presidente_2019-paso_del_cano",
+    "voto_presidente_2019-paso_fernandez",
+    "voto_presidente_2019-paso_lavagna",
+    "voto_presidente_2019-paso_macri",
+    "voto_presidente_2019-paso_otras",
+    "voto_presidente_2019_del_cano",
+    "voto_presidente_2019_fernandez",
+    "voto_presidente_2019_lavagna",
+    "voto_presidente_2019_macri",
+    "voto_presidente_2019_otras",
+    "voto_presidente_2023-2_massa",
+    "voto_presidente_2023-2_milei",
+    "voto_presidente_2023-paso_bullrich",
+    "voto_presidente_2023-paso_massa",
+    "voto_presidente_2023-paso_milei",
+    "voto_presidente_2023-paso_otras",
+    "voto_presidente_2023-paso_schiaretti",
+    "voto_presidente_2023_bullrich",
+    "voto_presidente_2023_massa",
+    "voto_presidente_2023_milei",
+    "voto_presidente_2023_otras",
+    "voto_presidente_2023_schiaretti"
+   ]
+  },
+  "f-electricidad-provincias": {
+   "variables": [
+    "electricidad_residencial_por_habitante",
+    "electricidad_residencial_gwh"
+   ]
+  },
+  "f-electricidad-sectores": {
+   "variables": [
+    "electricidad_comercial_por_habitante",
+    "electricidad_industrial_por_habitante"
+   ]
+  },
+  "f-empleo": {
+   "variables": [
+    "asalariados_privados_registrados"
+   ]
+  },
+  "f-empleo-construccion": {
+   "variables": [
+    "empleo_construccion_cada_1000_hab"
+   ]
+  },
+  "f-empleo-publico": {
+   "variables": [
+    "cargos_administracion_provincial_cada_1000_habitantes"
+   ]
+  },
+  "f-empresas": {
+   "variables": [
+    "empresas_privadas_cada_1000_habitantes"
+   ]
+  },
+  "f-envejecimiento": {
+   "variables": [
+    "personas_65_mas_cada_100_de_15_a_64"
+   ]
+  },
+  "f-escolarizacion": {
+   "variables": [
+    "tasa_neta_escolarizacion_secundaria",
+    "bm_secundaria"
+   ]
+  },
   "f-esperanza": {
    "variables": [
     "esperanza_vida_al_nacer"
-   ],
-   "nombre": "Esperanza de vida al nacer por provincia y sexo"
+   ]
+  },
+  "f-eti": {
+   "variables": [
+    "turistas_extranjeros_ezeiza_aeroparque_por_provincia"
+   ]
+  },
+  "f-exportaciones": {
+   "variables": [
+    "exportaciones_usd_por_habitante"
+   ]
+  },
+  "f-fiscal": {
+   "variables": [
+    "recursos_propios_pct_ingresos",
+    "resultado_financiero_pct_ingresos",
+    "gasto_personal_pct_gasto"
+   ]
+  },
+  "f-fracturas": {
+   "variables": [
+    "etapas_fractura_no_convencional"
+   ]
+  },
+  "f-gas": {
+   "variables": [
+    "produccion_gas_natural",
+    "gas_no_convencional"
+   ]
+  },
+  "f-gas-consumo": {
+   "variables": [
+    "gas_consumo_usuario_residencial",
+    "gas_residencial_entregado"
+   ]
+  },
+  "f-gas-hogares": {
+   "variables": [
+    "hogares_gas_de_red_cocina"
+   ]
+  },
+  "f-hogares": {
+   "variables": [
+    "demanda_electrica_residencial"
+   ]
+  },
+  "f-hoteles": {
+   "variables": [
+    "viajeros_hospedados_hoteles"
+   ]
+  },
+  "f-impuestos-provinciales": {
+   "variables": [
+    "recursos_tributarios_provinciales_por_habitante"
+   ]
+  },
+  "f-inflacion": {
+   "variables": [
+    "indice_precios_consumidor"
+   ]
+  },
+  "f-inversion-educativa": {
+   "variables": [
+    "gasto_educativo_por_alumno_estatal"
+   ]
+  },
+  "f-isac": {
+   "variables": [
+    "isac_promedio_anual"
+   ]
+  },
+  "f-jubilaciones": {
+   "variables": [
+    "aportantes_por_beneficio_previsional"
+   ]
   },
   "f-mortalidad": {
    "variables": [
@@ -613,19 +6159,139 @@
     "victimas_directas_femicidio"
    ]
   },
-  "f-causas-infantiles": {
-   "nombre": "De qué mueren los bebés antes del primer año, por provincia"
+  "f-mundo-petroleo": {
+   "variables": [
+    "eia_produccion_crudo"
+   ]
+  },
+  "f-nacimientos": {
+   "variables": [
+    "nacimientos",
+    "bm_fecundidad"
+   ]
+  },
+  "f-obra-publica": {
+   "variables": [
+    "obra_publica_nacion_por_habitante"
+   ]
+  },
+  "f-parques": {
+   "variables": [
+    "ha_terrestres_areas_protegidas_nacionales_acumuladas"
+   ]
+  },
+  "f-patentes": {
+   "variables": [
+    "autos_nuevos_inscriptos",
+    "motos_nuevas_inscriptas"
+   ]
+  },
+  "f-pesca": {
+   "variables": [
+    "desembarques_pesca_maritima"
+   ]
+  },
+  "f-petroleo": {
+   "variables": [
+    "produccion_petroleo",
+    "petroleo_no_convencional"
+   ]
+  },
+  "f-pisa": {
+   "variables": [
+    "pisa_puntaje_matematica",
+    "pisa_puntaje_lectura",
+    "pisa_puntaje_ciencias"
+   ]
+  },
+  "f-pozos-terminados": {
+   "variables": [
+    "pozos_terminados"
+   ]
+  },
+  "f-productividad": {
+   "variables": [
+    "petroleo_primer_anio_pozo_vaca_muerta"
+   ]
+  },
+  "f-protegida": {
+   "variables": [
+    "pct_territorio_protegido",
+    "m2_protegidos_por_habitante"
+   ]
+  },
+  "f-recaudacion": {
+   "variables": [
+    "recaudacion_tributaria_nacional_pct_pbi"
+   ]
+  },
+  "f-receptivo": {
+   "variables": [
+    "turistas_no_residentes"
+   ]
+  },
+  "f-refugio": {
+   "variables": [
+    "solicitudes_de_refugio"
+   ]
+  },
+  "f-regalias": {
+   "variables": [
+    "regalias_pct_ingresos"
+   ]
+  },
+  "f-reservas": {
+   "variables": [
+    "reservas_comprobadas_petroleo",
+    "reservas_comprobadas_gas"
+   ]
+  },
+  "f-salario-docente": {
+   "variables": [
+    "salario_bruto_maestro_grado_10_anios"
+   ]
+  },
+  "f-sube": {
+   "variables": [
+    "tarjetas_sube_dia_habil_mediana"
+   ]
+  },
+  "f-subsidios": {
+   "variables": [
+    "subsidios_economicos_energia_pct_pbi"
+   ]
+  },
+  "f-supermercados": {
+   "variables": [
+    "indice_ventas_supermercados_precios_constantes",
+    "ventas_supermercados_precios_corrientes"
+   ]
+  },
+  "f-trabajadores": {
+   "variables": [
+    "ocupados_construccion_censo"
+   ]
+  },
+  "f-vino": {
+   "variables": [
+    "vino_mercado_interno"
+   ]
+  },
+  "f-visitas": {
+   "variables": [
+    "visitas_parques_nacionales"
+   ]
+  },
+  "f-vivienda": {
+   "variables": [
+    "hogares_alquilan",
+    "hogares_hacinamiento_critico"
+   ]
+  },
+  "f-yerba": {
+   "variables": [
+    "yerba_mate_salida_de_molino"
+   ]
   }
- },
- "muestra": true,
- "alcance": [
-  "f-delitos",
-  "f-robos",
-  "f-homicidios",
-  "f-carceles",
-  "f-esperanza",
-  "f-mortalidad",
-  "f-causas-infantiles",
-  "f-muertes"
- ]
+ }
 }

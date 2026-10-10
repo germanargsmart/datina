@@ -25,9 +25,10 @@
   if (!["grafo", "tabla"].includes(E.vista)) E.vista = "grafo";
   const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   const fecha = f => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(f || ""); return m ? `${+m[3]} de ${MESES[m[2] - 1]} de ${m[1]}` : f; };
+  let pasoFicha = 20;
   let D, N, porId, entra, sale, visibles = [], zoom, svg, capa, transformacion = d3.zoomIdentity, inicial = d3.zoomIdentity;
 
-  fetch(raiz.dataset.datos).then(r => r.json()).then(datos => { D = datos; preparar(); llenarFiltros(); dibujarTodo(); elegir(Q.get("n") && porId.has(Q.get("n")) ? Q.get("n") : null, false); })
+  fetch(raiz.dataset.datos).then(r => r.json()).then(datos => { D = datos; preparar(); llenarFiltros(); dibujarTodo(); elegir(Q.get("n") && porId.has(Q.get("n")) ? Q.get("n") : null, false); centrar(); })
     .catch(() => { $("rx-vacio-grafo").hidden = false; $("rx-vacio-grafo").textContent = "No se pudieron cargar los datos del explorador."; });
 
   function preparar() {
@@ -119,10 +120,15 @@
     // Tres columnas (organismos, archivos y fichas) y, dentro de cada una, un orden que cruza pocas líneas: cada punto va a la altura
     // promedio de sus vecinos de la columna de al lado (método del baricentro, unas vueltas hacia cada lado). Es una disposición fija:
     // no hay simulación ni movimiento.
-    const PASO = 20, W = Math.max(ancho, 960);
-    const X = {fuente: W * 0.14, conjunto: W * 0.44, indicador: W * 0.70};
+    const PASO = 20;
     const col = {fuente: [], conjunto: [], indicador: []};
     for (const n of ordenados(nodos)) col[n.tipo].push(n);
+    // escala inicial: todo el alto si entra, y si no, puntos a unos 12 píxeles uno del otro (se baja arrastrando). El ancho del dibujo
+    // sale de esa escala, así las tres columnas ocupan el ancho de la caja
+    const Halto = PASO * Math.max(col.fuente.length, col.conjunto.length, col.indicador.length, 8);
+    const k0 = Math.max(0.6, Math.min(1.4, (alto - 90) / Halto));
+    const W = (ancho - 60) / k0;
+    const X = {fuente: W * 0.16, conjunto: W * 0.45, indicador: W * 0.70};
     const vis = new Set(nodos.map(n => n.id));
     const vecinosEn = (n, tipo) => [...entra.get(n.id).map(a => a.de), ...sale.get(n.id).map(a => a.a)]
       .filter(id => vis.has(id) && porId.get(id).tipo === tipo).map(id => porId.get(id));
@@ -142,9 +148,10 @@
       baricentro("conjunto", "indicador"); baricentro("fuente", "conjunto");
       baricentro("conjunto", "fuente"); baricentro("indicador", "conjunto");
     }
-    const H = PASO * Math.max(col.fuente.length, col.conjunto.length, col.indicador.length, 8);
+    const H = Halto;
     for (const t of ["fuente", "conjunto", "indicador"]) {
-      const paso = Math.min(H / Math.max(1, col[t].length), t === "fuente" ? 48 : 32);
+      const paso = Math.min(H / Math.max(1, col[t].length), 60);
+      if (t === "indicador") pasoFicha = paso;
       const alto0 = paso * (col[t].length - 1);
       col[t].forEach((n, i) => { n.x = X[t]; n.y = (H - alto0) / 2 + i * paso; });
     }
@@ -161,7 +168,7 @@
       .attr("class", d => `rx-arista ${d.tipo}`).attr("d", arco)
       .attr("marker-end", d => d.tipo === "calcula" ? "url(#rx-flecha)" : null);
     const g = capa.append("g").selectAll("g").data(nodos, n => n.id).join("g")
-      .attr("class", n => `rx-nodo ${n.tipo}`).attr("transform", n => `translate(${n.x},${n.y})`)
+      .attr("class", n => `rx-nodo ${n.tipo}`)
       .on("click", (ev, n) => { ev.stopPropagation(); elegir(n.id); });
     g.append("path").attr("d", n => d3.symbol(SIMBOLO[n.tipo], TAM[n.tipo])());
     g.append("text").attr("x", n => n.tipo === "fuente" ? -10 : 9).attr("dy", "0.32em")
@@ -173,16 +180,16 @@
       .on("zoom", ev => {
         transformacion = ev.transform;
         capa.attr("transform", ev.transform);
+        escalar(ev.transform.k);
         $("rx-grafo").classList.toggle("rx-cerca", ev.transform.k > 1.6);
       });
     svg.call(zoom).on("dblclick.zoom", null);
     // vista inicial: todo el ancho, desde arriba (con muchos puntos el alto no entra: se baja arrastrando)
     if (nodos.length) {
-      const [x0, x1] = d3.extent(nodos, n => n.x), [y0, y1] = d3.extent(nodos, n => n.y);
-      const k = Math.min(1.6, (ancho - 40) / (x1 - x0 + 360), (alto - 80) / Math.max(1, Math.min(y1 - y0, alto * 2.2)));
-      const alto1 = (y1 - y0) * k;
-      const ty = alto1 < alto - 80 ? (alto - alto1) / 2 - y0 * k : 56 - y0 * k;
-      inicial = d3.zoomIdentity.translate(ancho / 2 - ((x0 + x1) / 2 + 60) * k, ty).scale(k);
+      const [y0, y1] = d3.extent(nodos, n => n.y);
+      const alto1 = (y1 - y0) * k0;
+      const ty = alto1 < alto - 90 ? (alto - alto1) / 2 - y0 * k0 : 64 - y0 * k0;
+      inicial = d3.zoomIdentity.translate(30, ty).scale(k0);
       svg.call(zoom.transform, inicial);
     }
     if (!REDUCIR) capa.attr("opacity", 0).transition().duration(300).attr("opacity", 1);
@@ -190,6 +197,14 @@
   }
 
   const corto = t => t.length > 48 ? t.slice(0, 46) + "…" : t;
+  // al alejar, los puntos y los nombres se achican menos que el dibujo, así se siguen viendo y leyendo
+  function escalar(k) {
+    const s = Math.min(1.7, Math.max(1, 1 / k));
+    capa.selectAll(".rx-nodo").attr("transform", n => `translate(${n.x},${n.y}) scale(${s})`);
+    capa.selectAll(".rx-nodo text").attr("font-size", n => (n.tipo === "fuente" ? 12 : 11) / (k * s));
+    // los nombres de las fichas se ven siempre cuando hay lugar entre una y otra
+    $("rx-grafo").classList.toggle("rx-fichas-con-nombre", pasoFicha * k >= 14);
+  }
 
   // lo que se resalta al elegir un punto: toda la cadena hacia arriba (de dónde sale) y hacia abajo (a qué lleva)
   function vecinos(id) {
@@ -335,7 +350,7 @@
     const r = visibles.filter(coincide).sort((a, b) =>
       (sinTildes(a.nombre).startsWith(q) || sinTildes(a.sigla).startsWith(q) ? 0 : 1) - (sinTildes(b.nombre).startsWith(q) || sinTildes(b.sigla).startsWith(q) ? 0 : 1)
       || rango[a.tipo] - rango[b.tipo] || a.nombre.localeCompare(b.nombre, "es"));
-    if (E.q && r.length) elegir(r[0].id);
+    if (E.q && r.length) { elegir(r[0].id); centrar(); }
   });
 
   // zoom con los botones y el teclado
@@ -344,12 +359,17 @@
   $("rx-menos").addEventListener("click", () => zoomPor(1 / 1.5));
   $("rx-reset").addEventListener("click", () => svg.transition().duration(REDUCIR ? 0 : 200).call(zoom.transform, inicial));
   $("rx-centrar").addEventListener("click", centrar);
+  // encuadra la cadena del punto elegido (o el punto con el foco del teclado)
   function centrar() {
-    const n = porId.get(E.elegido || E.foco);
+    if (!svg || E.vista !== "grafo") return;
+    const id = E.elegido || E.foco, n = porId.get(id);
     if (!n || n.x == null) return;
-    const caja = $("rx-grafo"), k = Math.max(transformacion.k, 1.8);
-    svg.transition().duration(REDUCIR ? 0 : 200).call(zoom.transform,
-      d3.zoomIdentity.translate(caja.clientWidth / 2, caja.clientHeight / 2).scale(k).translate(-n.x, -n.y));
+    const caja = $("rx-grafo"), w = caja.clientWidth, h = caja.clientHeight;
+    const pts = [...(E.elegido ? vecinos(id) : [id])].map(x => porId.get(x)).filter(x => x && x.x != null && visibles.includes(x));
+    const [x0, x1] = d3.extent(pts, x => x.x), [y0, y1] = d3.extent(pts, x => x.y);
+    const k = Math.max(0.3, Math.min(1.6, (w - 320) / Math.max(1, x1 - x0), (h - 120) / Math.max(1, y1 - y0)));
+    svg.transition().duration(REDUCIR ? 0 : 250).call(zoom.transform,
+      d3.zoomIdentity.translate(w / 2, h / 2).scale(k).translate(-(x0 + x1) / 2 - 60 / k, -(y0 + y1) / 2));
   }
   // teclado en el grafo: las flechas recorren los puntos en el orden de la tabla, Enter elige, Escape suelta
   $("rx-svg").addEventListener("keydown", ev => {
@@ -398,6 +418,7 @@
   function mostrarVista() {
     $("rx-grafo").hidden = E.vista !== "grafo";
     $("rx-tabla").hidden = E.vista !== "tabla";
+    $("rx-ayuda-grafo").hidden = E.vista !== "grafo";
     const conm = $("rx-vista");
     conm.querySelectorAll("button").forEach((b, i) => {
       const si = b.dataset.vista === E.vista;
@@ -411,7 +432,7 @@
     E.vista = b.dataset.vista;
     mostrarVista();
     // el grafo se dibuja con el tamaño real de su caja, que es cero mientras está oculta
-    if (E.vista === "grafo") dibujarGrafo(calcularVisibles());
+    if (E.vista === "grafo") { dibujarGrafo(calcularVisibles()); centrar(); }
     guardarEnlace();
   });
   document.querySelectorAll(".rx-tipo").forEach(b => b.addEventListener("click", () => {

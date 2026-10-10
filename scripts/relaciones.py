@@ -56,6 +56,28 @@ def ubicar_evidencia(ev, lineas):
     return (n, ls[n - 1].strip()), None
 
 
+def titulo_calculado(cuerpo, js):
+    """El título de una ficha cuyo <h3> lo completa datina.js (TX["...-titulo"]): la parte fija del texto, hasta el primer dato que
+    se calcula (el período). Así el nombre no se copia a mano en el catálogo."""
+    h3 = re.search(r'<h3[^>]*data-t="([^"]+)"', cuerpo)
+    if not h3:
+        return ""
+    m = re.search(r'"' + re.escape(h3.group(1)) + r'"[^`\n]*`([^`]*)`', js)
+    if not m:
+        return ""
+    t = re.split(r",? \$\{|, (?:19|20)\d\d a \$\{", m.group(1))[0]
+    t = re.sub(r",\s*(?:19|20)\d\d a$", "", t).rstrip(", ")
+    return "" if "${" in t else t
+
+
+def nombre_ficha(cuerpo, js, cat_nombre=""):
+    h3 = re.search(r"<h3[^>]*>(.*?)</h3>", cuerpo, re.S)
+    return (texto(h3.group(1)) if h3 else "") or titulo_calculado(cuerpo, js) or cat_nombre
+
+
+JS = lambda: (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8")
+
+
 def norm(t):
     """Texto sin tildes ni mayúsculas, para reconocer una fuente escrita de distintas formas."""
     t = t.lower()
@@ -68,6 +90,7 @@ def validar(cat, plantilla):
     """Lista de errores del catálogo. Vacía si está bien."""
     err = []
     lineas = Lineas()
+    js = JS()
     fichas = fichas_de(plantilla)
     todas = set(re.findall(r'<article class="ficha[^"]*" id="(f-[^"]+)"', plantilla))
     for k in ("fuentes", "conjuntos", "aristas"):
@@ -159,9 +182,8 @@ def validar(cat, plantilla):
     for f in sorted(alcance & set(fichas)):
         if f not in llegan:
             err.append(f"{f}: ninguna relación dice de dónde salen sus datos")
-        titulo = re.search(r"<h3[^>]*>(.*?)</h3>", fichas[f], re.S)
-        if not (titulo and texto(titulo.group(1))) and not cat.get("fichas", {}).get(f, {}).get("nombre"):
-            err.append(f"{f}: su título se calcula en datina.js: el catálogo necesita su nombre (fichas.{f}.nombre)")
+        if not nombre_ficha(fichas[f], js, cat.get("fichas", {}).get(f, {}).get("nombre", "")):
+            err.append(f"{f}: no se encontró su título (ni en la plantilla ni en TX de datina.js): sumarlo en fichas.{f}.nombre")
     # cada ficha nombra en su pie al menos uno de los organismos de los que salen sus datos
     alias = {f["id"]: [norm(x) for x in [f.get("sigla", ""), f["nombre"], *f.get("alias", [])] if x] for f in cat["fuentes"]}
     fuente_de = {c["id"]: c.get("fuente") for c in cat["conjuntos"]}
@@ -209,6 +231,7 @@ def describir_tabla(filas):
 def publicar(cat, plantilla, secciones, ubic):
     """El JSON que lee la página: nodos con sus datos y relaciones con su evidencia ubicada en el archivo."""
     lineas = Lineas()
+    js = JS()
     fichas = fichas_de(plantilla)
     alcance = list(cat.get("alcance") or fichas)
     tit_sec = {s[0]: s[1] for s in secciones}
@@ -244,7 +267,6 @@ def publicar(cat, plantilla, secciones, ubic):
     for i in alcance:
         cuerpo = fichas[i]
         meta = cat.get("fichas", {}).get(i, {})
-        h3 = re.search(r"<h3[^>]*>(.*?)</h3>", cuerpo, re.S)
         pie = re.search(r'<div class="pie"><span>([^<]*)</span>(.*?)</div>', cuerpo, re.S)
         csvs = re.findall(r'href="(datos/[\w.-]+\.csv)"', pie.group(2)) if pie else []
         nota = re.search(r'<p class="nota"(?![^>]*data-t)[^>]*>(.*?)</p>', cuerpo, re.S)
@@ -257,7 +279,7 @@ def publicar(cat, plantilla, secciones, ubic):
         sec = pagina
         fuente_texto = re.sub(r"^Fuentes?: ", "", texto(pie.group(1))) if pie else ""
         frase = re.search(r"(Se actualiza [^.]*\.|La encuesta está en pausa[^.]*\.[^.]*\.)$", fuente_texto)
-        nodos.append({"id": i, "tipo": "indicador", "nombre": (texto(h3.group(1)) if h3 else "") or meta.get("nombre", i),
+        nodos.append({"id": i, "tipo": "indicador", "nombre": nombre_ficha(cuerpo, js, meta.get("nombre", "")),
                       "seccion": sec, "seccion_nombre": tit_sec.get(sec, ""), "url": f"{pagina}.html#{i}" if pagina else "",
                       "fuente_texto": fuente_texto[:frase.start()].strip() if frase else fuente_texto,
                       "frecuencia": frase.group(1) if frase else "", "csv": csvs, "unidad": unidades, "periodo": per, "cobertura": cob,

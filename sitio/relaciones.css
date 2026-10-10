@@ -44,7 +44,7 @@
 .rx-grafo svg#rx-svg:focus-visible{outline:3px solid var(--sol);outline-offset:-3px;border-radius:var(--r-tarjeta)}
 .rx-zoom{position:absolute;top:var(--e-3);right:var(--e-3);z-index:2;display:flex;gap:var(--e-1)}
 .rx-zoom .boton{background:var(--bg);min-width:34px}
-.rx-ayuda{position:absolute;left:var(--e-4);bottom:var(--e-3);right:var(--e-4);z-index:1;margin:0;font-size:var(--t-2);color:var(--muted);pointer-events:none}
+.rx-ayuda{margin:var(--e-3) 0 0;font-size:var(--t-2);color:var(--muted)}
 .rx-vacio{margin:var(--e-6) 0;padding:var(--e-4);background:var(--superficie-2);border-radius:var(--r-interno);font-size:var(--t-3)}
 .rx-grafo .rx-vacio{position:absolute;top:30%;left:50%;transform:translateX(-50%);width:min(90%,28em);text-align:center}
 .rx-leyenda{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-5);margin:var(--e-3) 0 0;padding:0;list-style:none;font-size:var(--t-2);color:var(--muted)}
@@ -61,14 +61,14 @@
 .rx-nodo.fuente path{fill:var(--rx-fuente);stroke:var(--rx-fuente-borde)}
 .rx-nodo.conjunto path{fill:var(--rx-conjunto);stroke:var(--rx-conjunto-borde)}
 .rx-nodo.indicador path{fill:var(--rx-indicador);stroke:var(--rx-indicador-borde)}
-.rx-nodo text{font:500 11px/1 var(--f);fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;pointer-events:none;opacity:0;
+.rx-nodo text{font-family:var(--f);font-weight:500;fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;pointer-events:none;opacity:0;
   transition:opacity var(--dur-1) var(--ease-out)}
-.rx-nodo.fuente text,.rx-nodo.vecina text,.rx-nodo.elegido text,.rx-nodo.encontrado text,.rx-nodo:hover text,.rx-cerca .rx-nodo text{opacity:1}
-.rx-nodo.fuente text{font-weight:700;font-size:12px}
+.rx-nodo.fuente text,.rx-fichas-con-nombre .rx-nodo.indicador text,.rx-nodo.vecina text,.rx-nodo.elegido text,.rx-nodo.encontrado text,.rx-nodo:hover text,.rx-cerca .rx-nodo text{opacity:1}
+.rx-nodo.fuente text{font-weight:700}
 .rx-nodo.elegido path{stroke:var(--ink);stroke-width:3px}
 .rx-nodo.foco path{stroke:var(--ink);stroke-width:3px;stroke-dasharray:3 2}
 .rx-tenue{opacity:.14}
-.rx-nodo.rx-tenue text{opacity:0}
+.rx-grafo .rx-nodo.rx-tenue text{opacity:0}
 
 /* tabla */
 .rx-tabla-env{overflow-x:auto;background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
@@ -123,7 +123,6 @@
   .rx{--rx-alto:62vh}
   .rx-controles .cx-campo,.rx-controles .rx-buscar{flex:1 1 100%}
   .rx-tabla th:nth-child(3),.rx-tabla td:nth-child(3){display:none}
-  .rx-ayuda{display:none}
   .barra .barra-der .boton{display:none}
 }
 @media (prefers-reduced-motion:reduce){
