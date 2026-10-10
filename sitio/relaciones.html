@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Explorador de relaciones | Datina</title>
+<meta name="description" content="De dónde sale cada número de Datina: qué organismo publica cada dato, qué archivo baja el sitio y qué fichas arma con él, con la evidencia en el código.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link rel="stylesheet" href="datina.css?v=d586b21597">
+<link rel="stylesheet" href="relaciones.css?v=017080bd22">
+</head>
+<body data-pagina="relaciones">
+<a class="rx-saltar" href="#rx-buscar">Ir al buscador</a>
+<!-- Página aparte (plan Datina Lab): la arma scripts/relaciones.py, no la plantilla, y no carga datina.js.
+     La barra y el pie son los del sitio, sin el menú, el buscador ni la provincia, que necesitan datina.js -->
+<header class="barra clara">
+  <div class="envoltura">
+    <div class="barra-izq"><a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a></div>
+    <nav class="temas" aria-label="Temas principales">
+      <a href="trabajo.html">Trabajo</a><a href="pobreza.html">Pobreza</a><a href="salud.html">Salud</a><a href="seguridad.html">Seguridad</a><a href="educacion.html">Educación</a><a href="poblacion.html">Población</a><a href="politica.html">Política</a>
+    </nav>
+    <div class="barra-der"><a class="boton chico" href="./">Volver a Datina</a></div>
+  </div>
+</header>
+<main class="envoltura">
+<section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=1634c25ded">
+  <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Explorador de relaciones</span></li></ol></nav>
+  <h2>Explorador de relaciones</h2>
+  <div class="tema-intro">
+    <p class="pregunta">¿De dónde sale cada número?</p>
+    <p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>
+  </div>
+  <p class="rx-error" id="rx-error" role="alert" hidden></p>
+  <p class="rx-aviso" id="rx-muestra" hidden>Es una muestra: todavía no están todas las fichas del sitio.</p>
+
+  <div class="rx-controles" role="search" aria-label="Buscar y filtrar">
+    <label class="cx-campo rx-buscar"><span>Buscar</span>
+      <input type="search" id="rx-buscar" placeholder="Un organismo, un archivo o una ficha: INDEC, snic, homicidios" autocomplete="off" spellcheck="false">
+    </label>
+    <label class="cx-campo"><span>Tema</span><select id="rx-tema"><option value="">Todos los temas</option></select></label>
+    <label class="cx-campo"><span>Organismo</span><select id="rx-fuente"><option value="">Todos los organismos</option></select></label>
+    <fieldset class="rx-tipos">
+      <legend>Mostrar</legend>
+      <button type="button" class="rx-tipo" data-tipo="fuente" aria-pressed="true"><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6"/></svg>Organismos</button>
+      <button type="button" class="rx-tipo" data-tipo="conjunto" aria-pressed="true"><svg viewBox="-8 -8 16 16" aria-hidden="true"><rect x="-5.5" y="-5.5" width="11" height="11"/></svg>Archivos</button>
+      <button type="button" class="rx-tipo" data-tipo="indicador" aria-pressed="true"><svg viewBox="-8 -8 16 16" aria-hidden="true"><path d="M0-7L7 0 0 7-7 0Z"/></svg>Fichas</button>
+    </fieldset>
+  </div>
+
+  <div class="rx-barra-vista">
+    <div class="conmutador" id="rx-vista" role="group" aria-label="Vista" style="--n:2">
+      <button type="button" data-vista="grafo" aria-pressed="true">Grafo</button>
+      <button type="button" data-vista="tabla" aria-pressed="false">Tabla</button>
+    </div>
+    <p class="rx-cuenta" id="rx-cuenta" aria-live="polite"></p>
+  </div>
+
+  <div class="rx-cuerpo" id="rx-cuerpo">
+    <div class="rx-vistas">
+      <div class="rx-grafo" id="rx-grafo">
+        <div class="rx-zoom" role="group" aria-label="Acercar y alejar">
+          <button type="button" class="boton chico" id="rx-mas" aria-label="Acercar">+</button>
+          <button type="button" class="boton chico" id="rx-menos" aria-label="Alejar">−</button>
+          <button type="button" class="boton chico" id="rx-centrar" aria-label="Centrar en lo elegido">Centrar</button>
+          <button type="button" class="boton chico" id="rx-reset" aria-label="Inicio: volver a la vista inicial">Inicio</button>
+        </div>
+        <svg id="rx-svg" tabindex="0" role="application" aria-roledescription="grafo" aria-describedby="rx-ayuda-grafo" aria-label="Grafo de organismos, archivos y fichas"></svg>
+        <p class="rx-vacio" id="rx-vacio-grafo" hidden></p>
+      </div>
+        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.</p>
+
+      <div class="rx-tabla" id="rx-tabla" hidden>
+        <p class="rx-vacio" id="rx-vacio-tabla" hidden></p>
+        <div class="rx-tabla-env"><table>
+          <caption class="rx-oculto">Organismos, archivos y fichas con sus relaciones</caption>
+          <thead><tr><th scope="col">Tipo</th><th scope="col">Nombre</th><th scope="col">Tema</th><th scope="col">Viene de</th><th scope="col">Lleva a</th></tr></thead>
+          <tbody id="rx-filas"></tbody>
+        </table></div>
+      </div>
+      <ul class="rx-leyenda" aria-label="Qué es cada forma">
+        <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6" class="rx-n-fuente"/></svg>Organismo que publica</li>
+        <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><rect x="-5.5" y="-5.5" width="11" height="11" class="rx-n-conjunto"/></svg>Archivo que baja o arma Datina</li>
+        <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><path d="M0-7L7 0 0 7-7 0Z" class="rx-n-indicador"/></svg>Ficha del sitio</li>
+        <li><svg viewBox="0 0 28 10" aria-hidden="true"><path d="M1 5H27" class="rx-l-calcula"/></svg>Se calcula a partir de otra ficha</li>
+      </ul>
+    </div>
+    <section class="rx-panel" id="rx-panel" aria-labelledby="rx-p-titulo" tabindex="-1" hidden>
+      <div class="rx-panel-cab">
+        <p class="rx-p-tipo" id="rx-p-tipo"></p>
+        <button type="button" class="rx-cerrar" id="rx-cerrar" aria-label="Cerrar el detalle"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+      </div>
+      <h3 id="rx-p-titulo"></h3>
+      <div id="rx-p-cuerpo"></div>
+    </section>
+  </div>
+  <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
+
+  <section class="rx-definiciones" aria-labelledby="rx-def-tit">
+    <h3 id="rx-def-tit">Qué es una relación acá</h3>
+    <dl>
+      <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>
+      <dt>Alimenta</dt><dd>Un programa del sitio lee el archivo para armar la tabla de la ficha. La evidencia es la línea que lo lee.</dd>
+      <dt>Se calcula a partir de</dt><dd>La cifra de una ficha usa la de otra ficha del sitio.</dd>
+    </dl>
+    <p>Qué no muestra: si un indicador influye en otro o si dos indicadores van juntos. Para eso están <a class="enlace" href="cruces.html">Cruces</a> y los <a class="enlace" href="articulos.html">artículos</a>. Dos fichas del mismo tema no quedan unidas por eso. Las fichas sobre suicidios no están en el explorador.</p>
+  </section>
+</section>
+</main>
+<footer class="pie-sitio">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Temas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía y precios</a></li><li><a href="empresas.html">Empresas y oportunidades</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li><li><a href="salud.html">Salud</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="educacion.html">Educación</a></li><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="politica.html">Política</a></li><li><a href="gobierno.html">Gobierno</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="naturaleza.html">Flora y fauna</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li><li><a href="articulos.html">Artículos</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
+<script src="relaciones.js?v=0689d22158"></script>
+</body>
+</html>

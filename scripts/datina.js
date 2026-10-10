@@ -4611,6 +4611,9 @@ async function imagenFicha(f) {
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   }, "image/png");
 }
+// "De dónde sale": abre el Explorador de relaciones en la ficha (qué archivo la alimenta y qué organismo lo publica). No va en las
+// herramientas ni en las fichas que el explorador deja afuera (las de suicidios), que le pasa el constructor desde scripts/relaciones.py
+const SIN_RELACIONES = new Set(/*SIN_RELACIONES*/[]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   const tema = f.closest(".tema")?.querySelector("h2")?.textContent;
@@ -4623,6 +4626,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
   const conTabla = nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
   acc.innerHTML = `<button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
     (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
+    (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
   csv.className = "boton chico accion"; csv.innerHTML = `<span class="lbl">Descargar CSV</span>`;
   acc.appendChild(csv); pie.appendChild(acc);

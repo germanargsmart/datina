@@ -67,6 +67,8 @@ def anios_a_mano(nombre, fuente):
 
 
 malos = anios_a_mano("plantilla.html", plantilla) + anios_a_mano("datina.js", (RAIZ / "scripts" / "datina.js").read_text(encoding="utf-8"))
+# también la página del Explorador de relaciones, que no sale de la plantilla
+malos += [m for n in ("relaciones.html", "relaciones.js") for m in anios_a_mano(n, (RAIZ / "scripts" / n).read_text(encoding="utf-8"))]
 if malos:
     sys.exit("Hay años recientes escritos a mano en los textos: quedarían viejos con la próxima actualización. Usar {{ruta}} en la "
              "plantilla o un dato de R en datina.js, o sumarlo a FIJOS si es un hecho fijo:\n" + "\n".join(malos))
@@ -381,7 +383,8 @@ SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin",
              "diagnostico": "portapapeles"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
-for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO}.items():
+import relaciones  # noqa: E402
+for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS)}.items():
     assert marca in js, marca
     js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
 (SITIO / "datina.css").write_text(css, encoding="utf-8")
@@ -511,7 +514,7 @@ def lista(items):
 
 
 MAPA = ('<div class="pie-col"><h2>Temas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if not x[4] and x[0] != "articulos"]) + "</div>"
-        '<div class="pie-col"><h2>Herramientas</h2>' + lista([(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] + [("articulos.html", "Artículos")]) +
+        '<div class="pie-col"><h2>Herramientas</h2>' + lista([(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] + [("relaciones.html", "Explorador de relaciones"), ("articulos.html", "Artículos")]) +
         '<h2>Datina</h2>' + lista([("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
                                    ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]) + "</div>")
 assert "<!--MAPA-->" in base
@@ -658,4 +661,15 @@ dist = RAIZ / "pobreza" / "dist"
 if dist.exists():
     shutil.rmtree(SITIO / "pobreza", ignore_errors=True)
     shutil.copytree(dist, SITIO / "pobreza")
+# Explorador de relaciones (plan Datina Lab): de dónde sale cada número. Página aparte que arma scripts/relaciones.py desde el catálogo
+# datos/manual/relaciones.json. Si el catálogo tiene un error (una relación sin evidencia, una ficha sin origen), el sitio no se arma.
+import relaciones  # noqa: E402
+import prueba_relaciones  # noqa: E402
+# antes, las pruebas del propio validador: el catálogo roto a propósito de varias formas tiene que dar error
+_rx = prueba_relaciones.correr(mostrar=False)
+if _rx:
+    sys.exit("El validador del Explorador de relaciones no marcó un error que debía marcar: el sitio no se armó.\n" + "\n".join(_rx))
+_rx = relaciones.construir(plantilla, base, SECCIONES, UBIC, huella(css))
+if _rx:
+    sys.exit("El catálogo del Explorador de relaciones tiene problemas: el sitio no se armó.\n" + "\n".join(_rx))
 print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos" + (" y sitio/pobreza/" if dist.exists() else ""))
