@@ -49,6 +49,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Redondeo único, al mostrar (`r1()`, mitad hacia arriba). Las tablas guardan cuatro decimales.
 - Ningún año que cambia con los datos va escrito a mano: sale del resumen (`{{ruta}}` en la plantilla). El constructor frena el sitio si encuentra uno.
 - Los textos se generan desde `resumen`, nunca con cifras escritas a mano.
+- Toda ficha nueva necesita su origen en `datos/manual/relaciones.json` (Explorador de relaciones, `docs/roadmap/EXPLORADOR.md`): sin eso, 03 no arma el sitio.
 - No tocar `datos/crudo/` a mano ni ejecutar descargas masivas sin aprobación.
 - Un hallazgo nuevo de `pruebas_datos.py` sin motivo en `ACEPTADAS` frena el armado y la publicación.
 

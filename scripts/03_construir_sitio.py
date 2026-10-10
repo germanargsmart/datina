@@ -513,7 +513,7 @@ def lista(items):
 
 
 MAPA = ('<div class="pie-col"><h2>Temas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if not x[4] and x[0] != "articulos"]) + "</div>"
-        '<div class="pie-col"><h2>Herramientas</h2>' + lista([(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] + [("articulos.html", "Artículos")]) +
+        '<div class="pie-col"><h2>Herramientas</h2>' + lista([(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] + [("relaciones.html", "Explorador de relaciones"), ("articulos.html", "Artículos")]) +
         '<h2>Datina</h2>' + lista([("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
                                    ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]) + "</div>")
 assert "<!--MAPA-->" in base

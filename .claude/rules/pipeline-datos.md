@@ -35,7 +35,8 @@ Texto completo y motivos de cada regla: `docs/historico/etapas-previas.md`, secc
 1. Sumar la fuente en `FUENTES` de `01_descargar.py`.
 2. Procesarla en `02_procesar.py`: tabla larga, su tabla en `tablas` y sus cifras clave en `resumen`.
 3. En `plantilla.html`: `<article class="ficha">` con título, `<p class="lead" data-t="...">`, `<div class="grafico" data-g="..." data-forma="...">`, nota, fuente y link al CSV. Su id en `FRECUENCIA` de `03_construir_sitio.py` (si falta, el sitio no se arma). En `datina.js`: texto en `TX`, gráfico en `DIB`, cifra en `CLAVE` y, si corresponde, pregunta en `PREG` e indicador en `INDP` (con su grupo `g`).
-4. Correr los scripts y revisar en computadora y en celular.
+4. En `datos/manual/relaciones.json` (Explorador de relaciones): el archivo nuevo con su organismo y la relación "alimenta" hacia la ficha, con el texto exacto de la línea que lo lee. Sin eso el sitio no se arma (ver `docs/roadmap/EXPLORADOR.md`).
+5. Correr los scripts y revisar en computadora y en celular.
 
 Antes de sumar un id, clave o alias, buscar si ya existe. En `02_procesar.py`, las variables auxiliares de un bloque nuevo llevan un prefijo propio (`_pvm`, `fr_`): buscar antes si el nombre ya se asigna en otro lugar.
 

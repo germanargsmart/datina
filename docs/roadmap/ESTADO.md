@@ -32,9 +32,11 @@ Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 
 - D4-02: regresión del sitio completo. `pruebas_datos.py` 0 sin explicar y 115 explicados (igual que la línea de base); catálogo y validador bien; el armado deja las 46 páginas anteriores, `datina.css`, `datina.js` y `fichas.js` idénticas a las del repositorio salvo los finales de línea (`git diff --ignore-cr-at-eol` vacío fuera del explorador); las 115 fichas del explorador llevan a una página con esa ancla y a CSV que existen; prueba de páginas 47, "Todo en orden".
 
+- D5-01: el explorador está enlazado desde el menú "Secciones" (Herramientas), el mapa del pie de todas las páginas y "Cómo se hace" de Sobre nosotros, sin tocar `datina.js`. Definiciones, límites, dudas del catálogo y mantenimiento en `EXPLORADOR.md`; "Cómo agregar una ficha" suma el paso del catálogo.
+
 ## Próxima tarea
 
-D5-01: enlazar el explorador desde la navegación y actualizar la documentación.
+D7-01 y D7-02 (despliegue, solo documentación): en `docs/deploy/`. Después, lo que necesita al autor: elegir dónde publicar y conectar la cuenta (D7-03 a D7-06).
 
 ## Pendientes heredados del sitio
 
