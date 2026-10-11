@@ -1752,7 +1752,7 @@ function piramidePob(el, cfg) {
   const om = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
   f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").style("font-size", angosto ? "10px" : null).text(d => d.lab);
   f.append("rect").attr("x", 0).attr("width", iw).attr("height", y.bandwidth()).attr("fill","transparent")
-    .on("pointermove", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en ${PI.anio_fin}<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en ${PI.anio_fin}`, centro, y(d.edad) + 48))
+    .on("pointermove pointerdown", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en ${PI.anio_fin}<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en ${PI.anio_fin}`, centro, y(d.edad) + 48))
     .on("pointerleave", ocultarSiMouse);
   const ley = g.append("g").attr("transform", `translate(${centro - 56},${data.length * fila + 8})`);
   ley.append("rect").attr("width", 12).attr("height", 9).attr("fill", css("--celeste"));
@@ -1932,7 +1932,8 @@ function mapaAreas(anim) {
     .attr("fill", d => escala(val[d.properties.codigo_indec]?.pct_territorio ?? 0));
   provs.filter(".elegida").raise();
   el.resaltar = () => { provs.attr("class", d => "prov" + (d.properties.codigo_indec === prov ? " elegida" : "")); provs.filter(".elegida").raise(); };
-  provs.on("pointermove", (ev, d) => {
+  // con el mouse al pasar y con el dedo al tocar (revisión de accesibilidad: en el celular el cuadro no aparecía)
+  provs.on("pointermove pointerdown", (ev, d) => {
       const v = val[d.properties.codigo_indec], [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${v ? v.territorio : d.properties.nombre}</b><br>${v ? pct(v.pct_territorio) : "Sin dato"} del territorio protegido` +
         (v ? `<br>${n0(v.ha_terrestres)} hectáreas` : ""), mx, my);
@@ -1942,7 +1943,7 @@ function mapaAreas(anim) {
   const burb = svg.append("g").selectAll("circle").data(areas.sort((a, b) => b.hectareas - a.hectareas)).join("circle")
     .attr("class", "burbuja").attr("cx", d => proy([d.lng, d.lat])[0]).attr("cy", d => proy([d.lng, d.lat])[1]).attr("r", d => r(d.hectareas));
   if (anim) burb.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  burb.on("pointermove", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
+  burb.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
     .on("pointerleave", ocultarSiMouse);
   // leyenda
@@ -1984,7 +1985,7 @@ function mapaDep(el, cfg) {
   if (cfg.anim && !REDUCIR) deps.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   const geoms = NOMBRES[prov] ? {type: "GeometryCollection", geometries: obj.geometries.filter(x => x.properties.prov === prov)} : obj;
   svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(TOPO_DEP, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
-  deps.on("pointermove", (ev, f) => {
+  deps.on("pointermove pointerdown", (ev, f) => {
     const v = val[f.properties.id], [mx, my] = d3.pointer(ev, el);
     mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? "sin dato" : cfg.vf(v)}` +
       (cfg.extra ? cfg.extra(f.properties.id) : ""), mx, my);
@@ -3748,12 +3749,14 @@ DIB.vtmatriz = a => {
     if (!l.camaras[cam]) return "";
     if (!c || !d3.sum(c)) return `<td class="sin">—</td>`;
     const tit = `${e}: ${c[0]} a favor, ${c[1]} en contra, ${c[2]} abstenciones y ${c[3]} ausentes`;
-    if (postura(c) === "aus") return `<td class="sin" title="${tit}">aus.</td>`;
+    // el detalle va también como texto para lectores de pantalla (revisión de accesibilidad: estaba solo en el title)
+    if (postura(c) === "aus") return `<td class="sin" title="${tit}"><span aria-hidden="true">aus.</span><span class="solo-lector">${tit}</span></td>`;
     const p = c[0] / (c[0] + c[1] + c[2]) * 100, fondo = col(p);
-    return `<td title="${tit}" style="background:${fondo};color:${tintaSobre(fondo)}">${Math.round(p)}</td>`;
+    return `<td title="${tit}" style="background:${fondo};color:${tintaSobre(fondo)}"><span aria-hidden="true">${Math.round(p)}</span><span class="solo-lector">${Math.round(p)}% a favor. ${tit}</span></td>`;
   };
   el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th><button type="button" class="esp-btn" data-e="${e}" aria-haspopup="dialog">${ESP_CORTO[e]}</button></th>`).join("")}</tr></thead><tbody>` +
-    [...filas].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", efecto directo" : ""}</small></td>` +
+    // la ley es un botón dentro de su celda (antes la fila entera era role="button"): con el mouse se puede tocar toda la fila
+    [...filas].reverse().map(l => `<tr data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley"><button type="button" class="vt-ley" aria-pressed="${l.k === MED.vtLey}">${l.nombre}</button><small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", efecto directo" : ""}</small></td>` +
       (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody>" +
     `<tfoot><tr><td class="ley">Plataforma 2023<small>qué propuso</small></td>${esp.map(plataformaCelda).join("")}</tr></tfoot></table>`;
   el.querySelectorAll("tr[data-k]").forEach(tr => {
@@ -3762,7 +3765,7 @@ DIB.vtmatriz = a => {
       DIB.votaciones(!REDUCIR); DIB.vtmatriz(false);
       document.getElementById("f-votaciones").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth", block: "start"});
     };
-    tr.addEventListener("click", ir); tr.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ir(); } });
+    tr.addEventListener("click", ev => { if (!ev.target.closest("a")) ir(); });
   });
   // coincidencias entre espacios: leyes en que la mayoría de los dos votó igual
   const pares = [];
@@ -4764,7 +4767,7 @@ const MAPA_DEP = (() => {
     const geoms = NOMBRES[pv] ? {type: "GeometryCollection", geometries: obj.geometries.filter(g => g.properties.prov === pv)} : obj;
     svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(topo, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
     const f1 = d3.format(",.1f"), fv = v => v == null ? "sin dato" : loc.format(",.1f")(v);
-    deps.on("pointermove", (ev, f) => {
+    deps.on("pointermove pointerdown", (ev, f) => {
       const r = filas[f.properties.id] || {}, [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${f.properties.nombre}</b>, ${r.provincia || ""}<br>${m.nombre}: ${fv(r[ind])}` +
         (censo ? (r.hogares ? `<br>${n0(r.hogares)} hogares en el Censo 2022` : "") : r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas` : ""), mx, my);

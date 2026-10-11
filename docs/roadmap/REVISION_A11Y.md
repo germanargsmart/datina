@@ -40,8 +40,10 @@ Revisor de accesibilidad en solo lectura sobre datina.css, datina.js, la plantil
 
 Verificado en Chrome sin ventana (matriz con flechas y foco, tabla con región, toque, 320 píxeles sin corrimiento, selector) y prueba de páginas: 49, "Todo en orden".
 
-Quedan, por ser cambios más grandes o de diseño:
-- Las filas de la matriz de votaciones son `tr role="button"` y el detalle de votos está solo en `title` (P2): pasar a un botón dentro de la celda de la ley y el detalle a texto para lectores.
-- El borde del foco se corta en las filas que se deslizan (`.subsecciones`, "En cifras", "Para empezar") (P2): relleno vertical en esos contenedores.
-- Los tamaños de letra en píxeles (`--t-1` a `--t-4`) no siguen la letra que elige la persona en su navegador (P2): pasarlos a rem sin cambiar el aspecto.
-- Los mapas que solo escuchan `pointermove` no muestran el cuadro con un toque.
+Quedaban cuatro, por ser cambios más grandes o de diseño. Resueltos el 11 de octubre de 2026 (el autor pidió avanzar con todos los pendientes):
+- Matriz de votaciones: cada ley es un botón dentro de su celda, con `aria-pressed` en la elegida (antes la fila era `tr role="button"`), y el detalle de los votos va como texto para lectores además del `title`. Con el mouse se sigue tocando toda la fila.
+- El borde del foco ya no se corta en las filas que se deslizan (`.subsecciones`, la fila del celular, "En cifras" y las sugerencias de Cruces): va hacia adentro (`outline-offset` negativo), sin cambiar el diseño.
+- Los tamaños de letra (`--t-1` a `--t-10`) están en rem: con 16 píxeles se ven igual y siguen la letra que elige la persona.
+- Los mapas de áreas protegidas y de departamentos, las burbujas de los parques y la pirámide muestran el cuadro también al tocar (`pointerdown`).
+
+Verificado: la matriz con el teclado (Tab y Enter) en 1440 y 390 píxeles, el peso y el tamaño de la letra iguales y la prueba de páginas.

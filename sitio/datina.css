@@ -61,16 +61,18 @@
   --f-c55:"Roboto Flex","Datina Roboto C55","Datina Verdana C55",var(--f);
   --f-c60:"Roboto Flex","Datina Roboto C60","Datina Verdana C60",var(--f); --f-c75:"Roboto Flex","Datina Roboto C75","Datina Verdana C75",var(--f);
   --mono:"Roboto Mono","Datina Mono",ui-monospace,Menlo,Consolas,monospace;
-  --t-1:11px;                          /* etiquetas en mayúsculas */
-  --t-2:13px;                          /* notas, pies y datos chicos */
-  --t-3:15px;                          /* textos secundarios y de tarjetas */
-  --t-4:17px;                          /* texto (16 en el celular) */
-  --t-5:clamp(18px,1.8vw,20px);        /* bajadas y títulos chicos */
-  --t-6:clamp(20px,2.2vw,24px);        /* preguntas de entrada */
-  --t-7:clamp(22px,2.4vw,28px);        /* títulos de ficha y de tarjeta */
-  --t-8:clamp(28px,3.4vw,36px);        /* cifras chicas */
-  --t-9:clamp(30px,3.6vw,44px);        /* títulos de bloque */
-  --t-10:clamp(40px,5.2vw,64px);       /* títulos de página */
+  /* en rem (11 de octubre de 2026, revisión de accesibilidad): con la letra de 16 píxeles del navegador se ven igual que antes en
+     píxeles, y crecen si la persona elige una letra más grande */
+  --t-1:.6875rem;                          /* etiquetas en mayúsculas (11) */
+  --t-2:.8125rem;                          /* notas, pies y datos chicos (13) */
+  --t-3:.9375rem;                          /* textos secundarios y de tarjetas (15) */
+  --t-4:1.0625rem;                         /* texto (17, 16 en el celular) */
+  --t-5:clamp(1.125rem,1.8vw,1.25rem);     /* bajadas y títulos chicos (18 a 20) */
+  --t-6:clamp(1.25rem,2.2vw,1.5rem);       /* preguntas de entrada (20 a 24) */
+  --t-7:clamp(1.375rem,2.4vw,1.75rem);     /* títulos de ficha y de tarjeta (22 a 28) */
+  --t-8:clamp(1.75rem,3.4vw,2.25rem);      /* cifras chicas (28 a 36) */
+  --t-9:clamp(1.875rem,3.6vw,2.75rem);     /* títulos de bloque (30 a 44) */
+  --t-10:clamp(2.5rem,5.2vw,4rem);         /* títulos de página (40 a 64) */
   --t-cifra:clamp(38px,4.6vw,54px);    /* cifra destacada de cada ficha */
   --i-titulo:1.1; --i-tarjeta:1.25; --i-chico:1.4; --i-texto:1.55;
   /* espacios: la escala del autor (etapa 38), 4, 8, 12, 16, 24, 32, 48, 72, 96 y 144. No hay --e-5: los 20 píxeles no están en la
@@ -109,7 +111,7 @@
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (max-width:760px){:root{--t-4:16px}}
+@media (max-width:760px){:root{--t-4:1rem}}
 
 /* ---------- base ---------- */
 *,*::before,*::after{box-sizing:inherit}
@@ -124,6 +126,9 @@ a{color:inherit;text-decoration-color:var(--celeste);text-underline-offset:3px;t
 a:hover{text-decoration-color:var(--celeste-fuerte)}
 :focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:3px}
 .en-azul :focus-visible{outline-color:var(--sol)}
+/* en las filas que se deslizan de costado, el borde del foco va hacia adentro: el desplazamiento lo cortaba arriba y abajo (revisión de
+   accesibilidad, 11 de octubre de 2026) */
+.subsecciones a:focus-visible,.pildoras a:focus-visible,.cx-sug .cx-chip:focus-visible,.cifras-grid .cifra:focus-visible{outline-offset:-3px}
 select option{background:var(--bg);color:var(--ink)}
 /* cortes de línea: títulos con líneas parejas y textos sin una palabra sola al final */
 h1,h2,h3,h4,.art-txt b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
@@ -1424,8 +1429,10 @@ html:not(.js) .esqueleto{display:none}
 /* quiebre de serie marcado arriba del gráfico (escolarización, SUBE) */
 .aviso-serie{margin:var(--e-3) 0 0;padding:2px 0 2px var(--e-3);border-left:3px solid var(--sol-fuerte);font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 .vt-matriz td.plat a{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;color:var(--celeste-fuerte)}
-.vt-matriz tr[role="button"]{cursor:pointer}
-.vt-matriz tr[role="button"]:hover td.ley,.vt-matriz tr[role="button"]:focus-visible td.ley{text-decoration:underline}
+.vt-matriz tr[data-k]{cursor:pointer}
+.vt-matriz .vt-ley{display:block;padding:0;font:inherit;line-height:inherit;text-align:left;color:inherit;background:none;border:0;cursor:pointer}
+.vt-matriz tr[data-k]:hover .vt-ley,.vt-matriz .vt-ley:focus-visible{text-decoration:underline}
+.vt-matriz .vt-ley:focus-visible{outline-offset:1px}
 .vt-matriz tr.elegida td.ley{font-weight:600}
 @media (max-width:760px){
   .vt-matriz table{min-width:520px}
