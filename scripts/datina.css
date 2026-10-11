@@ -277,7 +277,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .menu-panel ul{margin:0;padding:0;list-style:none}
 @media (min-width:1081px){.menu-panel .en-barra{display:none}
   /* un grupo con todos sus temas en la barra no deja dos líneas seguidas (etapa 36) */
-  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))){display:none}}
+  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))){display:none}
+  /* y el primer grupo que se ve después de ellos (Artículos, desde el 11 de octubre de 2026) no lleva línea arriba */
+  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))) + .menu-grupo:has(li:not(.en-barra)){margin-top:0;padding-top:0;border-top:0}}
 /* todos los enlaces iguales: la letra del texto, el mismo tamaño y sin negrita */
 .menu-panel a{display:block;padding:7px var(--e-3);border-radius:var(--r-control);
   font-family:var(--f);font-size:var(--t-3);font-weight:400;font-variation-settings:normal;letter-spacing:normal;line-height:1.3;

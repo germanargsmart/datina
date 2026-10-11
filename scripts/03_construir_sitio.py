@@ -626,9 +626,23 @@ _gm_li = lambda it: (f'<li><a href="{url_pagina(it[1][0])}">{e(it[0])}</a></li>'
                      if isinstance(it, tuple) else f'<li><a href="{url_pagina(it)}">{e(TITULO_DE[it])}</a></li>')
 _grupos_menu = "".join(f'<nav class="menu-panel grupo-panel" id="gm-{g}" aria-labelledby="gb-{g}" hidden><ul>' + "".join(_gm_li(it) for it in items) + "</ul></nav>"
                        for g, n, items in GRUPOS_BARRA)
-_menu = ('<div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div>' +
-         "".join(f'<div class="menu-grupo"><p class="menu-tit" id="mt-{g}">{e(n)}</p><ul aria-labelledby="mt-{g}">' +
-                 "".join(_li(s) for it in items for s in (it[1] if isinstance(it, tuple) else [it])) + "</ul></div>" for g, n, items in GRUPOS))
+# "Más" (11 de octubre de 2026, pedido del autor: "debería quedar al principio Tu provincia, y luego del separador Cruces, Tu índice,
+# Departamentos, Diagnóstico educativo, Explorador de relaciones, y después reordená con tu criterio lo otro"). Dos columnas que en el
+# celular se apilan: a la izquierda Tu provincia y las herramientas. A la derecha los temas de la barra (solo hasta 1080 píxeles, cuando la
+# barra no los muestra), las lecturas (Artículos, Laboratorio y lo que GRUPOS deja en "Y además") y Datina. Cada grupo lleva su separador
+_grupo_menu = lambda g, n, lis: (f'<div class="menu-grupo"><p class="menu-tit" id="mt-{g}">{e(n)}</p><ul aria-labelledby="mt-{g}">'
+                                 + "".join(lis) + "</ul></div>")
+_li_url = lambda u, t: f'<li><a href="{u}">{e(t)}</a></li>'
+_otros_secs = [s for g, _, items in GRUPOS if g == "otros" for s in _secs_de(items)]
+_menu = ('<div class="menu-col">'
+         + _grupo_menu("prov", "Tu provincia", [_li_url("provincia.html", "Tu provincia")])
+         + _grupo_menu("herr", "Herramientas", [_li(s) for s in HERRAMIENTAS] + [_li_url("relaciones.html", "Explorador de relaciones")])
+         + '</div><div class="menu-col">'
+         + "".join(_grupo_menu(g, n, [_li(s) for s in _secs_de(items)]) for g, n, items in GRUPOS_BARRA)
+         + _grupo_menu("lect", "Artículos y Laboratorio", [_li_url("articulos.html", "Artículos"), _li_url("laboratorio.html", "Laboratorio")]
+                       + [_li(s) for s in _otros_secs])
+         + _grupo_menu("datina", "Datina", [_li_url("nosotros.html", "Sobre nosotros"), _li_url("contacto.html", "Contacto")])
+         + "</div>")
 # Los temas de la portada (etapa 36): cada grupo con sus secciones (ícono, nombre y pregunta corta), y debajo de una categoría sus otras
 # secciones. Desde la etapa 39 los escribe el constructor: van justo debajo de lo azul y, si los pusiera datina.js al llegar, Artículos saltaba
 # hacia abajo. Cada grupo es una columna, y "Y además" (Curiosidades) va debajo del grupo con menos secciones

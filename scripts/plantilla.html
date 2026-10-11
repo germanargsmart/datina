@@ -45,17 +45,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </div>
 </header>
 <!-- "Más" (etapa 32, 6 de octubre de 2026, pedido del autor: "que el menú desaparezca y lo dejes como usafacts"): la lista que abre el
-     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
-     que ya están en los grupos de la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
+     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. El orden (11 de octubre de 2026, pedido
+     del autor): Tu provincia, las herramientas y después el resto. Lo arma el constructor (MENU_MAS en 03_construir_sitio.py) -->
 <nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
-    <div class="menu-col">
-      <!--TEMAS-MENU-->
-    </div>
-    <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos y Laboratorio</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div>
-      <div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li></ul></div>
-      <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
-    </div>
+<!--TEMAS-MENU-->
 </nav>
 <!-- los menús de los cuatro grupos de la barra (etapa 39): los arma el constructor desde GRUPOS -->
 <!--GRUPOS-MENU-->
