@@ -741,7 +741,40 @@ def encabezado_principal(h, id_):
     return h[:a] + "<h1" + h[a + 3:b] + "</h1>" + h[b + 5:]
 
 
-def pagina(id_, titulo, descripcion, quedan, recorte=None):
+# Metadatos para buscadores y redes (11 de octubre de 2026). La dirección pública sale de datos/manual/sitio.json: mientras esté vacía
+# no hay canonical absolutos, og:url, sitemap.xml, robots.txt ni Dataset, para no apuntar a un dominio inventado. Las etiquetas
+# Open Graph y Twitter van siempre en las páginas que se indexan, con un título que dice algo (en las secciones, el nombre y su
+# pregunta). Los artículos y las piezas del Laboratorio llevan además un Article en JSON-LD. scripts/prueba_metadatos.py lo controla
+URL_SITIO = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))["url"].strip().rstrip("/")
+assert not URL_SITIO or URL_SITIO.startswith("https://"), "datos/manual/sitio.json: la dirección tiene que empezar con https://"
+INDEXADAS = []
+
+
+def metadatos(id_, titulo_social, descripcion, tipo):
+    archivo = "" if id_ == "inicio" else f"{id_}.html"
+    m = [f'<meta property="og:site_name" content="Datina">', '<meta property="og:locale" content="es_AR">',
+         f'<meta property="og:type" content="{tipo}">', f'<meta property="og:title" content="{e(titulo_social)}">',
+         f'<meta property="og:description" content="{e(descripcion)}">', '<meta name="twitter:card" content="summary">',
+         f'<meta name="twitter:title" content="{e(titulo_social)}">', f'<meta name="twitter:description" content="{e(descripcion)}">']
+    if URL_SITIO:
+        m += [f'<link rel="canonical" href="{URL_SITIO}/{archivo}">', f'<meta property="og:url" content="{URL_SITIO}/{archivo}">']
+    if tipo == "article":
+        ld = {"@context": "https://schema.org", "@type": "Article", "headline": titulo_social, "description": descripcion, "inLanguage": "es-AR",
+              "author": {"@type": "Organization", "name": "Datina"}, "publisher": {"@type": "Organization", "name": "Datina"}}
+        if URL_SITIO:
+            ld["url"] = ld["mainEntityOfPage"] = f"{URL_SITIO}/{archivo}"
+        m.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
+    if id_ == "inicio" and URL_SITIO:
+        ld = {"@context": "https://schema.org", "@type": "Dataset", "name": "Datina: tabla completa de indicadores por jurisdicción",
+              "description": "Todos los indicadores de Datina en una sola tabla: una fila por jurisdicción, período e indicador, con su unidad y su fuente.",
+              "inLanguage": "es-AR", "creator": {"@type": "Organization", "name": "Datina"}, "spatialCoverage": "Argentina",
+              "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f"{URL_SITIO}/datos/tabla_larga.csv"}]}
+        m.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
+    INDEXADAS.append(archivo)
+    return "\n".join(m)
+
+
+def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, tipo="website"):
     """Arma una pagina con los bloques de `quedan` (paginas del indice) y saca el resto del marcado.
     `recorte` saca partes de los bloques que quedan (por ejemplo, el indice de articulos en la pagina de un articulo)."""
     h = base
@@ -756,6 +789,10 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None):
     if titulo:
         h = h.replace(TITULO, f"<title>{e(titulo)} | Datina</title>", 1)
         h = h.replace(DESCR, f'<meta name="description" content="{e(descripcion)}">', 1)
+    if id_ != "404":
+        des = descripcion or html.unescape(re.search(r'content="([^"]*)"', DESCR).group(1))
+        soc = titulo_social or titulo or "Datina: las 24 Argentinas en números"
+        h = h.replace('<meta name="description"', metadatos(id_, soc, des, tipo) + '\n<meta name="description"', 1)
     # los enlaces a una ficha de otra pagina (cierres de seccion, perfil provincial) llevan a esa pagina
     def destino(m):
         id2 = m.group(1)
@@ -786,7 +823,7 @@ pagina("laboratorio", "Laboratorio",
        "Datos difíciles, en gráficos: cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
        {"laboratorio"})
 for id_, _, titulo, descr in PIEZAS:
-    pagina(id_, html.unescape(titulo), html.unescape(descr), {id_})
+    pagina(id_, html.unescape(titulo), html.unescape(descr), {id_}, tipo="article")
 # Contacto: formulario del proyecto (se activa al publicar en Netlify)
 pagina("contacto", "Contacto", "Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.", {"contacto"})
 # Página para las direcciones que no existen
@@ -794,7 +831,7 @@ pagina("404", "Página no encontrada", "Esta página no existe.", {"404"})
 sin_notas = lambda h: re.sub(r'\s*<div class="notas">.*?</div>', "", h, 1, re.S)
 for id_, titulo, preg, *_ in SECCIONES:
     descr = f"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar." if preg else f"{titulo} en Datina."
-    pagina(id_, titulo, descr, {id_}, sin_notas if id_ == "articulos" else None)
+    pagina(id_, titulo, descr, {id_}, sin_notas if id_ == "articulos" else None, titulo_social=f"{titulo}: {preg}" if preg else None)
 
 
 # Una pagina por articulo (a-....html): solo esa nota, sin el indice de articulos
@@ -819,7 +856,7 @@ CRUZA = lambda id_: ("series oficiales del país" if id_ in ART_SERIES else
                      "datos oficiales de las 24 capitales de provincia" if id_ in ART_CAPITALES else "datos oficiales de las 24 jurisdicciones")
 for id_, _, _, titulo in NOTAS:
     descr = f"{html.unescape(titulo)} Un cruce de {CRUZA(id_)}, con sus fuentes y sus límites."
-    pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_))
+    pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_), tipo="article")
 
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
 REDIRECCIONES = {"emprendedores": "empresas"}
@@ -856,6 +893,25 @@ if _rx:
 _rx = relaciones.construir(plantilla, base, SECCIONES, UBIC, huella(css))
 if _rx:
     sys.exit("El catálogo del Explorador de relaciones tiene problemas: el sitio no se armó.\n" + "\n".join(_rx))
+# el Explorador de relaciones lo arma relaciones.py: acá recibe los mismos metadatos que las demás páginas
+_rxp = SITIO / "relaciones.html"
+_rxh = _rxp.read_text(encoding="utf-8")
+if 'property="og:title"' not in _rxh:
+    _rxd = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', _rxh).group(1))
+    _rxh = _rxh.replace('<meta name="description"', metadatos("relaciones", "Explorador de relaciones: ¿de dónde sale cada número?", _rxd, "website") + '\n<meta name="description"', 1)
+    _rxp.write_text(_rxh, encoding="utf-8")
+# sitemap.xml y robots.txt solo con la dirección definitiva (datos/manual/sitio.json). Sin ella se borran, si quedaron de antes
+for _f in ("sitemap.xml", "robots.txt"):
+    (SITIO / _f).unlink(missing_ok=True)
+if URL_SITIO:
+    (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+                                     "".join(f"  <url><loc>{URL_SITIO}/{a}</loc></url>\n" for a in INDEXADAS) + "</urlset>\n", encoding="utf-8")
+    (SITIO / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {URL_SITIO}/sitemap.xml\n", encoding="utf-8")
+# metadatos y enlaces internos (scripts/prueba_metadatos.py): si algo falla, el sitio no se da por armado
+import prueba_metadatos
+_met = prueba_metadatos.revisar(URL_SITIO)
+if _met:
+    sys.exit("Metadatos o enlaces con problemas: el sitio no se dio por armado.\n" + "\n".join(_met))
 # un h1 por página (scripts/prueba_encabezados.py): si una página lo pierde, el sitio no se da por armado
 import prueba_encabezados
 _enc, _, _, _ = prueba_encabezados.revisar()

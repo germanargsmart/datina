@@ -10,6 +10,7 @@ Ningún cambio está terminado hasta correr lo que corresponde y mirar el result
 | Página o herramienta nueva | Lo anterior, más teclado, movimiento reducido, celular y que las demás páginas no cambien |
 | Explorador de relaciones (`datos/manual/relaciones.json`, `scripts/relaciones.*`) | `python scripts/relaciones.py` (valida el catálogo: cada relación con su evidencia en el código), `python scripts/prueba_relaciones.py` (rompe el catálogo de 18 formas y controla que el validador lo marque), el armado y la prueba de páginas. 03 corre las dos primeras y no arma el sitio si fallan |
 | Encabezados de las páginas | `python scripts/prueba_encabezados.py -v` (un h1 por página, con las excepciones explicadas). 03 la corre al final y no da el sitio por armado si falla |
+| Metadatos y enlaces internos | `python scripts/prueba_metadatos.py` (title y descripción propios, Open Graph, nada que apunte a un dominio que no sea el de `datos/manual/sitio.json`, enlaces internos que existen). 03 la corre al final |
 | Descargas (`01_descargar.py`) | Solo con aprobación del autor |
 
 Línea de base del 10 de octubre de 2026 (commit b4b1fc1): `pruebas_datos.py` 0 sin explicar y 115 explicados (3 segundos), `03_construir_sitio.py` arma 23 páginas de sección y 18 artículos (3 segundos), sintaxis bien. Detalle en `docs/roadmap/ESTADO.md`.
