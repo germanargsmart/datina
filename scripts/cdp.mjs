@@ -54,7 +54,7 @@ async function conectar(url) {
   on("Page.loadEventFired", () => cargada());
   await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable");
   const pag = {
-    send, errores,
+    send, errores, on,
     async tamano(ancho, alto) {
       await send("Emulation.setDeviceMetricsOverride", { width: ancho, height: alto, deviceScaleFactor: 1, mobile: ancho < 768 });
     },

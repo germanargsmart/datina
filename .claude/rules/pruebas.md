@@ -20,10 +20,9 @@ Las páginas de `sitio/` en el repositorio tienen CRLF porque el autor arma en W
 
 ## Entornos en la nube sin acceso a las CDN
 
-En las sesiones de Claude Code en la nube la red puede bloquear cdnjs y jsdelivr (D3 y topojson): la prueba de páginas falla con errores de JavaScript que no son del sitio. Para probar ahí, sin tocar el repositorio:
+En las sesiones de Claude Code en la nube la red puede bloquear cdnjs y jsdelivr (D3 y topojson). Desde el 11 de octubre de 2026 la prueba de páginas acepta copias locales, sin tocar el repositorio:
 
-1. Bajar del registro npm (permitido) `npm pack d3@7.8.5 topojson-client@3.1.0` en una carpeta temporal y descomprimirlos.
-2. Copiar `sitio/` y `scripts/prueba_paginas.mjs` y `scripts/cdp.mjs` a esa carpeta, poner los dos `.min.js` en `sitio/_libs/` y reemplazar en los `.html` de la copia las dos direcciones de las CDN por `/_libs/...`.
-3. Correr `CHROME=/opt/pw-browsers/chromium node scripts/prueba_paginas.mjs` dentro de la copia.
+1. Bajar del registro npm (permitido) `npm pack d3@7.8.5 topojson-client@3.1.0` en una carpeta temporal, descomprimirlos y juntar `d3.min.js` y `topojson-client.min.js` en una carpeta.
+2. Correr `DATINA_LIBS=<esa carpeta> CHROME=/opt/pw-browsers/chromium node scripts/prueba_paginas.mjs` desde el repositorio. El navegador recibe las copias en lugar de pedirlas a las CDN. Sin la variable, todo va a las CDN, como en la actualización mensual.
 
 Las letras de Google Fonts tampoco cargan ahí: las capturas usan las letras de reemplazo, así que no sirven para comparar píxeles con las de la computadora del autor.

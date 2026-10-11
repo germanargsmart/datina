@@ -13,8 +13,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<!-- D3 y topojson con defer (11 de octubre de 2026): se bajan mientras el navegador lee la página, sin frenar que se muestre. Los scripts
+     con defer corren en el orden en que aparecen, después de leer la página: D3, topojson, los datos y datina.js, igual que antes -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <link rel="stylesheet" href="datina.css?v=a4b6efdc88">
 </head>
 <body data-pagina="seguridad">
@@ -221,7 +223,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=50babee5e3"></script>
-<script src="datina.js?v=c35dc77472"></script>
+<script defer src="datos/fichas.js?v=50babee5e3"></script>
+<script defer src="datina.js?v=c35dc77472"></script>
 </body>
 </html>
