@@ -4,7 +4,7 @@ Borrador del 11 de octubre de 2026. **Aprobado por el autor el mismo día ("apro
 
 - Nombre: "Catálogo de datos" (dirección `catalogo.html`, para no confundirla con la carpeta `datos/`).
 - Enlaces: en "Más" (Herramientas, después del Explorador de relaciones), en el pie ("Los datos") y en la portada (Herramientas). No va en la columna Herramientas del mapa del pie, porque ya está en "Los datos".
-- "En el catálogo" en el pie de cada ficha: no se sumó (la propuesta lo dejaba a pedido del autor).
+- "En el catálogo" en el pie de cada ficha: el autor lo pidió después ("sí, sumá En el catálogo al pie de cada ficha"). Va después de "De dónde sale" en las fichas cuya tabla del pie está en el catálogo (todas salvo las tres de suicidio) y lleva a `catalogo.html#cat-<tabla>`, que abre esa tabla con su vista previa.
 - Las 66 tablas que ninguna ficha ofrece en su pie: las de los artículos salen de `datina.js` y las del Explorador de relaciones, de `relaciones.json`. Las otras 44 van en `datos/manual/catalogo.json`, cada una con la ficha, el artículo o la pieza que la usa y su evidencia en el código. Seis no se dibujan (sus cifras van en el texto de la ficha) y lo dicen.
 - Las tablas de suicidio quedan afuera, como en el Explorador: en Salud van después de las líneas de ayuda.
 - Cobertura: departamentos solo con un código o una fila por departamento (la regla del Explorador leía como departamentos a las capitales, por el % de viviendas en departamento). Una tabla sin columna de territorio dice "Sin desglose territorial".

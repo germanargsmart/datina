@@ -5230,6 +5230,9 @@ async function imagenFicha(f) {
 // "De dónde sale": abre el Explorador de relaciones en la ficha (qué archivo la alimenta y qué organismo lo publica). No va en las
 // herramientas ni en las fichas que el explorador deja afuera (las de suicidios), que le pasa el constructor desde scripts/relaciones.py
 const SIN_RELACIONES = new Set(/*SIN_RELACIONES*/[]);
+// "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
+// en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
+const EN_CATALOGO = new Set(/*EN_CATALOGO*/[]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   const tema = f.closest(".tema")?.querySelector("h1, h2")?.textContent;
@@ -5244,6 +5247,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
   acc.innerHTML = `<button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
     (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
     (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
+    (EN_CATALOGO.has(nombre) ? `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">En el catálogo</span></a>` : "") +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
   csv.className = "boton chico accion"; csv.innerHTML = `<span class="lbl">Descargar CSV</span>`;
   acc.appendChild(csv); pie.appendChild(acc);
