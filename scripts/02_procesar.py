@@ -1390,6 +1390,201 @@ SE_RES.update({"rubros_desde": SE_RES["rubros"]["desde"], "rubros_anio": SE_RES[
                **({"destinos_periodo": SE_RES["destinos"]["periodo"]} if "destinos" in SE_RES else {}),
                **({"complejos_periodo": SE_RES["complejos"]["periodo"]} if "complejos" in SE_RES else {})})
 
+
+# Sector externo, segunda parte (etapa 41), con la descarga nueva (01_descargar.py: series_sector_externo, ica_cuadros y bcra_monetarias).
+# Intercambio comercial e importaciones por uso económico: series mensuales del INDEC en la API de Series de Tiempo, desde 1992, en millones
+# de dólares (exportaciones FOB, importaciones CIF). Se controla que los usos sumen el total de cada año.
+ICE_ID = {"exportaciones": "74.3_IET_0_M_16", "importaciones": "74.3_IIT_0_M_25", "saldo": "74.3_ISC_0_M_19"}
+ICE_USOS = [("intermedios", "Bienes intermedios", "74.3_IIBI_0_M_36"), ("piezas", "Piezas y accesorios para bienes de capital", "74.3_IIPABC_0_M_50"),
+            ("capital", "Bienes de capital", "74.3_IIBCA_0_M_32"), ("consumo", "Bienes de consumo", "74.3_IIBCO_0_M_32"),
+            ("combustibles", "Combustibles y lubricantes", "74.3_IICL_0_M_42"), ("vehiculos", "Vehículos de pasajeros", "74.3_IIVAP_0_M_49"),
+            ("resto", "Resto", "74.3_IIR_0_M_23")]
+balanza_comercial, importaciones_usos, importaciones_origen, cuenta_corriente, reservas_bcra, reservas_factores, bcra_variables, bcra_variables_lista = (None,) * 8
+if (CRUDO / "series_sector_externo_M.csv").exists():
+    _ice = pd.read_csv(CRUDO / "series_sector_externo_M.csv")
+    _ice_c = list(ICE_ID.values()) + [i for _, _, i in ICE_USOS]
+    assert set(_ice_c) <= set(_ice.columns), f"faltan series del intercambio comercial: {sorted(set(_ice_c) - set(_ice.columns))}"
+    _ice = _ice[["indice_tiempo"] + _ice_c].rename(columns={**{v: k for k, v in ICE_ID.items()}, **{i: k for k, _, i in ICE_USOS}})
+    _ice["t"] = pd.to_datetime(_ice.indice_tiempo)
+    _ice = _ice.dropna(subset=["exportaciones", "importaciones"]).sort_values("t")
+    _ice_a = _ice.groupby(_ice.t.dt.year).agg(meses=("exportaciones", "size"), **{k: (k, "sum") for k in ["exportaciones", "importaciones", "saldo"] + [k for k, _, _ in ICE_USOS]})
+    _ice_a = _ice_a[_ice_a.meses == 12].drop(columns="meses").rename_axis("anio").reset_index()
+    assert ((_ice_a[[k for k, _, _ in ICE_USOS]].sum(axis=1) / _ice_a.importaciones - 1).abs() < .005).all(), "los usos no suman las importaciones"
+    balanza_comercial = _ice_a[["anio", "exportaciones", "importaciones", "saldo"]].round(1)
+    importaciones_usos = _ice_a[["anio"] + [k for k, _, _ in ICE_USOS]].round(1)
+    _ice_u = _ice.t.max()
+    _ice_y, _ice_y0 = _ice[_ice.t.dt.year == _ice_u.year], _ice[(_ice.t.dt.year == _ice_u.year - 1) & (_ice.t.dt.month <= _ice_u.month)]
+    _ice_ua = _ice_a.iloc[-1]
+    _ice_s = _ice_a.set_index("anio").saldo
+    SE_RES["balanza"] = {"desde": int(_ice_a.anio.min()), "anio": int(_ice_ua.anio), "expo": round(float(_ice_ua.exportaciones)), "impo": round(float(_ice_ua.importaciones)),
+                         "saldo": round(float(_ice_ua.saldo)), "deficit_anios": [int(a) for a in _ice_s[_ice_s < 0].index],
+                         "saldo_max_anio": int(_ice_s.idxmax()), "saldo_max": round(float(_ice_s.max())),
+                         "ytd_mes": int(_ice_u.month), "ytd_anio": int(_ice_u.year), "ytd_saldo": round(float(_ice_y.saldo.sum())),
+                         "ytd_saldo_ant": round(float(_ice_y0.saldo.sum())), "ytd_expo": round(float(_ice_y.exportaciones.sum())),
+                         "ytd_impo": round(float(_ice_y.importaciones.sum())),
+                         "ytd_expo_var": r1(float((_ice_y.exportaciones.sum() / _ice_y0.exportaciones.sum() - 1) * 100)),
+                         "ytd_impo_var": r1(float((_ice_y.importaciones.sum() / _ice_y0.importaciones.sum() - 1) * 100))}
+    _ice_p = {k: r1(float(_ice_ua[k] / _ice_ua.importaciones * 100)) for k, _, _ in ICE_USOS}
+    SE_RES["importaciones"] = {"desde": int(_ice_a.anio.min()), "anio": int(_ice_ua.anio), "total": round(float(_ice_ua.importaciones)), "pct": _ice_p,
+                               "usos": [{"k": k, "lab": lab} for k, lab, _ in ICE_USOS],
+                               "comb_max_anio": int(_ice_a.set_index("anio").combustibles.idxmax()), "comb_max": round(float(_ice_a.combustibles.max())),
+                               "consumo_var": r1(float((_ice_ua.consumo / _ice_a.iloc[-2].consumo - 1) * 100)),
+                               "vehiculos_var": r1(float((_ice_ua.vehiculos / _ice_a.iloc[-2].vehiculos - 1) * 100))}
+    for _ice_k, _ice_v in (("exportaciones", "exportaciones_bienes_usd"), ("importaciones", "importaciones_bienes_usd"), ("saldo", "saldo_comercial_usd")):
+        agregar(_ice.assign(codigo_indec="00", territorio="Argentina", periodo=_ice.t.dt.strftime("%Y-%m"), valor=_ice[_ice_k])[["codigo_indec", "territorio", "periodo", "valor"]],
+                _ice_v, "millones de dolares", "INDEC, intercambio comercial argentino")
+
+# Importaciones por zona económica y país de origen en lo que va del año, contra los mismos meses del año anterior (cuadro 37 del anexo del
+# intercambio comercial). Como en los destinos de las exportaciones, las zonas se separan en grupos que no se superponen.
+ICE_ORIG = [("brasil", "Brasil", ["Brasil"]), ("china", "China", ["China"]), ("eeuu", "Estados Unidos", ["Estados Unidos"]),
+            ("paraguay", "Paraguay", ["Paraguay"]), ("alemania", "Alemania", ["Alemania"]), ("italia", "Italia", ["Italia"]),
+            ("tailandia", "Tailandia", ["Tailandia"]), ("india", "India", ["India"]), ("espana", "España", ["España"]), ("vietnam", "Vietnam", ["Viet Nam"]),
+            ("chile", "Chile", ["Chile"]), ("uruguay", "Uruguay", ["Uruguay"]), ("paises_bajos", "Países Bajos", ["Países Bajos"]),
+            ("indonesia", "Indonesia", ["Indonesia"]), ("peru", "Perú", ["Perú"]), ("malasia", "Malasia", ["Malasia"]),
+            ("resto_ue", "Resto de la Unión Europea", ["Unión Europea", "-Alemania", "-España", "-Italia", "-Países Bajos"]),
+            ("mexico_canada", "México y Canadá", ["USMCA", "-Estados Unidos"]),
+            ("resto_mercosur", "Resto del Mercosur", ["Mercosur", "-Brasil", "-Paraguay", "-Uruguay"]),
+            ("resto_aladi", "Resto de América Latina", ["Resto de ALADI", "-Chile", "-Perú"]),
+            ("resto_asean", "Resto del Sudeste Asiático", ["ASEAN", "-Indonesia", "-Malasia", "-Tailandia", "-Viet Nam"]),
+            ("medio_oriente", "Medio Oriente", ["Medio Oriente"]), ("magreb_egipto", "Magreb y Egipto", ["Magreb y Egipto"]),
+            ("africa_sur", "África austral (SACU)", ["SACU"]), ("oceania", "Oceanía", ["Oceanía"]), ("resto_mundo", "Resto del mundo", ["Resto del mundo"])]
+if (CRUDO / "indec_ica_cuadros.xls").exists():
+    _ico = pd.read_excel(CRUDO / "indec_ica_cuadros.xls", sheet_name="c37", header=None)
+    _ico_t = str(_ico.iat[0, 0])
+    _ico_m = re.search(r"Acumulado hasta (\w+) de (\d{4})", _ico_t)
+    assert _ico_t.startswith("Cuadro 37. Importaciones") and _ico_m, "cambió el cuadro 37 del intercambio comercial"
+    _ico_f = _ico.index[_ico.iloc[:, 0].astype(str).str.strip().eq("Total")][0]
+    _ico_v = {}
+    for i in range(_ico_f, len(_ico)):
+        n = str(_ico.iat[i, 0]).strip()
+        if n in ("nan", ""):
+            break
+        _ico_v[n] = (float(_ico.iat[i, 1]), float(_ico.iat[i, 2]))
+    _ico_tot = _ico_v.pop("Total")
+    _ico_r = []
+    for k, n, partes in ICE_ORIG:
+        act = sum(-_ico_v[p[1:]][0] if p.startswith("-") else _ico_v[p][0] for p in partes)
+        ant = sum(-_ico_v[p[1:]][1] if p.startswith("-") else _ico_v[p][1] for p in partes)
+        _ico_r.append({"origen": k, "origen_nombre": n, "millones_usd": act, "millones_usd_anterior": ant})
+    importaciones_origen = pd.DataFrame(_ico_r)
+    assert abs(importaciones_origen.millones_usd.sum() / _ico_tot[0] - 1) < .005, "los orígenes de las importaciones no suman el total"
+    importaciones_origen["pct"] = importaciones_origen.millones_usd / _ico_tot[0] * 100
+    importaciones_origen["variacion"] = (importaciones_origen.millones_usd / importaciones_origen.millones_usd_anterior - 1) * 100
+    importaciones_origen = importaciones_origen.round(4)
+    _ico_n = importaciones_origen[~importaciones_origen.origen.str.startswith("resto")].sort_values("millones_usd", ascending=False)
+    SE_RES["origen"] = {"periodo": f"enero a {_ico_m.group(1).lower()} de {_ico_m.group(2)}" if _ico_m.group(1).lower() != "enero" else f"enero de {_ico_m.group(2)}",
+                        "anio": int(_ico_m.group(2)), "total": round(_ico_tot[0]), "var": r1((_ico_tot[0] / _ico_tot[1] - 1) * 100),
+                        "top": [{"k": r.origen, "n": r.origen_nombre, "v": round(r.millones_usd), "pct": r1(r.pct), "var": r1(r.variacion)} for r in _ico_n.head(5).itertuples()]}
+
+# Cuenta corriente del balance de pagos (INDEC, sexto manual del FMI), trimestral desde 2006, en millones de dólares: el saldo de bienes, de
+# servicios, del ingreso primario (rentas de la inversión, como intereses y utilidades, y remuneración de empleados) y del ingreso secundario
+# (transferencias). El total de la cuenta corriente se calcula sumando las partes, que llegan completas: el total que publica la API tiene
+# trimestres vacíos, y donde está coincide con la suma.
+BDP_ID = {"bienes": "160.2_CTA_CORNES_0_T_46", "servicios": "160.2_CTA_CORIOS_0_T_49", "rentas": "160.2_CTA_CORION_0_T_58",
+          "remuneraciones": "160.2_CTA_CORDOS_0_T_49", "secundario": "160.2_CTA_CORIOS_0_T_37", "total_api": "160.2_TL_CUENNTE_0_T_22"}
+if (CRUDO / "series_sector_externo_Q.csv").exists():
+    _bdp = pd.read_csv(CRUDO / "series_sector_externo_Q.csv")
+    assert set(BDP_ID.values()) <= set(_bdp.columns), "faltan series del balance de pagos"
+    _bdp = _bdp[["indice_tiempo"] + list(BDP_ID.values())].rename(columns={v: k for k, v in BDP_ID.items()})
+    _bdp["t"] = pd.to_datetime(_bdp.indice_tiempo)
+    _bdp = _bdp.sort_values("t").dropna(subset=["bienes", "servicios", "rentas", "remuneraciones", "secundario"])
+    _bdp["primario"] = _bdp.rentas + _bdp.remuneraciones
+    _bdp["cuenta_corriente"] = _bdp.bienes + _bdp.servicios + _bdp.primario + _bdp.secundario
+    _bdp_chk = _bdp.dropna(subset=["total_api"])
+    assert ((_bdp_chk.cuenta_corriente - _bdp_chk.total_api).abs() < 2).all(), "la cuenta corriente no coincide con la suma de sus partes"
+    _bdp_a = _bdp.groupby(_bdp.t.dt.year).agg(trimestres=("bienes", "size"), **{k: (k, "sum") for k in ("bienes", "servicios", "primario", "secundario", "cuenta_corriente")})
+    cuenta_corriente = _bdp_a[_bdp_a.trimestres == 4].drop(columns="trimestres").rename_axis("anio").reset_index().round(1)
+    _bdp_u = cuenta_corriente.iloc[-1]
+    _bdp_cc = cuenta_corriente.set_index("anio").cuenta_corriente
+    _bdp_q = _bdp.iloc[-1]
+    SE_RES["cuenta_corriente"] = {"desde": int(cuenta_corriente.anio.min()), "anio": int(_bdp_u.anio), "total": round(float(_bdp_u.cuenta_corriente)),
+                                  **{k: round(float(_bdp_u[k])) for k in ("bienes", "servicios", "primario", "secundario")},
+                                  "superavit_anios": [int(a) for a in _bdp_cc[_bdp_cc > 0].index], "rentas": round(float(_bdp[_bdp.t.dt.year == _bdp_u.anio].rentas.sum())),
+                                  "trim": f"{_bdp_q.t.quarter}T{_bdp_q.t.year}", "trim_total": round(float(_bdp_q.cuenta_corriente))}
+    agregar(_bdp.assign(codigo_indec="00", territorio="Argentina", periodo=_bdp.t.map(lambda x: f"{x.quarter}T{x.year}"), valor=_bdp.cuenta_corriente)[
+        ["codigo_indec", "territorio", "periodo", "valor"]], "cuenta_corriente_usd", "millones de dolares", "INDEC, balance de pagos")
+
+# Reservas internacionales y demás variables de la API de Estadísticas Monetarias del BCRA. Las reservas, de cada día desde 1996: para el
+# gráfico, el último dato de cada mes. Los factores que las mueven (compras de divisas, organismos internacionales, otras operaciones del sector
+# público, efectivo mínimo y otras), por año desde 2003 y lo que va del año en curso. Las demás variables principales, con el último dato de
+# cada mes, van a una tabla larga para el selector de la ficha.
+BCR_FACT = [(78, "compras", "Compras de divisas"), (79, "organismos", "Organismos internacionales"), (80, "sector_publico", "Otras operaciones del sector público"),
+            (81, "efectivo_minimo", "Efectivo mínimo de los bancos"), (82, "otras", "Otras operaciones")]
+BCR_RESERVAS = {1, 74, 77, 78, 79, 80, 81, 82, 1226, 1244, 1245, 1605}
+# Grupo, nombre corto y tipo de cada variable principal para el selector, y la unidad si la de la API no alcanza. El tipo dice cómo se muestra:
+# tasa (porcentaje), millones (de pesos), dolar (pesos por dólar), pesos o indice. Las tres tasas para juicios (43, 1197 y 1198) no son tasas
+# anuales: son valores acumulados desde el comienzo de cada serie (en 2026 pasan de 27.000%), y van como índices. La inflación mensual e
+# interanual (27 y 28) es la del INDEC y no se repite: toda la inflación del sitio sale de sus archivos. Una variable principal nueva que no
+# esté acá entra con el nombre de la API en "Otras variables".
+BCR_SEL = {4: ("Tipo de cambio", "Dólar minorista, promedio vendedor", "dolar"), 5: ("Tipo de cambio", "Dólar mayorista de referencia (A3500)", "dolar"),
+           1187: ("Tipo de cambio", "Banda cambiaria, límite inferior", "dolar"), 1188: ("Tipo de cambio", "Banda cambiaria, límite superior", "dolar"),
+           12: ("Tasas de interés", "Plazo fijo a 30 días", "tasa"), 7: ("Tasas de interés", "BADLAR de bancos privados, nominal anual", "tasa"),
+           35: ("Tasas de interés", "BADLAR de bancos privados, efectiva anual", "tasa"), 44: ("Tasas de interés", "TAMAR de bancos privados, nominal anual", "tasa"),
+           45: ("Tasas de interés", "TAMAR de bancos privados, efectiva anual", "tasa"), 8: ("Tasas de interés", "TM20 de bancos privados", "tasa"),
+           11: ("Tasas de interés", "Préstamos entre bancos privados (BAIBAR)", "tasa"), 13: ("Tasas de interés", "Adelantos en cuenta corriente", "tasa"),
+           14: ("Tasas de interés", "Préstamos personales", "tasa"),
+           15: ("Dinero", "Base monetaria", "millones"), 16: ("Dinero", "Circulación monetaria", "millones"),
+           17: ("Dinero", "Billetes y monedas en poder del público", "millones"), 18: ("Dinero", "Efectivo en los bancos", "millones"),
+           19: ("Dinero", "Cuentas corrientes de los bancos en el BCRA", "millones"), 25: ("Dinero", "M2 privado, variación interanual", "tasa"),
+           21: ("Depósitos y préstamos", "Depósitos en los bancos", "millones"), 22: ("Depósitos y préstamos", "Depósitos en cuenta corriente", "millones"),
+           23: ("Depósitos y préstamos", "Depósitos en caja de ahorro", "millones"), 24: ("Depósitos y préstamos", "Depósitos a plazo", "millones"),
+           26: ("Depósitos y préstamos", "Préstamos al sector privado", "millones"), 29: ("Precios", "Inflación esperada para los próximos 12 meses (REM)", "tasa"),
+           30: ("Índices de actualización", "CER (coeficiente de estabilización de referencia)", "indice"), 31: ("Índices de actualización", "UVA (unidad de valor adquisitivo)", "pesos"),
+           32: ("Índices de actualización", "UVI (unidad de vivienda)", "pesos"), 40: ("Índices de actualización", "ICL (índice para contratos de alquiler)", "indice"),
+           43: ("Tasas acumuladas para juicios", "Tasa pasiva para uso de la justicia (Comunicación P 14.290)", "indice", "acumulado, en %"),
+           1197: ("Tasas acumuladas para juicios", "Intereses moratorios del Código Civil y Comercial (art. 768 c)", "indice", "acumulado, en %"),
+           1198: ("Tasas acumuladas para juicios", "Tasa pasiva de la Ley 27.802 (art. 55 a)", "indice", "acumulado, en %")}
+BCR_FUERA = {27, 28}
+BCR_UNIDAD = {"en porcentaje nominal anual": "% nominal anual", "en porcentaje efectivo anual": "% efectivo anual", "en porcentaje": "%",
+              "en millones de ars": "millones de pesos", "pesos argentinos por dólar estadounidense": "pesos por dólar", "en ars": "pesos",
+              "índice base 2.2.02=1": "índice, 2 de febrero de 2002 = 1", "índice base 30.6.20=1": "índice, 30 de junio de 2020 = 1"}
+if (CRUDO / "bcra_series.csv").exists() and (CRUDO / "bcra_variables.json").exists():
+    _bcr = pd.read_csv(CRUDO / "bcra_series.csv", parse_dates=["fecha"])
+    _bcr_v = {v["idVariable"]: v for v in json.loads((CRUDO / "bcra_variables.json").read_text(encoding="utf-8"))}
+    assert _bcr_v[1]["descripcion"].lower().startswith("reservas internacionales") and _bcr_v[78]["descripcion"].lower().startswith("variación de reservas internacionales por compra"), \
+        "cambiaron las variables de reservas de la API del BCRA"
+    _bcr_r = _bcr[_bcr.id == 1].sort_values("fecha")
+    assert len(_bcr_r) > 5000 and _bcr_r.fecha.max() >= pd.Timestamp.now().normalize() - pd.Timedelta(days=30), "las reservas del BCRA vinieron incompletas o viejas"
+    reservas_bcra = _bcr_r.groupby(_bcr_r.fecha.dt.to_period("M")).tail(1).assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))[["mes", "valor"]].rename(columns={"valor": "millones_usd"})
+    _bcr_u, _bcr_mx = _bcr_r.iloc[-1], _bcr_r.loc[_bcr_r.valor.idxmax()]
+    _bcr_ha = _bcr_r[_bcr_r.fecha <= _bcr_u.fecha - pd.DateOffset(years=1)].iloc[-1]
+    _bcr_ini = _bcr_r[_bcr_r.fecha.dt.year == _bcr_u.fecha.year].iloc[0]
+    _bcr_f = _bcr[_bcr.id.isin([i for i, _, _ in BCR_FACT])]
+    reservas_factores = _bcr_f.pivot_table(index=_bcr_f.fecha.dt.year, columns="id", values="valor", aggfunc="sum").rename(columns={i: k for i, k, _ in BCR_FACT})
+    reservas_factores = reservas_factores.rename_axis("anio").reset_index().round(1)
+    _bcr_fu = reservas_factores.iloc[-1]
+    SE_RES["reservas"] = {"fecha": _bcr_u.fecha.strftime("%d/%m/%Y"), "valor": round(float(_bcr_u.valor)), "hace_un_anio": round(float(_bcr_ha.valor)),
+                          "ini_anio": round(float(_bcr_ini.valor)), "anio": int(_bcr_u.fecha.year), "desde": int(_bcr_r.fecha.dt.year.min()),
+                          "max": round(float(_bcr_mx.valor)), "max_fecha": _bcr_mx.fecha.strftime("%m/%Y"),
+                          "factores": [{"k": k, "lab": lab, "v": round(float(_bcr_fu[k]))} for _, k, lab in BCR_FACT], "factores_desde": int(reservas_factores.anio.min()),
+                          "factores_hasta": _bcr_f.fecha.max().strftime("%d/%m/%Y")}
+    # las demás variables principales: la tabla larga del selector (el último dato de cada mes) y la lista con el nombre, el grupo y la unidad
+    _bcr_p = sorted(i for i in _bcr.id.unique() if i not in BCR_RESERVAS | BCR_FUERA and _bcr_v.get(i, {}).get("categoria") == "Principales Variables")
+    _bcr_l = _bcr[_bcr.id.isin(_bcr_p)].assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))
+    bcra_variables = _bcr_l.groupby(["id", "mes"]).valor.last().reset_index()
+    bcra_variables = bcra_variables.round(4)
+    _bcr_g = list(dict.fromkeys(v[0] for v in BCR_SEL.values()))
+    _bcr_d = lambda i: re.sub(r"\s+", " ", _bcr_v[i]["descripcion"]).strip().rstrip(".")
+    bcra_variables_lista = pd.DataFrame([{"id": int(i), "grupo": BCR_SEL.get(i, ("Otras variables",))[0], "nombre": BCR_SEL[i][1] if i in BCR_SEL else _bcr_d(i),
+                                          "tipo": BCR_SEL.get(i, ("", "", "otro"))[2], "nombre_bcra": _bcr_d(i),
+                                          "unidad": BCR_SEL[i][3] if len(BCR_SEL.get(i, ())) > 3 else
+                                          BCR_UNIDAD.get(_bcr_v[i].get("unidadExpresion", "").strip().lower(), _bcr_v[i].get("unidadExpresion", "").strip()),
+                                          "ultimo_dato": _bcr_v[i].get("ultFechaInformada", "")} for i in _bcr_p])
+    bcra_variables_lista = bcra_variables_lista.assign(_o=bcra_variables_lista.grupo.map(lambda g: _bcr_g.index(g) if g in _bcr_g else len(_bcr_g)),
+                                                       _p=bcra_variables_lista.id.map(lambda i: list(BCR_SEL).index(i) if i in BCR_SEL else 99))
+    bcra_variables_lista = bcra_variables_lista.sort_values(["_o", "_p", "id"]).drop(columns=["_o", "_p"]).reset_index(drop=True)
+    # con el último dato publicado de cada una (día y valor), para las cifras de la ficha
+    _bcr_ud = _bcr_l.sort_values("fecha").groupby("id").tail(1).set_index("id")
+    SE_RES["bcra"] = {"n": len(bcra_variables_lista), "variables": [{"id": r.id, "g": r.grupo, "n": r.nombre, "u": r.unidad, "t": r.tipo,
+                                                                     "f": _bcr_ud.at[r.id, "fecha"].strftime("%d/%m/%Y"), "v": float(_bcr_ud.at[r.id, "valor"])}
+                                                                    for r in bcra_variables_lista.itertuples()]}
+SE_RES.update({k: v for k, v in {
+    "balanza_desde": SE_RES.get("balanza", {}).get("desde"), "balanza_anio": SE_RES.get("balanza", {}).get("anio"),
+    "imp_desde": SE_RES.get("importaciones", {}).get("desde"), "imp_anio": SE_RES.get("importaciones", {}).get("anio"),
+    "origen_periodo": SE_RES.get("origen", {}).get("periodo"), "cc_desde": SE_RES.get("cuenta_corriente", {}).get("desde"),
+    "cc_anio": SE_RES.get("cuenta_corriente", {}).get("anio"), "reservas_desde": SE_RES.get("reservas", {}).get("desde"),
+    "reservas_fecha": SE_RES.get("reservas", {}).get("fecha")}.items() if v is not None})
+
 # Empresas privadas empleadoras (OEDE, en base al SIPA). Una empresa con personal en varias provincias se cuenta en cada
 # una (cuadro 1). La apertura y el cierre usan las empresas locales: cada empresa es local en la provincia donde declara
 # la mayor parte de su empleo, asi que las provincias suman el total del pais (cuadros 6 y 7). La provincia de Buenos
@@ -2239,6 +2434,14 @@ _ipc_ng = IPC_INDEC[(IPC_INDEC.Region == "Nacional") & (IPC_INDEC.Codigo == "0")
 assert _ipc_ng.index.is_unique and _ipc_ng.index[0] == "2016-12" and abs(_ipc_ng.iloc[0] - 100) < 1e-9, "el IPC del INDEC no empieza en diciembre de 2016 = 100"
 assert list(_ipc_ng.index) == list(pd.period_range(_ipc_ng.index[0], _ipc_ng.index[-1], freq="M").strftime("%Y-%m")), "faltan meses en el IPC del INDEC"
 ipc = pd.Series(_ipc_ng.values, index=pd.to_datetime(_ipc_ng.index + "-01"))
+# Las variables del BCRA en pesos (dinero, depósitos, préstamos y dólar) también descontada la inflación, en pesos del último mes con IPC: los
+# meses posteriores quedan sin ese valor. El selector muestra los últimos diez años, sin pasar del primer mes del IPC del INDEC.
+if bcra_variables is not None:
+    _bcr_rl = bcra_variables.id.isin(bcra_variables_lista[bcra_variables_lista.tipo.isin(["millones", "dolar"])].id)
+    bcra_variables["valor_real"] = (bcra_variables.valor * _ipc_ng.iloc[-1] / bcra_variables.mes.map(_ipc_ng)).where(_bcr_rl).round(4)
+    _bcr_desde = max(_ipc_ng.index[0], (pd.Period(bcra_variables.mes.max(), freq="M") - 120).strftime("%Y-%m"))
+    SE_RES["bcra"].update({"desde": _bcr_desde, "ipc_mes": _ipc_ng.index[-1]})
+    SE_RES["bcra_desde"] = f"{MES[int(_bcr_desde[5:]) - 1]} de {_bcr_desde[:4]}"
 _base = pd.Timestamp("2016-12-01")
 costo = icc.div(icc.loc[_base]).mul(100).join(ipc.rename("ipc"), how="inner")
 costo = costo[costo.index >= _base]
@@ -5221,6 +5424,9 @@ tablas = {
     "piramide_poblacion": piramide,
     "poblacion_proyectada_provincias": pob_proy,
     "exportaciones_rubros_anual": se_rubros,
+    **{k: v for k, v in {"balanza_comercial": balanza_comercial, "importaciones_usos": importaciones_usos, "importaciones_origen": importaciones_origen,
+                         "cuenta_corriente": cuenta_corriente, "reservas_bcra": reservas_bcra, "reservas_factores": reservas_factores,
+                         "bcra_variables": bcra_variables, "bcra_variables_lista": bcra_variables_lista}.items() if v is not None},
     **({"exportaciones_destinos": se_destinos} if se_destinos is not None else {}),
     **({"exportaciones_complejos": se_complejos} if se_complejos is not None else {}),
     **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),

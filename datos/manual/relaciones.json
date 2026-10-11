@@ -2057,6 +2057,58 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"exportaciones_rubros.csv\": API + \"74.3_IET_0_M_16"
    }
+  },
+  {
+   "id": "ds:series_sector_externo_M.csv",
+   "nombre": "Intercambio comercial argentino: exportaciones, importaciones por uso económico y saldo, mensuales (series del INDEC en la API de Series de Tiempo)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/series_sector_externo_M.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / f\"series_sector_externo_{letra}.csv\")"
+   }
+  },
+  {
+   "id": "ds:series_sector_externo_Q.csv",
+   "nombre": "Balance de pagos: cuenta corriente y sus componentes, trimestrales (series del INDEC en la API de Series de Tiempo)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/series_sector_externo_Q.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / f\"series_sector_externo_{letra}.csv\")"
+   }
+  },
+  {
+   "id": "ds:indec_ica_cuadros.xls",
+   "nombre": "Anexo de cuadros del informe de intercambio comercial argentino (importaciones por zona económica y país, cuadro 37)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_ica_cuadros.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_ica_cuadros.xls\", \"el anexo del intercambio comercial argentino\")"
+   }
+  },
+  {
+   "id": "ds:bcra_series.csv",
+   "nombre": "Reservas internacionales, factores de su variación y variables principales (API de Estadísticas Monetarias v4.0)",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_series.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "pd.concat(filas)[[\"id\", \"fecha\", \"valor\"]].to_csv(CRUDO / \"bcra_series.csv\""
+   },
+   "url": "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
+  },
+  {
+   "id": "ds:bcra_variables.json",
+   "nombre": "Catálogo de variables de la API de Estadísticas Monetarias (nombre, categoría, unidad y último dato)",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_variables.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "(CRUDO / \"bcra_variables.json\").write_text("
+   },
+   "url": "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
   }
  ],
  "aristas": [
@@ -6017,6 +6069,130 @@
     }
    ],
    "tabla": "exportaciones_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:series_sector_externo_M.csv",
+   "a": "f-balanza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ice = pd.read_csv(CRUDO / \"series_sector_externo_M.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"balanza_comercial\": balanza_comercial"
+    }
+   ],
+   "tabla": "balanza_comercial"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:series_sector_externo_M.csv",
+   "a": "f-importaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ice = pd.read_csv(CRUDO / \"series_sector_externo_M.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"importaciones_usos\": importaciones_usos"
+    }
+   ],
+   "tabla": "importaciones_usos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ica_cuadros.xls",
+   "a": "f-origen",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ico = pd.read_excel(CRUDO / \"indec_ica_cuadros.xls\", sheet_name=\"c37\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"importaciones_origen\": importaciones_origen"
+    }
+   ],
+   "tabla": "importaciones_origen"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:series_sector_externo_Q.csv",
+   "a": "f-cuenta-corriente",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bdp = pd.read_csv(CRUDO / \"series_sector_externo_Q.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"cuenta_corriente\": cuenta_corriente"
+    }
+   ],
+   "tabla": "cuenta_corriente"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_series.csv",
+   "a": "f-reservas-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr = pd.read_csv(CRUDO / \"bcra_series.csv\", parse_dates=[\"fecha\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"reservas_bcra\": reservas_bcra"
+    }
+   ],
+   "tabla": "reservas_bcra"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_series.csv",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr = pd.read_csv(CRUDO / \"bcra_series.csv\", parse_dates=[\"fecha\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"bcra_variables\": bcra_variables"
+    }
+   ],
+   "tabla": "bcra_variables"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_variables.json",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr_v = {v[\"idVariable\"]: v for v in json.loads((CRUDO / \"bcra_variables.json\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"bcra_variables_lista\": bcra_variables_lista"
+    }
+   ],
+   "tabla": "bcra_variables_lista"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "bcra_variables[\"valor_real\"] = (bcra_variables.valor * _ipc_ng.iloc[-1]"
+    }
+   ],
+   "tabla": "bcra_variables"
   }
  ],
  "fichas": {
@@ -6418,6 +6594,18 @@
   "f-yerba": {
    "variables": [
     "yerba_mate_salida_de_molino"
+   ]
+  },
+  "f-balanza": {
+   "variables": [
+    "exportaciones_bienes_usd",
+    "importaciones_bienes_usd",
+    "saldo_comercial_usd"
+   ]
+  },
+  "f-cuenta-corriente": {
+   "variables": [
+    "cuenta_corriente_usd"
    ]
   }
  }

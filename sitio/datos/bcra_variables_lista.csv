@@ -1,0 +1,33 @@
+id,grupo,nombre,tipo,nombre_bcra,unidad,ultimo_dato
+4,Tipo de cambio,"Dólar minorista, promedio vendedor",dolar,Tipo de cambio minorista (promedio vendedor),pesos por dólar,2026-10-09
+5,Tipo de cambio,Dólar mayorista de referencia (A3500),dolar,Tipo de cambio mayorista de referencia,pesos por dólar,2026-10-09
+1187,Tipo de cambio,"Banda cambiaria, límite inferior",dolar,Régimen de bandas cambiarias. Límite inferior,pesos por dólar,2026-10-09
+1188,Tipo de cambio,"Banda cambiaria, límite superior",dolar,Régimen de bandas cambiarias. Límite superior,pesos por dólar,2026-10-09
+12,Tasas de interés,Plazo fijo a 30 días,tasa,Tasa de interés de depósitos a 30 días de plazo en entidades financieras,% nominal anual,2026-10-08
+7,Tasas de interés,"BADLAR de bancos privados, nominal anual",tasa,Tasa de interés BADLAR de bancos privados,% nominal anual,2026-10-08
+35,Tasas de interés,"BADLAR de bancos privados, efectiva anual",tasa,Tasa de interés BADLAR de bancos privados,% efectivo anual,2026-10-08
+44,Tasas de interés,"TAMAR de bancos privados, nominal anual",tasa,Tasa de interes TAMAR de bancos privados,% nominal anual,2026-10-08
+45,Tasas de interés,"TAMAR de bancos privados, efectiva anual",tasa,Tasa de interés TAMAR de bancos privados,% efectivo anual,2026-10-08
+8,Tasas de interés,TM20 de bancos privados,tasa,Tasa de interés TM20 de bancos privados,% nominal anual,2026-10-08
+11,Tasas de interés,Préstamos entre bancos privados (BAIBAR),tasa,Tasa de interés de préstamos entre entidades financiera privadas (BAIBAR),% nominal anual,2026-10-08
+13,Tasas de interés,Adelantos en cuenta corriente,tasa,Tasa de interés por adelantos en cuenta corriente,% nominal anual,2026-10-08
+14,Tasas de interés,Préstamos personales,tasa,Tasa de interés de préstamos personales,% nominal anual,2026-10-08
+15,Dinero,Base monetaria,millones,Base monetaria,millones de pesos,2026-10-07
+16,Dinero,Circulación monetaria,millones,Circulación monetaria,millones de pesos,2026-10-07
+17,Dinero,Billetes y monedas en poder del público,millones,Billetes y monedas en poder del público,millones de pesos,2026-10-07
+18,Dinero,Efectivo en los bancos,millones,Efectivo en entidades financieras,millones de pesos,2026-10-07
+19,Dinero,Cuentas corrientes de los bancos en el BCRA,millones,Depósitos de las entidades financieras en cuenta corriente en el BCRA,millones de pesos,2026-10-07
+25,Dinero,"M2 privado, variación interanual",tasa,Variación interanual del promedio móvil de 30 días del M2 privado,%,2026-10-07
+21,Depósitos y préstamos,Depósitos en los bancos,millones,Depósitos en efectivo en las entidades financieras,millones de pesos,2026-10-07
+22,Depósitos y préstamos,Depósitos en cuenta corriente,millones,Depósitos en efectivo en las entidades financieras en cuentas corrientes(neto de utilización FUCO),millones de pesos,2026-10-07
+23,Depósitos y préstamos,Depósitos en caja de ahorro,millones,Depósitos en efectivo en las entidades financieras en cajas de ahorro,millones de pesos,2026-10-07
+24,Depósitos y préstamos,Depósitos a plazo,millones,Depósitos a plazo en efectivo en las entidades financieras (incluye inversiones y excluye CEDROs),millones de pesos,2026-10-07
+26,Depósitos y préstamos,Préstamos al sector privado,millones,Préstamos de las entidades financieras al sector privado,millones de pesos,2026-10-07
+29,Precios,Inflación esperada para los próximos 12 meses (REM),tasa,Mediana de la variación interanual próximos 12 meses del índice de precios al consumidor del relevamiento de expectativas de mercado,%,2026-09-30
+30,Índices de actualización,CER (coeficiente de estabilización de referencia),indice,Coeficiente de estabilización de referencia (base 2.2.02=1),"índice, 2 de febrero de 2002 = 1",2026-10-11
+31,Índices de actualización,UVA (unidad de valor adquisitivo),pesos,Unidad de valor adquisitivo (base 31.3.16=14.05),pesos,2026-10-11
+32,Índices de actualización,UVI (unidad de vivienda),pesos,Unidad de vivienda (base 31.3.16=14.05),pesos,2026-10-11
+40,Índices de actualización,ICL (índice para contratos de alquiler),indice,Índice para Contratos de Locación (base 30.6.20=1),"índice, 30 de junio de 2020 = 1",2026-10-11
+43,Tasas acumuladas para juicios,Tasa pasiva para uso de la justicia (Comunicación P 14.290),indice,Tasa de interés Comunicado P 14.290 (Uso de justicia),"acumulado, en %",2026-10-11
+1197,Tasas acumuladas para juicios,Intereses moratorios del Código Civil y Comercial (art. 768 c),indice,"Tasa de Intereses Moratorios (TIM) CCC, art. 768(c)","acumulado, en %",2026-10-11
+1198,Tasas acumuladas para juicios,Tasa pasiva de la Ley 27.802 (art. 55 a),indice,"Tasa pasiva Ley 27.802, art. 55(a)","acumulado, en %",2026-10-11

@@ -166,6 +166,12 @@ const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
 const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo;
+// sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
+const fLarga = f => `${+f.slice(0, 2)} de ${MESES[+f.slice(3, 5) - 1]} de ${f.slice(6)}`;
+const mesTx = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
+const trimTx = t => `${["primer", "segundo", "tercer", "cuarto"][+t[0] - 1]} trimestre de ${t.slice(2)}`;
+const saldoTx = v => v >= 0 ? `${n0(v)} millones a favor` : `${n0(-v)} millones en contra`;
+const subioBajo = (v, m, f) => `${v >= 0 ? m : f} ${pct(Math.abs(v))}`;
 // causas de muerte: cada grupo dicho dentro de una oración, y los grupos con causa definida de más a menos frecuente en el país
 const CM_FRASE = {circulatorias: "las enfermedades del corazón y la circulación", tumores: "los tumores", respiratorias: "las enfermedades respiratorias",
   infecciosas: "las enfermedades infecciosas y parasitarias", covid: "el COVID-19", endocrinas: "la diabetes y otras enfermedades endocrinas y metabólicas",
@@ -931,6 +937,60 @@ const TX = {
     return `Según el rubro que más pesa en lo que exportó cada una en ${P.anio}, hay ${lista(orden.map(([k, n], i) => `${n} ${i === 0 ? (n === 1 ? "provincia " : "provincias ") : ""}de ${NOM[k]}`))}.`; })(),
   "exprov-nota": `Origen Provincial de las Exportaciones del INDEC: cada venta se asigna a la provincia donde se produjo el bien o se hizo su última transformación, no a la del puerto por donde salió. ` +
     `Una parte no tiene provincia (plataforma continental, extranjero o indeterminado), por eso las provincias no suman el total del país. El último año es provisorio.`,
+  // segunda parte (etapa 41): la balanza comercial, las importaciones, el balance de pagos, las reservas y las variables del BCRA
+  "balanza": (() => { const B = SX.balanza, d = B.deficit_anios;
+    return `En ${B.anio}, la Argentina exportó ${n0(B.expo)} millones de dólares en bienes e importó ${n0(B.impo)} millones: el saldo fue de ${saldoTx(B.saldo)}. ` +
+      (d.length ? `Desde ${B.desde}, las importaciones superaron a las exportaciones en ${d.length} ${d.length === 1 ? "año" : "años"}, el último en ${d[d.length - 1]}. ` : "") +
+      `El saldo más alto de la serie fue el de ${B.saldo_max_anio}, con ${n0(B.saldo_max)} millones.` +
+      (B.ytd_anio > B.anio ? ` Entre enero y ${MESES[B.ytd_mes - 1]} de ${B.ytd_anio}, las exportaciones ${subioBajo(B.ytd_expo_var, "crecieron", "cayeron")} ` +
+        `y las importaciones ${subioBajo(B.ytd_impo_var, "crecieron", "cayeron")} frente a los mismos meses del año anterior.` : ""); })(),
+  "balanza-nota": `Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete y el seguro), en dólares de cada año, ` +
+    `sin descontar la inflación de los Estados Unidos. El saldo es la diferencia entre las dos. Son solo bienes: los servicios, como el turismo, y los intereses y las utilidades ` +
+    `están en la cuenta corriente, más abajo. El año en curso, incompleto, no va en el gráfico.`,
+  "importaciones": (() => { const I = SX.importaciones, p = I.pct;
+    return `En ${I.anio}, el ${pct(p.intermedios)} de lo importado fueron bienes intermedios, los insumos que se transforman en el país, el ${pct(p.piezas)} piezas y accesorios ` +
+      `y el ${pct(p.capital)} bienes de capital, como máquinas y equipos. Los bienes de consumo fueron el ${pct(p.consumo)} y los autos, el ${pct(p.vehiculos)}. ` +
+      `Frente al año anterior, las compras de bienes de consumo ${subioBajo(I.consumo_var, "crecieron", "cayeron")} y las de autos ${subioBajo(I.vehiculos_var, "crecieron", "cayeron")}. ` +
+      `Las de combustibles tuvieron su máximo en ${I.comb_max_anio}, con ${n0(I.comb_max)} millones de dólares, y en ${I.anio} fueron el ${pct(p.combustibles)} del total.`; })(),
+  "importaciones-nota": `Valores CIF (con el flete y el seguro), en dólares de cada año. Es la clasificación por uso económico del INDEC: los bienes intermedios son insumos como productos químicos, ` +
+    `plásticos, metales o minerales, las piezas y accesorios son partes de máquinas y vehículos, los bienes de capital son máquinas, equipos y vehículos de carga, y los vehículos ` +
+    `de pasajeros son los autos. El año en curso, incompleto, no va en el gráfico.`,
+  "origen": (() => { const O = SX.origen, t = O.top, x = t.filter(o => o.var != null);
+    const sube = [...x].sort((a, b) => b.var - a.var)[0], baja = [...x].sort((a, b) => a.var - b.var)[0];
+    const s = sube && sube.var > 0 ? `${sube.n} (${conSigno(sube.var)})` : "", b = baja && baja.var < 0 ? `${baja.n} (${conSigno(baja.var)})` : "";
+    return `Después de ${t[0].n} vinieron ${t[1].n} (${pct(t[1].pct)}) ${yE(t[2].n)} (${pct(t[2].pct)}). ` +
+      `En total se importaron ${n0(O.total)} millones de dólares, ${subioBajo(O.var, "un", "un")} ${O.var >= 0 ? "más" : "menos"} que en los mismos meses del año anterior.` +
+      (s || b ? ` Entre los cinco primeros orígenes, las compras que más ${s ? "crecieron" : "cayeron"} fueron las de ${s || b}` + (s && b ? ` y las que más cayeron, las de ${b}` : "") + "." : ""); })(),
+  "origen-nota": `Importaciones de bienes según el país de origen, en dólares CIF, desde enero hasta el último mes publicado y comparadas con los mismos meses del año anterior. ` +
+    `Las zonas que juntan varios países (resto de la Unión Europea, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
+    `México y Canadá son los socios de los Estados Unidos en el tratado comercial de América del Norte. No van los orígenes que no llegan al 0,05%. Datos provisorios.`,
+  "cuenta-corriente": (() => { const C = SX.cuenta_corriente, s = C.superavit_anios;
+    return `En ${C.anio}, el comercio de bienes dejó un saldo de ${saldoTx(C.bienes)}, los servicios de ${saldoTx(C.servicios)}, el ingreso primario de ${saldoTx(C.primario)} ` +
+      `y las transferencias de ${saldoTx(C.secundario)}. ` +
+      (s.length ? `Desde ${C.desde}, entraron más dólares de los que salieron en ${s.length} ${s.length === 1 ? "año" : "años"}: ${lista(s.map(String))}.` : `Desde ${C.desde}, en ningún año entraron más dólares de los que salieron.`) +
+      (C.trim ? ` En el ${trimTx(C.trim)}, el último publicado, el saldo fue de ${saldoTx(C.trim_total)}.` : ""); })(),
+  "cuenta-corriente-nota": `Balance de pagos del INDEC, con la metodología del sexto manual del FMI. La cuenta corriente suma el saldo de los bienes (valuados FOB y registrados cuando cambian ` +
+    `de dueño, por eso difiere del intercambio comercial de más arriba), el de los servicios (viajes, fletes, seguros y servicios profesionales e informáticos), el del ingreso primario ` +
+    `(los intereses, las utilidades y los dividendos que se pagan y se cobran con el exterior, y los salarios) y el del ingreso secundario (transferencias, como las remesas). ` +
+    `Cuando salen más dólares de los que entran, la diferencia se cubre con deuda, inversiones del exterior o reservas. El gráfico no muestra el ingreso secundario, que es chico, ` +
+    `pero el total lo incluye. El año en curso, incompleto, no va en el gráfico.`,
+  "reservas-bcra": (() => { const V = SX.reservas, f = V.factores, suma = f.reduce((a, x) => a + x.v, 0);
+    const TXF = {compras: "las compras de divisas", organismos: "las operaciones con organismos internacionales", sector_publico: "otras operaciones del sector público",
+      efectivo_minimo: "el efectivo mínimo de los bancos", otras: "otras operaciones"};
+    const mas = [...f].sort((a, b) => b.v - a.v)[0], menos = [...f].sort((a, b) => a.v - b.v)[0], m = v => `${v > 0 ? "+" : ""}${n0(v)} millones`;
+    const partes = [mas.v > 0 ? `lo que más las hizo subir fueron ${TXF[mas.k] || mas.lab.toLowerCase()} (${m(mas.v)})` : "",
+      menos.v < 0 ? `lo que más las hizo bajar, ${TXF[menos.k] || menos.lab.toLowerCase()} (${m(menos.v)})` : ""].filter(Boolean);
+    return `Un año antes eran ${n0(V.hace_un_anio)} millones. El máximo de la serie, con los datos de cada día, fue de ${n0(V.max)} millones, en ${MESES[+V.max_fecha.slice(0, 2) - 1]} de ${V.max_fecha.slice(3)}. ` +
+      `En lo que va de ${V.anio} ${suma >= 0 ? "subieron" : "bajaron"} ${n0(Math.abs(suma))} millones` + (partes.length ? `: ${partes.join(" y ")}.` : "."); })(),
+  "reservas-bcra-nota": `Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda ` +
+    `como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente. ` +
+    `Cada punto es el último día con dato de cada mes. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el ` +
+    `${fLarga(SX.reservas.factores_hasta)}: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el ` +
+    `efectivo mínimo que los bancos dejan en el BCRA y otras operaciones, entre ellas los cambios de cotización del oro y de las monedas. La tabla trae esos factores por año desde ${SX.reservas.factores_desde}.`,
+  "bcra-nota": `Datos de la API de Estadísticas Monetarias del Banco Central, con el último dato publicado de cada mes desde ${mesTx(SX.bcra.desde)}. Son ${SX.bcra.n} de sus variables ` +
+    `principales: las reservas están en la ficha anterior y la inflación, en Precios y actividad, con los datos del INDEC. Las tasas son anuales: la nominal no suma los intereses ` +
+    `de los intereses y la efectiva sí. Las tasas para juicios son valores acumulados desde el comienzo de cada serie, que los tribunales usan para calcular intereses. "Sin inflación" pasa los montos en pesos a pesos de ${mesTx(SX.bcra.ipc_mes)} con el índice de precios al consumidor del INDEC, que llega ` +
+    `hasta ese mes. El CSV trae cada serie desde que empieza.`,
   // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
   "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
     `Sin ajustar, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
@@ -4083,6 +4143,72 @@ DIB.exprov = a => {
     .map(r => ({...r, ...Object.fromEntries(cl.map(x => [x.k, r[x.k] / r.millones_usd * 100]))}))]});
 };
 
+DIB.balanza = a => {
+  const d = T.balanza_comercial;
+  lineas(G("balanza"), {anim: a, data: d, x: "anio", y0: Math.min(0, d3.min(d, r => r.saldo)), ref: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
+    series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--muted"), w: 1.6}]});
+};
+// las importaciones por uso: los insumos en celeste, el capital en azul, el consumo en amarillo y el resto en gris
+const RUB_IM = [["intermedios", "Intermedios", "#74ACDF", "--celeste-fuerte"], ["piezas", "Piezas", "#A9CBEA", "--celeste-fuerte"], ["capital", "Capital", "#1F5E97"],
+  ["consumo", "Consumo", "#F6B40E", "--sol-texto"], ["vehiculos", "Autos", "#FAD375", "--sol-texto"], ["combustibles", "Combustibles", "#C3CAD2", "--muted"],
+  ["resto", "Resto", "#E4E9EF", "--muted"]];
+DIB.importaciones = a => areasApiladas(G("importaciones"), {anim: a, data: T.importaciones_usos, x: "anio",
+  series: RUB_IM.map(([k, lab, c, ct]) => ({k, lab, c, ct})), vf: n0, yf: v => n0(v / 1000) + " mil", unidad: "millones de dólares"});
+DIB.origen = a => barrasH(G("origen"), {anim: a, data: T.importaciones_origen.filter(r => r.pct >= .05).map(r => ({...r, codigo_indec: r.origen, territorio: r.origen_nombre})),
+  k: "pct", vf: pct, af: v => v + "%", marcar: new Set(), l: 196, lAngosto: 136, color: d => d.origen.startsWith("resto") ? css("--faint") : css("--celeste"),
+  tip: d => `<b>${d.origen_nombre}</b><br>${n0(d.millones_usd)} millones de dólares, el ${pct(d.pct)} del total` +
+    (d.millones_usd_anterior > 0 ? `<br>${conSigno(d.variacion)} frente a los mismos meses del año anterior` : "")});
+DIB["cuenta-corriente"] = a => {
+  const d = T.cuenta_corriente;
+  lineas(G("cuenta-corriente"), {anim: a, data: d, x: "anio", y0: d3.min(d, r => Math.min(r.bienes, r.servicios, r.primario, r.cuenta_corriente)), ref: 0,
+    vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
+    series: [{k: "cuenta_corriente", lab: "Cuenta corriente", corto: "Saldo total", c: css("--ink"), w: 3}, {k: "bienes", lab: "Bienes", c: NAR},
+      {k: "servicios", lab: "Servicios", c: FRI}, {k: "primario", lab: "Ingreso primario", corto: "Rentas", c: css("--muted"), w: 1.8}]});
+};
+MED["reservas-bcra"] = "serie";
+DIB["reservas-bcra"] = a => {
+  const el = G("reservas-bcra"), V = SX.reservas, CORTO = {sector_publico: "Otras del sector público", efectivo_minimo: "Efectivo mínimo", organismos: "FMI y otros organismos"};
+  if (MED["reservas-bcra"] === "factores")
+    return barrasH(el, {anim: a, data: V.factores.map(f => ({codigo_indec: f.k, territorio: f.lab, v: f.v})), k: "v", vf: v => (v > 0 ? "+" : "") + n0(v),
+      af: v => n0(v / 1000) + " mil", marcar: new Set(), l: 236, lAngosto: 160, corto: d => CORTO[d.codigo_indec] || d.territorio,
+      tip: d => `<b>${d.territorio}</b><br>${(d.v > 0 ? "+" : "") + n0(d.v)} millones de dólares en lo que va de ${V.anio}, hasta el ${fLarga(V.factores_hasta)}`});
+  lineas(el, {anim: a, data: T.reservas_bcra.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
+    xl: r => mesPer(r.mes), mensual: true, series: [{k: "millones_usd", lab: "Reservas", c: NAR}]});
+};
+/* Variables principales del BCRA (etapa 41): el selector por grupo y, en las que están en pesos, el conmutador para verlas sin la inflación.
+   Cada tipo con su formato (texto y eje): tasas, pesos por dólar, millones de pesos, pesos e índices */
+const BV = SX.bcra;
+const BCR_F = {tasa: [pct, v => n0(v) + "%"], dolar: [v => v >= 100 ? n0(v) : n2(v), n0], pesos: [n2, n0], indice: [v => v >= 100 ? n1(v) : n2(v), n0], otro: [n2, n0],
+  millones: [v => v >= 1e6 ? `${n1(v / 1e6)} billones` : v >= 1e3 ? `${n0(v / 1e3)} mil millones` : `${n0(v)} millones`, n0]};
+const bcrVar = () => BV.variables.find(x => String(x.id) === MED["bcra-id"]) || BV.variables[0];
+const bcrReal = v => v.t === "millones" || v.t === "dolar";
+const bcrU = v => v.t === "tasa" ? v.u.replace(/^%\s*/, "") : v.t === "millones" ? "de pesos" : v.t === "indice" ? `(${v.u})` : v.u;
+$("bcra-sel").innerHTML = d3.groups(BV.variables, x => x.g).map(([g, vs]) => `<optgroup label="${g}">${vs.map(x => `<option value="${x.id}">${x.n}</option>`).join("")}</optgroup>`).join("");
+MED["bcra-id"] = String(BV.variables[0].id);
+MED["bcra-m"] = "nominal";
+$("bcra-sel").addEventListener("change", ev => { MED["bcra-id"] = ev.target.value; cambiarVista("bcra"); });
+const bcrTxt = (v, filas, k, real) => {
+  const f = (BCR_F[v.t] || BCR_F.otro)[0], val = x => `${f(x)} ${bcrU(v)}`.trim(), u = filas[filas.length - 1];
+  const ant = filas.find(r => r.mes === `${+u.mes.slice(0, 4) - 1}${u.mes.slice(4)}`), mx = filas.reduce((m, r) => r[k] > m[k] ? r : m, filas[0]);
+  return `${v.n}${real ? ", sin la inflación" : ""}: ${val(u[k])} en ${mesPer(u.mes)}` +
+    (ant ? (v.t === "tasa" ? `, contra ${val(ant[k])} un año antes.` : `, ${conSigno((u[k] / ant[k] - 1) * 100)} frente a un año antes.`) : ".") +
+    (mx === u ? ` Es el valor más alto del período.` : ` El más alto del período fue de ${val(mx[k])}, en ${mesPer(mx.mes)}.`) +
+    (real ? ` Los montos están en pesos de ${mesPer(BV.ipc_mes)}.` : "");
+};
+DIB.bcra = conTablas("bcra", ["bcra_variables"], a => {
+  const v = bcrVar(), conReal = bcrReal(v), real = conReal && MED["bcra-m"] === "real", k = real ? "valor_real" : "valor", el = G("bcra");
+  const conm = document.querySelector('.conmutador[data-g="bcra-m"]'); if (conm) conm.hidden = !conReal;
+  const filas = T.bcra_variables.filter(r => r.id === v.id && r.mes >= BV.desde && r[k] != null).map(r => ({...r, t: tPer(r.mes)}));
+  if (!filas.length) return sinDatos(el, "No hay datos de esta variable.");
+  const f = BCR_F[v.t] || BCR_F.otro, grande = d3.max(filas, r => r[k]) >= 1e6;
+  $t("bcra").textContent = bcrTxt(v, filas, k, real);
+  lineas(el, {anim: a, data: filas, x: "t", y0: Math.min(0, d3.min(filas, r => r[k])), vf: f[0], xl: r => mesPer(r.mes), mensual: true,
+    yf: v.t === "millones" ? (x => grande ? n1(x / 1e6).replace(/,0$/, "") + " bill." : n0(x / 1e3) + " mil M") : f[1],
+    series: [{k, lab: v.n, corto: "Último dato", c: NAR}]});
+  // la tabla abierta sigue a la variable elegida
+  const caja = document.querySelector("#f-bcra .tabla-datos"); if (caja) caja.innerHTML = tablaDatos(TABLA_VISTA["f-bcra"](T.bcra_variables), "f-bcra");
+});
+
 /* ---------- transferencias de la Nación a las provincias ---------- */
 const TRR = R.transferencias, TRS = T.transferencias_serie, TRA = T.transferencias_acumulado;
 const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : `${v >= 10 ? n0(v) : n1(v)} mil millones`;
@@ -5043,6 +5169,10 @@ const sg = v => (v > 0 ? "+" : "") + pct(v);
 // [cifra, texto completo, leyenda corta]. El texto completo va en "En cifras" y en el buscador, que se leen sin la descripción de la
 // ficha. Dentro de la ficha va la leyenda corta, que dice solo lo que la descripción no dice (el alcance o la población de referencia):
 // así la descripción, la cifra y el comienzo del texto no repiten la misma frase (pedido del autor, 10 de octubre de 2026)
+// el saldo comercial de la cifra destacada: el de lo que va del año si ya hay meses del año siguiente al último completo, y la tasa del plazo fijo
+const BZ_Y = SX.balanza.ytd_anio > SX.balanza.anio, BZ_S = BZ_Y ? SX.balanza.ytd_saldo : SX.balanza.saldo;
+const BZ_P = BZ_Y ? `entre enero y ${MESES[SX.balanza.ytd_mes - 1]} de ${SX.balanza.ytd_anio}` : `en ${SX.balanza.anio}`;
+const BCR_PF = SX.bcra.variables.find(v => v.id === 12) || SX.bcra.variables[0];
 const CLAVE = {
   "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`,
     `barriles por día en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
@@ -5179,6 +5309,14 @@ const CLAVE = {
   "f-destinos": [pct(SX.destinos.top[0].pct), `de las exportaciones del ${SX.destinos.periodo} fue a ${SX.destinos.top[0].n}, el primer destino`, `a ${SX.destinos.top[0].n}, el primer destino del país`],
   "f-exporta-provincias": [pct(SX.provincias.top3_pct), `de lo que exportó el país en ${SX.provincias.anio} salió de ${lista(SX.provincias.top3)}`,
     `de lo exportado en el país, desde ${lista(SX.provincias.top3)}`],
+  "f-balanza": [`${n0(Math.abs(BZ_S))} M`, `de dólares de ${BZ_S >= 0 ? "superávit" : "déficit"} comercial ${BZ_P}` +
+    (SX.balanza.ytd_anio > SX.balanza.anio ? `, contra ${saldoTx(SX.balanza.ytd_saldo_ant)} en los mismos meses del año anterior` : ""), `de ${BZ_S >= 0 ? "superávit" : "déficit"} comercial ${BZ_P}`],
+  "f-importaciones": [`${n1(SX.importaciones.total / 1000)} mil millones`, `de dólares en bienes importó la Argentina en ${SX.importaciones.anio}`, `de dólares en ${SX.importaciones.anio}`],
+  "f-origen": [pct(SX.origen.top[0].pct), `de lo importado de ${SX.origen.periodo} vino de ${SX.origen.top[0].n}, el primer origen`, `desde ${SX.origen.top[0].n}, el primer origen`],
+  "f-cuenta-corriente": [`${n0(Math.abs(SX.cuenta_corriente.total))} M`, `de dólares de ${SX.cuenta_corriente.total < 0 ? "déficit" : "superávit"} en la cuenta corriente en ${SX.cuenta_corriente.anio}: ` +
+    (SX.cuenta_corriente.total < 0 ? "salieron más dólares de los que entraron" : "entraron más dólares de los que salieron"), `de ${SX.cuenta_corriente.total < 0 ? "déficit" : "superávit"} en ${SX.cuenta_corriente.anio}`],
+  "f-reservas-bcra": [`${n1(SX.reservas.valor / 1000)} mil millones`, `de dólares de reservas tenía el Banco Central el ${fLarga(SX.reservas.fecha)}`, `de dólares el ${fLarga(SX.reservas.fecha)}`],
+  "f-bcra": [pct(BCR_PF.v), `nominal anual pagaban en promedio los plazos fijos a 30 días el ${fLarga(BCR_PF.f)}`, `nominal anual en plazos fijos a 30 días, el ${fLarga(BCR_PF.f)}`],
   "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
     `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares, promedio del país"],
@@ -5227,9 +5365,6 @@ const EXTRA = {
   "x-aprender-len": ["f-aprender", pct(ap.len), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en lengua en Aprender ${ap.anio}`, true],
   "x-aprender-debajo": ["f-aprender", pct(ap.mat_debajo), `de los estudiantes de 6° grado quedó por debajo del nivel básico en matemática en Aprender ${ap.anio}`],
   "x-nacimientos": ["f-nacimientos", n0(nac.n_ult), `nacimientos se registraron en ${nac.anio_ult}, ${pct(Math.abs(nac.caida))} menos que en ${nac.anio_pico}`],
-  "x-expo-ytd": SX.rubros.ytd_var != null
-    ? ["f-exporta-rubros", conSigno(SX.rubros.ytd_var), `${SX.rubros.ytd_var >= 0 ? "crecieron" : "cayeron"} las exportaciones entre enero y ${MESES[SX.rubros.ytd_mes - 1]} de ${SX.rubros.ytd_anio}, frente a los mismos meses del año anterior`]
-    : ["f-exporta-rubros", `${n0(SX.rubros.max)} M`, `de dólares exportó la Argentina en ${SX.rubros.max_anio}, el año más alto desde ${SX.rubros.desde}`],
   "x-edad-mediana": ["f-piramide", `${PI.edad_mediana_hoy} años`, `es la edad mediana de la población en ${PI.anio}. En ${PI.anio_fin} será de ${PI.edad_mediana_fin}, según las proyecciones del INDEC`],
   "x-vejez": ["f-envejecimiento", n1(EV.hoy), `personas de 65 años o más por cada 100 de 15 a 64 en ${EV.anio}. En ${EV.anio_fin} serán ${n1(EV.fin)}`],
   "x-jubilaciones": ["f-jubilaciones", n2(JU.ratio), `aportantes por cada jubilación o pensión de ANSES en ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio}. En ${JU.max_anio} eran ${n2(JU.max)}`],
@@ -5256,7 +5391,7 @@ const EN_CIFRAS = {
   // Seguridad (etapa 23): tiene datos por provincia (homicidios y robos) y suma la tarjeta "Tu provincia"
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
-  externo: ["f-exporta-rubros", "x-expo-ytd", "f-destinos", "f-complejos", "f-exporta-provincias"],
+  externo: ["f-balanza", "f-exporta-rubros", "f-importaciones", "f-reservas-bcra", "f-destinos", "f-cuenta-corriente"],
   poblacion: ["x-nacimientos", "f-poblacion-proy", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
   gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales", "f-fiscal"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
@@ -5277,6 +5412,11 @@ const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">
 function conBandera(c, nombre) { return `<span class="con-bandera">${bandera(c)}<span>${esc(nombre)}</span></span>`; }
 const nTabla = loc.format(",.2~f");
 // Tabla de la ficha dentro de la tarjeta (idea de USAFacts), con las mismas filas que el CSV
+// "Ver tabla" de una ficha con una tabla larga de varias series (etapa 41): solo la serie elegida, del mes más reciente al más viejo
+const TABLA_VISTA = {
+  "f-bcra": t => { const v = bcrVar();
+    return t.filter(r => r.id === v.id).reverse().map(r => ({mes: r.mes, [`${v.n}, ${v.u}`]: r.valor, ...(bcrReal(v) ? {[`en pesos de ${mesPer(BV.ipc_mes)}`]: r.valor_real} : {})})); }
+};
 function tablaDatos(filas, ficha = "") {
   const MAX = 300, todas = Object.keys(filas[0]);
   const cols = todas.includes("territorio") ? ["territorio", ...todas.filter(c => c !== "territorio" && c !== "codigo_indec")] : todas;
@@ -5363,7 +5503,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "balanza_energetica", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_hidrocarburos", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   const tema = f.closest(".tema")?.querySelector("h1, h2")?.textContent;
@@ -5396,7 +5536,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
         return;
       } finally { delete b.dataset.cargando; }
       f.querySelector(".tabla-error")?.remove();
-      caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(t, f.id); pie.before(caja);
+      caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(TABLA_VISTA[f.id] ? TABLA_VISTA[f.id](t) : t, f.id); pie.before(caja);
     }
     caja.hidden = abierta; b.setAttribute("aria-expanded", String(!abierta));
     b.querySelector(".lbl").textContent = abierta ? "Ver tabla" : "Ocultar tabla";
@@ -5925,6 +6065,19 @@ const PREG = [
    `${n0(SX.rubros.total)} millones de dólares en bienes en ${SX.rubros.anio}: el ${pct(SX.rubros.pct.moa)} manufacturas de origen agropecuario, el ${pct(SX.rubros.pct.moi)} de origen industrial, el ${pct(SX.rubros.pct.primarios)} productos primarios y el ${pct(SX.rubros.pct.combustibles)} combustibles y energía.`, "#f-exporta-rubros"],
   ["¿Adónde exporta la Argentina?",
    `En el ${SX.destinos.periodo}, ${lista(SX.destinos.top.slice(0, 3).map(t => `${t.n} (${pct(t.pct)})`))} fueron los primeros destinos.`, "#f-destinos"],
+  ["¿Cuánto vende y cuánto compra la Argentina?",
+   `En ${SX.balanza.anio}, ${n0(SX.balanza.expo)} millones de dólares de exportaciones de bienes y ${n0(SX.balanza.impo)} millones de importaciones: un saldo de ${saldoTx(SX.balanza.saldo)}.`, "#f-balanza"],
+  ["¿Qué importa la Argentina?",
+   `${n0(SX.importaciones.total)} millones de dólares en bienes en ${SX.importaciones.anio}: el ${pct(SX.importaciones.pct.intermedios)} bienes intermedios, el ${pct(SX.importaciones.pct.capital + SX.importaciones.pct.piezas)} bienes de capital con sus piezas y el ${pct(SX.importaciones.pct.consumo + SX.importaciones.pct.vehiculos)} bienes de consumo y autos.`, "#f-importaciones"],
+  ["¿De dónde vienen las importaciones?",
+   `De ${SX.origen.periodo}, ${lista(SX.origen.top.slice(0, 3).map(t => `${t.n} (${pct(t.pct)})`))} fueron los primeros orígenes.`, "#f-origen"],
+  ["¿Cuánto da la cuenta corriente del balance de pagos?",
+   `En ${SX.cuenta_corriente.anio} ${SX.cuenta_corriente.total < 0 ? `salieron ${n0(-SX.cuenta_corriente.total)} millones de dólares más de los que entraron` : `entraron ${n0(SX.cuenta_corriente.total)} millones de dólares más de los que salieron`}: ` +
+   `los bienes dejaron ${saldoTx(SX.cuenta_corriente.bienes)}, los servicios ${saldoTx(SX.cuenta_corriente.servicios)} y el ingreso primario ${saldoTx(SX.cuenta_corriente.primario)}.`, "#f-cuenta-corriente"],
+  ["¿Cuántas reservas tiene el Banco Central?",
+   `${n0(SX.reservas.valor)} millones de dólares el ${fLarga(SX.reservas.fecha)}. Un año antes, ${n0(SX.reservas.hace_un_anio)} millones.`, "#f-reservas-bcra"],
+  ["¿Cuánto paga un plazo fijo?",
+   `${pct(BCR_PF.v)} nominal anual en promedio a 30 días el ${fLarga(BCR_PF.f)}, según el Banco Central. La ficha muestra también el dólar, las demás tasas, el dinero y los préstamos.`, "#f-bcra"],
   ["¿De qué se muere la gente en la Argentina?",
    `De ${CM.desde} a ${CM.hasta}, el ${pct(CMG[0].pct)} de las muertes fue por ${CM_FRASE[CMG[0].k]}. Ajustada por edad, la mortalidad más alta es la de ${CM.max} y la más baja, la de ${CM.min}.`, "#f-causas-muerte"],
   ["¿Cuánto va a crecer la población?",
@@ -6762,7 +6915,11 @@ const SERIE_CIFRA = {
   "x-nacimientos": () => serieM("Nacimientos por año", T.nacimientos.map(r => [r.anio, r.nacimientos]), n0),
   "f-adolescentes": () => serieM("Nacimientos de madres menores de 20 años, cada 100, por año", T.nacimientos.map(r => [r.anio, r.pct_madres_menores_20]), n1),
   "f-exporta-rubros": () => serieM("Exportaciones de bienes por año, en miles de millones de dólares", T.exportaciones_rubros_anual.map(r => [r.anio, r.total / 1000]), n1, 12),
-  "x-expo-ytd": () => SERIE_CIFRA["f-exporta-rubros"](),
+  "f-balanza": () => serieM("Saldo del comercio de bienes por año, en millones de dólares", T.balanza_comercial.map(r => [r.anio, r.saldo]), n0, 12),
+  "f-importaciones": () => serieM("Importaciones de bienes por año, en miles de millones de dólares", T.balanza_comercial.map(r => [r.anio, r.importaciones / 1000]), n1, 12),
+  "f-cuenta-corriente": () => serieM("Saldo de la cuenta corriente por año, en millones de dólares", T.cuenta_corriente.map(r => [r.anio, r.cuenta_corriente]), n0, 12),
+  "f-reservas-bcra": () => serieM("Reservas del Banco Central, en miles de millones de dólares, diciembre de cada año y el último mes",
+    T.reservas_bcra.filter((r, i, t) => r.mes.endsWith("-12") || i === t.length - 1).map(r => [r.mes.endsWith("-12") ? r.mes.slice(0, 4) : mesCorto(r.mes), r.millones_usd / 1000]), n1, 12),
   "f-exporta-provincias": () => provM(`Exportaciones por provincia de origen, en millones de dólares, ${SX.provincias.anio}`, T.exportaciones_provincias, "millones_usd", null, n0),
   "f-poblacion-proy": () => provM(`Variación de la población proyectada entre ${PPY.anio} y ${PPY.anio_fin}, en %`, T.poblacion_proyectada_provincias, "var_pct", PPY.var_pct, conSigno),
   "x-vejez": () => serieM("Personas de 65 años o más cada 100 de 15 a 64, proyección del INDEC",

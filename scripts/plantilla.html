@@ -1195,9 +1195,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   <section class="tema con-pregunta" id="externo">
     <h2>Sector externo</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Qué le vende la Argentina al mundo?">¿Qué le vende la Argentina al mundo y adónde?</p>
-      <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta, adónde va y desde qué provincia sale. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
+      <p class="pregunta" data-corta="¿Qué le vende y qué le compra al mundo?">¿Qué le vende y qué le compra la Argentina al mundo?</p>
+      <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta y qué se importa, con qué países se comercia y desde qué provincia sale cada venta, el saldo de las cuentas con el resto del mundo y las reservas del Banco Central, con las demás variables que publica. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
     </div>
+
+    <article class="ficha" id="f-balanza">
+      <h3>¿Cuánto vende y cuánto compra la Argentina?</h3>
+      <p class="ficha-sub">Exportaciones e importaciones de bienes y su saldo, en millones de dólares por año, {{externo.balanza_desde}} a {{externo.balanza_anio}}</p>
+      <div class="grafico" data-g="balanza" data-forma="lineas"></div>
+      <p class="lead" data-t="balanza"></p>
+      <p class="nota" data-t="balanza-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo</span><a href="datos/balanza_comercial.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
 
     <article class="ficha" id="f-exporta-rubros">
       <h3>¿Qué exporta la Argentina?</h3>
@@ -1238,6 +1247,60 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="exprov"></p>
       <p class="nota" data-t="exprov-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-importaciones">
+      <h3>¿Qué compra la Argentina?</h3>
+      <p class="ficha-sub">Importaciones de bienes por uso económico, en millones de dólares por año, {{externo.imp_desde}} a {{externo.imp_anio}}</p>
+      <div class="grafico" data-g="importaciones" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
+      <p class="lead" data-t="importaciones"></p>
+      <p class="nota" data-t="importaciones-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo</span><a href="datos/importaciones_usos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-origen">
+      <h3>¿De dónde vienen las importaciones?</h3>
+      <p class="ficha-sub">Importaciones de bienes por origen, en % del total, {{externo.origen_periodo}}</p>
+      <div class="grafico" data-g="origen" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="origen"></p>
+      <p class="nota" data-t="origen-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio)</span><a href="datos/importaciones_origen.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-cuenta-corriente">
+      <h3>¿Entran más dólares de los que salen?</h3>
+      <p class="ficha-sub">Cuenta corriente del balance de pagos y sus partes, en millones de dólares por año, {{externo.cc_desde}} a {{externo.cc_anio}}</p>
+      <div class="grafico" data-g="cuenta-corriente" data-forma="lineas"></div>
+      <p class="lead" data-t="cuenta-corriente"></p>
+      <p class="nota" data-t="cuenta-corriente-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, balance de pagos, vía la API de Series de Tiempo</span><a href="datos/cuenta_corriente.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-reservas-bcra">
+      <h3>¿Cuántas reservas tiene el Banco Central?</h3>
+      <p class="ficha-sub">Reservas internacionales del BCRA al cierre de cada mes, en millones de dólares, desde {{externo.reservas_desde}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra">
+        <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
+        <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
+      </div>
+      <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
+      <p class="lead" data-t="reservas-bcra"></p>
+      <p class="nota" data-t="reservas-bcra-nota"></p>
+      <div class="pie"><span>Fuente: BCRA, API de Estadísticas Monetarias</span><a href="datos/reservas_bcra.csv" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" download>Qué las movió, por año (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-bcra">
+      <h3>¿Cuánto cambiaron el dólar, las tasas y el dinero?</h3>
+      <p class="ficha-sub">Variables principales del Banco Central, último dato de cada mes, desde {{externo.bcra_desde}}</p>
+      <label class="selector-ficha"><span>Variable</span><select id="bcra-sel"></select></label>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="bcra-m" data-dib="bcra">
+        <button type="button" data-m="nominal" aria-pressed="true">Pesos de cada mes</button>
+        <button type="button" data-m="real" aria-pressed="false">Sin inflación</button>
+      </div>
+      <div class="grafico" data-g="bcra" data-forma="lineas"></div>
+      <p class="lead" data-t="bcra"></p>
+      <p class="nota" data-t="bcra-nota"></p>
+      <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor</span><a href="datos/bcra_variables.csv" download>Valores por mes (CSV)</a><a href="datos/bcra_variables_lista.csv" download>Lista de variables (CSV)</a></div>
     </article>
 
   </section>
