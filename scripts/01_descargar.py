@@ -1661,6 +1661,158 @@ def dnap_recaudacion():
     return url
 
 
+def _planilla_por_fecha(urls, destino, que):
+    """Baja la primera planilla que exista de una lista de direcciones (de la más nueva a la más vieja). Si el archivo no existe, el
+    INDEC responde una página con código 200: se controla que sea una planilla (xls o xlsx)."""
+    for url, fecha in urls:
+        try:
+            datos = leer(url, 60)
+        except urllib.error.HTTPError:
+            continue
+        if datos[:4] != bytes.fromhex("d0cf11e0") and datos[:2] != b"PK":
+            continue
+        (CRUDO / destino).write_bytes(datos)
+        (CRUDO / destino.replace(".xls", "_meta.json")).write_text(json.dumps({"url": url, "publicado": fecha}), encoding="utf-8")
+        return url
+    raise ValueError(f"no se encontró {que}")
+
+
+def ica_cuadros():
+    """Intercambio comercial argentino del INDEC, sector externo (etapa 41): el anexo de cuadros del informe mensual se llama
+    ica_cuadros_DD_MM_YY.xls (la fecha es la de publicación, a mediados de cada mes). Se prueban los últimos 75 días, del más nuevo al
+    más viejo: exportaciones, importaciones y saldo de cada mes, por rubro, por uso económico y por zona económica y país."""
+    hoy = datetime.date.today()
+    dias = [hoy - datetime.timedelta(days=i) for i in range(75)]
+    return _planilla_por_fecha([(f"https://www.indec.gob.ar/ftp/cuadros/economia/ica_cuadros_{f:%d_%m_%y}.xls", f.isoformat()) for f in dias],
+                               "indec_ica_cuadros.xls", "el anexo del intercambio comercial argentino")
+
+
+def balanza_pagos():
+    """Balanza de pagos, posición de inversión internacional y deuda externa del INDEC, trimestral (etapa 41): el anexo de cuadros del
+    informe se llama cin_T_AAAA.xls, con el trimestre en números romanos. Se prueba del trimestre más nuevo al más viejo."""
+    hoy = datetime.date.today()
+    trim = [(a, t) for a in (hoy.year, hoy.year - 1, hoy.year - 2) for t in (4, 3, 2, 1) if datetime.date(a, 3 * t - 2, 1) <= hoy]
+    return _planilla_por_fecha([(f"https://www.indec.gob.ar/ftp/cuadros/economia/cin_{('I', 'II', 'III', 'IV')[t - 1]}_{a}.xls", f"{t}T{a}")
+                                for a, t in trim], "indec_balanza_pagos.xls", "el anexo de la balanza de pagos")
+
+
+def series_sector_externo():
+    """Series del sector externo en la API de Series de Tiempo de datos.gob.ar (etapa 41): busca en el catálogo las series del intercambio
+    comercial, de la balanza de pagos, de la deuda externa y de las reservas, guarda lo que encontró (series_sector_externo_catalogo.json:
+    id, título, descripción, frecuencia, fechas, unidades, conjunto y fuente) y baja los valores de las que siguen vigentes, una planilla
+    por frecuencia (series_sector_externo_M.csv, _Q.csv y _A.csv, una columna por id)."""
+    import urllib.parse
+    consultas = ["intercambio comercial argentino", "importaciones", "exportaciones", "saldo comercial", "balanza comercial",
+                 "balanza de pagos", "cuenta corriente", "cuenta financiera", "reservas internacionales", "deuda externa",
+                 "posicion de inversion internacional", "terminos del intercambio"]
+    vistos = {}
+    for q in consultas:
+        for off in range(0, 500, 100):
+            try:
+                r = json.loads(leer(f"https://apis.datos.gob.ar/series/api/search/?limit=100&offset={off}&q={urllib.parse.quote(q)}", 60))
+            except Exception as e:
+                print(f"  aviso: búsqueda de series '{q}':", e)
+                break
+            filas = r.get("data") or []
+            for x in filas:
+                f, ds = x.get("field") or {}, x.get("dataset") or {}
+                if f.get("id") and f["id"] not in vistos:
+                    vistos[f["id"]] = {"consulta": q, **{k: f.get(k) for k in ("title", "description", "frequency", "time_index_start", "time_index_end", "units")},
+                                       "conjunto": ds.get("title"), "fuente": ds.get("source")}
+            if len(filas) < 100:
+                break
+    if len(vistos) < 20:
+        raise ValueError("la búsqueda de series del sector externo vino vacía")
+    (CRUDO / "series_sector_externo_catalogo.json").write_text(json.dumps(vistos, ensure_ascii=False, indent=1), encoding="utf-8")
+    desde = str(datetime.date.today().year - 2)
+    frec = {"R/P1M": "M", "R/P3M": "Q", "R/P1Y": "A"}
+    bajadas = []
+    for fr, letra in frec.items():
+        ids = sorted(i for i, m in vistos.items() if m.get("frequency") == fr and str(m.get("time_index_end") or "") >= desde)
+        tablas = []
+        for k in range(0, len(ids), 20):
+            url = ("https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&header=ids&start_date=1990-01-01&ids=" + ",".join(ids[k:k + 20]))
+            try:
+                tablas.append(leer(url, 120).decode("utf-8"))
+            except Exception as e:
+                print(f"  aviso: series {ids[k:k + 20]}:", e)
+        if tablas:
+            import io, pandas as pd
+            d = pd.concat([pd.read_csv(io.StringIO(t)).set_index("indice_tiempo") for t in tablas], axis=1)
+            d.to_csv(CRUDO / f"series_sector_externo_{letra}.csv")
+            bajadas.append(f"{letra}: {d.shape[1]} series")
+    if not bajadas:
+        raise ValueError("no se bajó ninguna serie del sector externo")
+    return "apis.datos.gob.ar (" + ", ".join(bajadas) + ")"
+
+
+def bcra_monetarias():
+    """API de Estadísticas Monetarias v4.0 del BCRA (etapa 41, pedido del autor: "todo lo que haya en la API del BCRA", con las reservas
+    internacionales): el catálogo de variables (bcra_variables.json) y la serie histórica de cada una (bcra_series.csv: id, fecha, valor).
+    De las diarias se guarda el último dato de cada mes, salvo las reservas internacionales, que van completas. No pide registro. Si la API
+    no acepta pedir toda la serie de una vez, se pide año por año."""
+    import pandas as pd
+    BASE = "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
+
+    def pedir(url):
+        return json.loads(leer(url, 120).decode("utf-8-sig"))
+
+    def puntos(o, acc):  # todo dict con fecha y valor, esté donde esté en la respuesta
+        if isinstance(o, dict):
+            if "fecha" in o and "valor" in o:
+                acc.append((o["fecha"], o["valor"]))
+            for v in o.values():
+                puntos(v, acc)
+        elif isinstance(o, list):
+            for v in o:
+                puntos(v, acc)
+        return acc
+
+    cat, off = [], 0
+    while True:
+        res = pedir(f"{BASE}?limit=1000&offset={off}").get("results") or []
+        cat += res
+        if len(res) < 1000:
+            break
+        off += 1000
+    if len(cat) < 20:
+        raise ValueError("el catálogo de variables del BCRA vino vacío")
+    (CRUDO / "bcra_variables.json").write_text(json.dumps(cat, ensure_ascii=False, indent=1), encoding="utf-8")
+    texto = lambda v: " ".join(str(x) for x in v.values() if isinstance(x, str)).lower()
+    principales = [v for v in cat if "principal" in texto(v)] or cat[:60]
+    elegidas = {v["idVariable"]: v for v in principales + [v for v in cat if "reservas internacionales" in texto(v)] if "idVariable" in v}
+    hoy = datetime.date.today()
+    filas = []
+    for i, v in elegidas.items():
+        pts = []
+        try:
+            off = 0
+            while True:
+                lote = puntos(pedir(f"{BASE}/{i}?desde=1990-01-01&hasta={hoy}&limit=3000&offset={off}"), [])
+                pts += lote
+                if len(lote) < 3000:
+                    break
+                off += 3000
+        except urllib.error.HTTPError as e:
+            if e.code != 400:
+                raise
+            for a in range(1990, hoy.year + 1):
+                try:
+                    pts += puntos(pedir(f"{BASE}/{i}?desde={a}-01-01&hasta={a}-12-31&limit=3000"), [])
+                except urllib.error.HTTPError:
+                    continue
+        if not pts:
+            continue
+        d = pd.DataFrame(pts, columns=["fecha", "valor"]).assign(fecha=lambda x: pd.to_datetime(x.fecha, errors="coerce")).dropna().drop_duplicates("fecha").sort_values("fecha")
+        if "reservas internacionales" not in texto(v):
+            d = d.groupby(d.fecha.dt.to_period("M")).tail(1)
+        filas.append(d.assign(id=i))
+    if not filas:
+        raise ValueError("la API del BCRA no devolvió ninguna serie")
+    pd.concat(filas)[["id", "fecha", "valor"]].to_csv(CRUDO / "bcra_series.csv", index=False, date_format="%Y-%m-%d")
+    return BASE + f" ({len(filas)} variables)"
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad),
@@ -1683,7 +1835,11 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("personas refugiadas y solicitantes de asilo (ACNUR)", acnur_refugio),
                     ("deuda pública de la Administración Central (Secretaría de Finanzas)", deuda_publica),
                     ("cargos en las administraciones provinciales (DNAP)", dnap_cargos),
-                    ("recursos tributarios de origen provincial (DNAP)", dnap_recaudacion)]:
+                    ("recursos tributarios de origen provincial (DNAP)", dnap_recaudacion),
+                    ("intercambio comercial argentino, anexo de cuadros (INDEC)", ica_cuadros),
+                    ("balanza de pagos, anexo de cuadros (INDEC)", balanza_pagos),
+                    ("series del sector externo (API de Series de Tiempo)", series_sector_externo),
+                    ("estadísticas monetarias y reservas (API del BCRA)", bcra_monetarias)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
