@@ -372,6 +372,7 @@ _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tu
 EN_BARRA = {s for _, _, items in GRUPOS_BARRA for s in _secs_de(items)}
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
 ORDEN_TEMAS = [s for _, _, items in GRUPOS for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
+GRUPO_DE = {s: (g, n) for g, n, items in GRUPOS for s in _secs_de(items)}
 _temas = [x[0] for x in SECCIONES if not x[4] and x[0] != "articulos"]
 assert sorted(ORDEN_TEMAS) == sorted(_temas), f"las secciones y los grupos no coinciden: {set(ORDEN_TEMAS) ^ set(_temas)}"
 HERRAMIENTAS = [x[0] for x in SECCIONES if x[4]]
@@ -521,9 +522,10 @@ def relacionadas(pagina, ya):
 
 
 def migas(*partes, prov=True):
-    """Migas: Datina, la sección y la provincia elegida (la completa datina.js). La última parte es la página actual."""
-    li = ['<li><a href="./">Datina</a></li>'] + [f'<li><a href="{u}">{e(t)}</a></li>' for u, t in partes[:-1]]
-    li.append(f'<li><span aria-current="page">{e(partes[-1][1])}</span></li>')
+    """Migas: Datina, el camino hasta la página y la provincia elegida (la completa datina.js). Desde el 11 de octubre de 2026 (pedido del
+    autor: "que no se repita Instituciones políticas o lo que fuese que toque en cada sección") no nombran la página actual, que va justo
+    debajo como antetítulo o título: cada parte es (dirección, nombre) de un nivel de arriba, y sin dirección es un nombre sin enlace."""
+    li = ['<li><a href="./">Datina</a></li>'] + [f'<li><a href="{u}">{e(t)}</a></li>' if u else f'<li><span>{e(t)}</span></li>' for u, t in partes]
     if prov:
         li.append('<li class="migas-prov" hidden></li>')
     return f'<nav class="migas" aria-label="Ubicación"><ol>{"".join(li)}</ol></nav>'
@@ -552,7 +554,7 @@ def navegacion(h, pagina):
         orden = [n[0] for n in NOTAS]
         i = orden.index(pagina)
         art = lambda j: orden[j % len(orden)]
-        h = h.replace(nota, pildoras("articulos") + migas(("articulos.html", "Artículos"), ("", TIT_NOTA[pagina]), prov=False) + nota, 1)
+        h = h.replace(nota, pildoras("articulos") + migas(("articulos.html", "Artículos"), prov=False) + nota, 1)
         fin = h.index("</article>", h.index(nota)) + len("</article>")
         sec = next(sec for a, _, sec, _ in NOTAS if a == pagina)
         return h[:fin] + pasos(art(i - 1), art(i + 1), [sec, "cruces"], ("articulos.html", "Todos los artículos")) + h[fin:]
@@ -563,7 +565,7 @@ def navegacion(h, pagina):
     # una pieza del Laboratorio (etapa 33): las migas pasan por el Laboratorio, y al final cuatro tarjetas sin anterior ni siguiente
     if "pieza" in b["clases"]:
         blo = h[b["ini"]:b["fin"]]
-        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("laboratorio.html", "Laboratorio"), ("", TITULO_DE[pagina]), prov=False), blo)
+        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("laboratorio.html", "Laboratorio"), prov=False), blo)
         blo = blo[:-len("</section>")] + pasos(None, None, ["laboratorio", "politica", "gobierno", "articulos"],
                                                 ("laboratorio.html", "Todo el Laboratorio")) + "</section>"
         return h[:b["ini"]] + blo + h[b["fin"]:]
@@ -575,9 +577,15 @@ def navegacion(h, pagina):
         blo = blo.replace(m.group(0), "", 1)
         final = explicador(m.group(1))
     # migas arriba del título y fila de secciones (solo en el celular) arriba de todo
-    partes = [("", TITULO_DE[pagina])]
-    if pagina in CATEGORIA and CATEGORIA[pagina][0] != TITULO_DE[pagina]:
-        partes.insert(0, (url_pagina(CATEGORIA[pagina][1][0]), CATEGORIA[pagina][0]))
+    # el camino: el grupo de la portada y, en una sección que no es la entrada de su categoría, la categoría. Las herramientas y Tu
+    # provincia van bajo "Herramientas", como en el pie, y Curiosidades ("Y además"), Sobre nosotros, Contacto, Artículos y Laboratorio, solo con Datina
+    partes = []
+    if pagina in GRUPO_DE and GRUPO_DE[pagina][0] != "otros":
+        partes.append(("./#tg-" + GRUPO_DE[pagina][0], GRUPO_DE[pagina][1]))
+        if pagina in CATEGORIA and CATEGORIA[pagina][1][0] != pagina:
+            partes.append((url_pagina(CATEGORIA[pagina][1][0]), CATEGORIA[pagina][0]))
+    elif pagina in HERRAMIENTAS or pagina == "provincia":
+        partes.append(("", "Herramientas"))
     blo = blo.replace("<h2", migas(*partes, prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
     # la fila de la categoría, después de la entrada (datina.js pone "En cifras" después de ella)
     if pagina in CATEGORIA:

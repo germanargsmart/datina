@@ -565,7 +565,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .migas li{display:flex;align-items:center;min-width:0}
 .migas li+li::before{content:"\203A";margin:0 var(--e-2);font-size:14px;line-height:1;color:var(--faint)}
 .migas a{padding:4px 0;color:var(--celeste-fuerte);text-decoration:none}
-.migas [aria-current]{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+.migas span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
 .migas-prov{color:var(--azul)}
 .migas-prov[hidden]{display:none}
 .migas+h2{margin-top:var(--e-4)!important}
@@ -1415,8 +1415,6 @@ html:not(.js) .esqueleto{display:none}
 .notas{padding-top:var(--e-2)}
 .nota{max-width:740px}
 .notas>.migas{margin-top:var(--e-7)}
-/* en el celular, el título del artículo no se repite en las migas: va justo debajo */
-@media (max-width:760px){.notas>.migas li:has(>[aria-current]){display:none}}
 .notas>.pasos{max-width:740px}
 .nota-cab{display:grid;grid-template-columns:76px 1fr;gap:var(--e-6);align-items:center;margin:var(--e-6) 0 var(--e-6)}
 .nota-ico{display:grid;place-items:center;width:76px;height:76px;background:var(--superficie-2);color:var(--azul);border-radius:var(--r-icono)}
