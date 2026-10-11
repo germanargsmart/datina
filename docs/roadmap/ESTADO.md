@@ -98,11 +98,7 @@ El autor avisó que no iba a poder aprobar y pidió avanzar con todo. Un commit 
     - un dato curioso y las fuentes.
   - Textos en `datos/manual/provincias_historia.json`, validados por 03 (sin punto y coma, una fuente por campo, "e" delante de la i).
   - Los armaron agentes con búsquedas en sitios oficiales. El entorno no dejaba abrir las páginas, así que salen de los extractos del buscador: conviene abrir las fuentes antes de difundirlo (las dudas de cada una están en el campo `dudas`).
-  - Faltan, porque se agotó el cupo de búsquedas:
-    - Tucumán y Tierra del Fuego, que todavía no muestran el bloque;
-    - la fundación de la capital y el dato curioso de San Juan;
-    - los pueblos originarios y la economía de Santiago del Estero;
-    - la economía de La Rioja.
+  - Las 24 jurisdicciones completas desde la segunda pasada del mismo día (Tucumán, Tierra del Fuego y lo que faltaba de San Juan, Santiago del Estero y La Rioja).
 
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
