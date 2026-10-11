@@ -988,7 +988,7 @@ const TX = {
     `${fLarga(SX.reservas.factores_hasta)}: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el ` +
     `efectivo mínimo que los bancos dejan en el BCRA y otras operaciones, entre ellas los cambios de cotización del oro y de las monedas. La tabla trae esos factores por año desde ${SX.reservas.factores_desde}.`,
   "bcra-nota": `Datos de la API de Estadísticas Monetarias del Banco Central, con el último dato publicado de cada mes desde ${mesTx(SX.bcra.desde)}. Son ${SX.bcra.n} de sus variables ` +
-    `principales: las reservas están en la ficha anterior y la inflación, en Precios y actividad, con los datos del INDEC. Las tasas son anuales: la nominal no suma los intereses ` +
+    `principales: las reservas están en Sector externo y la inflación, al principio de esta página, con los datos del INDEC. Las tasas son anuales: la nominal no suma los intereses ` +
     `de los intereses y la efectiva sí. Las tasas para juicios son valores acumulados desde el comienzo de cada serie, que los tribunales usan para calcular intereses. "Sin inflación" pasa los montos en pesos a pesos de ${mesTx(SX.bcra.ipc_mes)} con el índice de precios al consumidor del INDEC, que llega ` +
     `hasta ese mes. El CSV trae cada serie desde que empieza.`,
   // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta

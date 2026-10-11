@@ -360,7 +360,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Precios y actividad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>
-      <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica. Todos los datos son del INDEC. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
+      <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica, todo con datos del INDEC. Al final, el dólar, las tasas de interés y el dinero, con los datos del Banco Central. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
     </div>
     <!--EXPLICADOR:economia-->
 
@@ -437,6 +437,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="supermercados"></p>
       <p class="nota" data-t="supermercados-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta de Supermercados e índice de precios al consumidor</span><a href="datos/supermercados_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-bcra">
+      <h3>¿Cuánto cambiaron el dólar, las tasas y el dinero?</h3>
+      <p class="ficha-sub">Variables principales del Banco Central, último dato de cada mes, desde {{externo.bcra_desde}}</p>
+      <label class="selector-ficha"><span>Variable</span><select id="bcra-sel"></select></label>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="bcra-m" data-dib="bcra">
+        <button type="button" data-m="nominal" aria-pressed="true">Pesos de cada mes</button>
+        <button type="button" data-m="real" aria-pressed="false">Sin inflación</button>
+      </div>
+      <div class="grafico" data-g="bcra" data-forma="lineas"></div>
+      <p class="lead" data-t="bcra"></p>
+      <p class="nota" data-t="bcra-nota"></p>
+      <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor</span><a href="datos/bcra_variables.csv" download>Valores por mes (CSV)</a><a href="datos/bcra_variables_lista.csv" download>Lista de variables (CSV)</a></div>
     </article>
 
   </section>
@@ -1196,7 +1210,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Sector externo</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Qué le vende y qué le compra al mundo?">¿Qué le vende y qué le compra la Argentina al mundo?</p>
-      <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta y qué se importa, con qué países se comercia y desde qué provincia sale cada venta, el saldo de las cuentas con el resto del mundo y las reservas del Banco Central, con las demás variables que publica. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
+      <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta y qué se importa, con qué países se comercia y desde qué provincia sale cada venta, el saldo de las cuentas con el resto del mundo y las reservas del Banco Central. El dólar, las tasas y el dinero están en <a href="economia.html#f-bcra">Precios y actividad</a>. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
     </div>
 
     <article class="ficha" id="f-balanza">
@@ -1287,20 +1301,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="reservas-bcra"></p>
       <p class="nota" data-t="reservas-bcra-nota"></p>
       <div class="pie"><span>Fuente: BCRA, API de Estadísticas Monetarias</span><a href="datos/reservas_bcra.csv" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" download>Qué las movió, por año (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-bcra">
-      <h3>¿Cuánto cambiaron el dólar, las tasas y el dinero?</h3>
-      <p class="ficha-sub">Variables principales del Banco Central, último dato de cada mes, desde {{externo.bcra_desde}}</p>
-      <label class="selector-ficha"><span>Variable</span><select id="bcra-sel"></select></label>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="bcra-m" data-dib="bcra">
-        <button type="button" data-m="nominal" aria-pressed="true">Pesos de cada mes</button>
-        <button type="button" data-m="real" aria-pressed="false">Sin inflación</button>
-      </div>
-      <div class="grafico" data-g="bcra" data-forma="lineas"></div>
-      <p class="lead" data-t="bcra"></p>
-      <p class="nota" data-t="bcra-nota"></p>
-      <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor</span><a href="datos/bcra_variables.csv" download>Valores por mes (CSV)</a><a href="datos/bcra_variables_lista.csv" download>Lista de variables (CSV)</a></div>
     </article>
 
   </section>
