@@ -571,6 +571,20 @@ def _(ic):
 
 
 
+@icono("planilla", "azul")
+def _(ic):
+    # catálogo de datos (11 de octubre de 2026): una pila de hojas con una tabla de filas y columnas en la de arriba
+    ic.caja(1.4, 1.4, 0, 9, 7.4, .45, "l", "s", "s")
+    ic.caja(.7, .7, .45, 9, 7.4, .45, "l", "s", "s")
+    ic.caja(0, 0, .9, 9, 7.4, .45)
+    z = 1.35
+    ic.poli([(.8, .8, z), (8.2, .8, z), (8.2, 2.1, z), (.8, 2.1, z)], "s")
+    for y in (3.25, 4.4, 5.55):
+        ic.linea([(.8, y, z), (8.2, y, z)], "k")
+    for x in (3.3, 5.8):
+        ic.linea([(x, 2.1, z), (x, 6.6, z)], "k")
+
+
 @icono("portapapeles", "azul")
 def _(ic):
     # diagnóstico educativo (etapa 10): un portapapeles parado con una hoja y un gráfico de barras

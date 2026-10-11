@@ -1557,3 +1557,49 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   .barra.clara{background:var(--fondo);-webkit-backdrop-filter:none;backdrop-filter:none}
   .menu-panel{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+/* Catálogo de datos (catalogo.html, 11 de octubre de 2026, propuesta aprobada por el autor): los filtros arriba y las tablas en una lista,
+   una por fila, separadas por una línea. Las listas desplegables son las de las herramientas (.cx-campo) y los botones, los del pie de las fichas */
+.cat-filtros{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:end;gap:var(--e-4) var(--e-3);margin:0 0 var(--e-6)}
+@media (min-width:1080px){.cat-filtros{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-4)}}
+.cat-busca{display:flex;flex-direction:column;gap:6px;grid-column:1/-1;max-width:640px}
+.cat-busca span{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cat-busca input{width:100%;min-height:44px;padding:0 12px;font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
+.cat-busca input::placeholder{color:var(--faint-texto);opacity:1}
+.cat-busca input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+.cat-resumen{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-4);padding:0 0 var(--e-3);border-bottom:1px solid var(--line)}
+.cat-cuenta{margin:0;font-size:var(--t-3);color:var(--muted)}
+.cat-cuenta b{font-weight:600;color:var(--ink)}
+.cat-resumen .enlace{margin-left:auto}
+.cat-vacio{margin:var(--e-6) 0;color:var(--muted)}
+.cat-lista{margin:0;padding:0;list-style:none}
+.cat-item{padding:var(--e-6) 0;border-bottom:1px solid var(--line)}
+.cat-item[hidden]{display:none}
+.cat-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-1) var(--e-3);margin:0 0 var(--e-2)}
+.cat-cab .etiqueta{margin:0}
+.cat-archivo{font-family:var(--mono);font-size:var(--t-1);color:var(--muted);overflow-wrap:anywhere}
+.cat-tit{max-width:32em;margin:0 0 var(--e-2);font-family:var(--f-c75);font-size:var(--t-6);line-height:1.15;font-weight:600;letter-spacing:-.005em;
+  font-variation-settings:"wdth" 75,"opsz" 32;color:var(--azul)}
+.cat-tit a{color:inherit;text-decoration:none}
+.cat-tit a:hover{text-decoration:underline;text-underline-offset:3px}
+.cat-sub{max-width:46em;margin:0 0 var(--e-4);font-family:var(--f-bajada);font-size:var(--t-4);line-height:1.5;font-weight:340;
+  font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--tinta-bajada)}
+/* en el celular, de a dos con la fuente a todo el ancho. Desde 768 píxeles, en una fila con la fuente más ancha */
+.cat-datos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e-3) var(--e-4);max-width:72em;margin:0 0 var(--e-4)}
+.cat-datos>div{min-width:0}
+.cat-datos>div:first-child{grid-column:1/-1}
+@media (min-width:768px){
+  .cat-datos{display:flex;flex-wrap:wrap;gap:var(--e-3) var(--e-6)}
+  .cat-datos>div{flex:1 1 180px}
+  .cat-datos>div:first-child{flex:2 1 320px}
+}
+.cat-datos dt{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cat-datos dd{margin:2px 0 0;font-size:var(--t-3);line-height:1.45;color:var(--ink);overflow-wrap:anywhere}
+.cat-item .acciones{margin-left:0}
+.cat-previa{margin:var(--e-4) 0 0}
+.cat-previa h3{margin:var(--e-6) 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.cat-previa .tabla-desliza{max-height:360px;margin:var(--e-2) 0 0}
+.cat-previa caption{padding:var(--e-2) 12px;text-align:left;font-size:var(--t-2);color:var(--muted)}
+.cat-dic th[scope="row"]{position:static;padding:8px 12px;font-weight:400;color:var(--ink);background:none;border-bottom:1px solid #F0F3F7}
+.cat-dic code{font-family:var(--mono);font-size:var(--t-2)}
+.cat-otros,.cat-nota{max-width:46em;margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:1.5;color:var(--muted)}
+.cat-licencia{margin:var(--e-6) 0 0;font-size:var(--t-2);color:var(--muted)}

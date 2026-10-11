@@ -21,6 +21,7 @@ scripts/plantilla.html         el marcado de todas las secciones: títulos, text
 scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5 desde cdnjs) y comportamiento
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
+scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json)
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/

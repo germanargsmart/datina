@@ -101,7 +101,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   <section class="herramientas-home ancho" aria-labelledby="herr-titulo">
     <h2 class="bloque-tit" id="herr-titulo">Herramientas</h2>
-    <p class="bloque-sub">Para cruzar indicadores, armar tu propio ranking, mirar cada departamento y describir la educación de cada provincia.</p>
+    <p class="bloque-sub">Para cruzar indicadores, armar tu propio ranking, mirar cada departamento, describir la educación de cada provincia y bajar cualquier tabla.</p>
     <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"></div>
   </section>
 
@@ -2052,6 +2052,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
   </section>
 
+  <!-- Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor: docs/roadmap/PROPUESTA_CATALOGO.md). La lista, los filtros y
+       el diccionario de cada tabla los escribe scripts/catalogo.py en lugar de la marca de abajo, desde la plantilla, datina.js, el catálogo
+       del Explorador de relaciones y datos/manual/catalogo.json. datina.js filtra, guarda la búsqueda en el enlace y muestra la vista previa -->
+  <section class="tema herramienta" id="catalogo">
+    <h2>Catálogo de datos</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué datos puedo bajar?</p>
+      <p>Cada tabla de Datina con su fuente, su período y su cobertura, para saber qué trae antes de bajarla. Y la tabla completa, con todos los indicadores en un solo archivo.</p>
+    </div>
+    <!--CATALOGO-->
+  </section>
+
 </main>
 
 <footer class="pie-sitio">
@@ -2074,6 +2086,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h2>Los datos</h2>
       <p data-t="actualizado"></p>
       <p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p>
+      <p><a class="enlace" href="catalogo.html">Catálogo de datos</a></p>
       <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
     </div>
   </div>

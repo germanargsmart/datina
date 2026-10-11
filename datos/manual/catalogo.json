@@ -1,0 +1,416 @@
+{
+ "_leeme": "Catálogo de datos (scripts/catalogo.py). Las tablas publicadas que ninguna ficha ofrece en su pie ni nombra el Explorador de relaciones: en qué ficha, artículo o pieza se usan (en), con la evidencia en el código (un texto exacto de una línea del archivo citado). complementaria: la tabla no se dibuja, sus cifras van en el texto de la ficha o acompañan a la pieza. Las tablas que ya enlaza una ficha, un artículo o el Explorador no van acá: el validador las marca como sobrantes.",
+ "tablas": {
+  "actividad_anual": {
+   "en": [
+    "f-emae"
+   ],
+   "complementaria": true,
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "\"anio_ult\": int(actividad_anual.anio.iloc[-1])"
+   }
+  },
+  "areas_serie": {
+   "en": [
+    "f-areas-hidro"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "MED.arArea ? [\"areas_produccion\", \"areas_serie\"] : [\"areas_produccion\"], a =>"
+   }
+  },
+  "argentinos_exterior": {
+   "en": [
+    "f-argentinos-exterior"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "lineas(el, {anim: a, data: T.argentinos_exterior, x: \"anio\", y0: 0, vf: n0, yf:"
+   }
+  },
+  "capitales": {
+   "en": [
+    "provincia"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "d:T.capitales, k:\"viviendas_1000\", pais:R.capitales_pais.viviendas_1000,"
+   }
+  },
+  "carceles_provincias": {
+   "en": [
+    "f-carceles"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const el = G(\"carceles\"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);"
+   }
+  },
+  "corte_composicion": {
+   "en": [
+    "corte-suprema"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const CO_TABLAS = [\"corte_jueces\", \"corte_composicion\", \"corte_presidentes\"];"
+   }
+  },
+  "corte_jueces": {
+   "en": [
+    "corte-suprema"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const CO_TABLAS = [\"corte_jueces\", \"corte_composicion\", \"corte_presidentes\"];"
+   }
+  },
+  "corte_jueces_fuentes": {
+   "en": [
+    "corte-suprema"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "class=\"boton chico accion\" href=\"datos/corte_jueces_fuentes.csv\" download>Jueces, con fuentes y"
+   }
+  },
+  "corte_no_asumieron": {
+   "en": [
+    "corte-suprema"
+   ],
+   "complementaria": true,
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "cna.to_csv(SITIO / \"corte_no_asumieron.csv\", index=False)"
+   }
+  },
+  "corte_presidentes": {
+   "en": [
+    "corte-suprema"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "[\"corte_jueces\", \"corte_composicion\", \"corte_presidentes\"];"
+   }
+  },
+  "costo_anual": {
+   "en": [
+    "f-costo"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "de cada año y el último mes\", T.costo_anual.map(r => [r.periodo.endsWith(\"-12\")"
+   }
+  },
+  "cruces_series": {
+   "en": [
+    "f-cruces",
+    "l-cruces"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "Promise.resolve(SERIES_CRU) : d3.csv(\"datos/cruces_series.csv\", d3.autoType).then(filas => {"
+   }
+  },
+  "curvas_vm": {
+   "en": [
+    "f-productividad"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "lineas(G(\"productividad\"), {anim: a, data: T.curvas_vm, x: \"mes\", y0: 0, vf: v => n0(v)"
+   }
+  },
+  "delitos_serie": {
+   "en": [
+    "f-delitos",
+    "f-robos",
+    "f-homicidios"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "return lineas(el, {anim: a, data: T.delitos_serie, x: \"anio\", y0: 0, vf: n0, yf:"
+   }
+  },
+  "desembarques_top": {
+   "en": [
+    "f-pesca"
+   ],
+   "complementaria": true,
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "\"desembarques_top\": pesca_top,"
+   }
+  },
+  "diseno_pozos_vm": {
+   "en": [
+    "f-fracturas"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "{anim: a, cadaTick: 2, l: 46, data: T.diseno_pozos_vm.filter(r => r.anio >= PG.dv_ini),"
+   }
+  },
+  "electricidad_mensual": {
+   "en": [
+    "f-electricidad-provincias"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "conTablas(\"electricidad-provincias\", () => ({mes: [\"electricidad_mensual\"], serie: [\"electricidad_serie\"]})[MED[\"electricidad-provincias\"]]"
+   }
+  },
+  "electricidad_serie": {
+   "en": [
+    "f-electricidad-provincias"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "[\"electricidad_mensual\"], serie: [\"electricidad_serie\"]})[MED[\"electricidad-provincias\"]]"
+   }
+  },
+  "empleo_construccion_serie": {
+   "en": [
+    "f-empleo-construccion",
+    "f-empleo-hidro"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "MED[\"empleo-hidro\"] === \"serie\" ? [\"empleo_construccion_serie\"] : [], a => {"
+   }
+  },
+  "envejecimiento_pais": {
+   "en": [
+    "f-envejecimiento"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "T.envejecimiento_pais.filter(r => (r.anio - T.envejecimiento_pais[0].anio)"
+   }
+  },
+  "gabinetes_origen": {
+   "en": [
+    "f-ministros"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "Object.keys(ORIGEN_COLOR).filter(k => T.gabinetes_origen.some(d => d[k] > 0));"
+   }
+  },
+  "gas_usuario_mensual": {
+   "en": [
+    "f-gas-consumo"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "conTablas(\"gas-consumo\", () => ({mes: [\"gas_usuario_mensual\"], serie: [\"gas_usuario_serie\"]})[MED[\"gas-consumo\"]]"
+   }
+  },
+  "gas_usuario_serie": {
+   "en": [
+    "f-gas-consumo"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "[\"gas_usuario_mensual\"], serie: [\"gas_usuario_serie\"]})[MED[\"gas-consumo\"]] || [],"
+   }
+  },
+  "gasto_nacion_tipo": {
+   "en": [
+    "f-cuentas-nacion"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "return barrasH(el, {anim: a, data: T.gasto_nacion_tipo.map((r, i) => ({codigo_indec:"
+   }
+  },
+  "hidrocarburos_anual": {
+   "en": [
+    "f-petroleo",
+    "f-gas"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "por día, promedio de cada año\", T.hidrocarburos_anual.map(r => [r.anio, r.pet_total]),"
+   }
+  },
+  "inflacion_anual": {
+   "en": [
+    "f-inflacion"
+   ],
+   "complementaria": true,
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "\"anio_ult\": int(inflacion_anual.anio.max())"
+   }
+  },
+  "inflacion_regiones": {
+   "en": [
+    "f-inflacion"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "txt += enSuRegion(T.inflacion_regiones, \"interanual\", pct);"
+   }
+  },
+  "isac_anual": {
+   "en": [
+    "f-isac"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "cada año, índice 2004 = 100\", T.isac_anual.map(r => [r.anio, r.isac]), n1),"
+   }
+  },
+  "ministros_provincias": {
+   "en": [
+    "f-ministros"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "barrasH(G(\"ministros\"), {anim: a, data: T.ministros_provincias, k: \"ministros\", vf: n0, af: n0});"
+   }
+  },
+  "mundo_paises": {
+   "en": [
+    "provincia"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const cerca = (k, v) => T.mundo_paises.filter(p => p[k] != null).sort((a,"
+   }
+  },
+  "obra_publica_serie": {
+   "en": [
+    "f-obra-publica"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "pesos de ${CN.op_ult}`, data: T.obra_publica_serie});"
+   }
+  },
+  "parques_nacionales_lista": {
+   "en": [
+    "f-parques"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const areas = T.parques_nacionales_lista.filter(d => !d.marina && d.lat"
+   }
+  },
+  "pesca_continental": {
+   "en": [
+    "f-pesca-rio"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "barrasH(G(\"pesca-rio\"), {anim:a, data: T.pesca_continental, k:\"toneladas\", vf: v => n0(v)"
+   }
+  },
+  "pozos_provincias": {
+   "en": [
+    "f-pozos"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "const p = T.pozos_provincias.find(r => r.territorio === PG.pozos_top)"
+   }
+  },
+  "pozos_terminados_provincias": {
+   "en": [
+    "f-pozos-terminados"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "(T.pozos_terminados_provincias.some(r => r.codigo_indec === \"mar\")"
+   }
+  },
+  "radicaciones_anual": {
+   "en": [
+    "f-radicaciones"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "columnasApiladas(el, {anim: a, data: T.radicaciones_anual, vf: n0, af: v => n0(v / 1e3)"
+   }
+  },
+  "recaudacion_anual": {
+   "en": [
+    "f-recaudacion"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "return lineas(el, {anim: a, data: T.recaudacion_anual, x: \"anio\", y0: 0, vf: pct, yf:"
+   }
+  },
+  "regalias_crudo_serie": {
+   "en": [
+    "f-regalias"
+   ],
+   "complementaria": true,
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "\"regalias_crudo_serie\": regalias_serie,"
+   }
+  },
+  "reservas_provincias": {
+   "en": [
+    "f-reservas"
+   ],
+   "complementaria": true,
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "\"res_nq_pet\": r1(reservas_prov.set_index(\"codigo_indec\")"
+   }
+  },
+  "salarios_serie": {
+   "en": [
+    "f-salarios"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "() => MED.salarios === \"mes\" ? [\"salarios_serie\"] : [], a => {"
+   }
+  },
+  "seguridad_serie_prov": {
+   "en": [
+    "f-robos",
+    "f-homicidios"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "() => MED.robos === \"serie\" ? [\"seguridad_serie_prov\"] : [], a => {"
+   }
+  },
+  "supermercados_mensual": {
+   "en": [
+    "f-supermercados"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "MED.supermercados === \"mes\" ? [\"supermercados_mensual\"] : [], a => {"
+   }
+  },
+  "transferencias_acumulado": {
+   "en": [
+    "f-atn",
+    "f-transferencias"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "T.transferencias_serie, TRA = T.transferencias_acumulado;"
+   }
+  },
+  "vivienda_departamentos": {
+   "en": [
+    "f-gas-hogares",
+    "f-trabajadores",
+    "f-vivienda"
+   ],
+   "evidencia": {
+    "archivo": "scripts/datina.js",
+    "contiene": "MED[\"gas-hogares-vista\"] === \"mapa\" ? [\"vivienda_departamentos\"] : [], a => {"
+   }
+  }
+ }
+}

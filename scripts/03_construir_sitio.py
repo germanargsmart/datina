@@ -431,7 +431,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles", "laboratorio": "matraz"}
+             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
@@ -614,7 +614,7 @@ _secs_grupo = lambda items: [(url_pagina(s), TITULO_DE[s]) for it in items for s
 _col = lambda g: f'<h2>{e(g[1])}</h2>' + lista(_secs_grupo(g[2]))
 MAPA = (f'<div class="pie-col">{_col(GRUPOS[0])}</div><div class="pie-col">{_col(GRUPOS[1])}</div>'
         f'<div class="pie-col">{_col(GRUPOS[2])}{_col(GRUPOS[4])}</div><div class="pie-col">{_col(GRUPOS[3])}</div>'
-        '<div class="pie-col"><h2>Herramientas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] +
+        '<div class="pie-col"><h2>Herramientas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4] and x[0] != "catalogo"] +
                                                                 [("relaciones.html", "Explorador de relaciones"), ("articulos.html", "Artículos"),
                                                                  ("laboratorio.html", "Laboratorio")]) +
         '<h2>Datina</h2>' + lista([("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
@@ -644,7 +644,8 @@ _li_url = lambda u, t: f'<li><a href="{u}">{e(t)}</a></li>'
 _otros_secs = [s for g, _, items in GRUPOS if g == "otros" for s in _secs_de(items)]
 _menu = ('<div class="menu-col">'
          + _grupo_menu("prov", "Tu provincia", [_li_url("provincia.html", "Tu provincia")])
-         + _grupo_menu("herr", "Herramientas", [_li(s) for s in HERRAMIENTAS] + [_li_url("relaciones.html", "Explorador de relaciones")])
+         + _grupo_menu("herr", "Herramientas", [_li(s) for s in HERRAMIENTAS if s != "catalogo"] + [_li_url("relaciones.html", "Explorador de relaciones")]
+                       + [_li("catalogo")])
          + '</div><div class="menu-col">'
          + "".join(_grupo_menu(g, n, [_li(s) for s in _secs_de(items)]) for g, n, items in GRUPOS_BARRA)
          + _grupo_menu("lect", "Artículos y Laboratorio", [_li_url("articulos.html", "Artículos"), _li_url("laboratorio.html", "Laboratorio")]
@@ -671,7 +672,13 @@ _grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelled
 _otros = next((x for x in GRUPOS if x[0] == "otros"), None)
 _corta = min(GRUPOS_BARRA, key=lambda x: len(_secs_de(x[2])))
 _temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}{_grupo_portada(*_otros) if x is _corta and _otros else ""}</div>' for x in GRUPOS_BARRA)
-for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu,
+# Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor): la lista de tablas con sus filtros la arma scripts/catalogo.py.
+# Si una tabla publicada no tiene dónde se usa o una evidencia de datos/manual/catalogo.json no está en el código, el sitio no se arma
+import catalogo  # noqa: E402
+_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS)
+if _cat_err:
+    sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
+for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
     base = base.replace(marca, valor)
