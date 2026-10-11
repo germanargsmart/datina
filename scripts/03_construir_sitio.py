@@ -852,6 +852,7 @@ def metadatos(id_, titulo_social, descripcion, tipo):
         ld = {"@context": "https://schema.org", "@type": "Dataset", "name": "Datina: tabla completa de indicadores por jurisdicción",
               "description": "Todos los indicadores de Datina en una sola tabla: una fila por jurisdicción, período e indicador, con su unidad y su fuente.",
               "inLanguage": "es-AR", "creator": {"@type": "Organization", "name": "Datina"}, "spatialCoverage": "Argentina",
+              "license": "https://creativecommons.org/licenses/by/4.0/",
               "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f"{URL_SITIO}/datos/tabla_larga.csv"}]}
         m.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
     INDEXADAS.append(archivo)

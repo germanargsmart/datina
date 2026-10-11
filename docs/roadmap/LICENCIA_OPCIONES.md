@@ -1,6 +1,8 @@
 # Licencia de Datina: inventario y opciones
 
-Preparado el 11 de octubre de 2026 para que el autor decida. **No se agregó ninguna licencia al repositorio ni se anunció en el sitio que los datos se puedan reutilizar.** Hasta que el autor elija, rige el derecho de autor por defecto: nadie puede copiar el código ni los textos sin permiso, aunque el repositorio sea público.
+Preparado el 11 de octubre de 2026 para que el autor decida.
+
+**Decisión (11 de octubre de 2026):** el autor pidió avanzar con todos los pendientes sin esperar aprobaciones, así que se aplicó la combinación recomendada más abajo: código con MIT (`LICENSE`) y textos, gráficos, diseño y compilación de datos con CC BY 4.0 (`LICENCIA-CONTENIDOS.md`), con los datos de base, las banderas y las bibliotecas fuera. Está en Sobre nosotros ("Licencia y reutilización"), en la bajada del Catálogo de datos y en el Dataset de la portada. Si el autor prefiere otra opción, alcanza con cambiar esos archivos antes de publicar: lo que se publique con una licencia abierta ya no se puede cerrar para quien lo copió.
 
 Esto no es asesoramiento legal. Las licencias de cada fuente hay que confirmarlas en la página de cada organismo antes de anunciar nada.
 

@@ -47,5 +47,5 @@ Netlify solo junta la lista: no manda boletines. Hay dos caminos.
 ## A tener en cuenta
 
 - El plan gratis de Netlify tiene un tope mensual de envíos de formularios. El número está en la página de precios de Netlify.
-- Una lista de correos es una base de datos personales (en la Argentina, Ley 25.326 de Protección de los Datos Personales). Conviene decir en algún lugar visible para qué se usa el correo y cómo darse de baja, por ejemplo en Contacto o en Sobre nosotros. El pie ya no lo dice, por pedido del autor del 11 de octubre de 2026.
+- Una lista de correos es una base de datos personales (en la Argentina, Ley 25.326 de Protección de los Datos Personales). Hay que decir en algún lugar visible para qué se usa el correo y cómo darse de baja. El pie ya no lo dice, por pedido del autor del 11 de octubre de 2026: desde el mismo día está en Sobre nosotros, "Tus datos" (`nosotros.html#privacidad`).
 - Esto no es asesoramiento legal.
