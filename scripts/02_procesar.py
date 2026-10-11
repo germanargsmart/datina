@@ -1248,6 +1248,147 @@ if (CRUDO / "exportaciones_semestre.xls").exists():
             exp_prov = exp_prov.merge(sem[["codigo_indec", "actual", "var"]].rename(columns={
                 "actual": f"millones_usd_1er_semestre_{u}", "var": f"variacion_1er_semestre_{u}_vs_{u - 1}"}), on="codigo_indec", how="left")
 
+
+# ---------------------------------------------------------------- sector externo (etapa 41)
+# Pedido del autor del 11 de octubre de 2026: una categoría "Sector externo" en Trabajo y economía. Del anexo del Origen Provincial de las
+# Exportaciones (el último semestre publicado, ver opex_semestre() en 01_descargar.py) salen adónde exporta cada provincia (zonas económicas y
+# países seleccionados, en grupos que no se superponen: las zonas del INDEC incluyen a sus países) y los complejos exportadores del país.
+# Los valores del último año son provisorios.
+SE_DEST = [("brasil", "Brasil", ["Brasil"]), ("chile", "Chile", ["Chile"]), ("china", "China", ["China"]), ("eeuu", "Estados Unidos", ["Estados Unidos"]),
+           ("ue", "Unión Europea", ["Unión Europea"]), ("india", "India", ["India"]), ("vietnam", "Vietnam", ["Viet Nam"]), ("peru", "Perú", ["Perú"]),
+           ("uruguay", "Uruguay", ["Uruguay"]), ("paraguay", "Paraguay", ["Paraguay"]), ("tailandia", "Tailandia", ["Tailandia"]),
+           ("malasia", "Malasia", ["Malasia"]), ("indonesia", "Indonesia", ["Indonesia"]),
+           ("resto_mercosur", "Resto del Mercosur", ["Mercosur", "-Brasil", "-Paraguay", "-Uruguay"]),
+           ("resto_aladi", "Resto de América Latina", ["Resto de ALADI", "-Chile", "-Perú"]),
+           ("mexico_canada", "México y Canadá", ["USMCA", "-Estados Unidos"]),
+           ("resto_asean", "Resto del Sudeste Asiático", ["ASEAN", "-Indonesia", "-Malasia", "-Tailandia", "-Viet Nam"]),
+           ("medio_oriente", "Medio Oriente", ["Medio Oriente"]), ("magreb_egipto", "Magreb y Egipto", ["Magreb y Egipto"]),
+           ("africa_sur", "África austral (SACU)", ["SACU"]), ("oceania", "Oceanía", ["Oceania"]), ("resto_mundo", "Resto del mundo", ["Resto del mundo"])]
+se_destinos, se_complejos, SE_RES = None, None, {}
+if (CRUDO / "exportaciones_semestre.xls").exists():
+    _sx = pd.ExcelFile(CRUDO / "exportaciones_semestre.xls")
+
+    def se_periodo(titulo):  # "Primer semestre de 2026" o "Año 2025" en el título del cuadro
+        m = re.search(r"(primer|segundo) semestre de (\d{4})", titulo, re.I)
+        if m:
+            return f"{m.group(1).lower()} semestre de {m.group(2)}", int(m.group(2))
+        m = re.search(r"año (\d{4})", titulo, re.I)
+        return (f"{m.group(1)}", int(m.group(1))) if m else (None, None)
+
+    def se_zonas(hoja):
+        t = _sx.parse(hoja, header=None)
+        fc = t.index[t.apply(lambda r: r.astype(str).str.strip().eq("Brasil").any(), axis=1)][0]
+        cab = [re.sub(r"\s*\(\d\)\s*$", "", str(v)).strip() for v in t.iloc[fc]]
+        filas = []
+        for i in range(fc + 1, len(t)):
+            nom = str(t.iat[i, 1]).strip()
+            cod = "00" if nom == "Total" else (codigo(nom.replace(", Antártida e Islas del Atlántico Sur", "")) if nom != "nan" else None)
+            if not cod:
+                continue
+            # "-" es cero y "s" es secreto estadístico: un destino que depende de una celda con secreto queda sin dato, y lo que no se
+            # puede asignar a ningún destino va a "reservado"
+            val = {}
+            for j, c in enumerate(cab[2:], start=2):
+                x = str(t.iat[i, j]).strip()
+                val[c] = None if x == "s" else 0.0 if x in ("-", "nan", "") else float(x)
+            fila = {"codigo_indec": cod, "total": val["Total"]}
+            for k, _, partes in SE_DEST:
+                xs = [val[p.lstrip("-")] for p in partes]
+                fila[k] = None if any(x is None for x in xs) else sum(-x if p.startswith("-") else x for p, x in zip(partes, xs))
+            fila["reservado"] = max(0.0, fila["total"] - sum(fila[k] or 0 for k, _, _ in SE_DEST))
+            filas.append(fila)
+        d = pd.DataFrame(filas).drop_duplicates("codigo_indec")
+        assert (d[[k for k, _, _ in SE_DEST]].fillna(0).sum(axis=1) + d.reservado - d.total).abs().max() < .5, f"los destinos de {hoja} no suman el total"
+        assert d.set_index("codigo_indec").reservado.get("00", 1) < .5, f"el total del país de {hoja} tiene destinos con secreto estadístico"
+        assert d.codigo_indec.nunique() == 25, f"faltan provincias en {hoja}"
+        return d, se_periodo(str(t.iat[0, 0]))
+
+    _sz = sorted((int(m.group(1)), h) for h in _sx.sheet_names for m in [re.match(r"OP-Zonas (\d{4})$", h.strip())] if m)
+    if len(_sz) >= 2:
+        (_szd, (_szp, _sza)), (_szd0, _) = se_zonas(_sz[-1][1]), se_zonas(_sz[-2][1])
+        _szl = _szd.melt(id_vars=["codigo_indec", "total"], var_name="destino", value_name="millones_usd")
+        _szl0 = _szd0.melt(id_vars=["codigo_indec", "total"], var_name="destino", value_name="millones_usd_anterior").drop(columns="total")
+        se_destinos = _szl.merge(_szl0, on=["codigo_indec", "destino"], how="left")
+        se_destinos["pct"] = se_destinos.millones_usd / se_destinos.total * 100
+        se_destinos["destino_nombre"] = se_destinos.destino.map({**{k: n for k, n, _ in SE_DEST}, "reservado": "Sin detalle por secreto estadístico"})
+        se_destinos["territorio"] = se_destinos.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+        se_destinos = se_destinos[["codigo_indec", "territorio", "destino", "destino_nombre", "millones_usd", "pct", "millones_usd_anterior"]].round(4)
+        # los países y zonas principales del país, sin los "resto" que juntan varios países
+        _sdp = se_destinos[(se_destinos.codigo_indec == "00") & ~se_destinos.destino.str.startswith("resto") & (se_destinos.destino != "reservado")]
+        _sdp = _sdp.sort_values("millones_usd", ascending=False)
+        # la primera provincia de destino para cada país principal
+        SE_RES["destinos"] = {"periodo": _szp, "anio": _sza, "total": round(float(_szd.set_index("codigo_indec").total["00"])),
+                              "top": [{"k": r.destino, "n": r.destino_nombre, "v": round(r.millones_usd), "pct": r1(r.pct),
+                                       "var": r1(float((r.millones_usd / r.millones_usd_anterior - 1) * 100)) if r.millones_usd_anterior > 0 else None}
+                                      for r in _sdp.head(6).itertuples()],
+                              # cuántas provincias tienen a cada país como primer destino (sin las zonas que agrupan varios países)
+                              "primero": se_destinos[(se_destinos.codigo_indec != "00") & ~se_destinos.destino.str.startswith("resto") & (se_destinos.destino != "reservado")]
+                                  .sort_values("millones_usd").groupby("codigo_indec").tail(1).destino_nombre.value_counts().head(4).to_dict()}
+
+    # complejos exportadores (cuadro 5 del anexo): los sectores y complejos del primer nivel, con sus partes para el cuadro del gráfico.
+    # El anexo no marca el nivel: un "Sector" agrupa los complejos que lo siguen hasta sumar su valor, y un complejo, las partes que no
+    # se llaman "Complejo" (petróleo, gas, vehículos). Se controla que el primer nivel sume el total.
+    _sc = next((h for h in _sx.sheet_names if h.strip().lower() == "cuadro5"), None)
+    if _sc:
+        t = _sx.parse(_sc, header=None)
+        _scp, _sca = se_periodo(str(t.iat[0, 0]))
+        _sct = t.index[t.iloc[:, 0].astype(str).str.strip().eq("Total de exportaciones")][0]
+        _total = float(t.iat[_sct, 1])
+        items, padre, resto = [], None, 0.0
+        for i in range(_sct + 1, len(t)):
+            nom, v = str(t.iat[i, 0]).strip(), pd.to_numeric(t.iat[i, 1], errors="coerce")
+            if nom in ("nan", "Principales complejos") or pd.isna(v):
+                continue
+            var = pd.to_numeric(t.iat[i, 2], errors="coerce")
+            fila = {"complejo": nom, "millones_usd": float(v), "variacion": None if pd.isna(var) else float(var), "pct": float(v) / _total * 100}
+            hijo = (padre is not None and resto > padre["millones_usd"] * .005 and v <= resto + .5
+                    and not nom.startswith("Sector ") and not nom.startswith("Resto de exportaciones")
+                    and (padre["complejo"].startswith("Sector ") or not nom.startswith("Complejo")))
+            if hijo:
+                padre["partes"].append(fila)
+                resto -= float(v)
+            else:
+                padre, resto = {**fila, "partes": []}, float(v)
+                items.append(padre)
+        assert abs(sum(x["millones_usd"] for x in items) / _total - 1) < .005, "los complejos exportadores no suman el total"
+        se_complejos = pd.DataFrame([{**{k: v for k, v in x.items() if k != "partes"}, "nivel": 1, "grupo": x["complejo"]} for x in items] +
+                                    [{**p, "nivel": 2, "grupo": x["complejo"]} for x in items for p in x["partes"]]).round(4)
+        _scs = [x for x in items if not x["complejo"].startswith("Resto")]
+        _scs = sorted(_scs, key=lambda x: -x["millones_usd"])
+        SE_RES["complejos"] = {"periodo": _scp, "anio": _sca, "total": round(_total), "n": len(_scs),
+                               "top": [{"n": x["complejo"], "v": round(x["millones_usd"]), "pct": r1(x["pct"]), "var": r1(x["variacion"]) if x["variacion"] is not None else None} for x in _scs[:5]],
+                               "crece": max(({"n": p["complejo"], "var": r1(p["variacion"]), "v": round(p["millones_usd"])} for x in items for p in [x] + x["partes"]
+                                             if p["variacion"] is not None and p["millones_usd"] >= 500), key=lambda z: z["var"])}
+
+# exportaciones del país por gran rubro y por año, en millones de dólares (intercambio comercial argentino del INDEC, vía la API de Series de
+# Tiempo, el mismo archivo que usa el artículo del dólar y las exportaciones): los años completos y, aparte, lo que va del año en curso
+_se_r = pd.read_csv(CRUDO / "exportaciones_rubros.csv")
+_se_r.columns = ["t", "total", "primarios", "moa", "moi", "combustibles"]
+_se_r["t"] = pd.to_datetime(_se_r.t)
+_se_r = _se_r.dropna()
+_se_ra = _se_r.groupby(_se_r.t.dt.year).agg(meses=("total", "size"), **{k: (k, "sum") for k in ("total", "primarios", "moa", "moi", "combustibles")})
+se_rubros = _se_ra[_se_ra.meses == 12].drop(columns="meses").rename_axis("anio").reset_index().round(1)
+_se_ult = _se_r.t.max()
+_se_ytd = _se_r[_se_r.t.dt.year == _se_ult.year]
+_se_ytd0 = _se_r[(_se_r.t.dt.year == _se_ult.year - 1) & (_se_r.t.dt.month <= _se_ult.month)]
+_se_u = se_rubros.iloc[-1]
+SE_RES["rubros"] = {"desde": int(se_rubros.anio.min()), "anio": int(_se_u.anio), "total": round(float(_se_u.total)),
+                    "pct": {k: r1(float(_se_u[k] / _se_u.total * 100)) for k in ("primarios", "moa", "moi", "combustibles")},
+                    "max_anio": int(se_rubros.loc[se_rubros.total.idxmax(), "anio"]), "max": round(float(se_rubros.total.max())),
+                    "comb_ini": r1(float(se_rubros.combustibles.iloc[0] / se_rubros.total.iloc[0] * 100)),
+                    "ytd_mes": int(_se_ult.month), "ytd_anio": int(_se_ult.year), "ytd": round(float(_se_ytd.total.sum())),
+                    "ytd_var": r1(float((_se_ytd.total.sum() / _se_ytd0.total.sum() - 1) * 100)) if len(_se_ytd) < 12 else None}
+# la parte de cada rubro en lo que exporta cada provincia, el último año completo del OPEX (tabla de las exportaciones por provincia)
+_sep = ex[(ex.anio == ANIO_EX) & (ex.codigo_indec == "00")].iloc[0]
+SE_RES["provincias"] = {"anio": ANIO_EX, "rubros_pais": {k: r1(float(_sep[k] / _sep.millones_usd * 100)) for k in RUB_EX},
+                        "principal": exp_prov.rubro_principal.value_counts().to_dict(),
+                        "top3_pct": r1(float(exp_prov.nlargest(3, "millones_usd").millones_usd.sum() / EXP_TOTAL * 100)),
+                        "top3": exp_prov.nlargest(3, "millones_usd").territorio.tolist()}
+# claves sueltas para las descripciones de las fichas en la plantilla ({{externo.rubros_anio}}), que no leen listas
+SE_RES.update({"rubros_desde": SE_RES["rubros"]["desde"], "rubros_anio": SE_RES["rubros"]["anio"], "provincias_anio": ANIO_EX,
+               **({"destinos_periodo": SE_RES["destinos"]["periodo"]} if "destinos" in SE_RES else {}),
+               **({"complejos_periodo": SE_RES["complejos"]["periodo"]} if "complejos" in SE_RES else {})})
+
 # Empresas privadas empleadoras (OEDE, en base al SIPA). Una empresa con personal en varias provincias se cuenta en cada
 # una (cuadro 1). La apertura y el cierre usan las empresas locales: cada empresa es local en la provincia donde declara
 # la mayor parte de su empleo, asi que las provincias suman el total del pais (cuadros 6 y 7). La provincia de Buenos
@@ -5078,6 +5219,9 @@ tablas = {
     "envejecimiento_pais": envejec_pais,
     "piramide_poblacion": piramide,
     "poblacion_proyectada_provincias": pob_proy,
+    "exportaciones_rubros_anual": se_rubros,
+    **({"exportaciones_destinos": se_destinos} if se_destinos is not None else {}),
+    **({"exportaciones_complejos": se_complejos} if se_complejos is not None else {}),
     **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
@@ -5436,6 +5580,7 @@ resumen["envejecimiento"] = env_res
 resumen["piramide"] = pir_res
 resumen["poblacion_proy"] = pob_proy_res
 resumen["causas_muerte"] = causas_muerte_res
+resumen["externo"] = SE_RES
 resumen["empresas"] = emp_res
 resumen["rotacion"] = rot_res
 resumen["jubilaciones"] = jub_res

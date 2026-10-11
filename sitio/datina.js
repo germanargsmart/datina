@@ -165,7 +165,7 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte;
+const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo;
 // causas de muerte: cada grupo dicho dentro de una oración, y los grupos con causa definida de más a menos frecuente en el país
 const CM_FRASE = {circulatorias: "las enfermedades del corazón y la circulación", tumores: "los tumores", respiratorias: "las enfermedades respiratorias",
   infecciosas: "las enfermedades infecciosas y parasitarias", covid: "el COVID-19", endocrinas: "la diabetes y otras enfermedades endocrinas y metabólicas",
@@ -910,6 +910,27 @@ const TX = {
   "causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
     `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que solo traen la causa con tres caracteres. ` +
     `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social ni prepaga del Censo 2022.`,
+  // Sector externo (etapa 41). La cifra destacada de cada ficha dice el total o el primero: el texto va a la composición y a los cambios
+  "exporta-rubros": `Las manufacturas de origen agropecuario fueron el ${pct(SX.rubros.pct.moa)} de lo exportado en ${SX.rubros.anio}, ` +
+    `las de origen industrial el ${pct(SX.rubros.pct.moi)}, los productos primarios el ${pct(SX.rubros.pct.primarios)} y los combustibles y la energía el ${pct(SX.rubros.pct.combustibles)}` +
+    (SX.rubros.max_anio !== SX.rubros.anio ? `. El año con más exportaciones de la serie fue ${SX.rubros.max_anio}, con ${n0(SX.rubros.max)} millones de dólares.` : `, en el año con más exportaciones de la serie.`) +
+    (SX.rubros.ytd_var != null ? ` Entre enero y ${MESES[SX.rubros.ytd_mes - 1]} de ${SX.rubros.ytd_anio} se exportaron ${n0(SX.rubros.ytd)} millones, un ${pct(Math.abs(SX.rubros.ytd_var))} ${SX.rubros.ytd_var >= 0 ? "más" : "menos"} que en los mismos meses del año anterior.` : ""),
+  "exporta-rubros-nota": `Valores FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro), en dólares de cada año: no descuentan la inflación de los Estados Unidos. ` +
+    `Primarios: granos, semillas, minerales, frutas y pescado sin procesar. Agroindustria: las manufacturas de origen agropecuario, como harinas, aceites, carnes, lácteos y vinos. ` +
+    `Industria: las manufacturas de origen industrial, como vehículos, químicos, metales y oro. Energía: petróleo, gas y combustibles. El año en curso, incompleto, no va en el gráfico.`,
+  "complejos": (() => { const C = SX.complejos, el = n => "el " + n.charAt(0).toLowerCase() + n.slice(1);
+    return `Los que más exportaron en el ${C.periodo} fueron ${lista(C.top.slice(0, 4).map(x => `${el(x.n)} (${pct(x.pct)})`))}. ` +
+      `Entre los que vendieron más de 500 millones de dólares, el que más creció frente al mismo período del año anterior fue ${el(C.crece.n)}: ${conSigno(C.crece.var)}.`; })(),
+  "complejos-nota": `Un complejo exportador reúne los productos de una misma cadena, desde la materia prima hasta las manufacturas: el complejo soja suma los porotos, la harina, el aceite y el biodiésel. ` +
+    `Los sectores agrupan varios complejos, y el cuadro de cada barra dice cuánto aportó cada uno. Datos provisorios, en dólares FOB.`,
+  "destinos-nota": `Exportaciones de bienes según el país de destino. Las zonas que juntan varios países (resto del Mercosur, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
+    `Cuando el dato de una provincia permitiría identificar a una empresa, el INDEC lo reserva por secreto estadístico y va como "sin detalle". Datos provisorios.`,
+  "exprov": (() => { const P = SX.provincias, NOM = {primarios: "productos primarios", manufacturas_agro: "manufacturas de origen agropecuario",
+      manufacturas_industriales: "manufacturas de origen industrial", combustibles_energia: "combustibles y energía"};
+    const orden = Object.entries(P.principal).sort((a, b) => b[1] - a[1]);
+    return `Según el rubro que más pesa en lo que exportó cada una en ${P.anio}, hay ${lista(orden.map(([k, n], i) => `${n} ${i === 0 ? (n === 1 ? "provincia " : "provincias ") : ""}de ${NOM[k]}`))}.`; })(),
+  "exprov-nota": `Origen Provincial de las Exportaciones del INDEC: cada venta se asigna a la provincia donde se produjo el bien o se hizo su última transformación, no a la del puerto por donde salió. ` +
+    `Una parte no tiene provincia (plataforma continental, extranjero o indeterminado), por eso las provincias no suman el total del país. El último año es provisorio.`,
   // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
   "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
     `Sin ajustar, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
@@ -1501,7 +1522,7 @@ function areasApiladas(el, cfg) {
   const etq = ult.map(o => ({o, y: (y(o.y0) + y(o.y1)) / 2})).sort((a, b) => b.y - a.y);
   for (let i = 1; i < etq.length; i++) if (etq[i - 1].y - etq[i].y < 15) etq[i].y = etq[i - 1].y - 15;
   const fin = g.append("g");
-  etq.forEach(e => fin.append("text").attr("x", iw + 8).attr("y", e.y).attr("dy", ".35em").attr("class", "etq-fuerte").style("fill", e.o.s.c === "#A9CBEA" ? css("--celeste-fuerte") : e.o.s.c).text(e.o.s.lab));
+  etq.forEach(e => fin.append("text").attr("x", iw + 8).attr("y", e.y).attr("dy", ".35em").attr("class", "etq-fuerte").style("fill", e.o.s.ct ? css(e.o.s.ct) : e.o.s.c === "#A9CBEA" ? css("--celeste-fuerte") : e.o.s.c).text(e.o.s.lab));
   if (cfg.anim) aparecer(fin, 150);
   const total = d => d3.sum(series, s => d[s.k] || 0);
   const leer = d => `<b>${cfg.xl ? cfg.xl(d) : d[cfg.x]}</b><span>Total ${vf(total(d))}${cfg.unidad ? " " + cfg.unidad : ""}</span>` +
@@ -4011,6 +4032,57 @@ DIB.causas = a => {
   apiladasH(G("causas"), {anim: a, claves: cl, data: [pais, ...filas.filter(d => d.codigo_indec !== "00").sort((p, q) => q.tasa - p.tasa)]});
 };
 
+/* ---------- sector externo (etapa 41) ---------- */
+// el nombre de cada capa va en un tono que se lee sobre el blanco (ct): el amarillo, el celeste y el gris de las capas no llegan a 4,5 a 1
+const RUB_EX = [["moa", "Agroindustria", "#1F5E97"], ["moi", "Industria", "#F6B40E", "--sol-texto"], ["primarios", "Primarios", "#74ACDF", "--celeste-fuerte"],
+  ["combustibles", "Energía", "#C3CAD2", "--muted"]];
+DIB["exporta-rubros"] = a => areasApiladas(G("exporta-rubros"), {anim: a, data: T.exportaciones_rubros_anual, x: "anio",
+  series: RUB_EX.map(([k, lab, c, ct]) => ({k, lab, c, ct})), vf: n0, yf: v => n0(v / 1000) + " mil", unidad: "millones de dólares"});
+const corto = n => n.replace(/^(Complejo|Sector) /, "").replace(/^./, c => c.toUpperCase());
+DIB.complejos = a => {
+  const T5 = T.exportaciones_complejos, partes = d3.group(T5.filter(r => r.nivel === 2), r => r.grupo);
+  barrasH(G("complejos"), {anim: a, data: T5.filter(r => r.nivel === 1).map(r => ({...r, codigo_indec: r.complejo, territorio: corto(r.complejo)})), k: "pct",
+    vf: pct, af: v => v + "%", marcar: new Set(), l: 190, lAngosto: 128, color: d => d.complejo.startsWith("Resto") ? css("--faint") : css("--celeste"),
+    tip: d => `<b>${d.complejo}</b><br>${n0(d.millones_usd)} millones de dólares` + (d.variacion != null ? `, ${conSigno(d.variacion)} frente al año anterior` : "") +
+      (partes.get(d.complejo) || []).map(p => `<br>${p.complejo}: ${n0(p.millones_usd)}`).join("")});
+};
+DIB.destinos = a => {
+  const c = NOMBRES[prov] ? prov : "00", D = SX.destinos, el = G("destinos");
+  // sin los destinos que no llegan a 0,05% (se leerían 0,0%)
+  const filas = T.exportaciones_destinos.filter(r => r.codigo_indec === c && r.pct >= .05);
+  const nombres = filas.filter(r => !r.destino.startsWith("resto") && r.destino !== "reservado").sort((p, q) => q.millones_usd - p.millones_usd);
+  const res = filas.find(r => r.destino === "reservado");
+  $t("destinos").textContent = (c === "00"
+    ? `Los primeros destinos del ${D.periodo} fueron ${lista(nombres.slice(0, 3).map(r => `${r.destino_nombre} (${pct(r.pct)})`))}. ` +
+      (() => { const x = D.top.filter(t => t.var != null).sort((p, q) => q.var - p.var)[0]; return x ? `Entre los seis primeros, las ventas que más crecieron frente al mismo período del año anterior fueron las de ${x.n}: ${conSigno(x.var)}. ` : ""; })() +
+      `Con una provincia elegida, el gráfico muestra sus destinos.`
+    : `En el ${D.periodo}, el primer destino de ${NOMBRES[c]} fue ${nombres[0].destino_nombre}, con el ${pct(nombres[0].pct)} de lo que exportó la provincia` +
+      (nombres.length > 2 ? `, seguido por ${nombres[1].destino_nombre} (${pct(nombres[1].pct)}) ${yE(nombres[2].destino_nombre)} (${pct(nombres[2].pct)})` : "") + "." +
+      (res && res.pct >= 1 ? ` El ${pct(res.pct)} no tiene destino publicado por secreto estadístico.` : ""));
+  barrasH(el, {anim: a, data: filas.map(r => ({...r, codigo_indec: r.destino, territorio: r.destino_nombre})), k: "pct", vf: pct, af: v => v + "%",
+    marcar: new Set(), l: 196, lAngosto: 136, color: d => d.destino === "reservado" || d.destino.startsWith("resto") ? css("--faint") : css("--celeste"),
+    tip: d => `<b>${d.destino_nombre}</b><br>${n0(d.millones_usd)} millones de dólares, el ${pct(d.pct)} del total` +
+      (d.millones_usd_anterior > 0 ? `<br>${conSigno((d.millones_usd / d.millones_usd_anterior - 1) * 100)} frente al mismo período del año anterior` : "")});
+  // sin resaltado propio: con otra provincia elegida, el gráfico se vuelve a dibujar con sus destinos
+  delete el.resaltar;
+};
+MED.exprov = "rubro";
+DIB.exprov = a => {
+  const P = SX.provincias, cl = [["manufacturas_agro", "Agroindustria", "#1F5E97", "#fff"], ["manufacturas_industriales", "Industria", "#F6B40E", "#18212B"],
+    ["primarios", "Primarios", "#74ACDF", "#18212B"], ["combustibles_energia", "Energía", "#C3CAD2", "#18212B"]].map(([k, lab, c, texto]) => ({k, lab, c, texto}));
+  const ley = $("exprov-ley"), filas = T.exportaciones_provincias;
+  const tip = d => `<b>${d.territorio}</b><br>${n0(d.millones_usd)} millones de dólares` + cl.map(x => `<br>${x.lab}: ${n0(d[x.k])}`).join("");
+  if (MED.exprov === "usd") {
+    ley.hidden = true;
+    return barrasH(G("exprov"), {anim: a, data: filas, k: "millones_usd", vf: v => n0(v) + " M", af: v => n0(v / 1000) + " mil", tip});
+  }
+  ley.hidden = false;
+  ley.innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
+  const pais = {codigo_indec: "00", territorio: "Todo el país", ...Object.fromEntries(cl.map(x => [x.k, P.rubros_pais[x.k]]))};
+  apiladasH(G("exprov"), {anim: a, claves: cl, data: [pais, ...[...filas].sort((p, q) => q.millones_usd - p.millones_usd)
+    .map(r => ({...r, ...Object.fromEntries(cl.map(x => [x.k, r[x.k] / r.millones_usd * 100]))}))]});
+};
+
 /* ---------- transferencias de la Nación a las provincias ---------- */
 const TRR = R.transferencias, TRS = T.transferencias_serie, TRA = T.transferencias_acumulado;
 const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : `${v >= 10 ? n0(v) : n1(v)} mil millones`;
@@ -5101,6 +5173,12 @@ const CLAVE = {
   "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`, `inventariados en todo el país, en ${cu.gl_n} provincias`],
   "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`, `en ${cu.cl_max_anio}, el año más cálido de la serie`],
   "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`, "años en todo el país, mujeres y varones juntos"],
+  "f-exporta-rubros": [`${n1(SX.rubros.total / 1000)} mil millones`, `de dólares en bienes exportó la Argentina en ${SX.rubros.anio}`, `de dólares en ${SX.rubros.anio}`],
+  "f-complejos": [pct(SX.complejos.top[0].pct), `de lo exportado en el ${SX.complejos.periodo} salió del ${SX.complejos.top[0].n.toLowerCase()}, el primero`,
+    `del ${SX.complejos.top[0].n.toLowerCase()}, el primero`],
+  "f-destinos": [pct(SX.destinos.top[0].pct), `de las exportaciones del ${SX.destinos.periodo} fue a ${SX.destinos.top[0].n}, el primer destino`, `a ${SX.destinos.top[0].n}, el primer destino del país`],
+  "f-exporta-provincias": [pct(SX.provincias.top3_pct), `de lo que exportó el país en ${SX.provincias.anio} salió de ${lista(SX.provincias.top3)}`,
+    `de lo exportado en el país, desde ${lista(SX.provincias.top3)}`],
   "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
     `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares, promedio del país"],
@@ -5149,6 +5227,9 @@ const EXTRA = {
   "x-aprender-len": ["f-aprender", pct(ap.len), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en lengua en Aprender ${ap.anio}`, true],
   "x-aprender-debajo": ["f-aprender", pct(ap.mat_debajo), `de los estudiantes de 6° grado quedó por debajo del nivel básico en matemática en Aprender ${ap.anio}`],
   "x-nacimientos": ["f-nacimientos", n0(nac.n_ult), `nacimientos se registraron en ${nac.anio_ult}, ${pct(Math.abs(nac.caida))} menos que en ${nac.anio_pico}`],
+  "x-expo-ytd": SX.rubros.ytd_var != null
+    ? ["f-exporta-rubros", conSigno(SX.rubros.ytd_var), `${SX.rubros.ytd_var >= 0 ? "crecieron" : "cayeron"} las exportaciones entre enero y ${MESES[SX.rubros.ytd_mes - 1]} de ${SX.rubros.ytd_anio}, frente a los mismos meses del año anterior`]
+    : ["f-exporta-rubros", `${n0(SX.rubros.max)} M`, `de dólares exportó la Argentina en ${SX.rubros.max_anio}, el año más alto desde ${SX.rubros.desde}`],
   "x-edad-mediana": ["f-piramide", `${PI.edad_mediana_hoy} años`, `es la edad mediana de la población en ${PI.anio}. En ${PI.anio_fin} será de ${PI.edad_mediana_fin}, según las proyecciones del INDEC`],
   "x-vejez": ["f-envejecimiento", n1(EV.hoy), `personas de 65 años o más por cada 100 de 15 a 64 en ${EV.anio}. En ${EV.anio_fin} serán ${n1(EV.fin)}`],
   "x-jubilaciones": ["f-jubilaciones", n2(JU.ratio), `aportantes por cada jubilación o pensión de ANSES en ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio}. En ${JU.max_anio} eran ${n2(JU.max)}`],
@@ -5175,6 +5256,7 @@ const EN_CIFRAS = {
   // Seguridad (etapa 23): tiene datos por provincia (homicidios y robos) y suma la tarjeta "Tu provincia"
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
+  externo: ["f-exporta-rubros", "x-expo-ytd", "f-destinos", "f-complejos", "f-exporta-provincias"],
   poblacion: ["x-nacimientos", "f-poblacion-proy", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
   gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales", "f-fiscal"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
@@ -5281,7 +5363,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "balanza_energetica", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "exportaciones_cantidades_anual", "exportaciones_dolar_trimestral", "exportaciones_provincias", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_hidrocarburos", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "balanza_energetica", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_hidrocarburos", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   const tema = f.closest(".tema")?.querySelector("h1, h2")?.textContent;
@@ -5839,6 +5921,10 @@ const PREG = [
    `En ${SA.mes}, ${n0(SA.pais)} pesos brutos por mes en el sector privado del país. En ${SA.top[0]}, ${n0(SA.top[1])}, y en ${SA.bajo[0]}, ${n0(SA.bajo[1])}.`, "#f-salarios"],
   ["¿Cuánto cobra un maestro de grado?",
    `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
+  ["¿Qué exporta la Argentina?",
+   `${n0(SX.rubros.total)} millones de dólares en bienes en ${SX.rubros.anio}: el ${pct(SX.rubros.pct.moa)} manufacturas de origen agropecuario, el ${pct(SX.rubros.pct.moi)} de origen industrial, el ${pct(SX.rubros.pct.primarios)} productos primarios y el ${pct(SX.rubros.pct.combustibles)} combustibles y energía.`, "#f-exporta-rubros"],
+  ["¿Adónde exporta la Argentina?",
+   `En el ${SX.destinos.periodo}, ${lista(SX.destinos.top.slice(0, 3).map(t => `${t.n} (${pct(t.pct)})`))} fueron los primeros destinos.`, "#f-destinos"],
   ["¿De qué se muere la gente en la Argentina?",
    `De ${CM.desde} a ${CM.hasta}, el ${pct(CMG[0].pct)} de las muertes fue por ${CM_FRASE[CMG[0].k]}. Ajustada por edad, la mortalidad más alta es la de ${CM.max} y la más baja, la de ${CM.min}.`, "#f-causas-muerte"],
   ["¿Cuánto va a crecer la población?",
@@ -6540,7 +6626,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-empleo-pobreza": "personas", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna", "corte-suprema": "balanza"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-empleo-pobreza": "personas", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna", "corte-suprema": "balanza"};
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
   return `<a class="tarjeta sec-tarjeta${sec.herr ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
@@ -6675,6 +6761,9 @@ const SERIE_CIFRA = {
   "f-pisa": () => serieM("Argentina en matemática en PISA, por edición (sin 2015, que no es comparable)", T.pisa_argentina_ocde.map(r => [r.anio, r.arg_mat_grafico]), n0),
   "x-nacimientos": () => serieM("Nacimientos por año", T.nacimientos.map(r => [r.anio, r.nacimientos]), n0),
   "f-adolescentes": () => serieM("Nacimientos de madres menores de 20 años, cada 100, por año", T.nacimientos.map(r => [r.anio, r.pct_madres_menores_20]), n1),
+  "f-exporta-rubros": () => serieM("Exportaciones de bienes por año, en miles de millones de dólares", T.exportaciones_rubros_anual.map(r => [r.anio, r.total / 1000]), n1, 12),
+  "x-expo-ytd": () => SERIE_CIFRA["f-exporta-rubros"](),
+  "f-exporta-provincias": () => provM(`Exportaciones por provincia de origen, en millones de dólares, ${SX.provincias.anio}`, T.exportaciones_provincias, "millones_usd", null, n0),
   "f-poblacion-proy": () => provM(`Variación de la población proyectada entre ${PPY.anio} y ${PPY.anio_fin}, en %`, T.poblacion_proyectada_provincias, "var_pct", PPY.var_pct, conSigno),
   "x-vejez": () => serieM("Personas de 65 años o más cada 100 de 15 a 64, proyección del INDEC",
     T.envejecimiento_pais.filter(r => (r.anio - T.envejecimiento_pais[0].anio) % 2 === 0 || r.anio === EV.anio).map(r => [r.anio, r.vejez]), n1, 12, EV.anio),

@@ -2047,6 +2047,16 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"subsidios_energia.csv\": API + \"452.2_ENERGIAGIA_0_T_7_56\""
    }
+  },
+  {
+   "id": "ds:exportaciones_rubros.csv",
+   "nombre": "Exportaciones totales y por gran rubro, mensuales (Intercambio Comercial Argentino)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/exportaciones_rubros.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"exportaciones_rubros.csv\": API + \"74.3_IET_0_M_16"
+   }
   }
  ],
  "aristas": [
@@ -5943,6 +5953,70 @@
      "contiene": "\"clima_desvio\": clima,"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_rubros.csv",
+   "a": "f-exporta-rubros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_se_r = pd.read_csv(CRUDO / \"exportaciones_rubros.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"exportaciones_rubros_anual\": se_rubros,"
+    }
+   ],
+   "tabla": "exportaciones_rubros_anual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_semestre.xls",
+   "a": "f-complejos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sc = next((h for h in _sx.sheet_names if h.strip().lower() == \"cuadro5\"), None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"exportaciones_complejos\": se_complejos}"
+    }
+   ],
+   "tabla": "exportaciones_complejos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_semestre.xls",
+   "a": "f-destinos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sz = sorted((int(m.group(1)), h) for h in _sx.sheet_names"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"exportaciones_destinos\": se_destinos}"
+    }
+   ],
+   "tabla": "exportaciones_destinos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_provincias.xls",
+   "a": "f-exporta-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_xe = pd.ExcelFile(CRUDO / \"exportaciones_provincias.xls\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "exp_prov[\"rubro_principal\"] = exp_prov[RUB_EX].idxmax(axis=1)"
+    }
+   ],
+   "tabla": "exportaciones_provincias"
   }
  ],
  "fichas": {

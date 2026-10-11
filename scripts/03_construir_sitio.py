@@ -105,6 +105,8 @@ FRASE_FRECUENCIA = {
 FRECUENCIA = {
     # Trabajo
     "f-empleo": "mes", "f-salarios": "trimestre", "f-rotacion": "trimestre", "f-exportaciones": "semestre",
+    # Sector externo
+    "f-exporta-rubros": "mes", "f-complejos": "semestre", "f-destinos": "semestre", "f-exporta-provincias": "anio",
     # Economía y precios
     "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes",
     # Empresas y oportunidades
@@ -432,7 +434,8 @@ base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f 
 # migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada (datina.js)
 GRUPOS = [
     ("personas", "Personas", [("Población", ["poblacion", "migraciones", "turismo"]), "salud", "educacion", "pobreza"]),
-    ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"])]),
+    # Sector externo, desde el 11 de octubre de 2026 (pedido del autor: "meté una nueva categoría en trabajo y economía que se llame sector externo")
+    ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"]), "externo"]),
     # Curiosidades, desde el 11 de octubre de 2026 dentro de Estado y sociedad (pedido del autor: "sacá el Y además de la portada y poné
     # curiosidades dentro de estado y sociedad, integralo"). Antes era un quinto grupo, "Y además", que iba aparte en la portada y en "Más"
     ("estado", "Estado y sociedad", ["politica", "seguridad", "curiosidades"]),
@@ -502,7 +505,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
     assert not _rep, f"claves repetidas en {_obj} de datina.js: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
-             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija",
+             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
              "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})

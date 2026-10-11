@@ -1188,6 +1188,60 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
+  <!-- Sector externo (etapa 41, pedido del autor del 11 de octubre de 2026: "sumá datos de exportación, balanza comercial, balanza de pagos, qué
+       exportamos, adónde exportamos, qué exporta cada provincia, cuánto exporta cada provincia. Lo mismo con las importaciones, meté una nueva
+       categoría en trabajo y economía que se llame sector externo. Y sumá algo de las reservas internacionales"). Lo que exporta cada provincia por
+       habitante sigue en Trabajo -->
+  <section class="tema con-pregunta" id="externo">
+    <h2>Sector externo</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Qué le vende la Argentina al mundo?">¿Qué le vende la Argentina al mundo y adónde?</p>
+      <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta, adónde va y desde qué provincia sale. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
+    </div>
+
+    <article class="ficha" id="f-exporta-rubros">
+      <h3>¿Qué exporta la Argentina?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por gran rubro, en millones de dólares por año, {{externo.rubros_desde}} a {{externo.rubros_anio}}</p>
+      <div class="grafico" data-g="exporta-rubros" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
+      <p class="lead" data-t="exporta-rubros"></p>
+      <p class="nota" data-t="exporta-rubros-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo</span><a href="datos/exportaciones_rubros_anual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-complejos">
+      <h3>¿Qué cadenas productivas exportan más?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por complejo exportador, en % del total, {{externo.complejos_periodo}}</p>
+      <div class="grafico" data-g="complejos" data-forma="barras" style="--filas:20"></div>
+      <p class="lead" data-t="complejos"></p>
+      <p class="nota" data-t="complejos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, complejos exportadores (anexo del Origen Provincial de las Exportaciones, provisorio)</span><a href="datos/exportaciones_complejos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-destinos">
+      <h3>¿Adónde exporta cada provincia?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, {{externo.destinos_periodo}}</p>
+      <div class="grafico" data-g="destinos" data-forma="barras" style="--filas:23"></div>
+      <p class="lead" data-t="destinos"></p>
+      <p class="nota" data-t="destinos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio)</span><a href="datos/exportaciones_destinos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-exporta-provincias">
+      <h3>¿Qué exporta cada provincia?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por provincia de origen y gran rubro, {{externo.provincias_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="exprov">
+        <button type="button" data-m="rubro" aria-pressed="true">Por rubro</button>
+        <button type="button" data-m="usd" aria-pressed="false">En dólares</button>
+      </div>
+      <div class="pol-ley" id="exprov-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="exprov" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="exprov"></p>
+      <p class="nota" data-t="exprov-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
   <section class="tema con-pregunta" id="movilidad">
     <h2>Movilidad</h2>
     <div class="tema-intro">
