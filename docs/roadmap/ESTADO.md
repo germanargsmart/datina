@@ -63,9 +63,24 @@ Medido en el sitio armado (Chrome sin ventana, 1440 píxeles): 116 fichas con pr
 
 Aplicado en las cuatro fichas de Trabajo (empleo, salarios, rotación y exportaciones). Salarios ya no necesita "Ver más" en la computadora.
 
+## Pedidos del autor del 11 de octubre de 2026
+
+- Regla de la frase repetida aprobada y aplicada en Precios y actividad, Sector privado, Construcción y vivienda y Cuentas públicas (el texto empieza por lo que la cifra no dice y se entiende solo, también en el celular, donde el gráfico queda entre la cifra y el texto).
+- Fichas: la descripción y el texto con la letra de la bajada (Roboto Flex 340, tamaño óptico 28, `--tinta-bajada`, `--t-4`). Eligió la variante B entre tres capturas.
+- Textos de las fichas justificados con corte de palabras. En las fichas anchas y las herramientas, desde 1080 píxeles, la descripción ocupa el ancho y el texto y las notas van en dos columnas (un texto plegado queda en una).
+- Menús desplegables (grupos y "Más") con fondo de vidrio (`--vidrio-menu`, `--vidrio-blur`). Opacos en el celular, sin desenfoque o con transparencia reducida.
+- Pie: sin "Estadísticas públicas de cada provincia..." ni "Datina no es un sitio oficial..." (sigue en Sobre nosotros). La actualización: "Todos los meses, los datos se actualizan con lo último que publica cada organismo público" (pie y Sobre nosotros).
+- Suscripción por correo en el pie (formulario `suscripcion` de Netlify, vuelve a Contacto con `?suscripto=1`). Funciona cuando se activen los formularios en Netlify.
+- Bajada de la portada y descripción para buscadores: "Datos públicos sobre la Argentina, los argentinos y las 24 provincias, explicados para que cualquiera los entienda, los compare y los pueda verificar" (modelo de Gapminder, entre opciones basadas en USAFacts, Our World in Data, Gapminder y Brookings).
+- Menú "Más": Tu provincia, las herramientas y después los temas (solo en pantallas angostas), Artículos, Laboratorio, Curiosidades y Datina. Lo arma el constructor.
+- Migas: solo el camino (Datina › grupo › categoría), sin el nombre de la página, que va debajo. Herramientas y Tu provincia bajo "Herramientas".
+- Verificado en cada paso: armado, sintaxis, catálogo del Explorador, prueba de páginas (49, "Todo en orden") y capturas en 1440, 1000 y 390 píxeles.
+- Link de vista previa: el entorno en la nube no permite abrir un túnel público (cloudflared). Opciones: Netlify conectado al repositorio (vista previa por rama) o armar en la computadora del autor.
+
+## Próxima tarea
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
-1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha. Regla aprobada por el autor el 11 de octubre de 2026. Hecho: Trabajo y Precios y actividad. Sigue, en el orden de `ORDEN_TEMAS`, una sección por vez mostrando el resultado: Sector privado, Construcción y vivienda, Cuentas públicas, Instituciones políticas, Seguridad, Energía, Petróleo y gas, Movilidad, Flora y fauna, Curiosidades, y después Población, Migraciones, Turismo, Salud (sin tocar las fichas de suicidio), Educación y Pobreza y hogares.
+1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha. Regla aprobada por el autor el 11 de octubre de 2026. Hecho: Trabajo, Precios y actividad, Sector privado, Construcción y vivienda y Cuentas públicas. Sigue, en el orden de `ORDEN_TEMAS`, mostrando el resultado: Instituciones políticas, Seguridad, Energía, Petróleo y gas, Movilidad, Flora y fauna, Curiosidades, y después Población, Migraciones, Turismo, Salud (sin tocar las fichas de suicidio), Educación y Pobreza y hogares.
 2. La línea del país en las barras por provincia tapa los valores de las provincias cercanas al promedio.
 3. Etapa 40: la población de cada provincia hasta 2040 (proyecciones del INDEC) y las causas de muerte por provincia (DEIS, tasas ajustadas por edad, causas externas agrupadas sin separar el suicidio). Cada ficha nueva necesita su origen en `relaciones.json`.
 4. Opcional: la silueta de "En cifras" de Trabajo mide 140 píxeles y las tarjetas más, y con una red muy lenta la página salta 45 píxeles al llegar el código.
