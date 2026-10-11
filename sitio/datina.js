@@ -547,14 +547,14 @@ const LEAD = {
   // ventas en supermercados (etapa 26): el país con el índice del INDEC, y cada provincia con sus ventas llevadas a pesos de igual valor con
   // el índice de precios de su región
   supermercados: v => {
-    if (v === "mes") return `En ${ESU.mes}, las ventas de los supermercados en pesos de igual valor fueron ${pct(Math.abs(ESU.interanual))} ` +
-      `${ESU.interanual < 0 ? "menores" : "mayores"} que en ${ESU.mes_ant}, según el INDEC. En los doce meses hasta ${ESU.mes} ` +
-      `${ESU.doce < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.doce))} frente a los doce anteriores. ` +
+    // la cifra destacada y la descripción ya dicen la variación del último mes: el texto empieza por los doce meses
+    if (v === "mes") return `En los doce meses hasta ${ESU.mes}, las ventas ${ESU.doce < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.doce))} ` +
+      `frente a los doce anteriores, según el INDEC. ` +
       (ESU.vs_max < 0 ? `Sin la estacionalidad, están ${pct(Math.abs(ESU.vs_max))} por debajo de ${ESU.max_mes}, el mes más alto de la serie, que empieza en ${ESU.desde}.`
         : `Sin la estacionalidad, están en el nivel más alto de la serie, que empieza en ${ESU.desde}.`);
     const P = ESU.prov;
-    return `En los doce meses hasta ${ESU.mes}, las ventas de los supermercados en pesos de igual valor ${P.pais < 0 ? "cayeron" : "crecieron"} ` +
-      `${pct(Math.abs(P.pais))} en todo el país frente a los doce anteriores, con los precios de los bienes de cada región. ` + (P.suben && P.bajan
+    return `En los doce meses hasta ${ESU.mes}, frente a los doce anteriores, las ventas ${P.pais < 0 ? "cayeron" : "crecieron"} ` +
+      `${pct(Math.abs(P.pais))} en todo el país, con los precios de los bienes de cada región, según el INDEC. ` + (P.suben && P.bajan
         ? `Subieron en ${P.suben} jurisdicciones y bajaron en ${P.bajan}: la variación fue de ${conSigno(P.top[1])} en ${P.top[0]} a ${conSigno(P.bajo[1])} en ${P.bajo[0]}.`
         : `${P.suben ? "Subieron" : "Bajaron"} en todas las jurisdicciones, de ${conSigno(P.bajo[1])} en ${P.bajo[0]} a ${conSigno(P.top[1])} en ${P.top[0]}.`);
   },
@@ -606,8 +606,8 @@ const LEAD = {
       `${REG_ART[EIP.reg_min[0]]}, ${pct(EIP.reg_min[1])}. En todo el país, ${pct(EIP.interanual)}. Las regiones del INDEC son grupos de ciudades donde se relevan ` +
       `los precios, no provincias.`;
     const dic = EIP.periodo.endsWith("-12");
-    return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior y ${yCambio(EIP.mensual, EIP.interanual)} frente a ` +
-      `${EIP.mes_ant}, según el INDEC. ` + (dic ? "" : `En lo que va del año, ${cambioPct(EIP.en_el_anio)}, y en ${EIP.anio_ult}, de diciembre a diciembre, ` +
+    // la cifra destacada ya dice la inflación de doce meses: el texto empieza por la del último mes
+    return `En ${EIP.mes}, frente al mes anterior, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)}, según el INDEC. ` + (dic ? "" : `En lo que va del año, ${cambioPct(EIP.en_el_anio)}, y en ${EIP.anio_ult}, de diciembre a diciembre, ` +
       `la inflación fue de ${pct(EIP.anual)}. `) + `Desde ${EIP.ia_desde}, la variación en doce meses más alta fue la de ${EIP.ia_max_mes}, ${pct(EIP.ia_max)}, ` +
       `y la más baja, la de ${EIP.ia_min_mes}, ${pct(EIP.ia_min)}.`;
   },
@@ -616,22 +616,24 @@ const LEAD = {
       `impuestos, ${cambioPl(EIP.regulados)}, los estacionales, que cambian con la temporada, ${cambioPl(EIP.estacionales)}, y los demás, la inflación núcleo, ` +
       `${cambioPl(EIP.nucleo)}, según el INDEC. Los precios de los servicios ${cambioPl(EIP.servicios)} y los de los bienes, ${pct(EIP.bienes)}. El nivel ` +
       `general, ${pct(EIP.interanual)}.`;
-    return `En los doce meses hasta ${EIP.mes}, el rubro con la suba más alta fue ${inicialMin(EIP.div_max[0])}, ${pct(EIP.div_max[1])}, y el de la más baja, ` +
-      `${inicialMin(EIP.div_min[0])}, ${pct(EIP.div_min[1])}, según el INDEC.` + (/^Alimentos/.test(EIP.div_max[0] + EIP.div_min[0]) ? "" :
+    // la cifra destacada ya dice el rubro que más subió: el texto empieza por el de la suba más baja
+    return `El rubro con la suba más baja fue ${inicialMin(EIP.div_min[0])}, ${pct(EIP.div_min[1])}, según el INDEC.` + (/^Alimentos/.test(EIP.div_max[0] + EIP.div_min[0]) ? "" :
       ` Los alimentos y las bebidas no alcohólicas ${cambioPl(EIP.div_alim)}.`) + ` El nivel general, ${pct(EIP.interanual)}.`;
   },
   canastas: v => {
-    const base = `En ${ECB.mes}, un hogar de cuatro integrantes del Gran Buenos Aires (un varón de 35 años, una mujer de 31, un hijo de 6 y una hija de 8) ` +
-      `necesitaba ${n0(ECB.cbt_hogar)} pesos por mes para no quedar bajo la línea de pobreza, el valor de su canasta básica total según el INDEC, y ` +
-      `${n0(ECB.cba_hogar)} para no quedar bajo la línea de indigencia, el de su canasta básica alimentaria. `;
+    // la cifra destacada ya dice la canasta básica total del hogar: el texto dice qué hogar es y empieza por la línea de indigencia
+    const base = `La canasta básica total marca la línea de pobreza. El hogar de referencia del INDEC lo forman un varón de 35 años, una mujer de 31, ` +
+      `un hijo de 6 y una hija de 8. Para no quedar bajo la línea de indigencia, ese hogar del Gran Buenos Aires necesitaba ${n0(ECB.cba_hogar)} pesos ` +
+      `por mes en ${ECB.mes}, el valor de su canasta básica alimentaria. `;
     if (v === "precios") return base + `En doce meses, la canasta básica total ${cambioPct(ECB.ia_cbt)} y la alimentaria ${cambioPct(ECB.ia_cba)}, ` +
       `y los precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;
     return base + `Por adulto equivalente, en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +
       `${n0(ECB.reg_min[1])} pesos en ${REG_ART[ECB.reg_min[0]]} a ${n0(ECB.reg_max[1])} en ${REG_ART[ECB.reg_max[0]]}.`;
   },
-  "salario-real": () => `En los doce meses hasta ${ESR.mes}, según el índice de salarios del INDEC, el salario de los asalariados registrados del sector ` +
-    `privado ${cambioPct(ESR.nom_priv)} y el del sector público, ${pct(ESR.nom_pub)}, y los precios subieron ${pct(ESR.ipc)}. Descontada la inflación, el ` +
-    `salario registrado privado ${cambioPct(ESR.real_priv)} y el público ${cambioPct(ESR.real_pub)}. Frente a ${ESR.base}, en pesos de igual valor, el privado ` +
+  // la cifra destacada ya dice el cambio del salario privado descontada la inflación: el texto empieza por el público
+  "salario-real": () => `En el sector público, el salario registrado ${cambioPct(ESR.real_pub)} en los doce meses hasta ${ESR.mes}. Sin descontar la inflación, ` +
+    `según el índice de salarios del INDEC, el privado ${cambioPct(ESR.nom_priv)} y el público ${pct(ESR.nom_pub)}, y los precios subieron ${pct(ESR.ipc)}. ` +
+    `Frente a ${ESR.base}, en pesos de igual valor, el privado ` +
     `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
     `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie, descontada la inflación, fue el de ${ESR.max_priv_mes} ` +
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
@@ -640,8 +642,9 @@ const LEAD = {
       `según el INDEC. Los que más crecieron fueron ${EMA.sec_max[0]}, ${pct(EMA.sec_max[1])}, ${yE(EMA.sec_max2[0])}, ${pct(EMA.sec_max2[1])}. ` +
       (EMA.sec_min[1] < 0 ? `El que más cayó fue ${EMA.sec_min[0]}, ${pct(-EMA.sec_min[1])}.` : `El que menos creció fue ${EMA.sec_min[0]}, ${pct(EMA.sec_min[1])}.`) +
       ` Toda la economía, ${pct(EMA.doce)}.`;
-    return `En ${EMA.mes}, la actividad económica ${cambioPct(EMA.interanual)} frente a ${EMA.mes_ant} y ${yCambio(EMA.interanual, EMA.mensual_desest)} frente al mes anterior, ` +
-      `sin el efecto de la época del año, según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año ${cambioPct(EMA.en_el_anio.var)} ` +
+    // la cifra destacada ya dice la variación frente al mismo mes del año anterior: el texto empieza por la del mes anterior
+    return `Frente al mes anterior y sin el efecto de la época del año, la actividad ${cambioPct(EMA.mensual_desest)}, ` +
+      `según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año ${cambioPct(EMA.en_el_anio.var)} ` +
       `frente a los mismos meses del año anterior, y en los últimos doce meses, ${cambioPct(EMA.doce)}. En ${EMA.anio_ult}, ${cambioPct(EMA.anual)}.`;
   },
   // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes,
@@ -4828,14 +4831,19 @@ const CLAVE = {
   "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`],
   "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`],
   "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`],
-  "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`],
-  "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`],
-  "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`],
-  "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`],
-  "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`],
+  "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`,
+    `en el país, en los doce meses hasta ${EIP.mes}`],
+  "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`,
+    `${inicialMin(EIP.div_max[0])}, el rubro que más subió`],
+  "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`,
+    `por mes, la canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires en ${ECB.mes}`],
+  "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`,
+    `${ESR.real_priv < 0 ? "bajó" : "subió"} el salario privado en los doce meses hasta ${ESR.mes}`],
+  "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`,
+    `${EMA.interanual < 0 ? "cayó" : "creció"} en ${EMA.mes} frente a ${EMA.mes_ant}`],
   "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`],
   "f-supermercados": [pct(Math.abs(ESU.interanual)), `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados en pesos de igual ` +
-    `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`],
+    `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? "cayeron" : "crecieron"} en el país en ${ESU.mes} frente a ${ESU.mes_ant}`],
   "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
   "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
   "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
