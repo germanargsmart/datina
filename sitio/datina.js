@@ -6853,6 +6853,32 @@ if (PAGINA === "contacto" && new URLSearchParams(location.search).has("enviado")
 }
 // y después de suscribirse desde el pie (?suscripto=1): el aviso en Contacto, debajo de su formulario, que sigue disponible
 if (PAGINA === "contacto" && new URLSearchParams(location.search).has("suscripto")) document.getElementById("susc-gracias").hidden = false;
+// la suscripción del pie (11 de octubre de 2026, pedido del autor): con este código se envía a Netlify sin salir de la página. El botón
+// cambia de texto en su lugar ("Enviando", "Anotado") y queda ocupado (aria-busy) sin perder el foco. Si el envío falla, o el sitio no está
+// en Netlify, lo dice y deja probar de nuevo. Sin este código, el formulario se envía como siempre y vuelve a Contacto con ?suscripto=1
+document.querySelectorAll("form.form-suscripcion").forEach(form => {
+  const boton = form.querySelector(".susc-boton"), estado = form.querySelector(".susc-estado"), correo = form.querySelector("input[type=email]");
+  const poner = e => { form.querySelectorAll(".susc-e").forEach(x => x.classList.toggle("activa", x.dataset.e === e)); boton.dataset.estado = e; };
+  form.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    if (boton.getAttribute("aria-busy") === "true" || boton.dataset.estado === "ok") return;
+    boton.setAttribute("aria-busy", "true");
+    poner("envia");
+    estado.textContent = "";
+    try {
+      const r = await fetch("/", {method: "POST", headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: new URLSearchParams(new FormData(form)).toString()});
+      if (!r.ok) throw new Error(r.status);
+      poner("ok");
+      correo.readOnly = true;
+      boton.setAttribute("aria-disabled", "true");
+      estado.textContent = "Listo, tu correo quedó anotado.";
+    } catch {
+      poner("listo");
+      estado.textContent = "No se pudo enviar. Probá de nuevo en un rato.";
+    }
+    boton.removeAttribute("aria-busy");
+  });
+});
 
 /* la barra superior es azul sobre la portada y clara en el resto */
 const barra = document.querySelector(".barra");

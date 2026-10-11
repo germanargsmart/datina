@@ -391,8 +391,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto);transition:opacity var(--dur-4) var(--ease-out)}
 .mapa-ayuda[style*="top"]{bottom:auto}
 /* tarjeta al tocar una provincia: al lado del país en pantallas anchas, debajo del mapa en el celular */
-.mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);background:#fff;border-radius:var(--r-panel);
-  box-shadow:var(--sombra-panel);pointer-events:auto}
+/* con el vidrio de los menús desplegables (11 de octubre de 2026, pedido del autor: "el mismo gradiente o transparencia que los desplegables
+   del menú, así vamos unificando criterios"). Los textos chicos pasan del gris al tono de la bajada, que se lee sobre el vidrio encima del azul */
+.mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);border:1px solid var(--line);border-radius:var(--r-panel);
+  background:var(--vidrio-menu);-webkit-backdrop-filter:var(--vidrio-blur);backdrop-filter:var(--vidrio-blur);box-shadow:var(--sombra-panel);pointer-events:auto}
 .mapa-tarjeta.abierta{display:block}
 .mt-cab{display:flex;align-items:center;justify-content:space-between;gap:var(--e-2);margin-bottom:var(--e-3);font-size:var(--t-5);font-weight:600}
 .mt-cerrar{width:32px;height:32px;flex:none;font-size:22px;line-height:1;color:var(--muted);background:none;border:0;border-radius:var(--r-control);cursor:pointer}
@@ -400,7 +402,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .mapa-tarjeta li{display:grid;grid-template-columns:1fr auto;gap:0 var(--e-2);padding:var(--e-2) 0;border-top:1px solid var(--line)}
 .mt-lab{font-size:var(--t-3)}
 .mapa-tarjeta li b{font-size:var(--t-3);font-weight:600;font-variant-numeric:tabular-nums}
-.mapa-tarjeta li small{grid-column:1/-1;font-size:var(--t-1);color:var(--muted)}
+.mapa-tarjeta li small{grid-column:1/-1;font-size:var(--t-1);color:var(--tinta-bajada)}
+.mapa-tarjeta .mt-cerrar{color:var(--tinta-bajada)}
 .mapa-tarjeta .boton{width:100%}
 .mapa-tarjeta .boton.principal{--b-fondo:var(--azul);--b-tinta:#fff;--b-borde:var(--azul)}
 @media (hover:hover) and (pointer:fine){.mapa-tarjeta .boton.principal:hover{--b-fondo:var(--azul-hondo);--b-borde:var(--azul-hondo)}}
@@ -1509,6 +1512,36 @@ html:not(.js) .esqueleto{display:none}
 .susc-fila input:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .susc-fila input::placeholder{color:var(--muted)}
 .pie-sitio .form-suscripcion p{margin:0}
+/* el botón de la suscripción (11 de octubre de 2026, pedido del autor, con ideas del botón "Brutalist" y del botón de uiarc.dev): el
+   amarillo del sol con una sombra dura azul. Al pasar el mouse se hunde sobre su sombra (solo con mouse: en el celular no queda pegado) y al
+   apretarlo se achica un poco. Los tres textos ("Avisarme", "Enviando" y "Anotado") ocupan la misma celda, así el botón tiene el ancho del
+   más largo y no salta al cambiar: el nuevo aparece con un fundido corto. Con movimiento reducido, nada se mueve */
+.susc-boton{--sb-fondo:var(--sol);--sb-tinta:var(--ink);--sb-borde:var(--azul-hondo);
+  position:relative;flex:none;display:inline-grid;place-items:center;min-height:44px;padding:0 var(--e-6);
+  font-family:var(--mono);font-size:var(--t-1);font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+  color:var(--sb-tinta);background:var(--sb-fondo);border:1px solid var(--sb-borde);border-radius:var(--r-control);
+  box-shadow:4px 4px 0 0 var(--sb-borde);cursor:pointer;
+  transition:transform var(--dur-3) cubic-bezier(.22,1,.36,1),box-shadow var(--dur-3) cubic-bezier(.22,1,.36,1),background-color var(--dur-2) var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.susc-boton:hover{transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}}
+.susc-boton:active{transform:translate(4px,4px) scale(.97);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-boton:focus-visible{outline:2px solid var(--azul-hondo);outline-offset:6px}
+.susc-boton[aria-busy="true"]{cursor:progress;transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-boton[data-estado="ok"]{--sb-fondo:var(--bg);cursor:default;transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-lbl{display:grid}
+.susc-e{grid-area:1/1;display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);opacity:0;filter:blur(3px);visibility:hidden;
+  transition:opacity var(--dur-1) var(--ease-out),filter var(--dur-1) var(--ease-out),visibility 0s linear var(--dur-1)}
+.susc-e.activa{opacity:1;filter:none;visibility:visible;transition-delay:0s}
+/* "Enviando" lleva una ruedita del color del texto, que gira mientras espera la respuesta */
+.susc-e[data-e="envia"]::before{content:"";width:.9em;height:.9em;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:susc-gira .7s linear infinite}
+@keyframes susc-gira{to{transform:rotate(1turn)}}
+/* el resultado del envío: el renglón está reservado, así no empuja lo de abajo cuando aparece */
+.pie-sitio .form-suscripcion .susc-estado{min-height:1.5em;margin-top:var(--e-1);font-size:var(--t-2);color:var(--tinta-bajada)}
+@media (prefers-reduced-motion:reduce){
+  .susc-boton,.susc-e{transition:none}
+  .susc-boton:is(:hover,:active,[aria-busy="true"],[data-estado="ok"]){transform:none}
+  .susc-e{filter:none}
+  .susc-e[data-e="envia"]::before{animation:none}
+}
 .oculto{display:none}
 .solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .form-gracias{max-width:34em;font-size:var(--t-5)}
@@ -1558,11 +1591,11 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   ::view-transition-new(root){animation:vt-funde var(--dur-3) var(--ease-out) both}
 }
 /* sin desenfoque en el navegador, el menú vuelve a ser blanco: traslúcido sin desenfoque no se lee */
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.menu-panel{background:#fff}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.menu-panel,.mapa-tarjeta{background:#fff}}
 /* Transparencia reducida: la barra clara y los menús con fondo sólido */
 @media (prefers-reduced-transparency:reduce){
   .barra.clara{background:var(--fondo);-webkit-backdrop-filter:none;backdrop-filter:none}
-  .menu-panel{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .menu-panel,.mapa-tarjeta{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
 /* Catálogo de datos (catalogo.html, 11 de octubre de 2026, propuesta aprobada por el autor): los filtros arriba y las tablas en una lista,
    una por fila, separadas por una línea. Las listas desplegables son las de las herramientas (.cx-campo) y los botones, los del pie de las fichas */

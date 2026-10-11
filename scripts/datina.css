@@ -1512,6 +1512,36 @@ html:not(.js) .esqueleto{display:none}
 .susc-fila input:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .susc-fila input::placeholder{color:var(--muted)}
 .pie-sitio .form-suscripcion p{margin:0}
+/* el botón de la suscripción (11 de octubre de 2026, pedido del autor, con ideas del botón "Brutalist" y del botón de uiarc.dev): el
+   amarillo del sol con una sombra dura azul. Al pasar el mouse se hunde sobre su sombra (solo con mouse: en el celular no queda pegado) y al
+   apretarlo se achica un poco. Los tres textos ("Avisarme", "Enviando" y "Anotado") ocupan la misma celda, así el botón tiene el ancho del
+   más largo y no salta al cambiar: el nuevo aparece con un fundido corto. Con movimiento reducido, nada se mueve */
+.susc-boton{--sb-fondo:var(--sol);--sb-tinta:var(--ink);--sb-borde:var(--azul-hondo);
+  position:relative;flex:none;display:inline-grid;place-items:center;min-height:44px;padding:0 var(--e-6);
+  font-family:var(--mono);font-size:var(--t-1);font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+  color:var(--sb-tinta);background:var(--sb-fondo);border:1px solid var(--sb-borde);border-radius:var(--r-control);
+  box-shadow:4px 4px 0 0 var(--sb-borde);cursor:pointer;
+  transition:transform var(--dur-3) cubic-bezier(.22,1,.36,1),box-shadow var(--dur-3) cubic-bezier(.22,1,.36,1),background-color var(--dur-2) var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.susc-boton:hover{transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}}
+.susc-boton:active{transform:translate(4px,4px) scale(.97);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-boton:focus-visible{outline:2px solid var(--azul-hondo);outline-offset:6px}
+.susc-boton[aria-busy="true"]{cursor:progress;transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-boton[data-estado="ok"]{--sb-fondo:var(--bg);cursor:default;transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-lbl{display:grid}
+.susc-e{grid-area:1/1;display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);opacity:0;filter:blur(3px);visibility:hidden;
+  transition:opacity var(--dur-1) var(--ease-out),filter var(--dur-1) var(--ease-out),visibility 0s linear var(--dur-1)}
+.susc-e.activa{opacity:1;filter:none;visibility:visible;transition-delay:0s}
+/* "Enviando" lleva una ruedita del color del texto, que gira mientras espera la respuesta */
+.susc-e[data-e="envia"]::before{content:"";width:.9em;height:.9em;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:susc-gira .7s linear infinite}
+@keyframes susc-gira{to{transform:rotate(1turn)}}
+/* el resultado del envío: el renglón está reservado, así no empuja lo de abajo cuando aparece */
+.pie-sitio .form-suscripcion .susc-estado{min-height:1.5em;margin-top:var(--e-1);font-size:var(--t-2);color:var(--tinta-bajada)}
+@media (prefers-reduced-motion:reduce){
+  .susc-boton,.susc-e{transition:none}
+  .susc-boton:is(:hover,:active,[aria-busy="true"],[data-estado="ok"]){transform:none}
+  .susc-e{filter:none}
+  .susc-e[data-e="envia"]::before{animation:none}
+}
 .oculto{display:none}
 .solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .form-gracias{max-width:34em;font-size:var(--t-5)}
