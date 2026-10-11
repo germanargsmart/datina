@@ -5030,10 +5030,10 @@ async function imagenFicha(f) {
   ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
   let yy = pad;
   ctx.fillStyle = css("--azul"); ctx.font = fT; tit.forEach(l => { ctx.fillText(l, pad, yy); yy += 30; });
-  if (sub.length) { yy += 6; ctx.fillStyle = css("--muted"); ctx.font = fS; sub.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); }
+  if (sub.length) { yy += 6; ctx.fillStyle = css("--tinta-bajada"); ctx.font = fS; sub.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); }
   if (clave.length) { yy += 8; ctx.fillStyle = css("--celeste-fuerte"); ctx.font = fC; clave.forEach(l => { ctx.fillText(l, pad, yy); yy += 23; }); }
   yy += 10;
-  const texto = () => { ctx.fillStyle = css("--ink"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); };
+  const texto = () => { ctx.fillStyle = css("--tinta-bajada"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); };
   const grafico = () => { ctx.drawImage(img, pad + (W - pad * 2 - w) / 2, yy, w, h); yy += h; };
   if (NOTA_A_LA_VISTA.has(f.id)) { texto(); yy += 18; grafico(); } else { grafico(); yy += 18; texto(); }
   yy += 12;

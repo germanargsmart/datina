@@ -917,8 +917,12 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .listo .ficha.visto{opacity:1;transform:none}
 .etiqueta{display:inline-block;margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .etiqueta::before{content:"# ";color:var(--azul)}
-/* con el título como pregunta (etapa 35), la descripción con el período va debajo, más chica */
-.ficha-sub{max-width:var(--medida);margin:calc(-1 * var(--e-2)) 0 var(--e-3);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
+/* con el título como pregunta (etapa 35), la descripción con el período va debajo. Desde el 11 de octubre de 2026 (pedido del autor:
+   "armonizá las tipografías de cada una de las cards", variante B) la descripción y el texto de la ficha usan la letra de la bajada de
+   cada página, del mismo tamaño y color: el subtítulo que sigue a un título, como en el resto del sitio */
+.ficha-sub{max-width:var(--medida);margin:calc(-1 * var(--e-2)) 0 var(--e-3)}
+.ficha-sub,.ficha .lead{font-family:var(--f-bajada);font-size:var(--t-4);line-height:1.55;font-weight:340;font-variation-settings:"opsz" 28;
+  letter-spacing:-.003em;color:var(--tinta-bajada)}
 .ficha h3{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;font-family:var(--f-c75)}
 .clave{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px var(--e-4);margin:2px 0 var(--e-3)}
 .clave .num{font-size:var(--t-cifra);line-height:1;font-weight:500;letter-spacing:-.01em;color:var(--celeste-fuerte);font-variant-numeric:tabular-nums;
