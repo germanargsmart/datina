@@ -1006,6 +1006,16 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   .ficha.horizontal>.pie,.ficha.horizontal>.tabla-datos{grid-column:1/-1}
   .ficha-grafico>:first-child,.ficha-texto>:first-child{margin-top:0}
 }
+/* textos de las fichas justificados (11 de octubre de 2026, pedido del autor: "los textos que van adentro los vas a justificar a todos"), con
+   corte de palabras en español (la página es lang="es") para que no queden huecos grandes entre palabras en las columnas angostas */
+.ficha p:not(.clave){text-align:justify;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
+/* en las fichas a todo el ancho (anchas y herramientas), donde el gráfico no va al costado, el texto no deja vacía la mitad derecha: la
+   descripción ocupa el ancho y el texto y las notas van en dos columnas, cada una del largo cómodo de un párrafo. Un texto plegado ("Ver
+   más") queda en una columna, porque cortado en dos columnas se desordena */
+@media (min-width:1080px){
+  .ficha:is(.ancha,.explorador)>.ficha-sub{max-width:none}
+  .ficha:is(.ancha,.explorador)>:is(.lead:not(.plegado),.nota){max-width:none;columns:2;column-gap:var(--e-8)}
+}
 /* el texto que sigue al gráfico se separa de él como el gráfico de la cabeza (en la plantilla, antes de que llegue el código, y después) */
 @media (max-width:1079px){.ficha>:not(h3,.ficha-sub,.etiqueta,.clave)+.lead,.ficha-grafico+.ficha-texto>.lead:first-child{margin-top:var(--e-6)}}
 
