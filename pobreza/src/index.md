@@ -321,15 +321,18 @@ function graficoGuiado(filas, width) {
   const nombreB = nombre ?? "periodo";
   const etiqueta = (d) => String(d[nombreB]).replace("Ciudad Autónoma de Buenos Aires", "CABA");
   const largo = Math.max(...datos.map((d) => etiqueta(d).length));
+  // en pantallas angostas el margen de los nombres no puede pasar del 42% del ancho (a 320 píxeles quedaba un ancho negativo para
+  // las barras y el gráfico daba errores): los nombres que no entran se cortan con puntos suspensivos
+  const izq = Math.min(260, 12 + largo * 6.6, Math.round(width * 0.42)), letras = Math.floor((izq - 12) / 6.6);
   const g = Plot.plot({
     width,
     height: datos.length * 22 + 50,
-    marginLeft: Math.min(260, 12 + largo * 6.6),
+    marginLeft: izq,
     marginRight: 50,
     style: estilo,
     x: {grid: true, label: "% de " + (unidad === "hogares" ? "hogares" : "personas"), labelAnchor: "left", tickFormat: pct, axis: "top"},
     color: {type: "identity"},
-    y: {domain: datos.map(etiqueta), label: null},
+    y: {domain: datos.map(etiqueta), label: null, tickFormat: (s) => s.length > letras ? s.slice(0, letras - 1) + "…" : s},
     marks: [
       Plot.barX(datos, {
         x: valor, y: etiqueta,

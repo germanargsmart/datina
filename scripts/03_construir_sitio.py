@@ -880,6 +880,9 @@ if dist.exists():
 for _pb in (SITIO / "pobreza").glob("*.html"):
     _t = _pb.read_bytes()
     _n = re.sub(rb",\s*maximum-scale=1(\.0)?", b"", _t)
+    # y los ejemplos de código (R y Python) cortan la línea en el celular: a 320 píxeles corrían la página de costado
+    if b"datina-codigo" not in _n:
+        _n = _n.replace(b"</head>", b'<style id="datina-codigo">code{overflow-wrap:anywhere}</style>\n</head>', 1)
     if _n != _t:
         _pb.write_bytes(_n)
 # Explorador de relaciones (plan Datina Lab): de dónde sale cada número. Página aparte que arma scripts/relaciones.py desde el catálogo
