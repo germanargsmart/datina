@@ -838,6 +838,13 @@ dist = RAIZ / "pobreza" / "dist"
 if dist.exists():
     shutil.rmtree(SITIO / "pobreza", ignore_errors=True)
     shutil.copytree(dist, SITIO / "pobreza")
+# el armado de Observable Framework pone maximum-scale=1 en el viewport, y eso impide agrandar la página con los dedos en el celular
+# (11 de octubre de 2026, WCAG 1.4.4). Se saca acá, sobre lo publicado, así sigue resuelto en cada armado nuevo del consultor
+for _pb in (SITIO / "pobreza").glob("*.html"):
+    _t = _pb.read_bytes()
+    _n = re.sub(rb",\s*maximum-scale=1(\.0)?", b"", _t)
+    if _n != _t:
+        _pb.write_bytes(_n)
 # Explorador de relaciones (plan Datina Lab): de dónde sale cada número. Página aparte que arma scripts/relaciones.py desde el catálogo
 # datos/manual/relaciones.json. Si el catálogo tiene un error (una relación sin evidencia, una ficha sin origen), el sitio no se arma.
 import relaciones  # noqa: E402

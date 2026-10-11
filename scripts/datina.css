@@ -338,7 +338,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .buscador-caja{max-width:760px;margin:0 auto;padding:var(--e-6) var(--margen) var(--e-6)}
 .buscador-lab{display:block;margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 #busca{width:100%;padding:12px 16px;font:inherit;font-size:var(--t-5);color:var(--ink);background:#fff;border:1.5px solid var(--azul);border-radius:var(--r-control)}
-#busca::placeholder{color:#7A8794}
+/* los textos de ejemplo de los buscadores con --faint-texto: 4,9 a 1 sobre blanco (eran 3,7 y 2,6 a 1, 11 de octubre de 2026) */
+#busca::placeholder{color:var(--faint-texto)}
 #busca:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .busca-res{display:flex;flex-direction:column;margin-top:var(--e-3);max-height:min(60vh,440px);overflow:auto}
 .busca-res a{display:flex;flex-direction:column;gap:var(--e-1);padding:10px 6px;font-size:var(--t-4);line-height:var(--i-tarjeta);color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--borde)}
@@ -604,7 +605,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .elige-panel.abierto{opacity:1;transform:none;transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
 .elige-buscar{width:100%;margin-bottom:4px;padding:8px 10px 10px;font:inherit;font-size:var(--t-3);font-weight:350;color:var(--ink);
   background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;outline:none}
-.elige-buscar::placeholder{color:var(--faint)}
+.elige-buscar::placeholder{color:var(--faint-texto)}
+/* el buscador de provincias no tiene borde propio: con el teclado, la línea de abajo se engrosa y toma el color del foco */
+.elige-buscar:focus-visible{border-bottom:2px solid var(--celeste-fuerte);padding-bottom:9px}
 .elige-lista{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px}
 .elige-lista li{display:flex;align-items:center;gap:8px;padding:7px 10px;font-size:var(--t-3);font-weight:350;line-height:1.3;color:var(--ink);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
 .elige-lista li.activa{background:var(--celeste-suave)}
