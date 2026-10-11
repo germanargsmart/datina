@@ -1172,7 +1172,8 @@ html:not(.js) .esqueleto{display:none}
 .etq-fuerte{font-size:13px;font-weight:650;fill:var(--ink);font-family:var(--f)}
 .etq,.etq-suave,.etq-fuerte{paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
 /* los nombres y valores de las barras llevan un borde del color del fondo: la línea del país pasa por detrás sin cruzar las cifras */
-.grafico g.f text{paint-order:stroke;stroke:var(--bg);stroke-width:6px;stroke-linejoin:round}
+/* sin los números que van adentro de las barras apiladas (text.v): sobre un tramo oscuro, el borde del color del fondo los tapaba */
+.grafico g.f text:not(.v){paint-order:stroke;stroke:var(--bg);stroke-width:6px;stroke-linejoin:round}
 .anota{font-family:var(--f);font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
 .anota.adentro{fill:var(--ink);font-weight:500;stroke-width:3px}
 .anota.sobre-fuerte{fill:#fff}
