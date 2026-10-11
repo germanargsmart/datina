@@ -3295,7 +3295,7 @@ _di_todos = pd.period_range(di_.index.min(), di_.index.max(), freq="Q")
 _di_falta = _di_todos.difference(di_.index)
 if len(_di_falta):
     print("aviso: al artículo del dólar le faltan trimestres:", "; ".join(
-        f"{q} ({', '.join(n for n, s in (('inversión', _di_i), ('dólar real del BCRA', _di_x), ('tipo de cambio A3500', _di_y)) if q not in s.index)})" for q in _di_falta))
+        f"{q} ({', '.join(n for n, s in (('inversión', _di_i), ('dólar real del BCRA', _di_x.dropna()), ('tipo de cambio A3500', _di_y.dropna())) if q not in s.index)})" for q in _di_falta))
     di_ = di_.reindex(_di_todos).rename_axis("q")
 assert len(_di_falta) <= 4 and di_.itcrm.notna().sum() >= 60, f"faltan demasiados trimestres en el artículo del dólar: {list(map(str, _di_falta))}"
 assert di_.index.max() >= pd.Period(HOY, "Q") - 6, "la inversión trimestral del INDEC no llega a un trimestre reciente"

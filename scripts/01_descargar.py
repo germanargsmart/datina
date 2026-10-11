@@ -383,7 +383,8 @@ VALIDA.update({
     "gas_residencial_pais.csv": lambda b: b.startswith(b"indice_tiempo,residencial"),
     "subsidios_energia.csv": lambda b: b.startswith(b"indice_tiempo,energia"),
     "pib_corriente.csv": lambda b: b.startswith(b"indice_tiempo,oferta_global_pib"),
-    "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500"),
+    # el 11 de octubre de 2026 la API devolvió meses vacíos en el medio (2017 y 2018): si vuelve a pasar, se conserva el archivo anterior
+    "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500") and serie_sin_huecos(b, 1),
     "inversion_trimestral.csv": lambda b: b.startswith(b"indice_tiempo,4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32"),
     "compras_dolares_privados.csv": lambda b: b.startswith(b"indice_tiempo,182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"),
     "sinta_turistas_residentes.csv": lambda b: b"viajes_de_turistas_residentes" in b[:300],
@@ -396,6 +397,13 @@ for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
 for _ind in BM_INDICADORES:
     VALIDA[f"bm_{_ind}.json"] = lambda b: b.lstrip()[:1] == b"[" and b'"countryiso3code"' in b
+
+
+def serie_sin_huecos(b, col):
+    """Una planilla de la API de Series de Tiempo sin filas vacías en la columna indicada entre el primer y el último dato."""
+    vals = [f[col].strip() if len(f) > col else b"" for f in (linea.split(b",") for linea in b.strip().splitlines()[1:])]
+    con = [i for i, v in enumerate(vals) if v]
+    return bool(con) and all(vals[i] for i in range(con[0], con[-1] + 1))
 
 
 def bajar(nombre, url):
