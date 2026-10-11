@@ -283,17 +283,20 @@ const NOTA_VIV = k => `Datos del Censo 2022 sumados desde los radios censales. U
 const LEAD = {
   petroleo: v => v === "cuenca"
     ? `En ${PG.mes}, el petróleo salió de cinco cuencas: ${cuencasTxt(PG.cuencas_pet)}. La Neuquina abarca Neuquén y partes de Mendoza, Río Negro y La Pampa.`
-    : `En ${PG.mes} la Argentina produjo ${n0(PG.kbd)} mil barriles de petróleo por día${PG.record ? `, el valor más alto de la serie, que empieza en ${PG.anio_ini}` : ""}. ` +
-      `El ${pct(PG.pct_shale)} salió de pozos de shale. Entre enero y ${MESES[PG.ytd.pet.mes - 1]} la producción ${creceCae(PG.ytd.pet.var)} frente a los mismos meses de ${PG.ytd.pet.anio - 1}. ` +
-      `El promedio anual más bajo de la serie fue el de ${PG.anio_min}, con ${n0(PG.kbd_min)} mil barriles por día.`,
+    // la cifra destacada ya dice la producción del último mes: el texto empieza por lo que va del año
+    : `Entre enero y ${MESES[PG.ytd.pet.mes - 1]} de ${PG.ytd.pet.anio}, la producción de petróleo ${creceCae(PG.ytd.pet.var)} frente a los mismos meses de ${PG.ytd.pet.anio - 1}. ` +
+      `En ${PG.mes}, el ${pct(PG.pct_shale)} salió de pozos de shale. ` +
+      `El promedio anual más bajo de la serie, que empieza en ${PG.anio_ini}, fue el de ${PG.anio_min}, con ${n0(PG.kbd_min)} mil barriles por día.`,
   gas: v => v === "cuenca"
     ? `En ${PG.mes}, el gas salió de estas cuencas: ${cuencasTxt(PG.cuencas_gas)}. La Austral incluye los yacimientos del mar frente a Tierra del Fuego.`
-    : `En ${PG.mes} se produjeron ${n1(PG.gas)} millones de metros cúbicos de gas natural por día, el ${pct(PG.pct_gas_nc)} de pozos no convencionales. ` +
-      `Entre enero y ${MESES[PG.ytd.gas.mes - 1]} la producción ${creceCae(PG.ytd.gas.var)} frente a los mismos meses de ${PG.ytd.gas.anio - 1}. ` +
-      `En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones por día. El más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,
+    // la cifra destacada ya dice la producción del último mes: el texto empieza por lo que va del año
+    : `Entre enero y ${MESES[PG.ytd.gas.mes - 1]} de ${PG.ytd.gas.anio}, la producción de gas natural ${creceCae(PG.ytd.gas.var)} frente a los mismos meses de ${PG.ytd.gas.anio - 1}. ` +
+      `En ${PG.mes}, el ${pct(PG.pct_gas_nc)} salió de pozos no convencionales. ` +
+      `En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones de metros cúbicos por día. El más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,
   "gas-hogares": () => {
     const alto = topViv("pct_gas_red").slice(0, 3);
-    return `En el Censo 2022, el ${pct(VV.pct_gas_red)} de los hogares cocinaba con gas de red y el ${pct(VV.pct_garrafa)} con gas en garrafa. ` +
+    // la cifra destacada ya dice la parte que cocina con gas de red: el texto empieza por la garrafa
+    return `En el Censo 2022, el ${pct(VV.pct_garrafa)} de los hogares cocinaba con gas en garrafa. ` +
       (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100 hogares cocinaba con gas de red. ` : "") +
       `Donde más hogares lo tenían era en ${lista(alto.map(r => `${r.territorio} (${pct(r.pct_gas_red)})`))}.`;
   },
@@ -304,7 +307,8 @@ const LEAD = {
       return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top_gas} produjo el ${pct(PG.top_gas_pct)} del gas del país: ${n1(t.gas_mmm3d)} millones de metros cúbicos por día, contra ${n1(t.gas_mmm3d_antes)} en los mismos meses de diez años antes. ` +
         `Los yacimientos del mar argentino aportaron el ${pct(PG.mar_gas_pct)}.`;
     }
-    return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top} produjo el ${pct(PG.top_pct)} del petróleo del país: ${n0(PG.top_kbd)} mil barriles por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
+    // la cifra destacada ya dice la parte de la primera provincia: el texto empieza por lo que produjo y diez años antes
+    return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top} produjo ${n0(PG.top_kbd)} mil barriles de petróleo por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
       `${PG.segundo}, la segunda, produjo ${n0(PG.segundo_kbd)} mil, contra ${n0(PG.segundo_antes)} mil. En total, ${PG.n_prov} provincias producen petróleo o gas. La formación Vaca Muerta dio el ${pct(PG.vm_pct)} del petróleo del país.`;
   },
   // áreas de concesión (etapa 21): el último año completo. El texto de un área elegida lo arma textoArea()
@@ -327,35 +331,44 @@ const LEAD = {
     const e = [...T.hidrocarburos_empresas].filter(r => r.nombre !== "Otras empresas").sort((a, b) => b.pct_gas - a.pct_gas);
     return v === "pct_gas"
       ? `Entre ${PG.v_desde} y ${PG.v_hasta}, la empresa que más gas produjo fue ${e[0].nombre}, con el ${pct(e[0].pct_gas)} del país, seguida por ${e[1].nombre} (${pct(e[1].pct_gas)}) y ${e[2].nombre} (${pct(e[2].pct_gas)}).`
-      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.emp_top} produjo el ${pct(PG.emp_top_pct)} del petróleo del país. Declararon producción de petróleo ${PG.n_empresas} empresas, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}.`;
+      // la cifra destacada ya dice la parte de la primera empresa: el texto empieza por cuántas declararon producción
+      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.n_empresas} empresas declararon producción de petróleo, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}.`;
   },
-  "empleo-hidro": () => `En el ${CN.emp_trim}, la extracción de petróleo y gas y sus servicios tenía ${n0(CN.pet_emp)} puestos asalariados registrados en el sector privado. ` +
-    `Frente al mismo trimestre del año anterior, en las provincias con dato en los dos trimestres, los puestos ${creceCae(CN.pet_emp_var, "crecieron", "cayeron")}. ${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}.`,
+  // la cifra destacada ya dice los puestos del trimestre: el texto empieza por cómo cambiaron en un año
+  "empleo-hidro": () => `En el ${CN.emp_trim}, frente al mismo trimestre del año anterior, los puestos asalariados registrados del sector privado en la extracción de petróleo y gas ` +
+    `y sus servicios ${creceCae(CN.pet_emp_var, "crecieron", "cayeron")}, en las provincias con dato en los dos trimestres. ${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}.`,
   regalias: v => v === "usd_crudo_hab"
     ? `En ${PG.reg_usd_anio}, las regalías de petróleo crudo sumaron ${n0(PG.reg_usd_total)} millones de dólares. En ${PG.reg_usd_top} equivalieron a ${n0(PG.reg_usd_top_hab)} dólares por habitante. ` +
       `El año más alto de la serie, que empieza en ${PG.reg_usd_ini}, fue ${PG.reg_usd_max_anio}, con ${n0(PG.reg_usd_max)} millones.`
-    : `En ${PG.reg_anio}, las regalías fueron el ${pct(PG.reg_top_pct)} de los ingresos totales de ${PG.reg_top}. Superaron el 10% de los ingresos en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, menos del 1%.`,
+    // la cifra destacada ya dice la provincia donde más pesan: el texto empieza por cuántas superan cada umbral
+    : `En ${PG.reg_anio}, las regalías superaron el 10% de los ingresos totales en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, menos del 1%.`,
   reservas: v => v === "horizonte"
-    ? `Al ritmo de producción de ${PG.res_anio}, las reservas comprobadas alcanzaban para ${n1(PG.res_hor_pet)} años de petróleo y ${n1(PG.res_hor_gas)} años de gas. En ${PG.res_ini} eran ${n1(PG.res_hor_pet_ini)} y ${n1(PG.res_hor_gas_ini)} años.`
+    // la cifra destacada ya dice los años de petróleo: la vista empieza por los de gas
+    ? `Al ritmo de producción de ${PG.res_anio}, las reservas comprobadas de gas alcanzaban para ${n1(PG.res_hor_gas)} años. ` +
+      `En ${PG.res_ini}, las de petróleo alcanzaban para ${n1(PG.res_hor_pet_ini)} años y las de gas, para ${n1(PG.res_hor_gas_ini)}.`
     : v === "gas"
     ? `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de gas eran de ${n0(PG.res_gas)} mil millones de metros cúbicos, ${n1(PG.res_hor_gas)} años de producción al ritmo de ese año. ` +
       `El ${pct(PG.res_nc_gas)} era no convencional y el ${pct(PG.res_nq_gas)} estaba en Neuquén. En ${PG.res_ini} eran ${n0(PG.res_gas_ini)} mil millones.`
-    : `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de petróleo eran de ${n0(PG.res_pet)} millones de metros cúbicos, unos ${n1(PG.res_bbl)} mil millones de barriles: ${n1(PG.res_hor_pet)} años de producción al ritmo de ese año. ` +
+    // la cifra destacada ya dice los años de producción: el texto empieza por el volumen
+    : `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de petróleo eran de ${n0(PG.res_pet)} millones de metros cúbicos, unos ${n1(PG.res_bbl)} mil millones de barriles. ` +
       `${PG.res_var_pet >= 0 ? "Crecieron" : "Cayeron"} ${pct(Math.abs(PG.res_var_pet))} frente a ${PG.res_anio_ant}. El ${pct(PG.res_nc_pet)} era no convencional y el ${pct(PG.res_nq_pet)} estaba en Neuquén.`,
-  "balanza-energetica": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía e importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes: un saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} de ${n0(Math.abs(PG.bal_saldo))} millones. ` +
+  // la cifra destacada ya dice el saldo: el texto empieza por las exportaciones y las importaciones
+  "balanza-energetica": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía e importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes. ` +
     (PG.bal_def_n ? `Entre ${PG.bal_def_desde} y ${PG.bal_def_hasta} el saldo fue negativo en ${PG.bal_def_n} de ${PG.bal_def_hasta - PG.bal_def_desde + 1} años, con el déficit más grande en ${PG.bal_def_max_anio}: ${n0(PG.bal_def_max)} millones. ` : "") +
     `Entre enero y ${MESES[PG.bal_ytd.mes - 1]} de ${PG.bal_ytd.anio}, el saldo fue de ${n0(PG.bal_ytd.saldo)} millones y las exportaciones ${creceCae(PG.bal_ytd_expo.var, "crecieron", "cayeron")} frente a los mismos meses del año anterior.`,
   "mundo-petroleo": v => {
     const m = PG.mundo, q = m.neuquen;
     return v === "gas_bcm"
       ? `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en gas natural la Argentina fue el productor número ${m.gas_bcm.puesto} del mundo en ${m.gas_bcm.anio}, con ${n1(m.gas_bcm.arg)} mil millones de metros cúbicos, el ${pct(m.gas_bcm.pct)} del total mundial.`
-      : `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en ${m.crudo_kbd.anio} la Argentina fue el productor de petróleo número ${m.crudo_kbd.puesto} del mundo, con ${n0(m.crudo_kbd.arg)} mil barriles por día, el ${pct(m.crudo_kbd.pct)} del total mundial.` +
+      // la cifra destacada ya dice el puesto: el texto empieza por cuánto produce y qué parte del mundo es
+      : `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en ${m.crudo_kbd.anio} la Argentina produjo ${n0(m.crudo_kbd.arg)} mil barriles de petróleo por día, el ${pct(m.crudo_kbd.pct)} del total mundial.` +
         (q ? ` Si Neuquén fuera un país, con ${n0(q.kbd)} mil barriles por día estaría en el puesto ${q.puesto}, entre ${q.arriba} y ${q.abajo}.` : "");
   },
   // fracturas y pozos terminados (etapa 19): años completos, el último puede subir porque las empresas informan con demora
   fracturas: v => v === "rama"
-    ? `En ${PG.fr_ult}, los pozos de Vaca Muerta tuvieron en promedio ${n0(PG.dv_rama_ult)} metros de rama horizontal, el tramo del pozo que avanza en horizontal dentro de la formación. ` +
-      `En ${PG.dv_ini} eran ${n0(PG.dv_rama_ini)} metros: la rama es ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga.`
+    // la cifra destacada ya dice la rama del último año y la del primero: la vista empieza por qué es la rama
+    ? `La rama horizontal es el tramo del pozo que avanza en horizontal dentro de la formación. Entre ${PG.dv_ini} y ${PG.fr_ult}, la de los pozos de Vaca Muerta ` +
+      `se hizo ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga: de ${n0(PG.dv_rama_ini)} a ${n0(PG.dv_rama_ult)} metros en promedio.`
     : v === "etapas_pozo"
     ? `Cada pozo de Vaca Muerta fracturado en ${PG.fr_ult} llevó en promedio ${n1(PG.dv_etapas_ult)} etapas de fractura y ${n0(PG.dv_arena_ult)} toneladas de arena. ` +
       `En ${PG.dv_ini} eran ${n1(PG.dv_etapas_ini)} etapas y ${n0(PG.dv_arena_ini)} toneladas.`
@@ -366,9 +379,10 @@ const LEAD = {
     ? `Entre ${PG.pt_v_desde} y ${PG.pt_mes} se terminaron ${n0(PG.pt_12m)} pozos de petróleo y gas, ` +
       `${PG.pt_12m >= PG.pt_12m_ant ? n0(PG.pt_12m - PG.pt_12m_ant) + " más" : n0(PG.pt_12m_ant - PG.pt_12m) + " menos"} que en los doce meses anteriores. ` +
       `${PG.pt_top} concentró el ${pct(PG.pt_top_pct)}, con ${n0(PG.pt_top_n)} pozos.`
-    : `En ${PG.pt_anio} se terminaron ${n0(PG.pt_total)} pozos de petróleo y gas: ${n0(PG.pt_explot)} de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +
-      (PG.pt_total < PG.pt_max ? `El máximo de la serie fue en ${PG.pt_max_anio}, con ${n0(PG.pt_max)}. Hoy se terminan menos pozos, pero en Vaca Muerta cada uno tiene una rama horizontal ` +
-        `${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.` : "Es el máximo de la serie."),
+    // la cifra destacada ya dice los pozos del último año y el máximo: el texto empieza por los tipos de pozo
+    : `De los pozos de petróleo y gas terminados en ${PG.pt_anio}, ${n0(PG.pt_explot)} fueron de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +
+      (PG.pt_total < PG.pt_max ? `Hoy se terminan menos pozos que en ${PG.pt_max_anio}, el año con más de la serie, pero en Vaca Muerta cada uno tiene una rama horizontal ` +
+        `${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.` : `En ${PG.pt_anio} se terminaron más pozos que en cualquier otro año de la serie.`),
   // productividad de los pozos de Vaca Muerta por año de inicio (etapa 19): años completos
   productividad: v => v === "metro"
     ? `Por cada 1.000 metros de rama horizontal, los pozos que empezaron a producir en ${PG.cos_ult} sacaron en su primer año ${n0(PG.bpm_ult)} barriles de petróleo. ` +
@@ -377,23 +391,28 @@ const LEAD = {
     : v === "curvas"
     ? `Producción acumulada promedio de un pozo según los meses desde que empezó a producir, por año de inicio. A los doce meses, un pozo de ${PG.cos_ult} ` +
       `había sacado ${n0(PG.curva12_ult)} mil barriles de petróleo y uno de ${PG.curvas[0]}, ${n0(PG.curva12_ini)} mil.`
-    : `Un pozo petrolero de shale de Vaca Muerta que empezó a producir en ${PG.cos_ult} sacó en promedio ${n0(PG.cos_kbbl_ult)} mil barriles de petróleo en sus primeros doce meses, ` +
-      `${n1(PG.cos_veces)} veces lo que uno de ${PG.cos_ini}` +
-      (PG.cos_max !== PG.cos_ult ? `. El máximo fue el de los pozos de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles.` : `, el máximo de la serie.`),
-  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas, y ${n0(PG.map_activos)} siguieron produciendo en ${PG.map_mes}: ` +
-    `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
+    // la cifra destacada ya dice lo que sacó un pozo del último año: el texto empieza por cuántos pozos empezaron ese año y por el máximo
+    : `En ${PG.cos_ult} empezaron a producir ${n0(PG.cos_pozos_ult)} pozos petroleros de shale en Vaca Muerta.` +
+      (PG.cos_max !== PG.cos_ult ? ` Los que más petróleo sacaron en sus primeros doce meses fueron los de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles en promedio cada uno.`
+        : ` Son los que más petróleo sacaron en sus primeros doce meses desde ${PG.cos_ini}.`),
+  // la cifra destacada ya dice los pozos en producción y la parte de Neuquén: el texto empieza por todos los que produjeron alguna vez
+  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas. De los que seguían produciendo en ${PG.map_mes}, ` +
+    `${n0(PG.map_shale)} eran de shale y ${n0(PG.map_tight)} de tight. Las áreas con más pozos en producción son ` +
     `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
     (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
   // consumo eléctrico de los hogares por provincia (etapa 21, CAMMESA): la Ciudad y la provincia de Buenos Aires van juntas
   "electricidad-provincias": v => {
     if (v === "mes") return `Entre ${e.el_est_desde} y ${e.el_ult}, el mes en que más electricidad consumieron los hogares del país fue ${e.el_mes_max}, con ${n0(e.el_mes_max_kwh)} kWh por habitante, ` +
       `y el de menor consumo, ${e.el_mes_min}, con ${n0(e.el_mes_min_kwh)}.`;
-    if (v === "serie") return `En ${e.el_ini}, los hogares consumían ${n0(e.el_pais_ini)} kWh de electricidad por habitante por año, y en ${e.el_ult}, ${n0(e.el_pais)}` +
-      (e.el_max_anio === e.el_ult ? ", el valor más alto de la serie." : `. El año de mayor consumo fue ${e.el_max_anio}, con ${n0(e.el_max)}.`) +
+    // la cifra destacada ya dice el consumo del último año: la serie empieza por cuánto cambió
+    if (v === "serie") return `Entre ${e.el_ini} y ${e.el_ult}, el consumo de electricidad de los hogares por habitante ${cambioPct((e.el_pais / e.el_pais_ini - 1) * 100)}. ` +
+      `En ${e.el_ini} era de ${n0(e.el_pais_ini)} kWh por año` +
+      (e.el_max_anio === e.el_ult ? `, y el de ${e.el_ult} es el valor más alto de la serie.` : `. El año de mayor consumo fue ${e.el_max_anio}, con ${n0(e.el_max)}.`) +
       (e.el_min_anio !== e.el_ini ? ` El de menor consumo fue ${e.el_min_anio}, con ${n0(e.el_min)}.` : "");
     const t = e.el_top, b = e.el_bajo;
-    return `En ${e.el_ult}, los hogares consumieron ${n0(e.el_pais)} kilovatios hora (kWh) de electricidad por habitante, según la demanda residencial que registra CAMMESA. ` +
-      `El consumo más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
+    // la cifra destacada ya dice el consumo del país: el texto empieza por las provincias de los extremos
+    return `En ${e.el_ult}, según la demanda residencial que registra CAMMESA, el consumo de electricidad de los hogares más alto fue el de ${t[0]}, ` +
+      `con ${n0(t[1])} kilovatios hora (kWh) por habitante${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
       `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}.`;
   },
   // demanda eléctrica de comercios e industrias por provincia (etapa 23, CAMMESA): por habitante en cada categoría de tarifa y las partes de
@@ -402,8 +421,9 @@ const LEAD = {
     const P = e.els_pct, g0 = e.els_gwh_ini, g1 = e.els_gwh_ult;
     // cuánto cambió la demanda de cada categoría en el país desde el primer año
     const cambio = k => { const v = (g1[k] / g0[k] - 1) * 100; return `${v < 0 ? "bajó" : "creció"} ${pct(Math.abs(v))}`; };
-    if (v === "partes") return `En ${e.el_ult}, los hogares usaron el ${pct(P.res)} de la electricidad que registra CAMMESA, los comercios y servicios el ${pct(P.com)} ` +
-      `y las industrias y los grandes comercios el ${pct(P.ind)}. La parte de las industrias y los grandes comercios va del ${pct(e.els_pct_ind_top[1])} ` +
+    // la cifra destacada ya dice la parte de las industrias y los grandes comercios: la vista empieza por los hogares y los comercios
+    if (v === "partes") return `En ${e.el_ult}, los hogares usaron el ${pct(P.res)} de la electricidad que registra CAMMESA y los comercios y servicios, el ${pct(P.com)}. ` +
+      `La parte de las industrias y los grandes comercios va del ${pct(e.els_pct_ind_top[1])} ` +
       `de la demanda en ${e.els_pct_ind_top[0]} al ${pct(e.els_pct_ind_bajo[1])} en ${e.els_pct_ind_bajo[0]}. Entre ${e.el_ini} y ${e.el_ult}, la demanda de los hogares ` +
       `${cambio("res")}, la de los comercios y servicios ${cambio("com")} y la de las industrias y los grandes comercios ${cambio("ind")}.`;
     if (v === "com") {
@@ -413,8 +433,9 @@ const LEAD = {
         `y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.els_com)}.`;
     }
     const t = e.els_ind_top, b = e.els_ind_bajo;
-    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país, ` +
-      `el ${pct(P.ind)} de la demanda. El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
+    // la cifra destacada ya dice la parte de la demanda: el texto empieza por lo que usaron por habitante
+    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país. ` +
+      `El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
       `con ${n0(b[1])}${conVeces(b[1], e.els_ind)}.`;
   },
   // salarios de los asalariados registrados privados por provincia (etapa 23, OEDE): el último mes sin aguinaldo o la serie en pesos de igual valor
@@ -688,26 +709,35 @@ const LEAD = {
     const pbi = x => n2(x) + "%", y = e.sub_ytd;
     const ytd = y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} sumaron un ${pct(Math.abs(y.var))} ${y.var < 0 ? "menos" : "más"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor.` : "";
     // el año del dato contra el máximo y el mínimo de la serie, sin repetir un año que ya se nombró
+    const extremos = (a, maxA, maxV, minA, minV, f) => maxA !== a ? ` El más alto fue el de ${maxA}${maxA === e.sub_ini ? ", el primer año" : ""}, con ${f(maxV)}` +
+      (minA !== a ? `, y el más bajo, el de ${minA}, con ${f(minV)}.` : ".") : minA !== a ? ` El más bajo fue el de ${minA}, con ${f(minV)}.` : "";
     const ext = (a, maxA, maxV, minA, minV, f) => (a === minA ? `, el valor más bajo de la serie, que empieza en ${e.sub_ini}` : a === maxA ? `, el valor más alto de la serie, que empieza en ${e.sub_ini}` : "") + "." +
-      (maxA !== a ? ` El más alto fue el de ${maxA}${maxA === e.sub_ini ? ", el primer año" : ""}, con ${f(maxV)}` + (minA !== a ? `, y el más bajo, el de ${minA}, con ${f(minV)}.` : ".")
-        : minA !== a ? ` El más bajo fue el de ${minA}, con ${f(minV)}.` : "");
+      extremos(a, maxA, maxV, minA, minV, f);
+    // la cifra destacada ya dice la parte del PBI del último año: la vista del PBI empieza por lo que va del año y dice el lugar de ese año en la serie sin repetir la cifra
+    const a = e.sub_pbi_anio, lugar = a === e.sub_pbi_min_anio ? "el más bajo" : a === e.sub_pbi_max_anio ? "el más alto" : "";
     return v === "pesos"
       ? `En pesos de ${e.sub_ult}, los subsidios económicos a la energía que registra la Secretaría de Hacienda sumaron ${n0(e.sub_ult_real)} miles de millones en ${e.sub_ult}` +
         ext(e.sub_ult, e.sub_real_max_anio, e.sub_real_max, e.sub_real_min_anio, e.sub_real_min, x => n0(x) + " miles de millones") + ytd
-      : `En ${e.sub_pbi_anio}, los subsidios económicos a la energía que registra la Secretaría de Hacienda fueron el ${pbi(e.sub_pbi)} del producto interno bruto` +
-        ext(e.sub_pbi_anio, e.sub_pbi_max_anio, e.sub_pbi_max, e.sub_pbi_min_anio, e.sub_pbi_min, x => "el " + pbi(x)) + ytd;
+      : (y ? `Entre enero y ${MESES[y.mes - 1]} de ${y.anio}, los subsidios económicos a la energía que registra la Secretaría de Hacienda sumaron un ` +
+          `${pct(Math.abs(y.var))} ${y.var < 0 ? "menos" : "más"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor. `
+          : "Los subsidios económicos a la energía son los que registra la Secretaría de Hacienda. ") +
+        `Como parte del producto interno bruto, ` + (lugar ? `el valor de ${a} es ${lugar} de la serie, que empieza en ${e.sub_ini}.` : `la serie empieza en ${e.sub_ini}.`) +
+        extremos(a, e.sub_pbi_max_anio, e.sub_pbi_max, e.sub_pbi_min_anio, e.sub_pbi_min, x => "el " + pbi(x));
   },
   "gas-consumo": v => {
     if (v === "mes") return `Entre ${e.gas_est_desde} y ${e.gas_est_hasta}, un usuario residencial consumió en promedio ${n0(e.gas_mes_max_m3)} metros cúbicos de gas en ${e.gas_mes_max} ` +
       `y ${n0(e.gas_mes_min_m3)} en ${e.gas_mes_min}: ${n1(e.gas_mes_max_m3 / e.gas_mes_min_m3)} veces más en el mes de mayor consumo.` +
       (e.gas_ytd ? ` Entre enero y ${MESES[e.gas_ytd.mes - 1]} de ${e.gas_ytd.anio} consumió ${n0(e.gas_ytd.m3)} metros cúbicos, ${pct(Math.abs(e.gas_ytd.var))} ${e.gas_ytd.var < 0 ? "menos" : "más"} que en los mismos meses de ${e.gas_ytd.anio - 1}.` : "");
-    if (v === "serie") return `En ${e.gas_ini}, un usuario residencial consumía en promedio ${n0(e.gas_pais_ini)} metros cúbicos de gas por año, y en ${e.gas_anio}, ${n0(e.gas_pais)}. ` +
+    // la cifra destacada ya dice el consumo del último año: la serie empieza por cuánto cambió
+    if (v === "serie") return `Entre ${e.gas_ini} y ${e.gas_anio}, el consumo promedio de gas de un usuario residencial ${cambioPct((e.gas_pais / e.gas_pais_ini - 1) * 100)}. ` +
+      `En ${e.gas_ini} era de ${n0(e.gas_pais_ini)} metros cúbicos por año. ` +
       `El año de mayor consumo fue ${e.gas_max_anio}, con ${n0(e.gas_max)}, y el de menor, ${e.gas_min_anio}, con ${n0(e.gas_min)}. ` +
       `En el mismo período, los usuarios residenciales pasaron de ${n1(e.gas_usuarios_ini / 1e6)} a ${n1(e.gas_usuarios / 1e6)} millones.`;
     const t = e.gas_top;
-    return `En ${e.gas_anio}, un usuario residencial de gas natural consumió en promedio ${n0(e.gas_pais)} metros cúbicos. En ${t[0][0]} el promedio fue de ${n0(t[0][1])}, ` +
-      `${n1(e.gas_veces_top)} veces el del país, y le siguieron ${t[1][0]} (${n0(t[1][1])}) y ${t[2][0]} (${n0(t[2][1])}). El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}). ` +
-      `Las cinco provincias patagónicas tienen el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales y recibieron el ${pct(e.gas_pat_gas)} de su gas.`;
+    // la cifra destacada ya dice el promedio del país y el de la provincia más alta: el texto empieza por la Patagonia
+    return `En ${e.gas_anio}, las cinco provincias patagónicas tenían el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales de gas natural del país ` +
+      `y consumieron el ${pct(e.gas_pat_gas)} del gas residencial. En ${t[0][0]}, un usuario consumió en promedio ${n0(t[0][1])} metros cúbicos, ` +
+      `${n1(e.gas_veces_top)} veces el promedio del país, y le siguieron ${t[1][0]} (${n0(t[1][1])}) y ${t[2][0]} (${n0(t[2][1])}). El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}).`;
   },
   centrales: v => v === "potencia"
     ? `En ${e.pot_anio} el país tenía ${n0(e.pot_total)} megavatios de potencia eléctrica instalada: ${pct(e.pot_pct.termica)} térmica, ${pct(e.pot_pct.hidraulica)} hidráulica, ` +
@@ -890,10 +920,15 @@ const TX = {
     `La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
   "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
     `Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en ${EV.anio_fin}. El círculo claro marca ${EV.anio} y el oscuro ${EV.anio_fin}.`,
-  hogares: `En ${e.anio_ult} los hogares explicaron el ${pct(e.pct_res_ult)} de la electricidad demandada en el país, frente al ${pct(e.pct_res_ini)} de ${e.anio_ini}. Entre ambos años la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
-  actividad: `Entre ${e.anio_ini} y ${e.anio_ult} la demanda eléctrica total creció ${pct(e.crec_total)} y la actividad económica medida por el EMAE creció ${pct(e.crec_emae)}. En ${e.anio_ult} el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh).` +
+  // la cifra destacada ya dice la parte de los hogares en el último año: el texto empieza por la del primero
+  hogares: `En ${e.anio_ini} los hogares explicaban el ${pct(e.pct_res_ini)} de la electricidad demandada en el país. Entre ${e.anio_ini} y ${e.anio_ult} la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
+  // la cifra destacada ya dice cuánto crecieron la demanda y la actividad: el texto empieza por la demanda del último año
+  actividad: `En ${e.anio_ult} el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad. La actividad económica del gráfico sale del Estimador Mensual de Actividad Económica (EMAE) del INDEC.` +
     enLoQueVa(R.ytd.demanda, e.anio_ult, "la demanda total", "subió", "bajó"),
-  meses: `En promedio entre ${e.meses_desde} y ${e.meses_hasta}, ${e.mes_max} fue el mes de mayor demanda eléctrica y ${e.mes_min} el de menor. La diferencia entre ambos fue de ${pct(e.dif_max_min)}. El año tiene dos picos, uno por refrigeración en verano y otro por calefacción en invierno.`,
+  // la cifra destacada ya dice la diferencia entre el mes de más demanda y el de menos: el texto empieza por los dos picos y da los gigavatios hora
+  meses: `El año tiene dos picos de demanda eléctrica, uno por refrigeración en verano y otro por calefacción en invierno. En promedio entre ${e.meses_desde} y ${e.meses_hasta}, ` +
+    `${e.mes_max} fue el mes de mayor demanda, con ${n0(Math.max(...T.energia_estacionalidad.map(r => r.gwh)))} gigavatios hora (GWh), y ${e.mes_min} el de menor, ` +
+    `con ${n0(Math.min(...T.energia_estacionalidad.map(r => r.gwh)))}.`,
   "meses-nota": `Promedio mensual de la demanda total en GWh para ${e.meses_desde}, ${e.meses_desde + 1} y ${e.meses_hasta}. El último mes disponible en la fuente es ${e.ultimo_mes}.`,
   nacimientos: `En ${nac.anio_ult} se registraron ${n0(nac.n_ult)} nacimientos, ${pct(Math.abs(nac.caida))} menos que los ${n0(nac.pico)} de ${nac.anio_pico}. En el conjunto de los 38 países de la OCDE, la baja entre ${nac.anio_pico} y ${nac.ocde_ult} fue de ${pct(Math.abs(nac.ocde_caida))}.`,
   adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país correspondían a madres menores de 20 años. En ${nac.anio_ult} fueron ${n1(nac.pct_ult)} de cada 100. En cantidad pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
@@ -4842,28 +4877,36 @@ const sg = v => (v > 0 ? "+" : "") + pct(v);
 // ficha. Dentro de la ficha va la leyenda corta, que dice solo lo que la descripción no dice (el alcance o la población de referencia):
 // así la descripción, la cifra y el comienzo del texto no repiten la misma frase (pedido del autor, 10 de octubre de 2026)
 const CLAVE = {
-  "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
-  "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`],
-  "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`],
-  "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`],
+  "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`,
+    `barriles por día en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
+  "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`, `millones de m³ por día en ${PG.mes}`],
+  "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`, "de los hogares del país cocinaba con gas de red"],
+  "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`, `del petróleo del país salió de ${PG.top}`],
   "f-areas-hidro": [pct(PG.areas_top10_pet), `del petróleo del país salió de las diez áreas de concesión que más produjeron en ${PG.areas_anio}`],
   "f-pozos": [`${PG.veces} veces`, `más petróleo por día produjo un pozo de shale que uno convencional en ${PG.pozos_mes}`],
-  "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`],
-  "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`],
-  "f-regalias": [pct(PG.reg_top_pct), `de los ingresos totales de ${PG.reg_top} fueron regalías en ${PG.reg_anio}`],
-  "f-reservas": [`${n1(PG.res_hor_pet)} años`, `de producción de petróleo alcanzan las reservas comprobadas, al ritmo de ${PG.res_anio}`],
-  "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`],
+  "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`, `del petróleo del país lo produjo ${PG.emp_top}`],
+  "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`,
+    "puestos asalariados registrados del sector privado en todo el país"],
+  "f-regalias": [pct(PG.reg_top_pct), `de los ingresos totales de ${PG.reg_top} fueron regalías en ${PG.reg_anio}`, `de los ingresos totales de ${PG.reg_top}`],
+  "f-reservas": [`${n1(PG.res_hor_pet)} años`, `de producción de petróleo alcanzan las reservas comprobadas, al ritmo de ${PG.res_anio}`,
+    `de petróleo, al ritmo de producción de ${PG.res_anio}`],
+  "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`,
+    `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} en ${PG.bal_anio}`],
   "f-fracturas": [`${n0(PG.dv_rama_ult)} m`, `de rama horizontal tuvo en promedio un pozo de Vaca Muerta fracturado en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`],
-  "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
-  "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
-  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`],
-  "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`],
+  "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`,
+    `terminados en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
+  "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`,
+    `barriles en promedio por pozo que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
+  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`,
+    `pozos no convencionales en producción, el ${pct(PG.map_pct_nq)} en Neuquén`],
+  "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`,
+    `por usuario, promedio del país en ${e.gas_anio}`],
   "f-permisos": [`${n0(CN.per_m2 / 1000)} mil m²`, `autorizaron los permisos de edificación de ${CN.per_municipios} municipios en ${CN.per_mes}` +
     (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : ""),
     `autorizados en ${CN.per_mes} en ${CN.per_municipios} municipios` + (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : "")],
   "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`, `de pesos en ${CN.hip_mes}`],
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
-  "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`],
+  "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`, `por habitante, promedio del país en ${e.el_ult}`],
   "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`, "promedio bruto del país"],
   "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`],
   "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`],
@@ -4896,12 +4939,15 @@ const CLAVE = {
   "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`],
   "f-supermercados": [pct(Math.abs(ESU.interanual)), `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados en pesos de igual ` +
     `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? "cayeron" : "crecieron"} en el país en ${ESU.mes} frente a ${ESU.mes_ant}`],
-  "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
+  "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`,
+    "de la electricidad del país la usaron las industrias y los grandes comercios"],
   "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`,
     `por litro de nafta súper, mediana del país en ${CB.mes}`],
-  "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
+  "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`,
+    `del producto interno bruto en ${e.sub_pbi_anio}`],
   "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
-  "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
+  "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`,
+    "entre los productores de petróleo, según la EIA"],
   "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`,
     `${CN.isac_var < 0 ? "cayó" : "creció"} en ${CN.isac_mes} frente al mismo mes del año anterior`],
   "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`,
@@ -4912,9 +4958,10 @@ const CLAVE = {
   "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir desde ${CN.costo_desde}`,
     `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir`],
   "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`, "de los hogares del país alquilaba su vivienda"],
-  "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`],
-  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`],
-  "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`],
+  "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`, `de la demanda eléctrica del país en ${e.anio_ult}`],
+  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`,
+    `creció la demanda eléctrica total. La actividad económica creció ${pct(e.crec_emae)}`],
+  "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`, `más demanda en ${e.mes_max} que en ${e.mes_min}`],
   "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`],
   "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`],
   "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`],
