@@ -98,6 +98,9 @@
   /* sombra de las tarjetas: apenas las separa del fondo, teñida del azul de la marca (nunca negra) */
   --sombra-tarjeta:0 1px 2px rgba(31,94,151,.06),0 10px 28px -16px rgba(31,94,151,.24);
   --sombra-panel:0 18px 30px rgba(24,33,43,.14);
+  /* el vidrio de los menús desplegables (11 de octubre de 2026, pedido del autor: "pasar de fondo blanco a transparente"): traslúcido y
+     desenfocado, para que el texto se siga leyendo sobre cualquier parte de la página */
+  --vidrio-menu:rgba(246,248,251,.72); --vidrio-blur:blur(18px) saturate(1.4);
   --sombra-boton:0 2px 0 rgba(24,33,43,.14);
   /* movimiento: curvas y duraciones. 150 ms respuesta al mouse, 200 menús, cuadros y cambios de vista, 250 fichas y barra, 300 páginas y gráficos.
      Nada de la interfaz pasa de 300 ms: solo el sol y el gorro de la portada, que son decorativos */
@@ -264,7 +267,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .menu-panel{position:fixed;z-index:30;left:var(--menu-izq,var(--margen));top:calc(env(safe-area-inset-top,0px) + 62px);
   width:min(500px,calc(100vw - 24px));max-height:calc(100dvh - 86px);overflow:auto;overscroll-behavior:contain;
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--e-4);padding:var(--e-3);
-  background:#fff;border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);
+  background:var(--vidrio-menu);-webkit-backdrop-filter:var(--vidrio-blur);backdrop-filter:var(--vidrio-blur);
+  border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);
   transform-origin:top left;opacity:0;transform:translateY(-4px) scale(.98);
   transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-2) var(--ease-out),translate var(--dur-3) var(--ease-out)}
 .menu-panel.abierto{opacity:1;transform:none}
@@ -312,7 +316,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra) */
   .menu-panel{left:0;right:0;width:auto;top:calc(env(safe-area-inset-top,0px) + 62px);bottom:-8px;max-height:none;
     grid-template-columns:1fr;gap:0;padding:var(--e-4) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
-    background:#fff;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;transform:translateY(-8px)}
+    background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;transform:translateY(-8px)}
   .barra.compacta ~ .menu-panel{translate:0 -8px}
   /* en una sola columna, la línea fina también separa una columna de la siguiente */
   .menu-col + .menu-col{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line)}
@@ -1528,7 +1532,10 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   ::view-transition-group(*){animation-duration:0s}
   ::view-transition-new(root){animation:vt-funde var(--dur-3) var(--ease-out) both}
 }
-/* Transparencia reducida: la barra clara con fondo sólido */
+/* sin desenfoque en el navegador, el menú vuelve a ser blanco: traslúcido sin desenfoque no se lee */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.menu-panel{background:#fff}}
+/* Transparencia reducida: la barra clara y los menús con fondo sólido */
 @media (prefers-reduced-transparency:reduce){
   .barra.clara{background:var(--fondo);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .menu-panel{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
