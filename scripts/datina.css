@@ -1454,6 +1454,9 @@ html:not(.js) .esqueleto{display:none}
 
 /* ---------- artículos: una página por cruce ---------- */
 .notas{padding-top:var(--e-2)}
+/* la nota llega vacía y la arma datina.js: mientras tanto ocupa la pantalla, así "Seguí explorando" y el pie no se ven arriba un instante
+   y después saltan (la página se movía 0,52 en la primera carga, revisión de la línea de base del 11 de octubre de 2026) */
+.js article.nota:empty{min-height:100vh}
 .nota{max-width:740px}
 .notas>.migas{margin-top:var(--e-7)}
 .notas>.pasos{max-width:740px}

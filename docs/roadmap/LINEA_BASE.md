@@ -37,6 +37,9 @@ Son de una carga en Chrome sin ventana con los archivos en la misma computadora:
   - Los artículos dan entre 0,05 y 0,55 según la carga: la nota entera la arma `datina.js` al cargar, y a veces la página se muestra un instante antes.
   - El Explorador de relaciones da 0,12.
   - Arreglo para los dos: que el constructor escriba en el HTML el título y el esqueleto de la nota (o reserve su alto), como ya hace con las fichas.
+  - Resuelto el 11 de octubre de 2026, medido con Chrome sin ventana en la primera carga (caché vacía):
+    - Artículos: la nota vacía ocupa la pantalla mientras `datina.js` la arma (`.js article.nota:empty`), así "Seguí explorando" y el pie no se ven arriba y después saltan. Los gráficos de los artículos de cruces reservan su alto (`data-forma="puntos"`) y el de cantidades exportadas, el suyo (396 píxeles). En la primera carga, de 0,56 a 0,04.
+    - Lo que queda en los artículos (0,04) y todo el 0,12 del Explorador es el cambio de letra cuando llega Roboto Flex: en este entorno no están instaladas Roboto ni Verdana, que son las letras de reemplazo medidas, y el texto se reacomoda. En Windows, macOS y Android esas letras están y el reemplazo ocupa lo mismo.
 - INP: no se midió (necesita interacciones reales).
 
 ### Una prueba que se deshizo

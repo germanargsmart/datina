@@ -6170,7 +6170,8 @@ ART.forEach(a => {
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
-    `<div class="nota-graf"><h3>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h3><div class="grafico" data-g="${key}"></div>` +
+    // data-forma reserva el alto del gráfico mientras se dibuja, así el texto de abajo no salta (revisión de la línea de base)
+    `<div class="nota-graf"><h3>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h3><div class="grafico" data-g="${key}" data-forma="puntos"></div>` +
     `<p class="nota-pie-graf">Cada punto es una ${U.s}. La línea punteada muestra la tendencia.</p></div>` +
     `<p>${t.extremos}</p><p>${t.excep}</p><p>${t.peso}</p>` +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
@@ -6463,7 +6464,7 @@ const ART_SERIE = [{
       "Los índices de cantidad del INDEC son trimestrales, con 2004 = 100, y el INDEC revisa los últimos trimestres en cada publicación.",
       "La parte de cada rubro en las exportaciones se mide en dólares, así que cambia también con los precios internacionales."];
     return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "export-cantidades", tit: "Cantidades exportadas por gran rubro, promedio de cada año", forma: "lineas",
+      {g: "export-cantidades", tit: "Cantidades exportadas por gran rubro, promedio de cada año", forma: "lineas", alto: "396px",
         pie: `Índices de cantidad del INDEC, ${t.desde_anio} = 100, sin el efecto de los precios. Años completos.`, txt: [s1]},
       {g: "export-dolar", tit: "Cuánto cambió el dólar real medio año antes y cuánto cambiaron las cantidades exportadas", forma: "puntos",
         pie: "Cada punto es un trimestre, frente al mismo trimestre del año anterior. La línea punteada muestra la tendencia.", txt: [s2]},
@@ -6496,7 +6497,7 @@ ART_SERIE.forEach(a => {
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${t.contexto}</p>` +
-    t.secciones.map(s => `<div class="nota-graf"><h3>${s.tit}</h3><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"></div>` +
+    t.secciones.map(s => `<div class="nota-graf"><h3>${s.tit}</h3><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` +
       `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("")).join("") +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
     `<div class="nota-fuentes"><p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
