@@ -207,9 +207,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-reservas-bcra">
       <h3>¿Cuántas reservas tiene el Banco Central?</h3>
-      <p class="ficha-sub">Reservas internacionales del BCRA al cierre de cada mes, en millones de dólares, desde 1996</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra">
+      <p class="ficha-sub">Reservas internacionales del BCRA al cierre de cada mes, en millones de dólares, desde 1990</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
+        <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
         <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
       </div>
       <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
@@ -284,7 +285,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=b51cb8fad2"></script>
-<script src="datina.js?v=ff63aa75d2"></script>
+<script src="datos/fichas.js?v=4df48a53a6"></script>
+<script src="datina.js?v=1a150219c0"></script>
 </body>
 </html>

@@ -1800,7 +1800,8 @@ def bcra_monetarias():
         try:
             off = 0
             while True:
-                lote = puntos(pedir(f"{BASE}/{i}?desde=1990-01-01&hasta={hoy}&limit=3000&offset={off}"), [])
+                # desde 1940: las reservas mensuales (1605) empiezan ese año
+                lote = puntos(pedir(f"{BASE}/{i}?desde=1940-01-01&hasta={hoy}&limit=3000&offset={off}"), [])
                 pts += lote
                 if len(lote) < 3000:
                     break

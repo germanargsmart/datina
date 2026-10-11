@@ -182,11 +182,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-bcra">
       <h3>¿Cuánto cambiaron el dólar, las tasas y el dinero?</h3>
-      <p class="ficha-sub">Variables principales del Banco Central, último dato de cada mes, desde diciembre de 2016</p>
+      <p class="ficha-sub">Variables principales del Banco Central, último dato de cada mes, desde 1990 o desde que empieza cada serie</p>
       <label class="selector-ficha"><span>Variable</span><select id="bcra-sel"></select></label>
-      <div class="conmutador" role="group" aria-label="Medida" data-g="bcra-m" data-dib="bcra">
-        <button type="button" data-m="nominal" aria-pressed="true">Pesos de cada mes</button>
-        <button type="button" data-m="real" aria-pressed="false">Sin inflación</button>
+      <div class="conmutador" role="group" aria-label="Medida" id="bcra-conm" data-g="bcra-m" data-propio data-vistas="nominal,En pesos,real,A precios de hoy">
+        <button type="button" data-m="nominal" aria-pressed="true">En pesos</button>
+        <button type="button" data-m="real" aria-pressed="false">A precios de hoy</button>
       </div>
       <div class="grafico" data-g="bcra" data-forma="lineas"></div>
       <p class="lead" data-t="bcra"></p>
@@ -284,7 +284,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=b51cb8fad2"></script>
-<script src="datina.js?v=ff63aa75d2"></script>
+<script src="datos/fichas.js?v=4df48a53a6"></script>
+<script src="datina.js?v=1a150219c0"></script>
 </body>
 </html>

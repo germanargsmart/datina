@@ -984,13 +984,20 @@ const TX = {
       `En lo que va de ${V.anio} ${suma >= 0 ? "subieron" : "bajaron"} ${n0(Math.abs(suma))} millones` + (partes.length ? `: ${partes.join(" y ")}.` : "."); })(),
   "reservas-bcra-nota": `Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda ` +
     `como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente. ` +
-    `Cada punto es el último día con dato de cada mes. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el ` +
+    `Cada punto es el último día con dato de cada mes, desde ${SX.reservas.desde} con la serie mensual del BCRA. "Meses de importación" divide las reservas por el promedio ` +
+    `mensual de lo importado en los doce meses anteriores (INDEC): una referencia tradicional es que cubran al menos tres meses. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el ` +
     `${fLarga(SX.reservas.factores_hasta)}: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el ` +
     `efectivo mínimo que los bancos dejan en el BCRA y otras operaciones, entre ellas los cambios de cotización del oro y de las monedas. La tabla trae esos factores por año desde ${SX.reservas.factores_desde}.`,
-  "bcra-nota": `Datos de la API de Estadísticas Monetarias del Banco Central, con el último dato publicado de cada mes desde ${mesTx(SX.bcra.desde)}. Son ${SX.bcra.n} de sus variables ` +
-    `principales: las reservas están en Sector externo y la inflación, al principio de esta página, con los datos del INDEC. Las tasas son anuales: la nominal no suma los intereses ` +
-    `de los intereses y la efectiva sí. Las tasas para juicios son valores acumulados desde el comienzo de cada serie, que los tribunales usan para calcular intereses. "Sin inflación" pasa los montos en pesos a pesos de ${mesTx(SX.bcra.ipc_mes)} con el índice de precios al consumidor del INDEC, que llega ` +
-    `hasta ese mes. El CSV trae cada serie desde que empieza.`,
+  "bcra-nota": `Datos de la API de Estadísticas Monetarias del Banco Central, con el último dato publicado de cada mes, cada serie desde que empieza. Son ${SX.bcra.n} de sus ` +
+    `variables principales: las reservas están en Sector externo y la inflación, al principio de esta página, con los datos del INDEC. Las tasas son anuales: la nominal no suma ` +
+    `los intereses de los intereses y la efectiva sí. Las tasas para juicios son valores acumulados desde el comienzo de cada serie, que los tribunales usan para calcular intereses. ` +
+    `Para descontar la inflación, los montos en pesos pasan a pesos de ${mesTx(SX.bcra.ipc_mes)} con el índice de precios al consumidor del INDEC, que empieza en ` +
+    `${mesTx(SX.bcra.ipc_desde)} (antes no hay un índice para todo el país), o se miden en % del PBI a precios corrientes del INDEC, desde ${SX.bcra.pib_desde}. ` +
+    `El dólar a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que ` +
+    `paga una tasa a 30 días con la inflación del mes siguiente, y los índices de actualización y las tasas para juicios se comparan con la inflación de los mismos doce meses. ` +
+    `Los montos, el dólar y los índices en pesos de cada mes van en escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento.` +
+    (SX.bcra.rem_viejo ? ` La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de ${SX.bcra.rem_viejo[0]} a ${SX.bcra.rem_viejo[1]} ` +
+      `de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.` : ""),
   // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
   "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
     `Sin ajustar, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
@@ -1469,6 +1476,14 @@ const recorte = (svg, x, y, w, h, r) => {
 // rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
 const aparecer = (sel, delay = 0) => sel.attr("opacity", 0).transition().delay(Math.min(delay, 150)).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
 
+// marcas de un eje logarítmico: las potencias de diez, y si no llegan a tres, también el 2 y el 5 de cada una. Con más de seis, una sí y otra no
+function marcasLog([a, b]) {
+  const todas = [];
+  for (let e = Math.floor(Math.log10(a)); e <= Math.ceil(Math.log10(b)); e++)
+    [1, 2, 5].forEach(m => { const v = +(m * 10 ** e).toPrecision(12); if (v >= a && v <= b) todas.push({v, m}); });
+  const pot = todas.filter(t => t.m === 1), usar = pot.length >= 3 ? pot : todas;
+  return (usar.length > 6 ? usar.filter((_, i) => (usar.length - 1 - i) % 2 === 0) : usar).map(t => t.v);
+}
 function lineas(el, cfg) {
   const angosto = el.clientWidth < 520;
   const C = lienzo(el, cfg.h ? (angosto ? cfg.h - 20 : cfg.h) : (angosto ? 300 : 340), {t:14, r: angosto ? 92 : 128, b:30, l:44});
@@ -1476,9 +1491,12 @@ function lineas(el, cfg) {
   const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
   const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).range([0, iw]);
   const vals = [...cfg.series.map(s => s.k), ...(cfg.banda ? [cfg.banda.hi] : [])].flatMap(k => data.map(d => d[k])).filter(v => v != null);
-  const y = d3.scaleLinear().domain([cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
-  g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
-  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  // con cfg.log (etapa 41, series en pesos de muchos años), escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento
+  const y = cfg.log ? d3.scaleLog().domain([d3.min(vals) / 1.2, d3.max(vals) * 1.2]).range([ih, 0])
+    : d3.scaleLinear().domain([cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
+  const marcas5 = ax => cfg.log ? ax.tickValues(marcasLog(y.domain())) : ax.ticks(5);
+  g.append("g").attr("class","grilla").call(marcas5(d3.axisLeft(y)).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(marcas5(d3.axisLeft(y)).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   // en las series mensuales, un año en cada marca (en el celular, uno cada dos), y si son muchos años, uno cada dos o cada cuatro (etapa 25:
   // el EMAE desde 2004 amontonaba 23 años)
   const anios = d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1);
@@ -1486,7 +1504,7 @@ function lineas(el, cfg) {
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(cfg.mensual
     ? d3.axisBottom(x).tickValues(anios.filter(v => v % paso === 0)).tickFormat(d3.format("d")).tickSizeOuter(0)
     : d3.axisBottom(x).ticks(angosto ? 4 : 7).tickFormat(d3.format("d")).tickSizeOuter(0));
-  if (cfg.ref != null) {
+  if (cfg.ref != null && !cfg.log) {
     g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(cfg.ref)).attr("y2",y(cfg.ref)).attr("stroke",css("--faint")).attr("stroke-width",1).attr("stroke-dasharray", cfg.refLab ? "4 4" : null);
     if (cfg.refLab) g.append("text").attr("x", 6).attr("y", y(cfg.ref) + 16).attr("class","etq-suave").text(angosto && cfg.refLabCorto ? cfg.refLabCorto : cfg.refLab);
   }
@@ -4168,6 +4186,14 @@ DIB["cuenta-corriente"] = a => {
 MED["reservas-bcra"] = "serie";
 DIB["reservas-bcra"] = a => {
   const el = G("reservas-bcra"), V = SX.reservas, CORTO = {sector_publico: "Otras del sector público", efectivo_minimo: "Efectivo mínimo", organismos: "FMI y otros organismos"};
+  const MI = V.meses_imp;
+  $t("reservas-bcra").textContent = MED["reservas-bcra"] === "meses" && MI
+    ? `Con lo importado en los doce meses anteriores, las reservas de ${mesPer(MI.mes)} alcanzaban para ${n1(MI.v)} meses de compras al exterior, contra ${n1(MI.hace_un_anio)} un año antes. ` +
+      `Desde ${mesPer(MI.desde)}, el máximo fue de ${n1(MI.max)} meses, en ${mesPer(MI.max_mes)}, y el mínimo, de ${n1(MI.min)}, en ${mesPer(MI.min_mes)}.`
+    : TX["reservas-bcra"];
+  if (MED["reservas-bcra"] === "meses" && MI)
+    return lineas(el, {anim: a, data: T.reservas_bcra.filter(r => r.meses_importaciones != null).map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, ref: 3, refLab: "3 meses",
+      vf: v => n1(v) + " meses", yf: n0, xl: r => mesPer(r.mes), mensual: true, series: [{k: "meses_importaciones", lab: "Meses de importaciones", corto: "Reservas", c: NAR}]});
   if (MED["reservas-bcra"] === "factores")
     return barrasH(el, {anim: a, data: V.factores.map(f => ({codigo_indec: f.k, territorio: f.lab, v: f.v})), k: "v", vf: v => (v > 0 ? "+" : "") + n0(v),
       af: v => n0(v / 1000) + " mil", marcar: new Set(), l: 236, lAngosto: 160, corto: d => CORTO[d.codigo_indec] || d.territorio,
@@ -4175,36 +4201,112 @@ DIB["reservas-bcra"] = a => {
   lineas(el, {anim: a, data: T.reservas_bcra.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
     xl: r => mesPer(r.mes), mensual: true, series: [{k: "millones_usd", lab: "Reservas", c: NAR}]});
 };
-/* Variables principales del BCRA (etapa 41): el selector por grupo y, en las que están en pesos, el conmutador para verlas sin la inflación.
-   Cada tipo con su formato (texto y eje): tasas, pesos por dólar, millones de pesos, pesos e índices */
+/* Variables principales del BCRA (etapa 41). Cada serie va completa, desde que empieza, y cada tipo tiene sus vistas, con lo que 02_procesar.py
+   calcula para descontar la inflación (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para deflactar"):
+   - montos en pesos: en pesos de cada mes (escala logarítmica), sin la inflación (IPC del INDEC) y en % del PBI
+   - dólar: en pesos de cada mes (logarítmica) y a precios de hoy, descontada la inflación de los dos países
+   - tasas: la nominal y la real a 30 días, contra la inflación del mes siguiente
+   - variación del M2: junto a la inflación de los mismos doce meses, o descontada
+   - índices de actualización y tasas para juicios: el valor (logarítmica) y la variación en doce meses contra la inflación
+   - inflación esperada: junto a la que hubo después */
 const BV = SX.bcra;
-const BCR_F = {tasa: [pct, v => n0(v) + "%"], dolar: [v => v >= 100 ? n0(v) : n2(v), n0], pesos: [n2, n0], indice: [v => v >= 100 ? n1(v) : n2(v), n0], otro: [n2, n0],
-  millones: [v => v >= 1e6 ? `${n1(v / 1e6)} billones` : v >= 1e3 ? `${n0(v / 1e3)} mil millones` : `${n0(v)} millones`, n0]};
+const bCorto = x => Number.isInteger(x) ? n0(x) : (Math.abs(x) < 1 ? n2(x) : n1(x)).replace(/,0+$/, "");
+const bMonto = v => v >= 1e6 ? `${n1(v / 1e6)} billones` : v >= 1e3 ? `${n1(v / 1e3)} mil millones` : `${n0(v)} millones`;
+const bMontoEje = v => v === 0 ? "0" : v >= 1e6 ? bCorto(v / 1e6) + " bill." : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : bCorto(v) + " M";
+const bDolar = v => v >= 100 ? n0(v) : n2(v);
+const bIndice = v => v >= 1000 ? n0(v) : v >= 100 ? n1(v) : n2(v);
+const ejePct = x => n0(x) + "%";
+const BCR_VISTAS = {millones: [["nominal", "En pesos"], ["real", "Sin inflación"], ["pbi", "% del PBI"]], dolar: [["nominal", "En pesos"], ["real", "A precios de hoy"]],
+  tna: [["nominal", "Tasa"], ["real", "Tasa real"]], tea: [["nominal", "Tasa"], ["real", "Tasa real"]], var: [["nominal", "Con inflación"], ["real", "Sin inflación"]],
+  indice: [["nominal", "Valor"], ["var", "En 12 meses"]], pesos: [["nominal", "Valor"], ["var", "En 12 meses"]], acum: [["nominal", "Valor"], ["var", "En 12 meses"]]};
 const bcrVar = () => BV.variables.find(x => String(x.id) === MED["bcra-id"]) || BV.variables[0];
-const bcrReal = v => v.t === "millones" || v.t === "dolar";
-const bcrU = v => v.t === "tasa" ? v.u.replace(/^%\s*/, "") : v.t === "millones" ? "de pesos" : v.t === "indice" ? `(${v.u})` : v.u;
+// qué se dibuja en cada vista: la columna (k), su formato (f), el del eje (yf), la escala logarítmica y una segunda línea con la inflación del INDEC
+const bcrCfg = (v, m) => {
+  const inf12 = {k: "inflacion_12m", lab: "Inflación de los mismos 12 meses", corto: "Inflación", c: FRI};
+  if (v.t === "millones") return m === "pbi" ? {k: "pct_pbi", f: x => pct(x) + " del PBI", yf: ejePct}
+    : m === "real" ? {k: "valor_real", f: x => bMonto(x) + " de pesos", yf: bMontoEje} : {k: "valor", f: x => bMonto(x) + " de pesos", yf: bMontoEje, log: true};
+  if (v.t === "dolar") return {k: m === "real" ? "valor_real" : "valor", f: x => bDolar(x) + " pesos", yf: bCorto, log: m !== "real"};
+  if (v.t === "tna" || v.t === "tea") return m === "real" ? {k: "tasa_real_mensual", f: conSigno, yf: ejePct, ref: 0, lab: "Tasa real a 30 días", corto: "Tasa real"}
+    : {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa"};
+  if (v.t === "var") return m === "real" ? {k: "variacion_real_12m", f: conSigno, yf: ejePct, ref: 0, lab: "Sin la inflación", corto: "Sin inflación"}
+    : {k: "valor", f: pct, yf: ejePct, corto: "M2", extra: inf12};
+  if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
+    ? {k: "variacion_12m", f: pct, yf: ejePct, lab: `${v.n}, variación en 12 meses`, corto: v.t === "acum" ? "Tasa" : v.n.split(" (")[0], extra: inf12}
+    : {k: "valor", f: v.t === "acum" ? (x => n1(x) + "% acumulado") : v.t === "pesos" ? (x => n2(x) + " pesos") : bIndice, yf: bCorto, log: true};
+  if (v.t === "rem") return {k: "valor", f: pct, yf: ejePct, lab: "Inflación esperada", corto: "Esperada",
+    extra: {k: "inflacion_12m_siguientes", lab: "Inflación que hubo en esos 12 meses", corto: "La que hubo", c: FRI}};
+  return {k: "valor", f: n2, yf: bCorto};
+};
 $("bcra-sel").innerHTML = d3.groups(BV.variables, x => x.g).map(([g, vs]) => `<optgroup label="${g}">${vs.map(x => `<option value="${x.id}">${x.n}</option>`).join("")}</optgroup>`).join("");
 MED["bcra-id"] = String(BV.variables[0].id);
 MED["bcra-m"] = "nominal";
 $("bcra-sel").addEventListener("change", ev => { MED["bcra-id"] = ev.target.value; cambiarVista("bcra"); });
-const bcrTxt = (v, filas, k, real) => {
-  const f = (BCR_F[v.t] || BCR_F.otro)[0], val = x => `${f(x)} ${bcrU(v)}`.trim(), u = filas[filas.length - 1];
-  const ant = filas.find(r => r.mes === `${+u.mes.slice(0, 4) - 1}${u.mes.slice(4)}`), mx = filas.reduce((m, r) => r[k] > m[k] ? r : m, filas[0]);
-  return `${v.n}${real ? ", sin la inflación" : ""}: ${val(u[k])} en ${mesPer(u.mes)}` +
-    (ant ? (v.t === "tasa" ? `, contra ${val(ant[k])} un año antes.` : `, ${conSigno((u[k] / ant[k] - 1) * 100)} frente a un año antes.`) : ".") +
-    (mx === u ? ` Es el valor más alto del período.` : ` El más alto del período fue de ${val(mx[k])}, en ${mesPer(mx.mes)}.`) +
-    (real ? ` Los montos están en pesos de ${mesPer(BV.ipc_mes)}.` : "");
+// el conmutador cambia con el tipo de variable. Los botones se rehacen solo si cambian las vistas, así el foco del teclado no se pierde
+const bcrConm = v => {
+  const conm = $("bcra-conm"), vistas = BCR_VISTAS[v.t] || [["nominal", "Valor"]];
+  if (!vistas.some(([m]) => m === MED["bcra-m"])) MED["bcra-m"] = vistas[0][0];
+  if (conm.dataset.vistas !== vistas.join()) {
+    conm.dataset.vistas = vistas.join();
+    conm.innerHTML = vistas.map(([m, lab]) => `<button type="button" data-m="${m}">${lab}</button>`).join("");
+  }
+  conm.hidden = vistas.length < 2;
+  conm.style.setProperty("--n", vistas.length);
+  conm.style.setProperty("--i", vistas.findIndex(([m]) => m === MED["bcra-m"]));
+  conm.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === MED["bcra-m"])));
+};
+$("bcra-conm").addEventListener("click", ev => {
+  const b = ev.target.closest("button[data-m]");
+  if (!b || b.dataset.m === MED["bcra-m"]) return;
+  MED["bcra-m"] = b.dataset.m;
+  cambiarVista("bcra");
+});
+// el texto de cada vista: el último dato, la comparación que corresponde y el rango de la serie
+const bcrTxt = (v, m, c, filas) => {
+  const k = c.k, con = filas.filter(r => r[k] != null), u = con[con.length - 1], mes = r => mesPer(r.mes);
+  const ant = con.find(r => r.mes === `${+u.mes.slice(0, 4) - 1}${u.mes.slice(4)}`);
+  const mx = con.reduce((a, r) => r[k] > a[k] ? r : a), mn = con.reduce((a, r) => r[k] < a[k] ? r : a);
+  const rango = f => ` Desde ${mes(con[0])}, el valor más alto fue de ${f(mx[k])}, en ${mes(mx)}, y el más bajo, de ${f(mn[k])}, en ${mes(mn)}.`;
+  const doce = ant ? `, ${conSigno((u[k] / ant[k] - 1) * 100)} en doce meses` : "";
+  const ambos = c.extra ? filas.filter(r => r[k] != null && r[c.extra.k] != null) : [];
+  const b = ambos[ambos.length - 1];
+  if (v.t === "millones") return m === "nominal"
+    ? `${v.n}: ${c.f(u[k])} en ${mes(u)}${doce}. En pesos de cada mes, la serie sube sobre todo por la inflación: para comparar en el tiempo están las vistas sin la inflación, ` +
+      `desde ${mesPer(BV.ipc_desde)}, y en % del PBI, desde ${BV.pib_desde}.`
+    : m === "real" ? `${v.n}, en pesos de ${mesPer(BV.ipc_mes)}: ${bMonto(u[k])} en ${mes(u)}${doce}.` + rango(bMonto)
+    : `${v.n}: ${c.f(u[k])} en ${mes(u)}.` + rango(c.f);
+  if (v.t === "dolar") return m === "real"
+    ? `${v.n}, descontada la inflación de la Argentina y la de los Estados Unidos: ${c.f(u[k])} por dólar en ${mes(u)}.` + rango(c.f) + ` Todos los valores están en pesos de ${mesPer(BV.tcr_mes)}.`
+    : `${v.n}: ${c.f(u[k])} por dólar en ${mes(u)}${doce}. La vista a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos.`;
+  if (v.t === "tna" || v.t === "tea") {
+    if (m === "nominal") return `${v.n}: ${c.f(u[k])} en ${mes(u)}` + (ant ? `, contra ${pct(ant[k])} un año antes` : "") + `. El valor más alto desde ${mes(con[0])} fue de ${pct(mx[k])}, en ${mes(mx)}.`;
+    const ult = con.slice(-12), pos = ult.filter(r => r[k] > 0).length;
+    return `${v.n}: tasa real a 30 días de ${conSigno(u[k])} en ${mes(u)}, con una inflación de ${pct(u.inflacion_mes_siguiente)} en el mes siguiente.` +
+      (ult.length === 12 ? ` En los últimos doce meses con dato fue positiva en ${pos} y negativa en ${12 - pos}.` : "") +
+      ` Desde ${mes(con[0])}, el promedio fue de ${conSigno(d3.mean(con, r => r[k]))} por mes.`;
+  }
+  if (v.t === "var") return m === "real" ? `${v.n}, descontada la inflación: ${conSigno(u[k])} en ${mes(u)}.` + rango(conSigno)
+    : `${v.n}: ${pct(u[k])} en ${mes(u)}.` + (b ? ` En ${mes(b)}, el último mes con inflación publicada, fue de ${pct(b[k])}, con una inflación de ${pct(b[c.extra.k])} en los mismos doce meses.` : "");
+  if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
+    ? (b ? `${v.n}: ${conSigno(b[k])} en los doce meses hasta ${mes(b)}, contra una inflación de ${pct(b[c.extra.k])}.` : `${v.n}: ${conSigno(u[k])} en los doce meses hasta ${mes(u)}.`)
+    : `${v.n}: ${c.f(u[k])} en ${mes(u)}` + (v.t === "acum" ? `, lo que suman los intereses desde ${mes(con[0])}` : "") + `. La vista en 12 meses compara su variación con la inflación.`;
+  if (v.t === "rem") {
+    const mas = ambos.filter(r => r[c.extra.k] > r[k]).length;
+    return `En ${mes(u)}, quienes responden el Relevamiento de Expectativas de Mercado del BCRA esperaban ${pct(u[k])} de inflación para los doce meses siguientes.` +
+      (b ? ` La última expectativa que ya se puede comparar, la de ${mes(b)}, fue de ${pct(b[k])}, y la inflación de esos doce meses resultó de ${pct(b[c.extra.k])}.` +
+        ` En ${mas} de los ${ambos.length} meses comparables, la inflación fue mayor que la esperada.` : "");
+  }
+  return `${v.n}: ${c.f(u[k])} en ${mes(u)}.`;
 };
 DIB.bcra = conTablas("bcra", ["bcra_variables"], a => {
-  const v = bcrVar(), conReal = bcrReal(v), real = conReal && MED["bcra-m"] === "real", k = real ? "valor_real" : "valor", el = G("bcra");
-  const conm = document.querySelector('.conmutador[data-g="bcra-m"]'); if (conm) conm.hidden = !conReal;
-  const filas = T.bcra_variables.filter(r => r.id === v.id && r.mes >= BV.desde && r[k] != null).map(r => ({...r, t: tPer(r.mes)}));
-  if (!filas.length) return sinDatos(el, "No hay datos de esta variable.");
-  const f = BCR_F[v.t] || BCR_F.otro, grande = d3.max(filas, r => r[k]) >= 1e6;
-  $t("bcra").textContent = bcrTxt(v, filas, k, real);
-  lineas(el, {anim: a, data: filas, x: "t", y0: Math.min(0, d3.min(filas, r => r[k])), vf: f[0], xl: r => mesPer(r.mes), mensual: true,
-    yf: v.t === "millones" ? (x => grande ? n1(x / 1e6).replace(/,0$/, "") + " bill." : n0(x / 1e3) + " mil M") : f[1],
-    series: [{k, lab: v.n, corto: "Último dato", c: NAR}]});
+  const v = bcrVar(), el = G("bcra");
+  bcrConm(v);
+  const m = MED["bcra-m"], c = bcrCfg(v, m);
+  const filas = T.bcra_variables.filter(r => r.id === v.id && (r[c.k] != null || (c.extra && r[c.extra.k] != null))).map(r => ({...r, t: tPer(r.mes)}));
+  if (!filas.some(r => r[c.k] != null)) return sinDatos(el, "No hay datos de esta variable.");
+  $t("bcra").textContent = bcrTxt(v, m, c, filas);
+  const vals = filas.flatMap(r => [r[c.k], c.extra ? r[c.extra.k] : null]).filter(x => x != null);
+  lineas(el, {anim: a, data: filas, x: "t", log: c.log, y0: Math.min(0, d3.min(vals)), ref: c.ref, vf: c.f, yf: c.yf, xl: r => mesPer(r.mes), mensual: true,
+    series: [{k: c.k, lab: c.lab || v.n, corto: c.corto || "Último dato", c: NAR}, ...(c.extra ? [c.extra] : [])]});
   // la tabla abierta sigue a la variable elegida
   const caja = document.querySelector("#f-bcra .tabla-datos"); if (caja) caja.innerHTML = tablaDatos(TABLA_VISTA["f-bcra"](T.bcra_variables), "f-bcra");
 });
@@ -5122,7 +5224,7 @@ function pintarExtra() {
   caja.querySelectorAll("button[data-c]").forEach(b => b.addEventListener("click", () => elegir(b.dataset.c)));
 }
 
-document.querySelectorAll(".conmutador:not(.pestanas)").forEach(conm => {
+document.querySelectorAll(".conmutador:not(.pestanas):not([data-propio])").forEach(conm => {
   const k = conm.dataset.g;
   conm.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => {
     if (MED[k] === b.dataset.m) return;
@@ -5414,8 +5516,14 @@ const nTabla = loc.format(",.2~f");
 // Tabla de la ficha dentro de la tarjeta (idea de USAFacts), con las mismas filas que el CSV
 // "Ver tabla" de una ficha con una tabla larga de varias series (etapa 41): solo la serie elegida, del mes más reciente al más viejo
 const TABLA_VISTA = {
-  "f-bcra": t => { const v = bcrVar();
-    return t.filter(r => r.id === v.id).reverse().map(r => ({mes: r.mes, [`${v.n}, ${v.u}`]: r.valor, ...(bcrReal(v) ? {[`en pesos de ${mesPer(BV.ipc_mes)}`]: r.valor_real} : {})})); }
+  "f-bcra": t => {
+    const v = bcrVar(), filas = t.filter(r => r.id === v.id).reverse();
+    const NOM = {valor_real: v.t === "dolar" ? `a precios de ${mesPer(BV.tcr_mes)}` : `en pesos de ${mesPer(BV.ipc_mes)}`, pct_pbi: "en % del PBI",
+      tasa_real_mensual: "tasa real a 30 días, %", inflacion_mes_siguiente: "inflación del mes siguiente, %", variacion_12m: "variación en 12 meses, %",
+      variacion_real_12m: "variación sin inflación, %", inflacion_12m: "inflación de los mismos 12 meses, %", inflacion_12m_siguientes: "inflación de los 12 meses siguientes, %"};
+    const cols = Object.keys(NOM).filter(c => filas.some(r => r[c] != null));
+    return filas.map(r => ({mes: r.mes, [`${v.n}, ${v.u}`]: r.valor, ...Object.fromEntries(cols.map(c => [NOM[c], r[c]]))}));
+  }
 };
 function tablaDatos(filas, ficha = "") {
   const MAX = 300, todas = Object.keys(filas[0]);

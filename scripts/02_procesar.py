@@ -1511,29 +1511,30 @@ if (CRUDO / "series_sector_externo_Q.csv").exists():
 BCR_FACT = [(78, "compras", "Compras de divisas"), (79, "organismos", "Organismos internacionales"), (80, "sector_publico", "Otras operaciones del sector público"),
             (81, "efectivo_minimo", "Efectivo mínimo de los bancos"), (82, "otras", "Otras operaciones")]
 BCR_RESERVAS = {1, 74, 77, 78, 79, 80, 81, 82, 1226, 1244, 1245, 1605}
-# Grupo, nombre corto y tipo de cada variable principal para el selector, y la unidad si la de la API no alcanza. El tipo dice cómo se muestra:
-# tasa (porcentaje), millones (de pesos), dolar (pesos por dólar), pesos o indice. Las tres tasas para juicios (43, 1197 y 1198) no son tasas
-# anuales: son valores acumulados desde el comienzo de cada serie (en 2026 pasan de 27.000%), y van como índices. La inflación mensual e
+# Grupo, nombre corto y tipo de cada variable principal para el selector, y la unidad si la de la API no alcanza. El tipo dice cómo se muestra y
+# cómo se deflacta (más abajo, después del IPC): dolar (pesos por dólar), tna y tea (tasas nominales o efectivas anuales), var (variación
+# interanual), rem (inflación esperada), millones (de pesos), indice y pesos (unidades que se actualizan) y acum. Las tres tasas para juicios
+# (43, 1197 y 1198, acum) no son tasas anuales: son valores acumulados desde el comienzo de cada serie (en 2026 pasan de 27.000%). La inflación mensual e
 # interanual (27 y 28) es la del INDEC y no se repite: toda la inflación del sitio sale de sus archivos. Una variable principal nueva que no
 # esté acá entra con el nombre de la API en "Otras variables".
 BCR_SEL = {4: ("Tipo de cambio", "Dólar minorista, promedio vendedor", "dolar"), 5: ("Tipo de cambio", "Dólar mayorista de referencia (A3500)", "dolar"),
            1187: ("Tipo de cambio", "Banda cambiaria, límite inferior", "dolar"), 1188: ("Tipo de cambio", "Banda cambiaria, límite superior", "dolar"),
-           12: ("Tasas de interés", "Plazo fijo a 30 días", "tasa"), 7: ("Tasas de interés", "BADLAR de bancos privados, nominal anual", "tasa"),
-           35: ("Tasas de interés", "BADLAR de bancos privados, efectiva anual", "tasa"), 44: ("Tasas de interés", "TAMAR de bancos privados, nominal anual", "tasa"),
-           45: ("Tasas de interés", "TAMAR de bancos privados, efectiva anual", "tasa"), 8: ("Tasas de interés", "TM20 de bancos privados", "tasa"),
-           11: ("Tasas de interés", "Préstamos entre bancos privados (BAIBAR)", "tasa"), 13: ("Tasas de interés", "Adelantos en cuenta corriente", "tasa"),
-           14: ("Tasas de interés", "Préstamos personales", "tasa"),
+           12: ("Tasas de interés", "Plazo fijo a 30 días", "tna"), 7: ("Tasas de interés", "BADLAR de bancos privados, nominal anual", "tna"),
+           35: ("Tasas de interés", "BADLAR de bancos privados, efectiva anual", "tea"), 44: ("Tasas de interés", "TAMAR de bancos privados, nominal anual", "tna"),
+           45: ("Tasas de interés", "TAMAR de bancos privados, efectiva anual", "tea"), 8: ("Tasas de interés", "TM20 de bancos privados", "tna"),
+           11: ("Tasas de interés", "Préstamos entre bancos privados (BAIBAR)", "tna"), 13: ("Tasas de interés", "Adelantos en cuenta corriente", "tna"),
+           14: ("Tasas de interés", "Préstamos personales", "tna"),
            15: ("Dinero", "Base monetaria", "millones"), 16: ("Dinero", "Circulación monetaria", "millones"),
            17: ("Dinero", "Billetes y monedas en poder del público", "millones"), 18: ("Dinero", "Efectivo en los bancos", "millones"),
-           19: ("Dinero", "Cuentas corrientes de los bancos en el BCRA", "millones"), 25: ("Dinero", "M2 privado, variación interanual", "tasa"),
+           19: ("Dinero", "Cuentas corrientes de los bancos en el BCRA", "millones"), 25: ("Dinero", "M2 privado, variación interanual", "var"),
            21: ("Depósitos y préstamos", "Depósitos en los bancos", "millones"), 22: ("Depósitos y préstamos", "Depósitos en cuenta corriente", "millones"),
            23: ("Depósitos y préstamos", "Depósitos en caja de ahorro", "millones"), 24: ("Depósitos y préstamos", "Depósitos a plazo", "millones"),
-           26: ("Depósitos y préstamos", "Préstamos al sector privado", "millones"), 29: ("Precios", "Inflación esperada para los próximos 12 meses (REM)", "tasa"),
+           26: ("Depósitos y préstamos", "Préstamos al sector privado", "millones"), 29: ("Precios", "Inflación esperada para los próximos 12 meses (REM)", "rem"),
            30: ("Índices de actualización", "CER (coeficiente de estabilización de referencia)", "indice"), 31: ("Índices de actualización", "UVA (unidad de valor adquisitivo)", "pesos"),
            32: ("Índices de actualización", "UVI (unidad de vivienda)", "pesos"), 40: ("Índices de actualización", "ICL (índice para contratos de alquiler)", "indice"),
-           43: ("Tasas acumuladas para juicios", "Tasa pasiva para uso de la justicia (Comunicación P 14.290)", "indice", "acumulado, en %"),
-           1197: ("Tasas acumuladas para juicios", "Intereses moratorios del Código Civil y Comercial (art. 768 c)", "indice", "acumulado, en %"),
-           1198: ("Tasas acumuladas para juicios", "Tasa pasiva de la Ley 27.802 (art. 55 a)", "indice", "acumulado, en %")}
+           43: ("Tasas acumuladas para juicios", "Tasa pasiva para uso de la justicia (Comunicación P 14.290)", "acum", "acumulado, en %"),
+           1197: ("Tasas acumuladas para juicios", "Intereses moratorios del Código Civil y Comercial (art. 768 c)", "acum", "acumulado, en %"),
+           1198: ("Tasas acumuladas para juicios", "Tasa pasiva de la Ley 27.802 (art. 55 a)", "acum", "acumulado, en %")}
 BCR_FUERA = {27, 28}
 BCR_UNIDAD = {"en porcentaje nominal anual": "% nominal anual", "en porcentaje efectivo anual": "% efectivo anual", "en porcentaje": "%",
               "en millones de ars": "millones de pesos", "pesos argentinos por dólar estadounidense": "pesos por dólar", "en ars": "pesos",
@@ -1545,7 +1546,16 @@ if (CRUDO / "bcra_series.csv").exists() and (CRUDO / "bcra_variables.json").exis
         "cambiaron las variables de reservas de la API del BCRA"
     _bcr_r = _bcr[_bcr.id == 1].sort_values("fecha")
     assert len(_bcr_r) > 5000 and _bcr_r.fecha.max() >= pd.Timestamp.now().normalize() - pd.Timedelta(days=30), "las reservas del BCRA vinieron incompletas o viejas"
-    reservas_bcra = _bcr_r.groupby(_bcr_r.fecha.dt.to_period("M")).tail(1).assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))[["mes", "valor"]].rename(columns={"valor": "millones_usd"})
+    # antes de la serie diaria, la mensual de fin de mes (1605), que coincide con ella en los meses que comparten
+    _bcr_rm = _bcr[(_bcr.id == 1605) & (_bcr.fecha < _bcr_r.fecha.min())].sort_values("fecha")
+    reservas_bcra = pd.concat([_bcr_rm, _bcr_r.groupby(_bcr_r.fecha.dt.to_period("M")).tail(1)]).assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))[["mes", "valor"]]
+    reservas_bcra = reservas_bcra.rename(columns={"valor": "millones_usd"}).reset_index(drop=True)
+    assert reservas_bcra.mes.is_unique and list(reservas_bcra.mes) == sorted(reservas_bcra.mes), "las dos series de reservas se superponen"
+    # en meses de importaciones: las reservas de fin de cada mes divididas por el promedio mensual de lo importado en los doce meses que terminan
+    # en ese mes, una medida clásica de cuánto cubren (no dice cuántas son de libre disponibilidad)
+    if balanza_comercial is not None:
+        _bcr_imp = _ice.set_index(_ice.t.dt.strftime("%Y-%m")).importaciones.rolling(12).mean()
+        reservas_bcra["meses_importaciones"] = (reservas_bcra.millones_usd / reservas_bcra.mes.map(_bcr_imp)).round(2)
     _bcr_u, _bcr_mx = _bcr_r.iloc[-1], _bcr_r.loc[_bcr_r.valor.idxmax()]
     _bcr_ha = _bcr_r[_bcr_r.fecha <= _bcr_u.fecha - pd.DateOffset(years=1)].iloc[-1]
     _bcr_ini = _bcr_r[_bcr_r.fecha.dt.year == _bcr_u.fecha.year].iloc[0]
@@ -1554,15 +1564,30 @@ if (CRUDO / "bcra_series.csv").exists() and (CRUDO / "bcra_variables.json").exis
     reservas_factores = reservas_factores.rename_axis("anio").reset_index().round(1)
     _bcr_fu = reservas_factores.iloc[-1]
     SE_RES["reservas"] = {"fecha": _bcr_u.fecha.strftime("%d/%m/%Y"), "valor": round(float(_bcr_u.valor)), "hace_un_anio": round(float(_bcr_ha.valor)),
-                          "ini_anio": round(float(_bcr_ini.valor)), "anio": int(_bcr_u.fecha.year), "desde": int(_bcr_r.fecha.dt.year.min()),
+                          "ini_anio": round(float(_bcr_ini.valor)), "anio": int(_bcr_u.fecha.year), "desde": int(reservas_bcra.mes.min()[:4]),
                           "max": round(float(_bcr_mx.valor)), "max_fecha": _bcr_mx.fecha.strftime("%m/%Y"),
                           "factores": [{"k": k, "lab": lab, "v": round(float(_bcr_fu[k]))} for _, k, lab in BCR_FACT], "factores_desde": int(reservas_factores.anio.min()),
                           "factores_hasta": _bcr_f.fecha.max().strftime("%d/%m/%Y")}
+    if "meses_importaciones" in reservas_bcra:
+        _bcr_mi = reservas_bcra.dropna(subset=["meses_importaciones"]).set_index("mes").meses_importaciones
+        SE_RES["reservas"]["meses_imp"] = {"mes": _bcr_mi.index[-1], "v": float(_bcr_mi.iloc[-1]), "hace_un_anio": float(_bcr_mi.iloc[-13]),
+                                           "desde": _bcr_mi.index[0], "max": float(_bcr_mi.max()), "max_mes": _bcr_mi.idxmax(),
+                                           "min": float(_bcr_mi.min()), "min_mes": _bcr_mi.idxmin()}
     # las demás variables principales: la tabla larga del selector (el último dato de cada mes) y la lista con el nombre, el grupo y la unidad
     _bcr_p = sorted(i for i in _bcr.id.unique() if i not in BCR_RESERVAS | BCR_FUERA and _bcr_v.get(i, {}).get("categoria") == "Principales Variables")
     _bcr_l = _bcr[_bcr.id.isin(_bcr_p)].assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))
     bcra_variables = _bcr_l.groupby(["id", "mes"]).valor.last().reset_index()
     bcra_variables = bcra_variables.round(4)
+    # la inflación esperada: solo el tramo continuo más reciente, el del REM actual, que empieza en 2016. La API trae además datos de 2004 a
+    # 2012 de un relevamiento anterior, que no es comparable con el actual
+    _bcr_viejo = {}
+    for _bcr_i in [i for i in _bcr_p if BCR_SEL.get(i, ("", "", ""))[2] == "rem"]:
+        _bcr_pm = pd.PeriodIndex(bcra_variables.mes[bcra_variables.id == _bcr_i], freq="M")
+        _bcr_salto = pd.Series(_bcr_pm.asi8).diff().gt(1).to_numpy().nonzero()[0]
+        if len(_bcr_salto):
+            _bcr_corte = _bcr_pm[_bcr_salto[-1]].strftime("%Y-%m")
+            _bcr_viejo[_bcr_i] = [str(_bcr_pm[0].year), str(_bcr_pm[_bcr_salto[-1] - 1].year)]
+            bcra_variables = bcra_variables[~((bcra_variables.id == _bcr_i) & (bcra_variables.mes < _bcr_corte))].reset_index(drop=True)
     _bcr_g = list(dict.fromkeys(v[0] for v in BCR_SEL.values()))
     _bcr_d = lambda i: re.sub(r"\s+", " ", _bcr_v[i]["descripcion"]).strip().rstrip(".")
     bcra_variables_lista = pd.DataFrame([{"id": int(i), "grupo": BCR_SEL.get(i, ("Otras variables",))[0], "nombre": BCR_SEL[i][1] if i in BCR_SEL else _bcr_d(i),
@@ -2434,14 +2459,67 @@ _ipc_ng = IPC_INDEC[(IPC_INDEC.Region == "Nacional") & (IPC_INDEC.Codigo == "0")
 assert _ipc_ng.index.is_unique and _ipc_ng.index[0] == "2016-12" and abs(_ipc_ng.iloc[0] - 100) < 1e-9, "el IPC del INDEC no empieza en diciembre de 2016 = 100"
 assert list(_ipc_ng.index) == list(pd.period_range(_ipc_ng.index[0], _ipc_ng.index[-1], freq="M").strftime("%Y-%m")), "faltan meses en el IPC del INDEC"
 ipc = pd.Series(_ipc_ng.values, index=pd.to_datetime(_ipc_ng.index + "-01"))
-# Las variables del BCRA en pesos (dinero, depósitos, préstamos y dólar) también descontada la inflación, en pesos del último mes con IPC: los
-# meses posteriores quedan sin ese valor. El selector muestra los últimos diez años, sin pasar del primer mes del IPC del INDEC.
+# Las variables del BCRA con criterio económico (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para
+# deflactar lo que haya que deflactar, mostrá series largas que haya"). Cada serie va completa, desde que empieza, y según su tipo suma:
+# - millones (dinero, depósitos y préstamos en pesos): valor_real, en pesos del último mes con el IPC del INDEC (desde diciembre de 2016, cuando
+#   empieza el índice nacional), y pct_pbi, en % del PBI a precios corrientes del INDEC (el promedio de los cuatro trimestres que terminan en el
+#   del mes, porque la serie viene anualizada), desde 2004. El PBI no depende de los índices de precios de 2007 a 2015, que el INDEC revisó.
+# - dolar: valor_real, en pesos de hoy y descontada también la inflación de los Estados Unidos, con el tipo de cambio real bilateral del BCRA
+#   (ITCRB Estados Unidos, promedio mensual) y el A3500 promedio del mes: valor x (ITCRB / A3500) / (ITCRB / A3500 del último mes con los dos).
+#   Antes de 2004, el A3500 promedio es el de los dos fines de mes. Es el criterio del BCRA para su tipo de cambio real.
+# - tna y tea (tasas): tasa_real_mensual, lo que rindió (o costó) a 30 días contra la inflación del mes siguiente del IPC del INDEC (ex post).
+#   La tasa nominal anual pasa a 30 días con 30/365 y la efectiva, con su potencia.
+# - var (variación interanual del M2): variacion_real_12m, descontada la inflación interanual.
+# - indice, pesos y acum: variacion_12m, junto a inflacion_12m, la del IPC del INDEC en los mismos doce meses. Las acumuladas, como coeficiente.
+# - rem (inflación esperada): inflacion_12m_siguientes, la que hubo en los doce meses siguientes según el INDEC.
 if bcra_variables is not None:
-    _bcr_rl = bcra_variables.id.isin(bcra_variables_lista[bcra_variables_lista.tipo.isin(["millones", "dolar"])].id)
-    bcra_variables["valor_real"] = (bcra_variables.valor * _ipc_ng.iloc[-1] / bcra_variables.mes.map(_ipc_ng)).where(_bcr_rl).round(4)
-    _bcr_desde = max(_ipc_ng.index[0], (pd.Period(bcra_variables.mes.max(), freq="M") - 120).strftime("%Y-%m"))
-    SE_RES["bcra"].update({"desde": _bcr_desde, "ipc_mes": _ipc_ng.index[-1]})
-    SE_RES["bcra_desde"] = f"{MES[int(_bcr_desde[5:]) - 1]} de {_bcr_desde[:4]}"
+    _bcr_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq="M"))
+    _bcr_inf = {"sig": (_bcr_P.shift(-1) / _bcr_P - 1) * 100, "12": (_bcr_P / _bcr_P.shift(12) - 1) * 100, "12s": (_bcr_P.shift(-12) / _bcr_P - 1) * 100}
+    _bcr_pib = pd.read_csv(CRUDO / "pib_corriente.csv").dropna()
+    _bcr_pib = pd.Series(_bcr_pib.oferta_global_pib.values, index=pd.PeriodIndex(_bcr_pib.indice_tiempo, freq="Q"))
+    assert (pd.Series(_bcr_pib.index.asi8).diff().dropna() == 1).all(), "faltan trimestres en el PBI a precios corrientes"
+    # el PBI anual que termina en cada trimestre, mes a mes con interpolación logarítmica: con el del trimestre fijo, en los años de inflación
+    # alta el cociente saltaba al empezar cada trimestre
+    _bcr_pib = _bcr_pib.rolling(4).mean().dropna()
+    _bcr_pibm = pd.Series(_bcr_pib.values, index=_bcr_pib.index.asfreq("M", how="end"))
+    _bcr_pibm = np.exp(np.log(_bcr_pibm.reindex(pd.period_range(_bcr_pibm.index[0], _bcr_pibm.index[-1], freq="M"))).interpolate())
+    _bcr_tcr = pd.read_csv(CRUDO / "bcra_itcrm.csv").dropna(subset=["eeuu"])
+    _bcr_tcr = pd.Series(_bcr_tcr.eeuu.values, index=pd.PeriodIndex(_bcr_tcr.mes, freq="M"))
+    _bcr_a35 = pd.read_csv(CRUDO / "tipo_cambio_a3500.csv").dropna()
+    _bcr_a35 = pd.Series(_bcr_a35.tipo_cambio_a3500.values, index=pd.PeriodIndex(_bcr_a35.indice_tiempo, freq="M"))
+    _bcr_fm = bcra_variables[bcra_variables.id == 5].set_index(pd.PeriodIndex(bcra_variables[bcra_variables.id == 5].mes, freq="M")).valor
+    _bcr_a35 = _bcr_a35.combine_first(((_bcr_fm + _bcr_fm.shift(1)) / 2).where(pd.Series(_bcr_fm.index.asi8, index=_bcr_fm.index).diff().eq(1)).dropna())
+    _bcr_rel = (_bcr_tcr / _bcr_a35).dropna()  # precios de los Estados Unidos sobre los de la Argentina, salvo una constante
+    _bcr_t = bcra_variables.id.map(bcra_variables_lista.set_index("id").tipo)
+    _bcr_m = pd.PeriodIndex(bcra_variables.mes, freq="M")
+    _bcr_s = pd.Series(range(len(bcra_variables)), index=pd.MultiIndex.from_arrays([bcra_variables.id, _bcr_m]))
+    _bcr_v = pd.Series(bcra_variables.valor.values, index=_bcr_s.index)
+    _bcr_ant = _bcr_v.reindex(pd.MultiIndex.from_arrays([bcra_variables.id, _bcr_m - 12])).values  # el mismo mes del año anterior
+    _bcr_en = lambda serie: _bcr_m.map(lambda p: serie.get(p, float("nan"))).to_numpy(dtype=float)
+    _bcr_i30 = (bcra_variables.valor / 100 * 30 / 365).where(_bcr_t == "tna", (1 + bcra_variables.valor / 100) ** (30 / 365) - 1)
+    _bcr_d = {
+        "valor_real": (bcra_variables.valor * _bcr_P.iloc[-1] / _bcr_en(_bcr_P)).where(_bcr_t == "millones",
+                                                                                    (bcra_variables.valor * _bcr_en(_bcr_rel) / _bcr_rel.iloc[-1]).where(_bcr_t == "dolar")),
+        "pct_pbi": (bcra_variables.valor / _bcr_en(_bcr_pibm) * 100).where(_bcr_t == "millones"),
+        "tasa_real_mensual": (((1 + _bcr_i30) / (1 + _bcr_en(_bcr_inf["sig"]) / 100) - 1) * 100).where(_bcr_t.isin(["tna", "tea"])),
+        "inflacion_mes_siguiente": pd.Series(_bcr_en(_bcr_inf["sig"]), index=bcra_variables.index).where(_bcr_t.isin(["tna", "tea"])),
+        "variacion_12m": ((bcra_variables.valor / _bcr_ant - 1) * 100).where(_bcr_t.isin(["indice", "pesos"]),
+                                                                            (((1 + bcra_variables.valor / 100) / (1 + _bcr_ant / 100) - 1) * 100).where(_bcr_t == "acum")),
+        "variacion_real_12m": (((1 + bcra_variables.valor / 100) / (1 + _bcr_en(_bcr_inf["12"]) / 100) - 1) * 100).where(_bcr_t == "var"),
+        "inflacion_12m": pd.Series(_bcr_en(_bcr_inf["12"]), index=bcra_variables.index).where(_bcr_t.isin(["indice", "pesos", "acum", "var"])),
+        "inflacion_12m_siguientes": pd.Series(_bcr_en(_bcr_inf["12s"]), index=bcra_variables.index).where(_bcr_t == "rem"),
+    }
+    for _bcr_k, _bcr_c in _bcr_d.items():
+        bcra_variables[_bcr_k] = _bcr_c.round(2)
+    bcra_variables["valor_real"] = bcra_variables.valor_real.where(_bcr_t != "millones", bcra_variables.valor_real.round(0))
+    # controles: las medidas reales en un rango posible
+    assert bcra_variables.pct_pbi.dropna().between(0, 100).all(), "un monto del BCRA da más del PBI"
+    assert bcra_variables.tasa_real_mensual.dropna().between(-30, 30).all(), "una tasa real mensual del BCRA fuera de rango"
+    _bcr_l2 = bcra_variables.groupby("id").mes.agg(["min", "max"])
+    SE_RES["bcra"].update({"ipc_mes": _ipc_ng.index[-1], "ipc_desde": _ipc_ng.index[0], "pib_desde": str(_bcr_pib.index[0].year),
+                           "pib_hasta": f"{_bcr_pib.index[-1].quarter}T{_bcr_pib.index[-1].year}", "tcr_mes": _bcr_rel.index[-1].strftime("%Y-%m"),
+                           "inicio": {int(i): r["min"] for i, r in _bcr_l2.iterrows()}, "rem_viejo": next(iter(_bcr_viejo.values()), None)})
+    SE_RES["bcra_inicio"] = str(bcra_variables.mes.min()[:4])
 _base = pd.Timestamp("2016-12-01")
 costo = icc.div(icc.loc[_base]).mul(100).join(ipc.rename("ipc"), how="inner")
 costo = costo[costo.index >= _base]
