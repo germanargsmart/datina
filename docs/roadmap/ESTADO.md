@@ -80,7 +80,7 @@ Aplicado en las cuatro fichas de Trabajo (empleo, salarios, rotación y exportac
 ## Próxima tarea
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
-1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha. Regla aprobada por el autor el 11 de octubre de 2026. Hecho: Trabajo, Precios y actividad, Sector privado, Construcción y vivienda y Cuentas públicas. Sigue, en el orden de `ORDEN_TEMAS`, mostrando el resultado: Instituciones políticas, Seguridad, Energía, Petróleo y gas, Movilidad, Flora y fauna, Curiosidades, y después Población, Migraciones, Turismo, Salud (sin tocar las fichas de suicidio), Educación y Pobreza y hogares.
+1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha. Regla aprobada por el autor el 11 de octubre de 2026. Hecho en todas las secciones (11 de octubre de 2026): la leyenda corta va como tercer elemento de `CLAVE` en todas las fichas con cifra destacada y ningún texto empieza repitiendo la cifra. Quedan oraciones que repiten la cifra más adelante en algunos textos (áreas de concesión, pozos), dejadas a propósito porque comparan con otro dato.
 2. La línea del país en las barras por provincia tapa los valores de las provincias cercanas al promedio.
 3. Etapa 40: la población de cada provincia hasta 2040 (proyecciones del INDEC) y las causas de muerte por provincia (DEIS, tasas ajustadas por edad, causas externas agrupadas sin separar el suicidio). Cada ficha nueva necesita su origen en `relaciones.json`.
 4. Opcional: la silueta de "En cifras" de Trabajo mide 140 píxeles y las tarjetas más, y con una red muy lenta la página salta 45 píxeles al llegar el código.
