@@ -3286,8 +3286,18 @@ def _di_trim(d, fecha, col):  # promedio de cada trimestre, solo con sus tres me
     return t[t["size"] == 3]["mean"].rename(col)
 
 
-di_ = di_.join(_di_trim(_di_tcr, "mes", "itcrm"), how="inner").join(_di_trim(_di_a35, "indice_tiempo", "tipo_cambio_a3500"), how="inner").dropna()
-assert di_.index.min() == pd.Period("2004Q1") and (pd.Series(di_.index).diff().dropna().map(lambda x: x.n) == 1).all(), "faltan trimestres en el artículo del dólar"
+_di_x, _di_y, _di_i = _di_trim(_di_tcr, "mes", "itcrm"), _di_trim(_di_a35, "indice_tiempo", "tipo_cambio_a3500"), di_.dropna()
+di_ = _di_i.join(_di_x, how="inner").join(_di_y, how="inner").dropna()
+# Si a una de las tres series le falta un trimestre en el medio, el trimestre queda vacío (así las variaciones contra el mismo trimestre del año
+# anterior siguen comparando lo mismo) y el aviso dice cuál falta y en qué serie. Hasta el 11 de octubre de 2026 el armado se frenaba entero:
+# ese día la actualización se cortó acá sin decir por qué, y con ella todas las demás fuentes
+_di_todos = pd.period_range(di_.index.min(), di_.index.max(), freq="Q")
+_di_falta = _di_todos.difference(di_.index)
+if len(_di_falta):
+    print("aviso: al artículo del dólar le faltan trimestres:", "; ".join(
+        f"{q} ({', '.join(n for n, s in (('inversión', _di_i), ('dólar real del BCRA', _di_x), ('tipo de cambio A3500', _di_y)) if q not in s.index)})" for q in _di_falta))
+    di_ = di_.reindex(_di_todos).rename_axis("q")
+assert len(_di_falta) <= 4 and di_.itcrm.notna().sum() >= 60, f"faltan demasiados trimestres en el artículo del dólar: {list(map(str, _di_falta))}"
 assert di_.index.max() >= pd.Period(HOY, "Q") - 6, "la inversión trimestral del INDEC no llega a un trimestre reciente"
 di_["costo_usd"] = di_.construccion_corriente / di_.construccion / di_.tipo_cambio_a3500
 di_["indice_dolar_real"] = di_.itcrm / di_.itcrm.mean() * 100
@@ -3324,7 +3334,7 @@ _di_fm = compras_dolares_anual.set_index("anio").millones_usd
 _di_ya = int(_di_f.anio.max())
 _di_ym = int(_di_f[_di_f.anio == _di_ya].mes.max())
 DOL_RES = {
-    "desde": _tri(_di_q0), "desde_anio": int(_di_q0.year), "ult": _tri(di_.index[-1]), "n": len(di_),
+    "desde": _tri(_di_q0), "desde_anio": int(_di_q0.year), "ult": _tri(di_.index[-1]), "n": int(di_[["itcrm", "inversion_total"]].dropna().shape[0]),
     "itcrm_vs_prom": r1(float(_di_ult.indice_dolar_real) - 100), "itcrm_max": _tri(di_.itcrm.idxmax()), "itcrm_min": _tri(di_.itcrm.idxmin()),
     "costo_vs_prom": r1(float(_di_ult.indice_construccion_usd) - 100), "costo_max": _tri(di_.indice_construccion_usd.idxmax()),
     "costo_min": _tri(di_.indice_construccion_usd.idxmin()), "rs_espejo": _di_sp("itcrm", "indice_construccion_usd"),
@@ -3623,7 +3633,9 @@ tu_ = pd.DataFrame({"llegan": _tu_r.groupby("mes").viajes_de_turistas_no_residen
 for _tu_p, _tu_k in (("Brasil", "brasil"), ("Chile", "chile"), ("Uruguay", "uruguay")):
     tu_["llegan_" + _tu_k] = _tu_r[_tu_r.pais_origen == _tu_p].groupby("mes").viajes_de_turistas_no_residentes.sum()
 tu_ = tu_.join(_tu_t[["itcrm", "brasil", "chile", "uruguay"]].add_prefix("tcr_"), how="inner")
-assert len(pd.period_range(tu_.index.min(), tu_.index.max(), freq="M")) == len(tu_), "faltan meses en el turismo internacional o en el tipo de cambio real"
+_tu_falta = [str(m) for m in pd.period_range(tu_.index.min(), tu_.index.max(), freq="M") if str(m) not in tu_.index]
+assert not _tu_falta, "faltan meses en el turismo internacional o en el tipo de cambio real: " + "; ".join(
+    f"{m} ({'dólar real del BCRA' if m not in _tu_t.index else 'turistas que llegan y que salen'})" for m in _tu_falta)
 assert tu_.index.min() <= "2010-01" and tu_.salen.first_valid_index() <= "2016-01", "cambió el comienzo de las series de turismo internacional"
 # la pandemia, desde los datos
 _tu_19 = tu_.llegan[tu_.index.str[:4] == "2019"].set_axis(tu_.index[tu_.index.str[:4] == "2019"].str[5:7])
