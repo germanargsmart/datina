@@ -77,11 +77,24 @@ Aplicado en las cuatro fichas de Trabajo (empleo, salarios, rotación y exportac
 - Verificado en cada paso: armado, sintaxis, catálogo del Explorador, prueba de páginas (49, "Todo en orden") y capturas en 1440, 1000 y 390 píxeles.
 - Link de vista previa: el entorno en la nube no permite abrir un túnel público (cloudflared). Opciones: Netlify conectado al repositorio (vista previa por rama) o armar en la computadora del autor.
 
+## Plan de calidad (T7 a T15), 11 de octubre de 2026
+
+- Línea del país en las barras: va detrás de las filas y los valores llevan borde del color del fondo. Hecho.
+- T7, un h1 por página: el título de cada página pasa a h1 al final del armado (aspecto igual, comparado píxel a píxel). `scripts/prueba_encabezados.py` lo controla en 03. Hecho. Aviso aceptado: las fichas son h3 y saltan de h1 a h3.
+- T8, accesibilidad: contraste, zoom del consultor, teclado en Cruces, toque en los cuadros, "Ver tabla", avisos de carga, selector de provincias. Hecho, detalle y pendientes en `REVISION_A11Y.md`.
+- T9, metadatos: Open Graph, Twitter y Article en JSON-LD. La dirección pública va en `datos/manual/sitio.json` (vacía: sin canonical absolutos, sitemap ni robots hasta que el autor la decida). `scripts/prueba_metadatos.py` controla metadatos y enlaces internos en 03. Hecho.
+- T10, licencia: inventario y opciones en `LICENCIA_OPCIONES.md`. Falta la decisión del autor.
+- T11, catálogo de datos: propuesta en `PROPUESTA_CATALOGO.md`. Falta la aprobación del diseño (nombre y dónde se enlaza).
+- T12, peso: informe en `PESO.md` (0,5 a 0,7 MB por página, unos 8 MB del motor del consultor de pobreza). Recomendación: cargar DuckDB solo para el editor de SQL, con un armado nuevo del consultor.
+- T13, D3 y topojson: se probó `defer` y se deshizo porque hacía saltar la página. La prueba de páginas ya no depende de las CDN (`DATINA_LIBS`).
+- T14 y T15, gráficos y línea de base: `scripts/linea_base.mjs` (88 casos) e informe en `LINEA_BASE.md`. Pendientes: CLS de los artículos (0,05 a 0,55 según la carga) y del Explorador (0,12), que ya existían.
+- GitHub Pages: explorado en `docs/deploy/GITHUB_PAGES.md`. El autor decidió no usarlo por ahora.
+
 ## Próxima tarea
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
 1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha. Regla aprobada por el autor el 11 de octubre de 2026. Hecho en todas las secciones (11 de octubre de 2026): la leyenda corta va como tercer elemento de `CLAVE` en todas las fichas con cifra destacada y ningún texto empieza repitiendo la cifra. Quedan oraciones que repiten la cifra más adelante en algunos textos (áreas de concesión, pozos), dejadas a propósito porque comparan con otro dato.
-2. La línea del país en las barras por provincia tapa los valores de las provincias cercanas al promedio.
+2. Hecho (11 de octubre de 2026): la línea del país ya no tapa los valores.
 3. Etapa 40: la población de cada provincia hasta 2040 (proyecciones del INDEC) y las causas de muerte por provincia (DEIS, tasas ajustadas por edad, causas externas agrupadas sin separar el suicidio). Cada ficha nueva necesita su origen en `relaciones.json`.
 4. Opcional: la silueta de "En cifras" de Trabajo mide 140 píxeles y las tarjetas más, y con una red muy lenta la página salta 45 píxeles al llegar el código.
 
