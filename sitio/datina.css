@@ -53,7 +53,7 @@
   --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
   --ocde:#7A4FA0; --ocde-suave:#ECE3F5; /* promedio de los países de la OCDE, solo dentro de los gráficos */
   /* sobre el azul de la portada */
-  --en-azul-texto:rgba(255,255,255,.86); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);
+  --en-azul-texto:rgba(255,255,255,.95); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);
   /* letra: diez tamaños y nada más. Los que van entre dos valores se ajustan al ancho de la pantalla */
   --f:"Roboto Flex","Datina Roboto","Datina Verdana", Roboto, Verdana, system-ui, sans-serif;
   --f-bajada:"Roboto Flex","Datina Roboto B","Datina Verdana B", Roboto, Verdana, system-ui, sans-serif;
@@ -376,7 +376,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   font-variation-settings:"wdth" 25,"opsz" 144}
 .portada .lema{margin:0 0 var(--e-6);font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 30,"opsz" 144;font-family:var(--f-c30)}
-.portada .bajada{margin:0 0 var(--e-6);max-width:26em;font-size:var(--t-5);line-height:1.45;color:rgba(255,255,255,.88)}
+.portada .bajada{margin:0 0 var(--e-6);max-width:26em;font-size:var(--t-5);line-height:1.45;color:var(--en-azul-texto)}
 .atajos{display:flex;flex-wrap:wrap;gap:var(--e-3)}
 /* cifras del sitio: texto simple, no se tocan */
 /* información secundaria: más chica y más tenue que los botones (octubre de 2026) */
@@ -611,7 +611,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .elige-lista{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px}
 .elige-lista li{display:flex;align-items:center;gap:8px;padding:7px 10px;font-size:var(--t-3);font-weight:350;line-height:1.3;color:var(--ink);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
 .elige-lista li.activa{background:var(--celeste-suave)}
-.elige-lista li[aria-selected="true"]{color:var(--celeste-fuerte);font-weight:600}
+/* la provincia elegida en --azul-hondo: 5,6 a 1 sobre el celeste de la opción activa (con --celeste-fuerte daba 4,04) */
+.elige-lista li[aria-selected="true"]{color:var(--azul-hondo);font-weight:600}
 .elige-lista li.primera{grid-column:1/-1}
 .elige-lista li[hidden]{display:none}
 .elige-vacio{margin:0;padding:8px 10px;font-size:var(--t-3);color:var(--muted)}
@@ -1162,6 +1163,8 @@ html:not(.js) .esqueleto{display:none}
 .tip{position:absolute;z-index:5;padding:7px 10px;font-family:var(--mono);font-size:12px;line-height:1.35;white-space:nowrap;color:var(--bg);background:var(--azul-hondo);border-radius:var(--r-interno);
   pointer-events:none;opacity:0;transform:translateY(4px) scale(.96);transform-origin:50% 100%;transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .tip.on{opacity:1;transform:none}
+/* en el celular, el cuadro no pasa del ancho de la pantalla: corta en renglones en vez de correr la página de costado */
+@media (max-width:760px){.tip{white-space:normal;max-width:calc(100vw - 16px)}}
 .tip .tip-pais{opacity:.82}
 /* minigráfico de las tarjetas de "En cifras" (etapa 16): el mismo cuadro, más ancho, arriba de la tarjeta o debajo si no entra */
 .tip.tip-cifra{width:276px;padding:10px 12px;white-space:normal;transform-origin:50% 100%}

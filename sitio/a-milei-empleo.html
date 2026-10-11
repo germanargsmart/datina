@@ -17,7 +17,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      con defer corren en el orden en que aparecen, después de leer la página: D3, topojson, los datos y datina.js, igual que antes -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=a4b6efdc88">
+<link rel="stylesheet" href="datina.css?v=fd6349474b">
 </head>
 <body data-pagina="a-milei-empleo">
 <header class="barra clara">
@@ -164,9 +164,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 </footer>
 
 <div class="tip" id="tip" role="tooltip"></div>
+<!-- avisos para los lectores de pantalla (11 de octubre de 2026): un dato que no cargó o un enlace copiado. Lo escribe avisar() en datina.js -->
+<p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script defer src="datos/fichas.js?v=50babee5e3"></script>
-<script defer src="datina.js?v=c35dc77472"></script>
+<script defer src="datina.js?v=3ba8e601da"></script>
 </body>
 </html>

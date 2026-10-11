@@ -50,7 +50,9 @@ const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(
 /* Mientras llegan los datos de un gráfico, el contenedor queda vacío y muestra la silueta de su forma (data-forma en la plantilla,
    dibujada por datina.css) con el alto que va a tener, así nada salta cuando llega. Los lectores de pantalla oyen "Cargando". */
 const esperando = el => { el.innerHTML = '<span class="solo-lector">Cargando los datos</span>'; el.setAttribute("aria-busy", "true"); };
-const sinDatos = (el, t) => { el.removeAttribute("aria-busy"); el.innerHTML = `<p class="nota">${t}</p>`; };
+// un aviso para los lectores de pantalla, en la región #aviso de la plantilla (se vacía antes para que se anuncie aunque se repita)
+const avisar = t => { const a = document.getElementById("aviso"); if (!a) return; a.textContent = ""; setTimeout(() => { a.textContent = t; }, 60); };
+const sinDatos = (el, t) => { el.removeAttribute("aria-busy"); el.innerHTML = `<p class="nota">${t}</p>`; avisar(t); };
 // Dibujo de una ficha que necesita tablas diferidas (lista fija o función que la devuelve): muestra la silueta mientras llegan y después dibuja
 const conTablas = (g, nombres, dibujo) => a => {
   const faltan = (typeof nombres === "function" ? nombres() : nombres).filter(n => !T[n]);
@@ -991,7 +993,7 @@ const TX = {
   // la cifra destacada ya dice la pobreza del último semestre: el texto empieza por la indigencia
   pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era del ${pct(R.pobreza.pob_prev)} y la indigencia, del ${pct(R.pobreza.ind_prev)}. El valor más alto de la pobreza en la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.`,
-  "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor para ver los valores.`,
+  "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor o tocá para ver los valores.`,
   "lista-areas-nota": `Las ${nt.pn_n} áreas protegidas de la Administración de Parques Nacionales, ordenadas por año de creación. Superficie actual en hectáreas según el Sistema de Información de Biodiversidad.`,
   // la cifra destacada ya dice las tarjetas en trenes: el texto empieza por los subtes
   "sube-modos": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.subte_miles)} mil tarjetas SUBE en subtes. En los primeros días hábiles de marzo de 2020 eran ${n0(su.tren_pre_miles)} mil en trenes y ${n0(su.subte_pre_miles)} mil en subtes: el tren ${su.tren_vs_pre < 0 ? "tiene" : "suma"} ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} y el subte ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"}, aunque desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos. En colectivo la diferencia es de ${su.colectivo_vs_pre > 0 ? "+" : ""}${pct(su.colectivo_vs_pre)}.`,
@@ -1158,7 +1160,7 @@ const TX = {
   "glaciares-nota": `Cantidad de glaciares y cuerpos de hielo inventariados por el Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales (IANIGLA). Las provincias que no aparecen no tienen glaciares inventariados.`,
   // la cifra destacada ya dice el año más cálido: el texto empieza por el último año (si no es el más cálido)
   clima: (cu.cl_fin === cu.cl_max_anio ? "" : `En ${cu.cl_fin}, la temperatura media del país estuvo ${n2(Math.abs(cu.cl_ult))} °C ${cu.cl_ult < 0 ? "por debajo" : "por encima"} del valor de referencia. `) + `De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
-  "clima-nota": `Desvío de la temperatura media anual del país respecto del período de referencia que usa el Servicio Meteorológico Nacional. Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor para ver el valor.`,
+  "clima-nota": `Desvío de la temperatura media anual del país respecto del período de referencia que usa el Servicio Meteorológico Nacional. Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor o tocá para ver el valor.`,
   // la cifra destacada ya dice las visitas al parque más visitado: el texto empieza por su parte del total
   "visitas-parque": `En ${vpq.ult}, ${vpq.top} (${vpq.top_lugar}) concentró el ${pct(vpq.pct_top)} de las visitas a los parques nacionales. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)} visitas. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
     (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, las visitas a los parques nacionales fueron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? "más altas" : "más bajas"} que en los mismos meses de ${vpq.par - 1}.` : ""),
@@ -1258,7 +1260,7 @@ const desplegable = (() => {
   let activa = -1, cierre;
   const visibles = () => items.filter(li => !li.hidden);
   const activar = i => {
-    const v = visibles(); if (!v.length) return;
+    const v = visibles(); if (!v.length) { buscar.removeAttribute("aria-activedescendant"); return; }
     activa = (i + v.length) % v.length;
     items.forEach(li => li.classList.remove("activa"));
     v[activa].classList.add("activa"); v[activa].scrollIntoView({block: "nearest"});
@@ -1290,6 +1292,8 @@ const desplegable = (() => {
   });
   lista.addEventListener("click", ev => { const li = ev.target.closest("li"); if (li) { elegir(li.dataset.c); cerrar(true); } });
   document.addEventListener("pointerdown", ev => { if (!caja.contains(ev.target) && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
+  // con Tab fuera del selector, la lista se cierra y no queda tapando lo que recibe el foco
+  caja.addEventListener("focusout", ev => { if (btn.getAttribute("aria-expanded") === "true" && !caja.contains(ev.relatedTarget)) cerrar(false); });
   const marcar = () => {
     // el botón cerrado, sin bandera (etapa 30): la de la provincia elegida ya está en la barra y en el título del perfil
     valor.textContent = NOMBRES[prov] || "Todo el país";
@@ -1315,6 +1319,15 @@ function mostrarTip(el, html, x, y) {
   tip.style.left = left + "px"; tip.style.top = (r.top - pr.top + y - tip.offsetHeight - 12) + "px";
 }
 const ocultarTip = () => tip.classList.remove("on");
+// al salir de un elemento, el cuadro se oculta solo con el mouse (11 de octubre de 2026): con un toque, el navegador manda pointerleave
+// apenas se levanta el dedo y el cuadro desaparecía. Con el dedo se cierra tocando afuera del gráfico (el pointerdown de abajo)
+const ocultarSiMouse = ev => { if (ev.pointerType === "mouse") ocultarTip(); };
+// texto blanco o tinta sobre un color calculado (las celdas de las matrices): el que más contraste
+function tintaSobre(fondo) {
+  const lum = c => { const v = [c.r, c.g, c.b].map(x => { x /= 255; return x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4; }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+  const l = lum(d3.rgb(fondo)), tinta = css("--ink"), lt = lum(d3.rgb(tinta));
+  return (1.05) / (l + .05) >= (l + .05) / (lt + .05) ? "#fff" : tinta;
+}
 document.addEventListener("pointerdown", ev => { if (!ev.target.closest?.(".grafico")) ocultarTip(); });
 
 /* Animación de entrada: solo la primera vez que el gráfico aparece en pantalla, nunca con movimiento reducido */
@@ -1578,7 +1591,7 @@ function barrasH(el, cfg) {
     // toda la fila responde, no solo la barra, y el cuadro muestra los valores absolutos que la barra no dice
     filas.insert("rect", ":first-child").attr("x", -izq).attr("width", iw + izq + 54).attr("height", y.bandwidth()).attr("fill", "transparent");
     filas.on("pointerenter", (ev, d) => mostrarTip(el, tipFila(d), izq + x(Math.max(0, d[cfg.k])), 24 + y(d.codigo_indec)))
-      .on("pointerleave", ocultarTip);
+      .on("pointerleave", ocultarSiMouse);
   }
   // las líneas de referencia van detrás de las filas (11 de octubre de 2026): cruzaban los valores de las provincias cercanas al promedio.
   // Se ven entre una barra y la siguiente, y los valores llevan un borde del color del fondo (.f text en datina.css)
@@ -1637,7 +1650,7 @@ function pesas(el, cfg) {
   const cambioTxt = d => { const c = r1v(r1v(d[b]) - r1v(d[a])); return c === 0 ? "Sin cambio" : `${c < 0 ? "Bajó" : "Subió"} ${n1(Math.abs(c))}${cfg.uDif || ""}`; };
   f.on("pointerenter", function(ev, d) { const yy = y(d.codigo_indec) + 24; mostrarTip(el, `<b>${d.territorio}</b><br>${la}: ${vf(d[a])}<br>${lb}: ${vf(d[b])}` +
       (cfg.mejor ? `<br>${cambioTxt(d)}` : "") + (cfg.pais ? `<br><span class="tip-pais">País: ${vf(cfg.pais[0])} y ${vf(cfg.pais[1])}</span>` : ""), x(d[b]) + (angosto?118:150), yy); })
-   .on("pointerleave", ocultarTip);
+   .on("pointerleave", ocultarSiMouse);
 }
 
 function columnas(el, cfg) {
@@ -1715,7 +1728,7 @@ function piramidePob(el, cfg) {
   f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").style("font-size", angosto ? "10px" : null).text(d => d.lab);
   f.append("rect").attr("x", 0).attr("width", iw).attr("height", y.bandwidth()).attr("fill","transparent")
     .on("pointermove", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en ${PI.anio_fin}<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en ${PI.anio_fin}`, centro, y(d.edad) + 48))
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
   const ley = g.append("g").attr("transform", `translate(${centro - 56},${data.length * fila + 8})`);
   ley.append("rect").attr("width", 12).attr("height", 9).attr("fill", css("--celeste"));
   ley.append("text").attr("x", 16).attr("y", 9).attr("class","etq-suave").text(String(cfg.anio));
@@ -1842,7 +1855,7 @@ function apiladasH(el, cfg) {
   f.on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${d.territorio}</b>${cfg.tipExtra ? cfg.tipExtra(d) : ""}<br>` + cfg.claves.filter(k => d[k.k] != null).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.tipF || pct)(d[k.k])}`).join("<br>"),
         izq + iw / 2, y(d.codigo_indec) + 22); })
-   .on("pointerleave", ocultarTip);
+   .on("pointerleave", ocultarSiMouse);
 }
 
 /* Columnas apiladas por año (composición del Congreso) */
@@ -1871,7 +1884,7 @@ function columnasApiladas(el, cfg) {
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
     .on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>"), (cfg.l || 36) + x(d.anio) + x.bandwidth() / 2, 10); })
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
 }
 
 /* Mapa de provincias: color según el porcentaje del territorio protegido y círculos para las áreas nacionales */
@@ -1880,7 +1893,7 @@ const cargarGeo = () => GEO ? Promise.resolve(GEO) : fetch("datos/provincias.geo
 function mapaAreas(anim) {
   const el = G("mapa-areas");
   if (!el || !el.offsetParent) return;
-  if (!GEO) { cargarGeo().then(() => mapaAreas(anim)).catch(() => {}); return; }
+  if (!GEO) { cargarGeo().then(() => mapaAreas(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa.")); return; }
   el.innerHTML = "";
   const w = Math.min(560, el.clientWidth), h = Math.round(w * 1.62) + 40;
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img")
@@ -1898,7 +1911,7 @@ function mapaAreas(anim) {
       const v = val[d.properties.codigo_indec], [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${v ? v.territorio : d.properties.nombre}</b><br>${v ? pct(v.pct_territorio) : "Sin dato"} del territorio protegido` +
         (v ? `<br>${n0(v.ha_terrestres)} hectáreas` : ""), mx, my);
-    }).on("pointerleave", ocultarTip);
+    }).on("pointerleave", ocultarSiMouse);
   const areas = T.parques_nacionales_lista.filter(d => !d.marina && d.lat != null && d.lng != null);
   const r = d3.scaleSqrt().domain([0, d3.max(areas, d => d.hectareas)]).range([1.6, w < 420 ? 11 : 15]);
   const burb = svg.append("g").selectAll("circle").data(areas.sort((a, b) => b.hectareas - a.hectareas)).join("circle")
@@ -1906,7 +1919,7 @@ function mapaAreas(anim) {
   if (anim) burb.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   burb.on("pointermove", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
   // leyenda
   const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - 138)},${h - 38})`);
   const et = ["0", "5", "10", "15", "20", "30%"];
@@ -1950,7 +1963,7 @@ function mapaDep(el, cfg) {
     const v = val[f.properties.id], [mx, my] = d3.pointer(ev, el);
     mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? "sin dato" : cfg.vf(v)}` +
       (cfg.extra ? cfg.extra(f.properties.id) : ""), mx, my);
-  }).on("pointerleave", ocultarTip);
+  }).on("pointerleave", ocultarSiMouse);
   // leyenda: los cinco grupos con sus cortes
   const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
   COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("rx", 2).attr("fill", c));
@@ -3262,7 +3275,7 @@ function trayectorias(el, cfg) {
     ocultarTip();
   };
   svg.append("rect").attr("width", C.w).attr("height", C.h).attr("fill", "transparent").style("touch-action", "pan-y")
-    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarTip);
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarSiMouse);
 }
 /* ---------- La Corte Suprema (etapa 33): pieza del Laboratorio con página propia ----------
    Como "The Supreme Court has had 116 justices. Here's who put them there" de USAFacts: cuánto estuvo cada juez, quiénes estaban cada año
@@ -3512,7 +3525,7 @@ function cuadradosCorte(el, cfg) {
     }).on("pointerleave", function() { d3.select(this).classed("activo", false); ocultarTip(); });
   rotulo.on("pointerenter", (ev, p) => mostrarTip(el, `<b>${p.presidente}</b>, desde ${p.inicio.slice(0, 4)}<br>` +
       `${p.designados} ${p.designados === 1 ? "juez" : "jueces"}: ${listaY(p.jueces.map(j => j.nombre))}`, xCol(p) + nomW / 2, yFila(p)))
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
   el.grupo = k => coAclarar(filas, k, p => p.grupo, .16);
   coGrupoInicial(el);
 }
@@ -3651,7 +3664,7 @@ function puntosVoto(el, cfg) {
       .attr("stroke-width", d => d[3] === prov && prov ? 2 : 1.2);
     pt.on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${nomVt(VTJ.nombres[d[0]])}</b><br>${VTJ.bloques[d[1]]}<br>${NOMBRES[d[3]] || "Sin provincia"}<br>${VOTO_LAB[d[4]]}`, +this.getAttribute("cx"), +this.getAttribute("cy"));
-    }).on("pointerleave", ocultarTip);
+    }).on("pointerleave", ocultarSiMouse);
     if (cfg.anim) pt.attr("opacity", 0).transition().delay(Math.min(150, j * 30)).duration(DUR_G).attr("opacity", 1);
   });
 }
@@ -3707,7 +3720,7 @@ DIB.vtmatriz = a => {
     const tit = `${e}: ${c[0]} a favor, ${c[1]} en contra, ${c[2]} abstenciones y ${c[3]} ausentes`;
     if (postura(c) === "aus") return `<td class="sin" title="${tit}">aus.</td>`;
     const p = c[0] / (c[0] + c[1] + c[2]) * 100, fondo = col(p);
-    return `<td title="${tit}" style="background:${fondo};color:${Math.abs(p - 50) > 30 ? "#fff" : "#18212B"}">${Math.round(p)}</td>`;
+    return `<td title="${tit}" style="background:${fondo};color:${tintaSobre(fondo)}">${Math.round(p)}</td>`;
   };
   el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th><button type="button" class="esp-btn" data-e="${e}" aria-haspopup="dialog">${ESP_CORTO[e]}</button></th>`).join("")}</tr></thead><tbody>` +
     [...filas].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", efecto directo" : ""}</small></td>` +
@@ -3923,7 +3936,7 @@ function dispersion(el, cfg) {
     .attr("y", d => y(d[cfg.y]) + 4).text(d => d.territorio);
   if (cfg.anim) pt.attr("r", 0).transition().delay(escalon).duration(DUR_G).attr("r", 5.5);
   pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${vx(d[cfg.x])}<br>${cfg.yLab}: ${vy(d[cfg.y])}`, 46 + x(d[cfg.x]), 34 + y(d[cfg.y])))
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
 }
 const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada" : "débil";
 const AN = R.ado_nse, MC = R.mi_causas;
@@ -4042,7 +4055,7 @@ DIB.presidentes = a => {
   g.append("g").attr("class","eje").attr("transform","translate(0,42)").call(d3.axisBottom(x).ticks(angosto ? 4 : 8).tickSize(0).tickPadding(8)).call(s => s.select(".domain").remove());
   if (a) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}<br>Nació en ${d.lugar_nacimiento}, ${d.provincia}`,
-      4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarTip);
+      4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarSiMouse);
   document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i>${bandera(COD_PROV[d.provincia])}<span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}</span>` +
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "Ciudad de Buenos Aires") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
 };
@@ -4462,7 +4475,7 @@ const CX = (() => {
     const angosto = el.clientWidth < 560;
     const C = lienzo(el, angosto ? 400 : 500, {t: 34, r: angosto ? 14 : 24, b: 50, l: angosto ? 44 : 58});
     const {g, iw, ih, svg} = C;
-    svg.attr("aria-label", `Diagrama de dispersión de ${X.nombre} ${yE(Y.nombre)} por provincia`);
+    svg.attr("role", "group").attr("aria-label", `Diagrama de dispersión de ${X.nombre} ${yE(Y.nombre)} por provincia`);
     const esc = (id, log, rango) => {
       const ext = d3.extent(todosAnios(id).filter(v => !log || v > 0));
       if (log) return d3.scaleLog().domain([ext[0] / 1.15, ext[1] * 1.15]).range(rango);
@@ -4544,11 +4557,12 @@ const CX = (() => {
     const alternar = d => { st.fuera.has(d.codigo_indec) ? st.fuera.delete(d.codigo_indec) : st.fuera.add(d.codigo_indec); todo(true); };
     pts.on("click", (ev, d) => alternar(d))
       .on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); alternar(d); } })
-      .on("pointerenter", (ev, d) => {
+      .on("blur", ocultarTip)
+      .on("pointerenter focus", (ev, d) => {
         const [px, py] = pos(d), i = datos.indexOf(d);
         const res = m && i >= 0 ? `<br>${m.res[i] > 0 ? "Por encima" : "Por debajo"} de la recta` : "";
         mostrarTip(el, `<b>${d.territorio}</b><br>${X.nombre}: ${fm(st.x)(d[st.x])}<br>${Y.nombre}: ${fm(st.y)(d[st.y])}${res}`, px + (angosto ? 44 : 58), py + 34);
-      }).on("pointerleave", ocultarTip);
+      }).on("pointerleave", ocultarSiMouse);
     // leyenda de regiones
     document.getElementById("cx-leyenda").innerHTML = Object.entries(COLOR_REGION).map(([k, c]) => `<span><i style="background:${c}"></i>${k}</span>`).join("") +
       (st.tam ? `<span class="nota-tam">Tamaño: población</span>` : "");
@@ -4594,8 +4608,9 @@ const CX = (() => {
     const angosto = el.clientWidth < 620, izq = angosto ? 128 : 190, lado = Math.max(18, Math.min(36, (el.clientWidth - izq - 10) / n));
     el.innerHTML = "";
     const W = izq + lado * n + 10, H = lado * n + (angosto ? 120 : 170);
-    const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("role", "img")
-      .attr("aria-label", "Matriz de correlaciones entre los indicadores provinciales");
+    // role group y no img: adentro hay celdas que se eligen
+    const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("role", "group")
+      .attr("aria-label", "Matriz de correlaciones entre los indicadores provinciales. Moverse con las flechas y elegir con Enter");
     const color = d3.scaleLinear().domain([-1, 0, 1]).range(["#C8102E", "#F4F1EA", "#2C74B5"]);
     const celdas = [];
     ids.forEach((a, i) => ids.forEach((b, j) => {
@@ -4605,11 +4620,11 @@ const CX = (() => {
       celdas.push({a, b, i, j, r, n: d.length, p: pT(r * Math.sqrt((d.length - 2) / (1 - r * r)), d.length - 2)});
     }));
     const g = svg.append("g").attr("transform", `translate(${izq},4)`);
-    const cel = g.selectAll("g").data(celdas).join("g").attr("transform", d => `translate(${d.j * lado},${d.i * lado})`).attr("class", "cx-celda").attr("tabindex", 0).attr("role", "button")
+    const cel = g.selectAll("g").data(celdas).join("g").attr("transform", d => `translate(${d.j * lado},${d.i * lado})`).attr("class", "cx-celda").attr("tabindex", (d, k) => k === 0 ? 0 : -1).attr("role", "button")
       .attr("aria-label", d => `${META[d.a].nombre} ${yE(META[d.b].nombre)}: r ${fr(d.r)}`);
     cel.append("rect").attr("width", lado - 2).attr("height", lado - 2).attr("fill", d => color(d.r));
     if (lado >= 26) cel.append("text").attr("x", (lado - 2) / 2).attr("y", (lado - 2) / 2).attr("dy", ".35em").attr("text-anchor", "middle")
-      .attr("class", d => "cx-r" + (d.p < .05 ? " sig" : "")).attr("fill", d => Math.abs(d.r) > .55 ? "#fff" : css("--ink")).text(d => loc.format(".1f")(d.r).replace("-0,0", "0,0"));
+      .attr("class", d => "cx-r" + (d.p < .05 ? " sig" : "")).attr("fill", d => tintaSobre(color(d.r))).text(d => loc.format(".1f")(d.r).replace("-0,0", "0,0"));
     g.selectAll("text.fila").data(ids).join("text").attr("class", "etq-suave cx-mlab").attr("x", -8).attr("y", (d, i) => i * lado + lado / 2).attr("dy", ".35em").attr("text-anchor", "end")
       .text((d, i) => i === 0 ? "" : META[d].nombre.slice(0, angosto ? 18 : 30));
     // nombres de las columnas, debajo y en diagonal
@@ -4617,9 +4632,22 @@ const CX = (() => {
       .attr("transform", (d, j) => `translate(${j * lado + lado / 2},${n * lado + 4}) rotate(55)`).attr("dy", ".35em")
       .text(d => META[d].nombre.slice(0, angosto ? 16 : 26));
     const ir = d => { st.x = d.b; st.y = d.a; st.logx = st.logy = false; todo(false); document.getElementById("tab-cx-disp").click(); document.getElementById("f-cruces").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth"}); };
-    cel.on("click", (ev, d) => ir(d)).on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ir(d); } })
-      .on("pointerenter", (ev, d) => mostrarTip(el, `<b>${META[d.a].nombre}</b> y <b>${META[d.b].nombre}</b><br>r = ${fr(d.r)}, ${d.n} jurisdicciones<br>valor p ${fp(d.p)}<br>Tocá para ver la dispersión`, izq + d.j * lado + lado / 2, d.i * lado))
-      .on("pointerleave", ocultarTip);
+    // con el teclado, la matriz es un solo lugar de Tab y las flechas van a la celda vecina (eran unas 1.500 paradas de Tab)
+    const mover = (ev, d) => {
+      const [di, dj] = {ArrowRight: [0, 1], ArrowLeft: [0, -1], ArrowDown: [1, 0], ArrowUp: [-1, 0]}[ev.key] || [];
+      if (di == null) return;
+      ev.preventDefault();
+      for (let k = 1; k < n; k++) {
+        const sig = celdas.findIndex(c => c.i === d.i + di * k && c.j === d.j + dj * k);
+        if (sig < 0) continue;
+        const nodos = cel.nodes(); nodos[celdas.indexOf(d)].setAttribute("tabindex", -1); nodos[sig].setAttribute("tabindex", 0); nodos[sig].focus();
+        return;
+      }
+    };
+    cel.on("click", (ev, d) => ir(d)).on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ir(d); } else mover(ev, d); })
+      .on("blur", ocultarTip)
+      .on("pointerenter focus", (ev, d) => mostrarTip(el, `<b>${META[d.a].nombre}</b> y <b>${META[d.b].nombre}</b><br>r = ${fr(d.r)}, ${d.n} jurisdicciones<br>valor p ${fp(d.p)}<br>Tocá para ver la dispersión`, izq + d.j * lado + lado / 2, d.i * lado))
+      .on("pointerleave", ocultarSiMouse);
     const sig = celdas.filter(c => c.p < .05).length;
     document.getElementById("cm-matriz-nota").textContent = `Cada celda es la correlación de Pearson entre dos indicadores, de −1 (rojo) a 1 (azul), con las ${FILAS.length - st.fuera.size} jurisdicciones incluidas. ` +
       `En negrita, las que tienen valor p menor a 0,05: son ${sig} de ${celdas.length} pares. Con tantos pares, unos ${Math.round(celdas.length * .05)} pueden dar significativos solo por azar, así que conviene mirar cada uno en la dispersión antes de sacar conclusiones. Tocá una celda para abrirla.`;
@@ -4698,7 +4726,7 @@ const MAPA_DEP = (() => {
       const r = filas[f.properties.id] || {}, [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${f.properties.nombre}</b>, ${r.provincia || ""}<br>${m.nombre}: ${fv(r[ind])}` +
         (censo ? (r.hogares ? `<br>${n0(r.hogares)} hogares en el Censo 2022` : "") : r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas` : ""), mx, my);
-    }).on("pointerleave", ocultarTip)
+    }).on("pointerleave", ocultarSiMouse)
       .on("click", (ev, f) => { if (!NOMBRES[pv]) { cerca = {c: f.properties.prov, de: prov}; ocultarTip(); cambiarVista("mapa-dep"); } });
     // leyenda de quintiles
     const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
@@ -4801,7 +4829,7 @@ const IX = (() => {
     filas.on("pointerenter", function(ev, d) {
       const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.f.territorio}: ${n1(d.t)}</b><br>` + DIMS.map(dim => `<span style="color:${dim.c}">●</span> ${dim.nombre}: ${n1(d.dim[dim.id])}`).join("<br>"), mx, my);
-    }).on("pointerleave", ocultarTip);
+    }).on("pointerleave", ocultarSiMouse);
     // lectura
     const pos = c => datos.findIndex(d => d.f.codigo_indec === c) + 1;
     const mov = datos.map(d => ({d, m: ordenIgual.indexOf(d.f.codigo_indec) + 1 - pos(d.f.codigo_indec)})).sort((a, b) => Math.abs(b.m) - Math.abs(a.m))[0];
@@ -5135,7 +5163,8 @@ function tablaDatos(filas, ficha = "") {
     if (xs.length >= 6 && new Set(xs).size > 2) corte[c] = [d3.quantile(xs, .8), d3.quantile(xs, .5)];
   });
   const clase = (r, c) => !corte[c] || typeof r[c] !== "number" || esTotal(r) ? "" : r[c] >= corte[c][0] ? " q-alto" : r[c] < corte[c][1] ? " q-bajo" : "";
-  return `<div class="tabla-desliza"><table class="tabla-areas"><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
+  const nombreTabla = esc(document.getElementById(ficha)?.querySelector("h3")?.textContent || "Datos");
+  return `<div class="tabla-desliza" tabindex="0" role="region" aria-label="Tabla: ${nombreTabla}"><table class="tabla-areas"><caption class="solo-lector">${nombreTabla}</caption><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
     vistas.map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ` class="n${clase(r, c)}"` : ""}>${
       c === "territorio" && (NOMBRES[r.codigo_indec] || r.codigo_indec === "00") ? conBandera(r.codigo_indec, v(r, c)) : esc(v(r, c))}</td>`).join("")}</tr>`).join("") +
     `</tbody></table></div><p class="tabla-nota">${filas.length > MAX ? `Primeras ${MAX} filas de ${n0(filas.length)}. ` : ""}La tabla completa está en el CSV.` +
@@ -5222,7 +5251,18 @@ document.querySelectorAll("article.ficha").forEach(f => {
     const b = ev.currentTarget, abierta = b.getAttribute("aria-expanded") === "true";
     if (b.dataset.cargando) return;
     let caja = f.querySelector(".tabla-datos");
-    if (!caja) { b.dataset.cargando = "1"; const t = await cargarTabla(nombre).finally(() => delete b.dataset.cargando); caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(t, f.id); pie.before(caja); }
+    if (!caja) {
+      b.dataset.cargando = "1";
+      let t;
+      try { t = await cargarTabla(nombre); } catch {
+        // sin datos (la red falló): un aviso que se anuncia, y el botón sigue para probar de nuevo
+        f.querySelector(".tabla-error")?.remove();
+        pie.insertAdjacentHTML("beforebegin", `<p class="nota tabla-error" role="status">No se pudo cargar la tabla. Probá de nuevo.</p>`);
+        return;
+      } finally { delete b.dataset.cargando; }
+      f.querySelector(".tabla-error")?.remove();
+      caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(t, f.id); pie.before(caja);
+    }
     caja.hidden = abierta; b.setAttribute("aria-expanded", String(!abierta));
     b.querySelector(".lbl").textContent = abierta ? "Ver tabla" : "Ocultar tabla";
   });
@@ -5243,7 +5283,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
       try { ok = document.execCommand("copy"); } catch (_) {}
       ta.remove();
     }
-    cambiar(ok ? "Enlace copiado" : "No se pudo copiar");
+    cambiar(ok ? "Enlace copiado" : "No se pudo copiar"); avisar(ok ? "Enlace copiado" : "No se pudo copiar");
     clearTimeout(lbl._t); lbl._t = setTimeout(() => cambiar("Copiar enlace"), 1800);
   });
 });

@@ -116,7 +116,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <input type="text" class="elige-buscar" id="elige-buscar" placeholder="Buscar provincia" aria-label="Buscar provincia"
           role="combobox" aria-controls="elige-lista" aria-expanded="true" aria-autocomplete="list" autocomplete="off">
         <ul class="elige-lista" id="elige-lista" role="listbox" aria-labelledby="elige-lab"></ul>
-        <p class="elige-vacio" id="elige-vacio" hidden>Ninguna provincia coincide</p>
+        <p class="elige-vacio" id="elige-vacio" role="status" hidden>Ninguna provincia coincide</p>
       </div>
     </div>
     <div class="prov-grid" id="prov-grid"></div>
@@ -2079,6 +2079,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 </footer>
 
 <div class="tip" id="tip" role="tooltip"></div>
+<!-- avisos para los lectores de pantalla (11 de octubre de 2026): un dato que no cargó o un enlace copiado. Lo escribe avisar() en datina.js -->
+<p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script defer src="datos/fichas.js?v=__VERSION__"></script>
