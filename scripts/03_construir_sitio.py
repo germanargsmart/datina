@@ -355,18 +355,19 @@ base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f 
                              f'<span>{len(NOTAS)} artículos</span></p>')
 # Grupos y categorías (etapa 36, pedido del autor del 7 de octubre de 2026: "empezá a unificar, tipo energía es la categoría general de
 # petróleo y gas", y sus respuestas: categorías con subsecciones, los grupos de su mensaje). Cuatro grupos, como en la portada ("Explorá la
-# Argentina por tema"), y Curiosidades aparte. Un elemento de un grupo es una sección o una categoría: un nombre y sus secciones, la primera
+# Argentina por tema"). Un elemento de un grupo es una sección o una categoría: un nombre y sus secciones, la primera
 # es su página de entrada. Cada sección conserva su página y su dirección. De acá salen la barra, el menú "Más", la fila del celular, las
 # migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada (datina.js)
 GRUPOS = [
     ("personas", "Personas", [("Población", ["poblacion", "migraciones", "turismo"]), "salud", "educacion", "pobreza"]),
     ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"])]),
-    ("estado", "Estado y sociedad", ["politica", "seguridad"]),
+    # Curiosidades, desde el 11 de octubre de 2026 dentro de Estado y sociedad (pedido del autor: "sacá el Y además de la portada y poné
+    # curiosidades dentro de estado y sociedad, integralo"). Antes era un quinto grupo, "Y además", que iba aparte en la portada y en "Más"
+    ("estado", "Estado y sociedad", ["politica", "seguridad", "curiosidades"]),
     ("territorio", "Territorio y recursos", [("Energía", ["energia", "petroleo"]), "movilidad", "naturaleza"]),
-    ("otros", "Y además", ["curiosidades"]),
 ]
 # la barra (etapa 39, respuesta del autor del 10/10/2026: "4 grupos con menú"): los mismos grupos de la portada, cada uno con un menú con
-# sus secciones. "Y además" (Curiosidades) va en "Más". Hasta entonces eran ocho temas sueltos escritos a mano, lo único que no salía de GRUPOS
+# sus secciones. Hasta entonces eran ocho temas sueltos escritos a mano, lo único que no salía de GRUPOS
 GRUPOS_BARRA = [x for x in GRUPOS if x[0] != "otros"]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 EN_BARRA = {s for _, _, items in GRUPOS_BARRA for s in _secs_de(items)}
@@ -588,7 +589,7 @@ def navegacion(h, pagina):
         final = explicador(m.group(1))
     # migas arriba del título y fila de secciones (solo en el celular) arriba de todo
     # el camino: el grupo de la portada y, en una sección que no es la entrada de su categoría, la categoría. Las herramientas y Tu
-    # provincia van bajo "Herramientas", como en el pie, y Curiosidades ("Y además"), Sobre nosotros, Contacto, Artículos y Laboratorio, solo con Datina
+    # provincia van bajo "Herramientas", como en el pie, y Sobre nosotros, Contacto, Artículos y Laboratorio, solo con Datina
     partes = []
     if pagina in GRUPO_DE and GRUPO_DE[pagina][0] != "otros":
         partes.append(("./#tg-" + GRUPO_DE[pagina][0], GRUPO_DE[pagina][1]))
@@ -623,7 +624,7 @@ def lista(items):
 _secs_grupo = lambda items: [(url_pagina(s), TITULO_DE[s]) for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 _col = lambda g: f'<h2>{e(g[1])}</h2>' + lista(_secs_grupo(g[2]))
 MAPA = (f'<div class="pie-col">{_col(GRUPOS[0])}</div><div class="pie-col">{_col(GRUPOS[1])}</div>'
-        f'<div class="pie-col">{_col(GRUPOS[2])}{_col(GRUPOS[4])}</div><div class="pie-col">{_col(GRUPOS[3])}</div>'
+        f'<div class="pie-col">{_col(GRUPOS[2])}</div><div class="pie-col">{_col(GRUPOS[3])}</div>'
         '<div class="pie-col"><h2>Herramientas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4] and x[0] != "catalogo"] +
                                                                 [("relaciones.html", "Explorador de relaciones"), ("articulos.html", "Artículos"),
                                                                  ("laboratorio.html", "Laboratorio")]) +
@@ -664,7 +665,7 @@ _menu = ('<div class="menu-col">'
          + "</div>")
 # Los temas de la portada (etapa 36): cada grupo con sus secciones (ícono, nombre y pregunta corta), y debajo de una categoría sus otras
 # secciones. Desde la etapa 39 los escribe el constructor: van justo debajo de lo azul y, si los pusiera datina.js al llegar, Artículos saltaba
-# hacia abajo. Cada grupo es una columna, y "Y además" (Curiosidades) va debajo del grupo con menos secciones
+# hacia abajo. Cada grupo es una columna (hasta el 11 de octubre de 2026, "Y además" iba debajo del grupo con menos secciones)
 _SEC = {s[0]: s for s in SECCIONES}
 
 
