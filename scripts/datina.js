@@ -1580,12 +1580,14 @@ function barrasH(el, cfg) {
     filas.on("pointerenter", (ev, d) => mostrarTip(el, tipFila(d), izq + x(Math.max(0, d[cfg.k])), 24 + y(d.codigo_indec)))
       .on("pointerleave", ocultarTip);
   }
+  // las líneas de referencia van detrás de las filas (11 de octubre de 2026): cruzaban los valores de las provincias cercanas al promedio.
+  // Se ven entre una barra y la siguiente, y los valores llevan un borde del color del fondo (.f text en datina.css)
   if (cfg.ref != null) {
-    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3");
+    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3").lower();
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
   }
   if (cfg.ref2 != null) {
-    g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
+    g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2).lower();
     const der = cfg.ref == null || cfg.ref2 >= cfg.ref;
     g.append("text").attr("x", x(cfg.ref2) + (der ? 5 : -5)).attr("y", data.length*fila + 18).attr("text-anchor", der ? "start" : "end")
       .attr("class","etq-fuerte").attr("fill",css("--ocde")).text(cfg.ref2Lab);
@@ -1669,12 +1671,12 @@ function barrasGrupos(el, cfg) {
   const x = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.k]) * 1.05]).nice().range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.grupo)).range([0, data.length * fila]).padding(.3);
   g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
-  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.grupo)})`);
+  const f = g.selectAll("g.f").data(data).join("g").attr("class", "f").attr("transform", d => `translate(0,${y(d.grupo)})`);
   const b = f.append("rect").attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
   f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq").text(d => d.grupo);
   const v = f.append("text").attr("x", d => x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
   if (cfg.ref != null) {
-    g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3");
+    g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3").lower();
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
   }
   if (cfg.anim) {
