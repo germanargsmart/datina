@@ -751,6 +751,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-poblacion-proy">
+      <h3>¿Cuánto va a crecer la población de cada provincia?</h3>
+      <p class="ficha-sub">Variación de la población proyectada por provincia entre {{poblacion_proy.anio}} y {{poblacion_proy.anio_fin}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="poblacion-proy">
+        <button type="button" data-m="var_pct" aria-pressed="true">En porcentaje</button>
+        <button type="button" data-m="var_personas" aria-pressed="false">En personas</button>
+      </div>
+      <div class="grafico" data-g="poblacion-proy" data-forma="barras"></div>
+      <p class="lead" data-t="poblacion-proy"></p>
+      <p class="nota" data-t="poblacion-proy-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/poblacion_proyectada_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-piramide">
       <h3>¿Cuántos chicos y cuántas personas mayores va a haber?</h3>
       <p class="ficha-sub">Población por edad y sexo, {{piramide.anio}} y {{piramide.anio_fin}}</p>

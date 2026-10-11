@@ -109,6 +109,36 @@ pir_res = {"anio": ANIO_PROY, "edad_mediana_hoy": round(_med("personas_hoy")), "
            "menores15_hoy": r1(_pp[_pp.edad < 15].personas_hoy.sum() / _pp.personas_hoy.sum() * 100),
            "menores15_fin": r1(_pp[_pp.edad < 15].personas_2040.sum() / _pp.personas_2040.sum() * 100)}
 
+# Poblacion de cada provincia hasta el final de las proyecciones (etapa 40): habitantes del anio en curso y del ultimo anio,
+# la variacion en personas y en %, y el anio con mas habitantes dentro del periodo (el de la Ciudad es el primero, 2022)
+_ppv = proy.groupby(["codigo_indec", "anio"]).pob.sum().unstack()
+_ppv.loc["00"] = _ppv.sum()
+pob_proy = pd.DataFrame({"codigo_indec": _ppv.index, "personas_hoy": _ppv[ANIO_PROY].values, "personas_2040": _ppv[ANIO_FIN_PROY].values,
+                         "anio_maximo": _ppv.idxmax(axis=1).values.astype(int)})
+pob_proy["var_personas"] = pob_proy.personas_2040 - pob_proy.personas_hoy
+pob_proy["var_pct"] = (pob_proy.personas_2040 / pob_proy.personas_hoy - 1) * 100
+pob_proy["territorio"] = pob_proy.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+pob_proy = pob_proy[["codigo_indec", "territorio", "personas_hoy", "personas_2040", "var_personas", "var_pct", "anio_maximo"]].sort_values("codigo_indec").reset_index(drop=True)
+pob_proy[["personas_hoy", "personas_2040", "var_personas"]] = pob_proy[["personas_hoy", "personas_2040", "var_personas"]].round(0).astype(int)
+pob_proy["var_pct"] = pob_proy.var_pct.round(4)
+# toda la serie anual por provincia va a la tabla larga
+d = _ppv.drop("00").stack().rename("valor").reset_index().rename(columns={"anio": "periodo"})
+d["territorio"] = d.codigo_indec.map(CORTO)
+agregar(d, "poblacion_proyectada", "personas", "INDEC, proyecciones de poblacion 2022 a 2040")
+_ppp = pob_proy[pob_proy.codigo_indec != "00"].sort_values("var_pct")
+_ppa = pob_proy.set_index("codigo_indec").loc["00"]
+pob_proy_res = {"anio": ANIO_PROY, "anio_fin": ANIO_FIN_PROY, "hoy": int(_ppa.personas_hoy), "fin": int(_ppa.personas_2040),
+                "var": int(_ppa.var_personas), "var_pct": r1(_ppa.var_pct),
+                "max": _ppp.iloc[-1].territorio, "max_v": r1(_ppp.iloc[-1].var_pct),
+                "min": _ppp.iloc[0].territorio, "min_v": r1(_ppp.iloc[0].var_pct), "min_personas": int(_ppp.iloc[0].var_personas),
+                # las que pierden habitantes y las que crecen menos que el pais (pierden peso en el total)
+                "pierden": _ppp[_ppp.var_personas < 0].territorio.tolist(),
+                "debajo": _ppp[(_ppp.var_personas >= 0) & (_ppp.var_pct < _ppa.var_pct)].territorio.tolist(),
+                # las que tienen su maximo antes del final de las proyecciones: [nombre, anio]
+                "max_antes": [[r.territorio, int(r.anio_maximo)] for r in _ppp.itertuples() if r.anio_maximo < ANIO_FIN_PROY],
+                "pba_pct_hoy": r1(_ppv.loc["06", ANIO_PROY] / _ppv.loc["00", ANIO_PROY] * 100),
+                "pba_pct_fin": r1(_ppv.loc["06", ANIO_FIN_PROY] / _ppv.loc["00", ANIO_FIN_PROY] * 100)}
+
 # Aportantes por beneficio previsional (Boletin Estadistico de la Seguridad Social, cuadro 4.1.1.1): regimenes de ANSES,
 # promedio anual, el ultimo anio es el ultimo mes disponible. No se compara entre provincias: trece provincias tienen su
 # propia caja previsional fuera de ANSES.
@@ -387,6 +417,7 @@ mi_causas_res = {
     "reducibles": REDUCIBLES_PAIS,
 }
 mi_causas = mi_causas.sort_values("codigo_indec").reset_index(drop=True)
+
 
 # ---------------------------------------------------------------- SUBE
 # Tarjetas distintas que registraron al menos un viaje cada dia (Ministerio de Transporte).
@@ -4960,6 +4991,7 @@ tablas = {
     "madres_adolescentes_nse": nse_ado,
     "envejecimiento_pais": envejec_pais,
     "piramide_poblacion": piramide,
+    "poblacion_proyectada_provincias": pob_proy,
     **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
@@ -5316,6 +5348,7 @@ congreso_res["anio_fin"] = congreso_res["anio"] + 2   # fin del período legisla
 resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res
 resumen["piramide"] = pir_res
+resumen["poblacion_proy"] = pob_proy_res
 resumen["empresas"] = emp_res
 resumen["rotacion"] = rot_res
 resumen["jubilaciones"] = jub_res

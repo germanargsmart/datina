@@ -3143,6 +3143,26 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-poblacion-proy",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ppv = proy.groupby([\"codigo_indec\", \"anio\"]).pob.sum().unstack()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"poblacion_proyectada_provincias\": pob_proy,"
+    }
+   ],
+   "tabla": "poblacion_proyectada_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:bess_indicadores.xlsx",
    "a": "f-jubilaciones",
    "evidencia": [
@@ -6062,6 +6082,11 @@
   "f-envejecimiento": {
    "variables": [
     "personas_65_mas_cada_100_de_15_a_64"
+   ]
+  },
+  "f-poblacion-proy": {
+   "variables": [
+    "poblacion_proyectada"
    ]
   },
   "f-escolarizacion": {

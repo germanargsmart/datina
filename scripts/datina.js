@@ -165,7 +165,7 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento;
+const EV = R.envejecimiento, PPY = R.poblacion_proy;
 // columnas de maternidad adolescente por provincia: llevan el primer y el último año de la DEIS (pct_2012, pct_2024...)
 const ADO_INI = "pct_" + nac.anio_ini, ADO_ULT = "pct_" + nac.anio_ult;
 const PI = R.piramide, JU = R.jubilaciones;
@@ -905,6 +905,17 @@ const TX = {
   "causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
     `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que solo traen la causa con tres caracteres. ` +
     `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social ni prepaga del Censo 2022.`,
+  // la cifra destacada ya dice cuánto crece el país: el texto va a las provincias que pierden, a la que más crece y a las que pierden peso
+  "poblacion-proy": (PPY.pierden.length === 1 && PPY.pierden[0] === PPY.min
+      ? `${PPY.min} es la única jurisdicción que pierde habitantes hasta ${PPY.anio_fin}: unas ${n0(Math.round(Math.abs(PPY.min_personas) / 1000) * 1000)} personas menos que en ${PPY.anio} (${conSigno(PPY.min_v)}). `
+      : PPY.pierden.length ? `Pierden habitantes hasta ${PPY.anio_fin} ${lista(PPY.pierden)}. La que más pierde en proporción es ${PPY.min} (${conSigno(PPY.min_v)}). `
+      : `Todas las jurisdicciones suman habitantes hasta ${PPY.anio_fin}. La que menos crece es ${PPY.min} (${conSigno(PPY.min_v)}). `) +
+    `La que más crece en proporción es ${PPY.max} (${conSigno(PPY.max_v)}). ` +
+    (PPY.debajo.length ? `${lista(PPY.debajo)} ${PPY.debajo.length > 1 ? "crecen" : "crece"} menos que el país, así que ${PPY.debajo.length > 1 ? "pierden" : "pierde"} peso en el total` +
+      (PPY.debajo.includes("Buenos Aires") && PPY.pba_pct_fin < PPY.pba_pct_hoy ? `: la provincia de Buenos Aires pasa de tener el ${pct(PPY.pba_pct_hoy)} de los habitantes del país al ${pct(PPY.pba_pct_fin)}.` : ".") : ""),
+  "poblacion-proy-nota": `Proyecciones de población del INDEC por provincia, base Censo 2022. Estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas, y se revisan con cada censo: no son un conteo. ` +
+    `La variación compara la población proyectada de ${PPY.anio} con la de ${PPY.anio_fin}.` +
+    (PPY.max_antes.length ? ` Según las mismas proyecciones, ${lista(PPY.max_antes.map(([t, a]) => `${t} ${a < PPY.anio ? "tuvo" : "tiene"} su población más alta en ${a}`))}.` : ""),
   envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
     `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. La relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}).`,
   // la cifra destacada ya dice el total y el promedio del país: el texto va a las provincias
@@ -2071,7 +2082,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult"};
+const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -2095,6 +2106,11 @@ const DIB = {
     lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:40, ref:100, refLab: `${T.nacimientos[0].anio} = 100`, yf: v => v, vf: n0,
       xl: d => `${d.anio}<br><span class="suave">Argentina: ${n0(d.nacimientos)} nacimientos${d.nacimientos_ocde ? `<br>OCDE: ${n1(d.nacimientos_ocde / 1e6)} millones` : ""}</span>`,
       series:[{k:"idx_argentina", lab:"Argentina", c:NAR, w:3}, {k:"idx_ocde", lab:"OCDE", c:css("--ocde"), w:2.6}]}); },
+  "poblacion-proy": a => { const pc = MED["poblacion-proy"] === "var_pct";
+    return barrasH(G("poblacion-proy"), {anim: a, data: T.poblacion_proyectada_provincias.filter(r => r.codigo_indec !== "00"), k: MED["poblacion-proy"],
+      vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
+      ...(pc ? {ref: PPY.var_pct, refLab: `País ${conSigno(PPY.var_pct)}`} : {}),
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.personas_hoy)} habitantes en ${PPY.anio}<br>${n0(d.personas_2040)} en ${PPY.anio_fin}<br>${(d.var_personas > 0 ? "+" : "") + n0(d.var_personas)} personas, ${conSigno(d.var_pct)}`}); },
   envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb: String(EV.anio_fin), vf: n1, af: v => v,
     pais: [EV.hoy, EV.fin]}),
   adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),
@@ -5020,6 +5036,8 @@ const CLAVE = {
   "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`, `más demanda en ${e.mes_max} que en ${e.mes_min}`],
   "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`,
     `de cada 100 nacimientos del país en ${nac.anio_ult}`],
+  "f-poblacion-proy": [conSigno(PPY.var_pct), `va a crecer la población del país entre ${PPY.anio} y ${PPY.anio_fin}, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas, según las proyecciones del INDEC`,
+    `en todo el país, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas`],
   "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`, `cada 1.000 nacidos vivos en todo el país en ${mo.anio}`],
   "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`,
     `puntos en matemática en ${pz.anio}, contra ${pz.ocde_mat} del promedio de la OCDE`],
@@ -5126,7 +5144,7 @@ const EN_CIFRAS = {
   // Seguridad (etapa 23): tiene datos por provincia (homicidios y robos) y suma la tarjeta "Tu provincia"
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
-  poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
+  poblacion: ["x-nacimientos", "f-poblacion-proy", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
   gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales", "f-fiscal"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
@@ -5634,6 +5652,8 @@ const INDP = [
     d:T.mortalidad_infantil_provincias, k:"tmi_actual", pais:mo.pais_act, f:n1, ocde:OC.mortalidad_infantil.ocde},
   {id:"f-adolescentes", g:"poblacion", lab:"Maternidad adolescente", veces:true, det:`% de los nacimientos de ${nac.anio_ult} con madres menores de 20 años`,
     d:T.madres_adolescentes_provincias, k:ADO_ULT, pais:nac.pct_ult, f:pct},
+  {id:"f-poblacion-proy", g:"poblacion", lab:"Crecimiento de la población", det:`variación de la población proyectada entre ${PPY.anio} y ${PPY.anio_fin}`,
+    d:T.poblacion_proyectada_provincias.filter(r => r.codigo_indec !== "00"), k:"var_pct", pais:PPY.var_pct, f:conSigno},
   {id:"f-escolarizacion", g:"educacion", lab:"Escolarización secundaria", det:`tasa neta de escolarización, ${es.fin}`,
     d:T.escolarizacion_secundaria_provincias, k:"tasa_final", pais:es.pais_fin, f:pct},
   {id:"f-aprender", g:"educacion", lab:"Aprender, matemática", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
@@ -5786,6 +5806,8 @@ const PREG = [
    `En ${SA.mes}, ${n0(SA.pais)} pesos brutos por mes en el sector privado del país. En ${SA.top[0]}, ${n0(SA.top[1])}, y en ${SA.bajo[0]}, ${n0(SA.bajo[1])}.`, "#f-salarios"],
   ["¿Cuánto cobra un maestro de grado?",
    `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
+  ["¿Cuánto va a crecer la población?",
+   `${conSigno(PPY.var_pct)} entre ${PPY.anio} y ${PPY.anio_fin} en todo el país, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas, según las proyecciones del INDEC. La que más crece es ${PPY.max} (${conSigno(PPY.max_v)}) y la que menos, ${PPY.min} (${conSigno(PPY.min_v)}).`, "#f-poblacion-proy"],
   ["¿Cuántos homicidios hay por año?",
    `En ${SG.anio}, ${n0(SG.hom_victimas)} víctimas de homicidios dolosos, ${n1(SG.hom_tasa)} cada 100.000 habitantes. En ${SG.hom_max_anio}, el año más alto desde ${SG.anio_ini}, ${n1(SG.hom_max)}.`, "#f-homicidios"],
   ["¿Cuánto debe el Estado nacional?",
@@ -6616,6 +6638,7 @@ const SERIE_CIFRA = {
   "f-pisa": () => serieM("Argentina en matemática en PISA, por edición (sin 2015, que no es comparable)", T.pisa_argentina_ocde.map(r => [r.anio, r.arg_mat_grafico]), n0),
   "x-nacimientos": () => serieM("Nacimientos por año", T.nacimientos.map(r => [r.anio, r.nacimientos]), n0),
   "f-adolescentes": () => serieM("Nacimientos de madres menores de 20 años, cada 100, por año", T.nacimientos.map(r => [r.anio, r.pct_madres_menores_20]), n1),
+  "f-poblacion-proy": () => provM(`Variación de la población proyectada entre ${PPY.anio} y ${PPY.anio_fin}, en %`, T.poblacion_proyectada_provincias, "var_pct", PPY.var_pct, conSigno),
   "x-vejez": () => serieM("Personas de 65 años o más cada 100 de 15 a 64, proyección del INDEC",
     T.envejecimiento_pais.filter(r => (r.anio - T.envejecimiento_pais[0].anio) % 2 === 0 || r.anio === EV.anio).map(r => [r.anio, r.vejez]), n1, 12, EV.anio),
   "x-jubilaciones": () => serieM("Aportantes por cada jubilación o pensión de ANSES, por año", T.jubilaciones_aportantes.map(r => [r.anio, r.aportantes_por_beneficio]), n2),
