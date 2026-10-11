@@ -391,8 +391,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto);transition:opacity var(--dur-4) var(--ease-out)}
 .mapa-ayuda[style*="top"]{bottom:auto}
 /* tarjeta al tocar una provincia: al lado del país en pantallas anchas, debajo del mapa en el celular */
-.mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);background:#fff;border-radius:var(--r-panel);
-  box-shadow:var(--sombra-panel);pointer-events:auto}
+/* con el vidrio de los menús desplegables (11 de octubre de 2026, pedido del autor: "el mismo gradiente o transparencia que los desplegables
+   del menú, así vamos unificando criterios"). Los textos chicos pasan del gris al tono de la bajada, que se lee sobre el vidrio encima del azul */
+.mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);border:1px solid var(--line);border-radius:var(--r-panel);
+  background:var(--vidrio-menu);-webkit-backdrop-filter:var(--vidrio-blur);backdrop-filter:var(--vidrio-blur);box-shadow:var(--sombra-panel);pointer-events:auto}
 .mapa-tarjeta.abierta{display:block}
 .mt-cab{display:flex;align-items:center;justify-content:space-between;gap:var(--e-2);margin-bottom:var(--e-3);font-size:var(--t-5);font-weight:600}
 .mt-cerrar{width:32px;height:32px;flex:none;font-size:22px;line-height:1;color:var(--muted);background:none;border:0;border-radius:var(--r-control);cursor:pointer}
@@ -400,7 +402,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .mapa-tarjeta li{display:grid;grid-template-columns:1fr auto;gap:0 var(--e-2);padding:var(--e-2) 0;border-top:1px solid var(--line)}
 .mt-lab{font-size:var(--t-3)}
 .mapa-tarjeta li b{font-size:var(--t-3);font-weight:600;font-variant-numeric:tabular-nums}
-.mapa-tarjeta li small{grid-column:1/-1;font-size:var(--t-1);color:var(--muted)}
+.mapa-tarjeta li small{grid-column:1/-1;font-size:var(--t-1);color:var(--tinta-bajada)}
+.mapa-tarjeta .mt-cerrar{color:var(--tinta-bajada)}
 .mapa-tarjeta .boton{width:100%}
 .mapa-tarjeta .boton.principal{--b-fondo:var(--azul);--b-tinta:#fff;--b-borde:var(--azul)}
 @media (hover:hover) and (pointer:fine){.mapa-tarjeta .boton.principal:hover{--b-fondo:var(--azul-hondo);--b-borde:var(--azul-hondo)}}
@@ -1558,11 +1561,11 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   ::view-transition-new(root){animation:vt-funde var(--dur-3) var(--ease-out) both}
 }
 /* sin desenfoque en el navegador, el menú vuelve a ser blanco: traslúcido sin desenfoque no se lee */
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.menu-panel{background:#fff}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.menu-panel,.mapa-tarjeta{background:#fff}}
 /* Transparencia reducida: la barra clara y los menús con fondo sólido */
 @media (prefers-reduced-transparency:reduce){
   .barra.clara{background:var(--fondo);-webkit-backdrop-filter:none;backdrop-filter:none}
-  .menu-panel{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .menu-panel,.mapa-tarjeta{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
 /* Catálogo de datos (catalogo.html, 11 de octubre de 2026, propuesta aprobada por el autor): los filtros arriba y las tablas en una lista,
    una por fila, separadas por una línea. Las listas desplegables son las de las herramientas (.cx-campo) y los botones, los del pie de las fichas */
