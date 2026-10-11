@@ -418,6 +418,79 @@ mi_causas_res = {
 }
 mi_causas = mi_causas.sort_values("codigo_indec").reset_index(drop=True)
 
+# Causas de muerte por provincia, todas las edades (etapa 40): defunciones de la DEIS de los mismos tres anios por grupo de causa
+# (capitulos de la CIE-10) y provincia de residencia, con tasas cada 100.000 habitantes ajustadas por edad (metodo directo):
+# la tasa de cada grupo de edad de la provincia se pondera con la estructura por edad del pais en el anio del medio, asi la
+# comparacion no depende de que una provincia tenga mas personas mayores. Poblacion: proyecciones del INDEC de cada anio.
+# Las causas externas van juntas (accidentes, agresiones y lesiones intencionales), sin separar ninguna (regla del autor).
+# Las muertes sin edad registrada se reparten en proporcion. Residencia en otro pais (98): fuera. Sin provincia (99): solo en el pais.
+GRUPOS_CM = [("circulatorias", "Enfermedades del corazón y la circulación", r"^I"), ("tumores", "Tumores", r"^(C|D[0-4])"),
+             ("respiratorias", "Enfermedades respiratorias", r"^J"), ("infecciosas", "Infecciosas y parasitarias", r"^[AB]"),
+             ("covid", "COVID-19", r"^U(0[7-9]|10)"), ("endocrinas", "Diabetes y otras endocrinas y metabólicas", r"^E"),
+             ("digestivas", "Enfermedades digestivas", r"^K"), ("externas", "Causas externas", r"^[VWXY]"),
+             ("mal_definidas", "Mal definidas", r"^R"), ("otras", "Otras causas", r".")]
+
+
+def cm_edad(g):  # grupo de edad de la DEIS a su grupo comun: 0 (menores de 10), 10, 15... 75 y 80 (80 y mas)
+    s = re.sub(r"^\s*\d+[._]\s*", "", str(g)).strip().lower()
+    if "menor" in s or "día" in s or "mes" in s or re.match(r"^\d+ años?$", s) or re.match(r"^[15] a 9", s):
+        return 0
+    if "especif" in s:
+        return None
+    return min(int(re.match(r"\d+", s).group()), 80)
+
+
+_cmd = pd.concat([deis_csv(f"deis_defunciones_{a}.csv") for a in ANIOS_CAUSA])
+_cmd["n"] = _cmd.CUENTA.astype(int)
+_cmd["codigo_indec"] = _cmd.PROVRES.str.strip().str.zfill(2)
+_cmd["grupo"] = _cmd.CAUSA.str.strip().str.upper().map(lambda c: next(k for k, _, rx in GRUPOS_CM if re.match(rx, c)))
+_cmd["edad"] = _cmd.GRUPEDAD.map(cm_edad)
+assert _cmd[_cmd.edad.isna()].n.sum() / _cmd.n.sum() < .01, "más del 1% de las defunciones sin edad: revisar los grupos de edad de la DEIS"
+_cmd = _cmd[_cmd.codigo_indec != "98"]
+_cmp = proy[proy.anio.isin(ANIOS_CAUSA)].assign(edad=lambda x: x.edad.map(lambda e: 0 if e < 10 else min(e, 80)))
+_cmpob = _cmp.groupby(["codigo_indec", "edad"]).pob.sum()            # personas por anio, sumadas en los tres anios
+_cmpob = pd.concat([_cmpob, _cmp.groupby("edad").pob.sum().to_frame().assign(codigo_indec="00").set_index("codigo_indec", append=True).pob.reorder_levels([1, 0])])
+CM_ANIO_STD = ANIOS_CAUSA[len(ANIOS_CAUSA) // 2]
+_cmw = _cmp[_cmp.anio == CM_ANIO_STD].groupby("edad").pob.sum()
+_cmw = _cmw / _cmw.sum()
+
+
+def cm_tasa(d, c):  # tasa ajustada por edad y tasa bruta cada 100.000 habitantes por anio
+    pob = _cmpob.loc[c]
+    if d.n.sum() == 0:
+        return 0.0, 0.0
+    m = d.dropna(subset=["edad"]).groupby("edad").n.sum().reindex(_cmw.index, fill_value=0)
+    f = d.n.sum() / max(m.sum(), 1)
+    return float((m / pob * _cmw).sum() * 1e5 * f), float(d.n.sum() / pob.sum() * 1e5)
+
+
+_cmf = []
+for c in PROV24 + ["00"]:
+    d = _cmd if c == "00" else _cmd[_cmd.codigo_indec == c]
+    fila = {"codigo_indec": c, "territorio": "Total del país" if c == "00" else CORTO[c], "muertes": int(d.n.sum())}
+    fila["tasa_total"], fila["tasa_bruta"] = cm_tasa(d, c)
+    for k, _, _ in GRUPOS_CM:
+        fila[f"tasa_{k}"] = cm_tasa(d[d.grupo == k], c)[0]
+        fila[f"muertes_{k}"] = int(d[d.grupo == k].n.sum())
+    _cmf.append(fila)
+causas_muerte = pd.DataFrame(_cmf).round(4)
+causas_muerte["pct_mal_definidas"] = (causas_muerte.muertes_mal_definidas / causas_muerte.muertes * 100).round(4)
+_cmv = causas_muerte.set_index("codigo_indec")
+_cm24 = _cmv.drop("00")
+causas_muerte_res = {
+    "desde": ANIOS_CAUSA[0], "hasta": ANIOS_CAUSA[-1], "anio_std": CM_ANIO_STD, "muertes": int(_cmv.muertes["00"]),
+    "muertes_anio": int(round(_cmv.muertes["00"] / len(ANIOS_CAUSA))), "pais": r1(_cmv.tasa_total["00"]),
+    "max": CORTO[_cm24.tasa_total.idxmax()], "max_v": r1(_cm24.tasa_total.max()), "min": CORTO[_cm24.tasa_total.idxmin()], "min_v": r1(_cm24.tasa_total.min()),
+    "bruta_max": CORTO[_cm24.tasa_bruta.idxmax()], "bruta_max_v": r1(_cm24.tasa_bruta.max()),
+    "bruta_min": CORTO[_cm24.tasa_bruta.idxmin()], "bruta_min_v": r1(_cm24.tasa_bruta.min()),
+    "mal_def_pais": r1(_cmv.pct_mal_definidas["00"]), "mal_def_max": CORTO[_cm24.pct_mal_definidas.idxmax()],
+    "mal_def_max_v": r1(_cm24.pct_mal_definidas.max()), "mal_def_min": CORTO[_cm24.pct_mal_definidas.idxmin()],
+    "mal_def_min_v": r1(_cm24.pct_mal_definidas.min()),
+    "sin_edad_pct": r1(_cmd[_cmd.edad.isna()].n.sum() / _cmd.n.sum() * 100),
+    "grupos": [{"k": k, "lab": lab, "pct": r1(_cmv[f"muertes_{k}"]["00"] / _cmv.muertes["00"] * 100), "pais": r1(_cmv[f"tasa_{k}"]["00"]),
+                "max": CORTO[_cm24[f"tasa_{k}"].idxmax()], "max_v": r1(_cm24[f"tasa_{k}"].max()),
+                "min": CORTO[_cm24[f"tasa_{k}"].idxmin()], "min_v": r1(_cm24[f"tasa_{k}"].min())} for k, lab, _ in GRUPOS_CM],
+}
 
 # ---------------------------------------------------------------- SUBE
 # Tarjetas distintas que registraron al menos un viaje cada dia (Ministerio de Transporte).
@@ -4988,6 +5061,7 @@ tablas = {
     "representacion_provincias": representacion,
     "envejecimiento_provincias": envejec,
     "mortalidad_infantil_causas": mi_causas,
+    "causas_muerte_provincias": causas_muerte,
     "madres_adolescentes_nse": nse_ado,
     "envejecimiento_pais": envejec_pais,
     "piramide_poblacion": piramide,
@@ -5349,6 +5423,7 @@ resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res
 resumen["piramide"] = pir_res
 resumen["poblacion_proy"] = pob_proy_res
+resumen["causas_muerte"] = causas_muerte_res
 resumen["empresas"] = emp_res
 resumen["rotacion"] = rot_res
 resumen["jubilaciones"] = jub_res

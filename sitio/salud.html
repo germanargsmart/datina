@@ -120,6 +120,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción. Se actualiza con cada censo.</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-causas-muerte">
+      <h3>¿De qué se muere la gente en cada provincia?</h3>
+      <p class="ficha-sub">Muertes por año cada 100.000 habitantes según la causa, ajustadas por edad, por provincia, 2022 a 2024</p>
+      <label class="selector-ficha"><span>Causa</span><select id="cm-sel"></select></label>
+      <div class="grafico" data-g="causas-muerte" data-forma="barras"></div>
+      <p class="lead" data-t="causas-muerte"></p>
+      <p class="nota" data-t="causas-muerte-nota"></p>
+      <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022. Se actualiza cada año.</span><a href="datos/causas_muerte_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-mortalidad">
       <h3>¿Cuántos bebés mueren antes del año en cada provincia?</h3>
       <p class="ficha-sub">Tasa de mortalidad infantil por provincia, 2012 a 2014 y 2022 a 2024</p>
@@ -253,7 +263,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=62e771242e"></script>
-<script src="datina.js?v=78a21bca7c"></script>
+<script src="datos/fichas.js?v=378d99603e"></script>
+<script src="datina.js?v=63dd7c23ff"></script>
 </body>
 </html>

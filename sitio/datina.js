@@ -165,7 +165,12 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento, PPY = R.poblacion_proy;
+const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte;
+// causas de muerte: cada grupo dicho dentro de una oración, y los grupos con causa definida de más a menos frecuente en el país
+const CM_FRASE = {circulatorias: "las enfermedades del corazón y la circulación", tumores: "los tumores", respiratorias: "las enfermedades respiratorias",
+  infecciosas: "las enfermedades infecciosas y parasitarias", covid: "el COVID-19", endocrinas: "la diabetes y otras enfermedades endocrinas y metabólicas",
+  digestivas: "las enfermedades digestivas", externas: "las causas externas"};
+const CMG = CM.grupos.filter(g => CM_FRASE[g.k]).sort((a, b) => b.pct - a.pct);
 // columnas de maternidad adolescente por provincia: llevan el primer y el último año de la DEIS (pct_2012, pct_2024...)
 const ADO_INI = "pct_" + nac.anio_ini, ADO_ULT = "pct_" + nac.anio_ult;
 const PI = R.piramide, JU = R.jubilaciones;
@@ -905,6 +910,15 @@ const TX = {
   "causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
     `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que solo traen la causa con tres caracteres. ` +
     `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social ni prepaga del Censo 2022.`,
+  // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
+  "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
+    `Sin ajustar, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
+    ` y la más baja, la de ${CM.bruta_min} (${n0(CM.bruta_min_v)}${CM.bruta_min === EV.min ? ", la más joven" : ""}). ` +
+    `Después vienen ${CM_FRASE[CMG[1].k]} (${pct(CMG[1].pct)} de las muertes) ${yE(CM_FRASE[CMG[2].k])} (${pct(CMG[2].pct)}).`,
+  "causas-muerte-nota": `Tasas ajustadas por edad con el método directo: la tasa de cada grupo de edad de la provincia se pondera con la población del país de ${CM.anio_std} por edad, así se comparan provincias más jóvenes y más envejecidas. ` +
+    `Promedio anual de ${CM.desde} a ${CM.hasta}, por provincia de residencia, con la causa básica de muerte agrupada por capítulos de la CIE-10. Las causas externas reúnen los accidentes, las agresiones y las lesiones intencionales. ` +
+    `El ${pct(CM.mal_def_pais)} de las muertes del país tiene una causa mal definida, desde el ${pct(CM.mal_def_min_v)} en ${CM.mal_def_min} hasta el ${pct(CM.mal_def_max_v)} en ${CM.mal_def_max}: donde hay más causas mal definidas, las demás parecen más bajas de lo que son. ` +
+    `Población: proyecciones del INDEC de cada año. Las muertes sin edad registrada (el ${pct(CM.sin_edad_pct)}) se reparten en proporción.`,
   // la cifra destacada ya dice cuánto crece el país: el texto va a las provincias que pierden, a la que más crece y a las que pierden peso
   "poblacion-proy": (PPY.pierden.length === 1 && PPY.pierden[0] === PPY.min
       ? `${PPY.min} es la única jurisdicción que pierde habitantes hasta ${PPY.anio_fin}: unas ${n0(Math.round(Math.abs(PPY.min_personas) / 1000) * 1000)} personas menos que en ${PPY.anio} (${conSigno(PPY.min_v)}). `
@@ -3959,6 +3973,18 @@ const AN = R.ado_nse, MC = R.mi_causas;
 $("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
 MED.adonse = AN.indicadores[0].k;
 $("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; cambiarVista("adonse"); });
+// causas de muerte por provincia (etapa 40): todas las causas y cada grupo, con la tasa ajustada por edad y la línea del país
+$("cm-sel").innerHTML = `<option value="total">Todas las causas</option>` + CM.grupos.map(g => `<option value="${g.k}">${g.lab}</option>`).join("");
+MED["causas-muerte"] = "total";
+$("cm-sel").addEventListener("change", ev => { MED["causas-muerte"] = ev.target.value; cambiarVista("causas-muerte"); });
+DIB["causas-muerte"] = a => {
+  const g = MED["causas-muerte"], k = "tasa_" + g, filas = T.causas_muerte_provincias, pais = filas.find(r => r.codigo_indec === "00");
+  const f = v => v >= 100 ? n0(v) : n1(v), mk = g === "total" ? "muertes" : "muertes_" + g;
+  barrasH(G("causas-muerte"), {anim: a, data: filas.filter(r => r.codigo_indec !== "00"), k, vf: f, af: n0, ref: pais[k], refLab: `País ${f(pais[k])}`,
+    tip: d => `<b>${d.territorio}</b><br>${f(d[k])} muertes por año cada 100.000 habitantes, ajustada por edad` +
+      (g === "total" ? `<br>${n0(d.tasa_bruta)} sin ajustar` : `<br>${pct(d[mk] / d.muertes * 100)} de las muertes de la provincia`) +
+      `<br>${n0(d[mk])} muertes de ${CM.desde} a ${CM.hasta}`});
+};
 DIB.adonse = a => {
   const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
   const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
@@ -5072,6 +5098,8 @@ const CLAVE = {
   "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`, `inventariados en todo el país, en ${cu.gl_n} provincias`],
   "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`, `en ${cu.cl_max_anio}, el año más cálido de la serie`],
   "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`, "años en todo el país, mujeres y varones juntos"],
+  "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
+    `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares, promedio del país"],
   "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, "de los hogares del país tenía desagüe a red cloacal"],
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
@@ -5140,7 +5168,7 @@ const EN_CIFRAS = {
   economia: ["f-inflacion", "x-inflacion-mes", "f-canastas", "f-salario-real", "f-emae", "f-supermercados"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
-  salud: ["f-esperanza", "x-ev-brecha", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
+  salud: ["f-esperanza", "x-ev-brecha", "f-causas-muerte", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
   // Seguridad (etapa 23): tiene datos por provincia (homicidios y robos) y suma la tarjeta "Tu provincia"
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
@@ -5250,7 +5278,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "balanza_energetica", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "exportaciones_cantidades_anual", "exportaciones_dolar_trimestral", "exportaciones_provincias", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_hidrocarburos", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "balanza_energetica", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "exportaciones_cantidades_anual", "exportaciones_dolar_trimestral", "exportaciones_provincias", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_hidrocarburos", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   const tema = f.closest(".tema")?.querySelector("h1, h2")?.textContent;
@@ -5668,6 +5696,8 @@ const INDP = [
     d:T.areas_protegidas_provincias, k:"pct_territorio", pais:nt.pct, f:pct, ocde:OC.protegida.ocde},
   {id:"f-esperanza", g:"salud", lab:"Esperanza de vida", det:`años al nacer, ambos sexos, ${nv.ev_anio}`,
     d:T.esperanza_vida_provincias, k:"total", pais:nv.ev_pais, f:n1, ocde:OC.esperanza_vida.ocde},
+  {id:"f-causas-muerte", g:"salud", lab:"Mortalidad ajustada por edad", veces:true, det:`muertes por año cada 100.000 habitantes, ${CM.desde} a ${CM.hasta}`,
+    d:T.causas_muerte_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_total", pais:CM.pais, f:n0},
   {id:"f-censo", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, 2022",
     d:T.censo2022_provincias, k:"sin_cobertura", pais:nv.censo.sin_cobertura, f:pct},
   {id:"f-censo", g:"vivienda", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, 2022",
@@ -5806,6 +5836,8 @@ const PREG = [
    `En ${SA.mes}, ${n0(SA.pais)} pesos brutos por mes en el sector privado del país. En ${SA.top[0]}, ${n0(SA.top[1])}, y en ${SA.bajo[0]}, ${n0(SA.bajo[1])}.`, "#f-salarios"],
   ["¿Cuánto cobra un maestro de grado?",
    `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
+  ["¿De qué se muere la gente en la Argentina?",
+   `De ${CM.desde} a ${CM.hasta}, el ${pct(CMG[0].pct)} de las muertes fue por ${CM_FRASE[CMG[0].k]}. Ajustada por edad, la mortalidad más alta es la de ${CM.max} y la más baja, la de ${CM.min}.`, "#f-causas-muerte"],
   ["¿Cuánto va a crecer la población?",
    `${conSigno(PPY.var_pct)} entre ${PPY.anio} y ${PPY.anio_fin} en todo el país, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas, según las proyecciones del INDEC. La que más crece es ${PPY.max} (${conSigno(PPY.max_v)}) y la que menos, ${PPY.min} (${conSigno(PPY.min_v)}).`, "#f-poblacion-proy"],
   ["¿Cuántos homicidios hay por año?",
@@ -6628,6 +6660,7 @@ const SERIE_CIFRA = {
   "f-censo": () => provM("Hogares con desagüe a red cloacal, en %, Censo 2022", T.censo2022_provincias, "cloaca", nv.censo.cloaca, pct),
   "f-internet": () => provM("Accesos a internet fijo cada 100 hogares", T.internet_fijo_provincias, "accesos_100_hogares", null, n1),
   "f-esperanza": () => provM(`Esperanza de vida al nacer, en años, ${nv.ev_anio}`, T.esperanza_vida_provincias, "total", nv.ev_pais, n1),
+  "f-causas-muerte": () => provM(`Muertes por año cada 100.000 habitantes, ajustadas por edad, ${CM.desde} a ${CM.hasta}`, T.causas_muerte_provincias, "tasa_total", CM.pais, n0),
   "x-ev-brecha": () => provM(`Años más de esperanza de vida de las mujeres que de los varones, ${nv.ev_anio}`,
     T.esperanza_vida_provincias.map(r => ({...r, brecha: r.mujeres - r.varones})), "brecha", nv.ev_m - nv.ev_v, n1),
   "f-mortalidad": () => provM(`Mortalidad infantil cada 1.000 nacidos vivos, promedio de ${mo.tri_act}`, T.mortalidad_infantil_provincias, "tmi_actual", mo.pais_act, n1),

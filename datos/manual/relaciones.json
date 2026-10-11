@@ -2659,6 +2659,34 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:deis_defunciones_AAAA.csv",
+   "a": "f-causas-muerte",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmd = pd.concat([deis_csv(f\"deis_defunciones_{a}.csv\") for a in ANIOS_CAUSA])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"causas_muerte_provincias\": causas_muerte,"
+    }
+   ],
+   "tabla": "causas_muerte_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-causas-muerte",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmp = proy[proy.anio.isin(ANIOS_CAUSA)]"
+    }
+   ],
+   "tabla": "causas_muerte_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:snic_pais.csv",
    "a": "f-muertes",
    "evidencia": [
