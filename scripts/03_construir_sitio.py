@@ -264,6 +264,78 @@ base = base.replace("<!--BANDERAS-->",
     'y se muestran en miniatura, todas con el mismo tamaño y el mismo recorte.</p>'
     f'<details class="glosario creditos"><summary>Autores y licencias</summary><ul>{creditos}</ul></details>')
 
+# Historia de cada jurisdicción en Tu provincia (11 de octubre de 2026, pedido del autor: "cuando entro a una provincia pongas año de
+# fundación, antecedente, a las que corresponda si formó parte de las guerras civiles y la formación del estado nacional argentino, un
+# breve resumen de quiénes fueron y son, cantidad de habitantes y algún fun fact"). Los textos y sus fuentes están en
+# datos/manual/provincias_historia.json. Los habitantes salen de los datos: la proyección del INDEC (base Censo 2022) del año de la
+# población que usa todo el sitio. Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
+# texto rompe las reglas de redacción o le falta su fuente, el sitio no se arma
+HISTORIA = json.loads((RAIZ / "datos" / "manual" / "provincias_historia.json").read_text(encoding="utf-8"))["provincias"]
+_fj = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["empleo_provincias"] if f.get("poblacion")}
+HAB_ANIO = _fj["resumen"]["anio_pob"]
+_H_CAMPOS = [("fundacion_capital", "Fundación"), ("provincia_desde", "Autonomía"), ("antecedente", "Antes"),
+             ("guerras_civiles", "Guerras civiles"), ("quienes", "Quiénes"), ("curiosidad", "Dato curioso")]
+_h_txt = lambda h, k: ((h.get(k) or {}).get("texto") if isinstance(h.get(k), dict) else h.get(k)) or ""
+_h_err = []
+for _c, _h in sorted(HISTORIA.items()):
+    if _c not in NOMBRE_PROV or _c == "00":
+        _h_err.append(f"{_c}: no es un código de jurisdicción")
+        continue
+    _datos = {f.get("dato") for f in _h.get("fuentes", []) if f.get("url", "").startswith("https://")}
+    for _k, _ in _H_CAMPOS:
+        _t = _h_txt(_h, _k)
+        if not _t:
+            continue
+        if ";" in _t or "!" in _t:
+            _h_err.append(f"{_c} {_k}: tiene punto y coma o signo de exclamación")
+        if len(_t.split()) >= 70:
+            _h_err.append(f"{_c} {_k}: tiene {len(_t.split())} palabras (el máximo es 69)")
+        if re.search(r"\sy\s+(?:[iíIÍ]|[hH][iíIÍ](?![aeouáéóú]))", _t):
+            _h_err.append(f"{_c} {_k}: 'y' delante del sonido de la i (va 'e')")
+        if _k not in _datos:
+            _h_err.append(f"{_c} {_k}: no tiene fuente (https) en 'fuentes'")
+if _h_err:
+    sys.exit("La historia de las provincias (datos/manual/provincias_historia.json) tiene problemas: el sitio no se armó.\n" + "\n".join(_h_err))
+_miles = lambda x: f"{int(round(x)):,}".replace(",", ".")
+
+
+def historia_prov(c, h):
+    """El bloque de una jurisdicción: el texto a la izquierda y los datos básicos y el dato curioso al costado."""
+    fc, pd = h.get("fundacion_capital") or {}, h.get("provincia_desde") or {}
+    datos = []
+    if fc.get("ciudad") and fc.get("anio"):
+        datos.append(("Ciudad" if c == "02" else "Capital", f'{fc["ciudad"]}, fundada en {fc["anio"]}', ""))
+    if pd.get("anio"):
+        datos.append(("Autonomía desde" if c == "02" else "Provincia desde", str(pd["anio"]), ""))
+    if c in HAB:
+        datos.append(("Habitantes", f"{_miles(HAB[c])} en {HAB_ANIO}", "Proyección del INDEC, base Censo 2022"))
+    partes = [("Fundación", " ".join(t for t in (fc.get("texto"), pd.get("texto")) if t)), ("Antes", h.get("antecedente")),
+              ("Guerras civiles y formación del Estado", h.get("guerras_civiles")), ("Quiénes fueron y quiénes son", h.get("quienes"))]
+    texto_h = "".join(f'<h3 class="ph-sub">{e(t)}</h3><p>{e(p)}</p>' for t, p in partes if p)
+    if not texto_h:
+        return ""
+    dl = "".join(f'<div><dt>{e(k)}</dt><dd>{e(v)}{f"<small>{e(s)}</small>" if s else ""}</dd></div>' for k, v, s in datos)
+    cur = (f'<div class="ph-curiosidad"><p class="ph-sub">Dato curioso</p><p>{e(h["curiosidad"])}</p></div>' if h.get("curiosidad") else "")
+    nombres = dict(_H_CAMPOS)
+    fuentes = "".join(f'<li><span class="ph-dato">{e(nombres.get(f.get("dato"), ""))}</span> <a href="{e(f["url"])}" target="_blank" rel="noopener">'
+                      f'{e(f.get("titulo") or f["url"])}</a></li>' for f in h.get("fuentes", []) if f.get("url", "").startswith("https://"))
+    return (f'<article class="ph" data-c="{c}" aria-labelledby="ph-{c}" hidden><h2 class="ph-tit" id="ph-{c}">¿De dónde viene {e(NOMBRE_PROV[c])}?</h2>'
+            f'<div class="ph-cuerpo"><div class="ph-texto">{texto_h}</div><aside class="ph-lado" aria-label="Datos básicos">'
+            f'<dl class="ph-datos">{dl}</dl>{cur}</aside></div>'
+            f'<details class="ph-fuentes"><summary>Fuentes</summary><p>Textos de Datina a partir de sitios oficiales de cada provincia y del '
+            f'Estado nacional, leyes y universidades públicas. Los habitantes, de la proyección de población del INDEC.</p><ul>{fuentes}</ul></details></article>')
+
+
+assert base.count("<!--HISTORIA-->") == 1
+# el bloque de la provincia del enlace (o la recordada) se muestra apenas se lee, antes de que se vea la página: si lo mostrara datina.js
+# al final, el perfil de abajo saltaba al aparecer (CLS de 0,30 con CABA). La misma regla de datina.js (leerProv), que después lo mantiene
+_HIST_YA = ('<script>(()=>{const l=s=>new URLSearchParams(s).get("prov");let c=l(location.search)||l(location.hash.split("?")[1]||"");'
+            'try{c=c||localStorage.getItem("prov")}catch(_){}const a=c&&document.querySelector(\'#prov-historia .ph[data-c="\'+c+\'"]\');'
+            'if(a)a.hidden=false})()</script>')
+base = base.replace("<!--HISTORIA-->", '<div class="prov-historia" id="prov-historia">'
+                    + "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA)) + "</div>" + _HIST_YA)
+
 # ---------- índice del sitio ----------
 # Bloques de primer nivel: la portada y cada sección hija de <main>. Se cuentan las <section> anidadas
 # (los bloques de "Para entender los datos" van dentro de otras secciones).

@@ -7042,6 +7042,9 @@ function cerrarTarjetaMapa() {
 // la provincia elegida, en amarillo
 const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
 alCambiarProv.push(marcarMapa);
+// la historia de la provincia elegida en Tu provincia (11 de octubre de 2026): los 24 bloques los escribe el constructor, ocultos
+const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph").forEach(a => { a.hidden = a.dataset.c !== prov; });
+if (document.getElementById("prov-historia")) { mostrarHistoria(); alCambiarProv.push(mostrarHistoria); }
 if (PAGINA === "inicio") mapa();
 
 /* ---------- catálogo de datos (catalogo.html, 11 de octubre de 2026) ----------

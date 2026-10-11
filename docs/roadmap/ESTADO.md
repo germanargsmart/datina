@@ -67,15 +67,42 @@ Aplicado en las cuatro fichas de Trabajo (empleo, salarios, rotación y exportac
 
 - Regla de la frase repetida aprobada y aplicada en Precios y actividad, Sector privado, Construcción y vivienda y Cuentas públicas (el texto empieza por lo que la cifra no dice y se entiende solo, también en el celular, donde el gráfico queda entre la cifra y el texto).
 - Fichas: la descripción y el texto con la letra de la bajada (Roboto Flex 340, tamaño óptico 28, `--tinta-bajada`, `--t-4`). Eligió la variante B entre tres capturas.
-- Textos de las fichas justificados con corte de palabras. En las fichas anchas y las herramientas, desde 1080 píxeles, la descripción ocupa el ancho y el texto y las notas van en dos columnas (un texto plegado queda en una).
+- Textos de las fichas justificados con corte de palabras. Las dos columnas de las fichas anchas se reemplazaron después (ver la segunda tanda).
 - Menús desplegables (grupos y "Más") con fondo de vidrio (`--vidrio-menu`, `--vidrio-blur`). Opacos en el celular, sin desenfoque o con transparencia reducida.
 - Pie: sin "Estadísticas públicas de cada provincia..." ni "Datina no es un sitio oficial..." (sigue en Sobre nosotros). La actualización: "Todos los meses, los datos se actualizan con lo último que publica cada organismo público" (pie y Sobre nosotros).
 - Suscripción por correo en el pie (formulario `suscripcion` de Netlify, vuelve a Contacto con `?suscripto=1`). Funciona cuando se activen los formularios en Netlify.
 - Bajada de la portada y descripción para buscadores: "Datos públicos sobre la Argentina, los argentinos y las 24 provincias, explicados para que cualquiera los entienda, los compare y los pueda verificar" (modelo de Gapminder, entre opciones basadas en USAFacts, Our World in Data, Gapminder y Brookings).
-- Menú "Más": Tu provincia, las herramientas y después los temas (solo en pantallas angostas), Artículos, Laboratorio, Curiosidades y Datina. Lo arma el constructor.
+- Menú "Más": Tu provincia, las herramientas y después los temas (solo en pantallas angostas), Artículos, Laboratorio y Datina (Curiosidades pasó a Estado y sociedad). Lo arma el constructor.
 - Migas: solo el camino (Datina › grupo › categoría), sin el nombre de la página, que va debajo. Herramientas y Tu provincia bajo "Herramientas".
 - Verificado en cada paso: armado, sintaxis, catálogo del Explorador, prueba de páginas (49, "Todo en orden") y capturas en 1440, 1000 y 390 píxeles.
 - Link de vista previa: el entorno en la nube no permite abrir un túnel público (cloudflared). Opciones: Netlify conectado al repositorio (vista previa por rama) o armar en la computadora del autor.
+
+## Pedidos del autor del 11 de octubre de 2026 (segunda tanda)
+
+El autor avisó que no iba a poder aprobar y pidió avanzar con todo. Un commit por cambio, cada uno con armado, sintaxis, prueba de páginas (50, "Todo en orden") y capturas en 1440 y 390 píxeles.
+
+- "En el catálogo" en el pie de cada ficha, después de "De dónde sale" (119 fichas, todas salvo las de suicidio). Abre la tabla con su vista previa.
+- Fichas anchas y herramientas: el texto ya no va en dos columnas (parecía partido). Desde 1080 píxeles, la cabeza en una columna de lectura y los controles de la ficha a su derecha. Los títulos chicos en letra mono de los gráficos salen del justificado.
+- Suscripción:
+  - El campo dice `nombre@ejemplo.com` y sale la nota de abajo.
+  - Botón nuevo con ideas del ejemplo "Brutalist" y de uiarc.dev: amarillo con sombra dura azul que se hunde al pasar el mouse, y tres textos en la misma celda ("Avisarme", "Enviando", "Anotado").
+  - Se envía sin salir de la página.
+  - Cómo activarla de verdad: `docs/deploy/SUSCRIPCION.md` (pasos en Netlify y opciones para mandar las novedades).
+- La tarjeta del mapa de la portada con el vidrio de los menús.
+- Curiosidades dentro de Estado y sociedad, sin el grupo "Y además" (portada, barra, "Más", pie y migas).
+- Tu provincia:
+  - Sin la bajada "Cada provincia comparada…".
+  - Historia de cada jurisdicción ("¿De dónde viene…?"):
+    - fundación de la capital, desde cuándo es provincia y cómo, antecedente colonial o territorial, guerras civiles y formación del Estado, y quiénes fueron y quiénes son;
+    - habitantes de la proyección del INDEC (de los datos, no a mano);
+    - un dato curioso y las fuentes.
+  - Textos en `datos/manual/provincias_historia.json`, validados por 03 (sin punto y coma, una fuente por campo, "e" delante de la i).
+  - Los armaron agentes con búsquedas en sitios oficiales. El entorno no dejaba abrir las páginas, así que salen de los extractos del buscador: conviene abrir las fuentes antes de difundirlo (las dudas de cada una están en el campo `dudas`).
+  - Faltan, porque se agotó el cupo de búsquedas:
+    - Tucumán y Tierra del Fuego, que todavía no muestran el bloque;
+    - la fundación de la capital y el dato curioso de San Juan;
+    - los pueblos originarios y la economía de Santiago del Estero;
+    - la economía de La Rioja.
 
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 

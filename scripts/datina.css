@@ -591,6 +591,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* ---------- Tu provincia: desplegable propio y perfil de la provincia elegida ---------- */
 .prov-sub{margin:0 0 var(--e-6);max-width:var(--medida);color:var(--muted)}
+/* sin la bajada (11 de octubre de 2026, pedido del autor), el selector de provincia va en su propio renglón debajo del título, no al costado */
+.provincias>:is(h1,h2)+.elige{display:flex;width:max-content;max-width:100%}
 /* desplegable: compacto, fuente liviana, crece desde el botón */
 .elige{position:relative;z-index:6;display:inline-flex;flex-direction:column;gap:6px}
 .elige-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -1643,3 +1645,32 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 .cat-dic code{font-family:var(--mono);font-size:var(--t-2)}
 .cat-otros,.cat-nota{max-width:46em;margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:1.5;color:var(--muted)}
 .cat-licencia{margin:var(--e-6) 0 0;font-size:var(--t-2);color:var(--muted)}
+/* La historia de cada jurisdicción en Tu provincia (11 de octubre de 2026, pedido del autor): una tarjeta como las fichas, con el texto a la
+   izquierda y, al costado, los datos básicos (capital, desde cuándo es provincia y habitantes) y el dato curioso. En el celular, una
+   columna con los datos primero. Las fuentes, plegadas al final */
+.prov-historia{margin:var(--bloque) 0}
+.ph{padding:clamp(16px,2.2vw,28px);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.ph[hidden]{display:none}
+.ph-tit{margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;
+  font-variation-settings:"wdth" 75,"opsz" 32;color:var(--azul)}
+.ph-cuerpo{display:grid;gap:var(--e-6)}
+@media (min-width:1080px){.ph-cuerpo{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--e-8);align-items:start}}
+@media (max-width:1079px){.ph-lado{order:-1}}
+.ph-lado{display:grid;gap:var(--e-4);align-content:start}
+.ph-sub{margin:var(--e-6) 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.ph-texto>.ph-sub:first-child,.ph-curiosidad>.ph-sub{margin-top:0}
+.ph-texto p{margin:0;font-family:var(--f-bajada);font-size:var(--t-4);line-height:1.55;font-weight:340;font-variation-settings:"opsz" 28;
+  letter-spacing:-.003em;color:var(--tinta-bajada);text-align:justify;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
+.ph-datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--e-4);margin:0;padding:var(--e-4);background:var(--superficie);border-radius:var(--r-panel)}
+.ph-datos dt{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ph-datos dd{margin:2px 0 0;font-size:var(--t-4);line-height:1.35;font-weight:600;color:var(--ink)}
+.ph-datos small{display:block;margin-top:2px;font-size:var(--t-1);font-weight:400;color:var(--muted)}
+.ph-curiosidad{padding:var(--e-4);background:var(--sol-suave);border-radius:var(--r-panel)}
+.ph-curiosidad p:not(.ph-sub){margin:0;font-size:var(--t-3);line-height:1.5;color:var(--ink)}
+.ph-fuentes{margin:var(--e-6) 0 0;padding-top:var(--e-3);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}
+.ph-fuentes summary{cursor:pointer;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
+.ph-fuentes summary:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+.ph-fuentes p{max-width:60em;margin:var(--e-3) 0}
+.ph-fuentes ul{margin:0;padding:0;list-style:none;columns:2 300px;column-gap:var(--e-6)}
+.ph-fuentes li{break-inside:avoid;margin:0 0 var(--e-2)}
+.ph-dato{margin-right:var(--e-1);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}

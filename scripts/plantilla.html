@@ -107,7 +107,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   <section class="provincias" id="provincias" aria-labelledby="prov-titulo">
     <h2 id="prov-titulo"><span id="prov-band"></span><span id="prov-titulo-txt">Elegí una de las 24</span></h2>
-    <p class="prov-sub">Cada provincia comparada con el total del país en los indicadores que tienen dato provincial. Al elegirla, todos los gráficos del sitio la resaltan.</p>
     <div class="elige" id="elige">
       <span class="elige-lab" id="elige-lab">Provincia</span>
       <button type="button" class="elige-btn" id="elige-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="elige-lab elige-btn">
@@ -120,6 +119,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <p class="elige-vacio" id="elige-vacio" role="status" hidden>Ninguna provincia coincide</p>
       </div>
     </div>
+    <!-- la historia de cada jurisdicción (11 de octubre de 2026): la escribe el constructor desde datos/manual/provincias_historia.json -->
+    <!--HISTORIA-->
     <div class="prov-grid" id="prov-grid"></div>
     <div class="prov-extra" id="prov-extra"></div>
   </section>
