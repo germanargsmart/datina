@@ -1,5 +1,5 @@
 {
- "_leeme": "Historia breve de cada jurisdicción para provincia.html (pedido del autor del 11 de octubre de 2026: año de fundación, antecedente, papel en las guerras civiles y la formación del Estado nacional, quiénes fueron y son, y un dato curioso). La cantidad de habitantes no va acá: la pone 03_construir_sitio.py desde los datos (proyección del INDEC). Lo armaron agentes con búsquedas en sitios oficiales (gob.ar, universidades nacionales, InfoLEG) el 11 de octubre de 2026: en ese entorno no se podían abrir las páginas, así que cada dato sale del extracto que mostró el buscador de la página citada. 'dudas' es de uso interno (no se publica): lo que no se pudo confirmar o donde las fuentes difieren. 03 valida las reglas de redacción (sin punto y coma, menos de 70 palabras por campo, una fuente por campo) y no arma el sitio si fallan.",
+ "_leeme": "Historia breve de cada jurisdicción para provincia.html (pedido del autor del 11 de octubre de 2026: año de fundación, antecedente, papel en las guerras civiles y la formación del Estado nacional, quiénes fueron y son, y un dato curioso). La cantidad de habitantes no va acá: la pone 03_construir_sitio.py desde los datos (proyección del INDEC). Lo armaron agentes con búsquedas en sitios oficiales (gob.ar, universidades nacionales, InfoLEG) el 11 de octubre de 2026, en dos pasadas: en ese entorno no se podían abrir las páginas, así que cada dato sale del extracto que mostró el buscador de la página citada. 'dudas' es de uso interno (no se publica): lo que no se pudo confirmar o donde las fuentes difieren. 03 valida las reglas de redacción (sin punto y coma, menos de 70 palabras por campo, una fuente por campo) y no arma el sitio si fallan.",
  "provincias": {
   "02": {
    "fundacion_capital": {
@@ -1146,8 +1146,8 @@
    },
    "antecedente": "Integró la Gobernación del Tucumán, cuyo gobernador fundó su capital para afianzar el dominio colonial en la región. Era tierra de diaguitas al noroeste, capayanes al oeste y olongastas en los llanos.",
    "guerras_civiles": "Juan Facundo Quiroga, caudillo federal de los Llanos, perdió ante José María Paz en La Tablada y Oncativo, venció después a la Liga del Interior y murió en Barranca Yaco en 1835. Ángel Vicente Peñaloza siguió la causa federal hasta su muerte en Olta en 1863. Felipe Varela encabezó desde Guandacol la rebelión de los Colorados.",
-   "quienes": "Fue tierra de diaguitas, capayanes y olongastas, raíces que la provincia reconoce entre sus símbolos. El Museo de los Caudillos de Chepes guarda la memoria de Quiroga, Peñaloza y Varela.",
-   "curiosidad": "La Rioja tiene un poncho entre sus símbolos oficiales, porque una ley provincial declaró símbolo al poncho riojano en reconocimiento a sus orígenes diaguitas y capayanes.",
+   "quienes": "Fue tierra de diaguitas, capayanes y olongastas, raíces que la provincia reconoce entre sus símbolos. El Museo de los Caudillos de Chepes guarda la memoria de Quiroga, Peñaloza y Varela. Hoy su economía se apoya en el olivo, su principal exportación, la vid con el torrontés riojano, el nogal, la industria textil y el turismo en Talampaya.",
+   "curiosidad": "Una ley provincial, la 8.742, instituyó el poncho riojano, de fondo rojo, como símbolo oficial de La Rioja en reconocimiento a sus orígenes diaguitas y capayanes.",
    "fuentes": [
     {
      "dato": "fundacion_capital",
@@ -1210,6 +1210,31 @@
      "url": "https://www.argentina.gob.ar/la-rioja/caudillos"
     },
     {
+     "dato": "quienes",
+     "titulo": "Cadenas de Valor La Rioja (Secretaría de Provincias)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/la_rioja_-_cadenas_de_valor.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Provincias argentinas: La Rioja (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/2018/10/la_rioja.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Agroindustria, la COVIAR y La Rioja impulsan la Ruta del Torrontés Riojano (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/noticias/agroindustria-la-coviar-y-la-rioja-impulsan-la-ruta-del-torrontes-riojano"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Informe de variedad: Torrontés (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/noticias/informe-de-variedad-torrontes-0"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Plan de gestión integral del riesgo agropecuario, provincia de La Rioja, Argentina.gob.ar",
+     "url": "https://www.argentina.gob.ar/sites/default/files/girsar_-_la_rioja_-_ppgira_ago19_compressed.pdf"
+    },
+    {
      "dato": "curiosidad",
      "titulo": "Ley del poncho riojano, Legislatura de La Rioja",
      "url": "https://legislaturalarioja.gob.ar/imagenes/10-simbolos/LeyPoncho.pdf"
@@ -1220,7 +1245,7 @@
      "url": "https://legislaturalarioja.gob.ar/simbolospatrios.php"
     }
    ],
-   "dudas": "Las páginas citadas se leyeron a través de los extractos del buscador (WebSearch). La red del entorno bloqueó la apertura directa de todas las páginas (WebFetch devolvió error de DNS y el proxy rechazó gov.ar, gob.ar y Wikipedia), así que conviene abrir cada enlace antes de publicar. No se encontró fuente abierta sobre la Intendencia de Córdoba del Tucumán (desde 1782), de la que La Rioja dependía antes de 1820, por eso el antecedente solo nombra la Gobernación del Tucumán y la autonomía no dice de qué jurisdicción se separó. Quiénes son hoy: no se llegaron a confirmar con fuente abierta las actividades económicas principales (olivo, vid, nogal, industria, turismo en Talampaya), porque se agotó el cupo de búsquedas. El campo solo describe la identidad cultural y conviene completarlo. Liga del Interior: el Atlas de Catamarca da dos fechas de formación (5 de agosto de 1830 y 4 de enero, posiblemente de 1831) y presenta La Ciudadela como la derrota decisiva de los unitarios, sin año en el extracto. El texto no pone fecha a esa batalla. No se confirmó con fuente abierta la adhesión de La Rioja al Pacto Federal. Las fechas de La Tablada (1829) y Oncativo (1830) salen de una página del gobierno de Córdoba y se omitieron en el texto por largo. La ley del poncho riojano parece ser la 8742, pero el número salió del encabezado del archivo, por eso no se cita en el texto. Tanda E (11 de octubre de 2026): no se pudo consultar ninguna fuente. El cupo de búsquedas web del turno (200, compartido entre agentes) ya estaba agotado en la primera búsqueda, WebFetch devolvió error de DNS (argentina.gob.ar y es.wikipedia.org) y el proxy rechazó con 403 la lectura directa de tucuman.gob.ar y Wikipedia. Tampoco había material con fuente sobre estos temas en el scratchpad ni en el repositorio. Para completar hace falta una tanda nueva con cupo de búsqueda. Pedidos de esta tanda: (1) Actividades económicas actuales en 'quienes': no se sumaron, siguen sin fuente (temas a verificar: olivo, vid, nogal, industria y turismo en Talampaya). (2) La frase 'La franja roja de su bandera representa el federalismo de Quiroga, Peñaloza y Varela' no se pudo verificar y se quitó de 'quienes', como pide la consigna. Si una fuente oficial la confirma (las candidatas son las páginas de símbolos de Argentina.gob.ar y de la Legislatura ya citadas), se puede volver a poner. (3) El poncho riojano como símbolo oficial tampoco se pudo verificar en esta tanda. Se mantiene porque su fuente es el texto de la ley en el sitio de la Legislatura (legislaturalarioja.gob.ar/imagenes/10-simbolos/LeyPoncho.pdf), que la tanda B vio a través del buscador, pero conviene abrir ese PDF antes de publicar. Si no se confirma, la curiosidad queda vacía hasta una nueva tanda."
+   "dudas": "Tanda F2 (11 de octubre de 2026): se sumaron las actividades económicas a quienes y se confirmó la curiosidad del poncho. WebFetch siguió sin abrir páginas (error de DNS), así que cada dato sale del extracto que mostró el buscador de la página citada: conviene abrir los enlaces antes de publicar. Poncho: el extracto del PDF de la Legislatura confirma la Ley 8.742, que instituye 'con carácter de oficial' al poncho riojano 'como símbolo distintivo de la provincia', con fondo rojo, y lo vincula con los orígenes diaguitas y capayanes y con Quiroga, Peñaloza y Varela. No se vio la fecha de sanción. No hizo falta el reemplazo por el cablecarril de Chilecito. Economía: que el olivo es el principal sector exportador (y 26 por ciento de la producción olivícola del país en 2022) y el turismo en Talampaya salen del documento de Cadenas de Valor. El torrontés riojano (1.786 hectáreas, 20,2 por ciento del torrontés del país) sale del informe de variedad publicado en Argentina.gob.ar y de la nota sobre la Ruta del Torrontés Riojano. Otro extracto dio 7.210 hectáreas de vid en 2024 (datos del INV, 76,7 por ciento en Chilecito) sin una página identificable, por eso no se cita. La industria textil y el envasado de aceitunas y nueces aparecen en un extracto que parece salir de 'Provincias argentinas: La Rioja' (2018). El nogal, de un extracto sobre rendimientos que parece salir del plan de riesgo agropecuario. La atribución de esos dos datos a su documento exacto no es segura. Promoción industrial: la Ley 22.021 creó un régimen de promoción para explotaciones agrícolas, ganaderas, turísticas e industriales en La Rioja (texto en Argentina.gob.ar), pero ninguna fuente vista vincula ese régimen con la industria actual, así que el texto dice 'industria textil' sin nombrar la promoción. Pendientes de tandas anteriores: no se encontró fuente abierta sobre la Intendencia de Córdoba del Tucumán (desde 1782), de la que La Rioja dependía antes de 1820, por eso el antecedente solo nombra la Gobernación del Tucumán y la autonomía no dice de qué jurisdicción se separó. Liga del Interior: el Atlas de Catamarca da dos fechas de formación (5 de agosto de 1830 y 4 de enero, posiblemente de 1831) y presenta La Ciudadela como la derrota decisiva de los unitarios, sin año en el extracto. El texto no pone fecha a esa batalla. No se confirmó con fuente abierta la adhesión de La Rioja al Pacto Federal. Las fechas de La Tablada (1829) y Oncativo (1830) salen de una página del gobierno de Córdoba y se omitieron en el texto por largo. La frase 'La franja roja de su bandera representa el federalismo de Quiroga, Peñaloza y Varela' sigue fuera de quienes por no estar verificada."
   },
   "50": {
    "fundacion_capital": {
@@ -1730,18 +1755,33 @@
   "70": {
    "fundacion_capital": {
     "ciudad": "San Juan",
-    "anio": null,
-    "texto": ""
+    "anio": 1562,
+    "texto": "Juan Jufré fundó la ciudad el 13 de junio de 1562 con el nombre de San Juan de la Frontera, por orden de Francisco de Villagra. Según el relato tradicional, en 1593 una crecida del río San Juan la arrasó y la ciudad se trasladó más al sur."
    },
    "provincia_desde": {
     "anio": 1820,
     "texto": "Es provincia autónoma desde 1820, cuando un acta del 1 de marzo disolvió la Gobernación Intendencia de Cuyo, creada en 1813, y San Juan, Mendoza y San Luis quedaron como estados provinciales separados."
    },
    "antecedente": "Como las demás ciudades de Cuyo, fue fundada y gobernada desde Chile dentro del Corregimiento de Cuyo, hasta que en 1776 pasó al Virreinato del Río de la Plata y en 1783 a la Intendencia de Córdoba del Tucumán. Era tierra de huarpes, tributarios de los incas desde fines del siglo XV.",
-   "guerras_civiles": "Formó parte de la Gobernación Intendencia de Cuyo que José de San Martín gobernó entre 1814 y 1816 mientras organizaba el Ejército de los Andes. En 1841 su gobernador, el caudillo federal Nazario Benavídez, enfrentó junto con José Félix Aldao, gobernador de Mendoza, a las fuerzas de la Coalición del Norte.",
+   "guerras_civiles": "Integró la Gobernación Intendencia de Cuyo, que San Martín gobernó de 1814 a 1816 mientras organizaba el Ejército de los Andes. En 1841 su gobernador federal, Nazario Benavídez, enfrentó con el mendocino José Félix Aldao a la Coalición del Norte. Domingo Faustino Sarmiento, nacido allí en 1811, la gobernó desde 1862 y fue presidente de 1868 a 1874.",
    "quienes": "Antes de la conquista vivían allí los huarpes, que fueron tributarios de los incas. Hoy su economía se apoya en la minería, sobre todo de oro en la cordillera, en la vid para vino y mosto en los oasis de Tulum, Ullum y Zonda, en el olivo y en la energía solar.",
-   "curiosidad": "",
+   "curiosidad": "El Parque Provincial Ischigualasto, Patrimonio de la Humanidad desde 2000 junto con el Parque Nacional Talampaya, guarda el registro fósil continental más completo del Triásico y restos del Eoraptor, uno de los primeros dinosaurios.",
    "fuentes": [
+    {
+     "dato": "fundacion_capital",
+     "titulo": "Fundación de San Juan: el nacimiento de nuestra provincia (SI San Juan, Gobierno de San Juan)",
+     "url": "https://sisanjuan.gob.ar/interes-general/2019-09-19/17465-fundacion-de-san-juan-el-nacimiento-de-nuestra-provincia"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "Día de la Fundación de San Juan: las tres hipótesis sobre el lugar donde todo comenzó (SI San Juan, Gobierno de San Juan)",
+     "url": "https://sisanjuan.gob.ar/23-gobierno/2025-06-13/62441-dia-de-la-fundacion-de-san-juan-las-tres-hipotesis-sobre-el-lugar-donde-todo-comenzo"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "El nacimiento de San Juan de la Frontera (Revista La U, Universidad Nacional de San Juan)",
+     "url": "https://www.revista.unsj.edu.ar/?p=5584"
+    },
     {
      "dato": "provincia_desde",
      "titulo": "A más de 200 años de la primera sesión de la Legislatura de Mendoza (Cámara de Diputados de Mendoza)",
@@ -1783,6 +1823,16 @@
      "url": "https://historiapolitica.com/datos/foros/foro8_paz.pdf"
     },
     {
+     "dato": "guerras_civiles",
+     "titulo": "Casa Natal de Domingo Faustino Sarmiento (Monumentos históricos nacionales, Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/capital-humano/cultura/monumentos/casa-natal-de-domingo-faustino-sarmiento"
+    },
+    {
+     "dato": "guerras_civiles",
+     "titulo": "Domingo Faustino Sarmiento (1868-1874) (Casa Rosada)",
+     "url": "https://www.casarosada.gob.ar/nuestro-pais/presidentes/47120-domingo-faustino-sarmiento-1868-1874"
+    },
+    {
      "dato": "quienes",
      "titulo": "Artículo sobre los huarpes en el Corregimiento de Cuyo (Redalyc)",
      "url": "https://www.redalyc.org/journal/5892/589281926009/589281926009.pdf"
@@ -1796,9 +1846,24 @@
      "dato": "quienes",
      "titulo": "Cadenas de Valor San Juan (Secretaría de Provincias)",
      "url": "https://www.argentina.gob.ar/sites/default/files/san_juan_-_cadenas_de_valor.pdf"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Ischigualasto / Talampaya Natural Parks (Centro del Patrimonio Mundial, UNESCO)",
+     "url": "https://whc.unesco.org/en/list/966/"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Ischigualasto Provincial Park-Talampaya National Park (Argentina), documento de evaluación (UNESCO)",
+     "url": "https://whc.unesco.org/document/154712"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "The origin and early evolution of dinosaurs (CONICET Digital)",
+     "url": "https://ri.conicet.gov.ar/handle/11336/103412"
     }
    ],
-   "dudas": "Ficha incompleta: el cupo de búsquedas web de la sesión se agotó al llegar a San Juan y la herramienta de lectura web falló por DNS en todos los dominios, así que ninguna fuente sanjuanina oficial pudo consultarse. Lo que figura sale de fuentes sobre Cuyo vistas al investigar Mendoza. Quedaron vacíos, por falta de fuente consultada: fundacion_capital (el dato conocido, sin verificar, es que Juan Jufré fundó San Juan de la Frontera el 13 de junio de 1562 y que la ciudad se mudó en 1593 tras una inundación) y curiosidad (candidatos sin verificar: el Parque Provincial Ischigualasto, Patrimonio Mundial desde 2000, con algunos de los dinosaurios más antiguos conocidos, o los observatorios de El Leoncito). Falta verificar para guerras_civiles el levantamiento del 9 de enero de 1820 que inició la autonomía sanjuanina, la Carta de Mayo de 1825 y el papel de Domingo Faustino Sarmiento, nacido en San Juan en 1811 y gobernador entre 1862 y 1864: no se incluyeron por no tener fuente abierta. El dato de Benavídez como gobernador federal en 1841 sale de la Wikipedia en inglés y de un trabajo académico, no de un sitio oficial. No encontré fuente sobre la inmigración en San Juan. Tanda E (11 de octubre de 2026): no se pudo consultar ninguna fuente. El cupo de búsquedas web del turno (200, compartido entre agentes) ya estaba agotado en la primera búsqueda, WebFetch devolvió error de DNS (argentina.gob.ar y es.wikipedia.org) y el proxy rechazó con 403 la lectura directa de tucuman.gob.ar y Wikipedia. Tampoco había material con fuente sobre estos temas en el scratchpad ni en el repositorio. Para completar hace falta una tanda nueva con cupo de búsqueda. Pedidos de esta tanda sin hacer: fundacion_capital y curiosidad siguen vacíos y Sarmiento no se sumó a 'guerras_civiles' ni a 'quienes'. Datos a verificar, sin confirmar: Juan Jufré fundó San Juan de la Frontera en 1562 (se suele dar el 13 de junio) y la ciudad se trasladó en 1593 tras una inundación del río San Juan. Domingo Faustino Sarmiento nació en San Juan en 1811, la gobernó de 1862 a 1864 y fue presidente de 1868 a 1874. Del último dato hay respaldo en el repositorio (datos/manual/presidentes_fuerza.csv cita la página de Casa Rosada sobre su presidencia), pero esa fuente, tal como está registrada, no dice dónde nació, así que no alcanza para vincularlo con San Juan."
+   "dudas": "Tanda F2 (11 de octubre de 2026): se completaron fundacion_capital y curiosidad y se sumó a Sarmiento en guerras_civiles. WebFetch siguió sin abrir páginas (error de DNS), así que cada dato sale del extracto que mostró el buscador de la página citada: conviene abrir los enlaces antes de publicar. Fundación: la fecha (13 de junio de 1562), el fundador y la orden de Francisco de Villagra salen de SI San Juan y de la UNSJ. El traslado de 1593 está discutido. La nota oficial de 2025 sobre las tres hipótesis dice que el relato del traslado por la inundación aparece documentado desde el siglo XVIII (Pedro Lozano) y que estudios posteriores confirman la creciente, pero el historiador Guillermo Genini sostuvo en 2019 que no hay pruebas documentales (Cadena 3, no citada) y una nota oficial sobre Santa Lucía habla de una crecida en 1594. Por eso el texto dice 'según el relato tradicional'. El sitio original (Concepción o Pueblo Viejo) tampoco es unánime y no se nombra. Las '25 cuadras al sur' salen de Diario de Cuyo y se omitieron. Curiosidad: 'el registro fósil continental más completo del Triásico' traduce la descripción de la UNESCO. 'Uno de los primeros dinosaurios' sigue el documento de evaluación de la UNESCO y el artículo del CONICET, que no dicen que el Eoraptor sea el más antiguo de todos, por eso no se escribió 'el más antiguo'. Sarmiento: el nacimiento en San Juan el 15 de febrero de 1811 y su gobierno provincial en 1862 salen de la página de la Casa Natal. Que gobernó hasta 1864 no se confirmó en esta tanda y el texto dice solo 'desde 1862'. La presidencia de 1868 a 1874 sale de la página de Casa Rosada ya registrada en datos/manual/presidentes_fuerza.csv, que no se abrió en esta tanda. Para entrar en el límite de palabras, guerras_civiles nombra a 'San Martín' sin 'José de' y resume la frase de Benavídez y Aldao. Pendientes de tandas anteriores: el papel de Benavídez como gobernador federal en 1841 se apoya en la Wikipedia en inglés y en un trabajo académico, no en un sitio oficial. Falta verificar el levantamiento del 9 de enero de 1820 que inició la autonomía y la Carta de Mayo de 1825. No hay fuente sobre la inmigración en San Juan. provincia_desde y antecedente salen de fuentes sobre Cuyo vistas al investigar Mendoza, ninguna sanjuanina oficial."
   },
   "74": {
    "fundacion_capital": {
@@ -2154,9 +2219,9 @@
     "anio": 1820,
     "texto": "El 27 de abril de 1820, a instancias de Juan Felipe Ibarra, Santiago del Estero declaró su autonomía y se separó de la provincia de Tucumán, a la que pertenecía."
    },
-   "antecedente": "Su fundación enfrentó a dos expediciones, la de Juan Núñez de Prado, con autorización de Pedro de La Gasca, y la de Francisco de Aguirre, que actuaba por orden de Pedro de Valdivia. Hasta 1820 dependió de la gobernación de Tucumán.",
+   "antecedente": "Antes de la conquista vivían allí lules, vilelas, mocovíes, sanavirones y tonocotés, agricultores sedentarios entre los ríos Dulce y Salado, y las fuentes del siglo XVI suman a juríes y diaguitas. Su fundación enfrentó a Juan Núñez de Prado, autorizado por Pedro de La Gasca, con Francisco de Aguirre, enviado por Pedro de Valdivia. Hasta 1820 dependió de Tucumán.",
    "guerras_civiles": "Juan Felipe Ibarra, elegido gobernador en 1820, condujo la provincia durante más de treinta años y se alineó con el federalismo. En 1840 Santiago del Estero no se sumó a la Coalición del Norte contra Rosas, que reunió a las demás provincias del noroeste. En 1851 lo sucedió su sobrino Manuel Taboada.",
-   "quienes": "En la provincia se habla el quichua santiagueño, la variedad quechua con más hablantes en la Argentina sin contar a los migrantes de Bolivia y Perú, en su mayoría bilingües con el castellano.",
+   "quienes": "Se habla el quichua santiagueño, la variedad quechua con más hablantes del país sin contar a los migrantes de Bolivia y Perú, en su mayoría bilingües con el castellano. Es la mayor productora de algodón y vive también de la soja, el maíz, el ganado y los bosques. Miles de sus trabajadores rurales migran a cosechas de otras provincias.",
    "curiosidad": "La Ley 25.681, sancionada en 2002, declaró a la capital Ciudad Madre de Ciudades y Cuna del Folklore.",
    "fuentes": [
     {
@@ -2205,6 +2270,16 @@
      "url": "https://www.argentina.gob.ar/santiago"
     },
     {
+     "dato": "antecedente",
+     "titulo": "Santiago del Estero (Jornadas Interescuelas, Facultad de Humanidades, Universidad Nacional de Santiago del Estero)",
+     "url": "https://interescuelasfhu.unse.edu.ar/about/santiago-del-estero/"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Las sociedades indígenas del territorio santiagueño: apuntes iniciales desde la arqueología y la historia (CONICET Digital)",
+     "url": "https://ri.conicet.gov.ar/handle/11336/62905"
+    },
+    {
      "dato": "guerras_civiles",
      "titulo": "Argentina.gob.ar: Provincia de Santiago del Estero",
      "url": "https://www.argentina.gob.ar/santiago"
@@ -2225,6 +2300,11 @@
      "url": "https://repositorio.anh.org.ar/bitstream/anh/657/1/Tiempo%20de%20Unitarios%20y%20Ferales.%20Tucum%C3%A1n%201840-1852%20-%20JEHT.pdf"
     },
     {
+     "dato": "guerras_civiles",
+     "titulo": "Víctor Hugo Robledo, Reacción de las provincias, revista Historiar (Editorial de la Universidad Nacional de Catamarca)",
+     "url": "https://editorial.unca.edu.ar/Publicacione%20on%20line/Historiar%20I/PDF%20III/REACCION%20%20DE%20%20LAS%20%20PROVINCIAS.pdf"
+    },
+    {
      "dato": "quienes",
      "titulo": "CONICET Digital: Variación del orden de palabras en el discurso en quichua santiagueño",
      "url": "https://ri.conicet.gov.ar/handle/11336/259395"
@@ -2235,9 +2315,44 @@
      "url": "https://fhu.unse.edu.ar/carreras/quichua/lelia.pdf"
     },
     {
+     "dato": "quienes",
+     "titulo": "INTA Santiago presentó un trabajo de evaluación de fertilizantes foliares en algodón (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/noticias/inta-santiago-presento-un-trabajo-de-evaluacion-de-fertilizantes-foliares-en-algodon"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Gobierno de Santiago del Estero: Santiago del Estero se destaca en la producción de maíz y soja en Argentina",
+     "url": "https://sde.gob.ar/2023/11/09/santiago-del-estero-se-destaca-en-la-produccion-de-maiz-y-soja-en-argentina/"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Santiago del Estero, Informe Productivo Provincial, año 4 (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/33_2019_santiago_del_estero.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Argentina.gob.ar: Provincia de Santiago del Estero",
+     "url": "https://www.argentina.gob.ar/santiago"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Cuenca forestal Salado Norte (Red Forestal, Ministerio de Ambiente y Desarrollo Sostenible)",
+     "url": "https://redforestal.conicet.gov.ar/download/producto_de_la_redfor.ar/9-Cuenca-forestal-Salado-Norte-comprimido.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Aves de paso. Los trabajadores estacionales de Santiago del Estero (revista Trabajo y Sociedad, Universidad Nacional de Santiago del Estero)",
+     "url": "https://www.unse.edu.ar/trabajoysociedad/21%20TASSO%20ZURITA%20Golondrinas.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Migraciones estacionales (revista Trabajo y Sociedad, Universidad Nacional de Santiago del Estero)",
+     "url": "https://www.unse.edu.ar/trabajoysociedad/22%20DESALVO%20migraciones%20estacionales.pdf"
+    },
+    {
      "dato": "curiosidad",
      "titulo": "InfoLeg: Ley 25.681",
-     "url": "http://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=81039"
+     "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=81039"
     },
     {
      "dato": "curiosidad",
@@ -2245,41 +2360,288 @@
      "url": "https://www.argentina.gob.ar/ciencia/conae/educacion-y-formacion-masiva/ciudad-de-santiago-del-estero-cbers-4-panmux-11-de-junio-de-2017"
     }
    ],
-   "dudas": "Fundación: la fecha oficial que celebra la ciudad es el 25 de julio de 1553, difundida por el historiador Alfredo Gárgaro. Una comisión de la Academia Nacional de la Historia reconoció en cambio a Juan Núñez de Prado como fundador, el 24 de junio de 1550, y fechó el traslado de Aguirre el 23 de diciembre de 1553. La página municipal sostiene que la ciudad del Barco nunca se extinguió formalmente. La página nacional de turismo la llama la primera ciudad fundada por los colonizadores españoles en el actual territorio argentino, el texto usa la forma más precisa de la consigna (la más antigua entre las que siguen en pie). Autonomía: las notas oficiales de 2024 mencionan también a Juan Francisco Borges junto a Ibarra. Antecedente: no pude buscar los pueblos originarios del territorio (tonocotés, lules, juríes, sanavirones y otros, según la bibliografía habitual) porque se agotó el cupo de búsquedas, así que quedaron fuera del texto. Tampoco verifiqué con fuente su pertenencia a la Gobernación del Tucumán y a la Intendencia de Salta del Tucumán. Guerras civiles: la frase sobre la Coalición del Norte sale de un extracto de búsqueda que cita un estudio histórico sin que quede claro si es el volumen de la Academia Nacional de la Historia o un artículo de Dialnet (https://dialnet.unirioja.es/descarga/articulo/7567262.pdf), conviene confirmarla. La cita de los más de treinta años de gobierno de Ibarra viene de una página municipal cuyo enlace exacto no pude identificar entre los resultados (podría ser el digesto citado). No encontré fuentes oficiales sobre el papel posterior de los hermanos Taboada. Quienes: falta la parte de pueblos originarios, colonización y economía actual, que no pude buscar. Limitación de método: WebFetch no pudo abrir ninguna página en esta sesión (error de DNS en todos los dominios) y el acceso directo por la red está bloqueado por la política del proxy. Todos los datos salen de los extractos de las páginas citadas que devolvió WebSearch, no de una lectura completa de cada página. Además se agotó el cupo de búsquedas del turno (compartido entre agentes) antes de terminar. Tanda E (11 de octubre de 2026): no se pudo consultar ninguna fuente. El cupo de búsquedas web del turno (200, compartido entre agentes) ya estaba agotado en la primera búsqueda, WebFetch devolvió error de DNS (argentina.gob.ar y es.wikipedia.org) y el proxy rechazó con 403 la lectura directa de tucuman.gob.ar y Wikipedia. Tampoco había material con fuente sobre estos temas en el scratchpad ni en el repositorio. Para completar hace falta una tanda nueva con cupo de búsqueda. Pedidos de esta tanda sin hacer: los pueblos originarios siguen fuera de 'antecedente' (temas a verificar: tonocotés, lules, juríes, sanavirones y diaguitas) y 'quienes' sigue sin economía actual ni poblamiento. La frase sobre la Coalición del Norte no se pudo confirmar con una fuente directa. Es coherente con otras fichas de este trabajo, que ubican en la Coalición a Catamarca (Atlas de Catamarca) y a Salta (Historia Política), pero ninguna fuente vista dice que Santiago no se sumó. Si no se confirma, la versión prudente es quitar la segunda oración de 'guerras_civiles'."
+   "dudas": "Tanda F2 (11 de octubre de 2026): se sumaron los pueblos originarios a antecedente, la economía y la migración a quienes, y se confirmó la oración sobre la Coalición del Norte. WebFetch siguió sin abrir páginas (error de DNS), así que cada dato sale del extracto que mostró el buscador de la página citada: conviene abrir los enlaces antes de publicar. Fundación: la fecha oficial que celebra la ciudad es el 25 de julio de 1553, difundida por el historiador Alfredo Gárgaro. Una comisión de la Academia Nacional de la Historia reconoció en cambio a Juan Núñez de Prado como fundador, el 24 de junio de 1550, y fechó el traslado de Aguirre el 23 de diciembre de 1553. En esta tanda, un extracto de una página de la UNSE dijo lo contrario: que la Academia dictaminó la fundación por Aguirre el 25 de julio de 1553. Conviene revisar cuál de las dos versiones es la de la Academia. La página municipal sostiene que la ciudad del Barco nunca se extinguió formalmente. La página nacional de turismo la llama la primera ciudad fundada por los colonizadores españoles en el actual territorio argentino, el texto usa la forma más precisa (la más antigua entre las que siguen en pie). Autonomía: las notas oficiales de 2024 mencionan también a Juan Francisco Borges junto a Ibarra. Antecedente: tonocotés, lules, vilelas, mocovíes y sanavirones salen de la página nacional de la provincia. Que los tonocotés eran agricultores sedentarios entre el Dulce y el Salado sale de la página de la UNSE, que describe a los lules como nómades. Juríes y diaguitas salen del trabajo del CONICET sobre los grupos del siglo XVI, que advierte que hay pocas huellas arqueológicas de 'lo diaguita' en la provincia: la categoría está discutida. Los juríes no figuran entre los pueblos que hoy reconoce el INAI (tonokoté, diaguita cacano, vilela, lule vilela, guaycurú y sanavirón). Para entrar en el límite de palabras, la última oración dice 'dependió de Tucumán' en lugar de 'de la gobernación de Tucumán'. Sigue sin verificarse la pertenencia a la Intendencia de Salta del Tucumán. Guerras civiles: la frase sobre la Coalición del Norte se confirmó con el resumen del artículo de Víctor Hugo Robledo en Historiar (UNCA): las provincias del noroeste, con excepción de Santiago del Estero, acordaron en 1840 levantarse contra Rosas. La Gaceta (no citada) ubica las adhesiones de Tucumán, Salta, Jujuy, La Rioja y Catamarca entre abril y mayo de 1840. No se encontró el motivo de la ausencia santiagueña. La cita de los más de treinta años de gobierno de Ibarra viene de una página municipal cuyo enlace exacto no se pudo identificar (podría ser el digesto citado). No se encontraron fuentes oficiales sobre el papel posterior de los hermanos Taboada. Quiénes: el liderazgo en algodón sale del INTA (primer productor desde la campaña 2015-16, y según otro extracto 37,8 por ciento de la superficie sembrada del país en 2023/24). Soja y maíz, de la nota provincial de 2023 (ciclo 2022-2023). Ganadería, del informe productivo de 2019. Los bosques, de la página nacional de la provincia y de la Red Forestal. Un extracto atribuido al portal oficial dice que sus bosques dan el mayor volumen de madera del país, pero no quedó claro de qué página sale y no se usó. La migración estacional sale de dos artículos de la UNSE con datos de 2009 y 2010 (entre 35.000 y 40.000 trabajadores según la fuente). El texto dice 'miles' sin cifra porque no se encontró un dato reciente. Tampoco se encontró una fuente reciente sobre la emigración permanente de santiagueños (un estudio con el censo de 2001 la ubicaba en 39 por ciento de los nacidos en la provincia). Para entrar en el límite, 'mayor productora de algodón' se escribió sin 'del país'. El enlace de InfoLeg de la Ley 25.681 pasó de http a https."
   },
   "90": {
    "fundacion_capital": {
     "ciudad": "San Miguel de Tucumán",
-    "anio": null,
-    "texto": ""
+    "anio": 1565,
+    "texto": "Diego de Villarroel fundó San Miguel de Tucumán el 31 de mayo de 1565 en el paraje de Ibatín, por orden del gobernador Francisco de Aguirre. Las inundaciones, las fiebres palúdicas y los conflictos con los pueblos diaguitas llevaron a trasladar la ciudad en 1685 a La Toma, donde está hoy."
    },
    "provincia_desde": {
-    "anio": null,
-    "texto": ""
+    "anio": 1814,
+    "texto": "El 8 de octubre de 1814 un decreto del director supremo Gervasio Antonio de Posadas dividió la Intendencia de Salta del Tucumán y creó la provincia de Tucumán, con capital en San Miguel, que incluía a Santiago del Estero y Catamarca. En 1820 Bernabé Aráoz proclamó la República del Tucumán y fue su presidente."
    },
-   "antecedente": "",
-   "guerras_civiles": "",
-   "quienes": "",
-   "curiosidad": "",
-   "fuentes": [],
-   "dudas": "Sin completar. Se agotó el cupo de búsquedas del turno antes de llegar a Tucumán y WebFetch no funcionó, así que no abrí ninguna fuente sobre esta provincia y dejé todos los campos vacíos para no escribir datos sin respaldo. Pendiente para una nueva tanda: fundación de San Miguel de Tucumán en Ibatín por Diego de Villarroel (1565) y traslado a su sitio actual (1685), creación de la provincia por decreto del Director Supremo Gervasio Posadas (1814), República de Tucumán de Bernabé Aráoz, Congreso de Tucumán de 1816, Alejandro Heredia, Coalición del Norte y Marco Avellaneda, pueblos diaguitas (calchaquíes, tafíes) y lules, agroindustria azucarera y del limón, y como curiosidad que es la provincia de menor superficie. Todo eso es una lista de temas a verificar, no datos confirmados. Limitación de método: WebFetch no pudo abrir ninguna página en esta sesión (error de DNS en todos los dominios) y el acceso directo por la red está bloqueado por la política del proxy. Todos los datos salen de los extractos de las páginas citadas que devolvió WebSearch, no de una lectura completa de cada página. Además se agotó el cupo de búsquedas del turno (compartido entre agentes) antes de terminar. Tanda E (11 de octubre de 2026): no se pudo consultar ninguna fuente. El cupo de búsquedas web del turno (200, compartido entre agentes) ya estaba agotado en la primera búsqueda, WebFetch devolvió error de DNS (argentina.gob.ar y es.wikipedia.org) y el proxy rechazó con 403 la lectura directa de tucuman.gob.ar y Wikipedia. Tampoco había material con fuente sobre estos temas en el scratchpad ni en el repositorio. Para completar hace falta una tanda nueva con cupo de búsqueda. Pistas con fuente en otras fichas de este trabajo, útiles para la próxima tanda (vistas por otros agentes a través del buscador): la ficha de Santiago del Estero cita al gobierno santiagueño (sde.gob.ar, notas del 27 de abril de 2023 y 2024) para su separación de la provincia de Tucumán en 1820. La de Catamarca cita a la Universidad Nacional de Catamarca y al Atlas de Catamarca para la disolución de su unión con la República del Tucumán el 25 de agosto de 1821. La de Salta cita al Gobierno de Salta (Bicentenario, 'La creación de las provincias y la separación de la Intendencia de Salta del Tucumán') para el decreto de Posadas de octubre de 1814 que dividió esa intendencia en dos. La de Santiago cita además el volumen 'Tiempo de unitarios y federales. Tucumán 1840-1852' del repositorio de la Academia Nacional de la Historia, posible fuente para la Coalición del Norte y Marco Avellaneda. Ninguna de esas fuentes se usó en el texto porque no se vio qué dicen sobre Tucumán."
+   "antecedente": "Antes de la conquista vivían en la llanura los lules y los tonocotés, y en los valles altos pueblos de tradición andina como los amaichas, los quilmes y los colalaos, del mundo diaguita calchaquí. Los calchaquíes resistieron a los españoles durante más de un siglo, y hasta 1814 la región dependió de la Intendencia de Salta del Tucumán.",
+   "guerras_civiles": "En 1812 Manuel Belgrano venció a los realistas en la Batalla de Tucumán. El 9 de julio de 1816 el Congreso declaró la independencia en la actual Casa Histórica. En 1840 Tucumán integró la Coalición del Norte contra Rosas, impulsada entre otros por Marco Avellaneda y disuelta tras la derrota de Lavalle en Famaillá en 1841.",
+   "quienes": "De San Miguel de Tucumán era Juan Bautista Alberdi, nacido en 1810, cuyas Bases de 1852 inspiraron la Constitución Nacional de 1853. La economía de la provincia gira en torno a la caña de azúcar, con ingenios que la hacen la mayor productora de azúcar del país, y al limón, del que es la principal provincia productora.",
+   "curiosidad": "Con 22.524 kilómetros cuadrados es la provincia de menor superficie del país, y su gobierno la presenta como el Jardín de la República.",
+   "fuentes": [
+    {
+     "dato": "fundacion_capital",
+     "titulo": "La Ciudad: Historia (Municipalidad de San Miguel de Tucumán)",
+     "url": "https://www.transito.smt.gob.ar/historia"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "Festejos por el 459° aniversario de la fundación de San Miguel de Tucumán en Ibatín (Ente Cultural de Tucumán)",
+     "url": "https://enteculturaltucuman.gob.ar/festejos-por-el-459-aniversario-de-la-fundacion-de-san-miguel-de-tucuman-en-ibatin/"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "Historia (Gobierno de Tucumán)",
+     "url": "https://www.tucuman.gob.ar/provincia/historia"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "El Congreso se iluminó de azul en homenaje a César Milstein y por la autonomía de Tucumán y Salta (Senado de la Nación)",
+     "url": "https://www.senado.gob.ar/prensa/24478/noticias"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "El Congreso se ilumina en homenaje a César Milstein y a la autonomía de Tucumán y Salta (Senado de la Nación)",
+     "url": "https://www.senado.gob.ar/prensa/23274/noticias"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "Proyecto de resolución 0475-D-2022 (Cámara de Diputados de la Nación)",
+     "url": "https://www4.hcdn.gob.ar/dependencias/dsecretaria/Periodo2022/PDF2022/TP2022/0475-D-2022.pdf"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "Proyecto de resolución 3984-D-2009 (Cámara de Diputados de la Nación)",
+     "url": "https://www.hcdn.gob.ar/comisiones/permanentes/cpydhumano/proyecto.html?exp=3984-D-2009"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "La República del Tucumán de 1820: ¿un experimento político? (INIHLEP, Facultad de Filosofía y Letras, UNT)",
+     "url": "https://filo.unt.edu.ar/inihlep/2021/07/26/la-republica-del-tucuman-de-1820un-experimento-politico/"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "Conocé su historia (Honorable Legislatura de Tucumán)",
+     "url": "https://app2.legislaturadetucuman.gob.ar/conoce_hist"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Historia (Gobierno de Tucumán)",
+     "url": "https://www.tucuman.gob.ar/provincia/historia"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "La Ciudad: Historia (Municipalidad de San Miguel de Tucumán)",
+     "url": "https://www.transito.smt.gob.ar/historia"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Proyecto de resolución 0475-D-2022 (Cámara de Diputados de la Nación)",
+     "url": "https://www4.hcdn.gob.ar/dependencias/dsecretaria/Periodo2022/PDF2022/TP2022/0475-D-2022.pdf"
+    },
+    {
+     "dato": "guerras_civiles",
+     "titulo": "209° aniversario de la Batalla de Tucumán (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/noticias/209deg-aniversario-de-la-batalla-de-tucuman"
+    },
+    {
+     "dato": "guerras_civiles",
+     "titulo": "Batalla de Tucumán (SCAIT, Universidad Nacional de Tucumán)",
+     "url": "https://scait.ct.unt.edu.ar/batalla-de-tucuman/"
+    },
+    {
+     "dato": "guerras_civiles",
+     "titulo": "Conocé la historia de la Casa de la Independencia (Ministerio de Cultura)",
+     "url": "https://www.cultura.gob.ar/conoce-la-historia-de-la-casa-de-la-independencia-9240/"
+    },
+    {
+     "dato": "guerras_civiles",
+     "titulo": "Museo Casa Histórica de la Independencia, monumentos históricos nacionales (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/capital-humano/cultura/monumentos/museo-casa-historica-de-la-independencia"
+    },
+    {
+     "dato": "guerras_civiles",
+     "titulo": "Time of the provinces (Museo Histórico Nacional)",
+     "url": "https://museohistoriconacional.cultura.gob.ar/noticia/time-of-the-provinces/"
+    },
+    {
+     "dato": "guerras_civiles",
+     "titulo": "Detalles para ver XVI (Museo Histórico Nacional)",
+     "url": "https://museohistoriconacional.cultura.gob.ar/noticia/detalles-para-ver-xvi-2/"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "29 de agosto de 1810: nace Juan Bautista Alberdi (Biblioteca Nacional)",
+     "url": "https://www.bn.gov.ar/noticias/29-de-agosto-de-1810-nace-juan-bautista-alberdi"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Juan Bautista Alberdi: sentó las bases para organizar la Patria (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/noticias/juan-bautista-alberdi-sento-las-bases-para-organizar-la-patria"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Cadenas de valor, Tucumán (Secretaría de Provincias)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/tucuman_-_cadenas_de_valor.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Cadenas de valor: azucarera (Secretaría de Política Económica)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/sspmicro_cadenas_de_valor_azucar.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Cadenas de valor: limón (Secretaría de Política Económica)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/sspmicro_cadenas_de_valor_limon.pdf"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "La Provincia (Gobierno de Tucumán)",
+     "url": "https://www.tucuman.gob.ar/provincia/la-provincia"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Provincia de Tucumán (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/tucuman"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Determinación de la superficie correspondiente al territorio (Instituto Geográfico Nacional)",
+     "url": "https://www.ign.gob.ar/descargas/geoespacial/Informe_supercies_de_Argentina.pdf"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Tucumán Turismo, sitio oficial del Ente Tucumán Turismo",
+     "url": "https://www.tucumanturismo.gob.ar/articulos/articulo/295/"
+    }
+   ],
+   "dudas": "Tanda F1 (11 de octubre de 2026). Ninguna página pudo abrirse: los datos salen de los extractos que devolvió el buscador, así que conviene abrir las URL antes de publicar. Fundación: la orden de traslado figura el 24 o el 27 de septiembre de 1685 según la fuente y el traslado fue gradual, por eso el texto da solo el año. Provincia: la fecha del 8 de octubre de 1814 aparece en el extracto de un proyecto de la Cámara de Diputados (el buscador no distinguió entre los dos citados) y en una nota de La Gaceta, que no se cita por ser un diario. Una fuente oficial llama a la nueva jurisdicción Gobernación Intendencia del Tucumán y el Senado habla de autonomía de Tucumán y Salta. Que la República del Tucumán incluyera a Santiago del Estero y Catamarca sale del Museo Histórico Nacional. La Constitución de la República del Tucumán figura sancionada el 6 de septiembre de 1820 en un extracto, sin confirmar en otra fuente, y no entró. Antecedente: los amaichas, quilmes y colalaos figuran en la fuente como pueblos de tierras altas de tradición andina, y su pertenencia al mundo diaguita calchaquí es una lectura habitual que conviene confirmar. Guerras civiles: la Casa Histórica era la casa de Francisca Bazán de Laguna, que la cedió como sede del Congreso (dato que no entró por largo). El día de la Batalla de Tucumán (24 de septiembre de 1812) no apareció en los extractos, por eso va solo el año. La fecha exacta de Famaillá no se confirmó. Marco Avellaneda fue ejecutado en 1841, dato que no entró. Quiénes: la participación de Tucumán en la producción de azúcar (entre el 60 y el 70 por ciento según el informe) y de limón cambia con los años, por eso el texto no da cifras. Curiosidad: un material de la CONAE dice que Tucumán es la provincia de menor extensión después de Tierra del Fuego, porque compara solo la parte americana insular de esa provincia. El sitio oficial de Tucumán, argentina.gob.ar y el informe de superficies del IGN, que cuenta a Tierra del Fuego con la Antártida y las islas, la dan como la más chica."
   },
   "94": {
    "fundacion_capital": {
     "ciudad": "Ushuaia",
-    "anio": null,
-    "texto": ""
+    "anio": 1884,
+    "texto": "El 12 de octubre de 1884 la División Expedicionaria al Atlántico Sur, al mando de Augusto Lasserre, instaló en la bahía de Ushuaia una subprefectura, la primera institución argentina en la isla, y esa fecha se toma como fundación de la ciudad. Antes existía allí una misión anglicana, iniciada en 1869 y conducida luego por Thomas Bridges."
    },
    "provincia_desde": {
-    "anio": null,
-    "texto": ""
+    "anio": 1990,
+    "texto": "La Ley 23.775, del 26 de abril de 1990, declaró provincia al Territorio Nacional de la Tierra del Fuego, Antártida e Islas del Atlántico Sur, el último territorio nacional. Según esa ley, comprende la parte oriental de la Isla Grande, la Isla de los Estados, las Islas Malvinas, Georgias del Sur y Sandwich del Sur y la Antártida Argentina."
    },
-   "antecedente": "",
+   "antecedente": "La habitaban los selk'nam, cazadores terrestres, los haush, los yámanas, cazadores de lobos marinos, y los kawésqar. La Ley 1532 de 1884 la organizó como territorio nacional, y en 1957 el decreto-ley 2191 creó el Territorio Nacional de la Tierra del Fuego, Antártida e Islas del Atlántico Sur, con capital en Ushuaia.",
    "guerras_civiles": null,
-   "quienes": "",
-   "curiosidad": "",
-   "fuentes": [],
-   "dudas": "Sin completar, salvo guerras_civiles en null porque en ese período no era provincia, como indica la consigna. Se agotó el cupo de búsquedas del turno y WebFetch no funcionó, así que no abrí fuentes sobre Tierra del Fuego. El único dato relacionado que vi con fuente es indirecto: la historia oficial de Santa Cruz (https://www.santacruz.gob.ar/nuestra-provincia/historia) dice que la Ley 14.408 de 1955 creó una Provincia Patagonia que abarcaba Santa Cruz y Tierra del Fuego, y que luego Tierra del Fuego se separó. Pendiente para una nueva tanda: fundación de Ushuaia (subprefectura de Augusto Lasserre, 12 de octubre de 1884) y misión anglicana previa, Territorio Nacional por la Ley 1532 de 1884, decreto-ley de 1957 que creó el Territorio Nacional de Tierra del Fuego, Antártida e Islas del Atlántico Sur, provincialización por la Ley 23.775 de 1990, pueblos selk'nam, yámana, haush y kawésqar, presidio de Ushuaia, régimen de promoción de la Ley 19.640, hidrocarburos, pesca y turismo, inclusión de Malvinas y Antártida en el territorio provincial según la ley argentina, y como curiosidad el faro de San Juan de Salvamento en la Isla de los Estados, inspiración de Julio Verne. Todo eso es una lista de temas a verificar, no datos confirmados. Limitación de método: WebFetch no pudo abrir ninguna página en esta sesión (error de DNS en todos los dominios) y el acceso directo por la red está bloqueado por la política del proxy. Todos los datos salen de los extractos de las páginas citadas que devolvió WebSearch, no de una lectura completa de cada página. Además se agotó el cupo de búsquedas del turno (compartido entre agentes) antes de terminar. Tanda E (11 de octubre de 2026): no se pudo consultar ninguna fuente. El cupo de búsquedas web del turno (200, compartido entre agentes) ya estaba agotado en la primera búsqueda, WebFetch devolvió error de DNS (argentina.gob.ar y es.wikipedia.org) y el proxy rechazó con 403 la lectura directa de tucuman.gob.ar y Wikipedia. Tampoco había material con fuente sobre estos temas en el scratchpad ni en el repositorio. Para completar hace falta una tanda nueva con cupo de búsqueda. Siguen pendientes todos los campos menos guerras_civiles. Temas a verificar, sin confirmar: Ushuaia y la subprefectura de la expedición de Augusto Lasserre (1884), la misión anglicana de Thomas Bridges (1869), la Ley 1532 de 1884, la Ley 23.775 de 1990, los pueblos selk'nam, yaganes (yámanas) y haush, el presidio, la Ley 19.640, el petróleo y el gas, la pesca y el turismo, y el tratamiento institucional de las Islas Malvinas y la Antártida."
+   "quienes": "En 1902 se colocó la piedra fundamental del presidio de Ushuaia, construido por los propios presos, que también talaban árboles y acarreaban materiales para la ciudad hasta 1947. Desde 1972 la Ley 19.640 le da un régimen fiscal y aduanero especial, base de su industria electrónica. Completan su economía el gas y el petróleo, la pesca y el turismo.",
+   "curiosidad": "El Tren del Fin del Mundo recorre la antigua senda que usaban los presos del presidio de Ushuaia para buscar leña y materiales de construcción.",
+   "fuentes": [
+    {
+     "dato": "fundacion_capital",
+     "titulo": "El municipio de Ushuaia reconoció la figura del comodoro Augusto Lasserre (Municipalidad de Ushuaia)",
+     "url": "https://www.ushuaia.gob.ar/noticias/el-municipio-de-ushuaia-reconocio-la-figura-del-comodoro-augusto-lasserre"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "La Prefectura Ushuaia cumplió 137 años (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/noticias/la-prefectura-ushuaia-cumplio-137-anos"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "La Legislatura acompañó los festejos por el 140º aniversario de Ushuaia (Legislatura de Tierra del Fuego)",
+     "url": "https://www.legistdf.gob.ar/index.php/2024/10/12/sociedad-la-legislatura-acompano-los-festejos-por-el-140o-aniversario-de-ushuaia/"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "Decreto 64/1999, Monumentos y lugares históricos, texto original (Argentina.gob.ar, Normativa)",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-64-1999-55843/texto"
+    },
+    {
+     "dato": "fundacion_capital",
+     "titulo": "Asunto 608/18 (Legislatura de Tierra del Fuego)",
+     "url": "https://legistdf.gob.ar/lp/novedadesip/Asuntos%20Entrados%202018/As.%20N%BA%20608-18.pdf"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "Ley 23.775, texto original (Argentina.gob.ar, Normativa)",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/norma-176/texto"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "Ley 23.775, texto actualizado (Argentina.gob.ar, Normativa)",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-23775-176/actualizacion"
+    },
+    {
+     "dato": "provincia_desde",
+     "titulo": "A 31 años de la sanción de la Ley de Provincialización (Legislatura de Tierra del Fuego)",
+     "url": "https://www.legistdf.gob.ar/index.php/2021/04/26/tierra-del-fuego-a-31-anos-de-la-sancion-de-la-ley-de-provincializacion/"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Historia de Tierra del Fuego (Gobierno de Tierra del Fuego)",
+     "url": "https://www.tierradelfuego.gob.ar/historia-de-tdf/"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Historia de Tierra del Fuego (Gobierno de Tierra del Fuego)",
+     "url": "https://www.tierradelfuego.gob.ar/historia-de-tierra-del-fuego/"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Historia (Gobierno de Tierra del Fuego)",
+     "url": "https://www.tierradelfuego.gob.ar/historia/"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Ley 1532 de Territorios Nacionales, resumen (Argentina.gob.ar, Normativa)",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/ley-1532-48923"
+    },
+    {
+     "dato": "antecedente",
+     "titulo": "Decreto-ley 2191/1957 de Territorios Nacionales, resumen (Argentina.gob.ar, Normativa)",
+     "url": "https://www.argentina.gob.ar/normativa/nacional/decreto_ley-2191-1957-297138"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Visitar el ex Presidio y museo marítimo del fin del mundo (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/viaja-por-argentina/que-hacer/visitar-el-ex-presidio-y-museo-maritimo-del-fin-del-mundo"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Museo Marítimo y ex Presidio de Ushuaia (Secretaría de Turismo de Ushuaia)",
+     "url": "https://turismoushuaia.com/actividad/museo-maritimo-presidio-ushuaia/"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Historia penitenciaria (Museo Penitenciario Argentino Antonio Ballvé)",
+     "url": "https://www.argentina.gob.ar/seguridad/museo-penitenciario-argentino-antonio-ballve/historia-penitenciaria"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Conociendo la 19.640 (Ministerio de Producción y Ambiente de Tierra del Fuego)",
+     "url": "https://prodyambiente.tierradelfuego.gob.ar/conociendo-la-19-640/"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Cadenas de valor, Tierra del Fuego (Secretaría de Provincias)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/tierra_del_fuego_-_cadenas_de_valor.pdf"
+    },
+    {
+     "dato": "quienes",
+     "titulo": "Informe productivo provincial, Tierra del Fuego, 2022 (Secretaría de Planificación del Desarrollo y la Competitividad Federal)",
+     "url": "https://www.argentina.gob.ar/sites/default/files/informe_productivo_tierra_del_fuego_web_2022.11.pdf"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Tren del Fin del Mundo (Secretaría de Turismo de Ushuaia)",
+     "url": "https://turismoushuaia.com/actividad/tren-fin-del-mundo/"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Parque Nacional y Tren del Fin del Mundo (Instituto Fueguino de Turismo)",
+     "url": "https://fdm.tierradelfuego.org.ar/es/c/parque-nacional-tren/4416"
+    },
+    {
+     "dato": "curiosidad",
+     "titulo": "Viajar en el Tren del Fin del Mundo (Argentina.gob.ar)",
+     "url": "https://www.argentina.gob.ar/jefatura/turismo/viaja-por-argentina/viajar-en-el-tren-del-fin-del-mundo"
+    }
+   ],
+   "dudas": "Tanda F1 (11 de octubre de 2026). Ninguna página pudo abrirse: los datos salen de los extractos que devolvió el buscador, así que conviene abrir las URL antes de publicar. Fundación: la misión anglicana empezó en enero de 1869 con Waite Stirling, según la Legislatura fueguina y fuentes no oficiales, y Thomas Bridges la condujo desde 1870 según el Decreto 64/1999 o desde 1871 según otras fuentes, por eso el texto no da ese año. El mismo decreto dice que Bridges fue el primer europeo establecido en forma permanente y autor de un diccionario yámana. No se confirmó desde cuándo Ushuaia es capital del territorio (hay una nota del Museo Roca sobre el tema). Provincia: el Decreto 905/1990 observó los límites del artículo 1 de la Ley 23.775 y la Ley 26.552 de 2009 fijó la demarcación vigente, que incluye la Antártida Argentina entre los meridianos 25 y 74 Oeste al sur del paralelo 60 Sur. El texto describe esa delimitación según la ley argentina, sin tomar posición sobre la disputa de soberanía. Antecedente: la Ley 1532 figura sancionada el 1 de octubre de 1884 en la base nacional y el 16 de octubre en la historia oficial de la provincia. No entró que la Ley 14.408 de 1955 incluyó a Tierra del Fuego en una Provincia Patagonia con Santa Cruz, porque solo lo vi en la historia oficial de Santa Cruz en una tanda anterior. Que los kawésqar habitaran el actual territorio provincial figura en la página del gobierno fueguino, pero su presencia fue sobre todo en los canales del lado chileno. Quiénes: el presidio cerró en 1947 según la Secretaría de Turismo de Ushuaia y el Museo Penitenciario lo ubica en la gestión de Roberto Pettinato, de 1946 a 1947. Un material de la CONAE dice que el penal funcionó de 1904 a 1945. Las cifras de la industria electrónica, la pesca y los hidrocarburos cambian con los años y no entraron. Curiosidad: las fuentes difieren en la antigüedad de la senda de los presos (70 o 100 años) y no se confirmó la trocha del tren, así que el texto no da esos datos."
   }
  }
 }
