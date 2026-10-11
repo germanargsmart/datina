@@ -459,9 +459,10 @@ const LEAD = {
       `no los incluye. Entre esos dos trimestres, el promedio del país ${cambioPct(DC.fonid_var)} en pesos de igual valor.`;
     const ex = DC.extra.length === 1 ? ` En ${DC.extra[0][0]}, ese salario incluye una suma extraordinaria de ${n0(DC.extra[0][1])} pesos.`
       : DC.extra.length ? ` En ${lista(DC.extra.map(x => x[0]))}, ese salario incluye sumas extraordinarias.` : "";
-    return `En ${DC.trim}, un maestro de grado de primaria con 10 años de antigüedad y jornada simple cobraba un salario bruto de ${n0(DC.pais)} pesos por mes en promedio en el país. ` +
-      `El más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])}${conVeces(DC.top[1], DC.pais)}, y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` +
-      ex + ` Descontada la inflación, el promedio del país ${cambioPct(DC.var_real_12m)} frente a ${DC.ant}.`;
+    // la cifra destacada ya dice el salario promedio del país: el texto empieza por cómo cambió descontada la inflación
+    return `Descontada la inflación, el salario promedio de un maestro de grado del país ${cambioPct(DC.var_real_12m)} frente a ${DC.ant}. ` +
+      `Con 10 años de antigüedad y jornada simple, el más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])} pesos brutos por mes${conVeces(DC.top[1], DC.pais)}, ` +
+      `y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` + ex;
   },
   // inversión en educación por alumno de gestión estatal (etapa 23, Coordinación de Evaluación de Costos Educativos)
   "inversion-educativa": v => {
@@ -469,9 +470,9 @@ const LEAD = {
       `${IE.pct_top[0]}, con el ${pct(IE.pct_top[1])}, y la más baja, la de ${IE.pct_bajo[0]}, con el ${pct(IE.pct_bajo[1])}.`;
     if (v === "serie") return `En pesos de ${IE.anio} (con el deflactor del PBI), la inversión por alumno de gestión estatal del país pasó de ${n0(IE.real_ini)} en ${IE.ini} a ` +
       `${n0(IE.pais)} en ${IE.anio}. La más alta fue la de ${IE.real_max_anio}, con ${n0(IE.real_max)}, y la más baja, la de ${IE.real_min_anio}, con ${n0(IE.real_min)}.`;
-    return `En ${IE.anio}, el Estado invirtió ${n0(IE.pais)} pesos por cada alumno de las escuelas de gestión estatal del país, con lo que gastan las provincias en educación ` +
-      `y lo que les transfiere la Nación. El valor más alto fue el de ${IE.top[0]}, con ${n0(IE.top[1])}${conVeces(IE.top[1], IE.pais)}, y el más bajo, el de ${IE.bajo[0]}, ` +
-      `con ${n0(IE.bajo[1])}${conVeces(IE.bajo[1], IE.pais)}.`;
+    // la cifra destacada ya dice la inversión por alumno del país: el texto empieza por los extremos
+    return `En ${IE.anio}, la inversión por alumno de las escuelas de gestión estatal fue más alta en ${IE.top[0]}, con ${n0(IE.top[1])} pesos${conVeces(IE.top[1], IE.pais)}, ` +
+      `y más baja en ${IE.bajo[0]}, con ${n0(IE.bajo[1])}${conVeces(IE.bajo[1], IE.pais)}. Suma lo que gastan las provincias en educación y lo que les transfiere la Nación.`;
   },
   // seguridad (etapa 23, SNIC y SNEEP): delitos por tipo, robos y hurtos, homicidios dolosos y personas privadas de libertad
   delitos: v => {
@@ -570,8 +571,9 @@ const LEAD = {
         `que no figuran como refugiadas ni como solicitantes pero que probablemente necesitan protección internacional. A la vez, ${n0(F.refugiados)} personas ` +
         `de origen argentino eran refugiadas y ${n0(F.solicitantes)} solicitaban asilo en otros países, sobre todo en ${lista(F.destinos)}.`;
     }
-    return `En ${MGR.anio} se presentaron ${n0(MGR.solicitudes)} solicitudes de reconocimiento de la condición de persona refugiada ante la Comisión ` +
-      `Nacional para los Refugiados (CONARE), ${MGR.solicitudes === MGR.sol_ant ? "las mismas" : MGR.solicitudes < MGR.sol_ant ? "menos" : "más"} que las ${n0(MGR.sol_ant)} de ${MGR.anio - 1}. El año con ` +
+    // la cifra destacada ya dice las solicitudes del último año: el texto empieza por cómo cambiaron frente al anterior
+    return `En ${MGR.anio}, las solicitudes de reconocimiento de la condición de persona refugiada ante la Comisión Nacional para los Refugiados (CONARE) ` +
+      `${cambioPl((MGR.solicitudes / MGR.sol_ant - 1) * 100)} frente a las ${n0(MGR.sol_ant)} de ${MGR.anio - 1}. El año con ` +
       `más solicitudes desde ${MGR.ini} fue ${MGR.max_anio}, con ${n0(MGR.max)}. En ${MGR.anio}, la CONARE reconoció como refugiadas a ` +
       `${n0(MGR.reconocidas)} personas, contra ${n0(MGR.rec_ant)} en ${MGR.anio - 1}.`;
   },
@@ -597,37 +599,42 @@ const LEAD = {
     if (v === "pais") return `Los países de nacimiento más frecuentes de las personas nacidas en otro país que vivían en la Argentina en 2022 eran ` +
       `${lista(MGC.paises.slice(0, 3).map(p => `${p[0]} (${pct(p[2])})`))}, según el Censo. Las nacidas en países limítrofes eran el ${pct(MGC.limitrofes_pct)} ` +
       `de las que declararon su país, y las nacidas en Europa, el ${pct(MGC.europa_pct)}. El ${pct(MGC.no_declarado_pct)} no declaró su país de nacimiento.`;
-    return `En el Censo 2022, el ${pct(MGC.pct)} de las personas que vivían en el país había nacido en otro país: ${n0(MGC.personas)} personas. La parte ` +
-      `más alta era la de ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y la más baja, la de ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
+    // la cifra destacada ya dice la parte de la población del país: el texto empieza por cuántas personas son
+    return `En el Censo 2022, ${n0(MGC.personas)} personas que vivían en el país habían nacido en otro país. La parte de la población nacida en otro país ` +
+      `era más alta en ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y más baja en ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
       `El país de nacimiento más frecuente era ${MGC.paises[0][0]} en ${MGC.primer_pais_n} de las 24 jurisdicciones.`;
   },
   "migracion-interna": v => v === "mapa" ? `Por departamento, entre los de ${n0(MGP.min_pob)} habitantes o más, la parte de la población nacida en ` +
     `otra provincia es más alta en ${depsTop(MGP.otra_top)}.` +
     (MGP.otra_mitad ? ` En ${MGP.otra_mitad} de los ${MGP.n} departamentos del país, más de la mitad de la población nació en otra provincia.` : "")
-    : `En el Censo 2022, el ${pct(MGC.otra_pct)} de las personas que vivían en el país había nacido en otra provincia: ` +
-    `${n0(MGC.otra_personas)} personas. La parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
+    // la cifra destacada ya dice la parte de la población del país: el texto empieza por cuántas personas son
+    : `En el Censo 2022, ${n0(MGC.otra_personas)} personas que vivían en el país habían nacido en otra provincia. ` +
+    `En proporción a la población de cada provincia, la parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
     `provincia: ${pct(MGC.otra_top[1])}` : `, ${pct(MGC.otra_top[1])}`) + `, y la más baja, la de ${lista(MGC.otra_bajos[0])}, ${pct(MGC.otra_bajos[1])}. ` +
-    `Y el ${pct(MGC.pct)} había nacido en otro país.`,
+    `En todo el país, el ${pct(MGC.pct)} había nacido en otro país.`,
   "migracion-historia": () => {
     const lim = T.migracion_censos.map(r => r.limitrofes_pct).filter(v => v != null);
-    return `En el primer censo nacional, el de ${MGH.ini}, el ${pct(MGH.ini_pct)} de la población había nacido en otro país. La parte más alta fue la del ` +
-      `censo de ${MGH.max_anio}, ${pct(MGH.max_pct)}, y desde entonces bajó: en el Censo 2022 fue el ${pct(MGC.pct)}. Las personas nacidas en países limítrofes ` +
+    // la cifra destacada ya dice la parte del censo de 1914: el texto no la repite
+    return `En el primer censo nacional, el de ${MGH.ini}, el ${pct(MGH.ini_pct)} de la población había nacido en otro país. Después del censo de ` +
+      `${MGH.max_anio}, esa parte bajó: en el Censo 2022 fue el ${pct(MGC.pct)}. Las personas nacidas en países limítrofes ` +
       `fueron en todos los censos entre el ${pct(d3.min(lim))} y el ${pct(d3.max(lim))} de la población. Hasta el censo de 1980, la mayoría de las personas ` +
       `nacidas en otro país venía de Europa, y desde el de 1991, de los países limítrofes: en 2022, el ${pct(MGC.limitrofes_pct)} de las que declararon su país.`;
   },
   radicaciones: v => {
     if (v === "nacionalidad") return `En ${MGD.anio}, las nacionalidades con más residencias otorgadas fueron ${lista(MGD.top.map(t => `la ${t[0].toLowerCase()} ` +
       `(${pct(t[2])})`))}. La Dirección Nacional de Migraciones no publica las residencias por provincia.`;
-    return `En ${MGD.anio}, la Dirección Nacional de Migraciones resolvió a favor ${n0(MGD.total)} trámites de residencia: ${n0(MGD.permanentes)} ` +
-      `permanentes y ${n0(MGD.temporarias)} temporarias. Fueron ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? "menos" : "más"} que en el año anterior. Desde ` +
+    // la cifra destacada ya dice las residencias del último año: el texto empieza por cómo cambiaron frente al anterior
+    return `En ${MGD.anio}, la Dirección Nacional de Migraciones resolvió a favor un ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? "menos" : "más"} de trámites de residencia ` +
+      `que en el año anterior: ${n0(MGD.permanentes)} permanentes y ${n0(MGD.temporarias)} temporarias. Desde ` +
       `${MGD.desde}, el año con más fue ${MGD.max_anio}, con ${n0(MGD.max)}, y el que menos, ${MGD.min_anio}, con ${n0(MGD.min)}` +
       (MGD.min_anio === 2020 ? ", el año de la pandemia." : ".");
   },
   "argentinos-exterior": v => {
     if (v === "pais") return `A mediados de ${MGO.anio}, los destinos más frecuentes de las personas nacidas en la Argentina que vivían en otro país eran ` +
       `${lista(MGO.top.slice(0, 3).map(t => `${t[0]} (${pct(t[2])})`))}, según la estimación de las Naciones Unidas.`;
-    return `Según la estimación de las Naciones Unidas, a mediados de ${MGO.anio} vivían en otro país ${n0(MGO.personas)} personas nacidas en la Argentina, ` +
-      `${n1(MGO.personas / MGO.personas_ini)} veces las de ${MGO.desde}. En ${MGO.anio_ant} eran ${n0(MGO.personas_ant)}.`;
+    // la cifra destacada ya dice las personas del último año: el texto empieza por los años anteriores
+    return `Según la estimación de las Naciones Unidas, en ${MGO.desde} vivían en otro país ${n0(MGO.personas_ini)} personas nacidas en la Argentina, ` +
+      `y en ${MGO.anio_ant}, ${n0(MGO.personas_ant)}. A mediados de ${MGO.anio} eran ${n1(MGO.personas / MGO.personas_ini)} veces las de ${MGO.desde}.`;
   },
   // ---- economía y precios (etapa 25): todo del INDEC
   inflacion: v => {
@@ -931,14 +938,16 @@ const TX = {
     `con ${n0(Math.min(...T.energia_estacionalidad.map(r => r.gwh)))}.`,
   "meses-nota": `Promedio mensual de la demanda total en GWh para ${e.meses_desde}, ${e.meses_desde + 1} y ${e.meses_hasta}. El último mes disponible en la fuente es ${e.ultimo_mes}.`,
   nacimientos: `En ${nac.anio_ult} se registraron ${n0(nac.n_ult)} nacimientos, ${pct(Math.abs(nac.caida))} menos que los ${n0(nac.pico)} de ${nac.anio_pico}. En el conjunto de los 38 países de la OCDE, la baja entre ${nac.anio_pico} y ${nac.ocde_ult} fue de ${pct(Math.abs(nac.ocde_caida))}.`,
-  adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país correspondían a madres menores de 20 años. En ${nac.anio_ult} fueron ${n1(nac.pct_ult)} de cada 100. En cantidad pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
+  // la cifra destacada ya dice la parte del último año: el texto empieza por la del primero, sin repetirla
+  adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país correspondían a madres menores de 20 años. En cantidad, esos nacimientos pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
   suicidio: `En ${s.anio} el SNIC registró ${n0(s.casos)} suicidios, una tasa de ${n1(s.tasa)} por cada 100.000 habitantes de 5 años y más. En ${s.anio-1} la tasa había sido ${n1(s.tasa_prev)}. La tasa de los varones (${n1(s.tasa_v)}) más que triplica la de las mujeres (${n1(s.tasa_m)}).`,
   "suicidio-prov": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes de 5 años y más, y ${s.low} la más baja, con ${n1(s.low_tasa)}. La tasa nacional fue ${n1(s.tasa)}.`,
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
   muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. En ${R.femicidios.anio} la Justicia registró ${n0(R.femicidios.n)} víctimas directas de femicidio.`,
   "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
   empleo: `En los doce meses hasta ${em.mes}, el total del país ${signo(em.var_nac)} y el empleo creció ${deLas24(em.suben)}. En total eran ${n1(em.total_millones)} millones de personas.`,
-  mortalidad: `En ${mo.anio} murieron en el país ${n1(mo.tasa)} de cada 1.000 nacidos vivos antes de cumplir un año. En ${mo.anio-1} la tasa había sido ${n1(mo.tasa_prev)} y en ${mo.anio_inicio}, ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
+  // la cifra destacada ya dice la tasa del último año: el texto empieza por la de los años anteriores
+  mortalidad: `En ${mo.anio-1}, la tasa de mortalidad infantil del país fue de ${n1(mo.tasa_prev)} muertes de menores de un año cada 1.000 nacidos vivos, y en ${mo.anio_inicio}, de ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
   "mortalidad-nota": `Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca ${mo.tri_base} y el lleno ${mo.tri_act}. La tabla descargable incluye también el valor de ${mo.anio}. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`,
   // la cifra destacada ya dice las tarjetas del último mes: el texto empieza por cómo cambió en un año
   sube: (su.var_anual == null ? "" : `En ${su.mes} se usaron por día hábil ${pct(Math.abs(su.var_anual))} ${su.var_anual < 0 ? "menos" : "más"} tarjetas SUBE distintas que en ${su.mes_prev}. `) +
@@ -947,13 +956,16 @@ const TX = {
     (su.faltan.length ? `La fuente no publica ningún día de ${su.faltan.join(" ni de ")}: el gráfico deja el hueco. ` : "") +
     (su.lancha_salto ? `Desde ${su.lancha_salto} la cantidad de tarjetas en lanchas de la serie se multiplica de un mes a otro, y la fuente no explica por qué. ` : "") +
     `Último día disponible en la fuente: ${su.ultimo_dia}.`,
-  pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.mat} puntos en matemática, ${pz.lec} en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_mat}, ${pz.ocde_lec} y ${pz.ocde_cie} puntos. En matemática la diferencia fue de ${pz.dif_mat} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
+  // la cifra destacada ya dice el puntaje en matemática: el texto empieza por lectura y ciencias
+  pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_lec} y ${pz.ocde_cie} puntos. En matemática la diferencia con la OCDE fue de ${pz.dif_mat} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
   "pisa-nota": `Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.`,
-  escolarizacion: `En ${es.fin}, el ${pct(es.pais_fin)} de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel. En ${es.ini} era el ${pct(es.pais_ini)}. La tasa subió en ${es.suben} de las 24 jurisdicciones, aunque la comparación cruza un quiebre de serie: desde 2022 la población de referencia sale del Censo 2022. ` +
+  // la cifra destacada ya dice la tasa del país en el último año: el texto empieza por la del primero
+  escolarizacion: `En ${es.ini}, el ${pct(es.pais_ini)} de los adolescentes del país en edad de cursar la secundaria estaba matriculado en ese nivel. Desde entonces, la tasa subió ${deLas24(es.suben)}, aunque la comparación cruza un quiebre de serie: desde 2022 la población de referencia sale del Censo 2022. ` +
     `En ${es.fin} fue más alta en ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${es.top_excluidos.join(", ").replace(/, ([^,]*)$/, " y $1")}, donde la tasa llega casi al 100% por diferencias entre la matrícula y la población estimada,` : "") +
     ` y más baja en ${es.low} (${pct(es.low_v)}).`,
   "escolarizacion-nota": `Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca ${es.ini} y el lleno ${es.fin}.`,
-  aprender: `En Aprender ${ap.anio}, el ${pct(ap.mat)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en matemática y el ${pct(ap.len)} en lengua. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
+  // la cifra destacada ya dice el porcentaje en matemática: el texto empieza por lengua
+  aprender: `En lengua, el ${pct(ap.len)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en Aprender ${ap.anio}. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
   "aprender-nota": `Aprender es la evaluación nacional del Ministerio de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes están calculados sobre la base agregada por departamento, sector y ámbito que publica el Ministerio, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial.${DIST["aprender_provincias.mat_logra"]?.["Neuquén"] ? ` En Neuquén, ${DIST["aprender_provincias.mat_logra"]["Neuquén"].motivo}.` : ""}`,
   // la cifra destacada ya dice la parte del territorio protegida: el texto empieza por cuántas áreas son y cuánto cubren
   protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low} el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
@@ -976,7 +988,8 @@ const TX = {
   // la cifra destacada ya dice los turistas de la jurisdicción más visitada: el texto empieza por la más visitada en relación con su población
   eti: `En ${tu.eti_anio}, en relación con su población, ${tu.eti_pc_top} fue la jurisdicción con más turistas no residentes que se fueron del país por Ezeiza o Aeroparque: ${n1(tu.eti_pc_top_v)} cada 1.000 habitantes. En cantidad, la segunda más visitada fue ${tu.eti_2}, con ${n0(tu.eti_2_v)} turistas.`,
   "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población ${R.anio_pob} proyectada por el INDEC. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
-  pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${pct(R.pobreza.ind)} bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, eran ${pct(R.pobreza.pob_prev)} y ${pct(R.pobreza.ind_prev)}. El valor más alto de la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+  // la cifra destacada ya dice la pobreza del último semestre: el texto empieza por la indigencia
+  pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era del ${pct(R.pobreza.pob_prev)} y la indigencia, del ${pct(R.pobreza.ind_prev)}. El valor más alto de la pobreza en la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.`,
   "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor para ver los valores.`,
   "lista-areas-nota": `Las ${nt.pn_n} áreas protegidas de la Administración de Parques Nacionales, ordenadas por año de creación. Superficie actual en hectáreas según el Sistema de Información de Biodiversidad.`,
@@ -1157,17 +1170,22 @@ const TX = {
   // la cifra destacada ya dice la parte del sábalo: el texto da el total y las provincias, sin repetirla
   "pesca-rio": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,
   "pesca-rio-nota": `Captura comercial registrada en ríos y lagunas de las provincias que informan datos, en toneladas. No incluye la pesca deportiva ni la de subsistencia. La tabla descargable muestra cada especie por provincia.`,
-  esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer en el país era de ${n1(nv.ev_pais)} años: ${n1(nv.ev_m)} para las mujeres y ${n1(nv.ev_v)} para los varones. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
+  // la cifra destacada ya dice la esperanza de vida del país: el texto empieza por la de mujeres y varones
+  esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer de las mujeres del país era de ${n1(nv.ev_m)} años y la de los varones, de ${n1(nv.ev_v)}. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
   exportaciones: `En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
     ` Por habitante, las producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.`,
   "exportaciones-nota": `Valor FOB de los bienes exportados según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
   "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
-  internet: `En el ${nv.in_trim}, ${nv.in_top} tenía ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares${aclara("internet_fijo_provincias.accesos_100_hogares", nv.in_top)} y ${nv.in_low}, ${n1(nv.in_low_v)}. La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
+  // la cifra destacada ya dice el valor más alto: el texto empieza por el más bajo
+  internet: `En el ${nv.in_trim}, el valor más bajo fue el de ${nv.in_low}, con ${n1(nv.in_low_v)} accesos a internet fijo cada 100 hogares.` +
+    (DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top]?.accion === "aclarar" ? ` ${DIST["internet_fijo_provincias.accesos_100_hogares"][nv.in_top].motivo}.` : "") +
+    ` La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
   "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
-  extranjeros: `Por cada 100 habitantes del país hay ${n1(nv.xt_pais)} personas nacidas en otro país con documento argentino. ${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)}. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}. ` +
-    `En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +
-    `cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda.`,
+  // la cifra destacada ya dice el valor del país cada 100 habitantes: el texto empieza por el total
+  extranjeros: `En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país con documento argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +
+    `cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda. ` +
+    `${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)} cada 100 habitantes. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}.`,
   "extranjeros-nota": `Personas nacidas en el extranjero identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección ${R.anio_pob} del INDEC.`,
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
     Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
@@ -2046,6 +2064,8 @@ const CENSO_FRASE = {agua_red: "tenía agua de red pública", cloaca: "tenía de
   computadora: "tenía computadora, notebook o tableta", nbi: "tenía al menos una necesidad básica insatisfecha"};
 function textoCenso(k) {
   const pais = nv.censo[k], [ta, tv] = nv.censo_top[k], [la, lv] = nv.censo_low[k];
+  // la cifra destacada ya dice la parte de los hogares del país con cloacas: en esa vista el texto empieza por los extremos
+  if (k === "cloaca") return `En el Censo 2022, la parte de los hogares con desagüe del inodoro a red cloacal iba de ${pct(tv)} en ${ta} a ${pct(lv)} en ${la}.`;
   return (k === "sin_cobertura"
     ? `En el Censo 2022, el ${pct(pais)} de las personas del país no tenía obra social, prepaga ni plan estatal de salud, así que dependía solo del sistema público.`
     : `En el Censo 2022, el ${pct(pais)} de los hogares del país ${CENSO_FRASE[k]}.`) + ` El valor más alto fue el de ${ta} (${pct(tv)}) y el más bajo, el de ${la} (${pct(lv)}).`;
@@ -4908,8 +4928,9 @@ const CLAVE = {
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
   "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`, `por habitante, promedio del país en ${e.el_ult}`],
   "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`, "promedio bruto del país"],
-  "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`],
-  "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`],
+  "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`,
+    "por mes, promedio del país"],
+  "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`, "por alumno, promedio del país"],
   "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`, `delitos cada 100.000 habitantes en ${SG.anio}`],
   "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`, `robos cada 100.000 habitantes en el país en ${SG.anio}`],
   "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`, `víctimas cada 100.000 habitantes en el país en ${SG.anio}`],
@@ -4921,11 +4942,15 @@ const CLAVE = {
   "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`, `del PBI al ${GBD.fecha}`],
   "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`, "cargos cada 1.000 habitantes en todo el país"],
   "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y la Ciudad en ${GBP.anio}`, "por habitante, promedio del país"],
-  "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`],
-  "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`],
-  "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`],
-  "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`],
-  "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`],
+  "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`,
+    "de la población del país, según el Censo"],
+  "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`,
+    "de la población del país había nacido en otra provincia, según el Censo"],
+  "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`,
+    `de la población en el censo de ${MGH.max_anio}, el valor más alto`],
+  "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`, `residencias en ${MGD.anio}`],
+  "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`,
+    `personas a mediados de ${MGO.anio}, según las Naciones Unidas`],
   "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`,
     `en el país, en los doce meses hasta ${EIP.mes}`],
   "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`,
@@ -4936,7 +4961,8 @@ const CLAVE = {
     `${ESR.real_priv < 0 ? "bajó" : "subió"} el salario privado en los doce meses hasta ${ESR.mes}`],
   "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`,
     `${EMA.interanual < 0 ? "cayó" : "creció"} en ${EMA.mes} frente a ${EMA.mes_ant}`],
-  "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`],
+  "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`,
+    `solicitudes en ${MGR.anio}, según la CONARE`],
   "f-supermercados": [pct(Math.abs(ESU.interanual)), `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados en pesos de igual ` +
     `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? "cayeron" : "crecieron"} en el país en ${ESU.mes} frente a ${ESU.mes_ant}`],
   "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`,
@@ -4962,11 +4988,15 @@ const CLAVE = {
   "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`,
     `creció la demanda eléctrica total. La actividad económica creció ${pct(e.crec_emae)}`],
   "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`, `más demanda en ${e.mes_max} que en ${e.mes_min}`],
-  "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`],
-  "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`],
-  "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`],
-  "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`],
-  "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`],
+  "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`,
+    `de cada 100 nacimientos del país en ${nac.anio_ult}`],
+  "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`, `cada 1.000 nacidos vivos en todo el país en ${mo.anio}`],
+  "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`,
+    `puntos en matemática en ${pz.anio}, contra ${pz.ocde_mat} del promedio de la OCDE`],
+  "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`,
+    `de los adolescentes del país en edad de cursar la secundaria, en ${es.fin}`],
+  "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`,
+    "en matemática, en todo el país"],
   "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`, "cada 100 habitantes en el país"],
   "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, "del territorio continental del país"],
   "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, "áreas protegidas a cargo de la Administración de Parques Nacionales"],
@@ -4976,7 +5006,8 @@ const CLAVE = {
   "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`, `millones en ${tu.eoh_anio}, en las localidades relevadas`],
   "f-eti": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`,
     `visitaron ${tu.eti_top}, la jurisdicción con más turistas`],
-  "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`],
+  "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`,
+    `de las personas, bajo la línea de pobreza en el ${R.pobreza.sem}`],
   "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`, `tarjetas en trenes en ${su.mes}`],
   "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`,
     `motos en ${au.anio}, ${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`],
@@ -4992,11 +5023,12 @@ const CLAVE = {
   "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`, `millones de kilos en ${cu.yerba_anio}, en todo el país`],
   "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`, `inventariados en todo el país, en ${cu.gl_n} provincias`],
   "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`, `en ${cu.cl_max_anio}, el año más cálido de la serie`],
-  "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`],
+  "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`, "años en todo el país, mujeres y varones juntos"],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares, promedio del país"],
-  "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`],
-  "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`],
-  "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`],
+  "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, "de los hogares del país tenía desagüe a red cloacal"],
+  "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
+    `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
+  "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`, "cada 100 habitantes, en todo el país"],
   "f-fiscal": [pct(R.fiscal.mediana), `de los ingresos de la provincia del medio fueron recursos propios en ${R.fiscal.anio}. El resto llegó de la Nación`],
   "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`,
     `en todo el país, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
