@@ -170,6 +170,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <button type="submit" class="boton principal">Enviar mensaje</button>
     </form>
     <p class="form-gracias" id="form-gracias" hidden>Gracias. El mensaje llegó al equipo de Datina.</p>
+    <p class="form-gracias" id="susc-gracias" hidden>Gracias. Tu correo quedó anotado para recibir las novedades de Datina.</p>
   </section>
 
   <section class="no-encontrada" id="no-encontrada" aria-labelledby="no-tit">
@@ -2062,6 +2063,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="pie-marca">
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
       <p class="pie-lema">Las 24 Argentinas en números</p>
+      <!-- suscripción (11 de octubre de 2026, pedido del autor: "agregá algún lugar para suscribirse con el mail"): formulario de Netlify,
+           como el de Contacto. Se activa al publicar el sitio en Netlify, que guarda los correos. Después vuelve a Contacto con ?suscripto=1 -->
+      <form class="form-suscripcion" name="suscripcion" method="POST" action="contacto.html?suscripto=1" data-netlify="true" netlify-honeypot="no-completar">
+        <input type="hidden" name="form-name" value="suscripcion">
+        <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
+        <label class="campo" for="susc-correo"><span>Novedades por correo</span></label>
+        <div class="susc-fila"><input type="email" id="susc-correo" name="correo" required autocomplete="email" placeholder="tu correo" aria-describedby="susc-nota"><button type="submit" class="boton principal">Suscribirme</button></div>
+        <p class="form-nota" id="susc-nota">Un aviso cuando haya datos o artículos nuevos. El correo no se comparte ni se publica, y para darte de baja alcanza con escribir desde <a href="contacto.html">Contacto</a>.</p>
+      </form>
     </div>
     <nav class="pie-mapa" aria-label="Mapa del sitio"><!--MAPA--></nav>
     <div class="pie-datos">

@@ -6654,6 +6654,8 @@ if (PAGINA === "contacto" && new URLSearchParams(location.search).has("enviado")
   document.querySelector(".form-contacto").hidden = true;
   document.getElementById("form-gracias").hidden = false;
 }
+// y después de suscribirse desde el pie (?suscripto=1): el aviso en Contacto, debajo de su formulario, que sigue disponible
+if (PAGINA === "contacto" && new URLSearchParams(location.search).has("suscripto")) document.getElementById("susc-gracias").hidden = false;
 
 /* la barra superior es azul sobre la portada y clara en el resto */
 const barra = document.querySelector(".barra");

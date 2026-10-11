@@ -1473,6 +1473,13 @@ html:not(.js) .esqueleto{display:none}
 .campo input:focus-visible,.campo textarea:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .form-nota{margin:0;font-size:var(--t-2);color:var(--muted)}
 .form-contacto .boton{justify-self:start}
+/* suscripción en el pie: el correo y el botón en una fila, que en el celular se apila */
+.form-suscripcion{display:grid;gap:var(--e-2);max-width:30em}
+.susc-fila{display:flex;flex-wrap:wrap;gap:var(--e-2)}
+.susc-fila input{flex:1 1 14em;min-width:0;padding:10px 14px;font:inherit;font-size:var(--t-4);color:var(--ink);background:#fff;border:1px solid var(--azul);border-radius:var(--r-control)}
+.susc-fila input:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
+.susc-fila input::placeholder{color:var(--muted)}
+.pie-sitio .form-suscripcion p{margin:0}
 .oculto{display:none}
 .solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .form-gracias{max-width:34em;font-size:var(--t-5)}

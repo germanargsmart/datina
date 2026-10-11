@@ -15,7 +15,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=b3575e1f07">
+<link rel="stylesheet" href="datina.css?v=bb2efc0cb5">
 </head>
 <body data-pagina="movilidad">
 <header class="barra clara">
@@ -210,6 +210,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="pie-marca">
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
       <p class="pie-lema">Las 24 Argentinas en números</p>
+      <!-- suscripción (11 de octubre de 2026, pedido del autor: "agregá algún lugar para suscribirse con el mail"): formulario de Netlify,
+           como el de Contacto. Se activa al publicar el sitio en Netlify, que guarda los correos. Después vuelve a Contacto con ?suscripto=1 -->
+      <form class="form-suscripcion" name="suscripcion" method="POST" action="contacto.html?suscripto=1" data-netlify="true" netlify-honeypot="no-completar">
+        <input type="hidden" name="form-name" value="suscripcion">
+        <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
+        <label class="campo" for="susc-correo"><span>Novedades por correo</span></label>
+        <div class="susc-fila"><input type="email" id="susc-correo" name="correo" required autocomplete="email" placeholder="tu correo" aria-describedby="susc-nota"><button type="submit" class="boton principal">Suscribirme</button></div>
+        <p class="form-nota" id="susc-nota">Un aviso cuando haya datos o artículos nuevos. El correo no se comparte ni se publica, y para darte de baja alcanza con escribir desde <a href="contacto.html">Contacto</a>.</p>
+      </form>
     </div>
     <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Personas</h2><ul><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="pie-col"><h2>Trabajo y economía</h2><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Precios y actividad</a></li><li><a href="empresas.html">Sector privado</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="gobierno.html">Cuentas públicas</a></li></ul></div><div class="pie-col"><h2>Estado y sociedad</h2><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li></ul><h2>Y además</h2><ul><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Territorio y recursos</h2><ul><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
     <div class="pie-datos">
@@ -224,7 +233,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <div class="tip" id="tip" role="tooltip"></div>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=df14d370b3"></script>
-<script src="datina.js?v=d9c2da73bf"></script>
+<script src="datos/fichas.js?v=50babee5e3"></script>
+<script src="datina.js?v=cea5a9ffc2"></script>
 </body>
 </html>
