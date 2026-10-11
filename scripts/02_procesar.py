@@ -291,7 +291,8 @@ COL = {"caba": "02", "buenos_aires": "06", "catamarca": "10", "chaco": "22", "ch
        "rio_negro": "62", "salta": "66", "san_juan": "70", "san_luis": "74", "santa_cruz": "78",
        "santa_fe": "82", "santiago_estero": "86", "tierra_fuego": "94", "tucuman": "90"}
 s = s.rename(columns={c: COL[c.replace("asalariados_priv_", "")] for c in s.columns if c != "indice_tiempo"})
-s = s.dropna(how="all", subset=list(COL.values()))
+# el último mes con dato en todas las provincias (si el más nuevo llega incompleto, el gráfico tendría barras vacías)
+s = s.dropna(how="any", subset=list(COL.values()))
 fin = s.indice_tiempo.max()
 hace12 = fin - pd.DateOffset(years=1)
 emp = pd.DataFrame({"codigo_indec": list(COL.values())})

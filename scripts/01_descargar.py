@@ -393,6 +393,10 @@ VALIDA.update({
     "sneep_poblacion.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf,total_arg" in b[:400],
     "sneep_condenados.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf," in b[:400],
 })
+# Toda planilla de la API de Series de Tiempo, además de su encabezado, tiene que llegar sin meses vacíos en el medio en ninguna columna
+# (el 11 de octubre de 2026 la API devolvió huecos en el tipo de cambio A3500 y la actualización se cortó): si no, se conserva la anterior
+for _api_n in [n for n, u in FUENTES.items() if u and u.startswith(API)]:
+    VALIDA[_api_n] = lambda b, v=VALIDA.get(_api_n): (v is None or v(b)) and all(serie_sin_huecos(b, c) for c in range(1, len(b.split(b"\n", 1)[0].split(b","))))
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
 for _ind in BM_INDICADORES:
