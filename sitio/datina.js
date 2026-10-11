@@ -458,8 +458,9 @@ const LEAD = {
     if (v === "serie") return `Desde ${SG.anio_ini}, la tasa de robos del país fue la más alta en ${SG.robos_max_anio}, con ${n0(SG.robos_max)} cada 100.000 habitantes, y en ${SG.anio} ` +
       `fue de ${n0(SG.robos)}. Los hurtos pasaron de ${n0(SG.hurtos_ini)} en ${SG.anio_ini} a ${n0(SG.hurtos)} en ${SG.anio}. Las estafas y defraudaciones por medios virtuales, ` +
       `que el SNIC cuenta aparte desde ${SG.estafas_ini}, pasaron de ${n0(SG.estafas_tasa_ini)} a ${n0(SG.estafas_tasa)} cada 100.000 habitantes.`;
-    return `En ${SG.anio}, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país, ${n0(SG.total_tasa)} cada 100.000 habitantes, ` +
-      `un ${pct(Math.abs(t))} ${t < 0 ? "menos" : "más"} que en ${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(([d, , p]) => `${d.toLowerCase()} (${pct(p)})`))}.`;
+    // la cifra destacada ya dice la tasa del país: el texto empieza por el total de delitos y cómo cambió la tasa
+    return `En total, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país en ${SG.anio}, y la tasa cada 100.000 habitantes ` +
+      `fue un ${pct(Math.abs(t))} ${t < 0 ? "menor" : "mayor"} que en ${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(([d, , p]) => `${d.toLowerCase()} (${pct(p)})`))}.`;
   },
   robos: v => {
     const r = SG.robos / SG.robos_ant * 100 - 100, h = SG.hurtos / SG.hurtos_ant * 100 - 100;
@@ -470,14 +471,17 @@ const LEAD = {
     if (v === "hurtos") return `En ${SG.anio} se registraron ${n0(SG.hurtos)} hurtos cada 100.000 habitantes en el país, un ${pct(Math.abs(h))} ${h < 0 ? "menos" : "más"} que en ${SG.anio - 1}. ` +
       `La tasa más alta fue la de ${SG.hurtos_top[0]}, con ${n0(SG.hurtos_top[1])}${conVeces(SG.hurtos_top[1], SG.hurtos)}${deDia(SG.hurtos_top[0])}, y la más baja, la de ` +
       `${SG.hurtos_bajo[0]}, con ${n0(SG.hurtos_bajo[1])}${conVeces(SG.hurtos_bajo[1], SG.hurtos)}.`;
-    return `En ${SG.anio} se registraron ${n0(SG.robos)} robos cada 100.000 habitantes en el país, un ${pct(Math.abs(r))} ${r < 0 ? "menos" : "más"} que en ${SG.anio - 1}, y la tasa ` +
-      `bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +
+    // la cifra destacada ya dice la tasa de robos del país: el texto empieza por cómo cambió frente al año anterior
+    return `En ${SG.anio}, la tasa de robos del país ${r < 0 ? "bajó" : "subió"} un ${pct(Math.abs(r))} frente a ${SG.anio - 1}, ` +
+      `y bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +
       `y la más baja, la de ${SG.robos_bajo[0]}, con ${n0(SG.robos_bajo[1])}${conVeces(SG.robos_bajo[1], SG.robos)}.`;
   },
   homicidios: v => {
-    if (v === "serie") return `La tasa de víctimas de homicidios dolosos del país pasó de ${n1(SG.hom_ini)} cada 100.000 habitantes en ${SG.anio_ini} a ${n1(SG.hom_tasa)} en ` +
-      `${SG.anio}. La más alta fue la de ${SG.hom_max_anio}, con ${n1(SG.hom_max)}` + (SG.hom_min_anio === SG.anio ? `, y la de ${SG.anio} es la más baja de la serie.` : ".");
-    return `En ${SG.anio}, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país, ${n1(SG.hom_tasa)} cada 100.000 habitantes: una cada ` +
+    // la cifra destacada ya dice la tasa del último año: la serie empieza por el año más alto y la vista por provincia, por el total de víctimas
+    if (v === "serie") return `Desde ${SG.anio_ini}, la tasa de víctimas de homicidios dolosos del país fue la más alta en ${SG.hom_max_anio}, con ${n1(SG.hom_max)} ` +
+      `cada 100.000 habitantes. En ${SG.anio_ini} fue de ${n1(SG.hom_ini)}` +
+      (SG.hom_min_anio === SG.anio ? `, y la de ${SG.anio} es la más baja de la serie.` : `, y en ${SG.anio}, de ${n1(SG.hom_tasa)}.`);
+    return `En total, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país en ${SG.anio}, una cada ` +
       `${unoCada(SG.hom_tasa)} habitantes` + (SG.hom_min_anio === SG.anio ? `, la tasa más baja desde ${SG.anio_ini}` : "") + `. El ${pct(SG.hom_varones)} eran varones. ` +
       `Entre ${SG.hom3_desde} y ${SG.anio}, la tasa más alta fue la de ${SG.hom3_top[0]}, con ${n1(SG.hom3_top[1])} por año${conVeces(SG.hom3_top[1], SG.hom3_pais)}, ` +
       `y la más baja, la de ${SG.hom3_bajo[0]}, con ${n1(SG.hom3_bajo[1])}${conVeces(SG.hom3_bajo[1], SG.hom3_pais)}.`;
@@ -486,8 +490,9 @@ const LEAD = {
     if (v === "prov") return `Al 31 de diciembre de ${SG.sn_anio}, la tasa más alta de los servicios penitenciarios provinciales fue la de ${SG.sn_top[0]}, con ${n0(SG.sn_top[1])} ` +
       `personas privadas de libertad cada 100.000 habitantes de la provincia, y la más baja, la de ${SG.sn_bajo[0]}, con ${n0(SG.sn_bajo[1])}. Las cárceles del Servicio ` +
       `Penitenciario Federal alojaban a ${n0(SG.sn_spf)} personas. La Ciudad de Buenos Aires no tiene un servicio penitenciario propio.`;
-    return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país, ${n0(SG.sn_tasa)} cada 100.000 habitantes. ` +
-      `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
+    // la cifra destacada ya dice la tasa del país: el texto empieza por el total de personas
+    return `En total, al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país. ` +
+      `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000 habitantes. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
       `con la causa en trámite, o en otra situación.`;
   },
   // ---- gobierno (etapa 25)
@@ -3025,6 +3030,16 @@ function textoAnios(filas, v, p) {
   if (!a) return `${NOMBRES[p]} no tuvo legisladores${AC_CAM[v]} desde 1983.`;
   const partes = d => v !== "total" ? "" : !(d.anios_senado > 0) ? ", todos en Diputados" : !(d.anios_diputados > 0) ? ", todos en el Senado"
     : `, ${n1(d.anios_diputados)} en Diputados y ${n1(d.anios_senado)} en el Senado`;
+  // la cifra destacada ya dice los años de quien más sumó: sin provincia y con las dos cámaras, el texto empieza por el total de personas
+  if (!p && v === "total") {
+    const cam = !(a.anios_senado > 0) ? "todos sus años en Diputados" : !(a.anios_diputados > 0) ? "todos sus años en el Senado"
+      : `${n1(a.anios_diputados)} años en Diputados y ${n1(a.anios_senado)} en el Senado`;
+    const sig = resto.slice(0, 2).map(d => `${d.nombre} (${n1(d[k])})`);
+    return `Desde 1983, ${n0(AC.personas)} personas ocuparon una banca en el Congreso nacional, ${n0(AC.dos_camaras)} de ellas en las dos cámaras, ` +
+      `y ${AC.veinte} sumaron 20 años o más (${AC.veinte_siguen === 1 ? "una sigue" : `${AC.veinte_siguen} siguen`} en el cargo). ` +
+      `${a.nombre} sumó ${cam}${a.sigue ? ", y sigue en el cargo" : ""}.` +
+      (sig.length ? ` Le ${sig.length > 1 ? "siguen" : "sigue"} ${listaY(sig)}.` : "");
+  }
   let t = (p ? `De ${NOMBRES[p]}, quien más años sumó${AC_CAM[v] || " en el Congreso"} desde 1983 es `
     : `Desde 1983, quien más años sumó${AC_CAM[v] || " en el Congreso nacional"} es `) + `${a.nombre}: ${n1(a[k])} años${partes(a)}${a.sigue ? ", y sigue en el cargo" : ""}.`;
   const sig = resto.slice(0, 2).map(d => `${d.nombre} (${n1(d[k])})`);
@@ -4826,10 +4841,11 @@ const CLAVE = {
   "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`, "promedio bruto del país"],
   "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`],
   "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`],
-  "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`],
-  "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`],
-  "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`],
-  "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
+  "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`, `delitos cada 100.000 habitantes en ${SG.anio}`],
+  "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`, `robos cada 100.000 habitantes en el país en ${SG.anio}`],
+  "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`, `víctimas cada 100.000 habitantes en el país en ${SG.anio}`],
+  "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`,
+    `personas cada 100.000 habitantes en el país al 31 de diciembre de ${SG.sn_anio}`],
   "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`,
     `del PBI fue el ${sobra(GBN.primario)} primario en ${GBN.anio}, antes de pagar los intereses de la deuda`],
   "f-recaudacion": [pct(GRT.pbi), `del PBI fue la recaudación de impuestos nacionales en ${GRT.anio}`],
@@ -4910,7 +4926,8 @@ const CLAVE = {
   "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`,
     "de los asalariados de 31 aglomerados urbanos"],
   "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
-  "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`],
+  "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`,
+    `sumó ${AC.top[0].nombre}, más que cualquier otra persona`],
 };
 /* "En cifras" (etapa 15, pedido del autor: todas las secciones con la misma cantidad de tarjetas que Trabajo y finanzas, del mismo
    ancho y llenando la fila, "siempre con valores que agreguen valor, no solo de relleno"). Cinco tarjetas en cada sección.
