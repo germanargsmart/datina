@@ -727,6 +727,20 @@ def siluetas(h, id_):
                      f'<div class="prov-grid" id="prov-grid">{perfil_vacio()}</div>', 1)
 
 
+# Un h1 por página (11 de octubre de 2026, auditoría: 49 de 52 páginas no tenían): el título de la página, que hasta acá es el primer h2
+# de <main>, pasa a h1 al final del armado, cuando el constructor ya lo leyó para el índice, los menús y las migas. El aspecto no cambia
+# (datina.css estiliza h1 y h2 igual). La portada ya tiene su h1. Los artículos y las piezas del Laboratorio arman su título con
+# datina.js, que lo escribe como h1. scripts/prueba_encabezados.py controla el resultado en las páginas armadas
+def encabezado_principal(h, id_):
+    if id_ == "inicio" or '<article class="nota"' in h or '<section class="pieza"' in h:
+        return h
+    ini = h.find("<main")
+    a = h.find("<h2", ini)
+    assert ini >= 0 and a >= 0, f"{id_}: sin <main> o sin título h2"
+    b = h.find("</h2>", a)
+    return h[:a] + "<h1" + h[a + 3:b] + "</h1>" + h[b + 5:]
+
+
 def pagina(id_, titulo, descripcion, quedan, recorte=None):
     """Arma una pagina con los bloques de `quedan` (paginas del indice) y saca el resto del marcado.
     `recorte` saca partes de los bloques que quedan (por ejemplo, el indice de articulos en la pagina de un articulo)."""
@@ -752,6 +766,7 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None):
     h = re.sub(r'href="#([\w-]+)"', destino, h)
     h = navegacion(h, id_)
     h = siluetas(h, id_)
+    h = encabezado_principal(h, id_)
     (SITIO / ("index.html" if id_ == "inicio" else f"{id_}.html")).write_text(h, encoding="utf-8")
     return h
 
@@ -834,4 +849,9 @@ if _rx:
 _rx = relaciones.construir(plantilla, base, SECCIONES, UBIC, huella(css))
 if _rx:
     sys.exit("El catálogo del Explorador de relaciones tiene problemas: el sitio no se armó.\n" + "\n".join(_rx))
+# un h1 por página (scripts/prueba_encabezados.py): si una página lo pierde, el sitio no se da por armado
+import prueba_encabezados
+_enc, _, _, _ = prueba_encabezados.revisar()
+if _enc:
+    sys.exit("Encabezados con problemas: el sitio no se dio por armado.\n" + "\n".join(_enc))
 print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos" + (" y sitio/pobreza/" if dist.exists() else ""))

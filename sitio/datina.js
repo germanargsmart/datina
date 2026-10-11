@@ -93,7 +93,7 @@ function sinViuda(t) {
   while (i > 1 && p[i - 1].length <= 3 && grupo.length + p[i - 1].length < 16) { i--; grupo = p[i] + NBSP + grupo; }
   return [...p.slice(0, i), grupo].join(" ");
 }
-const CON_TEXTO = "p, li, dd, dt, h2, h3, h4, b, small, .sec-preg, .c-txt";
+const CON_TEXTO = "p, li, dd, dt, h1, h2, h3, h4, b, small, .sec-preg, .c-txt";
 const atarTexto = el => {
   if (!el.matches?.(CON_TEXTO) || el.closest("svg")) return;
   const n = el.lastChild;
@@ -3541,7 +3541,7 @@ if (notaCorte) {
   const nPres = CO.presidencias;
   notaCorte.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono("balanza")}</span><div><p class="nota-meta">Laboratorio. Se actualiza con cada cambio en la Corte</p>` +
-    `<h2 class="nota-tit" style="view-transition-name:t-corte-suprema">La Corte Suprema tuvo ${CO.personas} jueces desde ${CO.desde}. Quién los designó</h2></div></div>` +
+    `<h1 class="nota-tit" style="view-transition-name:t-corte-suprema">La Corte Suprema tuvo ${CO.personas} jueces desde ${CO.desde}. Quién los designó</h1></div></div>` +
     `<p class="nota-bajada"><mark>Hoy la Corte tiene ${hoy.length} jueces, de los ${CO.ley_hoy} que fija la ley.</mark> ${quienes}</p>` +
     `<p>Desde que se instaló, en ${CO.desde}, la Corte Suprema de Justicia de la Nación tuvo ${CO.personas} jueces en ${CO.designaciones} designaciones, porque ` +
     `${CO.dos_veces.length === 4 ? "cuatro" : CO.dos_veces.length} llegaron dos veces: ${listaY(CO.dos_veces)}. Los designaron ${CO.presidentes} presidentes. ` +
@@ -5203,7 +5203,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
-  const tema = f.closest(".tema")?.querySelector("h2")?.textContent;
+  const tema = f.closest(".tema")?.querySelector("h1, h2")?.textContent;
   if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
   // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
@@ -6067,7 +6067,7 @@ ART.forEach(a => {
   const [px] = partesU(a.ux), [py] = partesU(a.uy), fts = [...new Set([fuenteArt(Mx), fuenteArt(My)])];
   const nota = document.getElementById(a.id); if (!nota) return;
   nota.innerHTML =
-    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
     `<div class="nota-graf"><h3>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h3><div class="grafico" data-g="${key}"></div>` +
     `<p class="nota-pie-graf">Cada punto es una ${U.s}. La línea punteada muestra la tendencia.</p></div>` +
@@ -6393,7 +6393,7 @@ ART_SERIE.forEach(a => {
   const nota = document.getElementById(a.id); if (!nota) return;
   const t = a.texto(), ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   nota.innerHTML =
-    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${t.contexto}</p>` +
     t.secciones.map(s => `<div class="nota-graf"><h3>${s.tit}</h3><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"></div>` +
       `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("")).join("") +

@@ -7,7 +7,7 @@
 .rx-saltar{position:absolute;left:var(--e-4);top:-60px;z-index:50;padding:var(--e-2) var(--e-4);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
 .rx-saltar:focus{top:var(--e-4)}
 .rx .migas{margin-top:var(--e-6)}
-.rx>h2{margin-top:var(--e-4)}
+.rx>h1{margin-top:var(--e-4)}
 .rx-aviso{max-width:var(--medida);margin:0 0 var(--e-6);padding:var(--e-3) var(--e-4);border-left:4px solid var(--sol);background:var(--sol-suave);border-radius:0 var(--r-interno) var(--r-interno) 0;font-size:var(--t-3)}
 
 /* controles */
