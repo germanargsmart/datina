@@ -38,7 +38,7 @@ ACEPTADAS = {
     "faltan|bm_pobreza_relativa|00": "ídem",
     "faltan|bm_internet|00": "el Banco Mundial no tiene dato de 1991",
     "faltan|tarjetas_sube_dia_habil_mediana|00": "la fuente no publica ningún día de esos meses: el gráfico deja el hueco y la nota lo dice",
-    "faltan|reservas_netas_bcra|00": "el BCRA no publica la planilla de reservas de algunos meses en la dirección de las demás (16 meses, entre ellos de julio de 2023 a mayo de 2024): el gráfico corta la línea en esos meses y el texto lo dice",
+    "faltan|reservas_netas_bcra|00": "en algunos meses la planilla de reservas del BCRA no está publicada o no se pudo leer la sección de lo que hay que pagar a un año (sobre todo en 2007): el gráfico corta la línea en esos meses y la nota lo dice",
     "mediana|turistas_extranjeros_provincias.cada_1000|02": "la Encuesta de Turismo Internacional solo cuenta a quienes salen por Ezeiza y Aeroparque: favorece a la Ciudad y a los destinos con vuelos internacionales (lo dice la nota)",
     "mediana|turistas_extranjeros_provincias.cada_1000|54": "ídem", "mediana|turistas_extranjeros_provincias.cada_1000|62": "ídem",
     "mediana|turistas_extranjeros_provincias.cada_1000|78": "ídem", "mediana|turistas_extranjeros_provincias.cada_1000|94": "ídem",
