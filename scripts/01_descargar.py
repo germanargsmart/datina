@@ -532,10 +532,45 @@ def serie_sin_huecos(b, col):
     return bool(con) and all(vals[i] for i in range(con[0], con[-1] + 1))
 
 
+# Las tres planillas del SSPMI (carne vacuna, vino y yerba mate) dan 404 en su dirección de siempre desde octubre de 2026. Si pasa, se busca
+# el archivo en el catálogo del SSPMI y en el de datos.gob.ar por su nombre, y se guarda la lista de enlaces que se encontraron
+# (sspmi_enlaces.json), para ver adónde se mudaron
+SSPMI_CLAVE = {"sspmi_carne_vacuna.csv": r"c[aá]rnic|vacun", "sspmi_vitivinicultura.csv": r"vitivin", "sspmi_yerba_mate.csv": r"yerba"}
+
+
+def sspmi_buscar(nombre):
+    enlaces = set()
+    for pag in ("https://www.economia.gob.ar/catalogo-sspmi/data.json", "https://www.economia.gob.ar/catalogo-sspmi/",
+                "https://datos.gob.ar/api/3/action/package_search?q=sspmi&rows=200",
+                "https://datos.gob.ar/api/3/action/package_search?q=indicadores%20sectoriales&rows=200"):
+        try:
+            texto = leer(pag, 60).decode("utf-8", "ignore").replace("\\/", "/")   # las barras escapadas de los JSON
+        except Exception:
+            continue
+        enlaces |= {urllib.parse.urljoin(pag, u) for u in re.findall(r"""(?:href=|"(?:downloadURL|url|accessURL)"\s*:\s*)["']([^"']+?\.csv)["']""", texto, re.I)}
+    previas = json.loads((CRUDO / "sspmi_enlaces.json").read_text(encoding="utf-8")) if (CRUDO / "sspmi_enlaces.json").exists() else []
+    (CRUDO / "sspmi_enlaces.json").write_text(json.dumps(sorted(enlaces | set(previas)), ensure_ascii=False, indent=1), encoding="utf-8")
+    candidatas = sorted(u for u in enlaces if re.search(SSPMI_CLAVE[nombre], u, re.I) and re.search(r"sspm|sectorial|indicador", u, re.I))
+    for u in candidatas:
+        try:
+            datos = leer(u, 120)
+        except Exception:
+            continue
+        if VALIDA[nombre](datos):
+            return u, datos
+    raise ValueError(f"404 y no se encontró en los catálogos ({len(enlaces)} enlaces a CSV, {len(candidatas)} candidatos; ver sspmi_enlaces.json)")
+
+
 def bajar(nombre, url):
     if not url:
         raise ValueError("no se encontro la direccion en el catalogo")
-    datos = leer(url)
+    try:
+        datos = leer(url)
+    except urllib.error.HTTPError as e:
+        if e.code != 404 or nombre not in SSPMI_CLAVE:
+            raise
+        url, datos = sspmi_buscar(nombre)
+        print(f"  aviso: {nombre} se encontró en {url}")
     if nombre in VALIDA and not VALIDA[nombre](datos):
         raise ValueError("el archivo descargado no tiene el formato esperado")
     (CRUDO / nombre).write_bytes(datos)
@@ -2094,7 +2129,15 @@ def bcra_planilla_reservas():
     while (a, m) > (2007, 1):
         a, m = (a, m - 1) if m > 1 else (a - 1, 12)
         meses.append(f"{a}-{m:02d}")
-    pendientes = meses[:3] + [x for x in meses[3:] if x not in previas]   # de lo más nuevo a lo más viejo
+    # los meses en los que la sección II (lo que hay que pagar a un año) salió en cero sin serlo se vuelven a leer, y sus PDF se guardan en
+    # planilla_revisar/ junto con los que no se pudieron leer, para ajustar el lector (pedido del autor del 12 de octubre de 2026: seguir
+    # con los pendientes; eran 17 meses, casi todos de 2007)
+    def _incompleto(r):
+        n = lambda k: float(r.get(k) or 0)
+        return n("pagos_un_anio") == 0 and ((n("canjes") == 0 and n("otros_pagos") == 0) or n("depositos_bancos") > 0)
+    revisar = CRUDO / "planilla_revisar"
+    incompletos = {m for m, r in previas.items() if _incompleto(r)}
+    pendientes = meses[:3] + [x for x in meses[3:] if x not in previas or x in incompletos]   # de lo más nuevo a lo más viejo
     # algunos meses (de julio de 2023 a mayo de 2024, por ejemplo) no están en la dirección de los demás: para los que faltan se prueban otras
     # formas del nombre y los enlaces de las páginas del BCRA que publican la planilla
     enlazados = {}
@@ -2116,7 +2159,7 @@ def bcra_planilla_reservas():
             print("  aviso: la planilla de reservas llegó al límite de 15 minutos, sigue en la próxima actualización")
             break
         nombre = f"{mes[5:7]}{mes[2:4]}"
-        candidatas = [b + p + nombre + ".pdf" for b in bases for p in ("temp", "Temp")]
+        candidatas = ([previas[mes]["url"]] if previas.get(mes, {}).get("url") else []) + [b + p + nombre + ".pdf" for b in bases for p in ("temp", "Temp")]
         if mes not in previas and mes not in meses[:3]:
             candidatas += ([enlazados[mes]] if mes in enlazados else []) + [b + p + nombre + e for b in bases for p in ("temp", "Temp", "TEMP")
                                                                            for e in (".PDF", "_0.pdf") ] + [b + "temp" + mes[5:7] + mes[:4] + ".pdf" for b in bases]
@@ -2136,8 +2179,13 @@ def bcra_planilla_reservas():
         try:
             previas[mes] = {"mes": mes, **_planilla_reservas_leer(datos), "url": url}
             leidos += 1
+            if _incompleto(previas[mes]):
+                revisar.mkdir(exist_ok=True)
+                (revisar / f"temp_{mes}.pdf").write_bytes(datos)
         except Exception as e:
             errores.append(f"{mes}: {e}")
+            revisar.mkdir(exist_ok=True)
+            (revisar / f"temp_{mes}.pdf").write_bytes(datos)
     if not previas:
         raise ValueError("no se pudo leer ninguna planilla de reservas")
     columnas = ["mes", "brutas", "divisas", "valores", "depositos", "posicion_fmi", "deg", "oro", "oro_onzas", "otros_activos",
