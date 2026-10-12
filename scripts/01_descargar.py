@@ -1932,7 +1932,14 @@ def bcra_monetarias():
     # (base monetaria, M1, M2 y M3, en miles de pesos), los préstamos al sector privado por tipo, y los depósitos, los préstamos y la tasa del
     # plazo fijo en dólares. El plazo fijo a 30 días desde 1985 ya está entre las principales (12)
     largas = {1606, 1612, 1618, 1623, 1624, 1343, 1345, 1348, 1349, 1350, 1351, 1356, 1564, 1569, 1571, 1193}
-    elegidas = {v["idVariable"]: v for v in principales + [v for v in cat if "reservas internacionales" in texto(v) or v.get("idVariable") in largas] if "idVariable" in v}
+    # lo que se resta de las reservas brutas para estimar las netas (pedido del autor del 12 de octubre de 2026): el oro, las divisas y las
+    # colocaciones sin las asignaciones de DEG de 2009 (74, 75, 83), el pase pasivo en dólares con bancos del exterior (76), los depósitos de
+    # los bancos en moneda extranjera en el BCRA, que respaldan los depósitos en dólares (1256, en pesos), los del Tesoro en moneda
+    # extranjera (1266), las letras del BCRA en moneda extranjera (1259), los requisitos de liquidez en el exterior (1246) y el tipo de cambio
+    # con que el BCRA valúa su balance (1604), para pasar a dólares lo que informa en pesos
+    pasivos = {74, 75, 76, 83, 1246, 1256, 1259, 1266, 1604}
+    elegidas = {v["idVariable"]: v for v in principales + [v for v in cat if "reservas internacionales" in texto(v) or v.get("idVariable") in largas | pasivos]
+                if "idVariable" in v}
     hoy = datetime.date.today()
     filas, inicio = [], time.monotonic()
     for i, v in elegidas.items():
@@ -1973,6 +1980,154 @@ def bcra_monetarias():
     return BASE + f" ({len(filas)} variables)"
 
 
+# ---------------------------------------------------------------- fuentes nuevas, primera pasada (etapa 42)
+# Pedido del autor del 12 de octubre de 2026: desagregar las reservas, pensiones por discapacidad por provincia, AUH, planes sociales y los
+# índices de la Universidad Torcuato Di Tella. Desde el entorno donde se programa no se llega a los servidores del Estado, así que esta
+# primera pasada baja las páginas y los archivos que enlazan para verlos antes de procesarlos. Va a datos/crudo/exploracion/ y se saca
+# cuando cada fuente tenga su descarga definitiva.
+EXPLORACION = CRUDO / "exploracion"
+
+
+def _explorar(nombre, inicios, dominios, sigue, max_paginas=20, max_archivos=20, limite=360,
+              archivos=r"\.(xlsx?|csv|zip|ods)(\?|$)|download\.php\?fname=", salvo=None):
+    """Recorre desde las páginas de inicio las de los dominios indicados cuyo enlace (dirección y texto) cumple `sigue`, guarda cada página
+    y cada archivo enlazado en datos/crudo/exploracion/<nombre>/ y un índice (indice.json) con la dirección y el texto de cada enlace.
+    Tiene límite de páginas, de archivos y de tiempo para no demorar la actualización."""
+    import html as htmlmod
+    carpeta = EXPLORACION / nombre
+    carpeta.mkdir(parents=True, exist_ok=True)
+    for viejo in carpeta.iterdir():
+        viejo.unlink()
+    inicio, pendientes, vistas, bajados, paginas = time.monotonic(), list(inicios), set(), set(), []
+    while pendientes and len(paginas) < max_paginas and time.monotonic() - inicio < limite:
+        url = pendientes.pop(0)
+        if url in vistas:
+            continue
+        vistas.add(url)
+        try:
+            crudo = leer(url, 60)
+        except Exception as e:
+            paginas.append({"url": url, "error": str(e)[:200]})
+            continue
+        try:
+            texto = crudo.decode("utf-8")
+        except UnicodeDecodeError:
+            texto = crudo.decode("latin-1")
+        n = len(paginas)
+        (carpeta / f"pagina_{n:02d}.html").write_text(texto, encoding="utf-8")
+        titulo = re.search(r"<title[^>]*>(.*?)</title>", texto, re.S | re.I)
+        enlaces = []
+        for href, etiqueta in re.findall(r"""<a\s[^>]*?href\s*=\s*["']([^"'#]+)["'][^>]*>(.*?)</a>""", texto, re.S | re.I):
+            enlaces.append({"url": urllib.parse.urljoin(url, htmlmod.unescape(href.strip())),
+                            "texto": " ".join(htmlmod.unescape(re.sub(r"<[^>]+>", " ", etiqueta)).split())[:200]})
+        paginas.append({"url": url, "archivo": f"pagina_{n:02d}.html", "titulo": " ".join(titulo.group(1).split()) if titulo else "", "enlaces": enlaces})
+        for e in enlaces:
+            host = urllib.parse.urlsplit(e["url"]).hostname or ""
+            if re.search(archivos, e["url"], re.I):
+                if e["url"] in bajados or len(bajados) >= max_archivos or time.monotonic() - inicio > limite or (salvo and re.search(salvo, e["url"], re.I)):
+                    continue
+                bajados.add(e["url"])
+                base = urllib.parse.parse_qs(urllib.parse.urlsplit(e["url"]).query).get("fname", [e["url"].split("?")[0].rsplit("/", 1)[-1]])[0]
+                guardado = f"{len(bajados):02d}_" + re.sub(r"[^\w.-]", "_", base)[-80:]
+                try:
+                    datos = leer(e["url"], 180)
+                    (carpeta / guardado).write_bytes(datos)
+                    e["guardado"], e["bytes"] = guardado, len(datos)
+                except Exception as ex:
+                    e["error"] = str(ex)[:200]
+            elif e["url"].startswith("http") and any(host.endswith(d) for d in dominios) and e["url"] not in vistas \
+                    and re.search(sigue, e["url"] + " " + e["texto"], re.I):
+                pendientes.append(e["url"])
+    (carpeta / "indice.json").write_text(json.dumps(paginas, ensure_ascii=False, indent=1), encoding="utf-8")
+    return f"{len(paginas)} páginas y {len(bajados)} archivos en datos/crudo/exploracion/{nombre}"
+
+
+def explorar_bess():
+    """Todos los cuadros del Boletín Estadístico de la Seguridad Social (hoy solo se bajan los indicadores): el sistema no contributivo
+    (pensiones por invalidez, por vejez y de madres de siete hijos), las asignaciones familiares (AUH) y la edición por jurisdicción."""
+    return _explorar("bess", ["https://www.argentina.gob.ar/trabajo/seguridadsocial/bess"], ["argentina.gob.ar"],
+                     r"/seguridadsocial/bess|jurisdicc", max_paginas=8, max_archivos=25, limite=480, salvo=r"_indicadores_")
+
+
+def explorar_utdt():
+    """Índice de Confianza en el Gobierno (Escuela de Gobierno), Índice de Confianza del Consumidor y Expectativas de Inflación (Centro de
+    Investigación en Finanzas) de la Universidad Torcuato Di Tella: series mensuales en planillas que cambian de nombre."""
+    return _explorar("utdt", ["https://www.utdt.edu/ver_contenido.php?id_contenido=1351&id_item_menu=2970", "https://www.utdt.edu/"], ["utdt.edu"],
+                     r"confianza|consumidor|expectativa|inflaci|finanzas|\bcif\b|\bicg\b|\bicc\b|escuela de gobierno", max_paginas=30, max_archivos=15, limite=360)
+
+
+def explorar_anses():
+    """Datos abiertos de ANSES, de la Agencia Nacional de Discapacidad y de Capital Humano: pensiones por invalidez, AUH y programas
+    sociales (Volver al Trabajo, Acompañamiento Social, Prestación Alimentar)."""
+    return _explorar("anses", ["https://www.anses.gob.ar/institucional/datos-abiertos", "https://www.anses.gob.ar/observatorio-de-la-seguridad-social",
+                               "https://www.argentina.gob.ar/andis", "https://www.argentina.gob.ar/capital-humano"],
+                     ["anses.gob.ar", "argentina.gob.ar"], r"datos.abiertos|estad[ií]stic|observatorio|bolet[ií]n|pensi[oó]n|asignaci[oó]n|\bauh\b|discapacidad|alimentar|acompa[nñ]amiento|volver al trabajo",
+                     max_paginas=20, max_archivos=15, limite=300)
+
+
+def explorar_datos_gob():
+    """Busca en el catálogo de datos.gob.ar los conjuntos de pensiones no contributivas, AUH y programas sociales, y guarda nombres,
+    organismos, fechas y recursos (sin bajar los archivos)."""
+    consultas = ["pensiones no contributivas", "invalidez", "discapacidad", "asignacion universal por hijo", "AUH", "potenciar trabajo", "tarjeta alimentar",
+                 "prestacion alimentar", "acompañamiento social", "volver al trabajo", "programas sociales", "anses", "titulares por provincia"]
+    salida, errores = {}, 0
+    for q in consultas:
+        try:
+            r = json.loads(leer(f"https://datos.gob.ar/api/3/action/package_search?q={urllib.parse.quote(q)}&rows=50", 60))["result"]["results"]
+        except Exception as e:
+            salida[q], errores = {"error": str(e)[:200]}, errores + 1
+            continue
+        salida[q] = [{"nombre": p.get("name"), "titulo": p.get("title"), "organizacion": (p.get("organization") or {}).get("title"),
+                      "modificado": p.get("metadata_modified"),
+                      "recursos": [{"nombre": x.get("name"), "url": x.get("url"), "formato": x.get("format"), "modificado": x.get("last_modified") or x.get("created")}
+                                   for x in p.get("resources", [])]} for p in r]
+    EXPLORACION.mkdir(parents=True, exist_ok=True)
+    (EXPLORACION / "datos_gob_ar.json").write_text(json.dumps(salida, ensure_ascii=False, indent=1), encoding="utf-8")
+    if errores == len(consultas):
+        raise ValueError("el catálogo de datos.gob.ar no respondió")
+    return f"{len(consultas) - errores} búsquedas en datos.gob.ar"
+
+
+def bcra_planilla_reservas():
+    """Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA (el formato del FMI), un PDF por mes (tempMMAA.pdf):
+    la composición de las reservas (oro, divisas, DEG, posición en el FMI) y los pasivos de corto plazo en moneda extranjera (el canje de
+    monedas con China, los pases con bancos del exterior). Primera pasada: los últimos 14 meses y diciembre de cada año desde 2003, para ver
+    desde cuándo están y si el formato cambió."""
+    carpeta = CRUDO / "bcra_planilla_reservas"
+    carpeta.mkdir(exist_ok=True)
+    bases = ["https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/", "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/"]
+    hoy, meses = datetime.date.today(), []
+    a, m = hoy.year, hoy.month
+    for _ in range(14):
+        a, m = (a, m - 1) if m > 1 else (a - 1, 12)
+        meses.append((a, m))
+    meses += [(x, 12) for x in range(hoy.year - 2, 2002, -1)]
+    inicio, indice = time.monotonic(), []
+    for a, m in meses:
+        if time.monotonic() - inicio > 480:
+            break
+        nombre = f"temp{m:02d}{a % 100:02d}.pdf"
+        fila = {"anio": a, "mes": m, "archivo": nombre}
+        for base in bases:
+            try:
+                datos = leer(base + nombre, 60)
+            except Exception as e:
+                fila["error"] = str(e)[:150]
+                continue
+            if datos[:4] == b"%PDF":
+                (carpeta / nombre).write_bytes(datos)
+                fila.update(url=base + nombre, bytes=len(datos))
+                fila.pop("error", None)
+                break
+            fila["error"] = "no es un PDF"
+        indice.append(fila)
+    (carpeta / "indice.json").write_text(json.dumps(indice, ensure_ascii=False, indent=1), encoding="utf-8")
+    bajados = sum("url" in f for f in indice)
+    if not bajados:
+        raise ValueError("no se encontró ninguna planilla de reservas")
+    return f"{bajados} planillas de {len(indice)} meses probados"
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad),
@@ -1999,7 +2154,12 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("intercambio comercial argentino, anexo de cuadros (INDEC)", ica_cuadros),
                     ("balanza de pagos, anexo de cuadros (INDEC)", balanza_pagos),
                     ("series del sector externo (API de Series de Tiempo)", series_sector_externo),
-                    ("estadísticas monetarias y reservas (API del BCRA)", bcra_monetarias)]:
+                    ("estadísticas monetarias y reservas (API del BCRA)", bcra_monetarias),
+                    ("planilla de reservas internacionales y liquidez (BCRA)", bcra_planilla_reservas),
+                    ("exploración: Boletín Estadístico de la Seguridad Social completo", explorar_bess),
+                    ("exploración: índices de la Universidad Torcuato Di Tella", explorar_utdt),
+                    ("exploración: ANSES, ANDIS y Capital Humano", explorar_anses),
+                    ("exploración: catálogo de datos.gob.ar", explorar_datos_gob)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
