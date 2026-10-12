@@ -1519,8 +1519,7 @@ BCR_RESERVAS = {1, 74, 77, 78, 79, 80, 81, 82, 1226, 1244, 1245, 1605}
 # esté acá entra con el nombre de la API en "Otras variables".
 BCR_SEL = {4: ("Tipo de cambio", "Dólar minorista, promedio vendedor", "dolar"), 5: ("Tipo de cambio", "Dólar mayorista de referencia (A3500)", "dolar"),
            1187: ("Tipo de cambio", "Banda cambiaria, límite inferior", "dolar"), 1188: ("Tipo de cambio", "Banda cambiaria, límite superior", "dolar"),
-           12: ("Tasas de interés", "Plazo fijo a 30 días", "tna"), 1207: ("Tasas de interés", "Plazo fijo a 30 días, serie desde 1985", "tna"),
-           1193: ("Tasas de interés", "Plazo fijo en dólares", "tasa_usd"), 7: ("Tasas de interés", "BADLAR de bancos privados, nominal anual", "tna"),
+           12: ("Tasas de interés", "Plazo fijo a 30 días", "tna"), 1193: ("Tasas de interés", "Plazo fijo en dólares", "tasa_usd"), 7: ("Tasas de interés", "BADLAR de bancos privados, nominal anual", "tna"),
            35: ("Tasas de interés", "BADLAR de bancos privados, efectiva anual", "tea"), 44: ("Tasas de interés", "TAMAR de bancos privados, nominal anual", "tna"),
            45: ("Tasas de interés", "TAMAR de bancos privados, efectiva anual", "tea"), 8: ("Tasas de interés", "TM20 de bancos privados", "tna"),
            11: ("Tasas de interés", "Préstamos entre bancos privados (BAIBAR)", "tna"), 13: ("Tasas de interés", "Adelantos en cuenta corriente", "tna"),

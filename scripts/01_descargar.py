@@ -5,7 +5,10 @@ y anota la fecha de descarga en datos/crudo/_registro.csv
 Uso: python scripts/01_descargar.py
 """
 import urllib.error
-import csv, datetime, http.cookiejar, json, pathlib, re, ssl, urllib.request
+import csv, datetime, http.cookiejar, json, pathlib, re, ssl, sys, time, urllib.request
+
+# cada aviso sale en el momento: en GitHub, sin esto, el registro quedaba vacío hasta el final y no se veía qué fuente tardaba
+sys.stdout.reconfigure(line_buffering=True)
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 CRUDO = RAIZ / "datos" / "crudo"
@@ -1793,19 +1796,25 @@ def bcra_monetarias():
     texto = lambda v: " ".join(str(x) for x in v.values() if isinstance(x, str)).lower()
     principales = [v for v in cat if "principal" in texto(v)] or cat[:60]
     # además de las principales y las reservas, las series largas que pidió el autor el 11 de octubre de 2026: los agregados monetarios desde 1940
-    # (base monetaria, M1, M2 y M3, en miles de pesos), el plazo fijo a 30 días desde 1985, los préstamos al sector privado por tipo, y los
-    # depósitos, los préstamos y la tasa del plazo fijo en dólares
-    largas = {1606, 1612, 1618, 1623, 1624, 1207, 1343, 1345, 1348, 1349, 1350, 1351, 1356, 1564, 1569, 1571, 1193}
+    # (base monetaria, M1, M2 y M3, en miles de pesos), los préstamos al sector privado por tipo, y los depósitos, los préstamos y la tasa del
+    # plazo fijo en dólares. El plazo fijo a 30 días desde 1985 ya está entre las principales (12)
+    largas = {1606, 1612, 1618, 1623, 1624, 1343, 1345, 1348, 1349, 1350, 1351, 1356, 1564, 1569, 1571, 1193}
     elegidas = {v["idVariable"]: v for v in principales + [v for v in cat if "reservas internacionales" in texto(v) or v.get("idVariable") in largas] if "idVariable" in v}
     hoy = datetime.date.today()
-    filas = []
+    filas, inicio = [], time.monotonic()
     for i, v in elegidas.items():
+        # si la API está lenta, se corta antes de demorar toda la actualización: el error deja el archivo anterior
+        if time.monotonic() - inicio > 25 * 60:
+            raise TimeoutError(f"la API del BCRA tardó más de 25 minutos ({len(filas)} de {len(elegidas)} variables)")
         pts = []
+        # desde el primer dato que informa el catálogo para cada una (las reservas mensuales y los agregados monetarios empiezan en 1940). Pedir
+        # desde antes del primer dato hacía que la API rechazara el pedido y se bajara año por año: el 12 de octubre de 2026 la descarga pasó de
+        # media hora a más de una
+        desde = str(v.get("primerFechaInformada") or "1990-01-01")[:10]
         try:
             off = 0
             while True:
-                # desde 1940: las reservas mensuales (1605) empiezan ese año
-                lote = puntos(pedir(f"{BASE}/{i}?desde=1940-01-01&hasta={hoy}&limit=3000&offset={off}"), [])
+                lote = puntos(pedir(f"{BASE}/{i}?desde={desde}&hasta={hoy}&limit=3000&offset={off}"), [])
                 pts += lote
                 if len(lote) < 3000:
                     break
@@ -1813,7 +1822,8 @@ def bcra_monetarias():
         except urllib.error.HTTPError as e:
             if e.code != 400:
                 raise
-            for a in range(1990, hoy.year + 1):
+            print(f"  aviso: la API del BCRA no aceptó la variable {i} desde {desde}: se baja año por año")
+            for a in range(int(desde[:4]), hoy.year + 1):
                 try:
                     pts += puntos(pedir(f"{BASE}/{i}?desde={a}-01-01&hasta={a}-12-31&limit=3000"), [])
                 except urllib.error.HTTPError:
