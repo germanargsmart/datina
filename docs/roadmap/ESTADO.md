@@ -148,9 +148,11 @@ El autor avisó que no iba a poder aprobar y pidió avanzar con todo. Un commit 
   - Instituciones políticas: "¿Cuánta confianza genera el gobierno nacional?" (índice de 0 a 5 desde noviembre de 2001, con una marca en cada cambio de gobierno, y el promedio de cada gobierno sin el mes en que asumió uno nuevo, porque según la fecha de la encuesta ese mes mide al que se va o al que llega). Tono neutro: solo describe.
   - Precios y actividad: "¿Cuánta inflación espera la gente para el año siguiente?" (mediana y promedio de la Di Tella desde 2006 junto a la inflación que hubo después según el INDEC: en 91 de 105 meses la mediana quedó por debajo) y "¿Cuánta confianza tienen los consumidores en la economía?" (índice de 0 a 100 desde 2001, con sus tres partes o por región).
   - Tu provincia: tema nuevo "Seguridad social" con las pensiones por discapacidad, la AUH y el seguro de desempleo.
+  - Cruces: los mismos tres indicadores, con el tema "Seguridad social" (la AUH contra los hogares con NBI da r 0,48 y ρ 0,63).
 - Planes sociales: no hay datos abiertos oficiales por provincia de Volver al Trabajo (ex Potenciar Trabajo), Acompañamiento Social ni la Prestación Alimentar. La nota de la AUH lo dice. Si se publican, entran como la AUH.
 - La planilla de reservas no está en la dirección de siempre para 16 meses, entre ellos los once de julio de 2023 a mayo de 2024. El gráfico corta la línea ahí y la nota lo dice. La descarga prueba otros nombres y los enlaces de las páginas del BCRA, y el registro (`datos/crudo/_registro.csv`) dice qué meses no encontró: revisarlo después de la próxima actualización. Si siguen faltando, el autor puede buscar en el sitio del BCRA con qué nombre los publicó.
 - `lineas()` suma `y1` (máximo fijo de la escala), `eventos` (líneas verticales con nombre) y `conNegativos`. `barrasH()` suma `sinOrden` y `nt`.
+- Actualizaciones de GitHub de ese día: la 17 se frenó en 02 porque la API de Series de Tiempo devolvió la planilla del comercio exterior con datos que no dejaban ningún año completo (ahora no se reemplaza si alguna serie trae menos datos que antes o si los meses se repiten) y la 18 bajó y procesó todo, pero Chrome tardó más de 15 segundos en abrir y la prueba de páginas se cortó antes de empezar (ahora espera hasta 60).
 
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
