@@ -5690,6 +5690,13 @@ cru["regalias"] = columna(reg_prov, "pct_regalias")
 cru["salario"] = columna(salarios_provincias, "salario")
 cru["salario_docente"] = columna(salario_docente, "bruto")
 cru["gasto_alumno"] = columna(inversion_educativa, "gasto_por_alumno")
+# seguridad social (etapa 42): pensiones por discapacidad, AUH y seguro de desempleo, si la actualización bajó sus archivos
+if pinv_prov is not None:
+    cru["pensiones_invalidez"] = columna(pinv_prov, "cada_1000")
+if auh_prov is not None:
+    cru["auh"] = columna(auh_prov, "cada_100_menores")
+if dsm_prov is not None:
+    cru["seguro_desempleo"] = columna(dsm_prov, "cada_1000_habitantes")
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
@@ -5756,6 +5763,12 @@ CRUCES_META = {
     "ocupados_construccion": ("Personas ocupadas en la construcción", "% de las personas ocupadas, incluye el trabajo no registrado", "2022", "Construcción", "INDEC, Censo 2022", "f-trabajadores", 1),
     "empleo_construccion": ("Empleo registrado en la construcción", "asalariados privados cada 1.000 habitantes", f"{TRIM_TXT[OE_T % 10 - 1]} trimestre de {OE_T // 10}", "Construcción", "OEDE, Ministerio de Capital Humano (SIPA)", "f-empleo-construccion", 1),
     "regalias": ("Peso de las regalías", "% de los ingresos totales de la provincia (petróleo, gas, minería e hidroelectricidad)", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-regalias", 1),
+    **({"pensiones_invalidez": ("Pensiones por discapacidad", "pensiones no contributivas por invalidez cada 1.000 habitantes", f"{MES[pinv_res['prov_mes'] - 1]} de {pinv_res['prov_anio']}",
+                                "Seguridad social", "Secretaría de Seguridad Social, BESS", "f-pensiones-invalidez", 1)} if pinv_res else {}),
+    **({"auh": ("Asignación Universal por Hijo", "hijos con AUH cada 100 menores de 18 años", f"{MES[auh_res['mes'] - 1]} de {auh_res['anio']}",
+                "Seguridad social", "Secretaría de Seguridad Social, BESS", "f-auh", 1)} if auh_res else {}),
+    **({"seguro_desempleo": ("Seguro de desempleo", "beneficiarios de la prestación por desempleo cada 1.000 habitantes", f"{MES[dsm_res['prov_mes'] - 1]} de {dsm_res['prov_anio']}",
+                             "Seguridad social", "Secretaría de Seguridad Social, BESS", "f-desempleo", 1)} if dsm_res else {}),
 }
 
 # ---------------------------------------------------------------- capitales de provincia (etapa 26)
