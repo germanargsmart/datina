@@ -122,7 +122,7 @@ FRECUENCIA = {
     # Educación
     "f-escolarizacion": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio",
     # Población
-    "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-jubilaciones": "trimestre", "f-adolescentes": "anio",
+    "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-jubilaciones": "trimestre", "f-haberes": "trimestre", "f-adolescentes": "anio",
     "f-adolescentes-nse": "anio",
     # Migraciones
     "f-nacidos-otro-pais": "censo", "f-migracion-interna": "censo", "f-migracion-historia": "censo", "f-extranjeros": "anio",

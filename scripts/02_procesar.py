@@ -2497,6 +2497,73 @@ _ipc_ng = IPC_INDEC[(IPC_INDEC.Region == "Nacional") & (IPC_INDEC.Codigo == "0")
 assert _ipc_ng.index.is_unique and _ipc_ng.index[0] == "2016-12" and abs(_ipc_ng.iloc[0] - 100) < 1e-9, "el IPC del INDEC no empieza en diciembre de 2016 = 100"
 assert list(_ipc_ng.index) == list(pd.period_range(_ipc_ng.index[0], _ipc_ng.index[-1], freq="M").strftime("%Y-%m")), "faltan meses en el IPC del INDEC"
 ipc = pd.Series(_ipc_ng.values, index=pd.to_datetime(_ipc_ng.index + "-01"))
+# Haberes previsionales frente al salario (etapa 42, pedido del autor del 12 de octubre de 2026: "animate a pensar qué más podemos sumar"):
+# el haber mínimo de la Ley 24.241, el mínimo con los adicionales que se pagaron varios meses seguidos (el subsidio de 2002 y 2003 y los
+# refuerzos desde septiembre de 2022), la jubilación y la pensión promedio y el haber promedio de ANSES, promedio de cada año, y el salario
+# promedio de los asalariados registrados sujeto a aportes, sin aguinaldo (BESS, cuadro 4.1.1.3). El cociente no depende de ningún índice
+# de precios, así que va desde 1994. Los montos van también en pesos del último mes del IPC del INDEC, desde 2017 (con el promedio del índice
+# en los mismos meses). El último año puede estar incompleto: el BESS lo informa con la fecha de su último mes.
+hab_res, haberes = None, None
+if (CRUDO / "bess_indicadores.xlsx").exists():
+    _hb = pd.read_excel(CRUDO / "bess_indicadores.xlsx", sheet_name="4.1.1.3", header=None)
+    _hb_pos = [(i, j) for i in range(min(15, len(_hb))) for j in range(_hb.shape[1]) if str(_hb.iat[i, j]).strip() == "Periodo"]
+    assert _hb_pos, "BESS 4.1.1.3: no está la columna Periodo"
+    _hb_f, _hb_c = _hb_pos[0]
+    _hb_cab = " | ".join(str(_hb.iat[_hb_f + 1, _hb_c + k]) for k in range(1, 6)) + " | " + str(_hb.iat[_hb_f, _hb_c + 6])
+    assert all(x in _hb_cab for x in ("Haber mínimo", "adicionales", "Jubilación promedio", "Pensión promedio", "Haber total promedio", "Salario")), \
+        f"BESS 4.1.1.3 cambió de formato: {_hb_cab}"
+    _hb_filas = []
+    for i in range(_hb_f + 2, len(_hb)):
+        v0 = _hb.iat[i, _hb_c]
+        if isinstance(v0, (pd.Timestamp, datetime.datetime)):
+            anio, meses = v0.year, v0.month
+        elif isinstance(v0, (int, float, np.integer, np.floating)) and not pd.isna(v0) and 1990 < v0 < 2100 and float(v0).is_integer():
+            anio, meses = int(v0), 12
+        else:
+            continue
+        vals = [float(_hb.iat[i, _hb_c + k]) for k in range(1, 7)]
+        if any(pd.isna(v) for v in vals):
+            continue
+        _hb_filas.append({"anio": anio, "meses": meses, "haber_minimo": vals[0], "haber_minimo_adicionales": vals[1], "jubilacion_promedio": vals[2],
+                          "pension_promedio": vals[3], "haber_promedio": vals[4], "salario_promedio": vals[5]})
+    haberes = pd.DataFrame(_hb_filas)
+    assert len(haberes) > 25 and haberes.anio.is_unique and (haberes.anio.diff().dropna() == 1).all(), "BESS 4.1.1.3: años faltantes o repetidos"
+    assert (haberes.meses.iloc[:-1] == 12).all(), "BESS 4.1.1.3: un año incompleto que no es el último"
+    for _k, _c in (("pct_minimo", "haber_minimo"), ("pct_minimo_adicionales", "haber_minimo_adicionales"), ("pct_jubilacion", "jubilacion_promedio"),
+                   ("pct_pension", "pension_promedio"), ("pct_haber", "haber_promedio")):
+        haberes[_k] = haberes[_c] / haberes.salario_promedio * 100
+    # el mismo cociente que publica el BESS en las columnas de la derecha
+    _hb_bess = pd.to_numeric(_hb.iloc[[i for i in range(_hb_f + 2, len(_hb)) if pd.notna(_hb.iat[i, _hb_c + 7])], _hb_c + 8], errors="coerce").dropna()
+    assert len(_hb_bess) >= len(haberes) and np.allclose(_hb_bess.values[:len(haberes)] * 100, haberes.pct_minimo_adicionales.values, atol=.05), \
+        "BESS 4.1.1.3: el haber mínimo con adicionales sobre el salario no coincide con el que publica el boletín"
+    # a pesos del último mes del IPC, con el promedio del índice en los meses de cada año (el último puede estar incompleto)
+    _hb_ult = ipc.index[-1]
+    _hb_ipc = {a: (m, ipc[(ipc.index.year == a) & (ipc.index.month <= m)]) for a, m in zip(haberes.anio, haberes.meses)}
+    _hb_fac = {a: float(ipc.iloc[-1] / s.mean()) for a, (m, s) in _hb_ipc.items() if len(s) == m}
+    for _c in ("haber_minimo", "haber_minimo_adicionales", "jubilacion_promedio", "haber_promedio", "salario_promedio"):
+        haberes[_c + "_real"] = [v * _hb_fac[a] if a in _hb_fac else np.nan for a, v in zip(haberes.anio, haberes[_c])]
+    _hb_u, _hb_c0 = haberes.iloc[-1], haberes[haberes.meses == 12]
+    _hb_r = haberes.dropna(subset=["haber_minimo_adicionales_real"])
+    _hb_mx = _hb_c0.loc[_hb_c0.pct_minimo_adicionales.idxmax()]
+    _hb_mn = _hb_c0.loc[_hb_c0.pct_minimo_adicionales.idxmin()]
+    _hb_rmx = _hb_r.loc[_hb_r.haber_minimo_adicionales_real.idxmax()]
+    hab_res = {"ini": int(haberes.anio.iloc[0]), "anio": int(_hb_u.anio), "meses": int(_hb_u.meses), "ini_real": int(_hb_r.anio.iloc[0]),
+               "mes_real": _hb_ult.strftime("%Y-%m"),
+               "pct_min": r1(_hb_u.pct_minimo), "pct_min_ad": r1(_hb_u.pct_minimo_adicionales), "pct_jub": r1(_hb_u.pct_jubilacion), "pct_haber": r1(_hb_u.pct_haber),
+               "ini_pct_min_ad": r1(haberes.pct_minimo_adicionales.iloc[0]), "ini_pct_jub": r1(haberes.pct_jubilacion.iloc[0]),
+               "max_pct": {"anio": int(_hb_mx.anio), "v": r1(_hb_mx.pct_minimo_adicionales)}, "min_pct": {"anio": int(_hb_mn.anio), "v": r1(_hb_mn.pct_minimo_adicionales)},
+               "min_ad_real": round(float(_hb_u.haber_minimo_adicionales_real)), "min_ad_real_ini": round(float(_hb_r.haber_minimo_adicionales_real.iloc[0])),
+               "min_ad_real_max": {"anio": int(_hb_rmx.anio), "v": round(float(_hb_rmx.haber_minimo_adicionales_real))},
+               "var_real_min_ad": r1((_hb_u.haber_minimo_adicionales_real / _hb_r.haber_minimo_adicionales_real.iloc[0] - 1) * 100),
+               "var_real_jub": r1((_hb_u.jubilacion_promedio_real / _hb_r.jubilacion_promedio_real.iloc[0] - 1) * 100),
+               "var_real_sal": r1((_hb_u.salario_promedio_real / _hb_r.salario_promedio_real.iloc[0] - 1) * 100)}
+    d = haberes[["anio", "pct_minimo_adicionales"]].rename(columns={"anio": "periodo", "pct_minimo_adicionales": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "haber_minimo_pct_salario", "% del salario promedio registrado", "Secretaria de Seguridad Social, BESS")
+    d = haberes[["anio", "pct_jubilacion"]].rename(columns={"anio": "periodo", "pct_jubilacion": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "jubilacion_promedio_pct_salario", "% del salario promedio registrado", "Secretaria de Seguridad Social, BESS")
+
 # Las variables del BCRA con criterio económico (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para
 # deflactar lo que haya que deflactar, mostrá series largas que haya"). Cada serie va completa, desde que empieza, y según su tipo suma:
 # - usd (depósitos y préstamos en dólares): pct_pbi, pasados a pesos con el A3500 de fin de mes, desde 2004.
@@ -5555,6 +5622,7 @@ tablas = {
     **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
+    **({"haberes_previsionales": haberes} if haberes is not None else {}),
     "presidentes": presidentes,
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
     "voto_legisladores_y_provincia": rep_voto,
@@ -5914,6 +5982,7 @@ resumen["externo"] = SE_RES
 resumen["empresas"] = emp_res
 resumen["rotacion"] = rot_res
 resumen["jubilaciones"] = jub_res
+resumen["haberes"] = hab_res
 resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD

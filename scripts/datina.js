@@ -179,7 +179,7 @@ const CM_FRASE = {circulatorias: "las enfermedades del corazón y la circulació
 const CMG = CM.grupos.filter(g => CM_FRASE[g.k]).sort((a, b) => b.pct - a.pct);
 // columnas de maternidad adolescente por provincia: llevan el primer y el último año de la DEIS (pct_2012, pct_2024...)
 const ADO_INI = "pct_" + nac.anio_ini, ADO_ULT = "pct_" + nac.anio_ult;
-const PI = R.piramide, JU = R.jubilaciones;
+const PI = R.piramide, JU = R.jubilaciones, HB = R.haberes;
 const EM = R.empresas;
 // Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
@@ -1043,6 +1043,15 @@ const TX = {
   "piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, ${PI.anio_fin}. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
   jubilaciones: `En ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio} había ${n2(JU.ratio)} aportantes por cada jubilación o pensión de los regímenes que administra ANSES: ${n0(JU.aportantes)} personas aportando y ${n0(JU.beneficios)} beneficios. El valor más alto de la serie fue ${n2(JU.max)} en ${JU.max_anio} y el más bajo, ${n2(JU.min)} en ${JU.min_anio}. ` +
     `La demografía empuja en la misma dirección: según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`,
+  // haberes frente al salario (etapa 42): el texto de la vista "A precios de hoy" lo arma el dibujo
+  haberes: `En ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]},` : ""} el haber mínimo de ANSES con los refuerzos que se pagan aparte equivalía al ${pct(HB.pct_min_ad)} del salario ` +
+    `promedio de los asalariados registrados, y sin ellos, al ${pct(HB.pct_min)}. La jubilación promedio, al ${pct(HB.pct_jub)}. Desde ${HB.ini}, el haber mínimo con adicionales ` +
+    `llegó a su punto más alto en ${HB.max_pct.anio}, con el ${pct(HB.max_pct.v)} del salario, y al más bajo en ${HB.min_pct.anio}, con el ${pct(HB.min_pct.v)}.`,
+  "haberes-nota": `Promedio de cada año de los haberes que paga ANSES y del salario de los asalariados registrados sujeto a aportes, sin aguinaldo. El haber mínimo es el que fija la ` +
+    `Ley 24.241. "Con refuerzos" suma los montos adicionales que se pagaron varios meses seguidos: el subsidio de agosto de 2002 a junio de 2003 y los refuerzos desde septiembre ` +
+    `de 2022. Desde 2020 se cuentan solo los beneficios no suspendidos. "A precios de hoy" pasa los montos a pesos de ${MESES[+HB.mes_real.slice(5) - 1]} de ${HB.mes_real.slice(0, 4)} con el IPC del INDEC, desde ${HB.ini_real}, ` +
+    `el primer año completo del índice nacional. ${HB.meses < 12 ? `${HB.anio} es el promedio de enero a ${MESES[HB.meses - 1]}. ` : ""}No incluye las cajas provinciales ni los regímenes ` +
+    `que no administra ANSES. Comparar con el salario no dice si alcanza para vivir: para eso están las canastas de Precios y actividad.`,
   "jubilaciones-nota": `Promedio anual de aportantes y de beneficios. El último año es el último mes disponible. Los aportantes incluyen asalariados, autónomos, monotributistas y trabajadoras de casas particulares, también jubilados que siguen aportando. Desde abril de 2019 se cuentan solo los beneficios no suspendidos y hasta 2008 la serie incluye el sistema de capitalización. ` +
     `La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
   "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
@@ -2254,6 +2263,21 @@ const DIB = {
   rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
     k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
   piramide: conTablas("piramide", ["piramide_poblacion"], a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio})),
+  haberes: a => {
+    const real = MED.haberes === "real", cae = v => v < 0 ? `cayó ${pct(-v)}` : `subió ${pct(v)}`;
+    $t("haberes").textContent = real
+      ? `A precios de ${mesPer(HB.mes_real)}, el haber mínimo con refuerzos promedió ${n0(HB.min_ad_real)} pesos por mes en ${HB.anio}, ${pct(Math.abs(HB.var_real_min_ad))} ` +
+        `${HB.var_real_min_ad < 0 ? "menos" : "más"} que en ${HB.ini_real}. En el mismo período la jubilación promedio ${cae(HB.var_real_jub)} y el salario promedio registrado ${cae(HB.var_real_sal)}.`
+      : TX.haberes;
+    const xl = r => r.meses < 12 ? `${r.anio}, hasta ${MESES[r.meses - 1]}` : r.anio;
+    const series = real
+      ? [{k: "jubilacion_promedio_real", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "haber_minimo_adicionales_real", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
+         {k: "haber_minimo_real", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}]
+      : [{k: "pct_jubilacion", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "pct_minimo_adicionales", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
+         {k: "pct_minimo", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}];
+    lineas(G("haberes"), {anim: a, data: T.haberes_previsionales.filter(r => !real || r.haber_minimo_adicionales_real != null), x: "anio", y0: 0, xl, series,
+      vf: real ? v => "$ " + n0(v) : v => pct(v), yf: real ? v => n0(v / 1000) + " mil" : v => n0(v) + "%"});
+  },
   jubilaciones: a => lineas(G("jubilaciones"), {anim:a, data: T.jubilaciones_aportantes, x:"anio", y0:0, vf: n2, yf: v => n1(v),
     series: [{k:"aportantes_por_beneficio", c: css("--celeste-fuerte"), lab:"Por beneficio"}], xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio}),
   muertes: a => lineas(G("muertes"), {anim:a, data: T.muertes_violentas, x:"anio", y0:0,
@@ -4189,6 +4213,7 @@ DIB["cuenta-corriente"] = a => {
       {k: "servicios", lab: "Servicios", c: FRI}, {k: "primario", lab: "Ingreso primario", corto: "Rentas", c: css("--muted"), w: 1.8}]});
 };
 MED["reservas-bcra"] = "serie";
+MED.haberes = "pct";
 DIB["reservas-bcra"] = a => {
   const el = G("reservas-bcra"), V = SX.reservas, CORTO = {sector_publico: "Otras del sector público", efectivo_minimo: "Efectivo mínimo", organismos: "FMI y otros organismos"};
   const MI = V.meses_imp;

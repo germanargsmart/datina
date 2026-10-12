@@ -626,7 +626,7 @@
   },
   {
    "id": "ds:bess_indicadores.xlsx",
-   "nombre": "Boletín Estadístico de la Seguridad Social, cuadro de indicadores (4.1.1.1)",
+   "nombre": "Boletín Estadístico de la Seguridad Social, cuadros de indicadores (4.1.1.1 y 4.1.1.3)",
    "fuente": "org:seguridad-social",
    "ruta": "datos/crudo/bess_indicadores.xlsx",
    "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
@@ -6262,6 +6262,34 @@
     }
    ],
    "tabla": "reservas_bcra"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_indicadores.xlsx",
+   "a": "f-haberes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hb = pd.read_excel(CRUDO / \"bess_indicadores.xlsx\", sheet_name=\"4.1.1.3\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"haberes_previsionales\": haberes} if haberes is not None else {}),"
+    }
+   ],
+   "tabla": "haberes_previsionales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-haberes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hb_fac = {a: float(ipc.iloc[-1] / s.mean()) for a, (m, s) in _hb_ipc.items() if len(s) == m}"
+    }
+   ],
+   "tabla": "haberes_previsionales"
   }
  ],
  "fichas": {
@@ -6675,6 +6703,12 @@
   "f-cuenta-corriente": {
    "variables": [
     "cuenta_corriente_usd"
+   ]
+  },
+  "f-haberes": {
+   "variables": [
+    "haber_minimo_pct_salario",
+    "jubilacion_promedio_pct_salario"
    ]
   }
  }
