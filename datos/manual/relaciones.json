@@ -2065,7 +2065,7 @@
    "ruta": "datos/crudo/series_sector_externo_M.csv",
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
-    "contiene": "d.to_csv(CRUDO / f\"series_sector_externo_{letra}.csv\")"
+    "contiene": "arch = CRUDO / f\"series_sector_externo_{letra}.csv\""
    }
   },
   {
@@ -2075,7 +2075,7 @@
    "ruta": "datos/crudo/series_sector_externo_Q.csv",
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
-    "contiene": "d.to_csv(CRUDO / f\"series_sector_externo_{letra}.csv\")"
+    "contiene": "arch = CRUDO / f\"series_sector_externo_{letra}.csv\""
    }
   },
   {
