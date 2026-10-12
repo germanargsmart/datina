@@ -5,7 +5,7 @@ y anota la fecha de descarga en datos/crudo/_registro.csv
 Uso: python scripts/01_descargar.py
 """
 import urllib.error
-import csv, datetime, http.cookiejar, json, pathlib, re, ssl, sys, time, urllib.request
+import csv, datetime, http.cookiejar, json, pathlib, re, ssl, sys, tempfile, time, urllib.parse, urllib.request
 
 # cada aviso sale en el momento: en GitHub, sin esto, el registro quedaba vacío hasta el final y no se veía qué fuente tardaba
 sys.stdout.reconfigure(line_buffering=True)
@@ -19,6 +19,51 @@ UA = {"User-Agent": "Mozilla/5.0 (argentina-en-datos)"}
 # Servidores oficiales con el certificado de seguridad vencido (septiembre 2026). Solo para estos se reintenta
 # sin verificar el certificado, y el contenido se valida igual antes de guardarlo (ver VALIDA).
 CERTIFICADO_VENCIDO = ("www.economia.gob.ar", "www.mecon.gob.ar")
+
+
+# Servidores que no mandan el certificado intermedio de su cadena: en GitHub fallan con "unable to get local issuer certificate"
+# (argentina.gob.ar, censo.gob.ar, el ENACOM y otros, octubre de 2026). Un navegador lo busca solo en la dirección que indica el
+# certificado del servidor (el campo "CA Issuers") y Python no. Se hace lo mismo: se baja el intermedio de esa dirección y se suma a
+# los de confianza de esa conexión, sin apagar la verificación. Por seguridad, solo se suman certificados que no se firman a sí mismos
+# y la cadena tiene que terminar en una raíz de confianza del sistema (sin cadenas parciales), así que uno falso no pasa
+_INTERMEDIOS = {}
+
+
+def contexto_con_intermedios(url):
+    sitio = urllib.parse.urlsplit(url)
+    host, puerto = sitio.hostname, sitio.port or 443
+    if host in _INTERMEDIOS:
+        return _INTERMEDIOS[host]
+    ctx, cadena = None, []
+    try:
+        pem = ssl.get_server_certificate((host, puerto), timeout=30)
+        for _ in range(3):  # el intermedio puede estar firmado por otro que también falte
+            with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as f:
+                f.write(pem)
+            info = ssl._ssl._test_decode_cert(f.name)
+            pathlib.Path(f.name).unlink()
+            emisores = [u for u in info.get("caIssuers", ()) if u.lower().startswith(("http://", "https://"))]
+            if not emisores:
+                break
+            with urllib.request.urlopen(emisores[0], timeout=30) as r:
+                der = r.read()
+            pem = der.decode("ascii") if der.lstrip().startswith(b"-----BEGIN") else ssl.DER_cert_to_PEM_cert(der)
+            with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as f:
+                f.write(pem)
+            datos = ssl._ssl._test_decode_cert(f.name)
+            pathlib.Path(f.name).unlink()
+            if datos.get("subject") == datos.get("issuer"):
+                break  # una raíz: esa tiene que estar entre las del sistema, no se suma
+            cadena.append(pem)
+        if cadena:
+            ctx = ssl.create_default_context()
+            ctx.verify_flags &= ~getattr(ssl, "VERIFY_X509_PARTIAL_CHAIN", 0)
+            ctx.load_verify_locations(cadata="".join(cadena))
+            print(f"  aviso: {host} no manda su certificado intermedio: se bajó de la dirección que indica su certificado")
+    except Exception as e:
+        print(f"  aviso: no se pudo completar la cadena de certificados de {host}: {e}")
+    _INTERMEDIOS[host] = ctx
+    return ctx
 
 
 def leer(url, timeout=180):
@@ -35,6 +80,10 @@ def leer(url, timeout=180):
     try:
         return abrir()
     except urllib.error.URLError as e:
+        if "UNABLE TO GET LOCAL ISSUER" in str(e).upper():
+            ctx = contexto_con_intermedios(url)
+            if ctx:
+                return abrir(ctx)
         if not any(h in url for h in CERTIFICADO_VENCIDO) or "CERTIFICATE" not in str(e).upper():
             raise
         print(f"  aviso: certificado vencido en {url.split('/')[2]}, se reintenta sin verificarlo")
