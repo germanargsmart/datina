@@ -1609,19 +1609,33 @@ if (CRUDO / "bcra_series.csv").exists() and (CRUDO / "bcra_variables.json").exis
                                        "depositos_bancos": _rn.depositos_bancos, "depositos_tesoro": _rn.depositos_tesoro})
         reservas_netas["netas"] = reservas_netas.brutas - reservas_netas.depositos_y_deudas - reservas_netas.canje_china - reservas_netas.pases_y_otros
         reservas_netas = reservas_netas.round(1)
-        _rn_u, _rn_i = reservas_netas.iloc[-1], reservas_netas.set_index("mes")
-        _rn_mn, _rn_mx = reservas_netas.loc[reservas_netas.netas.idxmin()], reservas_netas.loc[reservas_netas.netas.idxmax()]
+        # los meses que el BCRA no publica en la dirección de los demás quedan vacíos en la tabla: el gráfico corta la línea ahí en lugar de unir
+        # los vecinos (de julio de 2023 a mayo de 2024 faltan once seguidos)
+        _rn_todos = pd.period_range(reservas_netas.mes.iloc[0], reservas_netas.mes.iloc[-1], freq="M").strftime("%Y-%m")
+        _rn_faltan = [m for m in _rn_todos if m not in set(reservas_netas.mes)]
+        _rn_tramos = []
+        for m in _rn_faltan:
+            if _rn_tramos and (pd.Period(m, "M") - pd.Period(_rn_tramos[-1]["hasta"], "M")).n == 1:
+                _rn_tramos[-1]["hasta"] = m
+            else:
+                _rn_tramos.append({"desde": m, "hasta": m})
+        _rn_largo = max(_rn_tramos, key=lambda t: (pd.Period(t["hasta"], "M") - pd.Period(t["desde"], "M")).n, default=None)
+        _rn_publicada = reservas_netas.copy()
+        reservas_netas = reservas_netas.set_index("mes").reindex(_rn_todos).rename_axis("mes").reset_index()
+        _rn_u, _rn_i = _rn_publicada.iloc[-1], _rn_publicada.set_index("mes")
+        _rn_mn, _rn_mx = _rn_publicada.loc[_rn_publicada.netas.idxmin()], _rn_publicada.loc[_rn_publicada.netas.idxmax()]
         _rn_ha = (pd.Period(_rn_u.mes, "M") - 12).strftime("%Y-%m")
-        _rn_neg = reservas_netas[reservas_netas.netas < 0]
+        _rn_neg = _rn_publicada[_rn_publicada.netas < 0]
         _rn_r = lambda v: None if pd.isna(v) else round(float(v))
-        SE_RES["reservas_netas"] = {"desde": reservas_netas.mes.iloc[0], "desde_anio": int(reservas_netas.mes.iloc[0][:4]), "mes": _rn_u.mes, "n_meses": len(reservas_netas),
+        SE_RES["reservas_netas"] = {"desde": reservas_netas.mes.iloc[0], "desde_anio": int(reservas_netas.mes.iloc[0][:4]), "mes": _rn_u.mes, "n_meses": len(_rn_publicada),
+                                    "n_faltan": len(_rn_faltan), "faltan_largo": _rn_largo, "n_faltan_largo": (pd.Period(_rn_largo["hasta"], "M") - pd.Period(_rn_largo["desde"], "M")).n + 1 if _rn_largo else 0,
                                     **{k: _rn_r(_rn_u[k]) for k in ("brutas", "netas", "divisas", "oro", "deg", "otros_activos", "depositos_y_deudas",
                                                                      "canje_china", "pases_y_otros", "depositos_bancos", "depositos_tesoro")},
                                     "oro_onzas": None if pd.isna(_rn.oro_onzas.iloc[-1]) else round(float(_rn.oro_onzas.iloc[-1]), 2),
                                     "min": {"mes": _rn_mn.mes, "v": round(float(_rn_mn.netas))}, "max": {"mes": _rn_mx.mes, "v": round(float(_rn_mx.netas))},
                                     "hace_un_anio": _rn_r(_rn_i.netas.get(_rn_ha)), "ult_negativa": None if _rn_neg.empty else _rn_neg.mes.iloc[-1],
                                     "pct_netas": r1(_rn_u.netas / _rn_u.brutas * 100)}
-        d = reservas_netas[["mes", "netas"]].rename(columns={"mes": "periodo", "netas": "valor"})
+        d = _rn_publicada[["mes", "netas"]].rename(columns={"mes": "periodo", "netas": "valor"})
         d["codigo_indec"], d["territorio"] = "00", "Argentina"
         agregar(d, "reservas_netas_bcra", "millones de dólares", "BCRA, planilla de reservas internacionales y liquidez en moneda extranjera")
     # las demás variables principales: la tabla larga del selector (el último dato de cada mes) y la lista con el nombre, el grupo y la unidad

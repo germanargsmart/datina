@@ -2083,25 +2083,43 @@ def bcra_planilla_reservas():
         a, m = (a, m - 1) if m > 1 else (a - 1, 12)
         meses.append(f"{a}-{m:02d}")
     pendientes = meses[:3] + [x for x in meses[3:] if x not in previas]   # de lo más nuevo a lo más viejo
-    inicio, leidos, errores = time.monotonic(), 0, []
+    # algunos meses (de julio de 2023 a mayo de 2024, por ejemplo) no están en la dirección de los demás: para los que faltan se prueban otras
+    # formas del nombre y los enlaces de las páginas del BCRA que publican la planilla
+    enlazados = {}
+    if any(x not in previas for x in meses[3:]):
+        for pag in ("https://www.bcra.gob.ar/reservas-internacionales-y-base-monetaria/", "https://www.bcra.gob.ar/en/international-reserves-and-monetary-base/",
+                    "https://www.bcra.gob.ar/PublicacionesEstadisticas/Reservas_internacionales.asp"):
+            try:
+                texto = leer(pag, 30).decode("utf-8", "ignore")
+            except Exception:
+                continue
+            for h in re.findall(r"""href\s*=\s*["']([^"']+?\.pdf)["']""", texto, re.I):
+                mm = re.search(r"temp[_-]?(\d{2})[_-]?(\d{4}|\d{2})[^/]*\.pdf$", h, re.I)
+                if mm and 1 <= int(mm.group(1)) <= 12:
+                    anio = int(mm.group(2)) if len(mm.group(2)) == 4 else 2000 + int(mm.group(2))
+                    enlazados.setdefault(f"{anio}-{mm.group(1)}", urllib.parse.urljoin(pag, h))
+    inicio, leidos, errores, sin_archivo = time.monotonic(), 0, [], []
     for mes in pendientes:
         if time.monotonic() - inicio > 15 * 60:
             print("  aviso: la planilla de reservas llegó al límite de 15 minutos, sigue en la próxima actualización")
             break
-        nombre = f"{mes[5:7]}{mes[2:4]}.pdf"
+        nombre = f"{mes[5:7]}{mes[2:4]}"
+        candidatas = [b + p + nombre + ".pdf" for b in bases for p in ("temp", "Temp")]
+        if mes not in previas and mes not in meses[:3]:
+            candidatas += ([enlazados[mes]] if mes in enlazados else []) + [b + p + nombre + e for b in bases for p in ("temp", "Temp", "TEMP")
+                                                                           for e in (".PDF", "_0.pdf") ] + [b + "temp" + mes[5:7] + mes[:4] + ".pdf" for b in bases]
         datos = url = None
-        for base in bases:
-            for prefijo in ("temp", "Temp"):
-                try:
-                    d = leer(base + prefijo + nombre, 60)
-                except Exception:
-                    continue
-                if d[:4] == b"%PDF":
-                    datos, url = d, base + prefijo + nombre
-                    break
-            if datos:
+        for c in candidatas:
+            try:
+                d = leer(c, 60)
+            except Exception:
+                continue
+            if d[:4] == b"%PDF":
+                datos, url = d, c
                 break
         if not datos:
+            if mes not in previas and mes not in meses[:3]:   # los últimos meses pueden no estar publicados todavía
+                sin_archivo.append(mes)
             continue
         try:
             previas[mes] = {"mes": mes, **_planilla_reservas_leer(datos), "url": url}
@@ -2118,7 +2136,17 @@ def bcra_planilla_reservas():
         w.writerows(previas[k] for k in sorted(previas))
     if errores:
         print("  aviso: planillas de reservas que no se pudieron leer:", "; ".join(errores[:10]))
-    return f"{bases[0]}tempMMAA.pdf ({leidos} meses leídos, {len(previas)} en la tabla)"
+    # los meses que faltan, en tramos, para el registro (así se ve en cada actualización qué no se encontró)
+    tramos = []
+    for mes in sorted(sin_archivo):
+        a, m = int(mes[:4]), int(mes[5:])
+        if tramos and (a * 12 + m) - (int(tramos[-1][1][:4]) * 12 + int(tramos[-1][1][5:])) == 1:
+            tramos[-1][1] = mes
+        else:
+            tramos.append([mes, mes])
+    faltan = ", ".join(d if d == h else f"{d} a {h}" for d, h in tramos)
+    return (f"{bases[0]}tempMMAA.pdf ({leidos} meses leídos, {len(previas)} en la tabla" + (f", sin archivo: {faltan}" if faltan else "") +
+            (f", {len(errores)} sin poder leer" if errores else "") + ")")
 
 
 def utdt_series():

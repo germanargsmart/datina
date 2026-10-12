@@ -987,7 +987,10 @@ const TX = {
     `depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
     `brutas, pero hay que devolverlos) y los pases con bancos del exterior. No hay una cifra oficial de reservas netas: otras estimaciones no restan los depósitos del Tesoro o ` +
     `restan también los préstamos de organismos internacionales, y dan otros números. Hasta 2021 la planilla anota el canje con China junto con los pases. Las brutas de la ` +
-    `planilla coinciden con las de la API del BCRA. El oro se valúa al precio de mercado y los derechos especiales de giro (DEG) son la moneda del FMI.`,
+    `planilla coinciden con las de la API del BCRA. El oro se valúa al precio de mercado y los derechos especiales de giro (DEG) son la moneda del FMI.` +
+    (SX.reservas_netas && SX.reservas_netas.n_faltan ? (FL => ` El BCRA no publica la planilla de ${SX.reservas_netas.n_faltan === 1 ? "un mes" : SX.reservas_netas.n_faltan + " meses"} en la dirección de las demás` +
+      (FL && SX.reservas_netas.n_faltan_largo > 2 ? `, entre ellos los ${SX.reservas_netas.n_faltan_largo} que van de ${MESES[+FL.desde.slice(5) - 1]} de ${FL.desde.slice(0, 4)} a ${MESES[+FL.hasta.slice(5) - 1]} de ${FL.hasta.slice(0, 4)}` : "") +
+      `: ahí el gráfico no tiene dato y el mínimo y el máximo son los de los meses publicados.`)(SX.reservas_netas.faltan_largo) : ""),
   "reservas-bcra-nota": `Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda ` +
     `como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente: la ficha siguiente las desagrega y resta esas deudas. ` +
     `Cada punto es el último día con dato de cada mes, desde ${SX.reservas.desde} con la serie mensual del BCRA. "Meses de importación" divide las reservas por el promedio ` +
@@ -4342,15 +4345,15 @@ DIB["reservas-netas"] = a => {
   if (v === "composicion") {
     $t("reservas-netas").textContent = `En ${m}, de los ${n0(N.brutas)} millones de dólares de reservas brutas, ${n0(N.divisas)} eran divisas y títulos en moneda extranjera ` +
       `(entre ellas, los yuanes del canje con China), ${n0(N.oro)} eran oro${N.oro_onzas ? `, ${n2(N.oro_onzas)} millones de onzas` : ""}, y ${n0(N.deg)} derechos especiales de giro del FMI.`;
-    return areasApiladas(el, {anim: a, data: datos(), x: "t", vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), unidad: "millones de dólares",
+    return areasApiladas(el, {anim: a, data: datos().filter(r => r.brutas != null), x: "t", vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), unidad: "millones de dólares",
       series: [{k: "divisas", lab: "Divisas y títulos", c: css("--celeste-fuerte")}, {k: "oro", lab: "Oro", c: css("--sol-fuerte")},
         {k: "deg", lab: "DEG", c: css("--celeste")}, {k: "otros_activos", lab: "Otros", c: GRIS}]});
   }
   $t("reservas-netas").textContent = `A fin de ${m}, las reservas brutas del BCRA eran ${n0(N.brutas)} millones de dólares y las netas, ${n0(N.netas)} millones, el ${pct(N.pct_netas)}. ` +
     (N.hace_un_anio != null ? `Un año antes, las netas eran ${n0(N.hace_un_anio)} millones. ` : "") +
     (N.ult_negativa ? `Fueron negativas por última vez en ${mesPer(N.ult_negativa)}. ` : "") +
-    `Desde ${mesPer(N.desde)}, el valor más bajo fue de ${n0(N.min.v)} millones, en ${mesPer(N.min.mes)}, y el más alto, de ${n0(N.max.v)} millones, en ${mesPer(N.max.mes)}.`;
-  lineas(el, {anim: a, data: datos(), x: "t", conNegativos: true, ref: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), mensual: true,
+    `${N.n_faltan ? "En los meses publicados desde" : "Desde"} ${mesPer(N.desde)}, el valor más bajo fue de ${n0(N.min.v)} millones, en ${mesPer(N.min.mes)}, y el más alto, de ${n0(N.max.v)} millones, en ${mesPer(N.max.mes)}.`;
+  lineas(el, {anim: a, data: datos(), x: "t", conNegativos: true, ref: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), mensual: true, huecos: true,
     series: [{k: "brutas", lab: "Brutas", c: GRIS}, {k: "netas", lab: "Netas", c: css("--celeste-fuerte"), w: 2.6}]});
 };
 MED.haberes = "pct";
