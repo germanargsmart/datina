@@ -1835,8 +1835,9 @@ def series_sector_externo():
                  "balanza de pagos", "cuenta corriente", "cuenta financiera", "reservas internacionales", "deuda externa",
                  "posicion de inversion internacional", "terminos del intercambio"]
     # una búsqueda que falla dejaría afuera series que se usan: se reintenta una vez y, si vuelve a fallar, no se reemplaza nada (el 12 de
-    # octubre de 2026 cuatro búsquedas tardaron demasiado en GitHub y la planilla mensual se guardó incompleta)
-    vistos, fallas = {}, []
+    # octubre de 2026 cuatro búsquedas tardaron demasiado en GitHub y la planilla mensual se guardó incompleta). Tampoco se sigue con las
+    # demás: si la API no responde, esperarían lo mismo sin cambiar el resultado (ese mismo día, con la API caída, fueron 40 minutos)
+    vistos = {}
     for q in consultas:
         for off in range(0, 500, 100):
             url = f"https://apis.datos.gob.ar/series/api/search/?limit=100&offset={off}&q={urllib.parse.quote(q)}"
@@ -1847,9 +1848,7 @@ def series_sector_externo():
                     time.sleep(5)
                     r = json.loads(leer(url, 120))
             except Exception as e:
-                print(f"  aviso: búsqueda de series '{q}':", e)
-                fallas.append(q)
-                break
+                raise ValueError(f"falló la búsqueda de series '{q}' del sector externo ({e}): se conservan las planillas anteriores")
             filas = r.get("data") or []
             for x in filas:
                 f, ds = x.get("field") or {}, x.get("dataset") or {}
@@ -1858,8 +1857,6 @@ def series_sector_externo():
                                        "conjunto": ds.get("title"), "fuente": ds.get("source")}
             if len(filas) < 100:
                 break
-    if fallas:
-        raise ValueError(f"fallaron búsquedas de series del sector externo ({', '.join(fallas)}): se conservan las planillas anteriores")
     if len(vistos) < 20:
         raise ValueError("la búsqueda de series del sector externo vino vacía")
     desde = str(datetime.date.today().year - 2)
