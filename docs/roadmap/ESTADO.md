@@ -149,7 +149,7 @@ Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión lo
 1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha. Regla aprobada por el autor el 11 de octubre de 2026. Hecho en todas las secciones (11 de octubre de 2026): la leyenda corta va como tercer elemento de `CLAVE` en todas las fichas con cifra destacada y ningún texto empieza repitiendo la cifra. Quedan oraciones que repiten la cifra más adelante en algunos textos (áreas de concesión, pozos), dejadas a propósito porque comparan con otro dato.
 2. Hecho (11 de octubre de 2026): la línea del país ya no tapa los valores.
 3. Hecho (11 de octubre de 2026): Etapa 40, la población de cada provincia hasta 2040 y las causas de muerte por provincia (ver la tercera tanda).
-4. Opcional: la silueta de "En cifras" de Trabajo mide 140 píxeles y las tarjetas más, y con una red muy lenta la página salta 45 píxeles al llegar el código.
+4. Hecho (12 de octubre de 2026): la silueta de "En cifras" usa la altura de tarjeta más común, medida en las 19 secciones con la carga del código demorada: 149 píxeles con las cinco tarjetas en fila (9 de 19 secciones, antes 140) y 141 en celular (9 de 19). Con una red muy lenta el salto promedio baja de 17 a 10 píxeles en computadora y queda en cero en esas secciones. Trabajo sigue saltando 36 (sus textos ocupan tres renglones más) y no se puede igualar en todas porque el largo de los textos cambia con los datos.
 
 ## Plan del Explorador (anterior a la unión)
 

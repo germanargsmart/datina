@@ -1122,7 +1122,10 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 html:not(.js) .esqueleto{display:none}
 .esqueleto .cifra,.dp.esqueleto{--esqueleto:var(--superficie-3);pointer-events:none;animation:esqueleto var(--dur-2) var(--ease-out) 400ms both;background-repeat:no-repeat;
   background-image:linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0)}
-.esqueleto .cifra{min-height:140px;background-position:16px 18px,16px 66px,16px 86px,16px 106px;background-size:42% 30px,calc(100% - 32px) 10px,calc(100% - 32px) 10px,55% 10px}
+.esqueleto .cifra{min-height:141px;background-position:16px 18px,16px 66px,16px 86px,16px 106px;background-size:42% 30px,calc(100% - 32px) 10px,calc(100% - 32px) 10px,55% 10px}
+/* con las cinco tarjetas en fila (880 píxeles o más) la mayoría de las secciones tiene tarjetas de 149 píxeles y en celular de 141:
+   la silueta usa la altura más común para que el texto de abajo casi no salte cuando llega datina.js (medido el 12 de octubre de 2026) */
+@container (min-width:880px){.esqueleto .cifra{min-height:149px}}
 .dp.esqueleto{min-height:224px;background-position:20px 20px,20px 50px,20px 112px,20px 168px;background-size:50% 10px,40% 40px,calc(100% - 40px) 10px,calc(100% - 40px) 12px}
 
 /* ---------- controles de las fichas: rectos ---------- */
