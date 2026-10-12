@@ -34,7 +34,7 @@ id,grupo,nombre,tipo,nombre_bcra,unidad,ultimo_dato
 1569,Dólares en los bancos,Cajas de ahorro en dólares del sector privado,usd,Cajas de ahorro del sector privado no financiero,millones de dólares,2026-10-07
 1571,Dólares en los bancos,Plazos fijos en dólares del sector privado,usd,Plazo fijo del sector privado no financiero,millones de dólares,2026-10-07
 1356,Dólares en los bancos,Préstamos en dólares al sector privado,usd,Total de préstamos totales de efectivo otorgados al sector privado,millones de dólares,2026-10-07
-1606,"Dinero, serie histórica","Base monetaria, desde 1940",millones,Base monetaria,millones de pesos,2026-07-31
+1606,"Dinero, serie histórica","Base monetaria, serie histórica",millones,Base monetaria,millones de pesos,2026-07-31
 1612,"Dinero, serie histórica",M1 en pesos (efectivo y cuentas a la vista),millones,M1 en moneda local,millones de pesos,2026-07-31
 1618,"Dinero, serie histórica",M2 en pesos (M1 y cajas de ahorro),millones,M2 en moneda local,millones de pesos,2026-07-31
 1624,"Dinero, serie histórica",M3 en pesos (todos los depósitos y el efectivo),millones,M3 en moneda local,millones de pesos,2026-07-31

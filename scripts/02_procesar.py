@@ -1537,7 +1537,7 @@ BCR_SEL = {4: ("Tipo de cambio", "Dólar minorista, promedio vendedor", "dolar")
            1343: ("Préstamos por tipo", "Adelantos en cuenta corriente en pesos", "millones"), 1345: ("Préstamos por tipo", "Documentos a sola firma en pesos", "millones"),
            1564: ("Dólares en los bancos", "Depósitos en dólares del sector privado", "usd"), 1569: ("Dólares en los bancos", "Cajas de ahorro en dólares del sector privado", "usd"),
            1571: ("Dólares en los bancos", "Plazos fijos en dólares del sector privado", "usd"), 1356: ("Dólares en los bancos", "Préstamos en dólares al sector privado", "usd"),
-           1606: ("Dinero, serie histórica", "Base monetaria, desde 1940", "millones"), 1612: ("Dinero, serie histórica", "M1 en pesos (efectivo y cuentas a la vista)", "millones"),
+           1606: ("Dinero, serie histórica", "Base monetaria, serie histórica", "millones"), 1612: ("Dinero, serie histórica", "M1 en pesos (efectivo y cuentas a la vista)", "millones"),
            1618: ("Dinero, serie histórica", "M2 en pesos (M1 y cajas de ahorro)", "millones"), 1624: ("Dinero, serie histórica", "M3 en pesos (todos los depósitos y el efectivo)", "millones"),
            1623: ("Dinero, serie histórica", "M3 en pesos y en moneda extranjera", "millones"),
            9001: ("Dinero, serie histórica", "Parte del M3 en moneda extranjera", "pct", "% del M3 total"),
@@ -1592,6 +1592,15 @@ if (CRUDO / "bcra_series.csv").exists() and (CRUDO / "bcra_variables.json").exis
     _bcr_p = sorted(i for i in _bcr.id.unique() if i not in BCR_RESERVAS | BCR_FUERA and (_bcr_v.get(i, {}).get("categoria") == "Principales Variables" or i in BCR_SEL))
     _bcr_l = _bcr[_bcr.id.isin(_bcr_p)].assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))
     _bcr_miles = [i for i in _bcr_p if _bcr_v[i].get("unidadExpresion", "").strip().lower() == "en miles de ars"]
+    # los agregados desde 1940 vienen en miles de pesos de hoy con cuatro decimales: antes de mediados de los sesenta dan cero y hasta mediados
+    # de los setenta son escalones del redondeo. Cada uno empieza en el primer mes desde el que vale al menos 0,01 (el redondeo pesa menos de 0,5%)
+    _bcr_hist = {}
+    for _bcr_i in _bcr_miles:
+        _bcr_x = _bcr_l[_bcr_l.id == _bcr_i].sort_values("fecha")
+        _bcr_bajo = _bcr_x[_bcr_x.valor < .01]
+        if len(_bcr_bajo):
+            _bcr_l = _bcr_l[~((_bcr_l.id == _bcr_i) & (_bcr_l.fecha <= _bcr_bajo.fecha.max()))]
+        _bcr_hist[_bcr_i] = _bcr_l[_bcr_l.id == _bcr_i].fecha.min().year
     _bcr_l = _bcr_l.assign(valor=_bcr_l.valor.where(~_bcr_l.id.isin(_bcr_miles), _bcr_l.valor / 1000))
     bcra_variables = _bcr_l.groupby(["id", "mes"]).valor.last().reset_index()
     # en las series que empiezan hace décadas, los primeros valores en pesos de hoy son ínfimos (se le sacaron 13 ceros a la moneda): los menores
@@ -2553,7 +2562,8 @@ if bcra_variables is not None:
     _bcr_l2 = bcra_variables.groupby("id").mes.agg(["min", "max"])
     SE_RES["bcra"].update({"ipc_mes": _ipc_ng.index[-1], "ipc_desde": _ipc_ng.index[0], "pib_desde": str(_bcr_pib.index[0].year),
                            "pib_hasta": f"{_bcr_pib.index[-1].quarter}T{_bcr_pib.index[-1].year}", "tcr_mes": _bcr_rel.index[-1].strftime("%Y-%m"),
-                           "inicio": {int(i): r["min"] for i, r in _bcr_l2.iterrows()}, "rem_viejo": next(iter(_bcr_viejo.values()), None)})
+                           "inicio": {int(i): r["min"] for i, r in _bcr_l2.iterrows()}, "rem_viejo": next(iter(_bcr_viejo.values()), None),
+                           "hist_desde": min(_bcr_hist.values()) if _bcr_hist else None})
     SE_RES["bcra_inicio"] = str(bcra_variables.mes.min()[:4])
 _base = pd.Timestamp("2016-12-01")
 costo = icc.div(icc.loc[_base]).mul(100).join(ipc.rename("ipc"), how="inner")

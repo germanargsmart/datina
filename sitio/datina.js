@@ -996,8 +996,10 @@ const TX = {
     `El dólar a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que ` +
     `paga una tasa a 30 días con la inflación del mes siguiente, y los índices de actualización y las tasas para juicios se comparan con la inflación de los mismos doce meses. ` +
     `Los montos, el dólar y los índices en pesos de cada mes van en escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento. ` +
-    `La serie histórica del dinero (base monetaria, M1, M2 y M3, desde 1940) está en pesos de hoy: entre 1970 y 1992 a la moneda se le sacaron 13 ceros, ` +
-    `por eso los primeros valores son fracciones de peso. La parte del M3 en moneda extranjera la calcula Datina con los dos M3 del BCRA. Los depósitos y ` +
+    (SX.bcra.hist_desde ? `La serie histórica del dinero (base monetaria, M1, M2 y M3) está en pesos de hoy: entre 1970 y 1992 a la moneda se le sacaron 13 ceros. ` +
+      `El BCRA la publica desde 1940, en miles de pesos con cuatro decimales, así que los primeros años dan cero o quedan redondeados: aquí empieza en ` +
+      `${SX.bcra.hist_desde}, cuando el redondeo ya pesa menos de 0,5%. ` : "") +
+    `La parte del M3 en moneda extranjera la calcula Datina con los dos M3 del BCRA. Los depósitos y ` +
     `los préstamos en dólares, en % del PBI, se pasan a pesos con el dólar mayorista de fin de cada mes.` +
     (SX.bcra.rem_viejo ? ` La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de ${SX.bcra.rem_viejo[0]} a ${SX.bcra.rem_viejo[1]} ` +
       `de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.` : ""),
