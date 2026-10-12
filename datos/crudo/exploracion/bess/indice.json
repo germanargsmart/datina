@@ -1,0 +1,177 @@
+[
+ {
+  "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+  "archivo": "pagina_00.html",
+  "titulo": "Boletín Estadístico de la Seguridad Social | Argentina.gob.ar",
+  "enlaces": [
+   {
+    "url": "https://www.argentina.gob.ar/",
+    "texto": ""
+   },
+   {
+    "url": "https://mi.argentina.gob.ar",
+    "texto": "Ir a Mi Argentina"
+   },
+   {
+    "url": "https://mi.argentina.gob.ar/",
+    "texto": "Mi Argentina"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/",
+    "texto": "Inicio"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/capital-humano",
+    "texto": "Ministerio de Capital Humano"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/capital-humano/trabajo",
+    "texto": "Trabajo, Empleo y Seguridad Social"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial",
+    "texto": "Seguridad Social"
+   },
+   {
+    "url": "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.argentina.gob.ar%2Ftrabajo%2Fseguridadsocial%2Fbess&amp;title=Bolet%C3%ADn+Estad%C3%ADstico+de+la+Seguridad+Social",
+    "texto": "Compartir en Facebook"
+   },
+   {
+    "url": "https://x.com/share?url=https%3A%2F%2Fwww.argentina.gob.ar%2Ftrabajo%2Fseguridadsocial%2Fbess&amp;title=Bolet%C3%ADn+Estad%C3%ADstico+de+la+Seguridad+Social",
+    "texto": "Compartir en X"
+   },
+   {
+    "url": "https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.argentina.gob.ar%2Ftrabajo%2Fseguridadsocial%2Fbess",
+    "texto": "Compartir en Linkedin"
+   },
+   {
+    "url": "https://web.whatsapp.com/send?text=https%3A%2F%2Fwww.argentina.gob.ar%2Ftrabajo%2Fseguridadsocial%2Fbess",
+    "texto": "Compartir en Whatsapp"
+   },
+   {
+    "url": "https://t.me/share/url?url=https%3A%2F%2Fwww.argentina.gob.ar%2Ftrabajo%2Fseguridadsocial%2Fbess",
+    "texto": "Compartir en Telegram"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_introduccion_06-2026_0.xlsx",
+    "texto": "descargar",
+    "guardado": "01_estadisticas_de_seguridad_social_introduccion_06-2026_0.xlsx",
+    "bytes": 762775
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_pnc_06-2026.xlsx",
+    "texto": "descargar",
+    "guardado": "02_estadisticas_de_seguridad_social_pnc_06-2026.xlsx",
+    "bytes": 673439
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_pasivos_06-2026.xlsx",
+    "texto": "descargar",
+    "guardado": "03_estadisticas_de_seguridad_social_pasivos_06-2026.xlsx",
+    "bytes": 953974
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_indicadores_06-2026.xlsx",
+    "texto": "descargar"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_desempleo_06-2026_0.xlsx",
+    "texto": "descargar",
+    "guardado": "04_estadisticas_de_seguridad_social_desempleo_06-2026_0.xlsx",
+    "bytes": 57819
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_aaff_06-2026.xlsx",
+    "texto": "descargar",
+    "guardado": "05_estadisticas_de_seguridad_social_aaff_06-2026.xlsx",
+    "bytes": 406775
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/estadisticas_de_seguridad_social_activos_03-2026.xlsx",
+    "texto": "descargar",
+    "guardado": "06_estadisticas_de_seguridad_social_activos_03-2026.xlsx",
+    "bytes": 805052
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/boletin_provincias_pasivos_2026.xlsx",
+    "texto": "descargar",
+    "guardado": "07_boletin_provincias_pasivos_2026.xlsx",
+    "bytes": 175432
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/boletin_provincias_pnc_2026.xlsx",
+    "texto": "descargar",
+    "guardado": "08_boletin_provincias_pnc_2026.xlsx",
+    "bytes": 175448
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/boletin_provincias_desempleo_2026.xlsx",
+    "texto": "descargar",
+    "guardado": "09_boletin_provincias_desempleo_2026.xlsx",
+    "bytes": 55174
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/boletin_provincias_departamentos_2026.xlsx",
+    "texto": "descargar",
+    "guardado": "10_boletin_provincias_departamentos_2026.xlsx",
+    "bytes": 96488
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/boletin_provincias_aaff_2026.xlsx",
+    "texto": "descargar",
+    "guardado": "11_boletin_provincias_aaff_2026.xlsx",
+    "bytes": 398845
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sites/default/files/boletin_provincias_activos_2026.xlsx",
+    "texto": "descargar",
+    "guardado": "12_boletin_provincias_activos_2026.xlsx",
+    "bytes": 312072
+   },
+   {
+    "url": "https://www.argentina.gob.ar/turnos",
+    "texto": "Turnos"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/tad",
+    "texto": "Trámites a distancia"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/miargentina/mesadeayuda",
+    "texto": "Atención a la ciudadanía"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/pais",
+    "texto": "Nuestro país"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/normativa",
+    "texto": "Leyes argentinas"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/organismos",
+    "texto": "Organismos"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/desregulacion/mapa-del-estado",
+    "texto": "Mapa del Estado"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/acerca",
+    "texto": "Acerca de este sitio"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/terminos-y-condiciones",
+    "texto": "Términos y condiciones"
+   },
+   {
+    "url": "https://www.argentina.gob.ar/sugerencias",
+    "texto": "Sugerencias"
+   },
+   {
+    "url": "https://creativecommons.org/licenses/by/4.0/deed.es",
+    "texto": "Los contenidos de Argentina.gob.ar están licenciados bajo Creative Commons Atribución 4.0 Internacional"
+   }
+  ]
+ }
+]
