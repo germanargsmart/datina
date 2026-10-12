@@ -107,7 +107,7 @@ FRECUENCIA = {
     "f-empleo": "mes", "f-salarios": "trimestre", "f-rotacion": "trimestre", "f-exportaciones": "semestre",
     # Sector externo
     "f-balanza": "mes", "f-exporta-rubros": "mes", "f-complejos": "semestre", "f-destinos": "semestre", "f-exporta-provincias": "anio",
-    "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes",
+    "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes", "f-reservas-netas": "mes",
     # Economía y precios
     "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes", "f-bcra": "mes",
     # Empresas y oportunidades

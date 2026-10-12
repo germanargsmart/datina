@@ -1399,7 +1399,7 @@ ICE_USOS = [("intermedios", "Bienes intermedios", "74.3_IIBI_0_M_36"), ("piezas"
             ("capital", "Bienes de capital", "74.3_IIBCA_0_M_32"), ("consumo", "Bienes de consumo", "74.3_IIBCO_0_M_32"),
             ("combustibles", "Combustibles y lubricantes", "74.3_IICL_0_M_42"), ("vehiculos", "Vehículos de pasajeros", "74.3_IIVAP_0_M_49"),
             ("resto", "Resto", "74.3_IIR_0_M_23")]
-balanza_comercial, importaciones_usos, importaciones_origen, cuenta_corriente, reservas_bcra, reservas_factores, bcra_variables, bcra_variables_lista = (None,) * 8
+balanza_comercial, importaciones_usos, importaciones_origen, cuenta_corriente, reservas_bcra, reservas_factores, bcra_variables, bcra_variables_lista, reservas_netas = (None,) * 9
 if (CRUDO / "series_sector_externo_M.csv").exists():
     _ice = pd.read_csv(CRUDO / "series_sector_externo_M.csv")
     _ice_c = list(ICE_ID.values()) + [i for _, _, i in ICE_USOS]
@@ -1588,6 +1588,42 @@ if (CRUDO / "bcra_series.csv").exists() and (CRUDO / "bcra_variables.json").exis
         SE_RES["reservas"]["meses_imp"] = {"mes": _bcr_mi.index[-1], "v": float(_bcr_mi.iloc[-1]), "hace_un_anio": float(_bcr_mi.iloc[-13]),
                                            "desde": _bcr_mi.index[0], "max": float(_bcr_mi.max()), "max_mes": _bcr_mi.idxmax(),
                                            "min": float(_bcr_mi.min()), "min_mes": _bcr_mi.idxmin()}
+    # Reservas netas (etapa 42, pedido del autor del 12 de octubre de 2026: "de las reservas internacionales desagregá porque en general tenés
+    # DEGs, swaps, oro, etc. La liquidez no es del monto que hablas, y antes había negativas"). Sale de la planilla de reservas internacionales
+    # y liquidez en moneda extranjera que el BCRA publica cada mes con el formato del FMI (01 la lee desde 2007): la composición de las brutas
+    # y lo que el propio BCRA tiene que pagar o devolver en moneda extranjera dentro de un año (sección II): los depósitos en dólares de los
+    # bancos y del Tesoro en el BCRA y otras deudas, el tramo a término de los canjes de monedas (el de China) y los pases con bancos del
+    # exterior. Hasta 2021 la planilla anotaba el canje con China entre los "otros" pagos, junto con los pases: la suma es la misma. Las netas
+    # son las brutas menos todo eso, un criterio entre varios (otros no restan los depósitos del Tesoro o restan otras deudas), que la ficha dice.
+    reservas_netas = None
+    if (CRUDO / "bcra_planilla_reservas.csv").exists():
+        _rn = pd.read_csv(CRUDO / "bcra_planilla_reservas.csv").sort_values("mes").reset_index(drop=True)
+        assert len(_rn) >= 12 and _rn.mes.is_unique, "la planilla de reservas vino incompleta"
+        assert (abs(_rn.divisas + _rn.posicion_fmi + _rn.deg + _rn.oro + _rn.otros_activos - _rn.brutas) < 2).all(), "planilla de reservas: las partes no suman las brutas"
+        # las brutas de la planilla son las mismas que las de la API del BCRA a fin de mes: se controla que coincidan en casi todos los meses
+        _rn_api = reservas_bcra.set_index("mes").millones_usd.reindex(_rn.mes).values
+        assert (abs(_rn.brutas.values - _rn_api) / _rn_api < .01).mean() >= .9, "la planilla de reservas no coincide con las reservas de la API del BCRA"
+        reservas_netas = pd.DataFrame({"mes": _rn.mes, "brutas": _rn.brutas, "divisas": _rn.divisas, "oro": _rn.oro, "deg": _rn.deg,
+                                       "otros_activos": _rn.posicion_fmi + _rn.otros_activos, "depositos_y_deudas": -_rn.pagos_un_anio,
+                                       "canje_china": -_rn.canjes, "pases_y_otros": -_rn.otros_pagos,
+                                       "depositos_bancos": _rn.depositos_bancos, "depositos_tesoro": _rn.depositos_tesoro})
+        reservas_netas["netas"] = reservas_netas.brutas - reservas_netas.depositos_y_deudas - reservas_netas.canje_china - reservas_netas.pases_y_otros
+        reservas_netas = reservas_netas.round(1)
+        _rn_u, _rn_i = reservas_netas.iloc[-1], reservas_netas.set_index("mes")
+        _rn_mn, _rn_mx = reservas_netas.loc[reservas_netas.netas.idxmin()], reservas_netas.loc[reservas_netas.netas.idxmax()]
+        _rn_ha = (pd.Period(_rn_u.mes, "M") - 12).strftime("%Y-%m")
+        _rn_neg = reservas_netas[reservas_netas.netas < 0]
+        _rn_r = lambda v: None if pd.isna(v) else round(float(v))
+        SE_RES["reservas_netas"] = {"desde": reservas_netas.mes.iloc[0], "desde_anio": int(reservas_netas.mes.iloc[0][:4]), "mes": _rn_u.mes, "n_meses": len(reservas_netas),
+                                    **{k: _rn_r(_rn_u[k]) for k in ("brutas", "netas", "divisas", "oro", "deg", "otros_activos", "depositos_y_deudas",
+                                                                     "canje_china", "pases_y_otros", "depositos_bancos", "depositos_tesoro")},
+                                    "oro_onzas": None if pd.isna(_rn.oro_onzas.iloc[-1]) else round(float(_rn.oro_onzas.iloc[-1]), 2),
+                                    "min": {"mes": _rn_mn.mes, "v": round(float(_rn_mn.netas))}, "max": {"mes": _rn_mx.mes, "v": round(float(_rn_mx.netas))},
+                                    "hace_un_anio": _rn_r(_rn_i.netas.get(_rn_ha)), "ult_negativa": None if _rn_neg.empty else _rn_neg.mes.iloc[-1],
+                                    "pct_netas": r1(_rn_u.netas / _rn_u.brutas * 100)}
+        d = reservas_netas[["mes", "netas"]].rename(columns={"mes": "periodo", "netas": "valor"})
+        d["codigo_indec"], d["territorio"] = "00", "Argentina"
+        agregar(d, "reservas_netas_bcra", "millones de dólares", "BCRA, planilla de reservas internacionales y liquidez en moneda extranjera")
     # las demás variables principales: la tabla larga del selector (el último dato de cada mes) y la lista con el nombre, el grupo y la unidad
     _bcr_p = sorted(i for i in _bcr.id.unique() if i not in BCR_RESERVAS | BCR_FUERA and (_bcr_v.get(i, {}).get("categoria") == "Principales Variables" or i in BCR_SEL))
     _bcr_l = _bcr[_bcr.id.isin(_bcr_p)].assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))
@@ -5732,7 +5768,7 @@ tablas = {
     "poblacion_proyectada_provincias": pob_proy,
     "exportaciones_rubros_anual": se_rubros,
     **{k: v for k, v in {"balanza_comercial": balanza_comercial, "importaciones_usos": importaciones_usos, "importaciones_origen": importaciones_origen,
-                         "cuenta_corriente": cuenta_corriente, "reservas_bcra": reservas_bcra, "reservas_factores": reservas_factores,
+                         "cuenta_corriente": cuenta_corriente, "reservas_bcra": reservas_bcra, "reservas_factores": reservas_factores, "reservas_netas": reservas_netas,
                          "bcra_variables": bcra_variables, "bcra_variables_lista": bcra_variables_lista}.items() if v is not None},
     **({"exportaciones_destinos": se_destinos} if se_destinos is not None else {}),
     **({"exportaciones_complejos": se_complejos} if se_complejos is not None else {}),

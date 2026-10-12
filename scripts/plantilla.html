@@ -1333,7 +1333,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-reservas-bcra">
       <h3>¿Cuántas reservas tiene el Banco Central?</h3>
-      <p class="ficha-sub">Reservas internacionales del BCRA al cierre de cada mes, en millones de dólares, desde {{externo.reservas_desde}}</p>
+      <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, en millones de dólares, desde {{externo.reservas_desde}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
         <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
@@ -1343,6 +1343,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="reservas-bcra"></p>
       <p class="nota" data-t="reservas-bcra-nota"></p>
       <div class="pie"><span>Fuente: BCRA, API de Estadísticas Monetarias</span><a href="datos/reservas_bcra.csv" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" download>Qué las movió, por año (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-reservas-netas">
+      <h3>¿Cuántas reservas netas tiene el Banco Central?</h3>
+      <p class="ficha-sub">Reservas brutas, lo que el BCRA debe pagar en moneda extranjera dentro de un año y reservas netas, en millones de dólares, desde {{externo.reservas_netas.desde_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
+        <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
+        <button type="button" data-m="cascada" aria-pressed="false">De dónde salen</button>
+        <button type="button" data-m="composicion" aria-pressed="false">De qué están hechas</button>
+      </div>
+      <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
+      <p class="lead" data-t="reservas-netas"></p>
+      <p class="nota" data-t="reservas-netas-nota"></p>
+      <div class="pie"><span>Fuente: BCRA, planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual</span><a href="datos/reservas_netas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>

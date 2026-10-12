@@ -2174,6 +2174,17 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"bess_provincias_aaff.xlsx\": \"boletin_provincias_aaff_\""
    }
+  },
+  {
+   "id": "ds:bcra_planilla_reservas.csv",
+   "nombre": "Planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), leída mes por mes",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_planilla_reservas.csv",
+   "url": "https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "archivo = CRUDO / \"bcra_planilla_reservas.csv\""
+   }
   }
  ],
  "aristas": [
@@ -6414,6 +6425,34 @@
      "contiene": "_auh_men = proy[(proy.anio == ANIO_POB) & (proy.edad <= 15)]"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_planilla_reservas.csv",
+   "a": "f-reservas-netas",
+   "tabla": "reservas_netas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rn = pd.read_csv(CRUDO / \"bcra_planilla_reservas.csv\").sort_values(\"mes\").reset_index(drop=True)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"reservas_netas\": reservas_netas"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_series.csv",
+   "a": "f-reservas-netas",
+   "tabla": "reservas_netas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rn_api = reservas_bcra.set_index(\"mes\").millones_usd.reindex(_rn.mes).values"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -6844,6 +6883,11 @@
   "f-auh": {
    "variables": [
     "auh_cada_100_menores"
+   ]
+  },
+  "f-reservas-netas": {
+   "variables": [
+    "reservas_netas_bcra"
    ]
   }
  }
