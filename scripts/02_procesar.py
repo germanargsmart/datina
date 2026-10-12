@@ -2564,6 +2564,73 @@ if (CRUDO / "bess_indicadores.xlsx").exists():
     d["codigo_indec"], d["territorio"] = "00", "Argentina"
     agregar(d, "jubilacion_promedio_pct_salario", "% del salario promedio registrado", "Secretaria de Seguridad Social, BESS")
 
+# Pensiones no contributivas por invalidez, las que se conocen como pensiones por discapacidad (etapa 42, pedido del autor del 12 de octubre
+# de 2026: "cantidad de pensiones por discapacidad, pensiones por discapacidad por provincia, hacer un mapa"). BESS, capítulo III: del país,
+# el promedio mensual de cada año desde 2001 y el último mes (cuadro 3.1, con los beneficios no suspendidos desde 2019), y por jurisdicción
+# (edición por provincia, cuadro 3.6), el promedio de cada año y el último mes, que puede ser anterior al del país. Cada 1.000 habitantes con
+# la población del sitio (POB). Las otorga la Agencia Nacional de Discapacidad y las paga ANSES.
+pinv_res, pinv_pais, pinv_prov = None, None, None
+if (CRUDO / "bess_pnc.xlsx").exists() and (CRUDO / "bess_provincias_pnc.xlsx").exists():
+    def _pinv_periodo(v):
+        """Año y meses de una fila: un año completo (promedio mensual) o la fecha del último mes informado."""
+        if isinstance(v, (pd.Timestamp, datetime.datetime)):
+            return v.year, v.month
+        if isinstance(v, (int, float, np.integer, np.floating)) and not pd.isna(v) and float(v).is_integer() and 2000 < v < 2100:
+            return int(v), 12
+        return None, None
+    _pi = pd.read_excel(CRUDO / "bess_pnc.xlsx", sheet_name="3.1", header=None)
+    _pi_col = [j for i in range(min(10, len(_pi))) for j in range(_pi.shape[1]) if str(_pi.iat[i, j]).strip() == "Invalidez"]
+    assert len(_pi_col) == 2, f"BESS 3.1: se esperaban dos columnas de invalidez (total y no suspendidos), hay {len(_pi_col)}"
+    _pi_filas = []
+    for i in range(len(_pi)):
+        anio, meses = _pinv_periodo(_pi.iat[i, 0])
+        if anio and pd.notna(_pi.iat[i, _pi_col[0]]):
+            no_susp = pd.to_numeric(_pi.iat[i, _pi_col[1]], errors="coerce")
+            _pi_filas.append({"anio": anio, "meses": meses, "pensiones": float(_pi.iat[i, _pi_col[0]]),
+                              "pensiones_no_suspendidas": None if pd.isna(no_susp) else float(no_susp)})
+    pinv_pais = pd.DataFrame(_pi_filas)
+    assert len(pinv_pais) > 20 and pinv_pais.anio.is_unique and (pinv_pais.anio.diff().dropna() == 1).all(), "BESS 3.1: años faltantes o repetidos"
+    assert (pinv_pais.meses.iloc[:-1] == 12).all() and pinv_pais.pensiones.between(5e4, 3e6).all(), "BESS 3.1: valores fuera de lo esperado"
+    # por jurisdicción: la fila de los años está debajo de la de "Jurisdicción"
+    _pp = pd.read_excel(CRUDO / "bess_provincias_pnc.xlsx", sheet_name="3.6", header=None)
+    _pp_f = next(i for i in range(len(_pp)) if str(_pp.iat[i, 0]).strip() == "Jurisdicción")
+    _pp_a = {j: _pinv_periodo(_pp.iat[_pp_f + 1, j]) for j in range(1, _pp.shape[1])}
+    _pp_a = {j: p for j, p in _pp_a.items() if p[0]}
+    _pp_ult = max(_pp_a, key=lambda j: _pp_a[j])
+    _pp_ant = max((j for j, p in _pp_a.items() if p[1] == 12), key=lambda j: _pp_a[j])
+    _pp_filas = []
+    for i in range(_pp_f + 2, len(_pp)):
+        c = codigo(_pp.iat[i, 0])
+        if c and pd.notna(_pp.iat[i, _pp_ult]):
+            _pp_filas.append({"codigo_indec": c, "pensiones": float(_pp.iat[i, _pp_ult]), "pensiones_anio_ant": float(_pp.iat[i, _pp_ant]),
+                              **{f"promedio_{_pp_a[j][0]}": float(_pp.iat[i, j]) for j in sorted(_pp_a) if _pp_a[j][1] == 12}})
+    pinv_prov = pd.DataFrame(_pp_filas)
+    assert sorted(pinv_prov.codigo_indec) == sorted(["00", *POB]), "BESS 3.6: faltan jurisdicciones o hay de más"
+    _pp_pais = pinv_prov.set_index("codigo_indec").pensiones["00"]
+    assert abs(pinv_prov[pinv_prov.codigo_indec != "00"].pensiones.sum() - _pp_pais) / _pp_pais < .01, "BESS 3.6: las provincias no suman el total"
+    pinv_prov["territorio"] = pinv_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
+    pinv_prov["cada_1000"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map({**POB, "00": sum(POB.values())}) * 1000
+    pinv_prov["pct_pais"] = pinv_prov.pensiones / _pp_pais * 100
+    pinv_prov["var_anio_ant"] = (pinv_prov.pensiones / pinv_prov.pensiones_anio_ant - 1) * 100
+    pinv_prov = pinv_prov[["codigo_indec", "territorio", "pensiones", "cada_1000", "pct_pais", "pensiones_anio_ant", "var_anio_ant",
+                           *[c for c in pinv_prov.columns if c.startswith("promedio_")]]]
+    _pi_u, _pi_c = pinv_pais.iloc[-1], pinv_pais[pinv_pais.meses == 12]
+    _pi_mx = _pi_c.loc[_pi_c.pensiones.idxmax()]
+    _pv_p = pinv_prov[pinv_prov.codigo_indec != "00"].sort_values("cada_1000")
+    pinv_res = {"ini": int(pinv_pais.anio.iloc[0]), "ini_v": round(float(pinv_pais.pensiones.iloc[0])), "anio": int(_pi_u.anio), "mes": int(_pi_u.meses),
+                "v": round(float(_pi_u.pensiones)), "v_no_susp": None if pd.isna(_pi_u.pensiones_no_suspendidas) else round(float(_pi_u.pensiones_no_suspendidas)),
+                "max_anio": int(_pi_mx.anio), "max": round(float(_pi_mx.pensiones)), "anio_ant": int(_pi_c.anio.iloc[-1]), "v_anio_ant": round(float(_pi_c.pensiones.iloc[-1])),
+                "prov_anio": _pp_a[_pp_ult][0], "prov_mes": _pp_a[_pp_ult][1], "prov_anio_ant": _pp_a[_pp_ant][0],
+                "pais_cada_1000": r1(pinv_prov.set_index("codigo_indec").cada_1000["00"]),
+                "top": _pv_p.iloc[-1].territorio, "top_v": r1(_pv_p.cada_1000.iloc[-1]), "low": _pv_p.iloc[0].territorio, "low_v": r1(_pv_p.cada_1000.iloc[0]),
+                "pba_pct": r1(pinv_prov.set_index("codigo_indec").pct_pais["06"])}
+    d = _pi_c[["anio", "pensiones"]].rename(columns={"anio": "periodo", "pensiones": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "pensiones_no_contributivas_invalidez", "pensiones (promedio mensual)", "Secretaria de Seguridad Social, BESS")
+    d = pinv_prov[pinv_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_1000"]].rename(columns={"cada_1000": "valor"})
+    d["periodo"] = f"{_pp_a[_pp_ult][0]}-{_pp_a[_pp_ult][1]:02d}"
+    agregar(d, "pensiones_invalidez_cada_1000_habitantes", "pensiones cada 1.000 habitantes", "Secretaria de Seguridad Social, BESS")
+
 # Las variables del BCRA con criterio económico (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para
 # deflactar lo que haya que deflactar, mostrá series largas que haya"). Cada serie va completa, desde que empieza, y según su tipo suma:
 # - usd (depósitos y préstamos en dólares): pct_pbi, pasados a pesos con el A3500 de fin de mes, desde 2004.
@@ -5623,6 +5690,7 @@ tablas = {
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
     **({"haberes_previsionales": haberes} if haberes is not None else {}),
+    **({"pensiones_invalidez": pinv_pais, "pensiones_invalidez_provincias": pinv_prov} if pinv_pais is not None else {}),
     "presidentes": presidentes,
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
     "voto_legisladores_y_provincia": rep_voto,
@@ -5983,6 +6051,7 @@ resumen["empresas"] = emp_res
 resumen["rotacion"] = rot_res
 resumen["jubilaciones"] = jub_res
 resumen["haberes"] = hab_res
+resumen["pensiones_invalidez"] = pinv_res
 resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD

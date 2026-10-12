@@ -179,7 +179,7 @@ const CM_FRASE = {circulatorias: "las enfermedades del corazón y la circulació
 const CMG = CM.grupos.filter(g => CM_FRASE[g.k]).sort((a, b) => b.pct - a.pct);
 // columnas de maternidad adolescente por provincia: llevan el primer y el último año de la DEIS (pct_2012, pct_2024...)
 const ADO_INI = "pct_" + nac.anio_ini, ADO_ULT = "pct_" + nac.anio_ult;
-const PI = R.piramide, JU = R.jubilaciones, HB = R.haberes;
+const PI = R.piramide, JU = R.jubilaciones, HB = R.haberes, PIN = R.pensiones_invalidez;
 const EM = R.empresas;
 // Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
@@ -1043,6 +1043,14 @@ const TX = {
   "piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, ${PI.anio_fin}. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
   jubilaciones: `En ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio} había ${n2(JU.ratio)} aportantes por cada jubilación o pensión de los regímenes que administra ANSES: ${n0(JU.aportantes)} personas aportando y ${n0(JU.beneficios)} beneficios. El valor más alto de la serie fue ${n2(JU.max)} en ${JU.max_anio} y el más bajo, ${n2(JU.min)} en ${JU.min_anio}. ` +
     `La demografía empuja en la misma dirección: según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`,
+  // pensiones por invalidez (etapa 42): el texto de la vista "Evolución" lo arma el dibujo
+  "pensiones-invalidez": `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} había ${n1(PIN.pais_cada_1000)} pensiones no contributivas por invalidez cada 1.000 habitantes en el país. ` +
+    `${PIN.top} tenía la proporción más alta, ${n1(PIN.top_v)} cada 1.000, y ${PIN.low} la más baja, ${n1(PIN.low_v)}. La provincia de Buenos Aires tenía el ${pct(PIN.pba_pct)} de todas las pensiones.`,
+  "pensiones-invalidez-nota": `La pensión no contributiva por invalidez es para personas que no pueden trabajar por una incapacidad y no tienen ingresos, bienes ni otra ` +
+    `jubilación o pensión que alcancen. La paga ANSES. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Desde abril de 2019 el boletín ` +
+    `separa los beneficios suspendidos: en ${MESES[PIN.mes - 1]} de ${PIN.anio} eran ${n0(PIN.v - PIN.v_no_susp)}. Por provincia, el último mes es ${MESES[PIN.prov_mes - 1]} de ` +
+    `${PIN.prov_anio} y la población, la proyección del INDEC para ${R.anio_pob}. No incluye las pensiones por discapacidad que pagan las provincias ni la asignación por hijo ` +
+    `con discapacidad. La proporción depende de la edad y de la situación de cada población, no solo de cómo se otorgan las pensiones.`,
   // haberes frente al salario (etapa 42): el texto de la vista "A precios de hoy" lo arma el dibujo
   haberes: `En ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]},` : ""} el haber mínimo de ANSES con los refuerzos que se pagan aparte equivalía al ${pct(HB.pct_min_ad)} del salario ` +
     `promedio de los asalariados registrados, y sin ellos, al ${pct(HB.pct_min)}. La jubilación promedio, al ${pct(HB.pct_jub)}. Desde ${HB.ini}, el haber mínimo con adicionales ` +
@@ -2081,9 +2089,9 @@ function mapaProv(el, cfg) {
     return;
   }
   const val = Object.fromEntries(cfg.filas.filter(r => r.codigo_indec !== "00").map(r => [r.codigo_indec, r]));
-  const w = Math.min(560, Math.max(300, el.clientWidth)), h = Math.round(w * 1.55);
+  const w = Math.min(cfg.max || 560, Math.max(300, el.clientWidth)), h = Math.round(w * 1.55);
   el.innerHTML = ""; el.removeAttribute("aria-busy");
-  const svg = d3.select(el).append("svg").attr("class", "mapa-prov").attr("viewBox", `0 0 ${w} ${h + 44}`).attr("role", "img")
+  const svg = d3.select(el).append("svg").attr("class", "mapa-prov").attr("viewBox", `0 0 ${w} ${h + 44}`).style("max-width", w + "px").attr("role", "img")
     .attr("aria-label", `Mapa de las provincias: ${cfg.nombre.toLowerCase()}`);
   const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], GEO), camino = d3.geoPath(proy);
   const vals = Object.values(val).map(r => r[cfg.k]).filter(v => v != null).sort(d3.ascending);
@@ -2308,6 +2316,22 @@ const DIB = {
   rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
     k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
   piramide: conTablas("piramide", ["piramide_poblacion"], a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio})),
+  "pensiones-invalidez": a => {
+    const v = MED["pensiones-invalidez"], el = G("pensiones-invalidez"), filas = T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00");
+    const extra = r => `<br>${n0(r.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(r.pct_pais)} de las del país`;
+    if (v === "serie") {
+      $t("pensiones-invalidez").textContent = `En ${MESES[PIN.mes - 1]} de ${PIN.anio} se pagaban ${n0(PIN.v)} pensiones no contributivas por invalidez, contra un promedio de ` +
+        `${n0(PIN.ini_v)} por mes en ${PIN.ini}. El promedio anual más alto fue el de ${PIN.max_anio}, ${n0(PIN.max)}, y el de ${PIN.anio_ant}, ${n0(PIN.v_anio_ant)}.`;
+      return lineas(el, {anim: a, data: T.pensiones_invalidez, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
+        xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
+        series: [{k: "pensiones", lab: "Todas", corto: "Todas", c: css("--celeste-fuerte")}, {k: "pensiones_no_suspendidas", lab: "Sin las suspendidas", corto: "Sin suspendidas", c: FRI}]});
+    }
+    $t("pensiones-invalidez").textContent = TX["pensiones-invalidez"];
+    if (v === "provincias")
+      return barrasH(el, {anim: a, data: filas, k: "cada_1000", vf: n1, af: n0, ref: PIN.pais_cada_1000, refLab: `País ${n1(PIN.pais_cada_1000)}`,
+        tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000)} cada 1.000 habitantes` + extra(d)});
+    mapaProv(el, {anim: a, filas, k: "cada_1000", nombre: "Pensiones cada 1.000 habitantes", vf: n1, extra, max: 380});
+  },
   haberes: a => {
     const real = MED.haberes === "real", cae = v => v < 0 ? `cayó ${pct(-v)}` : `subió ${pct(v)}`;
     $t("haberes").textContent = real
@@ -4259,6 +4283,7 @@ DIB["cuenta-corriente"] = a => {
 };
 MED["reservas-bcra"] = "serie";
 MED.haberes = "pct";
+MED["pensiones-invalidez"] = "mapa";
 DIB["reservas-bcra"] = a => {
   const el = G("reservas-bcra"), V = SX.reservas, CORTO = {sector_publico: "Otras del sector público", efectivo_minimo: "Efectivo mínimo", organismos: "FMI y otros organismos"};
   const MI = V.meses_imp;

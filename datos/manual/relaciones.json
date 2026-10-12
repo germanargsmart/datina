@@ -2130,6 +2130,28 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"tipo_cambio_a3500.csv\": API + \"168.1_T_CAMBI500_D_0_0_17"
    }
+  },
+  {
+   "id": "ds:bess_pnc.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social, capítulo III: pensiones no contributivas",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_pnc.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_pnc.xlsx\": \"estadisticas_de_seguridad_social_pnc_\""
+   }
+  },
+  {
+   "id": "ds:bess_provincias_pnc.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social por provincia: pensiones no contributivas",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_provincias_pnc.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_provincias_pnc.xlsx\": \"boletin_provincias_pnc_\""
+   }
   }
  ],
  "aristas": [
@@ -6290,6 +6312,46 @@
     }
    ],
    "tabla": "haberes_previsionales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_pnc.xlsx",
+   "a": "f-pensiones-invalidez",
+   "tabla": "pensiones_invalidez",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pi = pd.read_excel(CRUDO / \"bess_pnc.xlsx\", sheet_name=\"3.1\", header=None)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_provincias_pnc.xlsx",
+   "a": "f-pensiones-invalidez",
+   "tabla": "pensiones_invalidez_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pp = pd.read_excel(CRUDO / \"bess_provincias_pnc.xlsx\", sheet_name=\"3.6\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"pensiones_invalidez\": pinv_pais, \"pensiones_invalidez_provincias\": pinv_prov} if pinv_pais is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-pensiones-invalidez",
+   "tabla": "pensiones_invalidez_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pinv_prov[\"cada_1000\"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -6709,6 +6771,12 @@
    "variables": [
     "haber_minimo_pct_salario",
     "jubilacion_promedio_pct_salario"
+   ]
+  },
+  "f-pensiones-invalidez": {
+   "variables": [
+    "pensiones_no_contributivas_invalidez",
+    "pensiones_invalidez_cada_1000_habitantes"
    ]
   }
  }

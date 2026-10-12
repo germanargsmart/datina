@@ -536,6 +536,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM)</span><a href="datos/internet_fijo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-pensiones-invalidez">
+      <h3>¿Cuántas personas cobran una pensión por discapacidad?</h3>
+      <p class="ficha-sub">Pensiones no contributivas por invalidez, {{pensiones_invalidez.ini}} a {{pensiones_invalidez.anio}}, y cada 1.000 habitantes por provincia</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pensiones-invalidez" style="--n:3">
+        <button type="button" data-m="mapa" aria-pressed="true">Mapa</button>
+        <button type="button" data-m="provincias" aria-pressed="false">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="pensiones-invalidez" data-forma="mapa" style="--alto:640px;--alto-c:530px"></div>
+      <p class="lead" data-t="pensiones-invalidez"></p>
+      <p class="nota" data-t="pensiones-invalidez-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo III y edición por provincia), con datos de ANSES</span><a href="datos/pensiones_invalidez_provincias.csv" download>Por provincia (CSV)</a><a href="datos/pensiones_invalidez.csv" download>Del país, por año (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema con-pregunta" id="salud">
