@@ -6373,11 +6373,18 @@ const INDP = [
     d:T.combustibles_provincias, k:"nafta", pais:CB.nafta, f:n0},
   {id:"f-empleo-construccion", g:"trabajo", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
     d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
+  // seguridad social (etapa 42, pedido del autor del 12 de octubre de 2026): pensiones por discapacidad, AUH y seguro de desempleo por provincia
+  ...(PIN ? [{id:"f-pensiones-invalidez", g:"social", lab:"Pensiones por discapacidad", veces:true, det:`pensiones no contributivas por invalidez cada 1.000 habitantes, ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}`,
+    d:T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_1000", pais:PIN.pais_cada_1000, f:n1}] : []),
+  ...(AU ? [{id:"f-auh", g:"social", lab:"Asignación Universal por Hijo", veces:true, det:`hijos con AUH cada 100 menores de 18 años, ${MESES[AU.mes - 1]} de ${AU.anio}`,
+    d:T.auh_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_100_menores", pais:AU.pais_100, f:n1}] : []),
+  ...(DS ? [{id:"f-desempleo", g:"social", lab:"Seguro de desempleo", veces:true, det:`beneficiarios cada 1.000 habitantes, ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}`,
+    d:T.prestacion_desempleo_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_1000_habitantes", pais:DS.pais_1000, f:n1}] : []),
 ];
 // el perfil por tema, con un índice arriba (etapa 27, pedido del autor, como los perfiles de USAFacts). Cada indicador lleva su tema en g. El
 // último grupo es la capital de la provincia, con los datos del censo de su municipio y su puesto entre las 24 capitales. El constructor
 // deja la misma estructura con tarjetas vacías mientras carga (lee PERFIL_GRUPOS y los g de acá)
-const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["economia", "Economía"], ["salud", "Salud"], ["educacion", "Educación"], ["seguridad", "Seguridad"],
+const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["social", "Seguridad social"], ["economia", "Economía"], ["salud", "Salud"], ["educacion", "Educación"], ["seguridad", "Seguridad"],
   ["poblacion", "Población y migraciones"], ["gobierno", "Gobierno"], ["vivienda", "Vivienda y servicios"], ["energia", "Energía"],
   ["turismo", "Turismo y naturaleza"], ["capital", "La capital"]];
 const CAP_P = [
