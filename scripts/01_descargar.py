@@ -598,11 +598,12 @@ def bess():
     """Boletin Estadistico de la Seguridad Social (Secretaria de Seguridad Social). Los nombres de los Excel cambian con
     cada edicion (sufijos de fecha), asi que se leen desde la pagina del boletin. Ademas de los indicadores, desde la etapa 42
     (pedido del autor del 12 de octubre de 2026) se bajan las pensiones no contributivas y las asignaciones familiares (con la
-    AUH), del pais y de la edicion por jurisdiccion, con un nombre fijo cada uno."""
+    AUH), del pais y de la edicion por jurisdiccion, con un nombre fijo cada uno, y la prestacion por desempleo (seguro de desempleo)."""
     pagina = leer("https://www.argentina.gob.ar/trabajo/seguridadsocial/bess", 60).decode("utf-8", "ignore")
     archivos = {"bess_indicadores.xlsx": "estadisticas_de_seguridad_social_indicadores_", "bess_pnc.xlsx": "estadisticas_de_seguridad_social_pnc_",
                 "bess_provincias_pnc.xlsx": "boletin_provincias_pnc_", "bess_aaff.xlsx": "estadisticas_de_seguridad_social_aaff_",
-                "bess_provincias_aaff.xlsx": "boletin_provincias_aaff_"}
+                "bess_provincias_aaff.xlsx": "boletin_provincias_aaff_", "bess_desempleo.xlsx": "estadisticas_de_seguridad_social_desempleo_",
+                "bess_provincias_desempleo.xlsx": "boletin_provincias_desempleo_"}
     bajados, faltan = [], []
     for nombre, prefijo in archivos.items():
         enlace = re.search(r'href="([^"]*/sites/default/files/' + prefijo + r'[^"]*\.xlsx)"', pagina)
