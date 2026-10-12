@@ -5,7 +5,7 @@ y anota la fecha de descarga en datos/crudo/_registro.csv
 Uso: python scripts/01_descargar.py
 """
 import urllib.error
-import csv, datetime, http.cookiejar, json, pathlib, re, ssl, sys, tempfile, time, urllib.parse, urllib.request
+import base64, csv, datetime, http.cookiejar, json, pathlib, re, ssl, sys, tempfile, time, urllib.parse, urllib.request
 
 # cada aviso sale en el momento: en GitHub, sin esto, el registro quedaba vacío hasta el final y no se veía qué fuente tardaba
 sys.stdout.reconfigure(line_buffering=True)
@@ -29,42 +29,107 @@ CERTIFICADO_VENCIDO = ("www.economia.gob.ar", "www.mecon.gob.ar")
 _INTERMEDIOS = {}
 
 
+def _leer_certificado(pem):
+    """Los datos de un certificado en PEM (emisor, sujeto y la dirección "CA Issuers"), o un error si no es un certificado."""
+    with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as f:
+        f.write(pem)
+    try:
+        return ssl._ssl._test_decode_cert(f.name)
+    finally:
+        pathlib.Path(f.name).unlink()
+
+
+def _der_elemento(b, i):
+    """Etiqueta, comienzo y fin del contenido del elemento DER que empieza en la posición i."""
+    etiqueta, largo, i = b[i], b[i + 1], i + 2
+    if largo == 0x80:
+        raise ValueError("largo indefinido")
+    if largo & 0x80:
+        n = largo & 0x7F
+        largo, i = int.from_bytes(b[i:i + n], "big"), i + n
+    if i + largo > len(b):
+        raise ValueError("elemento cortado")
+    return etiqueta, i, i + largo
+
+
+def _pkcs7_certificados(b):
+    """Los certificados (DER) de un paquete PKCS#7 de solo certificados (.p7c o .p7b), o una lista vacía si no es uno."""
+    try:
+        _, i, _ = _der_elemento(b, 0)                       # ContentInfo
+        etiqueta, j, k = _der_elemento(b, i)                # contentType: signedData (1.2.840.113549.1.7.2)
+        if etiqueta != 0x06 or b[j:k] != bytes.fromhex("2a864886f70d010702"):
+            return []
+        _, i, _ = _der_elemento(b, k)                       # [0]
+        _, i, fin = _der_elemento(b, i)                     # SignedData
+        certificados = []
+        while i < fin:
+            etiqueta, j, k = _der_elemento(b, i)
+            if etiqueta == 0xA0:                            # certificates
+                while j < k:
+                    _, _, z = _der_elemento(b, j)
+                    certificados.append(b[j:z])
+                    j = z
+            i = k
+        return certificados
+    except (IndexError, ValueError):
+        return []
+
+
+def _certificados_publicados(datos):
+    """Los certificados que devuelve una dirección "CA Issuers", en PEM. Cada autoridad los publica a su manera: un certificado en DER
+    o en PEM (a veces con texto antes) o un paquete PKCS#7. Lo que no se puede leer como certificado se descarta."""
+    ders = []
+    if b"-----BEGIN" in datos:
+        for tipo, cuerpo in re.findall(rb"-----BEGIN ([A-Z0-9 ]+)-----(.+?)-----END \1-----", datos, re.S):
+            try:
+                der = base64.b64decode(b"".join(cuerpo.split()))
+            except ValueError:
+                continue
+            ders += [der] if tipo in (b"CERTIFICATE", b"X509 CERTIFICATE") else _pkcs7_certificados(der) if tipo in (b"PKCS7", b"CMS") else []
+    else:
+        ders = _pkcs7_certificados(datos) or [datos]
+    certificados = []
+    for der in ders:
+        pem = ssl.DER_cert_to_PEM_cert(der)
+        try:
+            certificados.append((pem, _leer_certificado(pem)))
+        except ssl.SSLError:
+            continue
+    return certificados
+
+
 def contexto_con_intermedios(url):
     sitio = urllib.parse.urlsplit(url)
     host, puerto = sitio.hostname, sitio.port or 443
     if host in _INTERMEDIOS:
         return _INTERMEDIOS[host]
-    ctx, cadena = None, []
+    cadena, problema = [], "la dirección que indica su certificado no trae un intermedio"
     try:
         pem = ssl.get_server_certificate((host, puerto), timeout=30)
         for _ in range(3):  # el intermedio puede estar firmado por otro que también falte
-            with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as f:
-                f.write(pem)
-            info = ssl._ssl._test_decode_cert(f.name)
-            pathlib.Path(f.name).unlink()
-            emisores = [u for u in info.get("caIssuers", ()) if u.lower().startswith(("http://", "https://"))]
+            emisores = [u for u in _leer_certificado(pem).get("caIssuers", ()) if u.lower().startswith(("http://", "https://"))]
             if not emisores:
                 break
             with urllib.request.urlopen(emisores[0], timeout=30) as r:
-                der = r.read()
-            pem = der.decode("ascii") if der.lstrip().startswith(b"-----BEGIN") else ssl.DER_cert_to_PEM_cert(der)
-            with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as f:
-                f.write(pem)
-            datos = ssl._ssl._test_decode_cert(f.name)
-            pathlib.Path(f.name).unlink()
-            if datos.get("subject") == datos.get("issuer"):
-                break  # una raíz: esa tiene que estar entre las del sistema, no se suma
-            cadena.append(pem)
-        if cadena:
-            ctx = ssl.create_default_context()
-            ctx.verify_flags &= ~getattr(ssl, "VERIFY_X509_PARTIAL_CHAIN", 0)
-            ctx.load_verify_locations(cadata="".join(cadena))
-            print(f"  aviso: {host} no manda su certificado intermedio: se bajó de la dirección que indica su certificado")
-    except Exception as e:
-        print(f"  aviso: no se pudo completar la cadena de certificados de {host}: {e}")
+                publicados = _certificados_publicados(r.read())
+            # las raíces (se firman a sí mismas) tienen que estar entre las del sistema: no se suman
+            intermedios = [p for p, datos in publicados if datos.get("subject") != datos.get("issuer")]
+            if not intermedios:
+                break
+            cadena += intermedios
+            pem = intermedios[0]
+    except Exception as e:  # si falla un paso posterior, se usan los intermedios que ya se bajaron
+        problema = e
+    ctx = None
+    if cadena:
+        ctx = ssl.create_default_context()
+        ctx.verify_flags &= ~getattr(ssl, "VERIFY_X509_PARTIAL_CHAIN", 0)
+        ctx.load_verify_locations(cadata="".join(cadena))
+        print(f"  aviso: {host} no manda su certificado intermedio: se bajó de la dirección que indica su certificado")
+    else:
+        print(f"  aviso: no se pudo completar la cadena de certificados de {host}: {problema}")
     _INTERMEDIOS[host] = ctx
     return ctx
-
 
 def leer(url, timeout=180):
     """Baja una direccion con un manejo de cookies nuevo en cada llamada.
