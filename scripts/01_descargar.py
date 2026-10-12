@@ -1792,7 +1792,11 @@ def bcra_monetarias():
     (CRUDO / "bcra_variables.json").write_text(json.dumps(cat, ensure_ascii=False, indent=1), encoding="utf-8")
     texto = lambda v: " ".join(str(x) for x in v.values() if isinstance(x, str)).lower()
     principales = [v for v in cat if "principal" in texto(v)] or cat[:60]
-    elegidas = {v["idVariable"]: v for v in principales + [v for v in cat if "reservas internacionales" in texto(v)] if "idVariable" in v}
+    # además de las principales y las reservas, las series largas que pidió el autor el 11 de octubre de 2026: los agregados monetarios desde 1940
+    # (base monetaria, M1, M2 y M3, en miles de pesos), el plazo fijo a 30 días desde 1985, los préstamos al sector privado por tipo, y los
+    # depósitos, los préstamos y la tasa del plazo fijo en dólares
+    largas = {1606, 1612, 1618, 1623, 1624, 1207, 1343, 1345, 1348, 1349, 1350, 1351, 1356, 1564, 1569, 1571, 1193}
+    elegidas = {v["idVariable"]: v for v in principales + [v for v in cat if "reservas internacionales" in texto(v) or v.get("idVariable") in largas] if "idVariable" in v}
     hoy = datetime.date.today()
     filas = []
     for i, v in elegidas.items():

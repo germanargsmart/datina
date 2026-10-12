@@ -995,7 +995,10 @@ const TX = {
     `${mesTx(SX.bcra.ipc_desde)} (antes no hay un índice para todo el país), o se miden en % del PBI a precios corrientes del INDEC, desde ${SX.bcra.pib_desde}. ` +
     `El dólar a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que ` +
     `paga una tasa a 30 días con la inflación del mes siguiente, y los índices de actualización y las tasas para juicios se comparan con la inflación de los mismos doce meses. ` +
-    `Los montos, el dólar y los índices en pesos de cada mes van en escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento.` +
+    `Los montos, el dólar y los índices en pesos de cada mes van en escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento. ` +
+    `La serie histórica del dinero (base monetaria, M1, M2 y M3, desde 1940) está en pesos de hoy: entre 1970 y 1992 a la moneda se le sacaron 13 ceros, ` +
+    `por eso los primeros valores son fracciones de peso. La parte del M3 en moneda extranjera la calcula Datina con los dos M3 del BCRA. Los depósitos y ` +
+    `los préstamos en dólares, en % del PBI, se pasan a pesos con el dólar mayorista de fin de cada mes.` +
     (SX.bcra.rem_viejo ? ` La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de ${SX.bcra.rem_viejo[0]} a ${SX.bcra.rem_viejo[1]} ` +
       `de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.` : ""),
   // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
@@ -1476,13 +1479,13 @@ const recorte = (svg, x, y, w, h, r) => {
 // rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
 const aparecer = (sel, delay = 0) => sel.attr("opacity", 0).transition().delay(Math.min(delay, 150)).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
 
-// marcas de un eje logarítmico: las potencias de diez, y si no llegan a tres, también el 2 y el 5 de cada una. Con más de seis, una sí y otra no
+// marcas de un eje logarítmico: las potencias de diez, y si no llegan a tres, también el 2 y el 5 de cada una. Con más de seis, salteadas
 function marcasLog([a, b]) {
   const todas = [];
   for (let e = Math.floor(Math.log10(a)); e <= Math.ceil(Math.log10(b)); e++)
     [1, 2, 5].forEach(m => { const v = +(m * 10 ** e).toPrecision(12); if (v >= a && v <= b) todas.push({v, m}); });
-  const pot = todas.filter(t => t.m === 1), usar = pot.length >= 3 ? pot : todas;
-  return (usar.length > 6 ? usar.filter((_, i) => (usar.length - 1 - i) % 2 === 0) : usar).map(t => t.v);
+  const pot = todas.filter(t => t.m === 1), usar = pot.length >= 3 ? pot : todas, paso = Math.ceil(usar.length / 6);
+  return usar.filter((_, i) => (usar.length - 1 - i) % paso === 0).map(t => t.v);
 }
 function lineas(el, cfg) {
   const angosto = el.clientWidth < 520;
@@ -4211,23 +4214,34 @@ DIB["reservas-bcra"] = a => {
    - inflación esperada: junto a la que hubo después */
 const BV = SX.bcra;
 const bCorto = x => Number.isInteger(x) ? n0(x) : (Math.abs(x) < 1 ? n2(x) : n1(x)).replace(/,0+$/, "");
-const bMonto = v => v >= 1e6 ? `${n1(v / 1e6)} billones` : v >= 1e3 ? `${n1(v / 1e3)} mil millones` : `${n0(v)} millones`;
-const bMontoEje = v => v === 0 ? "0" : v >= 1e6 ? bCorto(v / 1e6) + " bill." : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : bCorto(v) + " M";
+// los montos de las series que empiezan en 1940, en pesos de hoy, son ínfimos (a la moneda se le sacaron 13 ceros): van en pesos, con dos cifras
+const bInfimo = new Intl.NumberFormat("es-AR", {maximumSignificantDigits: 2});
+const bMonto = v => v >= 1e6 ? `${n1(v / 1e6)} billones` : v >= 1e3 ? `${n1(v / 1e3)} mil millones` : v >= 1 ? `${n0(v)} millones` : `${bInfimo.format(v * 1e6)} pesos`;
+const bMontoEje = v => v === 0 ? "0" : v >= 1e6 ? bCorto(v / 1e6) + " bill." : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : v >= 1 ? bCorto(v) + " M" : "$ " + bInfimo.format(v * 1e6);
+const bUsd = v => v >= 1e3 ? `${n1(v / 1e3)} mil millones de dólares` : `${n0(v)} millones de dólares`;
+const bUsdEje = v => v === 0 ? "0" : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : bCorto(v) + " M";
 const bDolar = v => v >= 100 ? n0(v) : n2(v);
 const bIndice = v => v >= 1000 ? n0(v) : v >= 100 ? n1(v) : n2(v);
 const ejePct = x => n0(x) + "%";
 const BCR_VISTAS = {millones: [["nominal", "En pesos"], ["real", "Sin inflación"], ["pbi", "% del PBI"]], dolar: [["nominal", "En pesos"], ["real", "A precios de hoy"]],
   tna: [["nominal", "Tasa"], ["real", "Tasa real"]], tea: [["nominal", "Tasa"], ["real", "Tasa real"]], var: [["nominal", "Con inflación"], ["real", "Sin inflación"]],
-  indice: [["nominal", "Valor"], ["var", "En 12 meses"]], pesos: [["nominal", "Valor"], ["var", "En 12 meses"]], acum: [["nominal", "Valor"], ["var", "En 12 meses"]]};
+  indice: [["nominal", "Valor"], ["var", "En 12 meses"]], pesos: [["nominal", "Valor"], ["var", "En 12 meses"]], acum: [["nominal", "Valor"], ["var", "En 12 meses"]],
+  usd: [["nominal", "En dólares"], ["pbi", "% del PBI"]]};
 const bcrVar = () => BV.variables.find(x => String(x.id) === MED["bcra-id"]) || BV.variables[0];
+// los valores ínfimos de las series desde 1940 vienen también como logaritmo, porque con cuatro decimales serían cero
+const bcrValor = r => r.log10_valor != null ? 10 ** r.log10_valor : r.valor;
 // qué se dibuja en cada vista: la columna (k), su formato (f), el del eje (yf), la escala logarítmica y una segunda línea con la inflación del INDEC
 const bcrCfg = (v, m) => {
   const inf12 = {k: "inflacion_12m", lab: "Inflación de los mismos 12 meses", corto: "Inflación", c: FRI};
   if (v.t === "millones") return m === "pbi" ? {k: "pct_pbi", f: x => pct(x) + " del PBI", yf: ejePct}
     : m === "real" ? {k: "valor_real", f: x => bMonto(x) + " de pesos", yf: bMontoEje} : {k: "valor", f: x => bMonto(x) + " de pesos", yf: bMontoEje, log: true};
   if (v.t === "dolar") return {k: m === "real" ? "valor_real" : "valor", f: x => bDolar(x) + " pesos", yf: bCorto, log: m !== "real"};
+  // las tasas nominales de los años de inflación muy alta (la serie desde 1985) pasan de miles por ciento: con eso, escala logarítmica (logAuto)
   if (v.t === "tna" || v.t === "tea") return m === "real" ? {k: "tasa_real_mensual", f: conSigno, yf: ejePct, ref: 0, lab: "Tasa real a 30 días", corto: "Tasa real"}
-    : {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa"};
+    : {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa", logAuto: true};
+  if (v.t === "tasa_usd") return {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa"};
+  if (v.t === "pct") return {k: "valor", f: pct, yf: ejePct};
+  if (v.t === "usd") return m === "pbi" ? {k: "pct_pbi", f: x => pct(x) + " del PBI", yf: ejePct} : {k: "valor", f: bUsd, yf: bUsdEje};
   if (v.t === "var") return m === "real" ? {k: "variacion_real_12m", f: conSigno, yf: ejePct, ref: 0, lab: "Sin la inflación", corto: "Sin inflación"}
     : {k: "valor", f: pct, yf: ejePct, corto: "M2", extra: inf12};
   if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
@@ -4289,23 +4303,27 @@ const bcrTxt = (v, m, c, filas) => {
   if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
     ? (b ? `${v.n}: ${conSigno(b[k])} en los doce meses hasta ${mes(b)}, contra una inflación de ${pct(b[c.extra.k])}.` : `${v.n}: ${conSigno(u[k])} en los doce meses hasta ${mes(u)}.`)
     : `${v.n}: ${c.f(u[k])} en ${mes(u)}` + (v.t === "acum" ? `, lo que suman los intereses desde ${mes(con[0])}` : "") + `. La vista en 12 meses compara su variación con la inflación.`;
+  if (v.t === "usd") return m === "pbi" ? `${v.n}: ${c.f(u[k])} en ${mes(u)}, pasado a pesos con el dólar mayorista de fin de mes.` + rango(c.f)
+    : `${v.n}: ${c.f(u[k])} en ${mes(u)}${doce}.` + rango(c.f);
   if (v.t === "rem") {
     const mas = ambos.filter(r => r[c.extra.k] > r[k]).length;
     return `En ${mes(u)}, quienes responden el Relevamiento de Expectativas de Mercado del BCRA esperaban ${pct(u[k])} de inflación para los doce meses siguientes.` +
       (b ? ` La última expectativa que ya se puede comparar, la de ${mes(b)}, fue de ${pct(b[k])}, y la inflación de esos doce meses resultó de ${pct(b[c.extra.k])}.` +
         ` En ${mas} de los ${ambos.length} meses comparables, la inflación fue mayor que la esperada.` : "");
   }
-  return `${v.n}: ${c.f(u[k])} en ${mes(u)}.`;
+  return `${v.n}: ${c.f(u[k])} en ${mes(u)}.` + rango(c.f);
 };
 DIB.bcra = conTablas("bcra", ["bcra_variables"], a => {
   const v = bcrVar(), el = G("bcra");
   bcrConm(v);
   const m = MED["bcra-m"], c = bcrCfg(v, m);
-  const filas = T.bcra_variables.filter(r => r.id === v.id && (r[c.k] != null || (c.extra && r[c.extra.k] != null))).map(r => ({...r, t: tPer(r.mes)}));
+  const filas = T.bcra_variables.filter(r => r.id === v.id && (r[c.k] != null || (c.extra && r[c.extra.k] != null)))
+    .map(r => ({...r, valor: bcrValor(r), t: tPer(r.mes)}));
   if (!filas.some(r => r[c.k] != null)) return sinDatos(el, "No hay datos de esta variable.");
   $t("bcra").textContent = bcrTxt(v, m, c, filas);
   const vals = filas.flatMap(r => [r[c.k], c.extra ? r[c.extra.k] : null]).filter(x => x != null);
-  lineas(el, {anim: a, data: filas, x: "t", log: c.log, y0: Math.min(0, d3.min(vals)), ref: c.ref, vf: c.f, yf: c.yf, xl: r => mesPer(r.mes), mensual: true,
+  const log = c.log || (c.logAuto && d3.min(vals) > 0 && d3.max(vals) > 300);
+  lineas(el, {anim: a, data: filas, x: "t", log, y0: Math.min(0, d3.min(vals)), ref: c.ref, vf: c.f, yf: c.yf, xl: r => mesPer(r.mes), mensual: true,
     series: [{k: c.k, lab: c.lab || v.n, corto: c.corto || "Último dato", c: NAR}, ...(c.extra ? [c.extra] : [])]});
   // la tabla abierta sigue a la variable elegida
   const caja = document.querySelector("#f-bcra .tabla-datos"); if (caja) caja.innerHTML = tablaDatos(TABLA_VISTA["f-bcra"](T.bcra_variables), "f-bcra");
@@ -5522,7 +5540,7 @@ const TABLA_VISTA = {
       tasa_real_mensual: "tasa real a 30 días, %", inflacion_mes_siguiente: "inflación del mes siguiente, %", variacion_12m: "variación en 12 meses, %",
       variacion_real_12m: "variación sin inflación, %", inflacion_12m: "inflación de los mismos 12 meses, %", inflacion_12m_siguientes: "inflación de los 12 meses siguientes, %"};
     const cols = Object.keys(NOM).filter(c => filas.some(r => r[c] != null));
-    return filas.map(r => ({mes: r.mes, [`${v.n}, ${v.u}`]: r.valor, ...Object.fromEntries(cols.map(c => [NOM[c], r[c]]))}));
+    return filas.map(r => ({mes: r.mes, [`${v.n}, ${v.u}`]: bcrValor(r), ...Object.fromEntries(cols.map(c => [NOM[c], r[c]]))}));
   }
 };
 function tablaDatos(filas, ficha = "") {
