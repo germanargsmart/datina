@@ -1,0 +1,24 @@
+{
+ "icc": [
+  {
+   "url": "https://www.utdt.edu/download.php?fname=_178964918745924800.xls",
+   "texto": "Series Históricas"
+  }
+ ],
+ "expectativas": [
+  {
+   "url": "https://www.utdt.edu/download.php?fname=_179025577825111400.xls",
+   "texto": "Serie Histórica"
+  }
+ ],
+ "icg": [
+  {
+   "url": "https://www.utdt.edu/download.php?fname=_179060622131034100.xls",
+   "texto": "Evolución Mensual del ICG, 2001 - Presente (Excel)"
+  },
+  {
+   "url": "https://www.utdt.edu/download.php?fname=_179060637324136900.dta",
+   "texto": "Microdatos Encuestas Mensuales ICG, 2001 - Presente (Stata)"
+  }
+ ]
+}
