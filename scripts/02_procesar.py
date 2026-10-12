@@ -1406,10 +1406,12 @@ if (CRUDO / "series_sector_externo_M.csv").exists():
     assert set(_ice_c) <= set(_ice.columns), f"faltan series del intercambio comercial: {sorted(set(_ice_c) - set(_ice.columns))}"
     _ice = _ice[["indice_tiempo"] + _ice_c].rename(columns={**{v: k for k, v in ICE_ID.items()}, **{i: k for k, _, i in ICE_USOS}})
     _ice["t"] = pd.to_datetime(_ice.indice_tiempo)
-    _ice = _ice.dropna(subset=["exportaciones", "importaciones"]).sort_values("t")
+    # solo los meses con todo: con un uso vacío, el año no sumaría las importaciones (y queda incompleto, fuera del gráfico)
+    _ice = _ice.dropna(subset=["exportaciones", "importaciones", "saldo"] + [k for k, _, _ in ICE_USOS]).sort_values("t")
     _ice_a = _ice.groupby(_ice.t.dt.year).agg(meses=("exportaciones", "size"), **{k: (k, "sum") for k in ["exportaciones", "importaciones", "saldo"] + [k for k, _, _ in ICE_USOS]})
     _ice_a = _ice_a[_ice_a.meses == 12].drop(columns="meses").rename_axis("anio").reset_index()
-    assert ((_ice_a[[k for k, _, _ in ICE_USOS]].sum(axis=1) / _ice_a.importaciones - 1).abs() < .005).all(), "los usos no suman las importaciones"
+    _ice_dif = (_ice_a[[k for k, _, _ in ICE_USOS]].sum(axis=1) / _ice_a.importaciones - 1).abs()
+    assert (_ice_dif < .005).all(), f"los usos no suman las importaciones en {list(_ice_a.anio[_ice_dif >= .005])}"
     balanza_comercial = _ice_a[["anio", "exportaciones", "importaciones", "saldo"]].round(1)
     importaciones_usos = _ice_a[["anio"] + [k for k, _, _ in ICE_USOS]].round(1)
     _ice_u = _ice.t.max()

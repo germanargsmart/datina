@@ -1720,13 +1720,21 @@ def series_sector_externo():
     consultas = ["intercambio comercial argentino", "importaciones", "exportaciones", "saldo comercial", "balanza comercial",
                  "balanza de pagos", "cuenta corriente", "cuenta financiera", "reservas internacionales", "deuda externa",
                  "posicion de inversion internacional", "terminos del intercambio"]
-    vistos = {}
+    # una búsqueda que falla dejaría afuera series que se usan: se reintenta una vez y, si vuelve a fallar, no se reemplaza nada (el 12 de
+    # octubre de 2026 cuatro búsquedas tardaron demasiado en GitHub y la planilla mensual se guardó incompleta)
+    vistos, fallas = {}, []
     for q in consultas:
         for off in range(0, 500, 100):
+            url = f"https://apis.datos.gob.ar/series/api/search/?limit=100&offset={off}&q={urllib.parse.quote(q)}"
             try:
-                r = json.loads(leer(f"https://apis.datos.gob.ar/series/api/search/?limit=100&offset={off}&q={urllib.parse.quote(q)}", 60))
+                try:
+                    r = json.loads(leer(url, 90))
+                except Exception:
+                    time.sleep(5)
+                    r = json.loads(leer(url, 120))
             except Exception as e:
                 print(f"  aviso: búsqueda de series '{q}':", e)
+                fallas.append(q)
                 break
             filas = r.get("data") or []
             for x in filas:
@@ -1736,28 +1744,37 @@ def series_sector_externo():
                                        "conjunto": ds.get("title"), "fuente": ds.get("source")}
             if len(filas) < 100:
                 break
+    if fallas:
+        raise ValueError(f"fallaron búsquedas de series del sector externo ({', '.join(fallas)}): se conservan las planillas anteriores")
     if len(vistos) < 20:
         raise ValueError("la búsqueda de series del sector externo vino vacía")
-    (CRUDO / "series_sector_externo_catalogo.json").write_text(json.dumps(vistos, ensure_ascii=False, indent=1), encoding="utf-8")
     desde = str(datetime.date.today().year - 2)
     frec = {"R/P1M": "M", "R/P3M": "Q", "R/P1Y": "A"}
     bajadas = []
     for fr, letra in frec.items():
         ids = sorted(i for i, m in vistos.items() if m.get("frequency") == fr and str(m.get("time_index_end") or "") >= desde)
-        tablas = []
+        tablas, completa = [], True
         for k in range(0, len(ids), 20):
             url = ("https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&header=ids&start_date=1990-01-01&ids=" + ",".join(ids[k:k + 20]))
             try:
                 tablas.append(leer(url, 120).decode("utf-8"))
             except Exception as e:
                 print(f"  aviso: series {ids[k:k + 20]}:", e)
-        if tablas:
+                completa = False
+        if tablas and completa:
             import io, pandas as pd
             d = pd.concat([pd.read_csv(io.StringIO(t)).set_index("indice_tiempo") for t in tablas], axis=1)
-            d.to_csv(CRUDO / f"series_sector_externo_{letra}.csv")
+            # tampoco se reemplaza la planilla anterior si a la nueva le faltan series que aquella tenía
+            arch = CRUDO / f"series_sector_externo_{letra}.csv"
+            faltan = sorted(set(pd.read_csv(arch, nrows=0).columns) - set(d.reset_index().columns)) if arch.exists() else []
+            if faltan:
+                print(f"  aviso: a la planilla {letra} le faltan {len(faltan)} series de la anterior ({', '.join(faltan[:5])}): se conserva la anterior")
+                continue
+            d.to_csv(arch)
             bajadas.append(f"{letra}: {d.shape[1]} series")
     if not bajadas:
         raise ValueError("no se bajó ninguna serie del sector externo")
+    (CRUDO / "series_sector_externo_catalogo.json").write_text(json.dumps(vistos, ensure_ascii=False, indent=1), encoding="utf-8")
     return "apis.datos.gob.ar (" + ", ".join(bajadas) + ")"
 
 
