@@ -1083,13 +1083,13 @@ const TX = {
     `de los asalariados privados del SIPA de ${MESES[DS.sipa_mes - 1]} de ${DS.sipa_anio}, que se cuenta donde declara el empleador: por eso CABA queda muy abajo y Buenos Aires ` +
     `arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en la Ciudad. La población es la proyección del INDEC para ${R.anio_pob}. La cantidad de beneficiarios ` +
     `depende del desempleo, pero también de cuánta gente tiene un empleo registrado y de los cambios en las reglas del seguro.` : "",
-  // Asignación Universal por Hijo (etapa 42): el texto de "Todas las asignaciones" lo arma el dibujo
+  // Asignación Universal por Hijo (etapa 42): el texto de "Cobertura" lo arma el dibujo
   auh: `En ${MESES[AU.mes - 1]} de ${AU.anio} cobraban la AUH ${n0(AU.beneficios)} chicos, ${n1(AU.pais_100)} cada 100 menores de 18 años, a través de ${n0(AU.titulares)} ` +
     `titulares. ${AU.top} tenía la proporción más alta, ${n1(AU.top_v)} cada 100, y ${AU.low} la más baja, ${n1(AU.low_v)}.`,
   "auh-nota": `La AUH la cobra, por cada hijo menor de 18 años o con discapacidad, quien no tiene trabajo, trabaja en la informalidad o en casas particulares, es ` +
     `monotributista social o cobra menos que el salario mínimo. La paga ANSES. Cada beneficio es un hijo: ${n0(AU.discapacidad)} son por hijo con discapacidad, que no tiene ` +
     `límite de edad. Los menores de 18 de cada provincia salen de las proyecciones del INDEC para ${R.anio_pob}, que vienen en grupos de cinco años (los de 15 a 17 se toman como tres ` +
-    `quintos del grupo de 15 a 19), así que la proporción es aproximada. "Todas las asignaciones" es el cuadro de cobertura del boletín, que estima la población con ` +
+    `quintos del grupo de 15 a 19), así que la proporción es aproximada. "Cobertura" es el cuadro de cobertura del boletín, que estima la población con ` +
     `proyecciones de las Naciones Unidas y registros de ANSES. Los programas como Volver al Trabajo, Acompañamiento Social o la Prestación Alimentar no publican datos abiertos por provincia.`,
   // haberes frente al salario (etapa 42): el texto de la vista "A precios de hoy" lo arma el dibujo
   haberes: `En ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]},` : ""} el haber mínimo de ANSES con los refuerzos que se pagan aparte equivalía al ${pct(HB.pct_min_ad)} del salario ` +
@@ -2136,7 +2136,8 @@ function mapaProv(el, cfg) {
     return;
   }
   const val = Object.fromEntries(cfg.filas.filter(r => r.codigo_indec !== "00").map(r => [r.codigo_indec, r]));
-  const w = Math.min(cfg.max || 560, Math.max(300, el.clientWidth)), h = Math.round(w * 1.55);
+  // se dibuja al ancho real del contenedor (desde 220 píxeles), sin achicarlo: así la leyenda conserva el tamaño de su letra en el celular
+  const w = Math.min(cfg.max || 560, Math.max(220, el.clientWidth)), h = Math.round(w * 1.55);
   el.innerHTML = ""; el.removeAttribute("aria-busy");
   const svg = d3.select(el).append("svg").attr("class", "mapa-prov").attr("viewBox", `0 0 ${w} ${h + 44}`).style("max-width", w + "px").attr("role", "img")
     .attr("aria-label", `Mapa de las provincias: ${cfg.nombre.toLowerCase()}`);
@@ -2163,9 +2164,9 @@ function mapaProv(el, cfg) {
   todas.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el); mostrarTip(el, tipo(d.properties.codigo_indec), mx, my); })
     .on("pointerleave", ocultarSiMouse);
   // leyenda: los cinco grupos con sus cortes
-  const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
-  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("rx", 2).attr("fill", c));
-  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26)
+  const paso = Math.min(50, (w - 12) / 5), ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - paso * 2.5)},${h + 8})`);
+  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c));
+  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * paso).attr("y", 26)
     .attr("text-anchor", i ? "middle" : "start").text(t));
 }
 
@@ -2185,7 +2186,7 @@ function mapaDep(el, cfg) {
   const obj = TOPO_DEP.objects.departamentos, todos = topojson.feature(TOPO_DEP, obj).features;
   const val = Object.fromEntries(cfg.filas.map(r => [r.codigo_dep, r[cfg.k]]));
   const enProv = NOMBRES[prov] ? todos.filter(f => f.properties.prov === prov) : todos;
-  const w = Math.min(560, Math.max(300, el.clientWidth)), h = NOMBRES[prov] ? Math.round(w * 1.1) : Math.round(w * 1.55);
+  const w = Math.min(560, Math.max(220, el.clientWidth)), h = NOMBRES[prov] ? Math.round(w * 1.1) : Math.round(w * 1.55);
   el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h + 44}`).attr("role", "img")
     .attr("aria-label", `Mapa por departamento: ${cfg.nombre.toLowerCase()}${NOMBRES[prov] ? ", " + NOMBRES[prov] : ""}`);
@@ -2204,9 +2205,9 @@ function mapaDep(el, cfg) {
       (cfg.extra ? cfg.extra(f.properties.id) : ""), mx, my);
   }).on("pointerleave", ocultarSiMouse);
   // leyenda: los cinco grupos con sus cortes
-  const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
-  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("rx", 2).attr("fill", c));
-  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26)
+  const paso = Math.min(50, (w - 12) / 5), ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - paso * 2.5)},${h + 8})`);
+  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c));
+  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * paso).attr("y", 26)
     .attr("text-anchor", i ? "middle" : "start").text(t));
 }
 
@@ -5368,9 +5369,9 @@ const MAPA_DEP = (() => {
     }).on("pointerleave", ocultarSiMouse)
       .on("click", (ev, f) => { if (!NOMBRES[pv]) { cerca = {c: f.properties.prov, de: prov}; ocultarTip(); cambiarVista("mapa-dep"); } });
     // leyenda de quintiles
-    const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
-    colores.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("fill", c));
-    ["", ...cortes.map(v => loc.format(",.1f")(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26).attr("text-anchor", i ? "middle" : "start").text(t));
+    const paso = Math.min(50, (w - 12) / 5), ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - paso * 2.5)},${h + 8})`);
+    colores.forEach((c, i) => ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("fill", c));
+    ["", ...cortes.map(v => loc.format(",.1f")(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * paso).attr("y", 26).attr("text-anchor", i ? "middle" : "start").text(t));
     // lista lateral
     const lugar = NOMBRES[pv] || "Todo el país";
     document.getElementById("mp-lugar").innerHTML = conBandera(NOMBRES[pv] ? pv : "00", `${lugar}: ${m.nombre.toLowerCase()}`);
