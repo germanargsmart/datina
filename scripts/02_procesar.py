@@ -2631,6 +2631,56 @@ if (CRUDO / "bess_pnc.xlsx").exists() and (CRUDO / "bess_provincias_pnc.xlsx").e
     d["periodo"] = f"{_pp_a[_pp_ult][0]}-{_pp_a[_pp_ult][1]:02d}"
     agregar(d, "pensiones_invalidez_cada_1000_habitantes", "pensiones cada 1.000 habitantes", "Secretaria de Seguridad Social, BESS")
 
+# Asignación Universal por Hijo por provincia (etapa 42, pedido del autor del 12 de octubre de 2026: "auh, planes sociales"). BESS, edición
+# por provincia, cuadro 5.8: los beneficios (uno por cada hijo, con los de hijo con discapacidad) del último mes, que sale de la fecha de corte
+# del cuadro (el mes anterior). Cada 100 menores de 18 años de la población del sitio (ANIO_POB): las proyecciones vienen en grupos de cinco
+# años, así que se toman los de 0 a 14 y tres quintos del de 15 a 19. Del país, el cuadro 6.8 de la edición nacional: qué parte de los
+# menores de 18 cobra alguna asignación familiar y por qué vía (la AUH o la de sus padres asalariados, monotributistas, jubilados, etc.).
+auh_res, auh_prov, auh_cob = None, None, None
+if (CRUDO / "bess_provincias_aaff.xlsx").exists() and (CRUDO / "bess_aaff.xlsx").exists():
+    _auh = pd.read_excel(CRUDO / "bess_provincias_aaff.xlsx", sheet_name="5.8", header=None)
+    assert "AUH" in str(_auh.iat[0, 0]), "BESS 5.8 ya no es el cuadro de la AUH"
+    _auh_corte = next((re.search(r"(\d{2})/(\d{2})/(\d{4})", str(_auh.iat[i, 0])) for i in range(6) if re.search(r"corte al \d{2}/\d{2}/\d{4}", str(_auh.iat[i, 0]))), None)
+    assert _auh_corte, "BESS 5.8: no está la fecha de corte"
+    _auh_mes = (pd.Timestamp(int(_auh_corte.group(3)), int(_auh_corte.group(2)), 1) - pd.DateOffset(months=1))
+    _auh_filas = [{"codigo_indec": codigo(_auh.iat[i, 0]), "beneficios": float(_auh.iat[i, 1]), "hijo": float(_auh.iat[i, 2]), "hijo_discapacidad": float(_auh.iat[i, 3])}
+                  for i in range(len(_auh)) if codigo(_auh.iat[i, 0]) and pd.notna(pd.to_numeric(_auh.iat[i, 1], errors="coerce"))]
+    auh_prov = pd.DataFrame(_auh_filas)
+    assert sorted(auh_prov.codigo_indec) == sorted(["00", *POB]), "BESS 5.8: faltan jurisdicciones o hay de más"
+    _auh_pais = auh_prov.set_index("codigo_indec").beneficios["00"]
+    assert abs(auh_prov[auh_prov.codigo_indec != "00"].beneficios.sum() - _auh_pais) / _auh_pais < .01, "BESS 5.8: las provincias no suman el total"
+    _auh_men = proy[(proy.anio == ANIO_POB) & (proy.edad <= 15)].assign(m=lambda x: np.where(x.edad == 15, x.pob * .6, x.pob)).groupby("codigo_indec").m.sum()
+    _auh_men["00"] = _auh_men.sum()
+    auh_prov["territorio"] = auh_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
+    auh_prov["menores"] = auh_prov.codigo_indec.map(_auh_men).round()
+    auh_prov["cada_100_menores"] = auh_prov.beneficios / auh_prov.menores * 100
+    auh_prov["pct_pais"] = auh_prov.beneficios / _auh_pais * 100
+    auh_prov = auh_prov[["codigo_indec", "territorio", "beneficios", "hijo", "hijo_discapacidad", "menores", "cada_100_menores", "pct_pais"]]
+    # cobertura de los menores de 18 en el país, por vía (cuadro 6.8, fila del total)
+    _cb = pd.read_excel(CRUDO / "bess_aaff.xlsx", sheet_name="6.8", header=None)
+    _cb_mes = re.search(r"(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|SEPTIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE) (\d{4})", str(_cb.iat[0, 0]))
+    _cb_f = next(i for i in range(len(_cb)) if str(_cb.iat[i, 1]).strip() == "Total" and str(_cb.iat[i, 2]).strip() == "RD")
+    _cb_t = next(i for i in range(_cb_f + 1, len(_cb)) if str(_cb.iat[i, 0]).strip() == "Total")
+    _cb_v = {str(_cb.iat[_cb_f, j]).strip(): float(_cb.iat[_cb_t, j]) * 100 for j in range(1, _cb.shape[1]) if pd.notna(_cb.iat[_cb_f, j]) and pd.notna(_cb.iat[_cb_t, j])}
+    assert {"Total", "RD", "AUH"} <= set(_cb_v) and abs(sum(v for k, v in _cb_v.items() if k != "Total") - _cb_v["Total"]) < .1, f"BESS 6.8 cambió de formato: {_cb_v}"
+    _cb_nombre = {"AUH": "Asignación Universal por Hijo", "RD": "Padre o madre asalariado registrado", "Monotributo": "Padre o madre monotributista",
+                  "PNC": "Padre o madre con pensión no contributiva", "SIPA": "Padre o madre jubilado o pensionado", "Desempleo": "Padre o madre con seguro de desempleo"}
+    auh_cob = pd.DataFrame([{"via": k, "nombre": _cb_nombre.get(k, k), "pct_menores": v} for k, v in _cb_v.items() if k != "Total"]
+                           + [{"via": "ninguna", "nombre": "Ninguna asignación familiar", "pct_menores": 100 - _cb_v["Total"]}])
+    _auh_p = auh_prov[auh_prov.codigo_indec != "00"].sort_values("cada_100_menores")
+    _auh_tit = pd.read_excel(CRUDO / "bess_provincias_aaff.xlsx", sheet_name="5.9", header=None)
+    _auh_tc = next(j for j in range(_auh_tit.shape[1]) for i in range(8) if str(_auh_tit.iat[i, j]).strip() == "AUH")
+    _auh_ti = next(i for i in range(len(_auh_tit)) if str(_auh_tit.iat[i, 0]).strip().upper() == "TOTAL")
+    auh_res = {"anio": int(_auh_mes.year), "mes": int(_auh_mes.month), "beneficios": round(float(_auh_pais)),
+               "discapacidad": round(float(auh_prov.set_index("codigo_indec").hijo_discapacidad["00"])),
+               "titulares": round(float(_auh_tit.iat[_auh_ti, _auh_tc])), "pais_100": r1(auh_prov.set_index("codigo_indec").cada_100_menores["00"]),
+               "top": _auh_p.iloc[-1].territorio, "top_v": r1(_auh_p.cada_100_menores.iloc[-1]), "low": _auh_p.iloc[0].territorio, "low_v": r1(_auh_p.cada_100_menores.iloc[0]),
+               "cob_mes": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"].index(_cb_mes.group(1).lower()) + 1 if _cb_mes else None, "cob_anio": int(_cb_mes.group(2)) if _cb_mes else None,
+               "cob_total": r1(_cb_v["Total"]), "cob_auh": r1(_cb_v["AUH"]), "cob_rd": r1(_cb_v["RD"])}
+    d = auh_prov[auh_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_100_menores"]].rename(columns={"cada_100_menores": "valor"})
+    d["periodo"] = _auh_mes.strftime("%Y-%m")
+    agregar(d, "auh_cada_100_menores", "hijos con AUH cada 100 menores de 18 años", "Secretaria de Seguridad Social, BESS")
+
 # Las variables del BCRA con criterio económico (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para
 # deflactar lo que haya que deflactar, mostrá series largas que haya"). Cada serie va completa, desde que empieza, y según su tipo suma:
 # - usd (depósitos y préstamos en dólares): pct_pbi, pasados a pesos con el A3500 de fin de mes, desde 2004.
@@ -5691,6 +5741,7 @@ tablas = {
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
     **({"haberes_previsionales": haberes} if haberes is not None else {}),
     **({"pensiones_invalidez": pinv_pais, "pensiones_invalidez_provincias": pinv_prov} if pinv_pais is not None else {}),
+    **({"auh_provincias": auh_prov, "asignaciones_cobertura": auh_cob} if auh_prov is not None else {}),
     "presidentes": presidentes,
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
     "voto_legisladores_y_provincia": rep_voto,
@@ -6052,6 +6103,7 @@ resumen["rotacion"] = rot_res
 resumen["jubilaciones"] = jub_res
 resumen["haberes"] = hab_res
 resumen["pensiones_invalidez"] = pinv_res
+resumen["auh"] = auh_res
 resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD

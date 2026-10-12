@@ -2152,6 +2152,28 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"bess_provincias_pnc.xlsx\": \"boletin_provincias_pnc_\""
    }
+  },
+  {
+   "id": "ds:bess_aaff.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social, capítulo VI: asignaciones familiares",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_aaff.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_aaff.xlsx\": \"estadisticas_de_seguridad_social_aaff_\""
+   }
+  },
+  {
+   "id": "ds:bess_provincias_aaff.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social por provincia: asignaciones familiares",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_provincias_aaff.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_provincias_aaff.xlsx\": \"boletin_provincias_aaff_\""
+   }
   }
  ],
  "aristas": [
@@ -6352,6 +6374,46 @@
      "contiene": "pinv_prov[\"cada_1000\"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_provincias_aaff.xlsx",
+   "a": "f-auh",
+   "tabla": "auh_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_auh = pd.read_excel(CRUDO / \"bess_provincias_aaff.xlsx\", sheet_name=\"5.8\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"auh_provincias\": auh_prov, \"asignaciones_cobertura\": auh_cob} if auh_prov is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_aaff.xlsx",
+   "a": "f-auh",
+   "tabla": "asignaciones_cobertura",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cb = pd.read_excel(CRUDO / \"bess_aaff.xlsx\", sheet_name=\"6.8\", header=None)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-auh",
+   "tabla": "auh_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_auh_men = proy[(proy.anio == ANIO_POB) & (proy.edad <= 15)]"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -6777,6 +6839,11 @@
    "variables": [
     "pensiones_no_contributivas_invalidez",
     "pensiones_invalidez_cada_1000_habitantes"
+   ]
+  },
+  "f-auh": {
+   "variables": [
+    "auh_cada_100_menores"
    ]
   }
  }

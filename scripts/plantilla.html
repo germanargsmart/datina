@@ -491,7 +491,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Pobreza y hogares</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántas personas no llegan a cubrir lo básico y qué servicios tienen los hogares?</p>
-      <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
+      <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet. Las pensiones no contributivas y la Asignación Universal por Hijo son parte de lo que el Estado transfiere a los hogares.</p>
     </div>
     <!--EXPLICADOR:pobreza-->
 
@@ -548,6 +548,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="pensiones-invalidez"></p>
       <p class="nota" data-t="pensiones-invalidez-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo III y edición por provincia), con datos de ANSES</span><a href="datos/pensiones_invalidez_provincias.csv" download>Por provincia (CSV)</a><a href="datos/pensiones_invalidez.csv" download>Del país, por año (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-auh">
+      <h3>¿Cuántos chicos cobran la Asignación Universal por Hijo?</h3>
+      <p class="ficha-sub">Hijos con AUH cada 100 menores de 18 años por provincia y asignaciones familiares de los menores del país, {{auh.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="auh" style="--n:3">
+        <button type="button" data-m="provincias" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
+        <button type="button" data-m="cobertura" aria-pressed="false">Todas las asignaciones</button>
+      </div>
+      <div class="grafico" data-g="auh" data-forma="barras"></div>
+      <p class="lead" data-t="auh"></p>
+      <p class="nota" data-t="auh-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo VI y edición por provincia), con datos de ANSES, y proyecciones de población del INDEC</span><a href="datos/auh_provincias.csv" download>Por provincia (CSV)</a><a href="datos/asignaciones_cobertura.csv" download>Asignaciones de los menores del país (CSV)</a></div>
     </article>
 
   </section>

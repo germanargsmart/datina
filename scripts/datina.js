@@ -179,7 +179,7 @@ const CM_FRASE = {circulatorias: "las enfermedades del corazón y la circulació
 const CMG = CM.grupos.filter(g => CM_FRASE[g.k]).sort((a, b) => b.pct - a.pct);
 // columnas de maternidad adolescente por provincia: llevan el primer y el último año de la DEIS (pct_2012, pct_2024...)
 const ADO_INI = "pct_" + nac.anio_ini, ADO_ULT = "pct_" + nac.anio_ult;
-const PI = R.piramide, JU = R.jubilaciones, HB = R.haberes, PIN = R.pensiones_invalidez;
+const PI = R.piramide, JU = R.jubilaciones, HB = R.haberes, PIN = R.pensiones_invalidez, AU = R.auh;
 const EM = R.empresas;
 // Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
@@ -1051,6 +1051,14 @@ const TX = {
     `separa los beneficios suspendidos: en ${MESES[PIN.mes - 1]} de ${PIN.anio} eran ${n0(PIN.v - PIN.v_no_susp)}. Por provincia, el último mes es ${MESES[PIN.prov_mes - 1]} de ` +
     `${PIN.prov_anio} y la población, la proyección del INDEC para ${R.anio_pob}. No incluye las pensiones por discapacidad que pagan las provincias ni la asignación por hijo ` +
     `con discapacidad. La proporción depende de la edad y de la situación de cada población, no solo de cómo se otorgan las pensiones.`,
+  // Asignación Universal por Hijo (etapa 42): el texto de "Todas las asignaciones" lo arma el dibujo
+  auh: `En ${MESES[AU.mes - 1]} de ${AU.anio} cobraban la AUH ${n0(AU.beneficios)} chicos, ${n1(AU.pais_100)} cada 100 menores de 18 años, a través de ${n0(AU.titulares)} ` +
+    `titulares. ${AU.top} tenía la proporción más alta, ${n1(AU.top_v)} cada 100, y ${AU.low} la más baja, ${n1(AU.low_v)}.`,
+  "auh-nota": `La AUH la cobra, por cada hijo menor de 18 años o con discapacidad, quien no tiene trabajo, trabaja en la informalidad o en casas particulares, es ` +
+    `monotributista social o cobra menos que el salario mínimo. La paga ANSES. Cada beneficio es un hijo: ${n0(AU.discapacidad)} son por hijo con discapacidad, que no tiene ` +
+    `límite de edad. Los menores de 18 de cada provincia salen de las proyecciones del INDEC para ${R.anio_pob}, que vienen en grupos de cinco años (los de 15 a 17 se toman como tres ` +
+    `quintos del grupo de 15 a 19), así que la proporción es aproximada. "Todas las asignaciones" es el cuadro de cobertura del boletín, que estima la población con ` +
+    `proyecciones de las Naciones Unidas y registros de ANSES. Los programas como Volver al Trabajo, Acompañamiento Social o la Prestación Alimentar no publican datos abiertos por provincia.`,
   // haberes frente al salario (etapa 42): el texto de la vista "A precios de hoy" lo arma el dibujo
   haberes: `En ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]},` : ""} el haber mínimo de ANSES con los refuerzos que se pagan aparte equivalía al ${pct(HB.pct_min_ad)} del salario ` +
     `promedio de los asalariados registrados, y sin ellos, al ${pct(HB.pct_min)}. La jubilación promedio, al ${pct(HB.pct_jub)}. Desde ${HB.ini}, el haber mínimo con adicionales ` +
@@ -2316,6 +2324,24 @@ const DIB = {
   rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
     k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
   piramide: conTablas("piramide", ["piramide_poblacion"], a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio})),
+  auh: a => {
+    const v = MED.auh, el = G("auh"), filas = T.auh_provincias.filter(r => r.codigo_indec !== "00");
+    const extra = r => `<br>${n0(r.beneficios)} hijos con AUH<br>${n0(r.menores)} menores de 18 años (estimado)`;
+    if (v === "cobertura") {
+      $t("auh").textContent = `En ${MESES[AU.cob_mes - 1]} de ${AU.cob_anio}, el ${pct(AU.cob_total)} de los menores de 18 años del país cobraba alguna asignación familiar: el ` +
+        `${pct(AU.cob_auh)} por la AUH y el ${pct(AU.cob_rd)} por el trabajo registrado de su padre o su madre. El ${pct(100 - AU.cob_total)} no cobraba ninguna: entre ` +
+        `ellos están los hijos de quienes superan el tope de ingresos y los deducen del impuesto a las ganancias, y los que no tienen ninguna cobertura.`;
+      const CORTO_AU = {RD: "Asalariado registrado", Monotributo: "Monotributista", PNC: "Pensión no contributiva", SIPA: "Jubilado o pensionado",
+        Desempleo: "Seguro de desempleo", AUH: "AUH", ninguna: "Ninguna"};
+      return barrasH(el, {anim: a, data: [...T.asignaciones_cobertura].sort((p, q) => q.pct_menores - p.pct_menores).map(r => ({codigo_indec: r.via, territorio: r.nombre, v: r.pct_menores})),
+        k: "v", vf: pct, af: v => n0(v) + "%", marcar: new Set(), l: 290, lAngosto: 160, corto: d => CORTO_AU[d.codigo_indec] || d.territorio,
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} de los menores de 18 años`});
+    }
+    $t("auh").textContent = TX.auh;
+    if (v === "mapa") return mapaProv(el, {anim: a, filas, k: "cada_100_menores", nombre: "Hijos con AUH cada 100 menores de 18", vf: n1, extra, max: 380});
+    barrasH(el, {anim: a, data: filas, k: "cada_100_menores", vf: n1, af: n0, ref: AU.pais_100, refLab: `País ${n1(AU.pais_100)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100_menores)} cada 100 menores de 18` + extra(d)});
+  },
   "pensiones-invalidez": a => {
     const v = MED["pensiones-invalidez"], el = G("pensiones-invalidez"), filas = T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00");
     const extra = r => `<br>${n0(r.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(r.pct_pais)} de las del país`;
@@ -4284,6 +4310,7 @@ DIB["cuenta-corriente"] = a => {
 MED["reservas-bcra"] = "serie";
 MED.haberes = "pct";
 MED["pensiones-invalidez"] = "mapa";
+MED.auh = "provincias";
 DIB["reservas-bcra"] = a => {
   const el = G("reservas-bcra"), V = SX.reservas, CORTO = {sector_publico: "Otras del sector público", efectivo_minimo: "Efectivo mínimo", organismos: "FMI y otros organismos"};
   const MI = V.meses_imp;
