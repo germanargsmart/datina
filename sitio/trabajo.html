@@ -150,6 +150,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). Se actualiza cada tres meses.</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-desempleo">
+      <h3>¿Cuántas personas cobran el seguro de desempleo?</h3>
+      <p class="ficha-sub">Beneficiarios de la prestación por desempleo por provincia y del país, 2001 a 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="desempleo" style="--n:3">
+        <button type="button" data-m="habitantes" aria-pressed="true">Cada 1.000 habitantes</button>
+        <button type="button" data-m="asalariados" aria-pressed="false">Frente al empleo registrado</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="desempleo" data-forma="barras"></div>
+      <p class="lead" data-t="desempleo"></p>
+      <p class="nota" data-t="desempleo-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo de desempleo y edición por provincia), con datos de ANSES, SIPA y proyecciones de población del INDEC. Se actualiza cada tres meses.</span><a href="datos/prestacion_desempleo_provincias.csv" download>Por provincia (CSV)</a><a href="datos/prestacion_desempleo.csv" download>Del país, por año (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-exportaciones">
       <h3>¿Cuánto le vende al mundo cada provincia?</h3>
       <p class="ficha-sub">Exportaciones por habitante según provincia de origen, 2025</p>
@@ -252,7 +266,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=5cb61f281d"></script>
-<script src="datina.js?v=2deda6be82"></script>
+<script src="datos/fichas.js?v=bcca096b3f"></script>
+<script src="datina.js?v=ddd26bf7ea"></script>
 </body>
 </html>

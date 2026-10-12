@@ -2731,6 +2731,95 @@ if (CRUDO / "bess_provincias_aaff.xlsx").exists() and (CRUDO / "bess_aaff.xlsx")
     d["periodo"] = _auh_mes.strftime("%Y-%m")
     agregar(d, "auh_cada_100_menores", "hijos con AUH cada 100 menores de 18 años", "Secretaria de Seguridad Social, BESS")
 
+# Prestación por desempleo, el seguro de desempleo de la Ley 24.013 (etapa 42, idea propia para el pedido del autor del 12 de octubre de 2026:
+# "animate a pensar qué más podemos sumar"). BESS, capítulo de desempleo: del país, el promedio mensual de beneficiarios de cada año desde 2001
+# y los meses del año en curso (cuadro 5.1), y por jurisdicción de cobro, el promedio de cada año desde 2011 y el último mes (edición por
+# provincia, cuadro 4.2). La tasa es cada 100 asalariados privados registrados del mismo mes (SIPA): la prestación cubre a los asalariados
+# de la Ley de Contrato de Trabajo y de la construcción. Los trabajadores rurales tienen un sistema aparte, que no está.
+dsm_res, dsm_pais, dsm_prov = None, None, None
+if (CRUDO / "bess_desempleo.xlsx").exists() and (CRUDO / "bess_provincias_desempleo.xlsx").exists():
+    def _dsm_periodo(v):
+        """Año y mes de una fila: un año completo (mes 12, promedio mensual) o la fecha de un mes."""
+        if isinstance(v, (pd.Timestamp, datetime.datetime)):
+            return v.year, v.month, False
+        if isinstance(v, (int, float, np.integer, np.floating)) and not pd.isna(v) and float(v).is_integer() and 2000 < v < 2100:
+            return int(v), 12, True
+        return None, None, None
+    _dsm = pd.read_excel(CRUDO / "bess_desempleo.xlsx", sheet_name="5.1", header=None)
+    _dsm_f = next(i for i in range(min(12, len(_dsm))) if str(_dsm.iat[i, 0]).strip() == "Año")
+    _dsm_c = next(j for j in range(_dsm.shape[1]) if str(_dsm.iat[_dsm_f, j]).strip().startswith("Beneficiarios"))
+    _dsm_filas = []
+    for i in range(_dsm_f + 1, len(_dsm)):
+        _dsm_an, _dsm_me, _dsm_es = _dsm_periodo(_dsm.iat[i, 0])
+        _dsm_v = pd.to_numeric(_dsm.iat[i, _dsm_c], errors="coerce")
+        if _dsm_an and pd.notna(_dsm_v):
+            _dsm_filas.append({"anio": _dsm_an, "mes": _dsm_me, "anual": _dsm_es, "beneficiarios": float(_dsm_v)})
+    dsm_pais = pd.DataFrame(_dsm_filas)
+    _dsm_a = dsm_pais[dsm_pais.anual]
+    assert len(_dsm_a) > 20 and _dsm_a.anio.is_unique and (_dsm_a.anio.diff().dropna() == 1).all(), "BESS 5.1 (desempleo): años faltantes o repetidos"
+    assert dsm_pais.beneficiarios.between(2e4, 1e6).all(), "BESS 5.1 (desempleo): valores fuera de lo esperado"
+    _dsm_m = dsm_pais[~dsm_pais.anual]
+    assert _dsm_m.empty or (_dsm_m.anio.min() > _dsm_a.anio.max()), "BESS 5.1 (desempleo): hay meses de un año que ya figura completo"
+    # por jurisdicción de cobro: la fila de los años está debajo de la de "Jurisdicción"
+    _dsp = pd.read_excel(CRUDO / "bess_provincias_desempleo.xlsx", sheet_name="4.2", header=None)
+    _dsp_f = next(i for i in range(len(_dsp)) if str(_dsp.iat[i, 0]).strip() == "Jurisdicción")
+    _dsp_a = {j: _dsm_periodo(_dsp.iat[_dsp_f + 1, j]) for j in range(1, _dsp.shape[1])}
+    _dsp_a = {j: p for j, p in _dsp_a.items() if p[0]}
+    _dsp_ult = max(_dsp_a, key=lambda j: _dsp_a[j][:2])
+    _dsp_filas = []
+    for i in range(_dsp_f + 2, len(_dsp)):
+        c = codigo(_dsp.iat[i, 0])
+        if c and pd.notna(_dsp.iat[i, _dsp_ult]):
+            _dsp_filas.append({"codigo_indec": c, "beneficiarios": float(_dsp.iat[i, _dsp_ult]),
+                               **{f"promedio_{_dsp_a[j][0]}": float(_dsp.iat[i, j]) for j in sorted(_dsp_a) if _dsp_a[j][2]}})
+    dsm_prov = pd.DataFrame(_dsp_filas)
+    assert sorted(dsm_prov.codigo_indec) == sorted(["00", *POB]), "BESS 4.2 (desempleo): faltan jurisdicciones o hay de más"
+    _dsp_pais = dsm_prov.set_index("codigo_indec").beneficiarios["00"]
+    assert abs(dsm_prov[dsm_prov.codigo_indec != "00"].beneficiarios.sum() - _dsp_pais) / _dsp_pais < .01, "BESS 4.2 (desempleo): las provincias no suman el total"
+    # asalariados privados registrados del mismo mes (o el último que haya, si el SIPA todavía no llega)
+    _dsm_s = pd.read_csv(CRUDO / "sipa_provincias.csv", parse_dates=["indice_tiempo"])
+    _dsm_s = _dsm_s.rename(columns={c: COL[c.replace("asalariados_priv_", "")] for c in _dsm_s.columns if c != "indice_tiempo"})
+    _dsm_s = _dsm_s.dropna(how="any", subset=list(COL.values())).set_index("indice_tiempo")
+    _dsm_mes = pd.Timestamp(_dsp_a[_dsp_ult][0], _dsp_a[_dsp_ult][1], 1)
+    _dsm_sm = _dsm_mes if _dsm_mes in _dsm_s.index else _dsm_s.index.max()
+    _dsm_asal = {**(_dsm_s.loc[_dsm_sm] * 1000).to_dict(), "00": float(_dsm_s.loc[_dsm_sm].sum() * 1000)}
+    dsm_prov["territorio"] = dsm_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
+    dsm_prov["asalariados_privados"] = dsm_prov.codigo_indec.map(_dsm_asal).round()
+    dsm_prov["cada_100_asalariados"] = dsm_prov.beneficiarios / dsm_prov.asalariados_privados * 100
+    dsm_prov["cada_1000_habitantes"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map({**POB, "00": sum(POB.values())}) * 1000
+    dsm_prov["pct_pais"] = dsm_prov.beneficiarios / _dsp_pais * 100
+    dsm_prov = dsm_prov[["codigo_indec", "territorio", "beneficiarios", "asalariados_privados", "cada_100_asalariados", "cada_1000_habitantes", "pct_pais",
+                         *[c for c in dsm_prov.columns if c.startswith("promedio_")]]]
+    dsm_pais = pd.concat([_dsm_a, dsm_pais.tail(1)]) if not dsm_pais.iloc[-1].anual else _dsm_a
+    dsm_pais = dsm_pais.rename(columns={"mes": "meses"})[["anio", "meses", "beneficiarios"]].reset_index(drop=True)
+    _dsm_u = dsm_pais.iloc[-1]
+    _dsm_mx = _dsm_a.loc[_dsm_a.beneficiarios.idxmax()]
+    _dsm_mn = _dsm_a.loc[_dsm_a.beneficiarios.idxmin()]
+    _dsm_p = dsm_prov[dsm_prov.codigo_indec != "00"].sort_values("cada_1000_habitantes")
+    # frente al empleo registrado, sin CABA ni Buenos Aires: el SIPA asigna cada puesto a donde declara el empleador y la prestación se cuenta
+    # donde se cobra, así que CABA queda muy abajo y Buenos Aires arriba por los que viven en el conurbano y trabajan en la Ciudad
+    _dsm_q = dsm_prov[~dsm_prov.codigo_indec.isin(["00", "02", "06"])].sort_values("cada_100_asalariados")
+    dsm_res = {"ini": int(_dsm_a.anio.iloc[0]), "ini_v": round(float(_dsm_a.beneficiarios.iloc[0])), "anio": int(_dsm_u.anio), "mes": int(_dsm_u.meses),
+               "v": round(float(_dsm_u.beneficiarios)), "anio_ant": int(_dsm_a.anio.iloc[-1]), "v_anio_ant": round(float(_dsm_a.beneficiarios.iloc[-1])),
+               "max_anio": int(_dsm_mx.anio), "max": round(float(_dsm_mx.beneficiarios)), "min_anio": int(_dsm_mn.anio), "min": round(float(_dsm_mn.beneficiarios)),
+               "prov_anio": _dsp_a[_dsp_ult][0], "prov_mes": _dsp_a[_dsp_ult][1], "prov_desde": min(p[0] for p in _dsp_a.values()),
+               "sipa_anio": int(_dsm_sm.year), "sipa_mes": int(_dsm_sm.month),
+               "pais_1000": r1(dsm_prov.set_index("codigo_indec").cada_1000_habitantes["00"]),
+               "top": _dsm_p.iloc[-1].territorio, "top_v": r1(_dsm_p.cada_1000_habitantes.iloc[-1]), "low": _dsm_p.iloc[0].territorio, "low_v": r1(_dsm_p.cada_1000_habitantes.iloc[0]),
+               "pais_100": r1(dsm_prov.set_index("codigo_indec").cada_100_asalariados["00"]),
+               "top_a": _dsm_q.iloc[-1].territorio, "top_a_v": r1(_dsm_q.cada_100_asalariados.iloc[-1]), "low_a": _dsm_q.iloc[0].territorio, "low_a_v": r1(_dsm_q.cada_100_asalariados.iloc[0]),
+               "caba_a_v": r1(dsm_prov.set_index("codigo_indec").cada_100_asalariados["02"]), "pba_a_v": r1(dsm_prov.set_index("codigo_indec").cada_100_asalariados["06"]),
+               "pba_pct": r1(dsm_prov.set_index("codigo_indec").pct_pais["06"])}
+    d = _dsm_a[["anio", "beneficiarios"]].rename(columns={"anio": "periodo", "beneficiarios": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "beneficiarios_prestacion_desempleo", "personas (promedio mensual)", "Secretaria de Seguridad Social, BESS")
+    d = dsm_prov[dsm_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_100_asalariados"]].rename(columns={"cada_100_asalariados": "valor"})
+    d["periodo"] = _dsm_mes.strftime("%Y-%m")
+    agregar(d, "desempleo_cada_100_asalariados_privados", "beneficiarios cada 100 asalariados privados registrados", "Secretaria de Seguridad Social, BESS")
+    d = dsm_prov[dsm_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_1000_habitantes"]].rename(columns={"cada_1000_habitantes": "valor"})
+    d["periodo"] = _dsm_mes.strftime("%Y-%m")
+    agregar(d, "desempleo_cada_1000_habitantes", "beneficiarios de la prestación por desempleo cada 1.000 habitantes", "Secretaria de Seguridad Social, BESS")
+
 # Las variables del BCRA con criterio económico (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para
 # deflactar lo que haya que deflactar, mostrá series largas que haya"). Cada serie va completa, desde que empieza, y según su tipo suma:
 # - usd (depósitos y préstamos en dólares): pct_pbi, pasados a pesos con el A3500 de fin de mes, desde 2004.
@@ -5920,6 +6009,7 @@ tablas = {
     **({"haberes_previsionales": haberes} if haberes is not None else {}),
     **({"pensiones_invalidez": pinv_pais, "pensiones_invalidez_provincias": pinv_prov} if pinv_pais is not None else {}),
     **({"auh_provincias": auh_prov, "asignaciones_cobertura": auh_cob} if auh_prov is not None else {}),
+    **({"prestacion_desempleo": dsm_pais, "prestacion_desempleo_provincias": dsm_prov} if dsm_pais is not None else {}),
     "presidentes": presidentes,
     **({"confianza_gobierno": icg_serie, "confianza_gobierno_gobiernos": icg_gobiernos} if icg_serie is not None else {}),
     **({"confianza_consumidor": cco_serie} if cco_serie is not None else {}),
@@ -6285,6 +6375,7 @@ resumen["jubilaciones"] = jub_res
 resumen["haberes"] = hab_res
 resumen["pensiones_invalidez"] = pinv_res
 resumen["auh"] = auh_res
+resumen["desempleo"] = dsm_res
 resumen["confianza_gobierno"] = icg_res
 resumen["confianza_consumidor"] = cco_res
 resumen["expectativas_inflacion"] = exi_res

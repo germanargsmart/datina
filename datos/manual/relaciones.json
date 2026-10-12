@@ -2230,6 +2230,28 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"expectativas\": \"https://www.utdt.edu/listado_contenidos.php?id_item_menu=16455\","
    }
+  },
+  {
+   "id": "ds:bess_desempleo.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social, capítulo V: prestaciones por desempleo",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_desempleo.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_desempleo.xlsx\": \"estadisticas_de_seguridad_social_desempleo_\""
+   }
+  },
+  {
+   "id": "ds:bess_provincias_desempleo.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social por provincia: prestaciones por desempleo",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_provincias_desempleo.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_provincias_desempleo.xlsx\": \"boletin_provincias_desempleo_\""
+   }
   }
  ],
  "aristas": [
@@ -6570,6 +6592,58 @@
      "contiene": "_exi_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq=\"M\"))"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_desempleo.xlsx",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dsm = pd.read_excel(CRUDO / \"bess_desempleo.xlsx\", sheet_name=\"5.1\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"prestacion_desempleo\": dsm_pais, \"prestacion_desempleo_provincias\": dsm_prov} if dsm_pais is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_provincias_desempleo.xlsx",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dsp = pd.read_excel(CRUDO / \"bess_provincias_desempleo.xlsx\", sheet_name=\"4.2\", header=None)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sipa_provincias.csv",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dsm_s = pd.read_csv(CRUDO / \"sipa_provincias.csv\", parse_dates=[\"indice_tiempo\"])"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "dsm_prov[\"cada_1000_habitantes\"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -7020,6 +7094,13 @@
   "f-expectativas": {
    "variables": [
     "inflacion_esperada_12m_mediana"
+   ]
+  },
+  "f-desempleo": {
+   "variables": [
+    "beneficiarios_prestacion_desempleo",
+    "desempleo_cada_1000_habitantes",
+    "desempleo_cada_100_asalariados_privados"
    ]
   }
  }
