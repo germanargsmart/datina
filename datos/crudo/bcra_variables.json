@@ -284,8 +284,8 @@
   "unidadExpresion": "Índice base 2.2.02=1",
   "moneda": "ML",
   "primerFechaInformada": "2002-02-02",
-  "ultFechaInformada": "2026-10-11",
-  "ultValorInformado": 852.54027753836
+  "ultFechaInformada": "2026-10-12",
+  "ultValorInformado": 853.01945786114
  },
  {
   "idVariable": 31,
@@ -296,7 +296,7 @@
   "unidadExpresion": "En ARS",
   "moneda": "ML",
   "primerFechaInformada": "2016-03-31",
-  "ultFechaInformada": "2026-10-11",
+  "ultFechaInformada": "2026-10-12",
   "ultValorInformado": 2150.53
  },
  {
@@ -308,7 +308,7 @@
   "unidadExpresion": "En ARS",
   "moneda": "ML",
   "primerFechaInformada": "2016-03-31",
-  "ultFechaInformada": "2026-10-11",
+  "ultFechaInformada": "2026-10-12",
   "ultValorInformado": 1574.71
  },
  {
@@ -332,8 +332,8 @@
   "unidadExpresion": "Índice base 30.6.20=1",
   "moneda": "ML",
   "primerFechaInformada": "2020-07-01",
-  "ultFechaInformada": "2026-10-11",
-  "ultValorInformado": 36.77
+  "ultFechaInformada": "2026-10-12",
+  "ultValorInformado": 36.79
  },
  {
   "idVariable": 43,
@@ -344,8 +344,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1991-04-01",
-  "ultFechaInformada": "2026-10-11",
-  "ultValorInformado": 27393.3247
+  "ultFechaInformada": "2026-10-12",
+  "ultValorInformado": 27406.7016
  },
  {
   "idVariable": 44,
@@ -14108,8 +14108,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-03",
-  "ultFechaInformada": "2026-10-11",
-  "ultValorInformado": 168843.1595
+  "ultFechaInformada": "2026-10-12",
+  "ultValorInformado": 168951.9506
  },
  {
   "idVariable": 1198,
@@ -14120,8 +14120,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-03",
-  "ultFechaInformada": "2026-10-11",
-  "ultValorInformado": 96444.8056
+  "ultFechaInformada": "2026-10-12",
+  "ultValorInformado": 96503.1832
  },
  {
   "idVariable": 1199,
