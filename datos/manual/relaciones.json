@@ -632,7 +632,7 @@
    "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
-    "contiene": "(CRUDO / \"bess_indicadores.xlsx\").write_bytes(datos)"
+    "contiene": "\"bess_indicadores.xlsx\": \"estadisticas_de_seguridad_social_indicadores_\""
    }
   },
   {
