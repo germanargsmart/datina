@@ -4,6 +4,7 @@ id,grupo,nombre,tipo,nombre_bcra,unidad,ultimo_dato
 1187,Tipo de cambio,"Banda cambiaria, límite inferior",dolar,Régimen de bandas cambiarias. Límite inferior,pesos por dólar,2026-10-09
 1188,Tipo de cambio,"Banda cambiaria, límite superior",dolar,Régimen de bandas cambiarias. Límite superior,pesos por dólar,2026-10-09
 12,Tasas de interés,Plazo fijo a 30 días,tna,Tasa de interés de depósitos a 30 días de plazo en entidades financieras,% nominal anual,2026-10-08
+1193,Tasas de interés,Plazo fijo en dólares,tasa_usd,Tasa de interés de depósitos a plazo fijo en dólares,% nominal anual,2026-10-08
 7,Tasas de interés,"BADLAR de bancos privados, nominal anual",tna,Tasa de interés BADLAR de bancos privados,% nominal anual,2026-10-08
 35,Tasas de interés,"BADLAR de bancos privados, efectiva anual",tea,Tasa de interés BADLAR de bancos privados,% efectivo anual,2026-10-08
 44,Tasas de interés,"TAMAR de bancos privados, nominal anual",tna,Tasa de interes TAMAR de bancos privados,% nominal anual,2026-10-08
@@ -23,6 +24,22 @@ id,grupo,nombre,tipo,nombre_bcra,unidad,ultimo_dato
 23,Depósitos y préstamos,Depósitos en caja de ahorro,millones,Depósitos en efectivo en las entidades financieras en cajas de ahorro,millones de pesos,2026-10-07
 24,Depósitos y préstamos,Depósitos a plazo,millones,Depósitos a plazo en efectivo en las entidades financieras (incluye inversiones y excluye CEDROs),millones de pesos,2026-10-07
 26,Depósitos y préstamos,Préstamos al sector privado,millones,Préstamos de las entidades financieras al sector privado,millones de pesos,2026-10-07
+1350,Préstamos por tipo,Personales en pesos,millones,Préstamos personales otorgados al sector privado,millones de pesos,2026-10-07
+1351,Préstamos por tipo,Tarjetas de crédito en pesos,millones,Financiaciones mediante tarjetas de crédito al sector privado,millones de pesos,2026-10-07
+1348,Préstamos por tipo,Hipotecarios en pesos,millones,Préstamos hipotecarios otorgados al sector privado,millones de pesos,2026-10-07
+1349,Préstamos por tipo,Prendarios en pesos,millones,Préstamos prendarios otorgados al sector privado,millones de pesos,2026-10-07
+1343,Préstamos por tipo,Adelantos en cuenta corriente en pesos,millones,Adelantos en cuenta corriente otorgados al sector privado,millones de pesos,2026-10-07
+1345,Préstamos por tipo,Documentos a sola firma en pesos,millones,Documentos a sola firma otorgados al sector privado,millones de pesos,2026-10-07
+1564,Dólares en los bancos,Depósitos en dólares del sector privado,usd,Depósitos totales de efectivo del sector privado no financiero,millones de dólares,2026-10-07
+1569,Dólares en los bancos,Cajas de ahorro en dólares del sector privado,usd,Cajas de ahorro del sector privado no financiero,millones de dólares,2026-10-07
+1571,Dólares en los bancos,Plazos fijos en dólares del sector privado,usd,Plazo fijo del sector privado no financiero,millones de dólares,2026-10-07
+1356,Dólares en los bancos,Préstamos en dólares al sector privado,usd,Total de préstamos totales de efectivo otorgados al sector privado,millones de dólares,2026-10-07
+1606,"Dinero, serie histórica","Base monetaria, desde 1940",millones,Base monetaria,millones de pesos,2026-07-31
+1612,"Dinero, serie histórica",M1 en pesos (efectivo y cuentas a la vista),millones,M1 en moneda local,millones de pesos,2026-07-31
+1618,"Dinero, serie histórica",M2 en pesos (M1 y cajas de ahorro),millones,M2 en moneda local,millones de pesos,2026-07-31
+1624,"Dinero, serie histórica",M3 en pesos (todos los depósitos y el efectivo),millones,M3 en moneda local,millones de pesos,2026-07-31
+1623,"Dinero, serie histórica",M3 en pesos y en moneda extranjera,millones,M3 en moneda local y extranjera,millones de pesos,2026-07-31
+9001,"Dinero, serie histórica",Parte del M3 en moneda extranjera,pct,Cálculo de Datina: (M3 en pesos y en moneda extranjera - M3 en pesos) / M3 en pesos y en moneda extranjera,% del M3 total,2026-07
 29,Precios,Inflación esperada para los próximos 12 meses (REM),rem,Mediana de la variación interanual próximos 12 meses del índice de precios al consumidor del relevamiento de expectativas de mercado,%,2026-09-30
 30,Índices de actualización,CER (coeficiente de estabilización de referencia),indice,Coeficiente de estabilización de referencia (base 2.2.02=1),"índice, 2 de febrero de 2002 = 1",2026-10-11
 31,Índices de actualización,UVA (unidad de valor adquisitivo),pesos,Unidad de valor adquisitivo (base 31.3.16=14.05),pesos,2026-10-11
