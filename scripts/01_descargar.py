@@ -1893,12 +1893,23 @@ def series_sector_externo():
         if tablas and completa:
             import io, pandas as pd
             d = pd.concat([pd.read_csv(io.StringIO(t)).set_index("indice_tiempo") for t in tablas], axis=1)
-            # tampoco se reemplaza la planilla anterior si a la nueva le faltan series que aquella tenía
+            # tampoco se reemplaza la planilla anterior si a la nueva le faltan series que aquella tenía, si alguna trae menos datos que antes
+            # o si los períodos vienen repetidos (el 12 de octubre de 2026 la API respondió con datos que no dejaban ningún año completo del
+            # intercambio comercial y 02 se frenó)
             arch = CRUDO / f"series_sector_externo_{letra}.csv"
             faltan = sorted(set(pd.read_csv(arch, nrows=0).columns) - set(d.reset_index().columns)) if arch.exists() else []
             if faltan:
                 print(f"  aviso: a la planilla {letra} le faltan {len(faltan)} series de la anterior ({', '.join(faltan[:5])}): se conserva la anterior")
                 continue
+            if not d.index.is_unique:
+                print(f"  aviso: la planilla {letra} vino con períodos repetidos: se conserva la anterior")
+                continue
+            if arch.exists():
+                viejo = pd.read_csv(arch).set_index("indice_tiempo")
+                menos = [c for c in viejo.columns if d[c].notna().sum() < viejo[c].notna().sum() - 1]
+                if menos:
+                    print(f"  aviso: en la planilla {letra}, {len(menos)} series traen menos datos que la anterior ({', '.join(menos[:5])}): se conserva la anterior")
+                    continue
             d.to_csv(arch)
             bajadas.append(f"{letra}: {d.shape[1]} series")
     if not bajadas:

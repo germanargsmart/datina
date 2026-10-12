@@ -1410,6 +1410,7 @@ if (CRUDO / "series_sector_externo_M.csv").exists():
     _ice = _ice.dropna(subset=["exportaciones", "importaciones", "saldo"] + [k for k, _, _ in ICE_USOS]).sort_values("t")
     _ice_a = _ice.groupby(_ice.t.dt.year).agg(meses=("exportaciones", "size"), **{k: (k, "sum") for k in ["exportaciones", "importaciones", "saldo"] + [k for k, _, _ in ICE_USOS]})
     _ice_a = _ice_a[_ice_a.meses == 12].drop(columns="meses").rename_axis("anio").reset_index()
+    assert len(_ice_a) >= 20, f"el intercambio comercial tiene {len(_ice_a)} años completos (la planilla de la API de Series de Tiempo vino incompleta)"
     _ice_dif = (_ice_a[[k for k, _, _ in ICE_USOS]].sum(axis=1) / _ice_a.importaciones - 1).abs()
     assert (_ice_dif < .005).all(), f"los usos no suman las importaciones en {list(_ice_a.anio[_ice_dif >= .005])}"
     balanza_comercial = _ice_a[["anio", "exportaciones", "importaciones", "saldo"]].round(1)
