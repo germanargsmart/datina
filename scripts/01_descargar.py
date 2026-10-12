@@ -148,9 +148,14 @@ def leer(url, timeout=180):
         if "UNABLE TO GET LOCAL ISSUER" in str(e).upper():
             ctx = contexto_con_intermedios(url)
             if ctx:
-                return abrir(ctx)
+                try:
+                    return abrir(ctx)
+                except urllib.error.URLError as e2:
+                    # con la cadena completa puede aparecer otro problema del certificado, como que está vencido (economia.gob.ar,
+                    # octubre de 2026): sigue el camino de abajo con ese error
+                    e = e2
         if not any(h in url for h in CERTIFICADO_VENCIDO) or "CERTIFICATE" not in str(e).upper():
-            raise
+            raise e
         print(f"  aviso: certificado vencido en {url.split('/')[2]}, se reintenta sin verificarlo")
         return abrir(ssl._create_unverified_context())
 
