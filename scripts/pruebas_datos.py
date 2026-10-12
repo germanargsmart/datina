@@ -28,6 +28,7 @@ ACEPTADAS = {
     "bancas|Diputados|2013": "el 1 de marzo de 2014 había tres bancas vacantes: los reemplazos (entre ellos el de Jorge Obeid, que murió en enero) juraron el 3 de abril",
     "rango|tasa_neta_escolarizacion_secundaria|42": "desde el cambio de denominador la matrícula de La Pampa supera a la proyección de población: la ficha lo explica y el valor no entra en el texto de máximo",
     "rango|bm_secundaria|00": "es una tasa bruta de finalización del ciclo básico: por definición puede pasar de 100",
+    "rango|inflacion_esperada_12m_mediana|00": "real: es la inflación que se espera para un año y puede pasar de 100% (la mediana de las respuestas fue 150% a fines de 2023, según la Di Tella)",
     "rango|resultado_primario_sector_publico_nacional_pct_pbi|00": "real: un déficit es un resultado negativo (Secretaría de Hacienda)",
     "rango|resultado_financiero_sector_publico_nacional_pct_pbi|00": "real: un déficit es un resultado negativo (Secretaría de Hacienda)",
     "rango|deuda_bruta_administracion_central_pct_pbi|00": "real: la deuda puede superar el PBI de un año, como publica la Secretaría de Finanzas",

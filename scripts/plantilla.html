@@ -391,6 +391,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_rubros.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-expectativas">
+      <h3>¿Cuánta inflación espera la gente para el año siguiente?</h3>
+      <p class="ficha-sub">Inflación esperada para los doce meses siguientes y la que hubo, mes a mes desde {{expectativas_inflacion.desde_anio}}</p>
+      <div class="grafico" data-g="expectativas" data-forma="lineas"></div>
+      <p class="lead" data-t="expectativas"></p>
+      <p class="nota" data-t="expectativas-nota"></p>
+      <div class="pie"><span>Fuente: Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Encuesta de Expectativas de Inflación, e INDEC, Índice de precios al consumidor</span><a href="datos/expectativas_inflacion.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-canastas">
       <h3>¿Cuánto necesita un hogar para cubrir lo básico?</h3>
       <p class="ficha-sub">Canasta básica alimentaria y canasta básica total, por región y mes a mes, {{economia.canasta.anio_ini}} a {{economia.canasta.anio}}</p>
@@ -437,6 +446,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="supermercados"></p>
       <p class="nota" data-t="supermercados-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta de Supermercados e índice de precios al consumidor</span><a href="datos/supermercados_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-confianza-consumidor">
+      <h3>¿Cuánta confianza tienen los consumidores en la economía?</h3>
+      <p class="ficha-sub">Índice de Confianza del Consumidor de la Universidad Torcuato Di Tella, de 0 a 100, mes a mes desde {{confianza_consumidor.desde_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="confianza-consumidor">
+        <button type="button" data-m="partes" aria-pressed="true">El índice y sus partes</button>
+        <button type="button" data-m="regiones" aria-pressed="false">Por región</button>
+      </div>
+      <div class="grafico" data-g="confianza-consumidor" data-forma="lineas"></div>
+      <p class="lead" data-t="confianza-consumidor"></p>
+      <p class="nota" data-t="confianza-consumidor-nota"></p>
+      <div class="pie"><span>Fuente: Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Índice de Confianza del Consumidor</span><a href="datos/confianza_consumidor.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-bcra">

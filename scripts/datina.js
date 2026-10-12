@@ -982,6 +982,14 @@ const TX = {
       menos.v < 0 ? `lo que más las hizo bajar, ${TXF[menos.k] || menos.lab.toLowerCase()} (${m(menos.v)})` : ""].filter(Boolean);
     return `Un año antes eran ${n0(V.hace_un_anio)} millones. El máximo de la serie, con los datos de cada día, fue de ${n0(V.max)} millones, en ${MESES[+V.max_fecha.slice(0, 2) - 1]} de ${V.max_fecha.slice(3)}. ` +
       `En lo que va de ${V.anio} ${suma >= 0 ? "subieron" : "bajaron"} ${n0(Math.abs(suma))} millones` + (partes.length ? `: ${partes.join(" y ")}.` : "."); })(),
+  // expectativas de inflación y confianza del consumidor (etapa 42): los textos los arma el dibujo
+  "expectativas-nota": R.expectativas_inflacion ? `Encuesta mensual de la Universidad Torcuato Di Tella a personas de todo el país: cada una dice cuánta inflación espera ` +
+    `para los doce meses siguientes. La mediana es el valor que deja la mitad de las respuestas por debajo y la otra mitad por encima, y suele ir en números redondos. ` +
+    `El promedio lo mueven más las respuestas extremas. La inflación que hubo en los doce meses siguientes sale del índice de precios al consumidor nacional del INDEC, que ` +
+    `empieza en diciembre de 2016: antes no hay con qué comparar en el sitio, y en los meses más recientes todavía no pasaron los doce meses.` : "",
+  "confianza-consumidor-nota": R.confianza_consumidor ? `Encuesta mensual de la Universidad Torcuato Di Tella. El índice va de 0 a 100 y resume tres partes: la situación ` +
+    `económica personal y de la familia, la situación económica del país y si es un buen momento para comprar bienes durables, como electrodomésticos, e inmuebles. Por región, Capital es la Ciudad de Buenos Aires y GBA, los partidos del ` +
+    `Gran Buenos Aires. Como toda encuesta tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos.` : "",
   // confianza en el gobierno (etapa 42): los textos de las dos vistas los arma el dibujo
   "confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
     `Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
@@ -4394,6 +4402,33 @@ DIB["confianza-gobierno"] = a => {
     xl: r => `${mesPer(r.mes)}${r.presidente ? ", " + r.presidente : ", cambio de gobierno"}`,
     eventos: C.cambios.map(c => ({x: tPer(c.mes), lab: c.corto, corto: c.corto.replace("Fernández de Kirchner", "Fernández de K.")})),
     series: [{k: "icg", lab: "Confianza en el gobierno", corto: "Índice", c: css("--celeste-fuerte"), w: 2.4}]});
+};
+/* Expectativas de inflación y confianza del consumidor (etapa 42): series mensuales de la Di Tella */
+DIB.expectativas = a => {
+  const E = R.expectativas_inflacion, d = T.expectativas_inflacion.map(r => ({...r, t: tPer(r.mes)}));
+  $t("expectativas").textContent = `En ${mesPer(E.mes)}, la mitad de las personas encuestadas esperaba una inflación de hasta ${pct(E.mediana)} para los doce meses siguientes ` +
+    `y el promedio de las respuestas fue ${pct(E.promedio)}. En los doce meses hasta ${mesPer(E.ipc_mes)}, la inflación del INDEC fue ${pct(E.ipc_12m)}. De los ${E.comp_n} meses ` +
+    `entre ${mesPer(E.comp_desde)} y ${mesPer(E.comp_hasta)}, en ${E.comp_debajo} la mediana de lo esperado quedó por debajo de la inflación que hubo después.`;
+  lineas(G("expectativas"), {anim: a, data: d, x: "t", y0: 0, mensual: true, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.mes),
+    series: [{k: "inflacion_12m_siguientes", lab: "La que hubo en los doce meses siguientes", corto: "La que hubo", c: GRIS, w: 2},
+      {k: "promedio", lab: "Esperada, promedio", corto: "Promedio", c: FRI, w: 1.8}, {k: "mediana", lab: "Esperada, mediana", corto: "Mediana", c: css("--celeste-fuerte"), w: 2.6}]});
+};
+MED["confianza-consumidor"] = "partes";
+DIB["confianza-consumidor"] = a => {
+  const C = R.confianza_consumidor, reg = MED["confianza-consumidor"] === "regiones";
+  const comp = C.hace_un_anio == null ? "" : `, contra ${n1(C.hace_un_anio)} un año antes`;
+  $t("confianza-consumidor").textContent = reg
+    ? `En ${mesPer(C.mes)} el índice era ${n1(C.capital)} en la Ciudad de Buenos Aires, ${n1(C.gba)} en el Gran Buenos Aires ${yE(n1(C.interior))} en el interior del país, ` +
+      `con ${n1(C.nacional)} para el total.`
+    : `En ${mesPer(C.mes)} el Índice de Confianza del Consumidor fue ${n1(C.nacional)} en una escala de 0 a 100${comp}. De sus partes, la situación macroeconómica ` +
+      `estaba en ${n1(C.macro)}, la situación personal en ${n1(C.personal)} y el momento para comprar bienes durables e inmuebles en ${n1(C.bienes)}. Desde ${mesPer(C.desde)}, ` +
+      `el valor más alto fue ${n1(C.max.v)}, en ${mesPer(C.max.mes)}, y el más bajo, ${n1(C.min.v)}, en ${mesPer(C.min.mes)}.`;
+  lineas(G("confianza-consumidor"), {anim: a, data: T.confianza_consumidor.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, mensual: true, vf: n1, yf: n0, xl: r => mesPer(r.mes),
+    series: reg
+      ? [{k: "capital", lab: "Ciudad de Buenos Aires", corto: "Capital", c: css("--muted"), w: 1.8}, {k: "gba", lab: "Gran Buenos Aires", corto: "GBA", c: FRI, w: 1.8},
+         {k: "interior", lab: "Interior", c: GRIS, w: 1.8}, {k: "nacional", lab: "Total", c: css("--celeste-fuerte"), w: 2.6}]
+      : [{k: "macro", lab: "Situación macroeconómica", corto: "Macro", c: FRI, w: 1.6}, {k: "personal", lab: "Situación personal", corto: "Personal", c: css("--muted"), w: 1.6},
+         {k: "bienes", lab: "Bienes durables e inmuebles", corto: "Bienes", c: GRIS, w: 1.6}, {k: "nacional", lab: "Índice", c: css("--celeste-fuerte"), w: 2.6}]});
 };
 MED.haberes = "pct";
 MED["pensiones-invalidez"] = "mapa";

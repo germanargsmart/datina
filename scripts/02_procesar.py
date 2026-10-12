@@ -3453,6 +3453,70 @@ if (CRUDO / "utdt_icg.xls").exists():
     d["codigo_indec"], d["territorio"] = "00", "Argentina"
     agregar(d, "indice_confianza_gobierno", "índice de 0 a 5", "Universidad Torcuato Di Tella, Escuela de Gobierno")
 
+# ---------- Confianza del Consumidor y Expectativas de Inflación de la Universidad Torcuato Di Tella (etapa 42) ----------
+# Pedido del autor del 12 de octubre de 2026 ("los indices de confianza [...] de di tella y alguno más que encuentres"), del Centro de
+# Investigación en Finanzas. Confianza del Consumidor: de 0 a 100, del país desde 2001 con sus tres partes (situación personal, situación
+# macroeconómica y momento para comprar bienes durables e inmuebles) y por región (Capital, Gran Buenos Aires e interior; la planilla trae
+# Capital desde 1998, pero la tabla empieza con el índice del país). Expectativas de Inflación: la inflación que se espera para los doce meses siguientes, mediana y promedio de las respuestas, desde
+# 2006, junto a la que hubo en esos doce meses según el IPC del INDEC (desde diciembre de 2016, cuando empieza el índice nacional).
+cco_serie, cco_res, exi_serie, exi_res = None, None, None, None
+if (CRUDO / "utdt_icc.xls").exists():
+    # el título de la hoja dice "ICC Nacional": las partes y las regiones se buscan antes que "Nacional"
+    _cco_cl = {"Personal": "personal", "Macro": "macro", "Durables": "bienes", "Capital": "capital", "GBA": "gba", "Interior": "interior", "Nacional": "nacional"}
+    _cco_t = {}
+    for _cco_h in pd.ExcelFile(CRUDO / "utdt_icc.xls").sheet_names:
+        _cco_d = pd.read_excel(CRUDO / "utdt_icc.xls", sheet_name=_cco_h, header=None)
+        _cco_f0 = next(i for i in range(len(_cco_d)) if _utdt_mes(_cco_d.iat[i, 0]) is not None)
+        for j in range(1, _cco_d.shape[1]):
+            enc = " ".join(str(_cco_d.iat[i, j]) for i in range(_cco_f0) if pd.notna(_cco_d.iat[i, j]))
+            clave = next((c for k, c in _cco_cl.items() if k in enc), None)
+            if not clave or "Variación" in enc:
+                continue
+            for i in range(_cco_f0, len(_cco_d)):
+                p, v = _utdt_mes(_cco_d.iat[i, 0]), pd.to_numeric(_cco_d.iat[i, j], errors="coerce")
+                if p is not None and pd.notna(v):   # el índice del país está en las dos hojas: difieren apenas en dos meses (2008 y 2009)
+                    assert abs(_cco_t.setdefault((p, clave), float(v)) - float(v)) < .5, f"ICC: {clave} de {p} distinto en las dos hojas"
+    assert {c for _, c in _cco_t} == set(_cco_cl.values()), f"ICC: faltan series ({sorted({c for _, c in _cco_t})})"
+    cco_serie = pd.Series(_cco_t).unstack().sort_index()[["nacional", "personal", "macro", "bienes", "capital", "gba", "interior"]]
+    assert cco_serie.min().min() >= 0 and cco_serie.max().max() <= 100, "ICC: valores fuera de la escala de 0 a 100"
+    _cco_n = cco_serie.nacional.dropna()
+    assert len(pd.period_range(_cco_n.index[0], _cco_n.index[-1], freq="M").difference(_cco_n.index)) == 0, "ICC: faltan meses del índice nacional"
+    cco_serie = cco_serie.loc[cco_serie.index >= _cco_n.index[0]].rename_axis("mes").reset_index()
+    cco_serie["mes"] = cco_serie.mes.dt.strftime("%Y-%m")
+    _cco_u = cco_serie.iloc[-1]
+    _cco_ha = cco_serie.set_index("mes").nacional.get((pd.Period(_cco_u.mes, "M") - 12).strftime("%Y-%m"))
+    _cco_mx, _cco_mn = cco_serie.loc[cco_serie.nacional.idxmax()], cco_serie.loc[cco_serie.nacional.idxmin()]
+    cco_res = {"desde": cco_serie.mes.iloc[0], "desde_anio": int(cco_serie.mes.iloc[0][:4]), "mes": _cco_u.mes,
+               **{k: r1(_cco_u[k]) for k in ("nacional", "personal", "macro", "bienes", "capital", "gba", "interior")},
+               "hace_un_anio": None if _cco_ha is None else r1(_cco_ha), "promedio": r1(cco_serie.nacional.mean()),
+               "max": {"mes": _cco_mx.mes, "v": r1(_cco_mx.nacional)}, "min": {"mes": _cco_mn.mes, "v": r1(_cco_mn.nacional)}}
+    d = cco_serie[["mes", "nacional"]].rename(columns={"mes": "periodo", "nacional": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "indice_confianza_consumidor", "índice de 0 a 100", "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas")
+if (CRUDO / "utdt_expectativas.xls").exists():
+    _exi = pd.read_excel(CRUDO / "utdt_expectativas.xls", sheet_name=0, header=None)
+    _exi_c = {str(_exi.iat[0, j]).strip().lower(): j for j in range(_exi.shape[1])}
+    assert {"mediana", "promedio"} <= set(_exi_c), f"Expectativas de inflación: cambiaron las columnas ({list(_exi_c)})"
+    _exi_f = [{"mes": _utdt_mes(_exi.iat[i, 0]), "mediana": pd.to_numeric(_exi.iat[i, _exi_c["mediana"]], errors="coerce"),
+              "promedio": pd.to_numeric(_exi.iat[i, _exi_c["promedio"]], errors="coerce")} for i in range(1, len(_exi))]
+    exi_serie = pd.DataFrame([f for f in _exi_f if f["mes"] is not None and pd.notna(f["mediana"])]).sort_values("mes")
+    assert exi_serie.mes.is_unique and len(exi_serie) > 200 and exi_serie.mediana.between(0, 1000).all(), "Expectativas de inflación: la serie vino mal"
+    # la inflación del INDEC en los doce meses siguientes (la que se esperaba) y en los doce anteriores
+    _exi_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq="M"))
+    exi_serie["inflacion_12m_siguientes"] = exi_serie.mes.map(lambda p: (_exi_P.get(p + 12) / _exi_P.get(p) - 1) * 100 if p + 12 in _exi_P.index and p in _exi_P.index else np.nan)
+    exi_serie["inflacion_12m_anteriores"] = exi_serie.mes.map(lambda p: (_exi_P.get(p) / _exi_P.get(p - 12) - 1) * 100 if p - 12 in _exi_P.index and p in _exi_P.index else np.nan)
+    exi_serie["mes"] = exi_serie.mes.dt.strftime("%Y-%m")
+    exi_serie = exi_serie.reset_index(drop=True)
+    _exi_u, _exi_c2 = exi_serie.iloc[-1], exi_serie.dropna(subset=["inflacion_12m_siguientes"])
+    _exi_ipc = exi_serie.dropna(subset=["inflacion_12m_anteriores"]).iloc[-1]
+    exi_res = {"desde": exi_serie.mes.iloc[0], "desde_anio": int(exi_serie.mes.iloc[0][:4]), "mes": _exi_u.mes, "mediana": r1(_exi_u.mediana), "promedio": r1(_exi_u.promedio),
+              "ipc_mes": _exi_ipc.mes, "ipc_12m": r1(_exi_ipc.inflacion_12m_anteriores),
+              "comp_desde": _exi_c2.mes.iloc[0], "comp_hasta": _exi_c2.mes.iloc[-1], "comp_n": len(_exi_c2),
+              "comp_debajo": int((_exi_c2.mediana < _exi_c2.inflacion_12m_siguientes).sum())}
+    d = exi_serie[["mes", "mediana"]].rename(columns={"mes": "periodo", "mediana": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "inflacion_esperada_12m_mediana", "% para los doce meses siguientes", "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas")
+
 # ---------- La Corte Suprema (etapa 33): quién designó a cada juez desde 1863 ----------
 # Pieza del Laboratorio (pedido del autor del 6 de octubre de 2026). Cuatro tablas armadas con un agente de investigación, cada fila con
 # sus fuentes (datos/manual/corte_jueces.csv, corte_no_asumieron.csv, corte_tamano.csv y presidentes_fuerza.csv): la nómina de jueces
@@ -5858,6 +5922,8 @@ tablas = {
     **({"auh_provincias": auh_prov, "asignaciones_cobertura": auh_cob} if auh_prov is not None else {}),
     "presidentes": presidentes,
     **({"confianza_gobierno": icg_serie, "confianza_gobierno_gobiernos": icg_gobiernos} if icg_serie is not None else {}),
+    **({"confianza_consumidor": cco_serie} if cco_serie is not None else {}),
+    **({"expectativas_inflacion": exi_serie} if exi_serie is not None else {}),
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
     "voto_legisladores_y_provincia": rep_voto,
     "apoyo_gobierno_provincias": apoyo[["anio", "codigo_indec", "territorio", "presidente", "apoyo", "votos", "atn_hab", "otras_hab"]],
@@ -6220,6 +6286,8 @@ resumen["haberes"] = hab_res
 resumen["pensiones_invalidez"] = pinv_res
 resumen["auh"] = auh_res
 resumen["confianza_gobierno"] = icg_res
+resumen["confianza_consumidor"] = cco_res
+resumen["expectativas_inflacion"] = exi_res
 resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD

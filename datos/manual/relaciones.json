@@ -2208,6 +2208,28 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"icg\": \"https://www.utdt.edu/listado_contenidos.php?id_item_menu=28756\""
    }
+  },
+  {
+   "id": "ds:utdt_icc.xls",
+   "nombre": "Índice de Confianza del Consumidor, series históricas por región y por subíndice (Centro de Investigación en Finanzas de la Universidad Torcuato Di Tella)",
+   "fuente": "org:utdt",
+   "ruta": "datos/crudo/utdt_icc.xls",
+   "url": "https://www.utdt.edu/ver_contenido.php?id_contenido=8513&id_item_menu=16458",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "paginas = {\"icc\": \"https://www.utdt.edu/ver_contenido.php?id_contenido=8513&id_item_menu=16458\","
+   }
+  },
+  {
+   "id": "ds:utdt_expectativas.xls",
+   "nombre": "Encuesta de Expectativas de Inflación, serie histórica nacional (Centro de Investigación en Finanzas de la Universidad Torcuato Di Tella)",
+   "fuente": "org:utdt",
+   "ruta": "datos/crudo/utdt_expectativas.xls",
+   "url": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=16455",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"expectativas\": \"https://www.utdt.edu/listado_contenidos.php?id_item_menu=16455\","
+   }
   }
  ],
  "aristas": [
@@ -6504,6 +6526,50 @@
      "contiene": "_icg_pr = pr[~pr.interino | (pr.nombre == \"Eduardo Duhalde\")]"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:utdt_icc.xls",
+   "a": "f-confianza-consumidor",
+   "tabla": "confianza_consumidor",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for _cco_h in pd.ExcelFile(CRUDO / \"utdt_icc.xls\").sheet_names:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"confianza_consumidor\": cco_serie} if cco_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:utdt_expectativas.xls",
+   "a": "f-expectativas",
+   "tabla": "expectativas_inflacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_exi = pd.read_excel(CRUDO / \"utdt_expectativas.xls\", sheet_name=0, header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"expectativas_inflacion\": exi_serie} if exi_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-expectativas",
+   "tabla": "expectativas_inflacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_exi_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq=\"M\"))"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -6944,6 +7010,16 @@
   "f-confianza-gobierno": {
    "variables": [
     "indice_confianza_gobierno"
+   ]
+  },
+  "f-confianza-consumidor": {
+   "variables": [
+    "indice_confianza_consumidor"
+   ]
+  },
+  "f-expectativas": {
+   "variables": [
+    "inflacion_esperada_12m_mediana"
    ]
   }
  }
