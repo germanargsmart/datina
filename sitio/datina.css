@@ -1210,6 +1210,11 @@ html:not(.js) .esqueleto{display:none}
 .mapa-areas svg{max-width:560px;margin:0 auto}
 .mapa-areas .prov{stroke:#fff;stroke-width:.8;transition:stroke var(--dur-2) var(--ease-out),stroke-width var(--dur-2) var(--ease-out)}
 .mapa-areas .prov.elegida{stroke:var(--ink);stroke-width:1.6}
+svg.mapa-prov{display:block;max-width:560px;margin:0 auto}
+svg.mapa-prov .prov{stroke:#fff;stroke-width:.8;transition:stroke var(--dur-2) var(--ease-out),stroke-width var(--dur-2) var(--ease-out)}
+svg.mapa-prov .prov.elegida{stroke:var(--ink);stroke-width:1.6}
+svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
+@media (hover:hover) and (pointer:fine){svg.mapa-prov .prov:hover{stroke:var(--ink);stroke-width:1.2}}
 .mapa-areas .burbuja{fill:var(--sol);fill-opacity:.8;stroke:var(--sol-borde);stroke-width:.8}
 .leyenda-mapa text{font-size:12px;fill:var(--muted);font-family:var(--f)}
 

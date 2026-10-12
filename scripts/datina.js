@@ -2069,6 +2069,51 @@ function mapaAreas(anim) {
   ley.append("text").attr("x", 0).attr("y", -6).text("% del territorio protegido");
 }
 
+/* Mapa de provincias (etapa 42, para las pensiones por discapacidad): el color divide a las 24 jurisdicciones en cinco grupos de casi el
+   mismo tamaño (quintiles), con la escala de colores del mapa por departamento. La Ciudad de Buenos Aires, que en el mapa del país no se ve
+   ni se puede tocar, va aparte en un cuadrado unido a su lugar. La provincia elegida en Tu provincia lleva el borde oscuro. El cuadro sale al
+   pasar el mouse o al tocar y la tabla de la ficha es la alternativa al mapa. cfg: filas (codigo_indec, territorio y el valor), k, nombre,
+   vf (formato), cortes (opcional) y extra (opcional, más renglones del cuadro) */
+function mapaProv(el, cfg) {
+  if (!GEO) {
+    if (!el.querySelector("svg")) esperando(el);
+    cargarGeo().then(() => mapaProv(el, cfg)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+    return;
+  }
+  const val = Object.fromEntries(cfg.filas.filter(r => r.codigo_indec !== "00").map(r => [r.codigo_indec, r]));
+  const w = Math.min(560, Math.max(300, el.clientWidth)), h = Math.round(w * 1.55);
+  el.innerHTML = ""; el.removeAttribute("aria-busy");
+  const svg = d3.select(el).append("svg").attr("class", "mapa-prov").attr("viewBox", `0 0 ${w} ${h + 44}`).attr("role", "img")
+    .attr("aria-label", `Mapa de las provincias: ${cfg.nombre.toLowerCase()}`);
+  const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], GEO), camino = d3.geoPath(proy);
+  const vals = Object.values(val).map(r => r[cfg.k]).filter(v => v != null).sort(d3.ascending);
+  const cortes = cfg.cortes || [.2, .4, .6, .8].map(q => d3.quantile(vals, q));
+  const escala = d3.scaleThreshold().domain(cortes).range(COLORES_DEP);
+  const color = c => val[c]?.[cfg.k] == null ? css("--line") : escala(val[c][cfg.k]);
+  const tipo = c => { const r = val[c];
+    return `<b>${r ? r.territorio : NOMBRES[c]}</b><br>${cfg.nombre}: ${r && r[cfg.k] != null ? cfg.vf(r[cfg.k]) : "sin dato"}` + (cfg.extra && r ? cfg.extra(r) : ""); };
+  const provs = svg.append("g").selectAll("path").data(GEO.features).join("path").attr("class", "prov").attr("d", camino)
+    .attr("fill", f => color(f.properties.codigo_indec));
+  // la Ciudad, aparte: un cuadrado sobre el Río de la Plata, unido a su lugar con una línea
+  const [cx, cy] = proy([-58.44, -34.61]), lado = Math.max(16, Math.round(w * .045)), bx = Math.min(w - lado - 4, cx + 24), by = cy - lado - 16;
+  const caba = svg.append("g").attr("class", "caba-aparte");
+  caba.append("line").attr("x1", cx).attr("y1", cy).attr("x2", bx).attr("y2", by + lado / 2);
+  caba.append("rect").datum({properties: {codigo_indec: "02"}}).attr("class", "prov").attr("x", bx).attr("y", by).attr("width", lado).attr("height", lado)
+    .attr("rx", 2).attr("fill", color("02"));
+  caba.append("text").attr("class", "mp-ley").attr("x", bx + lado / 2).attr("y", by - 4).attr("text-anchor", "middle").text("CABA");
+  const todas = svg.selectAll(".prov");
+  const marcar = () => { todas.classed("elegida", d => d.properties.codigo_indec === prov); provs.filter(".elegida").raise(); };
+  marcar(); el.resaltar = marcar;
+  if (cfg.anim && !REDUCIR) todas.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+  todas.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el); mostrarTip(el, tipo(d.properties.codigo_indec), mx, my); })
+    .on("pointerleave", ocultarSiMouse);
+  // leyenda: los cinco grupos con sus cortes
+  const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
+  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("rx", 2).attr("fill", c));
+  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26)
+    .attr("text-anchor", i ? "middle" : "start").text(t));
+}
+
 /* Mapa por departamento (etapa 18): un indicador del Censo 2022 en los 527 departamentos, con la geometría de la herramienta de
    departamentos (se baja una sola vez para todas las fichas). El color divide a los departamentos en cinco grupos del mismo tamaño.
    Con una provincia elegida en Tu provincia, el mapa se acerca a ella y la mantiene en su escala de colores del país. Tocar el mapa
