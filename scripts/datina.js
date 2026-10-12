@@ -982,6 +982,13 @@ const TX = {
       menos.v < 0 ? `lo que más las hizo bajar, ${TXF[menos.k] || menos.lab.toLowerCase()} (${m(menos.v)})` : ""].filter(Boolean);
     return `Un año antes eran ${n0(V.hace_un_anio)} millones. El máximo de la serie, con los datos de cada día, fue de ${n0(V.max)} millones, en ${MESES[+V.max_fecha.slice(0, 2) - 1]} de ${V.max_fecha.slice(3)}. ` +
       `En lo que va de ${V.anio} ${suma >= 0 ? "subieron" : "bajaron"} ${n0(Math.abs(suma))} millones` + (partes.length ? `: ${partes.join(" y ")}.` : "."); })(),
+  // confianza en el gobierno (etapa 42): los textos de las dos vistas los arma el dibujo
+  "confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
+    `Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
+    `bien el gasto público, la honestidad de sus miembros y su capacidad para resolver los problemas del país. Va de 0, ninguna confianza, a 5, mucha confianza. Mide la ` +
+    `opinión sobre el gobierno de cada momento y, como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos. En el ` +
+    `promedio de cada gobierno no se cuenta el mes en que asumió uno nuevo, porque según la fecha de la encuesta puede medir al que se va o al que llega. Eduardo Duhalde ` +
+    `asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` : "",
   "reservas-netas-nota": `Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un ` +
     `año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los ` +
     `depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
@@ -1532,7 +1539,7 @@ function lineas(el, cfg) {
   const vals = [...cfg.series.map(s => s.k), ...(cfg.banda ? [cfg.banda.hi] : [])].flatMap(k => data.map(d => d[k])).filter(v => v != null);
   // con cfg.log (etapa 41, series en pesos de muchos años), escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento
   const y = cfg.log ? d3.scaleLog().domain([d3.min(vals) / 1.2, d3.max(vals) * 1.2]).range([ih, 0])
-    : d3.scaleLinear().domain([cfg.conNegativos ? Math.min(0, d3.min(vals) * 1.06) : cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
+    : d3.scaleLinear().domain([cfg.conNegativos ? Math.min(0, d3.min(vals) * 1.06) : cfg.y0 ?? 0, cfg.y1 ?? d3.max(vals) * 1.06]).nice().range([ih, 0]);
   const marcas5 = ax => cfg.log ? ax.tickValues(marcasLog(y.domain())) : ax.ticks(5);
   g.append("g").attr("class","grilla").call(marcas5(d3.axisLeft(y)).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").call(marcas5(d3.axisLeft(y)).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
@@ -1547,6 +1554,12 @@ function lineas(el, cfg) {
     g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(cfg.ref)).attr("y2",y(cfg.ref)).attr("stroke",css("--faint")).attr("stroke-width",1).attr("stroke-dasharray", cfg.refLab ? "4 4" : null);
     if (cfg.refLab) g.append("text").attr("x", 6).attr("y", y(cfg.ref) + 16).attr("class","etq-suave").text(angosto && cfg.refLabCorto ? cfg.refLabCorto : cfg.refLab);
   }
+  // con cfg.eventos (etapa 42, los cambios de gobierno en la confianza en el gobierno), una línea punteada en cada fecha con su nombre arriba,
+  // en filas alternadas (dos, y tres en el celular) para que los nombres cercanos no se pisen
+  (cfg.eventos || []).filter(e => x(e.x) > 0 && x(e.x) <= iw).forEach((e, i) => {
+    g.append("line").attr("x1", x(e.x)).attr("x2", x(e.x)).attr("y1", 0).attr("y2", ih).attr("stroke", css("--faint")).attr("stroke-dasharray", "3 3");
+    g.append("text").attr("x", x(e.x) + 4).attr("y", 10 + (i % (angosto ? 3 : 2)) * 15).attr("class", "etq-suave").text(angosto && e.corto ? e.corto : e.lab);
+  });
   if (cfg.banda) {
     const bd = data.filter(d => d[cfg.banda.lo] != null && d[cfg.banda.hi] != null);
     const ar = g.append("path").datum(bd).attr("fill", cfg.banda.c || css("--celeste-suave")).attr("opacity", .85)
@@ -4355,6 +4368,32 @@ DIB["reservas-netas"] = a => {
     `${N.n_faltan ? "En los meses publicados desde" : "Desde"} ${mesPer(N.desde)}, el valor más bajo fue de ${n0(N.min.v)} millones, en ${mesPer(N.min.mes)}, y el más alto, de ${n0(N.max.v)} millones, en ${mesPer(N.max.mes)}.`;
   lineas(el, {anim: a, data: datos(), x: "t", conNegativos: true, ref: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), mensual: true, huecos: true,
     series: [{k: "brutas", lab: "Brutas", c: GRIS}, {k: "netas", lab: "Netas", c: css("--celeste-fuerte"), w: 2.6}]});
+};
+/* Confianza en el gobierno (etapa 42, pedido del autor del 12 de octubre de 2026): la serie mensual con una marca en cada cambio de gobierno y
+   el promedio de cada gobierno, en orden cronológico. Tono neutro: el texto solo describe los valores */
+MED["confianza-gobierno"] = "serie";
+DIB["confianza-gobierno"] = a => {
+  const el = G("confianza-gobierno"), C = R.confianza_gobierno;
+  if (MED["confianza-gobierno"] === "gobiernos") {
+    const filas = T.confianza_gobierno_gobiernos, u = filas[filas.length - 1];
+    const corto = n => (C.cambios.find(c => c.presidente === n) || {}).corto || n;
+    $t("confianza-gobierno").textContent = `Promedio mensual del índice con cada gobierno, en la escala de 0 a 5: ` +
+      lista(filas.map(f => `${f.presidente} (${n2(f.promedio)})`)) + `. El gobierno actual lleva ${u.meses} meses en la serie, así que su promedio ` +
+      `todavía no abarca un mandato completo. El promedio de toda la serie es ${n2(C.promedio)}.`;
+    return barrasH(el, {anim: a, data: filas.map(f => ({codigo_indec: f.presidente, territorio: f.presidente, v: f.promedio, f})), k: "v", vf: n2, af: n1,
+      ref: C.promedio, refLab: `Promedio ${n2(C.promedio)}`, marcar: new Set(), sinOrden: true, l: 230, lAngosto: 130, corto: d => corto(d.territorio),
+      color: () => css("--celeste-fuerte"),
+      tip: d => `<b>${d.territorio}</b><br>Promedio ${n2(d.v)}, ${d.f.meses} meses (${mesPer(d.f.desde)} a ${mesPer(d.f.hasta)})<br>Primeros doce meses ${n2(d.f.primeros_12)}` +
+        `<br>Mínimo ${n2(d.f.minimo)} y máximo ${n2(d.f.maximo)}`});
+  }
+  const comp = C.hace_un_anio == null ? "" : C.hace_un_anio === C.v ? ", igual que un año antes" : `, contra ${n2(C.hace_un_anio)} un año antes`;
+  $t("confianza-gobierno").textContent = `En ${mesPer(C.mes)} el Índice de Confianza en el Gobierno fue de ${n2(C.v)} en una escala de 0 a 5${comp}. ` +
+    `Desde ${mesPer(C.desde)}, el valor más alto fue ${n2(C.max.v)}, en ${mesPer(C.max.mes)}, con ${C.max.presidente}, y el más bajo, ${n2(C.min.v)}, ` +
+    `en ${mesPer(C.min.mes)}, con ${C.min.presidente}. El promedio de toda la serie es ${n2(C.promedio)}.`;
+  lineas(el, {anim: a, data: T.confianza_gobierno.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, y1: 5, mensual: true, vf: n2, yf: n0,
+    xl: r => `${mesPer(r.mes)}${r.presidente ? ", " + r.presidente : ", cambio de gobierno"}`,
+    eventos: C.cambios.map(c => ({x: tPer(c.mes), lab: c.corto, corto: c.corto.replace("Fernández de Kirchner", "Fernández de K.")})),
+    series: [{k: "icg", lab: "Confianza en el gobierno", corto: "Índice", c: css("--celeste-fuerte"), w: 2.4}]});
 };
 MED.haberes = "pct";
 MED["pensiones-invalidez"] = "mapa";

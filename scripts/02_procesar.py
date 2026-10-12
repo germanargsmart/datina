@@ -3389,6 +3389,70 @@ pres_res = {"n": int(len(pr)), "amba": int(len(_amba_pr)), "amba_nombres": list(
             "pct_tiempo_amba": round1(_amba_pr.dias.sum() / pr.dias.sum() * 100), "amba_pob": round1(AMBA_PCT),
             "prov_distintas": int(pr.provincia.nunique())}
 
+# ---------- Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella (etapa 42) ----------
+# Pedido del autor del 12 de octubre de 2026: "los indices de confianza en el gobierno de di tella". Encuesta mensual de opinión pública
+# sobre el gobierno nacional (evaluación general, si gobierna para el interés general, eficiencia, honestidad y capacidad para resolver
+# los problemas del país), en una escala de 0 a 5, desde noviembre de 2001. La planilla trae una hoja hasta 2022 y otra desde 2023, con
+# los meses en columnas (algunos como fecha y otros como texto, "jul-26"). El promedio de cada gobierno deja afuera el mes en que asumió
+# uno nuevo, porque la fecha de la encuesta cambia: en diciembre de 2015 y de 2019 todavía medía al anterior y en diciembre de 2023, al
+# nuevo. Duhalde asumió el 2 de enero de 2002 y ese mes va con él. Solo los gobiernos con al menos seis meses en la serie.
+_UTDT_MES = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7, "ago": 8, "sep": 9, "set": 9, "oct": 10, "nov": 11, "dic": 12}
+def _utdt_mes(v):
+    """El mes de una celda de las planillas de la Di Tella: una fecha o un texto como "jul-26"."""
+    if isinstance(v, (pd.Timestamp, datetime.datetime)):
+        return pd.Period(v, "M")
+    m = re.fullmatch(r"\s*([a-záé]{3})[a-záé]*[-/ .]+(\d{2}|\d{4})\s*", str(v).lower())
+    if m and m.group(1) in _UTDT_MES:
+        a = int(m.group(2))
+        return pd.Period(f"{a + 2000 if a < 100 else a}-{_UTDT_MES[m.group(1)]:02d}", "M")
+    return None
+icg_res, icg_serie, icg_gobiernos = None, None, None
+if (CRUDO / "utdt_icg.xls").exists():
+    _icg_v = {}
+    for _icg_h in pd.ExcelFile(CRUDO / "utdt_icg.xls").sheet_names:
+        _icg_d = pd.read_excel(CRUDO / "utdt_icg.xls", sheet_name=_icg_h, header=None)
+        _icg_f = next(i for i in range(len(_icg_d)) if str(_icg_d.iat[i, 1]).strip() == "ICG")
+        _icg_fm = max(range(_icg_f), key=lambda i: sum(_utdt_mes(x) is not None for x in _icg_d.iloc[i]))
+        for j in range(_icg_d.shape[1]):
+            p, v = _utdt_mes(_icg_d.iat[_icg_fm, j]), pd.to_numeric(_icg_d.iat[_icg_f, j], errors="coerce")
+            if p is not None and pd.notna(v):
+                assert _icg_v.get(p, v) == v, f"ICG: el mes {p} aparece dos veces con valores distintos"
+                _icg_v[p] = float(v)
+    _icg_s = pd.Series(_icg_v).sort_index()
+    assert len(_icg_s) > 250 and _icg_s.between(0, 5).all(), "ICG: la serie vino incompleta o fuera de la escala de 0 a 5"
+    assert len(pd.period_range(_icg_s.index[0], _icg_s.index[-1], freq="M").difference(_icg_s.index)) == 0, "ICG: faltan meses en la serie"
+    # el presidente de cada mes y los meses en que asumió uno nuevo (después del día 2)
+    _icg_pr = pr[~pr.interino | (pr.nombre == "Eduardo Duhalde")]
+    _icg_cambio = {pd.Period(f, "M") for f in _icg_pr.inicio if f.day > 2}
+    def _icg_quien(p):
+        dia = p.to_timestamp() + pd.Timedelta(days=14)
+        fila = _icg_pr[(_icg_pr.inicio <= dia) & (_icg_pr.fin.isna() | (_icg_pr.fin > dia))]
+        return fila.nombre.iloc[0] if len(fila) else None
+    icg_serie = pd.DataFrame({"mes": _icg_s.index.strftime("%Y-%m"), "icg": _icg_s.values,
+                              "presidente": [None if p in _icg_cambio else _icg_quien(p) for p in _icg_s.index],
+                              "cambio_de_gobierno": [p in _icg_cambio for p in _icg_s.index]})
+    _icg_g = (icg_serie[~icg_serie.cambio_de_gobierno].groupby("presidente", sort=False)
+              .agg(desde=("mes", "first"), hasta=("mes", "last"), meses=("icg", "size"), promedio=("icg", "mean"),
+                   primeros_12=("icg", lambda x: x.iloc[:12].mean()), minimo=("icg", "min"), maximo=("icg", "max")).reset_index())
+    icg_gobiernos = _icg_g[_icg_g.meses >= 6].reset_index(drop=True)
+    _icg_u = icg_serie.iloc[-1]
+    _icg_ha = icg_serie.set_index("mes").icg.get((pd.Period(_icg_u.mes, "M") - 12).strftime("%Y-%m"))
+    _icg_mx, _icg_mn = icg_serie.loc[icg_serie.icg.idxmax()], icg_serie.loc[icg_serie.icg.idxmin()]
+    _icg_act = icg_gobiernos.iloc[-1]
+    _icg_corto = {n: " ".join(n.split()[1:]) for n in _icg_pr.nombre}
+    icg_res = {"desde": icg_serie.mes.iloc[0], "desde_anio": int(icg_serie.mes.iloc[0][:4]), "mes": _icg_u.mes, "v": round(float(_icg_u.icg), 2),
+               "hace_un_anio": None if _icg_ha is None else round(float(_icg_ha), 2),
+               "max": {"mes": _icg_mx.mes, "v": round(float(_icg_mx.icg), 2), "presidente": _icg_mx.presidente},
+               "min": {"mes": _icg_mn.mes, "v": round(float(_icg_mn.icg), 2), "presidente": _icg_mn.presidente},
+               "promedio": round(float(icg_serie.icg.mean()), 2),
+               "actual": {"presidente": _icg_act.presidente, "meses": int(_icg_act.meses), "promedio": round(float(_icg_act.promedio), 2),
+                          "primeros_12": round(float(_icg_act.primeros_12), 2)},
+               "cambios": [{"mes": f.strftime("%Y-%m"), "presidente": n, "corto": _icg_corto[n]} for n, f in zip(_icg_pr.nombre, _icg_pr.inicio)
+                           if pd.Period(f, "M") > _icg_s.index[0]]}
+    d = icg_serie[["mes", "icg"]].rename(columns={"mes": "periodo", "icg": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "indice_confianza_gobierno", "índice de 0 a 5", "Universidad Torcuato Di Tella, Escuela de Gobierno")
+
 # ---------- La Corte Suprema (etapa 33): quién designó a cada juez desde 1863 ----------
 # Pieza del Laboratorio (pedido del autor del 6 de octubre de 2026). Cuatro tablas armadas con un agente de investigación, cada fila con
 # sus fuentes (datos/manual/corte_jueces.csv, corte_no_asumieron.csv, corte_tamano.csv y presidentes_fuerza.csv): la nómina de jueces
@@ -5793,6 +5857,7 @@ tablas = {
     **({"pensiones_invalidez": pinv_pais, "pensiones_invalidez_provincias": pinv_prov} if pinv_pais is not None else {}),
     **({"auh_provincias": auh_prov, "asignaciones_cobertura": auh_cob} if auh_prov is not None else {}),
     "presidentes": presidentes,
+    **({"confianza_gobierno": icg_serie, "confianza_gobierno_gobiernos": icg_gobiernos} if icg_serie is not None else {}),
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
     "voto_legisladores_y_provincia": rep_voto,
     "apoyo_gobierno_provincias": apoyo[["anio", "codigo_indec", "territorio", "presidente", "apoyo", "votos", "atn_hab", "otras_hab"]],
@@ -6154,6 +6219,7 @@ resumen["jubilaciones"] = jub_res
 resumen["haberes"] = hab_res
 resumen["pensiones_invalidez"] = pinv_res
 resumen["auh"] = auh_res
+resumen["confianza_gobierno"] = icg_res
 resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD

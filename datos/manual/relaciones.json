@@ -506,6 +506,18 @@
    ]
   },
   {
+   "id": "org:utdt",
+   "nombre": "Universidad Torcuato Di Tella",
+   "sigla": "UTDT",
+   "depende": "",
+   "url": "https://www.utdt.edu",
+   "alias": [
+    "Universidad Torcuato Di Tella",
+    "Universidad Torcuato Di Tella, Escuela de Gobierno",
+    "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas"
+   ]
+  },
+  {
    "id": "org:wikimedia",
    "nombre": "Wikimedia (Wikipedia y Wikidata)",
    "sigla": "Wikimedia",
@@ -2184,6 +2196,17 @@
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
     "contiene": "archivo = CRUDO / \"bcra_planilla_reservas.csv\""
+   }
+  },
+  {
+   "id": "ds:utdt_icg.xls",
+   "nombre": "Índice de Confianza en el Gobierno, evolución mensual desde 2001 (Escuela de Gobierno de la Universidad Torcuato Di Tella)",
+   "fuente": "org:utdt",
+   "ruta": "datos/crudo/utdt_icg.xls",
+   "url": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=28756",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"icg\": \"https://www.utdt.edu/listado_contenidos.php?id_item_menu=28756\""
    }
   }
  ],
@@ -6453,6 +6476,34 @@
      "contiene": "_rn_api = reservas_bcra.set_index(\"mes\").millones_usd.reindex(_rn.mes).values"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:utdt_icg.xls",
+   "a": "f-confianza-gobierno",
+   "tabla": "confianza_gobierno",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for _icg_h in pd.ExcelFile(CRUDO / \"utdt_icg.xls\").sheet_names:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"confianza_gobierno\": icg_serie, \"confianza_gobierno_gobiernos\": icg_gobiernos} if icg_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presidentes.csv",
+   "a": "f-confianza-gobierno",
+   "tabla": "confianza_gobierno_gobiernos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_icg_pr = pr[~pr.interino | (pr.nombre == \"Eduardo Duhalde\")]"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -6888,6 +6939,11 @@
   "f-reservas-netas": {
    "variables": [
     "reservas_netas_bcra"
+   ]
+  },
+  "f-confianza-gobierno": {
+   "variables": [
+    "indice_confianza_gobierno"
    ]
   }
  }
