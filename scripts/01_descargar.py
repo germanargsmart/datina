@@ -775,6 +775,44 @@ def indec_eph_aglomerados():
     return url_p + " y " + url_t
 
 
+def eph_ingresos(b, np, pd):
+    """Ingresos por aglomerado de la EPH (etapa 43, pregunta abierta al autor desde la etapa 27: "los ingresos por aglomerado de la EPH";
+    el autor pidio el 12 de octubre de 2026 avanzar con todo). Dos ingresos, con los ponderadores que el INDEC indica para cada uno:
+    - el ingreso per capita familiar de las personas (IPCF, con PONDIH): el ingreso total del hogar dividido por sus miembros;
+    - el ingreso de la ocupacion principal de los ocupados que cobran (P21 mayor a cero, con PONDIIO; -9 es sin respuesta y 0, los que
+      trabajan sin cobrar).
+    En un trimestre, los aglomerados chicos tienen unas 600 personas encuestadas: para tener mas casos se juntan los cuatro trimestres.
+    Como los precios suben de un trimestre al otro, cada ingreso se expresa antes como proporcion de la mediana del pais (los 31
+    aglomerados) de su trimestre, y se guarda la mediana de esas proporciones. 02_procesar.py la pasa a pesos del ultimo trimestre.
+    Tambien se guarda la mediana directa del ultimo trimestre, en pesos. Una fila por aglomerado y tipo de ingreso, el 0 es el pais."""
+    b = b.assign(trim=b.ANO4.astype(int) * 10 + b.TRIMESTRE.astype(int))
+    ult = int(b.trim.max())
+
+    def mediana(v, w):
+        o = np.argsort(v, kind="stable")
+        v, c = v[o], np.cumsum(w[o])
+        return float(v[np.searchsorted(c, c[-1] / 2)])
+
+    filas = []
+    for tipo, valor, peso, filtro in [("ipcf", "IPCF", "PONDIH", lambda x: x.IPCF.ge(0) & x.PONDIH.gt(0)),
+                                      ("ocupacion", "P21", "PONDIIO", lambda x: x.ESTADO.eq(1) & x.P21.gt(0) & x.PONDIIO.gt(0))]:
+        x = b.assign(**{valor: pd.to_numeric(b[valor], errors="coerce"), peso: pd.to_numeric(b[peso], errors="coerce")})
+        x = x[filtro(x)].copy()
+        pais = {t: mediana(g[valor].to_numpy(float), g[peso].to_numpy(float)) for t, g in x.groupby("trim")}
+        if len(pais) != 4 or min(pais.values()) <= 0:
+            raise ValueError(f"EPH: la mediana del pais de {tipo} no salio en los cuatro trimestres ({pais})")
+        x["rel"] = x[valor] / x.trim.map(pais)
+        for ag, g in [(0, x), *x.groupby("AGLOMERADO")]:
+            u = g[g.trim == ult]
+            filas.append({"tipo": tipo, "aglomerado": int(ag), "casos": len(g), "mediana_relativa": round(mediana(g.rel.to_numpy(float), g[peso].to_numpy(float)), 4),
+                          "casos_ultimo": len(u), "mediana_ultimo": round(mediana(u[valor].to_numpy(float), u[peso].to_numpy(float)), 2) if len(u) else None,
+                          "mediana_pais_ultimo": round(pais[ult], 2), "trimestre_ultimo": f"{ult % 10}T{ult // 10}"})
+    r = pd.DataFrame(filas)
+    if r.groupby("tipo").size().min() < 32 or r[r.aglomerado > 0].casos.min() < 300:
+        raise ValueError("EPH: faltan aglomerados o tienen pocos casos en los ingresos")
+    r.to_csv(CRUDO / "eph_ingresos_aglomerados.csv", index=False)
+
+
 def eph_antiguedad():
     """Encuesta Permanente de Hogares (INDEC), bases usuarias de los cuatro ultimos trimestres publicados.
     Se bajan a memoria y se guarda solo un resumen: porcentaje de asalariados (sin servicio domestico, que no responde
@@ -784,8 +822,9 @@ def eph_antiguedad():
     respondio por tramos) y calificacion de la tarea (quinto digito del codigo de ocupacion PP04D_COD, Clasificador Nacional
     de Ocupaciones 2001: 1 profesional, 2 tecnica, 3 operativa, 4 no calificada, segun definiciones_conceptuales_cno.pdf del
     INDEC). Codigos segun el diseno de registro oficial (EPH_registro_1T2026.pdf). Los cortes por ingreso usan PONDIH, el
-    ponderador que el INDEC indica para los ingresos, y el resto PONDERA."""
-    import io, zipfile, pandas as pd
+    ponderador que el INDEC indica para los ingresos, y el resto PONDERA. Desde el 13 de octubre de 2026 guarda tambien los
+    ingresos por aglomerado (eph_ingresos_aglomerados.csv, ver mas abajo)."""
+    import io, zipfile, pandas as pd, numpy as np
     hoy = datetime.date.today()
     candidatos = [(a, t) for a in range(hoy.year, hoy.year - 3, -1) for t in (4, 3, 2, 1)]
     bases, hogares = [], []
@@ -798,7 +837,7 @@ def eph_antiguedad():
         ind = next(n for n in z.namelist() if "individual" in n.lower())
         d = pd.read_csv(z.open(ind), sep=";", low_memory=False, decimal=",",
                         usecols=["ANO4", "TRIMESTRE", "ESTADO", "CAT_OCUP", "PP07A", "PP07H", "CH06", "NIVEL_ED", "P_DECCF", "PONDERA", "PONDIH",
-                                 "PP04A", "PP04C", "PP04C99", "PP04D_COD"], dtype={"PP04D_COD": str})
+                                 "PP04A", "PP04C", "PP04C99", "PP04D_COD", "AGLOMERADO", "IPCF", "P21", "PONDIIO"], dtype={"PP04D_COD": str})
         bases.append(d)
         # la tenencia de la vivienda por aglomerado (etapa 27): la base de hogares del mismo trimestre
         hog = next(n for n in z.namelist() if "hogar" in n.lower())
@@ -807,6 +846,7 @@ def eph_antiguedad():
             break
     if len(bases) < 4:
         raise ValueError("no se encontraron cuatro trimestres de la EPH")
+    eph_ingresos(pd.concat(bases), np, pd)
     d = pd.concat(bases)
     d = d[(d.ESTADO == 1) & (d.CAT_OCUP == 3) & d.PP07A.between(1, 6)].copy()
     d["corto"] = d.PP07A.between(1, 4)
