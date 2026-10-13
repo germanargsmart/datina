@@ -573,9 +573,42 @@ def bajar(nombre, url):
             raise
         url, datos = sspmi_buscar(nombre)
         print(f"  aviso: {nombre} se encontró en {url}")
+    if nombre in VALIDA and not VALIDA[nombre](datos) and url.startswith(API):
+        completa, n = api_completar(nombre, datos)
+        if n and VALIDA[nombre](completa):
+            print(f"  aviso: {nombre} vino con valores vacíos o períodos de menos: {n} valores salieron de la versión anterior")
+            datos = completa
     if nombre in VALIDA and not VALIDA[nombre](datos):
         raise ValueError("el archivo descargado no tiene el formato esperado" + motivo_formato(url, datos))
     (CRUDO / nombre).write_bytes(datos)
+
+
+def api_completar(nombre, datos):
+    """Desde el 12 de octubre de 2026 la API de Series de Tiempo devuelve las planillas con valores vacíos sueltos en el medio, en todas las
+    series (también en las anuales, que no cambian) y a veces sin el último mes, y la validación las rechazaba enteras: el sitio quedaba con
+    la versión anterior y no entraban los meses nuevos. Se completan con esa versión anterior: cada valor vacío con el del mismo período y la
+    misma serie, y cada período que falta, entero. Los valores que trae la API no se tocan. Devuelve la planilla completada y cuántos
+    valores salieron de la anterior (0 si no hay anterior o cambiaron las columnas)."""
+    previo = CRUDO / nombre
+    if not previo.exists() or not datos.startswith(b"indice_tiempo"):
+        return datos, 0
+    nuevas, viejas = datos.strip().splitlines(), previo.read_bytes().strip().splitlines()
+    if not viejas or nuevas[0] != viejas[0]:
+        return datos, 0
+    ancho = len(nuevas[0].split(b","))
+    filas = lambda lineas: {f[0]: f + [b""] * (ancho - len(f)) for f in (x.split(b",") for x in lineas[1:])}
+    nue, vie, n = filas(nuevas), filas(viejas), 0
+    for per, f in vie.items():
+        if per not in nue:
+            nue[per] = f
+            n += sum(1 for x in f[1:] if x.strip())
+            continue
+        for j in range(1, ancho):
+            if not nue[per][j].strip() and f[j].strip():
+                nue[per][j] = f[j]
+                n += 1
+    fin = b"\r\n" if b"\r\n" in datos else b"\n"
+    return fin.join([nuevas[0]] + [b",".join(nue[p]) for p in sorted(nue)]) + fin, n
 
 
 def motivo_formato(url, datos):
@@ -1957,6 +1990,8 @@ def series_sector_externo():
                 continue
             if arch.exists():
                 viejo = pd.read_csv(arch).set_index("indice_tiempo")
+                # los valores vacíos y los períodos que la API no trajo salen de la planilla anterior (ver api_completar)
+                d = d.combine_first(viejo)[list(d.columns)]
                 menos = [c for c in viejo.columns if d[c].notna().sum() < viejo[c].notna().sum() - 1]
                 if menos:
                     print(f"  aviso: en la planilla {letra}, {len(menos)} series traen menos datos que la anterior ({', '.join(menos[:5])}): se conserva la anterior")
