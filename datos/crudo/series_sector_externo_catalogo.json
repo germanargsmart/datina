@@ -5741,6 +5741,83 @@
   "conjunto": "Balance de Pagos (MBP6)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "160.1_CTA_CORION_0_A_57": {
+  "consulta": "balanza de pagos",
+  "title": "cuenta_corriente_ingresos_primarios_rentas_otra_inversion",
+  "description": "Cuenta corriente. Ingresos primarios. Rentas de la inversión. Otra inversión. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_IESOS_PERA_0_A_53": {
+  "consulta": "balanza de pagos",
+  "title": "ingresos_primarios_rentas_inversion_inversion_cartera",
+  "description": "Ingresos primarios. Rentas de la inversión. Inversión de cartera. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_TL_CUENERA_0_A_23": {
+  "consulta": "balanza de pagos",
+  "title": "total_cuenta_financiera",
+  "description": "Total cuenta financiera. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_CTA_FINCTA_0_A_41": {
+  "consulta": "balanza de pagos",
+  "title": "cuenta_financiera_total_inversion_directa",
+  "description": "Cuenta financiera. Total inversión directa. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_CTA_FINROS_0_A_36": {
+  "consulta": "balanza de pagos",
+  "title": "cuenta_financierarivados_financieros",
+  "description": "Cuenta financiera. Derivados financieros. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_AVOS_RERVA_0_A_15": {
+  "consulta": "balanza de pagos",
+  "title": "activos_reserva",
+  "description": "Activos de reserva. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_TL_CUENTAL_0_A_20": {
+  "consulta": "balanza de pagos",
+  "title": "total_cuenta_capital",
+  "description": "Total cuenta capital. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "182.1_TOTAL_CUENRIA_0_M_32": {
   "consulta": "cuenta corriente",
   "title": "total_cuenta_corriente_cambiaria",
@@ -5752,10 +5829,32 @@
   "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
+ "160.2_TL_CUENNTE_0_T_22": {
+  "consulta": "cuenta corriente",
+  "title": "total_cuenta_corriente",
+  "description": "Total cuenta corriente. Trimestral",
+  "frequency": "R/P3M",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "182.1_CUENTA_CORIOS_0_M_45": {
   "consulta": "cuenta corriente",
   "title": "cuenta_corriente_cambiaria_ingresos_servicios",
   "description": "Cuenta Corriente Cambiaria Ingresos Servicios",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_CUENTA_CORIOS_0_M_42": {
+  "consulta": "cuenta corriente",
+  "title": "cuenta_corriente_cambiaria_total_servicios",
+  "description": "Cuenta Corriente Cambiaria Total Servicios",
   "frequency": "R/P1M",
   "time_index_start": "2003-01-01",
   "time_index_end": "2026-08-01",
@@ -5785,17 +5884,6 @@
   "conjunto": "Balance de Pagos (MBP5)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "182.1_CUENTA_CORIOS_0_M_42": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_cambiaria_total_servicios",
-  "description": "Cuenta Corriente Cambiaria Total Servicios",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
  "182.1_CUENTA_CORNES_0_M_39": {
   "consulta": "cuenta corriente",
   "title": "cuenta_corriente_cambiaria_total_bienes",
@@ -5818,60 +5906,49 @@
   "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
- "340.1_CHIPREPRE__6": {
+ "160.1_CTA_CORIOS_0_A_37": {
   "consulta": "cuenta corriente",
-  "title": "chipre",
-  "description": "Cuenta corriente de balance de pago Chipre",
+  "title": "cuenta_corriente_ingresos_secundarios",
+  "description": "Cuenta corriente. Ingresos secundarios. Anual",
   "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "340.1_UGANDANDA__6": {
+ "182.1_CUENTA_COROS_0_M_45": {
   "consulta": "cuenta corriente",
-  "title": "uganda",
-  "description": "Cuenta corriente de balance de pago Uganda",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
- },
- "340.1_CHINAINA__5": {
-  "consulta": "cuenta corriente",
-  "title": "china",
-  "description": "Cuenta corriente de balance de pago China",
-  "frequency": "R/P1Y",
-  "time_index_start": "1982-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
- },
- "340.1_BELICEICE__6": {
-  "consulta": "cuenta corriente",
-  "title": "belice",
-  "description": "Cuenta corriente de balance de pago Belice",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
- },
- "340.1_INDONESIASIA__9": {
-  "consulta": "cuenta corriente",
-  "title": "indonesia",
-  "description": "Cuenta corriente de balance de pago Indonesia",
-  "frequency": "R/P1Y",
+  "title": "cuenta_corriente_cambiaria_egresos_servicios",
+  "description": "Cuenta Corriente Cambiaria Egresos Servicios",
+  "frequency": "R/P1M",
   "time_index_start": "2003-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_CUENTA_CORRIO_0_M_45": {
+  "consulta": "cuenta corriente",
+  "title": "cuenta_corriente_cambiaria_ingreso_secundario",
+  "description": "Cuenta Corriente Cambiaria Ingreso Secundario",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "84.2_CRTC_0_T_27": {
+  "consulta": "cuenta corriente",
+  "title": "cc_rentas_transf_corrientes",
+  "description": "Cuenta Corriente rentas transf corrientes",
+  "frequency": "R/P3M",
+  "time_index_start": "1994-01-01",
+  "time_index_end": "2016-10-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "340.1_POLONIANIA__7": {
   "consulta": "cuenta corriente",
@@ -6055,6 +6132,61 @@
   "description": "Cuenta corriente de balance de pago Bhután",
   "frequency": "R/P1Y",
   "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_CHIPREPRE__6": {
+  "consulta": "cuenta corriente",
+  "title": "chipre",
+  "description": "Cuenta corriente de balance de pago Chipre",
+  "frequency": "R/P1Y",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_UGANDANDA__6": {
+  "consulta": "cuenta corriente",
+  "title": "uganda",
+  "description": "Cuenta corriente de balance de pago Uganda",
+  "frequency": "R/P1Y",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_CHINAINA__5": {
+  "consulta": "cuenta corriente",
+  "title": "china",
+  "description": "Cuenta corriente de balance de pago China",
+  "frequency": "R/P1Y",
+  "time_index_start": "1982-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_BELICEICE__6": {
+  "consulta": "cuenta corriente",
+  "title": "belice",
+  "description": "Cuenta corriente de balance de pago Belice",
+  "frequency": "R/P1Y",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_INDONESIASIA__9": {
+  "consulta": "cuenta corriente",
+  "title": "indonesia",
+  "description": "Cuenta corriente de balance de pago Indonesia",
+  "frequency": "R/P1Y",
+  "time_index_start": "2003-01-01",
   "time_index_end": "2023-01-01",
   "units": "En porcentaje del PIB",
   "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
@@ -6742,116 +6874,6 @@
   "conjunto": "Cuenta Corriente del Balance de Pagos. Flujos monetarios",
   "fuente": "UNCTAD"
  },
- "339.1_HONDURASRAS__8": {
-  "consulta": "cuenta corriente",
-  "title": "honduras",
-  "description": "Cuenta corriente de balance de pago Honduras",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. Flujos monetarios",
-  "fuente": "UNCTAD"
- },
- "339.1_CROACIACIA__7": {
-  "consulta": "cuenta corriente",
-  "title": "croacia",
-  "description": "Cuenta corriente de balance de pago Croacia",
-  "frequency": "R/P1Y",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. Flujos monetarios",
-  "fuente": "UNCTAD"
- },
- "339.1_CAMERUNRUN__7": {
-  "consulta": "cuenta corriente",
-  "title": "camerun",
-  "description": "Cuenta corriente de balance de pago Camerún",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. Flujos monetarios",
-  "fuente": "UNCTAD"
- },
- "339.1_AUSTRIARIA__7": {
-  "consulta": "cuenta corriente",
-  "title": "austria",
-  "description": "Cuenta corriente de balance de pago Austria",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. Flujos monetarios",
-  "fuente": "UNCTAD"
- },
- "339.1_AFGANISTANTAN__10": {
-  "consulta": "cuenta corriente",
-  "title": "afganistan",
-  "description": "Cuenta corriente de balance de pago Afganistán",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. Flujos monetarios",
-  "fuente": "UNCTAD"
- },
- "160.2_TL_CUENNTE_0_T_22": {
-  "consulta": "cuenta corriente",
-  "title": "total_cuenta_corriente",
-  "description": "Total cuenta corriente. Trimestral",
-  "frequency": "R/P3M",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.1_CTA_CORIOS_0_A_37": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_ingresos_secundarios",
-  "description": "Cuenta corriente. Ingresos secundarios. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "182.1_CUENTA_COROS_0_M_45": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_cambiaria_egresos_servicios",
-  "description": "Cuenta Corriente Cambiaria Egresos Servicios",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "182.1_CUENTA_CORRIO_0_M_45": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_cambiaria_ingreso_secundario",
-  "description": "Cuenta Corriente Cambiaria Ingreso Secundario",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "84.2_CRTC_0_T_27": {
-  "consulta": "cuenta corriente",
-  "title": "cc_rentas_transf_corrientes",
-  "description": "Cuenta Corriente rentas transf corrientes",
-  "frequency": "R/P3M",
-  "time_index_start": "1994-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "182.1_C_CAP_FINAANC_0_M_32": {
   "consulta": "cuenta financiera",
   "title": "c_cap_financ_total_cuenta_financ",
@@ -6896,38 +6918,16 @@
   "conjunto": "Balance de Pagos (MBP5)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "160.1_TL_CUENERA_0_A_23": {
+ "84.1_CCFSBB_0_A_42": {
   "consulta": "cuenta financiera",
-  "title": "total_cuenta_financiera",
-  "description": "Total cuenta financiera. Anual",
+  "title": "ccf_cuenta_financiera_sector_bancario_bcra",
+  "description": "Cuenta Financieraf cuenta financiera sector bancario bcra",
   "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2016-01-01",
   "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
+  "conjunto": "Balance de Pagos (MBP5)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.1_CTA_FINROS_0_A_36": {
-  "consulta": "cuenta financiera",
-  "title": "cuenta_financierarivados_financieros",
-  "description": "Cuenta financiera. Derivados financieros. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "182.1_C_CAP_FINARES_0_M_50": {
-  "consulta": "cuenta financiera",
-  "title": "c_cap_financ_c_financ_compra_venta_titulos_valores",
-  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Compra-venta de títulos valores",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
  },
  "182.1_C_K_FINC_CLAT_BI_0_M_55": {
   "consulta": "cuenta financiera",
@@ -6955,6 +6955,17 @@
   "consulta": "cuenta financiera",
   "title": "c_cap_financ_cuenta_financ_ingresos_operac_con_fmi",
   "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Ingresos Operaciones con el FMI",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_C_CAP_FINARES_0_M_50": {
+  "consulta": "cuenta financiera",
+  "title": "c_cap_financ_c_financ_compra_venta_titulos_valores",
+  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Compra-venta de títulos valores",
   "frequency": "R/P1M",
   "time_index_start": "2003-01-01",
   "time_index_end": "2026-08-01",
@@ -7072,6 +7083,83 @@
   "conjunto": "Balance de Pagos (MBP5)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "182.1_C_K_FINC_CLAT_0_M_55": {
+  "consulta": "cuenta financiera",
+  "title": "c_k_finc_c_finc_total_prest_otros_org_int_otros_bilat",
+  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Total Préstamos de otros Org. Int. y otros bilaterales",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_C_K_FINANCTES_0_M_52": {
+  "consulta": "cuenta financiera",
+  "title": "c_k_financ_c_financ_ingres_inv_directa_no_residentes",
+  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Ingresos Inversión directa de no residentes",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_C_CAP_FINARIA_0_M_37": {
+  "consulta": "cuenta financiera",
+  "title": "c_cap_financ_cuenta_capital_cambiaria",
+  "description": "Cuenta Capital y Financiera Cambiaria Cuenta de capital cambiaria",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "84.2_CCFSPNFEO_0_T_51": {
+  "consulta": "cuenta financiera",
+  "title": "ccf_cuenta_financiera_sector_pub_no_finan_emp_otros",
+  "description": "Cuenta Financieraf cuenta financiera sector pub no finan emp otros",
+  "frequency": "R/P3M",
+  "time_index_start": "1994-01-01",
+  "time_index_end": "2016-10-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "84.2_CCFSPNFGL_0_T_53": {
+  "consulta": "cuenta financiera",
+  "title": "ccf_cuenta_financiera_sector_pub_no_finan_gob_locales",
+  "description": "Cuenta Financieraf cuenta financiera sector pub no finan gob locale",
+  "frequency": "R/P3M",
+  "time_index_start": "1994-01-01",
+  "time_index_end": "2016-10-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "84.2_CCFSPNFGN_0_T_49": {
+  "consulta": "cuenta financiera",
+  "title": "ccf_cuenta_financiera_sector_pub_no_finan_gob_nac",
+  "description": "Cuenta Financieraf cuenta financiera sector pub no finan gob nac",
+  "frequency": "R/P3M",
+  "time_index_start": "1994-01-01",
+  "time_index_end": "2016-10-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "84.1_CCFSPNFTS_0_A_52": {
+  "consulta": "cuenta financiera",
+  "title": "ccf_cuenta_financiera_sector_pub_no_finan_total_spnf",
+  "description": "Cuenta Financieraf cuenta financiera sector pub no finan total spnf",
+  "frequency": "R/P1Y",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2016-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "182.1_C_K_FINANCTES_0_M_51": {
   "consulta": "cuenta financiera",
   "title": "c_k_financ_c_financ_total_inv_directa_no_residentes",
@@ -7149,13 +7237,13 @@
   "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
- "160.1_CTA_FINCTA_0_A_41": {
+ "160.2_CTA_FINERA_0_T_41": {
   "consulta": "cuenta financiera",
-  "title": "cuenta_financiera_total_inversion_directa",
-  "description": "Cuenta financiera. Total inversión directa. Anual",
-  "frequency": "R/P1Y",
+  "title": "cuenta_financiera_total_inversion_cartera",
+  "description": "Cuenta financiera. Total inversión de cartera. Trimestral",
+  "frequency": "R/P3M",
   "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
+  "time_index_end": "2026-04-01",
   "units": "Millones de dólares",
   "conjunto": "Balance de Pagos (MBP6)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
@@ -7204,6 +7292,17 @@
   "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
+ "182.1_C_K_FINC_CRED_0_M_52": {
+  "consulta": "cuenta financiera",
+  "title": "c_k_finc_c_finc_total_prest_fincs_tit_deud_lin_cred",
+  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Total Préstamos financieros, títulos de deuda y líneas de crédito",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
  "182.1_C_K_FINC_CINC_0_M_56": {
   "consulta": "cuenta financiera",
   "title": "c_k_finc_c_finc_total_form_activos_ext_sect_priv_no_finc",
@@ -7214,6 +7313,61 @@
   "units": "Millones de dólares",
   "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "160.1_CFINAN_INTAL_0_A_57": {
+  "consulta": "cuenta financiera",
+  "title": "cta_fin_inversion_cartera_activos_participaciones_capital",
+  "description": "Cuenta financiera. Inversión de cartera. Activos. Participaciones de capital. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_CFINA_INTAL_0_A_57": {
+  "consulta": "cuenta financiera",
+  "title": "cta_fin_inversion_directa_pasivos_participaciones_capital",
+  "description": "Cuenta financiera. Inversión directa. Pasivos. Participaciones de capital. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_CTA_FINUDA_0_A_59": {
+  "consulta": "cuenta financiera",
+  "title": "cuenta_financiera_inversion_directa_activos_instrumentosuda",
+  "description": "Cuenta financiera. Inversión directa. Activos. Instrumentos de deuda. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_CTA_FINVOS_0_A_51": {
+  "consulta": "cuenta financiera",
+  "title": "cuenta_financieratra_inversion_emision_neta_pasivos",
+  "description": "Cuenta financiera. Otra inversión. Emisión neta de pasivos Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "160.1_CFIN_INTAL_0_A_57": {
+  "consulta": "cuenta financiera",
+  "title": "cta_fin_inversion_directa_activos_participaciones_capital",
+  "description": "Cuenta financiera. Inversión directa. Activos. Participaciones de capital. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "160.2_CFIN_INTAL_AC_0_T_57": {
   "consulta": "cuenta financiera",
@@ -7244,6 +7398,17 @@
   "frequency": "R/P1Y",
   "time_index_start": "1992-01-01",
   "time_index_end": "2016-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "84.2_CCCT_0_T_24": {
+  "consulta": "cuenta financiera",
+  "title": "ccf_cuenta_capital_total",
+  "description": "Cuenta Financieraf cuenta capital total",
+  "frequency": "R/P3M",
+  "time_index_start": "1994-01-01",
+  "time_index_end": "2016-10-01",
   "units": "Millones de dólares",
   "conjunto": "Balance de Pagos (MBP5)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
@@ -7292,17 +7457,6 @@
   "conjunto": "Puestos de trabajo registrados por sector de actividad económica en el sector privado",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "160.1_TL_CUENTAL_0_A_20": {
-  "consulta": "cuenta financiera",
-  "title": "total_cuenta_capital",
-  "description": "Total cuenta capital. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "84.2_CTC_0_T_13": {
   "consulta": "cuenta financiera",
   "title": "ccf_total_ccf",
@@ -7343,6 +7497,28 @@
   "frequency": "R/P1Y",
   "time_index_start": "2004-01-01",
   "time_index_end": "2016-01-01",
+  "units": "Pesos",
+  "conjunto": "Costo salarial por sector de actividad económica en el sector privado",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "325.1_INTERMEDIAERA__25": {
+  "consulta": "cuenta financiera",
+  "title": "intermediacion_financiera",
+  "description": "intermediación financiera",
+  "frequency": "R/P1Y",
+  "time_index_start": "2004-01-01",
+  "time_index_end": "2016-01-01",
+  "units": "En millones de pesos",
+  "conjunto": "Puestos de trabajo registrados por sector de actividad económica en el sector privado",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "326.2_INTERMEDIAERA__25": {
+  "consulta": "cuenta financiera",
+  "title": "intermediacion_financiera",
+  "description": "intermediación financiera",
+  "frequency": "R/P3M",
+  "time_index_start": "2004-01-01",
+  "time_index_end": "2016-10-01",
   "units": "Pesos",
   "conjunto": "Costo salarial por sector de actividad económica en el sector privado",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
@@ -7534,204 +7710,6 @@
   "conjunto": "Cuenta A.I.F. - Base Devengado. Sector Público Argentino",
   "fuente": "Secretaría de Hacienda, Ministerio de Economía"
  },
- "84.1_CCFSBB_0_A_42": {
-  "consulta": "cuenta financiera",
-  "title": "ccf_cuenta_financiera_sector_bancario_bcra",
-  "description": "Cuenta Financieraf cuenta financiera sector bancario bcra",
-  "frequency": "R/P1Y",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2016-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "182.1_C_K_FINC_CLAT_0_M_55": {
-  "consulta": "cuenta financiera",
-  "title": "c_k_finc_c_finc_total_prest_otros_org_int_otros_bilat",
-  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Total Préstamos de otros Org. Int. y otros bilaterales",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "182.1_C_K_FINANCTES_0_M_52": {
-  "consulta": "cuenta financiera",
-  "title": "c_k_financ_c_financ_ingres_inv_directa_no_residentes",
-  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Ingresos Inversión directa de no residentes",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "182.1_C_CAP_FINARIA_0_M_37": {
-  "consulta": "cuenta financiera",
-  "title": "c_cap_financ_cuenta_capital_cambiaria",
-  "description": "Cuenta Capital y Financiera Cambiaria Cuenta de capital cambiaria",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "84.2_CCFSPNFEO_0_T_51": {
-  "consulta": "cuenta financiera",
-  "title": "ccf_cuenta_financiera_sector_pub_no_finan_emp_otros",
-  "description": "Cuenta Financieraf cuenta financiera sector pub no finan emp otros",
-  "frequency": "R/P3M",
-  "time_index_start": "1994-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "84.2_CCFSPNFGL_0_T_53": {
-  "consulta": "cuenta financiera",
-  "title": "ccf_cuenta_financiera_sector_pub_no_finan_gob_locales",
-  "description": "Cuenta Financieraf cuenta financiera sector pub no finan gob locale",
-  "frequency": "R/P3M",
-  "time_index_start": "1994-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "84.2_CCFSPNFGN_0_T_49": {
-  "consulta": "cuenta financiera",
-  "title": "ccf_cuenta_financiera_sector_pub_no_finan_gob_nac",
-  "description": "Cuenta Financieraf cuenta financiera sector pub no finan gob nac",
-  "frequency": "R/P3M",
-  "time_index_start": "1994-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "84.1_CCFSPNFTS_0_A_52": {
-  "consulta": "cuenta financiera",
-  "title": "ccf_cuenta_financiera_sector_pub_no_finan_total_spnf",
-  "description": "Cuenta Financieraf cuenta financiera sector pub no finan total spnf",
-  "frequency": "R/P1Y",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2016-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.2_CTA_FINERA_0_T_41": {
-  "consulta": "cuenta financiera",
-  "title": "cuenta_financiera_total_inversion_cartera",
-  "description": "Cuenta financiera. Total inversión de cartera. Trimestral",
-  "frequency": "R/P3M",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "182.1_C_K_FINC_CRED_0_M_52": {
-  "consulta": "cuenta financiera",
-  "title": "c_k_finc_c_finc_total_prest_fincs_tit_deud_lin_cred",
-  "description": "Cuenta Capital y Financiera Cambiaria Cuenta financiera Total Préstamos financieros, títulos de deuda y líneas de crédito",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "160.1_CFINAN_INTAL_0_A_57": {
-  "consulta": "cuenta financiera",
-  "title": "cta_fin_inversion_cartera_activos_participaciones_capital",
-  "description": "Cuenta financiera. Inversión de cartera. Activos. Participaciones de capital. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.1_CFINA_INTAL_0_A_57": {
-  "consulta": "cuenta financiera",
-  "title": "cta_fin_inversion_directa_pasivos_participaciones_capital",
-  "description": "Cuenta financiera. Inversión directa. Pasivos. Participaciones de capital. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.1_CTA_FINUDA_0_A_59": {
-  "consulta": "cuenta financiera",
-  "title": "cuenta_financiera_inversion_directa_activos_instrumentosuda",
-  "description": "Cuenta financiera. Inversión directa. Activos. Instrumentos de deuda. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.1_CTA_FINVOS_0_A_51": {
-  "consulta": "cuenta financiera",
-  "title": "cuenta_financieratra_inversion_emision_neta_pasivos",
-  "description": "Cuenta financiera. Otra inversión. Emisión neta de pasivos Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.1_CFIN_INTAL_0_A_57": {
-  "consulta": "cuenta financiera",
-  "title": "cta_fin_inversion_directa_activos_participaciones_capital",
-  "description": "Cuenta financiera. Inversión directa. Activos. Participaciones de capital. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "84.2_CCCT_0_T_24": {
-  "consulta": "cuenta financiera",
-  "title": "ccf_cuenta_capital_total",
-  "description": "Cuenta Financieraf cuenta capital total",
-  "frequency": "R/P3M",
-  "time_index_start": "1994-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "325.1_INTERMEDIAERA__25": {
-  "consulta": "cuenta financiera",
-  "title": "intermediacion_financiera",
-  "description": "intermediación financiera",
-  "frequency": "R/P1Y",
-  "time_index_start": "2004-01-01",
-  "time_index_end": "2016-01-01",
-  "units": "En millones de pesos",
-  "conjunto": "Puestos de trabajo registrados por sector de actividad económica en el sector privado",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "326.2_INTERMEDIAERA__25": {
-  "consulta": "cuenta financiera",
-  "title": "intermediacion_financiera",
-  "description": "intermediación financiera",
-  "frequency": "R/P3M",
-  "time_index_start": "2004-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Pesos",
-  "conjunto": "Costo salarial por sector de actividad económica en el sector privado",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "182.1_VARIACION_LES_0_M_43": {
   "consulta": "reservas internacionales",
   "title": "variacion_contable_reservas_internacionales",
@@ -7741,6 +7719,17 @@
   "time_index_end": "2026-08-01",
   "units": "Millones de dólares",
   "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "300.1_AP_ACT_RESTER_0_M_21": {
+  "consulta": "reservas internacionales",
+  "title": "ap_act_reservas_inter",
+  "description": "Apertura activo. Reservas internacionales.",
+  "frequency": "R/P1M",
+  "time_index_start": "1998-01-01",
+  "time_index_end": "2025-10-01",
+  "units": "Miles de pesos",
+  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
  "300.2_AP_ACT_RESTER_0_A_21": {
@@ -7785,6 +7774,17 @@
   "time_index_end": "2026-04-01",
   "units": "Millones de dólares",
   "conjunto": "Series históricas de estadísticas monetarias",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_VARIACION_NES_0_M_48": {
+  "consulta": "reservas internacionales",
+  "title": "variacion_reservas_internacionales_transacciones",
+  "description": "Variación de Reservas Internacionales por transacciones",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
  "300.2_AP_ACT_RESTER_0_A_59": {
@@ -7851,6 +7851,39 @@
   "time_index_end": "2025-10-01",
   "units": "Miles de pesos",
   "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "300.1_AP_ACT_RESETO_0_M_32": {
+  "consulta": "reservas internacionales",
+  "title": "ap_act_reservas_inter_aladi_neto",
+  "description": "Apertura activo. Apertura de reservas internacionales. ALADI (Neto)",
+  "frequency": "R/P1M",
+  "time_index_start": "1998-01-01",
+  "time_index_end": "2009-06-01",
+  "units": "Miles de pesos",
+  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "300.2_AP_ACT_RESSAS_0_A_54": {
+  "consulta": "reservas internacionales",
+  "title": "ap_act_reservas_inter_colocaciones_realizables_divisas",
+  "description": "Apertura activo. Apertura de reservas internacionales. Colocaciones realizables en divisas .",
+  "frequency": "R/P1Y",
+  "time_index_start": "1998-01-01",
+  "time_index_end": "2024-01-01",
+  "units": "Miles de pesos",
+  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "92.1_RID_0_0_32": {
+  "consulta": "reservas internacionales",
+  "title": "reservas_internacionales_dolares",
+  "description": "Reservas internacionales del BCRA, en millones de dólares",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Reservas internacionales y pasivos del BCRA",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
  "300.1_AP_ACT_RESNES_0_M_42": {
@@ -7970,6 +8003,17 @@
   "frequency": "R/P1M",
   "time_index_start": "1998-01-01",
   "time_index_end": "2009-06-01",
+  "units": "Miles de pesos",
+  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "300.2_AP_ACT_RESORO_0_A_48": {
+  "consulta": "reservas internacionales",
+  "title": "ap_act_reservas_interap_oro_prevision_fineza_oro",
+  "description": "Apertura activo. Apertura de reservas internacionales. Apertura oro. Previsión por fineza de oro",
+  "frequency": "R/P1Y",
+  "time_index_start": "1998-01-01",
+  "time_index_end": "2008-01-01",
   "units": "Miles de pesos",
   "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
   "fuente": "Banco Central de la República Argentina (BCRA)"
@@ -8183,6 +8227,39 @@
   "conjunto": "Reservas internacionales y pasivos del BCRA",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
+ "92.1_PNP_0_0_19": {
+  "consulta": "reservas internacionales",
+  "title": "posicion_neta_pases",
+  "description": "Posición neta de pases, en millones de pesos",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de pesos",
+  "conjunto": "Reservas internacionales y pasivos del BCRA",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "92.1_PMLD_0_0_33": {
+  "consulta": "reservas internacionales",
+  "title": "pasivos_monetarios_letras_dolares",
+  "description": "Pasivos monetarios, en millones de dólares (letras)",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Reservas internacionales y pasivos del BCRA",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "92.2_LETRAS_LIQSOS_0_0_27_53": {
+  "consulta": "reservas internacionales",
+  "title": "letras_liquidez_saldo_pesos",
+  "description": "Letras de Liquidez  -  Saldo en Pesos",
+  "frequency": "R/P1D",
+  "time_index_start": "2003-01-02",
+  "time_index_end": "2026-08-31",
+  "units": "Millones de pesos",
+  "conjunto": "Reservas internacionales y pasivos del BCRA",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
  "92.1_POS_NETA_DVOS_0_0_30": {
   "consulta": "reservas internacionales",
   "title": "pos_neta_det_des_pases_pasivos",
@@ -8282,6 +8359,17 @@
   "conjunto": "Panorama monetario y financiero",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
+ "84.2_VRIATP_0_T_39": {
+  "consulta": "reservas internacionales",
+  "title": "variacion_reservas_int_ajuste_tipo_pase",
+  "description": "variacion reservas int ajuste tipo pase",
+  "frequency": "R/P3M",
+  "time_index_start": "1994-01-01",
+  "time_index_end": "2016-10-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "bcra_248": {
   "consulta": "reservas internacionales",
   "title": "bcra_248",
@@ -8347,6 +8435,28 @@
   "units": "Miles de pesos",
   "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
   "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "300.1_AP_PAS_OBLTER_0_M_36": {
+  "consulta": "reservas internacionales",
+  "title": "ap_pas_obligaciones_organismos_inter",
+  "description": "Apertura pasivo. Obligaciones con organismos internacionales",
+  "frequency": "R/P1M",
+  "time_index_start": "1998-01-01",
+  "time_index_end": "2025-10-01",
+  "units": "Miles de pesos",
+  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "86.1_OIV_1991_A_15": {
+  "consulta": "reservas internacionales",
+  "title": "org_internac_va",
+  "description": "Organismos internacionales del sector privado no financiero",
+  "frequency": "R/P1Y",
+  "time_index_start": "1991-01-01",
+  "time_index_end": "2001-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de inversión Nacional (Base 1991)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "144.3_AVOSRELES_0_A_24": {
   "consulta": "reservas internacionales",
@@ -8480,6 +8590,61 @@
   "conjunto": "Estadísticas de servicios públicos.",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "302.2_SERV_TELEFS_U_II_0_M_41": {
+  "consulta": "reservas internacionales",
+  "title": "serv_telef_fija_trafico_min_inter_miles_u",
+  "description": "Servicio de telefonía fija. Trafico de minutos internacionales en miles de u",
+  "frequency": "R/P3M",
+  "time_index_start": "2015-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "2004=100",
+  "conjunto": "Estadísticas de servicios públicos.",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "302.1_SERV_TELEFS_UV_II_0_A_42": {
+  "consulta": "reservas internacionales",
+  "title": "serv_telef_movil_trafico_min_inter_miles_u",
+  "description": "Servicio de telefonía móvil. Trafico de minutos internacionales en miles de u",
+  "frequency": "R/P1Y",
+  "time_index_start": "2015-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "2004=100",
+  "conjunto": "Estadísticas de servicios públicos.",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "300.1_AP_PAS_OBLFMI_0_M_40": {
+  "consulta": "reservas internacionales",
+  "title": "ap_pas_obligaciones_organismos_inter_fmi",
+  "description": "Apertura pasivo. Apertura de obligaciones con organismos internacionales. Fondo Monetario Internacional",
+  "frequency": "R/P1M",
+  "time_index_start": "1998-01-01",
+  "time_index_end": "2010-04-01",
+  "units": "Miles de pesos",
+  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "300.2_AP_ACT_ADETER_0_A_58": {
+  "consulta": "reservas internacionales",
+  "title": "ap_act_adelantos_transitorios_gob_nac_pago_oblig_org_inter",
+  "description": "Apertura activo. Apertura de adelantos transitorios al Gobierno Nacional. Pago Obligaciones con Organismos Internacionales.",
+  "frequency": "R/P1Y",
+  "time_index_start": "2005-01-01",
+  "time_index_end": "2011-01-01",
+  "units": "Miles de pesos",
+  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "313.1_POR_ACREEDLES_0_T_58": {
+  "consulta": "reservas internacionales",
+  "title": "por_acreedor_organismos_internacionales_agencias_oficiales",
+  "description": "Stock deuda externa privada por acreedor en organismos internacionales y agencias oficiales",
+  "frequency": "R/P3M",
+  "time_index_start": "2001-10-01",
+  "time_index_end": "2017-07-01",
+  "units": "Millones de dólares",
+  "conjunto": "Deuda externa privada - BCRA",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
  "302.2_SERV_TELEFS_U_II_2_0_M_42": {
   "consulta": "reservas internacionales",
   "title": "serv_telef_movil_trafico_min_inter_miles_u",
@@ -8566,6 +8731,17 @@
   "time_index_end": "2009-01-01",
   "units": "Miles de pesos",
   "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "bcra_1021": {
+  "consulta": "reservas internacionales",
+  "title": "bcra_1021",
+  "description": "Otras informaciones sobre la actividad financiera - Balance consolidado de bancos, saldos a fin de mes, en miles de pesos - Balance de bancos - Pasivo - Capital, reservas y resultados",
+  "frequency": "R/P1M",
+  "time_index_start": "1940-08-01",
+  "time_index_end": "2020-09-01",
+  "units": "Miles de pesos corrientes",
+  "conjunto": "Dinero y crédito (saldos)",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
  "bcra_235": {
@@ -8776,204 +8952,6 @@
   "units": "Dólares por tonelada",
   "conjunto": "Índices de precios internacionales de productos básicos",
   "fuente": "Fondo Monetario Internacional (FMI)"
- },
- "300.1_AP_ACT_RESTER_0_M_21": {
-  "consulta": "reservas internacionales",
-  "title": "ap_act_reservas_inter",
-  "description": "Apertura activo. Reservas internacionales.",
-  "frequency": "R/P1M",
-  "time_index_start": "1998-01-01",
-  "time_index_end": "2025-10-01",
-  "units": "Miles de pesos",
-  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "182.1_VARIACION_NES_0_M_48": {
-  "consulta": "reservas internacionales",
-  "title": "variacion_reservas_internacionales_transacciones",
-  "description": "Variación de Reservas Internacionales por transacciones",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "300.1_AP_ACT_RESETO_0_M_32": {
-  "consulta": "reservas internacionales",
-  "title": "ap_act_reservas_inter_aladi_neto",
-  "description": "Apertura activo. Apertura de reservas internacionales. ALADI (Neto)",
-  "frequency": "R/P1M",
-  "time_index_start": "1998-01-01",
-  "time_index_end": "2009-06-01",
-  "units": "Miles de pesos",
-  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "300.2_AP_ACT_RESSAS_0_A_54": {
-  "consulta": "reservas internacionales",
-  "title": "ap_act_reservas_inter_colocaciones_realizables_divisas",
-  "description": "Apertura activo. Apertura de reservas internacionales. Colocaciones realizables en divisas .",
-  "frequency": "R/P1Y",
-  "time_index_start": "1998-01-01",
-  "time_index_end": "2024-01-01",
-  "units": "Miles de pesos",
-  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "92.1_RID_0_0_32": {
-  "consulta": "reservas internacionales",
-  "title": "reservas_internacionales_dolares",
-  "description": "Reservas internacionales del BCRA, en millones de dólares",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Reservas internacionales y pasivos del BCRA",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "300.2_AP_ACT_RESORO_0_A_48": {
-  "consulta": "reservas internacionales",
-  "title": "ap_act_reservas_interap_oro_prevision_fineza_oro",
-  "description": "Apertura activo. Apertura de reservas internacionales. Apertura oro. Previsión por fineza de oro",
-  "frequency": "R/P1Y",
-  "time_index_start": "1998-01-01",
-  "time_index_end": "2008-01-01",
-  "units": "Miles de pesos",
-  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "92.1_PNP_0_0_19": {
-  "consulta": "reservas internacionales",
-  "title": "posicion_neta_pases",
-  "description": "Posición neta de pases, en millones de pesos",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de pesos",
-  "conjunto": "Reservas internacionales y pasivos del BCRA",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "92.1_PMLD_0_0_33": {
-  "consulta": "reservas internacionales",
-  "title": "pasivos_monetarios_letras_dolares",
-  "description": "Pasivos monetarios, en millones de dólares (letras)",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Reservas internacionales y pasivos del BCRA",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "92.2_LETRAS_LIQSOS_0_0_27_53": {
-  "consulta": "reservas internacionales",
-  "title": "letras_liquidez_saldo_pesos",
-  "description": "Letras de Liquidez  -  Saldo en Pesos",
-  "frequency": "R/P1D",
-  "time_index_start": "2003-01-02",
-  "time_index_end": "2026-08-31",
-  "units": "Millones de pesos",
-  "conjunto": "Reservas internacionales y pasivos del BCRA",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "84.2_VRIATP_0_T_39": {
-  "consulta": "reservas internacionales",
-  "title": "variacion_reservas_int_ajuste_tipo_pase",
-  "description": "variacion reservas int ajuste tipo pase",
-  "frequency": "R/P3M",
-  "time_index_start": "1994-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "300.1_AP_PAS_OBLTER_0_M_36": {
-  "consulta": "reservas internacionales",
-  "title": "ap_pas_obligaciones_organismos_inter",
-  "description": "Apertura pasivo. Obligaciones con organismos internacionales",
-  "frequency": "R/P1M",
-  "time_index_start": "1998-01-01",
-  "time_index_end": "2025-10-01",
-  "units": "Miles de pesos",
-  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "86.1_OIV_1991_A_15": {
-  "consulta": "reservas internacionales",
-  "title": "org_internac_va",
-  "description": "Organismos internacionales del sector privado no financiero",
-  "frequency": "R/P1Y",
-  "time_index_start": "1991-01-01",
-  "time_index_end": "2001-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de inversión Nacional (Base 1991)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "302.2_SERV_TELEFS_U_II_0_M_41": {
-  "consulta": "reservas internacionales",
-  "title": "serv_telef_fija_trafico_min_inter_miles_u",
-  "description": "Servicio de telefonía fija. Trafico de minutos internacionales en miles de u",
-  "frequency": "R/P3M",
-  "time_index_start": "2015-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "2004=100",
-  "conjunto": "Estadísticas de servicios públicos.",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "302.1_SERV_TELEFS_UV_II_0_A_42": {
-  "consulta": "reservas internacionales",
-  "title": "serv_telef_movil_trafico_min_inter_miles_u",
-  "description": "Servicio de telefonía móvil. Trafico de minutos internacionales en miles de u",
-  "frequency": "R/P1Y",
-  "time_index_start": "2015-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "2004=100",
-  "conjunto": "Estadísticas de servicios públicos.",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "300.1_AP_PAS_OBLFMI_0_M_40": {
-  "consulta": "reservas internacionales",
-  "title": "ap_pas_obligaciones_organismos_inter_fmi",
-  "description": "Apertura pasivo. Apertura de obligaciones con organismos internacionales. Fondo Monetario Internacional",
-  "frequency": "R/P1M",
-  "time_index_start": "1998-01-01",
-  "time_index_end": "2010-04-01",
-  "units": "Miles de pesos",
-  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "300.2_AP_ACT_ADETER_0_A_58": {
-  "consulta": "reservas internacionales",
-  "title": "ap_act_adelantos_transitorios_gob_nac_pago_oblig_org_inter",
-  "description": "Apertura activo. Apertura de adelantos transitorios al Gobierno Nacional. Pago Obligaciones con Organismos Internacionales.",
-  "frequency": "R/P1Y",
-  "time_index_start": "2005-01-01",
-  "time_index_end": "2011-01-01",
-  "units": "Miles de pesos",
-  "conjunto": "Activos y pasivos del Banco Central de la Republica Argentina",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "313.1_POR_ACREEDLES_0_T_58": {
-  "consulta": "reservas internacionales",
-  "title": "por_acreedor_organismos_internacionales_agencias_oficiales",
-  "description": "Stock deuda externa privada por acreedor en organismos internacionales y agencias oficiales",
-  "frequency": "R/P3M",
-  "time_index_start": "2001-10-01",
-  "time_index_end": "2017-07-01",
-  "units": "Millones de dólares",
-  "conjunto": "Deuda externa privada - BCRA",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "bcra_1021": {
-  "consulta": "reservas internacionales",
-  "title": "bcra_1021",
-  "description": "Otras informaciones sobre la actividad financiera - Balance consolidado de bancos, saldos a fin de mes, en miles de pesos - Balance de bancos - Pasivo - Capital, reservas y resultados",
-  "frequency": "R/P1M",
-  "time_index_start": "1940-08-01",
-  "time_index_end": "2020-09-01",
-  "units": "Miles de pesos corrientes",
-  "conjunto": "Dinero y crédito (saldos)",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
  },
  "313.1_POR_ACREEDROS_0_T_18": {
   "consulta": "deuda externa",
@@ -9404,6 +9382,17 @@
   "conjunto": "Deuda externa bruta por sector residente",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "372.7_GTOS_CORR_006_0_M_49_89": {
+  "consulta": "deuda externa",
+  "title": "gtos_corr_int_ot_ren_prop_int_deuda_ext_1993_2006",
+  "description": "Gastos corrientes  intereses y otras rentas de la prop. intereses deuda externa . Metodología 1993 - 2006",
+  "frequency": "R/P1M",
+  "time_index_start": "1993-01-01",
+  "time_index_end": "1997-12-01",
+  "units": "Millones de pesos",
+  "conjunto": "Esquema Ahorro - Inversión - Financiamiento. Administración Pública Nacional. Base Caja.",
+  "fuente": "Secretaría de Hacienda, Ministerio de Economía"
+ },
  "379.1_AP_FIN_AMO006_I_0_A_57_80": {
   "consulta": "deuda externa",
   "title": "ap_fin_amort_deu_dism_ots_pasiv_amort_deuda_ext_1993_2006",
@@ -9435,17 +9424,6 @@
   "time_index_end": "2006-10-01",
   "units": "Millones de pesos",
   "conjunto": "Esquema Ahorro - Inversión - Financiamiento. Sector Público Nacional. Base Caja.",
-  "fuente": "Secretaría de Hacienda, Ministerio de Economía"
- },
- "372.7_GTOS_CORR_006_0_M_49_89": {
-  "consulta": "deuda externa",
-  "title": "gtos_corr_int_ot_ren_prop_int_deuda_ext_1993_2006",
-  "description": "Gastos corrientes  intereses y otras rentas de la prop. intereses deuda externa . Metodología 1993 - 2006",
-  "frequency": "R/P1M",
-  "time_index_start": "1993-01-01",
-  "time_index_end": "1997-12-01",
-  "units": "Millones de pesos",
-  "conjunto": "Esquema Ahorro - Inversión - Financiamiento. Administración Pública Nacional. Base Caja.",
   "fuente": "Secretaría de Hacienda, Ministerio de Economía"
  },
  "373.1_AP_FIN_AMO006_0_A_57_81": {
@@ -10383,28 +10361,6 @@
   "conjunto": "Posición de Inversión Internacional neta",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "144.3_SEDADESTOS_0_A_31": {
-  "consulta": "posicion de inversion internacional",
-  "title": "sociedades_captadoras_depositos",
-  "description": "Posición de inversión neta de sociedades de depósitos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_SEDADESTOS_0_T_31": {
-  "consulta": "posicion de inversion internacional",
-  "title": "sociedades_captadoras_depositos",
-  "description": "Posición de inversión neta de sociedades de depósitos.",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "144.3_BOCENTUAL_0_A_19": {
   "consulta": "posicion de inversion internacional",
   "title": "banco_central_anual",
@@ -10434,17 +10390,6 @@
   "frequency": "R/P3M",
   "time_index_start": "2016-01-01",
   "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_PCIONETA_0_A_37": {
-  "consulta": "posicion de inversion internacional",
-  "title": "posicion_inversion_internacional_neta",
-  "description": "Posición de inversión neta deudora o acreedora. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
   "units": "Millones de dólares",
   "conjunto": "Posición de Inversión Internacional neta",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
@@ -10977,281 +10922,6 @@
   "conjunto": "Posición de Inversión Internacional neta",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "144.3_PVOSOTIONIN_0_A_22": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otra_inversion_os",
-  "description": "Pasivos. Valor de otras inversiones de otros sectores.",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_AVOSGOLES_0_A_32": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_gobierno_general_anuales",
-  "description": "Activos. Valor de los activos del gobierno general. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_AVOSBALES_0_A_29": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_banco_central_anuales",
-  "description": "Activos. Valor de los activos del banco central. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_AVOSSELES_0_A_22": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_sector_anuales",
-  "description": "Activos. Valor de los activos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_PVOSOTRES_0_A_22": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otros_sectores",
-  "description": "Pasivos. Valor de los pasivos de otros sectores.",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSOTGAR_0_T_27": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otras_cuentas_pagar",
-  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSMOLES_0_T_37": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_moneda_depositos_trimestrales",
-  "description": "Pasivos. Valor de la moneda y los depósitos. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSINLESC_0_T_38": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_inversion_cartera_trimestrales",
-  "description": "Pasivos. Valor de la inversión de cartera. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PCIONFMI_0_T_20": {
-  "consulta": "posicion de inversion internacional",
-  "title": "posicion_reserva_fmi",
-  "description": "Activos. Valor de la posición de reserva en el FMI. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-07-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_TLOSDEUDA_0_T_13": {
-  "consulta": "posicion de inversion internacional",
-  "title": "titulos_deuda",
-  "description": "Activos. Valor de los títulos de deuda. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_AVOSCALES_0_T_24": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_cat_trimestrales",
-  "description": "Activos. Valor del total de los activos. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSPAION_0_T_48": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_participaciones_capital_fondos_inversion",
-  "description": "Pasivos. Valor de participación de capital de la inversión de cartera. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_TLOSVARES_0_A_15": {
-  "consulta": "posicion de inversion internacional",
-  "title": "titulos_valores",
-  "description": "Activos. Valor de otros títulos Valores. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_TLOSDEUDA_0_A_13": {
-  "consulta": "posicion de inversion internacional",
-  "title": "titulos_deuda",
-  "description": "Activos. Valor de los títulos de deuda. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_MDADEPUAL_0_A_26": {
-  "consulta": "posicion de inversion internacional",
-  "title": "moneda_depositos_cat_anual",
-  "description": "Activos. Otros activos de reserva. Valor de la moneda y los depósitos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_PVOSOTGAR_0_A_27": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otras_cuentas_pagar",
-  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_PVOSANLES_0_A_15": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_anuales",
-  "description": "Pasivos. Valor de los pasivos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSOTCTA_0_T_40": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otros_sectores_inversion_directa",
-  "description": "Pasivos. Valor de la inversión directa de otros sectores.",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSINLES_0_T_39": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivo_inversion_directa_sector_anuales",
-  "description": "Pasivos. Valor de la inversión directa sectores. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSINLESC_0_T_33": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_inversion_cartera_anuales",
-  "description": "Activos. Valor de la inversión de cartera del gobierno general. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSINLES_0_T_30": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_inversion_cart_anuales",
-  "description": "Activos. Valor de la inversión de cartera de sociedades captadoras de depósitos. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSOTLES_0_T_45": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_otras_participaciones_capital_anuales",
-  "description": "Activos. Valor de otras participaciones de capital. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSBALES_0_T_29": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_banco_central_anuales",
-  "description": "Pasivos. Valor de los pasivos del banco central. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSGOLES_0_T_32": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_gobierno_general_anuales",
-  "description": "Pasivos. Valor de los pasivos del gobierno general. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSGOLES_0_T_32": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_gobierno_general_anuales",
-  "description": "Activos. Valor de los activos del gobierno general. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "144.3_PVOSOTION_0_A_22": {
   "consulta": "posicion de inversion internacional",
   "title": "pasivos_otra_inversion_bc",
@@ -11696,6 +11366,314 @@
   "consulta": "posicion de inversion internacional",
   "title": "participaciones_capital_utilidades_reinvertidas_trim",
   "description": "Activos. Valor de las participaciones en el capital de la inversión directa. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_SEDADESTOS_0_A_31": {
+  "consulta": "posicion de inversion internacional",
+  "title": "sociedades_captadoras_depositos",
+  "description": "Posición de inversión neta de sociedades de depósitos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_SEDADESTOS_0_T_31": {
+  "consulta": "posicion de inversion internacional",
+  "title": "sociedades_captadoras_depositos",
+  "description": "Posición de inversión neta de sociedades de depósitos.",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_PCIONETA_0_A_37": {
+  "consulta": "posicion de inversion internacional",
+  "title": "posicion_inversion_internacional_neta",
+  "description": "Posición de inversión neta deudora o acreedora. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_PVOSOTIONIN_0_A_22": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otra_inversion_os",
+  "description": "Pasivos. Valor de otras inversiones de otros sectores.",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_AVOSGOLES_0_A_32": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_gobierno_general_anuales",
+  "description": "Activos. Valor de los activos del gobierno general. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_AVOSBALES_0_A_29": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_banco_central_anuales",
+  "description": "Activos. Valor de los activos del banco central. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_AVOSSELES_0_A_22": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_sector_anuales",
+  "description": "Activos. Valor de los activos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_PVOSOTRES_0_A_22": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otros_sectores",
+  "description": "Pasivos. Valor de los pasivos de otros sectores.",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSOTGAR_0_T_27": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otras_cuentas_pagar",
+  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSMOLES_0_T_37": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_moneda_depositos_trimestrales",
+  "description": "Pasivos. Valor de la moneda y los depósitos. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSINLESC_0_T_38": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_inversion_cartera_trimestrales",
+  "description": "Pasivos. Valor de la inversión de cartera. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PCIONFMI_0_T_20": {
+  "consulta": "posicion de inversion internacional",
+  "title": "posicion_reserva_fmi",
+  "description": "Activos. Valor de la posición de reserva en el FMI. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-07-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_TLOSDEUDA_0_T_13": {
+  "consulta": "posicion de inversion internacional",
+  "title": "titulos_deuda",
+  "description": "Activos. Valor de los títulos de deuda. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_AVOSCALES_0_T_24": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_cat_trimestrales",
+  "description": "Activos. Valor del total de los activos. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSPAION_0_T_48": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_participaciones_capital_fondos_inversion",
+  "description": "Pasivos. Valor de participación de capital de la inversión de cartera. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_TLOSVARES_0_A_15": {
+  "consulta": "posicion de inversion internacional",
+  "title": "titulos_valores",
+  "description": "Activos. Valor de otros títulos Valores. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_TLOSDEUDA_0_A_13": {
+  "consulta": "posicion de inversion internacional",
+  "title": "titulos_deuda",
+  "description": "Activos. Valor de los títulos de deuda. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_MDADEPUAL_0_A_26": {
+  "consulta": "posicion de inversion internacional",
+  "title": "moneda_depositos_cat_anual",
+  "description": "Activos. Otros activos de reserva. Valor de la moneda y los depósitos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_PVOSOTGAR_0_A_27": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otras_cuentas_pagar",
+  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_PVOSANLES_0_A_15": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_anuales",
+  "description": "Pasivos. Valor de los pasivos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSOTCTA_0_T_40": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otros_sectores_inversion_directa",
+  "description": "Pasivos. Valor de la inversión directa de otros sectores.",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSINLES_0_T_39": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivo_inversion_directa_sector_anuales",
+  "description": "Pasivos. Valor de la inversión directa sectores. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSINLESC_0_T_33": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_inversion_cartera_anuales",
+  "description": "Activos. Valor de la inversión de cartera del gobierno general. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSINLES_0_T_30": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_inversion_cart_anuales",
+  "description": "Activos. Valor de la inversión de cartera de sociedades captadoras de depósitos. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSOTLES_0_T_45": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_otras_participaciones_capital_anuales",
+  "description": "Activos. Valor de otras participaciones de capital. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSBALES_0_T_29": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_banco_central_anuales",
+  "description": "Pasivos. Valor de los pasivos del banco central. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSGOLES_0_T_32": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_gobierno_general_anuales",
+  "description": "Pasivos. Valor de los pasivos del gobierno general. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSGOLES_0_T_32": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_gobierno_general_anuales",
+  "description": "Activos. Valor de los activos del gobierno general. Anual",
   "frequency": "R/P3M",
   "time_index_start": "2016-01-01",
   "time_index_end": "2026-04-01",
