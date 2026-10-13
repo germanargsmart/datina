@@ -574,8 +574,22 @@ def bajar(nombre, url):
         url, datos = sspmi_buscar(nombre)
         print(f"  aviso: {nombre} se encontró en {url}")
     if nombre in VALIDA and not VALIDA[nombre](datos):
-        raise ValueError("el archivo descargado no tiene el formato esperado")
+        raise ValueError("el archivo descargado no tiene el formato esperado" + motivo_formato(url, datos))
     (CRUDO / nombre).write_bytes(datos)
+
+
+def motivo_formato(url, datos):
+    """Por qué una planilla de la API de Series de Tiempo no pasó la validación, para el registro (desde el 12 de octubre de 2026 unas diez
+    fallaban en cada actualización sin decir por qué): si no es una tabla, cómo empieza, y si lo es, qué series tienen meses vacíos en el
+    medio y cuál es el último período."""
+    if not url.startswith(API):
+        return ""
+    if not datos.startswith(b"indice_tiempo"):
+        return f" (no es una tabla: empieza con {datos[:60]!r})"
+    filas = datos.strip().splitlines()
+    cab = filas[0].decode("utf-8", "ignore").split(",")
+    huecos = [cab[c] for c in range(1, len(cab)) if not serie_sin_huecos(datos, c)]
+    return f" ({len(filas) - 1} períodos hasta {filas[-1].split(b',')[0].decode()}; con meses vacíos en el medio: {', '.join(huecos) or 'ninguna'})"
 
 
 def departamentos():
