@@ -60,10 +60,18 @@ Pedido del autor, después de instalar las skills de transitions.dev (`.claude/s
 - `pobreza/src/estilo.css`: el fondo de los botones, con `--dur-1` y `--ease-out` copiados de Datina en su `:root`. La copia publicada (`sitio/pobreza/`) cambia recién al volver a armar el consultor (ver pendientes).
 - Verificado en Chrome con mouse simulado, en 1440 y 390 píxeles: con el CSS anterior los efectos de `datina.css` pasaban de golpe y ahora están a mitad de camino a los 45 ms y terminan en 150. Armado, sintaxis y prueba de páginas.
 
+## Cifra y texto sin repetir: prueba en Trabajo (13 de octubre de 2026)
+
+Primera de las tareas de abajo. Relevamiento en Chrome de las 114 fichas con pregunta: 95 tienen cifra destacada y en 72 la primera oración del texto repite el número de la cifra con casi las mismas palabras de su leyenda (petróleo 11, construcción y migraciones 6, educación, energía y movilidad 5, el resto entre 1 y 4). Las leyendas repiten además lo que dice la descripción.
+- `CLAVE` lleva una tercera parte, la leyenda corta de la ficha: la unidad y a quién se refiere ("por cada 100 habitantes en todo el país"), sin repetir qué se mide ni el período, que ya están en la descripción. "En cifras" y el buscador siguen con la leyenda completa, porque ahí la cifra va sin la descripción.
+- El texto empieza por lo que el gráfico no dice: el cambio en el tiempo, el total o la comparación con el país. En Trabajo: el empleo empieza por la variación en doce meses, los salarios por el cambio descontada la inflación, la rotación por quienes llevan más de cinco años y las exportaciones por el total en dólares.
+- La imagen descargable suma la cifra con su leyenda debajo de la descripción: sin eso, la cifra del país dejaba de estar en la imagen.
+- Hecho solo en las cuatro fichas de Trabajo, para que el autor vea el criterio antes de seguir con las otras 68 fichas que repiten y las demás leyendas.
+
 ## Próxima tarea
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
-1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha (en salarios, la misma frase tres veces): la cifra con una leyenda corta y el texto que empiece por lo que el gráfico no dice. Afecta las 114 fichas con pregunta.
+1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha (en salarios, la misma frase tres veces): la cifra con una leyenda corta y el texto que empiece por lo que el gráfico no dice. Afecta las 114 fichas con pregunta. Hecha la prueba en Trabajo (ver arriba): falta el resto con el mismo criterio, si al autor le sirve.
 2. La línea del país en las barras por provincia tapa los valores de las provincias cercanas al promedio.
 3. Etapa 40: la población de cada provincia hasta 2040 (proyecciones del INDEC) y las causas de muerte por provincia (DEIS, tasas ajustadas por edad, causas externas agrupadas sin separar el suicidio). Cada ficha nueva necesita su origen en `relaciones.json`.
 4. Opcional: la silueta de "En cifras" de Trabajo mide 140 píxeles y las tarjetas más, y con una red muy lenta la página salta 45 píxeles al llegar el código.
