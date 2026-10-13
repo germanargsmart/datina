@@ -256,7 +256,7 @@ const cuencasTxt = c => lista(Object.entries(c).sort((a, b) => b[1] - a[1]).map(
 const topViv = k => [...T.vivienda_provincias].sort((a, b) => b[k] - a[k]);
 const VIV_IND = {
   pct_alquila: {nombre: "Hogares que alquilan", f: pct,
-    t: () => `En el Censo 2022, el ${pct(VV.pct_alquila)} de los hogares alquilaba su vivienda y el ${pct(VV.pct_propia)} era propietario. ` +
+    t: () => `En el Censo 2022, el ${pct(VV.pct_propia)} de los hogares era propietario de su vivienda. ` +
       `El alquiler era más común en ${CN.viv_top.pct_alquila[0]} (${pct(CN.viv_top.pct_alquila[1])}) y menos en ${CN.viv_low.pct_alquila[0]} (${pct(CN.viv_low.pct_alquila[1])}).`},
   pct_hacinamiento: {nombre: "Hogares con hacinamiento crítico", f: pct,
     t: () => `En el Censo 2022, el ${pct(VV.pct_hacinamiento)} de los hogares vivía con más de tres personas por cuarto, lo que el INDEC llama hacinamiento crítico. ` +
@@ -282,18 +282,15 @@ const NOTA_VIV = k => `Datos del Censo 2022 sumados desde los radios censales. U
 const LEAD = {
   petroleo: v => v === "cuenca"
     ? `En ${PG.mes}, el petróleo salió de cinco cuencas: ${cuencasTxt(PG.cuencas_pet)}. La Neuquina abarca Neuquén y partes de Mendoza, Río Negro y La Pampa.`
-    : `En ${PG.mes} la Argentina produjo ${n0(PG.kbd)} mil barriles de petróleo por día${PG.record ? `, el valor más alto de la serie, que empieza en ${PG.anio_ini}` : ""}. ` +
-      `El ${pct(PG.pct_shale)} salió de pozos de shale. Entre enero y ${MESES[PG.ytd.pet.mes - 1]} la producción ${creceCae(PG.ytd.pet.var)} frente a los mismos meses de ${PG.ytd.pet.anio - 1}. ` +
-      `El promedio anual más bajo de la serie fue el de ${PG.anio_min}, con ${n0(PG.kbd_min)} mil barriles por día.`,
+    : `Entre enero y ${MESES[PG.ytd.pet.mes - 1]} la producción ${creceCae(PG.ytd.pet.var)} frente a los mismos meses de ${PG.ytd.pet.anio - 1}. ` +
+      `En ${PG.mes}, el ${pct(PG.pct_shale)} salió de pozos de shale. El promedio anual más bajo de la serie, que empieza en ${PG.anio_ini}, fue el de ${PG.anio_min}, con ${n0(PG.kbd_min)} mil barriles por día.`,
   gas: v => v === "cuenca"
     ? `En ${PG.mes}, el gas salió de estas cuencas: ${cuencasTxt(PG.cuencas_gas)}. La Austral incluye los yacimientos del mar frente a Tierra del Fuego.`
-    : `En ${PG.mes} se produjeron ${n1(PG.gas)} millones de metros cúbicos de gas natural por día, el ${pct(PG.pct_gas_nc)} de pozos no convencionales. ` +
-      `Entre enero y ${MESES[PG.ytd.gas.mes - 1]} la producción ${creceCae(PG.ytd.gas.var)} frente a los mismos meses de ${PG.ytd.gas.anio - 1}. ` +
-      `En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones por día. El más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,
+    : `Entre enero y ${MESES[PG.ytd.gas.mes - 1]} la producción ${creceCae(PG.ytd.gas.var)} frente a los mismos meses de ${PG.ytd.gas.anio - 1}. ` +
+      `En ${PG.mes}, el ${pct(PG.pct_gas_nc)} salió de pozos no convencionales. En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones de metros cúbicos por día, y el más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,
   "gas-hogares": () => {
     const alto = topViv("pct_gas_red").slice(0, 3);
-    return `En el Censo 2022, el ${pct(VV.pct_gas_red)} de los hogares cocinaba con gas de red y el ${pct(VV.pct_garrafa)} con gas en garrafa. ` +
-      (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100 hogares cocinaba con gas de red. ` : "") +
+    return (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100 hogares cocinaba con gas de red. ` : "") +
       `Donde más hogares lo tenían era en ${lista(alto.map(r => `${r.territorio} (${pct(r.pct_gas_red)})`))}.`;
   },
   "hidro-provincias": v => {
@@ -303,15 +300,15 @@ const LEAD = {
       return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top_gas} produjo el ${pct(PG.top_gas_pct)} del gas del país: ${n1(t.gas_mmm3d)} millones de metros cúbicos por día, contra ${n1(t.gas_mmm3d_antes)} en los mismos meses de diez años antes. ` +
         `Los yacimientos del mar argentino aportaron el ${pct(PG.mar_gas_pct)}.`;
     }
-    return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top} produjo el ${pct(PG.top_pct)} del petróleo del país: ${n0(PG.top_kbd)} mil barriles por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
+    return `${PG.top} produjo ${n0(PG.top_kbd)} mil barriles de petróleo por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
       `${PG.segundo}, la segunda, produjo ${n0(PG.segundo_kbd)} mil, contra ${n0(PG.segundo_antes)} mil. En total, ${PG.n_prov} provincias producen petróleo o gas. La formación Vaca Muerta dio el ${pct(PG.vm_pct)} del petróleo del país.`;
   },
   // áreas de concesión (etapa 21): el último año completo. El texto de un área elegida lo arma textoArea()
   "areas-hidro": v => {
     const gas = v === "gas", t = gas ? PG.areas_gas_top : PG.areas_pet_top;
     const cant = x => gas ? `${n1(x)} millones de metros cúbicos de gas por día` : `${kbdF(x)} mil barriles de petróleo por día`;
-    return `En ${PG.areas_anio}, ${PG.areas_n} áreas de concesión produjeron petróleo o gas. La mitad del ${gas ? "gas" : "petróleo"} del país salió de ${gas ? PG.areas_n50_gas : PG.areas_n50_pet} de ellas, ` +
-      `y las diez que más produjeron sumaron el ${pct(gas ? PG.areas_top10_gas : PG.areas_top10_pet)}. ` +
+    return `En ${PG.areas_anio}, ${PG.areas_n} áreas de concesión produjeron petróleo o gas, y la mitad del ${gas ? "gas" : "petróleo"} del país salió de ${gas ? PG.areas_n50_gas : PG.areas_n50_pet} de ellas. ` +
+      (gas ? `Las diez que más gas produjeron sumaron el ${pct(PG.areas_top10_gas)}. ` : "") +
       `La primera fue ${tituloArea(t.nombre)}, ${t.territorio === "Mar argentino" ? "en el mar argentino" : "en " + t.territorio}, con ${cant(t.v)}, el ${pct(t.pct)} del país` +
       (t.nc >= 99.95 ? ", todo de formaciones no convencionales" : t.nc >= 95 ? ", casi todo de formaciones no convencionales" : t.nc > 0 ? `, el ${pct(t.nc)} de formaciones no convencionales` : ", todo de formaciones convencionales") +
       `. ${t.antes > 0 ? `En ${PG.areas_anio - 10} producía ${cant(t.antes)}.` : `En ${PG.areas_anio - 10} no producía.`}`;
@@ -319,42 +316,42 @@ const LEAD = {
   pozos: () => {
     const p = T.pozos_provincias.find(r => r.territorio === PG.pozos_top) || {};
     return `En ${PG.pozos_mes} produjeron petróleo o gas ${n0(PG.pozos)} pozos. Los ${n0(PG.pozos_shale)} de shale, el ${pct(PG.pct_pozos_shale)} del total, dieron el ${pct(PG.pct_pet_shale_pozos)} del petróleo. ` +
-      `Un pozo de shale produjo en promedio ${n0(PG.bpd_shale)} barriles por día y uno convencional, ${n1(PG.bpd_conv)}: ${PG.veces} veces menos. ` +
+      `Un pozo de shale produjo en promedio ${n0(PG.bpd_shale)} barriles por día y uno convencional, ${n1(PG.bpd_conv)}. ` +
       `${PG.pozos_top} es la provincia con más pozos en producción: ${n0(PG.pozos_top_n)}, ${n0(p.convencional)} de ellos convencionales.`;
   },
   "empresas-hidro": v => {
     const e = [...T.hidrocarburos_empresas].filter(r => r.nombre !== "Otras empresas").sort((a, b) => b.pct_gas - a.pct_gas);
     return v === "pct_gas"
       ? `Entre ${PG.v_desde} y ${PG.v_hasta}, la empresa que más gas produjo fue ${e[0].nombre}, con el ${pct(e[0].pct_gas)} del país, seguida por ${e[1].nombre} (${pct(e[1].pct_gas)}) y ${e[2].nombre} (${pct(e[2].pct_gas)}).`
-      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.emp_top} produjo el ${pct(PG.emp_top_pct)} del petróleo del país. Declararon producción de petróleo ${PG.n_empresas} empresas, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}.`;
+      : `Declararon producción de petróleo ${PG.n_empresas} empresas, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}. En gas, la primera fue ${e[0].nombre}, con el ${pct(e[0].pct_gas)} del país.`;
   },
-  "empleo-hidro": () => `En el ${CN.emp_trim}, la extracción de petróleo y gas y sus servicios tenía ${n0(CN.pet_emp)} puestos asalariados registrados en el sector privado. ` +
-    `Frente al mismo trimestre del año anterior, en las provincias con dato en los dos trimestres, los puestos ${creceCae(CN.pet_emp_var, "crecieron", "cayeron")}. ${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}.`,
+  "empleo-hidro": () => `Frente al mismo trimestre del año anterior, en las provincias con dato en los dos trimestres, los puestos ${creceCae(CN.pet_emp_var, "crecieron", "cayeron")}. ` +
+    `${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}, el ${pct(CN.pet_emp_top_v / CN.pet_emp * 100)} del país.`,
   regalias: v => v === "usd_crudo_hab"
     ? `En ${PG.reg_usd_anio}, las regalías de petróleo crudo sumaron ${n0(PG.reg_usd_total)} millones de dólares. En ${PG.reg_usd_top} equivalieron a ${n0(PG.reg_usd_top_hab)} dólares por habitante. ` +
       `El año más alto de la serie, que empieza en ${PG.reg_usd_ini}, fue ${PG.reg_usd_max_anio}, con ${n0(PG.reg_usd_max)} millones.`
-    : `En ${PG.reg_anio}, las regalías fueron el ${pct(PG.reg_top_pct)} de los ingresos totales de ${PG.reg_top}. Superaron el 10% de los ingresos en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, menos del 1%.`,
+    : `Las regalías superaron el 10% de los ingresos totales en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, fueron menos del 1%. ` +
+      `En ${PG.reg_usd_anio}, las regalías de petróleo crudo sumaron ${n0(PG.reg_usd_total)} millones de dólares.`,
   reservas: v => v === "horizonte"
-    ? `Al ritmo de producción de ${PG.res_anio}, las reservas comprobadas alcanzaban para ${n1(PG.res_hor_pet)} años de petróleo y ${n1(PG.res_hor_gas)} años de gas. En ${PG.res_ini} eran ${n1(PG.res_hor_pet_ini)} y ${n1(PG.res_hor_gas_ini)} años.`
+    ? `Al ritmo de producción de ${PG.res_anio}, las reservas comprobadas de gas alcanzaban para ${n1(PG.res_hor_gas)} años. En ${PG.res_ini}, las de petróleo alcanzaban para ${n1(PG.res_hor_pet_ini)} años y las de gas, para ${n1(PG.res_hor_gas_ini)}.`
     : v === "gas"
     ? `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de gas eran de ${n0(PG.res_gas)} mil millones de metros cúbicos, ${n1(PG.res_hor_gas)} años de producción al ritmo de ese año. ` +
       `El ${pct(PG.res_nc_gas)} era no convencional y el ${pct(PG.res_nq_gas)} estaba en Neuquén. En ${PG.res_ini} eran ${n0(PG.res_gas_ini)} mil millones.`
-    : `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de petróleo eran de ${n0(PG.res_pet)} millones de metros cúbicos, unos ${n1(PG.res_bbl)} mil millones de barriles: ${n1(PG.res_hor_pet)} años de producción al ritmo de ese año. ` +
-      `${PG.res_var_pet >= 0 ? "Crecieron" : "Cayeron"} ${pct(Math.abs(PG.res_var_pet))} frente a ${PG.res_anio_ant}. El ${pct(PG.res_nc_pet)} era no convencional y el ${pct(PG.res_nq_pet)} estaba en Neuquén.`,
-  "balanza-energetica": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía e importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes: un saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} de ${n0(Math.abs(PG.bal_saldo))} millones. ` +
-    (PG.bal_def_n ? `Entre ${PG.bal_def_desde} y ${PG.bal_def_hasta} el saldo fue negativo en ${PG.bal_def_n} de ${PG.bal_def_hasta - PG.bal_def_desde + 1} años, con el déficit más grande en ${PG.bal_def_max_anio}: ${n0(PG.bal_def_max)} millones. ` : "") +
-    `Entre enero y ${MESES[PG.bal_ytd.mes - 1]} de ${PG.bal_ytd.anio}, el saldo fue de ${n0(PG.bal_ytd.saldo)} millones y las exportaciones ${creceCae(PG.bal_ytd_expo.var, "crecieron", "cayeron")} frente a los mismos meses del año anterior.`,
+    : `En ${PG.res_anio}, las reservas comprobadas de petróleo ${PG.res_var_pet >= 0 ? "crecieron" : "cayeron"} ${pct(Math.abs(PG.res_var_pet))} frente a ${PG.res_anio_ant}: al 31 de diciembre eran ` +
+      `${n0(PG.res_pet)} millones de metros cúbicos, unos ${n1(PG.res_bbl)} mil millones de barriles. El ${pct(PG.res_nc_pet)} era no convencional y el ${pct(PG.res_nq_pet)} estaba en Neuquén.`,
+  "balanza-energetica": () => `Entre enero y ${MESES[PG.bal_ytd.mes - 1]} de ${PG.bal_ytd.anio}, el saldo fue de ${n0(PG.bal_ytd.saldo)} millones de dólares y las exportaciones ${creceCae(PG.bal_ytd_expo.var, "crecieron", "cayeron")} frente a los mismos meses del año anterior. ` +
+    `En ${PG.bal_anio} se exportaron ${n0(PG.bal_expo)} millones en combustibles y energía y se importaron ${n0(PG.bal_impo)} millones en combustibles y lubricantes.` +
+    (PG.bal_def_n ? ` Entre ${PG.bal_def_desde} y ${PG.bal_def_hasta} el saldo fue negativo en ${PG.bal_def_n} de ${PG.bal_def_hasta - PG.bal_def_desde + 1} años, con el déficit más grande en ${PG.bal_def_max_anio}: ${n0(PG.bal_def_max)} millones.` : ""),
   "mundo-petroleo": v => {
     const m = PG.mundo, q = m.neuquen;
     return v === "gas_bcm"
       ? `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en gas natural la Argentina fue el productor número ${m.gas_bcm.puesto} del mundo en ${m.gas_bcm.anio}, con ${n1(m.gas_bcm.arg)} mil millones de metros cúbicos, el ${pct(m.gas_bcm.pct)} del total mundial.`
-      : `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en ${m.crudo_kbd.anio} la Argentina fue el productor de petróleo número ${m.crudo_kbd.puesto} del mundo, con ${n0(m.crudo_kbd.arg)} mil barriles por día, el ${pct(m.crudo_kbd.pct)} del total mundial.` +
+      : `Con ${n0(m.crudo_kbd.arg)} mil barriles por día, la Argentina produjo el ${pct(m.crudo_kbd.pct)} del petróleo del mundo en ${m.crudo_kbd.anio}, según la estimación de la Administración de Información Energética de los Estados Unidos (EIA).` +
         (q ? ` Si Neuquén fuera un país, con ${n0(q.kbd)} mil barriles por día estaría en el puesto ${q.puesto}, entre ${q.arriba} y ${q.abajo}.` : "");
   },
   // fracturas y pozos terminados (etapa 19): años completos, el último puede subir porque las empresas informan con demora
   fracturas: v => v === "rama"
-    ? `En ${PG.fr_ult}, los pozos de Vaca Muerta tuvieron en promedio ${n0(PG.dv_rama_ult)} metros de rama horizontal, el tramo del pozo que avanza en horizontal dentro de la formación. ` +
-      `En ${PG.dv_ini} eran ${n0(PG.dv_rama_ini)} metros: la rama es ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga.`
+    ? `La rama horizontal es el tramo del pozo que avanza en horizontal dentro de la formación. En ${PG.fr_ult}, la de un pozo de Vaca Muerta era en promedio ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.`
     : v === "etapas_pozo"
     ? `Cada pozo de Vaca Muerta fracturado en ${PG.fr_ult} llevó en promedio ${n1(PG.dv_etapas_ult)} etapas de fractura y ${n0(PG.dv_arena_ult)} toneladas de arena. ` +
       `En ${PG.dv_ini} eran ${n1(PG.dv_etapas_ini)} etapas y ${n0(PG.dv_arena_ini)} toneladas.`
@@ -365,8 +362,8 @@ const LEAD = {
     ? `Entre ${PG.pt_v_desde} y ${PG.pt_mes} se terminaron ${n0(PG.pt_12m)} pozos de petróleo y gas, ` +
       `${PG.pt_12m >= PG.pt_12m_ant ? n0(PG.pt_12m - PG.pt_12m_ant) + " más" : n0(PG.pt_12m_ant - PG.pt_12m) + " menos"} que en los doce meses anteriores. ` +
       `${PG.pt_top} concentró el ${pct(PG.pt_top_pct)}, con ${n0(PG.pt_top_n)} pozos.`
-    : `En ${PG.pt_anio} se terminaron ${n0(PG.pt_total)} pozos de petróleo y gas: ${n0(PG.pt_explot)} de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +
-      (PG.pt_total < PG.pt_max ? `El máximo de la serie fue en ${PG.pt_max_anio}, con ${n0(PG.pt_max)}. Hoy se terminan menos pozos, pero en Vaca Muerta cada uno tiene una rama horizontal ` +
+    : `De los pozos terminados en ${PG.pt_anio}, ${n0(PG.pt_explot)} fueron de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +
+      (PG.pt_total < PG.pt_max ? `Hoy se terminan menos pozos que en ${PG.pt_max_anio}, pero en Vaca Muerta cada uno tiene una rama horizontal ` +
         `${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.` : "Es el máximo de la serie."),
   // productividad de los pozos de Vaca Muerta por año de inicio (etapa 19): años completos
   productividad: v => v === "metro"
@@ -376,24 +373,22 @@ const LEAD = {
     : v === "curvas"
     ? `Producción acumulada promedio de un pozo según los meses desde que empezó a producir, por año de inicio. A los doce meses, un pozo de ${PG.cos_ult} ` +
       `había sacado ${n0(PG.curva12_ult)} mil barriles de petróleo y uno de ${PG.curvas[0]}, ${n0(PG.curva12_ini)} mil.`
-    : `Un pozo petrolero de shale de Vaca Muerta que empezó a producir en ${PG.cos_ult} sacó en promedio ${n0(PG.cos_kbbl_ult)} mil barriles de petróleo en sus primeros doce meses, ` +
-      `${n1(PG.cos_veces)} veces lo que uno de ${PG.cos_ini}` +
-      (PG.cos_max !== PG.cos_ult ? `. El máximo fue el de los pozos de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles.` : `, el máximo de la serie.`),
-  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas, y ${n0(PG.map_activos)} siguieron produciendo en ${PG.map_mes}: ` +
-    `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
+    : (PG.cos_max !== PG.cos_ult ? `El máximo fue el de los pozos que empezaron en ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles en su primer año. ` : `Los pozos de ${PG.cos_ult} son los que más sacaron en su primer año. `) +
+      `Los de ${PG.cos_ult} tienen en promedio ${n0(PG.rama_m_ult)} metros de rama horizontal, y por cada 1.000 metros sacaron ${n0(PG.bpm_ult)} barriles de petróleo en su primer año.`,
+  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas. De los que siguen produciendo, ${n0(PG.map_shale)} son de shale y ${n0(PG.map_tight)} de tight. ` +
+    `Las áreas con más pozos en producción son ` +
     `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
     (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
   // consumo eléctrico de los hogares por provincia (etapa 21, CAMMESA): la Ciudad y la provincia de Buenos Aires van juntas
   "electricidad-provincias": v => {
     if (v === "mes") return `Entre ${e.el_est_desde} y ${e.el_ult}, el mes en que más electricidad consumieron los hogares del país fue ${e.el_mes_max}, con ${n0(e.el_mes_max_kwh)} kWh por habitante, ` +
       `y el de menor consumo, ${e.el_mes_min}, con ${n0(e.el_mes_min_kwh)}.`;
-    if (v === "serie") return `En ${e.el_ini}, los hogares consumían ${n0(e.el_pais_ini)} kWh de electricidad por habitante por año, y en ${e.el_ult}, ${n0(e.el_pais)}` +
-      (e.el_max_anio === e.el_ult ? ", el valor más alto de la serie." : `. El año de mayor consumo fue ${e.el_max_anio}, con ${n0(e.el_max)}.`) +
+    if (v === "serie") return `En ${e.el_ini}, los hogares consumían ${n0(e.el_pais_ini)} kWh de electricidad por habitante por año` +
+      (e.el_max_anio === e.el_ult ? `, y ${e.el_ult} fue el año de mayor consumo.` : `. El año de mayor consumo fue ${e.el_max_anio}, con ${n0(e.el_max)}.`) +
       (e.el_min_anio !== e.el_ini ? ` El de menor consumo fue ${e.el_min_anio}, con ${n0(e.el_min)}.` : "");
     const t = e.el_top, b = e.el_bajo;
-    return `En ${e.el_ult}, los hogares consumieron ${n0(e.el_pais)} kilovatios hora (kWh) de electricidad por habitante, según la demanda residencial que registra CAMMESA. ` +
-      `El consumo más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
-      `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}.`;
+    return `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}. ` +
+      `El consumo por habitante más alto fue el de ${t[0]}, con ${n0(t[1])} kilovatios hora (kWh)${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}.`;
   },
   // demanda eléctrica de comercios e industrias por provincia (etapa 23, CAMMESA): por habitante en cada categoría de tarifa y las partes de
   // la demanda de cada provincia. La Ciudad y la provincia de Buenos Aires van juntas, como en los hogares
@@ -412,8 +407,8 @@ const LEAD = {
         `y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.els_com)}.`;
     }
     const t = e.els_ind_top, b = e.els_ind_bajo;
-    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país, ` +
-      `el ${pct(P.ind)} de la demanda. El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
+    return `Las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país. ` +
+      `El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
       `con ${n0(b[1])}${conVeces(b[1], e.els_ind)}.`;
   },
   // salarios de los asalariados registrados privados por provincia (etapa 23, OEDE): el último mes sin aguinaldo o la serie en pesos de igual valor
@@ -436,9 +431,8 @@ const LEAD = {
       `no los incluye. Entre esos dos trimestres, el promedio del país ${cambioPct(DC.fonid_var)} en pesos de igual valor.`;
     const ex = DC.extra.length === 1 ? ` En ${DC.extra[0][0]}, ese salario incluye una suma extraordinaria de ${n0(DC.extra[0][1])} pesos.`
       : DC.extra.length ? ` En ${lista(DC.extra.map(x => x[0]))}, ese salario incluye sumas extraordinarias.` : "";
-    return `En ${DC.trim}, un maestro de grado de primaria con 10 años de antigüedad y jornada simple cobraba un salario bruto de ${n0(DC.pais)} pesos por mes en promedio en el país. ` +
-      `El más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])}${conVeces(DC.top[1], DC.pais)}, y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` +
-      ex + ` Descontada la inflación, el promedio del país ${cambioPct(DC.var_real_12m)} frente a ${DC.ant}.`;
+    return `Descontada la inflación, el promedio del país ${cambioPct(DC.var_real_12m)} frente a ${DC.ant}. El salario es el de un maestro de grado de primaria con jornada simple. ` +
+      `El más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])} pesos${conVeces(DC.top[1], DC.pais)}, y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` + ex;
   },
   // inversión en educación por alumno de gestión estatal (etapa 23, Coordinación de Evaluación de Costos Educativos)
   "inversion-educativa": v => {
@@ -446,9 +440,8 @@ const LEAD = {
       `${IE.pct_top[0]}, con el ${pct(IE.pct_top[1])}, y la más baja, la de ${IE.pct_bajo[0]}, con el ${pct(IE.pct_bajo[1])}.`;
     if (v === "serie") return `En pesos de ${IE.anio} (con el deflactor del PBI), la inversión por alumno de gestión estatal del país pasó de ${n0(IE.real_ini)} en ${IE.ini} a ` +
       `${n0(IE.pais)} en ${IE.anio}. La más alta fue la de ${IE.real_max_anio}, con ${n0(IE.real_max)}, y la más baja, la de ${IE.real_min_anio}, con ${n0(IE.real_min)}.`;
-    return `En ${IE.anio}, el Estado invirtió ${n0(IE.pais)} pesos por cada alumno de las escuelas de gestión estatal del país, con lo que gastan las provincias en educación ` +
-      `y lo que les transfiere la Nación. El valor más alto fue el de ${IE.top[0]}, con ${n0(IE.top[1])}${conVeces(IE.top[1], IE.pais)}, y el más bajo, el de ${IE.bajo[0]}, ` +
-      `con ${n0(IE.bajo[1])}${conVeces(IE.bajo[1], IE.pais)}.`;
+    return `En pesos de ${IE.anio}, la inversión por alumno del país era de ${n0(IE.real_ini)} en ${IE.ini}. Suma lo que gastan las provincias en educación y lo que les transfiere la Nación. ` +
+      `El valor más alto fue el de ${IE.top[0]}, con ${n0(IE.top[1])}${conVeces(IE.top[1], IE.pais)}, y el más bajo, el de ${IE.bajo[0]}, con ${n0(IE.bajo[1])}${conVeces(IE.bajo[1], IE.pais)}.`;
   },
   // seguridad (etapa 23, SNIC y SNEEP): delitos por tipo, robos y hurtos, homicidios dolosos y personas privadas de libertad
   delitos: v => {
@@ -456,8 +449,8 @@ const LEAD = {
     if (v === "serie") return `Desde ${SG.anio_ini}, la tasa de robos del país fue la más alta en ${SG.robos_max_anio}, con ${n0(SG.robos_max)} cada 100.000 habitantes, y en ${SG.anio} ` +
       `fue de ${n0(SG.robos)}. Los hurtos pasaron de ${n0(SG.hurtos_ini)} en ${SG.anio_ini} a ${n0(SG.hurtos)} en ${SG.anio}. Las estafas y defraudaciones por medios virtuales, ` +
       `que el SNIC cuenta aparte desde ${SG.estafas_ini}, pasaron de ${n0(SG.estafas_tasa_ini)} a ${n0(SG.estafas_tasa)} cada 100.000 habitantes.`;
-    return `En ${SG.anio}, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país, ${n0(SG.total_tasa)} cada 100.000 habitantes, ` +
-      `un ${pct(Math.abs(t))} ${t < 0 ? "menos" : "más"} que en ${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(([d, , p]) => `${d.toLowerCase()} (${pct(p)})`))}.`;
+    return `En ${SG.anio}, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país, y la tasa fue un ${pct(Math.abs(t))} ` +
+      `${t < 0 ? "más baja" : "más alta"} que en ${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(([d, , p]) => `${d.toLowerCase()} (${pct(p)})`))}.`;
   },
   robos: v => {
     const r = SG.robos / SG.robos_ant * 100 - 100, h = SG.hurtos / SG.hurtos_ant * 100 - 100;
@@ -468,14 +461,13 @@ const LEAD = {
     if (v === "hurtos") return `En ${SG.anio} se registraron ${n0(SG.hurtos)} hurtos cada 100.000 habitantes en el país, un ${pct(Math.abs(h))} ${h < 0 ? "menos" : "más"} que en ${SG.anio - 1}. ` +
       `La tasa más alta fue la de ${SG.hurtos_top[0]}, con ${n0(SG.hurtos_top[1])}${conVeces(SG.hurtos_top[1], SG.hurtos)}${deDia(SG.hurtos_top[0])}, y la más baja, la de ` +
       `${SG.hurtos_bajo[0]}, con ${n0(SG.hurtos_bajo[1])}${conVeces(SG.hurtos_bajo[1], SG.hurtos)}.`;
-    return `En ${SG.anio} se registraron ${n0(SG.robos)} robos cada 100.000 habitantes en el país, un ${pct(Math.abs(r))} ${r < 0 ? "menos" : "más"} que en ${SG.anio - 1}, y la tasa ` +
-      `bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +
+    return `La tasa de robos del país fue un ${pct(Math.abs(r))} ${r < 0 ? "más baja" : "más alta"} que en ${SG.anio - 1}, y bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +
       `y la más baja, la de ${SG.robos_bajo[0]}, con ${n0(SG.robos_bajo[1])}${conVeces(SG.robos_bajo[1], SG.robos)}.`;
   },
   homicidios: v => {
-    if (v === "serie") return `La tasa de víctimas de homicidios dolosos del país pasó de ${n1(SG.hom_ini)} cada 100.000 habitantes en ${SG.anio_ini} a ${n1(SG.hom_tasa)} en ` +
-      `${SG.anio}. La más alta fue la de ${SG.hom_max_anio}, con ${n1(SG.hom_max)}` + (SG.hom_min_anio === SG.anio ? `, y la de ${SG.anio} es la más baja de la serie.` : ".");
-    return `En ${SG.anio}, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país, ${n1(SG.hom_tasa)} cada 100.000 habitantes: una cada ` +
+    if (v === "serie") return `En ${SG.anio_ini}, la tasa de víctimas de homicidios dolosos del país era de ${n1(SG.hom_ini)} cada 100.000 habitantes. ` +
+      `La más alta fue la de ${SG.hom_max_anio}, con ${n1(SG.hom_max)}` + (SG.hom_min_anio === SG.anio ? `, y la de ${SG.anio} es la más baja de la serie.` : ".");
+    return `En ${SG.anio}, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país: una cada ` +
       `${unoCada(SG.hom_tasa)} habitantes` + (SG.hom_min_anio === SG.anio ? `, la tasa más baja desde ${SG.anio_ini}` : "") + `. El ${pct(SG.hom_varones)} eran varones. ` +
       `Entre ${SG.hom3_desde} y ${SG.anio}, la tasa más alta fue la de ${SG.hom3_top[0]}, con ${n1(SG.hom3_top[1])} por año${conVeces(SG.hom3_top[1], SG.hom3_pais)}, ` +
       `y la más baja, la de ${SG.hom3_bajo[0]}, con ${n1(SG.hom3_bajo[1])}${conVeces(SG.hom3_bajo[1], SG.hom3_pais)}.`;
@@ -484,7 +476,7 @@ const LEAD = {
     if (v === "prov") return `Al 31 de diciembre de ${SG.sn_anio}, la tasa más alta de los servicios penitenciarios provinciales fue la de ${SG.sn_top[0]}, con ${n0(SG.sn_top[1])} ` +
       `personas privadas de libertad cada 100.000 habitantes de la provincia, y la más baja, la de ${SG.sn_bajo[0]}, con ${n0(SG.sn_bajo[1])}. Las cárceles del Servicio ` +
       `Penitenciario Federal alojaban a ${n0(SG.sn_spf)} personas. La Ciudad de Buenos Aires no tiene un servicio penitenciario propio.`;
-    return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país, ${n0(SG.sn_tasa)} cada 100.000 habitantes. ` +
+    return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país. ` +
       `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
       `con la causa en trámite, o en otra situación.`;
   },
@@ -495,35 +487,35 @@ const LEAD = {
       `en ${inicialMin(GBN.gasto_tipos[2][0])}, según la Secretaría de Hacienda. Las transferencias de la Nación a cada provincia están en Instituciones políticas, y los ` +
       `subsidios a la energía, en Energía.`;
     return `En ${GBN.anio}, los ingresos del Sector Público Nacional fueron el ${pct(GBN.ingresos)} del PBI y el gasto sin los intereses de la deuda, el ` +
-      `${pct(GBN.gasto)}: el resultado primario fue un ${sobra(GBN.primario)} de ${pct(Math.abs(GBN.primario))} del PBI. Después de pagar los intereses ` +
+      `${pct(GBN.gasto)}. Después de pagar los intereses ` +
       `(${pct(GBN.intereses)} del PBI), el resultado financiero fue un ${sobra(GBN.financiero)} de ${pct(Math.abs(GBN.financiero))}, según la Secretaría ` +
       `de Hacienda. Desde ${GBN.desde}, el ${sobra(GBN.fin_min)} financiero más grande fue el de ${GBN.fin_min_anio}, ${pct(Math.abs(GBN.fin_min))} del PBI.` +
       (GBN.en_el_anio ? ` Hasta ${GBN.mes}, el resultado primario del año fue un ${sobra(GBN.ytd_primario)} de ${billones(Math.abs(GBN.ytd_primario))}, y el ` +
         `financiero, un ${sobra(GBN.ytd_financiero)} de ${billones(Math.abs(GBN.ytd_financiero))}.` : "");
   },
   recaudacion: v => {
-    if (v === "anio") return `En ${GRT.anio}, la recaudación de impuestos nacionales fue el ${pct(GRT.pbi)} del PBI. Desde ${GRT.desde}, el valor más alto ` +
-      `fue el de ${GRT.pbi_max_anio}, ${pct(GRT.pbi_max)}, y el más bajo, el de ${GRT.pbi_min_anio}, ${pct(GRT.pbi_min)}. Una parte de lo recaudado se reparte ` +
+    if (v === "anio") return `Desde ${GRT.desde}, la recaudación más alta, medida como parte del PBI, ` +
+      `fue la de ${GRT.pbi_max_anio}, ${pct(GRT.pbi_max)}, y la más baja, la de ${GRT.pbi_min_anio}, ${pct(GRT.pbi_min)}. Una parte de lo recaudado se reparte ` +
       `en forma automática con las provincias por la coparticipación.`;
     return `En los doce meses hasta ${GRT.doce_hasta}, la recaudación de impuestos nacionales sumó ${billones(GRT.doce_millones)}: el ${pct(GRT.iva)} fue IVA, ` +
       `el ${pct(GRT.seguridad_social)}, aportes y contribuciones a la seguridad social, y el ${pct(GRT.ganancias)}, Ganancias. Los derechos de exportación ` +
       `aportaron el ${pct(GRT.exportacion)}. Entre enero y ${MESES[GRT.ytd.mes - 1]} de ${GRT.ytd.anio}, descontada la inflación, la recaudación ` +
       `${cambioPct(GRT.ytd.var)} frente a los mismos meses del año anterior.`;
   },
-  deuda: () => `Al ${GBD.fecha}, la deuda bruta de la Administración Central era de ${n0(GBD.usd_millones)} millones de dólares, el ${pct(GBD.pct)} ` +
-    `del PBI, según la Secretaría de Finanzas. A fin de ${GBD.anio} era el ${pct(GBD.pct_anio)}. Desde ${GBD.desde}, el valor más alto fue el de ` +
+  deuda: () => `Al ${GBD.fecha}, la deuda bruta de la Administración Central era de ${n0(GBD.usd_millones)} millones de dólares, ` +
+    `según la Secretaría de Finanzas. A fin de ${GBD.anio} era el ${pct(GBD.pct_anio)} del PBI. Desde ${GBD.desde}, el valor más alto fue el de ` +
     `${GBD.max_anio}, ${pct(GBD.max)}, y el más bajo, el de ${GBD.min_anio}, ${pct(GBD.min)}. Como buena parte de la deuda está en moneda extranjera, el ` +
     `porcentaje sube cuando el peso se devalúa, aunque la deuda en dólares no cambie.`,
   "empleo-publico": v => {
     if (v === "nacion") return `En ${GBC.dot_mes}, la administración pública nacional, las empresas y las sociedades del Estado tenían ${n0(GBC.dot_total)} ` +
       `personas, según el INDEC: ${n0(GBC.dot_adm)} en la administración y ${n0(GBC.dot_emp)} en las empresas y sociedades. Desde ${GBC.dot_desde}, el primer ` +
       `mes de la serie, la dotación ${cambioPct(GBC.dot_var)}: eran ${n0(GBC.dot_total_ini)} personas.`;
-    return `En ${GBC.anio}, las administraciones de las provincias y de la Ciudad tenían ${n0(GBC.cargos)} cargos ocupados, ${n1(GBC.cada_1000)} cada 1.000 ` +
-      `habitantes, según la Dirección Nacional de Asuntos Provinciales. Iban de ${n1(GBC.bajo[1])} en ${GBC.bajo[0]} a ${n1(GBC.top[1])} en ${GBC.top[0]}` +
+    return `En ${GBC.anio}, las administraciones de las provincias y de la Ciudad tenían ${n0(GBC.cargos)} cargos ocupados, ` +
+      `según la Dirección Nacional de Asuntos Provinciales. Iban de ${n1(GBC.bajo[1])} cada 1.000 habitantes en ${GBC.bajo[0]} a ${n1(GBC.top[1])} en ${GBC.top[0]}` +
       `${conVeces(GBC.top[1], GBC.cada_1000)}. Cuenta cargos, no personas, y no incluye a los municipios ni a las empresas provinciales.`;
   },
-  "impuestos-provinciales": () => `En ${GBP.anio}, las provincias y la Ciudad recaudaron ${billones(GBP.millones)} de impuestos propios, ${n0(GBP.pais)} ` +
-    `pesos por habitante, según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. Iba de ${n0(GBP.bajo[1])} pesos ` +
+  "impuestos-provinciales": () => `En ${GBP.anio}, las provincias y la Ciudad recaudaron ${billones(GBP.millones)} de impuestos propios, ` +
+    `según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. Iba de ${n0(GBP.bajo[1])} pesos ` +
     `por habitante en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +
     (GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? "tienen" : "tiene"} datos completos del año.` : ""),
   // refugio (etapa 26): las solicitudes y las personas reconocidas de la CONARE, y las personas refugiadas y solicitantes de asilo de ACNUR
@@ -538,10 +530,9 @@ const LEAD = {
         `que no figuran como refugiadas ni como solicitantes pero que probablemente necesitan protección internacional. A la vez, ${n0(F.refugiados)} personas ` +
         `de origen argentino eran refugiadas y ${n0(F.solicitantes)} solicitaban asilo en otros países, sobre todo en ${lista(F.destinos)}.`;
     }
-    return `En ${MGR.anio} se presentaron ${n0(MGR.solicitudes)} solicitudes de reconocimiento de la condición de persona refugiada ante la Comisión ` +
-      `Nacional para los Refugiados (CONARE), ${MGR.solicitudes === MGR.sol_ant ? "las mismas" : MGR.solicitudes < MGR.sol_ant ? "menos" : "más"} que las ${n0(MGR.sol_ant)} de ${MGR.anio - 1}. El año con ` +
-      `más solicitudes desde ${MGR.ini} fue ${MGR.max_anio}, con ${n0(MGR.max)}. En ${MGR.anio}, la CONARE reconoció como refugiadas a ` +
-      `${n0(MGR.reconocidas)} personas, contra ${n0(MGR.rec_ant)} en ${MGR.anio - 1}.`;
+    return `En ${MGR.anio}, la Comisión Nacional para los Refugiados (CONARE) reconoció como refugiadas a ${n0(MGR.reconocidas)} personas, contra ${n0(MGR.rec_ant)} en ${MGR.anio - 1}. ` +
+      `Las solicitudes de reconocimiento fueron ${MGR.solicitudes === MGR.sol_ant ? "tantas como" : MGR.solicitudes < MGR.sol_ant ? "menos que" : "más que"} las ${n0(MGR.sol_ant)} de ${MGR.anio - 1}, ` +
+      `y el año con más solicitudes desde ${MGR.ini} fue ${MGR.max_anio}, con ${n0(MGR.max)}.`;
   },
   // ventas en supermercados (etapa 26): el país con el índice del INDEC, y cada provincia con sus ventas llevadas a pesos de igual valor con
   // el índice de precios de su región
@@ -565,48 +556,46 @@ const LEAD = {
     if (v === "pais") return `Los países de nacimiento más frecuentes de las personas nacidas en otro país que vivían en la Argentina en 2022 eran ` +
       `${lista(MGC.paises.slice(0, 3).map(p => `${p[0]} (${pct(p[2])})`))}, según el Censo. Las nacidas en países limítrofes eran el ${pct(MGC.limitrofes_pct)} ` +
       `de las que declararon su país, y las nacidas en Europa, el ${pct(MGC.europa_pct)}. El ${pct(MGC.no_declarado_pct)} no declaró su país de nacimiento.`;
-    return `En el Censo 2022, el ${pct(MGC.pct)} de las personas que vivían en el país había nacido en otro país: ${n0(MGC.personas)} personas. La parte ` +
+    return `En el Censo 2022 se contaron ${n0(MGC.personas)} personas nacidas en otro país. La parte ` +
       `más alta era la de ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y la más baja, la de ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
       `El país de nacimiento más frecuente era ${MGC.paises[0][0]} en ${MGC.primer_pais_n} de las 24 jurisdicciones.`;
   },
   "migracion-interna": v => v === "mapa" ? `Por departamento, entre los de ${n0(MGP.min_pob)} habitantes o más, la parte de la población nacida en ` +
     `otra provincia es más alta en ${depsTop(MGP.otra_top)}.` +
     (MGP.otra_mitad ? ` En ${MGP.otra_mitad} de los ${MGP.n} departamentos del país, más de la mitad de la población nació en otra provincia.` : "")
-    : `En el Censo 2022, el ${pct(MGC.otra_pct)} de las personas que vivían en el país había nacido en otra provincia: ` +
-    `${n0(MGC.otra_personas)} personas. La parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
+    : `En el Censo 2022 se contaron ${n0(MGC.otra_personas)} personas nacidas en otra provincia. La parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
     `provincia: ${pct(MGC.otra_top[1])}` : `, ${pct(MGC.otra_top[1])}`) + `, y la más baja, la de ${lista(MGC.otra_bajos[0])}, ${pct(MGC.otra_bajos[1])}. ` +
     `Y el ${pct(MGC.pct)} había nacido en otro país.`,
   "migracion-historia": () => {
     const lim = T.migracion_censos.map(r => r.limitrofes_pct).filter(v => v != null);
-    return `En el primer censo nacional, el de ${MGH.ini}, el ${pct(MGH.ini_pct)} de la población había nacido en otro país. La parte más alta fue la del ` +
-      `censo de ${MGH.max_anio}, ${pct(MGH.max_pct)}, y desde entonces bajó: en el Censo 2022 fue el ${pct(MGC.pct)}. Las personas nacidas en países limítrofes ` +
+    return `En el primer censo nacional, el de ${MGH.ini}, el ${pct(MGH.ini_pct)} de la población había nacido en otro país. Después del censo de ${MGH.max_anio} ` +
+      `la parte bajó, y en el Censo 2022 fue el ${pct(MGC.pct)}. Las personas nacidas en países limítrofes ` +
       `fueron en todos los censos entre el ${pct(d3.min(lim))} y el ${pct(d3.max(lim))} de la población. Hasta el censo de 1980, la mayoría de las personas ` +
       `nacidas en otro país venía de Europa, y desde el de 1991, de los países limítrofes: en 2022, el ${pct(MGC.limitrofes_pct)} de las que declararon su país.`;
   },
   radicaciones: v => {
     if (v === "nacionalidad") return `En ${MGD.anio}, las nacionalidades con más residencias otorgadas fueron ${lista(MGD.top.map(t => `la ${t[0].toLowerCase()} ` +
       `(${pct(t[2])})`))}. La Dirección Nacional de Migraciones no publica las residencias por provincia.`;
-    return `En ${MGD.anio}, la Dirección Nacional de Migraciones resolvió a favor ${n0(MGD.total)} trámites de residencia: ${n0(MGD.permanentes)} ` +
-      `permanentes y ${n0(MGD.temporarias)} temporarias. Fueron ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? "menos" : "más"} que en el año anterior. Desde ` +
+    return `De las residencias que otorgó la Dirección Nacional de Migraciones en ${MGD.anio}, ${n0(MGD.permanentes)} fueron permanentes y ${n0(MGD.temporarias)}, ` +
+      `temporarias. En total fueron ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? "menos" : "más"} que en el año anterior. Desde ` +
       `${MGD.desde}, el año con más fue ${MGD.max_anio}, con ${n0(MGD.max)}, y el que menos, ${MGD.min_anio}, con ${n0(MGD.min)}` +
       (MGD.min_anio === 2020 ? ", el año de la pandemia." : ".");
   },
   "argentinos-exterior": v => {
     if (v === "pais") return `A mediados de ${MGO.anio}, los destinos más frecuentes de las personas nacidas en la Argentina que vivían en otro país eran ` +
       `${lista(MGO.top.slice(0, 3).map(t => `${t[0]} (${pct(t[2])})`))}, según la estimación de las Naciones Unidas.`;
-    return `Según la estimación de las Naciones Unidas, a mediados de ${MGO.anio} vivían en otro país ${n0(MGO.personas)} personas nacidas en la Argentina, ` +
-      `${n1(MGO.personas / MGO.personas_ini)} veces las de ${MGO.desde}. En ${MGO.anio_ant} eran ${n0(MGO.personas_ant)}.`;
+    return `Son ${n1(MGO.personas / MGO.personas_ini)} veces las de ${MGO.desde}, según la estimación de las Naciones Unidas. ` +
+      `En ${MGO.anio_ant} eran ${n0(MGO.personas_ant)}.`;
   },
   // ---- economía y precios (etapa 25): todo del INDEC
   inflacion: v => {
     if (v === "mes") return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior, según el INDEC. ` +
       `Desde ${EIP.m_desde}, la suba de un mes más alta fue la de ${EIP.m_max_mes}, ${pct(EIP.m_max)}, y la más baja, la de ${EIP.m_min_mes}, ${pct(EIP.m_min)}.`;
     if (v === "region") return `En los doce meses hasta ${EIP.mes}, los precios subieron más en ${REG_ART[EIP.reg_max[0]]}, ${pct(EIP.reg_max[1])}, y menos en ` +
-      `${REG_ART[EIP.reg_min[0]]}, ${pct(EIP.reg_min[1])}. En todo el país, ${pct(EIP.interanual)}. Las regiones del INDEC son grupos de ciudades donde se relevan ` +
+      `${REG_ART[EIP.reg_min[0]]}, ${pct(EIP.reg_min[1])}. Las regiones del INDEC son grupos de ciudades donde se relevan ` +
       `los precios, no provincias.`;
     const dic = EIP.periodo.endsWith("-12");
-    return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior y ${yCambio(EIP.mensual, EIP.interanual)} frente a ` +
-      `${EIP.mes_ant}, según el INDEC. ` + (dic ? "" : `En lo que va del año, ${cambioPct(EIP.en_el_anio)}, y en ${EIP.anio_ult}, de diciembre a diciembre, ` +
+    return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior, según el INDEC. ` + (dic ? "" : `En lo que va del año, ${cambioPct(EIP.en_el_anio)}, y en ${EIP.anio_ult}, de diciembre a diciembre, ` +
       `la inflación fue de ${pct(EIP.anual)}. `) + `Desde ${EIP.ia_desde}, la variación en doce meses más alta fue la de ${EIP.ia_max_mes}, ${pct(EIP.ia_max)}, ` +
       `y la más baja, la de ${EIP.ia_min_mes}, ${pct(EIP.ia_min)}.`;
   },
@@ -615,14 +604,12 @@ const LEAD = {
       `impuestos, ${cambioPl(EIP.regulados)}, los estacionales, que cambian con la temporada, ${cambioPl(EIP.estacionales)}, y los demás, la inflación núcleo, ` +
       `${cambioPl(EIP.nucleo)}, según el INDEC. Los precios de los servicios ${cambioPl(EIP.servicios)} y los de los bienes, ${pct(EIP.bienes)}. El nivel ` +
       `general, ${pct(EIP.interanual)}.`;
-    return `En los doce meses hasta ${EIP.mes}, el rubro con la suba más alta fue ${inicialMin(EIP.div_max[0])}, ${pct(EIP.div_max[1])}, y el de la más baja, ` +
-      `${inicialMin(EIP.div_min[0])}, ${pct(EIP.div_min[1])}, según el INDEC.` + (/^Alimentos/.test(EIP.div_max[0] + EIP.div_min[0]) ? "" :
+    return `El rubro con la suba más baja fue ${inicialMin(EIP.div_min[0])}, ${pct(EIP.div_min[1])}, según el INDEC.` + (/^Alimentos/.test(EIP.div_max[0] + EIP.div_min[0]) ? "" :
       ` Los alimentos y las bebidas no alcohólicas ${cambioPl(EIP.div_alim)}.`) + ` El nivel general, ${pct(EIP.interanual)}.`;
   },
   canastas: v => {
-    const base = `En ${ECB.mes}, un hogar de cuatro integrantes del Gran Buenos Aires (un varón de 35 años, una mujer de 31, un hijo de 6 y una hija de 8) ` +
-      `necesitaba ${n0(ECB.cbt_hogar)} pesos por mes para no quedar bajo la línea de pobreza, el valor de su canasta básica total según el INDEC, y ` +
-      `${n0(ECB.cba_hogar)} para no quedar bajo la línea de indigencia, el de su canasta básica alimentaria. `;
+    const base = `Para no quedar bajo la línea de indigencia, el mismo hogar (un varón de 35 años, una mujer de 31, un hijo de 6 y una hija de 8) necesitaba ` +
+      `${n0(ECB.cba_hogar)} pesos por mes, el valor de su canasta básica alimentaria según el INDEC. La línea de pobreza se mide con la canasta básica total. `;
     if (v === "precios") return base + `En doce meses, la canasta básica total ${cambioPct(ECB.ia_cbt)} y la alimentaria ${cambioPct(ECB.ia_cba)}, ` +
       `y los precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;
     return base + `Por adulto equivalente, en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +
@@ -630,7 +617,7 @@ const LEAD = {
   },
   "salario-real": () => `En los doce meses hasta ${ESR.mes}, según el índice de salarios del INDEC, el salario de los asalariados registrados del sector ` +
     `privado ${cambioPct(ESR.nom_priv)} y el del sector público, ${pct(ESR.nom_pub)}, y los precios subieron ${pct(ESR.ipc)}. Descontada la inflación, el ` +
-    `salario registrado privado ${cambioPct(ESR.real_priv)} y el público ${cambioPct(ESR.real_pub)}. Frente a ${ESR.base}, en pesos de igual valor, el privado ` +
+    `salario registrado público ${cambioPct(ESR.real_pub)}. Frente a ${ESR.base}, en pesos de igual valor, el privado ` +
     `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
     `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie, descontada la inflación, fue el de ${ESR.max_priv_mes} ` +
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
@@ -639,8 +626,7 @@ const LEAD = {
       `según el INDEC. Los que más crecieron fueron ${EMA.sec_max[0]}, ${pct(EMA.sec_max[1])}, ${yE(EMA.sec_max2[0])}, ${pct(EMA.sec_max2[1])}. ` +
       (EMA.sec_min[1] < 0 ? `El que más cayó fue ${EMA.sec_min[0]}, ${pct(-EMA.sec_min[1])}.` : `El que menos creció fue ${EMA.sec_min[0]}, ${pct(EMA.sec_min[1])}.`) +
       ` Toda la economía, ${pct(EMA.doce)}.`;
-    return `En ${EMA.mes}, la actividad económica ${cambioPct(EMA.interanual)} frente a ${EMA.mes_ant} y ${yCambio(EMA.interanual, EMA.mensual_desest)} frente al mes anterior, ` +
-      `sin el efecto de la época del año, según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año ${cambioPct(EMA.en_el_anio.var)} ` +
+    return `Frente al mes anterior, sin el efecto de la época del año, la actividad ${cambioPct(EMA.mensual_desest)}, según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año ${cambioPct(EMA.en_el_anio.var)} ` +
       `frente a los mismos meses del año anterior, y en los últimos doce meses, ${cambioPct(EMA.doce)}. En ${EMA.anio_ult}, ${cambioPct(EMA.anual)}.`;
   },
   // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes,
@@ -662,9 +648,9 @@ const LEAD = {
     if (v === "mes") return `En pesos de ${CB.mes}, el precio mediano ${nomDe} en el surtidor pasó de ${n0(CB[p + "_ini_real"])} pesos por litro en ${CB.ini}` +
       `${mx === CB.ini ? ", el más alto de la serie," : ""} a ${n0(CB[p])} en ${CB.mes}${mx === CB.mes ? ", el más alto de la serie" : ""}.` +
       (mx !== CB.ini && mx !== CB.mes ? ` El más alto fue el de ${mx}, con ${n0(CB[p + "_max_real"])} pesos.` : "");
-    return `En ${CB.mes}, la mitad de las estaciones de servicio del país vendía ${nom} a más de ${n0(CB[p])} pesos por litro y la otra mitad, a menos. ` +
-      `La mediana más alta fue la de ${alto[0]} (${n0(alto[1])}) y la más baja, la de ${bajo[0]} (${n0(bajo[1])}). ` +
-      `Frente a ${CB.mes_antes}, el precio ${CB[p + "_var"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var"]))}: descontada la inflación, ${CB[p + "_var_real"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var_real"]))}.`;
+    return (p === "nafta" ? "" : `En ${CB.mes}, el precio mediano ${nomDe} en el surtidor fue de ${n0(CB[p])} pesos por litro. `) +
+      `Frente a ${CB.mes_antes}, el precio ${CB[p + "_var"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var"]))}: descontada la inflación, ${CB[p + "_var_real"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var_real"]))}. ` +
+      `La mediana más alta fue la de ${alto[0]} (${n0(alto[1])}) y la más baja, la de ${bajo[0]} (${n0(bajo[1])}). La mediana es el precio del medio: la mitad de las estaciones de servicio vende ${nom} más ${p === "gasoil" ? "caro" : "cara"} y la otra mitad, más ${p === "gasoil" ? "barato" : "barata"}.`;
   },
   // subsidios económicos a la energía (etapa 21): la serie oficial de la Secretaría de Hacienda
   subsidios: v => {
@@ -677,20 +663,24 @@ const LEAD = {
     return v === "pesos"
       ? `En pesos de ${e.sub_ult}, los subsidios económicos a la energía que registra la Secretaría de Hacienda sumaron ${n0(e.sub_ult_real)} miles de millones en ${e.sub_ult}` +
         ext(e.sub_ult, e.sub_real_max_anio, e.sub_real_max, e.sub_real_min_anio, e.sub_real_min, x => n0(x) + " miles de millones") + ytd
-      : `En ${e.sub_pbi_anio}, los subsidios económicos a la energía que registra la Secretaría de Hacienda fueron el ${pbi(e.sub_pbi)} del producto interno bruto` +
-        ext(e.sub_pbi_anio, e.sub_pbi_max_anio, e.sub_pbi_max, e.sub_pbi_min_anio, e.sub_pbi_min, x => "el " + pbi(x)) + ytd;
+      : [y && `Entre enero y ${MESES[y.mes - 1]} de ${y.anio}, los subsidios sumaron un ${pct(Math.abs(y.var))} ${y.var < 0 ? "menos" : "más"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor.`,
+        e.sub_pbi_anio === e.sub_pbi_min_anio ? `Medidos como parte del producto interno bruto, ${e.sub_pbi_anio} fue el año con menos subsidios de la serie, que empieza en ${e.sub_ini}.`
+          : e.sub_pbi_anio === e.sub_pbi_max_anio ? `Medidos como parte del producto interno bruto, ${e.sub_pbi_anio} fue el año con más subsidios de la serie, que empieza en ${e.sub_ini}.` : "",
+        e.sub_pbi_max_anio !== e.sub_pbi_anio ? `El más alto fue el de ${e.sub_pbi_max_anio}${e.sub_pbi_max_anio === e.sub_ini ? ", el primer año" : ""}, con el ${pbi(e.sub_pbi_max)}` +
+          (e.sub_pbi_min_anio !== e.sub_pbi_anio ? `, y el más bajo, el de ${e.sub_pbi_min_anio}, con el ${pbi(e.sub_pbi_min)}.` : ".")
+          : e.sub_pbi_min_anio !== e.sub_pbi_anio ? `El más bajo fue el de ${e.sub_pbi_min_anio}, con el ${pbi(e.sub_pbi_min)}.` : ""].filter(Boolean).join(" ");
   },
   "gas-consumo": v => {
     if (v === "mes") return `Entre ${e.gas_est_desde} y ${e.gas_est_hasta}, un usuario residencial consumió en promedio ${n0(e.gas_mes_max_m3)} metros cúbicos de gas en ${e.gas_mes_max} ` +
       `y ${n0(e.gas_mes_min_m3)} en ${e.gas_mes_min}: ${n1(e.gas_mes_max_m3 / e.gas_mes_min_m3)} veces más en el mes de mayor consumo.` +
       (e.gas_ytd ? ` Entre enero y ${MESES[e.gas_ytd.mes - 1]} de ${e.gas_ytd.anio} consumió ${n0(e.gas_ytd.m3)} metros cúbicos, ${pct(Math.abs(e.gas_ytd.var))} ${e.gas_ytd.var < 0 ? "menos" : "más"} que en los mismos meses de ${e.gas_ytd.anio - 1}.` : "");
-    if (v === "serie") return `En ${e.gas_ini}, un usuario residencial consumía en promedio ${n0(e.gas_pais_ini)} metros cúbicos de gas por año, y en ${e.gas_anio}, ${n0(e.gas_pais)}. ` +
+    if (v === "serie") return `En ${e.gas_ini}, un usuario residencial consumía en promedio ${n0(e.gas_pais_ini)} metros cúbicos de gas por año. ` +
       `El año de mayor consumo fue ${e.gas_max_anio}, con ${n0(e.gas_max)}, y el de menor, ${e.gas_min_anio}, con ${n0(e.gas_min)}. ` +
       `En el mismo período, los usuarios residenciales pasaron de ${n1(e.gas_usuarios_ini / 1e6)} a ${n1(e.gas_usuarios / 1e6)} millones.`;
     const t = e.gas_top;
-    return `En ${e.gas_anio}, un usuario residencial de gas natural consumió en promedio ${n0(e.gas_pais)} metros cúbicos. En ${t[0][0]} el promedio fue de ${n0(t[0][1])}, ` +
-      `${n1(e.gas_veces_top)} veces el del país, y le siguieron ${t[1][0]} (${n0(t[1][1])}) y ${t[2][0]} (${n0(t[2][1])}). El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}). ` +
-      `Las cinco provincias patagónicas tienen el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales y recibieron el ${pct(e.gas_pat_gas)} de su gas.`;
+    return `Las cinco provincias patagónicas tienen el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales y recibieron el ${pct(e.gas_pat_gas)} de su gas. ` +
+      `En ${t[0][0]}, un usuario consumió ${n1(e.gas_veces_top)} veces el promedio del país, y le siguieron ${t[1][0]} (${n0(t[1][1])} metros cúbicos) y ${t[2][0]} (${n0(t[2][1])}). ` +
+      `El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}).`;
   },
   centrales: v => v === "potencia"
     ? `En ${e.pot_anio} el país tenía ${n0(e.pot_total)} megavatios de potencia eléctrica instalada: ${pct(e.pot_pct.termica)} térmica, ${pct(e.pot_pct.hidraulica)} hidráulica, ` +
@@ -709,9 +699,9 @@ const LEAD = {
   insumos: v => v === "var_ytd"
     ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
-    : `En los doce meses hasta ${CN.ins_mes}, el consumo aparente subió en ${CN.ins_suben} de los ${CN.ins_n} insumos que sigue el ISAC frente a los doce meses anteriores. ` +
-      `El que más creció fue ${NOMBRE_INS(CN.ins_top)} (${masPct(CN.ins_top_v)}) y el que más cayó, ${NOMBRE_INS(CN.ins_low)} (${masPct(CN.ins_low_v)}). El consumo aparente de cemento portland varió ${masPct(CN.cemento_12m)}.`,
-  "empleo-construccion": v => `En el ${CN.emp_trim} había ${n0(CN.emp_total)} puestos asalariados registrados en la construcción privada, el ${pct(CN.emp_pct)} del empleo privado registrado y ${n1(CN.emp_cada_1000)} cada 1.000 habitantes. ` +
+    : `De los ${CN.ins_n} insumos que sigue el ISAC, el que más creció en los doce meses hasta ${CN.ins_mes} fue ${NOMBRE_INS(CN.ins_top)} (${masPct(CN.ins_top_v)}) ` +
+      `y el que más cayó, ${NOMBRE_INS(CN.ins_low)} (${masPct(CN.ins_low_v)}). El consumo aparente de cemento portland varió ${masPct(CN.cemento_12m)}.`,
+  "empleo-construccion": v => `La construcción tiene el ${pct(CN.emp_pct)} del empleo privado registrado, ${n1(CN.emp_cada_1000)} puestos cada 1.000 habitantes. ` +
     `Frente al ${CN.emp_trim_ant}, los puestos ${creceCae(CN.emp_var, "crecieron", "cayeron")}` +
     (v === "var_construccion" ? ` y ${CN.emp_suben} de las 24 jurisdicciones tuvieron más que un año antes.` : v === "serie" ? `. El máximo de la serie fue de ${n0(CN.emp_max)} puestos, en el ${CN.emp_max_trim}.` :
       `. ${CN.emp_top} tenía ${n1(CN.emp_top_v)} cada 1.000 habitantes${conVeces(CN.emp_top_v, CN.emp_cada_1000)} y ${CN.emp_low}, ${n1(CN.emp_low_v)}${conVeces(CN.emp_low_v, CN.emp_cada_1000)}.`),
@@ -726,20 +716,16 @@ const notaDist = (c, cod) => { const d = c.dist && DIST[c.dist]?.[NOMBRES[cod]];
 const sinContar = (clave, terrs) => terrs.length ? `, sin contar ${terrs.join(" y ")}: ${terrs.map(t => DIST[clave][t].motivo).join(". ")}` : "";
 const TX = {
   // ---- construcción y vivienda (etapa 18)
-  isac: `En ${CN.isac_mes}, la actividad de la construcción medida por el ISAC ${creceCae(CN.isac_var)} frente al mismo mes del año anterior. ` +
-    `Entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio} ${creceCae(CN.isac_ytd.var)} contra los mismos meses de ${CN.isac_ytd.anio - 1}. ` +
+  isac: `Entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio}, la actividad de la construcción medida por el ISAC ${creceCae(CN.isac_ytd.var)} contra los mismos meses de ${CN.isac_ytd.anio - 1}. ` +
     `Sin el efecto de la estacionalidad, ${creceCae(CN.isac_mes_desest)} frente al mes anterior y ${creceCae(CN.isac_3m)} entre ${CN.isac_3m_desde} y ${CN.isac_mes} contra los tres meses anteriores. ` +
     `El índice sin estacionalidad está ${pct(Math.abs(CN.isac_dif_max))} ${CN.isac_dif_max < 0 ? "por debajo" : "por encima"} del máximo de la serie, de ${CN.isac_max_mes}.`,
-  permisos: `En ${CN.per_mes}, los permisos de edificación de ${CN.per_municipios} municipios autorizaron ${n0(CN.per_m2 / 1000)} mil metros cuadrados para construir` +
-    (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que en el mismo mes del año anterior` : "") +
-    `. Entre enero y ${MESES[CN.per_ytd.mes - 1]} de ${CN.per_ytd.anio} la superficie autorizada ${creceCae(CN.per_ytd.var)} contra los mismos meses de ${CN.per_ytd.anio - 1}, ` +
+  permisos: `Entre enero y ${MESES[CN.per_ytd.mes - 1]} de ${CN.per_ytd.anio}, la superficie autorizada ${creceCae(CN.per_ytd.var)} contra los mismos meses de ${CN.per_ytd.anio - 1}, ` +
     `y en los últimos doce meses, con ${n1(CN.per_12m)} millones de metros cuadrados, ${creceCae(CN.per_12m_var)} contra los doce anteriores.`,
   "permisos-nota": `Superficie cubierta que registran los permisos de edificación de obras privadas, nuevas y ampliaciones, en una nómina de ${CN.per_municipios} municipios que elige el INDEC, en miles de metros cuadrados. ` +
     `No es el total del país y no se publica por provincia. El INDEC armó la serie desde ${CN.per_desde} con la nómina actual: las de nóminas anteriores son otras muestras y no se pueden unir con ella. ` +
     `Los últimos meses son provisorios. El promedio de doce meses suaviza los saltos de un mes a otro.`,
-  hipotecas: `En ${CN.hip_mes}, los bancos otorgaron ${n0(CN.hip_ult)} mil millones de pesos en créditos hipotecarios UVA` +
-    (CN.hip_var != null ? `, ${pct(Math.abs(CN.hip_var))} ${CN.hip_var < 0 ? "menos" : "más"} que en el mismo mes del año anterior en pesos de igual valor` : "") +
-    `, con una tasa promedio de ${n1(CN.hip_tasa)}% anual más la actualización de la UVA. El mes con más créditos fue ${CN.hip_max_mes}, con ${n0(CN.hip_max)} mil millones en pesos de ${CN.hip_mes}. ` +
+  hipotecas: (CN.hip_var != null ? `En pesos de igual valor, los créditos de ${CN.hip_mes} sumaron ${pct(Math.abs(CN.hip_var))} ${CN.hip_var < 0 ? "menos" : "más"} que los del mismo mes del año anterior, con` : `Los créditos de ${CN.hip_mes} tuvieron`) +
+    ` una tasa promedio de ${n1(CN.hip_tasa)}% anual más la actualización de la UVA. El mes con más créditos fue ${CN.hip_max_mes}, con ${n0(CN.hip_max)} mil millones en pesos de ${CN.hip_mes}. ` +
     `En todo ${CN.hip_anio} sumaron ${n0(CN.hip_anual)} mil millones` + (CN.hip_anual_max_anio !== CN.hip_anio ? `, contra ${n0(CN.hip_anual_max)} en ${CN.hip_anual_max_anio}, el año con más créditos,` : `, el año con más créditos,`) +
     ` y ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, el año con menos.`,
   "hipotecas-nota": `Préstamos hipotecarios en unidades de valor adquisitivo (UVA) que los bancos acordaron cada mes con personas y empresas, según el Banco Central, en miles de millones de pesos de ${CN.hip_mes}, ` +
@@ -798,13 +784,12 @@ const TX = {
     `El SIPA asigna cada puesto a la provincia donde declara el empleador, no donde está la obra: una empresa con sede en la Ciudad que construye en otra provincia suma en la Ciudad. ` +
     `No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó ${n0(CN.viv_abs.constructores)} personas ocupadas en la construcción, con o sin registro (ver la ficha de abajo). ` +
     `La población es la proyección ${R.anio_pob} del INDEC. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.`,
-  trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción: el ${pct(VV.pct_ocupados_construccion)} de las personas ocupadas que informaron la rama de actividad. ` +
+  trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción. ` +
     `La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}.`,
   "trabajadores-nota": `Personas ocupadas según la actividad de la empresa, el negocio o la institución donde trabajan, contadas en el lugar donde viven y no donde está la obra. ` +
     `Incluye a asalariados con y sin registro, a quienes trabajan por su cuenta y a patrones. El porcentaje se calcula sobre las personas ocupadas con la rama informada: el ${pct(VV.pct_sin_rama)} no respondió o su respuesta no alcanzó para clasificarla. ` +
     `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
-  costo: `En los doce meses hasta ${CN.costo_mes}, el costo de construir en el Gran Buenos Aires subió ${pct(CN.icc_12)} y los precios al consumidor, ${pct(CN.ipc_12)}. Los materiales subieron ${pct(CN.mat_12)} y la mano de obra, ${pct(CN.mo_12)}. ` +
-    `Medido contra los precios al consumidor, el costo de construir quedó ${pct(Math.abs(CN.icc_real))} ${CN.icc_real < 0 ? "por debajo" : "por encima"} de su nivel de ${CN.costo_desde}.`,
+  costo: `En los doce meses hasta ${CN.costo_mes}, el costo de construir en el Gran Buenos Aires subió ${pct(CN.icc_12)} y los precios al consumidor, ${pct(CN.ipc_12)}. Los materiales subieron ${pct(CN.mat_12)} y la mano de obra, ${pct(CN.mo_12)}.`,
   "costo-nota": `Índice del Costo de la Construcción del INDEC para el Gran Buenos Aires: lo que cuesta construir viviendas modelo, con materiales, mano de obra y gastos generales. ` +
     `Para compararlo con la inflación, cada índice se divide por el Índice de Precios al Consumidor nacional y se lleva a 100 en ${CN.costo_desde} (la línea punteada): arriba de 100, construir se encareció más que el promedio de los precios, y abajo, menos. ` +
     `El INDEC publica el índice como variación de cada mes desde noviembre de 2015, y el sitio encadena esas variaciones (el resultado coincide con el índice que el INDEC publica desde enero de 2022).`,
@@ -850,9 +835,9 @@ const TX = {
     `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social ni prepaga del Censo 2022.`,
   envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
     `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. La relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}).`,
-  empresas: `En ${EM.anio} había ${n0(EM.total_pais)} empresas privadas con al menos una persona en relación de dependencia, unas ${n1(EM.pais_1000)} cada 1.000 habitantes. ${EM.top} tenía ${n1(EM.top_v)} cada 1.000 y ${EM.low}, ${n1(EM.low_v)}.`,
+  empresas: `En todo el país había ${n1(EM.pais_1000)} empresas privadas con al menos una persona en relación de dependencia cada 1.000 habitantes. ${EM.top} tenía ${n1(EM.top_v)} y ${EM.low}, ${n1(EM.low_v)}.`,
   "empresas-nota": `Empresas que declaran personal ante la seguridad social. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni al personal de casas particulares. Una empresa con personal en varias provincias se cuenta en cada una, por eso las provincias suman más que el total del país. La población es la proyección ${R.anio_pob} del INDEC.`,
-  dinamica: `En ${EM.ult} abrieron ${n0(EM.ap)} empresas con empleados y cerraron ${n0(EM.ci)}: una tasa de entrada de ${pct(EM.te)} y una de salida de ${pct(EM.ts)} sobre el total de empresas. ` +
+  dinamica: `La tasa de entrada fue de ${pct(EM.te)} y la de salida, de ${pct(EM.ts)} sobre el total de empresas. ` +
     `El cambio neto fue ${EM.neta >= 0 ? "positivo" : "negativo"}, de ${pct(Math.abs(EM.neta))}, y solo ${EM.positivas === 1 ? "una provincia tuvo" : EM.positivas + " provincias tuvieron"} más aperturas que cierres. ` +
     `La tasa de entrada más alta de la serie fue ${pct(EM.te_max)}, en ${EM.te_max_anio}. Desde ${EM.ini}, el cambio neto fue negativo en ${EM.anios_negativos} años.`,
   "dinamica-nota": `Se cuentan las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su personal, así que las provincias suman el total del país. Una empresa abre cuando declara empleados por primera vez y cierra cuando pasa un año (cuatro trimestres) sin declarar personal, con el cierre fechado en el primer trimestre sin empleo: por eso la serie llega hasta un año antes que el empleo. El OEDE no marca ese último año como provisorio. ` +
@@ -870,58 +855,58 @@ const TX = {
     `La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
   "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
     `Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en ${EV.anio_fin}. El círculo claro marca ${EV.anio} y el oscuro ${EV.anio_fin}.`,
-  hogares: `En ${e.anio_ult} los hogares explicaron el ${pct(e.pct_res_ult)} de la electricidad demandada en el país, frente al ${pct(e.pct_res_ini)} de ${e.anio_ini}. Entre ambos años la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
-  actividad: `Entre ${e.anio_ini} y ${e.anio_ult} la demanda eléctrica total creció ${pct(e.crec_total)} y la actividad económica medida por el EMAE creció ${pct(e.crec_emae)}. En ${e.anio_ult} el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh).` +
+  hogares: `En ${e.anio_ini}, la parte de los hogares era del ${pct(e.pct_res_ini)}. Entre ${e.anio_ini} y ${e.anio_ult}, la demanda de los hogares creció ${pct(e.crec_res)} y la del resto de los usuarios, ${pct(e.crec_resto)}.`,
+  actividad: `En ${e.anio_ult} el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad. La actividad económica es la que mide el EMAE del INDEC.` +
     enLoQueVa(R.ytd.demanda, e.anio_ult, "la demanda total", "subió", "bajó"),
-  meses: `En promedio entre ${e.meses_desde} y ${e.meses_hasta}, ${e.mes_max} fue el mes de mayor demanda eléctrica y ${e.mes_min} el de menor. La diferencia entre ambos fue de ${pct(e.dif_max_min)}. El año tiene dos picos, uno por refrigeración en verano y otro por calefacción en invierno.`,
+  meses: `El año tiene dos picos de demanda eléctrica, uno por refrigeración en verano y otro por calefacción en invierno. En promedio entre ${e.meses_desde} y ${e.meses_hasta}, el mes de mayor demanda fue ${e.mes_max} y el de menor, ${e.mes_min}.`,
   "meses-nota": `Promedio mensual de la demanda total en GWh para ${e.meses_desde}, ${e.meses_desde + 1} y ${e.meses_hasta}. El último mes disponible en la fuente es ${e.ultimo_mes}.`,
   nacimientos: `En ${nac.anio_ult} se registraron ${n0(nac.n_ult)} nacimientos, ${pct(Math.abs(nac.caida))} menos que los ${n0(nac.pico)} de ${nac.anio_pico}. En el conjunto de los 38 países de la OCDE, la baja entre ${nac.anio_pico} y ${nac.ocde_ult} fue de ${pct(Math.abs(nac.ocde_caida))}.`,
-  adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país correspondían a madres menores de 20 años. En ${nac.anio_ult} fueron ${n1(nac.pct_ult)} de cada 100. En cantidad pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
+  adolescentes: `En cantidad, los nacimientos de madres menores de 20 años pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
   suicidio: `En ${s.anio} el SNIC registró ${n0(s.casos)} suicidios, una tasa de ${n1(s.tasa)} por cada 100.000 habitantes de 5 años y más. En ${s.anio-1} la tasa había sido ${n1(s.tasa_prev)}. La tasa de los varones (${n1(s.tasa_v)}) más que triplica la de las mujeres (${n1(s.tasa_m)}).`,
   "suicidio-prov": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes de 5 años y más, y ${s.low} la más baja, con ${n1(s.low_tasa)}. La tasa nacional fue ${n1(s.tasa)}.`,
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
   muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. En ${R.femicidios.anio} la Justicia registró ${n0(R.femicidios.n)} víctimas directas de femicidio.`,
   "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
   empleo: `En los doce meses hasta ${em.mes}, la cantidad de asalariados privados registrados del país ${signo(em.var_nac)}, y aumentó ${deLas24(em.suben)}. Ese mes eran ${n1(em.total_millones)} millones de personas.`,
-  mortalidad: `En ${mo.anio} murieron en el país ${n1(mo.tasa)} de cada 1.000 nacidos vivos antes de cumplir un año. En ${mo.anio-1} la tasa había sido ${n1(mo.tasa_prev)} y en ${mo.anio_inicio}, ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
+  mortalidad: `En ${mo.anio-1}, la tasa del país había sido ${n1(mo.tasa_prev)} y en ${mo.anio_inicio}, ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
   "mortalidad-nota": `Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca ${mo.tri_base} y el lleno ${mo.tri_act}. La tabla descargable incluye también el valor de ${mo.anio}. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`,
-  sube: `En ${su.mes}, en un día hábil típico se usaron ${n2(su.total_millones)} millones de tarjetas SUBE distintas en colectivos, trenes, subtes y lanchas${su.var_anual == null ? "" : `, ${n1(Math.abs(su.var_anual))}% ${su.var_anual < 0 ? "menos" : "más"} que en ${su.mes_prev}`}. En los primeros días hábiles de marzo de 2020, antes del aislamiento, eran ${n2(su.pre_millones)} millones.`,
+  sube: `${su.var_anual == null ? "" : `Fueron ${n1(Math.abs(su.var_anual))}% ${su.var_anual < 0 ? "menos" : "más"} tarjetas que en ${su.mes_prev}. `}En los primeros días hábiles de marzo de 2020, antes del aislamiento, se usaban ${n2(su.pre_millones)} millones por día, entre colectivos, trenes, subtes y lanchas.`,
   "sube-nota": `Cantidad de tarjetas distintas que registraron al menos un viaje en el día. Se toma la mediana de los días hábiles de cada mes, así los feriados o paros no bajan el valor del mes. En ${su.mes} se usaron por día ${n1(su.colectivo_millones)} millones de tarjetas en colectivo, ${n0(su.tren_miles)} mil en tren y ${n0(su.subte_miles)} mil en subte (una tarjeta que combina modos cuenta en cada uno). La SUBE funciona en el AMBA y en decenas de ciudades del interior. No incluye ciudades con sistemas de pago propios. Cuenta tarjetas y no pasajeros: quien paga con tarjeta bancaria, celular o QR, donde se puede, no aparece. ` +
     (su.faltan.length ? `La fuente no publica ningún día de ${su.faltan.join(" ni de ")}: el gráfico deja el hueco. ` : "") +
     (su.lancha_salto ? `Desde ${su.lancha_salto} la cantidad de tarjetas en lanchas de la serie se multiplica de un mes a otro, y la fuente no explica por qué. ` : "") +
     `Último día disponible en la fuente: ${su.ultimo_dia}.`,
-  pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.mat} puntos en matemática, ${pz.lec} en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_mat}, ${pz.ocde_lec} y ${pz.ocde_cie} puntos. En matemática la diferencia fue de ${pz.dif_mat} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
+  pisa: `En lectura, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos y en ciencias, ${pz.cie}, contra ${pz.ocde_lec} y ${pz.ocde_cie} del promedio de los países de la OCDE. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
   "pisa-nota": `Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.`,
-  escolarizacion: `En ${es.fin}, el ${pct(es.pais_fin)} de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel. En ${es.ini} era el ${pct(es.pais_ini)}. La tasa subió en ${es.suben} de las 24 jurisdicciones, aunque la comparación cruza un quiebre de serie: desde 2022 la población de referencia sale del Censo 2022. ` +
+  escolarizacion: `En ${es.ini}, la tasa del país era del ${pct(es.pais_ini)}. Subió en ${es.suben} de las 24 jurisdicciones, aunque la comparación cruza un quiebre de serie: desde 2022 la población de referencia sale del Censo 2022. ` +
     `En ${es.fin} fue más alta en ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${es.top_excluidos.join(", ").replace(/, ([^,]*)$/, " y $1")}, donde la tasa llega casi al 100% por diferencias entre la matrícula y la población estimada,` : "") +
     ` y más baja en ${es.low} (${pct(es.low_v)}).`,
   "escolarizacion-nota": `Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca ${es.ini} y el lleno ${es.fin}.`,
-  aprender: `En Aprender ${ap.anio}, el ${pct(ap.mat)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en matemática y el ${pct(ap.len)} en lengua. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
+  aprender: `En lengua, el ${pct(ap.len)} de los estudiantes alcanzó un nivel satisfactorio o avanzado. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
   "aprender-nota": `Aprender es la evaluación nacional del Ministerio de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes están calculados sobre la base agregada por departamento, sector y ámbito que publica el Ministerio, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial.${DIST["aprender_provincias.mat_logra"]?.["Neuquén"] ? ` En Neuquén, ${DIST["aprender_provincias.mat_logra"]["Neuquén"].motivo}.` : ""}`,
-  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas: el ${pct(nt.pct)} del territorio continental del país, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low} el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
+  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low} el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
   "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población ${R.anio_pob} proyectada por el INDEC. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.protegida.anio} según el Banco Mundial, que usa otra base (la Base Mundial de Áreas Protegidas) y no suma superposiciones.`,
-  parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy la Administración de Parques Nacionales tiene ${nt.pn_n} áreas protegidas, con ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
+  parques: `Los primeros parques nacionales fueron ${nt.pn_primeras}. Hoy las áreas de la Administración de Parques Nacionales suman ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
   "parques-nota": `Superficie acumulada según el año de creación de cada área, con su superficie actual. No refleja ampliaciones posteriores ni cambios de categoría.`,
-  especies: `${nt.esp_top} es el área protegida nacional con más especies animales registradas: ${n0(nt.esp_top_v)}. Le sigue ${nt.esp_2}, con ${n0(nt.esp_2_v)}.`,
+  especies: `Después de ${nt.esp_top}, el área con más especies animales registradas es ${nt.esp_2}, con ${n0(nt.esp_2_v)}. El número también depende de cuánto se estudió cada lugar.`,
   "especies-nota": `Especies animales, vertebradas e invertebradas, registradas en cada área protegida nacional terrestre según el Sistema de Información de Biodiversidad. El número también refleja cuánto se estudió cada lugar: las áreas más antiguas e investigadas acumulan más registros, por eso no mide por sí solo la riqueza de fauna.`,
-  visitas: `En ${nt.vis_anio} los parques nacionales recibieron ${n0(nt.vis)} visitas. El ${pct(nt.vis_nr_pct)} correspondió a personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)}, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ${nt.ytd_frase} las visitas ${movio(nt.ytd_var)} respecto del mismo período del año anterior.`,
+  visitas: `El ${pct(nt.vis_nr_pct)} de las visitas de ${nt.vis_anio} correspondió a personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)}, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ${nt.ytd_frase} las visitas ${movio(nt.ytd_var)} respecto del mismo período del año anterior.`,
   "visitas-nota": `Visitas registradas en los parques nacionales con control de ingreso. Una persona que entra dos veces cuenta como dos visitas. Solo se muestran años completos. La fuente no publica datos abiertos por parque.`,
-  receptivo: `En ${tu.anio} llegaron ${n0(tu.turistas)} turistas que viven fuera del país. El máximo de la serie fue en ${tu.max_anio}, con ${n0(tu.max)}. En los doce meses a ${tu.doce_hasta} fueron ${n0(tu.doce)}, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores.`,
+  receptivo: `El máximo de la serie fue en ${tu.max_anio}, con ${n0(tu.max)} turistas que viven fuera del país. En los doce meses a ${tu.doce_hasta} fueron ${n0(tu.doce)}, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores.`,
   "receptivo-nota": `Viajes de turistas no residentes, es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Solo se muestran años completos.${tu.provisorio ? " Los últimos meses son datos provisorios." : ""}`,
-  hoteles: `En ${tu.eoh_anio} se hospedaron ${n1(tu.eoh_total)} millones de viajeros en hoteles y parahoteles de las localidades relevadas. El ${pct(tu.eoh_nr_pct)} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
+  hoteles: `El ${pct(tu.eoh_nr_pct)} de los viajeros hospedados en ${tu.eoh_anio} en las localidades relevadas no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
   "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}. El INDEC informó que, al no renovarse el convenio de financiamiento con la Secretaría de Turismo, la encuesta se reformulará y su difusión se reprogramará. El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en la Ciudad.`,
-  eti: `En ${tu.eti_anio}, ${n0(tu.eti_top_v)} turistas no residentes que se fueron del país por Ezeiza o Aeroparque habían visitado ${tu.eti_top} y ${n0(tu.eti_2_v)} ${tu.eti_2}. En relación con su población, el valor más alto fue el de ${tu.eti_pc_top}, con ${n1(tu.eti_pc_top_v)} turistas cada 1.000 habitantes.`,
+  eti: `Después de ${tu.eti_top}, la jurisdicción más visitada fue ${tu.eti_2}, con ${n0(tu.eti_2_v)} turistas. En relación con su población, el valor más alto fue el de ${tu.eti_pc_top}, con ${n1(tu.eti_pc_top_v)} turistas cada 1.000 habitantes.`,
   "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población ${R.anio_pob} proyectada por el INDEC. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
-  pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${pct(R.pobreza.ind)} bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, eran ${pct(R.pobreza.pob_prev)} y ${pct(R.pobreza.ind_prev)}. El valor más alto de la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+  pobreza: `En el mismo semestre, el ${pct(R.pobreza.ind)} de las personas de los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era del ${pct(R.pobreza.pob_prev)} y la indigencia, del ${pct(R.pobreza.ind_prev)}. La pobreza más alta de la serie fue la del ${R.pobreza.max_sem}, ${pct(R.pobreza.max)}.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.`,
   "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor para ver los valores.`,
   "lista-areas-nota": `Las ${nt.pn_n} áreas protegidas de la Administración de Parques Nacionales, ordenadas por año de creación. Superficie actual en hectáreas según el Sistema de Información de Biodiversidad.`,
-  "sube-modos": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.tren_miles)} mil tarjetas en trenes y ${n0(su.subte_miles)} mil en subtes. En los primeros días hábiles de marzo de 2020 eran ${n0(su.tren_pre_miles)} mil y ${n0(su.subte_pre_miles)} mil: el tren ${su.tren_vs_pre < 0 ? "tiene" : "suma"} ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} y el subte ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"}, aunque desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos. En colectivo la diferencia es de ${su.colectivo_vs_pre > 0 ? "+" : ""}${pct(su.colectivo_vs_pre)}.`,
+  "sube-modos": `En subtes se usaron ${n0(su.subte_miles)} mil tarjetas por día hábil. En los primeros días hábiles de marzo de 2020 eran ${n0(su.tren_pre_miles)} mil en trenes y ${n0(su.subte_pre_miles)} mil en subtes: el tren ${su.tren_vs_pre < 0 ? "tiene" : "suma"} ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} y el subte ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"}, aunque desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos. En colectivo la diferencia es de ${su.colectivo_vs_pre > 0 ? "+" : ""}${pct(su.colectivo_vs_pre)}.`,
   "sube-modos-nota": `Mediana de las tarjetas distintas que viajaron cada día hábil en cada modo. El subte funciona solo en la Ciudad de Buenos Aires y los trenes con SUBE, sobre todo en el Área Metropolitana. ` +
     `Desde diciembre de 2024 el subte acepta tarjetas bancarias y celulares sin contacto, y desde mayo de 2025 pagos con QR: esos viajes no usan la SUBE y no están en estos datos, así que la baja de tarjetas en el subte no es lo mismo que una baja de pasajeros.`,
-  patentes: `En ${au.anio} se inscribieron ${n0(au.autos)} autos y ${n0(au.motos)} motos nuevos en los registros del país. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}. Entre ${au.ytd} se inscribieron ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos que en el mismo período del año anterior.`,
+  patentes: `Entre ${au.ytd} se inscribieron ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}.`,
   "patentes-nota": `Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en ${au.motos_ini}.`,
-  "patentes-prov": `En ${au.anio} se inscribieron ${n1(au.pais_1000)} autos y ${n1(au.motos_pais_1000)} motos nuevos cada 1.000 habitantes. En autos el valor más alto fue el de ${au.top} (${n1(au.top_v)}) y el más bajo el de ${au.low} (${n1(au.low_v)}). En motos el más alto fue el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}.`,
+  "patentes-prov": `Las motos nuevas fueron ${n1(au.motos_pais_1000)} cada 1.000 habitantes en todo el país. En autos el valor más alto fue el de ${au.top} (${n1(au.top_v)}) y el más bajo el de ${au.low} (${n1(au.low_v)}). En motos el más alto fue el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}.`,
   "electricidad-provincias": LEAD["electricidad-provincias"]("prov"), "electricidad-provincias-nota": `Demanda residencial que los distribuidores declaran cada mes a CAMMESA, por provincia, ` +
     `dividida por la población de cada año (proyecciones del INDEC desde 2022 y la población implícita en las tasas del SNIC antes). La parte de los hogares se calcula sobre las tres categorías de tarifa ` +
     `que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa la Ciudad de Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: ` +
@@ -1059,36 +1044,37 @@ const TX = {
     `de los doce meses de cada año, desde ${CB.anual_ini}, el primer año completo desde que rige la resolución, y pasa los precios a pesos de ${CB.anual_ult} con el deflactor ` +
     `del producto interno bruto que publica el Banco Mundial, porque el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016.`,
   "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección ${R.anio_pob} del INDEC.`,
-  nombres: `En ${cu.nom_anio} los nombres más inscriptos en el país fueron ${cu.nena} (${n0(cu.nena_n)}) para las nenas ${yE(cu.varon)} (${n0(cu.varon_n)}) para los varones. En ${cu.nom_ini} habían sido ${cu.nena0} ${yE(cu.varon0)}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
+  nombres: `En ${cu.nom_ini} habían sido ${cu.nena0} ${yE(cu.varon0)}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones. ` +
+    `En ${cu.nom_anio} se inscribieron ${n0(cu.nena_n)} nenas con el nombre ${cu.nena} y ${n0(cu.varon_n)} varones con el nombre ${cu.varon}.`,
   "nombres-nota": `Cantidad de veces que cada nombre fue inscripto como nombre de pila en el Registro Nacional de las Personas. Los nombres se muestran como los registra el RENAPER, sin tildes. Al elegir una provincia, el gráfico muestra sus diez nombres más frecuentes.`,
-  carne: `En ${cu.carne_anio} cada habitante consumió en promedio ${n1(cu.carne_v)} kilos de carne vacuna, contra ${n1(cu.carne_ini_v)} en ${cu.carne_ini}. En lo que va de ${cu.carne_ytd_hasta.slice(-4)}, hasta ${cu.carne_ytd_hasta}, el ritmo es de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", el más bajo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,
+  carne: `En lo que va de ${cu.carne_ytd_hasta.slice(-4)}, hasta ${cu.carne_ytd_hasta.replace(/ de \d{4}$/, "")}, el ritmo es de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", el más bajo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,
   "carne-nota": `Consumo aparente por habitante estimado a partir de la producción y el comercio exterior. Cada mes se expresa como tasa anual y el valor de cada año es el promedio de sus meses. Solo se muestran años completos.`,
-  vino: `En ${cu.vino_anio} se vendieron en el país ${n0(cu.vino_v)} millones de litros de vino, ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} que en ${cu.vino_ini}, cuando fueron ${n0(cu.vino_ini_v)} millones. El ${pct(cu.vino_mza)} salió de bodegas de Mendoza.` + enLoQueVa(R.ytd.vino, cu.vino_anio, "las ventas", "subieron", "bajaron"),
+  vino: `Fueron ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} litros que en ${cu.vino_ini}, cuando se vendieron ${n0(cu.vino_ini_v)} millones. El ${pct(cu.vino_mza)} salió de bodegas de Mendoza.` + enLoQueVa(R.ytd.vino, cu.vino_anio, "las ventas", "subieron", "bajaron"),
   "vino-nota": `Despachos de vino al mercado interno informados por el Instituto Nacional de Vitivinicultura. La provincia es la de origen del vino, no la del lugar donde se consume.`,
-  yerba: `En ${cu.yerba_anio} los molinos despacharon ${n1(cu.yerba_v)} millones de kilos de yerba mate. El máximo de la serie fue en ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones.` + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
+  yerba: `El máximo de la serie fue en ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones.` + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
   "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
-  glaciares: `El Inventario Nacional de Glaciares registra ${n0(cu.gl_total)} glaciares en ${cu.gl_n} provincias. ${cu.gl_top} tiene ${n0(cu.gl_top_v)} y ${cu.gl_2}, ${n0(cu.gl_2_v)}.`,
+  glaciares: `${cu.gl_top} tiene ${n0(cu.gl_top_v)} y ${cu.gl_2}, ${n0(cu.gl_2_v)}: entre las dos, el ${pct((cu.gl_top_v + cu.gl_2_v) / cu.gl_total * 100)} de los glaciares del país, según el Inventario Nacional de Glaciares.`,
   "glaciares-nota": `Cantidad de glaciares y cuerpos de hielo inventariados por el Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales (IANIGLA). Las provincias que no aparecen no tienen glaciares inventariados.`,
-  clima: `${cu.cl_max_anio} fue el año más cálido desde ${cu.cl_ini}: la temperatura media del país estuvo ${n2(cu.cl_max)} °C por encima del valor de referencia. De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
+  clima: `De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
   "clima-nota": `Desvío de la temperatura media anual del país respecto del período de referencia que usa el Servicio Meteorológico Nacional. Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor para ver el valor.`,
-  "visitas-parque": `${vpq.top} (${vpq.top_lugar}) fue el parque nacional más visitado en ${vpq.ult}, con ${n0(vpq.top_v)} visitas: el ${pct(vpq.pct_top)} del total. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)}. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
+  "visitas-parque": `${vpq.top} (${vpq.top_lugar}) recibió el ${pct(vpq.pct_top)} de las visitas a los parques nacionales de ${vpq.ult}. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)}. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
     (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, las visitas a los parques nacionales fueron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? "más altas" : "más bajas"} que en los mismos meses de ${vpq.par - 1}.` : ""),
   "vp-b1": String(vpq.ult), "vp-b2": vpq.par ? `${vpq.par}, ene a ${MESES[vpq.par_mes - 1].slice(0, 3)}` : "",
   "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso. El tablero de la Secretaría de Turismo no tiene un enlace de descarga fijo: la exportación completa, mes a mes desde 2008, se guarda en el repositorio y hay que renovarla a mano.`,
-  pesca: `En ${pe.anio} se desembarcaron ${n0(pe.total)} toneladas de pescados y mariscos en los puertos del país, contra ${n0(pe.total_ini)} en ${pe.ini}. Las especies principales fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) ${yE(pe.top[2].toLowerCase())} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
+  pesca: `En ${pe.ini} se habían desembarcado ${n0(pe.total_ini)} toneladas de pescados y mariscos en los puertos del país. Las especies principales fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) ${yE(pe.top[2].toLowerCase())} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
   "pesca-nota": `Capturas de la flota comercial desembarcadas en puertos argentinos, en toneladas, según la Subsecretaría de Pesca y Acuicultura. La tabla descargable incluye el total de todas las especies.`,
-  "pesca-rio": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. El ${pct(pe.rio_top_pct)} fue ${pe.rio_top.toLowerCase()}. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,
+  "pesca-rio": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,
   "pesca-rio-nota": `Captura comercial registrada en ríos y lagunas de las provincias que informan datos, en toneladas. No incluye la pesca deportiva ni la de subsistencia. La tabla descargable muestra cada especie por provincia.`,
-  esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer en el país era de ${n1(nv.ev_pais)} años: ${n1(nv.ev_m)} para las mujeres y ${n1(nv.ev_v)} para los varones. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
+  esperanza: `Las mujeres tenían una esperanza de vida al nacer de ${n1(nv.ev_m)} años y los varones, de ${n1(nv.ev_v)}. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
   exportaciones: `En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : ""),
   "exportaciones-nota": `Valor FOB de los bienes exportados según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
   "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
-  internet: `En el ${nv.in_trim}, ${nv.in_top} tenía ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares${aclara("internet_fijo_provincias.accesos_100_hogares", nv.in_top)} y ${nv.in_low}, ${n1(nv.in_low_v)}. La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
+  internet: `El valor más bajo fue el de ${nv.in_low}, con ${n1(nv.in_low_v)} accesos a internet fijo cada 100 hogares. La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
   "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
-  extranjeros: `Por cada 100 habitantes del país hay ${n1(nv.xt_pais)} personas nacidas en otro país con documento argentino. ${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)}. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}. ` +
-    `En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +
-    `cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda.`,
+  extranjeros: `En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país con documento argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +
+    `cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda. ` +
+    `Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}. ${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)} cada 100 habitantes.`,
   "extranjeros-nota": `Personas nacidas en el extranjero identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección ${R.anio_pob} del INDEC.`,
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
     Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
@@ -1969,6 +1955,7 @@ function textoCenso(k) {
   const pais = nv.censo[k], [ta, tv] = nv.censo_top[k], [la, lv] = nv.censo_low[k];
   return (k === "sin_cobertura"
     ? `En el Censo 2022, el ${pct(pais)} de las personas del país no tenía obra social, prepaga ni plan estatal de salud, así que dependía solo del sistema público.`
+    : k === "cloaca" ? (n => n ? `En ${n} de las 24 jurisdicciones, menos de la mitad de los hogares tenía desagüe a red cloacal.` : "")(T.censo2022_provincias.filter(r => r.codigo_indec !== "00" && r.cloaca < 50).length)
     : `En el Censo 2022, el ${pct(pais)} de los hogares del país ${CENSO_FRASE[k]}.`) + ` El valor más alto fue el de ${ta} (${pct(tv)}) y el más bajo, el de ${la} (${pct(lv)}).`;
 }
 const DIB = {
@@ -2076,7 +2063,7 @@ const DIB = {
   fiscal: a => {
     const k = MED.fiscal, d = T.fiscal_provincias, fz = R.fiscal, ord = [...d].sort((p, q) => q[k] - p[k]);
     document.querySelector('[data-t="fiscal"]').textContent = k === "autonomia"
-      ? `En ${fz.anio}, los recursos propios, sobre todo impuestos provinciales y regalías, fueron el ${pct(fz.top_v)} de los ingresos de ${fz.top} y el ${pct(fz.low_v)} de los de ${fz.low}. En la provincia del medio fueron el ${pct(fz.mediana)}, contra el ${pct(fz.mediana_ini)} en ${fz.ini}. El resto llega de la Nación, por coparticipación y otras transferencias.`
+      ? `En ${fz.anio}, los recursos propios, sobre todo impuestos provinciales y regalías, fueron el ${pct(fz.top_v)} de los ingresos de ${fz.top} y el ${pct(fz.low_v)} de los de ${fz.low}. En ${fz.ini}, en la provincia del medio eran el ${pct(fz.mediana_ini)}. El resto llega de la Nación, por coparticipación y otras transferencias.`
       : k === "resultado"
       ? `En ${fz.anio}, ${fz.superavit} provincias cerraron con superávit financiero y ${fz.deficit} con déficit. El mayor superávit, en proporción a sus ingresos, fue el de ${ord[0].territorio} (${sg(ord[0].resultado)}) y el mayor déficit el de ${ord[ord.length - 1].territorio} (${sg(ord[ord.length - 1].resultado)}).`
       : `En ${fz.anio}, los sueldos y cargas sociales fueron el ${pct(ord[0].personal)} del gasto de ${ord[0].territorio} y el ${pct(ord[ord.length - 1].personal)} del de ${ord[ord.length - 1].territorio}.`;
@@ -3012,10 +2999,14 @@ function textoAnios(filas, v, p) {
   if (!a) return `${NOMBRES[p]} no tuvo legisladores${AC_CAM[v]} desde 1983.`;
   const partes = d => v !== "total" ? "" : !(d.anios_senado > 0) ? ", todos en Diputados" : !(d.anios_diputados > 0) ? ", todos en el Senado"
     : `, ${n1(d.anios_diputados)} en Diputados y ${n1(d.anios_senado)} en el Senado`;
-  let t = (p ? `De ${NOMBRES[p]}, quien más años sumó${AC_CAM[v] || " en el Congreso"} desde 1983 es `
-    : `Desde 1983, quien más años sumó${AC_CAM[v] || " en el Congreso nacional"} es `) + `${a.nombre}: ${n1(a[k])} años${partes(a)}${a.sigue ? ", y sigue en el cargo" : ""}.`;
+  // sin provincia, la cifra destacada ya dice quién sumó más años y cuántos (13 de octubre de 2026)
+  const cifra = !p && v === "total";
+  let t = cifra ? (!(a.anios_senado > 0) ? "Todos esos años fueron en Diputados" : !(a.anios_diputados > 0) ? "Todos esos años fueron en el Senado"
+      : `De esos años, ${n1(a.anios_diputados)} fueron en Diputados y ${n1(a.anios_senado)} en el Senado`) + (a.sigue ? ", y sigue en el cargo." : ".")
+    : (p ? `De ${NOMBRES[p]}, quien más años sumó${AC_CAM[v] || " en el Congreso"} desde 1983 es `
+      : `Desde 1983, quien más años sumó${AC_CAM[v] || " en el Congreso nacional"} es `) + `${a.nombre}: ${n1(a[k])} años${partes(a)}${a.sigue ? ", y sigue en el cargo" : ""}.`;
   const sig = resto.slice(0, 2).map(d => `${d.nombre} (${n1(d[k])})`);
-  if (sig.length) t += ` Le ${sig.length > 1 ? "siguen" : "sigue"} ${listaY(sig)}.`;
+  if (sig.length) t += cifra ? ` Después ${sig.length > 1 ? "vienen" : "viene"} ${listaY(sig)}.` : ` Le ${sig.length > 1 ? "siguen" : "sigue"} ${listaY(sig)}.`;
   if (!p && v === "total") t += ` En total, ${n0(AC.personas)} personas ocuparon una banca en ese tiempo, ${n0(AC.dos_camaras)} de ellas en las dos cámaras, ` +
     `y ${AC.veinte} sumaron 20 años o más (${AC.veinte_siguen === 1 ? "una sigue" : `${AC.veinte_siguen} siguen`} en el cargo).`;
   return t;
@@ -3969,7 +3960,11 @@ DIB.representacion = a => {
    El gráfico se redibuja quieto y la versión nueva funde sobre la anterior (200 ms), con una transición de vista del navegador.
    Donde no hay soporte, o con movimiento reducido, cambia de una vez. La transición de valores llega en la etapa 6. */
 const VT_TIPOS = typeof ViewTransition !== "undefined" && "types" in ViewTransition.prototype;
+// cuándo cambió algo quien lee (una vista o una provincia): el texto de las fichas funde solo después de eso (ver fundirTexto)
+let ultimoCambio = -1e4;
+const marcarCambio = () => { ultimoCambio = performance.now(); };
 function cambiarVista(g, dibujar = () => DIB[g](false)) {
+  marcarCambio();
   const el = G(g);
   if (!el || REDUCIR || !VT_TIPOS || document.hidden) return dibujar();
   el.style.viewTransitionName = "grafico";
@@ -3987,6 +3982,7 @@ function cambiarVista(g, dibujar = () => DIB[g](false)) {
 const SE_MUEVEN = new Set(["piramide"]);
 const enPantalla = el => { const r = el.getBoundingClientRect(); return r.height > 0 && r.bottom > 0 && r.top < innerHeight; };
 function repintarProv() {
+  marcarCambio();
   const vistos = Object.keys(DIB).map(k => [k, G(k)]).filter(([, el]) => el && el.closest(".visto"));
   vistos.forEach(([, el]) => el.resaltar?.());
   const redibujan = vistos.filter(([, el]) => !el.resaltar);
@@ -4789,103 +4785,103 @@ const sg = v => (v > 0 ? "+" : "") + pct(v);
 // qué período, así que la corta dice solo la unidad y a quién se refiere. El texto de la ficha no repite la cifra: empieza por lo que
 // el gráfico no dice.
 const CLAVE = {
-  "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
-  "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`],
-  "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`],
-  "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`],
-  "f-areas-hidro": [pct(PG.areas_top10_pet), `del petróleo del país salió de las diez áreas de concesión que más produjeron en ${PG.areas_anio}`],
-  "f-pozos": [`${PG.veces} veces`, `más petróleo por día produjo un pozo de shale que uno convencional en ${PG.pozos_mes}`],
-  "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`],
-  "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`],
-  "f-regalias": [pct(PG.reg_top_pct), `de los ingresos totales de ${PG.reg_top} fueron regalías en ${PG.reg_anio}`],
-  "f-reservas": [`${n1(PG.res_hor_pet)} años`, `de producción de petróleo alcanzan las reservas comprobadas, al ritmo de ${PG.res_anio}`],
-  "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`],
-  "f-fracturas": [`${n0(PG.dv_rama_ult)} m`, `de rama horizontal tuvo en promedio un pozo de Vaca Muerta fracturado en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`],
-  "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
-  "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
-  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`],
-  "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`],
+  "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`, `barriles por día en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
+  "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`, `millones de metros cúbicos por día en ${PG.mes}`],
+  "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`, `de los hogares cocinaba con gas de red, y el ${pct(VV.pct_garrafa)}, con garrafa`],
+  "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`, `del petróleo del país salió de ${PG.top}`],
+  "f-areas-hidro": [pct(PG.areas_top10_pet), `del petróleo del país salió de las diez áreas de concesión que más produjeron en ${PG.areas_anio}`, `del petróleo de ${PG.areas_anio} salió de las diez áreas que más produjeron`],
+  "f-pozos": [`${PG.veces} veces`, `más petróleo por día produjo un pozo de shale que uno convencional en ${PG.pozos_mes}`, `más petróleo por día saca un pozo de shale que uno convencional`],
+  "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`, `del petróleo del país lo produjo ${PG.emp_top}`],
+  "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`, `puestos asalariados privados, incluidos los servicios a la extracción`],
+  "f-regalias": [pct(PG.reg_top_pct), `de los ingresos totales de ${PG.reg_top} fueron regalías en ${PG.reg_anio}`, `de los ingresos totales de ${PG.reg_top}`],
+  "f-reservas": [`${n1(PG.res_hor_pet)} años`, `de producción de petróleo alcanzan las reservas comprobadas, al ritmo de ${PG.res_anio}`, `de producción de petróleo, al ritmo de ${PG.res_anio}`],
+  "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`, `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} en ${PG.bal_anio}`],
+  "f-fracturas": [`${n0(PG.dv_rama_ult)} m`, `de rama horizontal tuvo en promedio un pozo de Vaca Muerta fracturado en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`, `de rama horizontal por pozo en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`],
+  "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`, `en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
+  "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`, `barriles por pozo que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
+  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`, `en producción, el ${pct(PG.map_pct_nq)} en Neuquén`],
+  "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`, `por usuario en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`],
   "f-permisos": [`${n0(CN.per_m2 / 1000)} mil m²`, `autorizaron los permisos de edificación de ${CN.per_municipios} municipios en ${CN.per_mes}` +
-    (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : "")],
-  "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`],
-  "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
-  "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`],
+    (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : ""), `autorizados en ${CN.per_mes} en ${CN.per_municipios} municipios${CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : ""}`],
+  "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`, `de pesos en ${CN.hip_mes}`],
+  "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`, `de pesos en ${CN.op_ult}, contra ${n0(CN.op_max)} mil millones en ${CN.op_max_anio}, en pesos del mismo valor`],
+  "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`, `por habitante en ${e.el_ult}, en todo el país`],
   "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`, `brutos por mes, promedio de todo el país`],
-  "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`],
-  "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`],
-  "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`],
-  "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`],
-  "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`],
-  "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
-  "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`],
-  "f-recaudacion": [pct(GRT.pbi), `del PBI fue la recaudación de impuestos nacionales en ${GRT.anio}`],
-  "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`],
-  "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`],
-  "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y la Ciudad en ${GBP.anio}`],
-  "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`],
-  "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`],
-  "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`],
-  "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`],
-  "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`],
-  "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`],
-  "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`],
+  "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`, `brutos por mes, promedio de todo el país`],
+  "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`, `por alumno, promedio de todo el país`],
+  "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`, `cada 100.000 habitantes en ${SG.anio}`],
+  "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`, `robos cada 100.000 habitantes en ${SG.anio}`],
+  "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`, `víctimas cada 100.000 habitantes en ${SG.anio}`],
+  "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`, `cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
+  "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`, `del PBI de ${sobra(GBN.primario)} primario en ${GBN.anio}, antes de los intereses de la deuda`],
+  "f-recaudacion": [pct(GRT.pbi), `del PBI fue la recaudación de impuestos nacionales en ${GRT.anio}`, `del PBI en ${GRT.anio}`],
+  "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`, `del PBI al ${GBD.fecha}`],
+  "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`, `cargos cada 1.000 habitantes en todo el país`],
+  "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y la Ciudad en ${GBP.anio}`, `por habitante en todo el país`],
+  "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`, `de la población de todo el país, según el Censo`],
+  "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`, `de la población de todo el país, según el Censo`],
+  "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`, `de la población en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`],
+  "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`, `residencias otorgadas en ${MGD.anio}`],
+  "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`, `a mediados de ${MGO.anio}, según las Naciones Unidas`],
+  "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`, `en los doce meses hasta ${EIP.mes}, según el INDEC`],
+  "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`, `subieron los precios de ${inicialMin(EIP.div_max[0])}, el rubro que más aumentó`],
   "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`],
-  "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`],
-  "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`],
-  "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`],
+  "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`, `${ESR.real_priv < 0 ? "bajó" : "subió"} el privado en los doce meses hasta ${ESR.mes}`],
+  "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`, `${EMA.interanual < 0 ? "cayó" : "creció"} en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`],
+  "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`, `solicitudes en ${MGR.anio}, según la CONARE`],
   "f-supermercados": [pct(Math.abs(ESU.interanual)), `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados en pesos de igual ` +
-    `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`],
-  "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
-  "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
-  "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
-  "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
-  "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
-  "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
-  "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],
-  "f-empleo-construccion": [n0(CN.emp_total), `puestos asalariados registrados en la construcción privada en el ${CN.emp_trim}`],
-  "f-trabajadores": [pct(VV.pct_ocupados_construccion), `de las personas ocupadas trabajaba en la construcción en el Censo 2022, con o sin registro`],
-  "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir desde ${CN.costo_desde}`],
-  "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`],
-  "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`],
-  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`],
-  "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`],
-  "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`],
-  "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`],
-  "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`],
-  "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`],
-  "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`],
+    `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? "cayeron" : "crecieron"} en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`],
+  "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`, `de la demanda del país la usaron las industrias y los grandes comercios`],
+  "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`, `por litro de nafta súper en ${CB.mes}, mediana del país`],
+  "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`, `del PBI en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
+  "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`, `de la potencia instalada era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
+  "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`, `entre los productores de petróleo del mundo, según la EIA`],
+  "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`, `${CN.isac_var < 0 ? "cayó" : "creció"} en ${CN.isac_mes} frente al mismo mes del año anterior`],
+  "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`, `insumos subieron frente a los doce meses anteriores`],
+  "f-empleo-construccion": [n0(CN.emp_total), `puestos asalariados registrados en la construcción privada en el ${CN.emp_trim}`, `puestos asalariados privados en todo el país`],
+  "f-trabajadores": [pct(VV.pct_ocupados_construccion), `de las personas ocupadas trabajaba en la construcción en el Censo 2022, con o sin registro`, `de las personas ocupadas, con o sin registro`],
+  "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir desde ${CN.costo_desde}`, `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor, desde ${CN.costo_desde}`],
+  "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`, `de los hogares alquilaba su vivienda`],
+  "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`, `de la electricidad demandada en ${e.anio_ult}`],
+  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`, `creció la demanda eléctrica entre ${e.anio_ini} y ${e.anio_ult}, contra ${pct(e.crec_emae)} la actividad económica`],
+  "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`, `más demanda en ${e.mes_max} que en ${e.mes_min}`],
+  "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`, `de cada 100 nacimientos de ${nac.anio_ult}. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`],
+  "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`, `cada 1.000 nacidos vivos en ${mo.anio}, en todo el país`],
+  "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`, `puntos en matemática, contra ${pz.ocde_mat} del promedio de la OCDE`],
+  "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`, `de los adolescentes de todo el país en ${es.fin}`],
+  "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`, `de los estudiantes de todo el país, en matemática`],
   "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`, `por cada 100 habitantes en todo el país`],
-  "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`],
-  "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`],
-  "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`],
-  "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`],
-  "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`],
-  "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`],
-  "f-eti": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`],
-  "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`],
-  "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`],
-  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`],
-  "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`],
-  "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`],
-  "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`],
-  "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`],
-  "f-nombres": [cu.nena, `${yE(cu.varon)} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`],
-  "f-carne": [`${n1(cu.carne_v)} kg`, `de carne vacuna por habitante en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)} kg`],
-  "f-vino": [n0(cu.vino_v), `millones de litros de vino vendidos en el país en ${cu.vino_anio}`],
-  "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`],
-  "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`],
+  "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, `del territorio continental del país`],
+  "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, `áreas protegidas nacionales, las primeras de ${nt.pn_primera_anio}`],
+  "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`, `especies animales en ${nt.esp_top}, el área nacional con más registros`],
+  "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`, `millones de visitas en ${nt.vis_anio}`],
+  "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`, `millones de turistas en ${tu.anio}`],
+  "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`, `millones de viajeros en ${tu.eoh_anio}`],
+  "f-eti": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`, `visitaron ${tu.eti_top}, la jurisdicción más visitada`],
+  "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`, `bajo la línea de pobreza en el ${R.pobreza.sem}`],
+  "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`, `tarjetas por día hábil en trenes, en ${su.mes}`],
+  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`, `motos nuevas en ${au.anio}, contra ${n0(au.autos)} autos`],
+  "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`, `autos nuevos cada 1.000 habitantes en todo el país`],
+  "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`, `visitas recibió ${vpq.top}, el más visitado en ${vpq.ult}`],
+  "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`, `toneladas desembarcadas en ${pe.anio}`],
+  "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`, `de la pesca comercial en ríos fue ${pe.rio_top.toLowerCase()}`],
+  "f-nombres": [cu.nena, `${yE(cu.varon)} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`, `${yE(cu.varon)}, los más elegidos para nenas y varones`],
+  "f-carne": [`${n1(cu.carne_v)} kg`, `de carne vacuna por habitante en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)} kg`, `por habitante en ${cu.carne_anio}, contra ${n1(cu.carne_ini_v)} kg en ${cu.carne_ini}`],
+  "f-vino": [n0(cu.vino_v), `millones de litros de vino vendidos en el país en ${cu.vino_anio}`, `millones de litros en ${cu.vino_anio}`],
+  "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`, `millones de kilos en ${cu.yerba_anio}`],
+  "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`, `glaciares en ${cu.gl_n} provincias`],
   "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`],
-  "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`],
+  "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`, `años en todo el país`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, `dólares por habitante en todo el país`],
-  "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`],
-  "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`],
-  "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`],
-  "f-fiscal": [pct(R.fiscal.mediana), `de los ingresos de la provincia del medio fueron recursos propios en ${R.fiscal.anio}. El resto llegó de la Nación`],
-  "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
-  "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
+  "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, `de los hogares tenía desagüe a red cloacal`],
+  "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`, `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los de empresas y organizaciones" : ""}`],
+  "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`, `cada 100 habitantes de todo el país`],
+  "f-fiscal": [pct(R.fiscal.mediana), `de los ingresos de la provincia del medio fueron recursos propios en ${R.fiscal.anio}. El resto llegó de la Nación`, `de los ingresos de la provincia del medio fueron recursos propios`],
+  "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`, `empresas privadas con empleados en ${EM.anio}`],
+  "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`, `empresas abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
   "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`, `de las personas asalariadas de los 31 aglomerados urbanos`],
-  "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
-  "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`],
+  "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`, `millones de tarjetas distintas por día hábil, en ${su.mes}`],
+  "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`, `sumó ${AC.top[0].nombre} desde 1983, más que cualquier otra persona`],
 };
 /* "En cifras" (etapa 15, pedido del autor: todas las secciones con la misma cantidad de tarjetas que Trabajo y finanzas, del mismo
    ancho y llenando la fila, "siempre con valores que agreguen valor, no solo de relleno"). Cinco tarjetas en cada sección.
@@ -5218,9 +5214,21 @@ function alternarLargo(lead, b) {
   lead.animate([{height: desde + "px"}, {height: hasta + "px"}], {duration: 250, easing: "cubic-bezier(.23,1,.32,1)"});
   if (abrir) lead.animate([{opacity: .6}, {opacity: 1}], {duration: 250, easing: "ease-out"});
 }
+/* El texto nuevo de una ficha entra con un fundido (13 de octubre de 2026, pedido del autor: la receta "text swap soft" de transitions.dev
+   con la escala de Datina, --dur-2 y --ease-out). Solo cuando quien lee cambió una vista o la provincia, no cuando la ficha llega por
+   primera vez, que ya tiene su entrada. El gráfico funde a la vez (cambiarVista). Con movimiento reducido, solo el fundido, sin desenfoque. */
+const TEXTO_PREV = new WeakMap();
+function fundirTexto(l) {
+  const t = l.textContent, antes = TEXTO_PREV.get(l);
+  TEXTO_PREV.set(l, t);
+  if (!antes || antes === t || performance.now() - ultimoCambio > 1500 || document.hidden) return;
+  l.animate(REDUCIR ? [{opacity: 0}, {opacity: 1}] : [{opacity: 0, filter: "blur(2px)"}, {opacity: 1, filter: "blur(0)"}],
+    {duration: parseFloat(css("--dur-2")) || 200, easing: css("--ease-out") || "ease-out"});
+}
 const LEADS = [...document.querySelectorAll(".tema:not(.herramienta) article.ficha .lead")];
-const vigiaLargo = new MutationObserver(ms => new Set(ms.map(m => m.target.nodeType === 1 ? m.target.closest(".lead") : m.target.parentElement?.closest(".lead"))).forEach(l => l && revisarLargo(l)));
-LEADS.forEach(l => { revisarLargo(l); vigiaLargo.observe(l, {childList: true, characterData: true, subtree: true}); });
+const vigiaLargo = new MutationObserver(ms => new Set(ms.map(m => m.target.nodeType === 1 ? m.target.closest(".lead") : m.target.parentElement?.closest(".lead")))
+  .forEach(l => { if (l) { revisarLargo(l); fundirTexto(l); } }));
+LEADS.forEach(l => { revisarLargo(l); TEXTO_PREV.set(l, l.textContent); vigiaLargo.observe(l, {childList: true, characterData: true, subtree: true}); });
 let anchoLargo = innerWidth;
 addEventListener("resize", () => { if (innerWidth === anchoLargo) return; anchoLargo = innerWidth; LEADS.forEach(revisarLargo); });
 // y cuando llega la letra del sitio: con la de reemplazo, más ancha, un texto de siete líneas parecía de ocho y quedaba plegado

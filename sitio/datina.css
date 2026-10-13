@@ -962,6 +962,9 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:opacity var(--dur-1) var(--ease-out)}
 .accion .lbl.cambia{opacity:0}
 .tabla-datos{margin:var(--e-4) 0 0}
+/* "Ver tabla" (13 de octubre de 2026): la tabla aparece con un fundido y baja 4 píxeles, en 200 ms */
+.tabla-datos:not([hidden]){animation:abre-tabla var(--dur-2) var(--ease-out)}
+@keyframes abre-tabla{from{opacity:0;transform:translateY(calc(-1 * var(--e-1)))}}
 .tabla-datos .tabla-desliza{max-height:360px;margin:0}
 .tabla-nota{margin:6px 0 0;font-size:var(--t-2);color:var(--muted)}
 /* "Ver tabla" (etapa 16): en cada columna de números, el 20% más alto en azul y negrita y lo que queda debajo de la mitad en gris */
@@ -1507,6 +1510,7 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   .sol-ir{transition:none!important;transform:none!important}
   .buscador:not([hidden]){animation:none}
   .sobre[open]>.sobre-panel{animation:vt-funde var(--dur-2) var(--ease-out)}
+  .tabla-datos:not([hidden]){animation:vt-funde var(--dur-2) var(--ease-out)}
   /* menús, cuadros y barra: solo fundidos */
   .menu-panel,.elige-panel,.tip{transform:none!important}
   .barra.compacta ~ .menu-panel{translate:none}

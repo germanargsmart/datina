@@ -58,6 +58,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Español rioplatense. Desde la etapa 37, el título de cada ficha y el de cada página es una pregunta. Regla del autor: "Pregunta concreta + respuesta cuantificable" ("¿Dónde se gana más?", nunca "Conocé…", "Descubrí…" o "Mirá…"). Neutra, sin cifras ni años, nunca retórica. Debajo va la descripción con su período (`p.ficha-sub`, "Tasa de mortalidad infantil por provincia, 2021 a 2023"), fija y con `{{ruta}}`. Las fichas de suicidio y la de muertes violentas conservan su título descriptivo, sin pregunta.
 - Orden de prioridad visual del autor, que no se invierte: la pregunta, el dato o el gráfico, la interpretación, la fuente y la metodología. En la plantilla el texto (`p.lead`) va después del gráfico (el constructor lo controla), salvo en las fichas de suicidio y las anchas.
 - Toda cifra se explica completa: qué mide, unidad, año y población de referencia.
+- La cifra destacada (`CLAVE` en `datina.js`) lleva en la ficha una leyenda corta, la unidad y a quién se refiere, porque la descripción de arriba ya dice qué se mide y de qué período. La leyenda completa queda para "En cifras" y el buscador. El texto no repite el número de la cifra: empieza por lo que el gráfico no dice (el cambio en el tiempo, el total, la comparación). `prueba_paginas.mjs` frena si se repite.
 - Usar siempre el dato más reciente disponible.
 - No usar punto y coma en ningún texto visible.
 - Tono neutro en temas políticos: describir, no adjetivar.
