@@ -294,10 +294,11 @@ FUENTES = {
     "sinta_eti_provincias.csv": ckan_id(YV, "encuesta-turismo-internacional", "4af57562-9ca5-4301-8865-e04e9bfdf327",
         YV + "/dataset/78b880c1-50d5-4a0c-9c87-7350e70548c2/resource/4af57562-9ca5-4301-8865-e04e9bfdf327/download/turistas_pernoctes_por_provincia_segun_origen_y_destinos_visitados_ezeiza_aeroparque.csv"),
     # Carne vacuna, vino y yerba mate: indicadores sectoriales del Ministerio de Economia (SSPMI).
-    # El servidor estuvo inestable en septiembre de 2026: si falla, queda el archivo anterior.
-    "sspmi_carne_vacuna.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv",
-    "sspmi_vitivinicultura.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_vitivinicultura.csv",
-    "sspmi_yerba_mate.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_yerba-mate.csv",
+    # El servidor estuvo inestable en septiembre de 2026: si falla, queda el archivo anterior. En octubre de 2026 los archivos perdieron el
+    # prefijo "sspmi_" (la actualización del 12 de octubre encontró vitivinicultura.csv y yerba-mate.csv en el catálogo)
+    "sspmi_carne_vacuna.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/carnica-vacuna.csv",
+    "sspmi_vitivinicultura.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/vitivinicultura.csv",
+    "sspmi_yerba_mate.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/yerba-mate.csv",
     # Nombres mas frecuentes por provincia, anio y sexo (RENAPER)
     "renaper_nombres_frecuentes.csv": "https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv",
     # Glaciares por provincia (Inventario Nacional de Glaciares) y anomalia de temperatura desde 1961 (SMN), via CIAM
@@ -453,9 +454,10 @@ VALIDA = {
     "educ_escolarizacion.zip": lambda b: b[:2] == b"PK",
     "pisa_owid.csv": lambda b: b.startswith(b"entity,"),
     "dnrpa_autos_nuevos.csv": lambda b: b"inscripcion" in b[:200],
-    "sspmi_carne_vacuna.csv": lambda b: b"sector_id" in b[:200],
-    "sspmi_vitivinicultura.csv": lambda b: b"sector_id" in b[:200],
-    "sspmi_yerba_mate.csv": lambda b: b"sector_id" in b[:200],
+    # además del formato, los indicadores que usa el sitio (la búsqueda en el catálogo encontró una vez la planilla de carne aviar)
+    "sspmi_carne_vacuna.csv": lambda b: b"sector_id" in b[:200] and b"Asado-Pollo" in b and b"Consumo per c" in b,
+    "sspmi_vitivinicultura.csv": lambda b: b"sector_id" in b[:200] and b"Mercado interno" in b,
+    "sspmi_yerba_mate.csv": lambda b: b"sector_id" in b[:200] and b"Salida de molino" in b,
     "renaper_nombres_frecuentes.csv": lambda b: b"provincia_id" in b[:100],
     "ciam_glaciares.csv": lambda b: b"glaciares" in b[:200],
     "ciam_desembarques_especie.csv": lambda b: b"especies" in b[:100],
@@ -535,7 +537,7 @@ def serie_sin_huecos(b, col):
 # Las tres planillas del SSPMI (carne vacuna, vino y yerba mate) dan 404 en su dirección de siempre desde octubre de 2026. Si pasa, se busca
 # el archivo en el catálogo del SSPMI y en el de datos.gob.ar por su nombre, y se guarda la lista de enlaces que se encontraron
 # (sspmi_enlaces.json), para ver adónde se mudaron
-SSPMI_CLAVE = {"sspmi_carne_vacuna.csv": r"c[aá]rnic|vacun", "sspmi_vitivinicultura.csv": r"vitivin", "sspmi_yerba_mate.csv": r"yerba"}
+SSPMI_CLAVE = {"sspmi_carne_vacuna.csv": r"vacun", "sspmi_vitivinicultura.csv": r"vitivin", "sspmi_yerba_mate.csv": r"yerba"}
 
 
 def sspmi_buscar(nombre):
@@ -550,7 +552,7 @@ def sspmi_buscar(nombre):
         enlaces |= {urllib.parse.urljoin(pag, u) for u in re.findall(r"""(?:href=|"(?:downloadURL|url|accessURL)"\s*:\s*)["']([^"']+?\.csv)["']""", texto, re.I)}
     previas = json.loads((CRUDO / "sspmi_enlaces.json").read_text(encoding="utf-8")) if (CRUDO / "sspmi_enlaces.json").exists() else []
     (CRUDO / "sspmi_enlaces.json").write_text(json.dumps(sorted(enlaces | set(previas)), ensure_ascii=False, indent=1), encoding="utf-8")
-    candidatas = sorted(u for u in enlaces if re.search(SSPMI_CLAVE[nombre], u, re.I) and re.search(r"sspm|sectorial|indicador", u, re.I))
+    candidatas = sorted(u for u in enlaces if re.search(SSPMI_CLAVE[nombre], u, re.I) and re.search(r"sspm|sectorial|indicador|nuevo_dataset", u, re.I))
     for u in candidatas:
         try:
             datos = leer(u, 120)
