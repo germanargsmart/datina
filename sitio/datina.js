@@ -4174,7 +4174,9 @@ TX["votaciones-nota"] = $t("votaciones-nota").textContent = `Votación en genera
     `La selección de leyes es propia: leyes muy debatidas o con efectos amplios, de todos los gobiernos desde ${R.votaciones.leyes[0].anio}. ` +
     `El Senado no publica el acta nominal de ${listaY(R.votaciones.leyes.filter(l => !l.camaras.Senado).map(l => `${l.nombre.charAt(0).toLowerCase() + l.nombre.slice(1)} de ${l.anio}`))}. ` +
     `Las actas salen de la copia de los sitios oficiales que mantiene el proyecto abierto ¿Cómo Votó?, de Rodrigo Quiroga, con ${n0(R.votaciones.n_dip)} votaciones de Diputados desde ${R.votaciones.dip_desde} y ${n0(R.votaciones.n_sen)} del Senado desde ${R.votaciones.sen_desde}, hasta el ${fechaLarga(R.votaciones.ult)}. ` +
-    `Se cotejaron con los datos abiertos de la Cámara de Diputados (todas las actas de 2011 a 2019) y con el sitio del Senado (todas las de estas leyes y una muestra), sin diferencias.`;
+    `Se cotejaron con los datos abiertos de la Cámara de Diputados (todas las actas de 2011 a 2019) y con el sitio del Senado (todas las de estas leyes desde 2008 y una muestra), sin diferencias. ` +
+    `Las de 2006 y 2007 se cotejaron con los totales que publicó la prensa: coinciden, salvo un voto a favor de más y una abstención de menos en la reforma del Consejo de la Magistratura en ` +
+    `Diputados y una abstención de menos en la de bosques. El total de los superpoderes en Diputados no se encontró publicado: es el acta de la votación en general de esa sesión.`;
 /* ---------- cómo votaron el presupuesto los legisladores de fuera del bloque oficialista (etapa 28) ----------
    Votación en general de cada presupuesto en cada cámara (datos/manual/presupuestos.csv). Las barras reparten a todos los legisladores de fuera
    del bloque oficialista entre a favor, en contra, abstención y ausente: las ausencias cuentan */

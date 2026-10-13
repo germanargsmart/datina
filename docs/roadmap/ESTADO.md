@@ -181,6 +181,20 @@ Ingresos por aglomerado de la EPH (pregunta abierta al autor desde la etapa 27).
 - Los montos se muestran redondeados al millar, porque las respuestas se redondean.
 - La nota dice que no descuenta las diferencias de precios entre regiones.
 
+Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: votaciones anteriores a 2008" en el registro histórico).
+- Se sumaron a `leyes_clave.csv` las cuatro candidatas que tenían acta en las dos cámaras:
+  - reforma del Consejo de la Magistratura (2006);
+  - superpoderes del jefe de Gabinete (2006);
+  - Ley de Educación Nacional (2006, de efecto directo);
+  - Ley de Bosques Nativos (2007), con la votación de Diputados que aceptó los cambios del Senado.
+- Las leyes clave pasan a ir de 2006 a 2026, y la ficha del voto de los legisladores frente al de su provincia suma el gobierno de Kirchner (4 leyes, correlación de 0,41).
+- Cotejo con los totales que publicó la prensa:
+  - coinciden en Educación Nacional y en las votaciones del Senado;
+  - en el Consejo de la Magistratura en Diputados hay un voto a favor de más y una abstención de menos;
+  - en la de bosques, una abstención de menos;
+  - el total de los superpoderes en Diputados no se encontró publicado.
+  - La nota de la ficha lo dice.
+
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
 - Línea del país en las barras: va detrás de las filas y los valores llevan borde del color del fondo. Hecho.
@@ -218,4 +232,4 @@ Detalle en `docs/historico/etapas-previas.md`, sección "Pendientes y próximos 
 - Volver a correr `scripts/transferencias_presupuesto.py` a principios de 2027.
 - Revisar que la actualización mensual del 5 de noviembre termine bien (primera con `ubuntu-24.04` fijo y las acciones en su versión 7).
 - Conectar el repositorio a Netlify y activar los formularios (contacto).
-- Preguntas abiertas al autor: precios de la vivienda por capital (solo fuentes privadas), ingresos por aglomerado de la EPH y votaciones anteriores a 2008.
+- Preguntas abiertas al autor: precios de la vivienda por capital (solo fuentes privadas). Los ingresos por aglomerado de la EPH y las votaciones anteriores a 2008 se hicieron el 13 de octubre de 2026 (ver "Pedidos del autor del 13 de octubre de 2026").
