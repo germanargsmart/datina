@@ -12,16 +12,14 @@
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_import/estilo.3b41d97b.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
-<link rel="modulepreload" href="./_observablehq/client.929be116.js">
+<link rel="modulepreload" href="./_observablehq/client.874bf858.js">
 <link rel="modulepreload" href="./_observablehq/runtime.fa9f71c0.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.67636428.js">
-<link rel="modulepreload" href="./_observablehq/stdlib/duckdb.d8b43ff3.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.4b7ceed1.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.17/93ce672e.js">
 <link rel="modulepreload" href="./_npm/apache-arrow@21.2.0/b9fc0486.js">
 <link rel="modulepreload" href="./_npm/parquet-wasm@0.9.0/bd2cf640.js">
-<link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.29.0/d167315f.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/604cb63b.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.0/080cf928.js">
 <link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/f53f17b2.js">
@@ -74,27 +72,39 @@ document.addEventListener("DOMContentLoaded", () => {
 <meta name="description" content="Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.">
 <script type="module">
 
-import {define} from "./_observablehq/client.929be116.js";
-import {registerFile, FileAttachment} from "./_observablehq/stdlib.67636428.js";
-import {registerTable} from "./_observablehq/stdlib/duckdb.d8b43ff3.js";
+import {define} from "./_observablehq/client.874bf858.js";
+import {registerFile} from "./_observablehq/stdlib.67636428.js";
 
-registerFile("./data/aglomerados.parquet", {"name":"./data/aglomerados.parquet","path":"./_file/data/aglomerados.4ff4a6d9.parquet","lastModified":1790632938112,"size":22462});
-registerFile("./data/aglomerados_serie.parquet", {"name":"./data/aglomerados_serie.parquet","path":"./_file/data/aglomerados_serie.63ae295d.parquet","lastModified":1790632938126,"size":13568});
-registerFile("./data/gba_fracciones.parquet", {"name":"./data/gba_fracciones.parquet","path":"./_file/data/gba_fracciones.7a08e35c.parquet","lastModified":1790632938143,"size":25138});
-registerFile("./data/gba_partidos_comunas.parquet", {"name":"./data/gba_partidos_comunas.parquet","path":"./_file/data/gba_partidos_comunas.e48525d4.parquet","lastModified":1790632938135,"size":19930});
-registerFile("./data/pobreza_edad.parquet", {"name":"./data/pobreza_edad.parquet","path":"./_file/data/pobreza_edad.b2d2e643.parquet","lastModified":1790632938102,"size":6601});
-registerFile("./data/serie_nacional.parquet", {"name":"./data/serie_nacional.parquet","path":"./_file/data/serie_nacional.fd458b29.parquet","lastModified":1790632938093,"size":4478});
-registerTable("serie_nacional", FileAttachment("./data/serie_nacional.parquet"));
-registerTable("pobreza_edad", FileAttachment("./data/pobreza_edad.parquet"));
-registerTable("aglomerados", FileAttachment("./data/aglomerados.parquet"));
-registerTable("aglomerados_serie", FileAttachment("./data/aglomerados_serie.parquet"));
-registerTable("gba_partidos_comunas", FileAttachment("./data/gba_partidos_comunas.parquet"));
-registerTable("gba_fracciones", FileAttachment("./data/gba_fracciones.parquet"));
+registerFile("./data/aglomerados.json", {"name":"./data/aglomerados.json","mimeType":"application/json","path":"./_file/data/aglomerados.f8dc6387.json","lastModified":1791855293600,"size":7358});
+registerFile("./data/aglomerados.parquet", {"name":"./data/aglomerados.parquet","path":"./_file/data/aglomerados.4ff4a6d9.parquet","lastModified":1791643496253,"size":22462});
+registerFile("./data/aglomerados_serie.json", {"name":"./data/aglomerados_serie.json","mimeType":"application/json","path":"./_file/data/aglomerados_serie.3b7dd2aa.json","lastModified":1791855293600,"size":299682});
+registerFile("./data/aglomerados_serie.parquet", {"name":"./data/aglomerados_serie.parquet","path":"./_file/data/aglomerados_serie.63ae295d.parquet","lastModified":1791643496253,"size":13568});
+registerFile("./data/gba_fracciones.json", {"name":"./data/gba_fracciones.json","mimeType":"application/json","path":"./_file/data/gba_fracciones.1c6c8280.json","lastModified":1791855293601,"size":111198});
+registerFile("./data/gba_fracciones.parquet", {"name":"./data/gba_fracciones.parquet","path":"./_file/data/gba_fracciones.7a08e35c.parquet","lastModified":1791643496253,"size":25138});
+registerFile("./data/gba_partidos_comunas.json", {"name":"./data/gba_partidos_comunas.json","mimeType":"application/json","path":"./_file/data/gba_partidos_comunas.0a88e97b.json","lastModified":1791855293601,"size":6184});
+registerFile("./data/gba_partidos_comunas.parquet", {"name":"./data/gba_partidos_comunas.parquet","path":"./_file/data/gba_partidos_comunas.e48525d4.parquet","lastModified":1791643496253,"size":19930});
+registerFile("./data/pobreza_edad.json", {"name":"./data/pobreza_edad.json","mimeType":"application/json","path":"./_file/data/pobreza_edad.52fe10a9.json","lastModified":1791855293601,"size":20503});
+registerFile("./data/pobreza_edad.parquet", {"name":"./data/pobreza_edad.parquet","path":"./_file/data/pobreza_edad.b2d2e643.parquet","lastModified":1791643496253,"size":6601});
+registerFile("./data/serie_nacional.json", {"name":"./data/serie_nacional.json","mimeType":"application/json","path":"./_file/data/serie_nacional.f5ea22be.json","lastModified":1791855293601,"size":3729});
+registerFile("./data/serie_nacional.parquet", {"name":"./data/serie_nacional.parquet","path":"./_file/data/serie_nacional.fd458b29.parquet","lastModified":1791643496253,"size":4478});
 
-define({id: "395579be", inputs: ["html"], outputs: ["getDefaultClient","db","CELESTE","SOL","TINTA","GRIS","num1","num0","aFilas","consultar","formatos","csv","botonesCsv","lit"], body: async (html) => {
-const {getDefaultClient} = await import("./_observablehq/stdlib/duckdb.d8b43ff3.js");
-// Cliente DuckDB (corre en el navegador) con las seis tablas ya cargadas desde los Parquet
-const db = await getDefaultClient();
+define({id: "ae325d43", inputs: ["FileAttachment","html"], outputs: ["deJson","jsSerie","jsEdad","jsAglo","jsAgloSerie","jsPartidos","jsFracciones","T","comparar","asc","desc","CELESTE","SOL","TINTA","GRIS","num1","num0","aFilas","formatos","csv","botonesCsv","lit"], body: async (FileAttachment,html) => {
+// Las seis tablas, en JSON (columnas y filas). La consulta guiada se resuelve con ellas en JavaScript: el motor DuckDB pesa
+// unos 8 MB y se baja recién cuando la persona abre el editor de SQL libre (más abajo). Las genera scripts/exportar_parquet.py
+// junto con los Parquet, con los mismos valores
+const deJson = ({columns, data}) => data.map((f) => Object.fromEntries(columns.map((c, i) => [c, f[i]])));
+const [jsSerie, jsEdad, jsAglo, jsAgloSerie, jsPartidos, jsFracciones] = await Promise.all([
+  FileAttachment("./data/serie_nacional.json").json(), FileAttachment("./data/pobreza_edad.json").json(),
+  FileAttachment("./data/aglomerados.json").json(), FileAttachment("./data/aglomerados_serie.json").json(),
+  FileAttachment("./data/gba_partidos_comunas.json").json(), FileAttachment("./data/gba_fracciones.json").json()
+]);
+const T = {serie_nacional: deJson(jsSerie), pobreza_edad: deJson(jsEdad), aglomerados: deJson(jsAglo),
+  aglomerados_serie: deJson(jsAgloSerie), gba_partidos_comunas: deJson(jsPartidos), gba_fracciones: deJson(jsFracciones)};
+
+// Orden como el ORDER BY de DuckDB: de menor a mayor o de mayor a menor, con los vacíos al final
+const comparar = (x, y) => x === y ? 0 : x == null ? 1 : y == null ? -1 : x < y ? -1 : 1;
+const asc = (...cols) => (a, b) => { for (const c of cols) { const r = comparar(a[c], b[c]); if (r) return r; } return 0; };
+const desc = (col) => (a, b) => a[col] == null || b[col] == null ? comparar(a[col], b[col]) : comparar(b[col], a[col]);
 
 const CELESTE = "#2C74B5";
 const SOL = "#F6B40E";
@@ -121,10 +131,6 @@ function aFilas(tabla) {
     }
     return o;
   });
-}
-
-async function consultar(texto) {
-  return aFilas(await db.query(texto));
 }
 
 // Formato de columnas para las tablas: números con coma decimal, años y códigos como texto
@@ -170,17 +176,14 @@ function botonesCsv(filas, nombre) {
 
 // Escapa texto para meterlo dentro de un literal SQL
 const lit = (s) => `'${String(s).replaceAll("'", "''")}'`;
-return {getDefaultClient,db,CELESTE,SOL,TINTA,GRIS,num1,num0,aFilas,consultar,formatos,csv,botonesCsv,lit};
+return {deJson,jsSerie,jsEdad,jsAglo,jsAgloSerie,jsPartidos,jsFracciones,T,comparar,asc,desc,CELESTE,SOL,TINTA,GRIS,num1,num0,aFilas,formatos,csv,botonesCsv,lit};
 }});
 
-define({id: "2a1e3332", inputs: ["consultar"], outputs: ["ultimo","periodos"], body: async (consultar) => {
-const ultimo = (await consultar(`
-  SELECT
-    max(CASE WHEN indicador = 'pobreza' AND unidad = 'personas' THEN valor_pct END) AS pob_per,
-    max(CASE WHEN indicador = 'indigencia' AND unidad = 'personas' THEN valor_pct END) AS ind_per
-  FROM serie_nacional WHERE periodo = '1S 2026'`))[0];
-const periodos = (await consultar(`SELECT DISTINCT periodo, anio, semestre FROM serie_nacional ORDER BY anio, semestre`)).map((d) => d.periodo);
-return {ultimo,periodos};
+define({id: "393a948c", inputs: ["T","asc"], outputs: ["ultimoDe","ultimo","periodos"], body: (T,asc) => {
+const ultimoDe = (ind) => T.serie_nacional.find((d) => d.periodo === "1S 2026" && d.indicador === ind && d.unidad === "personas")?.valor_pct;
+const ultimo = {pob_per: ultimoDe("pobreza"), ind_per: ultimoDe("indigencia")};
+const periodos = [...new Set(T.serie_nacional.slice().sort(asc("anio", "semestre")).map((d) => d.periodo))];
+return {ultimoDe,ultimo,periodos};
 }});
 
 define({id: "43b9b7f1", mode: "inline", inputs: ["num1","ultimo","display"], body: async (num1,ultimo,display) => {
@@ -277,68 +280,90 @@ const buscar = conf.buscar
 return {buscar};
 }});
 
-define({id: "9468ee6b", inputs: ["indicador","unidad","conf","periodo","tabla","lit","grupo","buscar"], outputs: ["guiada"], body: (indicador,unidad,conf,periodo,tabla,lit,grupo,buscar) => {
-// Arma la consulta SQL según la tabla y los filtros elegidos
+define({id: "efc45846", inputs: ["lit","buscar","indicador","unidad","conf","periodo","tabla","asc","grupo","desc"], outputs: ["guiada"], body: (lit,buscar,indicador,unidad,conf,periodo,tabla,asc,grupo,desc) => {
+// Arma la consulta según la tabla y los filtros elegidos: cada condición, cada columna y el orden van en SQL (para mostrar la
+// consulta y llevarla al editor) y en JavaScript (para resolverla sin DuckDB). scripts/prueba_guiada.mjs controla que las dos
+// den lo mismo en todas las combinaciones de filtros
 const guiada = (() => {
-  const w = [];
+  const w = [], filtros = [];
+  const donde = (sql, fn) => { w.push(sql); filtros.push(fn); };
+  const es = (col, v) => donde(`${col} = ${lit(v)}`, (d) => d[col] === v);
+  // ILIKE '%texto%' (sin distinguir mayúsculas) y LIKE '%texto%'
+  const ilike = (v) => String(v ?? "").toLowerCase().includes(buscar.toLowerCase());
+  const like = (v) => String(v ?? "").includes(buscar);
   const ind = `${indicador}_${unidad}`;
   const unaFecha = conf.periodo && periodo !== "Todos los semestres";
-  let select, orden, nombreCol, valorCol = "valor_pct", li = null, ls = null, cv = null;
+  // select: el texto SQL. columnas: [nombre en el resultado, columna de la tabla]
+  let select, columnas, orden, ordenar, nombreCol, valorCol = "valor_pct", li = null, ls = null, cv = null;
+  const mismas = (s) => s.split(",").map((c) => [c.trim(), c.trim()]);
 
   if (tabla === "serie_nacional") {
-    w.push(`indicador = ${lit(indicador)}`, `unidad = ${lit(unidad)}`);
-    if (unaFecha) w.push(`periodo = ${lit(periodo)}`);
+    es("indicador", indicador); es("unidad", unidad);
+    if (unaFecha) es("periodo", periodo);
     select = `periodo, anio, semestre, indicador, unidad, valor_pct`;
-    orden = `anio, semestre`;
+    columnas = mismas(select);
+    orden = `anio, semestre`; ordenar = asc("anio", "semestre");
     nombreCol = null;
   } else if (tabla === "aglomerados_serie" || tabla === "aglomerados") {
     const nom = tabla === "aglomerados" ? "nombre" : "aglomerado";
-    if (grupo === "aglo") w.push(`tipo = 'aglomerado'`);
-    else if (grupo === "regiones") w.push(`tipo = 'region'`);
-    else if (grupo === "totales") w.push(`tipo IN ('total', 'interior', 'tamano')`);
-    else if (grupo?.startsWith("r:")) w.push(`tipo = 'aglomerado'`, `region = ${lit(grupo.slice(2))}`);
-    if (buscar) w.push(`${nom} ILIKE ${lit("%" + buscar + "%")}`);
+    if (grupo === "aglo") es("tipo", "aglomerado");
+    else if (grupo === "regiones") es("tipo", "region");
+    else if (grupo === "totales") donde(`tipo IN ('total', 'interior', 'tamano')`, (d) => ["total", "interior", "tamano"].includes(d.tipo));
+    else if (grupo?.startsWith("r:")) { es("tipo", "aglomerado"); es("region", grupo.slice(2)); }
+    if (buscar) donde(`${nom} ILIKE ${lit("%" + buscar + "%")}`, (d) => ilike(d[nom]));
     nombreCol = nom;
     if (tabla === "aglomerados_serie") {
-      w.push(`indicador = ${lit(indicador)}`, `unidad = ${lit(unidad)}`);
-      if (unaFecha) w.push(`periodo = ${lit(periodo)}`);
+      es("indicador", indicador); es("unidad", unidad);
+      if (unaFecha) es("periodo", periodo);
       select = `aglomerado, region, periodo, anio, semestre, indicador, unidad, valor_pct`;
+      columnas = mismas(select);
       orden = unaFecha ? `valor_pct DESC NULLS LAST` : `aglomerado, anio, semestre`;
+      ordenar = unaFecha ? desc("valor_pct") : asc("aglomerado", "anio", "semestre");
     } else {
       select = `nombre, tipo, region, periodo,\n  ${ind}_pct AS valor_pct, ${ind}_li AS li_90, ${ind}_ls AS ls_90,\n  ${ind}_cv AS cv, ${ind}_miles AS cantidad_miles`;
-      orden = `valor_pct DESC`;
+      columnas = [...mismas("nombre, tipo, region, periodo"), ["valor_pct", `${ind}_pct`], ["li_90", `${ind}_li`], ["ls_90", `${ind}_ls`],
+        ["cv", `${ind}_cv`], ["cantidad_miles", `${ind}_miles`]];
+      orden = `valor_pct DESC`; ordenar = desc("valor_pct");
       li = "li_90"; ls = "ls_90"; cv = "cv";
     }
   } else if (tabla === "pobreza_edad") {
-    w.push(`indicador = ${lit(indicador)}`, `serie_grupos = ${lit(grupo)}`);
-    if (unaFecha) w.push(`periodo = ${lit(periodo)}`);
+    es("indicador", indicador); es("serie_grupos", grupo);
+    if (unaFecha) es("periodo", periodo);
     select = `periodo, anio, semestre, grupo_edad, indicador, valor_pct`;
+    columnas = mismas(select);
     orden = unaFecha ? `valor_pct DESC` : `grupo_edad, anio, semestre`;
+    ordenar = unaFecha ? desc("valor_pct") : asc("grupo_edad", "anio", "semestre");
     nombreCol = "grupo_edad";
   } else {
-    if (grupo?.startsWith("j:")) w.push(`jurisdiccion = ${lit(grupo.slice(2))}`);
-    else if (grupo?.startsWith("z:")) w.push(`zona = ${lit(grupo.slice(2))}`);
+    if (grupo?.startsWith("j:")) es("jurisdiccion", grupo.slice(2));
+    else if (grupo?.startsWith("z:")) es("zona", grupo.slice(2));
     if (tabla === "gba_partidos_comunas") {
-      if (buscar) w.push(`unidad ILIKE ${lit("%" + buscar + "%")}`);
+      if (buscar) donde(`unidad ILIKE ${lit("%" + buscar + "%")}`, (d) => ilike(d.unidad));
       const tieneCv = ind === "pobreza_personas";
-      select = `unidad, jurisdiccion, zona, periodo, poblacion_censo_2022,\n  ${ind}_pct AS valor_pct, ${ind}_li AS li_90, ${ind}_ls AS ls_90${tieneCv ? `, ${ind}_cv AS cv` : ""},\n  ${indicador === "pobreza" ? "personas_pobres" : "personas_indigentes"}`;
+      const cantidad = indicador === "pobreza" ? "personas_pobres" : "personas_indigentes";
+      select = `unidad, jurisdiccion, zona, periodo, poblacion_censo_2022,\n  ${ind}_pct AS valor_pct, ${ind}_li AS li_90, ${ind}_ls AS ls_90${tieneCv ? `, ${ind}_cv AS cv` : ""},\n  ${cantidad}`;
+      columnas = [...mismas("unidad, jurisdiccion, zona, periodo, poblacion_censo_2022"), ["valor_pct", `${ind}_pct`], ["li_90", `${ind}_li`],
+        ["ls_90", `${ind}_ls`], ...(tieneCv ? [["cv", `${ind}_cv`]] : []), [cantidad, cantidad]];
       li = "li_90"; ls = "ls_90"; cv = tieneCv ? "cv" : null;
       nombreCol = "unidad";
     } else {
-      if (buscar) w.push(`(unidad ILIKE ${lit("%" + buscar + "%")} OR fraccion LIKE ${lit("%" + buscar + "%")})`);
+      if (buscar) donde(`(unidad ILIKE ${lit("%" + buscar + "%")} OR fraccion LIKE ${lit("%" + buscar + "%")})`, (d) => ilike(d.unidad) || like(d.fraccion));
       select = `fraccion, unidad, zona, periodo, poblacion_censo_2022,\n  ${indicador}_personas_pct AS valor_pct`;
+      columnas = [...mismas("fraccion, unidad, zona, periodo, poblacion_censo_2022"), ["valor_pct", `${indicador}_personas_pct`]];
       nombreCol = "fraccion";
     }
-    orden = `valor_pct DESC`;
+    orden = `valor_pct DESC`; ordenar = desc("valor_pct");
   }
   const sqlTexto = `SELECT ${select}\nFROM ${tabla}${w.length ? "\nWHERE " + w.join("\n  AND ") : ""}\nORDER BY ${orden}`;
-  return {sqlTexto, nombreCol, valorCol, li, ls, cv, unaFecha, ind};
+  const resolver = (filas) => filas.filter((d) => filtros.every((f) => f(d)))
+    .map((d) => Object.fromEntries(columnas.map(([n, c]) => [n, d[c] ?? null]))).sort(ordenar);
+  return {sqlTexto, resolver, nombreCol, valorCol, li, ls, cv, unaFecha, ind};
 })();
 return {guiada};
 }});
 
-define({id: "6a38a2bb", inputs: ["consultar","guiada"], outputs: ["filasGuiada"], body: async (consultar,guiada) => {
-const filasGuiada = await consultar(guiada.sqlTexto);
+define({id: "a5ea851d", inputs: ["guiada","T","tabla"], outputs: ["filasGuiada"], body: (guiada,T,tabla) => {
+const filasGuiada = guiada.resolver(T[tabla]);
 return {filasGuiada};
 }});
 
@@ -364,7 +389,7 @@ const descripcion = (() => {
 return {descripcion};
 }});
 
-define({id: "7498d288", inputs: ["html","guiada","tabla","conf","CELESTE","SOL","TINTA","GRIS","periodos","Plot","unidad","num1"], outputs: ["graficoGuiado"], body: (html,guiada,tabla,conf,CELESTE,SOL,TINTA,GRIS,periodos,Plot,unidad,num1) => {
+define({id: "13a07dfd", inputs: ["html","guiada","tabla","conf","CELESTE","SOL","TINTA","GRIS","periodos","Plot","unidad","num1"], outputs: ["graficoGuiado"], body: (html,guiada,tabla,conf,CELESTE,SOL,TINTA,GRIS,periodos,Plot,unidad,num1) => {
 function graficoGuiado(filas, width) {
   if (!filas.length) return html`<p class="nota">No hay filas para graficar con estos filtros.</p>`;
   const valor = guiada.valorCol;
@@ -412,15 +437,18 @@ function graficoGuiado(filas, width) {
   const nombreB = nombre ?? "periodo";
   const etiqueta = (d) => String(d[nombreB]).replace("Ciudad Autónoma de Buenos Aires", "CABA");
   const largo = Math.max(...datos.map((d) => etiqueta(d).length));
+  // en pantallas angostas el margen de los nombres no puede pasar del 42% del ancho (a 320 píxeles quedaba un ancho negativo para
+  // las barras y el gráfico daba errores): los nombres que no entran se cortan con puntos suspensivos
+  const izq = Math.min(260, 12 + largo * 6.6, Math.round(width * 0.42)), letras = Math.floor((izq - 12) / 6.6);
   const g = Plot.plot({
     width,
     height: datos.length * 22 + 50,
-    marginLeft: Math.min(260, 12 + largo * 6.6),
+    marginLeft: izq,
     marginRight: 50,
     style: estilo,
     x: {grid: true, label: "% de " + (unidad === "hogares" ? "hogares" : "personas"), labelAnchor: "left", tickFormat: pct, axis: "top"},
     color: {type: "identity"},
-    y: {domain: datos.map(etiqueta), label: null},
+    y: {domain: datos.map(etiqueta), label: null, tickFormat: (s) => s.length > letras ? s.slice(0, letras - 1) + "…" : s},
     marks: [
       Plot.barX(datos, {
         x: valor, y: etiqueta,
@@ -483,6 +511,15 @@ display(llevar);
 return {llevar};
 }});
 
+define({id: "00a7facb", inputs: ["Mutable","matchMedia"], outputs: ["sqlAbierto","abrirSql","suave"], body: (Mutable,matchMedia) => {
+// El editor usa DuckDB, que corre en el navegador y pesa unos 8 MB: se baja recién cuando la persona abre el editor (o lleva a él
+// la consulta guiada), no al abrir la página
+const sqlAbierto = Mutable(false);
+const abrirSql = () => { sqlAbierto.value = true; };
+const suave = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+return {sqlAbierto,abrirSql,suave};
+}});
+
 define({id: "59a4ffb2", outputs: ["EJEMPLOS"], body: () => {
 const EJEMPLOS = [
   {
@@ -529,7 +566,7 @@ ORDER BY pobreza_pct DESC`
 return {EJEMPLOS};
 }});
 
-define({id: "93b5f95c", inputs: ["html","EJEMPLOS","Event"], outputs: ["editor","cargarEnEditor"], body: (html,EJEMPLOS,Event) => {
+define({id: "37c788bf", inputs: ["html","EJEMPLOS","Event","abrirSql","suave"], outputs: ["editor","cargarEnEditor"], body: (html,EJEMPLOS,Event,abrirSql,suave) => {
 // Editor: un formulario cuyo valor es la consulta. Se ejecuta con el botón o con Ctrl + Enter.
 const editor = (() => {
   const form = html`<form class="sql-libre">
@@ -552,27 +589,56 @@ const editor = (() => {
 
 function cargarEnEditor(texto, desplazar = false) {
   editor.q.value = texto;
-  editor.requestSubmit();
-  if (desplazar) editor.scrollIntoView({behavior: "smooth", block: "center"});
+  editor.value = texto;
+  editor.dispatchEvent(new Event("input", {bubbles: true}));
+  abrirSql();
+  // si el editor estaba cerrado aparece en el cuadro siguiente
+  if (desplazar) setTimeout(() => editor.scrollIntoView({behavior: suave(), block: "center"}), 60);
 }
 return {editor,cargarEnEditor};
 }});
 
-define({id: "96646f2d", inputs: ["display","html","EJEMPLOS","cargarEnEditor"], body: (display,html,EJEMPLOS,cargarEnEditor) => {
-display(html`<div class="ejemplos"><span class="nota">Ejemplos:</span>${EJEMPLOS.map((ej) => {
-  const b = html`<button type="button">${ej.nombre}</button>`;
-  b.onclick = () => cargarEnEditor(ej.sql);
-  return b;
-})}</div>`);
+define({id: "7533c6f9", inputs: ["sqlAbierto","html","abrirSql","editor","display","EJEMPLOS","cargarEnEditor"], body: (sqlAbierto,html,abrirSql,editor,display,EJEMPLOS,cargarEnEditor) => {
+if (!sqlAbierto) {
+  const b = html`<button type="button" class="principal">Abrir el editor de SQL</button>`;
+  b.onclick = () => { abrirSql(); setTimeout(() => editor.q.focus(), 60); };
+  display(html`<div class="descargas">${b}<span class="nota">Baja el motor de consultas DuckDB, unos 8 MB. La primera vez puede tardar unos segundos.</span></div>`);
+} else {
+  display(html`<div class="ejemplos"><span class="nota">Ejemplos:</span>${EJEMPLOS.map((ej) => {
+    const b = html`<button type="button">${ej.nombre}</button>`;
+    b.onclick = () => cargarEnEditor(ej.sql);
+    return b;
+  })}</div>`);
+}
 }});
 
-define({id: "49d4374a", inputs: ["view","editor"], outputs: ["consultaLibre"], body: (view,editor) => {
-const consultaLibre = view(editor);
+define({id: "379195e3", inputs: ["sqlAbierto","view","editor"], outputs: ["consultaLibre"], body: (sqlAbierto,view,editor) => {
+const consultaLibre = sqlAbierto ? view(editor) : "";
 return {consultaLibre};
 }});
 
-define({id: "2f13f0e9", inputs: ["consultaLibre","consultar"], outputs: ["resultadoLibre"], body: async (consultaLibre,consultar) => {
-const resultadoLibre = await (async () => {
+define({id: "19888511", inputs: ["sqlAbierto","FileAttachment"], outputs: ["db"], body: async (sqlAbierto,FileAttachment) => {
+// DuckDB con las seis tablas, desde los Parquet, solo con el editor abierto
+const db = sqlAbierto ? await (async () => {
+  const {DuckDBClient} = await import("./_observablehq/stdlib/duckdb.d8b43ff3.js");
+  return DuckDBClient.of({
+    serie_nacional: FileAttachment("./data/serie_nacional.parquet"), pobreza_edad: FileAttachment("./data/pobreza_edad.parquet"),
+    aglomerados: FileAttachment("./data/aglomerados.parquet"), aglomerados_serie: FileAttachment("./data/aglomerados_serie.parquet"),
+    gba_partidos_comunas: FileAttachment("./data/gba_partidos_comunas.parquet"), gba_fracciones: FileAttachment("./data/gba_fracciones.parquet")
+  });
+})() : null;
+return {db};
+}});
+
+define({id: "3757a0e0", inputs: ["aFilas","db"], outputs: ["consultar"], body: (aFilas,db) => {
+async function consultar(texto) {
+  return aFilas(await db.query(texto));
+}
+return {consultar};
+}});
+
+define({id: "1a0a2737", inputs: ["db","consultaLibre","consultar"], outputs: ["resultadoLibre"], body: async (db,consultaLibre,consultar) => {
+const resultadoLibre = !db ? {ok: false, cerrado: true} : await (async () => {
   const texto = consultaLibre.trim();
   if (!texto) return {ok: false, vacia: true};
   const t0 = performance.now();
@@ -586,8 +652,10 @@ const resultadoLibre = await (async () => {
 return {resultadoLibre};
 }});
 
-define({id: "589cefec", inputs: ["resultadoLibre","display","html","num0","Inputs","formatos","botonesCsv"], body: (resultadoLibre,display,html,num0,Inputs,formatos,botonesCsv) => {
-if (resultadoLibre.vacia) {
+define({id: "631f29cc", inputs: ["resultadoLibre","display","html","num0","Inputs","formatos","botonesCsv"], body: (resultadoLibre,display,html,num0,Inputs,formatos,botonesCsv) => {
+if (resultadoLibre.cerrado) {
+  // el editor todavía no se abrió
+} else if (resultadoLibre.vacia) {
   display(html`<p class="nota">Escribí una consulta y apretá Ejecutar consulta.</p>`);
 } else if (!resultadoLibre.ok) {
   display(html`<div class="error-sql"><p><strong>No se pudo ejecutar la consulta.</strong> Revisá la sintaxis y los nombres de tablas y columnas (están en el diccionario de datos). Detalle técnico que devolvió DuckDB, en inglés:</p><code>${resultadoLibre.error}</code></div>`);
@@ -600,7 +668,7 @@ if (resultadoLibre.vacia) {
 }
 }});
 
-define({id: "30d4a4a4", inputs: ["FileAttachment","consultar","display","html","num0"], outputs: ["ARCHIVOS","conteos"], body: async (FileAttachment,consultar,display,html,num0) => {
+define({id: "aee02206", inputs: ["FileAttachment","T","display","html","num0"], outputs: ["ARCHIVOS","conteos"], body: (FileAttachment,T,display,html,num0) => {
 const ARCHIVOS = [
   {tabla: "serie_nacional", archivo: FileAttachment("./data/serie_nacional.parquet"), que: "Pobreza e indigencia en personas y hogares, total 31 aglomerados, por semestre desde 2S 2016"},
   {tabla: "pobreza_edad", archivo: FileAttachment("./data/pobreza_edad.parquet"), que: "Pobreza e indigencia por grupo de edad, total 31 aglomerados, por semestre"},
@@ -609,9 +677,7 @@ const ARCHIVOS = [
   {tabla: "gba_partidos_comunas", archivo: FileAttachment("./data/gba_partidos_comunas.parquet"), que: "Estimación 1S 2026 por partido del GBA y comuna de la Ciudad, con intervalos y datos censales de contexto"},
   {tabla: "gba_fracciones", archivo: FileAttachment("./data/gba_fracciones.parquet"), que: "Estimación exploratoria 1S 2026 por fracción censal, sin intervalos"}
 ];
-const conteos = Object.fromEntries(
-  (await consultar(ARCHIVOS.map((a) => `SELECT '${a.tabla}' AS t, count(*) AS n FROM ${a.tabla}`).join(" UNION ALL "))).map((d) => [d.t, d.n])
-);
+const conteos = Object.fromEntries(ARCHIVOS.map((a) => [a.tabla, T[a.tabla].length]));
 display(html`<table class="lista-tablas">
   <thead><tr><th>Tabla</th><th>Qué contiene</th><th style="text-align:right">Filas</th><th>Archivo</th></tr></thead>
   <tbody>${ARCHIVOS.map((a) => html`<tr>
@@ -633,15 +699,15 @@ return {ARCHIVOS,conteos};
 <nav class="cabecera"><a href="./" class="volver">Datina</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>
 </header>
 <main id="observablehq-main" class="observablehq">
-<div class="observablehq observablehq--block"><!--:395579be:--></div>
-<div class="observablehq observablehq--block"><!--:2a1e3332:--></div>
+<div class="observablehq observablehq--block"><!--:ae325d43:--></div>
+<div class="observablehq observablehq--block"><!--:393a948c:--></div>
 <h1 id="pobreza-en-la-argentina-consultas" tabindex="-1"><a class="observablehq-header-anchor" href="#pobreza-en-la-argentina-consultas">Pobreza en la Argentina: consultas</a></h1>
 <p class="bajada">Los datos del tablero de pobreza e indigencia, abiertos para consultar, filtrar y descargar. En el primer semestre de 2026, el <observablehq-loading></observablehq-loading><!--:43b9b7f1:-->% de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el <observablehq-loading></observablehq-loading><!--:404fbb63:-->% bajo la línea de indigencia.</p>
 <p><strong>De dónde salen los datos.</strong> La serie nacional, los grupos de edad y los 31 aglomerados vienen de la Encuesta Permanente de Hogares (EPH) del INDEC, informe técnico de pobreza e indigencia del 1S 2026 (datos provisorios) y su anexo de coeficientes de variación. La serie arranca en el 2S 2016. La EPH cubre solo población urbana de 31 aglomerados (unos 30,1 millones de personas) y no mide provincias.</p>
 <p>Las cifras por partido del Gran Buenos Aires, comuna de la Ciudad y fracción censal no son mediciones oficiales. Salen de un modelo de estimación en áreas pequeñas: se estima en los microdatos de la EPH del 1T 2026, se aplica a las características de cada radio del Censo 2022 y se calibra para reproducir el total oficial del 1S 2026 (36,9% de personas pobres en los Partidos del GBA y 11,1% en la Ciudad). Su población de referencia es la censal de 2022.</p>
 <p class="aviso"><strong>Cómo leer la precisión.</strong> Cada cifra de la EPH es una estimación por muestra. El coeficiente de variación (CV) mide su error relativo: el INDEC recomienda leer con cuidado los valores con CV entre 16% y 25% y considera no confiables los que superan 25%. Los intervalos de confianza son al 90% y solo existen para el último semestre (aglomerados) y para partidos y comunas (intervalos bootstrap). Las fracciones censales son una capa exploratoria sin intervalos.</p>
 <h2 id="consulta-guiada" tabindex="-1"><a class="observablehq-header-anchor" href="#consulta-guiada">Consulta guiada</a></h2>
-<p>Elegí una tabla y los filtros. El resultado se arma con una consulta SQL que se muestra abajo, así podés copiarla o llevarla a la caja de SQL libre para modificarla.</p>
+<p>Elegí una tabla y los filtros. Abajo está la consulta SQL que da el mismo resultado: podés copiarla o llevarla a la caja de SQL libre para modificarla.</p>
 <div class="observablehq observablehq--block"><!--:358a7263:--></div>
 <div class="observablehq observablehq--block"><!--:000c1257:--></div>
 <div class="observablehq observablehq--block"><!--:a7270a13:--></div>
@@ -649,10 +715,10 @@ return {ARCHIVOS,conteos};
 <div class="observablehq observablehq--block"><!--:dcfcbe62:--></div>
 <div class="observablehq observablehq--block"><!--:f6f6ea8a:--></div>
 <div class="observablehq observablehq--block"><!--:636209f3:--></div>
-<div class="observablehq observablehq--block"><!--:9468ee6b:--></div>
-<div class="observablehq observablehq--block"><!--:6a38a2bb:--></div>
+<div class="observablehq observablehq--block"><!--:efc45846:--></div>
+<div class="observablehq observablehq--block"><!--:a5ea851d:--></div>
 <div class="observablehq observablehq--block"><!--:cca852dd:--></div>
-<div class="observablehq observablehq--block"><!--:7498d288:--></div>
+<div class="observablehq observablehq--block"><!--:13a07dfd:--></div>
 <div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:9621175c:--></div>
 <p class="titulo-grafico"><observablehq-loading></observablehq-loading><!--:85342040:--></p>
 <div class="observablehq observablehq--block"><!--:fe0328c5:--></div>
@@ -663,16 +729,19 @@ return {ARCHIVOS,conteos};
 <div class="observablehq observablehq--block"><!--:f27eb6d3:--></div>
 </details>
 <h2 id="sql-libre" tabindex="-1"><a class="observablehq-header-anchor" href="#sql-libre">SQL libre</a></h2>
-<p>Escribí cualquier consulta de DuckDB sobre las seis tablas. Todo corre en tu navegador: nada se envía a un servidor. Podés empezar con uno de estos ejemplos. Los nombres de tablas y columnas están en el <a href="./diccionario">diccionario de datos</a>.</p>
+<p>Escribí cualquier consulta de DuckDB sobre las seis tablas. Todo corre en tu navegador: nada se envía a un servidor. El motor de consultas se baja al abrir el editor, que trae ejemplos para empezar. Los nombres de tablas y columnas están en el <a href="./diccionario">diccionario de datos</a>.</p>
+<div class="observablehq observablehq--block"><!--:00a7facb:--></div>
 <div class="observablehq observablehq--block"><!--:59a4ffb2:--></div>
-<div class="observablehq observablehq--block"><!--:93b5f95c:--></div>
-<div class="observablehq observablehq--block"><!--:96646f2d:--></div>
-<div class="observablehq observablehq--block"><!--:49d4374a:--></div>
-<div class="observablehq observablehq--block"><!--:2f13f0e9:--></div>
-<div class="observablehq observablehq--block"><!--:589cefec:--></div>
+<div class="observablehq observablehq--block"><!--:37c788bf:--></div>
+<div class="observablehq observablehq--block"><!--:7533c6f9:--></div>
+<div class="observablehq observablehq--block"><!--:379195e3:--></div>
+<div class="observablehq observablehq--block"><!--:19888511:--></div>
+<div class="observablehq observablehq--block"><!--:3757a0e0:--></div>
+<div class="observablehq observablehq--block"><!--:1a0a2737:--></div>
+<div class="observablehq observablehq--block"><!--:631f29cc:--></div>
 <h2 id="descargar-los-datos" tabindex="-1"><a class="observablehq-header-anchor" href="#descargar-los-datos">Descargar los datos</a></h2>
 <p>Cada tabla está en formato Parquet, un formato abierto y liviano que se lee con DuckDB, R, Python, QGIS o Power BI. El detalle de cada columna está en el <a href="./diccionario">diccionario de datos</a>.</p>
-<div class="observablehq observablehq--block"><!--:30d4a4a4:--></div>
+<div class="observablehq observablehq--block"><!--:aee02206:--></div>
 <p class="nota">Para leer un archivo con DuckDB en tu computadora: <code>SELECT * FROM 'aglomerados.parquet'</code>. En R: <code>arrow::read_parquet("aglomerados.parquet")</code>. En Python: <code>pandas.read_parquet("aglomerados.parquet")</code>.</p>
 </main>
 <footer id="observablehq-footer">

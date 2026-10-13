@@ -6,6 +6,8 @@ Uso (desde la carpeta del proyecto):
 
 Lee datos/crudo/ALL.json y escribe:
   - src/data/*.parquet (seis tablas, compresión zstd)
+  - src/data/*.json (las mismas tablas en JSON compacto: columnas y filas, para la consulta guiada de la página,
+    que se resuelve sin bajar el motor DuckDB)
   - src/diccionario.md (diccionario de datos, generado a partir de las descripciones de abajo)
 
 Requiere pandas y pyarrow.
@@ -311,6 +313,16 @@ def a_arrow(nombre: str, df: pd.DataFrame) -> pa.Table:
     return pa.Table.from_pandas(df, schema=esquema, preserve_index=False)
 
 
+def escribir_json(nombre: str, tabla: pa.Table) -> None:
+    """La misma tabla en JSON compacto, {"columns": [...], "data": [[...], ...]}, con los valores que guarda el Parquet
+    (los vacíos van como null). La consulta guiada de la página la lee así y no necesita DuckDB, que pesa unos 8 MB y
+    se baja recién al abrir el editor de SQL libre (13 de octubre de 2026)."""
+    columnas = tabla.column_names
+    filas = list(zip(*(tabla.column(c).to_pylist() for c in columnas)))
+    texto = json.dumps({"columns": columnas, "data": filas}, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+    (SALIDA / f"{nombre}.json").write_text(texto, encoding="utf-8")
+
+
 def escribir_diccionario(conteos: dict[str, int]) -> None:
     lineas = [
         "---",
@@ -358,6 +370,7 @@ def main() -> int:
     for nombre, df in tablas.items():
         tabla = a_arrow(nombre, df)
         pq.write_table(tabla, SALIDA / f"{nombre}.parquet", compression="zstd")
+        escribir_json(nombre, tabla)
         conteos[nombre] = tabla.num_rows
         print(f"{nombre}.parquet: {tabla.num_rows} filas, {tabla.num_columns} columnas")
     escribir_diccionario(conteos)

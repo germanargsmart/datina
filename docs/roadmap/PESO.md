@@ -38,13 +38,13 @@ Lo que más pesa en todas las páginas de Datina:
 Los tres se guardan en el navegador: con la huella en la dirección (`?v=`) y en Netlify, un año (`netlify.toml`). En la segunda página que visita una persona solo baja el HTML de esa página y las tablas que pide su gráfico.
 
 En el consultor de pobreza:
-- El motor de consultas (`duckdb-eh.wasm`, 35,7 MB, unos 7,1 MB comprimido) y sus extensiones de Parquet y JSON (unos 0,85 MB comprimidos) se bajan apenas se abre la página.
+- El motor de consultas (`duckdb-eh.wasm`, 35,7 MB, unos 7,1 MB comprimido) y sus extensiones de Parquet y JSON (unos 0,85 MB comprimidos) se bajaban apenas se abría la página. Desde el 13 de octubre de 2026 se bajan solo al abrir el editor de SQL libre.
 - Los datos que consulta pesan menos de 100 KB en total (seis archivos Parquet).
 - Cada navegador baja una sola variante del motor: `eh` si soporta las excepciones de WebAssembly, `mvp` si no (navegadores viejos). Por eso las dos tienen que seguir publicadas.
 
 ## Qué conviene hacer, en orden
 
 1. **Nada en Datina por ahora.** 0,5 a 0,7 MB comprimidos en la primera visita es un peso razonable para un sitio con gráficos, y lo pesado se guarda para las páginas siguientes. Si en algún momento se quiere bajar, lo primero es partir `datina.js` y `fichas.js` por sección (cada página baja solo lo suyo), que es un cambio grande del constructor.
-2. **El consultor de pobreza:** es el único lugar donde el peso importa (unos 8 MB para consultar menos de 100 KB de datos). La opción es cargar DuckDB solo cuando la persona abre el editor de SQL libre, y resolver las consultas guiadas con los Parquet y JavaScript (o con archivos CSV ya armados). Es un cambio del subproyecto `pobreza/` (Observable Framework) que hay que volver a armar con `npm run build` y probar entero: consulta guiada, SQL libre y descargas.
+2. **El consultor de pobreza:** era el único lugar donde el peso importaba (unos 8 MB para consultar menos de 100 KB de datos). Hecho el 13 de octubre de 2026: DuckDB se baja solo cuando la persona abre el editor de SQL libre, y la consulta guiada se resuelve en JavaScript con las mismas tablas en JSON (`scripts/prueba_guiada.mjs` controla que dé lo mismo que su consulta SQL en las 6.864 combinaciones de filtros). Al abrir la página se bajan 0,36 MB comprimidos (antes, 8,47 MB).
 3. **No borrar ninguna variante de DuckDB:** las dos se usan según el navegador.
 4. **Tráfico:** con el límite blando de 100 GB por mes de GitHub Pages (Netlify también limita el tráfico de su plan gratis, con otras reglas), el consultor alcanzaría para unas 12.000 primeras visitas por mes y el resto del sitio para más de 150.000. Hoy no es un problema.
