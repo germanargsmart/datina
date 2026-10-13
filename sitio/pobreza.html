@@ -119,6 +119,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares. Se actualiza cada seis meses.</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-ingresos-aglomerados">
+      <h3>¿Cuánto ingreso por persona tienen los hogares de cada ciudad?</h3>
+      <p class="ficha-sub">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, en pesos del primer trimestre de 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="ingresos-aglomerados">
+        <button type="button" data-m="ipcf" aria-pressed="true">Por persona</button>
+        <button type="button" data-m="ocupacion" aria-pressed="false">Del trabajo</button>
+      </div>
+      <div class="grafico" data-g="ingresos-aglomerados" data-forma="barras" style="--filas:32"></div>
+      <p class="lead" data-t="ingresos-aglomerados"></p>
+      <p class="nota" data-t="ingresos-aglomerados-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). Se actualiza cada tres meses.</span><a href="datos/ingresos_aglomerados.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-censo">
       <h3>¿Cuántos hogares tienen cloacas, agua de red y computadora?</h3>
       <p class="ficha-sub">Servicios, equipamiento y cobertura de salud por provincia, Censo 2022</p>
@@ -264,7 +277,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=12bc8de449"></script>
-<script src="datina.js?v=75d27d04c7"></script>
+<script src="datos/fichas.js?v=bd3876e6e1"></script>
+<script src="datina.js?v=82a0f942e0"></script>
 </body>
 </html>

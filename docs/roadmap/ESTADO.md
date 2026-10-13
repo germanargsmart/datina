@@ -159,17 +159,27 @@ El autor avisó que no iba a poder aprobar y pidió avanzar con todo. Un commit 
 ## Pedidos del autor del 13 de octubre de 2026
 
 "Sumá al índice de confianza de Di Tella la parte de resultado de elecciones, tanto las PASO como las primeras vueltas, para ver la coincidencia entre el índice y los resultados electorales". Hecho: la ficha "¿Cuánta confianza genera el gobierno nacional?" (Instituciones políticas) suma la vista "Elecciones".
-- Cada punto es una PASO o una primera vuelta presidencial desde 2003. En el eje horizontal va el índice del mes anterior a la elección (el último medido entero antes de votar) y en el vertical, el voto a la candidatura del gobierno sobre los votos positivos.
+- Primero fue un gráfico de puntos, y el autor pidió rehacerlo ("queda horrible y no se entera, de última que sean dos líneas que corren en paralelo"). Ahora son dos paneles con el mismo eje de tiempo desde 2001.
+  - Arriba, el índice mes a mes, con un punto en el mes anterior a cada elección: el último medido entero antes de votar.
+  - Abajo, el voto a la candidatura del gobierno sobre los votos positivos en cada PASO y primera vuelta presidencial desde 2003.
+  - Una línea punteada en cada elección cruza los dos paneles.
 - La candidatura del gobierno es la de `OFICIALISMO` de las elecciones presidenciales. En las PASO es la agrupación del gobierno con todas sus listas internas (`ICG_OFI_PASO`).
-- La PASO y la primera vuelta del mismo año van unidas por una línea. Los puntos de las PASO van huecos, así que la forma distingue y no solo el color.
+- Los puntos de las PASO van huecos, así que la forma distingue y no solo el color.
 - Resultado: correlación de 0,86 (Spearman 0,78) en 10 elecciones. La nota dice que la PASO y la primera vuelta de un mismo año no son independientes, que correlación no es causalidad y que las legislativas no están.
 - Las fechas de las elecciones están en `ICG_FECHA_ELECCION` de `02_procesar.py`: una elección presidencial nueva sin su fecha frena el armado.
 - Tabla `confianza_gobierno_elecciones.csv`, en el pie de la ficha y en el Explorador de relaciones.
 
-Ingresos por aglomerado de la EPH (pregunta abierta al autor desde la etapa 27). La descarga ya los calcula con las bases de los cuatro trimestres (`eph_ingresos_aglomerados.csv`):
-- el ingreso per cápita familiar y el de la ocupación principal;
-- la mediana de cada aglomerado como proporción de la del país de su trimestre, juntando los cuatro.
-La ficha va cuando la actualización traiga el archivo.
+Ingresos por aglomerado de la EPH (pregunta abierta al autor desde la etapa 27). Hecho: "¿Cuánto ingreso por persona tienen los hogares de cada ciudad?", en Pobreza y hogares, después de la pobreza.
+- La descarga los calcula con las bases de los cuatro trimestres que ya bajaba (`eph_ingresos_aglomerados.csv`, corrida 24).
+- Dos ingresos:
+  - el ingreso per cápita familiar, con PONDIH;
+  - el de la ocupación principal de los ocupados que cobran, con PONDIIO.
+- Cómo se junta: la mediana de cada aglomerado se calcula como proporción de la del país de su trimestre, juntando los cuatro, y `02_procesar.py` la pasa a pesos del último trimestre.
+- Al primer trimestre de 2026, la mediana por persona es de 500.000 pesos en los 31 aglomerados: de 926.000 en la Ciudad de Buenos Aires a 340.000 en Concordia.
+- Muestra 32 áreas, porque la EPH separa la Ciudad de los partidos del conurbano.
+- Con una provincia elegida se resaltan sus aglomerados (Buenos Aires tiene cinco).
+- Los montos se muestran redondeados al millar, porque las respuestas se redondean.
+- La nota dice que no descuenta las diferencias de precios entre regiones.
 
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 

@@ -1004,6 +1004,15 @@ const TX = {
       `año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La correlación de Spearman, que usa el orden y no los valores, es ` +
       `${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
       `candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
+  "ingresos-aglomerados-nota": R.ingresos_aglomerados ? `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC. El ingreso por persona ` +
+    `del hogar es el ingreso total del hogar dividido por la cantidad de integrantes (el ingreso per cápita familiar). El del trabajo es el de la ocupación principal de los ` +
+    `ocupados que cobran por su trabajo, sin contar a quienes trabajan sin cobrar. Son los ingresos que declaran las personas encuestadas, con los ponderadores que el INDEC ` +
+    `indica para los ingresos. La mediana es el valor que deja a la mitad por debajo y a la mitad por encima: a diferencia del promedio, no la mueven los ingresos muy altos. ` +
+    `En las ciudades chicas un trimestre tiene pocas personas encuestadas, así que se juntan ${R.ingresos_aglomerados.trimestres}: cada ingreso se compara con la ` +
+    `mediana de los 31 aglomerados de su trimestre, para que no pesen los aumentos de precios de un trimestre al otro, y esa proporción se pasa a pesos del ` +
+    `${R.ingresos_aglomerados.trimestre}. Las respuestas suelen ir en números redondos, por eso los montos se muestran redondeados al millar. Los montos no descuentan ` +
+    `que los precios cambian entre regiones: la canasta básica del Noreste cuesta menos que la del Gran Buenos Aires. La EPH mide los aglomerados urbanos, no las ` +
+    `provincias, y la Ciudad de Buenos Aires y los partidos del conurbano van por separado.` : "",
   "reservas-netas-nota": `Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un ` +
     `año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los ` +
     `depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
@@ -4417,6 +4426,32 @@ DIB["reservas-netas"] = a => {
 };
 /* Confianza en el gobierno (etapa 42, pedido del autor del 12 de octubre de 2026): la serie mensual con una marca en cada cambio de gobierno y
    el promedio de cada gobierno, en orden cronológico. Tono neutro: el texto solo describe los valores */
+/* Ingresos por aglomerado (etapa 43, pregunta abierta al autor desde la etapa 27): la mediana del ingreso por persona del hogar o la del
+   trabajo en cada uno de los 32 aglomerados de la EPH, con la línea de los 31 aglomerados. Una provincia puede tener varios aglomerados
+   (Buenos Aires tiene cinco): se resaltan todos y el gráfico se redibuja al cambiar de provincia. Los montos van redondeados al millar,
+   porque las respuestas de la encuesta se redondean y más precisión no diría nada */
+const IA = R.ingresos_aglomerados;
+const IA_CORTO = {"Ciudad de Buenos Aires": "CABA", "Comodoro Rivadavia-Rada Tilly": "Comodoro Rivadavia", "Viedma-Carmen de Patagones": "Viedma-Patagones",
+  "San Nicolás-Villa Constitución": "San Nicolás-V. Const.", "Gran Tucumán-Tafí Viejo": "Gran Tucumán", "Santiago del Estero-La Banda": "Santiago-La Banda"};
+// "la Ciudad de Buenos Aires" lleva artículo, los demás aglomerados no
+const conArt = (n, inicio) => n.startsWith("Ciudad") ? (inicio ? "La " : "la ") + n : n;
+MED["ingresos-aglomerados"] = "ipcf";
+DIB["ingresos-aglomerados"] = a => {
+  const t = MED["ingresos-aglomerados"], E = IA[t], el = G("ingresos-aglomerados"), mil = v => n0(Math.round(v / 1000) * 1000);
+  const filas = T.ingresos_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
+  $t("ingresos-aglomerados").textContent = (t === "ipcf"
+    ? `En el ${IA.trimestre}, la mitad de las personas de los 31 aglomerados urbanos vivía en hogares con un ingreso de hasta ${mil(E.pais)} pesos por mes por cada integrante. `
+    : `En el ${IA.trimestre}, la mitad de los ocupados que cobran por su trabajo en los 31 aglomerados urbanos ganaba hasta ${mil(E.pais)} pesos por mes en su ocupación principal. `) +
+    `${conArt(E.max, true)} tenía la mediana más alta, ${mil(E.max_v)} pesos (${pct(E.max_pct)} de la mediana de los 31 aglomerados), y ${conArt(E.min)} la más baja, ` +
+    `${mil(E.min_v)} pesos (${pct(E.min_pct)}). La más alta es ${n1(E.veces)} veces la más baja.`;
+  const marcar = new Set(prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)).map(r => r.codigo_indec) : []);
+  barrasH(el, {anim: a, data: filas, k: `${t}_pesos`, vf: mil, af: v => v === 0 ? "0" : v < 1e6 ? n0(v / 1e3) + " mil" : v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones",
+    ref: E.pais, refLab: `31 aglomerados ${mil(E.pais)}`,
+    marcar, l: 220, lAngosto: 132, corto: d => IA_CORTO[d.nombre] || d.nombre,
+    tip: d => `<b>${d.nombre}</b><br>${mil(d[t + "_pesos"])} pesos por mes, ${pct(d[t + "_pct_pais"])} de la mediana de los 31 aglomerados` +
+      `<br>${n0(d[t + "_casos"])} ${t === "ipcf" ? "personas" : "ocupados"} encuestados en los cuatro trimestres<br>Solo con el ${IA.trimestre}: ${mil(d[t + "_pesos_ultimo_trimestre"])}`});
+  el.resaltar = null;
+};
 /* La vista de elecciones (pedido del autor del 13 de octubre de 2026, rehecha el mismo día a su pedido: "que sean dos líneas que corren en
    paralelo"): dos paneles con el mismo eje de tiempo. Arriba, el índice mes a mes, con un punto en el mes anterior a cada elección (el que se
    compara). Abajo, el voto a la candidatura del gobierno en cada PASO y primera vuelta presidencial. Una línea punteada en cada elección cruza

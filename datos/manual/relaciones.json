@@ -2252,6 +2252,17 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"bess_provincias_desempleo.xlsx\": \"boletin_provincias_desempleo_\""
    }
+  },
+  {
+   "id": "ds:eph_ingresos_aglomerados.csv",
+   "nombre": "Ingresos por aglomerado, resumen de la EPH de cuatro trimestres",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/eph_ingresos_aglomerados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "r.to_csv(CRUDO / \"eph_ingresos_aglomerados.csv\", index=False)"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
   }
  ],
  "aristas": [
@@ -6658,6 +6669,22 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "**({\"confianza_gobierno\": icg_serie, \"confianza_gobierno_gobiernos\": icg_gobiernos, \"confianza_gobierno_elecciones\": icg_elecciones} if icg_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:eph_ingresos_aglomerados.csv",
+   "a": "f-ingresos-aglomerados",
+   "tabla": "ingresos_aglomerados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipa = pd.read_csv(CRUDO / \"eph_ingresos_aglomerados.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"ingresos_aglomerados\": ipa_tabla} if ipa_tabla is not None else {}),"
     }
    ]
   }

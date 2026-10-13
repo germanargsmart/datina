@@ -5919,6 +5919,43 @@ CAP_EPH_RES = {"semestre": EPH_SEM_TXT, "trimestres": EPH_TRIM_TXT, "cuidado": c
                "no_confiable": capitales_eph[capitales_eph.cv_pobreza > 25].territorio.tolist(),
                "alquila_pais": float(_cxh.at[0, "pct_inquilino"]), "hogares_min": int(capitales_eph.hogares_encuestados.min())}
 
+# ---------------------------------------------------------------- ingresos por aglomerado (etapa 43)
+# Pregunta abierta al autor desde la etapa 27 ("los ingresos por aglomerado de la EPH"), hecha con su pedido del 12 de octubre de 2026 de
+# avanzar con todo. 01_descargar.py (eph_ingresos) los calcula con las bases de los mismos cuatro trimestres que la antigüedad en el empleo:
+# la mediana de cada aglomerado como proporción de la del país de su trimestre, juntando los cuatro (en los aglomerados chicos un trimestre
+# tiene unas 400 personas encuestadas), y acá se pasa a pesos del último trimestre con la mediana del país de ese trimestre. Dos ingresos: el
+# per cápita familiar de las personas (el ingreso del hogar dividido por sus miembros) y el de la ocupación principal de los ocupados que
+# cobran. Son 32 áreas: la EPH mide el Gran Buenos Aires en dos partes, la Ciudad y los partidos del conurbano. No descuenta las diferencias
+# de precios entre regiones
+EPH_OTROS = {3: ("06", "Bahía Blanca-Cerri"), 4: ("82", "Gran Rosario"), 9: ("26", "Comodoro Rivadavia-Rada Tilly"), 14: ("30", "Concordia"),
+             33: ("06", "Partidos del GBA"), 34: ("06", "Mar del Plata"), 36: ("14", "Río Cuarto"), 38: ("06,82", "San Nicolás-Villa Constitución")}
+ipa_tabla, ipa_res = None, None
+if (CRUDO / "eph_ingresos_aglomerados.csv").exists():
+    _ipa = pd.read_csv(CRUDO / "eph_ingresos_aglomerados.csv")
+    _ipa_ag = {**{c: (p, n) for c, (p, n, _) in EPH_CAP.items()}, **EPH_OTROS, 32: ("02", "Ciudad de Buenos Aires")}
+    assert set(_ipa.aglomerado) - {0} == set(_ipa_ag) and _ipa.groupby("tipo").size().to_dict() == {"ipcf": 33, "ocupacion": 33}, \
+        f"EPH ingresos: los aglomerados no son los 32 esperados ({sorted(set(_ipa.aglomerado) ^ set(_ipa_ag) - {0})})"
+    assert _ipa.trimestre_ultimo.nunique() == 1 and _ipa.mediana_relativa.between(.3, 3).all(), "EPH ingresos: datos fuera de lo esperado"
+    _ipa_tr = _ipa.trimestre_ultimo.iloc[0]
+    _ipa_w = _ipa.assign(pesos=_ipa.mediana_relativa * _ipa.mediana_pais_ultimo).pivot(index="aglomerado", columns="tipo")
+    ipa_tabla = pd.DataFrame({"aglomerado": _ipa_w.index, "nombre": [_ipa_ag.get(c, ("", "31 aglomerados urbanos"))[1] for c in _ipa_w.index],
+                              "provincias": [_ipa_ag.get(c, ("00", ""))[0] for c in _ipa_w.index],
+                              **{f"{t}_{k}": _ipa_w[(col, t)].values for t in ("ipcf", "ocupacion") for k, col in
+                                 [("pesos", "pesos"), ("pct_pais", "mediana_relativa"), ("casos", "casos"), ("pesos_ultimo_trimestre", "mediana_ultimo")]}})
+    for t in ("ipcf", "ocupacion"):
+        ipa_tabla[f"{t}_pct_pais"] = ipa_tabla[f"{t}_pct_pais"] * 100
+    ipa_tabla = ipa_tabla.sort_values("ipcf_pesos", ascending=False).reset_index(drop=True)
+    _ipa_a = ipa_tabla[ipa_tabla.aglomerado > 0]
+    def _ipa_ext(t):
+        o = _ipa_a.sort_values(f"{t}_pesos")
+        return {"max": o.iloc[-1].nombre, "max_v": round(float(o[f"{t}_pesos"].iloc[-1])), "max_pct": r1(o[f"{t}_pct_pais"].iloc[-1]),
+                "min": o.iloc[0].nombre, "min_v": round(float(o[f"{t}_pesos"].iloc[0])), "min_pct": r1(o[f"{t}_pct_pais"].iloc[0]),
+                "pais": round(float(ipa_tabla.set_index("aglomerado").at[0, f"{t}_pesos"])),
+                "veces": r1(o[f"{t}_pesos"].iloc[-1] / o[f"{t}_pesos"].iloc[0])}
+    ipa_res = {"trimestre": f"{_eph_ord[int(_ipa_tr[0]) - 1].replace('primero', 'primer').replace('tercero', 'tercer')} trimestre de {_ipa_tr[2:]}",
+               "trimestres": EPH_TEN_TXT, "casos_min": int(_ipa_a.ipcf_casos.min()), "casos_min_ocup": int(_ipa_a.ocupacion_casos.min()),
+               "ipcf": _ipa_ext("ipcf"), "ocupacion": _ipa_ext("ocupacion")}
+
 # ---------------------------------------------------------------- series por provincia para animar los cruces
 # Una fila por provincia, anio e indicador, desde 2000. Se carga aparte, solo cuando alguien pide ver la evolucion.
 hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
@@ -6029,6 +6066,7 @@ tablas = {
     "cruces_provincias": cru.round(3),
     "capitales": capitales.round(3),
     "capitales_eph": capitales_eph.round(3),
+    **({"ingresos_aglomerados": ipa_tabla} if ipa_tabla is not None else {}),
     "mundo_paises": mundo,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
@@ -6601,6 +6639,7 @@ resumen["capitales"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2
                         for k, v in CAPITALES_META.items()]
 assert all(m["id"] in capitales.columns for m in resumen["capitales"])
 resumen["capitales_pais"] = CAP_PAIS
+resumen["ingresos_aglomerados"] = ipa_res
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                             for k, v in CAPITALES_EPH_META.items()]
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])
