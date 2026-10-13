@@ -53,6 +53,13 @@ Pedido del autor: "demasiado espacio en blanco sin sentido y poco de diseñador"
 - La portada: lo azul con el mapa, "Explorá la Argentina por tema" (columnas sin panel gris, escritas por el constructor), Artículos (el de la relación más marcada primero, que era el destacado) y Herramientas. Sin Destacados: "Tu provincia" ya está en lo azul y las votaciones, en Instituciones políticas.
 - Verificado: armado, sintaxis, prueba de páginas (49), la barra en seis anchos con y sin provincia, los menús con el mouse y el teclado, el celular, el buscador y la página quieta al cargar (portada 0,001 en la computadora y 0 en el celular).
 
+## Transiciones al pasar el mouse (13 de octubre de 2026)
+
+Pedido del autor, después de instalar las skills de transitions.dev (`.claude/skills/`) y correr `npx transitions-agent` (puntaje 55 de 100): "arreglá todas con la escala de Datina". De sus 52 observaciones, 18 eran la copia de `sitio/`, 14 la copia publicada del consultor de pobreza (casi todas del CSS propio de Observable), 8 el Sol de Mayo (decorativo y aprobado), una la cantidad de duraciones distintas (cuenta las del sol y las de Observable) y una el menú, que no cambia al pasar el mouse sobre la sección actual. Quedaban 10 efectos que cambiaban de golpe: 9 en `scripts/datina.css` y los botones del consultor.
+- `scripts/datina.css`: el subrayado de los enlaces, de `.enlace` y de los encabezados de la matriz de votaciones, el contorno del mapa de la portada, el texto y la línea de los despliegues de "Para entender los datos", el título de "Sobre nosotros" y el contorno y el grosor del mapa por departamento funden en `--dur-1` con `--ease-out`.
+- `pobreza/src/estilo.css`: el fondo de los botones, con `--dur-1` y `--ease-out` copiados de Datina en su `:root`. La copia publicada (`sitio/pobreza/`) cambia recién al volver a armar el consultor (ver pendientes).
+- Verificado en Chrome con mouse simulado, en 1440 y 390 píxeles: con el CSS anterior los efectos de `datina.css` pasaban de golpe y ahora están a mitad de camino a los 45 ms y terminan en 150. Armado, sintaxis y prueba de páginas.
+
 ## Próxima tarea
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
@@ -75,6 +82,7 @@ Fase 6, primer caso de uso (pedido del autor, 10/10/2026: "hacé lo del enlace e
 Detalle en `docs/historico/etapas-previas.md`, sección "Pendientes y próximos pasos" (hasta la etapa 38).
 
 - Volver a correr `scripts/transferencias_presupuesto.py` a principios de 2027.
+- Armar de nuevo el consultor de pobreza en la computadora del autor (`npm run build` en `pobreza/` y después `python scripts/03_construir_sitio.py`) para publicar la transición de los botones. En la nube no se puede: Observable baja `@observablehq/duckdb` de jsdelivr, que está bloqueada.
 - Revisar que la actualización mensual del 5 de noviembre termine bien (primera con `ubuntu-24.04` fijo y las acciones en su versión 7).
 - Conectar el repositorio a Netlify y activar los formularios (contacto).
 - Preguntas abiertas al autor: precios de la vivienda por capital (solo fuentes privadas), ingresos por aglomerado de la EPH y votaciones anteriores a 2008.
