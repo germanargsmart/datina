@@ -2059,7 +2059,8 @@ def bcra_monetarias():
 # Pedido del autor del 12 de octubre de 2026: desagregar las reservas (oro, divisas, DEG, el canje con China) y mostrar las netas, y sumar
 # los índices de la Universidad Torcuato Di Tella. Una primera pasada bajó las páginas y los archivos para verlos: esto es lo que quedó.
 
-_NUM_PLANILLA = re.compile(r"-?\d{1,3}(?:[.,]\d{3})*[.,]\d{2}$")
+# con separador de miles o sin él: en septiembre y octubre de 2017 los DEG figuran como 2525.27
+_NUM_PLANILLA = re.compile(r"-?(?:\d{1,3}(?:[.,]\d{3})+|\d+)[.,]\d{2}$")
 
 
 def _planilla_numero(s):
@@ -2072,18 +2073,22 @@ def _planilla_reservas_leer(datos):
     de dólares: las reservas brutas y su composición (sección I.A) y lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro
     de un año (sección II, columna de las autoridades monetarias: préstamos, valores y depósitos, que incluyen los depósitos en dólares de
     los bancos y del Tesoro en el BCRA, el tramo a término de los canjes de monedas y los pases). Cada número se asigna a la columna del BCRA
-    o a la del gobierno central por su posición en la página, no por el orden del texto. Desde 2007, cuando la planilla toma esta forma."""
+    o a la del gobierno central por su posición en la página, no por el orden del texto. Desde 2007, cuando la planilla toma esta forma.
+    Algunos meses salen con la plantilla en inglés (junio de 2008) o con la sección II al pie de la primera página (2007, abril de 2009):
+    por eso cada rótulo acepta las dos formas y la sección II se busca por su título en las dos páginas."""
     import io
     import logging
     import pdfplumber
     logging.getLogger("pdfminer").setLevel(logging.ERROR)
 
     def renglones(pagina):
-        # las palabras de un mismo renglón pueden estar a una o dos décimas de punto de altura distinta: se juntan por cercanía
+        # las palabras de un mismo renglón pueden estar a una o dos décimas de punto de altura distinta: se juntan por cercanía con la
+        # palabra anterior, no con la primera (en 2024 la llamada de nota, el número y el rótulo de un mismo renglón suben de a un punto)
         filas = []
         for w in sorted(pagina.extract_words(), key=lambda w: (w["top"] + w["bottom"]) / 2):
             centro = (w["top"] + w["bottom"]) / 2
             if filas and centro - filas[-1][0] <= 3:
+                filas[-1][0] = centro
                 filas[-1][1].append(w)
             else:
                 filas.append([centro, [w]])
@@ -2096,11 +2101,16 @@ def _planilla_reservas_leer(datos):
     with pdfplumber.open(io.BytesIO(datos)) as pdf:
         p1, p2 = renglones(pdf.pages[0]), renglones(pdf.pages[1])
         notas = " ".join(" ".join((p.extract_text() or "").split()) for p in pdf.pages[2:])
-    # límite entre las columnas: en la página 1, el encabezado "Gobierno"; en la 2, el segundo "Total" (el del gobierno central)
-    x_gob = next((w["x0"] for _, _, ws in p1 for w in ws if w["text"] == "Gobierno"), None)
-    totales = [w["x0"] for _, _, ws in p2 for w in ws if w["text"] == "Total"]
+    # la sección II, desde su título hasta el de la III, en la página 1 o en la 2
+    todos = p1 + p2
+    ini = next((i for i, r in enumerate(todos) if re.match(r"II\. ", r[0])), None)
+    fin = next((i for i, r in enumerate(todos) if ini is not None and i > ini and re.match(r"III\. ", r[0])), len(todos))
+    s2 = todos[ini:fin] if ini is not None else []
+    # límite entre las columnas: en la sección I, el encabezado "Gobierno"; en la II, el segundo "Total" (el del gobierno central)
+    x_gob = next((w["x0"] for _, _, ws in p1 for w in ws if w["text"] in ("Gobierno", "Government")), None)
+    totales = [w["x0"] for _, _, ws in s2 for w in ws if w["text"] == "Total"]
     if x_gob is None or len(totales) < 2:
-        raise ValueError("la planilla no tiene las columnas esperadas")
+        raise ValueError("la planilla no tiene las columnas esperadas" + ("" if ini is not None else " (no se encontró la sección II)"))
 
     def valor(renglones_, rx, limite, desde=0):
         for i, (texto, nums, _) in enumerate(renglones_):
@@ -2110,15 +2120,16 @@ def _planilla_reservas_leer(datos):
         return 0.0, None
 
     o = {}
-    for k, rx in {"brutas": r"A\. Activos de reserva oficiales", "divisas": r"\(1\) Reservas en moneda extranjera", "valores": r"\(a\) Valores",
-                  "depositos": r"\(b\) total de monedas y dep", "posicion_fmi": r"\(2\) Posici[oó]n de reserva", "deg": r"\(3\) DEG",
-                  "oro": r"\(4\) Oro", "oro_onzas": r"volumen en millones de oro", "otros_activos": r"\(5\) [Oo]tros activos de reserva"}.items():
+    for k, rx in {"brutas": r"A\. (?:Activos de reserva oficiales|Official reserve assets)", "divisas": r"\(1\) (?:Reservas en moneda extranjera|Foreign currency reserves)",
+                  "valores": r"\(a\) (?:Valores|Securities)", "depositos": r"\(b\) total (?:de monedas y dep|currency and deposits)",
+                  "posicion_fmi": r"\(2\) (?:Posici[oó]n de reserva|IMF reserve position)", "deg": r"\(3\) (?:DEG|SDRs)", "oro": r"\(4\) (?:Oro|[Gg]old)",
+                  "oro_onzas": r"volumen en millones de oro|volume in millions of fine troy", "otros_activos": r"\(5\) (?:[Oo]tros activos de reserva|[Oo]ther reserve assets)"}.items():
         o[k] = valor(p1, rx, x_gob)[0]
-    o["pagos_un_anio"] = valor(p2, r"Pr[eé]stamos en moneda extranjera", totales[1])[0]
-    _, i2 = valor(p2, r"Posiciones agregadas cortas y largas", totales[1])
-    o["canjes"] = valor(p2, r"\(a\) Posiciones cortas", totales[1], (i2 or 0) + 1)[0] if i2 is not None else 0.0
-    o["otros_pagos"] = valor(p2, r"^3\. Otros", totales[1])[0]
-    o["pases"] = valor(p2, r"egresos relacionados con recompras", totales[1])[0]
+    o["pagos_un_anio"] = valor(s2, r"Pr[eé]stamos en moneda extranjera|Foreign currency loans", totales[1])[0]
+    _, i2 = valor(s2, r"Posiciones agregadas cortas y largas|Aggregate short and long positions", totales[1])
+    o["canjes"] = valor(s2, r"\(a\) (?:Posiciones cortas|Short positions)", totales[1], (i2 or 0) + 1)[0] if i2 is not None else 0.0
+    o["otros_pagos"] = valor(s2, r"^3\. (?:Otros|Other)", totales[1])[0]
+    o["pases"] = valor(s2, r"egresos relacionados con recompras|outflows related to repos", totales[1])[0]
     # el desglose de los depósitos que informa la nota del país (no está en todos los meses)
     for k, rx in {"depositos_bancos": r"Dep[oó]sitos en Otras Monedas\s*(?:USD|u\$s|US\$)\s*([\d.,]+\d)",
                   "depositos_tesoro": r"Dep[oó]sitos del Gobierno Nacional \(en otras monedas\)\s*(?:USD|u\$s|US\$)\s*([\d.,]+\d)"}.items():
@@ -2198,10 +2209,14 @@ def bcra_planilla_reservas():
             if _incompleto(previas[mes]):
                 revisar.mkdir(exist_ok=True)
                 (revisar / f"temp_{mes}.pdf").write_bytes(datos)
+            else:   # el PDF guardado para revisar ya no hace falta: el mes se lee entero
+                (revisar / f"temp_{mes}.pdf").unlink(missing_ok=True)
         except Exception as e:
             errores.append(f"{mes}: {e}")
             revisar.mkdir(exist_ok=True)
             (revisar / f"temp_{mes}.pdf").write_bytes(datos)
+    if revisar.is_dir() and not any(revisar.iterdir()):
+        revisar.rmdir()
     if not previas:
         raise ValueError("no se pudo leer ninguna planilla de reservas")
     columnas = ["mes", "brutas", "divisas", "valores", "depositos", "posicion_fmi", "deg", "oro", "oro_onzas", "otros_activos",
