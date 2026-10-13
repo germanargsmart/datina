@@ -997,10 +997,10 @@ const TX = {
     `opinión sobre el gobierno de cada momento y, como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos. En el ` +
     `promedio de cada gobierno no se cuenta el mes en que asumió uno nuevo, porque según la fecha de la encuesta puede medir al que se va o al que llega. Eduardo Duhalde ` +
     `asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` +
-    (R.confianza_gobierno.elecciones ? ` En la vista de elecciones, cada punto es una elección presidencial: las primeras vueltas desde ${R.confianza_gobierno.elecciones.desde} ` +
-      `y las PASO desde que empezaron, en 2011. El voto es el de la candidatura del gobierno nacional sobre los votos positivos, con los resultados de la Dirección ` +
+    (R.confianza_gobierno.elecciones ? ` En la vista de elecciones, arriba va el índice mes a mes y abajo, el voto en cada elección presidencial: las primeras vueltas desde ` +
+      `${R.confianza_gobierno.elecciones.desde} (punto lleno) y las PASO desde que empezaron, en 2011 (punto hueco). El voto es el de la candidatura del gobierno nacional sobre los votos positivos, con los resultados de la Dirección ` +
       `Nacional Electoral (provisorios en 2023): en las PASO, el de todas las listas de su agrupación, y en 2003, el de Néstor Kirchner, que era el candidato del presidente ` +
-      `Duhalde. El índice es el del mes anterior a cada elección, el último medido entero antes de votar. Son pocas elecciones, y la PASO y la primera vuelta de un mismo ` +
+      `Duhalde. El índice que se compara es el del mes anterior a cada elección (el punto sobre la línea de arriba), el último medido entero antes de votar. Son pocas elecciones, y la PASO y la primera vuelta de un mismo ` +
       `año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La correlación de Spearman, que usa el orden y no los valores, es ` +
       `${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
       `candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
@@ -4417,61 +4417,97 @@ DIB["reservas-netas"] = a => {
 };
 /* Confianza en el gobierno (etapa 42, pedido del autor del 12 de octubre de 2026): la serie mensual con una marca en cada cambio de gobierno y
    el promedio de cada gobierno, en orden cronológico. Tono neutro: el texto solo describe los valores */
-/* La vista de elecciones (pedido del autor del 13 de octubre de 2026): cada PASO y primera vuelta presidencial, con el índice del mes anterior
-   en el eje horizontal y el voto a la candidatura del gobierno en el vertical. La PASO y la primera vuelta del mismo año van unidas por una
-   línea. Los puntos de las PASO van huecos y los de las primeras vueltas, llenos: la forma distingue, no solo el color */
-function icgElecciones(el, filas, anim) {
-  const angosto = el.clientWidth < 520, elecTx = d => `${d.tipo === "PASO" ? "PASO" : "Primera vuelta"} de ${d.anio}`;
-  // la clave va debajo del eje, en una fila (en dos en el celular)
-  const C = lienzo(el, angosto ? 360 : 408, {t: 34, r: 16, b: angosto ? 90 : 72, l: 46});
+/* La vista de elecciones (pedido del autor del 13 de octubre de 2026, rehecha el mismo día a su pedido: "que sean dos líneas que corren en
+   paralelo"): dos paneles con el mismo eje de tiempo. Arriba, el índice mes a mes, con un punto en el mes anterior a cada elección (el que se
+   compara). Abajo, el voto a la candidatura del gobierno en cada PASO y primera vuelta presidencial. Una línea punteada en cada elección cruza
+   los dos paneles. Las PASO van con el punto hueco: la forma distingue, no solo el color */
+function icgElecciones(el, filas, serie, anim) {
+  const angosto = el.clientWidth < 520, AZ = css("--celeste-fuerte"), AM = css("--sol-fuerte");
+  const elecTx = d => `${d.tipo === "PASO" ? "PASO" : "Primera vuelta"} de ${d.anio}`;
+  const C = lienzo(el, angosto ? 400 : 430, {t: 22, r: angosto ? 58 : 104, b: 30, l: 40});
   const {g, iw, ih} = C;
-  C.svg.attr("aria-label", "Índice del mes anterior y voto a la candidatura del gobierno en cada elección: " +
-    filas.map(d => `${elecTx(d)}, índice ${n2(d.indice)} y ${pct(d.voto_gobierno_pct)}`).join(". "));
-  const [x0, x1] = d3.extent(filas, d => d.indice);
-  const x = d3.scaleLinear().domain([x0 - .15, x1 + .15]).nice().range([8, iw - 8]);
-  const y = d3.scaleLinear().domain([0, d3.max(filas, d => d.voto_gobierno_pct)]).nice().range([ih, 0]);
-  g.append("g").attr("class", "grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(s => s.select(".domain").remove());
-  g.append("g").attr("class", "eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(v => v + "%")).call(s => s.select(".domain").remove());
-  g.append("g").attr("class", "eje").attr("transform", `translate(0,${ih})`).call(d3.axisBottom(x).ticks(angosto ? 4 : 6).tickSize(0).tickPadding(8).tickFormat(n1))
-    .call(s => s.select(".domain").remove());
-  g.append("text").attr("class", "etq-suave").attr("x", iw).attr("y", ih + 38).attr("text-anchor", "end").text("Índice del mes anterior, de 0 a 5");
-  g.append("text").attr("class", "etq-suave").attr("x", -40).attr("y", -20).text("Voto a la candidatura del gobierno");
-  const azul = css("--celeste-fuerte"), px = d => x(d.indice), py = d => y(d.voto_gobierno_pct);
-  // la PASO y la primera vuelta de cada año, unidas
-  const pares = d3.groups(filas, d => d.anio).filter(([, v]) => v.length === 2).map(([, v]) => v);
-  const lin = g.selectAll("line.par").data(pares).join("line").attr("class", "par").attr("stroke", css("--muted")).attr("stroke-width", 1.2)
-    .attr("x1", v => px(v[0])).attr("y1", v => py(v[0])).attr("x2", v => px(v[1])).attr("y2", v => py(v[1]));
-  const pt = g.selectAll("circle.el").data(filas).join("circle").attr("class", "el").attr("cx", px).attr("cy", py).attr("r", 5.5)
-    .attr("fill", d => d.tipo === "PASO" ? "#fff" : azul).attr("stroke", d => d.tipo === "PASO" ? azul : "#fff").attr("stroke-width", d => d.tipo === "PASO" ? 2 : 1);
-  // el año junto a la primera vuelta, en el primer lugar (derecha, izquierda, arriba o abajo) que no pisa un punto, otra etiqueta ni el
-  // borde del gráfico. Cada lugar es una caja de ancho x 14 píxeles
-  const ancho = 30, cajas = filas.map(d => [px(d) - 7, py(d) - 7, 14, 14]);
-  // y las líneas que unen la PASO con la primera vuelta, como una fila de cajas chicas
-  pares.forEach(([p, q]) => d3.range(1, 10).forEach(i => { const t = i / 10;
-    cajas.push([px(p) + (px(q) - px(p)) * t - 2, py(p) + (py(q) - py(p)) * t - 2, 4, 4]); }));
-  const choca = ([a, b, w, h]) => a < 0 || a + w > iw || b < -6 || cajas.some(([c, e, w2, h2]) => a < c + w2 && c < a + w && b < e + h2 && e < b + h);
-  filas.filter(d => d.tipo !== "PASO").forEach(d => {
-    const cx = px(d), cy = py(d);
-    const lugares = [[cx + 9, cy - 7, "start"], [cx - 9 - ancho, cy - 7, "end"], [cx - ancho / 2, cy - 23, "middle"], [cx - ancho / 2, cy + 9, "middle"]];
-    const [a, b, anc] = lugares.find(([a, b]) => !choca([a, b, ancho, 14])) || lugares[0];
-    cajas.push([a, b, ancho, 14]);
-    g.append("text").attr("class", "etq lab").attr("x", anc === "start" ? a : anc === "end" ? a + ancho : a + ancho / 2).attr("y", b + 11).attr("text-anchor", anc).text(d.anio);
+  C.svg.attr("aria-label", "Arriba, el índice de confianza en el gobierno mes a mes. Abajo, el voto a la candidatura del gobierno en cada elección: " +
+    filas.map(d => `${elecTx(d)}, ${pct(d.voto_gobierno_pct)}, con el índice en ${n2(d.indice)} el mes anterior`).join(". "));
+  const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
+  const s = serie.map(r => ({...r, t: tPer(r.mes)})), e = filas.map(d => ({...d, t: tPer(d.fecha.slice(0, 7)) + (+d.fecha.slice(8, 10) - 1) / 365, ti: tPer(d.mes_indice)}));
+  const x = d3.scaleLinear().domain(d3.extent(s, r => r.t)).range([0, iw]);
+  // los dos paneles: el de arriba un poco más alto, con aire entre los dos para el título del de abajo
+  const hA = Math.round(ih * .5), y0B = hA + 40, hB = ih - y0B;
+  const yA = d3.scaleLinear().domain([0, Math.max(3, d3.max(s, r => r.icg))]).nice().range([hA, 0]);
+  const yB = d3.scaleLinear().domain([0, Math.max(60, d3.max(e, d => d.voto_gobierno_pct))]).nice().range([y0B + hB, y0B]);
+  const panel = (y, ticks, f) => {
+    g.append("g").attr("class", "grilla").call(d3.axisLeft(y).ticks(ticks).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+    g.append("g").attr("class", "eje").call(d3.axisLeft(y).ticks(ticks).tickFormat(f).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  };
+  panel(yA, 3, n0);
+  panel(yB, 3, v => v + "%");
+  g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", -9).text(angosto ? "Confianza en el gobierno, de 0 a 5" : "Confianza en el gobierno, índice de 0 a 5, mes a mes");
+  g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", y0B - 12).text(angosto ? "Voto a la candidatura del gobierno" : "Voto a la candidatura del gobierno en cada elección presidencial, % de los votos positivos");
+  const anios = d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1), paso = angosto ? 4 : 2;
+  g.append("g").attr("class", "eje").attr("transform", `translate(0,${ih})`)
+    .call(d3.axisBottom(x).tickValues(anios.filter(v => v % paso === 0)).tickFormat(d3.format("d")).tickSizeOuter(0));
+  // una línea punteada en cada elección, de arriba abajo
+  g.selectAll("line.elec").data(e).join("line").attr("class", "elec").attr("x1", d => x(d.t)).attr("x2", d => x(d.t)).attr("y1", 0).attr("y2", ih)
+    .attr("stroke", css("--faint")).attr("stroke-dasharray", "3 3");
+  // arriba, el índice
+  const trA = g.append("path").datum(s).attr("fill", "none").attr("stroke", AZ).attr("stroke-width", 2.2).attr("stroke-linejoin", "round")
+    .attr("d", d3.line().x(r => x(r.t)).y(r => yA(r.icg)).curve(d3.curveMonotoneX));
+  const ptA = g.selectAll("circle.ind").data(e).join("circle").attr("class", "ind").attr("cx", d => x(d.ti)).attr("cy", d => yA(d.indice)).attr("r", 4)
+    .attr("fill", "#fff").attr("stroke", AZ).attr("stroke-width", 2);
+  // abajo, el voto: una línea que une las elecciones en orden y un punto en cada una
+  const trB = g.append("path").datum(e).attr("fill", "none").attr("stroke", AM).attr("stroke-width", 2.2).attr("stroke-linejoin", "round")
+    .attr("d", d3.line().x(d => x(d.t)).y(d => yB(d.voto_gobierno_pct)));
+  const ptB = g.selectAll("circle.voto").data(e).join("circle").attr("class", "voto").attr("cx", d => x(d.t)).attr("cy", d => yB(d.voto_gobierno_pct)).attr("r", 4.5)
+    .attr("fill", d => d.tipo === "PASO" ? "#fff" : AM).attr("stroke", d => d.tipo === "PASO" ? AM : "#fff").attr("stroke-width", 2);
+  // el porcentaje de cada primera vuelta, arriba del punto (en el celular, solo donde entra sin pisar al de al lado)
+  let ultX = -99;
+  e.filter(d => d.tipo !== "PASO").forEach(d => {
+    const px = x(d.t);
+    if (px - ultX < 34) return;
+    ultX = px;
+    g.append("text").attr("class", "etq").attr("x", px).attr("y", yB(d.voto_gobierno_pct) - 9).attr("text-anchor", "middle").text(n0(d.voto_gobierno_pct) + "%");
   });
-  // la clave de las dos formas, debajo del eje
-  const ley = g.append("g").attr("class", "etq-suave").attr("transform", `translate(4,${ih + 62})`);
-  [["Primera vuelta", azul, "#fff", 1], ["PASO", "#fff", azul, 2]].forEach(([t, f, s, w], i) => {
-    const fila = ley.append("g").attr("transform", `translate(${i * 112},0)`);
-    fila.append("circle").attr("r", 5).attr("cy", -4).attr("fill", f).attr("stroke", s).attr("stroke-width", w);
-    fila.append("text").attr("x", 11).text(t);
+  // los nombres de las dos líneas a la derecha, con su último valor
+  const fin = g.append("g"), uA = s[s.length - 1], uB = e[e.length - 1];
+  [[yA(uA.icg), AZ, angosto ? "Confianza" : "Confianza", n2(uA.icg)], [yB(uB.voto_gobierno_pct), AM, angosto ? "Voto" : "Voto al gobierno", pct(uB.voto_gobierno_pct)]].forEach(([yy, c, lab, v]) => {
+    const t = fin.append("text").attr("x", iw + 8).attr("y", yy - 4).attr("class", "etq-fuerte").style("fill", c === AM ? css("--ink") : c);
+    t.append("tspan").text(lab);
+    t.append("tspan").attr("x", iw + 8).attr("dy", 15).attr("class", "etq-suave").text(v);
   });
-  ley.append("text").attr("x", angosto ? -4 : 172).attr("y", angosto ? 20 : 0).text("La línea une las dos del mismo año");
+  // la clave de los puntos del voto, en la lectura de arriba cuando no hay nada elegido
+  const leerEl = d => `<b>${elecTx(d)}</b><span><i style="background:${AM}"></i>${d.candidatura_gobierno} ${pct(d.voto_gobierno_pct)}${d.salio_primero ? ", la más votada" : ""}</span>` +
+    `<span><i style="background:${AZ}"></i>Confianza en ${mesPer(d.mes_indice)} ${n2(d.indice)}</span>`;
+  const leerMes = r => `<b>${mesPer(r.mes)}</b><span><i style="background:${AZ}"></i>Confianza ${n2(r.icg)}${r.presidente ? ", gobierno de " + r.presidente : ""}</span>`;
+  lec.html(leerEl(e[e.length - 1]));
   if (anim) {
-    pt.attr("r", 0).transition().delay(escalon).duration(DUR_G).attr("r", 5.5);
-    lin.attr("opacity", 0).transition().delay(DUR_G).duration(DUR_G).attr("opacity", 1);
+    trazar(trA); trazar(trB);
+    aparecer(ptA, 150); aparecer(ptB, 150);
   }
-  pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${elecTx(d)}</b><br>${d.candidatura_gobierno} (${d.fuerza}): ${pct(d.voto_gobierno_pct)} de los votos positivos` +
-      `${d.salio_primero ? ", la más votada" : ""}<br>Índice de ${mesPer(d.mes_indice)}: ${n2(d.indice)}<br>Gobierno de ${d.gobierno}`, 46 + px(d), 34 + py(d)))
-    .on("pointerleave", ocultarSiMouse);
+  // al pasar el mouse o deslizar el dedo: el mes más cercano, y si hay una elección a menos de dos meses, la elección
+  const regla = g.append("line").attr("y1", 0).attr("y2", ih).attr("stroke", css("--faint")).attr("opacity", 0);
+  const marca = g.append("circle").attr("r", 4.5).attr("fill", AZ).attr("stroke", "#fff").attr("stroke-width", 2).attr("opacity", 0);
+  const leerEn = ev => {
+    const [mx] = d3.pointer(ev), xv = x.invert(mx);
+    const el2 = d3.least(e, d => Math.abs(d.t - xv));
+    if (el2 && Math.abs(el2.t - xv) < 2 / 12) {
+      regla.attr("x1", x(el2.t)).attr("x2", x(el2.t)).attr("opacity", 1);
+      marca.attr("cx", x(el2.ti)).attr("cy", yA(el2.indice)).attr("opacity", 1);
+      ptB.attr("r", d => d === el2 ? 6.5 : 4.5);
+      return lec.html(leerEl(el2));
+    }
+    const r = d3.least(s, r => Math.abs(r.t - xv));
+    regla.attr("x1", x(r.t)).attr("x2", x(r.t)).attr("opacity", 1);
+    marca.attr("cx", x(r.t)).attr("cy", yA(r.icg)).attr("opacity", 1);
+    ptB.attr("r", 4.5);
+    lec.html(leerMes(r));
+  };
+  C.svg.style("touch-action", "pan-y");
+  g.append("rect").attr("width", iw).attr("height", ih).attr("fill", "transparent")
+    .on("pointerdown", leerEn).on("pointermove", leerEn)
+    .on("pointerleave", ev => {
+      if (ev.pointerType !== "mouse") return;
+      regla.attr("opacity", 0); marca.attr("opacity", 0); ptB.attr("r", 4.5); lec.html(leerEl(e[e.length - 1]));
+    });
 }
 MED["confianza-gobierno"] = "serie";
 DIB["confianza-gobierno"] = a => {
@@ -4479,14 +4515,16 @@ DIB["confianza-gobierno"] = a => {
   if (MED["confianza-gobierno"] === "elecciones") {
     const E = C.elecciones, elec = x => x.tipo === "PASO" ? `las PASO de ${x.anio}` : `la primera vuelta de ${x.anio}`;
     const grado = Math.abs(E.r) >= .7 ? "fuerte" : "moderada";
-    const rel = E.r >= .4 ? `la candidatura del gobierno tendió a sacar más votos cuando el índice del mes anterior era más alto: la relación es ${grado} (correlación de ${n2(E.r)})`
-      : E.r <= -.4 ? `la candidatura del gobierno tendió a sacar menos votos cuando el índice del mes anterior era más alto: la relación es ${grado} (correlación de ${n2(E.r)})`
-      : `no hubo una relación clara entre el índice del mes anterior y el voto a la candidatura del gobierno (correlación de ${n2(E.r)})`;
-    $t("confianza-gobierno").textContent = `En las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta} (${E.n - E.n_paso} primeras vueltas y ${E.n_paso} PASO), ${rel}. ` +
-      `El índice más alto antes de votar fue ${n2(E.max.indice)}, en ${mesPer(E.max.mes)}, y en ${elec(E.max)} ${E.max.cand} sacó el ${pct(E.max.voto)} de los votos positivos. ` +
-      `El más bajo fue ${n2(E.min.indice)}, en ${mesPer(E.min.mes)}, y en ${elec(E.min)} ${E.min.cand} sacó el ${pct(E.min.voto)}. ` +
-      `La candidatura del gobierno fue la más votada en ${E.primero} de las ${E.n}.`;
-    return icgElecciones(el, T.confianza_gobierno_elecciones, a);
+    const rel = E.r >= .4 ? `Las dos líneas suben y bajan juntas: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno sacó ` +
+        `más votos cuando la confianza en el gobierno del mes anterior era más alta. La relación es ${grado} (correlación de ${n2(E.r)})`
+      : E.r <= -.4 ? `Las dos líneas van en sentido contrario: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno sacó ` +
+        `menos votos cuando la confianza en el gobierno del mes anterior era más alta. La relación es ${grado} (correlación de ${n2(E.r)})`
+      : `En las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta} no hubo una relación clara entre la confianza en el gobierno del mes anterior ` +
+        `y el voto a la candidatura del gobierno (correlación de ${n2(E.r)})`;
+    $t("confianza-gobierno").textContent = `${rel}. Antes de ${elec(E.max)} el índice estaba en ${n2(E.max.indice)}, el más alto antes de una elección, y ` +
+      `${E.max.cand} sacó el ${pct(E.max.voto)} de los votos positivos. Antes de ${elec(E.min)} estaba en ${n2(E.min.indice)}, el más bajo, y ${E.min.cand} sacó el ` +
+      `${pct(E.min.voto)}. La candidatura del gobierno fue la más votada en ${E.primero} de las ${E.n} elecciones.`;
+    return icgElecciones(el, T.confianza_gobierno_elecciones, T.confianza_gobierno, a);
   }
   if (MED["confianza-gobierno"] === "gobiernos") {
     const filas = T.confianza_gobierno_gobiernos, u = filas[filas.length - 1];
