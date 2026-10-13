@@ -1198,15 +1198,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-confianza-gobierno">
       <h3>¿Cuánta confianza genera el gobierno nacional?</h3>
-      <p class="ficha-sub">Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella, de 0 a 5, mes a mes desde {{confianza_gobierno.desde_anio}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="confianza-gobierno">
+      <p class="ficha-sub">Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella, de 0 a 5, mes a mes desde {{confianza_gobierno.desde_anio}}, y el voto a la candidatura del gobierno en las elecciones presidenciales</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="confianza-gobierno" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Mes a mes</button>
-        <button type="button" data-m="gobiernos" aria-pressed="false">Promedio de cada gobierno</button>
+        <button type="button" data-m="gobiernos" aria-pressed="false">Por gobierno</button>
+        <button type="button" data-m="elecciones" aria-pressed="false">Elecciones</button>
       </div>
       <div class="grafico" data-g="confianza-gobierno" data-forma="lineas"></div>
       <p class="lead" data-t="confianza-gobierno"></p>
       <p class="nota" data-t="confianza-gobierno-nota"></p>
-      <div class="pie"><span>Fuente: Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno</span><a href="datos/confianza_gobierno.csv" download>Mes a mes (CSV)</a><a href="datos/confianza_gobierno_gobiernos.csv" download>Por gobierno (CSV)</a></div>
+      <div class="pie"><span>Fuentes: Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral</span><a href="datos/confianza_gobierno.csv" download>Mes a mes (CSV)</a><a href="datos/confianza_gobierno_gobiernos.csv" download>Por gobierno (CSV)</a><a href="datos/confianza_gobierno_elecciones.csv" download>Elecciones (CSV)</a></div>
     </article>
 
   </section>

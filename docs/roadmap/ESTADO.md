@@ -156,6 +156,21 @@ El autor avisó que no iba a poder aprobar y pidió avanzar con todo. Un commit 
 - Actualizaciones de GitHub de ese día: la 17 se frenó en 02 porque la API de Series de Tiempo devolvió la planilla del comercio exterior con datos que no dejaban ningún año completo (ahora no se reemplaza si alguna serie trae menos datos que antes o si los meses se repiten) y la 18 bajó y procesó todo, pero Chrome tardó más de 15 segundos en abrir y la prueba de páginas se cortó antes de empezar (ahora espera hasta 60). La 20 se frenó en 02 porque las planillas del SSPMI (carne vacuna, vino y yerba mate) se mudaron y la búsqueda tomó la de carne aviar: ahora se bajan de su dirección nueva y la validación exige los indicadores que usa el sitio. La 21, la 22 y la 23 terminaron bien.
 - Consultor de pobreza, pendiente de T12 (13 de octubre de 2026): estaba trabado porque este entorno no llega a jsDelivr, de donde Observable Framework baja sus librerías. `pobreza/scripts/rearmar_cache.py` arma la caché con las librerías del consultor ya publicado, y el armado da los mismos archivos de librerías. DuckDB se baja solo al abrir el editor de SQL libre, y la consulta guiada se resuelve en JavaScript con las tablas en JSON que escribe `exportar_parquet.py` junto a los Parquet (mismos valores). `pobreza/scripts/prueba_guiada.mjs` corre las 6.864 combinaciones de filtros en DuckDB y en JavaScript y dan lo mismo. Al abrir la página se bajan 0,36 MB comprimidos (antes 8,47 MB). Probado en Chromium: la consulta guiada, abrir el editor (el foco va a la caja de texto), los ejemplos, llevar la consulta guiada al editor, un error de sintaxis y las descargas, a 1440 y 390 píxeles.
 
+## Pedidos del autor del 13 de octubre de 2026
+
+"Sumá al índice de confianza de Di Tella la parte de resultado de elecciones, tanto las PASO como las primeras vueltas, para ver la coincidencia entre el índice y los resultados electorales". Hecho: la ficha "¿Cuánta confianza genera el gobierno nacional?" (Instituciones políticas) suma la vista "Elecciones".
+- Cada punto es una PASO o una primera vuelta presidencial desde 2003. En el eje horizontal va el índice del mes anterior a la elección (el último medido entero antes de votar) y en el vertical, el voto a la candidatura del gobierno sobre los votos positivos.
+- La candidatura del gobierno es la de `OFICIALISMO` de las elecciones presidenciales. En las PASO es la agrupación del gobierno con todas sus listas internas (`ICG_OFI_PASO`).
+- La PASO y la primera vuelta del mismo año van unidas por una línea. Los puntos de las PASO van huecos, así que la forma distingue y no solo el color.
+- Resultado: correlación de 0,86 (Spearman 0,78) en 10 elecciones. La nota dice que la PASO y la primera vuelta de un mismo año no son independientes, que correlación no es causalidad y que las legislativas no están.
+- Las fechas de las elecciones están en `ICG_FECHA_ELECCION` de `02_procesar.py`: una elección presidencial nueva sin su fecha frena el armado.
+- Tabla `confianza_gobierno_elecciones.csv`, en el pie de la ficha y en el Explorador de relaciones.
+
+Ingresos por aglomerado de la EPH (pregunta abierta al autor desde la etapa 27). La descarga ya los calcula con las bases de los cuatro trimestres (`eph_ingresos_aglomerados.csv`):
+- el ingreso per cápita familiar y el de la ocupación principal;
+- la mediana de cada aglomerado como proporción de la del país de su trimestre, juntando los cuatro.
+La ficha va cuando la actualización traiga el archivo.
+
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
 - Línea del país en las barras: va detrás de las filas y los valores llevan borde del color del fondo. Hecho.

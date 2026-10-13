@@ -6533,7 +6533,7 @@
     },
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "**({\"confianza_gobierno\": icg_serie, \"confianza_gobierno_gobiernos\": icg_gobiernos} if icg_serie is not None else {}),"
+     "contiene": "**({\"confianza_gobierno\": icg_serie, \"confianza_gobierno_gobiernos\": icg_gobiernos, \"confianza_gobierno_elecciones\": icg_elecciones} if icg_serie is not None else {}),"
     }
    ]
   },
@@ -6642,6 +6642,22 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "dsm_prov[\"cada_1000_habitantes\"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presidenciales_provincia.csv",
+   "a": "f-confianza-gobierno",
+   "tabla": "confianza_gobierno_elecciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "votos = el[(el.eleccion == e) & (el.candidato == cand)].votos.sum()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"confianza_gobierno\": icg_serie, \"confianza_gobierno_gobiernos\": icg_gobiernos, \"confianza_gobierno_elecciones\": icg_elecciones} if icg_serie is not None else {}),"
     }
    ]
   }

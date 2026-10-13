@@ -3502,7 +3502,12 @@ def _utdt_mes(v):
         a = int(m.group(2))
         return pd.Period(f"{a + 2000 if a < 100 else a}-{_UTDT_MES[m.group(1)]:02d}", "M")
     return None
-icg_res, icg_serie, icg_gobiernos = None, None, None
+icg_res, icg_serie, icg_gobiernos, icg_elecciones = None, None, None, None
+# Fechas de las elecciones presidenciales desde que empieza el índice (son fijas): una elección nueva en presidenciales_provincia.csv sin su
+# fecha acá frena el armado. En las PASO, la candidatura del gobierno es la agrupación del oficialismo con todas sus listas internas
+ICG_FECHA_ELECCION = {"2003": "2003-04-27", "2007": "2007-10-28", "2011-paso": "2011-08-14", "2011": "2011-10-23", "2015-paso": "2015-08-09",
+                      "2015": "2015-10-25", "2019-paso": "2019-08-11", "2019": "2019-10-27", "2023-paso": "2023-08-13", "2023": "2023-10-22"}
+ICG_OFI_PASO = {"2011-paso": "Fernández de Kirchner", "2015-paso": "Scioli", "2019-paso": "Macri", "2023-paso": "Massa"}
 if (CRUDO / "utdt_icg.xls").exists():
     _icg_v = {}
     for _icg_h in pd.ExcelFile(CRUDO / "utdt_icg.xls").sheet_names:
@@ -3548,6 +3553,32 @@ if (CRUDO / "utdt_icg.xls").exists():
     d = icg_serie[["mes", "icg"]].rename(columns={"mes": "periodo", "icg": "valor"})
     d["codigo_indec"], d["territorio"] = "00", "Argentina"
     agregar(d, "indice_confianza_gobierno", "índice de 0 a 5", "Universidad Torcuato Di Tella, Escuela de Gobierno")
+    # Las elecciones (pedido del autor del 13 de octubre de 2026: sumar "el resultado de elecciones tanto las paso como las primeras vueltas,
+    # para ver la coincidencia entre el índice y los resultados electorales"): en cada PASO y primera vuelta presidencial desde que empieza el
+    # índice, el voto a la candidatura del gobierno (OFICIALISMO de las elecciones presidenciales) sobre los votos positivos, junto al índice
+    # del mes anterior, el último medido entero antes de votar (la encuesta se hace en la primera quincena del mes y las PASO fueron entre el
+    # 9 y el 14 de agosto). Las legislativas no están: el sitio tiene los resultados de las presidenciales
+    _icg_ee = [e for e in ELECCIONES if not e.endswith("-2") and int(e[:4]) > _icg_s.index[0].year]
+    assert set(_icg_ee) <= set(ICG_FECHA_ELECCION), f"ICG: falta la fecha de {sorted(set(_icg_ee) - set(ICG_FECHA_ELECCION))} en ICG_FECHA_ELECCION"
+    _icg_ef = []
+    for e in _icg_ee:
+        cand = ICG_OFI_PASO.get(e, OFICIALISMO.get(e))
+        votos = el[(el.eleccion == e) & (el.candidato == cand)].votos.sum()
+        assert votos > 0, f"ICG: no se encontró la candidatura del gobierno ({cand}) en la elección {e}"
+        p_ant = pd.Period(ICG_FECHA_ELECCION[e], "M") - 1
+        _icg_ef.append({"eleccion": e, "tipo": "PASO" if e.endswith("-paso") else "Primera vuelta", "anio": int(e[:4]), "fecha": ICG_FECHA_ELECCION[e],
+                        "gobierno": _icg_quien(p_ant + 1), "candidatura_gobierno": cand, "fuerza": nombre_fuerza(FUERZA_EL.get((e, cand), "")),
+                        "voto_gobierno_pct": round(votos / pais_pos[e] * 100, 2), "salio_primero": ganador_el[e] == cand,
+                        "mes_indice": p_ant.strftime("%Y-%m"), "indice": round(float(_icg_s[p_ant]), 2)})
+    icg_elecciones = pd.DataFrame(_icg_ef)
+    _icg_r = float(np.corrcoef(icg_elecciones.indice, icg_elecciones.voto_gobierno_pct)[0, 1])
+    _icg_rs = float(icg_elecciones.indice.rank().corr(icg_elecciones.voto_gobierno_pct.rank()))
+    _icg_emx, _icg_emn = icg_elecciones.loc[icg_elecciones.indice.idxmax()], icg_elecciones.loc[icg_elecciones.indice.idxmin()]
+    _icg_e = lambda f: {"eleccion": f.eleccion, "tipo": f.tipo, "anio": int(f.anio), "mes": f.mes_indice, "indice": float(f.indice),
+                        "voto": r1(f.voto_gobierno_pct), "cand": f.candidatura_gobierno}
+    icg_res["elecciones"] = {"n": len(icg_elecciones), "n_paso": int((icg_elecciones.tipo == "PASO").sum()), "desde": int(icg_elecciones.anio.min()),
+                             "hasta": int(icg_elecciones.anio.max()), "r": round(_icg_r, 2), "rs": round(_icg_rs, 2),
+                             "primero": int(icg_elecciones.salio_primero.sum()), "max": _icg_e(_icg_emx), "min": _icg_e(_icg_emn)}
 
 # ---------- Confianza del Consumidor y Expectativas de Inflación de la Universidad Torcuato Di Tella (etapa 42) ----------
 # Pedido del autor del 12 de octubre de 2026 ("los indices de confianza [...] de di tella y alguno más que encuentres"), del Centro de
@@ -6031,7 +6062,7 @@ tablas = {
     **({"auh_provincias": auh_prov, "asignaciones_cobertura": auh_cob} if auh_prov is not None else {}),
     **({"prestacion_desempleo": dsm_pais, "prestacion_desempleo_provincias": dsm_prov} if dsm_pais is not None else {}),
     "presidentes": presidentes,
-    **({"confianza_gobierno": icg_serie, "confianza_gobierno_gobiernos": icg_gobiernos} if icg_serie is not None else {}),
+    **({"confianza_gobierno": icg_serie, "confianza_gobierno_gobiernos": icg_gobiernos, "confianza_gobierno_elecciones": icg_elecciones} if icg_serie is not None else {}),
     **({"confianza_consumidor": cco_serie} if cco_serie is not None else {}),
     **({"expectativas_inflacion": exi_serie} if exi_serie is not None else {}),
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,

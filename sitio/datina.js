@@ -996,7 +996,14 @@ const TX = {
     `bien el gasto público, la honestidad de sus miembros y su capacidad para resolver los problemas del país. Va de 0, ninguna confianza, a 5, mucha confianza. Mide la ` +
     `opinión sobre el gobierno de cada momento y, como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos. En el ` +
     `promedio de cada gobierno no se cuenta el mes en que asumió uno nuevo, porque según la fecha de la encuesta puede medir al que se va o al que llega. Eduardo Duhalde ` +
-    `asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` : "",
+    `asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` +
+    (R.confianza_gobierno.elecciones ? ` En la vista de elecciones, cada punto es una elección presidencial: las primeras vueltas desde ${R.confianza_gobierno.elecciones.desde} ` +
+      `y las PASO desde que empezaron, en 2011. El voto es el de la candidatura del gobierno nacional sobre los votos positivos, con los resultados de la Dirección ` +
+      `Nacional Electoral (provisorios en 2023): en las PASO, el de todas las listas de su agrupación, y en 2003, el de Néstor Kirchner, que era el candidato del presidente ` +
+      `Duhalde. El índice es el del mes anterior a cada elección, el último medido entero antes de votar. Son pocas elecciones, y la PASO y la primera vuelta de un mismo ` +
+      `año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La correlación de Spearman, que usa el orden y no los valores, es ` +
+      `${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
+      `candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
   "reservas-netas-nota": `Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un ` +
     `año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los ` +
     `depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
@@ -4410,9 +4417,77 @@ DIB["reservas-netas"] = a => {
 };
 /* Confianza en el gobierno (etapa 42, pedido del autor del 12 de octubre de 2026): la serie mensual con una marca en cada cambio de gobierno y
    el promedio de cada gobierno, en orden cronológico. Tono neutro: el texto solo describe los valores */
+/* La vista de elecciones (pedido del autor del 13 de octubre de 2026): cada PASO y primera vuelta presidencial, con el índice del mes anterior
+   en el eje horizontal y el voto a la candidatura del gobierno en el vertical. La PASO y la primera vuelta del mismo año van unidas por una
+   línea. Los puntos de las PASO van huecos y los de las primeras vueltas, llenos: la forma distingue, no solo el color */
+function icgElecciones(el, filas, anim) {
+  const angosto = el.clientWidth < 520, elecTx = d => `${d.tipo === "PASO" ? "PASO" : "Primera vuelta"} de ${d.anio}`;
+  // la clave va debajo del eje, en una fila (en dos en el celular)
+  const C = lienzo(el, angosto ? 360 : 408, {t: 34, r: 16, b: angosto ? 90 : 72, l: 46});
+  const {g, iw, ih} = C;
+  C.svg.attr("aria-label", "Índice del mes anterior y voto a la candidatura del gobierno en cada elección: " +
+    filas.map(d => `${elecTx(d)}, índice ${n2(d.indice)} y ${pct(d.voto_gobierno_pct)}`).join(". "));
+  const [x0, x1] = d3.extent(filas, d => d.indice);
+  const x = d3.scaleLinear().domain([x0 - .15, x1 + .15]).nice().range([8, iw - 8]);
+  const y = d3.scaleLinear().domain([0, d3.max(filas, d => d.voto_gobierno_pct)]).nice().range([ih, 0]);
+  g.append("g").attr("class", "grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(s => s.select(".domain").remove());
+  g.append("g").attr("class", "eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(v => v + "%")).call(s => s.select(".domain").remove());
+  g.append("g").attr("class", "eje").attr("transform", `translate(0,${ih})`).call(d3.axisBottom(x).ticks(angosto ? 4 : 6).tickSize(0).tickPadding(8).tickFormat(n1))
+    .call(s => s.select(".domain").remove());
+  g.append("text").attr("class", "etq-suave").attr("x", iw).attr("y", ih + 38).attr("text-anchor", "end").text("Índice del mes anterior, de 0 a 5");
+  g.append("text").attr("class", "etq-suave").attr("x", -40).attr("y", -20).text("Voto a la candidatura del gobierno");
+  const azul = css("--celeste-fuerte"), px = d => x(d.indice), py = d => y(d.voto_gobierno_pct);
+  // la PASO y la primera vuelta de cada año, unidas
+  const pares = d3.groups(filas, d => d.anio).filter(([, v]) => v.length === 2).map(([, v]) => v);
+  const lin = g.selectAll("line.par").data(pares).join("line").attr("class", "par").attr("stroke", css("--muted")).attr("stroke-width", 1.2)
+    .attr("x1", v => px(v[0])).attr("y1", v => py(v[0])).attr("x2", v => px(v[1])).attr("y2", v => py(v[1]));
+  const pt = g.selectAll("circle.el").data(filas).join("circle").attr("class", "el").attr("cx", px).attr("cy", py).attr("r", 5.5)
+    .attr("fill", d => d.tipo === "PASO" ? "#fff" : azul).attr("stroke", d => d.tipo === "PASO" ? azul : "#fff").attr("stroke-width", d => d.tipo === "PASO" ? 2 : 1);
+  // el año junto a la primera vuelta, en el primer lugar (derecha, izquierda, arriba o abajo) que no pisa un punto, otra etiqueta ni el
+  // borde del gráfico. Cada lugar es una caja de ancho x 14 píxeles
+  const ancho = 30, cajas = filas.map(d => [px(d) - 7, py(d) - 7, 14, 14]);
+  // y las líneas que unen la PASO con la primera vuelta, como una fila de cajas chicas
+  pares.forEach(([p, q]) => d3.range(1, 10).forEach(i => { const t = i / 10;
+    cajas.push([px(p) + (px(q) - px(p)) * t - 2, py(p) + (py(q) - py(p)) * t - 2, 4, 4]); }));
+  const choca = ([a, b, w, h]) => a < 0 || a + w > iw || b < -6 || cajas.some(([c, e, w2, h2]) => a < c + w2 && c < a + w && b < e + h2 && e < b + h);
+  filas.filter(d => d.tipo !== "PASO").forEach(d => {
+    const cx = px(d), cy = py(d);
+    const lugares = [[cx + 9, cy - 7, "start"], [cx - 9 - ancho, cy - 7, "end"], [cx - ancho / 2, cy - 23, "middle"], [cx - ancho / 2, cy + 9, "middle"]];
+    const [a, b, anc] = lugares.find(([a, b]) => !choca([a, b, ancho, 14])) || lugares[0];
+    cajas.push([a, b, ancho, 14]);
+    g.append("text").attr("class", "etq lab").attr("x", anc === "start" ? a : anc === "end" ? a + ancho : a + ancho / 2).attr("y", b + 11).attr("text-anchor", anc).text(d.anio);
+  });
+  // la clave de las dos formas, debajo del eje
+  const ley = g.append("g").attr("class", "etq-suave").attr("transform", `translate(4,${ih + 62})`);
+  [["Primera vuelta", azul, "#fff", 1], ["PASO", "#fff", azul, 2]].forEach(([t, f, s, w], i) => {
+    const fila = ley.append("g").attr("transform", `translate(${i * 112},0)`);
+    fila.append("circle").attr("r", 5).attr("cy", -4).attr("fill", f).attr("stroke", s).attr("stroke-width", w);
+    fila.append("text").attr("x", 11).text(t);
+  });
+  ley.append("text").attr("x", angosto ? -4 : 172).attr("y", angosto ? 20 : 0).text("La línea une las dos del mismo año");
+  if (anim) {
+    pt.attr("r", 0).transition().delay(escalon).duration(DUR_G).attr("r", 5.5);
+    lin.attr("opacity", 0).transition().delay(DUR_G).duration(DUR_G).attr("opacity", 1);
+  }
+  pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${elecTx(d)}</b><br>${d.candidatura_gobierno} (${d.fuerza}): ${pct(d.voto_gobierno_pct)} de los votos positivos` +
+      `${d.salio_primero ? ", la más votada" : ""}<br>Índice de ${mesPer(d.mes_indice)}: ${n2(d.indice)}<br>Gobierno de ${d.gobierno}`, 46 + px(d), 34 + py(d)))
+    .on("pointerleave", ocultarSiMouse);
+}
 MED["confianza-gobierno"] = "serie";
 DIB["confianza-gobierno"] = a => {
   const el = G("confianza-gobierno"), C = R.confianza_gobierno;
+  if (MED["confianza-gobierno"] === "elecciones") {
+    const E = C.elecciones, elec = x => x.tipo === "PASO" ? `las PASO de ${x.anio}` : `la primera vuelta de ${x.anio}`;
+    const grado = Math.abs(E.r) >= .7 ? "fuerte" : "moderada";
+    const rel = E.r >= .4 ? `la candidatura del gobierno tendió a sacar más votos cuando el índice del mes anterior era más alto: la relación es ${grado} (correlación de ${n2(E.r)})`
+      : E.r <= -.4 ? `la candidatura del gobierno tendió a sacar menos votos cuando el índice del mes anterior era más alto: la relación es ${grado} (correlación de ${n2(E.r)})`
+      : `no hubo una relación clara entre el índice del mes anterior y el voto a la candidatura del gobierno (correlación de ${n2(E.r)})`;
+    $t("confianza-gobierno").textContent = `En las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta} (${E.n - E.n_paso} primeras vueltas y ${E.n_paso} PASO), ${rel}. ` +
+      `El índice más alto antes de votar fue ${n2(E.max.indice)}, en ${mesPer(E.max.mes)}, y en ${elec(E.max)} ${E.max.cand} sacó el ${pct(E.max.voto)} de los votos positivos. ` +
+      `El más bajo fue ${n2(E.min.indice)}, en ${mesPer(E.min.mes)}, y en ${elec(E.min)} ${E.min.cand} sacó el ${pct(E.min.voto)}. ` +
+      `La candidatura del gobierno fue la más votada en ${E.primero} de las ${E.n}.`;
+    return icgElecciones(el, T.confianza_gobierno_elecciones, a);
+  }
   if (MED["confianza-gobierno"] === "gobiernos") {
     const filas = T.confianza_gobierno_gobiernos, u = filas[filas.length - 1];
     const corto = n => (C.cambios.find(c => c.presidente === n) || {}).corto || n;
@@ -5907,7 +5982,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_gobiernos", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   const tema = f.closest(".tema")?.querySelector("h1, h2")?.textContent;
