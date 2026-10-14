@@ -346,10 +346,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-desempleo">
       <h3>¿Cuántas personas cobran el seguro de desempleo?</h3>
-      <p class="ficha-sub">Beneficiarios de la prestación por desempleo por provincia y del país, {{desempleo.ini}} a {{desempleo.anio}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="desempleo" style="--n:3">
-        <button type="button" data-m="habitantes" aria-pressed="true">Por habitante</button>
+      <p class="ficha-sub">Beneficiarios de la prestación por desempleo por provincia, cada 1.000 habitantes, frente al empleo y en cantidad, y del país, {{desempleo.ini}} a {{desempleo.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="desempleo" style="--n:4">
+        <button type="button" data-m="habitantes" aria-pressed="true">Cada 1.000</button>
         <button type="button" data-m="asalariados" aria-pressed="false">Frente al empleo</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
         <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
       </div>
       <div class="grafico" data-g="desempleo" data-forma="barras"></div>
@@ -602,9 +603,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-auh">
       <h3>¿Cuántos chicos cobran la Asignación Universal por Hijo?</h3>
-      <p class="ficha-sub">Hijos con AUH cada 100 menores de 18 años por provincia y asignaciones familiares de los menores del país, {{auh.anio}}</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="auh" style="--n:3">
-        <button type="button" data-m="provincias" aria-pressed="true">Por provincia</button>
+      <p class="ficha-sub">Hijos con AUH por provincia, cada 100 menores de 18 años y en cantidad, y asignaciones familiares de los menores del país, {{auh.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="auh" style="--n:4">
+        <button type="button" data-m="provincias" aria-pressed="true">Cada 100</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
         <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
         <button type="button" data-m="cobertura" aria-pressed="false">Cobertura</button>
       </div>

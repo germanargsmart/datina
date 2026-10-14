@@ -2342,6 +2342,15 @@ function textoCenso(k) {
     ? `En el Censo 2022, el ${pct(pais)} de las personas del país no tenía obra social, prepaga ni plan estatal de salud, así que dependía solo del sistema público.`
     : `En el Censo 2022, el ${pct(pais)} de los hogares del país ${CENSO_FRASE[k]}.`) + ` El valor más alto fue el de ${ta} (${pct(tv)}) y el más bajo, el de ${la} (${pct(lv)}).`;
 }
+// La vista "Cantidad" de las fichas de seguridad social por provincia (14 de octubre de 2026, pedido del autor: "el número absoluto por
+// provincia, no solo cada 1.000 habitantes"): las tres con más y la que menos, y que para comparar provincias sirve más la proporción
+const textoCantidad = (filas, k, inicio, vista) => {
+  const ord = [...filas].sort((p, q) => q[k] - p[k]), [p1, p2, p3] = ord, ult = ord[ord.length - 1];
+  return `${inicio} ${p1.territorio} tenía la mayor cantidad, ${n0(p1[k])}, seguida por ${p2.territorio}, con ${n0(p2[k])}, ${yE(p3.territorio)}, con ${n0(p3[k])}. ` +
+    `${ult.territorio} tenía la menor, ${n0(ult[k])}. La cantidad sigue sobre todo al tamaño de la población, así que para comparar provincias sirve más la vista ${vista}.`;
+};
+// el eje en mil y en millones ("1 millón", "1,5 millones", nunca "1.000 mil")
+const ejeMil = v => v >= 1e6 ? (v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones") : v >= 1000 ? n0(v / 1000) + " mil" : n0(v);
 const DIB = {
   hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
     series:[{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}], vf: v => n0(v)}),
@@ -2394,6 +2403,11 @@ const DIB = {
         k: "v", vf: pct, af: v => n0(v) + "%", marcar: new Set(), l: 290, lAngosto: 160, corto: d => CORTO_AU[d.codigo_indec] || d.territorio,
         tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} de los menores de 18 años`});
     }
+    if (v === "cantidad") {
+      $t("auh").textContent = textoCantidad(filas, "beneficios", `En ${MESES[AU.mes - 1]} de ${AU.anio} cobraban la AUH ${n0(AU.beneficios)} chicos en todo el país.`, "Cada 100");
+      return barrasH(el, {anim: a, data: filas, k: "beneficios", vf: n0, af: ejeMil,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.beneficios)} hijos con AUH<br>${pct(d.pct_pais)} de los del país<br>${n1(d.cada_100_menores)} cada 100 menores de 18`});
+    }
     $t("auh").textContent = TX.auh;
     if (v === "mapa") return mapaProv(el, {anim: a, filas, k: "cada_100_menores", nombre: "Hijos con AUH cada 100 menores de 18", vf: n1, extra, max: 380});
     barrasH(el, {anim: a, data: filas, k: "cada_100_menores", vf: n1, af: n0, ref: AU.pais_100, refLab: `País ${n1(AU.pais_100)}`,
@@ -2416,6 +2430,14 @@ const DIB = {
       return barrasH(el, {anim: a, data: filas, k: "cada_100_asalariados", vf: n1, af: n0, ref: DS.pais_100, refLab: `País ${n1(DS.pais_100)}`,
         tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100_asalariados)} cada 100 asalariados privados registrados` + extra(d)});
     }
+    if (v === "cantidad") {
+      const tot = T.prestacion_desempleo_provincias.find(r => r.codigo_indec === "00").beneficiarios;
+      $t("desempleo").textContent = textoCantidad(filas, "beneficiarios",
+        `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban la prestación por desempleo ${n0(tot)} personas en todo el país.`, "Cada 1.000");
+      return barrasH(el, {anim: a, data: filas, k: "beneficiarios", vf: n0, af: ejeMil,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.beneficiarios)} beneficiarios en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}<br>${pct(d.pct_pais)} de los del país` +
+          `<br>${n1(d.cada_1000_habitantes)} cada 1.000 habitantes`});
+    }
     $t("desempleo").textContent = TX.desempleo;
     barrasH(el, {anim: a, data: filas, k: "cada_1000_habitantes", vf: n1, af: n0, ref: DS.pais_1000, refLab: `País ${n1(DS.pais_1000)}`,
       tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_habitantes)} cada 1.000 habitantes` + extra(d)});
@@ -2430,15 +2452,12 @@ const DIB = {
         xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
         series: [{k: "pensiones", lab: "Todas", corto: "Todas", c: css("--celeste-fuerte")}, {k: "pensiones_no_suspendidas", lab: "Sin las suspendidas", corto: "Sin suspendidas", c: FRI}]});
     }
-    // la cantidad de pensiones de cada provincia (14 de octubre de 2026, pedido del autor: "el número absoluto por provincia, no solo cada
-    // 1.000 habitantes"), de mayor a menor
+    // la cantidad de pensiones de cada provincia (14 de octubre de 2026, pedido del autor), de mayor a menor
     if (v === "cantidad") {
-      const ord = [...filas].sort((p, q) => q.pensiones - p.pensiones), [p1, p2, p3] = ord, ult = ord[ord.length - 1];
       const tot = T.pensiones_invalidez_provincias.find(r => r.codigo_indec === "00").pensiones;
-      $t("pensiones-invalidez").textContent = `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} se pagaban ${n0(tot)} pensiones no contributivas por invalidez en todo el país. ` +
-        `${p1.territorio} tenía la mayor cantidad, ${n0(p1.pensiones)}, seguida por ${p2.territorio}, con ${n0(p2.pensiones)}, ${yE(p3.territorio)}, con ${n0(p3.pensiones)}. ` +
-        `${ult.territorio} tenía la menor, ${n0(ult.pensiones)}. La cantidad sigue sobre todo al tamaño de la población, así que para comparar provincias sirve más la vista Cada 1.000.`;
-      return barrasH(el, {anim: a, data: filas, k: "pensiones", vf: n0, af: v => v >= 1000 ? n0(v / 1000) + " mil" : n0(v),
+      $t("pensiones-invalidez").textContent = textoCantidad(filas, "pensiones",
+        `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} se pagaban ${n0(tot)} pensiones no contributivas por invalidez en todo el país.`, "Cada 1.000");
+      return barrasH(el, {anim: a, data: filas, k: "pensiones", vf: n0, af: ejeMil,
         tip: d => `<b>${d.territorio}</b><br>${n0(d.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(d.pct_pais)} de las del país` +
           `<br>${n1(d.cada_1000)} cada 1.000 habitantes`});
     }

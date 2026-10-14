@@ -202,6 +202,11 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
 - El texto dice el total del país, las tres provincias con más pensiones y la que menos tiene. Aclara que la cantidad sigue al tamaño de la población, así que para comparar provincias sirve más la vista Cada 1.000.
 - Los botones pasan a ser cuatro: "Mapa", "Cada 1.000" (antes "Por provincia"), "Cantidad" y "Evolución". La descripción dice "por provincia, en cantidad y cada 1.000 habitantes".
 - Con cuatro botones, a 320 píxeles los botones no miden lo mismo y la marca del elegido quedaba corrida. Pasaba también en dos conmutadores de tres botones y en Cruces a 390. Ahora la marca toma la posición y el ancho del botón elegido cuando los anchos son distintos (commit aparte).
+- Lo mismo en las otras dos fichas de seguridad social por provincia de la etapa 42, que también mostraban solo la proporción:
+  - "¿Cuántos chicos cobran la Asignación Universal por Hijo?": botones "Cada 100" (antes "Por provincia"), "Cantidad", "Mapa" y "Cobertura".
+  - "¿Cuántas personas cobran el seguro de desempleo?" (Trabajo): botones "Cada 1.000" (antes "Por habitante"), "Frente al empleo", "Cantidad" y "Evolución".
+  - Las tres fichas arman el texto con la misma función (`textoCantidad`) y el eje dice "mil" y "millones" (nunca "1.000 mil").
+- A 320 píxeles los botones de los conmutadores tienen menos margen y un poco menos de espacio entre letras. Así entran los de cuatro botones y Cruces ya no se sale de la ficha, que antes se salía 36 píxeles. Controlado en todas las páginas: ningún botón ni etiqueta queda afuera.
 
 ## Pendientes cerrados el 14 de octubre de 2026
 

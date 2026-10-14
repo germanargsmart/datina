@@ -180,9 +180,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-auh">
       <h3>¿Cuántos chicos cobran la Asignación Universal por Hijo?</h3>
-      <p class="ficha-sub">Hijos con AUH cada 100 menores de 18 años por provincia y asignaciones familiares de los menores del país, 2026</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="auh" style="--n:3">
-        <button type="button" data-m="provincias" aria-pressed="true">Por provincia</button>
+      <p class="ficha-sub">Hijos con AUH por provincia, cada 100 menores de 18 años y en cantidad, y asignaciones familiares de los menores del país, 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="auh" style="--n:4">
+        <button type="button" data-m="provincias" aria-pressed="true">Cada 100</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
         <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
         <button type="button" data-m="cobertura" aria-pressed="false">Cobertura</button>
       </div>
@@ -278,7 +279,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=1754f14e60"></script>
-<script src="datina.js?v=a2ffb553dc"></script>
+<script src="datos/fichas.js?v=db97a0853f"></script>
+<script src="datina.js?v=b53dfe67a2"></script>
 </body>
 </html>

@@ -152,10 +152,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-desempleo">
       <h3>¿Cuántas personas cobran el seguro de desempleo?</h3>
-      <p class="ficha-sub">Beneficiarios de la prestación por desempleo por provincia y del país, 2001 a 2026</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="desempleo" style="--n:3">
-        <button type="button" data-m="habitantes" aria-pressed="true">Por habitante</button>
+      <p class="ficha-sub">Beneficiarios de la prestación por desempleo por provincia, cada 1.000 habitantes, frente al empleo y en cantidad, y del país, 2001 a 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="desempleo" style="--n:4">
+        <button type="button" data-m="habitantes" aria-pressed="true">Cada 1.000</button>
         <button type="button" data-m="asalariados" aria-pressed="false">Frente al empleo</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
         <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
       </div>
       <div class="grafico" data-g="desempleo" data-forma="barras"></div>
@@ -266,7 +267,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=1754f14e60"></script>
-<script src="datina.js?v=a2ffb553dc"></script>
+<script src="datos/fichas.js?v=db97a0853f"></script>
+<script src="datina.js?v=b53dfe67a2"></script>
 </body>
 </html>
