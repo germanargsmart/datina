@@ -274,149 +274,6 @@
   "conjunto": "Intercambio Comercial Argentino",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "74.3_IBICL_0_M_47": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_bienes_intermedios_combustibles_lubricantes",
-  "description": "Importaciones de bienes de intermedios + importaciones de combustibles y lubricantes. En millones de dólares.",
-  "frequency": "R/P1M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.3_IEMOA_0_M_48": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_exportacion_manufacturas_origen_agropecuario",
-  "description": "Exportaciones de manufacturas de origen agropecuario. En millone.s de dólares",
-  "frequency": "R/P1M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.3_IIT_0_M_25": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_importaciones_totales",
-  "description": "Importaciones totales. En millones de dólares.",
-  "frequency": "R/P1M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.3_IIBCA_0_M_32": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_importaciones_bienes_capital",
-  "description": "Importaciones de bienes de capital. En millones de dólares.",
-  "frequency": "R/P1M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.1_IECE_0_A_35": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_exportacion_combustible_energia",
-  "description": "Exportación de combustibles y energía. En millones de dólares.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.1_SC_0_A_15": {
-  "consulta": "intercambio comercial argentino",
-  "title": "saldo_comercial",
-  "description": "Saldo comercial. En millones de dólares.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1910-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.1_IICL_0_A_42": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_importaciones_combustibles_lubricantes",
-  "description": "Importaciones de combustibles y lubricantes. En millones de dólares.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.2_IIBCVAPR_0_T_58": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_importaciones_bs_consumo_vehiculos_automotor_pasajeros",
-  "description": "Importaciones de bienes de consumo + importaciones de vehículos automotores de pasajeros. En millones de dólares.",
-  "frequency": "R/P3M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.2_IECE_0_T_35": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_exportacion_combustible_energia",
-  "description": "Exportación de combustibles y energía. En millones de dólares.",
-  "frequency": "R/P3M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.2_IEMOA_0_T_48": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_exportacion_manufacturas_origen_agropecuario",
-  "description": "Exportaciones de manufacturas de origen agropecuario. En millone.s de dólares",
-  "frequency": "R/P3M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.2_IEPP_0_T_35": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_exportacion_productos_primarios",
-  "description": "Exportaciones de productos primarios. En millones de dólares.",
-  "frequency": "R/P3M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.2_IIBCA_0_T_32": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_importaciones_bienes_capital",
-  "description": "Importaciones de bienes de capital. En millones de dólares.",
-  "frequency": "R/P3M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "74.2_IIT_0_T_25": {
-  "consulta": "intercambio comercial argentino",
-  "title": "ica_importaciones_totales",
-  "description": "Importaciones totales. En millones de dólares.",
-  "frequency": "R/P3M",
-  "time_index_start": "1992-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Intercambio Comercial Argentino",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "74.3_IIVAP_0_M_49": {
   "consulta": "intercambio comercial argentino",
   "title": "ica_importaciones_vehiculos_automotores_pasajeros",
@@ -1099,6 +956,325 @@
   "conjunto": "Índices de valor, precio y cantidad de las importaciones de bienes",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "81.1_IIPIBCA_0_A_46": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_indice_precio_importaciones_bienes_capital",
+  "description": "Índice de precio de importaciones. Bienes de capital",
+  "frequency": "R/P1Y",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Índice 2004=100",
+  "conjunto": "Índices de valor, precio y cantidad de las importaciones de bienes",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "81.1_IIVNIVAP_0_A_58": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_indice_valor_nivel_imp_vehiculos_automotores_pasajeros",
+  "description": "Índice de valor de importaciones. Vehículos automotores de pasajeros",
+  "frequency": "R/P1Y",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Índice 2004=100",
+  "conjunto": "Índices de valor, precio y cantidad de las importaciones de bienes",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.3_IIA_0_A_27_93": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_marruecos",
+  "description": "Importaciones a Marruecos. En  dólares FOB",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.3_IIB_0_A_25": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_bolivia",
+  "description": "Importaciones a Bolivia . En  dólares FOB",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.3_IIP_0_A_26": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_paraguay",
+  "description": "Importaciones a Paraguay. En  dólares FOB",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.3_IIA_0_A_25_88": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_belgica",
+  "description": "Importaciones a Belgica. En  dólares FOB",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.3_IIC_0_A_23": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_china",
+  "description": "Importaciones a China. En  dólares FOB",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.3_IIS_0_A_23": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_suiza",
+  "description": "Importaciones a Suiza. En  dólares FOB",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.2_IIA_0_A_27_93": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_marruecos",
+  "description": "Importaciones a Marruecos. En  dólares FOB",
+  "frequency": "R/P3M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.2_IIA_0_A_25_90": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_argelia",
+  "description": "Importaciones a Argelia. En  dólares FOB",
+  "frequency": "R/P3M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.2_IIM_0_A_34_6": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_resto_al",
+  "description": "Importaciones a Resto de America Latina. En  dólares FOB",
+  "frequency": "R/P3M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.2_IIB_0_A_24": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_brasil",
+  "description": "Importaciones a Brasil . En  dólares FOB",
+  "frequency": "R/P3M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.2_IIJ_0_A_24_91": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_taiwan",
+  "description": "Importaciones a taiwan. En  dólares FOB",
+  "frequency": "R/P3M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.3_IBICL_0_M_47": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_bienes_intermedios_combustibles_lubricantes",
+  "description": "Importaciones de bienes de intermedios + importaciones de combustibles y lubricantes. En millones de dólares.",
+  "frequency": "R/P1M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.3_IEMOA_0_M_48": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_exportacion_manufacturas_origen_agropecuario",
+  "description": "Exportaciones de manufacturas de origen agropecuario. En millone.s de dólares",
+  "frequency": "R/P1M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.3_IIT_0_M_25": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_totales",
+  "description": "Importaciones totales. En millones de dólares.",
+  "frequency": "R/P1M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.3_IIBCA_0_M_32": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_bienes_capital",
+  "description": "Importaciones de bienes de capital. En millones de dólares.",
+  "frequency": "R/P1M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.1_IECE_0_A_35": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_exportacion_combustible_energia",
+  "description": "Exportación de combustibles y energía. En millones de dólares.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.1_SC_0_A_15": {
+  "consulta": "intercambio comercial argentino",
+  "title": "saldo_comercial",
+  "description": "Saldo comercial. En millones de dólares.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1910-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.1_IICL_0_A_42": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_combustibles_lubricantes",
+  "description": "Importaciones de combustibles y lubricantes. En millones de dólares.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.2_IIBCVAPR_0_T_58": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_bs_consumo_vehiculos_automotor_pasajeros",
+  "description": "Importaciones de bienes de consumo + importaciones de vehículos automotores de pasajeros. En millones de dólares.",
+  "frequency": "R/P3M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.2_IECE_0_T_35": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_exportacion_combustible_energia",
+  "description": "Exportación de combustibles y energía. En millones de dólares.",
+  "frequency": "R/P3M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.2_IEMOA_0_T_48": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_exportacion_manufacturas_origen_agropecuario",
+  "description": "Exportaciones de manufacturas de origen agropecuario. En millone.s de dólares",
+  "frequency": "R/P3M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.2_IEPP_0_T_35": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_exportacion_productos_primarios",
+  "description": "Exportaciones de productos primarios. En millones de dólares.",
+  "frequency": "R/P3M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.2_IIBCA_0_T_32": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_bienes_capital",
+  "description": "Importaciones de bienes de capital. En millones de dólares.",
+  "frequency": "R/P3M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "74.2_IIT_0_T_25": {
+  "consulta": "intercambio comercial argentino",
+  "title": "ica_importaciones_totales",
+  "description": "Importaciones totales. En millones de dólares.",
+  "frequency": "R/P3M",
+  "time_index_start": "1992-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Intercambio Comercial Argentino",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "181.1_LALL_TOTALNES_IMP_0_A_24": {
+  "consulta": "importaciones",
+  "title": "lall_total_importaciones",
+  "description": "Lall Total Importaciones",
+  "frequency": "R/P1Y",
+  "time_index_start": "1995-01-01",
+  "time_index_end": "2016-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
+  "fuente": "UNCTAD"
+ },
+ "181.1_UNCTAD_IMPRAS_0_A_26": {
+  "consulta": "importaciones",
+  "title": "unctad_importaciones_otras",
+  "description": "UNCTAD Importaciones Otras",
+  "frequency": "R/P1Y",
+  "time_index_start": "1995-01-01",
+  "time_index_end": "2016-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
+  "fuente": "UNCTAD"
+ },
+ "181.1_LALL_IMPORRAS_0_A_24": {
+  "consulta": "importaciones",
+  "title": "lall_importaciones_otras",
+  "description": "Lall Importaciones Otras",
+  "frequency": "R/P1Y",
+  "time_index_start": "1995-01-01",
+  "time_index_end": "2016-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
+  "fuente": "UNCTAD"
+ },
  "234.1_PIMPORTIAS_0_0_28": {
   "consulta": "importaciones",
   "title": "pib_importaciones_mercancias",
@@ -1209,6 +1385,28 @@
   "conjunto": "Volumen Físico de Exportaciones e Importaciones 1935-1954",
   "fuente": "Secretaría de Asuntos Económicos"
  },
+ "166.2_I_BIENEERV_0_0_16": {
+  "consulta": "importaciones",
+  "title": "impo_bienes_serv",
+  "description": "Importaciones de bienes y servicios",
+  "frequency": "R/P3M",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-10-01",
+  "units": "Millones de Pesos",
+  "conjunto": "Ingreso nacional, Ahorro nacional y Préstamo neto. Base 2004.",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "181.1_LALL_IMPORIOS_0_A_44": {
+  "consulta": "importaciones",
+  "title": "lall_importaciones_total_productos_primarios",
+  "description": "Lall Importaciones Total Productos primarios",
+  "frequency": "R/P1Y",
+  "time_index_start": "1995-01-01",
+  "time_index_end": "2016-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
+  "fuente": "UNCTAD"
+ },
  "184.1_PAGOS_IMPONES_0_M_26": {
   "consulta": "importaciones",
   "title": "pagos_importaciones_bienes",
@@ -1275,6 +1473,39 @@
   "conjunto": "Importaciones CIF por region y país",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "78.3_IPIUT_0_A_61_77": {
+  "consulta": "importaciones",
+  "title": "ica_participacion_import_mercado_comun_centroamericano",
+  "description": "Participación de importaciones a Mercado común Centroamericano. En porcentaje del total de importaciones",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.3_IPIALT_0_A_43": {
+  "consulta": "importaciones",
+  "title": "ica_participacion_importaciones_aladi_total",
+  "description": "Participación de importaciones a ALADI en el total. En porcentaje del total de importaciones",
+  "frequency": "R/P1M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "78.1_IPIAT_0_A_41_88": {
+  "consulta": "importaciones",
+  "title": "ica_participacion_importaciones_can_total",
+  "description": "Participación de importaciones a can en el total. En porcentaje del total de importaciones",
+  "frequency": "R/P1Y",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Dólares",
+  "conjunto": "Importaciones CIF por region y país",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "202.1_IRTACIO_70_0_0_16": {
   "consulta": "importaciones",
   "title": "importaciones_70",
@@ -1295,17 +1526,6 @@
   "time_index_end": "2025-01-01",
   "units": "Millones de Pesos",
   "conjunto": "Ahorro del resto del mundo. Base 2004",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "81.2_IIVIBI_0_T_49": {
-  "consulta": "importaciones",
-  "title": "ica_indice_valor_importaciones_bienes_intermedios",
-  "description": "Índice de valor de importaciones. Bienes intermedios",
-  "frequency": "R/P3M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Índice 2004=100",
-  "conjunto": "Índices de valor, precio y cantidad de las importaciones de bienes",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "81.2_IIVNIG_0_T_44": {
@@ -1352,27 +1572,16 @@
   "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
   "fuente": "UNCTAD"
  },
- "229.1_I_TOTALLES_1970_0_12": {
+ "81.2_IIVIBI_0_T_49": {
   "consulta": "importaciones",
-  "title": "impo_totales",
-  "description": "Oferta y Demanda Global Externa. Importaciones Totales",
+  "title": "ica_indice_valor_importaciones_bienes_intermedios",
+  "description": "Índice de valor de importaciones. Bienes intermedios",
   "frequency": "R/P3M",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "1990-10-01",
-  "units": "Australes",
-  "conjunto": "Cuentas Nacionales 1980-1990",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "229.1_I_MERCAIAS_1970_0_15": {
-  "consulta": "importaciones",
-  "title": "impo_mercancias",
-  "description": "Oferta y Demanda Global Externa. Importaciones Mercancías",
-  "frequency": "R/P3M",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "1990-10-01",
-  "units": "Australes",
-  "conjunto": "Cuentas Nacionales 1980-1990",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Índice 2004=100",
+  "conjunto": "Índices de valor, precio y cantidad de las importaciones de bienes",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "242.1_VFIS_IMLOS_0_0_29": {
   "consulta": "importaciones",
@@ -1660,6 +1869,28 @@
   "conjunto": "Importaciones CIF por region y país",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "229.1_I_TOTALLES_1970_0_12": {
+  "consulta": "importaciones",
+  "title": "impo_totales",
+  "description": "Oferta y Demanda Global Externa. Importaciones Totales",
+  "frequency": "R/P3M",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "1990-10-01",
+  "units": "Australes",
+  "conjunto": "Cuentas Nacionales 1980-1990",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "229.1_I_MERCAIAS_1970_0_15": {
+  "consulta": "importaciones",
+  "title": "impo_mercancias",
+  "description": "Oferta y Demanda Global Externa. Importaciones Mercancías",
+  "frequency": "R/P3M",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "1990-10-01",
+  "units": "Australes",
+  "conjunto": "Cuentas Nacionales 1980-1990",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
  "163.2_MDAEDA_0_0_6": {
   "consulta": "importaciones",
   "title": "m_seda",
@@ -1814,17 +2045,6 @@
   "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
   "fuente": "UNCTAD"
  },
- "201.1_IRTACIOLES_1970_0_23": {
-  "consulta": "importaciones",
-  "title": "importaciones_australes",
-  "description": "Importaciones en australes a precios de 1970",
-  "frequency": "R/P3M",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "1990-10-01",
-  "units": "Australes",
-  "conjunto": "Cuentas Nacionales 1980-1990",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
  "242.1_VFIS_IMTOS_0_0_31": {
   "consulta": "importaciones",
   "title": "vol_fis_impo_hierros_artefactos",
@@ -1835,116 +2055,6 @@
   "units": "Índice",
   "conjunto": "Volumen Físico de Exportaciones e Importaciones 1935-1954",
   "fuente": "Secretaría de Asuntos Económicos"
- },
- "78.3_IIA_0_A_27_93": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_marruecos",
-  "description": "Importaciones a Marruecos. En  dólares FOB",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.3_IIB_0_A_25": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_bolivia",
-  "description": "Importaciones a Bolivia . En  dólares FOB",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.3_IIP_0_A_26": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_paraguay",
-  "description": "Importaciones a Paraguay. En  dólares FOB",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.3_IIA_0_A_25_88": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_belgica",
-  "description": "Importaciones a Belgica. En  dólares FOB",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.3_IIC_0_A_23": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_china",
-  "description": "Importaciones a China. En  dólares FOB",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.3_IIS_0_A_23": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_suiza",
-  "description": "Importaciones a Suiza. En  dólares FOB",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.2_IIA_0_A_27_93": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_marruecos",
-  "description": "Importaciones a Marruecos. En  dólares FOB",
-  "frequency": "R/P3M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.2_IIA_0_A_25_90": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_argelia",
-  "description": "Importaciones a Argelia. En  dólares FOB",
-  "frequency": "R/P3M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.2_IIB_0_A_24": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_brasil",
-  "description": "Importaciones a Brasil . En  dólares FOB",
-  "frequency": "R/P3M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.2_IIJ_0_A_24_91": {
-  "consulta": "importaciones",
-  "title": "ica_importaciones_taiwan",
-  "description": "Importaciones a taiwan. En  dólares FOB",
-  "frequency": "R/P3M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "78.2_IICA_0_A_24": {
   "consulta": "importaciones",
@@ -1978,6 +2088,17 @@
   "units": "Dólares",
   "conjunto": "Importaciones CIF por region y país",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "201.1_IRTACIOLES_1970_0_23": {
+  "consulta": "importaciones",
+  "title": "importaciones_australes",
+  "description": "Importaciones en australes a precios de 1970",
+  "frequency": "R/P3M",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "1990-10-01",
+  "units": "Australes",
+  "conjunto": "Cuentas Nacionales 1980-1990",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
  },
  "78.1_IIJ_0_A_23": {
   "consulta": "importaciones",
@@ -2071,94 +2192,6 @@
   "consulta": "importaciones",
   "title": "ica_importaciones_italia",
   "description": "Importaciones a Italia. En  dólares FOB",
-  "frequency": "R/P1Y",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "181.1_LALL_TOTALNES_IMP_0_A_24": {
-  "consulta": "importaciones",
-  "title": "lall_total_importaciones",
-  "description": "Lall Total Importaciones",
-  "frequency": "R/P1Y",
-  "time_index_start": "1995-01-01",
-  "time_index_end": "2016-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
-  "fuente": "UNCTAD"
- },
- "181.1_UNCTAD_IMPRAS_0_A_26": {
-  "consulta": "importaciones",
-  "title": "unctad_importaciones_otras",
-  "description": "UNCTAD Importaciones Otras",
-  "frequency": "R/P1Y",
-  "time_index_start": "1995-01-01",
-  "time_index_end": "2016-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
-  "fuente": "UNCTAD"
- },
- "181.1_LALL_IMPORRAS_0_A_24": {
-  "consulta": "importaciones",
-  "title": "lall_importaciones_otras",
-  "description": "Lall Importaciones Otras",
-  "frequency": "R/P1Y",
-  "time_index_start": "1995-01-01",
-  "time_index_end": "2016-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
-  "fuente": "UNCTAD"
- },
- "166.2_I_BIENEERV_0_0_16": {
-  "consulta": "importaciones",
-  "title": "impo_bienes_serv",
-  "description": "Importaciones de bienes y servicios",
-  "frequency": "R/P3M",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-10-01",
-  "units": "Millones de Pesos",
-  "conjunto": "Ingreso nacional, Ahorro nacional y Préstamo neto. Base 2004.",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "181.1_LALL_IMPORIOS_0_A_44": {
-  "consulta": "importaciones",
-  "title": "lall_importaciones_total_productos_primarios",
-  "description": "Lall Importaciones Total Productos primarios",
-  "frequency": "R/P1Y",
-  "time_index_start": "1995-01-01",
-  "time_index_end": "2016-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Exportaciones e importaciones por Intensidad tecnológica",
-  "fuente": "UNCTAD"
- },
- "78.3_IPIUT_0_A_61_77": {
-  "consulta": "importaciones",
-  "title": "ica_participacion_import_mercado_comun_centroamericano",
-  "description": "Participación de importaciones a Mercado común Centroamericano. En porcentaje del total de importaciones",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.3_IPIALT_0_A_43": {
-  "consulta": "importaciones",
-  "title": "ica_participacion_importaciones_aladi_total",
-  "description": "Participación de importaciones a ALADI en el total. En porcentaje del total de importaciones",
-  "frequency": "R/P1M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Dólares",
-  "conjunto": "Importaciones CIF por region y país",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "78.1_IPIAT_0_A_41_88": {
-  "consulta": "importaciones",
-  "title": "ica_participacion_importaciones_can_total",
-  "description": "Participación de importaciones a can en el total. En porcentaje del total de importaciones",
   "frequency": "R/P1Y",
   "time_index_start": "1990-01-01",
   "time_index_end": "2025-01-01",
@@ -3409,17 +3442,6 @@
   "conjunto": "Saldo comercial clasificado el Nomenclador Común del Mercosur (NCM)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "164.2_SOTALTAL_0_0_8": {
-  "consulta": "saldo comercial",
-  "title": "sc_total",
-  "description": "Saldo comercial. Total. Millones de USD. Trimestral.",
-  "frequency": "R/P3M",
-  "time_index_start": "1990-01-01",
-  "time_index_end": "2024-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Saldo comercial clasificado el Nomenclador Común del Mercosur (NCM)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "164.3_SESTOSTO_0_0_8": {
   "consulta": "saldo comercial",
   "title": "sc_resto",
@@ -4344,6 +4366,17 @@
   "conjunto": "Saldo comercial clasificado el Nomenclador Común del Mercosur (NCM)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "164.2_SOTALTAL_0_0_8": {
+  "consulta": "saldo comercial",
+  "title": "sc_total",
+  "description": "Saldo comercial. Total. Millones de USD. Trimestral.",
+  "frequency": "R/P3M",
+  "time_index_start": "1990-01-01",
+  "time_index_end": "2024-10-01",
+  "units": "Millones de dólares",
+  "conjunto": "Saldo comercial clasificado el Nomenclador Común del Mercosur (NCM)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "AGRO_0411": {
   "consulta": "balanza comercial",
   "title": "queso_fundido",
@@ -4432,83 +4465,6 @@
   "conjunto": "Lácteos - Balanza comercial",
   "fuente": null
  },
- "AGRO_0419": {
-  "consulta": "balanza comercial",
-  "title": "caseinatos",
-  "description": "Cantidad de dólares en la balanza comercial de caseinatos.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0420": {
-  "consulta": "balanza comercial",
-  "title": "suero",
-  "description": "Cantidad de dólares en la balanza comercial de suero.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0414": {
-  "consulta": "balanza comercial",
-  "title": "aceite_butirico",
-  "description": "Cantidad de dólares en la balanza comercial de aceite butírico.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0413": {
-  "consulta": "balanza comercial",
-  "title": "manteca",
-  "description": "Cantidad de dólares en la balanza comercial de manteca.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0410": {
-  "consulta": "balanza comercial",
-  "title": "queso_rallado",
-  "description": "Cantidad de dólares en la balanza comercial de queso rallado.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0416": {
-  "consulta": "balanza comercial",
-  "title": "yogur",
-  "description": "Cantidad de dólares en la balanza comercial de yogur.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0401": {
-  "consulta": "balanza comercial",
-  "title": "leche_fluida",
-  "description": "Cantidad de dólares en la balanza comercial de leche fluida.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
  "AGRO_0421": {
   "consulta": "balanza comercial",
   "title": "derivados_suero",
@@ -4564,39 +4520,6 @@
   "conjunto": "Lácteos - Balanza comercial",
   "fuente": null
  },
- "AGRO_0407": {
-  "consulta": "balanza comercial",
-  "title": "queso_pasta_blanda",
-  "description": "Cantidad de dólares en la balanza comercial de queso de pasta blanda.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0404": {
-  "consulta": "balanza comercial",
-  "title": "leche_maternizada",
-  "description": "Cantidad de dólares en la balanza comercial de leche maternizada. Incluye leche en polvo modificada.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
- "AGRO_0406": {
-  "consulta": "balanza comercial",
-  "title": "dulce_de_leche",
-  "description": "Cantidad de dólares en la balanza comercial de dulce de leche.",
-  "frequency": "R/P1Y",
-  "time_index_start": "1989-01-01",
-  "time_index_end": "2009-01-01",
-  "units": "Dolares",
-  "conjunto": "Lácteos - Balanza comercial",
-  "fuente": null
- },
  "AGRO_0417": {
   "consulta": "balanza comercial",
   "title": "otros_fermentados",
@@ -4637,17 +4560,6 @@
   "frequency": "R/P1Y",
   "time_index_start": "1936-01-01",
   "time_index_end": "2009-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de pagos en millones de dólares",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "335.1_CUENTA_COSTO__23": {
-  "consulta": "balanza comercial",
-  "title": "cuenta_corriente_resto",
-  "description": "Resto. Cuenta corriente del balance de pagos",
-  "frequency": "R/P1Y",
-  "time_index_start": "1915-01-01",
-  "time_index_end": "1934-01-01",
   "units": "Millones de dólares",
   "conjunto": "Balance de pagos en millones de dólares",
   "fuente": "Banco Central de la República Argentina (BCRA)"
@@ -4795,17 +4707,6 @@
   "conjunto": "Producción y consumo de gas natural",
   "fuente": "Secretaría de Energía, Ministerio de Economía"
  },
- "26.2_CCBP_0_T_28": {
-  "consulta": "balanza comercial",
-  "title": "cuenta_capital_balanza_pagos",
-  "description": "Cuenta Capital de la Balanza de Pagos en pesos corrientes",
-  "frequency": "R/P3M",
-  "time_index_start": "1993-01-01",
-  "time_index_end": "2013-04-01",
-  "units": "Millones de pesos",
-  "conjunto": "Ingreso Nacional, Ahorro Nacional y Préstamo Neto. Base 1993",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
  "335.1_CUENTA_CONES__48": {
   "consulta": "balanza comercial",
   "title": "cuenta_corriente_servicios_reales_exportaciones",
@@ -4838,6 +4739,138 @@
   "units": "Millones de dólares",
   "conjunto": "Balance de pagos en millones de dólares",
   "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "AGRO_0419": {
+  "consulta": "balanza comercial",
+  "title": "caseinatos",
+  "description": "Cantidad de dólares en la balanza comercial de caseinatos.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0420": {
+  "consulta": "balanza comercial",
+  "title": "suero",
+  "description": "Cantidad de dólares en la balanza comercial de suero.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0414": {
+  "consulta": "balanza comercial",
+  "title": "aceite_butirico",
+  "description": "Cantidad de dólares en la balanza comercial de aceite butírico.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0413": {
+  "consulta": "balanza comercial",
+  "title": "manteca",
+  "description": "Cantidad de dólares en la balanza comercial de manteca.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0410": {
+  "consulta": "balanza comercial",
+  "title": "queso_rallado",
+  "description": "Cantidad de dólares en la balanza comercial de queso rallado.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0416": {
+  "consulta": "balanza comercial",
+  "title": "yogur",
+  "description": "Cantidad de dólares en la balanza comercial de yogur.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0401": {
+  "consulta": "balanza comercial",
+  "title": "leche_fluida",
+  "description": "Cantidad de dólares en la balanza comercial de leche fluida.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0407": {
+  "consulta": "balanza comercial",
+  "title": "queso_pasta_blanda",
+  "description": "Cantidad de dólares en la balanza comercial de queso de pasta blanda.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0404": {
+  "consulta": "balanza comercial",
+  "title": "leche_maternizada",
+  "description": "Cantidad de dólares en la balanza comercial de leche maternizada. Incluye leche en polvo modificada.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "AGRO_0406": {
+  "consulta": "balanza comercial",
+  "title": "dulce_de_leche",
+  "description": "Cantidad de dólares en la balanza comercial de dulce de leche.",
+  "frequency": "R/P1Y",
+  "time_index_start": "1989-01-01",
+  "time_index_end": "2009-01-01",
+  "units": "Dolares",
+  "conjunto": "Lácteos - Balanza comercial",
+  "fuente": null
+ },
+ "335.1_CUENTA_COSTO__23": {
+  "consulta": "balanza comercial",
+  "title": "cuenta_corriente_resto",
+  "description": "Resto. Cuenta corriente del balance de pagos",
+  "frequency": "R/P1Y",
+  "time_index_start": "1915-01-01",
+  "time_index_end": "1934-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de pagos en millones de dólares",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "26.2_CCBP_0_T_28": {
+  "consulta": "balanza comercial",
+  "title": "cuenta_capital_balanza_pagos",
+  "description": "Cuenta Capital de la Balanza de Pagos en pesos corrientes",
+  "frequency": "R/P3M",
+  "time_index_start": "1993-01-01",
+  "time_index_end": "2013-04-01",
+  "units": "Millones de pesos",
+  "conjunto": "Ingreso Nacional, Ahorro Nacional y Préstamo Neto. Base 1993",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "335.1_CUENTA_COLDO__52": {
   "consulta": "balanza comercial",
@@ -4920,6 +4953,39 @@
   "consulta": "balanza de pagos",
   "title": "bienes_pagos_oleaginosos_cerealeros",
   "description": "Bienes Pagos Oleaginosos y Cerealeros",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Cobros y pagos por bienes sectorial - Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "184.1_BIENES_PAGRIA_0_M_20": {
+  "consulta": "balanza de pagos",
+  "title": "bienes_pagos_mineria",
+  "description": "Bienes Pagos Mineria",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Cobros y pagos por bienes sectorial - Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "184.1_BIENES_PAGRIZ_0_M_33": {
+  "consulta": "balanza de pagos",
+  "title": "bienes_pagos_industria_automotriz",
+  "description": "Bienes Pagos Industria Automotriz",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Cobros y pagos por bienes sectorial - Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "184.1_BIENES_PAGNES_0_M_27": {
+  "consulta": "balanza de pagos",
+  "title": "bienes_pagos_comunicaciones",
+  "description": "Bienes Pagos Comunicaciones",
   "frequency": "R/P1M",
   "time_index_start": "2003-01-01",
   "time_index_end": "2026-08-01",
@@ -5752,39 +5818,6 @@
   "conjunto": "Balance de Pagos (MBP6)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "184.1_BIENES_PAGRIA_0_M_20": {
-  "consulta": "balanza de pagos",
-  "title": "bienes_pagos_mineria",
-  "description": "Bienes Pagos Mineria",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cobros y pagos por bienes sectorial - Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "184.1_BIENES_PAGRIZ_0_M_33": {
-  "consulta": "balanza de pagos",
-  "title": "bienes_pagos_industria_automotriz",
-  "description": "Bienes Pagos Industria Automotriz",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cobros y pagos por bienes sectorial - Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "184.1_BIENES_PAGNES_0_M_27": {
-  "consulta": "balanza de pagos",
-  "title": "bienes_pagos_comunicaciones",
-  "description": "Bienes Pagos Comunicaciones",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Cobros y pagos por bienes sectorial - Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
  "182.1_TOTAL_CUENRIA_0_M_32": {
   "consulta": "cuenta corriente",
   "title": "total_cuenta_corriente_cambiaria",
@@ -5796,10 +5829,32 @@
   "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
+ "160.2_TL_CUENNTE_0_T_22": {
+  "consulta": "cuenta corriente",
+  "title": "total_cuenta_corriente",
+  "description": "Total cuenta corriente. Trimestral",
+  "frequency": "R/P3M",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "182.1_CUENTA_CORIOS_0_M_45": {
   "consulta": "cuenta corriente",
   "title": "cuenta_corriente_cambiaria_ingresos_servicios",
   "description": "Cuenta Corriente Cambiaria Ingresos Servicios",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_CUENTA_CORIOS_0_M_42": {
+  "consulta": "cuenta corriente",
+  "title": "cuenta_corriente_cambiaria_total_servicios",
+  "description": "Cuenta Corriente Cambiaria Total Servicios",
   "frequency": "R/P1M",
   "time_index_start": "2003-01-01",
   "time_index_end": "2026-08-01",
@@ -5829,17 +5884,6 @@
   "conjunto": "Balance de Pagos (MBP5)",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "182.1_CUENTA_CORIOS_0_M_42": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_cambiaria_total_servicios",
-  "description": "Cuenta Corriente Cambiaria Total Servicios",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
  "182.1_CUENTA_CORNES_0_M_39": {
   "consulta": "cuenta corriente",
   "title": "cuenta_corriente_cambiaria_total_bienes",
@@ -5862,60 +5906,49 @@
   "conjunto": "Balance Cambiario",
   "fuente": "Banco Central de la República Argentina (BCRA)"
  },
- "340.1_CHIPREPRE__6": {
+ "160.1_CTA_CORIOS_0_A_37": {
   "consulta": "cuenta corriente",
-  "title": "chipre",
-  "description": "Cuenta corriente de balance de pago Chipre",
+  "title": "cuenta_corriente_ingresos_secundarios",
+  "description": "Cuenta corriente. Ingresos secundarios. Anual",
   "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2027-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP6)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "340.1_UGANDANDA__6": {
+ "182.1_CUENTA_COROS_0_M_45": {
   "consulta": "cuenta corriente",
-  "title": "uganda",
-  "description": "Cuenta corriente de balance de pago Uganda",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
- },
- "340.1_CHINAINA__5": {
-  "consulta": "cuenta corriente",
-  "title": "china",
-  "description": "Cuenta corriente de balance de pago China",
-  "frequency": "R/P1Y",
-  "time_index_start": "1982-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
- },
- "340.1_BELICEICE__6": {
-  "consulta": "cuenta corriente",
-  "title": "belice",
-  "description": "Cuenta corriente de balance de pago Belice",
-  "frequency": "R/P1Y",
-  "time_index_start": "1980-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
- },
- "340.1_INDONESIASIA__9": {
-  "consulta": "cuenta corriente",
-  "title": "indonesia",
-  "description": "Cuenta corriente de balance de pago Indonesia",
-  "frequency": "R/P1Y",
+  "title": "cuenta_corriente_cambiaria_egresos_servicios",
+  "description": "Cuenta Corriente Cambiaria Egresos Servicios",
+  "frequency": "R/P1M",
   "time_index_start": "2003-01-01",
-  "time_index_end": "2023-01-01",
-  "units": "En porcentaje del PIB",
-  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
-  "fuente": "UNCTAD"
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "182.1_CUENTA_CORRIO_0_M_45": {
+  "consulta": "cuenta corriente",
+  "title": "cuenta_corriente_cambiaria_ingreso_secundario",
+  "description": "Cuenta Corriente Cambiaria Ingreso Secundario",
+  "frequency": "R/P1M",
+  "time_index_start": "2003-01-01",
+  "time_index_end": "2026-08-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance Cambiario",
+  "fuente": "Banco Central de la República Argentina (BCRA)"
+ },
+ "84.2_CRTC_0_T_27": {
+  "consulta": "cuenta corriente",
+  "title": "cc_rentas_transf_corrientes",
+  "description": "Cuenta Corriente rentas transf corrientes",
+  "frequency": "R/P3M",
+  "time_index_start": "1994-01-01",
+  "time_index_end": "2016-10-01",
+  "units": "Millones de dólares",
+  "conjunto": "Balance de Pagos (MBP5)",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "340.1_POLONIANIA__7": {
   "consulta": "cuenta corriente",
@@ -6099,6 +6132,61 @@
   "description": "Cuenta corriente de balance de pago Bhután",
   "frequency": "R/P1Y",
   "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_CHIPREPRE__6": {
+  "consulta": "cuenta corriente",
+  "title": "chipre",
+  "description": "Cuenta corriente de balance de pago Chipre",
+  "frequency": "R/P1Y",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_UGANDANDA__6": {
+  "consulta": "cuenta corriente",
+  "title": "uganda",
+  "description": "Cuenta corriente de balance de pago Uganda",
+  "frequency": "R/P1Y",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_CHINAINA__5": {
+  "consulta": "cuenta corriente",
+  "title": "china",
+  "description": "Cuenta corriente de balance de pago China",
+  "frequency": "R/P1Y",
+  "time_index_start": "1982-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_BELICEICE__6": {
+  "consulta": "cuenta corriente",
+  "title": "belice",
+  "description": "Cuenta corriente de balance de pago Belice",
+  "frequency": "R/P1Y",
+  "time_index_start": "1980-01-01",
+  "time_index_end": "2023-01-01",
+  "units": "En porcentaje del PIB",
+  "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
+  "fuente": "UNCTAD"
+ },
+ "340.1_INDONESIASIA__9": {
+  "consulta": "cuenta corriente",
+  "title": "indonesia",
+  "description": "Cuenta corriente de balance de pago Indonesia",
+  "frequency": "R/P1Y",
+  "time_index_start": "2003-01-01",
   "time_index_end": "2023-01-01",
   "units": "En porcentaje del PIB",
   "conjunto": "Cuenta Corriente del Balance de Pagos. En porcentaje del producto",
@@ -6840,61 +6928,6 @@
   "units": "Millones de dólares",
   "conjunto": "Cuenta Corriente del Balance de Pagos. Flujos monetarios",
   "fuente": "UNCTAD"
- },
- "160.2_TL_CUENNTE_0_T_22": {
-  "consulta": "cuenta corriente",
-  "title": "total_cuenta_corriente",
-  "description": "Total cuenta corriente. Trimestral",
-  "frequency": "R/P3M",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "160.1_CTA_CORIOS_0_A_37": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_ingresos_secundarios",
-  "description": "Cuenta corriente. Ingresos secundarios. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2027-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP6)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "182.1_CUENTA_COROS_0_M_45": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_cambiaria_egresos_servicios",
-  "description": "Cuenta Corriente Cambiaria Egresos Servicios",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "182.1_CUENTA_CORRIO_0_M_45": {
-  "consulta": "cuenta corriente",
-  "title": "cuenta_corriente_cambiaria_ingreso_secundario",
-  "description": "Cuenta Corriente Cambiaria Ingreso Secundario",
-  "frequency": "R/P1M",
-  "time_index_start": "2003-01-01",
-  "time_index_end": "2026-08-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance Cambiario",
-  "fuente": "Banco Central de la República Argentina (BCRA)"
- },
- "84.2_CRTC_0_T_27": {
-  "consulta": "cuenta corriente",
-  "title": "cc_rentas_transf_corrientes",
-  "description": "Cuenta Corriente rentas transf corrientes",
-  "frequency": "R/P3M",
-  "time_index_start": "1994-01-01",
-  "time_index_end": "2016-10-01",
-  "units": "Millones de dólares",
-  "conjunto": "Balance de Pagos (MBP5)",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
  "182.1_C_CAP_FINAANC_0_M_32": {
   "consulta": "cuenta financiera",
@@ -9404,17 +9437,6 @@
   "conjunto": "Deuda externa bruta por sector residente",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
- "372.7_GTOS_CORR_006_0_M_49_89": {
-  "consulta": "deuda externa",
-  "title": "gtos_corr_int_ot_ren_prop_int_deuda_ext_1993_2006",
-  "description": "Gastos corrientes  intereses y otras rentas de la prop. intereses deuda externa . Metodología 1993 - 2006",
-  "frequency": "R/P1M",
-  "time_index_start": "1993-01-01",
-  "time_index_end": "1997-12-01",
-  "units": "Millones de pesos",
-  "conjunto": "Esquema Ahorro - Inversión - Financiamiento. Administración Pública Nacional. Base Caja.",
-  "fuente": "Secretaría de Hacienda, Ministerio de Economía"
- },
  "379.1_AP_FIN_AMO006_I_0_A_57_80": {
   "consulta": "deuda externa",
   "title": "ap_fin_amort_deu_dism_ots_pasiv_amort_deuda_ext_1993_2006",
@@ -9446,6 +9468,17 @@
   "time_index_end": "2006-10-01",
   "units": "Millones de pesos",
   "conjunto": "Esquema Ahorro - Inversión - Financiamiento. Sector Público Nacional. Base Caja.",
+  "fuente": "Secretaría de Hacienda, Ministerio de Economía"
+ },
+ "372.7_GTOS_CORR_006_0_M_49_89": {
+  "consulta": "deuda externa",
+  "title": "gtos_corr_int_ot_ren_prop_int_deuda_ext_1993_2006",
+  "description": "Gastos corrientes  intereses y otras rentas de la prop. intereses deuda externa . Metodología 1993 - 2006",
+  "frequency": "R/P1M",
+  "time_index_start": "1993-01-01",
+  "time_index_end": "1997-12-01",
+  "units": "Millones de pesos",
+  "conjunto": "Esquema Ahorro - Inversión - Financiamiento. Administración Pública Nacional. Base Caja.",
   "fuente": "Secretaría de Hacienda, Ministerio de Economía"
  },
  "373.1_AP_FIN_AMO006_0_A_57_81": {
@@ -10383,6 +10416,28 @@
   "conjunto": "Posición de Inversión Internacional neta",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "144.3_SEDADESTOS_0_A_31": {
+  "consulta": "posicion de inversion internacional",
+  "title": "sociedades_captadoras_depositos",
+  "description": "Posición de inversión neta de sociedades de depósitos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_SEDADESTOS_0_T_31": {
+  "consulta": "posicion de inversion internacional",
+  "title": "sociedades_captadoras_depositos",
+  "description": "Posición de inversión neta de sociedades de depósitos.",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "144.3_BOCENTUAL_0_A_19": {
   "consulta": "posicion de inversion internacional",
   "title": "banco_central_anual",
@@ -10412,6 +10467,17 @@
   "frequency": "R/P3M",
   "time_index_start": "2016-01-01",
   "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_PCIONETA_0_A_37": {
+  "consulta": "posicion de inversion internacional",
+  "title": "posicion_inversion_internacional_neta",
+  "description": "Posición de inversión neta deudora o acreedora. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
   "units": "Millones de dólares",
   "conjunto": "Posición de Inversión Internacional neta",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
@@ -10944,6 +11010,281 @@
   "conjunto": "Posición de Inversión Internacional neta",
   "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
  },
+ "144.3_PVOSOTIONIN_0_A_22": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otra_inversion_os",
+  "description": "Pasivos. Valor de otras inversiones de otros sectores.",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_AVOSGOLES_0_A_32": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_gobierno_general_anuales",
+  "description": "Activos. Valor de los activos del gobierno general. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_AVOSBALES_0_A_29": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_banco_central_anuales",
+  "description": "Activos. Valor de los activos del banco central. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_AVOSSELES_0_A_22": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_sector_anuales",
+  "description": "Activos. Valor de los activos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.3_PVOSOTRES_0_A_22": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otros_sectores",
+  "description": "Pasivos. Valor de los pasivos de otros sectores.",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSOTGAR_0_T_27": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otras_cuentas_pagar",
+  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSMOLES_0_T_37": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_moneda_depositos_trimestrales",
+  "description": "Pasivos. Valor de la moneda y los depósitos. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSINLESC_0_T_38": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_inversion_cartera_trimestrales",
+  "description": "Pasivos. Valor de la inversión de cartera. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PCIONFMI_0_T_20": {
+  "consulta": "posicion de inversion internacional",
+  "title": "posicion_reserva_fmi",
+  "description": "Activos. Valor de la posición de reserva en el FMI. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-07-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_TLOSDEUDA_0_T_13": {
+  "consulta": "posicion de inversion internacional",
+  "title": "titulos_deuda",
+  "description": "Activos. Valor de los títulos de deuda. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_AVOSCALES_0_T_24": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_cat_trimestrales",
+  "description": "Activos. Valor del total de los activos. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.2_PVOSPAION_0_T_48": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_participaciones_capital_fondos_inversion",
+  "description": "Pasivos. Valor de participación de capital de la inversión de cartera. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_TLOSVARES_0_A_15": {
+  "consulta": "posicion de inversion internacional",
+  "title": "titulos_valores",
+  "description": "Activos. Valor de otros títulos Valores. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_TLOSDEUDA_0_A_13": {
+  "consulta": "posicion de inversion internacional",
+  "title": "titulos_deuda",
+  "description": "Activos. Valor de los títulos de deuda. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_MDADEPUAL_0_A_26": {
+  "consulta": "posicion de inversion internacional",
+  "title": "moneda_depositos_cat_anual",
+  "description": "Activos. Otros activos de reserva. Valor de la moneda y los depósitos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_PVOSOTGAR_0_A_27": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otras_cuentas_pagar",
+  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.1_PVOSANLES_0_A_15": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_anuales",
+  "description": "Pasivos. Valor de los pasivos. Anual",
+  "frequency": "R/P1Y",
+  "time_index_start": "2006-01-01",
+  "time_index_end": "2025-01-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSOTCTA_0_T_40": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_otros_sectores_inversion_directa",
+  "description": "Pasivos. Valor de la inversión directa de otros sectores.",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSINLES_0_T_39": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivo_inversion_directa_sector_anuales",
+  "description": "Pasivos. Valor de la inversión directa sectores. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSINLESC_0_T_33": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_inversion_cartera_anuales",
+  "description": "Activos. Valor de la inversión de cartera del gobierno general. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSINLES_0_T_30": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_inversion_cart_anuales",
+  "description": "Activos. Valor de la inversión de cartera de sociedades captadoras de depósitos. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSOTLES_0_T_45": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_otras_participaciones_capital_anuales",
+  "description": "Activos. Valor de otras participaciones de capital. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSBALES_0_T_29": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_banco_central_anuales",
+  "description": "Pasivos. Valor de los pasivos del banco central. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_PVOSGOLES_0_T_32": {
+  "consulta": "posicion de inversion internacional",
+  "title": "pasivos_gobierno_general_anuales",
+  "description": "Pasivos. Valor de los pasivos del gobierno general. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
+ "144.4_AVOSGOLES_0_T_32": {
+  "consulta": "posicion de inversion internacional",
+  "title": "activos_gobierno_general_anuales",
+  "description": "Activos. Valor de los activos del gobierno general. Anual",
+  "frequency": "R/P3M",
+  "time_index_start": "2016-01-01",
+  "time_index_end": "2026-04-01",
+  "units": "Millones de dólares",
+  "conjunto": "Posición de Inversión Internacional neta",
+  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
+ },
  "144.3_PVOSOTION_0_A_22": {
   "consulta": "posicion de inversion internacional",
   "title": "pasivos_otra_inversion_bc",
@@ -11388,314 +11729,6 @@
   "consulta": "posicion de inversion internacional",
   "title": "participaciones_capital_utilidades_reinvertidas_trim",
   "description": "Activos. Valor de las participaciones en el capital de la inversión directa. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_SEDADESTOS_0_A_31": {
-  "consulta": "posicion de inversion internacional",
-  "title": "sociedades_captadoras_depositos",
-  "description": "Posición de inversión neta de sociedades de depósitos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_SEDADESTOS_0_T_31": {
-  "consulta": "posicion de inversion internacional",
-  "title": "sociedades_captadoras_depositos",
-  "description": "Posición de inversión neta de sociedades de depósitos.",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_PCIONETA_0_A_37": {
-  "consulta": "posicion de inversion internacional",
-  "title": "posicion_inversion_internacional_neta",
-  "description": "Posición de inversión neta deudora o acreedora. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_PVOSOTIONIN_0_A_22": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otra_inversion_os",
-  "description": "Pasivos. Valor de otras inversiones de otros sectores.",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_AVOSGOLES_0_A_32": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_gobierno_general_anuales",
-  "description": "Activos. Valor de los activos del gobierno general. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_AVOSBALES_0_A_29": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_banco_central_anuales",
-  "description": "Activos. Valor de los activos del banco central. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_AVOSSELES_0_A_22": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_sector_anuales",
-  "description": "Activos. Valor de los activos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.3_PVOSOTRES_0_A_22": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otros_sectores",
-  "description": "Pasivos. Valor de los pasivos de otros sectores.",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSOTGAR_0_T_27": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otras_cuentas_pagar",
-  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSMOLES_0_T_37": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_moneda_depositos_trimestrales",
-  "description": "Pasivos. Valor de la moneda y los depósitos. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSINLESC_0_T_38": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_inversion_cartera_trimestrales",
-  "description": "Pasivos. Valor de la inversión de cartera. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PCIONFMI_0_T_20": {
-  "consulta": "posicion de inversion internacional",
-  "title": "posicion_reserva_fmi",
-  "description": "Activos. Valor de la posición de reserva en el FMI. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-07-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_TLOSDEUDA_0_T_13": {
-  "consulta": "posicion de inversion internacional",
-  "title": "titulos_deuda",
-  "description": "Activos. Valor de los títulos de deuda. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_AVOSCALES_0_T_24": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_cat_trimestrales",
-  "description": "Activos. Valor del total de los activos. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.2_PVOSPAION_0_T_48": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_participaciones_capital_fondos_inversion",
-  "description": "Pasivos. Valor de participación de capital de la inversión de cartera. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_TLOSVARES_0_A_15": {
-  "consulta": "posicion de inversion internacional",
-  "title": "titulos_valores",
-  "description": "Activos. Valor de otros títulos Valores. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_TLOSDEUDA_0_A_13": {
-  "consulta": "posicion de inversion internacional",
-  "title": "titulos_deuda",
-  "description": "Activos. Valor de los títulos de deuda. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_MDADEPUAL_0_A_26": {
-  "consulta": "posicion de inversion internacional",
-  "title": "moneda_depositos_cat_anual",
-  "description": "Activos. Otros activos de reserva. Valor de la moneda y los depósitos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_PVOSOTGAR_0_A_27": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otras_cuentas_pagar",
-  "description": "Pasivos. Valor de otras cuentas a pagar. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.1_PVOSANLES_0_A_15": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_anuales",
-  "description": "Pasivos. Valor de los pasivos. Anual",
-  "frequency": "R/P1Y",
-  "time_index_start": "2006-01-01",
-  "time_index_end": "2025-01-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSOTCTA_0_T_40": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_otros_sectores_inversion_directa",
-  "description": "Pasivos. Valor de la inversión directa de otros sectores.",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSINLES_0_T_39": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivo_inversion_directa_sector_anuales",
-  "description": "Pasivos. Valor de la inversión directa sectores. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSINLESC_0_T_33": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_inversion_cartera_anuales",
-  "description": "Activos. Valor de la inversión de cartera del gobierno general. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSINLES_0_T_30": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_inversion_cart_anuales",
-  "description": "Activos. Valor de la inversión de cartera de sociedades captadoras de depósitos. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSOTLES_0_T_45": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_otras_participaciones_capital_anuales",
-  "description": "Activos. Valor de otras participaciones de capital. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSBALES_0_T_29": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_banco_central_anuales",
-  "description": "Pasivos. Valor de los pasivos del banco central. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_PVOSGOLES_0_T_32": {
-  "consulta": "posicion de inversion internacional",
-  "title": "pasivos_gobierno_general_anuales",
-  "description": "Pasivos. Valor de los pasivos del gobierno general. Anual",
-  "frequency": "R/P3M",
-  "time_index_start": "2016-01-01",
-  "time_index_end": "2026-04-01",
-  "units": "Millones de dólares",
-  "conjunto": "Posición de Inversión Internacional neta",
-  "fuente": "Instituto Nacional de Estadística y Censos (INDEC)"
- },
- "144.4_AVOSGOLES_0_T_32": {
-  "consulta": "posicion de inversion internacional",
-  "title": "activos_gobierno_general_anuales",
-  "description": "Activos. Valor de los activos del gobierno general. Anual",
   "frequency": "R/P3M",
   "time_index_start": "2016-01-01",
   "time_index_end": "2026-04-01",
