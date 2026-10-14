@@ -53,6 +53,10 @@ Pedido del autor: "demasiado espacio en blanco sin sentido y poco de diseñador"
 - La portada: lo azul con el mapa, "Explorá la Argentina por tema" (columnas sin panel gris, escritas por el constructor), Artículos (el de la relación más marcada primero, que era el destacado) y Herramientas. Sin Destacados: "Tu provincia" ya está en lo azul y las votaciones, en Instituciones políticas.
 - Verificado: armado, sintaxis, prueba de páginas (49), la barra en seis anchos con y sin provincia, los menús con el mouse y el teclado, el celular, el buscador y la página quieta al cargar (portada 0,001 en la computadora y 0 en el celular).
 
+## Leyendas en "Descargar imagen" (14 de octubre de 2026, falta que el autor lo apruebe)
+
+La imagen de la ficha (`imagenFicha` en `datina.js`) dibuja, justo arriba del gráfico, las leyendas que se ven en la ficha y que son HTML fuera del SVG: `.pol-ley` (reservas, pozos terminados, Congreso, transferencias, elecciones y las demás), `.cx-leyenda` y `.ix-leyenda` (Cruces y el índice), cada clave con su cuadradito y en filas que se cortan al ancho, y `.clave-color` como texto con sus colores. Letra, tamaños, colores y separaciones salen de cómo se ven en la página. Las ocultas (otra medida, la vista OCDE) no van. La imagen todavía no lleva la cifra destacada (`.clave`). Verificado: armado, sintaxis, prueba de páginas (49, "Todo en orden") y 32 imágenes de 16 fichas y vistas descargadas en Chrome sin ventana, en 1440 y 390 píxeles.
+
 ## Próxima tarea
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
