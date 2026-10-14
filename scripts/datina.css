@@ -1134,6 +1134,8 @@ html:not(.js) .esqueleto{display:none}
 .conmutador{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);margin:var(--e-6) 0 0;padding:2px;border:1px solid var(--azul);border-radius:var(--r-control)}
 .conmutador::before{content:"";position:absolute;top:2px;bottom:2px;left:2px;width:calc((100% - 4px) / var(--n,2));background:var(--azul);border-radius:calc(var(--r-control) - 3px);
   transform:translateX(calc(var(--i,0) * 100%));transition:transform var(--dur-2) var(--ease-out)}
+/* con botones de anchos distintos (pantallas muy angostas), la marca toma la posición y el ancho del elegido, que mide datina.js */
+.conmutador.medido::before{left:0;width:var(--w);transform:translateX(var(--x));transition:transform var(--dur-2) var(--ease-out),width var(--dur-2) var(--ease-out)}
 .conmutador button{position:relative;min-height:34px;padding:0 var(--e-4);font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--azul);
   background:transparent;border:0;cursor:pointer;transition:color var(--dur-1) var(--ease-out)}
 .conmutador button[aria-pressed="true"]{color:#fff}

@@ -5681,6 +5681,30 @@ document.querySelectorAll(".conmutador:not(.pestanas):not([data-propio])").forEa
   }));
 });
 
+/* La marca del botón elegido (14 de octubre de 2026): supone que los botones miden todos lo mismo, pero en pantallas muy angostas una
+   palabra larga ("Evolución", "Elecciones") no entra en su parte, la grilla agranda ese botón y achica los otros, y la marca quedaba
+   corrida, tapando media etiqueta. Cuando los anchos no son iguales, la marca toma la posición y el ancho del botón elegido (clase
+   "medido"). Se vuelve a medir al cambiar la elección o el tamaño. Con botones iguales no cambia nada */
+(() => {
+  const medir = c => {
+    const bs = [...c.querySelectorAll(":scope > button")], b = bs.find(x => x.getAttribute("aria-pressed") === "true" || x.getAttribute("aria-selected") === "true");
+    if (!b || !c.offsetWidth) return;
+    const ws = bs.map(x => x.offsetWidth), distintos = Math.max(...ws) - Math.min(...ws) > 1;
+    c.classList.toggle("medido", distintos);
+    if (!distintos) return;
+    // en medidas de la página, sin la escala de una animación que esté en curso
+    const rc = c.getBoundingClientRect(), rb = b.getBoundingClientRect(), esc = rc.width / c.offsetWidth || 1;
+    c.style.setProperty("--x", `${(rb.left - rc.left) / esc - c.clientLeft}px`);
+    c.style.setProperty("--w", `${rb.width / esc}px`);
+  };
+  const ro = new ResizeObserver(es => es.forEach(e => medir(e.target)));
+  const mo = new MutationObserver(ms => new Set(ms.map(m => m.target.closest(".conmutador"))).forEach(c => c && medir(c)));
+  document.querySelectorAll(".conmutador").forEach(c => {
+    ro.observe(c);
+    mo.observe(c, {subtree: true, attributes: true, attributeFilter: ["aria-pressed", "aria-selected"]});
+  });
+})();
+
 /* ---------- pestañas dentro de una tarjeta ---------- */
 document.querySelectorAll(".pestanas").forEach(tl => {
   const tabs = [...tl.querySelectorAll('[role="tab"]')];
