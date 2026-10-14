@@ -195,6 +195,14 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - el total de los superpoderes en Diputados no se encontró publicado.
   - La nota de la ficha lo dice.
 
+## Pedidos del autor del 14 de octubre de 2026
+
+"Necesito que pongas o agregues el número absoluto por provincia de pensiones de discapacidad en la ficha, no solo cada 100.000 habitantes" (la ficha usa cada 1.000). Hecho: "¿Cuántas personas cobran una pensión por discapacidad?" (Pobreza y hogares) suma la vista "Cantidad".
+- Son las pensiones de cada provincia en el último mes, en barras de mayor a menor. El cuadro de cada barra dice además qué parte del país son y cuántas hay cada 1.000 habitantes.
+- El texto dice el total del país, las tres provincias con más pensiones y la que menos tiene. Aclara que la cantidad sigue al tamaño de la población, así que para comparar provincias sirve más la vista Cada 1.000.
+- Los botones pasan a ser cuatro: "Mapa", "Cada 1.000" (antes "Por provincia"), "Cantidad" y "Evolución". La descripción dice "por provincia, en cantidad y cada 1.000 habitantes".
+- Con cuatro botones, a 320 píxeles los botones no miden lo mismo y la marca del elegido quedaba corrida. Pasaba también en dos conmutadores de tres botones y en Cruces a 390. Ahora la marca toma la posición y el ancho del botón elegido cuando los anchos son distintos (commit aparte).
+
 ## Pendientes cerrados el 14 de octubre de 2026
 
 "Seguí con los pendientes que quedan".

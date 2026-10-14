@@ -1083,7 +1083,7 @@ const TX = {
   "piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, ${PI.anio_fin}. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
   jubilaciones: `En ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio} había ${n2(JU.ratio)} aportantes por cada jubilación o pensión de los regímenes que administra ANSES: ${n0(JU.aportantes)} personas aportando y ${n0(JU.beneficios)} beneficios. El valor más alto de la serie fue ${n2(JU.max)} en ${JU.max_anio} y el más bajo, ${n2(JU.min)} en ${JU.min_anio}. ` +
     `La demografía empuja en la misma dirección: según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`,
-  // pensiones por invalidez (etapa 42): el texto de la vista "Evolución" lo arma el dibujo
+  // pensiones por invalidez (etapa 42): los textos de las vistas "Cantidad" y "Evolución" los arma el dibujo
   "pensiones-invalidez": `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} había ${n1(PIN.pais_cada_1000)} pensiones no contributivas por invalidez cada 1.000 habitantes en el país. ` +
     `${PIN.top} tenía la proporción más alta, ${n1(PIN.top_v)} cada 1.000, y ${PIN.low} la más baja, ${n1(PIN.low_v)}. La provincia de Buenos Aires tenía el ${pct(PIN.pba_pct)} de todas las pensiones.`,
   "pensiones-invalidez-nota": `La pensión no contributiva por invalidez es para personas que no pueden trabajar por una incapacidad y no tienen ingresos, bienes ni otra ` +
@@ -2429,6 +2429,18 @@ const DIB = {
       return lineas(el, {anim: a, data: T.pensiones_invalidez, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
         xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
         series: [{k: "pensiones", lab: "Todas", corto: "Todas", c: css("--celeste-fuerte")}, {k: "pensiones_no_suspendidas", lab: "Sin las suspendidas", corto: "Sin suspendidas", c: FRI}]});
+    }
+    // la cantidad de pensiones de cada provincia (14 de octubre de 2026, pedido del autor: "el número absoluto por provincia, no solo cada
+    // 1.000 habitantes"), de mayor a menor
+    if (v === "cantidad") {
+      const ord = [...filas].sort((p, q) => q.pensiones - p.pensiones), [p1, p2, p3] = ord, ult = ord[ord.length - 1];
+      const tot = T.pensiones_invalidez_provincias.find(r => r.codigo_indec === "00").pensiones;
+      $t("pensiones-invalidez").textContent = `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} se pagaban ${n0(tot)} pensiones no contributivas por invalidez en todo el país. ` +
+        `${p1.territorio} tenía la mayor cantidad, ${n0(p1.pensiones)}, seguida por ${p2.territorio}, con ${n0(p2.pensiones)}, ${yE(p3.territorio)}, con ${n0(p3.pensiones)}. ` +
+        `${ult.territorio} tenía la menor, ${n0(ult.pensiones)}. La cantidad sigue sobre todo al tamaño de la población, así que para comparar provincias sirve más la vista Cada 1.000.`;
+      return barrasH(el, {anim: a, data: filas, k: "pensiones", vf: n0, af: v => v >= 1000 ? n0(v / 1000) + " mil" : n0(v),
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(d.pct_pais)} de las del país` +
+          `<br>${n1(d.cada_1000)} cada 1.000 habitantes`});
     }
     $t("pensiones-invalidez").textContent = TX["pensiones-invalidez"];
     if (v === "provincias")

@@ -165,10 +165,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-pensiones-invalidez">
       <h3>¿Cuántas personas cobran una pensión por discapacidad?</h3>
-      <p class="ficha-sub">Pensiones no contributivas por invalidez, 2001 a 2026, y cada 1.000 habitantes por provincia</p>
-      <div class="conmutador" role="group" aria-label="Vista" data-g="pensiones-invalidez" style="--n:3">
+      <p class="ficha-sub">Pensiones no contributivas por invalidez, 2001 a 2026, y por provincia, en cantidad y cada 1.000 habitantes</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pensiones-invalidez" style="--n:4">
         <button type="button" data-m="mapa" aria-pressed="true">Mapa</button>
-        <button type="button" data-m="provincias" aria-pressed="false">Por provincia</button>
+        <button type="button" data-m="provincias" aria-pressed="false">Cada 1.000</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
         <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
       </div>
       <div class="grafico" data-g="pensiones-invalidez" data-forma="mapa" style="--alto:640px;--alto-c:530px"></div>
@@ -277,7 +278,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=20f5a7e7f4"></script>
-<script src="datina.js?v=18c3332640"></script>
+<script src="datos/fichas.js?v=1754f14e60"></script>
+<script src="datina.js?v=a2ffb553dc"></script>
 </body>
 </html>
