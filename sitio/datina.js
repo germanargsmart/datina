@@ -63,7 +63,8 @@ const conTablas = (g, nombres, dibujo) => a => {
     const f = el.closest(".ficha"), bi = f?.querySelector(".accion.imagen"); if (bi) bi.hidden = !svgUnico(f);
   }).catch(() => sinDatos(el, "No se pudieron cargar los datos."));
 };
-const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
+// formato argentino también en lo que d3 escribe solo (las marcas de un eje sin formato propio): "1.000", nunca "1,000"
+const loc = d3.formatDefaultLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
 const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
 const pct = v => n1(v) + "%";
 const kbdF = v => v >= 10 ? n0(v) : n1(v);
@@ -225,8 +226,10 @@ const unoCada = tasa => n0(Math.round(1e5 / tasa / 100) * 100);
 // cuánto cambió un valor, en palabras: "bajó 1,3%", "subió 4,0%" o "no cambió"
 const cambioPct = v => Math.round(Math.abs(v) * 10) === 0 ? "no cambió" : `${v < 0 ? "bajó" : "subió"} ${pct(Math.abs(v))}`;
 // en cuántas de las 24 jurisdicciones pasó algo: "en 5 de las 24", "en las 24" o "en ninguna"
-// millones de pesos en los gráficos, como en el resto del sitio: "4,09 M" en las barras y "2 M" en los ejes
-const millonesM = v => n2(v / 1e6) + " M", ejeM = v => v === 0 ? "0" : n1(v / 1e6) + " M";
+// Cifras grandes en los gráficos (octubre de 2026, pedido del autor): nunca "M", "B" ni "billion" a la norteamericana. Mil millones son
+// "mil millones" y un millón de millones, un billón. En las barras y en las marcas de los ejes va el número solo, con la unidad una vez
+// arriba (cfg.eje, cfg.yUnidad), y en la lectura de las líneas y sus rótulos, la palabra entera: "2,06 millones"
+const mill = v => n2(v / 1e6), millones = v => mill(v) + " millones", ejeMill = v => v === 0 ? "0" : n1(v / 1e6);
 // nombres cortos de los tipos de delito, para el gráfico en el celular
 const CORTO_DEL = {"Otros delitos contra la propiedad": "Otros contra la propiedad", "Lesiones culposas en siniestros viales": "Lesiones en tránsito",
   "Infracciones a la ley de estupefacientes": "Estupefacientes", "Delitos de otras leyes especiales": "Otras leyes especiales",
@@ -1236,12 +1239,16 @@ const recorte = (svg, x, y, w, h, r) => {
   svg.append("defs").append("clipPath").attr("id", id).append("rect").attr("x", x).attr("y", y).attr("width", Math.max(0, w)).attr("height", Math.max(0, h)).attr("rx", r);
   return `url(#${id})`;
 };
+// el número de una barra (octubre de 2026): sigue a la barra mientras crece y cuenta hasta su valor, en la misma transición que la mueve
+const contar = (tr, f, v) => tr.textTween(d => { const fin = v(d); return t => f(fin * t); });
+// la unidad de un eje escrita una vez arriba: "mil millones de pesos" pasa a "Miles de millones de pesos"
+const ejeDe = u => u.replace(/^mil /, "miles de ").replace(/^./, c => c.toUpperCase());
 // rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
 const aparecer = (sel, delay = 0) => sel.attr("opacity", 0).transition().delay(Math.min(delay, 150)).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
 
 function lineas(el, cfg) {
   const angosto = el.clientWidth < 520;
-  const C = lienzo(el, cfg.h ? (angosto ? cfg.h - 20 : cfg.h) : (angosto ? 300 : 340), {t:14, r: angosto ? 92 : 128, b:30, l:44});
+  const C = lienzo(el, cfg.h ? (angosto ? cfg.h - 20 : cfg.h) : (angosto ? 300 : 340), {t: cfg.yUnidad ? 30 : 14, r: angosto ? 92 : 128, b:30, l:44});
   const {g, iw, ih} = C, data = cfg.data;
   const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
   const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).range([0, iw]);
@@ -1249,6 +1256,8 @@ function lineas(el, cfg) {
   const y = d3.scaleLinear().domain([cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
   g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
   g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  // la unidad del eje una vez arriba ("Millones de pesos"): las marcas llevan el número solo
+  if (cfg.yUnidad) g.append("text").attr("class", "etq-suave").attr("x", -44).attr("y", -16).text(cfg.yUnidad);
   // en las series mensuales, un año en cada marca (en el celular, uno cada dos), y si son muchos años, uno cada dos o cada cuatro (etapa 25:
   // el EMAE desde 2004 amontonaba 23 años)
   const anios = d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1);
@@ -1393,7 +1402,9 @@ function barrasH(el, cfg) {
   const ext = d3.extent(data, d => d[cfg.k]);
   const x = d3.scaleLinear().domain([Math.min(0, ext[0]), Math.max(0, ext[1])]).nice().range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.28);
-  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? (cfg.ntAngosto || 2) : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  // sin escala arriba (octubre de 2026, pedido del autor: gráficos limpios, con el número de cada barra): cada barra lleva su valor y la
+  // escala sobraba. Si los valores no dicen la unidad ("2,06" en millones de pesos), cfg.eje la escribe una vez arriba de las barras
+  if (cfg.eje) g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", -10).text(cfg.eje);
   if (x.domain()[0] < 0) g.append("line").attr("x1",x(0)).attr("x2",x(0)).attr("y1",0).attr("y2",data.length*fila).attr("stroke",css("--faint"));
   const filas = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
   // lo que depende de la provincia elegida: se usa al dibujar y otra vez en resaltar(). Con cfg.marcar (un Set de códigos) se
@@ -1413,7 +1424,11 @@ function barrasH(el, cfg) {
   const ponerNombre = function(d) { this.textContent = angosto && cfg.corto ? cfg.corto(d) : d.territorio; recortarEtq(this, izq - 10 + margenIzq(el)); };
   const nombres = filas.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end")
     .attr("class", d => claseProv(d, "etq")).each(ponerNombre);
-  const valores = filas.append("text").attr("x", d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em")
+  // los números van en una capa propia que se pone por encima de la línea del país (antes la línea los tachaba en las provincias cercanas
+  // al promedio), con su borde del color del fondo
+  const xVal = d => d[cfg.k] < 0 ? x(0) + 6 : x(d[cfg.k]) + 6;
+  const capaVal = g.append("g").attr("pointer-events", "none");
+  const valores = capaVal.selectAll("text").data(data).join("text").attr("x", xVal).attr("y", d => y(d.codigo_indec) + y.bandwidth()/2).attr("dy",".35em")
     .attr("class", d => claseProv(d, "etq-suave")).text(d => (cfg.vf || n1)(d[cfg.k]));
   if (cfg.mejor) valores.style("fill", d => colorCambio(d, true));
   // cfg.anota (etapa 34, prueba en tres fichas, pedido del autor: "una anotación por gráfico, junto al dato"): una nota corta pegada
@@ -1453,7 +1468,8 @@ function barrasH(el, cfg) {
   if (cfg.anim) {
     barras.attr("x", x(0)).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
       .attr("x", d => x(Math.min(0, d[cfg.k]))).attr("width", d => Math.abs(x(d[cfg.k]) - x(0)));
-    valores.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+    valores.attr("x", x(0) + 6).attr("opacity", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x", xVal).attr("opacity", 1)
+      .call(contar, cfg.vf || n1, d => d[cfg.k]);
     aparecer(notas, 150);
   }
   // el cuadro (etapa 16): los valores absolutos de cfg.tip, o el valor de la fila, y siempre que haya dato del país una fila "País"
@@ -1471,16 +1487,19 @@ function barrasH(el, cfg) {
   }
   if (cfg.ref != null) {
     g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3");
-    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
+    g.append("text").attr("class","etq-suave etq-ref").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).text(cfg.refLab);
   }
   if (cfg.ref2 != null) {
     g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
     const der = cfg.ref == null || cfg.ref2 >= cfg.ref;
-    g.append("text").attr("x", x(cfg.ref2) + (der ? 5 : -5)).attr("y", data.length*fila + 18).attr("text-anchor", der ? "start" : "end")
-      .attr("class","etq-fuerte").attr("fill",css("--ocde")).text(cfg.ref2Lab);
+    const t2 = g.append("text").attr("x", x(cfg.ref2) + (der ? 5 : -5)).attr("y", data.length*fila + 18).attr("text-anchor", der ? "start" : "end")
+      .attr("class","etq-fuerte etq-ref").attr("fill",css("--ocde")).text(cfg.ref2Lab);
+    // si a la derecha no entra (en el celular se salía de la tarjeta), va a la izquierda de la línea
+    if (der && x(cfg.ref2) + 5 + t2.node().getComputedTextLength() > iw + 50) t2.attr("x", x(cfg.ref2) - 5).attr("text-anchor", "end");
   }
-  // las anotaciones van por encima de las líneas de referencia
-  notas.raise();
+  // los números, los nombres de las líneas y las anotaciones van por encima de las líneas de referencia (en el celular la línea de la OCDE
+  // cruzaba "País 13,2%")
+  g.selectAll(".etq-ref").raise(); capaVal.raise(); notas.raise();
 }
 
 function pesas(el, cfg) {
@@ -1537,13 +1556,14 @@ function columnas(el, cfg) {
   const cols = g.selectAll("rect").data(data).join("rect").attr("x", d => x(d.mes)).attr("width", x.bandwidth()).attr("rx", rBarra(x.bandwidth()))
     .attr("y", d => y(d.gwh)).attr("height", d => ih - y(d.gwh))
     .attr("fill", d => d.gwh === mx ? css("--celeste-fuerte") : d.gwh === mn ? css("--sol") : css("--celeste"));
+  const fv = el.clientWidth < 520 ? v => n1(v / 1000) : n0;
   const vals = g.selectAll("text.v").data(data).join("text").attr("class","etq-suave").attr("text-anchor","middle")
-    .attr("x", d => x(d.mes) + x.bandwidth()/2).attr("y", d => y(d.gwh) - 6)
-    .text(d => el.clientWidth < 520 ? n1(d.gwh/1000) : n0(d.gwh));
+    .attr("x", d => x(d.mes) + x.bandwidth()/2).attr("y", d => y(d.gwh) - 6).text(d => fv(d.gwh));
   if (cfg.anim) {
     cols.attr("y", ih).attr("height", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
       .attr("y", d => y(d.gwh)).attr("height", d => ih - y(d.gwh));
-    vals.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+    vals.attr("y", ih - 6).attr("opacity", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("y", d => y(d.gwh) - 6).attr("opacity", 1)
+      .call(contar, fv, d => d.gwh);
   }
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(d3.axisBottom(x).tickFormat(m => MES[m-1]).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   if (el.clientWidth < 520) g.append("text").attr("class","etq-suave").attr("x",0).attr("y",-12).text("Miles de GWh");
@@ -1557,18 +1577,21 @@ function barrasGrupos(el, cfg) {
   const {g, iw} = C;
   const x = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.k]) * 1.05]).nice().range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.grupo)).range([0, data.length * fila]).padding(.3);
-  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  // sin escala arriba, como en las barras por provincia: cada barra lleva su porcentaje
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.grupo)})`);
   const b = f.append("rect").attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
   f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq").text(d => d.grupo);
-  const v = f.append("text").attr("x", d => x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
   if (cfg.ref != null) {
     g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3");
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
   }
+  // los números, por encima de la línea de referencia y con su borde del color del fondo: la línea no los tacha
+  const v = g.append("g").attr("pointer-events", "none").selectAll("text").data(data).join("text").attr("x", d => x(d[cfg.k]) + 6)
+    .attr("y", d => y(d.grupo) + y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
   if (cfg.anim) {
     b.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d[cfg.k]));
-    aparecer(v, 400);
+    v.attr("x", 6).attr("opacity", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x", d => x(d[cfg.k]) + 6).attr("opacity", 1)
+      .call(contar, pct, d => d[cfg.k]);
   }
 }
 
@@ -1732,16 +1755,25 @@ function apiladasH(el, cfg) {
    .on("pointerleave", ocultarTip);
 }
 
-/* Columnas apiladas por año (composición del Congreso) */
+/* Columnas por año, simples o apiladas (la composición del Congreso, las reservas, los subsidios y otras series anuales). Desde octubre de
+   2026 (pedido del autor: "los que tienen gráfico de barras y demás deberían tener los números de cada una de ellas arriba") cada columna
+   lleva arriba su total. Si no entran todos (muchos años, sobre todo en el celular), van los que entran sin pisarse: la más alta, la
+   última, uno cada tantas columnas y los picos, y el eje queda para leer las demás. Si entran todos, el eje y la grilla sobran y no se
+   dibujan. La unidad va una vez arriba a la izquierda (cfg.eje, o la de cfg.unidad). El Congreso no lleva totales (cfg.sinTotal): son
+   siempre las mismas bancas */
 function columnasApiladas(el, cfg) {
   const data = cfg.data, angosto = el.clientWidth < 520;
-  const C = lienzo(el, angosto ? 300 : 340, {t:14, r:8, b:28, l: cfg.l || 36});
+  const titulo = cfg.eje ?? (cfg.unidad ? ejeDe(cfg.unidad) : "");
+  const C = lienzo(el, angosto ? 300 : 340, {t: titulo ? 30 : 14, r:8, b:28, l: cfg.l || 36});
   const {g, iw, ih} = C;
   const x = d3.scaleBand().domain(data.map(d => d.anio)).range([0, iw]).padding(.18);
   const tot = d => d3.sum(cfg.claves, k => d[k.k] || 0);
-  const y = d3.scaleLinear().domain([0, d3.max(data, tot)]).nice().range([ih, 0]);
-  g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
-  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(cfg.af || null)).call(a => a.select(".domain").remove());
+  // con los totales arriba, un poco más de lugar sobre la columna más alta
+  const y = d3.scaleLinear().domain([0, d3.max(data, tot) * (cfg.sinTotal ? 1 : 1.1)]).nice().range([ih, 0]);
+  const grilla = g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+  const ejeY = g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickSize(0).tickPadding(6).tickFormat(cfg.af ? (v => v === 0 ? "0" : cfg.af(v)) : null))
+    .call(a => a.select(".domain").remove());
+  if (titulo) g.append("text").attr("class", "etq-suave").attr("x", -(cfg.l || 36)).attr("y", -16).text(titulo);
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`)
     .call(d3.axisBottom(x).tickValues(data.map(d => d.anio).filter((a, i) => cfg.cadaTick ? i % (angosto ? cfg.cadaTick * 2 : cfg.cadaTick) === 0 : a % (angosto ? 8 : 4) === 0))
       .tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
@@ -1755,6 +1787,32 @@ function columnasApiladas(el, cfg) {
     if (cfg.anim) r.attr("y", ih).attr("height", 0).transition().delay(x(d.anio) / iw * 150).duration(DUR_G).ease(EASE)
       .attr("y", p => y(p.y0 + p.v)).attr("height", p => y(p.y0) - y(p.y0 + p.v));
   });
+  if (!cfg.sinTotal) {
+    const f = cfg.vf || n0, bw = x.bandwidth(), n = data.length, conDato = data.filter(d => tot(d) > 0);
+    const num = col.filter(d => tot(d) > 0).append("text").attr("class", "etq-suave").attr("text-anchor", "middle").style("font-size", angosto ? "11px" : null)
+      .attr("x", bw / 2).attr("y", d => y(tot(d)) - 6).text(d => f(tot(d)));
+    // qué números entran: cada uno ocupa su ancho centrado sobre su columna, no puede tocar a otro y no puede quedar encima de una columna
+    // vecina más alta (se leería como de ella). Primero la más alta y la última, después uno cada tantas columnas desde la última y, en
+    // los huecos, los picos
+    const caja = new Map();
+    num.each(function(d) { const w = this.getComputedTextLength(), c = x(d.anio) + bw / 2; caja.set(d, [c - w / 2, c + w / 2]); });
+    const vecinas = d => { const [a, b] = caja.get(d); return data.filter(o => o !== d && x(o.anio) < b && x(o.anio) + bw > a); };
+    const ult = conDato[conDato.length - 1], alta = d3.greatest(conDato, tot);
+    const cada = Math.max(1, Math.ceil((d3.max(conDato, d => caja.get(d)[1] - caja.get(d)[0]) + 6) / x.step()));
+    const ver = [];
+    new Set([alta, ult, ...conDato.filter(d => (n - 1 - data.indexOf(d)) % cada === 0), ...[...conDato].sort((p, q) => tot(q) - tot(p))].filter(Boolean)).forEach(d => {
+      if (d !== ult && d !== alta && vecinas(d).some(o => tot(o) > tot(d))) return;
+      const [a, b] = caja.get(d);
+      if (!ver.some(o => { const [c, e] = caja.get(o); return a < e + 6 && c < b + 6; })) ver.push(d);
+    });
+    // la última, si su número toca una columna vecina más alta, va por encima de ella
+    const yNum = d => d3.min([d, ...(d === ult ? vecinas(d) : [])], o => y(tot(o))) - 6;
+    num.attr("display", d => ver.includes(d) ? null : "none").attr("y", yNum);
+    // si entraron todos, el eje y la grilla sobran
+    if (ver.length === conDato.length) { grilla.remove(); ejeY.remove(); }
+    if (cfg.anim) num.attr("y", ih - 6).attr("opacity", 0).transition().delay(d => x(d.anio) / iw * 150).duration(DUR_G).ease(EASE)
+      .attr("y", yNum).attr("opacity", 1).call(contar, f, tot);
+  }
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
     .on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>"), (cfg.l || 36) + x(d.anio) + x.bandwidth() / 2, 10); })
@@ -1946,7 +2004,6 @@ function mapaCentrales(el, cfg) {
 
 /* ---------- fichas ---------- */
 const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult"};
-const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
 const CENSO_FRASE = {agua_red: "tenía agua de red pública", cloaca: "tenía desagüe del inodoro a red cloacal", internet: "tenía internet en la vivienda",
@@ -1976,7 +2033,7 @@ const DIB = {
     mejor: "baja", pais: [mo.pais_base, mo.pais_act],
     vf: n1, af: v => v, ref: OC.mortalidad_infantil.ocde, refLab: `Promedio OCDE ${OC.mortalidad_infantil.anio}: ${n1(OC.mortalidad_infantil.ocde)}`}),
   sube: a => lineas(G("sube"), {anim:a, data: T.sube_dia_habil, x:"t", y0:0, mensual:true, huecos:true, ref: su.pre_millones * 1e6,
-    refLab: "Marzo de 2020, antes del aislamiento", refLabCorto: "Marzo de 2020", vf: v => n2(v / 1e6) + " M", yf: v => n1(v / 1e6) + " M",
+    refLab: "Marzo de 2020, antes del aislamiento", refLabCorto: "Marzo de 2020", vf: millones, yf: ejeMill, yUnidad: "Millones de tarjetas por día",
     xl: d => { const [y, m] = d.periodo.split("-"); return `${MESES[+m - 1]} ${y}`; },
     series:[{k:"total", lab:"Tarjetas", c:NAR, w:2.4}]}),
   suicidio: a => lineas(G("suicidio"), {anim:a, data: T.suicidio_serie, x:"anio", y0:0, vf: n1, yf: v => v,
@@ -1987,7 +2044,7 @@ const DIB = {
     tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_hab)} cada 1.000 habitantes<br>${n0(d.empresas)} empresas con empleados`, refLab: `País ${n1(EM.pais_1000)}`}),
   dinamica: a => ($("clave-dinamica").hidden = MED.dinamica === "pais") ? lineas(G("dinamica"), {anim:a, data: T.empresas_serie_pais, x:"anio", y0:0, vf: v => n1(v) + "%", yf: v => v + "%",
         series: [{k:"tasa_entrada", c: css("--celeste-fuerte"), lab:"Aperturas"}, {k:"tasa_salida", c: css("--sol-fuerte"), lab:"Cierres"}]})
-    : barrasH(G("dinamica"), {anim:a, data: T.empresas_provincias, k:`tasa_neta_${EM.ult}`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+    : barrasH(G("dinamica"), {anim:a, data: T.empresas_provincias, k:`tasa_neta_${EM.ult}`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%",
         ref: EM.neta, refLab: `País ${n1(EM.neta)}%`, mejor: "sube"}),
   rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
     k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
@@ -2003,15 +2060,16 @@ const DIB = {
     la: String(es.ini), lb: String(es.fin), x0: 50, mejor: "sube", uDif: " puntos", pais: [es.pais_ini, es.pais_fin]}),
   aprender: a => barrasH(G("aprender"), {anim:a, data: T.aprender_provincias, k:`${MED.aprender}_logra`,
     ref: MED.aprender === "mat" ? ap.mat : ap.len, refLab: `País ${pct(MED.aprender === "mat" ? ap.mat : ap.len)}`,
-    vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"}),
+    vf: v => n1(v) + "%", dif: "puntos"}),
   protegida: a => MED.protegida === "pct_territorio"
     ? barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"pct_territorio", ref: nt.pct, refLab:`País ${pct(nt.pct)}`,
-        ref2: OC.protegida.ocde, ref2Lab: `Promedio OCDE ${OC.protegida.anio}: ${pct(OC.protegida.ocde)}`, vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"})
+        ref2: OC.protegida.ocde, ref2Lab: `Promedio OCDE ${OC.protegida.anio}: ${pct(OC.protegida.ocde)}`, vf: v => n1(v) + "%", dif: "puntos"})
     : barrasH(G("protegida"), {anim:a, data: T.areas_protegidas_provincias, k:"m2_por_habitante", ref: nt.m2_pais, refLab:`País ${n0(nt.m2_pais)} m²`,
-        vf: v => n0(v) + " m²", af: v => n0(v)}),
-  parques: a => lineas(G("parques"), {anim:a, data: T.parques_nacionales_historia, x:"anio", y0:0, escalones:true, vf: v => M(v) + " ha", yf: M,
+        vf: v => n0(v) + " m²"}),
+  parques: a => lineas(G("parques"), {anim:a, data: T.parques_nacionales_historia, x:"anio", y0:0, escalones:true, vf: v => n1(v / 1e6) + " millones", yf: ejeMill,
+    yUnidad: "Millones de hectáreas",
     series:[{k:"ha_terrestres", lab:"Terrestres", c:NAR, w:3}, {k:"ha_marinas", lab:"Marinas", c:FRI, w:2.4}]}),
-  especies: a => barrasH(G("especies"), {anim:a, data: T.especies_areas_nacionales, k:"animales", vf: n0, af: n0, l: 250, lAngosto: 170}),
+  especies: a => barrasH(G("especies"), {anim:a, data: T.especies_areas_nacionales, k:"animales", vf: n0, l: 250, lAngosto: 170}),
   "sube-modos": a => lineas(G("sube-modos"), {anim:a, data: T.sube_dia_habil, x:"t", y0:0, mensual:true, huecos:true,
     ref: su.tren_pre_miles * 1e3, refLab: "Trenes, marzo de 2020", refLabCorto: "Trenes, marzo 2020",
     vf: v => n0(v / 1e3) + " mil", yf: v => n0(v / 1e3) + " mil",
@@ -2021,45 +2079,45 @@ const DIB = {
     series:[{k:"autos", lab:"Autos", c:NAR, w:3}, {k:"motos", lab:"Motos", c:FRI, w:2.4}]}),
   "patentes-prov": a => barrasH(G("patentes-prov"), {anim:a, data: T.patentamientos_provincias, k: MED["patentes-prov"],
     ref: MED["patentes-prov"] === "autos_1000" ? au.pais_1000 : au.motos_pais_1000,
-    refLab: `País ${n1(MED["patentes-prov"] === "autos_1000" ? au.pais_1000 : au.motos_pais_1000)}`, vf: n1, af: n0}),
-  visitas: a => lineas(G("visitas"), {anim:a, data: T.visitas_parques_nacionales, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
+    refLab: `País ${n1(MED["patentes-prov"] === "autos_1000" ? au.pais_1000 : au.motos_pais_1000)}`, vf: n1}),
+  visitas: a => lineas(G("visitas"), {anim:a, data: T.visitas_parques_nacionales, x:"anio", y0:0, vf: millones, yf: ejeMill, yUnidad: "Millones de visitas",
     series:[{k:"total", lab:"Total", c:css("--ink"), w:2.6}, {k:"residentes", lab:"Residentes", c:NAR, w:2.4}, {k:"no_residentes", lab:"No residentes", c:FRI, w:2.4}]}),
-  receptivo: a => lineas(G("receptivo"), {anim:a, data: T.turistas_no_residentes_anual, x:"anio", y0:0, vf: v => n2(v / 1e6) + " M", yf: M,
+  receptivo: a => lineas(G("receptivo"), {anim:a, data: T.turistas_no_residentes_anual, x:"anio", y0:0, vf: millones, yf: ejeMill, yUnidad: "Millones de turistas",
     series:[{k:"turistas", lab:"Turistas", c:NAR, w:3}]}),
-  hoteles: a => lineas(G("hoteles"), {anim:a, data: T.viajeros_hoteles_anual, x:"anio", y0:0, vf: v => n1(v / 1e6) + " M", yf: M,
+  hoteles: a => lineas(G("hoteles"), {anim:a, data: T.viajeros_hoteles_anual, x:"anio", y0:0, vf: v => n1(v / 1e6) + " millones", yf: ejeMill, yUnidad: "Millones de viajeros",
     series:[{k:"residentes", lab:"Residentes", c:NAR, w:3}, {k:"no_residentes", lab:"No residentes", c:FRI, w:2.4}]}),
   eti: a => MED.eti === "cada_1000"
-    ? barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"cada_1000", vf: n1, af: n0})
-    : barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"turistas", vf: n0, af: v => n0(v / 1000) + " mil"}),
+    ? barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"cada_1000", vf: n1})
+    : barrasH(G("eti"), {anim:a, data: T.turistas_extranjeros_provincias, k:"turistas", vf: n0}),
   pobreza: a => lineas(G("pobreza"), {anim:a, data: T.pobreza_serie, x:"t", y0:0, mensual:true, vf: v => n1(v) + "%", yf: v => v + "%",
     xl: d => `${d.semestre === 1 ? "Primer" : "Segundo"} semestre ${d.anio}`,
     series:[{k:"pobreza_personas", lab:"Pobreza", c:NAR, w:3}, {k:"indigencia_personas", lab:"Indigencia", c:FRI, w:2.4}]}),
   "mapa-areas": a => mapaAreas(a),
   "visitas-parque": a => barrasH(G("visitas-parque"), {anim:a, data: T.visitas_por_parque.filter(d => d[MED["visitas-parque"]] != null),
-    k: MED["visitas-parque"], vf: n0, af: v => n0(v / 1000) + " mil", l: 270, lAngosto: 175}),
+    k: MED["visitas-parque"], vf: n0, l: 270, lAngosto: 175}),
   pesca: a => lineas(G("pesca"), {anim:a, data: T.desembarques_especies, x:"anio", y0:0, vf: v => n0(v / 1000) + " mil t", yf: v => n0(v / 1000) + " mil",
     series: pe.top.map((k, i) => ({k, lab: k.replace(" argentino", "").replace(" argentina", ""), c: [NAR, FRI, GRIS][i], w: i ? 2.4 : 3}))}),
-  "pesca-rio": a => barrasH(G("pesca-rio"), {anim:a, data: T.pesca_continental, k:"toneladas", vf: v => n0(v) + " t", af: n0}),
+  "pesca-rio": a => barrasH(G("pesca-rio"), {anim:a, data: T.pesca_continental, k:"toneladas", vf: v => n0(v) + " t"}),
   nombres: a => {
     const cod = NOMBRES[prov] ? prov : "00";
     document.getElementById("contexto-nombres").textContent = `${NOMBRES[prov] || "Total del país"}, ${cu.nom_anio}. Diez nombres más frecuentes.`;
     barrasH(G("nombres"), {anim:a, data: T.nombres_top.filter(d => d.codigo_indec === cod && d.sexo === MED.nombres)
-      .map(d => ({codigo_indec: d.nombre, territorio: d.mostrar || d.nombre, cantidad: d.cantidad})), k:"cantidad", vf: n0, af: n0, cambiaConProv: true});
+      .map(d => ({codigo_indec: d.nombre, territorio: d.mostrar || d.nombre, cantidad: d.cantidad})), k:"cantidad", vf: n0, cambiaConProv: true});
   },
   carne: a => lineas(G("carne"), {anim:a, data: T.carne_vacuna, x:"anio", y0:0, vf: v => n1(v) + " kg", yf: v => v + " kg",
     series:[{k:"kg_por_habitante", lab:"Carne vacuna", c:NAR, w:3}]}),
-  vino: a => lineas(G("vino"), {anim:a, data: T.vino_mercado_interno, x:"anio", y0:0, vf: v => n0(v) + " M l", yf: v => n0(v) + " M",
+  vino: a => lineas(G("vino"), {anim:a, data: T.vino_mercado_interno, x:"anio", y0:0, vf: v => n0(v) + " millones", yf: n0, yUnidad: "Millones de litros",
     series:[{k:"millones_litros", lab:"Vino", c:NAR, w:3}]}),
-  yerba: a => lineas(G("yerba"), {anim:a, data: T.yerba_molino, x:"anio", y0:0, vf: v => n1(v) + " M kg", yf: v => n0(v) + " M",
+  yerba: a => lineas(G("yerba"), {anim:a, data: T.yerba_molino, x:"anio", y0:0, vf: v => n1(v) + " millones", yf: n0, yUnidad: "Millones de kilos",
     series:[{k:"millones_kg", lab:"Yerba", c:NAR, w:3}]}),
-  glaciares: a => barrasH(G("glaciares"), {anim:a, data: T.glaciares_provincias, k:"glaciares", vf: n0, af: n0}),
+  glaciares: a => barrasH(G("glaciares"), {anim:a, data: T.glaciares_provincias, k:"glaciares", vf: n0}),
   clima: a => franjas(G("clima"), {anim:a, data: T.clima_desvio, k:"desvio_temperatura"}),
   esperanza: a => pesas(G("esperanza"), {anim:a, data: T.esperanza_vida_provincias, a:"varones", b:"mujeres", la:"Varones", lb:"Mujeres",
     vf: v => n1(v) + " años", af: v => v, x0: 66, ref: OC.esperanza_vida.ocde, refLab: `Promedio OCDE ${OC.esperanza_vida.anio}: ${n1(OC.esperanza_vida.ocde)}`,
     pais: [nv.ev_v, nv.ev_m]}),
   exportaciones: a => barrasH(G("exportaciones"), {anim:a, data: T.exportaciones_provincias, k:"usd_por_habitante", ref: nv.ex_pc_pais,
     tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} US$ por habitante<br>${n0(d.millones_usd)} millones de US$ en total`,
-    refLab: `País ${n0(nv.ex_pc_pais)}`, vf: v => n0(v) + " US$", af: n0}),
+    refLab: `País ${n0(nv.ex_pc_pais)}`, vf: v => n0(v) + " US$"}),
   fiscal: a => {
     const k = MED.fiscal, d = T.fiscal_provincias, fz = R.fiscal, ord = [...d].sort((p, q) => q[k] - p[k]);
     document.querySelector('[data-t="fiscal"]').textContent = k === "autonomia"
@@ -2067,22 +2125,22 @@ const DIB = {
       : k === "resultado"
       ? `En ${fz.anio}, ${fz.superavit} provincias cerraron con superávit financiero y ${fz.deficit} con déficit. El mayor superávit, en proporción a sus ingresos, fue el de ${ord[0].territorio} (${sg(ord[0].resultado)}) y el mayor déficit el de ${ord[ord.length - 1].territorio} (${sg(ord[ord.length - 1].resultado)}).`
       : `En ${fz.anio}, los sueldos y cargas sociales fueron el ${pct(ord[0].personal)} del gasto de ${ord[0].territorio} y el ${pct(ord[ord.length - 1].personal)} del de ${ord[ord.length - 1].territorio}.`;
-    barrasH(G("fiscal"), {anim:a, data: d, k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+    barrasH(G("fiscal"), {anim:a, data: d, k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%",
       color: k === "resultado" ? (r => r.resultado < 0 ? css("--sol") : css("--celeste")) : null});
   },
   censo: a => {
     document.querySelector('[data-t="censo"]').textContent = textoCenso(MED.censo);
     barrasH(G("censo"), {anim:a, data: T.censo2022_provincias, k: MED.censo, ref: nv.censo[MED.censo], refLab: `País ${pct(nv.censo[MED.censo])}`,
-      vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"});
+      vf: v => n1(v) + "%", dif: "puntos"});
   },
   internet: a => MED.internet === "mbps"
-    ? barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"mbps", vf: v => n0(v) + " Mbps", af: n0})
-    : barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", vf: n1, af: n0}),
-  extranjeros: a => barrasH(G("extranjeros"), {anim:a, data: T.extranjeros_provincias, k:"cada_100", ref: nv.xt_pais, refLab: `País ${n1(nv.xt_pais)}`, vf: n1, af: n0}),
+    ? barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"mbps", vf: v => n0(v) + " Mbps"})
+    : barrasH(G("internet"), {anim:a, data: T.internet_fijo_provincias, k:"accesos_100_hogares", vf: n1}),
+  extranjeros: a => barrasH(G("extranjeros"), {anim:a, data: T.extranjeros_provincias, k:"cada_100", ref: nv.xt_pais, refLab: `País ${n1(nv.xt_pais)}`, vf: n1}),
   empleo: a => ($("clave-empleo").hidden = MED.empleo === "cada_100") ? barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"cada_100", ref: R.empleo.cada_100_pais,
         tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100)} cada 100 habitantes<br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.poblacion)} habitantes`, refLab:`País ${n1(R.empleo.cada_100_pais)}`})
     : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m",
-        tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%",
         mejor: "sube", pais: R.empleo.var_nac}),
 };
 
@@ -2141,7 +2199,7 @@ Object.assign(DIB, {
   "hidro-provincias": a => {
     const k = MED["hidro-provincias"], gas = k === "gas_mmm3d";
     $t("hidro-provincias").textContent = LEAD["hidro-provincias"](k);
-    barrasH(G("hidro-provincias"), {anim: a, data: T.hidrocarburos_provincias.filter(d => d[k] > .005), k, vf: gas ? n1 : kbdF, af: n0,
+    barrasH(G("hidro-provincias"), {anim: a, data: T.hidrocarburos_provincias.filter(d => d[k] > .005), k, vf: gas ? n1 : kbdF,
       tip: d => `<b>${d.territorio}</b><br>` + (gas ? `${n1(d.gas_mmm3d)} millones de m³ por día<br>${pct(d.pct_gas_pais)} del gas del país<br>No convencional: ${pct(d.pct_gas_nc || 0)}<br>Diez años antes: ${n1(d.gas_mmm3d_antes)}`
         : `${kbdF(d.pet_kbd)} mil barriles por día<br>${pct(d.pct_pet_pais)} del petróleo del país<br>No convencional: ${pct(d.pct_pet_nc || 0)}<br>Diez años antes: ${kbdF(d.pet_kbd_antes)}`)});
   },
@@ -2158,7 +2216,7 @@ Object.assign(DIB, {
     if (!r) {
       $t("areas-hidro").textContent = LEAD["areas-hidro"](MED["areas-hidro"]);
       const filas = [...T.areas_produccion].sort((p, q) => q[k] - p[k]).slice(0, 15).map(x => ({...x, provNom: x.territorio, prov: x.codigo_indec, codigo_indec: x.codigo, territorio: tituloArea(x.nombre)}));
-      barrasH(el, {anim: a, data: filas, k, vf: gas ? n1 : kbdF, af: n0, l: 196, lAngosto: 150, marcar: new Set(filas.filter(x => x.prov === prov).map(x => x.codigo_indec)),
+      barrasH(el, {anim: a, data: filas, k, vf: gas ? n1 : kbdF, l: 196, lAngosto: 150, marcar: new Set(filas.filter(x => x.prov === prov).map(x => x.codigo_indec)),
         tip: d => `<b>${d.territorio}</b><br>${d.provNom}, cuenca ${CUENCA_DE[d.cuenca] || d.cuenca}<br>${d.empresa}<br>${cantArea(d[k], gas)}<br>${pct(gas ? d.pct_gas_pais : d.pct_pet_pais)} del país<br>` +
           `No convencional: ${pct((gas ? d.pct_gas_nc : d.pct_pet_nc) || 0)}<br>En ${PG.areas_anio - 10}: ${d[k + "_antes"] > 0 ? cantArea(d[k + "_antes"], gas) : "sin producción"}`});
       el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar, con sus áreas resaltadas
@@ -2180,7 +2238,7 @@ Object.assign(DIB, {
   pozos: a => {
     const t = T.pozos_tipo;
     $("pozos-ley").hidden = MED.pozos === "pozo";
-    if (MED.pozos === "pozo") return barrasH(G("pozos"), {anim: a, data: t.map(r => ({...r, codigo_indec: r.tipo, territorio: r.nombre})), k: "bpd_pozo_pet", vf: v => bblF(v) + " barriles", af: n0,
+    if (MED.pozos === "pozo") return barrasH(G("pozos"), {anim: a, data: t.map(r => ({...r, codigo_indec: r.tipo, territorio: r.nombre})), k: "bpd_pozo_pet", vf: v => bblF(v) + " barriles",
       tip: d => `<b>${d.nombre}</b><br>${bblF(d.bpd_pozo_pet)} barriles de petróleo por día por pozo<br>${n0(d.pozos_pet)} pozos que produjeron petróleo<br>${n0(d.pozos)} pozos con petróleo o gas`});
     const cl = [{k: "convencional", lab: "Convencionales", c: COL_TIPO.conv, texto: "#18212B"}, {k: "tight", lab: "Tight", c: COL_TIPO.tight, texto: "#18212B"}, {k: "shale", lab: "Shale", c: COL_TIPO.shale}];
     leyenda("pozos-ley", cl);
@@ -2191,20 +2249,20 @@ Object.assign(DIB, {
     const k = MED["empresas-hidro"], gas = k === "pct_gas";
     $t("empresas-hidro").textContent = LEAD["empresas-hidro"](k);
     barrasH(G("empresas-hidro"), {anim: a, data: T.hidrocarburos_empresas.filter(r => r.nombre !== "Otras empresas").map((r, i) => ({...r, codigo_indec: "e" + i, territorio: r.nombre})),
-      k, vf: pct, af: v => v + "%", l: 196, lAngosto: 158,
+      k, vf: pct, l: 196, lAngosto: 158,
       tip: d => `<b>${d.nombre}</b><br>${pct(d[k])} del ${gas ? "gas" : "petróleo"} del país<br>` + (gas ? `${n1(d.gas_mmm3d)} millones de m³ por día` : `${kbdF(d.pet_kbd)} mil barriles por día`)});
   },
   "empleo-hidro": conTablas("empleo-hidro", () => MED["empleo-hidro"] === "serie" ? ["empleo_construccion_serie"] : [], a => {
     if (MED["empleo-hidro"] === "serie") return lineas(G("empleo-hidro"), {anim: a, data: T.empleo_construccion_serie.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})), x: "t",
       series: [{k: "petroleo_gas", lab: "País", c: NAR}], y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => `${TRIM_N[r.trimestre - 1]} trimestre de ${r.anio}`});
-    barrasH(G("empleo-hidro"), {anim: a, data: T.empleo_construccion_provincias.filter(d => d.petroleo_gas > 0), k: "petroleo_gas", vf: n0, af: n0,
+    barrasH(G("empleo-hidro"), {anim: a, data: T.empleo_construccion_provincias.filter(d => d.petroleo_gas > 0), k: "petroleo_gas", vf: n0,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.petroleo_gas)} puestos asalariados registrados<br>${n1(d.petroleo_gas_cada_1000)} cada 1.000 habitantes`});
   }),
   regalias: a => {
     const k = MED.regalias, usd = k === "usd_crudo_hab";
     $t("regalias").textContent = LEAD.regalias(k);
     barrasH(G("regalias"), {anim: a, data: usd ? T.regalias_provincias.filter(d => d.usd_crudo_hab > 0) : T.regalias_provincias, k,
-      vf: usd ? n0 : v => n1(v) + "%", af: usd ? n0 : v => v + "%",
+      vf: usd ? n0 : v => n1(v) + "%",
       tip: d => `<b>${d.territorio}</b><br>Regalías: ${pct(d.pct_regalias)} de los ingresos totales en ${d.anio_aif}` +
         (d.usd_crudo_hab > 0 ? `<br>Petróleo crudo: ${n1(d.usd_crudo_millones)} millones de dólares en ${PG.reg_usd_anio}, ${n0(d.usd_crudo_hab)} por habitante` : "")});
   },
@@ -2239,7 +2297,7 @@ Object.assign(DIB, {
     const k = MED["pozos-terminados"];
     $t("pozos-terminados").textContent = LEAD["pozos-terminados"](k);
     $("pozos-terminados-ley").hidden = k !== "anio";
-    if (k === "prov") return barrasH(G("pozos-terminados"), {anim: a, data: T.pozos_terminados_provincias, k: "total", vf: n0, af: n0,
+    if (k === "prov") return barrasH(G("pozos-terminados"), {anim: a, data: T.pozos_terminados_provincias, k: "total", vf: n0,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.total)} pozos terminados<br>Explotación: ${n0(d.explotacion)}<br>Exploración y avanzada: ${n0(d.exploracion + d.avanzada)}` +
         `<br>Servicio: ${n0(d.servicio)}<br>Doce meses antes: ${n0(d.total_antes)}`});
     const cl = [{k: "explotacion", lab: "Explotación", c: COL_TIPO.shale}, {k: "exploracion", lab: "Exploración", c: COL_TIPO.tight},
@@ -2273,7 +2331,7 @@ Object.assign(DIB, {
     if (k === "prov") {
       $t("gas-consumo").textContent = txt;
       const antes = "m3_usuario_" + (e.gas_anio - 10);
-      return barrasH(el, {anim: a, data: T.gas_usuario_provincias, k: "m3_usuario", vf: n0, af: n0, ref: e.gas_pais, refLab: `País ${n0(e.gas_pais)}`,
+      return barrasH(el, {anim: a, data: T.gas_usuario_provincias, k: "m3_usuario", vf: n0, ref: e.gas_pais, refLab: `País ${n0(e.gas_pais)}`,
         tip: d => `<b>${d.territorio}</b><br>${n0(d.m3_usuario)} m³ por usuario, ${n1(d.veces_pais)} veces el promedio del país<br>${n0(d.usuarios)} usuarios residenciales` +
           (d[antes] != null ? `<br>En ${e.gas_anio - 10}: ${n0(d[antes])} m³ por usuario` : "")});
     }
@@ -2316,7 +2374,7 @@ Object.assign(DIB, {
     let txt = LEAD["electricidad-provincias"](k);
     if (k === "prov") {
       $t("electricidad-provincias").textContent = txt;
-      barrasH(el, {anim: a, data: T.electricidad_provincias, k: "kwh_hab", vf: n0, af: n0, ref: e.el_pais, refLab: `País ${n0(e.el_pais)}`, marcar: new Set(fp ? [cod] : []),
+      barrasH(el, {anim: a, data: T.electricidad_provincias, k: "kwh_hab", vf: n0, ref: e.el_pais, refLab: `País ${n0(e.el_pais)}`, marcar: new Set(fp ? [cod] : []),
         tip: d => `<b>${d.territorio}</b><br>${n0(d.kwh_hab)} kWh por habitante<br>${n0(d.gwh)} GWh residenciales en ${e.el_ult}<br>Los hogares, ${pct(d.pct_residencial)} de la demanda` +
           (d.kwh_hab_antes != null ? `<br>En ${e.el_ult - 10}: ${n0(d.kwh_hab_antes)} kWh por habitante` : "")});
       el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
@@ -2368,7 +2426,7 @@ Object.assign(DIB, {
     const col = k === "com" ? "kwh_hab_com" : "kwh_hab_ind", ref = k === "com" ? e.els_com : e.els_ind;
     if (fp) txt += ` En ${fp.territorio}, ${n0(fp[col])} kWh por habitante${conVeces(fp[col], ref)}.`;
     $t("electricidad-sectores").textContent = txt;
-    barrasH(el, {anim: a, data: T.electricidad_sectores.filter(r => r.codigo_indec !== "00"), k: col, vf: n0, af: n0, ref, refLab: `País ${n0(ref)}`, marcar: new Set(fp ? [cod] : []),
+    barrasH(el, {anim: a, data: T.electricidad_sectores.filter(r => r.codigo_indec !== "00"), k: col, vf: n0, ref, refLab: `País ${n0(ref)}`, marcar: new Set(fp ? [cod] : []),
       tip: d => `<b>${d.territorio}</b><br>${n0(d[col])} kWh por habitante en ${e.el_ult}<br>De su demanda: hogares ${pct(d.pct_res)}, comercios y servicios ${pct(d.pct_com)}, ` +
         `industrias y grandes comercios ${pct(d.pct_ind)}`});
     el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
@@ -2382,12 +2440,12 @@ Object.assign(DIB, {
       const data = T.salarios_serie.filter(r => r.codigo_indec === "00").map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r.salario_real, prov: suya ? suya.get(r.periodo) ?? null : null}));
       if (fp) txt += ` En ${fp.territorio}, el salario de ${SA.mes} ${cambioPct(fp.var_real_12m)} frente a ${SA.ant} en pesos de igual valor.`;
       $t("salarios").textContent = txt;
-      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millonesM, yf: ejeM, xl: r => mesPer(r.periodo), mensual: true,
+      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millones, yf: ejeMill, yUnidad: "Millones de pesos", xl: r => mesPer(r.periodo), mensual: true,
         series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
     }
     if (fp && fp.territorio !== SA.top[0] && fp.territorio !== SA.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.salario)} pesos${conVeces(fp.salario, SA.pais)}.`;
     $t("salarios").textContent = txt;
-    barrasH(el, {anim: a, data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k: "salario", vf: millonesM, af: ejeM, ref: SA.pais, refLab: `País ${millonesM(SA.pais)}`, anota: true,
+    barrasH(el, {anim: a, data: T.salarios_provincias.filter(r => r.codigo_indec !== "00"), k: "salario", vf: mill, eje: "Millones de pesos", ref: SA.pais, refLab: `País ${mill(SA.pais)}`, anota: true,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.salario)} pesos en ${SA.mes}<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${SA.ant}`});
   }),
   // salario de un maestro de grado (etapa 23): por provincia en el último trimestre, o trimestre a trimestre en pesos de igual valor
@@ -2399,12 +2457,12 @@ Object.assign(DIB, {
       const data = T.salario_docente_serie.filter(r => r.codigo_indec === "00").map(r => ({periodo: r.periodo, t: tPer(r.periodo), pais: r.bruto_real, prov: suya ? suya.get(r.periodo) ?? null : null}));
       if (fp) txt += ` En ${fp.territorio}, el salario de ${DC.trim} ${cambioPct(fp.var_real_12m)} frente a ${DC.ant} en pesos de igual valor.`;
       $t("salario-docente").textContent = txt;
-      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millonesM, yf: ejeM, xl: r => mesPer(r.periodo),
+      return lineas(el, {anim: a, data, x: "t", y0: 0, vf: millones, yf: ejeMill, yUnidad: "Millones de pesos", xl: r => mesPer(r.periodo),
         series: [{k: "pais", lab: "Promedio del país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
     }
     if (fp && fp.territorio !== DC.top[0] && fp.territorio !== DC.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.bruto)} pesos${conVeces(fp.bruto, DC.pais)}.`;
     $t("salario-docente").textContent = txt;
-    barrasH(el, {anim: a, data: T.salario_docente.filter(r => r.codigo_indec !== "00"), k: "bruto", vf: millonesM, af: ejeM, ref: DC.pais, refLab: `País ${millonesM(DC.pais)}`,
+    barrasH(el, {anim: a, data: T.salario_docente.filter(r => r.codigo_indec !== "00"), k: "bruto", vf: mill, eje: "Millones de pesos", ref: DC.pais, refLab: `País ${mill(DC.pais)}`,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.bruto)} pesos brutos en ${DC.trim}` + (d.extra > 0 ? `<br>Incluye una suma extraordinaria de ${n0(d.extra)}` : "") +
         `<br>Descontada la inflación, ${cambioPct(d.var_real_12m)} frente a ${DC.ant}`});
   }),
@@ -2417,14 +2475,14 @@ Object.assign(DIB, {
       const data = T.inversion_educativa_serie.filter(r => r.codigo_indec === "00").map(r => ({anio: r.anio, pais: r.por_alumno_real, prov: suya ? suya.get(r.anio) ?? null : null}));
       if (fp) txt += ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno en ${IE.anio}.`;
       $t("inversion-educativa").textContent = txt;
-      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: millonesM, yf: ejeM,
+      return lineas(el, {anim: a, data, x: "anio", y0: 0, vf: millones, yf: ejeMill, yUnidad: "Millones de pesos por alumno",
         series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
     }
-    const pctV = k === "pct", col = pctV ? "pct_gasto" : "gasto_por_alumno", ref = pctV ? IE.pct_pais : IE.pais, f = pctV ? pct : millonesM;
+    const pctV = k === "pct", col = pctV ? "pct_gasto" : "gasto_por_alumno", ref = pctV ? IE.pct_pais : IE.pais, f = pctV ? pct : mill;
     const nombradas = pctV ? [IE.pct_top[0], IE.pct_bajo[0]] : [IE.top[0], IE.bajo[0]];
     if (fp && !nombradas.includes(fp.territorio)) txt += pctV ? ` En ${fp.territorio}, el ${pct(fp.pct_gasto)}.` : ` En ${fp.territorio}, ${n0(fp.gasto_por_alumno)} pesos por alumno${conVeces(fp.gasto_por_alumno, IE.pais)}.`;
     $t("inversion-educativa").textContent = txt;
-    barrasH(el, {anim: a, data: T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k: col, vf: f, af: pctV ? f : ejeM, ref, refLab: `País ${f(ref)}`, anota: true,
+    barrasH(el, {anim: a, data: T.inversion_educativa.filter(r => r.codigo_indec !== "00"), k: col, vf: f, eje: pctV ? "" : "Millones de pesos por alumno", ref, refLab: `País ${f(ref)}`, anota: true,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.gasto_por_alumno)} pesos por alumno de gestión estatal<br>La educación, ${pct(d.pct_gasto)} del gasto público, ${IE.anio}`});
   }),
   // delitos por tipo en el país (etapa 23): los catorce tipos más frecuentes (la tabla tiene todos), o las tasas año por año.
@@ -2436,7 +2494,7 @@ Object.assign(DIB, {
       {k: "hurtos", lab: "Hurtos", c: FRI}, {k: "amenazas", lab: "Amenazas", c: css("--azul-hondo")}, {k: "lesiones", lab: "Lesiones dolosas", c: css("--muted")}]});
     // los códigos van con una letra delante: un código de delito no tiene que coincidir con el de la provincia elegida
     const data = T.delitos_tipo.slice(0, 14).map(r => ({codigo_indec: "d" + r.codigo, territorio: r.delito, tasa: r.tasa, hechos: r.hechos, pct: r.pct}));
-    barrasH(el, {anim: a, data, k: "tasa", vf: n0, af: n0, l: 236, lAngosto: 150, corto: d => CORTO_DEL[d.territorio] || d.territorio,
+    barrasH(el, {anim: a, data, k: "tasa", vf: n0, l: 236, lAngosto: 150, corto: d => CORTO_DEL[d.territorio] || d.territorio,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.hechos)} hechos en ${SG.anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct)} de los delitos registrados`});
   },
   // robos y hurtos por provincia (etapa 23), o la serie del país con las líneas de la provincia elegida
@@ -2454,7 +2512,7 @@ Object.assign(DIB, {
     const ref = k === "hurtos" ? SG.hurtos : SG.robos, nombradas = k === "hurtos" ? [SG.hurtos_top[0], SG.hurtos_bajo[0]] : [SG.robos_top[0], SG.robos_bajo[0]];
     if (fp && !nombradas.includes(fp.territorio)) txt += ` En ${fp.territorio}, ${n0(fp[k])} cada 100.000 habitantes${conVeces(fp[k], ref)}.`;
     $t("robos").textContent = txt;
-    barrasH(el, {anim: a, data: T.robos_provincias.filter(r => r.codigo_indec !== "00"), k, vf: n0, af: n0, ref, refLab: `País ${n0(ref)}`,
+    barrasH(el, {anim: a, data: T.robos_provincias.filter(r => r.codigo_indec !== "00"), k, vf: n0, ref, refLab: `País ${n0(ref)}`,
       tip: d => `<b>${d.territorio}</b><br>${n0(d[k])} ${k} cada 100.000 habitantes en ${SG.anio}<br>En ${SG.anio - 1}, ${n0(d[k + "_ant"])}`});
   }),
   // homicidios dolosos (etapa 23): tasa de tres años por provincia, o la serie del país con la línea de la provincia elegida
@@ -2471,7 +2529,7 @@ Object.assign(DIB, {
     }
     if (fp && fp.territorio !== SG.hom3_top[0] && fp.territorio !== SG.hom3_bajo[0]) txt += ` En ${fp.territorio}, ${n1(fp.tasa_3)} por año entre ${SG.hom3_desde} y ${SG.anio}${conVeces(fp.tasa_3, SG.hom3_pais)}: ${n0(fp.victimas_3)} víctimas en tres años.`;
     $t("homicidios").textContent = txt;
-    barrasH(el, {anim: a, data: T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k: "tasa_3", vf: n1, af: n0, ref: SG.hom3_pais, refLab: `País ${n1(SG.hom3_pais)}`,
+    barrasH(el, {anim: a, data: T.homicidios_provincias.filter(r => r.codigo_indec !== "00"), k: "tasa_3", vf: n1, ref: SG.hom3_pais, refLab: `País ${n1(SG.hom3_pais)}`,
       tip: d => `<b>${d.territorio}</b><br>${n1(d.tasa_3)} víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}<br>${n0(d.victimas_3)} víctimas en esos tres años<br>En ${SG.anio}: ${n0(d.victimas)}`});
   }),
   // personas privadas de libertad (etapa 23, SNEEP): el país año por año o cada servicio penitenciario provincial
@@ -2481,7 +2539,7 @@ Object.assign(DIB, {
     if (MED.carceles === "prov") {
       if (fp) txt += ` En ${fp.territorio}, ${n0(fp.tasa)} cada 100.000 habitantes: ${n0(fp.personas)} personas, el ${pct(fp.pct_condenados)} con condena.`;
       $t("carceles").textContent = txt;
-      return barrasH(el, {anim: a, data: T.carceles_provincias, k: "tasa", vf: n0, af: n0,
+      return barrasH(el, {anim: a, data: T.carceles_provincias, k: "tasa", vf: n0,
         tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en el servicio penitenciario provincial al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.tasa)} cada 100.000 habitantes<br>${pct(d.pct_condenados)} con condena`});
     }
     $t("carceles").textContent = txt;
@@ -2496,7 +2554,7 @@ Object.assign(DIB, {
       $t("inflacion").textContent = txt;
       const data = T.inflacion_regiones.filter(r => r.codigo !== "nacional").map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, ia: r.interanual,
         m: r.mensual, anio: r.en_el_anio}));
-      barrasH(el, {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `País ${pct(EIP.interanual)}`, l: 150, lAngosto: 128,
+      barrasH(el, {anim: a, data, k: "ia", vf: pct, ref: EIP.interanual, refLab: `País ${pct(EIP.interanual)}`, l: 150, lAngosto: 128,
         marcar: new Set(regs.map(r => "r-" + r)),
         tip: d => `<b>${d.territorio}</b><br>${pct(d.ia)} en los doce meses hasta ${EIP.mes}<br>${pct(d.m)} en el mes<br>${pct(d.anio)} en lo que va del año`});
       el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
@@ -2517,7 +2575,7 @@ Object.assign(DIB, {
     $t("inflacion-rubros").textContent = LEAD["inflacion-rubros"](g);
     // los códigos van con una letra delante: un código de rubro no tiene que coincidir con el de la provincia elegida
     const data = T.inflacion_rubros.filter(r => r.grupo === g).map(r => ({codigo_indec: "i" + r.codigo, territorio: r.rubro, corto: r.corto, ia: r.interanual, m: r.mensual}));
-    barrasH(G("inflacion-rubros"), {anim: a, data, k: "ia", vf: pct, af: v => n0(v) + "%", ref: EIP.interanual, refLab: `Nivel general ${pct(EIP.interanual)}`,
+    barrasH(G("inflacion-rubros"), {anim: a, data, k: "ia", vf: pct, ref: EIP.interanual, refLab: `Nivel general ${pct(EIP.interanual)}`,
       paisLab: "Nivel general", l: g === "division" ? 236 : 150, lAngosto: 150, corto: d => d.corto,
       tip: d => `<b>${d.territorio}</b><br>${pct(d.ia)} en los doce meses hasta ${EIP.mes}<br>${pct(d.m)} en el mes`});
   },
@@ -2536,7 +2594,7 @@ Object.assign(DIB, {
     txt += enSuRegion(T.canasta_regiones, "cbt", v => n0(v) + " pesos por adulto equivalente");
     $t("canastas").textContent = txt;
     const data = T.canasta_regiones.map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, cbt: r.cbt, cba: r.cba, ia: r.interanual_cbt}));
-    barrasH(el, {anim: a, data, k: "cbt", vf: n0, af: v => n0(v / 1000) + " mil", l: 150, lAngosto: 128, marcar: new Set(regs.map(r => "r-" + r)),
+    barrasH(el, {anim: a, data, k: "cbt", vf: n0, l: 150, lAngosto: 128, marcar: new Set(regs.map(r => "r-" + r)),
       tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.cbt)} pesos<br>Canasta básica alimentaria: ${n0(d.cba)} pesos` +
         (d.ia != null ? `<br>La total, en doce meses: ${cambioPct(d.ia)}` : "")});
     el.resaltar = null;  // con otra provincia elegida se vuelve a dibujar
@@ -2554,7 +2612,7 @@ Object.assign(DIB, {
     if (v === "mes") return lineas(el, {anim: a, data: T.actividad_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
       xl: r => mesPer(r.periodo), mensual: true, series: [{k: "desestacionalizada", lab: "Sin estacionalidad", corto: "Actividad", c: NAR}]});
     const data = T.actividad_sectores.map(r => ({codigo_indec: "s" + r.letra, territorio: r.sector, corto: r.corto, v: r.doce_meses, ia: r.interanual}));
-    barrasH(el, {anim: a, data, k: "v", vf: pct, af: v => n0(v) + "%", ref: EMA.doce, refLab: `Toda la economía ${pct(EMA.doce)}`, paisLab: "Toda la economía",
+    barrasH(el, {anim: a, data, k: "v", vf: pct, ref: EMA.doce, refLab: `Toda la economía ${pct(EMA.doce)}`, paisLab: "Toda la economía",
       l: 236, lAngosto: 150, corto: d => d.corto,
       tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} en los doce meses hasta ${EMA.mes}, frente a los doce anteriores<br>${pct(d.ia)} en el mes, frente a ${EMA.mes_ant}`});
   }),
@@ -2563,7 +2621,7 @@ Object.assign(DIB, {
     const v = MED.refugio, el = G("refugio");
     $t("refugio").textContent = LEAD.refugio(v);
     if (v === "nacionalidad") return barrasH(el, {anim: a, data: T.refugio_nacionalidades.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad,
-      solicitudes: r.solicitudes, pct: r.pct})), k: "solicitudes", vf: n0, af: n0, l: 236, lAngosto: 150,
+      solicitudes: r.solicitudes, pct: r.pct})), k: "solicitudes", vf: n0, l: 236, lAngosto: 150,
       corto: d => d.territorio.replace(/ \(\d+ nacionalidades\)/, ""),
       tip: d => `<b>${d.territorio}</b><br>${n0(d.solicitudes)} solicitudes en ${MGR.anio}<br>${pct(d.pct)} del total`});
     if (v === "acnur") return lineas(el, {anim: a, data: T.refugio_acnur, x: "anio", y0: 0, vf: n0, yf: n0,
@@ -2582,7 +2640,7 @@ Object.assign(DIB, {
     }
     if (fp && fp.territorio !== ESU.prov.top[0] && fp.territorio !== ESU.prov.bajo[0]) txt += ` En ${fp.territorio}, ${conSigno(fp.var_12m)}.`;
     $t("supermercados").textContent = txt;
-    barrasH(el, {anim: a, data: T.supermercados_provincias, k: "var_12m", vf: conSigno, af: v => n0(v) + "%", ref: ESU.prov.pais,
+    barrasH(el, {anim: a, data: T.supermercados_provincias, k: "var_12m", vf: conSigno, ref: ESU.prov.pais,
       refLab: `País ${conSigno(ESU.prov.pais)}`, tip: d => `<b>${d.territorio}</b><br>${conSigno(d.var_12m)} en los doce meses hasta ${ESU.mes}, ` +
         `frente a los doce anteriores<br>${conSigno(d.var_mes)} en ${ESU.mes}, frente a ${ESU.mes_ant}<br>Precios de la región ${d.region}`});
   }),
@@ -2608,14 +2666,14 @@ Object.assign(DIB, {
         `${lista(filas.slice(0, 3).map(r => `${r.pais} (${pct(r.pct)})`))}, según el Censo 2022.${nd} En todo el país: ` + inicialMin(txt.replace(/, según el Censo\./, "."));
       $t("nacidos-otro-pais").textContent = txt;
       barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "p" + i, territorio: r.pais, personas: r.personas, pct: r.pct})), k: "personas",
-        vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118, cambiaConProv: true,
+        vf: n0, l: 150, lAngosto: 118, cambiaConProv: true,
         tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas<br>${pct(d.pct)} de las nacidas en otro país${fp ? " que vivían en " + fp.territorio : ""}`});
       return;
     }
     if (fp && fp.territorio !== MGC.top[0] && !MGC.bajos[0].includes(fp.territorio)) txt += ` En ${fp.territorio}, el ${pct(fp.pct_otro_pais)}` +
       `${conVeces(fp.pct_otro_pais, MGC.pct)}: ${n0(fp.en_otro_pais)} personas, sobre todo de ${fp.primer_pais}.${nd}`;
     $t("nacidos-otro-pais").textContent = txt;
-    barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_otro_pais", vf: n1, af: n0, ref: MGC.pct,
+    barrasH(el, {anim: a, data: T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== "00"), k: "pct_otro_pais", vf: n1, ref: MGC.pct,
       refLab: `País ${n1(MGC.pct)}`, anota: true, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_otro_pais)} de la población<br>${n0(d.en_otro_pais)} personas<br>` +
         `País más frecuente: ${d.primer_pais}`});
   }),
@@ -2652,7 +2710,7 @@ Object.assign(DIB, {
     if (v === "nacionalidad") {
       const filas = T.radicaciones_nacionalidad.filter(r => r.anio === MGD.anio && r.nacionalidad !== "Otras nacionalidades").slice(0, 12);
       return barrasH(el, {anim: a, data: filas.map((r, i) => ({codigo_indec: "n" + i, territorio: r.nacionalidad, total: r.total, permanentes: r.permanentes,
-        temporarias: r.temporarias, pct: r.pct})), k: "total", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
+        temporarias: r.temporarias, pct: r.pct})), k: "total", vf: n0, l: 150, lAngosto: 118,
         tip: d => `<b>${d.territorio}</b><br>${n0(d.total)} residencias en ${MGD.anio}<br>${n0(d.permanentes)} permanentes y ${n0(d.temporarias)} temporarias<br>` +
           `${pct(d.pct)} del total`});
     }
@@ -2663,9 +2721,9 @@ Object.assign(DIB, {
     const v = MED["argentinos-exterior"], el = G("argentinos-exterior");
     $t("argentinos-exterior").textContent = LEAD["argentinos-exterior"](v);
     if (v === "pais") return barrasH(el, {anim: a, data: T.argentinos_exterior_destinos.slice(0, 12).map((r, i) => ({codigo_indec: "d" + i, territorio: r.pais,
-      personas: r.personas, inicio: r.personas_inicio, pct: r.pct})), k: "personas", vf: n0, af: v => v >= 1e3 ? n0(v / 1e3) + " mil" : n0(v), l: 150, lAngosto: 118,
+      personas: r.personas, inicio: r.personas_inicio, pct: r.pct})), k: "personas", vf: n0, l: 150, lAngosto: 118,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.personas)} personas en ${MGO.anio}<br>${pct(d.pct)} del total<br>En ${MGO.desde}, ${n0(d.inicio)}`});
-    lineas(el, {anim: a, data: T.argentinos_exterior, x: "anio", y0: 0, vf: n0, yf: v => v === 0 ? "0" : n1(v / 1e6) + " M",
+    lineas(el, {anim: a, data: T.argentinos_exterior, x: "anio", y0: 0, vf: n0, yf: ejeMill, yUnidad: "Millones de personas",
       series: [{k: "personas", lab: "Nacidos en la Argentina", corto: "Personas", c: NAR}]});
   }),
   // cuentas del Sector Público Nacional (etapa 25): el resultado primario y el financiero como parte del PBI, o en qué se gasta
@@ -2675,7 +2733,7 @@ Object.assign(DIB, {
     if (v === "gasto") return barrasH(el, {anim: a, data: T.gasto_nacion_tipo.map((r, i) => ({codigo_indec: "g" + i, territorio: r.tipo, corto: r.tipo
       .replace("Jubilaciones, pensiones y otras prestaciones sociales", "Prestaciones sociales").replace("Transferencias corrientes a las provincias", "A provincias")
       .replace("Otros gastos de funcionamiento", "Otros de funcionamiento"), pct: r.pct_gasto_primario, pbi: r.pct_pbi, millones: r.millones})), k: "pct", vf: pct,
-      af: v => n0(v) + "%", l: 290, lAngosto: 150, corto: d => d.corto,
+      l: 290, lAngosto: 150, corto: d => d.corto,
       tip: d => `<b>${d.territorio}</b><br>${pct(d.pct)} del gasto primario de ${GBN.anio}<br>${n2(d.pbi)}% del PBI<br>${billones(d.millones)}`});
     const lo = d3.min(T.cuentas_nacion, r => Math.min(r.resultado_primario_pbi, r.resultado_financiero_pbi));
     lineas(el, {anim: a, data: T.cuentas_nacion, x: "anio", y0: Math.floor(lo) - 1, ref: 0, vf: pct, yf: v => n0(v) + "%",
@@ -2689,7 +2747,7 @@ Object.assign(DIB, {
       series: [{k: "total_pbi", lab: "Recaudación nacional", corto: "Recaudación", c: NAR}]});
     barrasH(el, {anim: a, data: T.recaudacion_impuestos.map((r, i) => ({codigo_indec: "t" + i, territorio: r.impuesto, corto: r.impuesto
       .replace("Aportes y contribuciones a la seguridad social", "Seguridad social").replace("Derechos de importación y tasa de estadística", "Derechos de importación")
-      .replace("Débitos y créditos bancarios", "Débitos y créditos"), pct: r.pct, millones: r.millones_12_meses})), k: "pct", vf: pct, af: v => n0(v) + "%",
+      .replace("Débitos y créditos bancarios", "Débitos y créditos"), pct: r.pct, millones: r.millones_12_meses})), k: "pct", vf: pct,
       l: 290, lAngosto: 150, corto: d => d.corto, tip: d => `<b>${d.territorio}</b><br>${pct(d.pct)} de lo recaudado<br>${billones(d.millones)} en doce meses`});
   },
   // deuda bruta de la Administración Central como parte del PBI (etapa 25): cada fin de año y los trimestres del año en curso
@@ -2712,7 +2770,7 @@ Object.assign(DIB, {
     if (fp && fp.territorio !== GBC.top[0] && fp.territorio !== GBC.bajo[0]) txt += ` En ${fp.territorio}, ${n1(fp.cada_1000)}${conVeces(fp.cada_1000, GBC.cada_1000)}: ` +
       `${n0(fp.cargos)} cargos.`;
     $t("empleo-publico").textContent = txt;
-    barrasH(el, {anim: a, data: T.empleo_publico_provincias, k: "cada_1000", vf: n1, af: n0, ref: GBC.cada_1000, refLab: `País ${n1(GBC.cada_1000)}`,
+    barrasH(el, {anim: a, data: T.empleo_publico_provincias, k: "cada_1000", vf: n1, ref: GBC.cada_1000, refLab: `País ${n1(GBC.cada_1000)}`,
       tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000)} cargos cada 1.000 habitantes<br>${n0(d.cargos)} cargos en ${GBC.anio}<br>En ${GBC.inicio}, ${n0(d.cargos_inicio)}`});
   },
   // impuestos provinciales por habitante (etapa 25)
@@ -2722,8 +2780,8 @@ Object.assign(DIB, {
     if (fp && fp.territorio !== GBP.top[0] && fp.territorio !== GBP.bajo[0]) txt += ` En ${fp.territorio}, ${n0(fp.por_habitante)} pesos por habitante` +
       `${conVeces(fp.por_habitante, GBP.pais)}, y el ${pct(fp.pct_ingresos_brutos)} de ingresos brutos.`;
     $t("impuestos-provinciales").textContent = txt;
-    barrasH(G("impuestos-provinciales"), {anim: a, data: T.impuestos_provinciales.filter(r => r.por_habitante != null), k: "por_habitante", vf: millonesM, af: ejeM,
-      ref: GBP.pais, refLab: `País ${millonesM(GBP.pais)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${GBP.anio}<br>` +
+    barrasH(G("impuestos-provinciales"), {anim: a, data: T.impuestos_provinciales.filter(r => r.por_habitante != null), k: "por_habitante", vf: v => n0(v / 1e3),
+      eje: "Miles de pesos por habitante", ref: GBP.pais, refLab: `País ${n0(GBP.pais / 1e3)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${GBP.anio}<br>` +
         `${billones(d.millones)}<br>${pct(d.pct_ingresos_brutos)} de ingresos brutos`});
   },
   combustibles: conTablas("combustibles", () => MED["combustibles-vista"] === "mes" ? ["combustibles_mensual"] : [], a => {
@@ -2748,14 +2806,14 @@ Object.assign(DIB, {
         series: [{k: "pais", lab: "Todo el país", c: NAR}, ...(fp ? [{k: "prov", lab: fp.territorio, c: FRI}] : [])]});
     }
     $t("combustibles").textContent = txt;
-    barrasH(el, {anim: a, data: T.combustibles_provincias, k: p, vf: n0, af: n0, ref: CB[p], refLab: `País ${n0(CB[p])}`,
+    barrasH(el, {anim: a, data: T.combustibles_provincias, k: p, vf: n0, ref: CB[p], refLab: `País ${n0(CB[p])}`,
       tip: d => `<b>${d.territorio}</b><br>${n0(d[p])} pesos por litro<br>${n0(d[p + "_estaciones"])} estaciones<br>En ${CB.mes_antes}: ${n0(d[p + "_antes"])}`});
   }),
   subsidios: a => {
     const pbi = MED.subsidios === "pbi";
     $t("subsidios").textContent = LEAD.subsidios(MED.subsidios);
     columnasApiladas(G("subsidios"), {anim: a, cadaTick: 2, l: 44, data: pbi ? T.subsidios_energia.filter(r => r.pct_pbi != null) : T.subsidios_energia,
-      vf: pbi ? v => n2(v) + "%" : n0, af: pbi ? v => n1(v) + "%" : n0, unidad: pbi ? "del PBI" : `miles de millones de pesos de ${e.sub_ult}`,
+      vf: pbi ? v => n2(v) + "%" : n0, af: pbi ? v => n1(v) + "%" : n0, unidad: pbi ? "del PBI" : `miles de millones de pesos de ${e.sub_ult}`, eje: pbi ? "Porcentaje del PBI" : undefined,
       claves: [{k: pbi ? "pct_pbi" : "miles_millones_reales", lab: "Subsidios a la energía", c: NAR}]});
   },
   "balanza-energetica": a => lineas(G("balanza-energetica"), {anim: a, data: T.balanza_energetica, x: "anio", ref: 0,
@@ -2766,7 +2824,7 @@ Object.assign(DIB, {
     $t("mundo-petroleo").textContent = LEAD["mundo-petroleo"](k);
     const filas = T.mundo_hidrocarburos.filter(r => r.variable === k).map(r => ({codigo_indec: r.iso3, territorio: r.pais, v: r.valor, puesto: r.puesto}));
     if (!gas && q) filas.push({codigo_indec: "NQN", territorio: "Neuquén (provincia)", v: q.kbd});
-    barrasH(G("mundo-petroleo"), {anim: a, data: filas, k: "v", vf: gas ? n1 : n0, af: n0, l: 168, lAngosto: 142, marcar: new Set(["ARG", "NQN"]),
+    barrasH(G("mundo-petroleo"), {anim: a, data: filas, k: "v", vf: gas ? n1 : n0, l: 168, lAngosto: 142, marcar: new Set(["ARG", "NQN"]),
       color: d => d.codigo_indec === "ARG" ? css("--celeste-fuerte") : d.codigo_indec === "NQN" ? css("--sol") : css("--celeste"),
       tip: d => `<b>${d.territorio}</b><br>${gas ? n1(d.v) + " mil millones de m³" : n0(d.v) + " mil barriles por día"}<br>` +
         (d.puesto ? `Puesto ${d.puesto} en el mundo` : `Provincia de la Argentina: estaría en el puesto ${q.puesto}`)});
@@ -2784,7 +2842,7 @@ Object.assign(DIB, {
       leyenda("obra-publica-ley", cl);
       return columnasApiladas(G("obra-publica"), {anim: a, claves: cl, cadaTick: 5, vf: n0, af: n0, l: 46, unidad: `miles de millones de pesos de ${CN.op_ult}`, data: T.obra_publica_serie});
     }
-    barrasH(G("obra-publica"), {anim: a, data: T.obra_publica_provincias, k: "total_hab", vf: n0, af: v => n0(v / 1000) + " mil", ref: CN.op_hab_pais, refLab: `País ${n0(CN.op_hab_pais)}`,
+    barrasH(G("obra-publica"), {anim: a, data: T.obra_publica_provincias, k: "total_hab", vf: n0, ref: CN.op_hab_pais, refLab: `País ${n0(CN.op_hab_pais)}`,
       tip: d => `<b>${d.territorio}</b><br>${n0(d.total_hab)} pesos por habitante<br>Obras de la Nación: ${n0(d.obras_hab)}<br>Transferencias de capital: ${n0(d.transf_hab)}`});
   },
   isac: conTablas("isac", ["isac_mensual"], a => lineas(G("isac"), {anim: a, data: T.isac_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
@@ -2793,7 +2851,7 @@ Object.assign(DIB, {
   insumos: a => {
     const k = MED.insumos;
     $t("insumos").textContent = LEAD.insumos(k);
-    barrasH(G("insumos"), {anim: a, data: T.isac_insumos, k, vf: masPct, af: v => v + "%", l: 210, lAngosto: 152, corto: d => CORTO_INS[d.territorio] || d.territorio});
+    barrasH(G("insumos"), {anim: a, data: T.isac_insumos, k, vf: masPct, l: 210, lAngosto: 152, corto: d => CORTO_INS[d.territorio] || d.territorio});
   },
   "empleo-construccion": conTablas("empleo-construccion", () => MED["empleo-construccion"] === "serie" ? ["empleo_construccion_serie"] : [], a => {
     const k = MED["empleo-construccion"];
@@ -2802,13 +2860,13 @@ Object.assign(DIB, {
     if (k === "serie") return lineas(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_serie.map(r => ({...r, t: r.anio + (r.trimestre - 1) / 4})), x: "t",
       series: [{k: "construccion", lab: "País", c: NAR}], y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => `${TRIM_N[r.trimestre - 1]} trimestre de ${r.anio}`});
     const tip = d => `<b>${d.territorio}</b><br>${n0(d.construccion)} puestos asalariados registrados<br>${n1(d.construccion_cada_1000)} cada 1.000 habitantes<br>${pct(d.pct_construccion)} del empleo privado registrado`;
-    if (k === "var_construccion") return barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: masPct, af: v => v + "%", mejor: "sube", pais: CN.emp_var, tip});
-    barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: n1, af: n0, ref: CN.emp_cada_1000, refLab: `País ${n1(CN.emp_cada_1000)}`, tip});
+    if (k === "var_construccion") return barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: masPct, mejor: "sube", pais: CN.emp_var, tip});
+    barrasH(G("empleo-construccion"), {anim: a, data: T.empleo_construccion_provincias, k, vf: n1, ref: CN.emp_cada_1000, refLab: `País ${n1(CN.emp_cada_1000)}`, tip});
   }),
   trabajadores: conTablas("trabajadores", () => MED["trabajadores-vista"] === "mapa" ? ["vivienda_departamentos"] : [], a => MED["trabajadores-vista"] === "mapa"
     ? mapaDep(G("trabajadores"), {anim: a, filas: T.vivienda_departamentos, k: "pct_ocupados_construccion", nombre: "Personas ocupadas en la construcción", vf: pct})
     : barrasH(G("trabajadores"), {anim: a, data: T.vivienda_provincias, k: "pct_ocupados_construccion", ref: VV.pct_ocupados_construccion,
-        refLab: `País ${pct(VV.pct_ocupados_construccion)}`, vf: v => n1(v) + "%", af: v => v + "%", dif: "puntos"})),
+        refLab: `País ${pct(VV.pct_ocupados_construccion)}`, vf: v => n1(v) + "%", dif: "puntos"})),
   costo: conTablas("costo", ["costo_construccion"], a => lineas(G("costo"), {anim: a, data: T.costo_construccion.map(r => ({...r, t: tPer(r.periodo)})), x: "t",
     y0: Math.floor(d3.min(T.costo_construccion, r => Math.min(r.icc_real, r.materiales_real, r.mano_obra_real)) / 10) * 10,
     ref: 100,
@@ -2821,7 +2879,7 @@ Object.assign(DIB, {
     if (MED["vivienda-vista"] === "mapa") return mapaDep(G("vivienda"), {anim: a, filas: T.vivienda_departamentos, k, nombre: ind.nombre, vf: ind.f});
     const pc = k.startsWith("pct");
     barrasH(G("vivienda"), {anim: a, data: T.vivienda_provincias, k, ref: VV[k], refLab: `País ${pc ? pct(VV[k]) : n1(VV[k])}`,
-      vf: pc ? (v => n1(v) + "%") : n1, af: pc ? (v => v + "%") : n0, dif: pc ? "puntos" : null});
+      vf: pc ? (v => n1(v) + "%") : n1, dif: pc ? "puntos" : null});
   }),
 });
 
@@ -2882,7 +2940,7 @@ DIB.congreso = a => {
   document.getElementById("cg-ley").innerHTML = cl.map(k => VT.espacios.includes(k.k)
     ? `<button type="button" class="esp-btn" data-e="${k.k}" aria-haspopup="dialog"><i style="background:${k.c}"></i>${k.lab}</button>`
     : `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
-  columnasApiladas(G("congreso"), {anim: a, data: filas, claves: cl, cadaTick: 2});
+  columnasApiladas(G("congreso"), {anim: a, data: filas, claves: cl, cadaTick: 2, sinTotal: true});
 };
 $("lg-sel").innerHTML = PROV.map(([c, nom]) => `<option value="${c}">${nom}</option>`).join("");
 const LG_PER = CG.periodos, LG_ULT = LG_PER[LG_PER.length - 1];
@@ -3836,6 +3894,8 @@ DIB.causas = a => {
 /* ---------- transferencias de la Nación a las provincias ---------- */
 const TRR = R.transferencias, TRS = T.transferencias_serie, TRA = T.transferencias_acumulado;
 const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : `${v >= 10 ? n0(v) : n1(v)} mil millones`;
+// el número solo, en miles de millones, para las columnas (la unidad va arriba del gráfico)
+const milMn = v => v >= 10 ? n0(v) : n1(v);
 const TR_COL = {atn: "#2C74B5", otras: "#74ACDF", ley: "#C3CAD2"};
 const TR_LAB = {atn: "ATN", otras: "Otras no automáticas", ley: "Por ley o por fallo"};
 const trOpciones = sel => { $(sel).innerHTML = [`<option value="serie">Total del país por año</option>`, `<option value="acum">Por provincia, suma de ${TRR.desde} a ${TRR.ult}</option>`,
@@ -3853,8 +3913,8 @@ TX["transferencias-nota"] = $t("transferencias-nota").textContent = `Pesos de ${
   `Fondo Nacional de Incentivo Docente, devolución del 15% de la coparticipación, policía de la Ciudad y cautelar de la Corte Suprema a favor de la Ciudad. Las otras no automáticas incluyen obras, vivienda, programas sociales y de salud y la asistencia financiera del Tesoro. Por provincia se muestran las otras no automáticas por habitante.`;
 function trProvincias(el, k, anio, a) {
   const acum = anio === "acum", data = acum ? TRA : T.transferencias_provincias.filter(d => d.anio === +anio);
-  barrasH(el, {anim: a, data, k: `${k}_hab`, vf: n0, af: v => v >= 1e6 ? `${n1(v / 1e6)} M` : v >= 1e3 ? `${n0(v / 1e3)} mil` : n0(v),
-    color: () => TR_COL[k], l: 150, ntAngosto: 2});
+  barrasH(el, {anim: a, data, k: `${k}_hab`, vf: n0,
+    color: () => TR_COL[k], l: 150});
   return data;
 }
 DIB.atn = conTablas("atn", () => /^\d+$/.test(MED.atn) ? ["transferencias_provincias"] : [], a => {
@@ -3863,7 +3923,7 @@ DIB.atn = conTablas("atn", () => /^\d+$/.test(MED.atn) ? ["transferencias_provin
   if (v === "serie") {
     t.textContent = `El año con más ATN fue ${TRR.atn_pico_anio}, con ${milM(TRR.atn_pico_v)} de pesos de ${TRR.ult}. En ${TRR.ult} se repartieron ${milM(TRR.atn_ult)} entre ${TRR.n_atn_ult} provincias. ` +
       `Los montos dependen de cada gobierno y de cada año, porque no hay una fórmula de reparto.`;
-    columnasApiladas(el, {anim: a, data: TRS, claves: [{k: "atn", lab: "ATN", c: TR_COL.atn}], cadaTick: 5, unidad: `mil millones de pesos de ${TRR.ult}`, vf: n1, af: n0});
+    columnasApiladas(el, {anim: a, data: TRS, claves: [{k: "atn", lab: "ATN", c: TR_COL.atn}], cadaTick: 5, unidad: `mil millones de pesos de ${TRR.ult}`, vf: milMn, af: n0});
     return;
   }
   const data = trProvincias(el, "atn", v, a);
@@ -3886,7 +3946,7 @@ DIB.transferencias = conTablas("transferencias", () => /^\d+$/.test(MED.transfer
     const cl = ["otras", "atn", "ley"].map(k => ({k, lab: TR_LAB[k], c: TR_COL[k]}));
     ley.hidden = false; ley.innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
     t.textContent = `Las transferencias no automáticas, sin contar los ATN, llegaron a su máximo en ${TRR.otras_pico_anio}, con ${milM(TRR.otras_pico_v)} de pesos de ${TRR.ult}. En ${TRR.ult} fueron ${milM(TRR.otras_ult)}.`;
-    columnasApiladas(el, {anim: a, data: TRS, claves: cl, cadaTick: 5, unidad: `mil millones de pesos de ${TRR.ult}`, vf: n1, af: n0});
+    columnasApiladas(el, {anim: a, data: TRS, claves: cl, cadaTick: 5, unidad: `mil millones de pesos de ${TRR.ult}`, vf: milMn, af: n0});
     return;
   }
   ley.hidden = true;
@@ -3946,7 +4006,7 @@ DIB.ministros = a => {
         : (p => p ? `<br>${bandera(COD_PROV[p.provincia])} Nacido en ${p.provincia.replace("Ciudad Autónoma de Buenos Aires", "la Ciudad de Buenos Aires")}` : "")(presi(d.gobierno))});
   } else {
     ley.hidden = true;
-    barrasH(G("ministros"), {anim: a, data: T.ministros_provincias, k: "ministros", vf: n0, af: n0});
+    barrasH(G("ministros"), {anim: a, data: T.ministros_provincias, k: "ministros", vf: n0});
   }
 };
 DIB.representacion = a => {
@@ -3954,7 +4014,7 @@ DIB.representacion = a => {
   document.querySelector('[data-t="representacion"]').textContent = `Cada provincia elige al menos cinco diputados y tres senadores, sin importar su población. ` +
     `Por eso en ${CG.rep_min} hay una banca de diputado cada ${n0(CG.rep_min_v)} habitantes y en ${CG.rep_max}, una cada ${n0(CG.rep_max_v)}. ` +
     `Sumando las dos cámaras, ${CG.peso_max} tiene ${n1(CG.peso_max_v)} veces las bancas que le corresponderían por su población y ${CG.peso_min}, ${n2(CG.peso_min_v)} veces.`;
-  barrasH(G("representacion"), {anim: a, data: rp, k: "hab_por_diputado", ref: prom, refLab: `País ${n0(prom)}`, vf: v => n0(v), af: v => n0(v / 1000) + " mil"});
+  barrasH(G("representacion"), {anim: a, data: rp, k: "hab_por_diputado", ref: prom, refLab: `País ${n0(prom)}`, vf: v => n0(v)});
 };
 /* Cambio de vista de un gráfico (botones OCDE, selectores y conmutadores de cada ficha): no se repite la animación de entrada.
    El gráfico se redibuja quieto y la versión nueva funde sobre la anterior (200 ms), con una transición de vista del navegador.
@@ -5433,7 +5493,7 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
     const el = G("diagnostico"); if (!el) return;
     const k = tm().ind[0];
     barrasH(el, {anim: a, data: P24.map(c => ({codigo_indec: c, territorio: NOMBRES[c], v: IND[k].v(c)})).filter(d => d.v != null), k: "v",
-      vf: pct, af: v => v + "%", ref: IND[k].pais, refLab: `País ${pct(IND[k].pais)}`, marcar: new Set(sel)});
+      vf: pct, ref: IND[k].pais, refLab: `País ${pct(IND[k].pais)}`, marcar: new Set(sel)});
   };
   pintar(false);
   cargarTabla("aprender_departamentos").then(t => { DEP = t; pintar(false); });
@@ -6103,7 +6163,7 @@ const ART_SERIE = [{
     ]};
   },
   dib: {
-    "turismo-flujos": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: v => n1(v / 1e6) + " M", yf: v => v === 0 ? "0" : n0(v / 1e6) + " M", xl: r => mesPer(r.mes),
+    "turismo-flujos": (el, a) => lineas(el, {anim: a, x: "t", y0: 0, vf: v => n1(v / 1e6) + " millones", yf: v => v === 0 ? "0" : n0(v / 1e6), yUnidad: "Millones de turistas", xl: r => mesPer(r.mes),
       data: T.turismo_dolar_mensual.filter(r => r.llegan_12m != null).map(r => ({...r, t: tPer(r.mes)})), mensual: true,
       series: [{k: "llegan_12m", lab: "Llegan", c: NAR}, {k: "salen_12m", lab: "Salen", c: FRI}]}),
     "turismo-salidas": (el, a) => {

@@ -61,6 +61,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - La cifra destacada (`CLAVE` en `datina.js`) lleva en la ficha una leyenda corta, la unidad y a quién se refiere, porque la descripción de arriba ya dice qué se mide y de qué período. La leyenda completa queda para "En cifras" y el buscador. El texto no repite el número de la cifra: empieza por lo que el gráfico no dice (el cambio en el tiempo, el total, la comparación). `prueba_paginas.mjs` frena si se repite.
 - Usar siempre el dato más reciente disponible.
 - No usar punto y coma en ningún texto visible.
+- Cifras grandes en castellano (pedido del autor, 14 de octubre de 2026): mil millones son "mil millones" y un billón es un millón de millones, nunca el "billion" norteamericano. Nada de "M", "B", "MM" ni "bn": en los gráficos va el número solo con la unidad una vez arriba ("Millones de pesos") y en el texto, la palabra entera. `prueba_paginas.mjs` frena si aparece una abreviatura en inglés.
 - Tono neutro en temas políticos: describir, no adjetivar.
 - "y" pasa a "e" delante del sonido de la i: todo texto que une datos con " y " usa `yE()`.
 - Correlación no es causalidad: los cruces y artículos lo dicen siempre, con sus límites ("Qué no dice este dato").
@@ -76,6 +77,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Roboto Flex con reemplazos medidos (Roboto, Verdana). Nada de serif ni Arial. Roboto Mono para etiquetas. La bajada de cada página, en Roboto Flex 340 con su propio reemplazo (`--f-bajada`).
 - Colores de la bandera sobre fondo blanco: celeste (`--celeste`, `--celeste-fuerte`) y el amarillo del Sol de Mayo (`--sol`). Nada de azul marino. Solo modo claro. Violeta solo para la OCDE. Verde y rojo solo para cambios buenos o malos indiscutidos.
 - Todo valor sale de `:root` en `datina.css` (colores, letra, espacios, radios, sombras, duraciones). Espacios en la escala del autor (4, 8, 12, 16, 24, 32, 48, 72, 96 y 144) con tres ritmos: dentro de un componente, entre bloques (`--bloque`, de 24 a 40) y entre capítulos (`--capitulo`, de 48 a 72, solo donde cambia el tema de la página). El autor pidió el 10 de octubre de 2026 menos espacio en blanco: lo que va junto, junto. Ninguna animación de interfaz pasa de 300 ms. Respetar movimiento reducido.
+- Cada barra lleva su número (pedido del autor, 14 de octubre de 2026): al final en las barras por provincia, arriba en las columnas por año. Cuando entran todos, la escala sobra y no se dibuja. La línea del país va debajo de los números.
 - Las secciones se ordenan en grupos y categorías que salen de `GRUPOS` en `03_construir_sitio.py`: la barra (los cuatro grupos, cada uno con su menú, y "Más"), migas, pie, portada y recorrido. Barra y portada usan siempre el mismo orden y los mismos nombres.
 - Seis tipos de botón y nada más. Sin viñetas. Sin flechas decorativas.
 - La provincia se elige solo en `provincia.html`.
