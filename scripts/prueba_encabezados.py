@@ -9,6 +9,9 @@ cada una con su motivo:
 - El consultor de pobreza (sitio/pobreza/) lo arma Observable Framework: se controla que tenga un solo h1, sin exigir el resto.
 - La portada (index.html): su h1 ("Datina") va en el bloque azul, antes de <main>. Se controla que sea el único.
 
+En las secciones con la pregunta como título (class="tema con-pregunta") el h1 es la pregunta (h1.pregunta), que es lo que se ve como
+título, y el nombre de la sección va chico arriba en un párrafo (14 de octubre de 2026). Se controla que sea así.
+
 Los saltos de nivel después del h1 (por ejemplo, de h1 a las fichas en h3) se informan pero no frenan: las fichas son h3 en la
 plantilla, en datina.css, en datina.js y en el Explorador de relaciones, y pasarlas a h2 es un cambio aparte.
 
@@ -103,6 +106,8 @@ def revisar():
             problemas.append(f"{nombre}: el primer encabezado de <main> no es el h1")
         if not h1s[0]:
             problemas.append(f"{nombre}: el h1 está vacío")
+        if 'class="tema con-pregunta' in h and not re.search(r'<h1 class="pregunta"[^>]*>[^<]+</h1>', h):
+            problemas.append(f"{nombre}: la sección tiene la pregunta como título, pero el h1 no es la pregunta")
         niveles = [n for n, _ in enc.en_main_lista]
         saltos = sorted({f"h{a} a h{b}" for a, b in zip(niveles, niveles[1:]) if b > a + 1})
         if saltos:

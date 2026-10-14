@@ -557,18 +557,19 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* ---------- títulos de página: cada sección, Tu provincia y Sobre nosotros ---------- */
 .tema,.provincias,.nosotros,.contacto,.no-encontrada,.laboratorio{padding-top:var(--e-7)}
-.tema>:is(h1,h2),.provincias>:is(h1,h2),.nosotros>:is(h1,h2),.contacto>:is(h1,h2),.no-encontrada>:is(h1,h2),.laboratorio>:is(h1,h2){position:relative;display:inline-block;margin:var(--ritmo) 0 var(--e-4);font-size:var(--t-10);line-height:.95;font-weight:500;
+.tema>:is(h1,h2,.tema-nombre),.provincias>:is(h1,h2),.nosotros>:is(h1,h2),.contacto>:is(h1,h2),.no-encontrada>:is(h1,h2),.laboratorio>:is(h1,h2){position:relative;display:inline-block;margin:var(--ritmo) 0 var(--e-4);font-size:var(--t-10);line-height:.95;font-weight:500;
   letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 /* el mini sol de los títulos */
-.tema>:is(h1,h2)::after,.provincias>:is(h1,h2)::after,.nosotros>:is(h1,h2)::after,.contacto>:is(h1,h2)::after,.no-encontrada>:is(h1,h2)::after,.laboratorio>:is(h1,h2)::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
+.tema>:is(h1,h2,.tema-nombre)::after,.provincias>:is(h1,h2)::after,.nosotros>:is(h1,h2)::after,.contacto>:is(h1,h2)::after,.no-encontrada>:is(h1,h2)::after,.laboratorio>:is(h1,h2)::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
   background:radial-gradient(circle,var(--sol) 34%,transparent 37%),repeating-conic-gradient(var(--sol) 0 7deg,transparent 7deg 22.5deg)}
 /* La pregunta como título (etapa 35, pedido del autor tras la auditoría de diseño del 6 de octubre de 2026: primero en Trabajo y después, con la
    decisión que el autor dejó en manos de Claude, en Pobreza, Salud, Educación y Población, las secciones con class="tema con-pregunta"): el nombre de la sección queda chico
    arriba, en el estilo de la etiqueta de las fichas y con el sol, y la pregunta pasa a ser el título grande, en la letra de los títulos de
-   ficha. En la plantilla es un h2 (el constructor lo lee para el índice, los menús y las migas) y en la página armada, el h1 */
-.tema.con-pregunta>:is(h1,h2){margin:var(--e-6) 0 var(--e-3);padding-left:18px;font:500 var(--t-2)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+   ficha. En la plantilla es un h2 (el constructor lo lee para el índice, los menús y las migas). En la página armada el nombre es
+   p.tema-nombre y la pregunta, el h1 (14 de octubre de 2026), con el mismo aspecto */
+.tema.con-pregunta>:is(h1,h2,.tema-nombre){margin:var(--e-6) 0 var(--e-3);padding-left:18px;font:500 var(--t-2)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
   font-variation-settings:normal}
-.tema.con-pregunta>:is(h1,h2)::after{top:.24em;right:auto;left:0;width:12px;height:12px}
+.tema.con-pregunta>:is(h1,h2,.tema-nombre)::after{top:.24em;right:auto;left:0;width:12px;height:12px}
 .con-pregunta .tema-intro .pregunta{max-width:20em;margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-9);line-height:1.08;font-weight:600;letter-spacing:-.01em;
   color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32}
 
@@ -581,7 +582,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .migas span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
 .migas-prov{color:var(--azul)}
 .migas-prov[hidden]{display:none}
-.migas+:is(h1,h2){margin-top:var(--e-4)!important}
+.migas+:is(h1,h2,.tema-nombre){margin-top:var(--e-4)!important}
 .pildoras+.migas{margin-top:var(--e-6)}
 /* la fila de una categoría (etapa 36): al final de la entrada de la página, antes de "En cifras", con el estilo de la navegación (letra en
    mayúsculas y la marca amarilla en la página actual). Si no entra, se desliza de costado */
@@ -780,7 +781,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .pildoras a{flex:none;padding:12px 0 10px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;
     font-variation-settings:"wdth" 60,"opsz" 14;color:var(--azul);text-decoration:none;font-family:var(--f-c60)}
   .pildoras a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--sol)}
-  .tema>.pildoras+:is(h1,h2){margin-top:var(--e-7)}
+  .tema>.pildoras+:is(h1,h2,.tema-nombre){margin-top:var(--e-7)}
 }
 /* "Para entender los datos" (etapa 31, 6 de octubre de 2026, pedido del autor: "reordenar esto, queda rarísimo así, poco responsive",
    con los principios de diseño de Apple y de Emil Kowalski). El autor eligió entre cuatro opciones probadas sobre la página real, después

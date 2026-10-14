@@ -195,10 +195,20 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - el total de los superpoderes en Diputados no se encontró publicado.
   - La nota de la ficha lo dice.
 
+## Pendientes cerrados el 14 de octubre de 2026
+
+"Seguí con los pendientes que quedan".
+- La pregunta de cada página es el encabezado de verdad (pendiente de la etapa 37, "si se quiere").
+  - Antes, en las 19 secciones con la pregunta como título, el h1 era el nombre de la sección (chico arriba) y la pregunta, que es lo que se ve como título, era un párrafo.
+  - Ahora la pregunta es el h1 (`h1.pregunta`) y el nombre de la sección es `p.tema-nombre`. Lo cambia el constructor al final del armado (`encabezado_principal`), así que la plantilla sigue igual.
+  - Un lector de pantalla encuentra como título lo mismo que se ve como título.
+  - El aspecto no cambia: 19 secciones y 3 páginas sin pregunta, en 390 y 1440 píxeles. Se compararon la caja, la letra, el color, el sol y la transición del título, la etiqueta de las fichas y el alto de la página, y las 44 capturas dan iguales píxel a píxel.
+  - `scripts/prueba_encabezados.py` controla que en esas secciones el h1 sea la pregunta.
+
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
 - Línea del país en las barras: va detrás de las filas y los valores llevan borde del color del fondo. Hecho.
-- T7, un h1 por página: el título de cada página pasa a h1 al final del armado (aspecto igual, comparado píxel a píxel). `scripts/prueba_encabezados.py` lo controla en 03. Hecho. Aviso aceptado: las fichas son h3 y saltan de h1 a h3.
+- T7, un h1 por página: el título de cada página pasa a h1 al final del armado (aspecto igual, comparado píxel a píxel). `scripts/prueba_encabezados.py` lo controla en 03. Hecho. Desde el 14 de octubre de 2026, en las secciones con la pregunta como título, el h1 es la pregunta. Aviso aceptado: las fichas son h3 y saltan de h1 a h3.
 - T8, accesibilidad: contraste, zoom del consultor, teclado en Cruces, toque en los cuadros, "Ver tabla", avisos de carga, selector de provincias. Hecho, detalle y pendientes en `REVISION_A11Y.md`.
 - T9, metadatos: Open Graph, Twitter y Article en JSON-LD. La dirección pública va en `datos/manual/sitio.json` (vacía: sin canonical absolutos, sitemap ni robots hasta que el autor la decida). `scripts/prueba_metadatos.py` controla metadatos y enlaces internos en 03. Hecho.
 - T10, licencia: inventario y opciones en `LICENCIA_OPCIONES.md`. Aplicada el 11 de octubre de 2026 la combinación recomendada (MIT y CC BY 4.0), que el autor puede cambiar antes de publicar.

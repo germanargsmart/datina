@@ -818,7 +818,11 @@ def siluetas(h, id_):
 # Un h1 por página (11 de octubre de 2026, auditoría: 49 de 52 páginas no tenían): el título de la página, que hasta acá es el primer h2
 # de <main>, pasa a h1 al final del armado, cuando el constructor ya lo leyó para el índice, los menús y las migas. El aspecto no cambia
 # (datina.css estiliza h1 y h2 igual). La portada ya tiene su h1. Los artículos y las piezas del Laboratorio arman su título con
-# datina.js, que lo escribe como h1. scripts/prueba_encabezados.py controla el resultado en las páginas armadas
+# datina.js, que lo escribe como h1. scripts/prueba_encabezados.py controla el resultado en las páginas armadas.
+# En las secciones con la pregunta como título (class="tema con-pregunta", etapa 35) el título grande que se ve es la pregunta: desde el
+# 14 de octubre de 2026 es también el h1 (h1.pregunta), y el nombre de la sección, chico arriba, pasa a p.tema-nombre. Así el lector de
+# pantalla encuentra como título lo mismo que se ve como título (pendiente de la etapa 37). El aspecto no cambia: datina.css estiliza
+# p.tema-nombre como el h2 y h1.pregunta como la p.pregunta
 def encabezado_principal(h, id_):
     if id_ == "inicio" or '<article class="nota"' in h or '<section class="pieza"' in h:
         return h
@@ -826,7 +830,17 @@ def encabezado_principal(h, id_):
     a = h.find("<h2", ini)
     assert ini >= 0 and a >= 0, f"{id_}: sin <main> o sin título h2"
     b = h.find("</h2>", a)
-    return h[:a] + "<h1" + h[a + 3:b] + "</h1>" + h[b + 5:]
+    seccion = h[h.rfind("<section", ini, a):a]
+    if 'class="tema con-pregunta' not in seccion:
+        return h[:a] + "<h1" + h[a + 3:b] + "</h1>" + h[b + 5:]
+    atrib = h[a + 3:h.find(">", a)]
+    nombre = h[h.find(">", a) + 1:b]
+    p = h.find('<p class="pregunta"', b)
+    q = h.find("</p>", p)
+    assert p >= 0 and h[b:p].strip().replace("</h2>", "").strip() == '<div class="tema-intro">' and "<" not in h[h.find(">", p) + 1:q], \
+        f"{id_}: la sección con pregunta no sigue con <div class=\"tema-intro\"><p class=\"pregunta\">"
+    assert "class=" not in atrib, f"{id_}: el título de la sección ya tiene una clase"
+    return (h[:a] + f'<p class="tema-nombre"{atrib}>{nombre}</p>' + h[b + 5:p] + "<h1" + h[p + 2:q] + "</h1>" + h[q + 4:])
 
 
 # Metadatos para buscadores y redes (11 de octubre de 2026). La dirección pública sale de datos/manual/sitio.json: mientras esté vacía

@@ -6060,7 +6060,8 @@ const SIN_RELACIONES = new Set(/*SIN_RELACIONES*/[]);
 const EN_CATALOGO = new Set(/*EN_CATALOGO*/[]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
-  const tema = f.closest(".tema")?.querySelector("h1, h2")?.textContent;
+  // el nombre de la sección: en las que tienen la pregunta como título (h1) va en p.tema-nombre
+  const t = f.closest(".tema"), tema = (t?.querySelector(":scope > .tema-nombre") || t?.querySelector("h1, h2"))?.textContent;
   if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
   // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
