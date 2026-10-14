@@ -244,6 +244,12 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
 - T14 y T15, gráficos y línea de base: `scripts/linea_base.mjs` (88 casos) e informe en `LINEA_BASE.md`. El CLS de los artículos (0,05 a 0,55 según la carga) y del Explorador (0,12), que ya existían, se resolvió el 11 de octubre de 2026: los artículos bajan a 0,04 en la primera carga, y lo que queda en los dos es el cambio de letra en este entorno, sin las letras de reemplazo instaladas (detalle en `LINEA_BASE.md`).
 - GitHub Pages: explorado en `docs/deploy/GITHUB_PAGES.md`. El autor decidió no usarlo por ahora.
 
+## Leyendas y cifra destacada en "Descargar imagen" (14 de octubre de 2026, aprobado por el autor)
+
+La imagen de la ficha (`imagenFicha` en `datina.js`) dibuja, justo arriba del gráfico, las leyendas que se ven en la ficha y que son HTML fuera del SVG: `.pol-ley` (reservas, pozos terminados, Congreso, transferencias, elecciones y las demás), `.cx-leyenda` y `.ix-leyenda` (Cruces y el índice), cada clave con su cuadradito y en filas que se cortan al ancho, y `.clave-color` como texto con sus colores. Letra, tamaños, colores y separaciones salen de cómo se ven en la página. Las ocultas (otra medida, la vista OCDE) no van. Verificado: armado, sintaxis, prueba de páginas (49, "Todo en orden") y 32 imágenes de 16 fichas y vistas descargadas en Chrome sin ventana, en 1440 y 390 píxeles.
+
+En un segundo commit, la imagen suma la cifra destacada (`.clave`) debajo de la descripción: el número y su frase en una fila, alineados por la base de la letra, y la frase abajo si no entran (respuesta del autor: "al lado del número"). El canvas no toma `font-variation-settings`: el ancho angosto va con `fontStretch` (el más angosto que acepta es 50, la página usa 45, así que el número sale un 5% más ancho) y el tamaño óptico 144 se logra escribiendo a ese tamaño y achicando. En Safari y Firefox viejos, sin `fontStretch`, el número sale con el ancho normal. Con la vista OCDE la imagen no lleva cifra, porque el gráfico ya no muestra lo que dice (pedido del autor). Las fichas de suicidio no tienen cifra y su imagen no cambia.
+
 ## Próxima tarea
 
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
