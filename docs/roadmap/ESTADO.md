@@ -214,6 +214,9 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - Ahora `01_descargar.py` (`SIGUIENTE`) prueba antes el mismo nombre con los años siguientes y usa el primero que existe y tiene el formato esperado. Si no hay ninguno, baja el conocido, como siempre.
   - El registro de descargas anota la dirección de la que salió cada archivo.
   - Probado con descargas simuladas: con el año nuevo, sin el año nuevo, con una página de error en lugar del archivo y con un archivo que no está en la lista.
+- Nombres con tilde (`datos/manual/nombres_con_tilde.csv`): el RENAPER publica los nombres sin tildes y la tabla tenía 20. De los 169 nombres que aparecen alguna vez entre 2012 y 2024, faltaban 13 que la llevan: Bastián, Beltrán, Elián, Estefanía, Isaías, Jeremías, Jonás, José, León, Luján, Matías, Pía y Román.
+  - Hoy ninguno está entre los diez más frecuentes de 2024, pero con el año nuevo pueden entrar.
+  - Quedan sin tilde, como se escriben en general en el país: Mia, Zoe, Nahitan, Tahiel e Ian.
 
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
