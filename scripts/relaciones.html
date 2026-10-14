@@ -72,6 +72,7 @@
         <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.</p>
 
       <div class="rx-tabla" id="rx-tabla" hidden>
+        <a class="rx-saltar rx-saltar-tabla" id="rx-saltar-tabla" href="#rx-panel">Saltar la tabla</a>
         <p class="rx-vacio" id="rx-vacio-tabla" hidden></p>
         <div class="rx-tabla-env"><table>
           <caption class="rx-oculto">Organismos, archivos y fichas con sus relaciones</caption>
@@ -97,7 +98,7 @@
   </div>
   <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
 
-  <section class="rx-definiciones" aria-labelledby="rx-def-tit">
+  <section class="rx-definiciones" id="rx-definiciones" aria-labelledby="rx-def-tit" tabindex="-1">
     <h3 id="rx-def-tit">Qué es una relación acá</h3>
     <dl>
       <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>

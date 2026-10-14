@@ -204,6 +204,10 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - Un lector de pantalla encuentra como título lo mismo que se ve como título.
   - El aspecto no cambia: 19 secciones y 3 páginas sin pregunta, en 390 y 1440 píxeles. Se compararon la caja, la letra, el color, el sol y la transición del título, la etiqueta de las fichas y el alto de la página, y las 44 capturas dan iguales píxel a píxel.
   - `scripts/prueba_encabezados.py` controla que en esas secciones el h1 sea la pregunta.
+- Explorador de relaciones, punto 15 de `REVISION_A11Y.md`: la tabla es larga y el detalle va después, así que con el teclado había que recorrerla entera.
+  - Ahora, al comienzo de la tabla hay un salto que aparece solo con el foco del teclado, encima de la tabla y sin mover nada.
+  - Con algo elegido dice "Ir al detalle de" y su nombre, y lleva al panel. Sin nada elegido dice "Saltar la tabla" y lleva a "Qué es una relación acá".
+  - Probado con teclado real en 1440 y 390 píxeles: un Tab desde el conmutador, Enter en los dos casos y Escape, que devuelve el texto. La prueba de páginas da "Todo en orden".
 
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
