@@ -1146,6 +1146,11 @@ html:not(.js) .esqueleto{display:none}
   .conmutador{display:grid;width:100%}
   .conmutador button{padding:6px;line-height:1.25}
 }
+/* a 320 píxeles, cuatro botones con palabras largas ("Evolución", "Cantidad") no entraban con 6 píxeles a cada lado, y en Cruces
+   "Correlaciones" se salía de la ficha (14 de octubre de 2026): menos margen y un poco menos de espacio entre letras */
+@media (max-width:360px){
+  .conmutador button{padding:6px 2px;letter-spacing:.03em}
+}
 /* listas desplegables de las fichas y de las herramientas */
 .cx-campo,.selector-ficha{display:flex;flex-direction:column;gap:6px;flex:1 1 260px;min-width:0}
 .selector-ficha{max-width:420px;margin:var(--e-6) 0 0}
