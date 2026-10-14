@@ -459,6 +459,8 @@ VALIDA = {
     "sspmi_vitivinicultura.csv": lambda b: b"sector_id" in b[:200] and b"Mercado interno" in b,
     "sspmi_yerba_mate.csv": lambda b: b"sector_id" in b[:200] and b"Salida de molino" in b,
     "renaper_nombres_frecuentes.csv": lambda b: b"provincia_id" in b[:100],
+    # la base SAT de suicidios: solo se leen el año, el sexo y la edad (regla de temas sensibles)
+    "snic_sat_suicidios.csv": lambda b: all(c in b.split(b"\n", 1)[0] for c in (b"anio", b"suicida_sexo", b"suicida_tr_edad")),
     "ciam_glaciares.csv": lambda b: b"glaciares" in b[:200],
     "ciam_desembarques_especie.csv": lambda b: b"especies" in b[:100],
     "ciam_pesca_continental.csv": lambda b: b"especie" in b[:100],
@@ -563,16 +565,47 @@ def sspmi_buscar(nombre):
     raise ValueError(f"404 y no se encontró en los catálogos ({len(enlaces)} enlaces a CSV, {len(candidatas)} candidatos; ver sspmi_enlaces.json)")
 
 
+# Archivos que el organismo vuelve a publicar con otro nombre cuando suma un año, sin borrar el anterior (14 de octubre de 2026): la base
+# SAT de suicidios del SNIC (SAT-SS-BU_2017-2024.csv) y los nombres del RENAPER (..._2012_2024.csv). Con la dirección fija la actualización
+# seguía bajando el año viejo: en octubre de 2026 la base SAT seguía en 2024 cuando el SNIC por provincia ya llegaba a 2025. Ahora se prueba
+# antes el mismo nombre con los años siguientes, del más nuevo al más viejo, y se usa el primero que existe y tiene el formato esperado
+# (VALIDA). Si no hay ninguno, se baja el conocido, como siempre. Un archivo nuevo que no se lee igual frena 02_procesar.py: avisar al autor
+SIGUIENTE = {
+    "snic_sat_suicidios.csv": ("2017-2024", "2017-{}"),
+    "renaper_nombres_frecuentes.csv": ("2012_2024", "2012_{}"),
+}
+
+
+def mas_nuevo(nombre, url):
+    viejo, molde = SIGUIENTE[nombre]
+    assert viejo in url and nombre in VALIDA, nombre
+    for a in range(datetime.date.today().year, int(viejo[-4:]), -1):
+        prueba = url.replace(viejo, molde.format(a))
+        try:
+            datos = leer(prueba, 120)
+        except Exception:  # 404 mientras no lo publiquen
+            continue
+        if VALIDA[nombre](datos):
+            return prueba, datos
+    return url, None
+
+
 def bajar(nombre, url):
+    """Baja un archivo de FUENTES a datos/crudo/ y devuelve la dirección de la que salió."""
     if not url:
         raise ValueError("no se encontro la direccion en el catalogo")
-    try:
-        datos = leer(url)
-    except urllib.error.HTTPError as e:
-        if e.code != 404 or nombre not in SSPMI_CLAVE:
-            raise
-        url, datos = sspmi_buscar(nombre)
-        print(f"  aviso: {nombre} se encontró en {url}")
+    nueva, datos = mas_nuevo(nombre, url) if nombre in SIGUIENTE else (url, None)
+    if datos is not None:
+        print(f"  aviso: {nombre} tiene un año más publicado: se usa {nueva}")
+        url = nueva
+    else:
+        try:
+            datos = leer(url)
+        except urllib.error.HTTPError as e:
+            if e.code != 404 or nombre not in SSPMI_CLAVE:
+                raise
+            url, datos = sspmi_buscar(nombre)
+            print(f"  aviso: {nombre} se encontró en {url}")
     if nombre in VALIDA and not VALIDA[nombre](datos) and url.startswith(API):
         completa, n = api_completar(nombre, datos)
         if n and VALIDA[nombre](completa):
@@ -581,6 +614,7 @@ def bajar(nombre, url):
     if nombre in VALIDA and not VALIDA[nombre](datos):
         raise ValueError("el archivo descargado no tiene el formato esperado" + motivo_formato(url, datos))
     (CRUDO / nombre).write_bytes(datos)
+    return url
 
 
 def api_completar(nombre, datos):
@@ -2403,13 +2437,14 @@ except Exception as e:  # si falla se conservan los resumenes anteriores
     registro.append(["departamentos (resumen)", "SNIC y RENAPER por departamento", datetime.datetime.now().isoformat(timespec="seconds"), f"error: {e}"])
     print("departamentos: error", e)
 for nombre, url in FUENTES.items():
+    usada = url
     try:
-        bajar(nombre, url)
+        usada = bajar(nombre, url)
         estado = "ok"
     except Exception as e:  # una fuente caida no frena al resto
         estado = f"error: {e}"
     print(f"{nombre:28s} {estado}")
-    registro.append([nombre, url, datetime.datetime.now().isoformat(timespec="seconds"), estado])
+    registro.append([nombre, usada, datetime.datetime.now().isoformat(timespec="seconds"), estado])
 
 # Algunos archivos del CIAM no traen el anio adentro: se toma del nombre que informa el servidor
 meta = {}

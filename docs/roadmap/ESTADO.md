@@ -208,6 +208,12 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - Ahora, al comienzo de la tabla hay un salto que aparece solo con el foco del teclado, encima de la tabla y sin mover nada.
   - Con algo elegido dice "Ir al detalle de" y su nombre, y lleva al panel. Sin nada elegido dice "Saltar la tabla" y lleva a "Qué es una relación acá".
   - Probado con teclado real en 1440 y 390 píxeles: un Tab desde el conmutador, Enter en los dos casos y Escape, que devuelve el texto. La prueba de páginas da "Todo en orden".
+- Datos que esperaban publicación (registro histórico, "Pendientes y próximos pasos"): dos archivos llevan el último año en el nombre y el organismo publica uno nuevo sin borrar el anterior.
+  - Son la base SAT de suicidios del SNIC (`SAT-SS-BU_2017-2024.csv`) y los nombres del RENAPER (`..._2012_2024.csv`).
+  - Con la dirección fija la actualización seguía bajando el año viejo. La base SAT seguía en 2024 cuando el SNIC por provincia ya llegaba a 2025.
+  - Ahora `01_descargar.py` (`SIGUIENTE`) prueba antes el mismo nombre con los años siguientes y usa el primero que existe y tiene el formato esperado. Si no hay ninguno, baja el conocido, como siempre.
+  - El registro de descargas anota la dirección de la que salió cada archivo.
+  - Probado con descargas simuladas: con el año nuevo, sin el año nuevo, con una página de error en lugar del archivo y con un archivo que no está en la lista.
 
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
