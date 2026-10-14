@@ -20,11 +20,12 @@ export async function abrirChrome(puerto = 9333) {
     "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "--mute-audio", "--disable-gpu",
     "--force-color-profile=srgb", "--font-render-hinting=none", "about:blank"], { stdio: "ignore" });
   proc.on("error", e => { console.error(`No se pudo abrir Chrome (${CHROME}): ${e.message}`); process.exit(1); });
+  // hasta 60 segundos: en la actualización del 12 de octubre de 2026 Chrome tardó más de 15 en abrir en la máquina de GitHub y la prueba se cortó
   let ok = false;
-  for (let i = 0; i < 100 && !ok; i++) {
+  for (let i = 0; i < 400 && !ok; i++) {
     try { await (await fetch(`http://127.0.0.1:${puerto}/json/version`)).json(); ok = true; } catch { await espera(150); }
   }
-  if (!ok) throw new Error(`Chrome no respondió (${CHROME})`);
+  if (!ok) throw new Error(`Chrome no respondió en 60 segundos (${CHROME})`);
   return {
     async pestana() {
       const t = await (await fetch(`http://127.0.0.1:${puerto}/json/new?about:blank`, { method: "PUT" })).json();
@@ -54,7 +55,7 @@ async function conectar(url) {
   on("Page.loadEventFired", () => cargada());
   await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable");
   const pag = {
-    send, errores,
+    send, errores, on,
     async tamano(ancho, alto) {
       await send("Emulation.setDeviceMetricsOverride", { width: ancho, height: alto, deviceScaleFactor: 1, mobile: ancho < 768 });
     },

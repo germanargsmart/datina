@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Turismo | Datina</title>
+<meta property="og:site_name" content="Datina">
+<meta property="og:locale" content="es_AR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Turismo: ¿Cuántos turistas llegan y a qué provincias van?">
+<meta property="og:description" content="Turismo: ¿Cuántos turistas llegan y a qué provincias van? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Turismo: ¿Cuántos turistas llegan y a qué provincias van?">
+<meta name="twitter:description" content="Turismo: ¿Cuántos turistas llegan y a qué provincias van? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <meta name="description" content="Turismo: ¿Cuántos turistas llegan y a qué provincias van? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
@@ -13,9 +21,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<!-- D3 y topojson en el head, sin defer, a propósito. El 11 de octubre de 2026 se probó con defer (los cuatro scripts): la página se
+     mostraba antes, vacía, y después saltaba cuando datina.js armaba el contenido (CLS de 0,70 en la Corte Suprema y 0,10 en Trabajo,
+     contra 0 así). Para cargar sin frenar y sin saltos, las notas y las piezas tienen que venir armadas en el HTML o reservar su alto -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<link rel="stylesheet" href="datina.css?v=39e10230af">
+<link rel="stylesheet" href="datina.css?v=91aa1bc6c2">
 </head>
 <body data-pagina="turismo">
 <header class="barra clara">
@@ -24,7 +35,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
     </div>
     <nav class="temas" aria-label="Temas principales">
-      <button type="button" class="menu-btn grupo-btn" id="gb-personas" aria-expanded="false" aria-controls="gm-personas" data-secs="poblacion migraciones turismo salud educacion pobreza" data-ir="./#tg-personas">Personas<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-economia" aria-expanded="false" aria-controls="gm-economia" data-secs="trabajo economia empresas construccion gobierno" data-ir="./#tg-economia">Trabajo y economía<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-estado" aria-expanded="false" aria-controls="gm-estado" data-secs="politica seguridad" data-ir="./#tg-estado">Estado y sociedad<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-territorio" aria-expanded="false" aria-controls="gm-territorio" data-secs="energia petroleo movilidad naturaleza" data-ir="./#tg-territorio">Territorio y recursos<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+      <button type="button" class="menu-btn grupo-btn" id="gb-personas" aria-expanded="false" aria-controls="gm-personas" data-secs="poblacion migraciones turismo salud educacion pobreza" data-ir="./#tg-personas">Personas<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-economia" aria-expanded="false" aria-controls="gm-economia" data-secs="trabajo economia empresas construccion gobierno externo" data-ir="./#tg-economia">Trabajo y economía<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-estado" aria-expanded="false" aria-controls="gm-estado" data-secs="politica seguridad curiosidades" data-ir="./#tg-estado">Estado y sociedad<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-territorio" aria-expanded="false" aria-controls="gm-territorio" data-secs="energia petroleo movilidad naturaleza" data-ir="./#tg-territorio">Territorio y recursos<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Más<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
     </nav>
     <div class="barra-der">
@@ -45,20 +56,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </div>
 </header>
 <!-- "Más" (etapa 32, 6 de octubre de 2026, pedido del autor: "que el menú desaparezca y lo dejes como usafacts"): la lista que abre el
-     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
-     que ya están en los grupos de la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
+     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. El orden (11 de octubre de 2026, pedido
+     del autor): Tu provincia, las herramientas y después el resto. Lo arma el constructor (MENU_MAS en 03_construir_sitio.py) -->
 <nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
-    <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-personas">Personas</p><ul aria-labelledby="mt-personas"><li class="en-barra"><a href="poblacion.html">Población</a></li><li class="en-barra"><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="turismo.html">Turismo</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-economia">Trabajo y economía</p><ul aria-labelledby="mt-economia"><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li class="en-barra"><a href="economia.html">Precios y actividad</a></li><li class="en-barra"><a href="empresas.html">Sector privado</a></li><li class="en-barra"><a href="construccion.html">Construcción y vivienda</a></li><li class="en-barra"><a href="gobierno.html">Cuentas públicas</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-estado">Estado y sociedad</p><ul aria-labelledby="mt-estado"><li class="en-barra"><a href="politica.html">Instituciones políticas</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-territorio">Territorio y recursos</p><ul aria-labelledby="mt-territorio"><li class="en-barra"><a href="energia.html">Energía</a></li><li class="en-barra"><a href="petroleo.html">Petróleo y gas</a></li><li class="en-barra"><a href="movilidad.html">Movilidad</a></li><li class="en-barra"><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-otros">Y además</p><ul aria-labelledby="mt-otros"><li><a href="curiosidades.html">Curiosidades</a></li></ul></div>
-    </div>
-    <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos y Laboratorio</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div>
-      <div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li></ul></div>
-      <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
-    </div>
+<div class="menu-col"><div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li><li><a href="catalogo.html">Catálogo de datos</a></li></ul></div></div><div class="menu-col"><div class="menu-grupo"><p class="menu-tit" id="mt-personas">Personas</p><ul aria-labelledby="mt-personas"><li class="en-barra"><a href="poblacion.html">Población</a></li><li class="en-barra"><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="turismo.html">Turismo</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-economia">Trabajo y economía</p><ul aria-labelledby="mt-economia"><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li class="en-barra"><a href="economia.html">Precios y actividad</a></li><li class="en-barra"><a href="empresas.html">Sector privado</a></li><li class="en-barra"><a href="construccion.html">Construcción y vivienda</a></li><li class="en-barra"><a href="gobierno.html">Cuentas públicas</a></li><li class="en-barra"><a href="externo.html">Sector externo</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-estado">Estado y sociedad</p><ul aria-labelledby="mt-estado"><li class="en-barra"><a href="politica.html">Instituciones políticas</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li><li class="en-barra"><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-territorio">Territorio y recursos</p><ul aria-labelledby="mt-territorio"><li class="en-barra"><a href="energia.html">Energía</a></li><li class="en-barra"><a href="petroleo.html">Petróleo y gas</a></li><li class="en-barra"><a href="movilidad.html">Movilidad</a></li><li class="en-barra"><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-lect">Artículos y Laboratorio</p><ul aria-labelledby="mt-lect"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></div>
 </nav>
 <!-- los menús de los cuatro grupos de la barra (etapa 39): los arma el constructor desde GRUPOS -->
-<nav class="menu-panel grupo-panel" id="gm-personas" aria-labelledby="gb-personas" hidden><ul><li><a href="poblacion.html">Población</a></li><li class="sub"><a href="migraciones.html">Migraciones</a></li><li class="sub"><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-economia" aria-labelledby="gb-economia" hidden><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía</a></li><li class="sub"><a href="empresas.html">Sector privado</a></li><li class="sub"><a href="construccion.html">Construcción y vivienda</a></li><li class="sub"><a href="gobierno.html">Cuentas públicas</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-estado" aria-labelledby="gb-estado" hidden><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-territorio" aria-labelledby="gb-territorio" hidden><ul><li><a href="energia.html">Energía</a></li><li class="sub"><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></nav>
+<nav class="menu-panel grupo-panel" id="gm-personas" aria-labelledby="gb-personas" hidden><ul><li><a href="poblacion.html">Población</a></li><li class="sub"><a href="migraciones.html">Migraciones</a></li><li class="sub"><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-economia" aria-labelledby="gb-economia" hidden><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía</a></li><li class="sub"><a href="empresas.html">Sector privado</a></li><li class="sub"><a href="construccion.html">Construcción y vivienda</a></li><li class="sub"><a href="gobierno.html">Cuentas públicas</a></li><li><a href="externo.html">Sector externo</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-estado" aria-labelledby="gb-estado" hidden><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-territorio" aria-labelledby="gb-territorio" hidden><ul><li><a href="energia.html">Energía</a></li><li class="sub"><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></nav>
 
 
 
@@ -113,20 +117,26 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
+  <!-- Sector externo (etapa 41, pedido del autor del 11 de octubre de 2026: "sumá datos de exportación, balanza comercial, balanza de pagos, qué
+       exportamos, adónde exportamos, qué exporta cada provincia, cuánto exporta cada provincia. Lo mismo con las importaciones, meté una nueva
+       categoría en trabajo y economía que se llame sector externo. Y sumá algo de las reservas internacionales"). Lo que exporta cada provincia por
+       habitante sigue en Trabajo -->
   
 
   
 
   
 
+  
+
 
   
 
 
-  <section class="tema con-pregunta" id="turismo"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html" aria-current="page">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="curiosidades.html">Curiosidades</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a></nav>
-    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="poblacion.html">Población</a></li><li><span aria-current="page">Turismo</span></li><li class="migas-prov" hidden></li></ol></nav><h2 style="view-transition-name:t-turismo">Turismo</h2>
+  <section class="tema con-pregunta" id="turismo"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html" aria-current="page">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="externo.html">Sector externo</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="curiosidades.html">Curiosidades</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a><a href="catalogo.html">Catálogo de datos</a></nav>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="./#tg-personas">Personas</a></li><li><a href="poblacion.html">Población</a></li><li class="migas-prov" hidden></li></ol></nav><p class="tema-nombre" style="view-transition-name:t-turismo">Turismo</p>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuántos turistas llegan?">¿Cuántos turistas llegan y a qué provincias van?</p>
+      <h1 class="pregunta" data-corta="¿Cuántos turistas llegan?">¿Cuántos turistas llegan y a qué provincias van?</h1>
       <p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>
     </div><nav class="subsecciones" aria-label="Población"><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html" aria-current="page">Turismo</a></nav><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
     <p class="exp-gancho"><a href="#para-entender">Para entender los datos</a>: qué se mide, de dónde sale y qué tener en cuenta, al final de la página ↓</p>
@@ -176,6 +186,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   
 
+  <!-- Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor: docs/roadmap/PROPUESTA_CATALOGO.md). La lista, los filtros y
+       el diccionario de cada tabla los escribe scripts/catalogo.py en lugar de la marca de abajo, desde la plantilla, datina.js, el catálogo
+       del Explorador de relaciones y datos/manual/catalogo.json. datina.js filtra, guarda la búsqueda en el enlace y muestra la vista previa -->
+  
+
 </main>
 
 <footer class="pie-sitio">
@@ -183,22 +198,35 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="pie-marca">
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
       <p class="pie-lema">Las 24 Argentinas en números</p>
-      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+      <!-- suscripción (11 de octubre de 2026, pedido del autor: "agregá algún lugar para suscribirse con el mail"): formulario de Netlify,
+           como el de Contacto. Se activa al publicar el sitio en Netlify, que guarda los correos. Con datina.js se envía sin salir de la
+           página y el botón muestra "Enviando" y "Anotado" en su lugar. Sin datina.js, vuelve a Contacto con ?suscripto=1. Los tres textos del
+           botón están siempre, uno encima del otro, así el botón no cambia de ancho al cambiar de estado (idea de uiarc.dev, pedido del autor) -->
+      <form class="form-suscripcion" name="suscripcion" method="POST" action="contacto.html?suscripto=1" data-netlify="true" netlify-honeypot="no-completar">
+        <input type="hidden" name="form-name" value="suscripcion">
+        <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
+        <label class="campo" for="susc-correo"><span>Novedades por correo</span></label>
+        <div class="susc-fila"><input type="email" id="susc-correo" name="correo" required autocomplete="email" inputmode="email" placeholder="nombre@ejemplo.com"><button type="submit" class="susc-boton"><span class="susc-lbl"><span class="susc-e activa" data-e="listo">Avisarme</span><span class="susc-e" data-e="envia">Enviando</span><span class="susc-e" data-e="ok">Anotado</span></span></button></div>
+        <p class="susc-estado" id="susc-estado" role="status"></p>
+      </form>
     </div>
-    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Personas</h2><ul><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="pie-col"><h2>Trabajo y economía</h2><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Precios y actividad</a></li><li><a href="empresas.html">Sector privado</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="gobierno.html">Cuentas públicas</a></li></ul></div><div class="pie-col"><h2>Estado y sociedad</h2><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li></ul><h2>Y además</h2><ul><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Territorio y recursos</h2><ul><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Personas</h2><ul><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="pie-col"><h2>Trabajo y economía</h2><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Precios y actividad</a></li><li><a href="empresas.html">Sector privado</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="gobierno.html">Cuentas públicas</a></li><li><a href="externo.html">Sector externo</a></li></ul></div><div class="pie-col"><h2>Estado y sociedad</h2><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Territorio y recursos</h2><ul><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
     <div class="pie-datos">
       <h2>Los datos</h2>
       <p data-t="actualizado"></p>
-      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p>
+      <p><a class="enlace" href="catalogo.html">Catálogo de datos</a></p>
       <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
     </div>
   </div>
 </footer>
 
 <div class="tip" id="tip" role="tooltip"></div>
+<!-- avisos para los lectores de pantalla (11 de octubre de 2026): un dato que no cargó o un enlace copiado. Lo escribe avisar() en datina.js -->
+<p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=df14d370b3"></script>
-<script src="datina.js?v=f7178c65c3"></script>
+<script src="datos/fichas.js?v=db97a0853f"></script>
+<script src="datina.js?v=4118979e97"></script>
 </body>
 </html>

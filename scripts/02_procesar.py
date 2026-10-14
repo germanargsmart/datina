@@ -109,6 +109,36 @@ pir_res = {"anio": ANIO_PROY, "edad_mediana_hoy": round(_med("personas_hoy")), "
            "menores15_hoy": r1(_pp[_pp.edad < 15].personas_hoy.sum() / _pp.personas_hoy.sum() * 100),
            "menores15_fin": r1(_pp[_pp.edad < 15].personas_2040.sum() / _pp.personas_2040.sum() * 100)}
 
+# Poblacion de cada provincia hasta el final de las proyecciones (etapa 40): habitantes del anio en curso y del ultimo anio,
+# la variacion en personas y en %, y el anio con mas habitantes dentro del periodo (el de la Ciudad es el primero, 2022)
+_ppv = proy.groupby(["codigo_indec", "anio"]).pob.sum().unstack()
+_ppv.loc["00"] = _ppv.sum()
+pob_proy = pd.DataFrame({"codigo_indec": _ppv.index, "personas_hoy": _ppv[ANIO_PROY].values, "personas_2040": _ppv[ANIO_FIN_PROY].values,
+                         "anio_maximo": _ppv.idxmax(axis=1).values.astype(int)})
+pob_proy["var_personas"] = pob_proy.personas_2040 - pob_proy.personas_hoy
+pob_proy["var_pct"] = (pob_proy.personas_2040 / pob_proy.personas_hoy - 1) * 100
+pob_proy["territorio"] = pob_proy.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+pob_proy = pob_proy[["codigo_indec", "territorio", "personas_hoy", "personas_2040", "var_personas", "var_pct", "anio_maximo"]].sort_values("codigo_indec").reset_index(drop=True)
+pob_proy[["personas_hoy", "personas_2040", "var_personas"]] = pob_proy[["personas_hoy", "personas_2040", "var_personas"]].round(0).astype(int)
+pob_proy["var_pct"] = pob_proy.var_pct.round(4)
+# toda la serie anual por provincia va a la tabla larga
+d = _ppv.drop("00").stack().rename("valor").reset_index().rename(columns={"anio": "periodo"})
+d["territorio"] = d.codigo_indec.map(CORTO)
+agregar(d, "poblacion_proyectada", "personas", "INDEC, proyecciones de poblacion 2022 a 2040")
+_ppp = pob_proy[pob_proy.codigo_indec != "00"].sort_values("var_pct")
+_ppa = pob_proy.set_index("codigo_indec").loc["00"]
+pob_proy_res = {"anio": ANIO_PROY, "anio_fin": ANIO_FIN_PROY, "hoy": int(_ppa.personas_hoy), "fin": int(_ppa.personas_2040),
+                "var": int(_ppa.var_personas), "var_pct": r1(_ppa.var_pct),
+                "max": _ppp.iloc[-1].territorio, "max_v": r1(_ppp.iloc[-1].var_pct),
+                "min": _ppp.iloc[0].territorio, "min_v": r1(_ppp.iloc[0].var_pct), "min_personas": int(_ppp.iloc[0].var_personas),
+                # las que pierden habitantes y las que crecen menos que el pais (pierden peso en el total)
+                "pierden": _ppp[_ppp.var_personas < 0].territorio.tolist(),
+                "debajo": _ppp[(_ppp.var_personas >= 0) & (_ppp.var_pct < _ppa.var_pct)].territorio.tolist(),
+                # las que tienen su maximo antes del final de las proyecciones: [nombre, anio]
+                "max_antes": [[r.territorio, int(r.anio_maximo)] for r in _ppp.itertuples() if r.anio_maximo < ANIO_FIN_PROY],
+                "pba_pct_hoy": r1(_ppv.loc["06", ANIO_PROY] / _ppv.loc["00", ANIO_PROY] * 100),
+                "pba_pct_fin": r1(_ppv.loc["06", ANIO_FIN_PROY] / _ppv.loc["00", ANIO_FIN_PROY] * 100)}
+
 # Aportantes por beneficio previsional (Boletin Estadistico de la Seguridad Social, cuadro 4.1.1.1): regimenes de ANSES,
 # promedio anual, el ultimo anio es el ultimo mes disponible. No se compara entre provincias: trece provincias tienen su
 # propia caja previsional fuera de ANSES.
@@ -261,7 +291,8 @@ COL = {"caba": "02", "buenos_aires": "06", "catamarca": "10", "chaco": "22", "ch
        "rio_negro": "62", "salta": "66", "san_juan": "70", "san_luis": "74", "santa_cruz": "78",
        "santa_fe": "82", "santiago_estero": "86", "tierra_fuego": "94", "tucuman": "90"}
 s = s.rename(columns={c: COL[c.replace("asalariados_priv_", "")] for c in s.columns if c != "indice_tiempo"})
-s = s.dropna(how="all", subset=list(COL.values()))
+# el último mes con dato en todas las provincias (si el más nuevo llega incompleto, el gráfico tendría barras vacías)
+s = s.dropna(how="any", subset=list(COL.values()))
 fin = s.indice_tiempo.max()
 hace12 = fin - pd.DateOffset(years=1)
 emp = pd.DataFrame({"codigo_indec": list(COL.values())})
@@ -387,6 +418,80 @@ mi_causas_res = {
     "reducibles": REDUCIBLES_PAIS,
 }
 mi_causas = mi_causas.sort_values("codigo_indec").reset_index(drop=True)
+
+# Causas de muerte por provincia, todas las edades (etapa 40): defunciones de la DEIS de los mismos tres anios por grupo de causa
+# (capitulos de la CIE-10) y provincia de residencia, con tasas cada 100.000 habitantes ajustadas por edad (metodo directo):
+# la tasa de cada grupo de edad de la provincia se pondera con la estructura por edad del pais en el anio del medio, asi la
+# comparacion no depende de que una provincia tenga mas personas mayores. Poblacion: proyecciones del INDEC de cada anio.
+# Las causas externas van juntas (accidentes, agresiones y lesiones intencionales), sin separar ninguna (regla del autor).
+# Las muertes sin edad registrada se reparten en proporcion. Residencia en otro pais (98): fuera. Sin provincia (99): solo en el pais.
+GRUPOS_CM = [("circulatorias", "Enfermedades del corazón y la circulación", r"^I"), ("tumores", "Tumores", r"^(C|D[0-4])"),
+             ("respiratorias", "Enfermedades respiratorias", r"^J"), ("infecciosas", "Infecciosas y parasitarias", r"^[AB]"),
+             ("covid", "COVID-19", r"^U(0[7-9]|10)"), ("endocrinas", "Diabetes y otras endocrinas y metabólicas", r"^E"),
+             ("digestivas", "Enfermedades digestivas", r"^K"), ("externas", "Causas externas", r"^[VWXY]"),
+             ("mal_definidas", "Mal definidas", r"^R"), ("otras", "Otras causas", r".")]
+
+
+def cm_edad(g):  # grupo de edad de la DEIS a su grupo comun: 0 (menores de 10), 10, 15... 75 y 80 (80 y mas)
+    s = re.sub(r"^\s*\d+[._]\s*", "", str(g)).strip().lower()
+    if "menor" in s or "día" in s or "mes" in s or re.match(r"^\d+ años?$", s) or re.match(r"^[15] a 9", s):
+        return 0
+    if "especif" in s:
+        return None
+    return min(int(re.match(r"\d+", s).group()), 80)
+
+
+_cmd = pd.concat([deis_csv(f"deis_defunciones_{a}.csv") for a in ANIOS_CAUSA])
+_cmd["n"] = _cmd.CUENTA.astype(int)
+_cmd["codigo_indec"] = _cmd.PROVRES.str.strip().str.zfill(2)
+_cmd["grupo"] = _cmd.CAUSA.str.strip().str.upper().map(lambda c: next(k for k, _, rx in GRUPOS_CM if re.match(rx, c)))
+_cmd["edad"] = _cmd.GRUPEDAD.map(cm_edad)
+assert _cmd[_cmd.edad.isna()].n.sum() / _cmd.n.sum() < .01, "más del 1% de las defunciones sin edad: revisar los grupos de edad de la DEIS"
+_cmd = _cmd[_cmd.codigo_indec != "98"]
+_cmp = proy[proy.anio.isin(ANIOS_CAUSA)].assign(edad=lambda x: x.edad.map(lambda e: 0 if e < 10 else min(e, 80)))
+_cmpob = _cmp.groupby(["codigo_indec", "edad"]).pob.sum()            # personas por anio, sumadas en los tres anios
+_cmpob = pd.concat([_cmpob, _cmp.groupby("edad").pob.sum().to_frame().assign(codigo_indec="00").set_index("codigo_indec", append=True).pob.reorder_levels([1, 0])])
+CM_ANIO_STD = ANIOS_CAUSA[len(ANIOS_CAUSA) // 2]
+_cmw = _cmp[_cmp.anio == CM_ANIO_STD].groupby("edad").pob.sum()
+_cmw = _cmw / _cmw.sum()
+
+
+def cm_tasa(d, c):  # tasa ajustada por edad y tasa bruta cada 100.000 habitantes por anio
+    pob = _cmpob.loc[c]
+    if d.n.sum() == 0:
+        return 0.0, 0.0
+    m = d.dropna(subset=["edad"]).groupby("edad").n.sum().reindex(_cmw.index, fill_value=0)
+    f = d.n.sum() / max(m.sum(), 1)
+    return float((m / pob * _cmw).sum() * 1e5 * f), float(d.n.sum() / pob.sum() * 1e5)
+
+
+_cmf = []
+for c in PROV24 + ["00"]:
+    d = _cmd if c == "00" else _cmd[_cmd.codigo_indec == c]
+    fila = {"codigo_indec": c, "territorio": "Total del país" if c == "00" else CORTO[c], "muertes": int(d.n.sum())}
+    fila["tasa_total"], fila["tasa_bruta"] = cm_tasa(d, c)
+    for k, _, _ in GRUPOS_CM:
+        fila[f"tasa_{k}"] = cm_tasa(d[d.grupo == k], c)[0]
+        fila[f"muertes_{k}"] = int(d[d.grupo == k].n.sum())
+    _cmf.append(fila)
+causas_muerte = pd.DataFrame(_cmf).round(4)
+causas_muerte["pct_mal_definidas"] = (causas_muerte.muertes_mal_definidas / causas_muerte.muertes * 100).round(4)
+_cmv = causas_muerte.set_index("codigo_indec")
+_cm24 = _cmv.drop("00")
+causas_muerte_res = {
+    "desde": ANIOS_CAUSA[0], "hasta": ANIOS_CAUSA[-1], "anio_std": CM_ANIO_STD, "muertes": int(_cmv.muertes["00"]),
+    "muertes_anio": int(round(_cmv.muertes["00"] / len(ANIOS_CAUSA))), "pais": r1(_cmv.tasa_total["00"]),
+    "max": CORTO[_cm24.tasa_total.idxmax()], "max_v": r1(_cm24.tasa_total.max()), "min": CORTO[_cm24.tasa_total.idxmin()], "min_v": r1(_cm24.tasa_total.min()),
+    "bruta_max": CORTO[_cm24.tasa_bruta.idxmax()], "bruta_max_v": r1(_cm24.tasa_bruta.max()),
+    "bruta_min": CORTO[_cm24.tasa_bruta.idxmin()], "bruta_min_v": r1(_cm24.tasa_bruta.min()),
+    "mal_def_pais": r1(_cmv.pct_mal_definidas["00"]), "mal_def_max": CORTO[_cm24.pct_mal_definidas.idxmax()],
+    "mal_def_max_v": r1(_cm24.pct_mal_definidas.max()), "mal_def_min": CORTO[_cm24.pct_mal_definidas.idxmin()],
+    "mal_def_min_v": r1(_cm24.pct_mal_definidas.min()),
+    "sin_edad_pct": r1(_cmd[_cmd.edad.isna()].n.sum() / _cmd.n.sum() * 100),
+    "grupos": [{"k": k, "lab": lab, "pct": r1(_cmv[f"muertes_{k}"]["00"] / _cmv.muertes["00"] * 100), "pais": r1(_cmv[f"tasa_{k}"]["00"]),
+                "max": CORTO[_cm24[f"tasa_{k}"].idxmax()], "max_v": r1(_cm24[f"tasa_{k}"].max()),
+                "min": CORTO[_cm24[f"tasa_{k}"].idxmin()], "min_v": r1(_cm24[f"tasa_{k}"].min())} for k, lab, _ in GRUPOS_CM],
+}
 
 # ---------------------------------------------------------------- SUBE
 # Tarjetas distintas que registraron al menos un viaje cada dia (Ministerio de Transporte).
@@ -1143,6 +1248,462 @@ if (CRUDO / "exportaciones_semestre.xls").exists():
                       "top": _t.territorio, "top_v": r1(_t["var"]), "low": _b.territorio, "low_v": r1(_b["var"])}
             exp_prov = exp_prov.merge(sem[["codigo_indec", "actual", "var"]].rename(columns={
                 "actual": f"millones_usd_1er_semestre_{u}", "var": f"variacion_1er_semestre_{u}_vs_{u - 1}"}), on="codigo_indec", how="left")
+
+
+# ---------------------------------------------------------------- sector externo (etapa 41)
+# Pedido del autor del 11 de octubre de 2026: una categoría "Sector externo" en Trabajo y economía. Del anexo del Origen Provincial de las
+# Exportaciones (el último semestre publicado, ver opex_semestre() en 01_descargar.py) salen adónde exporta cada provincia (zonas económicas y
+# países seleccionados, en grupos que no se superponen: las zonas del INDEC incluyen a sus países) y los complejos exportadores del país.
+# Los valores del último año son provisorios.
+SE_DEST = [("brasil", "Brasil", ["Brasil"]), ("chile", "Chile", ["Chile"]), ("china", "China", ["China"]), ("eeuu", "Estados Unidos", ["Estados Unidos"]),
+           ("ue", "Unión Europea", ["Unión Europea"]), ("india", "India", ["India"]), ("vietnam", "Vietnam", ["Viet Nam"]), ("peru", "Perú", ["Perú"]),
+           ("uruguay", "Uruguay", ["Uruguay"]), ("paraguay", "Paraguay", ["Paraguay"]), ("tailandia", "Tailandia", ["Tailandia"]),
+           ("malasia", "Malasia", ["Malasia"]), ("indonesia", "Indonesia", ["Indonesia"]),
+           ("resto_mercosur", "Resto del Mercosur", ["Mercosur", "-Brasil", "-Paraguay", "-Uruguay"]),
+           ("resto_aladi", "Resto de América Latina", ["Resto de ALADI", "-Chile", "-Perú"]),
+           ("mexico_canada", "México y Canadá", ["USMCA", "-Estados Unidos"]),
+           ("resto_asean", "Resto del Sudeste Asiático", ["ASEAN", "-Indonesia", "-Malasia", "-Tailandia", "-Viet Nam"]),
+           ("medio_oriente", "Medio Oriente", ["Medio Oriente"]), ("magreb_egipto", "Magreb y Egipto", ["Magreb y Egipto"]),
+           ("africa_sur", "África austral (SACU)", ["SACU"]), ("oceania", "Oceanía", ["Oceania"]), ("resto_mundo", "Resto del mundo", ["Resto del mundo"])]
+se_destinos, se_complejos, SE_RES = None, None, {}
+if (CRUDO / "exportaciones_semestre.xls").exists():
+    _sx = pd.ExcelFile(CRUDO / "exportaciones_semestre.xls")
+
+    def se_periodo(titulo):  # "Primer semestre de 2026" o "Año 2025" en el título del cuadro
+        m = re.search(r"(primer|segundo) semestre de (\d{4})", titulo, re.I)
+        if m:
+            return f"{m.group(1).lower()} semestre de {m.group(2)}", int(m.group(2))
+        m = re.search(r"año (\d{4})", titulo, re.I)
+        return (f"{m.group(1)}", int(m.group(1))) if m else (None, None)
+
+    def se_zonas(hoja):
+        t = _sx.parse(hoja, header=None)
+        fc = t.index[t.apply(lambda r: r.astype(str).str.strip().eq("Brasil").any(), axis=1)][0]
+        cab = [re.sub(r"\s*\(\d\)\s*$", "", str(v)).strip() for v in t.iloc[fc]]
+        filas = []
+        for i in range(fc + 1, len(t)):
+            nom = str(t.iat[i, 1]).strip()
+            cod = "00" if nom == "Total" else (codigo(nom.replace(", Antártida e Islas del Atlántico Sur", "")) if nom != "nan" else None)
+            if not cod:
+                continue
+            # "-" es cero y "s" es secreto estadístico: un destino que depende de una celda con secreto queda sin dato, y lo que no se
+            # puede asignar a ningún destino va a "reservado"
+            val = {}
+            for j, c in enumerate(cab[2:], start=2):
+                x = str(t.iat[i, j]).strip()
+                val[c] = None if x == "s" else 0.0 if x in ("-", "nan", "") else float(x)
+            fila = {"codigo_indec": cod, "total": val["Total"]}
+            for k, _, partes in SE_DEST:
+                xs = [val[p.lstrip("-")] for p in partes]
+                fila[k] = None if any(x is None for x in xs) else sum(-x if p.startswith("-") else x for p, x in zip(partes, xs))
+            fila["reservado"] = max(0.0, fila["total"] - sum(fila[k] or 0 for k, _, _ in SE_DEST))
+            filas.append(fila)
+        d = pd.DataFrame(filas).drop_duplicates("codigo_indec")
+        assert (d[[k for k, _, _ in SE_DEST]].fillna(0).sum(axis=1) + d.reservado - d.total).abs().max() < .5, f"los destinos de {hoja} no suman el total"
+        assert d.set_index("codigo_indec").reservado.get("00", 1) < .5, f"el total del país de {hoja} tiene destinos con secreto estadístico"
+        assert d.codigo_indec.nunique() == 25, f"faltan provincias en {hoja}"
+        return d, se_periodo(str(t.iat[0, 0]))
+
+    _sz = sorted((int(m.group(1)), h) for h in _sx.sheet_names for m in [re.match(r"OP-Zonas (\d{4})$", h.strip())] if m)
+    if len(_sz) >= 2:
+        (_szd, (_szp, _sza)), (_szd0, _) = se_zonas(_sz[-1][1]), se_zonas(_sz[-2][1])
+        _szl = _szd.melt(id_vars=["codigo_indec", "total"], var_name="destino", value_name="millones_usd")
+        _szl0 = _szd0.melt(id_vars=["codigo_indec", "total"], var_name="destino", value_name="millones_usd_anterior").drop(columns="total")
+        se_destinos = _szl.merge(_szl0, on=["codigo_indec", "destino"], how="left")
+        se_destinos["pct"] = se_destinos.millones_usd / se_destinos.total * 100
+        se_destinos["destino_nombre"] = se_destinos.destino.map({**{k: n for k, n, _ in SE_DEST}, "reservado": "Sin detalle por secreto estadístico"})
+        se_destinos["territorio"] = se_destinos.codigo_indec.map(lambda c: "Total del país" if c == "00" else CORTO[c])
+        se_destinos = se_destinos[["codigo_indec", "territorio", "destino", "destino_nombre", "millones_usd", "pct", "millones_usd_anterior"]].round(4)
+        # los países y zonas principales del país, sin los "resto" que juntan varios países
+        _sdp = se_destinos[(se_destinos.codigo_indec == "00") & ~se_destinos.destino.str.startswith("resto") & (se_destinos.destino != "reservado")]
+        _sdp = _sdp.sort_values("millones_usd", ascending=False)
+        # la primera provincia de destino para cada país principal
+        SE_RES["destinos"] = {"periodo": _szp, "anio": _sza, "total": round(float(_szd.set_index("codigo_indec").total["00"])),
+                              "top": [{"k": r.destino, "n": r.destino_nombre, "v": round(r.millones_usd), "pct": r1(r.pct),
+                                       "var": r1(float((r.millones_usd / r.millones_usd_anterior - 1) * 100)) if r.millones_usd_anterior > 0 else None}
+                                      for r in _sdp.head(6).itertuples()],
+                              # cuántas provincias tienen a cada país como primer destino (sin las zonas que agrupan varios países)
+                              "primero": se_destinos[(se_destinos.codigo_indec != "00") & ~se_destinos.destino.str.startswith("resto") & (se_destinos.destino != "reservado")]
+                                  .sort_values("millones_usd").groupby("codigo_indec").tail(1).destino_nombre.value_counts().head(4).to_dict()}
+
+    # complejos exportadores (cuadro 5 del anexo): los sectores y complejos del primer nivel, con sus partes para el cuadro del gráfico.
+    # El anexo no marca el nivel: un "Sector" agrupa los complejos que lo siguen hasta sumar su valor, y un complejo, las partes que no
+    # se llaman "Complejo" (petróleo, gas, vehículos). Se controla que el primer nivel sume el total.
+    _sc = next((h for h in _sx.sheet_names if h.strip().lower() == "cuadro5"), None)
+    if _sc:
+        t = _sx.parse(_sc, header=None)
+        _scp, _sca = se_periodo(str(t.iat[0, 0]))
+        _sct = t.index[t.iloc[:, 0].astype(str).str.strip().eq("Total de exportaciones")][0]
+        _total = float(t.iat[_sct, 1])
+        items, padre, resto = [], None, 0.0
+        for i in range(_sct + 1, len(t)):
+            nom, v = str(t.iat[i, 0]).strip(), pd.to_numeric(t.iat[i, 1], errors="coerce")
+            if nom in ("nan", "Principales complejos") or pd.isna(v):
+                continue
+            var = pd.to_numeric(t.iat[i, 2], errors="coerce")
+            fila = {"complejo": nom, "millones_usd": float(v), "variacion": None if pd.isna(var) else float(var), "pct": float(v) / _total * 100}
+            hijo = (padre is not None and resto > padre["millones_usd"] * .005 and v <= resto + .5
+                    and not nom.startswith("Sector ") and not nom.startswith("Resto de exportaciones")
+                    and (padre["complejo"].startswith("Sector ") or not nom.startswith("Complejo")))
+            if hijo:
+                padre["partes"].append(fila)
+                resto -= float(v)
+            else:
+                padre, resto = {**fila, "partes": []}, float(v)
+                items.append(padre)
+        assert abs(sum(x["millones_usd"] for x in items) / _total - 1) < .005, "los complejos exportadores no suman el total"
+        se_complejos = pd.DataFrame([{**{k: v for k, v in x.items() if k != "partes"}, "nivel": 1, "grupo": x["complejo"]} for x in items] +
+                                    [{**p, "nivel": 2, "grupo": x["complejo"]} for x in items for p in x["partes"]]).round(4)
+        _scs = [x for x in items if not x["complejo"].startswith("Resto")]
+        _scs = sorted(_scs, key=lambda x: -x["millones_usd"])
+        SE_RES["complejos"] = {"periodo": _scp, "anio": _sca, "total": round(_total), "n": len(_scs),
+                               "top": [{"n": x["complejo"], "v": round(x["millones_usd"]), "pct": r1(x["pct"]), "var": r1(x["variacion"]) if x["variacion"] is not None else None} for x in _scs[:5]],
+                               "crece": max(({"n": p["complejo"], "var": r1(p["variacion"]), "v": round(p["millones_usd"])} for x in items for p in [x] + x["partes"]
+                                             if p["variacion"] is not None and p["millones_usd"] >= 500), key=lambda z: z["var"])}
+
+# exportaciones del país por gran rubro y por año, en millones de dólares (intercambio comercial argentino del INDEC, vía la API de Series de
+# Tiempo, el mismo archivo que usa el artículo del dólar y las exportaciones): los años completos y, aparte, lo que va del año en curso
+_se_r = pd.read_csv(CRUDO / "exportaciones_rubros.csv")
+_se_r.columns = ["t", "total", "primarios", "moa", "moi", "combustibles"]
+_se_r["t"] = pd.to_datetime(_se_r.t)
+_se_r = _se_r.dropna()
+_se_ra = _se_r.groupby(_se_r.t.dt.year).agg(meses=("total", "size"), **{k: (k, "sum") for k in ("total", "primarios", "moa", "moi", "combustibles")})
+se_rubros = _se_ra[_se_ra.meses == 12].drop(columns="meses").rename_axis("anio").reset_index().round(1)
+_se_ult = _se_r.t.max()
+_se_ytd = _se_r[_se_r.t.dt.year == _se_ult.year]
+_se_ytd0 = _se_r[(_se_r.t.dt.year == _se_ult.year - 1) & (_se_r.t.dt.month <= _se_ult.month)]
+_se_u = se_rubros.iloc[-1]
+SE_RES["rubros"] = {"desde": int(se_rubros.anio.min()), "anio": int(_se_u.anio), "total": round(float(_se_u.total)),
+                    "pct": {k: r1(float(_se_u[k] / _se_u.total * 100)) for k in ("primarios", "moa", "moi", "combustibles")},
+                    "max_anio": int(se_rubros.loc[se_rubros.total.idxmax(), "anio"]), "max": round(float(se_rubros.total.max())),
+                    "comb_ini": r1(float(se_rubros.combustibles.iloc[0] / se_rubros.total.iloc[0] * 100)),
+                    "ytd_mes": int(_se_ult.month), "ytd_anio": int(_se_ult.year), "ytd": round(float(_se_ytd.total.sum())),
+                    "ytd_var": r1(float((_se_ytd.total.sum() / _se_ytd0.total.sum() - 1) * 100)) if len(_se_ytd) < 12 else None}
+# la parte de cada rubro en lo que exporta cada provincia, el último año completo del OPEX (tabla de las exportaciones por provincia)
+_sep = ex[(ex.anio == ANIO_EX) & (ex.codigo_indec == "00")].iloc[0]
+SE_RES["provincias"] = {"anio": ANIO_EX, "rubros_pais": {k: r1(float(_sep[k] / _sep.millones_usd * 100)) for k in RUB_EX},
+                        "principal": exp_prov.rubro_principal.value_counts().to_dict(),
+                        "top3_pct": r1(float(exp_prov.nlargest(3, "millones_usd").millones_usd.sum() / EXP_TOTAL * 100)),
+                        "top3": exp_prov.nlargest(3, "millones_usd").territorio.tolist()}
+# claves sueltas para las descripciones de las fichas en la plantilla ({{externo.rubros_anio}}), que no leen listas
+SE_RES.update({"rubros_desde": SE_RES["rubros"]["desde"], "rubros_anio": SE_RES["rubros"]["anio"], "provincias_anio": ANIO_EX,
+               **({"destinos_periodo": SE_RES["destinos"]["periodo"]} if "destinos" in SE_RES else {}),
+               **({"complejos_periodo": SE_RES["complejos"]["periodo"]} if "complejos" in SE_RES else {})})
+
+
+# Sector externo, segunda parte (etapa 41), con la descarga nueva (01_descargar.py: series_sector_externo, ica_cuadros y bcra_monetarias).
+# Intercambio comercial e importaciones por uso económico: series mensuales del INDEC en la API de Series de Tiempo, desde 1992, en millones
+# de dólares (exportaciones FOB, importaciones CIF). Se controla que los usos sumen el total de cada año.
+ICE_ID = {"exportaciones": "74.3_IET_0_M_16", "importaciones": "74.3_IIT_0_M_25", "saldo": "74.3_ISC_0_M_19"}
+ICE_USOS = [("intermedios", "Bienes intermedios", "74.3_IIBI_0_M_36"), ("piezas", "Piezas y accesorios para bienes de capital", "74.3_IIPABC_0_M_50"),
+            ("capital", "Bienes de capital", "74.3_IIBCA_0_M_32"), ("consumo", "Bienes de consumo", "74.3_IIBCO_0_M_32"),
+            ("combustibles", "Combustibles y lubricantes", "74.3_IICL_0_M_42"), ("vehiculos", "Vehículos de pasajeros", "74.3_IIVAP_0_M_49"),
+            ("resto", "Resto", "74.3_IIR_0_M_23")]
+balanza_comercial, importaciones_usos, importaciones_origen, cuenta_corriente, reservas_bcra, reservas_factores, bcra_variables, bcra_variables_lista, reservas_netas = (None,) * 9
+if (CRUDO / "series_sector_externo_M.csv").exists():
+    _ice = pd.read_csv(CRUDO / "series_sector_externo_M.csv")
+    _ice_c = list(ICE_ID.values()) + [i for _, _, i in ICE_USOS]
+    assert set(_ice_c) <= set(_ice.columns), f"faltan series del intercambio comercial: {sorted(set(_ice_c) - set(_ice.columns))}"
+    _ice = _ice[["indice_tiempo"] + _ice_c].rename(columns={**{v: k for k, v in ICE_ID.items()}, **{i: k for k, _, i in ICE_USOS}})
+    _ice["t"] = pd.to_datetime(_ice.indice_tiempo)
+    # solo los meses con todo: con un uso vacío, el año no sumaría las importaciones (y queda incompleto, fuera del gráfico)
+    _ice = _ice.dropna(subset=["exportaciones", "importaciones", "saldo"] + [k for k, _, _ in ICE_USOS]).sort_values("t")
+    _ice_a = _ice.groupby(_ice.t.dt.year).agg(meses=("exportaciones", "size"), **{k: (k, "sum") for k in ["exportaciones", "importaciones", "saldo"] + [k for k, _, _ in ICE_USOS]})
+    _ice_a = _ice_a[_ice_a.meses == 12].drop(columns="meses").rename_axis("anio").reset_index()
+    assert len(_ice_a) >= 20, f"el intercambio comercial tiene {len(_ice_a)} años completos (la planilla de la API de Series de Tiempo vino incompleta)"
+    _ice_dif = (_ice_a[[k for k, _, _ in ICE_USOS]].sum(axis=1) / _ice_a.importaciones - 1).abs()
+    assert (_ice_dif < .005).all(), f"los usos no suman las importaciones en {list(_ice_a.anio[_ice_dif >= .005])}"
+    balanza_comercial = _ice_a[["anio", "exportaciones", "importaciones", "saldo"]].round(1)
+    importaciones_usos = _ice_a[["anio"] + [k for k, _, _ in ICE_USOS]].round(1)
+    _ice_u = _ice.t.max()
+    _ice_y, _ice_y0 = _ice[_ice.t.dt.year == _ice_u.year], _ice[(_ice.t.dt.year == _ice_u.year - 1) & (_ice.t.dt.month <= _ice_u.month)]
+    _ice_ua = _ice_a.iloc[-1]
+    _ice_s = _ice_a.set_index("anio").saldo
+    SE_RES["balanza"] = {"desde": int(_ice_a.anio.min()), "anio": int(_ice_ua.anio), "expo": round(float(_ice_ua.exportaciones)), "impo": round(float(_ice_ua.importaciones)),
+                         "saldo": round(float(_ice_ua.saldo)), "deficit_anios": [int(a) for a in _ice_s[_ice_s < 0].index],
+                         "saldo_max_anio": int(_ice_s.idxmax()), "saldo_max": round(float(_ice_s.max())),
+                         "ytd_mes": int(_ice_u.month), "ytd_anio": int(_ice_u.year), "ytd_saldo": round(float(_ice_y.saldo.sum())),
+                         "ytd_saldo_ant": round(float(_ice_y0.saldo.sum())), "ytd_expo": round(float(_ice_y.exportaciones.sum())),
+                         "ytd_impo": round(float(_ice_y.importaciones.sum())),
+                         "ytd_expo_var": r1(float((_ice_y.exportaciones.sum() / _ice_y0.exportaciones.sum() - 1) * 100)),
+                         "ytd_impo_var": r1(float((_ice_y.importaciones.sum() / _ice_y0.importaciones.sum() - 1) * 100))}
+    _ice_p = {k: r1(float(_ice_ua[k] / _ice_ua.importaciones * 100)) for k, _, _ in ICE_USOS}
+    SE_RES["importaciones"] = {"desde": int(_ice_a.anio.min()), "anio": int(_ice_ua.anio), "total": round(float(_ice_ua.importaciones)), "pct": _ice_p,
+                               "usos": [{"k": k, "lab": lab} for k, lab, _ in ICE_USOS],
+                               "comb_max_anio": int(_ice_a.set_index("anio").combustibles.idxmax()), "comb_max": round(float(_ice_a.combustibles.max())),
+                               "consumo_var": r1(float((_ice_ua.consumo / _ice_a.iloc[-2].consumo - 1) * 100)),
+                               "vehiculos_var": r1(float((_ice_ua.vehiculos / _ice_a.iloc[-2].vehiculos - 1) * 100))}
+    for _ice_k, _ice_v in (("exportaciones", "exportaciones_bienes_usd"), ("importaciones", "importaciones_bienes_usd"), ("saldo", "saldo_comercial_usd")):
+        agregar(_ice.assign(codigo_indec="00", territorio="Argentina", periodo=_ice.t.dt.strftime("%Y-%m"), valor=_ice[_ice_k])[["codigo_indec", "territorio", "periodo", "valor"]],
+                _ice_v, "millones de dolares", "INDEC, intercambio comercial argentino")
+
+# Importaciones por zona económica y país de origen en lo que va del año, contra los mismos meses del año anterior (cuadro 37 del anexo del
+# intercambio comercial). Como en los destinos de las exportaciones, las zonas se separan en grupos que no se superponen.
+ICE_ORIG = [("brasil", "Brasil", ["Brasil"]), ("china", "China", ["China"]), ("eeuu", "Estados Unidos", ["Estados Unidos"]),
+            ("paraguay", "Paraguay", ["Paraguay"]), ("alemania", "Alemania", ["Alemania"]), ("italia", "Italia", ["Italia"]),
+            ("tailandia", "Tailandia", ["Tailandia"]), ("india", "India", ["India"]), ("espana", "España", ["España"]), ("vietnam", "Vietnam", ["Viet Nam"]),
+            ("chile", "Chile", ["Chile"]), ("uruguay", "Uruguay", ["Uruguay"]), ("paises_bajos", "Países Bajos", ["Países Bajos"]),
+            ("indonesia", "Indonesia", ["Indonesia"]), ("peru", "Perú", ["Perú"]), ("malasia", "Malasia", ["Malasia"]),
+            ("resto_ue", "Resto de la Unión Europea", ["Unión Europea", "-Alemania", "-España", "-Italia", "-Países Bajos"]),
+            ("mexico_canada", "México y Canadá", ["USMCA", "-Estados Unidos"]),
+            ("resto_mercosur", "Resto del Mercosur", ["Mercosur", "-Brasil", "-Paraguay", "-Uruguay"]),
+            ("resto_aladi", "Resto de América Latina", ["Resto de ALADI", "-Chile", "-Perú"]),
+            ("resto_asean", "Resto del Sudeste Asiático", ["ASEAN", "-Indonesia", "-Malasia", "-Tailandia", "-Viet Nam"]),
+            ("medio_oriente", "Medio Oriente", ["Medio Oriente"]), ("magreb_egipto", "Magreb y Egipto", ["Magreb y Egipto"]),
+            ("africa_sur", "África austral (SACU)", ["SACU"]), ("oceania", "Oceanía", ["Oceanía"]), ("resto_mundo", "Resto del mundo", ["Resto del mundo"])]
+if (CRUDO / "indec_ica_cuadros.xls").exists():
+    _ico = pd.read_excel(CRUDO / "indec_ica_cuadros.xls", sheet_name="c37", header=None)
+    _ico_t = str(_ico.iat[0, 0])
+    _ico_m = re.search(r"Acumulado hasta (\w+) de (\d{4})", _ico_t)
+    assert _ico_t.startswith("Cuadro 37. Importaciones") and _ico_m, "cambió el cuadro 37 del intercambio comercial"
+    _ico_f = _ico.index[_ico.iloc[:, 0].astype(str).str.strip().eq("Total")][0]
+    _ico_v = {}
+    for i in range(_ico_f, len(_ico)):
+        n = str(_ico.iat[i, 0]).strip()
+        if n in ("nan", ""):
+            break
+        _ico_v[n] = (float(_ico.iat[i, 1]), float(_ico.iat[i, 2]))
+    _ico_tot = _ico_v.pop("Total")
+    _ico_r = []
+    for k, n, partes in ICE_ORIG:
+        act = sum(-_ico_v[p[1:]][0] if p.startswith("-") else _ico_v[p][0] for p in partes)
+        ant = sum(-_ico_v[p[1:]][1] if p.startswith("-") else _ico_v[p][1] for p in partes)
+        _ico_r.append({"origen": k, "origen_nombre": n, "millones_usd": act, "millones_usd_anterior": ant})
+    importaciones_origen = pd.DataFrame(_ico_r)
+    assert abs(importaciones_origen.millones_usd.sum() / _ico_tot[0] - 1) < .005, "los orígenes de las importaciones no suman el total"
+    importaciones_origen["pct"] = importaciones_origen.millones_usd / _ico_tot[0] * 100
+    importaciones_origen["variacion"] = (importaciones_origen.millones_usd / importaciones_origen.millones_usd_anterior - 1) * 100
+    importaciones_origen = importaciones_origen.round(4)
+    _ico_n = importaciones_origen[~importaciones_origen.origen.str.startswith("resto")].sort_values("millones_usd", ascending=False)
+    SE_RES["origen"] = {"periodo": f"enero a {_ico_m.group(1).lower()} de {_ico_m.group(2)}" if _ico_m.group(1).lower() != "enero" else f"enero de {_ico_m.group(2)}",
+                        "anio": int(_ico_m.group(2)), "total": round(_ico_tot[0]), "var": r1((_ico_tot[0] / _ico_tot[1] - 1) * 100),
+                        "top": [{"k": r.origen, "n": r.origen_nombre, "v": round(r.millones_usd), "pct": r1(r.pct), "var": r1(r.variacion)} for r in _ico_n.head(5).itertuples()]}
+
+# Cuenta corriente del balance de pagos (INDEC, sexto manual del FMI), trimestral desde 2006, en millones de dólares: el saldo de bienes, de
+# servicios, del ingreso primario (rentas de la inversión, como intereses y utilidades, y remuneración de empleados) y del ingreso secundario
+# (transferencias). El total de la cuenta corriente se calcula sumando las partes, que llegan completas: el total que publica la API tiene
+# trimestres vacíos, y donde está coincide con la suma.
+BDP_ID = {"bienes": "160.2_CTA_CORNES_0_T_46", "servicios": "160.2_CTA_CORIOS_0_T_49", "rentas": "160.2_CTA_CORION_0_T_58",
+          "remuneraciones": "160.2_CTA_CORDOS_0_T_49", "secundario": "160.2_CTA_CORIOS_0_T_37", "total_api": "160.2_TL_CUENNTE_0_T_22"}
+if (CRUDO / "series_sector_externo_Q.csv").exists():
+    _bdp = pd.read_csv(CRUDO / "series_sector_externo_Q.csv")
+    assert set(BDP_ID.values()) <= set(_bdp.columns), "faltan series del balance de pagos"
+    _bdp = _bdp[["indice_tiempo"] + list(BDP_ID.values())].rename(columns={v: k for k, v in BDP_ID.items()})
+    _bdp["t"] = pd.to_datetime(_bdp.indice_tiempo)
+    _bdp = _bdp.sort_values("t").dropna(subset=["bienes", "servicios", "rentas", "remuneraciones", "secundario"])
+    _bdp["primario"] = _bdp.rentas + _bdp.remuneraciones
+    _bdp["cuenta_corriente"] = _bdp.bienes + _bdp.servicios + _bdp.primario + _bdp.secundario
+    _bdp_chk = _bdp.dropna(subset=["total_api"])
+    assert ((_bdp_chk.cuenta_corriente - _bdp_chk.total_api).abs() < 2).all(), "la cuenta corriente no coincide con la suma de sus partes"
+    _bdp_a = _bdp.groupby(_bdp.t.dt.year).agg(trimestres=("bienes", "size"), **{k: (k, "sum") for k in ("bienes", "servicios", "primario", "secundario", "cuenta_corriente")})
+    cuenta_corriente = _bdp_a[_bdp_a.trimestres == 4].drop(columns="trimestres").rename_axis("anio").reset_index().round(1)
+    _bdp_u = cuenta_corriente.iloc[-1]
+    _bdp_cc = cuenta_corriente.set_index("anio").cuenta_corriente
+    _bdp_q = _bdp.iloc[-1]
+    SE_RES["cuenta_corriente"] = {"desde": int(cuenta_corriente.anio.min()), "anio": int(_bdp_u.anio), "total": round(float(_bdp_u.cuenta_corriente)),
+                                  **{k: round(float(_bdp_u[k])) for k in ("bienes", "servicios", "primario", "secundario")},
+                                  "superavit_anios": [int(a) for a in _bdp_cc[_bdp_cc > 0].index], "rentas": round(float(_bdp[_bdp.t.dt.year == _bdp_u.anio].rentas.sum())),
+                                  "trim": f"{_bdp_q.t.quarter}T{_bdp_q.t.year}", "trim_total": round(float(_bdp_q.cuenta_corriente))}
+    agregar(_bdp.assign(codigo_indec="00", territorio="Argentina", periodo=_bdp.t.map(lambda x: f"{x.quarter}T{x.year}"), valor=_bdp.cuenta_corriente)[
+        ["codigo_indec", "territorio", "periodo", "valor"]], "cuenta_corriente_usd", "millones de dolares", "INDEC, balance de pagos")
+
+# Reservas internacionales y demás variables de la API de Estadísticas Monetarias del BCRA. Las reservas, de cada día desde 1996: para el
+# gráfico, el último dato de cada mes. Los factores que las mueven (compras de divisas, organismos internacionales, otras operaciones del sector
+# público, efectivo mínimo y otras), por año desde 2003 y lo que va del año en curso. Las demás variables principales, con el último dato de
+# cada mes, van a una tabla larga para el selector de la ficha.
+BCR_FACT = [(78, "compras", "Compras de divisas"), (79, "organismos", "Organismos internacionales"), (80, "sector_publico", "Otras operaciones del sector público"),
+            (81, "efectivo_minimo", "Efectivo mínimo de los bancos"), (82, "otras", "Otras operaciones")]
+BCR_RESERVAS = {1, 74, 77, 78, 79, 80, 81, 82, 1226, 1244, 1245, 1605}
+# Grupo, nombre corto y tipo de cada variable principal para el selector, y la unidad si la de la API no alcanza. El tipo dice cómo se muestra y
+# cómo se deflacta (más abajo, después del IPC): dolar (pesos por dólar), tna y tea (tasas nominales o efectivas anuales), var (variación
+# interanual), rem (inflación esperada), millones (de pesos), indice y pesos (unidades que se actualizan) y acum. Las tres tasas para juicios
+# (43, 1197 y 1198, acum) no son tasas anuales: son valores acumulados desde el comienzo de cada serie (en 2026 pasan de 27.000%). La inflación mensual e
+# interanual (27 y 28) es la del INDEC y no se repite: toda la inflación del sitio sale de sus archivos. Una variable principal nueva que no
+# esté acá entra con el nombre de la API en "Otras variables".
+BCR_SEL = {4: ("Tipo de cambio", "Dólar minorista, promedio vendedor", "dolar"), 5: ("Tipo de cambio", "Dólar mayorista de referencia (A3500)", "dolar"),
+           1187: ("Tipo de cambio", "Banda cambiaria, límite inferior", "dolar"), 1188: ("Tipo de cambio", "Banda cambiaria, límite superior", "dolar"),
+           12: ("Tasas de interés", "Plazo fijo a 30 días", "tna"), 1193: ("Tasas de interés", "Plazo fijo en dólares", "tasa_usd"), 7: ("Tasas de interés", "BADLAR de bancos privados, nominal anual", "tna"),
+           35: ("Tasas de interés", "BADLAR de bancos privados, efectiva anual", "tea"), 44: ("Tasas de interés", "TAMAR de bancos privados, nominal anual", "tna"),
+           45: ("Tasas de interés", "TAMAR de bancos privados, efectiva anual", "tea"), 8: ("Tasas de interés", "TM20 de bancos privados", "tna"),
+           11: ("Tasas de interés", "Préstamos entre bancos privados (BAIBAR)", "tna"), 13: ("Tasas de interés", "Adelantos en cuenta corriente", "tna"),
+           14: ("Tasas de interés", "Préstamos personales", "tna"),
+           15: ("Dinero", "Base monetaria", "millones"), 16: ("Dinero", "Circulación monetaria", "millones"),
+           17: ("Dinero", "Billetes y monedas en poder del público", "millones"), 18: ("Dinero", "Efectivo en los bancos", "millones"),
+           19: ("Dinero", "Cuentas corrientes de los bancos en el BCRA", "millones"), 25: ("Dinero", "M2 privado, variación interanual", "var"),
+           21: ("Depósitos y préstamos", "Depósitos en los bancos", "millones"), 22: ("Depósitos y préstamos", "Depósitos en cuenta corriente", "millones"),
+           23: ("Depósitos y préstamos", "Depósitos en caja de ahorro", "millones"), 24: ("Depósitos y préstamos", "Depósitos a plazo", "millones"),
+           26: ("Depósitos y préstamos", "Préstamos al sector privado", "millones"),
+           1350: ("Préstamos por tipo", "Personales en pesos", "millones"), 1351: ("Préstamos por tipo", "Tarjetas de crédito en pesos", "millones"),
+           1348: ("Préstamos por tipo", "Hipotecarios en pesos", "millones"), 1349: ("Préstamos por tipo", "Prendarios en pesos", "millones"),
+           1343: ("Préstamos por tipo", "Adelantos en cuenta corriente en pesos", "millones"), 1345: ("Préstamos por tipo", "Documentos a sola firma en pesos", "millones"),
+           1564: ("Dólares en los bancos", "Depósitos en dólares del sector privado", "usd"), 1569: ("Dólares en los bancos", "Cajas de ahorro en dólares del sector privado", "usd"),
+           1571: ("Dólares en los bancos", "Plazos fijos en dólares del sector privado", "usd"), 1356: ("Dólares en los bancos", "Préstamos en dólares al sector privado", "usd"),
+           1606: ("Dinero, serie histórica", "Base monetaria, serie histórica", "millones"), 1612: ("Dinero, serie histórica", "M1 en pesos (efectivo y cuentas a la vista)", "millones"),
+           1618: ("Dinero, serie histórica", "M2 en pesos (M1 y cajas de ahorro)", "millones"), 1624: ("Dinero, serie histórica", "M3 en pesos (todos los depósitos y el efectivo)", "millones"),
+           1623: ("Dinero, serie histórica", "M3 en pesos y en moneda extranjera", "millones"),
+           9001: ("Dinero, serie histórica", "Parte del M3 en moneda extranjera", "pct", "% del M3 total"),
+           29: ("Precios", "Inflación esperada para los próximos 12 meses (REM)", "rem"),
+           30: ("Índices de actualización", "CER (coeficiente de estabilización de referencia)", "indice"), 31: ("Índices de actualización", "UVA (unidad de valor adquisitivo)", "pesos"),
+           32: ("Índices de actualización", "UVI (unidad de vivienda)", "pesos"), 40: ("Índices de actualización", "ICL (índice para contratos de alquiler)", "indice"),
+           43: ("Tasas acumuladas para juicios", "Tasa pasiva para uso de la justicia (Comunicación P 14.290)", "acum", "acumulado, en %"),
+           1197: ("Tasas acumuladas para juicios", "Intereses moratorios del Código Civil y Comercial (art. 768 c)", "acum", "acumulado, en %"),
+           1198: ("Tasas acumuladas para juicios", "Tasa pasiva de la Ley 27.802 (art. 55 a)", "acum", "acumulado, en %")}
+BCR_FUERA = {27, 28}
+BCR_UNIDAD = {"en porcentaje nominal anual": "% nominal anual", "en porcentaje efectivo anual": "% efectivo anual", "en porcentaje": "%",
+              "en millones de ars": "millones de pesos", "pesos argentinos por dólar estadounidense": "pesos por dólar", "en ars": "pesos",
+              "índice base 2.2.02=1": "índice, 2 de febrero de 2002 = 1", "índice base 30.6.20=1": "índice, 30 de junio de 2020 = 1",
+              "en miles de ars": "millones de pesos", "en millones de usd": "millones de dólares"}  # los agregados en miles pasan a millones
+# la parte del M3 en moneda extranjera (9001) no viene de la API: la calcula Datina con el M3 total (1623) y el M3 en pesos (1624)
+BCR_CALCULADAS = {9001: "Cálculo de Datina: (M3 en pesos y en moneda extranjera - M3 en pesos) / M3 en pesos y en moneda extranjera"}
+if (CRUDO / "bcra_series.csv").exists() and (CRUDO / "bcra_variables.json").exists():
+    _bcr = pd.read_csv(CRUDO / "bcra_series.csv", parse_dates=["fecha"])
+    _bcr_v = {v["idVariable"]: v for v in json.loads((CRUDO / "bcra_variables.json").read_text(encoding="utf-8"))}
+    assert _bcr_v[1]["descripcion"].lower().startswith("reservas internacionales") and _bcr_v[78]["descripcion"].lower().startswith("variación de reservas internacionales por compra"), \
+        "cambiaron las variables de reservas de la API del BCRA"
+    _bcr_r = _bcr[_bcr.id == 1].sort_values("fecha")
+    assert len(_bcr_r) > 5000 and _bcr_r.fecha.max() >= pd.Timestamp.now().normalize() - pd.Timedelta(days=30), "las reservas del BCRA vinieron incompletas o viejas"
+    # antes de la serie diaria, la mensual de fin de mes (1605), que coincide con ella en los meses que comparten
+    _bcr_rm = _bcr[(_bcr.id == 1605) & (_bcr.fecha < _bcr_r.fecha.min())].sort_values("fecha")
+    reservas_bcra = pd.concat([_bcr_rm, _bcr_r.groupby(_bcr_r.fecha.dt.to_period("M")).tail(1)]).assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))[["mes", "valor"]]
+    reservas_bcra = reservas_bcra.rename(columns={"valor": "millones_usd"}).reset_index(drop=True)
+    assert reservas_bcra.mes.is_unique and list(reservas_bcra.mes) == sorted(reservas_bcra.mes), "las dos series de reservas se superponen"
+    # en meses de importaciones: las reservas de fin de cada mes divididas por el promedio mensual de lo importado en los doce meses que terminan
+    # en ese mes, una medida clásica de cuánto cubren (no dice cuántas son de libre disponibilidad)
+    if balanza_comercial is not None:
+        _bcr_imp = _ice.set_index(_ice.t.dt.strftime("%Y-%m")).importaciones.rolling(12).mean()
+        reservas_bcra["meses_importaciones"] = (reservas_bcra.millones_usd / reservas_bcra.mes.map(_bcr_imp)).round(2)
+    _bcr_u, _bcr_mx = _bcr_r.iloc[-1], _bcr_r.loc[_bcr_r.valor.idxmax()]
+    _bcr_ha = _bcr_r[_bcr_r.fecha <= _bcr_u.fecha - pd.DateOffset(years=1)].iloc[-1]
+    _bcr_ini = _bcr_r[_bcr_r.fecha.dt.year == _bcr_u.fecha.year].iloc[0]
+    _bcr_f = _bcr[_bcr.id.isin([i for i, _, _ in BCR_FACT])]
+    reservas_factores = _bcr_f.pivot_table(index=_bcr_f.fecha.dt.year, columns="id", values="valor", aggfunc="sum").rename(columns={i: k for i, k, _ in BCR_FACT})
+    reservas_factores = reservas_factores.rename_axis("anio").reset_index().round(1)
+    _bcr_fu = reservas_factores.iloc[-1]
+    SE_RES["reservas"] = {"fecha": _bcr_u.fecha.strftime("%d/%m/%Y"), "valor": round(float(_bcr_u.valor)), "hace_un_anio": round(float(_bcr_ha.valor)),
+                          "ini_anio": round(float(_bcr_ini.valor)), "anio": int(_bcr_u.fecha.year), "desde": int(reservas_bcra.mes.min()[:4]),
+                          "max": round(float(_bcr_mx.valor)), "max_fecha": _bcr_mx.fecha.strftime("%m/%Y"),
+                          "factores": [{"k": k, "lab": lab, "v": round(float(_bcr_fu[k]))} for _, k, lab in BCR_FACT], "factores_desde": int(reservas_factores.anio.min()),
+                          "factores_hasta": _bcr_f.fecha.max().strftime("%d/%m/%Y")}
+    if "meses_importaciones" in reservas_bcra:
+        _bcr_mi = reservas_bcra.dropna(subset=["meses_importaciones"]).set_index("mes").meses_importaciones
+        SE_RES["reservas"]["meses_imp"] = {"mes": _bcr_mi.index[-1], "v": float(_bcr_mi.iloc[-1]), "hace_un_anio": float(_bcr_mi.iloc[-13]),
+                                           "desde": _bcr_mi.index[0], "max": float(_bcr_mi.max()), "max_mes": _bcr_mi.idxmax(),
+                                           "min": float(_bcr_mi.min()), "min_mes": _bcr_mi.idxmin()}
+    # Reservas netas (etapa 42, pedido del autor del 12 de octubre de 2026: "de las reservas internacionales desagregá porque en general tenés
+    # DEGs, swaps, oro, etc. La liquidez no es del monto que hablas, y antes había negativas"). Sale de la planilla de reservas internacionales
+    # y liquidez en moneda extranjera que el BCRA publica cada mes con el formato del FMI (01 la lee desde 2007): la composición de las brutas
+    # y lo que el propio BCRA tiene que pagar o devolver en moneda extranjera dentro de un año (sección II): los depósitos en dólares de los
+    # bancos y del Tesoro en el BCRA y otras deudas, el tramo a término de los canjes de monedas (el de China) y los pases con bancos del
+    # exterior. Hasta 2021 la planilla anotaba el canje con China entre los "otros" pagos, junto con los pases: la suma es la misma. Las netas
+    # son las brutas menos todo eso, un criterio entre varios (otros no restan los depósitos del Tesoro o restan otras deudas), que la ficha dice.
+    reservas_netas = None
+    if (CRUDO / "bcra_planilla_reservas.csv").exists():
+        _rn = pd.read_csv(CRUDO / "bcra_planilla_reservas.csv").sort_values("mes").reset_index(drop=True)
+        assert len(_rn) >= 12 and _rn.mes.is_unique, "la planilla de reservas vino incompleta"
+        assert (abs(_rn.divisas + _rn.posicion_fmi + _rn.deg + _rn.oro + _rn.otros_activos - _rn.brutas) < 2).all(), "planilla de reservas: las partes no suman las brutas"
+        # las brutas de la planilla son las mismas que las de la API del BCRA a fin de mes: se controla que coincidan en casi todos los meses
+        _rn_api = reservas_bcra.set_index("mes").millones_usd.reindex(_rn.mes).values
+        assert (abs(_rn.brutas.values - _rn_api) / _rn_api < .01).mean() >= .9, "la planilla de reservas no coincide con las reservas de la API del BCRA"
+        reservas_netas = pd.DataFrame({"mes": _rn.mes, "brutas": _rn.brutas, "divisas": _rn.divisas, "oro": _rn.oro, "deg": _rn.deg,
+                                       "otros_activos": _rn.posicion_fmi + _rn.otros_activos, "depositos_y_deudas": -_rn.pagos_un_anio,
+                                       "canje_china": -_rn.canjes, "pases_y_otros": -_rn.otros_pagos,
+                                       "depositos_bancos": _rn.depositos_bancos, "depositos_tesoro": _rn.depositos_tesoro})
+        reservas_netas["netas"] = reservas_netas.brutas - reservas_netas.depositos_y_deudas - reservas_netas.canje_china - reservas_netas.pases_y_otros
+        # meses en los que la sección II (lo que hay que pagar a un año) no se leyó: toda en cero (enero a octubre de 2007 y abril de 2009,
+        # cuando antes y después son miles de millones) o el total en cero con sus partes llenas (febrero, abril y agosto de 2024). Las brutas y
+        # su composición quedan, las netas y las deudas no: con un cero, las netas eran iguales a las brutas y daban un máximo falso
+        _rn_sin2 = (((_rn.pagos_un_anio == 0) & (_rn.canjes == 0) & (_rn.otros_pagos == 0)) | ((_rn.pagos_un_anio == 0) & (_rn.depositos_bancos.fillna(0) > 0))).values
+        reservas_netas.loc[_rn_sin2, ["depositos_y_deudas", "canje_china", "pases_y_otros", "depositos_bancos", "depositos_tesoro", "netas"]] = np.nan
+        reservas_netas = reservas_netas.round(1)
+        # los meses que el BCRA no publica en la dirección de los demás quedan vacíos en la tabla: el gráfico corta la línea ahí en lugar de unir
+        # los vecinos (de julio de 2023 a mayo de 2024 faltan once seguidos)
+        _rn_todos = pd.period_range(reservas_netas.mes.iloc[0], reservas_netas.mes.iloc[-1], freq="M").strftime("%Y-%m")
+        _rn_faltan = [m for m in _rn_todos if m not in set(reservas_netas.mes)]
+        _rn_tramos = []
+        for m in _rn_faltan:
+            if _rn_tramos and (pd.Period(m, "M") - pd.Period(_rn_tramos[-1]["hasta"], "M")).n == 1:
+                _rn_tramos[-1]["hasta"] = m
+            else:
+                _rn_tramos.append({"desde": m, "hasta": m})
+        _rn_largo = max(_rn_tramos, key=lambda t: (pd.Period(t["hasta"], "M") - pd.Period(t["desde"], "M")).n, default=None)
+        _rn_publicada = reservas_netas.copy()
+        reservas_netas = reservas_netas.set_index("mes").reindex(_rn_todos).rename_axis("mes").reset_index()
+        assert _rn_publicada.netas.notna().iloc[-1], "la planilla de reservas del último mes no tiene la sección II"
+        _rn_u, _rn_i = _rn_publicada.iloc[-1], _rn_publicada.set_index("mes")
+        _rn_mn, _rn_mx = _rn_publicada.loc[_rn_publicada.netas.idxmin()], _rn_publicada.loc[_rn_publicada.netas.idxmax()]
+        _rn_ha = (pd.Period(_rn_u.mes, "M") - 12).strftime("%Y-%m")
+        _rn_neg = _rn_publicada[_rn_publicada.netas < 0]
+        _rn_r = lambda v: None if pd.isna(v) else round(float(v))
+        SE_RES["reservas_netas"] = {"desde": reservas_netas.mes.iloc[0], "desde_anio": int(reservas_netas.mes.iloc[0][:4]), "mes": _rn_u.mes, "n_meses": len(_rn_publicada),
+                                    "n_faltan": len(_rn_faltan), "n_sin_netas": len(_rn_faltan) + int(_rn_sin2.sum()), "faltan_largo": _rn_largo, "n_faltan_largo": (pd.Period(_rn_largo["hasta"], "M") - pd.Period(_rn_largo["desde"], "M")).n + 1 if _rn_largo else 0,
+                                    **{k: _rn_r(_rn_u[k]) for k in ("brutas", "netas", "divisas", "oro", "deg", "otros_activos", "depositos_y_deudas",
+                                                                     "canje_china", "pases_y_otros", "depositos_bancos", "depositos_tesoro")},
+                                    "oro_onzas": None if pd.isna(_rn.oro_onzas.iloc[-1]) else round(float(_rn.oro_onzas.iloc[-1]), 2),
+                                    "min": {"mes": _rn_mn.mes, "v": round(float(_rn_mn.netas))}, "max": {"mes": _rn_mx.mes, "v": round(float(_rn_mx.netas))},
+                                    "hace_un_anio": _rn_r(_rn_i.netas.get(_rn_ha)), "ult_negativa": None if _rn_neg.empty else _rn_neg.mes.iloc[-1],
+                                    "pct_netas": r1(_rn_u.netas / _rn_u.brutas * 100)}
+        d = _rn_publicada.dropna(subset=["netas"])[["mes", "netas"]].rename(columns={"mes": "periodo", "netas": "valor"})
+        d["codigo_indec"], d["territorio"] = "00", "Argentina"
+        agregar(d, "reservas_netas_bcra", "millones de dólares", "BCRA, planilla de reservas internacionales y liquidez en moneda extranjera")
+    # las demás variables principales: la tabla larga del selector (el último dato de cada mes) y la lista con el nombre, el grupo y la unidad
+    _bcr_p = sorted(i for i in _bcr.id.unique() if i not in BCR_RESERVAS | BCR_FUERA and (_bcr_v.get(i, {}).get("categoria") == "Principales Variables" or i in BCR_SEL))
+    _bcr_l = _bcr[_bcr.id.isin(_bcr_p)].assign(mes=lambda x: x.fecha.dt.strftime("%Y-%m"))
+    _bcr_miles = [i for i in _bcr_p if _bcr_v[i].get("unidadExpresion", "").strip().lower() == "en miles de ars"]
+    # los agregados desde 1940 vienen en miles de pesos de hoy con cuatro decimales: antes de mediados de los sesenta dan cero y hasta mediados
+    # de los setenta son escalones del redondeo. Cada uno empieza en el primer mes desde el que vale al menos 0,01 (el redondeo pesa menos de 0,5%)
+    _bcr_hist = {}
+    for _bcr_i in _bcr_miles:
+        _bcr_x = _bcr_l[_bcr_l.id == _bcr_i].sort_values("fecha")
+        _bcr_bajo = _bcr_x[_bcr_x.valor < .01]
+        if len(_bcr_bajo):
+            _bcr_l = _bcr_l[~((_bcr_l.id == _bcr_i) & (_bcr_l.fecha <= _bcr_bajo.fecha.max()))]
+        _bcr_hist[_bcr_i] = _bcr_l[_bcr_l.id == _bcr_i].fecha.min().year
+    _bcr_l = _bcr_l.assign(valor=_bcr_l.valor.where(~_bcr_l.id.isin(_bcr_miles), _bcr_l.valor / 1000))
+    bcra_variables = _bcr_l.groupby(["id", "mes"]).valor.last().reset_index()
+    # en las series que empiezan hace décadas, los primeros valores en pesos de hoy son ínfimos (se le sacaron 13 ceros a la moneda): los menores
+    # que un centésimo se guardan con seis cifras significativas, no con cuatro decimales, que los volverían cero
+    bcra_variables["valor"] = bcra_variables.valor.map(lambda x: round(x, 4) if abs(x) >= .01 else float(f"{x:.6g}"))
+    # la parte del M3 en moneda extranjera, si están los dos M3
+    if {1623, 1624} <= set(_bcr_p):
+        _bcr_m3 = bcra_variables[bcra_variables.id.isin([1623, 1624])].pivot(index="mes", columns="id", values="valor").dropna()
+        _bcr_m3 = _bcr_m3[_bcr_m3[1623] > 0]
+        bcra_variables = pd.concat([bcra_variables, pd.DataFrame({"id": 9001, "mes": _bcr_m3.index, "valor": ((_bcr_m3[1623] - _bcr_m3[1624]) / _bcr_m3[1623] * 100).round(2).values})],
+                                   ignore_index=True)
+        _bcr_p.append(9001)
+        _bcr_v[9001] = {"descripcion": BCR_CALCULADAS[9001], "unidadExpresion": "%", "ultFechaInformada": _bcr_m3.index[-1]}
+    # la inflación esperada: solo el tramo continuo más reciente, el del REM actual, que empieza en 2016. La API trae además datos de 2004 a
+    # 2012 de un relevamiento anterior, que no es comparable con el actual
+    _bcr_viejo = {}
+    for _bcr_i in [i for i in _bcr_p if BCR_SEL.get(i, ("", "", ""))[2] == "rem"]:
+        _bcr_pm = pd.PeriodIndex(bcra_variables.mes[bcra_variables.id == _bcr_i], freq="M")
+        _bcr_salto = pd.Series(_bcr_pm.asi8).diff().gt(1).to_numpy().nonzero()[0]
+        if len(_bcr_salto):
+            _bcr_corte = _bcr_pm[_bcr_salto[-1]].strftime("%Y-%m")
+            _bcr_viejo[_bcr_i] = [str(_bcr_pm[0].year), str(_bcr_pm[_bcr_salto[-1] - 1].year)]
+            bcra_variables = bcra_variables[~((bcra_variables.id == _bcr_i) & (bcra_variables.mes < _bcr_corte))].reset_index(drop=True)
+    _bcr_g = list(dict.fromkeys(v[0] for v in BCR_SEL.values()))
+    _bcr_d = lambda i: re.sub(r"\s+", " ", _bcr_v[i]["descripcion"]).strip().rstrip(".")
+    bcra_variables_lista = pd.DataFrame([{"id": int(i), "grupo": BCR_SEL.get(i, ("Otras variables",))[0], "nombre": BCR_SEL[i][1] if i in BCR_SEL else _bcr_d(i),
+                                          "tipo": BCR_SEL.get(i, ("", "", "otro"))[2], "nombre_bcra": _bcr_d(i),
+                                          "unidad": BCR_SEL[i][3] if len(BCR_SEL.get(i, ())) > 3 else
+                                          BCR_UNIDAD.get(_bcr_v[i].get("unidadExpresion", "").strip().lower(), _bcr_v[i].get("unidadExpresion", "").strip()),
+                                          "ultimo_dato": _bcr_v[i].get("ultFechaInformada", "")} for i in _bcr_p])
+    bcra_variables_lista = bcra_variables_lista.assign(_o=bcra_variables_lista.grupo.map(lambda g: _bcr_g.index(g) if g in _bcr_g else len(_bcr_g)),
+                                                       _p=bcra_variables_lista.id.map(lambda i: list(BCR_SEL).index(i) if i in BCR_SEL else 99))
+    bcra_variables_lista = bcra_variables_lista.sort_values(["_o", "_p", "id"]).drop(columns=["_o", "_p"]).reset_index(drop=True)
+    # con el último dato publicado de cada una (día y valor), para las cifras de la ficha
+    _bcr_ud = _bcr_l.sort_values("fecha").groupby("id").tail(1).set_index("id")
+    if 9001 in _bcr_p:
+        _bcr_ud.loc[9001, ["fecha", "valor"]] = [pd.Timestamp(_bcr_m3.index[-1] + "-01") + pd.offsets.MonthEnd(0), float(bcra_variables[bcra_variables.id == 9001].valor.iloc[-1])]
+    SE_RES["bcra"] = {"n": len(bcra_variables_lista), "variables": [{"id": r.id, "g": r.grupo, "n": r.nombre, "u": r.unidad, "t": r.tipo,
+                                                                     "f": _bcr_ud.at[r.id, "fecha"].strftime("%d/%m/%Y"), "v": float(_bcr_ud.at[r.id, "valor"])}
+                                                                    for r in bcra_variables_lista.itertuples()]}
+SE_RES.update({k: v for k, v in {
+    "balanza_desde": SE_RES.get("balanza", {}).get("desde"), "balanza_anio": SE_RES.get("balanza", {}).get("anio"),
+    "imp_desde": SE_RES.get("importaciones", {}).get("desde"), "imp_anio": SE_RES.get("importaciones", {}).get("anio"),
+    "origen_periodo": SE_RES.get("origen", {}).get("periodo"), "cc_desde": SE_RES.get("cuenta_corriente", {}).get("desde"),
+    "cc_anio": SE_RES.get("cuenta_corriente", {}).get("anio"), "reservas_desde": SE_RES.get("reservas", {}).get("desde"),
+    "reservas_fecha": SE_RES.get("reservas", {}).get("fecha")}.items() if v is not None})
 
 # Empresas privadas empleadoras (OEDE, en base al SIPA). Una empresa con personal en varias provincias se cuenta en cada
 # una (cuadro 1). La apertura y el cierre usan las empresas locales: cada empresa es local en la provincia donde declara
@@ -1993,6 +2554,347 @@ _ipc_ng = IPC_INDEC[(IPC_INDEC.Region == "Nacional") & (IPC_INDEC.Codigo == "0")
 assert _ipc_ng.index.is_unique and _ipc_ng.index[0] == "2016-12" and abs(_ipc_ng.iloc[0] - 100) < 1e-9, "el IPC del INDEC no empieza en diciembre de 2016 = 100"
 assert list(_ipc_ng.index) == list(pd.period_range(_ipc_ng.index[0], _ipc_ng.index[-1], freq="M").strftime("%Y-%m")), "faltan meses en el IPC del INDEC"
 ipc = pd.Series(_ipc_ng.values, index=pd.to_datetime(_ipc_ng.index + "-01"))
+# Haberes previsionales frente al salario (etapa 42, pedido del autor del 12 de octubre de 2026: "animate a pensar qué más podemos sumar"):
+# el haber mínimo de la Ley 24.241, el mínimo con los adicionales que se pagaron varios meses seguidos (el subsidio de 2002 y 2003 y los
+# refuerzos desde septiembre de 2022), la jubilación y la pensión promedio y el haber promedio de ANSES, promedio de cada año, y el salario
+# promedio de los asalariados registrados sujeto a aportes, sin aguinaldo (BESS, cuadro 4.1.1.3). El cociente no depende de ningún índice
+# de precios, así que va desde 1994. Los montos van también en pesos del último mes del IPC del INDEC, desde 2017 (con el promedio del índice
+# en los mismos meses). El último año puede estar incompleto: el BESS lo informa con la fecha de su último mes.
+hab_res, haberes = None, None
+if (CRUDO / "bess_indicadores.xlsx").exists():
+    _hb = pd.read_excel(CRUDO / "bess_indicadores.xlsx", sheet_name="4.1.1.3", header=None)
+    _hb_pos = [(i, j) for i in range(min(15, len(_hb))) for j in range(_hb.shape[1]) if str(_hb.iat[i, j]).strip() == "Periodo"]
+    assert _hb_pos, "BESS 4.1.1.3: no está la columna Periodo"
+    _hb_f, _hb_c = _hb_pos[0]
+    _hb_cab = " | ".join(str(_hb.iat[_hb_f + 1, _hb_c + k]) for k in range(1, 6)) + " | " + str(_hb.iat[_hb_f, _hb_c + 6])
+    assert all(x in _hb_cab for x in ("Haber mínimo", "adicionales", "Jubilación promedio", "Pensión promedio", "Haber total promedio", "Salario")), \
+        f"BESS 4.1.1.3 cambió de formato: {_hb_cab}"
+    _hb_filas = []
+    for i in range(_hb_f + 2, len(_hb)):
+        v0 = _hb.iat[i, _hb_c]
+        if isinstance(v0, (pd.Timestamp, datetime.datetime)):
+            anio, meses = v0.year, v0.month
+        elif isinstance(v0, (int, float, np.integer, np.floating)) and not pd.isna(v0) and 1990 < v0 < 2100 and float(v0).is_integer():
+            anio, meses = int(v0), 12
+        else:
+            continue
+        vals = [float(_hb.iat[i, _hb_c + k]) for k in range(1, 7)]
+        if any(pd.isna(v) for v in vals):
+            continue
+        _hb_filas.append({"anio": anio, "meses": meses, "haber_minimo": vals[0], "haber_minimo_adicionales": vals[1], "jubilacion_promedio": vals[2],
+                          "pension_promedio": vals[3], "haber_promedio": vals[4], "salario_promedio": vals[5]})
+    haberes = pd.DataFrame(_hb_filas)
+    assert len(haberes) > 25 and haberes.anio.is_unique and (haberes.anio.diff().dropna() == 1).all(), "BESS 4.1.1.3: años faltantes o repetidos"
+    assert (haberes.meses.iloc[:-1] == 12).all(), "BESS 4.1.1.3: un año incompleto que no es el último"
+    for _k, _c in (("pct_minimo", "haber_minimo"), ("pct_minimo_adicionales", "haber_minimo_adicionales"), ("pct_jubilacion", "jubilacion_promedio"),
+                   ("pct_pension", "pension_promedio"), ("pct_haber", "haber_promedio")):
+        haberes[_k] = haberes[_c] / haberes.salario_promedio * 100
+    # el mismo cociente que publica el BESS en las columnas de la derecha
+    _hb_bess = pd.to_numeric(_hb.iloc[[i for i in range(_hb_f + 2, len(_hb)) if pd.notna(_hb.iat[i, _hb_c + 7])], _hb_c + 8], errors="coerce").dropna()
+    assert len(_hb_bess) >= len(haberes) and np.allclose(_hb_bess.values[:len(haberes)] * 100, haberes.pct_minimo_adicionales.values, atol=.05), \
+        "BESS 4.1.1.3: el haber mínimo con adicionales sobre el salario no coincide con el que publica el boletín"
+    # a pesos del último mes del IPC, con el promedio del índice en los meses de cada año (el último puede estar incompleto)
+    _hb_ult = ipc.index[-1]
+    _hb_ipc = {a: (m, ipc[(ipc.index.year == a) & (ipc.index.month <= m)]) for a, m in zip(haberes.anio, haberes.meses)}
+    _hb_fac = {a: float(ipc.iloc[-1] / s.mean()) for a, (m, s) in _hb_ipc.items() if len(s) == m}
+    for _c in ("haber_minimo", "haber_minimo_adicionales", "jubilacion_promedio", "haber_promedio", "salario_promedio"):
+        haberes[_c + "_real"] = [v * _hb_fac[a] if a in _hb_fac else np.nan for a, v in zip(haberes.anio, haberes[_c])]
+    _hb_u, _hb_c0 = haberes.iloc[-1], haberes[haberes.meses == 12]
+    _hb_r = haberes.dropna(subset=["haber_minimo_adicionales_real"])
+    _hb_mx = _hb_c0.loc[_hb_c0.pct_minimo_adicionales.idxmax()]
+    _hb_mn = _hb_c0.loc[_hb_c0.pct_minimo_adicionales.idxmin()]
+    _hb_rmx = _hb_r.loc[_hb_r.haber_minimo_adicionales_real.idxmax()]
+    hab_res = {"ini": int(haberes.anio.iloc[0]), "anio": int(_hb_u.anio), "meses": int(_hb_u.meses), "ini_real": int(_hb_r.anio.iloc[0]),
+               "mes_real": _hb_ult.strftime("%Y-%m"),
+               "pct_min": r1(_hb_u.pct_minimo), "pct_min_ad": r1(_hb_u.pct_minimo_adicionales), "pct_jub": r1(_hb_u.pct_jubilacion), "pct_haber": r1(_hb_u.pct_haber),
+               "ini_pct_min_ad": r1(haberes.pct_minimo_adicionales.iloc[0]), "ini_pct_jub": r1(haberes.pct_jubilacion.iloc[0]),
+               "max_pct": {"anio": int(_hb_mx.anio), "v": r1(_hb_mx.pct_minimo_adicionales)}, "min_pct": {"anio": int(_hb_mn.anio), "v": r1(_hb_mn.pct_minimo_adicionales)},
+               "min_ad_real": round(float(_hb_u.haber_minimo_adicionales_real)), "min_ad_real_ini": round(float(_hb_r.haber_minimo_adicionales_real.iloc[0])),
+               "min_ad_real_max": {"anio": int(_hb_rmx.anio), "v": round(float(_hb_rmx.haber_minimo_adicionales_real))},
+               "var_real_min_ad": r1((_hb_u.haber_minimo_adicionales_real / _hb_r.haber_minimo_adicionales_real.iloc[0] - 1) * 100),
+               "var_real_jub": r1((_hb_u.jubilacion_promedio_real / _hb_r.jubilacion_promedio_real.iloc[0] - 1) * 100),
+               "var_real_sal": r1((_hb_u.salario_promedio_real / _hb_r.salario_promedio_real.iloc[0] - 1) * 100)}
+    d = haberes[["anio", "pct_minimo_adicionales"]].rename(columns={"anio": "periodo", "pct_minimo_adicionales": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "haber_minimo_pct_salario", "% del salario promedio registrado", "Secretaria de Seguridad Social, BESS")
+    d = haberes[["anio", "pct_jubilacion"]].rename(columns={"anio": "periodo", "pct_jubilacion": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "jubilacion_promedio_pct_salario", "% del salario promedio registrado", "Secretaria de Seguridad Social, BESS")
+
+# Pensiones no contributivas por invalidez, las que se conocen como pensiones por discapacidad (etapa 42, pedido del autor del 12 de octubre
+# de 2026: "cantidad de pensiones por discapacidad, pensiones por discapacidad por provincia, hacer un mapa"). BESS, capítulo III: del país,
+# el promedio mensual de cada año desde 2001 y el último mes (cuadro 3.1, con los beneficios no suspendidos desde 2019), y por jurisdicción
+# (edición por provincia, cuadro 3.6), el promedio de cada año y el último mes, que puede ser anterior al del país. Cada 1.000 habitantes con
+# la población del sitio (POB). Las otorga la Agencia Nacional de Discapacidad y las paga ANSES.
+pinv_res, pinv_pais, pinv_prov = None, None, None
+if (CRUDO / "bess_pnc.xlsx").exists() and (CRUDO / "bess_provincias_pnc.xlsx").exists():
+    def _pinv_periodo(v):
+        """Año y meses de una fila: un año completo (promedio mensual) o la fecha del último mes informado."""
+        if isinstance(v, (pd.Timestamp, datetime.datetime)):
+            return v.year, v.month
+        if isinstance(v, (int, float, np.integer, np.floating)) and not pd.isna(v) and float(v).is_integer() and 2000 < v < 2100:
+            return int(v), 12
+        return None, None
+    _pi = pd.read_excel(CRUDO / "bess_pnc.xlsx", sheet_name="3.1", header=None)
+    _pi_col = [j for i in range(min(10, len(_pi))) for j in range(_pi.shape[1]) if str(_pi.iat[i, j]).strip() == "Invalidez"]
+    assert len(_pi_col) == 2, f"BESS 3.1: se esperaban dos columnas de invalidez (total y no suspendidos), hay {len(_pi_col)}"
+    _pi_filas = []
+    for i in range(len(_pi)):
+        anio, meses = _pinv_periodo(_pi.iat[i, 0])
+        if anio and pd.notna(_pi.iat[i, _pi_col[0]]):
+            no_susp = pd.to_numeric(_pi.iat[i, _pi_col[1]], errors="coerce")
+            _pi_filas.append({"anio": anio, "meses": meses, "pensiones": float(_pi.iat[i, _pi_col[0]]),
+                              "pensiones_no_suspendidas": None if pd.isna(no_susp) else float(no_susp)})
+    pinv_pais = pd.DataFrame(_pi_filas)
+    assert len(pinv_pais) > 20 and pinv_pais.anio.is_unique and (pinv_pais.anio.diff().dropna() == 1).all(), "BESS 3.1: años faltantes o repetidos"
+    assert (pinv_pais.meses.iloc[:-1] == 12).all() and pinv_pais.pensiones.between(5e4, 3e6).all(), "BESS 3.1: valores fuera de lo esperado"
+    # por jurisdicción: la fila de los años está debajo de la de "Jurisdicción"
+    _pp = pd.read_excel(CRUDO / "bess_provincias_pnc.xlsx", sheet_name="3.6", header=None)
+    _pp_f = next(i for i in range(len(_pp)) if str(_pp.iat[i, 0]).strip() == "Jurisdicción")
+    _pp_a = {j: _pinv_periodo(_pp.iat[_pp_f + 1, j]) for j in range(1, _pp.shape[1])}
+    _pp_a = {j: p for j, p in _pp_a.items() if p[0]}
+    _pp_ult = max(_pp_a, key=lambda j: _pp_a[j])
+    _pp_ant = max((j for j, p in _pp_a.items() if p[1] == 12), key=lambda j: _pp_a[j])
+    _pp_filas = []
+    for i in range(_pp_f + 2, len(_pp)):
+        c = codigo(_pp.iat[i, 0])
+        if c and pd.notna(_pp.iat[i, _pp_ult]):
+            _pp_filas.append({"codigo_indec": c, "pensiones": float(_pp.iat[i, _pp_ult]), "pensiones_anio_ant": float(_pp.iat[i, _pp_ant]),
+                              **{f"promedio_{_pp_a[j][0]}": float(_pp.iat[i, j]) for j in sorted(_pp_a) if _pp_a[j][1] == 12}})
+    pinv_prov = pd.DataFrame(_pp_filas)
+    assert sorted(pinv_prov.codigo_indec) == sorted(["00", *POB]), "BESS 3.6: faltan jurisdicciones o hay de más"
+    _pp_pais = pinv_prov.set_index("codigo_indec").pensiones["00"]
+    assert abs(pinv_prov[pinv_prov.codigo_indec != "00"].pensiones.sum() - _pp_pais) / _pp_pais < .01, "BESS 3.6: las provincias no suman el total"
+    pinv_prov["territorio"] = pinv_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
+    pinv_prov["cada_1000"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map({**POB, "00": sum(POB.values())}) * 1000
+    pinv_prov["pct_pais"] = pinv_prov.pensiones / _pp_pais * 100
+    pinv_prov["var_anio_ant"] = (pinv_prov.pensiones / pinv_prov.pensiones_anio_ant - 1) * 100
+    pinv_prov = pinv_prov[["codigo_indec", "territorio", "pensiones", "cada_1000", "pct_pais", "pensiones_anio_ant", "var_anio_ant",
+                           *[c for c in pinv_prov.columns if c.startswith("promedio_")]]]
+    _pi_u, _pi_c = pinv_pais.iloc[-1], pinv_pais[pinv_pais.meses == 12]
+    _pi_mx = _pi_c.loc[_pi_c.pensiones.idxmax()]
+    _pv_p = pinv_prov[pinv_prov.codigo_indec != "00"].sort_values("cada_1000")
+    pinv_res = {"ini": int(pinv_pais.anio.iloc[0]), "ini_v": round(float(pinv_pais.pensiones.iloc[0])), "anio": int(_pi_u.anio), "mes": int(_pi_u.meses),
+                "v": round(float(_pi_u.pensiones)), "v_no_susp": None if pd.isna(_pi_u.pensiones_no_suspendidas) else round(float(_pi_u.pensiones_no_suspendidas)),
+                "max_anio": int(_pi_mx.anio), "max": round(float(_pi_mx.pensiones)), "anio_ant": int(_pi_c.anio.iloc[-1]), "v_anio_ant": round(float(_pi_c.pensiones.iloc[-1])),
+                "prov_anio": _pp_a[_pp_ult][0], "prov_mes": _pp_a[_pp_ult][1], "prov_anio_ant": _pp_a[_pp_ant][0],
+                "pais_cada_1000": r1(pinv_prov.set_index("codigo_indec").cada_1000["00"]),
+                "top": _pv_p.iloc[-1].territorio, "top_v": r1(_pv_p.cada_1000.iloc[-1]), "low": _pv_p.iloc[0].territorio, "low_v": r1(_pv_p.cada_1000.iloc[0]),
+                "pba_pct": r1(pinv_prov.set_index("codigo_indec").pct_pais["06"])}
+    d = _pi_c[["anio", "pensiones"]].rename(columns={"anio": "periodo", "pensiones": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "pensiones_no_contributivas_invalidez", "pensiones (promedio mensual)", "Secretaria de Seguridad Social, BESS")
+    d = pinv_prov[pinv_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_1000"]].rename(columns={"cada_1000": "valor"})
+    d["periodo"] = f"{_pp_a[_pp_ult][0]}-{_pp_a[_pp_ult][1]:02d}"
+    agregar(d, "pensiones_invalidez_cada_1000_habitantes", "pensiones cada 1.000 habitantes", "Secretaria de Seguridad Social, BESS")
+
+# Asignación Universal por Hijo por provincia (etapa 42, pedido del autor del 12 de octubre de 2026: "auh, planes sociales"). BESS, edición
+# por provincia, cuadro 5.8: los beneficios (uno por cada hijo, con los de hijo con discapacidad) del último mes, que sale de la fecha de corte
+# del cuadro (el mes anterior). Cada 100 menores de 18 años de la población del sitio (ANIO_POB): las proyecciones vienen en grupos de cinco
+# años, así que se toman los de 0 a 14 y tres quintos del de 15 a 19. Del país, el cuadro 6.8 de la edición nacional: qué parte de los
+# menores de 18 cobra alguna asignación familiar y por qué vía (la AUH o la de sus padres asalariados, monotributistas, jubilados, etc.).
+auh_res, auh_prov, auh_cob = None, None, None
+if (CRUDO / "bess_provincias_aaff.xlsx").exists() and (CRUDO / "bess_aaff.xlsx").exists():
+    _auh = pd.read_excel(CRUDO / "bess_provincias_aaff.xlsx", sheet_name="5.8", header=None)
+    assert "AUH" in str(_auh.iat[0, 0]), "BESS 5.8 ya no es el cuadro de la AUH"
+    _auh_corte = next((re.search(r"(\d{2})/(\d{2})/(\d{4})", str(_auh.iat[i, 0])) for i in range(6) if re.search(r"corte al \d{2}/\d{2}/\d{4}", str(_auh.iat[i, 0]))), None)
+    assert _auh_corte, "BESS 5.8: no está la fecha de corte"
+    _auh_mes = (pd.Timestamp(int(_auh_corte.group(3)), int(_auh_corte.group(2)), 1) - pd.DateOffset(months=1))
+    _auh_filas = [{"codigo_indec": codigo(_auh.iat[i, 0]), "beneficios": float(_auh.iat[i, 1]), "hijo": float(_auh.iat[i, 2]), "hijo_discapacidad": float(_auh.iat[i, 3])}
+                  for i in range(len(_auh)) if codigo(_auh.iat[i, 0]) and pd.notna(pd.to_numeric(_auh.iat[i, 1], errors="coerce"))]
+    auh_prov = pd.DataFrame(_auh_filas)
+    assert sorted(auh_prov.codigo_indec) == sorted(["00", *POB]), "BESS 5.8: faltan jurisdicciones o hay de más"
+    _auh_pais = auh_prov.set_index("codigo_indec").beneficios["00"]
+    assert abs(auh_prov[auh_prov.codigo_indec != "00"].beneficios.sum() - _auh_pais) / _auh_pais < .01, "BESS 5.8: las provincias no suman el total"
+    _auh_men = proy[(proy.anio == ANIO_POB) & (proy.edad <= 15)].assign(m=lambda x: np.where(x.edad == 15, x.pob * .6, x.pob)).groupby("codigo_indec").m.sum()
+    _auh_men["00"] = _auh_men.sum()
+    auh_prov["territorio"] = auh_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
+    auh_prov["menores"] = auh_prov.codigo_indec.map(_auh_men).round()
+    auh_prov["cada_100_menores"] = auh_prov.beneficios / auh_prov.menores * 100
+    auh_prov["pct_pais"] = auh_prov.beneficios / _auh_pais * 100
+    auh_prov = auh_prov[["codigo_indec", "territorio", "beneficios", "hijo", "hijo_discapacidad", "menores", "cada_100_menores", "pct_pais"]]
+    # cobertura de los menores de 18 en el país, por vía (cuadro 6.8, fila del total)
+    _cb = pd.read_excel(CRUDO / "bess_aaff.xlsx", sheet_name="6.8", header=None)
+    _cb_mes = re.search(r"(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|SEPTIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE) (\d{4})", str(_cb.iat[0, 0]))
+    _cb_f = next(i for i in range(len(_cb)) if str(_cb.iat[i, 1]).strip() == "Total" and str(_cb.iat[i, 2]).strip() == "RD")
+    _cb_t = next(i for i in range(_cb_f + 1, len(_cb)) if str(_cb.iat[i, 0]).strip() == "Total")
+    _cb_v = {str(_cb.iat[_cb_f, j]).strip(): float(_cb.iat[_cb_t, j]) * 100 for j in range(1, _cb.shape[1]) if pd.notna(_cb.iat[_cb_f, j]) and pd.notna(_cb.iat[_cb_t, j])}
+    assert {"Total", "RD", "AUH"} <= set(_cb_v) and abs(sum(v for k, v in _cb_v.items() if k != "Total") - _cb_v["Total"]) < .1, f"BESS 6.8 cambió de formato: {_cb_v}"
+    _cb_nombre = {"AUH": "Asignación Universal por Hijo", "RD": "Padre o madre asalariado registrado", "Monotributo": "Padre o madre monotributista",
+                  "PNC": "Padre o madre con pensión no contributiva", "SIPA": "Padre o madre jubilado o pensionado", "Desempleo": "Padre o madre con seguro de desempleo"}
+    auh_cob = pd.DataFrame([{"via": k, "nombre": _cb_nombre.get(k, k), "pct_menores": v} for k, v in _cb_v.items() if k != "Total"]
+                           + [{"via": "ninguna", "nombre": "Ninguna asignación familiar", "pct_menores": 100 - _cb_v["Total"]}])
+    _auh_p = auh_prov[auh_prov.codigo_indec != "00"].sort_values("cada_100_menores")
+    _auh_tit = pd.read_excel(CRUDO / "bess_provincias_aaff.xlsx", sheet_name="5.9", header=None)
+    _auh_tc = next(j for j in range(_auh_tit.shape[1]) for i in range(8) if str(_auh_tit.iat[i, j]).strip() == "AUH")
+    _auh_ti = next(i for i in range(len(_auh_tit)) if str(_auh_tit.iat[i, 0]).strip().upper() == "TOTAL")
+    auh_res = {"anio": int(_auh_mes.year), "mes": int(_auh_mes.month), "beneficios": round(float(_auh_pais)),
+               "discapacidad": round(float(auh_prov.set_index("codigo_indec").hijo_discapacidad["00"])),
+               "titulares": round(float(_auh_tit.iat[_auh_ti, _auh_tc])), "pais_100": r1(auh_prov.set_index("codigo_indec").cada_100_menores["00"]),
+               "top": _auh_p.iloc[-1].territorio, "top_v": r1(_auh_p.cada_100_menores.iloc[-1]), "low": _auh_p.iloc[0].territorio, "low_v": r1(_auh_p.cada_100_menores.iloc[0]),
+               "cob_mes": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"].index(_cb_mes.group(1).lower()) + 1 if _cb_mes else None, "cob_anio": int(_cb_mes.group(2)) if _cb_mes else None,
+               "cob_total": r1(_cb_v["Total"]), "cob_auh": r1(_cb_v["AUH"]), "cob_rd": r1(_cb_v["RD"])}
+    d = auh_prov[auh_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_100_menores"]].rename(columns={"cada_100_menores": "valor"})
+    d["periodo"] = _auh_mes.strftime("%Y-%m")
+    agregar(d, "auh_cada_100_menores", "hijos con AUH cada 100 menores de 18 años", "Secretaria de Seguridad Social, BESS")
+
+# Prestación por desempleo, el seguro de desempleo de la Ley 24.013 (etapa 42, idea propia para el pedido del autor del 12 de octubre de 2026:
+# "animate a pensar qué más podemos sumar"). BESS, capítulo de desempleo: del país, el promedio mensual de beneficiarios de cada año desde 2001
+# y los meses del año en curso (cuadro 5.1), y por jurisdicción de cobro, el promedio de cada año desde 2011 y el último mes (edición por
+# provincia, cuadro 4.2). La tasa es cada 100 asalariados privados registrados del mismo mes (SIPA): la prestación cubre a los asalariados
+# de la Ley de Contrato de Trabajo y de la construcción. Los trabajadores rurales tienen un sistema aparte, que no está.
+dsm_res, dsm_pais, dsm_prov = None, None, None
+if (CRUDO / "bess_desempleo.xlsx").exists() and (CRUDO / "bess_provincias_desempleo.xlsx").exists():
+    def _dsm_periodo(v):
+        """Año y mes de una fila: un año completo (mes 12, promedio mensual) o la fecha de un mes."""
+        if isinstance(v, (pd.Timestamp, datetime.datetime)):
+            return v.year, v.month, False
+        if isinstance(v, (int, float, np.integer, np.floating)) and not pd.isna(v) and float(v).is_integer() and 2000 < v < 2100:
+            return int(v), 12, True
+        return None, None, None
+    _dsm = pd.read_excel(CRUDO / "bess_desempleo.xlsx", sheet_name="5.1", header=None)
+    _dsm_f = next(i for i in range(min(12, len(_dsm))) if str(_dsm.iat[i, 0]).strip() == "Año")
+    _dsm_c = next(j for j in range(_dsm.shape[1]) if str(_dsm.iat[_dsm_f, j]).strip().startswith("Beneficiarios"))
+    _dsm_filas = []
+    for i in range(_dsm_f + 1, len(_dsm)):
+        _dsm_an, _dsm_me, _dsm_es = _dsm_periodo(_dsm.iat[i, 0])
+        _dsm_v = pd.to_numeric(_dsm.iat[i, _dsm_c], errors="coerce")
+        if _dsm_an and pd.notna(_dsm_v):
+            _dsm_filas.append({"anio": _dsm_an, "mes": _dsm_me, "anual": _dsm_es, "beneficiarios": float(_dsm_v)})
+    dsm_pais = pd.DataFrame(_dsm_filas)
+    _dsm_a = dsm_pais[dsm_pais.anual]
+    assert len(_dsm_a) > 20 and _dsm_a.anio.is_unique and (_dsm_a.anio.diff().dropna() == 1).all(), "BESS 5.1 (desempleo): años faltantes o repetidos"
+    assert dsm_pais.beneficiarios.between(2e4, 1e6).all(), "BESS 5.1 (desempleo): valores fuera de lo esperado"
+    _dsm_m = dsm_pais[~dsm_pais.anual]
+    assert _dsm_m.empty or (_dsm_m.anio.min() > _dsm_a.anio.max()), "BESS 5.1 (desempleo): hay meses de un año que ya figura completo"
+    # por jurisdicción de cobro: la fila de los años está debajo de la de "Jurisdicción"
+    _dsp = pd.read_excel(CRUDO / "bess_provincias_desempleo.xlsx", sheet_name="4.2", header=None)
+    _dsp_f = next(i for i in range(len(_dsp)) if str(_dsp.iat[i, 0]).strip() == "Jurisdicción")
+    _dsp_a = {j: _dsm_periodo(_dsp.iat[_dsp_f + 1, j]) for j in range(1, _dsp.shape[1])}
+    _dsp_a = {j: p for j, p in _dsp_a.items() if p[0]}
+    _dsp_ult = max(_dsp_a, key=lambda j: _dsp_a[j][:2])
+    _dsp_filas = []
+    for i in range(_dsp_f + 2, len(_dsp)):
+        c = codigo(_dsp.iat[i, 0])
+        if c and pd.notna(_dsp.iat[i, _dsp_ult]):
+            _dsp_filas.append({"codigo_indec": c, "beneficiarios": float(_dsp.iat[i, _dsp_ult]),
+                               **{f"promedio_{_dsp_a[j][0]}": float(_dsp.iat[i, j]) for j in sorted(_dsp_a) if _dsp_a[j][2]}})
+    dsm_prov = pd.DataFrame(_dsp_filas)
+    assert sorted(dsm_prov.codigo_indec) == sorted(["00", *POB]), "BESS 4.2 (desempleo): faltan jurisdicciones o hay de más"
+    _dsp_pais = dsm_prov.set_index("codigo_indec").beneficiarios["00"]
+    assert abs(dsm_prov[dsm_prov.codigo_indec != "00"].beneficiarios.sum() - _dsp_pais) / _dsp_pais < .01, "BESS 4.2 (desempleo): las provincias no suman el total"
+    # asalariados privados registrados del mismo mes (o el último que haya, si el SIPA todavía no llega)
+    _dsm_s = pd.read_csv(CRUDO / "sipa_provincias.csv", parse_dates=["indice_tiempo"])
+    _dsm_s = _dsm_s.rename(columns={c: COL[c.replace("asalariados_priv_", "")] for c in _dsm_s.columns if c != "indice_tiempo"})
+    _dsm_s = _dsm_s.dropna(how="any", subset=list(COL.values())).set_index("indice_tiempo")
+    _dsm_mes = pd.Timestamp(_dsp_a[_dsp_ult][0], _dsp_a[_dsp_ult][1], 1)
+    _dsm_sm = _dsm_mes if _dsm_mes in _dsm_s.index else _dsm_s.index.max()
+    _dsm_asal = {**(_dsm_s.loc[_dsm_sm] * 1000).to_dict(), "00": float(_dsm_s.loc[_dsm_sm].sum() * 1000)}
+    dsm_prov["territorio"] = dsm_prov.codigo_indec.map({**CORTO, "00": "Argentina"})
+    dsm_prov["asalariados_privados"] = dsm_prov.codigo_indec.map(_dsm_asal).round()
+    dsm_prov["cada_100_asalariados"] = dsm_prov.beneficiarios / dsm_prov.asalariados_privados * 100
+    dsm_prov["cada_1000_habitantes"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map({**POB, "00": sum(POB.values())}) * 1000
+    dsm_prov["pct_pais"] = dsm_prov.beneficiarios / _dsp_pais * 100
+    dsm_prov = dsm_prov[["codigo_indec", "territorio", "beneficiarios", "asalariados_privados", "cada_100_asalariados", "cada_1000_habitantes", "pct_pais",
+                         *[c for c in dsm_prov.columns if c.startswith("promedio_")]]]
+    dsm_pais = pd.concat([_dsm_a, dsm_pais.tail(1)]) if not dsm_pais.iloc[-1].anual else _dsm_a
+    dsm_pais = dsm_pais.rename(columns={"mes": "meses"})[["anio", "meses", "beneficiarios"]].reset_index(drop=True)
+    _dsm_u = dsm_pais.iloc[-1]
+    _dsm_mx = _dsm_a.loc[_dsm_a.beneficiarios.idxmax()]
+    _dsm_mn = _dsm_a.loc[_dsm_a.beneficiarios.idxmin()]
+    _dsm_p = dsm_prov[dsm_prov.codigo_indec != "00"].sort_values("cada_1000_habitantes")
+    # frente al empleo registrado, sin CABA ni Buenos Aires: el SIPA asigna cada puesto a donde declara el empleador y la prestación se cuenta
+    # donde se cobra, así que CABA queda muy abajo y Buenos Aires arriba por los que viven en el conurbano y trabajan en la Ciudad
+    _dsm_q = dsm_prov[~dsm_prov.codigo_indec.isin(["00", "02", "06"])].sort_values("cada_100_asalariados")
+    dsm_res = {"ini": int(_dsm_a.anio.iloc[0]), "ini_v": round(float(_dsm_a.beneficiarios.iloc[0])), "anio": int(_dsm_u.anio), "mes": int(_dsm_u.meses),
+               "v": round(float(_dsm_u.beneficiarios)), "anio_ant": int(_dsm_a.anio.iloc[-1]), "v_anio_ant": round(float(_dsm_a.beneficiarios.iloc[-1])),
+               "max_anio": int(_dsm_mx.anio), "max": round(float(_dsm_mx.beneficiarios)), "min_anio": int(_dsm_mn.anio), "min": round(float(_dsm_mn.beneficiarios)),
+               "prov_anio": _dsp_a[_dsp_ult][0], "prov_mes": _dsp_a[_dsp_ult][1], "prov_desde": min(p[0] for p in _dsp_a.values()),
+               "sipa_anio": int(_dsm_sm.year), "sipa_mes": int(_dsm_sm.month),
+               "pais_1000": r1(dsm_prov.set_index("codigo_indec").cada_1000_habitantes["00"]),
+               "top": _dsm_p.iloc[-1].territorio, "top_v": r1(_dsm_p.cada_1000_habitantes.iloc[-1]), "low": _dsm_p.iloc[0].territorio, "low_v": r1(_dsm_p.cada_1000_habitantes.iloc[0]),
+               "pais_100": r1(dsm_prov.set_index("codigo_indec").cada_100_asalariados["00"]),
+               "top_a": _dsm_q.iloc[-1].territorio, "top_a_v": r1(_dsm_q.cada_100_asalariados.iloc[-1]), "low_a": _dsm_q.iloc[0].territorio, "low_a_v": r1(_dsm_q.cada_100_asalariados.iloc[0]),
+               "caba_a_v": r1(dsm_prov.set_index("codigo_indec").cada_100_asalariados["02"]), "pba_a_v": r1(dsm_prov.set_index("codigo_indec").cada_100_asalariados["06"]),
+               "pba_pct": r1(dsm_prov.set_index("codigo_indec").pct_pais["06"])}
+    d = _dsm_a[["anio", "beneficiarios"]].rename(columns={"anio": "periodo", "beneficiarios": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "beneficiarios_prestacion_desempleo", "personas (promedio mensual)", "Secretaria de Seguridad Social, BESS")
+    d = dsm_prov[dsm_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_100_asalariados"]].rename(columns={"cada_100_asalariados": "valor"})
+    d["periodo"] = _dsm_mes.strftime("%Y-%m")
+    agregar(d, "desempleo_cada_100_asalariados_privados", "beneficiarios cada 100 asalariados privados registrados", "Secretaria de Seguridad Social, BESS")
+    d = dsm_prov[dsm_prov.codigo_indec != "00"][["codigo_indec", "territorio", "cada_1000_habitantes"]].rename(columns={"cada_1000_habitantes": "valor"})
+    d["periodo"] = _dsm_mes.strftime("%Y-%m")
+    agregar(d, "desempleo_cada_1000_habitantes", "beneficiarios de la prestación por desempleo cada 1.000 habitantes", "Secretaria de Seguridad Social, BESS")
+
+# Las variables del BCRA con criterio económico (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para
+# deflactar lo que haya que deflactar, mostrá series largas que haya"). Cada serie va completa, desde que empieza, y según su tipo suma:
+# - usd (depósitos y préstamos en dólares): pct_pbi, pasados a pesos con el A3500 de fin de mes, desde 2004.
+# - millones (dinero, depósitos y préstamos en pesos): valor_real, en pesos del último mes con el IPC del INDEC (desde diciembre de 2016, cuando
+#   empieza el índice nacional), y pct_pbi, en % del PBI a precios corrientes del INDEC (el promedio de los cuatro trimestres que terminan en el
+#   del mes, porque la serie viene anualizada), desde 2004. El PBI no depende de los índices de precios de 2007 a 2015, que el INDEC revisó.
+# - dolar: valor_real, en pesos de hoy y descontada también la inflación de los Estados Unidos, con el tipo de cambio real bilateral del BCRA
+#   (ITCRB Estados Unidos, promedio mensual) y el A3500 promedio del mes: valor x (ITCRB / A3500) / (ITCRB / A3500 del último mes con los dos).
+#   Antes de 2004, el A3500 promedio es el de los dos fines de mes. Es el criterio del BCRA para su tipo de cambio real.
+# - tna y tea (tasas): tasa_real_mensual, lo que rindió (o costó) a 30 días contra la inflación del mes siguiente del IPC del INDEC (ex post).
+#   La tasa nominal anual pasa a 30 días con 30/365 y la efectiva, con su potencia.
+# - var (variación interanual del M2): variacion_real_12m, descontada la inflación interanual.
+# - indice, pesos y acum: variacion_12m, junto a inflacion_12m, la del IPC del INDEC en los mismos doce meses. Las acumuladas, como coeficiente.
+# - rem (inflación esperada): inflacion_12m_siguientes, la que hubo en los doce meses siguientes según el INDEC.
+if bcra_variables is not None:
+    _bcr_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq="M"))
+    _bcr_inf = {"sig": (_bcr_P.shift(-1) / _bcr_P - 1) * 100, "12": (_bcr_P / _bcr_P.shift(12) - 1) * 100, "12s": (_bcr_P.shift(-12) / _bcr_P - 1) * 100}
+    _bcr_pib = pd.read_csv(CRUDO / "pib_corriente.csv").dropna()
+    _bcr_pib = pd.Series(_bcr_pib.oferta_global_pib.values, index=pd.PeriodIndex(_bcr_pib.indice_tiempo, freq="Q"))
+    assert (pd.Series(_bcr_pib.index.asi8).diff().dropna() == 1).all(), "faltan trimestres en el PBI a precios corrientes"
+    # el PBI anual que termina en cada trimestre, mes a mes con interpolación logarítmica: con el del trimestre fijo, en los años de inflación
+    # alta el cociente saltaba al empezar cada trimestre
+    _bcr_pib = _bcr_pib.rolling(4).mean().dropna()
+    _bcr_pibm = pd.Series(_bcr_pib.values, index=_bcr_pib.index.asfreq("M", how="end"))
+    _bcr_pibm = np.exp(np.log(_bcr_pibm.reindex(pd.period_range(_bcr_pibm.index[0], _bcr_pibm.index[-1], freq="M"))).interpolate())
+    _bcr_tcr = pd.read_csv(CRUDO / "bcra_itcrm.csv").dropna(subset=["eeuu"])
+    _bcr_tcr = pd.Series(_bcr_tcr.eeuu.values, index=pd.PeriodIndex(_bcr_tcr.mes, freq="M"))
+    _bcr_a35 = pd.read_csv(CRUDO / "tipo_cambio_a3500.csv").dropna()
+    _bcr_a35 = pd.Series(_bcr_a35.tipo_cambio_a3500.values, index=pd.PeriodIndex(_bcr_a35.indice_tiempo, freq="M"))
+    _bcr_fm = bcra_variables[bcra_variables.id == 5].set_index(pd.PeriodIndex(bcra_variables[bcra_variables.id == 5].mes, freq="M")).valor
+    _bcr_a35 = _bcr_a35.combine_first(((_bcr_fm + _bcr_fm.shift(1)) / 2).where(pd.Series(_bcr_fm.index.asi8, index=_bcr_fm.index).diff().eq(1)).dropna())
+    _bcr_rel = (_bcr_tcr / _bcr_a35).dropna()  # precios de los Estados Unidos sobre los de la Argentina, salvo una constante
+    _bcr_t = bcra_variables.id.map(bcra_variables_lista.set_index("id").tipo)
+    _bcr_m = pd.PeriodIndex(bcra_variables.mes, freq="M")
+    _bcr_s = pd.Series(range(len(bcra_variables)), index=pd.MultiIndex.from_arrays([bcra_variables.id, _bcr_m]))
+    _bcr_v = pd.Series(bcra_variables.valor.values, index=_bcr_s.index)
+    _bcr_ant = _bcr_v.reindex(pd.MultiIndex.from_arrays([bcra_variables.id, _bcr_m - 12])).values  # el mismo mes del año anterior
+    _bcr_en = lambda serie: _bcr_m.map(lambda p: serie.get(p, float("nan"))).to_numpy(dtype=float)
+    _bcr_i30 = (bcra_variables.valor / 100 * 30 / 365).where(_bcr_t == "tna", (1 + bcra_variables.valor / 100) ** (30 / 365) - 1)
+    _bcr_d = {
+        "valor_real": (bcra_variables.valor * _bcr_P.iloc[-1] / _bcr_en(_bcr_P)).where(_bcr_t == "millones",
+                                                                                    (bcra_variables.valor * _bcr_en(_bcr_rel) / _bcr_rel.iloc[-1]).where(_bcr_t == "dolar")),
+        "pct_pbi": (bcra_variables.valor / _bcr_en(_bcr_pibm) * 100).where(_bcr_t == "millones",
+                                                                            (bcra_variables.valor * _bcr_en(_bcr_fm) / _bcr_en(_bcr_pibm) * 100).where(_bcr_t == "usd")),
+        "tasa_real_mensual": (((1 + _bcr_i30) / (1 + _bcr_en(_bcr_inf["sig"]) / 100) - 1) * 100).where(_bcr_t.isin(["tna", "tea"])),
+        "inflacion_mes_siguiente": pd.Series(_bcr_en(_bcr_inf["sig"]), index=bcra_variables.index).where(_bcr_t.isin(["tna", "tea"])),
+        "variacion_12m": ((bcra_variables.valor / _bcr_ant - 1) * 100).where(_bcr_t.isin(["indice", "pesos"]),
+                                                                            (((1 + bcra_variables.valor / 100) / (1 + _bcr_ant / 100) - 1) * 100).where(_bcr_t == "acum")),
+        "variacion_real_12m": (((1 + bcra_variables.valor / 100) / (1 + _bcr_en(_bcr_inf["12"]) / 100) - 1) * 100).where(_bcr_t == "var"),
+        "inflacion_12m": pd.Series(_bcr_en(_bcr_inf["12"]), index=bcra_variables.index).where(_bcr_t.isin(["indice", "pesos", "acum", "var"])),
+        "inflacion_12m_siguientes": pd.Series(_bcr_en(_bcr_inf["12s"]), index=bcra_variables.index).where(_bcr_t == "rem"),
+    }
+    for _bcr_k, _bcr_c in _bcr_d.items():
+        bcra_variables[_bcr_k] = _bcr_c.round(2)
+    # los valores ínfimos de las series desde 1940 (menos de un centésimo de millón) se volverían cero con los cuatro decimales de todas las
+    # tablas: van también como logaritmo en base diez, que datina.js usa para dibujarlos
+    bcra_variables["log10_valor"] = np.log10(bcra_variables.valor.where((bcra_variables.valor > 0) & (bcra_variables.valor < .01)))
+    bcra_variables["valor_real"] = bcra_variables.valor_real.where(_bcr_t != "millones", bcra_variables.valor_real.round(0))
+    # controles: las medidas reales en un rango posible
+    _bcr_fuera = bcra_variables[bcra_variables.pct_pbi.notna() & ~bcra_variables.pct_pbi.between(0, 100)]
+    assert _bcr_fuera.empty, f"un monto del BCRA da más del PBI: {_bcr_fuera.groupby('id').mes.agg(['min', 'max']).to_dict('index')}"
+    assert bcra_variables.tasa_real_mensual.dropna().between(-30, 30).all(), "una tasa real mensual del BCRA fuera de rango"
+    _bcr_l2 = bcra_variables.groupby("id").mes.agg(["min", "max"])
+    SE_RES["bcra"].update({"ipc_mes": _ipc_ng.index[-1], "ipc_desde": _ipc_ng.index[0], "pib_desde": str(_bcr_pib.index[0].year),
+                           "pib_hasta": f"{_bcr_pib.index[-1].quarter}T{_bcr_pib.index[-1].year}", "tcr_mes": _bcr_rel.index[-1].strftime("%Y-%m"),
+                           "inicio": {int(i): r["min"] for i, r in _bcr_l2.iterrows()}, "rem_viejo": next(iter(_bcr_viejo.values()), None),
+                           "hist_desde": min(_bcr_hist.values()) if _bcr_hist else None})
+    SE_RES["bcra_inicio"] = str(bcra_variables.mes.min()[:4])
 _base = pd.Timestamp("2016-12-01")
 costo = icc.div(icc.loc[_base]).mul(100).join(ipc.rename("ipc"), how="inner")
 costo = costo[costo.index >= _base]
@@ -2582,6 +3484,165 @@ pres_res = {"n": int(len(pr)), "amba": int(len(_amba_pr)), "amba_nombres": list(
             "anios_amba": round1(_amba_pr.dias.sum() / 365.25), "anios": round1(pr.dias.sum() / 365.25),
             "pct_tiempo_amba": round1(_amba_pr.dias.sum() / pr.dias.sum() * 100), "amba_pob": round1(AMBA_PCT),
             "prov_distintas": int(pr.provincia.nunique())}
+
+# ---------- Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella (etapa 42) ----------
+# Pedido del autor del 12 de octubre de 2026: "los indices de confianza en el gobierno de di tella". Encuesta mensual de opinión pública
+# sobre el gobierno nacional (evaluación general, si gobierna para el interés general, eficiencia, honestidad y capacidad para resolver
+# los problemas del país), en una escala de 0 a 5, desde noviembre de 2001. La planilla trae una hoja hasta 2022 y otra desde 2023, con
+# los meses en columnas (algunos como fecha y otros como texto, "jul-26"). El promedio de cada gobierno deja afuera el mes en que asumió
+# uno nuevo, porque la fecha de la encuesta cambia: en diciembre de 2015 y de 2019 todavía medía al anterior y en diciembre de 2023, al
+# nuevo. Duhalde asumió el 2 de enero de 2002 y ese mes va con él. Solo los gobiernos con al menos seis meses en la serie.
+_UTDT_MES = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7, "ago": 8, "sep": 9, "set": 9, "oct": 10, "nov": 11, "dic": 12}
+def _utdt_mes(v):
+    """El mes de una celda de las planillas de la Di Tella: una fecha o un texto como "jul-26"."""
+    if isinstance(v, (pd.Timestamp, datetime.datetime)):
+        return pd.Period(v, "M")
+    m = re.fullmatch(r"\s*([a-záé]{3})[a-záé]*[-/ .]+(\d{2}|\d{4})\s*", str(v).lower())
+    if m and m.group(1) in _UTDT_MES:
+        a = int(m.group(2))
+        return pd.Period(f"{a + 2000 if a < 100 else a}-{_UTDT_MES[m.group(1)]:02d}", "M")
+    return None
+icg_res, icg_serie, icg_gobiernos, icg_elecciones = None, None, None, None
+# Fechas de las elecciones presidenciales desde que empieza el índice (son fijas): una elección nueva en presidenciales_provincia.csv sin su
+# fecha acá frena el armado. En las PASO, la candidatura del gobierno es la agrupación del oficialismo con todas sus listas internas
+ICG_FECHA_ELECCION = {"2003": "2003-04-27", "2007": "2007-10-28", "2011-paso": "2011-08-14", "2011": "2011-10-23", "2015-paso": "2015-08-09",
+                      "2015": "2015-10-25", "2019-paso": "2019-08-11", "2019": "2019-10-27", "2023-paso": "2023-08-13", "2023": "2023-10-22"}
+ICG_OFI_PASO = {"2011-paso": "Fernández de Kirchner", "2015-paso": "Scioli", "2019-paso": "Macri", "2023-paso": "Massa"}
+if (CRUDO / "utdt_icg.xls").exists():
+    _icg_v = {}
+    for _icg_h in pd.ExcelFile(CRUDO / "utdt_icg.xls").sheet_names:
+        _icg_d = pd.read_excel(CRUDO / "utdt_icg.xls", sheet_name=_icg_h, header=None)
+        _icg_f = next(i for i in range(len(_icg_d)) if str(_icg_d.iat[i, 1]).strip() == "ICG")
+        _icg_fm = max(range(_icg_f), key=lambda i: sum(_utdt_mes(x) is not None for x in _icg_d.iloc[i]))
+        for j in range(_icg_d.shape[1]):
+            p, v = _utdt_mes(_icg_d.iat[_icg_fm, j]), pd.to_numeric(_icg_d.iat[_icg_f, j], errors="coerce")
+            if p is not None and pd.notna(v):
+                assert _icg_v.get(p, v) == v, f"ICG: el mes {p} aparece dos veces con valores distintos"
+                _icg_v[p] = float(v)
+    _icg_s = pd.Series(_icg_v).sort_index()
+    assert len(_icg_s) > 250 and _icg_s.between(0, 5).all(), "ICG: la serie vino incompleta o fuera de la escala de 0 a 5"
+    assert len(pd.period_range(_icg_s.index[0], _icg_s.index[-1], freq="M").difference(_icg_s.index)) == 0, "ICG: faltan meses en la serie"
+    # el presidente de cada mes y los meses en que asumió uno nuevo (después del día 2)
+    _icg_pr = pr[~pr.interino | (pr.nombre == "Eduardo Duhalde")]
+    _icg_cambio = {pd.Period(f, "M") for f in _icg_pr.inicio if f.day > 2}
+    def _icg_quien(p):
+        dia = p.to_timestamp() + pd.Timedelta(days=14)
+        fila = _icg_pr[(_icg_pr.inicio <= dia) & (_icg_pr.fin.isna() | (_icg_pr.fin > dia))]
+        return fila.nombre.iloc[0] if len(fila) else None
+    icg_serie = pd.DataFrame({"mes": _icg_s.index.strftime("%Y-%m"), "icg": _icg_s.values,
+                              "presidente": [None if p in _icg_cambio else _icg_quien(p) for p in _icg_s.index],
+                              "cambio_de_gobierno": [p in _icg_cambio for p in _icg_s.index]})
+    _icg_g = (icg_serie[~icg_serie.cambio_de_gobierno].groupby("presidente", sort=False)
+              .agg(desde=("mes", "first"), hasta=("mes", "last"), meses=("icg", "size"), promedio=("icg", "mean"),
+                   primeros_12=("icg", lambda x: x.iloc[:12].mean()), minimo=("icg", "min"), maximo=("icg", "max")).reset_index())
+    icg_gobiernos = _icg_g[_icg_g.meses >= 6].reset_index(drop=True)
+    _icg_u = icg_serie.iloc[-1]
+    _icg_ha = icg_serie.set_index("mes").icg.get((pd.Period(_icg_u.mes, "M") - 12).strftime("%Y-%m"))
+    _icg_mx, _icg_mn = icg_serie.loc[icg_serie.icg.idxmax()], icg_serie.loc[icg_serie.icg.idxmin()]
+    _icg_act = icg_gobiernos.iloc[-1]
+    _icg_corto = {n: " ".join(n.split()[1:]) for n in _icg_pr.nombre}
+    icg_res = {"desde": icg_serie.mes.iloc[0], "desde_anio": int(icg_serie.mes.iloc[0][:4]), "mes": _icg_u.mes, "v": round(float(_icg_u.icg), 2),
+               "hace_un_anio": None if _icg_ha is None else round(float(_icg_ha), 2),
+               "max": {"mes": _icg_mx.mes, "v": round(float(_icg_mx.icg), 2), "presidente": _icg_mx.presidente},
+               "min": {"mes": _icg_mn.mes, "v": round(float(_icg_mn.icg), 2), "presidente": _icg_mn.presidente},
+               "promedio": round(float(icg_serie.icg.mean()), 2),
+               "actual": {"presidente": _icg_act.presidente, "meses": int(_icg_act.meses), "promedio": round(float(_icg_act.promedio), 2),
+                          "primeros_12": round(float(_icg_act.primeros_12), 2)},
+               "cambios": [{"mes": f.strftime("%Y-%m"), "presidente": n, "corto": _icg_corto[n]} for n, f in zip(_icg_pr.nombre, _icg_pr.inicio)
+                           if pd.Period(f, "M") > _icg_s.index[0]]}
+    d = icg_serie[["mes", "icg"]].rename(columns={"mes": "periodo", "icg": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "indice_confianza_gobierno", "índice de 0 a 5", "Universidad Torcuato Di Tella, Escuela de Gobierno")
+    # Las elecciones (pedido del autor del 13 de octubre de 2026: sumar "el resultado de elecciones tanto las paso como las primeras vueltas,
+    # para ver la coincidencia entre el índice y los resultados electorales"): en cada PASO y primera vuelta presidencial desde que empieza el
+    # índice, el voto a la candidatura del gobierno (OFICIALISMO de las elecciones presidenciales) sobre los votos positivos, junto al índice
+    # del mes anterior, el último medido entero antes de votar (la encuesta se hace en la primera quincena del mes y las PASO fueron entre el
+    # 9 y el 14 de agosto). Las legislativas no están: el sitio tiene los resultados de las presidenciales
+    _icg_ee = [e for e in ELECCIONES if not e.endswith("-2") and int(e[:4]) > _icg_s.index[0].year]
+    assert set(_icg_ee) <= set(ICG_FECHA_ELECCION), f"ICG: falta la fecha de {sorted(set(_icg_ee) - set(ICG_FECHA_ELECCION))} en ICG_FECHA_ELECCION"
+    _icg_ef = []
+    for e in _icg_ee:
+        cand = ICG_OFI_PASO.get(e, OFICIALISMO.get(e))
+        votos = el[(el.eleccion == e) & (el.candidato == cand)].votos.sum()
+        assert votos > 0, f"ICG: no se encontró la candidatura del gobierno ({cand}) en la elección {e}"
+        p_ant = pd.Period(ICG_FECHA_ELECCION[e], "M") - 1
+        _icg_ef.append({"eleccion": e, "tipo": "PASO" if e.endswith("-paso") else "Primera vuelta", "anio": int(e[:4]), "fecha": ICG_FECHA_ELECCION[e],
+                        "gobierno": _icg_quien(p_ant + 1), "candidatura_gobierno": cand, "fuerza": nombre_fuerza(FUERZA_EL.get((e, cand), "")),
+                        "voto_gobierno_pct": round(votos / pais_pos[e] * 100, 2), "salio_primero": ganador_el[e] == cand,
+                        "mes_indice": p_ant.strftime("%Y-%m"), "indice": round(float(_icg_s[p_ant]), 2)})
+    icg_elecciones = pd.DataFrame(_icg_ef)
+    _icg_r = float(np.corrcoef(icg_elecciones.indice, icg_elecciones.voto_gobierno_pct)[0, 1])
+    _icg_rs = float(icg_elecciones.indice.rank().corr(icg_elecciones.voto_gobierno_pct.rank()))
+    _icg_emx, _icg_emn = icg_elecciones.loc[icg_elecciones.indice.idxmax()], icg_elecciones.loc[icg_elecciones.indice.idxmin()]
+    _icg_e = lambda f: {"eleccion": f.eleccion, "tipo": f.tipo, "anio": int(f.anio), "mes": f.mes_indice, "indice": float(f.indice),
+                        "voto": r1(f.voto_gobierno_pct), "cand": f.candidatura_gobierno}
+    icg_res["elecciones"] = {"n": len(icg_elecciones), "n_paso": int((icg_elecciones.tipo == "PASO").sum()), "desde": int(icg_elecciones.anio.min()),
+                             "hasta": int(icg_elecciones.anio.max()), "r": round(_icg_r, 2), "rs": round(_icg_rs, 2),
+                             "primero": int(icg_elecciones.salio_primero.sum()), "max": _icg_e(_icg_emx), "min": _icg_e(_icg_emn)}
+
+# ---------- Confianza del Consumidor y Expectativas de Inflación de la Universidad Torcuato Di Tella (etapa 42) ----------
+# Pedido del autor del 12 de octubre de 2026 ("los indices de confianza [...] de di tella y alguno más que encuentres"), del Centro de
+# Investigación en Finanzas. Confianza del Consumidor: de 0 a 100, del país desde 2001 con sus tres partes (situación personal, situación
+# macroeconómica y momento para comprar bienes durables e inmuebles) y por región (Capital, Gran Buenos Aires e interior; la planilla trae
+# Capital desde 1998, pero la tabla empieza con el índice del país). Expectativas de Inflación: la inflación que se espera para los doce meses siguientes, mediana y promedio de las respuestas, desde
+# 2006, junto a la que hubo en esos doce meses según el IPC del INDEC (desde diciembre de 2016, cuando empieza el índice nacional).
+cco_serie, cco_res, exi_serie, exi_res = None, None, None, None
+if (CRUDO / "utdt_icc.xls").exists():
+    # el título de la hoja dice "ICC Nacional": las partes y las regiones se buscan antes que "Nacional"
+    _cco_cl = {"Personal": "personal", "Macro": "macro", "Durables": "bienes", "Capital": "capital", "GBA": "gba", "Interior": "interior", "Nacional": "nacional"}
+    _cco_t = {}
+    for _cco_h in pd.ExcelFile(CRUDO / "utdt_icc.xls").sheet_names:
+        _cco_d = pd.read_excel(CRUDO / "utdt_icc.xls", sheet_name=_cco_h, header=None)
+        _cco_f0 = next(i for i in range(len(_cco_d)) if _utdt_mes(_cco_d.iat[i, 0]) is not None)
+        for j in range(1, _cco_d.shape[1]):
+            enc = " ".join(str(_cco_d.iat[i, j]) for i in range(_cco_f0) if pd.notna(_cco_d.iat[i, j]))
+            clave = next((c for k, c in _cco_cl.items() if k in enc), None)
+            if not clave or "Variación" in enc:
+                continue
+            for i in range(_cco_f0, len(_cco_d)):
+                p, v = _utdt_mes(_cco_d.iat[i, 0]), pd.to_numeric(_cco_d.iat[i, j], errors="coerce")
+                if p is not None and pd.notna(v):   # el índice del país está en las dos hojas: difieren apenas en dos meses (2008 y 2009)
+                    assert abs(_cco_t.setdefault((p, clave), float(v)) - float(v)) < .5, f"ICC: {clave} de {p} distinto en las dos hojas"
+    assert {c for _, c in _cco_t} == set(_cco_cl.values()), f"ICC: faltan series ({sorted({c for _, c in _cco_t})})"
+    cco_serie = pd.Series(_cco_t).unstack().sort_index()[["nacional", "personal", "macro", "bienes", "capital", "gba", "interior"]]
+    assert cco_serie.min().min() >= 0 and cco_serie.max().max() <= 100, "ICC: valores fuera de la escala de 0 a 100"
+    _cco_n = cco_serie.nacional.dropna()
+    assert len(pd.period_range(_cco_n.index[0], _cco_n.index[-1], freq="M").difference(_cco_n.index)) == 0, "ICC: faltan meses del índice nacional"
+    cco_serie = cco_serie.loc[cco_serie.index >= _cco_n.index[0]].rename_axis("mes").reset_index()
+    cco_serie["mes"] = cco_serie.mes.dt.strftime("%Y-%m")
+    _cco_u = cco_serie.iloc[-1]
+    _cco_ha = cco_serie.set_index("mes").nacional.get((pd.Period(_cco_u.mes, "M") - 12).strftime("%Y-%m"))
+    _cco_mx, _cco_mn = cco_serie.loc[cco_serie.nacional.idxmax()], cco_serie.loc[cco_serie.nacional.idxmin()]
+    cco_res = {"desde": cco_serie.mes.iloc[0], "desde_anio": int(cco_serie.mes.iloc[0][:4]), "mes": _cco_u.mes,
+               **{k: r1(_cco_u[k]) for k in ("nacional", "personal", "macro", "bienes", "capital", "gba", "interior")},
+               "hace_un_anio": None if _cco_ha is None else r1(_cco_ha), "promedio": r1(cco_serie.nacional.mean()),
+               "max": {"mes": _cco_mx.mes, "v": r1(_cco_mx.nacional)}, "min": {"mes": _cco_mn.mes, "v": r1(_cco_mn.nacional)}}
+    d = cco_serie[["mes", "nacional"]].rename(columns={"mes": "periodo", "nacional": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "indice_confianza_consumidor", "índice de 0 a 100", "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas")
+if (CRUDO / "utdt_expectativas.xls").exists():
+    _exi = pd.read_excel(CRUDO / "utdt_expectativas.xls", sheet_name=0, header=None)
+    _exi_c = {str(_exi.iat[0, j]).strip().lower(): j for j in range(_exi.shape[1])}
+    assert {"mediana", "promedio"} <= set(_exi_c), f"Expectativas de inflación: cambiaron las columnas ({list(_exi_c)})"
+    _exi_f = [{"mes": _utdt_mes(_exi.iat[i, 0]), "mediana": pd.to_numeric(_exi.iat[i, _exi_c["mediana"]], errors="coerce"),
+              "promedio": pd.to_numeric(_exi.iat[i, _exi_c["promedio"]], errors="coerce")} for i in range(1, len(_exi))]
+    exi_serie = pd.DataFrame([f for f in _exi_f if f["mes"] is not None and pd.notna(f["mediana"])]).sort_values("mes")
+    assert exi_serie.mes.is_unique and len(exi_serie) > 200 and exi_serie.mediana.between(0, 1000).all(), "Expectativas de inflación: la serie vino mal"
+    # la inflación del INDEC en los doce meses siguientes (la que se esperaba) y en los doce anteriores
+    _exi_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq="M"))
+    exi_serie["inflacion_12m_siguientes"] = exi_serie.mes.map(lambda p: (_exi_P.get(p + 12) / _exi_P.get(p) - 1) * 100 if p + 12 in _exi_P.index and p in _exi_P.index else np.nan)
+    exi_serie["inflacion_12m_anteriores"] = exi_serie.mes.map(lambda p: (_exi_P.get(p) / _exi_P.get(p - 12) - 1) * 100 if p - 12 in _exi_P.index and p in _exi_P.index else np.nan)
+    exi_serie["mes"] = exi_serie.mes.dt.strftime("%Y-%m")
+    exi_serie = exi_serie.reset_index(drop=True)
+    _exi_u, _exi_c2 = exi_serie.iloc[-1], exi_serie.dropna(subset=["inflacion_12m_siguientes"])
+    _exi_ipc = exi_serie.dropna(subset=["inflacion_12m_anteriores"]).iloc[-1]
+    exi_res = {"desde": exi_serie.mes.iloc[0], "desde_anio": int(exi_serie.mes.iloc[0][:4]), "mes": _exi_u.mes, "mediana": r1(_exi_u.mediana), "promedio": r1(_exi_u.promedio),
+              "ipc_mes": _exi_ipc.mes, "ipc_12m": r1(_exi_ipc.inflacion_12m_anteriores),
+              "comp_desde": _exi_c2.mes.iloc[0], "comp_hasta": _exi_c2.mes.iloc[-1], "comp_n": len(_exi_c2),
+              "comp_debajo": int((_exi_c2.mediana < _exi_c2.inflacion_12m_siguientes).sum())}
+    d = exi_serie[["mes", "mediana"]].rename(columns={"mes": "periodo", "mediana": "valor"})
+    d["codigo_indec"], d["territorio"] = "00", "Argentina"
+    agregar(d, "inflacion_esperada_12m_mediana", "% para los doce meses siguientes", "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas")
 
 # ---------- La Corte Suprema (etapa 33): quién designó a cada juez desde 1863 ----------
 # Pieza del Laboratorio (pedido del autor del 6 de octubre de 2026). Cuatro tablas armadas con un agente de investigación, cada fila con
@@ -3182,8 +4243,18 @@ def _di_trim(d, fecha, col):  # promedio de cada trimestre, solo con sus tres me
     return t[t["size"] == 3]["mean"].rename(col)
 
 
-di_ = di_.join(_di_trim(_di_tcr, "mes", "itcrm"), how="inner").join(_di_trim(_di_a35, "indice_tiempo", "tipo_cambio_a3500"), how="inner").dropna()
-assert di_.index.min() == pd.Period("2004Q1") and (pd.Series(di_.index).diff().dropna().map(lambda x: x.n) == 1).all(), "faltan trimestres en el artículo del dólar"
+_di_x, _di_y, _di_i = _di_trim(_di_tcr, "mes", "itcrm"), _di_trim(_di_a35, "indice_tiempo", "tipo_cambio_a3500"), di_.dropna()
+di_ = _di_i.join(_di_x, how="inner").join(_di_y, how="inner").dropna()
+# Si a una de las tres series le falta un trimestre en el medio, el trimestre queda vacío (así las variaciones contra el mismo trimestre del año
+# anterior siguen comparando lo mismo) y el aviso dice cuál falta y en qué serie. Hasta el 11 de octubre de 2026 el armado se frenaba entero:
+# ese día la actualización se cortó acá sin decir por qué, y con ella todas las demás fuentes
+_di_todos = pd.period_range(di_.index.min(), di_.index.max(), freq="Q")
+_di_falta = _di_todos.difference(di_.index)
+if len(_di_falta):
+    print("aviso: al artículo del dólar le faltan trimestres:", "; ".join(
+        f"{q} ({', '.join(n for n, s in (('inversión', _di_i), ('dólar real del BCRA', _di_x.dropna()), ('tipo de cambio A3500', _di_y.dropna())) if q not in s.index)})" for q in _di_falta))
+    di_ = di_.reindex(_di_todos).rename_axis("q")
+assert len(_di_falta) <= 4 and di_.itcrm.notna().sum() >= 60, f"faltan demasiados trimestres en el artículo del dólar: {list(map(str, _di_falta))}"
 assert di_.index.max() >= pd.Period(HOY, "Q") - 6, "la inversión trimestral del INDEC no llega a un trimestre reciente"
 di_["costo_usd"] = di_.construccion_corriente / di_.construccion / di_.tipo_cambio_a3500
 di_["indice_dolar_real"] = di_.itcrm / di_.itcrm.mean() * 100
@@ -3220,7 +4291,7 @@ _di_fm = compras_dolares_anual.set_index("anio").millones_usd
 _di_ya = int(_di_f.anio.max())
 _di_ym = int(_di_f[_di_f.anio == _di_ya].mes.max())
 DOL_RES = {
-    "desde": _tri(_di_q0), "desde_anio": int(_di_q0.year), "ult": _tri(di_.index[-1]), "n": len(di_),
+    "desde": _tri(_di_q0), "desde_anio": int(_di_q0.year), "ult": _tri(di_.index[-1]), "n": int(di_[["itcrm", "inversion_total"]].dropna().shape[0]),
     "itcrm_vs_prom": r1(float(_di_ult.indice_dolar_real) - 100), "itcrm_max": _tri(di_.itcrm.idxmax()), "itcrm_min": _tri(di_.itcrm.idxmin()),
     "costo_vs_prom": r1(float(_di_ult.indice_construccion_usd) - 100), "costo_max": _tri(di_.indice_construccion_usd.idxmax()),
     "costo_min": _tri(di_.indice_construccion_usd.idxmin()), "rs_espejo": _di_sp("itcrm", "indice_construccion_usd"),
@@ -3519,7 +4590,9 @@ tu_ = pd.DataFrame({"llegan": _tu_r.groupby("mes").viajes_de_turistas_no_residen
 for _tu_p, _tu_k in (("Brasil", "brasil"), ("Chile", "chile"), ("Uruguay", "uruguay")):
     tu_["llegan_" + _tu_k] = _tu_r[_tu_r.pais_origen == _tu_p].groupby("mes").viajes_de_turistas_no_residentes.sum()
 tu_ = tu_.join(_tu_t[["itcrm", "brasil", "chile", "uruguay"]].add_prefix("tcr_"), how="inner")
-assert len(pd.period_range(tu_.index.min(), tu_.index.max(), freq="M")) == len(tu_), "faltan meses en el turismo internacional o en el tipo de cambio real"
+_tu_falta = [str(m) for m in pd.period_range(tu_.index.min(), tu_.index.max(), freq="M") if str(m) not in tu_.index]
+assert not _tu_falta, "faltan meses en el turismo internacional o en el tipo de cambio real: " + "; ".join(
+    f"{m} ({'dólar real del BCRA' if m not in _tu_t.index else 'turistas que llegan y que salen'})" for m in _tu_falta)
 assert tu_.index.min() <= "2010-01" and tu_.salen.first_valid_index() <= "2016-01", "cambió el comienzo de las series de turismo internacional"
 # la pandemia, desde los datos
 _tu_19 = tu_.llegan[tu_.index.str[:4] == "2019"].set_axis(tu_.index[tu_.index.str[:4] == "2019"].str[5:7])
@@ -4655,6 +5728,13 @@ cru["regalias"] = columna(reg_prov, "pct_regalias")
 cru["salario"] = columna(salarios_provincias, "salario")
 cru["salario_docente"] = columna(salario_docente, "bruto")
 cru["gasto_alumno"] = columna(inversion_educativa, "gasto_por_alumno")
+# seguridad social (etapa 42): pensiones por discapacidad, AUH y seguro de desempleo, si la actualización bajó sus archivos
+if pinv_prov is not None:
+    cru["pensiones_invalidez"] = columna(pinv_prov, "cada_1000")
+if auh_prov is not None:
+    cru["auh"] = columna(auh_prov, "cada_100_menores")
+if dsm_prov is not None:
+    cru["seguro_desempleo"] = columna(dsm_prov, "cada_1000_habitantes")
 
 # id: (nombre, unidad, anio, tema, fuente, ficha, decimales)
 CRUCES_META = {
@@ -4721,6 +5801,12 @@ CRUCES_META = {
     "ocupados_construccion": ("Personas ocupadas en la construcción", "% de las personas ocupadas, incluye el trabajo no registrado", "2022", "Construcción", "INDEC, Censo 2022", "f-trabajadores", 1),
     "empleo_construccion": ("Empleo registrado en la construcción", "asalariados privados cada 1.000 habitantes", f"{TRIM_TXT[OE_T % 10 - 1]} trimestre de {OE_T // 10}", "Construcción", "OEDE, Ministerio de Capital Humano (SIPA)", "f-empleo-construccion", 1),
     "regalias": ("Peso de las regalías", "% de los ingresos totales de la provincia (petróleo, gas, minería e hidroelectricidad)", str(ANIO_FISC), "Finanzas provinciales", "Ministerio de Economía, cuentas provinciales", "f-regalias", 1),
+    **({"pensiones_invalidez": ("Pensiones por discapacidad", "pensiones no contributivas por invalidez cada 1.000 habitantes", f"{MES[pinv_res['prov_mes'] - 1]} de {pinv_res['prov_anio']}",
+                                "Seguridad social", "Secretaría de Seguridad Social, BESS", "f-pensiones-invalidez", 1)} if pinv_res else {}),
+    **({"auh": ("Asignación Universal por Hijo", "hijos con AUH cada 100 menores de 18 años", f"{MES[auh_res['mes'] - 1]} de {auh_res['anio']}",
+                "Seguridad social", "Secretaría de Seguridad Social, BESS", "f-auh", 1)} if auh_res else {}),
+    **({"seguro_desempleo": ("Seguro de desempleo", "beneficiarios de la prestación por desempleo cada 1.000 habitantes", f"{MES[dsm_res['prov_mes'] - 1]} de {dsm_res['prov_anio']}",
+                             "Seguridad social", "Secretaría de Seguridad Social, BESS", "f-desempleo", 1)} if dsm_res else {}),
 }
 
 # ---------------------------------------------------------------- capitales de provincia (etapa 26)
@@ -4833,6 +5919,43 @@ CAP_EPH_RES = {"semestre": EPH_SEM_TXT, "trimestres": EPH_TRIM_TXT, "cuidado": c
                "no_confiable": capitales_eph[capitales_eph.cv_pobreza > 25].territorio.tolist(),
                "alquila_pais": float(_cxh.at[0, "pct_inquilino"]), "hogares_min": int(capitales_eph.hogares_encuestados.min())}
 
+# ---------------------------------------------------------------- ingresos por aglomerado (etapa 43)
+# Pregunta abierta al autor desde la etapa 27 ("los ingresos por aglomerado de la EPH"), hecha con su pedido del 12 de octubre de 2026 de
+# avanzar con todo. 01_descargar.py (eph_ingresos) los calcula con las bases de los mismos cuatro trimestres que la antigüedad en el empleo:
+# la mediana de cada aglomerado como proporción de la del país de su trimestre, juntando los cuatro (en los aglomerados chicos un trimestre
+# tiene unas 400 personas encuestadas), y acá se pasa a pesos del último trimestre con la mediana del país de ese trimestre. Dos ingresos: el
+# per cápita familiar de las personas (el ingreso del hogar dividido por sus miembros) y el de la ocupación principal de los ocupados que
+# cobran. Son 32 áreas: la EPH mide el Gran Buenos Aires en dos partes, la Ciudad y los partidos del conurbano. No descuenta las diferencias
+# de precios entre regiones
+EPH_OTROS = {3: ("06", "Bahía Blanca-Cerri"), 4: ("82", "Gran Rosario"), 9: ("26", "Comodoro Rivadavia-Rada Tilly"), 14: ("30", "Concordia"),
+             33: ("06", "Partidos del GBA"), 34: ("06", "Mar del Plata"), 36: ("14", "Río Cuarto"), 38: ("06,82", "San Nicolás-Villa Constitución")}
+ipa_tabla, ipa_res = None, None
+if (CRUDO / "eph_ingresos_aglomerados.csv").exists():
+    _ipa = pd.read_csv(CRUDO / "eph_ingresos_aglomerados.csv")
+    _ipa_ag = {**{c: (p, n) for c, (p, n, _) in EPH_CAP.items()}, **EPH_OTROS, 32: ("02", "Ciudad de Buenos Aires")}
+    assert set(_ipa.aglomerado) - {0} == set(_ipa_ag) and _ipa.groupby("tipo").size().to_dict() == {"ipcf": 33, "ocupacion": 33}, \
+        f"EPH ingresos: los aglomerados no son los 32 esperados ({sorted(set(_ipa.aglomerado) ^ set(_ipa_ag) - {0})})"
+    assert _ipa.trimestre_ultimo.nunique() == 1 and _ipa.mediana_relativa.between(.3, 3).all(), "EPH ingresos: datos fuera de lo esperado"
+    _ipa_tr = _ipa.trimestre_ultimo.iloc[0]
+    _ipa_w = _ipa.assign(pesos=_ipa.mediana_relativa * _ipa.mediana_pais_ultimo).pivot(index="aglomerado", columns="tipo")
+    ipa_tabla = pd.DataFrame({"aglomerado": _ipa_w.index, "nombre": [_ipa_ag.get(c, ("", "31 aglomerados urbanos"))[1] for c in _ipa_w.index],
+                              "provincias": [_ipa_ag.get(c, ("00", ""))[0] for c in _ipa_w.index],
+                              **{f"{t}_{k}": _ipa_w[(col, t)].values for t in ("ipcf", "ocupacion") for k, col in
+                                 [("pesos", "pesos"), ("pct_pais", "mediana_relativa"), ("casos", "casos"), ("pesos_ultimo_trimestre", "mediana_ultimo")]}})
+    for t in ("ipcf", "ocupacion"):
+        ipa_tabla[f"{t}_pct_pais"] = ipa_tabla[f"{t}_pct_pais"] * 100
+    ipa_tabla = ipa_tabla.sort_values("ipcf_pesos", ascending=False).reset_index(drop=True)
+    _ipa_a = ipa_tabla[ipa_tabla.aglomerado > 0]
+    def _ipa_ext(t):
+        o = _ipa_a.sort_values(f"{t}_pesos")
+        return {"max": o.iloc[-1].nombre, "max_v": round(float(o[f"{t}_pesos"].iloc[-1])), "max_pct": r1(o[f"{t}_pct_pais"].iloc[-1]),
+                "min": o.iloc[0].nombre, "min_v": round(float(o[f"{t}_pesos"].iloc[0])), "min_pct": r1(o[f"{t}_pct_pais"].iloc[0]),
+                "pais": round(float(ipa_tabla.set_index("aglomerado").at[0, f"{t}_pesos"])),
+                "veces": r1(o[f"{t}_pesos"].iloc[-1] / o[f"{t}_pesos"].iloc[0])}
+    ipa_res = {"trimestre": f"{_eph_ord[int(_ipa_tr[0]) - 1].replace('primero', 'primer').replace('tercero', 'tercer')} trimestre de {_ipa_tr[2:]}",
+               "trimestres": EPH_TEN_TXT, "casos_min": int(_ipa_a.ipcf_casos.min()), "casos_min_ocup": int(_ipa_a.ocupacion_casos.min()),
+               "ipcf": _ipa_ext("ipcf"), "ocupacion": _ipa_ext("ocupacion")}
+
 # ---------------------------------------------------------------- series por provincia para animar los cruces
 # Una fila por provincia, anio e indicador, desde 2000. Se carga aparte, solo cuando alguien pide ver la evolucion.
 hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
@@ -4943,6 +6066,7 @@ tablas = {
     "cruces_provincias": cru.round(3),
     "capitales": capitales.round(3),
     "capitales_eph": capitales_eph.round(3),
+    **({"ingresos_aglomerados": ipa_tabla} if ipa_tabla is not None else {}),
     "mundo_paises": mundo,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
@@ -4957,13 +6081,28 @@ tablas = {
     "representacion_provincias": representacion,
     "envejecimiento_provincias": envejec,
     "mortalidad_infantil_causas": mi_causas,
+    "causas_muerte_provincias": causas_muerte,
     "madres_adolescentes_nse": nse_ado,
     "envejecimiento_pais": envejec_pais,
     "piramide_poblacion": piramide,
+    "poblacion_proyectada_provincias": pob_proy,
+    "exportaciones_rubros_anual": se_rubros,
+    **{k: v for k, v in {"balanza_comercial": balanza_comercial, "importaciones_usos": importaciones_usos, "importaciones_origen": importaciones_origen,
+                         "cuenta_corriente": cuenta_corriente, "reservas_bcra": reservas_bcra, "reservas_factores": reservas_factores, "reservas_netas": reservas_netas,
+                         "bcra_variables": bcra_variables, "bcra_variables_lista": bcra_variables_lista}.items() if v is not None},
+    **({"exportaciones_destinos": se_destinos} if se_destinos is not None else {}),
+    **({"exportaciones_complejos": se_complejos} if se_complejos is not None else {}),
     **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
+    **({"haberes_previsionales": haberes} if haberes is not None else {}),
+    **({"pensiones_invalidez": pinv_pais, "pensiones_invalidez_provincias": pinv_prov} if pinv_pais is not None else {}),
+    **({"auh_provincias": auh_prov, "asignaciones_cobertura": auh_cob} if auh_prov is not None else {}),
+    **({"prestacion_desempleo": dsm_pais, "prestacion_desempleo_provincias": dsm_prov} if dsm_pais is not None else {}),
     "presidentes": presidentes,
+    **({"confianza_gobierno": icg_serie, "confianza_gobierno_gobiernos": icg_gobiernos, "confianza_gobierno_elecciones": icg_elecciones} if icg_serie is not None else {}),
+    **({"confianza_consumidor": cco_serie} if cco_serie is not None else {}),
+    **({"expectativas_inflacion": exi_serie} if exi_serie is not None else {}),
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
     "voto_legisladores_y_provincia": rep_voto,
     "apoyo_gobierno_provincias": apoyo[["anio", "codigo_indec", "territorio", "presidente", "apoyo", "votos", "atn_hab", "otras_hab"]],
@@ -5316,9 +6455,19 @@ congreso_res["anio_fin"] = congreso_res["anio"] + 2   # fin del período legisla
 resumen["presidentes"] = pres_res
 resumen["envejecimiento"] = env_res
 resumen["piramide"] = pir_res
+resumen["poblacion_proy"] = pob_proy_res
+resumen["causas_muerte"] = causas_muerte_res
+resumen["externo"] = SE_RES
 resumen["empresas"] = emp_res
 resumen["rotacion"] = rot_res
 resumen["jubilaciones"] = jub_res
+resumen["haberes"] = hab_res
+resumen["pensiones_invalidez"] = pinv_res
+resumen["auh"] = auh_res
+resumen["desempleo"] = dsm_res
+resumen["confianza_gobierno"] = icg_res
+resumen["confianza_consumidor"] = cco_res
+resumen["expectativas_inflacion"] = exi_res
 resumen["mi_causas"] = mi_causas_res
 resumen["ado_nse"] = ado_nse_res
 resumen["ytd"] = YTD
@@ -5490,6 +6639,7 @@ resumen["capitales"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2
                         for k, v in CAPITALES_META.items()]
 assert all(m["id"] in capitales.columns for m in resumen["capitales"])
 resumen["capitales_pais"] = CAP_PAIS
+resumen["ingresos_aglomerados"] = ipa_res
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                             for k, v in CAPITALES_EPH_META.items()]
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])

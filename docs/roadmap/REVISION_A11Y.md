@@ -18,7 +18,7 @@ Revisión de solo lectura del 10 de octubre de 2026 (revisor `revisor-visual-a11
 | 12 | P1 | El nombre de "Inicio" no contenía el texto visible | Corregido: "Inicio: volver a la vista inicial" |
 | 13 | P2 | Anuncios con errores ("Ficha elegido") y repetidos | Corregido: género y número, un solo anuncio, el resultado de la búsqueda se anuncia al dejar de escribir y Enter en el grafo dice dónde está el detalle |
 | 14 | P2 | La fila elegida se marcaba solo con color y sus enlaces no llegaban a 4,5 a 1 | Corregido: barra al costado, `aria-current` y enlaces en azul hondo (6,0 a 1) |
-| 15 | P2 | La tabla era menos clara que el grafo para lectores de pantalla | Corregido: el nombre es el encabezado de su fila, "ninguna" se lee, y "se calcula a partir de" se marca en las dos columnas. Queda: no hay un salto directo al panel desde la tabla larga (el panel va después, y elegir una fila lleva el foco ahí) |
+| 15 | P2 | La tabla era menos clara que el grafo para lectores de pantalla | Corregido: el nombre es el encabezado de su fila, "ninguna" se lee, y "se calcula a partir de" se marca en las dos columnas. Desde el 14 de octubre de 2026, al comienzo de la tabla hay un salto que aparece con el foco del teclado: "Ir al detalle de" lo elegido o, sin nada elegido, "Saltar la tabla" |
 | 16 | P2 | Datos raros rompían la página con un mensaje equivocado | Corregido: se descartan las relaciones con extremos que no están, se completan nombres y listas, y el error va en una región de alerta |
 | 17 | P2 | El foco se perdía al cerrar en algunos navegadores y el panel no volvía arriba | Corregido: si el foco se perdió, vuelve a la fila o al grafo, y el panel vuelve arriba al cambiar |
 | 18 | P2 | Filtros silenciosos o frágiles | Corregido: se anuncia que tiene que quedar un tipo, lo elegido que deja de verse se suelta, Enter usa lo escrito aunque no haya pasado la espera, Escape en el buscador o en una lista no cierra el panel, el buscador tiene 16 píxeles en el celular (iOS no acerca la página) y el grafo encuadra los resultados |
@@ -26,3 +26,24 @@ Revisión de solo lectura del 10 de octubre de 2026 (revisor `revisor-visual-a11
 | 20 | P2 | Movimiento reducido y márgenes | Corregido: botones quietos al presionar con movimiento reducido, y se lee el ajuste en cada animación. Sin hoja fija, no aplican los márgenes de la muesca ni el marco del sitio |
 
 Verificado después de corregir: teclado real en Chrome (orden de tabulación, flechas, Enter, Escape, foco que vuelve), lo mismo con movimiento reducido, capturas en 390 y 1024, sin errores en la consola y prueba de páginas (47, "Todo en orden").
+
+
+## Revisión del sitio completo (11 de octubre de 2026)
+
+Revisor de accesibilidad en solo lectura sobre datina.css, datina.js, la plantilla y el Explorador: 0 P0, 9 P1 y 6 P2. Resuelto:
+- Contraste: textos de ejemplo de los buscadores con `--faint-texto` (4,88 a 1, eran 3,67 y 2,59), texto claro sobre el azul de la barra y de la portada a 0,95 de opacidad (4,6 a 1, eran 4,09 y 4,2), la provincia elegida en la lista en `--azul-hondo` (5,6 a 1, era 4,04), y el texto de las celdas de las dos matrices elegido entre blanco y tinta según cuál contrasta más (`tintaSobre`).
+- Zoom: sin `maximum-scale=1` en el consultor de pobreza (el constructor lo saca en cada armado).
+- Teclado: la matriz de correlaciones de Cruces es un solo lugar de Tab y se recorre con las flechas (eran unas 1.600 paradas), sus celdas y los puntos de la dispersión muestran el cuadro con el foco y están en un svg con role group; el buscador de provincias tiene señal de foco; el selector se cierra al salir con Tab; las tablas de "Ver tabla" se desplazan con el teclado (región con nombre y caption).
+- Toque: los cuadros de los gráficos ya no se borran al levantar el dedo (se ocultan al salir solo con el mouse, y con el dedo tocando afuera); las notas dicen "Pasá el cursor o tocá".
+- Carga y errores: "Ver tabla" avisa si no pudo cargar, el mapa de áreas protegidas también, y una región `#aviso` anuncia los errores de carga y "Enlace copiado". El selector anuncia "Ninguna provincia coincide" y no deja `aria-activedescendant` apuntando a una opción oculta.
+- Celular: a 320 píxeles el cuadro corta en renglones y la página no se corre de costado.
+
+Verificado en Chrome sin ventana (matriz con flechas y foco, tabla con región, toque, 320 píxeles sin corrimiento, selector) y prueba de páginas: 49, "Todo en orden".
+
+Quedaban cuatro, por ser cambios más grandes o de diseño. Resueltos el 11 de octubre de 2026 (el autor pidió avanzar con todos los pendientes):
+- Matriz de votaciones: cada ley es un botón dentro de su celda, con `aria-pressed` en la elegida (antes la fila era `tr role="button"`), y el detalle de los votos va como texto para lectores además del `title`. Con el mouse se sigue tocando toda la fila.
+- El borde del foco ya no se corta en las filas que se deslizan (`.subsecciones`, la fila del celular, "En cifras" y las sugerencias de Cruces): va hacia adentro (`outline-offset` negativo), sin cambiar el diseño.
+- Los tamaños de letra (`--t-1` a `--t-10`) están en rem: con 16 píxeles se ven igual y siguen la letra que elige la persona.
+- Los mapas de áreas protegidas y de departamentos, las burbujas de los parques y la pirámide muestran el cuadro también al tocar (`pointerdown`).
+
+Verificado: la matriz con el teclado (Tab y Enter) en 1440 y 390 píxeles, el peso y el tamaño de la letra iguales y la prueba de páginas.

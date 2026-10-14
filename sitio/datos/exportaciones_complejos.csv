@@ -1,0 +1,57 @@
+complejo,millones_usd,variacion,pct,nivel,grupo
+Sector oleaginoso,11811.025,16.3685,23.8552,1,Sector oleaginoso
+Complejo petrolero-petroquímico,8115.9637,43.6566,16.3921,1,Complejo petrolero-petroquímico
+Sector cerealero,7708.9001,16.1378,15.57,1,Sector cerealero
+Sector minero metalífero y litio,6033.0423,69.6812,12.1852,1,Sector minero metalífero y litio
+Complejo automotriz,4166.7243,4.6755,8.4157,1,Complejo automotriz
+Sector bovino,3438.008,32.0721,6.9439,1,Sector bovino
+Complejo pesquero,1252.1632,17.3908,2.529,1,Complejo pesquero
+Sector frutícola,1099.3143,8.8359,2.2203,1,Sector frutícola
+Complejo farmacéutico,693.8592,7.5571,1.4014,1,Complejo farmacéutico
+Sector hortícola,635.455,31.5988,1.2835,1,Sector hortícola
+Complejo forestal,480.6828,21.1683,0.9709,1,Complejo forestal
+Complejo textil,233.0477,65.0262,0.4707,1,Complejo textil
+Complejo miel,180.6142,76.1658,0.3648,1,Complejo miel
+Complejo azucarero,150.0992,-10.5298,0.3032,1,Complejo azucarero
+Complejo tabacalero,117.397,15.2135,0.2371,1,Complejo tabacalero
+Complejo avícola,92.7756,-27.1944,0.1874,1,Complejo avícola
+Complejo yerba mate,49.4183,-1.4293,0.0998,1,Complejo yerba mate
+Complejo equino,44.7184,28.4606,0.0903,1,Complejo equino
+Complejo té,36.0756,4.4071,0.0729,1,Complejo té
+Resto de exportaciones,3172.0428,13.1368,6.4067,1,Resto de exportaciones
+Complejo soja,9081.9889,5.6857,18.3433,2,Sector oleaginoso
+Complejo girasol,2074.6315,128.693,4.1902,2,Sector oleaginoso
+Complejo maní,566.5045,-2.0577,1.1442,2,Sector oleaginoso
+Complejo olivícola,87.9001,24.3219,0.1775,2,Sector oleaginoso
+Petróleo,6780.7344,50.0077,13.6953,2,Complejo petrolero-petroquímico
+Gas,806.7703,11.6251,1.6295,2,Complejo petrolero-petroquímico
+Petroquímico,528.459,29.9855,1.0673,2,Complejo petrolero-petroquímico
+Complejo maicero,4240.6373,6.9105,8.565,2,Sector cerealero
+Complejo triguero,2539.668,39.4609,5.1295,2,Sector cerealero
+Complejo cebada,800.4854,16.393,1.6168,2,Sector cerealero
+Complejo arrocero,128.1094,-21.1066,0.2587,2,Sector cerealero
+Complejo oro y plata,3503.8522,56.8107,7.0769,2,Sector minero metalífero y litio
+Complejo litio,1126.2401,186.2894,2.2747,2,Sector minero metalífero y litio
+Complejo aluminio,828.9152,92.0997,1.6742,2,Sector minero metalífero y litio
+Complejo siderúrgico,481.6867,2.5581,0.9729,2,Sector minero metalífero y litio
+Complejo plomo,40.2435,191.2369,0.0813,2,Sector minero metalífero y litio
+Complejo otros minerales metalíferos,52.1046,310.8058,0.1052,2,Sector minero metalífero y litio
+Vehículos para transporte de mercancías,2714.8908,16.6111,5.4834,2,Complejo automotriz
+Vehículos para transporte de personas,902.215,-16.3489,1.8222,2,Complejo automotriz
+"Chasis, partes y neumáticos",549.6186,-4.2318,1.1101,2,Complejo automotriz
+Complejo carne y cuero bovinos,2692.1469,36.3189,5.4374,2,Sector bovino
+Complejo lácteo,745.8611,18.7224,1.5064,2,Sector bovino
+Crustáceos y moluscos,933.0118,16.0268,1.8844,2,Complejo pesquero
+Pescados frescos y congelados,292.7015,19.5151,0.5912,2,Complejo pesquero
+"Harinas y conservas de pescados, crustáceos y moluscos",26.4498,50.1097,0.0534,2,Complejo pesquero
+Complejo uva,418.534,7.0285,0.8453,2,Sector frutícola
+Complejo limón,282.6159,47.3125,0.5708,2,Sector frutícola
+Complejo peras y manzanas,253.563,-1.2899,0.5121,2,Sector frutícola
+"Complejo cítricos, excluído el limón",43.9838,-23.9382,0.0888,2,Sector frutícola
+Complejo arándanos y frutos similares,9.5639,-25.4289,0.0193,2,Sector frutícola
+Complejo resto del sector frutícola,91.0537,-8.6178,0.1839,2,Sector frutícola
+Complejo papa,183.5977,6.3998,0.3708,2,Sector hortícola
+Complejo porotos,165.2944,235.4874,0.3339,2,Sector hortícola
+Complejo ajo,134.7329,17.9649,0.2721,2,Sector hortícola
+Complejo garbanzos,43.7248,-9.1272,0.0883,2,Sector hortícola
+Complejo resto del sector horticola,108.1052,9.5094,0.2183,2,Sector hortícola

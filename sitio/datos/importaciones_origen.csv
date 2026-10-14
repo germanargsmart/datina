@@ -1,0 +1,27 @@
+origen,origen_nombre,millones_usd,millones_usd_anterior,pct,variacion
+brasil,Brasil,10629.9491,12768.8276,21.6944,-16.7508
+china,China,11229.9277,11275.0364,22.9188,-0.4001
+eeuu,Estados Unidos,4529.808,4718.2732,9.2448,-3.9944
+paraguay,Paraguay,3296.0636,2220.158,6.7268,48.4608
+alemania,Alemania,2053.1686,2090.9725,4.1903,-1.808
+italia,Italia,1025.9637,1013.6934,2.0939,1.2105
+tailandia,Tailandia,1349.2204,1342.9652,2.7536,0.4658
+india,India,779.1846,971.7773,1.5902,-19.8186
+espana,España,687.4646,758.1554,1.403,-9.3241
+vietnam,Vietnam,669.2528,974.0255,1.3659,-31.29
+chile,Chile,575.4897,571.8454,1.1745,0.6373
+uruguay,Uruguay,400.6444,398.1244,0.8177,0.633
+paises_bajos,Países Bajos,215.6033,269.2204,0.44,-19.9157
+indonesia,Indonesia,287.449,311.2075,0.5866,-7.6343
+peru,Perú,200.2307,218.1409,0.4086,-8.2104
+malasia,Malasia,151.9695,185.8724,0.3102,-18.2399
+resto_ue,Resto de la Unión Europea,2643.4949,2723.5149,5.395,-2.9381
+mexico_canada,México y Canadá,1370.3204,1364.3929,2.7966,0.4344
+resto_mercosur,Resto del Mercosur,5.9002,10.3194,0.012,-42.8236
+resto_aladi,Resto de América Latina,785.5495,592.0917,1.6032,32.6736
+resto_asean,Resto del Sudeste Asiático,203.5042,216.8784,0.4153,-6.1667
+medio_oriente,Medio Oriente,325.376,419.722,0.6641,-22.4782
+magreb_egipto,Magreb y Egipto,427.8794,418.7652,0.8732,2.1764
+africa_sur,África austral (SACU),136.8946,93.7387,0.2794,46.0385
+oceania,Oceanía,226.2625,276.3292,0.4618,-18.1185
+resto_mundo,Resto del mundo,4792.1187,4092.0695,9.7801,17.1075

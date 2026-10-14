@@ -13,8 +13,8 @@ import { abrirChrome, espera } from "./cdp.mjs";
 const SITIO = normalize(fileURLToPath(new URL("../sitio/", import.meta.url)));
 // páginas que solo redirigen a otra
 const SALTEAR = new Set(["emprendedores.html"]);
-// las 18 secciones con "En cifras" y dos provincias para probarla: Neuquén (con la aclaración de Aprender) y la Ciudad (con la de empleo)
-const SECCIONES = ["trabajo", "economia", "empresas", "pobreza", "salud", "seguridad", "educacion", "poblacion", "migraciones", "politica", "gobierno", "movilidad", "construccion", "energia", "petroleo",
+// las 19 secciones con "En cifras" y dos provincias para probarla: Neuquén (con la aclaración de Aprender) y la Ciudad (con la de empleo)
+const SECCIONES = ["trabajo", "economia", "empresas", "externo", "pobreza", "salud", "seguridad", "educacion", "poblacion", "migraciones", "politica", "gobierno", "movilidad", "construccion", "energia", "petroleo",
   "turismo", "naturaleza", "curiosidades"];
 const PROVINCIAS = ["58", "02"];
 
@@ -36,6 +36,16 @@ const problemas = [];
 const ch = await abrirChrome(9500 + Math.floor(Math.random() * 400));
 const p = await ch.pestana();
 await p.tamano(1280, 900);
+// sin acceso a las CDN (sesiones en la nube): con DATINA_LIBS apuntando a una carpeta con d3.min.js y topojson-client.min.js de las
+// mismas versiones, el navegador recibe esas copias en lugar de pedirlas a cdnjs y jsdelivr. Sin la variable, todo va a las CDN
+if (process.env.DATINA_LIBS) {
+  await p.send("Fetch.enable", {patterns: [{urlPattern: "*cdnjs.cloudflare.com/ajax/libs/d3/*"}, {urlPattern: "*cdn.jsdelivr.net/npm/topojson-client@*"}]});
+  p.on("Fetch.requestPaused", ev => {
+    const cuerpo = readFileSync(join(process.env.DATINA_LIBS, ev.request.url.split("/").pop()));
+    p.send("Fetch.fulfillRequest", {requestId: ev.requestId, responseCode: 200, body: cuerpo.toString("base64"),
+      responseHeaders: [{name: "Content-Type", value: "text/javascript; charset=utf-8"}, {name: "Access-Control-Allow-Origin", value: "*"}]});
+  });
+}
 
 // textos visibles y de los gráficos con un valor que no se pudo calcular
 const MALOS = `(() => {

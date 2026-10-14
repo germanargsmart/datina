@@ -50,7 +50,9 @@ const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(
 /* Mientras llegan los datos de un gráfico, el contenedor queda vacío y muestra la silueta de su forma (data-forma en la plantilla,
    dibujada por datina.css) con el alto que va a tener, así nada salta cuando llega. Los lectores de pantalla oyen "Cargando". */
 const esperando = el => { el.innerHTML = '<span class="solo-lector">Cargando los datos</span>'; el.setAttribute("aria-busy", "true"); };
-const sinDatos = (el, t) => { el.removeAttribute("aria-busy"); el.innerHTML = `<p class="nota">${t}</p>`; };
+// un aviso para los lectores de pantalla, en la región #aviso de la plantilla (se vacía antes para que se anuncie aunque se repita)
+const avisar = t => { const a = document.getElementById("aviso"); if (!a) return; a.textContent = ""; setTimeout(() => { a.textContent = t; }, 60); };
+const sinDatos = (el, t) => { el.removeAttribute("aria-busy"); el.innerHTML = `<p class="nota">${t}</p>`; avisar(t); };
 // Dibujo de una ficha que necesita tablas diferidas (lista fija o función que la devuelve): muestra la silueta mientras llegan y después dibuja
 const conTablas = (g, nombres, dibujo) => a => {
   const faltan = (typeof nombres === "function" ? nombres() : nombres).filter(n => !T[n]);
@@ -93,7 +95,7 @@ function sinViuda(t) {
   while (i > 1 && p[i - 1].length <= 3 && grupo.length + p[i - 1].length < 16) { i--; grupo = p[i] + NBSP + grupo; }
   return [...p.slice(0, i), grupo].join(" ");
 }
-const CON_TEXTO = "p, li, dd, dt, h2, h3, h4, b, small, .sec-preg, .c-txt";
+const CON_TEXTO = "p, li, dd, dt, h1, h2, h3, h4, b, small, .sec-preg, .c-txt";
 const atarTexto = el => {
   if (!el.matches?.(CON_TEXTO) || el.closest("svg")) return;
   const n = el.lastChild;
@@ -108,7 +110,7 @@ const vigiaTextos = new MutationObserver(ms => ms.forEach(m => {
 }));
 // Íconos isométricos propios (scripts/iconos_isometricos.py), los inserta el constructor desde datos/manual/iconos_iso.
 // Cada uno tiene su tono (azul, hondo u oro) y el CSS decide los colores según dónde va.
-const ICONOS = {"periodico": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.210) translate(-4.2 -24)\"><path class=\"s\" d=\"M-38.5 26.4L8.3 53.4L8.3 50.7L-38.5 23.7Z\"/><path class=\"s\" d=\"M46.8 31.2L8.3 53.4L8.3 50.7L46.8 28.5Z\"/><path class=\"l\" d=\"M0 1.5L46.8 28.5L8.3 50.7L-38.5 23.7Z\"/><path class=\"l\" d=\"M-38.5 19.5L8.3 46.5L8.3 43.8L-38.5 16.8Z\"/><path class=\"s\" d=\"M46.8 24.3L8.3 46.5L8.3 43.8L46.8 21.6Z\"/><path class=\"l\" d=\"M0 -5.4L46.8 21.6L8.3 43.8L-38.5 16.8Z\"/><path class=\"s\" d=\"M0 -0.6L38.5 21.6L32.2 25.2L-6.2 3Z\"/><path class=\"s\" d=\"M-9.9 5.1L6.8 14.7L-13 26.1L-29.6 16.5Z\"/><path class=\"k\" d=\"M10.4 17.4L28.1 27.6\"/><path class=\"k\" d=\"M5.7 20.1L23.4 30.3\"/><path class=\"k\" d=\"M1 22.8L18.7 33\"/><path class=\"k\" d=\"M-3.6 25.5L14 35.7\"/><path class=\"k\" d=\"M-8.3 28.2L9.4 38.4\"/></g>"}, "maletin": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.058) translate(-26.6 -1.8)\"><ellipse class=\"s\" cx=\"27\" cy=\"25.2\" rx=\"47\" ry=\"9.3\"/><path class=\"l\" d=\"M-20.8 12L27 39.6L27 3.6L-20.8 -24Z\"/><path class=\"s\" d=\"M47.8 27.6L27 39.6L27 3.6L47.8 -8.4Z\"/><path class=\"l\" d=\"M0 -36L47.8 -8.4L27 3.6L-20.8 -24Z\"/><path class=\"s\" d=\"M9.9 -25.5L9.9 -19.8L7 -18.2L7 -23.9Z\"/><path class=\"s\" d=\"M7 -30.5L22.6 -21.5L19.7 -19.8L4.2 -28.8Z\"/><path class=\"s\" d=\"M22.6 -21.5L22.6 -12.5L19.7 -10.8L19.7 -19.8Z\"/><path class=\"s\" d=\"M4.2 -19.8L4.2 -28.8L19.7 -19.8L19.7 -10.8L16.9 -12.5L16.9 -18.2L7 -23.9L7 -18.2Z\"/><path class=\"k\" d=\"M-20.8 -10.8L27 16.8\"/><path class=\"s\" d=\"M0 4.8L6.2 8.4L6.2 1.2L0 -2.4Z\"/></g>"}, "tienda": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.942) translate(-13.1 -5.7)\"><ellipse class=\"s\" cx=\"28.1\" cy=\"34.2\" rx=\"38.2\" ry=\"9.3\"/><path class=\"l\" d=\"M-31.2 18L15.6 45L15.6 11.4L-31.2 -15.6Z\"/><path class=\"s\" d=\"M46.8 27L15.6 45L15.6 11.4L46.8 -6.6Z\"/><path class=\"l\" d=\"M0 -33.6L46.8 -6.6L15.6 11.4L-31.2 -15.6Z\"/><path class=\"s\" d=\"M-26 21L-17.1 26.1L-17.1 5.7L-26 0.6Z\"/><path class=\"l\" d=\"M-13 20.7L10.4 34.2L10.4 21.6L-13 8.1Z\"/><path class=\"k\" d=\"M-1.3 27.4L-1.3 14.8\"/><path class=\"s\" d=\"M-31.2 -12L-21.8 -6.6L-30.7 3.9L-40 -1.5Z\"/><path class=\"s\" d=\"M-40 -1.5L-30.7 3.9L-30.7 6.9L-40 1.5Z\"/><path class=\"l\" d=\"M-21.8 -6.6L-12.5 -1.2L-21.3 9.3L-30.7 3.9Z\"/><path class=\"l\" d=\"M-30.7 3.9L-21.3 9.3L-21.3 12.3L-30.7 6.9Z\"/><path class=\"s\" d=\"M-12.5 -1.2L-3.1 4.2L-12 14.7L-21.3 9.3Z\"/><path class=\"s\" d=\"M-21.3 9.3L-12 14.7L-12 17.7L-21.3 12.3Z\"/><path class=\"l\" d=\"M-3.1 4.2L6.2 9.6L-2.6 20.1L-12 14.7Z\"/><path class=\"l\" d=\"M-12 14.7L-2.6 20.1L-2.6 23.1L-12 17.7Z\"/><path class=\"s\" d=\"M6.2 9.6L15.6 15L6.8 25.5L-2.6 20.1Z\"/><path class=\"s\" d=\"M-2.6 20.1L6.8 25.5L6.8 28.5L-2.6 23.1Z\"/></g>"}, "casa": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.881) translate(-7.5 -2.7)\"><ellipse class=\"s\" cx=\"21.8\" cy=\"31.8\" rx=\"35.3\" ry=\"8.5\"/><path class=\"l\" d=\"M-20.8 -36.6L20.8 -12.6L42.1 -4.5L0.5 -28.5Z\"/><path class=\"l\" d=\"M14 -12.9L18.7 -10.2L18.7 -24.6L14 -27.3Z\"/><path class=\"s\" d=\"M23.4 -12.9L18.7 -10.2L18.7 -24.6L23.4 -27.3Z\"/><path class=\"l\" d=\"M18.7 -30L23.4 -27.3L18.7 -24.6L14 -27.3Z\"/><path class=\"l\" d=\"M-36.4 21L0 42L0 15.6L-36.4 -5.4Z\"/><path class=\"s\" d=\"M36.4 21L0 42L0 15.6L36.4 -5.4Z\"/><path class=\"s\" d=\"M39.5 -6L-3.1 18.6L18.2 -14.1Z\"/><path class=\"w\" d=\"M22.9 -0.6L13.5 4.8L13.5 -3L22.9 -8.4Z\"/><path class=\"s\" d=\"M-31.2 24L-22.9 28.8L-22.9 10.8L-31.2 6Z\"/><path class=\"l\" d=\"M-16.6 24L-5.2 30.6L-5.2 19.8L-16.6 13.2Z\"/><path class=\"k\" d=\"M-10.9 27.3L-10.9 16.5\"/><path class=\"s\" d=\"M-20.8 -36.6L20.8 -12.6L-0.5 20.1L-42.1 -3.9Z\"/></g>"}, "botiquin": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.015) translate(-23.9 -0.9)\"><ellipse class=\"s\" cx=\"29.1\" cy=\"27.6\" rx=\"42.6\" ry=\"9.3\"/><path class=\"l\" d=\"M-23.9 13.8L19.7 39L19.7 1.8L-23.9 -23.4Z\"/><path class=\"s\" d=\"M43.6 25.2L19.7 39L19.7 1.8L43.6 -12Z\"/><path class=\"l\" d=\"M0 -37.2L43.6 -12L19.7 1.8L-23.9 -23.4Z\"/><path class=\"s\" d=\"M7 -25.7L7 -21.2L4.2 -19.5L4.2 -24Z\"/><path class=\"s\" d=\"M4.2 -30.6L18.7 -22.2L15.8 -20.6L1.3 -29Z\"/><path class=\"s\" d=\"M18.7 -22.2L18.7 -14.4L15.8 -12.8L15.8 -20.6Z\"/><path class=\"s\" d=\"M1.3 -21.2L1.3 -29L15.8 -20.6L15.8 -12.8L13 -14.4L13 -18.9L4.2 -24L4.2 -19.5Z\"/><path class=\"s\" d=\"M-6 18.1L1.8 22.6L1.8 14.5L8.8 18.6L8.8 9.6L1.8 5.5L1.8 -2.6L-6 -7.1L-6 1L-13 -3L-13 6L-6 10Z\"/></g>"}, "birrete": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.043) translate(-1.8 -12.4)\"><path class=\"l\" d=\"M-22.8 13.2L-22 9.8L-18.1 5.2L-11.4 1.8L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L-8.2 41.4L-15.1 38.7L-19.7 34.7L-21.1 31.6L-21.3 30Z\"/><path class=\"s\" d=\"M0 0L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L0 42Z\"/><path class=\"s\" d=\"M47.8 13.2L0 40.8L0 37.8L47.8 10.2Z\"/><path class=\"s\" d=\"M0 40.8L-47.8 13.2L-47.8 10.2L0 37.8Z\"/><path class=\"s\" d=\"M0 -17.4L47.8 10.2L0 37.8L-47.8 10.2Z\"/><path class=\"s\" d=\"M-4 10.2A4 2.3 0 0 0 4 10.2L4 8.4A4 2.3 0 0 1 -4 8.4Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"8.4\" rx=\"4\" ry=\"2.3\"/><path class=\"wl\" d=\"M0 8.4L47.8 10.2\"/><path class=\"k\" d=\"M47.8 10.2L47.8 25.2\"/><path class=\"s\" d=\"M44.2 31.8L47.8 33.9L47.8 26.1L44.2 24Z\"/><path class=\"s\" d=\"M51.4 31.8L47.8 33.9L47.8 26.1L51.4 24Z\"/><path class=\"s\" d=\"M47.8 21.9L51.4 24L47.8 26.1L44.2 24Z\"/></g>"}, "personas": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.204) translate(-0 -16.4)\"><path class=\"s\" d=\"M-36.6 24.6A10.7 6.2 0 0 0 -15.3 24.6L-15.3 10.2A10.7 6.2 0 0 1 -36.6 10.2Z\"/><path class=\"l\" d=\"M-36.6 10.2A10.7 10.7 0 0 1 -15.3 10.2A10.7 6.2 0 0 1 -36.6 10.2Z\"/><path class=\"s\" d=\"M-26 -0.5A10.7 10.7 0 0 1 -15.3 10.2A10.7 6.2 0 0 1 -26 16.4Z\"/><circle class=\"l\" cx=\"-26\" cy=\"-3.9\" r=\"7\"/><path class=\"s\" d=\"M-26 -10.9A7 7 0 0 1 -26 3.1Z\"/><path class=\"s\" d=\"M15.3 24.6A10.7 6.2 0 0 0 36.6 24.6L36.6 10.2A10.7 6.2 0 0 1 15.3 10.2Z\"/><path class=\"l\" d=\"M15.3 10.2A10.7 10.7 0 0 1 36.6 10.2A10.7 6.2 0 0 1 15.3 10.2Z\"/><path class=\"s\" d=\"M26 -0.5A10.7 10.7 0 0 1 36.6 10.2A10.7 6.2 0 0 1 26 16.4Z\"/><circle class=\"l\" cx=\"26\" cy=\"-3.9\" r=\"7\"/><path class=\"s\" d=\"M26 -10.9A7 7 0 0 1 26 3.1Z\"/><path class=\"s\" d=\"M-13.2 36A13.2 7.6 0 0 0 13.2 36L13.2 18A13.2 7.6 0 0 1 -13.2 18Z\"/><path class=\"l\" d=\"M-13.2 18A13.2 13.2 0 0 1 13.2 18A13.2 7.6 0 0 1 -13.2 18Z\"/><path class=\"s\" d=\"M0 4.8A13.2 13.2 0 0 1 13.2 18A13.2 7.6 0 0 1 0 25.6Z\"/><circle class=\"l\" cx=\"0\" cy=\"0.5\" r=\"8.7\"/><path class=\"s\" d=\"M0 -8.2A8.7 8.7 0 0 1 0 9.2Z\"/></g>"}, "congreso": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.885) translate(-9.4 -15.5)\"><path class=\"l\" d=\"M-43.6 25.2L18.7 61.2L18.7 56.4L-43.6 20.4Z\"/><path class=\"s\" d=\"M62.4 36L18.7 61.2L18.7 56.4L62.4 31.2Z\"/><path class=\"l\" d=\"M0 -4.8L62.4 31.2L18.7 56.4L-43.6 20.4Z\"/><path class=\"l\" d=\"M-34.3 19.8L19.7 51L19.7 28.2L-34.3 -3Z\"/><path class=\"s\" d=\"M54 31.2L19.7 51L19.7 28.2L54 8.4Z\"/><path class=\"l\" d=\"M0 -22.8L54 8.4L19.7 28.2L-34.3 -3Z\"/><path class=\"s\" d=\"M-30.7 20.1L-27 22.2L-27 4.2L-30.7 2.1Z\"/><path class=\"s\" d=\"M-21.6 25.3L-17.9 27.4L-17.9 9.5L-21.6 7.3Z\"/><path class=\"s\" d=\"M-12.5 30.6L-8.8 32.7L-8.8 14.7L-12.5 12.6Z\"/><path class=\"s\" d=\"M-3.4 35.8L0.3 37.9L0.3 20L-3.4 17.8Z\"/><path class=\"s\" d=\"M5.7 41.1L9.4 43.2L9.4 25.2L5.7 23.1Z\"/><path class=\"s\" d=\"M14.8 46.3L18.4 48.4L18.4 30.4L14.8 28.3Z\"/><path class=\"l\" d=\"M-17.7 6.6L3.1 18.6L-7.3 4.8Z\"/><path class=\"s\" d=\"M-7.3 4.8L-17.7 6.6L-11.4 3L-1 1.2Z\"/><path class=\"s\" d=\"M3.1 18.6L-7.3 4.8L-1 1.2L9.4 15Z\"/><path class=\"s\" d=\"M-7 2.7A16.9 9.8 0 0 0 26.8 2.7L26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z\"/><ellipse class=\"l\" cx=\"9.9\" cy=\"-6.3\" rx=\"16.9\" ry=\"9.8\"/><path class=\"l\" d=\"M-7 -6.3A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z\"/><path class=\"s\" d=\"M9.9 -23.2A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 9.9 3.5Z\"/><path class=\"s\" d=\"M6.6 -22.8A3.3 1.9 0 0 0 13.2 -22.8L13.2 -28.2A3.3 1.9 0 0 1 6.6 -28.2Z\"/><ellipse class=\"l\" cx=\"9.9\" cy=\"-28.2\" rx=\"3.3\" ry=\"1.9\"/></g>"}, "colectivo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.121) translate(-18.4 -3.7)\"><path class=\"l\" d=\"M-22.9 7.2L36.9 41.7L36.9 12.9L-22.9 -21.6Z\"/><path class=\"s\" d=\"M59.8 28.5L36.9 41.7L36.9 12.9L59.8 -0.3Z\"/><path class=\"l\" d=\"M0 -34.8L59.8 -0.3L36.9 12.9L-22.9 -21.6Z\"/><path class=\"s\" d=\"M-7.3 1.8L-0.8 5.5L-0.8 -4.7L-7.3 -8.4Z\"/><path class=\"s\" d=\"M1.3 6.7L7.8 10.5L7.8 0.3L1.3 -3.5Z\"/><path class=\"s\" d=\"M9.9 11.7L16.4 15.4L16.4 5.2L9.9 1.5Z\"/><path class=\"s\" d=\"M18.4 16.6L24.9 20.4L24.9 10.2L18.4 6.4Z\"/><path class=\"s\" d=\"M27 21.6L33.5 25.3L33.5 15.1L27 11.4Z\"/><path class=\"s\" d=\"M-18.7 4.8L-11.4 9L-11.4 -10.8L-18.7 -15Z\"/><path class=\"w\" d=\"M57.2 16.2L39.5 26.4L39.5 14.4L57.2 4.2Z\"/><path class=\"s\" d=\"M0.3 20.2L0.1 18.5L-0.4 16.6L-1.2 14.8L-2.2 13L-3.4 11.4L-4.8 10L-6.2 9L-7.7 8.4L-9.1 8.1L-10.3 8.3L-11.3 8.9L-12.1 9.9L-12.6 11.2L-12.7 12.7L-12.6 14.5L-12.1 16.4L-11.3 18.2L-10.3 20L-9.1 21.6L-7.7 23L-6.2 24L-4.8 24.6L-3.4 24.9L-2.2 24.7L-1.2 24.1L-0.4 23.1L0.1 21.8Z\"/><path class=\"w\" d=\"M-3.9 17.8L-4 17.1L-4.2 16.3L-4.6 15.5L-5.1 14.8L-5.6 14.2L-6.2 13.8L-6.8 13.5L-7.4 13.5L-7.9 13.6L-8.3 14L-8.5 14.5L-8.6 15.1L-8.5 15.9L-8.3 16.7L-7.9 17.5L-7.4 18.2L-6.8 18.8L-6.2 19.2L-5.6 19.5L-5.1 19.5L-4.6 19.4L-4.2 19L-4 18.5Z\"/><path class=\"s\" d=\"M30.4 37.6L30.2 35.9L29.8 34L29 32.2L28 30.4L26.7 28.8L25.3 27.4L23.9 26.4L22.5 25.8L21.1 25.5L19.9 25.7L18.8 26.3L18.1 27.3L17.6 28.6L17.4 30.1L17.6 31.9L18.1 33.8L18.8 35.6L19.9 37.4L21.1 39L22.5 40.4L23.9 41.4L25.3 42L26.7 42.3L28 42.1L29 41.5L29.8 40.5L30.2 39.2Z\"/><path class=\"w\" d=\"M26.2 35.2L26.2 34.5L25.9 33.7L25.6 32.9L25.1 32.2L24.5 31.6L23.9 31.2L23.3 30.9L22.7 30.9L22.2 31L21.9 31.4L21.6 31.9L21.6 32.5L21.6 33.3L21.9 34.1L22.2 34.9L22.7 35.6L23.3 36.2L23.9 36.6L24.5 36.9L25.1 36.9L25.6 36.8L25.9 36.4L26.2 35.9Z\"/></g>"}, "rayo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-17.7 16.2)\"><ellipse class=\"s\" cx=\"17.7\" cy=\"17.4\" rx=\"26.5\" ry=\"5.9\"/><path class=\"l\" d=\"M7.3 4.2L35.3 -18.6L26.5 -13.5L-1.6 9.3Z\"/><path class=\"l\" d=\"M35.3 -18.6L20.3 -27.3L11.4 -22.2L26.5 -13.5Z\"/><path class=\"l\" d=\"M20.3 -27.3L30.1 -46.2L21.3 -41.1L11.4 -22.2Z\"/><path class=\"l\" d=\"M30.1 -46.2L13.5 -55.8L4.7 -50.7L21.3 -41.1Z\"/><path class=\"s\" d=\"M4.7 -50.7L-7.8 -23.7L6.2 -15.6L-1.6 9.3L26.5 -13.5L11.4 -22.2L21.3 -41.1Z\"/></g>"}, "valija": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.137) translate(-18.2 8.3)\"><ellipse class=\"s\" cx=\"21.8\" cy=\"21\" rx=\"32.3\" ry=\"7.6\"/><path class=\"s\" d=\"M-14.1 11.4A3.7 2.1 0 0 0 -6.7 11.4L-6.7 8.1A3.7 2.1 0 0 1 -14.1 8.1Z\"/><path class=\"s\" d=\"M7.8 24A3.7 2.1 0 0 0 15.1 24L15.1 20.7A3.7 2.1 0 0 1 7.8 20.7Z\"/><path class=\"l\" d=\"M-17.7 6.9L14.5 25.5L14.5 -16.5L-17.7 -35.1Z\"/><path class=\"s\" d=\"M32.2 15.3L14.5 25.5L14.5 -16.5L32.2 -26.7Z\"/><path class=\"l\" d=\"M0 -45.3L32.2 -26.7L14.5 -16.5L-17.7 -35.1Z\"/><path class=\"s\" d=\"M-10.9 10.8L-7.8 12.6L-7.8 -29.4L-10.9 -31.2Z\"/><path class=\"s\" d=\"M4.7 19.8L7.8 21.6L7.8 -20.4L4.7 -22.2Z\"/><path class=\"s\" d=\"M6.2 -38.7L6.2 -33.3L3.1 -31.5L3.1 -36.9Z\"/><path class=\"s\" d=\"M3.1 -44.1L14.5 -37.5L11.4 -35.7L0 -42.3Z\"/><path class=\"s\" d=\"M14.5 -37.5L14.5 -28.5L11.4 -26.7L11.4 -35.7Z\"/><path class=\"s\" d=\"M0 -33.3L0 -42.3L11.4 -35.7L11.4 -26.7L8.3 -28.5L8.3 -33.9L3.1 -36.9L3.1 -31.5Z\"/></g>"}, "andes": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.041) translate(-9.4 -18.4)\"><path class=\"l\" d=\"M-5.2 45.8L-41.9 24.6L-1 -27Z\"/><path class=\"k\" d=\"M-2.5 -0.8L-6.7 -11.3L-15.8 -8.4\"/><path class=\"s\" d=\"M31.5 24.6L-5.2 45.8L-1 -27Z\"/><path class=\"w\" d=\"M-1 -27L10.7 -8.4L2.5 -11.3L-2.5 -0.8Z\"/><path class=\"s\" d=\"M35.8 48.6L9.4 63.9L9.4 13.8Z\"/><path class=\"w\" d=\"M9.4 13.8L17.8 24.9L12.3 23.3L9.4 29.8Z\"/><path class=\"l\" d=\"M9.4 63.9L-17.1 48.6L9.4 13.8Z\"/><path class=\"k\" d=\"M9.4 29.8L6.4 23.3L0.9 24.9\"/><path class=\"l\" d=\"M41.6 44.6L22.5 33.6L41.6 9.6Z\"/><path class=\"k\" d=\"M41.6 20.1L39.6 15.8L35.8 16.8\"/><path class=\"s\" d=\"M60.7 33.6L41.6 44.6L41.6 9.6Z\"/><path class=\"w\" d=\"M41.6 9.6L47.3 16.8L43.6 15.8L41.6 20.1Z\"/></g>"}, "mate": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-8.9 -3.7)\"><ellipse class=\"s\" cx=\"16.6\" cy=\"30\" rx=\"26.5\" ry=\"6.4\"/><path class=\"l\" d=\"M-25.4 18.6L-23.8 10.7L-18.8 3.9L-10.7 -3.8L-2 -6.2L7.5 -5.1L13 -1.9L23.8 10.7L25.4 18.6L23.1 26.4L18.9 31.2L12.3 35.7L2.6 38L-7.7 37.2L-16 33.5L-22.1 28.1L-25.1 20.5Z\"/><path class=\"s\" d=\"M0 -6L7.5 -5.1L13 -1.9L23.8 10.7L25.4 18.6L23.1 26.4L18.9 31.2L12.3 35.7L2.6 38L0 37.8Z\"/><path class=\"l\" d=\"M-15.8 2.4A15.8 9.1 0 0 0 15.8 2.4L15.8 -2.4A15.8 9.1 0 0 1 -15.8 -2.4Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-2.4\" rx=\"15.8\" ry=\"9.1\"/><ellipse class=\"s\" cx=\"0\" cy=\"-2.4\" rx=\"12.1\" ry=\"7\"/><path class=\"k\" d=\"M6.2 -1.8L32.7 -29.1L41.6 -28.5\"/><path class=\"k\" d=\"M6.2 -3.3L32.7 -30.6\"/></g>"}, "dispersion": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.083) translate(-0 -27.1)\"><path class=\"s\" d=\"M-49.9 28.8L0 57.6L0 54.3L-49.9 25.5Z\"/><path class=\"s\" d=\"M49.9 28.8L0 57.6L0 54.3L49.9 25.5Z\"/><path class=\"l\" d=\"M0 -3.3L49.9 25.5L0 54.3L-49.9 25.5Z\"/><path class=\"s\" d=\"M-23.1 25L-17.1 28.5L-17.1 19.5L-23.1 16Z\"/><path class=\"s\" d=\"M-11.2 25L-17.1 28.5L-17.1 19.5L-11.2 16Z\"/><path class=\"l\" d=\"M-17.1 12.6L-11.2 16L-17.1 19.5L-23.1 16Z\"/><path class=\"s\" d=\"M23.1 25.3L29.1 28.8L29.1 8.4L23.1 4.9Z\"/><path class=\"s\" d=\"M35.1 25.3L29.1 28.8L29.1 8.4L35.1 4.9Z\"/><path class=\"l\" d=\"M29.1 1.5L35.1 4.9L29.1 8.4L23.1 4.9Z\"/><path class=\"s\" d=\"M-40.8 25.6L-34.8 29.1L-34.8 24.3L-40.8 20.8Z\"/><path class=\"s\" d=\"M-28.8 25.6L-34.8 29.1L-34.8 24.3L-28.8 20.8Z\"/><path class=\"l\" d=\"M-34.8 17.4L-28.8 20.8L-34.8 24.3L-40.8 20.8Z\"/><path class=\"s\" d=\"M-1.3 25.6L4.7 29.1L4.7 14.7L-1.3 11.2Z\"/><path class=\"s\" d=\"M10.7 25.6L4.7 29.1L4.7 14.7L10.7 11.2Z\"/><path class=\"l\" d=\"M4.7 7.8L10.7 11.2L4.7 14.7L-1.3 11.2Z\"/><path class=\"s\" d=\"M-21 33.4L-15.1 36.9L-15.1 30.3L-21 26.8Z\"/><path class=\"s\" d=\"M-9.1 33.4L-15.1 36.9L-15.1 30.3L-9.1 26.8Z\"/><path class=\"l\" d=\"M-15.1 23.4L-9.1 26.8L-15.1 30.3L-21 26.8Z\"/><path class=\"s\" d=\"M18.4 33.4L24.4 36.9L24.4 19.5L18.4 16Z\"/><path class=\"s\" d=\"M30.4 33.4L24.4 36.9L24.4 19.5L30.4 16Z\"/><path class=\"l\" d=\"M24.4 12.6L30.4 16L24.4 19.5L18.4 16Z\"/><path class=\"s\" d=\"M1.8 34.6L7.8 38.1L7.8 26.1L1.8 22.6Z\"/><path class=\"s\" d=\"M13.8 34.6L7.8 38.1L7.8 26.1L13.8 22.6Z\"/><path class=\"l\" d=\"M7.8 19.2L13.8 22.6L7.8 26.1L1.8 22.6Z\"/></g>"}, "podio": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.266) translate(-14 -6.9)\"><path class=\"l\" d=\"M-21.8 12.6L-5.2 22.2L-5.2 -3L-21.8 -12.6Z\"/><path class=\"s\" d=\"M16.6 9.6L-5.2 22.2L-5.2 -3L16.6 -15.6Z\"/><path class=\"l\" d=\"M0 -25.2L16.6 -15.6L-5.2 -3L-21.8 -12.6Z\"/><path class=\"l\" d=\"M-5.2 22.2L11.4 31.8L11.4 -5.4L-5.2 -15Z\"/><path class=\"s\" d=\"M33.3 19.2L11.4 31.8L11.4 -5.4L33.3 -18Z\"/><path class=\"l\" d=\"M16.6 -27.6L33.3 -18L11.4 -5.4L-5.2 -15Z\"/><path class=\"l\" d=\"M11.4 31.8L28.1 41.4L28.1 24.6L11.4 15Z\"/><path class=\"s\" d=\"M49.9 28.8L28.1 41.4L28.1 24.6L49.9 12Z\"/><path class=\"l\" d=\"M33.3 2.4L49.9 12L28.1 24.6L11.4 15Z\"/><path class=\"s\" d=\"M-16.6 -0L-10.4 3.6L-10.4 0.9L-16.6 -2.7Z\"/><path class=\"s\" d=\"M0 -2.4L6.2 1.2L6.2 -1.5L0 -5.1Z\"/><path class=\"s\" d=\"M16.6 26.4L22.9 30L22.9 27.3L16.6 23.7Z\"/></g>"}, "mosaico": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.136) translate(-0 -20.5)\"><path class=\"l\" d=\"M-14 8.1L0 16.2L0 10.2L-14 2.1Z\"/><path class=\"s\" d=\"M14 8.1L0 16.2L0 10.2L14 2.1Z\"/><path class=\"l\" d=\"M0 -6L14 2.1L0 10.2L-14 2.1Z\"/><path class=\"l\" d=\"M-30.1 17.4L-16.1 25.5L-16.1 9.9L-30.1 1.8Z\"/><path class=\"s\" d=\"M-2.1 17.4L-16.1 25.5L-16.1 9.9L-2.1 1.8Z\"/><path class=\"l\" d=\"M-16.1 -6.3L-2.1 1.8L-16.1 9.9L-30.1 1.8Z\"/><path class=\"l\" d=\"M2.1 17.4L16.1 25.5L16.1 3.9L2.1 -4.2Z\"/><path class=\"s\" d=\"M30.1 17.4L16.1 25.5L16.1 3.9L30.1 -4.2Z\"/><path class=\"l\" d=\"M16.1 -12.3L30.1 -4.2L16.1 3.9L2.1 -4.2Z\"/><path class=\"l\" d=\"M-46.2 26.7L-32.2 34.8L-32.2 25.2L-46.2 17.1Z\"/><path class=\"s\" d=\"M-18.2 26.7L-32.2 34.8L-32.2 25.2L-18.2 17.1Z\"/><path class=\"l\" d=\"M-32.2 9L-18.2 17.1L-32.2 25.2L-46.2 17.1Z\"/><path class=\"l\" d=\"M-14 26.7L0 34.8L0 27.6L-14 19.5Z\"/><path class=\"s\" d=\"M14 26.7L0 34.8L0 27.6L14 19.5Z\"/><path class=\"l\" d=\"M0 11.4L14 19.5L0 27.6L-14 19.5Z\"/><path class=\"l\" d=\"M18.2 26.7L32.2 34.8L32.2 24L18.2 15.9Z\"/><path class=\"s\" d=\"M46.2 26.7L32.2 34.8L32.2 24L46.2 15.9Z\"/><path class=\"l\" d=\"M32.2 7.8L46.2 15.9L32.2 24L18.2 15.9Z\"/><path class=\"l\" d=\"M-30.1 36L-16.1 44.1L-16.1 30.9L-30.1 22.8Z\"/><path class=\"s\" d=\"M-2.1 36L-16.1 44.1L-16.1 30.9L-2.1 22.8Z\"/><path class=\"l\" d=\"M-16.1 14.7L-2.1 22.8L-16.1 30.9L-30.1 22.8Z\"/><path class=\"l\" d=\"M2.1 36L16.1 44.1L16.1 17.7L2.1 9.6Z\"/><path class=\"s\" d=\"M30.1 36L16.1 44.1L16.1 17.7L30.1 9.6Z\"/><path class=\"l\" d=\"M16.1 1.5L30.1 9.6L16.1 17.7L2.1 9.6Z\"/><path class=\"l\" d=\"M-14 45.3L0 53.4L0 45L-14 36.9Z\"/><path class=\"s\" d=\"M14 45.3L0 53.4L0 45L14 36.9Z\"/><path class=\"l\" d=\"M0 28.8L14 36.9L0 45L-14 36.9Z\"/></g>"}, "pin": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.123) translate(-6.5 -22.3)\"><path class=\"s\" d=\"M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z\"/><path class=\"l\" d=\"M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z\"/><path class=\"s\" d=\"M36.4 21L54.6 26.1L13 50.1L-5.2 45Z\"/><path class=\"wl\" d=\"M-30.1 21L-9.4 15.2L0.5 15.3\"/><path class=\"k\" d=\"M0.5 15.3L12.5 19.7L24.9 27.6\"/><path class=\"s\" d=\"M27 33.5L16.6 10.6L37.4 10.6Z\"/><circle class=\"s\" cx=\"27\" cy=\"5.9\" r=\"11.4\"/><circle class=\"w\" cx=\"27\" cy=\"5.9\" r=\"4.8\"/></g>"}, "buque": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.074) translate(-22.7 -6.1)\"><ellipse class=\"s\" cx=\"27\" cy=\"26.4\" rx=\"41.2\" ry=\"7.6\"/><path class=\"s\" d=\"M60.3 21L0 -13.8L-22.9 -0.6L37.4 34.2Z\"/><path class=\"s\" d=\"M52 30L60.3 21L37.4 34.2L29.1 43.2Z\"/><path class=\"s\" d=\"M-22.9 -0.6L-18.7 15.6L29.1 43.2L37.4 34.2Z\"/><path class=\"l\" d=\"M0 -13.8L60.3 21L37.4 34.2L-22.9 -0.6Z\"/><path class=\"wl\" d=\"M-20 10.3L31.7 40.2\"/><path class=\"l\" d=\"M-17.1 -0.9L-7.3 4.8L-7.3 -15.6L-17.1 -21.3Z\"/><path class=\"s\" d=\"M9.4 -4.8L-7.3 4.8L-7.3 -15.6L9.4 -25.2Z\"/><path class=\"l\" d=\"M-0.5 -30.9L9.4 -25.2L-7.3 -15.6L-17.1 -21.3Z\"/><path class=\"s\" d=\"M-16.1 -14.1L-8.3 -9.6L-8.3 -13.8L-16.1 -18.3Z\"/><path class=\"l\" d=\"M-5.7 6.3L5.7 12.9L5.7 5.1L-5.7 -1.5Z\"/><path class=\"s\" d=\"M23.4 2.7L5.7 12.9L5.7 5.1L23.4 -5.1Z\"/><path class=\"l\" d=\"M12 -11.7L23.4 -5.1L5.7 5.1L-5.7 -1.5Z\"/><path class=\"s\" d=\"M5.7 12.9L17.1 19.5L17.1 11.7L5.7 5.1Z\"/><path class=\"s\" d=\"M34.8 9.3L17.1 19.5L17.1 11.7L34.8 1.5Z\"/><path class=\"l\" d=\"M23.4 -5.1L34.8 1.5L17.1 11.7L5.7 5.1Z\"/><path class=\"l\" d=\"M5.7 5.1L17.1 11.7L17.1 3.9L5.7 -2.7Z\"/><path class=\"s\" d=\"M34.8 1.5L17.1 11.7L17.1 3.9L34.8 -6.3Z\"/><path class=\"l\" d=\"M23.4 -12.9L34.8 -6.3L17.1 3.9L5.7 -2.7Z\"/><path class=\"s\" d=\"M17.1 19.5L28.6 26.1L28.6 18.3L17.1 11.7Z\"/><path class=\"s\" d=\"M46.2 15.9L28.6 26.1L28.6 18.3L46.2 8.1Z\"/><path class=\"l\" d=\"M34.8 1.5L46.2 8.1L28.6 18.3L17.1 11.7Z\"/><path class=\"l\" d=\"M17.1 11.7L28.6 18.3L28.6 10.5L17.1 3.9Z\"/><path class=\"s\" d=\"M46.2 8.1L28.6 18.3L28.6 10.5L46.2 0.3Z\"/><path class=\"l\" d=\"M34.8 -6.3L46.2 0.3L28.6 10.5L17.1 3.9Z\"/><path class=\"s\" d=\"M28.6 26.1L40 32.7L40 24.9L28.6 18.3Z\"/><path class=\"s\" d=\"M57.7 22.5L40 32.7L40 24.9L57.7 14.7Z\"/><path class=\"l\" d=\"M46.2 8.1L57.7 14.7L40 24.9L28.6 18.3Z\"/></g>"}, "gota": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.333) translate(-21.8 11.3)\"><ellipse class=\"s\" cx=\"21.8\" cy=\"21\" rx=\"29.4\" ry=\"6.8\"/><path class=\"s\" d=\"M34.4 12.1L35.2 11.6L25.9 17L25.1 17.5Z\"/><path class=\"s\" d=\"M35.2 11.6L36 11L26.6 16.4L25.9 17Z\"/><path class=\"s\" d=\"M36 11L36.6 10.3L27.3 15.7L26.6 16.4Z\"/><path class=\"s\" d=\"M36.6 10.3L37.3 9.5L27.9 14.9L27.3 15.7Z\"/><path class=\"s\" d=\"M37.3 9.5L37.8 8.6L28.5 14L27.9 14.9Z\"/><path class=\"s\" d=\"M37.8 8.6L38.3 7.7L28.9 13.1L28.5 14Z\"/><path class=\"s\" d=\"M38.3 7.7L38.7 6.7L29.3 12.1L28.9 13.1Z\"/><path class=\"s\" d=\"M38.7 6.7L39 5.6L29.6 11L29.3 12.1Z\"/><path class=\"s\" d=\"M39 5.6L39.2 4.4L29.9 9.8L29.6 11Z\"/><path class=\"s\" d=\"M39.2 4.4L39.4 3.2L30 8.6L29.9 9.8Z\"/><path class=\"s\" d=\"M39.4 3.2L39.5 1.9L30.1 7.3L30 8.6Z\"/><path class=\"s\" d=\"M39.5 1.9L39.5 0.5L30.1 5.9L30.1 7.3Z\"/><path class=\"s\" d=\"M39.5 0.5L39.4 -0.9L30 4.5L30.1 5.9Z\"/><path class=\"s\" d=\"M39.4 -0.9L39.2 -2.3L29.9 3.1L30 4.5Z\"/><path class=\"s\" d=\"M39.2 -2.3L39 -3.7L29.6 1.7L29.9 3.1Z\"/><path class=\"s\" d=\"M39 -3.7L38.7 -5.2L29.3 0.2L29.6 1.7Z\"/><path class=\"s\" d=\"M38.7 -5.2L38.3 -6.7L28.9 -1.3L29.3 0.2Z\"/><path class=\"s\" d=\"M38.3 -6.7L37.8 -8.2L28.5 -2.8L28.9 -1.3Z\"/><path class=\"s\" d=\"M37.8 -8.2L37.3 -9.7L27.9 -4.3L28.5 -2.8Z\"/><path class=\"s\" d=\"M37.3 -9.7L22.9 -50.4L13.5 -45L27.9 -4.3Z\"/><path class=\"l\" d=\"M-0.9 -20.9L-1.4 -20L-1.9 -19.1L-2.3 -18.1L-2.6 -17L-2.9 -15.8L-3 -14.6L-3.1 -13.3L-3.1 -11.9L-3 -10.5L-2.9 -9.1L-2.6 -7.7L-2.3 -6.2L-1.9 -4.7L-1.4 -3.2L-0.9 -1.7L-0.3 -0.2L0.4 1.3L1.2 2.7L2 4.1L2.8 5.5L3.7 6.9L4.7 8.2L5.7 9.4L6.7 10.6L7.8 11.8L8.9 12.8L10.1 13.8L11.2 14.7L12.4 15.5L13.5 16.2L14.7 16.8L15.8 17.3L17 17.8L18.1 18.1L19.2 18.3L20.3 18.4L21.3 18.5L22.3 18.4L23.3 18.2L24.2 17.9L25.1 17.5L25.9 17L26.6 16.4L27.3 15.7L27.9 14.9L28.5 14L28.9 13.1L29.3 12.1L29.6 11L29.9 9.8L30 8.6L30.1 7.3L30.1 5.9L30 4.5L29.9 3.1L29.6 1.7L29.3 0.2L28.9 -1.3L28.5 -2.8L27.9 -4.3L13.5 -45Z\"/><path class=\"k\" d=\"M2.6 -9.3L4.2 -1.8L8.3 5.4\"/></g>"}, "mamadera": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-9.2 -6.5)\"><ellipse class=\"s\" cx=\"12.5\" cy=\"30\" rx=\"22\" ry=\"5.5\"/><path class=\"s\" d=\"M-14.3 30A14.3 8.3 0 0 0 14.3 30L14.3 7.8A14.3 8.3 0 0 1 -14.3 7.8Z\"/><path class=\"l\" d=\"M-14.3 7.8A14.3 8.3 0 0 0 14.3 7.8L14.3 -3.6A14.3 8.3 0 0 1 -14.3 -3.6Z\"/><path class=\"wl\" d=\"M4.9 30.6A14.3 8.3 0 0 1 -7.2 30\"/><path class=\"wl\" d=\"M4.9 24.6A14.3 8.3 0 0 1 -7.2 24\"/><path class=\"wl\" d=\"M4.9 18.6A14.3 8.3 0 0 1 -7.2 18\"/><path class=\"k\" d=\"M4.9 12.6A14.3 8.3 0 0 1 -7.2 12\"/><path class=\"s\" d=\"M-16.2 -3.6A16.2 9.3 0 0 0 16.2 -3.6L16.2 -10.2A16.2 9.3 0 0 1 -16.2 -10.2Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-10.2\" rx=\"16.2\" ry=\"9.3\"/><path class=\"l\" d=\"M-9.6 -10.2L-8.1 -15.1L0 -23.7L3.4 -22.4L9 -12.9L9.2 -8.8L4.8 -5.4L-4.8 -5.4L-9.2 -8.8L-9.5 -9.5Z\"/><path class=\"s\" d=\"M0 -23.7L0 -23.7L3.4 -22.4L9 -12.9L9.2 -8.8L4.8 -5.4L0 -5.4Z\"/><path class=\"l\" d=\"M-3.7 -21.6A3.7 3.7 0 0 1 3.7 -21.6A3.7 2.1 0 0 1 -3.7 -21.6Z\"/><path class=\"s\" d=\"M0 -25.3A3.7 3.7 0 0 1 3.7 -21.6A3.7 2.1 0 0 1 0 -19.5Z\"/></g>"}, "monedas": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.053) translate(-6.2 -16.7)\"><path class=\"s\" d=\"M-23.5 19.2A23.5 13.6 0 0 0 23.5 19.2L23.5 14.9A23.5 13.6 0 0 1 -23.5 14.9Z\"/><path class=\"s\" d=\"M-23.5 14.9A23.5 13.6 0 0 0 23.5 14.9L23.5 10.6A23.5 13.6 0 0 1 -23.5 10.6Z\"/><path class=\"s\" d=\"M-23.5 10.6A23.5 13.6 0 0 0 23.5 10.6L23.5 6.2A23.5 13.6 0 0 1 -23.5 6.2Z\"/><path class=\"s\" d=\"M-23.5 6.2A23.5 13.6 0 0 0 23.5 6.2L23.5 1.9A23.5 13.6 0 0 1 -23.5 1.9Z\"/><path class=\"s\" d=\"M-23.5 1.9A23.5 13.6 0 0 0 23.5 1.9L23.5 -2.4A23.5 13.6 0 0 1 -23.5 -2.4Z\"/><path class=\"s\" d=\"M-23.5 -2.4A23.5 13.6 0 0 0 23.5 -2.4L23.5 -6.7A23.5 13.6 0 0 1 -23.5 -6.7Z\"/><path class=\"s\" d=\"M-23.5 -6.7A23.5 13.6 0 0 0 23.5 -6.7L23.5 -11A23.5 13.6 0 0 1 -23.5 -11Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"-11\" rx=\"23.5\" ry=\"13.6\"/><path class=\"wl\" d=\"M23.5 14.9A23.5 13.6 0 0 1 -23.5 14.9\"/><path class=\"wl\" d=\"M23.5 10.6A23.5 13.6 0 0 1 -23.5 10.6\"/><path class=\"wl\" d=\"M23.5 6.2A23.5 13.6 0 0 1 -23.5 6.2\"/><path class=\"wl\" d=\"M23.5 1.9A23.5 13.6 0 0 1 -23.5 1.9\"/><path class=\"wl\" d=\"M23.5 -2.4A23.5 13.6 0 0 1 -23.5 -2.4\"/><path class=\"wl\" d=\"M23.5 -6.7A23.5 13.6 0 0 1 -23.5 -6.7\"/><ellipse class=\"wl\" cx=\"0\" cy=\"-11\" rx=\"14.6\" ry=\"8.4\"/><path class=\"s\" d=\"M-11 44.4A23.5 13.6 0 0 0 36 44.4L36 40.1A23.5 13.6 0 0 1 -11 40.1Z\"/><path class=\"s\" d=\"M-11 40.1A23.5 13.6 0 0 0 36 40.1L36 35.8A23.5 13.6 0 0 1 -11 35.8Z\"/><path class=\"s\" d=\"M-11 35.8A23.5 13.6 0 0 0 36 35.8L36 31.4A23.5 13.6 0 0 1 -11 31.4Z\"/><path class=\"s\" d=\"M-11 31.4A23.5 13.6 0 0 0 36 31.4L36 27.1A23.5 13.6 0 0 1 -11 27.1Z\"/><ellipse class=\"s\" cx=\"12.5\" cy=\"27.1\" rx=\"23.5\" ry=\"13.6\"/><path class=\"wl\" d=\"M36 40.1A23.5 13.6 0 0 1 -11 40.1\"/><path class=\"wl\" d=\"M36 35.8A23.5 13.6 0 0 1 -11 35.8\"/><path class=\"wl\" d=\"M36 31.4A23.5 13.6 0 0 1 -11 31.4\"/><ellipse class=\"wl\" cx=\"12.5\" cy=\"27.1\" rx=\"14.6\" ry=\"8.4\"/></g>"}, "reloj": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.248) translate(-0 -4.8)\"><path class=\"s\" d=\"M-22.8 30A22.8 13.2 0 0 0 22.8 30L22.8 25.8A22.8 13.2 0 0 1 -22.8 25.8Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"25.8\" rx=\"22.8\" ry=\"13.2\"/><path class=\"l\" d=\"M-18 25.8L-16.6 21.8L0.3 4.7L17.4 23.1L17.9 27.2L15.6 31L9 34.8L0 36.2L-9 34.8L-15.6 31L-17.9 27.2Z\"/><path class=\"s\" d=\"M-15.1 25.8L-13.9 22.5L-9.2 18.9L0.2 16L12 20.5L14.9 24.7L14.6 28.1L10.7 31.9L2 34.4L-7.5 33.3L-13 30.1L-14.9 26.9Z\"/><path class=\"l\" d=\"M-18 -16.2L-16.6 -20.2L-11 -24.4L-2.4 -26.5L6.9 -25.8L14.3 -22.5L17.4 -18.9L17.9 -14.8L15.6 -11L-0.3 4.9L-17.4 -13.5L-17.9 -14.8Z\"/><path class=\"s\" d=\"M-5.1 -1.2L2 -3.9L5 -0.4L-0.3 4.9L-5.1 -0.8Z\"/><path class=\"k\" d=\"M0 4.8L0 16.2\"/><path class=\"s\" d=\"M-22.8 -16.2A22.8 13.2 0 0 0 22.8 -16.2L22.8 -20.4A22.8 13.2 0 0 1 -22.8 -20.4Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-20.4\" rx=\"22.8\" ry=\"13.2\"/><path class=\"s\" d=\"M-22.4 25.8A2.2 1.3 0 0 0 -18 25.8L-18 -16.2A2.2 1.3 0 0 1 -22.4 -16.2Z\"/><path class=\"s\" d=\"M18 25.8A2.2 1.3 0 0 0 22.4 25.8L22.4 -16.2A2.2 1.3 0 0 1 18 -16.2Z\"/></g>"}, "laptop": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.010) translate(-8.6 -2.8)\"><path class=\"l\" d=\"M0 -3.6L48.8 24.6L48.8 -12.6L0 -40.8Z\"/><path class=\"s\" d=\"M51.4 23.1L48.8 24.6L48.8 -12.6L51.4 -14.1Z\"/><path class=\"l\" d=\"M2.6 -42.3L51.4 -14.1L48.8 -12.6L0 -40.8Z\"/><path class=\"s\" d=\"M3.6 -5.7L45.2 18.3L45.2 -11.1L3.6 -35.1Z\"/><path class=\"w\" d=\"M10.4 -5.4L15.1 -2.7L15.1 -11.1L10.4 -13.8Z\"/><path class=\"w\" d=\"M18.7 -0.6L23.4 2.1L23.4 -12.3L18.7 -15Z\"/><path class=\"w\" d=\"M27 4.2L31.7 6.9L31.7 -4.5L27 -7.2Z\"/><path class=\"w\" d=\"M35.3 9L40 11.7L40 -7.5L35.3 -10.2Z\"/><path class=\"l\" d=\"M-34.3 19.8L14.5 48L14.5 44.4L-34.3 16.2Z\"/><path class=\"s\" d=\"M48.8 28.2L14.5 48L14.5 44.4L48.8 24.6Z\"/><path class=\"l\" d=\"M0 -3.6L48.8 24.6L14.5 44.4L-34.3 16.2Z\"/><path class=\"s\" d=\"M0 2.4L38.5 24.6L23.9 33L-14.5 10.8Z\"/><path class=\"wl\" d=\"M9.6 7.9L-4.9 16.3\"/><path class=\"wl\" d=\"M19.2 13.5L4.7 21.9\"/><path class=\"wl\" d=\"M28.8 19L14.3 27.4\"/><path class=\"wl\" d=\"M-7.3 6.6L31.2 28.8\"/><path class=\"l\" d=\"M-4.7 20.7L6.8 27.3L-0.5 31.5L-12 24.9Z\"/></g>"}, "urna": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.934) translate(-7.5 -2.4)\"><ellipse class=\"s\" cx=\"22.9\" cy=\"28.8\" rx=\"33.8\" ry=\"9.3\"/><path class=\"l\" d=\"M-41.6 24L0 48L0 10.8L-41.6 -13.2Z\"/><path class=\"s\" d=\"M41.6 24L0 48L0 10.8L41.6 -13.2Z\"/><path class=\"l\" d=\"M0 -37.2L41.6 -13.2L0 10.8L-41.6 -13.2Z\"/><path class=\"s\" d=\"M-9.1 -21.2L13.8 -8L9.1 -5.3L-13.8 -18.5Z\"/><path class=\"l\" d=\"M-8.3 -18L8.3 -8.4L8.3 -33.6L-8.3 -43.2Z\"/><path class=\"k\" d=\"M-4.7 -30.3L-1 -23.4L5.2 -30.6\"/><path class=\"s\" d=\"M-33.3 14.4L-8.3 28.8L-8.3 21.6L-33.3 7.2Z\"/></g>"}, "portapapeles": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.059) translate(-31.2 17.4)\"><ellipse class=\"s\" cx=\"41.6\" cy=\"21.6\" rx=\"25\" ry=\"5.9\"/><path class=\"s\" d=\"M-4.2 2.4L38.5 27L38.5 -35.4L-4.2 -60Z\"/><path class=\"s\" d=\"M42.6 24.6L38.5 27L38.5 -35.4L42.6 -37.8Z\"/><path class=\"s\" d=\"M0 -62.4L42.6 -37.8L38.5 -35.4L-4.2 -60Z\"/><path class=\"l\" d=\"M-0.5 0.9L34.8 21.3L34.8 -30.9L-0.5 -51.3Z\"/><path class=\"s\" d=\"M3.6 -2.1L10.4 1.8L10.4 -12.6L3.6 -16.5Z\"/><path class=\"s\" d=\"M13.5 3.6L20.3 7.5L20.3 -18.9L13.5 -22.8Z\"/><path class=\"s\" d=\"M23.4 9.3L30.1 13.2L30.1 -6L23.4 -9.9Z\"/><path class=\"k\" d=\"M2.1 -3L32.2 14.4\"/><path class=\"k\" d=\"M3.6 -36.9L30.7 -21.3\"/><path class=\"k\" d=\"M3.6 -42.9L30.7 -27.3\"/><path class=\"s\" d=\"M9.4 -48L22.9 -40.2L22.9 -47.4L9.4 -55.2Z\"/><path class=\"s\" d=\"M28.6 -43.5L22.9 -40.2L22.9 -47.4L28.6 -50.7Z\"/><path class=\"s\" d=\"M15.1 -58.5L28.6 -50.7L22.9 -47.4L9.4 -55.2Z\"/></g>"}, "ciguena": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.048) translate(-24.9 -3.3)\"><ellipse class=\"s\" cx=\"24.9\" cy=\"27.6\" rx=\"44.1\" ry=\"7.6\"/><path class=\"l\" d=\"M-16.6 9.6L41.6 43.2L41.6 39.6L-16.6 6Z\"/><path class=\"s\" d=\"M58.2 33.6L41.6 43.2L41.6 39.6L58.2 30Z\"/><path class=\"l\" d=\"M0 -3.6L58.2 30L41.6 39.6L-16.6 6Z\"/><path class=\"l\" d=\"M-10.9 5.7L3.6 14.1L3.6 2.1L-10.9 -6.3Z\"/><path class=\"s\" d=\"M14 8.1L3.6 14.1L3.6 2.1L14 -3.9Z\"/><path class=\"l\" d=\"M-0.5 -12.3L14 -3.9L3.6 2.1L-10.9 -6.3Z\"/><path class=\"s\" d=\"M6.2 3.6L6 0.9L5.3 -1.9L4.1 -4.8L2.5 -7.5L0.6 -9.9L-1.4 -11.9L-3.6 -13.5L-5.8 -14.5L-7.9 -14.8L-9.8 -14.6L-11.4 -13.7L-12.5 -12.2L-13.3 -10.2L-13.5 -7.8L-13.3 -5.1L-12.5 -2.3L-11.4 0.6L-9.8 3.3L-7.9 5.7L-5.8 7.7L-3.6 9.3L-1.4 10.3L0.6 10.6L2.5 10.4L4.1 9.5L5.3 8L6 6Z\"/><path class=\"w\" d=\"M-0.8 -0.5L-0.9 -1.6L-1.3 -2.7L-2 -3.8L-2.8 -4.7L-3.6 -5.4L-4.5 -5.7L-5.3 -5.7L-5.9 -5.4L-6.4 -4.7L-6.5 -3.8L-6.4 -2.6L-5.9 -1.5L-5.3 -0.4L-4.5 0.5L-3.6 1.2L-2.8 1.5L-2 1.5L-1.3 1.2L-0.9 0.5Z\"/><path class=\"s\" d=\"M18.7 14.4L25.5 -17.7L21.8 -15.6L15.1 16.5Z\"/><path class=\"s\" d=\"M25.5 -17.7L22.3 -19.5L18.7 -17.4L21.8 -15.6Z\"/><path class=\"s\" d=\"M10.9 14.1L15.1 16.5L21.8 -15.6L18.7 -17.4Z\"/><path class=\"s\" d=\"M37.4 25.2L27.5 -16.5L23.9 -14.4L33.8 27.3Z\"/><path class=\"s\" d=\"M27.5 -16.5L24.4 -18.3L20.8 -16.2L23.9 -14.4Z\"/><path class=\"s\" d=\"M29.6 24.9L33.8 27.3L23.9 -14.4L20.8 -16.2Z\"/><path class=\"k\" d=\"M-4.2 -9.6L-6.2 -27\"/><path class=\"s\" d=\"M45.7 -16.2L-2.1 -36.6L-6.8 -33.9L41 -13.5Z\"/><path class=\"s\" d=\"M45.7 -10.8L45.7 -16.2L41 -13.5L41 -8.1Z\"/><path class=\"l\" d=\"M-6.8 -28.5L41 -8.1L41 -13.5L-6.8 -33.9Z\"/><path class=\"s\" d=\"M50.9 -1.8L54 -6L49.4 -3.3L46.2 0.9Z\"/><path class=\"s\" d=\"M54 -6L54 -13.2L49.4 -10.5L49.4 -3.3Z\"/><path class=\"s\" d=\"M54 -13.2L48.8 -21L44.2 -18.3L49.4 -10.5Z\"/><path class=\"s\" d=\"M39 -0.9L46.2 0.9L49.4 -3.3L49.4 -10.5L44.2 -18.3L40 -14.7Z\"/><path class=\"k\" d=\"M49.1 0.4L49.1 28\"/><path class=\"s\" d=\"M45.1 34.6A4 2.3 0 0 0 53.1 34.6L53.1 28A4 2.3 0 0 1 45.1 28Z\"/><ellipse class=\"l\" cx=\"49.1\" cy=\"28\" rx=\"4\" ry=\"2.3\"/></g>"}, "grua": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.877) translate(-7.9 6)\"><ellipse class=\"s\" cx=\"10.4\" cy=\"30\" rx=\"47\" ry=\"10.2\"/><path class=\"l\" d=\"M-41.6 24L-10.4 42L-10.4 21.6L-41.6 3.6Z\"/><path class=\"s\" d=\"M18.7 25.2L-10.4 42L-10.4 21.6L18.7 4.8Z\"/><path class=\"l\" d=\"M-12.5 -13.2L18.7 4.8L-10.4 21.6L-41.6 3.6Z\"/><path class=\"s\" d=\"M-39.5 3.6L-36.4 5.4L-36.4 -10.2L-39.5 -12Z\"/><path class=\"s\" d=\"M-33.3 3.6L-36.4 5.4L-36.4 -10.2L-33.3 -12Z\"/><path class=\"s\" d=\"M-36.4 -13.8L-33.3 -12L-36.4 -10.2L-39.5 -12Z\"/><path class=\"s\" d=\"M-26.5 11.1L-23.4 12.9L-23.4 -2.7L-26.5 -4.5Z\"/><path class=\"s\" d=\"M-20.3 11.1L-23.4 12.9L-23.4 -2.7L-20.3 -4.5Z\"/><path class=\"s\" d=\"M-23.4 -6.3L-20.3 -4.5L-23.4 -2.7L-26.5 -4.5Z\"/><path class=\"s\" d=\"M-13.5 18.6L-10.4 20.4L-10.4 4.8L-13.5 3Z\"/><path class=\"s\" d=\"M-7.3 18.6L-10.4 20.4L-10.4 4.8L-7.3 3Z\"/><path class=\"s\" d=\"M-10.4 1.2L-7.3 3L-10.4 4.8L-13.5 3Z\"/><path class=\"l\" d=\"M-41.6 -12L-10.4 6L-10.4 3L-41.6 -15Z\"/><path class=\"s\" d=\"M18.7 -10.8L-10.4 6L-10.4 3L18.7 -13.8Z\"/><path class=\"l\" d=\"M-12.5 -31.8L18.7 -13.8L-10.4 3L-41.6 -15Z\"/><path class=\"l\" d=\"M17.1 38.1L22.9 41.4L22.9 -25.8L17.1 -29.1Z\"/><path class=\"s\" d=\"M28.6 38.1L22.9 41.4L22.9 -25.8L28.6 -29.1Z\"/><path class=\"s\" d=\"M22.9 -32.4L28.6 -29.1L22.9 -25.8L17.1 -29.1Z\"/><path class=\"k\" d=\"M17.1 32.1L22.9 22.2\"/><path class=\"k\" d=\"M17.1 18.9L22.9 9\"/><path class=\"k\" d=\"M17.1 5.7L22.9 -4.2\"/><path class=\"k\" d=\"M17.1 -7.5L22.9 -17.4\"/><path class=\"l\" d=\"M-13 -47.7L44.2 -14.7L44.2 -18.9L-13 -51.9Z\"/><path class=\"s\" d=\"M47.8 -16.8L44.2 -14.7L44.2 -18.9L47.8 -21Z\"/><path class=\"l\" d=\"M-9.4 -54L47.8 -21L44.2 -18.9L-13 -51.9Z\"/><path class=\"s\" d=\"M-13 -39.3L-5.2 -34.8L-5.2 -42L-13 -46.5Z\"/><path class=\"s\" d=\"M0.5 -38.1L-5.2 -34.8L-5.2 -42L0.5 -45.3Z\"/><path class=\"s\" d=\"M-7.3 -49.8L0.5 -45.3L-5.2 -42L-13 -46.5Z\"/><path class=\"k\" d=\"M38.7 -20L38.7 6.4\"/><path class=\"s\" d=\"M32.2 13.8L38.5 17.4L38.5 10.2L32.2 6.6Z\"/><path class=\"s\" d=\"M44.7 13.8L38.5 17.4L38.5 10.2L44.7 6.6Z\"/><path class=\"s\" d=\"M38.5 3L44.7 6.6L38.5 10.2L32.2 6.6Z\"/></g>"}, "billetes": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.054) translate(-13.5 -6.7)\"><ellipse class=\"s\" cx=\"13.5\" cy=\"25.8\" rx=\"42.6\" ry=\"9.3\"/><path class=\"l\" d=\"M-26.5 15.3L17.1 40.5L17.1 33L-26.5 7.8Z\"/><path class=\"s\" d=\"M40 27.3L17.1 40.5L17.1 33L40 19.8Z\"/><path class=\"l\" d=\"M-3.6 -5.4L40 19.8L17.1 33L-26.5 7.8Z\"/><path class=\"k\" d=\"M-26.5 11.5L17.1 36.7\"/><path class=\"s\" d=\"M14.5 5.1L21.8 9.3L-1 22.5L-8.3 18.3Z\"/><path class=\"s\" d=\"M-8.3 25.8L-1 30L-1 22.5L-8.3 18.3Z\"/><path class=\"l\" d=\"M-18.7 8.1L24.9 33.3L24.9 25.8L-18.7 0.6Z\"/><path class=\"s\" d=\"M47.8 20.1L24.9 33.3L24.9 25.8L47.8 12.6Z\"/><path class=\"l\" d=\"M4.2 -12.6L47.8 12.6L24.9 25.8L-18.7 0.6Z\"/><path class=\"k\" d=\"M-18.7 4.3L24.9 29.5\"/><path class=\"s\" d=\"M22.3 -2.1L29.6 2.1L6.8 15.3L-0.5 11.1Z\"/><path class=\"s\" d=\"M-0.5 18.6L6.8 22.8L6.8 15.3L-0.5 11.1Z\"/><path class=\"l\" d=\"M-26.5 1.5L17.1 26.7L17.1 19.2L-26.5 -6Z\"/><path class=\"s\" d=\"M40 13.5L17.1 26.7L17.1 19.2L40 6Z\"/><path class=\"l\" d=\"M-3.6 -19.2L40 6L17.1 19.2L-26.5 -6Z\"/><path class=\"k\" d=\"M-26.5 -2.2L17.1 22.9\"/><path class=\"s\" d=\"M14.5 -8.7L21.8 -4.5L-1 8.7L-8.3 4.5Z\"/><path class=\"s\" d=\"M-8.3 12L-1 16.2L-1 8.7L-8.3 4.5Z\"/><path class=\"l\" d=\"M-20.8 -6.3L22.9 18.9L22.9 11.4L-20.8 -13.8Z\"/><path class=\"s\" d=\"M45.7 5.7L22.9 18.9L22.9 11.4L45.7 -1.8Z\"/><path class=\"l\" d=\"M2.1 -27L45.7 -1.8L22.9 11.4L-20.8 -13.8Z\"/><path class=\"k\" d=\"M-20.8 -10.1L22.9 15.1\"/><path class=\"s\" d=\"M20.3 -16.5L27.5 -12.3L4.7 0.9L-2.6 -3.3Z\"/><path class=\"s\" d=\"M-2.6 4.2L4.7 8.4L4.7 0.9L-2.6 -3.3Z\"/><ellipse class=\"s\" cx=\"25.5\" cy=\"-0.3\" rx=\"7\" ry=\"4\"/><ellipse class=\"s\" cx=\"-0.5\" cy=\"-15.3\" rx=\"3.7\" ry=\"2.1\"/></g>"}, "escudo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.086) translate(-18.7 14)\"><ellipse class=\"s\" cx=\"18.7\" cy=\"19.2\" rx=\"32.3\" ry=\"6.8\"/><path class=\"l\" d=\"M39.5 1.8L34.3 8.4L26 13.2L31.2 6.6Z\"/><path class=\"l\" d=\"M0 -54L10.4 -50.7L2.1 -45.9L-8.3 -49.2Z\"/><path class=\"l\" d=\"M41.6 -8.4L39.5 1.8L31.2 6.6L33.3 -3.6Z\"/><path class=\"l\" d=\"M10.4 -50.7L20.8 -45.9L12.5 -41.1L2.1 -45.9Z\"/><path class=\"l\" d=\"M20.8 -45.9L31.2 -38.7L22.9 -33.9L12.5 -41.1Z\"/><path class=\"l\" d=\"M41.6 -30L41.6 -8.4L33.3 -3.6L33.3 -25.2Z\"/><path class=\"l\" d=\"M31.2 -38.7L41.6 -30L33.3 -25.2L22.9 -33.9Z\"/><path class=\"s\" d=\"M-8.3 -49.2L2.1 -45.9L12.5 -41.1L22.9 -33.9L33.3 -25.2L33.3 -3.6L31.2 6.6L26 13.2L19.2 16.5L12.5 16.8L5.7 8.7L-1 -2.4L-6.2 -15L-8.3 -27.6Z\"/><path class=\"w\" d=\"M12.5 -29.1L15.4 -17.9L24.1 -12.7L17.2 -10.5L19.6 0.6L12.5 -9.3L5.3 -7.7L7.8 -15.9L0.9 -26.1L9.6 -21.3Z\"/></g>"}, "carrito": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.184) translate(-14.5 0.4)\"><ellipse class=\"s\" cx=\"14.5\" cy=\"22.8\" rx=\"39.7\" ry=\"7.6\"/><path class=\"s\" d=\"M0 -31.2L41.6 -7.2L27 1.2L-14.5 -22.8Z\"/><path class=\"s\" d=\"M41.6 -7.2L36.4 10.8L21.8 19.2L27 1.2Z\"/><path class=\"l\" d=\"M-14.5 -22.8L27 1.2L21.8 19.2L-9.4 1.2Z\"/><path class=\"k\" d=\"M-0.7 -14.8L1.1 7.2\"/><path class=\"k\" d=\"M13.1 -6.8L11.4 13.2\"/><path class=\"k\" d=\"M-12 -10.8L24.4 10.2\"/><path class=\"k\" d=\"M40 -6.3L48.8 -10.8L37.4 -4.2L28.6 0.3\"/><path class=\"k\" d=\"M-8.8 5.7L23.9 24.6\"/><path class=\"l\" d=\"M-1.7 12.5L-1.8 11.6L-2 10.7L-2.4 9.8L-2.9 8.9L-3.5 8.1L-4.2 7.4L-4.9 6.9L-5.7 6.6L-6.3 6.5L-6.9 6.6L-7.5 6.9L-7.8 7.4L-8.1 8L-8.2 8.8L-8.1 9.7L-7.8 10.6L-7.5 11.5L-6.9 12.4L-6.3 13.2L-5.7 13.9L-4.9 14.4L-4.2 14.7L-3.5 14.8L-2.9 14.7L-2.4 14.4L-2 13.9L-1.8 13.3Z\"/><path class=\"l\" d=\"M22.7 26.6L22.6 25.7L22.4 24.8L22 23.9L21.5 23L20.9 22.2L20.2 21.5L19.5 21L18.8 20.7L18.1 20.6L17.5 20.7L17 21L16.6 21.5L16.3 22.1L16.3 22.9L16.3 23.8L16.6 24.7L17 25.6L17.5 26.5L18.1 27.3L18.8 28L19.5 28.5L20.2 28.8L20.9 28.9L21.5 28.8L22 28.5L22.4 28L22.6 27.4Z\"/></g>"}, "globo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.189) translate(-4.7 -1.8)\"><ellipse class=\"s\" cx=\"9.4\" cy=\"33\" rx=\"27.9\" ry=\"6.4\"/><path class=\"s\" d=\"M-16.2 30A16.2 9.3 0 0 0 16.2 30L16.2 27A16.2 9.3 0 0 1 -16.2 27Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"27\" rx=\"16.2\" ry=\"9.3\"/><path class=\"s\" d=\"M-2.2 27A2.2 1.3 0 0 0 2.2 27L2.2 15A2.2 1.3 0 0 1 -2.2 15Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"15\" rx=\"2.2\" ry=\"1.3\"/><circle class=\"l\" cx=\"0\" cy=\"-7.8\" r=\"27.9\"/><path class=\"s\" d=\"M0 -35.7A27.9 27.9 0 0 1 0 20.1Z\"/><path class=\"k\" d=\"M0 17.9A23.7 13.7 0 0 1 -23.7 4.2\"/><path class=\"wl\" d=\"M23.7 4.2A23.7 13.7 0 0 1 0 17.9\"/><path class=\"k\" d=\"M0 8.3A27.9 16.1 0 0 1 -27.9 -7.8\"/><path class=\"wl\" d=\"M27.9 -7.8A27.9 16.1 0 0 1 0 8.3\"/><path class=\"k\" d=\"M0 -6.1A23.7 13.7 0 0 1 -23.7 -19.8\"/><path class=\"wl\" d=\"M23.7 -19.8A23.7 13.7 0 0 1 0 -6.1\"/></g>"}, "mastil": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.330) translate(-4.6 -1)\"><ellipse class=\"s\" cx=\"4.2\" cy=\"34.8\" rx=\"30.9\" ry=\"6.8\"/><path class=\"l\" d=\"M-14.5 30L0 38.4L0 33.6L-14.5 25.2Z\"/><path class=\"s\" d=\"M14.5 30L0 38.4L0 33.6L14.5 25.2Z\"/><path class=\"l\" d=\"M0 16.8L14.5 25.2L0 33.6L-14.5 25.2Z\"/><path class=\"s\" d=\"M-2.1 25.2A2.1 1.2 0 0 0 2.1 25.2L2.1 -38.4A2.1 1.2 0 0 1 -2.1 -38.4Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"-38.4\" rx=\"2.1\" ry=\"1.2\"/><path class=\"s\" d=\"M1.6 -36.3L13 -32.1L24.4 -22.5L35.9 -18.3L35.9 6.9L24.4 2.7L13 -6.9L1.6 -11.1Z\"/><path class=\"w\" d=\"M1.6 -27.9L13 -23.7L24.4 -14.1L35.9 -9.9L35.9 -1.5L24.4 -5.7L13 -15.3L1.6 -19.5Z\"/><circle class=\"s\" cx=\"18.7\" cy=\"-14.7\" r=\"2.5\"/></g>"}, "matraz": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.295) translate(-6.5 -9.7)\"><ellipse class=\"s\" cx=\"10.4\" cy=\"32.4\" rx=\"28.7\" ry=\"6.8\"/><path class=\"l\" d=\"M-26.1 27.9L-25.2 24L-4.4 -3.3L5.1 -2.9L6.7 -1.6L25.2 24L26.1 27.9L24.8 33.8L22.3 37.4L15.7 41.8L6.7 44.3L-3.4 44.7L-12.9 42.9L-20.4 39L-23.8 35.7L-25.5 31.9L-25.9 29.9Z\"/><path class=\"s\" d=\"M-26.1 27.9L-25.2 24L-14 9.4L-6.7 6.2L4.6 5.8L12.5 8.4L16.3 11.7L25.2 24L26.1 27.9L24.8 33.8L22.3 37.4L15.7 41.8L6.7 44.3L-3.4 44.7L-12.9 42.9L-20.4 39L-23.8 35.7L-25.5 31.9L-25.9 29.9Z\"/><path class=\"wl\" d=\"M17 18.2A17.6 10.2 0 0 1 -17 18.2\"/><circle class=\"w\" cx=\"-10.4\" cy=\"24\" r=\"2\"/><circle class=\"w\" cx=\"5.2\" cy=\"27.6\" r=\"1.4\"/><path class=\"k\" d=\"M1.2 18.9A14.1 8.1 0 0 1 -9.9 16.5\"/><path class=\"k\" d=\"M0.9 12.1A10.7 6.2 0 0 1 -7.5 10.4\"/><path class=\"l\" d=\"M-7.2 0.6A7.2 4.2 0 0 0 7.2 0.6L7.2 -16.8A7.2 4.2 0 0 1 -7.2 -16.8Z\"/><path class=\"l\" d=\"M-9.6 -16.8A9.6 5.5 0 0 0 9.6 -16.8L9.6 -19.8A9.6 5.5 0 0 1 -9.6 -19.8Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-19.8\" rx=\"9.6\" ry=\"5.5\"/><ellipse class=\"s\" cx=\"0\" cy=\"-19.8\" rx=\"6\" ry=\"3.5\"/></g>"}, "balanza": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-1.4 -4)\"><ellipse class=\"s\" cx=\"7.3\" cy=\"34.2\" rx=\"26.5\" ry=\"6.4\"/><path class=\"s\" d=\"M-15.4 30A15.4 8.9 0 0 0 15.4 30L15.4 26.7A15.4 8.9 0 0 1 -15.4 26.7Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"26.7\" rx=\"15.4\" ry=\"8.9\"/><path class=\"s\" d=\"M-8.8 26.7A8.8 5.1 0 0 0 8.8 26.7L8.8 24A8.8 5.1 0 0 1 -8.8 24Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"24\" rx=\"8.8\" ry=\"5.1\"/><path class=\"k\" d=\"M-19.2 -29.1L-25.7 -11.3\"/><path class=\"k\" d=\"M-19.2 -29.1L-12.7 -3.8\"/><path class=\"s\" d=\"M-31 -7.5L-29.4 -10.9L-22.3 -14.1L-12.1 -12.9L-7.9 -9.3L-7.9 -5.7L-9.9 -3.4L-21.8 2.1L-30.6 -5.7L-30.9 -6.6Z\"/><ellipse class=\"l\" cx=\"-19.2\" cy=\"-7.5\" rx=\"11.8\" ry=\"6.8\"/><path class=\"s\" d=\"M-2.6 24A2.6 1.5 0 0 0 2.6 24L2.6 -17.4A2.6 1.5 0 0 1 -2.6 -17.4Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"-17.4\" rx=\"2.6\" ry=\"1.5\"/><path class=\"l\" d=\"M-22.8 -28L19.8 -3.4L19.8 -6.4L-22.8 -31Z\"/><path class=\"s\" d=\"M22.8 -5L19.8 -3.4L19.8 -6.4L22.8 -8Z\"/><path class=\"s\" d=\"M-19.8 -32.6L22.8 -8L19.8 -6.4L-22.8 -31Z\"/><path class=\"l\" d=\"M-4.6 -19.5A4.6 4.6 0 0 1 4.6 -19.5A4.6 2.6 0 0 1 -4.6 -19.5Z\"/><path class=\"s\" d=\"M0 -24.1A4.6 4.6 0 0 1 4.6 -19.5A4.6 2.6 0 0 1 0 -16.9Z\"/><path class=\"k\" d=\"M19.2 -6.9L12.7 10.9\"/><path class=\"k\" d=\"M19.2 -6.9L25.7 18.4\"/><path class=\"s\" d=\"M7.5 14.7L9 11.3L16.2 8.1L26.4 9.3L30.6 12.9L30.6 16.5L28.6 18.8L16.6 24.3L7.9 16.5L7.6 15.6Z\"/><ellipse class=\"l\" cx=\"19.2\" cy=\"14.7\" rx=\"11.8\" ry=\"6.8\"/></g>"}};
+const ICONOS = {"periodico": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.210) translate(-4.2 -24)\"><path class=\"s\" d=\"M-38.5 26.4L8.3 53.4L8.3 50.7L-38.5 23.7Z\"/><path class=\"s\" d=\"M46.8 31.2L8.3 53.4L8.3 50.7L46.8 28.5Z\"/><path class=\"l\" d=\"M0 1.5L46.8 28.5L8.3 50.7L-38.5 23.7Z\"/><path class=\"l\" d=\"M-38.5 19.5L8.3 46.5L8.3 43.8L-38.5 16.8Z\"/><path class=\"s\" d=\"M46.8 24.3L8.3 46.5L8.3 43.8L46.8 21.6Z\"/><path class=\"l\" d=\"M0 -5.4L46.8 21.6L8.3 43.8L-38.5 16.8Z\"/><path class=\"s\" d=\"M0 -0.6L38.5 21.6L32.2 25.2L-6.2 3Z\"/><path class=\"s\" d=\"M-9.9 5.1L6.8 14.7L-13 26.1L-29.6 16.5Z\"/><path class=\"k\" d=\"M10.4 17.4L28.1 27.6\"/><path class=\"k\" d=\"M5.7 20.1L23.4 30.3\"/><path class=\"k\" d=\"M1 22.8L18.7 33\"/><path class=\"k\" d=\"M-3.6 25.5L14 35.7\"/><path class=\"k\" d=\"M-8.3 28.2L9.4 38.4\"/></g>"}, "maletin": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.058) translate(-26.6 -1.8)\"><ellipse class=\"s\" cx=\"27\" cy=\"25.2\" rx=\"47\" ry=\"9.3\"/><path class=\"l\" d=\"M-20.8 12L27 39.6L27 3.6L-20.8 -24Z\"/><path class=\"s\" d=\"M47.8 27.6L27 39.6L27 3.6L47.8 -8.4Z\"/><path class=\"l\" d=\"M0 -36L47.8 -8.4L27 3.6L-20.8 -24Z\"/><path class=\"s\" d=\"M9.9 -25.5L9.9 -19.8L7 -18.2L7 -23.9Z\"/><path class=\"s\" d=\"M7 -30.5L22.6 -21.5L19.7 -19.8L4.2 -28.8Z\"/><path class=\"s\" d=\"M22.6 -21.5L22.6 -12.5L19.7 -10.8L19.7 -19.8Z\"/><path class=\"s\" d=\"M4.2 -19.8L4.2 -28.8L19.7 -19.8L19.7 -10.8L16.9 -12.5L16.9 -18.2L7 -23.9L7 -18.2Z\"/><path class=\"k\" d=\"M-20.8 -10.8L27 16.8\"/><path class=\"s\" d=\"M0 4.8L6.2 8.4L6.2 1.2L0 -2.4Z\"/></g>"}, "tienda": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.942) translate(-13.1 -5.7)\"><ellipse class=\"s\" cx=\"28.1\" cy=\"34.2\" rx=\"38.2\" ry=\"9.3\"/><path class=\"l\" d=\"M-31.2 18L15.6 45L15.6 11.4L-31.2 -15.6Z\"/><path class=\"s\" d=\"M46.8 27L15.6 45L15.6 11.4L46.8 -6.6Z\"/><path class=\"l\" d=\"M0 -33.6L46.8 -6.6L15.6 11.4L-31.2 -15.6Z\"/><path class=\"s\" d=\"M-26 21L-17.1 26.1L-17.1 5.7L-26 0.6Z\"/><path class=\"l\" d=\"M-13 20.7L10.4 34.2L10.4 21.6L-13 8.1Z\"/><path class=\"k\" d=\"M-1.3 27.4L-1.3 14.8\"/><path class=\"s\" d=\"M-31.2 -12L-21.8 -6.6L-30.7 3.9L-40 -1.5Z\"/><path class=\"s\" d=\"M-40 -1.5L-30.7 3.9L-30.7 6.9L-40 1.5Z\"/><path class=\"l\" d=\"M-21.8 -6.6L-12.5 -1.2L-21.3 9.3L-30.7 3.9Z\"/><path class=\"l\" d=\"M-30.7 3.9L-21.3 9.3L-21.3 12.3L-30.7 6.9Z\"/><path class=\"s\" d=\"M-12.5 -1.2L-3.1 4.2L-12 14.7L-21.3 9.3Z\"/><path class=\"s\" d=\"M-21.3 9.3L-12 14.7L-12 17.7L-21.3 12.3Z\"/><path class=\"l\" d=\"M-3.1 4.2L6.2 9.6L-2.6 20.1L-12 14.7Z\"/><path class=\"l\" d=\"M-12 14.7L-2.6 20.1L-2.6 23.1L-12 17.7Z\"/><path class=\"s\" d=\"M6.2 9.6L15.6 15L6.8 25.5L-2.6 20.1Z\"/><path class=\"s\" d=\"M-2.6 20.1L6.8 25.5L6.8 28.5L-2.6 23.1Z\"/></g>"}, "casa": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.881) translate(-7.5 -2.7)\"><ellipse class=\"s\" cx=\"21.8\" cy=\"31.8\" rx=\"35.3\" ry=\"8.5\"/><path class=\"l\" d=\"M-20.8 -36.6L20.8 -12.6L42.1 -4.5L0.5 -28.5Z\"/><path class=\"l\" d=\"M14 -12.9L18.7 -10.2L18.7 -24.6L14 -27.3Z\"/><path class=\"s\" d=\"M23.4 -12.9L18.7 -10.2L18.7 -24.6L23.4 -27.3Z\"/><path class=\"l\" d=\"M18.7 -30L23.4 -27.3L18.7 -24.6L14 -27.3Z\"/><path class=\"l\" d=\"M-36.4 21L0 42L0 15.6L-36.4 -5.4Z\"/><path class=\"s\" d=\"M36.4 21L0 42L0 15.6L36.4 -5.4Z\"/><path class=\"s\" d=\"M39.5 -6L-3.1 18.6L18.2 -14.1Z\"/><path class=\"w\" d=\"M22.9 -0.6L13.5 4.8L13.5 -3L22.9 -8.4Z\"/><path class=\"s\" d=\"M-31.2 24L-22.9 28.8L-22.9 10.8L-31.2 6Z\"/><path class=\"l\" d=\"M-16.6 24L-5.2 30.6L-5.2 19.8L-16.6 13.2Z\"/><path class=\"k\" d=\"M-10.9 27.3L-10.9 16.5\"/><path class=\"s\" d=\"M-20.8 -36.6L20.8 -12.6L-0.5 20.1L-42.1 -3.9Z\"/></g>"}, "botiquin": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.015) translate(-23.9 -0.9)\"><ellipse class=\"s\" cx=\"29.1\" cy=\"27.6\" rx=\"42.6\" ry=\"9.3\"/><path class=\"l\" d=\"M-23.9 13.8L19.7 39L19.7 1.8L-23.9 -23.4Z\"/><path class=\"s\" d=\"M43.6 25.2L19.7 39L19.7 1.8L43.6 -12Z\"/><path class=\"l\" d=\"M0 -37.2L43.6 -12L19.7 1.8L-23.9 -23.4Z\"/><path class=\"s\" d=\"M7 -25.7L7 -21.2L4.2 -19.5L4.2 -24Z\"/><path class=\"s\" d=\"M4.2 -30.6L18.7 -22.2L15.8 -20.6L1.3 -29Z\"/><path class=\"s\" d=\"M18.7 -22.2L18.7 -14.4L15.8 -12.8L15.8 -20.6Z\"/><path class=\"s\" d=\"M1.3 -21.2L1.3 -29L15.8 -20.6L15.8 -12.8L13 -14.4L13 -18.9L4.2 -24L4.2 -19.5Z\"/><path class=\"s\" d=\"M-6 18.1L1.8 22.6L1.8 14.5L8.8 18.6L8.8 9.6L1.8 5.5L1.8 -2.6L-6 -7.1L-6 1L-13 -3L-13 6L-6 10Z\"/></g>"}, "birrete": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.043) translate(-1.8 -12.4)\"><path class=\"l\" d=\"M-22.8 13.2L-22 9.8L-18.1 5.2L-11.4 1.8L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L-8.2 41.4L-15.1 38.7L-19.7 34.7L-21.1 31.6L-21.3 30Z\"/><path class=\"s\" d=\"M0 0L-0 0L11.4 1.8L18.1 5.2L22 9.8L22.8 13.2L21.1 31.6L18.5 36.2L13 39.8L2.8 42.2L0 42Z\"/><path class=\"s\" d=\"M47.8 13.2L0 40.8L0 37.8L47.8 10.2Z\"/><path class=\"s\" d=\"M0 40.8L-47.8 13.2L-47.8 10.2L0 37.8Z\"/><path class=\"s\" d=\"M0 -17.4L47.8 10.2L0 37.8L-47.8 10.2Z\"/><path class=\"s\" d=\"M-4 10.2A4 2.3 0 0 0 4 10.2L4 8.4A4 2.3 0 0 1 -4 8.4Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"8.4\" rx=\"4\" ry=\"2.3\"/><path class=\"wl\" d=\"M0 8.4L47.8 10.2\"/><path class=\"k\" d=\"M47.8 10.2L47.8 25.2\"/><path class=\"s\" d=\"M44.2 31.8L47.8 33.9L47.8 26.1L44.2 24Z\"/><path class=\"s\" d=\"M51.4 31.8L47.8 33.9L47.8 26.1L51.4 24Z\"/><path class=\"s\" d=\"M47.8 21.9L51.4 24L47.8 26.1L44.2 24Z\"/></g>"}, "personas": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.204) translate(-0 -16.4)\"><path class=\"s\" d=\"M-36.6 24.6A10.7 6.2 0 0 0 -15.3 24.6L-15.3 10.2A10.7 6.2 0 0 1 -36.6 10.2Z\"/><path class=\"l\" d=\"M-36.6 10.2A10.7 10.7 0 0 1 -15.3 10.2A10.7 6.2 0 0 1 -36.6 10.2Z\"/><path class=\"s\" d=\"M-26 -0.5A10.7 10.7 0 0 1 -15.3 10.2A10.7 6.2 0 0 1 -26 16.4Z\"/><circle class=\"l\" cx=\"-26\" cy=\"-3.9\" r=\"7\"/><path class=\"s\" d=\"M-26 -10.9A7 7 0 0 1 -26 3.1Z\"/><path class=\"s\" d=\"M15.3 24.6A10.7 6.2 0 0 0 36.6 24.6L36.6 10.2A10.7 6.2 0 0 1 15.3 10.2Z\"/><path class=\"l\" d=\"M15.3 10.2A10.7 10.7 0 0 1 36.6 10.2A10.7 6.2 0 0 1 15.3 10.2Z\"/><path class=\"s\" d=\"M26 -0.5A10.7 10.7 0 0 1 36.6 10.2A10.7 6.2 0 0 1 26 16.4Z\"/><circle class=\"l\" cx=\"26\" cy=\"-3.9\" r=\"7\"/><path class=\"s\" d=\"M26 -10.9A7 7 0 0 1 26 3.1Z\"/><path class=\"s\" d=\"M-13.2 36A13.2 7.6 0 0 0 13.2 36L13.2 18A13.2 7.6 0 0 1 -13.2 18Z\"/><path class=\"l\" d=\"M-13.2 18A13.2 13.2 0 0 1 13.2 18A13.2 7.6 0 0 1 -13.2 18Z\"/><path class=\"s\" d=\"M0 4.8A13.2 13.2 0 0 1 13.2 18A13.2 7.6 0 0 1 0 25.6Z\"/><circle class=\"l\" cx=\"0\" cy=\"0.5\" r=\"8.7\"/><path class=\"s\" d=\"M0 -8.2A8.7 8.7 0 0 1 0 9.2Z\"/></g>"}, "congreso": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.885) translate(-9.4 -15.5)\"><path class=\"l\" d=\"M-43.6 25.2L18.7 61.2L18.7 56.4L-43.6 20.4Z\"/><path class=\"s\" d=\"M62.4 36L18.7 61.2L18.7 56.4L62.4 31.2Z\"/><path class=\"l\" d=\"M0 -4.8L62.4 31.2L18.7 56.4L-43.6 20.4Z\"/><path class=\"l\" d=\"M-34.3 19.8L19.7 51L19.7 28.2L-34.3 -3Z\"/><path class=\"s\" d=\"M54 31.2L19.7 51L19.7 28.2L54 8.4Z\"/><path class=\"l\" d=\"M0 -22.8L54 8.4L19.7 28.2L-34.3 -3Z\"/><path class=\"s\" d=\"M-30.7 20.1L-27 22.2L-27 4.2L-30.7 2.1Z\"/><path class=\"s\" d=\"M-21.6 25.3L-17.9 27.4L-17.9 9.5L-21.6 7.3Z\"/><path class=\"s\" d=\"M-12.5 30.6L-8.8 32.7L-8.8 14.7L-12.5 12.6Z\"/><path class=\"s\" d=\"M-3.4 35.8L0.3 37.9L0.3 20L-3.4 17.8Z\"/><path class=\"s\" d=\"M5.7 41.1L9.4 43.2L9.4 25.2L5.7 23.1Z\"/><path class=\"s\" d=\"M14.8 46.3L18.4 48.4L18.4 30.4L14.8 28.3Z\"/><path class=\"l\" d=\"M-17.7 6.6L3.1 18.6L-7.3 4.8Z\"/><path class=\"s\" d=\"M-7.3 4.8L-17.7 6.6L-11.4 3L-1 1.2Z\"/><path class=\"s\" d=\"M3.1 18.6L-7.3 4.8L-1 1.2L9.4 15Z\"/><path class=\"s\" d=\"M-7 2.7A16.9 9.8 0 0 0 26.8 2.7L26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z\"/><ellipse class=\"l\" cx=\"9.9\" cy=\"-6.3\" rx=\"16.9\" ry=\"9.8\"/><path class=\"l\" d=\"M-7 -6.3A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z\"/><path class=\"s\" d=\"M9.9 -23.2A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 9.9 3.5Z\"/><path class=\"s\" d=\"M6.6 -22.8A3.3 1.9 0 0 0 13.2 -22.8L13.2 -28.2A3.3 1.9 0 0 1 6.6 -28.2Z\"/><ellipse class=\"l\" cx=\"9.9\" cy=\"-28.2\" rx=\"3.3\" ry=\"1.9\"/></g>"}, "colectivo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.121) translate(-18.4 -3.7)\"><path class=\"l\" d=\"M-22.9 7.2L36.9 41.7L36.9 12.9L-22.9 -21.6Z\"/><path class=\"s\" d=\"M59.8 28.5L36.9 41.7L36.9 12.9L59.8 -0.3Z\"/><path class=\"l\" d=\"M0 -34.8L59.8 -0.3L36.9 12.9L-22.9 -21.6Z\"/><path class=\"s\" d=\"M-7.3 1.8L-0.8 5.5L-0.8 -4.7L-7.3 -8.4Z\"/><path class=\"s\" d=\"M1.3 6.7L7.8 10.5L7.8 0.3L1.3 -3.5Z\"/><path class=\"s\" d=\"M9.9 11.7L16.4 15.4L16.4 5.2L9.9 1.5Z\"/><path class=\"s\" d=\"M18.4 16.6L24.9 20.4L24.9 10.2L18.4 6.4Z\"/><path class=\"s\" d=\"M27 21.6L33.5 25.3L33.5 15.1L27 11.4Z\"/><path class=\"s\" d=\"M-18.7 4.8L-11.4 9L-11.4 -10.8L-18.7 -15Z\"/><path class=\"w\" d=\"M57.2 16.2L39.5 26.4L39.5 14.4L57.2 4.2Z\"/><path class=\"s\" d=\"M0.3 20.2L0.1 18.5L-0.4 16.6L-1.2 14.8L-2.2 13L-3.4 11.4L-4.8 10L-6.2 9L-7.7 8.4L-9.1 8.1L-10.3 8.3L-11.3 8.9L-12.1 9.9L-12.6 11.2L-12.7 12.7L-12.6 14.5L-12.1 16.4L-11.3 18.2L-10.3 20L-9.1 21.6L-7.7 23L-6.2 24L-4.8 24.6L-3.4 24.9L-2.2 24.7L-1.2 24.1L-0.4 23.1L0.1 21.8Z\"/><path class=\"w\" d=\"M-3.9 17.8L-4 17.1L-4.2 16.3L-4.6 15.5L-5.1 14.8L-5.6 14.2L-6.2 13.8L-6.8 13.5L-7.4 13.5L-7.9 13.6L-8.3 14L-8.5 14.5L-8.6 15.1L-8.5 15.9L-8.3 16.7L-7.9 17.5L-7.4 18.2L-6.8 18.8L-6.2 19.2L-5.6 19.5L-5.1 19.5L-4.6 19.4L-4.2 19L-4 18.5Z\"/><path class=\"s\" d=\"M30.4 37.6L30.2 35.9L29.8 34L29 32.2L28 30.4L26.7 28.8L25.3 27.4L23.9 26.4L22.5 25.8L21.1 25.5L19.9 25.7L18.8 26.3L18.1 27.3L17.6 28.6L17.4 30.1L17.6 31.9L18.1 33.8L18.8 35.6L19.9 37.4L21.1 39L22.5 40.4L23.9 41.4L25.3 42L26.7 42.3L28 42.1L29 41.5L29.8 40.5L30.2 39.2Z\"/><path class=\"w\" d=\"M26.2 35.2L26.2 34.5L25.9 33.7L25.6 32.9L25.1 32.2L24.5 31.6L23.9 31.2L23.3 30.9L22.7 30.9L22.2 31L21.9 31.4L21.6 31.9L21.6 32.5L21.6 33.3L21.9 34.1L22.2 34.9L22.7 35.6L23.3 36.2L23.9 36.6L24.5 36.9L25.1 36.9L25.6 36.8L25.9 36.4L26.2 35.9Z\"/></g>"}, "rayo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-17.7 16.2)\"><ellipse class=\"s\" cx=\"17.7\" cy=\"17.4\" rx=\"26.5\" ry=\"5.9\"/><path class=\"l\" d=\"M7.3 4.2L35.3 -18.6L26.5 -13.5L-1.6 9.3Z\"/><path class=\"l\" d=\"M35.3 -18.6L20.3 -27.3L11.4 -22.2L26.5 -13.5Z\"/><path class=\"l\" d=\"M20.3 -27.3L30.1 -46.2L21.3 -41.1L11.4 -22.2Z\"/><path class=\"l\" d=\"M30.1 -46.2L13.5 -55.8L4.7 -50.7L21.3 -41.1Z\"/><path class=\"s\" d=\"M4.7 -50.7L-7.8 -23.7L6.2 -15.6L-1.6 9.3L26.5 -13.5L11.4 -22.2L21.3 -41.1Z\"/></g>"}, "valija": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.137) translate(-18.2 8.3)\"><ellipse class=\"s\" cx=\"21.8\" cy=\"21\" rx=\"32.3\" ry=\"7.6\"/><path class=\"s\" d=\"M-14.1 11.4A3.7 2.1 0 0 0 -6.7 11.4L-6.7 8.1A3.7 2.1 0 0 1 -14.1 8.1Z\"/><path class=\"s\" d=\"M7.8 24A3.7 2.1 0 0 0 15.1 24L15.1 20.7A3.7 2.1 0 0 1 7.8 20.7Z\"/><path class=\"l\" d=\"M-17.7 6.9L14.5 25.5L14.5 -16.5L-17.7 -35.1Z\"/><path class=\"s\" d=\"M32.2 15.3L14.5 25.5L14.5 -16.5L32.2 -26.7Z\"/><path class=\"l\" d=\"M0 -45.3L32.2 -26.7L14.5 -16.5L-17.7 -35.1Z\"/><path class=\"s\" d=\"M-10.9 10.8L-7.8 12.6L-7.8 -29.4L-10.9 -31.2Z\"/><path class=\"s\" d=\"M4.7 19.8L7.8 21.6L7.8 -20.4L4.7 -22.2Z\"/><path class=\"s\" d=\"M6.2 -38.7L6.2 -33.3L3.1 -31.5L3.1 -36.9Z\"/><path class=\"s\" d=\"M3.1 -44.1L14.5 -37.5L11.4 -35.7L0 -42.3Z\"/><path class=\"s\" d=\"M14.5 -37.5L14.5 -28.5L11.4 -26.7L11.4 -35.7Z\"/><path class=\"s\" d=\"M0 -33.3L0 -42.3L11.4 -35.7L11.4 -26.7L8.3 -28.5L8.3 -33.9L3.1 -36.9L3.1 -31.5Z\"/></g>"}, "andes": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.041) translate(-9.4 -18.4)\"><path class=\"l\" d=\"M-5.2 45.8L-41.9 24.6L-1 -27Z\"/><path class=\"k\" d=\"M-2.5 -0.8L-6.7 -11.3L-15.8 -8.4\"/><path class=\"s\" d=\"M31.5 24.6L-5.2 45.8L-1 -27Z\"/><path class=\"w\" d=\"M-1 -27L10.7 -8.4L2.5 -11.3L-2.5 -0.8Z\"/><path class=\"s\" d=\"M35.8 48.6L9.4 63.9L9.4 13.8Z\"/><path class=\"w\" d=\"M9.4 13.8L17.8 24.9L12.3 23.3L9.4 29.8Z\"/><path class=\"l\" d=\"M9.4 63.9L-17.1 48.6L9.4 13.8Z\"/><path class=\"k\" d=\"M9.4 29.8L6.4 23.3L0.9 24.9\"/><path class=\"l\" d=\"M41.6 44.6L22.5 33.6L41.6 9.6Z\"/><path class=\"k\" d=\"M41.6 20.1L39.6 15.8L35.8 16.8\"/><path class=\"s\" d=\"M60.7 33.6L41.6 44.6L41.6 9.6Z\"/><path class=\"w\" d=\"M41.6 9.6L47.3 16.8L43.6 15.8L41.6 20.1Z\"/></g>"}, "mate": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-8.9 -3.7)\"><ellipse class=\"s\" cx=\"16.6\" cy=\"30\" rx=\"26.5\" ry=\"6.4\"/><path class=\"l\" d=\"M-25.4 18.6L-23.8 10.7L-18.8 3.9L-10.7 -3.8L-2 -6.2L7.5 -5.1L13 -1.9L23.8 10.7L25.4 18.6L23.1 26.4L18.9 31.2L12.3 35.7L2.6 38L-7.7 37.2L-16 33.5L-22.1 28.1L-25.1 20.5Z\"/><path class=\"s\" d=\"M0 -6L7.5 -5.1L13 -1.9L23.8 10.7L25.4 18.6L23.1 26.4L18.9 31.2L12.3 35.7L2.6 38L0 37.8Z\"/><path class=\"l\" d=\"M-15.8 2.4A15.8 9.1 0 0 0 15.8 2.4L15.8 -2.4A15.8 9.1 0 0 1 -15.8 -2.4Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-2.4\" rx=\"15.8\" ry=\"9.1\"/><ellipse class=\"s\" cx=\"0\" cy=\"-2.4\" rx=\"12.1\" ry=\"7\"/><path class=\"k\" d=\"M6.2 -1.8L32.7 -29.1L41.6 -28.5\"/><path class=\"k\" d=\"M6.2 -3.3L32.7 -30.6\"/></g>"}, "dispersion": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.083) translate(-0 -27.1)\"><path class=\"s\" d=\"M-49.9 28.8L0 57.6L0 54.3L-49.9 25.5Z\"/><path class=\"s\" d=\"M49.9 28.8L0 57.6L0 54.3L49.9 25.5Z\"/><path class=\"l\" d=\"M0 -3.3L49.9 25.5L0 54.3L-49.9 25.5Z\"/><path class=\"s\" d=\"M-23.1 25L-17.1 28.5L-17.1 19.5L-23.1 16Z\"/><path class=\"s\" d=\"M-11.2 25L-17.1 28.5L-17.1 19.5L-11.2 16Z\"/><path class=\"l\" d=\"M-17.1 12.6L-11.2 16L-17.1 19.5L-23.1 16Z\"/><path class=\"s\" d=\"M23.1 25.3L29.1 28.8L29.1 8.4L23.1 4.9Z\"/><path class=\"s\" d=\"M35.1 25.3L29.1 28.8L29.1 8.4L35.1 4.9Z\"/><path class=\"l\" d=\"M29.1 1.5L35.1 4.9L29.1 8.4L23.1 4.9Z\"/><path class=\"s\" d=\"M-40.8 25.6L-34.8 29.1L-34.8 24.3L-40.8 20.8Z\"/><path class=\"s\" d=\"M-28.8 25.6L-34.8 29.1L-34.8 24.3L-28.8 20.8Z\"/><path class=\"l\" d=\"M-34.8 17.4L-28.8 20.8L-34.8 24.3L-40.8 20.8Z\"/><path class=\"s\" d=\"M-1.3 25.6L4.7 29.1L4.7 14.7L-1.3 11.2Z\"/><path class=\"s\" d=\"M10.7 25.6L4.7 29.1L4.7 14.7L10.7 11.2Z\"/><path class=\"l\" d=\"M4.7 7.8L10.7 11.2L4.7 14.7L-1.3 11.2Z\"/><path class=\"s\" d=\"M-21 33.4L-15.1 36.9L-15.1 30.3L-21 26.8Z\"/><path class=\"s\" d=\"M-9.1 33.4L-15.1 36.9L-15.1 30.3L-9.1 26.8Z\"/><path class=\"l\" d=\"M-15.1 23.4L-9.1 26.8L-15.1 30.3L-21 26.8Z\"/><path class=\"s\" d=\"M18.4 33.4L24.4 36.9L24.4 19.5L18.4 16Z\"/><path class=\"s\" d=\"M30.4 33.4L24.4 36.9L24.4 19.5L30.4 16Z\"/><path class=\"l\" d=\"M24.4 12.6L30.4 16L24.4 19.5L18.4 16Z\"/><path class=\"s\" d=\"M1.8 34.6L7.8 38.1L7.8 26.1L1.8 22.6Z\"/><path class=\"s\" d=\"M13.8 34.6L7.8 38.1L7.8 26.1L13.8 22.6Z\"/><path class=\"l\" d=\"M7.8 19.2L13.8 22.6L7.8 26.1L1.8 22.6Z\"/></g>"}, "podio": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.266) translate(-14 -6.9)\"><path class=\"l\" d=\"M-21.8 12.6L-5.2 22.2L-5.2 -3L-21.8 -12.6Z\"/><path class=\"s\" d=\"M16.6 9.6L-5.2 22.2L-5.2 -3L16.6 -15.6Z\"/><path class=\"l\" d=\"M0 -25.2L16.6 -15.6L-5.2 -3L-21.8 -12.6Z\"/><path class=\"l\" d=\"M-5.2 22.2L11.4 31.8L11.4 -5.4L-5.2 -15Z\"/><path class=\"s\" d=\"M33.3 19.2L11.4 31.8L11.4 -5.4L33.3 -18Z\"/><path class=\"l\" d=\"M16.6 -27.6L33.3 -18L11.4 -5.4L-5.2 -15Z\"/><path class=\"l\" d=\"M11.4 31.8L28.1 41.4L28.1 24.6L11.4 15Z\"/><path class=\"s\" d=\"M49.9 28.8L28.1 41.4L28.1 24.6L49.9 12Z\"/><path class=\"l\" d=\"M33.3 2.4L49.9 12L28.1 24.6L11.4 15Z\"/><path class=\"s\" d=\"M-16.6 -0L-10.4 3.6L-10.4 0.9L-16.6 -2.7Z\"/><path class=\"s\" d=\"M0 -2.4L6.2 1.2L6.2 -1.5L0 -5.1Z\"/><path class=\"s\" d=\"M16.6 26.4L22.9 30L22.9 27.3L16.6 23.7Z\"/></g>"}, "mosaico": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.136) translate(-0 -20.5)\"><path class=\"l\" d=\"M-14 8.1L0 16.2L0 10.2L-14 2.1Z\"/><path class=\"s\" d=\"M14 8.1L0 16.2L0 10.2L14 2.1Z\"/><path class=\"l\" d=\"M0 -6L14 2.1L0 10.2L-14 2.1Z\"/><path class=\"l\" d=\"M-30.1 17.4L-16.1 25.5L-16.1 9.9L-30.1 1.8Z\"/><path class=\"s\" d=\"M-2.1 17.4L-16.1 25.5L-16.1 9.9L-2.1 1.8Z\"/><path class=\"l\" d=\"M-16.1 -6.3L-2.1 1.8L-16.1 9.9L-30.1 1.8Z\"/><path class=\"l\" d=\"M2.1 17.4L16.1 25.5L16.1 3.9L2.1 -4.2Z\"/><path class=\"s\" d=\"M30.1 17.4L16.1 25.5L16.1 3.9L30.1 -4.2Z\"/><path class=\"l\" d=\"M16.1 -12.3L30.1 -4.2L16.1 3.9L2.1 -4.2Z\"/><path class=\"l\" d=\"M-46.2 26.7L-32.2 34.8L-32.2 25.2L-46.2 17.1Z\"/><path class=\"s\" d=\"M-18.2 26.7L-32.2 34.8L-32.2 25.2L-18.2 17.1Z\"/><path class=\"l\" d=\"M-32.2 9L-18.2 17.1L-32.2 25.2L-46.2 17.1Z\"/><path class=\"l\" d=\"M-14 26.7L0 34.8L0 27.6L-14 19.5Z\"/><path class=\"s\" d=\"M14 26.7L0 34.8L0 27.6L14 19.5Z\"/><path class=\"l\" d=\"M0 11.4L14 19.5L0 27.6L-14 19.5Z\"/><path class=\"l\" d=\"M18.2 26.7L32.2 34.8L32.2 24L18.2 15.9Z\"/><path class=\"s\" d=\"M46.2 26.7L32.2 34.8L32.2 24L46.2 15.9Z\"/><path class=\"l\" d=\"M32.2 7.8L46.2 15.9L32.2 24L18.2 15.9Z\"/><path class=\"l\" d=\"M-30.1 36L-16.1 44.1L-16.1 30.9L-30.1 22.8Z\"/><path class=\"s\" d=\"M-2.1 36L-16.1 44.1L-16.1 30.9L-2.1 22.8Z\"/><path class=\"l\" d=\"M-16.1 14.7L-2.1 22.8L-16.1 30.9L-30.1 22.8Z\"/><path class=\"l\" d=\"M2.1 36L16.1 44.1L16.1 17.7L2.1 9.6Z\"/><path class=\"s\" d=\"M30.1 36L16.1 44.1L16.1 17.7L30.1 9.6Z\"/><path class=\"l\" d=\"M16.1 1.5L30.1 9.6L16.1 17.7L2.1 9.6Z\"/><path class=\"l\" d=\"M-14 45.3L0 53.4L0 45L-14 36.9Z\"/><path class=\"s\" d=\"M14 45.3L0 53.4L0 45L14 36.9Z\"/><path class=\"l\" d=\"M0 28.8L14 36.9L0 45L-14 36.9Z\"/></g>"}, "pin": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.123) translate(-6.5 -22.3)\"><path class=\"s\" d=\"M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z\"/><path class=\"l\" d=\"M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z\"/><path class=\"s\" d=\"M36.4 21L54.6 26.1L13 50.1L-5.2 45Z\"/><path class=\"wl\" d=\"M-30.1 21L-9.4 15.2L0.5 15.3\"/><path class=\"k\" d=\"M0.5 15.3L12.5 19.7L24.9 27.6\"/><path class=\"s\" d=\"M27 33.5L16.6 10.6L37.4 10.6Z\"/><circle class=\"s\" cx=\"27\" cy=\"5.9\" r=\"11.4\"/><circle class=\"w\" cx=\"27\" cy=\"5.9\" r=\"4.8\"/></g>"}, "buque": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.074) translate(-22.7 -6.1)\"><ellipse class=\"s\" cx=\"27\" cy=\"26.4\" rx=\"41.2\" ry=\"7.6\"/><path class=\"s\" d=\"M60.3 21L0 -13.8L-22.9 -0.6L37.4 34.2Z\"/><path class=\"s\" d=\"M52 30L60.3 21L37.4 34.2L29.1 43.2Z\"/><path class=\"s\" d=\"M-22.9 -0.6L-18.7 15.6L29.1 43.2L37.4 34.2Z\"/><path class=\"l\" d=\"M0 -13.8L60.3 21L37.4 34.2L-22.9 -0.6Z\"/><path class=\"wl\" d=\"M-20 10.3L31.7 40.2\"/><path class=\"l\" d=\"M-17.1 -0.9L-7.3 4.8L-7.3 -15.6L-17.1 -21.3Z\"/><path class=\"s\" d=\"M9.4 -4.8L-7.3 4.8L-7.3 -15.6L9.4 -25.2Z\"/><path class=\"l\" d=\"M-0.5 -30.9L9.4 -25.2L-7.3 -15.6L-17.1 -21.3Z\"/><path class=\"s\" d=\"M-16.1 -14.1L-8.3 -9.6L-8.3 -13.8L-16.1 -18.3Z\"/><path class=\"l\" d=\"M-5.7 6.3L5.7 12.9L5.7 5.1L-5.7 -1.5Z\"/><path class=\"s\" d=\"M23.4 2.7L5.7 12.9L5.7 5.1L23.4 -5.1Z\"/><path class=\"l\" d=\"M12 -11.7L23.4 -5.1L5.7 5.1L-5.7 -1.5Z\"/><path class=\"s\" d=\"M5.7 12.9L17.1 19.5L17.1 11.7L5.7 5.1Z\"/><path class=\"s\" d=\"M34.8 9.3L17.1 19.5L17.1 11.7L34.8 1.5Z\"/><path class=\"l\" d=\"M23.4 -5.1L34.8 1.5L17.1 11.7L5.7 5.1Z\"/><path class=\"l\" d=\"M5.7 5.1L17.1 11.7L17.1 3.9L5.7 -2.7Z\"/><path class=\"s\" d=\"M34.8 1.5L17.1 11.7L17.1 3.9L34.8 -6.3Z\"/><path class=\"l\" d=\"M23.4 -12.9L34.8 -6.3L17.1 3.9L5.7 -2.7Z\"/><path class=\"s\" d=\"M17.1 19.5L28.6 26.1L28.6 18.3L17.1 11.7Z\"/><path class=\"s\" d=\"M46.2 15.9L28.6 26.1L28.6 18.3L46.2 8.1Z\"/><path class=\"l\" d=\"M34.8 1.5L46.2 8.1L28.6 18.3L17.1 11.7Z\"/><path class=\"l\" d=\"M17.1 11.7L28.6 18.3L28.6 10.5L17.1 3.9Z\"/><path class=\"s\" d=\"M46.2 8.1L28.6 18.3L28.6 10.5L46.2 0.3Z\"/><path class=\"l\" d=\"M34.8 -6.3L46.2 0.3L28.6 10.5L17.1 3.9Z\"/><path class=\"s\" d=\"M28.6 26.1L40 32.7L40 24.9L28.6 18.3Z\"/><path class=\"s\" d=\"M57.7 22.5L40 32.7L40 24.9L57.7 14.7Z\"/><path class=\"l\" d=\"M46.2 8.1L57.7 14.7L40 24.9L28.6 18.3Z\"/></g>"}, "gota": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.333) translate(-21.8 11.3)\"><ellipse class=\"s\" cx=\"21.8\" cy=\"21\" rx=\"29.4\" ry=\"6.8\"/><path class=\"s\" d=\"M34.4 12.1L35.2 11.6L25.9 17L25.1 17.5Z\"/><path class=\"s\" d=\"M35.2 11.6L36 11L26.6 16.4L25.9 17Z\"/><path class=\"s\" d=\"M36 11L36.6 10.3L27.3 15.7L26.6 16.4Z\"/><path class=\"s\" d=\"M36.6 10.3L37.3 9.5L27.9 14.9L27.3 15.7Z\"/><path class=\"s\" d=\"M37.3 9.5L37.8 8.6L28.5 14L27.9 14.9Z\"/><path class=\"s\" d=\"M37.8 8.6L38.3 7.7L28.9 13.1L28.5 14Z\"/><path class=\"s\" d=\"M38.3 7.7L38.7 6.7L29.3 12.1L28.9 13.1Z\"/><path class=\"s\" d=\"M38.7 6.7L39 5.6L29.6 11L29.3 12.1Z\"/><path class=\"s\" d=\"M39 5.6L39.2 4.4L29.9 9.8L29.6 11Z\"/><path class=\"s\" d=\"M39.2 4.4L39.4 3.2L30 8.6L29.9 9.8Z\"/><path class=\"s\" d=\"M39.4 3.2L39.5 1.9L30.1 7.3L30 8.6Z\"/><path class=\"s\" d=\"M39.5 1.9L39.5 0.5L30.1 5.9L30.1 7.3Z\"/><path class=\"s\" d=\"M39.5 0.5L39.4 -0.9L30 4.5L30.1 5.9Z\"/><path class=\"s\" d=\"M39.4 -0.9L39.2 -2.3L29.9 3.1L30 4.5Z\"/><path class=\"s\" d=\"M39.2 -2.3L39 -3.7L29.6 1.7L29.9 3.1Z\"/><path class=\"s\" d=\"M39 -3.7L38.7 -5.2L29.3 0.2L29.6 1.7Z\"/><path class=\"s\" d=\"M38.7 -5.2L38.3 -6.7L28.9 -1.3L29.3 0.2Z\"/><path class=\"s\" d=\"M38.3 -6.7L37.8 -8.2L28.5 -2.8L28.9 -1.3Z\"/><path class=\"s\" d=\"M37.8 -8.2L37.3 -9.7L27.9 -4.3L28.5 -2.8Z\"/><path class=\"s\" d=\"M37.3 -9.7L22.9 -50.4L13.5 -45L27.9 -4.3Z\"/><path class=\"l\" d=\"M-0.9 -20.9L-1.4 -20L-1.9 -19.1L-2.3 -18.1L-2.6 -17L-2.9 -15.8L-3 -14.6L-3.1 -13.3L-3.1 -11.9L-3 -10.5L-2.9 -9.1L-2.6 -7.7L-2.3 -6.2L-1.9 -4.7L-1.4 -3.2L-0.9 -1.7L-0.3 -0.2L0.4 1.3L1.2 2.7L2 4.1L2.8 5.5L3.7 6.9L4.7 8.2L5.7 9.4L6.7 10.6L7.8 11.8L8.9 12.8L10.1 13.8L11.2 14.7L12.4 15.5L13.5 16.2L14.7 16.8L15.8 17.3L17 17.8L18.1 18.1L19.2 18.3L20.3 18.4L21.3 18.5L22.3 18.4L23.3 18.2L24.2 17.9L25.1 17.5L25.9 17L26.6 16.4L27.3 15.7L27.9 14.9L28.5 14L28.9 13.1L29.3 12.1L29.6 11L29.9 9.8L30 8.6L30.1 7.3L30.1 5.9L30 4.5L29.9 3.1L29.6 1.7L29.3 0.2L28.9 -1.3L28.5 -2.8L27.9 -4.3L13.5 -45Z\"/><path class=\"k\" d=\"M2.6 -9.3L4.2 -1.8L8.3 5.4\"/></g>"}, "mamadera": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-9.2 -6.5)\"><ellipse class=\"s\" cx=\"12.5\" cy=\"30\" rx=\"22\" ry=\"5.5\"/><path class=\"s\" d=\"M-14.3 30A14.3 8.3 0 0 0 14.3 30L14.3 7.8A14.3 8.3 0 0 1 -14.3 7.8Z\"/><path class=\"l\" d=\"M-14.3 7.8A14.3 8.3 0 0 0 14.3 7.8L14.3 -3.6A14.3 8.3 0 0 1 -14.3 -3.6Z\"/><path class=\"wl\" d=\"M4.9 30.6A14.3 8.3 0 0 1 -7.2 30\"/><path class=\"wl\" d=\"M4.9 24.6A14.3 8.3 0 0 1 -7.2 24\"/><path class=\"wl\" d=\"M4.9 18.6A14.3 8.3 0 0 1 -7.2 18\"/><path class=\"k\" d=\"M4.9 12.6A14.3 8.3 0 0 1 -7.2 12\"/><path class=\"s\" d=\"M-16.2 -3.6A16.2 9.3 0 0 0 16.2 -3.6L16.2 -10.2A16.2 9.3 0 0 1 -16.2 -10.2Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-10.2\" rx=\"16.2\" ry=\"9.3\"/><path class=\"l\" d=\"M-9.6 -10.2L-8.1 -15.1L0 -23.7L3.4 -22.4L9 -12.9L9.2 -8.8L4.8 -5.4L-4.8 -5.4L-9.2 -8.8L-9.5 -9.5Z\"/><path class=\"s\" d=\"M0 -23.7L0 -23.7L3.4 -22.4L9 -12.9L9.2 -8.8L4.8 -5.4L0 -5.4Z\"/><path class=\"l\" d=\"M-3.7 -21.6A3.7 3.7 0 0 1 3.7 -21.6A3.7 2.1 0 0 1 -3.7 -21.6Z\"/><path class=\"s\" d=\"M0 -25.3A3.7 3.7 0 0 1 3.7 -21.6A3.7 2.1 0 0 1 0 -19.5Z\"/></g>"}, "monedas": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.053) translate(-6.2 -16.7)\"><path class=\"s\" d=\"M-23.5 19.2A23.5 13.6 0 0 0 23.5 19.2L23.5 14.9A23.5 13.6 0 0 1 -23.5 14.9Z\"/><path class=\"s\" d=\"M-23.5 14.9A23.5 13.6 0 0 0 23.5 14.9L23.5 10.6A23.5 13.6 0 0 1 -23.5 10.6Z\"/><path class=\"s\" d=\"M-23.5 10.6A23.5 13.6 0 0 0 23.5 10.6L23.5 6.2A23.5 13.6 0 0 1 -23.5 6.2Z\"/><path class=\"s\" d=\"M-23.5 6.2A23.5 13.6 0 0 0 23.5 6.2L23.5 1.9A23.5 13.6 0 0 1 -23.5 1.9Z\"/><path class=\"s\" d=\"M-23.5 1.9A23.5 13.6 0 0 0 23.5 1.9L23.5 -2.4A23.5 13.6 0 0 1 -23.5 -2.4Z\"/><path class=\"s\" d=\"M-23.5 -2.4A23.5 13.6 0 0 0 23.5 -2.4L23.5 -6.7A23.5 13.6 0 0 1 -23.5 -6.7Z\"/><path class=\"s\" d=\"M-23.5 -6.7A23.5 13.6 0 0 0 23.5 -6.7L23.5 -11A23.5 13.6 0 0 1 -23.5 -11Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"-11\" rx=\"23.5\" ry=\"13.6\"/><path class=\"wl\" d=\"M23.5 14.9A23.5 13.6 0 0 1 -23.5 14.9\"/><path class=\"wl\" d=\"M23.5 10.6A23.5 13.6 0 0 1 -23.5 10.6\"/><path class=\"wl\" d=\"M23.5 6.2A23.5 13.6 0 0 1 -23.5 6.2\"/><path class=\"wl\" d=\"M23.5 1.9A23.5 13.6 0 0 1 -23.5 1.9\"/><path class=\"wl\" d=\"M23.5 -2.4A23.5 13.6 0 0 1 -23.5 -2.4\"/><path class=\"wl\" d=\"M23.5 -6.7A23.5 13.6 0 0 1 -23.5 -6.7\"/><ellipse class=\"wl\" cx=\"0\" cy=\"-11\" rx=\"14.6\" ry=\"8.4\"/><path class=\"s\" d=\"M-11 44.4A23.5 13.6 0 0 0 36 44.4L36 40.1A23.5 13.6 0 0 1 -11 40.1Z\"/><path class=\"s\" d=\"M-11 40.1A23.5 13.6 0 0 0 36 40.1L36 35.8A23.5 13.6 0 0 1 -11 35.8Z\"/><path class=\"s\" d=\"M-11 35.8A23.5 13.6 0 0 0 36 35.8L36 31.4A23.5 13.6 0 0 1 -11 31.4Z\"/><path class=\"s\" d=\"M-11 31.4A23.5 13.6 0 0 0 36 31.4L36 27.1A23.5 13.6 0 0 1 -11 27.1Z\"/><ellipse class=\"s\" cx=\"12.5\" cy=\"27.1\" rx=\"23.5\" ry=\"13.6\"/><path class=\"wl\" d=\"M36 40.1A23.5 13.6 0 0 1 -11 40.1\"/><path class=\"wl\" d=\"M36 35.8A23.5 13.6 0 0 1 -11 35.8\"/><path class=\"wl\" d=\"M36 31.4A23.5 13.6 0 0 1 -11 31.4\"/><ellipse class=\"wl\" cx=\"12.5\" cy=\"27.1\" rx=\"14.6\" ry=\"8.4\"/></g>"}, "reloj": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.248) translate(-0 -4.8)\"><path class=\"s\" d=\"M-22.8 30A22.8 13.2 0 0 0 22.8 30L22.8 25.8A22.8 13.2 0 0 1 -22.8 25.8Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"25.8\" rx=\"22.8\" ry=\"13.2\"/><path class=\"l\" d=\"M-18 25.8L-16.6 21.8L0.3 4.7L17.4 23.1L17.9 27.2L15.6 31L9 34.8L0 36.2L-9 34.8L-15.6 31L-17.9 27.2Z\"/><path class=\"s\" d=\"M-15.1 25.8L-13.9 22.5L-9.2 18.9L0.2 16L12 20.5L14.9 24.7L14.6 28.1L10.7 31.9L2 34.4L-7.5 33.3L-13 30.1L-14.9 26.9Z\"/><path class=\"l\" d=\"M-18 -16.2L-16.6 -20.2L-11 -24.4L-2.4 -26.5L6.9 -25.8L14.3 -22.5L17.4 -18.9L17.9 -14.8L15.6 -11L-0.3 4.9L-17.4 -13.5L-17.9 -14.8Z\"/><path class=\"s\" d=\"M-5.1 -1.2L2 -3.9L5 -0.4L-0.3 4.9L-5.1 -0.8Z\"/><path class=\"k\" d=\"M0 4.8L0 16.2\"/><path class=\"s\" d=\"M-22.8 -16.2A22.8 13.2 0 0 0 22.8 -16.2L22.8 -20.4A22.8 13.2 0 0 1 -22.8 -20.4Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-20.4\" rx=\"22.8\" ry=\"13.2\"/><path class=\"s\" d=\"M-22.4 25.8A2.2 1.3 0 0 0 -18 25.8L-18 -16.2A2.2 1.3 0 0 1 -22.4 -16.2Z\"/><path class=\"s\" d=\"M18 25.8A2.2 1.3 0 0 0 22.4 25.8L22.4 -16.2A2.2 1.3 0 0 1 18 -16.2Z\"/></g>"}, "laptop": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.010) translate(-8.6 -2.8)\"><path class=\"l\" d=\"M0 -3.6L48.8 24.6L48.8 -12.6L0 -40.8Z\"/><path class=\"s\" d=\"M51.4 23.1L48.8 24.6L48.8 -12.6L51.4 -14.1Z\"/><path class=\"l\" d=\"M2.6 -42.3L51.4 -14.1L48.8 -12.6L0 -40.8Z\"/><path class=\"s\" d=\"M3.6 -5.7L45.2 18.3L45.2 -11.1L3.6 -35.1Z\"/><path class=\"w\" d=\"M10.4 -5.4L15.1 -2.7L15.1 -11.1L10.4 -13.8Z\"/><path class=\"w\" d=\"M18.7 -0.6L23.4 2.1L23.4 -12.3L18.7 -15Z\"/><path class=\"w\" d=\"M27 4.2L31.7 6.9L31.7 -4.5L27 -7.2Z\"/><path class=\"w\" d=\"M35.3 9L40 11.7L40 -7.5L35.3 -10.2Z\"/><path class=\"l\" d=\"M-34.3 19.8L14.5 48L14.5 44.4L-34.3 16.2Z\"/><path class=\"s\" d=\"M48.8 28.2L14.5 48L14.5 44.4L48.8 24.6Z\"/><path class=\"l\" d=\"M0 -3.6L48.8 24.6L14.5 44.4L-34.3 16.2Z\"/><path class=\"s\" d=\"M0 2.4L38.5 24.6L23.9 33L-14.5 10.8Z\"/><path class=\"wl\" d=\"M9.6 7.9L-4.9 16.3\"/><path class=\"wl\" d=\"M19.2 13.5L4.7 21.9\"/><path class=\"wl\" d=\"M28.8 19L14.3 27.4\"/><path class=\"wl\" d=\"M-7.3 6.6L31.2 28.8\"/><path class=\"l\" d=\"M-4.7 20.7L6.8 27.3L-0.5 31.5L-12 24.9Z\"/></g>"}, "urna": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.934) translate(-7.5 -2.4)\"><ellipse class=\"s\" cx=\"22.9\" cy=\"28.8\" rx=\"33.8\" ry=\"9.3\"/><path class=\"l\" d=\"M-41.6 24L0 48L0 10.8L-41.6 -13.2Z\"/><path class=\"s\" d=\"M41.6 24L0 48L0 10.8L41.6 -13.2Z\"/><path class=\"l\" d=\"M0 -37.2L41.6 -13.2L0 10.8L-41.6 -13.2Z\"/><path class=\"s\" d=\"M-9.1 -21.2L13.8 -8L9.1 -5.3L-13.8 -18.5Z\"/><path class=\"l\" d=\"M-8.3 -18L8.3 -8.4L8.3 -33.6L-8.3 -43.2Z\"/><path class=\"k\" d=\"M-4.7 -30.3L-1 -23.4L5.2 -30.6\"/><path class=\"s\" d=\"M-33.3 14.4L-8.3 28.8L-8.3 21.6L-33.3 7.2Z\"/></g>"}, "planilla": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.144) translate(-4.2 -24.7)\"><path class=\"s\" d=\"M-38.5 30.6L8.3 57.6L8.3 54.9L-38.5 27.9Z\"/><path class=\"s\" d=\"M46.8 35.4L8.3 57.6L8.3 54.9L46.8 32.7Z\"/><path class=\"l\" d=\"M0 5.7L46.8 32.7L8.3 54.9L-38.5 27.9Z\"/><path class=\"s\" d=\"M-38.5 23.7L8.3 50.7L8.3 48L-38.5 21Z\"/><path class=\"s\" d=\"M46.8 28.5L8.3 50.7L8.3 48L46.8 25.8Z\"/><path class=\"l\" d=\"M0 -1.2L46.8 25.8L8.3 48L-38.5 21Z\"/><path class=\"l\" d=\"M-38.5 16.8L8.3 43.8L8.3 41.1L-38.5 14.1Z\"/><path class=\"s\" d=\"M46.8 21.6L8.3 43.8L8.3 41.1L46.8 18.9Z\"/><path class=\"l\" d=\"M0 -8.1L46.8 18.9L8.3 41.1L-38.5 14.1Z\"/><path class=\"s\" d=\"M0 -3.3L38.5 18.9L31.7 22.8L-6.8 0.6Z\"/><path class=\"k\" d=\"M-12.7 4L25.7 26.2\"/><path class=\"k\" d=\"M-18.7 7.5L19.7 29.7\"/><path class=\"k\" d=\"M-24.7 10.9L13.8 33.1\"/><path class=\"k\" d=\"M6.2 8.1L-17.1 21.6\"/><path class=\"k\" d=\"M19.2 15.6L-4.2 29.1\"/></g>"}, "portapapeles": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.059) translate(-31.2 17.4)\"><ellipse class=\"s\" cx=\"41.6\" cy=\"21.6\" rx=\"25\" ry=\"5.9\"/><path class=\"s\" d=\"M-4.2 2.4L38.5 27L38.5 -35.4L-4.2 -60Z\"/><path class=\"s\" d=\"M42.6 24.6L38.5 27L38.5 -35.4L42.6 -37.8Z\"/><path class=\"s\" d=\"M0 -62.4L42.6 -37.8L38.5 -35.4L-4.2 -60Z\"/><path class=\"l\" d=\"M-0.5 0.9L34.8 21.3L34.8 -30.9L-0.5 -51.3Z\"/><path class=\"s\" d=\"M3.6 -2.1L10.4 1.8L10.4 -12.6L3.6 -16.5Z\"/><path class=\"s\" d=\"M13.5 3.6L20.3 7.5L20.3 -18.9L13.5 -22.8Z\"/><path class=\"s\" d=\"M23.4 9.3L30.1 13.2L30.1 -6L23.4 -9.9Z\"/><path class=\"k\" d=\"M2.1 -3L32.2 14.4\"/><path class=\"k\" d=\"M3.6 -36.9L30.7 -21.3\"/><path class=\"k\" d=\"M3.6 -42.9L30.7 -27.3\"/><path class=\"s\" d=\"M9.4 -48L22.9 -40.2L22.9 -47.4L9.4 -55.2Z\"/><path class=\"s\" d=\"M28.6 -43.5L22.9 -40.2L22.9 -47.4L28.6 -50.7Z\"/><path class=\"s\" d=\"M15.1 -58.5L28.6 -50.7L22.9 -47.4L9.4 -55.2Z\"/></g>"}, "ciguena": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.048) translate(-24.9 -3.3)\"><ellipse class=\"s\" cx=\"24.9\" cy=\"27.6\" rx=\"44.1\" ry=\"7.6\"/><path class=\"l\" d=\"M-16.6 9.6L41.6 43.2L41.6 39.6L-16.6 6Z\"/><path class=\"s\" d=\"M58.2 33.6L41.6 43.2L41.6 39.6L58.2 30Z\"/><path class=\"l\" d=\"M0 -3.6L58.2 30L41.6 39.6L-16.6 6Z\"/><path class=\"l\" d=\"M-10.9 5.7L3.6 14.1L3.6 2.1L-10.9 -6.3Z\"/><path class=\"s\" d=\"M14 8.1L3.6 14.1L3.6 2.1L14 -3.9Z\"/><path class=\"l\" d=\"M-0.5 -12.3L14 -3.9L3.6 2.1L-10.9 -6.3Z\"/><path class=\"s\" d=\"M6.2 3.6L6 0.9L5.3 -1.9L4.1 -4.8L2.5 -7.5L0.6 -9.9L-1.4 -11.9L-3.6 -13.5L-5.8 -14.5L-7.9 -14.8L-9.8 -14.6L-11.4 -13.7L-12.5 -12.2L-13.3 -10.2L-13.5 -7.8L-13.3 -5.1L-12.5 -2.3L-11.4 0.6L-9.8 3.3L-7.9 5.7L-5.8 7.7L-3.6 9.3L-1.4 10.3L0.6 10.6L2.5 10.4L4.1 9.5L5.3 8L6 6Z\"/><path class=\"w\" d=\"M-0.8 -0.5L-0.9 -1.6L-1.3 -2.7L-2 -3.8L-2.8 -4.7L-3.6 -5.4L-4.5 -5.7L-5.3 -5.7L-5.9 -5.4L-6.4 -4.7L-6.5 -3.8L-6.4 -2.6L-5.9 -1.5L-5.3 -0.4L-4.5 0.5L-3.6 1.2L-2.8 1.5L-2 1.5L-1.3 1.2L-0.9 0.5Z\"/><path class=\"s\" d=\"M18.7 14.4L25.5 -17.7L21.8 -15.6L15.1 16.5Z\"/><path class=\"s\" d=\"M25.5 -17.7L22.3 -19.5L18.7 -17.4L21.8 -15.6Z\"/><path class=\"s\" d=\"M10.9 14.1L15.1 16.5L21.8 -15.6L18.7 -17.4Z\"/><path class=\"s\" d=\"M37.4 25.2L27.5 -16.5L23.9 -14.4L33.8 27.3Z\"/><path class=\"s\" d=\"M27.5 -16.5L24.4 -18.3L20.8 -16.2L23.9 -14.4Z\"/><path class=\"s\" d=\"M29.6 24.9L33.8 27.3L23.9 -14.4L20.8 -16.2Z\"/><path class=\"k\" d=\"M-4.2 -9.6L-6.2 -27\"/><path class=\"s\" d=\"M45.7 -16.2L-2.1 -36.6L-6.8 -33.9L41 -13.5Z\"/><path class=\"s\" d=\"M45.7 -10.8L45.7 -16.2L41 -13.5L41 -8.1Z\"/><path class=\"l\" d=\"M-6.8 -28.5L41 -8.1L41 -13.5L-6.8 -33.9Z\"/><path class=\"s\" d=\"M50.9 -1.8L54 -6L49.4 -3.3L46.2 0.9Z\"/><path class=\"s\" d=\"M54 -6L54 -13.2L49.4 -10.5L49.4 -3.3Z\"/><path class=\"s\" d=\"M54 -13.2L48.8 -21L44.2 -18.3L49.4 -10.5Z\"/><path class=\"s\" d=\"M39 -0.9L46.2 0.9L49.4 -3.3L49.4 -10.5L44.2 -18.3L40 -14.7Z\"/><path class=\"k\" d=\"M49.1 0.4L49.1 28\"/><path class=\"s\" d=\"M45.1 34.6A4 2.3 0 0 0 53.1 34.6L53.1 28A4 2.3 0 0 1 45.1 28Z\"/><ellipse class=\"l\" cx=\"49.1\" cy=\"28\" rx=\"4\" ry=\"2.3\"/></g>"}, "grua": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(0.877) translate(-7.9 6)\"><ellipse class=\"s\" cx=\"10.4\" cy=\"30\" rx=\"47\" ry=\"10.2\"/><path class=\"l\" d=\"M-41.6 24L-10.4 42L-10.4 21.6L-41.6 3.6Z\"/><path class=\"s\" d=\"M18.7 25.2L-10.4 42L-10.4 21.6L18.7 4.8Z\"/><path class=\"l\" d=\"M-12.5 -13.2L18.7 4.8L-10.4 21.6L-41.6 3.6Z\"/><path class=\"s\" d=\"M-39.5 3.6L-36.4 5.4L-36.4 -10.2L-39.5 -12Z\"/><path class=\"s\" d=\"M-33.3 3.6L-36.4 5.4L-36.4 -10.2L-33.3 -12Z\"/><path class=\"s\" d=\"M-36.4 -13.8L-33.3 -12L-36.4 -10.2L-39.5 -12Z\"/><path class=\"s\" d=\"M-26.5 11.1L-23.4 12.9L-23.4 -2.7L-26.5 -4.5Z\"/><path class=\"s\" d=\"M-20.3 11.1L-23.4 12.9L-23.4 -2.7L-20.3 -4.5Z\"/><path class=\"s\" d=\"M-23.4 -6.3L-20.3 -4.5L-23.4 -2.7L-26.5 -4.5Z\"/><path class=\"s\" d=\"M-13.5 18.6L-10.4 20.4L-10.4 4.8L-13.5 3Z\"/><path class=\"s\" d=\"M-7.3 18.6L-10.4 20.4L-10.4 4.8L-7.3 3Z\"/><path class=\"s\" d=\"M-10.4 1.2L-7.3 3L-10.4 4.8L-13.5 3Z\"/><path class=\"l\" d=\"M-41.6 -12L-10.4 6L-10.4 3L-41.6 -15Z\"/><path class=\"s\" d=\"M18.7 -10.8L-10.4 6L-10.4 3L18.7 -13.8Z\"/><path class=\"l\" d=\"M-12.5 -31.8L18.7 -13.8L-10.4 3L-41.6 -15Z\"/><path class=\"l\" d=\"M17.1 38.1L22.9 41.4L22.9 -25.8L17.1 -29.1Z\"/><path class=\"s\" d=\"M28.6 38.1L22.9 41.4L22.9 -25.8L28.6 -29.1Z\"/><path class=\"s\" d=\"M22.9 -32.4L28.6 -29.1L22.9 -25.8L17.1 -29.1Z\"/><path class=\"k\" d=\"M17.1 32.1L22.9 22.2\"/><path class=\"k\" d=\"M17.1 18.9L22.9 9\"/><path class=\"k\" d=\"M17.1 5.7L22.9 -4.2\"/><path class=\"k\" d=\"M17.1 -7.5L22.9 -17.4\"/><path class=\"l\" d=\"M-13 -47.7L44.2 -14.7L44.2 -18.9L-13 -51.9Z\"/><path class=\"s\" d=\"M47.8 -16.8L44.2 -14.7L44.2 -18.9L47.8 -21Z\"/><path class=\"l\" d=\"M-9.4 -54L47.8 -21L44.2 -18.9L-13 -51.9Z\"/><path class=\"s\" d=\"M-13 -39.3L-5.2 -34.8L-5.2 -42L-13 -46.5Z\"/><path class=\"s\" d=\"M0.5 -38.1L-5.2 -34.8L-5.2 -42L0.5 -45.3Z\"/><path class=\"s\" d=\"M-7.3 -49.8L0.5 -45.3L-5.2 -42L-13 -46.5Z\"/><path class=\"k\" d=\"M38.7 -20L38.7 6.4\"/><path class=\"s\" d=\"M32.2 13.8L38.5 17.4L38.5 10.2L32.2 6.6Z\"/><path class=\"s\" d=\"M44.7 13.8L38.5 17.4L38.5 10.2L44.7 6.6Z\"/><path class=\"s\" d=\"M38.5 3L44.7 6.6L38.5 10.2L32.2 6.6Z\"/></g>"}, "billetes": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.054) translate(-13.5 -6.7)\"><ellipse class=\"s\" cx=\"13.5\" cy=\"25.8\" rx=\"42.6\" ry=\"9.3\"/><path class=\"l\" d=\"M-26.5 15.3L17.1 40.5L17.1 33L-26.5 7.8Z\"/><path class=\"s\" d=\"M40 27.3L17.1 40.5L17.1 33L40 19.8Z\"/><path class=\"l\" d=\"M-3.6 -5.4L40 19.8L17.1 33L-26.5 7.8Z\"/><path class=\"k\" d=\"M-26.5 11.5L17.1 36.7\"/><path class=\"s\" d=\"M14.5 5.1L21.8 9.3L-1 22.5L-8.3 18.3Z\"/><path class=\"s\" d=\"M-8.3 25.8L-1 30L-1 22.5L-8.3 18.3Z\"/><path class=\"l\" d=\"M-18.7 8.1L24.9 33.3L24.9 25.8L-18.7 0.6Z\"/><path class=\"s\" d=\"M47.8 20.1L24.9 33.3L24.9 25.8L47.8 12.6Z\"/><path class=\"l\" d=\"M4.2 -12.6L47.8 12.6L24.9 25.8L-18.7 0.6Z\"/><path class=\"k\" d=\"M-18.7 4.3L24.9 29.5\"/><path class=\"s\" d=\"M22.3 -2.1L29.6 2.1L6.8 15.3L-0.5 11.1Z\"/><path class=\"s\" d=\"M-0.5 18.6L6.8 22.8L6.8 15.3L-0.5 11.1Z\"/><path class=\"l\" d=\"M-26.5 1.5L17.1 26.7L17.1 19.2L-26.5 -6Z\"/><path class=\"s\" d=\"M40 13.5L17.1 26.7L17.1 19.2L40 6Z\"/><path class=\"l\" d=\"M-3.6 -19.2L40 6L17.1 19.2L-26.5 -6Z\"/><path class=\"k\" d=\"M-26.5 -2.2L17.1 22.9\"/><path class=\"s\" d=\"M14.5 -8.7L21.8 -4.5L-1 8.7L-8.3 4.5Z\"/><path class=\"s\" d=\"M-8.3 12L-1 16.2L-1 8.7L-8.3 4.5Z\"/><path class=\"l\" d=\"M-20.8 -6.3L22.9 18.9L22.9 11.4L-20.8 -13.8Z\"/><path class=\"s\" d=\"M45.7 5.7L22.9 18.9L22.9 11.4L45.7 -1.8Z\"/><path class=\"l\" d=\"M2.1 -27L45.7 -1.8L22.9 11.4L-20.8 -13.8Z\"/><path class=\"k\" d=\"M-20.8 -10.1L22.9 15.1\"/><path class=\"s\" d=\"M20.3 -16.5L27.5 -12.3L4.7 0.9L-2.6 -3.3Z\"/><path class=\"s\" d=\"M-2.6 4.2L4.7 8.4L4.7 0.9L-2.6 -3.3Z\"/><ellipse class=\"s\" cx=\"25.5\" cy=\"-0.3\" rx=\"7\" ry=\"4\"/><ellipse class=\"s\" cx=\"-0.5\" cy=\"-15.3\" rx=\"3.7\" ry=\"2.1\"/></g>"}, "escudo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.086) translate(-18.7 14)\"><ellipse class=\"s\" cx=\"18.7\" cy=\"19.2\" rx=\"32.3\" ry=\"6.8\"/><path class=\"l\" d=\"M39.5 1.8L34.3 8.4L26 13.2L31.2 6.6Z\"/><path class=\"l\" d=\"M0 -54L10.4 -50.7L2.1 -45.9L-8.3 -49.2Z\"/><path class=\"l\" d=\"M41.6 -8.4L39.5 1.8L31.2 6.6L33.3 -3.6Z\"/><path class=\"l\" d=\"M10.4 -50.7L20.8 -45.9L12.5 -41.1L2.1 -45.9Z\"/><path class=\"l\" d=\"M20.8 -45.9L31.2 -38.7L22.9 -33.9L12.5 -41.1Z\"/><path class=\"l\" d=\"M41.6 -30L41.6 -8.4L33.3 -3.6L33.3 -25.2Z\"/><path class=\"l\" d=\"M31.2 -38.7L41.6 -30L33.3 -25.2L22.9 -33.9Z\"/><path class=\"s\" d=\"M-8.3 -49.2L2.1 -45.9L12.5 -41.1L22.9 -33.9L33.3 -25.2L33.3 -3.6L31.2 6.6L26 13.2L19.2 16.5L12.5 16.8L5.7 8.7L-1 -2.4L-6.2 -15L-8.3 -27.6Z\"/><path class=\"w\" d=\"M12.5 -29.1L15.4 -17.9L24.1 -12.7L17.2 -10.5L19.6 0.6L12.5 -9.3L5.3 -7.7L7.8 -15.9L0.9 -26.1L9.6 -21.3Z\"/></g>"}, "carrito": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.184) translate(-14.5 0.4)\"><ellipse class=\"s\" cx=\"14.5\" cy=\"22.8\" rx=\"39.7\" ry=\"7.6\"/><path class=\"s\" d=\"M0 -31.2L41.6 -7.2L27 1.2L-14.5 -22.8Z\"/><path class=\"s\" d=\"M41.6 -7.2L36.4 10.8L21.8 19.2L27 1.2Z\"/><path class=\"l\" d=\"M-14.5 -22.8L27 1.2L21.8 19.2L-9.4 1.2Z\"/><path class=\"k\" d=\"M-0.7 -14.8L1.1 7.2\"/><path class=\"k\" d=\"M13.1 -6.8L11.4 13.2\"/><path class=\"k\" d=\"M-12 -10.8L24.4 10.2\"/><path class=\"k\" d=\"M40 -6.3L48.8 -10.8L37.4 -4.2L28.6 0.3\"/><path class=\"k\" d=\"M-8.8 5.7L23.9 24.6\"/><path class=\"l\" d=\"M-1.7 12.5L-1.8 11.6L-2 10.7L-2.4 9.8L-2.9 8.9L-3.5 8.1L-4.2 7.4L-4.9 6.9L-5.7 6.6L-6.3 6.5L-6.9 6.6L-7.5 6.9L-7.8 7.4L-8.1 8L-8.2 8.8L-8.1 9.7L-7.8 10.6L-7.5 11.5L-6.9 12.4L-6.3 13.2L-5.7 13.9L-4.9 14.4L-4.2 14.7L-3.5 14.8L-2.9 14.7L-2.4 14.4L-2 13.9L-1.8 13.3Z\"/><path class=\"l\" d=\"M22.7 26.6L22.6 25.7L22.4 24.8L22 23.9L21.5 23L20.9 22.2L20.2 21.5L19.5 21L18.8 20.7L18.1 20.6L17.5 20.7L17 21L16.6 21.5L16.3 22.1L16.3 22.9L16.3 23.8L16.6 24.7L17 25.6L17.5 26.5L18.1 27.3L18.8 28L19.5 28.5L20.2 28.8L20.9 28.9L21.5 28.8L22 28.5L22.4 28L22.6 27.4Z\"/></g>"}, "globo": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.189) translate(-4.7 -1.8)\"><ellipse class=\"s\" cx=\"9.4\" cy=\"33\" rx=\"27.9\" ry=\"6.4\"/><path class=\"s\" d=\"M-16.2 30A16.2 9.3 0 0 0 16.2 30L16.2 27A16.2 9.3 0 0 1 -16.2 27Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"27\" rx=\"16.2\" ry=\"9.3\"/><path class=\"s\" d=\"M-2.2 27A2.2 1.3 0 0 0 2.2 27L2.2 15A2.2 1.3 0 0 1 -2.2 15Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"15\" rx=\"2.2\" ry=\"1.3\"/><circle class=\"l\" cx=\"0\" cy=\"-7.8\" r=\"27.9\"/><path class=\"s\" d=\"M0 -35.7A27.9 27.9 0 0 1 0 20.1Z\"/><path class=\"k\" d=\"M0 17.9A23.7 13.7 0 0 1 -23.7 4.2\"/><path class=\"wl\" d=\"M23.7 4.2A23.7 13.7 0 0 1 0 17.9\"/><path class=\"k\" d=\"M0 8.3A27.9 16.1 0 0 1 -27.9 -7.8\"/><path class=\"wl\" d=\"M27.9 -7.8A27.9 16.1 0 0 1 0 8.3\"/><path class=\"k\" d=\"M0 -6.1A23.7 13.7 0 0 1 -23.7 -19.8\"/><path class=\"wl\" d=\"M23.7 -19.8A23.7 13.7 0 0 1 0 -6.1\"/></g>"}, "mastil": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.330) translate(-4.6 -1)\"><ellipse class=\"s\" cx=\"4.2\" cy=\"34.8\" rx=\"30.9\" ry=\"6.8\"/><path class=\"l\" d=\"M-14.5 30L0 38.4L0 33.6L-14.5 25.2Z\"/><path class=\"s\" d=\"M14.5 30L0 38.4L0 33.6L14.5 25.2Z\"/><path class=\"l\" d=\"M0 16.8L14.5 25.2L0 33.6L-14.5 25.2Z\"/><path class=\"s\" d=\"M-2.1 25.2A2.1 1.2 0 0 0 2.1 25.2L2.1 -38.4A2.1 1.2 0 0 1 -2.1 -38.4Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"-38.4\" rx=\"2.1\" ry=\"1.2\"/><path class=\"s\" d=\"M1.6 -36.3L13 -32.1L24.4 -22.5L35.9 -18.3L35.9 6.9L24.4 2.7L13 -6.9L1.6 -11.1Z\"/><path class=\"w\" d=\"M1.6 -27.9L13 -23.7L24.4 -14.1L35.9 -9.9L35.9 -1.5L24.4 -5.7L13 -15.3L1.6 -19.5Z\"/><circle class=\"s\" cx=\"18.7\" cy=\"-14.7\" r=\"2.5\"/></g>"}, "matraz": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.295) translate(-6.5 -9.7)\"><ellipse class=\"s\" cx=\"10.4\" cy=\"32.4\" rx=\"28.7\" ry=\"6.8\"/><path class=\"l\" d=\"M-26.1 27.9L-25.2 24L-4.4 -3.3L5.1 -2.9L6.7 -1.6L25.2 24L26.1 27.9L24.8 33.8L22.3 37.4L15.7 41.8L6.7 44.3L-3.4 44.7L-12.9 42.9L-20.4 39L-23.8 35.7L-25.5 31.9L-25.9 29.9Z\"/><path class=\"s\" d=\"M-26.1 27.9L-25.2 24L-14 9.4L-6.7 6.2L4.6 5.8L12.5 8.4L16.3 11.7L25.2 24L26.1 27.9L24.8 33.8L22.3 37.4L15.7 41.8L6.7 44.3L-3.4 44.7L-12.9 42.9L-20.4 39L-23.8 35.7L-25.5 31.9L-25.9 29.9Z\"/><path class=\"wl\" d=\"M17 18.2A17.6 10.2 0 0 1 -17 18.2\"/><circle class=\"w\" cx=\"-10.4\" cy=\"24\" r=\"2\"/><circle class=\"w\" cx=\"5.2\" cy=\"27.6\" r=\"1.4\"/><path class=\"k\" d=\"M1.2 18.9A14.1 8.1 0 0 1 -9.9 16.5\"/><path class=\"k\" d=\"M0.9 12.1A10.7 6.2 0 0 1 -7.5 10.4\"/><path class=\"l\" d=\"M-7.2 0.6A7.2 4.2 0 0 0 7.2 0.6L7.2 -16.8A7.2 4.2 0 0 1 -7.2 -16.8Z\"/><path class=\"l\" d=\"M-9.6 -16.8A9.6 5.5 0 0 0 9.6 -16.8L9.6 -19.8A9.6 5.5 0 0 1 -9.6 -19.8Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"-19.8\" rx=\"9.6\" ry=\"5.5\"/><ellipse class=\"s\" cx=\"0\" cy=\"-19.8\" rx=\"6\" ry=\"3.5\"/></g>"}, "balanza": {"t": "azul", "d": "<g transform=\"translate(60 60) scale(1.350) translate(-1.4 -4)\"><ellipse class=\"s\" cx=\"7.3\" cy=\"34.2\" rx=\"26.5\" ry=\"6.4\"/><path class=\"s\" d=\"M-15.4 30A15.4 8.9 0 0 0 15.4 30L15.4 26.7A15.4 8.9 0 0 1 -15.4 26.7Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"26.7\" rx=\"15.4\" ry=\"8.9\"/><path class=\"s\" d=\"M-8.8 26.7A8.8 5.1 0 0 0 8.8 26.7L8.8 24A8.8 5.1 0 0 1 -8.8 24Z\"/><ellipse class=\"l\" cx=\"0\" cy=\"24\" rx=\"8.8\" ry=\"5.1\"/><path class=\"k\" d=\"M-19.2 -29.1L-25.7 -11.3\"/><path class=\"k\" d=\"M-19.2 -29.1L-12.7 -3.8\"/><path class=\"s\" d=\"M-31 -7.5L-29.4 -10.9L-22.3 -14.1L-12.1 -12.9L-7.9 -9.3L-7.9 -5.7L-9.9 -3.4L-21.8 2.1L-30.6 -5.7L-30.9 -6.6Z\"/><ellipse class=\"l\" cx=\"-19.2\" cy=\"-7.5\" rx=\"11.8\" ry=\"6.8\"/><path class=\"s\" d=\"M-2.6 24A2.6 1.5 0 0 0 2.6 24L2.6 -17.4A2.6 1.5 0 0 1 -2.6 -17.4Z\"/><ellipse class=\"s\" cx=\"0\" cy=\"-17.4\" rx=\"2.6\" ry=\"1.5\"/><path class=\"l\" d=\"M-22.8 -28L19.8 -3.4L19.8 -6.4L-22.8 -31Z\"/><path class=\"s\" d=\"M22.8 -5L19.8 -3.4L19.8 -6.4L22.8 -8Z\"/><path class=\"s\" d=\"M-19.8 -32.6L22.8 -8L19.8 -6.4L-22.8 -31Z\"/><path class=\"l\" d=\"M-4.6 -19.5A4.6 4.6 0 0 1 4.6 -19.5A4.6 2.6 0 0 1 -4.6 -19.5Z\"/><path class=\"s\" d=\"M0 -24.1A4.6 4.6 0 0 1 4.6 -19.5A4.6 2.6 0 0 1 0 -16.9Z\"/><path class=\"k\" d=\"M19.2 -6.9L12.7 10.9\"/><path class=\"k\" d=\"M19.2 -6.9L25.7 18.4\"/><path class=\"s\" d=\"M7.5 14.7L9 11.3L16.2 8.1L26.4 9.3L30.6 12.9L30.6 16.5L28.6 18.8L16.6 24.3L7.9 16.5L7.6 15.6Z\"/><ellipse class=\"l\" cx=\"19.2\" cy=\"14.7\" rx=\"11.8\" ry=\"6.8\"/></g>"}};
 const icono = (n, cls = "") => ICONOS[n] ? `<svg class="iso tono-${ICONOS[n].t} ${cls}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">${ICONOS[n].d}</svg>` : "";
 document.querySelectorAll("[data-icono]").forEach(el => { el.innerHTML = icono(el.dataset.icono); });
 
@@ -163,10 +165,21 @@ const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto"
 const signo = v => v < 0 ? `cayó ${n1(Math.abs(v))}%` : `creció ${n1(v)}%`;
 const enLoQueVa = (o, ultimo, que, sube, baja) => o && o.anio > ultimo
   ? ` Entre enero y ${MESES[o.mes - 1]} de ${o.anio}, ${que} ${o.var >= 0 ? sube : baja} ${pct(Math.abs(o.var))} respecto de los mismos meses de ${o.anio - 1}.` : "";
-const EV = R.envejecimiento;
+const EV = R.envejecimiento, PPY = R.poblacion_proy, CM = R.causas_muerte, SX = R.externo;
+// sector externo: una fecha del BCRA (dd/mm/aaaa) y un mes (aaaa-mm) dichos en palabras, un trimestre (2T2026) y un saldo con su sentido
+const fLarga = f => `${+f.slice(0, 2)} de ${MESES[+f.slice(3, 5) - 1]} de ${f.slice(6)}`;
+const mesTx = p => `${MESES[+p.slice(5, 7) - 1]} de ${p.slice(0, 4)}`;
+const trimTx = t => `${["primer", "segundo", "tercer", "cuarto"][+t[0] - 1]} trimestre de ${t.slice(2)}`;
+const saldoTx = v => v >= 0 ? `${n0(v)} millones a favor` : `${n0(-v)} millones en contra`;
+const subioBajo = (v, m, f) => `${v >= 0 ? m : f} ${pct(Math.abs(v))}`;
+// causas de muerte: cada grupo dicho dentro de una oración, y los grupos con causa definida de más a menos frecuente en el país
+const CM_FRASE = {circulatorias: "las enfermedades del corazón y la circulación", tumores: "los tumores", respiratorias: "las enfermedades respiratorias",
+  infecciosas: "las enfermedades infecciosas y parasitarias", covid: "el COVID-19", endocrinas: "la diabetes y otras enfermedades endocrinas y metabólicas",
+  digestivas: "las enfermedades digestivas", externas: "las causas externas"};
+const CMG = CM.grupos.filter(g => CM_FRASE[g.k]).sort((a, b) => b.pct - a.pct);
 // columnas de maternidad adolescente por provincia: llevan el primer y el último año de la DEIS (pct_2012, pct_2024...)
 const ADO_INI = "pct_" + nac.anio_ini, ADO_ULT = "pct_" + nac.anio_ult;
-const PI = R.piramide, JU = R.jubilaciones;
+const PI = R.piramide, JU = R.jubilaciones, HB = R.haberes, PIN = R.pensiones_invalidez, AU = R.auh, DS = R.desempleo;
 const EM = R.empresas;
 // Petróleo y gas, y construcción y vivienda (etapa 18): resúmenes, ayudas y los textos que cambian con la vista de cada ficha
 // (el de la vista inicial va en TX, así se ve antes de que se dibuje el gráfico)
@@ -256,7 +269,8 @@ const cuencasTxt = c => lista(Object.entries(c).sort((a, b) => b[1] - a[1]).map(
 const topViv = k => [...T.vivienda_provincias].sort((a, b) => b[k] - a[k]);
 const VIV_IND = {
   pct_alquila: {nombre: "Hogares que alquilan", f: pct,
-    t: () => `En el Censo 2022, el ${pct(VV.pct_alquila)} de los hogares alquilaba su vivienda y el ${pct(VV.pct_propia)} era propietario. ` +
+    // la cifra destacada de la ficha ya dice la parte que alquila: el texto empieza por los propietarios
+    t: () => `En el Censo 2022, el ${pct(VV.pct_propia)} de los hogares era propietario de su vivienda. ` +
       `El alquiler era más común en ${CN.viv_top.pct_alquila[0]} (${pct(CN.viv_top.pct_alquila[1])}) y menos en ${CN.viv_low.pct_alquila[0]} (${pct(CN.viv_low.pct_alquila[1])}).`},
   pct_hacinamiento: {nombre: "Hogares con hacinamiento crítico", f: pct,
     t: () => `En el Censo 2022, el ${pct(VV.pct_hacinamiento)} de los hogares vivía con más de tres personas por cuarto, lo que el INDEC llama hacinamiento crítico. ` +
@@ -282,17 +296,20 @@ const NOTA_VIV = k => `Datos del Censo 2022 sumados desde los radios censales. U
 const LEAD = {
   petroleo: v => v === "cuenca"
     ? `En ${PG.mes}, el petróleo salió de cinco cuencas: ${cuencasTxt(PG.cuencas_pet)}. La Neuquina abarca Neuquén y partes de Mendoza, Río Negro y La Pampa.`
-    : `En ${PG.mes} la Argentina produjo ${n0(PG.kbd)} mil barriles de petróleo por día${PG.record ? `, el valor más alto de la serie, que empieza en ${PG.anio_ini}` : ""}. ` +
-      `El ${pct(PG.pct_shale)} salió de pozos de shale. Entre enero y ${MESES[PG.ytd.pet.mes - 1]} la producción ${creceCae(PG.ytd.pet.var)} frente a los mismos meses de ${PG.ytd.pet.anio - 1}. ` +
-      `El promedio anual más bajo de la serie fue el de ${PG.anio_min}, con ${n0(PG.kbd_min)} mil barriles por día.`,
+    // la cifra destacada ya dice la producción del último mes: el texto empieza por lo que va del año
+    : `Entre enero y ${MESES[PG.ytd.pet.mes - 1]} de ${PG.ytd.pet.anio}, la producción de petróleo ${creceCae(PG.ytd.pet.var)} frente a los mismos meses de ${PG.ytd.pet.anio - 1}. ` +
+      `En ${PG.mes}, el ${pct(PG.pct_shale)} salió de pozos de shale. ` +
+      `El promedio anual más bajo de la serie, que empieza en ${PG.anio_ini}, fue el de ${PG.anio_min}, con ${n0(PG.kbd_min)} mil barriles por día.`,
   gas: v => v === "cuenca"
     ? `En ${PG.mes}, el gas salió de estas cuencas: ${cuencasTxt(PG.cuencas_gas)}. La Austral incluye los yacimientos del mar frente a Tierra del Fuego.`
-    : `En ${PG.mes} se produjeron ${n1(PG.gas)} millones de metros cúbicos de gas natural por día, el ${pct(PG.pct_gas_nc)} de pozos no convencionales. ` +
-      `Entre enero y ${MESES[PG.ytd.gas.mes - 1]} la producción ${creceCae(PG.ytd.gas.var)} frente a los mismos meses de ${PG.ytd.gas.anio - 1}. ` +
-      `En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones por día. El más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,
+    // la cifra destacada ya dice la producción del último mes: el texto empieza por lo que va del año
+    : `Entre enero y ${MESES[PG.ytd.gas.mes - 1]} de ${PG.ytd.gas.anio}, la producción de gas natural ${creceCae(PG.ytd.gas.var)} frente a los mismos meses de ${PG.ytd.gas.anio - 1}. ` +
+      `En ${PG.mes}, el ${pct(PG.pct_gas_nc)} salió de pozos no convencionales. ` +
+      `En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones de metros cúbicos por día. El más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,
   "gas-hogares": () => {
     const alto = topViv("pct_gas_red").slice(0, 3);
-    return `En el Censo 2022, el ${pct(VV.pct_gas_red)} de los hogares cocinaba con gas de red y el ${pct(VV.pct_garrafa)} con gas en garrafa. ` +
+    // la cifra destacada ya dice la parte que cocina con gas de red: el texto empieza por la garrafa
+    return `En el Censo 2022, el ${pct(VV.pct_garrafa)} de los hogares cocinaba con gas en garrafa. ` +
       (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100 hogares cocinaba con gas de red. ` : "") +
       `Donde más hogares lo tenían era en ${lista(alto.map(r => `${r.territorio} (${pct(r.pct_gas_red)})`))}.`;
   },
@@ -303,7 +320,8 @@ const LEAD = {
       return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top_gas} produjo el ${pct(PG.top_gas_pct)} del gas del país: ${n1(t.gas_mmm3d)} millones de metros cúbicos por día, contra ${n1(t.gas_mmm3d_antes)} en los mismos meses de diez años antes. ` +
         `Los yacimientos del mar argentino aportaron el ${pct(PG.mar_gas_pct)}.`;
     }
-    return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top} produjo el ${pct(PG.top_pct)} del petróleo del país: ${n0(PG.top_kbd)} mil barriles por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
+    // la cifra destacada ya dice la parte de la primera provincia: el texto empieza por lo que produjo y diez años antes
+    return `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.top} produjo ${n0(PG.top_kbd)} mil barriles de petróleo por día, contra ${n0(PG.top_antes)} mil en los mismos meses de diez años antes. ` +
       `${PG.segundo}, la segunda, produjo ${n0(PG.segundo_kbd)} mil, contra ${n0(PG.segundo_antes)} mil. En total, ${PG.n_prov} provincias producen petróleo o gas. La formación Vaca Muerta dio el ${pct(PG.vm_pct)} del petróleo del país.`;
   },
   // áreas de concesión (etapa 21): el último año completo. El texto de un área elegida lo arma textoArea()
@@ -326,35 +344,44 @@ const LEAD = {
     const e = [...T.hidrocarburos_empresas].filter(r => r.nombre !== "Otras empresas").sort((a, b) => b.pct_gas - a.pct_gas);
     return v === "pct_gas"
       ? `Entre ${PG.v_desde} y ${PG.v_hasta}, la empresa que más gas produjo fue ${e[0].nombre}, con el ${pct(e[0].pct_gas)} del país, seguida por ${e[1].nombre} (${pct(e[1].pct_gas)}) y ${e[2].nombre} (${pct(e[2].pct_gas)}).`
-      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.emp_top} produjo el ${pct(PG.emp_top_pct)} del petróleo del país. Declararon producción de petróleo ${PG.n_empresas} empresas, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}.`;
+      // la cifra destacada ya dice la parte de la primera empresa: el texto empieza por cuántas declararon producción
+      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.n_empresas} empresas declararon producción de petróleo, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}.`;
   },
-  "empleo-hidro": () => `En el ${CN.emp_trim}, la extracción de petróleo y gas y sus servicios tenía ${n0(CN.pet_emp)} puestos asalariados registrados en el sector privado. ` +
-    `Frente al mismo trimestre del año anterior, en las provincias con dato en los dos trimestres, los puestos ${creceCae(CN.pet_emp_var, "crecieron", "cayeron")}. ${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}.`,
+  // la cifra destacada ya dice los puestos del trimestre: el texto empieza por cómo cambiaron en un año
+  "empleo-hidro": () => `En el ${CN.emp_trim}, frente al mismo trimestre del año anterior, los puestos asalariados registrados del sector privado en la extracción de petróleo y gas ` +
+    `y sus servicios ${creceCae(CN.pet_emp_var, "crecieron", "cayeron")}, en las provincias con dato en los dos trimestres. ${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}.`,
   regalias: v => v === "usd_crudo_hab"
     ? `En ${PG.reg_usd_anio}, las regalías de petróleo crudo sumaron ${n0(PG.reg_usd_total)} millones de dólares. En ${PG.reg_usd_top} equivalieron a ${n0(PG.reg_usd_top_hab)} dólares por habitante. ` +
       `El año más alto de la serie, que empieza en ${PG.reg_usd_ini}, fue ${PG.reg_usd_max_anio}, con ${n0(PG.reg_usd_max)} millones.`
-    : `En ${PG.reg_anio}, las regalías fueron el ${pct(PG.reg_top_pct)} de los ingresos totales de ${PG.reg_top}. Superaron el 10% de los ingresos en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, menos del 1%.`,
+    // la cifra destacada ya dice la provincia donde más pesan: el texto empieza por cuántas superan cada umbral
+    : `En ${PG.reg_anio}, las regalías superaron el 10% de los ingresos totales en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, menos del 1%.`,
   reservas: v => v === "horizonte"
-    ? `Al ritmo de producción de ${PG.res_anio}, las reservas comprobadas alcanzaban para ${n1(PG.res_hor_pet)} años de petróleo y ${n1(PG.res_hor_gas)} años de gas. En ${PG.res_ini} eran ${n1(PG.res_hor_pet_ini)} y ${n1(PG.res_hor_gas_ini)} años.`
+    // la cifra destacada ya dice los años de petróleo: la vista empieza por los de gas
+    ? `Al ritmo de producción de ${PG.res_anio}, las reservas comprobadas de gas alcanzaban para ${n1(PG.res_hor_gas)} años. ` +
+      `En ${PG.res_ini}, las de petróleo alcanzaban para ${n1(PG.res_hor_pet_ini)} años y las de gas, para ${n1(PG.res_hor_gas_ini)}.`
     : v === "gas"
     ? `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de gas eran de ${n0(PG.res_gas)} mil millones de metros cúbicos, ${n1(PG.res_hor_gas)} años de producción al ritmo de ese año. ` +
       `El ${pct(PG.res_nc_gas)} era no convencional y el ${pct(PG.res_nq_gas)} estaba en Neuquén. En ${PG.res_ini} eran ${n0(PG.res_gas_ini)} mil millones.`
-    : `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de petróleo eran de ${n0(PG.res_pet)} millones de metros cúbicos, unos ${n1(PG.res_bbl)} mil millones de barriles: ${n1(PG.res_hor_pet)} años de producción al ritmo de ese año. ` +
+    // la cifra destacada ya dice los años de producción: el texto empieza por el volumen
+    : `Al 31 de diciembre de ${PG.res_anio}, las reservas comprobadas de petróleo eran de ${n0(PG.res_pet)} millones de metros cúbicos, unos ${n1(PG.res_bbl)} mil millones de barriles. ` +
       `${PG.res_var_pet >= 0 ? "Crecieron" : "Cayeron"} ${pct(Math.abs(PG.res_var_pet))} frente a ${PG.res_anio_ant}. El ${pct(PG.res_nc_pet)} era no convencional y el ${pct(PG.res_nq_pet)} estaba en Neuquén.`,
-  "balanza-energetica": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía e importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes: un saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} de ${n0(Math.abs(PG.bal_saldo))} millones. ` +
+  // la cifra destacada ya dice el saldo: el texto empieza por las exportaciones y las importaciones
+  "balanza-energetica": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía e importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes. ` +
     (PG.bal_def_n ? `Entre ${PG.bal_def_desde} y ${PG.bal_def_hasta} el saldo fue negativo en ${PG.bal_def_n} de ${PG.bal_def_hasta - PG.bal_def_desde + 1} años, con el déficit más grande en ${PG.bal_def_max_anio}: ${n0(PG.bal_def_max)} millones. ` : "") +
     `Entre enero y ${MESES[PG.bal_ytd.mes - 1]} de ${PG.bal_ytd.anio}, el saldo fue de ${n0(PG.bal_ytd.saldo)} millones y las exportaciones ${creceCae(PG.bal_ytd_expo.var, "crecieron", "cayeron")} frente a los mismos meses del año anterior.`,
   "mundo-petroleo": v => {
     const m = PG.mundo, q = m.neuquen;
     return v === "gas_bcm"
       ? `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en gas natural la Argentina fue el productor número ${m.gas_bcm.puesto} del mundo en ${m.gas_bcm.anio}, con ${n1(m.gas_bcm.arg)} mil millones de metros cúbicos, el ${pct(m.gas_bcm.pct)} del total mundial.`
-      : `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en ${m.crudo_kbd.anio} la Argentina fue el productor de petróleo número ${m.crudo_kbd.puesto} del mundo, con ${n0(m.crudo_kbd.arg)} mil barriles por día, el ${pct(m.crudo_kbd.pct)} del total mundial.` +
+      // la cifra destacada ya dice el puesto: el texto empieza por cuánto produce y qué parte del mundo es
+      : `Según la estimación de la Administración de Información Energética de los Estados Unidos (EIA), en ${m.crudo_kbd.anio} la Argentina produjo ${n0(m.crudo_kbd.arg)} mil barriles de petróleo por día, el ${pct(m.crudo_kbd.pct)} del total mundial.` +
         (q ? ` Si Neuquén fuera un país, con ${n0(q.kbd)} mil barriles por día estaría en el puesto ${q.puesto}, entre ${q.arriba} y ${q.abajo}.` : "");
   },
   // fracturas y pozos terminados (etapa 19): años completos, el último puede subir porque las empresas informan con demora
   fracturas: v => v === "rama"
-    ? `En ${PG.fr_ult}, los pozos de Vaca Muerta tuvieron en promedio ${n0(PG.dv_rama_ult)} metros de rama horizontal, el tramo del pozo que avanza en horizontal dentro de la formación. ` +
-      `En ${PG.dv_ini} eran ${n0(PG.dv_rama_ini)} metros: la rama es ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga.`
+    // la cifra destacada ya dice la rama del último año y la del primero: la vista empieza por qué es la rama
+    ? `La rama horizontal es el tramo del pozo que avanza en horizontal dentro de la formación. Entre ${PG.dv_ini} y ${PG.fr_ult}, la de los pozos de Vaca Muerta ` +
+      `se hizo ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga: de ${n0(PG.dv_rama_ini)} a ${n0(PG.dv_rama_ult)} metros en promedio.`
     : v === "etapas_pozo"
     ? `Cada pozo de Vaca Muerta fracturado en ${PG.fr_ult} llevó en promedio ${n1(PG.dv_etapas_ult)} etapas de fractura y ${n0(PG.dv_arena_ult)} toneladas de arena. ` +
       `En ${PG.dv_ini} eran ${n1(PG.dv_etapas_ini)} etapas y ${n0(PG.dv_arena_ini)} toneladas.`
@@ -365,9 +392,10 @@ const LEAD = {
     ? `Entre ${PG.pt_v_desde} y ${PG.pt_mes} se terminaron ${n0(PG.pt_12m)} pozos de petróleo y gas, ` +
       `${PG.pt_12m >= PG.pt_12m_ant ? n0(PG.pt_12m - PG.pt_12m_ant) + " más" : n0(PG.pt_12m_ant - PG.pt_12m) + " menos"} que en los doce meses anteriores. ` +
       `${PG.pt_top} concentró el ${pct(PG.pt_top_pct)}, con ${n0(PG.pt_top_n)} pozos.`
-    : `En ${PG.pt_anio} se terminaron ${n0(PG.pt_total)} pozos de petróleo y gas: ${n0(PG.pt_explot)} de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +
-      (PG.pt_total < PG.pt_max ? `El máximo de la serie fue en ${PG.pt_max_anio}, con ${n0(PG.pt_max)}. Hoy se terminan menos pozos, pero en Vaca Muerta cada uno tiene una rama horizontal ` +
-        `${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.` : "Es el máximo de la serie."),
+    // la cifra destacada ya dice los pozos del último año y el máximo: el texto empieza por los tipos de pozo
+    : `De los pozos de petróleo y gas terminados en ${PG.pt_anio}, ${n0(PG.pt_explot)} fueron de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +
+      (PG.pt_total < PG.pt_max ? `Hoy se terminan menos pozos que en ${PG.pt_max_anio}, el año con más de la serie, pero en Vaca Muerta cada uno tiene una rama horizontal ` +
+        `${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.` : `En ${PG.pt_anio} se terminaron más pozos que en cualquier otro año de la serie.`),
   // productividad de los pozos de Vaca Muerta por año de inicio (etapa 19): años completos
   productividad: v => v === "metro"
     ? `Por cada 1.000 metros de rama horizontal, los pozos que empezaron a producir en ${PG.cos_ult} sacaron en su primer año ${n0(PG.bpm_ult)} barriles de petróleo. ` +
@@ -376,23 +404,28 @@ const LEAD = {
     : v === "curvas"
     ? `Producción acumulada promedio de un pozo según los meses desde que empezó a producir, por año de inicio. A los doce meses, un pozo de ${PG.cos_ult} ` +
       `había sacado ${n0(PG.curva12_ult)} mil barriles de petróleo y uno de ${PG.curvas[0]}, ${n0(PG.curva12_ini)} mil.`
-    : `Un pozo petrolero de shale de Vaca Muerta que empezó a producir en ${PG.cos_ult} sacó en promedio ${n0(PG.cos_kbbl_ult)} mil barriles de petróleo en sus primeros doce meses, ` +
-      `${n1(PG.cos_veces)} veces lo que uno de ${PG.cos_ini}` +
-      (PG.cos_max !== PG.cos_ult ? `. El máximo fue el de los pozos de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles.` : `, el máximo de la serie.`),
-  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas, y ${n0(PG.map_activos)} siguieron produciendo en ${PG.map_mes}: ` +
-    `${n0(PG.map_shale)} de shale y ${n0(PG.map_tight)} de tight. El ${pct(PG.map_pct_nq)} de los que producen está en Neuquén. Las áreas con más pozos en producción son ` +
+    // la cifra destacada ya dice lo que sacó un pozo del último año: el texto empieza por cuántos pozos empezaron ese año y por el máximo
+    : `En ${PG.cos_ult} empezaron a producir ${n0(PG.cos_pozos_ult)} pozos petroleros de shale en Vaca Muerta.` +
+      (PG.cos_max !== PG.cos_ult ? ` Los que más petróleo sacaron en sus primeros doce meses fueron los de ${PG.cos_max}, con ${n0(PG.cos_kbbl_max)} mil barriles en promedio cada uno.`
+        : ` Son los que más petróleo sacaron en sus primeros doce meses desde ${PG.cos_ini}.`),
+  // la cifra destacada ya dice los pozos en producción y la parte de Neuquén: el texto empieza por todos los que produjeron alguna vez
+  "mapa-pozos": v => `Desde ${PG.map_ini}, ${n0(PG.map_n)} pozos no convencionales produjeron petróleo o gas. De los que seguían produciendo en ${PG.map_mes}, ` +
+    `${n0(PG.map_shale)} eran de shale y ${n0(PG.map_tight)} de tight. Las áreas con más pozos en producción son ` +
     `${lista(PG.map_top_areas.map(([a, n]) => `${tituloArea(a)} (${n0(n)})`))}.` +
     (v === "pais" && PG.map_otras.length ? ` Fuera de la cuenca Neuquina hay pozos no convencionales en producción en ${lista(PG.map_otras.map(([p, n]) => `${p} (${n0(n)})`))}.` : ""),
   // consumo eléctrico de los hogares por provincia (etapa 21, CAMMESA): la Ciudad y la provincia de Buenos Aires van juntas
   "electricidad-provincias": v => {
     if (v === "mes") return `Entre ${e.el_est_desde} y ${e.el_ult}, el mes en que más electricidad consumieron los hogares del país fue ${e.el_mes_max}, con ${n0(e.el_mes_max_kwh)} kWh por habitante, ` +
       `y el de menor consumo, ${e.el_mes_min}, con ${n0(e.el_mes_min_kwh)}.`;
-    if (v === "serie") return `En ${e.el_ini}, los hogares consumían ${n0(e.el_pais_ini)} kWh de electricidad por habitante por año, y en ${e.el_ult}, ${n0(e.el_pais)}` +
-      (e.el_max_anio === e.el_ult ? ", el valor más alto de la serie." : `. El año de mayor consumo fue ${e.el_max_anio}, con ${n0(e.el_max)}.`) +
+    // la cifra destacada ya dice el consumo del último año: la serie empieza por cuánto cambió
+    if (v === "serie") return `Entre ${e.el_ini} y ${e.el_ult}, el consumo de electricidad de los hogares por habitante ${cambioPct((e.el_pais / e.el_pais_ini - 1) * 100)}. ` +
+      `En ${e.el_ini} era de ${n0(e.el_pais_ini)} kWh por año` +
+      (e.el_max_anio === e.el_ult ? `, y el de ${e.el_ult} es el valor más alto de la serie.` : `. El año de mayor consumo fue ${e.el_max_anio}, con ${n0(e.el_max)}.`) +
       (e.el_min_anio !== e.el_ini ? ` El de menor consumo fue ${e.el_min_anio}, con ${n0(e.el_min)}.` : "");
     const t = e.el_top, b = e.el_bajo;
-    return `En ${e.el_ult}, los hogares consumieron ${n0(e.el_pais)} kilovatios hora (kWh) de electricidad por habitante, según la demanda residencial que registra CAMMESA. ` +
-      `El consumo más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
+    // la cifra destacada ya dice el consumo del país: el texto empieza por las provincias de los extremos
+    return `En ${e.el_ult}, según la demanda residencial que registra CAMMESA, el consumo de electricidad de los hogares más alto fue el de ${t[0]}, ` +
+      `con ${n0(t[1])} kilovatios hora (kWh) por habitante${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +
       `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}.`;
   },
   // demanda eléctrica de comercios e industrias por provincia (etapa 23, CAMMESA): por habitante en cada categoría de tarifa y las partes de
@@ -401,8 +434,9 @@ const LEAD = {
     const P = e.els_pct, g0 = e.els_gwh_ini, g1 = e.els_gwh_ult;
     // cuánto cambió la demanda de cada categoría en el país desde el primer año
     const cambio = k => { const v = (g1[k] / g0[k] - 1) * 100; return `${v < 0 ? "bajó" : "creció"} ${pct(Math.abs(v))}`; };
-    if (v === "partes") return `En ${e.el_ult}, los hogares usaron el ${pct(P.res)} de la electricidad que registra CAMMESA, los comercios y servicios el ${pct(P.com)} ` +
-      `y las industrias y los grandes comercios el ${pct(P.ind)}. La parte de las industrias y los grandes comercios va del ${pct(e.els_pct_ind_top[1])} ` +
+    // la cifra destacada ya dice la parte de las industrias y los grandes comercios: la vista empieza por los hogares y los comercios
+    if (v === "partes") return `En ${e.el_ult}, los hogares usaron el ${pct(P.res)} de la electricidad que registra CAMMESA y los comercios y servicios, el ${pct(P.com)}. ` +
+      `La parte de las industrias y los grandes comercios va del ${pct(e.els_pct_ind_top[1])} ` +
       `de la demanda en ${e.els_pct_ind_top[0]} al ${pct(e.els_pct_ind_bajo[1])} en ${e.els_pct_ind_bajo[0]}. Entre ${e.el_ini} y ${e.el_ult}, la demanda de los hogares ` +
       `${cambio("res")}, la de los comercios y servicios ${cambio("com")} y la de las industrias y los grandes comercios ${cambio("ind")}.`;
     if (v === "com") {
@@ -412,8 +446,9 @@ const LEAD = {
         `y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.els_com)}.`;
     }
     const t = e.els_ind_top, b = e.els_ind_bajo;
-    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país, ` +
-      `el ${pct(P.ind)} de la demanda. El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
+    // la cifra destacada ya dice la parte de la demanda: el texto empieza por lo que usaron por habitante
+    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país. ` +
+      `El valor más alto fue el de ${t[0]}, con ${n0(t[1])}${conVeces(t[1], e.els_ind)}, y el más bajo, el de ${b[0]}, ` +
       `con ${n0(b[1])}${conVeces(b[1], e.els_ind)}.`;
   },
   // salarios de los asalariados registrados privados por provincia (etapa 23, OEDE): el último mes sin aguinaldo o la serie en pesos de igual valor
@@ -424,9 +459,9 @@ const LEAD = {
         `${pct(Math.abs(SA.real_vs_ini))} ${SA.real_vs_ini < 0 ? "más bajo" : "más alto"} que el de ${SA.real_ini_mes}. El más alto de la serie fue ${max}, ` +
         `con ${n0(SA.real_max)} pesos de ${SA.mes}, y el más bajo, el de ${SA.real_min_mes}, con ${n0(SA.real_min)}. El gráfico no muestra junio ni diciembre, que incluyen el aguinaldo.`;
     }
-    return `En ${SA.mes}, el salario bruto promedio de los asalariados registrados del sector privado fue de ${n0(SA.pais)} pesos en el país. ` +
-      `El más alto fue el de ${SA.top[0]}, con ${n0(SA.top[1])}${conVeces(SA.top[1], SA.pais)}, y el más bajo, el de ${SA.bajo[0]}, con ${n0(SA.bajo[1])}${conVeces(SA.bajo[1], SA.pais)}. ` +
-      `Descontada la inflación, el salario del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant}, y subió ${deLas24(SA.n_suben)}.`;
+    // la cifra destacada y la descripción ya dicen el salario del país y su mes: el texto empieza por lo que el gráfico no muestra
+    return `Descontada la inflación, el salario del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant}, y subió ${deLas24(SA.n_suben)}. ` +
+      `El más alto fue el de ${SA.top[0]}, con ${n0(SA.top[1])} pesos${conVeces(SA.top[1], SA.pais)}, y el más bajo, el de ${SA.bajo[0]}, con ${n0(SA.bajo[1])}${conVeces(SA.bajo[1], SA.pais)}.`;
   },
   // salario de un maestro de grado con 10 años de antigüedad (etapa 23, Coordinación de Evaluación de Costos Educativos)
   "salario-docente": v => {
@@ -437,9 +472,10 @@ const LEAD = {
       `no los incluye. Entre esos dos trimestres, el promedio del país ${cambioPct(DC.fonid_var)} en pesos de igual valor.`;
     const ex = DC.extra.length === 1 ? ` En ${DC.extra[0][0]}, ese salario incluye una suma extraordinaria de ${n0(DC.extra[0][1])} pesos.`
       : DC.extra.length ? ` En ${lista(DC.extra.map(x => x[0]))}, ese salario incluye sumas extraordinarias.` : "";
-    return `En ${DC.trim}, un maestro de grado de primaria con 10 años de antigüedad y jornada simple cobraba un salario bruto de ${n0(DC.pais)} pesos por mes en promedio en el país. ` +
-      `El más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])}${conVeces(DC.top[1], DC.pais)}, y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` +
-      ex + ` Descontada la inflación, el promedio del país ${cambioPct(DC.var_real_12m)} frente a ${DC.ant}.`;
+    // la cifra destacada ya dice el salario promedio del país: el texto empieza por cómo cambió descontada la inflación
+    return `Descontada la inflación, el salario promedio de un maestro de grado del país ${cambioPct(DC.var_real_12m)} frente a ${DC.ant}. ` +
+      `Con 10 años de antigüedad y jornada simple, el más alto fue el de ${DC.top[0]}, con ${n0(DC.top[1])} pesos brutos por mes${conVeces(DC.top[1], DC.pais)}, ` +
+      `y el más bajo, el de ${DC.bajo[0]}, con ${n0(DC.bajo[1])}${conVeces(DC.bajo[1], DC.pais)}.` + ex;
   },
   // inversión en educación por alumno de gestión estatal (etapa 23, Coordinación de Evaluación de Costos Educativos)
   "inversion-educativa": v => {
@@ -447,9 +483,9 @@ const LEAD = {
       `${IE.pct_top[0]}, con el ${pct(IE.pct_top[1])}, y la más baja, la de ${IE.pct_bajo[0]}, con el ${pct(IE.pct_bajo[1])}.`;
     if (v === "serie") return `En pesos de ${IE.anio} (con el deflactor del PBI), la inversión por alumno de gestión estatal del país pasó de ${n0(IE.real_ini)} en ${IE.ini} a ` +
       `${n0(IE.pais)} en ${IE.anio}. La más alta fue la de ${IE.real_max_anio}, con ${n0(IE.real_max)}, y la más baja, la de ${IE.real_min_anio}, con ${n0(IE.real_min)}.`;
-    return `En ${IE.anio}, el Estado invirtió ${n0(IE.pais)} pesos por cada alumno de las escuelas de gestión estatal del país, con lo que gastan las provincias en educación ` +
-      `y lo que les transfiere la Nación. El valor más alto fue el de ${IE.top[0]}, con ${n0(IE.top[1])}${conVeces(IE.top[1], IE.pais)}, y el más bajo, el de ${IE.bajo[0]}, ` +
-      `con ${n0(IE.bajo[1])}${conVeces(IE.bajo[1], IE.pais)}.`;
+    // la cifra destacada ya dice la inversión por alumno del país: el texto empieza por los extremos
+    return `En ${IE.anio}, la inversión por alumno de las escuelas de gestión estatal fue más alta en ${IE.top[0]}, con ${n0(IE.top[1])} pesos${conVeces(IE.top[1], IE.pais)}, ` +
+      `y más baja en ${IE.bajo[0]}, con ${n0(IE.bajo[1])}${conVeces(IE.bajo[1], IE.pais)}. Suma lo que gastan las provincias en educación y lo que les transfiere la Nación.`;
   },
   // seguridad (etapa 23, SNIC y SNEEP): delitos por tipo, robos y hurtos, homicidios dolosos y personas privadas de libertad
   delitos: v => {
@@ -457,8 +493,9 @@ const LEAD = {
     if (v === "serie") return `Desde ${SG.anio_ini}, la tasa de robos del país fue la más alta en ${SG.robos_max_anio}, con ${n0(SG.robos_max)} cada 100.000 habitantes, y en ${SG.anio} ` +
       `fue de ${n0(SG.robos)}. Los hurtos pasaron de ${n0(SG.hurtos_ini)} en ${SG.anio_ini} a ${n0(SG.hurtos)} en ${SG.anio}. Las estafas y defraudaciones por medios virtuales, ` +
       `que el SNIC cuenta aparte desde ${SG.estafas_ini}, pasaron de ${n0(SG.estafas_tasa_ini)} a ${n0(SG.estafas_tasa)} cada 100.000 habitantes.`;
-    return `En ${SG.anio}, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país, ${n0(SG.total_tasa)} cada 100.000 habitantes, ` +
-      `un ${pct(Math.abs(t))} ${t < 0 ? "menos" : "más"} que en ${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(([d, , p]) => `${d.toLowerCase()} (${pct(p)})`))}.`;
+    // la cifra destacada ya dice la tasa del país: el texto empieza por el total de delitos y cómo cambió la tasa
+    return `En total, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país en ${SG.anio}, y la tasa cada 100.000 habitantes ` +
+      `fue un ${pct(Math.abs(t))} ${t < 0 ? "menor" : "mayor"} que en ${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(([d, , p]) => `${d.toLowerCase()} (${pct(p)})`))}.`;
   },
   robos: v => {
     const r = SG.robos / SG.robos_ant * 100 - 100, h = SG.hurtos / SG.hurtos_ant * 100 - 100;
@@ -469,14 +506,17 @@ const LEAD = {
     if (v === "hurtos") return `En ${SG.anio} se registraron ${n0(SG.hurtos)} hurtos cada 100.000 habitantes en el país, un ${pct(Math.abs(h))} ${h < 0 ? "menos" : "más"} que en ${SG.anio - 1}. ` +
       `La tasa más alta fue la de ${SG.hurtos_top[0]}, con ${n0(SG.hurtos_top[1])}${conVeces(SG.hurtos_top[1], SG.hurtos)}${deDia(SG.hurtos_top[0])}, y la más baja, la de ` +
       `${SG.hurtos_bajo[0]}, con ${n0(SG.hurtos_bajo[1])}${conVeces(SG.hurtos_bajo[1], SG.hurtos)}.`;
-    return `En ${SG.anio} se registraron ${n0(SG.robos)} robos cada 100.000 habitantes en el país, un ${pct(Math.abs(r))} ${r < 0 ? "menos" : "más"} que en ${SG.anio - 1}, y la tasa ` +
-      `bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +
+    // la cifra destacada ya dice la tasa de robos del país: el texto empieza por cómo cambió frente al año anterior
+    return `En ${SG.anio}, la tasa de robos del país ${r < 0 ? "bajó" : "subió"} un ${pct(Math.abs(r))} frente a ${SG.anio - 1}, ` +
+      `y bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +
       `y la más baja, la de ${SG.robos_bajo[0]}, con ${n0(SG.robos_bajo[1])}${conVeces(SG.robos_bajo[1], SG.robos)}.`;
   },
   homicidios: v => {
-    if (v === "serie") return `La tasa de víctimas de homicidios dolosos del país pasó de ${n1(SG.hom_ini)} cada 100.000 habitantes en ${SG.anio_ini} a ${n1(SG.hom_tasa)} en ` +
-      `${SG.anio}. La más alta fue la de ${SG.hom_max_anio}, con ${n1(SG.hom_max)}` + (SG.hom_min_anio === SG.anio ? `, y la de ${SG.anio} es la más baja de la serie.` : ".");
-    return `En ${SG.anio}, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país, ${n1(SG.hom_tasa)} cada 100.000 habitantes: una cada ` +
+    // la cifra destacada ya dice la tasa del último año: la serie empieza por el año más alto y la vista por provincia, por el total de víctimas
+    if (v === "serie") return `Desde ${SG.anio_ini}, la tasa de víctimas de homicidios dolosos del país fue la más alta en ${SG.hom_max_anio}, con ${n1(SG.hom_max)} ` +
+      `cada 100.000 habitantes. En ${SG.anio_ini} fue de ${n1(SG.hom_ini)}` +
+      (SG.hom_min_anio === SG.anio ? `, y la de ${SG.anio} es la más baja de la serie.` : `, y en ${SG.anio}, de ${n1(SG.hom_tasa)}.`);
+    return `En total, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país en ${SG.anio}, una cada ` +
       `${unoCada(SG.hom_tasa)} habitantes` + (SG.hom_min_anio === SG.anio ? `, la tasa más baja desde ${SG.anio_ini}` : "") + `. El ${pct(SG.hom_varones)} eran varones. ` +
       `Entre ${SG.hom3_desde} y ${SG.anio}, la tasa más alta fue la de ${SG.hom3_top[0]}, con ${n1(SG.hom3_top[1])} por año${conVeces(SG.hom3_top[1], SG.hom3_pais)}, ` +
       `y la más baja, la de ${SG.hom3_bajo[0]}, con ${n1(SG.hom3_bajo[1])}${conVeces(SG.hom3_bajo[1], SG.hom3_pais)}.`;
@@ -485,8 +525,9 @@ const LEAD = {
     if (v === "prov") return `Al 31 de diciembre de ${SG.sn_anio}, la tasa más alta de los servicios penitenciarios provinciales fue la de ${SG.sn_top[0]}, con ${n0(SG.sn_top[1])} ` +
       `personas privadas de libertad cada 100.000 habitantes de la provincia, y la más baja, la de ${SG.sn_bajo[0]}, con ${n0(SG.sn_bajo[1])}. Las cárceles del Servicio ` +
       `Penitenciario Federal alojaban a ${n0(SG.sn_spf)} personas. La Ciudad de Buenos Aires no tiene un servicio penitenciario propio.`;
-    return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país, ${n0(SG.sn_tasa)} cada 100.000 habitantes. ` +
-      `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
+    // la cifra destacada ya dice la tasa del país: el texto empieza por el total de personas
+    return `En total, al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país. ` +
+      `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000 habitantes. El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +
       `con la causa en trámite, o en otra situación.`;
   },
   // ---- gobierno (etapa 25)
@@ -495,8 +536,9 @@ const LEAD = {
       `fue en ${inicialMin(GBN.gasto_tipos[0][0])}, el ${pct(GBN.gasto_tipos[1][1])} en ${inicialMin(GBN.gasto_tipos[1][0])} y el ${pct(GBN.gasto_tipos[2][1])} ` +
       `en ${inicialMin(GBN.gasto_tipos[2][0])}, según la Secretaría de Hacienda. Las transferencias de la Nación a cada provincia están en Instituciones políticas, y los ` +
       `subsidios a la energía, en Energía.`;
+    // la cifra destacada ya dice el resultado primario: el texto empieza por los ingresos y el gasto que lo forman
     return `En ${GBN.anio}, los ingresos del Sector Público Nacional fueron el ${pct(GBN.ingresos)} del PBI y el gasto sin los intereses de la deuda, el ` +
-      `${pct(GBN.gasto)}: el resultado primario fue un ${sobra(GBN.primario)} de ${pct(Math.abs(GBN.primario))} del PBI. Después de pagar los intereses ` +
+      `${pct(GBN.gasto)}. Después de pagar los intereses ` +
       `(${pct(GBN.intereses)} del PBI), el resultado financiero fue un ${sobra(GBN.financiero)} de ${pct(Math.abs(GBN.financiero))}, según la Secretaría ` +
       `de Hacienda. Desde ${GBN.desde}, el ${sobra(GBN.fin_min)} financiero más grande fue el de ${GBN.fin_min_anio}, ${pct(Math.abs(GBN.fin_min))} del PBI.` +
       (GBN.en_el_anio ? ` Hasta ${GBN.mes}, el resultado primario del año fue un ${sobra(GBN.ytd_primario)} de ${billones(Math.abs(GBN.ytd_primario))}, y el ` +
@@ -511,20 +553,23 @@ const LEAD = {
       `aportaron el ${pct(GRT.exportacion)}. Entre enero y ${MESES[GRT.ytd.mes - 1]} de ${GRT.ytd.anio}, descontada la inflación, la recaudación ` +
       `${cambioPct(GRT.ytd.var)} frente a los mismos meses del año anterior.`;
   },
-  deuda: () => `Al ${GBD.fecha}, la deuda bruta de la Administración Central era de ${n0(GBD.usd_millones)} millones de dólares, el ${pct(GBD.pct)} ` +
-    `del PBI, según la Secretaría de Finanzas. A fin de ${GBD.anio} era el ${pct(GBD.pct_anio)}. Desde ${GBD.desde}, el valor más alto fue el de ` +
+  // la cifra destacada ya dice la deuda como parte del PBI: el texto empieza por su monto en dólares
+  deuda: () => `En dólares, la deuda bruta de la Administración Central sumaba ${n0(GBD.usd_millones)} millones al ${GBD.fecha}, ` +
+    `según la Secretaría de Finanzas. A fin de ${GBD.anio} era el ${pct(GBD.pct_anio)}. Desde ${GBD.desde}, el valor más alto fue el de ` +
     `${GBD.max_anio}, ${pct(GBD.max)}, y el más bajo, el de ${GBD.min_anio}, ${pct(GBD.min)}. Como buena parte de la deuda está en moneda extranjera, el ` +
     `porcentaje sube cuando el peso se devalúa, aunque la deuda en dólares no cambie.`,
   "empleo-publico": v => {
     if (v === "nacion") return `En ${GBC.dot_mes}, la administración pública nacional, las empresas y las sociedades del Estado tenían ${n0(GBC.dot_total)} ` +
       `personas, según el INDEC: ${n0(GBC.dot_adm)} en la administración y ${n0(GBC.dot_emp)} en las empresas y sociedades. Desde ${GBC.dot_desde}, el primer ` +
       `mes de la serie, la dotación ${cambioPct(GBC.dot_var)}: eran ${n0(GBC.dot_total_ini)} personas.`;
-    return `En ${GBC.anio}, las administraciones de las provincias y de la Ciudad tenían ${n0(GBC.cargos)} cargos ocupados, ${n1(GBC.cada_1000)} cada 1.000 ` +
-      `habitantes, según la Dirección Nacional de Asuntos Provinciales. Iban de ${n1(GBC.bajo[1])} en ${GBC.bajo[0]} a ${n1(GBC.top[1])} en ${GBC.top[0]}` +
+    // la cifra destacada ya dice los cargos cada 1.000 habitantes del país: el texto empieza por el total
+    return `En total, las administraciones de las provincias y de la Ciudad tenían ${n0(GBC.cargos)} cargos ocupados en ${GBC.anio}, ` +
+      `según la Dirección Nacional de Asuntos Provinciales. Cada 1.000 habitantes, iban de ${n1(GBC.bajo[1])} en ${GBC.bajo[0]} a ${n1(GBC.top[1])} en ${GBC.top[0]}` +
       `${conVeces(GBC.top[1], GBC.cada_1000)}. Cuenta cargos, no personas, y no incluye a los municipios ni a las empresas provinciales.`;
   },
-  "impuestos-provinciales": () => `En ${GBP.anio}, las provincias y la Ciudad recaudaron ${billones(GBP.millones)} de impuestos propios, ${n0(GBP.pais)} ` +
-    `pesos por habitante, según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. Iba de ${n0(GBP.bajo[1])} pesos ` +
+  // la cifra destacada ya dice lo recaudado por habitante: el texto empieza por el total
+  "impuestos-provinciales": () => `En total, las provincias y la Ciudad recaudaron ${billones(GBP.millones)} de impuestos propios en ${GBP.anio}, ` +
+    `según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. Iba de ${n0(GBP.bajo[1])} pesos ` +
     `por habitante en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +
     (GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? "tienen" : "tiene"} datos completos del año.` : ""),
   // refugio (etapa 26): las solicitudes y las personas reconocidas de la CONARE, y las personas refugiadas y solicitantes de asilo de ACNUR
@@ -539,22 +584,23 @@ const LEAD = {
         `que no figuran como refugiadas ni como solicitantes pero que probablemente necesitan protección internacional. A la vez, ${n0(F.refugiados)} personas ` +
         `de origen argentino eran refugiadas y ${n0(F.solicitantes)} solicitaban asilo en otros países, sobre todo en ${lista(F.destinos)}.`;
     }
-    return `En ${MGR.anio} se presentaron ${n0(MGR.solicitudes)} solicitudes de reconocimiento de la condición de persona refugiada ante la Comisión ` +
-      `Nacional para los Refugiados (CONARE), ${MGR.solicitudes === MGR.sol_ant ? "las mismas" : MGR.solicitudes < MGR.sol_ant ? "menos" : "más"} que las ${n0(MGR.sol_ant)} de ${MGR.anio - 1}. El año con ` +
+    // la cifra destacada ya dice las solicitudes del último año: el texto empieza por cómo cambiaron frente al anterior
+    return `En ${MGR.anio}, las solicitudes de reconocimiento de la condición de persona refugiada ante la Comisión Nacional para los Refugiados (CONARE) ` +
+      `${cambioPl((MGR.solicitudes / MGR.sol_ant - 1) * 100)} frente a las ${n0(MGR.sol_ant)} de ${MGR.anio - 1}. El año con ` +
       `más solicitudes desde ${MGR.ini} fue ${MGR.max_anio}, con ${n0(MGR.max)}. En ${MGR.anio}, la CONARE reconoció como refugiadas a ` +
       `${n0(MGR.reconocidas)} personas, contra ${n0(MGR.rec_ant)} en ${MGR.anio - 1}.`;
   },
   // ventas en supermercados (etapa 26): el país con el índice del INDEC, y cada provincia con sus ventas llevadas a pesos de igual valor con
   // el índice de precios de su región
   supermercados: v => {
-    if (v === "mes") return `En ${ESU.mes}, las ventas de los supermercados en pesos de igual valor fueron ${pct(Math.abs(ESU.interanual))} ` +
-      `${ESU.interanual < 0 ? "menores" : "mayores"} que en ${ESU.mes_ant}, según el INDEC. En los doce meses hasta ${ESU.mes} ` +
-      `${ESU.doce < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.doce))} frente a los doce anteriores. ` +
+    // la cifra destacada y la descripción ya dicen la variación del último mes: el texto empieza por los doce meses
+    if (v === "mes") return `En los doce meses hasta ${ESU.mes}, las ventas ${ESU.doce < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.doce))} ` +
+      `frente a los doce anteriores, según el INDEC. ` +
       (ESU.vs_max < 0 ? `Sin la estacionalidad, están ${pct(Math.abs(ESU.vs_max))} por debajo de ${ESU.max_mes}, el mes más alto de la serie, que empieza en ${ESU.desde}.`
         : `Sin la estacionalidad, están en el nivel más alto de la serie, que empieza en ${ESU.desde}.`);
     const P = ESU.prov;
-    return `En los doce meses hasta ${ESU.mes}, las ventas de los supermercados en pesos de igual valor ${P.pais < 0 ? "cayeron" : "crecieron"} ` +
-      `${pct(Math.abs(P.pais))} en todo el país frente a los doce anteriores, con los precios de los bienes de cada región. ` + (P.suben && P.bajan
+    return `En los doce meses hasta ${ESU.mes}, frente a los doce anteriores, las ventas ${P.pais < 0 ? "cayeron" : "crecieron"} ` +
+      `${pct(Math.abs(P.pais))} en todo el país, con los precios de los bienes de cada región, según el INDEC. ` + (P.suben && P.bajan
         ? `Subieron en ${P.suben} jurisdicciones y bajaron en ${P.bajan}: la variación fue de ${conSigno(P.top[1])} en ${P.top[0]} a ${conSigno(P.bajo[1])} en ${P.bajo[0]}.`
         : `${P.suben ? "Subieron" : "Bajaron"} en todas las jurisdicciones, de ${conSigno(P.bajo[1])} en ${P.bajo[0]} a ${conSigno(P.top[1])} en ${P.top[0]}.`);
   },
@@ -566,37 +612,42 @@ const LEAD = {
     if (v === "pais") return `Los países de nacimiento más frecuentes de las personas nacidas en otro país que vivían en la Argentina en 2022 eran ` +
       `${lista(MGC.paises.slice(0, 3).map(p => `${p[0]} (${pct(p[2])})`))}, según el Censo. Las nacidas en países limítrofes eran el ${pct(MGC.limitrofes_pct)} ` +
       `de las que declararon su país, y las nacidas en Europa, el ${pct(MGC.europa_pct)}. El ${pct(MGC.no_declarado_pct)} no declaró su país de nacimiento.`;
-    return `En el Censo 2022, el ${pct(MGC.pct)} de las personas que vivían en el país había nacido en otro país: ${n0(MGC.personas)} personas. La parte ` +
-      `más alta era la de ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y la más baja, la de ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
+    // la cifra destacada ya dice la parte de la población del país: el texto empieza por cuántas personas son
+    return `En el Censo 2022, ${n0(MGC.personas)} personas que vivían en el país habían nacido en otro país. La parte de la población nacida en otro país ` +
+      `era más alta en ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y más baja en ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
       `El país de nacimiento más frecuente era ${MGC.paises[0][0]} en ${MGC.primer_pais_n} de las 24 jurisdicciones.`;
   },
   "migracion-interna": v => v === "mapa" ? `Por departamento, entre los de ${n0(MGP.min_pob)} habitantes o más, la parte de la población nacida en ` +
     `otra provincia es más alta en ${depsTop(MGP.otra_top)}.` +
     (MGP.otra_mitad ? ` En ${MGP.otra_mitad} de los ${MGP.n} departamentos del país, más de la mitad de la población nació en otra provincia.` : "")
-    : `En el Censo 2022, el ${pct(MGC.otra_pct)} de las personas que vivían en el país había nacido en otra provincia: ` +
-    `${n0(MGC.otra_personas)} personas. La parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
+    // la cifra destacada ya dice la parte de la población del país: el texto empieza por cuántas personas son
+    : `En el Censo 2022, ${n0(MGC.otra_personas)} personas que vivían en el país habían nacido en otra provincia. ` +
+    `En proporción a la población de cada provincia, la parte más alta era la de ${MGC.otra_top[0]}` + (MGC.otra_top[1] > 50 ? `, donde más de la mitad había nacido en otra ` +
     `provincia: ${pct(MGC.otra_top[1])}` : `, ${pct(MGC.otra_top[1])}`) + `, y la más baja, la de ${lista(MGC.otra_bajos[0])}, ${pct(MGC.otra_bajos[1])}. ` +
-    `Y el ${pct(MGC.pct)} había nacido en otro país.`,
+    `En todo el país, el ${pct(MGC.pct)} había nacido en otro país.`,
   "migracion-historia": () => {
     const lim = T.migracion_censos.map(r => r.limitrofes_pct).filter(v => v != null);
-    return `En el primer censo nacional, el de ${MGH.ini}, el ${pct(MGH.ini_pct)} de la población había nacido en otro país. La parte más alta fue la del ` +
-      `censo de ${MGH.max_anio}, ${pct(MGH.max_pct)}, y desde entonces bajó: en el Censo 2022 fue el ${pct(MGC.pct)}. Las personas nacidas en países limítrofes ` +
+    // la cifra destacada ya dice la parte del censo de 1914: el texto no la repite
+    return `En el primer censo nacional, el de ${MGH.ini}, el ${pct(MGH.ini_pct)} de la población había nacido en otro país. Después del censo de ` +
+      `${MGH.max_anio}, esa parte bajó: en el Censo 2022 fue el ${pct(MGC.pct)}. Las personas nacidas en países limítrofes ` +
       `fueron en todos los censos entre el ${pct(d3.min(lim))} y el ${pct(d3.max(lim))} de la población. Hasta el censo de 1980, la mayoría de las personas ` +
       `nacidas en otro país venía de Europa, y desde el de 1991, de los países limítrofes: en 2022, el ${pct(MGC.limitrofes_pct)} de las que declararon su país.`;
   },
   radicaciones: v => {
     if (v === "nacionalidad") return `En ${MGD.anio}, las nacionalidades con más residencias otorgadas fueron ${lista(MGD.top.map(t => `la ${t[0].toLowerCase()} ` +
       `(${pct(t[2])})`))}. La Dirección Nacional de Migraciones no publica las residencias por provincia.`;
-    return `En ${MGD.anio}, la Dirección Nacional de Migraciones resolvió a favor ${n0(MGD.total)} trámites de residencia: ${n0(MGD.permanentes)} ` +
-      `permanentes y ${n0(MGD.temporarias)} temporarias. Fueron ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? "menos" : "más"} que en el año anterior. Desde ` +
+    // la cifra destacada ya dice las residencias del último año: el texto empieza por cómo cambiaron frente al anterior
+    return `En ${MGD.anio}, la Dirección Nacional de Migraciones resolvió a favor un ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? "menos" : "más"} de trámites de residencia ` +
+      `que en el año anterior: ${n0(MGD.permanentes)} permanentes y ${n0(MGD.temporarias)} temporarias. Desde ` +
       `${MGD.desde}, el año con más fue ${MGD.max_anio}, con ${n0(MGD.max)}, y el que menos, ${MGD.min_anio}, con ${n0(MGD.min)}` +
       (MGD.min_anio === 2020 ? ", el año de la pandemia." : ".");
   },
   "argentinos-exterior": v => {
     if (v === "pais") return `A mediados de ${MGO.anio}, los destinos más frecuentes de las personas nacidas en la Argentina que vivían en otro país eran ` +
       `${lista(MGO.top.slice(0, 3).map(t => `${t[0]} (${pct(t[2])})`))}, según la estimación de las Naciones Unidas.`;
-    return `Según la estimación de las Naciones Unidas, a mediados de ${MGO.anio} vivían en otro país ${n0(MGO.personas)} personas nacidas en la Argentina, ` +
-      `${n1(MGO.personas / MGO.personas_ini)} veces las de ${MGO.desde}. En ${MGO.anio_ant} eran ${n0(MGO.personas_ant)}.`;
+    // la cifra destacada ya dice las personas del último año: el texto empieza por los años anteriores
+    return `Según la estimación de las Naciones Unidas, en ${MGO.desde} vivían en otro país ${n0(MGO.personas_ini)} personas nacidas en la Argentina, ` +
+      `y en ${MGO.anio_ant}, ${n0(MGO.personas_ant)}. A mediados de ${MGO.anio} eran ${n1(MGO.personas / MGO.personas_ini)} veces las de ${MGO.desde}.`;
   },
   // ---- economía y precios (etapa 25): todo del INDEC
   inflacion: v => {
@@ -606,8 +657,8 @@ const LEAD = {
       `${REG_ART[EIP.reg_min[0]]}, ${pct(EIP.reg_min[1])}. En todo el país, ${pct(EIP.interanual)}. Las regiones del INDEC son grupos de ciudades donde se relevan ` +
       `los precios, no provincias.`;
     const dic = EIP.periodo.endsWith("-12");
-    return `En ${EIP.mes}, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)} frente al mes anterior y ${yCambio(EIP.mensual, EIP.interanual)} frente a ` +
-      `${EIP.mes_ant}, según el INDEC. ` + (dic ? "" : `En lo que va del año, ${cambioPct(EIP.en_el_anio)}, y en ${EIP.anio_ult}, de diciembre a diciembre, ` +
+    // la cifra destacada ya dice la inflación de doce meses: el texto empieza por la del último mes
+    return `En ${EIP.mes}, frente al mes anterior, el índice de precios al consumidor del país ${cambioPct(EIP.mensual)}, según el INDEC. ` + (dic ? "" : `En lo que va del año, ${cambioPct(EIP.en_el_anio)}, y en ${EIP.anio_ult}, de diciembre a diciembre, ` +
       `la inflación fue de ${pct(EIP.anual)}. `) + `Desde ${EIP.ia_desde}, la variación en doce meses más alta fue la de ${EIP.ia_max_mes}, ${pct(EIP.ia_max)}, ` +
       `y la más baja, la de ${EIP.ia_min_mes}, ${pct(EIP.ia_min)}.`;
   },
@@ -616,22 +667,24 @@ const LEAD = {
       `impuestos, ${cambioPl(EIP.regulados)}, los estacionales, que cambian con la temporada, ${cambioPl(EIP.estacionales)}, y los demás, la inflación núcleo, ` +
       `${cambioPl(EIP.nucleo)}, según el INDEC. Los precios de los servicios ${cambioPl(EIP.servicios)} y los de los bienes, ${pct(EIP.bienes)}. El nivel ` +
       `general, ${pct(EIP.interanual)}.`;
-    return `En los doce meses hasta ${EIP.mes}, el rubro con la suba más alta fue ${inicialMin(EIP.div_max[0])}, ${pct(EIP.div_max[1])}, y el de la más baja, ` +
-      `${inicialMin(EIP.div_min[0])}, ${pct(EIP.div_min[1])}, según el INDEC.` + (/^Alimentos/.test(EIP.div_max[0] + EIP.div_min[0]) ? "" :
+    // la cifra destacada ya dice el rubro que más subió: el texto empieza por el de la suba más baja
+    return `El rubro con la suba más baja fue ${inicialMin(EIP.div_min[0])}, ${pct(EIP.div_min[1])}, según el INDEC.` + (/^Alimentos/.test(EIP.div_max[0] + EIP.div_min[0]) ? "" :
       ` Los alimentos y las bebidas no alcohólicas ${cambioPl(EIP.div_alim)}.`) + ` El nivel general, ${pct(EIP.interanual)}.`;
   },
   canastas: v => {
-    const base = `En ${ECB.mes}, un hogar de cuatro integrantes del Gran Buenos Aires (un varón de 35 años, una mujer de 31, un hijo de 6 y una hija de 8) ` +
-      `necesitaba ${n0(ECB.cbt_hogar)} pesos por mes para no quedar bajo la línea de pobreza, el valor de su canasta básica total según el INDEC, y ` +
-      `${n0(ECB.cba_hogar)} para no quedar bajo la línea de indigencia, el de su canasta básica alimentaria. `;
+    // la cifra destacada ya dice la canasta básica total del hogar: el texto dice qué hogar es y empieza por la línea de indigencia
+    const base = `La canasta básica total marca la línea de pobreza. El hogar de referencia del INDEC lo forman un varón de 35 años, una mujer de 31, ` +
+      `un hijo de 6 y una hija de 8. Para no quedar bajo la línea de indigencia, ese hogar del Gran Buenos Aires necesitaba ${n0(ECB.cba_hogar)} pesos ` +
+      `por mes en ${ECB.mes}, el valor de su canasta básica alimentaria. `;
     if (v === "precios") return base + `En doce meses, la canasta básica total ${cambioPct(ECB.ia_cbt)} y la alimentaria ${cambioPct(ECB.ia_cba)}, ` +
       `y los precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;
     return base + `Por adulto equivalente, en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +
       `${n0(ECB.reg_min[1])} pesos en ${REG_ART[ECB.reg_min[0]]} a ${n0(ECB.reg_max[1])} en ${REG_ART[ECB.reg_max[0]]}.`;
   },
-  "salario-real": () => `En los doce meses hasta ${ESR.mes}, según el índice de salarios del INDEC, el salario de los asalariados registrados del sector ` +
-    `privado ${cambioPct(ESR.nom_priv)} y el del sector público, ${pct(ESR.nom_pub)}, y los precios subieron ${pct(ESR.ipc)}. Descontada la inflación, el ` +
-    `salario registrado privado ${cambioPct(ESR.real_priv)} y el público ${cambioPct(ESR.real_pub)}. Frente a ${ESR.base}, en pesos de igual valor, el privado ` +
+  // la cifra destacada ya dice el cambio del salario privado descontada la inflación: el texto empieza por el público
+  "salario-real": () => `En el sector público, el salario registrado ${cambioPct(ESR.real_pub)} en los doce meses hasta ${ESR.mes}. Sin descontar la inflación, ` +
+    `según el índice de salarios del INDEC, el privado ${cambioPct(ESR.nom_priv)} y el público ${pct(ESR.nom_pub)}, y los precios subieron ${pct(ESR.ipc)}. ` +
+    `Frente a ${ESR.base}, en pesos de igual valor, el privado ` +
     `está ${pct(Math.abs(ESR.vs_base_priv))} ${ESR.vs_base_priv < 0 ? "más bajo" : "más alto"} y el público, ${pct(Math.abs(ESR.vs_base_pub))} ` +
     `${ESR.vs_base_pub < 0 ? "más bajo" : "más alto"}. El salario privado registrado más alto de la serie, descontada la inflación, fue el de ${ESR.max_priv_mes} ` +
     `y el más bajo, el de ${ESR.min_priv_mes}.`,
@@ -640,8 +693,9 @@ const LEAD = {
       `según el INDEC. Los que más crecieron fueron ${EMA.sec_max[0]}, ${pct(EMA.sec_max[1])}, ${yE(EMA.sec_max2[0])}, ${pct(EMA.sec_max2[1])}. ` +
       (EMA.sec_min[1] < 0 ? `El que más cayó fue ${EMA.sec_min[0]}, ${pct(-EMA.sec_min[1])}.` : `El que menos creció fue ${EMA.sec_min[0]}, ${pct(EMA.sec_min[1])}.`) +
       ` Toda la economía, ${pct(EMA.doce)}.`;
-    return `En ${EMA.mes}, la actividad económica ${cambioPct(EMA.interanual)} frente a ${EMA.mes_ant} y ${yCambio(EMA.interanual, EMA.mensual_desest)} frente al mes anterior, ` +
-      `sin el efecto de la época del año, según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año ${cambioPct(EMA.en_el_anio.var)} ` +
+    // la cifra destacada ya dice la variación frente al mismo mes del año anterior: el texto empieza por la del mes anterior
+    return `Frente al mes anterior y sin el efecto de la época del año, la actividad ${cambioPct(EMA.mensual_desest)}, ` +
+      `según el Estimador Mensual de Actividad Económica del INDEC. En lo que va del año ${cambioPct(EMA.en_el_anio.var)} ` +
       `frente a los mismos meses del año anterior, y en los últimos doce meses, ${cambioPct(EMA.doce)}. En ${EMA.anio_ult}, ${cambioPct(EMA.anual)}.`;
   },
   // precios de los combustibles en el surtidor (etapa 21): la mediana de las estaciones, por provincia o mes a mes en pesos del último mes,
@@ -660,38 +714,50 @@ const LEAD = {
     }
     // el máximo en pesos del último mes se nombra una sola vez: puede ser el primer mes, el último u otro
     const mx = CB[p + "_max_real_mes"];
-    if (v === "mes") return `En pesos de ${CB.mes}, el precio mediano ${nomDe} en el surtidor pasó de ${n0(CB[p + "_ini_real"])} pesos por litro en ${CB.ini}` +
-      `${mx === CB.ini ? ", el más alto de la serie," : ""} a ${n0(CB[p])} en ${CB.mes}${mx === CB.mes ? ", el más alto de la serie" : ""}.` +
-      (mx !== CB.ini && mx !== CB.mes ? ` El más alto fue el de ${mx}, con ${n0(CB[p + "_max_real"])} pesos.` : "");
-    return `En ${CB.mes}, la mitad de las estaciones de servicio del país vendía ${nom} a más de ${n0(CB[p])} pesos por litro y la otra mitad, a menos. ` +
-      `La mediana más alta fue la de ${alto[0]} (${n0(alto[1])}) y la más baja, la de ${bajo[0]} (${n0(bajo[1])}). ` +
-      `Frente a ${CB.mes_antes}, el precio ${CB[p + "_var"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var"]))}: descontada la inflación, ${CB[p + "_var_real"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var_real"]))}.`;
+    // la cifra destacada ya dice el precio de la nafta en el último mes: la vista mes a mes empieza por cuánto cambió desde el primer mes
+    if (v === "mes") return `En pesos de ${CB.mes}, el precio mediano ${nomDe} en el surtidor ${cambioPct((CB[p] / CB[p + "_ini_real"] - 1) * 100)} desde ${CB.ini}, ` +
+      `cuando costaba ${n0(CB[p + "_ini_real"])} pesos por litro${mx === CB.ini ? ", el precio más alto de la serie" : ""}.` +
+      (mx === CB.mes ? ` El precio de ${CB.mes} es el más alto de la serie.` : mx !== CB.ini ? ` El más alto fue el de ${mx}, con ${n0(CB[p + "_max_real"])} pesos.` : "");
+    // y la vista por provincia, por la variación en un año (la mediana del país se dice solo para el gasoil, que no tiene cifra destacada)
+    return `En ${CB.mes}, el precio mediano ${nomDe} en el surtidor fue ${pct(Math.abs(CB[p + "_var"]))} ${CB[p + "_var"] >= 0 ? "más alto" : "más bajo"} que en ${CB.mes_antes}: ` +
+      `descontada la inflación, ${CB[p + "_var_real"] >= 0 ? "subió" : "bajó"} ${pct(Math.abs(CB[p + "_var_real"]))}. ` +
+      (p === "gasoil" ? `La mitad de las estaciones de servicio del país vendía ${nom} a más de ${n0(CB[p])} pesos por litro y la otra mitad, a menos. ` : "") +
+      `La mediana más alta fue la de ${alto[0]} (${n0(alto[1])} pesos por litro) y la más baja, la de ${bajo[0]} (${n0(bajo[1])}).`;
   },
   // subsidios económicos a la energía (etapa 21): la serie oficial de la Secretaría de Hacienda
   subsidios: v => {
     const pbi = x => n2(x) + "%", y = e.sub_ytd;
     const ytd = y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} sumaron un ${pct(Math.abs(y.var))} ${y.var < 0 ? "menos" : "más"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor.` : "";
     // el año del dato contra el máximo y el mínimo de la serie, sin repetir un año que ya se nombró
+    const extremos = (a, maxA, maxV, minA, minV, f) => maxA !== a ? ` El más alto fue el de ${maxA}${maxA === e.sub_ini ? ", el primer año" : ""}, con ${f(maxV)}` +
+      (minA !== a ? `, y el más bajo, el de ${minA}, con ${f(minV)}.` : ".") : minA !== a ? ` El más bajo fue el de ${minA}, con ${f(minV)}.` : "";
     const ext = (a, maxA, maxV, minA, minV, f) => (a === minA ? `, el valor más bajo de la serie, que empieza en ${e.sub_ini}` : a === maxA ? `, el valor más alto de la serie, que empieza en ${e.sub_ini}` : "") + "." +
-      (maxA !== a ? ` El más alto fue el de ${maxA}${maxA === e.sub_ini ? ", el primer año" : ""}, con ${f(maxV)}` + (minA !== a ? `, y el más bajo, el de ${minA}, con ${f(minV)}.` : ".")
-        : minA !== a ? ` El más bajo fue el de ${minA}, con ${f(minV)}.` : "");
+      extremos(a, maxA, maxV, minA, minV, f);
+    // la cifra destacada ya dice la parte del PBI del último año: la vista del PBI empieza por lo que va del año y dice el lugar de ese año en la serie sin repetir la cifra
+    const a = e.sub_pbi_anio, lugar = a === e.sub_pbi_min_anio ? "el más bajo" : a === e.sub_pbi_max_anio ? "el más alto" : "";
     return v === "pesos"
       ? `En pesos de ${e.sub_ult}, los subsidios económicos a la energía que registra la Secretaría de Hacienda sumaron ${n0(e.sub_ult_real)} miles de millones en ${e.sub_ult}` +
         ext(e.sub_ult, e.sub_real_max_anio, e.sub_real_max, e.sub_real_min_anio, e.sub_real_min, x => n0(x) + " miles de millones") + ytd
-      : `En ${e.sub_pbi_anio}, los subsidios económicos a la energía que registra la Secretaría de Hacienda fueron el ${pbi(e.sub_pbi)} del producto interno bruto` +
-        ext(e.sub_pbi_anio, e.sub_pbi_max_anio, e.sub_pbi_max, e.sub_pbi_min_anio, e.sub_pbi_min, x => "el " + pbi(x)) + ytd;
+      : (y ? `Entre enero y ${MESES[y.mes - 1]} de ${y.anio}, los subsidios económicos a la energía que registra la Secretaría de Hacienda sumaron un ` +
+          `${pct(Math.abs(y.var))} ${y.var < 0 ? "menos" : "más"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor. `
+          : "Los subsidios económicos a la energía son los que registra la Secretaría de Hacienda. ") +
+        `Como parte del producto interno bruto, ` + (lugar ? `el valor de ${a} es ${lugar} de la serie, que empieza en ${e.sub_ini}.` : `la serie empieza en ${e.sub_ini}.`) +
+        extremos(a, e.sub_pbi_max_anio, e.sub_pbi_max, e.sub_pbi_min_anio, e.sub_pbi_min, x => "el " + pbi(x));
   },
   "gas-consumo": v => {
     if (v === "mes") return `Entre ${e.gas_est_desde} y ${e.gas_est_hasta}, un usuario residencial consumió en promedio ${n0(e.gas_mes_max_m3)} metros cúbicos de gas en ${e.gas_mes_max} ` +
       `y ${n0(e.gas_mes_min_m3)} en ${e.gas_mes_min}: ${n1(e.gas_mes_max_m3 / e.gas_mes_min_m3)} veces más en el mes de mayor consumo.` +
       (e.gas_ytd ? ` Entre enero y ${MESES[e.gas_ytd.mes - 1]} de ${e.gas_ytd.anio} consumió ${n0(e.gas_ytd.m3)} metros cúbicos, ${pct(Math.abs(e.gas_ytd.var))} ${e.gas_ytd.var < 0 ? "menos" : "más"} que en los mismos meses de ${e.gas_ytd.anio - 1}.` : "");
-    if (v === "serie") return `En ${e.gas_ini}, un usuario residencial consumía en promedio ${n0(e.gas_pais_ini)} metros cúbicos de gas por año, y en ${e.gas_anio}, ${n0(e.gas_pais)}. ` +
+    // la cifra destacada ya dice el consumo del último año: la serie empieza por cuánto cambió
+    if (v === "serie") return `Entre ${e.gas_ini} y ${e.gas_anio}, el consumo promedio de gas de un usuario residencial ${cambioPct((e.gas_pais / e.gas_pais_ini - 1) * 100)}. ` +
+      `En ${e.gas_ini} era de ${n0(e.gas_pais_ini)} metros cúbicos por año. ` +
       `El año de mayor consumo fue ${e.gas_max_anio}, con ${n0(e.gas_max)}, y el de menor, ${e.gas_min_anio}, con ${n0(e.gas_min)}. ` +
       `En el mismo período, los usuarios residenciales pasaron de ${n1(e.gas_usuarios_ini / 1e6)} a ${n1(e.gas_usuarios / 1e6)} millones.`;
     const t = e.gas_top;
-    return `En ${e.gas_anio}, un usuario residencial de gas natural consumió en promedio ${n0(e.gas_pais)} metros cúbicos. En ${t[0][0]} el promedio fue de ${n0(t[0][1])}, ` +
-      `${n1(e.gas_veces_top)} veces el del país, y le siguieron ${t[1][0]} (${n0(t[1][1])}) y ${t[2][0]} (${n0(t[2][1])}). El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}). ` +
-      `Las cinco provincias patagónicas tienen el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales y recibieron el ${pct(e.gas_pat_gas)} de su gas.`;
+    // la cifra destacada ya dice el promedio del país y el de la provincia más alta: el texto empieza por la Patagonia
+    return `En ${e.gas_anio}, las cinco provincias patagónicas tenían el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales de gas natural del país ` +
+      `y consumieron el ${pct(e.gas_pat_gas)} del gas residencial. En ${t[0][0]}, un usuario consumió en promedio ${n0(t[0][1])} metros cúbicos, ` +
+      `${n1(e.gas_veces_top)} veces el promedio del país, y le siguieron ${t[1][0]} (${n0(t[1][1])}) y ${t[2][0]} (${n0(t[2][1])}). El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}).`;
   },
   centrales: v => v === "potencia"
     ? `En ${e.pot_anio} el país tenía ${n0(e.pot_total)} megavatios de potencia eléctrica instalada: ${pct(e.pot_pct.termica)} térmica, ${pct(e.pot_pct.hidraulica)} hidráulica, ` +
@@ -710,9 +776,10 @@ const LEAD = {
   insumos: v => v === "var_ytd"
     ? `Entre enero y ${CN.ins_mes}, el consumo aparente subió en ${T.isac_insumos.filter(r => r.var_ytd > 0).length} de los ${CN.ins_n} insumos que sigue el ISAC frente a los mismos meses del año anterior. ` +
       `El que más creció fue ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => b.var_ytd - a.var_ytd)[0].territorio)} (${masPct(d3.max(T.isac_insumos, r => r.var_ytd))}) y el que más cayó, ${NOMBRE_INS([...T.isac_insumos].sort((a, b) => a.var_ytd - b.var_ytd)[0].territorio)} (${masPct(d3.min(T.isac_insumos, r => r.var_ytd))}).`
-    : `En los doce meses hasta ${CN.ins_mes}, el consumo aparente subió en ${CN.ins_suben} de los ${CN.ins_n} insumos que sigue el ISAC frente a los doce meses anteriores. ` +
-      `El que más creció fue ${NOMBRE_INS(CN.ins_top)} (${masPct(CN.ins_top_v)}) y el que más cayó, ${NOMBRE_INS(CN.ins_low)} (${masPct(CN.ins_low_v)}). El consumo aparente de cemento portland varió ${masPct(CN.cemento_12m)}.`,
-  "empleo-construccion": v => `En el ${CN.emp_trim} había ${n0(CN.emp_total)} puestos asalariados registrados en la construcción privada, el ${pct(CN.emp_pct)} del empleo privado registrado y ${n1(CN.emp_cada_1000)} cada 1.000 habitantes. ` +
+    // la cifra destacada ya dice cuántos insumos subieron en doce meses: el texto empieza por los extremos
+    : `En los doce meses hasta ${CN.ins_mes}, frente a los doce anteriores, el insumo que más creció fue ${NOMBRE_INS(CN.ins_top)} (${masPct(CN.ins_top_v)}) y el que más cayó, ${NOMBRE_INS(CN.ins_low)} (${masPct(CN.ins_low_v)}). El consumo aparente de cemento portland varió ${masPct(CN.cemento_12m)}.`,
+  // la cifra destacada ya dice los puestos: el texto empieza por cuánto pesan
+  "empleo-construccion": v => `Los puestos asalariados registrados en la construcción privada eran el ${pct(CN.emp_pct)} del empleo privado registrado y ${n1(CN.emp_cada_1000)} cada 1.000 habitantes en el ${CN.emp_trim}. ` +
     `Frente al ${CN.emp_trim_ant}, los puestos ${creceCae(CN.emp_var, "crecieron", "cayeron")}` +
     (v === "var_construccion" ? ` y ${CN.emp_suben} de las 24 jurisdicciones tuvieron más que un año antes.` : v === "serie" ? `. El máximo de la serie fue de ${n0(CN.emp_max)} puestos, en el ${CN.emp_max_trim}.` :
       `. ${CN.emp_top} tenía ${n1(CN.emp_top_v)} cada 1.000 habitantes${conVeces(CN.emp_top_v, CN.emp_cada_1000)} y ${CN.emp_low}, ${n1(CN.emp_low_v)}${conVeces(CN.emp_low_v, CN.emp_cada_1000)}.`),
@@ -727,20 +794,20 @@ const notaDist = (c, cod) => { const d = c.dist && DIST[c.dist]?.[NOMBRES[cod]];
 const sinContar = (clave, terrs) => terrs.length ? `, sin contar ${terrs.join(" y ")}: ${terrs.map(t => DIST[clave][t].motivo).join(". ")}` : "";
 const TX = {
   // ---- construcción y vivienda (etapa 18)
-  isac: `En ${CN.isac_mes}, la actividad de la construcción medida por el ISAC ${creceCae(CN.isac_var)} frente al mismo mes del año anterior. ` +
-    `Entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio} ${creceCae(CN.isac_ytd.var)} contra los mismos meses de ${CN.isac_ytd.anio - 1}. ` +
+  // la cifra destacada ya dice la variación frente al mismo mes del año anterior: el texto empieza por lo que va del año
+  isac: `Entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio}, la actividad de la construcción medida por el ISAC ${creceCae(CN.isac_ytd.var)} contra los mismos meses de ${CN.isac_ytd.anio - 1}. ` +
     `Sin el efecto de la estacionalidad, ${creceCae(CN.isac_mes_desest)} frente al mes anterior y ${creceCae(CN.isac_3m)} entre ${CN.isac_3m_desde} y ${CN.isac_mes} contra los tres meses anteriores. ` +
     `El índice sin estacionalidad está ${pct(Math.abs(CN.isac_dif_max))} ${CN.isac_dif_max < 0 ? "por debajo" : "por encima"} del máximo de la serie, de ${CN.isac_max_mes}.`,
-  permisos: `En ${CN.per_mes}, los permisos de edificación de ${CN.per_municipios} municipios autorizaron ${n0(CN.per_m2 / 1000)} mil metros cuadrados para construir` +
-    (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que en el mismo mes del año anterior` : "") +
-    `. Entre enero y ${MESES[CN.per_ytd.mes - 1]} de ${CN.per_ytd.anio} la superficie autorizada ${creceCae(CN.per_ytd.var)} contra los mismos meses de ${CN.per_ytd.anio - 1}, ` +
+  // la cifra destacada ya dice la superficie del último mes y su variación: el texto empieza por lo que va del año
+  permisos: `Entre enero y ${MESES[CN.per_ytd.mes - 1]} de ${CN.per_ytd.anio}, la superficie autorizada ${creceCae(CN.per_ytd.var)} contra los mismos meses de ${CN.per_ytd.anio - 1}, ` +
     `y en los últimos doce meses, con ${n1(CN.per_12m)} millones de metros cuadrados, ${creceCae(CN.per_12m_var)} contra los doce anteriores.`,
   "permisos-nota": `Superficie cubierta que registran los permisos de edificación de obras privadas, nuevas y ampliaciones, en una nómina de ${CN.per_municipios} municipios que elige el INDEC, en miles de metros cuadrados. ` +
     `No es el total del país y no se publica por provincia. El INDEC armó la serie desde ${CN.per_desde} con la nómina actual: las de nóminas anteriores son otras muestras y no se pueden unir con ella. ` +
     `Los últimos meses son provisorios. El promedio de doce meses suaviza los saltos de un mes a otro.`,
-  hipotecas: `En ${CN.hip_mes}, los bancos otorgaron ${n0(CN.hip_ult)} mil millones de pesos en créditos hipotecarios UVA` +
-    (CN.hip_var != null ? `, ${pct(Math.abs(CN.hip_var))} ${CN.hip_var < 0 ? "menos" : "más"} que en el mismo mes del año anterior en pesos de igual valor` : "") +
-    `, con una tasa promedio de ${n1(CN.hip_tasa)}% anual más la actualización de la UVA. El mes con más créditos fue ${CN.hip_max_mes}, con ${n0(CN.hip_max)} mil millones en pesos de ${CN.hip_mes}. ` +
+  // la cifra destacada ya dice lo prestado en el último mes: el texto empieza por cómo se compara con un año antes
+  hipotecas: (CN.hip_var != null ? `En pesos de igual valor, los créditos hipotecarios UVA de ${CN.hip_mes} fueron ${pct(Math.abs(CN.hip_var))} ` +
+    `${CN.hip_var < 0 ? "menos" : "más"} que los del mismo mes del año anterior. ` : "") +
+    `La tasa promedio fue de ${n1(CN.hip_tasa)}% anual más la actualización de la UVA. El mes con más créditos fue ${CN.hip_max_mes}, con ${n0(CN.hip_max)} mil millones en pesos de ${CN.hip_mes}. ` +
     `En todo ${CN.hip_anio} sumaron ${n0(CN.hip_anual)} mil millones` + (CN.hip_anual_max_anio !== CN.hip_anio ? `, contra ${n0(CN.hip_anual_max)} en ${CN.hip_anual_max_anio}, el año con más créditos,` : `, el año con más créditos,`) +
     ` y ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, el año con menos.`,
   "hipotecas-nota": `Préstamos hipotecarios en unidades de valor adquisitivo (UVA) que los bancos acordaron cada mes con personas y empresas, según el Banco Central, en miles de millones de pesos de ${CN.hip_mes}, ` +
@@ -799,13 +866,13 @@ const TX = {
     `El SIPA asigna cada puesto a la provincia donde declara el empleador, no donde está la obra: una empresa con sede en la Ciudad que construye en otra provincia suma en la Ciudad. ` +
     `No incluye a quienes trabajan por su cuenta ni el empleo no registrado: el Censo 2022 contó ${n0(CN.viv_abs.constructores)} personas ocupadas en la construcción, con o sin registro (ver la ficha de abajo). ` +
     `La población es la proyección ${R.anio_pob} del INDEC. La provincia de Buenos Aires suma los partidos del Gran Buenos Aires y el resto de la provincia, que el OEDE publica por separado.`,
-  trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción: el ${pct(VV.pct_ocupados_construccion)} de las personas ocupadas que informaron la rama de actividad. ` +
+  // la cifra destacada ya dice la parte de los ocupados: el texto empieza por cuántas personas son
+  trabajadores: `En el Censo 2022, ${n0(CN.viv_abs.constructores)} personas dijeron trabajar en la construcción. El porcentaje se calcula sobre las personas ocupadas que informaron la rama de actividad. ` +
     `La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}.`,
   "trabajadores-nota": `Personas ocupadas según la actividad de la empresa, el negocio o la institución donde trabajan, contadas en el lugar donde viven y no donde está la obra. ` +
     `Incluye a asalariados con y sin registro, a quienes trabajan por su cuenta y a patrones. El porcentaje se calcula sobre las personas ocupadas con la rama informada: el ${pct(VV.pct_sin_rama)} no respondió o su respuesta no alcanzó para clasificarla. ` +
     `En el mapa, el color divide a los departamentos en cinco grupos del mismo tamaño. Si elegís una provincia en Tu provincia, el mapa se acerca a ella.`,
-  costo: `En los doce meses hasta ${CN.costo_mes}, el costo de construir en el Gran Buenos Aires subió ${pct(CN.icc_12)} y los precios al consumidor, ${pct(CN.ipc_12)}. Los materiales subieron ${pct(CN.mat_12)} y la mano de obra, ${pct(CN.mo_12)}. ` +
-    `Medido contra los precios al consumidor, el costo de construir quedó ${pct(Math.abs(CN.icc_real))} ${CN.icc_real < 0 ? "por debajo" : "por encima"} de su nivel de ${CN.costo_desde}.`,
+  costo: `En los doce meses hasta ${CN.costo_mes}, el costo de construir en el Gran Buenos Aires subió ${pct(CN.icc_12)} y los precios al consumidor, ${pct(CN.ipc_12)}. Los materiales subieron ${pct(CN.mat_12)} y la mano de obra, ${pct(CN.mo_12)}.`,
   "costo-nota": `Índice del Costo de la Construcción del INDEC para el Gran Buenos Aires: lo que cuesta construir viviendas modelo, con materiales, mano de obra y gastos generales. ` +
     `Para compararlo con la inflación, cada índice se divide por el Índice de Precios al Consumidor nacional y se lleva a 100 en ${CN.costo_desde} (la línea punteada): arriba de 100, construir se encareció más que el promedio de los precios, y abajo, menos. ` +
     `El INDEC publica el índice como variación de cada mes desde noviembre de 2015, y el sitio encadena esas variaciones (el resultado coincide con el índice que el INDEC publica desde enero de 2022).`,
@@ -849,16 +916,165 @@ const TX = {
   "causas-nota": `Porcentaje de las muertes de menores de un año de cada provincia según el grupo de causa (capítulos de la CIE-10), sumando ${R.mi_causas.anios[0]} a ${R.mi_causas.anios[1]} porque en las provincias chicas hay pocas muertes por año. Las provincias están ordenadas por su tasa de mortalidad infantil del período, de mayor a menor. ` +
     `Según la DEIS, en ${R.mi_causas.reducibles.anio} el ${pct(R.mi_causas.reducibles.neonatal)} de las muertes de menores de 28 días y el ${pct(R.mi_causas.reducibles.posneonatal)} de las de 28 días a 11 meses del país eran reducibles con prevención, diagnóstico o tratamiento oportunos. Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que solo traen la causa con tres caracteres. ` +
     `Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social ni prepaga del Censo 2022.`,
+  // Sector externo (etapa 41). La cifra destacada de cada ficha dice el total o el primero: el texto va a la composición y a los cambios
+  "exporta-rubros": `Las manufacturas de origen agropecuario fueron el ${pct(SX.rubros.pct.moa)} de lo exportado en ${SX.rubros.anio}, ` +
+    `las de origen industrial el ${pct(SX.rubros.pct.moi)}, los productos primarios el ${pct(SX.rubros.pct.primarios)} y los combustibles y la energía el ${pct(SX.rubros.pct.combustibles)}` +
+    (SX.rubros.max_anio !== SX.rubros.anio ? `. El año con más exportaciones de la serie fue ${SX.rubros.max_anio}, con ${n0(SX.rubros.max)} millones de dólares.` : `, en el año con más exportaciones de la serie.`) +
+    (SX.rubros.ytd_var != null ? ` Entre enero y ${MESES[SX.rubros.ytd_mes - 1]} de ${SX.rubros.ytd_anio} se exportaron ${n0(SX.rubros.ytd)} millones, un ${pct(Math.abs(SX.rubros.ytd_var))} ${SX.rubros.ytd_var >= 0 ? "más" : "menos"} que en los mismos meses del año anterior.` : ""),
+  "exporta-rubros-nota": `Valores FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro), en dólares de cada año: no descuentan la inflación de los Estados Unidos. ` +
+    `Primarios: granos, semillas, minerales, frutas y pescado sin procesar. Agroindustria: las manufacturas de origen agropecuario, como harinas, aceites, carnes, lácteos y vinos. ` +
+    `Industria: las manufacturas de origen industrial, como vehículos, químicos, metales y oro. Energía: petróleo, gas y combustibles. El año en curso, incompleto, no va en el gráfico.`,
+  "complejos": (() => { const C = SX.complejos, el = n => "el " + n.charAt(0).toLowerCase() + n.slice(1);
+    return `Los que más exportaron en el ${C.periodo} fueron ${lista(C.top.slice(0, 4).map(x => `${el(x.n)} (${pct(x.pct)})`))}. ` +
+      `Entre los que vendieron más de 500 millones de dólares, el que más creció frente al mismo período del año anterior fue ${el(C.crece.n)}: ${conSigno(C.crece.var)}.`; })(),
+  "complejos-nota": `Un complejo exportador reúne los productos de una misma cadena, desde la materia prima hasta las manufacturas: el complejo soja suma los porotos, la harina, el aceite y el biodiésel. ` +
+    `Los sectores agrupan varios complejos, y el cuadro de cada barra dice cuánto aportó cada uno. Datos provisorios, en dólares FOB.`,
+  "destinos-nota": `Exportaciones de bienes según el país de destino. Las zonas que juntan varios países (resto del Mercosur, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
+    `Cuando el dato de una provincia permitiría identificar a una empresa, el INDEC lo reserva por secreto estadístico y va como "sin detalle". Datos provisorios.`,
+  "exprov": (() => { const P = SX.provincias, NOM = {primarios: "productos primarios", manufacturas_agro: "manufacturas de origen agropecuario",
+      manufacturas_industriales: "manufacturas de origen industrial", combustibles_energia: "combustibles y energía"};
+    const orden = Object.entries(P.principal).sort((a, b) => b[1] - a[1]);
+    return `Según el rubro que más pesa en lo que exportó cada una en ${P.anio}, hay ${lista(orden.map(([k, n], i) => `${n} ${i === 0 ? (n === 1 ? "provincia " : "provincias ") : ""}de ${NOM[k]}`))}.`; })(),
+  "exprov-nota": `Origen Provincial de las Exportaciones del INDEC: cada venta se asigna a la provincia donde se produjo el bien o se hizo su última transformación, no a la del puerto por donde salió. ` +
+    `Una parte no tiene provincia (plataforma continental, extranjero o indeterminado), por eso las provincias no suman el total del país. El último año es provisorio.`,
+  // segunda parte (etapa 41): la balanza comercial, las importaciones, el balance de pagos, las reservas y las variables del BCRA
+  "balanza": (() => { const B = SX.balanza, d = B.deficit_anios;
+    return `En ${B.anio}, la Argentina exportó ${n0(B.expo)} millones de dólares en bienes e importó ${n0(B.impo)} millones: el saldo fue de ${saldoTx(B.saldo)}. ` +
+      (d.length ? `Desde ${B.desde}, las importaciones superaron a las exportaciones en ${d.length} ${d.length === 1 ? "año" : "años"}, el último en ${d[d.length - 1]}. ` : "") +
+      `El saldo más alto de la serie fue el de ${B.saldo_max_anio}, con ${n0(B.saldo_max)} millones.` +
+      (B.ytd_anio > B.anio ? ` Entre enero y ${MESES[B.ytd_mes - 1]} de ${B.ytd_anio}, las exportaciones ${subioBajo(B.ytd_expo_var, "crecieron", "cayeron")} ` +
+        `y las importaciones ${subioBajo(B.ytd_impo_var, "crecieron", "cayeron")} frente a los mismos meses del año anterior.` : ""); })(),
+  "balanza-nota": `Exportaciones en valores FOB (la mercadería puesta en el puerto o en la frontera) e importaciones en valores CIF (con el flete y el seguro), en dólares de cada año, ` +
+    `sin descontar la inflación de los Estados Unidos. El saldo es la diferencia entre las dos. Son solo bienes: los servicios, como el turismo, y los intereses y las utilidades ` +
+    `están en la cuenta corriente, más abajo. El año en curso, incompleto, no va en el gráfico.`,
+  "importaciones": (() => { const I = SX.importaciones, p = I.pct;
+    return `En ${I.anio}, el ${pct(p.intermedios)} de lo importado fueron bienes intermedios, los insumos que se transforman en el país, el ${pct(p.piezas)} piezas y accesorios ` +
+      `y el ${pct(p.capital)} bienes de capital, como máquinas y equipos. Los bienes de consumo fueron el ${pct(p.consumo)} y los autos, el ${pct(p.vehiculos)}. ` +
+      `Frente al año anterior, las compras de bienes de consumo ${subioBajo(I.consumo_var, "crecieron", "cayeron")} y las de autos ${subioBajo(I.vehiculos_var, "crecieron", "cayeron")}. ` +
+      `Las de combustibles tuvieron su máximo en ${I.comb_max_anio}, con ${n0(I.comb_max)} millones de dólares, y en ${I.anio} fueron el ${pct(p.combustibles)} del total.`; })(),
+  "importaciones-nota": `Valores CIF (con el flete y el seguro), en dólares de cada año. Es la clasificación por uso económico del INDEC: los bienes intermedios son insumos como productos químicos, ` +
+    `plásticos, metales o minerales, las piezas y accesorios son partes de máquinas y vehículos, los bienes de capital son máquinas, equipos y vehículos de carga, y los vehículos ` +
+    `de pasajeros son los autos. El año en curso, incompleto, no va en el gráfico.`,
+  "origen": (() => { const O = SX.origen, t = O.top, x = t.filter(o => o.var != null);
+    const sube = [...x].sort((a, b) => b.var - a.var)[0], baja = [...x].sort((a, b) => a.var - b.var)[0];
+    const s = sube && sube.var > 0 ? `${sube.n} (${conSigno(sube.var)})` : "", b = baja && baja.var < 0 ? `${baja.n} (${conSigno(baja.var)})` : "";
+    return `Después de ${t[0].n} vinieron ${t[1].n} (${pct(t[1].pct)}) ${yE(t[2].n)} (${pct(t[2].pct)}). ` +
+      `En total se importaron ${n0(O.total)} millones de dólares, ${subioBajo(O.var, "un", "un")} ${O.var >= 0 ? "más" : "menos"} que en los mismos meses del año anterior.` +
+      (s || b ? ` Entre los cinco primeros orígenes, las compras que más ${s ? "crecieron" : "cayeron"} fueron las de ${s || b}` + (s && b ? ` y las que más cayeron, las de ${b}` : "") + "." : ""); })(),
+  "origen-nota": `Importaciones de bienes según el país de origen, en dólares CIF, desde enero hasta el último mes publicado y comparadas con los mismos meses del año anterior. ` +
+    `Las zonas que juntan varios países (resto de la Unión Europea, resto de América Latina sin México, resto del Sudeste Asiático) no incluyen a los que aparecen solos. ` +
+    `México y Canadá son los socios de los Estados Unidos en el tratado comercial de América del Norte. No van los orígenes que no llegan al 0,05%. Datos provisorios.`,
+  "cuenta-corriente": (() => { const C = SX.cuenta_corriente, s = C.superavit_anios;
+    return `En ${C.anio}, el comercio de bienes dejó un saldo de ${saldoTx(C.bienes)}, los servicios de ${saldoTx(C.servicios)}, el ingreso primario de ${saldoTx(C.primario)} ` +
+      `y las transferencias de ${saldoTx(C.secundario)}. ` +
+      (s.length ? `Desde ${C.desde}, entraron más dólares de los que salieron en ${s.length} ${s.length === 1 ? "año" : "años"}: ${lista(s.map(String))}.` : `Desde ${C.desde}, en ningún año entraron más dólares de los que salieron.`) +
+      (C.trim ? ` En el ${trimTx(C.trim)}, el último publicado, el saldo fue de ${saldoTx(C.trim_total)}.` : ""); })(),
+  "cuenta-corriente-nota": `Balance de pagos del INDEC, con la metodología del sexto manual del FMI. La cuenta corriente suma el saldo de los bienes (valuados FOB y registrados cuando cambian ` +
+    `de dueño, por eso difiere del intercambio comercial de más arriba), el de los servicios (viajes, fletes, seguros y servicios profesionales e informáticos), el del ingreso primario ` +
+    `(los intereses, las utilidades y los dividendos que se pagan y se cobran con el exterior, y los salarios) y el del ingreso secundario (transferencias, como las remesas). ` +
+    `Cuando salen más dólares de los que entran, la diferencia se cubre con deuda, inversiones del exterior o reservas. El gráfico no muestra el ingreso secundario, que es chico, ` +
+    `pero el total lo incluye. El año en curso, incompleto, no va en el gráfico.`,
+  "reservas-bcra": (() => { const V = SX.reservas, f = V.factores, suma = f.reduce((a, x) => a + x.v, 0);
+    const TXF = {compras: "las compras de divisas", organismos: "las operaciones con organismos internacionales", sector_publico: "otras operaciones del sector público",
+      efectivo_minimo: "el efectivo mínimo de los bancos", otras: "otras operaciones"};
+    const mas = [...f].sort((a, b) => b.v - a.v)[0], menos = [...f].sort((a, b) => a.v - b.v)[0], m = v => `${v > 0 ? "+" : ""}${n0(v)} millones`;
+    const partes = [mas.v > 0 ? `lo que más las hizo subir fueron ${TXF[mas.k] || mas.lab.toLowerCase()} (${m(mas.v)})` : "",
+      menos.v < 0 ? `lo que más las hizo bajar, ${TXF[menos.k] || menos.lab.toLowerCase()} (${m(menos.v)})` : ""].filter(Boolean);
+    return `Un año antes eran ${n0(V.hace_un_anio)} millones. El máximo de la serie, con los datos de cada día, fue de ${n0(V.max)} millones, en ${MESES[+V.max_fecha.slice(0, 2) - 1]} de ${V.max_fecha.slice(3)}. ` +
+      `En lo que va de ${V.anio} ${suma >= 0 ? "subieron" : "bajaron"} ${n0(Math.abs(suma))} millones` + (partes.length ? `: ${partes.join(" y ")}.` : "."); })(),
+  // expectativas de inflación y confianza del consumidor (etapa 42): los textos los arma el dibujo
+  "expectativas-nota": R.expectativas_inflacion ? `Encuesta mensual de la Universidad Torcuato Di Tella a personas de todo el país: cada una dice cuánta inflación espera ` +
+    `para los doce meses siguientes. La mediana es el valor que deja la mitad de las respuestas por debajo y la otra mitad por encima, y suele ir en números redondos. ` +
+    `El promedio lo mueven más las respuestas extremas. La inflación que hubo en los doce meses siguientes sale del índice de precios al consumidor nacional del INDEC, que ` +
+    `empieza en diciembre de 2016: antes no hay con qué comparar en el sitio, y en los meses más recientes todavía no pasaron los doce meses.` : "",
+  "confianza-consumidor-nota": R.confianza_consumidor ? `Encuesta mensual de la Universidad Torcuato Di Tella. El índice va de 0 a 100 y resume tres partes: la situación ` +
+    `económica personal y de la familia, la situación económica del país y si es un buen momento para comprar bienes durables, como electrodomésticos, e inmuebles. Por región, Capital es la Ciudad de Buenos Aires y GBA, los partidos del ` +
+    `Gran Buenos Aires. Como toda encuesta tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos.` : "",
+  // confianza en el gobierno (etapa 42): los textos de las dos vistas los arma el dibujo
+  "confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
+    `Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
+    `bien el gasto público, la honestidad de sus miembros y su capacidad para resolver los problemas del país. Va de 0, ninguna confianza, a 5, mucha confianza. Mide la ` +
+    `opinión sobre el gobierno de cada momento y, como toda encuesta, tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos. En el ` +
+    `promedio de cada gobierno no se cuenta el mes en que asumió uno nuevo, porque según la fecha de la encuesta puede medir al que se va o al que llega. Eduardo Duhalde ` +
+    `asumió el 2 de enero de 2002 y ese mes va con él. Fernando de la Rúa, con un solo mes en la serie, y los presidentes interinos de diciembre de 2001 no tienen promedio.` +
+    (R.confianza_gobierno.elecciones ? ` En la vista de elecciones, arriba va el índice mes a mes y abajo, el voto en cada elección presidencial: las primeras vueltas desde ` +
+      `${R.confianza_gobierno.elecciones.desde} (punto lleno) y las PASO desde que empezaron, en 2011 (punto hueco). El voto es el de la candidatura del gobierno nacional sobre los votos positivos, con los resultados de la Dirección ` +
+      `Nacional Electoral (provisorios en 2023): en las PASO, el de todas las listas de su agrupación, y en 2003, el de Néstor Kirchner, que era el candidato del presidente ` +
+      `Duhalde. El índice que se compara es el del mes anterior a cada elección (el punto sobre la línea de arriba), el último medido entero antes de votar. Son pocas elecciones, y la PASO y la primera vuelta de un mismo ` +
+      `año están muy relacionadas entre sí, así que la correlación exagera lo que se puede afirmar. La correlación de Spearman, que usa el orden y no los valores, es ` +
+      `${n2(R.confianza_gobierno.elecciones.rs)}. Que el índice y el voto vayan juntos no quiere decir que uno cause el otro: el voto depende también de quiénes son los ` +
+      `candidatos, de la oposición y de la situación económica. Las elecciones legislativas no están: el sitio tiene los resultados de las presidenciales.` : "") : "",
+  "ingresos-aglomerados-nota": R.ingresos_aglomerados ? `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC. El ingreso por persona ` +
+    `del hogar es el ingreso total del hogar dividido por la cantidad de integrantes (el ingreso per cápita familiar). El del trabajo es el de la ocupación principal de los ` +
+    `ocupados que cobran por su trabajo, sin contar a quienes trabajan sin cobrar. Son los ingresos que declaran las personas encuestadas, con los ponderadores que el INDEC ` +
+    `indica para los ingresos. La mediana es el valor que deja a la mitad por debajo y a la mitad por encima: a diferencia del promedio, no la mueven los ingresos muy altos. ` +
+    `En las ciudades chicas un trimestre tiene pocas personas encuestadas, así que se juntan ${R.ingresos_aglomerados.trimestres}: cada ingreso se compara con la ` +
+    `mediana de los 31 aglomerados de su trimestre, para que no pesen los aumentos de precios de un trimestre al otro, y esa proporción se pasa a pesos del ` +
+    `${R.ingresos_aglomerados.trimestre}. Las respuestas suelen ir en números redondos, por eso los montos se muestran redondeados al millar. Los montos no descuentan ` +
+    `que los precios cambian entre regiones: la canasta básica del Noreste cuesta menos que la del Gran Buenos Aires. La EPH mide los aglomerados urbanos, no las ` +
+    `provincias, y la Ciudad de Buenos Aires y los partidos del conurbano van por separado.` : "",
+  "reservas-netas-nota": `Las reservas netas son, con el criterio de Datina, las brutas menos todo lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro de un ` +
+    `año según su planilla de reservas internacionales y liquidez, que publica cada mes con el formato del FMI: los dólares que los bancos dejan en el BCRA como respaldo de los ` +
+    `depósitos en dólares, los depósitos del Tesoro, otras deudas a un año, el tramo a término del canje de monedas con el Banco Popular de China (los yuanes cuentan en las ` +
+    `brutas, pero hay que devolverlos) y los pases con bancos del exterior. No hay una cifra oficial de reservas netas: otras estimaciones no restan los depósitos del Tesoro o ` +
+    `restan también los préstamos de organismos internacionales, y dan otros números. Hasta 2021 la planilla anota el canje con China junto con los pases. Las brutas de la ` +
+    `planilla coinciden con las de la API del BCRA. El oro se valúa al precio de mercado y los derechos especiales de giro (DEG) son la moneda del FMI.` +
+    (SX.reservas_netas && SX.reservas_netas.n_sin_netas ? ` En ${SX.reservas_netas.n_sin_netas} meses no hay reservas netas porque la planilla no está publicada o no ` +
+      `se pudo leer completa (sobre todo en 2007): ahí el gráfico no tiene dato y el mínimo y el máximo son los de los meses con dato.` : ""),
+  "reservas-bcra-nota": `Reservas internacionales brutas del Banco Central: el oro, las divisas, las colocaciones y los demás activos en el exterior. Incluyen algunos que tienen una deuda ` +
+    `como contrapartida, como los depósitos en dólares que los bancos dejan en el BCRA o los canjes de monedas con otros bancos centrales, por eso no todas se pueden usar libremente: la ficha siguiente las desagrega y resta esas deudas. ` +
+    `Cada punto es el último día con dato de cada mes, desde ${SX.reservas.desde} con la serie mensual del BCRA. "Meses de importación" divide las reservas por el promedio ` +
+    `mensual de lo importado en los doce meses anteriores (INDEC): una referencia tradicional es que cubran al menos tres meses. "Qué las movió" muestra los factores con que el BCRA explica la variación de las reservas en lo que va del año, hasta el ` +
+    `${fLarga(SX.reservas.factores_hasta)}: compras y ventas de divisas, préstamos y pagos de organismos internacionales como el FMI, otras operaciones del Tesoro, cambios en el ` +
+    `efectivo mínimo que los bancos dejan en el BCRA y otras operaciones, entre ellas los cambios de cotización del oro y de las monedas. La tabla trae esos factores por año desde ${SX.reservas.factores_desde}.`,
+  "bcra-nota": `Datos de la API de Estadísticas Monetarias del Banco Central, con el último dato publicado de cada mes, cada serie desde que empieza. Son ${SX.bcra.n} de sus ` +
+    `variables principales: las reservas están en Sector externo y la inflación, al principio de esta página, con los datos del INDEC. Las tasas son anuales: la nominal no suma ` +
+    `los intereses de los intereses y la efectiva sí. BADLAR, TM20 y TAMAR son las tasas que pagan los bancos privados por plazos fijos de 30 a 35 días de más de un millón ` +
+    `de pesos, de 20 millones o más y de 1.000 millones o más, y BAIBAR es la de los préstamos entre bancos privados. Las tasas para juicios son valores acumulados desde el comienzo de cada serie, que los tribunales usan para calcular intereses. ` +
+    `Para descontar la inflación, los montos en pesos pasan a pesos de ${mesTx(SX.bcra.ipc_mes)} con el índice de precios al consumidor del INDEC, que empieza en ` +
+    `${mesTx(SX.bcra.ipc_desde)} (antes no hay un índice para todo el país), o se miden en % del PBI a precios corrientes del INDEC, desde ${SX.bcra.pib_desde}. ` +
+    `El dólar a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que ` +
+    `paga una tasa a 30 días con la inflación del mes siguiente, y los índices de actualización y las tasas para juicios se comparan con la inflación de los mismos doce meses. ` +
+    `Los montos, el dólar y los índices en pesos de cada mes van en escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento. ` +
+    (SX.bcra.hist_desde ? `La serie histórica del dinero (base monetaria, M1, M2 y M3) está en pesos de hoy: entre 1970 y 1992 a la moneda se le sacaron 13 ceros. ` +
+      `El BCRA la publica desde 1940, en miles de pesos con cuatro decimales, así que los primeros años dan cero o quedan redondeados: aquí empieza en ` +
+      `${SX.bcra.hist_desde}, cuando el redondeo ya pesa menos de 0,5%. ` : "") +
+    `La parte del M3 en moneda extranjera la calcula Datina con los dos M3 del BCRA. Los depósitos y ` +
+    `los préstamos en dólares, en % del PBI, se pasan a pesos con el dólar mayorista de fin de cada mes.` +
+    (SX.bcra.rem_viejo ? ` La inflación esperada es la del Relevamiento de Expectativas de Mercado actual: la API también trae datos de ${SX.bcra.rem_viejo[0]} a ${SX.bcra.rem_viejo[1]} ` +
+      `de un relevamiento anterior, que no se muestran porque no son comparables con los del actual.` : ""),
+  // la cifra destacada dice la primera causa del país: el texto compara las provincias con la tasa ajustada y explica por qué difiere de la bruta
+  "causas-muerte": `Ajustada por edad, la mortalidad va de ${n0(CM.min_v)} muertes por año cada 100.000 habitantes en ${CM.min} a ${n0(CM.max_v)} en ${CM.max}. ` +
+    `Sin ajustar, la más alta es la de ${CM.bruta_max} (${n0(CM.bruta_max_v)}${CM.bruta_max === EV.max ? ", con la población más envejecida" : ""})` +
+    ` y la más baja, la de ${CM.bruta_min} (${n0(CM.bruta_min_v)}${CM.bruta_min === EV.min ? ", la más joven" : ""}). ` +
+    `Después vienen ${CM_FRASE[CMG[1].k]} (${pct(CMG[1].pct)} de las muertes) ${yE(CM_FRASE[CMG[2].k])} (${pct(CMG[2].pct)}).`,
+  "causas-muerte-nota": `Tasas ajustadas por edad con el método directo: la tasa de cada grupo de edad de la provincia se pondera con la población del país de ${CM.anio_std} por edad, así se comparan provincias más jóvenes y más envejecidas. ` +
+    `Promedio anual de ${CM.desde} a ${CM.hasta}, por provincia de residencia, con la causa básica de muerte agrupada por capítulos de la CIE-10. Las causas externas reúnen los accidentes, las agresiones y las lesiones intencionales. ` +
+    `El ${pct(CM.mal_def_pais)} de las muertes del país tiene una causa mal definida, desde el ${pct(CM.mal_def_min_v)} en ${CM.mal_def_min} hasta el ${pct(CM.mal_def_max_v)} en ${CM.mal_def_max}: donde hay más causas mal definidas, las demás parecen más bajas de lo que son. ` +
+    `Población: proyecciones del INDEC de cada año. Las muertes sin edad registrada (el ${pct(CM.sin_edad_pct)}) se reparten en proporción.`,
+  // la cifra destacada ya dice cuánto crece el país: el texto va a las provincias que pierden, a la que más crece y a las que pierden peso
+  "poblacion-proy": (PPY.pierden.length === 1 && PPY.pierden[0] === PPY.min
+      ? `${PPY.min} es la única jurisdicción que pierde habitantes hasta ${PPY.anio_fin}: unas ${n0(Math.round(Math.abs(PPY.min_personas) / 1000) * 1000)} personas menos que en ${PPY.anio} (${conSigno(PPY.min_v)}). `
+      : PPY.pierden.length ? `Pierden habitantes hasta ${PPY.anio_fin} ${lista(PPY.pierden)}. La que más pierde en proporción es ${PPY.min} (${conSigno(PPY.min_v)}). `
+      : `Todas las jurisdicciones suman habitantes hasta ${PPY.anio_fin}. La que menos crece es ${PPY.min} (${conSigno(PPY.min_v)}). `) +
+    `La que más crece en proporción es ${PPY.max} (${conSigno(PPY.max_v)}). ` +
+    (PPY.debajo.length ? `${lista(PPY.debajo)} ${PPY.debajo.length > 1 ? "crecen" : "crece"} menos que el país, así que ${PPY.debajo.length > 1 ? "pierden" : "pierde"} peso en el total` +
+      (PPY.debajo.includes("Buenos Aires") && PPY.pba_pct_fin < PPY.pba_pct_hoy ? `: la provincia de Buenos Aires pasa de tener el ${pct(PPY.pba_pct_hoy)} de los habitantes del país al ${pct(PPY.pba_pct_fin)}.` : ".") : ""),
+  "poblacion-proy-nota": `Proyecciones de población del INDEC por provincia, base Censo 2022. Estiman cuántas personas va a haber cada año según los nacimientos, las muertes y las migraciones esperadas, y se revisan con cada censo: no son un conteo. ` +
+    `La variación compara la población proyectada de ${PPY.anio} con la de ${PPY.anio_fin}.` +
+    (PPY.max_antes.length ? ` Según las mismas proyecciones, ${lista(PPY.max_antes.map(([t, a]) => `${t} ${a < PPY.anio ? "tuvo" : "tiene"} su población más alta en ${a}`))}.` : ""),
   envejecimiento: `En ${EV.anio} hay ${n1(EV.hoy)} personas de 65 años o más por cada 100 de entre 15 y 64 años: unas ${n1(EV.trab_hoy)} personas en edad de trabajar por cada persona mayor. ` +
     `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. La relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}).`,
-  empresas: `En ${EM.anio} había ${n0(EM.total_pais)} empresas privadas con al menos una persona en relación de dependencia, unas ${n1(EM.pais_1000)} cada 1.000 habitantes. ${EM.top} tenía ${n1(EM.top_v)} cada 1.000 y ${EM.low}, ${n1(EM.low_v)}.`,
+  // la cifra destacada ya dice el total y el promedio del país: el texto va a las provincias
+  empresas: `Cada 1.000 habitantes, ${EM.top} tenía ${n1(EM.top_v)} empresas privadas con empleados${conVeces(EM.top_v, EM.pais_1000)} y ${EM.low}, ${n1(EM.low_v)}${conVeces(EM.low_v, EM.pais_1000)}.`,
   "empresas-nota": `Empresas que declaran personal ante la seguridad social. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni al personal de casas particulares. Una empresa con personal en varias provincias se cuenta en cada una, por eso las provincias suman más que el total del país. La población es la proyección ${R.anio_pob} del INDEC.`,
-  dinamica: `En ${EM.ult} abrieron ${n0(EM.ap)} empresas con empleados y cerraron ${n0(EM.ci)}: una tasa de entrada de ${pct(EM.te)} y una de salida de ${pct(EM.ts)} sobre el total de empresas. ` +
+  // la cifra destacada ya dice cuántas abrieron y cerraron: el texto empieza por las tasas
+  dinamica: `En ${EM.ult}, la tasa de entrada de empresas con empleados fue de ${pct(EM.te)} y la de salida, de ${pct(EM.ts)} sobre el total de empresas. ` +
     `El cambio neto fue ${EM.neta >= 0 ? "positivo" : "negativo"}, de ${pct(Math.abs(EM.neta))}, y solo ${EM.positivas === 1 ? "una provincia tuvo" : EM.positivas + " provincias tuvieron"} más aperturas que cierres. ` +
     `La tasa de entrada más alta de la serie fue ${pct(EM.te_max)}, en ${EM.te_max_anio}. Desde ${EM.ini}, el cambio neto fue negativo en ${EM.anios_negativos} años.`,
   "dinamica-nota": `Se cuentan las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su personal, así que las provincias suman el total del país. Una empresa abre cuando declara empleados por primera vez y cierra cuando pasa un año (cuatro trimestres) sin declarar personal, con el cierre fechado en el primer trimestre sin empleo: por eso la serie llega hasta un año antes que el empleo. El OEDE no marca ese último año como provisorio. ` +
     `Las tasas dividen aperturas y cierres por todas las empresas activas en el año. La vista por provincia muestra el cambio neto de ${EM.ult}. El OEDE separa la provincia de Buenos Aires en partidos del Gran Buenos Aires y resto, que acá se suman.`,
-  rotacion: `Entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}, el ${pct(RO.total)} de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo y el ${pct(RO.total_largo)} más de cinco años. ` +
+  rotacion: `En el otro extremo, el ${pct(RO.total_largo)} de las personas asalariadas llevaba más de cinco años en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}. ` +
     `La rotación se concentra en quienes tienen menos de 25 años (${pct(RO.jovenes)}), en los empleos sin descuento jubilatorio (${pct(RO.sin_desc)}, contra ${pct(RO.con_desc)} en los registrados) y en los hogares del quintil de menores ingresos (${pct(RO.q1)}, contra ${pct(RO.q5)} en el de mayores ingresos). ` +
     `Según el tipo de trabajo, es más común en el empleo privado (${pct(RO.privado)}) que en el estatal (${pct(RO.estatal)}), en los lugares donde trabajan hasta cinco personas (${pct(RO.chico)}, contra ${pct(RO.grande)} donde trabajan más de 40) y en las tareas no calificadas (${pct(RO.no_calif)}, contra ${pct(RO.profesional)} en las profesionales).`,
   "rotacion-nota": `Procesamiento propio de las bases usuarias de la Encuesta Permanente de Hogares del INDEC, con ${n0(RO.casos)} respuestas de los cuatro últimos trimestres publicados. Se usa la pregunta sobre cuánto tiempo hace que la persona trabaja en ese empleo en forma continua, que se hace a los asalariados salvo el servicio doméstico. ` +
@@ -867,62 +1083,119 @@ const TX = {
   "piramide-nota": `Cada barra es el porcentaje de la población total de la jurisdicción que tiene esa edad y ese sexo, en grupos de cinco años (el último reúne a las personas de 90 años o más). Las barras llenas son ${PI.anio} y el contorno, ${PI.anio_fin}. Al elegir una provincia, la pirámide pasa a mostrarla. La edad mediana se estima dentro de los grupos de cinco años.`,
   jubilaciones: `En ${JU.mes ? MESES[JU.mes - 1] + " de " : ""}${JU.anio} había ${n2(JU.ratio)} aportantes por cada jubilación o pensión de los regímenes que administra ANSES: ${n0(JU.aportantes)} personas aportando y ${n0(JU.beneficios)} beneficios. El valor más alto de la serie fue ${n2(JU.max)} en ${JU.max_anio} y el más bajo, ${n2(JU.min)} en ${JU.min_anio}. ` +
     `La demografía empuja en la misma dirección: según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`,
+  // pensiones por invalidez (etapa 42): los textos de las vistas "Cantidad" y "Evolución" los arma el dibujo
+  "pensiones-invalidez": `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} había ${n1(PIN.pais_cada_1000)} pensiones no contributivas por invalidez cada 1.000 habitantes en el país. ` +
+    `${PIN.top} tenía la proporción más alta, ${n1(PIN.top_v)} cada 1.000, y ${PIN.low} la más baja, ${n1(PIN.low_v)}. La provincia de Buenos Aires tenía el ${pct(PIN.pba_pct)} de todas las pensiones.`,
+  "pensiones-invalidez-nota": `La pensión no contributiva por invalidez es para personas que no pueden trabajar por una incapacidad y no tienen ingresos, bienes ni otra ` +
+    `jubilación o pensión que alcancen. La paga ANSES. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Desde abril de 2019 el boletín ` +
+    `separa los beneficios suspendidos: en ${MESES[PIN.mes - 1]} de ${PIN.anio} eran ${n0(PIN.v - PIN.v_no_susp)}. Por provincia, el último mes es ${MESES[PIN.prov_mes - 1]} de ` +
+    `${PIN.prov_anio} y la población, la proyección del INDEC para ${R.anio_pob}. No incluye las pensiones por discapacidad que pagan las provincias ni la asignación por hijo ` +
+    `con discapacidad. La proporción depende de la edad y de la situación de cada población, no solo de cómo se otorgan las pensiones.`,
+  // seguro de desempleo (etapa 42): los textos de "Frente al empleo registrado" y "Evolución" los arma el dibujo
+  desempleo: DS ? `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban la prestación por desempleo ${n1(DS.pais_1000)} personas cada 1.000 habitantes en el país. ` +
+    `${DS.top} tenía la proporción más alta, ${n1(DS.top_v)} cada 1.000, y ${DS.low} la más baja, ${n1(DS.low_v)}. La provincia de Buenos Aires tenía el ${pct(DS.pba_pct)} de los beneficiarios.` : "",
+  "desempleo-nota": DS ? `La prestación por desempleo es el seguro que cobran los asalariados registrados de la Ley de Contrato de Trabajo y de la construcción que quedan sin ` +
+    `trabajo por un despido sin causa u otro motivo que fija la ley y aportaron al Fondo Nacional de Empleo. Dura de 2 a 12 meses según el tiempo trabajado y la paga ANSES. Los trabajadores rurales tienen un sistema aparte, que no ` +
+    `está. Cada año es el promedio de los doce meses y el último dato es el de un solo mes. Cada beneficiario cuenta en la provincia donde cobra. El empleo registrado es el ` +
+    `de los asalariados privados del SIPA de ${MESES[DS.sipa_mes - 1]} de ${DS.sipa_anio}, que se cuenta donde declara el empleador: por eso CABA queda muy abajo y Buenos Aires ` +
+    `arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en la Ciudad. La población es la proyección del INDEC para ${R.anio_pob}. La cantidad de beneficiarios ` +
+    `depende del desempleo, pero también de cuánta gente tiene un empleo registrado y de los cambios en las reglas del seguro.` : "",
+  // Asignación Universal por Hijo (etapa 42): el texto de "Cobertura" lo arma el dibujo
+  auh: `En ${MESES[AU.mes - 1]} de ${AU.anio} cobraban la AUH ${n0(AU.beneficios)} chicos, ${n1(AU.pais_100)} cada 100 menores de 18 años, a través de ${n0(AU.titulares)} ` +
+    `titulares. ${AU.top} tenía la proporción más alta, ${n1(AU.top_v)} cada 100, y ${AU.low} la más baja, ${n1(AU.low_v)}.`,
+  "auh-nota": `La AUH la cobra, por cada hijo menor de 18 años o con discapacidad, quien no tiene trabajo, trabaja en la informalidad o en casas particulares, es ` +
+    `monotributista social o cobra menos que el salario mínimo. La paga ANSES. Cada beneficio es un hijo: ${n0(AU.discapacidad)} son por hijo con discapacidad, que no tiene ` +
+    `límite de edad. Los menores de 18 de cada provincia salen de las proyecciones del INDEC para ${R.anio_pob}, que vienen en grupos de cinco años (los de 15 a 17 se toman como tres ` +
+    `quintos del grupo de 15 a 19), así que la proporción es aproximada. "Cobertura" es el cuadro de cobertura del boletín, que estima la población con ` +
+    `proyecciones de las Naciones Unidas y registros de ANSES. Los programas como Volver al Trabajo, Acompañamiento Social o la Prestación Alimentar no publican datos abiertos por provincia.`,
+  // haberes frente al salario (etapa 42): el texto de la vista "A precios de hoy" lo arma el dibujo
+  haberes: `En ${HB.anio}${HB.meses < 12 ? `, hasta ${MESES[HB.meses - 1]},` : ""} el haber mínimo de ANSES con los refuerzos que se pagan aparte equivalía al ${pct(HB.pct_min_ad)} del salario ` +
+    `promedio de los asalariados registrados, y sin ellos, al ${pct(HB.pct_min)}. La jubilación promedio, al ${pct(HB.pct_jub)}. Desde ${HB.ini}, el haber mínimo con adicionales ` +
+    `llegó a su punto más alto en ${HB.max_pct.anio}, con el ${pct(HB.max_pct.v)} del salario, y al más bajo en ${HB.min_pct.anio}, con el ${pct(HB.min_pct.v)}.`,
+  "haberes-nota": `Promedio de cada año de los haberes que paga ANSES y del salario de los asalariados registrados sujeto a aportes, sin aguinaldo. El haber mínimo es el que fija la ` +
+    `Ley 24.241. "Con refuerzos" suma los montos adicionales que se pagaron varios meses seguidos: el subsidio de agosto de 2002 a junio de 2003 y los refuerzos desde septiembre ` +
+    `de 2022. Desde 2020 se cuentan solo los beneficios no suspendidos. "A precios de hoy" pasa los montos a pesos de ${MESES[+HB.mes_real.slice(5) - 1]} de ${HB.mes_real.slice(0, 4)} con el IPC del INDEC, desde ${HB.ini_real}, ` +
+    `el primer año completo del índice nacional. ${HB.meses < 12 ? `${HB.anio} es el promedio de enero a ${MESES[HB.meses - 1]}. ` : ""}No incluye las cajas provinciales ni los regímenes ` +
+    `que no administra ANSES. Comparar con el salario no dice si alcanza para vivir: para eso están las canastas de Precios y actividad.`,
   "jubilaciones-nota": `Promedio anual de aportantes y de beneficios. El último año es el último mes disponible. Los aportantes incluyen asalariados, autónomos, monotributistas y trabajadoras de casas particulares, también jubilados que siguen aportando. Desde abril de 2019 se cuentan solo los beneficios no suspendidos y hasta 2008 la serie incluye el sistema de capitalización. ` +
     `La cantidad de aportantes depende del empleo registrado, no solo de la edad de la población. No se compara entre provincias porque varias mantienen su propia caja previsional para empleados públicos, fuera de ANSES.`,
   "envejecimiento-nota": `Relación de dependencia de la vejez: personas de 65 años o más sobre personas de 15 a 64, por 100. No todas las personas de 15 a 64 trabajan ni todas las mayores están jubiladas, pero es la medida habitual para anticipar la presión sobre el sistema previsional y la demanda de cuidados. ` +
     `Las personas mayores pasan de ser el ${pct(EV.pct_mayores_hoy)} de la población en ${EV.anio} al ${pct(EV.pct_mayores_fin)} en ${EV.anio_fin}. El círculo claro marca ${EV.anio} y el oscuro ${EV.anio_fin}.`,
-  hogares: `En ${e.anio_ult} los hogares explicaron el ${pct(e.pct_res_ult)} de la electricidad demandada en el país, frente al ${pct(e.pct_res_ini)} de ${e.anio_ini}. Entre ambos años la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
-  actividad: `Entre ${e.anio_ini} y ${e.anio_ult} la demanda eléctrica total creció ${pct(e.crec_total)} y la actividad económica medida por el EMAE creció ${pct(e.crec_emae)}. En ${e.anio_ult} el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh).` +
+  // la cifra destacada ya dice la parte de los hogares en el último año: el texto empieza por la del primero
+  hogares: `En ${e.anio_ini} los hogares explicaban el ${pct(e.pct_res_ini)} de la electricidad demandada en el país. Entre ${e.anio_ini} y ${e.anio_ult} la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,
+  // la cifra destacada ya dice cuánto crecieron la demanda y la actividad: el texto empieza por la demanda del último año
+  actividad: `En ${e.anio_ult} el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad. La actividad económica del gráfico sale del Estimador Mensual de Actividad Económica (EMAE) del INDEC.` +
     enLoQueVa(R.ytd.demanda, e.anio_ult, "la demanda total", "subió", "bajó"),
-  meses: `En promedio entre ${e.meses_desde} y ${e.meses_hasta}, ${e.mes_max} fue el mes de mayor demanda eléctrica y ${e.mes_min} el de menor. La diferencia entre ambos fue de ${pct(e.dif_max_min)}. El año tiene dos picos, uno por refrigeración en verano y otro por calefacción en invierno.`,
+  // la cifra destacada ya dice la diferencia entre el mes de más demanda y el de menos: el texto empieza por los dos picos y da los gigavatios hora
+  meses: `El año tiene dos picos de demanda eléctrica, uno por refrigeración en verano y otro por calefacción en invierno. En promedio entre ${e.meses_desde} y ${e.meses_hasta}, ` +
+    `${e.mes_max} fue el mes de mayor demanda, con ${n0(Math.max(...T.energia_estacionalidad.map(r => r.gwh)))} gigavatios hora (GWh), y ${e.mes_min} el de menor, ` +
+    `con ${n0(Math.min(...T.energia_estacionalidad.map(r => r.gwh)))}.`,
   "meses-nota": `Promedio mensual de la demanda total en GWh para ${e.meses_desde}, ${e.meses_desde + 1} y ${e.meses_hasta}. El último mes disponible en la fuente es ${e.ultimo_mes}.`,
   nacimientos: `En ${nac.anio_ult} se registraron ${n0(nac.n_ult)} nacimientos, ${pct(Math.abs(nac.caida))} menos que los ${n0(nac.pico)} de ${nac.anio_pico}. En el conjunto de los 38 países de la OCDE, la baja entre ${nac.anio_pico} y ${nac.ocde_ult} fue de ${pct(Math.abs(nac.ocde_caida))}.`,
-  adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país correspondían a madres menores de 20 años. En ${nac.anio_ult} fueron ${n1(nac.pct_ult)} de cada 100. En cantidad pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
+  // la cifra destacada ya dice la parte del último año: el texto empieza por la del primero, sin repetirla
+  adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país correspondían a madres menores de 20 años. En cantidad, esos nacimientos pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`,
   suicidio: `En ${s.anio} el SNIC registró ${n0(s.casos)} suicidios, una tasa de ${n1(s.tasa)} por cada 100.000 habitantes de 5 años y más. En ${s.anio-1} la tasa había sido ${n1(s.tasa_prev)}. La tasa de los varones (${n1(s.tasa_v)}) más que triplica la de las mujeres (${n1(s.tasa_m)}).`,
   "suicidio-prov": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes de 5 años y más, y ${s.low} la más baja, con ${n1(s.low_tasa)}. La tasa nacional fue ${n1(s.tasa)}.`,
   edad: `Sobre ${n0(s.n_sat)} casos registrados entre ${s.sat_desde} y ${s.sat_hasta} con edad y sexo conocidos, el ${pct(s.pct_varones)} fueron varones y el ${pct(s.pct_jovenes)} tenía entre 15 y 29 años.`,
   muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos y ${n0(s.viales)} muertes en siniestros viales. Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales. En ${R.femicidios.anio} la Justicia registró ${n0(R.femicidios.n)} víctimas directas de femicidio.`,
   "muertes-nota": `Cantidad de víctimas por año. Homicidios dolosos y muertes en siniestros viales según el mismo registro del SNIC. Femicidios: víctimas directas según el Registro Nacional de Femicidios de la Justicia Argentina. La figura se incorporó al Código Penal en diciembre de 2012 (Ley 26.791) y los datos abiertos del registro empiezan en ${R.femicidios.ini}. Incluye travesticidios y transfemicidios.`,
-  empleo: `En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado, ${n1(em.cada_100_pais)} por cada 100 habitantes. En los doce meses previos el total nacional ${signo(em.var_nac)} y ${em.suben} de las 24 jurisdicciones registraron aumentos.`,
-  mortalidad: `En ${mo.anio} murieron en el país ${n1(mo.tasa)} de cada 1.000 nacidos vivos antes de cumplir un año. En ${mo.anio-1} la tasa había sido ${n1(mo.tasa_prev)} y en ${mo.anio_inicio}, ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
+  empleo: `En los doce meses hasta ${em.mes}, el total del país ${signo(em.var_nac)} y el empleo creció ${deLas24(em.suben)}. En total eran ${n1(em.total_millones)} millones de personas.`,
+  // la cifra destacada ya dice la tasa del último año: el texto empieza por la de los años anteriores
+  mortalidad: `En ${mo.anio-1}, la tasa de mortalidad infantil del país fue de ${n1(mo.tasa_prev)} muertes de menores de un año cada 1.000 nacidos vivos, y en ${mo.anio_inicio}, de ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`,
   "mortalidad-nota": `Defunciones de menores de un año por cada 1.000 nacidos vivos, según la provincia de residencia de la madre. En las provincias con pocos nacimientos la tasa de un solo año varía mucho, por eso se compara el promedio de tres años. El círculo claro marca ${mo.tri_base} y el lleno ${mo.tri_act}. La tabla descargable incluye también el valor de ${mo.anio}. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`,
-  sube: `En ${su.mes}, en un día hábil típico se usaron ${n2(su.total_millones)} millones de tarjetas SUBE distintas en colectivos, trenes, subtes y lanchas${su.var_anual == null ? "" : `, ${n1(Math.abs(su.var_anual))}% ${su.var_anual < 0 ? "menos" : "más"} que en ${su.mes_prev}`}. En los primeros días hábiles de marzo de 2020, antes del aislamiento, eran ${n2(su.pre_millones)} millones.`,
+  // la cifra destacada ya dice las tarjetas del último mes: el texto empieza por cómo cambió en un año
+  sube: (su.var_anual == null ? "" : `En ${su.mes} se usaron por día hábil ${pct(Math.abs(su.var_anual))} ${su.var_anual < 0 ? "menos" : "más"} tarjetas SUBE distintas que en ${su.mes_prev}. `) +
+    `En los primeros días hábiles de marzo de 2020, antes del aislamiento, se usaban ${n2(su.pre_millones)} millones de tarjetas por día hábil.`,
   "sube-nota": `Cantidad de tarjetas distintas que registraron al menos un viaje en el día. Se toma la mediana de los días hábiles de cada mes, así los feriados o paros no bajan el valor del mes. En ${su.mes} se usaron por día ${n1(su.colectivo_millones)} millones de tarjetas en colectivo, ${n0(su.tren_miles)} mil en tren y ${n0(su.subte_miles)} mil en subte (una tarjeta que combina modos cuenta en cada uno). La SUBE funciona en el AMBA y en decenas de ciudades del interior. No incluye ciudades con sistemas de pago propios. Cuenta tarjetas y no pasajeros: quien paga con tarjeta bancaria, celular o QR, donde se puede, no aparece. ` +
     (su.faltan.length ? `La fuente no publica ningún día de ${su.faltan.join(" ni de ")}: el gráfico deja el hueco. ` : "") +
     (su.lancha_salto ? `Desde ${su.lancha_salto} la cantidad de tarjetas en lanchas de la serie se multiplica de un mes a otro, y la fuente no explica por qué. ` : "") +
     `Último día disponible en la fuente: ${su.ultimo_dia}.`,
-  pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.mat} puntos en matemática, ${pz.lec} en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_mat}, ${pz.ocde_lec} y ${pz.ocde_cie} puntos. En matemática la diferencia fue de ${pz.dif_mat} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
+  // la cifra destacada ya dice el puntaje en matemática: el texto empieza por lectura y ciencias
+  pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_lec} y ${pz.ocde_cie} puntos. En matemática la diferencia con la OCDE fue de ${pz.dif_mat} puntos. Frente a ${pz.anio_prev}, el puntaje de la Argentina ${cambio(pz.var_mat)} en matemática, ${cambio(pz.var_lec)} en lectura y ${cambio(pz.var_cie)} en ciencias.`,
   "pisa-nota": `Puntaje promedio de los estudiantes de 15 años escolarizados que rindieron la prueba. La OCDE excluyó de las comparaciones el resultado nacional de 2015 por problemas de cobertura de la muestra. Por eso ese año no aparece en el gráfico, aunque figura en la tabla descargable. En 2000 esta fuente solo tiene el puntaje de lectura. El promedio OCDE es el promedio simple de los países miembros en cada ciclo.`,
-  escolarizacion: `En ${es.fin}, el ${pct(es.pais_fin)} de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel. En ${es.ini} era el ${pct(es.pais_ini)}. La tasa subió en ${es.suben} de las 24 jurisdicciones, aunque la comparación cruza un quiebre de serie: desde 2022 la población de referencia sale del Censo 2022. ` +
+  // la cifra destacada ya dice la tasa del país en el último año: el texto empieza por la del primero
+  escolarizacion: `En ${es.ini}, el ${pct(es.pais_ini)} de los adolescentes del país en edad de cursar la secundaria estaba matriculado en ese nivel. Desde entonces, la tasa subió ${deLas24(es.suben)}, aunque la comparación cruza un quiebre de serie: desde 2022 la población de referencia sale del Censo 2022. ` +
     `En ${es.fin} fue más alta en ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${es.top_excluidos.join(", ").replace(/, ([^,]*)$/, " y $1")}, donde la tasa llega casi al 100% por diferencias entre la matrícula y la población estimada,` : "") +
     ` y más baja en ${es.low} (${pct(es.low_v)}).`,
   "escolarizacion-nota": `Alumnos de 12 a 17 años (13 a 17 en las provincias con secundaria de cinco años) matriculados en el nivel secundario, incluidas la educación especial y la de jóvenes y adultos, sobre la población de esa edad. Desde 2022 la población de referencia son las proyecciones del INDEC basadas en el Censo 2022, así que parte del cambio entre 2021 y 2022 responde al cambio de denominador. Algunos valores superan el 100% por diferencias entre la matrícula y la proyección de población. El círculo claro marca ${es.ini} y el lleno ${es.fin}.`,
-  aprender: `En Aprender ${ap.anio}, el ${pct(ap.mat)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en matemática y el ${pct(ap.len)} en lengua. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
+  // la cifra destacada ya dice el porcentaje en matemática: el texto empieza por lengua
+  aprender: `En lengua, el ${pct(ap.len)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en Aprender ${ap.anio}. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`,
   "aprender-nota": `Aprender es la evaluación nacional del Ministerio de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes están calculados sobre la base agregada por departamento, sector y ámbito que publica el Ministerio, y cuentan solo a quienes tienen un nivel de desempeño asignado. Por eso pueden diferir levemente de los del informe oficial.${DIST["aprender_provincias.mat_logra"]?.["Neuquén"] ? ` En Neuquén, ${DIST["aprender_provincias.mat_logra"]["Neuquén"].motivo}.` : ""}`,
-  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas: el ${pct(nt.pct)} del territorio continental del país, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low} el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
+  // la cifra destacada ya dice la parte del territorio protegida: el texto empieza por cuántas áreas son y cuánto cubren
+  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low} el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,
   "protegida-nota": `Superficie terrestre dentro de áreas protegidas de jurisdicción nacional o provincial y de sitios con designación internacional, como reservas de biosfera y sitios Ramsar. La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez. No incluye las áreas marinas. Los metros cuadrados por habitante usan la población ${R.anio_pob} proyectada por el INDEC. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.protegida.anio} según el Banco Mundial, que usa otra base (la Base Mundial de Áreas Protegidas) y no suma superposiciones.`,
-  parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy la Administración de Parques Nacionales tiene ${nt.pn_n} áreas protegidas, con ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
+  // la cifra destacada ya dice cuántas áreas tiene Parques Nacionales: el texto da sus nombres y su superficie
+  parques: `Los primeros parques nacionales, ${nt.pn_primeras}, se crearon en ${nt.pn_primera_anio}. Hoy las áreas protegidas de la Administración de Parques Nacionales suman ${n1(nt.pn_terr_millones)} millones de hectáreas terrestres y ${n1(nt.pn_mar_millones)} millones marinas. La más grande en tierra es ${nt.pn_mayor}, creada en ${nt.pn_mayor_anio}, con ${n0(nt.pn_mayor_ha)} hectáreas. La más reciente es ${nt.pn_ultima}, de ${nt.pn_ultima_anio}.`,
   "parques-nota": `Superficie acumulada según el año de creación de cada área, con su superficie actual. No refleja ampliaciones posteriores ni cambios de categoría.`,
-  especies: `${nt.esp_top} es el área protegida nacional con más especies animales registradas: ${n0(nt.esp_top_v)}. Le sigue ${nt.esp_2}, con ${n0(nt.esp_2_v)}.`,
+  // la cifra destacada ya dice el área con más especies: el texto empieza por la segunda
+  especies: `La segunda área protegida nacional con más especies animales registradas es ${nt.esp_2}, con ${n0(nt.esp_2_v)}.`,
   "especies-nota": `Especies animales, vertebradas e invertebradas, registradas en cada área protegida nacional terrestre según el Sistema de Información de Biodiversidad. El número también refleja cuánto se estudió cada lugar: las áreas más antiguas e investigadas acumulan más registros, por eso no mide por sí solo la riqueza de fauna.`,
-  visitas: `En ${nt.vis_anio} los parques nacionales recibieron ${n0(nt.vis)} visitas. El ${pct(nt.vis_nr_pct)} correspondió a personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)}, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ${nt.ytd_frase} las visitas ${movio(nt.ytd_var)} respecto del mismo período del año anterior.`,
+  // la cifra destacada ya dice las visitas del último año: el texto empieza por la parte de quienes no residen en el país
+  visitas: `El ${pct(nt.vis_nr_pct)} de las visitas a los parques nacionales en ${nt.vis_anio} correspondió a personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)}, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ${nt.ytd_frase} las visitas ${movio(nt.ytd_var)} respecto del mismo período del año anterior.`,
   "visitas-nota": `Visitas registradas en los parques nacionales con control de ingreso. Una persona que entra dos veces cuenta como dos visitas. Solo se muestran años completos. La fuente no publica datos abiertos por parque.`,
-  receptivo: `En ${tu.anio} llegaron ${n0(tu.turistas)} turistas que viven fuera del país. El máximo de la serie fue en ${tu.max_anio}, con ${n0(tu.max)}. En los doce meses a ${tu.doce_hasta} fueron ${n0(tu.doce)}, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores.`,
+  // la cifra destacada ya dice los turistas del último año completo: el texto empieza por los últimos doce meses
+  receptivo: `En los doce meses hasta ${tu.doce_hasta} llegaron ${n0(tu.doce)} turistas que viven fuera del país, ${pct(Math.abs(tu.doce_var))} ${tu.doce_var < 0 ? "menos" : "más"} que en los doce meses anteriores. El máximo de la serie anual fue en ${tu.max_anio}, con ${n0(tu.max)}.`,
   "receptivo-nota": `Viajes de turistas no residentes, es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Solo se muestran años completos.${tu.provisorio ? " Los últimos meses son datos provisorios." : ""}`,
-  hoteles: `En ${tu.eoh_anio} se hospedaron ${n1(tu.eoh_total)} millones de viajeros en hoteles y parahoteles de las localidades relevadas. El ${pct(tu.eoh_nr_pct)} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
+  // la cifra destacada ya dice los viajeros del último año: el texto empieza por la parte que no residía en el país
+  hoteles: `El ${pct(tu.eoh_nr_pct)} de los viajeros que se hospedaron en hoteles y parahoteles de las localidades relevadas en ${tu.eoh_anio} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
   "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}. El INDEC informó que, al no renovarse el convenio de financiamiento con la Secretaría de Turismo, la encuesta se reformulará y su difusión se reprogramará. El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en la Ciudad.`,
-  eti: `En ${tu.eti_anio}, ${n0(tu.eti_top_v)} turistas no residentes que se fueron del país por Ezeiza o Aeroparque habían visitado ${tu.eti_top} y ${n0(tu.eti_2_v)} ${tu.eti_2}. En relación con su población, el valor más alto fue el de ${tu.eti_pc_top}, con ${n1(tu.eti_pc_top_v)} turistas cada 1.000 habitantes.`,
+  // la cifra destacada ya dice los turistas de la jurisdicción más visitada: el texto empieza por la más visitada en relación con su población
+  eti: `En ${tu.eti_anio}, en relación con su población, ${tu.eti_pc_top} fue la jurisdicción con más turistas no residentes que se fueron del país por Ezeiza o Aeroparque: ${n1(tu.eti_pc_top_v)} cada 1.000 habitantes. En cantidad, la segunda más visitada fue ${tu.eti_2}, con ${n0(tu.eti_2_v)} turistas.`,
   "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población ${R.anio_pob} proyectada por el INDEC. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
-  pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.pob)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${pct(R.pobreza.ind)} bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, eran ${pct(R.pobreza.pob_prev)} y ${pct(R.pobreza.ind_prev)}. El valor más alto de la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
+  // la cifra destacada ya dice la pobreza del último semestre: el texto empieza por la indigencia
+  pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era del ${pct(R.pobreza.pob_prev)} y la indigencia, del ${pct(R.pobreza.ind_prev)}. El valor más alto de la pobreza en la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
   "pobreza-nota": `Porcentaje de personas en hogares cuyos ingresos no alcanzan la canasta básica total (pobreza) o la canasta básica alimentaria (indigencia). La EPH releva solo los 31 aglomerados urbanos, no el total del país ni las provincias. En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.`,
-  "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor para ver los valores.`,
+  "mapa-areas-nota": `Color: porcentaje de la superficie de cada provincia dentro de áreas protegidas de cualquier jurisdicción, ${nt.anio}. Círculos: áreas protegidas nacionales terrestres, con tamaño proporcional a su superficie. Pasá el cursor o tocá para ver los valores.`,
   "lista-areas-nota": `Las ${nt.pn_n} áreas protegidas de la Administración de Parques Nacionales, ordenadas por año de creación. Superficie actual en hectáreas según el Sistema de Información de Biodiversidad.`,
-  "sube-modos": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.tren_miles)} mil tarjetas en trenes y ${n0(su.subte_miles)} mil en subtes. En los primeros días hábiles de marzo de 2020 eran ${n0(su.tren_pre_miles)} mil y ${n0(su.subte_pre_miles)} mil: el tren ${su.tren_vs_pre < 0 ? "tiene" : "suma"} ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} y el subte ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"}, aunque desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos. En colectivo la diferencia es de ${su.colectivo_vs_pre > 0 ? "+" : ""}${pct(su.colectivo_vs_pre)}.`,
+  // la cifra destacada ya dice las tarjetas en trenes: el texto empieza por los subtes
+  "sube-modos": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.subte_miles)} mil tarjetas SUBE en subtes. En los primeros días hábiles de marzo de 2020 eran ${n0(su.tren_pre_miles)} mil en trenes y ${n0(su.subte_pre_miles)} mil en subtes: el tren ${su.tren_vs_pre < 0 ? "tiene" : "suma"} ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} y el subte ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"}, aunque desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos. En colectivo la diferencia es de ${su.colectivo_vs_pre > 0 ? "+" : ""}${pct(su.colectivo_vs_pre)}.`,
   "sube-modos-nota": `Mediana de las tarjetas distintas que viajaron cada día hábil en cada modo. El subte funciona solo en la Ciudad de Buenos Aires y los trenes con SUBE, sobre todo en el Área Metropolitana. ` +
     `Desde diciembre de 2024 el subte acepta tarjetas bancarias y celulares sin contacto, y desde mayo de 2025 pagos con QR: esos viajes no usan la SUBE y no están en estos datos, así que la baja de tarjetas en el subte no es lo mismo que una baja de pasajeros.`,
-  patentes: `En ${au.anio} se inscribieron ${n0(au.autos)} autos y ${n0(au.motos)} motos nuevos en los registros del país. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}. Entre ${au.ytd} se inscribieron ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos que en el mismo período del año anterior.`,
+  // la cifra destacada ya dice las motos y los autos del último año: el texto empieza por lo que va del año
+  patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}.`,
   "patentes-nota": `Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en ${au.motos_ini}.`,
-  "patentes-prov": `En ${au.anio} se inscribieron ${n1(au.pais_1000)} autos y ${n1(au.motos_pais_1000)} motos nuevos cada 1.000 habitantes. En autos el valor más alto fue el de ${au.top} (${n1(au.top_v)}) y el más bajo el de ${au.low} (${n1(au.low_v)}). En motos el más alto fue el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}.`,
+  // la cifra destacada ya dice los autos cada 1.000 habitantes del país: el texto empieza por los extremos
+  "patentes-prov": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). En motos, el promedio del país fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes y el valor más alto, el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}.`,
   "electricidad-provincias": LEAD["electricidad-provincias"]("prov"), "electricidad-provincias-nota": `Demanda residencial que los distribuidores declaran cada mes a CAMMESA, por provincia, ` +
     `dividida por la población de cada año (proyecciones del INDEC desde 2022 y la población implícita en las tasas del SNIC antes). La parte de los hogares se calcula sobre las tres categorías de tarifa ` +
     `que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa la Ciudad de Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: ` +
@@ -1060,36 +1333,53 @@ const TX = {
     `de los doce meses de cada año, desde ${CB.anual_ini}, el primer año completo desde que rige la resolución, y pasa los precios a pesos de ${CB.anual_ult} con el deflactor ` +
     `del producto interno bruto que publica el Banco Mundial, porque el índice de precios al consumidor del INDEC para todo el país empieza en diciembre de 2016.`,
   "patentes-prov-nota": `La provincia es la del registro donde se hizo la inscripción, que no siempre coincide con el lugar donde se usa el vehículo. Por eso algunas jurisdicciones muestran valores muy altos. La población es la proyección ${R.anio_pob} del INDEC.`,
-  nombres: `En ${cu.nom_anio} los nombres más inscriptos en el país fueron ${cu.nena} (${n0(cu.nena_n)}) para las nenas ${yE(cu.varon)} (${n0(cu.varon_n)}) para los varones. En ${cu.nom_ini} habían sido ${cu.nena0} ${yE(cu.varon0)}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
+  // la cifra destacada ya dice los nombres más elegidos: el texto empieza por los del primer año de la serie y cuántos bebés los recibieron
+  nombres: `En ${cu.nom_ini}, los nombres más inscriptos en el país fueron ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones. En ${cu.nom_anio} se inscribieron ${n0(cu.nena_n)} bebés con el nombre ${cu.nena} ${yE(n0(cu.varon_n))} con el nombre ${cu.varon}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,
   "nombres-nota": `Cantidad de veces que cada nombre fue inscripto como nombre de pila en el Registro Nacional de las Personas. Los nombres se muestran como los registra el RENAPER, sin tildes. Al elegir una provincia, el gráfico muestra sus diez nombres más frecuentes.`,
-  carne: `En ${cu.carne_anio} cada habitante consumió en promedio ${n1(cu.carne_v)} kilos de carne vacuna, contra ${n1(cu.carne_ini_v)} en ${cu.carne_ini}. En lo que va de ${cu.carne_ytd_hasta.slice(-4)}, hasta ${cu.carne_ytd_hasta}, el ritmo es de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", el más bajo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,
+  // la cifra destacada ya dice el consumo del último año y el del primero: el texto empieza por lo que va del año
+  carne: `Entre enero y ${cu.carne_ytd_hasta}, cada habitante consumió carne vacuna a un ritmo de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? ", el más bajo de la serie" : ""}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,
   "carne-nota": `Consumo aparente por habitante estimado a partir de la producción y el comercio exterior. Cada mes se expresa como tasa anual y el valor de cada año es el promedio de sus meses. Solo se muestran años completos.`,
-  vino: `En ${cu.vino_anio} se vendieron en el país ${n0(cu.vino_v)} millones de litros de vino, ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} que en ${cu.vino_ini}, cuando fueron ${n0(cu.vino_ini_v)} millones. El ${pct(cu.vino_mza)} salió de bodegas de Mendoza.` + enLoQueVa(R.ytd.vino, cu.vino_anio, "las ventas", "subieron", "bajaron"),
+  // la cifra destacada ya dice las ventas del último año y cuánto cambiaron: el texto empieza por Mendoza
+  vino: `El ${pct(cu.vino_mza)} del vino vendido en el país en ${cu.vino_anio} salió de bodegas de Mendoza. En ${cu.vino_ini} se vendieron ${n0(cu.vino_ini_v)} millones de litros.` + enLoQueVa(R.ytd.vino, cu.vino_anio, "las ventas", "subieron", "bajaron"),
   "vino-nota": `Despachos de vino al mercado interno informados por el Instituto Nacional de Vitivinicultura. La provincia es la de origen del vino, no la del lugar donde se consume.`,
-  yerba: `En ${cu.yerba_anio} los molinos despacharon ${n1(cu.yerba_v)} millones de kilos de yerba mate. El máximo de la serie fue en ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones.` + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
+  // la cifra destacada ya dice los despachos del último año: el texto empieza por el año más alto
+  yerba: (cu.yerba_max_anio === cu.yerba_anio ? `${cu.yerba_anio} fue el año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini}.`
+    : `El año en que los molinos despacharon más yerba mate desde ${cu.yerba_ini} fue ${cu.yerba_max_anio}, con ${n1(cu.yerba_max)} millones de kilos.`) + enLoQueVa(R.ytd.yerba, cu.yerba_anio, "los despachos", "subieron", "bajaron"),
   "yerba-nota": `Salida de molino informada por el Instituto Nacional de la Yerba Mate: yerba elaborada que despachan los molinos. Solo se muestran años completos.`,
-  glaciares: `El Inventario Nacional de Glaciares registra ${n0(cu.gl_total)} glaciares en ${cu.gl_n} provincias. ${cu.gl_top} tiene ${n0(cu.gl_top_v)} y ${cu.gl_2}, ${n0(cu.gl_2_v)}.`,
+  // la cifra destacada ya dice el total y las provincias: el texto empieza por las dos con más glaciares
+  glaciares: `${cu.gl_top} tiene ${n0(cu.gl_top_v)} glaciares inventariados ${yE(cu.gl_2)}, ${n0(cu.gl_2_v)}, según el Inventario Nacional de Glaciares. ` +
+    `Entre las dos reúnen el ${pct((cu.gl_top_v + cu.gl_2_v) / cu.gl_total * 100)} de los glaciares inventariados del país.`,
   "glaciares-nota": `Cantidad de glaciares y cuerpos de hielo inventariados por el Instituto Argentino de Nivología, Glaciología y Ciencias Ambientales (IANIGLA). Las provincias que no aparecen no tienen glaciares inventariados.`,
-  clima: `${cu.cl_max_anio} fue el año más cálido desde ${cu.cl_ini}: la temperatura media del país estuvo ${n2(cu.cl_max)} °C por encima del valor de referencia. De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
-  "clima-nota": `Desvío de la temperatura media anual del país respecto del período de referencia que usa el Servicio Meteorológico Nacional. Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor para ver el valor.`,
-  "visitas-parque": `${vpq.top} (${vpq.top_lugar}) fue el parque nacional más visitado en ${vpq.ult}, con ${n0(vpq.top_v)} visitas: el ${pct(vpq.pct_top)} del total. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)}. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
+  // la cifra destacada ya dice el año más cálido: el texto empieza por el último año (si no es el más cálido)
+  clima: (cu.cl_fin === cu.cl_max_anio ? "" : `En ${cu.cl_fin}, la temperatura media del país estuvo ${n2(Math.abs(cu.cl_ult))} °C ${cu.cl_ult < 0 ? "por debajo" : "por encima"} del valor de referencia. `) + `De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia. El año más frío de la serie fue ${cu.cl_min_anio} (${grados(cu.cl_min)}).`,
+  "clima-nota": `Desvío de la temperatura media anual del país respecto del período de referencia que usa el Servicio Meteorológico Nacional. Cada franja es un año: celeste, más frío que la referencia, y rojo, más cálido. Pasá el cursor o tocá para ver el valor.`,
+  // la cifra destacada ya dice las visitas al parque más visitado: el texto empieza por su parte del total
+  "visitas-parque": `En ${vpq.ult}, ${vpq.top} (${vpq.top_lugar}) concentró el ${pct(vpq.pct_top)} de las visitas a los parques nacionales. Le siguió ${vpq.dos}, con ${n0(vpq.dos_v)} visitas. En 2019, antes de la pandemia, ${vpq.top} había recibido ${n0(vpq.top_2019)}.` +
     (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, las visitas a los parques nacionales fueron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? "más altas" : "más bajas"} que en los mismos meses de ${vpq.par - 1}.` : ""),
   "vp-b1": String(vpq.ult), "vp-b2": vpq.par ? `${vpq.par}, ene a ${MESES[vpq.par_mes - 1].slice(0, 3)}` : "",
   "visitas-parque-nota": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso. El tablero de la Secretaría de Turismo no tiene un enlace de descarga fijo: la exportación completa, mes a mes desde 2008, se guarda en el repositorio y hay que renovarla a mano.`,
-  pesca: `En ${pe.anio} se desembarcaron ${n0(pe.total)} toneladas de pescados y mariscos en los puertos del país, contra ${n0(pe.total_ini)} en ${pe.ini}. Las especies principales fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) ${yE(pe.top[2].toLowerCase())} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
+  // la cifra destacada ya dice el total desembarcado: el texto empieza por las especies principales
+  pesca: `En ${pe.anio}, las especies más desembarcadas en los puertos del país fueron ${pe.top[0].toLowerCase()} (${n0(pe.top_t[0])} toneladas), ${pe.top[1].toLowerCase()} (${n0(pe.top_t[1])}) ${yE(pe.top[2].toLowerCase())} (${n0(pe.top_t[2])}). La primera representó el ${pct(pe.top_pct)} del total.`,
   "pesca-nota": `Capturas de la flota comercial desembarcadas en puertos argentinos, en toneladas, según la Subsecretaría de Pesca y Acuicultura. La tabla descargable incluye el total de todas las especies.`,
-  "pesca-rio": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. El ${pct(pe.rio_top_pct)} fue ${pe.rio_top.toLowerCase()}. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,
+  // la cifra destacada ya dice la parte del sábalo: el texto da el total y las provincias, sin repetirla
+  "pesca-rio": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,
   "pesca-rio-nota": `Captura comercial registrada en ríos y lagunas de las provincias que informan datos, en toneladas. No incluye la pesca deportiva ni la de subsistencia. La tabla descargable muestra cada especie por provincia.`,
-  esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer en el país era de ${n1(nv.ev_pais)} años: ${n1(nv.ev_m)} para las mujeres y ${n1(nv.ev_v)} para los varones. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
+  // la cifra destacada ya dice la esperanza de vida del país: el texto empieza por la de mujeres y varones
+  esperanza: `En ${nv.ev_anio}, la esperanza de vida al nacer de las mujeres del país era de ${n1(nv.ev_m)} años y la de los varones, de ${n1(nv.ev_v)}. Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`,
   "esperanza-nota": `Años que viviría en promedio una persona nacida en ${nv.ev_anio} si se mantuvieran las tasas de mortalidad por edad de ese año. El círculo claro marca a los varones y el lleno a las mujeres. El INDEC publica tablas para 2020, 2021 y 2022, y las de 2020 y 2021 reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.esperanza_vida.anio}, para ambos sexos, según el Banco Mundial.`,
-  exportaciones: `En ${nv.ex_anio} el país exportó bienes por ${n0(nv.ex_total)} millones de dólares, unos ${n0(nv.ex_pc_pais)} dólares por habitante. Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : ""),
+  exportaciones: `En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
+    ` Por habitante, las producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.`,
   "exportaciones-nota": `Valor FOB de los bienes exportados según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
   "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
-  internet: `En el ${nv.in_trim}, ${nv.in_top} tenía ${n1(nv.in_top_v)} accesos a internet fijo cada 100 hogares${aclara("internet_fijo_provincias.accesos_100_hogares", nv.in_top)} y ${nv.in_low}, ${n1(nv.in_low_v)}. La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
+  // la cifra destacada ya dice el valor más alto: el texto empieza por el más bajo
+  internet: `En el ${nv.in_trim}, el valor más bajo fue el de ${nv.in_low}, con ${n1(nv.in_low_v)} accesos a internet fijo cada 100 hogares.` +
+    (DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top]?.accion === "aclarar" ? ` ${DIST["internet_fijo_provincias.accesos_100_hogares"][nv.in_top].motivo}.` : "") +
+    ` La velocidad media de bajada iba de ${n1(nv.ve_top_v)} megabits por segundo en ${nv.ve_top} a ${n1(nv.ve_low_v)} en ${nv.ve_low}.`,
   "internet-nota": `Accesos a internet fijo informados por las empresas prestadoras al ENACOM, divididos por la cantidad de hogares. Incluye conexiones de empresas y oficinas, por eso algunas jurisdicciones superan los 100. La velocidad es el promedio de la velocidad contratada de bajada. No incluye internet por celular, que sí cuenta el Censo 2022 en la ficha anterior.`,
-  extranjeros: `Por cada 100 habitantes del país hay ${n1(nv.xt_pais)} personas nacidas en otro país con documento argentino. ${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)}. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}. ` +
-    `En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +
-    `cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda.`,
+  // la cifra destacada ya dice el valor del país cada 100 habitantes: el texto empieza por el total
+  extranjeros: `En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país con documento argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +
+    `cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda. ` +
+    `${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)} cada 100 habitantes. Los países de nacimiento más frecuentes son ${lista(nv.xt_origen)}.`,
   "extranjeros-nota": `Personas nacidas en el extranjero identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI: es un registro de domicilios declarados, no un conteo de quienes viven en cada provincia, y puede tener domicilios desactualizados. No incluye a quienes viven en el país sin DNI argentino. La población es la proyección ${R.anio_pob} del INDEC.`,
   "fiscal-nota": `Administración pública no financiera de cada provincia, ejecución del año completo según el Ministerio de Economía. Recursos propios: ingresos corrientes menos los tributos de origen nacional, como la coparticipación, y las transferencias, más los recursos propios de capital, sobre los ingresos totales. Incluye impuestos provinciales y regalías. Resultado financiero: ingresos totales menos gastos totales, sobre los ingresos totales. Gasto en personal: sueldos y cargas sociales sobre el gasto total. La serie desde ${R.fiscal.ini} está en el explorador de cruces.` +
     Object.entries(R.fiscal.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${R.fiscal.anio}: figura con ${a}.`).join(""),
@@ -1162,7 +1452,7 @@ const desplegable = (() => {
   let activa = -1, cierre;
   const visibles = () => items.filter(li => !li.hidden);
   const activar = i => {
-    const v = visibles(); if (!v.length) return;
+    const v = visibles(); if (!v.length) { buscar.removeAttribute("aria-activedescendant"); return; }
     activa = (i + v.length) % v.length;
     items.forEach(li => li.classList.remove("activa"));
     v[activa].classList.add("activa"); v[activa].scrollIntoView({block: "nearest"});
@@ -1194,6 +1484,8 @@ const desplegable = (() => {
   });
   lista.addEventListener("click", ev => { const li = ev.target.closest("li"); if (li) { elegir(li.dataset.c); cerrar(true); } });
   document.addEventListener("pointerdown", ev => { if (!caja.contains(ev.target) && btn.getAttribute("aria-expanded") === "true") cerrar(false); });
+  // con Tab fuera del selector, la lista se cierra y no queda tapando lo que recibe el foco
+  caja.addEventListener("focusout", ev => { if (btn.getAttribute("aria-expanded") === "true" && !caja.contains(ev.relatedTarget)) cerrar(false); });
   const marcar = () => {
     // el botón cerrado, sin bandera (etapa 30): la de la provincia elegida ya está en la barra y en el título del perfil
     valor.textContent = NOMBRES[prov] || "Todo el país";
@@ -1219,6 +1511,15 @@ function mostrarTip(el, html, x, y) {
   tip.style.left = left + "px"; tip.style.top = (r.top - pr.top + y - tip.offsetHeight - 12) + "px";
 }
 const ocultarTip = () => tip.classList.remove("on");
+// al salir de un elemento, el cuadro se oculta solo con el mouse (11 de octubre de 2026): con un toque, el navegador manda pointerleave
+// apenas se levanta el dedo y el cuadro desaparecía. Con el dedo se cierra tocando afuera del gráfico (el pointerdown de abajo)
+const ocultarSiMouse = ev => { if (ev.pointerType === "mouse") ocultarTip(); };
+// texto blanco o tinta sobre un color calculado (las celdas de las matrices): el que más contraste
+function tintaSobre(fondo) {
+  const lum = c => { const v = [c.r, c.g, c.b].map(x => { x /= 255; return x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4; }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+  const l = lum(d3.rgb(fondo)), tinta = css("--ink"), lt = lum(d3.rgb(tinta));
+  return (1.05) / (l + .05) >= (l + .05) / (lt + .05) ? "#fff" : tinta;
+}
 document.addEventListener("pointerdown", ev => { if (!ev.target.closest?.(".grafico")) ocultarTip(); });
 
 /* Animación de entrada: solo la primera vez que el gráfico aparece en pantalla, nunca con movimiento reducido */
@@ -1254,6 +1555,14 @@ const recorte = (svg, x, y, w, h, r) => {
 // rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
 const aparecer = (sel, delay = 0) => sel.attr("opacity", 0).transition().delay(Math.min(delay, 150)).duration(DUR_G).ease(d3.easeCubicOut).attr("opacity", 1);
 
+// marcas de un eje logarítmico: las potencias de diez, y si no llegan a tres, también el 2 y el 5 de cada una. Con más de seis, salteadas
+function marcasLog([a, b]) {
+  const todas = [];
+  for (let e = Math.floor(Math.log10(a)); e <= Math.ceil(Math.log10(b)); e++)
+    [1, 2, 5].forEach(m => { const v = +(m * 10 ** e).toPrecision(12); if (v >= a && v <= b) todas.push({v, m}); });
+  const pot = todas.filter(t => t.m === 1), usar = pot.length >= 3 ? pot : todas, paso = Math.ceil(usar.length / 6);
+  return usar.filter((_, i) => (usar.length - 1 - i) % paso === 0).map(t => t.v);
+}
 function lineas(el, cfg) {
   const angosto = el.clientWidth < 520;
   const C = lienzo(el, cfg.h ? (angosto ? cfg.h - 20 : cfg.h) : (angosto ? 300 : 340), {t:14, r: angosto ? 92 : 128, b:30, l:44});
@@ -1261,9 +1570,12 @@ function lineas(el, cfg) {
   const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
   const x = d3.scaleLinear().domain(d3.extent(data, d => d[cfg.x])).range([0, iw]);
   const vals = [...cfg.series.map(s => s.k), ...(cfg.banda ? [cfg.banda.hi] : [])].flatMap(k => data.map(d => d[k])).filter(v => v != null);
-  const y = d3.scaleLinear().domain([cfg.y0 ?? 0, d3.max(vals) * 1.06]).nice().range([ih, 0]);
-  g.append("g").attr("class","grilla").call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
-  g.append("g").attr("class","eje").call(d3.axisLeft(y).ticks(5).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  // con cfg.log (etapa 41, series en pesos de muchos años), escala logarítmica: una misma pendiente es un mismo ritmo de crecimiento
+  const y = cfg.log ? d3.scaleLog().domain([d3.min(vals) / 1.2, d3.max(vals) * 1.2]).range([ih, 0])
+    : d3.scaleLinear().domain([cfg.conNegativos ? Math.min(0, d3.min(vals) * 1.06) : cfg.y0 ?? 0, cfg.y1 ?? d3.max(vals) * 1.06]).nice().range([ih, 0]);
+  const marcas5 = ax => cfg.log ? ax.tickValues(marcasLog(y.domain())) : ax.ticks(5);
+  g.append("g").attr("class","grilla").call(marcas5(d3.axisLeft(y)).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(marcas5(d3.axisLeft(y)).tickFormat(cfg.yf || n0).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
   // en las series mensuales, un año en cada marca (en el celular, uno cada dos), y si son muchos años, uno cada dos o cada cuatro (etapa 25:
   // el EMAE desde 2004 amontonaba 23 años)
   const anios = d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1);
@@ -1271,10 +1583,16 @@ function lineas(el, cfg) {
   g.append("g").attr("class","eje").attr("transform",`translate(0,${ih})`).call(cfg.mensual
     ? d3.axisBottom(x).tickValues(anios.filter(v => v % paso === 0)).tickFormat(d3.format("d")).tickSizeOuter(0)
     : d3.axisBottom(x).ticks(angosto ? 4 : 7).tickFormat(d3.format("d")).tickSizeOuter(0));
-  if (cfg.ref != null) {
+  if (cfg.ref != null && !cfg.log) {
     g.append("line").attr("x1",0).attr("x2",iw).attr("y1",y(cfg.ref)).attr("y2",y(cfg.ref)).attr("stroke",css("--faint")).attr("stroke-width",1).attr("stroke-dasharray", cfg.refLab ? "4 4" : null);
     if (cfg.refLab) g.append("text").attr("x", 6).attr("y", y(cfg.ref) + 16).attr("class","etq-suave").text(angosto && cfg.refLabCorto ? cfg.refLabCorto : cfg.refLab);
   }
+  // con cfg.eventos (etapa 42, los cambios de gobierno en la confianza en el gobierno), una línea punteada en cada fecha con su nombre arriba,
+  // en filas alternadas (dos, y tres en el celular) para que los nombres cercanos no se pisen
+  (cfg.eventos || []).filter(e => x(e.x) > 0 && x(e.x) <= iw).forEach((e, i) => {
+    g.append("line").attr("x1", x(e.x)).attr("x2", x(e.x)).attr("y1", 0).attr("y2", ih).attr("stroke", css("--faint")).attr("stroke-dasharray", "3 3");
+    g.append("text").attr("x", x(e.x) + 4).attr("y", 10 + (i % (angosto ? 3 : 2)) * 15).attr("class", "etq-suave").text(angosto && e.corto ? e.corto : e.lab);
+  });
   if (cfg.banda) {
     const bd = data.filter(d => d[cfg.banda.lo] != null && d[cfg.banda.hi] != null);
     const ar = g.append("path").datum(bd).attr("fill", cfg.banda.c || css("--celeste-suave")).attr("opacity", .85)
@@ -1367,7 +1685,7 @@ function areasApiladas(el, cfg) {
   const etq = ult.map(o => ({o, y: (y(o.y0) + y(o.y1)) / 2})).sort((a, b) => b.y - a.y);
   for (let i = 1; i < etq.length; i++) if (etq[i - 1].y - etq[i].y < 15) etq[i].y = etq[i - 1].y - 15;
   const fin = g.append("g");
-  etq.forEach(e => fin.append("text").attr("x", iw + 8).attr("y", e.y).attr("dy", ".35em").attr("class", "etq-fuerte").style("fill", e.o.s.c === "#A9CBEA" ? css("--celeste-fuerte") : e.o.s.c).text(e.o.s.lab));
+  etq.forEach(e => fin.append("text").attr("x", iw + 8).attr("y", e.y).attr("dy", ".35em").attr("class", "etq-fuerte").style("fill", e.o.s.ct ? css(e.o.s.ct) : e.o.s.c === "#A9CBEA" ? css("--celeste-fuerte") : e.o.s.c).text(e.o.s.lab));
   if (cfg.anim) aparecer(fin, 150);
   const total = d => d3.sum(series, s => d[s.k] || 0);
   const leer = d => `<b>${cfg.xl ? cfg.xl(d) : d[cfg.x]}</b><span>Total ${vf(total(d))}${cfg.unidad ? " " + cfg.unidad : ""}</span>` +
@@ -1400,7 +1718,8 @@ const margenIzq = el => { const t = el.closest(".ficha"), s = el.querySelector("
   return Math.max(0, Math.min(borde, parseFloat(getComputedStyle(t).paddingLeft) || 0)); };
 
 function barrasH(el, cfg) {
-  const data = [...cfg.data].sort((a,b) => d3.descending(a[cfg.k], b[cfg.k]));
+  // de mayor a menor, salvo que el orden importe (cfg.sinOrden, la cascada de las reservas netas)
+  const data = cfg.sinOrden ? [...cfg.data] : [...cfg.data].sort((a,b) => d3.descending(a[cfg.k], b[cfg.k]));
   const angosto = el.clientWidth < 520, fila = angosto ? 20 : 24;
   const izq = angosto ? (cfg.lAngosto || 118) : (cfg.l || 150);
   const C = lienzo(el, data.length * fila + 34 + (cfg.ref2 != null ? 14 : 0), {t:24, r:54, b:10, l: izq});
@@ -1408,7 +1727,7 @@ function barrasH(el, cfg) {
   const ext = d3.extent(data, d => d[cfg.k]);
   const x = d3.scaleLinear().domain([Math.min(0, ext[0]), Math.max(0, ext[1])]).nice().range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.codigo_indec)).range([0, data.length * fila]).padding(.28);
-  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? (cfg.ntAngosto || 2) : 5).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
+  g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? (cfg.ntAngosto || 2) : (cfg.nt || 5)).tickFormat(cfg.af || n0).tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
   if (x.domain()[0] < 0) g.append("line").attr("x1",x(0)).attr("x2",x(0)).attr("y1",0).attr("y2",data.length*fila).attr("stroke",css("--faint"));
   const filas = g.selectAll("g.f").data(data).join("g").attr("class","f").attr("transform", d => `translate(0,${y(d.codigo_indec)})`);
   // lo que depende de la provincia elegida: se usa al dibujar y otra vez en resaltar(). Con cfg.marcar (un Set de códigos) se
@@ -1482,14 +1801,16 @@ function barrasH(el, cfg) {
     // toda la fila responde, no solo la barra, y el cuadro muestra los valores absolutos que la barra no dice
     filas.insert("rect", ":first-child").attr("x", -izq).attr("width", iw + izq + 54).attr("height", y.bandwidth()).attr("fill", "transparent");
     filas.on("pointerenter", (ev, d) => mostrarTip(el, tipFila(d), izq + x(Math.max(0, d[cfg.k])), 24 + y(d.codigo_indec)))
-      .on("pointerleave", ocultarTip);
+      .on("pointerleave", ocultarSiMouse);
   }
+  // las líneas de referencia van detrás de las filas (11 de octubre de 2026): cruzaban los valores de las provincias cercanas al promedio.
+  // Se ven entre una barra y la siguiente, y los valores llevan un borde del color del fondo (.f text en datina.css)
   if (cfg.ref != null) {
-    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3");
+    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3").lower();
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
   }
   if (cfg.ref2 != null) {
-    g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
+    g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2).lower();
     const der = cfg.ref == null || cfg.ref2 >= cfg.ref;
     g.append("text").attr("x", x(cfg.ref2) + (der ? 5 : -5)).attr("y", data.length*fila + 18).attr("text-anchor", der ? "start" : "end")
       .attr("class","etq-fuerte").attr("fill",css("--ocde")).text(cfg.ref2Lab);
@@ -1539,7 +1860,7 @@ function pesas(el, cfg) {
   const cambioTxt = d => { const c = r1v(r1v(d[b]) - r1v(d[a])); return c === 0 ? "Sin cambio" : `${c < 0 ? "Bajó" : "Subió"} ${n1(Math.abs(c))}${cfg.uDif || ""}`; };
   f.on("pointerenter", function(ev, d) { const yy = y(d.codigo_indec) + 24; mostrarTip(el, `<b>${d.territorio}</b><br>${la}: ${vf(d[a])}<br>${lb}: ${vf(d[b])}` +
       (cfg.mejor ? `<br>${cambioTxt(d)}` : "") + (cfg.pais ? `<br><span class="tip-pais">País: ${vf(cfg.pais[0])} y ${vf(cfg.pais[1])}</span>` : ""), x(d[b]) + (angosto?118:150), yy); })
-   .on("pointerleave", ocultarTip);
+   .on("pointerleave", ocultarSiMouse);
 }
 
 function columnas(el, cfg) {
@@ -1573,12 +1894,12 @@ function barrasGrupos(el, cfg) {
   const x = d3.scaleLinear().domain([0, d3.max(data, d => d[cfg.k]) * 1.05]).nice().range([0, iw]);
   const y = d3.scaleBand().domain(data.map(d => d.grupo)).range([0, data.length * fila]).padding(.3);
   g.append("g").attr("class","eje").call(d3.axisTop(x).ticks(angosto ? 3 : 5).tickFormat(v => v + "%").tickSize(0).tickPadding(6)).call(a => a.select(".domain").remove());
-  const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.grupo)})`);
+  const f = g.selectAll("g.f").data(data).join("g").attr("class", "f").attr("transform", d => `translate(0,${y(d.grupo)})`);
   const b = f.append("rect").attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
   f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq").text(d => d.grupo);
   const v = f.append("text").attr("x", d => x(d[cfg.k]) + 6).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
   if (cfg.ref != null) {
-    g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3");
+    g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3").lower();
     g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
   }
   if (cfg.anim) {
@@ -1616,8 +1937,8 @@ function piramidePob(el, cfg) {
   const om = f.append("rect").attr("x", centro + gap).attr("width", d => x(d.mf)).attr("height", y.bandwidth()).attr("rx", rx).attr("fill","none").attr("stroke", css("--ink")).attr("stroke-width", 1.2);
   f.append("text").attr("x", centro).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","middle").attr("class","etq-suave").style("font-size", angosto ? "10px" : null).text(d => d.lab);
   f.append("rect").attr("x", 0).attr("width", iw).attr("height", y.bandwidth()).attr("fill","transparent")
-    .on("pointermove", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en ${PI.anio_fin}<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en ${PI.anio_fin}`, centro, y(d.edad) + 48))
-    .on("pointerleave", ocultarTip);
+    .on("pointermove pointerdown", (ev, d) => mostrarTip(el, `<b>${d.lab} años</b><br>Varones: ${n1(d.vh)}% en ${cfg.anio} y ${n1(d.vf)}% en ${PI.anio_fin}<br>Mujeres: ${n1(d.mh)}% en ${cfg.anio} y ${n1(d.mf)}% en ${PI.anio_fin}`, centro, y(d.edad) + 48))
+    .on("pointerleave", ocultarSiMouse);
   const ley = g.append("g").attr("transform", `translate(${centro - 56},${data.length * fila + 8})`);
   ley.append("rect").attr("width", 12).attr("height", 9).attr("fill", css("--celeste"));
   ley.append("text").attr("x", 16).attr("y", 9).attr("class","etq-suave").text(String(cfg.anio));
@@ -1744,7 +2065,7 @@ function apiladasH(el, cfg) {
   f.on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${d.territorio}</b>${cfg.tipExtra ? cfg.tipExtra(d) : ""}<br>` + cfg.claves.filter(k => d[k.k] != null).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.tipF || pct)(d[k.k])}`).join("<br>"),
         izq + iw / 2, y(d.codigo_indec) + 22); })
-   .on("pointerleave", ocultarTip);
+   .on("pointerleave", ocultarSiMouse);
 }
 
 /* Columnas apiladas por año (composición del Congreso) */
@@ -1773,7 +2094,7 @@ function columnasApiladas(el, cfg) {
   col.append("rect").attr("width", x.bandwidth() + 2).attr("x", -1).attr("height", ih).attr("fill","transparent")
     .on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${d.periodo || d.anio}</b>, ${(cfg.vf || (v => v))(tot(d))} ${cfg.unidad || "bancas"}<br>` + cfg.claves.filter(k => d[k.k]).map(k => `<span style="color:${k.c}">■</span> ${k.lab}: ${(cfg.vf || (v => v))(d[k.k])}`).join("<br>"), (cfg.l || 36) + x(d.anio) + x.bandwidth() / 2, 10); })
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
 }
 
 /* Mapa de provincias: color según el porcentaje del territorio protegido y círculos para las áreas nacionales */
@@ -1782,7 +2103,7 @@ const cargarGeo = () => GEO ? Promise.resolve(GEO) : fetch("datos/provincias.geo
 function mapaAreas(anim) {
   const el = G("mapa-areas");
   if (!el || !el.offsetParent) return;
-  if (!GEO) { cargarGeo().then(() => mapaAreas(anim)).catch(() => {}); return; }
+  if (!GEO) { cargarGeo().then(() => mapaAreas(anim)).catch(() => sinDatos(el, "No se pudo cargar el mapa.")); return; }
   el.innerHTML = "";
   const w = Math.min(560, el.clientWidth), h = Math.round(w * 1.62) + 40;
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img")
@@ -1796,19 +2117,20 @@ function mapaAreas(anim) {
     .attr("fill", d => escala(val[d.properties.codigo_indec]?.pct_territorio ?? 0));
   provs.filter(".elegida").raise();
   el.resaltar = () => { provs.attr("class", d => "prov" + (d.properties.codigo_indec === prov ? " elegida" : "")); provs.filter(".elegida").raise(); };
-  provs.on("pointermove", (ev, d) => {
+  // con el mouse al pasar y con el dedo al tocar (revisión de accesibilidad: en el celular el cuadro no aparecía)
+  provs.on("pointermove pointerdown", (ev, d) => {
       const v = val[d.properties.codigo_indec], [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${v ? v.territorio : d.properties.nombre}</b><br>${v ? pct(v.pct_territorio) : "Sin dato"} del territorio protegido` +
         (v ? `<br>${n0(v.ha_terrestres)} hectáreas` : ""), mx, my);
-    }).on("pointerleave", ocultarTip);
+    }).on("pointerleave", ocultarSiMouse);
   const areas = T.parques_nacionales_lista.filter(d => !d.marina && d.lat != null && d.lng != null);
   const r = d3.scaleSqrt().domain([0, d3.max(areas, d => d.hectareas)]).range([1.6, w < 420 ? 11 : 15]);
   const burb = svg.append("g").selectAll("circle").data(areas.sort((a, b) => b.hectareas - a.hectareas)).join("circle")
     .attr("class", "burbuja").attr("cx", d => proy([d.lng, d.lat])[0]).attr("cy", d => proy([d.lng, d.lat])[1]).attr("r", d => r(d.hectareas));
   if (anim) burb.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  burb.on("pointermove", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
+  burb.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
   // leyenda
   const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - 138)},${h - 38})`);
   const et = ["0", "5", "10", "15", "20", "30%"];
@@ -1817,6 +2139,52 @@ function mapaAreas(anim) {
     ley.append("text").attr("x", i * 46).attr("y", 26).text(et[i]);
   });
   ley.append("text").attr("x", 0).attr("y", -6).text("% del territorio protegido");
+}
+
+/* Mapa de provincias (etapa 42, para las pensiones por discapacidad): el color divide a las 24 jurisdicciones en cinco grupos de casi el
+   mismo tamaño (quintiles), con la escala de colores del mapa por departamento. La Ciudad de Buenos Aires, que en el mapa del país no se ve
+   ni se puede tocar, va aparte en un cuadrado unido a su lugar. La provincia elegida en Tu provincia lleva el borde oscuro. El cuadro sale al
+   pasar el mouse o al tocar y la tabla de la ficha es la alternativa al mapa. cfg: filas (codigo_indec, territorio y el valor), k, nombre,
+   vf (formato), cortes (opcional) y extra (opcional, más renglones del cuadro) */
+function mapaProv(el, cfg) {
+  if (!GEO) {
+    if (!el.querySelector("svg")) esperando(el);
+    cargarGeo().then(() => mapaProv(el, cfg)).catch(() => sinDatos(el, "No se pudo cargar el mapa."));
+    return;
+  }
+  const val = Object.fromEntries(cfg.filas.filter(r => r.codigo_indec !== "00").map(r => [r.codigo_indec, r]));
+  // se dibuja al ancho real del contenedor (desde 220 píxeles), sin achicarlo: así la leyenda conserva el tamaño de su letra en el celular
+  const w = Math.min(cfg.max || 560, Math.max(220, el.clientWidth)), h = Math.round(w * 1.55);
+  el.innerHTML = ""; el.removeAttribute("aria-busy");
+  const svg = d3.select(el).append("svg").attr("class", "mapa-prov").attr("viewBox", `0 0 ${w} ${h + 44}`).style("max-width", w + "px").attr("role", "img")
+    .attr("aria-label", `Mapa de las provincias: ${cfg.nombre.toLowerCase()}`);
+  const proy = d3.geoMercator().fitExtent([[6, 6], [w - 6, h - 6]], GEO), camino = d3.geoPath(proy);
+  const vals = Object.values(val).map(r => r[cfg.k]).filter(v => v != null).sort(d3.ascending);
+  const cortes = cfg.cortes || [.2, .4, .6, .8].map(q => d3.quantile(vals, q));
+  const escala = d3.scaleThreshold().domain(cortes).range(COLORES_DEP);
+  const color = c => val[c]?.[cfg.k] == null ? css("--line") : escala(val[c][cfg.k]);
+  const tipo = c => { const r = val[c];
+    return `<b>${r ? r.territorio : NOMBRES[c]}</b><br>${cfg.nombre}: ${r && r[cfg.k] != null ? cfg.vf(r[cfg.k]) : "sin dato"}` + (cfg.extra && r ? cfg.extra(r) : ""); };
+  const provs = svg.append("g").selectAll("path").data(GEO.features).join("path").attr("class", "prov").attr("d", camino)
+    .attr("fill", f => color(f.properties.codigo_indec));
+  // la Ciudad, aparte: un cuadrado sobre el Río de la Plata, unido a su lugar con una línea
+  const [cx, cy] = proy([-58.44, -34.61]), lado = Math.max(16, Math.round(w * .045)), bx = Math.min(w - lado - 4, cx + 24), by = cy - lado - 16;
+  const caba = svg.append("g").attr("class", "caba-aparte");
+  caba.append("line").attr("x1", cx).attr("y1", cy).attr("x2", bx).attr("y2", by + lado / 2);
+  caba.append("rect").datum({properties: {codigo_indec: "02"}}).attr("class", "prov").attr("x", bx).attr("y", by).attr("width", lado).attr("height", lado)
+    .attr("rx", 2).attr("fill", color("02"));
+  caba.append("text").attr("class", "mp-ley").attr("x", bx + lado / 2).attr("y", by - 4).attr("text-anchor", "middle").text("CABA");
+  const todas = svg.selectAll(".prov");
+  const marcar = () => { todas.classed("elegida", d => d.properties.codigo_indec === prov); provs.filter(".elegida").raise(); };
+  marcar(); el.resaltar = marcar;
+  if (cfg.anim && !REDUCIR) todas.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
+  todas.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el); mostrarTip(el, tipo(d.properties.codigo_indec), mx, my); })
+    .on("pointerleave", ocultarSiMouse);
+  // leyenda: los cinco grupos con sus cortes
+  const paso = Math.min(50, (w - 12) / 5), ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - paso * 2.5)},${h + 8})`);
+  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c));
+  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * paso).attr("y", 26)
+    .attr("text-anchor", i ? "middle" : "start").text(t));
 }
 
 /* Mapa por departamento (etapa 18): un indicador del Censo 2022 en los 527 departamentos, con la geometría de la herramienta de
@@ -1835,7 +2203,7 @@ function mapaDep(el, cfg) {
   const obj = TOPO_DEP.objects.departamentos, todos = topojson.feature(TOPO_DEP, obj).features;
   const val = Object.fromEntries(cfg.filas.map(r => [r.codigo_dep, r[cfg.k]]));
   const enProv = NOMBRES[prov] ? todos.filter(f => f.properties.prov === prov) : todos;
-  const w = Math.min(560, Math.max(300, el.clientWidth)), h = NOMBRES[prov] ? Math.round(w * 1.1) : Math.round(w * 1.55);
+  const w = Math.min(560, Math.max(220, el.clientWidth)), h = NOMBRES[prov] ? Math.round(w * 1.1) : Math.round(w * 1.55);
   el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
   const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h + 44}`).attr("role", "img")
     .attr("aria-label", `Mapa por departamento: ${cfg.nombre.toLowerCase()}${NOMBRES[prov] ? ", " + NOMBRES[prov] : ""}`);
@@ -1848,15 +2216,15 @@ function mapaDep(el, cfg) {
   if (cfg.anim && !REDUCIR) deps.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   const geoms = NOMBRES[prov] ? {type: "GeometryCollection", geometries: obj.geometries.filter(x => x.properties.prov === prov)} : obj;
   svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(TOPO_DEP, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
-  deps.on("pointermove", (ev, f) => {
+  deps.on("pointermove pointerdown", (ev, f) => {
     const v = val[f.properties.id], [mx, my] = d3.pointer(ev, el);
     mostrarTip(el, `<b>${f.properties.nombre}</b>, ${NOMBRES[f.properties.prov] || ""}<br>${cfg.nombre}: ${v == null ? "sin dato" : cfg.vf(v)}` +
       (cfg.extra ? cfg.extra(f.properties.id) : ""), mx, my);
-  }).on("pointerleave", ocultarTip);
+  }).on("pointerleave", ocultarSiMouse);
   // leyenda: los cinco grupos con sus cortes
-  const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
-  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("rx", 2).attr("fill", c));
-  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26)
+  const paso = Math.min(50, (w - 12) / 5), ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - paso * 2.5)},${h + 8})`);
+  COLORES_DEP.forEach((c, i) => ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c));
+  ["", ...cortes.map(v => cfg.vf(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * paso).attr("y", 26)
     .attr("text-anchor", i ? "middle" : "start").text(t));
 }
 
@@ -1960,7 +2328,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult"};
+const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -1968,10 +2336,21 @@ const CENSO_FRASE = {agua_red: "tenía agua de red pública", cloaca: "tenía de
   computadora: "tenía computadora, notebook o tableta", nbi: "tenía al menos una necesidad básica insatisfecha"};
 function textoCenso(k) {
   const pais = nv.censo[k], [ta, tv] = nv.censo_top[k], [la, lv] = nv.censo_low[k];
+  // la cifra destacada ya dice la parte de los hogares del país con cloacas: en esa vista el texto empieza por los extremos
+  if (k === "cloaca") return `En el Censo 2022, la parte de los hogares con desagüe del inodoro a red cloacal iba de ${pct(tv)} en ${ta} a ${pct(lv)} en ${la}.`;
   return (k === "sin_cobertura"
     ? `En el Censo 2022, el ${pct(pais)} de las personas del país no tenía obra social, prepaga ni plan estatal de salud, así que dependía solo del sistema público.`
     : `En el Censo 2022, el ${pct(pais)} de los hogares del país ${CENSO_FRASE[k]}.`) + ` El valor más alto fue el de ${ta} (${pct(tv)}) y el más bajo, el de ${la} (${pct(lv)}).`;
 }
+// La vista "Cantidad" de las fichas de seguridad social por provincia (14 de octubre de 2026, pedido del autor: "el número absoluto por
+// provincia, no solo cada 1.000 habitantes"): las tres con más y la que menos, y que para comparar provincias sirve más la proporción
+const textoCantidad = (filas, k, inicio, vista) => {
+  const ord = [...filas].sort((p, q) => q[k] - p[k]), [p1, p2, p3] = ord, ult = ord[ord.length - 1];
+  return `${inicio} ${p1.territorio} tenía la mayor cantidad, ${n0(p1[k])}, seguida por ${p2.territorio}, con ${n0(p2[k])}, ${yE(p3.territorio)}, con ${n0(p3[k])}. ` +
+    `${ult.territorio} tenía la menor, ${n0(ult[k])}. La cantidad sigue sobre todo al tamaño de la población, así que para comparar provincias sirve más la vista ${vista}.`;
+};
+// el eje en mil y en millones ("1 millón", "1,5 millones", nunca "1.000 mil")
+const ejeMil = v => v >= 1e6 ? (v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones") : v >= 1000 ? n0(v / 1000) + " mil" : n0(v);
 const DIB = {
   hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
     series:[{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}], vf: v => n0(v)}),
@@ -1982,6 +2361,11 @@ const DIB = {
     lineas(G("nacimientos"), {anim:a, data: T.nacimientos, x:"anio", y0:40, ref:100, refLab: `${T.nacimientos[0].anio} = 100`, yf: v => v, vf: n0,
       xl: d => `${d.anio}<br><span class="suave">Argentina: ${n0(d.nacimientos)} nacimientos${d.nacimientos_ocde ? `<br>OCDE: ${n1(d.nacimientos_ocde / 1e6)} millones` : ""}</span>`,
       series:[{k:"idx_argentina", lab:"Argentina", c:NAR, w:3}, {k:"idx_ocde", lab:"OCDE", c:css("--ocde"), w:2.6}]}); },
+  "poblacion-proy": a => { const pc = MED["poblacion-proy"] === "var_pct";
+    return barrasH(G("poblacion-proy"), {anim: a, data: T.poblacion_proyectada_provincias.filter(r => r.codigo_indec !== "00"), k: MED["poblacion-proy"],
+      vf: pc ? conSigno : v => (v > 0 ? "+" : "") + n0(v), af: pc ? (v => v + "%") : (v => n0(v / 1000) + " mil"),
+      ...(pc ? {ref: PPY.var_pct, refLab: `País ${conSigno(PPY.var_pct)}`} : {}),
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.personas_hoy)} habitantes en ${PPY.anio}<br>${n0(d.personas_2040)} en ${PPY.anio_fin}<br>${(d.var_personas > 0 ? "+" : "") + n0(d.var_personas)} personas, ${conSigno(d.var_pct)}`}); },
   envejecimiento: a => pesas(G("envejecimiento"), {anim:a, data: T.envejecimiento_provincias, a:"vejez_hoy", b:"vejez_2040", la: String(EV.anio), lb: String(EV.anio_fin), vf: n1, af: v => v,
     pais: [EV.hoy, EV.fin]}),
   adolescentes: a => pesas(G("adolescentes"), {anim:a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),
@@ -2006,6 +2390,98 @@ const DIB = {
   rotacion: a => barrasGrupos(G("rotacion"), {anim:a, data: T.rotacion_laboral.filter(d => d.dimension === MED.rotacion).sort((x, y) => x.orden - y.orden),
     k:"pct_un_anio_o_menos", ref: RO.total, refLab: `Total ${pct(RO.total)}`}),
   piramide: conTablas("piramide", ["piramide_poblacion"], a => piramidePob(G("piramide"), {anim:a, data: T.piramide_poblacion, cod: prov || "00", nombre: prov ? NOMBRES[prov] : "Total del país", anio: PI.anio})),
+  auh: a => {
+    const v = MED.auh, el = G("auh"), filas = T.auh_provincias.filter(r => r.codigo_indec !== "00");
+    const extra = r => `<br>${n0(r.beneficios)} hijos con AUH<br>${n0(r.menores)} menores de 18 años (estimado)`;
+    if (v === "cobertura") {
+      $t("auh").textContent = `En ${MESES[AU.cob_mes - 1]} de ${AU.cob_anio}, el ${pct(AU.cob_total)} de los menores de 18 años del país cobraba alguna asignación familiar: el ` +
+        `${pct(AU.cob_auh)} por la AUH y el ${pct(AU.cob_rd)} por el trabajo registrado de su padre o su madre. El ${pct(100 - AU.cob_total)} no cobraba ninguna: entre ` +
+        `ellos están los hijos de quienes superan el tope de ingresos y los deducen del impuesto a las ganancias, y los que no tienen ninguna cobertura.`;
+      const CORTO_AU = {RD: "Asalariado registrado", Monotributo: "Monotributista", PNC: "Pensión no contributiva", SIPA: "Jubilado o pensionado",
+        Desempleo: "Seguro de desempleo", AUH: "AUH", ninguna: "Ninguna"};
+      return barrasH(el, {anim: a, data: [...T.asignaciones_cobertura].sort((p, q) => q.pct_menores - p.pct_menores).map(r => ({codigo_indec: r.via, territorio: r.nombre, v: r.pct_menores})),
+        k: "v", vf: pct, af: v => n0(v) + "%", marcar: new Set(), l: 290, lAngosto: 160, corto: d => CORTO_AU[d.codigo_indec] || d.territorio,
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.v)} de los menores de 18 años`});
+    }
+    if (v === "cantidad") {
+      $t("auh").textContent = textoCantidad(filas, "beneficios", `En ${MESES[AU.mes - 1]} de ${AU.anio} cobraban la AUH ${n0(AU.beneficios)} chicos en todo el país.`, "Cada 100");
+      return barrasH(el, {anim: a, data: filas, k: "beneficios", vf: n0, af: ejeMil,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.beneficios)} hijos con AUH<br>${pct(d.pct_pais)} de los del país<br>${n1(d.cada_100_menores)} cada 100 menores de 18`});
+    }
+    $t("auh").textContent = TX.auh;
+    if (v === "mapa") return mapaProv(el, {anim: a, filas, k: "cada_100_menores", nombre: "Hijos con AUH cada 100 menores de 18", vf: n1, extra, max: 380});
+    barrasH(el, {anim: a, data: filas, k: "cada_100_menores", vf: n1, af: n0, ref: AU.pais_100, refLab: `País ${n1(AU.pais_100)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100_menores)} cada 100 menores de 18` + extra(d)});
+  },
+  desempleo: a => {
+    const v = MED.desempleo, el = G("desempleo"), filas = T.prestacion_desempleo_provincias.filter(r => r.codigo_indec !== "00");
+    const extra = r => `<br>${n0(r.beneficiarios)} beneficiarios en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}<br>${pct(r.pct_pais)} de los del país`;
+    if (v === "serie") {
+      $t("desempleo").textContent = `En ${MESES[DS.mes - 1]} de ${DS.anio} cobraban la prestación por desempleo ${n0(DS.v)} personas, contra un promedio de ${n0(DS.v_anio_ant)} ` +
+        `por mes en ${DS.anio_ant}. Desde ${DS.ini}, el promedio anual más alto fue el de ${DS.max_anio}, ${n0(DS.max)}, y el más bajo, el de ${DS.min_anio}, ${n0(DS.min)}.`;
+      return lineas(el, {anim: a, data: T.prestacion_desempleo, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
+        xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
+        series: [{k: "beneficiarios", lab: "Beneficiarios", c: css("--celeste-fuerte")}]});
+    }
+    if (v === "asalariados") {
+      $t("desempleo").textContent = `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} había ${n1(DS.pais_100)} beneficiarios de la prestación por desempleo cada 100 asalariados ` +
+        `privados registrados en el país. Sin contar CABA (${n1(DS.caba_a_v)}) ni Buenos Aires (${n1(DS.pba_a_v)}), que se distorsionan porque mucha gente trabaja en una y vive ` +
+        `en la otra, ${DS.top_a} tenía la proporción más alta, ${n1(DS.top_a_v)}, y ${DS.low_a} la más baja, ${n1(DS.low_a_v)}.`;
+      return barrasH(el, {anim: a, data: filas, k: "cada_100_asalariados", vf: n1, af: n0, ref: DS.pais_100, refLab: `País ${n1(DS.pais_100)}`,
+        tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_100_asalariados)} cada 100 asalariados privados registrados` + extra(d)});
+    }
+    if (v === "cantidad") {
+      const tot = T.prestacion_desempleo_provincias.find(r => r.codigo_indec === "00").beneficiarios;
+      $t("desempleo").textContent = textoCantidad(filas, "beneficiarios",
+        `En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban la prestación por desempleo ${n0(tot)} personas en todo el país.`, "Cada 1.000");
+      return barrasH(el, {anim: a, data: filas, k: "beneficiarios", vf: n0, af: ejeMil,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.beneficiarios)} beneficiarios en ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}<br>${pct(d.pct_pais)} de los del país` +
+          `<br>${n1(d.cada_1000_habitantes)} cada 1.000 habitantes`});
+    }
+    $t("desempleo").textContent = TX.desempleo;
+    barrasH(el, {anim: a, data: filas, k: "cada_1000_habitantes", vf: n1, af: n0, ref: DS.pais_1000, refLab: `País ${n1(DS.pais_1000)}`,
+      tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000_habitantes)} cada 1.000 habitantes` + extra(d)});
+  },
+  "pensiones-invalidez": a => {
+    const v = MED["pensiones-invalidez"], el = G("pensiones-invalidez"), filas = T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00");
+    const extra = r => `<br>${n0(r.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(r.pct_pais)} de las del país`;
+    if (v === "serie") {
+      $t("pensiones-invalidez").textContent = `En ${MESES[PIN.mes - 1]} de ${PIN.anio} se pagaban ${n0(PIN.v)} pensiones no contributivas por invalidez, contra un promedio de ` +
+        `${n0(PIN.ini_v)} por mes en ${PIN.ini}. El promedio anual más alto fue el de ${PIN.max_anio}, ${n0(PIN.max)}, y el de ${PIN.anio_ant}, ${n0(PIN.v_anio_ant)}.`;
+      return lineas(el, {anim: a, data: T.pensiones_invalidez, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
+        xl: r => r.meses < 12 ? `${MESES[r.meses - 1]} de ${r.anio}` : r.anio,
+        series: [{k: "pensiones", lab: "Todas", corto: "Todas", c: css("--celeste-fuerte")}, {k: "pensiones_no_suspendidas", lab: "Sin las suspendidas", corto: "Sin suspendidas", c: FRI}]});
+    }
+    // la cantidad de pensiones de cada provincia (14 de octubre de 2026, pedido del autor), de mayor a menor
+    if (v === "cantidad") {
+      const tot = T.pensiones_invalidez_provincias.find(r => r.codigo_indec === "00").pensiones;
+      $t("pensiones-invalidez").textContent = textoCantidad(filas, "pensiones",
+        `En ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio} se pagaban ${n0(tot)} pensiones no contributivas por invalidez en todo el país.`, "Cada 1.000");
+      return barrasH(el, {anim: a, data: filas, k: "pensiones", vf: n0, af: ejeMil,
+        tip: d => `<b>${d.territorio}</b><br>${n0(d.pensiones)} pensiones en ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}<br>${pct(d.pct_pais)} de las del país` +
+          `<br>${n1(d.cada_1000)} cada 1.000 habitantes`});
+    }
+    $t("pensiones-invalidez").textContent = TX["pensiones-invalidez"];
+    if (v === "provincias")
+      return barrasH(el, {anim: a, data: filas, k: "cada_1000", vf: n1, af: n0, ref: PIN.pais_cada_1000, refLab: `País ${n1(PIN.pais_cada_1000)}`,
+        tip: d => `<b>${d.territorio}</b><br>${n1(d.cada_1000)} cada 1.000 habitantes` + extra(d)});
+    mapaProv(el, {anim: a, filas, k: "cada_1000", nombre: "Pensiones cada 1.000 habitantes", vf: n1, extra, max: 380});
+  },
+  haberes: a => {
+    const real = MED.haberes === "real", cae = v => v < 0 ? `cayó ${pct(-v)}` : `subió ${pct(v)}`;
+    $t("haberes").textContent = real
+      ? `A precios de ${mesPer(HB.mes_real)}, el haber mínimo con refuerzos promedió ${n0(HB.min_ad_real)} pesos por mes en ${HB.anio}, ${pct(Math.abs(HB.var_real_min_ad))} ` +
+        `${HB.var_real_min_ad < 0 ? "menos" : "más"} que en ${HB.ini_real}. En el mismo período la jubilación promedio ${cae(HB.var_real_jub)} y el salario promedio registrado ${cae(HB.var_real_sal)}.`
+      : TX.haberes;
+    const xl = r => r.meses < 12 ? `${r.anio}, hasta ${MESES[r.meses - 1]}` : r.anio;
+    const series = real
+      ? [{k: "jubilacion_promedio_real", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "haber_minimo_adicionales_real", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
+         {k: "haber_minimo_real", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}]
+      : [{k: "pct_jubilacion", lab: "Jubilación promedio", corto: "Promedio", c: css("--celeste-fuerte")}, {k: "pct_minimo_adicionales", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI},
+         {k: "pct_minimo", lab: "Mínimo sin refuerzos", corto: "Sin refuerzos", c: GRIS}];
+    lineas(G("haberes"), {anim: a, data: T.haberes_previsionales.filter(r => !real || r.haber_minimo_adicionales_real != null), x: "anio", y0: 0, xl, series,
+      vf: real ? v => "$ " + n0(v) : v => pct(v), yf: real ? v => n0(v / 1000) + " mil" : v => n0(v) + "%"});
+  },
   jubilaciones: a => lineas(G("jubilaciones"), {anim:a, data: T.jubilaciones_aportantes, x:"anio", y0:0, vf: n2, yf: v => n1(v),
     series: [{k:"aportantes_por_beneficio", c: css("--celeste-fuerte"), lab:"Por beneficio"}], xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio}),
   muertes: a => lineas(G("muertes"), {anim:a, data: T.muertes_violentas, x:"anio", y0:0,
@@ -3013,6 +3489,16 @@ function textoAnios(filas, v, p) {
   if (!a) return `${NOMBRES[p]} no tuvo legisladores${AC_CAM[v]} desde 1983.`;
   const partes = d => v !== "total" ? "" : !(d.anios_senado > 0) ? ", todos en Diputados" : !(d.anios_diputados > 0) ? ", todos en el Senado"
     : `, ${n1(d.anios_diputados)} en Diputados y ${n1(d.anios_senado)} en el Senado`;
+  // la cifra destacada ya dice los años de quien más sumó: sin provincia y con las dos cámaras, el texto empieza por el total de personas
+  if (!p && v === "total") {
+    const cam = !(a.anios_senado > 0) ? "todos sus años en Diputados" : !(a.anios_diputados > 0) ? "todos sus años en el Senado"
+      : `${n1(a.anios_diputados)} años en Diputados y ${n1(a.anios_senado)} en el Senado`;
+    const sig = resto.slice(0, 2).map(d => `${d.nombre} (${n1(d[k])})`);
+    return `Desde 1983, ${n0(AC.personas)} personas ocuparon una banca en el Congreso nacional, ${n0(AC.dos_camaras)} de ellas en las dos cámaras, ` +
+      `y ${AC.veinte} sumaron 20 años o más (${AC.veinte_siguen === 1 ? "una sigue" : `${AC.veinte_siguen} siguen`} en el cargo). ` +
+      `${a.nombre} sumó ${cam}${a.sigue ? ", y sigue en el cargo" : ""}.` +
+      (sig.length ? ` Le ${sig.length > 1 ? "siguen" : "sigue"} ${listaY(sig)}.` : "");
+  }
   let t = (p ? `De ${NOMBRES[p]}, quien más años sumó${AC_CAM[v] || " en el Congreso"} desde 1983 es `
     : `Desde 1983, quien más años sumó${AC_CAM[v] || " en el Congreso nacional"} es `) + `${a.nombre}: ${n1(a[k])} años${partes(a)}${a.sigue ? ", y sigue en el cargo" : ""}.`;
   const sig = resto.slice(0, 2).map(d => `${d.nombre} (${n1(d[k])})`);
@@ -3152,7 +3638,7 @@ function trayectorias(el, cfg) {
     ocultarTip();
   };
   svg.append("rect").attr("width", C.w).attr("height", C.h).attr("fill", "transparent").style("touch-action", "pan-y")
-    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarTip);
+    .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", ocultarSiMouse);
 }
 /* ---------- La Corte Suprema (etapa 33): pieza del Laboratorio con página propia ----------
    Como "The Supreme Court has had 116 justices. Here's who put them there" de USAFacts: cuánto estuvo cada juez, quiénes estaban cada año
@@ -3402,7 +3888,7 @@ function cuadradosCorte(el, cfg) {
     }).on("pointerleave", function() { d3.select(this).classed("activo", false); ocultarTip(); });
   rotulo.on("pointerenter", (ev, p) => mostrarTip(el, `<b>${p.presidente}</b>, desde ${p.inicio.slice(0, 4)}<br>` +
       `${p.designados} ${p.designados === 1 ? "juez" : "jueces"}: ${listaY(p.jueces.map(j => j.nombre))}`, xCol(p) + nomW / 2, yFila(p)))
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
   el.grupo = k => coAclarar(filas, k, p => p.grupo, .16);
   coGrupoInicial(el);
 }
@@ -3431,7 +3917,7 @@ if (notaCorte) {
   const nPres = CO.presidencias;
   notaCorte.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono("balanza")}</span><div><p class="nota-meta">Laboratorio. Se actualiza con cada cambio en la Corte</p>` +
-    `<h2 class="nota-tit" style="view-transition-name:t-corte-suprema">La Corte Suprema tuvo ${CO.personas} jueces desde ${CO.desde}. Quién los designó</h2></div></div>` +
+    `<h1 class="nota-tit" style="view-transition-name:t-corte-suprema">La Corte Suprema tuvo ${CO.personas} jueces desde ${CO.desde}. Quién los designó</h1></div></div>` +
     `<p class="nota-bajada"><mark>Hoy la Corte tiene ${hoy.length} jueces, de los ${CO.ley_hoy} que fija la ley.</mark> ${quienes}</p>` +
     `<p>Desde que se instaló, en ${CO.desde}, la Corte Suprema de Justicia de la Nación tuvo ${CO.personas} jueces en ${CO.designaciones} designaciones, porque ` +
     `${CO.dos_veces.length === 4 ? "cuatro" : CO.dos_veces.length} llegaron dos veces: ${listaY(CO.dos_veces)}. Los designaron ${CO.presidentes} presidentes. ` +
@@ -3541,7 +4027,7 @@ function puntosVoto(el, cfg) {
       .attr("stroke-width", d => d[3] === prov && prov ? 2 : 1.2);
     pt.on("pointerenter", function(ev, d) {
       mostrarTip(el, `<b>${nomVt(VTJ.nombres[d[0]])}</b><br>${VTJ.bloques[d[1]]}<br>${NOMBRES[d[3]] || "Sin provincia"}<br>${VOTO_LAB[d[4]]}`, +this.getAttribute("cx"), +this.getAttribute("cy"));
-    }).on("pointerleave", ocultarTip);
+    }).on("pointerleave", ocultarSiMouse);
     if (cfg.anim) pt.attr("opacity", 0).transition().delay(Math.min(150, j * 30)).duration(DUR_G).attr("opacity", 1);
   });
 }
@@ -3595,12 +4081,14 @@ DIB.vtmatriz = a => {
     if (!l.camaras[cam]) return "";
     if (!c || !d3.sum(c)) return `<td class="sin">—</td>`;
     const tit = `${e}: ${c[0]} a favor, ${c[1]} en contra, ${c[2]} abstenciones y ${c[3]} ausentes`;
-    if (postura(c) === "aus") return `<td class="sin" title="${tit}">aus.</td>`;
+    // el detalle va también como texto para lectores de pantalla (revisión de accesibilidad: estaba solo en el title)
+    if (postura(c) === "aus") return `<td class="sin" title="${tit}"><span aria-hidden="true">aus.</span><span class="solo-lector">${tit}</span></td>`;
     const p = c[0] / (c[0] + c[1] + c[2]) * 100, fondo = col(p);
-    return `<td title="${tit}" style="background:${fondo};color:${Math.abs(p - 50) > 30 ? "#fff" : "#18212B"}">${Math.round(p)}</td>`;
+    return `<td title="${tit}" style="background:${fondo};color:${tintaSobre(fondo)}"><span aria-hidden="true">${Math.round(p)}</span><span class="solo-lector">${Math.round(p)}% a favor. ${tit}</span></td>`;
   };
   el.innerHTML = `<table><thead><tr><th>Ley</th>${esp.map(e => `<th><button type="button" class="esp-btn" data-e="${e}" aria-haspopup="dialog">${ESP_CORTO[e]}</button></th>`).join("")}</tr></thead><tbody>` +
-    [...filas].reverse().map(l => `<tr role="button" tabindex="0" data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley">${l.nombre}<small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", efecto directo" : ""}</small></td>` +
+    // la ley es un botón dentro de su celda (antes la fila entera era role="button"): con el mouse se puede tocar toda la fila
+    [...filas].reverse().map(l => `<tr data-k="${l.k}"${l.k === MED.vtLey ? ' class="elegida"' : ""}><td class="ley"><button type="button" class="vt-ley" aria-pressed="${l.k === MED.vtLey}">${l.nombre}</button><small>${l.camaras[cam] ? l.camaras[cam].fecha.slice(0, 4) : l.anio}${l.ed ? ", efecto directo" : ""}</small></td>` +
       (l.camaras[cam] ? esp.map(e => celda(l, e)).join("") : `<td class="sin" colspan="${esp.length}">El Senado no publica el acta nominal</td>`) + "</tr>").join("") + "</tbody>" +
     `<tfoot><tr><td class="ley">Plataforma 2023<small>qué propuso</small></td>${esp.map(plataformaCelda).join("")}</tr></tfoot></table>`;
   el.querySelectorAll("tr[data-k]").forEach(tr => {
@@ -3609,7 +4097,7 @@ DIB.vtmatriz = a => {
       DIB.votaciones(!REDUCIR); DIB.vtmatriz(false);
       document.getElementById("f-votaciones").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth", block: "start"});
     };
-    tr.addEventListener("click", ir); tr.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ir(); } });
+    tr.addEventListener("click", ev => { if (!ev.target.closest("a")) ir(); });
   });
   // coincidencias entre espacios: leyes en que la mayoría de los dos votó igual
   const pares = [];
@@ -3717,7 +4205,9 @@ TX["votaciones-nota"] = $t("votaciones-nota").textContent = `Votación en genera
     `La selección de leyes es propia: leyes muy debatidas o con efectos amplios, de todos los gobiernos desde ${R.votaciones.leyes[0].anio}. ` +
     `El Senado no publica el acta nominal de ${listaY(R.votaciones.leyes.filter(l => !l.camaras.Senado).map(l => `${l.nombre.charAt(0).toLowerCase() + l.nombre.slice(1)} de ${l.anio}`))}. ` +
     `Las actas salen de la copia de los sitios oficiales que mantiene el proyecto abierto ¿Cómo Votó?, de Rodrigo Quiroga, con ${n0(R.votaciones.n_dip)} votaciones de Diputados desde ${R.votaciones.dip_desde} y ${n0(R.votaciones.n_sen)} del Senado desde ${R.votaciones.sen_desde}, hasta el ${fechaLarga(R.votaciones.ult)}. ` +
-    `Se cotejaron con los datos abiertos de la Cámara de Diputados (todas las actas de 2011 a 2019) y con el sitio del Senado (todas las de estas leyes y una muestra), sin diferencias.`;
+    `Se cotejaron con los datos abiertos de la Cámara de Diputados (todas las actas de 2011 a 2019) y con el sitio del Senado (todas las de estas leyes desde 2008 y una muestra), sin diferencias. ` +
+    `Las de 2006 y 2007 se cotejaron con los totales que publicó la prensa: coinciden, salvo un voto a favor de más y una abstención de menos en la reforma del Consejo de la Magistratura en ` +
+    `Diputados y una abstención de menos en la de bosques. El total de los superpoderes en Diputados no se encontró publicado: es el acta de la votación en general de esa sesión.`;
 /* ---------- cómo votaron el presupuesto los legisladores de fuera del bloque oficialista (etapa 28) ----------
    Votación en general de cada presupuesto en cada cámara (datos/manual/presupuestos.csv). Las barras reparten a todos los legisladores de fuera
    del bloque oficialista entre a favor, en contra, abstención y ausente: las ausencias cuentan */
@@ -3813,13 +4303,25 @@ function dispersion(el, cfg) {
     .attr("y", d => y(d[cfg.y]) + 4).text(d => d.territorio);
   if (cfg.anim) pt.attr("r", 0).transition().delay(escalon).duration(DUR_G).attr("r", 5.5);
   pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${vx(d[cfg.x])}<br>${cfg.yLab}: ${vy(d[cfg.y])}`, 46 + x(d[cfg.x]), 34 + y(d[cfg.y])))
-    .on("pointerleave", ocultarTip);
+    .on("pointerleave", ocultarSiMouse);
 }
 const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada" : "débil";
 const AN = R.ado_nse, MC = R.mi_causas;
 $("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
 MED.adonse = AN.indicadores[0].k;
 $("adonse-sel").addEventListener("change", ev => { MED.adonse = ev.target.value; cambiarVista("adonse"); });
+// causas de muerte por provincia (etapa 40): todas las causas y cada grupo, con la tasa ajustada por edad y la línea del país
+$("cm-sel").innerHTML = `<option value="total">Todas las causas</option>` + CM.grupos.map(g => `<option value="${g.k}">${g.lab}</option>`).join("");
+MED["causas-muerte"] = "total";
+$("cm-sel").addEventListener("change", ev => { MED["causas-muerte"] = ev.target.value; cambiarVista("causas-muerte"); });
+DIB["causas-muerte"] = a => {
+  const g = MED["causas-muerte"], k = "tasa_" + g, filas = T.causas_muerte_provincias, pais = filas.find(r => r.codigo_indec === "00");
+  const f = v => v >= 100 ? n0(v) : n1(v), mk = g === "total" ? "muertes" : "muertes_" + g;
+  barrasH(G("causas-muerte"), {anim: a, data: filas.filter(r => r.codigo_indec !== "00"), k, vf: f, af: n0, ref: pais[k], refLab: `País ${f(pais[k])}`,
+    tip: d => `<b>${d.territorio}</b><br>${f(d[k])} muertes por año cada 100.000 habitantes, ajustada por edad` +
+      (g === "total" ? `<br>${n0(d.tasa_bruta)} sin ajustar` : `<br>${pct(d[mk] / d.muertes * 100)} de las muertes de la provincia`) +
+      `<br>${n0(d[mk])} muertes de ${CM.desde} a ${CM.hasta}`});
+};
 DIB.adonse = a => {
   const i = AN.indicadores.find(x => x.k === MED.adonse), otros = AN.indicadores.filter(x => x !== i);
   const rel = x => `${fuerza(x.r)}${x.r < 0 ? " e inversa" : ""}`;
@@ -3842,6 +4344,449 @@ DIB.causas = a => {
   const filas = T.mortalidad_infantil_causas, pais = filas.find(d => d.codigo_indec === "00");
   apiladasH(G("causas"), {anim: a, claves: cl, data: [pais, ...filas.filter(d => d.codigo_indec !== "00").sort((p, q) => q.tasa - p.tasa)]});
 };
+
+/* ---------- sector externo (etapa 41) ---------- */
+// el nombre de cada capa va en un tono que se lee sobre el blanco (ct): el amarillo, el celeste y el gris de las capas no llegan a 4,5 a 1
+const RUB_EX = [["moa", "Agroindustria", "#1F5E97"], ["moi", "Industria", "#F6B40E", "--sol-texto"], ["primarios", "Primarios", "#74ACDF", "--celeste-fuerte"],
+  ["combustibles", "Energía", "#C3CAD2", "--muted"]];
+DIB["exporta-rubros"] = a => areasApiladas(G("exporta-rubros"), {anim: a, data: T.exportaciones_rubros_anual, x: "anio",
+  series: RUB_EX.map(([k, lab, c, ct]) => ({k, lab, c, ct})), vf: n0, yf: v => n0(v / 1000) + " mil", unidad: "millones de dólares"});
+const corto = n => n.replace(/^(Complejo|Sector) /, "").replace(/^./, c => c.toUpperCase());
+DIB.complejos = a => {
+  const T5 = T.exportaciones_complejos, partes = d3.group(T5.filter(r => r.nivel === 2), r => r.grupo);
+  barrasH(G("complejos"), {anim: a, data: T5.filter(r => r.nivel === 1).map(r => ({...r, codigo_indec: r.complejo, territorio: corto(r.complejo)})), k: "pct",
+    vf: pct, af: v => v + "%", marcar: new Set(), l: 190, lAngosto: 128, color: d => d.complejo.startsWith("Resto") ? css("--faint") : css("--celeste"),
+    tip: d => `<b>${d.complejo}</b><br>${n0(d.millones_usd)} millones de dólares` + (d.variacion != null ? `, ${conSigno(d.variacion)} frente al año anterior` : "") +
+      (partes.get(d.complejo) || []).map(p => `<br>${p.complejo}: ${n0(p.millones_usd)}`).join("")});
+};
+DIB.destinos = a => {
+  const c = NOMBRES[prov] ? prov : "00", D = SX.destinos, el = G("destinos");
+  // sin los destinos que no llegan a 0,05% (se leerían 0,0%)
+  const filas = T.exportaciones_destinos.filter(r => r.codigo_indec === c && r.pct >= .05);
+  const nombres = filas.filter(r => !r.destino.startsWith("resto") && r.destino !== "reservado").sort((p, q) => q.millones_usd - p.millones_usd);
+  const res = filas.find(r => r.destino === "reservado");
+  $t("destinos").textContent = (c === "00"
+    ? `Los primeros destinos del ${D.periodo} fueron ${lista(nombres.slice(0, 3).map(r => `${r.destino_nombre} (${pct(r.pct)})`))}. ` +
+      (() => { const x = D.top.filter(t => t.var != null).sort((p, q) => q.var - p.var)[0]; return x ? `Entre los seis primeros, las ventas que más crecieron frente al mismo período del año anterior fueron las de ${x.n}: ${conSigno(x.var)}. ` : ""; })() +
+      `Con una provincia elegida, el gráfico muestra sus destinos.`
+    : `En el ${D.periodo}, el primer destino de ${NOMBRES[c]} fue ${nombres[0].destino_nombre}, con el ${pct(nombres[0].pct)} de lo que exportó la provincia` +
+      (nombres.length > 2 ? `, seguido por ${nombres[1].destino_nombre} (${pct(nombres[1].pct)}) ${yE(nombres[2].destino_nombre)} (${pct(nombres[2].pct)})` : "") + "." +
+      (res && res.pct >= 1 ? ` El ${pct(res.pct)} no tiene destino publicado por secreto estadístico.` : ""));
+  barrasH(el, {anim: a, data: filas.map(r => ({...r, codigo_indec: r.destino, territorio: r.destino_nombre})), k: "pct", vf: pct, af: v => v + "%",
+    marcar: new Set(), l: 196, lAngosto: 136, color: d => d.destino === "reservado" || d.destino.startsWith("resto") ? css("--faint") : css("--celeste"),
+    tip: d => `<b>${d.destino_nombre}</b><br>${n0(d.millones_usd)} millones de dólares, el ${pct(d.pct)} del total` +
+      (d.millones_usd_anterior > 0 ? `<br>${conSigno((d.millones_usd / d.millones_usd_anterior - 1) * 100)} frente al mismo período del año anterior` : "")});
+  // sin resaltado propio: con otra provincia elegida, el gráfico se vuelve a dibujar con sus destinos
+  delete el.resaltar;
+};
+MED.exprov = "rubro";
+DIB.exprov = a => {
+  const P = SX.provincias, cl = [["manufacturas_agro", "Agroindustria", "#1F5E97", "#fff"], ["manufacturas_industriales", "Industria", "#F6B40E", "#18212B"],
+    ["primarios", "Primarios", "#74ACDF", "#18212B"], ["combustibles_energia", "Energía", "#C3CAD2", "#18212B"]].map(([k, lab, c, texto]) => ({k, lab, c, texto}));
+  const ley = $("exprov-ley"), filas = T.exportaciones_provincias;
+  const tip = d => `<b>${d.territorio}</b><br>${n0(d.millones_usd)} millones de dólares` + cl.map(x => `<br>${x.lab}: ${n0(d[x.k])}`).join("");
+  if (MED.exprov === "usd") {
+    ley.hidden = true;
+    return barrasH(G("exprov"), {anim: a, data: filas, k: "millones_usd", vf: v => n0(v) + " M", af: v => n0(v / 1000) + " mil", tip});
+  }
+  ley.hidden = false;
+  ley.innerHTML = cl.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
+  const pais = {codigo_indec: "00", territorio: "Todo el país", ...Object.fromEntries(cl.map(x => [x.k, P.rubros_pais[x.k]]))};
+  apiladasH(G("exprov"), {anim: a, claves: cl, data: [pais, ...[...filas].sort((p, q) => q.millones_usd - p.millones_usd)
+    .map(r => ({...r, ...Object.fromEntries(cl.map(x => [x.k, r[x.k] / r.millones_usd * 100]))}))]});
+};
+
+DIB.balanza = a => {
+  const d = T.balanza_comercial;
+  lineas(G("balanza"), {anim: a, data: d, x: "anio", y0: Math.min(0, d3.min(d, r => r.saldo)), ref: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
+    series: [{k: "exportaciones", lab: "Exportaciones", c: NAR}, {k: "importaciones", lab: "Importaciones", c: FRI}, {k: "saldo", lab: "Saldo", c: css("--muted"), w: 1.6}]});
+};
+// las importaciones por uso: los insumos en celeste, el capital en azul, el consumo en amarillo y el resto en gris
+const RUB_IM = [["intermedios", "Intermedios", "#74ACDF", "--celeste-fuerte"], ["piezas", "Piezas", "#A9CBEA", "--celeste-fuerte"], ["capital", "Capital", "#1F5E97"],
+  ["consumo", "Consumo", "#F6B40E", "--sol-texto"], ["vehiculos", "Autos", "#FAD375", "--sol-texto"], ["combustibles", "Combustibles", "#C3CAD2", "--muted"],
+  ["resto", "Resto", "#E4E9EF", "--muted"]];
+DIB.importaciones = a => areasApiladas(G("importaciones"), {anim: a, data: T.importaciones_usos, x: "anio",
+  series: RUB_IM.map(([k, lab, c, ct]) => ({k, lab, c, ct})), vf: n0, yf: v => n0(v / 1000) + " mil", unidad: "millones de dólares"});
+DIB.origen = a => barrasH(G("origen"), {anim: a, data: T.importaciones_origen.filter(r => r.pct >= .05).map(r => ({...r, codigo_indec: r.origen, territorio: r.origen_nombre})),
+  k: "pct", vf: pct, af: v => v + "%", marcar: new Set(), l: 196, lAngosto: 136, color: d => d.origen.startsWith("resto") ? css("--faint") : css("--celeste"),
+  tip: d => `<b>${d.origen_nombre}</b><br>${n0(d.millones_usd)} millones de dólares, el ${pct(d.pct)} del total` +
+    (d.millones_usd_anterior > 0 ? `<br>${conSigno(d.variacion)} frente a los mismos meses del año anterior` : "")});
+DIB["cuenta-corriente"] = a => {
+  const d = T.cuenta_corriente;
+  lineas(G("cuenta-corriente"), {anim: a, data: d, x: "anio", y0: d3.min(d, r => Math.min(r.bienes, r.servicios, r.primario, r.cuenta_corriente)), ref: 0,
+    vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
+    series: [{k: "cuenta_corriente", lab: "Cuenta corriente", corto: "Saldo total", c: css("--ink"), w: 3}, {k: "bienes", lab: "Bienes", c: NAR},
+      {k: "servicios", lab: "Servicios", c: FRI}, {k: "primario", lab: "Ingreso primario", corto: "Rentas", c: css("--muted"), w: 1.8}]});
+};
+MED["reservas-bcra"] = "serie";
+/* Reservas netas (etapa 42, pedido del autor del 12 de octubre de 2026): las brutas y las netas por mes, de dónde salen las netas en el último mes
+   (una cascada: las brutas, cada deuda a un año y lo que queda) y de qué están hechas las brutas */
+MED["reservas-netas"] = "serie";
+DIB["reservas-netas"] = a => {
+  const el = G("reservas-netas"), N = SX.reservas_netas, v = MED["reservas-netas"], m = mesPer(N.mes);
+  const datos = () => T.reservas_netas.map(r => ({...r, t: tPer(r.mes)}));
+  if (v === "cascada") {
+    const otras = N.depositos_bancos != null ? N.depositos_y_deudas - N.depositos_bancos - (N.depositos_tesoro || 0) : null;
+    const filas = [{k: "brutas", lab: "Reservas brutas", v: N.brutas},
+      ...(otras != null ? [{k: "bancos", lab: "Dólares de los bancos en el BCRA", v: -N.depositos_bancos},
+        ...(N.depositos_tesoro != null ? [{k: "tesoro", lab: "Depósitos del Tesoro", v: -N.depositos_tesoro}] : []), {k: "otras", lab: "Otras deudas a un año", v: -otras}]
+        : [{k: "depositos", lab: "Depósitos y otras deudas a un año", v: -N.depositos_y_deudas}]),
+      {k: "china", lab: "Canje de monedas con China", v: -N.canje_china}, {k: "pases", lab: "Pases con bancos del exterior", v: -N.pases_y_otros},
+      {k: "netas", lab: "Reservas netas", v: N.netas}];
+    $t("reservas-netas").textContent = `De los ${n0(N.brutas)} millones de dólares de reservas brutas de ${m}, el BCRA tenía que pagar o devolver dentro de un año ` +
+      `${n0(N.depositos_y_deudas)} millones en depósitos en dólares y otras deudas` +
+      (N.depositos_bancos != null ? ` (${n0(N.depositos_bancos)} de los bancos${N.depositos_tesoro != null ? ` y ${n0(N.depositos_tesoro)} del Tesoro` : ""})` : "") +
+      `, ${n0(N.canje_china)} millones del canje de monedas con China y ${n0(N.pases_y_otros)} millones de pases con bancos del exterior. Quedan ${n0(N.netas)} millones.`;
+    return barrasH(el, {anim: a, data: filas.map(f => ({codigo_indec: f.k, territorio: f.lab, v: f.v})), k: "v", vf: v => (v > 0 ? "" : "−") + n0(Math.abs(v)),
+      af: v => n0(v / 1000) + " mil", nt: 3, marcar: new Set(), l: 250, lAngosto: 150, sinOrden: true,
+      corto: d => ({bancos: "Dólares de bancos", tesoro: "Tesoro", otras: "Otras deudas", depositos: "Depósitos y deudas", china: "Canje con China", pases: "Pases"})[d.codigo_indec] || d.territorio,
+      color: d => ["brutas", "netas"].includes(d.codigo_indec) ? css("--celeste-fuerte") : css("--sol"),
+      tip: d => `<b>${d.territorio}</b><br>${(d.v < 0 ? "−" : "") + n0(Math.abs(d.v))} millones de dólares, ${m}`});
+  }
+  if (v === "composicion") {
+    $t("reservas-netas").textContent = `En ${m}, de los ${n0(N.brutas)} millones de dólares de reservas brutas, ${n0(N.divisas)} eran divisas y títulos en moneda extranjera ` +
+      `(entre ellas, los yuanes del canje con China), ${n0(N.oro)} eran oro${N.oro_onzas ? `, ${n2(N.oro_onzas)} millones de onzas` : ""}, y ${n0(N.deg)} derechos especiales de giro del FMI.`;
+    return areasApiladas(el, {anim: a, data: datos().filter(r => r.brutas != null), x: "t", vf: n0, yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), unidad: "millones de dólares",
+      series: [{k: "divisas", lab: "Divisas y títulos", c: css("--celeste-fuerte")}, {k: "oro", lab: "Oro", c: css("--sol-fuerte")},
+        {k: "deg", lab: "DEG", c: css("--celeste")}, {k: "otros_activos", lab: "Otros", c: GRIS}]});
+  }
+  $t("reservas-netas").textContent = `A fin de ${m}, las reservas brutas del BCRA eran ${n0(N.brutas)} millones de dólares y las netas, ${n0(N.netas)} millones, el ${pct(N.pct_netas)}. ` +
+    (N.hace_un_anio != null ? `Un año antes, las netas eran ${n0(N.hace_un_anio)} millones. ` : "") +
+    (N.ult_negativa ? `Fueron negativas por última vez en ${mesPer(N.ult_negativa)}. ` : "") +
+    `${N.n_sin_netas ? "En los meses con dato desde" : "Desde"} ${mesPer(N.desde)}, el valor más bajo fue de ${n0(N.min.v)} millones, en ${mesPer(N.min.mes)}, y el más alto, de ${n0(N.max.v)} millones, en ${mesPer(N.max.mes)}.`;
+  lineas(el, {anim: a, data: datos(), x: "t", conNegativos: true, ref: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil", xl: r => mesPer(r.mes), mensual: true, huecos: true,
+    series: [{k: "brutas", lab: "Brutas", c: GRIS}, {k: "netas", lab: "Netas", c: css("--celeste-fuerte"), w: 2.6}]});
+};
+/* Confianza en el gobierno (etapa 42, pedido del autor del 12 de octubre de 2026): la serie mensual con una marca en cada cambio de gobierno y
+   el promedio de cada gobierno, en orden cronológico. Tono neutro: el texto solo describe los valores */
+/* Ingresos por aglomerado (etapa 43, pregunta abierta al autor desde la etapa 27): la mediana del ingreso por persona del hogar o la del
+   trabajo en cada uno de los 32 aglomerados de la EPH, con la línea de los 31 aglomerados. Una provincia puede tener varios aglomerados
+   (Buenos Aires tiene cinco): se resaltan todos y el gráfico se redibuja al cambiar de provincia. Los montos van redondeados al millar,
+   porque las respuestas de la encuesta se redondean y más precisión no diría nada */
+const IA = R.ingresos_aglomerados;
+const IA_CORTO = {"Ciudad de Buenos Aires": "CABA", "Comodoro Rivadavia-Rada Tilly": "Comodoro Rivadavia", "Viedma-Carmen de Patagones": "Viedma-Patagones",
+  "San Nicolás-Villa Constitución": "San Nicolás-V. Const.", "Gran Tucumán-Tafí Viejo": "Gran Tucumán", "Santiago del Estero-La Banda": "Santiago-La Banda"};
+// "la Ciudad de Buenos Aires" lleva artículo, los demás aglomerados no
+const conArt = (n, inicio) => n.startsWith("Ciudad") ? (inicio ? "La " : "la ") + n : n;
+MED["ingresos-aglomerados"] = "ipcf";
+DIB["ingresos-aglomerados"] = a => {
+  const t = MED["ingresos-aglomerados"], E = IA[t], el = G("ingresos-aglomerados"), mil = v => n0(Math.round(v / 1000) * 1000);
+  const filas = T.ingresos_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
+  $t("ingresos-aglomerados").textContent = (t === "ipcf"
+    ? `En el ${IA.trimestre}, la mitad de las personas de los 31 aglomerados urbanos vivía en hogares con un ingreso de hasta ${mil(E.pais)} pesos por mes por cada integrante. `
+    : `En el ${IA.trimestre}, la mitad de los ocupados que cobran por su trabajo en los 31 aglomerados urbanos ganaba hasta ${mil(E.pais)} pesos por mes en su ocupación principal. `) +
+    `${conArt(E.max, true)} tenía la mediana más alta, ${mil(E.max_v)} pesos (${pct(E.max_pct)} de la mediana de los 31 aglomerados), y ${conArt(E.min)} la más baja, ` +
+    `${mil(E.min_v)} pesos (${pct(E.min_pct)}). La más alta es ${n1(E.veces)} veces la más baja.`;
+  const marcar = new Set(prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)).map(r => r.codigo_indec) : []);
+  barrasH(el, {anim: a, data: filas, k: `${t}_pesos`, vf: mil, af: v => v === 0 ? "0" : v < 1e6 ? n0(v / 1e3) + " mil" : v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones",
+    ref: E.pais, refLab: `31 aglomerados ${mil(E.pais)}`,
+    marcar, l: 220, lAngosto: 132, corto: d => IA_CORTO[d.nombre] || d.nombre,
+    tip: d => `<b>${d.nombre}</b><br>${mil(d[t + "_pesos"])} pesos por mes, ${pct(d[t + "_pct_pais"])} de la mediana de los 31 aglomerados` +
+      `<br>${n0(d[t + "_casos"])} ${t === "ipcf" ? "personas" : "ocupados"} encuestados en los cuatro trimestres<br>Solo con el ${IA.trimestre}: ${mil(d[t + "_pesos_ultimo_trimestre"])}`});
+  el.resaltar = null;
+};
+/* La vista de elecciones (pedido del autor del 13 de octubre de 2026, rehecha el mismo día a su pedido: "que sean dos líneas que corren en
+   paralelo"): dos paneles con el mismo eje de tiempo. Arriba, el índice mes a mes, con un punto en el mes anterior a cada elección (el que se
+   compara). Abajo, el voto a la candidatura del gobierno en cada PASO y primera vuelta presidencial. Una línea punteada en cada elección cruza
+   los dos paneles. Las PASO van con el punto hueco: la forma distingue, no solo el color */
+function icgElecciones(el, filas, serie, anim) {
+  const angosto = el.clientWidth < 520, AZ = css("--celeste-fuerte"), AM = css("--sol-fuerte");
+  const elecTx = d => `${d.tipo === "PASO" ? "PASO" : "Primera vuelta"} de ${d.anio}`;
+  const C = lienzo(el, angosto ? 400 : 430, {t: 22, r: angosto ? 58 : 104, b: 30, l: 40});
+  const {g, iw, ih} = C;
+  C.svg.attr("aria-label", "Arriba, el índice de confianza en el gobierno mes a mes. Abajo, el voto a la candidatura del gobierno en cada elección: " +
+    filas.map(d => `${elecTx(d)}, ${pct(d.voto_gobierno_pct)}, con el índice en ${n2(d.indice)} el mes anterior`).join(". "));
+  const lec = d3.select(el).insert("p", "svg").attr("class", "lectura-serie").attr("aria-hidden", "true");
+  const s = serie.map(r => ({...r, t: tPer(r.mes)})), e = filas.map(d => ({...d, t: tPer(d.fecha.slice(0, 7)) + (+d.fecha.slice(8, 10) - 1) / 365, ti: tPer(d.mes_indice)}));
+  const x = d3.scaleLinear().domain(d3.extent(s, r => r.t)).range([0, iw]);
+  // los dos paneles: el de arriba un poco más alto, con aire entre los dos para el título del de abajo
+  const hA = Math.round(ih * .5), y0B = hA + 40, hB = ih - y0B;
+  const yA = d3.scaleLinear().domain([0, Math.max(3, d3.max(s, r => r.icg))]).nice().range([hA, 0]);
+  const yB = d3.scaleLinear().domain([0, Math.max(60, d3.max(e, d => d.voto_gobierno_pct))]).nice().range([y0B + hB, y0B]);
+  const panel = (y, ticks, f) => {
+    g.append("g").attr("class", "grilla").call(d3.axisLeft(y).ticks(ticks).tickSize(-iw).tickFormat("")).call(a => a.select(".domain").remove());
+    g.append("g").attr("class", "eje").call(d3.axisLeft(y).ticks(ticks).tickFormat(f).tickSize(0).tickPadding(8)).call(a => a.select(".domain").remove());
+  };
+  panel(yA, 3, n0);
+  panel(yB, 3, v => v + "%");
+  g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", -9).text(angosto ? "Confianza en el gobierno, de 0 a 5" : "Confianza en el gobierno, índice de 0 a 5, mes a mes");
+  g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", y0B - 12).text(angosto ? "Voto a la candidatura del gobierno" : "Voto a la candidatura del gobierno en cada elección presidencial, % de los votos positivos");
+  const anios = d3.range(Math.ceil(x.domain()[0]), Math.floor(x.domain()[1]) + 1), paso = angosto ? 4 : 2;
+  g.append("g").attr("class", "eje").attr("transform", `translate(0,${ih})`)
+    .call(d3.axisBottom(x).tickValues(anios.filter(v => v % paso === 0)).tickFormat(d3.format("d")).tickSizeOuter(0));
+  // una línea punteada en cada elección, de arriba abajo
+  g.selectAll("line.elec").data(e).join("line").attr("class", "elec").attr("x1", d => x(d.t)).attr("x2", d => x(d.t)).attr("y1", 0).attr("y2", ih)
+    .attr("stroke", css("--faint")).attr("stroke-dasharray", "3 3");
+  // arriba, el índice
+  const trA = g.append("path").datum(s).attr("fill", "none").attr("stroke", AZ).attr("stroke-width", 2.2).attr("stroke-linejoin", "round")
+    .attr("d", d3.line().x(r => x(r.t)).y(r => yA(r.icg)).curve(d3.curveMonotoneX));
+  const ptA = g.selectAll("circle.ind").data(e).join("circle").attr("class", "ind").attr("cx", d => x(d.ti)).attr("cy", d => yA(d.indice)).attr("r", 4)
+    .attr("fill", "#fff").attr("stroke", AZ).attr("stroke-width", 2);
+  // abajo, el voto: una línea que une las elecciones en orden y un punto en cada una
+  const trB = g.append("path").datum(e).attr("fill", "none").attr("stroke", AM).attr("stroke-width", 2.2).attr("stroke-linejoin", "round")
+    .attr("d", d3.line().x(d => x(d.t)).y(d => yB(d.voto_gobierno_pct)));
+  const ptB = g.selectAll("circle.voto").data(e).join("circle").attr("class", "voto").attr("cx", d => x(d.t)).attr("cy", d => yB(d.voto_gobierno_pct)).attr("r", 4.5)
+    .attr("fill", d => d.tipo === "PASO" ? "#fff" : AM).attr("stroke", d => d.tipo === "PASO" ? AM : "#fff").attr("stroke-width", 2);
+  // el porcentaje de cada primera vuelta, arriba del punto (en el celular, solo donde entra sin pisar al de al lado)
+  let ultX = -99;
+  e.filter(d => d.tipo !== "PASO").forEach(d => {
+    const px = x(d.t);
+    if (px - ultX < 34) return;
+    ultX = px;
+    g.append("text").attr("class", "etq").attr("x", px).attr("y", yB(d.voto_gobierno_pct) - 9).attr("text-anchor", "middle").text(n0(d.voto_gobierno_pct) + "%");
+  });
+  // los nombres de las dos líneas a la derecha, con su último valor
+  const fin = g.append("g"), uA = s[s.length - 1], uB = e[e.length - 1];
+  [[yA(uA.icg), AZ, angosto ? "Confianza" : "Confianza", n2(uA.icg)], [yB(uB.voto_gobierno_pct), AM, angosto ? "Voto" : "Voto al gobierno", pct(uB.voto_gobierno_pct)]].forEach(([yy, c, lab, v]) => {
+    const t = fin.append("text").attr("x", iw + 8).attr("y", yy - 4).attr("class", "etq-fuerte").style("fill", c === AM ? css("--ink") : c);
+    t.append("tspan").text(lab);
+    t.append("tspan").attr("x", iw + 8).attr("dy", 15).attr("class", "etq-suave").text(v);
+  });
+  // la clave de los puntos del voto, en la lectura de arriba cuando no hay nada elegido
+  const leerEl = d => `<b>${elecTx(d)}</b><span><i style="background:${AM}"></i>${d.candidatura_gobierno} ${pct(d.voto_gobierno_pct)}${d.salio_primero ? ", la más votada" : ""}</span>` +
+    `<span><i style="background:${AZ}"></i>Confianza en ${mesPer(d.mes_indice)} ${n2(d.indice)}</span>`;
+  const leerMes = r => `<b>${mesPer(r.mes)}</b><span><i style="background:${AZ}"></i>Confianza ${n2(r.icg)}${r.presidente ? ", gobierno de " + r.presidente : ""}</span>`;
+  lec.html(leerEl(e[e.length - 1]));
+  if (anim) {
+    trazar(trA); trazar(trB);
+    aparecer(ptA, 150); aparecer(ptB, 150);
+  }
+  // al pasar el mouse o deslizar el dedo: el mes más cercano, y si hay una elección a menos de dos meses, la elección
+  const regla = g.append("line").attr("y1", 0).attr("y2", ih).attr("stroke", css("--faint")).attr("opacity", 0);
+  const marca = g.append("circle").attr("r", 4.5).attr("fill", AZ).attr("stroke", "#fff").attr("stroke-width", 2).attr("opacity", 0);
+  const leerEn = ev => {
+    const [mx] = d3.pointer(ev), xv = x.invert(mx);
+    const el2 = d3.least(e, d => Math.abs(d.t - xv));
+    if (el2 && Math.abs(el2.t - xv) < 2 / 12) {
+      regla.attr("x1", x(el2.t)).attr("x2", x(el2.t)).attr("opacity", 1);
+      marca.attr("cx", x(el2.ti)).attr("cy", yA(el2.indice)).attr("opacity", 1);
+      ptB.attr("r", d => d === el2 ? 6.5 : 4.5);
+      return lec.html(leerEl(el2));
+    }
+    const r = d3.least(s, r => Math.abs(r.t - xv));
+    regla.attr("x1", x(r.t)).attr("x2", x(r.t)).attr("opacity", 1);
+    marca.attr("cx", x(r.t)).attr("cy", yA(r.icg)).attr("opacity", 1);
+    ptB.attr("r", 4.5);
+    lec.html(leerMes(r));
+  };
+  C.svg.style("touch-action", "pan-y");
+  g.append("rect").attr("width", iw).attr("height", ih).attr("fill", "transparent")
+    .on("pointerdown", leerEn).on("pointermove", leerEn)
+    .on("pointerleave", ev => {
+      if (ev.pointerType !== "mouse") return;
+      regla.attr("opacity", 0); marca.attr("opacity", 0); ptB.attr("r", 4.5); lec.html(leerEl(e[e.length - 1]));
+    });
+}
+MED["confianza-gobierno"] = "serie";
+DIB["confianza-gobierno"] = a => {
+  const el = G("confianza-gobierno"), C = R.confianza_gobierno;
+  if (MED["confianza-gobierno"] === "elecciones") {
+    const E = C.elecciones, elec = x => x.tipo === "PASO" ? `las PASO de ${x.anio}` : `la primera vuelta de ${x.anio}`;
+    const grado = Math.abs(E.r) >= .7 ? "fuerte" : "moderada";
+    const rel = E.r >= .4 ? `Las dos líneas suben y bajan juntas: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno sacó ` +
+        `más votos cuando la confianza en el gobierno del mes anterior era más alta. La relación es ${grado} (correlación de ${n2(E.r)})`
+      : E.r <= -.4 ? `Las dos líneas van en sentido contrario: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno sacó ` +
+        `menos votos cuando la confianza en el gobierno del mes anterior era más alta. La relación es ${grado} (correlación de ${n2(E.r)})`
+      : `En las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta} no hubo una relación clara entre la confianza en el gobierno del mes anterior ` +
+        `y el voto a la candidatura del gobierno (correlación de ${n2(E.r)})`;
+    $t("confianza-gobierno").textContent = `${rel}. Antes de ${elec(E.max)} el índice estaba en ${n2(E.max.indice)}, el más alto antes de una elección, y ` +
+      `${E.max.cand} sacó el ${pct(E.max.voto)} de los votos positivos. Antes de ${elec(E.min)} estaba en ${n2(E.min.indice)}, el más bajo, y ${E.min.cand} sacó el ` +
+      `${pct(E.min.voto)}. La candidatura del gobierno fue la más votada en ${E.primero} de las ${E.n} elecciones.`;
+    return icgElecciones(el, T.confianza_gobierno_elecciones, T.confianza_gobierno, a);
+  }
+  if (MED["confianza-gobierno"] === "gobiernos") {
+    const filas = T.confianza_gobierno_gobiernos, u = filas[filas.length - 1];
+    const corto = n => (C.cambios.find(c => c.presidente === n) || {}).corto || n;
+    $t("confianza-gobierno").textContent = `Promedio mensual del índice con cada gobierno, en la escala de 0 a 5: ` +
+      lista(filas.map(f => `${f.presidente} (${n2(f.promedio)})`)) + `. El gobierno actual lleva ${u.meses} meses en la serie, así que su promedio ` +
+      `todavía no abarca un mandato completo. El promedio de toda la serie es ${n2(C.promedio)}.`;
+    return barrasH(el, {anim: a, data: filas.map(f => ({codigo_indec: f.presidente, territorio: f.presidente, v: f.promedio, f})), k: "v", vf: n2, af: n1,
+      ref: C.promedio, refLab: `Promedio ${n2(C.promedio)}`, marcar: new Set(), sinOrden: true, l: 230, lAngosto: 130, corto: d => corto(d.territorio),
+      color: () => css("--celeste-fuerte"),
+      tip: d => `<b>${d.territorio}</b><br>Promedio ${n2(d.v)}, ${d.f.meses} meses (${mesPer(d.f.desde)} a ${mesPer(d.f.hasta)})<br>Primeros doce meses ${n2(d.f.primeros_12)}` +
+        `<br>Mínimo ${n2(d.f.minimo)} y máximo ${n2(d.f.maximo)}`});
+  }
+  const comp = C.hace_un_anio == null ? "" : C.hace_un_anio === C.v ? ", igual que un año antes" : `, contra ${n2(C.hace_un_anio)} un año antes`;
+  $t("confianza-gobierno").textContent = `En ${mesPer(C.mes)} el Índice de Confianza en el Gobierno fue de ${n2(C.v)} en una escala de 0 a 5${comp}. ` +
+    `Desde ${mesPer(C.desde)}, el valor más alto fue ${n2(C.max.v)}, en ${mesPer(C.max.mes)}, con ${C.max.presidente}, y el más bajo, ${n2(C.min.v)}, ` +
+    `en ${mesPer(C.min.mes)}, con ${C.min.presidente}. El promedio de toda la serie es ${n2(C.promedio)}.`;
+  lineas(el, {anim: a, data: T.confianza_gobierno.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, y1: 5, mensual: true, vf: n2, yf: n0,
+    xl: r => `${mesPer(r.mes)}${r.presidente ? ", " + r.presidente : ", cambio de gobierno"}`,
+    eventos: C.cambios.map(c => ({x: tPer(c.mes), lab: c.corto, corto: c.corto.replace("Fernández de Kirchner", "Fernández de K.")})),
+    series: [{k: "icg", lab: "Confianza en el gobierno", corto: "Índice", c: css("--celeste-fuerte"), w: 2.4}]});
+};
+/* Expectativas de inflación y confianza del consumidor (etapa 42): series mensuales de la Di Tella */
+DIB.expectativas = a => {
+  const E = R.expectativas_inflacion, d = T.expectativas_inflacion.map(r => ({...r, t: tPer(r.mes)}));
+  $t("expectativas").textContent = `En ${mesPer(E.mes)}, la mitad de las personas encuestadas esperaba una inflación de hasta ${pct(E.mediana)} para los doce meses siguientes ` +
+    `y el promedio de las respuestas fue ${pct(E.promedio)}. En los doce meses hasta ${mesPer(E.ipc_mes)}, la inflación del INDEC fue ${pct(E.ipc_12m)}. De los ${E.comp_n} meses ` +
+    `entre ${mesPer(E.comp_desde)} y ${mesPer(E.comp_hasta)}, en ${E.comp_debajo} la mediana de lo esperado quedó por debajo de la inflación que hubo después.`;
+  lineas(G("expectativas"), {anim: a, data: d, x: "t", y0: 0, mensual: true, vf: pct, yf: v => n0(v) + "%", xl: r => mesPer(r.mes),
+    series: [{k: "inflacion_12m_siguientes", lab: "La que hubo en los doce meses siguientes", corto: "La que hubo", c: GRIS, w: 2},
+      {k: "promedio", lab: "Esperada, promedio", corto: "Promedio", c: FRI, w: 1.8}, {k: "mediana", lab: "Esperada, mediana", corto: "Mediana", c: css("--celeste-fuerte"), w: 2.6}]});
+};
+MED["confianza-consumidor"] = "partes";
+DIB["confianza-consumidor"] = a => {
+  const C = R.confianza_consumidor, reg = MED["confianza-consumidor"] === "regiones";
+  const comp = C.hace_un_anio == null ? "" : `, contra ${n1(C.hace_un_anio)} un año antes`;
+  $t("confianza-consumidor").textContent = reg
+    ? `En ${mesPer(C.mes)} el índice era ${n1(C.capital)} en la Ciudad de Buenos Aires, ${n1(C.gba)} en el Gran Buenos Aires ${yE(n1(C.interior))} en el interior del país, ` +
+      `con ${n1(C.nacional)} para el total.`
+    : `En ${mesPer(C.mes)} el Índice de Confianza del Consumidor fue ${n1(C.nacional)} en una escala de 0 a 100${comp}. De sus partes, la situación macroeconómica ` +
+      `estaba en ${n1(C.macro)}, la situación personal en ${n1(C.personal)} y el momento para comprar bienes durables e inmuebles en ${n1(C.bienes)}. Desde ${mesPer(C.desde)}, ` +
+      `el valor más alto fue ${n1(C.max.v)}, en ${mesPer(C.max.mes)}, y el más bajo, ${n1(C.min.v)}, en ${mesPer(C.min.mes)}.`;
+  lineas(G("confianza-consumidor"), {anim: a, data: T.confianza_consumidor.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, mensual: true, vf: n1, yf: n0, xl: r => mesPer(r.mes),
+    series: reg
+      ? [{k: "capital", lab: "Ciudad de Buenos Aires", corto: "Capital", c: css("--muted"), w: 1.8}, {k: "gba", lab: "Gran Buenos Aires", corto: "GBA", c: FRI, w: 1.8},
+         {k: "interior", lab: "Interior", c: GRIS, w: 1.8}, {k: "nacional", lab: "Total", c: css("--celeste-fuerte"), w: 2.6}]
+      : [{k: "macro", lab: "Situación macroeconómica", corto: "Macro", c: FRI, w: 1.6}, {k: "personal", lab: "Situación personal", corto: "Personal", c: css("--muted"), w: 1.6},
+         {k: "bienes", lab: "Bienes durables e inmuebles", corto: "Bienes", c: GRIS, w: 1.6}, {k: "nacional", lab: "Índice", c: css("--celeste-fuerte"), w: 2.6}]});
+};
+MED.haberes = "pct";
+MED["pensiones-invalidez"] = "mapa";
+MED.auh = "provincias";
+MED.desempleo = "habitantes";
+DIB["reservas-bcra"] = a => {
+  const el = G("reservas-bcra"), V = SX.reservas, CORTO = {sector_publico: "Otras del sector público", efectivo_minimo: "Efectivo mínimo", organismos: "FMI y otros organismos"};
+  const MI = V.meses_imp;
+  $t("reservas-bcra").textContent = MED["reservas-bcra"] === "meses" && MI
+    ? `Con lo importado en los doce meses anteriores, las reservas brutas de ${mesPer(MI.mes)} equivalían a ${n1(MI.v)} meses de compras al exterior, contra ${n1(MI.hace_un_anio)} un año antes. ` +
+      `Desde ${mesPer(MI.desde)}, el máximo fue de ${n1(MI.max)} meses, en ${mesPer(MI.max_mes)}, y el mínimo, de ${n1(MI.min)}, en ${mesPer(MI.min_mes)}.`
+    : TX["reservas-bcra"];
+  if (MED["reservas-bcra"] === "meses" && MI)
+    return lineas(el, {anim: a, data: T.reservas_bcra.filter(r => r.meses_importaciones != null).map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, ref: 3, refLab: "3 meses",
+      vf: v => n1(v) + " meses", yf: n0, xl: r => mesPer(r.mes), mensual: true, series: [{k: "meses_importaciones", lab: "Meses de importaciones", corto: "Reservas", c: NAR}]});
+  if (MED["reservas-bcra"] === "factores")
+    return barrasH(el, {anim: a, data: V.factores.map(f => ({codigo_indec: f.k, territorio: f.lab, v: f.v})), k: "v", vf: v => (v > 0 ? "+" : "") + n0(v),
+      af: v => n0(v / 1000) + " mil", marcar: new Set(), l: 236, lAngosto: 160, corto: d => CORTO[d.codigo_indec] || d.territorio,
+      tip: d => `<b>${d.territorio}</b><br>${(d.v > 0 ? "+" : "") + n0(d.v)} millones de dólares en lo que va de ${V.anio}, hasta el ${fLarga(V.factores_hasta)}`});
+  lineas(el, {anim: a, data: T.reservas_bcra.map(r => ({...r, t: tPer(r.mes)})), x: "t", y0: 0, vf: v => n0(v) + " M", yf: v => n0(v / 1000) + " mil",
+    xl: r => mesPer(r.mes), mensual: true, series: [{k: "millones_usd", lab: "Reservas", c: NAR}]});
+};
+/* Variables principales del BCRA (etapa 41). Cada serie va completa, desde que empieza, y cada tipo tiene sus vistas, con lo que 02_procesar.py
+   calcula para descontar la inflación (pedido del autor del 11 de octubre de 2026: "usá tu criterio económico y econométrico para deflactar"):
+   - montos en pesos: en pesos de cada mes (escala logarítmica), sin la inflación (IPC del INDEC) y en % del PBI
+   - dólar: en pesos de cada mes (logarítmica) y a precios de hoy, descontada la inflación de los dos países
+   - tasas: la nominal y la real a 30 días, contra la inflación del mes siguiente
+   - variación del M2: junto a la inflación de los mismos doce meses, o descontada
+   - índices de actualización y tasas para juicios: el valor (logarítmica) y la variación en doce meses contra la inflación
+   - inflación esperada: junto a la que hubo después */
+const BV = SX.bcra;
+const bCorto = x => Number.isInteger(x) ? n0(x) : (Math.abs(x) < 1 ? n2(x) : n1(x)).replace(/,0+$/, "");
+// los montos de las series que empiezan en 1940, en pesos de hoy, son ínfimos (a la moneda se le sacaron 13 ceros): van en pesos, con dos cifras
+const bInfimo = new Intl.NumberFormat("es-AR", {maximumSignificantDigits: 2});
+const bMonto = v => v >= 1e6 ? `${n1(v / 1e6)} billones` : v >= 1e3 ? `${n1(v / 1e3)} mil millones` : v >= 1 ? `${n0(v)} millones` : `${bInfimo.format(v * 1e6)} pesos`;
+const bMontoEje = v => v === 0 ? "0" : v >= 1e6 ? bCorto(v / 1e6) + " bill." : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : v >= 1 ? bCorto(v) + " M" : "$ " + bInfimo.format(v * 1e6);
+const bUsd = v => v >= 1e3 ? `${n1(v / 1e3)} mil millones de dólares` : `${n0(v)} millones de dólares`;
+const bUsdEje = v => v === 0 ? "0" : v >= 1e3 ? bCorto(v / 1e3) + " mil M" : bCorto(v) + " M";
+const bDolar = v => v >= 100 ? n0(v) : n2(v);
+const bIndice = v => v >= 1000 ? n0(v) : v >= 100 ? n1(v) : n2(v);
+const ejePct = x => n0(x) + "%";
+const BCR_VISTAS = {millones: [["nominal", "En pesos"], ["real", "Sin inflación"], ["pbi", "% del PBI"]], dolar: [["nominal", "En pesos"], ["real", "A precios de hoy"]],
+  tna: [["nominal", "Tasa"], ["real", "Tasa real"]], tea: [["nominal", "Tasa"], ["real", "Tasa real"]], var: [["nominal", "Con inflación"], ["real", "Sin inflación"]],
+  indice: [["nominal", "Valor"], ["var", "En 12 meses"]], pesos: [["nominal", "Valor"], ["var", "En 12 meses"]], acum: [["nominal", "Valor"], ["var", "En 12 meses"]],
+  usd: [["nominal", "En dólares"], ["pbi", "% del PBI"]]};
+const bcrVar = () => BV.variables.find(x => String(x.id) === MED["bcra-id"]) || BV.variables[0];
+// los valores ínfimos de las series desde 1940 vienen también como logaritmo, porque con cuatro decimales serían cero
+const bcrValor = r => r.log10_valor != null ? 10 ** r.log10_valor : r.valor;
+// qué se dibuja en cada vista: la columna (k), su formato (f), el del eje (yf), la escala logarítmica y una segunda línea con la inflación del INDEC
+const bcrCfg = (v, m) => {
+  const inf12 = {k: "inflacion_12m", lab: "Inflación de los mismos 12 meses", corto: "Inflación", c: FRI};
+  if (v.t === "millones") return m === "pbi" ? {k: "pct_pbi", f: x => pct(x) + " del PBI", yf: ejePct}
+    : m === "real" ? {k: "valor_real", f: x => bMonto(x) + " de pesos", yf: bMontoEje} : {k: "valor", f: x => bMonto(x) + " de pesos", yf: bMontoEje, log: true};
+  if (v.t === "dolar") return {k: m === "real" ? "valor_real" : "valor", f: x => bDolar(x) + " pesos", yf: bCorto, log: m !== "real"};
+  // las tasas nominales de los años de inflación muy alta (la serie desde 1985) pasan de miles por ciento: con eso, escala logarítmica (logAuto)
+  if (v.t === "tna" || v.t === "tea") return m === "real" ? {k: "tasa_real_mensual", f: conSigno, yf: ejePct, ref: 0, lab: "Tasa real a 30 días", corto: "Tasa real"}
+    : {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa", logAuto: true};
+  if (v.t === "tasa_usd") return {k: "valor", f: x => `${pct(x)} ${v.u.replace(/^%\s*/, "")}`, yf: ejePct, corto: "Tasa"};
+  if (v.t === "pct") return {k: "valor", f: pct, yf: ejePct};
+  if (v.t === "usd") return m === "pbi" ? {k: "pct_pbi", f: x => pct(x) + " del PBI", yf: ejePct} : {k: "valor", f: bUsd, yf: bUsdEje};
+  if (v.t === "var") return m === "real" ? {k: "variacion_real_12m", f: conSigno, yf: ejePct, ref: 0, lab: "Sin la inflación", corto: "Sin inflación"}
+    : {k: "valor", f: pct, yf: ejePct, corto: "M2", extra: inf12};
+  if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
+    ? {k: "variacion_12m", f: pct, yf: ejePct, lab: `${v.n}, variación en 12 meses`, corto: v.t === "acum" ? "Tasa" : v.n.split(" (")[0], extra: inf12}
+    : {k: "valor", f: v.t === "acum" ? (x => n1(x) + "% acumulado") : v.t === "pesos" ? (x => n2(x) + " pesos") : bIndice, yf: bCorto, log: true};
+  if (v.t === "rem") return {k: "valor", f: pct, yf: ejePct, lab: "Inflación esperada", corto: "Esperada",
+    extra: {k: "inflacion_12m_siguientes", lab: "Inflación que hubo en esos 12 meses", corto: "La que hubo", c: FRI}};
+  return {k: "valor", f: n2, yf: bCorto};
+};
+$("bcra-sel").innerHTML = d3.groups(BV.variables, x => x.g).map(([g, vs]) => `<optgroup label="${g}">${vs.map(x => `<option value="${x.id}">${x.n}</option>`).join("")}</optgroup>`).join("");
+MED["bcra-id"] = String(BV.variables[0].id);
+MED["bcra-m"] = "nominal";
+$("bcra-sel").addEventListener("change", ev => { MED["bcra-id"] = ev.target.value; cambiarVista("bcra"); });
+// el conmutador cambia con el tipo de variable. Los botones se rehacen solo si cambian las vistas, así el foco del teclado no se pierde
+const bcrConm = v => {
+  const conm = $("bcra-conm"), vistas = BCR_VISTAS[v.t] || [["nominal", "Valor"]];
+  if (!vistas.some(([m]) => m === MED["bcra-m"])) MED["bcra-m"] = vistas[0][0];
+  if (conm.dataset.vistas !== vistas.join()) {
+    conm.dataset.vistas = vistas.join();
+    conm.innerHTML = vistas.map(([m, lab]) => `<button type="button" data-m="${m}">${lab}</button>`).join("");
+  }
+  conm.hidden = vistas.length < 2;
+  conm.style.setProperty("--n", vistas.length);
+  conm.style.setProperty("--i", vistas.findIndex(([m]) => m === MED["bcra-m"]));
+  conm.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === MED["bcra-m"])));
+};
+$("bcra-conm").addEventListener("click", ev => {
+  const b = ev.target.closest("button[data-m]");
+  if (!b || b.dataset.m === MED["bcra-m"]) return;
+  MED["bcra-m"] = b.dataset.m;
+  cambiarVista("bcra");
+});
+// el texto de cada vista: el último dato, la comparación que corresponde y el rango de la serie
+const bcrTxt = (v, m, c, filas) => {
+  const k = c.k, con = filas.filter(r => r[k] != null), u = con[con.length - 1], mes = r => mesPer(r.mes);
+  const ant = con.find(r => r.mes === `${+u.mes.slice(0, 4) - 1}${u.mes.slice(4)}`);
+  const mx = con.reduce((a, r) => r[k] > a[k] ? r : a), mn = con.reduce((a, r) => r[k] < a[k] ? r : a);
+  const rango = f => ` Desde ${mes(con[0])}, el valor más alto fue de ${f(mx[k])}, en ${mes(mx)}, y el más bajo, de ${f(mn[k])}, en ${mes(mn)}.`;
+  const doce = ant ? `, ${conSigno((u[k] / ant[k] - 1) * 100)} en doce meses` : "";
+  const ambos = c.extra ? filas.filter(r => r[k] != null && r[c.extra.k] != null) : [];
+  const b = ambos[ambos.length - 1];
+  if (v.t === "millones") return m === "nominal"
+    ? `${v.n}: ${c.f(u[k])} en ${mes(u)}${doce}. En pesos de cada mes, la serie sube sobre todo por la inflación: para comparar en el tiempo están las vistas sin la inflación, ` +
+      `desde ${mesPer(BV.ipc_desde)}, y en % del PBI, desde ${BV.pib_desde}.`
+    : m === "real" ? `${v.n}, en pesos de ${mesPer(BV.ipc_mes)}: ${bMonto(u[k])} en ${mes(u)}${doce}.` + rango(bMonto)
+    : `${v.n}: ${c.f(u[k])} en ${mes(u)}.` + rango(c.f);
+  if (v.t === "dolar") return m === "real"
+    ? `${v.n}, descontada la inflación de la Argentina y la de los Estados Unidos: ${c.f(u[k])} por dólar en ${mes(u)}.` + rango(c.f) + ` Todos los valores están en pesos de ${mesPer(BV.tcr_mes)}.`
+    : `${v.n}: ${c.f(u[k])} por dólar en ${mes(u)}${doce}. La vista a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos.`;
+  if (v.t === "tna" || v.t === "tea") {
+    if (m === "nominal") return `${v.n}: ${c.f(u[k])} en ${mes(u)}` + (ant ? `, contra ${pct(ant[k])} un año antes` : "") + `. El valor más alto desde ${mes(con[0])} fue de ${pct(mx[k])}, en ${mes(mx)}.`;
+    const ult = con.slice(-12), pos = ult.filter(r => r[k] > 0).length;
+    return `${v.n}: tasa real a 30 días de ${conSigno(u[k])} en ${mes(u)}, con una inflación de ${pct(u.inflacion_mes_siguiente)} en el mes siguiente.` +
+      (ult.length === 12 ? ` En los últimos doce meses con dato fue positiva en ${pos} y negativa en ${12 - pos}.` : "") +
+      ` Desde ${mes(con[0])}, el promedio fue de ${conSigno(d3.mean(con, r => r[k]))} por mes.`;
+  }
+  if (v.t === "var") return m === "real" ? `${v.n}, descontada la inflación: ${conSigno(u[k])} en ${mes(u)}.` + rango(conSigno)
+    : `${v.n}: ${pct(u[k])} en ${mes(u)}.` + (b ? ` En ${mes(b)}, el último mes con inflación publicada, fue de ${pct(b[k])}, con una inflación de ${pct(b[c.extra.k])} en los mismos doce meses.` : "");
+  if (["indice", "pesos", "acum"].includes(v.t)) return m === "var"
+    ? (b ? `${v.n}: ${conSigno(b[k])} en los doce meses hasta ${mes(b)}, contra una inflación de ${pct(b[c.extra.k])}.` : `${v.n}: ${conSigno(u[k])} en los doce meses hasta ${mes(u)}.`)
+    : `${v.n}: ${c.f(u[k])} en ${mes(u)}` + (v.t === "acum" ? `, lo que suman los intereses desde ${mes(con[0])}` : "") + `. La vista en 12 meses compara su variación con la inflación.`;
+  if (v.t === "usd") return m === "pbi" ? `${v.n}: ${c.f(u[k])} en ${mes(u)}, pasado a pesos con el dólar mayorista de fin de mes.` + rango(c.f)
+    : `${v.n}: ${c.f(u[k])} en ${mes(u)}${doce}.` + rango(c.f);
+  if (v.t === "rem") {
+    const mas = ambos.filter(r => r[c.extra.k] > r[k]).length;
+    return `En ${mes(u)}, quienes responden el Relevamiento de Expectativas de Mercado del BCRA esperaban ${pct(u[k])} de inflación para los doce meses siguientes.` +
+      (b ? ` La última expectativa que ya se puede comparar, la de ${mes(b)}, fue de ${pct(b[k])}, y la inflación de esos doce meses resultó de ${pct(b[c.extra.k])}.` +
+        ` En ${mas} de los ${ambos.length} meses comparables, la inflación fue mayor que la esperada.` : "");
+  }
+  return `${v.n}: ${c.f(u[k])} en ${mes(u)}.` + rango(c.f);
+};
+DIB.bcra = conTablas("bcra", ["bcra_variables"], a => {
+  const v = bcrVar(), el = G("bcra");
+  bcrConm(v);
+  const m = MED["bcra-m"], c = bcrCfg(v, m);
+  const filas = T.bcra_variables.filter(r => r.id === v.id && (r[c.k] != null || (c.extra && r[c.extra.k] != null)))
+    .map(r => ({...r, valor: bcrValor(r), t: tPer(r.mes)}));
+  if (!filas.some(r => r[c.k] != null)) return sinDatos(el, "No hay datos de esta variable.");
+  $t("bcra").textContent = bcrTxt(v, m, c, filas);
+  const vals = filas.flatMap(r => [r[c.k], c.extra ? r[c.extra.k] : null]).filter(x => x != null);
+  const log = c.log || (c.logAuto && d3.min(vals) > 0 && d3.max(vals) > 300);
+  lineas(el, {anim: a, data: filas, x: "t", log, y0: Math.min(0, d3.min(vals)), ref: c.ref, vf: c.f, yf: c.yf, xl: r => mesPer(r.mes), mensual: true,
+    series: [{k: c.k, lab: c.lab || v.n, corto: c.corto || "Último dato", c: NAR}, ...(c.extra ? [c.extra] : [])]});
+  // la tabla abierta sigue a la variable elegida
+  const caja = document.querySelector("#f-bcra .tabla-datos"); if (caja) caja.innerHTML = tablaDatos(TABLA_VISTA["f-bcra"](T.bcra_variables), "f-bcra");
+});
 
 /* ---------- transferencias de la Nación a las provincias ---------- */
 const TRR = R.transferencias, TRS = T.transferencias_serie, TRA = T.transferencias_acumulado;
@@ -3932,7 +4877,7 @@ DIB.presidentes = a => {
   g.append("g").attr("class","eje").attr("transform","translate(0,42)").call(d3.axisBottom(x).ticks(angosto ? 4 : 8).tickSize(0).tickPadding(8)).call(s => s.select(".domain").remove());
   if (a) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
   r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}<br>Nació en ${d.lugar_nacimiento}, ${d.provincia}`,
-      4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarTip);
+      4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarSiMouse);
   document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i>${bandera(COD_PROV[d.provincia])}<span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : "hoy"}</span>` +
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "Ciudad de Buenos Aires") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
 };
@@ -4352,7 +5297,7 @@ const CX = (() => {
     const angosto = el.clientWidth < 560;
     const C = lienzo(el, angosto ? 400 : 500, {t: 34, r: angosto ? 14 : 24, b: 50, l: angosto ? 44 : 58});
     const {g, iw, ih, svg} = C;
-    svg.attr("aria-label", `Diagrama de dispersión de ${X.nombre} ${yE(Y.nombre)} por provincia`);
+    svg.attr("role", "group").attr("aria-label", `Diagrama de dispersión de ${X.nombre} ${yE(Y.nombre)} por provincia`);
     const esc = (id, log, rango) => {
       const ext = d3.extent(todosAnios(id).filter(v => !log || v > 0));
       if (log) return d3.scaleLog().domain([ext[0] / 1.15, ext[1] * 1.15]).range(rango);
@@ -4434,11 +5379,12 @@ const CX = (() => {
     const alternar = d => { st.fuera.has(d.codigo_indec) ? st.fuera.delete(d.codigo_indec) : st.fuera.add(d.codigo_indec); todo(true); };
     pts.on("click", (ev, d) => alternar(d))
       .on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); alternar(d); } })
-      .on("pointerenter", (ev, d) => {
+      .on("blur", ocultarTip)
+      .on("pointerenter focus", (ev, d) => {
         const [px, py] = pos(d), i = datos.indexOf(d);
         const res = m && i >= 0 ? `<br>${m.res[i] > 0 ? "Por encima" : "Por debajo"} de la recta` : "";
         mostrarTip(el, `<b>${d.territorio}</b><br>${X.nombre}: ${fm(st.x)(d[st.x])}<br>${Y.nombre}: ${fm(st.y)(d[st.y])}${res}`, px + (angosto ? 44 : 58), py + 34);
-      }).on("pointerleave", ocultarTip);
+      }).on("pointerleave", ocultarSiMouse);
     // leyenda de regiones
     document.getElementById("cx-leyenda").innerHTML = Object.entries(COLOR_REGION).map(([k, c]) => `<span><i style="background:${c}"></i>${k}</span>`).join("") +
       (st.tam ? `<span class="nota-tam">Tamaño: población</span>` : "");
@@ -4484,8 +5430,9 @@ const CX = (() => {
     const angosto = el.clientWidth < 620, izq = angosto ? 128 : 190, lado = Math.max(18, Math.min(36, (el.clientWidth - izq - 10) / n));
     el.innerHTML = "";
     const W = izq + lado * n + 10, H = lado * n + (angosto ? 120 : 170);
-    const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("role", "img")
-      .attr("aria-label", "Matriz de correlaciones entre los indicadores provinciales");
+    // role group y no img: adentro hay celdas que se eligen
+    const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", W).attr("role", "group")
+      .attr("aria-label", "Matriz de correlaciones entre los indicadores provinciales. Moverse con las flechas y elegir con Enter");
     const color = d3.scaleLinear().domain([-1, 0, 1]).range(["#C8102E", "#F4F1EA", "#2C74B5"]);
     const celdas = [];
     ids.forEach((a, i) => ids.forEach((b, j) => {
@@ -4495,11 +5442,11 @@ const CX = (() => {
       celdas.push({a, b, i, j, r, n: d.length, p: pT(r * Math.sqrt((d.length - 2) / (1 - r * r)), d.length - 2)});
     }));
     const g = svg.append("g").attr("transform", `translate(${izq},4)`);
-    const cel = g.selectAll("g").data(celdas).join("g").attr("transform", d => `translate(${d.j * lado},${d.i * lado})`).attr("class", "cx-celda").attr("tabindex", 0).attr("role", "button")
+    const cel = g.selectAll("g").data(celdas).join("g").attr("transform", d => `translate(${d.j * lado},${d.i * lado})`).attr("class", "cx-celda").attr("tabindex", (d, k) => k === 0 ? 0 : -1).attr("role", "button")
       .attr("aria-label", d => `${META[d.a].nombre} ${yE(META[d.b].nombre)}: r ${fr(d.r)}`);
     cel.append("rect").attr("width", lado - 2).attr("height", lado - 2).attr("fill", d => color(d.r));
     if (lado >= 26) cel.append("text").attr("x", (lado - 2) / 2).attr("y", (lado - 2) / 2).attr("dy", ".35em").attr("text-anchor", "middle")
-      .attr("class", d => "cx-r" + (d.p < .05 ? " sig" : "")).attr("fill", d => Math.abs(d.r) > .55 ? "#fff" : css("--ink")).text(d => loc.format(".1f")(d.r).replace("-0,0", "0,0"));
+      .attr("class", d => "cx-r" + (d.p < .05 ? " sig" : "")).attr("fill", d => tintaSobre(color(d.r))).text(d => loc.format(".1f")(d.r).replace("-0,0", "0,0"));
     g.selectAll("text.fila").data(ids).join("text").attr("class", "etq-suave cx-mlab").attr("x", -8).attr("y", (d, i) => i * lado + lado / 2).attr("dy", ".35em").attr("text-anchor", "end")
       .text((d, i) => i === 0 ? "" : META[d].nombre.slice(0, angosto ? 18 : 30));
     // nombres de las columnas, debajo y en diagonal
@@ -4507,9 +5454,22 @@ const CX = (() => {
       .attr("transform", (d, j) => `translate(${j * lado + lado / 2},${n * lado + 4}) rotate(55)`).attr("dy", ".35em")
       .text(d => META[d].nombre.slice(0, angosto ? 16 : 26));
     const ir = d => { st.x = d.b; st.y = d.a; st.logx = st.logy = false; todo(false); document.getElementById("tab-cx-disp").click(); document.getElementById("f-cruces").scrollIntoView({behavior: REDUCIR ? "auto" : "smooth"}); };
-    cel.on("click", (ev, d) => ir(d)).on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ir(d); } })
-      .on("pointerenter", (ev, d) => mostrarTip(el, `<b>${META[d.a].nombre}</b> y <b>${META[d.b].nombre}</b><br>r = ${fr(d.r)}, ${d.n} jurisdicciones<br>valor p ${fp(d.p)}<br>Tocá para ver la dispersión`, izq + d.j * lado + lado / 2, d.i * lado))
-      .on("pointerleave", ocultarTip);
+    // con el teclado, la matriz es un solo lugar de Tab y las flechas van a la celda vecina (eran unas 1.500 paradas de Tab)
+    const mover = (ev, d) => {
+      const [di, dj] = {ArrowRight: [0, 1], ArrowLeft: [0, -1], ArrowDown: [1, 0], ArrowUp: [-1, 0]}[ev.key] || [];
+      if (di == null) return;
+      ev.preventDefault();
+      for (let k = 1; k < n; k++) {
+        const sig = celdas.findIndex(c => c.i === d.i + di * k && c.j === d.j + dj * k);
+        if (sig < 0) continue;
+        const nodos = cel.nodes(); nodos[celdas.indexOf(d)].setAttribute("tabindex", -1); nodos[sig].setAttribute("tabindex", 0); nodos[sig].focus();
+        return;
+      }
+    };
+    cel.on("click", (ev, d) => ir(d)).on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ir(d); } else mover(ev, d); })
+      .on("blur", ocultarTip)
+      .on("pointerenter focus", (ev, d) => mostrarTip(el, `<b>${META[d.a].nombre}</b> y <b>${META[d.b].nombre}</b><br>r = ${fr(d.r)}, ${d.n} jurisdicciones<br>valor p ${fp(d.p)}<br>Tocá para ver la dispersión`, izq + d.j * lado + lado / 2, d.i * lado))
+      .on("pointerleave", ocultarSiMouse);
     const sig = celdas.filter(c => c.p < .05).length;
     document.getElementById("cm-matriz-nota").textContent = `Cada celda es la correlación de Pearson entre dos indicadores, de −1 (rojo) a 1 (azul), con las ${FILAS.length - st.fuera.size} jurisdicciones incluidas. ` +
       `En negrita, las que tienen valor p menor a 0,05: son ${sig} de ${celdas.length} pares. Con tantos pares, unos ${Math.round(celdas.length * .05)} pueden dar significativos solo por azar, así que conviene mirar cada uno en la dispersión antes de sacar conclusiones. Tocá una celda para abrirla.`;
@@ -4584,16 +5544,16 @@ const MAPA_DEP = (() => {
     const geoms = NOMBRES[pv] ? {type: "GeometryCollection", geometries: obj.geometries.filter(g => g.properties.prov === pv)} : obj;
     svg.append("path").attr("class", "limite").attr("d", camino(topojson.mesh(topo, geoms, (a, b) => a.properties.prov !== b.properties.prov || a === b)));
     const f1 = d3.format(",.1f"), fv = v => v == null ? "sin dato" : loc.format(",.1f")(v);
-    deps.on("pointermove", (ev, f) => {
+    deps.on("pointermove pointerdown", (ev, f) => {
       const r = filas[f.properties.id] || {}, [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${f.properties.nombre}</b>, ${r.provincia || ""}<br>${m.nombre}: ${fv(r[ind])}` +
         (censo ? (r.hogares ? `<br>${n0(r.hogares)} hogares en el Censo 2022` : "") : r.poblacion_identificada ? `<br>${n0(r.poblacion_identificada)} personas identificadas` : ""), mx, my);
-    }).on("pointerleave", ocultarTip)
+    }).on("pointerleave", ocultarSiMouse)
       .on("click", (ev, f) => { if (!NOMBRES[pv]) { cerca = {c: f.properties.prov, de: prov}; ocultarTip(); cambiarVista("mapa-dep"); } });
     // leyenda de quintiles
-    const ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - 125)},${h + 8})`);
-    colores.forEach((c, i) => ley.append("rect").attr("x", i * 50).attr("width", 48).attr("height", 10).attr("fill", c));
-    ["", ...cortes.map(v => loc.format(",.1f")(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * 50).attr("y", 26).attr("text-anchor", i ? "middle" : "start").text(t));
+    const paso = Math.min(50, (w - 12) / 5), ley = svg.append("g").attr("transform", `translate(${Math.max(6, w / 2 - paso * 2.5)},${h + 8})`);
+    colores.forEach((c, i) => ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("fill", c));
+    ["", ...cortes.map(v => loc.format(",.1f")(v))].forEach((t, i) => ley.append("text").attr("class", "mp-ley").attr("x", i * paso).attr("y", 26).attr("text-anchor", i ? "middle" : "start").text(t));
     // lista lateral
     const lugar = NOMBRES[pv] || "Todo el país";
     document.getElementById("mp-lugar").innerHTML = conBandera(NOMBRES[pv] ? pv : "00", `${lugar}: ${m.nombre.toLowerCase()}`);
@@ -4691,7 +5651,7 @@ const IX = (() => {
     filas.on("pointerenter", function(ev, d) {
       const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.f.territorio}: ${n1(d.t)}</b><br>` + DIMS.map(dim => `<span style="color:${dim.c}">●</span> ${dim.nombre}: ${n1(d.dim[dim.id])}`).join("<br>"), mx, my);
-    }).on("pointerleave", ocultarTip);
+    }).on("pointerleave", ocultarSiMouse);
     // lectura
     const pos = c => datos.findIndex(d => d.f.codigo_indec === c) + 1;
     const mov = datos.map(d => ({d, m: ordenIgual.indexOf(d.f.codigo_indec) + 1 - pos(d.f.codigo_indec)})).sort((a, b) => Math.abs(b.m) - Math.abs(a.m))[0];
@@ -4741,7 +5701,7 @@ function pintarExtra() {
   caja.querySelectorAll("button[data-c]").forEach(b => b.addEventListener("click", () => elegir(b.dataset.c)));
 }
 
-document.querySelectorAll(".conmutador:not(.pestanas)").forEach(conm => {
+document.querySelectorAll(".conmutador:not(.pestanas):not([data-propio])").forEach(conm => {
   const k = conm.dataset.g;
   conm.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => {
     if (MED[k] === b.dataset.m) return;
@@ -4751,6 +5711,30 @@ document.querySelectorAll(".conmutador:not(.pestanas)").forEach(conm => {
     cambiarVista(conm.dataset.dib || k);
   }));
 });
+
+/* La marca del botón elegido (14 de octubre de 2026): supone que los botones miden todos lo mismo, pero en pantallas muy angostas una
+   palabra larga ("Evolución", "Elecciones") no entra en su parte, la grilla agranda ese botón y achica los otros, y la marca quedaba
+   corrida, tapando media etiqueta. Cuando los anchos no son iguales, la marca toma la posición y el ancho del botón elegido (clase
+   "medido"). Se vuelve a medir al cambiar la elección o el tamaño. Con botones iguales no cambia nada */
+(() => {
+  const medir = c => {
+    const bs = [...c.querySelectorAll(":scope > button")], b = bs.find(x => x.getAttribute("aria-pressed") === "true" || x.getAttribute("aria-selected") === "true");
+    if (!b || !c.offsetWidth) return;
+    const ws = bs.map(x => x.offsetWidth), distintos = Math.max(...ws) - Math.min(...ws) > 1;
+    c.classList.toggle("medido", distintos);
+    if (!distintos) return;
+    // en medidas de la página, sin la escala de una animación que esté en curso
+    const rc = c.getBoundingClientRect(), rb = b.getBoundingClientRect(), esc = rc.width / c.offsetWidth || 1;
+    c.style.setProperty("--x", `${(rb.left - rc.left) / esc - c.clientLeft}px`);
+    c.style.setProperty("--w", `${rb.width / esc}px`);
+  };
+  const ro = new ResizeObserver(es => es.forEach(e => medir(e.target)));
+  const mo = new MutationObserver(ms => new Set(ms.map(m => m.target.closest(".conmutador"))).forEach(c => c && medir(c)));
+  document.querySelectorAll(".conmutador").forEach(c => {
+    ro.observe(c);
+    mo.observe(c, {subtree: true, attributes: true, attributeFilter: ["aria-pressed", "aria-selected"]});
+  });
+})();
 
 /* ---------- pestañas dentro de una tarjeta ---------- */
 document.querySelectorAll(".pestanas").forEach(tl => {
@@ -4785,104 +5769,174 @@ function tablaAreas() {
 /* ---------- tarjetas: etiqueta, cifra clave y acciones ---------- */
 const sg = v => (v > 0 ? "+" : "") + pct(v);
 // Cifra destacada de cada ficha. La sección de salud mental no lleva cifra destacada, para no dramatizar.
+// [cifra, texto completo, leyenda corta]. El texto completo va en "En cifras" y en el buscador, que se leen sin la descripción de la
+// ficha. Dentro de la ficha va la leyenda corta, que dice solo lo que la descripción no dice (el alcance o la población de referencia):
+// así la descripción, la cifra y el comienzo del texto no repiten la misma frase (pedido del autor, 10 de octubre de 2026)
+// el saldo comercial de la cifra destacada: el de lo que va del año si ya hay meses del año siguiente al último completo, y la tasa del plazo fijo
+const BZ_Y = SX.balanza.ytd_anio > SX.balanza.anio, BZ_S = BZ_Y ? SX.balanza.ytd_saldo : SX.balanza.saldo;
+const BZ_P = BZ_Y ? `entre enero y ${MESES[SX.balanza.ytd_mes - 1]} de ${SX.balanza.ytd_anio}` : `en ${SX.balanza.anio}`;
+const BCR_PF = SX.bcra.variables.find(v => v.id === 12) || SX.bcra.variables[0];
 const CLAVE = {
-  "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
-  "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`],
-  "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`],
-  "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`],
+  "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`,
+    `barriles por día en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
+  "f-gas": [n1(PG.gas), `millones de metros cúbicos de gas natural por día se produjeron en ${PG.mes}`, `millones de m³ por día en ${PG.mes}`],
+  "f-gas-hogares": [pct(VV.pct_gas_red), `de los hogares cocinaba con gas de red en el Censo 2022. El ${pct(VV.pct_garrafa)}, con gas en garrafa`, "de los hogares del país cocinaba con gas de red"],
+  "f-hidro-provincias": [pct(PG.top_pct), `del petróleo del país salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}`, `del petróleo del país salió de ${PG.top}`],
   "f-areas-hidro": [pct(PG.areas_top10_pet), `del petróleo del país salió de las diez áreas de concesión que más produjeron en ${PG.areas_anio}`],
   "f-pozos": [`${PG.veces} veces`, `más petróleo por día produjo un pozo de shale que uno convencional en ${PG.pozos_mes}`],
-  "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`],
-  "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`],
-  "f-regalias": [pct(PG.reg_top_pct), `de los ingresos totales de ${PG.reg_top} fueron regalías en ${PG.reg_anio}`],
-  "f-reservas": [`${n1(PG.res_hor_pet)} años`, `de producción de petróleo alcanzan las reservas comprobadas, al ritmo de ${PG.res_anio}`],
-  "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`],
+  "f-empresas-hidro": [pct(PG.emp_top_pct), `del petróleo del país lo produjo ${PG.emp_top} entre ${PG.v_desde} y ${PG.v_hasta}`, `del petróleo del país lo produjo ${PG.emp_top}`],
+  "f-empleo-hidro": [n0(CN.pet_emp), `puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`,
+    "puestos asalariados registrados del sector privado en todo el país"],
+  "f-regalias": [pct(PG.reg_top_pct), `de los ingresos totales de ${PG.reg_top} fueron regalías en ${PG.reg_anio}`, `de los ingresos totales de ${PG.reg_top}`],
+  "f-reservas": [`${n1(PG.res_hor_pet)} años`, `de producción de petróleo alcanzan las reservas comprobadas, al ritmo de ${PG.res_anio}`,
+    `de petróleo, al ritmo de producción de ${PG.res_anio}`],
+  "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`,
+    `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} en ${PG.bal_anio}`],
   "f-fracturas": [`${n0(PG.dv_rama_ult)} m`, `de rama horizontal tuvo en promedio un pozo de Vaca Muerta fracturado en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`],
-  "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
-  "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
-  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`],
-  "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`],
+  "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`,
+    `terminados en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
+  "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`,
+    `barriles en promedio por pozo que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`],
+  "f-mapa-pozos": [n0(PG.map_activos), `pozos no convencionales produjeron petróleo o gas en ${PG.map_mes}, el ${pct(PG.map_pct_nq)} en Neuquén`,
+    `pozos no convencionales en producción, el ${pct(PG.map_pct_nq)} en Neuquén`],
+  "f-gas-consumo": [`${n0(e.gas_pais)} m³`, `de gas natural consumió en promedio un usuario residencial en ${e.gas_anio}, y ${n0(e.gas_top[0][1])} en ${e.gas_top[0][0]}`,
+    `por usuario, promedio del país en ${e.gas_anio}`],
   "f-permisos": [`${n0(CN.per_m2 / 1000)} mil m²`, `autorizaron los permisos de edificación de ${CN.per_municipios} municipios en ${CN.per_mes}` +
-    (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : "")],
-  "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`],
+    (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : ""),
+    `autorizados en ${CN.per_mes} en ${CN.per_municipios} municipios` + (CN.per_var != null ? `, ${pct(Math.abs(CN.per_var))} ${CN.per_var < 0 ? "menos" : "más"} que un año antes` : "")],
+  "f-hipotecas": [`${n0(CN.hip_ult)} mil millones`, `de pesos en créditos hipotecarios UVA otorgaron los bancos en ${CN.hip_mes}`, `de pesos en ${CN.hip_mes}`],
   "f-obra-publica": [`${n0(CN.op_total)} mil millones`, `de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],
-  "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`],
-  "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`],
-  "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`],
-  "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`],
-  "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`],
-  "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`],
-  "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`],
-  "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`],
-  "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`],
+  "f-electricidad-provincias": [`${n0(e.el_pais)} kWh`, `de electricidad por habitante consumieron los hogares del país en ${e.el_ult}`, `por habitante, promedio del país en ${e.el_ult}`],
+  "f-salarios": [`${n0(SA.pais)} pesos`, `era el salario bruto promedio de los asalariados registrados del sector privado en ${SA.mes}`, "promedio bruto del país"],
+  "f-salario-docente": [`${n0(DC.pais)} pesos`, `de salario bruto cobraba en promedio un maestro de grado con 10 años de antigüedad en ${DC.trim}`,
+    "por mes, promedio del país"],
+  "f-inversion-educativa": [`${n0(IE.pais)} pesos`, `invirtió el Estado por cada alumno de las escuelas estatales en ${IE.anio}`, "por alumno, promedio del país"],
+  "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`, `delitos cada 100.000 habitantes en ${SG.anio}`],
+  "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`, `robos cada 100.000 habitantes en el país en ${SG.anio}`],
+  "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`, `víctimas cada 100.000 habitantes en el país en ${SG.anio}`],
+  "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`,
+    `personas cada 100.000 habitantes en el país al 31 de diciembre de ${SG.sn_anio}`],
+  "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`,
+    `del PBI fue el ${sobra(GBN.primario)} primario en ${GBN.anio}, antes de pagar los intereses de la deuda`],
   "f-recaudacion": [pct(GRT.pbi), `del PBI fue la recaudación de impuestos nacionales en ${GRT.anio}`],
-  "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`],
-  "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`],
-  "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y la Ciudad en ${GBP.anio}`],
-  "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`],
-  "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`],
-  "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`],
-  "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`],
-  "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`],
-  "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`],
-  "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`],
-  "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`],
-  "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`],
-  "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`],
-  "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`],
+  "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`, `del PBI al ${GBD.fecha}`],
+  "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`, "cargos cada 1.000 habitantes en todo el país"],
+  "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y la Ciudad en ${GBP.anio}`, "por habitante, promedio del país"],
+  "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`,
+    "de la población del país, según el Censo"],
+  "f-migracion-interna": [pct(MGC.otra_pct), `de las personas que vivían en el país en 2022 había nacido en otra provincia, según el Censo`,
+    "de la población del país había nacido en otra provincia, según el Censo"],
+  "f-migracion-historia": [pct(MGH.max_pct), `de la población había nacido en otro país en el censo de ${MGH.max_anio}, la parte más alta desde ${MGH.ini}`,
+    `de la población en el censo de ${MGH.max_anio}, el valor más alto`],
+  "f-radicaciones": [n0(MGD.total), `residencias otorgó la Dirección Nacional de Migraciones en ${MGD.anio}`, `residencias en ${MGD.anio}`],
+  "f-argentinos-exterior": [n0(MGO.personas), `personas nacidas en la Argentina vivían en otro país a mediados de ${MGO.anio}, según las Naciones Unidas`,
+    `personas a mediados de ${MGO.anio}, según las Naciones Unidas`],
+  "f-inflacion": [pct(EIP.interanual), `subieron los precios al consumidor en los doce meses hasta ${EIP.mes}, según el INDEC`,
+    `en el país, en los doce meses hasta ${EIP.mes}`],
+  "f-inflacion-rubros": [pct(EIP.div_max[1]), `subieron los precios de ${inicialMin(EIP.div_max[0])} en los doce meses hasta ${EIP.mes}, el rubro que más aumentó`,
+    `${inicialMin(EIP.div_max[0])}, el rubro que más subió`],
+  "f-canastas": [`${n0(ECB.cbt_hogar)} pesos`, `por mes necesitaba en ${ECB.mes} un hogar de cuatro integrantes del Gran Buenos Aires para no quedar bajo la línea de pobreza`,
+    `por mes, la canasta básica total de un hogar de cuatro integrantes del Gran Buenos Aires en ${ECB.mes}`],
+  "f-salario-real": [pct(Math.abs(ESR.real_priv)), `${ESR.real_priv < 0 ? "bajó" : "subió"} en los doce meses hasta ${ESR.mes} el salario registrado del sector privado, descontada la inflación`,
+    `${ESR.real_priv < 0 ? "bajó" : "subió"} el salario privado en los doce meses hasta ${ESR.mes}`],
+  "f-emae": [pct(Math.abs(EMA.interanual)), `${EMA.interanual < 0 ? "cayó" : "creció"} la actividad económica en ${EMA.mes} frente a ${EMA.mes_ant}, según el INDEC`,
+    `${EMA.interanual < 0 ? "cayó" : "creció"} en ${EMA.mes} frente a ${EMA.mes_ant}`],
+  "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`,
+    `solicitudes en ${MGR.anio}, según la CONARE`],
   "f-supermercados": [pct(Math.abs(ESU.interanual)), `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados en pesos de igual ` +
-    `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`],
-  "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`],
-  "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`],
-  "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`],
+    `valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? "cayeron" : "crecieron"} en el país en ${ESU.mes} frente a ${ESU.mes_ant}`],
+  "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`,
+    "de la electricidad del país la usaron las industrias y los grandes comercios"],
+  "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`,
+    `por litro de nafta súper, mediana del país en ${CB.mes}`],
+  "f-subsidios": [n2(e.sub_pbi) + "%", `del producto interno bruto fueron los subsidios económicos a la energía en ${e.sub_pbi_anio}, según la Secretaría de Hacienda`,
+    `del producto interno bruto en ${e.sub_pbi_anio}`],
   "f-centrales": [pct(e.pot_pct_renov_ult), `de la potencia eléctrica instalada del país era eólica o solar en ${e.pot_anio}, contra ${pct(e.pot_pct_renov_ini)} en ${e.pot_ini}`],
-  "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`],
-  "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`],
-  "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],
-  "f-empleo-construccion": [n0(CN.emp_total), `puestos asalariados registrados en la construcción privada en el ${CN.emp_trim}`],
-  "f-trabajadores": [pct(VV.pct_ocupados_construccion), `de las personas ocupadas trabajaba en la construcción en el Censo 2022, con o sin registro`],
-  "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir desde ${CN.costo_desde}`],
-  "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`],
-  "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`],
-  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`],
-  "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`],
-  "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`],
-  "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`],
-  "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`],
-  "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`],
-  "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`],
-  "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`],
-  "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`],
-  "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`],
-  "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`],
-  "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`],
-  "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`],
-  "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`],
-  "f-eti": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`],
-  "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`],
-  "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`],
-  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`],
-  "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`],
-  "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`],
-  "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`],
-  "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`],
-  "f-nombres": [cu.nena, `${yE(cu.varon)} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`],
-  "f-carne": [`${n1(cu.carne_v)} kg`, `de carne vacuna por habitante en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)} kg`],
-  "f-vino": [n0(cu.vino_v), `millones de litros de vino vendidos en el país en ${cu.vino_anio}`],
-  "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`],
-  "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`],
-  "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`],
-  "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`],
-  "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`],
-  "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`],
-  "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`],
-  "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`],
+  "f-mundo-petroleo": [`N.º ${PG.mundo.crudo_kbd.puesto}`, `entre los productores de petróleo del mundo fue la Argentina en ${PG.mundo.crudo_kbd.anio}, según la EIA`,
+    "entre los productores de petróleo, según la EIA"],
+  "f-isac": [pct(Math.abs(CN.isac_var)), `${CN.isac_var < 0 ? "cayó" : "creció"} la actividad de la construcción en ${CN.isac_mes} frente al mismo mes del año anterior`,
+    `${CN.isac_var < 0 ? "cayó" : "creció"} en ${CN.isac_mes} frente al mismo mes del año anterior`],
+  "f-insumos": [`${CN.ins_suben} de ${CN.ins_n}`, `insumos de la construcción tuvieron más consumo aparente en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`,
+    `insumos tuvieron más consumo en los doce meses hasta ${CN.ins_mes} que en los doce anteriores`],
+  "f-empleo-construccion": [n0(CN.emp_total), `puestos asalariados registrados en la construcción privada en el ${CN.emp_trim}`, "puestos asalariados registrados en todo el país"],
+  "f-trabajadores": [pct(VV.pct_ocupados_construccion), `de las personas ocupadas trabajaba en la construcción en el Censo 2022, con o sin registro`,
+    "de las personas ocupadas del país, con o sin registro"],
+  "f-costo": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir desde ${CN.costo_desde}`,
+    `${CN.icc_real < 0 ? "menos" : "más"} que los precios al consumidor subió el costo de construir`],
+  "f-vivienda": [pct(VV.pct_alquila), `de los hogares alquilaba su vivienda en el Censo 2022`, "de los hogares del país alquilaba su vivienda"],
+  "f-hogares": [pct(e.pct_res_ult), `de la electricidad demandada en el país en ${e.anio_ult} correspondió a los hogares`, `de la demanda eléctrica del país en ${e.anio_ult}`],
+  "f-actividad": [sg(e.crec_total), `creció la demanda eléctrica total entre ${e.anio_ini} y ${e.anio_ult}. La actividad económica creció ${pct(e.crec_emae)}`,
+    `creció la demanda eléctrica total. La actividad económica creció ${pct(e.crec_emae)}`],
+  "f-meses": [sg(e.dif_max_min), `más demanda eléctrica en ${e.mes_max} que en ${e.mes_min}, promedio de ${e.meses_desde} a ${e.meses_hasta}`, `más demanda en ${e.mes_max} que en ${e.mes_min}`],
+  "f-adolescentes": [n1(nac.pct_ult), `de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años. En ${nac.anio_ini} eran ${n1(nac.pct_ini)}`,
+    `de cada 100 nacimientos del país en ${nac.anio_ult}`],
+  "f-poblacion-proy": [conSigno(PPY.var_pct), `va a crecer la población del país entre ${PPY.anio} y ${PPY.anio_fin}, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas, según las proyecciones del INDEC`,
+    `en todo el país, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas`],
+  "f-mortalidad": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`, `cada 1.000 nacidos vivos en todo el país en ${mo.anio}`],
+  "f-pisa": [String(pz.mat), `puntos obtuvo la Argentina en matemática en PISA ${pz.anio}. El promedio de la OCDE fue ${pz.ocde_mat}`,
+    `puntos en matemática en ${pz.anio}, contra ${pz.ocde_mat} del promedio de la OCDE`],
+  "f-escolarizacion": [pct(es.pais_fin), `de los adolescentes en edad de cursar la secundaria estaba matriculado en ese nivel en ${es.fin}`,
+    `de los adolescentes del país en edad de cursar la secundaria, en ${es.fin}`],
+  "f-aprender": [pct(ap.mat), `de los estudiantes de 6° grado alcanzó un nivel satisfactorio o avanzado en matemática en Aprender ${ap.anio}`,
+    "en matemática, en todo el país"],
+  "f-empleo": [n1(em.cada_100_pais), `personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`, "cada 100 habitantes en el país"],
+  "f-protegida": [pct(nt.pct), `del territorio continental del país está dentro de áreas protegidas, ${nt.anio}`, "del territorio continental del país"],
+  "f-parques": [n0(nt.pn_n), `áreas protegidas nacionales. Las primeras se crearon en ${nt.pn_primera_anio}`, "áreas protegidas a cargo de la Administración de Parques Nacionales"],
+  "f-especies": [n0(nt.esp_top_v), `especies animales registradas en ${nt.esp_top}, el área nacional con más registros`, `en ${nt.esp_top}, el área con más registros`],
+  "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`, `millones de visitas en ${nt.vis_anio}`],
+  "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`, `millones en ${tu.anio}, por todos los pasos de frontera`],
+  "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`, `millones en ${tu.eoh_anio}, en las localidades relevadas`],
+  "f-eti": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`,
+    `visitaron ${tu.eti_top}, la jurisdicción con más turistas`],
+  "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`,
+    `de las personas, bajo la línea de pobreza en el ${R.pobreza.sem}`],
+  "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`, `tarjetas en trenes en ${su.mes}`],
+  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`,
+    `motos en ${au.anio}, ${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`],
+  "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`, "autos cada 1.000 habitantes en todo el país"],
+  "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`, `en ${vpq.top} (${vpq.top_lugar}), el más visitado en ${vpq.ult}`],
+  "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`, `toneladas de todas las especies en ${pe.anio}, contra ${n0(pe.total_ini)} en ${pe.ini}`],
+  "f-pesca-rio": [pct(pe.rio_top_pct), `de la pesca comercial en ríos de ${pe.rio_anio} fue ${pe.rio_top.toLowerCase()}`, `de las toneladas capturadas fue ${pe.rio_top.toLowerCase()}`],
+  "f-nombres": [cu.nena, `${yE(cu.varon)} fueron los nombres más elegidos para los bebés en ${cu.nom_anio}`, `para las nenas ${yE(cu.varon)} para los varones, en todo el país`],
+  "f-carne": [`${n1(cu.carne_v)} kg`, `de carne vacuna por habitante en ${cu.carne_anio}. En ${cu.carne_ini} eran ${n1(cu.carne_ini_v)} kg`,
+    `por año en ${cu.carne_anio}, contra ${n1(cu.carne_ini_v)} kg en ${cu.carne_ini}`],
+  "f-vino": [n0(cu.vino_v), `millones de litros de vino vendidos en el país en ${cu.vino_anio}`,
+    `millones de litros en ${cu.vino_anio}, ${pct(Math.abs(cu.vino_caida))} ${cu.vino_caida < 0 ? "menos" : "más"} que en ${cu.vino_ini}`],
+  "f-yerba": [n1(cu.yerba_v), `millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`, `millones de kilos en ${cu.yerba_anio}, en todo el país`],
+  "f-glaciares": [n0(cu.gl_total), `glaciares inventariados en ${cu.gl_n} provincias`, `inventariados en todo el país, en ${cu.gl_n} provincias`],
+  "f-clima": [grados(cu.cl_max), `en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`, `en ${cu.cl_max_anio}, el año más cálido de la serie`],
+  "f-esperanza": [n1(nv.ev_pais), `años de esperanza de vida al nacer en el país en ${nv.ev_anio}`, "años en todo el país, mujeres y varones juntos"],
+  "f-exporta-rubros": [`${n1(SX.rubros.total / 1000)} mil millones`, `de dólares en bienes exportó la Argentina en ${SX.rubros.anio}`, `de dólares en ${SX.rubros.anio}`],
+  "f-complejos": [pct(SX.complejos.top[0].pct), `de lo exportado en el ${SX.complejos.periodo} salió del ${SX.complejos.top[0].n.toLowerCase()}, el primero`,
+    `del ${SX.complejos.top[0].n.toLowerCase()}, el primero`],
+  "f-destinos": [pct(SX.destinos.top[0].pct), `de las exportaciones del ${SX.destinos.periodo} fue a ${SX.destinos.top[0].n}, el primer destino`, `a ${SX.destinos.top[0].n}, el primer destino del país`],
+  "f-exporta-provincias": [pct(SX.provincias.top3_pct), `de lo que exportó el país en ${SX.provincias.anio} salió de ${lista(SX.provincias.top3)}`,
+    `de lo exportado en el país, desde ${lista(SX.provincias.top3)}`],
+  "f-balanza": [`${n0(Math.abs(BZ_S))} M`, `de dólares de ${BZ_S >= 0 ? "superávit" : "déficit"} comercial ${BZ_P}` +
+    (SX.balanza.ytd_anio > SX.balanza.anio ? `, contra ${saldoTx(SX.balanza.ytd_saldo_ant)} en los mismos meses del año anterior` : ""), `de ${BZ_S >= 0 ? "superávit" : "déficit"} comercial ${BZ_P}`],
+  "f-importaciones": [`${n1(SX.importaciones.total / 1000)} mil millones`, `de dólares en bienes importó la Argentina en ${SX.importaciones.anio}`, `de dólares en ${SX.importaciones.anio}`],
+  "f-origen": [pct(SX.origen.top[0].pct), `de lo importado de ${SX.origen.periodo} vino de ${SX.origen.top[0].n}, el primer origen`, `desde ${SX.origen.top[0].n}, el primer origen`],
+  "f-cuenta-corriente": [`${n0(Math.abs(SX.cuenta_corriente.total))} M`, `de dólares de ${SX.cuenta_corriente.total < 0 ? "déficit" : "superávit"} en la cuenta corriente en ${SX.cuenta_corriente.anio}: ` +
+    (SX.cuenta_corriente.total < 0 ? "salieron más dólares de los que entraron" : "entraron más dólares de los que salieron"), `de ${SX.cuenta_corriente.total < 0 ? "déficit" : "superávit"} en ${SX.cuenta_corriente.anio}`],
+  "f-reservas-bcra": [`${n1(SX.reservas.valor / 1000)} mil millones`, `de dólares de reservas tenía el Banco Central el ${fLarga(SX.reservas.fecha)}`, `de dólares el ${fLarga(SX.reservas.fecha)}`],
+  "f-bcra": [pct(BCR_PF.v), `nominal anual pagaban en promedio los plazos fijos a 30 días el ${fLarga(BCR_PF.f)}`, `nominal anual en plazos fijos a 30 días, el ${fLarga(BCR_PF.f)}`],
+  "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
+    `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
+  "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares, promedio del país"],
+  "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, "de los hogares del país tenía desagüe a red cloacal"],
+  "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
+    `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
+  "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`, "cada 100 habitantes, en todo el país"],
   "f-fiscal": [pct(R.fiscal.mediana), `de los ingresos de la provincia del medio fueron recursos propios en ${R.fiscal.anio}. El resto llegó de la Nación`],
-  "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
-  "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
-  "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`],
-  "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`],
-  "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`],
+  "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`,
+    `en todo el país, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
+  "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`, `abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
+  "f-rotacion": [pct(RO.total), `de las personas asalariadas de los 31 aglomerados urbanos llevaba un año o menos en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}`,
+    "de los asalariados de 31 aglomerados urbanos"],
+  "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`,
+    `millones de tarjetas distintas en ${su.mes}, en colectivos, trenes, subtes y lanchas`],
+  "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`,
+    `sumó ${AC.top[0].nombre}, más que cualquier otra persona`],
 };
 /* "En cifras" (etapa 15, pedido del autor: todas las secciones con la misma cantidad de tarjetas que Trabajo y finanzas, del mismo
    ancho y llenando la fila, "siempre con valores que agreguen valor, no solo de relleno"). Cinco tarjetas en cada sección.
@@ -4936,11 +5990,12 @@ const EN_CIFRAS = {
   economia: ["f-inflacion", "x-inflacion-mes", "f-canastas", "f-salario-real", "f-emae", "f-supermercados"],
   empresas: ["f-empresas", "x-emp-top", "f-dinamica-empresas", "x-emp-saldo", "x-emp-negativos"],
   pobreza: ["f-pobreza", "x-indigencia", "f-censo", "f-internet"],
-  salud: ["f-esperanza", "x-ev-brecha", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
+  salud: ["f-esperanza", "x-ev-brecha", "f-causas-muerte", "f-mortalidad", "x-mi-reducibles", "x-mi-inicio"],
   // Seguridad (etapa 23): tiene datos por provincia (homicidios y robos) y suma la tarjeta "Tu provincia"
   seguridad: ["f-homicidios", "f-robos", "x-hurtos", "f-carceles", "f-delitos"],
   educacion: ["f-aprender", "f-salario-docente", "f-inversion-educativa", "f-escolarizacion", "x-aprender-len", "f-pisa", "x-aprender-debajo"],
-  poblacion: ["x-nacimientos", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
+  externo: ["f-balanza", "f-exporta-rubros", "f-importaciones", "f-reservas-bcra", "f-destinos", "f-cuenta-corriente"],
+  poblacion: ["x-nacimientos", "f-poblacion-proy", "x-edad-mediana", "x-vejez", "x-jubilaciones", "f-adolescentes"],
   gobierno: ["f-cuentas-nacion", "f-recaudacion", "f-deuda", "f-empleo-publico", "f-impuestos-provinciales", "f-fiscal"],
   migraciones: ["f-nacidos-otro-pais", "x-primer-pais", "f-radicaciones", "f-argentinos-exterior", "f-migracion-interna", "f-migracion-historia"],
   politica: ["x-balotaje", "x-representacion", "x-congreso", "x-atn", "x-presidentes"],
@@ -4960,6 +6015,17 @@ const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">
 function conBandera(c, nombre) { return `<span class="con-bandera">${bandera(c)}<span>${esc(nombre)}</span></span>`; }
 const nTabla = loc.format(",.2~f");
 // Tabla de la ficha dentro de la tarjeta (idea de USAFacts), con las mismas filas que el CSV
+// "Ver tabla" de una ficha con una tabla larga de varias series (etapa 41): solo la serie elegida, del mes más reciente al más viejo
+const TABLA_VISTA = {
+  "f-bcra": t => {
+    const v = bcrVar(), filas = t.filter(r => r.id === v.id).reverse();
+    const NOM = {valor_real: v.t === "dolar" ? `a precios de ${mesPer(BV.tcr_mes)}` : `en pesos de ${mesPer(BV.ipc_mes)}`, pct_pbi: "en % del PBI",
+      tasa_real_mensual: "tasa real a 30 días, %", inflacion_mes_siguiente: "inflación del mes siguiente, %", variacion_12m: "variación en 12 meses, %",
+      variacion_real_12m: "variación sin inflación, %", inflacion_12m: "inflación de los mismos 12 meses, %", inflacion_12m_siguientes: "inflación de los 12 meses siguientes, %"};
+    const cols = Object.keys(NOM).filter(c => filas.some(r => r[c] != null));
+    return filas.map(r => ({mes: r.mes, [`${v.n}, ${v.u}`]: bcrValor(r), ...Object.fromEntries(cols.map(c => [NOM[c], r[c]]))}));
+  }
+};
 function tablaDatos(filas, ficha = "") {
   const MAX = 300, todas = Object.keys(filas[0]);
   const cols = todas.includes("territorio") ? ["territorio", ...todas.filter(c => c !== "territorio" && c !== "codigo_indec")] : todas;
@@ -4977,7 +6043,8 @@ function tablaDatos(filas, ficha = "") {
     if (xs.length >= 6 && new Set(xs).size > 2) corte[c] = [d3.quantile(xs, .8), d3.quantile(xs, .5)];
   });
   const clase = (r, c) => !corte[c] || typeof r[c] !== "number" || esTotal(r) ? "" : r[c] >= corte[c][0] ? " q-alto" : r[c] < corte[c][1] ? " q-bajo" : "";
-  return `<div class="tabla-desliza"><table class="tabla-areas"><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
+  const nombreTabla = esc(document.getElementById(ficha)?.querySelector("h3")?.textContent || "Datos");
+  return `<div class="tabla-desliza" tabindex="0" role="region" aria-label="Tabla: ${nombreTabla}"><table class="tabla-areas"><caption class="solo-lector">${nombreTabla}</caption><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
     vistas.map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ` class="n${clase(r, c)}"` : ""}>${
       c === "territorio" && (NOMBRES[r.codigo_indec] || r.codigo_indec === "00") ? conBandera(r.codigo_indec, v(r, c)) : esc(v(r, c))}</td>`).join("")}</tr>`).join("") +
     `</tbody></table></div><p class="tabla-nota">${filas.length > MAX ? `Primeras ${MAX} filas de ${n0(filas.length)}. ` : ""}La tabla completa está en el CSV.` +
@@ -5145,10 +6212,10 @@ async function imagenFicha(f) {
   ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
   let yy = pad;
   ctx.fillStyle = css("--azul"); ctx.font = fT; tit.forEach(l => { ctx.fillText(l, pad, yy); yy += 30; });
-  if (sub.length) { yy += 6; ctx.fillStyle = css("--muted"); ctx.font = fS; sub.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); }
+  if (sub.length) { yy += 6; ctx.fillStyle = css("--tinta-bajada"); ctx.font = fS; sub.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); }
   if (clave) { yy += eLey; dibujarLey(ctx, clave, pad, yy); yy += clave.alto; }
   yy += 10;
-  const texto = () => { ctx.fillStyle = css("--ink"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); };
+  const texto = () => { ctx.fillStyle = css("--tinta-bajada"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); };
   const grafico = () => {
     leyes.forEach(l => { dibujarLey(ctx, l, pad, yy); yy += l.alto + eLey; });
     ctx.drawImage(img, pad + (W - pad * 2 - w) / 2, yy, w, h); yy += h;
@@ -5166,13 +6233,17 @@ async function imagenFicha(f) {
 // "De dónde sale": abre el Explorador de relaciones en la ficha (qué archivo la alimenta y qué organismo lo publica). No va en las
 // herramientas ni en las fichas que el explorador deja afuera (las de suicidios), que le pasa el constructor desde scripts/relaciones.py
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
+// "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
+// en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
-  const tema = f.closest(".tema")?.querySelector("h2")?.textContent;
+  // el nombre de la sección: en las que tienen la pregunta como título (h1) va en p.tema-nombre
+  const t = f.closest(".tema"), tema = (t?.querySelector(":scope > .tema-nombre") || t?.querySelector("h1, h2"))?.textContent;
   if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
   // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
-  if (c) (f.querySelector(".ficha-sub") || h3).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[1]}</span></p>`);
+  if (c) (f.querySelector(".ficha-sub") || h3).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[2] || c[1]}</span></p>`);
   const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a");
   const acc = document.createElement("div"); acc.className = "acciones";
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre];
@@ -5180,6 +6251,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
   acc.innerHTML = `<button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
     (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
     (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
+    (EN_CATALOGO.has(nombre) ? `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">En el catálogo</span></a>` : "") +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
   csv.className = "boton chico accion"; csv.innerHTML = `<span class="lbl">Descargar CSV</span>`;
   acc.appendChild(csv); pie.appendChild(acc);
@@ -5187,7 +6259,18 @@ document.querySelectorAll("article.ficha").forEach(f => {
     const b = ev.currentTarget, abierta = b.getAttribute("aria-expanded") === "true";
     if (b.dataset.cargando) return;
     let caja = f.querySelector(".tabla-datos");
-    if (!caja) { b.dataset.cargando = "1"; const t = await cargarTabla(nombre).finally(() => delete b.dataset.cargando); caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(t, f.id); pie.before(caja); }
+    if (!caja) {
+      b.dataset.cargando = "1";
+      let t;
+      try { t = await cargarTabla(nombre); } catch {
+        // sin datos (la red falló): un aviso que se anuncia, y el botón sigue para probar de nuevo
+        f.querySelector(".tabla-error")?.remove();
+        pie.insertAdjacentHTML("beforebegin", `<p class="nota tabla-error" role="status">No se pudo cargar la tabla. Probá de nuevo.</p>`);
+        return;
+      } finally { delete b.dataset.cargando; }
+      f.querySelector(".tabla-error")?.remove();
+      caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(TABLA_VISTA[f.id] ? TABLA_VISTA[f.id](t) : t, f.id); pie.before(caja);
+    }
     caja.hidden = abierta; b.setAttribute("aria-expanded", String(!abierta));
     b.querySelector(".lbl").textContent = abierta ? "Ver tabla" : "Ocultar tabla";
   });
@@ -5208,7 +6291,7 @@ document.querySelectorAll("article.ficha").forEach(f => {
       try { ok = document.execCommand("copy"); } catch (_) {}
       ta.remove();
     }
-    cambiar(ok ? "Enlace copiado" : "No se pudo copiar");
+    cambiar(ok ? "Enlace copiado" : "No se pudo copiar"); avisar(ok ? "Enlace copiado" : "No se pudo copiar");
     clearTimeout(lbl._t); lbl._t = setTimeout(() => cambiar("Copiar enlace"), 1800);
   });
 });
@@ -5555,6 +6638,8 @@ const INDP = [
     d:T.mortalidad_infantil_provincias, k:"tmi_actual", pais:mo.pais_act, f:n1, ocde:OC.mortalidad_infantil.ocde},
   {id:"f-adolescentes", g:"poblacion", lab:"Maternidad adolescente", veces:true, det:`% de los nacimientos de ${nac.anio_ult} con madres menores de 20 años`,
     d:T.madres_adolescentes_provincias, k:ADO_ULT, pais:nac.pct_ult, f:pct},
+  {id:"f-poblacion-proy", g:"poblacion", lab:"Crecimiento de la población", det:`variación de la población proyectada entre ${PPY.anio} y ${PPY.anio_fin}`,
+    d:T.poblacion_proyectada_provincias.filter(r => r.codigo_indec !== "00"), k:"var_pct", pais:PPY.var_pct, f:conSigno},
   {id:"f-escolarizacion", g:"educacion", lab:"Escolarización secundaria", det:`tasa neta de escolarización, ${es.fin}`,
     d:T.escolarizacion_secundaria_provincias, k:"tasa_final", pais:es.pais_fin, f:pct},
   {id:"f-aprender", g:"educacion", lab:"Aprender, matemática", det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`,
@@ -5569,6 +6654,8 @@ const INDP = [
     d:T.areas_protegidas_provincias, k:"pct_territorio", pais:nt.pct, f:pct, ocde:OC.protegida.ocde},
   {id:"f-esperanza", g:"salud", lab:"Esperanza de vida", det:`años al nacer, ambos sexos, ${nv.ev_anio}`,
     d:T.esperanza_vida_provincias, k:"total", pais:nv.ev_pais, f:n1, ocde:OC.esperanza_vida.ocde},
+  {id:"f-causas-muerte", g:"salud", lab:"Mortalidad ajustada por edad", veces:true, det:`muertes por año cada 100.000 habitantes, ${CM.desde} a ${CM.hasta}`,
+    d:T.causas_muerte_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_total", pais:CM.pais, f:n0},
   {id:"f-censo", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, 2022",
     d:T.censo2022_provincias, k:"sin_cobertura", pais:nv.censo.sin_cobertura, f:pct},
   {id:"f-censo", g:"vivienda", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, 2022",
@@ -5616,11 +6703,18 @@ const INDP = [
     d:T.combustibles_provincias, k:"nafta", pais:CB.nafta, f:n0},
   {id:"f-empleo-construccion", g:"trabajo", lab:"Empleo registrado en la construcción", veces:true, det:`asalariados privados cada 1.000 habitantes, ${CN.emp_trim}`,
     d:T.empleo_construccion_provincias, k:"construccion_cada_1000", pais:CN.emp_cada_1000, f:n1, dist:"empleo_construccion_provincias.construccion_cada_1000"},
+  // seguridad social (etapa 42, pedido del autor del 12 de octubre de 2026): pensiones por discapacidad, AUH y seguro de desempleo por provincia
+  ...(PIN ? [{id:"f-pensiones-invalidez", g:"social", lab:"Pensiones por discapacidad", veces:true, det:`pensiones no contributivas por invalidez cada 1.000 habitantes, ${MESES[PIN.prov_mes - 1]} de ${PIN.prov_anio}`,
+    d:T.pensiones_invalidez_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_1000", pais:PIN.pais_cada_1000, f:n1}] : []),
+  ...(AU ? [{id:"f-auh", g:"social", lab:"Asignación Universal por Hijo", veces:true, det:`hijos con AUH cada 100 menores de 18 años, ${MESES[AU.mes - 1]} de ${AU.anio}`,
+    d:T.auh_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_100_menores", pais:AU.pais_100, f:n1}] : []),
+  ...(DS ? [{id:"f-desempleo", g:"social", lab:"Seguro de desempleo", veces:true, det:`beneficiarios cada 1.000 habitantes, ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio}`,
+    d:T.prestacion_desempleo_provincias.filter(r => r.codigo_indec !== "00"), k:"cada_1000_habitantes", pais:DS.pais_1000, f:n1}] : []),
 ];
 // el perfil por tema, con un índice arriba (etapa 27, pedido del autor, como los perfiles de USAFacts). Cada indicador lleva su tema en g. El
 // último grupo es la capital de la provincia, con los datos del censo de su municipio y su puesto entre las 24 capitales. El constructor
 // deja la misma estructura con tarjetas vacías mientras carga (lee PERFIL_GRUPOS y los g de acá)
-const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["economia", "Economía"], ["salud", "Salud"], ["educacion", "Educación"], ["seguridad", "Seguridad"],
+const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["social", "Seguridad social"], ["economia", "Economía"], ["salud", "Salud"], ["educacion", "Educación"], ["seguridad", "Seguridad"],
   ["poblacion", "Población y migraciones"], ["gobierno", "Gobierno"], ["vivienda", "Vivienda y servicios"], ["energia", "Energía"],
   ["turismo", "Turismo y naturaleza"], ["capital", "La capital"]];
 const CAP_P = [
@@ -5707,6 +6801,27 @@ const PREG = [
    `En ${SA.mes}, ${n0(SA.pais)} pesos brutos por mes en el sector privado del país. En ${SA.top[0]}, ${n0(SA.top[1])}, y en ${SA.bajo[0]}, ${n0(SA.bajo[1])}.`, "#f-salarios"],
   ["¿Cuánto cobra un maestro de grado?",
    `En ${DC.trim}, ${n0(DC.pais)} pesos brutos por mes en promedio, con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])} en ${DC.bajo[0]} a ${n0(DC.top[1])} en ${DC.top[0]}.`, "#f-salario-docente"],
+  ["¿Qué exporta la Argentina?",
+   `${n0(SX.rubros.total)} millones de dólares en bienes en ${SX.rubros.anio}: el ${pct(SX.rubros.pct.moa)} manufacturas de origen agropecuario, el ${pct(SX.rubros.pct.moi)} de origen industrial, el ${pct(SX.rubros.pct.primarios)} productos primarios y el ${pct(SX.rubros.pct.combustibles)} combustibles y energía.`, "#f-exporta-rubros"],
+  ["¿Adónde exporta la Argentina?",
+   `En el ${SX.destinos.periodo}, ${lista(SX.destinos.top.slice(0, 3).map(t => `${t.n} (${pct(t.pct)})`))} fueron los primeros destinos.`, "#f-destinos"],
+  ["¿Cuánto vende y cuánto compra la Argentina?",
+   `En ${SX.balanza.anio}, ${n0(SX.balanza.expo)} millones de dólares de exportaciones de bienes y ${n0(SX.balanza.impo)} millones de importaciones: un saldo de ${saldoTx(SX.balanza.saldo)}.`, "#f-balanza"],
+  ["¿Qué importa la Argentina?",
+   `${n0(SX.importaciones.total)} millones de dólares en bienes en ${SX.importaciones.anio}: el ${pct(SX.importaciones.pct.intermedios)} bienes intermedios, el ${pct(SX.importaciones.pct.capital + SX.importaciones.pct.piezas)} bienes de capital con sus piezas y el ${pct(SX.importaciones.pct.consumo + SX.importaciones.pct.vehiculos)} bienes de consumo y autos.`, "#f-importaciones"],
+  ["¿De dónde vienen las importaciones?",
+   `De ${SX.origen.periodo}, ${lista(SX.origen.top.slice(0, 3).map(t => `${t.n} (${pct(t.pct)})`))} fueron los primeros orígenes.`, "#f-origen"],
+  ["¿Cuánto da la cuenta corriente del balance de pagos?",
+   `En ${SX.cuenta_corriente.anio} ${SX.cuenta_corriente.total < 0 ? `salieron ${n0(-SX.cuenta_corriente.total)} millones de dólares más de los que entraron` : `entraron ${n0(SX.cuenta_corriente.total)} millones de dólares más de los que salieron`}: ` +
+   `los bienes dejaron ${saldoTx(SX.cuenta_corriente.bienes)}, los servicios ${saldoTx(SX.cuenta_corriente.servicios)} y el ingreso primario ${saldoTx(SX.cuenta_corriente.primario)}.`, "#f-cuenta-corriente"],
+  ["¿Cuántas reservas tiene el Banco Central?",
+   `${n0(SX.reservas.valor)} millones de dólares el ${fLarga(SX.reservas.fecha)}. Un año antes, ${n0(SX.reservas.hace_un_anio)} millones.`, "#f-reservas-bcra"],
+  ["¿Cuánto paga un plazo fijo?",
+   `${pct(BCR_PF.v)} nominal anual en promedio a 30 días el ${fLarga(BCR_PF.f)}, según el Banco Central. La ficha muestra también el dólar, las demás tasas, el dinero y los préstamos.`, "#f-bcra"],
+  ["¿De qué se muere la gente en la Argentina?",
+   `De ${CM.desde} a ${CM.hasta}, el ${pct(CMG[0].pct)} de las muertes fue por ${CM_FRASE[CMG[0].k]}. Ajustada por edad, la mortalidad más alta es la de ${CM.max} y la más baja, la de ${CM.min}.`, "#f-causas-muerte"],
+  ["¿Cuánto va a crecer la población?",
+   `${conSigno(PPY.var_pct)} entre ${PPY.anio} y ${PPY.anio_fin} en todo el país, de ${n1(PPY.hoy / 1e6)} a ${n1(PPY.fin / 1e6)} millones de personas, según las proyecciones del INDEC. La que más crece es ${PPY.max} (${conSigno(PPY.max_v)}) y la que menos, ${PPY.min} (${conSigno(PPY.min_v)}).`, "#f-poblacion-proy"],
   ["¿Cuántos homicidios hay por año?",
    `En ${SG.anio}, ${n0(SG.hom_victimas)} víctimas de homicidios dolosos, ${n1(SG.hom_tasa)} cada 100.000 habitantes. En ${SG.hom_max_anio}, el año más alto desde ${SG.anio_ini}, ${n1(SG.hom_max)}.`, "#f-homicidios"],
   ["¿Cuánto debe el Estado nacional?",
@@ -6032,9 +7147,10 @@ ART.forEach(a => {
   const [px] = partesU(a.ux), [py] = partesU(a.uy), fts = [...new Set([fuenteArt(Mx), fuenteArt(My)])];
   const nota = document.getElementById(a.id); if (!nota) return;
   nota.innerHTML =
-    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
-    `<div class="nota-graf"><h3>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h3><div class="grafico" data-g="${key}"></div>` +
+    // data-forma reserva el alto del gráfico mientras se dibuja, así el texto de abajo no salta (revisión de la línea de base)
+    `<div class="nota-graf"><h3>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h3><div class="grafico" data-g="${key}" data-forma="puntos"></div>` +
     `<p class="nota-pie-graf">Cada punto es una ${U.s}. La línea punteada muestra la tendencia.</p></div>` +
     `<p>${t.extremos}</p><p>${t.excep}</p><p>${t.peso}</p>` +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
@@ -6327,7 +7443,7 @@ const ART_SERIE = [{
       "Los índices de cantidad del INDEC son trimestrales, con 2004 = 100, y el INDEC revisa los últimos trimestres en cada publicación.",
       "La parte de cada rubro en las exportaciones se mide en dólares, así que cambia también con los precios internacionales."];
     return {respuesta, bajada, contexto, lim, secciones: [
-      {g: "export-cantidades", tit: "Cantidades exportadas por gran rubro, promedio de cada año", forma: "lineas",
+      {g: "export-cantidades", tit: "Cantidades exportadas por gran rubro, promedio de cada año", forma: "lineas", alto: "396px",
         pie: `Índices de cantidad del INDEC, ${t.desde_anio} = 100, sin el efecto de los precios. Años completos.`, txt: [s1]},
       {g: "export-dolar", tit: "Cuánto cambió el dólar real medio año antes y cuánto cambiaron las cantidades exportadas", forma: "puntos",
         pie: "Cada punto es un trimestre, frente al mismo trimestre del año anterior. La línea punteada muestra la tendencia.", txt: [s2]},
@@ -6358,9 +7474,9 @@ ART_SERIE.forEach(a => {
   const nota = document.getElementById(a.id); if (!nota) return;
   const t = a.texto(), ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   nota.innerHTML =
-    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h2 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h2></div></div>` +
+    `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${t.contexto}</p>` +
-    t.secciones.map(s => `<div class="nota-graf"><h3>${s.tit}</h3><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"></div>` +
+    t.secciones.map(s => `<div class="nota-graf"><h3>${s.tit}</h3><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` +
       `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("")).join("") +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
     `<div class="nota-fuentes"><p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
@@ -6403,7 +7519,7 @@ document.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "laboratorio": "matraz", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-empleo-pobreza": "personas", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna", "corte-suprema": "balanza"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-empleo-pobreza": "personas", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna", "corte-suprema": "balanza"};
 const tarjetaSec = sec => {
   const n = sec.f, na = sec.a;
   return `<a class="tarjeta sec-tarjeta${sec.herr ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
@@ -6527,6 +7643,7 @@ const SERIE_CIFRA = {
   "f-censo": () => provM("Hogares con desagüe a red cloacal, en %, Censo 2022", T.censo2022_provincias, "cloaca", nv.censo.cloaca, pct),
   "f-internet": () => provM("Accesos a internet fijo cada 100 hogares", T.internet_fijo_provincias, "accesos_100_hogares", null, n1),
   "f-esperanza": () => provM(`Esperanza de vida al nacer, en años, ${nv.ev_anio}`, T.esperanza_vida_provincias, "total", nv.ev_pais, n1),
+  "f-causas-muerte": () => provM(`Muertes por año cada 100.000 habitantes, ajustadas por edad, ${CM.desde} a ${CM.hasta}`, T.causas_muerte_provincias, "tasa_total", CM.pais, n0),
   "x-ev-brecha": () => provM(`Años más de esperanza de vida de las mujeres que de los varones, ${nv.ev_anio}`,
     T.esperanza_vida_provincias.map(r => ({...r, brecha: r.mujeres - r.varones})), "brecha", nv.ev_m - nv.ev_v, n1),
   "f-mortalidad": () => provM(`Mortalidad infantil cada 1.000 nacidos vivos, promedio de ${mo.tri_act}`, T.mortalidad_infantil_provincias, "tmi_actual", mo.pais_act, n1),
@@ -6537,6 +7654,14 @@ const SERIE_CIFRA = {
   "f-pisa": () => serieM("Argentina en matemática en PISA, por edición (sin 2015, que no es comparable)", T.pisa_argentina_ocde.map(r => [r.anio, r.arg_mat_grafico]), n0),
   "x-nacimientos": () => serieM("Nacimientos por año", T.nacimientos.map(r => [r.anio, r.nacimientos]), n0),
   "f-adolescentes": () => serieM("Nacimientos de madres menores de 20 años, cada 100, por año", T.nacimientos.map(r => [r.anio, r.pct_madres_menores_20]), n1),
+  "f-exporta-rubros": () => serieM("Exportaciones de bienes por año, en miles de millones de dólares", T.exportaciones_rubros_anual.map(r => [r.anio, r.total / 1000]), n1, 12),
+  "f-balanza": () => serieM("Saldo del comercio de bienes por año, en millones de dólares", T.balanza_comercial.map(r => [r.anio, r.saldo]), n0, 12),
+  "f-importaciones": () => serieM("Importaciones de bienes por año, en miles de millones de dólares", T.balanza_comercial.map(r => [r.anio, r.importaciones / 1000]), n1, 12),
+  "f-cuenta-corriente": () => serieM("Saldo de la cuenta corriente por año, en millones de dólares", T.cuenta_corriente.map(r => [r.anio, r.cuenta_corriente]), n0, 12),
+  "f-reservas-bcra": () => serieM("Reservas del Banco Central, en miles de millones de dólares, diciembre de cada año y el último mes",
+    T.reservas_bcra.filter((r, i, t) => r.mes.endsWith("-12") || i === t.length - 1).map(r => [r.mes.endsWith("-12") ? r.mes.slice(0, 4) : mesCorto(r.mes), r.millones_usd / 1000]), n1, 12),
+  "f-exporta-provincias": () => provM(`Exportaciones por provincia de origen, en millones de dólares, ${SX.provincias.anio}`, T.exportaciones_provincias, "millones_usd", null, n0),
+  "f-poblacion-proy": () => provM(`Variación de la población proyectada entre ${PPY.anio} y ${PPY.anio_fin}, en %`, T.poblacion_proyectada_provincias, "var_pct", PPY.var_pct, conSigno),
   "x-vejez": () => serieM("Personas de 65 años o más cada 100 de 15 a 64, proyección del INDEC",
     T.envejecimiento_pais.filter(r => (r.anio - T.envejecimiento_pais[0].anio) % 2 === 0 || r.anio === EV.anio).map(r => [r.anio, r.vejez]), n1, 12, EV.anio),
   "x-jubilaciones": () => serieM("Aportantes por cada jubilación o pensión de ANSES, por año", T.jubilaciones_aportantes.map(r => [r.anio, r.aportantes_por_beneficio]), n2),
@@ -6772,6 +7897,34 @@ if (PAGINA === "contacto" && new URLSearchParams(location.search).has("enviado")
   document.querySelector(".form-contacto").hidden = true;
   document.getElementById("form-gracias").hidden = false;
 }
+// y después de suscribirse desde el pie (?suscripto=1): el aviso en Contacto, debajo de su formulario, que sigue disponible
+if (PAGINA === "contacto" && new URLSearchParams(location.search).has("suscripto")) document.getElementById("susc-gracias").hidden = false;
+// la suscripción del pie (11 de octubre de 2026, pedido del autor): con este código se envía a Netlify sin salir de la página. El botón
+// cambia de texto en su lugar ("Enviando", "Anotado") y queda ocupado (aria-busy) sin perder el foco. Si el envío falla, o el sitio no está
+// en Netlify, lo dice y deja probar de nuevo. Sin este código, el formulario se envía como siempre y vuelve a Contacto con ?suscripto=1
+document.querySelectorAll("form.form-suscripcion").forEach(form => {
+  const boton = form.querySelector(".susc-boton"), estado = form.querySelector(".susc-estado"), correo = form.querySelector("input[type=email]");
+  const poner = e => { form.querySelectorAll(".susc-e").forEach(x => x.classList.toggle("activa", x.dataset.e === e)); boton.dataset.estado = e; };
+  form.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    if (boton.getAttribute("aria-busy") === "true" || boton.dataset.estado === "ok") return;
+    boton.setAttribute("aria-busy", "true");
+    poner("envia");
+    estado.textContent = "";
+    try {
+      const r = await fetch("/", {method: "POST", headers: {"Content-Type": "application/x-www-form-urlencoded"}, body: new URLSearchParams(new FormData(form)).toString()});
+      if (!r.ok) throw new Error(r.status);
+      poner("ok");
+      correo.readOnly = true;
+      boton.setAttribute("aria-disabled", "true");
+      estado.textContent = "Listo, tu correo quedó anotado.";
+    } catch {
+      poner("listo");
+      estado.textContent = "No se pudo enviar. Probá de nuevo en un rato.";
+    }
+    boton.removeAttribute("aria-busy");
+  });
+});
 
 /* la barra superior es azul sobre la portada y clara en el resto */
 const barra = document.querySelector(".barra");
@@ -6935,7 +8088,94 @@ function cerrarTarjetaMapa() {
 // la provincia elegida, en amarillo
 const marcarMapa = () => document.querySelectorAll("#mapa .provs a").forEach(a => a.classList.toggle("elegida", a.dataset.c === prov));
 alCambiarProv.push(marcarMapa);
+// la historia de la provincia elegida en Tu provincia (11 de octubre de 2026): los 24 bloques los escribe el constructor, ocultos
+const mostrarHistoria = () => document.querySelectorAll("#prov-historia .ph").forEach(a => { a.hidden = a.dataset.c !== prov; });
+if (document.getElementById("prov-historia")) { mostrarHistoria(); alCambiarProv.push(mostrarHistoria); }
 if (PAGINA === "inicio") mapa();
+
+/* ---------- catálogo de datos (catalogo.html, 11 de octubre de 2026) ----------
+   La lista, los filtros y el diccionario de cada tabla los escribe el constructor (scripts/catalogo.py). Acá: buscar con todas las palabras
+   y sin tildes, como el Explorador de relaciones, filtrar por tema, organismo, cobertura y año, guardar todo eso en el enlace para poder
+   compartirlo, y la vista previa, que baja la tabla recién cuando alguien la pide y muestra sus primeras 10 filas tal como vienen en el CSV */
+(() => {
+  const lista = document.getElementById("cat-lista");
+  if (!lista) return;
+  const items = [...lista.children], q = document.getElementById("cat-q"), cuenta = document.getElementById("cat-cuenta");
+  const vacio = document.getElementById("cat-vacio"), limpiar = document.getElementById("cat-limpiar");
+  const sels = {tema: "cat-tema", org: "cat-org", cob: "cat-cob", anio: "cat-anio"};
+  Object.keys(sels).forEach(k => { sels[k] = document.getElementById(sels[k]); });
+  const sinTildes = t => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  // lo que se busca: lo que se ve de cada tabla y los nombres de sus columnas
+  const textos = new Map(items.map(li => [li, sinTildes([li.id.slice(4), ...[...li.querySelectorAll(".etiqueta, .cat-tit, .cat-sub, .cat-datos dd, .cat-dic code")].map(x => x.textContent)].join(" "))]));
+  function filtrar(guardar = true) {
+    const pal = sinTildes(q.value).split(/\s+/).filter(Boolean), {tema, org, cob} = Object.fromEntries(Object.entries(sels).map(([k, s]) => [k, s.value]));
+    const anio = +sels.anio.value || 0;
+    let n = 0;
+    items.forEach(li => {
+      const d = li.dataset;
+      const ok = pal.every(p => textos.get(li).includes(p)) && (!tema || d.tema === tema) && (!org || d.org.split(" ").includes(org)) &&
+        (!cob || d.cob === cob) && (!anio || (d.a0 !== "" && +d.a0 <= anio && anio <= +d.a1));
+      li.hidden = !ok;
+      n += ok;
+    });
+    const filtrado = pal.length || tema || org || cob || anio;
+    cuenta.innerHTML = filtrado ? `<b>${n}</b> de ${items.length} tablas` : `<b>${n}</b> tablas`;
+    vacio.hidden = n > 0;
+    limpiar.hidden = !filtrado;
+    if (!guardar) return;
+    const u = new URL(location.href);
+    [["q", q.value.trim()], ...Object.entries(sels).map(([k, s]) => [k, s.value])].forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
+    history.replaceState(history.state, "", u);
+  }
+  // un enlace con filtros (catalogo.html?q=salta&org=org:indec) los trae puestos, si existen
+  const par = new URLSearchParams(location.search);
+  q.value = par.get("q") || "";
+  Object.entries(sels).forEach(([k, s]) => { const v = par.get(k); if (v && [...s.options].some(o => o.value === v)) s.value = v; });
+  filtrar(false);
+  q.addEventListener("input", () => filtrar());
+  Object.values(sels).forEach(s => s.addEventListener("change", () => filtrar()));
+  limpiar.addEventListener("click", () => {
+    q.value = ""; Object.values(sels).forEach(s => { s.value = ""; });
+    filtrar(); q.focus();
+  });
+  async function vistaPrevia(caja) {
+    const filas = caja.querySelector(".cat-filas");
+    if (filas.dataset.listo) return;
+    filas.innerHTML = `<p class="nota" role="status">Cargando las primeras filas…</p>`;
+    try {
+      const r = await fetch(filas.dataset.csv);
+      if (!r.ok) throw new Error(r.status);
+      const [cab, ...resto] = d3.csvParseRows(await r.text()), total = resto.length, muestra = resto.slice(0, 10);
+      const nombre = filas.dataset.csv.split("/").pop();
+      const t = document.createElement("table");
+      t.className = "tabla-areas";
+      t.createCaption().textContent = `Primeras ${muestra.length} de ${n0(total)} filas de ${nombre}`;
+      const tr = t.createTHead().insertRow();
+      cab.forEach(c => { const th = document.createElement("th"); th.scope = "col"; th.textContent = c; tr.appendChild(th); });
+      const tb = t.createTBody();
+      muestra.forEach(f => { const fila = tb.insertRow(); cab.forEach((_, i) => { fila.insertCell().textContent = f[i] ?? ""; }); });
+      const caja2 = document.createElement("div");
+      caja2.className = "tabla-desliza"; caja2.tabIndex = 0; caja2.setAttribute("role", "region"); caja2.setAttribute("aria-label", `Vista previa de ${nombre}`);
+      caja2.appendChild(t);
+      filas.replaceChildren(caja2);
+      filas.dataset.listo = "1";
+    } catch {
+      // la red falló: un aviso que se anuncia, y al volver a abrir se prueba de nuevo
+      filas.innerHTML = `<p class="nota" role="status">No se pudo cargar la vista previa. Probá de nuevo.</p>`;
+    }
+  }
+  lista.addEventListener("click", ev => {
+    const b = ev.target.closest(".cat-ver");
+    if (!b) return;
+    const caja = document.getElementById(b.getAttribute("aria-controls")), abrir = b.getAttribute("aria-expanded") !== "true";
+    b.setAttribute("aria-expanded", String(abrir));
+    caja.hidden = !abrir;
+    if (abrir) vistaPrevia(caja);
+  });
+  // un enlace a una tabla (catalogo.html#cat-salarios_provincias) la muestra abierta
+  const elegida = location.hash.startsWith("#cat-") ? document.getElementById(location.hash.slice(1)) : null;
+  if (elegida?.classList.contains("cat-item")) { elegida.hidden = false; elegida.querySelector(".cat-ver").click(); }
+})();
 
 /* primer dibujo y redibujo al cambiar el ancho */
 const redibujar = () => { dibujarTodo(); tiras(); pintarPanel(false); tablaAreas(); };

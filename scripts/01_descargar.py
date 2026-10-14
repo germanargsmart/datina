@@ -5,7 +5,10 @@ y anota la fecha de descarga en datos/crudo/_registro.csv
 Uso: python scripts/01_descargar.py
 """
 import urllib.error
-import csv, datetime, http.cookiejar, json, pathlib, re, ssl, urllib.request
+import base64, csv, datetime, http.cookiejar, json, pathlib, re, ssl, sys, tempfile, time, urllib.parse, urllib.request
+
+# cada aviso sale en el momento: en GitHub, sin esto, el registro quedaba vacío hasta el final y no se veía qué fuente tardaba
+sys.stdout.reconfigure(line_buffering=True)
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 CRUDO = RAIZ / "datos" / "crudo"
@@ -17,6 +20,116 @@ UA = {"User-Agent": "Mozilla/5.0 (argentina-en-datos)"}
 # sin verificar el certificado, y el contenido se valida igual antes de guardarlo (ver VALIDA).
 CERTIFICADO_VENCIDO = ("www.economia.gob.ar", "www.mecon.gob.ar")
 
+
+# Servidores que no mandan el certificado intermedio de su cadena: en GitHub fallan con "unable to get local issuer certificate"
+# (argentina.gob.ar, censo.gob.ar, el ENACOM y otros, octubre de 2026). Un navegador lo busca solo en la dirección que indica el
+# certificado del servidor (el campo "CA Issuers") y Python no. Se hace lo mismo: se baja el intermedio de esa dirección y se suma a
+# los de confianza de esa conexión, sin apagar la verificación. Por seguridad, solo se suman certificados que no se firman a sí mismos
+# y la cadena tiene que terminar en una raíz de confianza del sistema (sin cadenas parciales), así que uno falso no pasa
+_INTERMEDIOS = {}
+
+
+def _leer_certificado(pem):
+    """Los datos de un certificado en PEM (emisor, sujeto y la dirección "CA Issuers"), o un error si no es un certificado."""
+    with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as f:
+        f.write(pem)
+    try:
+        return ssl._ssl._test_decode_cert(f.name)
+    finally:
+        pathlib.Path(f.name).unlink()
+
+
+def _der_elemento(b, i):
+    """Etiqueta, comienzo y fin del contenido del elemento DER que empieza en la posición i."""
+    etiqueta, largo, i = b[i], b[i + 1], i + 2
+    if largo == 0x80:
+        raise ValueError("largo indefinido")
+    if largo & 0x80:
+        n = largo & 0x7F
+        largo, i = int.from_bytes(b[i:i + n], "big"), i + n
+    if i + largo > len(b):
+        raise ValueError("elemento cortado")
+    return etiqueta, i, i + largo
+
+
+def _pkcs7_certificados(b):
+    """Los certificados (DER) de un paquete PKCS#7 de solo certificados (.p7c o .p7b), o una lista vacía si no es uno."""
+    try:
+        _, i, _ = _der_elemento(b, 0)                       # ContentInfo
+        etiqueta, j, k = _der_elemento(b, i)                # contentType: signedData (1.2.840.113549.1.7.2)
+        if etiqueta != 0x06 or b[j:k] != bytes.fromhex("2a864886f70d010702"):
+            return []
+        _, i, _ = _der_elemento(b, k)                       # [0]
+        _, i, fin = _der_elemento(b, i)                     # SignedData
+        certificados = []
+        while i < fin:
+            etiqueta, j, k = _der_elemento(b, i)
+            if etiqueta == 0xA0:                            # certificates
+                while j < k:
+                    _, _, z = _der_elemento(b, j)
+                    certificados.append(b[j:z])
+                    j = z
+            i = k
+        return certificados
+    except (IndexError, ValueError):
+        return []
+
+
+def _certificados_publicados(datos):
+    """Los certificados que devuelve una dirección "CA Issuers", en PEM. Cada autoridad los publica a su manera: un certificado en DER
+    o en PEM (a veces con texto antes) o un paquete PKCS#7. Lo que no se puede leer como certificado se descarta."""
+    ders = []
+    if b"-----BEGIN" in datos:
+        for tipo, cuerpo in re.findall(rb"-----BEGIN ([A-Z0-9 ]+)-----(.+?)-----END \1-----", datos, re.S):
+            try:
+                der = base64.b64decode(b"".join(cuerpo.split()))
+            except ValueError:
+                continue
+            ders += [der] if tipo in (b"CERTIFICATE", b"X509 CERTIFICATE") else _pkcs7_certificados(der) if tipo in (b"PKCS7", b"CMS") else []
+    else:
+        ders = _pkcs7_certificados(datos) or [datos]
+    certificados = []
+    for der in ders:
+        pem = ssl.DER_cert_to_PEM_cert(der)
+        try:
+            certificados.append((pem, _leer_certificado(pem)))
+        except ssl.SSLError:
+            continue
+    return certificados
+
+
+def contexto_con_intermedios(url):
+    sitio = urllib.parse.urlsplit(url)
+    host, puerto = sitio.hostname, sitio.port or 443
+    if host in _INTERMEDIOS:
+        return _INTERMEDIOS[host]
+    cadena, problema = [], "la dirección que indica su certificado no trae un intermedio"
+    try:
+        pem = ssl.get_server_certificate((host, puerto), timeout=30)
+        for _ in range(3):  # el intermedio puede estar firmado por otro que también falte
+            emisores = [u for u in _leer_certificado(pem).get("caIssuers", ()) if u.lower().startswith(("http://", "https://"))]
+            if not emisores:
+                break
+            with urllib.request.urlopen(emisores[0], timeout=30) as r:
+                publicados = _certificados_publicados(r.read())
+            # las raíces (se firman a sí mismas) tienen que estar entre las del sistema: no se suman
+            intermedios = [p for p, datos in publicados if datos.get("subject") != datos.get("issuer")]
+            if not intermedios:
+                break
+            cadena += intermedios
+            pem = intermedios[0]
+    except Exception as e:  # si falla un paso posterior, se usan los intermedios que ya se bajaron
+        problema = e
+    ctx = None
+    if cadena:
+        ctx = ssl.create_default_context()
+        ctx.verify_flags &= ~getattr(ssl, "VERIFY_X509_PARTIAL_CHAIN", 0)
+        ctx.load_verify_locations(cadata="".join(cadena))
+        print(f"  aviso: {host} no manda su certificado intermedio: se bajó de la dirección que indica su certificado")
+    else:
+        print(f"  aviso: no se pudo completar la cadena de certificados de {host}: {problema}")
+    _INTERMEDIOS[host] = ctx
+    return ctx
 
 def leer(url, timeout=180):
     """Baja una direccion con un manejo de cookies nuevo en cada llamada.
@@ -32,8 +145,17 @@ def leer(url, timeout=180):
     try:
         return abrir()
     except urllib.error.URLError as e:
+        if "UNABLE TO GET LOCAL ISSUER" in str(e).upper():
+            ctx = contexto_con_intermedios(url)
+            if ctx:
+                try:
+                    return abrir(ctx)
+                except urllib.error.URLError as e2:
+                    # con la cadena completa puede aparecer otro problema del certificado, como que está vencido (economia.gob.ar,
+                    # octubre de 2026): sigue el camino de abajo con ese error
+                    e = e2
         if not any(h in url for h in CERTIFICADO_VENCIDO) or "CERTIFICATE" not in str(e).upper():
-            raise
+            raise e
         print(f"  aviso: certificado vencido en {url.split('/')[2]}, se reintenta sin verificarlo")
         return abrir(ssl._create_unverified_context())
 
@@ -172,10 +294,11 @@ FUENTES = {
     "sinta_eti_provincias.csv": ckan_id(YV, "encuesta-turismo-internacional", "4af57562-9ca5-4301-8865-e04e9bfdf327",
         YV + "/dataset/78b880c1-50d5-4a0c-9c87-7350e70548c2/resource/4af57562-9ca5-4301-8865-e04e9bfdf327/download/turistas_pernoctes_por_provincia_segun_origen_y_destinos_visitados_ezeiza_aeroparque.csv"),
     # Carne vacuna, vino y yerba mate: indicadores sectoriales del Ministerio de Economia (SSPMI).
-    # El servidor estuvo inestable en septiembre de 2026: si falla, queda el archivo anterior.
-    "sspmi_carne_vacuna.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_carnica-vacuna.csv",
-    "sspmi_vitivinicultura.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_vitivinicultura.csv",
-    "sspmi_yerba_mate.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/sspmi_yerba-mate.csv",
+    # El servidor estuvo inestable en septiembre de 2026: si falla, queda el archivo anterior. En octubre de 2026 los archivos perdieron el
+    # prefijo "sspmi_" (la actualización del 12 de octubre encontró vitivinicultura.csv y yerba-mate.csv en el catálogo)
+    "sspmi_carne_vacuna.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/carnica-vacuna.csv",
+    "sspmi_vitivinicultura.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/vitivinicultura.csv",
+    "sspmi_yerba_mate.csv": "https://www.economia.gob.ar/catalogo-sspmi/nuevo_dataset/yerba-mate.csv",
     # Nombres mas frecuentes por provincia, anio y sexo (RENAPER)
     "renaper_nombres_frecuentes.csv": "https://datosabiertos.renaper.gob.ar/nombres_propios_frecuentes_anio_sexo_provincia_2012_2024.csv",
     # Glaciares por provincia (Inventario Nacional de Glaciares) y anomalia de temperatura desde 1961 (SMN), via CIAM
@@ -331,10 +454,13 @@ VALIDA = {
     "educ_escolarizacion.zip": lambda b: b[:2] == b"PK",
     "pisa_owid.csv": lambda b: b.startswith(b"entity,"),
     "dnrpa_autos_nuevos.csv": lambda b: b"inscripcion" in b[:200],
-    "sspmi_carne_vacuna.csv": lambda b: b"sector_id" in b[:200],
-    "sspmi_vitivinicultura.csv": lambda b: b"sector_id" in b[:200],
-    "sspmi_yerba_mate.csv": lambda b: b"sector_id" in b[:200],
+    # además del formato, los indicadores que usa el sitio (la búsqueda en el catálogo encontró una vez la planilla de carne aviar)
+    "sspmi_carne_vacuna.csv": lambda b: b"sector_id" in b[:200] and b"Asado-Pollo" in b and b"Consumo per c" in b,
+    "sspmi_vitivinicultura.csv": lambda b: b"sector_id" in b[:200] and b"Mercado interno" in b,
+    "sspmi_yerba_mate.csv": lambda b: b"sector_id" in b[:200] and b"Salida de molino" in b,
     "renaper_nombres_frecuentes.csv": lambda b: b"provincia_id" in b[:100],
+    # la base SAT de suicidios: solo se leen el año, el sexo y la edad (regla de temas sensibles)
+    "snic_sat_suicidios.csv": lambda b: all(c in b.split(b"\n", 1)[0] for c in (b"anio", b"suicida_sexo", b"suicida_tr_edad")),
     "ciam_glaciares.csv": lambda b: b"glaciares" in b[:200],
     "ciam_desembarques_especie.csv": lambda b: b"especies" in b[:100],
     "ciam_pesca_continental.csv": lambda b: b"especie" in b[:100],
@@ -383,7 +509,8 @@ VALIDA.update({
     "gas_residencial_pais.csv": lambda b: b.startswith(b"indice_tiempo,residencial"),
     "subsidios_energia.csv": lambda b: b.startswith(b"indice_tiempo,energia"),
     "pib_corriente.csv": lambda b: b.startswith(b"indice_tiempo,oferta_global_pib"),
-    "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500"),
+    # el 11 de octubre de 2026 la API devolvió meses vacíos en el medio (2017 y 2018): si vuelve a pasar, se conserva el archivo anterior
+    "tipo_cambio_a3500.csv": lambda b: b.startswith(b"indice_tiempo,tipo_cambio_a3500") and serie_sin_huecos(b, 1),
     "inversion_trimestral.csv": lambda b: b.startswith(b"indice_tiempo,4.2_DGIT_2004_T_25,4.2_DGIC_2004_T_32"),
     "compras_dolares_privados.csv": lambda b: b.startswith(b"indice_tiempo,182.1_C_K_FINC_CINC_0_M_57,182.1_C_K_FINC_CINC_NO_FINAN_0_M_56"),
     "sinta_turistas_residentes.csv": lambda b: b"viajes_de_turistas_residentes" in b[:300],
@@ -392,19 +519,144 @@ VALIDA.update({
     "sneep_poblacion.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf,total_arg" in b[:400],
     "sneep_condenados.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf," in b[:400],
 })
+# Toda planilla de la API de Series de Tiempo, además de su encabezado, tiene que llegar sin meses vacíos en el medio en ninguna columna
+# (el 11 de octubre de 2026 la API devolvió huecos en el tipo de cambio A3500 y la actualización se cortó): si no, se conserva la anterior
+for _api_n in [n for n, u in FUENTES.items() if u and u.startswith(API)]:
+    VALIDA[_api_n] = lambda b, v=VALIDA.get(_api_n): (v is None or v(b)) and all(serie_sin_huecos(b, c) for c in range(1, len(b.split(b"\n", 1)[0].split(b","))))
 for _ind in ["SP.DYN.LE00.IN", "SP.DYN.IMRT.IN"]:
     VALIDA[f"bm_mundo_{_ind}.json"] = lambda b: b'"countryiso3code"' in b
 for _ind in BM_INDICADORES:
     VALIDA[f"bm_{_ind}.json"] = lambda b: b.lstrip()[:1] == b"[" and b'"countryiso3code"' in b
 
 
+def serie_sin_huecos(b, col):
+    """Una planilla de la API de Series de Tiempo sin filas vacías en la columna indicada entre el primer y el último dato."""
+    vals = [f[col].strip() if len(f) > col else b"" for f in (linea.split(b",") for linea in b.strip().splitlines()[1:])]
+    con = [i for i, v in enumerate(vals) if v]
+    return bool(con) and all(vals[i] for i in range(con[0], con[-1] + 1))
+
+
+# Las tres planillas del SSPMI (carne vacuna, vino y yerba mate) dan 404 en su dirección de siempre desde octubre de 2026. Si pasa, se busca
+# el archivo en el catálogo del SSPMI y en el de datos.gob.ar por su nombre, y se guarda la lista de enlaces que se encontraron
+# (sspmi_enlaces.json), para ver adónde se mudaron
+SSPMI_CLAVE = {"sspmi_carne_vacuna.csv": r"vacun", "sspmi_vitivinicultura.csv": r"vitivin", "sspmi_yerba_mate.csv": r"yerba"}
+
+
+def sspmi_buscar(nombre):
+    enlaces = set()
+    for pag in ("https://www.economia.gob.ar/catalogo-sspmi/data.json", "https://www.economia.gob.ar/catalogo-sspmi/",
+                "https://datos.gob.ar/api/3/action/package_search?q=sspmi&rows=200",
+                "https://datos.gob.ar/api/3/action/package_search?q=indicadores%20sectoriales&rows=200"):
+        try:
+            texto = leer(pag, 60).decode("utf-8", "ignore").replace("\\/", "/")   # las barras escapadas de los JSON
+        except Exception:
+            continue
+        enlaces |= {urllib.parse.urljoin(pag, u) for u in re.findall(r"""(?:href=|"(?:downloadURL|url|accessURL)"\s*:\s*)["']([^"']+?\.csv)["']""", texto, re.I)}
+    previas = json.loads((CRUDO / "sspmi_enlaces.json").read_text(encoding="utf-8")) if (CRUDO / "sspmi_enlaces.json").exists() else []
+    (CRUDO / "sspmi_enlaces.json").write_text(json.dumps(sorted(enlaces | set(previas)), ensure_ascii=False, indent=1), encoding="utf-8")
+    candidatas = sorted(u for u in enlaces if re.search(SSPMI_CLAVE[nombre], u, re.I) and re.search(r"sspm|sectorial|indicador|nuevo_dataset", u, re.I))
+    for u in candidatas:
+        try:
+            datos = leer(u, 120)
+        except Exception:
+            continue
+        if VALIDA[nombre](datos):
+            return u, datos
+    raise ValueError(f"404 y no se encontró en los catálogos ({len(enlaces)} enlaces a CSV, {len(candidatas)} candidatos; ver sspmi_enlaces.json)")
+
+
+# Archivos que el organismo vuelve a publicar con otro nombre cuando suma un año, sin borrar el anterior (14 de octubre de 2026): la base
+# SAT de suicidios del SNIC (SAT-SS-BU_2017-2024.csv) y los nombres del RENAPER (..._2012_2024.csv). Con la dirección fija la actualización
+# seguía bajando el año viejo: en octubre de 2026 la base SAT seguía en 2024 cuando el SNIC por provincia ya llegaba a 2025. Ahora se prueba
+# antes el mismo nombre con los años siguientes, del más nuevo al más viejo, y se usa el primero que existe y tiene el formato esperado
+# (VALIDA). Si no hay ninguno, se baja el conocido, como siempre. Un archivo nuevo que no se lee igual frena 02_procesar.py: avisar al autor
+SIGUIENTE = {
+    "snic_sat_suicidios.csv": ("2017-2024", "2017-{}"),
+    "renaper_nombres_frecuentes.csv": ("2012_2024", "2012_{}"),
+}
+
+
+def mas_nuevo(nombre, url):
+    viejo, molde = SIGUIENTE[nombre]
+    assert viejo in url and nombre in VALIDA, nombre
+    for a in range(datetime.date.today().year, int(viejo[-4:]), -1):
+        prueba = url.replace(viejo, molde.format(a))
+        try:
+            datos = leer(prueba, 120)
+        except Exception:  # 404 mientras no lo publiquen
+            continue
+        if VALIDA[nombre](datos):
+            return prueba, datos
+    return url, None
+
+
 def bajar(nombre, url):
+    """Baja un archivo de FUENTES a datos/crudo/ y devuelve la dirección de la que salió."""
     if not url:
         raise ValueError("no se encontro la direccion en el catalogo")
-    datos = leer(url)
+    nueva, datos = mas_nuevo(nombre, url) if nombre in SIGUIENTE else (url, None)
+    if datos is not None:
+        print(f"  aviso: {nombre} tiene un año más publicado: se usa {nueva}")
+        url = nueva
+    else:
+        try:
+            datos = leer(url)
+        except urllib.error.HTTPError as e:
+            if e.code != 404 or nombre not in SSPMI_CLAVE:
+                raise
+            url, datos = sspmi_buscar(nombre)
+            print(f"  aviso: {nombre} se encontró en {url}")
+    if nombre in VALIDA and not VALIDA[nombre](datos) and url.startswith(API):
+        completa, n = api_completar(nombre, datos)
+        if n and VALIDA[nombre](completa):
+            print(f"  aviso: {nombre} vino con valores vacíos o períodos de menos: {n} valores salieron de la versión anterior")
+            datos = completa
     if nombre in VALIDA and not VALIDA[nombre](datos):
-        raise ValueError("el archivo descargado no tiene el formato esperado")
+        raise ValueError("el archivo descargado no tiene el formato esperado" + motivo_formato(url, datos))
     (CRUDO / nombre).write_bytes(datos)
+    return url
+
+
+def api_completar(nombre, datos):
+    """Desde el 12 de octubre de 2026 la API de Series de Tiempo devuelve las planillas con valores vacíos sueltos en el medio, en todas las
+    series (también en las anuales, que no cambian) y a veces sin el último mes, y la validación las rechazaba enteras: el sitio quedaba con
+    la versión anterior y no entraban los meses nuevos. Se completan con esa versión anterior: cada valor vacío con el del mismo período y la
+    misma serie, y cada período que falta, entero. Los valores que trae la API no se tocan. Devuelve la planilla completada y cuántos
+    valores salieron de la anterior (0 si no hay anterior o cambiaron las columnas)."""
+    previo = CRUDO / nombre
+    if not previo.exists() or not datos.startswith(b"indice_tiempo"):
+        return datos, 0
+    nuevas, viejas = datos.strip().splitlines(), previo.read_bytes().strip().splitlines()
+    if not viejas or nuevas[0] != viejas[0]:
+        return datos, 0
+    ancho = len(nuevas[0].split(b","))
+    filas = lambda lineas: {f[0]: f + [b""] * (ancho - len(f)) for f in (x.split(b",") for x in lineas[1:])}
+    nue, vie, n = filas(nuevas), filas(viejas), 0
+    for per, f in vie.items():
+        if per not in nue:
+            nue[per] = f
+            n += sum(1 for x in f[1:] if x.strip())
+            continue
+        for j in range(1, ancho):
+            if not nue[per][j].strip() and f[j].strip():
+                nue[per][j] = f[j]
+                n += 1
+    fin = b"\r\n" if b"\r\n" in datos else b"\n"
+    return fin.join([nuevas[0]] + [b",".join(nue[p]) for p in sorted(nue)]) + fin, n
+
+
+def motivo_formato(url, datos):
+    """Por qué una planilla de la API de Series de Tiempo no pasó la validación, para el registro (desde el 12 de octubre de 2026 unas diez
+    fallaban en cada actualización sin decir por qué): si no es una tabla, cómo empieza, y si lo es, qué series tienen meses vacíos en el
+    medio y cuál es el último período."""
+    if not url.startswith(API):
+        return ""
+    if not datos.startswith(b"indice_tiempo"):
+        return f" (no es una tabla: empieza con {datos[:60]!r})"
+    filas = datos.strip().splitlines()
+    cab = filas[0].decode("utf-8", "ignore").split(",")
+    huecos = [cab[c] for c in range(1, len(cab)) if not serie_sin_huecos(datos, c)]
+    return f" ({len(filas) - 1} períodos hasta {filas[-1].split(b',')[0].decode()}; con meses vacíos en el medio: {', '.join(huecos) or 'ninguna'})"
 
 
 def departamentos():
@@ -462,18 +714,31 @@ def opex_semestre():
 
 def bess():
     """Boletin Estadistico de la Seguridad Social (Secretaria de Seguridad Social). Los nombres de los Excel cambian con
-    cada edicion (sufijos de fecha), asi que se leen desde la pagina del boletin."""
+    cada edicion (sufijos de fecha), asi que se leen desde la pagina del boletin. Ademas de los indicadores, desde la etapa 42
+    (pedido del autor del 12 de octubre de 2026) se bajan las pensiones no contributivas y las asignaciones familiares (con la
+    AUH), del pais y de la edicion por jurisdiccion, con un nombre fijo cada uno, y la prestacion por desempleo (seguro de desempleo)."""
     pagina = leer("https://www.argentina.gob.ar/trabajo/seguridadsocial/bess", 60).decode("utf-8", "ignore")
-    enlace = re.search(r'href="(/sites/default/files/estadisticas_de_seguridad_social_indicadores_[^"]+\.xlsx)"', pagina)
-    if not enlace:
-        raise ValueError("no se encontro el cuadro de indicadores en la pagina del BESS")
-    url = "https://www.argentina.gob.ar" + enlace.group(1)
-    datos = leer(url, 120)
-    if datos[:2] != b"PK":
-        raise ValueError("el archivo del BESS no es un Excel")
-    (CRUDO / "bess_indicadores.xlsx").write_bytes(datos)
-    return url
-
+    archivos = {"bess_indicadores.xlsx": "estadisticas_de_seguridad_social_indicadores_", "bess_pnc.xlsx": "estadisticas_de_seguridad_social_pnc_",
+                "bess_provincias_pnc.xlsx": "boletin_provincias_pnc_", "bess_aaff.xlsx": "estadisticas_de_seguridad_social_aaff_",
+                "bess_provincias_aaff.xlsx": "boletin_provincias_aaff_", "bess_desempleo.xlsx": "estadisticas_de_seguridad_social_desempleo_",
+                "bess_provincias_desempleo.xlsx": "boletin_provincias_desempleo_"}
+    bajados, faltan = [], []
+    for nombre, prefijo in archivos.items():
+        enlace = re.search(r'href="([^"]*/sites/default/files/' + prefijo + r'[^"]*\.xlsx)"', pagina)
+        try:
+            if not enlace:
+                raise ValueError("no está en la página del boletín")
+            url = urllib.parse.urljoin("https://www.argentina.gob.ar/", enlace.group(1))
+            datos = leer(url, 120)
+            if datos[:2] != b"PK":
+                raise ValueError("no es un Excel")
+            (CRUDO / nombre).write_bytes(datos)
+            bajados.append(url)
+        except Exception as e:  # cada archivo por su lado: si falla uno se conserva el anterior y siguen los demás
+            faltan.append(f"{nombre}: {e}")
+    if faltan:
+        raise ValueError("del BESS no se bajaron " + "; ".join(faltan) + f" (se bajaron {len(bajados)} de {len(archivos)})")
+    return bajados[0]
 
 def indec_eph_aglomerados():
     """Pobreza e indigencia (informe semestral) y tasas de empleo y desocupación de cada trimestre desde 2016 (informe trimestral del
@@ -544,6 +809,44 @@ def indec_eph_aglomerados():
     return url_p + " y " + url_t
 
 
+def eph_ingresos(b, np, pd):
+    """Ingresos por aglomerado de la EPH (etapa 43, pregunta abierta al autor desde la etapa 27: "los ingresos por aglomerado de la EPH";
+    el autor pidio el 12 de octubre de 2026 avanzar con todo). Dos ingresos, con los ponderadores que el INDEC indica para cada uno:
+    - el ingreso per capita familiar de las personas (IPCF, con PONDIH): el ingreso total del hogar dividido por sus miembros;
+    - el ingreso de la ocupacion principal de los ocupados que cobran (P21 mayor a cero, con PONDIIO; -9 es sin respuesta y 0, los que
+      trabajan sin cobrar).
+    En un trimestre, los aglomerados chicos tienen unas 600 personas encuestadas: para tener mas casos se juntan los cuatro trimestres.
+    Como los precios suben de un trimestre al otro, cada ingreso se expresa antes como proporcion de la mediana del pais (los 31
+    aglomerados) de su trimestre, y se guarda la mediana de esas proporciones. 02_procesar.py la pasa a pesos del ultimo trimestre.
+    Tambien se guarda la mediana directa del ultimo trimestre, en pesos. Una fila por aglomerado y tipo de ingreso, el 0 es el pais."""
+    b = b.assign(trim=b.ANO4.astype(int) * 10 + b.TRIMESTRE.astype(int))
+    ult = int(b.trim.max())
+
+    def mediana(v, w):
+        o = np.argsort(v, kind="stable")
+        v, c = v[o], np.cumsum(w[o])
+        return float(v[np.searchsorted(c, c[-1] / 2)])
+
+    filas = []
+    for tipo, valor, peso, filtro in [("ipcf", "IPCF", "PONDIH", lambda x: x.IPCF.ge(0) & x.PONDIH.gt(0)),
+                                      ("ocupacion", "P21", "PONDIIO", lambda x: x.ESTADO.eq(1) & x.P21.gt(0) & x.PONDIIO.gt(0))]:
+        x = b.assign(**{valor: pd.to_numeric(b[valor], errors="coerce"), peso: pd.to_numeric(b[peso], errors="coerce")})
+        x = x[filtro(x)].copy()
+        pais = {t: mediana(g[valor].to_numpy(float), g[peso].to_numpy(float)) for t, g in x.groupby("trim")}
+        if len(pais) != 4 or min(pais.values()) <= 0:
+            raise ValueError(f"EPH: la mediana del pais de {tipo} no salio en los cuatro trimestres ({pais})")
+        x["rel"] = x[valor] / x.trim.map(pais)
+        for ag, g in [(0, x), *x.groupby("AGLOMERADO")]:
+            u = g[g.trim == ult]
+            filas.append({"tipo": tipo, "aglomerado": int(ag), "casos": len(g), "mediana_relativa": round(mediana(g.rel.to_numpy(float), g[peso].to_numpy(float)), 4),
+                          "casos_ultimo": len(u), "mediana_ultimo": round(mediana(u[valor].to_numpy(float), u[peso].to_numpy(float)), 2) if len(u) else None,
+                          "mediana_pais_ultimo": round(pais[ult], 2), "trimestre_ultimo": f"{ult % 10}T{ult // 10}"})
+    r = pd.DataFrame(filas)
+    if r.groupby("tipo").size().min() < 32 or r[r.aglomerado > 0].casos.min() < 300:
+        raise ValueError("EPH: faltan aglomerados o tienen pocos casos en los ingresos")
+    r.to_csv(CRUDO / "eph_ingresos_aglomerados.csv", index=False)
+
+
 def eph_antiguedad():
     """Encuesta Permanente de Hogares (INDEC), bases usuarias de los cuatro ultimos trimestres publicados.
     Se bajan a memoria y se guarda solo un resumen: porcentaje de asalariados (sin servicio domestico, que no responde
@@ -553,8 +856,9 @@ def eph_antiguedad():
     respondio por tramos) y calificacion de la tarea (quinto digito del codigo de ocupacion PP04D_COD, Clasificador Nacional
     de Ocupaciones 2001: 1 profesional, 2 tecnica, 3 operativa, 4 no calificada, segun definiciones_conceptuales_cno.pdf del
     INDEC). Codigos segun el diseno de registro oficial (EPH_registro_1T2026.pdf). Los cortes por ingreso usan PONDIH, el
-    ponderador que el INDEC indica para los ingresos, y el resto PONDERA."""
-    import io, zipfile, pandas as pd
+    ponderador que el INDEC indica para los ingresos, y el resto PONDERA. Desde el 13 de octubre de 2026 guarda tambien los
+    ingresos por aglomerado (eph_ingresos_aglomerados.csv, ver mas abajo)."""
+    import io, zipfile, pandas as pd, numpy as np
     hoy = datetime.date.today()
     candidatos = [(a, t) for a in range(hoy.year, hoy.year - 3, -1) for t in (4, 3, 2, 1)]
     bases, hogares = [], []
@@ -567,7 +871,7 @@ def eph_antiguedad():
         ind = next(n for n in z.namelist() if "individual" in n.lower())
         d = pd.read_csv(z.open(ind), sep=";", low_memory=False, decimal=",",
                         usecols=["ANO4", "TRIMESTRE", "ESTADO", "CAT_OCUP", "PP07A", "PP07H", "CH06", "NIVEL_ED", "P_DECCF", "PONDERA", "PONDIH",
-                                 "PP04A", "PP04C", "PP04C99", "PP04D_COD"], dtype={"PP04D_COD": str})
+                                 "PP04A", "PP04C", "PP04C99", "PP04D_COD", "AGLOMERADO", "IPCF", "P21", "PONDIIO"], dtype={"PP04D_COD": str})
         bases.append(d)
         # la tenencia de la vivienda por aglomerado (etapa 27): la base de hogares del mismo trimestre
         hog = next(n for n in z.namelist() if "hogar" in n.lower())
@@ -576,6 +880,7 @@ def eph_antiguedad():
             break
     if len(bases) < 4:
         raise ValueError("no se encontraron cuatro trimestres de la EPH")
+    eph_ingresos(pd.concat(bases), np, pd)
     d = pd.concat(bases)
     d = d[(d.ESTADO == 1) & (d.CAT_OCUP == 3) & d.PP07A.between(1, 6)].copy()
     d["corto"] = d.PP07A.between(1, 4)
@@ -1661,6 +1966,435 @@ def dnap_recaudacion():
     return url
 
 
+def _planilla_por_fecha(urls, destino, que):
+    """Baja la primera planilla que exista de una lista de direcciones (de la más nueva a la más vieja). Si el archivo no existe, el
+    INDEC responde una página con código 200: se controla que sea una planilla (xls o xlsx)."""
+    for url, fecha in urls:
+        try:
+            datos = leer(url, 60)
+        except urllib.error.HTTPError:
+            continue
+        if datos[:4] != bytes.fromhex("d0cf11e0") and datos[:2] != b"PK":
+            continue
+        (CRUDO / destino).write_bytes(datos)
+        (CRUDO / destino.replace(".xls", "_meta.json")).write_text(json.dumps({"url": url, "publicado": fecha}), encoding="utf-8")
+        return url
+    raise ValueError(f"no se encontró {que}")
+
+
+def ica_cuadros():
+    """Intercambio comercial argentino del INDEC, sector externo (etapa 41): el anexo de cuadros del informe mensual se llama
+    ica_cuadros_DD_MM_YY.xls (la fecha es la de publicación, a mediados de cada mes). Se prueban los últimos 75 días, del más nuevo al
+    más viejo: exportaciones, importaciones y saldo de cada mes, por rubro, por uso económico y por zona económica y país."""
+    hoy = datetime.date.today()
+    dias = [hoy - datetime.timedelta(days=i) for i in range(75)]
+    return _planilla_por_fecha([(f"https://www.indec.gob.ar/ftp/cuadros/economia/ica_cuadros_{f:%d_%m_%y}.xls", f.isoformat()) for f in dias],
+                               "indec_ica_cuadros.xls", "el anexo del intercambio comercial argentino")
+
+
+def balanza_pagos():
+    """Balanza de pagos, posición de inversión internacional y deuda externa del INDEC, trimestral (etapa 41): el anexo de cuadros del
+    informe se llama cin_T_AAAA.xls, con el trimestre en números romanos. Se prueba del trimestre más nuevo al más viejo."""
+    hoy = datetime.date.today()
+    trim = [(a, t) for a in (hoy.year, hoy.year - 1, hoy.year - 2) for t in (4, 3, 2, 1) if datetime.date(a, 3 * t - 2, 1) <= hoy]
+    return _planilla_por_fecha([(f"https://www.indec.gob.ar/ftp/cuadros/economia/cin_{('I', 'II', 'III', 'IV')[t - 1]}_{a}.xls", f"{t}T{a}")
+                                for a, t in trim], "indec_balanza_pagos.xls", "el anexo de la balanza de pagos")
+
+
+def series_sector_externo():
+    """Series del sector externo en la API de Series de Tiempo de datos.gob.ar (etapa 41): busca en el catálogo las series del intercambio
+    comercial, de la balanza de pagos, de la deuda externa y de las reservas, guarda lo que encontró (series_sector_externo_catalogo.json:
+    id, título, descripción, frecuencia, fechas, unidades, conjunto y fuente) y baja los valores de las que siguen vigentes, una planilla
+    por frecuencia (series_sector_externo_M.csv, _Q.csv y _A.csv, una columna por id)."""
+    import urllib.parse
+    consultas = ["intercambio comercial argentino", "importaciones", "exportaciones", "saldo comercial", "balanza comercial",
+                 "balanza de pagos", "cuenta corriente", "cuenta financiera", "reservas internacionales", "deuda externa",
+                 "posicion de inversion internacional", "terminos del intercambio"]
+    # una búsqueda que falla dejaría afuera series que se usan: se reintenta una vez y, si vuelve a fallar, no se reemplaza nada (el 12 de
+    # octubre de 2026 cuatro búsquedas tardaron demasiado en GitHub y la planilla mensual se guardó incompleta). Tampoco se sigue con las
+    # demás: si la API no responde, esperarían lo mismo sin cambiar el resultado (ese mismo día, con la API caída, fueron 40 minutos)
+    vistos = {}
+    for q in consultas:
+        for off in range(0, 500, 100):
+            url = f"https://apis.datos.gob.ar/series/api/search/?limit=100&offset={off}&q={urllib.parse.quote(q)}"
+            try:
+                try:
+                    r = json.loads(leer(url, 90))
+                except Exception:
+                    time.sleep(5)
+                    r = json.loads(leer(url, 120))
+            except Exception as e:
+                raise ValueError(f"falló la búsqueda de series '{q}' del sector externo ({e}): se conservan las planillas anteriores")
+            filas = r.get("data") or []
+            for x in filas:
+                f, ds = x.get("field") or {}, x.get("dataset") or {}
+                if f.get("id") and f["id"] not in vistos:
+                    vistos[f["id"]] = {"consulta": q, **{k: f.get(k) for k in ("title", "description", "frequency", "time_index_start", "time_index_end", "units")},
+                                       "conjunto": ds.get("title"), "fuente": ds.get("source")}
+            if len(filas) < 100:
+                break
+    if len(vistos) < 20:
+        raise ValueError("la búsqueda de series del sector externo vino vacía")
+    desde = str(datetime.date.today().year - 2)
+    frec = {"R/P1M": "M", "R/P3M": "Q", "R/P1Y": "A"}
+    bajadas = []
+    for fr, letra in frec.items():
+        ids = sorted(i for i, m in vistos.items() if m.get("frequency") == fr and str(m.get("time_index_end") or "") >= desde)
+        tablas, completa = [], True
+        for k in range(0, len(ids), 20):
+            url = ("https://apis.datos.gob.ar/series/api/series/?format=csv&limit=5000&header=ids&start_date=1990-01-01&ids=" + ",".join(ids[k:k + 20]))
+            try:
+                tablas.append(leer(url, 120).decode("utf-8"))
+            except Exception as e:
+                print(f"  aviso: series {ids[k:k + 20]}:", e)
+                completa = False
+        if tablas and completa:
+            import io, pandas as pd
+            d = pd.concat([pd.read_csv(io.StringIO(t)).set_index("indice_tiempo") for t in tablas], axis=1)
+            # tampoco se reemplaza la planilla anterior si a la nueva le faltan series que aquella tenía, si alguna trae menos datos que antes
+            # o si los períodos vienen repetidos (el 12 de octubre de 2026 la API respondió con datos que no dejaban ningún año completo del
+            # intercambio comercial y 02 se frenó)
+            arch = CRUDO / f"series_sector_externo_{letra}.csv"
+            faltan = sorted(set(pd.read_csv(arch, nrows=0).columns) - set(d.reset_index().columns)) if arch.exists() else []
+            if faltan:
+                print(f"  aviso: a la planilla {letra} le faltan {len(faltan)} series de la anterior ({', '.join(faltan[:5])}): se conserva la anterior")
+                continue
+            if not d.index.is_unique:
+                print(f"  aviso: la planilla {letra} vino con períodos repetidos: se conserva la anterior")
+                continue
+            if arch.exists():
+                viejo = pd.read_csv(arch).set_index("indice_tiempo")
+                # los valores vacíos y los períodos que la API no trajo salen de la planilla anterior (ver api_completar)
+                d = d.combine_first(viejo)[list(d.columns)]
+                menos = [c for c in viejo.columns if d[c].notna().sum() < viejo[c].notna().sum() - 1]
+                if menos:
+                    print(f"  aviso: en la planilla {letra}, {len(menos)} series traen menos datos que la anterior ({', '.join(menos[:5])}): se conserva la anterior")
+                    continue
+            d.to_csv(arch)
+            bajadas.append(f"{letra}: {d.shape[1]} series")
+    if not bajadas:
+        raise ValueError("no se bajó ninguna serie del sector externo")
+    (CRUDO / "series_sector_externo_catalogo.json").write_text(json.dumps(vistos, ensure_ascii=False, indent=1), encoding="utf-8")
+    return "apis.datos.gob.ar (" + ", ".join(bajadas) + ")"
+
+
+def bcra_monetarias():
+    """API de Estadísticas Monetarias v4.0 del BCRA (etapa 41, pedido del autor: "todo lo que haya en la API del BCRA", con las reservas
+    internacionales): el catálogo de variables (bcra_variables.json) y la serie histórica de cada una (bcra_series.csv: id, fecha, valor).
+    De las diarias se guarda el último dato de cada mes, salvo las reservas internacionales, que van completas. No pide registro. Si la API
+    no acepta pedir toda la serie de una vez, se pide año por año."""
+    import pandas as pd
+    BASE = "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
+
+    def pedir(url):
+        return json.loads(leer(url, 120).decode("utf-8-sig"))
+
+    def puntos(o, acc):  # todo dict con fecha y valor, esté donde esté en la respuesta
+        if isinstance(o, dict):
+            if "fecha" in o and "valor" in o:
+                acc.append((o["fecha"], o["valor"]))
+            for v in o.values():
+                puntos(v, acc)
+        elif isinstance(o, list):
+            for v in o:
+                puntos(v, acc)
+        return acc
+
+    cat, off = [], 0
+    while True:
+        res = pedir(f"{BASE}?limit=1000&offset={off}").get("results") or []
+        cat += res
+        if len(res) < 1000:
+            break
+        off += 1000
+    if len(cat) < 20:
+        raise ValueError("el catálogo de variables del BCRA vino vacío")
+    (CRUDO / "bcra_variables.json").write_text(json.dumps(cat, ensure_ascii=False, indent=1), encoding="utf-8")
+    texto = lambda v: " ".join(str(x) for x in v.values() if isinstance(x, str)).lower()
+    principales = [v for v in cat if "principal" in texto(v)] or cat[:60]
+    # además de las principales y las reservas, las series largas que pidió el autor el 11 de octubre de 2026: los agregados monetarios desde 1940
+    # (base monetaria, M1, M2 y M3, en miles de pesos), los préstamos al sector privado por tipo, y los depósitos, los préstamos y la tasa del
+    # plazo fijo en dólares. El plazo fijo a 30 días desde 1985 ya está entre las principales (12)
+    largas = {1606, 1612, 1618, 1623, 1624, 1343, 1345, 1348, 1349, 1350, 1351, 1356, 1564, 1569, 1571, 1193}
+    # lo que se resta de las reservas brutas para estimar las netas (pedido del autor del 12 de octubre de 2026): el oro, las divisas y las
+    # colocaciones sin las asignaciones de DEG de 2009 (74, 75, 83), el pase pasivo en dólares con bancos del exterior (76), los depósitos de
+    # los bancos en moneda extranjera en el BCRA, que respaldan los depósitos en dólares (1256, en pesos), los del Tesoro en moneda
+    # extranjera (1266), las letras del BCRA en moneda extranjera (1259), los requisitos de liquidez en el exterior (1246) y el tipo de cambio
+    # con que el BCRA valúa su balance (1604), para pasar a dólares lo que informa en pesos
+    pasivos = {74, 75, 76, 83, 1246, 1256, 1259, 1266, 1604}
+    elegidas = {v["idVariable"]: v for v in principales + [v for v in cat if "reservas internacionales" in texto(v) or v.get("idVariable") in largas | pasivos]
+                if "idVariable" in v}
+    hoy = datetime.date.today()
+    filas, inicio = [], time.monotonic()
+    for i, v in elegidas.items():
+        # si la API está lenta, se corta antes de demorar toda la actualización: el error deja el archivo anterior
+        if time.monotonic() - inicio > 25 * 60:
+            raise TimeoutError(f"la API del BCRA tardó más de 25 minutos ({len(filas)} de {len(elegidas)} variables)")
+        pts = []
+        # desde el primer dato que informa el catálogo para cada una (las reservas mensuales y los agregados monetarios empiezan en 1940). Pedir
+        # desde antes del primer dato hacía que la API rechazara el pedido y se bajara año por año: el 12 de octubre de 2026 la descarga pasó de
+        # media hora a más de una
+        desde = str(v.get("primerFechaInformada") or "1990-01-01")[:10]
+        try:
+            off = 0
+            while True:
+                lote = puntos(pedir(f"{BASE}/{i}?desde={desde}&hasta={hoy}&limit=3000&offset={off}"), [])
+                pts += lote
+                if len(lote) < 3000:
+                    break
+                off += 3000
+        except urllib.error.HTTPError as e:
+            if e.code != 400:
+                raise
+            print(f"  aviso: la API del BCRA no aceptó la variable {i} desde {desde}: se baja año por año")
+            for a in range(int(desde[:4]), hoy.year + 1):
+                try:
+                    pts += puntos(pedir(f"{BASE}/{i}?desde={a}-01-01&hasta={a}-12-31&limit=3000"), [])
+                except urllib.error.HTTPError:
+                    continue
+        if not pts:
+            continue
+        d = pd.DataFrame(pts, columns=["fecha", "valor"]).assign(fecha=lambda x: pd.to_datetime(x.fecha, errors="coerce")).dropna().drop_duplicates("fecha").sort_values("fecha")
+        if "reservas internacionales" not in texto(v):
+            d = d.groupby(d.fecha.dt.to_period("M")).tail(1)
+        filas.append(d.assign(id=i))
+    if not filas:
+        raise ValueError("la API del BCRA no devolvió ninguna serie")
+    pd.concat(filas)[["id", "fecha", "valor"]].to_csv(CRUDO / "bcra_series.csv", index=False, date_format="%Y-%m-%d")
+    return BASE + f" ({len(filas)} variables)"
+
+
+# ---------------------------------------------------------------- reservas desagregadas e índices de la Di Tella (etapa 42)
+# Pedido del autor del 12 de octubre de 2026: desagregar las reservas (oro, divisas, DEG, el canje con China) y mostrar las netas, y sumar
+# los índices de la Universidad Torcuato Di Tella. Una primera pasada bajó las páginas y los archivos para verlos: esto es lo que quedó.
+
+# con separador de miles o sin él: en septiembre y octubre de 2017 los DEG figuran como 2525.27
+_NUM_PLANILLA = re.compile(r"-?(?:\d{1,3}(?:[.,]\d{3})+|\d+)[.,]\d{2}$")
+
+
+def _planilla_numero(s):
+    """Un número de la planilla, con coma o con punto decimal según el año (2016 usa 38,771.63 y 2022, 44.598,43)."""
+    return float(s.replace(".", "").replace(",", ".")) if s[-3] == "," else float(s.replace(",", ""))
+
+
+def _planilla_reservas_leer(datos):
+    """Lee la planilla de reservas internacionales y liquidez en moneda extranjera (el formato del FMI) de un mes. Devuelve, en millones
+    de dólares: las reservas brutas y su composición (sección I.A) y lo que el BCRA tiene que pagar o devolver en moneda extranjera dentro
+    de un año (sección II, columna de las autoridades monetarias: préstamos, valores y depósitos, que incluyen los depósitos en dólares de
+    los bancos y del Tesoro en el BCRA, el tramo a término de los canjes de monedas y los pases). Cada número se asigna a la columna del BCRA
+    o a la del gobierno central por su posición en la página, no por el orden del texto. Desde 2007, cuando la planilla toma esta forma.
+    Algunos meses salen con la plantilla en inglés (junio de 2008) o con la sección II al pie de la primera página (2007, abril de 2009):
+    por eso cada rótulo acepta las dos formas y la sección II se busca por su título en las dos páginas."""
+    import io
+    import logging
+    import pdfplumber
+    logging.getLogger("pdfminer").setLevel(logging.ERROR)
+
+    def renglones(pagina):
+        # las palabras de un mismo renglón pueden estar a una o dos décimas de punto de altura distinta: se juntan por cercanía con la
+        # palabra anterior, no con la primera (en 2024 la llamada de nota, el número y el rótulo de un mismo renglón suben de a un punto)
+        filas = []
+        for w in sorted(pagina.extract_words(), key=lambda w: (w["top"] + w["bottom"]) / 2):
+            centro = (w["top"] + w["bottom"]) / 2
+            if filas and centro - filas[-1][0] <= 3:
+                filas[-1][0] = centro
+                filas[-1][1].append(w)
+            else:
+                filas.append([centro, [w]])
+        salida = []
+        for _, ws in filas:
+            ws = sorted(ws, key=lambda w: w["x0"])
+            salida.append((" ".join(w["text"] for w in ws), [(w["x0"], _planilla_numero(w["text"])) for w in ws if _NUM_PLANILLA.match(w["text"])], ws))
+        return salida
+
+    with pdfplumber.open(io.BytesIO(datos)) as pdf:
+        p1, p2 = renglones(pdf.pages[0]), renglones(pdf.pages[1])
+        notas = " ".join(" ".join((p.extract_text() or "").split()) for p in pdf.pages[2:])
+    # la sección II, desde su título hasta el de la III, en la página 1 o en la 2
+    todos = p1 + p2
+    ini = next((i for i, r in enumerate(todos) if re.match(r"II\. ", r[0])), None)
+    fin = next((i for i, r in enumerate(todos) if ini is not None and i > ini and re.match(r"III\. ", r[0])), len(todos))
+    s2 = todos[ini:fin] if ini is not None else []
+    # límite entre las columnas: en la sección I, el encabezado "Gobierno"; en la II, el segundo "Total" (el del gobierno central)
+    x_gob = next((w["x0"] for _, _, ws in p1 for w in ws if w["text"] in ("Gobierno", "Government")), None)
+    totales = [w["x0"] for _, _, ws in s2 for w in ws if w["text"] == "Total"]
+    if x_gob is None or len(totales) < 2:
+        raise ValueError("la planilla no tiene las columnas esperadas" + ("" if ini is not None else " (no se encontró la sección II)"))
+
+    def valor(renglones_, rx, limite, desde=0):
+        for i, (texto, nums, _) in enumerate(renglones_):
+            if i >= desde and re.search(rx, texto):
+                del_bcra = [v for x, v in nums if x < limite - 15]
+                return (del_bcra[0] if del_bcra else 0.0), i
+        return 0.0, None
+
+    o = {}
+    for k, rx in {"brutas": r"A\. (?:Activos de reserva oficiales|Official reserve assets)", "divisas": r"\(1\) (?:Reservas en moneda extranjera|Foreign currency reserves)",
+                  "valores": r"\(a\) (?:Valores|Securities)", "depositos": r"\(b\) total (?:de monedas y dep|currency and deposits)",
+                  "posicion_fmi": r"\(2\) (?:Posici[oó]n de reserva|IMF reserve position)", "deg": r"\(3\) (?:DEG|SDRs)", "oro": r"\(4\) (?:Oro|[Gg]old)",
+                  "oro_onzas": r"volumen en millones de oro|volume in millions of fine troy", "otros_activos": r"\(5\) (?:[Oo]tros activos de reserva|[Oo]ther reserve assets)"}.items():
+        o[k] = valor(p1, rx, x_gob)[0]
+    o["pagos_un_anio"] = valor(s2, r"Pr[eé]stamos en moneda extranjera|Foreign currency loans", totales[1])[0]
+    _, i2 = valor(s2, r"Posiciones agregadas cortas y largas|Aggregate short and long positions", totales[1])
+    o["canjes"] = valor(s2, r"\(a\) (?:Posiciones cortas|Short positions)", totales[1], (i2 or 0) + 1)[0] if i2 is not None else 0.0
+    o["otros_pagos"] = valor(s2, r"^3\. (?:Otros|Other)", totales[1])[0]
+    o["pases"] = valor(s2, r"egresos relacionados con recompras|outflows related to repos", totales[1])[0]
+    # el desglose de los depósitos que informa la nota del país (no está en todos los meses)
+    for k, rx in {"depositos_bancos": r"Dep[oó]sitos en Otras Monedas\s*(?:USD|u\$s|US\$)\s*([\d.,]+\d)",
+                  "depositos_tesoro": r"Dep[oó]sitos del Gobierno Nacional \(en otras monedas\)\s*(?:USD|u\$s|US\$)\s*([\d.,]+\d)"}.items():
+        m = re.search(rx, notas, re.I)
+        o[k] = _planilla_numero(m.group(1)) if m and _NUM_PLANILLA.match(m.group(1)) else None
+    suma = o["divisas"] + o["posicion_fmi"] + o["deg"] + o["oro"] + o["otros_activos"]
+    if o["brutas"] < 1000 or abs(suma - o["brutas"]) > 1.5:
+        raise ValueError(f"las partes de las reservas ({suma:.2f}) no suman el total ({o['brutas']:.2f})")
+    return o
+
+
+def bcra_planilla_reservas():
+    """Planilla de reservas internacionales y liquidez en moneda extranjera del BCRA, un PDF por mes (tempMMAA.pdf), leída mes por mes desde
+    enero de 2007 y guardada en una tabla (bcra_planilla_reservas.csv). Cada actualización baja solo los meses que faltan y vuelve a leer los
+    últimos tres, por si el BCRA los corrige. Tiene un límite de 15 minutos: lo que no llega a bajar queda para la próxima."""
+    archivo = CRUDO / "bcra_planilla_reservas.csv"
+    previas = {}
+    if archivo.exists():
+        with open(archivo, encoding="utf-8") as f:
+            previas = {r["mes"]: r for r in csv.DictReader(f)}
+    bases = ["https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/", "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/"]
+    hoy, meses = datetime.date.today(), []
+    a, m = hoy.year, hoy.month
+    while (a, m) > (2007, 1):
+        a, m = (a, m - 1) if m > 1 else (a - 1, 12)
+        meses.append(f"{a}-{m:02d}")
+    # los meses en los que la sección II (lo que hay que pagar a un año) salió en cero sin serlo se vuelven a leer, y sus PDF se guardan en
+    # planilla_revisar/ junto con los que no se pudieron leer, para ajustar el lector (pedido del autor del 12 de octubre de 2026: seguir
+    # con los pendientes; eran 17 meses, casi todos de 2007)
+    def _incompleto(r):
+        n = lambda k: float(r.get(k) or 0)
+        return n("pagos_un_anio") == 0 and ((n("canjes") == 0 and n("otros_pagos") == 0) or n("depositos_bancos") > 0)
+    revisar = CRUDO / "planilla_revisar"
+    incompletos = {m for m, r in previas.items() if _incompleto(r)}
+    pendientes = meses[:3] + [x for x in meses[3:] if x not in previas or x in incompletos]   # de lo más nuevo a lo más viejo
+    # algunos meses (de julio de 2023 a mayo de 2024, por ejemplo) no están en la dirección de los demás: para los que faltan se prueban otras
+    # formas del nombre y los enlaces de las páginas del BCRA que publican la planilla
+    enlazados = {}
+    if any(x not in previas for x in meses[3:]):
+        for pag in ("https://www.bcra.gob.ar/reservas-internacionales-y-base-monetaria/", "https://www.bcra.gob.ar/en/international-reserves-and-monetary-base/",
+                    "https://www.bcra.gob.ar/PublicacionesEstadisticas/Reservas_internacionales.asp"):
+            try:
+                texto = leer(pag, 30).decode("utf-8", "ignore")
+            except Exception:
+                continue
+            for h in re.findall(r"""href\s*=\s*["']([^"']+?\.pdf)["']""", texto, re.I):
+                mm = re.search(r"temp[_-]?(\d{2})[_-]?(\d{4}|\d{2})[^/]*\.pdf$", h, re.I)
+                if mm and 1 <= int(mm.group(1)) <= 12:
+                    anio = int(mm.group(2)) if len(mm.group(2)) == 4 else 2000 + int(mm.group(2))
+                    enlazados.setdefault(f"{anio}-{mm.group(1)}", urllib.parse.urljoin(pag, h))
+    inicio, leidos, errores, sin_archivo = time.monotonic(), 0, [], []
+    for mes in pendientes:
+        if time.monotonic() - inicio > 15 * 60:
+            print("  aviso: la planilla de reservas llegó al límite de 15 minutos, sigue en la próxima actualización")
+            break
+        nombre = f"{mes[5:7]}{mes[2:4]}"
+        candidatas = ([previas[mes]["url"]] if previas.get(mes, {}).get("url") else []) + [b + p + nombre + ".pdf" for b in bases for p in ("temp", "Temp")]
+        if mes not in previas and mes not in meses[:3]:
+            candidatas += ([enlazados[mes]] if mes in enlazados else []) + [b + p + nombre + e for b in bases for p in ("temp", "Temp", "TEMP")
+                                                                           for e in (".PDF", "_0.pdf") ] + [b + "temp" + mes[5:7] + mes[:4] + ".pdf" for b in bases]
+        datos = url = None
+        for c in candidatas:
+            try:
+                d = leer(c, 60)
+            except Exception:
+                continue
+            if d[:4] == b"%PDF":
+                datos, url = d, c
+                break
+        if not datos:
+            if mes not in previas and mes not in meses[:3]:   # los últimos meses pueden no estar publicados todavía
+                sin_archivo.append(mes)
+            continue
+        try:
+            previas[mes] = {"mes": mes, **_planilla_reservas_leer(datos), "url": url}
+            leidos += 1
+            if _incompleto(previas[mes]):
+                revisar.mkdir(exist_ok=True)
+                (revisar / f"temp_{mes}.pdf").write_bytes(datos)
+            else:   # el PDF guardado para revisar ya no hace falta: el mes se lee entero
+                (revisar / f"temp_{mes}.pdf").unlink(missing_ok=True)
+        except Exception as e:
+            errores.append(f"{mes}: {e}")
+            revisar.mkdir(exist_ok=True)
+            (revisar / f"temp_{mes}.pdf").write_bytes(datos)
+    if revisar.is_dir() and not any(revisar.iterdir()):
+        revisar.rmdir()
+    if not previas:
+        raise ValueError("no se pudo leer ninguna planilla de reservas")
+    columnas = ["mes", "brutas", "divisas", "valores", "depositos", "posicion_fmi", "deg", "oro", "oro_onzas", "otros_activos",
+                "pagos_un_anio", "canjes", "otros_pagos", "pases", "depositos_bancos", "depositos_tesoro", "url"]
+    with open(archivo, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=columnas, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(previas[k] for k in sorted(previas))
+    if errores:
+        print("  aviso: planillas de reservas que no se pudieron leer:", "; ".join(errores[:10]))
+    # los meses que faltan, en tramos, para el registro (así se ve en cada actualización qué no se encontró)
+    tramos = []
+    for mes in sorted(sin_archivo):
+        a, m = int(mes[:4]), int(mes[5:])
+        if tramos and (a * 12 + m) - (int(tramos[-1][1][:4]) * 12 + int(tramos[-1][1][5:])) == 1:
+            tramos[-1][1] = mes
+        else:
+            tramos.append([mes, mes])
+    faltan = ", ".join(d if d == h else f"{d} a {h}" for d, h in tramos)
+    return (f"{bases[0]}tempMMAA.pdf ({leidos} meses leídos, {len(previas)} en la tabla" + (f", sin archivo: {faltan}" if faltan else "") +
+            (f", {len(errores)} sin poder leer" if errores else "") + ")")
+
+
+def utdt_series():
+    """Series históricas de la Universidad Torcuato Di Tella: el Índice de Confianza del Consumidor y la Encuesta de Expectativas de
+    Inflación (Centro de Investigación en Finanzas) y el Índice de Confianza en el Gobierno (Escuela de Gobierno). Las planillas cambian de
+    nombre con cada edición: se buscan en la página de cada serie (o en las que enlaza, si es un listado). Se guarda también la lista de
+    archivos que ofrece cada página (utdt_archivos.json)."""
+    import html as htmlmod
+    paginas = {"icc": "https://www.utdt.edu/ver_contenido.php?id_contenido=8513&id_item_menu=16458",
+               "expectativas": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=16455",
+               "icg": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=28756"}
+
+    def enlaces(url):
+        crudo = leer(url, 60)
+        try:
+            texto = crudo.decode("utf-8")
+        except UnicodeDecodeError:
+            texto = crudo.decode("latin-1")
+        return [(urllib.parse.urljoin(url, htmlmod.unescape(h.strip())), " ".join(htmlmod.unescape(re.sub(r"<[^>]+>", " ", t)).split()))
+                for h, t in re.findall(r"""<a\s[^>]*?href\s*=\s*["']([^"'#]+)["'][^>]*>(.*?)</a>""", texto, re.S | re.I)]
+
+    es_archivo = lambda u: re.search(r"download\.php\?fname=[^&]+\.(xlsx?|csv|zip|sav|dta)\b", u, re.I)
+    lista, bajados, faltan = {}, [], []
+    for clave, url in paginas.items():
+        try:
+            todos = enlaces(url)
+            archivos = [(u, t) for u, t in todos if es_archivo(u)]
+            if not archivos:   # un listado: se siguen sus contenidos
+                menu = re.search(r"id_item_menu=(\d+)", url).group(1)
+                for u, _ in [(u, t) for u, t in todos if "ver_contenido.php" in u and f"id_item_menu={menu}" in u][:5]:
+                    archivos += [(x, t) for x, t in enlaces(u) if es_archivo(x)]
+            lista[clave] = [{"url": u, "texto": t} for u, t in dict(archivos).items()]
+            planilla = next((u for u, _ in archivos if re.search(r"\.xlsx?\b", u, re.I)), None)
+            if not planilla:
+                raise ValueError("no hay una planilla en la página")
+            datos = leer(planilla, 120)
+            if datos[:4] != bytes.fromhex("d0cf11e0") and datos[:2] != b"PK":
+                raise ValueError("el archivo no es una planilla")
+            (CRUDO / f"utdt_{clave}.{'xlsx' if datos[:2] == b'PK' else 'xls'}").write_bytes(datos)
+            bajados.append(clave)
+        except Exception as e:
+            faltan.append(f"{clave}: {e}")
+    (CRUDO / "utdt_archivos.json").write_text(json.dumps(lista, ensure_ascii=False, indent=1), encoding="utf-8")
+    if faltan:
+        raise ValueError("de la Di Tella no se bajaron " + "; ".join(faltan) + f" (se bajaron {len(bajados)} de {len(paginas)})")
+    return paginas["icc"]
+
+
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),
                     ("EPH antiguedad en el empleo", eph_antiguedad),
@@ -1683,7 +2417,13 @@ for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por se
                     ("personas refugiadas y solicitantes de asilo (ACNUR)", acnur_refugio),
                     ("deuda pública de la Administración Central (Secretaría de Finanzas)", deuda_publica),
                     ("cargos en las administraciones provinciales (DNAP)", dnap_cargos),
-                    ("recursos tributarios de origen provincial (DNAP)", dnap_recaudacion)]:
+                    ("recursos tributarios de origen provincial (DNAP)", dnap_recaudacion),
+                    ("intercambio comercial argentino, anexo de cuadros (INDEC)", ica_cuadros),
+                    ("balanza de pagos, anexo de cuadros (INDEC)", balanza_pagos),
+                    ("series del sector externo (API de Series de Tiempo)", series_sector_externo),
+                    ("estadísticas monetarias y reservas (API del BCRA)", bcra_monetarias),
+                    ("planilla de reservas internacionales y liquidez (BCRA)", bcra_planilla_reservas),
+                    ("índices de la Universidad Torcuato Di Tella", utdt_series)]:
     try:
         _origen = _f() or "github.com/rquiroga7/como_voto"
         registro.append([_nombre, _origen, datetime.datetime.now().isoformat(timespec="seconds"), "ok"])
@@ -1697,13 +2437,14 @@ except Exception as e:  # si falla se conservan los resumenes anteriores
     registro.append(["departamentos (resumen)", "SNIC y RENAPER por departamento", datetime.datetime.now().isoformat(timespec="seconds"), f"error: {e}"])
     print("departamentos: error", e)
 for nombre, url in FUENTES.items():
+    usada = url
     try:
-        bajar(nombre, url)
+        usada = bajar(nombre, url)
         estado = "ok"
     except Exception as e:  # una fuente caida no frena al resto
         estado = f"error: {e}"
     print(f"{nombre:28s} {estado}")
-    registro.append([nombre, url, datetime.datetime.now().isoformat(timespec="seconds"), estado])
+    registro.append([nombre, usada, datetime.datetime.now().isoformat(timespec="seconds"), estado])
 
 # Algunos archivos del CIAM no traen el anio adentro: se toma del nombre que informa el servidor
 meta = {}

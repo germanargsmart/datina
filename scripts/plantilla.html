@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Datina | Las 24 Argentinas en números</title>
-<meta name="description" content="Datina: las 24 Argentinas en números. Estadísticas públicas de cada provincia con su fuente, su año y la tabla para descargar.">
+<meta name="description" content="Datina: las 24 Argentinas en números. Datos públicos sobre la Argentina, los argentinos y las 24 provincias, explicados para que cualquiera los entienda, los compare y los pueda verificar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
 // transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
@@ -13,6 +13,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<!-- D3 y topojson en el head, sin defer, a propósito. El 11 de octubre de 2026 se probó con defer (los cuatro scripts): la página se
+     mostraba antes, vacía, y después saltaba cuando datina.js armaba el contenido (CLS de 0,70 en la Corte Suprema y 0,10 en Trabajo,
+     contra 0 así). Para cargar sin frenar y sin saltos, las notas y las piezas tienen que venir armadas en el HTML o reservar su alto -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <link rel="stylesheet" href="datina.css?v=__V_CSS__">
@@ -45,17 +48,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </div>
 </header>
 <!-- "Más" (etapa 32, 6 de octubre de 2026, pedido del autor: "que el menú desaparezca y lo dejes como usafacts"): la lista que abre el
-     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. A la izquierda todos los temas (los
-     que ya están en los grupos de la barra se ven solo cuando la barra no los muestra) y a la derecha los artículos, las herramientas y Datina -->
+     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. El orden (11 de octubre de 2026, pedido
+     del autor): Tu provincia, las herramientas y después el resto. Lo arma el constructor (MENU_MAS en 03_construir_sitio.py) -->
 <nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
-    <div class="menu-col">
-      <!--TEMAS-MENU-->
-    </div>
-    <div class="menu-col">
-      <div class="menu-grupo"><p class="menu-tit" id="mt-art">Artículos y Laboratorio</p><ul aria-labelledby="mt-art"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div>
-      <div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li></ul></div>
-      <div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div>
-    </div>
+<!--TEMAS-MENU-->
 </nav>
 <!-- los menús de los cuatro grupos de la barra (etapa 39): los arma el constructor desde GRUPOS -->
 <!--GRUPOS-MENU-->
@@ -68,7 +64,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="portada-texto">
       <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
       <p class="lema">Las 24 Argentinas en números</p>
-      <p class="bajada">Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar.</p>
+      <p class="bajada">Datos públicos sobre la Argentina, los argentinos y las 24 provincias, explicados para que cualquiera los entienda, los compare y los pueda verificar.</p>
       <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a><a class="boton" href="articulos.html">Artículos</a></nav>
       <p class="estado" id="estado"></p>
     </div>
@@ -105,13 +101,12 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   <section class="herramientas-home ancho" aria-labelledby="herr-titulo">
     <h2 class="bloque-tit" id="herr-titulo">Herramientas</h2>
-    <p class="bloque-sub">Para cruzar indicadores, armar tu propio ranking, mirar cada departamento y describir la educación de cada provincia.</p>
+    <p class="bloque-sub">Para cruzar indicadores, armar tu propio ranking, mirar cada departamento, describir la educación de cada provincia y bajar cualquier tabla.</p>
     <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"></div>
   </section>
 
   <section class="provincias" id="provincias" aria-labelledby="prov-titulo">
     <h2 id="prov-titulo"><span id="prov-band"></span><span id="prov-titulo-txt">Elegí una de las 24</span></h2>
-    <p class="prov-sub">Cada provincia comparada con el total del país en los indicadores que tienen dato provincial. Al elegirla, todos los gráficos del sitio la resaltan.</p>
     <div class="elige" id="elige">
       <span class="elige-lab" id="elige-lab">Provincia</span>
       <button type="button" class="elige-btn" id="elige-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="elige-lab elige-btn">
@@ -121,9 +116,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <input type="text" class="elige-buscar" id="elige-buscar" placeholder="Buscar provincia" aria-label="Buscar provincia"
           role="combobox" aria-controls="elige-lista" aria-expanded="true" aria-autocomplete="list" autocomplete="off">
         <ul class="elige-lista" id="elige-lista" role="listbox" aria-labelledby="elige-lab"></ul>
-        <p class="elige-vacio" id="elige-vacio" hidden>Ninguna provincia coincide</p>
+        <p class="elige-vacio" id="elige-vacio" role="status" hidden>Ninguna provincia coincide</p>
       </div>
     </div>
+    <!-- la historia de cada jurisdicción (11 de octubre de 2026): la escribe el constructor desde datos/manual/provincias_historia.json -->
+    <!--HISTORIA-->
     <div class="prov-grid" id="prov-grid"></div>
     <div class="prov-extra" id="prov-extra"></div>
   </section>
@@ -139,7 +136,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="nos-item"><span class="nos-ico" data-icono="congreso"></span><div><h3 id="fuentes">Fuentes oficiales</h3><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay dos excepciones, señaladas donde aparecen: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica, y algunas fechas de los jueces de la Corte Suprema, que la tabla con las fuentes de esa pieza señala fila por fila.</p></div></div>
       <div class="nos-item"><span class="nos-ico" data-icono="dispersion"></span><div><h3>Cruces con advertencias</h3><p>Datina cruza fuentes distintas para buscar relaciones entre provincias. Cada cruce aclara sus límites: son pocos casos, son promedios y una correlación no prueba que una cosa cause la otra.</p></div></div>
       <div class="nos-item"><span class="nos-ico" data-icono="urna"></span><div><h3>Tono neutro</h3><p>En política y en temas sensibles, Datina describe sin adjetivar. Las fichas sobre suicidio llevan líneas de ayuda y no entran en el perfil provincial ni en los cruces.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="reloj"></span><div><h3>Se actualiza sola</h3><p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="reloj"></span><div><h3>Se actualiza sola</h3><p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p></div></div>
     </div>
     <div class="nos-texto">
       <h3>Para quién es</h3>
@@ -150,6 +147,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p>Tres programas hacen todo el trabajo. El primero baja cada archivo tal como lo publica el organismo. El segundo los ordena en una tabla única, con una fila por jurisdicción, período e indicador, y calcula los indicadores. El tercero arma las páginas. La tabla completa está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>. El <a href="relaciones.html">Explorador de relaciones</a> muestra qué organismo publica cada archivo que baja el sitio y qué fichas arma con él, con la línea del programa que lo muestra.</p>
       <h3>De dónde viene la idea</h3>
       <p>Datina toma ideas de The Pudding, que arranca cada historia con una pregunta, de Our World in Data, por mostrar siempre la fuente y la tabla, y de USAFacts, por presentar los datos públicos de forma clara y sin opinión. En la Argentina, Argendata, de Fundar, es un antecedente con datos sobre todo nacionales: Datina suma la mirada provincia por provincia y los cruces entre fuentes.</p>
+      <h3 id="licencia">Licencia y reutilización</h3>
+      <p>Los textos, los gráficos y las tablas que arma Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato (licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">Creative Commons Atribución 4.0</a>). El código del sitio es abierto, con licencia MIT. Los datos de base son de cada organismo y se rigen por sus condiciones: cada ficha dice de dónde salen. Las banderas provinciales tienen su propia licencia, detallada más abajo.</p>
+      <h3 id="privacidad">Tus datos</h3>
+      <p>Los formularios de Contacto y de novedades por correo guardan solo lo que escribís. Los correos se usan para avisar cuando hay datos o artículos nuevos y para responder mensajes: no se comparten ni se publican. Para darte de baja o pedir que se borre tu correo, escribí desde <a href="contacto.html">Contacto</a>.</p>
       <h3>El nombre y los símbolos</h3>
       <p>El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y de la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
       <!--BANDERAS-->
@@ -170,6 +171,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <button type="submit" class="boton principal">Enviar mensaje</button>
     </form>
     <p class="form-gracias" id="form-gracias" hidden>Gracias. El mensaje llegó al equipo de Datina.</p>
+    <p class="form-gracias" id="susc-gracias" hidden>Gracias. Tu correo quedó anotado para recibir las novedades de Datina.</p>
   </section>
 
   <section class="no-encontrada" id="no-encontrada" aria-labelledby="no-tit">
@@ -342,6 +344,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio)</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-desempleo">
+      <h3>¿Cuántas personas cobran el seguro de desempleo?</h3>
+      <p class="ficha-sub">Beneficiarios de la prestación por desempleo por provincia, cada 1.000 habitantes, frente al empleo y en cantidad, y del país, {{desempleo.ini}} a {{desempleo.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="desempleo" style="--n:4">
+        <button type="button" data-m="habitantes" aria-pressed="true">Cada 1.000</button>
+        <button type="button" data-m="asalariados" aria-pressed="false">Frente al empleo</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="desempleo" data-forma="barras"></div>
+      <p class="lead" data-t="desempleo"></p>
+      <p class="nota" data-t="desempleo-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo de desempleo y edición por provincia), con datos de ANSES, SIPA y proyecciones de población del INDEC</span><a href="datos/prestacion_desempleo_provincias.csv" download>Por provincia (CSV)</a><a href="datos/prestacion_desempleo.csv" download>Del país, por año (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-exportaciones">
       <h3>¿Cuánto le vende al mundo cada provincia?</h3>
       <p class="ficha-sub">Exportaciones por habitante según provincia de origen, {{nuevos.ex_anio}}</p>
@@ -358,7 +375,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Precios y actividad</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuánto suben los precios?">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>
-      <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica. Todos los datos son del INDEC. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
+      <p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica, todo con datos del INDEC. Al final, el dólar, las tasas de interés y el dinero, con los datos del Banco Central. Los salarios de cada provincia están en <a href="trabajo.html#f-salarios">Trabajo</a>, y cuántas personas son pobres, en <a href="pobreza.html">Pobreza y hogares</a>.</p>
     </div>
     <!--EXPLICADOR:economia-->
 
@@ -387,6 +404,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="inflacion-rubros"></p>
       <p class="nota" data-t="inflacion-rubros-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Índice de precios al consumidor</span><a href="datos/inflacion_rubros.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-expectativas">
+      <h3>¿Cuánta inflación espera la gente para el año siguiente?</h3>
+      <p class="ficha-sub">Inflación esperada para los doce meses siguientes y la que hubo, mes a mes desde {{expectativas_inflacion.desde_anio}}</p>
+      <div class="grafico" data-g="expectativas" data-forma="lineas"></div>
+      <p class="lead" data-t="expectativas"></p>
+      <p class="nota" data-t="expectativas-nota"></p>
+      <div class="pie"><span>Fuente: Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Encuesta de Expectativas de Inflación, e INDEC, Índice de precios al consumidor</span><a href="datos/expectativas_inflacion.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-canastas">
@@ -437,6 +463,33 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta de Supermercados e índice de precios al consumidor</span><a href="datos/supermercados_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-confianza-consumidor">
+      <h3>¿Cuánta confianza tienen los consumidores en la economía?</h3>
+      <p class="ficha-sub">Índice de Confianza del Consumidor de la Universidad Torcuato Di Tella, de 0 a 100, mes a mes desde {{confianza_consumidor.desde_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="confianza-consumidor">
+        <button type="button" data-m="partes" aria-pressed="true">El índice y sus partes</button>
+        <button type="button" data-m="regiones" aria-pressed="false">Por región</button>
+      </div>
+      <div class="grafico" data-g="confianza-consumidor" data-forma="lineas"></div>
+      <p class="lead" data-t="confianza-consumidor"></p>
+      <p class="nota" data-t="confianza-consumidor-nota"></p>
+      <div class="pie"><span>Fuente: Universidad Torcuato Di Tella, Centro de Investigación en Finanzas, Índice de Confianza del Consumidor</span><a href="datos/confianza_consumidor.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-bcra">
+      <h3>¿Cuánto cambiaron el dólar, las tasas y el dinero?</h3>
+      <p class="ficha-sub">Variables principales del Banco Central, último dato de cada mes, desde {{externo.bcra_inicio}} o desde que empieza cada serie</p>
+      <label class="selector-ficha"><span>Variable</span><select id="bcra-sel"></select></label>
+      <div class="conmutador" role="group" aria-label="Medida" id="bcra-conm" data-g="bcra-m" data-propio data-vistas="nominal,En pesos,real,A precios de hoy">
+        <button type="button" data-m="nominal" aria-pressed="true">En pesos</button>
+        <button type="button" data-m="real" aria-pressed="false">A precios de hoy</button>
+      </div>
+      <div class="grafico" data-g="bcra" data-forma="lineas"></div>
+      <p class="lead" data-t="bcra"></p>
+      <p class="nota" data-t="bcra-nota"></p>
+      <div class="pie"><span>Fuentes: BCRA, API de Estadísticas Monetarias, e INDEC, índice de precios al consumidor</span><a href="datos/bcra_variables.csv" download>Valores por mes (CSV)</a><a href="datos/bcra_variables_lista.csv" download>Lista de variables (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema con-pregunta" id="empresas">
@@ -475,7 +528,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Pobreza y hogares</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cuántos no llegan a cubrir lo básico?">¿Cuántas personas no llegan a cubrir lo básico y qué servicios tienen los hogares?</p>
-      <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet.</p>
+      <p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra lo que cambia más despacio: la vivienda, los servicios y la conexión a internet. Las pensiones no contributivas y la Asignación Universal por Hijo son parte de lo que el Estado transfiere a los hogares.</p>
     </div>
     <!--EXPLICADOR:pobreza-->
 
@@ -487,6 +540,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="pobreza"></p>
       <p class="ir-consultas"><a class="boton principal" href="pobreza/">Consultar pobreza por aglomerado, partido y comuna</a></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-ingresos-aglomerados">
+      <h3>¿Cuánto ingreso por persona tienen los hogares de cada ciudad?</h3>
+      <p class="ficha-sub">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, en pesos del {{ingresos_aglomerados.trimestre}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="ingresos-aglomerados">
+        <button type="button" data-m="ipcf" aria-pressed="true">Por persona</button>
+        <button type="button" data-m="ocupacion" aria-pressed="false">Del trabajo</button>
+      </div>
+      <div class="grafico" data-g="ingresos-aglomerados" data-forma="barras" style="--filas:32"></div>
+      <p class="lead" data-t="ingresos-aglomerados"></p>
+      <p class="nota" data-t="ingresos-aglomerados-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio)</span><a href="datos/ingresos_aglomerados.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-censo">
@@ -520,6 +586,36 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Ente Nacional de Comunicaciones (ENACOM)</span><a href="datos/internet_fijo_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-pensiones-invalidez">
+      <h3>¿Cuántas personas cobran una pensión por discapacidad?</h3>
+      <p class="ficha-sub">Pensiones no contributivas por invalidez, {{pensiones_invalidez.ini}} a {{pensiones_invalidez.anio}}, y por provincia, en cantidad y cada 1.000 habitantes</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pensiones-invalidez" style="--n:4">
+        <button type="button" data-m="mapa" aria-pressed="true">Mapa</button>
+        <button type="button" data-m="provincias" aria-pressed="false">Cada 1.000</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="pensiones-invalidez" data-forma="mapa" style="--alto:640px;--alto-c:530px"></div>
+      <p class="lead" data-t="pensiones-invalidez"></p>
+      <p class="nota" data-t="pensiones-invalidez-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo III y edición por provincia), con datos de ANSES</span><a href="datos/pensiones_invalidez_provincias.csv" download>Por provincia (CSV)</a><a href="datos/pensiones_invalidez.csv" download>Del país, por año (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-auh">
+      <h3>¿Cuántos chicos cobran la Asignación Universal por Hijo?</h3>
+      <p class="ficha-sub">Hijos con AUH por provincia, cada 100 menores de 18 años y en cantidad, y asignaciones familiares de los menores del país, {{auh.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="auh" style="--n:4">
+        <button type="button" data-m="provincias" aria-pressed="true">Cada 100</button>
+        <button type="button" data-m="cantidad" aria-pressed="false">Cantidad</button>
+        <button type="button" data-m="mapa" aria-pressed="false">Mapa</button>
+        <button type="button" data-m="cobertura" aria-pressed="false">Cobertura</button>
+      </div>
+      <div class="grafico" data-g="auh" data-forma="barras"></div>
+      <p class="lead" data-t="auh"></p>
+      <p class="nota" data-t="auh-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (capítulo VI y edición por provincia), con datos de ANSES, y proyecciones de población del INDEC</span><a href="datos/auh_provincias.csv" download>Por provincia (CSV)</a><a href="datos/asignaciones_cobertura.csv" download>Asignaciones de los menores del país (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema con-pregunta" id="salud">
@@ -537,6 +633,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="esperanza"></p>
       <p class="nota" data-t="esperanza-nota"></p>
       <div class="pie"><span>Fuente: INDEC, tablas de mortalidad por jurisdicción</span><a href="datos/esperanza_vida_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-causas-muerte">
+      <h3>¿De qué se muere la gente en cada provincia?</h3>
+      <p class="ficha-sub">Muertes por año cada 100.000 habitantes según la causa, ajustadas por edad, por provincia, {{causas_muerte.desde}} a {{causas_muerte.hasta}}</p>
+      <label class="selector-ficha"><span>Causa</span><select id="cm-sel"></select></label>
+      <div class="grafico" data-g="causas-muerte" data-forma="barras"></div>
+      <p class="lead" data-t="causas-muerte"></p>
+      <p class="nota" data-t="causas-muerte-nota"></p>
+      <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, estadísticas vitales, e INDEC, proyecciones de población 2022 a 2040, base Censo 2022</span><a href="datos/causas_muerte_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-mortalidad">
@@ -753,6 +859,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: DEIS, Ministerio de Salud, estadísticas vitales</span><a href="datos/nacimientos.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-poblacion-proy">
+      <h3>¿Cuánto va a crecer la población de cada provincia?</h3>
+      <p class="ficha-sub">Variación de la población proyectada por provincia entre {{poblacion_proy.anio}} y {{poblacion_proy.anio_fin}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="poblacion-proy">
+        <button type="button" data-m="var_pct" aria-pressed="true">En porcentaje</button>
+        <button type="button" data-m="var_personas" aria-pressed="false">En personas</button>
+      </div>
+      <div class="grafico" data-g="poblacion-proy" data-forma="barras"></div>
+      <p class="lead" data-t="poblacion-proy"></p>
+      <p class="nota" data-t="poblacion-proy-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022</span><a href="datos/poblacion_proyectada_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-piramide">
       <h3>¿Cuántos chicos y cuántas personas mayores va a haber?</h3>
       <p class="ficha-sub">Población por edad y sexo, {{piramide.anio}} y {{piramide.anio_fin}}</p>
@@ -778,6 +897,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="jubilaciones"></p>
       <p class="nota" data-t="jubilaciones-nota"></p>
       <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.1), con datos de ARCA y ANSES</span><a href="datos/jubilaciones_aportantes.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-haberes">
+      <h3>¿Cuánto cobra un jubilado comparado con un salario?</h3>
+      <p class="ficha-sub">Haber mínimo y jubilación promedio de ANSES frente al salario promedio registrado, {{haberes.ini}} a {{haberes.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="haberes" style="--n:2">
+        <button type="button" data-m="pct" aria-pressed="true">% del salario</button>
+        <button type="button" data-m="real" aria-pressed="false">A precios de hoy</button>
+      </div>
+      <div class="grafico" data-g="haberes" data-forma="lineas"></div>
+      <p class="lead" data-t="haberes"></p>
+      <p class="nota" data-t="haberes-nota"></p>
+      <div class="pie"><span>Fuente: Secretaría de Seguridad Social, Boletín Estadístico de la Seguridad Social (cuadro 4.1.1.3), con datos de ANSES, e IPC del INDEC</span><a href="datos/haberes_previsionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-adolescentes">
@@ -1080,6 +1212,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span><a href="datos/ministros_nacionales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-confianza-gobierno">
+      <h3>¿Cuánta confianza genera el gobierno nacional?</h3>
+      <p class="ficha-sub">Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella, de 0 a 5, mes a mes desde {{confianza_gobierno.desde_anio}}, y el voto a la candidatura del gobierno en las elecciones presidenciales</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="confianza-gobierno" style="--n:3">
+        <button type="button" data-m="serie" aria-pressed="true">Mes a mes</button>
+        <button type="button" data-m="gobiernos" aria-pressed="false">Por gobierno</button>
+        <button type="button" data-m="elecciones" aria-pressed="false">Elecciones</button>
+      </div>
+      <div class="grafico" data-g="confianza-gobierno" data-forma="lineas"></div>
+      <p class="lead" data-t="confianza-gobierno"></p>
+      <p class="nota" data-t="confianza-gobierno-nota"></p>
+      <div class="pie"><span>Fuentes: Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral</span><a href="datos/confianza_gobierno.csv" download>Mes a mes (CSV)</a><a href="datos/confianza_gobierno_gobiernos.csv" download>Por gobierno (CSV)</a><a href="datos/confianza_gobierno_elecciones.csv" download>Elecciones (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema con-pregunta" id="gobierno">
@@ -1159,6 +1305,124 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="fiscal"></p>
       <p class="nota" data-t="fiscal-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  </section>
+
+  <!-- Sector externo (etapa 41, pedido del autor del 11 de octubre de 2026: "sumá datos de exportación, balanza comercial, balanza de pagos, qué
+       exportamos, adónde exportamos, qué exporta cada provincia, cuánto exporta cada provincia. Lo mismo con las importaciones, meté una nueva
+       categoría en trabajo y economía que se llame sector externo. Y sumá algo de las reservas internacionales"). Lo que exporta cada provincia por
+       habitante sigue en Trabajo -->
+  <section class="tema con-pregunta" id="externo">
+    <h2>Sector externo</h2>
+    <div class="tema-intro">
+      <p class="pregunta" data-corta="¿Qué le vende y qué le compra al mundo?">¿Qué le vende y qué le compra la Argentina al mundo?</p>
+      <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta y qué se importa, con qué países se comercia y desde qué provincia sale cada venta, el saldo de las cuentas con el resto del mundo y las reservas del Banco Central. El dólar, las tasas y el dinero están en <a href="economia.html#f-bcra">Precios y actividad</a>. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
+    </div>
+
+    <article class="ficha" id="f-balanza">
+      <h3>¿Cuánto vende y cuánto compra la Argentina?</h3>
+      <p class="ficha-sub">Exportaciones e importaciones de bienes y su saldo, en millones de dólares por año, {{externo.balanza_desde}} a {{externo.balanza_anio}}</p>
+      <div class="grafico" data-g="balanza" data-forma="lineas"></div>
+      <p class="lead" data-t="balanza"></p>
+      <p class="nota" data-t="balanza-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo</span><a href="datos/balanza_comercial.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-exporta-rubros">
+      <h3>¿Qué exporta la Argentina?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por gran rubro, en millones de dólares por año, {{externo.rubros_desde}} a {{externo.rubros_anio}}</p>
+      <div class="grafico" data-g="exporta-rubros" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
+      <p class="lead" data-t="exporta-rubros"></p>
+      <p class="nota" data-t="exporta-rubros-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo</span><a href="datos/exportaciones_rubros_anual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-complejos">
+      <h3>¿Qué cadenas productivas exportan más?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por complejo exportador, en % del total, {{externo.complejos_periodo}}</p>
+      <div class="grafico" data-g="complejos" data-forma="barras" style="--filas:20"></div>
+      <p class="lead" data-t="complejos"></p>
+      <p class="nota" data-t="complejos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, complejos exportadores (anexo del Origen Provincial de las Exportaciones, provisorio)</span><a href="datos/exportaciones_complejos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-destinos">
+      <h3>¿Adónde exporta cada provincia?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, {{externo.destinos_periodo}}</p>
+      <div class="grafico" data-g="destinos" data-forma="barras" style="--filas:23"></div>
+      <p class="lead" data-t="destinos"></p>
+      <p class="nota" data-t="destinos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio)</span><a href="datos/exportaciones_destinos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-exporta-provincias">
+      <h3>¿Qué exporta cada provincia?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por provincia de origen y gran rubro, {{externo.provincias_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="exprov">
+        <button type="button" data-m="rubro" aria-pressed="true">Por rubro</button>
+        <button type="button" data-m="usd" aria-pressed="false">En dólares</button>
+      </div>
+      <div class="pol-ley" id="exprov-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="exprov" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="exprov"></p>
+      <p class="nota" data-t="exprov-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-importaciones">
+      <h3>¿Qué compra la Argentina?</h3>
+      <p class="ficha-sub">Importaciones de bienes por uso económico, en millones de dólares por año, {{externo.imp_desde}} a {{externo.imp_anio}}</p>
+      <div class="grafico" data-g="importaciones" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
+      <p class="lead" data-t="importaciones"></p>
+      <p class="nota" data-t="importaciones-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo</span><a href="datos/importaciones_usos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-origen">
+      <h3>¿De dónde vienen las importaciones?</h3>
+      <p class="ficha-sub">Importaciones de bienes por origen, en % del total, {{externo.origen_periodo}}</p>
+      <div class="grafico" data-g="origen" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="origen"></p>
+      <p class="nota" data-t="origen-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio)</span><a href="datos/importaciones_origen.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-cuenta-corriente">
+      <h3>¿Entran más dólares de los que salen?</h3>
+      <p class="ficha-sub">Cuenta corriente del balance de pagos y sus partes, en millones de dólares por año, {{externo.cc_desde}} a {{externo.cc_anio}}</p>
+      <div class="grafico" data-g="cuenta-corriente" data-forma="lineas"></div>
+      <p class="lead" data-t="cuenta-corriente"></p>
+      <p class="nota" data-t="cuenta-corriente-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, balance de pagos, vía la API de Series de Tiempo</span><a href="datos/cuenta_corriente.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-reservas-bcra">
+      <h3>¿Cuántas reservas tiene el Banco Central?</h3>
+      <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, en millones de dólares, desde {{externo.reservas_desde}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
+        <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
+        <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
+        <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
+      </div>
+      <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
+      <p class="lead" data-t="reservas-bcra"></p>
+      <p class="nota" data-t="reservas-bcra-nota"></p>
+      <div class="pie"><span>Fuente: BCRA, API de Estadísticas Monetarias</span><a href="datos/reservas_bcra.csv" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" download>Qué las movió, por año (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-reservas-netas">
+      <h3>¿Cuántas reservas netas tiene el Banco Central?</h3>
+      <p class="ficha-sub">Reservas brutas, lo que el BCRA debe pagar en moneda extranjera dentro de un año y reservas netas, en millones de dólares, desde {{externo.reservas_netas.desde_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
+        <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
+        <button type="button" data-m="cascada" aria-pressed="false">De dónde salen</button>
+        <button type="button" data-m="composicion" aria-pressed="false">De qué están hechas</button>
+      </div>
+      <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
+      <p class="lead" data-t="reservas-netas"></p>
+      <p class="nota" data-t="reservas-netas-nota"></p>
+      <div class="pie"><span>Fuente: BCRA, planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual</span><a href="datos/reservas_netas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
@@ -2055,6 +2319,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
   </section>
 
+  <!-- Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor: docs/roadmap/PROPUESTA_CATALOGO.md). La lista, los filtros y
+       el diccionario de cada tabla los escribe scripts/catalogo.py en lugar de la marca de abajo, desde la plantilla, datina.js, el catálogo
+       del Explorador de relaciones y datos/manual/catalogo.json. datina.js filtra, guarda la búsqueda en el enlace y muestra la vista previa -->
+  <section class="tema herramienta" id="catalogo">
+    <h2>Catálogo de datos</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué datos puedo bajar?</p>
+      <p>Cada tabla de Datina con su fuente, su período y su cobertura, para saber qué trae antes de bajarla. Y la tabla completa, con todos los indicadores en un solo archivo. Se pueden reutilizar citando a Datina y a la fuente de cada una (<a href="nosotros.html#licencia">licencia</a>).</p>
+    </div>
+    <!--CATALOGO-->
+  </section>
+
 </main>
 
 <footer class="pie-sitio">
@@ -2062,19 +2338,32 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="pie-marca">
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
       <p class="pie-lema">Las 24 Argentinas en números</p>
-      <p>Estadísticas públicas de cada provincia, con su fuente, su año y la tabla para descargar. Datina no es un sitio oficial ni habla en nombre de ningún organismo.</p>
+      <!-- suscripción (11 de octubre de 2026, pedido del autor: "agregá algún lugar para suscribirse con el mail"): formulario de Netlify,
+           como el de Contacto. Se activa al publicar el sitio en Netlify, que guarda los correos. Con datina.js se envía sin salir de la
+           página y el botón muestra "Enviando" y "Anotado" en su lugar. Sin datina.js, vuelve a Contacto con ?suscripto=1. Los tres textos del
+           botón están siempre, uno encima del otro, así el botón no cambia de ancho al cambiar de estado (idea de uiarc.dev, pedido del autor) -->
+      <form class="form-suscripcion" name="suscripcion" method="POST" action="contacto.html?suscripto=1" data-netlify="true" netlify-honeypot="no-completar">
+        <input type="hidden" name="form-name" value="suscripcion">
+        <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
+        <label class="campo" for="susc-correo"><span>Novedades por correo</span></label>
+        <div class="susc-fila"><input type="email" id="susc-correo" name="correo" required autocomplete="email" inputmode="email" placeholder="nombre@ejemplo.com"><button type="submit" class="susc-boton"><span class="susc-lbl"><span class="susc-e activa" data-e="listo">Avisarme</span><span class="susc-e" data-e="envia">Enviando</span><span class="susc-e" data-e="ok">Anotado</span></span></button></div>
+        <p class="susc-estado" id="susc-estado" role="status"></p>
+      </form>
     </div>
     <nav class="pie-mapa" aria-label="Mapa del sitio"><!--MAPA--></nav>
     <div class="pie-datos">
       <h2>Los datos</h2>
       <p data-t="actualizado"></p>
-      <p>Una vez por mes, un programa vuelve a bajar cada fuente tal como la publica el organismo, recalcula los indicadores y arma de nuevo el sitio.</p>
+      <p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p>
+      <p><a class="enlace" href="catalogo.html">Catálogo de datos</a></p>
       <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
     </div>
   </div>
 </footer>
 
 <div class="tip" id="tip" role="tooltip"></div>
+<!-- avisos para los lectores de pantalla (11 de octubre de 2026): un dato que no cargó o un enlace copiado. Lo escribe avisar() en datina.js -->
+<p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=__VERSION__"></script>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sector externo | Datina</title>
+<meta property="og:site_name" content="Datina">
+<meta property="og:locale" content="es_AR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo?">
+<meta property="og:description" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo?">
+<meta name="twitter:description" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<meta name="description" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js");
+// transición entre páginas: mientras dura, las fichas que ya se ven entran con la página y no por su cuenta
+window.LLEGADA = {activa: false};
+addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = true; e.viewTransition.finished.finally(() => { LLEGADA.activa = false; }); } });</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
+<!-- D3 y topojson en el head, sin defer, a propósito. El 11 de octubre de 2026 se probó con defer (los cuatro scripts): la página se
+     mostraba antes, vacía, y después saltaba cuando datina.js armaba el contenido (CLS de 0,70 en la Corte Suprema y 0,10 en Trabajo,
+     contra 0 así). Para cargar sin frenar y sin saltos, las notas y las piezas tienen que venir armadas en el HTML o reservar su alto -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<link rel="stylesheet" href="datina.css?v=91aa1bc6c2">
+</head>
+<body data-pagina="externo">
+<header class="barra clara">
+  <div class="envoltura">
+    <div class="barra-izq">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+    </div>
+    <nav class="temas" aria-label="Temas principales">
+      <button type="button" class="menu-btn grupo-btn" id="gb-personas" aria-expanded="false" aria-controls="gm-personas" data-secs="poblacion migraciones turismo salud educacion pobreza" data-ir="./#tg-personas">Personas<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-economia" aria-expanded="false" aria-controls="gm-economia" data-secs="trabajo economia empresas construccion gobierno externo" data-ir="./#tg-economia">Trabajo y economía<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-estado" aria-expanded="false" aria-controls="gm-estado" data-secs="politica seguridad curiosidades" data-ir="./#tg-estado">Estado y sociedad<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><button type="button" class="menu-btn grupo-btn" id="gb-territorio" aria-expanded="false" aria-controls="gm-territorio" data-secs="energia petroleo movilidad naturaleza" data-ir="./#tg-territorio">Territorio y recursos<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel">Más<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+    </nav>
+    <div class="barra-der">
+      <!-- provincia elegida: la muestra y la borra, pero no la elige (eso se hace solo en provincia.html) -->
+      <div class="prov-chip" id="prov-chip" hidden>
+        <a class="chip-prov" id="chip-prov" href="provincia.html"><img class="bandera" id="chip-bandera" alt="" width="24" height="16"><span class="chip-nom" id="chip-nom"></span></a>
+        <button type="button" class="chip-borrar" id="chip-borrar" title="Ver todo el país"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15"/></svg><span class="chip-txt">Ver todo el país</span></button>
+      </div>
+      <button type="button" class="lupa-btn" id="lupa-btn" aria-expanded="false" aria-controls="buscador" aria-label="Buscar en Datina" title="Buscar (tecla /)"><svg class="ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg></button>
+    </div>
+  </div>
+  <div class="buscador" id="buscador" hidden>
+    <div class="buscador-caja">
+      <label class="buscador-lab" for="busca">Buscar en Datina</label>
+      <input type="search" id="busca" placeholder="Un tema, una provincia o una pregunta: empleo, Salta, cloacas" autocomplete="off" spellcheck="false">
+      <div class="busca-res" id="busca-res" aria-live="polite"></div>
+    </div>
+  </div>
+</header>
+<!-- "Más" (etapa 32, 6 de octubre de 2026, pedido del autor: "que el menú desaparezca y lo dejes como usafacts"): la lista que abre el
+     botón "Más", al final de los grupos de la barra. Va fuera de la barra, como el menú de antes. El orden (11 de octubre de 2026, pedido
+     del autor): Tu provincia, las herramientas y después el resto. Lo arma el constructor (MENU_MAS en 03_construir_sitio.py) -->
+<nav class="menu-panel" id="menu-panel" aria-label="Más secciones" hidden>
+<div class="menu-col"><div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-herr">Herramientas</p><ul aria-labelledby="mt-herr"><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li><li><a href="catalogo.html">Catálogo de datos</a></li></ul></div></div><div class="menu-col"><div class="menu-grupo"><p class="menu-tit" id="mt-personas">Personas</p><ul aria-labelledby="mt-personas"><li class="en-barra"><a href="poblacion.html">Población</a></li><li class="en-barra"><a href="migraciones.html">Migraciones</a></li><li class="en-barra"><a href="turismo.html">Turismo</a></li><li class="en-barra"><a href="salud.html">Salud</a></li><li class="en-barra"><a href="educacion.html">Educación</a></li><li class="en-barra"><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-economia">Trabajo y economía</p><ul aria-labelledby="mt-economia"><li class="en-barra"><a href="trabajo.html">Trabajo</a></li><li class="en-barra"><a href="economia.html">Precios y actividad</a></li><li class="en-barra"><a href="empresas.html">Sector privado</a></li><li class="en-barra"><a href="construccion.html">Construcción y vivienda</a></li><li class="en-barra"><a href="gobierno.html">Cuentas públicas</a></li><li class="en-barra"><a href="externo.html">Sector externo</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-estado">Estado y sociedad</p><ul aria-labelledby="mt-estado"><li class="en-barra"><a href="politica.html">Instituciones políticas</a></li><li class="en-barra"><a href="seguridad.html">Seguridad</a></li><li class="en-barra"><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-territorio">Territorio y recursos</p><ul aria-labelledby="mt-territorio"><li class="en-barra"><a href="energia.html">Energía</a></li><li class="en-barra"><a href="petroleo.html">Petróleo y gas</a></li><li class="en-barra"><a href="movilidad.html">Movilidad</a></li><li class="en-barra"><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-lect">Artículos y Laboratorio</p><ul aria-labelledby="mt-lect"><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul></div><div class="menu-grupo"><p class="menu-tit" id="mt-datina">Datina</p><ul aria-labelledby="mt-datina"><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></div>
+</nav>
+<!-- los menús de los cuatro grupos de la barra (etapa 39): los arma el constructor desde GRUPOS -->
+<nav class="menu-panel grupo-panel" id="gm-personas" aria-labelledby="gb-personas" hidden><ul><li><a href="poblacion.html">Población</a></li><li class="sub"><a href="migraciones.html">Migraciones</a></li><li class="sub"><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-economia" aria-labelledby="gb-economia" hidden><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Economía</a></li><li class="sub"><a href="empresas.html">Sector privado</a></li><li class="sub"><a href="construccion.html">Construcción y vivienda</a></li><li class="sub"><a href="gobierno.html">Cuentas públicas</a></li><li><a href="externo.html">Sector externo</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-estado" aria-labelledby="gb-estado" hidden><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></nav><nav class="menu-panel grupo-panel" id="gm-territorio" aria-labelledby="gb-territorio" hidden><ul><li><a href="energia.html">Energía</a></li><li class="sub"><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></nav>
+
+
+
+<main class="envoltura">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  <!-- Laboratorio (etapa 33, 6 de octubre de 2026, pedido del autor: "agregá o sustituí alguna sección con esto
+       https://usafacts.org/the-viz-lab/"): piezas visuales grandes, como The Viz Lab de USAFacts, cada una con su gráfico vivo y un
+       texto corto que calcula datina.js. Arriba lo más nuevo y abajo "Más del Laboratorio". Las que salen de una ficha llevan a ella -->
+  
+
+  <!-- La Corte Suprema (etapa 33, pedido del autor: "agregá algo de la justicia argentina, del poder judicial nacional, miembros, cantidad de
+       miembros, designados por tipo de gobierno, radical, peronista, pan, etc, desde 1853 en adelante"): pieza del Laboratorio con página
+       propia, como "The Supreme Court has had 116 justices. Here's who put them there" de USAFacts. El texto y los tres gráficos los arma
+       datina.js (PIEZA_CORTE) con las tablas que calcula 02_procesar.py -->
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- Sector externo (etapa 41, pedido del autor del 11 de octubre de 2026: "sumá datos de exportación, balanza comercial, balanza de pagos, qué
+       exportamos, adónde exportamos, qué exporta cada provincia, cuánto exporta cada provincia. Lo mismo con las importaciones, meté una nueva
+       categoría en trabajo y economía que se llame sector externo. Y sumá algo de las reservas internacionales"). Lo que exporta cada provincia por
+       habitante sigue en Trabajo -->
+  <section class="tema con-pregunta" id="externo"><nav class="pildoras" aria-label="Secciones"><a href="articulos.html">Artículos</a><a href="poblacion.html">Población</a><a href="migraciones.html">Migraciones</a><a href="turismo.html">Turismo</a><a href="salud.html">Salud</a><a href="educacion.html">Educación</a><a href="pobreza.html">Pobreza y hogares</a><a href="trabajo.html">Trabajo</a><a href="economia.html">Precios y actividad</a><a href="empresas.html">Sector privado</a><a href="construccion.html">Construcción y vivienda</a><a href="gobierno.html">Cuentas públicas</a><a href="externo.html" aria-current="page">Sector externo</a><a href="politica.html">Instituciones políticas</a><a href="seguridad.html">Seguridad</a><a href="curiosidades.html">Curiosidades</a><a href="energia.html">Energía</a><a href="petroleo.html">Petróleo y gas</a><a href="movilidad.html">Movilidad</a><a href="naturaleza.html">Flora y fauna</a><a href="cruces.html">Cruces</a><a href="indice.html">Tu índice</a><a href="departamentos.html">Departamentos</a><a href="diagnostico.html">Diagnóstico educativo</a><a href="catalogo.html">Catálogo de datos</a></nav>
+    <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><a href="./#tg-economia">Trabajo y economía</a></li><li class="migas-prov" hidden></li></ol></nav><p class="tema-nombre" style="view-transition-name:t-externo">Sector externo</p>
+    <div class="tema-intro">
+      <h1 class="pregunta" data-corta="¿Qué le vende y qué le compra al mundo?">¿Qué le vende y qué le compra la Argentina al mundo?</h1>
+      <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta y qué se importa, con qué países se comercia y desde qué provincia sale cada venta, el saldo de las cuentas con el resto del mundo y las reservas del Banco Central. El dólar, las tasas y el dinero están en <a href="economia.html#f-bcra">Precios y actividad</a>. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
+
+    <article class="ficha" id="f-balanza">
+      <h3>¿Cuánto vende y cuánto compra la Argentina?</h3>
+      <p class="ficha-sub">Exportaciones e importaciones de bienes y su saldo, en millones de dólares por año, 1992 a 2025</p>
+      <div class="grafico" data-g="balanza" data-forma="lineas"></div>
+      <p class="lead" data-t="balanza"></p>
+      <p class="nota" data-t="balanza-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/balanza_comercial.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-exporta-rubros">
+      <h3>¿Qué exporta la Argentina?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por gran rubro, en millones de dólares por año, 2004 a 2025</p>
+      <div class="grafico" data-g="exporta-rubros" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
+      <p class="lead" data-t="exporta-rubros"></p>
+      <p class="nota" data-t="exporta-rubros-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/exportaciones_rubros_anual.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-complejos">
+      <h3>¿Qué cadenas productivas exportan más?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por complejo exportador, en % del total, primer semestre de 2026</p>
+      <div class="grafico" data-g="complejos" data-forma="barras" style="--filas:20"></div>
+      <p class="lead" data-t="complejos"></p>
+      <p class="nota" data-t="complejos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, complejos exportadores (anexo del Origen Provincial de las Exportaciones, provisorio). Se actualiza cada seis meses.</span><a href="datos/exportaciones_complejos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-destinos">
+      <h3>¿Adónde exporta cada provincia?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, primer semestre de 2026</p>
+      <div class="grafico" data-g="destinos" data-forma="barras" style="--filas:23"></div>
+      <p class="lead" data-t="destinos"></p>
+      <p class="nota" data-t="destinos-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones, por zona económica y país (provisorio). Se actualiza cada seis meses.</span><a href="datos/exportaciones_destinos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-exporta-provincias">
+      <h3>¿Qué exporta cada provincia?</h3>
+      <p class="ficha-sub">Exportaciones de bienes por provincia de origen y gran rubro, 2025</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="exprov">
+        <button type="button" data-m="rubro" aria-pressed="true">Por rubro</button>
+        <button type="button" data-m="usd" aria-pressed="false">En dólares</button>
+      </div>
+      <div class="pol-ley" id="exprov-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="exprov" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="exprov"></p>
+      <p class="nota" data-t="exprov-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio). Se actualiza cada año.</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-importaciones">
+      <h3>¿Qué compra la Argentina?</h3>
+      <p class="ficha-sub">Importaciones de bienes por uso económico, en millones de dólares por año, 1992 a 2025</p>
+      <div class="grafico" data-g="importaciones" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
+      <p class="lead" data-t="importaciones"></p>
+      <p class="nota" data-t="importaciones-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, vía la API de Series de Tiempo. Se actualiza cada mes.</span><a href="datos/importaciones_usos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-origen">
+      <h3>¿De dónde vienen las importaciones?</h3>
+      <p class="ficha-sub">Importaciones de bienes por origen, en % del total, enero a agosto de 2026</p>
+      <div class="grafico" data-g="origen" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="origen"></p>
+      <p class="nota" data-t="origen-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, intercambio comercial argentino, importaciones por zona económica y país (provisorio). Se actualiza cada mes.</span><a href="datos/importaciones_origen.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-cuenta-corriente">
+      <h3>¿Entran más dólares de los que salen?</h3>
+      <p class="ficha-sub">Cuenta corriente del balance de pagos y sus partes, en millones de dólares por año, 2006 a 2025</p>
+      <div class="grafico" data-g="cuenta-corriente" data-forma="lineas"></div>
+      <p class="lead" data-t="cuenta-corriente"></p>
+      <p class="nota" data-t="cuenta-corriente-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, balance de pagos, vía la API de Series de Tiempo. Se actualiza cada tres meses.</span><a href="datos/cuenta_corriente.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-reservas-bcra">
+      <h3>¿Cuántas reservas tiene el Banco Central?</h3>
+      <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, en millones de dólares, desde 1940</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
+        <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
+        <button type="button" data-m="meses" aria-pressed="false">Meses de importación</button>
+        <button type="button" data-m="factores" aria-pressed="false">Qué las movió</button>
+      </div>
+      <div class="grafico" data-g="reservas-bcra" data-forma="lineas"></div>
+      <p class="lead" data-t="reservas-bcra"></p>
+      <p class="nota" data-t="reservas-bcra-nota"></p>
+      <div class="pie"><span>Fuente: BCRA, API de Estadísticas Monetarias. Se actualiza cada mes.</span><a href="datos/reservas_bcra.csv" download>Reservas por mes (CSV)</a><a href="datos/reservas_factores.csv" download>Qué las movió, por año (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-reservas-netas">
+      <h3>¿Cuántas reservas netas tiene el Banco Central?</h3>
+      <p class="ficha-sub">Reservas brutas, lo que el BCRA debe pagar en moneda extranjera dentro de un año y reservas netas, en millones de dólares, desde 2007</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
+        <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
+        <button type="button" data-m="cascada" aria-pressed="false">De dónde salen</button>
+        <button type="button" data-m="composicion" aria-pressed="false">De qué están hechas</button>
+      </div>
+      <div class="grafico" data-g="reservas-netas" data-forma="lineas"></div>
+      <p class="lead" data-t="reservas-netas"></p>
+      <p class="nota" data-t="reservas-netas-nota"></p>
+      <div class="pie"><span>Fuente: BCRA, planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), mensual. Se actualiza cada mes.</span><a href="datos/reservas_netas.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+  <nav class="pasos" aria-labelledby="pasos-tit"><div class="pasos-cab"><h2 class="bloque-grupo" id="pasos-tit">Seguí explorando</h2><a class="enlace" href="./#secciones">Todos los temas <span aria-hidden="true">→</span></a></div><div class="pasos-grid"><a class="tarjeta explora" href="gobierno.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.330) translate(-4.6 -1)"><ellipse class="s" cx="4.2" cy="34.8" rx="30.9" ry="6.8"/><path class="l" d="M-14.5 30L0 38.4L0 33.6L-14.5 25.2Z"/><path class="s" d="M14.5 30L0 38.4L0 33.6L14.5 25.2Z"/><path class="l" d="M0 16.8L14.5 25.2L0 33.6L-14.5 25.2Z"/><path class="s" d="M-2.1 25.2A2.1 1.2 0 0 0 2.1 25.2L2.1 -38.4A2.1 1.2 0 0 1 -2.1 -38.4Z"/><ellipse class="s" cx="0" cy="-38.4" rx="2.1" ry="1.2"/><path class="s" d="M1.6 -36.3L13 -32.1L24.4 -22.5L35.9 -18.3L35.9 6.9L24.4 2.7L13 -6.9L1.6 -11.1Z"/><path class="w" d="M1.6 -27.9L13 -23.7L24.4 -14.1L35.9 -9.9L35.9 -1.5L24.4 -5.7L13 -15.3L1.6 -19.5Z"/><circle class="s" cx="18.7" cy="-14.7" r="2.5"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-gobierno">Cuentas públicas</b><small><span aria-hidden="true">←</span> Anterior</small></span></a><a class="tarjeta explora" href="politica.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(0.885) translate(-9.4 -15.5)"><path class="l" d="M-43.6 25.2L18.7 61.2L18.7 56.4L-43.6 20.4Z"/><path class="s" d="M62.4 36L18.7 61.2L18.7 56.4L62.4 31.2Z"/><path class="l" d="M0 -4.8L62.4 31.2L18.7 56.4L-43.6 20.4Z"/><path class="l" d="M-34.3 19.8L19.7 51L19.7 28.2L-34.3 -3Z"/><path class="s" d="M54 31.2L19.7 51L19.7 28.2L54 8.4Z"/><path class="l" d="M0 -22.8L54 8.4L19.7 28.2L-34.3 -3Z"/><path class="s" d="M-30.7 20.1L-27 22.2L-27 4.2L-30.7 2.1Z"/><path class="s" d="M-21.6 25.3L-17.9 27.4L-17.9 9.5L-21.6 7.3Z"/><path class="s" d="M-12.5 30.6L-8.8 32.7L-8.8 14.7L-12.5 12.6Z"/><path class="s" d="M-3.4 35.8L0.3 37.9L0.3 20L-3.4 17.8Z"/><path class="s" d="M5.7 41.1L9.4 43.2L9.4 25.2L5.7 23.1Z"/><path class="s" d="M14.8 46.3L18.4 48.4L18.4 30.4L14.8 28.3Z"/><path class="l" d="M-17.7 6.6L3.1 18.6L-7.3 4.8Z"/><path class="s" d="M-7.3 4.8L-17.7 6.6L-11.4 3L-1 1.2Z"/><path class="s" d="M3.1 18.6L-7.3 4.8L-1 1.2L9.4 15Z"/><path class="s" d="M-7 2.7A16.9 9.8 0 0 0 26.8 2.7L26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z"/><ellipse class="l" cx="9.9" cy="-6.3" rx="16.9" ry="9.8"/><path class="l" d="M-7 -6.3A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 -7 -6.3Z"/><path class="s" d="M9.9 -23.2A16.9 16.9 0 0 1 26.8 -6.3A16.9 9.8 0 0 1 9.9 3.5Z"/><path class="s" d="M6.6 -22.8A3.3 1.9 0 0 0 13.2 -22.8L13.2 -28.2A3.3 1.9 0 0 1 6.6 -28.2Z"/><ellipse class="l" cx="9.9" cy="-28.2" rx="3.3" ry="1.9"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-politica">Instituciones políticas</b><small>Siguiente <span aria-hidden="true">→</span></small></span></a><a class="tarjeta explora" href="provincia.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.123) translate(-6.5 -22.3)"><path class="s" d="M0 0L18.2 5.1L-23.4 29.1L-41.6 24Z"/><path class="l" d="M18.2 5.1L36.4 21L-5.2 45L-23.4 29.1Z"/><path class="s" d="M36.4 21L54.6 26.1L13 50.1L-5.2 45Z"/><path class="wl" d="M-30.1 21L-9.4 15.2L0.5 15.3"/><path class="k" d="M0.5 15.3L12.5 19.7L24.9 27.6"/><path class="s" d="M27 33.5L16.6 10.6L37.4 10.6Z"/><circle class="s" cx="27" cy="5.9" r="11.4"/><circle class="w" cx="27" cy="5.9" r="4.8"/></g></svg></span><span class="explora-txt"><b>Tu provincia</b><small>Perfil provincial</small></span></a><a class="tarjeta explora" href="cruces.html"><span class="explora-ico"><svg class="iso tono-azul" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="translate(60 60) scale(1.083) translate(-0 -27.1)"><path class="s" d="M-49.9 28.8L0 57.6L0 54.3L-49.9 25.5Z"/><path class="s" d="M49.9 28.8L0 57.6L0 54.3L49.9 25.5Z"/><path class="l" d="M0 -3.3L49.9 25.5L0 54.3L-49.9 25.5Z"/><path class="s" d="M-23.1 25L-17.1 28.5L-17.1 19.5L-23.1 16Z"/><path class="s" d="M-11.2 25L-17.1 28.5L-17.1 19.5L-11.2 16Z"/><path class="l" d="M-17.1 12.6L-11.2 16L-17.1 19.5L-23.1 16Z"/><path class="s" d="M23.1 25.3L29.1 28.8L29.1 8.4L23.1 4.9Z"/><path class="s" d="M35.1 25.3L29.1 28.8L29.1 8.4L35.1 4.9Z"/><path class="l" d="M29.1 1.5L35.1 4.9L29.1 8.4L23.1 4.9Z"/><path class="s" d="M-40.8 25.6L-34.8 29.1L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-28.8 25.6L-34.8 29.1L-34.8 24.3L-28.8 20.8Z"/><path class="l" d="M-34.8 17.4L-28.8 20.8L-34.8 24.3L-40.8 20.8Z"/><path class="s" d="M-1.3 25.6L4.7 29.1L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M10.7 25.6L4.7 29.1L4.7 14.7L10.7 11.2Z"/><path class="l" d="M4.7 7.8L10.7 11.2L4.7 14.7L-1.3 11.2Z"/><path class="s" d="M-21 33.4L-15.1 36.9L-15.1 30.3L-21 26.8Z"/><path class="s" d="M-9.1 33.4L-15.1 36.9L-15.1 30.3L-9.1 26.8Z"/><path class="l" d="M-15.1 23.4L-9.1 26.8L-15.1 30.3L-21 26.8Z"/><path class="s" d="M18.4 33.4L24.4 36.9L24.4 19.5L18.4 16Z"/><path class="s" d="M30.4 33.4L24.4 36.9L24.4 19.5L30.4 16Z"/><path class="l" d="M24.4 12.6L30.4 16L24.4 19.5L18.4 16Z"/><path class="s" d="M1.8 34.6L7.8 38.1L7.8 26.1L1.8 22.6Z"/><path class="s" d="M13.8 34.6L7.8 38.1L7.8 26.1L13.8 22.6Z"/><path class="l" d="M7.8 19.2L13.8 22.6L7.8 26.1L1.8 22.6Z"/></g></svg></span><span class="explora-txt"><b style="view-transition-name:t-cruces">Cruces</b><small>Herramienta</small></span></a></div></nav></section>
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor: docs/roadmap/PROPUESTA_CATALOGO.md). La lista, los filtros y
+       el diccionario de cada tabla los escribe scripts/catalogo.py en lugar de la marca de abajo, desde la plantilla, datina.js, el catálogo
+       del Explorador de relaciones y datos/manual/catalogo.json. datina.js filtra, guarda la búsqueda en el enlace y muestra la vista previa -->
+  
+
+</main>
+
+<footer class="pie-sitio">
+  <div class="envoltura">
+    <div class="pie-marca">
+      <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
+      <p class="pie-lema">Las 24 Argentinas en números</p>
+      <!-- suscripción (11 de octubre de 2026, pedido del autor: "agregá algún lugar para suscribirse con el mail"): formulario de Netlify,
+           como el de Contacto. Se activa al publicar el sitio en Netlify, que guarda los correos. Con datina.js se envía sin salir de la
+           página y el botón muestra "Enviando" y "Anotado" en su lugar. Sin datina.js, vuelve a Contacto con ?suscripto=1. Los tres textos del
+           botón están siempre, uno encima del otro, así el botón no cambia de ancho al cambiar de estado (idea de uiarc.dev, pedido del autor) -->
+      <form class="form-suscripcion" name="suscripcion" method="POST" action="contacto.html?suscripto=1" data-netlify="true" netlify-honeypot="no-completar">
+        <input type="hidden" name="form-name" value="suscripcion">
+        <p class="oculto"><label>No completar este campo <input name="no-completar" tabindex="-1" autocomplete="off"></label></p>
+        <label class="campo" for="susc-correo"><span>Novedades por correo</span></label>
+        <div class="susc-fila"><input type="email" id="susc-correo" name="correo" required autocomplete="email" inputmode="email" placeholder="nombre@ejemplo.com"><button type="submit" class="susc-boton"><span class="susc-lbl"><span class="susc-e activa" data-e="listo">Avisarme</span><span class="susc-e" data-e="envia">Enviando</span><span class="susc-e" data-e="ok">Anotado</span></span></button></div>
+        <p class="susc-estado" id="susc-estado" role="status"></p>
+      </form>
+    </div>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Personas</h2><ul><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="turismo.html">Turismo</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="pie-col"><h2>Trabajo y economía</h2><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Precios y actividad</a></li><li><a href="empresas.html">Sector privado</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="gobierno.html">Cuentas públicas</a></li><li><a href="externo.html">Sector externo</a></li></ul></div><div class="pie-col"><h2>Estado y sociedad</h2><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Territorio y recursos</h2><ul><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="departamentos.html">Departamentos</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li></ul><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <div class="pie-datos">
+      <h2>Los datos</h2>
+      <p data-t="actualizado"></p>
+      <p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p>
+      <p><a class="enlace" href="catalogo.html">Catálogo de datos</a></p>
+      <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<!-- avisos para los lectores de pantalla (11 de octubre de 2026): un dato que no cargó o un enlace copiado. Lo escribe avisar() en datina.js -->
+<p class="solo-lector" id="aviso" aria-live="polite"></p>
+
+<!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
+<script src="datos/fichas.js?v=db97a0853f"></script>
+<script src="datina.js?v=4118979e97"></script>
+</body>
+</html>

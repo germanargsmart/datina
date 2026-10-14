@@ -26,8 +26,8 @@
 </header>
 <main class="envoltura">
 <section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=__V_RX_DATOS__">
-  <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Explorador de relaciones</span></li></ol></nav>
-  <h2>Explorador de relaciones</h2>
+  <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span>Herramientas</span></li></ol></nav>
+  <h1>Explorador de relaciones</h1>
   <div class="tema-intro">
     <p class="pregunta">¿De dónde sale cada número?</p>
     <p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>
@@ -72,6 +72,7 @@
         <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.</p>
 
       <div class="rx-tabla" id="rx-tabla" hidden>
+        <a class="rx-saltar rx-saltar-tabla" id="rx-saltar-tabla" href="#rx-panel">Saltar la tabla</a>
         <p class="rx-vacio" id="rx-vacio-tabla" hidden></p>
         <div class="rx-tabla-env"><table>
           <caption class="rx-oculto">Organismos, archivos y fichas con sus relaciones</caption>
@@ -97,7 +98,7 @@
   </div>
   <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
 
-  <section class="rx-definiciones" aria-labelledby="rx-def-tit">
+  <section class="rx-definiciones" id="rx-definiciones" aria-labelledby="rx-def-tit" tabindex="-1">
     <h3 id="rx-def-tit">Qué es una relación acá</h3>
     <dl>
       <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>

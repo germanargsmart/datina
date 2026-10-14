@@ -53,7 +53,7 @@
   --rojo:#C8102E; --rojo-oscuro:#8A1422; /* gorro frigio del escudo */
   --ocde:#7A4FA0; --ocde-suave:#ECE3F5; /* promedio de los países de la OCDE, solo dentro de los gráficos */
   /* sobre el azul de la portada */
-  --en-azul-texto:rgba(255,255,255,.86); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);
+  --en-azul-texto:rgba(255,255,255,.95); --en-azul-borde:rgba(255,255,255,.7); --en-azul-linea:rgba(255,255,255,.35); --en-azul-velo:rgba(255,255,255,.14);
   /* letra: diez tamaños y nada más. Los que van entre dos valores se ajustan al ancho de la pantalla */
   --f:"Roboto Flex","Datina Roboto","Datina Verdana", Roboto, Verdana, system-ui, sans-serif;
   --f-bajada:"Roboto Flex","Datina Roboto B","Datina Verdana B", Roboto, Verdana, system-ui, sans-serif;
@@ -61,16 +61,18 @@
   --f-c55:"Roboto Flex","Datina Roboto C55","Datina Verdana C55",var(--f);
   --f-c60:"Roboto Flex","Datina Roboto C60","Datina Verdana C60",var(--f); --f-c75:"Roboto Flex","Datina Roboto C75","Datina Verdana C75",var(--f);
   --mono:"Roboto Mono","Datina Mono",ui-monospace,Menlo,Consolas,monospace;
-  --t-1:11px;                          /* etiquetas en mayúsculas */
-  --t-2:13px;                          /* notas, pies y datos chicos */
-  --t-3:15px;                          /* textos secundarios y de tarjetas */
-  --t-4:17px;                          /* texto (16 en el celular) */
-  --t-5:clamp(18px,1.8vw,20px);        /* bajadas y títulos chicos */
-  --t-6:clamp(20px,2.2vw,24px);        /* preguntas de entrada */
-  --t-7:clamp(22px,2.4vw,28px);        /* títulos de ficha y de tarjeta */
-  --t-8:clamp(28px,3.4vw,36px);        /* cifras chicas */
-  --t-9:clamp(30px,3.6vw,44px);        /* títulos de bloque */
-  --t-10:clamp(40px,5.2vw,64px);       /* títulos de página */
+  /* en rem (11 de octubre de 2026, revisión de accesibilidad): con la letra de 16 píxeles del navegador se ven igual que antes en
+     píxeles, y crecen si la persona elige una letra más grande */
+  --t-1:.6875rem;                          /* etiquetas en mayúsculas (11) */
+  --t-2:.8125rem;                          /* notas, pies y datos chicos (13) */
+  --t-3:.9375rem;                          /* textos secundarios y de tarjetas (15) */
+  --t-4:1.0625rem;                         /* texto (17, 16 en el celular) */
+  --t-5:clamp(1.125rem,1.8vw,1.25rem);     /* bajadas y títulos chicos (18 a 20) */
+  --t-6:clamp(1.25rem,2.2vw,1.5rem);       /* preguntas de entrada (20 a 24) */
+  --t-7:clamp(1.375rem,2.4vw,1.75rem);     /* títulos de ficha y de tarjeta (22 a 28) */
+  --t-8:clamp(1.75rem,3.4vw,2.25rem);      /* cifras chicas (28 a 36) */
+  --t-9:clamp(1.875rem,3.6vw,2.75rem);     /* títulos de bloque (30 a 44) */
+  --t-10:clamp(2.5rem,5.2vw,4rem);         /* títulos de página (40 a 64) */
   --t-cifra:clamp(38px,4.6vw,54px);    /* cifra destacada de cada ficha */
   --i-titulo:1.1; --i-tarjeta:1.25; --i-chico:1.4; --i-texto:1.55;
   /* espacios: la escala del autor (etapa 38), 4, 8, 12, 16, 24, 32, 48, 72, 96 y 144. No hay --e-5: los 20 píxeles no están en la
@@ -98,6 +100,9 @@
   /* sombra de las tarjetas: apenas las separa del fondo, teñida del azul de la marca (nunca negra) */
   --sombra-tarjeta:0 1px 2px rgba(31,94,151,.06),0 10px 28px -16px rgba(31,94,151,.24);
   --sombra-panel:0 18px 30px rgba(24,33,43,.14);
+  /* el vidrio de los menús desplegables (11 de octubre de 2026, pedido del autor: "pasar de fondo blanco a transparente"): traslúcido y
+     desenfocado, para que el texto se siga leyendo sobre cualquier parte de la página */
+  --vidrio-menu:rgba(246,248,251,.72); --vidrio-blur:blur(18px) saturate(1.4);
   --sombra-boton:0 2px 0 rgba(24,33,43,.14);
   /* movimiento: curvas y duraciones. 150 ms respuesta al mouse, 200 menús, cuadros y cambios de vista, 250 fichas y barra, 300 páginas y gráficos.
      Nada de la interfaz pasa de 300 ms: solo el sol y el gorro de la portada, que son decorativos */
@@ -106,7 +111,7 @@
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (max-width:760px){:root{--t-4:16px}}
+@media (max-width:760px){:root{--t-4:1rem}}
 
 /* ---------- base ---------- */
 *,*::before,*::after{box-sizing:inherit}
@@ -121,6 +126,9 @@ a{color:inherit;text-decoration-color:var(--celeste);text-underline-offset:3px;t
 a:hover{text-decoration-color:var(--celeste-fuerte)}
 :focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:3px}
 .en-azul :focus-visible{outline-color:var(--sol)}
+/* en las filas que se deslizan de costado, el borde del foco va hacia adentro: el desplazamiento lo cortaba arriba y abajo (revisión de
+   accesibilidad, 11 de octubre de 2026) */
+.subsecciones a:focus-visible,.pildoras a:focus-visible,.cx-sug .cx-chip:focus-visible,.cifras-grid .cifra:focus-visible{outline-offset:-3px}
 select option{background:var(--bg);color:var(--ink)}
 /* cortes de línea: títulos con líneas parejas y textos sin una palabra sola al final */
 h1,h2,h3,h4,.art-txt b,.sec-tarjeta b,.tema-intro .pregunta{text-wrap:balance}
@@ -264,7 +272,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .menu-panel{position:fixed;z-index:30;left:var(--menu-izq,var(--margen));top:calc(env(safe-area-inset-top,0px) + 62px);
   width:min(500px,calc(100vw - 24px));max-height:calc(100dvh - 86px);overflow:auto;overscroll-behavior:contain;
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--e-4);padding:var(--e-3);
-  background:#fff;border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);
+  background:var(--vidrio-menu);-webkit-backdrop-filter:var(--vidrio-blur);backdrop-filter:var(--vidrio-blur);
+  border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);
   transform-origin:top left;opacity:0;transform:translateY(-4px) scale(.98);
   transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-2) var(--ease-out),translate var(--dur-3) var(--ease-out)}
 .menu-panel.abierto{opacity:1;transform:none}
@@ -277,7 +286,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .menu-panel ul{margin:0;padding:0;list-style:none}
 @media (min-width:1081px){.menu-panel .en-barra{display:none}
   /* un grupo con todos sus temas en la barra no deja dos líneas seguidas (etapa 36) */
-  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))){display:none}}
+  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))){display:none}
+  /* y el primer grupo que se ve después de ellos (Artículos, desde el 11 de octubre de 2026) no lleva línea arriba */
+  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))) + .menu-grupo:has(li:not(.en-barra)){margin-top:0;padding-top:0;border-top:0}}
 /* todos los enlaces iguales: la letra del texto, el mismo tamaño y sin negrita */
 .menu-panel a{display:block;padding:7px var(--e-3);border-radius:var(--r-control);
   font-family:var(--f);font-size:var(--t-3);font-weight:400;font-variation-settings:normal;letter-spacing:normal;line-height:1.3;
@@ -310,7 +321,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra) */
   .menu-panel{left:0;right:0;width:auto;top:calc(env(safe-area-inset-top,0px) + 62px);bottom:-8px;max-height:none;
     grid-template-columns:1fr;gap:0;padding:var(--e-4) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
-    background:#fff;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;transform:translateY(-8px)}
+    background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;transform:translateY(-8px)}
   .barra.compacta ~ .menu-panel{translate:0 -8px}
   /* en una sola columna, la línea fina también separa una columna de la siguiente */
   .menu-col + .menu-col{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line)}
@@ -332,7 +343,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .buscador-caja{max-width:760px;margin:0 auto;padding:var(--e-6) var(--margen) var(--e-6)}
 .buscador-lab{display:block;margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 #busca{width:100%;padding:12px 16px;font:inherit;font-size:var(--t-5);color:var(--ink);background:#fff;border:1.5px solid var(--azul);border-radius:var(--r-control)}
-#busca::placeholder{color:#7A8794}
+/* los textos de ejemplo de los buscadores con --faint-texto: 4,9 a 1 sobre blanco (eran 3,7 y 2,6 a 1, 11 de octubre de 2026) */
+#busca::placeholder{color:var(--faint-texto)}
 #busca:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .busca-res{display:flex;flex-direction:column;margin-top:var(--e-3);max-height:min(60vh,440px);overflow:auto}
 .busca-res a{display:flex;flex-direction:column;gap:var(--e-1);padding:10px 6px;font-size:var(--t-4);line-height:var(--i-tarjeta);color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--borde)}
@@ -369,7 +381,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   font-variation-settings:"wdth" 25,"opsz" 144}
 .portada .lema{margin:0 0 var(--e-6);font-size:clamp(20px,2.2vw,28px);line-height:1.05;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:#fff;
   font-variation-settings:"wdth" 30,"opsz" 144;font-family:var(--f-c30)}
-.portada .bajada{margin:0 0 var(--e-6);max-width:26em;font-size:var(--t-5);line-height:1.45;color:rgba(255,255,255,.88)}
+.portada .bajada{margin:0 0 var(--e-6);max-width:26em;font-size:var(--t-5);line-height:1.45;color:var(--en-azul-texto)}
 .atajos{display:flex;flex-wrap:wrap;gap:var(--e-3)}
 /* cifras del sitio: texto simple, no se tocan */
 /* información secundaria: más chica y más tenue que los botones (octubre de 2026) */
@@ -384,8 +396,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--en-azul-texto);transition:opacity var(--dur-4) var(--ease-out)}
 .mapa-ayuda[style*="top"]{bottom:auto}
 /* tarjeta al tocar una provincia: al lado del país en pantallas anchas, debajo del mapa en el celular */
-.mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);background:#fff;border-radius:var(--r-panel);
-  box-shadow:var(--sombra-panel);pointer-events:auto}
+/* con el vidrio de los menús desplegables (11 de octubre de 2026, pedido del autor: "el mismo gradiente o transparencia que los desplegables
+   del menú, así vamos unificando criterios"). Los textos chicos pasan del gris al tono de la bajada, que se lee sobre el vidrio encima del azul */
+.mapa-tarjeta{position:absolute;z-index:2;display:none;width:280px;padding:var(--e-4);color:var(--ink);border:1px solid var(--line);border-radius:var(--r-panel);
+  background:var(--vidrio-menu);-webkit-backdrop-filter:var(--vidrio-blur);backdrop-filter:var(--vidrio-blur);box-shadow:var(--sombra-panel);pointer-events:auto}
 .mapa-tarjeta.abierta{display:block}
 .mt-cab{display:flex;align-items:center;justify-content:space-between;gap:var(--e-2);margin-bottom:var(--e-3);font-size:var(--t-5);font-weight:600}
 .mt-cerrar{width:32px;height:32px;flex:none;font-size:22px;line-height:1;color:var(--muted);background:none;border:0;border-radius:var(--r-control);cursor:pointer}
@@ -393,7 +407,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .mapa-tarjeta li{display:grid;grid-template-columns:1fr auto;gap:0 var(--e-2);padding:var(--e-2) 0;border-top:1px solid var(--line)}
 .mt-lab{font-size:var(--t-3)}
 .mapa-tarjeta li b{font-size:var(--t-3);font-weight:600;font-variant-numeric:tabular-nums}
-.mapa-tarjeta li small{grid-column:1/-1;font-size:var(--t-1);color:var(--muted)}
+.mapa-tarjeta li small{grid-column:1/-1;font-size:var(--t-1);color:var(--tinta-bajada)}
+.mapa-tarjeta .mt-cerrar{color:var(--tinta-bajada)}
 .mapa-tarjeta .boton{width:100%}
 .mapa-tarjeta .boton.principal{--b-fondo:var(--azul);--b-tinta:#fff;--b-borde:var(--azul)}
 @media (hover:hover) and (pointer:fine){.mapa-tarjeta .boton.principal:hover{--b-fondo:var(--azul-hondo);--b-borde:var(--azul-hondo)}}
@@ -542,18 +557,19 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* ---------- títulos de página: cada sección, Tu provincia y Sobre nosotros ---------- */
 .tema,.provincias,.nosotros,.contacto,.no-encontrada,.laboratorio{padding-top:var(--e-7)}
-.tema>h2,.provincias>h2,.nosotros>h2,.contacto>h2,.no-encontrada>h2,.laboratorio>h2{position:relative;display:inline-block;margin:var(--ritmo) 0 var(--e-4);font-size:var(--t-10);line-height:.95;font-weight:500;
+.tema>:is(h1,h2,.tema-nombre),.provincias>:is(h1,h2),.nosotros>:is(h1,h2),.contacto>:is(h1,h2),.no-encontrada>:is(h1,h2),.laboratorio>:is(h1,h2){position:relative;display:inline-block;margin:var(--ritmo) 0 var(--e-4);font-size:var(--t-10);line-height:.95;font-weight:500;
   letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 /* el mini sol de los títulos */
-.tema>h2::after,.provincias>h2::after,.nosotros>h2::after,.contacto>h2::after,.no-encontrada>h2::after,.laboratorio>h2::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
+.tema>:is(h1,h2,.tema-nombre)::after,.provincias>:is(h1,h2)::after,.nosotros>:is(h1,h2)::after,.contacto>:is(h1,h2)::after,.no-encontrada>:is(h1,h2)::after,.laboratorio>:is(h1,h2)::after{content:"";position:absolute;top:.06em;right:-.32em;width:.2em;height:.2em;border-radius:50%;
   background:radial-gradient(circle,var(--sol) 34%,transparent 37%),repeating-conic-gradient(var(--sol) 0 7deg,transparent 7deg 22.5deg)}
 /* La pregunta como título (etapa 35, pedido del autor tras la auditoría de diseño del 6 de octubre de 2026: primero en Trabajo y después, con la
    decisión que el autor dejó en manos de Claude, en Pobreza, Salud, Educación y Población, las secciones con class="tema con-pregunta"): el nombre de la sección queda chico
    arriba, en el estilo de la etiqueta de las fichas y con el sol, y la pregunta pasa a ser el título grande, en la letra de los títulos de
-   ficha. El h2 sigue siendo el encabezado de la página (el constructor lo lee para el índice, los menús y las migas) */
-.tema.con-pregunta>h2{margin:var(--e-6) 0 var(--e-3);padding-left:18px;font:500 var(--t-2)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+   ficha. En la plantilla es un h2 (el constructor lo lee para el índice, los menús y las migas). En la página armada el nombre es
+   p.tema-nombre y la pregunta, el h1 (14 de octubre de 2026), con el mismo aspecto */
+.tema.con-pregunta>:is(h1,h2,.tema-nombre){margin:var(--e-6) 0 var(--e-3);padding-left:18px;font:500 var(--t-2)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
   font-variation-settings:normal}
-.tema.con-pregunta>h2::after{top:.24em;right:auto;left:0;width:12px;height:12px}
+.tema.con-pregunta>:is(h1,h2,.tema-nombre)::after{top:.24em;right:auto;left:0;width:12px;height:12px}
 .con-pregunta .tema-intro .pregunta{max-width:20em;margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-9);line-height:1.08;font-weight:600;letter-spacing:-.01em;
   color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32}
 
@@ -563,10 +579,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .migas li{display:flex;align-items:center;min-width:0}
 .migas li+li::before{content:"\203A";margin:0 var(--e-2);font-size:14px;line-height:1;color:var(--faint)}
 .migas a{padding:4px 0;color:var(--celeste-fuerte);text-decoration:none}
-.migas [aria-current]{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+.migas span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
 .migas-prov{color:var(--azul)}
 .migas-prov[hidden]{display:none}
-.migas+h2{margin-top:var(--e-4)!important}
+.migas+:is(h1,h2,.tema-nombre){margin-top:var(--e-4)!important}
 .pildoras+.migas{margin-top:var(--e-6)}
 /* la fila de una categoría (etapa 36): al final de la entrada de la página, antes de "En cifras", con el estilo de la navegación (letra en
    mayúsculas y la marca amarilla en la página actual). Si no entra, se desliza de costado */
@@ -581,6 +597,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 
 /* ---------- Tu provincia: desplegable propio y perfil de la provincia elegida ---------- */
 .prov-sub{margin:0 0 var(--e-6);max-width:var(--medida);color:var(--muted)}
+/* sin la bajada (11 de octubre de 2026, pedido del autor), el selector de provincia va en su propio renglón debajo del título, no al costado */
+.provincias>:is(h1,h2)+.elige{display:flex;width:max-content;max-width:100%}
 /* desplegable: compacto, fuente liviana, crece desde el botón */
 .elige{position:relative;z-index:6;display:inline-flex;flex-direction:column;gap:6px}
 .elige-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -598,11 +616,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .elige-panel.abierto{opacity:1;transform:none;transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
 .elige-buscar{width:100%;margin-bottom:4px;padding:8px 10px 10px;font:inherit;font-size:var(--t-3);font-weight:350;color:var(--ink);
   background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;outline:none}
-.elige-buscar::placeholder{color:var(--faint)}
+.elige-buscar::placeholder{color:var(--faint-texto)}
+/* el buscador de provincias no tiene borde propio: con el teclado, la línea de abajo se engrosa y toma el color del foco */
+.elige-buscar:focus-visible{border-bottom:2px solid var(--celeste-fuerte);padding-bottom:9px}
 .elige-lista{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px}
 .elige-lista li{display:flex;align-items:center;gap:8px;padding:7px 10px;font-size:var(--t-3);font-weight:350;line-height:1.3;color:var(--ink);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
 .elige-lista li.activa{background:var(--celeste-suave)}
-.elige-lista li[aria-selected="true"]{color:var(--celeste-fuerte);font-weight:600}
+/* la provincia elegida en --azul-hondo: 5,6 a 1 sobre el celeste de la opción activa (con --celeste-fuerte daba 4,04) */
+.elige-lista li[aria-selected="true"]{color:var(--azul-hondo);font-weight:600}
 .elige-lista li.primera{grid-column:1/-1}
 .elige-lista li[hidden]{display:none}
 .elige-vacio{margin:0;padding:8px 10px;font-size:var(--t-3);color:var(--muted)}
@@ -760,7 +781,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .pildoras a{flex:none;padding:12px 0 10px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;
     font-variation-settings:"wdth" 60,"opsz" 14;color:var(--azul);text-decoration:none;font-family:var(--f-c60)}
   .pildoras a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--sol)}
-  .tema>.pildoras+h2{margin-top:var(--e-7)}
+  .tema>.pildoras+:is(h1,h2,.tema-nombre){margin-top:var(--e-7)}
 }
 /* "Para entender los datos" (etapa 31, 6 de octubre de 2026, pedido del autor: "reordenar esto, queda rarísimo así, poco responsive",
    con los principios de diseño de Apple y de Emil Kowalski). El autor eligió entre cuatro opciones probadas sobre la página real, después
@@ -917,8 +938,12 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .listo .ficha.visto{opacity:1;transform:none}
 .etiqueta{display:inline-block;margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .etiqueta::before{content:"# ";color:var(--azul)}
-/* con el título como pregunta (etapa 35), la descripción con el período va debajo, más chica */
-.ficha-sub{max-width:var(--medida);margin:calc(-1 * var(--e-2)) 0 var(--e-3);font-size:var(--t-3);line-height:1.4;color:var(--muted)}
+/* con el título como pregunta (etapa 35), la descripción con el período va debajo. Desde el 11 de octubre de 2026 (pedido del autor:
+   "armonizá las tipografías de cada una de las cards", variante B) la descripción y el texto de la ficha usan la letra de la bajada de
+   cada página, del mismo tamaño y color: el subtítulo que sigue a un título, como en el resto del sitio */
+.ficha-sub{max-width:var(--medida);margin:calc(-1 * var(--e-2)) 0 var(--e-3)}
+.ficha-sub,.ficha .lead{font-family:var(--f-bajada);font-size:var(--t-4);line-height:1.55;font-weight:340;font-variation-settings:"opsz" 28;
+  letter-spacing:-.003em;color:var(--tinta-bajada)}
 .ficha h3{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;font-family:var(--f-c75)}
 .clave{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px var(--e-4);margin:2px 0 var(--e-3)}
 .clave .num{font-size:var(--t-cifra);line-height:1;font-weight:500;letter-spacing:-.01em;color:var(--celeste-fuerte);font-variant-numeric:tabular-nums;
@@ -995,6 +1020,23 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   .ficha.horizontal>.ficha-grafico{grid-area:1/2/3/3}
   .ficha.horizontal>.pie,.ficha.horizontal>.tabla-datos{grid-column:1/-1}
   .ficha-grafico>:first-child,.ficha-texto>:first-child{margin-top:0}
+}
+/* textos de las fichas justificados (11 de octubre de 2026, pedido del autor: "los textos que van adentro los vas a justificar a todos"), con
+   corte de palabras en español (la página es lang="es") para que no queden huecos grandes entre palabras en las columnas angostas */
+.ficha p:not(.clave){text-align:justify;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
+/* salvo los títulos chicos en letra mono de los gráficos y las herramientas: justificados quedaban con huecos grandes entre palabras */
+.ficha p:is(.lectura-serie,.cx-leyenda,.mp-lugar,.dx-grafico-tit,.ix-leyenda){text-align:left;-webkit-hyphens:manual;hyphens:manual}
+/* en las fichas a todo el ancho (anchas y herramientas), donde el gráfico no va al costado: la cabeza (la pregunta, la descripción y el
+   texto) en una sola columna de lectura cómoda, de corrido, y a su derecha los controles de la ficha, alineados con el final del texto,
+   justo arriba del gráfico. Así no queda vacía la mitad derecha y ninguna oración se corta (11 de octubre de 2026, pedido del autor: el
+   texto en dos columnas parecía partido en dos). Las notas, en la misma columna que el texto. Lo demás va a todo el ancho */
+@media (min-width:1080px){
+  .ficha:is(.ancha,.explorador){display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--e-8);align-items:start}
+  .ficha:is(.ancha,.explorador)>*{grid-column:1/-1;min-width:0}
+  .ficha:is(.ancha,.explorador)>:is(.etiqueta,h3,.ficha-sub,.clave,.lead,.nota){grid-column:1;max-width:none}
+  .ficha:is(.ancha,.explorador)>.etiqueta{justify-self:start}
+  .ficha:is(.ancha,.explorador)>:is(.lg-sels,.vt-controles,.selector-ficha,.dx-controles){grid-column:2;grid-row:1/span 6;align-self:end;
+    max-width:none;margin:0 0 var(--e-4)}
 }
 /* el texto que sigue al gráfico se separa de él como el gráfico de la cabeza (en la plantilla, antes de que llegue el código, y después) */
 @media (max-width:1079px){.ficha>:not(h3,.ficha-sub,.etiqueta,.clave)+.lead,.ficha-grafico+.ficha-texto>.lead:first-child{margin-top:var(--e-6)}}
@@ -1081,7 +1123,10 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 html:not(.js) .esqueleto{display:none}
 .esqueleto .cifra,.dp.esqueleto{--esqueleto:var(--superficie-3);pointer-events:none;animation:esqueleto var(--dur-2) var(--ease-out) 400ms both;background-repeat:no-repeat;
   background-image:linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0),linear-gradient(var(--esqueleto) 0 0)}
-.esqueleto .cifra{min-height:140px;background-position:16px 18px,16px 66px,16px 86px,16px 106px;background-size:42% 30px,calc(100% - 32px) 10px,calc(100% - 32px) 10px,55% 10px}
+.esqueleto .cifra{min-height:141px;background-position:16px 18px,16px 66px,16px 86px,16px 106px;background-size:42% 30px,calc(100% - 32px) 10px,calc(100% - 32px) 10px,55% 10px}
+/* con las cinco tarjetas en fila (880 píxeles o más) la mayoría de las secciones tiene tarjetas de 149 píxeles y en celular de 141:
+   la silueta usa la altura más común para que el texto de abajo casi no salte cuando llega datina.js (medido el 12 de octubre de 2026) */
+@container (min-width:880px){.esqueleto .cifra{min-height:149px}}
 .dp.esqueleto{min-height:224px;background-position:20px 20px,20px 50px,20px 112px,20px 168px;background-size:50% 10px,40% 40px,calc(100% - 40px) 10px,calc(100% - 40px) 12px}
 
 /* ---------- controles de las fichas: rectos ---------- */
@@ -1089,6 +1134,8 @@ html:not(.js) .esqueleto{display:none}
 .conmutador{position:relative;display:inline-grid;grid-template-columns:repeat(var(--n,2),1fr);margin:var(--e-6) 0 0;padding:2px;border:1px solid var(--azul);border-radius:var(--r-control)}
 .conmutador::before{content:"";position:absolute;top:2px;bottom:2px;left:2px;width:calc((100% - 4px) / var(--n,2));background:var(--azul);border-radius:calc(var(--r-control) - 3px);
   transform:translateX(calc(var(--i,0) * 100%));transition:transform var(--dur-2) var(--ease-out)}
+/* con botones de anchos distintos (pantallas muy angostas), la marca toma la posición y el ancho del elegido, que mide datina.js */
+.conmutador.medido::before{left:0;width:var(--w);transform:translateX(var(--x));transition:transform var(--dur-2) var(--ease-out),width var(--dur-2) var(--ease-out)}
 .conmutador button{position:relative;min-height:34px;padding:0 var(--e-4);font:500 var(--t-1)/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--azul);
   background:transparent;border:0;cursor:pointer;transition:color var(--dur-1) var(--ease-out)}
 .conmutador button[aria-pressed="true"]{color:#fff}
@@ -1098,6 +1145,11 @@ html:not(.js) .esqueleto{display:none}
 @media (max-width:760px){
   .conmutador{display:grid;width:100%}
   .conmutador button{padding:6px;line-height:1.25}
+}
+/* a 320 píxeles, cuatro botones con palabras largas ("Evolución", "Cantidad") no entraban con 6 píxeles a cada lado, y en Cruces
+   "Correlaciones" se salía de la ficha (14 de octubre de 2026): menos margen y un poco menos de espacio entre letras */
+@media (max-width:360px){
+  .conmutador button{padding:6px 2px;letter-spacing:.03em}
 }
 /* listas desplegables de las fichas y de las herramientas */
 .cx-campo,.selector-ficha{display:flex;flex-direction:column;gap:6px;flex:1 1 260px;min-width:0}
@@ -1130,6 +1182,9 @@ html:not(.js) .esqueleto{display:none}
 .etq-suave{font-size:12.5px;fill:var(--muted);font-family:var(--f)}
 .etq-fuerte{font-size:13px;font-weight:650;fill:var(--ink);font-family:var(--f)}
 .etq,.etq-suave,.etq-fuerte{paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
+/* los nombres y valores de las barras llevan un borde del color del fondo: la línea del país pasa por detrás sin cruzar las cifras */
+/* sin los números que van adentro de las barras apiladas (text.v): sobre un tramo oscuro, el borde del color del fondo los tapaba */
+.grafico g.f text:not(.v){paint-order:stroke;stroke:var(--bg);stroke-width:6px;stroke-linejoin:round}
 .anota{font-family:var(--f);font-size:11.5px;fill:var(--muted);paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
 .anota.adentro{fill:var(--ink);font-weight:500;stroke-width:3px}
 .anota.sobre-fuerte{fill:#fff}
@@ -1137,6 +1192,8 @@ html:not(.js) .esqueleto{display:none}
 .tip{position:absolute;z-index:5;padding:7px 10px;font-family:var(--mono);font-size:12px;line-height:1.35;white-space:nowrap;color:var(--bg);background:var(--azul-hondo);border-radius:var(--r-interno);
   pointer-events:none;opacity:0;transform:translateY(4px) scale(.96);transform-origin:50% 100%;transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .tip.on{opacity:1;transform:none}
+/* en el celular, el cuadro no pasa del ancho de la pantalla: corta en renglones en vez de correr la página de costado */
+@media (max-width:760px){.tip{white-space:normal;max-width:calc(100vw - 16px)}}
 .tip .tip-pais{opacity:.82}
 /* minigráfico de las tarjetas de "En cifras" (etapa 16): el mismo cuadro, más ancho, arriba de la tarjeta o debajo si no entra */
 .tip.tip-cifra{width:276px;padding:10px 12px;white-space:normal;transform-origin:50% 100%}
@@ -1161,6 +1218,11 @@ html:not(.js) .esqueleto{display:none}
 .mapa-areas svg{max-width:560px;margin:0 auto}
 .mapa-areas .prov{stroke:#fff;stroke-width:.8;transition:stroke var(--dur-2) var(--ease-out),stroke-width var(--dur-2) var(--ease-out)}
 .mapa-areas .prov.elegida{stroke:var(--ink);stroke-width:1.6}
+svg.mapa-prov{display:block;max-width:560px;margin:0 auto}
+svg.mapa-prov .prov{stroke:#fff;stroke-width:.8;transition:stroke var(--dur-2) var(--ease-out),stroke-width var(--dur-2) var(--ease-out)}
+svg.mapa-prov .prov.elegida{stroke:var(--ink);stroke-width:1.6}
+svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
+@media (hover:hover) and (pointer:fine){svg.mapa-prov .prov:hover{stroke:var(--ink);stroke-width:1.2}}
 .mapa-areas .burbuja{fill:var(--sol);fill-opacity:.8;stroke:var(--sol-borde);stroke-width:.8}
 .leyenda-mapa text{font-size:12px;fill:var(--muted);font-family:var(--f)}
 
@@ -1384,8 +1446,10 @@ html:not(.js) .esqueleto{display:none}
 /* quiebre de serie marcado arriba del gráfico (escolarización, SUBE) */
 .aviso-serie{margin:var(--e-3) 0 0;padding:2px 0 2px var(--e-3);border-left:3px solid var(--sol-fuerte);font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 .vt-matriz td.plat a{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;color:var(--celeste-fuerte)}
-.vt-matriz tr[role="button"]{cursor:pointer}
-.vt-matriz tr[role="button"]:hover td.ley,.vt-matriz tr[role="button"]:focus-visible td.ley{text-decoration:underline}
+.vt-matriz tr[data-k]{cursor:pointer}
+.vt-matriz .vt-ley{display:block;padding:0;font:inherit;line-height:inherit;text-align:left;color:inherit;background:none;border:0;cursor:pointer}
+.vt-matriz tr[data-k]:hover .vt-ley,.vt-matriz .vt-ley:focus-visible{text-decoration:underline}
+.vt-matriz .vt-ley:focus-visible{outline-offset:1px}
 .vt-matriz tr.elegida td.ley{font-weight:600}
 @media (max-width:760px){
   .vt-matriz table{min-width:520px}
@@ -1407,10 +1471,11 @@ html:not(.js) .esqueleto{display:none}
 
 /* ---------- artículos: una página por cruce ---------- */
 .notas{padding-top:var(--e-2)}
+/* la nota llega vacía y la arma datina.js: mientras tanto ocupa la pantalla, así "Seguí explorando" y el pie no se ven arriba un instante
+   y después saltan (la página se movía 0,52 en la primera carga, revisión de la línea de base del 11 de octubre de 2026) */
+.js article.nota:empty{min-height:100vh}
 .nota{max-width:740px}
 .notas>.migas{margin-top:var(--e-7)}
-/* en el celular, el título del artículo no se repite en las migas: va justo debajo */
-@media (max-width:760px){.notas>.migas li:has(>[aria-current]){display:none}}
 .notas>.pasos{max-width:740px}
 .nota-cab{display:grid;grid-template-columns:76px 1fr;gap:var(--e-6);align-items:center;margin:var(--e-6) 0 var(--e-6)}
 .nota-ico{display:grid;place-items:center;width:76px;height:76px;background:var(--superficie-2);color:var(--azul);border-radius:var(--r-icono)}
@@ -1469,6 +1534,43 @@ html:not(.js) .esqueleto{display:none}
 .campo input:focus-visible,.campo textarea:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .form-nota{margin:0;font-size:var(--t-2);color:var(--muted)}
 .form-contacto .boton{justify-self:start}
+/* suscripción en el pie: el correo y el botón en una fila, que en el celular se apila */
+.form-suscripcion{display:grid;gap:var(--e-2);max-width:30em}
+.susc-fila{display:flex;flex-wrap:wrap;gap:var(--e-2)}
+.susc-fila input{flex:1 1 14em;min-width:0;padding:10px 14px;font:inherit;font-size:var(--t-4);color:var(--ink);background:#fff;border:1px solid var(--azul);border-radius:var(--r-control)}
+.susc-fila input:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
+.susc-fila input::placeholder{color:var(--muted)}
+.pie-sitio .form-suscripcion p{margin:0}
+/* el botón de la suscripción (11 de octubre de 2026, pedido del autor, con ideas del botón "Brutalist" y del botón de uiarc.dev): el
+   amarillo del sol con una sombra dura azul. Al pasar el mouse se hunde sobre su sombra (solo con mouse: en el celular no queda pegado) y al
+   apretarlo se achica un poco. Los tres textos ("Avisarme", "Enviando" y "Anotado") ocupan la misma celda, así el botón tiene el ancho del
+   más largo y no salta al cambiar: el nuevo aparece con un fundido corto. Con movimiento reducido, nada se mueve */
+.susc-boton{--sb-fondo:var(--sol);--sb-tinta:var(--ink);--sb-borde:var(--azul-hondo);
+  position:relative;flex:none;display:inline-grid;place-items:center;min-height:44px;padding:0 var(--e-6);
+  font-family:var(--mono);font-size:var(--t-1);font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+  color:var(--sb-tinta);background:var(--sb-fondo);border:1px solid var(--sb-borde);border-radius:var(--r-control);
+  box-shadow:4px 4px 0 0 var(--sb-borde);cursor:pointer;
+  transition:transform var(--dur-3) cubic-bezier(.22,1,.36,1),box-shadow var(--dur-3) cubic-bezier(.22,1,.36,1),background-color var(--dur-2) var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.susc-boton:hover{transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}}
+.susc-boton:active{transform:translate(4px,4px) scale(.97);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-boton:focus-visible{outline:2px solid var(--azul-hondo);outline-offset:6px}
+.susc-boton[aria-busy="true"]{cursor:progress;transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-boton[data-estado="ok"]{--sb-fondo:var(--bg);cursor:default;transform:translate(4px,4px);box-shadow:0 0 0 0 var(--sb-borde)}
+.susc-lbl{display:grid}
+.susc-e{grid-area:1/1;display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);opacity:0;filter:blur(3px);visibility:hidden;
+  transition:opacity var(--dur-1) var(--ease-out),filter var(--dur-1) var(--ease-out),visibility 0s linear var(--dur-1)}
+.susc-e.activa{opacity:1;filter:none;visibility:visible;transition-delay:0s}
+/* "Enviando" lleva una ruedita del color del texto, que gira mientras espera la respuesta */
+.susc-e[data-e="envia"]::before{content:"";width:.9em;height:.9em;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:susc-gira .7s linear infinite}
+@keyframes susc-gira{to{transform:rotate(1turn)}}
+/* el resultado del envío: el renglón está reservado, así no empuja lo de abajo cuando aparece */
+.pie-sitio .form-suscripcion .susc-estado{min-height:1.5em;margin-top:var(--e-1);font-size:var(--t-2);color:var(--tinta-bajada)}
+@media (prefers-reduced-motion:reduce){
+  .susc-boton,.susc-e{transition:none}
+  .susc-boton:is(:hover,:active,[aria-busy="true"],[data-estado="ok"]){transform:none}
+  .susc-e{filter:none}
+  .susc-e[data-e="envia"]::before{animation:none}
+}
 .oculto{display:none}
 .solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .form-gracias{max-width:34em;font-size:var(--t-5)}
@@ -1517,7 +1619,85 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
   ::view-transition-group(*){animation-duration:0s}
   ::view-transition-new(root){animation:vt-funde var(--dur-3) var(--ease-out) both}
 }
-/* Transparencia reducida: la barra clara con fondo sólido */
+/* sin desenfoque en el navegador, el menú vuelve a ser blanco: traslúcido sin desenfoque no se lee */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.menu-panel,.mapa-tarjeta{background:#fff}}
+/* Transparencia reducida: la barra clara y los menús con fondo sólido */
 @media (prefers-reduced-transparency:reduce){
   .barra.clara{background:var(--fondo);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .menu-panel,.mapa-tarjeta{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+/* Catálogo de datos (catalogo.html, 11 de octubre de 2026, propuesta aprobada por el autor): los filtros arriba y las tablas en una lista,
+   una por fila, separadas por una línea. Las listas desplegables son las de las herramientas (.cx-campo) y los botones, los del pie de las fichas */
+.cat-filtros{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:end;gap:var(--e-4) var(--e-3);margin:0 0 var(--e-6)}
+@media (min-width:1080px){.cat-filtros{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-4)}}
+.cat-busca{display:flex;flex-direction:column;gap:6px;grid-column:1/-1;max-width:640px}
+.cat-busca span{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cat-busca input{width:100%;min-height:44px;padding:0 12px;font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
+.cat-busca input::placeholder{color:var(--faint-texto);opacity:1}
+.cat-busca input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+.cat-resumen{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-4);padding:0 0 var(--e-3);border-bottom:1px solid var(--line)}
+.cat-cuenta{margin:0;font-size:var(--t-3);color:var(--muted)}
+.cat-cuenta b{font-weight:600;color:var(--ink)}
+.cat-resumen .enlace{margin-left:auto}
+.cat-vacio{margin:var(--e-6) 0;color:var(--muted)}
+.cat-lista{margin:0;padding:0;list-style:none}
+.cat-item{padding:var(--e-6) 0;border-bottom:1px solid var(--line)}
+.cat-item[hidden]{display:none}
+.cat-cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-1) var(--e-3);margin:0 0 var(--e-2)}
+.cat-cab .etiqueta{margin:0}
+.cat-archivo{font-family:var(--mono);font-size:var(--t-1);color:var(--muted);overflow-wrap:anywhere}
+.cat-tit{max-width:32em;margin:0 0 var(--e-2);font-family:var(--f-c75);font-size:var(--t-6);line-height:1.15;font-weight:600;letter-spacing:-.005em;
+  font-variation-settings:"wdth" 75,"opsz" 32;color:var(--azul)}
+.cat-tit a{color:inherit;text-decoration:none}
+.cat-tit a:hover{text-decoration:underline;text-underline-offset:3px}
+.cat-sub{max-width:46em;margin:0 0 var(--e-4);font-family:var(--f-bajada);font-size:var(--t-4);line-height:1.5;font-weight:340;
+  font-variation-settings:"opsz" 28;letter-spacing:-.003em;color:var(--tinta-bajada)}
+/* en el celular, de a dos con la fuente a todo el ancho. Desde 768 píxeles, en una fila con la fuente más ancha */
+.cat-datos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--e-3) var(--e-4);max-width:72em;margin:0 0 var(--e-4)}
+.cat-datos>div{min-width:0}
+.cat-datos>div:first-child{grid-column:1/-1}
+@media (min-width:768px){
+  .cat-datos{display:flex;flex-wrap:wrap;gap:var(--e-3) var(--e-6)}
+  .cat-datos>div{flex:1 1 180px}
+  .cat-datos>div:first-child{flex:2 1 320px}
+}
+.cat-datos dt{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cat-datos dd{margin:2px 0 0;font-size:var(--t-3);line-height:1.45;color:var(--ink);overflow-wrap:anywhere}
+.cat-item .acciones{margin-left:0}
+.cat-previa{margin:var(--e-4) 0 0}
+.cat-previa h3{margin:var(--e-6) 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.cat-previa .tabla-desliza{max-height:360px;margin:var(--e-2) 0 0}
+.cat-previa caption{padding:var(--e-2) 12px;text-align:left;font-size:var(--t-2);color:var(--muted)}
+.cat-dic th[scope="row"]{position:static;padding:8px 12px;font-weight:400;color:var(--ink);background:none;border-bottom:1px solid #F0F3F7}
+.cat-dic code{font-family:var(--mono);font-size:var(--t-2)}
+.cat-otros,.cat-nota{max-width:46em;margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:1.5;color:var(--muted)}
+.cat-licencia{margin:var(--e-6) 0 0;font-size:var(--t-2);color:var(--muted)}
+/* La historia de cada jurisdicción en Tu provincia (11 de octubre de 2026, pedido del autor): una tarjeta como las fichas, con el texto a la
+   izquierda y, al costado, los datos básicos (capital, desde cuándo es provincia y habitantes) y el dato curioso. En el celular, una
+   columna con los datos primero. Las fuentes, plegadas al final */
+.prov-historia{margin:var(--bloque) 0}
+.ph{padding:clamp(16px,2.2vw,28px);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.ph[hidden]{display:none}
+.ph-tit{margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;
+  font-variation-settings:"wdth" 75,"opsz" 32;color:var(--azul)}
+.ph-cuerpo{display:grid;gap:var(--e-6)}
+@media (min-width:1080px){.ph-cuerpo{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--e-8);align-items:start}}
+@media (max-width:1079px){.ph-lado{order:-1}}
+.ph-lado{display:grid;gap:var(--e-4);align-content:start}
+.ph-sub{margin:var(--e-6) 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.ph-texto>.ph-sub:first-child,.ph-curiosidad>.ph-sub{margin-top:0}
+.ph-texto p{margin:0;font-family:var(--f-bajada);font-size:var(--t-4);line-height:1.55;font-weight:340;font-variation-settings:"opsz" 28;
+  letter-spacing:-.003em;color:var(--tinta-bajada);text-align:justify;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
+.ph-datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--e-4);margin:0;padding:var(--e-4);background:var(--superficie);border-radius:var(--r-panel)}
+.ph-datos dt{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ph-datos dd{margin:2px 0 0;font-size:var(--t-4);line-height:1.35;font-weight:600;color:var(--ink)}
+.ph-datos small{display:block;margin-top:2px;font-size:var(--t-1);font-weight:400;color:var(--muted)}
+.ph-curiosidad{padding:var(--e-4);background:var(--sol-suave);border-radius:var(--r-panel)}
+.ph-curiosidad p:not(.ph-sub){margin:0;font-size:var(--t-3);line-height:1.5;color:var(--ink)}
+.ph-fuentes{margin:var(--e-6) 0 0;padding-top:var(--e-3);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}
+.ph-fuentes summary{cursor:pointer;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
+.ph-fuentes summary:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+.ph-fuentes p{max-width:60em;margin:var(--e-3) 0}
+.ph-fuentes ul{margin:0;padding:0;list-style:none;columns:2 300px;column-gap:var(--e-6)}
+.ph-fuentes li{break-inside:avoid;margin:0 0 var(--e-2)}
+.ph-dato{margin-right:var(--e-1);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}

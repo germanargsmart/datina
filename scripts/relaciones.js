@@ -301,6 +301,8 @@
   function panel(n) {
     const p = $("rx-panel"), cuerpo = $("rx-p-cuerpo");
     $("rx-cerrar").hidden = !n;
+    // el salto del comienzo de la tabla lleva al detalle de lo elegido o, sin nada elegido, a lo que sigue
+    $("rx-saltar-tabla").textContent = n ? `Ir al detalle de ${n.nombre}` : "Saltar la tabla";
     if (!n) {
       $("rx-p-tipo").textContent = "Detalle";
       $("rx-p-titulo").textContent = "Elegí un punto o una fila";
@@ -356,6 +358,14 @@
     o.focus({preventScroll: !MAS_ANGOSTO.matches});
   }
   $("rx-cerrar").addEventListener("click", cerrarPanel);
+  // la tabla es larga y el detalle va después: un salto al comienzo evita recorrerla entera con Tab (revisión de accesibilidad, punto 15)
+  $("rx-saltar-tabla").addEventListener("click", e => {
+    e.preventDefault();
+    if (E.elegido) {
+      $("rx-panel").focus({preventScroll: true});
+      if (MAS_ANGOSTO.matches) $("rx-panel").scrollIntoView({block: "start"});
+    } else $("rx-definiciones").focus();
+  });
   // Escape cierra el panel, salvo que se esté escribiendo en el buscador o eligiendo en una lista (ahí Escape es de ese control)
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape" || !E.elegido || e.defaultPrevented) return;

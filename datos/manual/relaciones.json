@@ -506,6 +506,18 @@
    ]
   },
   {
+   "id": "org:utdt",
+   "nombre": "Universidad Torcuato Di Tella",
+   "sigla": "UTDT",
+   "depende": "",
+   "url": "https://www.utdt.edu",
+   "alias": [
+    "Universidad Torcuato Di Tella",
+    "Universidad Torcuato Di Tella, Escuela de Gobierno",
+    "Universidad Torcuato Di Tella, Centro de Investigación en Finanzas"
+   ]
+  },
+  {
    "id": "org:wikimedia",
    "nombre": "Wikimedia (Wikipedia y Wikidata)",
    "sigla": "Wikimedia",
@@ -626,13 +638,13 @@
   },
   {
    "id": "ds:bess_indicadores.xlsx",
-   "nombre": "Boletín Estadístico de la Seguridad Social, cuadro de indicadores (4.1.1.1)",
+   "nombre": "Boletín Estadístico de la Seguridad Social, cuadros de indicadores (4.1.1.1 y 4.1.1.3)",
    "fuente": "org:seguridad-social",
    "ruta": "datos/crudo/bess_indicadores.xlsx",
    "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
    "evidencia": {
     "archivo": "scripts/01_descargar.py",
-    "contiene": "(CRUDO / \"bess_indicadores.xlsx\").write_bytes(datos)"
+    "contiene": "\"bess_indicadores.xlsx\": \"estadisticas_de_seguridad_social_indicadores_\""
    }
   },
   {
@@ -2047,6 +2059,210 @@
     "archivo": "scripts/01_descargar.py",
     "contiene": "\"subsidios_energia.csv\": API + \"452.2_ENERGIAGIA_0_T_7_56\""
    }
+  },
+  {
+   "id": "ds:exportaciones_rubros.csv",
+   "nombre": "Exportaciones totales y por gran rubro, mensuales (Intercambio Comercial Argentino)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/exportaciones_rubros.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"exportaciones_rubros.csv\": API + \"74.3_IET_0_M_16"
+   }
+  },
+  {
+   "id": "ds:series_sector_externo_M.csv",
+   "nombre": "Intercambio comercial argentino: exportaciones, importaciones por uso económico y saldo, mensuales (series del INDEC en la API de Series de Tiempo)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/series_sector_externo_M.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "arch = CRUDO / f\"series_sector_externo_{letra}.csv\""
+   }
+  },
+  {
+   "id": "ds:series_sector_externo_Q.csv",
+   "nombre": "Balance de pagos: cuenta corriente y sus componentes, trimestrales (series del INDEC en la API de Series de Tiempo)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/series_sector_externo_Q.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "arch = CRUDO / f\"series_sector_externo_{letra}.csv\""
+   }
+  },
+  {
+   "id": "ds:indec_ica_cuadros.xls",
+   "nombre": "Anexo de cuadros del informe de intercambio comercial argentino (importaciones por zona económica y país, cuadro 37)",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_ica_cuadros.xls",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"indec_ica_cuadros.xls\", \"el anexo del intercambio comercial argentino\")"
+   }
+  },
+  {
+   "id": "ds:bcra_series.csv",
+   "nombre": "Reservas internacionales, factores de su variación y variables principales (API de Estadísticas Monetarias v4.0)",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_series.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "pd.concat(filas)[[\"id\", \"fecha\", \"valor\"]].to_csv(CRUDO / \"bcra_series.csv\""
+   },
+   "url": "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
+  },
+  {
+   "id": "ds:bcra_variables.json",
+   "nombre": "Catálogo de variables de la API de Estadísticas Monetarias (nombre, categoría, unidad y último dato)",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_variables.json",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "(CRUDO / \"bcra_variables.json\").write_text("
+   },
+   "url": "https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias"
+  },
+  {
+   "id": "ds:bcra_itcrm.csv",
+   "nombre": "Índice de tipo de cambio real multilateral y bilaterales, promedio mensual (ITCRM)",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_itcrm.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.round(4).to_csv(CRUDO / \"bcra_itcrm.csv\", index=False)"
+   },
+   "url": "https://www.bcra.gob.ar/Pdfs/PublicacionesEstadisticas/ITCRMSerie.xlsx"
+  },
+  {
+   "id": "ds:tipo_cambio_a3500.csv",
+   "nombre": "Tipo de cambio de referencia A3500, promedio mensual (series del BCRA en la API de Series de Tiempo)",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/tipo_cambio_a3500.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"tipo_cambio_a3500.csv\": API + \"168.1_T_CAMBI500_D_0_0_17"
+   }
+  },
+  {
+   "id": "ds:bess_pnc.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social, capítulo III: pensiones no contributivas",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_pnc.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_pnc.xlsx\": \"estadisticas_de_seguridad_social_pnc_\""
+   }
+  },
+  {
+   "id": "ds:bess_provincias_pnc.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social por provincia: pensiones no contributivas",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_provincias_pnc.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_provincias_pnc.xlsx\": \"boletin_provincias_pnc_\""
+   }
+  },
+  {
+   "id": "ds:bess_aaff.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social, capítulo VI: asignaciones familiares",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_aaff.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_aaff.xlsx\": \"estadisticas_de_seguridad_social_aaff_\""
+   }
+  },
+  {
+   "id": "ds:bess_provincias_aaff.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social por provincia: asignaciones familiares",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_provincias_aaff.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_provincias_aaff.xlsx\": \"boletin_provincias_aaff_\""
+   }
+  },
+  {
+   "id": "ds:bcra_planilla_reservas.csv",
+   "nombre": "Planilla de reservas internacionales y liquidez en moneda extranjera (formato del FMI), leída mes por mes",
+   "fuente": "org:bcra",
+   "ruta": "datos/crudo/bcra_planilla_reservas.csv",
+   "url": "https://www.bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "archivo = CRUDO / \"bcra_planilla_reservas.csv\""
+   }
+  },
+  {
+   "id": "ds:utdt_icg.xls",
+   "nombre": "Índice de Confianza en el Gobierno, evolución mensual desde 2001 (Escuela de Gobierno de la Universidad Torcuato Di Tella)",
+   "fuente": "org:utdt",
+   "ruta": "datos/crudo/utdt_icg.xls",
+   "url": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=28756",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"icg\": \"https://www.utdt.edu/listado_contenidos.php?id_item_menu=28756\""
+   }
+  },
+  {
+   "id": "ds:utdt_icc.xls",
+   "nombre": "Índice de Confianza del Consumidor, series históricas por región y por subíndice (Centro de Investigación en Finanzas de la Universidad Torcuato Di Tella)",
+   "fuente": "org:utdt",
+   "ruta": "datos/crudo/utdt_icc.xls",
+   "url": "https://www.utdt.edu/ver_contenido.php?id_contenido=8513&id_item_menu=16458",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "paginas = {\"icc\": \"https://www.utdt.edu/ver_contenido.php?id_contenido=8513&id_item_menu=16458\","
+   }
+  },
+  {
+   "id": "ds:utdt_expectativas.xls",
+   "nombre": "Encuesta de Expectativas de Inflación, serie histórica nacional (Centro de Investigación en Finanzas de la Universidad Torcuato Di Tella)",
+   "fuente": "org:utdt",
+   "ruta": "datos/crudo/utdt_expectativas.xls",
+   "url": "https://www.utdt.edu/listado_contenidos.php?id_item_menu=16455",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"expectativas\": \"https://www.utdt.edu/listado_contenidos.php?id_item_menu=16455\","
+   }
+  },
+  {
+   "id": "ds:bess_desempleo.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social, capítulo V: prestaciones por desempleo",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_desempleo.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_desempleo.xlsx\": \"estadisticas_de_seguridad_social_desempleo_\""
+   }
+  },
+  {
+   "id": "ds:bess_provincias_desempleo.xlsx",
+   "nombre": "Boletín Estadístico de la Seguridad Social por provincia: prestaciones por desempleo",
+   "fuente": "org:seguridad-social",
+   "ruta": "datos/crudo/bess_provincias_desempleo.xlsx",
+   "url": "https://www.argentina.gob.ar/trabajo/seguridadsocial/bess",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"bess_provincias_desempleo.xlsx\": \"boletin_provincias_desempleo_\""
+   }
+  },
+  {
+   "id": "ds:eph_ingresos_aglomerados.csv",
+   "nombre": "Ingresos por aglomerado, resumen de la EPH de cuatro trimestres",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/eph_ingresos_aglomerados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "r.to_csv(CRUDO / \"eph_ingresos_aglomerados.csv\", index=False)"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
   }
  ],
  "aristas": [
@@ -2659,6 +2875,34 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:deis_defunciones_AAAA.csv",
+   "a": "f-causas-muerte",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmd = pd.concat([deis_csv(f\"deis_defunciones_{a}.csv\") for a in ANIOS_CAUSA])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"causas_muerte_provincias\": causas_muerte,"
+    }
+   ],
+   "tabla": "causas_muerte_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-causas-muerte",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cmp = proy[proy.anio.isin(ANIOS_CAUSA)]"
+    }
+   ],
+   "tabla": "causas_muerte_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:snic_pais.csv",
    "a": "f-muertes",
    "evidencia": [
@@ -3140,6 +3384,26 @@
     }
    ],
    "tabla": "envejecimiento_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-poblacion-proy",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "proy = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ppv = proy.groupby([\"codigo_indec\", \"anio\"]).pob.sum().unstack()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"poblacion_proyectada_provincias\": pob_proy,"
+    }
+   ],
+   "tabla": "poblacion_proyectada_provincias"
   },
   {
    "tipo": "alimenta",
@@ -5895,6 +6159,534 @@
      "contiene": "\"clima_desvio\": clima,"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_rubros.csv",
+   "a": "f-exporta-rubros",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_se_r = pd.read_csv(CRUDO / \"exportaciones_rubros.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"exportaciones_rubros_anual\": se_rubros,"
+    }
+   ],
+   "tabla": "exportaciones_rubros_anual"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_semestre.xls",
+   "a": "f-complejos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sc = next((h for h in _sx.sheet_names if h.strip().lower() == \"cuadro5\"), None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"exportaciones_complejos\": se_complejos}"
+    }
+   ],
+   "tabla": "exportaciones_complejos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_semestre.xls",
+   "a": "f-destinos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sz = sorted((int(m.group(1)), h) for h in _sx.sheet_names"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"exportaciones_destinos\": se_destinos}"
+    }
+   ],
+   "tabla": "exportaciones_destinos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:exportaciones_provincias.xls",
+   "a": "f-exporta-provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_xe = pd.ExcelFile(CRUDO / \"exportaciones_provincias.xls\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "exp_prov[\"rubro_principal\"] = exp_prov[RUB_EX].idxmax(axis=1)"
+    }
+   ],
+   "tabla": "exportaciones_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:series_sector_externo_M.csv",
+   "a": "f-balanza",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ice = pd.read_csv(CRUDO / \"series_sector_externo_M.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"balanza_comercial\": balanza_comercial"
+    }
+   ],
+   "tabla": "balanza_comercial"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:series_sector_externo_M.csv",
+   "a": "f-importaciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ice = pd.read_csv(CRUDO / \"series_sector_externo_M.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"importaciones_usos\": importaciones_usos"
+    }
+   ],
+   "tabla": "importaciones_usos"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ica_cuadros.xls",
+   "a": "f-origen",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ico = pd.read_excel(CRUDO / \"indec_ica_cuadros.xls\", sheet_name=\"c37\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"importaciones_origen\": importaciones_origen"
+    }
+   ],
+   "tabla": "importaciones_origen"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:series_sector_externo_Q.csv",
+   "a": "f-cuenta-corriente",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bdp = pd.read_csv(CRUDO / \"series_sector_externo_Q.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"cuenta_corriente\": cuenta_corriente"
+    }
+   ],
+   "tabla": "cuenta_corriente"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_series.csv",
+   "a": "f-reservas-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr = pd.read_csv(CRUDO / \"bcra_series.csv\", parse_dates=[\"fecha\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"reservas_bcra\": reservas_bcra"
+    }
+   ],
+   "tabla": "reservas_bcra"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_series.csv",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr = pd.read_csv(CRUDO / \"bcra_series.csv\", parse_dates=[\"fecha\"])"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"bcra_variables\": bcra_variables"
+    }
+   ],
+   "tabla": "bcra_variables"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_variables.json",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr_v = {v[\"idVariable\"]: v for v in json.loads((CRUDO / \"bcra_variables.json\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"bcra_variables_lista\": bcra_variables_lista"
+    }
+   ],
+   "tabla": "bcra_variables_lista"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq=\"M\"))"
+    }
+   ],
+   "tabla": "bcra_variables"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:pib_corriente.csv",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr_pib = pd.read_csv(CRUDO / \"pib_corriente.csv\").dropna()"
+    }
+   ],
+   "tabla": "bcra_variables"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_itcrm.csv",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr_tcr = pd.read_csv(CRUDO / \"bcra_itcrm.csv\").dropna(subset=[\"eeuu\"])"
+    }
+   ],
+   "tabla": "bcra_variables"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:tipo_cambio_a3500.csv",
+   "a": "f-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr_a35 = pd.read_csv(CRUDO / \"tipo_cambio_a3500.csv\").dropna()"
+    }
+   ],
+   "tabla": "bcra_variables"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:series_sector_externo_M.csv",
+   "a": "f-reservas-bcra",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_bcr_imp = _ice.set_index(_ice.t.dt.strftime(\"%Y-%m\")).importaciones.rolling(12).mean()"
+    }
+   ],
+   "tabla": "reservas_bcra"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_indicadores.xlsx",
+   "a": "f-haberes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hb = pd.read_excel(CRUDO / \"bess_indicadores.xlsx\", sheet_name=\"4.1.1.3\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"haberes_previsionales\": haberes} if haberes is not None else {}),"
+    }
+   ],
+   "tabla": "haberes_previsionales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-haberes",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_hb_fac = {a: float(ipc.iloc[-1] / s.mean()) for a, (m, s) in _hb_ipc.items() if len(s) == m}"
+    }
+   ],
+   "tabla": "haberes_previsionales"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_pnc.xlsx",
+   "a": "f-pensiones-invalidez",
+   "tabla": "pensiones_invalidez",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pi = pd.read_excel(CRUDO / \"bess_pnc.xlsx\", sheet_name=\"3.1\", header=None)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_provincias_pnc.xlsx",
+   "a": "f-pensiones-invalidez",
+   "tabla": "pensiones_invalidez_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pp = pd.read_excel(CRUDO / \"bess_provincias_pnc.xlsx\", sheet_name=\"3.6\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"pensiones_invalidez\": pinv_pais, \"pensiones_invalidez_provincias\": pinv_prov} if pinv_pais is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-pensiones-invalidez",
+   "tabla": "pensiones_invalidez_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pinv_prov[\"cada_1000\"] = pinv_prov.pensiones / pinv_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_provincias_aaff.xlsx",
+   "a": "f-auh",
+   "tabla": "auh_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_auh = pd.read_excel(CRUDO / \"bess_provincias_aaff.xlsx\", sheet_name=\"5.8\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"auh_provincias\": auh_prov, \"asignaciones_cobertura\": auh_cob} if auh_prov is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_aaff.xlsx",
+   "a": "f-auh",
+   "tabla": "asignaciones_cobertura",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_cb = pd.read_excel(CRUDO / \"bess_aaff.xlsx\", sheet_name=\"6.8\", header=None)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-auh",
+   "tabla": "auh_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_auh_men = proy[(proy.anio == ANIO_POB) & (proy.edad <= 15)]"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_planilla_reservas.csv",
+   "a": "f-reservas-netas",
+   "tabla": "reservas_netas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rn = pd.read_csv(CRUDO / \"bcra_planilla_reservas.csv\").sort_values(\"mes\").reset_index(drop=True)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"reservas_netas\": reservas_netas"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bcra_series.csv",
+   "a": "f-reservas-netas",
+   "tabla": "reservas_netas",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_rn_api = reservas_bcra.set_index(\"mes\").millones_usd.reindex(_rn.mes).values"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:utdt_icg.xls",
+   "a": "f-confianza-gobierno",
+   "tabla": "confianza_gobierno",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for _icg_h in pd.ExcelFile(CRUDO / \"utdt_icg.xls\").sheet_names:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"confianza_gobierno\": icg_serie, \"confianza_gobierno_gobiernos\": icg_gobiernos, \"confianza_gobierno_elecciones\": icg_elecciones} if icg_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presidentes.csv",
+   "a": "f-confianza-gobierno",
+   "tabla": "confianza_gobierno_gobiernos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_icg_pr = pr[~pr.interino | (pr.nombre == \"Eduardo Duhalde\")]"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:utdt_icc.xls",
+   "a": "f-confianza-consumidor",
+   "tabla": "confianza_consumidor",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "for _cco_h in pd.ExcelFile(CRUDO / \"utdt_icc.xls\").sheet_names:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"confianza_consumidor\": cco_serie} if cco_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:utdt_expectativas.xls",
+   "a": "f-expectativas",
+   "tabla": "expectativas_inflacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_exi = pd.read_excel(CRUDO / \"utdt_expectativas.xls\", sheet_name=0, header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"expectativas_inflacion\": exi_serie} if exi_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_ipc_divisiones.csv",
+   "a": "f-expectativas",
+   "tabla": "expectativas_inflacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_exi_P = pd.Series(_ipc_ng.values, index=pd.PeriodIndex(_ipc_ng.index, freq=\"M\"))"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_desempleo.xlsx",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dsm = pd.read_excel(CRUDO / \"bess_desempleo.xlsx\", sheet_name=\"5.1\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"prestacion_desempleo\": dsm_pais, \"prestacion_desempleo_provincias\": dsm_prov} if dsm_pais is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:bess_provincias_desempleo.xlsx",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dsp = pd.read_excel(CRUDO / \"bess_provincias_desempleo.xlsx\", sheet_name=\"4.2\", header=None)"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sipa_provincias.csv",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_dsm_s = pd.read_csv(CRUDO / \"sipa_provincias.csv\", parse_dates=[\"indice_tiempo\"])"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-desempleo",
+   "tabla": "prestacion_desempleo_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "dsm_prov[\"cada_1000_habitantes\"] = dsm_prov.beneficiarios / dsm_prov.codigo_indec.map({**POB, \"00\": sum(POB.values())}) * 1000"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/presidenciales_provincia.csv",
+   "a": "f-confianza-gobierno",
+   "tabla": "confianza_gobierno_elecciones",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "votos = el[(el.eleccion == e) & (el.candidato == cand)].votos.sum()"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"confianza_gobierno\": icg_serie, \"confianza_gobierno_gobiernos\": icg_gobiernos, \"confianza_gobierno_elecciones\": icg_elecciones} if icg_serie is not None else {}),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:eph_ingresos_aglomerados.csv",
+   "a": "f-ingresos-aglomerados",
+   "tabla": "ingresos_aglomerados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_ipa = pd.read_csv(CRUDO / \"eph_ingresos_aglomerados.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "**({\"ingresos_aglomerados\": ipa_tabla} if ipa_tabla is not None else {}),"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -6062,6 +6854,11 @@
   "f-envejecimiento": {
    "variables": [
     "personas_65_mas_cada_100_de_15_a_64"
+   ]
+  },
+  "f-poblacion-proy": {
+   "variables": [
+    "poblacion_proyectada"
    ]
   },
   "f-escolarizacion": {
@@ -6291,6 +7088,62 @@
   "f-yerba": {
    "variables": [
     "yerba_mate_salida_de_molino"
+   ]
+  },
+  "f-balanza": {
+   "variables": [
+    "exportaciones_bienes_usd",
+    "importaciones_bienes_usd",
+    "saldo_comercial_usd"
+   ]
+  },
+  "f-cuenta-corriente": {
+   "variables": [
+    "cuenta_corriente_usd"
+   ]
+  },
+  "f-haberes": {
+   "variables": [
+    "haber_minimo_pct_salario",
+    "jubilacion_promedio_pct_salario"
+   ]
+  },
+  "f-pensiones-invalidez": {
+   "variables": [
+    "pensiones_no_contributivas_invalidez",
+    "pensiones_invalidez_cada_1000_habitantes"
+   ]
+  },
+  "f-auh": {
+   "variables": [
+    "auh_cada_100_menores"
+   ]
+  },
+  "f-reservas-netas": {
+   "variables": [
+    "reservas_netas_bcra"
+   ]
+  },
+  "f-confianza-gobierno": {
+   "variables": [
+    "indice_confianza_gobierno"
+   ]
+  },
+  "f-confianza-consumidor": {
+   "variables": [
+    "indice_confianza_consumidor"
+   ]
+  },
+  "f-expectativas": {
+   "variables": [
+    "inflacion_esperada_12m_mediana"
+   ]
+  },
+  "f-desempleo": {
+   "variables": [
+    "beneficiarios_prestacion_desempleo",
+    "desempleo_cada_1000_habitantes",
+    "desempleo_cada_100_asalariados_privados"
    ]
   }
  }
