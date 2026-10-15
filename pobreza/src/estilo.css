@@ -13,6 +13,9 @@
   --theme-background-alt: #ffffff;
   --theme-foreground: var(--tinta);
   --theme-foreground-focus: var(--celeste);
+  /* movimiento: la misma escala que Datina (scripts/datina.css). 150 ms para responder al mouse */
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --dur-1: 150ms;
   color-scheme: light;
 }
 
@@ -56,6 +59,7 @@ button, .boton {
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
+  transition: background-color var(--dur-1) var(--ease-out);
 }
 button:hover, .boton:hover { background: #eef4fa; }
 button.principal { background: var(--celeste); color: #ffffff; }

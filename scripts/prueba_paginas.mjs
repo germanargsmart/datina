@@ -1,7 +1,8 @@
 // Prueba de las páginas armadas (etapa 17, octubre de 2026). Abre cada página del sitio en Chrome sin ventana, la recorre para que se
 // dibujen los gráficos y revisa que no haya errores de JavaScript, que ningún texto diga NaN, undefined, null o Infinity, ni quede un
 // {{dato}} sin completar, que "En cifras" tenga sus cinco tarjetas completas en las 12 secciones (sin provincia y con dos provincias
-// elegidas) y que el perfil provincial tenga todos sus valores.
+// elegidas), que el perfil provincial tenga todos sus valores, desde el 13 de octubre de 2026, que el texto de ninguna ficha repita el
+// número de su cifra destacada y, desde el 14, que ninguna cifra use abreviaturas en inglés ("M", "B", "billion").
 // La corre la actualización mensual después de armar el sitio: si encuentra un problema, se detiene y no se guarda ni se publica nada.
 // Uso: node scripts/prueba_paginas.mjs   (Node 22 o más y Google Chrome. Otra ruta de Chrome: variable CHROME)
 import { createServer } from "node:http";
@@ -43,6 +44,23 @@ const MALOS = `(() => {
   return [...t.matchAll(/.{0,50}(\\bNaN\\b|\\bundefined\\b|\\bnull\\b|\\bInfinity\\b|\\[object Object\\]|\\{\\{[\\w.]+\\}\\}).{0,30}/g)].map(m => m[0].trim()).slice(0, 5);
 })()`;
 
+// la cifra destacada y el texto de la ficha no dicen el mismo número (13 de octubre de 2026, pedido del autor): el texto empieza por lo que el
+// gráfico no dice. Se busca el número de la cifra entero, así "21" no coincide con "521"
+const REPITE = `[...document.querySelectorAll("article.ficha")].map(f => {
+  const n = ((f.querySelector(".clave .num")?.textContent || "").match(/\\d[\\d.,]*/) || [""])[0].replace(/[.,]$/, "");
+  const t = f.querySelector(".lead")?.textContent || "";
+  return n && new RegExp("(?<![\\\\d.,])" + n.replace(/\\./g, "\\\\.") + "(?![\\\\d]|[.,]\\\\d)").test(t) ? f.id + " (" + n + ")" : "";
+}).filter(Boolean)`;
+
+// cifras grandes en castellano (14 de octubre de 2026, pedido del autor): nunca "M", "B", "MM", "bn" ni "billion" a la norteamericana. Mil
+// millones son "mil millones" y un millón de millones, un billón. Se mira el texto como está escrito, no como lo muestran las mayúsculas del
+// diseño ("Cada 1.000 m de rama" es en metros)
+const INGLES = `(() => {
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {acceptNode: n => n.parentElement?.closest("script,style,noscript,template") ? 2 : 1});
+  const t = []; while (w.nextNode()) t.push(w.currentNode.nodeValue);
+  return [...new Set([...t.join("\\n").matchAll(/.{0,40}(?:\\d ?(?:M|B|MM|bn)(?![\\wáéíóúñ])|\\b[Bb]illions?\\b).{0,20}/g)].map(m => m[0].trim()))].slice(0, 5);
+})()`;
+
 async function revisarPagina(pg, intento = 1) {
   await p.ir(B + pg, 1200);
   await p.recorrer();
@@ -51,6 +69,8 @@ async function revisarPagina(pg, intento = 1) {
   if ((malos.length || errores.length) && intento === 1) return revisarPagina(pg, 2);   // una segunda vez, por si fue la red
   malos.forEach(m => problemas.push(`${pg}: texto con un valor sin calcular: «${m}»`));
   errores.forEach(e => problemas.push(`${pg}: ${e}`));
+  (await p.eval(REPITE)).forEach(r => problemas.push(`${pg}: el texto de la ficha repite el número de su cifra destacada: ${r}`));
+  (await p.eval(INGLES)).forEach(r => problemas.push(`${pg}: cifra con una abreviatura en inglés («M», «B», «bn», «billion»): «${r}»`));
 }
 
 const CIFRAS = `(() => {
