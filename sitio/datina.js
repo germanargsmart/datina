@@ -5042,9 +5042,124 @@ function tablaDatos(filas, ficha = "") {
     `</tbody></table></div><p class="tabla-nota">${filas.length > MAX ? `Primeras ${MAX} filas de ${n0(filas.length)}. ` : ""}La tabla completa está en el CSV.` +
     (Object.keys(corte).length ? ` En cada columna de números, en azul y negrita el 20% de los valores más altos y en gris los que quedan debajo de la mitad${filas.length > MAX ? " (entre las filas que se ven)" : ""}.` : "") + `</p>`;
 }
-// Imagen de la ficha: título, gráfico, texto y fuente en un PNG de doble resolución (desde la etapa 37 el texto va después del gráfico,
-// como en la página, salvo en las fichas de suicidio)
+// Imagen de la ficha: título, cifra destacada, leyenda, gráfico, texto y fuente en un PNG de doble resolución (desde la etapa 37 el texto
+// va después del gráfico, como en la página, salvo en las fichas de suicidio)
 const svgUnico = f => { const v = [...f.querySelectorAll(".grafico svg")].filter(s => s.getBoundingClientRect().width > 0 && s.viewBox?.baseVal?.width); return v.length === 1 ? v[0] : null; };
+// Leyendas de la imagen: las claves de color que la ficha muestra en HTML, fuera del SVG (.pol-ley y las de Cruces y del índice), y las
+// líneas "En verde…, en rojo…" (.clave-color). Van justo arriba del gráfico, con la letra, los colores y las separaciones de la página
+const LEY_IMG = ".pol-ley, .clave-color, .cx-leyenda, .ix-leyenda";
+// los anchos de letra que entiende el canvas (fontStretch), con su valor del eje wdth
+const ESTIRAR = {"ultra-condensed": 50, "extra-condensed": 62.5, condensed: 75, "semi-condensed": 87.5, normal: 100, "semi-expanded": 112.5,
+  expanded: 125, "extra-expanded": 150, "ultra-expanded": 200};
+// el texto de un elemento en trozos (las palabras y, aparte, los espacios), cada uno con su letra, su tamaño y su color. El canvas no toma
+// font-variation-settings: el ancho ("wdth", el de la cifra destacada es 45) va con el fontStretch más cercano, y el tamaño óptico
+// ("opsz" 144) se logra escribiendo a ese tamaño y achicando con `escala`, con el espaciado entre letras corregido por lo mismo
+function trozosLey(el) {
+  const r = [], tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  for (let n; (n = tw.nextNode());) {
+    const cs = getComputedStyle(n.parentElement), fs = parseFloat(cs.fontSize);
+    const ejes = Object.fromEntries([...cs.fontVariationSettings.matchAll(/"(\w{4})" (-?[\d.]+)/g)].map(m => [m[1], +m[2]]));
+    const opsz = ejes.opsz || fs, wdth = ejes.wdth || 100, escala = fs / opsz;
+    const estira = Object.keys(ESTIRAR).reduce((a, k) => Math.abs(ESTIRAR[k] - wdth) < Math.abs(ESTIRAR[a] - wdth) ? k : a);
+    const ls = `${(parseFloat(cs.letterSpacing) || 0) / escala}px`;
+    n.textContent.split(/(\s+)/).filter(Boolean).forEach(t => r.push({t, fs, font: `${cs.fontWeight} ${opsz}px ${cs.fontFamily}`, c: cs.color, estira, ls, escala}));
+  }
+  return r;
+}
+// el ancho de un trozo, con su letra como se ve en la página
+const anchoTrozo = (med, p) => { med.font = p.font; med.fontStretch = p.estira; med.letterSpacing = p.ls; return med.measureText(p.t).width * p.escala; };
+// reparte los trozos en renglones de hasta `ancho` píxeles: el primero sigue desde x y los demás empiezan en x0. Solo corta en los
+// espacios, así "En verde" y la coma que lo sigue no se separan
+function renglonesLey(med, tr, x, x0, ancho, lh) {
+  const ops = []; let y = 0, esp = 0, pal = [];
+  const poner = () => {
+    const an = d3.sum(pal, p => p.an);
+    if (x > x0 && x + esp + an > ancho) { x = x0; y += lh; } else if (x > x0) x += esp;
+    // r es el borde de arriba del renglón: lo usa la cifra destacada, que se escribe sobre la línea de base
+    pal.forEach(p => { ops.push({...p, x, y: y + (lh - p.fs) / 2, r: y}); x += p.an; });
+    pal = []; esp = 0;
+  };
+  tr.forEach(p => {
+    const an = anchoTrozo(med, p);
+    if (p.t.trim()) pal.push({...p, an}); else { if (pal.length) poner(); esp += an; }
+  });
+  if (pal.length) poner();
+  return {ops, x, alto: y + lh, varios: y > 0};
+}
+// una leyenda lista para dibujar: los textos, los cuadraditos de color y su alto. En las de claves sueltas (las que usan flex) cada clave
+// va entera, como en la página, y la que no entra pasa a la fila siguiente. Las demás (.clave-color) son un párrafo que se corta en renglones
+function leyendaImg(med, ley, ancho) {
+  const cs = getComputedStyle(ley), lh = c => parseFloat(c.lineHeight) || parseFloat(c.fontSize) * 1.2;
+  if (!cs.display.includes("flex")) return {...renglonesLey(med, trozosLey(ley), 0, 0, ancho, lh(cs)), cuad: []};
+  const gx = parseFloat(cs.columnGap) || 0, gy = parseFloat(cs.rowGap) || 0, ops = [], cuad = [];
+  let x = 0, y = 0, fila = 0;
+  [...ley.children].filter(it => it.getClientRects().length && it.textContent.trim()).forEach(it => {
+    const i = it.querySelector("i"), csI = i && getComputedStyle(i), caja = i?.getBoundingClientRect(), csIt = getComputedStyle(it), tr = trozosLey(it);
+    // del borde izquierdo del cuadradito al texto: su ancho y la separación (gap en .pol-ley, margen en las de Cruces y del índice)
+    const sep = i ? caja.width + (parseFloat(csIt.columnGap) || 0) + (parseFloat(csI.marginRight) || 0) : 0;
+    const an = sep + d3.sum(tr, p => anchoTrozo(med, p));
+    if (x > 0 && x + an > ancho) { x = 0; y += fila + gy; fila = 0; }
+    const r = renglonesLey(med, tr, x + sep, x + sep, ancho, lh(csIt)), rad = csI?.borderTopLeftRadius;
+    r.ops.forEach(o => ops.push({...o, y: o.y + y}));
+    if (i) cuad.push({x, y: y + (r.alto - caja.height) / 2, w: caja.width, h: caja.height, fondo: csI.backgroundColor, borde: csI.borderTopColor,
+      b: ["Top", "Right", "Bottom", "Left"].map(k => parseFloat(csI[`border${k}Width`]) || 0),
+      radio: rad.endsWith("%") ? parseFloat(rad) / 100 * Math.min(caja.width, caja.height) : parseFloat(rad) || 0});
+    fila = Math.max(fila, r.alto);
+    // una clave que ocupó más de un renglón se queda con su fila
+    x = r.varios ? ancho : r.x + gx;
+  });
+  return {ops, cuad, alto: y + fila};
+}
+// dibuja una leyenda de leyendaImg desde (x0, y0). El cuadradito toma la forma que tiene en la página: con borde (el círculo hueco de las
+// votaciones) se pinta el borde y adentro el fondo, y con alto 0 queda solo el borde de arriba, como una línea
+function dibujarLey(ctx, l, x0, y0) {
+  const transp = c => /^(transparent|rgba\(.*,\s*0\))$/.test(c);
+  const caja = (x, y, w, h, r) => {
+    if (w <= 0 || h <= 0) return;
+    ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, h, Math.min(r, w / 2, h / 2)); else ctx.rect(x, y, w, h); ctx.fill();
+  };
+  l.cuad.forEach(q => {
+    const x = x0 + q.x, y = y0 + q.y, [bt, br, bb, bl] = q.b;
+    if (bt || br || bb || bl) {
+      ctx.fillStyle = q.borde; caja(x, y, q.w, q.h, q.radio);
+      ctx.fillStyle = transp(q.fondo) ? css("--bg") : q.fondo; caja(x + bl, y + bt, q.w - bl - br, q.h - bt - bb, Math.max(0, q.radio - Math.max(...q.b)));
+    } else if (!transp(q.fondo)) { ctx.fillStyle = q.fondo; caja(x, y, q.w, q.h, q.radio); }
+  });
+  l.ops.forEach(o => {
+    ctx.save(); ctx.font = o.font; ctx.fontStretch = o.estira; ctx.letterSpacing = o.ls; ctx.textBaseline = o.bl || "top"; ctx.fillStyle = o.c;
+    ctx.translate(x0 + o.x, y0 + o.y); ctx.scale(o.escala, o.escala); ctx.fillText(o.t, 0, 0); ctx.restore();
+  });
+}
+// la cifra destacada (.clave): el número y su frase en una fila, con la base de la letra alineada como en la página, y la frase abajo si no
+// entran juntos. Se escriben sobre la línea de base porque el número y la frase tienen tamaños distintos
+function claveImg(med, el, ancho) {
+  const cs = getComputedStyle(el), gx = parseFloat(cs.columnGap) || 0, gy = parseFloat(cs.rowGap) || 0, ops = [];
+  const partes = [...el.children].filter(e => e.getClientRects().length && e.textContent.trim()).map(e => {
+    const c = getComputedStyle(e), tr = trozosLey(e), p = tr.find(q => q.t.trim()), lh = parseFloat(c.lineHeight) || p.fs * 1.2;
+    anchoTrozo(med, p); const m = med.measureText(p.t), a = (m.fontBoundingBoxAscent ?? m.actualBoundingBoxAscent) * p.escala;
+    const d = (m.fontBoundingBoxDescent ?? m.actualBoundingBoxDescent) * p.escala;
+    // del borde de arriba de cada parte a la base de su primer renglón, como lo reparte el navegador
+    return {tr, lh, base: (lh + a - d) / 2, tope: parseFloat(c.maxWidth) || Infinity, an: d3.sum(tr, q => anchoTrozo(med, q))};
+  });
+  if (!partes.length) return null;
+  let x = 0, y = 0, fila = [];
+  const cerrar = () => {
+    const B = d3.max(fila, p => p.base); let alto = 0;
+    fila.forEach(p => {
+      const arriba = B - p.base;
+      p.ren.ops.forEach(o => ops.push({...o, bl: "alphabetic", y: y + arriba + o.r + p.base}));
+      alto = Math.max(alto, arriba + p.ren.alto);
+    });
+    y += alto + gy; x = 0; fila = [];
+  };
+  partes.forEach(p => {
+    const an = Math.min(p.an, p.tope);
+    if (fila.length && x + an > ancho) cerrar();
+    p.ren = renglonesLey(med, p.tr, x, x, Math.min(ancho, x + p.tope), p.lh); fila.push(p); x += an + gx;
+  });
+  cerrar();
+  return {ops, cuad: [], alto: y - gy};
+}
 async function imagenFicha(f) {
   // se vuelve a dibujar sin animación para no capturar barras o líneas a medio camino
   const gr = svgUnico(f)?.closest(".grafico[data-g]");
@@ -5074,24 +5189,29 @@ async function imagenFicha(f) {
   const tit = envolver(f.querySelector("h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
   // con el título como pregunta (etapa 35), la descripción con el período va debajo
   const sub = envolver(f.querySelector(".ficha-sub")?.textContent || "", fS);
-  // la cifra destacada, como en la ficha (13 de octubre de 2026): el texto ya no la repite
-  const clv = f.querySelector(".clave"), fN = `500 30px ${F}`, clvT = clv ? envolver(clv.querySelector(".txt")?.textContent || "", fS) : [];
   // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo
   const pieL = envolver(`${(f.querySelector(".pie > span")?.textContent || "").trim().replace(/\.$/, "")}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
-  const H = pad + tit.length * 30 + (sub.length ? sub.length * 21 + 6 : 0) + (clv ? 8 + 36 + clvT.length * 21 : 0) + 10 + lead.length * 21 + 18 + h + 22 + pieL.length * 17 + pad;
+  // las leyendas que se ven en la ficha, leídas después de volver a dibujar el gráfico: así quedan al día con la medida elegida
+  const leyes = [...f.querySelectorAll(LEY_IMG)].filter(e => e.getClientRects().length && e.textContent.trim()).map(e => leyendaImg(med, e, W - pad * 2))
+    .filter(l => l.ops.length), eLey = parseFloat(css("--e-3")), altoLey = d3.sum(leyes, l => l.alto + eLey);
+  // la cifra destacada, debajo de la descripción como en la página. Las fichas de suicidio no tienen, y con la vista OCDE no va porque el
+  // gráfico ya no muestra lo que dice la cifra (pedido del autor, 14/10/2026)
+  const ce = f.querySelector(".clave"), clave = ce?.getClientRects().length && !(gr && VISTA[gr.dataset.g]) ? claveImg(med, ce, W - pad * 2) : null;
+  const altoClave = clave ? clave.alto + eLey : 0;
+  const H = pad + tit.length * 30 + (sub.length ? sub.length * 21 + 6 : 0) + altoClave + 10 + lead.length * 21 + 18 + altoLey + h + 22 + pieL.length * 17 + pad;
   const cv = document.createElement("canvas"); cv.width = W * E; cv.height = H * E;
   const ctx = cv.getContext("2d"); ctx.scale(E, E); ctx.textBaseline = "top";
   ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
   let yy = pad;
   ctx.fillStyle = css("--azul"); ctx.font = fT; tit.forEach(l => { ctx.fillText(l, pad, yy); yy += 30; });
   if (sub.length) { yy += 6; ctx.fillStyle = css("--muted"); ctx.font = fS; sub.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); }
-  if (clv) {
-    yy += 8; ctx.fillStyle = css("--celeste-fuerte"); ctx.font = fN; ctx.fillText(clv.querySelector(".num").textContent, pad, yy); yy += 36;
-    ctx.fillStyle = css("--muted"); ctx.font = fS; clvT.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; });
-  }
+  if (clave) { yy += eLey; dibujarLey(ctx, clave, pad, yy); yy += clave.alto; }
   yy += 10;
   const texto = () => { ctx.fillStyle = css("--ink"); ctx.font = fL; lead.forEach(l => { ctx.fillText(l, pad, yy); yy += 21; }); };
-  const grafico = () => { ctx.drawImage(img, pad + (W - pad * 2 - w) / 2, yy, w, h); yy += h; };
+  const grafico = () => {
+    leyes.forEach(l => { dibujarLey(ctx, l, pad, yy); yy += l.alto + eLey; });
+    ctx.drawImage(img, pad + (W - pad * 2 - w) / 2, yy, w, h); yy += h;
+  };
   if (NOTA_A_LA_VISTA.has(f.id)) { texto(); yy += 18; grafico(); } else { grafico(); yy += 18; texto(); }
   yy += 12;
   ctx.strokeStyle = css("--azul"); ctx.setLineDash([1, 3]); ctx.beginPath(); ctx.moveTo(pad, yy); ctx.lineTo(W - pad, yy); ctx.stroke(); yy += 10;
