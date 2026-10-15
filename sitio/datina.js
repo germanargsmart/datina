@@ -1241,6 +1241,14 @@ const recorte = (svg, x, y, w, h, r) => {
 };
 // el número de una barra (octubre de 2026): sigue a la barra mientras crece y cuenta hasta su valor, en la misma transición que la mueve
 const contar = (tr, f, v) => tr.textTween(d => { const fin = v(d); return t => f(fin * t); });
+// una línea de referencia vertical con huecos donde cruza un texto ({x, w, y, h}): con el borde de la letra no alcanzaba, la línea del
+// país se veía entre los caracteres de los números cercanos al promedio
+const lineaConHuecos = (xr, y0, y1, cajas) => {
+  let d = "", y = y0;
+  cajas.filter(c => xr > c.x - 2 && xr < c.x + c.w + 2).map(c => [c.y - 1, c.y + c.h + 1]).sort((a, b) => a[0] - b[0])
+    .forEach(([a, b]) => { if (a > y) d += `M${xr},${y}V${a}`; y = Math.max(y, b); });
+  return y < y1 ? d + `M${xr},${y}V${y1}` : d;
+};
 // la unidad de un eje escrita una vez arriba: "mil millones de pesos" pasa a "Miles de millones de pesos"
 const ejeDe = u => u.replace(/^mil /, "miles de ").replace(/^./, c => c.toUpperCase());
 // rótulos y marcas que acompañan al dibujo: aparecen a mitad del trazo, nunca después del tope
@@ -1463,7 +1471,7 @@ function barrasH(el, cfg) {
   else if (!cfg.cambiaConProv) el.resaltar = () => {
     pasar(barras).attr("fill", relleno).attr("opacity", opac);
     nombres.attr("class", d => claseProv(d, "etq")).each(ponerNombre); valores.attr("class", d => claseProv(d, "etq-suave"));
-    anotar();
+    anotar(); cortar();
   };
   if (cfg.anim) {
     barras.attr("x", x(0)).attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE)
@@ -1485,12 +1493,21 @@ function barrasH(el, cfg) {
     filas.on("pointerenter", (ev, d) => mostrarTip(el, tipFila(d), izq + x(Math.max(0, d[cfg.k])), 24 + y(d.codigo_indec)))
       .on("pointerleave", ocultarTip);
   }
+  // las líneas de referencia se cortan donde pasan por un número, una anotación o el nombre de la otra línea (los números, en su lugar
+  // final aunque estén entrando).
+  // Al cambiar de provincia se cortan de nuevo, porque las anotaciones cambian
+  const lineasRef = [];
+  const cortar = () => {
+    const cajas = [...valores.nodes().map((n, i) => ({x: xVal(data[i]), w: n.getComputedTextLength(), y: y(data[i].codigo_indec), h: y.bandwidth()})),
+      ...[...notas.selectAll("text").nodes(), ...g.selectAll(".etq-ref").nodes()].map(n => { const b = n.getBBox(); return {x: b.x, w: b.width, y: b.y, h: b.height}; })];
+    lineasRef.forEach(({p, xr}) => p.attr("d", lineaConHuecos(xr, -4, data.length * fila, cajas)));
+  };
   if (cfg.ref != null) {
-    g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3");
+    lineasRef.push({xr: x(cfg.ref), p: g.append("path").attr("fill", "none").attr("stroke",css("--ink")).attr("stroke-dasharray","3 3")});
     g.append("text").attr("class","etq-suave etq-ref").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).text(cfg.refLab);
   }
   if (cfg.ref2 != null) {
-    g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2);
+    lineasRef.push({xr: x(cfg.ref2), p: g.append("path").attr("fill", "none").attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2)});
     const der = cfg.ref == null || cfg.ref2 >= cfg.ref;
     const t2 = g.append("text").attr("x", x(cfg.ref2) + (der ? 5 : -5)).attr("y", data.length*fila + 18).attr("text-anchor", der ? "start" : "end")
       .attr("class","etq-fuerte etq-ref").attr("fill",css("--ocde")).text(cfg.ref2Lab);
@@ -1499,7 +1516,7 @@ function barrasH(el, cfg) {
   }
   // los números, los nombres de las líneas y las anotaciones van por encima de las líneas de referencia (en el celular la línea de la OCDE
   // cruzaba "País 13,2%")
-  g.selectAll(".etq-ref").raise(); capaVal.raise(); notas.raise();
+  cortar(); g.selectAll(".etq-ref").raise(); capaVal.raise(); notas.raise();
 }
 
 function pesas(el, cfg) {
@@ -1581,13 +1598,16 @@ function barrasGrupos(el, cfg) {
   const f = g.selectAll("g.f").data(data).join("g").attr("transform", d => `translate(0,${y(d.grupo)})`);
   const b = f.append("rect").attr("height", y.bandwidth()).attr("rx", rBarra(y.bandwidth())).attr("width", d => x(d[cfg.k])).attr("fill", css("--celeste"));
   f.append("text").attr("x", -10).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("text-anchor","end").attr("class","etq").text(d => d.grupo);
-  if (cfg.ref != null) {
-    g.append("line").attr("x1", x(cfg.ref)).attr("x2", x(cfg.ref)).attr("y1", -4).attr("y2", data.length * fila).attr("stroke", css("--ink")).attr("stroke-dasharray","3 3");
-    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
-  }
-  // los números, por encima de la línea de referencia y con su borde del color del fondo: la línea no los tacha
-  const v = g.append("g").attr("pointer-events", "none").selectAll("text").data(data).join("text").attr("x", d => x(d[cfg.k]) + 6)
+  // los números van por encima de la línea de referencia, que se corta donde pasa por uno
+  const capa = g.append("g").attr("pointer-events", "none");
+  const v = capa.selectAll("text").data(data).join("text").attr("x", d => x(d[cfg.k]) + 6)
     .attr("y", d => y(d.grupo) + y.bandwidth()/2).attr("dy",".35em").attr("class","etq-fuerte").text(d => pct(d[cfg.k]));
+  if (cfg.ref != null) {
+    g.append("path").attr("fill", "none").attr("stroke", css("--ink")).attr("stroke-dasharray","3 3").attr("d", lineaConHuecos(x(cfg.ref), -4, data.length * fila,
+      v.nodes().map((n, i) => ({x: x(data[i][cfg.k]) + 6, w: n.getComputedTextLength(), y: y(data[i].grupo), h: y.bandwidth()}))));
+    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length * fila + 12).attr("class","etq-suave").text(cfg.refLab);
+    capa.raise();
+  }
   if (cfg.anim) {
     b.attr("width", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("width", d => x(d[cfg.k]));
     v.attr("x", 6).attr("opacity", 0).transition().delay(escalon).duration(DUR_G).ease(EASE).attr("x", d => x(d[cfg.k]) + 6).attr("opacity", 1)
