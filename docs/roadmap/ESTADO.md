@@ -222,6 +222,9 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - En el celular, las tarjetas del perfil que se desplazan de costado no se tocan.
 - Las herramientas van las cinco en una fila en la computadora, de a tres en pantallas medianas y de a dos hasta 760 píxeles.
 - Controlado en las páginas afectadas y en los cinco anchos: todas las filas llenan el ancho y ninguna tiene más de una tarjeta de diferencia con otra.
+- Segunda medición, en 390 píxeles y en todas las páginas: objetivos de toque de menos de 24 píxeles con otro al lado (ninguno), textos cortados dentro de su caja (ninguno, fuera de los que están ocultos a propósito para lectores de pantalla) y botones partidos en tres renglones (solo "Frente al empleo", en el conmutador de cuatro botones del seguro de desempleo).
+- Revisión a ojo de la portada, Trabajo, Tu provincia, un artículo y las herramientas, en 1440 y 390 píxeles.
+  - En Tu provincia, sin provincia elegida, la tarjeta de turistas extranjeros (que no tiene total del país) mostraba "Elegí una" con la letra de las cifras, y se leía "Elegí una cada 1.000 habitantes". Ahora dice "Elegí una provincia" en letra de texto, con el alto de la cifra para que nada salte al elegir.
 
 ## Pendientes cerrados el 14 de octubre de 2026
 

@@ -644,6 +644,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .dp{gap:2px;padding:var(--e-4) var(--e-6)}
 .dp-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .dp-num{font-size:var(--t-8);line-height:1.1;font-weight:500;letter-spacing:-.03em;color:var(--azul);font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 45,"opsz" 144;font-family:var(--f-c45)}
+/* sin provincia elegida y sin total del país: "Elegí una provincia" en letra de texto, con el alto de la cifra para que nada salte al elegir */
+.dp-num.invita{display:flex;align-items:center;min-height:calc(var(--t-8) * 1.1);font:500 var(--t-4)/1.3 var(--f);letter-spacing:0;font-variation-settings:normal;color:var(--muted)}
 .dp-det{min-height:2.8em;font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}
 .dp-tira{display:block;width:100%;height:26px;margin:6px 0 2px;overflow:visible}
 .dp-pos{font-size:var(--t-2);line-height:var(--i-chico);color:var(--muted)}

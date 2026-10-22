@@ -6812,7 +6812,11 @@ function pintarPanel(animar) {
   grilla.querySelectorAll(".dp").forEach(el => {
     const c = PERFIL[+el.dataset.i], fila = c.d.find(d => d.codigo_indec === prov);
     const orden = [...c.d].sort((a, b) => b[c.k] - a[c.k]).findIndex(d => d.codigo_indec === prov) + 1;
-    cambiarTexto(el.querySelector(".dp-num"), fila ? c.f(fila[c.k]) : c.pais == null ? "Elegí una" : c.f(c.pais), animar);
+    // sin provincia elegida y sin total del país (los turistas extranjeros), la tarjeta invita a elegir una, en letra de texto y no de cifra:
+    // "Elegí una" con la letra del número se leía como un valor, seguido de "cada 1.000 habitantes" (auditoría del 22 de octubre de 2026)
+    const invita = !fila && c.pais == null;
+    el.querySelector(".dp-num").classList.toggle("invita", invita);
+    cambiarTexto(el.querySelector(".dp-num"), fila ? c.f(fila[c.k]) : invita ? "Elegí una provincia" : c.f(c.pais), animar);
     const vz = fila && c.veces && c.pais != null ? vecesPais(fila[c.k], c.pais, c.veces === "debajo") : "";
     el.querySelector(".dp-pos").textContent = fila ? `${c.cap ? `Puesto ${orden} entre las ${c.d.length} capitales` : `Posición ${orden} de ${c.d.length}`}, de mayor a menor.${c.pais == null ? "" : ` País: ${c.f(c.pais)}.`}${vz ? ` Es ${vz}.` : ""}${c.ocde == null ? "" : ` OCDE: ${c.f(c.ocde)}.`}` : c.pais == null ? "Sin total nacional comparable" : "Total del país";
     el.querySelector(".dp-aclara").textContent = fila ? notaDist(c, prov) : "";
