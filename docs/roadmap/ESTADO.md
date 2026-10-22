@@ -208,6 +208,21 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - Las tres fichas arman el texto con la misma función (`textoCantidad`) y el eje dice "mil" y "millones" (nunca "1.000 mil").
 - A 320 píxeles los botones de los conmutadores tienen menos margen y un poco menos de espacio entre letras. Así entran los de cuatro botones y Cruces ya no se sale de la ficha, que antes se salía 36 píxeles. Controlado en todas las páginas: ningún botón ni etiqueta queda afuera.
 
+## Pedidos del autor del 22 de octubre de 2026
+
+"Auditá la parte de UX UI, por ejemplo en las cards de herramientas queda una sola colgada en una segunda fila, lo que deberías hacer es que todas estén en una fila, ajustar el tamaño o que quede proporcional tres arriba y tres abajo, y así".
+- Medición en todas las páginas, en 1440, 1180, 900, 600 y 390 píxeles, de las grillas de tarjetas con filas desparejas. Aparecieron cinco casos:
+  - las herramientas de la portada: 4 + 1, y 2 + 2 + 1 en pantallas medianas, desde que se sumó el catálogo;
+  - los grupos de Tu provincia: Educación 4 + 1, y Trabajo, Salud, Población y Cuentas públicas 3 + 1 en pantallas medianas;
+  - los programas de Educación: 2 + 1;
+  - las columnas del pie: 3 + 2 y 2 + 2 + 1.
+- Grillas parejas (`EQUILIBRAR` en `datina.js`):
+  - La cantidad de columnas la sigue poniendo `datina.css` según el ancho, pero las tarjetas se reparten en filas parejas que llenan el ancho. Con 5 tarjetas y 3 columnas van 3 arriba y 2 abajo, más anchas, y con 4 tarjetas y 3 columnas van 2 y 2.
+  - Se vuelve a repartir al cambiar el ancho o las tarjetas.
+  - En el celular, las tarjetas del perfil que se desplazan de costado no se tocan.
+- Las herramientas van las cinco en una fila en la computadora, de a tres en pantallas medianas y de a dos hasta 760 píxeles.
+- Controlado en las páginas afectadas y en los cinco anchos: todas las filas llenan el ancho y ninguna tiene más de una tarjeta de diferencia con otra.
+
 ## Pendientes cerrados el 14 de octubre de 2026
 
 "Seguí con los pendientes que quedan".

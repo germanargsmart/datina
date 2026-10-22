@@ -5712,6 +5712,49 @@ document.querySelectorAll(".conmutador:not(.pestanas):not([data-propio])").forEa
   }));
 });
 
+/* Grillas parejas (22 de octubre de 2026, pedido del autor: "en las cards de herramientas queda una sola colgada en una segunda fila, lo
+   que deberías hacer es que todas estén en una fila, ajustar el tamaño o que quede proporcional"). La cantidad de columnas la sigue poniendo
+   datina.css según el ancho, pero las tarjetas se reparten en filas parejas, que llenan el ancho: con 5 tarjetas y 3 columnas van 3 arriba
+   y 2 abajo, más anchas, con 4 y 3 columnas van 2 y 2, y con una sola fila las tarjetas ocupan todo el ancho. Se vuelve a repartir al
+   cambiar el ancho o las tarjetas (el perfil provincial cambia con la provincia). En el celular, si la grilla pasa a desplazarse de
+   costado (las tarjetas del perfil), no se toca */
+const EQUILIBRAR = "#herramientas-grid, .perfil-tarjetas, .programas-grid, .pie-mapa";
+(() => {
+  // visto: el ancho y la cantidad de tarjetas con que se repartió cada grilla, para no repetir el trabajo si no cambiaron
+  const visto = new WeakMap(), vigiladas = new WeakSet(), medidas = new ResizeObserver(es => es.forEach(e => equilibrar(e.target)));
+  function equilibrar(g) {
+    const hs = [...g.children].filter(h => !h.hidden), clave = g.clientWidth + ":" + hs.length;
+    if (visto.get(g) === clave) return;
+    visto.set(g, clave);
+    g.style.gridTemplateColumns = ""; hs.forEach(h => { h.style.gridColumn = ""; });
+    const cs = getComputedStyle(g);
+    if (!g.clientWidth || !cs.display.includes("grid") || cs.gridAutoFlow.includes("column")) return;
+    // las columnas que pone datina.css en este ancho, y cuántas filas hacen falta con las tarjetas que hay
+    const m = cs.gridTemplateColumns.split(" ").filter(Boolean).length, n = hs.length;
+    if (m < 2 || n < 2) return;
+    const filas = Math.ceil(n / m), base = Math.floor(n / filas), extra = n % filas;
+    // las primeras `extra` filas llevan una tarjeta más: en una grilla de base × (base + 1) columnas, cada tarjeta ocupa las que le tocan
+    const cols = extra ? base * (base + 1) : base;
+    if (cols === m && !extra) return;
+    g.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+    if (extra) hs.forEach((h, i) => { h.style.gridColumn = `span ${i < extra * (base + 1) ? base : base + 1}`; });
+  }
+  // de nuevo: también con el mismo ancho y la misma cantidad, porque las tarjetas pueden ser otras (sin su lugar en la grilla)
+  const todas = (deNuevo = false) => document.querySelectorAll(EQUILIBRAR).forEach(g => {
+    if (!vigiladas.has(g)) { vigiladas.add(g); medidas.observe(g); }
+    if (deNuevo) visto.delete(g);
+    equilibrar(g);
+  });
+  todas();
+  // las grillas que arma el código después (las herramientas de la portada, el perfil provincial) o a las que les cambian las tarjetas
+  let pendiente = false;
+  new MutationObserver(ms => {
+    if (pendiente || !ms.some(m => m.target.closest?.(EQUILIBRAR) || [...m.addedNodes].some(n => n.matches?.(EQUILIBRAR) || n.querySelector?.(EQUILIBRAR)))) return;
+    pendiente = true;
+    requestAnimationFrame(() => { pendiente = false; todas(true); });
+  }).observe(document.body, {childList: true, subtree: true});
+})();
+
 /* La marca del botón elegido (14 de octubre de 2026): supone que los botones miden todos lo mismo, pero en pantallas muy angostas una
    palabra larga ("Evolución", "Elecciones") no entra en su parte, la grilla agranda ese botón y achica los otros, y la marca quedaba
    corrida, tapando media etiqueta. Cuando los anchos no son iguales, la marca toma la posición y el ancho del botón elegido (clase
