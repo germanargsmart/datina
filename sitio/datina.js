@@ -8154,17 +8154,26 @@ if (PAGINA === "inicio") mapa();
   const sinTildes = t => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   // lo que se busca: lo que se ve de cada tabla y los nombres de sus columnas
   const textos = new Map(items.map(li => [li, sinTildes([li.id.slice(4), ...[...li.querySelectorAll(".etiqueta, .cat-tit, .cat-sub, .cat-datos dd, .cat-dic code")].map(x => x.textContent)].join(" "))]));
-  function filtrar(guardar = true) {
+  // de a 24 tablas (auditoría de UX del 22 de octubre de 2026, pedido del autor): con las 205 a la vista, en el celular la página medía
+  // unas 116 pantallas. Se ven las primeras 24 de las que coinciden con la búsqueda y los filtros, que buscan en todas, y "Mostrar más"
+  // suma otras 24. Sin JavaScript se ven todas, como antes
+  const PASO = 24;
+  let tope = PASO, coinciden = [];
+  lista.insertAdjacentHTML("afterend", `<button type="button" class="boton ver-todos" id="cat-mas" hidden></button>`);
+  const mas = document.getElementById("cat-mas");
+  function filtrar(guardar = true, reiniciar = true) {
     const pal = sinTildes(q.value).split(/\s+/).filter(Boolean), {tema, org, cob} = Object.fromEntries(Object.entries(sels).map(([k, s]) => [k, s.value]));
     const anio = +sels.anio.value || 0;
-    let n = 0;
-    items.forEach(li => {
+    if (reiniciar) tope = PASO;
+    coinciden = items.filter(li => {
       const d = li.dataset;
-      const ok = pal.every(p => textos.get(li).includes(p)) && (!tema || d.tema === tema) && (!org || d.org.split(" ").includes(org)) &&
+      return pal.every(p => textos.get(li).includes(p)) && (!tema || d.tema === tema) && (!org || d.org.split(" ").includes(org)) &&
         (!cob || d.cob === cob) && (!anio || (d.a0 !== "" && +d.a0 <= anio && anio <= +d.a1));
-      li.hidden = !ok;
-      n += ok;
     });
+    const aLaVista = new Set(coinciden.slice(0, tope)), n = coinciden.length, resto = n - aLaVista.size;
+    items.forEach(li => { li.hidden = !aLaVista.has(li); });
+    mas.hidden = resto <= 0;
+    mas.textContent = resto === 1 ? "Mostrar la última tabla" : resto <= PASO ? `Mostrar las ${resto} tablas que quedan` : `Mostrar ${PASO} tablas más (quedan ${resto})`;
     const filtrado = pal.length || tema || org || cob || anio;
     cuenta.innerHTML = filtrado ? `<b>${n}</b> de ${items.length} tablas` : `<b>${n}</b> tablas`;
     vacio.hidden = n > 0;
@@ -8181,6 +8190,13 @@ if (PAGINA === "inicio") mapa();
   filtrar(false);
   q.addEventListener("input", () => filtrar());
   Object.values(sels).forEach(s => s.addEventListener("change", () => filtrar()));
+  // las tablas que se suman: el foco va a la primera, para seguir leyendo desde ahí con el teclado o el lector de pantalla
+  mas.addEventListener("click", () => {
+    const primera = coinciden[tope];
+    tope += PASO;
+    filtrar(false, false);
+    primera?.querySelector(".cat-tit a")?.focus();
+  });
   limpiar.addEventListener("click", () => {
     q.value = ""; Object.values(sels).forEach(s => { s.value = ""; });
     filtrar(); q.focus();
@@ -8221,7 +8237,13 @@ if (PAGINA === "inicio") mapa();
   });
   // un enlace a una tabla (catalogo.html#cat-salarios_provincias) la muestra abierta
   const elegida = location.hash.startsWith("#cat-") ? document.getElementById(location.hash.slice(1)) : null;
-  if (elegida?.classList.contains("cat-item")) { elegida.hidden = false; elegida.querySelector(".cat-ver").click(); }
+  // si está más abajo de las primeras 24, se muestran todas hasta ella, sin saltear ninguna
+  if (elegida?.classList.contains("cat-item")) {
+    const i = coinciden.indexOf(elegida);
+    if (i >= tope) { tope = Math.ceil((i + 1) / PASO) * PASO; filtrar(false, false); }
+    elegida.hidden = false;
+    elegida.querySelector(".cat-ver").click();
+  }
 })();
 
 /* primer dibujo y redibujo al cambiar el ancho */
