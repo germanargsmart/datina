@@ -227,6 +227,11 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - El catálogo de datos medía 97.500 píxeles en el celular (unas 116 pantallas): las 205 tablas a la vista, cada una casi una pantalla con su fuente, cobertura, período y tres botones.
     - Ahora se ven las primeras 24 de las que coinciden con la búsqueda y los filtros, que siguen buscando en todas, y "Mostrar 24 tablas más (quedan 181)" suma otras 24. En el celular la página pasa a 14.000 píxeles.
     - El foco va a la primera tabla nueva. Un enlace a una tabla más abajo (`catalogo.html#cat-...`) muestra todas hasta ella, sin saltear ninguna, con la vista previa abierta. Sin JavaScript se ven todas, como antes.
+  - Al medir el alto de todas las páginas en el celular apareció otro caso: el Explorador de relaciones, donde la tabla es la vista inicial, medía 102.000 píxeles (unas 121 pantallas) con las 341 filas.
+    - Ahora se ven de a 30 filas, con "Mostrar 30 filas más (quedan 311)". La búsqueda y los filtros siguen sobre todo. En el celular la página pasa a 14.500 píxeles.
+    - Lo elegido siempre está a la vista: si llega por un enlace (`relaciones.html?n=...`) o desde el panel y está más abajo, la tabla se alarga hasta mostrarlo.
+    - El foco va al nombre de la primera fila nueva. El salto al comienzo de la tabla sigue igual.
+    - Las páginas que siguen en alto son las secciones con más fichas: Instituciones políticas (27 pantallas) y Petróleo y gas (25). Son fichas, no listas, y se recorren con el índice de cada página.
   - En Tu provincia, sin provincia elegida, la tarjeta de turistas extranjeros (que no tiene total del país) mostraba "Elegí una" con la letra de las cifras, y se leía "Elegí una cada 1.000 habitantes". Ahora dice "Elegí una provincia" en letra de texto, con el alto de la cifra para que nada salte al elegir.
 
 ## Pendientes cerrados el 14 de octubre de 2026

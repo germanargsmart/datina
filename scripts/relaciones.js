@@ -271,6 +271,8 @@
     const antes = E.elegido;
     E.elegido = id;
     if (id) E.foco = id;
+    // elegido desde el grafo o el panel, puede estar más abajo de las filas que se ven: la tabla se alarga hasta mostrarlo
+    if (id && !document.querySelector(`#rx-filas tr[data-id="${CSS.escape(id)}"]`)) dibujarTabla(calcularVisibles(), false);
     resaltar();
     panel(id ? porId.get(id) : null);
     guardarEnlace();
@@ -477,12 +479,23 @@
   const ordenados = lista => lista.slice().sort((a, b) => TIPO_ORDEN[a.tipo] - TIPO_ORDEN[b.tipo] || a.nombre.localeCompare(b.nombre, "es"));
 
   // ---------- tabla: lo mismo que el grafo, en filas ----------
-  function dibujarTabla(v) {
+  // de a 30 filas (auditoría de UX del 22 de octubre de 2026, pedido del autor): con las 341 a la vista, en el celular, donde la tabla es
+  // la vista inicial, la página medía unas 121 pantallas. Se ven las primeras 30 de lo que coincide con la búsqueda y los filtros, y
+  // "Mostrar más" suma otras 30. Lo elegido siempre está a la vista: si está más abajo, se muestran todas las filas hasta llegar a eso
+  const PASO_FILAS = 30;
+  let topeFilas = PASO_FILAS;
+  function dibujarTabla(v, reiniciar = true) {
     const vis = new Set(v.nodos.map(n => n.id));
     const boton = id => { const n = porId.get(id); return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.tipo === "fuente" ? (n.sigla || n.nombre) : n.nombre)}</button>`; };
     const lista = arr => arr.length ? `<ul class="rx-rel">${arr.map(x => `<li>${x}</li>`).join("")}</ul>` : '<span aria-hidden="true">—</span><span class="rx-oculto">ninguna</span>';
     const tema = n => [...n._temas].map(t => (D.secciones.find(s => s[0] === t) || [, t])[1]).join(", ");
-    $("rx-filas").innerHTML = ordenados(v.nodos.filter(coincide)).map(n => `<tr data-id="${esc(n.id)}">
+    const filas = ordenados(v.nodos.filter(coincide)), i = E.elegido ? filas.findIndex(n => n.id === E.elegido) : -1;
+    if (reiniciar) topeFilas = PASO_FILAS;
+    if (i >= topeFilas) topeFilas = Math.ceil((i + 1) / PASO_FILAS) * PASO_FILAS;
+    const resto = filas.length - Math.min(filas.length, topeFilas);
+    $("rx-mas-filas").hidden = resto <= 0;
+    $("rx-mas-filas").textContent = resto <= 0 ? "" : resto === 1 ? "Mostrar la última fila" : resto <= PASO_FILAS ? `Mostrar las ${resto} filas que quedan` : `Mostrar ${PASO_FILAS} filas más (quedan ${resto})`;
+    $("rx-filas").innerHTML = filas.slice(0, topeFilas).map(n => `<tr data-id="${esc(n.id)}">
       <td data-col="Tipo"><span><svg viewBox="-8 -8 16 16" aria-hidden="true">${ICONO[n.tipo]}</svg>${TIPO_NOMBRE[n.tipo]}</span></td>
       <th scope="row" data-col="Nombre">${boton(n.id)}</th><td data-col="Tema">${esc(tema(n)) || '<span aria-hidden="true">—</span>'}</td>
       <td data-col="Viene de">${lista(entra.get(n.id).filter(a => vis.has(a.de)).map(a => boton(a.de) + (a.tipo === "calcula" ? " (se calcula a partir de esta)" : "")))}</td>
@@ -492,6 +505,13 @@
   $("rx-filas").addEventListener("click", e => {
     const b = e.target.closest("[data-ir]");
     if (b) elegir(b.dataset.ir);
+  });
+  // las filas que se suman: el foco va al nombre de la primera, para seguir desde ahí con el teclado o el lector de pantalla
+  $("rx-mas-filas").addEventListener("click", () => {
+    const antes = $("rx-filas").rows.length;
+    topeFilas += PASO_FILAS;
+    dibujarTabla(calcularVisibles(), false);
+    $("rx-filas").rows[antes]?.querySelector("th [data-ir]")?.focus();
   });
 
   // ---------- vista y filtros de tipo ----------

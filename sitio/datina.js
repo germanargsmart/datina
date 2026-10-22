@@ -8173,7 +8173,7 @@ if (PAGINA === "inicio") mapa();
     const aLaVista = new Set(coinciden.slice(0, tope)), n = coinciden.length, resto = n - aLaVista.size;
     items.forEach(li => { li.hidden = !aLaVista.has(li); });
     mas.hidden = resto <= 0;
-    mas.textContent = resto === 1 ? "Mostrar la última tabla" : resto <= PASO ? `Mostrar las ${resto} tablas que quedan` : `Mostrar ${PASO} tablas más (quedan ${resto})`;
+    mas.textContent = resto <= 0 ? "" : resto === 1 ? "Mostrar la última tabla" : resto <= PASO ? `Mostrar las ${resto} tablas que quedan` : `Mostrar ${PASO} tablas más (quedan ${resto})`;
     const filtrado = pal.length || tema || org || cob || anio;
     cuenta.innerHTML = filtrado ? `<b>${n}</b> de ${items.length} tablas` : `<b>${n}</b> tablas`;
     vacio.hidden = n > 0;
