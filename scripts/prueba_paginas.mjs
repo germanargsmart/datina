@@ -111,6 +111,29 @@ for (const [pg, pide] of Object.entries(SIN_CDN)) {
   if (pide.textos && (!r.fichas || r.textosVacios)) problemas.push(`${donde}: ${r.textosVacios} textos vacíos (${r.fichas} fichas)`);
   if (pide.graficos && !r.graficos) problemas.push(`${donde}: sin gráficos`);
 }
+// Los menús de la barra con el teclado (Fase 2, 23 de octubre de 2026): Enter abre Temas y lleva el foco adentro, Escape lo cierra y
+// devuelve el foco al botón. En el celular, "Menú" abre sus cuatro partes plegadas con el foco en la primera
+await q.send("Network.setBlockedURLs", {urls: []});
+const tecla = async k => {
+  for (const type of ["keyDown", "keyUp"])
+    await q.send("Input.dispatchKeyEvent", {type, key: k, code: k, windowsVirtualKeyCode: {Enter: 13, Escape: 27}[k], ...(k === "Enter" && type === "keyDown" ? {text: "\r"} : {})});
+  await espera(300);
+};
+const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
+await q.ir(B + "trabajo.html", 1000);
+await q.eval(`document.getElementById("gb-temas").focus()`);
+await tecla("Enter");
+if (!(await q.eval(`!document.getElementById("gm-temas").hidden && document.getElementById("gm-temas").contains(document.activeElement)`)))
+  problemas.push(`trabajo.html: Enter en "Temas" no abre su menú con el foco adentro (${await enFoco()})`);
+await tecla("Escape");
+if (!(await enFoco()).startsWith("gb-temas")) problemas.push(`trabajo.html: Escape no devuelve el foco a "Temas" (${await enFoco()})`);
+await q.tamano(390, 844);
+await q.ir(B + "trabajo.html", 1000);
+await q.eval(`document.getElementById("menu-btn").focus()`);
+await tecla("Enter");
+if (!(await enFoco()).endsWith("|Temas")) problemas.push(`trabajo.html en 390 píxeles: "Menú" no abre con el foco en "Temas" (${await enFoco()})`);
+q.errores.forEach(e => problemas.push(`menús con el teclado: ${e}`));
+await q.tamano(1280, 900);
 await q.send("Network.setBlockedURLs", {urls: [...CDN, "*lib/d3-*"]});
 await q.ir(B + "trabajo.html", 1200);
 const rescate = await q.eval(MIRAR);
@@ -120,7 +143,7 @@ await ch.cerrar();
 servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
-console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista.`);
+console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);

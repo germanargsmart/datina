@@ -6973,14 +6973,16 @@ const PREG = [
 /* "Más" (etapa 32, como el menú "More" de usafacts.org): una lista blanca debajo del botón, que termina la fila de la barra.
    En el celular ocupa la pantalla debajo de la barra y la página queda quieta detrás (clase menu-abierto en la raíz). Los temas que
    ya están en la barra se ven en la lista solo cuando la barra no los muestra. Desde la etapa 39 los cuatro grupos de la barra abren
-   cada uno su lista con el mismo código, y abrir una cierra la que estaba abierta */
+   cada uno su lista con el mismo código, y abrir una cierra la que estaba abierta. Desde la Fase 2 (23 de octubre de 2026) la barra
+   tiene Temas, Provincias, Historias y Herramientas, y "Más" pasó a ser "Menú", que se ve solo hasta 1080 píxeles */
 const MENUS = [];
 const menuBarra = (btn, panel) => {
   if (!btn || !panel) return;
   const raiz = document.documentElement;
   let t;
   const abierto = () => btn.getAttribute("aria-expanded") === "true";
-  const primero = () => [...panel.querySelectorAll("a")].find(a => a.offsetParent);
+  // en "Menú" las partes empiezan plegadas: lo primero que se ve es el nombre de una parte (summary)
+  const primero = () => [...panel.querySelectorAll("a, summary")].find(a => a.offsetParent);
   // alineada con el botón, sin salirse de la pantalla a la derecha
   const ubicar = () => {
     const b = btn.getBoundingClientRect(), ancho = panel.offsetWidth || 0;

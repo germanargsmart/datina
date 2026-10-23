@@ -280,15 +280,14 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* la barra sube 14 píxeles al bajar por la página: la lista la sigue con el mismo movimiento */
 .barra.compacta ~ .menu-panel{translate:0 -14px}
 .menu-col{display:flex;flex-direction:column;min-width:0}
-/* los rótulos de los grupos quedan solo para los lectores de pantalla: a la vista, una línea fina separa un grupo del siguiente */
-.menu-panel .menu-tit{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-.menu-grupo + .menu-grupo{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line)}
+/* una línea fina separa un grupo del siguiente. Su nombre (Fase 2, 23 de octubre de 2026) se ve con la letra y el tamaño de los enlaces,
+   en gris y sin negrita (regla del autor del 4 de octubre de 2026): en el menú Temas, cuatro columnas sin nombre no se entendían */
+.menu-grupo + .menu-grupo,.menu-panel ul + .menu-grupo{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line)}
+.menu-panel .menu-cab,.menu-panel li.cat span{display:block;margin:0;padding:7px var(--e-3);font-family:var(--f);font-size:var(--t-3);font-weight:400;
+  line-height:1.3;color:var(--muted)}
 .menu-panel ul{margin:0;padding:0;list-style:none}
-@media (min-width:1081px){.menu-panel .en-barra{display:none}
-  /* un grupo con todos sus temas en la barra no deja dos líneas seguidas (etapa 36) */
-  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))){display:none}
-  /* y el primer grupo que se ve después de ellos (Artículos, desde el 11 de octubre de 2026) no lleva línea arriba */
-  .menu-panel .menu-grupo:not(:has(li:not(.en-barra))) + .menu-grupo:has(li:not(.en-barra)){margin-top:0;padding-top:0;border-top:0}}
+/* hasta 1080 píxeles se ve "Menú" y no los cuatro menús de la barra, y desde 1081 al revés */
+@media (min-width:1081px){#menu-btn{display:none}}
 /* todos los enlaces iguales: la letra del texto, el mismo tamaño y sin negrita */
 .menu-panel a{display:block;padding:7px var(--e-3);border-radius:var(--r-control);
   font-family:var(--f);font-size:var(--t-3);font-weight:400;font-variation-settings:normal;letter-spacing:normal;line-height:1.3;
@@ -306,14 +305,30 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .barra.clara .menu-btn:hover{color:var(--ink)}
   .lupa-btn:hover,.chip-prov:hover,.chip-borrar:hover{background:var(--en-azul-velo)}
   .barra.clara .lupa-btn:hover,.barra.clara .chip-prov:hover,.barra.clara .chip-borrar:hover{background:var(--celeste-suave)}
-  .menu-panel a:hover{background:var(--superficie)}
+  .menu-panel a:hover,.menu-parte > summary:hover{background:var(--superficie)}
   .menu-panel a[aria-current="true"]:hover{background:var(--sol-suave)}
 }
 @media (max-width:1180px){.barra .temas{gap:var(--e-4);font-size:12px}}
 @media (max-width:1080px){.barra .temas a,.barra .temas .grupo-btn,.grupo-panel{display:none}}
 /* el menú de un grupo: una sola columna, con las secciones de una categoría (Migraciones y Turismo debajo de Población) un poco adentro */
 .grupo-panel{grid-template-columns:1fr;width:min(290px,calc(100vw - 24px))}
-.grupo-panel .sub a{padding-left:calc(var(--e-3) + var(--e-4))}
+.menu-panel .sub a{padding-left:calc(var(--e-3) + var(--e-4))}
+/* Temas: los cuatro grupos en columnas, en el orden de la portada, sin línea entre columnas */
+.panel-temas{grid-template-columns:repeat(4,minmax(0,1fr));gap:0 var(--e-4);width:min(980px,calc(100vw - 24px))}
+.panel-temas .menu-grupo + .menu-grupo{margin-top:0;padding-top:0;border-top:0}
+/* Provincias: las 24 jurisdicciones en dos columnas, cada una con su bandera */
+.panel-provincias{width:min(480px,calc(100vw - 24px))}
+.menu-panel .prov-lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.menu-panel a.con-bandera{display:flex;align-items:center;gap:var(--e-2)}
+/* "Menú" (hasta 1080 píxeles): las cuatro partes de la barra, plegables, en una columna */
+#menu-panel{grid-template-columns:1fr}
+.menu-parte + .menu-parte{border-top:1px solid var(--line)}
+.menu-parte > summary{display:flex;align-items:center;justify-content:space-between;gap:var(--e-2);padding:10px var(--e-3);list-style:none;cursor:pointer;
+  border-radius:var(--r-control);font-family:var(--f);font-size:var(--t-3);line-height:1.3;color:var(--ink)}
+.menu-parte > summary::-webkit-details-marker{display:none}
+.menu-parte[open] > summary .mas-flecha{transform:rotate(180deg)}
+.menu-parte > summary:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+.menu-parte[open]{padding-bottom:var(--e-2)}
 @media (max-width:760px){
   .barra .envoltura{height:62px;gap:var(--e-3)}
   .barra-izq{gap:var(--e-3)}
@@ -325,7 +340,8 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .barra.compacta ~ .menu-panel{translate:0 -8px}
   /* en una sola columna, la línea fina también separa una columna de la siguiente */
   .menu-col + .menu-col{margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line)}
-  .menu-panel a{padding:10px var(--e-3);font-size:18px;line-height:1.25}
+  .menu-panel a,.menu-parte > summary{padding:10px var(--e-3);font-size:18px;line-height:1.25}
+  .menu-panel .menu-cab,.menu-panel li.cat span{font-size:18px;line-height:1.25}
   /* la página queda quieta detrás del menú */
   html.menu-abierto{overflow:hidden}
 }

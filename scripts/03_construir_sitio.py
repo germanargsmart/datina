@@ -445,28 +445,40 @@ base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f 
 # Grupos y categorías (etapa 36, pedido del autor del 7 de octubre de 2026: "empezá a unificar, tipo energía es la categoría general de
 # petróleo y gas", y sus respuestas: categorías con subsecciones, los grupos de su mensaje). Cuatro grupos, como en la portada ("Explorá la
 # Argentina por tema"). Un elemento de un grupo es una sección o una categoría: un nombre y sus secciones, la primera
-# es su página de entrada. Cada sección conserva su página y su dirección. De acá salen la barra, el menú "Más", la fila del celular, las
-# migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada (datina.js)
+# es su página de entrada. Cada sección conserva su página y su dirección. De acá salen el menú "Temas", la fila del celular, las
+# migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada
+# Fase 2 (respuestas del autor del 23 de octubre de 2026): Personas pasa a llamarse Personas y bienestar, Turismo pasa a Trabajo y economía
+# (mide una actividad económica) y Curiosidades a Historias con datos (MENUS, abajo). Cuentas públicas se queda donde está
 GRUPOS = [
-    ("personas", "Personas", [("Población", ["poblacion", "migraciones", "turismo"]), "salud", "educacion", "pobreza"]),
+    ("personas", "Personas y bienestar", [("Población", ["poblacion", "migraciones"]), "salud", "educacion", "pobreza"]),
     # Sector externo, desde el 11 de octubre de 2026 (pedido del autor: "meté una nueva categoría en trabajo y economía que se llame sector externo")
-    ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"]), "externo"]),
-    # Curiosidades, desde el 11 de octubre de 2026 dentro de Estado y sociedad (pedido del autor: "sacá el Y además de la portada y poné
-    # curiosidades dentro de estado y sociedad, integralo"). Antes era un quinto grupo, "Y además", que iba aparte en la portada y en "Más"
-    ("estado", "Estado y sociedad", ["politica", "seguridad", "curiosidades"]),
+    ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"]), "externo", "turismo"]),
+    ("estado", "Estado y sociedad", ["politica", "seguridad"]),
     ("territorio", "Territorio y recursos", [("Energía", ["energia", "petroleo"]), "movilidad", "naturaleza"]),
 ]
-# la barra (etapa 39, respuesta del autor del 10/10/2026: "4 grupos con menú"): los mismos grupos de la portada, cada uno con un menú con
-# sus secciones. Hasta entonces eran ocho temas sueltos escritos a mano, lo único que no salía de GRUPOS
-GRUPOS_BARRA = [x for x in GRUPOS if x[0] != "otros"]
+# La barra (Fase 2, respuesta del autor del 23 de octubre de 2026: "Temas, Provincias, Historias, Herramientas"): "Temas" abre los cuatro
+# grupos de arriba en columnas, como la portada, y los otros tres menús salen de MENUS. Reemplaza los "4 grupos con menú" y "Más" de la
+# etapa 39. Cada menú: id, nombre en la barra, nombre completo (pie, migas y filtros del catálogo), adónde lleva donde no hay menú (el
+# Explorador de relaciones) y sus páginas. Una tupla es un subgrupo con su nombre. Las 24 jurisdicciones del menú Provincias (respuesta
+# del autor del mismo día) las agrega la barra
+MENUS = [
+    ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "departamentos"]),
+    ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "laboratorio", "corte-suprema", "curiosidades"]),
+    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "indice", "diagnostico", "consultor", ("Los datos", ["catalogo", "relaciones"])]),
+]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
-EN_BARRA = {s for _, _, items in GRUPOS_BARRA for s in _secs_de(items)}
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
 ORDEN_TEMAS = [s for _, _, items in GRUPOS for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 GRUPO_DE = {s: (g, n) for g, n, items in GRUPOS for s in _secs_de(items)}
+MENU_DE = {p: (m, completo) for m, _, completo, _, items in MENUS for p in _secs_de(items)}
 _temas = [x[0] for x in SECCIONES if not x[4] and x[0] != "articulos"]
-assert sorted(ORDEN_TEMAS) == sorted(_temas), f"las secciones y los grupos no coinciden: {set(ORDEN_TEMAS) ^ set(_temas)}"
+assert sorted(ORDEN_TEMAS + [p for p in MENU_DE if p in _temas]) == sorted(_temas), \
+    f"las secciones y los menús no coinciden: {set(ORDEN_TEMAS + list(MENU_DE)) ^ set(_temas)}"
 HERRAMIENTAS = [x[0] for x in SECCIONES if x[4]]
+assert set(HERRAMIENTAS) <= set(MENU_DE), f"herramientas sin menú: {set(HERRAMIENTAS) - set(MENU_DE)}"
+# las páginas de los menús que arma la plantilla como sección, más Tu provincia y el Laboratorio (las demás son el Explorador, el consultor
+# de pobreza y la pieza de la Corte Suprema): en ese orden van el recorrido y los filtros del catálogo
+PAGINAS_MENU = [p for p in _secs_de([it for m in MENUS for it in m[4]]) if p in {x[0] for x in SECCIONES} | {"provincia", "laboratorio"}]
 INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
           "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()}}
@@ -532,7 +544,9 @@ import relaciones  # noqa: E402
 # Va acá, antes de escribir datina.js, porque el botón "En el catálogo" del pie de cada ficha (pedido del autor del 11 de octubre) solo
 # aparece si la tabla de la ficha está en el catálogo (las de suicidio no están)
 import catalogo  # noqa: E402
-_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS)
+# los filtros por tema del catálogo siguen la barra: los cuatro grupos de Temas y después Provincias, Historias con datos y Herramientas
+_menus_catalogo = [(m, completo, [p for p in _secs_de(items) if p in PAGINAS_MENU]) for m, _, completo, _, items in MENUS]
+_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo)
 if _cat_err:
     sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
@@ -565,8 +579,9 @@ url_pagina = lambda p: "./" if p == "inicio" else f"{p}.html"
 TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 
 
-# Recorrido de "Anterior / Siguiente": artículos, el Laboratorio (etapa 33), tu provincia, las secciones y las herramientas, y Sobre nosotros
-ORDEN = ["articulos", "laboratorio", "provincia"] + ORDEN_TEMAS + HERRAMIENTAS + ["nosotros"]
+# Recorrido de "Anterior / Siguiente", en el orden de la barra (Fase 2, 23 de octubre de 2026): los temas, Provincias, Historias con datos
+# y Herramientas, y Sobre nosotros. Hasta entonces empezaba por los artículos, el Laboratorio y Tu provincia
+ORDEN = ORDEN_TEMAS + PAGINAS_MENU + ["nosotros"]
 TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto", "laboratorio": "Laboratorio"})
 # piezas del Laboratorio: las cuenta la tarjeta que lleva a él en "Seguí explorando"
 LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
@@ -642,7 +657,7 @@ def migas(*partes, prov=True):
 def pildoras(seccion):
     return '<nav class="pildoras" aria-label="Secciones">' + "".join(
         f'<a href="{url_pagina(s)}"{" aria-current=" + chr(34) + "page" + chr(34) if s == seccion else ""}>{e(TITULO_DE[s])}</a>'
-        for s in ["articulos"] + ORDEN_TEMAS + HERRAMIENTAS) + "</nav>"
+        for s in ORDEN if s != "nosotros") + "</nav>"
 
 
 def subsecciones(seccion):
@@ -662,7 +677,7 @@ def navegacion(h, pagina):
         orden = [n[0] for n in NOTAS]
         i = orden.index(pagina)
         art = lambda j: orden[j % len(orden)]
-        h = h.replace(nota, pildoras("articulos") + migas(("articulos.html", "Artículos"), prov=False) + nota, 1)
+        h = h.replace(nota, pildoras("articulos") + migas(("", MENU_DE["articulos"][1]), ("articulos.html", "Artículos"), prov=False) + nota, 1)
         fin = h.index("</article>", h.index(nota)) + len("</article>")
         sec = next(sec for a, _, sec, _ in NOTAS if a == pagina)
         return h[:fin] + pasos(art(i - 1), art(i + 1), [sec, "cruces"], ("articulos.html", "Todos los artículos")) + h[fin:]
@@ -673,7 +688,8 @@ def navegacion(h, pagina):
     # una pieza del Laboratorio (etapa 33): las migas pasan por el Laboratorio, y al final cuatro tarjetas sin anterior ni siguiente
     if "pieza" in b["clases"]:
         blo = h[b["ini"]:b["fin"]]
-        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("laboratorio.html", "Laboratorio"), prov=False), blo)
+        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("", MENU_DE["laboratorio"][1]), ("laboratorio.html", "Laboratorio"),
+                                                                     prov=False), blo)
         blo = blo[:-len("</section>")] + pasos(None, None, ["laboratorio", "politica", "gobierno", "articulos"],
                                                 ("laboratorio.html", "Todo el Laboratorio")) + "</section>"
         return h[:b["ini"]] + blo + h[b["fin"]:]
@@ -685,15 +701,15 @@ def navegacion(h, pagina):
         blo = blo.replace(m.group(0), "", 1)
         final = explicador(m.group(1))
     # migas arriba del título y fila de secciones (solo en el celular) arriba de todo
-    # el camino: el grupo de la portada y, en una sección que no es la entrada de su categoría, la categoría. Las herramientas y Tu
-    # provincia van bajo "Herramientas", como en el pie, y Sobre nosotros, Contacto, Artículos y Laboratorio, solo con Datina
+    # el camino: el grupo de la portada y, en una sección que no es la entrada de su categoría, la categoría. Las páginas de los otros
+    # menús van bajo su nombre (Provincias, Historias con datos, Herramientas), como en el pie, y Sobre nosotros y Contacto, solo con Datina
     partes = []
-    if pagina in GRUPO_DE and GRUPO_DE[pagina][0] != "otros":
+    if pagina in GRUPO_DE:
         partes.append(("./#tg-" + GRUPO_DE[pagina][0], GRUPO_DE[pagina][1]))
         if pagina in CATEGORIA and CATEGORIA[pagina][1][0] != pagina:
             partes.append((url_pagina(CATEGORIA[pagina][1][0]), CATEGORIA[pagina][0]))
-    elif pagina in HERRAMIENTAS or pagina == "provincia":
-        partes.append(("", "Herramientas"))
+    elif pagina in MENU_DE:
+        partes.append(("", MENU_DE[pagina][1]))
     blo = blo.replace("<h2", migas(*partes, prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
     # la fila de la categoría, después de la entrada (datina.js pone "En cifras" después de ella)
     if pagina in CATEGORIA:
@@ -713,53 +729,78 @@ def navegacion(h, pagina):
     return h[:b["ini"]] + blo + h[b["fin"]:]
 
 
-# Mapa del sitio en el pie de todas las páginas
+# Mapa del sitio en el pie de todas las páginas, con las mismas partes que la barra (Fase 2, 23 de octubre de 2026): los cuatro grupos
+# de Temas, Provincias, Historias con datos, Herramientas y Datina
 def lista(items):
     return "<ul>" + "".join(f'<li><a href="{u}">{e(t)}</a></li>' for u, t in items) + "</ul>"
 
 
-_secs_grupo = lambda items: [(url_pagina(s), TITULO_DE[s]) for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
-_col = lambda g: f'<h2>{e(g[1])}</h2>' + lista(_secs_grupo(g[2]))
-MAPA = (f'<div class="pie-col">{_col(GRUPOS[0])}</div><div class="pie-col">{_col(GRUPOS[1])}</div>'
-        f'<div class="pie-col">{_col(GRUPOS[2])}</div><div class="pie-col">{_col(GRUPOS[3])}</div>'
-        '<div class="pie-col"><h2>Herramientas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4] and x[0] != "catalogo"] +
-                                                                [("relaciones.html", "Explorador de relaciones"), ("articulos.html", "Artículos"),
-                                                                 ("laboratorio.html", "Laboratorio")]) +
-        '<h2>Datina</h2>' + lista([("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
-                                   ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]) + "</div>")
+# las páginas de los menús que la plantilla no arma como sección: su dirección y su nombre en los menús
+URL_MENU = {"consultor": "pobreza/", "relaciones": "relaciones.html"}
+NOMBRE_MENU = {"corte-suprema": "La Corte Suprema", "consultor": "Consultor de pobreza", "relaciones": "Explorador de relaciones"}
+url_menu = lambda p: URL_MENU.get(p) or url_pagina(p)
+nombre_menu = lambda p: NOMBRE_MENU.get(p) or TITULO_DE[p]
+_col = lambda nombre, pares: f'<div class="pie-col"><h2>{e(nombre)}</h2>{lista(pares)}</div>'
+MAPA = ("".join(_col(n, [(url_pagina(s), TITULO_DE[s]) for s in _secs_de(items)]) for _, n, items in GRUPOS)
+        + "".join(_col(completo, [(url_menu(p), nombre_menu(p)) for p in _secs_de(items)]) for _, _, completo, _, items in MENUS)
+        + _col("Datina", [("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
+                          ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]))
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
-# la barra, sus menús y la lista de temas de "Más" (etapas 36 y 39): salen de GRUPOS. En "Más", los temas de los grupos de la barra llevan
-# en-barra: se ven solo cuando la barra no muestra los grupos (hasta 1080 píxeles)
-_li = lambda s: (f'<li{" class=" + chr(34) + "en-barra" + chr(34) if s in EN_BARRA else ""}>'
-                 f'<a href="{url_pagina(s)}">{e(TITULO_DE[s])}</a></li>')
+# La barra (Fase 2, 23 de octubre de 2026): Temas, Provincias, Historias y Herramientas, cada uno con su menú (el mismo código que los
+# grupos de la etapa 39). data-secs: las páginas del menú, para marcar el de la página actual. data-ir: adónde lleva donde no hay menú
+# (el Explorador de relaciones). Los menús siguen la regla del autor del 4 de octubre de 2026: la letra del texto, un solo tamaño y sin
+# negrita. Los nombres de los grupos se ven en gris, con esa misma letra, porque en Temas cuatro columnas sin nombre no se entienden
 _FLECHA = '<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>'
-# cada grupo: un botón en la barra (data-secs: sus secciones, para marcar la actual; data-ir: adónde lleva donde no hay menú, como el
-# Explorador de relaciones) y su menú, con las secciones en el orden de la portada y las de una categoría debajo de su entrada
-_barra = "".join(f'<button type="button" class="menu-btn grupo-btn" id="gb-{g}" aria-expanded="false" aria-controls="gm-{g}" '
-                 f'data-secs="{" ".join(_secs_de(items))}" data-ir="./#tg-{g}">{e(n)}{_FLECHA}</button>' for g, n, items in GRUPOS_BARRA)
-_gm_li = lambda it: (f'<li><a href="{url_pagina(it[1][0])}">{e(it[0])}</a></li>' + "".join(f'<li class="sub"><a href="{url_pagina(s)}">{e(TITULO_DE[s])}</a></li>' for s in it[1][1:])
-                     if isinstance(it, tuple) else f'<li><a href="{url_pagina(it)}">{e(TITULO_DE[it])}</a></li>')
-_grupos_menu = "".join(f'<nav class="menu-panel grupo-panel" id="gm-{g}" aria-labelledby="gb-{g}" hidden><ul>' + "".join(_gm_li(it) for it in items) + "</ul></nav>"
-                       for g, n, items in GRUPOS_BARRA)
-# "Más" (11 de octubre de 2026, pedido del autor: "debería quedar al principio Tu provincia, y luego del separador Cruces, Tu índice,
-# Departamentos, Diagnóstico educativo, Explorador de relaciones, y después reordená con tu criterio lo otro"). Dos columnas que en el
-# celular se apilan: a la izquierda Tu provincia y las herramientas. A la derecha los temas de la barra (solo hasta 1080 píxeles, cuando la
-# barra no los muestra), las lecturas (Artículos, Laboratorio y lo que GRUPOS deja en "Y además") y Datina. Cada grupo lleva su separador
-_grupo_menu = lambda g, n, lis: (f'<div class="menu-grupo"><p class="menu-tit" id="mt-{g}">{e(n)}</p><ul aria-labelledby="mt-{g}">'
-                                 + "".join(lis) + "</ul></div>")
-_li_url = lambda u, t: f'<li><a href="{u}">{e(t)}</a></li>'
-_otros_secs = [s for g, _, items in GRUPOS if g == "otros" for s in _secs_de(items)]
-_menu = ('<div class="menu-col">'
-         + _grupo_menu("prov", "Tu provincia", [_li_url("provincia.html", "Tu provincia")])
-         + _grupo_menu("herr", "Herramientas", [_li(s) for s in HERRAMIENTAS if s != "catalogo"] + [_li_url("relaciones.html", "Explorador de relaciones")]
-                       + [_li("catalogo")])
-         + '</div><div class="menu-col">'
-         + "".join(_grupo_menu(g, n, [_li(s) for s in _secs_de(items)]) for g, n, items in GRUPOS_BARRA)
-         + _grupo_menu("lect", "Artículos y Laboratorio", [_li_url("articulos.html", "Artículos"), _li_url("laboratorio.html", "Laboratorio")]
-                       + [_li(s) for s in _otros_secs])
-         + _grupo_menu("datina", "Datina", [_li_url("nosotros.html", "Sobre nosotros"), _li_url("contacto.html", "Contacto")])
-         + "</div>")
+_boton = lambda m, nombre, secs, ir: (f'<button type="button" class="menu-btn grupo-btn" id="gb-{m}" aria-expanded="false" aria-controls="gm-{m}" '
+                                     f'data-secs="{" ".join(secs)}" data-ir="{ir}">{e(nombre)}{_FLECHA}</button>')
+_barra = _boton("temas", "Temas", ORDEN_TEMAS, "./#secciones") + "".join(_boton(m, corto, _secs_de(items), ir) for m, corto, _, ir, items in MENUS)
+_li = lambda p, cls="": f'<li{f" class={chr(34)}{cls}{chr(34)}" if cls else ""}><a href="{url_menu(p)}">{e(nombre_menu(p))}</a></li>'
+
+
+def _items_tema(items):
+    """Las secciones de un grupo de Temas. Una categoría lleva a su página de entrada y debajo, un poco adentro, van sus otras secciones.
+    Si la entrada no se llama como la categoría (Economía: Precios y actividad), la categoría es un rótulo sin enlace y van todas debajo"""
+    sale = ""
+    for it in items:
+        if not isinstance(it, tuple):
+            sale += _li(it)
+        elif TITULO_DE[it[1][0]] == it[0]:
+            sale += _li(it[1][0]) + "".join(_li(s, "sub") for s in it[1][1:])
+        else:
+            sale += f'<li class="cat"><span>{e(it[0])}</span></li>' + "".join(_li(s, "sub") for s in it[1])
+    return sale
+
+
+def _grupo(pre, clave, nombre, lis, cls=""):
+    """Un grupo de un menú, con su nombre a la vista y su lista (pre distingue los id del menú de la barra y los del celular)"""
+    return (f'<div class="menu-grupo"><p class="menu-cab" id="{pre}-{clave}">{e(nombre)}</p>'
+            f'<ul{f" class={chr(34)}{cls}{chr(34)}" if cls else ""} aria-labelledby="{pre}-{clave}">{lis}</ul></div>')
+
+
+_sin_tildes = str.maketrans("ÁÉÍÓÚáéíóúÑñ", "AEIOUaeiouNn")
+_PROVS = sorted((c for c in NOMBRE_PROV if c != "00"), key=lambda c: NOMBRE_PROV[c].translate(_sin_tildes))
+_li_prov = lambda c: (f'<li><a class="con-bandera" href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" '
+                      f'width="24" height="16" loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>')
+
+
+def contenido_menu(m, pre):
+    """Lo que lleva cada menú: el de la barra y la parte del menú del celular son iguales"""
+    if m == "temas":
+        return "".join(_grupo(pre, g, n, _items_tema(items)) for g, n, items in GRUPOS)
+    items = next(x[4] for x in MENUS if x[0] == m)
+    sale = "<ul>" + "".join(_li(p) for p in items if not isinstance(p, tuple)) + "</ul>"
+    sale += "".join(_grupo(pre, f"{m}-{i}", t, "".join(_li(p) for p in subs)) for i, (t, subs) in enumerate(p for p in items if isinstance(p, tuple)))
+    if m == "provincias":
+        sale += _grupo(pre, "24", "Las 24 jurisdicciones", "".join(_li_prov(c) for c in _PROVS), "prov-lista")
+    return sale
+
+
+_PARTES = [("temas", "Temas")] + [(m, corto) for m, corto, *_ in MENUS]
+_grupos_menu = "".join(f'<nav class="menu-panel grupo-panel panel-{m}" id="gm-{m}" aria-labelledby="gb-{m}" hidden>{contenido_menu(m, "mc")}</nav>'
+                       for m, _ in _PARTES)
+# hasta 1080 píxeles la barra no tiene lugar: un botón "Menú" con las mismas cuatro partes, plegables
+_menu = "".join(f'<details class="menu-parte"><summary>{e(n)}{_FLECHA}</summary>{contenido_menu(m, "mp")}</details>' for m, n in _PARTES)
 # Los temas de la portada (etapa 36): cada grupo con sus secciones (ícono, nombre y pregunta corta), y debajo de una categoría sus otras
 # secciones. Desde la etapa 39 los escribe el constructor: van justo debajo de lo azul y, si los pusiera datina.js al llegar, Artículos saltaba
 # hacia abajo. Cada grupo es una columna (hasta el 11 de octubre de 2026, "Y además" iba debajo del grupo con menos secciones)
@@ -777,9 +818,7 @@ def _tema_portada(it):
 
 _grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelledby="tg-{g}"><h3 class="tg-tit" id="tg-{g}">{e(n)}</h3>'
                                       '<ul class="tg-lista">' + "".join(_tema_portada(it) for it in items) + "</ul></section>")
-_otros = next((x for x in GRUPOS if x[0] == "otros"), None)
-_corta = min(GRUPOS_BARRA, key=lambda x: len(_secs_de(x[2])))
-_temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}{_grupo_portada(*_otros) if x is _corta and _otros else ""}</div>' for x in GRUPOS_BARRA)
+_temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x in GRUPOS)
 for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
@@ -1042,6 +1081,12 @@ import prueba_encabezados
 _enc, _, _, _ = prueba_encabezados.revisar()
 if _enc:
     sys.exit("Encabezados con problemas: el sitio no se dio por armado.\n" + "\n".join(_enc))
+# la navegación (scripts/prueba_navegacion.py, Fase 2): la misma barra, los mismos menús y el mismo pie en todas las páginas, todas las
+# direcciones de antes y ninguna página sin enlaces que lleguen a ella
+import prueba_navegacion  # noqa: E402
+_nav = prueba_navegacion.revisar()
+if _nav:
+    sys.exit("Navegación con problemas: el sitio no se dio por armado.\n" + "\n".join(_nav))
 print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos")
 if AVISO_POBREZA:
     print(AVISO_POBREZA)
