@@ -6,7 +6,7 @@ Fecha: 11 de octubre de 2026 (sitio armado del commit abe1ec7 en adelante). Reem
 
 ```
 node scripts/linea_base.mjs            # en la computadora del autor
-DATINA_LIBS=<carpeta con d3.min.js y topojson-client.min.js> CHROME=/opt/pw-browsers/chromium node scripts/linea_base.mjs   # en la nube
+CHROME=/opt/pw-browsers/chromium node scripts/linea_base.mjs   # en la nube (D3 y topojson vienen del sitio desde el 22 de octubre de 2026)
 ```
 
 Guarda las capturas y `resultado.json` en `linea_base/AAAA-MM-DD/` (fuera del repositorio, se regeneran). Corre localmente: no hay ni se creó ningún flujo de GitHub para esto.

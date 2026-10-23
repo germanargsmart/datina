@@ -24,9 +24,8 @@ Las páginas de `sitio/` en el repositorio tienen CRLF porque el autor arma en W
 
 ## Entornos en la nube sin acceso a las CDN
 
-En las sesiones de Claude Code en la nube la red puede bloquear cdnjs y jsdelivr (D3 y topojson). Desde el 11 de octubre de 2026 la prueba de páginas acepta copias locales, sin tocar el repositorio:
+En las sesiones de Claude Code en la nube la red puede bloquear cdnjs y jsdelivr. Desde el 22 de octubre de 2026 eso ya no afecta: D3 7.8.5 y topojson-client 3.1.0 se sirven desde el propio sitio (`sitio/lib/`, que 03 copia byte por byte de `scripts/lib/`, con las licencias), así que la prueba de páginas corre igual: `CHROME=/opt/pw-browsers/chromium node scripts/prueba_paginas.mjs`. La variable `DATINA_LIBS`, que servía copias en lugar de las CDN, ya no existe.
 
-1. Bajar del registro npm (permitido) `npm pack d3@7.8.5 topojson-client@3.1.0` en una carpeta temporal, descomprimirlos y juntar `d3.min.js` y `topojson-client.min.js` en una carpeta.
-2. Correr `DATINA_LIBS=<esa carpeta> CHROME=/opt/pw-browsers/chromium node scripts/prueba_paginas.mjs` desde el repositorio. El navegador recibe las copias en lugar de pedirlas a las CDN. Sin la variable, todo va a las CDN, como en la actualización mensual.
+La prueba de páginas abre además algunas páginas con cdnjs y jsDelivr bloqueadas (tienen que andar sin errores, con fichas, textos, gráficos y menú) y `trabajo.html` sin D3 (las fichas tienen que verse igual, por la red de seguridad del arranque de `datina.js`). Para cambiar de versión de D3 o de topojson: reemplazar el archivo de `scripts/lib/` (bajado de npm y comparado byte por byte con el de la CDN), y su nombre en `LIBS` de `03_construir_sitio.py` y en `scripts/plantilla.html`.
 
 Las letras de Google Fonts tampoco cargan ahí: las capturas usan las letras de reemplazo, así que no sirven para comparar píxeles con las de la computadora del autor.

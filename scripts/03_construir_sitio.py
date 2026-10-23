@@ -542,8 +542,15 @@ for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SI
     js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
 (SITIO / "datina.css").write_text(css, encoding="utf-8")
 (SITIO / "datina.js").write_text(js, encoding="utf-8")
+# D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
+# jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
+LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js"}
+(SITIO / "lib").mkdir(exist_ok=True)
+for _lib in (RAIZ / "scripts" / "lib").iterdir():
+    shutil.copyfile(_lib, SITIO / "lib" / _lib.name)
+V_LIBS = {marca: hashlib.sha1((SITIO / "lib" / nombre).read_bytes()).hexdigest()[:10] for marca, nombre in LIBS.items()}
 
-for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(js)}.items():
+for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(js), **V_LIBS}.items():
     assert marca in base, marca
     base = base.replace(marca, valor)
 # las posiciones de los bloques cambian con el reemplazo de arriba: se vuelven a ubicar

@@ -3,6 +3,7 @@
 // {{dato}} sin completar, que "En cifras" tenga sus cinco tarjetas completas en las 12 secciones (sin provincia y con dos provincias
 // elegidas) y que el perfil provincial tenga todos sus valores.
 // La corre la actualización mensual después de armar el sitio: si encuentra un problema, se detiene y no se guarda ni se publica nada.
+// También abre algunas páginas con cdnjs y jsDelivr bloqueadas, y una sin D3 (ver "Sin las CDN", al final).
 // Uso: node scripts/prueba_paginas.mjs   (Node 22 o más y Google Chrome. Otra ruta de Chrome: variable CHROME)
 import { createServer } from "node:http";
 import { readFileSync, readdirSync } from "node:fs";
@@ -36,17 +37,6 @@ const problemas = [];
 const ch = await abrirChrome(9500 + Math.floor(Math.random() * 400));
 const p = await ch.pestana();
 await p.tamano(1280, 900);
-// sin acceso a las CDN (sesiones en la nube): con DATINA_LIBS apuntando a una carpeta con d3.min.js y topojson-client.min.js de las
-// mismas versiones, el navegador recibe esas copias en lugar de pedirlas a cdnjs y jsdelivr. Sin la variable, todo va a las CDN
-if (process.env.DATINA_LIBS) {
-  await p.send("Fetch.enable", {patterns: [{urlPattern: "*cdnjs.cloudflare.com/ajax/libs/d3/*"}, {urlPattern: "*cdn.jsdelivr.net/npm/topojson-client@*"}]});
-  p.on("Fetch.requestPaused", ev => {
-    const cuerpo = readFileSync(join(process.env.DATINA_LIBS, ev.request.url.split("/").pop()));
-    p.send("Fetch.fulfillRequest", {requestId: ev.requestId, responseCode: 200, body: cuerpo.toString("base64"),
-      responseHeaders: [{name: "Content-Type", value: "text/javascript; charset=utf-8"}, {name: "Access-Control-Allow-Origin", value: "*"}]});
-  });
-}
-
 // textos visibles y de los gráficos con un valor que no se pudo calcular
 const MALOS = `(() => {
   const t = document.body.innerText + "\\n" + [...document.querySelectorAll("svg text")].map(x => x.textContent).join("\\n");
@@ -89,10 +79,48 @@ for (const prov of PROVINCIAS) {
   const perfil = await p.eval(`[...document.querySelectorAll("#prov-grid .dp")].map(d => d.querySelector(".dp-num").textContent.trim())`);
   if (!perfil.length || perfil.some(v => !v || /NaN|undefined/.test(v))) problemas.push(`provincia.html con la provincia ${prov}: perfil incompleto (${perfil.join(" | ")})`);
 }
+
+// Sin las CDN (plan de estabilización, P0-1, 22 de octubre de 2026). D3 y topojson se sirven desde sitio/lib/: con cdnjs y jsDelivr
+// bloqueadas, cada página tiene que andar igual, sin errores (un pedido a esas CDN aparece como error), con D3 y topojson cargados,
+// las fichas a la vista, sus textos y gráficos, y el menú "Más" que abre. Y si falta D3 y el arranque de datina.js se corta, las
+// fichas igual se ven (antes quedaban invisibles)
+const CDN = ["*cdnjs.cloudflare.com*", "*cdn.jsdelivr.net*"];
+const SIN_CDN = {"trabajo.html": {textos: true, graficos: true}, "departamentos.html": {graficos: true}, "a-milei-empleo.html": {graficos: true},
+  "index.html": {}, "relaciones.html": {sinDatina: true}};
+const MIRAR = `(() => {
+  const f = [...document.querySelectorAll("article.ficha")], btn = document.getElementById("menu-btn");
+  btn?.click();
+  return {d3: typeof d3, topojson: typeof topojson, fichas: f.length, ocultas: f.filter(x => +getComputedStyle(x).opacity < 0.9).length,
+    textosVacios: [...document.querySelectorAll("p.lead")].filter(x => !x.textContent.trim()).length,
+    graficos: document.querySelectorAll(".grafico svg, .nota-graf svg").length, masAbre: btn ? btn.getAttribute("aria-expanded") === "true" : null};
+})()`;
+const q = await ch.pestana();
+await q.tamano(1280, 900);
+await q.send("Network.enable");
+await q.send("Network.setBlockedURLs", {urls: CDN});
+for (const [pg, pide] of Object.entries(SIN_CDN)) {
+  await q.ir(B + pg, 1200);
+  await q.recorrer();
+  await espera(500);
+  const r = await q.eval(MIRAR), donde = `${pg} sin cdnjs ni jsDelivr`;
+  q.errores.forEach(e => problemas.push(`${donde}: ${e}`));
+  if (r.d3 !== "object") problemas.push(`${donde}: no cargó D3`);
+  if (!pide.sinDatina && r.topojson !== "object") problemas.push(`${donde}: no cargó topojson`);
+  if (!pide.sinDatina && !r.masAbre) problemas.push(`${donde}: el menú "Más" no abre`);
+  if (r.ocultas) problemas.push(`${donde}: ${r.ocultas} de ${r.fichas} fichas invisibles`);
+  if (pide.textos && (!r.fichas || r.textosVacios)) problemas.push(`${donde}: ${r.textosVacios} textos vacíos (${r.fichas} fichas)`);
+  if (pide.graficos && !r.graficos) problemas.push(`${donde}: sin gráficos`);
+}
+await q.send("Network.setBlockedURLs", {urls: [...CDN, "*lib/d3-*"]});
+await q.ir(B + "trabajo.html", 1200);
+const rescate = await q.eval(MIRAR);
+if (rescate.d3 !== "undefined") problemas.push("trabajo.html sin D3: D3 se cargó igual y la prueba no probó nada");
+if (!rescate.fichas || rescate.ocultas) problemas.push(`trabajo.html sin D3: ${rescate.ocultas} de ${rescate.fichas} fichas invisibles`);
 await ch.cerrar();
 servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
+console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);

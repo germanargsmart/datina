@@ -18,7 +18,8 @@ scripts/01_descargar.py        baja cada fuente tal como la publica el organismo
 scripts/02_procesar.py         arma datos/ordenado/tabla_larga.csv, sitio/datos/fichas.json y un CSV por tabla
 scripts/03_construir_sitio.py  corre pruebas_datos.py y escribe sitio/datos/fichas.js, sitio/datina.css, sitio/datina.js y una página por sección
 scripts/plantilla.html         el marcado de todas las secciones: títulos, textos fijos y fichas
-scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5 desde cdnjs) y comportamiento
+scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5) y comportamiento
+scripts/lib/                   D3 7.8.5 y topojson-client 3.1.0 con sus licencias: 03 los copia a sitio/lib/ (ninguna página los pide a una CDN)
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
 scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json)
@@ -40,7 +41,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`.
 - Catálogo del Explorador de relaciones: `python scripts/relaciones.py` (lo valida) y `python scripts/prueba_relaciones.py` (prueba el validador). 03 corre los dos.
 - Ver el sitio: `cd sitio && python -m http.server 8765`.
-- Detalle por tipo de cambio y cómo probar en un entorno sin acceso a las CDN: `.claude/rules/pruebas.md`.
+- Detalle por tipo de cambio y la prueba sin acceso a las CDN: `.claude/rules/pruebas.md`.
 
 ## Reglas de datos (resumen; completas en `.claude/rules/pipeline-datos.md`)
 

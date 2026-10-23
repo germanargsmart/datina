@@ -23,9 +23,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
 <!-- D3 y topojson en el head, sin defer, a propósito. El 11 de octubre de 2026 se probó con defer (los cuatro scripts): la página se
      mostraba antes, vacía, y después saltaba cuando datina.js armaba el contenido (CLS de 0,70 en la Corte Suprema y 0,10 en Trabajo,
-     contra 0 así). Para cargar sin frenar y sin saltos, las notas y las piezas tienen que venir armadas en el HTML o reservar su alto -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+     contra 0 así). Para cargar sin frenar y sin saltos, las notas y las piezas tienen que venir armadas en el HTML o reservar su alto.
+     Desde el 22 de octubre de 2026 se sirven desde el propio sitio (sitio/lib/, copiados de scripts/lib/ por 03_construir_sitio.py, las
+     mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
+<script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
+<script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
 <link rel="stylesheet" href="datina.css?v=a5d876196a">
 </head>
 <body data-pagina="naturaleza">
@@ -283,6 +285,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=db97a0853f"></script>
-<script src="datina.js?v=eab6e89474"></script>
+<script src="datina.js?v=74d03fc3b0"></script>
 </body>
 </html>

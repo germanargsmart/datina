@@ -1,4 +1,8 @@
 (() => {
+// Si el arranque se corta por un error (no llegó D3 o fichas.js, un dato roto), las fichas no pueden quedar invisibles: "listo", más
+// abajo, las oculta hasta que las ve el observador del final de este archivo, que en ese caso nunca se arma (plan de estabilización, P0-1)
+let arrancado = false;
+addEventListener("error", () => { if (!arrancado) document.querySelectorAll("article.ficha").forEach(f => f.classList.add("visto", "sin-entrada")); });
 const D = window.DATINA;
 /* Formas de carga (etapa 6). Si el código tardó en llegar, las fichas ya se ven con su silueta (datina.css las muestra a
    los 400 ms): las que están en pantalla se completan en su lugar, sin entrada propia. "listo" saca la disposición de carga
@@ -8257,4 +8261,5 @@ new ResizeObserver(() => {
   if (w === ancho) return;
   ancho = w; clearTimeout(espera); espera = setTimeout(redibujar, 150);
 }).observe(document.body);
+arrancado = true;
 })();

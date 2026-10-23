@@ -6,7 +6,8 @@
 // - las métricas que el navegador puede medir en una carga de prueba: CLS (cuánto salta la página) y LCP (cuándo aparece lo más
 //   grande). Son de una sola carga local, no de usuarios reales: sirven para comparar, no como resultado de campo.
 // Uso: node scripts/linea_base.mjs [carpeta]   (por defecto linea_base/AAAA-MM-DD, que no se sube al repositorio)
-// Sin acceso a las CDN, con DATINA_LIBS como en prueba_paginas.mjs. Otra ruta de Chrome: variable CHROME.
+// D3 y topojson vienen del propio sitio (sitio/lib/) desde el 22 de octubre de 2026: no hace falta acceso a cdnjs ni a jsDelivr.
+// Otra ruta de Chrome: variable CHROME.
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join, extname, normalize } from "node:path";
@@ -44,14 +45,6 @@ const B = `http://127.0.0.1:${servidor.address().port}/`;
 
 const ch = await abrirChrome(9700 + Math.floor(Math.random() * 200));
 const p = await ch.pestana();
-if (process.env.DATINA_LIBS) {
-  await p.send("Fetch.enable", {patterns: [{urlPattern: "*cdnjs.cloudflare.com/ajax/libs/d3/*"}, {urlPattern: "*cdn.jsdelivr.net/npm/topojson-client@*"}]});
-  p.on("Fetch.requestPaused", ev => {
-    const c = readFileSync(join(process.env.DATINA_LIBS, ev.request.url.split("/").pop()));
-    p.send("Fetch.fulfillRequest", {requestId: ev.requestId, responseCode: 200, body: c.toString("base64"),
-      responseHeaders: [{name: "Content-Type", value: "text/javascript; charset=utf-8"}, {name: "Access-Control-Allow-Origin", value: "*"}]});
-  });
-}
 // las métricas se anotan desde que empieza la carga
 await p.send("Page.addScriptToEvaluateOnNewDocument", {source: `
   window.__lb = {cls: 0, lcp: 0};

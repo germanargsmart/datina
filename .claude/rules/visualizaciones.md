@@ -34,7 +34,7 @@ Detalle, medidas y motivos: `docs/historico/etapas-previas.md`, secciones "Regla
 
 ## Gráficos
 
-- D3 7.8.5 desde cdnjs. Cada elemento tarda 300 ms y el escalonado suma como máximo 150 ms (`DUR_G`, `escalon()`). Con movimiento reducido, solo fundidos.
+- D3 7.8.5 desde el propio sitio (`sitio/lib/`, copia de `scripts/lib/`). Hasta el 22 de octubre de 2026 venía de cdnjs. Cada elemento tarda 300 ms y el escalonado suma como máximo 150 ms (`DUR_G`, `escalon()`). Con movimiento reducido, solo fundidos.
 - Barras por provincia con la línea del país (`cfg.ref` o `cfg.pais`) y "País: X" en el cuadro. Las fichas de suicidio no llevan cuadro ni cifra destacada.
 - Cada gráfico reserva su alto mientras carga (`data-forma`, `--alto`, `--alto-c`): nada salta cuando llega.
 - Al cambiar de provincia, donde solo cambia el resaltado se cambia el color sin redibujar (`resaltar()`).
