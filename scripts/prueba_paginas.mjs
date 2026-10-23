@@ -116,7 +116,7 @@ for (const [pg, pide] of Object.entries(SIN_CDN)) {
 await q.send("Network.setBlockedURLs", {urls: []});
 const tecla = async k => {
   for (const type of ["keyDown", "keyUp"])
-    await q.send("Input.dispatchKeyEvent", {type, key: k, code: k, windowsVirtualKeyCode: {Enter: 13, Escape: 27}[k], ...(k === "Enter" && type === "keyDown" ? {text: "\r"} : {})});
+    await q.send("Input.dispatchKeyEvent", {type, key: k, code: k, windowsVirtualKeyCode: {Enter: 13, Escape: 27, ArrowDown: 40}[k], ...(k === "Enter" && type === "keyDown" ? {text: "\r"} : {})});
   await espera(300);
 };
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
@@ -147,6 +147,30 @@ if (!(await q.eval(`!document.getElementById("gm-temas").hidden && document.getE
   problemas.push(`trabajo.html: Enter en "Temas" no abre su menú con el foco adentro (${await enFoco()})`);
 await tecla("Escape");
 if (!(await enFoco()).startsWith("gb-temas")) problemas.push(`trabajo.html: Escape no devuelve el foco a "Temas" (${await enFoco()})`);
+// El buscador de la lupa (Fase 2, paso 3): las flechas marcan una opción sin sacar el foco del campo y Enter la abre. Sin coincidencias,
+// la primera opción lleva al catálogo con lo escrito y el aviso para lectores de pantalla lo dice
+const lupa = async txt => {
+  await q.ir(B + "trabajo.html", 1000);
+  await q.eval(`document.getElementById("lupa-btn").click()`);
+  await q.send("Input.insertText", {text: txt});
+  await espera(300);
+};
+await lupa("empleo");
+await tecla("ArrowDown");
+await tecla("ArrowDown");
+const marcada = await q.eval(`(() => { const c = document.getElementById("busca"), o = document.getElementById(c.getAttribute("aria-activedescendant") || "-");
+  return o && document.activeElement === c && o.getAttribute("aria-selected") === "true" && o === document.querySelectorAll("#busca-res [role=option]")[1] ? o.getAttribute("href") : ""; })()`);
+if (!marcada) problemas.push("trabajo.html: dos flechas abajo en el buscador no marcan la segunda opción con el foco en el campo");
+else {
+  await tecla("Enter");
+  await espera(900);
+  const destino = await q.eval("location.pathname + location.search + location.hash");
+  if (!destino.endsWith(marcada.replace(/^\.\//, ""))) problemas.push(`trabajo.html: Enter en el buscador no abre la opción marcada (${marcada}, quedó en ${destino})`);
+}
+await lupa("zzqqxx");
+const nada = await q.eval(`document.querySelector("#busca-res [role=option]")?.getAttribute("href") + " | " + document.getElementById("busca-estado")?.textContent`);
+if (!nada.startsWith("catalogo.html?q=zzqqxx | Nada coincide")) problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece el catálogo con lo escrito (${nada})`);
+q.errores.forEach(e => problemas.push(`buscador: ${e}`));
 await q.tamano(390, 844);
 await q.ir(B + "trabajo.html", 1000);
 await q.eval(`document.getElementById("menu-btn").focus()`);
@@ -163,7 +187,7 @@ await ch.cerrar();
 servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
-console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador.`);
+console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter y sin coincidencias.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);

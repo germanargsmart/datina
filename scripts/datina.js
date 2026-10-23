@@ -7815,42 +7815,66 @@ if (PAGINA !== "inicio") {
   if (sub) requestAnimationFrame(() => { sub.parentElement.scrollLeft = Math.max(0, sub.offsetLeft - sub.parentElement.offsetLeft - 22); });
 }
 
-/* buscador de la lupa: secciones, fichas, preguntas y artículos de todo el sitio (cada página tiene todo el marcado) */
+/* buscador de la lupa y de la portada: secciones, fichas, preguntas, artículos, piezas, provincias y herramientas de todo el sitio (cada
+   página tiene el índice entero). Desde la Fase 2 (paso 3, 23 de octubre de 2026): indexa también los cuatro artículos de series, las
+   piezas del Laboratorio, el consultor de pobreza, el Explorador de relaciones y Contacto, agrupa los resultados como la barra (Fichas,
+   Temas, Provincias, Historias, Herramientas y Datina), se recorre con las flechas (patrón combobox de WAI-ARIA, como el selector de
+   provincias), un aviso aparte dice cuántos resultados hay y, si no hay ninguno, ofrece seguir en el catálogo de datos con lo escrito, ver
+   los temas o una pregunta de ejemplo */
 (() => {
   const btn = document.getElementById("lupa-btn"), caja = document.getElementById("buscador");
-  const ent = document.getElementById("busca"), res = document.getElementById("busca-res");
+  const ent = document.getElementById("busca"), res = document.getElementById("busca-res"), est = document.getElementById("busca-estado");
   if (!btn) return;
-  const st = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const st = t => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   const ir = (id, hash) => { const p = paginaDe(id); return p === PAGINA ? hash : urlPagina(p, hash); };
+  // el grupo de cada página, como en la barra: lo dice el índice del sitio (MENUS en el constructor). Lo que no está en un menú es un tema
+  const MENU_G = {provincias: "Provincias", historias: "Historias", herramientas: "Herramientas"};
+  const grupoPag = id => MENU_G[SITIO.menu[id]] || "Temas";
+  const SEC_FICHA = Object.fromEntries(SITIO.fichas.map(f => [f[0], f[1]]));
   let IDX;
   const armar = () => {
     IDX = [];
-    Object.values(SEC).forEach(t => IDX.push({t: t.t, s: t.herr ? "Herramienta" : "Sección", u: urlPagina(t.id), x: t.x, sec: 1}));
-    IDX.push({t: "Tu provincia", s: "Sección", u: "provincia.html", x: "perfil provincia provincias comparar país posición", sec: 1});
-    Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, s: "Tu provincia", u: `provincia.html?prov=${c}`, x: n, sec: 2, c}));
-    IDX.push({t: "Sobre nosotros", s: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace"});
-    IDX.push({t: "Laboratorio", s: "Gráficos", u: "laboratorio.html", x: "piezas visuales hemiciclo bancas pozos vaca muerta congreso años natalidad mortalidad evolución", sec: 1});
-    IDX.push({t: "La Corte Suprema: quién designó a cada juez", s: "Laboratorio", u: "corte-suprema.html",
-      x: "corte suprema justicia jueces ministros designación presidentes gobiernos de facto poder judicial", sec: 1});
+    Object.values(SEC).forEach(t => IDX.push({t: t.t, g: grupoPag(t.id), u: urlPagina(t.id), x: t.x, sec: 1}));
+    IDX.push({t: "Tu provincia", g: "Provincias", u: "provincia.html", x: "perfil provincia provincias comparar país posición historia", sec: 1});
+    Object.entries(NOMBRES).forEach(([c, n]) => IDX.push({t: `${n} en números`, g: "Provincias", u: `provincia.html?prov=${c}`, x: n, sec: 2, c}));
+    IDX.push({t: "Laboratorio", g: "Historias", u: "laboratorio.html", x: "piezas visuales gráficos", sec: 1});
+    IDX.push({t: "La Corte Suprema: quién designó a cada juez", g: "Historias", u: "corte-suprema.html",
+      x: "corte suprema justicia jueces ministros designación presidentes gobiernos de facto poder judicial laboratorio", sec: 1});
+    SITIO.lab.forEach(([id, t]) => IDX.push({t, g: "Historias", sm: "Laboratorio", u: "laboratorio.html#" + id, x: "laboratorio pieza visual"}));
+    IDX.push({t: "Consultor de pobreza", g: "Herramientas", u: "pobreza/", x: "pobreza indigencia aglomerado partido comuna consultas sql parquet descargar", sec: 1});
+    IDX.push({t: "Explorador de relaciones", g: "Herramientas", u: "relaciones.html", x: "de dónde sale cada número origen fuentes organismos archivos", sec: 1});
+    IDX.push({t: "Sobre nosotros", g: "Datina", u: "nosotros.html", x: "propósito quiénes fuentes principios cómo se hace método"});
+    IDX.push({t: "Contacto", g: "Datina", u: "contacto.html", x: "escribir mensaje correo consultas sugerencias"});
     SITIO.fichas.forEach(([id, sec, tit, kt, kl, , trasAyuda, sub, ks]) => {
       // el título y el texto de muchas fichas se calculan (TX): en otra página se leen de ahí
       const h = (TX[kt] || tit || "").trim(); if (!h) return;
       // las fichas de suicidio llevan a las líneas de ayuda, que van justo antes
       const ancla = NOTA_A_LA_VISTA.has(id) && trasAyuda ? "#ayuda-suicidio" : "#" + id;
-      IDX.push({t: h, s: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || "")});
+      IDX.push({t: h, g: "Fichas", sm: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || "")});
     });
-    PREG.forEach(([q, a, h]) => { if (paginaDe(h.slice(1))) IDX.push({t: q, s: "Pregunta", u: ir(h.slice(1), h), x: a}); });
-    ART.forEach(a => IDX.push({t: a.titulo, s: "Artículo", u: urlPagina(a.id), x: a.dek + " " + a.t.bajada, sec: 1}));
+    PREG.forEach(([q, a, h]) => { const id = h.slice(1); if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(id, h), x: a}); });
+    // todos los artículos: los de cruces y, desde el paso 3, también los de series
+    ARTS.forEach(a => IDX.push({t: a.titulo, g: "Historias", sm: "Artículo", u: urlPagina(a.id), x: `${a.dek} ${a.t?.bajada || ""} ${nombreSec(a.sec)}`, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
-  const fila = d => `<a href="${d.u}"><small>${esc(d.s)}</small>${d.c ? conBandera(d.c, d.t) : esc(d.t)}</a>`;
-  // el campo y la lista: los de la lupa, o los del buscador a la vista de la portada (Fase 2, paso 2)
-  const buscar = (ent = document.getElementById("busca"), res = document.getElementById("busca-res")) => {
-    const pal = st(ent.value.trim()).split(/\s+/).filter(Boolean);
+  const opcion = (d, id) => `<a href="${d.u}" id="${id}" role="option" tabindex="-1" aria-selected="false">` +
+    (d.sm ? `<small>${esc(d.sm)}</small>` : "") + (d.c ? conBandera(d.c, d.t) : esc(d.t)) + "</a>";
+  // la lista agrupada: los grupos en el orden de su mejor resultado y, adentro, por puntaje
+  const pintar = (res, ds, base) => {
+    const grupos = [];
+    ds.forEach(d => { let g = grupos.find(x => x.n === d.g); if (!g) grupos.push(g = {n: d.g, ds: []}); g.ds.push(d); });
+    let i = 0;
+    res.innerHTML = grupos.map((g, k) => `<div role="group" aria-labelledby="${base}-g${k}"><p class="busca-grupo" id="${base}-g${k}" role="presentation">` +
+      `${esc(g.n)}</p>` + g.ds.map(d => opcion(d, `${base}-o${i++}`)).join("") + "</div>").join("");
+  };
+  const ejemplos = () => SITIO.ejemplos.filter(([id]) => paginaDe(id)).map(([id, q]) => ({t: q, g: "Preguntas de ejemplo", u: ir(id, "#" + id)}));
+  const buscar = (ent, res, est, base) => {
+    const texto = ent.value.trim(), pal = st(texto).split(/\s+/).filter(Boolean);
     if (!IDX) armar();
     if (!pal.length) {
-      // sin texto, sugerencias: los artículos
-      res.innerHTML = `<p class="busca-sug">Para empezar</p>` + IDX.filter(d => d.s === "Artículo").slice(0, 4).map(fila).join("");
+      // sin texto, sugerencias: las preguntas de ejemplo y los artículos
+      pintar(res, [...ejemplos(), ...IDX.filter(d => d.sm === "Artículo").slice(0, 4).map(d => ({...d, g: "Para empezar"}))], base);
+      est.textContent = "";
       return;
     }
     const puntaje = (d, todas) => {
@@ -7861,28 +7885,62 @@ if (PAGINA !== "inicio") {
     let hall = IDX.map(d => ({d, p: puntaje(d, true)})).filter(r => r.p);
     // si ninguna entrada tiene todas las palabras ("salta empleo"), se muestran las que tienen alguna
     if (!hall.length) hall = IDX.map(d => ({d, p: puntaje(d, false)})).filter(r => r.p);
-    hall = hall.sort((a, b) => b.p - a.p).slice(0, 8);
-    res.innerHTML = hall.length ? hall.map(({d}) => fila(d)).join("") : `<p class="busca-sug">Nada coincide con la búsqueda. Probá con otra palabra.</p>`;
+    hall = hall.sort((a, b) => b.p - a.p).slice(0, 8).map(r => r.d);
+    if (hall.length) {
+      pintar(res, hall, base);
+      est.textContent = hall.length === 1 ? "1 resultado. Enter para abrirlo." : `${hall.length} resultados. Flechas para recorrerlos, Enter para abrir.`;
+    } else {
+      // nada coincide: tres caminos reales para seguir (el catálogo de datos filtra por lo escrito con ?q=)
+      const g = `Nada coincide con «${texto}»`;
+      pintar(res, [{t: `Buscar «${texto}» en el catálogo de datos`, g, u: "catalogo.html?q=" + encodeURIComponent(texto)},
+                   {t: "Ver todos los temas", g, u: "./#secciones"}, ...ejemplos()], base);
+      est.textContent = `${g}. La lista ofrece buscar en el catálogo de datos, ver los temas o una pregunta de ejemplo.`;
+    }
   };
+  // el campo y su lista como combobox: las flechas marcan una opción (aria-activedescendant) sin sacar el foco del campo, Enter abre la
+  // marcada o, si no hay ninguna, la primera
+  const combo = (ent, res, est, base) => {
+    Object.entries({role: "combobox", "aria-autocomplete": "list", "aria-controls": res.id, "aria-expanded": "false"}).forEach(([k, v]) => ent.setAttribute(k, v));
+    res.setAttribute("role", "listbox"); res.setAttribute("aria-label", "Resultados de la búsqueda");
+    let activo = -1;
+    const ops = () => [...res.querySelectorAll('[role="option"]')];
+    const marcar = i => {
+      const o = ops(); activo = i;
+      o.forEach((x, k) => { x.setAttribute("aria-selected", String(k === i)); x.classList.toggle("activo", k === i); });
+      if (o[i]) { ent.setAttribute("aria-activedescendant", o[i].id); o[i].scrollIntoView({block: "nearest"}); } else ent.removeAttribute("aria-activedescendant");
+    };
+    const mostrar = () => { buscar(ent, res, est, base); marcar(-1); ent.setAttribute("aria-expanded", String(ops().length > 0)); };
+    const cerrado = () => { marcar(-1); ent.setAttribute("aria-expanded", "false"); est.textContent = ""; };
+    ent.addEventListener("keydown", ev => {
+      const o = ops();
+      if ((ev.key === "ArrowDown" || ev.key === "ArrowUp") && o.length) {
+        ev.preventDefault();
+        marcar(ev.key === "ArrowDown" ? (activo + 1) % o.length : activo <= 0 ? o.length - 1 : activo - 1);
+      } else if (ev.key === "Enter") { ev.preventDefault(); (o[activo] || o[0])?.click(); }
+    });
+    return {mostrar, cerrado};
+  };
+  const lupa = combo(ent, res, est, "bl");
   const abrir = () => {
     caja.hidden = false; btn.setAttribute("aria-expanded", "true");
-    buscar(); ent.focus({preventScroll: true});
+    lupa.mostrar(); ent.focus({preventScroll: true});
   };
-  const cerrar = volver => { btn.setAttribute("aria-expanded", "false"); caja.hidden = true; if (volver) btn.focus({preventScroll: true}); };
+  const cerrar = volver => { btn.setAttribute("aria-expanded", "false"); caja.hidden = true; lupa.cerrado(); if (volver) btn.focus({preventScroll: true}); };
   btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
-  ent.addEventListener("input", () => buscar());
-  ent.addEventListener("keydown", ev => { if (ev.key === "Enter") { const a = res.querySelector("a"); if (a) { ev.preventDefault(); a.click(); } } });
+  ent.addEventListener("input", lupa.mostrar);
   res.addEventListener("click", ev => { if (ev.target.closest("a")) cerrar(false); });
   document.addEventListener("keydown", ev => {
     if (ev.key === "Escape" && !caja.hidden) cerrar(true);
     else if (ev.key === "/" && caja.hidden && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "")) { ev.preventDefault(); abrir(); }
   });
   document.addEventListener("pointerdown", ev => { if (!caja.hidden && !caja.contains(ev.target) && !btn.contains(ev.target)) cerrar(false); });
-  // el buscador a la vista de la portada: la lista aparece debajo del campo mientras se escribe, Enter abre el primer resultado y Escape
-  // borra lo escrito. Si no hay resultados, Enter no hace nada (sin JavaScript, el formulario lleva al catálogo de datos)
+  // el buscador a la vista de la portada (paso 2): la lista aparece debajo del campo mientras se escribe y Escape borra lo escrito. Sin
+  // JavaScript, el formulario lleva al catálogo de datos
   const entP = document.getElementById("busca-portada"), resP = document.getElementById("busca-portada-res");
-  if (entP && resP) {
-    const cerrarP = () => { resP.hidden = true; resP.innerHTML = ""; };
+  const estP = document.getElementById("busca-portada-estado");
+  if (entP && resP && estP) {
+    const portada = combo(entP, resP, estP, "bp");
+    const cerrarP = () => { resP.hidden = true; resP.innerHTML = ""; portada.cerrado(); };
     // la lista va fija debajo del campo (la portada recorta lo que sobresale): se ubica al abrirla y al moverse la página
     const ubicarP = () => {
       const r = entP.getBoundingClientRect();
@@ -7890,11 +7948,8 @@ if (PAGINA !== "inicio") {
     };
     addEventListener("scroll", () => { if (!resP.hidden) ubicarP(); }, {passive: true});
     addEventListener("resize", () => { if (!resP.hidden) ubicarP(); });
-    entP.addEventListener("input", () => { if (entP.value.trim()) { buscar(entP, resP); resP.hidden = false; ubicarP(); } else cerrarP(); });
-    entP.addEventListener("keydown", ev => {
-      if (ev.key === "Enter") { ev.preventDefault(); resP.querySelector("a")?.click(); }
-      else if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); }
-    });
+    entP.addEventListener("input", () => { if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
+    entP.addEventListener("keydown", ev => { if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); } });
     document.addEventListener("pointerdown", ev => { if (!resP.hidden && !resP.contains(ev.target) && ev.target !== entP) cerrarP(); });
   }
 })();

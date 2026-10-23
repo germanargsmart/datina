@@ -480,9 +480,20 @@ assert set(HERRAMIENTAS) <= set(MENU_DE), f"herramientas sin menú: {set(HERRAMI
 # las páginas de los menús que arma la plantilla como sección, más Tu provincia y el Laboratorio (las demás son el Explorador, el consultor
 # de pobreza y la pieza de la Corte Suprema): en ese orden van el recorrido y los filtros del catálogo
 PAGINAS_MENU = [p for p in _secs_de([it for m in MENUS for it in m[4]]) if p in {x[0] for x in SECCIONES} | {"provincia", "laboratorio"}]
+# Preguntas de ejemplo (Fase 2, paso 2): tres de la lista de preguntas del buscador (PREG en datina.js), de temas distintos y que no
+# repiten los datos destacados. Van debajo del buscador de la portada y, desde el paso 3, cuando el buscador no encuentra nada
+EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo", "¿Qué parte de los hogares tiene cloacas?"),
+            ("f-glaciares", "¿Qué provincia tiene más glaciares?")]
+# las piezas del Laboratorio que viven en laboratorio.html (la de la Corte Suprema tiene página propia): su ancla y su título, para el buscador
+LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h3[^>]*>(.*?)</h3>', base, re.S)
+                  if i != "l-corte-lab"]
+assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
+# el índice del sitio que lee datina.js. Desde la Fase 2 (paso 3) también lleva el menú de cada página (el buscador agrupa los resultados
+# como la barra), las preguntas de ejemplo y las piezas del Laboratorio
 INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
-          "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()}}
+          "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
+          "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
 
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
@@ -825,10 +836,7 @@ _grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelled
 _temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x in GRUPOS)
 
 # ---------- la portada de la Fase 2 (paso 2, diseño aprobado por el autor el 23 de octubre de 2026, docs/rediseno_fase2.md) ----------
-# Preguntas de ejemplo debajo del buscador: tres de la lista de preguntas del buscador (PREG en datina.js), de temas distintos y que no
-# repiten los datos destacados. Cada una lleva a su ficha
-EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo", "¿Qué parte de los hogares tiene cloacas?"),
-            ("f-glaciares", "¿Qué provincia tiene más glaciares?")]
+# Preguntas de ejemplo debajo del buscador (EJEMPLOS, arriba): cada una lleva a su ficha, y tiene que seguir en la lista del buscador
 _preg_js = js[js.index("const PREG = ["):js.index("\n];", js.index("const PREG = ["))]
 for _id, _q in EJEMPLOS:
     assert f'["{_q}"' in _preg_js and f'"#{_id}"' in _preg_js, f"la pregunta de ejemplo {_q} ya no está en PREG"

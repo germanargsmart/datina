@@ -244,3 +244,18 @@ El autor pidió compactar la portada antes del paso 3 y eligió entre opciones m
 | Provincias de a tres en el celular | 124 píxeles, pero cortaba "Catamarca" y "Corrientes" | No se ofreció |
 
 Resultado: en la computadora, 3.731 píxeles de alto (+27% respecto del paso 1, antes +32%). En el celular, 7.026 (+34%, antes +40%). Sigue por encima del +20% de la sección 4, por decisión del autor. Saltos al cargar sin cambios (0,001 en la computadora, con alguna carga de 0,011 que también pasa en la versión anterior, y 0 en el celular).
+
+### Paso 3: buscador (23 de octubre de 2026)
+
+La lupa de la barra y el buscador de la portada comparten el motor y el índice, y cambiaron igual:
+- Encuentra lo que antes no estaba: los cuatro artículos de series (dólar e inversión, turismo y dólar, nafta en dólares, exportaciones y dólar), las otras cuatro piezas del Laboratorio (cada una a su lugar en `laboratorio.html`, la Corte Suprema ya estaba), el consultor de pobreza, el Explorador de relaciones y Contacto. Los nombres que muestra ya existían en el sitio. Lo único nuevo son las palabras con que se encuentran, que no se ven.
+- Los resultados se agrupan como la barra: Fichas, Temas, Provincias, Historias, Herramientas y Datina, cada grupo en el orden de su mejor resultado. Cada ficha sigue mostrando su sección arriba de la pregunta.
+- Con el campo vacío: las tres preguntas de ejemplo de la portada (la lista está una sola vez, en el constructor) y cuatro artículos, "Para empezar".
+- Teclado: las flechas recorren la lista sin sacar el foco del campo (patrón combobox de WAI-ARIA, como el selector de provincias), Enter abre la opción marcada o, si no hay ninguna, la primera, y Escape cierra la lupa o, en la portada, borra lo escrito. Antes las flechas no hacían nada y Enter abría siempre la primera.
+- Lectores de pantalla: antes la lista entera se leía con cada tecla (`aria-live` sobre los resultados). Ahora un aviso aparte dice cuántos resultados hay y cómo recorrerlos.
+- Sin coincidencias: en lugar de solo "Nada coincide", tres salidas: buscar lo escrito en el catálogo de datos (`catalogo.html?q=…`), ver todos los temas y las preguntas de ejemplo.
+- Ninguna dirección cambió y nada toca los datos: en `fichas.js` solo cambia el índice (el menú de cada página, las preguntas de ejemplo, las piezas del Laboratorio y el `id` del aviso de la portada).
+
+Pruebas: el armado con todas sus comprobaciones y la prueba de páginas ("Todo en orden" en 51 páginas), que ahora también recorre la lupa con las flechas, abre un resultado con Enter y controla la salida sin coincidencias. Corrida contra la versión del paso 2, marca esos dos controles y nada más. Una prueba aparte con Chrome sin ventana (32 controles, corrida una vez y fuera del repositorio) buscó nueve cosas que antes no se encontraban o que cambiaron de grupo, el aviso, las flechas en los dos sentidos, Enter, Escape, el paso al catálogo con lo escrito y el buscador de la portada. Contra la versión del paso 2 esa prueba no pasa (no hay patrón combobox ni aviso). La lista se revisó en el navegador en 1440 y 390 píxeles, con resultados, vacía y sin coincidencias. No se probó con un lector de pantalla real.
+
+Quedan para pasos siguientes: en 390 píxeles el texto de ayuda del campo de la lupa se corta ("Un tema, una provincia o una pregunt…", ya pasaba antes, paso 7), y salir de la lupa abierta con Tab la deja abierta (solo la cierran Escape y tocar afuera, paso 6).

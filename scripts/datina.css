@@ -367,6 +367,11 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .busca-res a:focus-visible{outline:2px solid var(--sol);outline-offset:-2px}
 .busca-res small{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--celeste-fuerte)}
 .busca-sug{margin:var(--e-2) 6px 2px;font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+/* resultados agrupados como la barra (Fase 2, paso 3): el nombre del grupo en gris, la opción marcada con las flechas con el fondo de
+   "pasar el mouse" y una raya celeste a la izquierda, para que no dependa solo del color */
+.busca-grupo{margin:var(--e-3) 6px 2px;font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.busca-res [role="group"]:first-child .busca-grupo{margin-top:var(--e-1)}
+.busca-res a.activo{background:var(--superficie-2);box-shadow:inset 3px 0 0 var(--celeste-fuerte)}
 @media (hover:hover) and (pointer:fine){.busca-res a:hover{background:var(--superficie-2)}}
 @media (max-width:760px){.buscador-caja{padding:var(--e-4) var(--margen) var(--e-6)}}
 

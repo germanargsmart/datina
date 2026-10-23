@@ -45,7 +45,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="buscador-caja">
       <label class="buscador-lab" for="busca">Buscar en Datina</label>
       <input type="search" id="busca" placeholder="Un tema, una provincia o una pregunta: empleo, Salta, cloacas" autocomplete="off" spellcheck="false">
-      <div class="busca-res" id="busca-res" aria-live="polite"></div>
+      <!-- la lista es un listbox que se recorre con las flechas (datina.js). El aviso para lectores de pantalla va aparte y dice solo
+           cuántos resultados hay (Fase 2, paso 3): antes se anunciaba la lista entera con cada tecla -->
+      <div class="busca-res" id="busca-res"></div>
+      <p class="solo-lector" id="busca-estado" role="status"></p>
     </div>
   </div>
 </header>
@@ -73,6 +76,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         <label class="solo-lector" for="busca-portada">Buscar en Datina</label>
         <input type="search" id="busca-portada" name="q" placeholder="Buscá un tema, una pregunta o una provincia" autocomplete="off" spellcheck="false">
         <div class="busca-res" id="busca-portada-res" hidden></div>
+        <p class="solo-lector" id="busca-portada-estado" role="status"></p>
       </form>
       <!--EJEMPLOS-->
       <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a></nav>
