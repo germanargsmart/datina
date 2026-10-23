@@ -120,6 +120,26 @@ const tecla = async k => {
   await espera(300);
 };
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
+// La portada (Fase 2, paso 2): los cuatro datos destacados con su cifra y su texto, y el buscador a la vista, que encuentra una provincia
+await q.ir(B + "index.html", 1000);
+const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim()).length`);
+if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra`);
+await q.eval(`document.getElementById("busca-portada").focus()`);
+await q.send("Input.insertText", {text: "salta"});
+await espera(300);
+if (!(await q.eval(`document.querySelectorAll('#busca-portada-res a[href="provincia.html?prov=66"]').length`)))
+  problemas.push("index.html: el buscador de la portada no encuentra Salta");
+// con una lista larga, cada resultado que se ve dentro de la lista se puede tocar en su lugar (la portada recorta lo que sobresale y la
+// lista quedaba cortada o tapada por lo que sigue en la parte azul)
+await q.eval(`(() => { const c = document.getElementById("busca-portada"); c.value = ""; c.dispatchEvent(new Event("input")); })()`);
+await q.send("Input.insertText", {text: "empleo"});
+await espera(300);
+const tapados = await q.eval(`(() => { const res = document.getElementById("busca-portada-res"), caja = res.getBoundingClientRect();
+  return [...res.querySelectorAll("a")].filter(a => { const r = a.getBoundingClientRect(), y = r.top + r.height / 2;
+    if (y <= caja.top || y >= Math.min(caja.bottom, innerHeight)) return false;
+    const el = document.elementFromPoint(r.left + r.width / 2, y); return !el || !a.contains(el); }).length; })()`);
+if (tapados) problemas.push(`index.html: ${tapados} resultados del buscador de la portada se ven pero no se pueden tocar`);
+q.errores.forEach(e => problemas.push(`portada: ${e}`));
 await q.ir(B + "trabajo.html", 1000);
 await q.eval(`document.getElementById("gb-temas").focus()`);
 await tecla("Enter");
@@ -143,7 +163,7 @@ await ch.cerrar();
 servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
-console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles.`);
+console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);

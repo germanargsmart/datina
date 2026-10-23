@@ -67,7 +67,15 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>
       <p class="lema">Las 24 Argentinas en números</p>
       <p class="bajada">Datos públicos sobre la Argentina, los argentinos y las 24 provincias, explicados para que cualquiera los entienda, los compare y los pueda verificar.</p>
-      <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a><a class="boton" href="articulos.html">Artículos</a></nav>
+      <!-- el buscador a la vista (Fase 2, paso 2, 23 de octubre de 2026): el mismo motor y el mismo índice que la lupa (datina.js). Sin
+           JavaScript no se ve, y si se envía igual lleva al catálogo de datos con lo escrito -->
+      <form class="busca-portada" role="search" action="catalogo.html">
+        <label class="solo-lector" for="busca-portada">Buscar en Datina</label>
+        <input type="search" id="busca-portada" name="q" placeholder="Buscá un tema, una pregunta o una provincia" autocomplete="off" spellcheck="false">
+        <div class="busca-res" id="busca-portada-res" hidden></div>
+      </form>
+      <!--EJEMPLOS-->
+      <nav class="atajos" aria-label="Entradas principales"><a class="boton principal" href="provincia.html">Elegí tu provincia</a></nav>
       <p class="estado" id="estado"></p>
     </div>
     <div class="portada-mapa" id="portada-mapa">
@@ -89,22 +97,34 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 </section>
 
 <main class="envoltura">
+  <!-- la portada, de arriba abajo (Fase 2, paso 2, diseño aprobado por el autor el 23 de octubre de 2026, docs/rediseno_fase2.md): datos
+       destacados, temas, provincias, historias con datos y herramientas, en el orden de la barra. Lo escribe el constructor -->
+  <section class="destacados ancho" aria-labelledby="dest-tit">
+    <h2 class="bloque-tit" id="dest-tit">Datos destacados</h2>
+    <div class="destacados-grid" id="destacados"><!--DESTACADOS--></div>
+  </section>
+
   <section class="secciones ancho" id="secciones" aria-labelledby="sec-titulo">
     <h2 class="bloque-tit" id="sec-titulo">Explorá la Argentina por tema</h2>
     <div class="secciones-grid" id="secciones-grid"></div>
   </section>
 
+  <section class="provincias-home ancho" aria-labelledby="provh-tit">
+    <h2 class="bloque-tit" id="provh-tit">Provincias</h2>
+    <!--PROVINCIAS-HOME-->
+  </section>
+
   <section class="articulos-home ancho" aria-labelledby="arth-tit">
-    <h2 class="bloque-tit" id="arth-tit">Artículos</h2>
-    <p class="bloque-sub">Preguntas respondidas cruzando datos oficiales. Los números se recalculan con cada actualización.</p>
-    <div class="art-grid" id="art-grid-home"></div>
-    <a class="boton ver-todos" href="articulos.html">Todos los artículos</a>
+    <h2 class="bloque-tit" id="arth-tit">Historias con datos</h2>
+    <p class="bloque-sub">Preguntas respondidas cruzando datos oficiales y piezas visuales del Laboratorio. Los números se recalculan con cada actualización.</p>
+    <div class="art-grid" id="art-grid-home"><!--HISTORIAS-HOME--></div>
+    <p class="hist-mas"><a class="boton" href="articulos.html">Todos los artículos</a><a class="boton" href="laboratorio.html">Laboratorio</a><a class="boton" href="curiosidades.html">Curiosidades</a></p>
   </section>
 
   <section class="herramientas-home ancho" aria-labelledby="herr-titulo">
     <h2 class="bloque-tit" id="herr-titulo">Herramientas</h2>
-    <p class="bloque-sub">Para cruzar indicadores, armar tu propio ranking, mirar cada departamento, describir la educación de cada provincia y bajar cualquier tabla.</p>
-    <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"></div>
+    <p class="bloque-sub">Para cruzar indicadores, armar tu propio ranking, describir la educación de cada provincia, consultar la pobreza por partido y comuna, bajar cualquier tabla y ver de dónde sale cada número.</p>
+    <div class="secciones-grid" id="herramientas-grid" aria-labelledby="herr-titulo"><!--HERRAMIENTAS-HOME--></div>
   </section>
 
   <section class="provincias" id="provincias" aria-labelledby="prov-titulo">

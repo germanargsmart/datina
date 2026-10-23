@@ -404,6 +404,25 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .estado{margin:var(--e-4) 0 0;font:400 var(--t-1)/1.5 var(--mono);letter-spacing:.04em;color:#fff}
 .estado span{white-space:nowrap}
 .estado span+span{margin-left:6px;padding-left:12px;border-left:1px solid rgba(255,255,255,.55)}
+/* el buscador a la vista de la portada (Fase 2, paso 2): un campo blanco sobre el azul, con la lista de resultados debajo. Las preguntas
+   de ejemplo, debajo, son enlaces a su ficha. Sin JavaScript el buscador no se ve */
+.busca-portada{position:relative;max-width:30em;margin:0 0 var(--e-3)}
+/* entra sin moverse, solo con opacidad: un elemento con una animación de transform es la referencia de lo fijo que lleva adentro, y la
+   lista de resultados quedaba corrida y recortada por la portada */
+.portada-texto>.busca-portada{z-index:2;animation-name:aparece-quieto}
+@keyframes aparece-quieto{from{opacity:0}to{opacity:1}}
+html:not(.js) .busca-portada{display:none}
+.busca-portada input{display:block;width:100%;height:48px;padding:0 var(--e-4);border:0;border-radius:var(--r-control);background:#fff;color:var(--ink);
+  font-family:var(--f);font-size:var(--t-4);box-shadow:var(--sombra-panel)}
+.busca-portada input::placeholder{color:var(--muted)}
+.busca-portada input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
+/* la lista va fija debajo del campo (datina.js la ubica): el bloque azul recorta lo que sobresale, y una lista larga quedaba cortada.
+   Por debajo de la barra, que la tapa si se baja por la página con la lista abierta */
+.busca-portada .busca-res{position:fixed;z-index:9;margin:0;padding:var(--e-2) var(--e-3);background:#fff;
+  border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--sombra-panel)}
+.portada-ejemplos{margin:0 0 var(--e-6);max-width:30em;font-size:var(--t-2);line-height:1.6;color:var(--en-azul-texto)}
+.portada-ejemplos a{margin-right:var(--e-2);color:#fff;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--en-azul-borde)}
+.portada-ejemplos a:focus-visible{outline:2px solid var(--sol);outline-offset:2px;border-radius:2px}
 /* lugar del mapa: el país lo dibuja datina.js en el fondo, con la misma proyección que el mundo */
 .portada-mapa{position:relative;min-height:480px}
 .portada-mapa .sol{position:absolute;top:0;right:0;width:200px}
@@ -495,7 +514,26 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
 .bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-9);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
-.secciones,.articulos-home,.herramientas-home{padding-top:var(--capitulo)}
+.secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--capitulo)}
+/* Datos destacados de la portada (Fase 2, paso 2): cuatro tarjetas fijas, de la familia de "En cifras", con el grupo, la pregunta de la
+   ficha y su cifra destacada. La cifra y su texto llegan con datina.js: su lugar queda reservado para que la portada no salte */
+.destacados-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-4)}
+@media (max-width:1080px){.destacados-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.destacados-grid{grid-template-columns:1fr;gap:var(--e-3)}}
+.destacado .c-preg{font-size:var(--t-3);line-height:1.3;color:var(--ink);text-wrap:pretty}
+.destacado .c-num{min-height:1em}
+.destacado .c-txt{min-height:4.2em}
+/* Provincias en la portada: las 24 jurisdicciones con su bandera */
+.prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
+@media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:760px){.prov-home{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--e-3)}}
+.prov-home a{display:flex;align-items:center;gap:var(--e-2);min-height:44px;padding:0 var(--e-2);border-radius:var(--r-control);color:var(--azul);text-decoration:none}
+.prov-home a:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.prov-home a:hover{background:var(--superficie-2)}}
+/* Historias con datos: los enlaces a todos los artículos, el Laboratorio y Curiosidades, debajo de las tarjetas */
+.hist-mas{display:flex;flex-wrap:wrap;gap:var(--e-3);margin:var(--e-6) 0 0}
+/* en la portada, el rótulo de una categoría cuya entrada se llama distinto (Economía: Precios y actividad) */
+.tg-cat{color:var(--muted)}
 
 /* el Sol de Mayo chico de "Seguí explorando", que gira al pasar el mouse */
 .sol-ir{width:32px;height:32px;transition:transform var(--dur-4) var(--ease-out)}
@@ -545,20 +583,21 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 }
 .tg-ico{transition:transform var(--dur-4) var(--ease-out)}
 @media (prefers-reduced-motion:reduce){.tg-link:hover .tg-ico{transform:none}}
-/* herramientas: las cinco en una fila en la computadora, de a tres o de a dos en pantallas medianas y una debajo de la otra en el celular.
-   Las filas se reparten parejas (datina.js, "Grillas parejas"): 3 y 2, nunca una sola en la última fila (pedido del autor, 22/10/2026) */
-#herramientas-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+/* herramientas: todas en una fila en la computadora (pedido del autor, 22/10/2026: eran cinco, desde la Fase 2 son seis), de a tres o de
+   a dos en pantallas medianas y una debajo de la otra en el celular. Las filas se reparten parejas (datina.js, "Grillas parejas") */
+#herramientas-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
 @media (max-width:1079px){#herramientas-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){#herramientas-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){#herramientas-grid{grid-template-columns:1fr}}
-/* los tres artículos de la portada: una fila de tres o una columna (nunca uno solo en la última fila) */
-#art-grid-home{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* Historias con datos en la portada (Fase 2, paso 2): tres artículos y la pieza de la Corte Suprema, en dos columnas, o una en el celular
+   (nunca una sola tarjeta en la última fila) */
+#art-grid-home{grid-template-columns:repeat(2,minmax(0,1fr))}
 /* todos los artículos: tres columnas, dos en pantallas medianas y una en el celular. Con una cantidad impar en dos columnas (17 desde la
    etapa 27), la última ocupa las dos, como en las secciones de la portada: ninguna queda sola a un costado */
 #art-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:761px) and (max-width:1079px){#art-grid{grid-template-columns:1fr 1fr}#art-grid>:last-child:nth-child(odd){grid-column:1 / -1}}
 @media (max-width:760px){#art-grid{grid-template-columns:1fr}}
-@media (max-width:1079px){#art-grid-home{grid-template-columns:1fr}}
+@media (max-width:760px){#art-grid-home{grid-template-columns:1fr}}
 /* las herramientas, en su propio grupo con título: se distinguen por eso y no por el color */
 .bloque-grupo{margin:var(--e-8) 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .sec-tarjeta{gap:6px}

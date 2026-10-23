@@ -7546,8 +7546,15 @@ if (artGrid) artGrid.innerHTML = ARTS.map(tarjetaArt).join("");
 const artHome = document.getElementById("art-grid-home");
 if (artHome) {
   const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
-  artHome.innerHTML = [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join("");
+  // antes de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2)
+  artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
 }
+/* datos destacados de la portada (Fase 2, paso 2, elegidos por el autor el 23 de octubre de 2026): la cifra destacada de cuatro fichas,
+   la misma que muestra cada ficha (CLAVE). El constructor deja la pregunta y el enlace, y el lugar de la cifra reservado */
+document.querySelectorAll(".destacado[data-clave]").forEach(a => {
+  const c = CLAVE[a.dataset.clave];
+  if (c) { a.querySelector(".c-num").innerHTML = c[0]; a.querySelector(".c-txt").innerHTML = c[1]; }
+});
 
 /* Sobre nosotros: cifras contadas en el propio sitio */
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
@@ -7573,12 +7580,6 @@ document.addEventListener("click", ev => {
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
 const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-empleo-pobreza": "personas", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna", "corte-suprema": "balanza"};
-const tarjetaSec = sec => {
-  const n = sec.f, na = sec.a;
-  return `<a class="tarjeta sec-tarjeta${sec.herr ? " herr" : ""}" href="${urlPagina(sec.id)}">${icono(SEC_ICONO[sec.id], "sec-ico")}` +
-    `<span class="sec-tipo">${sec.herr ? "Herramienta" : na ? na + " artículos" : n === 1 ? "1 ficha" : n + " fichas"}</span>` +
-    `<b style="view-transition-name:t-${sec.id}">${sec.t}</b><span class="sec-preg">${sec.c || sec.p}</span></a>`;
-};
 // en la tarjeta va la pregunta corta de la sección, si tiene una (data-corta en la plantilla)
 // sin la tarjeta de Artículos, que tienen su bloque más arriba. Con las 14 secciones (Petróleo y gas volvió a tener su página en la
 // etapa 22) ninguna fila queda con una sola tarjeta, en ningún ancho: por eso "Tu provincia", que se sumó cuando eran 13 para llegar a
@@ -7590,8 +7591,8 @@ const tarjetaSec = sec => {
    aparte, ocupa el ancho entero. Reemplaza a la grilla de tarjetas iguales con "Ver todas las secciones". Desde el 10 de octubre de 2026
    (pedido del autor: "demasiado espacio en blanco") los grupos son columnas sin panel, con su nombre sobre una línea, y Curiosidades va
    debajo de Estado y sociedad, la columna más corta, como en el pie */
-const grillaHerr = document.getElementById("herramientas-grid");
-if (grillaHerr) grillaHerr.innerHTML = Object.values(SEC).filter(s => s.herr).map(tarjetaSec).join("");
+// las tarjetas de las herramientas de la portada las escribe el constructor desde la Fase 2 (paso 2, 23 de octubre de 2026): son las del
+// menú Herramientas, con el consultor de pobreza, el Catálogo y el Explorador
 
 /* La respuesta primero (idea de USAFacts): las cifras clave de la sección arriba, antes de la explicación.
    Salen de EN_CIFRAS (ver arriba) y del perfil provincial (INDP), así que no hay cifras nuevas escritas a mano y el suicidio queda afuera.
@@ -7843,7 +7844,8 @@ if (PAGINA !== "inicio") {
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
   const fila = d => `<a href="${d.u}"><small>${esc(d.s)}</small>${d.c ? conBandera(d.c, d.t) : esc(d.t)}</a>`;
-  const buscar = () => {
+  // el campo y la lista: los de la lupa, o los del buscador a la vista de la portada (Fase 2, paso 2)
+  const buscar = (ent = document.getElementById("busca"), res = document.getElementById("busca-res")) => {
     const pal = st(ent.value.trim()).split(/\s+/).filter(Boolean);
     if (!IDX) armar();
     if (!pal.length) {
@@ -7868,7 +7870,7 @@ if (PAGINA !== "inicio") {
   };
   const cerrar = volver => { btn.setAttribute("aria-expanded", "false"); caja.hidden = true; if (volver) btn.focus({preventScroll: true}); };
   btn.addEventListener("click", () => btn.getAttribute("aria-expanded") === "true" ? cerrar(true) : abrir());
-  ent.addEventListener("input", buscar);
+  ent.addEventListener("input", () => buscar());
   ent.addEventListener("keydown", ev => { if (ev.key === "Enter") { const a = res.querySelector("a"); if (a) { ev.preventDefault(); a.click(); } } });
   res.addEventListener("click", ev => { if (ev.target.closest("a")) cerrar(false); });
   document.addEventListener("keydown", ev => {
@@ -7876,6 +7878,25 @@ if (PAGINA !== "inicio") {
     else if (ev.key === "/" && caja.hidden && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "")) { ev.preventDefault(); abrir(); }
   });
   document.addEventListener("pointerdown", ev => { if (!caja.hidden && !caja.contains(ev.target) && !btn.contains(ev.target)) cerrar(false); });
+  // el buscador a la vista de la portada: la lista aparece debajo del campo mientras se escribe, Enter abre el primer resultado y Escape
+  // borra lo escrito. Si no hay resultados, Enter no hace nada (sin JavaScript, el formulario lleva al catálogo de datos)
+  const entP = document.getElementById("busca-portada"), resP = document.getElementById("busca-portada-res");
+  if (entP && resP) {
+    const cerrarP = () => { resP.hidden = true; resP.innerHTML = ""; };
+    // la lista va fija debajo del campo (la portada recorta lo que sobresale): se ubica al abrirla y al moverse la página
+    const ubicarP = () => {
+      const r = entP.getBoundingClientRect();
+      Object.assign(resP.style, {left: r.left + "px", top: r.bottom + 6 + "px", width: r.width + "px", maxHeight: Math.max(160, innerHeight - r.bottom - 18) + "px"});
+    };
+    addEventListener("scroll", () => { if (!resP.hidden) ubicarP(); }, {passive: true});
+    addEventListener("resize", () => { if (!resP.hidden) ubicarP(); });
+    entP.addEventListener("input", () => { if (entP.value.trim()) { buscar(entP, resP); resP.hidden = false; ubicarP(); } else cerrarP(); });
+    entP.addEventListener("keydown", ev => {
+      if (ev.key === "Enter") { ev.preventDefault(); resP.querySelector("a")?.click(); }
+      else if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); }
+    });
+    document.addEventListener("pointerdown", ev => { if (!resP.hidden && !resP.contains(ev.target) && ev.target !== entP) cerrarP(); });
+  }
 })();
 
 /* aparición de cada tarjeta y de su gráfico al entrar en pantalla, una sola vez */

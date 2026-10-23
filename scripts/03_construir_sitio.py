@@ -373,6 +373,7 @@ def bloques(h):
 
 # página a la que pertenece cada bloque
 PAGINA_DE_BLOQUE = {"portada": "inicio", "secciones": "inicio", "articulos-home": "inicio", "herramientas-home": "inicio",
+                    "destacados": "inicio", "provincias-home": "inicio",
                     "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404",
                     "laboratorio": "laboratorio"}
 def pagina_de(b):
@@ -811,15 +812,71 @@ def _tema_portada(it):
     nom, subs = it if isinstance(it, tuple) else (None, [it])
     s = _SEC[subs[0]]
     ico = icono_svg(SEC_ICONO[s[0]]).replace('class="iso ', 'class="iso tg-ico ', 1)
-    otras = ('<p class="tg-subs">' + "".join(f'<a href="{url_pagina(x)}">{e(TITULO_DE[x])}</a>' for x in subs[1:]) + "</p>") if len(subs) > 1 else ""
+    # Fase 2, paso 2: si la entrada de la categoría no se llama como ella (Economía: Precios y actividad), la tarjeta lleva el nombre de su
+    # página y la categoría queda como rótulo de las demás, como en los menús
+    cat = f'<span class="tg-cat">{e(nom)}:</span> ' if nom and nom != s[1] else ""
+    otras = ('<p class="tg-subs">' + cat + "".join(f'<a href="{url_pagina(x)}">{e(TITULO_DE[x])}</a>' for x in subs[1:]) + "</p>") if len(subs) > 1 else ""
     return (f'<li class="tg-item"><a class="tg-link" href="{url_pagina(s[0])}">{ico}<span class="tg-txt">'
-            f'<b style="view-transition-name:t-{s[0]}">{e(nom or s[1])}</b><span class="tg-preg">{e(s[7] or s[2])}</span></span></a>{otras}</li>')
+            f'<b style="view-transition-name:t-{s[0]}">{e(s[1] if cat else nom or s[1])}</b><span class="tg-preg">{e(s[7] or s[2])}</span></span></a>{otras}</li>')
 
 
 _grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelledby="tg-{g}"><h3 class="tg-tit" id="tg-{g}">{e(n)}</h3>'
                                       '<ul class="tg-lista">' + "".join(_tema_portada(it) for it in items) + "</ul></section>")
 _temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x in GRUPOS)
+
+# ---------- la portada de la Fase 2 (paso 2, diseño aprobado por el autor el 23 de octubre de 2026, docs/rediseno_fase2.md) ----------
+# Preguntas de ejemplo debajo del buscador: tres de la lista de preguntas del buscador (PREG en datina.js), de temas distintos y que no
+# repiten los datos destacados. Cada una lleva a su ficha
+EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo", "¿Qué parte de los hogares tiene cloacas?"),
+            ("f-glaciares", "¿Qué provincia tiene más glaciares?")]
+_preg_js = js[js.index("const PREG = ["):js.index("\n];", js.index("const PREG = ["))]
+for _id, _q in EJEMPLOS:
+    assert f'["{_q}"' in _preg_js and f'"#{_id}"' in _preg_js, f"la pregunta de ejemplo {_q} ya no está en PREG"
+_ejemplos = ('<p class="portada-ejemplos"><span>Por ejemplo:</span> '
+             + " ".join(f'<a href="{url_pagina(UBIC[i])}#{i}">{e(q)}</a>' for i, q in EJEMPLOS) + "</p>")
+# Datos destacados: cuatro fijos, uno por grupo de temas, elegidos por el autor el 23 de octubre de 2026. La cifra es la cifra destacada
+# de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y deja
+# reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
+DESTACADOS = [("personas", "f-esperanza"), ("economia", "f-salarios"), ("estado", "f-homicidios"), ("territorio", "f-petroleo")]
+_clave_js = js[js.index("const CLAVE = {"):js.index("\n};", js.index("const CLAVE = {"))]
+_ficha = {f[0]: f for f in FICHAS}
+_nombre_grupo = {g: n for g, n, _ in GRUPOS}
+for _g, _id in DESTACADOS:
+    assert f'"{_id}":' in _clave_js, f"{_id}: el dato destacado necesita una cifra destacada (CLAVE)"
+    assert _id not in TEXTO_ANTES and _ficha[_id][2], f"{_id}: no puede ser un dato destacado o le falta la pregunta fija"
+    assert GRUPO_DE[_ficha[_id][1]][0] == _g, f"{_id}: no es del grupo {_g}"
+_destacados = "".join(f'<a class="tarjeta cifra destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
+                      f'<span class="c-preg">{e(_ficha[i][2])}</span><span class="c-num"></span><span class="c-txt"></span></a>' for g, i in DESTACADOS)
+# Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra
+# el mapa de la portada, que el teclado saltea
+_n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const PERFIL_GRUPOS = ["):js.index("];", js.index("const PERFIL_GRUPOS = ["))]))
+_provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas y su historia. Los números dentro de cada '
+                    'provincia, en <a class="enlace" href="departamentos.html">Departamentos</a>.</p><ul class="prov-home">'
+                    + "".join(f'<li><a href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
+                              f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
+# Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de
+# 2026) antes de las piezas del Laboratorio con página propia, que escribe el constructor
+_historias_home = "".join(f'<a class="tarjeta art-card" href="{i}.html"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
+                          f'<b>{e(html.unescape(t))}</b><small>Laboratorio</small></span></a>' for i, ico, t, _ in PIEZAS)
+# Herramientas: las del menú, en su orden, con el mismo dibujo que las tarjetas de antes (las armaba datina.js). Departamentos pasó a
+# Provincias
+_HERR_EXTRA = {"consultor": ("Consultor de pobreza", "Consultar pobreza por aglomerado, partido y comuna", "casa"),
+               "relaciones": ("Explorador de relaciones", "¿De dónde sale cada número?", "laptop")}
+
+
+def _tarjeta_herr(p, tipo):
+    titulo, preg, ico = (_SEC[p][1], _SEC[p][7] or _SEC[p][2], SEC_ICONO[p]) if p in _SEC else _HERR_EXTRA[p]
+    vt = f' style="view-transition-name:t-{p}"' if p in _SEC else ""
+    return (f'<a class="tarjeta sec-tarjeta herr" href="{url_menu(p)}">{icono_svg(ico).replace(chr(34) + "iso ", chr(34) + "iso sec-ico ", 1)}'
+            f'<span class="sec-tipo">{e(tipo)}</span><b{vt}>{e(titulo)}</b><span class="sec-preg">{e(preg)}</span></a>')
+
+
+_herr_items = next(x[4] for x in MENUS if x[0] == "herramientas")
+_herramientas_home = "".join(_tarjeta_herr(p, "Herramienta") if not isinstance(p, tuple) else "".join(_tarjeta_herr(s, p[0]) for s in p[1])
+                             for p in _herr_items)
 for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
+                     "<!--EJEMPLOS-->": _ejemplos, "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
+                     "<!--HISTORIAS-HOME-->": _historias_home, "<!--HERRAMIENTAS-HOME-->": _herramientas_home,
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
     base = base.replace(marca, valor)

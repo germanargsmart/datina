@@ -208,3 +208,23 @@ Cada paso es un commit, con sus pruebas. Las capturas de antes y después se sac
 - Ninguna dirección cambió. Nada de esto toca los datos: en `fichas.js` solo cambia el índice (la sección de dos artículos, los grupos y las categorías).
 - Prueba nueva: `scripts/prueba_navegacion.py`. La prueba de páginas abre y cierra los menús con el teclado.
 - Pendiente para el paso 2 (portada): Curiosidades y las piezas del Laboratorio todavía no aparecen en el cuerpo de la portada, solo en el menú Historias y en el pie. Y en el bloque de temas de la portada "Economía" sigue siendo el enlace a "Precios y actividad" (en los menús ya no).
+
+### Paso 2: portada (23 de octubre de 2026)
+
+De arriba abajo, en el orden de la barra:
+- El bloque azul suma el buscador a la vista (el mismo motor y el mismo índice que la lupa: Enter abre el primer resultado y Escape borra lo escrito) y tres preguntas de ejemplo de la lista del buscador, cada una con enlace a su ficha: "¿Cuánto cuesta un litro de nafta?", "¿Qué parte de los hogares tiene cloacas?" y "¿Qué provincia tiene más glaciares?". "Elegí tu provincia" se queda. "Artículos" pasó al bloque de Historias.
+- Datos destacados: esperanza de vida, salarios, homicidios y producción de petróleo (elegidos por el autor), con el grupo, la pregunta de la ficha, la cifra destacada y su texto completo. El constructor escribe la pregunta y el enlace, y `datina.js` la cifra, con su lugar reservado.
+- Temas: igual que antes. En "Trabajo y economía" la tarjeta de la categoría ahora se llama "Precios y actividad", como su página, y "Economía:" queda como rótulo de las otras tres secciones.
+- Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil, y Departamentos como enlace en la bajada. Es también el camino con teclado a lo que muestra el mapa.
+- Historias con datos: los tres artículos de antes (el de la relación más marcada primero) y la Corte Suprema, en dos columnas, y debajo Todos los artículos, Laboratorio y Curiosidades.
+- Herramientas: las seis del menú en una fila en la computadora (Cruces, Tu índice, Diagnóstico educativo, Consultor de pobreza, Catálogo de datos y Explorador de relaciones). Las escribe el constructor, antes las armaba `datina.js`.
+
+Medidas (Chrome sin ventana):
+- Saltos al cargar (CLS) de la portada: 0,001 en 1440 píxeles y 0 en 390, igual que antes.
+- Alto de la portada: en 1440 píxeles, de 2.938 (paso 1) a 3.891 (+32%), y en 390, de 5.259 a 7.368 (+40%). Supera el +20% que fijaba la sección 4. Lo agregan los dos bloques nuevos (unos 770 píxeles en la computadora). Para compactar, opciones a decidir con el autor: herramientas de a dos en el celular, datos destacados de a dos en tabletas y celulares grandes, o la grilla de provincias más apretada.
+- En `fichas.js` solo cambia el mapa de anclas del índice (cinco `id` nuevos de la portada).
+
+- La lista de resultados del buscador de la portada va fija debajo del campo: la portada recorta lo que sobresale (`overflow:hidden`, por el mapa y el sol), y en la primera versión una lista larga quedaba cortada y tapada por las preguntas de ejemplo. Lo encontró una revisión con capturas, no las pruebas, y ahora la prueba de páginas lo controla.
+- Queda para el paso 3: el buscador de la portada todavía no anuncia los resultados a los lectores de pantalla ni se recorre con las flechas (lo mismo que la lupa). El paso 3 lleva los dos al patrón de lista con flechas.
+
+Pruebas: el armado con todas sus comprobaciones, la prueba de páginas (que ahora también controla los datos destacados y el buscador de la portada, incluido que los resultados se puedan tocar), una prueba de la portada con el teclado (13 controles) y una en 1440, 1081, 1024, 768 y 390 píxeles (nada se sale de costado, ningún texto de las tarjetas queda cortado y todo resultado visible se puede tocar).
