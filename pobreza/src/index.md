@@ -516,14 +516,30 @@ const consultaLibre = sqlAbierto ? view(editor) : "";
 ```
 
 ```js
-// DuckDB con las seis tablas, desde los Parquet, solo con el editor abierto
+// DuckDB con las seis tablas, desde los Parquet, solo con el editor abierto. Desde el 23 de octubre de 2026 el motor se baja de
+// jsDelivr, su CDN oficial, en la misma versión que traía el sitio (1.29.0): sus dos archivos (36 y 41 MB) superan el máximo de 25 MB
+// por archivo de Cloudflare Pages, donde se publica Datina, y ya no van adentro del sitio. La consulta guiada no usa DuckDB y anda igual
+// sin jsDelivr. Cada tabla queda como una vista con el nombre de su archivo, como con el cliente de Observable que se usaba antes
+const DUCKDB = "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm";
+const PARQUET = {
+  serie_nacional: FileAttachment("data/serie_nacional.parquet"), pobreza_edad: FileAttachment("data/pobreza_edad.parquet"),
+  aglomerados: FileAttachment("data/aglomerados.parquet"), aglomerados_serie: FileAttachment("data/aglomerados_serie.parquet"),
+  gba_partidos_comunas: FileAttachment("data/gba_partidos_comunas.parquet"), gba_fracciones: FileAttachment("data/gba_fracciones.parquet")
+};
 const db = sqlAbierto ? await (async () => {
-  const {DuckDBClient} = await import("npm:@observablehq/duckdb");
-  return DuckDBClient.of({
-    serie_nacional: FileAttachment("data/serie_nacional.parquet"), pobreza_edad: FileAttachment("data/pobreza_edad.parquet"),
-    aglomerados: FileAttachment("data/aglomerados.parquet"), aglomerados_serie: FileAttachment("data/aglomerados_serie.parquet"),
-    gba_partidos_comunas: FileAttachment("data/gba_partidos_comunas.parquet"), gba_fracciones: FileAttachment("data/gba_fracciones.parquet")
-  });
+  const duckdb = await import(DUCKDB);
+  const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
+  // el trabajador viene de otro dominio: se arma desde un Blob que lo importa
+  const trabajador = URL.createObjectURL(new Blob([`importScripts("${bundle.mainWorker}");`], {type: "text/javascript"}));
+  const motor = new duckdb.AsyncDuckDB(new duckdb.VoidLogger(), new Worker(trabajador));
+  await motor.instantiate(bundle.mainModule, bundle.pthreadWorker);
+  URL.revokeObjectURL(trabajador);
+  const con = await motor.connect();
+  for (const [nombre, archivo] of Object.entries(PARQUET)) {
+    await motor.registerFileBuffer(`${nombre}.parquet`, new Uint8Array(await archivo.arrayBuffer()));
+    await con.query(`CREATE VIEW ${nombre} AS SELECT * FROM read_parquet('${nombre}.parquet')`);
+  }
+  return {query: (texto) => con.query(texto)};
 })() : null;
 ```
 

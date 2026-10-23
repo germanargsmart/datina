@@ -86,7 +86,9 @@ Para publicar un armado nuevo:
 
 1. Armá el consultor (pasos 3 y 4 de "Actualizar los datos cada semestre") y, si cambiaste la consulta guiada, corré su prueba (paso 5).
 2. Desde la carpeta de Datina, corré `python scripts/03_construir_sitio.py --con-pobreza`. Copia `pobreza/dist` a `sitio/pobreza/` y muestra la fecha del armado que copió. Si `pobreza/dist` no tiene un armado (falta su `index.html`), frena sin tocar nada.
-3. Mirá el consultor en el navegador (`cd sitio && python -m http.server 8765` y abrí `http://127.0.0.1:8765/pobreza/`): la consulta guiada, el editor de SQL y un ejemplo. Desde el 23 de octubre de 2026 el primer enlace de la cabecera dice "Datina: Pobreza y hogares" y lleva a `pobreza.html` (antes "Datina", a la portada): el próximo armado es el primero que lo trae, así que probá también ese enlace desde las dos páginas del consultor.
+3. Mirá el consultor en el navegador (`cd sitio && python -m http.server 8765` y abrí `http://127.0.0.1:8765/pobreza/`): la consulta guiada, el editor de SQL y un ejemplo, y el primer enlace de la cabecera ("Datina: Pobreza y hogares", lleva a `pobreza.html`).
+
+Desde el 23 de octubre de 2026 el editor de SQL baja DuckDB de jsDelivr, su CDN oficial, en la versión 1.29.0, y DuckDB baja de su servidor la extensión para leer Parquet al usarla. Antes iban adentro del sitio, pero sus dos archivos (36 y 41 MB) superan el máximo de 25 MB por archivo de Cloudflare Pages, donde se publica Datina. Con eso el consultor pasó de 88 MB a 7. La consulta guiada no usa DuckDB y anda igual sin acceso a jsDelivr. Si alguna vez se publica en un lugar sin ese límite y se quiere el motor adentro otra vez, el código está en `src/index.md`, en el bloque "DuckDB con las seis tablas".
 4. Revisá con `git status` que los cambios de `sitio/pobreza/` sean los que esperabas y subilos con el resto.
 
 La prueba `python scripts/prueba_pobreza.py` controla este comportamiento, y el armado de Datina la corre antes de empezar.

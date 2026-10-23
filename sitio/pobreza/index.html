@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_import/estilo.3b41d97b.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
-<link rel="modulepreload" href="./_observablehq/client.874bf858.js">
+<link rel="modulepreload" href="./_observablehq/client.929be116.js">
 <link rel="modulepreload" href="./_observablehq/runtime.fa9f71c0.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.67636428.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
@@ -63,30 +63,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..700&amp;display=swap">
 <script>
-// Framework reescribe los enlaces que salen de este sitio: el de Datina se corrige al cargar la página
+// Framework reescribe los enlaces que salen de este sitio: el de vuelta a Datina se corrige al cargar la página. Desde la Fase 2 (paso 4,
+// 23 de octubre de 2026, pedido del autor) lleva a Pobreza y hogares, de donde se llega al consultor, y no a la portada
 document.addEventListener("DOMContentLoaded", () => {
   const a = document.querySelector(".cabecera .volver");
-  if (a) a.href = new URL("../", location.href.replace(/[^/]*$/, "")).href;
+  if (a) a.href = new URL("../pobreza.html", location.href.replace(/[^/]*$/, "")).href;
 });
 </script>
 <meta name="description" content="Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.">
 <script type="module">
 
-import {define} from "./_observablehq/client.874bf858.js";
+import {define} from "./_observablehq/client.929be116.js";
 import {registerFile} from "./_observablehq/stdlib.67636428.js";
 
-registerFile("./data/aglomerados.json", {"name":"./data/aglomerados.json","mimeType":"application/json","path":"./_file/data/aglomerados.f8dc6387.json","lastModified":1791855293600,"size":7358});
-registerFile("./data/aglomerados.parquet", {"name":"./data/aglomerados.parquet","path":"./_file/data/aglomerados.4ff4a6d9.parquet","lastModified":1791643496253,"size":22462});
-registerFile("./data/aglomerados_serie.json", {"name":"./data/aglomerados_serie.json","mimeType":"application/json","path":"./_file/data/aglomerados_serie.3b7dd2aa.json","lastModified":1791855293600,"size":299682});
-registerFile("./data/aglomerados_serie.parquet", {"name":"./data/aglomerados_serie.parquet","path":"./_file/data/aglomerados_serie.63ae295d.parquet","lastModified":1791643496253,"size":13568});
-registerFile("./data/gba_fracciones.json", {"name":"./data/gba_fracciones.json","mimeType":"application/json","path":"./_file/data/gba_fracciones.1c6c8280.json","lastModified":1791855293601,"size":111198});
-registerFile("./data/gba_fracciones.parquet", {"name":"./data/gba_fracciones.parquet","path":"./_file/data/gba_fracciones.7a08e35c.parquet","lastModified":1791643496253,"size":25138});
-registerFile("./data/gba_partidos_comunas.json", {"name":"./data/gba_partidos_comunas.json","mimeType":"application/json","path":"./_file/data/gba_partidos_comunas.0a88e97b.json","lastModified":1791855293601,"size":6184});
-registerFile("./data/gba_partidos_comunas.parquet", {"name":"./data/gba_partidos_comunas.parquet","path":"./_file/data/gba_partidos_comunas.e48525d4.parquet","lastModified":1791643496253,"size":19930});
-registerFile("./data/pobreza_edad.json", {"name":"./data/pobreza_edad.json","mimeType":"application/json","path":"./_file/data/pobreza_edad.52fe10a9.json","lastModified":1791855293601,"size":20503});
-registerFile("./data/pobreza_edad.parquet", {"name":"./data/pobreza_edad.parquet","path":"./_file/data/pobreza_edad.b2d2e643.parquet","lastModified":1791643496253,"size":6601});
-registerFile("./data/serie_nacional.json", {"name":"./data/serie_nacional.json","mimeType":"application/json","path":"./_file/data/serie_nacional.f5ea22be.json","lastModified":1791855293601,"size":3729});
-registerFile("./data/serie_nacional.parquet", {"name":"./data/serie_nacional.parquet","path":"./_file/data/serie_nacional.fd458b29.parquet","lastModified":1791643496253,"size":4478});
+registerFile("./data/aglomerados.json", {"name":"./data/aglomerados.json","mimeType":"application/json","path":"./_file/data/aglomerados.f8dc6387.json","lastModified":1792713592912,"size":7358});
+registerFile("./data/aglomerados.parquet", {"name":"./data/aglomerados.parquet","path":"./_file/data/aglomerados.4ff4a6d9.parquet","lastModified":1790632938112,"size":22462});
+registerFile("./data/aglomerados_serie.json", {"name":"./data/aglomerados_serie.json","mimeType":"application/json","path":"./_file/data/aglomerados_serie.3b7dd2aa.json","lastModified":1792713592918,"size":299682});
+registerFile("./data/aglomerados_serie.parquet", {"name":"./data/aglomerados_serie.parquet","path":"./_file/data/aglomerados_serie.63ae295d.parquet","lastModified":1790632938126,"size":13568});
+registerFile("./data/gba_fracciones.json", {"name":"./data/gba_fracciones.json","mimeType":"application/json","path":"./_file/data/gba_fracciones.1c6c8280.json","lastModified":1792713592921,"size":111198});
+registerFile("./data/gba_fracciones.parquet", {"name":"./data/gba_fracciones.parquet","path":"./_file/data/gba_fracciones.7a08e35c.parquet","lastModified":1790632938143,"size":25138});
+registerFile("./data/gba_partidos_comunas.json", {"name":"./data/gba_partidos_comunas.json","mimeType":"application/json","path":"./_file/data/gba_partidos_comunas.0a88e97b.json","lastModified":1792713592923,"size":6184});
+registerFile("./data/gba_partidos_comunas.parquet", {"name":"./data/gba_partidos_comunas.parquet","path":"./_file/data/gba_partidos_comunas.e48525d4.parquet","lastModified":1790632938135,"size":19930});
+registerFile("./data/pobreza_edad.json", {"name":"./data/pobreza_edad.json","mimeType":"application/json","path":"./_file/data/pobreza_edad.52fe10a9.json","lastModified":1792713592925,"size":20503});
+registerFile("./data/pobreza_edad.parquet", {"name":"./data/pobreza_edad.parquet","path":"./_file/data/pobreza_edad.b2d2e643.parquet","lastModified":1790632938102,"size":6601});
+registerFile("./data/serie_nacional.json", {"name":"./data/serie_nacional.json","mimeType":"application/json","path":"./_file/data/serie_nacional.f5ea22be.json","lastModified":1792713592927,"size":3729});
+registerFile("./data/serie_nacional.parquet", {"name":"./data/serie_nacional.parquet","path":"./_file/data/serie_nacional.fd458b29.parquet","lastModified":1790632938093,"size":4478});
 
 define({id: "ae325d43", inputs: ["FileAttachment","html"], outputs: ["deJson","jsSerie","jsEdad","jsAglo","jsAgloSerie","jsPartidos","jsFracciones","T","comparar","asc","desc","CELESTE","SOL","TINTA","GRIS","num1","num0","aFilas","formatos","csv","botonesCsv","lit"], body: async (FileAttachment,html) => {
 // Las seis tablas, en JSON (columnas y filas). La consulta guiada se resuelve con ellas en JavaScript: el motor DuckDB pesa
@@ -617,17 +618,33 @@ const consultaLibre = sqlAbierto ? view(editor) : "";
 return {consultaLibre};
 }});
 
-define({id: "19888511", inputs: ["sqlAbierto","FileAttachment"], outputs: ["db"], body: async (sqlAbierto,FileAttachment) => {
-// DuckDB con las seis tablas, desde los Parquet, solo con el editor abierto
+define({id: "b4249990", inputs: ["FileAttachment","sqlAbierto"], outputs: ["DUCKDB","PARQUET","db"], body: async (FileAttachment,sqlAbierto) => {
+// DuckDB con las seis tablas, desde los Parquet, solo con el editor abierto. Desde el 23 de octubre de 2026 el motor se baja de
+// jsDelivr, su CDN oficial, en la misma versión que traía el sitio (1.29.0): sus dos archivos (36 y 41 MB) superan el máximo de 25 MB
+// por archivo de Cloudflare Pages, donde se publica Datina, y ya no van adentro del sitio. La consulta guiada no usa DuckDB y anda igual
+// sin jsDelivr. Cada tabla queda como una vista con el nombre de su archivo, como con el cliente de Observable que se usaba antes
+const DUCKDB = "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm";
+const PARQUET = {
+  serie_nacional: FileAttachment("./data/serie_nacional.parquet"), pobreza_edad: FileAttachment("./data/pobreza_edad.parquet"),
+  aglomerados: FileAttachment("./data/aglomerados.parquet"), aglomerados_serie: FileAttachment("./data/aglomerados_serie.parquet"),
+  gba_partidos_comunas: FileAttachment("./data/gba_partidos_comunas.parquet"), gba_fracciones: FileAttachment("./data/gba_fracciones.parquet")
+};
 const db = sqlAbierto ? await (async () => {
-  const {DuckDBClient} = await import("./_observablehq/stdlib/duckdb.d8b43ff3.js");
-  return DuckDBClient.of({
-    serie_nacional: FileAttachment("./data/serie_nacional.parquet"), pobreza_edad: FileAttachment("./data/pobreza_edad.parquet"),
-    aglomerados: FileAttachment("./data/aglomerados.parquet"), aglomerados_serie: FileAttachment("./data/aglomerados_serie.parquet"),
-    gba_partidos_comunas: FileAttachment("./data/gba_partidos_comunas.parquet"), gba_fracciones: FileAttachment("./data/gba_fracciones.parquet")
-  });
+  const duckdb = await import(DUCKDB);
+  const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
+  // el trabajador viene de otro dominio: se arma desde un Blob que lo importa
+  const trabajador = URL.createObjectURL(new Blob([`importScripts("${bundle.mainWorker}");`], {type: "text/javascript"}));
+  const motor = new duckdb.AsyncDuckDB(new duckdb.VoidLogger(), new Worker(trabajador));
+  await motor.instantiate(bundle.mainModule, bundle.pthreadWorker);
+  URL.revokeObjectURL(trabajador);
+  const con = await motor.connect();
+  for (const [nombre, archivo] of Object.entries(PARQUET)) {
+    await motor.registerFileBuffer(`${nombre}.parquet`, new Uint8Array(await archivo.arrayBuffer()));
+    await con.query(`CREATE VIEW ${nombre} AS SELECT * FROM read_parquet('${nombre}.parquet')`);
+  }
+  return {query: (texto) => con.query(texto)};
 })() : null;
-return {db};
+return {DUCKDB,PARQUET,db};
 }});
 
 define({id: "3757a0e0", inputs: ["aFilas","db"], outputs: ["consultar"], body: (aFilas,db) => {
@@ -696,7 +713,7 @@ return {ARCHIVOS,conteos};
 <body>
 <div id="observablehq-center">
 <header id="observablehq-header">
-<nav class="cabecera"><a href="./" class="volver">Datina</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>
+<nav class="cabecera"><a href="./pobreza" class="volver">Datina: Pobreza y hogares</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>
 </header>
 <main id="observablehq-main" class="observablehq">
 <div class="observablehq observablehq--block"><!--:ae325d43:--></div>
@@ -735,7 +752,7 @@ return {ARCHIVOS,conteos};
 <div class="observablehq observablehq--block"><!--:37c788bf:--></div>
 <div class="observablehq observablehq--block"><!--:7533c6f9:--></div>
 <div class="observablehq observablehq--block"><!--:379195e3:--></div>
-<div class="observablehq observablehq--block"><!--:19888511:--></div>
+<div class="observablehq observablehq--block"><!--:b4249990:--></div>
 <div class="observablehq observablehq--block"><!--:3757a0e0:--></div>
 <div class="observablehq observablehq--block"><!--:1a0a2737:--></div>
 <div class="observablehq observablehq--block"><!--:631f29cc:--></div>
