@@ -1053,6 +1053,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* la fuente, con la frecuencia de actualización (etapa 27), se acomoda en dos renglones antes de mandar los botones a otra fila */
 @media (min-width:761px){.pie>span{flex:1 1 16em;min-width:0}}  /* en el celular el pie es una columna */
 .acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-left:auto}
+.como-calcula{white-space:nowrap}  /* "Cómo se calcula" al final de la fuente (paso 5), sin partirse en dos renglones */
 /* "Artículos con este dato" (Fase 2, paso 4): una fila propia debajo de las acciones, con la pregunta de cada artículo como enlace */
 .pie-arts{flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-1) var(--e-4);margin:0}
 .accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:opacity var(--dur-1) var(--ease-out)}

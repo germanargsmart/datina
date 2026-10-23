@@ -49,6 +49,13 @@ const IDA = [], VUELTA = [];
 const ENLACES = `[...document.querySelectorAll(".nota-fuentes a[href*='#f-'], .pie-arts a")].map(a => a.closest(".pie-arts")
   ? a.getAttribute("href") + ">" + a.closest("article.ficha").id : location.pathname.slice(1) + ">" + a.getAttribute("href").split("#")[1])`;
 
+// las fichas (Fase 2, paso 5): todas con "Ver tabla", ninguna con el nombre de la sección arriba de la pregunta (cada página tiene una
+// sola) y "Cómo se calcula" en todas las de una página con "Para entender los datos", y en ninguna de las demás
+const FICHAS = `(() => { const f = [...document.querySelectorAll("article.ficha")], exp = !!document.getElementById("para-entender");
+  return {n: f.length, como: f.filter(x => x.querySelector(".pie .como-calcula")).length, sinTabla: f.filter(x => !x.querySelector(".ver-tabla")).map(x => x.id),
+    etiquetas: f.filter(x => x.querySelector(".etiqueta")).map(x => x.id), comoMal: f.filter(x => !!x.querySelector(".pie .como-calcula") !== exp).map(x => x.id)}; })()`;
+const CUENTA = {fichas: 0, como: 0};
+
 async function revisarPagina(pg, intento = 1) {
   await p.ir(B + pg, 1200);
   await p.recorrer();
@@ -58,6 +65,11 @@ async function revisarPagina(pg, intento = 1) {
   malos.forEach(m => problemas.push(`${pg}: texto con un valor sin calcular: «${m}»`));
   errores.forEach(e => problemas.push(`${pg}: ${e}`));
   (pg.startsWith("a-") ? IDA : VUELTA).push(...await p.eval(ENLACES));
+  const fi = await p.eval(FICHAS);
+  CUENTA.fichas += fi.n; CUENTA.como += fi.como;
+  if (fi.sinTabla.length) problemas.push(`${pg}: fichas sin "Ver tabla": ${fi.sinTabla.join(", ")}`);
+  if (fi.etiquetas.length) problemas.push(`${pg}: fichas con el nombre de la sección arriba de la pregunta: ${fi.etiquetas.join(", ")}`);
+  if (fi.comoMal.length) problemas.push(`${pg}: "Cómo se calcula" falta o sobra en ${fi.comoMal.join(", ")}`);
 }
 
 const CIFRAS = `(() => {
@@ -87,6 +99,24 @@ await p.ir(B + "articulos.html", 1000);
 const bajadas = await p.eval(`[...document.querySelectorAll("#art-grid .art-card")].map(c => (c.querySelector(".art-dek")?.textContent || "").trim().length)`);
 const nArt = paginas.filter(x => x.startsWith("a-")).length;
 if (bajadas.length !== nArt || bajadas.some(n => n < 40)) problemas.push(`articulos.html: ${bajadas.filter(n => n >= 40).length} de ${nArt} tarjetas con su bajada`);
+// "Ver tabla" en las cinco fichas que lo tienen desde el paso 5: se abre con filas, y la de legisladores sigue a la provincia elegida
+const PROPIAS = [["departamentos.html", "f-mapa"], ["politica.html", "f-legisladores"], ["politica.html", "f-votaciones"],
+  ["politica.html", "f-votaciones-espacios"], ["politica.html", "f-ministros"]];
+const filasDe = id => p.eval(`document.querySelectorAll("#${id} .tabla-datos tbody tr").length`);
+for (const [pg, id] of PROPIAS) {
+  await p.ir(B + pg, 1000);
+  await p.eval(`document.querySelector("#${id} .ver-tabla")?.click()`);
+  await espera(1500);
+  if (!(await filasDe(id))) problemas.push(`${pg}: "Ver tabla" de ${id} no muestra filas`);
+  if (id === "f-legisladores") {
+    const leer = () => p.eval(`document.querySelector("#f-legisladores .tabla-datos tbody")?.textContent.slice(0, 300) || ""`);
+    const antes = await leer();
+    await p.eval(`(() => { const s = document.getElementById("lg-sel"); s.value = "90"; s.dispatchEvent(new Event("change")); })()`);
+    await espera(1000);
+    if (!antes || antes === await leer()) problemas.push(`${pg}: la tabla de f-legisladores no cambia al elegir otra provincia`);
+  }
+  p.errores.forEach(e => problemas.push(`${pg}, "Ver tabla" de ${id}: ${e}`));
+}
 // "En cifras" sin provincia (el perfil nuevo no tiene ninguna guardada) y después con cada provincia
 for (const sec of SECCIONES) await revisarCifras(sec, null);
 for (const prov of PROVINCIAS) {
@@ -206,6 +236,7 @@ servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
 console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
+console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas.`);
 console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter y sin coincidencias.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));

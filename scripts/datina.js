@@ -51,6 +51,14 @@ const DIFERIDAS = D.diferidas || {}, pedidas = {};
 // las tablas diferidas llegan en columnas ({c: nombres, f: filas}, etapa 19): se vuelven a armar como objetos
 const deColumnas = t => Array.isArray(t) ? t : t.f.map(r => Object.fromEntries(t.c.map((k, i) => [k, r[i]])));
 const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = deColumnas(t))));
+// "Ver tabla" de las fichas cuya tabla no está en T ni en DIFERIDAS (Fase 2, paso 5): cada una registra acá una función que devuelve, con
+// una promesa, las filas de lo que muestra su gráfico en ese momento. Si la tabla está abierta y cambia lo elegido, su dibujo llama a
+// refrescarTabla. Va acá arriba porque esas fichas se arman antes que el pie de las fichas
+const TABLA_PROPIA = {};
+const refrescarTabla = id => {
+  const caja = document.querySelector(`#${id} .tabla-datos`);
+  if (caja && TABLA_PROPIA[id]) TABLA_PROPIA[id]().then(filas => { caja.innerHTML = tablaPropia(filas, id); }, () => {});
+};
 /* Mientras llegan los datos de un gráfico, el contenedor queda vacío y muestra la silueta de su forma (data-forma en la plantilla,
    dibujada por datina.css) con el alto que va a tener, así nada salta cuando llega. Los lectores de pantalla oyen "Cargando". */
 const esperando = el => { el.innerHTML = '<span class="solo-lector">Cargando los datos</span>'; el.setAttribute("aria-busy", "true"); };
@@ -3391,6 +3399,14 @@ const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_p
 const lgMes = t => t === "sin fecha" ? "sin fecha" : `${MESES[+t.slice(5, 7) - 1]} de ${t.slice(0, 4)}`;
 // nombre de un legislador como "Nombre Apellido" (la lista los guarda como "Apellido, Nombre")
 const lgNom = i => { const n = LGP.nombres[i], k = n.indexOf(", "); return k < 0 ? n : `${n.slice(k + 2)} ${n.slice(0, k)}`; };
+// "Ver tabla" (paso 5): los legisladores de la provincia y el período elegidos, con quién reemplazó a quién
+TABLA_PROPIA["f-legisladores"] = () => lgCargar().then(() => {
+  const c = MED.legisladores || prov || "02", per = MED.lgPer;
+  return LGP.filas.filter(f => f[0] === per && f[2] === c)
+    .map(f => ({cámara: f[1] ? "Senado" : "Diputados", legislador: lgNom(f[3]), bloque: LGP.bloques[f[4]], espacio: LGP.espacios[f[5]],
+      desde: f[6] || "", hasta: f[7] || "", reemplaza_a: f[8] >= 0 ? lgNom(f[8]) : ""}))
+    .sort((p, q) => p.cámara.localeCompare(q.cámara, "es") || p.legislador.localeCompare(q.legislador, "es"));
+});
 // Quién ocupa cada banca en la fecha de la composición del período, su leyenda y su cuadro: los usan los hemiciclos de la ficha y del
 // Laboratorio (etapa 33)
 const bancasHemi = per => (LGP.hemiciclo[per] || []).map(([cam, p, i, bl, e]) => ({cam, prov: p, nom: lgNom(i), bloque: LGP.bloques[bl], e}));
@@ -3436,6 +3452,7 @@ function hemiciclo(el, bancas, prov, tipBanca) {
     .on("pointermove", ver).on("pointerdown", ver).on("pointerleave", () => { anillo.attr("opacity", 0); ocultarTip(); });
 }
 DIB.legisladores = () => {
+  refrescarTabla("f-legisladores");
   const c = MED.legisladores || prov || "02", per = MED.lgPer, el = G("legisladores");
   document.getElementById("lg-sel").value = c; document.getElementById("lg-per").value = per;
   if (!LGP) { esperando(el); lgCargar().then(DIB.legisladores).catch(() => sinDatos(el, "No se pudo cargar la lista.")); return; }
@@ -4008,6 +4025,19 @@ MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.v
 DIB.vtfiltro = () => DIB.vtmatriz(false);
 let VTJ = null, vtCargando = null;
 const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }));
+// "Ver tabla" (paso 5): el voto de cada legislador en la ley y la cámara elegidas (sin filas si el Senado no publica el acta), y en la
+// tabla por espacio, los votos detrás de cada porcentaje en la cámara elegida
+TABLA_PROPIA["f-votaciones"] = () => vtCargar().then(() => (VTJ.votos[`${MED.vtLey}|${MED.votaciones}`] || [])
+  .map(x => ({codigo_indec: x[3], territorio: NOMBRES[x[3]] || "Sin provincia", legislador: nomVt(VTJ.nombres[x[0]]), bloque: VTJ.bloques[x[1]],
+    espacio: VT.espacios[x[2]], voto: VOTO_LAB[x[4]]}))
+  .sort((p, q) => p.territorio.localeCompare(q.territorio, "es") || p.legislador.localeCompare(q.legislador, "es")));
+TABLA_PROPIA["f-votaciones-espacios"] = async () => {
+  const cam = MED.vtmatriz, soloEd = MED.vtfiltro === "ed";
+  return [...VT.leyes].reverse().filter(l => l.camaras[cam] && (!soloEd || l.ed)).flatMap(l => VT.espacios
+    .filter(e => d3.sum(l.camaras[cam].espacios[e] || []))
+    .map(e => { const c = l.camaras[cam].espacios[e];
+      return {ley: l.nombre, año: +l.camaras[cam].fecha.slice(0, 4), espacio: e, a_favor: c[0], en_contra: c[1], abstenciones: c[2], ausentes: c[3]}; }));
+};
 const vtConm = (g, cam) => {  // pone el conmutador de una ficha en la cámara indicada
   const conm = document.querySelector(`.conmutador[data-g="${g}"]`);
   conm.querySelectorAll("button").forEach((b, i) => { const on = b.dataset.m === cam; b.setAttribute("aria-pressed", on); if (on) conm.style.setProperty("--i", i); });
@@ -4036,6 +4066,7 @@ function puntosVoto(el, cfg) {
   });
 }
 DIB.votaciones = a => {
+  refrescarTabla("f-votaciones");
   const L = VT_LEY[MED.vtLey], cam = MED.votaciones, C = L.camaras[cam], el = G("votaciones");
   document.getElementById("vt-sel").value = L.k;
   const t = C ? C.total : null, en = cam === "Diputados" ? "En Diputados" : "En el Senado";
@@ -4075,6 +4106,7 @@ const plataformaCelda = e => {
   return pl ? `<td class="plat"><a href="${CNE_2023 + encodeURIComponent(pl[1])}" target="_blank" rel="noopener" title="Plataforma de ${pl[0]}, elecciones 2023">PDF</a></td>` : `<td class="sin">—</td>`;
 };
 DIB.vtmatriz = a => {
+  refrescarTabla("f-votaciones-espacios");
   const cam = MED.vtmatriz, el = G("vtmatriz"), soloEd = MED.vtfiltro === "ed";
   const filas = VT.leyes.filter(l => !soloEd || l.ed);
   const leyes = filas.filter(l => l.camaras[cam]);
@@ -4886,6 +4918,10 @@ DIB.presidentes = a => {
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "Ciudad de Buenos Aires") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
 };
 MED.ministros = "gobierno";
+// "Ver tabla" (paso 5): las personas que fueron ministros o jefes de gabinete, con el CSV de la ficha (se baja al pedir la tabla, y si
+// falla se puede volver a pedir)
+let miTabla = null;
+TABLA_PROPIA["f-ministros"] = () => miTabla ||= d3.csv("datos/ministros_nacionales.csv").catch(e => { miTabla = null; throw e; });
 DIB.ministros = a => {
   document.querySelector('[data-t="ministros"]').textContent = `De las ${GBR.personas} personas que fueron ministros o jefes de gabinete desde 1983, se conoce el lugar de nacimiento de ${GBR.con_dato}. ` +
     `El ${pct(GBR.pct_amba)} nació en el AMBA, que tiene el ${pct(PRR.amba_pob)} de la población, y ${GBR.caba} en la Ciudad de Buenos Aires. ` +
@@ -5528,7 +5564,17 @@ const MAPA_DEP = (() => {
   const cargar = () => cargando || (cargando = Promise.all([d3.json("datos/departamentos.topo.json"), d3.csv("datos/departamentos.csv", d3.autoType)])
     .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }));
   const MIN_POB = 10000, MIN_HOG = 3000;  // las listas del censo se cortan por hogares, las demás por personas identificadas
+  // "Ver tabla" (paso 5): los departamentos que muestra el mapa (los de la provincia acercada o todos), con su nombre y el indicador
+  // elegido. El CSV solo trae el código de cada departamento: el nombre sale del mapa
+  TABLA_PROPIA["f-mapa"] = () => cargar().then(() => {
+    const m = META[ind], pv = cerca && cerca.de === prov ? cerca.c : prov;
+    return topojson.feature(topo, topo.objects.departamentos).features.filter(f => !NOMBRES[pv] || f.properties.prov === pv)
+      .map(f => ({codigo_indec: f.properties.prov, territorio: NOMBRES[f.properties.prov], departamento: f.properties.nombre,
+        [`${m.nombre}, ${m.unidad}`]: filas[f.properties.id]?.[ind] ?? null}))
+      .sort((p, q) => p.territorio.localeCompare(q.territorio, "es") || p.departamento.localeCompare(q.departamento, "es"));
+  });
   function dibujar(anim) {
+    refrescarTabla("f-mapa");
     const el = G("mapa-dep"); if (!el || !el.offsetParent) return;
     if (!topo) { cargar().then(() => dibujar(anim)); return; }
     const m = META[ind], censo = m.fuente.startsWith("INDEC"), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
@@ -6073,6 +6119,10 @@ const TABLA_VISTA = {
     return filas.map(r => ({mes: r.mes, [`${v.n}, ${v.u}`]: bcrValor(r), ...Object.fromEntries(cols.map(c => [NOM[c], r[c]]))}));
   }
 };
+// la tabla de una ficha de TABLA_PROPIA: puede no tener filas (por ejemplo, una votación del Senado sin acta nominal)
+function tablaPropia(filas, ficha) {
+  return filas.length ? tablaDatos(filas, ficha) : `<p class="tabla-nota">No hay filas para lo elegido en el gráfico.</p>`;
+}
 function tablaDatos(filas, ficha = "") {
   const MAX = 300, todas = Object.keys(filas[0]);
   const cols = todas.includes("territorio") ? ["territorio", ...todas.filter(c => c !== "territorio" && c !== "codigo_indec")] : todas;
@@ -6081,10 +6131,11 @@ function tablaDatos(filas, ficha = "") {
   const v = (r, c) => r[c] == null ? "" : typeof r[c] === "number" ? (anio(c) ? String(r[c]) : nTabla(r[c])) : Array.isArray(r[c]) ? r[c].join(", ") : typeof r[c] === "object" ? JSON.stringify(r[c]) : r[c];
   // Resaltado (etapa 16, idea de un tablero que compartió el autor): en cada columna de números, el 20% más alto en azul y negrita y lo
   // que queda debajo de la mitad en gris, para leer la tabla sin el gráfico. Se calcula sobre las filas que se ven, sin el total del país.
-  // No va en las fichas de suicidio (nada que se lea como ranking) ni en columnas de años, meses, códigos, edades o coordenadas
+  // No va en las fichas de suicidio (nada que se lea como ranking), en la de votos por espacio (paso 5: cuentas de leyes y espacios de
+  // distinto tamaño, que no se comparan entre sí) ni en columnas de años, meses, códigos, edades o coordenadas
   const vistas = filas.slice(0, MAX), esTotal = r => r.codigo_indec === "00" || /^total/i.test(String(r.territorio || ""));
   const corte = {};
-  if (!/suicid|f-muertes|f-edad/.test(ficha)) cols.forEach(c => {
+  if (!/suicid|f-muertes|f-edad|f-votaciones/.test(ficha)) cols.forEach(c => {
     if (!num[c] || anio(c) || /^(codigo_indec|anio|mes|semestre|trimestre|t|orden|edad|lat|lng)$/.test(c)) return;
     const xs = vistas.filter(r => !esTotal(r) && typeof r[c] === "number").map(r => r[c]).sort(d3.ascending);
     if (xs.length >= 6 && new Set(xs).size > 2) corte[c] = [d3.quantile(xs, .8), d3.quantile(xs, .5)];
@@ -6244,8 +6295,11 @@ async function imagenFicha(f) {
   const tit = envolver(f.querySelector("h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
   // con el título como pregunta (etapa 35), la descripción con el período va debajo
   const sub = envolver(f.querySelector(".ficha-sub")?.textContent || "", fS);
-  // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo
-  const pieL = envolver(`${(f.querySelector(".pie > span")?.textContent || "").trim().replace(/\.$/, "")}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
+  // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo, y sin el enlace "Cómo se calcula"
+  // (paso 5), que en la imagen no lleva a ningún lado
+  const fuente = f.querySelector(".pie > span")?.cloneNode(true);
+  fuente?.querySelector(".como-calcula")?.remove();
+  const pieL = envolver(`${(fuente?.textContent || "").trim().replace(/\.$/, "")}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
   // las leyendas que se ven en la ficha, leídas después de volver a dibujar el gráfico: así quedan al día con la medida elegida
   const leyes = [...f.querySelectorAll(LEY_IMG)].filter(e => e.getClientRects().length && e.textContent.trim()).map(e => leyendaImg(med, e, W - pad * 2))
     .filter(l => l.ops.length), eLey = parseFloat(css("--e-3")), altoLey = d3.sum(leyes, l => l.alto + eLey);
@@ -6283,18 +6337,26 @@ const SIN_RELACIONES = new Set(/*SIN_RELACIONES*/[]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
 const EN_CATALOGO = new Set(/*EN_CATALOGO*/[]);
+// el nombre de la sección arriba de la pregunta, solo en una página con fichas de más de una sección. Desde la Fase 2 (paso 5, respuesta
+// del autor del 23 de octubre de 2026) ninguna lo es: el nombre ya está arriba de la página y la pregunta queda primera
+const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
+// "Cómo se calcula" (paso 5, respuesta del autor): al final de la línea de la fuente, lleva a "Para entender los datos" de la página. No
+// va donde la página no lo tiene (Sector externo)
+const PARA_ENTENDER = !!document.getElementById("para-entender");
 document.querySelectorAll("article.ficha").forEach(f => {
   const h3 = f.querySelector("h3");
   // el nombre de la sección: en las que tienen la pregunta como título (h1) va en p.tema-nombre
-  const t = f.closest(".tema"), tema = (t?.querySelector(":scope > .tema-nombre") || t?.querySelector("h1, h2"))?.textContent;
+  const t = f.closest(".tema"), tema = VARIAS_SECCIONES && (t?.querySelector(":scope > .tema-nombre") || t?.querySelector("h1, h2"))?.textContent;
   if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
   // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
   if (c) (f.querySelector(".ficha-sub") || h3).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[2] || c[1]}</span></p>`);
   const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a");
   const acc = document.createElement("div"); acc.className = "acciones";
-  const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre];
-  const conTabla = nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
+  const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre], propia = TABLA_PROPIA[f.id];
+  const conTabla = propia || nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
+  if (PARA_ENTENDER) pie.querySelector(":scope > span")?.insertAdjacentHTML("beforeend",
+    ` <a class="enlace como-calcula" href="#para-entender" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}">Cómo se calcula</a>`);
   acc.innerHTML = `<button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
     (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
     (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
@@ -6309,14 +6371,15 @@ document.querySelectorAll("article.ficha").forEach(f => {
     if (!caja) {
       b.dataset.cargando = "1";
       let t;
-      try { t = await cargarTabla(nombre); } catch {
+      try { t = await (propia ? propia() : cargarTabla(nombre)); } catch {
         // sin datos (la red falló): un aviso que se anuncia, y el botón sigue para probar de nuevo
         f.querySelector(".tabla-error")?.remove();
         pie.insertAdjacentHTML("beforebegin", `<p class="nota tabla-error" role="status">No se pudo cargar la tabla. Probá de nuevo.</p>`);
         return;
       } finally { delete b.dataset.cargando; }
       f.querySelector(".tabla-error")?.remove();
-      caja = document.createElement("div"); caja.className = "tabla-datos"; caja.innerHTML = tablaDatos(TABLA_VISTA[f.id] ? TABLA_VISTA[f.id](t) : t, f.id); pie.before(caja);
+      caja = document.createElement("div"); caja.className = "tabla-datos";
+      caja.innerHTML = propia ? tablaPropia(t, f.id) : tablaDatos(TABLA_VISTA[f.id] ? TABLA_VISTA[f.id](t) : t, f.id); pie.before(caja);
     }
     caja.hidden = abierta; b.setAttribute("aria-expanded", String(!abierta));
     b.querySelector(".lbl").textContent = abierta ? "Ver tabla" : "Ocultar tabla";

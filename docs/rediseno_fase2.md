@@ -280,4 +280,29 @@ Lo que cambió:
 
 Queda para el paso 5 (fichas y herramientas): el enlace "Cómo se calcula" en el pie de cada ficha, que sería el séptimo botón en 143 fichas y se consulta antes con el autor, la etiqueta de la sección repetida arriba de cada pregunta y "Ver tabla" en las 5 fichas que no lo tienen.
 
+### Paso 5: fichas y herramientas (23 de octubre de 2026)
+
+Se midió cada forma en Chrome sin ventana, con el marcado agregado al vuelo, y el autor eligió:
+
+| Pregunta | Opciones medidas | Elegida |
+|---|---|---|
+| Cómo se suma "Cómo se calcula" (lleva a "Para entender los datos", al final de la página) | Enlace al final de la línea de la fuente: no suma alto en ningún ancho. Séptimo botón en las acciones: entra en la fila en la computadora y suma 42 píxeles por ficha en el celular. No sumarlo (arriba de cada página ya está "Para entender los datos", y 134 fichas tienen "Sobre los datos" con sus notas propias) | El enlace en la fuente |
+| La etiqueta con el nombre de la sección arriba de cada pregunta ("# SALUD"), que repite el nombre de arriba de la página | Sacarla: ahorra 33 píxeles por ficha en el celular (165 en Trabajo) y casi nada en la computadora. Dejarla | Sacarla |
+| "Ver tabla" en las 5 fichas que no lo tenían | Con lo que muestra el gráfico en ese momento. El CSV tal cual (en departamentos solo códigos sin nombres, en votaciones 300 de 9.292 filas y 1,1 MB al tocarlo). Dejarlo para después | Con lo que muestra el gráfico |
+
+Lo que cambió:
+- **Cómo se calcula.** Al final de la línea de la fuente de cada ficha ("…Se actualiza cada mes. Cómo se calcula"), un enlace a "Para entender los datos" de su página. Lo tienen 133 de las 143 fichas: Sector externo no tiene esa explicación y ahí no aparece. No se parte en dos renglones, y no entra en la imagen que se descarga de la ficha.
+- **Sin la etiqueta de la sección.** La pregunta queda primera en cada ficha. El código la sigue poniendo si algún día una página junta fichas de más de una sección.
+- **"Ver tabla" en las 143 fichas.** Las cinco que no lo tenían muestran lo que se ve en su gráfico y la tabla cambia si se elige otra cosa con la tabla abierta:
+  - Departamentos: los departamentos de la provincia acercada (o todos, las primeras 300 filas de 527), con su provincia, su nombre (el CSV solo trae el código, el nombre sale del mapa) y el indicador elegido.
+  - Legisladores: los diputados y senadores de la provincia y el período elegidos, con su bloque, su espacio, desde y hasta cuándo, y a quién reemplazaron.
+  - Votaciones: el voto de cada legislador en la ley y la cámara elegidas, con su provincia, su bloque y su espacio. Si el Senado no publicó el acta de esa votación, la tabla lo dice.
+  - Votaciones por espacio: los votos detrás de cada porcentaje (a favor, en contra, abstenciones y ausentes) por ley y espacio en la cámara elegida. Esta tabla no resalta los valores altos y bajos: son cuentas de leyes y espacios de distinto tamaño.
+  - Ministros: las 291 personas, con el CSV de la ficha.
+  Usan los datos que el gráfico ya bajó, salvo ministros (47 KB, al tocar el botón). Resuelve el P2-16 del plan de estabilización.
+- Ninguna dirección cambió y los datos no se tocaron: `fichas.js` no cambia. En `sitio/datos/relaciones.json` solo corren los números de línea de `datina.js` que cita el Explorador.
+
+Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que ahora controla en las 143 fichas que tengan "Ver tabla", que ninguna lleve el nombre de la sección arriba de la pregunta y que "Cómo se calcula" esté en las páginas con "Para entender los datos" y en ninguna otra, abre "Ver tabla" en las cinco fichas nuevas y controla que la de legisladores cambie al elegir otra provincia ("Todo en orden" en 51 páginas). Corrida contra la versión del paso 4, marca 53 problemas, todos de esos controles: las 5 fichas sin "Ver tabla", la etiqueta en las 23 páginas con fichas y la falta de "Cómo se calcula". Capturas en Chrome sin ventana en 1440, 1024, 768 y 390 píxeles: el pie, la cabeza de una ficha sin la etiqueta, las cinco tablas (en el celular se deslizan dentro de su recuadro, la página no se sale de costado) y adónde lleva "Cómo se calcula" (la sección queda a la vista, debajo de la barra).
+
+
 Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que ahora junta los enlaces "Ficha: …" de los 18 artículos y los "Artículos con este dato" de todas las fichas y controla que coincidan (29 y 29), que las 18 tarjetas de Artículos tengan su bajada y que la portada no la tenga ("Todo en orden" en 51 páginas). Corrida contra la versión del paso 3, marca los 29 enlaces sin vuelta y las 18 tarjetas sin bajada, y nada más. Capturas en Chrome sin ventana en 1440 y 390 píxeles de los pies de dos fichas (con 4 artículos y con uno) y de la página Artículos: nada se sale de costado. Saltos al cargar medidos en Artículos, la portada y Pobreza y hogares, tres cargas por ancho, antes y después.
