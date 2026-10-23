@@ -17,7 +17,7 @@ Ningún cambio está terminado hasta correr lo que corresponde y mirar el result
 | Copia del consultor al sitio (`scripts/consultor_pobreza.py`) | `python scripts/prueba_pobreza.py` (un armado normal no reemplaza `sitio/pobreza/` aunque exista `pobreza/dist`, `--con-pobreza` lo copia y sin armado frena). 03 la corre antes de armar y no arma el sitio si falla |
 | Descargas (`01_descargar.py`) | Solo con aprobación del autor |
 
-Línea de base del 10 de octubre de 2026 (commit b4b1fc1): `pruebas_datos.py` 0 sin explicar y 115 explicados (3 segundos), `03_construir_sitio.py` arma 23 páginas de sección y 18 artículos (3 segundos), sintaxis bien. Detalle en `docs/roadmap/ESTADO.md`.
+Línea de base del 23 de octubre de 2026 (rama `claude/estabilizacion-y-produccion`): `pruebas_datos.py` 0 sin explicar y 118 explicados, `03_construir_sitio.py` arma 25 páginas de sección y 18 artículos (52 páginas en `sitio/`, con la 404 y la redirección vieja), `prueba_paginas.mjs` revisa 51 páginas en unos 5 minutos, y `02_procesar.py` corrido dos veces da los mismos 261 archivos (unos 3 minutos). Detalle en `docs/roadmap/ESTADO.md`.
 
 ## Finales de línea
 

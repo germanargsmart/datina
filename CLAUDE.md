@@ -28,7 +28,7 @@ scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geom
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos
 pobreza/                       consultor de pobreza aparte (Observable Framework, DuckDB, Parquet): ver pobreza/README.md
-sitio/                         lo único que se publica (Netlify, netlify.toml). Nunca se edita a mano: sale de scripts/
+sitio/                         lo único que se publica (Cloudflare Pages, _headers). Nunca se edita a mano: sale de scripts/
 docs/roadmap/                  plan vigente, estado, decisiones, criterios de aceptación e inventario
 .github/workflows/actualizar.yml  actualización automática mensual (día 5): descarga, procesa, prueba, arma y publica
 ```
@@ -93,4 +93,4 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 
 ## Publicación
 
-Netlify toma la carpeta `sitio/`. La actualización del día 5 republica sola cuando el repositorio está conectado. Cambios de infraestructura, DNS, servidores o secretos: siempre con revisión del autor, nunca desde un agente.
+Desde el 23 de octubre de 2026 (decisión del autor), Cloudflare Pages publica la carpeta `sitio/`: sin armado propio, con la caché de `sitio/_headers` (la escribe 03) y sin formularios (`"formularios"` vacío en `datos/manual/sitio.json`). Ningún archivo de `sitio/` puede pasar de 25 MB. La actualización del día 5 republica sola cuando el repositorio está conectado. Cómo conectarlo y verificar: `docs/deploy/CLOUDFLARE.md`. Cambios de infraestructura, DNS, servidores o secretos: siempre con revisión del autor, nunca desde un agente.

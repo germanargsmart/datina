@@ -2,6 +2,27 @@
 
 Auditoría técnica del 22 de octubre de 2026. Solo lectura: no se cambió código ni datos.
 
+## Estado al 23 de octubre de 2026
+
+| Problema | Estado |
+|---|---|
+| P0-1 (D3 desde cdnjs) | Resuelto: D3 y topojson desde el propio sitio, las fichas visibles si el arranque se corta (commit 7cd2124) |
+| P1-1 (ramas desalineadas) | PR #2 y #4 cerrados sin unir, con lo rescatable anotado en cada uno. Falta que el autor una el PR #3 y el de estabilización y producción |
+| P1-2 (la actualización del 5 de noviembre sobre `main`) | Se resuelve al unir los dos PR. Después, una corrida a mano (aprobada por el autor) |
+| P1-3 (`pobreza/dist` vieja) | Resuelto: copia solo con `--con-pobreza` (3f33046). El consultor se rearmó el 23 de octubre |
+| P1-4 (finales de línea) | Resuelto: LF en todo lo que escriben 02 y 03, y `.gitattributes` |
+| P1-5 (versiones sin fijar) | Resuelto: `requirements.txt` con las versiones de la última corrida en verde |
+| P2-1 (orden inestable en 02) | Resuelto: orden estable en las tres tablas |
+| P2-2 (documentos con números viejos) | Resuelto |
+| P2-4 (workflow) | Resuelto: concurrency, límite de dos horas, versión de Chrome y `git pull --rebase` antes de subir |
+| P2-5 (PDF de reservas en el repositorio) | Pendiente: decisión del autor |
+| P2-11 (navegación) | Resuelto en la Fase 2 (`docs/rediseno_fase2.md`) |
+| P2-12 (consultor de pobreza) | En parte: el enlace de vuelta va a Pobreza y hogares. `./diccionario` sin `.html` anda en Cloudflare, que saca las extensiones |
+| P2-16 (fichas sin "Ver tabla") | Resuelto en la Fase 2, paso 5 |
+| P2-20 (SRI y dos versiones de D3) | Resuelto con P0-1: D3 y topojson desde el sitio. El consultor baja DuckDB de jsDelivr desde el 23 de octubre (por el límite de Cloudflare) |
+| Sección 7 y paso 8 (publicación) | El autor eligió Cloudflare Pages en lugar de Netlify: `docs/deploy/CLOUDFLARE.md`. Conectarlo lo hace el autor |
+| P2-3, P2-6 a P2-10, P2-13 a P2-15, P2-17 a P2-19 | Pendientes, de a uno, cuando el autor los pida |
+
 ## 1. Alcance y método
 
 - **Versión auditada:** la rama `claude/focused-cerf-tn93c3` (PR #3, en borrador), commit 333dede. Es la más nueva y la que va a pasar a `main`. Elegida por el autor.

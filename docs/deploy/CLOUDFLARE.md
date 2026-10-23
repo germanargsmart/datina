@@ -12,7 +12,7 @@ Decisión del autor del 23 de octubre de 2026: el sitio se publica en Cloudflare
 
 ## Límite que hay que tener en cuenta
 
-Cloudflare Pages no acepta archivos de más de 25 MiB ([límites de Cloudflare Pages](https://developers.cloudflare.com/pages/platform/limits/)). Los dos archivos de DuckDB del consultor de pobreza (`sitio/pobreza/_npm/@duckdb/duckdb-wasm@1.29.0/dist/`, de 35,7 y 40,6 MB) lo superan: mientras estén en `sitio/`, Cloudflare rechaza la publicación entera. Ver el estado en "Consultor de pobreza", más abajo.
+Cloudflare Pages no acepta archivos de más de 25 MiB ([límites de Cloudflare Pages](https://developers.cloudflare.com/pages/platform/limits/)): si hay uno solo más grande, rechaza la publicación entera. Hasta el 23 de octubre de 2026 el consultor de pobreza traía dos archivos de DuckDB de 35,7 y 40,6 MB. Desde ese día el editor de SQL los baja de jsDelivr y ya no están en `sitio/` (ver "Consultor de pobreza", más abajo). El archivo más grande que queda en `sitio/` pesa menos de 20 MB.
 
 ## Conectar (lo hace el autor, una sola vez)
 
@@ -49,4 +49,4 @@ Cloudflare Pages no acepta archivos de más de 25 MiB ([límites de Cloudflare P
 
 ## Consultor de pobreza
 
-Ver `pobreza/README.md`. Para publicarse en Cloudflare, el editor de SQL tiene que bajar DuckDB de otro lado (su CDN, jsDelivr) en lugar de llevarlo adentro del sitio.
+Ver `pobreza/README.md`. Desde el 23 de octubre de 2026 su editor de SQL baja DuckDB 1.29.0 de jsDelivr (y DuckDB baja de su servidor la extensión para leer Parquet), así que el consultor pesa 7 MB en lugar de 88 y entra en Cloudflare. Es lo único del sitio que depende de un servidor de afuera: si jsDelivr no responde, la consulta guiada anda igual y el editor de SQL no abre (muestra el error técnico).
