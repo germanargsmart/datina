@@ -888,6 +888,18 @@ for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
     base = base.replace(marca, valor)
+# Formularios de contacto y suscripción: los recibía Netlify. Desde el 23 de octubre de 2026 el sitio va a Cloudflare Pages, que no los
+# recibe, y el autor decidió ocultarlos hasta elegir otro servicio. Con "formularios" vacío en datos/manual/sitio.json, el armado saca la
+# suscripción del pie y el formulario de Contacto, que dice que todavía no está disponible. Con "netlify", quedan como estaban
+SITIO_CONF = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))
+FORMULARIOS = SITIO_CONF.get("formularios", "").strip()
+assert FORMULARIOS in ("", "netlify"), 'datos/manual/sitio.json: "formularios" tiene que ser "netlify" o quedar vacío'
+if not FORMULARIOS:
+    base, _n = re.subn(r'\s*<!-- suscripción \(11 de octubre.*?</form>', "", base, count=1, flags=re.S)
+    assert _n == 1, "no se encontró la suscripción del pie en la plantilla"
+    base, _n = re.subn(r'<!-- formulario de Netlify.*?<p class="form-gracias" id="susc-gracias" hidden>[^<]*</p>',
+                       '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>', base, count=1, flags=re.S)
+    assert _n == 1, "no se encontró el formulario de Contacto en la plantilla"
 BLOQUES = bloques(base)
 for b in BLOQUES:
     b["pagina"] = pagina_de(b)
@@ -972,7 +984,7 @@ def encabezado_principal(h, id_):
 # no hay canonical absolutos, og:url, sitemap.xml, robots.txt ni Dataset, para no apuntar a un dominio inventado. Las etiquetas
 # Open Graph y Twitter van siempre en las páginas que se indexan, con un título que dice algo (en las secciones, el nombre y su
 # pregunta). Los artículos y las piezas del Laboratorio llevan además un Article en JSON-LD. scripts/prueba_metadatos.py lo controla
-URL_SITIO = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))["url"].strip().rstrip("/")
+URL_SITIO = SITIO_CONF["url"].strip().rstrip("/")
 assert not URL_SITIO or URL_SITIO.startswith("https://"), "datos/manual/sitio.json: la dirección tiene que empezar con https://"
 INDEXADAS = []
 
@@ -1166,6 +1178,12 @@ if URL_SITIO:
     (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
                                      "".join(f"  <url><loc>{URL_SITIO}/{a}</loc></url>\n" for a in INDEXADAS) + "</urlset>\n", encoding="utf-8", newline="\n")
     (SITIO / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {URL_SITIO}/sitemap.xml\n", encoding="utf-8", newline="\n")
+# Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
+# netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
+# cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
+CACHE_LARGO = (["/datina.css", "/datina.js", "/datos/fichas.js", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+               + [f"/datos/{n}.json" for n in DIFERIDAS])
+(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO), encoding="utf-8", newline="\n")
 # metadatos y enlaces internos (scripts/prueba_metadatos.py): si algo falla, el sitio no se da por armado
 import prueba_metadatos
 _met = prueba_metadatos.revisar(URL_SITIO)

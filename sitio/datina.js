@@ -8118,12 +8118,13 @@ document.getElementById("chip-borrar")?.addEventListener("click", () => {
 });
 
 /* contacto: aviso después de enviar el formulario (Netlify vuelve a esta página con ?enviado=1) */
-if (PAGINA === "contacto" && new URLSearchParams(location.search).has("enviado")) {
+// (con los formularios ocultos, desde el 23 de octubre de 2026, Contacto no tiene formulario y no hay nada que mostrar)
+if (PAGINA === "contacto" && new URLSearchParams(location.search).has("enviado") && document.querySelector(".form-contacto")) {
   document.querySelector(".form-contacto").hidden = true;
   document.getElementById("form-gracias").hidden = false;
 }
 // y después de suscribirse desde el pie (?suscripto=1): el aviso en Contacto, debajo de su formulario, que sigue disponible
-if (PAGINA === "contacto" && new URLSearchParams(location.search).has("suscripto")) document.getElementById("susc-gracias").hidden = false;
+if (PAGINA === "contacto" && new URLSearchParams(location.search).has("suscripto") && document.getElementById("susc-gracias")) document.getElementById("susc-gracias").hidden = false;
 // la suscripción del pie (11 de octubre de 2026, pedido del autor): con este código se envía a Netlify sin salir de la página. El botón
 // cambia de texto en su lugar ("Enviando", "Anotado") y queda ocupado (aria-busy) sin perder el foco. Si el envío falla, o el sitio no está
 // en Netlify, lo dice y deja probar de nuevo. Sin este código, el formulario se envía como siempre y vuelve a Contacto con ?suscripto=1
