@@ -42,7 +42,8 @@ Detalle, medidas y motivos: `docs/historico/etapas-previas.md`, secciones "Regla
 ## Accesibilidad
 
 - Foco visible, teclado completo, Escape cierra paneles y devuelve el foco, contraste 4,5 a 1 en letra chica, nada que dependa solo del mouse (tocar también funciona), movimiento y transparencia reducidos respetados.
-- Toda vista gráfica tiene su alternativa en tabla o lista ("Ver tabla").
+- Toda vista gráfica tiene su alternativa en tabla o lista ("Ver tabla"), desde el 23 de octubre de 2026 en las 143 fichas, y un nombre para lectores de pantalla (`nombreGrafico()` en `lienzo()`: la pregunta de su ficha y dónde están los datos).
+- "Saltar al contenido" es la primera parada de Tab en todas las páginas y solo se ve al enfocarlo (Fase 2, paso 6). Las migas van subrayadas.
 
 ## Cambios de diseño
 

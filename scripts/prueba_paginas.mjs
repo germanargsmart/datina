@@ -70,6 +70,15 @@ async function revisarPagina(pg, intento = 1) {
   if (fi.sinTabla.length) problemas.push(`${pg}: fichas sin "Ver tabla": ${fi.sinTabla.join(", ")}`);
   if (fi.etiquetas.length) problemas.push(`${pg}: fichas con el nombre de la sección arriba de la pregunta: ${fi.etiquetas.join(", ")}`);
   if (fi.comoMal.length) problemas.push(`${pg}: "Cómo se calcula" falta o sobra en ${fi.comoMal.join(", ")}`);
+  // accesibilidad (paso 6): cada gráfico con nombre para lectores de pantalla (después de recorrer la página, cuando ya se dibujaron),
+  // el enlace para saltar al contenido y las migas subrayadas
+  const ac = await p.eval(`({sinNombre: [...document.querySelectorAll('[role="img"]')].filter(e => !(e.getAttribute("aria-label") || "").trim() && !e.getAttribute("aria-labelledby")).length,
+    saltar: !!document.querySelector('a.saltar[href="#contenido"]') && !!document.getElementById("contenido"),
+    migas: [...document.querySelectorAll(".migas a")].filter(a => !getComputedStyle(a).textDecorationLine.includes("underline")).length})`);
+  if (ac.sinNombre) problemas.push(`${pg}: ${ac.sinNombre} gráficos sin nombre para lectores de pantalla`);
+  if (!ac.saltar) problemas.push(`${pg}: falta "Saltar al contenido" o su destino`);
+  if (ac.migas) problemas.push(`${pg}: ${ac.migas} enlaces de las migas sin subrayar`);
+  CUENTA.paginas = (CUENTA.paginas || 0) + 1;
 }
 
 const CIFRAS = `(() => {
@@ -162,7 +171,7 @@ for (const [pg, pide] of Object.entries(SIN_CDN)) {
 await q.send("Network.setBlockedURLs", {urls: []});
 const tecla = async k => {
   for (const type of ["keyDown", "keyUp"])
-    await q.send("Input.dispatchKeyEvent", {type, key: k, code: k, windowsVirtualKeyCode: {Enter: 13, Escape: 27, ArrowDown: 40}[k], ...(k === "Enter" && type === "keyDown" ? {text: "\r"} : {})});
+    await q.send("Input.dispatchKeyEvent", {type, key: k, code: k, windowsVirtualKeyCode: {Enter: 13, Escape: 27, ArrowDown: 40, Tab: 9}[k], ...(k === "Enter" && type === "keyDown" ? {text: "\r"} : {})});
   await espera(300);
 };
 const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.activeElement.textContent.trim().slice(0, 30)");
@@ -218,6 +227,18 @@ else {
 await lupa("zzqqxx");
 const nada = await q.eval(`document.querySelector("#busca-res [role=option]")?.getAttribute("href") + " | " + document.getElementById("busca-estado")?.textContent`);
 if (!nada.startsWith("catalogo.html?q=zzqqxx | Nada coincide")) problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece el catálogo con lo escrito (${nada})`);
+// accesibilidad con el teclado (paso 6): Tab saca el foco de la lupa abierta y la cierra, la primera parada de Tab es "Saltar al
+// contenido" y Enter lleva el foco al título, y el mapa de la portada tiene nombre
+await tecla("Tab");
+if (!(await q.eval(`document.getElementById("buscador").hidden`))) problemas.push(`trabajo.html: Tab no cierra la lupa (foco en ${await enFoco()})`);
+await q.ir(B + "trabajo.html", 1000);
+await tecla("Tab");
+if (!(await q.eval(`document.activeElement.classList.contains("saltar")`))) problemas.push(`trabajo.html: la primera parada de Tab no es "Saltar al contenido" (${await enFoco()})`);
+await tecla("Enter");
+if (!(await q.eval(`document.activeElement.tagName === "H1"`))) problemas.push(`trabajo.html: "Saltar al contenido" no lleva el foco al título (${await enFoco()})`);
+await q.ir(B + "index.html", 1000);
+if (!(await q.eval(`(document.getElementById("mapa").getAttribute("aria-label") || "").includes("Provincias") && document.getElementById("mapa").getAttribute("aria-hidden") !== "true"`)))
+  problemas.push("index.html: el mapa no dice que la lista de Provincias es su camino con el teclado");
 q.errores.forEach(e => problemas.push(`buscador: ${e}`));
 await q.tamano(390, 844);
 await q.ir(B + "trabajo.html", 1000);
@@ -237,7 +258,8 @@ servidor.close();
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
 console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
 console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas.`);
-console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter y sin coincidencias.`);
+console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias y Tab.`);
+console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);

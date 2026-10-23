@@ -23,6 +23,9 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <link rel="stylesheet" href="datina.css?v=__V_CSS__">
 </head>
 <body>
+<!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
+     al enfocarla. Lleva a #contenido, justo después de la barra y los menús, y datina.js pasa el foco al título de la página -->
+<a class="saltar boton principal" href="#contenido">Saltar al contenido</a>
 <header class="barra">
   <div class="envoltura">
     <div class="barra-izq">
@@ -60,11 +63,13 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 </nav>
 <!-- los menús de la barra (Temas, Provincias, Historias y Herramientas): los arma el constructor desde GRUPOS y MENUS -->
 <!--GRUPOS-MENU-->
+<div id="contenido" tabindex="-1"></div>
 
 <section class="portada en-azul armando" id="inicio">
   <!-- mapa: el mundo visto desde la Argentina y las 24 jurisdicciones, que llevan a su perfil (lo dibuja datina.js). "armando": el
-       sol y la ayuda esperan a que las provincias se armen en el país, como un rompecabezas (datina.js lo saca al terminar) -->
-  <svg class="mapa-fondo" id="mapa" aria-hidden="true"></svg>
+       sol y la ayuda esperan a que las provincias se armen en el país, como un rompecabezas (datina.js lo saca al terminar). El
+       teclado lo saltea (sus provincias tienen tabindex="-1"): su nombre dice que la lista de Provincias es el camino (paso 6) -->
+  <svg class="mapa-fondo" id="mapa" role="img" aria-label="Mapa de las 24 jurisdicciones. Con el teclado, cada una está en la lista de Provincias, más abajo en esta página"></svg>
   <div class="portada-grid">
     <div class="portada-texto">
       <h1>Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</h1>

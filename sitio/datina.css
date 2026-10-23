@@ -645,7 +645,8 @@ html:not(.js) .busca-portada{display:none}
 .migas ol{display:flex;flex-wrap:wrap;align-items:center;margin:0;padding:0;list-style:none}
 .migas li{display:flex;align-items:center;min-width:0}
 .migas li+li::before{content:"\203A";margin:0 var(--e-2);font-size:14px;line-height:1;color:var(--faint)}
-.migas a{padding:4px 0;color:var(--celeste-fuerte);text-decoration:none}
+/* subrayadas como los demás enlaces, para no distinguirlas solo por el color (Fase 2, paso 6, respuesta del autor) */
+.migas a{padding:4px 0;color:var(--celeste-fuerte);text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
 .migas span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
 .migas-prov{color:var(--azul)}
 .migas-prov[hidden]{display:none}
@@ -1645,6 +1646,11 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 }
 .oculto{display:none}
 .solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* "Saltar al contenido" (Fase 2, paso 6): fuera de la vista hasta que lo enfoca el teclado. Es el botón principal, arriba a la izquierda
+   sobre la barra. El lugar al que salta y el título que recibe el foco no dibujan un recuadro alrededor */
+.saltar{position:fixed;top:var(--e-2);left:var(--e-2);z-index:20;box-shadow:var(--sombra-panel)}
+.saltar:not(:focus){width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+#contenido:focus,h1[tabindex="-1"]:focus{outline:0}
 .form-gracias{max-width:34em;font-size:var(--t-5)}
 .no-acciones{display:flex;flex-wrap:wrap;gap:var(--e-3);margin:var(--e-6) 0 0}
 /* autores y licencias de las banderas, en Sobre nosotros */

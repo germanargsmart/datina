@@ -1508,10 +1508,18 @@ const desplegable = (() => {
 })();
 
 /* ---------- utilidades de gráfico ---------- */
+// nombre de un gráfico para lectores de pantalla (Fase 2, paso 6): la pregunta de su ficha o el título del gráfico, y dónde están los
+// datos. Los dibujos que ponen su propio aria-label lo hacen después de lienzo() y lo reemplazan
+function nombreGrafico(el) {
+  const ficha = el.closest("article.ficha"), caja = ficha || el.closest(".nota-graf, .lab-pieza, section");
+  const tit = (caja?.querySelector("h3, h2")?.textContent || "").trim();
+  if (!tit) return "Gráfico";
+  return `Gráfico: ${tit}` + (ficha?.querySelector(".ver-tabla") ? ". Los datos están en «Ver tabla», debajo" : el.closest(".nota-graf") ? ". Los datos se descargan en CSV al final del artículo" : "");
+}
 function lienzo(el, h, m) {
   el.innerHTML = ""; el.removeAttribute("aria-busy"); el.resaltar = null;
   const w = Math.max(300, el.clientWidth);
-  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role","img");
+  const svg = d3.select(el).append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("role","img").attr("aria-label", nombreGrafico(el));
   return {svg, w, h, iw: w - m.l - m.r, ih: h - m.t - m.b, g: svg.append("g").attr("transform", `translate(${m.l},${m.t})`)};
 }
 function mostrarTip(el, html, x, y) {
@@ -7649,6 +7657,15 @@ document.addEventListener("click", ev => {
   const u = a && destinoDe(a.getAttribute("href"));
   if (u && !ev.ctrlKey && !ev.metaKey && !ev.shiftKey) { ev.preventDefault(); location.href = u; }
 });
+/* "Saltar al contenido" (Fase 2, paso 6): el foco va al título de la página, que se anuncia, y la parada siguiente de Tab es lo que sigue.
+   Sin JavaScript lleva a #contenido. En la 404, que tiene <base href="/">, el enlace solo habría llevado a la portada */
+document.querySelector(".saltar")?.addEventListener("click", ev => {
+  const destino = document.querySelector("h1") || document.getElementById("contenido");
+  if (!destino) return;
+  ev.preventDefault();
+  if (destino.tagName === "H1") destino.setAttribute("tabindex", "-1");
+  destino.focus();
+});
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
@@ -7974,7 +7991,8 @@ if (PAGINA !== "inicio") {
   // marcada o, si no hay ninguna, la primera
   const combo = (ent, res, est, base) => {
     Object.entries({role: "combobox", "aria-autocomplete": "list", "aria-controls": res.id, "aria-expanded": "false"}).forEach(([k, v]) => ent.setAttribute(k, v));
-    res.setAttribute("role", "listbox"); res.setAttribute("aria-label", "Resultados de la búsqueda");
+    // fuera del orden de Tab: Chrome vuelve parada de Tab a una caja con desplazamiento, y el foco se metía en la lista (paso 6)
+    res.setAttribute("role", "listbox"); res.setAttribute("aria-label", "Resultados de la búsqueda"); res.setAttribute("tabindex", "-1");
     let activo = -1;
     const ops = () => [...res.querySelectorAll('[role="option"]')];
     const marcar = i => {
@@ -8007,6 +8025,9 @@ if (PAGINA !== "inicio") {
     else if (ev.key === "/" && caja.hidden && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "")) { ev.preventDefault(); abrir(); }
   });
   document.addEventListener("pointerdown", ev => { if (!caja.hidden && !caja.contains(ev.target) && !btn.contains(ev.target)) cerrar(false); });
+  // salir con Tab la cierra (paso 6). Solo cuando el foco va a otro lugar conocido: en el celular tocar no siempre mueve el foco, y un
+  // relatedTarget vacío no debe cerrarla antes de que llegue el toque
+  caja.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!caja.hidden && a && !caja.contains(a) && a !== btn) cerrar(false); });
   // el buscador a la vista de la portada (paso 2): la lista aparece debajo del campo mientras se escribe y Escape borra lo escrito. Sin
   // JavaScript, el formulario lleva al catálogo de datos
   const entP = document.getElementById("busca-portada"), resP = document.getElementById("busca-portada-res");
@@ -8024,6 +8045,8 @@ if (PAGINA !== "inicio") {
     entP.addEventListener("input", () => { if (entP.value.trim()) { resP.hidden = false; portada.mostrar(); ubicarP(); } else cerrarP(); });
     entP.addEventListener("keydown", ev => { if (ev.key === "Escape" && entP.value) { entP.value = ""; cerrarP(); } });
     document.addEventListener("pointerdown", ev => { if (!resP.hidden && !resP.contains(ev.target) && ev.target !== entP) cerrarP(); });
+    // salir del campo con Tab cierra la lista, que va fija y quedaba flotando (paso 6)
+    entP.addEventListener("focusout", ev => { const a = ev.relatedTarget; if (!resP.hidden && a && !resP.contains(a)) cerrarP(); });
   }
 })();
 

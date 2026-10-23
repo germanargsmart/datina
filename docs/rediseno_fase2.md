@@ -306,3 +306,28 @@ Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que aho
 
 
 Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que ahora junta los enlaces "Ficha: …" de los 18 artículos y los "Artículos con este dato" de todas las fichas y controla que coincidan (29 y 29), que las 18 tarjetas de Artículos tengan su bajada y que la portada no la tenga ("Todo en orden" en 51 páginas). Corrida contra la versión del paso 3, marca los 29 enlaces sin vuelta y las 18 tarjetas sin bajada, y nada más. Capturas en Chrome sin ventana en 1440 y 390 píxeles de los pies de dos fichas (con 4 artículos y con uno) y de la página Artículos: nada se sale de costado. Saltos al cargar medidos en Artículos, la portada y Pobreza y hogares, tres cargas por ancho, antes y después.
+
+### Paso 6: accesibilidad del mapa y del teclado (23 de octubre de 2026)
+
+Antes de tocar nada se auditó el sitio en Chrome sin ventana: gráficos con `role="img"` sin nombre en las 51 páginas, el tamaño de todo lo que se toca en siete páginas con toque emulado en 390 píxeles, el foco al recorrer con Tab, el contraste de la letra chica, la lupa con Tab y el movimiento reducido. Resultado: 164 de 179 gráficos sin nombre, Tab dejaba abiertas la lupa y la lista de la portada (el foco se metía en la lista, que Chrome vuelve parada de Tab por tener desplazamiento), no había enlace para saltar al contenido, el mapa de la portada estaba oculto para los lectores de pantalla y las migas se distinguían solo por el color. El foco se veía en todas las paradas, el contraste daba 4,5 a 1 o más (el único caso por debajo era falso: la letra blanca del botón elegido de los conmutadores va sobre un marcador azul aparte) y con movimiento reducido no había animaciones con desplazamiento.
+
+El autor eligió lo que cambia el aspecto:
+
+| Pregunta | Opciones | Elegida |
+|---|---|---|
+| Enlace para saltar al contenido | Sí, visible solo al enfocarlo con el teclado. No sumarlo | Sí |
+| Migas | Subrayado fino como los demás enlaces. Dejarlas solo con color | Subrayado |
+| Botones de las fichas en el celular (34 píxeles de alto) | Dejarlos: todo lo que se toca cumple el mínimo de WCAG 2.2 (24 píxeles o separación suficiente: los enlaces del pie del sitio miden 18 pero están a 31 de distancia). Llevarlos a 44 en pantallas táctiles: +244 píxeles en Trabajo y +685 en Instituciones políticas | Dejarlos |
+
+Lo que cambió:
+- **Saltar al contenido.** La primera parada de Tab en las 51 páginas, arriba a la izquierda, con el aspecto del botón principal. No se ve con el mouse ni en el celular. Lleva a `#contenido`, justo después de la barra y los menús (en la portada el buscador y el título están antes del `<main>`, por eso no salta al `<main>`), y `datina.js` pasa el foco al título de la página, que se anuncia, sin dibujar un recuadro. En la 404, que tiene `<base href="/">`, el enlace solo habría llevado a la portada: el código lo evita. En el Explorador de relaciones, que no usa `datina.js`, lleva a su `<main>`.
+- **Gráficos con nombre.** `lienzo()` le pone a cada gráfico la pregunta de su ficha (o el título del gráfico en los artículos y el Laboratorio) y dónde están los datos ("Los datos están en «Ver tabla», debajo", o en el CSV al final del artículo). Los dibujos que ya tenían su propio nombre lo conservan. Quedan 0 de 180 sin nombre.
+- **Mapa de la portada.** Deja de estar oculto para los lectores de pantalla y se llama "Mapa de las 24 jurisdicciones. Con el teclado, cada una está en la lista de Provincias, más abajo en esta página". El teclado lo sigue salteando, como decidió el autor antes.
+- **Tab en la lupa y en el buscador de la portada.** Las listas de resultados salen del orden de Tab, y salir con Tab cierra la lupa y la lista de la portada (que va fija y quedaba flotando). En el celular tocar no siempre mueve el foco: solo se cierra cuando el foco va a otro lugar conocido, y tocar afuera sigue cerrándolas como antes.
+- **Migas subrayadas**, con el subrayado celeste fino de los demás enlaces. La página actual, al final, sigue sin subrayar.
+- Ninguna dirección cambió, los datos no se tocaron y ninguna página cambió de alto (medido en 1440, 1024, 768 y 390 píxeles en Trabajo, un artículo y la portada, antes y después). En `sitio/datos/relaciones.json` solo corren los números de línea de `datina.js`.
+
+Queda anotado, sin cambiar: los gráficos que se recorren con el teclado (los puntos de Cruces) tienen `role="img"`, que para un lector de pantalla vuelve decorativo lo que tienen adentro. Sus mismas opciones están en los selectores de la herramienta, pero conviene revisarlo aparte.
+
+Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que ahora controla en las 51 páginas que ningún gráfico quede sin nombre (después de recorrer la página, cuando ya se dibujaron), que esté "Saltar al contenido" con su destino y que las migas estén subrayadas, y con el teclado, que la primera parada de Tab sea el salto y Enter lleve el foco al título, que Tab cierre la lupa y que el mapa tenga su nombre ("Todo en orden"). Corrida contra la versión del paso 5, marca 144 problemas, todos de esos controles. Aparte: el foco, comparando cada parada de Tab con y sin foco, cambia de aspecto en todas (93 paradas en Trabajo, 105 en la portada, 79 en Instituciones políticas, 68 en Artículos y 88 en Trabajo en el celular). Capturas del salto en los cuatro anchos, en la 404 (no se va a otra página) y en el Explorador, y de las migas. No se probó con un lector de pantalla real.
+
