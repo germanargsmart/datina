@@ -278,6 +278,8 @@ En un segundo commit, la imagen suma la cifra destacada (`.clave`) debajo de la 
 
 ## Próxima tarea
 
+Plan de estabilización (Fase 1A, auditoría del 22 de octubre de 2026, aprobada por el autor): `docs/plan_estabilizacion.md`, con los problemas P0 a P2, los comandos medidos y el orden. Hecho el paso 1 (el documento). Sigue el paso 2, que necesita al autor: unir el PR #3 a `main` antes de la actualización del 5 de noviembre, decidir qué hacer con los PR #2 y #4 y borrar o rearmar la `pobreza/dist` vieja de su computadora. Mientras exista esa carpeta, no correr `03_construir_sitio.py` ahí (reemplaza el consultor de pobreza publicado por la versión del 28 de septiembre).
+
 Orden elegido por el autor el 10 de octubre de 2026 (respuestas en la sesión local), después de la etapa 39:
 1. Que la descripción, la cifra destacada y la primera oración del texto no repitan lo mismo en cada ficha. Regla aprobada por el autor el 11 de octubre de 2026. Hecho en todas las secciones (11 de octubre de 2026): la leyenda corta va como tercer elemento de `CLAVE` en todas las fichas con cifra destacada y ningún texto empieza repitiendo la cifra. Quedan oraciones que repiten la cifra más adelante en algunos textos (áreas de concesión, pozos), dejadas a propósito porque comparan con otro dato.
 2. Hecho (11 de octubre de 2026): la línea del país ya no tapa los valores.
