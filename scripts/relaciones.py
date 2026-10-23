@@ -325,9 +325,9 @@ def construir(plantilla, base, secciones, ubic, v_css, sitio=RAIZ / "sitio"):
     datos = json.dumps(publicar(cat, plantilla, secciones, ubic), ensure_ascii=False, separators=(",", ":"))
     css = (RAIZ / "scripts" / "relaciones.css").read_text(encoding="utf-8")
     js = (RAIZ / "scripts" / "relaciones.js").read_text(encoding="utf-8")
-    (sitio / "datos" / "relaciones.json").write_text(datos, encoding="utf-8")
-    (sitio / "relaciones.css").write_text(css, encoding="utf-8")
-    (sitio / "relaciones.js").write_text(js, encoding="utf-8")
+    (sitio / "datos" / "relaciones.json").write_text(datos, encoding="utf-8", newline="\n")
+    (sitio / "relaciones.css").write_text(css, encoding="utf-8", newline="\n")
+    (sitio / "relaciones.js").write_text(js, encoding="utf-8", newline="\n")
     h = (RAIZ / "scripts" / "relaciones.html").read_text(encoding="utf-8")
     # la barra y el pie del sitio, sin lo que necesita datina.js (menú, buscador, provincia y la fecha de los datos)
     marca = re.search(r'<a class="marca" href="\./">.*?</a>', base, re.S).group(0)
@@ -338,11 +338,13 @@ def construir(plantilla, base, secciones, ubic, v_css, sitio=RAIZ / "sitio"):
     pie = re.search(r'<footer class="pie-sitio">.*?</footer>', base, re.S).group(0)
     pie = re.sub(r'\s*<p data-t="actualizado"></p>', "", pie)
     icono = re.search(r'<link rel="icon"[^>]*>', base).group(0)
-    for marca_, valor in {"<!--ICONO-->": icono, "<!--MARCA-->": marca, "<!--TEMAS-->": temas, "<!--PIE-->": pie, "__V_CSS__": v_css,
+    # D3 desde el propio sitio, la misma etiqueta (y la misma huella) que las demás páginas
+    d3 = re.search(r'<script src="lib/d3-[^"]+"></script>', base).group(0)
+    for marca_, valor in {"<!--ICONO-->": icono, "<!--D3-->": d3, "<!--MARCA-->": marca, "<!--TEMAS-->": temas, "<!--PIE-->": pie, "__V_CSS__": v_css,
                           "__V_RX_CSS__": huella(css), "__V_RX_JS__": huella(js), "__V_RX_DATOS__": huella(datos)}.items():
         assert marca_ in h, f"falta {marca_} en scripts/relaciones.html"
         h = h.replace(marca_, valor)
-    (sitio / "relaciones.html").write_text(h, encoding="utf-8")
+    (sitio / "relaciones.html").write_text(h, encoding="utf-8", newline="\n")
     return []
 
 

@@ -1,4 +1,22 @@
-pandas>=2.0
-openpyxl>=3.1
-pyreadstat>=1.2
-xlrd>=2.0
+# Versiones fijas (plan de estabilización, P1-5, 23 de octubre de 2026): las que instaló la última actualización mensual en verde
+# (14 de octubre de 2026, Python 3.12 en ubuntu-24.04). Sin fijarlas, cada actualización instalaba lo último y una versión nueva podía
+# romperla sin que cambiara el código. Para subir una: cambiarla acá, correr 02, las pruebas y el armado, y recién después subirla.
+# Lo que usa el código
+pandas==3.0.6
+numpy==2.5.4
+openpyxl==3.1.5
+pyreadstat==1.3.6
+xlrd==2.0.2
+pdfplumber==0.11.10
+# Lo que traen esos paquetes, también fijo
+narwhals==2.27.1
+python-dateutil==2.9.0.post0
+six==1.17.0
+et-xmlfile==2.0.0
+pdfminer.six==20260107
+pypdfium2==5.14.0
+Pillow==12.3.0
+charset-normalizer==3.5.2
+cryptography==50.0.2
+cffi==2.1.1
+pycparser==3.11

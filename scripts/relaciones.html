@@ -9,11 +9,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,300..800&family=Roboto+Mono:wght@400..600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<!--D3-->
 <link rel="stylesheet" href="datina.css?v=__V_CSS__">
 <link rel="stylesheet" href="relaciones.css?v=__V_RX_CSS__">
 </head>
 <body data-pagina="relaciones">
+<a class="saltar boton principal" href="#contenido">Saltar al contenido</a>
 <a class="rx-saltar" href="#rx-buscar">Ir al buscador</a>
 <!-- Página aparte (plan Datina Lab): la arma scripts/relaciones.py, no la plantilla, y no carga datina.js.
      La barra y el pie son los del sitio, sin el menú, el buscador ni la provincia, que necesitan datina.js -->
@@ -24,10 +25,10 @@
     <div class="barra-der"><a class="boton chico" href="./">Volver a Datina</a></div>
   </div>
 </header>
-<main class="envoltura">
+<main class="envoltura" id="contenido" tabindex="-1">
 <section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=__V_RX_DATOS__">
-  <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span aria-current="page">Explorador de relaciones</span></li></ol></nav>
-  <h2>Explorador de relaciones</h2>
+  <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span>Herramientas</span></li></ol></nav>
+  <h1>Explorador de relaciones</h1>
   <div class="tema-intro">
     <p class="pregunta">¿De dónde sale cada número?</p>
     <p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>
@@ -72,12 +73,14 @@
         <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.</p>
 
       <div class="rx-tabla" id="rx-tabla" hidden>
+        <a class="rx-saltar rx-saltar-tabla" id="rx-saltar-tabla" href="#rx-panel">Saltar la tabla</a>
         <p class="rx-vacio" id="rx-vacio-tabla" hidden></p>
         <div class="rx-tabla-env"><table>
           <caption class="rx-oculto">Organismos, archivos y fichas con sus relaciones</caption>
           <thead><tr><th scope="col">Tipo</th><th scope="col">Nombre</th><th scope="col">Tema</th><th scope="col">Viene de</th><th scope="col">Lleva a</th></tr></thead>
           <tbody id="rx-filas"></tbody>
         </table></div>
+        <button type="button" class="boton ver-todos" id="rx-mas-filas" hidden></button>
       </div>
       <ul class="rx-leyenda" aria-label="Qué es cada forma">
         <li><svg viewBox="-8 -8 16 16" aria-hidden="true"><circle r="6" class="rx-n-fuente"/></svg>Organismo que publica</li>
@@ -97,7 +100,7 @@
   </div>
   <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
 
-  <section class="rx-definiciones" aria-labelledby="rx-def-tit">
+  <section class="rx-definiciones" id="rx-definiciones" aria-labelledby="rx-def-tit" tabindex="-1">
     <h3 id="rx-def-tit">Qué es una relación acá</h3>
     <dl>
       <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>

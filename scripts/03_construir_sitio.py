@@ -6,19 +6,33 @@ y una pagina por seccion a partir de scripts/plantilla.html: sitio/index.html (p
 Cada pagina lleva solo el marcado de su seccion. Lo que necesita saber de las demas (titulos, fichas, en que pagina
 esta cada ancla) lo lee del indice del sitio, que se arma aca desde la plantilla.
 La explicacion de cada seccion (que se mide, desde cuando, como se calcula) sale de datos/manual/explicadores.json.
-Tambien copia la tabla larga al sitio para que se pueda descargar
-y el sitio de consultas de pobreza ya construido.
-Uso: python scripts/03_construir_sitio.py
+Tambien copia la tabla larga al sitio para que se pueda descargar.
+El sitio de consultas de pobreza ya construido (pobreza/dist) se copia a sitio/pobreza/ solo con --con-pobreza (pobreza/README.md).
+Uso: python scripts/03_construir_sitio.py [--con-pobreza]
 """
 import csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
-# Antes de armar nada, las pruebas de los datos (scripts/pruebas_datos.py): si alguna falla, el sitio no se arma ni se publica
 sys.path.insert(0, str(RAIZ / "scripts"))
+import consultor_pobreza  # noqa: E402
+# --con-pobreza copia el armado del consultor de pobreza (pobreza/dist) a sitio/pobreza/. Sin ella, sitio/pobreza/ no se toca
+OPCIONES = {"--con-pobreza"}
+if _otras := [a for a in sys.argv[1:] if a not in OPCIONES]:
+    sys.exit(f"Opción desconocida: {' '.join(_otras)}. Uso: python scripts/03_construir_sitio.py [--con-pobreza]")
+CON_POBREZA = "--con-pobreza" in sys.argv[1:]
+DIST_POBREZA = RAIZ / "pobreza" / "dist"
+if CON_POBREZA and not consultor_pobreza.hay_armado(DIST_POBREZA):
+    sys.exit("--con-pobreza: no hay un armado del consultor en pobreza/dist (falta index.html). "
+             "Armarlo antes con npm run build dentro de pobreza/ (ver pobreza/README.md). El sitio no se armó.")
+# Antes de armar nada, las pruebas de los datos (scripts/pruebas_datos.py): si alguna falla, el sitio no se arma ni se publica
 import pruebas_datos  # noqa: E402
 if pruebas_datos.correr(mostrar=False):
     pruebas_datos.correr(mostrar=True)
     sys.exit("Las pruebas de los datos encontraron problemas sin explicar: el sitio no se armó. Ver arriba.")
+# y la de la copia del consultor de pobreza (scripts/prueba_pobreza.py): un armado normal no puede reemplazar sitio/pobreza/
+import prueba_pobreza  # noqa: E402
+if _pp := prueba_pobreza.correr(mostrar=False):
+    sys.exit("La copia del consultor de pobreza no se comporta como debe: el sitio no se armó.\n" + "\n".join(_pp))
 SITIO = RAIZ / "sitio"
 huella = lambda t: hashlib.sha1(t.encode("utf-8")).hexdigest()[:10]
 e = lambda t: html.escape(str(t), quote=True)
@@ -105,21 +119,24 @@ FRASE_FRECUENCIA = {
 FRECUENCIA = {
     # Trabajo
     "f-empleo": "mes", "f-salarios": "trimestre", "f-rotacion": "trimestre", "f-exportaciones": "semestre",
+    # Sector externo
+    "f-balanza": "mes", "f-exporta-rubros": "mes", "f-complejos": "semestre", "f-destinos": "semestre", "f-exporta-provincias": "anio",
+    "f-importaciones": "mes", "f-origen": "mes", "f-cuenta-corriente": "trimestre", "f-reservas-bcra": "mes", "f-reservas-netas": "mes",
     # Economía y precios
-    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes",
+    "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
     # Empresas y oportunidades
     "f-empresas": "anio", "f-dinamica-empresas": "anio",
     # Pobreza y hogares
-    "f-pobreza": "semestre", "f-censo": "censo", "f-internet": "trimestre",
+    "f-pobreza": "semestre", "f-ingresos-aglomerados": "trimestre", "f-censo": "censo", "f-internet": "trimestre",
     # Salud
-    "f-esperanza": "censo", "f-mortalidad": "anio", "f-causas-infantiles": "anio", "f-muertes": "anio", "f-suicidio": "anio",
+    "f-esperanza": "censo", "f-causas-muerte": "anio", "f-mortalidad": "anio", "f-causas-infantiles": "anio", "f-muertes": "anio", "f-suicidio": "anio",
     "f-suicidio-prov": "anio", "f-edad": "anio",
     # Seguridad
     "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio",
     # Educación
     "f-escolarizacion": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio",
     # Población
-    "f-nacimientos": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-jubilaciones": "trimestre", "f-adolescentes": "anio",
+    "f-nacimientos": "anio", "f-poblacion-proy": "anio", "f-piramide": "anio", "f-envejecimiento": "anio", "f-jubilaciones": "trimestre", "f-haberes": "trimestre", "f-pensiones-invalidez": "trimestre", "f-auh": "trimestre", "f-desempleo": "trimestre", "f-adolescentes": "anio",
     "f-adolescentes-nse": "anio",
     # Migraciones
     "f-nacidos-otro-pais": "censo", "f-migracion-interna": "censo", "f-migracion-historia": "censo", "f-extranjeros": "anio",
@@ -127,7 +144,7 @@ FRECUENCIA = {
     # Política
     "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
     "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio", "f-presupuesto": "anio",
-    "f-presidentes": "presidente", "f-ministros": "gabinete",
+    "f-presidentes": "presidente", "f-ministros": "gabinete", "f-confianza-gobierno": "mes",
     # Gobierno
     "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio",
     "f-fiscal": "anio",
@@ -264,6 +281,78 @@ base = base.replace("<!--BANDERAS-->",
     'y se muestran en miniatura, todas con el mismo tamaño y el mismo recorte.</p>'
     f'<details class="glosario creditos"><summary>Autores y licencias</summary><ul>{creditos}</ul></details>')
 
+# Historia de cada jurisdicción en Tu provincia (11 de octubre de 2026, pedido del autor: "cuando entro a una provincia pongas año de
+# fundación, antecedente, a las que corresponda si formó parte de las guerras civiles y la formación del estado nacional argentino, un
+# breve resumen de quiénes fueron y son, cantidad de habitantes y algún fun fact"). Los textos y sus fuentes están en
+# datos/manual/provincias_historia.json. Los habitantes salen de los datos: la proyección del INDEC (base Censo 2022) del año de la
+# población que usa todo el sitio. Se escribe un bloque por jurisdicción, oculto, y datina.js muestra el de la provincia elegida. Si un
+# texto rompe las reglas de redacción o le falta su fuente, el sitio no se arma
+HISTORIA = json.loads((RAIZ / "datos" / "manual" / "provincias_historia.json").read_text(encoding="utf-8"))["provincias"]
+_fj = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
+HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["empleo_provincias"] if f.get("poblacion")}
+HAB_ANIO = _fj["resumen"]["anio_pob"]
+_H_CAMPOS = [("fundacion_capital", "Fundación"), ("provincia_desde", "Autonomía"), ("antecedente", "Antes"),
+             ("guerras_civiles", "Guerras civiles"), ("quienes", "Quiénes"), ("curiosidad", "Dato curioso")]
+_h_txt = lambda h, k: ((h.get(k) or {}).get("texto") if isinstance(h.get(k), dict) else h.get(k)) or ""
+_h_err = []
+for _c, _h in sorted(HISTORIA.items()):
+    if _c not in NOMBRE_PROV or _c == "00":
+        _h_err.append(f"{_c}: no es un código de jurisdicción")
+        continue
+    _datos = {f.get("dato") for f in _h.get("fuentes", []) if f.get("url", "").startswith("https://")}
+    for _k, _ in _H_CAMPOS:
+        _t = _h_txt(_h, _k)
+        if not _t:
+            continue
+        if ";" in _t or "!" in _t:
+            _h_err.append(f"{_c} {_k}: tiene punto y coma o signo de exclamación")
+        if len(_t.split()) >= 70:
+            _h_err.append(f"{_c} {_k}: tiene {len(_t.split())} palabras (el máximo es 69)")
+        if re.search(r"\sy\s+(?:[iíIÍ]|[hH][iíIÍ](?![aeouáéóú]))", _t):
+            _h_err.append(f"{_c} {_k}: 'y' delante del sonido de la i (va 'e')")
+        if _k not in _datos:
+            _h_err.append(f"{_c} {_k}: no tiene fuente (https) en 'fuentes'")
+if _h_err:
+    sys.exit("La historia de las provincias (datos/manual/provincias_historia.json) tiene problemas: el sitio no se armó.\n" + "\n".join(_h_err))
+_miles = lambda x: f"{int(round(x)):,}".replace(",", ".")
+
+
+def historia_prov(c, h):
+    """El bloque de una jurisdicción: el texto a la izquierda y los datos básicos y el dato curioso al costado."""
+    fc, pd = h.get("fundacion_capital") or {}, h.get("provincia_desde") or {}
+    datos = []
+    if fc.get("ciudad") and fc.get("anio"):
+        datos.append(("Ciudad" if c == "02" else "Capital", f'{fc["ciudad"]}, fundada en {fc["anio"]}', ""))
+    if pd.get("anio"):
+        datos.append(("Autonomía desde" if c == "02" else "Provincia desde", str(pd["anio"]), ""))
+    if c in HAB:
+        datos.append(("Habitantes", f"{_miles(HAB[c])} en {HAB_ANIO}", "Proyección del INDEC, base Censo 2022"))
+    partes = [("Fundación", " ".join(t for t in (fc.get("texto"), pd.get("texto")) if t)), ("Antes", h.get("antecedente")),
+              ("Guerras civiles y formación del Estado", h.get("guerras_civiles")), ("Quiénes fueron y quiénes son", h.get("quienes"))]
+    texto_h = "".join(f'<h3 class="ph-sub">{e(t)}</h3><p>{e(p)}</p>' for t, p in partes if p)
+    if not texto_h:
+        return ""
+    dl = "".join(f'<div><dt>{e(k)}</dt><dd>{e(v)}{f"<small>{e(s)}</small>" if s else ""}</dd></div>' for k, v, s in datos)
+    cur = (f'<div class="ph-curiosidad"><p class="ph-sub">Dato curioso</p><p>{e(h["curiosidad"])}</p></div>' if h.get("curiosidad") else "")
+    nombres = dict(_H_CAMPOS)
+    fuentes = "".join(f'<li><span class="ph-dato">{e(nombres.get(f.get("dato"), ""))}</span> <a href="{e(f["url"])}" target="_blank" rel="noopener">'
+                      f'{e(f.get("titulo") or f["url"])}</a></li>' for f in h.get("fuentes", []) if f.get("url", "").startswith("https://"))
+    return (f'<article class="ph" data-c="{c}" aria-labelledby="ph-{c}" hidden><h2 class="ph-tit" id="ph-{c}">¿De dónde viene {e(NOMBRE_PROV[c])}?</h2>'
+            f'<div class="ph-cuerpo"><div class="ph-texto">{texto_h}</div><aside class="ph-lado" aria-label="Datos básicos">'
+            f'<dl class="ph-datos">{dl}</dl>{cur}</aside></div>'
+            f'<details class="ph-fuentes"><summary>Fuentes</summary><p>Textos de Datina a partir de sitios oficiales de cada provincia y del '
+            f'Estado nacional, leyes y universidades públicas. Los habitantes, de la proyección de población del INDEC.</p><ul>{fuentes}</ul></details></article>')
+
+
+assert base.count("<!--HISTORIA-->") == 1
+# el bloque de la provincia del enlace (o la recordada) se muestra apenas se lee, antes de que se vea la página: si lo mostrara datina.js
+# al final, el perfil de abajo saltaba al aparecer (CLS de 0,30 con CABA). La misma regla de datina.js (leerProv), que después lo mantiene
+_HIST_YA = ('<script>(()=>{const l=s=>new URLSearchParams(s).get("prov");let c=l(location.search)||l(location.hash.split("?")[1]||"");'
+            'try{c=c||localStorage.getItem("prov")}catch(_){}const a=c&&document.querySelector(\'#prov-historia .ph[data-c="\'+c+\'"]\');'
+            'if(a)a.hidden=false})()</script>')
+base = base.replace("<!--HISTORIA-->", '<div class="prov-historia" id="prov-historia">'
+                    + "".join(historia_prov(c, HISTORIA[c]) for c in sorted(HISTORIA)) + "</div>" + _HIST_YA)
+
 # ---------- índice del sitio ----------
 # Bloques de primer nivel: la portada y cada sección hija de <main>. Se cuentan las <section> anidadas
 # (los bloques de "Para entender los datos" van dentro de otras secciones).
@@ -284,6 +373,7 @@ def bloques(h):
 
 # página a la que pertenece cada bloque
 PAGINA_DE_BLOQUE = {"portada": "inicio", "secciones": "inicio", "articulos-home": "inicio", "herramientas-home": "inicio",
+                    "destacados": "inicio", "provincias-home": "inicio",
                     "provincias": "provincia", "nosotros": "nosotros", "contacto": "contacto", "no-encontrada": "404",
                     "laboratorio": "laboratorio"}
 def pagina_de(b):
@@ -355,29 +445,55 @@ base = base.replace(_estado, f'<p class="estado" id="estado"><span>{sum(1 for f 
                              f'<span>{len(NOTAS)} artículos</span></p>')
 # Grupos y categorías (etapa 36, pedido del autor del 7 de octubre de 2026: "empezá a unificar, tipo energía es la categoría general de
 # petróleo y gas", y sus respuestas: categorías con subsecciones, los grupos de su mensaje). Cuatro grupos, como en la portada ("Explorá la
-# Argentina por tema"), y Curiosidades aparte. Un elemento de un grupo es una sección o una categoría: un nombre y sus secciones, la primera
-# es su página de entrada. Cada sección conserva su página y su dirección. De acá salen la barra, el menú "Más", la fila del celular, las
-# migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada (datina.js)
+# Argentina por tema"). Un elemento de un grupo es una sección o una categoría: un nombre y sus secciones, la primera
+# es su página de entrada. Cada sección conserva su página y su dirección. De acá salen el menú "Temas", la fila del celular, las
+# migas, la fila de cada categoría, el mapa del pie, el recorrido de "Seguí explorando" y los grupos de la portada
+# Fase 2 (respuestas del autor del 23 de octubre de 2026): Personas pasa a llamarse Personas y bienestar, Turismo pasa a Trabajo y economía
+# (mide una actividad económica) y Curiosidades a Historias con datos (MENUS, abajo). Cuentas públicas se queda donde está
 GRUPOS = [
-    ("personas", "Personas", [("Población", ["poblacion", "migraciones", "turismo"]), "salud", "educacion", "pobreza"]),
-    ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"])]),
+    ("personas", "Personas y bienestar", [("Población", ["poblacion", "migraciones"]), "salud", "educacion", "pobreza"]),
+    # Sector externo, desde el 11 de octubre de 2026 (pedido del autor: "meté una nueva categoría en trabajo y economía que se llame sector externo")
+    ("economia", "Trabajo y economía", ["trabajo", ("Economía", ["economia", "empresas", "construccion", "gobierno"]), "externo", "turismo"]),
     ("estado", "Estado y sociedad", ["politica", "seguridad"]),
     ("territorio", "Territorio y recursos", [("Energía", ["energia", "petroleo"]), "movilidad", "naturaleza"]),
-    ("otros", "Y además", ["curiosidades"]),
 ]
-# la barra (etapa 39, respuesta del autor del 10/10/2026: "4 grupos con menú"): los mismos grupos de la portada, cada uno con un menú con
-# sus secciones. "Y además" (Curiosidades) va en "Más". Hasta entonces eran ocho temas sueltos escritos a mano, lo único que no salía de GRUPOS
-GRUPOS_BARRA = [x for x in GRUPOS if x[0] != "otros"]
+# La barra (Fase 2, respuesta del autor del 23 de octubre de 2026: "Temas, Provincias, Historias, Herramientas"): "Temas" abre los cuatro
+# grupos de arriba en columnas, como la portada, y los otros tres menús salen de MENUS. Reemplaza los "4 grupos con menú" y "Más" de la
+# etapa 39. Cada menú: id, nombre en la barra, nombre completo (pie, migas y filtros del catálogo), adónde lleva donde no hay menú (el
+# Explorador de relaciones) y sus páginas. Una tupla es un subgrupo con su nombre. Las 24 jurisdicciones del menú Provincias (respuesta
+# del autor del mismo día) las agrega la barra
+MENUS = [
+    ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "departamentos"]),
+    ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "laboratorio", "corte-suprema", "curiosidades"]),
+    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "indice", "diagnostico", "consultor", ("Los datos", ["catalogo", "relaciones"])]),
+]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
-EN_BARRA = {s for _, _, items in GRUPOS_BARRA for s in _secs_de(items)}
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
 ORDEN_TEMAS = [s for _, _, items in GRUPOS for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
+GRUPO_DE = {s: (g, n) for g, n, items in GRUPOS for s in _secs_de(items)}
+MENU_DE = {p: (m, completo) for m, _, completo, _, items in MENUS for p in _secs_de(items)}
 _temas = [x[0] for x in SECCIONES if not x[4] and x[0] != "articulos"]
-assert sorted(ORDEN_TEMAS) == sorted(_temas), f"las secciones y los grupos no coinciden: {set(ORDEN_TEMAS) ^ set(_temas)}"
+assert sorted(ORDEN_TEMAS + [p for p in MENU_DE if p in _temas]) == sorted(_temas), \
+    f"las secciones y los menús no coinciden: {set(ORDEN_TEMAS + list(MENU_DE)) ^ set(_temas)}"
 HERRAMIENTAS = [x[0] for x in SECCIONES if x[4]]
+assert set(HERRAMIENTAS) <= set(MENU_DE), f"herramientas sin menú: {set(HERRAMIENTAS) - set(MENU_DE)}"
+# las páginas de los menús que arma la plantilla como sección, más Tu provincia y el Laboratorio (las demás son el Explorador, el consultor
+# de pobreza y la pieza de la Corte Suprema): en ese orden van el recorrido y los filtros del catálogo
+PAGINAS_MENU = [p for p in _secs_de([it for m in MENUS for it in m[4]]) if p in {x[0] for x in SECCIONES} | {"provincia", "laboratorio"}]
+# Preguntas de ejemplo (Fase 2, paso 2): tres de la lista de preguntas del buscador (PREG en datina.js), de temas distintos y que no
+# repiten los datos destacados. Van debajo del buscador de la portada y, desde el paso 3, cuando el buscador no encuentra nada
+EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo", "¿Qué parte de los hogares tiene cloacas?"),
+            ("f-glaciares", "¿Qué provincia tiene más glaciares?")]
+# las piezas del Laboratorio que viven en laboratorio.html (la de la Corte Suprema tiene página propia): su ancla y su título, para el buscador
+LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h3[^>]*>(.*?)</h3>', base, re.S)
+                  if i != "l-corte-lab"]
+assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
+# el índice del sitio que lee datina.js. Desde la Fase 2 (paso 3) también lleva el menú de cada página (el buscador agrupa los resultados
+# como la barra), las preguntas de ejemplo y las piezas del Laboratorio
 INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unescape(t), ico, sec] for i, ico, sec, t in NOTAS], "ubic": UBIC,
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
-          "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()}}
+          "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
+          "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
 
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
@@ -391,7 +507,7 @@ DIFERIDAS = ["elecciones_presidenciales", "anios_congreso", "transferencias_prov
              "exportaciones_dolar_trimestral", "exportaciones_cantidades_anual",
              "inflacion_mensual", "canasta_mensual", "salario_real_mensual", "actividad_mensual",
              "nacidos_otro_pais_paises", "radicaciones_nacionalidad", "argentinos_exterior_destinos",
-             "migraciones_departamentos", "supermercados_mensual", "corte_jueces", "corte_composicion", "corte_presidentes"]
+             "migraciones_departamentos", "supermercados_mensual", "corte_jueces", "corte_composicion", "corte_presidentes", "bcra_variables"]
 D = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 D["diferidas"] = {}
 for nombre in DIFERIDAS:
@@ -401,11 +517,11 @@ for nombre in DIFERIDAS:
     # los objetos al cargarla (deColumnas)
     cols = list(dict.fromkeys(k for f in filas for k in f))
     t = json.dumps({"c": cols, "f": [[f.get(k) for k in cols] for f in filas]}, ensure_ascii=False, separators=(",", ":"))
-    (SITIO / "datos" / f"{nombre}.json").write_text(t, encoding="utf-8")
+    (SITIO / "datos" / f"{nombre}.json").write_text(t, encoding="utf-8", newline="\n")
     D["diferidas"][nombre] = huella(t)
 D["indice"] = INDICE
 datos = "window.DATINA=" + json.dumps(D, ensure_ascii=False, separators=(",", ":")) + ";\n"
-(SITIO / "datos" / "fichas.js").write_text(datos, encoding="utf-8")
+(SITIO / "datos" / "fichas.js").write_text(datos, encoding="utf-8", newline="\n")
 
 # Iconos isometricos propios (los genera scripts/iconos_isometricos.py en datos/manual/iconos_iso): trazo y tono de cada uno
 DIR_ICONOS = RAIZ / "datos" / "manual" / "iconos_iso"
@@ -428,20 +544,39 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
     assert not _rep, f"claves repetidas en {_obj} de datina.js: {_rep}"
 # ícono de cada página: la grilla de secciones de la portada (datina.js) y el final de página ("Seguí explorando")
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
-             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "turismo": "valija",
+             "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles", "laboratorio": "matraz"}
+             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"}
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
 import relaciones  # noqa: E402
-for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS)}.items():
+# Catálogo de datos (11 de octubre de 2026, propuesta aprobada por el autor): la lista de tablas con sus filtros la arma scripts/catalogo.py.
+# Si una tabla publicada no tiene dónde se usa o una evidencia de datos/manual/catalogo.json no está en el código, el sitio no se arma.
+# Va acá, antes de escribir datina.js, porque el botón "En el catálogo" del pie de cada ficha (pedido del autor del 11 de octubre) solo
+# aparece si la tabla de la ficha está en el catálogo (las de suicidio no están)
+import catalogo  # noqa: E402
+# los filtros por tema del catálogo siguen la barra: los cuatro grupos de Temas y después Provincias, Historias con datos y Herramientas
+_menus_catalogo = [(m, completo, [p for p in _secs_de(items) if p in PAGINAS_MENU]) for m, _, completo, _, items in MENUS]
+_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo)
+if _cat_err:
+    sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
+EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
+for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
+                     "/*EN_CATALOGO*/[]": EN_CATALOGO}.items():
     assert marca in js, marca
     js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
-(SITIO / "datina.css").write_text(css, encoding="utf-8")
-(SITIO / "datina.js").write_text(js, encoding="utf-8")
+(SITIO / "datina.css").write_text(css, encoding="utf-8", newline="\n")
+(SITIO / "datina.js").write_text(js, encoding="utf-8", newline="\n")
+# D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
+# jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
+LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js"}
+(SITIO / "lib").mkdir(exist_ok=True)
+for _lib in (RAIZ / "scripts" / "lib").iterdir():
+    shutil.copyfile(_lib, SITIO / "lib" / _lib.name)
+V_LIBS = {marca: hashlib.sha1((SITIO / "lib" / nombre).read_bytes()).hexdigest()[:10] for marca, nombre in LIBS.items()}
 
-for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(js)}.items():
+for marca, valor in {"__VERSION__": huella(datos), "__V_CSS__": huella(css), "__V_JS__": huella(js), **V_LIBS}.items():
     assert marca in base, marca
     base = base.replace(marca, valor)
 # las posiciones de los bloques cambian con el reemplazo de arriba: se vuelven a ubicar
@@ -456,8 +591,9 @@ url_pagina = lambda p: "./" if p == "inicio" else f"{p}.html"
 TITULO_DE = {s[0]: s[1] for s in SECCIONES}
 
 
-# Recorrido de "Anterior / Siguiente": artículos, el Laboratorio (etapa 33), tu provincia, las secciones y las herramientas, y Sobre nosotros
-ORDEN = ["articulos", "laboratorio", "provincia"] + ORDEN_TEMAS + HERRAMIENTAS + ["nosotros"]
+# Recorrido de "Anterior / Siguiente", en el orden de la barra (Fase 2, 23 de octubre de 2026): los temas, Provincias, Historias con datos
+# y Herramientas, y Sobre nosotros. Hasta entonces empezaba por los artículos, el Laboratorio y Tu provincia
+ORDEN = ORDEN_TEMAS + PAGINAS_MENU + ["nosotros"]
 TITULO_DE.update({"provincia": "Tu provincia", "nosotros": "Sobre nosotros", "contacto": "Contacto", "laboratorio": "Laboratorio"})
 # piezas del Laboratorio: las cuenta la tarjeta que lleva a él en "Seguí explorando"
 LAB_PIEZAS = len(re.findall(r'<article class="lab-pieza', base))
@@ -521,9 +657,10 @@ def relacionadas(pagina, ya):
 
 
 def migas(*partes, prov=True):
-    """Migas: Datina, la sección y la provincia elegida (la completa datina.js). La última parte es la página actual."""
-    li = ['<li><a href="./">Datina</a></li>'] + [f'<li><a href="{u}">{e(t)}</a></li>' for u, t in partes[:-1]]
-    li.append(f'<li><span aria-current="page">{e(partes[-1][1])}</span></li>')
+    """Migas: Datina, el camino hasta la página y la provincia elegida (la completa datina.js). Desde el 11 de octubre de 2026 (pedido del
+    autor: "que no se repita Instituciones políticas o lo que fuese que toque en cada sección") no nombran la página actual, que va justo
+    debajo como antetítulo o título: cada parte es (dirección, nombre) de un nivel de arriba, y sin dirección es un nombre sin enlace."""
+    li = ['<li><a href="./">Datina</a></li>'] + [f'<li><a href="{u}">{e(t)}</a></li>' if u else f'<li><span>{e(t)}</span></li>' for u, t in partes]
     if prov:
         li.append('<li class="migas-prov" hidden></li>')
     return f'<nav class="migas" aria-label="Ubicación"><ol>{"".join(li)}</ol></nav>'
@@ -532,7 +669,7 @@ def migas(*partes, prov=True):
 def pildoras(seccion):
     return '<nav class="pildoras" aria-label="Secciones">' + "".join(
         f'<a href="{url_pagina(s)}"{" aria-current=" + chr(34) + "page" + chr(34) if s == seccion else ""}>{e(TITULO_DE[s])}</a>'
-        for s in ["articulos"] + ORDEN_TEMAS + HERRAMIENTAS) + "</nav>"
+        for s in ORDEN if s != "nosotros") + "</nav>"
 
 
 def subsecciones(seccion):
@@ -552,7 +689,7 @@ def navegacion(h, pagina):
         orden = [n[0] for n in NOTAS]
         i = orden.index(pagina)
         art = lambda j: orden[j % len(orden)]
-        h = h.replace(nota, pildoras("articulos") + migas(("articulos.html", "Artículos"), ("", TIT_NOTA[pagina]), prov=False) + nota, 1)
+        h = h.replace(nota, pildoras("articulos") + migas(("", MENU_DE["articulos"][1]), ("articulos.html", "Artículos"), prov=False) + nota, 1)
         fin = h.index("</article>", h.index(nota)) + len("</article>")
         sec = next(sec for a, _, sec, _ in NOTAS if a == pagina)
         return h[:fin] + pasos(art(i - 1), art(i + 1), [sec, "cruces"], ("articulos.html", "Todos los artículos")) + h[fin:]
@@ -563,7 +700,8 @@ def navegacion(h, pagina):
     # una pieza del Laboratorio (etapa 33): las migas pasan por el Laboratorio, y al final cuatro tarjetas sin anterior ni siguiente
     if "pieza" in b["clases"]:
         blo = h[b["ini"]:b["fin"]]
-        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("laboratorio.html", "Laboratorio"), ("", TITULO_DE[pagina]), prov=False), blo)
+        blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + migas(("", MENU_DE["laboratorio"][1]), ("laboratorio.html", "Laboratorio"),
+                                                                     prov=False), blo)
         blo = blo[:-len("</section>")] + pasos(None, None, ["laboratorio", "politica", "gobierno", "articulos"],
                                                 ("laboratorio.html", "Todo el Laboratorio")) + "</section>"
         return h[:b["ini"]] + blo + h[b["fin"]:]
@@ -575,9 +713,15 @@ def navegacion(h, pagina):
         blo = blo.replace(m.group(0), "", 1)
         final = explicador(m.group(1))
     # migas arriba del título y fila de secciones (solo en el celular) arriba de todo
-    partes = [("", TITULO_DE[pagina])]
-    if pagina in CATEGORIA and CATEGORIA[pagina][0] != TITULO_DE[pagina]:
-        partes.insert(0, (url_pagina(CATEGORIA[pagina][1][0]), CATEGORIA[pagina][0]))
+    # el camino: el grupo de la portada y, en una sección que no es la entrada de su categoría, la categoría. Las páginas de los otros
+    # menús van bajo su nombre (Provincias, Historias con datos, Herramientas), como en el pie, y Sobre nosotros y Contacto, solo con Datina
+    partes = []
+    if pagina in GRUPO_DE:
+        partes.append(("./#tg-" + GRUPO_DE[pagina][0], GRUPO_DE[pagina][1]))
+        if pagina in CATEGORIA and CATEGORIA[pagina][1][0] != pagina:
+            partes.append((url_pagina(CATEGORIA[pagina][1][0]), CATEGORIA[pagina][0]))
+    elif pagina in MENU_DE:
+        partes.append(("", MENU_DE[pagina][1]))
     blo = blo.replace("<h2", migas(*partes, prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
     # la fila de la categoría, después de la entrada (datina.js pone "En cifras" después de ella)
     if pagina in CATEGORIA:
@@ -597,41 +741,81 @@ def navegacion(h, pagina):
     return h[:b["ini"]] + blo + h[b["fin"]:]
 
 
-# Mapa del sitio en el pie de todas las páginas
+# Mapa del sitio en el pie de todas las páginas, con las mismas partes que la barra (Fase 2, 23 de octubre de 2026): los cuatro grupos
+# de Temas, Provincias, Historias con datos, Herramientas y Datina
 def lista(items):
     return "<ul>" + "".join(f'<li><a href="{u}">{e(t)}</a></li>' for u, t in items) + "</ul>"
 
 
-_secs_grupo = lambda items: [(url_pagina(s), TITULO_DE[s]) for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
-_col = lambda g: f'<h2>{e(g[1])}</h2>' + lista(_secs_grupo(g[2]))
-MAPA = (f'<div class="pie-col">{_col(GRUPOS[0])}</div><div class="pie-col">{_col(GRUPOS[1])}</div>'
-        f'<div class="pie-col">{_col(GRUPOS[2])}{_col(GRUPOS[4])}</div><div class="pie-col">{_col(GRUPOS[3])}</div>'
-        '<div class="pie-col"><h2>Herramientas</h2>' + lista([("provincia.html", "Tu provincia")] + [(url_pagina(x[0]), x[1]) for x in SECCIONES if x[4]] +
-                                                                [("relaciones.html", "Explorador de relaciones"), ("articulos.html", "Artículos"),
-                                                                 ("laboratorio.html", "Laboratorio")]) +
-        '<h2>Datina</h2>' + lista([("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
-                                   ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]) + "</div>")
+# las páginas de los menús que la plantilla no arma como sección: su dirección y su nombre en los menús
+URL_MENU = {"consultor": "pobreza/", "relaciones": "relaciones.html"}
+NOMBRE_MENU = {"corte-suprema": "La Corte Suprema", "consultor": "Consultor de pobreza", "relaciones": "Explorador de relaciones"}
+url_menu = lambda p: URL_MENU.get(p) or url_pagina(p)
+nombre_menu = lambda p: NOMBRE_MENU.get(p) or TITULO_DE[p]
+_col = lambda nombre, pares: f'<div class="pie-col"><h2>{e(nombre)}</h2>{lista(pares)}</div>'
+MAPA = ("".join(_col(n, [(url_pagina(s), TITULO_DE[s]) for s in _secs_de(items)]) for _, n, items in GRUPOS)
+        + "".join(_col(completo, [(url_menu(p), nombre_menu(p)) for p in _secs_de(items)]) for _, _, completo, _, items in MENUS)
+        + _col("Datina", [("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
+                          ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]))
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
-# la barra, sus menús y la lista de temas de "Más" (etapas 36 y 39): salen de GRUPOS. En "Más", los temas de los grupos de la barra llevan
-# en-barra: se ven solo cuando la barra no muestra los grupos (hasta 1080 píxeles)
-_li = lambda s: (f'<li{" class=" + chr(34) + "en-barra" + chr(34) if s in EN_BARRA else ""}>'
-                 f'<a href="{url_pagina(s)}">{e(TITULO_DE[s])}</a></li>')
+# La barra (Fase 2, 23 de octubre de 2026): Temas, Provincias, Historias y Herramientas, cada uno con su menú (el mismo código que los
+# grupos de la etapa 39). data-secs: las páginas del menú, para marcar el de la página actual. data-ir: adónde lleva donde no hay menú
+# (el Explorador de relaciones). Los menús siguen la regla del autor del 4 de octubre de 2026: la letra del texto, un solo tamaño y sin
+# negrita. Los nombres de los grupos se ven en gris, con esa misma letra, porque en Temas cuatro columnas sin nombre no se entienden
 _FLECHA = '<svg class="mas-flecha" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>'
-# cada grupo: un botón en la barra (data-secs: sus secciones, para marcar la actual; data-ir: adónde lleva donde no hay menú, como el
-# Explorador de relaciones) y su menú, con las secciones en el orden de la portada y las de una categoría debajo de su entrada
-_barra = "".join(f'<button type="button" class="menu-btn grupo-btn" id="gb-{g}" aria-expanded="false" aria-controls="gm-{g}" '
-                 f'data-secs="{" ".join(_secs_de(items))}" data-ir="./#tg-{g}">{e(n)}{_FLECHA}</button>' for g, n, items in GRUPOS_BARRA)
-_gm_li = lambda it: (f'<li><a href="{url_pagina(it[1][0])}">{e(it[0])}</a></li>' + "".join(f'<li class="sub"><a href="{url_pagina(s)}">{e(TITULO_DE[s])}</a></li>' for s in it[1][1:])
-                     if isinstance(it, tuple) else f'<li><a href="{url_pagina(it)}">{e(TITULO_DE[it])}</a></li>')
-_grupos_menu = "".join(f'<nav class="menu-panel grupo-panel" id="gm-{g}" aria-labelledby="gb-{g}" hidden><ul>' + "".join(_gm_li(it) for it in items) + "</ul></nav>"
-                       for g, n, items in GRUPOS_BARRA)
-_menu = ('<div class="menu-grupo"><p class="menu-tit" id="mt-prov">Tu provincia</p><ul aria-labelledby="mt-prov"><li><a href="provincia.html">Tu provincia</a></li></ul></div>' +
-         "".join(f'<div class="menu-grupo"><p class="menu-tit" id="mt-{g}">{e(n)}</p><ul aria-labelledby="mt-{g}">' +
-                 "".join(_li(s) for it in items for s in (it[1] if isinstance(it, tuple) else [it])) + "</ul></div>" for g, n, items in GRUPOS))
+_boton = lambda m, nombre, secs, ir: (f'<button type="button" class="menu-btn grupo-btn" id="gb-{m}" aria-expanded="false" aria-controls="gm-{m}" '
+                                     f'data-secs="{" ".join(secs)}" data-ir="{ir}">{e(nombre)}{_FLECHA}</button>')
+_barra = _boton("temas", "Temas", ORDEN_TEMAS, "./#secciones") + "".join(_boton(m, corto, _secs_de(items), ir) for m, corto, _, ir, items in MENUS)
+_li = lambda p, cls="": f'<li{f" class={chr(34)}{cls}{chr(34)}" if cls else ""}><a href="{url_menu(p)}">{e(nombre_menu(p))}</a></li>'
+
+
+def _items_tema(items):
+    """Las secciones de un grupo de Temas. Una categoría lleva a su página de entrada y debajo, un poco adentro, van sus otras secciones.
+    Si la entrada no se llama como la categoría (Economía: Precios y actividad), la categoría es un rótulo sin enlace y van todas debajo"""
+    sale = ""
+    for it in items:
+        if not isinstance(it, tuple):
+            sale += _li(it)
+        elif TITULO_DE[it[1][0]] == it[0]:
+            sale += _li(it[1][0]) + "".join(_li(s, "sub") for s in it[1][1:])
+        else:
+            sale += f'<li class="cat"><span>{e(it[0])}</span></li>' + "".join(_li(s, "sub") for s in it[1])
+    return sale
+
+
+def _grupo(pre, clave, nombre, lis, cls=""):
+    """Un grupo de un menú, con su nombre a la vista y su lista (pre distingue los id del menú de la barra y los del celular)"""
+    return (f'<div class="menu-grupo"><p class="menu-cab" id="{pre}-{clave}">{e(nombre)}</p>'
+            f'<ul{f" class={chr(34)}{cls}{chr(34)}" if cls else ""} aria-labelledby="{pre}-{clave}">{lis}</ul></div>')
+
+
+_sin_tildes = str.maketrans("ÁÉÍÓÚáéíóúÑñ", "AEIOUaeiouNn")
+_PROVS = sorted((c for c in NOMBRE_PROV if c != "00"), key=lambda c: NOMBRE_PROV[c].translate(_sin_tildes))
+_li_prov = lambda c: (f'<li><a class="con-bandera" href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" '
+                      f'width="24" height="16" loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>')
+
+
+def contenido_menu(m, pre):
+    """Lo que lleva cada menú: el de la barra y la parte del menú del celular son iguales"""
+    if m == "temas":
+        return "".join(_grupo(pre, g, n, _items_tema(items)) for g, n, items in GRUPOS)
+    items = next(x[4] for x in MENUS if x[0] == m)
+    sale = "<ul>" + "".join(_li(p) for p in items if not isinstance(p, tuple)) + "</ul>"
+    sale += "".join(_grupo(pre, f"{m}-{i}", t, "".join(_li(p) for p in subs)) for i, (t, subs) in enumerate(p for p in items if isinstance(p, tuple)))
+    if m == "provincias":
+        sale += _grupo(pre, "24", "Las 24 jurisdicciones", "".join(_li_prov(c) for c in _PROVS), "prov-lista")
+    return sale
+
+
+_PARTES = [("temas", "Temas")] + [(m, corto) for m, corto, *_ in MENUS]
+_grupos_menu = "".join(f'<nav class="menu-panel grupo-panel panel-{m}" id="gm-{m}" aria-labelledby="gb-{m}" hidden>{contenido_menu(m, "mc")}</nav>'
+                       for m, _ in _PARTES)
+# hasta 1080 píxeles la barra no tiene lugar: un botón "Menú" con las mismas cuatro partes, plegables
+_menu = "".join(f'<details class="menu-parte"><summary>{e(n)}{_FLECHA}</summary>{contenido_menu(m, "mp")}</details>' for m, n in _PARTES)
 # Los temas de la portada (etapa 36): cada grupo con sus secciones (ícono, nombre y pregunta corta), y debajo de una categoría sus otras
 # secciones. Desde la etapa 39 los escribe el constructor: van justo debajo de lo azul y, si los pusiera datina.js al llegar, Artículos saltaba
-# hacia abajo. Cada grupo es una columna, y "Y además" (Curiosidades) va debajo del grupo con menos secciones
+# hacia abajo. Cada grupo es una columna (hasta el 11 de octubre de 2026, "Y además" iba debajo del grupo con menos secciones)
 _SEC = {s[0]: s for s in SECCIONES}
 
 
@@ -639,20 +823,83 @@ def _tema_portada(it):
     nom, subs = it if isinstance(it, tuple) else (None, [it])
     s = _SEC[subs[0]]
     ico = icono_svg(SEC_ICONO[s[0]]).replace('class="iso ', 'class="iso tg-ico ', 1)
-    otras = ('<p class="tg-subs">' + "".join(f'<a href="{url_pagina(x)}">{e(TITULO_DE[x])}</a>' for x in subs[1:]) + "</p>") if len(subs) > 1 else ""
+    # Fase 2, paso 2: si la entrada de la categoría no se llama como ella (Economía: Precios y actividad), la tarjeta lleva el nombre de su
+    # página y la categoría queda como rótulo de las demás, como en los menús
+    cat = f'<span class="tg-cat">{e(nom)}:</span> ' if nom and nom != s[1] else ""
+    otras = ('<p class="tg-subs">' + cat + "".join(f'<a href="{url_pagina(x)}">{e(TITULO_DE[x])}</a>' for x in subs[1:]) + "</p>") if len(subs) > 1 else ""
     return (f'<li class="tg-item"><a class="tg-link" href="{url_pagina(s[0])}">{ico}<span class="tg-txt">'
-            f'<b style="view-transition-name:t-{s[0]}">{e(nom or s[1])}</b><span class="tg-preg">{e(s[7] or s[2])}</span></span></a>{otras}</li>')
+            f'<b style="view-transition-name:t-{s[0]}">{e(s[1] if cat else nom or s[1])}</b><span class="tg-preg">{e(s[7] or s[2])}</span></span></a>{otras}</li>')
 
 
 _grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelledby="tg-{g}"><h3 class="tg-tit" id="tg-{g}">{e(n)}</h3>'
                                       '<ul class="tg-lista">' + "".join(_tema_portada(it) for it in items) + "</ul></section>")
-_otros = next((x for x in GRUPOS if x[0] == "otros"), None)
-_corta = min(GRUPOS_BARRA, key=lambda x: len(_secs_de(x[2])))
-_temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}{_grupo_portada(*_otros) if x is _corta and _otros else ""}</div>' for x in GRUPOS_BARRA)
-for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu,
+_temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x in GRUPOS)
+
+# ---------- la portada de la Fase 2 (paso 2, diseño aprobado por el autor el 23 de octubre de 2026, docs/rediseno_fase2.md) ----------
+# Preguntas de ejemplo debajo del buscador (EJEMPLOS, arriba): cada una lleva a su ficha, y tiene que seguir en la lista del buscador
+_preg_js = js[js.index("const PREG = ["):js.index("\n];", js.index("const PREG = ["))]
+for _id, _q in EJEMPLOS:
+    assert f'["{_q}"' in _preg_js and f'"#{_id}"' in _preg_js, f"la pregunta de ejemplo {_q} ya no está en PREG"
+_ejemplos = ('<p class="portada-ejemplos"><span>Por ejemplo:</span> '
+             + " ".join(f'<a href="{url_pagina(UBIC[i])}#{i}">{e(q)}</a>' for i, q in EJEMPLOS) + "</p>")
+# Datos destacados: cuatro fijos, uno por grupo de temas, elegidos por el autor el 23 de octubre de 2026. La cifra es la cifra destacada
+# de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y deja
+# reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
+DESTACADOS = [("personas", "f-esperanza"), ("economia", "f-salarios"), ("estado", "f-homicidios"), ("territorio", "f-petroleo")]
+_clave_js = js[js.index("const CLAVE = {"):js.index("\n};", js.index("const CLAVE = {"))]
+_ficha = {f[0]: f for f in FICHAS}
+_nombre_grupo = {g: n for g, n, _ in GRUPOS}
+for _g, _id in DESTACADOS:
+    assert f'"{_id}":' in _clave_js, f"{_id}: el dato destacado necesita una cifra destacada (CLAVE)"
+    assert _id not in TEXTO_ANTES and _ficha[_id][2], f"{_id}: no puede ser un dato destacado o le falta la pregunta fija"
+    assert GRUPO_DE[_ficha[_id][1]][0] == _g, f"{_id}: no es del grupo {_g}"
+_destacados = "".join(f'<a class="tarjeta cifra destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
+                      f'<span class="c-preg">{e(_ficha[i][2])}</span><span class="c-num"></span><span class="c-txt"></span></a>' for g, i in DESTACADOS)
+# Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra
+# el mapa de la portada, que el teclado saltea
+_n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const PERFIL_GRUPOS = ["):js.index("];", js.index("const PERFIL_GRUPOS = ["))]))
+_provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas y su historia. Los números dentro de cada '
+                    'provincia, en <a class="enlace" href="departamentos.html">Departamentos</a>.</p><ul class="prov-home">'
+                    + "".join(f'<li><a href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
+                              f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
+# Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de
+# 2026) antes de las piezas del Laboratorio con página propia, que escribe el constructor
+_historias_home = "".join(f'<a class="tarjeta art-card" href="{i}.html"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
+                          f'<b>{e(html.unescape(t))}</b><small>Laboratorio</small></span></a>' for i, ico, t, _ in PIEZAS)
+# Herramientas: las del menú, en su orden, con el mismo dibujo que las tarjetas de antes (las armaba datina.js). Departamentos pasó a
+# Provincias
+_HERR_EXTRA = {"consultor": ("Consultor de pobreza", "Consultar pobreza por aglomerado, partido y comuna", "casa"),
+               "relaciones": ("Explorador de relaciones", "¿De dónde sale cada número?", "laptop")}
+
+
+def _tarjeta_herr(p, tipo):
+    titulo, preg, ico = (_SEC[p][1], _SEC[p][7] or _SEC[p][2], SEC_ICONO[p]) if p in _SEC else _HERR_EXTRA[p]
+    vt = f' style="view-transition-name:t-{p}"' if p in _SEC else ""
+    return (f'<a class="tarjeta sec-tarjeta herr" href="{url_menu(p)}">{icono_svg(ico).replace(chr(34) + "iso ", chr(34) + "iso sec-ico ", 1)}'
+            f'<span class="sec-tipo">{e(tipo)}</span><b{vt}>{e(titulo)}</b><span class="sec-preg">{e(preg)}</span></a>')
+
+
+_herr_items = next(x[4] for x in MENUS if x[0] == "herramientas")
+_herramientas_home = "".join(_tarjeta_herr(p, "Herramienta") if not isinstance(p, tuple) else "".join(_tarjeta_herr(s, p[0]) for s in p[1])
+                             for p in _herr_items)
+for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
+                     "<!--EJEMPLOS-->": _ejemplos, "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
+                     "<!--HISTORIAS-HOME-->": _historias_home, "<!--HERRAMIENTAS-HOME-->": _herramientas_home,
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
     base = base.replace(marca, valor)
+# Formularios de contacto y suscripción: los recibía Netlify. Desde el 23 de octubre de 2026 el sitio va a Cloudflare Pages, que no los
+# recibe, y el autor decidió ocultarlos hasta elegir otro servicio. Con "formularios" vacío en datos/manual/sitio.json, el armado saca la
+# suscripción del pie y el formulario de Contacto, que dice que todavía no está disponible. Con "netlify", quedan como estaban
+SITIO_CONF = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8"))
+FORMULARIOS = SITIO_CONF.get("formularios", "").strip()
+assert FORMULARIOS in ("", "netlify"), 'datos/manual/sitio.json: "formularios" tiene que ser "netlify" o quedar vacío'
+if not FORMULARIOS:
+    base, _n = re.subn(r'\s*<!-- suscripción \(11 de octubre.*?</form>', "", base, count=1, flags=re.S)
+    assert _n == 1, "no se encontró la suscripción del pie en la plantilla"
+    base, _n = re.subn(r'<!-- formulario de Netlify.*?<p class="form-gracias" id="susc-gracias" hidden>[^<]*</p>',
+                       '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>', base, count=1, flags=re.S)
+    assert _n == 1, "no se encontró el formulario de Contacto en la plantilla"
 BLOQUES = bloques(base)
 for b in BLOQUES:
     b["pagina"] = pagina_de(b)
@@ -705,7 +952,69 @@ def siluetas(h, id_):
                      f'<div class="prov-grid" id="prov-grid">{perfil_vacio()}</div>', 1)
 
 
-def pagina(id_, titulo, descripcion, quedan, recorte=None):
+# Un h1 por página (11 de octubre de 2026, auditoría: 49 de 52 páginas no tenían): el título de la página, que hasta acá es el primer h2
+# de <main>, pasa a h1 al final del armado, cuando el constructor ya lo leyó para el índice, los menús y las migas. El aspecto no cambia
+# (datina.css estiliza h1 y h2 igual). La portada ya tiene su h1. Los artículos y las piezas del Laboratorio arman su título con
+# datina.js, que lo escribe como h1. scripts/prueba_encabezados.py controla el resultado en las páginas armadas.
+# En las secciones con la pregunta como título (class="tema con-pregunta", etapa 35) el título grande que se ve es la pregunta: desde el
+# 14 de octubre de 2026 es también el h1 (h1.pregunta), y el nombre de la sección, chico arriba, pasa a p.tema-nombre. Así el lector de
+# pantalla encuentra como título lo mismo que se ve como título (pendiente de la etapa 37). El aspecto no cambia: datina.css estiliza
+# p.tema-nombre como el h2 y h1.pregunta como la p.pregunta
+def encabezado_principal(h, id_):
+    if id_ == "inicio" or '<article class="nota"' in h or '<section class="pieza"' in h:
+        return h
+    ini = h.find("<main")
+    a = h.find("<h2", ini)
+    assert ini >= 0 and a >= 0, f"{id_}: sin <main> o sin título h2"
+    b = h.find("</h2>", a)
+    seccion = h[h.rfind("<section", ini, a):a]
+    if 'class="tema con-pregunta' not in seccion:
+        return h[:a] + "<h1" + h[a + 3:b] + "</h1>" + h[b + 5:]
+    atrib = h[a + 3:h.find(">", a)]
+    nombre = h[h.find(">", a) + 1:b]
+    p = h.find('<p class="pregunta"', b)
+    q = h.find("</p>", p)
+    assert p >= 0 and h[b:p].strip().replace("</h2>", "").strip() == '<div class="tema-intro">' and "<" not in h[h.find(">", p) + 1:q], \
+        f"{id_}: la sección con pregunta no sigue con <div class=\"tema-intro\"><p class=\"pregunta\">"
+    assert "class=" not in atrib, f"{id_}: el título de la sección ya tiene una clase"
+    return (h[:a] + f'<p class="tema-nombre"{atrib}>{nombre}</p>' + h[b + 5:p] + "<h1" + h[p + 2:q] + "</h1>" + h[q + 4:])
+
+
+# Metadatos para buscadores y redes (11 de octubre de 2026). La dirección pública sale de datos/manual/sitio.json: mientras esté vacía
+# no hay canonical absolutos, og:url, sitemap.xml, robots.txt ni Dataset, para no apuntar a un dominio inventado. Las etiquetas
+# Open Graph y Twitter van siempre en las páginas que se indexan, con un título que dice algo (en las secciones, el nombre y su
+# pregunta). Los artículos y las piezas del Laboratorio llevan además un Article en JSON-LD. scripts/prueba_metadatos.py lo controla
+URL_SITIO = SITIO_CONF["url"].strip().rstrip("/")
+assert not URL_SITIO or URL_SITIO.startswith("https://"), "datos/manual/sitio.json: la dirección tiene que empezar con https://"
+INDEXADAS = []
+
+
+def metadatos(id_, titulo_social, descripcion, tipo):
+    archivo = "" if id_ == "inicio" else f"{id_}.html"
+    m = [f'<meta property="og:site_name" content="Datina">', '<meta property="og:locale" content="es_AR">',
+         f'<meta property="og:type" content="{tipo}">', f'<meta property="og:title" content="{e(titulo_social)}">',
+         f'<meta property="og:description" content="{e(descripcion)}">', '<meta name="twitter:card" content="summary">',
+         f'<meta name="twitter:title" content="{e(titulo_social)}">', f'<meta name="twitter:description" content="{e(descripcion)}">']
+    if URL_SITIO:
+        m += [f'<link rel="canonical" href="{URL_SITIO}/{archivo}">', f'<meta property="og:url" content="{URL_SITIO}/{archivo}">']
+    if tipo == "article":
+        ld = {"@context": "https://schema.org", "@type": "Article", "headline": titulo_social, "description": descripcion, "inLanguage": "es-AR",
+              "author": {"@type": "Organization", "name": "Datina"}, "publisher": {"@type": "Organization", "name": "Datina"}}
+        if URL_SITIO:
+            ld["url"] = ld["mainEntityOfPage"] = f"{URL_SITIO}/{archivo}"
+        m.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
+    if id_ == "inicio" and URL_SITIO:
+        ld = {"@context": "https://schema.org", "@type": "Dataset", "name": "Datina: tabla completa de indicadores por jurisdicción",
+              "description": "Todos los indicadores de Datina en una sola tabla: una fila por jurisdicción, período e indicador, con su unidad y su fuente.",
+              "inLanguage": "es-AR", "creator": {"@type": "Organization", "name": "Datina"}, "spatialCoverage": "Argentina",
+              "license": "https://creativecommons.org/licenses/by/4.0/",
+              "distribution": [{"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": f"{URL_SITIO}/datos/tabla_larga.csv"}]}
+        m.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
+    INDEXADAS.append(archivo)
+    return "\n".join(m)
+
+
+def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, tipo="website"):
     """Arma una pagina con los bloques de `quedan` (paginas del indice) y saca el resto del marcado.
     `recorte` saca partes de los bloques que quedan (por ejemplo, el indice de articulos en la pagina de un articulo)."""
     h = base
@@ -720,6 +1029,10 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None):
     if titulo:
         h = h.replace(TITULO, f"<title>{e(titulo)} | Datina</title>", 1)
         h = h.replace(DESCR, f'<meta name="description" content="{e(descripcion)}">', 1)
+    if id_ != "404":
+        des = descripcion or html.unescape(re.search(r'content="([^"]*)"', DESCR).group(1))
+        soc = titulo_social or titulo or "Datina: las 24 Argentinas en números"
+        h = h.replace('<meta name="description"', metadatos(id_, soc, des, tipo) + '\n<meta name="description"', 1)
     # los enlaces a una ficha de otra pagina (cierres de seccion, perfil provincial) llevan a esa pagina
     def destino(m):
         id2 = m.group(1)
@@ -730,7 +1043,8 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None):
     h = re.sub(r'href="#([\w-]+)"', destino, h)
     h = navegacion(h, id_)
     h = siluetas(h, id_)
-    (SITIO / ("index.html" if id_ == "inicio" else f"{id_}.html")).write_text(h, encoding="utf-8")
+    h = encabezado_principal(h, id_)
+    (SITIO / ("index.html" if id_ == "inicio" else f"{id_}.html")).write_text(h, encoding="utf-8", newline="\n")
     return h
 
 
@@ -749,15 +1063,45 @@ pagina("laboratorio", "Laboratorio",
        "Datos difíciles, en gráficos: cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
        {"laboratorio"})
 for id_, _, titulo, descr in PIEZAS:
-    pagina(id_, html.unescape(titulo), html.unescape(descr), {id_})
+    pagina(id_, html.unescape(titulo), html.unescape(descr), {id_}, tipo="article")
 # Contacto: formulario del proyecto (se activa al publicar en Netlify)
 pagina("contacto", "Contacto", "Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.", {"contacto"})
 # Página para las direcciones que no existen
 pagina("404", "Página no encontrada", "Esta página no existe.", {"404"})
 sin_notas = lambda h: re.sub(r'\s*<div class="notas">.*?</div>', "", h, 1, re.S)
+
+
+# La lista de Artículos la escribe el constructor desde la Fase 2 (paso 4, 23 de octubre de 2026): la armaba datina.js al cargar, y en la
+# computadora "Seguí explorando" y el pie, que se ven antes de que llegue, saltaban hacia abajo (CLS 0,26, y 0,35 con las bajadas). El
+# orden es el de ARTS en datina.js (primero los de series, después los de cruces), y cada cuánto se actualiza y la bajada salen de ahí
+def _arts_js(ini, fin):
+    trozos = re.split(r'(?=\bid: "a-[\w-]+")', bloque_js(ini, fin))[1:]
+    datos = []
+    for t in trozos:
+        m = [re.search(rf'\b{k}: "((?:[^"\\]|\\.)*)"', t) for k in ("id", "frec", "dek")]
+        assert all(m), f"un artículo de datina.js sin id, frec o dek: {t[:60]}"
+        datos.append([json.loads(f'"{x.group(1)}"') for x in m])
+    return datos
+
+
+_ARTS_JS = _arts_js("const ART_SERIE = [", "\n}];") + _arts_js("const ART = [", "\n];")
+_NOTA_DE = {i: (ico, sec, html.unescape(t)) for i, ico, sec, t in NOTAS}
+assert sorted(i for i, *_ in _ARTS_JS) == sorted(_NOTA_DE), "los artículos de datina.js no son los de la plantilla"
+_LISTA_ARTS = "".join(
+    f'<a class="tarjeta art-card" href="{i}.html"><span class="art-ico">{icono_svg(_NOTA_DE[i][0])}</span><span class="art-txt">'
+    f'<b style="view-transition-name:t-{i}">{e(_NOTA_DE[i][2])}</b><span class="art-dek">{e(dek)}</span>'
+    f'<small>{e(_SEC[_NOTA_DE[i][1]][1])}. {e(frec)}</small></span></a>' for i, frec, dek in _ARTS_JS)
+
+
+def lista_articulos(h):
+    vacia = '<div class="art-grid" id="art-grid"></div>'
+    assert h.count(vacia) == 1, "falta la grilla de Artículos en la plantilla"
+    return sin_notas(h).replace(vacia, f'<div class="art-grid" id="art-grid">{_LISTA_ARTS}</div>', 1)
+
+
 for id_, titulo, preg, *_ in SECCIONES:
     descr = f"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar." if preg else f"{titulo} en Datina."
-    pagina(id_, titulo, descr, {id_}, sin_notas if id_ == "articulos" else None)
+    pagina(id_, titulo, descr, {id_}, lista_articulos if id_ == "articulos" else None, titulo_social=f"{titulo}: {preg}" if preg else None)
 
 
 # Una pagina por articulo (a-....html): solo esa nota, sin el indice de articulos
@@ -782,7 +1126,7 @@ CRUZA = lambda id_: ("series oficiales del país" if id_ in ART_SERIES else
                      "datos oficiales de las 24 capitales de provincia" if id_ in ART_CAPITALES else "datos oficiales de las 24 jurisdicciones")
 for id_, _, _, titulo in NOTAS:
     descr = f"{html.unescape(titulo)} Un cruce de {CRUZA(id_)}, con sus fuentes y sus límites."
-    pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_))
+    pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_), tipo="article")
 
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
 REDIRECCIONES = {"emprendedores": "empresas"}
@@ -792,15 +1136,23 @@ for viejo, nuevo in REDIRECCIONES.items():
         f'<meta name="robots" content="noindex"><link rel="canonical" href="{nuevo}.html">'
         f'<script>location.replace("{nuevo}.html" + location.search + location.hash)</script>'
         f'<noscript><meta http-equiv="refresh" content="0; url={nuevo}.html"></noscript></head>'
-        f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8")
+        f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8", newline="\n")
 
 shutil.copy(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", SITIO / "datos" / "tabla_larga.csv")
-# Sitio de consultas de pobreza (Observable Framework). Se construye aparte con "npm run build" dentro de pobreza/
-# y aca solo se copia el resultado a sitio/pobreza/ para publicarlo junto con Datina.
-dist = RAIZ / "pobreza" / "dist"
-if dist.exists():
-    shutil.rmtree(SITIO / "pobreza", ignore_errors=True)
-    shutil.copytree(dist, SITIO / "pobreza")
+# Sitio de consultas de pobreza (Observable Framework). Se construye aparte con "npm run build" dentro de pobreza/ (pobreza/README.md)
+# y su resultado se copia a sitio/pobreza/ solo con --con-pobreza (scripts/consultor_pobreza.py): desde el 22 de octubre de 2026 una
+# pobreza/dist vieja ya no reemplaza el consultor publicado
+AVISO_POBREZA = consultor_pobreza.copiar(DIST_POBREZA, SITIO / "pobreza", CON_POBREZA)
+# el armado de Observable Framework pone maximum-scale=1 en el viewport, y eso impide agrandar la página con los dedos en el celular
+# (11 de octubre de 2026, WCAG 1.4.4). Se saca acá, sobre lo publicado, así sigue resuelto en cada armado nuevo del consultor
+for _pb in (SITIO / "pobreza").glob("*.html"):
+    _t = _pb.read_bytes()
+    _n = re.sub(rb",\s*maximum-scale=1(\.0)?", b"", _t)
+    # y los ejemplos de código (R y Python) cortan la línea en el celular: a 320 píxeles corrían la página de costado
+    if b"datina-codigo" not in _n:
+        _n = _n.replace(b"</head>", b'<style id="datina-codigo">code{overflow-wrap:anywhere}</style>\n</head>', 1)
+    if _n != _t:
+        _pb.write_bytes(_n)
 # Explorador de relaciones (plan Datina Lab): de dónde sale cada número. Página aparte que arma scripts/relaciones.py desde el catálogo
 # datos/manual/relaciones.json. Si el catálogo tiene un error (una relación sin evidencia, una ficha sin origen), el sitio no se arma.
 import relaciones  # noqa: E402
@@ -812,4 +1164,42 @@ if _rx:
 _rx = relaciones.construir(plantilla, base, SECCIONES, UBIC, huella(css))
 if _rx:
     sys.exit("El catálogo del Explorador de relaciones tiene problemas: el sitio no se armó.\n" + "\n".join(_rx))
-print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos" + (" y sitio/pobreza/" if dist.exists() else ""))
+# el Explorador de relaciones lo arma relaciones.py: acá recibe los mismos metadatos que las demás páginas
+_rxp = SITIO / "relaciones.html"
+_rxh = _rxp.read_text(encoding="utf-8")
+if 'property="og:title"' not in _rxh:
+    _rxd = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', _rxh).group(1))
+    _rxh = _rxh.replace('<meta name="description"', metadatos("relaciones", "Explorador de relaciones: ¿de dónde sale cada número?", _rxd, "website") + '\n<meta name="description"', 1)
+    _rxp.write_text(_rxh, encoding="utf-8", newline="\n")
+# sitemap.xml y robots.txt solo con la dirección definitiva (datos/manual/sitio.json). Sin ella se borran, si quedaron de antes
+for _f in ("sitemap.xml", "robots.txt"):
+    (SITIO / _f).unlink(missing_ok=True)
+if URL_SITIO:
+    (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+                                     "".join(f"  <url><loc>{URL_SITIO}/{a}</loc></url>\n" for a in INDEXADAS) + "</urlset>\n", encoding="utf-8", newline="\n")
+    (SITIO / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {URL_SITIO}/sitemap.xml\n", encoding="utf-8", newline="\n")
+# Caché en Cloudflare Pages (23 de octubre de 2026, decisión del autor): sitio/_headers es el equivalente de los [[headers]] de
+# netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
+# cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
+CACHE_LARGO = (["/datina.css", "/datina.js", "/datos/fichas.js", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
+               + [f"/datos/{n}.json" for n in DIFERIDAS])
+(SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO), encoding="utf-8", newline="\n")
+# metadatos y enlaces internos (scripts/prueba_metadatos.py): si algo falla, el sitio no se da por armado
+import prueba_metadatos
+_met = prueba_metadatos.revisar(URL_SITIO)
+if _met:
+    sys.exit("Metadatos o enlaces con problemas: el sitio no se dio por armado.\n" + "\n".join(_met))
+# un h1 por página (scripts/prueba_encabezados.py): si una página lo pierde, el sitio no se da por armado
+import prueba_encabezados
+_enc, _, _, _ = prueba_encabezados.revisar()
+if _enc:
+    sys.exit("Encabezados con problemas: el sitio no se dio por armado.\n" + "\n".join(_enc))
+# la navegación (scripts/prueba_navegacion.py, Fase 2): la misma barra, los mismos menús y el mismo pie en todas las páginas, todas las
+# direcciones de antes y ninguna página sin enlaces que lleguen a ella
+import prueba_navegacion  # noqa: E402
+_nav = prueba_navegacion.revisar()
+if _nav:
+    sys.exit("Navegación con problemas: el sitio no se dio por armado.\n" + "\n".join(_nav))
+print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos")
+if AVISO_POBREZA:
+    print(AVISO_POBREZA)

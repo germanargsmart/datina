@@ -2,7 +2,7 @@
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Observable Framework v1.13.4">
 <title>Diccionario de datos | Pobreza en la Argentina: consultas</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,10 +17,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..700&amp;display=swap">
 <script>
-// Framework reescribe los enlaces que salen de este sitio: el de Datina se corrige al cargar la página
+// Framework reescribe los enlaces que salen de este sitio: el de vuelta a Datina se corrige al cargar la página. Desde la Fase 2 (paso 4,
+// 23 de octubre de 2026, pedido del autor) lleva a Pobreza y hogares, de donde se llega al consultor, y no a la portada
 document.addEventListener("DOMContentLoaded", () => {
   const a = document.querySelector(".cabecera .volver");
-  if (a) a.href = new URL("../", location.href.replace(/[^/]*$/, "")).href;
+  if (a) a.href = new URL("../pobreza.html", location.href.replace(/[^/]*$/, "")).href;
 });
 </script>
 <meta name="description" content="Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.">
@@ -29,11 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
 import "./_observablehq/client.929be116.js";
 
 </script>
+<style id="datina-codigo">code{overflow-wrap:anywhere}</style>
 </head>
 <body>
 <div id="observablehq-center">
 <header id="observablehq-header">
-<nav class="cabecera"><a href="./" class="volver">Datina</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>
+<nav class="cabecera"><a href="./pobreza" class="volver">Datina: Pobreza y hogares</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>
 </header>
 <aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
 <nav>

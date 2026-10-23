@@ -1,0 +1,11 @@
+eleccion,tipo,anio,fecha,gobierno,candidatura_gobierno,fuerza,voto_gobierno_pct,salio_primero,mes_indice,indice
+2003,Primera vuelta,2003,2003-04-27,Eduardo Duhalde,Kirchner,Frente para la Victoria,22.25,False,2003-03,0.89
+2007,Primera vuelta,2007,2007-10-28,Néstor Kirchner,Fernández de Kirchner,Frente para la Victoria,45.28,True,2007-09,1.89
+2011-paso,PASO,2011,2011-08-14,Cristina Fernández de Kirchner,Fernández de Kirchner,Frente para la Victoria,50.24,True,2011-07,2.48
+2011,Primera vuelta,2011,2011-10-23,Cristina Fernández de Kirchner,Fernández de Kirchner,Frente para la Victoria,54.11,True,2011-09,2.64
+2015-paso,PASO,2015,2015-08-09,Cristina Fernández de Kirchner,Scioli,Frente para la Victoria,38.67,True,2015-07,2.04
+2015,Primera vuelta,2015,2015-10-25,Cristina Fernández de Kirchner,Scioli,Frente para la Victoria,37.08,True,2015-09,1.78
+2019-paso,PASO,2019,2019-08-11,Mauricio Macri,Macri,Juntos por el Cambio,33.12,False,2019-07,1.97
+2019,Primera vuelta,2019,2019-10-27,Mauricio Macri,Macri,Juntos por el Cambio,40.28,False,2019-09,1.91
+2023-paso,PASO,2023,2023-08-13,Alberto Fernández,Massa,Unión por la Patria,28.66,False,2023-07,1.2
+2023,Primera vuelta,2023,2023-10-22,Alberto Fernández,Massa,Unión por la Patria,36.69,True,2023-09,1.03

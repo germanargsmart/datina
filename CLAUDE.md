@@ -18,15 +18,17 @@ scripts/01_descargar.py        baja cada fuente tal como la publica el organismo
 scripts/02_procesar.py         arma datos/ordenado/tabla_larga.csv, sitio/datos/fichas.json y un CSV por tabla
 scripts/03_construir_sitio.py  corre pruebas_datos.py y escribe sitio/datos/fichas.js, sitio/datina.css, sitio/datina.js y una página por sección
 scripts/plantilla.html         el marcado de todas las secciones: títulos, textos fijos y fichas
-scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5 desde cdnjs) y comportamiento
+scripts/datina.css / datina.js el diseño (valores en :root) y los textos calculados, gráficos (D3 7.8.5) y comportamiento
+scripts/lib/                   D3 7.8.5 y topojson-client 3.1.0 con sus licencias: 03 los copia a sitio/lib/ (ninguna página los pide a una CDN)
 scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se publica
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
+scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json)
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
 scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos
 pobreza/                       consultor de pobreza aparte (Observable Framework, DuckDB, Parquet): ver pobreza/README.md
-sitio/                         lo único que se publica (Netlify, netlify.toml). Nunca se edita a mano: sale de scripts/
+sitio/                         lo único que se publica (Cloudflare Pages, _headers). Nunca se edita a mano: sale de scripts/
 docs/roadmap/                  plan vigente, estado, decisiones, criterios de aceptación e inventario
 .github/workflows/actualizar.yml  actualización automática mensual (día 5): descarga, procesa, prueba, arma y publica
 ```
@@ -35,11 +37,11 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 
 - Todo: `python scripts/01_descargar.py && python scripts/02_procesar.py && python scripts/03_construir_sitio.py`, y después `node scripts/prueba_paginas.mjs` (Node 22 o más y Chrome, de 3 a 5 minutos).
 - No correr `01_descargar.py` para cambios visuales ni sin aprobación del autor: baja cientos de MB.
-- Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`).
+- Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`). No toca `sitio/pobreza/`: el consultor de pobreza se arma aparte (`pobreza/README.md`) y entra al sitio solo con `python scripts/03_construir_sitio.py --con-pobreza`.
 - Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`.
 - Catálogo del Explorador de relaciones: `python scripts/relaciones.py` (lo valida) y `python scripts/prueba_relaciones.py` (prueba el validador). 03 corre los dos.
 - Ver el sitio: `cd sitio && python -m http.server 8765`.
-- Detalle por tipo de cambio y cómo probar en un entorno sin acceso a las CDN: `.claude/rules/pruebas.md`.
+- Detalle por tipo de cambio y la prueba sin acceso a las CDN: `.claude/rules/pruebas.md`.
 
 ## Reglas de datos (resumen; completas en `.claude/rules/pipeline-datos.md`)
 
@@ -75,7 +77,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Roboto Flex con reemplazos medidos (Roboto, Verdana). Nada de serif ni Arial. Roboto Mono para etiquetas. La bajada de cada página, en Roboto Flex 340 con su propio reemplazo (`--f-bajada`).
 - Colores de la bandera sobre fondo blanco: celeste (`--celeste`, `--celeste-fuerte`) y el amarillo del Sol de Mayo (`--sol`). Nada de azul marino. Solo modo claro. Violeta solo para la OCDE. Verde y rojo solo para cambios buenos o malos indiscutidos.
 - Todo valor sale de `:root` en `datina.css` (colores, letra, espacios, radios, sombras, duraciones). Espacios en la escala del autor (4, 8, 12, 16, 24, 32, 48, 72, 96 y 144) con tres ritmos: dentro de un componente, entre bloques (`--bloque`, de 24 a 40) y entre capítulos (`--capitulo`, de 48 a 72, solo donde cambia el tema de la página). El autor pidió el 10 de octubre de 2026 menos espacio en blanco: lo que va junto, junto. Ninguna animación de interfaz pasa de 300 ms. Respetar movimiento reducido.
-- Las secciones se ordenan en grupos y categorías que salen de `GRUPOS` en `03_construir_sitio.py`: la barra (los cuatro grupos, cada uno con su menú, y "Más"), migas, pie, portada y recorrido. Barra y portada usan siempre el mismo orden y los mismos nombres.
+- Las secciones se ordenan en grupos y categorías que salen de `GRUPOS` y `MENUS` en `03_construir_sitio.py`: la barra (desde el 23 de octubre de 2026, Temas, Provincias, Historias y Herramientas, cada uno con su menú, y "Menú" hasta 1080 píxeles), migas, pie, portada y recorrido. Barra y portada usan siempre el mismo orden y los mismos nombres. `scripts/prueba_navegacion.py` lo controla.
 - Seis tipos de botón y nada más. Sin viñetas. Sin flechas decorativas.
 - La provincia se elige solo en `provincia.html`.
 - Accesibilidad: foco visible, teclado completo, contraste 4,5 a 1, "Ver tabla" como alternativa a los gráficos, nada que dependa solo del mouse.
@@ -87,8 +89,8 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Nombres auxiliares cortos en `02_procesar.py` (`_pv`, `_nq`, `_pr`) pisaron otros: usar un prefijo propio del bloque y buscar antes.
 - En `datina.js`, `TX` y `LEAD` se evalúan al cargar y solo pueden usar lo definido antes en el archivo.
 - Al editar con Python desde la terminal, las barras invertidas pueden llegar cambiadas: escribir el script en un archivo. En Windows, `Path.write_text` escribe CRLF: en archivos con LF, leer y escribir bytes.
-- Las páginas armadas en `sitio/` del repositorio tienen finales CRLF (se arman en Windows): armar en Linux cambia todas las líneas. Si solo cambió eso, no subirlo.
+- Finales de línea: desde el 23 de octubre de 2026 (plan de estabilización, P1-4) todo lo que escriben 02 y 03 sale en LF, también en Windows (`newline="\n"` y `lineterminator="\n"`), y `.gitattributes` lo fija para `sitio/` y `datos/ordenado/`. Armar en Windows o en Linux da los mismos archivos. Una escritura nueva en 02 o 03 lleva lo mismo. `datos/crudo` y `datos/manual` tienen archivos con CRLF que se guardan como llegaron.
 
 ## Publicación
 
-Netlify toma la carpeta `sitio/`. La actualización del día 5 republica sola cuando el repositorio está conectado. Cambios de infraestructura, DNS, servidores o secretos: siempre con revisión del autor, nunca desde un agente.
+Desde el 23 de octubre de 2026 (decisión del autor), Cloudflare Pages publica la carpeta `sitio/`: sin armado propio, con la caché de `sitio/_headers` (la escribe 03) y sin formularios (`"formularios"` vacío en `datos/manual/sitio.json`). Ningún archivo de `sitio/` puede pasar de 25 MB. La actualización del día 5 republica sola cuando el repositorio está conectado. Cómo conectarlo y verificar: `docs/deploy/CLOUDFLARE.md`. Cambios de infraestructura, DNS, servidores o secretos: siempre con revisión del autor, nunca desde un agente.

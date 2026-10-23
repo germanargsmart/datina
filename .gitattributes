@@ -1,0 +1,5 @@
+# Finales de línea (plan de estabilización, P1-4, 23 de octubre de 2026): lo que escriben 02_procesar.py y 03_construir_sitio.py va
+# siempre en LF, se arme en Windows o en Linux (la actualización mensual arma en Linux). datos/crudo (los archivos tal como los publica
+# cada organismo) y datos/manual no se tocan: tienen archivos con CRLF que se guardan como llegaron.
+sitio/** text=auto eol=lf
+datos/ordenado/** text=auto eol=lf

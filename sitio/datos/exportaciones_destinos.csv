@@ -1,0 +1,576 @@
+codigo_indec,territorio,destino,destino_nombre,millones_usd,pct,millones_usd_anterior
+00,Total del país,brasil,Brasil,6259.656,12.6429,6011.0863
+06,Buenos Aires,brasil,Brasil,3546.5838,22.2141,3620.1334
+02,CABA,brasil,Brasil,1.5727,0.8181,2.1427
+14,Córdoba,brasil,Brasil,812.8583,14.5119,680.5006
+30,Entre Ríos,brasil,Brasil,107.1341,10.2058,106.7801
+42,La Pampa,brasil,Brasil,18.0237,3.0326,22.721
+82,Santa Fe,brasil,Brasil,617.0122,6.5944,644.8715
+26,Chubut,brasil,Brasil,245.9895,13.973,175.0059
+58,Neuquén,brasil,Brasil,175.7165,4.0828,106.2268
+62,Río Negro,brasil,Brasil,86.7245,28.8069,74.1395
+78,Santa Cruz,brasil,Brasil,11.5828,0.5387,13.0541
+94,Tierra del Fuego,brasil,Brasil,27.0864,9.2695,13.4662
+10,Catamarca,brasil,Brasil,3.4807,0.8869,3.2745
+38,Jujuy,brasil,Brasil,20.566,2.1144,6.2813
+46,La Rioja,brasil,Brasil,20.1511,25.6939,23.3917
+66,Salta,brasil,Brasil,49.8613,5.2009,36.4299
+86,Santiago del Estero,brasil,Brasil,16.2338,4.2681,17.4307
+90,Tucumán,brasil,Brasil,58.7423,12.8232,61.4767
+50,Mendoza,brasil,Brasil,235.0021,27.9908,206.7679
+70,San Juan,brasil,Brasil,48.702,3.7943,48.6011
+74,San Luis,brasil,Brasil,13.1659,3.3174,10.86
+22,Chaco,brasil,Brasil,8.3651,5.5013,8.2207
+18,Corrientes,brasil,Brasil,13.3582,7.2791,10.7606
+34,Formosa,brasil,Brasil,2.8477,19.5254,2.9721
+54,Misiones,brasil,Brasil,63.345,23.2078,66.8803
+00,Total del país,chile,Chile,3309.7992,6.6849,3245.0028
+06,Buenos Aires,chile,Chile,838.3565,5.2511,774.2556
+02,CABA,chile,Chile,3.0841,1.6043,2.7446
+14,Córdoba,chile,Chile,288.3132,5.1472,291.8239
+30,Entre Ríos,chile,Chile,46.8005,4.4583,62.237
+42,La Pampa,chile,Chile,25.411,4.2756,23.7391
+82,Santa Fe,chile,Chile,352.0477,3.7626,328.3465
+26,Chubut,chile,Chile,121.2613,6.8881,117.8105
+58,Neuquén,chile,Chile,1173.1341,27.2582,1164.0686
+62,Río Negro,chile,Chile,15.9839,5.3093,18.0489
+78,Santa Cruz,chile,Chile,39.2792,1.8267,48.9104
+94,Tierra del Fuego,chile,Chile,92.0823,31.5124,94.105
+10,Catamarca,chile,Chile,1.1958,0.3047,0.7601
+38,Jujuy,chile,Chile,29.6277,3.046,35.4374
+46,La Rioja,chile,Chile,20.9024,26.6518,15.1295
+66,Salta,chile,Chile,30.6921,3.2014,27.9204
+86,Santiago del Estero,chile,Chile,10.5885,2.7839,10.271
+90,Tucumán,chile,Chile,31.4577,6.8671,36.58
+50,Mendoza,chile,Chile,57.8592,6.8915,58.0878
+70,San Juan,chile,Chile,38.0282,2.9627,33.9254
+74,San Luis,chile,Chile,34.7258,8.7498,43.9826
+22,Chaco,chile,Chile,6.6951,4.403,5.7847
+18,Corrientes,chile,Chile,10.0142,5.4569,13.4913
+34,Formosa,chile,Chile,0.8983,6.1595,1.1154
+54,Misiones,chile,Chile,8.6581,3.1721,8.3867
+00,Total del país,china,China,4922.5839,9.9423,3074.452
+06,Buenos Aires,china,China,1341.749,8.4041,1036.0153
+02,CABA,china,China,2.548,1.3254,4.196
+14,Córdoba,china,China,497.7623,8.8865,353.7884
+30,Entre Ríos,china,China,190.5666,18.1537,162.1582
+42,La Pampa,china,China,77.101,12.9728,57.5132
+82,Santa Fe,china,China,577.3325,6.1704,469.2035
+26,Chubut,china,China,164.1909,9.3266,113.1913
+58,Neuquén,china,China,231.7951,5.3858,0.0764
+62,Río Negro,china,China,4.7088,1.5641,3.9045
+78,Santa Cruz,china,China,59.909,2.7861,34.9121
+94,Tierra del Fuego,china,China,17.1869,5.8817,2.9881
+10,Catamarca,china,China,263.2086,67.0645,78.5877
+38,Jujuy,china,China,733.0332,75.3635,298.1713
+46,La Rioja,china,China,0.8974,1.1443,0.5774
+66,Salta,china,China,249.0938,25.9823,32.2397
+86,Santiago del Estero,china,China,105.8299,27.824,83.5446
+90,Tucumán,china,China,22.799,4.9769,15.527
+50,Mendoza,china,China,35.8203,4.2665,31.1039
+70,San Juan,china,China,0.6443,0.0502,0.2009
+74,San Luis,china,China,28.3635,7.1467,13.0029
+22,Chaco,china,China,26.949,17.7229,20.8143
+18,Corrientes,china,China,11.8852,6.4764,9.1647
+34,Formosa,china,China,1.0645,7.2992,1.0966
+54,Misiones,china,China,32.6498,11.962,29.1116
+00,Total del país,eeuu,Estados Unidos,4864.9437,9.8259,3419.1247
+06,Buenos Aires,eeuu,Estados Unidos,872.0438,5.4621,578.7426
+02,CABA,eeuu,Estados Unidos,3.212,1.6708,1.5795
+14,Córdoba,eeuu,Estados Unidos,108.1763,1.9313,113.4705
+30,Entre Ríos,eeuu,Estados Unidos,69.6047,6.6307,47.0926
+42,La Pampa,eeuu,Estados Unidos,39.1569,6.5884,22.5672
+82,Santa Fe,eeuu,Estados Unidos,251.744,2.6906,139.4783
+26,Chubut,eeuu,Estados Unidos,560.2269,31.8228,354.8456
+58,Neuquén,eeuu,Estados Unidos,1307.7464,30.3859,1140.9658
+62,Río Negro,eeuu,Estados Unidos,62.2035,20.6618,84.6556
+78,Santa Cruz,eeuu,Estados Unidos,588.6568,27.3756,255.8872
+94,Tierra del Fuego,eeuu,Estados Unidos,69.1384,23.6605,65.3138
+10,Catamarca,eeuu,Estados Unidos,44.1195,11.2415,47.4421
+38,Jujuy,eeuu,Estados Unidos,38.0909,3.9161,21.476
+46,La Rioja,eeuu,Estados Unidos,7.1265,9.0868,5.8069
+66,Salta,eeuu,Estados Unidos,204.7516,21.3571,142.2287
+86,Santiago del Estero,eeuu,Estados Unidos,7.4266,1.9526,5.4298
+90,Tucumán,eeuu,Estados Unidos,85.7987,18.7295,84.8612
+50,Mendoza,eeuu,Estados Unidos,135.5556,16.1459,135.594
+70,San Juan,eeuu,Estados Unidos,24.5302,1.9111,17.5624
+74,San Luis,eeuu,Estados Unidos,26.1061,6.5779,19.5192
+22,Chaco,eeuu,Estados Unidos,6.9333,4.5596,4.8042
+18,Corrientes,eeuu,Estados Unidos,33.0233,17.9948,32.3852
+34,Formosa,eeuu,Estados Unidos,0.86,5.8966,1.0845
+54,Misiones,eeuu,Estados Unidos,54.7177,20.047,41.939
+00,Total del país,ue,Unión Europea,4387.4957,8.8616,3565.6238
+06,Buenos Aires,ue,Unión Europea,1050.5288,6.58,1064.3784
+02,CABA,ue,Unión Europea,101.3628,52.7263,101.1398
+14,Córdoba,ue,Unión Europea,636.8774,11.3701,569.0591
+30,Entre Ríos,ue,Unión Europea,57.5801,5.4852,68.2677
+42,La Pampa,ue,Unión Europea,107.4772,18.0838,51.8745
+82,Santa Fe,ue,Unión Europea,993.7907,10.6213,816.3513
+26,Chubut,ue,Unión Europea,289.1937,16.4272,101.8108
+58,Neuquén,ue,Unión Europea,48.6227,1.1298,72.6786
+62,Río Negro,ue,Unión Europea,29.8665,9.9206,32.9926
+78,Santa Cruz,ue,Unión Europea,199.4033,9.2733,95.7393
+94,Tierra del Fuego,ue,Unión Europea,9.0531,3.0981,12.0043
+10,Catamarca,ue,Unión Europea,6.2869,1.6019,2.0239
+38,Jujuy,ue,Unión Europea,27.8071,2.8589,55.481
+46,La Rioja,ue,Unión Europea,11.1556,14.2241,6.5754
+66,Salta,ue,Unión Europea,146.059,15.235,78.5315
+86,Santiago del Estero,ue,Unión Europea,26.1636,6.8787,10.3717
+90,Tucumán,ue,Unión Europea,146.1813,31.9107,99.1843
+50,Mendoza,ue,Unión Europea,90.0451,10.7252,73.9052
+70,San Juan,ue,Unión Europea,30.0496,2.3411,16.3621
+74,San Luis,ue,Unión Europea,39.659,9.9928,21.5757
+22,Chaco,ue,Unión Europea,39.9987,26.3049,16.6692
+18,Corrientes,ue,Unión Europea,37.5094,20.4393,45.7299
+34,Formosa,ue,Unión Europea,2.3573,16.1629,3.1858
+54,Misiones,ue,Unión Europea,37.3171,13.6719,44.5915
+00,Total del país,india,India,3101.206,6.2636,2398.9137
+06,Buenos Aires,india,India,475.914,2.9809,582.9396
+02,CABA,india,India,2.41,1.2536,3.266
+14,Córdoba,india,India,467.7128,8.3501,335.5852
+30,Entre Ríos,india,India,14.749,1.405,12.3051
+42,La Pampa,india,India,0.1206,0.0203,1.3433
+82,Santa Fe,india,India,1716.7191,18.3478,1126.5775
+26,Chubut,india,India,1.2607,0.0716,11.6972
+58,Neuquén,india,India,,,79.0076
+62,Río Negro,india,India,0.2534,0.0842,0.895
+78,Santa Cruz,india,India,,,1.2247
+94,Tierra del Fuego,india,India,0.0,0.0,2.7308
+10,Catamarca,india,India,0.2152,0.0548,0.0008
+38,Jujuy,india,India,1.289,0.1325,0.4327
+46,La Rioja,india,India,0.0,0.0,0.0
+66,Salta,india,India,5.662,0.5906,5.7628
+86,Santiago del Estero,india,India,0.0823,0.0216,0.1029
+90,Tucumán,india,India,1.1345,0.2477,0.861
+50,Mendoza,india,India,2.0386,0.2428,0.2526
+70,San Juan,india,India,282.2875,21.9926,174.8124
+74,San Luis,india,India,0.0518,0.013,0.6497
+22,Chaco,india,India,1.737,1.1423,0.9165
+18,Corrientes,india,India,10.5566,5.7524,5.7926
+34,Formosa,india,India,0.0011,0.0078,0.0005
+54,Misiones,india,India,0.9859,0.3612,0.8419
+00,Total del país,vietnam,Vietnam,1801.4026,3.6384,1496.5324
+06,Buenos Aires,vietnam,Vietnam,553.7817,3.4686,406.6669
+02,CABA,vietnam,Vietnam,,,
+14,Córdoba,vietnam,Vietnam,354.1595,6.3228,384.864
+30,Entre Ríos,vietnam,Vietnam,98.37,9.3709,40.4345
+42,La Pampa,vietnam,Vietnam,,,
+82,Santa Fe,vietnam,Vietnam,512.188,5.4741,509.789
+26,Chubut,vietnam,Vietnam,11.5854,0.6581,7.7613
+58,Neuquén,vietnam,Vietnam,37.3876,0.8687,
+62,Río Negro,vietnam,Vietnam,0.7751,0.2575,
+78,Santa Cruz,vietnam,Vietnam,1.2992,0.0604,
+94,Tierra del Fuego,vietnam,Vietnam,1.4395,0.4926,
+10,Catamarca,vietnam,Vietnam,1.1075,0.2822,0.5342
+38,Jujuy,vietnam,Vietnam,,,
+46,La Rioja,vietnam,Vietnam,,,
+66,Salta,vietnam,Vietnam,32.7836,3.4196,25.1878
+86,Santiago del Estero,vietnam,Vietnam,43.725,11.4959,25.8441
+90,Tucumán,vietnam,Vietnam,6.2373,1.3616,3.6926
+50,Mendoza,vietnam,Vietnam,,,
+70,San Juan,vietnam,Vietnam,,,
+74,San Luis,vietnam,Vietnam,32.4606,8.1791,28.0841
+22,Chaco,vietnam,Vietnam,9.3956,6.1789,4.8945
+18,Corrientes,vietnam,Vietnam,9.2113,5.0193,5.6307
+34,Formosa,vietnam,Vietnam,0.9364,6.4208,0.6207
+54,Misiones,vietnam,Vietnam,5.5281,2.0253,6.4395
+00,Total del país,peru,Perú,1350.0906,2.7268,1270.446
+06,Buenos Aires,peru,Perú,579.1111,3.6273,500.9539
+02,CABA,peru,Perú,3.0394,1.581,3.539
+14,Córdoba,peru,Perú,191.495,3.4188,197.5116
+30,Entre Ríos,peru,Perú,27.5185,2.6215,27.2465
+42,La Pampa,peru,Perú,27.622,4.6476,26.4867
+82,Santa Fe,peru,Perú,305.9699,3.2701,321.0137
+26,Chubut,peru,Perú,38.2718,2.174,53.7332
+58,Neuquén,peru,Perú,41.7903,0.971,44.9915
+62,Río Negro,peru,Perú,12.7819,4.2457,6.5949
+78,Santa Cruz,peru,Perú,2.7905,0.1298,2.6962
+94,Tierra del Fuego,peru,Perú,1.4124,0.4834,1.5568
+10,Catamarca,peru,Perú,0.4896,0.1247,0.6523
+38,Jujuy,peru,Perú,0.207,0.0213,0.2096
+46,La Rioja,peru,Perú,0.2999,0.3825,0.1511
+66,Salta,peru,Perú,16.0799,1.6773,15.2601
+86,Santiago del Estero,peru,Perú,16.4327,4.3204,15.887
+90,Tucumán,peru,Perú,4.9801,1.0871,4.3215
+50,Mendoza,peru,Perú,11.1009,1.3222,11.8915
+70,San Juan,peru,Perú,2.6015,0.2027,3.0424
+74,San Luis,peru,Perú,22.9042,5.7711,22.121
+22,Chaco,peru,Perú,3.2193,2.1171,3.4174
+18,Corrientes,peru,Perú,1.0061,0.5482,0.7849
+34,Formosa,peru,Perú,0.4554,3.1223,0.435
+54,Misiones,peru,Perú,2.5558,0.9364,1.8189
+00,Total del país,uruguay,Uruguay,1072.1914,2.1655,921.812
+06,Buenos Aires,uruguay,Uruguay,406.9913,2.5492,373.1486
+02,CABA,uruguay,Uruguay,28.9446,15.0562,27.8542
+14,Córdoba,uruguay,Uruguay,46.1047,0.8231,38.709
+30,Entre Ríos,uruguay,Uruguay,53.5465,5.1009,79.7539
+42,La Pampa,uruguay,Uruguay,4.8606,0.8178,3.4143
+82,Santa Fe,uruguay,Uruguay,68.1182,0.728,58.5585
+26,Chubut,uruguay,Uruguay,36.9465,2.0987,22.6724
+58,Neuquén,uruguay,Uruguay,267.3885,6.2129,155.702
+62,Río Negro,uruguay,Uruguay,3.9649,1.317,2.762
+78,Santa Cruz,uruguay,Uruguay,3.6411,0.1693,2.2285
+94,Tierra del Fuego,uruguay,Uruguay,11.0665,3.7872,7.1872
+10,Catamarca,uruguay,Uruguay,0.4588,0.1169,0.5332
+38,Jujuy,uruguay,Uruguay,4.0932,0.4208,2.7123
+46,La Rioja,uruguay,Uruguay,4.3821,5.5874,4.857
+66,Salta,uruguay,Uruguay,2.9044,0.3029,1.8871
+86,Santiago del Estero,uruguay,Uruguay,0.53,0.1393,0.177
+90,Tucumán,uruguay,Uruguay,8.9798,1.9603,12.7583
+50,Mendoza,uruguay,Uruguay,30.2186,3.5993,26.9588
+70,San Juan,uruguay,Uruguay,35.7157,2.7826,34.5024
+74,San Luis,uruguay,Uruguay,11.3876,2.8693,10.2694
+22,Chaco,uruguay,Uruguay,0.81,0.5327,1.6767
+18,Corrientes,uruguay,Uruguay,1.1404,0.6214,1.3297
+34,Formosa,uruguay,Uruguay,0.0235,0.1608,0.0492
+54,Misiones,uruguay,Uruguay,1.2592,0.4613,0.8777
+00,Total del país,paraguay,Paraguay,883.2334,1.7839,622.7106
+06,Buenos Aires,paraguay,Paraguay,575.4684,3.6045,385.7657
+02,CABA,paraguay,Paraguay,16.7324,8.7038,14.6057
+14,Córdoba,paraguay,Paraguay,53.5284,0.9556,31.867
+30,Entre Ríos,paraguay,Paraguay,9.4525,0.9005,9.385
+42,La Pampa,paraguay,Paraguay,0.8612,0.1449,0.9993
+82,Santa Fe,paraguay,Paraguay,107.339,1.1472,86.0975
+26,Chubut,paraguay,Paraguay,0.7771,0.0441,0.1598
+58,Neuquén,paraguay,Paraguay,3.3106,0.0769,3.7883
+62,Río Negro,paraguay,Paraguay,4.8178,1.6003,3.6711
+78,Santa Cruz,paraguay,Paraguay,,,
+94,Tierra del Fuego,paraguay,Paraguay,,,
+10,Catamarca,paraguay,Paraguay,0.697,0.1776,0.6983
+38,Jujuy,paraguay,Paraguay,3.5065,0.3605,1.6513
+46,La Rioja,paraguay,Paraguay,2.163,2.758,1.4054
+66,Salta,paraguay,Paraguay,13.8279,1.4424,15.6059
+86,Santiago del Estero,paraguay,Paraguay,0.7548,0.1985,0.7112
+90,Tucumán,paraguay,Paraguay,3.1676,0.6915,3.0655
+50,Mendoza,paraguay,Paraguay,30.3839,3.619,16.0193
+70,San Juan,paraguay,Paraguay,3.2376,0.2522,3.4501
+74,San Luis,paraguay,Paraguay,20.3391,5.1248,20.1764
+22,Chaco,paraguay,Paraguay,0.5028,0.3306,0.1943
+18,Corrientes,paraguay,Paraguay,1.0915,0.5947,0.6737
+34,Formosa,paraguay,Paraguay,0.0786,0.5387,0.1211
+54,Misiones,paraguay,Paraguay,3.01,1.1028,2.7787
+00,Total del país,tailandia,Tailandia,891.6668,1.8009,163.9917
+06,Buenos Aires,tailandia,Tailandia,118.5234,0.7424,47.7806
+02,CABA,tailandia,Tailandia,,,0.0
+14,Córdoba,tailandia,Tailandia,24.471,0.4369,0.4282
+30,Entre Ríos,tailandia,Tailandia,22.6364,2.1564,0.0028
+42,La Pampa,tailandia,Tailandia,,,0.0334
+82,Santa Fe,tailandia,Tailandia,68.7177,0.7344,35.5194
+26,Chubut,tailandia,Tailandia,89.4996,5.0839,24.0474
+58,Neuquén,tailandia,Tailandia,479.2039,11.1345,0.0
+62,Río Negro,tailandia,Tailandia,4.1274,1.371,0.036
+78,Santa Cruz,tailandia,Tailandia,9.6066,0.4468,3.2709
+94,Tierra del Fuego,tailandia,Tailandia,17.6571,6.0426,0.0
+10,Catamarca,tailandia,Tailandia,0.2309,0.0588,0.0038
+38,Jujuy,tailandia,Tailandia,,,
+46,La Rioja,tailandia,Tailandia,,,
+66,Salta,tailandia,Tailandia,8.9209,0.9305,1.2652
+86,Santiago del Estero,tailandia,Tailandia,6.7627,1.778,0.8883
+90,Tucumán,tailandia,Tailandia,1.1054,0.2413,0.0468
+50,Mendoza,tailandia,Tailandia,,,3.1857
+70,San Juan,tailandia,Tailandia,,,0.1152
+74,San Luis,tailandia,Tailandia,0.433,0.1091,0.0452
+22,Chaco,tailandia,Tailandia,2.2844,1.5023,0.9459
+18,Corrientes,tailandia,Tailandia,0.5903,0.3217,0.3353
+34,Formosa,tailandia,Tailandia,0.0975,0.6688,0.0054
+54,Misiones,tailandia,Tailandia,4.1159,1.5079,1.4468
+00,Total del país,malasia,Malasia,804.9362,1.6258,614.9784
+06,Buenos Aires,malasia,Malasia,160.7646,1.007,160.9239
+02,CABA,malasia,Malasia,,,
+14,Córdoba,malasia,Malasia,188.7415,3.3696,176.7441
+30,Entre Ríos,malasia,Malasia,17.7884,1.6946,17.8934
+42,La Pampa,malasia,Malasia,,,
+82,Santa Fe,malasia,Malasia,191.6986,2.0488,189.6476
+26,Chubut,malasia,Malasia,16.0405,0.9112,0.2678
+58,Neuquén,malasia,Malasia,118.2218,2.7469,
+62,Río Negro,malasia,Malasia,,,
+78,Santa Cruz,malasia,Malasia,1.9746,0.0918,
+94,Tierra del Fuego,malasia,Malasia,,,0.0
+10,Catamarca,malasia,Malasia,0.2728,0.0695,0.2871
+38,Jujuy,malasia,Malasia,0.2604,0.0268,
+46,La Rioja,malasia,Malasia,0.0,0.0,
+66,Salta,malasia,Malasia,12.7307,1.3279,11.8642
+86,Santiago del Estero,malasia,Malasia,11.9002,3.1287,12.252
+90,Tucumán,malasia,Malasia,2.0575,0.4492,2.0241
+50,Mendoza,malasia,Malasia,,,
+70,San Juan,malasia,Malasia,,,
+74,San Luis,malasia,Malasia,14.8275,3.7361,15.594
+22,Chaco,malasia,Malasia,1.6826,1.1065,1.7288
+18,Corrientes,malasia,Malasia,1.6793,0.9151,1.1475
+34,Formosa,malasia,Malasia,0.3177,2.1787,0.3353
+54,Misiones,malasia,Malasia,1.5876,0.5817,1.9866
+00,Total del país,indonesia,Indonesia,776.6725,1.5687,492.6921
+06,Buenos Aires,indonesia,Indonesia,242.3186,1.5178,144.0629
+02,CABA,indonesia,Indonesia,,,
+14,Córdoba,indonesia,Indonesia,69.9251,1.2484,156.0618
+30,Entre Ríos,indonesia,Indonesia,33.6877,3.2091,21.8438
+42,La Pampa,indonesia,Indonesia,,,
+82,Santa Fe,indonesia,Indonesia,362.4839,3.8741,128.8231
+26,Chubut,indonesia,Indonesia,12.6543,0.7188,8.6676
+58,Neuquén,indonesia,Indonesia,0.0,0.0,0.0
+62,Río Negro,indonesia,Indonesia,,,
+78,Santa Cruz,indonesia,Indonesia,0.0,0.0,
+94,Tierra del Fuego,indonesia,Indonesia,,,0.0
+10,Catamarca,indonesia,Indonesia,6.6431,1.6926,1.1473
+38,Jujuy,indonesia,Indonesia,0.0838,0.0086,0.0614
+46,La Rioja,indonesia,Indonesia,0.0,0.0,0.0
+66,Salta,indonesia,Indonesia,2.1696,0.2263,4.0768
+86,Santiago del Estero,indonesia,Indonesia,9.1113,2.3955,7.8484
+90,Tucumán,indonesia,Indonesia,1.3395,0.2924,1.0828
+50,Mendoza,indonesia,Indonesia,,,0.2467
+70,San Juan,indonesia,Indonesia,,,0.0177
+74,San Luis,indonesia,Indonesia,1.54,0.388,3.5874
+22,Chaco,indonesia,Indonesia,2.8774,1.8923,2.1992
+18,Corrientes,indonesia,Indonesia,0.3541,0.193,0.724
+34,Formosa,indonesia,Indonesia,0.1632,1.1191,0.1535
+54,Misiones,indonesia,Indonesia,0.6012,0.2203,2.4644
+00,Total del país,resto_mercosur,Resto del Mercosur,274.4673,0.5544,207.1488
+06,Buenos Aires,resto_mercosur,Resto del Mercosur,82.896,0.5192,81.8082
+02,CABA,resto_mercosur,Resto del Mercosur,0.1896,0.0986,0.2535
+14,Córdoba,resto_mercosur,Resto del Mercosur,62.9074,1.1231,35.1753
+30,Entre Ríos,resto_mercosur,Resto del Mercosur,2.8171,0.2684,6.6048
+42,La Pampa,resto_mercosur,Resto del Mercosur,1.3417,0.2257,2.78
+82,Santa Fe,resto_mercosur,Resto del Mercosur,92.5849,0.9895,66.8206
+26,Chubut,resto_mercosur,Resto del Mercosur,-0.0,-0.0,0.0
+58,Neuquén,resto_mercosur,Resto del Mercosur,0.0023,0.0001,0.0057
+62,Río Negro,resto_mercosur,Resto del Mercosur,0.0221,0.0073,0.0542
+78,Santa Cruz,resto_mercosur,Resto del Mercosur,,,
+94,Tierra del Fuego,resto_mercosur,Resto del Mercosur,,,
+10,Catamarca,resto_mercosur,Resto del Mercosur,0.09,0.0229,0.0582
+38,Jujuy,resto_mercosur,Resto del Mercosur,0.6638,0.0682,0.063
+46,La Rioja,resto_mercosur,Resto del Mercosur,0.0,0.0,-0.0
+66,Salta,resto_mercosur,Resto del Mercosur,10.1025,1.0538,2.2635
+86,Santiago del Estero,resto_mercosur,Resto del Mercosur,4.6324,1.2179,2.1094
+90,Tucumán,resto_mercosur,Resto del Mercosur,0.5588,0.122,0.3981
+50,Mendoza,resto_mercosur,Resto del Mercosur,0.7601,0.0905,0.6859
+70,San Juan,resto_mercosur,Resto del Mercosur,0.4713,0.0367,0.4696
+74,San Luis,resto_mercosur,Resto del Mercosur,0.8958,0.2257,2.0039
+22,Chaco,resto_mercosur,Resto del Mercosur,0.2314,0.1522,0.4578
+18,Corrientes,resto_mercosur,Resto del Mercosur,0.0623,0.0339,4.0863
+34,Formosa,resto_mercosur,Resto del Mercosur,0.0278,0.1905,0.3792
+54,Misiones,resto_mercosur,Resto del Mercosur,0.0837,0.0307,0.2104
+00,Total del país,resto_aladi,Resto de América Latina,1493.0552,3.0156,1149.7464
+06,Buenos Aires,resto_aladi,Resto de América Latina,677.0306,4.2406,558.7717
+02,CABA,resto_aladi,Resto de América Latina,12.6938,6.603,9.1891
+14,Córdoba,resto_aladi,Resto de América Latina,116.7858,2.085,142.7972
+30,Entre Ríos,resto_aladi,Resto de América Latina,32.9472,3.1386,24.0457
+42,La Pampa,resto_aladi,Resto de América Latina,7.4016,1.2454,7.2824
+82,Santa Fe,resto_aladi,Resto de América Latina,423.2156,4.5232,317.5637
+26,Chubut,resto_aladi,Resto de América Latina,17.5207,0.9952,4.3765
+58,Neuquén,resto_aladi,Resto de América Latina,66.9085,1.5546,2.2735
+62,Río Negro,resto_aladi,Resto de América Latina,6.6199,2.1989,5.7175
+78,Santa Cruz,resto_aladi,Resto de América Latina,0.9566,0.0445,0.0163
+94,Tierra del Fuego,resto_aladi,Resto de América Latina,2.5323,0.8666,0.2027
+10,Catamarca,resto_aladi,Resto de América Latina,0.5014,0.1278,0.4177
+38,Jujuy,resto_aladi,Resto de América Latina,8.4583,0.8696,3.5693
+46,La Rioja,resto_aladi,Resto de América Latina,3.5978,4.5874,2.7309
+66,Salta,resto_aladi,Resto de América Latina,12.243,1.277,5.2871
+86,Santiago del Estero,resto_aladi,Resto de América Latina,5.6703,1.4908,3.2173
+90,Tucumán,resto_aladi,Resto de América Latina,6.0325,1.3169,5.5456
+50,Mendoza,resto_aladi,Resto de América Latina,39.0278,4.6486,22.6468
+70,San Juan,resto_aladi,Resto de América Latina,3.9408,0.307,3.4306
+74,San Luis,resto_aladi,Resto de América Latina,10.5835,2.6667,11.8224
+22,Chaco,resto_aladi,Resto de América Latina,2.6034,1.7121,1.6843
+18,Corrientes,resto_aladi,Resto de América Latina,1.3933,0.7592,0.9691
+34,Formosa,resto_aladi,Resto de América Latina,0.1478,1.0137,0.1187
+54,Misiones,resto_aladi,Resto de América Latina,2.743,1.005,1.9418
+00,Total del país,mexico_canada,México y Canadá,1046.3635,2.1134,726.878
+06,Buenos Aires,mexico_canada,México y Canadá,221.8054,1.3893,262.8216
+02,CABA,mexico_canada,México y Canadá,3.6474,1.8973,2.5824
+14,Córdoba,mexico_canada,México y Canadá,42.7227,0.7627,60.8535
+30,Entre Ríos,mexico_canada,México y Canadá,11.0818,1.0557,11.601
+42,La Pampa,mexico_canada,México y Canadá,1.1792,0.1984,1.5622
+82,Santa Fe,mexico_canada,México y Canadá,175.8676,1.8796,43.9164
+26,Chubut,mexico_canada,México y Canadá,31.0161,1.7618,3.7511
+58,Neuquén,mexico_canada,México y Canadá,5.6167,0.1305,5.8853
+62,Río Negro,mexico_canada,México y Canadá,20.0641,6.6646,15.9165
+78,Santa Cruz,mexico_canada,México y Canadá,346.211,16.1006,206.0895
+94,Tierra del Fuego,mexico_canada,México y Canadá,1.3381,0.4579,2.5025
+10,Catamarca,mexico_canada,México y Canadá,0.4295,0.1094,0.1934
+38,Jujuy,mexico_canada,México y Canadá,2.2105,0.2273,0.9564
+46,La Rioja,mexico_canada,México y Canadá,0.3885,0.4953,0.894
+66,Salta,mexico_canada,México y Canadá,5.7225,0.5969,7.2476
+86,Santiago del Estero,mexico_canada,México y Canadá,0.7021,0.1846,0.745
+90,Tucumán,mexico_canada,México y Canadá,8.8112,1.9235,4.7605
+50,Mendoza,mexico_canada,México y Canadá,48.2721,5.7496,41.3708
+70,San Juan,mexico_canada,México y Canadá,31.6749,2.4677,5.0204
+74,San Luis,mexico_canada,México y Canadá,4.2542,1.0719,5.0495
+22,Chaco,mexico_canada,México y Canadá,6.9488,4.5698,5.6674
+18,Corrientes,mexico_canada,México y Canadá,8.7125,4.7475,3.1745
+34,Formosa,mexico_canada,México y Canadá,0.2819,1.9327,0.0221
+54,Misiones,mexico_canada,México y Canadá,3.8368,1.4057,3.3147
+00,Total del país,resto_asean,Resto del Sudeste Asiático,345.1681,0.6971,118.559
+06,Buenos Aires,resto_asean,Resto del Sudeste Asiático,78.4928,0.4916,30.3436
+02,CABA,resto_asean,Resto del Sudeste Asiático,,,
+14,Córdoba,resto_asean,Resto del Sudeste Asiático,59.3739,1.06,20.0395
+30,Entre Ríos,resto_asean,Resto del Sudeste Asiático,9.7332,0.9272,5.4106
+42,La Pampa,resto_asean,Resto del Sudeste Asiático,,,
+82,Santa Fe,resto_asean,Resto del Sudeste Asiático,47.9207,0.5122,24.1625
+26,Chubut,resto_asean,Resto del Sudeste Asiático,8.1166,0.4611,0.0596
+58,Neuquén,resto_asean,Resto del Sudeste Asiático,59.313,1.3782,
+62,Río Negro,resto_asean,Resto del Sudeste Asiático,,,
+78,Santa Cruz,resto_asean,Resto del Sudeste Asiático,1.0797,0.0502,
+94,Tierra del Fuego,resto_asean,Resto del Sudeste Asiático,,,
+10,Catamarca,resto_asean,Resto del Sudeste Asiático,0.1905,0.0485,0.0634
+38,Jujuy,resto_asean,Resto del Sudeste Asiático,,,
+46,La Rioja,resto_asean,Resto del Sudeste Asiático,,,
+66,Salta,resto_asean,Resto del Sudeste Asiático,11.9976,1.2514,5.1059
+86,Santiago del Estero,resto_asean,Resto del Sudeste Asiático,7.0524,1.8542,2.4572
+90,Tucumán,resto_asean,Resto del Sudeste Asiático,2.1217,0.4632,1.0691
+50,Mendoza,resto_asean,Resto del Sudeste Asiático,,,
+70,San Juan,resto_asean,Resto del Sudeste Asiático,,,
+74,San Luis,resto_asean,Resto del Sudeste Asiático,6.539,1.6476,3.5904
+22,Chaco,resto_asean,Resto del Sudeste Asiático,1.3479,0.8865,0.6055
+18,Corrientes,resto_asean,Resto del Sudeste Asiático,2.6825,1.4617,2.5759
+34,Formosa,resto_asean,Resto del Sudeste Asiático,0.133,0.9117,0.0393
+54,Misiones,resto_asean,Resto del Sudeste Asiático,6.4046,2.3465,5.7332
+00,Total del país,medio_oriente,Medio Oriente,2490.0083,5.0292,2512.5775
+06,Buenos Aires,medio_oriente,Medio Oriente,1027.1346,6.4335,972.3756
+02,CABA,medio_oriente,Medio Oriente,1.1075,0.5761,0.9672
+14,Córdoba,medio_oriente,Medio Oriente,447.9629,7.9975,494.8297
+30,Entre Ríos,medio_oriente,Medio Oriente,54.4623,5.1882,59.0495
+42,La Pampa,medio_oriente,Medio Oriente,71.1122,11.9651,75.7313
+82,Santa Fe,medio_oriente,Medio Oriente,677.9055,7.2452,522.8037
+26,Chubut,medio_oriente,Medio Oriente,4.3188,0.2453,25.2665
+58,Neuquén,medio_oriente,Medio Oriente,,,169.767
+62,Río Negro,medio_oriente,Medio Oriente,3.8472,1.2779,6.8931
+78,Santa Cruz,medio_oriente,Medio Oriente,4.1235,0.1918,9.4979
+94,Tierra del Fuego,medio_oriente,Medio Oriente,,,6.0351
+10,Catamarca,medio_oriente,Medio Oriente,0.5709,0.1455,0.7044
+38,Jujuy,medio_oriente,Medio Oriente,,,1.5681
+46,La Rioja,medio_oriente,Medio Oriente,,,0.0
+66,Salta,medio_oriente,Medio Oriente,25.3824,2.6476,27.0708
+86,Santiago del Estero,medio_oriente,Medio Oriente,25.229,6.633,26.608
+90,Tucumán,medio_oriente,Medio Oriente,8.9319,1.9498,6.343
+50,Mendoza,medio_oriente,Medio Oriente,5.266,0.6272,9.0261
+70,San Juan,medio_oriente,Medio Oriente,10.607,0.8264,2.9131
+74,San Luis,medio_oriente,Medio Oriente,42.4781,10.7032,44.9292
+22,Chaco,medio_oriente,Medio Oriente,3.1765,2.089,3.5807
+18,Corrientes,medio_oriente,Medio Oriente,8.7589,4.7728,5.6466
+34,Formosa,medio_oriente,Medio Oriente,0.7352,5.0412,0.7196
+54,Misiones,medio_oriente,Medio Oriente,28.8571,10.5724,31.1118
+00,Total del país,magreb_egipto,Magreb y Egipto,2336.83,4.7198,1482.571
+06,Buenos Aires,magreb_egipto,Magreb y Egipto,716.3441,4.4868,423.9564
+02,CABA,magreb_egipto,Magreb y Egipto,0.7691,0.4001,
+14,Córdoba,magreb_egipto,Magreb y Egipto,596.1678,10.6434,418.1822
+30,Entre Ríos,magreb_egipto,Magreb y Egipto,89.6141,8.5368,60.6879
+42,La Pampa,magreb_egipto,Magreb y Egipto,72.4455,12.1895,
+82,Santa Fe,magreb_egipto,Magreb y Egipto,617.9003,6.6039,402.0693
+26,Chubut,magreb_egipto,Magreb y Egipto,4.9694,0.2823,5.3529
+58,Neuquén,magreb_egipto,Magreb y Egipto,0.1026,0.0024,0.0666
+62,Río Negro,magreb_egipto,Magreb y Egipto,0.9779,0.3248,0.6834
+78,Santa Cruz,magreb_egipto,Magreb y Egipto,2.2549,0.1049,1.0809
+94,Tierra del Fuego,magreb_egipto,Magreb y Egipto,0.0,0.0,0.0
+10,Catamarca,magreb_egipto,Magreb y Egipto,1.1887,0.3029,0.6911
+38,Jujuy,magreb_egipto,Magreb y Egipto,,,0.3779
+46,La Rioja,magreb_egipto,Magreb y Egipto,,,0.0
+66,Salta,magreb_egipto,Magreb y Egipto,38.6272,4.0291,28.186
+86,Santiago del Estero,magreb_egipto,Magreb y Egipto,44.4092,11.6758,28.7246
+90,Tucumán,magreb_egipto,Magreb y Egipto,7.6378,1.6673,4.816
+50,Mendoza,magreb_egipto,Magreb y Egipto,1.9486,0.2321,
+70,San Juan,magreb_egipto,Magreb y Egipto,0.0,0.0,
+74,San Luis,magreb_egipto,Magreb y Egipto,54.1843,13.6528,39.1591
+22,Chaco,magreb_egipto,Magreb y Egipto,7.1337,4.6914,4.5004
+18,Corrientes,magreb_egipto,Magreb y Egipto,4.0845,2.2257,1.0517
+34,Formosa,magreb_egipto,Magreb y Egipto,1.2218,8.3777,0.8165
+54,Misiones,magreb_egipto,Magreb y Egipto,3.237,1.186,2.3353
+00,Total del país,africa_sur,África austral (SACU),172.3507,0.3481,182.9129
+06,Buenos Aires,africa_sur,África austral (SACU),54.7913,0.3432,48.1232
+02,CABA,africa_sur,África austral (SACU),,,0.4227
+14,Córdoba,africa_sur,África austral (SACU),43.8814,0.7834,44.5512
+30,Entre Ríos,africa_sur,África austral (SACU),7.8924,0.7518,11.5819
+42,La Pampa,africa_sur,África austral (SACU),,,3.9883
+82,Santa Fe,africa_sur,África austral (SACU),30.3838,0.3247,41.8654
+26,Chubut,africa_sur,África austral (SACU),3.3001,0.1875,2.1447
+58,Neuquén,africa_sur,África austral (SACU),0.0,0.0,0.0
+62,Río Negro,africa_sur,África austral (SACU),,,
+78,Santa Cruz,africa_sur,África austral (SACU),0.5759,0.0268,1.4945
+94,Tierra del Fuego,africa_sur,África austral (SACU),,,
+10,Catamarca,africa_sur,África austral (SACU),0.2288,0.0583,0.0571
+38,Jujuy,africa_sur,África austral (SACU),0.0085,0.0009,0.0364
+46,La Rioja,africa_sur,África austral (SACU),0.0,0.0,0.0
+66,Salta,africa_sur,África austral (SACU),6.9878,0.7289,8.7296
+86,Santiago del Estero,africa_sur,África austral (SACU),0.4132,0.1086,2.3777
+90,Tucumán,africa_sur,África austral (SACU),0.0638,0.0139,0.383
+50,Mendoza,africa_sur,África austral (SACU),3.7346,0.4448,2.963
+70,San Juan,africa_sur,África austral (SACU),2.5263,0.1968,2.0756
+74,San Luis,africa_sur,África austral (SACU),0.8608,0.2169,3.5506
+22,Chaco,africa_sur,África austral (SACU),1.9037,1.252,1.2729
+18,Corrientes,africa_sur,África austral (SACU),0.041,0.0224,0.0915
+34,Formosa,africa_sur,África austral (SACU),,,0.0644
+54,Misiones,africa_sur,África austral (SACU),,,0.197
+00,Total del país,oceania,Oceanía,560.225,1.1315,317.4128
+06,Buenos Aires,oceania,Oceanía,71.5291,0.448,171.6946
+02,CABA,oceania,Oceanía,,,0.1292
+14,Córdoba,oceania,Oceanía,29.8894,0.5336,20.1449
+30,Entre Ríos,oceania,Oceanía,1.5002,0.1429,2.8345
+42,La Pampa,oceania,Oceanía,,,1.9354
+82,Santa Fe,oceania,Oceanía,103.2987,1.104,25.1961
+26,Chubut,oceania,Oceanía,38.003,2.1587,9.3567
+58,Neuquén,oceania,Oceanía,278.6832,6.4753,
+62,Río Negro,oceania,Oceanía,2.4352,0.8089,
+78,Santa Cruz,oceania,Oceanía,4.1704,0.1939,1.0609
+94,Tierra del Fuego,oceania,Oceanía,12.2653,4.1974,2.9107
+10,Catamarca,oceania,Oceanía,0.0819,0.0209,0.027
+38,Jujuy,oceania,Oceanía,0.011,0.0011,0.0131
+46,La Rioja,oceania,Oceanía,0.4473,0.5704,0.1796
+66,Salta,oceania,Oceanía,2.0389,0.2127,1.3942
+86,Santiago del Estero,oceania,Oceanía,0.1069,0.0281,0.111
+90,Tucumán,oceania,Oceanía,1.2382,0.2703,1.1884
+50,Mendoza,oceania,Oceanía,2.3136,0.2756,2.923
+70,San Juan,oceania,Oceanía,0.386,0.0301,0.4759
+74,San Luis,oceania,Oceanía,6.231,1.57,5.458
+22,Chaco,oceania,Oceanía,0.0941,0.0619,0.1934
+18,Corrientes,oceania,Oceanía,0.2578,0.1405,0.095
+34,Formosa,oceania,Oceanía,,,0.0025
+54,Misiones,oceania,Oceanía,,,0.6236
+00,Total del país,resto_mundo,Resto del mundo,6366.9806,12.8596,5746.5005
+06,Buenos Aires,resto_mundo,Resto del mundo,2273.3274,14.239,2280.1489
+02,CABA,resto_mundo,Resto del mundo,6.4136,3.3362,6.488
+14,Córdoba,resto_mundo,Resto del mundo,461.4955,8.2391,557.3461
+30,Entre Ríos,resto_mundo,Resto del mundo,90.258,8.5981,119.8885
+42,La Pampa,resto_mundo,Resto del mundo,37.0522,6.2343,41.9252
+82,Santa Fe,resto_mundo,Resto del mundo,1062.3178,11.3537,908.9626
+26,Chubut,resto_mundo,Resto del mundo,65.3144,3.7101,57.1784
+58,Neuquén,resto_mundo,Resto del mundo,8.4326,0.1959,6.538
+62,Río Negro,resto_mundo,Resto del mundo,39.3016,13.0546,37.6508
+78,Santa Cruz,resto_mundo,Resto del mundo,872.5916,40.58,477.1539
+94,Tierra del Fuego,resto_mundo,Resto del mundo,10.5675,3.6164,12.9879
+10,Catamarca,resto_mundo,Resto del mundo,60.7828,15.4872,40.5565
+38,Jujuy,resto_mundo,Resto del mundo,99.5824,10.2381,54.7942
+46,La Rioja,resto_mundo,Resto del mundo,3.7911,4.8338,4.0958
+66,Salta,resto_mundo,Resto del mundo,70.0662,7.3084,33.9942
+86,Santiago del Estero,resto_mundo,Resto del mundo,36.5973,9.6219,35.4028
+90,Tucumán,resto_mundo,Resto del mundo,48.7177,10.6349,37.0742
+50,Mendoza,resto_mundo,Resto del mundo,103.7645,12.3593,87.7832
+70,San Juan,resto_mundo,Resto del mundo,768.0534,59.8378,773.7438
+74,San Luis,resto_mundo,Resto del mundo,24.8841,6.27,26.5771
+22,Chaco,resto_mundo,Resto del mundo,17.1681,11.2905,11.6317
+18,Corrientes,resto_mundo,Resto del mundo,26.1034,14.224,17.7643
+34,Formosa,resto_mundo,Resto del mundo,1.9017,13.0391,1.7446
+54,Misiones,resto_mundo,Resto del mundo,11.2266,4.1131,8.5704
+00,Total del país,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+06,Buenos Aires,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+02,CABA,reservado,Sin detalle por secreto estadístico,4.5165,2.3493,3.8726
+14,Córdoba,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+30,Entre Ríos,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+42,La Pampa,reservado,Sin detalle por secreto estadístico,103.1623,17.3578,116.9702
+82,Santa Fe,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+26,Chubut,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+58,Neuquén,reservado,Sin detalle por secreto estadístico,0.4134,0.0096,67.7199
+62,Río Negro,reservado,Sin detalle por secreto estadístico,1.5791,0.5245,2.3234
+78,Santa Cruz,reservado,Sin detalle por secreto estadístico,0.1921,0.0089,0.7015
+94,Tierra del Fuego,reservado,Sin detalle por secreto estadístico,19.3841,6.6336,10.024
+10,Catamarca,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+38,Jujuy,reservado,Sin detalle por secreto estadístico,3.1635,0.3252,1.1629
+46,La Rioja,reservado,Sin detalle por secreto estadístico,3.1249,3.9844,0.1474
+66,Salta,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+86,Santiago del Estero,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+90,Tucumán,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+50,Mendoza,reservado,Sin detalle por secreto estadístico,6.4573,0.7691,5.3621
+70,San Juan,reservado,Sin detalle por secreto estadístico,0.1023,0.008,0.0887
+74,San Luis,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+22,Chaco,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+18,Corrientes,reservado,Sin detalle por secreto estadístico,0.0,0.0,0.0
+34,Formosa,reservado,Sin detalle por secreto estadístico,0.0339,0.2327,0.0
+54,Misiones,reservado,Sin detalle por secreto estadístico,0.2264,0.0829,0.0

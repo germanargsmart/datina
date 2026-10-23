@@ -1,0 +1,102 @@
+/datina.css
+  Cache-Control: public, max-age=31536000, immutable
+/datina.js
+  Cache-Control: public, max-age=31536000, immutable
+/datos/fichas.js
+  Cache-Control: public, max-age=31536000, immutable
+/lib/*
+  Cache-Control: public, max-age=31536000, immutable
+/relaciones.css
+  Cache-Control: public, max-age=31536000, immutable
+/relaciones.js
+  Cache-Control: public, max-age=31536000, immutable
+/datos/relaciones.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/elecciones_presidenciales.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/anios_congreso.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/transferencias_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/piramide_poblacion.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/apoyo_gobierno_provincias.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/aprender_departamentos.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/hidrocarburos_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/vivienda_departamentos.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/isac_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/costo_construccion.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/empleo_construccion_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/pozos_no_convencionales.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/areas_produccion.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/centrales.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/gas_usuario_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/gas_usuario_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/areas_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/combustibles_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/electricidad_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/electricidad_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/dolar_inversion_trimestral.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/compras_dolares_anual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/salarios_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/salario_docente_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/inversion_educativa_serie.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/seguridad_serie_prov.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/turismo_dolar_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/nafta_dolares_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/nafta_dolares_anual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/exportaciones_dolar_trimestral.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/exportaciones_cantidades_anual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/inflacion_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/canasta_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/salario_real_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/actividad_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/nacidos_otro_pais_paises.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/radicaciones_nacionalidad.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/argentinos_exterior_destinos.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/migraciones_departamentos.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/supermercados_mensual.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/corte_jueces.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/corte_composicion.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/corte_presidentes.json
+  Cache-Control: public, max-age=31536000, immutable
+/datos/bcra_variables.json
+  Cache-Control: public, max-age=31536000, immutable
