@@ -943,7 +943,8 @@ nom["nombre"] = nom.nombre.str.strip().str.title()
 # el dato y el CSV conservan el nombre como lo publica la fuente
 TILDES = dict(pd.read_csv(RAIZ / "datos" / "manual" / "nombres_con_tilde.csv").values)
 nom["mostrar"] = nom.nombre.map(lambda n: TILDES.get(n, n))
-nombres_top = (nom[nom.anio == ANIO_N].sort_values("cantidad", ascending=False)
+# orden estable con desempate por nombre (plan de estabilización, P2-1): sin él, los empates salían en otro orden en cada corrida
+nombres_top = (nom[nom.anio == ANIO_N].sort_values(["cantidad", "nombre"], ascending=[False, True], kind="stable")
                .groupby(["codigo_indec", "sexo"]).head(10)[["codigo_indec", "sexo", "nombre", "mostrar", "cantidad"]])
 pais_n = nom[nom.codigo_indec == "00"]
 top_f = pais_n[(pais_n.anio == ANIO_N) & (pais_n.sexo == "F")].sort_values("cantidad").iloc[-1]
@@ -1865,7 +1866,8 @@ fisc = pd.DataFrame(fisc)
 assert fisc.codigo_indec.nunique() == 24, "Faltan provincias en las cuentas fiscales"
 # ultimo anio con dato para al menos 20 provincias. Las que todavia no lo publicaron van con su ultimo anio disponible
 ANIO_FISC = int(fisc.groupby("anio").codigo_indec.nunique().loc[lambda x: x >= 20].index.max())
-fiscal = fisc[fisc.anio <= ANIO_FISC].sort_values("anio").drop_duplicates("codigo_indec", keep="last").copy()
+# orden estable con desempate por provincia (P2-1): con el mismo año, las filas salían en otro orden en cada corrida
+fiscal = fisc[fisc.anio <= ANIO_FISC].sort_values(["anio", "codigo_indec"], kind="stable").drop_duplicates("codigo_indec", keep="last").copy()
 FISC_ATRASADAS = {CORTO[c]: int(a) for c, a in zip(fiscal.codigo_indec, fiscal.anio) if a < ANIO_FISC}
 fiscal["territorio"] = fiscal.codigo_indec.map(CORTO)
 fiscal = fiscal[["codigo_indec", "territorio", "anio", "autonomia", "resultado", "personal"]]
@@ -2365,7 +2367,7 @@ for col, var, uni in [("pet_millones_m3", "reservas_comprobadas_petroleo", "mill
 # Secretaría de Energía por provincia. Las de gas se publican en pesos y no se suman con las de crudo.
 reg_prov = fisc[["codigo_indec", "anio", "regalias"]].copy()
 reg_hist = reg_prov.copy()
-reg_prov = reg_prov[reg_prov.anio <= ANIO_FISC].sort_values("anio").drop_duplicates("codigo_indec", keep="last")
+reg_prov = reg_prov[reg_prov.anio <= ANIO_FISC].sort_values(["anio", "codigo_indec"], kind="stable").drop_duplicates("codigo_indec", keep="last")
 reg_prov["territorio"] = reg_prov.codigo_indec.map(CORTO)
 _zr = zipfile.ZipFile(CRUDO / "se_regalias_crudo.zip")
 _rx = pd.read_excel(io.BytesIO(_zr.read(_zr.namelist()[0])), "Tabla regalías", header=None)
