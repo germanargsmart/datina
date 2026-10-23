@@ -7188,6 +7188,7 @@ function textoArt(a, c) {
 const fuenteArt = m => m.fuente.includes(m.periodo) ? m.fuente : `${m.fuente} (${m.periodo})`;
 const SEC = Object.fromEntries(SITIO.secciones.map(([id, t, p, x, herr, f, a, c]) => [id, {id, t, p, x, herr, f, a, c}]));
 const nombreSec = id => SEC[id]?.t || "";
+// la tarjeta de un artículo en la portada. La lista de Artículos, con la bajada de cada uno, la escribe el constructor (Fase 2, paso 4)
 const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><span class="art-ico">${icono(a.icono)}</span>` +
   `<span class="art-txt"><b style="view-transition-name:t-${a.id}">${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
 // título, ícono y sección de cada artículo: de la plantilla (data-titulo, data-ico y data-sec), por el índice del sitio
@@ -7537,10 +7538,8 @@ ART_SERIE.forEach(a => {
     a.csv.map(([n, lab]) => `<a class="boton chico accion" href="datos/${n}.csv" download>${lab}</a>`).join("") + `</div></div>`;
   Object.entries(a.dib).forEach(([g, f]) => { DIB["art-" + g] = conTablas("art-" + g, a.tablas, anim => f(G("art-" + g), anim)); });
 });
-// todos los artículos, primero los de series (los más nuevos)
+// todos los artículos, primero los de series (los más nuevos). La lista de Artículos la escribe el constructor en este mismo orden
 const ARTS = [...ART_SERIE, ...ART];
-const artGrid = document.getElementById("art-grid");
-if (artGrid) artGrid.innerHTML = ARTS.map(tarjetaArt).join("");
 // la portada: una fila de tres, con el artículo de la relación más marcada primero (hasta el 10 de octubre de 2026 era el destacado
 // amarillo) y después los más nuevos. Los de política no se eligen por un cálculo automático. El resto, en "Todos los artículos"
 const artHome = document.getElementById("art-grid-home");
@@ -7549,6 +7548,17 @@ if (artHome) {
   // antes de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2)
   artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
 }
+/* "Artículos con este dato" (Fase 2, paso 4, respuesta del autor del 23 de octubre de 2026): cada ficha enlaza a los artículos que la
+   usan, la misma relación de los botones "Ficha: …" de cada artículo, al revés. Va en el pie, debajo de las acciones, en el orden de la
+   lista de Artículos. Se arma acá y no con el resto del pie porque necesita los artículos, que se definen después del pie en el archivo */
+const ARTS_DE = {};
+ART.forEach(a => { const M = META_TAB[tablaArt(a)]; [M[a.x].ficha, M[a.y].ficha].forEach(id => { if (id) (ARTS_DE[id] ||= []).push(a); }); });
+ART_SERIE.forEach(a => a.fichas.forEach(([id]) => (ARTS_DE[id] ||= []).push(a)));
+document.querySelectorAll("article.ficha").forEach(f => {
+  const arts = ARTS.filter(a => ARTS_DE[f.id]?.includes(a));
+  if (arts.length) f.querySelector(".pie").insertAdjacentHTML("beforeend", `<p class="pie-arts"><span>${arts.length > 1 ? "Artículos" : "Artículo"} con este dato:</span>` +
+    arts.map(a => `<a class="enlace" href="${urlPagina(a.id)}">${a.titulo}</a>`).join("") + "</p>");
+});
 /* datos destacados de la portada (Fase 2, paso 2, elegidos por el autor el 23 de octubre de 2026): la cifra destacada de cuatro fichas,
    la misma que muestra cada ficha (CLAVE). El constructor deja la pregunta y el enlace, y el lugar de la cifra reservado */
 document.querySelectorAll(".destacado[data-clave]").forEach(a => {

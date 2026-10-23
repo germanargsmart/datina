@@ -555,6 +555,7 @@ html:not(.js) .busca-portada{display:none}
 .art-txt{display:flex;flex-direction:column;gap:var(--e-2)}
 .art-txt b{font-size:var(--t-4);line-height:var(--i-tarjeta);font-weight:600}
 .art-txt small{font-size:var(--t-2);color:var(--muted)}
+.art-dek{font-size:var(--t-2);line-height:var(--i-chico);color:var(--tinta-bajada)}  /* la bajada, solo en la lista de Artículos */
 .ver-todos{margin-top:var(--e-6)}
 @media (max-width:760px){
   .art-grid{grid-template-columns:1fr;gap:var(--e-3)}
@@ -604,7 +605,8 @@ html:not(.js) .busca-portada{display:none}
    etapa 27), la última ocupa las dos, como en las secciones de la portada: ninguna queda sola a un costado */
 #art-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:761px) and (max-width:1079px){#art-grid{grid-template-columns:1fr 1fr}#art-grid>:last-child:nth-child(odd){grid-column:1 / -1}}
-@media (max-width:760px){#art-grid{grid-template-columns:1fr}}
+/* en una columna, cada tarjeta con su alto: con la bajada (paso 4), el alto parejo de la más larga dejaba huecos en las demás */
+@media (max-width:760px){#art-grid{grid-template-columns:1fr;grid-auto-rows:auto}}
 @media (max-width:760px){#art-grid-home{grid-template-columns:1fr}}
 /* las herramientas, en su propio grupo con título: se distinguen por eso y no por el color */
 .bloque-grupo{margin:var(--e-8) 0 var(--e-2);font-size:var(--t-8);line-height:1;font-weight:500;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
@@ -1051,6 +1053,8 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* la fuente, con la frecuencia de actualización (etapa 27), se acomoda en dos renglones antes de mandar los botones a otra fila */
 @media (min-width:761px){.pie>span{flex:1 1 16em;min-width:0}}  /* en el celular el pie es una columna */
 .acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-left:auto}
+/* "Artículos con este dato" (Fase 2, paso 4): una fila propia debajo de las acciones, con la pregunta de cada artículo como enlace */
+.pie-arts{flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-1) var(--e-4);margin:0}
 .accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:opacity var(--dur-1) var(--ease-out)}
 .accion .lbl.cambia{opacity:0}
 .tabla-datos{margin:var(--e-4) 0 0}

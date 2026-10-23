@@ -86,7 +86,7 @@ Para publicar un armado nuevo:
 
 1. Armá el consultor (pasos 3 y 4 de "Actualizar los datos cada semestre") y, si cambiaste la consulta guiada, corré su prueba (paso 5).
 2. Desde la carpeta de Datina, corré `python scripts/03_construir_sitio.py --con-pobreza`. Copia `pobreza/dist` a `sitio/pobreza/` y muestra la fecha del armado que copió. Si `pobreza/dist` no tiene un armado (falta su `index.html`), frena sin tocar nada.
-3. Mirá el consultor en el navegador (`cd sitio && python -m http.server 8765` y abrí `http://127.0.0.1:8765/pobreza/`): la consulta guiada, el editor de SQL y un ejemplo.
+3. Mirá el consultor en el navegador (`cd sitio && python -m http.server 8765` y abrí `http://127.0.0.1:8765/pobreza/`): la consulta guiada, el editor de SQL y un ejemplo. Desde el 23 de octubre de 2026 el primer enlace de la cabecera dice "Datina: Pobreza y hogares" y lleva a `pobreza.html` (antes "Datina", a la portada): el próximo armado es el primero que lo trae, así que probá también ese enlace desde las dos páginas del consultor.
 4. Revisá con `git status` que los cambios de `sitio/pobreza/` sean los que esperabas y subilos con el resto.
 
 La prueba `python scripts/prueba_pobreza.py` controla este comportamiento, y el armado de Datina la corre antes de empezar.

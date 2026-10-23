@@ -43,6 +43,12 @@ const MALOS = `(() => {
   return [...t.matchAll(/.{0,50}(\\bNaN\\b|\\bundefined\\b|\\bnull\\b|\\bInfinity\\b|\\[object Object\\]|\\{\\{[\\w.]+\\}\\}).{0,30}/g)].map(m => m[0].trim()).slice(0, 5);
 })()`;
 
+// los enlaces entre artículos y fichas (Fase 2, paso 4), como "artículo>ficha": los botones "Ficha: …" de cada artículo (IDA) y los
+// "Artículos con este dato" del pie de cada ficha (VUELTA). Tienen que coincidir
+const IDA = [], VUELTA = [];
+const ENLACES = `[...document.querySelectorAll(".nota-fuentes a[href*='#f-'], .pie-arts a")].map(a => a.closest(".pie-arts")
+  ? a.getAttribute("href") + ">" + a.closest("article.ficha").id : location.pathname.slice(1) + ">" + a.getAttribute("href").split("#")[1])`;
+
 async function revisarPagina(pg, intento = 1) {
   await p.ir(B + pg, 1200);
   await p.recorrer();
@@ -51,6 +57,7 @@ async function revisarPagina(pg, intento = 1) {
   if ((malos.length || errores.length) && intento === 1) return revisarPagina(pg, 2);   // una segunda vez, por si fue la red
   malos.forEach(m => problemas.push(`${pg}: texto con un valor sin calcular: «${m}»`));
   errores.forEach(e => problemas.push(`${pg}: ${e}`));
+  (pg.startsWith("a-") ? IDA : VUELTA).push(...await p.eval(ENLACES));
 }
 
 const CIFRAS = `(() => {
@@ -71,6 +78,15 @@ async function revisarCifras(sec, prov) {
 
 const paginas = readdirSync(SITIO).filter(f => f.endsWith(".html") && !SALTEAR.has(f)).sort();
 for (const pg of paginas) await revisarPagina(pg);
+const ida = new Set(IDA), vuelta = new Set(VUELTA);
+if (!ida.size || !vuelta.size) problemas.push(`enlaces entre artículos y fichas: ${ida.size} de ida y ${vuelta.size} de vuelta`);
+[...ida].filter(x => !vuelta.has(x)).forEach(x => problemas.push(`${x.split(">")[0]} enlaza a ${x.split(">")[1]}, que no lo enlaza de vuelta`));
+[...vuelta].filter(x => !ida.has(x)).forEach(x => problemas.push(`${x.split(">")[1]} enlaza a ${x.split(">")[0]}, que no la enlaza de vuelta`));
+// en la lista de Artículos, cada tarjeta con su bajada (paso 4)
+await p.ir(B + "articulos.html", 1000);
+const bajadas = await p.eval(`[...document.querySelectorAll("#art-grid .art-card")].map(c => (c.querySelector(".art-dek")?.textContent || "").trim().length)`);
+const nArt = paginas.filter(x => x.startsWith("a-")).length;
+if (bajadas.length !== nArt || bajadas.some(n => n < 40)) problemas.push(`articulos.html: ${bajadas.filter(n => n >= 40).length} de ${nArt} tarjetas con su bajada`);
 // "En cifras" sin provincia (el perfil nuevo no tiene ninguna guardada) y después con cada provincia
 for (const sec of SECCIONES) await revisarCifras(sec, null);
 for (const prov of PROVINCIAS) {
@@ -124,6 +140,8 @@ const enFoco = () => q.eval("(document.activeElement.id || '') + '|' + document.
 await q.ir(B + "index.html", 1000);
 const destacados = await q.eval(`[...document.querySelectorAll(".destacado")].filter(a => a.querySelector(".c-num").textContent.trim() && a.querySelector(".c-txt").textContent.trim()).length`);
 if (destacados !== 4) problemas.push(`index.html: ${destacados} de 4 datos destacados con su cifra`);
+// la bajada de cada artículo va en su tarjeta solo en la lista de Artículos, no en la portada (paso 4)
+if (await q.eval(`document.querySelectorAll("#art-grid-home .art-dek").length`)) problemas.push("index.html: las tarjetas de artículos llevan bajada (va solo en Artículos)");
 await q.eval(`document.getElementById("busca-portada").focus()`);
 await q.send("Input.insertText", {text: "salta"});
 await espera(300);
@@ -187,6 +205,7 @@ await ch.cerrar();
 servidor.close();
 
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
+console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
 console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter y sin coincidencias.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));

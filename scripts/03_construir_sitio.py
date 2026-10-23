@@ -1057,9 +1057,39 @@ pagina("contacto", "Contacto", "Para avisar de un error en un dato, sugerir una 
 # Página para las direcciones que no existen
 pagina("404", "Página no encontrada", "Esta página no existe.", {"404"})
 sin_notas = lambda h: re.sub(r'\s*<div class="notas">.*?</div>', "", h, 1, re.S)
+
+
+# La lista de Artículos la escribe el constructor desde la Fase 2 (paso 4, 23 de octubre de 2026): la armaba datina.js al cargar, y en la
+# computadora "Seguí explorando" y el pie, que se ven antes de que llegue, saltaban hacia abajo (CLS 0,26, y 0,35 con las bajadas). El
+# orden es el de ARTS en datina.js (primero los de series, después los de cruces), y cada cuánto se actualiza y la bajada salen de ahí
+def _arts_js(ini, fin):
+    trozos = re.split(r'(?=\bid: "a-[\w-]+")', bloque_js(ini, fin))[1:]
+    datos = []
+    for t in trozos:
+        m = [re.search(rf'\b{k}: "((?:[^"\\]|\\.)*)"', t) for k in ("id", "frec", "dek")]
+        assert all(m), f"un artículo de datina.js sin id, frec o dek: {t[:60]}"
+        datos.append([json.loads(f'"{x.group(1)}"') for x in m])
+    return datos
+
+
+_ARTS_JS = _arts_js("const ART_SERIE = [", "\n}];") + _arts_js("const ART = [", "\n];")
+_NOTA_DE = {i: (ico, sec, html.unescape(t)) for i, ico, sec, t in NOTAS}
+assert sorted(i for i, *_ in _ARTS_JS) == sorted(_NOTA_DE), "los artículos de datina.js no son los de la plantilla"
+_LISTA_ARTS = "".join(
+    f'<a class="tarjeta art-card" href="{i}.html"><span class="art-ico">{icono_svg(_NOTA_DE[i][0])}</span><span class="art-txt">'
+    f'<b style="view-transition-name:t-{i}">{e(_NOTA_DE[i][2])}</b><span class="art-dek">{e(dek)}</span>'
+    f'<small>{e(_SEC[_NOTA_DE[i][1]][1])}. {e(frec)}</small></span></a>' for i, frec, dek in _ARTS_JS)
+
+
+def lista_articulos(h):
+    vacia = '<div class="art-grid" id="art-grid"></div>'
+    assert h.count(vacia) == 1, "falta la grilla de Artículos en la plantilla"
+    return sin_notas(h).replace(vacia, f'<div class="art-grid" id="art-grid">{_LISTA_ARTS}</div>', 1)
+
+
 for id_, titulo, preg, *_ in SECCIONES:
     descr = f"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar." if preg else f"{titulo} en Datina."
-    pagina(id_, titulo, descr, {id_}, sin_notas if id_ == "articulos" else None, titulo_social=f"{titulo}: {preg}" if preg else None)
+    pagina(id_, titulo, descr, {id_}, lista_articulos if id_ == "articulos" else None, titulo_social=f"{titulo}: {preg}" if preg else None)
 
 
 # Una pagina por articulo (a-....html): solo esa nota, sin el indice de articulos
