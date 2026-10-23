@@ -6,19 +6,33 @@ y una pagina por seccion a partir de scripts/plantilla.html: sitio/index.html (p
 Cada pagina lleva solo el marcado de su seccion. Lo que necesita saber de las demas (titulos, fichas, en que pagina
 esta cada ancla) lo lee del indice del sitio, que se arma aca desde la plantilla.
 La explicacion de cada seccion (que se mide, desde cuando, como se calcula) sale de datos/manual/explicadores.json.
-Tambien copia la tabla larga al sitio para que se pueda descargar
-y el sitio de consultas de pobreza ya construido.
-Uso: python scripts/03_construir_sitio.py
+Tambien copia la tabla larga al sitio para que se pueda descargar.
+El sitio de consultas de pobreza ya construido (pobreza/dist) se copia a sitio/pobreza/ solo con --con-pobreza (pobreza/README.md).
+Uso: python scripts/03_construir_sitio.py [--con-pobreza]
 """
 import csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
-# Antes de armar nada, las pruebas de los datos (scripts/pruebas_datos.py): si alguna falla, el sitio no se arma ni se publica
 sys.path.insert(0, str(RAIZ / "scripts"))
+import consultor_pobreza  # noqa: E402
+# --con-pobreza copia el armado del consultor de pobreza (pobreza/dist) a sitio/pobreza/. Sin ella, sitio/pobreza/ no se toca
+OPCIONES = {"--con-pobreza"}
+if _otras := [a for a in sys.argv[1:] if a not in OPCIONES]:
+    sys.exit(f"Opción desconocida: {' '.join(_otras)}. Uso: python scripts/03_construir_sitio.py [--con-pobreza]")
+CON_POBREZA = "--con-pobreza" in sys.argv[1:]
+DIST_POBREZA = RAIZ / "pobreza" / "dist"
+if CON_POBREZA and not consultor_pobreza.hay_armado(DIST_POBREZA):
+    sys.exit("--con-pobreza: no hay un armado del consultor en pobreza/dist (falta index.html). "
+             "Armarlo antes con npm run build dentro de pobreza/ (ver pobreza/README.md). El sitio no se armó.")
+# Antes de armar nada, las pruebas de los datos (scripts/pruebas_datos.py): si alguna falla, el sitio no se arma ni se publica
 import pruebas_datos  # noqa: E402
 if pruebas_datos.correr(mostrar=False):
     pruebas_datos.correr(mostrar=True)
     sys.exit("Las pruebas de los datos encontraron problemas sin explicar: el sitio no se armó. Ver arriba.")
+# y la de la copia del consultor de pobreza (scripts/prueba_pobreza.py): un armado normal no puede reemplazar sitio/pobreza/
+import prueba_pobreza  # noqa: E402
+if _pp := prueba_pobreza.correr(mostrar=False):
+    sys.exit("La copia del consultor de pobreza no se comporta como debe: el sitio no se armó.\n" + "\n".join(_pp))
 SITIO = RAIZ / "sitio"
 huella = lambda t: hashlib.sha1(t.encode("utf-8")).hexdigest()[:10]
 e = lambda t: html.escape(str(t), quote=True)
@@ -972,12 +986,10 @@ for viejo, nuevo in REDIRECCIONES.items():
         f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8")
 
 shutil.copy(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", SITIO / "datos" / "tabla_larga.csv")
-# Sitio de consultas de pobreza (Observable Framework). Se construye aparte con "npm run build" dentro de pobreza/
-# y aca solo se copia el resultado a sitio/pobreza/ para publicarlo junto con Datina.
-dist = RAIZ / "pobreza" / "dist"
-if dist.exists():
-    shutil.rmtree(SITIO / "pobreza", ignore_errors=True)
-    shutil.copytree(dist, SITIO / "pobreza")
+# Sitio de consultas de pobreza (Observable Framework). Se construye aparte con "npm run build" dentro de pobreza/ (pobreza/README.md)
+# y su resultado se copia a sitio/pobreza/ solo con --con-pobreza (scripts/consultor_pobreza.py): desde el 22 de octubre de 2026 una
+# pobreza/dist vieja ya no reemplaza el consultor publicado
+AVISO_POBREZA = consultor_pobreza.copiar(DIST_POBREZA, SITIO / "pobreza", CON_POBREZA)
 # el armado de Observable Framework pone maximum-scale=1 en el viewport, y eso impide agrandar la página con los dedos en el celular
 # (11 de octubre de 2026, WCAG 1.4.4). Se saca acá, sobre lo publicado, así sigue resuelto en cada armado nuevo del consultor
 for _pb in (SITIO / "pobreza").glob("*.html"):
@@ -1023,4 +1035,6 @@ import prueba_encabezados
 _enc, _, _, _ = prueba_encabezados.revisar()
 if _enc:
     sys.exit("Encabezados con problemas: el sitio no se dio por armado.\n" + "\n".join(_enc))
-print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos" + (" y sitio/pobreza/" if dist.exists() else ""))
+print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos")
+if AVISO_POBREZA:
+    print(AVISO_POBREZA)

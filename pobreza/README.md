@@ -19,7 +19,7 @@ Todo corre en el navegador de quien visita la página. No hay servidor ni base d
 | `src/estilo.css` | Colores y tipografía. |
 | `observablehq.config.js` | Título del sitio, encabezado y pie. |
 | `netlify.toml` | Instrucciones para que Netlify arme y publique el sitio. |
-| `dist/` | El sitio listo para publicar. Se genera con `npm run build`. |
+| `dist/` | El sitio listo para publicar. Se genera con `npm run build` y git no lo guarda. Lo publicado es su copia en `sitio/pobreza/` de Datina (ver "Publicar junto con Datina"). |
 
 El sitio está hecho con [Observable Framework](https://observablehq.com/framework/), una herramienta que convierte páginas escritas en Markdown en un sitio estático.
 
@@ -53,7 +53,7 @@ Eso descarga Observable Framework en la carpeta `node_modules`. Se hace una sola
    npm run build
    ```
 
-   Si termina sin errores, la carpeta `dist` tiene el sitio nuevo. Para publicarlo junto con Datina, después corré `python scripts/03_construir_sitio.py` desde la carpeta de Datina: copia `dist` a `sitio/pobreza/`.
+   Si termina sin errores, la carpeta `dist` tiene el sitio nuevo. Para publicarlo junto con Datina, seguí "Publicar junto con Datina", más abajo.
 
    Si el armado falla porque no puede bajar algo de `cdn.jsdelivr.net` (una computadora sin la caché de Observable o un entorno sin acceso a esa dirección), corré antes `python scripts/rearmar_cache.py`: arma la caché con las librerías del consultor ya publicado.
 
@@ -78,7 +78,22 @@ Después abrí en el navegador la dirección `http://127.0.0.1:3000`. Para corta
 
 Importante: no uses los puertos 8000 ni 8765, que ya usan otros sitios en esta computadora. Por eso la vista previa está configurada en el 3000.
 
-## Publicar en Netlify
+## Publicar junto con Datina
+
+Datina publica el consultor desde `sitio/pobreza/`, que está guardado en el repositorio. Ni la actualización mensual ni un armado común de Datina lo cambian: desde el 22 de octubre de 2026, `python scripts/03_construir_sitio.py` deja `sitio/pobreza/` como está aunque exista `pobreza/dist`, y avisa al final si encontró esa carpeta y de cuándo es. Así, un armado viejo que quedó en la computadora no reemplaza el consultor publicado sin que nadie lo note.
+
+Para publicar un armado nuevo:
+
+1. Armá el consultor (pasos 3 y 4 de "Actualizar los datos cada semestre") y, si cambiaste la consulta guiada, corré su prueba (paso 5).
+2. Desde la carpeta de Datina, corré `python scripts/03_construir_sitio.py --con-pobreza`. Copia `pobreza/dist` a `sitio/pobreza/` y muestra la fecha del armado que copió. Si `pobreza/dist` no tiene un armado (falta su `index.html`), frena sin tocar nada.
+3. Mirá el consultor en el navegador (`cd sitio && python -m http.server 8765` y abrí `http://127.0.0.1:8765/pobreza/`): la consulta guiada, el editor de SQL y un ejemplo.
+4. Revisá con `git status` que los cambios de `sitio/pobreza/` sean los que esperabas y subilos con el resto.
+
+La prueba `python scripts/prueba_pobreza.py` controla este comportamiento, y el armado de Datina la corre antes de empezar.
+
+## Publicar en Netlify como sitio aparte
+
+Estas dos opciones son para publicar el consultor solo, en un sitio de Netlify propio. Para Datina no hacen falta.
 
 **Opción A, conectada a un repositorio (recomendada).** Subí esta carpeta a un repositorio de GitHub, creá un sitio nuevo en Netlify a partir de ese repositorio y dejá la configuración que trae `netlify.toml`:
 

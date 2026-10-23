@@ -36,7 +36,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 
 - Todo: `python scripts/01_descargar.py && python scripts/02_procesar.py && python scripts/03_construir_sitio.py`, y después `node scripts/prueba_paginas.mjs` (Node 22 o más y Chrome, de 3 a 5 minutos).
 - No correr `01_descargar.py` para cambios visuales ni sin aprobación del autor: baja cientos de MB.
-- Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`).
+- Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`). No toca `sitio/pobreza/`: el consultor de pobreza se arma aparte (`pobreza/README.md`) y entra al sitio solo con `python scripts/03_construir_sitio.py --con-pobreza`.
 - Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`.
 - Catálogo del Explorador de relaciones: `python scripts/relaciones.py` (lo valida) y `python scripts/prueba_relaciones.py` (prueba el validador). 03 corre los dos.
 - Ver el sitio: `cd sitio && python -m http.server 8765`.
