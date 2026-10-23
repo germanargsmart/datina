@@ -325,9 +325,9 @@ def construir(plantilla, base, secciones, ubic, v_css, sitio=RAIZ / "sitio"):
     datos = json.dumps(publicar(cat, plantilla, secciones, ubic), ensure_ascii=False, separators=(",", ":"))
     css = (RAIZ / "scripts" / "relaciones.css").read_text(encoding="utf-8")
     js = (RAIZ / "scripts" / "relaciones.js").read_text(encoding="utf-8")
-    (sitio / "datos" / "relaciones.json").write_text(datos, encoding="utf-8")
-    (sitio / "relaciones.css").write_text(css, encoding="utf-8")
-    (sitio / "relaciones.js").write_text(js, encoding="utf-8")
+    (sitio / "datos" / "relaciones.json").write_text(datos, encoding="utf-8", newline="\n")
+    (sitio / "relaciones.css").write_text(css, encoding="utf-8", newline="\n")
+    (sitio / "relaciones.js").write_text(js, encoding="utf-8", newline="\n")
     h = (RAIZ / "scripts" / "relaciones.html").read_text(encoding="utf-8")
     # la barra y el pie del sitio, sin lo que necesita datina.js (menú, buscador, provincia y la fecha de los datos)
     marca = re.search(r'<a class="marca" href="\./">.*?</a>', base, re.S).group(0)
@@ -344,7 +344,7 @@ def construir(plantilla, base, secciones, ubic, v_css, sitio=RAIZ / "sitio"):
                           "__V_RX_CSS__": huella(css), "__V_RX_JS__": huella(js), "__V_RX_DATOS__": huella(datos)}.items():
         assert marca_ in h, f"falta {marca_} en scripts/relaciones.html"
         h = h.replace(marca_, valor)
-    (sitio / "relaciones.html").write_text(h, encoding="utf-8")
+    (sitio / "relaciones.html").write_text(h, encoding="utf-8", newline="\n")
     return []
 
 

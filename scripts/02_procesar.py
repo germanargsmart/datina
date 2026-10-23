@@ -3031,7 +3031,7 @@ DEP_META = {
     "pct_lena": ("Hogares que cocinan con leña o carbón", "% de los hogares, Censo 2022", "INDEC, Censo 2022"),
     "pct_uso_temporal": ("Viviendas de uso temporal", "% de las viviendas, Censo 2022", "INDEC, Censo 2022"),
 }
-departamentos.to_csv(SITIO / "departamentos.csv", index=False)
+departamentos.to_csv(SITIO / "departamentos.csv", index=False, lineterminator="\n")
 
 # ---------------------------------------------------------------- elecciones presidenciales
 # Direccion Nacional Electoral: definitivos 1983 a 2019 y provisorios 2023 (scripts/elecciones_presidenciales.py).
@@ -3295,7 +3295,7 @@ congreso = congreso[["camara", "anio", "periodo"] + [e for e in ESPACIOS if e in
 leg_p = pd.concat(filas_p, ignore_index=True).sort_values(["periodo", "camara", "codigo_indec", "inicio", "nombre"])
 leg_p["territorio"] = leg_p.codigo_indec.map(CORTO)
 leg_p[["periodo", "camara", "codigo_indec", "territorio", "nombre", "bloque", "espacio", "desde", "hasta", "reemplaza_a"]].rename(
-    columns={"periodo": "periodo_inicio"}).to_csv(SITIO / "legisladores_por_periodo.csv", index=False)
+    columns={"periodo": "periodo_inicio"}).to_csv(SITIO / "legisladores_por_periodo.csv", index=False, lineterminator="\n")
 # hemiciclo (etapa 28): quién ocupa cada banca en la fecha de la composición de cada período (el 1 de marzo) y hoy en el período
 # actual, con su provincia y su bloque y su espacio en esa fecha
 HEMI, HEMI_FECHA = {}, {}
@@ -3321,7 +3321,7 @@ _in, _ib = {n: i for i, n in enumerate(_nom)}, {b: i for i, b in enumerate(_blo)
     # banca: [cámara, provincia, nombre, bloque, espacio]
     "hemiciclo": {str(a): [[0 if r.camara == "Diputados" else 1, r.codigo_indec, _in[r.nombre], _ib[r.bloque if isinstance(r.bloque, str) else "Sin dato"],
                             ESPACIOS.index(r.espacio)] for r in _hm.itertuples()] for a, _hm in HEMI.items()},
-    "hemiciclo_fecha": {str(a): f for a, f in HEMI_FECHA.items()}}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    "hemiciclo_fecha": {str(a): f for a, f in HEMI_FECHA.items()}}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8", newline="\n")
 # hoy
 # años en el Congreso desde 1983 (etapa 28): por persona, los días en la banca de cada cámara hasta hoy (los tramos que separa una semana
 # o menos se unen), la provincia por la que estuvo más tiempo, los espacios y si sigue en el cargo. Una misma persona escrita de otra forma
@@ -3444,7 +3444,7 @@ for camara, nombre_arch in [("Diputados", "diputados_nacionales.csv"), ("Senado"
     h_ = leg[leg.camara == camara].copy()
     h_["fin"] = h_.fin.where(h_.fin.dt.year < 2100)
     h_.assign(territorio=h_.codigo_indec.map(CORTO))[["nombre", "codigo_indec", "territorio", "inicio", "fin", "mandato_fin", "bloque", "espacio", "fuente"]] \
-        .to_csv(SITIO / nombre_arch, index=False, date_format="%Y-%m-%d")
+        .to_csv(SITIO / nombre_arch, index=False, date_format="%Y-%m-%d", lineterminator="\n")
 
 # ---------------------------------------------------------------- presidentes y ministros
 # Lugar de nacimiento de presidentes (Wikipedia, Wikidata y Casa Rosada, las tres coinciden) y de los ministros con rango
@@ -3656,8 +3656,8 @@ cpf = pd.read_csv(RAIZ / "datos" / "manual" / "presidentes_fuerza.csv", dtype=st
 ctam = pd.read_csv(RAIZ / "datos" / "manual" / "corte_tamano.csv", dtype=str)
 cna = pd.read_csv(RAIZ / "datos" / "manual" / "corte_no_asumieron.csv", dtype=str)
 # la tabla de los jueces con las fuentes y las notas de cada fila, tal como se armó, para descargar desde la pieza
-cj.to_csv(SITIO / "corte_jueces_fuentes.csv", index=False)
-cna.to_csv(SITIO / "corte_no_asumieron.csv", index=False)
+cj.to_csv(SITIO / "corte_jueces_fuentes.csv", index=False, lineterminator="\n")
+cna.to_csv(SITIO / "corte_no_asumieron.csv", index=False, lineterminator="\n")
 # grupos de los gráficos, en el orden en que llegan a la Corte, con su color: los espacios políticos del sitio usan los suyos (ESP_COLOR)
 # y los nuevos se eligieron para que se distingan también con daltonismo entre los que conviven en la Corte
 CORTE_GRUPOS = [("liberales", "Liberales (Mitre)", "#9FB86B"), ("pan", "PAN", "#2E8B6E"), ("ucr", "UCR", "#D9453B"),
@@ -3851,7 +3851,7 @@ gab_res = {"personas": int(len(personas)), "con_dato": int(len(_con)), "amba": i
            "top_otras": ministros_prov[~ministros_prov.codigo_indec.isin(["02", "06"])].sort_values("ministros").iloc[-1].territorio,
            "top_otras_v": int(ministros_prov[~ministros_prov.codigo_indec.isin(["02", "06"])].ministros.max())}
 ministros_lista = mi.assign(provincia=mi.provincia_nacimiento)[["nombre", "ministerio", "inicio", "fin", "presidente", "partido", "lugar_nacimiento", "provincia", "origen"]]
-ministros_lista.to_csv(SITIO / "ministros_nacionales.csv", index=False)
+ministros_lista.to_csv(SITIO / "ministros_nacionales.csv", index=False, lineterminator="\n")
 
 # ---------------------------------------------------------------- transferencias de la Nacion a las provincias
 # Presupuesto Abierto: credito devengado de las transferencias a gobiernos provinciales y municipales, por provincia de
@@ -5497,7 +5497,7 @@ for r in lc.itertuples():
                               "espacio": x.espacio, "provincia": CORTO.get(x.codigo_indec, ""), "voto": {1: "Afirmativo", 2: "Negativo", 3: "Abstención", 4: "Ausente"}[x.voto]})
     leyes_v.append(ley)
 votos_clave = pd.DataFrame(filas_csv)
-votos_clave.to_csv(SITIO / "votaciones_leyes_clave.csv", index=False)
+votos_clave.to_csv(SITIO / "votaciones_leyes_clave.csv", index=False, lineterminator="\n")
 # version compacta para los puntos de cada legislador, que se carga al abrir la ficha
 _nv = sorted(set(votos_clave.legislador))
 _bv = sorted(set(votos_clave.bloque))
@@ -5508,7 +5508,7 @@ _vn = {"Afirmativo": 1, "Negativo": 2, "Abstención": 3, "Ausente": 4}
     "espacios": ESPACIOS, "nombres": _nv, "bloques": _bv,
     "votos": {f"{k}|{c}": [[_inv[x.legislador], _ibv[x.bloque], _esp_idx[x.espacio], _cod_corto.get(x.provincia, ""), _vn[x.voto]]
                            for x in g.itertuples()] for (k, c), g in votos_clave.assign(k=votos_clave.ley.map(dict(zip(lc.nombre, lc.clave)))).groupby(["k", "camara"])}},
-    ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    ensure_ascii=False, separators=(",", ":")), encoding="utf-8", newline="\n")
 
 
 # ---- apoyo al gobierno de los legisladores de cada provincia y ATN
@@ -6010,11 +6010,11 @@ a_serie(por_hab(_oa[_oa["count"] == 4].rename(columns={"mean": "valor"})[["codig
 cruces_series = pd.concat(ser, ignore_index=True)
 cruces_series["valor"] = cruces_series.valor.round(2)
 cruces_series = cruces_series.dropna()[["id", "codigo_indec", "anio", "valor"]].sort_values(["id", "codigo_indec", "anio"])
-cruces_series.to_csv(SITIO / "cruces_series.csv", index=False)
+cruces_series.to_csv(SITIO / "cruces_series.csv", index=False, lineterminator="\n")
 SERIES_IDS = sorted(cruces_series.id.unique())
 
 # ---------------------------------------------------------------- salida
-pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False)
+pd.concat(largo, ignore_index=True).to_csv(ORDEN / "tabla_larga.csv", index=False, lineterminator="\n")
 
 
 
@@ -6214,7 +6214,7 @@ tablas = {
 for k, t in list(tablas.items()):
     assert not isinstance(t, str), k
     tablas[k] = t = t.round(4)
-    t.to_csv(SITIO / f"{k}.csv", index=False)
+    t.to_csv(SITIO / f"{k}.csv", index=False, lineterminator="\n")
 
 a05, a25 = anual.iloc[0], anual.iloc[-1]
 m25 = muertes[muertes.anio == ANIO_SNIC].iloc[0]
@@ -6653,5 +6653,5 @@ resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.mi
     "resumen": resumen,
     # las tablas que solo se usan al abrir un bloque se cargan aparte desde su CSV
     "datos": {k: json.loads(t.to_json(orient="records")) for k, t in tablas.items() if k not in {"ocde_comparacion"}},
-}, ensure_ascii=False), encoding="utf-8")
+}, ensure_ascii=False), encoding="utf-8", newline="\n")
 print(json.dumps(resumen, ensure_ascii=False, indent=1))

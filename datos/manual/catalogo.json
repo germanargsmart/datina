@@ -81,7 +81,7 @@
    "complementaria": true,
    "evidencia": {
     "archivo": "scripts/02_procesar.py",
-    "contiene": "cna.to_csv(SITIO / \"corte_no_asumieron.csv\", index=False)"
+    "contiene": "cna.to_csv(SITIO / \"corte_no_asumieron.csv\", index=False"
    }
   },
   "corte_presidentes": {

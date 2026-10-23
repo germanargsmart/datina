@@ -21,7 +21,7 @@ Línea de base del 10 de octubre de 2026 (commit b4b1fc1): `pruebas_datos.py` 0 
 
 ## Finales de línea
 
-Las páginas de `sitio/` en el repositorio tienen CRLF porque el autor arma en Windows. Armar en Linux reescribe las 50 páginas con LF. Para ver si cambió algo más: `git diff --ignore-cr-at-eol --stat sitio`. Si solo cambiaron los finales de línea, devolverlas con `git checkout -- sitio`.
+Desde el 23 de octubre de 2026 (plan de estabilización, P1-4) 02 y 03 escriben todo en LF, en Windows y en Linux, y `.gitattributes` lo fija para `sitio/` y `datos/ordenado/`. Armar en Windows ya no reescribe ningún archivo solo por los finales de línea: si `git status` muestra cambios en `sitio/` después de armar, son cambios de verdad. `datos/crudo` y `datos/manual` tienen archivos con CRLF que se guardan como llegaron y la regla no los toca.
 
 ## Entornos en la nube sin acceso a las CDN
 

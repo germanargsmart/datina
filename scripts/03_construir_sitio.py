@@ -517,11 +517,11 @@ for nombre in DIFERIDAS:
     # los objetos al cargarla (deColumnas)
     cols = list(dict.fromkeys(k for f in filas for k in f))
     t = json.dumps({"c": cols, "f": [[f.get(k) for k in cols] for f in filas]}, ensure_ascii=False, separators=(",", ":"))
-    (SITIO / "datos" / f"{nombre}.json").write_text(t, encoding="utf-8")
+    (SITIO / "datos" / f"{nombre}.json").write_text(t, encoding="utf-8", newline="\n")
     D["diferidas"][nombre] = huella(t)
 D["indice"] = INDICE
 datos = "window.DATINA=" + json.dumps(D, ensure_ascii=False, separators=(",", ":")) + ";\n"
-(SITIO / "datos" / "fichas.js").write_text(datos, encoding="utf-8")
+(SITIO / "datos" / "fichas.js").write_text(datos, encoding="utf-8", newline="\n")
 
 # Iconos isometricos propios (los genera scripts/iconos_isometricos.py en datos/manual/iconos_iso): trazo y tono de cada uno
 DIR_ICONOS = RAIZ / "datos" / "manual" / "iconos_iso"
@@ -566,8 +566,8 @@ for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SI
                      "/*EN_CATALOGO*/[]": EN_CATALOGO}.items():
     assert marca in js, marca
     js = js.replace(marca, json.dumps(valor, ensure_ascii=False))
-(SITIO / "datina.css").write_text(css, encoding="utf-8")
-(SITIO / "datina.js").write_text(js, encoding="utf-8")
+(SITIO / "datina.css").write_text(css, encoding="utf-8", newline="\n")
+(SITIO / "datina.js").write_text(js, encoding="utf-8", newline="\n")
 # D3 y topojson desde el propio sitio (plan de estabilización, P0-1, 22 de octubre de 2026): las mismas versiones que se pedían a cdnjs y
 # jsDelivr, copiadas byte por byte de scripts/lib/ a sitio/lib/ con sus licencias, y pedidas con su huella como datina.js
 LIBS = {"__V_D3__": "d3-7.8.5.min.js", "__V_TOPOJSON__": "topojson-client-3.1.0.min.js"}
@@ -1032,7 +1032,7 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, t
     h = navegacion(h, id_)
     h = siluetas(h, id_)
     h = encabezado_principal(h, id_)
-    (SITIO / ("index.html" if id_ == "inicio" else f"{id_}.html")).write_text(h, encoding="utf-8")
+    (SITIO / ("index.html" if id_ == "inicio" else f"{id_}.html")).write_text(h, encoding="utf-8", newline="\n")
     return h
 
 
@@ -1124,7 +1124,7 @@ for viejo, nuevo in REDIRECCIONES.items():
         f'<meta name="robots" content="noindex"><link rel="canonical" href="{nuevo}.html">'
         f'<script>location.replace("{nuevo}.html" + location.search + location.hash)</script>'
         f'<noscript><meta http-equiv="refresh" content="0; url={nuevo}.html"></noscript></head>'
-        f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8")
+        f'<body><p><a href="{nuevo}.html">Esta página se mudó</a></p></body></html>\n', encoding="utf-8", newline="\n")
 
 shutil.copy(RAIZ / "datos" / "ordenado" / "tabla_larga.csv", SITIO / "datos" / "tabla_larga.csv")
 # Sitio de consultas de pobreza (Observable Framework). Se construye aparte con "npm run build" dentro de pobreza/ (pobreza/README.md)
@@ -1158,14 +1158,14 @@ _rxh = _rxp.read_text(encoding="utf-8")
 if 'property="og:title"' not in _rxh:
     _rxd = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', _rxh).group(1))
     _rxh = _rxh.replace('<meta name="description"', metadatos("relaciones", "Explorador de relaciones: ¿de dónde sale cada número?", _rxd, "website") + '\n<meta name="description"', 1)
-    _rxp.write_text(_rxh, encoding="utf-8")
+    _rxp.write_text(_rxh, encoding="utf-8", newline="\n")
 # sitemap.xml y robots.txt solo con la dirección definitiva (datos/manual/sitio.json). Sin ella se borran, si quedaron de antes
 for _f in ("sitemap.xml", "robots.txt"):
     (SITIO / _f).unlink(missing_ok=True)
 if URL_SITIO:
     (SITIO / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-                                     "".join(f"  <url><loc>{URL_SITIO}/{a}</loc></url>\n" for a in INDEXADAS) + "</urlset>\n", encoding="utf-8")
-    (SITIO / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {URL_SITIO}/sitemap.xml\n", encoding="utf-8")
+                                     "".join(f"  <url><loc>{URL_SITIO}/{a}</loc></url>\n" for a in INDEXADAS) + "</urlset>\n", encoding="utf-8", newline="\n")
+    (SITIO / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {URL_SITIO}/sitemap.xml\n", encoding="utf-8", newline="\n")
 # metadatos y enlaces internos (scripts/prueba_metadatos.py): si algo falla, el sitio no se da por armado
 import prueba_metadatos
 _met = prueba_metadatos.revisar(URL_SITIO)

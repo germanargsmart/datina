@@ -89,7 +89,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 - Nombres auxiliares cortos en `02_procesar.py` (`_pv`, `_nq`, `_pr`) pisaron otros: usar un prefijo propio del bloque y buscar antes.
 - En `datina.js`, `TX` y `LEAD` se evalúan al cargar y solo pueden usar lo definido antes en el archivo.
 - Al editar con Python desde la terminal, las barras invertidas pueden llegar cambiadas: escribir el script en un archivo. En Windows, `Path.write_text` escribe CRLF: en archivos con LF, leer y escribir bytes.
-- Las páginas armadas en `sitio/` del repositorio tienen finales CRLF (se arman en Windows): armar en Linux cambia todas las líneas. Si solo cambió eso, no subirlo.
+- Finales de línea: desde el 23 de octubre de 2026 (plan de estabilización, P1-4) todo lo que escriben 02 y 03 sale en LF, también en Windows (`newline="\n"` y `lineterminator="\n"`), y `.gitattributes` lo fija para `sitio/` y `datos/ordenado/`. Armar en Windows o en Linux da los mismos archivos. Una escritura nueva en 02 o 03 lleva lo mismo. `datos/crudo` y `datos/manual` tienen archivos con CRLF que se guardan como llegaron.
 
 ## Publicación
 
