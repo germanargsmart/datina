@@ -15,7 +15,9 @@ import { fileURLToPath } from "node:url";
 import { abrirChrome, espera } from "./cdp.mjs";
 
 const RAIZ = normalize(fileURLToPath(new URL("../", import.meta.url)));
-const SITIO = join(RAIZ, "sitio") + "/";
+// con la barra de cada sistema al final: en Windows, la "/" agregada a mano no coincidía con las "\" de las rutas pedidas, y el servidor
+// rechazaba todas las páginas con 403 (encontrado al validar el rediseño el 23 de octubre de 2026)
+const SITIO = normalize(join(RAIZ, "sitio", "/"));
 const FECHA = new Date().toISOString().slice(0, 10);
 const SALIDA = process.argv[2] || join(RAIZ, "linea_base", FECHA);
 mkdirSync(SALIDA, { recursive: true });

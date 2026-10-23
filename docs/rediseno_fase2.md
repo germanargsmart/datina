@@ -360,3 +360,12 @@ Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que aho
 
 Con este paso termina la etapa B. Sigue la etapa C (validación: capturas de antes y después desde el commit 7cd2124 en los cuatro anchos, `scripts/linea_base.mjs` y que los datos no hayan cambiado), si el autor la quiere antes de subir los commits.
 
+## Etapa C: validación (23 de octubre de 2026)
+
+Hecha después de unir todo en la rama `claude/estabilizacion-y-produccion`, en solo lectura, comparando con el sitio del commit 7cd2124 (antes del rediseño):
+
+- **`scripts/linea_base.mjs`** (8 páginas en 9 anchos, de 320 a 1920 píxeles, y con zoom del 200% y del 400%: 88 casos por versión). Primero hubo que arreglarla: en Windows rechazaba todas las páginas con un error 403 (comparaba la ruta con una "/" agregada a mano y Windows usa "\"), así que nunca se había podido usar acá. Resultado de ahora: ninguna página se corre de costado, salvo dos avisos que ya estaban antes del rediseño (el botón "Ver más filas" del Explorador de relaciones se sale en 320 píxeles, y en el consultor de pobreza en 320 aparece un error de la consola por el ícono de la pestaña, que el consultor no tiene). En el celular, un solo texto de gráfico queda por debajo de 10 píxeles en 320 de ancho: la anotación "la más alta" del gráfico de salarios (9,3 píxeles), igual que antes del rediseño. Saltos al cargar: 0,049 como máximo (en el consultor). Lo más grande de cada página aparece antes de los 2,3 segundos en una carga local. Las medidas de tiempos de la versión de antes salieron en cero en casi todas las páginas (una carga de prueba no siempre las registra), así que no sirven para comparar.
+- **Datos**: entre 7cd2124 y ahora, en `sitio/datos/` solo cambian el índice del sitio en `fichas.js` (menús, buscador, preguntas de ejemplo, piezas del Laboratorio y anclas) y los números de línea del Explorador en `relaciones.json`. Ninguna cifra, tabla ni texto calculado.
+- **Capturas**: las 88 de cada versión quedaron fuera del repositorio (la carpeta `linea_base/` no se sube). Se revisaron a ojo la portada, una sección, el perfil provincial, el artículo y el consultor.
+- **Pruebas**: el armado con todas sus comprobaciones y la prueba de páginas sobre el estado final de la rama.
+
