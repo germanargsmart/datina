@@ -331,3 +331,32 @@ Queda anotado, sin cambiar: los gráficos que se recorren con el teclado (los pu
 
 Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que ahora controla en las 51 páginas que ningún gráfico quede sin nombre (después de recorrer la página, cuando ya se dibujaron), que esté "Saltar al contenido" con su destino y que las migas estén subrayadas, y con el teclado, que la primera parada de Tab sea el salto y Enter lleve el foco al título, que Tab cierre la lupa y que el mapa tenga su nombre ("Todo en orden"). Corrida contra la versión del paso 5, marca 144 problemas, todos de esos controles. Aparte: el foco, comparando cada parada de Tab con y sin foco, cambia de aspecto en todas (93 paradas en Trabajo, 105 en la portada, 79 en Instituciones políticas, 68 en Artículos y 88 en Trabajo en el celular). Capturas del salto en los cuatro anchos, en la 404 (no se va a otra página) y en el Explorador, y de las migas. No se probó con un lector de pantalla real.
 
+### Paso 7: pulido de componentes (23 de octubre de 2026)
+
+Antes de tocar nada se midió: si el texto de ayuda de cada buscador entra en su campo, los huecos de la descripción de las fichas en el celular, y en `datina.css` los valores escritos a mano fuera de `:root` y los botones con estilo propio y sus estados. El autor eligió:
+
+| Pregunta | Opciones | Elegida |
+|---|---|---|
+| Texto de ayuda de la lupa ("Un tema, una provincia o una pregunta: empleo, Salta, cloacas") y del buscador de la portada ("Buscá un tema, una pregunta o una provincia"), que se cortaban en el celular y el de la portada también en tableta | "Un tema, una provincia o una pregunta". "Tema, provincia o pregunta". Dejarlos | Primero eligió "Un tema, una provincia o una pregunta", con una medida equivocada (ver abajo). Con la medida corregida, "Tema, provincia o pregunta" |
+| La descripción debajo de cada pregunta, justificada como todo el texto de la ficha (pedido del 11 de octubre), quedaba con huecos grandes en el celular | Alinearla a la izquierda (solo esa línea). Dejarla justificada | A la izquierda |
+| Tamaños de letra y espacios escritos a mano (49 y 191) | Pasar a su nombre solo los que ya coinciden exacto con la escala. También los de medio píxel (10,5, 11,5 y 12,5 a 11 o 13). Dejarlos y anotarlos | Solo los exactos |
+| Los dos componentes que no cambiaban al pasar el mouse: la cruz que cierra la tarjeta del mapa y "Ver los datos del cruce" en Cruces | Darles el mismo cambio sutil que a los demás. Dejarlos | Sí |
+
+Lo que cambió:
+- **Texto de ayuda**: "Tema, provincia o pregunta" en la lupa y en la portada. Entra entero de 360 a 1440 píxeles. Una corrección: la primera medida comparaba el ancho del texto con el del campo y daba que "Un tema, una provincia o una pregunta" entraba en todos lados. No contaba el lugar que el campo de búsqueda reserva a la derecha. Medido poniendo el texto en el campo, se cortaba en la portada en tableta (13 píxeles) y en la lupa en celulares de 390 o menos (de 9 a 39). Se le volvió a preguntar al autor con el dato corregido, y la prueba de páginas mide de la segunda forma.
+- **Descripción de las fichas** alineada a la izquierda y sin corte de palabras, como ya estaban los títulos chicos de los gráficos. El resto del texto de la ficha sigue justificado. El Chrome de las pruebas no corta palabras en español: en los teléfonos que sí lo hacen, los huecos eran menores que en las capturas.
+- **Escala**: los 9 tamaños de letra (11, 13, 15 y 17 píxeles) y los 52 espacios (4 a 144) que ya coincidían con la escala pasan a usar su nombre (`--t-1` a `--t-4`, `--e-1` a `--e-11`). No cambia nada visible, y esos tamaños de letra ahora crecen si alguien agranda la letra del navegador (son rem, como pidió la revisión del 11 de octubre).
+- **Estados**: la cruz de la tarjeta del mapa toma un fondo gris claro y oscurece su color al pasar el mouse, y "Ver los datos del cruce" se subraya como los enlaces. Solo con mouse.
+- **Los seis tipos de botón**: el comentario de `datina.css` decía "cinco tipos" (le faltaba el despliegue). Ahora dice seis y anota a cuál corresponde cada componente con estilo propio (secundario, enlace, despliegue o navegación), sin cambiar cómo se ven.
+- Ninguna dirección cambió, los datos no se tocaron y `datina.js` no cambió.
+
+**Lo que queda escrito a mano en `datina.css`, para decidir aparte** (fuera de `:root`):
+- Letra: 48 tamaños en píxeles fuera de la escala. Los más usados: 12 (13 veces, entre ellos el de todos los botones), 11,5 (6), 10,5 (5) y 12,5 (4), casi todos en etiquetas de gráficos y tablas.
+- Espacios: 104 fuera de la escala. Los más usados: 6 píxeles (45 veces) y 10 (16), en componentes chicos. Llevarlos a la escala cambia 2 píxeles en cada uno.
+- Duraciones: 23. No son animaciones de interfaz largas: las de 400 ms son la espera antes de mostrar la silueta de carga, las de 0 apagan animaciones y las largas son del sol y de la carga.
+- Colores: 23, de los que 20 son el negro de máscaras de transparencia (no se ve, no es una sombra) y 3 son grises claros que podrían tener nombre.
+
+Pruebas: el armado con todas sus comprobaciones y la prueba de páginas, que ahora controla que los dos textos de ayuda entren enteros en 360 y 768 píxeles (los anchos donde se cortaban) y que la descripción vaya a la izquierda con el texto de la ficha justificado ("Todo en orden"). Corrida contra la versión del paso 6, marca esos controles. Además, una huella de cómo se ve cada página (caja, letra, color, alineación, relleno y márgenes de cada elemento fuera de los dibujos) en 9 páginas y 4 anchos, antes y después: lo único distinto es la alineación de la descripción (80 casos). Dos huellas del mismo sitio dan exactamente lo mismo, así que la comparación es confiable. Capturas de los textos de ayuda en cinco anchos, de la descripción antes y después en el celular, y de los dos estados con el mouse encima.
+
+Con este paso termina la etapa B. Sigue la etapa C (validación: capturas de antes y después desde el commit 7cd2124 en los cuatro anchos, `scripts/linea_base.mjs` y que los datos no hayan cambiado), si el autor la quiere antes de subir los commits.
+

@@ -245,6 +245,24 @@ await q.ir(B + "trabajo.html", 1000);
 await q.eval(`document.getElementById("menu-btn").focus()`);
 await tecla("Enter");
 if (!(await enFoco()).endsWith("|Temas")) problemas.push(`trabajo.html en 390 píxeles: "Menú" no abre con el foco en "Temas" (${await enFoco()})`);
+// pulido (paso 7): el texto de ayuda de la lupa y el del buscador de la portada entran enteros en su campo en 360 y 768 píxeles (los
+// anchos donde antes se cortaban), y la descripción debajo de cada pregunta va alineada a la izquierda (los textos de la ficha siguen
+// justificados). Se mide poniendo el texto en el campo: medirlo aparte no cuenta el lugar que el campo de búsqueda reserva a la derecha
+const DESBORDA = id => `(() => { const i = document.getElementById("${id}"), v = i.value; i.value = i.placeholder; const d = i.scrollWidth - i.clientWidth; i.value = v; return d; })()`;
+for (const W of [360, 768]) {
+  await q.tamano(W, 844);
+  await q.ir(B + "trabajo.html", 1000);
+  await q.eval(`document.getElementById("lupa-btn").click()`);
+  await espera(300);
+  const lupaD = await q.eval(DESBORDA("busca"));
+  if (lupaD > 0) problemas.push(`trabajo.html en ${W} píxeles: el texto de ayuda de la lupa se corta (${lupaD} píxeles de más)`);
+  await q.ir(B + "index.html", 1000);
+  const portadaD = await q.eval(DESBORDA("busca-portada"));
+  if (portadaD > 0) problemas.push(`index.html en ${W} píxeles: el texto de ayuda del buscador se corta (${portadaD} píxeles de más)`);
+}
+await q.ir(B + "trabajo.html", 1000);
+if (await q.eval(`[...document.querySelectorAll(".ficha-sub")].some(s => getComputedStyle(s).textAlign !== "left") || ![...document.querySelectorAll(".ficha .lead")].some(s => getComputedStyle(s).textAlign === "justify")`))
+  problemas.push("trabajo.html: la descripción debajo de la pregunta no va a la izquierda, o los textos de la ficha dejaron de estar justificados");
 q.errores.forEach(e => problemas.push(`menús con el teclado: ${e}`));
 await q.tamano(1280, 900);
 await q.send("Network.setBlockedURLs", {urls: [...CDN, "*lib/d3-*"]});
@@ -259,7 +277,7 @@ console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.len
 console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
 console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas.`);
 console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias y Tab.`);
-console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa.`);
+console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa. Pulido: textos de ayuda enteros en 360 y 768 píxeles y descripción de las fichas a la izquierda.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
   process.exit(1);

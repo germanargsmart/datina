@@ -155,14 +155,24 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
   .tarjeta:hover .iso{transform:translateY(-4px) rotate(-5deg)}
   .lupa-btn:hover .ico{transform:rotate(-12deg) scale(1.08)}
   .chip-borrar:hover .ico{transform:rotate(90deg)}
+  /* los dos que no cambiaban al pasar el mouse (Fase 2, paso 7, respuesta del autor): la cruz de la tarjeta del mapa, con fondo gris
+     claro como el botón que borra la provincia, y "Ver detalle" de Cruces, subrayado como los enlaces */
+  .mt-cerrar:hover{color:var(--ink);background:var(--superficie-2)}
+  .cx-detalle summary:hover{text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
 }
 .tono-azul{--ic:#2C74B5}
 
 /* ---------- botones, enlaces y tarjetas ----------
-   Cinco tipos y nada más: botón principal (lleno, uno por pantalla), botón secundario (con borde: el .boton común),
-   enlace (texto subrayado), tarjeta (toda la tarjeta es el enlace) y navegación (barra, menú y pie).
-   Los botones son rectos y las tarjetas redondeadas. Lo que no se toca (cifras, etiquetas) va sin borde ni fondo.
-   Sobre el azul de la portada (.en-azul) los colores se invierten. */
+   Seis tipos y nada más: botón principal (lleno, uno por pantalla), botón secundario (con borde: el .boton común),
+   enlace (texto subrayado), tarjeta (toda la tarjeta es el enlace), despliegue (abre y cierra su contenido debajo) y navegación
+   (barra, menús y pie). Los botones son rectos y las tarjetas redondeadas. Lo que no se toca (cifras, etiquetas) va sin borde ni fondo.
+   Sobre el azul de la portada (.en-azul) los colores se invierten.
+   Los que tienen estilo propio son variantes de esos seis (Fase 2, paso 7, sin cambiar cómo se ven):
+   - secundario: .conmutador y .co-btn (con el elegido lleno), .susc-boton, .elige-btn, .lupa-btn, .chip-prov y .chip-borrar
+   - enlace: .esp-btn, .vt-ley, .cx-chip, .ver-mas, .dx-quitar y .mt-cerrar (la cruz que cierra la tarjeta del mapa)
+   - despliegue: .despliegue, .sobre, .menu-parte, .cx-detalle, .ph-fuentes y .creditos (los de <summary>)
+   - navegación: .menu-btn, la barra, los menús, las migas, .subsecciones, .pildoras y el pie
+   - los puntos y celdas de los gráficos que se tocan (.cx-punto, .cx-celda, .dep, .provs) son parte del dibujo, no botones */
 .boton{--b-fondo:transparent;--b-tinta:var(--azul);--b-borde:var(--azul);
   display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);min-height:44px;padding:0 var(--e-4);
   font:500 12px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;text-decoration:none;cursor:pointer;
@@ -213,7 +223,7 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
 .barra.clara .marca{color:var(--azul)}
 body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* navegación: el mismo estilo en la barra, la fila de secciones del celular y el pie */
-.barra .temas{grid-column:2;justify-self:start;display:flex;align-items:center;gap:var(--e-6);font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+.barra .temas{grid-column:2;justify-self:start;display:flex;align-items:center;gap:var(--e-6);font-size:var(--t-2);font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   font-variation-settings:"wdth" 60,"opsz" 14;color:var(--en-azul-texto);font-family:var(--f-c60)}
 .barra .temas a{padding:6px 0;text-decoration:none;white-space:nowrap;transition:color var(--dur-1) var(--ease-out)}
 .barra .temas a[aria-current="true"]{color:#fff;box-shadow:inset 0 -2px 0 var(--sol)}
@@ -254,7 +264,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .bandera{display:inline-block;flex:none;width:24px;height:16px;vertical-align:middle;border-radius:3px;outline:1px solid rgba(24,33,43,.2);outline-offset:-1px}
 .bandera.vacia{outline:0}
 .bandera.grande{width:36px;height:24px;border-radius:4px}
-.con-bandera{display:inline-flex;align-items:center;gap:8px;min-width:0}
+.con-bandera{display:inline-flex;align-items:center;gap:var(--e-2);min-width:0}
 .portada .bandera,.tip .bandera{outline-color:rgba(255,255,255,.55)}
 .tip .bandera{width:18px;height:12px;margin-right:2px;vertical-align:-1px;border-radius:2px}
 .chip-borrar{display:inline-flex;align-items:center;gap:var(--e-2);padding:0 var(--e-3);font:500 var(--t-1)/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;
@@ -358,7 +368,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 @keyframes abre-buscador{from{transform:translateY(-8px)}}
 .buscador-caja{max-width:760px;margin:0 auto;padding:var(--e-6) var(--margen) var(--e-6)}
 .buscador-lab{display:block;margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-#busca{width:100%;padding:12px 16px;font:inherit;font-size:var(--t-5);color:var(--ink);background:#fff;border:1.5px solid var(--azul);border-radius:var(--r-control)}
+#busca{width:100%;padding:var(--e-3) var(--e-4);font:inherit;font-size:var(--t-5);color:var(--ink);background:#fff;border:1.5px solid var(--azul);border-radius:var(--r-control)}
 /* los textos de ejemplo de los buscadores con --faint-texto: 4,9 a 1 sobre blanco (eran 3,7 y 2,6 a 1, 11 de octubre de 2026) */
 #busca::placeholder{color:var(--faint-texto)}
 #busca:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
@@ -408,7 +418,7 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 /* información secundaria: más chica y más tenue que los botones (octubre de 2026) */
 .estado{margin:var(--e-4) 0 0;font:400 var(--t-1)/1.5 var(--mono);letter-spacing:.04em;color:#fff}
 .estado span{white-space:nowrap}
-.estado span+span{margin-left:6px;padding-left:12px;border-left:1px solid rgba(255,255,255,.55)}
+.estado span+span{margin-left:6px;padding-left:var(--e-3);border-left:1px solid rgba(255,255,255,.55)}
 /* el buscador a la vista de la portada (Fase 2, paso 2): un campo blanco sobre el azul, con la lista de resultados debajo. Las preguntas
    de ejemplo, debajo, son enlaces a su ficha. Sin JavaScript el buscador no se ve */
 .busca-portada{position:relative;max-width:30em;margin:0 0 var(--e-3)}
@@ -646,7 +656,7 @@ html:not(.js) .busca-portada{display:none}
 .migas li{display:flex;align-items:center;min-width:0}
 .migas li+li::before{content:"\203A";margin:0 var(--e-2);font-size:14px;line-height:1;color:var(--faint)}
 /* subrayadas como los demás enlaces, para no distinguirlas solo por el color (Fase 2, paso 6, respuesta del autor) */
-.migas a{padding:4px 0;color:var(--celeste-fuerte);text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
+.migas a{padding:var(--e-1) 0;color:var(--celeste-fuerte);text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
 .migas span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
 .migas-prov{color:var(--azul)}
 .migas-prov[hidden]{display:none}
@@ -670,7 +680,7 @@ html:not(.js) .busca-portada{display:none}
 /* desplegable: compacto, fuente liviana, crece desde el botón */
 .elige{position:relative;z-index:6;display:inline-flex;flex-direction:column;gap:6px}
 .elige-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.elige-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;min-width:260px;min-height:44px;padding:0 14px 0 16px;
+.elige-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;min-width:260px;min-height:44px;padding:0 14px 0 var(--e-4);
   font:inherit;font-weight:350;color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control);cursor:pointer;
   transition:border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .elige-btn:active{transform:scale(.97)}
@@ -682,19 +692,19 @@ html:not(.js) .busca-portada{display:none}
   box-shadow:0 1px 2px rgba(24,33,43,.05),0 18px 40px -18px rgba(44,116,181,.35);
   transform-origin:top left;opacity:0;transform:scale(.97) translateY(-4px);transition:opacity var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .elige-panel.abierto{opacity:1;transform:none;transition:opacity var(--dur-2) var(--ease-out),transform var(--dur-2) var(--ease-out)}
-.elige-buscar{width:100%;margin-bottom:4px;padding:8px 10px 10px;font:inherit;font-size:var(--t-3);font-weight:350;color:var(--ink);
+.elige-buscar{width:100%;margin-bottom:var(--e-1);padding:var(--e-2) 10px 10px;font:inherit;font-size:var(--t-3);font-weight:350;color:var(--ink);
   background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;outline:none}
 .elige-buscar::placeholder{color:var(--faint-texto)}
 /* el buscador de provincias no tiene borde propio: con el teclado, la línea de abajo se engrosa y toma el color del foco */
 .elige-buscar:focus-visible{border-bottom:2px solid var(--celeste-fuerte);padding-bottom:9px}
 .elige-lista{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px}
-.elige-lista li{display:flex;align-items:center;gap:8px;padding:7px 10px;font-size:var(--t-3);font-weight:350;line-height:1.3;color:var(--ink);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
+.elige-lista li{display:flex;align-items:center;gap:var(--e-2);padding:7px 10px;font-size:var(--t-3);font-weight:350;line-height:1.3;color:var(--ink);cursor:pointer;transition:background-color var(--dur-1) var(--ease-out)}
 .elige-lista li.activa{background:var(--celeste-suave)}
 /* la provincia elegida en --azul-hondo: 5,6 a 1 sobre el celeste de la opción activa (con --celeste-fuerte daba 4,04) */
 .elige-lista li[aria-selected="true"]{color:var(--azul-hondo);font-weight:600}
 .elige-lista li.primera{grid-column:1/-1}
 .elige-lista li[hidden]{display:none}
-.elige-vacio{margin:0;padding:8px 10px;font-size:var(--t-3);color:var(--muted)}
+.elige-vacio{margin:0;padding:var(--e-2) 10px;font-size:var(--t-3);color:var(--muted)}
 @media (hover:hover) and (pointer:fine){
   .elige-btn:hover{border-color:var(--borde-claro);background:#FAFCFE}
   .elige-lista li:hover{background:var(--celeste-suave)}
@@ -720,7 +730,7 @@ html:not(.js) .busca-portada{display:none}
   font-size:var(--t-1);line-height:var(--i-chico);color:var(--muted)}
 .dp-aclara:empty{display:none}
 /* provincias parecidas y "si tu provincia fuera un país" */
-#prov-band:not(:empty){display:inline-block;margin-right:16px;vertical-align:.08em}
+#prov-band:not(:empty){display:inline-block;margin-right:var(--e-4);vertical-align:.08em}
 #prov-band .bandera{display:block}
 .prov-extra{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-6);margin-top:var(--e-6)}
 .prov-extra>div{border-top:1px dotted var(--azul);padding-top:var(--e-3)}
@@ -764,7 +774,7 @@ html:not(.js) .busca-portada{display:none}
    Cada pieza es una tarjeta blanca, como las fichas, con su texto corto, su gráfico vivo y el enlace a su ficha. Las grandes llevan el
    texto a un costado desde 1080 píxeles. Las de "Más del Laboratorio" van en una grilla de tres, dos o una columna, y sus filas se
    comparten (subgrid): los gráficos empiezan a la misma altura y los enlaces quedan en la misma línea aunque los textos midan distinto */
-.lab-pieza{position:relative;display:flex;flex-direction:column;gap:var(--e-3);margin:var(--e-6) 0;padding:clamp(18px,3vw,32px) clamp(16px,3vw,32px);
+.lab-pieza{position:relative;display:flex;flex-direction:column;gap:var(--e-3);margin:var(--e-6) 0;padding:clamp(18px,3vw,var(--e-7)) clamp(var(--e-4),3vw,var(--e-7));
   background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
 .lab-pieza h3{margin:0 0 var(--e-3);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;font-family:var(--f-c75)}
 .lab-lead{margin:0 0 var(--e-3);max-width:var(--medida)}
@@ -781,7 +791,7 @@ html:not(.js) .busca-portada{display:none}
 .lectura-serie i.co-vac{border-radius:2px}
 .co-facto rect{fill:var(--superficie-2)}
 .pol-ley i.co-banda{width:16px;background:var(--superficie-2);box-shadow:inset 0 0 0 1px var(--borde)}
-.co-nom{font-family:var(--f);font-size:11px;fill:var(--ink)}
+.co-nom{font-family:var(--f);font-size:var(--t-1);fill:var(--ink)}
 .angosto .co-nom{font-size:10.5px}
 .co-nom.fuerte{font-weight:650}
 .co-nom.activo{font-weight:650;fill:var(--azul-hondo,var(--ink))}
@@ -789,11 +799,11 @@ html:not(.js) .busca-portada{display:none}
 .co-franja{stroke:#fff;stroke-width:1px;stroke-linejoin:round}
 .co-ley-linea{fill:none;stroke:var(--ink);stroke-width:1.5px}
 .co-rot{font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.01em}
-.angosto .co-rot{font-size:11px}
+.angosto .co-rot{font-size:var(--t-1)}
 .co-regla{stroke:var(--ink);stroke-width:1px;stroke-opacity:.55;pointer-events:none}
-.co-pres{font-family:var(--f);font-size:13px;fill:var(--ink)}
+.co-pres{font-family:var(--f);font-size:var(--t-2);fill:var(--ink)}
 .angosto .co-pres{font-size:11.5px}
-.co-anio{font-family:var(--mono);font-size:11px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.co-anio{font-family:var(--mono);font-size:var(--t-1);fill:var(--muted);font-variant-numeric:tabular-nums}
 .co-cuenta{font-family:var(--mono);font-size:11.5px;font-weight:600;fill:var(--ink)}
 .co-cuad.activo{stroke:var(--ink);stroke-width:1.5px}
 .co-prot{cursor:default}
@@ -848,7 +858,7 @@ html:not(.js) .busca-portada{display:none}
   .pildoras{display:flex;gap:var(--e-6);overflow-x:auto;margin:0 calc(-1 * var(--margen));padding:var(--e-2) var(--margen) 0;scrollbar-width:none;
     border-bottom:1px solid var(--line)}
   .pildoras::-webkit-scrollbar{display:none}
-  .pildoras a{flex:none;padding:12px 0 10px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;
+  .pildoras a{flex:none;padding:var(--e-3) 0 10px;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;
     font-variation-settings:"wdth" 60,"opsz" 14;color:var(--azul);text-decoration:none;font-family:var(--f-c60)}
   .pildoras a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--sol)}
   .tema>.pildoras+:is(h1,h2,.tema-nombre){margin-top:var(--e-7)}
@@ -999,7 +1009,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 }
 
 /* ---------- fichas: redondeadas, como todas las tarjetas ---------- */
-.ficha{position:relative;margin:var(--bloque) 0;padding:clamp(16px,2.2vw,28px) clamp(16px,2.2vw,28px) var(--e-4);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out)}
+.ficha{position:relative;margin:var(--bloque) 0;padding:clamp(var(--e-4),2.2vw,28px) clamp(var(--e-4),2.2vw,28px) var(--e-4);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out)}
 /* La tarjeta aparece una sola vez, al entrar en pantalla (datina.js pone "listo" en la página y "visto" en cada ficha).
    Mientras el código no llegó, se ve con su silueta desde los 400 ms (ver "formas de carga"): si llega antes, nunca se ve vacía */
 .js:not(.listo) .ficha{animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
@@ -1044,7 +1054,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .grafico[data-g="presidentes"]{min-height:0}
 .contexto-grafico{margin:var(--e-3) 0 0;font-size:var(--t-2);color:var(--muted)}
 /* lectura fija de las series: el último dato, o el que está debajo del mouse o del dedo */
-.lectura-serie{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;min-height:1.6em;margin:0 0 4px;
+.lectura-serie{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;min-height:1.6em;margin:0 0 var(--e-1);
   font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--muted);font-variant-numeric:tabular-nums}
 .lectura-serie b{color:var(--ink);font-weight:600}
 .lectura-serie span{white-space:nowrap}
@@ -1097,8 +1107,9 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* textos de las fichas justificados (11 de octubre de 2026, pedido del autor: "los textos que van adentro los vas a justificar a todos"), con
    corte de palabras en español (la página es lang="es") para que no queden huecos grandes entre palabras en las columnas angostas */
 .ficha p:not(.clave){text-align:justify;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}
-/* salvo los títulos chicos en letra mono de los gráficos y las herramientas: justificados quedaban con huecos grandes entre palabras */
-.ficha p:is(.lectura-serie,.cx-leyenda,.mp-lugar,.dx-grafico-tit,.ix-leyenda){text-align:left;-webkit-hyphens:manual;hyphens:manual}
+/* salvo los títulos chicos en letra mono de los gráficos y las herramientas, y la descripción debajo de la pregunta (Fase 2, paso 7,
+   respuesta del autor del 23 de octubre de 2026): justificados quedaban con huecos grandes entre palabras, sobre todo en el celular */
+.ficha p:is(.lectura-serie,.cx-leyenda,.mp-lugar,.dx-grafico-tit,.ix-leyenda,.ficha-sub){text-align:left;-webkit-hyphens:manual;hyphens:manual}
 /* en las fichas a todo el ancho (anchas y herramientas), donde el gráfico no va al costado: la cabeza (la pregunta, la descripción y el
    texto) en una sola columna de lectura cómoda, de corrido, y a su derecha los controles de la ficha, alineados con el final del texto,
    justo arriba del gráfico. Así no queda vacía la mitad derecha y ninguna oración se corta (11 de octubre de 2026, pedido del autor: el
@@ -1158,7 +1169,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .grafico[data-forma="franjas"]{--alto:230px;--alto-c:190px}
 .grafico[data-forma="bloque"]{--alto:340px;--alto-c:300px}
 /* barras por provincia: el nombre a la izquierda y barras que se acortan hacia abajo, como quedan ordenadas */
-.js .grafico:is([data-forma="barras"],[data-forma="pesas"])::before{padding-top:24px;
+.js .grafico:is([data-forma="barras"],[data-forma="pesas"])::before{padding-top:var(--e-6);
   background:linear-gradient(transparent 28%,var(--esqueleto) 28% 72%,transparent 72%) calc(var(--izq) - 92px) 0/82px var(--fila) repeat-y,
     linear-gradient(transparent 28%,var(--esqueleto) 28% 72%,transparent 72%) var(--izq) 0/calc(100% - var(--izq) - 54px) var(--fila) repeat-y;
   background-clip:content-box;background-origin:content-box;
@@ -1173,15 +1184,15 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   background-clip:content-box;background-origin:content-box}
 @container (max-width:519px){ .js .grafico[data-forma="lineas"]::before{padding-right:92px} }
 /* columnas por año o por mes */
-.js .grafico[data-forma="columnas"]::before{padding:14px 8px 28px 36px;background:linear-gradient(90deg,transparent 18%,var(--esqueleto) 18% 82%,transparent 82%) 0 0/5% 100% repeat-x;
+.js .grafico[data-forma="columnas"]::before{padding:14px var(--e-2) 28px 36px;background:linear-gradient(90deg,transparent 18%,var(--esqueleto) 18% 82%,transparent 82%) 0 0/5% 100% repeat-x;
   background-clip:content-box;background-origin:content-box;-webkit-mask:linear-gradient(to top,#000 45%,transparent 96%);mask:linear-gradient(to top,#000 45%,transparent 96%)}
 /* pirámide: barras a los dos lados del centro, más anchas abajo */
-.js .grafico[data-forma="piramide"]::before{padding:48px 8px 16px;background:linear-gradient(transparent 14%,var(--esqueleto) 14% 86%,transparent 86%) 0 0/100% 20px repeat-y;
+.js .grafico[data-forma="piramide"]::before{padding:var(--e-8) var(--e-2) var(--e-4);background:linear-gradient(transparent 14%,var(--esqueleto) 14% 86%,transparent 86%) 0 0/100% 20px repeat-y;
   background-clip:content-box;background-origin:content-box;
   -webkit-mask:linear-gradient(to top left,#000 50%,transparent 50%) 0 0/calc(50% - 28px) 100% no-repeat,linear-gradient(to top right,#000 50%,transparent 50%) 100% 0/calc(50% - 28px) 100% no-repeat;
   mask:linear-gradient(to top left,#000 50%,transparent 50%) 0 0/calc(50% - 28px) 100% no-repeat,linear-gradient(to top right,#000 50%,transparent 50%) 100% 0/calc(50% - 28px) 100% no-repeat}
 /* dispersión: puntos en una franja diagonal */
-.js .grafico[data-forma="puntos"]::before{padding:34px 16px 44px 46px;
+.js .grafico[data-forma="puntos"]::before{padding:34px var(--e-4) 44px 46px;
   background:radial-gradient(circle,var(--esqueleto) 0 5px,transparent 5.5px) 0 0/48px 40px,radial-gradient(circle,var(--esqueleto) 0 5px,transparent 5.5px) 24px 20px/48px 40px;
   background-clip:content-box;background-origin:content-box;
   -webkit-mask:linear-gradient(to top right,transparent 22%,#000 38% 62%,transparent 78%);mask:linear-gradient(to top right,transparent 22%,#000 38% 62%,transparent 78%)}
@@ -1228,7 +1239,7 @@ html:not(.js) .esqueleto{display:none}
 .cx-campo,.selector-ficha{display:flex;flex-direction:column;gap:6px;flex:1 1 260px;min-width:0}
 .selector-ficha{max-width:420px;margin:var(--e-6) 0 0}
 .cx-campo span,.selector-ficha span,.cm-xs legend,.cx-sug-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.cx-campo select,.selector-ficha select{width:100%;min-width:0;min-height:44px;padding:0 38px 0 12px;font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);
+.cx-campo select,.selector-ficha select{width:100%;min-width:0;min-height:44px;padding:0 38px 0 var(--e-3);font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);
   border:1px solid var(--azul);border-radius:var(--r-control);appearance:none;-webkit-appearance:none;cursor:pointer;
   background-image:linear-gradient(45deg,transparent 50%,var(--azul) 50%),linear-gradient(135deg,var(--azul) 50%,transparent 50%);
   background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px;background-repeat:no-repeat}
@@ -1251,9 +1262,9 @@ html:not(.js) .esqueleto{display:none}
 .eje text{fill:var(--muted);font-size:12.5px;font-family:var(--f)}
 .eje line,.eje path{stroke:var(--line)}
 .grilla line{stroke:var(--line);stroke-dasharray:2 3}
-.etq{font-size:13px;fill:var(--ink);font-family:var(--f)}
+.etq{font-size:var(--t-2);fill:var(--ink);font-family:var(--f)}
 .etq-suave{font-size:12.5px;fill:var(--muted);font-family:var(--f)}
-.etq-fuerte{font-size:13px;font-weight:650;fill:var(--ink);font-family:var(--f)}
+.etq-fuerte{font-size:var(--t-2);font-weight:650;fill:var(--ink);font-family:var(--f)}
 .etq,.etq-suave,.etq-fuerte{paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
 /* los nombres y valores de las barras llevan un borde del color del fondo: la línea del país pasa por detrás sin cruzar las cifras */
 /* sin los números que van adentro de las barras apiladas (text.v): sobre un tramo oscuro, el borde del color del fondo los tapaba */
@@ -1269,9 +1280,9 @@ html:not(.js) .esqueleto{display:none}
 @media (max-width:760px){.tip{white-space:normal;max-width:calc(100vw - 16px)}}
 .tip .tip-pais{opacity:.82}
 /* minigráfico de las tarjetas de "En cifras" (etapa 16): el mismo cuadro, más ancho, arriba de la tarjeta o debajo si no entra */
-.tip.tip-cifra{width:276px;padding:10px 12px;white-space:normal;transform-origin:50% 100%}
+.tip.tip-cifra{width:276px;padding:10px var(--e-3);white-space:normal;transform-origin:50% 100%}
 .tip.tip-cifra.abajo{transform-origin:50% 0}
-.mini-tit{display:block;margin:0 0 8px;font:600 12px/1.35 var(--f)}
+.mini-tit{display:block;margin:0 0 var(--e-2);font:600 12px/1.35 var(--f)}
 .mini{display:block;overflow:visible}
 .mini .mini-b{fill:rgba(255,255,255,.55)}
 .mini .mini-hl{fill:var(--sol)}
@@ -1279,12 +1290,12 @@ html:not(.js) .esqueleto{display:none}
 .mini .mini-cero{stroke:rgba(255,255,255,.5);stroke-width:1}
 .mini .mini-v{fill:#fff;font:600 11px var(--mono)}
 .mini .mini-x{fill:rgba(255,255,255,.75);font:400 10px var(--mono)}
-.mini-pie{display:block;margin:8px 0 0;font:400 11px/1.4 var(--f);opacity:.88}
+.mini-pie{display:block;margin:var(--e-2) 0 0;font:400 11px/1.4 var(--f);opacity:.88}
 /* tablas */
 .tabla-desliza{max-height:420px;overflow:auto;margin:var(--e-6) 0 var(--e-2);border:1px solid var(--line);border-radius:var(--r-interno)}
 .tabla-areas{width:100%;border-collapse:collapse;font-size:var(--t-3);font-variant-numeric:tabular-nums}
-.tabla-areas th{position:sticky;top:0;padding:9px 12px;background:var(--superficie);text-align:left;font-size:var(--t-2);font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
-.tabla-areas td{padding:8px 12px;border-bottom:1px solid #F0F3F7;vertical-align:top}
+.tabla-areas th{position:sticky;top:0;padding:9px var(--e-3);background:var(--superficie);text-align:left;font-size:var(--t-2);font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
+.tabla-areas td{padding:var(--e-2) var(--e-3);border-bottom:1px solid #F0F3F7;vertical-align:top}
 .tabla-areas td.n,.tabla-areas th.n{text-align:right;white-space:nowrap}
 .tabla-areas tr.elegida td{background:var(--celeste-suave)}
 /* mapa de las áreas protegidas */
@@ -1303,14 +1314,14 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 /* Tu índice */
 .ix-cuerpo{display:grid;grid-template-columns:260px minmax(0,1fr);gap:var(--e-7);align-items:start;margin-top:var(--e-6)}
 .ix-pesos{position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--e-3)}
-.ix-peso{display:grid;grid-template-columns:12px 1fr auto;align-items:center;gap:4px 8px;font-size:var(--t-3)}
+.ix-peso{display:grid;grid-template-columns:12px 1fr auto;align-items:center;gap:var(--e-1) var(--e-2);font-size:var(--t-3)}
 .ix-peso i{width:10px;height:10px;border-radius:50%}
 .ix-peso output{min-width:1.4em;font-family:var(--mono);font-size:var(--t-2);text-align:right;color:var(--azul)}
 .ix-peso input{grid-column:1/-1;width:100%;margin:0;accent-color:var(--azul)}
 .ix-peso small{grid-column:1/-1;font-size:var(--t-2);line-height:1.3;color:var(--muted)}
 .ix-reset{justify-self:start}
 .ix-lectura{max-width:40em;margin:0 0 var(--e-3)}
-.ix-leyenda{display:flex;flex-wrap:wrap;gap:4px 14px;margin:6px 0 0;font-family:var(--mono);font-size:var(--t-1);color:var(--muted)}
+.ix-leyenda{display:flex;flex-wrap:wrap;gap:var(--e-1) 14px;margin:6px 0 0;font-family:var(--mono);font-size:var(--t-1);color:var(--muted)}
 .ix-leyenda i{display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:50%;vertical-align:-1px}
 @media (max-width:760px){
   .ix-cuerpo{grid-template-columns:1fr}
@@ -1348,7 +1359,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .dx-controles{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--e-4);margin:var(--e-6) 0 var(--e-3)}
 .dx-elegidas{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3);min-height:36px;margin-bottom:var(--e-6)}
 .dx-chips{display:flex;flex-wrap:wrap;gap:var(--e-2);margin:0;padding:0;list-style:none}
-.dx-chips li{display:inline-flex;align-items:center;gap:var(--e-2);min-height:36px;padding:0 4px 0 var(--e-3);font-size:var(--t-2);border:1px solid var(--borde);border-radius:var(--r-control);background:var(--bg)}
+.dx-chips li{display:inline-flex;align-items:center;gap:var(--e-2);min-height:36px;padding:0 var(--e-1) 0 var(--e-3);font-size:var(--t-2);border:1px solid var(--borde);border-radius:var(--r-control);background:var(--bg)}
 .dx-quitar{display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer;
   transition:background var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out)}
 .dx-quitar svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
@@ -1393,18 +1404,18 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .cx-tiempo input{flex:1 1 120px;min-width:0;accent-color:var(--azul)}
 .cx-tiempo b{min-width:3em;font-size:var(--t-3);color:var(--azul)}
 .cx-stats{font-family:var(--mono);font-size:12.5px;border:1px solid var(--azul);border-radius:var(--r-interno);overflow:hidden}
-.cx-stats div{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-top:1px dotted var(--azul)}
+.cx-stats div{display:flex;justify-content:space-between;gap:10px;padding:9px var(--e-3);border-top:1px dotted var(--azul)}
 .cx-stats div:first-child{border-top:0}
 .cx-stats span{color:var(--muted)}
 .cx-stats b{font-weight:600;color:var(--azul);font-variant-numeric:tabular-nums}
 .cx-stats .aclara{display:block;font-size:var(--t-1);line-height:1.4;color:var(--muted)}
-.cx-eje-tit{font-family:var(--mono);font-size:11px;letter-spacing:.03em;fill:var(--muted)}
-.cx-lab{font-size:11px;fill:var(--muted);pointer-events:none}
+.cx-eje-tit{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.03em;fill:var(--muted)}
+.cx-lab{font-size:var(--t-1);fill:var(--muted);pointer-events:none}
 .cx-lab.elegida{font-size:12px;font-weight:700;fill:var(--ink)}
 .cx-lab.fuera{fill:var(--faint-texto)}
 .cx-punto{cursor:pointer;outline:none}
 .cx-punto:focus-visible circle{stroke:var(--sol);stroke-width:3}
-.cx-leyenda{display:flex;flex-wrap:wrap;gap:4px 16px;margin:6px 0 0;font-family:var(--mono);font-size:var(--t-1);color:var(--muted)}
+.cx-leyenda{display:flex;flex-wrap:wrap;gap:var(--e-1) var(--e-4);margin:6px 0 0;font-family:var(--mono);font-size:var(--t-1);color:var(--muted)}
 .cx-leyenda i{display:inline-block;width:10px;height:10px;margin-right:6px;border-radius:50%;vertical-align:-1px}
 .cx-lectura{max-width:46em;margin:var(--e-4) 0 0;color:var(--ink)}
 .cx-residuos{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-6);margin:var(--e-4) 0 0}
@@ -1439,8 +1450,8 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .lg-lista{display:grid;grid-template-columns:1fr 2fr;gap:var(--e-2) var(--e-7);margin-top:var(--e-4)}
 .lg-lista h4{margin:0 0 6px;font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .lg-lista ul{list-style:none;margin:0;padding:0;columns:2 220px;column-gap:var(--e-6)}
-.lg-lista li{display:grid;grid-template-columns:10px 1fr;gap:2px 8px;padding:6px 0;border-top:1px dotted var(--line);font-size:var(--t-3);line-height:1.3;break-inside:avoid}
-.lg-lista li i{grid-row:1/3;width:10px;height:10px;margin-top:4px}
+.lg-lista li{display:grid;grid-template-columns:10px 1fr;gap:2px var(--e-2);padding:6px 0;border-top:1px dotted var(--line);font-size:var(--t-3);line-height:1.3;break-inside:avoid}
+.lg-lista li i{grid-row:1/3;width:10px;height:10px;margin-top:var(--e-1)}
 .lg-lista li small{font-family:var(--mono);font-size:var(--t-1);letter-spacing:.03em;color:var(--muted)}
 .lg-lista .senado ul{columns:1}
 /* hemiciclos de la lista de legisladores (etapa 28): Diputados y el Senado lado a lado, arriba de la lista, cada uno con su leyenda */
@@ -1465,9 +1476,9 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .vt-matriz td.sin{font-size:11.5px;color:var(--faint-texto)}
 .vt-matriz tfoot td{padding-top:6px;border-top:1px dotted var(--azul)}
 /* el nombre de cada espacio abre su perfil: se lee como enlace */
-.vt-matriz th .esp-btn{padding:4px 2px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--azul);background:none;border:0;cursor:pointer;
+.vt-matriz th .esp-btn{padding:var(--e-1) 2px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--azul);background:none;border:0;cursor:pointer;
   text-decoration:underline;text-decoration-color:var(--celeste);text-decoration-thickness:1.5px;text-underline-offset:3px}
-.pol-ley :is(.esp-btn,.co-btn){display:inline-flex;align-items:center;gap:6px;min-height:32px;margin:-4px -8px;padding:4px 8px;font:inherit;color:inherit;text-align:left;
+.pol-ley :is(.esp-btn,.co-btn){display:inline-flex;align-items:center;gap:6px;min-height:32px;margin:-4px -8px;padding:var(--e-1) var(--e-2);font:inherit;color:inherit;text-align:left;
   background:none;border:1px solid transparent;border-radius:var(--r-control);cursor:pointer;transition:border-color var(--dur-1) var(--ease-out),background-color var(--dur-1) var(--ease-out)}
 /* la leyenda de la Corte resalta un grupo: el elegido queda marcado como presionado */
 .pol-ley .co-btn[aria-pressed="true"]{background:var(--superficie-2);border-color:var(--borde)}
@@ -1532,8 +1543,8 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 }
 /* presidentes */
 .pr-lista{list-style:none;margin:var(--e-4) 0 0;padding:0;columns:2 280px;column-gap:var(--e-7)}
-.pr-lista li{display:grid;grid-template-columns:10px 24px 1fr;gap:1px 8px;padding:7px 0;border-top:1px dotted var(--line);font-size:var(--t-3);line-height:1.3;break-inside:avoid}
-.pr-lista li i{grid-row:1/3;width:10px;height:10px;margin-top:4px}
+.pr-lista li{display:grid;grid-template-columns:10px 24px 1fr;gap:1px var(--e-2);padding:7px 0;border-top:1px dotted var(--line);font-size:var(--t-3);line-height:1.3;break-inside:avoid}
+.pr-lista li i{grid-row:1/3;width:10px;height:10px;margin-top:var(--e-1)}
 .pr-lista li .bandera{grid-row:1/3;margin-top:1px}
 .pr-lista li span,.pr-lista li small{grid-column:3}
 /* gabinetes por gobierno: borde de la bandera dentro del gráfico, e ícono neutro para la fila que reúne a varios presidentes */
@@ -1580,7 +1591,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .pie-sitio{margin-top:var(--ritmo);padding:var(--e-8) 0 var(--e-8);background:#fff;border-top:3px solid var(--azul);font-size:var(--t-3);line-height:1.5;color:var(--muted)}
 .pie-sitio .envoltura{max-width:var(--ancho-max);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"marca datos" "mapa mapa";gap:var(--e-8)}
 .pie-marca{grid-area:marca}.pie-mapa{grid-area:mapa}.pie-datos{grid-area:datos}
-.pie-sitio .marca{display:inline-block;padding-top:12px;font-size:46px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;
+.pie-sitio .marca{display:inline-block;padding-top:var(--e-3);font-size:46px;line-height:1;font-weight:500;letter-spacing:.01em;text-transform:uppercase;
   color:var(--azul);text-decoration:none;font-variation-settings:"wdth" 25,"opsz" 144}
 .pie-lema,.pie-sitio h2{margin:var(--e-2) 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
 /* más aire entre la marca, el lema y el texto (octubre de 2026) */
@@ -1602,7 +1613,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .campo{display:grid;gap:var(--e-1)}
 .campo>span{font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
 .campo small{font-family:var(--f);font-size:var(--t-2);letter-spacing:0;text-transform:none;color:var(--muted)}
-.campo input,.campo textarea{width:100%;padding:12px 14px;font:inherit;font-size:var(--t-4);color:var(--ink);background:#fff;border:1px solid var(--azul);border-radius:var(--r-control)}
+.campo input,.campo textarea{width:100%;padding:var(--e-3) 14px;font:inherit;font-size:var(--t-4);color:var(--ink);background:#fff;border:1px solid var(--azul);border-radius:var(--r-control)}
 .campo textarea{resize:vertical;min-height:140px}
 .campo input:focus-visible,.campo textarea:focus-visible{outline:3px solid var(--sol);outline-offset:1px}
 .form-nota{margin:0;font-size:var(--t-2);color:var(--muted)}
@@ -1710,7 +1721,7 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 @media (min-width:1080px){.cat-filtros{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-4)}}
 .cat-busca{display:flex;flex-direction:column;gap:6px;grid-column:1/-1;max-width:640px}
 .cat-busca span{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.cat-busca input{width:100%;min-height:44px;padding:0 12px;font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
+.cat-busca input{width:100%;min-height:44px;padding:0 var(--e-3);font:inherit;font-size:var(--t-3);color:var(--ink);background:var(--bg);border:1px solid var(--azul);border-radius:var(--r-control)}
 .cat-busca input::placeholder{color:var(--faint-texto);opacity:1}
 .cat-busca input:focus-visible{outline:2px solid var(--sol);outline-offset:2px}
 .cat-resumen{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-2) var(--e-4);padding:0 0 var(--e-3);border-bottom:1px solid var(--line)}
@@ -1745,8 +1756,8 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
 .cat-previa{margin:var(--e-4) 0 0}
 .cat-previa h3{margin:var(--e-6) 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .cat-previa .tabla-desliza{max-height:360px;margin:var(--e-2) 0 0}
-.cat-previa caption{padding:var(--e-2) 12px;text-align:left;font-size:var(--t-2);color:var(--muted)}
-.cat-dic th[scope="row"]{position:static;padding:8px 12px;font-weight:400;color:var(--ink);background:none;border-bottom:1px solid #F0F3F7}
+.cat-previa caption{padding:var(--e-2) var(--e-3);text-align:left;font-size:var(--t-2);color:var(--muted)}
+.cat-dic th[scope="row"]{position:static;padding:var(--e-2) var(--e-3);font-weight:400;color:var(--ink);background:none;border-bottom:1px solid #F0F3F7}
 .cat-dic code{font-family:var(--mono);font-size:var(--t-2)}
 .cat-otros,.cat-nota{max-width:46em;margin:var(--e-3) 0 0;font-size:var(--t-3);line-height:1.5;color:var(--muted)}
 .cat-licencia{margin:var(--e-6) 0 0;font-size:var(--t-2);color:var(--muted)}
@@ -1754,7 +1765,7 @@ html:active-view-transition-type(provincia)::view-transition-group(*){animation-
    izquierda y, al costado, los datos básicos (capital, desde cuándo es provincia y habitantes) y el dato curioso. En el celular, una
    columna con los datos primero. Las fuentes, plegadas al final */
 .prov-historia{margin:var(--bloque) 0}
-.ph{padding:clamp(16px,2.2vw,28px);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.ph{padding:clamp(var(--e-4),2.2vw,28px);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
 .ph[hidden]{display:none}
 .ph-tit{margin:0 0 var(--e-4);font-family:var(--f-c75);font-size:var(--t-7);line-height:var(--i-tarjeta);font-weight:600;letter-spacing:-.005em;
   font-variation-settings:"wdth" 75,"opsz" 32;color:var(--azul)}
