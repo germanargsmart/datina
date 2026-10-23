@@ -228,3 +228,19 @@ Medidas (Chrome sin ventana):
 - Queda para el paso 3: el buscador de la portada todavía no anuncia los resultados a los lectores de pantalla ni se recorre con las flechas (lo mismo que la lupa). El paso 3 lleva los dos al patrón de lista con flechas.
 
 Pruebas: el armado con todas sus comprobaciones, la prueba de páginas (que ahora también controla los datos destacados y el buscador de la portada, incluido que los resultados se puedan tocar), una prueba de la portada con el teclado (13 controles) y una en 1440, 1081, 1024, 768 y 390 píxeles (nada se sale de costado, ningún texto de las tarjetas queda cortado y todo resultado visible se puede tocar).
+
+### Compactación de la portada (23 de octubre de 2026)
+
+El autor pidió compactar la portada antes del paso 3 y eligió entre opciones medidas en Chrome sin ventana (cada una con un estilo agregado al vuelo, controlando que nada se cortara ni se saliera de costado):
+
+| Opción | Ahorro medido | Elegida |
+|---|---|---|
+| Menos espacio entre los bloques de la portada (el de bloque, 24 a 40 píxeles, en lugar del de capítulo, 48 a 72) | 160 píxeles en la computadora, 120 en tableta y celular | Sí |
+| Datos destacados de a dos en el celular | 222 píxeles | Sí |
+| Herramientas de a dos en el celular | 381 píxeles | No |
+| Mapa del pie en una fila en la computadora (cambia todas las páginas) | 190 píxeles | No |
+| Historias de a cuatro en la computadora | 45 píxeles | No |
+| Provincias de a ocho en la computadora | 40 píxeles (cuatro nombres en dos renglones) | No |
+| Provincias de a tres en el celular | 124 píxeles, pero cortaba "Catamarca" y "Corrientes" | No se ofreció |
+
+Resultado: en la computadora, 3.731 píxeles de alto (+27% respecto del paso 1, antes +32%). En el celular, 7.026 (+34%, antes +40%). Sigue por encima del +20% de la sección 4, por decisión del autor. Saltos al cargar sin cambios (0,001 en la computadora, con alguna carga de 0,011 que también pasa en la versión anterior, y 0 en el celular).

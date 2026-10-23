@@ -514,12 +514,15 @@ html:not(.js) .busca-portada{display:none}
 /* ---------- bloques de la portada: el mismo título, la misma bajada y la misma separación ---------- */
 .bloque-tit{margin:0 0 var(--e-2);font-size:var(--t-9);line-height:1;font-weight:500;letter-spacing:-.005em;color:var(--azul);font-variation-settings:"wdth" 55,"opsz" 144;font-family:var(--f-c55)}
 .bloque-sub{margin:0 0 var(--e-6);max-width:62ch;line-height:var(--i-chico);color:var(--muted);text-wrap:balance}
-.secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--capitulo)}
+/* entre los bloques de la portada, el espacio de bloque y no el de capítulo (respuesta del autor del 23 de octubre de 2026, para
+   compactar la portada de la Fase 2: de 48 a 72 píxeles pasaron a ser de 24 a 40) */
+.secciones,.articulos-home,.herramientas-home,.destacados,.provincias-home{padding-top:var(--bloque)}
 /* Datos destacados de la portada (Fase 2, paso 2): cuatro tarjetas fijas, de la familia de "En cifras", con el grupo, la pregunta de la
    ficha y su cifra destacada. La cifra y su texto llegan con datina.js: su lugar queda reservado para que la portada no salte */
 .destacados-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--e-4)}
+/* de a dos también en el celular (respuesta del autor del 23 de octubre de 2026, para compactar la portada): ninguna cifra se corta */
 @media (max-width:1080px){.destacados-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.destacados-grid{grid-template-columns:1fr;gap:var(--e-3)}}
+@media (max-width:560px){.destacados-grid{gap:var(--e-3)}}
 .destacado .c-preg{font-size:var(--t-3);line-height:1.3;color:var(--ink);text-wrap:pretty}
 .destacado .c-num{min-height:1em}
 .destacado .c-txt{min-height:4.2em}
