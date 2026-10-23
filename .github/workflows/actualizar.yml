@@ -6,10 +6,16 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+# una sola actualizacion a la vez: si se lanza otra a mano mientras corre la del dia 5, espera a que termine (plan de estabilizacion, P2-4)
+concurrency:
+  group: actualizar-datos
+  cancel-in-progress: false
 jobs:
   actualizar:
     # maquina fija (ubuntu-latest pasa a Ubuntu 26 desde el 19 de octubre de 2026) y las versiones de las acciones que corren en Node 24
     runs-on: ubuntu-24.04
+    # las corridas tardan de 18 a 51 minutos: si una se cuelga (una fuente que no responde), se corta a las dos horas
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -26,6 +32,9 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "22"
+      # la prueba de paginas usa el Chrome que trae la maquina de GitHub: queda anotada su version por si un dia cambia y falla
+      - name: Version de Chrome
+        run: google-chrome --version
       - run: node scripts/prueba_paginas.mjs
       - name: Guardar cambios
         run: |
@@ -33,4 +42,6 @@ jobs:
           git config user.email "actualizador@users.noreply.github.com"
           git add -A
           git diff --cached --quiet || git commit -m "Actualizacion automatica de datos"
+          # si mientras corria se subio otra cosa a la rama, se trae antes de subir (antes el push fallaba y se perdia la corrida)
+          git pull --rebase
           git push
