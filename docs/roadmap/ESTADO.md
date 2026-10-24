@@ -2,6 +2,14 @@
 
 Plan: `DATINA_LAB.md`. Solo la próxima tarea y lo necesario para retomarla.
 
+## Trabajo en curso (24 de octubre de 2026)
+
+Un solo frente de trabajo, pedido del autor: un PR abierto a la vez y una sola rama activa, para que dos sesiones no arreglen lo mismo por caminos distintos (pasó el 24 de octubre con el SNIC: los PR #6 y #7 chocaban en cinco archivos, y el autor cerró el #7).
+- **Abierto:** el PR #6, rama `claude/focused-cerf-tn93c3`. Es el único camino a `main` y hay que unirlo antes de la actualización del 5 de noviembre, que sin él se corta. Lleva todo lo hecho desde que se unió el #5.
+- **Ramas de PR cerrados, que no se usan:** `claude/awesome-cannon-dkbl1m` (#1 y #2), `claude/hopeful-curie-3rki8g` (#4), `claude/estabilizacion-y-produccion` (#5, ya entera en `main`) y `claude/snic-formato-nuevo` (#7). No tienen nada que no esté en su PR cerrado: cada una apunta al mismo commit que su PR, y GitHub guarda esos commits aunque se borre la rama. Lo que se puede rescatar del #2 y del #4 está en su comentario de cierre. Se pueden borrar con "Delete branch" en cada PR cerrado (desde una sesión, el borrado lo frena el sistema de permisos).
+- **Reglas para cualquier sesión** (también en `CLAUDE.md`, "Al empezar una sesión"): mirar los PR abiertos antes de empezar y, si hay uno, seguir en su rama o esperar. No abrir otro PR que toque los mismos archivos. La actualización mensual se lanza a mano solo sobre la rama del PR abierto.
+- **Después de unir el #6:** el trabajo nuevo empieza desde `main`, en un PR nuevo. Esperan los títulos de las fichas en h2 y la escala del diseño (decisión del autor del 24 de octubre), y conectar Cloudflare Pages (`docs/deploy/CLOUDFLARE.md`), que lo hace el autor.
+
 ## Línea de base (D0-01, 10 de octubre de 2026, commit b4b1fc1)
 
 - `git status`: limpio. Rama de trabajo `claude/awesome-cannon-dkbl1m` (igual a `main`).
