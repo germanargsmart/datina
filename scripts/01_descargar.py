@@ -492,10 +492,11 @@ SNIC_COLUMNAS = {
                       "tasa_victimas_masc", "tasa_victimas_fem"),
 }
 SNIC_COLUMNAS["snic_provincias.csv"] = ("provincia_id", "provincia_nombre") + SNIC_COLUMNAS["snic_pais.csv"]
-def columnas_csv(b, sep=";"):
-    """Los nombres de las columnas de un CSV, sin comillas, sin espacios y sin la marca de UTF-8 del comienzo."""
+def columnas_csv(b):
+    """Los nombres de las columnas de un CSV separado con punto y coma o con comas (snic_pais.csv pasó a comas el 24 de octubre de 2026,
+    y 02 lee los dos), sin comillas, sin espacios y sin la marca de UTF-8 del comienzo."""
     cab = b.removeprefix(bytes.fromhex("efbbbf")).split(b"\n", 1)[0].rstrip(b"\r").decode("latin-1")
-    return {c.strip().strip('"') for c in cab.split(sep)}
+    return {c.strip().strip('"') for c in cab.split(";" if ";" in cab else ",")}
 VALIDA.update({n: (lambda b, c=c: set(c) <= columnas_csv(b)) for n, c in SNIC_COLUMNAS.items()})
 VALIDA.update({
     "se_petroleo_cuenca.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"indice_tiempo,cuenca_austral"),

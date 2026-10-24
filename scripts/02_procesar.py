@@ -38,12 +38,25 @@ def agregar(df, variable, unidad, fuente):
 # Los CSV del SNIC (Ministerio de Seguridad) llegaban en UTF-8, y en la actualización del 23 de octubre de 2026 snic_provincias.csv llegó
 # en la codificación de Windows (la "ó" en un solo byte) y 02 se cortó en la línea de abajo. Se leen en UTF-8 y, si no lo son, en
 # Windows-1252, la de los organismos que no publican en UTF-8 (como el índice de salarios del INDEC, más abajo). Los valores son los mismos
+# El 24 de octubre de 2026 llegó además snic_pais.csv separado con comas, sin comillas (las mismas columnas): si un archivo que se lee con
+# punto y coma no lo tiene en el encabezado, se lee con comas y punto decimal. Las cantidades y las tasas tienen que quedar como números
 def leer_csv_snic(ruta, **kw):
+    with open(ruta, "rb") as f:
+        cab = f.readline()
+    if kw.get("sep") == ";" and b";" not in cab and b"," in cab:
+        print(f"  aviso: {ruta.name} viene separado con comas: se lee así")
+        kw = {**kw, "sep": ",", "decimal": "."}
     try:
-        return pd.read_csv(ruta, encoding="utf-8", **kw)
+        d = pd.read_csv(ruta, encoding="utf-8", **kw)
     except UnicodeDecodeError:
         print(f"  aviso: {ruta.name} no está en UTF-8: se lee en Windows-1252")
-        return pd.read_csv(ruta, encoding="cp1252", **kw)
+        d = pd.read_csv(ruta, encoding="cp1252", **kw)
+    for c in [c for c in d.columns if c.startswith(("cantidad_", "tasa_")) and not pd.api.types.is_numeric_dtype(d[c])]:
+        # una tasa con coma decimal entre comillas en un archivo separado con comas: se pasa a número
+        num = pd.to_numeric(d[c].astype(str).str.replace(",", ".", regex=False).replace({"nan": None, "": None}), errors="coerce")
+        assert num.notna().sum() == d[c].notna().sum(), f"{ruta.name}: la columna {c} no se puede leer como número"
+        d[c] = num
+    return d
 
 
 # Nombres y codigos INDEC de provincia (tomados del SNIC, que usa la codificacion oficial)
