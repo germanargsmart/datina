@@ -284,8 +284,8 @@
   "unidadExpresion": "Índice base 2.2.02=1",
   "moneda": "ML",
   "primerFechaInformada": "2002-02-02",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 858.61901059334
+  "ultFechaInformada": "2026-10-24",
+  "ultValorInformado": 859.14048230345
  },
  {
   "idVariable": 31,
@@ -296,8 +296,8 @@
   "unidadExpresion": "En ARS",
   "moneda": "ML",
   "primerFechaInformada": "2016-03-31",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 2166.98
+  "ultFechaInformada": "2026-10-24",
+  "ultValorInformado": 2168.29
  },
  {
   "idVariable": 32,
@@ -308,8 +308,8 @@
   "unidadExpresion": "En ARS",
   "moneda": "ML",
   "primerFechaInformada": "2016-03-31",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 1590.01
+  "ultFechaInformada": "2026-10-24",
+  "ultValorInformado": 1590.78
  },
  {
   "idVariable": 35,
@@ -332,8 +332,8 @@
   "unidadExpresion": "Índice base 30.6.20=1",
   "moneda": "ML",
   "primerFechaInformada": "2020-07-01",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 37.02
+  "ultFechaInformada": "2026-10-24",
+  "ultValorInformado": 37.05
  },
  {
   "idVariable": 43,
@@ -344,8 +344,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1991-04-01",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 27560.4533
+  "ultFechaInformada": "2026-10-24",
+  "ultValorInformado": 27573.6388
  },
  {
   "idVariable": 44,
@@ -14108,8 +14108,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-03",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 170184.4405
+  "ultFechaInformada": "2026-10-24",
+  "ultValorInformado": 170301.8898
  },
  {
   "idVariable": 1198,
@@ -14120,8 +14120,8 @@
   "unidadExpresion": "En porcentaje",
   "moneda": "ML",
   "primerFechaInformada": "1993-06-03",
-  "ultFechaInformada": "2026-10-23",
-  "ultValorInformado": 97129.5189
+  "ultFechaInformada": "2026-10-24",
+  "ultValorInformado": 97187.6735
  },
  {
   "idVariable": 1199,

@@ -42615,30 +42615,30 @@ codigo_indec,territorio,periodo,variable,valor,unidad,fuente
 00,Argentina,2023,deuda_bruta_administracion_central_pct_pbi,154.51239924776792,% del PBI,Secretaria de Finanzas
 00,Argentina,2024,deuda_bruta_administracion_central_pct_pbi,82.49744637158581,% del PBI,Secretaria de Finanzas
 00,Argentina,2025,deuda_bruta_administracion_central_pct_pbi,78.11284686635707,% del PBI,Secretaria de Finanzas
-02,CABA,2025,cargos_administracion_provincial_cada_1000_habitantes,63.44308412730267,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-06,Buenos Aires,2025,cargos_administracion_provincial_cada_1000_habitantes,37.577056966584976,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-10,Catamarca,2025,cargos_administracion_provincial_cada_1000_habitantes,102.51087260225712,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-14,Córdoba,2025,cargos_administracion_provincial_cada_1000_habitantes,32.83428945997518,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-18,Corrientes,2025,cargos_administracion_provincial_cada_1000_habitantes,50.45345493761275,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-22,Chaco,2025,cargos_administracion_provincial_cada_1000_habitantes,68.02074845479657,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-26,Chubut,2025,cargos_administracion_provincial_cada_1000_habitantes,78.53256478536217,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-30,Entre Ríos,2025,cargos_administracion_provincial_cada_1000_habitantes,59.95722260828327,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-34,Formosa,2025,cargos_administracion_provincial_cada_1000_habitantes,66.63294231167156,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-38,Jujuy,2025,cargos_administracion_provincial_cada_1000_habitantes,83.82533410594813,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-42,La Pampa,2025,cargos_administracion_provincial_cada_1000_habitantes,77.75601522317234,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-46,La Rioja,2025,cargos_administracion_provincial_cada_1000_habitantes,109.773269206785,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-50,Mendoza,2025,cargos_administracion_provincial_cada_1000_habitantes,43.85534193117267,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-54,Misiones,2025,cargos_administracion_provincial_cada_1000_habitantes,50.45932363757542,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-58,Neuquén,2025,cargos_administracion_provincial_cada_1000_habitantes,113.38259231434685,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-62,Río Negro,2025,cargos_administracion_provincial_cada_1000_habitantes,76.65887283630336,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-66,Salta,2025,cargos_administracion_provincial_cada_1000_habitantes,48.701180903638054,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-70,San Juan,2025,cargos_administracion_provincial_cada_1000_habitantes,57.74979576823139,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+02,CABA,2025,cargos_administracion_provincial_cada_1000_habitantes,63.44340342516773,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+06,Buenos Aires,2025,cargos_administracion_provincial_cada_1000_habitantes,37.585278809624654,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+10,Catamarca,2025,cargos_administracion_provincial_cada_1000_habitantes,102.70053573380953,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+14,Córdoba,2025,cargos_administracion_provincial_cada_1000_habitantes,32.88259321072427,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+18,Corrientes,2025,cargos_administracion_provincial_cada_1000_habitantes,50.587047981360655,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+22,Chaco,2025,cargos_administracion_provincial_cada_1000_habitantes,67.91276639439288,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+26,Chubut,2025,cargos_administracion_provincial_cada_1000_habitantes,78.53267546335341,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+30,Entre Ríos,2025,cargos_administracion_provincial_cada_1000_habitantes,60.074754211606226,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+34,Formosa,2025,cargos_administracion_provincial_cada_1000_habitantes,67.1029555620451,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+38,Jujuy,2025,cargos_administracion_provincial_cada_1000_habitantes,83.82704085200764,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+42,La Pampa,2025,cargos_administracion_provincial_cada_1000_habitantes,79.23427655429757,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+46,La Rioja,2025,cargos_administracion_provincial_cada_1000_habitantes,109.77335180151496,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+50,Mendoza,2025,cargos_administracion_provincial_cada_1000_habitantes,43.8559169902417,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+54,Misiones,2025,cargos_administracion_provincial_cada_1000_habitantes,50.81049236518572,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+58,Neuquén,2025,cargos_administracion_provincial_cada_1000_habitantes,113.59872285206939,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+62,Río Negro,2025,cargos_administracion_provincial_cada_1000_habitantes,76.65806978436787,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+66,Salta,2025,cargos_administracion_provincial_cada_1000_habitantes,48.70176392197331,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+70,San Juan,2025,cargos_administracion_provincial_cada_1000_habitantes,57.75058089756771,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
 74,San Luis,2025,cargos_administracion_provincial_cada_1000_habitantes,73.25620648559327,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-78,Santa Cruz,2025,cargos_administracion_provincial_cada_1000_habitantes,106.49613527868091,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-82,Santa Fe,2025,cargos_administracion_provincial_cada_1000_habitantes,41.43945309337141,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+78,Santa Cruz,2025,cargos_administracion_provincial_cada_1000_habitantes,107.0568109555669,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+82,Santa Fe,2025,cargos_administracion_provincial_cada_1000_habitantes,41.48969922614261,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
 86,Santiago del Estero,2025,cargos_administracion_provincial_cada_1000_habitantes,51.52946609208781,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-90,Tucumán,2025,cargos_administracion_provincial_cada_1000_habitantes,52.79170921275222,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
-94,Tierra del Fuego,2025,cargos_administracion_provincial_cada_1000_habitantes,139.07298231347838,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+90,Tucumán,2025,cargos_administracion_provincial_cada_1000_habitantes,52.79191595242808,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
+94,Tierra del Fuego,2025,cargos_administracion_provincial_cada_1000_habitantes,139.67901627995144,cargos cada 1.000 habitantes,Direccion Nacional de Asuntos Provinciales e INDEC
 02,CABA,2025,recursos_tributarios_provinciales_por_habitante,3257959.8252838356,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
 06,Buenos Aires,2025,recursos_tributarios_provinciales_por_habitante,804697.5378384409,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC
 10,Catamarca,2025,recursos_tributarios_provinciales_por_habitante,512539.42476732476,pesos por habitante,Direccion Nacional de Asuntos Provinciales e INDEC

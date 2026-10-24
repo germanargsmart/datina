@@ -41,10 +41,10 @@ id,grupo,nombre,tipo,nombre_bcra,unidad,ultimo_dato
 1623,"Dinero, serie histórica",M3 en pesos y en moneda extranjera,millones,M3 en moneda local y extranjera,millones de pesos,2026-08-31
 9001,"Dinero, serie histórica",Parte del M3 en moneda extranjera,pct,Cálculo de Datina: (M3 en pesos y en moneda extranjera - M3 en pesos) / M3 en pesos y en moneda extranjera,% del M3 total,2026-08
 29,Precios,Inflación esperada para los próximos 12 meses (REM),rem,Mediana de la variación interanual próximos 12 meses del índice de precios al consumidor del relevamiento de expectativas de mercado,%,2026-09-30
-30,Índices de actualización,CER (coeficiente de estabilización de referencia),indice,Coeficiente de estabilización de referencia (base 2.2.02=1),"índice, 2 de febrero de 2002 = 1",2026-10-23
-31,Índices de actualización,UVA (unidad de valor adquisitivo),pesos,Unidad de valor adquisitivo (base 31.3.16=14.05),pesos,2026-10-23
-32,Índices de actualización,UVI (unidad de vivienda),pesos,Unidad de vivienda (base 31.3.16=14.05),pesos,2026-10-23
-40,Índices de actualización,ICL (índice para contratos de alquiler),indice,Índice para Contratos de Locación (base 30.6.20=1),"índice, 30 de junio de 2020 = 1",2026-10-23
-43,Tasas acumuladas para juicios,Tasa pasiva para uso de la justicia (Comunicación P 14.290),acum,Tasa de interés Comunicado P 14.290 (Uso de justicia),"acumulado, en %",2026-10-23
-1197,Tasas acumuladas para juicios,Intereses moratorios del Código Civil y Comercial (art. 768 c),acum,"Tasa de Intereses Moratorios (TIM) CCC, art. 768(c)","acumulado, en %",2026-10-23
-1198,Tasas acumuladas para juicios,Tasa pasiva de la Ley 27.802 (art. 55 a),acum,"Tasa pasiva Ley 27.802, art. 55(a)","acumulado, en %",2026-10-23
+30,Índices de actualización,CER (coeficiente de estabilización de referencia),indice,Coeficiente de estabilización de referencia (base 2.2.02=1),"índice, 2 de febrero de 2002 = 1",2026-10-24
+31,Índices de actualización,UVA (unidad de valor adquisitivo),pesos,Unidad de valor adquisitivo (base 31.3.16=14.05),pesos,2026-10-24
+32,Índices de actualización,UVI (unidad de vivienda),pesos,Unidad de vivienda (base 31.3.16=14.05),pesos,2026-10-24
+40,Índices de actualización,ICL (índice para contratos de alquiler),indice,Índice para Contratos de Locación (base 30.6.20=1),"índice, 30 de junio de 2020 = 1",2026-10-24
+43,Tasas acumuladas para juicios,Tasa pasiva para uso de la justicia (Comunicación P 14.290),acum,Tasa de interés Comunicado P 14.290 (Uso de justicia),"acumulado, en %",2026-10-24
+1197,Tasas acumuladas para juicios,Intereses moratorios del Código Civil y Comercial (art. 768 c),acum,"Tasa de Intereses Moratorios (TIM) CCC, art. 768(c)","acumulado, en %",2026-10-24
+1198,Tasas acumuladas para juicios,Tasa pasiva de la Ley 27.802 (art. 55 a),acum,"Tasa pasiva Ley 27.802, art. 55(a)","acumulado, en %",2026-10-24
