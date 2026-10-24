@@ -110,6 +110,29 @@
    ]
   },
   {
+   "id": "org:csjn-estadisticas",
+   "nombre": "Oficina de Estadísticas de la Corte Suprema de Justicia de la Nación",
+   "sigla": "CSJN",
+   "depende": "Corte Suprema de Justicia de la Nación",
+   "url": "https://www.csjn.gov.ar/transparencia/datos-estadisticos",
+   "alias": [
+    "Corte Suprema de Justicia de la Nación, Oficina de Estadísticas",
+    "Anuario Estadístico de la Corte Suprema"
+   ]
+  },
+  {
+   "id": "org:csjn-om",
+   "nombre": "Oficina de la Mujer de la Corte Suprema de Justicia de la Nación",
+   "sigla": "OM-CSJN",
+   "depende": "Corte Suprema de Justicia de la Nación",
+   "url": "https://om.csjn.gob.ar/mapagenero/",
+   "alias": [
+    "Corte Suprema de Justicia de la Nación, Oficina de la Mujer",
+    "Mapa de Género de la Justicia Argentina",
+    "Oficina de la Mujer"
+   ]
+  },
+  {
    "id": "org:datina",
    "nombre": "Datina (selección propia)",
    "sigla": "Datina",
@@ -318,6 +341,17 @@
     "Censo Nacional de Población, Hogares y Viviendas 2022",
     "INDEC, ISAC",
     "INDEC, Censo 2022"
+   ]
+  },
+  {
+   "id": "org:jus-poder-judicial",
+   "nombre": "Dirección Nacional de Relaciones con el Poder Judicial",
+   "sigla": "Ministerio de Justicia",
+   "depende": "Ministerio de Justicia",
+   "url": "https://datos.jus.gob.ar/dataset/magistrados-justicia-federal-y-de-la-justicia-nacional",
+   "alias": [
+    "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional",
+    "padrón de magistrados de la Justicia Federal y de la Justicia Nacional"
    ]
   },
   {
@@ -2263,6 +2297,60 @@
     "contiene": "r.to_csv(CRUDO / \"eph_ingresos_aglomerados.csv\", index=False)"
    },
    "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
+  },
+  {
+   "id": "ds:manual/corte_casos.csv",
+   "nombre": "Casos que llegaron a la Corte Suprema y casos que resolvió por año, con los fallos de los últimos años",
+   "fuente": "org:csjn-estadisticas",
+   "ruta": "datos/manual/corte_casos.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "corte_casos = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"corte_casos.csv\")"
+   },
+   "url": "https://www.csjn.gov.ar/archivos/estadisticas/informe_anuario_CSJN_2025.pdf"
+  },
+  {
+   "id": "ds:jus_magistrados.csv",
+   "nombre": "Jueces de la Justicia Federal y de la Justicia Nacional, un cargo por fila",
+   "fuente": "org:jus-poder-judicial",
+   "ruta": "datos/crudo/jus_magistrados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"jus_magistrados.csv\": ckan_id(\"https://datos.jus.gob.ar\","
+   },
+   "url": "https://datos.jus.gob.ar/dataset/3c18d46e-729e-4973-8efd-f54cab18b7e3/resource/b12bdbb7-646f-4701-99b7-1109ce919dd5/download/magistrados-justicia-federal-nacional-jueces-20260605.csv"
+  },
+  {
+   "id": "ds:jus_magistrados_2024.zip",
+   "nombre": "Jueces, fiscales y defensores de la Justicia Federal y de la Justicia Nacional, abril de 2024",
+   "fuente": "org:jus-poder-judicial",
+   "ruta": "datos/crudo/jus_magistrados_2024.zip",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "\"jus_magistrados_2024.zip\": ckan_id(\"https://datos.jus.gob.ar\","
+   },
+   "url": "https://datos.jus.gob.ar/dataset/3c18d46e-729e-4973-8efd-f54cab18b7e3/resource/6f12c193-8502-449b-a04f-458ca0eb770f/download/magistrados-justicia-federal-nacional-2024.zip"
+  },
+  {
+   "id": "ds:manual/justicia_provincias.csv",
+   "nombre": "Jueces, fiscales y defensores de cada provincia y de la Ciudad por año, desde 2011",
+   "fuente": "org:csjn-om",
+   "ruta": "datos/manual/justicia_provincias.csv",
+   "evidencia": {
+    "archivo": "scripts/justicia_provincias.py",
+    "contiene": "t.to_csv(MANUAL / \"justicia_provincias.csv\""
+   },
+   "url": "https://om.csjn.gob.ar/mapagenero/"
+  },
+  {
+   "id": "ds:manual/cortes_provinciales.csv",
+   "nombre": "Cuántos miembros fija la ley para el máximo tribunal de cada provincia y de la Ciudad",
+   "fuente": "org:datina",
+   "ruta": "datos/manual/cortes_provinciales.csv",
+   "evidencia": {
+    "archivo": "scripts/02_procesar.py",
+    "contiene": "_jus_cp = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"cortes_provinciales.csv\", dtype={\"codigo_indec\": str})"
+   }
   }
  ],
  "aristas": [
@@ -6687,6 +6775,177 @@
      "contiene": "**({\"ingresos_aglomerados\": ipa_tabla} if ipa_tabla is not None else {}),"
     }
    ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/corte_casos.csv",
+   "a": "f-corte-casos",
+   "tabla": "corte_casos",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "corte_casos = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"corte_casos.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"corte_casos\": corte_casos,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:jus_magistrados.csv",
+   "a": "f-jueces-federales",
+   "tabla": "justicia_federal_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_jus_m = pd.read_csv(CRUDO / \"jus_magistrados.csv\", dtype=str, encoding=\"utf-8-sig\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"justicia_federal_provincias\": justicia_federal"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:jus_magistrados_2024.zip",
+   "a": "f-jueces-federales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "with zipfile.ZipFile(CRUDO / \"jus_magistrados_2024.zip\") as _jus_z:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pct_sin_titular_ant\": r1(_jus_fed_v24.grupo.ne(\"titular\").mean() * 100),"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-jueces-federales",
+   "tabla": "justicia_federal_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "justicia_federal[\"poblacion\"] = justicia_federal.codigo_indec.map(POB).round(0)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"justicia_federal_provincias\": justicia_federal"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:jus_magistrados_2024.zip",
+   "a": "f-fiscalias-federales",
+   "tabla": "fiscalias_defensorias_federales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "with zipfile.ZipFile(CRUDO / \"jus_magistrados_2024.zip\") as _jus_z:"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"fiscalias_defensorias_federales\": mp_federal"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-fiscalias-federales",
+   "tabla": "fiscalias_defensorias_federales",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "mp_federal[\"poblacion\"] = mp_federal.codigo_indec.map(POB).round(0)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"fiscalias_defensorias_federales\": mp_federal"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/justicia_provincias.csv",
+   "a": "f-cortes-provinciales",
+   "tabla": "justicia_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_jus_jp = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"justicia_provincias.csv\", dtype={\"codigo_indec\": str})"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"justicia_provincias\": justicia_provincias,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/cortes_provinciales.csv",
+   "a": "f-cortes-provinciales",
+   "tabla": "justicia_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_jus_cp = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"cortes_provinciales.csv\", dtype={\"codigo_indec\": str})"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"justicia_provincias\": justicia_provincias,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:manual/justicia_provincias.csv",
+   "a": "f-justicia-provincial",
+   "tabla": "justicia_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_jus_jp = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"justicia_provincias.csv\", dtype={\"codigo_indec\": str})"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"justicia_provincias\": justicia_provincias,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-justicia-provincial",
+   "tabla": "justicia_provincias",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "justicia_provincias[\"poblacion\"] = justicia_provincias.codigo_indec.map(POB).round(0)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"justicia_provincias\": justicia_provincias,"
+    }
+   ]
   }
  ],
  "fichas": {
@@ -7144,6 +7403,31 @@
     "beneficiarios_prestacion_desempleo",
     "desempleo_cada_1000_habitantes",
     "desempleo_cada_100_asalariados_privados"
+   ]
+  },
+  "f-corte-casos": {
+   "variables": [
+    "corte_casos_ingresados",
+    "corte_casos_resueltos"
+   ]
+  },
+  "f-jueces-federales": {
+   "variables": [
+    "jueces_federales_cargos",
+    "jueces_federales_cada_100mil"
+   ]
+  },
+  "f-fiscalias-federales": {
+   "variables": [
+    "fiscalias_federales",
+    "defensorias_federales"
+   ]
+  },
+  "f-justicia-provincial": {
+   "variables": [
+    "jueces_provinciales_cada_100mil",
+    "fiscales_provinciales_cada_100mil",
+    "defensores_provinciales_cada_100mil"
    ]
   }
  }

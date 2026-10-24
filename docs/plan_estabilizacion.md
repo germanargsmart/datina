@@ -8,7 +8,7 @@ Auditoría técnica del 22 de octubre de 2026. Solo lectura: no se cambió códi
 |---|---|
 | P0-1 (D3 desde cdnjs) | Resuelto: D3 y topojson desde el propio sitio, las fichas visibles si el arranque se corta (commit 7cd2124) |
 | P1-1 (ramas desalineadas) | Resuelto: el autor unió a `main` el PR #3 y el de estabilización y producción (#5) el 23 de octubre. Los PR #2 y #4 se cerraron sin unir, con lo rescatable anotado en cada uno |
-| P1-2 (la actualización del 5 de noviembre sobre `main`) | La corrida a mano sobre `main` del 23 de octubre (26) se cortó al empezar 02: el SNIC y la DNAP cambiaron el formato de sus archivos. Arreglado el 24 de octubre en el PR #6, y comprobado con las corridas 28, 30 y 31 sobre esa rama, que terminaron bien y subieron sus datos. Hay que unir el PR #6 antes del 5 de noviembre: si no, la actualización de ese día se corta igual |
+| P1-2 (la actualización del 5 de noviembre sobre `main`) | La corrida a mano sobre `main` del 23 de octubre (26) se cortó al empezar 02: el SNIC y la DNAP cambiaron el formato de sus archivos. Resuelto el 24 de octubre: arreglado en el PR #6, comprobado con las corridas 28, 30 y 31 sobre esa rama y, ya unido a `main`, con la corrida 33 sobre `main`, que terminó bien y subió sus datos |
 | P1-3 (`pobreza/dist` vieja) | Resuelto: copia solo con `--con-pobreza` (3f33046). El consultor se rearmó el 23 de octubre y otra vez el 24 (ícono de la pestaña) |
 | P1-4 (finales de línea) | Resuelto: LF en todo lo que escriben 02 y 03, y `.gitattributes` |
 | P1-5 (versiones sin fijar) | Resuelto: `requirements.txt` con las versiones de la última corrida en verde. La corrida 26 las instaló bien |

@@ -1066,7 +1066,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <h2>Instituciones políticas</h2>
     <div class="tema-intro">
       <p class="pregunta" data-corta="¿Cómo se reparten bancas y fondos?">¿Cómo se reparten las bancas, los votos y los fondos entre las provincias?</p>
-      <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
+      <p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Al final, la justicia: cuántos casos resuelve la Corte Suprema y cuántos jueces, fiscalías y defensorías hay en cada provincia. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>
     </div>
     <!--EXPLICADOR:politica-->
 
@@ -1255,6 +1255,70 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="confianza-gobierno"></p>
       <p class="nota" data-t="confianza-gobierno-nota"></p>
       <div class="pie"><span>Fuentes: Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral</span><a href="datos/confianza_gobierno.csv" download>Mes a mes (CSV)</a><a href="datos/confianza_gobierno_gobiernos.csv" download>Por gobierno (CSV)</a><a href="datos/confianza_gobierno_elecciones.csv" download>Elecciones (CSV)</a></div>
+    </article>
+
+
+    <!-- La justicia (24 de octubre de 2026, pedido del autor: "en la corte suprema cuántos fallos por año realiza, después cuánta justicia
+         hay en Argentina, cuántas fiscalías federales, provinciales, cuántas cortes supremas provinciales, cuántos jueces tiene cada una").
+         Respuestas del autor: dentro de Instituciones políticas, y lo provincial armado a mano. Datos y advertencias en 02_procesar.py -->
+    <article class="ficha" id="f-corte-casos">
+      <h3>¿Cuántos casos resuelve la Corte Suprema por año?</h3>
+      <p class="ficha-sub">Casos que llegaron a la Corte Suprema de Justicia de la Nación y casos que resolvió por año, {{justicia.corte.desde}} a {{justicia.corte.hasta}}</p>
+      <div class="grafico" data-g="corte-casos" data-forma="lineas"></div>
+      <p class="lead" data-t="corte-casos"></p>
+      <p class="nota" data-t="corte-casos-nota"></p>
+      <div class="pie"><span>Fuente: Corte Suprema de Justicia de la Nación, Oficina de Estadísticas, Anuario Estadístico</span><a href="datos/corte_casos.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-jueces-federales">
+      <h3>¿Cuántos jueces federales hay en cada provincia?</h3>
+      <p class="ficha-sub">Cargos de juez de la Justicia Federal por provincia, con titular y sin titular, {{justicia.federal.fecha}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="jueces-federales">
+        <button type="button" data-m="cargos" aria-pressed="true">Cargos</button>
+        <button type="button" data-m="cargos_cada_100mil" aria-pressed="false">Cada 100.000 habitantes</button>
+      </div>
+      <div class="pol-ley" id="jf-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="jueces-federales" data-forma="barras"></div>
+      <p class="lead" data-t="jueces-federales"></p>
+      <p class="nota" data-t="jueces-federales-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población</span><a href="datos/justicia_federal_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-fiscalias-federales">
+      <h3>¿Cuántas fiscalías y defensorías federales hay en cada provincia?</h3>
+      <p class="ficha-sub">Fiscalías y defensorías públicas oficiales de la Justicia Federal por provincia, {{justicia.mp.fecha}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="fiscalias-federales">
+        <button type="button" data-m="cantidad" aria-pressed="true">Cantidad</button>
+        <button type="button" data-m="cada_100mil" aria-pressed="false">Cada 100.000 habitantes</button>
+      </div>
+      <div class="pol-ley" id="mpf-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="fiscalias-federales" data-forma="barras"></div>
+      <p class="lead" data-t="fiscalias-federales"></p>
+      <p class="nota" data-t="fiscalias-federales-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población</span><a href="datos/fiscalias_defensorias_federales.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+    <article class="ficha" id="f-cortes-provinciales">
+      <h3>¿Cuántos jueces tiene la corte de cada provincia?</h3>
+      <p class="ficha-sub">Ministras y ministros del máximo tribunal de cada provincia y de la Ciudad de Buenos Aires al 31 de octubre de {{justicia.prov.anio}}, y lugares que fija la ley</p>
+      <div class="pol-ley" id="cp-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="cortes-provinciales" data-forma="barras"></div>
+      <p class="lead" data-t="cortes-provinciales"></p>
+      <p class="nota" data-t="cortes-provinciales-nota"></p>
+      <div class="pie"><span>Fuentes: Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, y constituciones y leyes orgánicas de cada provincia</span><a href="datos/justicia_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-justicia-provincial">
+      <h3>¿Cuántos jueces, fiscales y defensores tiene cada provincia?</h3>
+      <p class="ficha-sub">Jueces (con la justicia de paz), fiscales y defensores de cada provincia y de la Ciudad de Buenos Aires cada 100.000 habitantes, al 31 de octubre de {{justicia.prov.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Cargo" data-g="justicia-provincial" style="--n:3">
+        <button type="button" data-m="magistratura" aria-pressed="true">Jueces</button>
+        <button type="button" data-m="fiscales" aria-pressed="false">Fiscales</button>
+        <button type="button" data-m="defensores" aria-pressed="false">Defensores</button>
+      </div>
+      <div class="grafico" data-g="justicia-provincial" data-forma="barras"></div>
+      <p class="lead" data-t="justicia-provincial"></p>
+      <p class="nota" data-t="justicia-provincial-nota"></p>
+      <div class="pie"><span>Fuentes: Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, e INDEC, proyecciones de población</span><a href="datos/justicia_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
