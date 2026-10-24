@@ -12,7 +12,7 @@ Decisión del autor del 23 de octubre de 2026: el sitio se publica en Cloudflare
 
 ## Límite que hay que tener en cuenta
 
-Cloudflare Pages no acepta archivos de más de 25 MiB ([límites de Cloudflare Pages](https://developers.cloudflare.com/pages/platform/limits/)): si hay uno solo más grande, rechaza la publicación entera. Hasta el 23 de octubre de 2026 el consultor de pobreza traía dos archivos de DuckDB de 35,7 y 40,6 MB. Desde ese día el editor de SQL los baja de jsDelivr y ya no están en `sitio/` (ver "Consultor de pobreza", más abajo). El archivo más grande que queda en `sitio/` pesa menos de 20 MB.
+Cloudflare Pages no acepta archivos de más de 25 MiB ([límites de Cloudflare Pages](https://developers.cloudflare.com/pages/platform/limits/)): si hay uno solo más grande, rechaza la publicación entera. Hasta el 23 de octubre de 2026 el consultor de pobreza traía dos archivos de DuckDB de 35,7 y 40,6 MB. Desde ese día el editor de SQL los baja de jsDelivr y ya no están en `sitio/` (ver "Consultor de pobreza", más abajo). El archivo más grande que queda en `sitio/` es `datos/fichas.json`, de 10,3 MB (24 de octubre de 2026). Desde el 24 de octubre de 2026 el armado lo controla: si un archivo de `sitio/` pasa de 25 MiB, `03_construir_sitio.py` dice cuál, no da el sitio por armado y `sitio/` vuelve a como estaba, así la actualización mensual no sube algo que Cloudflare no publicaría.
 
 ## Conectar (lo hace el autor, una sola vez)
 

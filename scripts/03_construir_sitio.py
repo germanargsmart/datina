@@ -1204,6 +1204,12 @@ import prueba_navegacion  # noqa: E402
 _nav = prueba_navegacion.revisar()
 if _nav:
     sys.exit("Navegación con problemas: el sitio no se dio por armado.\n" + "\n".join(_nav))
+# Cloudflare Pages rechaza la publicación entera si un archivo pasa de 25 MiB (docs/deploy/CLOUDFLARE.md): la actualización mensual lo
+# subiría igual y el sitio publicado quedaría viejo sin aviso
+_grandes = [f"{p.relative_to(SITIO).as_posix()} ({p.stat().st_size / 2**20:.1f} MB)" for p in sorted(SITIO.rglob("*"))
+            if p.is_file() and p.stat().st_size > 25 * 2**20]
+if _grandes:
+    sys.exit("Archivos de más de 25 MB, que Cloudflare Pages no publica: el sitio no se dio por armado.\n" + "\n".join(_grandes))
 respaldo_sitio.terminado()
 print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos")
 if AVISO_POBREZA:
