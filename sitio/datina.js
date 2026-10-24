@@ -2373,7 +2373,19 @@ const textoCantidad = (filas, k, inicio, vista) => {
 };
 // el eje en mil y en millones ("1 millón", "1,5 millones", nunca "1.000 mil")
 const ejeMil = v => v >= 1e6 ? (v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones") : v >= 1000 ? n0(v / 1000) + " mil" : n0(v);
-const DIB = {
+/* Un error al dibujar un gráfico no corta los demás ni el resto de la página (estabilización, P2-17): se anota en la consola, así la
+   prueba de páginas lo sigue viendo y frena la publicación, y en su lugar queda un aviso. Vale para todos los DIB, también los que se
+   suman más abajo en el archivo (cada uno pasa por el set del Proxy) */
+const protegerDib = base => Object.assign(new Proxy({}, {set(t, k, f) {
+  t[k] = typeof f !== "function" ? f : (...a) => {
+    try { return f(...a); } catch (e) {
+      console.error(`Datina: no se pudo dibujar el gráfico ${k}.`, e);
+      const el = G(k); if (el) sinDatos(el, "No se pudo dibujar este gráfico.");
+    }
+  };
+  return true;
+}}), base);
+const DIB = protegerDib({
   hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
     series:[{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}], vf: v => n0(v)}),
   actividad: a => lineas(G("actividad"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
@@ -2596,7 +2608,7 @@ const DIB = {
     : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m",
         tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
         mejor: "sube", pais: R.empleo.var_nac}),
-};
+});
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
@@ -7268,8 +7280,14 @@ const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><
   `<span class="art-txt"><b style="view-transition-name:t-${a.id}">${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
 // título, ícono y sección de cada artículo: de la plantilla (data-titulo, data-ico y data-sec), por el índice del sitio
 const DAT_ART = Object.fromEntries(SITIO.articulos.map(([id, titulo, icono, sec]) => [id, {titulo, icono, sec}]));
-ART.forEach(a => { Object.assign(a, DAT_ART[a.id]); a.c = calcularArt(a); a.t = textoArt(a, a.c); });
+// las cuentas de cada artículo se hacen en todas las páginas (la portada y el buscador las usan): si las de uno fallan, se anota en la
+// consola (la prueba de páginas lo ve) y ese artículo queda afuera, sin cortar el resto de la página (estabilización, P2-17)
 ART.forEach(a => {
+  Object.assign(a, DAT_ART[a.id]);
+  try { a.c = calcularArt(a); a.t = textoArt(a, a.c); } catch (e) { a.c = a.t = null; console.error(`Datina: no se pudo armar el artículo ${a.id}.`, e); }
+});
+ART.forEach(a => {
+  if (!a.t) { const nota = document.getElementById(a.id); if (nota) nota.innerHTML = '<p class="nota">No se pudo armar este artículo. Probá recargar la página.</p>'; return; }
   const {c, t} = a, tabla = tablaArt(a), Mx = META_TAB[tabla][a.x], My = META_TAB[tabla][a.y], U = CASOS_ART[tabla], key = "art-" + a.id;
   const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   const fichas = [...new Map([[Mx.ficha, Mx.nombre], [My.ficha, My.nombre]]).entries()].filter(([id]) => ficha(id));
@@ -7619,7 +7637,7 @@ const ARTS = [...ART_SERIE, ...ART];
 // amarillo) y después los más nuevos. Los de política no se eligen por un cálculo automático. El resto, en "Todos los artículos"
 const artHome = document.getElementById("art-grid-home");
 if (artHome) {
-  const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
+  const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
   // antes de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2)
   artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
 }
