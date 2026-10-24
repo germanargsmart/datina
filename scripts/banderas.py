@@ -7,11 +7,13 @@ Los originales pesan hasta 760 KB por los escudos dibujados en detalle: en minia
 Las banderas no cambian, así que se corre una sola vez (o cuando una provincia cambie la suya).
 Requiere Google Chrome. Uso: python scripts/banderas.py [códigos]  (con códigos, rehace solo esas y conserva las demás en fuentes.csv)
 """
-import csv, html, json, pathlib, re, subprocess, tempfile, time, urllib.error, urllib.parse, urllib.request
+import csv, html, json, os, pathlib, re, subprocess, sys, tempfile, time, urllib.error, urllib.parse, urllib.request
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SALIDA = RAIZ / "datos" / "manual" / "banderas"
-CHROME = r"C:/Program Files/Google/Chrome/Application/chrome.exe"
+# la ruta de Chrome, como en scripts/cdp.mjs: la variable CHROME o la de cada sistema (estabilización, P2-14)
+CHROME = os.environ.get("CHROME") or {"win32": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+                                      "darwin": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"}.get(sys.platform, "google-chrome")
 UA = {"User-Agent": "Datina/1.0 (estadisticas publicas de la Argentina)"}
 ANCHO, ALTO = 72, 48
 

@@ -1,0 +1,9 @@
+# Paquetes de los programas que se corren una sola vez o una vez por año, que no usa la actualización mensual (esa instala solo
+# requirements.txt). Para correrlos: pip install -r requirements.txt -r requirements-extra.txt (plan de estabilización, P2-14).
+# Sin versión fija: se instalan a mano y no cambian ningún archivo hasta que se vuelve a correr el programa.
+# scripts/legisladores/ y scripts/ejecutivo/wp_common.py: bajan las páginas de legisladores y ministros
+requests
+# scripts/ejecutivo/parse_wikipedia_*.py: leen las tablas de los gabinetes
+beautifulsoup4
+# pobreza/scripts/exportar_parquet.py: escribe los Parquet del consultor de pobreza
+pyarrow
