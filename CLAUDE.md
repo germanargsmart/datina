@@ -8,8 +8,9 @@ El autor no programa. Claude Code es el asistente principal: explicar cada cambi
 
 1. Leer `docs/roadmap/ESTADO.md` (qué se hizo y cuál es la próxima tarea) y solo el documento del tema de la tarea.
 2. Revisar `git status` y no pisar trabajo local.
-3. Las reglas por tipo de archivo están en `.claude/rules/` (se cargan solas al tocar esos archivos). La historia completa de las etapas 1 a 38 (decisiones del autor, advertencias de cada fuente, medidas) está en `docs/historico/etapas-previas.md`: buscar ahí por título de sección antes de cambiar algo que ya tiene historia, sin leerla entera.
-4. Cada tarea: un cambio funcional, un commit. Informe final breve: archivos, qué cambió, pruebas y resultado, riesgos, siguiente tarea.
+3. Un solo frente de trabajo (pedido del autor del 24 de octubre de 2026): antes de cambiar algo, mirar los PR abiertos del repositorio. Si hay uno abierto, no abrir otro: seguir en su rama, o esperar a que se una y empezar desde `main`. Qué está abierto y qué es cada rama: "Trabajo en curso", al comienzo de `docs/roadmap/ESTADO.md`. La actualización mensual se lanza a mano solo sobre la rama de ese PR.
+4. Las reglas por tipo de archivo están en `.claude/rules/` (se cargan solas al tocar esos archivos). La historia completa de las etapas 1 a 38 (decisiones del autor, advertencias de cada fuente, medidas) está en `docs/historico/etapas-previas.md`: buscar ahí por título de sección antes de cambiar algo que ya tiene historia, sin leerla entera.
+5. Cada tarea: un cambio funcional, un commit. Informe final breve: archivos, qué cambió, pruebas y resultado, riesgos, siguiente tarea.
 
 ## Estructura
 

@@ -35,8 +35,32 @@ def agregar(df, variable, unidad, fuente):
     largo.append(d[["codigo_indec", "territorio", "periodo", "variable", "valor", "unidad", "fuente"]])
 
 
+# Los CSV del SNIC (Ministerio de Seguridad) llegaban en UTF-8, y en la actualización del 23 de octubre de 2026 snic_provincias.csv llegó
+# en la codificación de Windows (la "ó" en un solo byte) y 02 se cortó en la línea de abajo. Se leen en UTF-8 y, si no lo son, en
+# Windows-1252, la de los organismos que no publican en UTF-8 (como el índice de salarios del INDEC, más abajo). Los valores son los mismos
+# El 24 de octubre de 2026 llegó además snic_pais.csv separado con comas, sin comillas (las mismas columnas): si un archivo que se lee con
+# punto y coma no lo tiene en el encabezado, se lee con comas y punto decimal. Las cantidades y las tasas tienen que quedar como números
+def leer_csv_snic(ruta, **kw):
+    with open(ruta, "rb") as f:
+        cab = f.readline()
+    if kw.get("sep") == ";" and b";" not in cab and b"," in cab:
+        print(f"  aviso: {ruta.name} viene separado con comas: se lee así")
+        kw = {**kw, "sep": ",", "decimal": "."}
+    try:
+        d = pd.read_csv(ruta, encoding="utf-8", **kw)
+    except UnicodeDecodeError:
+        print(f"  aviso: {ruta.name} no está en UTF-8: se lee en Windows-1252")
+        d = pd.read_csv(ruta, encoding="cp1252", **kw)
+    for c in [c for c in d.columns if c.startswith(("cantidad_", "tasa_")) and not pd.api.types.is_numeric_dtype(d[c])]:
+        # una tasa con coma decimal entre comillas en un archivo separado con comas: se pasa a número
+        num = pd.to_numeric(d[c].astype(str).str.replace(",", ".", regex=False).replace({"nan": None, "": None}), errors="coerce")
+        assert num.notna().sum() == d[c].notna().sum(), f"{ruta.name}: la columna {c} no se puede leer como número"
+        d[c] = num
+    return d
+
+
 # Nombres y codigos INDEC de provincia (tomados del SNIC, que usa la codificacion oficial)
-snic_prov = pd.read_csv(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str})
+snic_prov = leer_csv_snic(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str})
 NOMBRE = (snic_prov[["provincia_id", "provincia_nombre"]].drop_duplicates()
           .set_index("provincia_id").provincia_nombre.to_dict())
 NOMBRE["94"] = "Tierra del Fuego"
@@ -239,7 +263,7 @@ d["territorio"] = d.codigo_indec.map(CORTO)
 agregar(d, "pct_nacimientos_madres_menores_20", "%", "DEIS, Ministerio de Salud")
 
 # ---------------------------------------------------------------- SNIC
-sp = pd.read_csv(CRUDO / "snic_pais.csv", sep=";", decimal=",")
+sp = leer_csv_snic(CRUDO / "snic_pais.csv", sep=";", decimal=",")
 MAP = {"Suicidios (consumados)": "suicidios", "Homicidios dolosos": "homicidios",
        "Muertes en accidentes viales": "siniestros_viales"}
 sp = sp[sp.codigo_delito_snic_nombre.isin(MAP)].copy()
@@ -267,7 +291,7 @@ d["territorio"] = d.codigo_indec.map(CORTO)
 agregar(d, "tasa_suicidios_100mil_5_anios_y_mas", "por 100.000 habitantes de 5 años y más", "SNIC, Ministerio de Seguridad")
 
 # Edad y sexo. Deliberadamente solo se leen estas columnas de la base SAT.
-sat = pd.read_csv(CRUDO / "snic_sat_suicidios.csv", sep=None, engine="python",
+sat = leer_csv_snic(CRUDO / "snic_sat_suicidios.csv", sep=None, engine="python",
                   usecols=["anio", "suicida_sexo", "suicida_tr_edad"])
 sat = sat[sat.suicida_tr_edad != "Sin determinar"]
 sat["edad"] = sat.suicida_tr_edad.replace({"5-9": "Menos de 15", "10-14": "Menos de 15",
@@ -4459,8 +4483,8 @@ agregar(ie_.dropna(subset=["gasto_por_alumno"]).assign(territorio=lambda x: x.co
 # agravados por el resultado de lesiones o muertes, que van aparte y en siete provincias valen cero), como en Cruces. Para comparar provincias
 # en homicidios se suman tres años (víctimas sobre la población del INDEC), porque en las provincias chicas la tasa de un año salta mucho.
 # El total del país de 2009 a 2013 lo completó el SNIC porque faltan datos de Buenos Aires y Córdoba.
-_seg_p = pd.read_csv(CRUDO / "snic_pais.csv", sep=";", decimal=",", dtype={"codigo_delito_snic_id": str})
-_seg_v = pd.read_csv(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str, "codigo_delito_snic_id": str})
+_seg_p = leer_csv_snic(CRUDO / "snic_pais.csv", sep=";", decimal=",", dtype={"codigo_delito_snic_id": str})
+_seg_v = leer_csv_snic(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str, "codigo_delito_snic_id": str})
 _SEG_FUERA = {"30", "31"}
 _seg_pr = lambda d: d[~d.codigo_delito_snic_id.str.contains("_") & ~d.codigo_delito_snic_id.isin(_SEG_FUERA)]
 _seg_pob = (_seg_p[_seg_p.codigo_delito_snic_id == "19"].set_index("anio").pipe(lambda x: x.cantidad_hechos / x.tasa_hechos * 1e5))
@@ -4965,7 +4989,10 @@ _su_h = {s.strip().rstrip("."): s for s in _su_x.sheet_names}
 _su_1 = pd.read_excel(_su_x, _su_h["Cuadro 1"], header=None)
 assert "original" in str(_su_1.iat[2, 1]).lower() and "desestacionalizada" in str(_su_1.iat[2, 5]).lower() and "acumulada" in str(_su_1.iat[4, 3]).lower(), \
     "cambió el cuadro 1 de la Encuesta de Supermercados"
-_su_1 = _su_1[pd.to_datetime(_su_1[0], errors="coerce").notna()]
+# las filas de datos son las que traen una fecha de Excel en la primera columna (las otras son el título, las notas y la fuente): se eligen
+# por el tipo de la celda y no leyendo el texto como fecha, que avisaba que no podía adivinar el formato (plan de estabilización, P2-10)
+_su_es_fecha = lambda d: d[0].map(lambda v: isinstance(v, datetime.datetime))
+_su_1 = _su_1[_su_es_fecha(_su_1)]
 supermercados_mensual = pd.DataFrame({"periodo": pd.to_datetime(_su_1[0]).dt.strftime("%Y-%m").values, "original": pd.to_numeric(_su_1[1]).values,
                                       "interanual": pd.to_numeric(_su_1[2], errors="coerce").values,
                                       "acumulada": pd.to_numeric(_su_1[3], errors="coerce").values,
@@ -4975,7 +5002,7 @@ assert list(supermercados_mensual.periodo) == list(pd.period_range(supermercados
 _su_5 = pd.read_excel(_su_x, _su_h["Cuadro 5"], header=None)
 _su_j = {str(_su_5.iat[2, c]).strip(): c for c in range(1, _su_5.shape[1]) if pd.notna(_su_5.iat[2, c])}
 assert len(_su_j) == 26 and all(str(_su_5.iat[3, c]).strip() == "Total" for c in _su_j.values()), "cambió el cuadro 5 de la Encuesta de Supermercados"
-_su_f = _su_5[pd.to_datetime(_su_5[0], errors="coerce").notna()]
+_su_f = _su_5[_su_es_fecha(_su_5)]
 _su_v = pd.DataFrame({j: pd.to_numeric(_su_f[c]).values for j, c in _su_j.items()}, index=pd.to_datetime(_su_f[0]).dt.strftime("%Y-%m").values)
 assert _su_v.notna().all().all() and list(_su_v.index) == list(supermercados_mensual.periodo)
 # las jurisdicciones suman el total del país
@@ -5333,10 +5360,16 @@ GBD_RES = {
 }
 # cargos ocupados en las administraciones provinciales (DNAP), cada 1.000 habitantes con la población del INDEC del módulo del sitio
 _gbc = pd.read_csv(CRUDO / "dnap_cargos_provinciales.csv")
-_gbc["marca"] = _gbc.jurisdiccion.str.contains(r"\(\*\*\)", regex=True)  # (**): cargos presupuestados, según la nota de la planilla
-_gbc["nombre"] = _gbc.jurisdiccion.str.replace(r"\(?\*+\)?", "", regex=True).str.strip()
+# cargos presupuestados en lugar de ocupados: desde el 24 de octubre de 2026 lo dice el texto de la nota de cada marca, que 01 guarda en
+# "nota", porque la planilla pasó de marcar con (**) a numerar las notas ("(2) ... corresponde al dato del Presupuesto de la Provincia").
+# Con una tabla anterior, sin "nota", la marca (**)
+_gbc["marca"] = (_gbc.nota.fillna("").str.contains("presupuest", case=False) if "nota" in _gbc.columns
+                 else _gbc.jurisdiccion.str.contains(r"\(\*\*\)", regex=True))
+_gbc["nombre"] = _gbc.jurisdiccion.str.replace(r"\(\s*\d+\s*\)", "", regex=True).str.replace(r"\(?\*+\)?", "", regex=True).str.strip()
 _gbc["codigo_indec"] = _gbc.nombre.map(lambda n: "02" if n.upper() == "G.C.B.A." else codigo(n))
-assert _gbc.codigo_indec.notna().all() and _gbc.groupby("anio").codigo_indec.nunique().eq(24).all(), "faltan provincias en los cargos de la DNAP"
+assert _gbc.codigo_indec.notna().all() and _gbc.groupby("anio").codigo_indec.nunique().eq(24).all(), \
+    f"faltan provincias en los cargos de la DNAP: sin código {sorted(_gbc[_gbc.codigo_indec.isna()].nombre.unique())}, " \
+    f"jurisdicciones por año {_gbc.groupby('anio').codigo_indec.nunique().to_dict()}"
 GBC_ULT = int(_gbc.anio.max())
 _gbc_u = _gbc[_gbc.anio == GBC_ULT].set_index("codigo_indec")
 _gbc_10 = _gbc[_gbc.anio == _gbc.anio.min()].set_index("codigo_indec")

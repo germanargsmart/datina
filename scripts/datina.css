@@ -173,13 +173,15 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
    - despliegue: .despliegue, .sobre, .menu-parte, .cx-detalle, .ph-fuentes y .creditos (los de <summary>)
    - navegación: .menu-btn, la barra, los menús, las migas, .subsecciones, .pildoras y el pie
    - los puntos y celdas de los gráficos que se tocan (.cx-punto, .cx-celda, .dep, .provs) son parte del dibujo, no botones */
+/* Un botón cuyo texto no entra en el ancho que tiene (320 píxeles, o el zoom del 400% de WCAG) pasa a dos renglones parejos en lugar de
+   salirse de la página. Si entra, queda en uno, como antes */
 .boton{--b-fondo:transparent;--b-tinta:var(--azul);--b-borde:var(--azul);
-  display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);min-height:44px;padding:0 var(--e-4);
-  font:500 12px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;text-decoration:none;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--e-2);min-height:44px;max-width:100%;padding:var(--e-1) var(--e-4);
+  font:500 12px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;text-align:center;text-wrap:balance;text-decoration:none;cursor:pointer;
   color:var(--b-tinta);background:var(--b-fondo);border:1px solid var(--b-borde);border-radius:var(--r-control);
   transition:background-color var(--dur-1) var(--ease-out),color var(--dur-1) var(--ease-out),border-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
 .boton.principal{--b-fondo:var(--azul);--b-tinta:#fff}
-.boton.chico{min-height:34px;padding:0 var(--e-3);font-size:var(--t-1)}
+.boton.chico{min-height:34px;padding:var(--e-1) var(--e-3);font-size:var(--t-1)}
 .boton[aria-pressed="true"]{--b-fondo:var(--azul);--b-tinta:#fff}
 .boton:active{transform:scale(.97)}
 .boton:disabled{opacity:.45;cursor:default}
@@ -343,9 +345,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .barra .envoltura{height:62px;gap:var(--e-3)}
   .barra-izq{gap:var(--e-3)}
   .barra .marca{font-size:32px}
-  /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra) */
+  /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra).
+     Las partes van arriba con su alto: sin align-content, las cuatro cerradas se estiraban hasta llenar la pantalla (24 de octubre de 2026) */
   .menu-panel{left:0;right:0;width:auto;top:calc(env(safe-area-inset-top,0px) + 62px);bottom:-8px;max-height:none;
-    grid-template-columns:1fr;gap:0;padding:var(--e-4) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
+    grid-template-columns:1fr;align-content:start;gap:0;padding:var(--e-4) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
     background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;transform:translateY(-8px)}
   .barra.compacta ~ .menu-panel{translate:0 -8px}
   /* en una sola columna, la línea fina también separa una columna de la siguiente */
@@ -961,7 +964,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* programas con evaluación oficial (Educación, etapa 9): tarjetas blancas como las de cierre, del mismo alto */
 .programas .bloque-grupo{margin-top:var(--capitulo)}
 .programas-sub{max-width:var(--medida);margin:0 0 var(--e-6);font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
-.programas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--e-4)}
+.programas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:var(--e-4)}
 .programa{display:flex;flex-direction:column;gap:var(--e-3);padding:var(--e-6);background:#fff;border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
 .programa h4{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600}
 .programa p{margin:0;font-size:var(--t-3);line-height:var(--i-chico)}
@@ -1057,7 +1060,8 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .lectura-serie{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;min-height:1.6em;margin:0 0 var(--e-1);
   font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--muted);font-variant-numeric:tabular-nums}
 .lectura-serie b{color:var(--ink);font-weight:600}
-.lectura-serie span{white-space:nowrap}
+/* cada lectura en un renglón, salvo que sola no entre en el ancho del gráfico (320 píxeles): entonces se parte en lugar de salirse */
+.lectura-serie span{max-width:100%}
 .lectura-serie i{display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:50%}
 /* pie: fuente y acciones */
 .pie{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e-3) var(--e-6);margin-top:var(--e-6);padding-top:var(--e-4);border-top:1px dotted var(--azul);font-size:var(--t-2);color:var(--muted)}

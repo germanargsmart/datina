@@ -47,3 +47,12 @@ Quedaban cuatro, por ser cambios más grandes o de diseño. Resueltos el 11 de o
 - Los mapas de áreas protegidas y de departamentos, las burbujas de los parques y la pirámide muestran el cuadro también al tocar (`pointerdown`).
 
 Verificado: la matriz con el teclado (Tab y Enter) en 1440 y 390 píxeles, el peso y el tamaño de la letra iguales y la prueba de páginas.
+
+## Reflow en 320 píxeles (24 de octubre de 2026)
+
+WCAG 2.2, criterio 1.4.10: con 320 píxeles de ancho (el zoom del 400%) ninguna página tiene que correrse de costado. Medido en todas las páginas, siete y el Explorador en tabla se corrían de 2 a 74 píxeles:
+- botones con textos largos que no podían partirse (los de los artículos, los de la OCDE y "Mostrar más");
+- la lectura de la serie del selector del BCRA;
+- los programas de Educación, con columnas de 300 píxeles como mínimo.
+
+Ahora un botón o una lectura que no entra en su lugar pasa a dos renglones parejos, y la grilla de programas toma el ancho que hay. Si entran, quedan como antes. Verificado con `scripts/prueba_320.mjs`: 53 páginas en 320, 360 y 390 píxeles, ninguna corrida de costado.

@@ -1,7 +1,7 @@
 variable,anio,puesto,iso3,pais,valor
-crudo_kbd,2025,1,USA,Estados Unidos,13586.0869
+crudo_kbd,2025,1,USA,Estados Unidos,13661.9337
 crudo_kbd,2025,2,RUS,Rusia,9885.109
-crudo_kbd,2025,3,SAU,Arabia Saudita,9556.054
+crudo_kbd,2025,3,SAU,Arabia Saudita,9548.7506
 crudo_kbd,2025,4,CAN,Canadá,4963.9349
 crudo_kbd,2025,5,IRQ,Iraq,4388.0685
 crudo_kbd,2025,6,CHN,China,4324.6849
@@ -25,7 +25,7 @@ crudo_kbd,2025,23,COL,Colombia,746.479
 crudo_kbd,2025,24,GBR,Reino Unido,615.7787
 crudo_kbd,2025,25,IDN,Indonesia,581.6685
 crudo_kbd,2025,26,IND,India,580.6004
-crudo_kbd,2025,27,AZE,Azerbaiyán,560.621
+crudo_kbd,2025,27,AZE,Azerbaiyán,571.2641
 crudo_kbd,2025,28,MYS,Malasia,512.6701
 gas_bcm,2024,1,USA,Estados Unidos,1069.4312
 gas_bcm,2024,2,RUS,Rusia,642.041

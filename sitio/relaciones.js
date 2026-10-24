@@ -5,7 +5,13 @@
 (function () {
   "use strict";
   const raiz = document.getElementById("relaciones");
-  if (!raiz || !window.d3) return;
+  if (!raiz) return;
+  // sin D3 (el archivo no llegó) el explorador no se puede armar: se avisa en lugar de dejar la página sin nada (estabilización, P2-19)
+  if (!window.d3) {
+    const p = document.getElementById("rx-error");
+    if (p) { p.hidden = false; p.textContent = "No se pudo cargar el programa que dibuja el explorador. Probá recargar la página."; }
+    return;
+  }
   const $ = id => document.getElementById(id);
   const MOV = matchMedia("(prefers-reduced-motion: reduce)");
   const dur = ms => MOV.matches ? 0 : ms;

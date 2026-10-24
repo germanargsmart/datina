@@ -50,7 +50,9 @@ const $ = id => document.getElementById(id) || document.createElement("div");
 const DIFERIDAS = D.diferidas || {}, pedidas = {};
 // las tablas diferidas llegan en columnas ({c: nombres, f: filas}, etapa 19): se vuelven a armar como objetos
 const deColumnas = t => Array.isArray(t) ? t : t.f.map(r => Object.fromEntries(t.c.map((k, i) => [k, r[i]])));
-const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = deColumnas(t))));
+// si la carga falla se olvida la promesa, así "Probá de nuevo" vuelve a pedir el archivo en lugar de repetir la falla (estabilización, P2-18)
+const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = deColumnas(t)),
+  e => { delete pedidas[n]; throw e; }));
 // "Ver tabla" de las fichas cuya tabla no está en T ni en DIFERIDAS (Fase 2, paso 5): cada una registra acá una función que devuelve, con
 // una promesa, las filas de lo que muestra su gráfico en ese momento. Si la tabla está abierta y cambia lo elegido, su dibujo llama a
 // refrescarTabla. Va acá arriba porque esas fichas se arman antes que el pie de las fichas
@@ -2151,12 +2153,13 @@ function mapaAreas(anim) {
   burb.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
     .on("pointerleave", ocultarSiMouse);
-  // leyenda
-  const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - 138)},${h - 38})`);
+  // leyenda: seis cuadros de 46 píxeles, más angostos si no entran (en 320 píxeles se cortaba el último, el de 30% o más)
+  const paso = Math.min(46, (w - 12) / 6);
+  const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - paso * 3)},${h - 38})`);
   const et = ["0", "5", "10", "15", "20", "30%"];
   colores.forEach((c, i) => {
-    ley.append("rect").attr("x", i * 46).attr("width", 44).attr("height", 10).attr("rx", 2).attr("fill", c);
-    ley.append("text").attr("x", i * 46).attr("y", 26).text(et[i]);
+    ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c);
+    ley.append("text").attr("x", i * paso).attr("y", 26).text(et[i]);
   });
   ley.append("text").attr("x", 0).attr("y", -6).text("% del territorio protegido");
 }
@@ -2371,7 +2374,19 @@ const textoCantidad = (filas, k, inicio, vista) => {
 };
 // el eje en mil y en millones ("1 millón", "1,5 millones", nunca "1.000 mil")
 const ejeMil = v => v >= 1e6 ? (v === 1e6 ? "1 millón" : n1(v / 1e6).replace(/,0$/, "") + " millones") : v >= 1000 ? n0(v / 1000) + " mil" : n0(v);
-const DIB = {
+/* Un error al dibujar un gráfico no corta los demás ni el resto de la página (estabilización, P2-17): se anota en la consola, así la
+   prueba de páginas lo sigue viendo y frena la publicación, y en su lugar queda un aviso. Vale para todos los DIB, también los que se
+   suman más abajo en el archivo (cada uno pasa por el set del Proxy) */
+const protegerDib = base => Object.assign(new Proxy({}, {set(t, k, f) {
+  t[k] = typeof f !== "function" ? f : (...a) => {
+    try { return f(...a); } catch (e) {
+      console.error(`Datina: no se pudo dibujar el gráfico ${k}.`, e);
+      const el = G(k); if (el) sinDatos(el, "No se pudo dibujar este gráfico.");
+    }
+  };
+  return true;
+}}), base);
+const DIB = protegerDib({
   hogares: a => lineas(G("hogares"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
     series:[{k:"idx_residencial", lab:"Hogares", c:NAR, w:3}, {k:"idx_resto", lab:"Resto", c:FRI}], vf: v => n0(v)}),
   actividad: a => lineas(G("actividad"), {anim:a, data: T.energia_hogares, x:"anio", y0:80, ref:100, yf: v => v,
@@ -2594,7 +2609,7 @@ const DIB = {
     : barrasH(G("empleo"), {anim:a, data: T.empleo_provincias, k:"var_12m",
         tip: d => `<b>${d.territorio}</b><br>${n0(d.miles * 1000)} asalariados registrados<br>${n0(d.miles_hace12 * 1000)} doce meses antes`, vf: v => (v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
         mejor: "sube", pais: R.empleo.var_nac}),
-};
+});
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
@@ -3399,7 +3414,7 @@ const LG_PER = CG.periodos, LG_ULT = LG_PER[LG_PER.length - 1];
 $("lg-per").innerHTML = [...LG_PER].reverse().map(a => `<option value="${a}">${a} a ${a + 2}${a === LG_ULT ? " (el actual)" : ""}</option>`).join("");
 MED.legisladores = null; MED.lgPer = LG_ULT;
 let LGP = null, lgCargando = null;
-const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_por_periodo.json").then(j => { LGP = j; }));
+const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_por_periodo.json").then(j => { LGP = j; }, e => { lgCargando = null; throw e; }));
 ["lg-sel", "lg-per"].forEach(id => $(id).addEventListener("change", ev => {
   if (id === "lg-sel") MED.legisladores = ev.target.value; else MED.lgPer = +ev.target.value;
   DIB.legisladores();
@@ -4032,7 +4047,7 @@ MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.v
 // el conmutador de la tabla por espacio (todas o solo las de efecto directo) redibuja la tabla
 DIB.vtfiltro = () => DIB.vtmatriz(false);
 let VTJ = null, vtCargando = null;
-const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }));
+const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }, e => { vtCargando = null; throw e; }));
 // "Ver tabla" (paso 5): el voto de cada legislador en la ley y la cámara elegidas (sin filas si el Senado no publica el acta), y en la
 // tabla por espacio, los votos detrás de cada porcentaje en la cámara elegida
 TABLA_PROPIA["f-votaciones"] = () => vtCargar().then(() => (VTJ.votos[`${MED.vtLey}|${MED.votaciones}`] || [])
@@ -5109,7 +5124,9 @@ Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
       propios.forEach(e => e.style.display = ""); nota.hidden = true;
       return orig(a);
     }
-    if (!T.ocde_comparacion) { d3.csv("datos/ocde_comparacion.csv", d3.autoType).then(f => { T.ocde_comparacion = f; DIB[g](a); }); return; }
+    // si la tabla de la OCDE no llega, el gráfico lo dice en lugar de quedar con el anterior (estabilización, P2-18)
+    if (!T.ocde_comparacion) { d3.csv("datos/ocde_comparacion.csv", d3.autoType).then(f => { T.ocde_comparacion = f; DIB[g](a); },
+      () => { const el = G(g); if (el) sinDatos(el, "No se pudo cargar la comparación con la OCDE."); }); return; }
     const o = OC[k];
     if (lead) { if (lead.dataset.propio == null) lead.dataset.propio = lead.textContent; lead.textContent = textoOCDE(k); }
     propios.forEach(e => e.style.display = "none"); nota.hidden = false;
@@ -5237,7 +5254,7 @@ const CX = (() => {
   const cargar = () => cargando || (cargando = d3.csv("datos/cruces_series.csv", d3.autoType).then(filas => {
     SER = {};
     filas.forEach(r => { const c = String(r.codigo_indec).padStart(2, "0"); ((SER[r.id] ||= {})[c] ||= {})[r.anio] = r.valor; });
-  }));
+  }, e => { cargando = null; avisar("No se pudieron cargar los datos de cada año."); throw e; }));
   const valor = (k, c, a) => SER?.[k]?.[c]?.[a] ?? null;
   const filas = () => st.anio == null || !SER || !conSerie() ? FILAS
     : FILAS.map(f => ({...f, [st.x]: valor(st.x, f.codigo_indec, st.anio), [st.y]: valor(st.y, f.codigo_indec, st.anio)}));
@@ -5291,7 +5308,7 @@ const CX = (() => {
   const parar = () => { clearInterval(reloj); reloj = null; };
   const todo = (anim) => { sincronizar(); barraTiempo(); guardar(); DIB["cruces-disp"](anim); DIB["cruces-matriz"](false); DIB["cruces-multi"](false); };
   const irAnio = (a, anim) => { st.anio = a; barraTiempo(); DIB["cruces-disp"](anim); };
-  document.getElementById("cx-anio").addEventListener("input", ev => { parar(); cargar().then(() => irAnio(+ev.target.value, false)); });
+  document.getElementById("cx-anio").addEventListener("input", ev => { parar(); cargar().then(() => irAnio(+ev.target.value, false), () => {}); });
   document.getElementById("cx-ultimo").addEventListener("click", () => { parar(); irAnio(null, true); });
   document.getElementById("cx-play").addEventListener("click", () => {
     if (reloj) { parar(); barraTiempo(); return; }
@@ -5304,7 +5321,7 @@ const CX = (() => {
         irAnio(st.anio + 1, true);
       }, REDUCIR ? 1200 : 800);
       barraTiempo();
-    });
+    }, () => {});
   });
   selX.addEventListener("change", () => { st.x = selX.value; todo(true); });
   selY.addEventListener("change", () => { st.y = selY.value; todo(true); });
@@ -5570,7 +5587,7 @@ const MAPA_DEP = (() => {
   sel.addEventListener("change", () => { ind = sel.value; cambiarVista("mapa-dep"); });
   document.getElementById("mp-pais").addEventListener("click", () => { cerca = {c: "", de: prov}; cambiarVista("mapa-dep"); });
   const cargar = () => cargando || (cargando = Promise.all([d3.json("datos/departamentos.topo.json"), d3.csv("datos/departamentos.csv", d3.autoType)])
-    .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }));
+    .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }, e => { cargando = null; throw e; }));
   const MIN_POB = 10000, MIN_HOG = 3000;  // las listas del censo se cortan por hogares, las demás por personas identificadas
   // "Ver tabla" (paso 5): los departamentos que muestra el mapa (los de la provincia acercada o todos), con su nombre y el indicador
   // elegido. El CSV solo trae el código de cada departamento: el nombre sale del mapa
@@ -5584,7 +5601,7 @@ const MAPA_DEP = (() => {
   function dibujar(anim) {
     refrescarTabla("f-mapa");
     const el = G("mapa-dep"); if (!el || !el.offsetParent) return;
-    if (!topo) { cargar().then(() => dibujar(anim)); return; }
+    if (!topo) { cargar().then(() => dibujar(anim), () => sinDatos(el, "No se pudo cargar el mapa.")); return; }
     const m = META[ind], censo = m.fuente.startsWith("INDEC"), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
     const pv = cerca && cerca.de === prov ? cerca.c : prov;  // tocar una provincia la acerca sin elegirla en todo el sitio
     const enProv = NOMBRES[pv] ? todos.filter(f => f.properties.prov === pv) : todos;
@@ -7264,8 +7281,14 @@ const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><
   `<span class="art-txt"><b style="view-transition-name:t-${a.id}">${a.titulo}</b><small>${nombreSec(a.sec)}. ${a.frec}</small></span></a>`;
 // título, ícono y sección de cada artículo: de la plantilla (data-titulo, data-ico y data-sec), por el índice del sitio
 const DAT_ART = Object.fromEntries(SITIO.articulos.map(([id, titulo, icono, sec]) => [id, {titulo, icono, sec}]));
-ART.forEach(a => { Object.assign(a, DAT_ART[a.id]); a.c = calcularArt(a); a.t = textoArt(a, a.c); });
+// las cuentas de cada artículo se hacen en todas las páginas (la portada y el buscador las usan): si las de uno fallan, se anota en la
+// consola (la prueba de páginas lo ve) y ese artículo queda afuera, sin cortar el resto de la página (estabilización, P2-17)
 ART.forEach(a => {
+  Object.assign(a, DAT_ART[a.id]);
+  try { a.c = calcularArt(a); a.t = textoArt(a, a.c); } catch (e) { a.c = a.t = null; console.error(`Datina: no se pudo armar el artículo ${a.id}.`, e); }
+});
+ART.forEach(a => {
+  if (!a.t) { const nota = document.getElementById(a.id); if (nota) nota.innerHTML = '<p class="nota">No se pudo armar este artículo. Probá recargar la página.</p>'; return; }
   const {c, t} = a, tabla = tablaArt(a), Mx = META_TAB[tabla][a.x], My = META_TAB[tabla][a.y], U = CASOS_ART[tabla], key = "art-" + a.id;
   const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
   const fichas = [...new Map([[Mx.ficha, Mx.nombre], [My.ficha, My.nombre]]).entries()].filter(([id]) => ficha(id));
@@ -7615,7 +7638,7 @@ const ARTS = [...ART_SERIE, ...ART];
 // amarillo) y después los más nuevos. Los de política no se eligen por un cálculo automático. El resto, en "Todos los artículos"
 const artHome = document.getElementById("art-grid-home");
 if (artHome) {
-  const fuerte = ART.filter(a => a.sec !== "politica").sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
+  const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
   // antes de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2)
   artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
 }

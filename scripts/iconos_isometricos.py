@@ -15,13 +15,15 @@ Los que pesan poco no se pueden agrandar porque ya llenan el cuadro: se les dio 
 Uso: python scripts/iconos_isometricos.py [hoja.html]  (requiere Google Chrome; escribe datos/manual/iconos_iso/*.svg y, si se pide,
 una hoja de muestra)
 """
-import html, json, math, pathlib, re, subprocess, tempfile
+import html, json, math, os, pathlib, re, subprocess, sys, tempfile
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SALIDA = RAIZ / "datos" / "manual" / "iconos_iso"
 C30, S30 = math.cos(math.radians(30)), math.sin(math.radians(30))
 ESC = 6.0            # pixeles por unidad del mundo (viewBox de 120)
-CHROME = r"C:/Program Files/Google/Chrome/Application/chrome.exe"
+# la ruta de Chrome, como en scripts/cdp.mjs: la variable CHROME o la de cada sistema (estabilización, P2-14)
+CHROME = os.environ.get("CHROME") or {"win32": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+                                      "darwin": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"}.get(sys.platform, "google-chrome")
 PESO_META, PESO_MIN = 0.20, 0.80   # peso visual buscado y lo minimo que se achica un icono (ver medir_pesos)
 VISTA = (1.0, 1.0, 1.0)
 

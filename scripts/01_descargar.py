@@ -482,6 +482,22 @@ VALIDA.update({
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
 })
 VALIDA["bm_paises.json"] = lambda b: b'"capitalCity"' in b
+# Los dos CSV del SNIC tienen que traer las columnas que tenían hasta octubre de 2026, que son las que lee 02 (puede haber más). La
+# actualización del 23 de octubre de 2026 bajó snic_pais.csv sin codigo_delito_snic_nombre y 02 se cortó: ahora un archivo con otras
+# columnas no reemplaza al anterior, y el registro muestra su encabezado (motivo_formato) para adaptar 02. Las columnas no llevan tilde, así
+# que se leen igual en UTF-8 que en la codificación de Windows, en la que llegó snic_provincias.csv ese día
+SNIC_COLUMNAS = {
+    "snic_pais.csv": ("anio", "codigo_delito_snic_id", "codigo_delito_snic_nombre", "cantidad_hechos", "cantidad_victimas",
+                      "cantidad_victimas_masc", "cantidad_victimas_fem", "cantidad_victimas_sd", "tasa_hechos", "tasa_victimas",
+                      "tasa_victimas_masc", "tasa_victimas_fem"),
+}
+SNIC_COLUMNAS["snic_provincias.csv"] = ("provincia_id", "provincia_nombre") + SNIC_COLUMNAS["snic_pais.csv"]
+def columnas_csv(b):
+    """Los nombres de las columnas de un CSV separado con punto y coma o con comas (snic_pais.csv pasó a comas el 24 de octubre de 2026,
+    y 02 lee los dos), sin comillas, sin espacios y sin la marca de UTF-8 del comienzo."""
+    cab = b.removeprefix(bytes.fromhex("efbbbf")).split(b"\n", 1)[0].rstrip(b"\r").decode("latin-1")
+    return {c.strip().strip('"') for c in cab.split(";" if ";" in cab else ",")}
+VALIDA.update({n: (lambda b, c=c: set(c) <= columnas_csv(b)) for n, c in SNIC_COLUMNAS.items()})
 VALIDA.update({
     "se_petroleo_cuenca.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"indice_tiempo,cuenca_austral"),
     "se_gas_cuenca.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"indice_tiempo,produccion_gas_natural_cuenca_austral"),
@@ -650,6 +666,10 @@ def motivo_formato(url, datos):
     fallaban en cada actualización sin decir por qué): si no es una tabla, cómo empieza, y si lo es, qué series tienen meses vacíos en el
     medio y cuál es el último período."""
     if not url.startswith(API):
+        # de un CSV, el encabezado: dice qué columnas cambiaron (el SNIC, 23 de octubre de 2026)
+        if url.lower().split("?")[0].endswith(".csv"):
+            cab = datos.split(b"\n", 1)[0][:400].decode("utf-8", "replace").strip()
+            return f" (empieza con: {cab})"
         return ""
     if not datos.startswith(b"indice_tiempo"):
         return f" (no es una tabla: empieza con {datos[:60]!r})"
@@ -1838,10 +1858,9 @@ def acnur_refugio():
     return base
 
 
-def _enlace_en_pagina(pagina, patron, orden=None):
-    """El enlace de una página de argentina.gob.ar que coincide con el patrón (las planillas que cambian de nombre con cada edición): el
-    primero, o con orden (una función del enlace) el mayor, así una página que cambia el orden de sus enlaces no lleva a una edición vieja.
-    Algunas páginas escriben los enlaces con el prefijo "blank:#", que se saca."""
+def _enlaces_en_pagina(pagina, patron):
+    """Los enlaces de una página de argentina.gob.ar que coinciden con el patrón (las planillas que cambian de nombre con cada edición), en el
+    orden de la página y sin repetidos. Algunas páginas escriben los enlaces con el prefijo "blank:#", que se saca."""
     texto = leer(pagina, 90).decode("utf-8", "ignore")
     enlaces = []
     for m in re.finditer(r'href="([^"]+)"', texto):
@@ -1850,6 +1869,13 @@ def _enlace_en_pagina(pagina, patron, orden=None):
             enlaces.append(href if href.startswith("http") else "https://www.argentina.gob.ar" + href)
     if not enlaces:
         raise ValueError(f"no se encontró el enlace {patron} en {pagina}")
+    return list(dict.fromkeys(enlaces))
+
+
+def _enlace_en_pagina(pagina, patron, orden=None):
+    """El enlace de la página que coincide con el patrón: el primero, o con orden (una función del enlace) el mayor, así una página que cambia
+    el orden de sus enlaces no lleva a una edición vieja."""
+    enlaces = _enlaces_en_pagina(pagina, patron)
     return max(enlaces, key=orden) if orden else enlaces[0]
 
 
@@ -1896,37 +1922,83 @@ def deuda_publica():
     return url
 
 
+# las marcas de nota de la planilla de cargos de la DNAP: "(**)" y "(***)" hasta 2025, "(2)" y "(3)" en la de 2017 a 2025 (octubre de 2026)
+_DNAP_MARCA = r"\(\s*(\*+|\d+)\s*\)"
+
+
 def dnap_cargos():
     """Cargos ocupados en las administraciones públicas provinciales (administración central, organismos descentralizados y cuentas especiales),
     por provincia, una hoja por año desde 1987 (Dirección Nacional de Asuntos Provinciales, etapa 25). El nombre de la planilla cambia, así que se
-    lee el enlace de su página. Se guardan los últimos diez años: gasto en personal, planta ocupada, gasto medio y habitantes de cada provincia."""
+    lee el enlace de su página. Se guardan los últimos diez años: gasto en personal, planta ocupada, gasto medio y habitantes de cada provincia.
+    Si la página tiene más de una planilla con ese nombre, se bajan todas y se usa la que llega al año más reciente: la actualización del 23 de
+    octubre de 2026 tomó una que llegaba a los años noventa ("la hoja 1995 cambió de formato") y conservó la tabla anterior."""
     import io, pandas as pd
-    url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ocupacion-y",
-                            r"ocupacion_salarios[^/]*\.xlsx$")
-    datos = leer(url, 120)
-    if datos[:2] != b"PK":
+    libros = []
+    for url in _enlaces_en_pagina("https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ocupacion-y",
+                                  r"ocupacion_salarios[^/]*\.xlsx$"):
+        datos = leer(url, 120)
+        if datos[:2] != b"PK":
+            continue
+        libro = pd.ExcelFile(io.BytesIO(datos))
+        anios = sorted(int(h) for h in libro.sheet_names if re.fullmatch(r"\d{4}", h.strip()))
+        if anios:
+            libros.append((anios[-1], url, libro, anios))
+    if not libros:
         raise ValueError("la planilla de ocupación provincial no es un Excel")
-    libro = pd.ExcelFile(io.BytesIO(datos))
-    anios = sorted(int(h) for h in libro.sheet_names if re.fullmatch(r"\d{4}", h.strip()))
+    _, url, libro, anios = max(libros, key=lambda x: x[0])
+    planilla = f"{url.rsplit('/', 1)[-1]}, con los años {anios[0]} a {anios[-1]}"
     filas = []
     for a in anios[-10:]:
         h = pd.read_excel(libro, sheet_name=str(a), header=None)
         cab = h.index[h.iloc[:, 1].astype(str).str.strip().eq("JURISDICCIONES")]
         if len(cab) != 1 or "PLANTA" not in str(h.iat[cab[0], 3]).upper():
-            raise ValueError(f"la hoja {a} de ocupación provincial cambió de formato")
+            raise ValueError(f"la hoja {a} de ocupación provincial cambió de formato ({planilla})")
+        juris = []
         for i in range(cab[0] + 1, h.shape[0]):
             nom = str(h.iat[i, 1]).strip()
             if nom in ("", "nan"):
                 continue
             if nom.upper() == "TOTAL":
                 break
+            juris.append(i)
+        # las notas de la hoja (fuera de las filas de las jurisdicciones): una celda que empieza con su marca, como "(2) Cargos presupuestados"
+        notas = {}
+        for i in range(h.shape[0]):
+            if i in juris:
+                continue
+            for v in h.iloc[i]:
+                m = re.match(_DNAP_MARCA + r"\s*(\S.{3,})", str(v).strip())
+                if m:
+                    notas.setdefault(m.group(1), m.group(2).strip())
+        for i in juris:
+            nom = str(h.iat[i, 1]).strip()
+            marcas = re.findall(_DNAP_MARCA, nom)
+            sin_nota = [k for k in marcas if k not in notas]
+            if sin_nota:
+                raise ValueError(f"la hoja {a} de ocupación provincial marca {nom} con ({sin_nota[0]}) y no tiene esa nota ({planilla})")
+            nota = " ".join(f"({k}) {notas[k]}" for k in marcas)
+            # cargos presupuestados en lugar de ocupados: lo dice la nota de su marca, se numere como se numere ("(**) cargos presupuestados" hasta
+            # 2025, "(2) La información de la planta ocupada corresponde al dato del Presupuesto de la Provincia" en la planilla de 2017 a 2025)
             filas.append({"anio": a, "jurisdiccion": nom, "gasto_personal_miles": pd.to_numeric(h.iat[i, 2], errors="coerce"),
                           "planta": pd.to_numeric(h.iat[i, 3], errors="coerce"), "gasto_medio": pd.to_numeric(h.iat[i, 4], errors="coerce"),
                           "habitantes": pd.to_numeric(h.iat[i, 5], errors="coerce"),
-                          "presupuestados": str(h.iat[i, 1]).count("*") > 0 or "(**)" in nom})
+                          "presupuestados": any(re.search(r"presupuest", notas[k], re.I) for k in marcas), "nota": nota})
     d = pd.DataFrame(filas)
     if d.groupby("anio").size().min() < 24:
-        raise ValueError("faltan provincias en la planilla de ocupación provincial")
+        raise ValueError(f"faltan provincias en la planilla de ocupación provincial ({planilla})")
+    # cada año, las 24 jurisdicciones con los nombres que 02 ya conoce (los de la tabla anterior, sin las marcas de nota): si la DNAP cambia
+    # uno, la tabla nueva no reemplaza a la anterior y el registro dice cuál (la actualización del 24 de octubre de 2026 bajó una planilla
+    # con nombres que 02 no reconocía y se cortó)
+    norma = lambda s: s.str.replace(_DNAP_MARCA, "", regex=True).str.replace("*", "", regex=False).str.strip().str.upper()
+    arch = CRUDO / "dnap_cargos_provinciales.csv"
+    if arch.exists():
+        nuevos = sorted(set(norma(d.jurisdiccion)) - set(norma(pd.read_csv(arch).jurisdiccion)))
+        if nuevos:
+            raise ValueError(f"la planilla de ocupación provincial trae jurisdicciones con otro nombre: {', '.join(nuevos)} ({planilla})")
+    por_anio = d.assign(n=norma(d.jurisdiccion)).groupby("anio").n.nunique()
+    if not por_anio.eq(24).all():
+        raise ValueError(f"la planilla de ocupación provincial no trae 24 jurisdicciones distintas en "
+                         f"{', '.join(f'{a} ({n})' for a, n in por_anio[por_anio != 24].items())} ({planilla})")
     d.to_csv(CRUDO / "dnap_cargos_provinciales.csv", index=False)
     return url
 
@@ -2051,21 +2123,22 @@ def series_sector_externo():
         if tablas and completa:
             import io, pandas as pd
             d = pd.concat([pd.read_csv(io.StringIO(t)).set_index("indice_tiempo") for t in tablas], axis=1)
-            # tampoco se reemplaza la planilla anterior si a la nueva le faltan series que aquella tenía, si alguna trae menos datos que antes
-            # o si los períodos vienen repetidos (el 12 de octubre de 2026 la API respondió con datos que no dejaban ningún año completo del
-            # intercambio comercial y 02 se frenó)
+            # no se reemplaza la planilla anterior si alguna serie trae menos datos que antes o si los períodos vienen repetidos (el 12 de
+            # octubre de 2026 la API respondió con datos que no dejaban ningún año completo del intercambio comercial y 02 se frenó)
             arch = CRUDO / f"series_sector_externo_{letra}.csv"
-            faltan = sorted(set(pd.read_csv(arch, nrows=0).columns) - set(d.reset_index().columns)) if arch.exists() else []
-            if faltan:
-                print(f"  aviso: a la planilla {letra} le faltan {len(faltan)} series de la anterior ({', '.join(faltan[:5])}): se conserva la anterior")
-                continue
             if not d.index.is_unique:
                 print(f"  aviso: la planilla {letra} vino con períodos repetidos: se conserva la anterior")
                 continue
             if arch.exists():
                 viejo = pd.read_csv(arch).set_index("indice_tiempo")
+                # las series de la planilla anterior que la búsqueda ya no trae (dejaron de actualizarse o la API no las devolvió esta vez) se
+                # conservan con sus datos de antes. Hasta el 24 de octubre de 2026 una sola que faltara hacía conservar la planilla entera, y
+                # desde el 23 de octubre faltaban de 13 a 48 en cada una, así que no entraba ningún mes nuevo
+                faltan = [c for c in viejo.columns if c not in d.columns]
+                if faltan:
+                    print(f"  aviso: a la planilla {letra} le faltan {len(faltan)} series de la anterior ({', '.join(faltan[:5])}): se conservan con sus datos de antes")
                 # los valores vacíos y los períodos que la API no trajo salen de la planilla anterior (ver api_completar)
-                d = d.combine_first(viejo)[list(d.columns)]
+                d = d.combine_first(viejo)[list(viejo.columns) + [c for c in d.columns if c not in viejo.columns]]
                 menos = [c for c in viejo.columns if d[c].notna().sum() < viejo[c].notna().sum() - 1]
                 if menos:
                     print(f"  aviso: en la planilla {letra}, {len(menos)} series traen menos datos que la anterior ({', '.join(menos[:5])}): se conserva la anterior")
