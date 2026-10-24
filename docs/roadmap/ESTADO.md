@@ -275,6 +275,7 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - P2-18: "Probá de nuevo" vuelve a intentar, y la OCDE y el mapa de departamentos avisan;
   - P2-19: el Explorador avisa si no llegó D3.
   - P2-9 queda cubierto por la versión fija de Python.
+- "Menú" en el celular (hasta 760 píxeles): con sus cuatro partes cerradas, cada una se estiraba hasta ocupar un cuarto de la pantalla y dejaba un hueco blanco debajo (en 390 píxeles, 176 de alto en lugar de 44). Pasaba desde la Fase 2, cuando el menú pasó a tener las cuatro partes plegables, porque el panel ocupa toda la pantalla y sus filas se repartían el alto. Ahora cada parte mide lo suyo. Medido en 320, 390, 768 y 1000 píxeles, cerradas y con Temas abierta: cambia solo el alto de las cerradas en el celular.
 - 320 píxeles (zoom del 400% de WCAG): siete páginas y el Explorador se corrían de costado.
   - Las causas: botones con textos largos (los de los artículos, los de la OCDE y "Mostrar más"), la lectura del selector del BCRA y los programas de Educación.
   - Ahora un botón o una lectura que no entra pasa a dos renglones parejos. De 5.286 elementos medidos en 320, 390 y 1440 píxeles cambiaron solo los 33 que se salían, y en 1440 ninguno.

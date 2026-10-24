@@ -345,9 +345,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
   .barra .envoltura{height:62px;gap:var(--e-3)}
   .barra-izq{gap:var(--e-3)}
   .barra .marca{font-size:32px}
-  /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra) */
+  /* el menú, en una sola columna y en toda la pantalla debajo de la barra (llega 8 píxeles más abajo para cubrir lo que sube la barra).
+     Las partes van arriba con su alto: sin align-content, las cuatro cerradas se estiraban hasta llenar la pantalla (24 de octubre de 2026) */
   .menu-panel{left:0;right:0;width:auto;top:calc(env(safe-area-inset-top,0px) + 62px);bottom:-8px;max-height:none;
-    grid-template-columns:1fr;gap:0;padding:var(--e-4) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
+    grid-template-columns:1fr;align-content:start;gap:0;padding:var(--e-4) var(--margen) calc(env(safe-area-inset-bottom,0px) + var(--e-9));
     background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;transform:translateY(-8px)}
   .barra.compacta ~ .menu-panel{translate:0 -8px}
   /* en una sola columna, la línea fina también separa una columna de la siguiente */
