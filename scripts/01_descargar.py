@@ -1922,6 +1922,10 @@ def deuda_publica():
     return url
 
 
+# las marcas de nota de la planilla de cargos de la DNAP: "(**)" y "(***)" hasta 2025, "(2)" y "(3)" en la de 2017 a 2025 (octubre de 2026)
+_DNAP_MARCA = r"\(\s*(\*+|\d+)\s*\)"
+
+
 def dnap_cargos():
     """Cargos ocupados en las administraciones públicas provinciales (administración central, organismos descentralizados y cuentas especiales),
     por provincia, una hoja por año desde 1987 (Dirección Nacional de Asuntos Provinciales, etapa 25). El nombre de la planilla cambia, así que se
@@ -1949,23 +1953,42 @@ def dnap_cargos():
         cab = h.index[h.iloc[:, 1].astype(str).str.strip().eq("JURISDICCIONES")]
         if len(cab) != 1 or "PLANTA" not in str(h.iat[cab[0], 3]).upper():
             raise ValueError(f"la hoja {a} de ocupación provincial cambió de formato ({planilla})")
+        juris = []
         for i in range(cab[0] + 1, h.shape[0]):
             nom = str(h.iat[i, 1]).strip()
             if nom in ("", "nan"):
                 continue
             if nom.upper() == "TOTAL":
                 break
+            juris.append(i)
+        # las notas de la hoja (fuera de las filas de las jurisdicciones): una celda que empieza con su marca, como "(2) Cargos presupuestados"
+        notas = {}
+        for i in range(h.shape[0]):
+            if i in juris:
+                continue
+            for v in h.iloc[i]:
+                m = re.match(_DNAP_MARCA + r"\s*(\S.{3,})", str(v).strip())
+                if m:
+                    notas.setdefault(m.group(1), m.group(2).strip())
+        for i in juris:
+            nom = str(h.iat[i, 1]).strip()
+            marcas = re.findall(_DNAP_MARCA, nom)
+            sin_nota = [k for k in marcas if k not in notas]
+            if sin_nota:
+                raise ValueError(f"la hoja {a} de ocupación provincial marca {nom} con ({sin_nota[0]}) y no tiene esa nota ({planilla})")
+            nota = " ".join(f"({k}) {notas[k]}" for k in marcas)
+            # cargos presupuestados en lugar de ocupados: lo dice la nota de su marca, se numere como se numere
             filas.append({"anio": a, "jurisdiccion": nom, "gasto_personal_miles": pd.to_numeric(h.iat[i, 2], errors="coerce"),
                           "planta": pd.to_numeric(h.iat[i, 3], errors="coerce"), "gasto_medio": pd.to_numeric(h.iat[i, 4], errors="coerce"),
                           "habitantes": pd.to_numeric(h.iat[i, 5], errors="coerce"),
-                          "presupuestados": str(h.iat[i, 1]).count("*") > 0 or "(**)" in nom})
+                          "presupuestados": any(re.search(r"presupuestad", notas[k], re.I) for k in marcas), "nota": nota})
     d = pd.DataFrame(filas)
     if d.groupby("anio").size().min() < 24:
         raise ValueError(f"faltan provincias en la planilla de ocupación provincial ({planilla})")
     # cada año, las 24 jurisdicciones con los nombres que 02 ya conoce (los de la tabla anterior, sin las marcas de nota): si la DNAP cambia
     # uno, la tabla nueva no reemplaza a la anterior y el registro dice cuál (la actualización del 24 de octubre de 2026 bajó una planilla
     # con nombres que 02 no reconocía y se cortó)
-    norma = lambda s: s.str.replace(r"\(?\*+\)?", "", regex=True).str.strip().str.upper()
+    norma = lambda s: s.str.replace(_DNAP_MARCA, "", regex=True).str.replace("*", "", regex=False).str.strip().str.upper()
     arch = CRUDO / "dnap_cargos_provinciales.csv"
     if arch.exists():
         nuevos = sorted(set(norma(d.jurisdiccion)) - set(norma(pd.read_csv(arch).jurisdiccion)))
