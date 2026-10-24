@@ -16,7 +16,10 @@ export default {
 
   // Tema claro de Framework más la hoja de estilos propia (colores, tipografía)
   style: "estilo.css",
-  head: `<link rel="preconnect" href="https://fonts.googleapis.com">
+  // el ícono de la pestaña, el mismo gorro de Datina (scripts/plantilla.html): sin él el navegador pedía /favicon.ico, que no existe, y la
+  // consola marcaba un error (etapa C del rediseño, 24 de octubre de 2026). Va en base64 porque Framework vuelve a codificar los % del SVG
+  head: `<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MCAzNic+PHBhdGggZmlsbD0nI0M4MTAyRScgZD0nTTcsMjkgQzUuNSwxNyAxMCw2LjUgMTkuNSw0LjIgQzI2LjUsMi42IDMzLjUsNS4yIDM2LDEwLjYgQzM3LjIsMTMuMiAzNSwxNS40IDMyLjYsMTMuOCBDMzEsMTIuNiAyOS4yLDExLjYgMjcsMTIuMiBDMzEuNiwxNiAzMy44LDIxLjYgMzMuNiwyOSBaJy8+PHBhdGggZmlsbD0nIzhBMTQyMicgZD0nTTUuNiwyNy42IEwzNSwyNy42IFEzNS44LDMxLjYgMzUsMzMuNCBRMjAuMywzNS42IDUuNiwzMy40IFE0LjgsMzEuNiA1LjYsMjcuNiBaJy8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..700&display=swap">
 <script>
