@@ -35,8 +35,19 @@ def agregar(df, variable, unidad, fuente):
     largo.append(d[["codigo_indec", "territorio", "periodo", "variable", "valor", "unidad", "fuente"]])
 
 
+# Los CSV del SNIC (Ministerio de Seguridad) llegaban en UTF-8, y en la actualización del 23 de octubre de 2026 snic_provincias.csv llegó
+# en la codificación de Windows (la "ó" en un solo byte) y 02 se cortó en la línea de abajo. Se leen en UTF-8 y, si no lo son, en
+# Windows-1252, la de los organismos que no publican en UTF-8 (como el índice de salarios del INDEC, más abajo). Los valores son los mismos
+def leer_csv_snic(ruta, **kw):
+    try:
+        return pd.read_csv(ruta, encoding="utf-8", **kw)
+    except UnicodeDecodeError:
+        print(f"  aviso: {ruta.name} no está en UTF-8: se lee en Windows-1252")
+        return pd.read_csv(ruta, encoding="cp1252", **kw)
+
+
 # Nombres y codigos INDEC de provincia (tomados del SNIC, que usa la codificacion oficial)
-snic_prov = pd.read_csv(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str})
+snic_prov = leer_csv_snic(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str})
 NOMBRE = (snic_prov[["provincia_id", "provincia_nombre"]].drop_duplicates()
           .set_index("provincia_id").provincia_nombre.to_dict())
 NOMBRE["94"] = "Tierra del Fuego"
@@ -239,7 +250,7 @@ d["territorio"] = d.codigo_indec.map(CORTO)
 agregar(d, "pct_nacimientos_madres_menores_20", "%", "DEIS, Ministerio de Salud")
 
 # ---------------------------------------------------------------- SNIC
-sp = pd.read_csv(CRUDO / "snic_pais.csv", sep=";", decimal=",")
+sp = leer_csv_snic(CRUDO / "snic_pais.csv", sep=";", decimal=",")
 MAP = {"Suicidios (consumados)": "suicidios", "Homicidios dolosos": "homicidios",
        "Muertes en accidentes viales": "siniestros_viales"}
 sp = sp[sp.codigo_delito_snic_nombre.isin(MAP)].copy()
@@ -267,7 +278,7 @@ d["territorio"] = d.codigo_indec.map(CORTO)
 agregar(d, "tasa_suicidios_100mil_5_anios_y_mas", "por 100.000 habitantes de 5 años y más", "SNIC, Ministerio de Seguridad")
 
 # Edad y sexo. Deliberadamente solo se leen estas columnas de la base SAT.
-sat = pd.read_csv(CRUDO / "snic_sat_suicidios.csv", sep=None, engine="python",
+sat = leer_csv_snic(CRUDO / "snic_sat_suicidios.csv", sep=None, engine="python",
                   usecols=["anio", "suicida_sexo", "suicida_tr_edad"])
 sat = sat[sat.suicida_tr_edad != "Sin determinar"]
 sat["edad"] = sat.suicida_tr_edad.replace({"5-9": "Menos de 15", "10-14": "Menos de 15",
@@ -4459,8 +4470,8 @@ agregar(ie_.dropna(subset=["gasto_por_alumno"]).assign(territorio=lambda x: x.co
 # agravados por el resultado de lesiones o muertes, que van aparte y en siete provincias valen cero), como en Cruces. Para comparar provincias
 # en homicidios se suman tres años (víctimas sobre la población del INDEC), porque en las provincias chicas la tasa de un año salta mucho.
 # El total del país de 2009 a 2013 lo completó el SNIC porque faltan datos de Buenos Aires y Córdoba.
-_seg_p = pd.read_csv(CRUDO / "snic_pais.csv", sep=";", decimal=",", dtype={"codigo_delito_snic_id": str})
-_seg_v = pd.read_csv(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str, "codigo_delito_snic_id": str})
+_seg_p = leer_csv_snic(CRUDO / "snic_pais.csv", sep=";", decimal=",", dtype={"codigo_delito_snic_id": str})
+_seg_v = leer_csv_snic(CRUDO / "snic_provincias.csv", sep=";", decimal=",", dtype={"provincia_id": str, "codigo_delito_snic_id": str})
 _SEG_FUERA = {"30", "31"}
 _seg_pr = lambda d: d[~d.codigo_delito_snic_id.str.contains("_") & ~d.codigo_delito_snic_id.isin(_SEG_FUERA)]
 _seg_pob = (_seg_p[_seg_p.codigo_delito_snic_id == "19"].set_index("anio").pipe(lambda x: x.cantidad_hechos / x.tasa_hechos * 1e5))
