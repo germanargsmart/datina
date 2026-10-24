@@ -1857,10 +1857,9 @@ def acnur_refugio():
     return base
 
 
-def _enlace_en_pagina(pagina, patron, orden=None):
-    """El enlace de una página de argentina.gob.ar que coincide con el patrón (las planillas que cambian de nombre con cada edición): el
-    primero, o con orden (una función del enlace) el mayor, así una página que cambia el orden de sus enlaces no lleva a una edición vieja.
-    Algunas páginas escriben los enlaces con el prefijo "blank:#", que se saca."""
+def _enlaces_en_pagina(pagina, patron):
+    """Los enlaces de una página de argentina.gob.ar que coinciden con el patrón (las planillas que cambian de nombre con cada edición), en el
+    orden de la página y sin repetidos. Algunas páginas escriben los enlaces con el prefijo "blank:#", que se saca."""
     texto = leer(pagina, 90).decode("utf-8", "ignore")
     enlaces = []
     for m in re.finditer(r'href="([^"]+)"', texto):
@@ -1869,6 +1868,13 @@ def _enlace_en_pagina(pagina, patron, orden=None):
             enlaces.append(href if href.startswith("http") else "https://www.argentina.gob.ar" + href)
     if not enlaces:
         raise ValueError(f"no se encontró el enlace {patron} en {pagina}")
+    return list(dict.fromkeys(enlaces))
+
+
+def _enlace_en_pagina(pagina, patron, orden=None):
+    """El enlace de la página que coincide con el patrón: el primero, o con orden (una función del enlace) el mayor, así una página que cambia
+    el orden de sus enlaces no lleva a una edición vieja."""
+    enlaces = _enlaces_en_pagina(pagina, patron)
     return max(enlaces, key=orden) if orden else enlaces[0]
 
 
@@ -1918,21 +1924,30 @@ def deuda_publica():
 def dnap_cargos():
     """Cargos ocupados en las administraciones públicas provinciales (administración central, organismos descentralizados y cuentas especiales),
     por provincia, una hoja por año desde 1987 (Dirección Nacional de Asuntos Provinciales, etapa 25). El nombre de la planilla cambia, así que se
-    lee el enlace de su página. Se guardan los últimos diez años: gasto en personal, planta ocupada, gasto medio y habitantes de cada provincia."""
+    lee el enlace de su página. Se guardan los últimos diez años: gasto en personal, planta ocupada, gasto medio y habitantes de cada provincia.
+    Si la página tiene más de una planilla con ese nombre, se bajan todas y se usa la que llega al año más reciente: la actualización del 23 de
+    octubre de 2026 tomó una que llegaba a los años noventa ("la hoja 1995 cambió de formato") y conservó la tabla anterior."""
     import io, pandas as pd
-    url = _enlace_en_pagina("https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ocupacion-y",
-                            r"ocupacion_salarios[^/]*\.xlsx$")
-    datos = leer(url, 120)
-    if datos[:2] != b"PK":
+    libros = []
+    for url in _enlaces_en_pagina("https://www.argentina.gob.ar/economia/sechacienda/coordinacion-fiscal-provincial/ejecucion-presupuestaria-provincial/ocupacion-y",
+                                  r"ocupacion_salarios[^/]*\.xlsx$"):
+        datos = leer(url, 120)
+        if datos[:2] != b"PK":
+            continue
+        libro = pd.ExcelFile(io.BytesIO(datos))
+        anios = sorted(int(h) for h in libro.sheet_names if re.fullmatch(r"\d{4}", h.strip()))
+        if anios:
+            libros.append((anios[-1], url, libro, anios))
+    if not libros:
         raise ValueError("la planilla de ocupación provincial no es un Excel")
-    libro = pd.ExcelFile(io.BytesIO(datos))
-    anios = sorted(int(h) for h in libro.sheet_names if re.fullmatch(r"\d{4}", h.strip()))
+    _, url, libro, anios = max(libros, key=lambda x: x[0])
+    planilla = f"{url.rsplit('/', 1)[-1]}, con los años {anios[0]} a {anios[-1]}"
     filas = []
     for a in anios[-10:]:
         h = pd.read_excel(libro, sheet_name=str(a), header=None)
         cab = h.index[h.iloc[:, 1].astype(str).str.strip().eq("JURISDICCIONES")]
         if len(cab) != 1 or "PLANTA" not in str(h.iat[cab[0], 3]).upper():
-            raise ValueError(f"la hoja {a} de ocupación provincial cambió de formato")
+            raise ValueError(f"la hoja {a} de ocupación provincial cambió de formato ({planilla})")
         for i in range(cab[0] + 1, h.shape[0]):
             nom = str(h.iat[i, 1]).strip()
             if nom in ("", "nan"):
@@ -1945,7 +1960,7 @@ def dnap_cargos():
                           "presupuestados": str(h.iat[i, 1]).count("*") > 0 or "(**)" in nom})
     d = pd.DataFrame(filas)
     if d.groupby("anio").size().min() < 24:
-        raise ValueError("faltan provincias en la planilla de ocupación provincial")
+        raise ValueError(f"faltan provincias en la planilla de ocupación provincial ({planilla})")
     d.to_csv(CRUDO / "dnap_cargos_provinciales.csv", index=False)
     return url
 
