@@ -1,25 +1,25 @@
 codigo_indec,territorio,region,var_12m,var_mes
-02,CABA,Gran Buenos Aires,-0.611,-0.2515
-06,Buenos Aires,Gran Buenos Aires y Pampeana,-3.8846,-3.8422
-10,Catamarca,Noroeste,-1.8443,-10.4918
-14,Córdoba,Pampeana,0.2759,-1.0885
-18,Corrientes,Noreste,-11.5827,-25.7707
-22,Chaco,Noreste,-5.7172,-12.5166
-26,Chubut,Patagonia,-4.5016,-2.7895
-30,Entre Ríos,Pampeana,-6.6251,-7.1442
-34,Formosa,Noreste,-3.1742,-6.4726
-38,Jujuy,Noroeste,-6.45,-2.4714
-42,La Pampa,Pampeana,0.1366,2.8078
-46,La Rioja,Noroeste,-10.1493,-11.1118
-50,Mendoza,Cuyo,-1.8244,-6.7234
-54,Misiones,Noreste,-10.3927,-13.4039
-58,Neuquén,Patagonia,5.4669,5.0688
-62,Río Negro,Patagonia,1.7328,2.6376
-66,Salta,Noroeste,-5.1835,-2.8586
-70,San Juan,Cuyo,-3.3869,-7.4708
-74,San Luis,Cuyo,-0.1133,-4.7752
-78,Santa Cruz,Patagonia,-3.5649,-3.8776
-82,Santa Fe,Pampeana,-1.1282,-1.5428
-86,Santiago del Estero,Noroeste,-2.4481,1.1202
-90,Tucumán,Noroeste,-8.9198,-4.7886
-94,Tierra del Fuego,Patagonia,-1.6241,-1.7624
+02,CABA,Gran Buenos Aires,-0.5245,-0.1713
+06,Buenos Aires,Gran Buenos Aires y Pampeana,-4.5003,-7.0213
+10,Catamarca,Noroeste,-3.3496,-10.8292
+14,Córdoba,Pampeana,-0.1364,-1.4263
+18,Corrientes,Noreste,-12.7989,-12.6634
+22,Chaco,Noreste,-6.6846,-14.1973
+26,Chubut,Patagonia,-4.5779,-3.0176
+30,Entre Ríos,Pampeana,-6.4182,-6.4464
+34,Formosa,Noreste,-3.1637,-3.506
+38,Jujuy,Noroeste,-6.2822,-3.3355
+42,La Pampa,Pampeana,0.512,1.1165
+46,La Rioja,Noroeste,-9.8777,-8.2823
+50,Mendoza,Cuyo,-2.4668,-6.8674
+54,Misiones,Noreste,-11.4042,-19.1062
+58,Neuquén,Patagonia,5.4198,4.9859
+62,Río Negro,Patagonia,1.6626,2.7259
+66,Salta,Noroeste,-5.4338,-4.85
+70,San Juan,Cuyo,-3.9554,-5.0684
+74,San Luis,Cuyo,-0.3372,-2.3807
+78,Santa Cruz,Patagonia,-4.0082,-5.9788
+82,Santa Fe,Pampeana,-1.1874,-1.6769
+86,Santiago del Estero,Noroeste,-2.6698,-2.8197
+90,Tucumán,Noroeste,-8.8139,-3.4496
+94,Tierra del Fuego,Patagonia,-2.1132,-2.7929
