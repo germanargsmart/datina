@@ -119,6 +119,8 @@ FRASE_FRECUENCIA = {
     "presidente": "Se actualiza con cada cambio de presidente.", "gabinete": "Se actualiza con cada cambio de gabinete.",
     "onu": "Se actualiza cada cuatro o cinco años.", "inventario": "Se actualiza con cada inventario.",
     "pausa": "La encuesta está en pausa: el INDEC la está reformulando.",
+    "padron": "Se actualiza cuando el Ministerio de Justicia publica un padrón nuevo.",
+    "ultimo": "Es el último dato que publicó la fuente.",
 }
 FRECUENCIA = {
     # Trabajo
@@ -149,6 +151,8 @@ FRECUENCIA = {
     "f-elecciones": "eleccion", "f-legisladores": "congreso", "f-anios-congreso": "congreso", "f-representacion": "anio", "f-congreso": "congreso", "f-votaciones": "leyes",
     "f-votaciones-espacios": "leyes", "f-voto-provincia": "eleccion", "f-atn": "anio", "f-transferencias": "anio", "f-apoyo": "anio", "f-presupuesto": "anio",
     "f-presidentes": "presidente", "f-ministros": "gabinete", "f-confianza-gobierno": "mes",
+    "f-corte-casos": "anio", "f-jueces-federales": "padron", "f-fiscalias-federales": "ultimo",
+    "f-cortes-provinciales": "anio", "f-justicia-provincial": "anio",
     # Gobierno
     "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio",
     "f-fiscal": "anio",

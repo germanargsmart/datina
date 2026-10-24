@@ -25,7 +25,7 @@ scripts/pruebas_datos.py       pruebas de los datos: si fallan, no se arma ni se
 scripts/relaciones.py          arma el Explorador de relaciones (relaciones.html) desde datos/manual/relaciones.json y lo valida
 scripts/catalogo.py            arma la lista del Catálogo de datos (catalogo.html) y valida que cada tabla publicada tenga dónde se usa (datos/manual/catalogo.json)
 scripts/prueba_paginas.mjs     prueba de las páginas armadas en Chrome sin ventana (usa scripts/cdp.mjs)
-scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py
+scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geometria_*.py, *_presupuesto.py, justicia_provincias.py
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos
 pobreza/                       consultor de pobreza aparte (Observable Framework, DuckDB, Parquet): ver pobreza/README.md
@@ -37,7 +37,7 @@ docs/roadmap/                  plan vigente, estado, decisiones, criterios de ac
 ## Comandos
 
 - Todo: `python scripts/01_descargar.py && python scripts/02_procesar.py && python scripts/03_construir_sitio.py`, y después `node scripts/prueba_paginas.mjs` (Node 22 o más y Chrome, de 3 a 5 minutos).
-- No correr `01_descargar.py` para cambios visuales ni sin aprobación del autor: baja cientos de MB.
+- No correr `01_descargar.py` para cambios visuales ni sin aprobación del autor: baja cientos de MB. Para sumar una fuente, `python scripts/01_descargar.py --solo archivo` baja solo ese archivo de `FUENTES` y cambia solo su fila del registro.
 - Armar sin descargar: `python scripts/03_construir_sitio.py` (corre antes `pruebas_datos.py`). No toca `sitio/pobreza/`: el consultor de pobreza se arma aparte (`pobreza/README.md`) y entra al sitio solo con `python scripts/03_construir_sitio.py --con-pobreza`.
 - Sintaxis del JavaScript, después de tocar `datina.js`: `node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"`.
 - Catálogo del Explorador de relaciones: `python scripts/relaciones.py` (lo valida) y `python scripts/prueba_relaciones.py` (prueba el validador). 03 corre los dos.

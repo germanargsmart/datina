@@ -3847,6 +3847,187 @@ CORTE_RES = {
     "cambios_ley": [{"anio": int(str(r.desde)[:4]), "jueces": int(float(r.cantidad_de_jueces)), "norma": r.norma}
                     for r in ctam.itertuples() if isinstance(r.cantidad_de_jueces, str) and int(str(r.desde)[:4]) >= 1862],
 }
+
+# ---------- La justicia: casos de la Corte, jueces, fiscalías y defensorías federales y de las provincias (24 de octubre de 2026) ----------
+# Pedido del autor ("en la corte suprema cuántos fallos por año realiza, cuántas fiscalías federales, provinciales, cuántas cortes
+# supremas provinciales, cuántos jueces tiene cada una"), con sus respuestas: fichas al final de Instituciones políticas. Cuatro fuentes:
+# - los casos que entran y los que resuelve la Corte Suprema, 2014 al último año, del Anuario Estadístico de su Oficina de Estadísticas
+#   (datos/manual/corte_casos.csv, cada cifra con su página: la Corte los publica solo en PDF y en tableros de Tableau). Casos resueltos
+#   son los que tuvieron su decisión de cierre en el año. Un fallo puede cerrar muchos casos iguales, por eso hay menos fallos que casos
+# - el padrón de jueces de la Justicia Federal y de la Justicia Nacional del Ministerio de Justicia (jus_magistrados.csv), un cargo por
+#   fila. Para comparar las provincias se cuentan los cargos federales de los órganos que funcionan: los creados por ley que todavía no
+#   funcionan van aparte. La Justicia Nacional es la justicia ordinaria de la Ciudad de Buenos Aires y va en el texto, no en las barras
+# - el mismo padrón de abril de 2024 (jus_magistrados_2024.zip), el último que trae a los fiscales y los defensores
+# - el Mapa de Género de la Justicia Argentina, para los jueces, fiscales y defensores de cada provincia (ver más abajo)
+corte_casos = pd.read_csv(RAIZ / "datos" / "manual" / "corte_casos.csv")[["anio", "ingresados", "resueltos", "fallos", "acuerdos", "ingresados_previsional_pct"]]
+corte_casos[["fallos", "acuerdos"]] = corte_casos[["fallos", "acuerdos"]].astype("Int64")
+assert corte_casos.anio.is_monotonic_increasing and corte_casos.anio.diff().dropna().eq(1).all(), "corte_casos.csv: años salteados o desordenados"
+for _jus_v, _jus_c in [("corte_casos_ingresados", "ingresados"), ("corte_casos_resueltos", "resueltos")]:
+    agregar(corte_casos.assign(codigo_indec="00", territorio="Argentina", periodo=corte_casos.anio.astype(str), valor=corte_casos[_jus_c]),
+            _jus_v, "casos", "Corte Suprema de Justicia de la Nación, Oficina de Estadísticas")
+# la fecha del padrón va en el nombre del archivo que publica el Ministerio (magistrados-...-20260605.csv): sale de la dirección que anotó
+# 01 en el registro. Si el nombre cambia, se usa el día de la descarga
+_jus_reg = pd.read_csv(CRUDO / "_registro.csv", dtype=str).set_index("archivo")
+_jus_f = re.search(r"(20\d{2})(\d{2})(\d{2})\.csv", str(_jus_reg.url.get("jus_magistrados.csv", "")))
+_jus_f = (int(_jus_f.group(1)), int(_jus_f.group(2))) if _jus_f else (int(_jus_reg.descargado["jus_magistrados.csv"][:4]), int(_jus_reg.descargado["jus_magistrados.csv"][5:7]))
+_jus_m = pd.read_csv(CRUDO / "jus_magistrados.csv", dtype=str, encoding="utf-8-sig")
+with zipfile.ZipFile(CRUDO / "jus_magistrados_2024.zip") as _jus_z:
+    _jus_n = next(n for n in _jus_z.namelist() if n.endswith(".csv"))
+    _jus_v24 = pd.read_csv(_jus_z.open(_jus_n), dtype=str, encoding="utf-8-sig")
+_jus_f24 = re.search(r"(20\d{2})(\d{2})(\d{2})", _jus_n)
+for _jus_d in (_jus_m, _jus_v24):
+    _jus_d["codigo_indec"] = _jus_d.organo_provincia_id.str.zfill(2)
+    assert set(_jus_d.codigo_indec) == set(POB), f"padrón de magistrados: provincias que no se reconocen {set(_jus_d.codigo_indec) ^ set(POB)}"
+    # un órgano funciona si la fuente lo marca habilitado y el cargo no figura como "no corresponde" (en abril de 2024, una sala de la
+    # Cámara Civil y Comercial Federal creada por ley y sin integrar)
+    _jus_d["funciona"] = _jus_d.organo_habilitado.eq("SI") & _jus_d.cargo_cobertura.ne("No corresponde")
+    # tres grupos para los cargos de los órganos que funcionan: con su titular (o con un subrogante mientras el titular está de licencia),
+    # sin titular y con un subrogante, y sin titular ni subrogante
+    _jus_d["grupo"] = np.select([_jus_d.cargo_vacante.eq("NO"), _jus_d.cargo_cobertura.eq("Subrogante")], ["titular", "subrogante"], "sin_cubrir")
+    assert _jus_d[_jus_d.funciona & _jus_d.grupo.eq("sin_cubrir")].cargo_cobertura.eq("Sin subrogante designado").all(), \
+        "padrón de magistrados: un cargo vacante de un órgano que funciona sin subrogante ni la leyenda de que no lo tiene"
+_jus_j = _jus_m[_jus_m.cargo_tipo.eq("Juez")]
+_jus_fed = _jus_j[_jus_j.justicia_federal_o_nacional.eq("Federal")]
+_jus_fh = _jus_fed[_jus_fed.funciona]
+_jus_nac = _jus_j[_jus_j.justicia_federal_o_nacional.eq("Nacional") & _jus_j.funciona]
+assert _jus_nac.codigo_indec.eq("02").all(), "padrón de magistrados: hay cargos de la Justicia Nacional fuera de la Ciudad"
+justicia_federal = (_jus_fh.groupby(["codigo_indec", "grupo"]).size().unstack(fill_value=0)
+                    .reindex(index=sorted(POB), columns=["titular", "subrogante", "sin_cubrir"], fill_value=0))
+justicia_federal["cargos"] = justicia_federal.sum(axis=1)
+for _jus_c, _jus_t in [("organos", None), ("juzgados", "Juzgado"), ("camaras", "Cámara"), ("tribunales_orales", "Tribunal")]:
+    _jus_o = _jus_fh if _jus_t is None else _jus_fh[_jus_fh.organo_tipo.eq(_jus_t)]
+    justicia_federal[_jus_c] = _jus_o.groupby("codigo_indec").organo_nombre.nunique().reindex(justicia_federal.index, fill_value=0)
+justicia_federal["cargos_sin_funcionar"] = _jus_fed[~_jus_fed.funciona].groupby("codigo_indec").size().reindex(justicia_federal.index, fill_value=0)
+justicia_federal = justicia_federal.reset_index()
+justicia_federal.insert(1, "territorio", justicia_federal.codigo_indec.map(CORTO))
+justicia_federal["poblacion"] = justicia_federal.codigo_indec.map(POB).round(0)
+justicia_federal["cargos_cada_100mil"] = (justicia_federal.cargos / justicia_federal.poblacion * 1e5).round(4)
+justicia_federal["pct_sin_titular"] = ((justicia_federal.subrogante + justicia_federal.sin_cubrir) / justicia_federal.cargos * 100).round(4)
+assert justicia_federal.cargos.gt(0).all(), "padrón de magistrados: una provincia sin jueces federales"
+agregar(justicia_federal.assign(periodo=f"{_jus_f[0]}-{_jus_f[1]:02d}", valor=justicia_federal.cargos), "jueces_federales_cargos", "cargos de juez",
+        "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional")
+agregar(justicia_federal.assign(periodo=f"{_jus_f[0]}-{_jus_f[1]:02d}", valor=justicia_federal.cargos_cada_100mil), "jueces_federales_cada_100mil",
+        "cargos de juez cada 100.000 habitantes", "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC")
+# fiscalías y defensorías federales de abril de 2024: se cuentan los órganos (una fiscalía puede tener más de un fiscal) de los que funcionan
+_jus_mp = _jus_v24[_jus_v24.justicia_federal_o_nacional.eq("Federal") & _jus_v24.funciona]
+_jus_mp_nac = _jus_v24[_jus_v24.justicia_federal_o_nacional.eq("Nacional") & _jus_v24.funciona]
+mp_federal = pd.DataFrame({"codigo_indec": sorted(POB)})
+for _jus_c, _jus_t in [("fiscalias", "Fiscal"), ("defensorias", "Defensor")]:
+    _jus_o = _jus_mp[_jus_mp.cargo_tipo.eq(_jus_t)]
+    mp_federal[_jus_c] = mp_federal.codigo_indec.map(_jus_o.groupby("codigo_indec").organo_nombre.nunique()).fillna(0).astype(int)
+    mp_federal[f"{_jus_c}_cargos"] = mp_federal.codigo_indec.map(_jus_o.groupby("codigo_indec").size()).fillna(0).astype(int)
+    mp_federal[f"{_jus_c}_cargos_sin_titular"] = mp_federal.codigo_indec.map(_jus_o[_jus_o.cargo_vacante.eq("SI")].groupby("codigo_indec").size()).fillna(0).astype(int)
+mp_federal.insert(1, "territorio", mp_federal.codigo_indec.map(CORTO))
+mp_federal["poblacion"] = mp_federal.codigo_indec.map(POB).round(0)
+mp_federal["fiscalias_cada_100mil"] = (mp_federal.fiscalias / mp_federal.poblacion * 1e5).round(4)
+mp_federal["defensorias_cada_100mil"] = (mp_federal.defensorias / mp_federal.poblacion * 1e5).round(4)
+assert mp_federal.fiscalias.gt(0).all() and mp_federal.defensorias.gt(0).all(), "padrón de 2024: una provincia sin fiscalías o sin defensorías federales"
+for _jus_c, _jus_u in [("fiscalias", "fiscalías"), ("defensorias", "defensorías")]:
+    agregar(mp_federal.assign(periodo=f"{_jus_f24.group(1)}-{_jus_f24.group(2)}", valor=mp_federal[_jus_c]), f"{_jus_c}_federales", _jus_u,
+            "Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional")
+# los jueces, fiscales y defensores de cada provincia y de la Ciudad (datos/manual/justicia_provincias.csv, que arma una vez por año
+# scripts/justicia_provincias.py desde el Mapa de Género de la Justicia Argentina de la Oficina de la Mujer de la Corte Suprema): personas
+# en el cargo al 31 de octubre de cada año. Los jueces son la "magistratura" del Mapa, que incluye a los ministros del máximo tribunal, a
+# los camaristas y a la justicia de paz. Si una provincia no cargó un dato el último año se usa el del anterior, lo mismo que hizo el Mapa
+# publicado. Catamarca tiene un solo ministerio público y carga a fiscales y defensores juntos: queda fuera de esas dos vistas. Cuántos
+# miembros fija la ley para cada máximo tribunal sale de datos/manual/cortes_provinciales.csv, solo donde se leyó el número en la norma
+_jus_jp = pd.read_csv(RAIZ / "datos" / "manual" / "justicia_provincias.csv", dtype={"codigo_indec": str})
+_jus_pa = int(_jus_jp.anio.max())
+_jus_cp = pd.read_csv(RAIZ / "datos" / "manual" / "cortes_provinciales.csv", dtype={"codigo_indec": str})
+assert sorted(_jus_cp.codigo_indec) == sorted(POB) and sorted(_jus_jp[_jus_jp.anio == _jus_pa].codigo_indec) == sorted(POB), \
+    "justicia de las provincias: faltan o sobran jurisdicciones"
+JUS_MP_UNICO = {"10"}  # Catamarca
+justicia_provincias = _jus_cp[["codigo_indec", "tribunal", "miembros_ley"]].sort_values("codigo_indec").reset_index(drop=True)
+justicia_provincias.insert(1, "territorio", justicia_provincias.codigo_indec.map(CORTO))
+_jus_bajas = {}
+for _jus_k in ["ministros", "magistratura", "fiscales", "defensores"]:
+    _jus_t = _jus_jp.assign(v=_jus_jp[f"{_jus_k}_mujeres"] + _jus_jp[f"{_jus_k}_varones"]).dropna(subset=["v"])
+    _jus_u = _jus_t[_jus_t.anio >= _jus_pa - 1].sort_values("anio").groupby("codigo_indec").last()
+    justicia_provincias[_jus_k] = justicia_provincias.codigo_indec.map(_jus_u.v).astype("Int64")
+    justicia_provincias[f"{_jus_k}_anio"] = justicia_provincias.codigo_indec.map(_jus_u.anio).astype("Int64")
+    # lo que cayó a menos de la mitad de un año al otro va en la nota de la ficha: es lo que cargó la provincia
+    _jus_ant = _jus_t[_jus_t.anio == _jus_pa - 1].set_index("codigo_indec").v
+    _jus_ult = _jus_t[_jus_t.anio == _jus_pa].set_index("codigo_indec").v
+    _jus_bajas[_jus_k] = [{"territorio": CORTO[c], "v": int(_jus_ult[c]), "ant": int(_jus_ant[c])}
+                          for c in sorted(_jus_ult.index) if c in _jus_ant.index and c not in JUS_MP_UNICO and _jus_ult[c] < _jus_ant[c] / 2]
+_jus_mpu = justicia_provincias.codigo_indec.isin(JUS_MP_UNICO)
+justicia_provincias["ministerio_publico_unico"] = justicia_provincias.fiscales.where(_jus_mpu)
+justicia_provincias.loc[_jus_mpu, ["fiscales", "fiscales_anio", "defensores", "defensores_anio"]] = pd.NA
+assert justicia_provincias[["ministros", "magistratura"]].notna().all().all(), "justicia de las provincias: falta un máximo tribunal o un poder judicial"
+justicia_provincias["poblacion"] = justicia_provincias.codigo_indec.map(POB).round(0)
+for _jus_k in ["magistratura", "fiscales", "defensores"]:
+    justicia_provincias[f"{_jus_k}_cada_100mil"] = (justicia_provincias[_jus_k].astype(float) / justicia_provincias.poblacion * 1e5).round(4)
+    agregar(justicia_provincias.dropna(subset=[_jus_k]).assign(periodo=justicia_provincias[f"{_jus_k}_anio"].astype(str),
+                                                               valor=justicia_provincias[f"{_jus_k}_cada_100mil"]),
+            {"magistratura": "jueces_provinciales_cada_100mil"}.get(_jus_k, f"{_jus_k}_provinciales_cada_100mil"), "personas cada 100.000 habitantes",
+            "Corte Suprema de Justicia de la Nación, Oficina de la Mujer, Mapa de Género de la Justicia Argentina, e INDEC")
+justicia_provincias["miembros_ley"] = justicia_provincias.miembros_ley.astype("Int64")
+_jus_vac = justicia_provincias.dropna(subset=["miembros_ley"])
+assert (_jus_vac.ministros <= _jus_vac.miembros_ley).all(), \
+    f"un máximo tribunal con más ministros que los que fija su ley: {_jus_vac[_jus_vac.ministros > _jus_vac.miembros_ley].territorio.tolist()}"
+_jus_cu = corte_casos.iloc[-1]
+# los años seguidos, hasta el último, en los que entraron más casos de los que se resolvieron
+_jus_sal = corte_casos.ingresados.gt(corte_casos.resueltos)[::-1].cumprod()[::-1].astype(bool)
+_jus_fed_v24 = _jus_v24[_jus_v24.cargo_tipo.eq("Juez") & _jus_v24.justicia_federal_o_nacional.eq("Federal") & _jus_v24.funciona]
+_jus_jf = justicia_federal.sort_values("cargos_cada_100mil")
+JUSTICIA_RES = {
+    "corte": {
+        "desde": int(corte_casos.anio.min()), "hasta": int(_jus_cu.anio), "ingresados": int(_jus_cu.ingresados), "resueltos": int(_jus_cu.resueltos),
+        "ingresados_desde": int(corte_casos.ingresados.iloc[0]), "veces_ingresados": r1(_jus_cu.ingresados / corte_casos.ingresados.iloc[0]),
+        "max_res": int(corte_casos.resueltos.max()), "max_res_anio": int(corte_casos.anio[corte_casos.resueltos.idxmax()]),
+        "min_res": int(corte_casos.resueltos.min()), "min_res_anio": int(corte_casos.anio[corte_casos.resueltos.idxmin()]),
+        "saldo_desde": int(corte_casos.anio[_jus_sal].min()) if _jus_sal.any() else None,
+        "saldo": int((corte_casos.ingresados - corte_casos.resueltos)[_jus_sal].sum()),
+        "fallos": int(_jus_cu.fallos), "acuerdos": int(_jus_cu.acuerdos), "previsional_pct": r1(_jus_cu.ingresados_previsional_pct),
+        "fallos_ant": int(corte_casos.fallos.iloc[-2]) if pd.notna(corte_casos.fallos.iloc[-2]) else None,
+        "fallos_desde": int(corte_casos.anio[corte_casos.fallos.notna()].min()),
+    },
+    "federal": {
+        "fecha": f"{MES[_jus_f[1] - 1]} de {_jus_f[0]}", "anio": _jus_f[0],
+        "cargos": int(justicia_federal.cargos.sum()), "titular": int(justicia_federal.titular.sum()), "subrogante": int(justicia_federal.subrogante.sum()),
+        "sin_cubrir": int(justicia_federal.sin_cubrir.sum()), "organos": int(justicia_federal.organos.sum()),
+        "pct_sin_titular": r1((justicia_federal.subrogante.sum() + justicia_federal.sin_cubrir.sum()) / justicia_federal.cargos.sum() * 100),
+        "cada_100mil": r1(justicia_federal.cargos.sum() / sum(POB.values()) * 1e5),
+        "max": {"codigo": _jus_jf.iloc[-1].codigo_indec, "territorio": _jus_jf.iloc[-1].territorio, "valor": r1(_jus_jf.iloc[-1].cargos_cada_100mil)},
+        "min": {"codigo": _jus_jf.iloc[0].codigo_indec, "territorio": _jus_jf.iloc[0].territorio, "valor": r1(_jus_jf.iloc[0].cargos_cada_100mil)},
+        "caba": int(justicia_federal.set_index("codigo_indec").cargos["02"]),
+        "sin_funcionar_cargos": int(justicia_federal.cargos_sin_funcionar.sum()),
+        "sin_funcionar_organos": int(_jus_fed[~_jus_fed.funciona].organo_nombre.nunique()),
+        "nacional_cargos": int(len(_jus_nac)), "nacional_sin_titular": int(_jus_nac.grupo.ne("titular").sum()),
+        "fecha_ant": f"{MES[int(_jus_f24.group(2)) - 1]} de {_jus_f24.group(1)}",
+        "pct_sin_titular_ant": r1(_jus_fed_v24.grupo.ne("titular").mean() * 100),
+    },
+    "mp": {
+        "fecha": f"{MES[int(_jus_f24.group(2)) - 1]} de {_jus_f24.group(1)}", "anio": int(_jus_f24.group(1)),
+        **{k: int(mp_federal[k].sum()) for k in ["fiscalias", "defensorias", "fiscalias_cargos", "defensorias_cargos",
+                                                  "fiscalias_cargos_sin_titular", "defensorias_cargos_sin_titular"]},
+        "caba_fiscalias": int(mp_federal.set_index("codigo_indec").fiscalias["02"]),
+        "nacional_fiscalias": int(_jus_mp_nac[_jus_mp_nac.cargo_tipo.eq("Fiscal")].organo_nombre.nunique()),
+        "nacional_defensorias": int(_jus_mp_nac[_jus_mp_nac.cargo_tipo.eq("Defensor")].organo_nombre.nunique()),
+        "min_fiscalias": int(mp_federal.fiscalias.min()),
+    },
+    "prov": {
+        "anio": _jus_pa, "anio_ant": _jus_pa - 1,
+        **{k: int(justicia_provincias[k].sum()) for k in ["ministros", "magistratura", "fiscales", "defensores"]},
+        # el promedio del país, con las jurisdicciones que tienen el dato
+        "pais": {k: r1(justicia_provincias[k].sum() / justicia_provincias.poblacion[justicia_provincias[k].notna()].sum() * 1e5)
+                 for k in ["magistratura", "fiscales", "defensores"]},
+        "max": {k: {"territorio": justicia_provincias.loc[justicia_provincias[f"{k}_cada_100mil"].idxmax(), "territorio"],
+                    "valor": r1(justicia_provincias[f"{k}_cada_100mil"].max())} for k in ["magistratura", "fiscales", "defensores"]},
+        "min": {k: {"territorio": justicia_provincias.loc[justicia_provincias[f"{k}_cada_100mil"].idxmin(), "territorio"],
+                    "valor": r1(justicia_provincias[f"{k}_cada_100mil"].min())} for k in ["magistratura", "fiscales", "defensores"]},
+        # las jurisdicciones con el dato del año anterior, las que no tienen el dato y las caídas grandes, para la nota
+        "anteriores": {k: [CORTO[c] for c in justicia_provincias.codigo_indec[justicia_provincias[f"{k}_anio"].lt(_jus_pa).fillna(False)]]
+                       for k in ["ministros", "magistratura", "fiscales", "defensores"]},
+        "mp_unico": [{"territorio": CORTO[c], "v": int(justicia_provincias.set_index("codigo_indec").ministerio_publico_unico[c])} for c in sorted(JUS_MP_UNICO)],
+        "bajas": _jus_bajas,
+        "cortes_ley": int(_jus_vac.shape[0]), "cortes_completas": int((_jus_vac.ministros == _jus_vac.miembros_ley).sum()),
+        "cortes_vacantes": [{"territorio": r.territorio, "tribunal": r.tribunal, "ministros": int(r.ministros), "ley": int(r.miembros_ley)}
+                            for r in _jus_vac.assign(f=_jus_vac.miembros_ley - _jus_vac.ministros).sort_values(["f", "territorio"], ascending=[False, True]).itertuples()
+                            if r.ministros < r.miembros_ley],
+        "ministras": int(_jus_jp[_jus_jp.anio == _jus_pa].ministros_mujeres.sum()),
+    },
+}
 mi = pd.read_csv(RAIZ / "datos" / "manual" / "ministros.csv")
 mi["origen"] = [origen(a, b) for a, b in zip(mi.provincia_nacimiento, mi.amba)]
 INTERINOS = {"Ramón Puerta", "Adolfo Rodríguez Saá", "Eduardo Camaño"}
@@ -6139,6 +6320,7 @@ tablas = {
     **({"confianza_consumidor": cco_serie} if cco_serie is not None else {}),
     **({"expectativas_inflacion": exi_serie} if exi_serie is not None else {}),
     "corte_jueces": corte_jueces, "corte_composicion": corte_composicion, "corte_presidentes": corte_presidentes,
+    "corte_casos": corte_casos, "justicia_federal_provincias": justicia_federal, "fiscalias_defensorias_federales": mp_federal, "justicia_provincias": justicia_provincias,
     "voto_legisladores_y_provincia": rep_voto,
     "apoyo_gobierno_provincias": apoyo[["anio", "codigo_indec", "territorio", "presidente", "apoyo", "votos", "atn_hab", "otras_hab"]],
     "transferencias_provincias": transf[["anio", "codigo_indec", "territorio", "atn", "otras", "ley", "atn_hab", "otras_hab", "ley_hab", "atn_indice", "otras_indice", "pob"]],
@@ -6681,6 +6863,7 @@ assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])
 resumen["capitales_eph_res"] = CAP_EPH_RES
 resumen["anios_congreso"] = ANIOS_CONG
 resumen["corte"] = CORTE_RES
+resumen["justicia"] = JUSTICIA_RES
 resumen["presupuesto"] = PRESUP_RES
 resumen["cruces_series"] = {k: [int(cruces_series[cruces_series.id == k].anio.min()), int(cruces_series[cruces_series.id == k].anio.max())] for k in SERIES_IDS}
 

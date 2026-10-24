@@ -1004,6 +1004,72 @@ const TX = {
   "confianza-consumidor-nota": R.confianza_consumidor ? `Encuesta mensual de la Universidad Torcuato Di Tella. El índice va de 0 a 100 y resume tres partes: la situación ` +
     `económica personal y de la familia, la situación económica del país y si es un buen momento para comprar bienes durables, como electrodomésticos, e inmuebles. Por región, Capital es la Ciudad de Buenos Aires y GBA, los partidos del ` +
     `Gran Buenos Aires. Como toda encuesta tiene margen de error: los cambios chicos de un mes al otro pueden no ser significativos.` : "",
+  // la justicia (24 de octubre de 2026): casos de la Corte Suprema, jueces, fiscalías y defensorías federales. Las cifras salen de
+  // R.justicia (02_procesar.py), que arma las tablas y explica cada fuente
+  "corte-casos": `En ${R.justicia.corte.hasta} llegaron a la Corte Suprema ${n0(R.justicia.corte.ingresados)} casos, ${n1(R.justicia.corte.veces_ingresados)} veces ` +
+    `los de ${R.justicia.corte.desde}. El ${pct(R.justicia.corte.previsional_pct)} fue a la secretaría que trata los temas previsionales, como jubilaciones y pensiones. ` +
+    (R.justicia.corte.saldo_desde ? `Desde ${R.justicia.corte.saldo_desde} llegan cada año más casos de los que se resuelven: entre ${R.justicia.corte.saldo_desde} y ` +
+      `${R.justicia.corte.hasta} entraron ${n0(R.justicia.corte.saldo)} casos más de los que se resolvieron. ` : "") +
+    `El año con más casos resueltos fue ${R.justicia.corte.max_res_anio}, con ${n0(R.justicia.corte.max_res)}, y el de menos, ${R.justicia.corte.min_res_anio}, ` +
+    `con ${n0(R.justicia.corte.min_res)}.`,
+  "corte-casos-nota": `Un caso es un expediente que llega a la Corte. La mayoría son recursos contra sentencias de otros tribunales. Un caso resuelto es el que ` +
+    `tuvo en el año la decisión que lo cierra en la Corte, aunque el asunto siga en otra instancia. Un fallo puede cerrar muchos casos iguales a la vez: en ` +
+    `${R.justicia.corte.hasta} la Corte firmó ${n0(R.justicia.corte.fallos)} fallos en ${R.justicia.corte.acuerdos} acuerdos de sus jueces` +
+    (R.justicia.corte.fallos_ant ? `, y en ${R.justicia.corte.hasta - 1}, ${n0(R.justicia.corte.fallos_ant)}` : "") + `. La Oficina de Estadísticas de la Corte ` +
+    `publica la serie desde ${R.justicia.corte.desde} solo en PDF y en tableros interactivos: las cifras se cargaron a mano, cada una con su página, y la cantidad de ` +
+    `fallos está desde ${R.justicia.corte.fallos_desde}. Las notas anuales del Centro de Información Judicial, anteriores a esta serie, contaban de otra manera y no se mezclan con ella.`,
+  "jueces-federales": (() => { const F = R.justicia.federal;
+    return `Son ${n0(F.cargos)} cargos en ${n0(F.organos)} juzgados, cámaras y tribunales orales que funcionan. De los que no tienen titular, ${n0(F.subrogante)} los ` +
+      `cubre un subrogante, que es otro juez, un conjuez o un secretario designado para reemplazarlo, y ${n0(F.sin_cubrir)} no tienen a nadie designado. ` +
+      `En ${F.fecha_ant} estaba sin titular el ${pct(F.pct_sin_titular_ant)}. Por habitante, ${F.max.territorio} tiene ${n1(F.max.valor)} cargos cada 100.000 ` +
+      `habitantes` + (F.max.codigo === "02" ? `, porque ahí están también los tribunales federales que atienden casos de todo el país,` : "") +
+      ` y ${F.min.territorio}, ${n1(F.min.valor)}. El promedio del país es ${n1(F.cada_100mil)}.`; })(),
+  "jueces-federales-nota": (() => { const F = R.justicia.federal;
+    return `Un cargo es el lugar de un juez en un juzgado, una cámara o un tribunal oral: una cámara o un tribunal tiene varios. Se cuentan los cargos de ` +
+      `los órganos que funcionan. Hay ${n0(F.sin_funcionar_cargos)} cargos más en ${n0(F.sin_funcionar_organos)} juzgados, cámaras y tribunales creados por ley que ` +
+      `todavía no funcionan. No incluye a la Corte Suprema. La Justicia Nacional, que es la justicia ordinaria de la Ciudad de Buenos Aires (civil, comercial, ` +
+      `laboral y penal), tiene otros ${n0(F.nacional_cargos)} cargos, ${n0(F.nacional_sin_titular)} sin titular, y no entra en las barras para que las provincias se ` +
+      `puedan comparar. Padrón del Ministerio de Justicia de ${F.fecha} y población proyectada por el INDEC para ${R.anio_pob}.`; })(),
+  "fiscalias-federales": (() => { const M = R.justicia.mp, f = T.fiscalias_defensorias_federales,
+      tot = d => d.fiscalias_cada_100mil + d.defensorias_cada_100mil,
+      mx = f.reduce((a, d) => tot(d) > tot(a) ? d : a), mn = f.reduce((a, d) => tot(d) < tot(a) ? d : a);
+    return `Las fiscalías investigan los delitos federales y acusan, y las defensorías públicas oficiales defienden a quien no tiene un abogado particular. ` +
+      `En ${M.fecha}, ${n0(M.fiscalias_cargos_sin_titular)} de los ${n0(M.fiscalias_cargos)} cargos de fiscal no tenían titular, y ${n0(M.defensorias_cargos_sin_titular)} ` +
+      `de los ${n0(M.defensorias_cargos)} de defensor. Contando las dos, ${mx.territorio} tiene ${n1(tot(mx))} cada 100.000 habitantes y ${mn.territorio}, ${n1(tot(mn))}.`; })(),
+  "fiscalias-federales-nota": (() => { const M = R.justicia.mp;
+    return `Una fiscalía o una defensoría puede tener más de un cargo. Se cuentan las que funcionan. Es el último padrón del Ministerio de Justicia que trae a los ` +
+      `fiscales y los defensores: el de ${R.justicia.federal.fecha} trae solo a los jueces. No incluye a la Procuración General ni a la Defensoría General de la ` +
+      `Nación. En la Ciudad de Buenos Aires funcionan además ${n0(M.nacional_fiscalias)} fiscalías y ${n0(M.nacional_defensorias)} defensorías de la Justicia ` +
+      `Nacional, la justicia ordinaria de la Ciudad, que no entran en las barras. La población es la que proyecta el INDEC para ${R.anio_pob}, la misma de las otras fichas.`; })(),
+  "cortes-provinciales": (() => { const P = R.justicia.prov, v = P.cortes_vacantes.map((c, i) => `el de ${c.territorio}${i ? "," : " tenía"} ${c.ministros} de ${c.ley}`);
+    const lista = v.length > 1 ? v.slice(0, -1).join(", ") + " " + yE(v.at(-1)) : v[0] || "";
+    return `De los ${P.cortes_ley} máximos tribunales cuyo tamaño se pudo leer en la ley, ${P.cortes_completas} tenían ocupados todos sus lugares ` +
+      `al 31 de octubre de ${P.anio}` + (lista ? `. ${lista.replace(/^el/, "El")}` : "") +
+      `. De las ${n0(P.ministros)} personas que integraban los máximos tribunales de las provincias y de la Ciudad, ${n0(P.ministras)} eran mujeres. La Corte Suprema de la Nación tiene hoy ` +
+      `${R.corte.hoy.length} de los ${R.corte.ley_hoy} jueces que fija la ley.`; })(),
+  "cortes-provinciales-nota": (() => { const P = R.justicia.prov;
+    return `Cada provincia llama distinto a su máximo tribunal: Corte Suprema, Superior Tribunal o Tribunal Superior de Justicia. Los ministros en funciones ` +
+      `son los que cargó cada poder judicial en el Mapa de Género de la Oficina de la Mujer de la Corte Suprema, al 31 de octubre de ${P.anio}. Los lugares ` +
+      `que fija la ley salen de la constitución o la ley orgánica de cada provincia, vigentes hoy, y van solo donde se leyó el número en la norma: en ` +
+      `${24 - P.cortes_ley} jurisdicciones la constitución da solo un mínimo o un rango y no se encontró el texto de la ley que fija el número.`; })(),
+  "justicia-provincial": (() => { const P = R.justicia.prov;
+    return `Sumaban ${n0(P.magistratura)} jueces, ${n0(P.fiscales)} fiscales y ${n0(P.defensores)} defensores, sin contar la justicia federal. Por habitante, ` +
+      `${P.max.magistratura.territorio} tiene la cifra más alta de jueces, ${n1(P.max.magistratura.valor)} cada 100.000 habitantes, y ${P.min.magistratura.territorio} ` +
+      `la más baja, ${n1(P.min.magistratura.valor)}: la diferencia depende en parte de cuántos juzgados de paz tiene cada provincia. En fiscales, el promedio del ` +
+      `país es ${n1(P.pais.fiscales)} cada 100.000 habitantes, y en defensores, ${n1(P.pais.defensores)}.`; })(),
+  "justicia-provincial-nota": (() => { const P = R.justicia.prov, LAB = {fiscales: "fiscales", defensores: "defensores", magistratura: "jueces", ministros: "ministros"};
+    const lista = l => l.length > 1 ? l.slice(0, -1).join(", ") + " " + yE(l.at(-1)) : l[0];
+    const faltan = Object.entries(P.anteriores).filter(([, l]) => l.length).map(([k, l]) => `los ${LAB[k]} de ${lista(l)}`);
+    const ant = faltan.length ? [`En ${P.anio} no se cargaron ${faltan.length > 1 ? faltan.slice(0, -1).join(", ") + " ni " + faltan.at(-1) : faltan[0]}: va el dato ` +
+      `de ${P.anio_ant}, como en el Mapa publicado.`] : [];
+    const bajas = Object.entries(P.bajas).flatMap(([k, l]) => l.map(b => `En ${P.anio}, ${b.territorio} informó ${n0(b.v)} ${LAB[k]}, contra ${n0(b.ant)} en ${P.anio_ant}: es lo que cargó la provincia.`));
+    return `Son las personas en cada cargo al 31 de octubre de ${P.anio}, no los cargos que fija la ley: un juzgado vacante no se cuenta. Los jueces ` +
+      `incluyen a los ministros del máximo tribunal, a los camaristas, a los integrantes de tribunales colegiados y a la justicia de paz, que en algunas provincias ` +
+      `tiene muchos juzgados y en otras pocos. Los fiscales incluyen a los procuradores generales, y los defensores, a los defensores generales. ` +
+      [...ant, ...bajas].join(" ") + " " +
+      P.mp_unico.map(m => `${m.territorio} tiene un solo ministerio público y carga juntos a sus fiscales y defensores (${n0(m.v)}): no entra en esas dos vistas.`).join(" ") +
+      ` No incluye a la justicia federal ni a la Justicia Nacional de la Ciudad. Cada jurisdicción carga sus datos en el Mapa de Género de la Justicia Argentina, ` +
+      `de la Oficina de la Mujer de la Corte Suprema. Población proyectada por el INDEC para ${R.anio_pob}.`; })(),
   // confianza en el gobierno (etapa 42): los textos de las dos vistas los arma el dibujo
   "confianza-gobierno-nota": R.confianza_gobierno ? `El índice resume cinco preguntas de una encuesta mensual de opinión pública de alcance nacional que hace la Universidad ` +
     `Torcuato Di Tella sobre el gobierno nacional: la evaluación general del gobierno, si gobierna pensando en el bien general o en intereses de sectores, si administra ` +
@@ -2075,7 +2141,8 @@ function apiladasH(el, cfg) {
     const r = tramos.selectAll("rect.parte").data(partes).join("rect").attr("class", "parte").attr("y", 0).attr("height", y.bandwidth())
       .attr("x", p => x(p.x0)).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0))).attr("fill", p => p.k.c)
       .attr("opacity", opac(d));
-    const t = d3.select(this).selectAll("text.v").data(partes.filter(p => x(p.x0 + p.v) - x(p.x0) > 34)).join("text").attr("class","v")
+    // con cfg.sinValores, solo el texto del final (los máximos tribunales: "3 de 7" ya dice lo que dirían los tramos)
+    const t = d3.select(this).selectAll("text.v").data(partes.filter(p => !cfg.sinValores && x(p.x0 + p.v) - x(p.x0) > 34)).join("text").attr("class","v")
       .attr("x", p => x(p.x0) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("font-size", 11.5).attr("font-family","var(--mono)")
       .attr("fill", p => p.k.texto || "#fff").text(p => n0(p.v));
     if (cfg.anim) { r.attr("width", 0).transition().duration(DUR_G).ease(EASE).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0)));
@@ -2351,7 +2418,7 @@ function mapaCentrales(el, cfg) {
 }
 
 /* ---------- fichas ---------- */
-const MED = {dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct"};
+const MED = {"jueces-federales": "cargos", "fiscalias-federales": "cantidad", "justicia-provincial": "magistratura", dinamica: "pais", rotacion: "edad", fiscal: "autonomia", censo: "cloaca", internet: "accesos_100_hogares", empleo: "cada_100", pisa: "mat", aprender: "mat", protegida: "pct_territorio", eti: "cada_1000", "patentes-prov": "autos_1000", nombres: "F", "visitas-parque": "visitas_ult", "poblacion-proy": "var_pct"};
 const M = v => n1(v / 1e6) + " M";
 const G = k => document.querySelector(`.grafico[data-g="${k}"]`);
 const NAR = css("--celeste-fuerte"), FRI = css("--sol-fuerte"), GRIS = css("--faint");
@@ -4974,6 +5041,52 @@ DIB.representacion = a => {
     `Sumando las dos cámaras, ${CG.peso_max} tiene ${n1(CG.peso_max_v)} veces las bancas que le corresponderían por su población y ${CG.peso_min}, ${n2(CG.peso_min_v)} veces.`;
   barrasH(G("representacion"), {anim: a, data: rp, k: "hab_por_diputado", ref: prom, refLab: `País ${n0(prom)}`, vf: v => n0(v), af: v => n0(v / 1000) + " mil"});
 };
+/* La justicia (24 de octubre de 2026): los casos de la Corte Suprema por año, y los jueces, las fiscalías y las defensorías federales por
+   provincia. Las cantidades van en barras apiladas con el total al final, y la vista por habitante de los jueces, con la línea del país */
+DIB["corte-casos"] = a => lineas(G("corte-casos"), {anim: a, data: T.corte_casos, x: "anio", y0: 0, vf: n0, yf: v => n0(v / 1000) + " mil",
+  series: [{k: "ingresados", lab: "Llegaron", c: FRI, w: 3}, {k: "resueltos", lab: "Resueltos", c: NAR, w: 3}],
+  xl: d => `${d.anio}` + (d.fallos ? `<br><span class="suave">${n0(d.fallos)} fallos en ${d.acuerdos} acuerdos</span>` : "")});
+const JUS_CLAVES = {
+  jueces: [{k: "titular", lab: "Con juez titular", c: "#2C74B5"}, {k: "subrogante", lab: "Sin titular, con subrogante", c: "#74ACDF", texto: "#18212B"},
+    {k: "sin_cubrir", lab: "Sin titular ni subrogante", c: "#C3CAD2", texto: "#18212B"}],
+  mp: [{k: "fiscalias", lab: "Fiscalías", c: "#2C74B5"}, {k: "defensorias", lab: "Defensorías", c: "#F6B40E", texto: "#18212B"}]};
+const jusLeyenda = (id, claves, ver) => { const l = $(id); l.innerHTML = claves.map(k => `<span><i style="background:${k.c}"></i>${k.lab}</span>`).join("");
+  l.style.display = ver ? "" : "none"; };
+// barras apiladas de mayor a menor, con lugar a la derecha para el total
+// fin: el texto al final de cada barra (si no se da, el total). Va como null por defecto: un valor por defecto no ve total, que se define adentro
+const jusApiladas = (g, filas, claves, f, a, fin = null, tipExtra, sinValores = false) => {
+  const el = G(g), total = d => d3.sum(claves, k => d[k.k]), mx = d3.max(filas, total);
+  apiladasH(el, {anim: a, claves, data: [...filas].sort((p, q) => total(q) - total(p)), max: mx * 1.14, ticks: d3.ticks(0, mx, el.clientWidth < 520 ? 2 : 4),
+    ejeF: f, tipF: f, alFinal: fin || (d => f(total(d))), tipExtra, sinValores});
+};
+DIB["jueces-federales"] = a => {
+  const F = R.justicia.federal, filas = T.justicia_federal_provincias, porHab = MED["jueces-federales"] !== "cargos";
+  jusLeyenda("jf-ley", JUS_CLAVES.jueces, !porHab);
+  if (!porHab) return jusApiladas("jueces-federales", filas, JUS_CLAVES.jueces, n0, a);
+  barrasH(G("jueces-federales"), {anim: a, data: filas, k: "cargos_cada_100mil", ref: F.cada_100mil, refLab: `País ${n1(F.cada_100mil)}`, vf: n1, af: n1,
+    tip: d => `<b>${d.territorio}</b><br>${n1(d.cargos_cada_100mil)} cargos cada 100.000 habitantes<br>${n0(d.cargos)} cargos de juez federal`});
+};
+DIB["fiscalias-federales"] = a => {
+  const porHab = MED["fiscalias-federales"] !== "cantidad";
+  jusLeyenda("mpf-ley", JUS_CLAVES.mp, true);
+  jusApiladas("fiscalias-federales", T.fiscalias_defensorias_federales,
+    porHab ? JUS_CLAVES.mp.map(k => ({...k, k: k.k + "_cada_100mil"})) : JUS_CLAVES.mp, porHab ? n1 : n0, a);
+};
+const CP_CLAVES = [{k: "ministros", lab: "Ministras y ministros", c: "#2C74B5"}, {k: "vacantes_ley", lab: "Lugares vacantes según la ley", c: "#C3CAD2", texto: "#18212B"}];
+DIB["cortes-provinciales"] = a => {
+  jusLeyenda("cp-ley", CP_CLAVES, true);
+  // los lugares vacantes, solo donde se leyó en la ley cuántos miembros tiene la corte
+  const filas = T.justicia_provincias.map(d => ({...d, vacantes_ley: d.miembros_ley != null ? Math.max(0, d.miembros_ley - d.ministros) : null}));
+  jusApiladas("cortes-provinciales", filas, CP_CLAVES, n0, a, d => d.miembros_ley != null ? `${n0(d.ministros)} de ${n0(d.miembros_ley)}` : n0(d.ministros),
+    d => `<br>${d.tribunal}` + (d.miembros_ley != null ? `<br>La ley fija ${d.miembros_ley}` : "<br>Sin el número de la ley verificado"), true);
+};
+const JP_NOMBRE = {magistratura: "jueces", fiscales: "fiscales", defensores: "defensores"};
+DIB["justicia-provincial"] = a => {
+  const m = MED["justicia-provincial"], P = R.justicia.prov, k = m + "_cada_100mil";
+  barrasH(G("justicia-provincial"), {anim: a, data: T.justicia_provincias.filter(d => d[k] != null), k, ref: P.pais[m], refLab: `País ${n1(P.pais[m])}`,
+    vf: n1, af: n0, tip: d => `<b>${d.territorio}</b><br>${n1(d[k])} ${JP_NOMBRE[m]} cada 100.000 habitantes<br>${n0(d[m])} en total` +
+      (d[m + "_anio"] !== P.anio ? `<br>Dato de ${d[m + "_anio"]}` : "")});
+};
 /* Cambio de vista de un gráfico (botones OCDE, selectores y conmutadores de cada ficha): no se repite la animación de entrada.
    El gráfico se redibuja quieto y la versión nueva funde sobre la anterior (200 ms), con una transición de vista del navegador.
    Donde no hay soporte, o con movimiento reducido, cambia de una vez. La transición de valores llega en la etapa 6. */
@@ -6053,6 +6166,16 @@ const CLAVE = {
     "de los asalariados de 31 aglomerados urbanos"],
   "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`,
     `millones de tarjetas distintas en ${su.mes}, en colectivos, trenes, subtes y lanchas`],
+  "f-corte-casos": [n0(R.justicia.corte.fallos), `fallos firmó la Corte Suprema en ${R.justicia.corte.hasta}, que cerraron ${n0(R.justicia.corte.resueltos)} casos`,
+    `fallos firmados en ${R.justicia.corte.hasta}`],
+  "f-jueces-federales": [pct(R.justicia.federal.pct_sin_titular), `de los cargos de juez federal no tenía juez titular en ${R.justicia.federal.fecha}`,
+    "de los cargos de juez federal, sin titular"],
+  "f-fiscalias-federales": [n0(R.justicia.mp.fiscalias), `fiscalías federales funcionaban en ${R.justicia.mp.fecha}, junto con ${n0(R.justicia.mp.defensorias)} defensorías públicas oficiales`,
+    `fiscalías federales en ${R.justicia.mp.fecha}`],
+  "f-cortes-provinciales": [n0(R.justicia.prov.ministros), `ministras y ministros tenían los máximos tribunales de las provincias y de la Ciudad al 31 de octubre de ${R.justicia.prov.anio}`,
+    `ministros en los máximos tribunales de las provincias`],
+  "f-justicia-provincial": [n1(R.justicia.prov.pais.magistratura), `jueces cada 100.000 habitantes tenían las justicias de las provincias y de la Ciudad al 31 de octubre de ${R.justicia.prov.anio}, contando la justicia de paz`,
+    "jueces cada 100.000 habitantes, con la justicia de paz"],
   "f-anios-congreso": [`${n1(AC.top[0].total)} años`, `sumó ${AC.top[0].nombre} en el Congreso desde 1983, más que cualquier otra persona`,
     `sumó ${AC.top[0].nombre}, más que cualquier otra persona`],
 };
@@ -6361,7 +6484,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 // el nombre de la sección arriba de la pregunta, solo en una página con fichas de más de una sección. Desde la Fase 2 (paso 5, respuesta
 // del autor del 23 de octubre de 2026) ninguna lo es: el nombre ya está arriba de la página y la pregunta queda primera
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
@@ -7057,6 +7180,14 @@ const PREG = [
   ["¿Quién estuvo más años en el Congreso desde 1983?",
    `${AC.top[0].nombre}: ${n1(AC.top[0].total)} años` + (AC.top[0].dip > 0 && AC.top[0].sen > 0 ? " entre Diputados y el Senado" : AC.top[0].sen > 0 ? " en el Senado" : " en Diputados") +
    `${AC.top[0].sigue ? ", y sigue en el cargo" : ""}. Le siguen ${AC.top[1].nombre} (${n1(AC.top[1].total)}) y ${AC.top[2].nombre} (${n1(AC.top[2].total)}).`, "#f-anios-congreso"],
+  ["¿Cuántos fallos firma la Corte Suprema por año?",
+   `${n0(R.justicia.corte.fallos)} en ${R.justicia.corte.hasta}, que cerraron ${n0(R.justicia.corte.resueltos)} casos. Ese año llegaron ${n0(R.justicia.corte.ingresados)} casos nuevos.`, "#f-corte-casos"],
+  ["¿Cuántos jueces federales no tienen titular?",
+   `El ${pct(R.justicia.federal.pct_sin_titular)} de los ${n0(R.justicia.federal.cargos)} cargos de juez federal, en ${R.justicia.federal.fecha}.`, "#f-jueces-federales"],
+  ["¿Cuántas fiscalías federales hay?",
+   `${n0(R.justicia.mp.fiscalias)} fiscalías y ${n0(R.justicia.mp.defensorias)} defensorías públicas oficiales de la Justicia Federal en ${R.justicia.mp.fecha}.`, "#f-fiscalias-federales"],
+  ["¿Cuántos jueces tienen las justicias provinciales?",
+   `${n0(R.justicia.prov.magistratura)} al 31 de octubre de ${R.justicia.prov.anio}, contando la justicia de paz: ${n1(R.justicia.prov.pais.magistratura)} cada 100.000 habitantes.`, "#f-justicia-provincial"],
 ];
 /* "Más" (etapa 32, como el menú "More" de usafacts.org): una lista blanca debajo del botón, que termina la fila de la barra.
    En el celular ocupa la pantalla debajo de la barra y la página queda quieta detrás (clase menu-abierto en la raíz). Los temas que

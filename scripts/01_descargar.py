@@ -312,6 +312,13 @@ FUENTES = {
         "https://datos.jus.gob.ar/dataset/1ab0cc03-ab9b-4520-975c-5757d87d1061/resource/4358c995-bb04-4ad9-be4a-a9076dc3e42c/download/estadistica-inscripciones-iniciales-automotores-2000-01-2026-08.csv"),
     "dnrpa_motos_nuevas.csv": ckan_id("https://datos.jus.gob.ar", "estadistica-de-tramites-de-motovehiculos", "d523dd08-5c12-467e-b947-aa3206a24d21",
         "https://datos.jus.gob.ar/dataset/72d85f23-b751-4d12-935b-25e32ed9445e/resource/d523dd08-5c12-467e-b947-aa3206a24d21/download/estadistica-inscripciones-iniciales-motovehiculos-2007-01-2026-08.csv"),
+    # Jueces de la Justicia Federal y de la Justicia Nacional, un cargo por fila con su provincia y si está cubierto (Ministerio de Justicia,
+    # Dirección Nacional de Relaciones con el Poder Judicial). La publicación es "eventual" y el nombre del archivo lleva la fecha
+    "jus_magistrados.csv": ckan_id("https://datos.jus.gob.ar", "magistrados-justicia-federal-y-de-la-justicia-nacional", "b12bdbb7-646f-4701-99b7-1109ce919dd5",
+        "https://datos.jus.gob.ar/dataset/3c18d46e-729e-4973-8efd-f54cab18b7e3/resource/b12bdbb7-646f-4701-99b7-1109ce919dd5/download/magistrados-justicia-federal-nacional-jueces-20260605.csv"),
+    # El mismo padrón de abril de 2024, el último que trae también a los fiscales y defensores (desde 2026 trae solo jueces)
+    "jus_magistrados_2024.zip": ckan_id("https://datos.jus.gob.ar", "magistrados-justicia-federal-y-de-la-justicia-nacional", "6f12c193-8502-449b-a04f-458ca0eb770f",
+        "https://datos.jus.gob.ar/dataset/3c18d46e-729e-4973-8efd-f54cab18b7e3/resource/6f12c193-8502-449b-a04f-458ca0eb770f/download/magistrados-justicia-federal-nacional-2024.zip"),
 }
 
 FUENTES.update(femicidios())
@@ -534,6 +541,9 @@ VALIDA.update({
     "exportaciones_rubros.csv": lambda b: b.startswith(b"indice_tiempo,74.3_IET_0_M_16,74.3_IEPP_0_M_35"),
     "sneep_poblacion.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf,total_arg" in b[:400],
     "sneep_condenados.csv": lambda b: b"indice_tiempo,buenos_aires" in b[:40] and b",spf," in b[:400],
+    "jus_magistrados.csv": lambda b: {"justicia_federal_o_nacional", "organo_tipo", "organo_nombre", "cargo_tipo", "cargo_cobertura", "cargo_vacante",
+                                      "organo_provincia_id"} <= columnas_csv(b),
+    "jus_magistrados_2024.zip": lambda b: b[:2] == b"PK",
 })
 # Toda planilla de la API de Series de Tiempo, además de su encabezado, tiene que llegar sin meses vacíos en el medio en ninguna columna
 # (el 11 de octubre de 2026 la API devolvió huecos en el tipo de cambio A3500 y la actualización se cortó): si no, se conserva la anterior
@@ -2467,6 +2477,27 @@ def utdt_series():
         raise ValueError("de la Di Tella no se bajaron " + "; ".join(faltan) + f" (se bajaron {len(bajados)} de {len(paginas)})")
     return paginas["icc"]
 
+
+# Una fuente nueva sin bajar todo (24 de octubre de 2026): `python scripts/01_descargar.py --solo archivo [archivo ...]` baja solo esos
+# archivos de FUENTES y cambia solo sus filas del registro. La actualización mensual corre sin la opción y baja todo, como siempre
+if "--solo" in sys.argv:
+    _solo = sys.argv[sys.argv.index("--solo") + 1:]
+    assert _solo and set(_solo) <= set(FUENTES), f"--solo: no están en FUENTES: {sorted(set(_solo) - set(FUENTES))}"
+    with open(CRUDO / "_registro.csv", newline="", encoding="utf-8") as f:
+        _filas = list(csv.reader(f))
+    _reg = {fila[0]: fila for fila in _filas[1:]}
+    for nombre in _solo:
+        usada = FUENTES[nombre]
+        try:
+            usada = bajar(nombre, usada)
+            estado = "ok"
+        except Exception as e:
+            estado = f"error: {e}"
+        print(f"{nombre:28s} {estado}")
+        _reg[nombre] = [nombre, usada, datetime.datetime.now().isoformat(timespec="seconds"), estado]
+    with open(CRUDO / "_registro.csv", "w", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerows([_filas[0], *_reg.values()])
+    sys.exit(0 if all(_reg[n][3] == "ok" for n in _solo) else 1)
 
 registro = []
 for _nombre, _f in [("votaciones nominales", votaciones), ("exportaciones por semestre", opex_semestre), ("seguridad social (BESS)", bess),

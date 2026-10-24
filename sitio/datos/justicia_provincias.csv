@@ -1,0 +1,25 @@
+codigo_indec,territorio,tribunal,miembros_ley,ministros,ministros_anio,magistratura,magistratura_anio,fiscales,fiscales_anio,defensores,defensores_anio,ministerio_publico_unico,poblacion,magistratura_cada_100mil,fiscales_cada_100mil,defensores_cada_100mil
+02,CABA,Tribunal Superior de Justicia,5,5,2025,88,2025,66,2025,46,2025,,3079674.0,2.8574,2.1431,1.4937
+06,Buenos Aires,Suprema Corte de Justicia,7,3,2025,1263,2025,618,2025,505,2025,,17443372.0,7.2406,3.5429,2.8951
+10,Catamarca,Corte de Justicia,7,7,2025,95,2025,,,,,52,439024.0,21.6389,,
+14,Córdoba,Tribunal Superior de Justicia,7,7,2025,613,2025,126,2025,93,2025,,3957565.0,15.4893,3.1838,2.3499
+18,Corrientes,Superior Tribunal de Justicia,5,5,2025,152,2025,36,2025,25,2025,,1203905.0,12.6256,2.9903,2.0766
+22,Chaco,Superior Tribunal de Justicia,,5,2025,218,2025,48,2025,52,2025,,1207608.0,18.0522,3.9748,4.306
+26,Chubut,Superior Tribunal de Justicia,6,6,2025,137,2025,48,2025,62,2025,,602348.0,22.7443,7.9688,10.2931
+30,Entre Ríos,Superior Tribunal de Justicia,9,9,2025,257,2025,126,2025,81,2025,,1459182.0,17.6126,8.635,5.5511
+34,Formosa,Superior Tribunal de Justicia,5,4,2025,64,2025,11,2025,9,2025,,626649.0,10.2131,1.7554,1.4362
+38,Jujuy,Suprema Corte de Justicia,,7,2025,110,2025,29,2025,56,2025,,800744.0,13.7372,3.6216,6.9935
+42,La Pampa,Superior Tribunal de Justicia,5,5,2025,139,2025,34,2025,28,2025,,376794.0,36.8902,9.0235,7.4311
+46,La Rioja,Tribunal Superior de Justicia,7,5,2025,97,2025,20,2025,48,2025,,403577.0,24.0351,4.9557,11.8936
+50,Mendoza,Suprema Corte de Justicia,7,7,2025,256,2025,95,2025,169,2025,,2047181.0,12.505,4.6405,8.2553
+54,Misiones,Superior Tribunal de Justicia,9,9,2025,215,2025,42,2025,46,2025,,1344368.0,15.9926,3.1241,3.4217
+58,Neuquén,Tribunal Superior de Justicia,5,5,2025,126,2025,37,2025,56,2025,,702816.0,17.9279,5.2645,7.9679
+62,Río Negro,Superior Tribunal de Justicia,5,5,2025,173,2025,99,2025,156,2025,,788658.0,21.936,12.553,19.7804
+66,Salta,Corte de Justicia,9,9,2025,143,2025,57,2025,47,2025,,1486517.0,9.6198,3.8345,3.1618
+70,San Juan,Corte de Justicia,5,5,2025,111,2025,62,2025,27,2025,,849117.0,13.0724,7.3017,3.1798
+74,San Luis,Superior Tribunal de Justicia,5,5,2025,115,2025,33,2025,30,2025,,536173.0,21.4483,6.1547,5.5952
+78,Santa Cruz,Tribunal Superior de Justicia,9,5,2025,56,2025,14,2025,24,2025,,334953.0,16.7188,4.1797,7.1652
+82,Santa Fe,Corte Suprema de Justicia,,7,2025,439,2025,167,2024,84,2024,,3684529.0,11.9147,4.5325,2.2798
+86,Santiago del Estero,Superior Tribunal de Justicia,5,3,2025,86,2025,12,2025,28,2025,,1056774.0,8.138,1.1355,2.6496
+90,Tucumán,Corte Suprema de Justicia,5,5,2025,203,2025,40,2024,36,2025,,1773567.0,11.4459,2.2553,2.0298
+94,Tierra del Fuego,Superior Tribunal de Justicia,5,5,2025,45,2025,14,2025,19,2025,,182003.0,24.7249,7.6922,10.4394
