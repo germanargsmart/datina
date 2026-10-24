@@ -50,7 +50,9 @@ const $ = id => document.getElementById(id) || document.createElement("div");
 const DIFERIDAS = D.diferidas || {}, pedidas = {};
 // las tablas diferidas llegan en columnas ({c: nombres, f: filas}, etapa 19): se vuelven a armar como objetos
 const deColumnas = t => Array.isArray(t) ? t : t.f.map(r => Object.fromEntries(t.c.map((k, i) => [k, r[i]])));
-const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = deColumnas(t))));
+// si la carga falla se olvida la promesa, así "Probá de nuevo" vuelve a pedir el archivo en lugar de repetir la falla (estabilización, P2-18)
+const cargarTabla = n => T[n] ? Promise.resolve(T[n]) : (pedidas[n] ||= d3.json(`datos/${n}.json?v=${DIFERIDAS[n]}`).then(t => (T[n] = deColumnas(t)),
+  e => { delete pedidas[n]; throw e; }));
 // "Ver tabla" de las fichas cuya tabla no está en T ni en DIFERIDAS (Fase 2, paso 5): cada una registra acá una función que devuelve, con
 // una promesa, las filas de lo que muestra su gráfico en ese momento. Si la tabla está abierta y cambia lo elegido, su dibujo llama a
 // refrescarTabla. Va acá arriba porque esas fichas se arman antes que el pie de las fichas
@@ -3399,7 +3401,7 @@ const LG_PER = CG.periodos, LG_ULT = LG_PER[LG_PER.length - 1];
 $("lg-per").innerHTML = [...LG_PER].reverse().map(a => `<option value="${a}">${a} a ${a + 2}${a === LG_ULT ? " (el actual)" : ""}</option>`).join("");
 MED.legisladores = null; MED.lgPer = LG_ULT;
 let LGP = null, lgCargando = null;
-const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_por_periodo.json").then(j => { LGP = j; }));
+const lgCargar = () => lgCargando || (lgCargando = d3.json("datos/legisladores_por_periodo.json").then(j => { LGP = j; }, e => { lgCargando = null; throw e; }));
 ["lg-sel", "lg-per"].forEach(id => $(id).addEventListener("change", ev => {
   if (id === "lg-sel") MED.legisladores = ev.target.value; else MED.lgPer = +ev.target.value;
   DIB.legisladores();
@@ -4032,7 +4034,7 @@ MED.vtLey = VT.leyes[VT.leyes.length - 1].k; MED.votaciones = "Diputados"; MED.v
 // el conmutador de la tabla por espacio (todas o solo las de efecto directo) redibuja la tabla
 DIB.vtfiltro = () => DIB.vtmatriz(false);
 let VTJ = null, vtCargando = null;
-const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }));
+const vtCargar = () => vtCargando || (vtCargando = d3.json("datos/votaciones_leyes_clave.json").then(j => { VTJ = j; }, e => { vtCargando = null; throw e; }));
 // "Ver tabla" (paso 5): el voto de cada legislador en la ley y la cámara elegidas (sin filas si el Senado no publica el acta), y en la
 // tabla por espacio, los votos detrás de cada porcentaje en la cámara elegida
 TABLA_PROPIA["f-votaciones"] = () => vtCargar().then(() => (VTJ.votos[`${MED.vtLey}|${MED.votaciones}`] || [])
@@ -5109,7 +5111,9 @@ Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
       propios.forEach(e => e.style.display = ""); nota.hidden = true;
       return orig(a);
     }
-    if (!T.ocde_comparacion) { d3.csv("datos/ocde_comparacion.csv", d3.autoType).then(f => { T.ocde_comparacion = f; DIB[g](a); }); return; }
+    // si la tabla de la OCDE no llega, el gráfico lo dice en lugar de quedar con el anterior (estabilización, P2-18)
+    if (!T.ocde_comparacion) { d3.csv("datos/ocde_comparacion.csv", d3.autoType).then(f => { T.ocde_comparacion = f; DIB[g](a); },
+      () => { const el = G(g); if (el) sinDatos(el, "No se pudo cargar la comparación con la OCDE."); }); return; }
     const o = OC[k];
     if (lead) { if (lead.dataset.propio == null) lead.dataset.propio = lead.textContent; lead.textContent = textoOCDE(k); }
     propios.forEach(e => e.style.display = "none"); nota.hidden = false;
@@ -5237,7 +5241,7 @@ const CX = (() => {
   const cargar = () => cargando || (cargando = d3.csv("datos/cruces_series.csv", d3.autoType).then(filas => {
     SER = {};
     filas.forEach(r => { const c = String(r.codigo_indec).padStart(2, "0"); ((SER[r.id] ||= {})[c] ||= {})[r.anio] = r.valor; });
-  }));
+  }, e => { cargando = null; avisar("No se pudieron cargar los datos de cada año."); throw e; }));
   const valor = (k, c, a) => SER?.[k]?.[c]?.[a] ?? null;
   const filas = () => st.anio == null || !SER || !conSerie() ? FILAS
     : FILAS.map(f => ({...f, [st.x]: valor(st.x, f.codigo_indec, st.anio), [st.y]: valor(st.y, f.codigo_indec, st.anio)}));
@@ -5291,7 +5295,7 @@ const CX = (() => {
   const parar = () => { clearInterval(reloj); reloj = null; };
   const todo = (anim) => { sincronizar(); barraTiempo(); guardar(); DIB["cruces-disp"](anim); DIB["cruces-matriz"](false); DIB["cruces-multi"](false); };
   const irAnio = (a, anim) => { st.anio = a; barraTiempo(); DIB["cruces-disp"](anim); };
-  document.getElementById("cx-anio").addEventListener("input", ev => { parar(); cargar().then(() => irAnio(+ev.target.value, false)); });
+  document.getElementById("cx-anio").addEventListener("input", ev => { parar(); cargar().then(() => irAnio(+ev.target.value, false), () => {}); });
   document.getElementById("cx-ultimo").addEventListener("click", () => { parar(); irAnio(null, true); });
   document.getElementById("cx-play").addEventListener("click", () => {
     if (reloj) { parar(); barraTiempo(); return; }
@@ -5304,7 +5308,7 @@ const CX = (() => {
         irAnio(st.anio + 1, true);
       }, REDUCIR ? 1200 : 800);
       barraTiempo();
-    });
+    }, () => {});
   });
   selX.addEventListener("change", () => { st.x = selX.value; todo(true); });
   selY.addEventListener("change", () => { st.y = selY.value; todo(true); });
@@ -5570,7 +5574,7 @@ const MAPA_DEP = (() => {
   sel.addEventListener("change", () => { ind = sel.value; cambiarVista("mapa-dep"); });
   document.getElementById("mp-pais").addEventListener("click", () => { cerca = {c: "", de: prov}; cambiarVista("mapa-dep"); });
   const cargar = () => cargando || (cargando = Promise.all([d3.json("datos/departamentos.topo.json"), d3.csv("datos/departamentos.csv", d3.autoType)])
-    .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }));
+    .then(([t, f]) => { topo = t; filas = Object.fromEntries(f.map(r => [String(r.id).padStart(5, "0"), r])); }, e => { cargando = null; throw e; }));
   const MIN_POB = 10000, MIN_HOG = 3000;  // las listas del censo se cortan por hogares, las demás por personas identificadas
   // "Ver tabla" (paso 5): los departamentos que muestra el mapa (los de la provincia acercada o todos), con su nombre y el indicador
   // elegido. El CSV solo trae el código de cada departamento: el nombre sale del mapa
@@ -5584,7 +5588,7 @@ const MAPA_DEP = (() => {
   function dibujar(anim) {
     refrescarTabla("f-mapa");
     const el = G("mapa-dep"); if (!el || !el.offsetParent) return;
-    if (!topo) { cargar().then(() => dibujar(anim)); return; }
+    if (!topo) { cargar().then(() => dibujar(anim), () => sinDatos(el, "No se pudo cargar el mapa.")); return; }
     const m = META[ind], censo = m.fuente.startsWith("INDEC"), obj = topo.objects.departamentos, todos = topojson.feature(topo, obj).features;
     const pv = cerca && cerca.de === prov ? cerca.c : prov;  // tocar una provincia la acerca sin elegirla en todo el sitio
     const enProv = NOMBRES[pv] ? todos.filter(f => f.properties.prov === pv) : todos;
