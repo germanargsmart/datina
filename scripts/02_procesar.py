@@ -4965,7 +4965,10 @@ _su_h = {s.strip().rstrip("."): s for s in _su_x.sheet_names}
 _su_1 = pd.read_excel(_su_x, _su_h["Cuadro 1"], header=None)
 assert "original" in str(_su_1.iat[2, 1]).lower() and "desestacionalizada" in str(_su_1.iat[2, 5]).lower() and "acumulada" in str(_su_1.iat[4, 3]).lower(), \
     "cambió el cuadro 1 de la Encuesta de Supermercados"
-_su_1 = _su_1[pd.to_datetime(_su_1[0], errors="coerce").notna()]
+# las filas de datos son las que traen una fecha de Excel en la primera columna (las otras son el título, las notas y la fuente): se eligen
+# por el tipo de la celda y no leyendo el texto como fecha, que avisaba que no podía adivinar el formato (plan de estabilización, P2-10)
+_su_es_fecha = lambda d: d[0].map(lambda v: isinstance(v, datetime.datetime))
+_su_1 = _su_1[_su_es_fecha(_su_1)]
 supermercados_mensual = pd.DataFrame({"periodo": pd.to_datetime(_su_1[0]).dt.strftime("%Y-%m").values, "original": pd.to_numeric(_su_1[1]).values,
                                       "interanual": pd.to_numeric(_su_1[2], errors="coerce").values,
                                       "acumulada": pd.to_numeric(_su_1[3], errors="coerce").values,
@@ -4975,7 +4978,7 @@ assert list(supermercados_mensual.periodo) == list(pd.period_range(supermercados
 _su_5 = pd.read_excel(_su_x, _su_h["Cuadro 5"], header=None)
 _su_j = {str(_su_5.iat[2, c]).strip(): c for c in range(1, _su_5.shape[1]) if pd.notna(_su_5.iat[2, c])}
 assert len(_su_j) == 26 and all(str(_su_5.iat[3, c]).strip() == "Total" for c in _su_j.values()), "cambió el cuadro 5 de la Encuesta de Supermercados"
-_su_f = _su_5[pd.to_datetime(_su_5[0], errors="coerce").notna()]
+_su_f = _su_5[_su_es_fecha(_su_5)]
 _su_v = pd.DataFrame({j: pd.to_numeric(_su_f[c]).values for j, c in _su_j.items()}, index=pd.to_datetime(_su_f[0]).dt.strftime("%Y-%m").values)
 assert _su_v.notna().all().all() and list(_su_v.index) == list(supermercados_mensual.periodo)
 # las jurisdicciones suman el total del país
