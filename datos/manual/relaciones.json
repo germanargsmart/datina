@@ -2908,7 +2908,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "sp = pd.read_csv(CRUDO / \"snic_pais.csv\", sep=\";\", decimal=\",\")"
+     "contiene": "sp = leer_snic(\"snic_pais.csv\")"
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -2972,7 +2972,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "_seg_p = pd.read_csv(CRUDO / \"snic_pais.csv\""
+     "contiene": "_seg_p = leer_snic(\"snic_pais.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -2988,7 +2988,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "_seg_v = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+     "contiene": "_seg_v = leer_snic(\"snic_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -3004,7 +3004,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "_seg_p = pd.read_csv(CRUDO / \"snic_pais.csv\""
+     "contiene": "_seg_p = leer_snic(\"snic_pais.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -3020,7 +3020,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "_seg_v = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+     "contiene": "_seg_v = leer_snic(\"snic_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -4175,7 +4175,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+     "contiene": "snic_prov = leer_snic(\"snic_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -4231,7 +4231,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+     "contiene": "snic_prov = leer_snic(\"snic_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -4796,7 +4796,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+     "contiene": "snic_prov = leer_snic(\"snic_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -5128,7 +5128,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+     "contiene": "snic_prov = leer_snic(\"snic_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
@@ -5192,7 +5192,7 @@
    "evidencia": [
     {
      "archivo": "scripts/02_procesar.py",
-     "contiene": "snic_prov = pd.read_csv(CRUDO / \"snic_provincias.csv\""
+     "contiene": "snic_prov = leer_snic(\"snic_provincias.csv\""
     },
     {
      "archivo": "scripts/02_procesar.py",
