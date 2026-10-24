@@ -1977,11 +1977,12 @@ def dnap_cargos():
             if sin_nota:
                 raise ValueError(f"la hoja {a} de ocupación provincial marca {nom} con ({sin_nota[0]}) y no tiene esa nota ({planilla})")
             nota = " ".join(f"({k}) {notas[k]}" for k in marcas)
-            # cargos presupuestados en lugar de ocupados: lo dice la nota de su marca, se numere como se numere
+            # cargos presupuestados en lugar de ocupados: lo dice la nota de su marca, se numere como se numere ("(**) cargos presupuestados" hasta
+            # 2025, "(2) La información de la planta ocupada corresponde al dato del Presupuesto de la Provincia" en la planilla de 2017 a 2025)
             filas.append({"anio": a, "jurisdiccion": nom, "gasto_personal_miles": pd.to_numeric(h.iat[i, 2], errors="coerce"),
                           "planta": pd.to_numeric(h.iat[i, 3], errors="coerce"), "gasto_medio": pd.to_numeric(h.iat[i, 4], errors="coerce"),
                           "habitantes": pd.to_numeric(h.iat[i, 5], errors="coerce"),
-                          "presupuestados": any(re.search(r"presupuestad", notas[k], re.I) for k in marcas), "nota": nota})
+                          "presupuestados": any(re.search(r"presupuest", notas[k], re.I) for k in marcas), "nota": nota})
     d = pd.DataFrame(filas)
     if d.groupby("anio").size().min() < 24:
         raise ValueError(f"faltan provincias en la planilla de ocupación provincial ({planilla})")

@@ -5360,9 +5360,11 @@ GBD_RES = {
 }
 # cargos ocupados en las administraciones provinciales (DNAP), cada 1.000 habitantes con la población del INDEC del módulo del sitio
 _gbc = pd.read_csv(CRUDO / "dnap_cargos_provinciales.csv")
-# cargos presupuestados en lugar de ocupados: desde el 24 de octubre de 2026 lo decide 01 con la nota de cada marca ("presupuestados" y
-# "nota"), porque la planilla pasó de marcar con (**) a numerar las notas. Con una tabla anterior, sin "nota", la marca (**)
-_gbc["marca"] = _gbc.presupuestados.astype(bool) if "nota" in _gbc.columns else _gbc.jurisdiccion.str.contains(r"\(\*\*\)", regex=True)
+# cargos presupuestados en lugar de ocupados: desde el 24 de octubre de 2026 lo dice el texto de la nota de cada marca, que 01 guarda en
+# "nota", porque la planilla pasó de marcar con (**) a numerar las notas ("(2) ... corresponde al dato del Presupuesto de la Provincia").
+# Con una tabla anterior, sin "nota", la marca (**)
+_gbc["marca"] = (_gbc.nota.fillna("").str.contains("presupuest", case=False) if "nota" in _gbc.columns
+                 else _gbc.jurisdiccion.str.contains(r"\(\*\*\)", regex=True))
 _gbc["nombre"] = _gbc.jurisdiccion.str.replace(r"\(\s*\d+\s*\)", "", regex=True).str.replace(r"\(?\*+\)?", "", regex=True).str.strip()
 _gbc["codigo_indec"] = _gbc.nombre.map(lambda n: "02" if n.upper() == "G.C.B.A." else codigo(n))
 assert _gbc.codigo_indec.notna().all() and _gbc.groupby("anio").codigo_indec.nunique().eq(24).all(), \
