@@ -5363,7 +5363,9 @@ _gbc = pd.read_csv(CRUDO / "dnap_cargos_provinciales.csv")
 _gbc["marca"] = _gbc.jurisdiccion.str.contains(r"\(\*\*\)", regex=True)  # (**): cargos presupuestados, según la nota de la planilla
 _gbc["nombre"] = _gbc.jurisdiccion.str.replace(r"\(?\*+\)?", "", regex=True).str.strip()
 _gbc["codigo_indec"] = _gbc.nombre.map(lambda n: "02" if n.upper() == "G.C.B.A." else codigo(n))
-assert _gbc.codigo_indec.notna().all() and _gbc.groupby("anio").codigo_indec.nunique().eq(24).all(), "faltan provincias en los cargos de la DNAP"
+assert _gbc.codigo_indec.notna().all() and _gbc.groupby("anio").codigo_indec.nunique().eq(24).all(), \
+    f"faltan provincias en los cargos de la DNAP: sin código {sorted(_gbc[_gbc.codigo_indec.isna()].nombre.unique())}, " \
+    f"jurisdicciones por año {_gbc.groupby('anio').codigo_indec.nunique().to_dict()}"
 GBC_ULT = int(_gbc.anio.max())
 _gbc_u = _gbc[_gbc.anio == GBC_ULT].set_index("codigo_indec")
 _gbc_10 = _gbc[_gbc.anio == _gbc.anio.min()].set_index("codigo_indec")

@@ -1962,6 +1962,19 @@ def dnap_cargos():
     d = pd.DataFrame(filas)
     if d.groupby("anio").size().min() < 24:
         raise ValueError(f"faltan provincias en la planilla de ocupación provincial ({planilla})")
+    # cada año, las 24 jurisdicciones con los nombres que 02 ya conoce (los de la tabla anterior, sin las marcas de nota): si la DNAP cambia
+    # uno, la tabla nueva no reemplaza a la anterior y el registro dice cuál (la actualización del 24 de octubre de 2026 bajó una planilla
+    # con nombres que 02 no reconocía y se cortó)
+    norma = lambda s: s.str.replace(r"\(?\*+\)?", "", regex=True).str.strip().str.upper()
+    arch = CRUDO / "dnap_cargos_provinciales.csv"
+    if arch.exists():
+        nuevos = sorted(set(norma(d.jurisdiccion)) - set(norma(pd.read_csv(arch).jurisdiccion)))
+        if nuevos:
+            raise ValueError(f"la planilla de ocupación provincial trae jurisdicciones con otro nombre: {', '.join(nuevos)} ({planilla})")
+    por_anio = d.assign(n=norma(d.jurisdiccion)).groupby("anio").n.nunique()
+    if not por_anio.eq(24).all():
+        raise ValueError(f"la planilla de ocupación provincial no trae 24 jurisdicciones distintas en "
+                         f"{', '.join(f'{a} ({n})' for a, n in por_anio[por_anio != 24].items())} ({planilla})")
     d.to_csv(CRUDO / "dnap_cargos_provinciales.csv", index=False)
     return url
 
