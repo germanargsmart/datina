@@ -34,6 +34,10 @@ import prueba_pobreza  # noqa: E402
 if _pp := prueba_pobreza.correr(mostrar=False):
     sys.exit("La copia del consultor de pobreza no se comporta como debe: el sitio no se armó.\n" + "\n".join(_pp))
 SITIO = RAIZ / "sitio"
+# si el armado frena a mitad de camino (una comprobación de las de más abajo, o un error), sitio/ vuelve a quedar como estaba antes de
+# empezar, en lugar de quedar armado a medias (scripts/respaldo_sitio.py, estabilización P2-3)
+import respaldo_sitio  # noqa: E402
+respaldo_sitio.guardar(SITIO)
 huella = lambda t: hashlib.sha1(t.encode("utf-8")).hexdigest()[:10]
 e = lambda t: html.escape(str(t), quote=True)
 texto = lambda h: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
@@ -1200,6 +1204,7 @@ import prueba_navegacion  # noqa: E402
 _nav = prueba_navegacion.revisar()
 if _nav:
     sys.exit("Navegación con problemas: el sitio no se dio por armado.\n" + "\n".join(_nav))
+respaldo_sitio.terminado()
 print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos")
 if AVISO_POBREZA:
     print(AVISO_POBREZA)
