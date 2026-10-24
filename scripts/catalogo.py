@@ -202,7 +202,9 @@ def validar(cat_uso, auto, ids, tablas):
             err.append(f"catalogo.json: {t} sobra, sus usos ya salen de la plantilla, de datina.js o del Explorador de relaciones")
     for t in sorted(tablas):
         if not auto.get(t) and t not in cat_uso.get("tablas", {}):
-            err.append(f"{t}.csv: ninguna ficha, artículo o pieza la usa. Sumar en datos/manual/catalogo.json dónde se usa, con su evidencia")
+            # 02_procesar.py no borra las tablas que deja de armar (estabilización, P2-6): el mensaje dice qué hacer en los dos casos
+            err.append(f"{t}.csv: ninguna ficha, artículo o pieza la usa. Sumar en datos/manual/catalogo.json dónde se usa, con su evidencia, "
+                       f"o, si 02_procesar.py ya no la arma, borrar sitio/datos/{t}.csv (02 no borra las tablas que deja de armar)")
     return err
 
 
