@@ -2153,12 +2153,13 @@ function mapaAreas(anim) {
   burb.on("pointermove pointerdown", (ev, d) => { const [mx, my] = d3.pointer(ev, el);
       mostrarTip(el, `<b>${d.nombre}</b><br>${d.caracter}, ${d.anio}<br>${n0(d.hectareas)} hectáreas`, mx, my); })
     .on("pointerleave", ocultarSiMouse);
-  // leyenda
-  const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - 138)},${h - 38})`);
+  // leyenda: seis cuadros de 46 píxeles, más angostos si no entran (en 320 píxeles se cortaba el último, el de 30% o más)
+  const paso = Math.min(46, (w - 12) / 6);
+  const ley = svg.append("g").attr("class", "leyenda-mapa").attr("transform", `translate(${Math.max(6, w / 2 - paso * 3)},${h - 38})`);
   const et = ["0", "5", "10", "15", "20", "30%"];
   colores.forEach((c, i) => {
-    ley.append("rect").attr("x", i * 46).attr("width", 44).attr("height", 10).attr("rx", 2).attr("fill", c);
-    ley.append("text").attr("x", i * 46).attr("y", 26).text(et[i]);
+    ley.append("rect").attr("x", i * paso).attr("width", paso - 2).attr("height", 10).attr("rx", 2).attr("fill", c);
+    ley.append("text").attr("x", i * paso).attr("y", 26).text(et[i]);
   });
   ley.append("text").attr("x", 0).attr("y", -6).text("% del territorio protegido");
 }

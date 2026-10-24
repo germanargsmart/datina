@@ -56,4 +56,4 @@ Revisado en esta tanda:
 - Letra chica en el celular: un solo caso leve (arriba).
 - Unidad, período y referencia: cada ficha dice qué mide, su unidad y su período en la descripción y en la cifra destacada (regla de la frase repetida, aplicada en todas las secciones).
 
-Queda para revisar a mano, familia por familia, con las capturas de `linea_base/`: valores faltantes (provincias sin dato) y leyendas en los mapas a 320 píxeles.
+Revisado el 24 de octubre de 2026 en Chromium, en 320 píxeles: los 23 mapas con provincias o departamentos (las vistas que se abren con su botón "Mapa" y los 13 indicadores de la herramienta de departamentos). Ninguno tiene lugares sin dato hoy (si los hubiera, van en gris y el cuadro dice "sin dato"), ninguna etiqueta queda debajo de 10 píxeles y ninguna se encima con otra. Uno se salía: en el mapa de áreas protegidas (Naturaleza) la leyenda tenía seis cuadros de 46 píxeles fijos y en 320 el último, el de 30% o más, quedaba fuera del dibujo. Ahora los cuadros se angostan solo cuando no entran: en 320, 340 y 360 píxeles la leyenda entra entera, y en 390, 768 y 1440 queda igual que antes, medida cuadro por cuadro.
