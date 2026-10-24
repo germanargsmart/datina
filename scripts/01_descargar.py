@@ -482,6 +482,21 @@ VALIDA.update({
     "renaper_extranjeros.csv": lambda b: b.startswith(b"pais_nacimiento"),
 })
 VALIDA["bm_paises.json"] = lambda b: b'"capitalCity"' in b
+# Los dos CSV del SNIC tienen que traer las columnas que tenían hasta octubre de 2026, que son las que lee 02 (puede haber más). La
+# actualización del 23 de octubre de 2026 bajó snic_pais.csv sin codigo_delito_snic_nombre y 02 se cortó: ahora un archivo con otras
+# columnas no reemplaza al anterior, y el registro muestra su encabezado (motivo_formato) para adaptar 02. Las columnas no llevan tilde, así
+# que se leen igual en UTF-8 que en la codificación de Windows, en la que llegó snic_provincias.csv ese día
+SNIC_COLUMNAS = {
+    "snic_pais.csv": ("anio", "codigo_delito_snic_id", "codigo_delito_snic_nombre", "cantidad_hechos", "cantidad_victimas",
+                      "cantidad_victimas_masc", "cantidad_victimas_fem", "cantidad_victimas_sd", "tasa_hechos", "tasa_victimas",
+                      "tasa_victimas_masc", "tasa_victimas_fem"),
+}
+SNIC_COLUMNAS["snic_provincias.csv"] = ("provincia_id", "provincia_nombre") + SNIC_COLUMNAS["snic_pais.csv"]
+def columnas_csv(b, sep=";"):
+    """Los nombres de las columnas de un CSV, sin comillas, sin espacios y sin la marca de UTF-8 del comienzo."""
+    cab = b.removeprefix(bytes.fromhex("efbbbf")).split(b"\n", 1)[0].rstrip(b"\r").decode("latin-1")
+    return {c.strip().strip('"') for c in cab.split(sep)}
+VALIDA.update({n: (lambda b, c=c: set(c) <= columnas_csv(b)) for n, c in SNIC_COLUMNAS.items()})
 VALIDA.update({
     "se_petroleo_cuenca.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"indice_tiempo,cuenca_austral"),
     "se_gas_cuenca.csv": lambda b: b.lstrip(b"\xef\xbb\xbf").startswith(b"indice_tiempo,produccion_gas_natural_cuenca_austral"),
@@ -650,6 +665,10 @@ def motivo_formato(url, datos):
     fallaban en cada actualización sin decir por qué): si no es una tabla, cómo empieza, y si lo es, qué series tienen meses vacíos en el
     medio y cuál es el último período."""
     if not url.startswith(API):
+        # de un CSV, el encabezado: dice qué columnas cambiaron (el SNIC, 23 de octubre de 2026)
+        if url.lower().split("?")[0].endswith(".csv"):
+            cab = datos.split(b"\n", 1)[0][:400].decode("utf-8", "replace").strip()
+            return f" (empieza con: {cab})"
         return ""
     if not datos.startswith(b"indice_tiempo"):
         return f" (no es una tabla: empieza con {datos[:60]!r})"
