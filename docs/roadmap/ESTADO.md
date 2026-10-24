@@ -257,6 +257,26 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
   - Hoy ninguno está entre los diez más frecuentes de 2024, pero con el año nuevo pueden entrar.
   - Quedan sin tilde, como se escriben en general en el país: Mia, Zoe, Nahitan, Tahiel e Ian.
 
+## Pendientes cerrados el 24 de octubre de 2026
+
+"Seguí con los pendientes que quedan", después de que el autor unió los PR #3 y #5 a `main`. Rama `claude/focused-cerf-tn93c3`, vuelta a empezar desde `main`, PR #6. Un commit por cambio.
+- La actualización a mano sobre `main` del 23 de octubre (corrida 26) se cortó al empezar 02. El SNIC publicó `snic_provincias.csv` en Windows-1252 (antes en UTF-8) y la descarga lo aceptó, porque su validación mira solo los nombres de las columnas. Ahora 02 lee los tres CSV del SNIC en UTF-8 o en Windows-1252, con un aviso, y los resultados son idénticos. Sin el PR #6 en `main`, la actualización del 5 de noviembre se corta igual. En la misma corrida, cinco archivos de la Secretaría de Energía no respondieron a tiempo, la DNAP cambió el formato de la hoja de 1995 y no se bajaron las series del sector externo. En esos casos se conservó el archivo anterior, como corresponde.
+- Del plan de estabilización (`docs/plan_estabilizacion.md`):
+  - P2-3: si el armado frena a mitad de camino, `sitio/` vuelve a quedar como estaba (`scripts/respaldo_sitio.py`);
+  - P2-6: el error del catálogo por una tabla sin uso dice qué hacer si 02 dejó de armarla;
+  - P2-8: `re.sub` con sus argumentos por nombre;
+  - P2-10: Supermercados sin el aviso de fechas;
+  - P2-14: la variable `CHROME` y `requirements-extra.txt`;
+  - P2-17: un gráfico o un artículo que falla ya no corta la página;
+  - P2-18: "Probá de nuevo" vuelve a intentar, y la OCDE y el mapa de departamentos avisan;
+  - P2-19: el Explorador avisa si no llegó D3.
+  - P2-9 queda cubierto por la versión fija de Python.
+- 320 píxeles (zoom del 400% de WCAG): siete páginas y el Explorador se corrían de costado.
+  - Las causas: botones con textos largos (los de los artículos, los de la OCDE y "Mostrar más"), la lectura del selector del BCRA y los programas de Educación.
+  - Ahora un botón o una lectura que no entra pasa a dos renglones parejos. De 5.286 elementos medidos en 320, 390 y 1440 píxeles cambiaron solo los 33 que se salían, y en 1440 ninguno.
+- El consultor de pobreza tiene el ícono de la pestaña (antes el navegador pedía `/favicon.ico` y la consola marcaba un error). Se rearmó con la guía de `pobreza/README.md`.
+- Dos pruebas a mano (`.claude/rules/pruebas.md`): `scripts/prueba_fallas.mjs` (14 fallas a propósito) y `scripts/prueba_320.mjs` (ninguna página corrida de costado en 320, 360 y 390 píxeles).
+
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
 - Línea del país en las barras: va detrás de las filas y los valores llevan borde del color del fondo. Hecho.
@@ -277,6 +297,8 @@ La imagen de la ficha (`imagenFicha` en `datina.js`) dibuja, justo arriba del gr
 En un segundo commit, la imagen suma la cifra destacada (`.clave`) debajo de la descripción: el número y su frase en una fila, alineados por la base de la letra, y la frase abajo si no entran (respuesta del autor: "al lado del número"). El canvas no toma `font-variation-settings`: el ancho angosto va con `fontStretch` (el más angosto que acepta es 50, la página usa 45, así que el número sale un 5% más ancho) y el tamaño óptico 144 se logra escribiendo a ese tamaño y achicando. En Safari y Firefox viejos, sin `fontStretch`, el número sale con el ancho normal. Con la vista OCDE la imagen no lleva cifra, porque el gráfico ya no muestra lo que dice (pedido del autor). Las fichas de suicidio no tienen cifra y su imagen no cambia.
 
 ## Próxima tarea
+
+Lo primero, del autor: unir el PR #6 a `main` antes de la actualización del 5 de noviembre, que se corta sin el arreglo del SNIC (ver "Pendientes cerrados el 24 de octubre de 2026"). Del plan de estabilización quedan solo decisiones del autor: P2-5 (los PDF de reservas en el repositorio), P2-7 (`fichas.json`), P2-13 (dónde guardar `datos/crudo/`), P2-15 (limpieza de su computadora) y lo que falta de P2-12 (idioma y Open Graph del consultor).
 
 Plan de estabilización (Fase 1A, auditoría del 22 de octubre de 2026, aprobada por el autor): `docs/plan_estabilizacion.md`, con los problemas P0 a P2, los comandos medidos y el orden. Hecho el paso 1 (el documento). Paso 2, 23 de octubre de 2026: el autor pidió unir todo y pasar a producción. Los PR #2 y #4 se cerraron sin unir, con un comentario de lo que se puede rescatar (del #4, el número en cada barra, las transiciones y la línea del país cortada; del #2, la auditoría del catálogo del Explorador). La `pobreza/dist` vieja se reemplazó por un armado nuevo. Unir el PR #3 y el de estabilización y producción a `main` lo confirma el autor con el botón de la app (la terminal no lo permite sin su revisión).
 - Paso 3 (P1-3), 22 de octubre de 2026: `03_construir_sitio.py` copia `pobreza/dist` a `sitio/pobreza/` solo con `--con-pobreza` (`scripts/consultor_pobreza.py`). Sin la opción no lo toca y avisa al final si encontró una `pobreza/dist` y de cuándo es. Con la opción y sin armado, frena antes de escribir nada. `scripts/prueba_pobreza.py` lo controla (6 casos) y 03 la corre antes de armar. Cómo rearmar y publicar el consultor: `pobreza/README.md`, "Publicar junto con Datina". Verificado en la computadora del autor, con su `pobreza/dist` del 28 de septiembre presente: el armado avisó y `sitio/pobreza/` quedó igual (y el resto de `sitio/` idéntico salvo los finales de línea).

@@ -2,26 +2,38 @@
 
 Auditoría técnica del 22 de octubre de 2026. Solo lectura: no se cambió código ni datos.
 
-## Estado al 23 de octubre de 2026
+## Estado al 24 de octubre de 2026
 
 | Problema | Estado |
 |---|---|
 | P0-1 (D3 desde cdnjs) | Resuelto: D3 y topojson desde el propio sitio, las fichas visibles si el arranque se corta (commit 7cd2124) |
-| P1-1 (ramas desalineadas) | PR #2 y #4 cerrados sin unir, con lo rescatable anotado en cada uno. Falta que el autor una el PR #3 y el de estabilización y producción |
-| P1-2 (la actualización del 5 de noviembre sobre `main`) | Se resuelve al unir los dos PR. Después, una corrida a mano (aprobada por el autor) |
-| P1-3 (`pobreza/dist` vieja) | Resuelto: copia solo con `--con-pobreza` (3f33046). El consultor se rearmó el 23 de octubre |
+| P1-1 (ramas desalineadas) | Resuelto: el autor unió a `main` el PR #3 y el de estabilización y producción (#5) el 23 de octubre. Los PR #2 y #4 se cerraron sin unir, con lo rescatable anotado en cada uno |
+| P1-2 (la actualización del 5 de noviembre sobre `main`) | La corrida a mano sobre `main` del 23 de octubre (26) bajó todo y se cortó al empezar 02: el SNIC publicó `snic_provincias.csv` en Windows-1252 y antes lo hacía en UTF-8. Arreglado el 24 de octubre en el PR #6 (02 lee los CSV del SNIC en las dos codificaciones). Hay que unir el PR #6 antes del 5 de noviembre: si no, la actualización de ese día se corta igual |
+| P1-3 (`pobreza/dist` vieja) | Resuelto: copia solo con `--con-pobreza` (3f33046). El consultor se rearmó el 23 de octubre y otra vez el 24 (ícono de la pestaña) |
 | P1-4 (finales de línea) | Resuelto: LF en todo lo que escriben 02 y 03, y `.gitattributes` |
-| P1-5 (versiones sin fijar) | Resuelto: `requirements.txt` con las versiones de la última corrida en verde |
-| P2-1 (orden inestable en 02) | Resuelto: orden estable en las tres tablas |
+| P1-5 (versiones sin fijar) | Resuelto: `requirements.txt` con las versiones de la última corrida en verde. La corrida 26 las instaló bien |
+| P2-1 (orden inestable en 02) | Resuelto: orden estable en las tres tablas. Las guardadas pasan al orden nuevo con la próxima actualización |
 | P2-2 (documentos con números viejos) | Resuelto |
+| P2-3 (03 deja `sitio/` a medias si frena) | Resuelto el 24 de octubre: `scripts/respaldo_sitio.py` guarda una copia de `sitio/` antes de escribir y la repone si el armado no llega a "Listo" |
 | P2-4 (workflow) | Resuelto: concurrency, límite de dos horas, versión de Chrome y `git pull --rebase` antes de subir |
 | P2-5 (PDF de reservas en el repositorio) | Pendiente: decisión del autor |
+| P2-6 (tablas que 02 deja de armar) | Resuelto el 24 de octubre con un mensaje: el error del catálogo por una tabla sin uso dice que, si 02 ya no la arma, hay que borrar ese archivo. No se borra nada solo, así una tabla que falta por error sigue frenando el armado |
+| P2-7 (`fichas.json` publicado sin uso) | Pendiente: decisión del autor (ofrecerlo como descarga o sacarlo de `sitio/`) |
+| P2-8 (`re.sub` con argumentos sin nombre) | Resuelto el 24 de octubre: el armado corre sin avisos de Python aun con los avisos convertidos en errores |
+| P2-9 (función interna de `ssl` en 01) | Cubierto por la versión fija de Python: la actualización mensual usa Python 3.12 (`actualizar.yml`), que la tiene. Si una versión nueva la saca, los servidores sin certificado intermedio fallan con un aviso y conservan su archivo anterior, sin cortar la actualización. Al subir de versión de Python, revisarlo |
+| P2-10 (avisos de pandas por fechas) | Resuelto el 24 de octubre: las filas de la Encuesta de Supermercados se eligen por el tipo de celda |
 | P2-11 (navegación) | Resuelto en la Fase 2 (`docs/rediseno_fase2.md`) |
-| P2-12 (consultor de pobreza) | En parte: el enlace de vuelta va a Pobreza y hogares. `./diccionario` sin `.html` anda en Cloudflare, que saca las extensiones |
+| P2-12 (consultor de pobreza) | En parte: el enlace de vuelta va a Pobreza y hogares y, desde el 24 de octubre, tiene el ícono de la pestaña (ya no hay error en la consola). `./diccionario` sin `.html` anda en Cloudflare, que saca las extensiones. Quedan `lang="es-AR"` (el resto del sitio usa `es`) y Open Graph |
+| P2-13 (peso del repositorio) | Pendiente: decisión del autor (dónde guardar `datos/crudo/`) |
+| P2-14 (paquetes y ruta de Chrome de los programas de una sola vez) | Resuelto el 24 de octubre: `requirements-extra.txt` y la variable `CHROME` en `banderas.py` e `iconos_isometricos.py` |
+| P2-15 (restos en la computadora del autor) | Pendiente: limpieza en la computadora del autor |
 | P2-16 (fichas sin "Ver tabla") | Resuelto en la Fase 2, paso 5 |
+| P2-17 (un error en un gráfico o un artículo corta todo) | Resuelto el 24 de octubre: cada gráfico y cada artículo protegido, con su aviso, y el error sigue en la consola (la prueba de páginas no deja publicar) |
+| P2-18 ("Probá de nuevo" no vuelve a intentar) | Resuelto el 24 de octubre: las cargas que fallan se olvidan, y la OCDE y el mapa de departamentos avisan |
+| P2-19 (Explorador sin D3) | Resuelto el 24 de octubre: muestra su aviso de error |
 | P2-20 (SRI y dos versiones de D3) | Resuelto con P0-1: D3 y topojson desde el sitio. El consultor baja DuckDB de jsDelivr desde el 23 de octubre (por el límite de Cloudflare) |
+| Fuera del plan: 320 píxeles | Resuelto el 24 de octubre: siete páginas y el Explorador se corrían de costado en 320 píxeles (WCAG 1.4.10). Ahora ninguna, en 320, 360 y 390 (`scripts/prueba_320.mjs`). Los arreglos de P2-17 a P2-19 se prueban con `scripts/prueba_fallas.mjs` |
 | Sección 7 y paso 8 (publicación) | El autor eligió Cloudflare Pages en lugar de Netlify: `docs/deploy/CLOUDFLARE.md`. Conectarlo lo hace el autor |
-| P2-3, P2-6 a P2-10, P2-13 a P2-15, P2-17 a P2-19 | Pendientes, de a uno, cuando el autor los pida |
 
 ## 1. Alcance y método
 
