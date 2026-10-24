@@ -725,10 +725,10 @@ def navegacion(h, pagina):
     blo = blo.replace("<h2", migas(*partes, prov=pagina not in ("nosotros", "contacto")) + "<h2", 1)
     # la fila de la categoría, después de la entrada (datina.js pone "En cifras" después de ella)
     if pagina in CATEGORIA:
-        blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + subsecciones(pagina), blo, 1, re.S)
+        blo = re.sub(r'(<div class="tema-intro">.*?</div>)', lambda m: m.group(1) + subsecciones(pagina), blo, count=1, flags=re.S)
     # transición entre páginas: el título viaja desde su tarjeta de la portada (mismo nombre en las dos páginas)
     if pagina in [x[0] for x in SECCIONES]:
-        blo = re.sub(r"<h2>", f'<h2 style="view-transition-name:t-{pagina}">', blo, 1)
+        blo = re.sub(r"<h2>", f'<h2 style="view-transition-name:t-{pagina}">', blo, count=1)
     if pagina in [x[0] for x in SECCIONES]:
         blo = re.sub(r"^(<section[^>]*>)", lambda m: m.group(1) + pildoras(pagina), blo)
     if pagina in ORDEN:
@@ -946,7 +946,7 @@ def siluetas(h, id_):
         n = 5 if id_ in CON_CIFRAS else 0
         if n:
             vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
-            blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + vacias, blo, 1, re.S)
+            blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + vacias, blo, count=1, flags=re.S)
             h = h[:b["ini"]] + blo + h[b["fin"]:]
     return h.replace('<div class="prov-grid" id="prov-grid"></div>',
                      f'<div class="prov-grid" id="prov-grid">{perfil_vacio()}</div>', 1)
@@ -1068,7 +1068,7 @@ for id_, _, titulo, descr in PIEZAS:
 pagina("contacto", "Contacto", "Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina.", {"contacto"})
 # Página para las direcciones que no existen
 pagina("404", "Página no encontrada", "Esta página no existe.", {"404"})
-sin_notas = lambda h: re.sub(r'\s*<div class="notas">.*?</div>', "", h, 1, re.S)
+sin_notas = lambda h: re.sub(r'\s*<div class="notas">.*?</div>', "", h, count=1, flags=re.S)
 
 
 # La lista de Artículos la escribe el constructor desde la Fase 2 (paso 4, 23 de octubre de 2026): la armaba datina.js al cargar, y en la
@@ -1109,9 +1109,9 @@ def solo_nota(id_):
     def recorte(h):
         b = next(b for b in bloques(h) if b["id"] == "articulos")
         s = h[b["ini"]:b["fin"]]
-        s = re.sub(r"\s*<h2>.*?</h2>", "", s, 1)
-        s = re.sub(r'\s*<div class="tema-intro">.*?</div>', "", s, 1, re.S)
-        s = re.sub(r'\s*<div class="art-grid" id="art-grid"></div>', "", s, 1)
+        s = re.sub(r"\s*<h2>.*?</h2>", "", s, count=1)
+        s = re.sub(r'\s*<div class="tema-intro">.*?</div>', "", s, count=1, flags=re.S)
+        s = re.sub(r'\s*<div class="art-grid" id="art-grid"></div>', "", s, count=1)
         s = re.sub(r'\s*<article class="nota" id="(a-[\w-]+)"[^>]*></article>', lambda m: m.group(0) if m.group(1) == id_ else "", s)
         return h[:b["ini"]] + s + h[b["fin"]:]
     return recorte
