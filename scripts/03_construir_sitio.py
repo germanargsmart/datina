@@ -489,7 +489,8 @@ assert set(HERRAMIENTAS) <= set(MENU_DE), f"herramientas sin menú: {set(HERRAMI
 # de pobreza y la pieza de la Corte Suprema): en ese orden van el recorrido y los filtros del catálogo
 PAGINAS_MENU = [p for p in _secs_de([it for m in MENUS for it in m[4]]) if p in {x[0] for x in SECCIONES} | {"provincia", "laboratorio"}]
 # Preguntas de ejemplo (Fase 2, paso 2): tres de la lista de preguntas del buscador (PREG en datina.js), de temas distintos y que no
-# repiten los datos destacados. Van debajo del buscador de la portada y, desde el paso 3, cuando el buscador no encuentra nada
+# repiten los datos destacados. Las ofrece el buscador con el campo vacío y cuando no encuentra nada. Desde el 25 de octubre de 2026
+# (pedido del autor) ya no van escritas debajo del buscador de la portada
 EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo", "¿Qué parte de los hogares tiene cloacas?"),
             ("f-glaciares", "¿Qué provincia tiene más glaciares?")]
 # las piezas del Laboratorio que viven en laboratorio.html (la de la Corte Suprema tiene página propia): su ancla y su título, para el buscador
@@ -844,12 +845,10 @@ _grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelled
 _temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x in GRUPOS)
 
 # ---------- la portada de la Fase 2 (paso 2, diseño aprobado por el autor el 23 de octubre de 2026, docs/rediseno_fase2.md) ----------
-# Preguntas de ejemplo debajo del buscador (EJEMPLOS, arriba): cada una lleva a su ficha, y tiene que seguir en la lista del buscador
+# Preguntas de ejemplo del buscador (EJEMPLOS, arriba): cada una lleva a su ficha, y tiene que seguir en la lista del buscador
 _preg_js = js[js.index("const PREG = ["):js.index("\n];", js.index("const PREG = ["))]
 for _id, _q in EJEMPLOS:
     assert f'["{_q}"' in _preg_js and f'"#{_id}"' in _preg_js, f"la pregunta de ejemplo {_q} ya no está en PREG"
-_ejemplos = ('<p class="portada-ejemplos"><span>Por ejemplo:</span> '
-             + " ".join(f'<a href="{url_pagina(UBIC[i])}#{i}">{e(q)}</a>' for i, q in EJEMPLOS) + "</p>")
 # Datos destacados: cuatro fijos, uno por grupo de temas, elegidos por el autor el 23 de octubre de 2026. La cifra es la cifra destacada
 # de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y deja
 # reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
@@ -891,7 +890,7 @@ _herr_items = next(x[4] for x in MENUS if x[0] == "herramientas")
 _herramientas_home = "".join(_tarjeta_herr(p, "Herramienta") if not isinstance(p, tuple) else "".join(_tarjeta_herr(s, p[0]) for s in p[1])
                              for p in _herr_items)
 for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
-                     "<!--EJEMPLOS-->": _ejemplos, "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
+                     "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
                      "<!--HISTORIAS-HOME-->": _historias_home, "<!--HERRAMIENTAS-HOME-->": _herramientas_home,
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca

@@ -422,9 +422,9 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .estado{margin:var(--e-4) 0 0;font:400 var(--t-1)/1.5 var(--mono);letter-spacing:.04em;color:#fff}
 .estado span{white-space:nowrap}
 .estado span+span{margin-left:6px;padding-left:var(--e-3);border-left:1px solid rgba(255,255,255,.55)}
-/* el buscador a la vista de la portada (Fase 2, paso 2): un campo blanco sobre el azul, con la lista de resultados debajo. Las preguntas
-   de ejemplo, debajo, son enlaces a su ficha. Sin JavaScript el buscador no se ve */
-.busca-portada{position:relative;max-width:30em;margin:0 0 var(--e-3)}
+/* el buscador a la vista de la portada (Fase 2, paso 2): un campo blanco sobre el azul, con la lista de resultados debajo. Sin
+   JavaScript el buscador no se ve */
+.busca-portada{position:relative;max-width:30em;margin:0 0 var(--e-6)}
 /* entra sin moverse, solo con opacidad: un elemento con una animación de transform es la referencia de lo fijo que lleva adentro, y la
    lista de resultados quedaba corrida y recortada por la portada */
 .portada-texto>.busca-portada{z-index:2;animation-name:aparece-quieto}
@@ -438,9 +438,6 @@ html:not(.js) .busca-portada{display:none}
    Por debajo de la barra, que la tapa si se baja por la página con la lista abierta */
 .busca-portada .busca-res{position:fixed;z-index:9;margin:0;padding:var(--e-2) var(--e-3);background:#fff;
   border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--sombra-panel)}
-.portada-ejemplos{margin:0 0 var(--e-6);max-width:30em;font-size:var(--t-2);line-height:1.6;color:var(--en-azul-texto)}
-.portada-ejemplos a{margin-right:var(--e-2);color:#fff;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--en-azul-borde)}
-.portada-ejemplos a:focus-visible{outline:2px solid var(--sol);outline-offset:2px;border-radius:2px}
 /* lugar del mapa: el país lo dibuja datina.js en el fondo, con la misma proyección que el mundo */
 .portada-mapa{position:relative;min-height:480px}
 .portada-mapa .sol{position:absolute;top:0;right:0;width:200px}

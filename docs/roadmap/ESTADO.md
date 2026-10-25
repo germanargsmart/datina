@@ -301,6 +301,11 @@ Votaciones anteriores a 2008 (pregunta abierta al autor, "Decisión del autor: v
 - `scripts/prueba_encabezados.py` ya no avisa los saltos: los frena (un salto nuevo no deja armar el sitio).
 - Probado con una huella de cada página (la caja y el estilo calculado de cada elemento, también sus ::before y ::after, con el nivel de los títulos sin contar) en las 52 páginas, en 1440 y 390 píxeles: 42.035 elementos idénticos antes y después. Dos huellas del mismo sitio dan lo mismo. Dibujadas en Chromium, las páginas pasan de 46 con un salto de nivel a ninguna, también con lo que arma `datina.js`. `sitio/datos/` no cambia (tampoco el índice del buscador). Armado, sintaxis, prueba de páginas ("Todo en orden") y fallas a propósito (14 casos bien).
 
+## Pedido del autor del 25 de octubre de 2026 (tarde)
+
+"Seguí con los pendientes que quedan, mejorá la ux ui, quitá las preguntas Por ejemplo: ¿Cuánto cuesta un litro de nafta? ¿Qué parte de los hogares tiene cloacas? ¿Qué provincia tiene más glaciares? de la portada. Empezá a integrar IA para consultas generativas con la información". Va en la rama del PR abierto (regla de un solo frente).
+- La portada ya no escribe las tres preguntas de ejemplo debajo del buscador (`<!--EJEMPLOS-->` y `.portada-ejemplos` ya no existen). El buscador las sigue ofreciendo con el campo vacío y cuando no encuentra nada (`EJEMPLOS` en el constructor, que controla que sigan en la lista de preguntas). El espacio entre el buscador y "Elegí tu provincia" queda en 24 píxeles, el que había entre las preguntas y el botón. El bloque azul queda 38 píxeles más bajo en la computadora (1440) y 74 en el celular (390).
+
 ## Plan de calidad (T7 a T15), 11 de octubre de 2026
 
 - Línea del país en las barras: va detrás de las filas y los valores llevan borde del color del fondo. Hecho.
