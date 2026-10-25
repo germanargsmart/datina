@@ -15,6 +15,10 @@ Está apagada. La página no se publica hasta que el autor haga los pasos de "C�
    - deja solo las filas y columnas pedidas, por territorio o por período, con un máximo de 300 filas y 30.000 caracteres por tabla;
    - se las da al modelo con su fuente, sus unidades y su nota de método.
 4. El modelo escribe la respuesta. La página la muestra a medida que llega, con lo que va leyendo ("Leyendo «¿Dónde se gana más?»…") y, al final, las fichas consultadas con su enlace.
+5. Mientras trabaja, el botón dice "Detener" y corta la consulta. Si el servidor pasa 90 segundos sin mandar nada, la página la da por caída.
+   - Un error se ve como "No se pudo contestar", con un enlace al Catálogo de datos con lo escrito.
+   - Una respuesta que no llegó a terminar se borra y se avisa: nunca queda a medias como si estuviera completa.
+   - Al terminar, el foco va al título de la tarjeta, para los lectores de pantalla y el teclado.
 
 El índice lo arma `03_construir_sitio.py` desde el Catálogo de datos (`scripts/catalogo.py`): son las mismas tablas, con lo mismo que muestra el catálogo de cada una, y nada se escribe a mano. Cuando cambian los datos, el índice cambia con el armado.
 

@@ -2439,17 +2439,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <div class="ia" id="ia">
       <form class="form-contacto ia-form" id="ia-form" action="catalogo.html">
-        <label class="campo"><span>Tu pregunta</span><textarea id="ia-pregunta" name="q" rows="3" maxlength="400" required aria-describedby="ia-ayuda"
-          placeholder="Una pregunta sobre la Argentina o una provincia"></textarea></label>
+        <label class="campo"><span>Tu pregunta</span><textarea id="ia-pregunta" name="q" rows="3" minlength="3" maxlength="400" required
+          aria-describedby="ia-ayuda" placeholder="Una pregunta sobre la Argentina o una provincia"></textarea></label>
         <p class="form-nota" id="ia-ayuda">Hasta 400 caracteres. La pregunta se envía a Anthropic, la empresa del modelo, para contestarla: no escribas datos personales. Datina no la guarda.</p>
-        <button type="submit" class="boton principal" id="ia-enviar">Preguntar</button>
+        <!-- mientras trabaja, el mismo botón dice "Detener": los dos textos están siempre, uno encima del otro, así no cambia de ancho -->
+        <button type="submit" class="boton principal ia-boton" id="ia-enviar"><span class="ia-lbl"><span class="ia-e activa" data-e="listo">Preguntar</span><span
+          class="ia-e" data-e="trabaja">Detener</span></span></button>
       </form>
       <p class="ia-estado" id="ia-estado" role="status"></p>
       <div class="ia-respuesta" id="ia-respuesta" hidden>
         <h2 class="ia-tit" id="ia-respuesta-tit" tabindex="-1">Respuesta</h2>
+        <p class="ia-eco"><span>Pregunta:</span> <span id="ia-pregunta-eco"></span></p>
         <div class="ia-texto" id="ia-texto"></div>
+        <p class="ia-salida-p"><a class="enlace" id="ia-salida" href="catalogo.html" hidden>Buscar en el Catálogo de datos</a></p>
         <div class="ia-fuentes" id="ia-fuentes" hidden>
-          <h2 class="ia-tit">Fichas consultadas</h2>
+          <h3 class="ia-tit">Fichas consultadas</h3>
           <ul class="ia-fichas" id="ia-fichas"></ul>
         </div>
       </div>

@@ -1616,22 +1616,33 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
    el modelo va en la letra de las etiquetas y lo leen los lectores de pantalla (role="status") ---------- */
 .ia{display:grid;gap:var(--e-6);max-width:var(--medida);margin:var(--bloque) 0}
 .ia-form{max-width:none}
-.ia-form[aria-busy="true"] .boton{opacity:.6;cursor:progress}
-.ia-estado{margin:0;font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--faint-texto)}
-.ia-estado:empty{display:none}
+/* el botón: "Preguntar" y "Detener" en el mismo lugar (el que no va, oculto también para los lectores de pantalla) */
+.ia-lbl{display:inline-grid}
+.ia-e{grid-area:1/1;visibility:hidden}
+.ia-e.activa{visibility:visible}
+.campo textarea::placeholder{color:var(--faint-texto);opacity:1}
+/* el aviso existe siempre (vacío, sin lugar: el margen negativo compensa el espacio de la grilla), así los lectores de pantalla lo leen
+   desde el primer mensaje */
+.ia-estado{margin:0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+.ia-estado:empty{margin-top:calc(-1 * var(--e-6))}
 .ia-respuesta{display:grid;gap:var(--e-3);padding:clamp(var(--e-4),2.2vw,28px);background:var(--bg);border:1px solid var(--borde);
   border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
 .ia-respuesta[hidden],.ia-fuentes[hidden]{display:none}
 .ia-tit{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;
   font-family:var(--f-c75)}
 .ia-tit:focus{outline:none}
-.ia-tit:focus-visible{outline:2px solid var(--sol);outline-offset:2px;border-radius:2px}
+.ia-tit:focus-visible{outline:2px solid var(--celeste-fuerte);outline-offset:3px;border-radius:2px}
+h3.ia-tit{font-size:var(--t-4)}
+.ia-eco{margin:0;font-size:var(--t-3);line-height:var(--i-chico);color:var(--muted)}
+.ia-eco>span:first-child{font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase}
+.ia-salida-p{margin:0}
+.ia-salida-p:has([hidden]){display:none}
 .ia-texto{min-height:1.55em}
 .ia-texto p{margin:0 0 var(--e-3);font-size:var(--t-4);line-height:var(--i-texto);white-space:pre-line}
 .ia-texto p:last-child{margin-bottom:0}
 .ia-fuentes{display:grid;gap:var(--e-2);padding-top:var(--e-3);border-top:1px solid var(--line)}
 .ia-fichas{display:grid;gap:var(--e-2);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
-.ia-fichas code{font:var(--t-2)/1.4 var(--mono);color:var(--faint-texto);overflow-wrap:anywhere}
+.ia-tabla{font:var(--t-2)/1.4 var(--mono);color:var(--azul);overflow-wrap:anywhere}
 .ia-aviso{max-width:none}
 
 /* ---------- contacto y página no encontrada ---------- */

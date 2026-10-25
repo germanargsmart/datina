@@ -8051,12 +8051,27 @@ function htmlMini(o) {
 })();
 if (PAGINA !== "inicio") {
   pintarCifras(); alCambiarProv.push(pintarCifras);
-  // en el celular, la fila de secciones (la escribe el constructor) se desliza hasta la actual
-  const cur = document.querySelector(".pildoras [aria-current]");
-  if (cur) requestAnimationFrame(() => { cur.parentElement.scrollLeft = cur.offsetLeft - 22; });
-  // la fila de la categoría (etapa 36), igual: la sección actual a la vista
-  const sub = document.querySelector(".subsecciones [aria-current]");
-  if (sub) requestAnimationFrame(() => { sub.parentElement.scrollLeft = Math.max(0, sub.offsetLeft - sub.parentElement.offsetLeft - 22); });
+  // en el celular, la fila de secciones (la escribe el constructor) se desliza hasta la actual, y la fila de la categoría (etapa 36) igual.
+  // Se mide en la pantalla y se vuelve a acomodar cuando llegan las letras y al terminar la carga (25 de octubre de 2026): acomodada una
+  // sola vez en el primer cuadro, cuando los anchos todavía no eran los finales, la sección actual quedaba cortada a la izquierda
+  // ("BAJO" en lugar de "Trabajo" en 320 píxeles). Si la persona ya movió la fila, no se la toca
+  for (const sel of [".pildoras", ".subsecciones"]) {
+    const cur = document.querySelector(sel + " [aria-current]");
+    if (!cur) continue;
+    const fila = cur.parentElement;
+    let tocada = false, propio = false;
+    fila.addEventListener("scroll", () => { if (!propio) tocada = true; propio = false; }, {passive: true});
+    const alinear = () => {
+      if (tocada) return;
+      const antes = fila.scrollLeft;
+      fila.scrollLeft = Math.max(0, antes + cur.getBoundingClientRect().left - fila.getBoundingClientRect().left - (parseFloat(getComputedStyle(fila).paddingLeft) || 0)
+                                    - (sel === ".pildoras" ? 0 : 22));
+      propio = fila.scrollLeft !== antes;
+    };
+    requestAnimationFrame(alinear);
+    document.fonts?.ready.then(() => requestAnimationFrame(alinear));
+    addEventListener("load", () => requestAnimationFrame(alinear), {once: true});
+  }
 }
 
 /* buscador de la lupa y de la portada: secciones, fichas, preguntas, artículos, piezas, provincias y herramientas de todo el sitio (cada
