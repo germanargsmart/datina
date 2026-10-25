@@ -2425,6 +2425,40 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--CATALOGO-->
   </section>
 
+  <!--IA-->
+  <!-- Consultas con IA (25 de octubre de 2026, pedido del autor: "empezá a integrar IA para consultas generativas con la información"). La
+       sección va solo con "consulta_ia": true en datos/manual/sitio.json: si no, 03 la saca entera, con sus marcas. Contesta la función de
+       Cloudflare Pages functions/api/consulta.js, que le da al modelo las tablas de Datina (docs/ia/CONSULTAS.md). consulta-ia.js (03 lo
+       copia de scripts/consulta_ia.js) envía la pregunta y escribe la respuesta a medida que llega. Sin JavaScript, el formulario lleva al
+       Catálogo de datos con lo escrito -->
+  <section class="tema herramienta" id="consulta-ia">
+    <h2>Consultas con IA</h2>
+    <div class="tema-intro">
+      <p class="pregunta">¿Qué querés saber de los datos?</p>
+      <p>Escribí una pregunta sobre la Argentina o sobre una provincia. Un modelo de inteligencia artificial la contesta solo con las tablas de Datina y dice de qué ficha sale cada cifra, para que la puedas verificar.</p>
+    </div>
+    <div class="ia" id="ia">
+      <form class="form-contacto ia-form" id="ia-form" action="catalogo.html">
+        <label class="campo"><span>Tu pregunta</span><textarea id="ia-pregunta" name="q" rows="3" maxlength="400" required aria-describedby="ia-ayuda"
+          placeholder="Una pregunta sobre la Argentina o una provincia"></textarea></label>
+        <p class="form-nota" id="ia-ayuda">Hasta 400 caracteres. La pregunta se envía a Anthropic, la empresa del modelo, para contestarla: no escribas datos personales. Datina no la guarda.</p>
+        <button type="submit" class="boton principal" id="ia-enviar">Preguntar</button>
+      </form>
+      <p class="ia-estado" id="ia-estado" role="status"></p>
+      <div class="ia-respuesta" id="ia-respuesta" hidden>
+        <h2 class="ia-tit" id="ia-respuesta-tit" tabindex="-1">Respuesta</h2>
+        <div class="ia-texto" id="ia-texto"></div>
+        <div class="ia-fuentes" id="ia-fuentes" hidden>
+          <h2 class="ia-tit">Fichas consultadas</h2>
+          <ul class="ia-fichas" id="ia-fichas"></ul>
+        </div>
+      </div>
+      <p class="form-nota ia-aviso">Las respuestas las escribe un modelo de inteligencia artificial (Claude, de Anthropic) con los datos de Datina. Puede equivocarse: revisá cada cifra en su ficha antes de usarla.</p>
+    </div>
+    <script src="consulta-ia.js?v=__V_IA_JS__" defer></script>
+  </section>
+  <!--/IA-->
+
 </main>
 
 <footer class="pie-sitio">

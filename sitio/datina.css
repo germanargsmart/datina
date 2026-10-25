@@ -1611,6 +1611,29 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 @media (max-width:1080px){.pie-mapa{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){.pie-sitio .envoltura{grid-template-columns:1fr;grid-template-areas:"marca" "mapa" "datos";gap:var(--e-7)}.pie-mapa{grid-template-columns:1fr 1fr}}
 
+/* ---------- consultas con IA (25 de octubre de 2026, docs/ia/CONSULTAS.md): la página existe solo con "consulta_ia" en
+   datos/manual/sitio.json. El formulario es el de Contacto y la respuesta va en una tarjeta como las fichas. El aviso de lo que está leyendo
+   el modelo va en la letra de las etiquetas y lo leen los lectores de pantalla (role="status") ---------- */
+.ia{display:grid;gap:var(--e-6);max-width:var(--medida);margin:var(--bloque) 0}
+.ia-form{max-width:none}
+.ia-form[aria-busy="true"] .boton{opacity:.6;cursor:progress}
+.ia-estado{margin:0;font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--faint-texto)}
+.ia-estado:empty{display:none}
+.ia-respuesta{display:grid;gap:var(--e-3);padding:clamp(var(--e-4),2.2vw,28px);background:var(--bg);border:1px solid var(--borde);
+  border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta)}
+.ia-respuesta[hidden],.ia-fuentes[hidden]{display:none}
+.ia-tit{margin:0;font-size:var(--t-5);line-height:var(--i-tarjeta);font-weight:600;color:var(--azul);font-variation-settings:"wdth" 75,"opsz" 32;
+  font-family:var(--f-c75)}
+.ia-tit:focus{outline:none}
+.ia-tit:focus-visible{outline:2px solid var(--sol);outline-offset:2px;border-radius:2px}
+.ia-texto{min-height:1.55em}
+.ia-texto p{margin:0 0 var(--e-3);font-size:var(--t-4);line-height:var(--i-texto);white-space:pre-line}
+.ia-texto p:last-child{margin-bottom:0}
+.ia-fuentes{display:grid;gap:var(--e-2);padding-top:var(--e-3);border-top:1px solid var(--line)}
+.ia-fichas{display:grid;gap:var(--e-2);margin:0;padding:0;list-style:none;font-size:var(--t-3)}
+.ia-fichas code{font:var(--t-2)/1.4 var(--mono);color:var(--faint-texto);overflow-wrap:anywhere}
+.ia-aviso{max-width:none}
+
 /* ---------- contacto y página no encontrada ---------- */
 .form-contacto{display:grid;gap:var(--e-4);max-width:36em}
 .campo{display:grid;gap:var(--e-1)}

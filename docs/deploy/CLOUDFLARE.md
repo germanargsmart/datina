@@ -9,6 +9,7 @@ Decisión del autor del 23 de octubre de 2026: el sitio se publica en Cloudflare
 - `sitio/404.html`: Cloudflare la muestra sola en cualquier dirección que no existe.
 - Formularios: con `"formularios": ""` en `datos/manual/sitio.json`, el armado los saca. Con `"netlify"` vuelven (solo sirven en Netlify).
 - Sin dominio (`"url": ""` en `datos/manual/sitio.json`): no hay `sitemap.xml`, `robots.txt` ni enlaces canónicos absolutos. Se agregan solos en el armado siguiente a completar la dirección.
+- `functions/` (25 de octubre de 2026): las consultas con IA, una función que Cloudflare publica sola con el sitio en `/api/consulta` (la encuentra en la raíz del repositorio, sin instalar nada: la biblioteca de Anthropic va empaquetada). Sin el secreto `ANTHROPIC_API_KEY` y sin `"consulta_ia": true` no hace nada. Cómo se activa: `docs/ia/CONSULTAS.md`. Es la única dirección que pasa por una función: el resto del sitio se sigue sirviendo como archivos, sin gastar el límite de pedidos de las funciones.
 
 ## Límite que hay que tener en cuenta
 

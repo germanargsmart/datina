@@ -43,6 +43,20 @@ e = lambda t: html.escape(str(t), quote=True)
 texto = lambda h: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
 
 plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8")
+# Consultas con IA (25 de octubre de 2026, pedido del autor, docs/ia/CONSULTAS.md): la página, su índice y su código van solo con
+# "consulta_ia": true en datos/manual/sitio.json. Apagadas, la sección de la plantilla (entre <!--IA--> y <!--/IA-->) no llega a ninguna
+# página, no va en los menús y se borra lo que haya quedado en sitio/ de un armado anterior
+CONSULTA_IA = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8")).get("consulta_ia", False)
+assert CONSULTA_IA in (True, False), 'datos/manual/sitio.json: "consulta_ia" tiene que ser true o false'
+_ia = re.search(r"\n\n *<!--IA-->.*?<!--/IA-->", plantilla, re.S)
+assert _ia, "falta la sección de las consultas con IA (entre <!--IA--> y <!--/IA-->) en scripts/plantilla.html"
+plantilla = plantilla.replace(_ia.group(0), re.sub(r"<!--/?IA-->", "", _ia.group(0)) if CONSULTA_IA else "")
+if CONSULTA_IA:
+    _herr_sub = '<p class="bloque-sub">Para cruzar indicadores,'
+    assert plantilla.count(_herr_sub) == 1, "cambió la bajada de Herramientas en la portada: revisar la de las consultas con IA"
+    plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores,')
+JS_IA = (RAIZ / "scripts" / "consulta_ia.js").read_text(encoding="utf-8")
+plantilla = plantilla.replace("__V_IA_JS__", hashlib.sha1(JS_IA.encode("utf-8")).hexdigest()[:10])
 # Cada id una sola vez en la plantilla (etapa 25): una ficha nueva repitió el id de otra (f-actividad) y, como sus claves en datina.js salen
 # del id, sus textos, su gráfico y su cifra pisaron los de la otra sin dar ningún error
 _ids = re.findall(r'\sid="([^"]+)"', plantilla)
@@ -473,7 +487,8 @@ GRUPOS = [
 MENUS = [
     ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "departamentos"]),
     ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "laboratorio", "corte-suprema", "curiosidades"]),
-    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "indice", "diagnostico", "consultor", ("Los datos", ["catalogo", "relaciones"])]),
+    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["consulta-ia"] * CONSULTA_IA + ["cruces", "indice", "diagnostico", "consultor",
+                                                                         ("Los datos", ["catalogo", "relaciones"])]),
 ]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
@@ -503,6 +518,9 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
           "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
           "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
+# con las consultas con IA prendidas, el buscador ofrece llevar lo escrito a la página de las consultas (datina.js, buscar)
+if CONSULTA_IA:
+    INDICE["ia"] = 1
 
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
@@ -555,7 +573,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"}
+             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
@@ -567,9 +585,28 @@ import relaciones  # noqa: E402
 import catalogo  # noqa: E402
 # los filtros por tema del catálogo siguen la barra: los cuatro grupos de Temas y después Provincias, Historias con datos y Herramientas
 _menus_catalogo = [(m, completo, [p for p in _secs_de(items) if p in PAGINAS_MENU]) for m, _, completo, _, items in MENUS]
-_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo)
+_indice_ia = [] if CONSULTA_IA else None
+_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo, indice=_indice_ia)
 if _cat_err:
     sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
+# Consultas con IA: el índice que lee la función functions/api/consulta.js (las mismas tablas que el Catálogo, sin las de suicidio) y el
+# código de la página. Sin "consulta_ia", la función contesta que no están activadas porque no encuentra el índice
+_IA_INDICE, _IA_JS = SITIO / "datos" / "consulta_ia.json", SITIO / "consulta-ia.js"
+if CONSULTA_IA:
+    # sin las tablas que hablan de suicidio, tampoco la de muertes violentas, que los cuenta junto con los homicidios (CLAUDE.md, "Temas
+    # sensibles"). La función saca además, de cualquier tabla, las columnas y las filas sobre suicidio
+    _indice_ia = [t for t in _indice_ia if not re.search(r"suicid|autoinflig|autolesi", f'{t["tabla"]} {t["titulo"]} {t["descripcion"]}', re.I)]
+    for _t in _indice_ia:
+        _r = _t.pop("ref")
+        _p = UBIC.get(_r[1:], "") if _r.startswith("#") else _r[:-5]
+        assert _p, f"consultas con IA: no se sabe en qué página está {_r} ({_t['tabla']})"
+        _t["url"] = (f"{_p}.html" if _p != "inicio" else "./") + (f"#{_r[1:]}" if _r.startswith("#") and _r[1:] != _p else "")
+    _IA_INDICE.write_text(json.dumps({"actualizado": RESUMEN["actualizado"], "tablas": _indice_ia}, ensure_ascii=False, separators=(",", ":")),
+                          encoding="utf-8", newline="\n")
+    _IA_JS.write_text(JS_IA, encoding="utf-8", newline="\n")
+else:
+    for _f in (_IA_INDICE, _IA_JS, SITIO / "consulta-ia.html"):
+        _f.unlink(missing_ok=True)
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
                      "/*EN_CATALOGO*/[]": EN_CATALOGO}.items():
@@ -1189,7 +1226,7 @@ if URL_SITIO:
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
 CACHE_LARGO = (["/datina.css", "/datina.js", "/datos/fichas.js", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
-               + [f"/datos/{n}.json" for n in DIFERIDAS])
+               + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 (SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO), encoding="utf-8", newline="\n")
 # metadatos y enlaces internos (scripts/prueba_metadatos.py): si algo falla, el sitio no se da por armado
 import prueba_metadatos

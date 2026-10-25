@@ -8130,6 +8130,10 @@ if (PAGINA !== "inicio") {
     // si ninguna entrada tiene todas las palabras ("salta empleo"), se muestran las que tienen alguna
     if (!hall.length) hall = IDX.map(d => ({d, p: puntaje(d, false)})).filter(r => r.p);
     hall = hall.sort((a, b) => b.p - a.p).slice(0, 8).map(r => r.d);
+    // con las consultas con IA prendidas (SITIO.ia, docs/ia/CONSULTAS.md): lo escrito puede ir a esa página, donde queda escrito sin
+    // enviarse. Con resultados, solo si parece una pregunta (tres palabras o más)
+    const aIA = g => ({t: `Preguntarles a los datos: «${texto}»`, g, u: "consulta-ia.html?q=" + encodeURIComponent(texto.slice(0, 400))});
+    if (SITIO.ia && hall.length && pal.length >= 3) hall.push(aIA("Consultas con IA"));
     if (hall.length) {
       pintar(res, hall, base);
       est.textContent = hall.length === 1 ? "1 resultado. Enter para abrirlo." : `${hall.length} resultados. Flechas para recorrerlos, Enter para abrir.`;
@@ -8137,8 +8141,8 @@ if (PAGINA !== "inicio") {
       // nada coincide: tres caminos reales para seguir (el catálogo de datos filtra por lo escrito con ?q=)
       const g = `Nada coincide con «${texto}»`;
       pintar(res, [{t: `Buscar «${texto}» en el catálogo de datos`, g, u: "catalogo.html?q=" + encodeURIComponent(texto)},
-                   {t: "Ver todos los temas", g, u: "./#secciones"}, ...ejemplos()], base);
-      est.textContent = `${g}. La lista ofrece buscar en el catálogo de datos, ver los temas o una pregunta de ejemplo.`;
+                   ...(SITIO.ia ? [aIA(g)] : []), {t: "Ver todos los temas", g, u: "./#secciones"}, ...ejemplos()], base);
+      est.textContent = `${g}. La lista ofrece buscar en el catálogo de datos, ${SITIO.ia ? "preguntarles a los datos con IA, " : ""}ver los temas o una pregunta de ejemplo.`;
     }
   };
   // el campo y su lista como combobox: las flechas marcan una opción (aria-activedescendant) sin sacar el foco del campo, Enter abre la

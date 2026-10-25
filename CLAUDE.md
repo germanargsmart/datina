@@ -29,6 +29,8 @@ scripts/*_historia.py, censo_2022_*.py, banderas.py, iconos_isometricos.py, geom
                                programas que se corren una sola vez o una vez por año y guardan en datos/manual/
 datos/manual/                  datos armados a mano o una sola vez, explicadores.json, distorsiones.json, banderas, íconos
 pobreza/                       consultor de pobreza aparte (Observable Framework, DuckDB, Parquet): ver pobreza/README.md
+functions/                     consultas con IA: la función de Cloudflare Pages /api/consulta y la biblioteca de Anthropic empaquetada.
+                               Apagadas salvo "consulta_ia": true en datos/manual/sitio.json y el secreto del autor: docs/ia/CONSULTAS.md
 sitio/                         lo único que se publica (Cloudflare Pages, _headers). Nunca se edita a mano: sale de scripts/
 docs/roadmap/                  plan vigente, estado, decisiones, criterios de aceptación e inventario
 .github/workflows/actualizar.yml  actualización automática mensual (día 5): descarga, procesa, prueba, arma y publica

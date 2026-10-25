@@ -752,6 +752,16 @@ def _(ic):
     plato(8.7)
 
 
+@icono("dialogo", "azul")
+def _(ic):
+    # consultas con IA (25 de octubre de 2026): un globo de diálogo parado, extruido como el rayo, con tres puntos claros en el frente
+    ic.sombra(4.4, 1.0, 3.0, 1.0)
+    globo = [(.9, 3.0), (1.6, 3.0), (1.0, .6), (4.0, 3.0), (8.4, 3.0), (9.3, 3.9), (9.3, 8.6), (8.4, 9.5), (.9, 9.5), (0, 8.6), (0, 3.9)]
+    ic.extruir(globo, (0, 0, 0), (1, 0, 0), (0, 0, 1), (0, 1.7, 0), "s", "l")
+    for x in (2.7, 4.65, 6.6):
+        ic.circulo_vertical(x, 1.7, 6.25, .75, "w")
+
+
 # ---------------------------------------------------------------- salida
 # todos azules desde la etapa 3 (octubre de 2026): el amarillo queda para el sol y la tarjeta amarilla
 TONOS = {"azul": "#2C74B5"}

@@ -6,7 +6,7 @@
 // También abre algunas páginas con cdnjs y jsDelivr bloqueadas, y una sin D3 (ver "Sin las CDN", al final).
 // Uso: node scripts/prueba_paginas.mjs   (Node 22 o más y Google Chrome. Otra ruta de Chrome: variable CHROME)
 import { createServer } from "node:http";
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join, extname, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import { abrirChrome, espera } from "./cdp.mjs";
@@ -227,6 +227,18 @@ else {
 await lupa("zzqqxx");
 const nada = await q.eval(`document.querySelector("#busca-res [role=option]")?.getAttribute("href") + " | " + document.getElementById("busca-estado")?.textContent`);
 if (!nada.startsWith("catalogo.html?q=zzqqxx | Nada coincide")) problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece el catálogo con lo escrito (${nada})`);
+// consultas con IA (docs/ia/CONSULTAS.md), solo si se armaron con "consulta_ia": true: sin coincidencias, la segunda opción lleva lo escrito
+// a su página, que lo deja escrito sin enviarlo
+const IA = existsSync(join(SITIO, "consulta-ia.html"));
+if (IA) {
+  const segunda = await q.eval(`document.querySelectorAll("#busca-res [role=option]")[1]?.getAttribute("href")`);
+  if (segunda !== "consulta-ia.html?q=zzqqxx") problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece las consultas con IA (${segunda})`);
+  const preg = "¿Cuántos habitantes tiene Salta?";
+  await q.ir(B + "consulta-ia.html?q=" + encodeURIComponent(preg), 1000);
+  const ia = JSON.parse(await q.eval(`JSON.stringify({v: document.getElementById("ia-pregunta")?.value, oculta: document.getElementById("ia-respuesta")?.hidden,
+    etiqueta: !!document.getElementById("ia-pregunta")?.closest("label")?.textContent.trim().startsWith("Tu pregunta"), boton: !!document.getElementById("ia-enviar")})`));
+  if (ia.v !== preg || ia.oculta !== true || !ia.etiqueta || !ia.boton) problemas.push(`consulta-ia.html: el formulario no está como se espera (${JSON.stringify(ia)})`);
+}
 // accesibilidad con el teclado (paso 6): Tab saca el foco de la lupa abierta y la cierra, la primera parada de Tab es "Saltar al
 // contenido" y Enter lleva el foco al título, y el mapa de la portada tiene nombre
 await tecla("Tab");
@@ -276,7 +288,8 @@ servidor.close();
 console.log(`Páginas revisadas: ${paginas.length}. "En cifras": ${SECCIONES.length} secciones, sin provincia y con ${PROVINCIAS.length} provincias.`);
 console.log(`Artículos y fichas: ${ida.size} enlaces de ida y ${vuelta.size} de vuelta. Bajadas en la lista de Artículos: ${bajadas.filter(n => n >= 40).length} de ${nArt}.`);
 console.log(`Fichas: ${CUENTA.fichas}, todas con "Ver tabla" y sin el nombre de la sección arriba, ${CUENTA.como} con "Cómo se calcula". "Ver tabla" abierta en ${PROPIAS.length} fichas nuevas.`);
-console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias y Tab.`);
+console.log(`Sin cdnjs ni jsDelivr: ${Object.keys(SIN_CDN).length} páginas. Sin D3: las fichas de trabajo.html a la vista. Menús con el teclado, en 1280 y 390 píxeles. Portada: datos destacados y buscador. Lupa: flechas, Enter, sin coincidencias y Tab.` +
+            (IA ? " Consultas con IA: el buscador las ofrece y la página deja escrita la pregunta del enlace." : ""));
 console.log(`Accesibilidad: gráficos con nombre, "Saltar al contenido" y migas subrayadas en ${CUENTA.paginas} páginas, el salto con el teclado y el nombre del mapa. Pulido: textos de ayuda enteros en 360 y 768 píxeles y descripción de las fichas a la izquierda.`);
 if (problemas.length) {
   console.log(`\nProblemas (${problemas.length}):\n- ` + problemas.join("\n- "));
