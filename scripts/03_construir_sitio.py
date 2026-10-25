@@ -231,11 +231,11 @@ def explicador(sec):
                         + "</dd></div>" for g in x["glosario"])
         partes.append(("Glosario", f'<dl class="glosario">{items}</dl>'))
     filas = "".join(
-        f'<div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-{sec}-{i}-b" aria-expanded="false" aria-controls="exp-{sec}-{i}">'
-        f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button></h4>'
+        f'<div class="exp-fila"><h3><button type="button" class="despliegue" id="exp-{sec}-{i}-b" aria-expanded="false" aria-controls="exp-{sec}-{i}">'
+        f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button></h3>'
         f'<div class="exp-bloque" id="exp-{sec}-{i}" role="region" aria-labelledby="exp-{sec}-{i}-b"><div class="exp-cont">{c}</div></div></div>'
         for i, (t, c) in enumerate(partes))
-    return ('<div class="explicador" id="para-entender"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3>'
+    return ('<div class="explicador" id="para-entender"><div class="exp-cab"><h2 class="bloque-grupo">Para entender los datos</h2>'
             '<p>Qué se mide, cómo se calcula y de dónde sale cada dato de esta página.</p></div>'
             f'<div class="exp-lista">{filas}</div></div>')
 
@@ -250,11 +250,11 @@ def programas(sec):
     if sec != "educacion" or not PROG:
         return ""
     tarjetas = "".join(
-        f'<article class="programa"><h4>{e(x["nombre"])}</h4><p class="programa-donde">{e(x["donde"])}</p><p>{e(x["que_hace"])}</p><dl>'
+        f'<article class="programa"><h3>{e(x["nombre"])}</h3><p class="programa-donde">{e(x["donde"])}</p><p>{e(x["que_hace"])}</p><dl>'
         f'<div><dt>Evaluación</dt><dd>{e(x["evaluacion"]["tipo"])}<small>{e(x["evaluacion"]["organismo"])}, {x["evaluacion"]["anio"]}</small></dd></div>'
         f'<div><dt>Qué encontró</dt><dd>{e(x["hallazgo"])}</dd></div><div><dt>Qué no permite concluir</dt><dd>{e(x["limites"])}</dd></div></dl>'
         f'<a class="enlace" href="{e(x["evaluacion"]["url"])}" target="_blank" rel="noopener">{e(x.get("enlace", "Leer la evaluación"))}</a></article>' for x in PROG)
-    return ('<section class="programas" aria-labelledby="prog-tit"><h3 class="bloque-grupo" id="prog-tit">Programas con evaluación oficial</h3>'
+    return ('<section class="programas" aria-labelledby="prog-tit"><h2 class="bloque-grupo" id="prog-tit">Programas con evaluación oficial</h2>'
             '<p class="programas-sub">Programas educativos que tienen una evaluación publicada por un organismo público. Para cada uno, qué hace, '
             'qué midió su evaluación y qué no permite concluir. No es una lista de recomendaciones: muchos programas no fueron evaluados '
             'o no publicaron su evaluación, y por eso no están.</p>'
@@ -285,7 +285,7 @@ creditos = "".join(
     f'{e(b["licencia"])}</li>' for b in sorted(BANDERAS, key=lambda b: NOMBRE_PROV[b["codigo_indec"]]))
 assert "<!--BANDERAS-->" in base
 base = base.replace("<!--BANDERAS-->",
-    '<h3>Las banderas</h3><p>Las banderas de las provincias y la nacional vienen de Wikimedia Commons, el archivo de imágenes libres de Wikipedia, '
+    '<h2>Las banderas</h2><p>Las banderas de las provincias y la nacional vienen de Wikimedia Commons, el archivo de imágenes libres de Wikipedia, '
     'y se muestran en miniatura, todas con el mismo tamaño y el mismo recorte.</p>'
     f'<details class="glosario creditos"><summary>Autores y licencias</summary><ul>{creditos}</ul></details>')
 
@@ -427,7 +427,7 @@ for b in TEMAS:
     ayuda = h.find('id="ayuda-suicidio"')
     n = 0
     for m in re.finditer(r'<article class="ficha([^"]*)" id="([^"]+)"[^>]*>(.*?)</article>', h, re.S):
-        h3 = re.search(r"<h3([^>]*)>(.*?)</h3>", m.group(3), re.S)
+        h3 = re.search(r"<h2([^>]*)>(.*?)</h2>", m.group(3), re.S)
         kt = re.search(r'data-t="([^"]+)"', h3.group(1)) if h3 else None
         kl = re.search(r'<p class="lead" data-t="([^"]+)"', m.group(3))
         # etapa 35 (prueba en Trabajo): el título es una pregunta y la descripción con el período va debajo (p.ficha-sub), fija o calculada
@@ -493,7 +493,7 @@ PAGINAS_MENU = [p for p in _secs_de([it for m in MENUS for it in m[4]]) if p in 
 EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo", "¿Qué parte de los hogares tiene cloacas?"),
             ("f-glaciares", "¿Qué provincia tiene más glaciares?")]
 # las piezas del Laboratorio que viven en laboratorio.html (la de la Corte Suprema tiene página propia): su ancla y su título, para el buscador
-LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h3[^>]*>(.*?)</h3>', base, re.S)
+LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h2[^>]*>(.*?)</h2>', base, re.S)
                   if i != "l-corte-lab"]
 assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
 # el índice del sitio que lee datina.js. Desde la Fase 2 (paso 3) también lleva el menú de cada página (el buscador agrupa los resultados
@@ -953,7 +953,7 @@ def siluetas(h, id_):
         # la misma cuenta que pintarCifras() sin provincia elegida: una tarjeta por cifra destacada y una que invita a elegirla
         n = 5 if id_ in CON_CIFRAS else 0
         if n:
-            vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
+            vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
             blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + vacias, blo, count=1, flags=re.S)
             h = h[:b["ini"]] + blo + h[b["fin"]:]
     return h.replace('<div class="prov-grid" id="prov-grid"></div>',

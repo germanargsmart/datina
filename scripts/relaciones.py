@@ -67,9 +67,9 @@ def _ubicar(ev, lineas):
 
 
 def titulo_calculado(cuerpo, js):
-    """El título de una ficha cuyo <h3> lo completa datina.js (TX["...-titulo"]): la parte fija del texto, hasta el primer dato que
+    """El título de una ficha cuyo <h2> lo completa datina.js (TX["...-titulo"]): la parte fija del texto, hasta el primer dato que
     se calcula (el período). Así el nombre no se copia a mano en el catálogo."""
-    h3 = re.search(r'<h3[^>]*data-t="([^"]+)"', cuerpo)
+    h3 = re.search(r'<h2[^>]*data-t="([^"]+)"', cuerpo)
     if not h3:
         return ""
     m = re.search(r'"' + re.escape(h3.group(1)) + r'"[^`\n]*`([^`]*)`', js)
@@ -81,7 +81,7 @@ def titulo_calculado(cuerpo, js):
 
 
 def nombre_ficha(cuerpo, js, cat_nombre=""):
-    h3 = re.search(r"<h3[^>]*>(.*?)</h3>", cuerpo, re.S)
+    h3 = re.search(r"<h2[^>]*>(.*?)</h2>", cuerpo, re.S)
     return (texto(h3.group(1)) if h3 else "") or titulo_calculado(cuerpo, js) or cat_nombre
 
 

@@ -162,27 +162,27 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <p class="nos-bajada">Datina reúne las estadísticas públicas de la Argentina y las muestra provincia por provincia, para entender un problema, opinar con datos y encontrar oportunidades.</p>
     <div class="nos-cifras" id="nos-cifras"></div>
     <div class="nos-grid">
-      <div class="nos-item"><span class="nos-ico" data-icono="pin"></span><div><h3>Las 24, una por una</h3><p>Muchas estadísticas se publican solo para el total del país, o en archivos difíciles de encontrar y de comparar. Datina pone a las 24 jurisdicciones una al lado de la otra, con la misma unidad y el mismo período.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="periodico"></span><div><h3>Cada cifra con su origen</h3><p>Cada dato dice qué mide, de qué año es y de dónde sale, y trae su tabla para descargar. Los textos se calculan a partir de los datos: no hay números escritos a mano.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="congreso"></span><div><h3 id="fuentes">Fuentes oficiales</h3><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay dos excepciones, señaladas donde aparecen: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica, y algunas fechas de los jueces de la Corte Suprema, que la tabla con las fuentes de esa pieza señala fila por fila.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="dispersion"></span><div><h3>Cruces con advertencias</h3><p>Datina cruza fuentes distintas para buscar relaciones entre provincias. Cada cruce aclara sus límites: son pocos casos, son promedios y una correlación no prueba que una cosa cause la otra.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="urna"></span><div><h3>Tono neutro</h3><p>En política y en temas sensibles, Datina describe sin adjetivar. Las fichas sobre suicidio llevan líneas de ayuda y no entran en el perfil provincial ni en los cruces.</p></div></div>
-      <div class="nos-item"><span class="nos-ico" data-icono="reloj"></span><div><h3>Se actualiza sola</h3><p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="pin"></span><div><h2>Las 24, una por una</h2><p>Muchas estadísticas se publican solo para el total del país, o en archivos difíciles de encontrar y de comparar. Datina pone a las 24 jurisdicciones una al lado de la otra, con la misma unidad y el mismo período.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="periodico"></span><div><h2>Cada cifra con su origen</h2><p>Cada dato dice qué mide, de qué año es y de dónde sale, y trae su tabla para descargar. Los textos se calculan a partir de los datos: no hay números escritos a mano.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="congreso"></span><div><h2 id="fuentes">Fuentes oficiales</h2><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay dos excepciones, señaladas donde aparecen: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica, y algunas fechas de los jueces de la Corte Suprema, que la tabla con las fuentes de esa pieza señala fila por fila.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="dispersion"></span><div><h2>Cruces con advertencias</h2><p>Datina cruza fuentes distintas para buscar relaciones entre provincias. Cada cruce aclara sus límites: son pocos casos, son promedios y una correlación no prueba que una cosa cause la otra.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="urna"></span><div><h2>Tono neutro</h2><p>En política y en temas sensibles, Datina describe sin adjetivar. Las fichas sobre suicidio llevan líneas de ayuda y no entran en el perfil provincial ni en los cruces.</p></div></div>
+      <div class="nos-item"><span class="nos-ico" data-icono="reloj"></span><div><h2>Se actualiza sola</h2><p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p></div></div>
     </div>
     <div class="nos-texto">
-      <h3>Para quién es</h3>
+      <h2>Para quién es</h2>
       <p>Para quienes toman decisiones en el Estado, en empresas y en organizaciones sociales, para periodistas y docentes, y para cualquier persona curiosa que quiera mirar los números de su provincia con contexto.</p>
-      <h3>Qué no es</h3>
+      <h2>Qué no es</h2>
       <p>Datina no es un sitio oficial ni habla en nombre de ningún organismo. Muestra datos públicos tal como los publica cada fuente y explica en cada ficha cómo se procesaron.</p>
-      <h3 id="como-se-hace">Cómo se hace</h3>
+      <h2 id="como-se-hace">Cómo se hace</h2>
       <p>Tres programas hacen todo el trabajo. El primero baja cada archivo tal como lo publica el organismo. El segundo los ordena en una tabla única, con una fila por jurisdicción, período e indicador, y calcula los indicadores. El tercero arma las páginas. La tabla completa está en <a href="datos/tabla_larga.csv" download>tabla_larga.csv</a>. El <a href="relaciones.html">Explorador de relaciones</a> muestra qué organismo publica cada archivo que baja el sitio y qué fichas arma con él, con la línea del programa que lo muestra.</p>
-      <h3>De dónde viene la idea</h3>
+      <h2>De dónde viene la idea</h2>
       <p>Datina toma ideas de The Pudding, que arranca cada historia con una pregunta, de Our World in Data, por mostrar siempre la fuente y la tabla, y de USAFacts, por presentar los datos públicos de forma clara y sin opinión. En la Argentina, Argendata, de Fundar, es un antecedente con datos sobre todo nacionales: Datina suma la mirada provincia por provincia y los cruces entre fuentes.</p>
-      <h3 id="licencia">Licencia y reutilización</h3>
+      <h2 id="licencia">Licencia y reutilización</h2>
       <p>Los textos, los gráficos y las tablas que arma Datina se pueden copiar y adaptar, también con fines comerciales, citando a Datina y a la fuente de cada dato (licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">Creative Commons Atribución 4.0</a>). El código del sitio es abierto, con licencia MIT. Los datos de base son de cada organismo y se rigen por sus condiciones: cada ficha dice de dónde salen. Las banderas provinciales tienen su propia licencia, detallada más abajo.</p>
-      <h3 id="privacidad">Tus datos</h3>
+      <h2 id="privacidad">Tus datos</h2>
       <p>Los formularios de Contacto y de novedades por correo guardan solo lo que escribís. Los correos se usan para avisar cuando hay datos o artículos nuevos y para responder mensajes: no se comparten ni se publican. Para darte de baja o pedir que se borre tu correo, escribí desde <a href="contacto.html">Contacto</a>.</p>
-      <h3>El nombre y los símbolos</h3>
+      <h2>El nombre y los símbolos</h2>
       <p>El gorro frigio sobre la i y el Sol de Mayo vienen del escudo y de la bandera nacionales. El mapa de la portada usa una proyección azimutal equidistante centrada en la Argentina: cada anillo marca la misma distancia desde el centro del país.</p>
       <!--BANDERAS-->
     </div>
@@ -220,11 +220,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta">Datos difíciles, en gráficos.</p>
       <p>Piezas para mirar con tiempo: muchos datos en un solo dibujo, como cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha, con la tabla para descargar.</p>
     </div>
-    <h3 class="bloque-grupo">Lo último</h3>
+    <h2 class="bloque-grupo">Lo último</h2>
     <article class="lab-pieza grande" id="l-corte-lab" aria-labelledby="l-corte-t">
       <div class="lab-texto">
         <span class="etiqueta">Justicia</span>
-        <h3 id="l-corte-t" style="view-transition-name:t-corte-suprema">La Corte Suprema, juez por juez: quién designó a cada uno</h3>
+        <h2 id="l-corte-t" style="view-transition-name:t-corte-suprema">La Corte Suprema, juez por juez: quién designó a cada uno</h2>
         <p class="lab-lead" data-t="lab-corte"></p>
         <a class="enlace" href="corte-suprema.html">Ver la pieza completa <span aria-hidden="true">&rarr;</span></a>
       </div>
@@ -236,18 +236,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="lab-pieza grande invertida" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
       <div class="lab-texto">
         <span class="etiqueta">Instituciones políticas</span>
-        <h3 id="l-hemiciclo-t">Diputados y senadores, banca por banca</h3>
+        <h2 id="l-hemiciclo-t">Diputados y senadores, banca por banca</h2>
         <p class="lab-lead" data-t="lab-hemiciclo"></p>
         <a class="enlace" href="#f-legisladores">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="grafico lab-hemi" data-g="lab-hemiciclo" data-forma="bloque" style="--alto:490px;--alto-c:775px"></div>
     </article>
-    <h3 class="bloque-grupo">Más del Laboratorio</h3>
+    <h2 class="bloque-grupo">Más del Laboratorio</h2>
     <div class="lab-grid">
       <article class="lab-pieza" id="l-pozos" aria-labelledby="l-pozos-t">
         <div class="lab-texto">
           <span class="etiqueta">Petróleo y gas</span>
-          <h3 id="l-pozos-t">Cada pozo de Vaca Muerta</h3>
+          <h2 id="l-pozos-t">Cada pozo de Vaca Muerta</h2>
           <p class="lab-lead" data-t="lab-pozos"></p>
         </div>
         <div class="lab-graf">
@@ -259,7 +259,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <article class="lab-pieza" id="l-anios" aria-labelledby="l-anios-t">
         <div class="lab-texto">
           <span class="etiqueta">Instituciones políticas</span>
-          <h3 id="l-anios-t">Quiénes estuvieron más años en el Congreso</h3>
+          <h2 id="l-anios-t">Quiénes estuvieron más años en el Congreso</h2>
           <p class="lab-lead" data-t="lab-anios"></p>
         </div>
         <div class="lab-graf">
@@ -271,7 +271,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <article class="lab-pieza" id="l-cruces" aria-labelledby="l-cruces-t">
         <div class="lab-texto">
           <span class="etiqueta">Cruces</span>
-          <h3 id="l-cruces-t">Las 24, año por año</h3>
+          <h2 id="l-cruces-t">Las 24, año por año</h2>
           <p class="lab-lead" data-t="lab-cruces"></p>
         </div>
         <div class="lab-graf">
@@ -329,7 +329,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:trabajo-->
 
     <article class="ficha" id="f-empleo">
-      <h3>¿Cuánto empleo privado registrado hay en cada provincia?</h3>
+      <h2>¿Cuánto empleo privado registrado hay en cada provincia?</h2>
       <p class="ficha-sub">Asalariados privados registrados por provincia, {{empleo.mes}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="empleo">
         <button type="button" data-m="cada_100" aria-pressed="true">Cada 100 habitantes</button>
@@ -343,7 +343,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-salarios">
-      <h3>¿Dónde se gana más en un empleo privado registrado?</h3>
+      <h2>¿Dónde se gana más en un empleo privado registrado?</h2>
       <p class="ficha-sub">Salario promedio de los asalariados registrados del sector privado por provincia, {{salarios.mes}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="salarios">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -356,7 +356,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-rotacion">
-      <h3>¿Cuántos asalariados llevan un año o menos en su empleo?</h3>
+      <h2>¿Cuántos asalariados llevan un año o menos en su empleo?</h2>
       <p class="ficha-sub">Asalariados con un año o menos en su empleo actual, {{rotacion.anios}}</p>
       <label class="selector-ficha"><span>Según</span>
         <select data-g="rotacion">
@@ -376,7 +376,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-desempleo">
-      <h3>¿Cuántas personas cobran el seguro de desempleo?</h3>
+      <h2>¿Cuántas personas cobran el seguro de desempleo?</h2>
       <p class="ficha-sub">Beneficiarios de la prestación por desempleo por provincia, cada 1.000 habitantes, frente al empleo y en cantidad, y del país, {{desempleo.ini}} a {{desempleo.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="desempleo" style="--n:4">
         <button type="button" data-m="habitantes" aria-pressed="true">Cada 1.000</button>
@@ -391,7 +391,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-exportaciones">
-      <h3>¿Cuánto le vende al mundo cada provincia?</h3>
+      <h2>¿Cuánto le vende al mundo cada provincia?</h2>
       <p class="ficha-sub">Exportaciones por habitante según provincia de origen, {{nuevos.ex_anio}}</p>
       <div class="grafico" data-g="exportaciones" data-forma="barras"></div>
       <p class="lead" data-t="exportaciones"></p>
@@ -411,7 +411,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:economia-->
 
     <article class="ficha" id="f-inflacion">
-      <h3>¿Cuánto suben los precios en cada región?</h3>
+      <h2>¿Cuánto suben los precios en cada región?</h2>
       <p class="ficha-sub">Inflación del país y de sus seis regiones, mes a mes y en doce meses, {{economia.ipc.anio_ini}} a {{economia.ipc.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion" style="--n:3">
         <button type="button" data-m="doce" aria-pressed="true">Doce meses</button>
@@ -425,7 +425,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-inflacion-rubros">
-      <h3>¿Qué rubros subieron más en los últimos doce meses?</h3>
+      <h2>¿Qué rubros subieron más en los últimos doce meses?</h2>
       <p class="ficha-sub">Inflación por rubro en los doce meses hasta {{economia.ipc.mes}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inflacion-rubros">
         <button type="button" data-m="division" aria-pressed="true">Rubros</button>
@@ -438,7 +438,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-expectativas">
-      <h3>¿Cuánta inflación espera la gente para el año siguiente?</h3>
+      <h2>¿Cuánta inflación espera la gente para el año siguiente?</h2>
       <p class="ficha-sub">Inflación esperada para los doce meses siguientes y la que hubo, mes a mes desde {{expectativas_inflacion.desde_anio}}</p>
       <div class="grafico" data-g="expectativas" data-forma="lineas"></div>
       <p class="lead" data-t="expectativas"></p>
@@ -447,7 +447,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-canastas">
-      <h3>¿Cuánto necesita un hogar para cubrir lo básico?</h3>
+      <h2>¿Cuánto necesita un hogar para cubrir lo básico?</h2>
       <p class="ficha-sub">Canasta básica alimentaria y canasta básica total, por región y mes a mes, {{economia.canasta.anio_ini}} a {{economia.canasta.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="canastas">
         <button type="button" data-m="region" aria-pressed="true">Por región</button>
@@ -460,7 +460,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-salario-real">
-      <h3>¿Cuánto cambió el poder de compra de los salarios?</h3>
+      <h2>¿Cuánto cambió el poder de compra de los salarios?</h2>
       <p class="ficha-sub">Salarios registrados del sector privado y del sector público descontada la inflación, {{economia.salarios.anio_ini}} a {{economia.salarios.anio}}</p>
       <div class="grafico" data-g="salario-real" data-forma="lineas"></div>
       <p class="lead" data-t="salario-real"></p>
@@ -469,7 +469,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-emae">
-      <h3>¿Cuánto crece o cae la actividad económica?</h3>
+      <h2>¿Cuánto crece o cae la actividad económica?</h2>
       <p class="ficha-sub">Actividad económica mes a mes y por sector, {{economia.actividad.desde}} a {{economia.actividad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="emae">
         <button type="button" data-m="mes" aria-pressed="true">Mes a mes</button>
@@ -482,7 +482,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-supermercados">
-      <h3>¿Cuánto cambiaron las ventas en supermercados en cada provincia?</h3>
+      <h2>¿Cuánto cambiaron las ventas en supermercados en cada provincia?</h2>
       <p class="ficha-sub">Ventas en supermercados en pesos de igual valor, por provincia y mes a mes, {{economia.super.desde}} a {{economia.super.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="supermercados">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -495,7 +495,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-confianza-consumidor">
-      <h3>¿Cuánta confianza tienen los consumidores en la economía?</h3>
+      <h2>¿Cuánta confianza tienen los consumidores en la economía?</h2>
       <p class="ficha-sub">Índice de Confianza del Consumidor de la Universidad Torcuato Di Tella, de 0 a 100, mes a mes desde {{confianza_consumidor.desde_anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="confianza-consumidor">
         <button type="button" data-m="partes" aria-pressed="true">El índice y sus partes</button>
@@ -508,7 +508,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-bcra">
-      <h3>¿Cuánto cambiaron el dólar, las tasas y el dinero?</h3>
+      <h2>¿Cuánto cambiaron el dólar, las tasas y el dinero?</h2>
       <p class="ficha-sub">Variables principales del Banco Central, último dato de cada mes, desde {{externo.bcra_inicio}} o desde que empieza cada serie</p>
       <label class="selector-ficha"><span>Variable</span><select id="bcra-sel"></select></label>
       <div class="conmutador" role="group" aria-label="Medida" id="bcra-conm" data-g="bcra-m" data-propio data-vistas="nominal,En pesos,real,A precios de hoy">
@@ -532,7 +532,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:empresas-->
 
     <article class="ficha" id="f-empresas">
-      <h3>¿Cuántas empresas privadas hay en cada provincia?</h3>
+      <h2>¿Cuántas empresas privadas hay en cada provincia?</h2>
       <p class="ficha-sub">Empresas privadas con empleados cada 1.000 habitantes, {{empresas.anio}}</p>
       <div class="grafico" data-g="empresas" data-forma="barras"></div>
       <p class="lead" data-t="empresas"></p>
@@ -541,7 +541,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-dinamica-empresas">
-      <h3>¿Cuántas empresas abren y cuántas cierran?</h3>
+      <h2>¿Cuántas empresas abren y cuántas cierran?</h2>
       <p class="ficha-sub">Apertura y cierre de empresas privadas, {{empresas.ini}} a {{empresas.ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="dinamica">
         <button type="button" data-m="pais" aria-pressed="true">Serie del país</button>
@@ -564,7 +564,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:pobreza-->
 
     <article class="ficha" id="f-pobreza">
-      <h3>¿Cuántas personas viven bajo la línea de pobreza?</h3>
+      <h2>¿Cuántas personas viven bajo la línea de pobreza?</h2>
       <p class="ficha-sub">Pobreza e indigencia en los 31 aglomerados urbanos, {{pobreza.ini}} a {{pobreza.fin}}</p>
       <div class="grafico" data-g="pobreza" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="pobreza-nota"></p>
@@ -574,7 +574,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-ingresos-aglomerados">
-      <h3>¿Cuánto ingreso por persona tienen los hogares de cada ciudad?</h3>
+      <h2>¿Cuánto ingreso por persona tienen los hogares de cada ciudad?</h2>
       <p class="ficha-sub">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, en pesos del {{ingresos_aglomerados.trimestre}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="ingresos-aglomerados">
         <button type="button" data-m="ipcf" aria-pressed="true">Por persona</button>
@@ -587,7 +587,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-censo">
-      <h3>¿Cuántos hogares tienen cloacas, agua de red y computadora?</h3>
+      <h2>¿Cuántos hogares tienen cloacas, agua de red y computadora?</h2>
       <p class="ficha-sub">Servicios, equipamiento y cobertura de salud por provincia, Censo 2022</p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="censo">
@@ -605,7 +605,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-internet">
-      <h3>¿Cuántos accesos a internet fijo hay cada 100 hogares?</h3>
+      <h2>¿Cuántos accesos a internet fijo hay cada 100 hogares?</h2>
       <p class="ficha-sub">Internet fijo por provincia, {{nuevos.in_trim}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="internet">
         <button type="button" data-m="accesos_100_hogares" aria-pressed="true">Accesos</button>
@@ -618,7 +618,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-pensiones-invalidez">
-      <h3>¿Cuántas personas cobran una pensión por discapacidad?</h3>
+      <h2>¿Cuántas personas cobran una pensión por discapacidad?</h2>
       <p class="ficha-sub">Pensiones no contributivas por invalidez, {{pensiones_invalidez.ini}} a {{pensiones_invalidez.anio}}, y por provincia, en cantidad y cada 1.000 habitantes</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="pensiones-invalidez" style="--n:4">
         <button type="button" data-m="mapa" aria-pressed="true">Mapa</button>
@@ -633,7 +633,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-auh">
-      <h3>¿Cuántos chicos cobran la Asignación Universal por Hijo?</h3>
+      <h2>¿Cuántos chicos cobran la Asignación Universal por Hijo?</h2>
       <p class="ficha-sub">Hijos con AUH por provincia, cada 100 menores de 18 años y en cantidad, y asignaciones familiares de los menores del país, {{auh.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="auh" style="--n:4">
         <button type="button" data-m="provincias" aria-pressed="true">Cada 100</button>
@@ -658,7 +658,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:salud-->
 
     <article class="ficha" id="f-esperanza">
-      <h3>¿Cuántos años se vive en cada provincia?</h3>
+      <h2>¿Cuántos años se vive en cada provincia?</h2>
       <p class="ficha-sub">Esperanza de vida al nacer por provincia y sexo, {{nuevos.ev_anio}}</p>
       <div class="grafico" data-g="esperanza" data-forma="pesas" style="--extra:12px"></div>
       <p class="lead" data-t="esperanza"></p>
@@ -667,7 +667,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-causas-muerte">
-      <h3>¿De qué se muere la gente en cada provincia?</h3>
+      <h2>¿De qué se muere la gente en cada provincia?</h2>
       <p class="ficha-sub">Muertes por año cada 100.000 habitantes según la causa, ajustadas por edad, por provincia, {{causas_muerte.desde}} a {{causas_muerte.hasta}}</p>
       <label class="selector-ficha"><span>Causa</span><select id="cm-sel"></select></label>
       <div class="grafico" data-g="causas-muerte" data-forma="barras"></div>
@@ -677,7 +677,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-mortalidad">
-      <h3>¿Cuántos bebés mueren antes del año en cada provincia?</h3>
+      <h2>¿Cuántos bebés mueren antes del año en cada provincia?</h2>
       <p class="ficha-sub">Tasa de mortalidad infantil por provincia, {{mortalidad.tri_base}} y {{mortalidad.tri_act}}</p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="mortalidad" data-forma="pesas" style="--extra:12px"></div>
@@ -687,7 +687,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-causas-infantiles">
-      <h3>¿De qué mueren los bebés antes de cumplir un año?</h3>
+      <h2>¿De qué mueren los bebés antes de cumplir un año?</h2>
       <p class="ficha-sub">Muertes de menores de un año por grupo de causa y provincia, {{mi_causas.desde}} a {{mi_causas.hasta}}</p>
       <div class="pol-ley" id="causas-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="causas" data-forma="barras" style="--filas:25;--extra:-4px"></div>
@@ -701,7 +701,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
 
     <article class="ficha" id="f-muertes">
-      <h3>Muertes por suicidio, homicidio, siniestros viales y femicidio, {{suicidio.serie_ini}} a {{suicidio.anio}}</h3>
+      <h2>Muertes por suicidio, homicidio, siniestros viales y femicidio, {{suicidio.serie_ini}} a {{suicidio.anio}}</h2>
       <p class="lead" data-t="muertes"></p>
       <div class="grafico" data-g="muertes" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota" data-t="muertes-nota"></p>
@@ -709,7 +709,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-suicidio">
-      <h3>Tasa de suicidios por cada 100.000 habitantes de 5 años y más, {{suicidio.serie_ini}} a {{suicidio.anio}}</h3>
+      <h2>Tasa de suicidios por cada 100.000 habitantes de 5 años y más, {{suicidio.serie_ini}} a {{suicidio.anio}}</h2>
       <p class="lead" data-t="suicidio"></p>
       <div class="grafico" data-g="suicidio" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="nota">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. El SNIC calcula esta tasa sobre las personas de 5 años y más, con el criterio de la OPS y la OMS, y la de homicidios sobre toda la población: por eso las dos tasas no se comparan entre sí, y se comparan las cantidades. Las tasas por sexo están disponibles desde 2017.</p>
@@ -717,14 +717,14 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-suicidio-prov">
-      <h3>Tasa de suicidios por provincia, {{suicidio.anio}}</h3>
+      <h2>Tasa de suicidios por provincia, {{suicidio.anio}}</h2>
       <p class="lead" data-t="suicidio-prov"></p>
       <div class="grafico" data-g="suicidio-prov" data-forma="barras"></div>
       <div class="pie"><span>Fuente: SNIC, Ministerio de Seguridad</span><a href="datos/suicidio_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-edad">
-      <h3>Distribución de los suicidios por edad y sexo, {{suicidio.sat_desde}} a {{suicidio.sat_hasta}}</h3>
+      <h2>Distribución de los suicidios por edad y sexo, {{suicidio.sat_desde}} a {{suicidio.sat_hasta}}</h2>
       <p class="lead" data-t="edad"></p>
       <div class="grafico" data-g="edad" data-forma="piramide" style="--alto:370px;--alto-c:370px"></div>
       <p class="nota">Porcentaje sobre el total de casos del período con edad y sexo registrados. Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan.</p>
@@ -742,7 +742,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:seguridad-->
 
     <article class="ficha" id="f-delitos">
-      <h3>¿Cuántos delitos se registran y de qué tipo?</h3>
+      <h2>¿Cuántos delitos se registran y de qué tipo?</h2>
       <p class="ficha-sub">Delitos registrados en el país por tipo, {{seguridad.anio_ini}} a {{seguridad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="delitos">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo</button>
@@ -755,7 +755,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-robos">
-      <h3>¿Cuántos robos y hurtos se registran en cada provincia?</h3>
+      <h2>¿Cuántos robos y hurtos se registran en cada provincia?</h2>
       <p class="ficha-sub">Robos y hurtos registrados cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="robos" style="--n:3">
         <button type="button" data-m="robos" aria-pressed="true">Robos</button>
@@ -769,7 +769,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-homicidios">
-      <h3>¿Cuántas víctimas de homicidio hay en cada provincia?</h3>
+      <h2>¿Cuántas víctimas de homicidio hay en cada provincia?</h2>
       <p class="ficha-sub">Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="homicidios">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -782,7 +782,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-carceles">
-      <h3>¿Cuántas personas hay en las cárceles?</h3>
+      <h2>¿Cuántas personas hay en las cárceles?</h2>
       <p class="ficha-sub">Personas privadas de libertad en cárceles cada 100.000 habitantes, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="carceles">
         <button type="button" data-m="serie" aria-pressed="true">Todo el país</button>
@@ -805,7 +805,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:educacion-->
 
     <article class="ficha" id="f-escolarizacion">
-      <h3>¿Cuántos adolescentes van a la secundaria?</h3>
+      <h2>¿Cuántos adolescentes van a la secundaria?</h2>
       <p class="ficha-sub">Tasa neta de escolarización secundaria por provincia, {{escolarizacion.ini}} y {{escolarizacion.fin}}</p>
       <p class="aviso-serie">Quiebre de serie en 2022: desde ese año la población de referencia sale del Censo 2022.</p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde la tasa subió. <span class="c-malo">En rojo</span>, donde bajó.</p>
@@ -816,7 +816,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-aprender">
-      <h3>¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender?</h3>
+      <h2>¿Cuántos chicos de 6° grado tienen un nivel satisfactorio en Aprender?</h2>
       <p class="ficha-sub">Estudiantes de 6° grado con nivel satisfactorio o avanzado en Aprender por provincia, {{aprender.anio}}</p>
       <div class="conmutador" role="group" aria-label="Área evaluada" data-g="aprender">
         <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
@@ -829,7 +829,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-pisa">
-      <h3>¿Qué puntaje saca la Argentina en las pruebas PISA?</h3>
+      <h2>¿Qué puntaje saca la Argentina en las pruebas PISA?</h2>
       <p class="ficha-sub">Resultados de la Argentina en las pruebas PISA, 2000 a {{pisa.anio}}</p>
       <div class="conmutador" role="group" aria-label="Área evaluada" data-g="pisa" style="--n:3">
         <button type="button" data-m="mat" aria-pressed="true">Matemática</button>
@@ -843,7 +843,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-salario-docente">
-      <h3>¿Cuánto cobra un maestro en cada provincia?</h3>
+      <h2>¿Cuánto cobra un maestro en cada provincia?</h2>
       <p class="ficha-sub">Salario bruto de un maestro de grado con 10 años de antigüedad por provincia, {{docentes.trim}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="salario-docente">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -856,7 +856,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-inversion-educativa">
-      <h3>¿Cuánto invierte cada provincia por alumno?</h3>
+      <h2>¿Cuánto invierte cada provincia por alumno?</h2>
       <p class="ficha-sub">Inversión en educación por alumno de gestión estatal por provincia, {{inversion_edu.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="inversion-educativa" style="--n:3">
         <button type="button" data-m="alumno" aria-pressed="true">Por alumno</button>
@@ -882,7 +882,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:poblacion-->
 
     <article class="ficha" id="f-nacimientos">
-      <h3>¿Cuántos chicos nacen por año?</h3>
+      <h2>¿Cuántos chicos nacen por año?</h2>
       <p class="ficha-sub">Nacimientos por año en la Argentina y en la OCDE, {{nacimientos.anio_ini}} a {{nacimientos.anio_ult}}</p>
       <div class="grafico" data-g="nacimientos" data-forma="lineas" style="--alto:398px;--alto-c:378px"></div>
       <p class="lead" data-t="nacimientos"></p>
@@ -891,7 +891,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-poblacion-proy">
-      <h3>¿Cuánto va a crecer la población de cada provincia?</h3>
+      <h2>¿Cuánto va a crecer la población de cada provincia?</h2>
       <p class="ficha-sub">Variación de la población proyectada por provincia entre {{poblacion_proy.anio}} y {{poblacion_proy.anio_fin}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="poblacion-proy">
         <button type="button" data-m="var_pct" aria-pressed="true">En porcentaje</button>
@@ -904,7 +904,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-piramide">
-      <h3>¿Cuántos chicos y cuántas personas mayores va a haber?</h3>
+      <h2>¿Cuántos chicos y cuántas personas mayores va a haber?</h2>
       <p class="ficha-sub">Población por edad y sexo, {{piramide.anio}} y {{piramide.anio_fin}}</p>
       <div class="grafico" data-g="piramide" data-forma="piramide" style="--alto:444px;--alto-c:387px"></div>
       <p class="lead" data-t="piramide"></p>
@@ -913,7 +913,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-envejecimiento">
-      <h3>¿Cuántas personas mayores hay por cada 100 en edad de trabajar?</h3>
+      <h2>¿Cuántas personas mayores hay por cada 100 en edad de trabajar?</h2>
       <p class="ficha-sub">Personas de 65 años o más por cada 100 en edad de trabajar, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}</p>
       <div class="grafico" data-g="envejecimiento" data-forma="pesas"></div>
       <p class="lead" data-t="envejecimiento"></p>
@@ -922,7 +922,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-jubilaciones">
-      <h3>¿Cuántos aportan por cada jubilación?</h3>
+      <h2>¿Cuántos aportan por cada jubilación?</h2>
       <p class="ficha-sub">Aportantes por cada beneficio previsional de ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>
       <div class="grafico" data-g="jubilaciones" data-forma="lineas"></div>
       <p class="lead" data-t="jubilaciones"></p>
@@ -931,7 +931,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-haberes">
-      <h3>¿Cuánto cobra un jubilado comparado con un salario?</h3>
+      <h2>¿Cuánto cobra un jubilado comparado con un salario?</h2>
       <p class="ficha-sub">Haber mínimo y jubilación promedio de ANSES frente al salario promedio registrado, {{haberes.ini}} a {{haberes.anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="haberes" style="--n:2">
         <button type="button" data-m="pct" aria-pressed="true">% del salario</button>
@@ -944,7 +944,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-adolescentes">
-      <h3>¿Cuántos bebés tienen madres menores de 20 años?</h3>
+      <h2>¿Cuántos bebés tienen madres menores de 20 años?</h2>
       <p class="ficha-sub">Nacimientos de madres menores de 20 años por provincia, {{nacimientos.anio_ini}} y {{nacimientos.anio_ult}}</p>
       <p class="clave-color"><span class="c-bueno">En verde</span>, donde bajó. <span class="c-malo">En rojo</span>, donde subió.</p>
       <div class="grafico" data-g="adolescentes" data-forma="pesas"></div>
@@ -954,7 +954,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-adolescentes-nse">
-      <h3>¿Hay más madres adolescentes en las provincias con más carencias?</h3>
+      <h2>¿Hay más madres adolescentes en las provincias con más carencias?</h2>
       <p class="ficha-sub">Madres menores de 20 años y nivel socioeconómico por provincia</p>
       <label class="selector-ficha"><span>Indicador del Censo 2022</span><select id="adonse-sel"></select></label>
       <div class="grafico" data-g="adonse" data-forma="puntos"></div>
@@ -974,7 +974,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:migraciones-->
 
     <article class="ficha" id="f-nacidos-otro-pais">
-      <h3>¿Dónde viven las personas nacidas en otro país?</h3>
+      <h2>¿Dónde viven las personas nacidas en otro país?</h2>
       <p class="ficha-sub">Personas nacidas en otro país por provincia, departamento y país de nacimiento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="nacidos-otro-pais" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -988,7 +988,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-migracion-interna">
-      <h3>¿Cuántos viven en una provincia distinta de la que nacieron?</h3>
+      <h2>¿Cuántos viven en una provincia distinta de la que nacieron?</h2>
       <p class="ficha-sub">Dónde nacieron las personas que viven en cada provincia y departamento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="migracion-interna">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -1002,7 +1002,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-migracion-historia">
-      <h3>¿Cuántas personas nacidas en otro país contó cada censo?</h3>
+      <h2>¿Cuántas personas nacidas en otro país contó cada censo?</h2>
       <p class="ficha-sub">Personas nacidas en otro país en cada censo nacional, {{migraciones.historia.ini}} a 2022</p>
       <div class="grafico" data-g="migracion-historia" data-forma="lineas"></div>
       <p class="lead" data-t="migracion-historia"></p>
@@ -1011,7 +1011,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-extranjeros">
-      <h3>¿Cuántas personas nacidas en otro país tienen documento argentino?</h3>
+      <h2>¿Cuántas personas nacidas en otro país tienen documento argentino?</h2>
       <p class="ficha-sub">Personas nacidas en otro país con documento argentino por provincia, {{nuevos.xt_corte}}</p>
       <div class="grafico" data-g="extranjeros" data-forma="barras"></div>
       <p class="lead" data-t="extranjeros"></p>
@@ -1020,7 +1020,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-radicaciones">
-      <h3>¿Cuántas residencias otorga Migraciones por año?</h3>
+      <h2>¿Cuántas residencias otorga Migraciones por año?</h2>
       <p class="ficha-sub">Residencias otorgadas por la Dirección Nacional de Migraciones, {{migraciones.dnm.desde}} a {{migraciones.dnm.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="radicaciones">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
@@ -1034,7 +1034,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-refugio">
-      <h3>¿Cuántas personas piden refugio en la Argentina?</h3>
+      <h2>¿Cuántas personas piden refugio en la Argentina?</h2>
       <p class="ficha-sub">Solicitudes de refugio por año y nacionalidad, {{migraciones.refugio.ini}} a {{migraciones.refugio.anio}}, y personas refugiadas en el país</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="refugio" style="--n:3">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
@@ -1048,7 +1048,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-argentinos-exterior">
-      <h3>¿Cuántos argentinos viven en otro país?</h3>
+      <h2>¿Cuántos argentinos viven en otro país?</h2>
       <p class="ficha-sub">Personas nacidas en la Argentina que viven en otro país, {{migraciones.onu.desde}} a {{migraciones.onu.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="argentinos-exterior">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
@@ -1071,7 +1071,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:politica-->
 
     <article class="ficha" id="f-elecciones">
-      <h3>¿Cómo votó cada provincia para presidente?</h3>
+      <h2>¿Cómo votó cada provincia para presidente?</h2>
       <p class="ficha-sub">Elecciones presidenciales y PASO por provincia, 1983 a {{elecciones_ult}}</p>
       <label class="selector-ficha"><span>Elección</span><select data-g="elecciones" id="el-sel"></select></label>
       <div class="pol-ley" id="el-ley" aria-hidden="true"></div>
@@ -1082,7 +1082,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha ancha" id="f-legisladores">
-      <h3>¿Quiénes ocupan las bancas de cada provincia?</h3>
+      <h2>¿Quiénes ocupan las bancas de cada provincia?</h2>
       <p class="ficha-sub">Diputados y senadores nacionales por provincia en cada período, 1983 a hoy</p>
       <p class="lead" data-t="legisladores"></p>
       <div class="lg-sels">
@@ -1095,7 +1095,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-anios-congreso">
-      <h3>¿Quiénes pasaron más años en el Congreso?</h3>
+      <h2>¿Quiénes pasaron más años en el Congreso?</h2>
       <p class="ficha-sub">Legisladores nacionales con más años en el Congreso, 1983 a hoy</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="anioscong" style="--n:3">
         <button type="button" data-m="total" aria-pressed="true">Total</button>
@@ -1110,7 +1110,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-representacion">
-      <h3>¿Cuántos habitantes hay por cada banca de diputado?</h3>
+      <h2>¿Cuántos habitantes hay por cada banca de diputado?</h2>
       <p class="ficha-sub">Habitantes por banca de diputado nacional según provincia, {{anio_pob}}</p>
       <div class="grafico" data-g="representacion" data-forma="barras"></div>
       <p class="lead" data-t="representacion"></p>
@@ -1119,7 +1119,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-congreso">
-      <h3>¿Cuántas bancas tuvo cada espacio político?</h3>
+      <h2>¿Cuántas bancas tuvo cada espacio político?</h2>
       <p class="ficha-sub">Composición del Congreso por espacio político en cada período legislativo, 1983 a {{congreso.anio_fin}}</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="congreso">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
@@ -1132,7 +1132,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-votaciones">
-      <h3>¿Cómo votó cada legislador las leyes clave?</h3>
+      <h2>¿Cómo votó cada legislador las leyes clave?</h2>
       <p class="ficha-sub">Voto de cada legislador y de cada espacio político en las leyes clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}</p>
       <label class="selector-ficha"><span>Ley</span><select id="vt-sel"></select></label>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="votaciones">
@@ -1146,7 +1146,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha ancha" id="f-votaciones-espacios">
-      <h3>¿Qué parte de cada espacio votó a favor de cada ley?</h3>
+      <h2>¿Qué parte de cada espacio votó a favor de cada ley?</h2>
       <p class="ficha-sub">Parte de cada espacio político que votó a favor de las leyes clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}</p>
       <p class="lead" data-t="vtm"></p>
       <div class="vt-controles">
@@ -1163,7 +1163,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-voto-provincia">
-      <h3>¿Votan más con el gobierno los legisladores de las provincias que más lo votaron?</h3>
+      <h2>¿Votan más con el gobierno los legisladores de las provincias que más lo votaron?</h2>
       <p class="ficha-sub">Voto de los legisladores en las leyes clave y voto de su provincia al presidente, {{votaciones.rep_ini}} a {{votaciones.rep_fin}}</p>
       <label class="selector-ficha"><span>Gobierno</span><select data-g="vprov" id="vprov-sel"></select></label>
       <div class="grafico" data-g="vprov" data-forma="puntos"></div>
@@ -1173,7 +1173,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-atn">
-      <h3>¿Cuánto recibe cada provincia en ATN?</h3>
+      <h2>¿Cuánto recibe cada provincia en ATN?</h2>
       <p class="ficha-sub">Aportes del Tesoro Nacional (ATN) a las provincias, {{transferencias.desde}} a {{transferencias.ult}}</p>
       <label class="selector-ficha"><span>Vista</span><select id="atn-sel"></select></label>
       <div class="grafico" data-g="atn" data-forma="columnas"></div>
@@ -1183,7 +1183,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-transferencias">
-      <h3>¿Cuánto recibe cada provincia en transferencias no automáticas?</h3>
+      <h2>¿Cuánto recibe cada provincia en transferencias no automáticas?</h2>
       <p class="ficha-sub">Transferencias no automáticas de la Nación a las provincias, {{transferencias.desde}} a {{transferencias.ult}}</p>
       <label class="selector-ficha"><span>Vista</span><select id="tr-sel"></select></label>
       <div class="pol-ley" id="tr-ley" aria-hidden="true"></div>
@@ -1194,7 +1194,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-apoyo">
-      <h3>¿Votan más con el gobierno los legisladores de las provincias que reciben más fondos?</h3>
+      <h2>¿Votan más con el gobierno los legisladores de las provincias que reciben más fondos?</h2>
       <p class="ficha-sub">Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, {{votaciones.apoyo.desde}} a {{votaciones.apoyo.hasta}}</p>
       <label class="selector-ficha"><span>Año</span><select id="ap-sel"></select></label>
       <div class="conmutador" role="group" aria-label="Transferencias" data-g="apoyo">
@@ -1207,7 +1207,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-presupuesto">
-      <h3>¿Qué parte de los legisladores de fuera del oficialismo votó el presupuesto?</h3>
+      <h2>¿Qué parte de los legisladores de fuera del oficialismo votó el presupuesto?</h2>
       <p class="ficha-sub">Cómo votaron el presupuesto los legisladores de fuera del bloque oficialista, {{presupuesto.desde}} a {{presupuesto.hasta}}</p>
       <div class="conmutador" role="group" aria-label="Cámara" data-g="presupuesto">
         <button type="button" data-m="Diputados" aria-pressed="true">Diputados</button><button type="button" data-m="Senado" aria-pressed="false">Senado</button>
@@ -1220,7 +1220,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-presidentes">
-      <h3>¿Dónde nacieron los presidentes?</h3>
+      <h2>¿Dónde nacieron los presidentes?</h2>
       <p class="ficha-sub">Presidentes de la Nación desde 1983 según lugar de nacimiento</p>
       <div class="pol-ley" id="pr-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="presidentes" data-forma="bloque" style="--alto:74px;--alto-c:74px"></div>
@@ -1231,7 +1231,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-ministros">
-      <h3>¿Dónde nacieron los ministros de cada gobierno?</h3>
+      <h2>¿Dónde nacieron los ministros de cada gobierno?</h2>
       <p class="ficha-sub">Ministros nacionales según lugar de nacimiento, 1983 a hoy</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="ministros">
         <button type="button" data-m="gobierno" aria-pressed="true">Por gobierno</button><button type="button" data-m="provincia" aria-pressed="false">Por provincia</button>
@@ -1244,7 +1244,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-confianza-gobierno">
-      <h3>¿Cuánta confianza genera el gobierno nacional?</h3>
+      <h2>¿Cuánta confianza genera el gobierno nacional?</h2>
       <p class="ficha-sub">Índice de Confianza en el Gobierno de la Universidad Torcuato Di Tella, de 0 a 5, mes a mes desde {{confianza_gobierno.desde_anio}}, y el voto a la candidatura del gobierno en las elecciones presidenciales</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="confianza-gobierno" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Mes a mes</button>
@@ -1262,7 +1262,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
          hay en Argentina, cuántas fiscalías federales, provinciales, cuántas cortes supremas provinciales, cuántos jueces tiene cada una").
          Respuestas del autor: dentro de Instituciones políticas, y lo provincial armado a mano. Datos y advertencias en 02_procesar.py -->
     <article class="ficha" id="f-corte-casos">
-      <h3>¿Cuántos casos resuelve la Corte Suprema por año?</h3>
+      <h2>¿Cuántos casos resuelve la Corte Suprema por año?</h2>
       <p class="ficha-sub">Casos que llegaron a la Corte Suprema de Justicia de la Nación y casos que resolvió por año, {{justicia.corte.desde}} a {{justicia.corte.hasta}}</p>
       <div class="grafico" data-g="corte-casos" data-forma="lineas"></div>
       <p class="lead" data-t="corte-casos"></p>
@@ -1271,7 +1271,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-jueces-federales">
-      <h3>¿Cuántos jueces federales hay en cada provincia?</h3>
+      <h2>¿Cuántos jueces federales hay en cada provincia?</h2>
       <p class="ficha-sub">Cargos de juez de la Justicia Federal por provincia, con titular y sin titular, {{justicia.federal.fecha}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="jueces-federales">
         <button type="button" data-m="cargos" aria-pressed="true">Cargos</button>
@@ -1285,7 +1285,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-fiscalias-federales">
-      <h3>¿Cuántas fiscalías y defensorías federales hay en cada provincia?</h3>
+      <h2>¿Cuántas fiscalías y defensorías federales hay en cada provincia?</h2>
       <p class="ficha-sub">Fiscalías y defensorías públicas oficiales de la Justicia Federal por provincia, {{justicia.mp.fecha}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fiscalias-federales">
         <button type="button" data-m="cantidad" aria-pressed="true">Cantidad</button>
@@ -1298,7 +1298,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Ministerio de Justicia, padrón de magistrados de la Justicia Federal y de la Justicia Nacional, e INDEC, proyecciones de población</span><a href="datos/fiscalias_defensorias_federales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
     <article class="ficha" id="f-cortes-provinciales">
-      <h3>¿Cuántos jueces tiene la corte de cada provincia?</h3>
+      <h2>¿Cuántos jueces tiene la corte de cada provincia?</h2>
       <p class="ficha-sub">Ministras y ministros del máximo tribunal de cada provincia y de la Ciudad de Buenos Aires al 31 de octubre de {{justicia.prov.anio}}, y lugares que fija la ley</p>
       <div class="pol-ley" id="cp-ley" aria-hidden="true"></div>
       <div class="grafico" data-g="cortes-provinciales" data-forma="barras"></div>
@@ -1308,7 +1308,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-justicia-provincial">
-      <h3>¿Cuántos jueces, fiscales y defensores tiene cada provincia?</h3>
+      <h2>¿Cuántos jueces, fiscales y defensores tiene cada provincia?</h2>
       <p class="ficha-sub">Jueces (con la justicia de paz), fiscales y defensores de cada provincia y de la Ciudad de Buenos Aires cada 100.000 habitantes, al 31 de octubre de {{justicia.prov.anio}}</p>
       <div class="conmutador" role="group" aria-label="Cargo" data-g="justicia-provincial" style="--n:3">
         <button type="button" data-m="magistratura" aria-pressed="true">Jueces</button>
@@ -1332,7 +1332,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:gobierno-->
 
     <article class="ficha" id="f-cuentas-nacion">
-      <h3>¿Cuánto ingresa y cuánto gasta el Estado nacional?</h3>
+      <h2>¿Cuánto ingresa y cuánto gasta el Estado nacional?</h2>
       <p class="ficha-sub">Ingresos, gastos y resultado del Sector Público Nacional como parte del PBI, {{gobierno.nacion.desde}} a {{gobierno.nacion.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="cuentas-nacion">
         <button type="button" data-m="resultado" aria-pressed="true">Resultado</button>
@@ -1345,7 +1345,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-recaudacion">
-      <h3>¿Cuánto recauda cada impuesto nacional?</h3>
+      <h2>¿Cuánto recauda cada impuesto nacional?</h2>
       <p class="ficha-sub">Recaudación de impuestos nacionales, por impuesto y como parte del PBI, {{gobierno.recaudacion.desde}} a {{gobierno.recaudacion.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="recaudacion">
         <button type="button" data-m="impuesto" aria-pressed="true">Por impuesto</button>
@@ -1358,7 +1358,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-deuda">
-      <h3>¿Cuánto debe el Estado nacional?</h3>
+      <h2>¿Cuánto debe el Estado nacional?</h2>
       <p class="ficha-sub">Deuda bruta de la Administración Central como parte del PBI, {{gobierno.deuda.desde}} a {{gobierno.deuda.anio}} y el último trimestre</p>
       <div class="grafico" data-g="deuda" data-forma="lineas"></div>
       <p class="lead" data-t="deuda"></p>
@@ -1367,7 +1367,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-empleo-publico">
-      <h3>¿Cuántos cargos públicos tiene cada provincia?</h3>
+      <h2>¿Cuántos cargos públicos tiene cada provincia?</h2>
       <p class="ficha-sub">Cargos en las administraciones provinciales cada 1.000 habitantes, {{gobierno.empleo.anio}}, y dotación de la administración nacional</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-publico">
         <button type="button" data-m="prov" aria-pressed="true">Provincias</button>
@@ -1380,7 +1380,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-impuestos-provinciales">
-      <h3>¿Cuánto recauda cada provincia por habitante?</h3>
+      <h2>¿Cuánto recauda cada provincia por habitante?</h2>
       <p class="ficha-sub">Impuestos provinciales por habitante, {{gobierno.provincial.anio}}</p>
       <div class="grafico" data-g="impuestos-provinciales" data-forma="barras"></div>
       <p class="lead" data-t="impuestos-provinciales"></p>
@@ -1389,7 +1389,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-fiscal">
-      <h3>¿Cuánto financia cada provincia con recursos propios?</h3>
+      <h2>¿Cuánto financia cada provincia con recursos propios?</h2>
       <p class="ficha-sub">Recursos propios, resultado fiscal y gasto en personal por provincia, {{fiscal.anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fiscal" style="--n:3">
         <button type="button" data-m="autonomia" aria-pressed="true">Recursos propios</button>
@@ -1416,7 +1416,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
 
     <article class="ficha" id="f-balanza">
-      <h3>¿Cuánto vende y cuánto compra la Argentina?</h3>
+      <h2>¿Cuánto vende y cuánto compra la Argentina?</h2>
       <p class="ficha-sub">Exportaciones e importaciones de bienes y su saldo, en millones de dólares por año, {{externo.balanza_desde}} a {{externo.balanza_anio}}</p>
       <div class="grafico" data-g="balanza" data-forma="lineas"></div>
       <p class="lead" data-t="balanza"></p>
@@ -1425,7 +1425,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-exporta-rubros">
-      <h3>¿Qué exporta la Argentina?</h3>
+      <h2>¿Qué exporta la Argentina?</h2>
       <p class="ficha-sub">Exportaciones de bienes por gran rubro, en millones de dólares por año, {{externo.rubros_desde}} a {{externo.rubros_anio}}</p>
       <div class="grafico" data-g="exporta-rubros" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
       <p class="lead" data-t="exporta-rubros"></p>
@@ -1434,7 +1434,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-complejos">
-      <h3>¿Qué cadenas productivas exportan más?</h3>
+      <h2>¿Qué cadenas productivas exportan más?</h2>
       <p class="ficha-sub">Exportaciones de bienes por complejo exportador, en % del total, {{externo.complejos_periodo}}</p>
       <div class="grafico" data-g="complejos" data-forma="barras" style="--filas:20"></div>
       <p class="lead" data-t="complejos"></p>
@@ -1443,7 +1443,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-destinos">
-      <h3>¿Adónde exporta cada provincia?</h3>
+      <h2>¿Adónde exporta cada provincia?</h2>
       <p class="ficha-sub">Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, {{externo.destinos_periodo}}</p>
       <div class="grafico" data-g="destinos" data-forma="barras" style="--filas:23"></div>
       <p class="lead" data-t="destinos"></p>
@@ -1452,7 +1452,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-exporta-provincias">
-      <h3>¿Qué exporta cada provincia?</h3>
+      <h2>¿Qué exporta cada provincia?</h2>
       <p class="ficha-sub">Exportaciones de bienes por provincia de origen y gran rubro, {{externo.provincias_anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="exprov">
         <button type="button" data-m="rubro" aria-pressed="true">Por rubro</button>
@@ -1466,7 +1466,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-importaciones">
-      <h3>¿Qué compra la Argentina?</h3>
+      <h2>¿Qué compra la Argentina?</h2>
       <p class="ficha-sub">Importaciones de bienes por uso económico, en millones de dólares por año, {{externo.imp_desde}} a {{externo.imp_anio}}</p>
       <div class="grafico" data-g="importaciones" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
       <p class="lead" data-t="importaciones"></p>
@@ -1475,7 +1475,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-origen">
-      <h3>¿De dónde vienen las importaciones?</h3>
+      <h2>¿De dónde vienen las importaciones?</h2>
       <p class="ficha-sub">Importaciones de bienes por origen, en % del total, {{externo.origen_periodo}}</p>
       <div class="grafico" data-g="origen" data-forma="barras" style="--filas:25"></div>
       <p class="lead" data-t="origen"></p>
@@ -1484,7 +1484,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-cuenta-corriente">
-      <h3>¿Entran más dólares de los que salen?</h3>
+      <h2>¿Entran más dólares de los que salen?</h2>
       <p class="ficha-sub">Cuenta corriente del balance de pagos y sus partes, en millones de dólares por año, {{externo.cc_desde}} a {{externo.cc_anio}}</p>
       <div class="grafico" data-g="cuenta-corriente" data-forma="lineas"></div>
       <p class="lead" data-t="cuenta-corriente"></p>
@@ -1493,7 +1493,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-reservas-bcra">
-      <h3>¿Cuántas reservas tiene el Banco Central?</h3>
+      <h2>¿Cuántas reservas tiene el Banco Central?</h2>
       <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, en millones de dólares, desde {{externo.reservas_desde}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
@@ -1507,7 +1507,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-reservas-netas">
-      <h3>¿Cuántas reservas netas tiene el Banco Central?</h3>
+      <h2>¿Cuántas reservas netas tiene el Banco Central?</h2>
       <p class="ficha-sub">Reservas brutas, lo que el BCRA debe pagar en moneda extranjera dentro de un año y reservas netas, en millones de dólares, desde {{externo.reservas_netas.desde_anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
@@ -1531,7 +1531,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:movilidad-->
 
     <article class="ficha" id="f-sube">
-      <h3>¿Cuántas tarjetas SUBE se usan por día?</h3>
+      <h2>¿Cuántas tarjetas SUBE se usan por día?</h2>
       <p class="ficha-sub">Tarjetas SUBE usadas por día hábil, 2020 a {{sube.anio_ult}}</p>
       <div class="grafico" data-g="sube" data-forma="lineas"></div>
       <p class="lead" data-t="sube"></p>
@@ -1540,7 +1540,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-sube-modos">
-      <h3>¿Cuánto se usan los trenes y los subtes?</h3>
+      <h2>¿Cuánto se usan los trenes y los subtes?</h2>
       <p class="ficha-sub">Tarjetas SUBE usadas por día hábil en trenes y subtes, 2020 a {{sube.anio_ult}}</p>
       <div class="grafico" data-g="sube-modos" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="lead" data-t="sube-modos"></p>
@@ -1549,7 +1549,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-patentes">
-      <h3>¿Cuántos autos y motos nuevos se patentan por año?</h3>
+      <h2>¿Cuántos autos y motos nuevos se patentan por año?</h2>
       <p class="ficha-sub">Autos y motos nuevos inscriptos por año, {{autos.ini}} a {{autos.anio}}</p>
       <div class="grafico" data-g="patentes" data-forma="lineas"></div>
       <p class="lead" data-t="patentes"></p>
@@ -1558,7 +1558,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-patentes-prov">
-      <h3>¿Dónde se patentan más autos y motos nuevos?</h3>
+      <h2>¿Dónde se patentan más autos y motos nuevos?</h2>
       <p class="ficha-sub">Autos y motos nuevos por cada 1.000 habitantes, por provincia, {{autos.anio}}</p>
       <div class="conmutador" role="group" aria-label="Vehículo" data-g="patentes-prov">
         <button type="button" data-m="autos_1000" aria-pressed="true">Autos</button>
@@ -1571,7 +1571,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-combustibles">
-      <h3>¿Cuánto cuesta la nafta en cada provincia?</h3>
+      <h2>¿Cuánto cuesta la nafta en cada provincia?</h2>
       <p class="ficha-sub">Precio de la nafta súper y del gasoil en el surtidor, {{combustibles.anual_ini}} a {{combustibles.anio_ult}}</p>
       <div class="conmutador" role="group" aria-label="Combustible" data-g="combustibles">
         <button type="button" data-m="nafta" aria-pressed="true">Nafta súper</button>
@@ -1599,7 +1599,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:construccion-->
 
     <article class="ficha" id="f-isac">
-      <h3>¿Cuánto crece o cae la construcción?</h3>
+      <h2>¿Cuánto crece o cae la construcción?</h2>
       <p class="ficha-sub">Actividad de la construcción por mes, {{construccion.isac_ini}} a {{construccion.isac_anio}}</p>
       <div class="grafico" data-g="isac" data-forma="lineas"></div>
       <p class="lead" data-t="isac"></p>
@@ -1608,7 +1608,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-permisos">
-      <h3>¿Cuántos metros cuadrados se autorizan para construir?</h3>
+      <h2>¿Cuántos metros cuadrados se autorizan para construir?</h2>
       <p class="ficha-sub">Superficie autorizada por los permisos de edificación, por mes, {{construccion.per_desde}} a {{construccion.per_mes}}</p>
       <div class="grafico" data-g="permisos" data-forma="lineas"></div>
       <p class="lead" data-t="permisos"></p>
@@ -1617,7 +1617,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-insumos">
-      <h3>¿Cuánto cambió el consumo de cada insumo de la construcción?</h3>
+      <h2>¿Cuánto cambió el consumo de cada insumo de la construcción?</h2>
       <p class="ficha-sub">Consumo aparente de insumos para la construcción, variación a {{construccion.ins_mes}}</p>
       <div class="conmutador" role="group" aria-label="Período" data-g="insumos">
         <button type="button" data-m="var_12m" aria-pressed="true">Últimos doce meses</button>
@@ -1630,7 +1630,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-obra-publica">
-      <h3>¿Cuánta obra pública paga la Nación en cada provincia?</h3>
+      <h2>¿Cuánta obra pública paga la Nación en cada provincia?</h2>
       <p class="ficha-sub">Obra pública de la Nación por provincia, {{construccion.op_desde}} a {{construccion.op_ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="obra-publica">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -1644,7 +1644,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-empleo-construccion">
-      <h3>¿Cuánto empleo registrado tiene la construcción en cada provincia?</h3>
+      <h2>¿Cuánto empleo registrado tiene la construcción en cada provincia?</h2>
       <p class="ficha-sub">Empleo registrado en la construcción por provincia, {{construccion.emp_trim}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="empleo-construccion" style="--n:3">
         <button type="button" data-m="construccion_cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
@@ -1659,7 +1659,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-trabajadores">
-      <h3>¿Cuántas personas trabajan en la construcción en cada provincia?</h3>
+      <h2>¿Cuántas personas trabajan en la construcción en cada provincia?</h2>
       <p class="ficha-sub">Personas ocupadas en la construcción por provincia y departamento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="trabajadores-vista" data-dib="trabajadores">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -1672,7 +1672,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-costo">
-      <h3>¿Cuánto subió el costo de construir frente a los precios?</h3>
+      <h2>¿Cuánto subió el costo de construir frente a los precios?</h2>
       <p class="ficha-sub">Costo de la construcción frente a los precios al consumidor, {{construccion.costo_desde}} a {{construccion.costo_mes}}</p>
       <div class="grafico" data-g="costo" data-forma="lineas"></div>
       <p class="lead" data-t="costo"></p>
@@ -1681,7 +1681,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-hipotecas">
-      <h3>¿Cuánto se presta por mes en créditos hipotecarios?</h3>
+      <h2>¿Cuánto se presta por mes en créditos hipotecarios?</h2>
       <p class="ficha-sub">Créditos hipotecarios UVA nuevos por mes, {{construccion.hip_desde}} a {{construccion.hip_mes}}</p>
       <div class="grafico" data-g="hipotecas" data-forma="lineas"></div>
       <p class="lead" data-t="hipotecas"></p>
@@ -1690,7 +1690,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-vivienda">
-      <h3>¿Cuántos hogares alquilan o viven hacinados?</h3>
+      <h2>¿Cuántos hogares alquilan o viven hacinados?</h2>
       <p class="ficha-sub">Cómo son las viviendas y los hogares, por provincia y departamento, 2022</p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="vivienda">
@@ -1721,10 +1721,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <!--EXPLICADOR:energia-->
 
-    <h3 class="bloque-grupo" id="g-electricidad">Electricidad</h3>
+    <h2 class="bloque-grupo" id="g-electricidad">Electricidad</h2>
 
     <article class="ficha" id="f-hogares">
-      <h3>¿Qué parte de la electricidad consumen los hogares?</h3>
+      <h2>¿Qué parte de la electricidad consumen los hogares?</h2>
       <p class="ficha-sub">Participación de los hogares en la demanda eléctrica, {{energia.anio_ini}} a {{energia.anio_ult}}</p>
       <div class="grafico" data-g="hogares" data-forma="lineas"></div>
       <p class="lead" data-t="hogares"></p>
@@ -1733,7 +1733,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-electricidad-provincias">
-      <h3>¿Cuánta electricidad consumen los hogares de cada provincia?</h3>
+      <h2>¿Cuánta electricidad consumen los hogares de cada provincia?</h2>
       <p class="ficha-sub">Consumo eléctrico de los hogares por habitante, por provincia, {{energia.el_ini}} a {{energia.el_ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="electricidad-provincias" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -1747,7 +1747,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-electricidad-sectores">
-      <h3>¿Cuánta electricidad usan los comercios y las industrias de cada provincia?</h3>
+      <h2>¿Cuánta electricidad usan los comercios y las industrias de cada provincia?</h2>
       <p class="ficha-sub">Demanda eléctrica de comercios e industrias por habitante, por provincia, {{energia.el_ult}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="electricidad-sectores" style="--n:3">
         <button type="button" data-m="ind" aria-pressed="true">Industrias</button>
@@ -1762,7 +1762,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-actividad">
-      <h3>¿Cuánto acompaña la demanda eléctrica a la actividad económica?</h3>
+      <h2>¿Cuánto acompaña la demanda eléctrica a la actividad económica?</h2>
       <p class="ficha-sub">Demanda eléctrica y nivel de actividad económica, {{energia.anio_ini}} a {{energia.anio_ult}}</p>
       <div class="grafico" data-g="actividad" data-forma="lineas"></div>
       <p class="lead" data-t="actividad"></p>
@@ -1771,7 +1771,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-meses">
-      <h3>¿En qué meses se usa más electricidad?</h3>
+      <h2>¿En qué meses se usa más electricidad?</h2>
       <p class="ficha-sub">Demanda eléctrica promedio por mes, {{energia.meses_desde}} a {{energia.meses_hasta}}</p>
       <div class="grafico" data-g="meses" data-forma="columnas" style="--alto:280px;--alto-c:280px"></div>
       <p class="lead" data-t="meses"></p>
@@ -1780,7 +1780,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-centrales">
-      <h3>¿Con qué y dónde se genera la electricidad?</h3>
+      <h2>¿Con qué y dónde se genera la electricidad?</h2>
       <p class="ficha-sub">Centrales eléctricas, {{energia.cen_fecha}}, y potencia instalada por tecnología, {{energia.pot_desde}} a {{energia.pot_anio}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="centrales">
         <button type="button" data-m="mapa" aria-pressed="true">Mapa de centrales</button>
@@ -1793,10 +1793,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Secretaría de Energía, centrales de generación eléctrica (con datos de CAMMESA), y CAMMESA, potencia instalada, vía API de Series de Tiempo</span><a href="datos/centrales.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <h3 class="bloque-grupo" id="g-gas">Gas en los hogares</h3>
+    <h2 class="bloque-grupo" id="g-gas">Gas en los hogares</h2>
 
     <article class="ficha" id="f-gas-hogares">
-      <h3>¿Cuántos hogares cocinan con gas de red?</h3>
+      <h2>¿Cuántos hogares cocinan con gas de red?</h2>
       <p class="ficha-sub">Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="gas-hogares-vista" data-dib="gas-hogares">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -1810,7 +1810,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-gas-consumo">
-      <h3>¿Cuánto gas consume un usuario residencial en cada provincia?</h3>
+      <h2>¿Cuánto gas consume un usuario residencial en cada provincia?</h2>
       <p class="ficha-sub">Consumo de gas natural por usuario residencial, {{energia.gas_ini}} a {{energia.gas_hasta}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="gas-consumo" style="--n:3">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -1823,10 +1823,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: ENARGAS, datos operativos de gas natural (gas entregado y usuarios por provincia y tipo de usuario)</span><a href="datos/gas_usuario_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <h3 class="bloque-grupo" id="g-subsidios">Subsidios a la energía</h3>
+    <h2 class="bloque-grupo" id="g-subsidios">Subsidios a la energía</h2>
 
     <article class="ficha" id="f-subsidios">
-      <h3>¿Cuánto gasta el Estado en subsidios a la energía?</h3>
+      <h2>¿Cuánto gasta el Estado en subsidios a la energía?</h2>
       <p class="ficha-sub">Subsidios económicos a la energía, {{energia.sub_ini}} a {{energia.sub_ult}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="subsidios">
         <button type="button" data-m="pbi" aria-pressed="true">Parte del PBI</button>
@@ -1850,7 +1850,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:petroleo-->
 
     <article class="ficha" id="f-petroleo">
-      <h3>¿Cuánto petróleo produce el país?</h3>
+      <h2>¿Cuánto petróleo produce el país?</h2>
       <p class="ficha-sub">Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>
       <div class="conmutador" role="group" aria-label="Separar por" data-g="petroleo">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
@@ -1863,7 +1863,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-gas">
-      <h3>¿Cuánto gas produce el país?</h3>
+      <h2>¿Cuánto gas produce el país?</h2>
       <p class="ficha-sub">Producción de gas natural por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>
       <div class="conmutador" role="group" aria-label="Separar por" data-g="gas">
         <button type="button" data-m="tipo" aria-pressed="true">Por tipo de recurso</button>
@@ -1876,7 +1876,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-hidro-provincias">
-      <h3>¿Cuánto petróleo y gas produce cada provincia?</h3>
+      <h2>¿Cuánto petróleo y gas produce cada provincia?</h2>
       <p class="ficha-sub">Producción de petróleo y gas por provincia, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="hidro-provincias">
         <button type="button" data-m="pet_kbd" aria-pressed="true">Petróleo</button>
@@ -1889,7 +1889,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-areas-hidro">
-      <h3>¿Qué áreas producen más petróleo y gas?</h3>
+      <h2>¿Qué áreas producen más petróleo y gas?</h2>
       <p class="ficha-sub">Producción de petróleo y gas por área de concesión, {{petroleo.areas_ini}} a {{petroleo.areas_anio}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="areas-hidro">
         <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
@@ -1904,7 +1904,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-mapa-pozos">
-      <h3>¿Dónde están los pozos no convencionales?</h3>
+      <h2>¿Dónde están los pozos no convencionales?</h2>
       <p class="ficha-sub">Pozos no convencionales y áreas de concesión, {{petroleo.map_mes}}</p>
       <div class="conmutador" role="group" aria-label="Zona" data-g="mapa-pozos">
         <button type="button" data-m="cuenca" aria-pressed="true">Cuenca Neuquina</button>
@@ -1918,7 +1918,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-pozos">
-      <h3>¿Cuántos pozos producen y cuánto saca cada uno?</h3>
+      <h2>¿Cuántos pozos producen y cuánto saca cada uno?</h2>
       <p class="ficha-sub">Pozos en producción y lo que produce cada uno, {{petroleo.pozos_mes}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="pozos">
         <button type="button" data-m="pozo" aria-pressed="true">Petróleo por pozo</button>
@@ -1932,7 +1932,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-fracturas">
-      <h3>¿Cuántas etapas de fractura se hacen por año?</h3>
+      <h2>¿Cuántas etapas de fractura se hacen por año?</h2>
       <p class="ficha-sub">Etapas de fractura en formaciones no convencionales y diseño de los pozos de Vaca Muerta, {{petroleo.fr_ini}} a {{petroleo.fr_ult}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fracturas" style="--n:3">
         <button type="button" data-m="etapas" aria-pressed="true">Etapas por año</button>
@@ -1947,7 +1947,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-productividad">
-      <h3>¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año?</h3>
+      <h2>¿Cuánto petróleo saca un pozo de Vaca Muerta en su primer año?</h2>
       <p class="ficha-sub">Petróleo que sacan en su primer año los pozos de shale de Vaca Muerta, según el año en que empezaron, {{petroleo.cos_ini}} a {{petroleo.cos_ult}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="productividad" style="--n:3">
         <button type="button" data-m="pozo" aria-pressed="true">Por pozo</button>
@@ -1961,7 +1961,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-pozos-terminados">
-      <h3>¿Cuántos pozos se terminan por año?</h3>
+      <h2>¿Cuántos pozos se terminan por año?</h2>
       <p class="ficha-sub">Pozos de petróleo y gas terminados por año, {{petroleo.pt_ini}} a {{petroleo.pt_anio}}, y por provincia</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="pozos-terminados">
         <button type="button" data-m="anio" aria-pressed="true">Por año</button>
@@ -1975,7 +1975,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-empresas-hidro">
-      <h3>¿Qué empresas producen más petróleo y gas?</h3>
+      <h2>¿Qué empresas producen más petróleo y gas?</h2>
       <p class="ficha-sub">Producción de petróleo y gas por empresa, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="empresas-hidro">
         <button type="button" data-m="pct_pet" aria-pressed="true">Petróleo</button>
@@ -1988,7 +1988,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-empleo-hidro">
-      <h3>¿Cuánto empleo registrado da el petróleo y el gas?</h3>
+      <h2>¿Cuánto empleo registrado da el petróleo y el gas?</h2>
       <p class="ficha-sub">Empleo registrado en la extracción de petróleo y gas, {{construccion.emp_trim}}</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="empleo-hidro">
         <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
@@ -2001,7 +2001,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-regalias">
-      <h3>¿Cuánto pesan las regalías en los ingresos de cada provincia?</h3>
+      <h2>¿Cuánto pesan las regalías en los ingresos de cada provincia?</h2>
       <p class="ficha-sub">Regalías en los ingresos de cada provincia, {{petroleo.reg_anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="regalias">
         <button type="button" data-m="pct_regalias" aria-pressed="true">% de los ingresos</button>
@@ -2014,7 +2014,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-reservas">
-      <h3>¿Para cuántos años alcanzan las reservas de petróleo y gas?</h3>
+      <h2>¿Para cuántos años alcanzan las reservas de petróleo y gas?</h2>
       <p class="ficha-sub">Reservas comprobadas de petróleo y gas, {{petroleo.res_ini}} a {{petroleo.res_anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="reservas" style="--n:3">
         <button type="button" data-m="pet" aria-pressed="true">Petróleo</button>
@@ -2029,7 +2029,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-balanza-energetica">
-      <h3>¿Cuánta energía exporta e importa el país?</h3>
+      <h2>¿Cuánta energía exporta e importa el país?</h2>
       <p class="ficha-sub">Exportaciones e importaciones de energía, {{petroleo.bal_ini}} a {{petroleo.bal_anio}}</p>
       <div class="grafico" data-g="balanza-energetica" data-forma="lineas"></div>
       <p class="lead" data-t="balanza-energetica"></p>
@@ -2038,7 +2038,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-mundo-petroleo">
-      <h3>¿Qué lugar ocupa la Argentina entre los productores del mundo?</h3>
+      <h2>¿Qué lugar ocupa la Argentina entre los productores del mundo?</h2>
       <p class="ficha-sub">La Argentina entre los productores de petróleo y gas del mundo, {{petroleo.mundo.crudo_kbd.anio}}</p>
       <div class="conmutador" role="group" aria-label="Producto" data-g="mundo-petroleo">
         <button type="button" data-m="crudo_kbd" aria-pressed="true">Petróleo</button>
@@ -2062,7 +2062,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:turismo-->
 
     <article class="ficha" id="f-receptivo">
-      <h3>¿Cuántos turistas extranjeros llegan al país?</h3>
+      <h2>¿Cuántos turistas extranjeros llegan al país?</h2>
       <p class="ficha-sub">Turistas no residentes que llegaron a la Argentina, {{turismo.anio_ini}} a {{turismo.anio}}</p>
       <div class="grafico" data-g="receptivo" data-forma="lineas"></div>
       <p class="lead" data-t="receptivo"></p>
@@ -2071,7 +2071,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-hoteles">
-      <h3>¿Cuántos viajeros se alojan en hoteles?</h3>
+      <h2>¿Cuántos viajeros se alojan en hoteles?</h2>
       <p class="ficha-sub">Viajeros hospedados en hoteles y parahoteles, {{turismo.eoh_ini}} a {{turismo.eoh_anio}}</p>
       <div class="grafico" data-g="hoteles" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="lead" data-t="hoteles"></p>
@@ -2080,7 +2080,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-eti">
-      <h3>¿Qué provincias visitan los turistas extranjeros?</h3>
+      <h2>¿Qué provincias visitan los turistas extranjeros?</h2>
       <p class="ficha-sub">Turistas extranjeros que visitaron cada provincia y salieron por Ezeiza o Aeroparque, {{turismo.eti_anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="eti">
         <button type="button" data-m="cada_1000" aria-pressed="true">Cada 1.000 habitantes</button>
@@ -2103,7 +2103,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:naturaleza-->
 
     <article class="ficha" id="f-protegida">
-      <h3>¿Cuánto territorio protegido tiene cada provincia?</h3>
+      <h2>¿Cuánto territorio protegido tiene cada provincia?</h2>
       <p class="ficha-sub">Superficie protegida por provincia, {{naturaleza.anio}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="protegida">
         <button type="button" data-m="pct_territorio" aria-pressed="true">% del territorio</button>
@@ -2116,7 +2116,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-parques">
-      <h3>¿Cuánta superficie protegen los parques nacionales y desde cuándo?</h3>
+      <h2>¿Cuánta superficie protegen los parques nacionales y desde cuándo?</h2>
       <p class="ficha-sub">Superficie de las áreas protegidas nacionales según año de creación, {{naturaleza.anio_ini}} a {{naturaleza.anio_fin}}</p>
       <div class="conmutador pestanas" role="tablist" aria-label="Vista" style="--n:3">
         <button type="button" role="tab" id="pt-evolucion" aria-controls="pp-evolucion" aria-selected="true">Evolución</button>
@@ -2140,7 +2140,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-visitas">
-      <h3>¿Cuántas personas visitan los parques nacionales?</h3>
+      <h2>¿Cuántas personas visitan los parques nacionales?</h2>
       <p class="ficha-sub">Visitas a parques nacionales, {{naturaleza.vis_ini_anio}} a {{naturaleza.vis_anio}}</p>
       <div class="grafico" data-g="visitas" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="lead" data-t="visitas"></p>
@@ -2149,7 +2149,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-visitas-parque">
-      <h3>¿Qué parques nacionales reciben más visitas?</h3>
+      <h2>¿Qué parques nacionales reciben más visitas?</h2>
       <p class="ficha-sub">Visitas por parque nacional, {{visitas_parque.anios}}</p>
       <div class="conmutador" role="group" aria-label="Año" data-g="visitas-parque" style="--n:3">
         <button type="button" data-m="visitas_ult" aria-pressed="true" data-t="vp-b1"></button>
@@ -2163,7 +2163,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-especies">
-      <h3>¿Qué animales se registran más en las áreas protegidas?</h3>
+      <h2>¿Qué animales se registran más en las áreas protegidas?</h2>
       <p class="ficha-sub">Especies animales registradas en las áreas protegidas nacionales, las 15 con más registros</p>
       <div class="grafico" data-g="especies" data-forma="barras" style="--filas:15"></div>
       <p class="lead" data-t="especies"></p>
@@ -2172,7 +2172,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-pesca">
-      <h3>¿Cuánto se pesca en el mar?</h3>
+      <h2>¿Cuánto se pesca en el mar?</h2>
       <p class="ficha-sub">Desembarques de pesca marítima de las tres especies principales, {{pesca.ini}} a {{pesca.anio}}</p>
       <div class="grafico" data-g="pesca" data-forma="lineas" style="--alto-c:342px"></div>
       <p class="lead" data-t="pesca"></p>
@@ -2181,7 +2181,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-pesca-rio">
-      <h3>¿Qué especies se pescan más en los ríos?</h3>
+      <h2>¿Qué especies se pescan más en los ríos?</h2>
       <p class="ficha-sub">Pesca comercial en ríos por especie, {{pesca.rio_anio}}</p>
       <div class="grafico" data-g="pesca-rio" data-forma="barras" style="--filas:6"></div>
       <p class="lead" data-t="pesca-rio"></p>
@@ -2200,7 +2200,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <!--EXPLICADOR:curiosidades-->
 
     <article class="ficha" id="f-nombres">
-      <h3>¿Qué nombres se eligen más para los bebés?</h3>
+      <h2>¿Qué nombres se eligen más para los bebés?</h2>
       <p class="ficha-sub">Nombres más elegidos para los bebés, {{curiosidades.nom_anio}}</p>
       <div class="conmutador" role="group" aria-label="Sexo" data-g="nombres">
         <button type="button" data-m="F" aria-pressed="true">Nenas</button>
@@ -2214,7 +2214,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-carne">
-      <h3>¿Cuánta carne vacuna come cada habitante?</h3>
+      <h2>¿Cuánta carne vacuna come cada habitante?</h2>
       <p class="ficha-sub">Consumo de carne vacuna por habitante, {{curiosidades.carne_ini}} a {{curiosidades.carne_anio}}</p>
       <div class="grafico" data-g="carne" data-forma="lineas"></div>
       <p class="lead" data-t="carne"></p>
@@ -2223,7 +2223,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-vino">
-      <h3>¿Cuánto vino se vende en el país?</h3>
+      <h2>¿Cuánto vino se vende en el país?</h2>
       <p class="ficha-sub">Vino vendido en el mercado interno, {{curiosidades.vino_ini}} a {{curiosidades.vino_anio}}</p>
       <div class="grafico" data-g="vino" data-forma="lineas"></div>
       <p class="lead" data-t="vino"></p>
@@ -2232,7 +2232,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-yerba">
-      <h3>¿Cuánta yerba mate sale de los molinos?</h3>
+      <h2>¿Cuánta yerba mate sale de los molinos?</h2>
       <p class="ficha-sub">Yerba mate que salió de los molinos, {{curiosidades.yerba_ini}} a {{curiosidades.yerba_anio}}</p>
       <div class="grafico" data-g="yerba" data-forma="lineas"></div>
       <p class="lead" data-t="yerba"></p>
@@ -2241,7 +2241,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-glaciares">
-      <h3>¿Cuántos glaciares tiene cada provincia?</h3>
+      <h2>¿Cuántos glaciares tiene cada provincia?</h2>
       <p class="ficha-sub">Glaciares por provincia</p>
       <div class="grafico" data-g="glaciares" data-forma="barras" style="--filas:12"></div>
       <p class="lead" data-t="glaciares"></p>
@@ -2250,7 +2250,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-clima">
-      <h3>¿Cuánto se calentó el país?</h3>
+      <h2>¿Cuánto se calentó el país?</h2>
       <p class="ficha-sub">Diferencia de la temperatura media anual del país con su valor de referencia, {{curiosidades.cl_ini}} a {{curiosidades.cl_fin}}</p>
       <div class="grafico" data-g="clima" data-forma="franjas"></div>
       <p class="lead" data-t="clima"></p>
@@ -2268,7 +2268,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <!--EXPLICADOR:cruces-->
     <article class="ficha explorador" id="f-cruces">
-      <h3>Explorador de indicadores provinciales</h3>
+      <h2>Explorador de indicadores provinciales</h2>
       <p class="lead">Elegí dos indicadores y mirá si las 24 jurisdicciones se ordenan juntas. Sirve para explorar: una correlación no dice qué causa qué. El diseño sigue a los exploradores regionales de la OCDE y Eurostat, a Gapminder y al Atlas de Desarrollo Humano de Brasil.</p>
       <div class="conmutador pestanas" role="tablist" aria-label="Tipo de análisis" style="--n:3">
         <button type="button" role="tab" id="tab-cx-disp" aria-controls="pan-cx-disp" aria-selected="true">Dispersión</button>
@@ -2344,7 +2344,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <!--EXPLICADOR:indice-->
     <article class="ficha explorador" id="f-indice">
-      <h3>Armá tu propio índice de bienestar provincial</h3>
+      <h2>Armá tu propio índice de bienestar provincial</h2>
       <p class="lead">Cada persona valora cosas distintas. Mové los controles para darle más o menos peso a cada dimensión y mirá cómo cambia el orden de las 24 jurisdicciones. La idea viene del Índice para una Vida Mejor de la OCDE.</p>
       <div class="ix-cuerpo">
         <div class="ix-pesos" id="ix-pesos" role="group" aria-label="Peso de cada dimensión"></div>
@@ -2367,7 +2367,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <!--EXPLICADOR:departamentos-->
     <article class="ficha explorador" id="f-mapa">
-      <h3 data-t="mapa-dep-titulo"></h3>
+      <h2 data-t="mapa-dep-titulo"></h2>
       <p class="lead" data-t="mapa-dep"></p>
       <label class="selector-ficha"><span>Indicador</span><select id="mp-ind"></select></label>
       <div class="mp-cuerpo">
@@ -2391,7 +2391,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </div>
     <!--EXPLICADOR:diagnostico-->
     <article class="ficha explorador" id="f-diagnostico">
-      <h3>Diagnóstico de educación por provincia</h3>
+      <h2>Diagnóstico de educación por provincia</h2>
       <p class="lead">Describe posiciones y diferencias con los últimos datos oficiales de cada tema. No dice qué hacer ni explica por qué cada provincia está donde está.</p>
       <div class="dx-controles">
         <label class="cx-campo"><span>Tema</span><select id="dx-tema"></select></label>
@@ -2407,7 +2407,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
         </div>
       </div>
       <div class="dx-no-dice">
-        <h4>Qué no dice este diagnóstico</h4>
+        <h3>Qué no dice este diagnóstico</h3>
         <ul id="dx-no-dice"></ul>
       </div>
       <div class="pie"><span>Fuentes: Aprender y DiNIEE (Ministerio de Educación), Censo 2022 (INDEC) y PISA (OCDE)</span><a href="datos/aprender_diagnostico.csv" download>Descargar tabla por provincia (CSV)</a><a href="datos/aprender_departamentos.csv" download>Descargar tabla por departamento (CSV)</a></div>

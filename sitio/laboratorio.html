@@ -28,7 +28,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=2552ff9551">
+<link rel="stylesheet" href="datina.css?v=764aa36f70">
 </head>
 <body data-pagina="laboratorio">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -106,11 +106,11 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="pregunta">Datos difíciles, en gráficos.</p>
       <p>Piezas para mirar con tiempo: muchos datos en un solo dibujo, como cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha, con la tabla para descargar.</p>
     </div>
-    <h3 class="bloque-grupo">Lo último</h3>
+    <h2 class="bloque-grupo">Lo último</h2>
     <article class="lab-pieza grande" id="l-corte-lab" aria-labelledby="l-corte-t">
       <div class="lab-texto">
         <span class="etiqueta">Justicia</span>
-        <h3 id="l-corte-t" style="view-transition-name:t-corte-suprema">La Corte Suprema, juez por juez: quién designó a cada uno</h3>
+        <h2 id="l-corte-t" style="view-transition-name:t-corte-suprema">La Corte Suprema, juez por juez: quién designó a cada uno</h2>
         <p class="lab-lead" data-t="lab-corte"></p>
         <a class="enlace" href="corte-suprema.html">Ver la pieza completa <span aria-hidden="true">&rarr;</span></a>
       </div>
@@ -122,18 +122,18 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <article class="lab-pieza grande invertida" id="l-hemiciclo" aria-labelledby="l-hemiciclo-t">
       <div class="lab-texto">
         <span class="etiqueta">Instituciones políticas</span>
-        <h3 id="l-hemiciclo-t">Diputados y senadores, banca por banca</h3>
+        <h2 id="l-hemiciclo-t">Diputados y senadores, banca por banca</h2>
         <p class="lab-lead" data-t="lab-hemiciclo"></p>
         <a class="enlace" href="politica.html#f-legisladores">Ver la ficha completa <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="grafico lab-hemi" data-g="lab-hemiciclo" data-forma="bloque" style="--alto:490px;--alto-c:775px"></div>
     </article>
-    <h3 class="bloque-grupo">Más del Laboratorio</h3>
+    <h2 class="bloque-grupo">Más del Laboratorio</h2>
     <div class="lab-grid">
       <article class="lab-pieza" id="l-pozos" aria-labelledby="l-pozos-t">
         <div class="lab-texto">
           <span class="etiqueta">Petróleo y gas</span>
-          <h3 id="l-pozos-t">Cada pozo de Vaca Muerta</h3>
+          <h2 id="l-pozos-t">Cada pozo de Vaca Muerta</h2>
           <p class="lab-lead" data-t="lab-pozos"></p>
         </div>
         <div class="lab-graf">
@@ -145,7 +145,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <article class="lab-pieza" id="l-anios" aria-labelledby="l-anios-t">
         <div class="lab-texto">
           <span class="etiqueta">Instituciones políticas</span>
-          <h3 id="l-anios-t">Quiénes estuvieron más años en el Congreso</h3>
+          <h2 id="l-anios-t">Quiénes estuvieron más años en el Congreso</h2>
           <p class="lab-lead" data-t="lab-anios"></p>
         </div>
         <div class="lab-graf">
@@ -157,7 +157,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <article class="lab-pieza" id="l-cruces" aria-labelledby="l-cruces-t">
         <div class="lab-texto">
           <span class="etiqueta">Cruces</span>
-          <h3 id="l-cruces-t">Las 24, año por año</h3>
+          <h2 id="l-cruces-t">Las 24, año por año</h2>
           <p class="lab-lead" data-t="lab-cruces"></p>
         </div>
         <div class="lab-graf">
@@ -259,6 +259,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
 <script src="datos/fichas.js?v=b4339826f5"></script>
-<script src="datina.js?v=48bc3210d2"></script>
+<script src="datina.js?v=cd65f9c834"></script>
 </body>
 </html>

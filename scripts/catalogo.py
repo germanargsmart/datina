@@ -176,7 +176,7 @@ def datos_de_usos(plantilla, js):
     for i, t, ds in re.findall(r'<section class="pieza" id="([\w-]+)"[^>]*data-titulo="([^"]+)" data-descr="([^"]+)"', plantilla):
         d[i] = {"titulo": html.unescape(t), "sub": html.unescape(ds), "fuente": "", "frecuencia": "", "nota": ""}
     for i, cuerpo in re.findall(r'<article class="lab-pieza[^"]*" id="([\w-]+)"[^>]*>(.*?)</article>', plantilla, re.S):
-        h = re.search(r"<h3[^>]*>(.*?)</h3>", cuerpo, re.S)
+        h = re.search(r"<h2[^>]*>(.*?)</h2>", cuerpo, re.S)
         d[i] = {"titulo": texto(h.group(1)) if h else i, "sub": "", "fuente": "", "frecuencia": "", "nota": ""}
     d["provincia"] = {"titulo": "Tu provincia", "sub": "", "fuente": "", "frecuencia": "", "nota": ""}
     return d
