@@ -45,7 +45,8 @@
     while (hay.length > parrafos.length) hay[hay.length - 1].remove();
     parrafos.forEach((p, i) => {
       if (!hay[i]) texto.append(document.createElement("p"));
-      if (hay[i].textContent !== p) hay[i].textContent = p;
+      // datina.js une las últimas palabras con un espacio que no se corta (sinViuda): se compara sin eso
+      if (hay[i].textContent.replace(/\u00a0/g, " ") !== p) hay[i].textContent = p;
     });
   };
   const agregar = t => {

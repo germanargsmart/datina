@@ -107,6 +107,14 @@ Los cambios de variables y secretos de Cloudflare valen para las publicaciones s
 
   Si existe `sitio/datos/consulta_ia.json`, revisa también ese índice.
 - Con el interruptor prendido, el armado y la prueba de páginas (`node scripts/prueba_paginas.mjs`) incluyen la página nueva.
+- `node scripts/prueba_consulta_ia_pagina.mjs`, con el interruptor prendido: la página en Chrome, en el celular y con movimiento reducido, contra la función de verdad y la API simulada. Son 17 controles:
+  - la pregunta que llega en el enlace;
+  - que el foco nunca se pierda y al terminar vaya a la tarjeta;
+  - el aviso para lectores de pantalla;
+  - una respuesta con su ficha y su tabla;
+  - un error, con el enlace al catálogo;
+  - "Detener";
+  - una respuesta que se corta sin terminar.
 - En el motor de Cloudflare, sin publicar:
   1. `npm install wrangler` en una carpeta aparte.
   2. Desde la raíz del repositorio, `npx wrangler pages dev sitio --binding ANTHROPIC_API_KEY=... --binding ANTHROPIC_BASE_URL=http://127.0.0.1:8790`, con una API simulada en ese puerto.
