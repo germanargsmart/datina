@@ -37,8 +37,8 @@
 
   // la respuesta, párrafo por párrafo: solo cambia el último y se agregan los nuevos (un lector de pantalla no pierde su lugar)
   let escrito = "", pendiente = false;
-  // el punto de miles en las cifras de cinco o más cifras: el modelo gratis las copia sin puntos, porque cuando los ponía él perdía cifras
-  // ("5.68.763" por 5680763). Las de cuatro quedan como vienen, como pide la RAE: pueden ser años
+  // el punto de miles en las cifras de cinco o más cifras: el motor gratis le da al modelo las cifras sin puntos (con puntos, Workers AI
+  // perdía los ceros de la derecha), y el modelo a veces las copia así. Las de cuatro quedan como vienen, como acepta la RAE: pueden ser años
   const miles = t => t.replace(/(?<![\d.,])\d{5,}(?!\d|\.\d)/g, n => n.replace(/\B(?=(\d{3})+$)/g, "."));
   const pintar = () => {
     pendiente = false;

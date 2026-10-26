@@ -416,8 +416,8 @@ const COLUMNAS_CF = {
 };
 
 // las cifras redondeadas y con coma decimal, para que el modelo no tenga que convertirlas (el 26 de octubre de 2026 escribía "2073,78
-// pesos"): sin decimales desde 100, uno desde 1 y dos por debajo. Sin punto de miles: con "2.220" el modelo entendió 2,22 (lo leyó como
-// un decimal en inglés). El punto de miles lo pone la página (scripts/consulta_ia.js), porque el modelo perdía cifras al ponerlo. Los enteros, los códigos, los años y los períodos quedan como están
+// pesos"): sin decimales desde 100, uno desde 1 y dos por debajo. Sin punto de miles: con "2.220" la respuesta dijo 2,22 (quizás no el
+// modelo sino el corte de textoCF, que perdía los ceros de la derecha). El punto de miles lo pone la página (scripts/consulta_ia.js), porque el modelo perdía cifras al ponerlo. Los enteros, los códigos, los años y los períodos quedan como están
 // ("t" es el tiempo como número decimal, 2025,5 para el segundo semestre de 2025)
 const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre|^t$/i;
 export function cifraAR(v, col) {
@@ -430,7 +430,8 @@ export function cifraAR(v, col) {
 
 // Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage".
 // A veces un pedazo llega como número y no como texto (el 26 de octubre de 2026, el "4" de "4.094.578"): se pasa siempre a texto, porque la
-// página descarta lo que no es texto y la cifra habría quedado cortada
+// página descarta lo que no es texto y la cifra habría quedado cortada. Y se toma tal como vino, no como lo lee JSON.parse, que le saca los
+// ceros de la derecha: el "5.680" de "5.680.763" turistas quedaba 5.68 y la página mostraba "5.68.763"
 async function* textoCF(flujo) {
   const lector = flujo.getReader(), dec = new TextDecoder();
   let resto = "";
@@ -448,7 +449,8 @@ async function* textoCF(flujo) {
         let j;
         try { j = JSON.parse(d); } catch (e) { continue; }
         const x = j.response ?? j.choices?.[0]?.delta?.content;
-        yield {texto: x == null ? "" : String(x), numero: typeof x === "number", uso: j.usage};
+        const tal = typeof x === "number" ? (/"response"\s*:\s*(-?\d[\d.]*(?:[eE][-+]?\d+)?)/.exec(d) || [])[1] : null;
+        yield {texto: x == null ? "" : tal ?? String(x), numero: typeof x === "number", uso: j.usage};
       }
     }
   } finally { lector.releaseLock(); }

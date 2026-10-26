@@ -236,8 +236,10 @@ function iaSimulada(respuesta, error = "", pedazos = null) {
   return {llamadas, run: async (modelo, opciones) => {
     llamadas.push({modelo, opciones});
     if (error) throw new Error(error);
-    // un pedazo que es solo un número llega como número, como lo manda Workers AI (26 de octubre de 2026)
-    const ev = (pedazos || respuesta.match(/\d+|\D{1,15}/gs) || []).map(x => `data: ${JSON.stringify({response: /^\d+$/.test(x) ? +x : x})}\n\n`).join("") +
+    // un pedazo que es solo un número llega como número, como lo manda Workers AI (26 de octubre de 2026). {crudo: "5.680"} va tal cual
+    // en el evento, como un número de JSON con ceros a la derecha
+    const ev = (pedazos || respuesta.match(/\d+|\D{1,15}/gs) || []).map(x => x?.crudo ? `data: {"response":${x.crudo}}\n\n`
+      : `data: ${JSON.stringify({response: /^\d+$/.test(x) ? +x : x})}\n\n`).join("") +
       `data: ${JSON.stringify({response: "", usage: {prompt_tokens: 1234, completion_tokens: 56}})}\n\ndata: [DONE]\n\n`;
     const bytes = new TextEncoder().encode(ev);
     return new ReadableStream({start(c) { for (let i = 0; i < bytes.length; i += 37) c.enqueue(bytes.slice(i, i + 37)); c.close(); }});
@@ -307,6 +309,9 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const iaPegado = iaSimulada("", "", ["Santa Cruz tiene", 4, ".572 glaciares, con", 4, " más que el año", 2025, "."]);
   const r = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaPegado));
   ok(r.texto === "Santa Cruz tiene 4.572 glaciares, con 4 más que el año 2025.", `Workers AI: un número que llega pegado a una palabra lleva su espacio (${r.texto})`);
+  const iaCeros = iaSimulada("", "", ["En 2025 llegaron ", {crudo: "5.680"}, ".763 turistas y ", {crudo: "2.220"}, " pesos."]);
+  const rc = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaCeros));
+  ok(rc.texto === "En 2025 llegaron 5.680.763 turistas y 2.220 pesos.", `Workers AI: un número que llega como número no pierde los ceros de la derecha (${rc.texto})`);
 }
 {
   const ia = iaSimulada("no se usa");
