@@ -100,3 +100,5 @@
   Cache-Control: public, max-age=31536000, immutable
 /datos/bcra_variables.json
   Cache-Control: public, max-age=31536000, immutable
+/consulta-ia.js
+  Cache-Control: public, max-age=31536000, immutable

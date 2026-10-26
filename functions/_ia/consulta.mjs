@@ -25,7 +25,10 @@ export const MODELO = "claude-opus-5-5";
 // cada vuelta (contando lo que piensa), filas y caracteres que recibe de cada tabla
 export const TOPES = {pregunta: 400, vueltas: 6, tokens: 8000, filas: 300, caracteres: 30000};
 const SIN_SUICIDIO = /suicid|autoinflig|autolesi/i;
-const COLS_PERIODO = ["periodo", "fecha", "mes", "anio", "año", "eleccion"];
+// la columna de período de cada tabla, la primera que tenga (el año antes que el mes: en algunas tablas "mes" es el número del mes)
+const COLS_PERIODO = ["periodo", "fecha", "anio", "año", "mes", "eleccion"];
+// los semestres ("1S2026") se comparan como "2026-S1", así entran en el orden de los años (26 de octubre de 2026)
+const clavePeriodo = v => { const m = /^(\d)([ST])(\d{4})$/i.exec(v); return m ? `${m[3]}-${m[2].toUpperCase()}${m[1]}` : v; };
 const COBERTURA = {"Las 24 jurisdicciones y el total del país": "provincias y país", "Las 24 jurisdicciones": "provincias",
                    "Total del país": "país", "Sin desglose territorial": "sin provincias"};
 const NO_ACTIVA = "Las consultas con IA no están activadas.";
@@ -115,8 +118,11 @@ export async function leerTabla(entrada, indice, leer) {
   const conPeriodo = !!(entrada.desde.trim() || entrada.hasta.trim());
   // el prefiltro también por período cuando es un año (26 de octubre de 2026): las líneas que no nombran ningún año del rango no se
   // separan en campos, que es lo que gasta procesador. El filtro de período de abajo sigue decidiendo
+  // (no en las tablas cuyo período es solo el número del mes, que no nombran años)
   const a0 = +(entrada.desde.trim().match(/^\d{4}/) || [0])[0], a1 = +(entrada.hasta.trim().match(/^\d{4}/) || [new Date().getFullYear() + 1])[0];
-  if (a0 && a1 >= a0 && a1 - a0 < 30) previos.push(new RegExp(Array.from({length: a1 - a0 + 1}, (_, i) => a0 + i).join("|")));
+  const colsInfo = info.columnas.map(c => c[0]);
+  if (a0 && a1 >= a0 && a1 - a0 < 30 && COLS_PERIODO.find(c => colsInfo.includes(c)) !== "mes")
+    previos.push(new RegExp(Array.from({length: a1 - a0 + 1}, (_, i) => a0 + i).join("|")));
   const leida = filasCSV(await r.text(), l => previos.every(x => x.test(l)), filtros.length || conPeriodo ? Infinity : TOPES.filas);
   const cab0 = leida.cab;
   // nunca una columna ni una fila sobre suicidio (en las tablas de muertes violentas y de la comparación con la OCDE)
@@ -135,9 +141,10 @@ export async function leerTabla(entrada, indice, leer) {
   if (conPeriodo) {
     const cp = COLS_PERIODO.map(pos).find(i => i >= 0);
     if (cp === undefined) avisos.push("Esta tabla no tiene una columna de período: no se aplicaron desde ni hasta.");
+    else if (!filas.some(x => /^\d{4}/.test(clavePeriodo(x[cp] ?? "")))) avisos.push("La columna de período de esta tabla no trae años: no se aplicaron desde ni hasta.");
     else {
       const d = entrada.desde.trim(), h = entrada.hasta.trim();
-      filas = filas.filter(x => /^\d{4}/.test(x[cp]) && (!d || x[cp] >= d) && (!h || x[cp] <= h + "\uffff"));
+      filas = filas.filter(x => { const k = clavePeriodo(x[cp] ?? ""); return /^\d{4}/.test(k) && (!d || k >= d) && (!h || k <= h + "\uffff"); });
     }
   }
   // sin filtros, las filas que no se separaron también cuentan
@@ -310,13 +317,23 @@ const VACIAS = new Set(("del las los que cuanto cuanta cuantos cuantas como cual
 const SINONIMOS = {gana: "salario", ganan: "salario", sueldo: "salario", sueldos: "salario", presos: "carcel", plata: "ingreso", trabajo: "empleo",
   luz: "electricidad", nafta: "combustible", bebes: "nacidos", chicos: "menores"};
 const raiz = w => w.length > 5 ? w.slice(0, w.length - 2) : w;
+// la tabla principal de los temas que más se preguntan (como PRINCIPAL en el buscador del sitio): va primero aunque otra tenga más palabras
+// de la pregunta (con "inflación de los últimos doce meses" ganaba la de rubros, que tiene "doce meses" en su pregunta)
+const TABLA_PRINCIPAL = {inflacion: "inflacion_mensual", precios: "inflacion_mensual", salario: "salarios_provincias", sueldo: "salarios_provincias",
+  gana: "salarios_provincias", pobreza: "pobreza_serie", indigencia: "pobreza_serie", nafta: "combustibles_provincias", petroleo: "hidrocarburos_provincias",
+  glaciares: "glaciares_provincias", turistas: "turistas_no_residentes_anual", homicidios: "homicidios_provincias", exporta: "exportaciones_provincias",
+  exportaciones: "exportaciones_provincias", empleo: "empleo_provincias", reservas: "reservas_bcra", deuda: "deuda_pbi",
+  // "¿cuántos habitantes tiene Córdoba?" elegía la tabla de las capitales (viviendas por habitante) y daba la población de la ciudad
+  habitantes: "poblacion_proyectada_provincias", poblacion: "poblacion_proyectada_provincias"};
 
 export function elegirTablas(pregunta, indice) {
   let q = ` ${normal(pregunta).replace(/[^a-z0-9]+/g, " ").trim()} `, prov = "";
   for (const [n, c] of PROVINCIAS) if (q.includes(` ${n} `)) { prov = c; q = q.replace(` ${n} `, " "); break; }
   const anio = (q.match(/\b(19|20)\d\d\b/) || [""])[0];
   // cada palabra y, si tiene, su sinónimo ("gana" está en la pregunta de la ficha de salarios, "salario" en su descripción)
-  const pal = [...new Set(q.trim().split(" ").filter(w => w.length > 2 && !VACIAS.has(w) && !/^\d+$/.test(w)).flatMap(w => SINONIMOS[w] ? [w, SINONIMOS[w]] : [w]).map(raiz))];
+  const crudas = q.trim().split(" ").filter(w => w.length > 2 && !VACIAS.has(w) && !/^\d+$/.test(w));
+  const principales = new Set(crudas.map(w => TABLA_PRINCIPAL[w]).filter(Boolean));
+  const pal = [...new Set(crudas.flatMap(w => SINONIMOS[w] ? [w, SINONIMOS[w]] : [w]).map(raiz))];
   if (!pal.length) return {prov, anio, tablas: []};
   const puntos = [...indice.tablas.values()].map(t => {
     const tit = normal(t.titulo), desc = normal(`${t.descripcion} ${t.seccion}`), resto = normal(`${t.tabla} ${t.columnas.map(c => c[0]).join(" ")} ${(t.unidades || []).join(" ")}`);
@@ -324,18 +341,25 @@ export function elegirTablas(pregunta, indice) {
     for (const w of pal) p += tit.includes(w) ? 3 : desc.includes(w) ? 2 : resto.includes(w) ? 1 : 0;
     // con una provincia nombrada, mejor las tablas que la tienen
     if (p && prov) p += /24 jurisdicciones/.test(t.cobertura) ? 2 : /Sin desglose|Total del país/.test(t.cobertura) ? -2 : 0;
+    // con un año en la pregunta no: la tabla principal suele tener solo los últimos años y la serie larga quedaba afuera
+    if (principales.has(t.tabla) && !anio) p += 6;
     return {t, p};
   }).filter(x => x.p > 0).sort((a, b) => b.p - a.p);
   const tope = puntos.length ? Math.max(2, puntos[0].p * 0.6) : 0;
-  return {prov, anio, tablas: puntos.filter(x => x.p >= tope).slice(0, TOPES_CF.tablas).map(x => x.t)};
+  // "¿qué provincia tiene más...?": muestraCF suma la más alta y la más baja de cada columna
+  const extremos = /\b(mas|menos|mayor|menor|mayores|menores|maximo|minimo|primera|ultima|ranking|lidera|encabeza)\b/.test(q) && !prov;
+  return {prov, anio, extremos, tablas: puntos.filter(x => x.p >= tope).slice(0, TOPES_CF.tablas).map(x => x.t)};
 }
 
 // lo que recibe el modelo de una tabla: lo de leerTabla con la provincia nombrada y los últimos dos años de la tabla, y de las filas, las
 // últimas que entran. Si la pregunta nombra un año, también las de ese año
-async function muestraCF(info, prov, anio, indice, leer) {
+async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   const cols = new Set(info.columnas.map(c => c[0]));
   const cp = COLS_PERIODO.some(c => cols.has(c));
   const ultimo = (String(info.periodo || "").match(/(\d{4})\D*$/) || [])[1];
+  const anioFinal = ultimo || (String(info.descripcion || "").match(/(\d{4})\D*$/) || [])[1];
+  const anioInicio = (String(info.periodo || info.descripcion || "").match(/\d{4}/) || [])[0];
+  const glosa = COLUMNAS_CF[info.tabla]?.(+anioFinal, +anioInicio);
   const filtros = prov && cols.has("codigo_indec") ? [{columna: "codigo_indec", valores: [prov, "00"]}] : [];
   const partes = async (desde, hasta) => {
     const r = await leerTabla({tabla: info.tabla, columnas: [], filtros, desde, hasta}, indice, leer);
@@ -354,10 +378,82 @@ async function muestraCF(info, prov, anio, indice, leer) {
   // si no entra, se sacan filas del medio: quedan las del año pedido, si hay, y las últimas
   while (filas.length > 2 && filas.join("\n").length > TOPES_CF.caracteres) filas.splice(Math.floor(filas.length / 3), 1);
   const aviso = filas.length < total ? `\nSe muestran ${filas.length} filas de las ${total} que cumplen la consulta.` : "";
-  return {texto: `${recientes.meta}${aviso}\n\n${[recientes.cab, ...filas].join("\n")}`, info: recientes.info};
+  // sin el nombre del archivo, que el modelo copiaba en la respuesta ("según la tabla inflacion_mensual"), y con qué es cada columna
+  // cuando el nombre no alcanza
+  // (en la línea de las columnas, los rangos también sin punto de miles y redondeados, como las cifras: el modelo copiaba "31683,84
+  // millones" del rango). Las tablas de los artículos que no traen fuente llevan la suya, o la de la ficha: el modelo inventaba "la
+  // Encuesta Permanente de Hogares de Datina"
+  const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha")
+    .replace(/^Columnas: .*$/m, l => l.replace(/(\d)\.(?=\d{3}(?!\d))/g, "$1").replace(/(-?\d+),(\d+)/g, (x, e, d) => cifraAR(`${e}.${d}`, "valor"))) +
+    (info.fuente ? "" : `\nFuente: ${FUENTES_CF[info.tabla] || "la que figura en la ficha de Datina"}.`) +
+    (glosa && !/NaN/.test(glosa) ? `\nQué es cada columna: ${glosa}.` : "");
+  const cab = campos(recientes.cab);
+  const tabla = [cab.join(" | "), ...filas.map(l => campos(l).map((v, i) => cifraAR(v, cab[i] || "")).join(" | "))].join("\n");
+  return {texto: `${meta}${aviso}${extremos ? extremosCF(cab, filas) : ""}\n\n${tabla}`, info: recientes.info};
 }
 
-// Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage"
+// la más alta y la más baja de cada columna numérica, sin el total del país: ordenar 24 filas es donde el modelo gratis se equivocaba
+// ("¿Cuál es la provincia con más homicidios?" daba la de la tasa más alta con la cantidad de víctimas de tres años)
+function extremosCF(cab, lineas) {
+  const ter = cab.indexOf("territorio"), cod = cab.indexOf("codigo_indec");
+  if (ter < 0) return "";
+  let filas = lineas.map(campos).filter(f => f[cod] !== "00" && !/^(todo el pa[ií]s|total)/i.test(f[ter] || ""));
+  // con varios períodos, solo el último: si no, la más alta podía ser de otro año
+  const cp = cab.findIndex(c => COLS_PERIODO.includes(c));
+  if (cp >= 0) {
+    const ult = filas.map(f => clavePeriodo(f[cp] ?? "")).sort().at(-1);
+    filas = filas.filter(f => clavePeriodo(f[cp] ?? "") === ult);
+  }
+  if (filas.length < 5) return "";
+  const notas = cab.map((c, i) => {
+    if (i === ter || NO_ES_CIFRA.test(c)) return "";
+    const v = filas.filter(f => /^-?\d+(\.\d+)?$/.test(f[i] ?? "")).sort((a, b) => b[i] - a[i]);
+    if (v.length < 5) return "";
+    return `${c}: la más alta es ${v[0][ter]} (${cifraAR(v[0][i], c)}) y la más baja, ${v.at(-1)[ter]} (${cifraAR(v.at(-1)[i], c)})`;
+  }).filter(Boolean).slice(0, 8);
+  // una columna por renglón: en un solo párrafo, el modelo dio la más alta de una columna como la de otra (exportaciones por habitante)
+  return notas.length ? `\nSin contar el total del país, la más alta y la más baja de cada columna:\n${notas.join(".\n")}.` : "";
+}
+
+// la fuente de las tablas de los artículos que no la traen en el índice (la dice el texto del artículo)
+const FUENTES_CF = {capitales: "INDEC, Censo 2022, por municipio", capitales_eph: "INDEC, Encuesta Permanente de Hogares"};
+
+// columnas cuyo nombre no alcanza para saber qué miden (con homicidios, el modelo llamó tasa a las víctimas de tres años), con los años
+// de la tabla (a, el último, e i, el primero, salen de "Qué mide": el modelo escribía "el último año" sin nombrarlo)
+const COLUMNAS_CF = {
+  poblacion_proyectada_provincias: (a, i) => `personas_hoy, la población proyectada por el INDEC para ${i}, la de este año. personas_${a}, la ` +
+    `proyectada para ${a}. var_personas y var_pct, cuánto cambia de ${i} a ${a}, en personas y en porcentaje. anio_maximo, el año en que la ` +
+    `población proyectada llega a su máximo`,
+  // las dos tablas de las capitales no traen "Qué mide": el modelo dio la población de la ciudad de Córdoba como la de la provincia
+  capitales: () => "territorio, la ciudad capital de la provincia (su municipio, y en la Ciudad de Buenos Aires sus 15 comunas), no la provincia " +
+    "entera. poblacion y viviendas, las de esa ciudad en el Censo 2022",
+  capitales_eph: () => "territorio, el aglomerado urbano de la capital de la provincia que mide la Encuesta Permanente de Hogares (como Gran La " +
+    "Plata), no la provincia entera. aglomerado, su código. pobreza e indigencia, porcentaje de personas. desocupacion y empleo, tasas en " +
+    "porcentaje, promedio de los últimos cuatro trimestres. alquila, porcentaje de hogares inquilinos. cv_pobreza y cv_indigencia, el " +
+    "coeficiente de variación de esas estimaciones",
+  homicidios_provincias: a => `victimas_3, las víctimas sumadas de ${a - 2} a ${a}. tasa_3, víctimas por año cada 100 mil habitantes, en ` +
+    `promedio de ${a - 2} a ${a}. victimas, las víctimas de ${a}. tasa, víctimas cada 100 mil habitantes en ${a}. pct_varones, porcentaje de ` +
+    `varones entre las víctimas de ${a}`,
+};
+
+// las cifras redondeadas y con coma decimal, para que el modelo no tenga que convertirlas (el 26 de octubre de 2026 escribía "2073,78
+// pesos"): sin decimales desde 100, uno desde 1 y dos por debajo. Sin punto de miles: con "2.220" la respuesta dijo 2,22 (quizás no el
+// modelo sino el corte de textoCF, que perdía los ceros de la derecha). El punto de miles lo pone la página (scripts/consulta_ia.js), porque el modelo perdía cifras al ponerlo. Los enteros, los códigos, los años y los períodos quedan como están
+// ("t" es el tiempo como número decimal, 2025,5 para el segundo semestre de 2025)
+// (el nombre entero: con "semestre" en cualquier lugar, "millones_usd_1er_semestre_2026" quedaba sin redondear)
+const NO_ES_CIFRA = /^(?:codigo\w*|anio(?:_\w+)?|año|periodo(?:_\w+)?|fecha\w*|mes(?:_indice)?|eleccion|trimestre|semestre|t)$/i;
+export function cifraAR(v, col) {
+  if (NO_ES_CIFRA.test(col) || !/^-?\d+\.\d+$/.test(v)) return v;
+  const n = +v, a = Math.abs(n), dec = a >= 100 || Number.isInteger(n) ? 0 : a >= 1 ? 1 : 2, f = 10 ** dec;
+  // mitad hacia arriba, como r1() del sitio
+  const [ent, frac] = (Math.round(a * f + 1e-9) / f).toFixed(dec).split(".");
+  return (n < 0 ? "-" : "") + ent + (frac ? "," + frac : "");
+}
+
+// Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage".
+// A veces un pedazo llega como número y no como texto (el 26 de octubre de 2026, el "4" de "4.094.578"): se pasa siempre a texto, porque la
+// página descarta lo que no es texto y la cifra habría quedado cortada. Y se toma tal como vino, no como lo lee JSON.parse, que le saca los
+// ceros de la derecha: el "5.680" de "5.680.763" turistas quedaba 5.68 y la página mostraba "5.68.763"
 async function* textoCF(flujo) {
   const lector = flujo.getReader(), dec = new TextDecoder();
   let resto = "";
@@ -374,7 +470,9 @@ async function* textoCF(flujo) {
         if (d === "[DONE]") return;
         let j;
         try { j = JSON.parse(d); } catch (e) { continue; }
-        yield {texto: j.response ?? j.choices?.[0]?.delta?.content ?? "", uso: j.usage};
+        const x = j.response ?? j.choices?.[0]?.delta?.content;
+        const tal = typeof x === "number" ? (/"response"\s*:\s*(-?\d[\d.]*(?:[eE][-+]?\d+)?)/.exec(d) || [])[1] : null;
+        yield {texto: x == null ? "" : tal ?? String(x), numero: typeof x === "number", uso: j.usage};
       }
     }
   } finally { lector.releaseLock(); }
@@ -397,26 +495,31 @@ async function conversarCF({pregunta, indice, ia, modelo, leer, enviar, corte}) 
       final = "ayuda";
       return uso;
     }
-    const {prov, anio, tablas} = elegirTablas(pregunta, indice);
+    const {prov, anio, extremos, tablas} = elegirTablas(pregunta, indice);
     if (!tablas.length) { enviar({t: "error", texto: SIN_TABLAS}); final = "sin tablas"; return uso; }
     const bloques = [], consultadas = [];
-    for (const info of tablas) {
-      enviar({t: "paso", texto: `Leyendo «${info.titulo}»…`});
-      const m = await muestraCF(info, prov, anio, indice, leer);
+    for (const [i, info] of tablas.entries()) {
+      // dos tablas de la misma ficha se anuncian una sola vez
+      if (!i || tablas[i - 1].titulo !== info.titulo) enviar({t: "paso", texto: `Leyendo «${info.titulo}»…`});
+      const m = await muestraCF(info, prov, anio, indice, leer, extremos);
       if (!m) continue;
-      bloques.push(`### Tabla ${bloques.length + 1}\n${m.texto}`);
+      // sin número: el modelo citaba "la tabla 1"
+      bloques.push(`---\n${m.texto}`);
       consultadas.push({titulo: m.info.titulo, url: m.info.url, tabla: m.info.tabla});
     }
     n = consultadas.length;
     if (!n) { enviar({t: "error", texto: SIN_TABLAS}); final = "sin tablas"; return uso; }
     enviar({t: "paso", texto: "Escribiendo la respuesta…"});
     const mensajes = [{role: "system", content: INDICACIONES_CF},
-      {role: "user", content: `Pregunta: ${pregunta}\n\nDatos de Datina, actualizados al ${indice.actualizado}. Usá solo estos datos.\n\n${bloques.join("\n\n")}`}];
+      // sin la fecha de actualización del sitio: el modelo la daba como el período del dato
+      {role: "user", content: `Pregunta: ${pregunta}\n\nDatos de Datina. Usá solo estos datos.\n\n${bloques.join("\n\n")}`}];
     const flujo = await ia.run(modelo, {messages: mensajes, max_tokens: TOPES_CF.tokens, temperature: 0.2, stream: true});
     let escrito = "";
     for await (const ev of textoCF(flujo)) {
       if (corte.signal.aborted) { final = "cortada por quien preguntó"; return uso; }
-      if (ev.texto) { escrito += ev.texto; enviar({t: "texto", texto: ev.texto}); }
+      // un pedazo que llegó como número perdió el espacio de adelante ("con4.572"): se repone si viene pegado a una palabra
+      const pedazo = ev.numero && /\p{L}$/u.test(escrito) ? " " + ev.texto : ev.texto;
+      if (pedazo) { escrito += pedazo; enviar({t: "texto", texto: pedazo}); }
       if (ev.uso) { uso.entrada = ev.uso.prompt_tokens || 0; uso.salida = ev.uso.completion_tokens || 0; }
     }
     if (!escrito.trim()) { enviar({t: "error", texto: NO_DISPONIBLE}); return uso; }

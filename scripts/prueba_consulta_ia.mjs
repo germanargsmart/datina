@@ -8,7 +8,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import Anthropic from "../functions/_ia/anthropic-sdk.mjs";
-import { responder, leerTabla, cargarIndice, elegirTablas, TOPES, MODELO, TOPES_CF, MODELO_CF, AYUDA_SUICIDIO } from "../functions/_ia/consulta.mjs";
+import { responder, leerTabla, cargarIndice, elegirTablas, cifraAR, TOPES, MODELO, TOPES_CF, MODELO_CF, AYUDA_SUICIDIO } from "../functions/_ia/consulta.mjs";
 import { INDICACIONES_CF } from "../functions/_ia/indicaciones.mjs";
 import { onRequest } from "../functions/api/consulta.js";
 
@@ -231,12 +231,15 @@ const silencio = async f => { const [l, e] = [console.log, console.error]; conso
 // ---------- 6. el motor gratis, Cloudflare Workers AI (26 de octubre de 2026) ----------
 // Workers AI simulado: devuelve la respuesta en eventos "data:", cortados en pedazos de 37 bytes (un evento puede quedar partido entre
 // dos pedazos), o falla con el mensaje que se le pase
-function iaSimulada(respuesta, error = "") {
+function iaSimulada(respuesta, error = "", pedazos = null) {
   const llamadas = [];
   return {llamadas, run: async (modelo, opciones) => {
     llamadas.push({modelo, opciones});
     if (error) throw new Error(error);
-    const ev = (respuesta.match(/.{1,15}/gs) || []).map(x => `data: ${JSON.stringify({response: x})}\n\n`).join("") +
+    // un pedazo que es solo un número llega como número, como lo manda Workers AI (26 de octubre de 2026). {crudo: "5.680"} va tal cual
+    // en el evento, como un número de JSON con ceros a la derecha
+    const ev = (pedazos || respuesta.match(/\d+|\D{1,15}/gs) || []).map(x => x?.crudo ? `data: {"response":${x.crudo}}\n\n`
+      : `data: ${JSON.stringify({response: /^\d+$/.test(x) ? +x : x})}\n\n`).join("") +
       `data: ${JSON.stringify({response: "", usage: {prompt_tokens: 1234, completion_tokens: 56}})}\n\ndata: [DONE]\n\n`;
     const bytes = new TextEncoder().encode(ev);
     return new ReadableStream({start(c) { for (let i = 0; i < bytes.length; i += 37) c.enqueue(bytes.slice(i, i + 37)); c.close(); }});
@@ -255,15 +258,20 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const ia = iaSimulada(respuesta);
   const {ev, texto, resp} = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?", ia));
   ok(resp.status === 200 && texto === respuesta, "Workers AI: el texto que llega a la página es el que escribió el modelo, aunque los eventos lleguen partidos");
+  ok(ev.filter(e => e.t === "texto").every(e => typeof e.texto === "string"), "Workers AI: los pedazos que llegan como número van a la página como texto");
   ok(ia.llamadas.length === 1 && ia.llamadas[0].modelo === MODELO_CF && MODELO_CF === "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "Workers AI: una sola llamada, con el modelo por omisión");
   const op = ia.llamadas[0].opciones;
   ok(op.stream === true && op.max_tokens === TOPES_CF.tokens && op.temperature === 0.2, "Workers AI: en vivo, con el tope de tokens y poca temperatura");
   ok(op.messages.length === 2 && op.messages[0].role === "system" && op.messages[0].content === INDICACIONES_CF, "Workers AI: con sus instrucciones");
   const u = op.messages[1].content;
-  ok(u.startsWith("Pregunta: ¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?") && u.includes("Tabla gas_usuario_serie.csv"), "Workers AI: la pregunta y la tabla que más se le parece");
+  ok(u.startsWith("Pregunta: ¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?") && u.includes('Datos de la ficha "¿Cuánto gas usa cada usuario?"'),
+     "Workers AI: la pregunta y la tabla que más se le parece");
+  ok(!u.includes("gas_usuario_serie.csv"), "Workers AI: sin el nombre del archivo, que el modelo copiaba en la respuesta");
   const csv = u.split("\n\n").at(-1).split("\n");
-  ok(csv[0] === "anio,codigo_indec,territorio,m3_usuario" && csv.length > 2 && csv.slice(1).every(l => /^202[45],0[02],/.test(l)),
-     "Workers AI: de la tabla, solo el país y la Ciudad en los dos últimos años");
+  ok(csv[0] === "anio | codigo_indec | territorio | m3_usuario" && csv.length > 2 && csv.slice(1).every(l => /^202[45] \| 0[02] \| /.test(l)),
+     "Workers AI: de la tabla, solo el país y la Ciudad en los dos últimos años, con las columnas separadas por |");
+  ok(csv.slice(1).every(l => /^\d{4} \| \d\d \| [^|]+ \| \d+$/.test(l)), "Workers AI: el consumo redondeado, sin decimales ni punto de miles (con punto, el modelo leía 2.220 como 2,22)");
+  ok(!u.includes("actualizados al"), "Workers AI: sin la fecha de actualización del sitio, que el modelo daba como período del dato");
   ok(u.length < TOPES_CF.caracteres * TOPES_CF.tablas + 3000 && !/suicid/i.test(u), "Workers AI: un pedido corto y sin nada sobre suicidio");
   ok(ev.some(e => e.t === "paso" && e.texto === "Leyendo «¿Cuánto gas usa cada usuario?»…") && ev.some(e => e.t === "paso" && e.texto === "Escribiendo la respuesta…"),
      "Workers AI: avisa qué lee y cuándo escribe");
@@ -274,11 +282,37 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const ia = iaSimulada("ok");
   await silencio(() => consultaCF("¿Cuánto gas usaba cada usuario de la Ciudad en 2005?", ia));
   const csv = ia.llamadas[0].opciones.messages[1].content.split("\n\n").at(-1).split("\n").slice(1);
-  ok(csv.some(l => l.startsWith("2005,")) && csv.some(l => l.startsWith("2025,")), "Workers AI: con un año en la pregunta, las filas de ese año y las últimas");
+  ok(csv.some(l => l.startsWith("2005 |")) && csv.some(l => l.startsWith("2025 |")), "Workers AI: con un año en la pregunta, las filas de ese año y las últimas");
   const iaMv = iaSimulada("ok");
   await silencio(() => consultaCF("¿Cuántas muertes violentas y homicidios hubo?", iaMv));
   const u = iaMv.llamadas[0]?.opciones.messages[1].content || "";
-  ok(u.includes("muertes_violentas") && u.includes("homicidios") && !/suicid/i.test(u), "Workers AI: muertes violentas sin la columna de suicidios");
+  ok(u.includes('Datos de la ficha "Muertes violentas"') && u.includes("homicidios") && !/suicid/i.test(u), "Workers AI: muertes violentas sin la columna de suicidios");
+}
+{
+  const casos = [["2073.7800", "nafta", "2074"], ["4094578.9300", "salario", "4094579"], ["37.8500", "pct", "37,9"], ["0.4300", "tasa", "0,43"],
+                 ["-12.3400", "var", "-12,3"], ["5680763", "turistas", "5680763"], ["2025", "turistas", "2025"], ["2024.0000", "anio", "2024.0000"],
+                 ["06", "codigo_indec", "06"], ["Salta", "territorio", "Salta"], ["2024-05", "periodo", "2024-05"],
+                 ["2025.5000", "t", "2025.5000"], ["2025.5000", "semestre", "2025.5000"], ["10.0", "victimas", "10"], ["33.0000", "pct", "33"],
+                 ["192.2435", "millones_usd_1er_semestre_2026", "192"], ["3.9311", "var_mes", "3,9"], ["2040.0000", "anio_maximo", "2040.0000"]];
+  const mal = casos.filter(([v, c, e]) => cifraAR(v, c) !== e);
+  ok(!mal.length, `Workers AI: las cifras como en la Argentina, redondeadas, sin tocar códigos, años ni textos (${mal.map(([v, c]) => `${v} → ${cifraAR(v, c)}`).join(", ")})`);
+  // "¿qué provincia ... más?": la más alta y la más baja de cada columna, del último año y sin el total del país
+  const iaMas = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Qué provincia usa más gas por usuario?", iaMas));
+  const filasGas = readFileSync(join(DATOS, "gas_usuario_serie.csv"), "utf-8").trim().split("\n").slice(1).map(l => l.split(","));
+  const ultGas = filasGas.map(f => f[0]).sort().at(-1);
+  const topGas = filasGas.filter(f => f[0] === ultGas && f[1] !== "00").sort((a, b) => b[3] - a[3])[0];
+  const uMas = iaMas.llamadas[0]?.opciones.messages[1].content || "";
+  ok(uMas.includes("Sin contar el total del país, la más alta y la más baja de cada columna:\n") && uMas.includes(`\nm3_usuario: la más alta es ${topGas[2]} (`), `Workers AI: con "más", la provincia más alta del último año (${topGas[2]}, ${ultGas})`);
+  const iaProv = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?", iaProv));
+  ok(!iaProv.llamadas[0].opciones.messages[1].content.includes("Sin contar el total del país"), "Workers AI: sin \"más\" ni \"menos\", no suma los extremos");
+  const iaPegado = iaSimulada("", "", ["Santa Cruz tiene", 4, ".572 glaciares, con", 4, " más que el año", 2025, "."]);
+  const r = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaPegado));
+  ok(r.texto === "Santa Cruz tiene 4.572 glaciares, con 4 más que el año 2025.", `Workers AI: un número que llega pegado a una palabra lleva su espacio (${r.texto})`);
+  const iaCeros = iaSimulada("", "", ["En 2025 llegaron ", {crudo: "5.680"}, ".763 turistas y ", {crudo: "2.220"}, " pesos."]);
+  const rc = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaCeros));
+  ok(rc.texto === "En 2025 llegaron 5.680.763 turistas y 2.220 pesos.", `Workers AI: un número que llega como número no pierde los ceros de la derecha (${rc.texto})`);
 }
 {
   const ia = iaSimulada("no se usa");
@@ -308,6 +342,19 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   ok(conClave.texto === "ok" && iaFuera.llamadas.length === 0, "con el índice sin motor, sigue contestando Claude");
 }
 
+// períodos que no empiezan con el año (26 de octubre de 2026): los semestres de la pobreza y el número de mes de la estacionalidad
+{
+  const idx = await cargarIndice(leerDe({actualizado: "26/10/2026", tablas: [
+    fila("pobreza_serie", "¿Cuántas personas viven bajo la línea de pobreza?", "pobreza.html#f-pobreza", "Total del país", "2S2016 a 1S2026"),
+    fila("energia_estacionalidad", "¿En qué meses se usa más electricidad?", "energia.html#f-meses", "Total del país", "")]}));
+  const base = {columnas: [], filtros: []};
+  const po = await leerTabla({...base, tabla: "pobreza_serie", desde: "2025", hasta: ""}, idx, leerDe(null));
+  const filasPo = po.texto?.split("\n\n").at(-1).split("\n").slice(1) || [];
+  ok(filasPo.length >= 2 && filasPo.every(l => /^[12]S202[56],/.test(l)), `los semestres ("1S2026") se filtran por año (${filasPo.join(" / ")})`);
+  const es = await leerTabla({...base, tabla: "energia_estacionalidad", desde: "2025", hasta: ""}, idx, leerDe(null));
+  ok(es.texto && /no trae años/.test(es.texto) && es.texto.split("\n\n").at(-1).split("\n").length > 2, "una tabla con el número de mes no queda vacía al pedir un período");
+}
+
 // ---------- 7. el índice armado, si está ----------
 const REAL = join(DATOS, "consulta_ia.json");
 if (existsSync(REAL)) {
@@ -325,6 +372,33 @@ if (existsSync(REAL)) {
     const el = elegirTablas(q, idx);
     ok(el.tablas.length && esperada.test(el.tablas.map(t => t.tabla).join(" ")), `el motor gratis elige tablas que sirven para «${q}» (${el.tablas.map(t => t.tabla).join(", ")})`);
   }
+  // la población de la provincia primero (el 26 de octubre de 2026, "¿Cuántos habitantes tiene Córdoba?" dio la de la ciudad capital)
+  const elPob = elegirTablas("¿Cuántos habitantes tiene Córdoba?", idx);
+  ok(elPob.tablas[0]?.tabla === "poblacion_proyectada_provincias", `con "habitantes", primero la población de cada provincia (${elPob.tablas.map(t => t.tabla).join(", ")})`);
+  // los años de cada columna de homicidios, que salen de "Qué mide" (el 26 de octubre de 2026 el modelo escribía "el último año")
+  const hom = d.tablas.find(t => t.tabla === "homicidios_provincias");
+  if (hom) {
+    const iaHom = iaSimulada("ok"), espera = [];
+    await silencio(async () => eventos(await responder(pedir({pregunta: "¿Qué provincia tiene más homicidios?"}),
+      {env: {}, leer: leerDe({...d, motor: "cloudflare"}), ia: iaHom, esperar: x => espera.push(x)})));
+    await Promise.all(espera);
+    const a = +hom.descripcion.match(/(\d{4})\D*$/)[1], u = iaHom.llamadas[0]?.opciones.messages[1].content || "";
+    ok(u.includes(`las víctimas sumadas de ${a - 2} a ${a}`) && u.includes(`cada 100 mil habitantes en ${a}`),
+       `el motor gratis dice los años de cada columna de homicidios (${a - 2} a ${a})`);
+  }
+  // lo que recibe el modelo con el índice armado
+  const recibe = async pregunta => {
+    const iaR = iaSimulada("ok"), espera = [];
+    await silencio(async () => eventos(await responder(pedir({pregunta}), {env: {}, leer: leerDe({...d, motor: "cloudflare"}), ia: iaR, esperar: x => espera.push(x)})));
+    await Promise.all(espera);
+    return iaR.llamadas[0]?.opciones.messages[1].content || "";
+  };
+  // la tabla de un artículo sin fuente en el índice lleva la suya (el modelo inventó "la Encuesta Permanente de Hogares de Datina")
+  const uEph = await recibe("¿Cuál es la desocupación en Tucumán?");
+  ok(uEph.includes("las capitales con más desocupación") && uEph.includes("Fuente: INDEC, Encuesta Permanente de Hogares."), "la tabla de las capitales de la EPH lleva su fuente");
+  // los rangos de la línea de las columnas, redondeados como las cifras (el modelo copió "31683,84 millones" del rango)
+  const colsExp = ((await recibe("¿Qué provincia exporta más?")).match(/^Columnas: .*$/m) || [""])[0];
+  ok(colsExp.includes("millones_usd") && !/\d{3},\d/.test(colsExp), `los rangos de las columnas, redondeados (${colsExp.slice(0, 120)})`);
   console.log(`Índice armado: ${d.tablas.length} tablas, ${idx.texto.length} caracteres en las instrucciones, motor ${d.motor}.`);
 } else {
   console.log("Sin sitio/datos/consulta_ia.json (consulta_ia apagado): el índice armado no se revisó.");

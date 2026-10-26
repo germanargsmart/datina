@@ -47,7 +47,10 @@ const sse = (modelo, bloques, fin) => {
   e("message_stop", {});
   return ev.join("");
 };
-const RESPUESTA = "En la Ciudad de Buenos Aires, cada usuario residencial de gas usó una cantidad de prueba.\n\nFuente: ENARGAS.";
+// con cifras como las copia el modelo gratis, sin punto de miles: la página se lo pone a la de siete cifras y no al año. Y con una "e"
+// mal puesta delante de un número, que pasa a "y", y una bien puesta, que queda
+const RESPUESTA = "En la Ciudad de Buenos Aires, cada usuario residencial de gas usó 1234567 metros cúbicos de prueba en 2025, 2220 en 1999 e 0,5 " +
+  "en 1990, e igual en 1989.\n\nFuente: ENARGAS.";
 const TABLA = JSON.parse(readFileSync(join(SITIO, "datos", "consulta_ia.json"), "utf-8")).tablas[0].tabla;
 const fetchSimulado = async (url, init) => {
   const b = JSON.parse(init.body), preg = String(b.messages[0].content);
@@ -128,6 +131,9 @@ ok(e.foco !== "BODY", `al preguntar, el foco no se pierde (${e.foco})`);
 e = await hasta(x => x.estado === "Respuesta lista.");
 ok(e.estado === "Respuesta lista." && e.tit === "Respuesta" && e.texto.replace(/\s+/g, " ").includes("cada usuario residencial de gas") && e.texto.includes("Fuente: ENARGAS."),
    "la respuesta llega entera, con su título");
+ok(e.texto.includes("1.234.567 metros") && e.texto.replace(/\s+/g, " ").includes("en 2025, 2220 en 1999"),
+   `el punto de miles en la cifra de siete cifras, y no en las de cuatro (${e.texto.replace(/\s+/g, " ").slice(0, 140)})`);
+ok(e.texto.replace(/\s+/g, " ").includes("en 1999 y 0,5 en 1990, e igual en 1989"), `"e" solo delante del sonido de la i (${e.texto.replace(/\s+/g, " ").slice(80, 180)})`);
 ok(e.foco === "ia-respuesta-tit", `al terminar, el foco va al título de la tarjeta (${e.foco})`);
 ok(e.eco === preg, "la tarjeta repite la pregunta");
 // con Claude, la ficha que pidió la API simulada. Con el motor gratis, las que eligió la función: cada ficha con su tabla para bajar

@@ -3,8 +3,8 @@
   "formularios": "",
   "nota_formularios": "Quién recibe el formulario de Contacto y la suscripción del pie. Vacío (23 de octubre de 2026, decisión del autor al pasar a Cloudflare Pages, que no los recibe): el armado los saca y Contacto dice que el formulario todavía no está disponible. Con \"netlify\" vuelven como estaban, para Netlify Forms.",
   "nota": "Dirección pública definitiva del sitio, con https y sin barra final (por ejemplo, https://datina.ar). Desde el 26 de octubre de 2026, la de Cloudflare Pages, que eligió el autor al publicar el sitio: si se suma un dominio propio, va acá. Mientras esté vacía, 03_construir_sitio.py no publica canonical absolutos, og:url, sitemap.xml, robots.txt ni el Dataset en JSON-LD, para no apuntar a un dominio inventado. Al completarla, el próximo armado los agrega solos.",
-  "consulta_ia": false,
+  "consulta_ia": true,
   "consulta_ia_motor": "cloudflare",
   "nota_consulta_ia_motor": "Qué modelo contesta las consultas con IA (docs/ia/CONSULTAS.md). Desde el 26 de octubre de 2026, por pedido del autor, \"cloudflare\": un modelo abierto de Cloudflare Workers AI, gratis hasta 10.000 neurons por día y sin clave (hace falta la conexión AI de Workers AI en Cloudflare Pages). Con \"anthropic\", Claude con la clave ANTHROPIC_API_KEY, que cuesta por pregunta.",
-  "nota_consulta_ia": "Las consultas con IA (docs/ia/CONSULTAS.md). Con true, el armado suma la página consulta-ia.html en Herramientas, su código y el índice de tablas que lee la función functions/api/consulta.js. Además hace falta el secreto ANTHROPIC_API_KEY en Cloudflare Pages, que pone el autor. Queda en false hasta que el autor las active."
+  "nota_consulta_ia": "Las consultas con IA (docs/ia/CONSULTAS.md). Con true, el armado suma la página consulta-ia.html en Herramientas, su código y el índice de tablas que lee la función functions/api/consulta.js. Además hace falta, según el motor, la conexión AI de Workers AI o el secreto ANTHROPIC_API_KEY en Cloudflare Pages, que pone el autor. Prendidas desde el 26 de octubre de 2026, cuando el autor puso la conexión AI (motor cloudflare)."
 }
