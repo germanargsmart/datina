@@ -7,3 +7,6 @@ capturas/
 
 # capturas de scripts/linea_base.mjs (se regeneran)
 linea_base/
+
+# lo que deja wrangler pages dev al probar las funciones de Cloudflare (docs/ia/CONSULTAS.md)
+.wrangler/

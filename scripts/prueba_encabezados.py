@@ -12,8 +12,10 @@ cada una con su motivo:
 En las secciones con la pregunta como título (class="tema con-pregunta") el h1 es la pregunta (h1.pregunta), que es lo que se ve como
 título, y el nombre de la sección va chico arriba en un párrafo (14 de octubre de 2026). Se controla que sea así.
 
-Los saltos de nivel después del h1 (por ejemplo, de h1 a las fichas en h3) se informan pero no frenan: las fichas son h3 en la
-plantilla, en datina.css, en datina.js y en el Explorador de relaciones, y pasarlas a h2 es un cambio aparte.
+Desde el 25 de octubre de 2026 (pedido del autor) ningún encabezado de <main> salta un nivel: después del h1 de la página van las
+fichas y los bloques en h2 y lo que cuelga de ellos en h3. Antes las fichas eran h3 y todas las páginas de sección saltaban de h1 a h3.
+Un salto nuevo frena el armado. Los encabezados que arma datina.js al cargar (artículos, Cruces, el diagnóstico) siguen la misma regla,
+pero no están en el HTML que revisa esta prueba.
 
 Uso: python scripts/prueba_encabezados.py. Devuelve 1 si hay problemas. 03_construir_sitio.py la corre al final y no da el sitio por
 armado si falla.
@@ -111,13 +113,13 @@ def revisar():
         niveles = [n for n, _ in enc.en_main_lista]
         saltos = sorted({f"h{a} a h{b}" for a, b in zip(niveles, niveles[1:]) if b > a + 1})
         if saltos:
-            avisos.append(f"{nombre}: salta de {', '.join(saltos)}")
+            problemas.append(f"{nombre}: salta de {', '.join(saltos)} (después de un encabezado va uno del nivel siguiente, no dos más abajo)")
     return problemas, avisos, excepciones, len(paginas)
 
 
 if __name__ == "__main__":
     problemas, avisos, excepciones, n = revisar()
-    print(f"Encabezados: {n} páginas revisadas, {len(excepciones)} excepciones aceptadas, {len(avisos)} con saltos de nivel (aviso).")
+    print(f"Encabezados: {n} páginas revisadas, {len(excepciones)} excepciones aceptadas.")
     if "-v" in sys.argv:
         for x in excepciones:
             print("  excepción: " + x)

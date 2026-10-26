@@ -176,7 +176,7 @@ def datos_de_usos(plantilla, js):
     for i, t, ds in re.findall(r'<section class="pieza" id="([\w-]+)"[^>]*data-titulo="([^"]+)" data-descr="([^"]+)"', plantilla):
         d[i] = {"titulo": html.unescape(t), "sub": html.unescape(ds), "fuente": "", "frecuencia": "", "nota": ""}
     for i, cuerpo in re.findall(r'<article class="lab-pieza[^"]*" id="([\w-]+)"[^>]*>(.*?)</article>', plantilla, re.S):
-        h = re.search(r"<h3[^>]*>(.*?)</h3>", cuerpo, re.S)
+        h = re.search(r"<h2[^>]*>(.*?)</h2>", cuerpo, re.S)
         d[i] = {"titulo": texto(h.group(1)) if h else i, "sub": "", "fuente": "", "frecuencia": "", "nota": ""}
     d["provincia"] = {"titulo": "Tu provincia", "sub": "", "fuente": "", "frecuencia": "", "nota": ""}
     return d
@@ -208,8 +208,10 @@ def validar(cat_uso, auto, ids, tablas):
     return err
 
 
-def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio"):
-    """(HTML del catálogo, errores). El HTML va en lugar de <!--CATALOGO--> en la sección del catálogo."""
+def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None):
+    """(HTML del catálogo, errores). El HTML va en lugar de <!--CATALOGO--> en la sección del catálogo. Con una lista en `indice`, le
+    agrega lo mismo que muestra de cada tabla, en el orden del catálogo: es el índice de las consultas con IA (docs/ia/CONSULTAS.md), que
+    03 publica solo con "consulta_ia" en datos/manual/sitio.json. `ref` es la ficha, el artículo o la pieza, como en los enlaces de acá"""
     js = relaciones.JS()
     cat_rel = json.loads(relaciones.CATALOGO.read_text(encoding="utf-8"))
     cat_uso = json.loads(USOS.read_text(encoding="utf-8"))
@@ -249,7 +251,7 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio"):
             pie_de[m.group(1)] = t0.group(1)
     sec_de_art = dict(re.findall(r'<article class="nota" id="(a-[\w-]+)"[^>]*data-sec="([\w-]+)"', plantilla))
     pagina_de = lambda i: sec_de_art.get(i) or {"pieza": "laboratorio", "pagina": i}.get(tipo_de(i)) or ubic.get(i, "")
-    items, cuenta_org, anios = [], {}, set()
+    items, cuenta_org, anios, para_indice = [], {}, set(), []
     orden_sec = ([s for _, _, its in grupos for it in its for s in (it[1] if isinstance(it, tuple) else [it])]
                  + [x[0] for x in secciones if x[4]] + ["provincia", "laboratorio"])
     for t, ruta in tablas.items():
@@ -280,6 +282,10 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio"):
         unid = f'<p class="cat-otros">Unidades: {e(", ".join(unidades))}.</p>' if 0 < len(unidades) <= 8 else ""
         nota = f'<h3>Cómo se calcula</h3><p class="cat-nota">{e(d["nota"])}</p>' if d.get("nota") else ""
         orden = (orden_sec.index(sec) if sec in orden_sec else len(orden_sec), plantilla.find(f'id="{prin}"'), pie_de.get(prin) != t, t)
+        para_indice.append((orden, {"tabla": t, "titulo": d.get("titulo") or t, "descripcion": d.get("sub", ""), "seccion": tit_sec.get(sec, ""),
+                                    "ref": ref(prin), "fuente": d.get("fuente", ""), "actualizacion": d.get("frecuencia", ""), "cobertura": cob,
+                                    "periodo": per, "filas": len(filas), "columnas": dic, "unidades": unidades if len(unidades) <= 8 else [],
+                                    "nota": d.get("nota", "")}))
         items.append((orden,
             f'<li class="cat-item" id="cat-{t}" data-tema="{e(sec)}" data-org="{" ".join(orgs)}" data-cob="{cob_k}" '
             f'data-a0="{"" if a0 is None else a0}" data-a1="{"" if a1 is None else a1}">'
@@ -302,6 +308,8 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio"):
     # en el orden del sitio: los temas como en la barra, después las herramientas, Tu provincia y el Laboratorio, y dentro de cada tema
     # en el orden de las fichas, con la tabla del pie de cada una primero
     items = [x for _, x in sorted(items)]
+    if indice is not None:
+        indice += [x for _, x in sorted(para_indice, key=lambda p: p[0])]
     # filtros: tema (los grupos y secciones de GRUPOS, más lo que no es un tema), organismo, cobertura y año
     temas_usados = {re.search(r'data-tema="([^"]*)"', x).group(1) for x in items}
     op_tema = ""

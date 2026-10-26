@@ -12,6 +12,8 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo?">
 <meta name="twitter:description" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo? Datos por provincia con su fuente, su año y la tabla para descargar.">
+<link rel="canonical" href="https://datina.pages.dev/externo">
+<meta property="og:url" content="https://datina.pages.dev/externo">
 <meta name="description" content="Sector externo: ¿Qué le vende y qué le compra la Argentina al mundo? Datos por provincia con su fuente, su año y la tabla para descargar.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 36'%3E%3Cpath fill='%23C8102E' d='M7,29 C5.5,17 10,6.5 19.5,4.2 C26.5,2.6 33.5,5.2 36,10.6 C37.2,13.2 35,15.4 32.6,13.8 C31,12.6 29.2,11.6 27,12.2 C31.6,16 33.8,21.6 33.6,29 Z'/%3E%3Cpath fill='%238A1422' d='M5.6,27.6 L35,27.6 Q35.8,31.6 35,33.4 Q20.3,35.6 5.6,33.4 Q4.8,31.6 5.6,27.6 Z'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add("js");
@@ -28,7 +30,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
      mismas versiones que daban cdnjs y jsDelivr): si una de esas CDN fallaba o estaba bloqueada, las páginas quedaban vacías -->
 <script src="lib/d3-7.8.5.min.js?v=a029baa963"></script>
 <script src="lib/topojson-client-3.1.0.min.js?v=bc057598e8"></script>
-<link rel="stylesheet" href="datina.css?v=2552ff9551">
+<link rel="stylesheet" href="datina.css?v=2a9121452b">
 </head>
 <body data-pagina="externo">
 <!-- "Saltar al contenido" (Fase 2, paso 6, respuesta del autor del 23 de octubre de 2026): la primera parada del teclado, que solo se ve
@@ -141,10 +143,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="tema-intro">
       <h1 class="pregunta" data-corta="¿Qué le vende y qué le compra al mundo?">¿Qué le vende y qué le compra la Argentina al mundo?</h1>
       <p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta y qué se importa, con qué países se comercia y desde qué provincia sale cada venta, el saldo de las cuentas con el resto del mundo y las reservas del Banco Central. El dólar, las tasas y el dinero están en <a href="economia.html#f-bcra">Precios y actividad</a>. Lo que exporta cada provincia por habitante está en <a href="trabajo.html#f-exportaciones">Trabajo</a>.</p>
-    </div><div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
+    </div><div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid"><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span><span class="tarjeta cifra"></span></div></div>
 
     <article class="ficha" id="f-balanza">
-      <h3>¿Cuánto vende y cuánto compra la Argentina?</h3>
+      <h2>¿Cuánto vende y cuánto compra la Argentina?</h2>
       <p class="ficha-sub">Exportaciones e importaciones de bienes y su saldo, en millones de dólares por año, 1992 a 2025</p>
       <div class="grafico" data-g="balanza" data-forma="lineas"></div>
       <p class="lead" data-t="balanza"></p>
@@ -153,7 +155,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-exporta-rubros">
-      <h3>¿Qué exporta la Argentina?</h3>
+      <h2>¿Qué exporta la Argentina?</h2>
       <p class="ficha-sub">Exportaciones de bienes por gran rubro, en millones de dólares por año, 2004 a 2025</p>
       <div class="grafico" data-g="exporta-rubros" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
       <p class="lead" data-t="exporta-rubros"></p>
@@ -162,7 +164,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-complejos">
-      <h3>¿Qué cadenas productivas exportan más?</h3>
+      <h2>¿Qué cadenas productivas exportan más?</h2>
       <p class="ficha-sub">Exportaciones de bienes por complejo exportador, en % del total, primer semestre de 2026</p>
       <div class="grafico" data-g="complejos" data-forma="barras" style="--filas:20"></div>
       <p class="lead" data-t="complejos"></p>
@@ -171,7 +173,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-destinos">
-      <h3>¿Adónde exporta cada provincia?</h3>
+      <h2>¿Adónde exporta cada provincia?</h2>
       <p class="ficha-sub">Exportaciones de bienes por destino, del país o de la provincia elegida, en % del total, primer semestre de 2026</p>
       <div class="grafico" data-g="destinos" data-forma="barras" style="--filas:23"></div>
       <p class="lead" data-t="destinos"></p>
@@ -180,7 +182,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-exporta-provincias">
-      <h3>¿Qué exporta cada provincia?</h3>
+      <h2>¿Qué exporta cada provincia?</h2>
       <p class="ficha-sub">Exportaciones de bienes por provincia de origen y gran rubro, 2025</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="exprov">
         <button type="button" data-m="rubro" aria-pressed="true">Por rubro</button>
@@ -194,7 +196,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-importaciones">
-      <h3>¿Qué compra la Argentina?</h3>
+      <h2>¿Qué compra la Argentina?</h2>
       <p class="ficha-sub">Importaciones de bienes por uso económico, en millones de dólares por año, 1992 a 2025</p>
       <div class="grafico" data-g="importaciones" data-forma="lineas" style="--alto:383px;--alto-c:343px"></div>
       <p class="lead" data-t="importaciones"></p>
@@ -203,7 +205,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-origen">
-      <h3>¿De dónde vienen las importaciones?</h3>
+      <h2>¿De dónde vienen las importaciones?</h2>
       <p class="ficha-sub">Importaciones de bienes por origen, en % del total, enero a septiembre de 2026</p>
       <div class="grafico" data-g="origen" data-forma="barras" style="--filas:25"></div>
       <p class="lead" data-t="origen"></p>
@@ -212,7 +214,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-cuenta-corriente">
-      <h3>¿Entran más dólares de los que salen?</h3>
+      <h2>¿Entran más dólares de los que salen?</h2>
       <p class="ficha-sub">Cuenta corriente del balance de pagos y sus partes, en millones de dólares por año, 2006 a 2025</p>
       <div class="grafico" data-g="cuenta-corriente" data-forma="lineas"></div>
       <p class="lead" data-t="cuenta-corriente"></p>
@@ -221,7 +223,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-reservas-bcra">
-      <h3>¿Cuántas reservas tiene el Banco Central?</h3>
+      <h2>¿Cuántas reservas tiene el Banco Central?</h2>
       <p class="ficha-sub">Reservas internacionales brutas del BCRA al cierre de cada mes, en millones de dólares, desde 1940</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-bcra" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Evolución</button>
@@ -235,7 +237,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     </article>
 
     <article class="ficha" id="f-reservas-netas">
-      <h3>¿Cuántas reservas netas tiene el Banco Central?</h3>
+      <h2>¿Cuántas reservas netas tiene el Banco Central?</h2>
       <p class="ficha-sub">Reservas brutas, lo que el BCRA debe pagar en moneda extranjera dentro de un año y reservas netas, en millones de dólares, desde 2007</p>
       <div class="conmutador" role="group" aria-label="Vista" data-g="reservas-netas" style="--n:3">
         <button type="button" data-m="serie" aria-pressed="true">Brutas y netas</button>
@@ -303,7 +305,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=b4339826f5"></script>
-<script src="datina.js?v=48bc3210d2"></script>
+<script src="datos/fichas.js?v=2564bdd8b8"></script>
+<script src="datina.js?v=b53822fef8"></script>
 </body>
 </html>

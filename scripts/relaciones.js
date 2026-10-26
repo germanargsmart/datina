@@ -326,8 +326,8 @@
     if (n.tipo === "fuente") {
       const fichas = [...cadena(n.id, "abajo")].map(x => porId.get(x)).filter(x => x.tipo === "indicador");
       h += `<dl>${fila("Sigla", esc(n.sigla))}${fila("Depende de", esc(n.depende))}${fila("Sitio", n.url ? `<a class="enlace" href="${esc(n.url)}" rel="noopener">${esc(n.url.replace(/^https?:\/\//, ""))}</a>` : "")}</dl>`;
-      h += `<h4>Publica ${a.length === 1 ? "un archivo que usa" : a.length + " archivos que usa"} Datina</h4><ul>${a.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
-      h += `<h4>Fichas que usan sus datos (${fichas.length})</h4><ul>${ordenados(fichas).map(x => `<li>${ir(x.id)}</li>`).join("")}</ul>`;
+      h += `<h3>Publica ${a.length === 1 ? "un archivo que usa" : a.length + " archivos que usa"} Datina</h3><ul>${a.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
+      h += `<h3>Fichas que usan sus datos (${fichas.length})</h3><ul>${ordenados(fichas).map(x => `<li>${ir(x.id)}</li>`).join("")}</ul>`;
     } else if (n.tipo === "conjunto") {
       const d = n.descarga;
       h += `<dl>${fila("Lo publica", n.fuente ? ir(n.fuente) : "")}${fila("Archivo", `<code>${esc(n.ruta)}</code>`)}${fila("Dirección de descarga", !n.url ? "" : /[{}]|\.\.\.|AAAA/.test(n.url)
@@ -335,16 +335,16 @@
         : `<a class="enlace" href="${esc(n.url)}" rel="noopener">${esc(n.url)}</a>`)}`
         + `${fila("Cómo llega", esc(n.origen))}${fila("Última descarga", d ? esc(fecha(d.fecha)) + (d.estado === "ok" ? ", se bajó bien" : ", falló: el sitio usa el archivo anterior") : "")}`
         + `${fila("Dónde lo baja o lo arma el sitio", ev(n.evidencia))}</dl>`;
-      h += `<h4>Alimenta ${a.length === 1 ? "una ficha" : a.length + " fichas"}</h4><ul>${a.map(x => `<li>${ir(x.a)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
+      h += `<h3>Alimenta ${a.length === 1 ? "una ficha" : a.length + " fichas"}</h3><ul>${a.map(x => `<li>${ir(x.a)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
     } else {
       h += `<dl>${fila("Sección", n.seccion ? `<a class="enlace" href="${esc(n.seccion + ".html")}">${esc(n.seccion_nombre || n.seccion)}</a>` : "")}`
         + `${fila("Fuente, como figura en la ficha", esc(n.fuente_texto))}${fila("Frecuencia", esc(n.frecuencia))}`
         + `${fila("Unidad", esc(n.unidad.join(", ")))}${fila("Período de la tabla", esc(n.periodo))}${fila("Cobertura", esc(n.cobertura))}`
         + `${fila("Nota de la ficha", esc(n.nota))}</dl>`;
       const arch = de.filter(x => x.tipo === "alimenta"), calc = de.filter(x => x.tipo === "calcula"), usa = a.filter(x => x.tipo === "calcula");
-      h += `<h4>De dónde salen sus datos</h4><ul>${arch.map(x => { const c = porId.get(x.de); return `<li>${ir(x.de)}${c.fuente && porId.has(c.fuente) ? `<p class="rx-nota">Lo publica ${ir(c.fuente)}</p>` : ""}${x.evidencia.map(ev).join("")}</li>`; }).join("")}</ul>`;
-      if (calc.length) h += `<h4>Se calcula a partir de</h4><ul>${calc.map(x => `<li>${ir(x.de)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
-      if (usa.length) h += `<h4>Se usa para calcular</h4><ul>${usa.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
+      h += `<h3>De dónde salen sus datos</h3><ul>${arch.map(x => { const c = porId.get(x.de); return `<li>${ir(x.de)}${c.fuente && porId.has(c.fuente) ? `<p class="rx-nota">Lo publica ${ir(c.fuente)}</p>` : ""}${x.evidencia.map(ev).join("")}</li>`; }).join("")}</ul>`;
+      if (calc.length) h += `<h3>Se calcula a partir de</h3><ul>${calc.map(x => `<li>${ir(x.de)}${x.evidencia.map(ev).join("")}</li>`).join("")}</ul>`;
+      if (usa.length) h += `<h3>Se usa para calcular</h3><ul>${usa.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
       h += `<div class="rx-acciones">${n.url ? `<a class="boton principal chico" href="${esc(n.url)}">Abrir la ficha</a>` : ""}`
         + n.csv.map(c => `<a class="boton chico" href="${esc(c)}" download>Descargar ${esc(String(c).replace(/^datos\//, ""))}</a>`).join("") + "</div>";
     }

@@ -43,6 +43,32 @@ e = lambda t: html.escape(str(t), quote=True)
 texto = lambda h: re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
 
 plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8")
+# Consultas con IA (25 de octubre de 2026, pedido del autor, docs/ia/CONSULTAS.md): la página, su índice y su código van solo con
+# "consulta_ia": true en datos/manual/sitio.json. Apagadas, la sección de la plantilla (entre <!--IA--> y <!--/IA-->) no llega a ninguna
+# página, no va en los menús y se borra lo que haya quedado en sitio/ de un armado anterior
+CONSULTA_IA = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8")).get("consulta_ia", False)
+assert CONSULTA_IA in (True, False), 'datos/manual/sitio.json: "consulta_ia" tiene que ser true o false'
+# el motor (26 de octubre de 2026, docs/ia/CONSULTAS.md): "cloudflare", los modelos abiertos y gratis de Cloudflare Workers AI, sin clave,
+# o "anthropic", Claude con la clave del autor. La función lo lee en el índice y la página cambia sus avisos
+MOTOR_IA = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8")).get("consulta_ia_motor", "anthropic")
+assert MOTOR_IA in ("anthropic", "cloudflare"), 'datos/manual/sitio.json: "consulta_ia_motor" tiene que ser "anthropic" o "cloudflare"'
+_ia = re.search(r"\n\n *<!--IA-->.*?<!--/IA-->", plantilla, re.S)
+assert _ia, "falta la sección de las consultas con IA (entre <!--IA--> y <!--/IA-->) en scripts/plantilla.html"
+plantilla = plantilla.replace(_ia.group(0), re.sub(r"<!--/?IA-->", "", _ia.group(0)) if CONSULTA_IA else "")
+if CONSULTA_IA:
+    _herr_sub = '<p class="bloque-sub">Para cruzar indicadores,'
+    assert plantilla.count(_herr_sub) == 1, "cambió la bajada de Herramientas en la portada: revisar la de las consultas con IA"
+    plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores,')
+    if MOTOR_IA == "cloudflare":
+        for _v, _n in [("La pregunta se envía a Anthropic, la empresa del modelo, para contestarla: no escribas datos personales. Datina no la guarda.",
+                        "La contesta un modelo que corre en Cloudflare, la empresa que publica el sitio, que no usa las preguntas para entrenar modelos: "
+                        "no escribas datos personales. Datina no la guarda. Las consultas son gratis y tienen un tope por día para todo el sitio."),
+                       ("Las respuestas las escribe un modelo de inteligencia artificial (Claude, de Anthropic) con los datos de Datina.",
+                        "Las respuestas las escribe un modelo abierto de inteligencia artificial, en Cloudflare, con los datos de Datina.")]:
+            assert plantilla.count(_v) == 1, f"cambió un aviso de la página de las consultas con IA: {_v[:60]}"
+            plantilla = plantilla.replace(_v, _n)
+JS_IA = (RAIZ / "scripts" / "consulta_ia.js").read_text(encoding="utf-8")
+plantilla = plantilla.replace("__V_IA_JS__", hashlib.sha1(JS_IA.encode("utf-8")).hexdigest()[:10])
 # Cada id una sola vez en la plantilla (etapa 25): una ficha nueva repitió el id de otra (f-actividad) y, como sus claves en datina.js salen
 # del id, sus textos, su gráfico y su cifra pisaron los de la otra sin dar ningún error
 _ids = re.findall(r'\sid="([^"]+)"', plantilla)
@@ -231,11 +257,11 @@ def explicador(sec):
                         + "</dd></div>" for g in x["glosario"])
         partes.append(("Glosario", f'<dl class="glosario">{items}</dl>'))
     filas = "".join(
-        f'<div class="exp-fila"><h4><button type="button" class="despliegue" id="exp-{sec}-{i}-b" aria-expanded="false" aria-controls="exp-{sec}-{i}">'
-        f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button></h4>'
+        f'<div class="exp-fila"><h3><button type="button" class="despliegue" id="exp-{sec}-{i}-b" aria-expanded="false" aria-controls="exp-{sec}-{i}">'
+        f'<span>{e(t)}</span><span class="desp-signo" aria-hidden="true"></span></button></h3>'
         f'<div class="exp-bloque" id="exp-{sec}-{i}" role="region" aria-labelledby="exp-{sec}-{i}-b"><div class="exp-cont">{c}</div></div></div>'
         for i, (t, c) in enumerate(partes))
-    return ('<div class="explicador" id="para-entender"><div class="exp-cab"><h3 class="bloque-grupo">Para entender los datos</h3>'
+    return ('<div class="explicador" id="para-entender"><div class="exp-cab"><h2 class="bloque-grupo">Para entender los datos</h2>'
             '<p>Qué se mide, cómo se calcula y de dónde sale cada dato de esta página.</p></div>'
             f'<div class="exp-lista">{filas}</div></div>')
 
@@ -250,11 +276,11 @@ def programas(sec):
     if sec != "educacion" or not PROG:
         return ""
     tarjetas = "".join(
-        f'<article class="programa"><h4>{e(x["nombre"])}</h4><p class="programa-donde">{e(x["donde"])}</p><p>{e(x["que_hace"])}</p><dl>'
+        f'<article class="programa"><h3>{e(x["nombre"])}</h3><p class="programa-donde">{e(x["donde"])}</p><p>{e(x["que_hace"])}</p><dl>'
         f'<div><dt>Evaluación</dt><dd>{e(x["evaluacion"]["tipo"])}<small>{e(x["evaluacion"]["organismo"])}, {x["evaluacion"]["anio"]}</small></dd></div>'
         f'<div><dt>Qué encontró</dt><dd>{e(x["hallazgo"])}</dd></div><div><dt>Qué no permite concluir</dt><dd>{e(x["limites"])}</dd></div></dl>'
         f'<a class="enlace" href="{e(x["evaluacion"]["url"])}" target="_blank" rel="noopener">{e(x.get("enlace", "Leer la evaluación"))}</a></article>' for x in PROG)
-    return ('<section class="programas" aria-labelledby="prog-tit"><h3 class="bloque-grupo" id="prog-tit">Programas con evaluación oficial</h3>'
+    return ('<section class="programas" aria-labelledby="prog-tit"><h2 class="bloque-grupo" id="prog-tit">Programas con evaluación oficial</h2>'
             '<p class="programas-sub">Programas educativos que tienen una evaluación publicada por un organismo público. Para cada uno, qué hace, '
             'qué midió su evaluación y qué no permite concluir. No es una lista de recomendaciones: muchos programas no fueron evaluados '
             'o no publicaron su evaluación, y por eso no están.</p>'
@@ -285,7 +311,7 @@ creditos = "".join(
     f'{e(b["licencia"])}</li>' for b in sorted(BANDERAS, key=lambda b: NOMBRE_PROV[b["codigo_indec"]]))
 assert "<!--BANDERAS-->" in base
 base = base.replace("<!--BANDERAS-->",
-    '<h3>Las banderas</h3><p>Las banderas de las provincias y la nacional vienen de Wikimedia Commons, el archivo de imágenes libres de Wikipedia, '
+    '<h2>Las banderas</h2><p>Las banderas de las provincias y la nacional vienen de Wikimedia Commons, el archivo de imágenes libres de Wikipedia, '
     'y se muestran en miniatura, todas con el mismo tamaño y el mismo recorte.</p>'
     f'<details class="glosario creditos"><summary>Autores y licencias</summary><ul>{creditos}</ul></details>')
 
@@ -427,7 +453,7 @@ for b in TEMAS:
     ayuda = h.find('id="ayuda-suicidio"')
     n = 0
     for m in re.finditer(r'<article class="ficha([^"]*)" id="([^"]+)"[^>]*>(.*?)</article>', h, re.S):
-        h3 = re.search(r"<h3([^>]*)>(.*?)</h3>", m.group(3), re.S)
+        h3 = re.search(r"<h2([^>]*)>(.*?)</h2>", m.group(3), re.S)
         kt = re.search(r'data-t="([^"]+)"', h3.group(1)) if h3 else None
         kl = re.search(r'<p class="lead" data-t="([^"]+)"', m.group(3))
         # etapa 35 (prueba en Trabajo): el título es una pregunta y la descripción con el período va debajo (p.ficha-sub), fija o calculada
@@ -438,10 +464,13 @@ for b in TEMAS:
         # en las fichas de suicidio, que lo ponen en contexto antes, y en las anchas, cuyo gráfico es una lista larga
         if "herramienta" not in b["clases"] and "ancha" not in m.group(1) and m.group(2) not in TEXTO_ANTES and kl:
             assert 0 <= m.group(3).find('class="grafico') < kl.start(), f"{m.group(2)}: el texto (p.lead) va después del gráfico"
+        # la fuente del pie ("Fuente: ..." o "Fuentes: ..."), para la respuesta rápida del buscador (26 de octubre de 2026)
+        fu = re.search(r'<div class="pie"><span>(Fuentes?: .*?)</span>', m.group(3), re.S)
         # [id, sección, título fijo, clave del título calculado, clave del texto, explorador, después de las líneas de ayuda,
-        #  descripción fija, clave de la descripción calculada]
+        #  descripción fija, clave de la descripción calculada, fuente]
         FICHAS.append([m.group(2), b["id"], texto(h3.group(2)) if h3 else "", kt.group(1) if kt else "", kl.group(1) if kl else "",
-                       int(explorador), int(0 <= ayuda < m.start()), texto(sub.group(2)) if sub else "", (sub.group(1) or "") if sub else ""])
+                       int(explorador), int(0 <= ayuda < m.start()), texto(sub.group(2)) if sub else "", (sub.group(1) or "") if sub else "",
+                       texto(fu.group(1)) if fu else ""])
     # [id, título, pregunta, texto de entrada, herramienta, fichas, artículos, pregunta corta para la tarjeta de la portada]
     SECCIONES.append([b["id"], titulo, texto(preg.group(2)) if preg else "", texto(intro.group(1)) if intro else "",
                       int("herramienta" in b["clases"]), n, len(re.findall(r'<article class="nota"', h)),
@@ -473,7 +502,8 @@ GRUPOS = [
 MENUS = [
     ("provincias", "Provincias", "Provincias", "provincia.html", ["provincia", "departamentos"]),
     ("historias", "Historias", "Historias con datos", "articulos.html", ["articulos", "laboratorio", "corte-suprema", "curiosidades"]),
-    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["cruces", "indice", "diagnostico", "consultor", ("Los datos", ["catalogo", "relaciones"])]),
+    ("herramientas", "Herramientas", "Herramientas", "./#herr-titulo", ["consulta-ia"] * CONSULTA_IA + ["cruces", "indice", "diagnostico", "consultor",
+                                                                         ("Los datos", ["catalogo", "relaciones"])]),
 ]
 _secs_de = lambda items: [s for it in items for s in (it[1] if isinstance(it, tuple) else [it])]
 CATEGORIA = {s: (it[0], it[1]) for _, _, items in GRUPOS for it in items if isinstance(it, tuple) for s in it[1]}
@@ -489,11 +519,12 @@ assert set(HERRAMIENTAS) <= set(MENU_DE), f"herramientas sin menú: {set(HERRAMI
 # de pobreza y la pieza de la Corte Suprema): en ese orden van el recorrido y los filtros del catálogo
 PAGINAS_MENU = [p for p in _secs_de([it for m in MENUS for it in m[4]]) if p in {x[0] for x in SECCIONES} | {"provincia", "laboratorio"}]
 # Preguntas de ejemplo (Fase 2, paso 2): tres de la lista de preguntas del buscador (PREG en datina.js), de temas distintos y que no
-# repiten los datos destacados. Van debajo del buscador de la portada y, desde el paso 3, cuando el buscador no encuentra nada
+# repiten los datos destacados. Las ofrece el buscador con el campo vacío y cuando no encuentra nada. Desde el 25 de octubre de 2026
+# (pedido del autor) ya no van escritas debajo del buscador de la portada
 EJEMPLOS = [("f-combustibles", "¿Cuánto cuesta un litro de nafta?"), ("f-censo", "¿Qué parte de los hogares tiene cloacas?"),
             ("f-glaciares", "¿Qué provincia tiene más glaciares?")]
 # las piezas del Laboratorio que viven en laboratorio.html (la de la Corte Suprema tiene página propia): su ancla y su título, para el buscador
-LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h3[^>]*>(.*?)</h3>', base, re.S)
+LAB_PIEZAS_IDX = [(i, texto(t)) for i, t in re.findall(r'<article class="lab-pieza[^"]*" id="(l-[\w-]+)".*?<h2[^>]*>(.*?)</h2>', base, re.S)
                   if i != "l-corte-lab"]
 assert LAB_PIEZAS_IDX, "no se encontraron las piezas del Laboratorio para el buscador"
 # el índice del sitio que lee datina.js. Desde la Fase 2 (paso 3) también lleva el menú de cada página (el buscador agrupa los resultados
@@ -502,6 +533,9 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
           "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
           "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
+# con las consultas con IA prendidas, el buscador ofrece llevar lo escrito a la página de las consultas (datina.js, buscar)
+if CONSULTA_IA:
+    INDICE["ia"] = 1
 
 # ---------- datos ----------
 # Las tablas mas pesadas, que usan pocas fichas, van en archivos aparte que el navegador baja solo al abrir esas fichas.
@@ -554,7 +588,7 @@ for _obj in ("LEAD", "TX", "DIB", "CLAVE", "EXTRA", "EN_CIFRAS", "SERIE_CIFRA"):
 SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin",
              "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija",
              "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico",
-             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"}
+             "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz"} | ({"consulta-ia": "dialogo"} if CONSULTA_IA else {})
 SEC_ICONO.update({i: ico for i, ico, _, _ in NOTAS})
 SEC_ICONO.update({i: ico for i, ico, _, _ in PIEZAS})
 assert set(SEC_ICONO.values()) <= set(ICONOS), set(SEC_ICONO.values()) - set(ICONOS)
@@ -566,9 +600,28 @@ import relaciones  # noqa: E402
 import catalogo  # noqa: E402
 # los filtros por tema del catálogo siguen la barra: los cuatro grupos de Temas y después Provincias, Historias con datos y Herramientas
 _menus_catalogo = [(m, completo, [p for p in _secs_de(items) if p in PAGINAS_MENU]) for m, _, completo, _, items in MENUS]
-_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo)
+_indice_ia = [] if CONSULTA_IA else None
+_catalogo, _cat_err = catalogo.armar(plantilla, SECCIONES, UBIC, GRUPOS + _menus_catalogo, indice=_indice_ia)
 if _cat_err:
     sys.exit("El catálogo de datos tiene problemas: el sitio no se armó.\n" + "\n".join(_cat_err))
+# Consultas con IA: el índice que lee la función functions/api/consulta.js (las mismas tablas que el Catálogo, sin las de suicidio) y el
+# código de la página. Sin "consulta_ia", la función contesta que no están activadas porque no encuentra el índice
+_IA_INDICE, _IA_JS = SITIO / "datos" / "consulta_ia.json", SITIO / "consulta-ia.js"
+if CONSULTA_IA:
+    # sin las tablas que hablan de suicidio, tampoco la de muertes violentas, que los cuenta junto con los homicidios (CLAUDE.md, "Temas
+    # sensibles"). La función saca además, de cualquier tabla, las columnas y las filas sobre suicidio
+    _indice_ia = [t for t in _indice_ia if not re.search(r"suicid|autoinflig|autolesi", f'{t["tabla"]} {t["titulo"]} {t["descripcion"]}', re.I)]
+    for _t in _indice_ia:
+        _r = _t.pop("ref")
+        _p = UBIC.get(_r[1:], "") if _r.startswith("#") else _r[:-5]
+        assert _p, f"consultas con IA: no se sabe en qué página está {_r} ({_t['tabla']})"
+        _t["url"] = (f"{_p}.html" if _p != "inicio" else "./") + (f"#{_r[1:]}" if _r.startswith("#") and _r[1:] != _p else "")
+    _IA_INDICE.write_text(json.dumps({"actualizado": RESUMEN["actualizado"], "motor": MOTOR_IA, "tablas": _indice_ia}, ensure_ascii=False, separators=(",", ":")),
+                          encoding="utf-8", newline="\n")
+    _IA_JS.write_text(JS_IA, encoding="utf-8", newline="\n")
+else:
+    for _f in (_IA_INDICE, _IA_JS, SITIO / "consulta-ia.html"):
+        _f.unlink(missing_ok=True)
 EN_CATALOGO = sorted(re.findall(r'<li class="cat-item" id="cat-(\w+)"', _catalogo))
 for marca, valor in {"/*ICONOS*/{}": ICONOS, "/*SEC_ICONO*/{}": SEC_ICONO, "/*SIN_RELACIONES*/[]": sorted(relaciones.EXCLUIDAS),
                      "/*EN_CATALOGO*/[]": EN_CATALOGO}.items():
@@ -844,12 +897,10 @@ _grupo_portada = lambda g, n, items: (f'<section class="tg tg-{g}" aria-labelled
 _temas_portada = "".join(f'<div class="tg-col">{_grupo_portada(*x)}</div>' for x in GRUPOS)
 
 # ---------- la portada de la Fase 2 (paso 2, diseño aprobado por el autor el 23 de octubre de 2026, docs/rediseno_fase2.md) ----------
-# Preguntas de ejemplo debajo del buscador (EJEMPLOS, arriba): cada una lleva a su ficha, y tiene que seguir en la lista del buscador
+# Preguntas de ejemplo del buscador (EJEMPLOS, arriba): cada una lleva a su ficha, y tiene que seguir en la lista del buscador
 _preg_js = js[js.index("const PREG = ["):js.index("\n];", js.index("const PREG = ["))]
 for _id, _q in EJEMPLOS:
     assert f'["{_q}"' in _preg_js and f'"#{_id}"' in _preg_js, f"la pregunta de ejemplo {_q} ya no está en PREG"
-_ejemplos = ('<p class="portada-ejemplos"><span>Por ejemplo:</span> '
-             + " ".join(f'<a href="{url_pagina(UBIC[i])}#{i}">{e(q)}</a>' for i, q in EJEMPLOS) + "</p>")
 # Datos destacados: cuatro fijos, uno por grupo de temas, elegidos por el autor el 23 de octubre de 2026. La cifra es la cifra destacada
 # de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y deja
 # reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
@@ -891,7 +942,7 @@ _herr_items = next(x[4] for x in MENUS if x[0] == "herramientas")
 _herramientas_home = "".join(_tarjeta_herr(p, "Herramienta") if not isinstance(p, tuple) else "".join(_tarjeta_herr(s, p[0]) for s in p[1])
                              for p in _herr_items)
 for marca, valor in {"<!--TEMAS-BARRA-->": _barra, "<!--TEMAS-MENU-->": _menu, "<!--GRUPOS-MENU-->": _grupos_menu, "<!--CATALOGO-->": _catalogo,
-                     "<!--EJEMPLOS-->": _ejemplos, "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
+                     "<!--DESTACADOS-->": _destacados, "<!--PROVINCIAS-HOME-->": _provincias_home,
                      "<!--HISTORIAS-HOME-->": _historias_home, "<!--HERRAMIENTAS-HOME-->": _herramientas_home,
                      '<div class="secciones-grid" id="secciones-grid"></div>': f'<div class="secciones-grid" id="secciones-grid">{_temas_portada}</div>'}.items():
     assert base.count(marca) == 1, marca
@@ -953,7 +1004,7 @@ def siluetas(h, id_):
         # la misma cuenta que pintarCifras() sin provincia elegida: una tarjeta por cifra destacada y una que invita a elegirla
         n = 5 if id_ in CON_CIFRAS else 0
         if n:
-            vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h3>En cifras</h3><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
+            vacias = f'<div class="en-cifras esqueleto" aria-hidden="true"><h2>En cifras</h2><div class="cifras-grid">{tarjetas_vacias(n, "cifra")}</div></div>'
             blo = re.sub(r'(<div class="tema-intro">.*?</div>(?:<nav class="subsecciones".*?</nav>)?)', lambda m: m.group(1) + vacias, blo, count=1, flags=re.S)
             h = h[:b["ini"]] + blo + h[b["fin"]:]
     return h.replace('<div class="prov-grid" id="prov-grid"></div>',
@@ -998,7 +1049,9 @@ INDEXADAS = []
 
 
 def metadatos(id_, titulo_social, descripcion, tipo):
-    archivo = "" if id_ == "inicio" else f"{id_}.html"
+    # Cloudflare Pages sirve cada página sin el .html (trabajo.html redirige a /trabajo, docs/deploy/CLOUDFLARE.md): las direcciones
+    # absolutas (canonical, og:url, JSON-LD y sitemap.xml) van sin él, así los buscadores no pasan por la redirección
+    archivo = "" if id_ == "inicio" else id_
     m = [f'<meta property="og:site_name" content="Datina">', '<meta property="og:locale" content="es_AR">',
          f'<meta property="og:type" content="{tipo}">', f'<meta property="og:title" content="{e(titulo_social)}">',
          f'<meta property="og:description" content="{e(descripcion)}">', '<meta name="twitter:card" content="summary">',
@@ -1190,7 +1243,7 @@ if URL_SITIO:
 # netlify.toml. Los archivos que las páginas piden con su huella en la dirección (?v=...) se guardan un año: cuando cambia el contenido
 # cambia la dirección. Los demás (por ejemplo, las tablas que se piden sin huella) quedan con la caché común
 CACHE_LARGO = (["/datina.css", "/datina.js", "/datos/fichas.js", "/lib/*", "/relaciones.css", "/relaciones.js", "/datos/relaciones.json"]
-               + [f"/datos/{n}.json" for n in DIFERIDAS])
+               + [f"/datos/{n}.json" for n in DIFERIDAS] + ["/consulta-ia.js"] * CONSULTA_IA)
 (SITIO / "_headers").write_text("".join(f"{r}\n  Cache-Control: public, max-age=31536000, immutable\n" for r in CACHE_LARGO), encoding="utf-8", newline="\n")
 # metadatos y enlaces internos (scripts/prueba_metadatos.py): si algo falla, el sitio no se da por armado
 import prueba_metadatos

@@ -3503,7 +3503,7 @@ const bancasHemi = per => (LGP.hemiciclo[per] || []).map(([cam, p, i, bl, e]) =>
 const leyHemi = arr => CG.espacios.filter(k => arr.some(b => LGP.espacios[b.e] === k))
   .map(k => `<span><i style="background:${ESP_COLOR[k]}"></i>${k} <b>${arr.filter(b => LGP.espacios[b.e] === k).length}</b></span>`).join("");
 const tipBanca = b => `<b>${b.nom}</b><br>${bandera(b.prov)}${NOMBRES[b.prov]}<br>${b.bloque}`;
-const hemiFig = (bh, cam) => `<figure class="hemi ha-f${cam}"><h4>${cam ? "Senado" : "Diputados"}, ${bh.filter(b => b.cam === cam).length} bancas</h4>` +
+const hemiFig = (bh, cam) => `<figure class="hemi ha-f${cam}"><h3>${cam ? "Senado" : "Diputados"}, ${bh.filter(b => b.cam === cam).length} bancas</h3>` +
   `<div class="hemi-svg" data-cam="${cam}"></div></figure>`;
 /* Hemiciclo (etapa 28): un punto por banca, en filas de semicírculos, agrupadas por espacio en el orden de la leyenda de la composición
    (de izquierda a derecha) y, dentro de cada espacio, por provincia. Con una provincia elegida, sus bancas quedan resaltadas, y al pasar
@@ -3583,7 +3583,7 @@ DIB.legisladores = () => {
     `<p class="hemi-pie">Cada punto es una banca, con quien la ocupaba ${per === LG_ULT ? "hoy" : `el ${fechaLarga(LGP.hemiciclo_fecha[per])}`}. ` +
     `Los espacios van en el orden de la leyenda y, dentro de cada uno, por provincia. ` +
     (marcada ? `Las bancas de ${NOMBRES[marcada]} quedan resaltadas.` : "Al elegir una provincia, sus bancas quedan resaltadas.") + `</p></div>` +
-    `<div class="senado"><h4>Senado</h4><ul>${sen.map(li).join("")}</ul></div><div><h4>Diputados</h4><ul>${dip.map(li).join("")}</ul></div>`;
+    `<div class="senado"><h3>Senado</h3><ul>${sen.map(li).join("")}</ul></div><div><h3>Diputados</h3><ul>${dip.map(li).join("")}</ul></div>`;
   el.querySelectorAll(".hemi-svg").forEach(h => hemiciclo(h, bh.filter(b => b.cam === +h.dataset.cam), marcada, tipBanca));
 };
 
@@ -4036,20 +4036,20 @@ if (notaCorte) {
     `<p>La Constitución de 1853 fijaba nueve jueces, pero los que designó Urquiza en 1854 no llegaron a formar la Corte. Desde la reforma de 1860, ` +
     `el número lo fija una ley: ${listaY(cambios.map(c => `${{5: "cinco", 7: "siete", 9: "nueve"}[c.jueces] || c.jueces} desde ${c.anio}`))}. ` +
     (/26\.183/.test(cambios.at(-1).norma) ? `La última reducción, de la ley 26.183, se cumplió de a poco, a medida que quedaban cargos vacantes.` : "") + `</p>` +
-    `<div class="nota-graf"><h3>Cuánto estuvo cada juez en la Corte</h3><div class="pol-ley">${coLeyenda(CO_FACTO)}</div>` +
+    `<div class="nota-graf"><h2>Cuánto estuvo cada juez en la Corte</h2><div class="pol-ley">${coLeyenda(CO_FACTO)}</div>` +
     `<div class="grafico" data-g="cs-tiempo" data-forma="bloque" style="--alto:${CO.designaciones * CO_FILA + 52}px;--alto-c:${CO.designaciones * CO_FILA + 52}px"></div>` +
     `<p class="nota-pie-graf">Una fila por designación, en el orden en que llegaron. La barra va desde la jura (o desde el decreto, si falta la jura) hasta que ` +
     `dejó el cargo, con el color del gobierno que designó a cada juez. Las franjas grises son los gobiernos de facto, y en negrita van quienes siguen en el cargo. ` +
     `Elegí un grupo en la leyenda para resaltar a sus jueces.</p></div>` +
     `<p>${ma[0].nombre} es quien más tiempo estuvo en la Corte: ${n1(ma[0].anios)} años, ${tiempo(ma[0])}. Le siguen ${ma[1].nombre} (${n1(ma[1].anios)}) y ${ma[2].nombre} (${n1(ma[2].anios)}). ` +
     `La mitad de los jueces estuvo ${n1(CO.mediana_anios)} años o menos. Los gobiernos de facto cesaron a ${CO.cesanteados} jueces, y ${CO.juicio_politico} salieron por juicio político.</p>` +
-    `<div class="nota-graf"><h3>Los jueces de cada año, según quién los designó</h3><div class="pol-ley">${coLeyenda(CO_VAC)}</div>` +
+    `<div class="nota-graf"><h2>Los jueces de cada año, según quién los designó</h2><div class="pol-ley">${coLeyenda(CO_VAC)}</div>` +
     `<div class="grafico" data-g="cs-composicion" data-forma="lineas"></div>` +
     `<p class="nota-pie-graf">Jueces en funciones al 31 de diciembre de cada año (en el año en curso, hoy), con el color del gobierno que designó a cada uno. ` +
     `Lo rayado son los lugares vacantes, hasta los jueces que fija la ley, que marca la línea de arriba.</p></div>` +
     `<p>En ${CO.anios_un_grupo} de esos ${nAnios} años, todos los jueces en funciones habían sido designados por gobiernos de un mismo grupo. La última vez fue en ${CO.un_grupo_ult}. ` +
     `Los gobiernos de facto hicieron ${CO.por_grupo.facto} de las designaciones, todas sin acuerdo del Senado.</p>` +
-    `<div class="nota-graf"><h3>Cuántos jueces designó cada presidente</h3><div class="pol-ley">${coLeyenda()}</div>` +
+    `<div class="nota-graf"><h2>Cuántos jueces designó cada presidente</h2><div class="pol-ley">${coLeyenda()}</div>` +
     `<div class="grafico" data-g="cs-presidentes" data-forma="lista" style="--alto:${Math.ceil(nPres / 2) * CO_PRES.fila + 8}px;` +
     `--alto-m:${nPres * CO_PRES.fila + 8}px;--alto-c:${nPres * CO_PRES.filaC + 8}px"></div>` +
     `<p class="nota-pie-graf">Un cuadrado por cada juez que juró, junto al presidente que lo designó, en el orden en que gobernaron. ` +
@@ -5592,8 +5592,8 @@ const CX = (() => {
     lect.textContent = t.trim();
     const conRes = datos.map((f, i) => ({f, e: m.res[i]})).sort((a, b) => b.e - a.e);
     const item = o => `<li><b>${o.f.territorio}</b> ${fm(st.y)(o.f[st.y])}</li>`;
-    resid.innerHTML = `<div><h4>Más arriba de lo que marca la recta</h4><ol>${conRes.slice(0, 3).map(item).join("")}</ol></div>` +
-      `<div><h4>Más abajo de lo que marca la recta</h4><ol>${conRes.slice(-3).reverse().map(item).join("")}</ol></div>`;
+    resid.innerHTML = `<div><h3>Más arriba de lo que marca la recta</h3><ol>${conRes.slice(0, 3).map(item).join("")}</ol></div>` +
+      `<div><h3>Más abajo de lo que marca la recta</h3><ol>${conRes.slice(-3).reverse().map(item).join("")}</ol></div>`;
     // tabla del par
     document.getElementById("cx-tabla").innerHTML = `<thead><tr><th>Jurisdicción</th><th>Región</th><th class="n">${X.nombre}</th><th class="n">${Y.nombre}</th></tr></thead><tbody>` +
       [...FILAS].sort((a, b) => a.territorio.localeCompare(b.territorio, "es")).map(f => `<tr${f.codigo_indec === prov ? ' class="elegida"' : ""}><td>${conBandera(f.codigo_indec, f.territorio + (st.fuera.has(f.codigo_indec) ? " (fuera del cálculo)" : ""))}</td><td>${f.region}</td>` +
@@ -5750,7 +5750,7 @@ const MAPA_DEP = (() => {
       .sort((a, b) => b.r[ind] - a.r[ind]);
     const item = o => `<li>${o.f.properties.nombre}${NOMBRES[pv] ? "" : ` (${o.r.provincia})`} <span>${fv(o.r[ind])}</span></li>`;
     document.getElementById("mp-lista").innerHTML = lista.length
-      ? `<h4>Valores más altos</h4><ol>${lista.slice(0, 5).map(item).join("")}</ol><h4>Valores más bajos</h4><ol>${lista.slice(-5).reverse().map(item).join("")}</ol>` : "";
+      ? `<h3>Valores más altos</h3><ol>${lista.slice(0, 5).map(item).join("")}</ol><h3>Valores más bajos</h3><ol>${lista.slice(-5).reverse().map(item).join("")}</ol>` : "";
     document.getElementById("mp-nota").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos en cinco grupos del mismo tamaño. ` + (censo
       ? `Los porcentajes del Censo 2022 se calculan sobre todos los hogares (o todas las viviendas) de cada departamento, y el censo cuenta a cada persona en la vivienda donde vive habitualmente. ` +
         `A diferencia del RENAPER, separa las 15 comunas de la Ciudad de Buenos Aires. Las listas solo incluyen los departamentos con al menos ${n0(MIN_HOG)} hogares. Tocá una provincia en el mapa para acercarte.`
@@ -6289,7 +6289,7 @@ function tablaDatos(filas, ficha = "") {
     if (xs.length >= 6 && new Set(xs).size > 2) corte[c] = [d3.quantile(xs, .8), d3.quantile(xs, .5)];
   });
   const clase = (r, c) => !corte[c] || typeof r[c] !== "number" || esTotal(r) ? "" : r[c] >= corte[c][0] ? " q-alto" : r[c] < corte[c][1] ? " q-bajo" : "";
-  const nombreTabla = esc(document.getElementById(ficha)?.querySelector("h3")?.textContent || "Datos");
+  const nombreTabla = esc(document.getElementById(ficha)?.querySelector("h2, h3")?.textContent || "Datos");
   return `<div class="tabla-desliza" tabindex="0" role="region" aria-label="Tabla: ${nombreTabla}"><table class="tabla-areas"><caption class="solo-lector">${nombreTabla}</caption><thead><tr>${cols.map(c => `<th${num[c] ? ' class="n"' : ""}>${esc(c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
     vistas.map(r => `<tr${prov && r.codigo_indec === prov ? ' class="elegida"' : ""}>${cols.map(c => `<td${num[c] ? ` class="n${clase(r, c)}"` : ""}>${
       c === "territorio" && (NOMBRES[r.codigo_indec] || r.codigo_indec === "00") ? conBandera(r.codigo_indec, v(r, c)) : esc(v(r, c))}</td>`).join("")}</tr>`).join("") +
@@ -6440,7 +6440,7 @@ async function imagenFicha(f) {
     if (l) lin.push(l); return lin;
   };
   const fT = `600 24px ${F}`, fS = `400 15px ${F}`, fL = `400 15px ${F}`, fP = `400 12px ${F}`;
-  const tit = envolver(f.querySelector("h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
+  const tit = envolver(f.querySelector("h2, h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
   // con el título como pregunta (etapa 35), la descripción con el período va debajo
   const sub = envolver(f.querySelector(".ficha-sub")?.textContent || "", fS);
   // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo, y sin el enlace "Cómo se calcula"
@@ -6492,23 +6492,23 @@ const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")]
 // va donde la página no lo tiene (Sector externo)
 const PARA_ENTENDER = !!document.getElementById("para-entender");
 document.querySelectorAll("article.ficha").forEach(f => {
-  const h3 = f.querySelector("h3");
+  const tituloFicha = f.querySelector("h2, h3");
   // el nombre de la sección: en las que tienen la pregunta como título (h1) va en p.tema-nombre
   const t = f.closest(".tema"), tema = VARIAS_SECCIONES && (t?.querySelector(":scope > .tema-nombre") || t?.querySelector("h1, h2"))?.textContent;
-  if (tema) h3.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
+  if (tema) tituloFicha.insertAdjacentHTML("beforebegin", `<span class="etiqueta">${tema}</span>`);
   const c = CLAVE[f.id];
   // con el título como pregunta (etapa 35), la cifra va después de la descripción, que sigue al título
-  if (c) (f.querySelector(".ficha-sub") || h3).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[2] || c[1]}</span></p>`);
+  if (c) (f.querySelector(".ficha-sub") || tituloFicha).insertAdjacentHTML("afterend", `<p class="clave"><span class="num">${c[0]}</span><span class="txt">${c[2] || c[1]}</span></p>`);
   const pie = f.querySelector(".pie"), csv = pie.querySelector(":scope > a");
   const acc = document.createElement("div"); acc.className = "acciones";
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre], propia = TABLA_PROPIA[f.id];
   const conTabla = propia || nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object";
   if (PARA_ENTENDER) pie.querySelector(":scope > span")?.insertAdjacentHTML("beforeend",
-    ` <a class="enlace como-calcula" href="#para-entender" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}">Cómo se calcula</a>`);
+    ` <a class="enlace como-calcula" href="#para-entender" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}">Cómo se calcula</a>`);
   acc.innerHTML = `<button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
     (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
-    (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
-    (EN_CATALOGO.has(nombre) ? `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" aria-describedby="${h3.id || (h3.id = f.id + "-tit")}"><span class="lbl">En el catálogo</span></a>` : "") +
+    (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
+    (EN_CATALOGO.has(nombre) ? `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">En el catálogo</span></a>` : "") +
     (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
   csv.className = "boton chico accion"; csv.innerHTML = `<span class="lbl">Descargar CSV</span>`;
   acc.appendChild(csv); pie.appendChild(acc);
@@ -6563,7 +6563,7 @@ document.querySelectorAll(".tema:not(.herramienta) > article.ficha:not(.ancha)")
   const [cab, graf, texto] = ["ficha-cab", "ficha-grafico", "ficha-texto"].map(c => Object.assign(document.createElement("div"), {className: c}));
   [...f.children].forEach(el => {
     if (el.matches(".pie, .tabla-datos")) return;
-    (el.matches(".etiqueta, h3, .ficha-sub, .clave") ? cab : el.matches(".lead, .nota:not(.ocde-nota), .ir-consultas") ? texto : graf).appendChild(el);
+    (el.matches(".etiqueta, h2, h3, .ficha-sub, .clave") ? cab : el.matches(".lead, .nota:not(.ocde-nota), .ir-consultas") ? texto : graf).appendChild(el);
   });
   f.prepend(cab, ...(NOTA_A_LA_VISTA.has(f.id) ? [texto, graf] : [graf, texto]));
   f.classList.add("horizontal");
@@ -6779,7 +6779,7 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
     `</tbody></table></div><p class="dx-pie-tabla">Puesto entre las 24 jurisdicciones, ordenadas de mayor a menor valor.</p>`;
   function tarjeta(c) {
     const t = tm(), avisos = new Set(t.ind.map(k => motivo(k, c)).filter(Boolean));
-    let h = `<article class="dx-prov"><h4>${conBandera(c, NOMBRES[c])}</h4>`;
+    let h = `<article class="dx-prov"><h3>${conBandera(c, NOMBRES[c])}</h3>`;
     avisos.forEach(m => { h += `<p class="dx-aviso">${NOMBRES[c]}: ${m}.</p>`; });
     t.ind.forEach(k => {
       h += `<p class="dx-cifra"><b>${pct(IND[k].v(c))}</b> ${IND[k].que}.</p>` +
@@ -6790,13 +6790,13 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
       h += `<p class="dx-linea">Entre ${RD.esc_desde} y ${RD.esc_hasta}, con la misma población de referencia, pasó de ${pct(f.esc_desde)} a ${pct(f.esc_hasta)}.` +
         (f.esc_hasta >= 99.5 ? " Un valor cercano a 100 o mayor refleja diferencias entre la matrícula y la proyección de población." : "") + `</p>`;
     }
-    if (t.area) h += `<h5>Dentro de la provincia</h5><ul class="dx-lista">${dentro(c, t.area).map(x => `<li>${x}</li>`).join("")}</ul>`;
-    h += `<h5>Sus indicadores de educación</h5>${tabla(c)}<p class="dx-linea">${resumenProv(c)}</p></article>`;
+    if (t.area) h += `<h4>Dentro de la provincia</h4><ul class="dx-lista">${dentro(c, t.area).map(x => `<li>${x}</li>`).join("")}</ul>`;
+    h += `<h4>Sus indicadores de educación</h4>${tabla(c)}<p class="dx-linea">${resumenProv(c)}</p></article>`;
     return h;
   }
   function tarjetaPais() {
     const t = tm();
-    let h = `<article class="dx-prov dx-pais"><h4>${conBandera("00", "Todo el país")}</h4>`;
+    let h = `<article class="dx-prov dx-pais"><h3>${conBandera("00", "Todo el país")}</h3>`;
     t.ind.forEach(k => {
       const orden = P24.filter(c => IND[k].v(c) != null).sort((a, b) => IND[k].v(b) - IND[k].v(a));
       const arriba = orden.filter(c => k !== "esc" || IND[k].v(c) < 99.5), afuera = orden.filter(c => !arriba.includes(c));
@@ -6804,7 +6804,7 @@ if (document.fonts) document.fonts.ready.then(() => LEADS.forEach(revisarLargo))
         `${pct(IND[k].v(orden[orden.length - 1]))} en ${NOMBRES[orden[orden.length - 1]]}` +
         (afuera.length ? `, sin contar ${lista(afuera.map(c => NOMBRES[c]))}, con valores de 100 o cercanos por diferencias entre la matrícula y la proyección de población` : "") + `.${cita(k)}</p>`;
     });
-    if (t.area) h += `<h5>Dentro del país</h5><ul class="dx-lista">${dentro("00", t.area).map(x => `<li>${x}</li>`).join("")}</ul>`;
+    if (t.area) h += `<h4>Dentro del país</h4><ul class="dx-lista">${dentro("00", t.area).map(x => `<li>${x}</li>`).join("")}</ul>`;
     return h + `<p class="dx-ayuda">Sumá una o más provincias arriba para ver su diagnóstico.</p></article>`;
   }
   function conjunto() {
@@ -7429,7 +7429,7 @@ ART.forEach(a => {
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${a.contexto}</p>` +
     // data-forma reserva el alto del gráfico mientras se dibuja, así el texto de abajo no salta (revisión de la línea de base)
-    `<div class="nota-graf"><h3>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h3><div class="grafico" data-g="${key}" data-forma="puntos"></div>` +
+    `<div class="nota-graf"><h2>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h2><div class="grafico" data-g="${key}" data-forma="puntos"></div>` +
     `<p class="nota-pie-graf">Cada punto es una ${U.s}. La línea punteada muestra la tendencia.</p></div>` +
     `<p>${t.extremos}</p><p>${t.excep}</p><p>${t.peso}</p>` +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
@@ -7755,7 +7755,7 @@ ART_SERIE.forEach(a => {
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${t.contexto}</p>` +
-    t.secciones.map(s => `<div class="nota-graf"><h3>${s.tit}</h3><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` +
+    t.secciones.map(s => `<div class="nota-graf"><h2>${s.tit}</h2><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` +
       `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("")).join("") +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
     `<div class="nota-fuentes"><p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
@@ -7865,7 +7865,7 @@ const pintarCifras = () => {
     if (!conProv.size && indp.length)
       tarjetas.push(`<a class="tarjeta cifra invita" href="provincia.html"><span class="c-lab">Tu provincia</span><span class="c-txt">Elegí una provincia para ver sus datos de esta sección junto a los del país.</span></a>`);
     // en una categoría (etapa 36), después de su fila de secciones, donde el constructor dejó las tarjetas vacías
-    (intro.nextElementSibling?.matches(".subsecciones") ? intro.nextElementSibling : intro).insertAdjacentHTML("afterend", `<div class="en-cifras"><h3>En cifras</h3><div class="cifras-grid">${tarjetas.slice(0, 5).join("")}</div></div>`);
+    (intro.nextElementSibling?.matches(".subsecciones") ? intro.nextElementSibling : intro).insertAdjacentHTML("afterend", `<div class="en-cifras"><h2>En cifras</h2><div class="cifras-grid">${tarjetas.slice(0, 5).join("")}</div></div>`);
   }
 };
 /* Minigráfico de cada tarjeta de "En cifras" (etapa 16, idea de un tablero que compartió el autor). Resuelve lo que en octubre de 2026
@@ -8051,12 +8051,27 @@ function htmlMini(o) {
 })();
 if (PAGINA !== "inicio") {
   pintarCifras(); alCambiarProv.push(pintarCifras);
-  // en el celular, la fila de secciones (la escribe el constructor) se desliza hasta la actual
-  const cur = document.querySelector(".pildoras [aria-current]");
-  if (cur) requestAnimationFrame(() => { cur.parentElement.scrollLeft = cur.offsetLeft - 22; });
-  // la fila de la categoría (etapa 36), igual: la sección actual a la vista
-  const sub = document.querySelector(".subsecciones [aria-current]");
-  if (sub) requestAnimationFrame(() => { sub.parentElement.scrollLeft = Math.max(0, sub.offsetLeft - sub.parentElement.offsetLeft - 22); });
+  // en el celular, la fila de secciones (la escribe el constructor) se desliza hasta la actual, y la fila de la categoría (etapa 36) igual.
+  // Se mide en la pantalla y se vuelve a acomodar cuando llegan las letras y al terminar la carga (25 de octubre de 2026): acomodada una
+  // sola vez en el primer cuadro, cuando los anchos todavía no eran los finales, la sección actual quedaba cortada a la izquierda
+  // ("BAJO" en lugar de "Trabajo" en 320 píxeles). Si la persona ya movió la fila, no se la toca
+  for (const sel of [".pildoras", ".subsecciones"]) {
+    const cur = document.querySelector(sel + " [aria-current]");
+    if (!cur) continue;
+    const fila = cur.parentElement;
+    let tocada = false, propio = false;
+    fila.addEventListener("scroll", () => { if (!propio) tocada = true; propio = false; }, {passive: true});
+    const alinear = () => {
+      if (tocada) return;
+      const antes = fila.scrollLeft;
+      fila.scrollLeft = Math.max(0, antes + cur.getBoundingClientRect().left - fila.getBoundingClientRect().left - (parseFloat(getComputedStyle(fila).paddingLeft) || 0)
+                                    - (sel === ".pildoras" ? 0 : 22));
+      propio = fila.scrollLeft !== antes;
+    };
+    requestAnimationFrame(alinear);
+    document.fonts?.ready.then(() => requestAnimationFrame(alinear));
+    addEventListener("load", () => requestAnimationFrame(alinear), {once: true});
+  }
 }
 
 /* buscador de la lupa y de la portada: secciones, fichas, preguntas, artículos, piezas, provincias y herramientas de todo el sitio (cada
@@ -8064,7 +8079,7 @@ if (PAGINA !== "inicio") {
    piezas del Laboratorio, el consultor de pobreza, el Explorador de relaciones y Contacto, agrupa los resultados como la barra (Fichas,
    Temas, Provincias, Historias, Herramientas y Datina), se recorre con las flechas (patrón combobox de WAI-ARIA, como el selector de
    provincias), un aviso aparte dice cuántos resultados hay y, si no hay ninguno, ofrece seguir en el catálogo de datos con lo escrito, ver
-   los temas o una pregunta de ejemplo */
+   los temas o una pregunta de ejemplo. Desde el 26 de octubre de 2026, arriba de los resultados, una respuesta rápida sin IA (respuesta()) */
 (() => {
   const btn = document.getElementById("lupa-btn"), caja = document.getElementById("buscador");
   const ent = document.getElementById("busca"), res = document.getElementById("busca-res"), est = document.getElementById("busca-estado");
@@ -8075,6 +8090,7 @@ if (PAGINA !== "inicio") {
   const MENU_G = {provincias: "Provincias", historias: "Historias", herramientas: "Herramientas"};
   const grupoPag = id => MENU_G[SITIO.menu[id]] || "Temas";
   const SEC_FICHA = Object.fromEntries(SITIO.fichas.map(f => [f[0], f[1]]));
+  const FUENTE = Object.fromEntries(SITIO.fichas.map(f => [f[0], f[9] || ""]));
   let IDX;
   const armar = () => {
     IDX = [];
@@ -8094,15 +8110,72 @@ if (PAGINA !== "inicio") {
       const h = (TX[kt] || tit || "").trim(); if (!h) return;
       // las fichas de suicidio llevan a las líneas de ayuda, que van justo antes
       const ancla = NOTA_A_LA_VISTA.has(id) && trasAyuda ? "#ayuda-suicidio" : "#" + id;
-      IDX.push({t: h, g: "Fichas", sm: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || "")});
+      IDX.push({t: h, g: "Fichas", sm: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || ""), f: id});
     });
-    PREG.forEach(([q, a, h]) => { const id = h.slice(1); if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(id, h), x: a}); });
+    PREG.forEach(([q, a, h]) => { const id = h.slice(1); if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(id, h), x: a, f: id}); });
     // todos los artículos: los de cruces y, desde el paso 3, también los de series
     ARTS.forEach(a => IDX.push({t: a.titulo, g: "Historias", sm: "Artículo", u: urlPagina(a.id), x: `${a.dek} ${a.t?.bajada || ""} ${nombreSec(a.sec)}`, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
-  const opcion = (d, id) => `<a href="${d.u}" id="${id}" role="option" tabindex="-1" aria-selected="false">` +
-    (d.sm ? `<small>${esc(d.sm)}</small>` : "") + (d.c ? conBandera(d.c, d.t) : esc(d.t)) + "</a>";
+  const opcion = (d, id) => `<a href="${d.u}" id="${id}" role="option" tabindex="-1" aria-selected="false"${d.r ? ' class="busca-resp"' : ""}>` +
+    (d.sm ? `<small>${esc(d.sm)}</small>` : "") + (d.r ? cuerpoResp(d.r) : d.c ? conBandera(d.c, d.t) : esc(d.t)) + "</a>";
+  // respuesta rápida (26 de octubre de 2026, opción A de docs/ia/CONSULTAS.md): si lo escrito apunta a una ficha, arriba de los
+  // resultados va la cifra que el sitio ya calcula, sin IA. Con una provincia nombrada, su valor del perfil provincial (INDP) y el del
+  // país, con la aclaración del caso distorsionado si la tiene. Sin provincia, la cifra destacada de la ficha (CLAVE). Si la provincia
+  // no tiene ese dato no hay respuesta (la ficha sigue en los resultados): una cifra del país no contesta una pregunta por una provincia.
+  // Las fichas de suicidio y la de muertes violentas no llevan cifra destacada ni entran en el perfil, así que nunca tienen respuesta
+  const ALIAS_PROV = [["caba", "02"], ["capital federal", "02"], ["ciudad de buenos aires", "02"], ["ciudad autonoma", "02"],
+    ["provincia de buenos aires", "06"], ["pba", "06"]];
+  const PROVS = [...ALIAS_PROV, ...Object.entries(NOMBRES).map(([c, n]) => [st(n), c])].sort((a, b) => b[0].length - a[0].length);
+  const VACIAS = new Set(("de del la las el los lo en y e o u a al un una unos unas por para con sin que cuanto cuanta cuantos cuantas como " +
+    "cual cuales donde quien quienes hay se es son esta estan fue mas menos muy tiene tienen cada su sus provincia provincias pais argentina").split(" "));
+  const CON_PERFIL = new Set(INDP.filter(e => e.d).map(e => e.id));
+  // la ficha principal de los temas que más se buscan: con una palabra suelta ("inflación", "salario") la búsqueda general prefiere la
+  // ficha que la tiene en la pregunta (la inflación esperada, el salario real), y la respuesta tiene que ser la del tema. Cada clave va
+  // sin tildes y sin palabras vacías. Si una ficha deja de existir, su clave no se usa
+  const PRINCIPAL = Object.entries({
+    "f-inflacion": ["inflacion", "precios", "ipc"], "f-salarios": ["salario", "salarios", "sueldo", "sueldos", "gana", "ganan"],
+    "f-empleo": ["empleo", "asalariados"], "f-empleo-publico": ["empleo publico", "empleados publicos", "cargos publicos"], "f-pobreza": ["pobreza", "pobres", "indigencia"], "f-combustibles": ["nafta", "combustible", "combustibles", "gasoil"],
+    "f-bcra": ["dolar"], "f-petroleo": ["petroleo"], "f-gas": ["gas"], "f-gas-consumo": ["consumo gas"], "f-homicidios": ["homicidios", "homicidio", "asesinatos"],
+    "f-robos": ["robos", "hurtos"], "f-delitos": ["delitos"], "f-mortalidad": ["mortalidad infantil"], "f-esperanza": ["esperanza vida"],
+    "f-poblacion-proy": ["poblacion", "habitantes"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
+    "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
+    "f-jubilaciones": ["jubilacion", "jubilaciones", "jubilados", "aportantes"],
+    "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
+    "f-censo": ["cloacas", "agua red"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
+    "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
+    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"],
+    "f-salario-docente": ["maestro", "maestros", "docente", "docentes", "salario docente", "sueldo docente", "salario maestro", "sueldo maestro"], "f-patentes": ["patentes", "autos"], "f-sube": ["sube"]
+  }).flatMap(([id, ks]) => ks.map(k => [k.split(" "), id]));
+  const respuesta = (texto, hall) => {
+    let t = ` ${st(texto).replace(/[^a-z0-9]+/g, " ").trim()} `, c = "";
+    for (const [n, cod] of PROVS) if (t.includes(` ${n} `)) { c = cod; t = t.replace(` ${n} `, " "); break; }
+    const tema = t.trim().split(" ").filter(w => w && !VACIAS.has(w));
+    if (!tema.length) return null;
+    // la ficha: la principal de un tema nombrado (si hay varias, la que tiene más palabras de lo escrito), si no la que tiene todas las
+    // palabras (primero las que las tienen en la pregunta) o, si ninguna, el primer resultado
+    const sirve = d => d && d.f && !NOTA_A_LA_VISTA.has(d.f) && (c ? CON_PERFIL.has(d.f) : CLAVE[d.f]);
+    const tiene = d => tema.filter(w => d.tt.includes(w) || d.xx.includes(w)).length;
+    // sin un tema nombrado, alguna palabra tiene que estar en la pregunta de la ficha: en el resto del texto aparece de pasada
+    const pun = d => tiene(d) === tema.length && tema.some(w => d.tt.includes(w)) ? tema.length + tema.filter(w => d.tt.includes(w)).length : 0;
+    let d = PRINCIPAL.filter(([ks]) => ks.every(k => tema.includes(k))).map(([ks, id]) => ({x: IDX.find(x => x.f === id), n: ks.length}))
+      .filter(r => sirve(r.x)).sort((a, b) => tiene(b.x) - tiene(a.x) || b.n - a.n)[0]?.x;
+    if (!d) d = IDX.filter(sirve).map(x => ({x, p: pun(x)})).filter(r => r.p).sort((a, b) => b.p - a.p)[0]?.x;
+    if (!d && sirve(hall[0]) && tema.some(w => hall[0].tt.includes(w))) d = hall[0];
+    if (!d) return null;
+    const fuente = FUENTE[d.f] || "";
+    if (!c) return {t: CLAVE[d.f][0] + " " + CLAVE[d.f][1], g: "Respuesta rápida", sm: d.sm, u: d.u, r: {cifra: CLAVE[d.f][0], texto: CLAVE[d.f][1] + ".", fuente}};
+    // el indicador del perfil que más se parece a lo escrito (Aprender tiene matemática y lengua, el empleo su nivel y su variación)
+    const parecido = e => tema.filter(w => st(e.lab + " " + e.det).includes(w)).length;
+    const e = INDP.filter(x => x.id === d.f && x.d).reduce((a, b) => parecido(b) > parecido(a) ? b : a);
+    const v = e.d.find(r => r.codigo_indec === c)?.[e.k];
+    if (v == null) return null;
+    const cifra = e.f(v), det = cifra.endsWith("%") ? e.det.replace(/^%\s*/, "") : e.det, nota = notaDist(e, c).replace(/\.$/, "");
+    return {t: `${NOMBRES[c]}: ${cifra} ${det}`, g: "Respuesta rápida", sm: e.lab, u: d.u,
+      r: {c, cifra, texto: `${det}${nota ? ` (${nota})` : ""}. País: ${e.f(e.pais)}.`, fuente}};
+  };
+  const cuerpoResp = r => `<span>${r.c ? conBandera(r.c, NOMBRES[r.c]) + ": " : ""}<b>${esc(r.cifra)}</b> ${esc(r.texto)}</span>` +
+    (r.fuente ? `<span class="busca-fuente">${esc(r.fuente)}</span>` : "");
   // la lista agrupada: los grupos en el orden de su mejor resultado y, adentro, por puntaje
   const pintar = (res, ds, base) => {
     const grupos = [];
@@ -8130,15 +8203,22 @@ if (PAGINA !== "inicio") {
     // si ninguna entrada tiene todas las palabras ("salta empleo"), se muestran las que tienen alguna
     if (!hall.length) hall = IDX.map(d => ({d, p: puntaje(d, false)})).filter(r => r.p);
     hall = hall.sort((a, b) => b.p - a.p).slice(0, 8).map(r => r.d);
+    // con las consultas con IA prendidas (SITIO.ia, docs/ia/CONSULTAS.md): lo escrito puede ir a esa página, donde queda escrito sin
+    // enviarse. Con resultados, solo si parece una pregunta (tres palabras o más)
+    const aIA = g => ({t: `Preguntarles a los datos: «${texto}»`, g, u: "consulta-ia.html?q=" + encodeURIComponent(texto.slice(0, 400))});
+    if (SITIO.ia && hall.length && pal.length >= 3) hall.push(aIA("Consultas con IA"));
+    const rr = respuesta(texto, hall);
+    if (rr) hall.unshift(rr);
     if (hall.length) {
       pintar(res, hall, base);
-      est.textContent = hall.length === 1 ? "1 resultado. Enter para abrirlo." : `${hall.length} resultados. Flechas para recorrerlos, Enter para abrir.`;
+      est.textContent = (rr ? `Respuesta rápida: ${rr.t}. ` : "") +
+        (hall.length === 1 ? "1 resultado. Enter para abrirlo." : `${hall.length} resultados. Flechas para recorrerlos, Enter para abrir.`);
     } else {
       // nada coincide: tres caminos reales para seguir (el catálogo de datos filtra por lo escrito con ?q=)
       const g = `Nada coincide con «${texto}»`;
       pintar(res, [{t: `Buscar «${texto}» en el catálogo de datos`, g, u: "catalogo.html?q=" + encodeURIComponent(texto)},
-                   {t: "Ver todos los temas", g, u: "./#secciones"}, ...ejemplos()], base);
-      est.textContent = `${g}. La lista ofrece buscar en el catálogo de datos, ver los temas o una pregunta de ejemplo.`;
+                   ...(SITIO.ia ? [aIA(g)] : []), {t: "Ver todos los temas", g, u: "./#secciones"}, ...ejemplos()], base);
+      est.textContent = `${g}. La lista ofrece buscar en el catálogo de datos, ${SITIO.ia ? "preguntarles a los datos con IA, " : ""}ver los temas o una pregunta de ejemplo.`;
     }
   };
   // el campo y su lista como combobox: las flechas marcan una opción (aria-activedescendant) sin sacar el foco del campo, Enter abre la
