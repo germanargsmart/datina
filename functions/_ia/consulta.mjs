@@ -317,13 +317,21 @@ const VACIAS = new Set(("del las los que cuanto cuanta cuantos cuantas como cual
 const SINONIMOS = {gana: "salario", ganan: "salario", sueldo: "salario", sueldos: "salario", presos: "carcel", plata: "ingreso", trabajo: "empleo",
   luz: "electricidad", nafta: "combustible", bebes: "nacidos", chicos: "menores"};
 const raiz = w => w.length > 5 ? w.slice(0, w.length - 2) : w;
+// la tabla principal de los temas que más se preguntan (como PRINCIPAL en el buscador del sitio): va primero aunque otra tenga más palabras
+// de la pregunta (con "inflación de los últimos doce meses" ganaba la de rubros, que tiene "doce meses" en su pregunta)
+const TABLA_PRINCIPAL = {inflacion: "inflacion_mensual", precios: "inflacion_mensual", salario: "salarios_provincias", sueldo: "salarios_provincias",
+  gana: "salarios_provincias", pobreza: "pobreza_serie", indigencia: "pobreza_serie", nafta: "combustibles_provincias", petroleo: "hidrocarburos_provincias",
+  glaciares: "glaciares_provincias", turistas: "turistas_no_residentes_anual", homicidios: "homicidios_provincias", exporta: "exportaciones_provincias",
+  exportaciones: "exportaciones_provincias", empleo: "empleo_provincias", reservas: "reservas_bcra", deuda: "deuda_pbi"};
 
 export function elegirTablas(pregunta, indice) {
   let q = ` ${normal(pregunta).replace(/[^a-z0-9]+/g, " ").trim()} `, prov = "";
   for (const [n, c] of PROVINCIAS) if (q.includes(` ${n} `)) { prov = c; q = q.replace(` ${n} `, " "); break; }
   const anio = (q.match(/\b(19|20)\d\d\b/) || [""])[0];
   // cada palabra y, si tiene, su sinónimo ("gana" está en la pregunta de la ficha de salarios, "salario" en su descripción)
-  const pal = [...new Set(q.trim().split(" ").filter(w => w.length > 2 && !VACIAS.has(w) && !/^\d+$/.test(w)).flatMap(w => SINONIMOS[w] ? [w, SINONIMOS[w]] : [w]).map(raiz))];
+  const crudas = q.trim().split(" ").filter(w => w.length > 2 && !VACIAS.has(w) && !/^\d+$/.test(w));
+  const principales = new Set(crudas.map(w => TABLA_PRINCIPAL[w]).filter(Boolean));
+  const pal = [...new Set(crudas.flatMap(w => SINONIMOS[w] ? [w, SINONIMOS[w]] : [w]).map(raiz))];
   if (!pal.length) return {prov, anio, tablas: []};
   const puntos = [...indice.tablas.values()].map(t => {
     const tit = normal(t.titulo), desc = normal(`${t.descripcion} ${t.seccion}`), resto = normal(`${t.tabla} ${t.columnas.map(c => c[0]).join(" ")} ${(t.unidades || []).join(" ")}`);
@@ -331,15 +339,19 @@ export function elegirTablas(pregunta, indice) {
     for (const w of pal) p += tit.includes(w) ? 3 : desc.includes(w) ? 2 : resto.includes(w) ? 1 : 0;
     // con una provincia nombrada, mejor las tablas que la tienen
     if (p && prov) p += /24 jurisdicciones/.test(t.cobertura) ? 2 : /Sin desglose|Total del país/.test(t.cobertura) ? -2 : 0;
+    // con un año en la pregunta no: la tabla principal suele tener solo los últimos años y la serie larga quedaba afuera
+    if (principales.has(t.tabla) && !anio) p += 6;
     return {t, p};
   }).filter(x => x.p > 0).sort((a, b) => b.p - a.p);
   const tope = puntos.length ? Math.max(2, puntos[0].p * 0.6) : 0;
-  return {prov, anio, tablas: puntos.filter(x => x.p >= tope).slice(0, TOPES_CF.tablas).map(x => x.t)};
+  // "¿qué provincia tiene más...?": muestraCF suma la más alta y la más baja de cada columna
+  const extremos = /\b(mas|menos|mayor|menor|mayores|menores|maximo|minimo|primera|ultima|ranking|lidera|encabeza)\b/.test(q) && !prov;
+  return {prov, anio, extremos, tablas: puntos.filter(x => x.p >= tope).slice(0, TOPES_CF.tablas).map(x => x.t)};
 }
 
 // lo que recibe el modelo de una tabla: lo de leerTabla con la provincia nombrada y los últimos dos años de la tabla, y de las filas, las
 // últimas que entran. Si la pregunta nombra un año, también las de ese año
-async function muestraCF(info, prov, anio, indice, leer) {
+async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   const cols = new Set(info.columnas.map(c => c[0]));
   const cp = COLS_PERIODO.some(c => cols.has(c));
   const ultimo = (String(info.periodo || "").match(/(\d{4})\D*$/) || [])[1];
@@ -365,7 +377,29 @@ async function muestraCF(info, prov, anio, indice, leer) {
   const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha");
   const cab = campos(recientes.cab);
   const tabla = [cab.join(" | "), ...filas.map(l => campos(l).map((v, i) => cifraAR(v, cab[i] || "")).join(" | "))].join("\n");
-  return {texto: `${meta}${aviso}\n\n${tabla}`, info: recientes.info};
+  return {texto: `${meta}${aviso}${extremos ? extremosCF(cab, filas) : ""}\n\n${tabla}`, info: recientes.info};
+}
+
+// la más alta y la más baja de cada columna numérica, sin el total del país: ordenar 24 filas es donde el modelo gratis se equivocaba
+// ("¿Cuál es la provincia con más homicidios?" daba la de la tasa más alta con la cantidad de víctimas de tres años)
+function extremosCF(cab, lineas) {
+  const ter = cab.indexOf("territorio"), cod = cab.indexOf("codigo_indec");
+  if (ter < 0) return "";
+  let filas = lineas.map(campos).filter(f => f[cod] !== "00" && !/^(todo el pa[ií]s|total)/i.test(f[ter] || ""));
+  // con varios períodos, solo el último: si no, la más alta podía ser de otro año
+  const cp = cab.findIndex(c => COLS_PERIODO.includes(c));
+  if (cp >= 0) {
+    const ult = filas.map(f => clavePeriodo(f[cp] ?? "")).sort().at(-1);
+    filas = filas.filter(f => clavePeriodo(f[cp] ?? "") === ult);
+  }
+  if (filas.length < 5) return "";
+  const notas = cab.map((c, i) => {
+    if (i === ter || NO_ES_CIFRA.test(c)) return "";
+    const v = filas.filter(f => /^-?\d+(\.\d+)?$/.test(f[i] ?? "")).sort((a, b) => b[i] - a[i]);
+    if (v.length < 5) return "";
+    return `${c}: la más alta es ${v[0][ter]} (${cifraAR(v[0][i], c)}) y la más baja, ${v.at(-1)[ter]} (${cifraAR(v.at(-1)[i], c)})`;
+  }).filter(Boolean).slice(0, 8);
+  return notas.length ? `\nSin contar el total del país, ${notas.join(". ")}.` : "";
 }
 
 // las cifras como se escriben en la Argentina y redondeadas, para que el modelo las copie tal cual en lugar de convertirlas (el 26 de
@@ -375,7 +409,7 @@ async function muestraCF(info, prov, anio, indice, leer) {
 const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre|^t$/i;
 export function cifraAR(v, col) {
   if (NO_ES_CIFRA.test(col) || !/^-?\d+(\.\d+)?$/.test(v) || (!v.includes(".") && Math.abs(+v) < 10000)) return v;
-  const n = +v, a = Math.abs(n), dec = a >= 100 || !v.includes(".") ? 0 : a >= 1 ? 1 : 2, f = 10 ** dec;
+  const n = +v, a = Math.abs(n), dec = a >= 100 || Number.isInteger(n) ? 0 : a >= 1 ? 1 : 2, f = 10 ** dec;
   // mitad hacia arriba, como r1() del sitio
   const [ent, frac] = (Math.round(a * f + 1e-9) / f).toFixed(dec).split(".");
   return (n < 0 ? "-" : "") + ent.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (frac ? "," + frac : "");
@@ -424,13 +458,13 @@ async function conversarCF({pregunta, indice, ia, modelo, leer, enviar, corte}) 
       final = "ayuda";
       return uso;
     }
-    const {prov, anio, tablas} = elegirTablas(pregunta, indice);
+    const {prov, anio, extremos, tablas} = elegirTablas(pregunta, indice);
     if (!tablas.length) { enviar({t: "error", texto: SIN_TABLAS}); final = "sin tablas"; return uso; }
     const bloques = [], consultadas = [];
     for (const [i, info] of tablas.entries()) {
       // dos tablas de la misma ficha se anuncian una sola vez
       if (!i || tablas[i - 1].titulo !== info.titulo) enviar({t: "paso", texto: `Leyendo «${info.titulo}»…`});
-      const m = await muestraCF(info, prov, anio, indice, leer);
+      const m = await muestraCF(info, prov, anio, indice, leer, extremos);
       if (!m) continue;
       // sin número: el modelo citaba "la tabla 1"
       bloques.push(`---\n${m.texto}`);

@@ -289,9 +289,20 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const casos = [["2073.7800", "nafta", "2.074"], ["4094578.9300", "salario", "4.094.579"], ["37.8500", "pct", "37,9"], ["0.4300", "tasa", "0,43"],
                  ["-12.3400", "var", "-12,3"], ["5680763", "turistas", "5.680.763"], ["2025", "turistas", "2025"], ["2024.0000", "anio", "2024.0000"],
                  ["06", "codigo_indec", "06"], ["Salta", "territorio", "Salta"], ["2024-05", "periodo", "2024-05"],
-                 ["2025.5000", "t", "2025.5000"], ["2025.5000", "semestre", "2025.5000"]];
+                 ["2025.5000", "t", "2025.5000"], ["2025.5000", "semestre", "2025.5000"], ["10.0", "victimas", "10"], ["33.0000", "pct", "33"]];
   const mal = casos.filter(([v, c, e]) => cifraAR(v, c) !== e);
   ok(!mal.length, `Workers AI: las cifras como en la Argentina, redondeadas, sin tocar códigos, años ni textos (${mal.map(([v, c]) => `${v} → ${cifraAR(v, c)}`).join(", ")})`);
+  // "¿qué provincia ... más?": la más alta y la más baja de cada columna, del último año y sin el total del país
+  const iaMas = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Qué provincia usa más gas por usuario?", iaMas));
+  const filasGas = readFileSync(join(DATOS, "gas_usuario_serie.csv"), "utf-8").trim().split("\n").slice(1).map(l => l.split(","));
+  const ultGas = filasGas.map(f => f[0]).sort().at(-1);
+  const topGas = filasGas.filter(f => f[0] === ultGas && f[1] !== "00").sort((a, b) => b[3] - a[3])[0];
+  const uMas = iaMas.llamadas[0]?.opciones.messages[1].content || "";
+  ok(uMas.includes(`Sin contar el total del país, m3_usuario: la más alta es ${topGas[2]} (`), `Workers AI: con "más", la provincia más alta del último año (${topGas[2]}, ${ultGas})`);
+  const iaProv = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?", iaProv));
+  ok(!iaProv.llamadas[0].opciones.messages[1].content.includes("Sin contar el total del país"), "Workers AI: sin \"más\" ni \"menos\", no suma los extremos");
   const iaPegado = iaSimulada("", "", ["Santa Cruz tiene", 4, ".572 glaciares, con", 4, " más que el año", 2025, "."]);
   const r = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaPegado));
   ok(r.texto === "Santa Cruz tiene 4.572 glaciares, con 4 más que el año 2025.", `Workers AI: un número que llega pegado a una palabra lleva su espacio (${r.texto})`);
