@@ -40,7 +40,8 @@
   const pintar = () => {
     pendiente = false;
     // sin marcas de formato: el modelo escribe párrafos, y si se le escapa un ** no se muestra
-    const parrafos = escrito.replace(/\*\*/g, "").split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
+    // y sin espacios repetidos (el modelo gratis a veces deja dos alrededor de un número)
+    const parrafos = escrito.replace(/\*\*/g, "").replace(/[ \t]{2,}/g, " ").split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
     const hay = texto.children;
     while (hay.length > parrafos.length) hay[hay.length - 1].remove();
     parrafos.forEach((p, i) => {

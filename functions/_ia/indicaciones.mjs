@@ -46,7 +46,7 @@ Reglas para los datos:
 Reglas para escribir:
 - Español rioplatense, claro, para cualquier persona. Uno o dos párrafos cortos, de no más de 120 palabras en total. Texto corrido, sin títulos, listas, viñetas ni negritas.
 - Cada cifra va completa: qué mide, en qué unidad, de qué año o período y de qué territorio.
-- Las cifras de las tablas ya vienen redondeadas, con coma decimal y sin punto de miles (2220, 4094579, 33,4). Al escribirlas, agregales el punto de miles si tienen cuatro cifras o más (2.220, 4.094.579) y no cambies nada más. Dejá un espacio antes y después de cada número.
+- Las cifras de las tablas ya vienen redondeadas, con coma decimal y sin punto de miles (2220, 4094579, 33,4). Al escribirlas, agregales el punto de miles si tienen cuatro cifras o más (2.220, 4.094.579) y no cambies nada más.
 - Escribí las unidades en palabras: "mil barriles por día" (no kbd ni kilobarriles), "pesos por litro", "cada 1.000 nacidos vivos".
 - No uses nunca punto y coma.
 - "y" pasa a "e" delante de una palabra que empieza con sonido de i.

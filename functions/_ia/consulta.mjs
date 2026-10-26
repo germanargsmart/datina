@@ -408,8 +408,8 @@ function extremosCF(cab, lineas) {
 
 // columnas cuyo nombre no alcanza para saber qué miden (con homicidios, el modelo llamó tasa a las víctimas de tres años)
 const COLUMNAS_CF = {
-  homicidios_provincias: "victimas_3, las víctimas sumadas de los tres últimos años de la tabla. tasa_3, víctimas por año cada 100.000 habitantes en " +
-    "esos tres años. victimas, las víctimas del último año. tasa, víctimas cada 100.000 habitantes en el último año. pct_varones, porcentaje de " +
+  homicidios_provincias: "victimas_3, las víctimas sumadas de los tres últimos años de la tabla. tasa_3, víctimas por año cada 100 mil habitantes en " +
+    "esos tres años. victimas, las víctimas del último año. tasa, víctimas cada 100 mil habitantes en el último año. pct_varones, porcentaje de " +
     "varones entre las víctimas",
 };
 
