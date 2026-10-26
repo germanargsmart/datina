@@ -417,7 +417,7 @@ const COLUMNAS_CF = {
 
 // las cifras redondeadas y con coma decimal, para que el modelo no tenga que convertirlas (el 26 de octubre de 2026 escribía "2073,78
 // pesos"): sin decimales desde 100, uno desde 1 y dos por debajo. Sin punto de miles: con "2.220" el modelo entendió 2,22 (lo leyó como
-// un decimal en inglés). El punto de miles lo pone el modelo al escribir. Los enteros, los códigos, los años y los períodos quedan como están
+// un decimal en inglés). El punto de miles lo pone la página (scripts/consulta_ia.js), porque el modelo perdía cifras al ponerlo. Los enteros, los códigos, los años y los períodos quedan como están
 // ("t" es el tiempo como número decimal, 2025,5 para el segundo semestre de 2025)
 const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre|^t$/i;
 export function cifraAR(v, col) {

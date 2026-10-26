@@ -37,11 +37,14 @@
 
   // la respuesta, párrafo por párrafo: solo cambia el último y se agregan los nuevos (un lector de pantalla no pierde su lugar)
   let escrito = "", pendiente = false;
+  // el punto de miles en las cifras de cinco o más cifras: el modelo gratis las copia sin puntos, porque cuando los ponía él perdía cifras
+  // ("5.68.763" por 5680763). Las de cuatro quedan como vienen, como pide la RAE: pueden ser años
+  const miles = t => t.replace(/(?<![\d.,])\d{5,}(?!\d|\.\d)/g, n => n.replace(/\B(?=(\d{3})+$)/g, "."));
   const pintar = () => {
     pendiente = false;
     // sin marcas de formato: el modelo escribe párrafos, y si se le escapa un ** no se muestra
     // y sin espacios repetidos (el modelo gratis a veces deja dos alrededor de un número)
-    const parrafos = escrito.replace(/\*\*/g, "").replace(/[ \t]{2,}/g, " ").split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
+    const parrafos = miles(escrito.replace(/\*\*/g, "").replace(/[ \t]{2,}/g, " ")).split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
     const hay = texto.children;
     while (hay.length > parrafos.length) hay[hay.length - 1].remove();
     parrafos.forEach((p, i) => {

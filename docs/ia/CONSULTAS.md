@@ -76,7 +76,7 @@ Es la opción B que eligió el autor el 26 de octubre de 2026. Cloudflare, que y
 **Cómo funciona.** Lo hace `conversarCF()` en `functions/_ia/consulta.mjs`.
 1. La función busca en el índice las tablas que más se parecen a la pregunta (`elegirTablas()`), como el buscador del sitio: por las palabras de la pregunta de cada ficha, de lo que mide, de sus columnas y de sus unidades. Reconoce las 24 jurisdicciones por su nombre y unos pocos sinónimos ("gana" es salario, "luz" es electricidad). Se queda con hasta 3 tablas.
 2. Lee cada tabla con `leerTabla()`, la misma lectura del motor de Claude, filtrada por la provincia nombrada y el país, y por los dos últimos años de la tabla (si la pregunta nombra un año, también ese). Le pasa al modelo las últimas 60 filas, como mucho, y hasta 6.000 caracteres por tabla.
-   - Las cifras van ya redondeadas, con coma decimal y sin punto de miles (`cifraAR()`): con el punto, el modelo leía 2.220 pesos como 2,22. Los códigos, los años y los períodos quedan como están.
+   - Las cifras van ya redondeadas, con coma decimal y sin punto de miles (`cifraAR()`): con el punto, el modelo leía 2.220 pesos como 2,22. Los códigos, los años y los períodos quedan como están. El modelo las copia así, y la página (`scripts/consulta_ia.js`) les pone el punto de miles a las de cinco cifras o más: cuando lo ponía el modelo, perdía cifras ("5.68.763" turistas por 5.680.763). Las de cuatro cifras quedan sin punto, como acepta la RAE, porque pueden ser años.
    - Sin el nombre del archivo ni la fecha de actualización del sitio, que el modelo copiaba en la respuesta o tomaba por el período del dato.
    - Si la pregunta no nombra un año, la tabla principal del tema va primero (`TABLA_PRINCIPAL`: la inflación mensual antes que la de rubros, por ejemplo).
    - Si la pregunta busca "más" o "menos", suma una línea con la más alta y la más baja de cada columna en el último período, sin el total del país: el modelo no ordena bien una tabla larga.
@@ -101,7 +101,7 @@ Es la opción B que eligió el autor el 26 de octubre de 2026. Cloudflare, que y
 
 **Límites.**
 - **Contesta peor que Claude.** Respeta menos las reglas de redacción y puede leer mal una tabla. Por eso las fichas van siempre al pie y la página avisa que puede equivocarse.
-- **Probado con el modelo real** el 26 de octubre de 2026, en la vista previa del PR que la prendió, con unas 25 preguntas en seis tandas. Al final contestaron bien la nafta (2.220 pesos por litro en Misiones), la inflación (33,4 por ciento interanual a septiembre de 2026), el salario de Neuquén (4.094.579 pesos en mayo de 2026), la pobreza (32,3 por ciento en el primer semestre de 2026), el petróleo, las exportaciones de Chubut, las cloacas de Formosa y la provincia con más homicidios. Sobre suicidio contesta el texto fijo y fuera de tema dice que solo responde sobre los datos. Lo que se corrigió en el camino: cifras cortadas o sin espacio, decimales de más, el nombre de las tablas en la respuesta, el semestre de la pobreza y los meses que no se leían, la tabla equivocada de la inflación, la provincia con más homicidios y la unidad de su tasa, el punto de miles y los espacios dobles. Todavía puede escribir una unidad o un período a medias: por eso conviene mirar la ficha del pie.
+- **Probado con el modelo real** el 26 de octubre de 2026, en la vista previa del PR que la prendió, con unas 25 preguntas en seis tandas. Al final contestaron bien la nafta (2.220 pesos por litro en Misiones), la inflación (33,4 por ciento interanual a septiembre de 2026), el salario de Neuquén (4.094.579 pesos en mayo de 2026), la pobreza (32,3 por ciento en el primer semestre de 2026), el petróleo, las exportaciones de Chubut, las cloacas de Formosa y la provincia con más homicidios. Sobre suicidio contesta el texto fijo y fuera de tema dice que solo responde sobre los datos. Lo que se corrigió en el camino: cifras cortadas o sin espacio, decimales de más, el nombre de las tablas en la respuesta, el semestre de la pobreza y los meses que no se leían, la tabla equivocada de la inflación, la provincia con más homicidios, la unidad y los años de su tasa, el punto de miles (que ahora pone la página) y los espacios dobles. Todavía puede escribir una unidad o un período a medias: por eso conviene mirar la ficha del pie.
 - **Ve solo lo que eligió la función.** Si la búsqueda elige mal las tablas, el modelo no tiene los datos y debería decirlo. Las preguntas que cruzan más de tres tablas, o que necesitan una serie larga, salen mejor con Claude.
 - **Procesador.** Elegir y leer las tablas gasta entre 3 y 5 milisegundos en una pregunta común. La tabla más grande, la de votaciones de leyes, unos 11. El plan gratis da 10 por pedido (ver "Límites que hay que conocer").
 
@@ -150,11 +150,11 @@ Los cambios de variables y secretos de Cloudflare valen para las publicaciones s
 
   Si existe `sitio/datos/consulta_ia.json`, revisa también ese índice.
 - Con el interruptor prendido, el armado y la prueba de páginas (`node scripts/prueba_paginas.mjs`) incluyen la página nueva.
-- `node scripts/prueba_consulta_ia_pagina.mjs`, con el interruptor prendido: la página en Chrome, en el celular y con movimiento reducido, contra la función de verdad y el motor del índice armado, simulado. Son 17 controles:
+- `node scripts/prueba_consulta_ia_pagina.mjs`, con el interruptor prendido: la página en Chrome, en el celular y con movimiento reducido, contra la función de verdad y el motor del índice armado, simulado. Son 18 controles:
   - la pregunta que llega en el enlace;
   - que el foco nunca se pierda y al terminar vaya a la tarjeta;
   - el aviso para lectores de pantalla;
-  - una respuesta con su ficha y su tabla;
+  - una respuesta con su ficha y su tabla, y el punto de miles en las cifras de cinco cifras o más;
   - un error, con el enlace al catálogo;
   - "Detener";
   - una respuesta que se corta sin terminar.
