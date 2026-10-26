@@ -8,7 +8,7 @@ Hay dos motores, y se elige con `"consulta_ia_motor"` en `datos/manual/sitio.jso
 
 Además, sin IA, el buscador da una respuesta rápida: la cifra que ya calcula el sitio para la ficha que se busca, con su fuente (opción A, `ESTADO.md`, "Pedido del autor del 26 de octubre de 2026").
 
-Está apagada. La página no se publica hasta que el autor haga los pasos de "Cómo se activa", más abajo. Mientras tanto el sitio no cambia. Con el interruptor apagado, el armado da los mismos archivos que antes, salvo `datina.css` y `datina.js`: suman las reglas de la página, la opción del buscador y el ícono nuevo, que quedan sin usar.
+Está prendida desde el 26 de octubre de 2026, con el motor gratis: ese día el autor puso la conexión `AI` de Workers AI en Cloudflare Pages, para "Production" y para "Preview", y `"consulta_ia"` pasó a `true`. Las conexiones nuevas valen desde la publicación siguiente: una que se agrega con el sitio ya publicado necesita otra publicación. Con el interruptor apagado, el armado da los mismos archivos que antes, salvo `datina.css` y `datina.js`, que suman las reglas de la página, la opción del buscador y el ícono nuevo, sin usarlos.
 
 ## Cómo funciona
 
