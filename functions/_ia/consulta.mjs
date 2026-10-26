@@ -357,7 +357,9 @@ async function muestraCF(info, prov, anio, indice, leer) {
   return {texto: `${recientes.meta}${aviso}\n\n${[recientes.cab, ...filas].join("\n")}`, info: recientes.info};
 }
 
-// Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage"
+// Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage".
+// A veces un pedazo llega como número y no como texto (el 26 de octubre de 2026, el "4" de "4.094.578"): se pasa siempre a texto, porque la
+// página descarta lo que no es texto y la cifra habría quedado cortada
 async function* textoCF(flujo) {
   const lector = flujo.getReader(), dec = new TextDecoder();
   let resto = "";
@@ -374,7 +376,8 @@ async function* textoCF(flujo) {
         if (d === "[DONE]") return;
         let j;
         try { j = JSON.parse(d); } catch (e) { continue; }
-        yield {texto: j.response ?? j.choices?.[0]?.delta?.content ?? "", uso: j.usage};
+        const x = j.response ?? j.choices?.[0]?.delta?.content;
+        yield {texto: x == null ? "" : String(x), uso: j.usage};
       }
     }
   } finally { lector.releaseLock(); }
@@ -400,8 +403,9 @@ async function conversarCF({pregunta, indice, ia, modelo, leer, enviar, corte}) 
     const {prov, anio, tablas} = elegirTablas(pregunta, indice);
     if (!tablas.length) { enviar({t: "error", texto: SIN_TABLAS}); final = "sin tablas"; return uso; }
     const bloques = [], consultadas = [];
-    for (const info of tablas) {
-      enviar({t: "paso", texto: `Leyendo «${info.titulo}»…`});
+    for (const [i, info] of tablas.entries()) {
+      // dos tablas de la misma ficha se anuncian una sola vez
+      if (!i || tablas[i - 1].titulo !== info.titulo) enviar({t: "paso", texto: `Leyendo «${info.titulo}»…`});
       const m = await muestraCF(info, prov, anio, indice, leer);
       if (!m) continue;
       bloques.push(`### Tabla ${bloques.length + 1}\n${m.texto}`);

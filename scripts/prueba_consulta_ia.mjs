@@ -236,7 +236,8 @@ function iaSimulada(respuesta, error = "") {
   return {llamadas, run: async (modelo, opciones) => {
     llamadas.push({modelo, opciones});
     if (error) throw new Error(error);
-    const ev = (respuesta.match(/.{1,15}/gs) || []).map(x => `data: ${JSON.stringify({response: x})}\n\n`).join("") +
+    // un pedazo que es solo un número llega como número, como lo manda Workers AI (26 de octubre de 2026)
+    const ev = (respuesta.match(/\d+|\D{1,15}/gs) || []).map(x => `data: ${JSON.stringify({response: /^\d+$/.test(x) ? +x : x})}\n\n`).join("") +
       `data: ${JSON.stringify({response: "", usage: {prompt_tokens: 1234, completion_tokens: 56}})}\n\ndata: [DONE]\n\n`;
     const bytes = new TextEncoder().encode(ev);
     return new ReadableStream({start(c) { for (let i = 0; i < bytes.length; i += 37) c.enqueue(bytes.slice(i, i + 37)); c.close(); }});
@@ -255,6 +256,7 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const ia = iaSimulada(respuesta);
   const {ev, texto, resp} = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?", ia));
   ok(resp.status === 200 && texto === respuesta, "Workers AI: el texto que llega a la página es el que escribió el modelo, aunque los eventos lleguen partidos");
+  ok(ev.filter(e => e.t === "texto").every(e => typeof e.texto === "string"), "Workers AI: los pedazos que llegan como número van a la página como texto");
   ok(ia.llamadas.length === 1 && ia.llamadas[0].modelo === MODELO_CF && MODELO_CF === "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "Workers AI: una sola llamada, con el modelo por omisión");
   const op = ia.llamadas[0].opciones;
   ok(op.stream === true && op.max_tokens === TOPES_CF.tokens && op.temperature === 0.2, "Workers AI: en vivo, con el tope de tokens y poca temperatura");

@@ -41,7 +41,7 @@ Reglas para los datos:
 Reglas para escribir:
 - Español rioplatense, claro, para cualquier persona. Uno o dos párrafos cortos, de no más de 120 palabras en total. Texto corrido, sin títulos, listas, viñetas ni negritas.
 - Cada cifra va completa: qué mide, en qué unidad, de qué año o período y de qué territorio.
-- Números como se escriben en la Argentina: coma decimal y punto de miles (1.234,5).
+- Números como se escriben en la Argentina: coma decimal y punto de miles (1.234,5). Redondeá: los montos de dinero y las cantidades de personas o cosas, sin decimales (4.094.579 pesos). Los porcentajes y las tasas, con un decimal (12,3%).
 - No uses nunca punto y coma.
 - "y" pasa a "e" delante de una palabra que empieza con sonido de i.
 - Tono neutro: describí lo que muestran los datos, sin opiniones ni adjetivos que juzguen.
