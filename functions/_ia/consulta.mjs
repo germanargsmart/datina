@@ -371,7 +371,8 @@ async function muestraCF(info, prov, anio, indice, leer) {
 // las cifras como se escriben en la Argentina y redondeadas, para que el modelo las copie tal cual en lugar de convertirlas (el 26 de
 // octubre de 2026 escribía "2073,78 pesos"): punto de miles y coma decimal, sin decimales desde 100, uno desde 1 y dos por debajo. Los
 // códigos, años, meses y períodos quedan como están, y también los enteros de menos de cinco cifras, que pueden ser años
-const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre/i;
+// ("t" es el tiempo como número decimal, 2025,5 para el segundo semestre de 2025)
+const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre|^t$/i;
 export function cifraAR(v, col) {
   if (NO_ES_CIFRA.test(col) || !/^-?\d+(\.\d+)?$/.test(v) || (!v.includes(".") && Math.abs(+v) < 10000)) return v;
   const n = +v, a = Math.abs(n), dec = a >= 100 || !v.includes(".") ? 0 : a >= 1 ? 1 : 2, f = 10 ** dec;

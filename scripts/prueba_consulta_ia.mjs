@@ -288,7 +288,8 @@ const consultaCF = async (pregunta, ia, env = {}) => {
 {
   const casos = [["2073.7800", "nafta", "2.074"], ["4094578.9300", "salario", "4.094.579"], ["37.8500", "pct", "37,9"], ["0.4300", "tasa", "0,43"],
                  ["-12.3400", "var", "-12,3"], ["5680763", "turistas", "5.680.763"], ["2025", "turistas", "2025"], ["2024.0000", "anio", "2024.0000"],
-                 ["06", "codigo_indec", "06"], ["Salta", "territorio", "Salta"], ["2024-05", "periodo", "2024-05"]];
+                 ["06", "codigo_indec", "06"], ["Salta", "territorio", "Salta"], ["2024-05", "periodo", "2024-05"],
+                 ["2025.5000", "t", "2025.5000"], ["2025.5000", "semestre", "2025.5000"]];
   const mal = casos.filter(([v, c, e]) => cifraAR(v, c) !== e);
   ok(!mal.length, `Workers AI: las cifras como en la Argentina, redondeadas, sin tocar códigos, años ni textos (${mal.map(([v, c]) => `${v} → ${cifraAR(v, c)}`).join(", ")})`);
   const iaPegado = iaSimulada("", "", ["Santa Cruz tiene", 4, ".572 glaciares, con", 4, " más que el año", 2025, "."]);
