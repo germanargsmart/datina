@@ -354,7 +354,23 @@ async function muestraCF(info, prov, anio, indice, leer) {
   // si no entra, se sacan filas del medio: quedan las del año pedido, si hay, y las últimas
   while (filas.length > 2 && filas.join("\n").length > TOPES_CF.caracteres) filas.splice(Math.floor(filas.length / 3), 1);
   const aviso = filas.length < total ? `\nSe muestran ${filas.length} filas de las ${total} que cumplen la consulta.` : "";
-  return {texto: `${recientes.meta}${aviso}\n\n${[recientes.cab, ...filas].join("\n")}`, info: recientes.info};
+  // sin el nombre del archivo, que el modelo copiaba en la respuesta ("según la tabla inflacion_mensual")
+  const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha");
+  const cab = campos(recientes.cab);
+  const tabla = [cab.join(" | "), ...filas.map(l => campos(l).map((v, i) => cifraAR(v, cab[i] || "")).join(" | "))].join("\n");
+  return {texto: `${meta}${aviso}\n\n${tabla}`, info: recientes.info};
+}
+
+// las cifras como se escriben en la Argentina y redondeadas, para que el modelo las copie tal cual en lugar de convertirlas (el 26 de
+// octubre de 2026 escribía "2073,78 pesos"): punto de miles y coma decimal, sin decimales desde 100, uno desde 1 y dos por debajo. Los
+// códigos, años, meses y períodos quedan como están, y también los enteros de menos de cinco cifras, que pueden ser años
+const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre/i;
+export function cifraAR(v, col) {
+  if (NO_ES_CIFRA.test(col) || !/^-?\d+(\.\d+)?$/.test(v) || (!v.includes(".") && Math.abs(+v) < 10000)) return v;
+  const n = +v, a = Math.abs(n), dec = a >= 100 || !v.includes(".") ? 0 : a >= 1 ? 1 : 2, f = 10 ** dec;
+  // mitad hacia arriba, como r1() del sitio
+  const [ent, frac] = (Math.round(a * f + 1e-9) / f).toFixed(dec).split(".");
+  return (n < 0 ? "-" : "") + ent.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (frac ? "," + frac : "");
 }
 
 // Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage".
@@ -377,7 +393,7 @@ async function* textoCF(flujo) {
         let j;
         try { j = JSON.parse(d); } catch (e) { continue; }
         const x = j.response ?? j.choices?.[0]?.delta?.content;
-        yield {texto: x == null ? "" : String(x), uso: j.usage};
+        yield {texto: x == null ? "" : String(x), numero: typeof x === "number", uso: j.usage};
       }
     }
   } finally { lector.releaseLock(); }
@@ -420,7 +436,9 @@ async function conversarCF({pregunta, indice, ia, modelo, leer, enviar, corte}) 
     let escrito = "";
     for await (const ev of textoCF(flujo)) {
       if (corte.signal.aborted) { final = "cortada por quien preguntó"; return uso; }
-      if (ev.texto) { escrito += ev.texto; enviar({t: "texto", texto: ev.texto}); }
+      // un pedazo que llegó como número perdió el espacio de adelante ("con4.572"): se repone si viene pegado a una palabra
+      const pedazo = ev.numero && /\p{L}$/u.test(escrito) ? " " + ev.texto : ev.texto;
+      if (pedazo) { escrito += pedazo; enviar({t: "texto", texto: pedazo}); }
       if (ev.uso) { uso.entrada = ev.uso.prompt_tokens || 0; uso.salida = ev.uso.completion_tokens || 0; }
     }
     if (!escrito.trim()) { enviar({t: "error", texto: NO_DISPONIBLE}); return uso; }

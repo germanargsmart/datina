@@ -8,7 +8,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import Anthropic from "../functions/_ia/anthropic-sdk.mjs";
-import { responder, leerTabla, cargarIndice, elegirTablas, TOPES, MODELO, TOPES_CF, MODELO_CF, AYUDA_SUICIDIO } from "../functions/_ia/consulta.mjs";
+import { responder, leerTabla, cargarIndice, elegirTablas, cifraAR, TOPES, MODELO, TOPES_CF, MODELO_CF, AYUDA_SUICIDIO } from "../functions/_ia/consulta.mjs";
 import { INDICACIONES_CF } from "../functions/_ia/indicaciones.mjs";
 import { onRequest } from "../functions/api/consulta.js";
 
@@ -231,13 +231,13 @@ const silencio = async f => { const [l, e] = [console.log, console.error]; conso
 // ---------- 6. el motor gratis, Cloudflare Workers AI (26 de octubre de 2026) ----------
 // Workers AI simulado: devuelve la respuesta en eventos "data:", cortados en pedazos de 37 bytes (un evento puede quedar partido entre
 // dos pedazos), o falla con el mensaje que se le pase
-function iaSimulada(respuesta, error = "") {
+function iaSimulada(respuesta, error = "", pedazos = null) {
   const llamadas = [];
   return {llamadas, run: async (modelo, opciones) => {
     llamadas.push({modelo, opciones});
     if (error) throw new Error(error);
     // un pedazo que es solo un número llega como número, como lo manda Workers AI (26 de octubre de 2026)
-    const ev = (respuesta.match(/\d+|\D{1,15}/gs) || []).map(x => `data: ${JSON.stringify({response: /^\d+$/.test(x) ? +x : x})}\n\n`).join("") +
+    const ev = (pedazos || respuesta.match(/\d+|\D{1,15}/gs) || []).map(x => `data: ${JSON.stringify({response: /^\d+$/.test(x) ? +x : x})}\n\n`).join("") +
       `data: ${JSON.stringify({response: "", usage: {prompt_tokens: 1234, completion_tokens: 56}})}\n\ndata: [DONE]\n\n`;
     const bytes = new TextEncoder().encode(ev);
     return new ReadableStream({start(c) { for (let i = 0; i < bytes.length; i += 37) c.enqueue(bytes.slice(i, i + 37)); c.close(); }});
@@ -262,10 +262,13 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   ok(op.stream === true && op.max_tokens === TOPES_CF.tokens && op.temperature === 0.2, "Workers AI: en vivo, con el tope de tokens y poca temperatura");
   ok(op.messages.length === 2 && op.messages[0].role === "system" && op.messages[0].content === INDICACIONES_CF, "Workers AI: con sus instrucciones");
   const u = op.messages[1].content;
-  ok(u.startsWith("Pregunta: ¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?") && u.includes("Tabla gas_usuario_serie.csv"), "Workers AI: la pregunta y la tabla que más se le parece");
+  ok(u.startsWith("Pregunta: ¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?") && u.includes('Datos de la ficha "¿Cuánto gas usa cada usuario?"'),
+     "Workers AI: la pregunta y la tabla que más se le parece");
+  ok(!u.includes("gas_usuario_serie.csv"), "Workers AI: sin el nombre del archivo, que el modelo copiaba en la respuesta");
   const csv = u.split("\n\n").at(-1).split("\n");
-  ok(csv[0] === "anio,codigo_indec,territorio,m3_usuario" && csv.length > 2 && csv.slice(1).every(l => /^202[45],0[02],/.test(l)),
-     "Workers AI: de la tabla, solo el país y la Ciudad en los dos últimos años");
+  ok(csv[0] === "anio | codigo_indec | territorio | m3_usuario" && csv.length > 2 && csv.slice(1).every(l => /^202[45] \| 0[02] \| /.test(l)),
+     "Workers AI: de la tabla, solo el país y la Ciudad en los dos últimos años, con las columnas separadas por |");
+  ok(csv.slice(1).every(l => /^\d{4} \| \d\d \| [^|]+ \| \d{1,3}(\.\d{3})*$/.test(l)), "Workers AI: el consumo con punto de miles y sin decimales, como en la Argentina");
   ok(u.length < TOPES_CF.caracteres * TOPES_CF.tablas + 3000 && !/suicid/i.test(u), "Workers AI: un pedido corto y sin nada sobre suicidio");
   ok(ev.some(e => e.t === "paso" && e.texto === "Leyendo «¿Cuánto gas usa cada usuario?»…") && ev.some(e => e.t === "paso" && e.texto === "Escribiendo la respuesta…"),
      "Workers AI: avisa qué lee y cuándo escribe");
@@ -276,11 +279,21 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const ia = iaSimulada("ok");
   await silencio(() => consultaCF("¿Cuánto gas usaba cada usuario de la Ciudad en 2005?", ia));
   const csv = ia.llamadas[0].opciones.messages[1].content.split("\n\n").at(-1).split("\n").slice(1);
-  ok(csv.some(l => l.startsWith("2005,")) && csv.some(l => l.startsWith("2025,")), "Workers AI: con un año en la pregunta, las filas de ese año y las últimas");
+  ok(csv.some(l => l.startsWith("2005 |")) && csv.some(l => l.startsWith("2025 |")), "Workers AI: con un año en la pregunta, las filas de ese año y las últimas");
   const iaMv = iaSimulada("ok");
   await silencio(() => consultaCF("¿Cuántas muertes violentas y homicidios hubo?", iaMv));
   const u = iaMv.llamadas[0]?.opciones.messages[1].content || "";
-  ok(u.includes("muertes_violentas") && u.includes("homicidios") && !/suicid/i.test(u), "Workers AI: muertes violentas sin la columna de suicidios");
+  ok(u.includes('Datos de la ficha "Muertes violentas"') && u.includes("homicidios") && !/suicid/i.test(u), "Workers AI: muertes violentas sin la columna de suicidios");
+}
+{
+  const casos = [["2073.7800", "nafta", "2.074"], ["4094578.9300", "salario", "4.094.579"], ["37.8500", "pct", "37,9"], ["0.4300", "tasa", "0,43"],
+                 ["-12.3400", "var", "-12,3"], ["5680763", "turistas", "5.680.763"], ["2025", "turistas", "2025"], ["2024.0000", "anio", "2024.0000"],
+                 ["06", "codigo_indec", "06"], ["Salta", "territorio", "Salta"], ["2024-05", "periodo", "2024-05"]];
+  const mal = casos.filter(([v, c, e]) => cifraAR(v, c) !== e);
+  ok(!mal.length, `Workers AI: las cifras como en la Argentina, redondeadas, sin tocar códigos, años ni textos (${mal.map(([v, c]) => `${v} → ${cifraAR(v, c)}`).join(", ")})`);
+  const iaPegado = iaSimulada("", "", ["Santa Cruz tiene", 4, ".572 glaciares, con", 4, " más que el año", 2025, "."]);
+  const r = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaPegado));
+  ok(r.texto === "Santa Cruz tiene 4.572 glaciares, con 4 más que el año 2025.", `Workers AI: un número que llega pegado a una palabra lleva su espacio (${r.texto})`);
 }
 {
   const ia = iaSimulada("no se usa");
