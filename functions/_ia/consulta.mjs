@@ -1,9 +1,15 @@
 // Consultas con IA (25 de octubre de 2026, pedido del autor: "empezá a integrar IA para consultas generativas con la información").
-// Contesta POST /api/consulta (functions/api/consulta.js) con un modelo de Claude que lee las tablas del propio sitio. Cómo funciona, qué
-// cuesta y cómo se activa: docs/ia/CONSULTAS.md. La prueba, con la API simulada: node scripts/prueba_consulta_ia.mjs.
+// Contesta POST /api/consulta (functions/api/consulta.js) con un modelo que lee las tablas del propio sitio. Cómo funciona, qué cuesta y
+// cómo se activa: docs/ia/CONSULTAS.md. La prueba, con las API simuladas: node scripts/prueba_consulta_ia.mjs.
 //
-// Queda apagada sin la clave ANTHROPIC_API_KEY (un secreto de Cloudflare Pages que pone el autor) o sin el índice
-// sitio/datos/consulta_ia.json, que 03_construir_sitio.py escribe solo con "consulta_ia": true en datos/manual/sitio.json.
+// Dos motores, según "consulta_ia_motor" de datos/manual/sitio.json (va en el índice) o la variable DATINA_IA_MOTOR:
+// - "anthropic": un modelo de Claude que elige y lee las tablas con la herramienta leer_tabla. Necesita la clave ANTHROPIC_API_KEY (un
+//   secreto de Cloudflare Pages que pone el autor).
+// - "cloudflare" (26 de octubre de 2026, opción gratis): un modelo abierto de Cloudflare Workers AI. La función elige antes las tablas que
+//   más se parecen a la pregunta y le pasa solo esas (conversarCF). Necesita la conexión "AI" de Workers AI en Cloudflare Pages, que pone
+//   el autor, y entra en los 10.000 "neurons" por día que Cloudflare da gratis.
+// Sin eso, o sin el índice sitio/datos/consulta_ia.json, que 03_construir_sitio.py escribe solo con "consulta_ia": true en
+// datos/manual/sitio.json, queda apagada.
 // El modelo solo puede leer las tablas de ese índice (las del Catálogo de datos, sin las de suicidio) y de cada tabla nunca recibe una
 // columna ni una fila que hable de suicidio (CLAUDE.md, "Temas sensibles"). Datina no guarda las preguntas: en el registro de Cloudflare
 // queda solo cuántos tokens usó cada consulta.
@@ -11,7 +17,7 @@
 // La respuesta es una línea de JSON por evento (lo lee sitio/consulta-ia.js, que sale de scripts/consulta_ia.js):
 //   {"t":"paso","texto"}  {"t":"texto","texto"}  {"t":"reinicio"}  {"t":"fuentes","fichas":[{"titulo","url","tabla"}]}  {"t":"error","texto"}  {"t":"fin"}
 import Anthropic from "./anthropic-sdk.mjs";
-import { INDICACIONES } from "./indicaciones.mjs";
+import { INDICACIONES, INDICACIONES_CF } from "./indicaciones.mjs";
 
 // el modelo, salvo que el autor elija otro con DATINA_IA_MODELO (docs/ia/CONSULTAS.md compara costos)
 export const MODELO = "claude-opus-5-5";
@@ -45,7 +51,7 @@ export async function cargarIndice(leer) {
   const texto = `Índice de las tablas de Datina, con datos actualizados al ${d.actualizado}. Una tabla por línea: nombre | pregunta de su ficha | ` +
     "qué mide | cobertura | período | columnas.\n" + [...tablas.values()].map(t => [t.tabla, t.titulo, t.descripcion, COBERTURA[t.cobertura] || t.cobertura,
       t.periodo, t.columnas.map(c => c[0]).filter(c => !SIN_SUICIDIO.test(c)).join(", ")].join(" | ")).join("\n");
-  return {tablas, texto};
+  return {tablas, texto, motor: d.motor, actualizado: d.actualizado};
 }
 
 // ---------- leer una tabla ----------
@@ -107,6 +113,10 @@ export async function leerTabla(entrada, indice, leer) {
   const variantes = f => f.valores.map(v => v.trim()).filter(Boolean).flatMap(v => f.columna === "codigo_indec" && /^\d$/.test(v) ? [v, "0" + v] : [v]);
   const previos = filtros.map(f => new RegExp(variantes(f).map(patron).join("|"), "i"));
   const conPeriodo = !!(entrada.desde.trim() || entrada.hasta.trim());
+  // el prefiltro también por período cuando es un año (26 de octubre de 2026): las líneas que no nombran ningún año del rango no se
+  // separan en campos, que es lo que gasta procesador. El filtro de período de abajo sigue decidiendo
+  const a0 = +(entrada.desde.trim().match(/^\d{4}/) || [0])[0], a1 = +(entrada.hasta.trim().match(/^\d{4}/) || [new Date().getFullYear() + 1])[0];
+  if (a0 && a1 >= a0 && a1 - a0 < 30) previos.push(new RegExp(Array.from({length: a1 - a0 + 1}, (_, i) => a0 + i).join("|")));
   const leida = filasCSV(await r.text(), l => previos.every(x => x.test(l)), filtros.length || conPeriodo ? Infinity : TOPES.filas);
   const cab0 = leida.cab;
   // nunca una columna ni una fila sobre suicidio (en las tablas de muertes violentas y de la comparación con la OCDE)
@@ -274,15 +284,170 @@ async function conversar({pregunta, indice, cliente, modelo, leer, enviar, corte
   return uso;
 }
 
-// request: el pedido. env: las variables de Cloudflare (ANTHROPIC_API_KEY, y si se quiere DATINA_IA_MODELO). leer(ruta): un archivo
-// del sitio publicado. esperar(promesa): que Cloudflare no corte la función mientras escribe. cliente: otro cliente de la API (la prueba)
-export async function responder(request, {env = {}, leer, esperar = () => {}, cliente = null}) {
+// ---------- el motor gratis: Cloudflare Workers AI (26 de octubre de 2026, opción B de docs/ia/CONSULTAS.md) ----------
+// Un modelo abierto, sin herramientas: la función busca en el índice las tablas que más se parecen a la pregunta (como el buscador del
+// sitio), las lee con leerTabla (filtradas por la provincia nombrada y por los últimos años) y le manda solo eso. Así cada pregunta gasta
+// unos 7.000 tokens de entrada y entran unas 30 por día en lo gratis. Con DATINA_IA_MODELO_CF el autor puede elegir otro modelo
+export const MODELO_CF = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+export const TOPES_CF = {tablas: 3, filas: 60, caracteres: 6000, tokens: 700};
+const AGOTADO = "Por hoy se terminaron las consultas gratis de Datina. Se renuevan a las 21, hora de Argentina. Mientras, podés buscar el dato en el Catálogo de datos.";
+const SIN_TABLAS = "No encontré tablas de Datina sobre eso. Probá con otras palabras o buscá en el Catálogo de datos.";
+// sobre suicidio el modelo no se llama: la respuesta es siempre esta (CLAUDE.md, "Temas sensibles")
+export const AYUDA_SUICIDIO = "Datina trata ese tema en la sección Salud, sin cifras destacadas ni comparaciones entre provincias. Si vos o alguien cercano " +
+  "está pasando un momento difícil, podés pedir ayuda gratis al Centro de Asistencia al Suicida: 135 desde la Ciudad de Buenos Aires y el Gran " +
+  "Buenos Aires, (011) 5275-1135 desde todo el país, y en una emergencia, 107.";
+// las provincias, para filtrar las tablas por su código (las más largas primero: "Ciudad de Buenos Aires" antes que "Buenos Aires")
+const PROVINCIAS = [["ciudad autonoma de buenos aires", "02"], ["ciudad de buenos aires", "02"], ["capital federal", "02"], ["caba", "02"],
+  ["provincia de buenos aires", "06"], ["buenos aires", "06"], ["pba", "06"], ["catamarca", "10"], ["cordoba", "14"], ["corrientes", "18"],
+  ["chaco", "22"], ["chubut", "26"], ["entre rios", "30"], ["formosa", "34"], ["jujuy", "38"], ["la pampa", "42"], ["la rioja", "46"],
+  ["mendoza", "50"], ["misiones", "54"], ["neuquen", "58"], ["rio negro", "62"], ["salta", "66"], ["san juan", "70"], ["san luis", "74"],
+  ["santa cruz", "78"], ["santa fe", "82"], ["santiago del estero", "86"], ["tucuman", "90"], ["tierra del fuego", "94"]]
+  .sort((a, b) => b[0].length - a[0].length);
+const VACIAS = new Set(("del las los que cuanto cuanta cuantos cuantas como cual cuales donde quien quienes hay esta estan fue mas menos muy " +
+  "tiene tienen cada sus para con sin por una unos unas provincia provincias pais argentina datos dato cuando entre hasta desde sobre hubo habia " +
+  "fue fueron son ano anos este esta estos estas ultimo ultima ultimos ultimas actual hoy").split(" "));
+// palabras de todos los días que las tablas dicen de otra manera
+const SINONIMOS = {gana: "salario", ganan: "salario", sueldo: "salario", sueldos: "salario", presos: "carcel", plata: "ingreso", trabajo: "empleo",
+  luz: "electricidad", nafta: "combustible", bebes: "nacidos", chicos: "menores"};
+const raiz = w => w.length > 5 ? w.slice(0, w.length - 2) : w;
+
+export function elegirTablas(pregunta, indice) {
+  let q = ` ${normal(pregunta).replace(/[^a-z0-9]+/g, " ").trim()} `, prov = "";
+  for (const [n, c] of PROVINCIAS) if (q.includes(` ${n} `)) { prov = c; q = q.replace(` ${n} `, " "); break; }
+  const anio = (q.match(/\b(19|20)\d\d\b/) || [""])[0];
+  // cada palabra y, si tiene, su sinónimo ("gana" está en la pregunta de la ficha de salarios, "salario" en su descripción)
+  const pal = [...new Set(q.trim().split(" ").filter(w => w.length > 2 && !VACIAS.has(w) && !/^\d+$/.test(w)).flatMap(w => SINONIMOS[w] ? [w, SINONIMOS[w]] : [w]).map(raiz))];
+  if (!pal.length) return {prov, anio, tablas: []};
+  const puntos = [...indice.tablas.values()].map(t => {
+    const tit = normal(t.titulo), desc = normal(`${t.descripcion} ${t.seccion}`), resto = normal(`${t.tabla} ${t.columnas.map(c => c[0]).join(" ")} ${(t.unidades || []).join(" ")}`);
+    let p = 0;
+    for (const w of pal) p += tit.includes(w) ? 3 : desc.includes(w) ? 2 : resto.includes(w) ? 1 : 0;
+    // con una provincia nombrada, mejor las tablas que la tienen
+    if (p && prov) p += /24 jurisdicciones/.test(t.cobertura) ? 2 : /Sin desglose|Total del país/.test(t.cobertura) ? -2 : 0;
+    return {t, p};
+  }).filter(x => x.p > 0).sort((a, b) => b.p - a.p);
+  const tope = puntos.length ? Math.max(2, puntos[0].p * 0.6) : 0;
+  return {prov, anio, tablas: puntos.filter(x => x.p >= tope).slice(0, TOPES_CF.tablas).map(x => x.t)};
+}
+
+// lo que recibe el modelo de una tabla: lo de leerTabla con la provincia nombrada y los últimos dos años de la tabla, y de las filas, las
+// últimas que entran. Si la pregunta nombra un año, también las de ese año
+async function muestraCF(info, prov, anio, indice, leer) {
+  const cols = new Set(info.columnas.map(c => c[0]));
+  const cp = COLS_PERIODO.some(c => cols.has(c));
+  const ultimo = (String(info.periodo || "").match(/(\d{4})\D*$/) || [])[1];
+  const filtros = prov && cols.has("codigo_indec") ? [{columna: "codigo_indec", valores: [prov, "00"]}] : [];
+  const partes = async (desde, hasta) => {
+    const r = await leerTabla({tabla: info.tabla, columnas: [], filtros, desde, hasta}, indice, leer);
+    if (r.error) return null;
+    const corte = r.texto.indexOf("\n\n"), filas = r.texto.slice(corte + 2).split("\n");
+    return {meta: r.texto.slice(0, corte), cab: filas.shift(), filas, info: r.info};
+  };
+  const recientes = await partes(cp && ultimo ? String(+ultimo - 1) : "", "");
+  if (!recientes) return null;
+  let filas = recientes.filas.slice(-TOPES_CF.filas);
+  const total = recientes.filas.length;
+  if (cp && anio && !(ultimo && +anio >= +ultimo - 1)) {
+    const delAnio = await partes(anio, anio);
+    if (delAnio?.filas.length) filas = [...delAnio.filas.slice(0, TOPES_CF.filas / 3), ...filas.slice(-TOPES_CF.filas * 2 / 3)];
+  }
+  // si no entra, se sacan filas del medio: quedan las del año pedido, si hay, y las últimas
+  while (filas.length > 2 && filas.join("\n").length > TOPES_CF.caracteres) filas.splice(Math.floor(filas.length / 3), 1);
+  const aviso = filas.length < total ? `\nSe muestran ${filas.length} filas de las ${total} que cumplen la consulta.` : "";
+  return {texto: `${recientes.meta}${aviso}\n\n${[recientes.cab, ...filas].join("\n")}`, info: recientes.info};
+}
+
+// Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage"
+async function* textoCF(flujo) {
+  const lector = flujo.getReader(), dec = new TextDecoder();
+  let resto = "";
+  try {
+    for (;;) {
+      const {value, done} = await lector.read();
+      if (done) break;
+      resto += typeof value === "string" ? value : dec.decode(value, {stream: true});
+      const lineas = resto.split("\n");
+      resto = lineas.pop();
+      for (const l of lineas) {
+        if (!l.startsWith("data:")) continue;
+        const d = l.slice(5).trim();
+        if (d === "[DONE]") return;
+        let j;
+        try { j = JSON.parse(d); } catch (e) { continue; }
+        yield {texto: j.response ?? j.choices?.[0]?.delta?.content ?? "", uso: j.usage};
+      }
+    }
+  } finally { lector.releaseLock(); }
+}
+
+function mensajeDeErrorCF(err) {
+  const m = String(err?.message || err);
+  if (/4006|daily free allocation|neurons/i.test(m)) return AGOTADO;
+  if (/3040|capacity|429|too many|rate limit/i.test(m)) return MUCHAS;
+  return NO_DISPONIBLE;
+}
+
+async function conversarCF({pregunta, indice, ia, modelo, leer, enviar, corte}) {
+  const uso = {entrada: 0, salida: 0};
+  let final = "error", n = 0;
+  try {
+    if (SIN_SUICIDIO.test(normal(pregunta))) {
+      enviar({t: "texto", texto: AYUDA_SUICIDIO});
+      enviar({t: "fin"});
+      final = "ayuda";
+      return uso;
+    }
+    const {prov, anio, tablas} = elegirTablas(pregunta, indice);
+    if (!tablas.length) { enviar({t: "error", texto: SIN_TABLAS}); final = "sin tablas"; return uso; }
+    const bloques = [], consultadas = [];
+    for (const info of tablas) {
+      enviar({t: "paso", texto: `Leyendo «${info.titulo}»…`});
+      const m = await muestraCF(info, prov, anio, indice, leer);
+      if (!m) continue;
+      bloques.push(`### Tabla ${bloques.length + 1}\n${m.texto}`);
+      consultadas.push({titulo: m.info.titulo, url: m.info.url, tabla: m.info.tabla});
+    }
+    n = consultadas.length;
+    if (!n) { enviar({t: "error", texto: SIN_TABLAS}); final = "sin tablas"; return uso; }
+    enviar({t: "paso", texto: "Escribiendo la respuesta…"});
+    const mensajes = [{role: "system", content: INDICACIONES_CF},
+      {role: "user", content: `Pregunta: ${pregunta}\n\nDatos de Datina, actualizados al ${indice.actualizado}. Usá solo estos datos.\n\n${bloques.join("\n\n")}`}];
+    const flujo = await ia.run(modelo, {messages: mensajes, max_tokens: TOPES_CF.tokens, temperature: 0.2, stream: true});
+    let escrito = "";
+    for await (const ev of textoCF(flujo)) {
+      if (corte.signal.aborted) { final = "cortada por quien preguntó"; return uso; }
+      if (ev.texto) { escrito += ev.texto; enviar({t: "texto", texto: ev.texto}); }
+      if (ev.uso) { uso.entrada = ev.uso.prompt_tokens || 0; uso.salida = ev.uso.completion_tokens || 0; }
+    }
+    if (!escrito.trim()) { enviar({t: "error", texto: NO_DISPONIBLE}); return uso; }
+    enviar({t: "fuentes", fichas: consultadas});
+    enviar({t: "fin"});
+    final = "bien";
+  } catch (err) {
+    if (corte.signal.aborted) { final = "cortada por quien preguntó"; return uso; }
+    // ni la pregunta ni los datos van al registro: solo qué falló
+    console.error(JSON.stringify({consulta_ia: "error", motor: "cloudflare", mensaje: String(err?.message || err).slice(0, 200)}));
+    enviar({t: "reinicio"});
+    enviar({t: "error", texto: mensajeDeErrorCF(err)});
+  } finally {
+    console.log(JSON.stringify({consulta_ia: final, motor: "cloudflare", modelo, ...uso, tablas: n}));
+  }
+  return uso;
+}
+
+// request: el pedido. env: las variables de Cloudflare (ANTHROPIC_API_KEY, AI, y si se quiere DATINA_IA_MOTOR, DATINA_IA_MODELO o
+// DATINA_IA_MODELO_CF). leer(ruta): un archivo del sitio publicado. esperar(promesa): que Cloudflare no corte la función mientras
+// escribe. cliente: otro cliente de la API de Anthropic, e ia: otro Workers AI (las pruebas)
+export async function responder(request, {env = {}, leer, esperar = () => {}, cliente = null, ia = null}) {
   if (request.method !== "POST") return responderJSON(405, {error: "Usá POST."}, {Allow: "POST"});
   const origen = request.headers.get("Origin");
   if (origen && origen !== new URL(request.url).origin) return responderJSON(403, {error: "Solo desde el sitio de Datina."});
-  if (!env.ANTHROPIC_API_KEY && !cliente) return responderJSON(503, {error: NO_ACTIVA});
+  ia ||= env.AI || null;
+  if (!env.ANTHROPIC_API_KEY && !cliente && !ia) return responderJSON(503, {error: NO_ACTIVA});
   const indice = await cargarIndice(leer);
   if (!indice) return responderJSON(503, {error: NO_ACTIVA});
+  const motor = ["anthropic", "cloudflare"].includes(env.DATINA_IA_MOTOR) ? env.DATINA_IA_MOTOR : indice.motor === "cloudflare" ? "cloudflare" : "anthropic";
+  if (motor === "cloudflare" ? !ia : !env.ANTHROPIC_API_KEY && !cliente) return responderJSON(503, {error: NO_ACTIVA});
   let pregunta = "";
   try {
     // una pregunta de 400 caracteres entra de sobra en 8 KB: un cuerpo más grande no se lee
@@ -292,14 +457,19 @@ export async function responder(request, {env = {}, leer, esperar = () => {}, cl
   } catch (e) { /* cuerpo que no es JSON: va al aviso de abajo */ }
   if (pregunta.length < 3) return responderJSON(400, {error: "Escribí una pregunta."});
   if (pregunta.length > TOPES.pregunta) return responderJSON(400, {error: `La pregunta puede tener hasta ${TOPES.pregunta} caracteres.`});
+  const {readable, writable} = new TransformStream();
+  const escritor = writable.getWriter(), cod = new TextEncoder(), corte = new AbortController();
+  // si quien preguntó cerró la página, se corta la llamada al modelo para no gastar
+  const enviar = ev => { escritor.write(cod.encode(JSON.stringify(ev) + "\n")).catch(() => corte.abort()); };
+  const cabeceras = {headers: {"Content-Type": "application/x-ndjson; charset=utf-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"}};
+  if (motor === "cloudflare") {
+    const modeloCF = /^@cf\/[\w.\/-]+$/.test(env.DATINA_IA_MODELO_CF || "") ? env.DATINA_IA_MODELO_CF : MODELO_CF;
+    esperar(conversarCF({pregunta, indice, ia, modelo: modeloCF, leer, enviar, corte}).finally(() => escritor.close().catch(() => {})));
+    return new Response(readable, cabeceras);
+  }
   const modelo = /^claude-[\w.-]+$/.test(env.DATINA_IA_MODELO || "") ? env.DATINA_IA_MODELO : MODELO;
   cliente ||= new Anthropic({apiKey: env.ANTHROPIC_API_KEY, maxRetries: 2, timeout: 120000,
                               ...(env.ANTHROPIC_BASE_URL ? {baseURL: env.ANTHROPIC_BASE_URL} : {})});
-  const {readable, writable} = new TransformStream();
-  const escritor = writable.getWriter(), cod = new TextEncoder(), corte = new AbortController();
-  // si quien preguntó cerró la página, se corta la llamada al modelo para no gastar tokens
-  const enviar = ev => { escritor.write(cod.encode(JSON.stringify(ev) + "\n")).catch(() => corte.abort()); };
   esperar(conversar({pregunta, indice, cliente, modelo, leer, enviar, corte}).finally(() => escritor.close().catch(() => {})));
-  return new Response(readable, {headers: {"Content-Type": "application/x-ndjson; charset=utf-8", "Cache-Control": "no-store",
-                                           "X-Content-Type-Options": "nosniff"}});
+  return new Response(readable, cabeceras);
 }

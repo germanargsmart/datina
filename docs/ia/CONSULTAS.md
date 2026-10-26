@@ -1,6 +1,12 @@
 # Consultas con IA
 
-Pedido del autor del 25 de octubre de 2026: "Empezá a integrar IA para consultas generativas con la información". Es una página nueva, "Consultas con IA" (`consulta-ia.html`, en Herramientas). Ahí cualquiera escribe una pregunta y un modelo de Claude, de Anthropic, la contesta con las tablas de Datina. Cada respuesta trae las fichas de las que salen las cifras.
+Pedido del autor del 25 de octubre de 2026: "Empezá a integrar IA para consultas generativas con la información". Es una página nueva, "Consultas con IA" (`consulta-ia.html`, en Herramientas). Ahí cualquiera escribe una pregunta y un modelo de inteligencia artificial la contesta con las tablas de Datina. Cada respuesta trae las fichas de las que salen las cifras.
+
+Hay dos motores, y se elige con `"consulta_ia_motor"` en `datos/manual/sitio.json`:
+- **`"cloudflare"`, el gratis.** Desde el 26 de octubre de 2026 es el elegido, por pedido del autor: "avanzá con la opción de IA", la gratis. Usa un modelo abierto de Cloudflare Workers AI, sin clave y sin cuenta nueva. Ver "El motor gratis", más abajo.
+- **`"anthropic"`, Claude.** Contesta mejor y cuesta por pregunta. Necesita la clave de Anthropic. Es lo que describen "Cómo funciona" y los apartados que le siguen.
+
+Además, sin IA, el buscador da una respuesta rápida: la cifra que ya calcula el sitio para la ficha que se busca, con su fuente (opción A, `ESTADO.md`, "Pedido del autor del 26 de octubre de 2026").
 
 Está apagada. La página no se publica hasta que el autor haga los pasos de "Cómo se activa", más abajo. Mientras tanto el sitio no cambia. Con el interruptor apagado, el armado da los mismos archivos que antes, salvo `datina.css` y `datina.js`: suman las reglas de la página, la opción del buscador y el ícono nuevo, que quedan sin usar.
 
@@ -63,7 +69,37 @@ Mil preguntas por mes con Opus 5.5 serían entre 100 y 200 dólares. Por eso, an
 
 La API de Anthropic devuelve en cada respuesta cuántos tokens usó, y la función lo anota en el registro de Cloudflare: "Workers & Pages", el proyecto, "Functions", "Real-time logs". Cada consulta deja una línea con `consulta_ia`.
 
-## Cómo se activa (lo hace el autor)
+## El motor gratis: Cloudflare Workers AI
+
+Es la opción B que eligió el autor el 26 de octubre de 2026. Cloudflare, que ya publica el sitio, corre modelos abiertos y da gratis 10.000 "neurons" por día, su unidad de uso, para toda la cuenta.
+
+**Cómo funciona.** Lo hace `conversarCF()` en `functions/_ia/consulta.mjs`.
+1. La función busca en el índice las tablas que más se parecen a la pregunta (`elegirTablas()`), como el buscador del sitio: por las palabras de la pregunta de cada ficha, de lo que mide, de sus columnas y de sus unidades. Reconoce las 24 jurisdicciones por su nombre y unos pocos sinónimos ("gana" es salario, "luz" es electricidad). Se queda con hasta 3 tablas.
+2. Lee cada tabla con `leerTabla()`, la misma lectura del motor de Claude, filtrada por la provincia nombrada y el país, y por los dos últimos años de la tabla (si la pregunta nombra un año, también ese). Le pasa al modelo las últimas 60 filas, como mucho, y hasta 6.000 caracteres por tabla.
+3. Le manda al modelo, en una sola llamada, sus instrucciones (`INDICACIONES_CF` en `functions/_ia/indicaciones.mjs`, las mismas reglas de redacción del sitio, dichas más corto), la pregunta y esas tablas. El modelo no elige tablas: escribe la respuesta, que la página muestra a medida que llega, con las fichas consultadas.
+
+**El modelo.** `@cf/meta/llama-3.3-70b-instruct-fp8-fast` (Llama 3.3, de Meta, en Cloudflare). Con una variable de texto `DATINA_IA_MODELO_CF` en Cloudflare se puede elegir otro modelo de Workers AI (tiene que empezar con `@cf/`).
+
+**Qué controla, además de lo del motor de Claude.**
+- **Suicidio.** Si la pregunta nombra el suicidio, la función no llama al modelo: contesta siempre con un texto fijo, que indica la sección Salud y las líneas de ayuda (`AYUDA_SUICIDIO`). Las tablas y columnas sobre suicidio quedan afuera igual que con Claude.
+- **Sin tablas que se parezcan**, no llama al modelo y dice que no encontró tablas sobre eso, con el enlace al Catálogo de datos.
+- **Privacidad.** La pregunta la procesa Cloudflare, que según su política no usa lo que se le manda a Workers AI para entrenar modelos. La página lo avisa y pide no escribir datos personales. Datina no la guarda: en el registro queda el motor, el modelo, los tokens y cuántas tablas leyó.
+
+**Cuánto cuesta.** Nada, dentro de lo gratis. Medido el 26 de octubre de 2026 con nueve preguntas comunes, cada una le manda al modelo entre 4.000 y 11.300 caracteres (unos 2.500 tokens en promedio) y la respuesta tiene unos 300 tokens. Con los precios que publica Cloudflare para Llama 3.3 70B, eso es alrededor de 130 neurons por pregunta: **unas 50 a 80 preguntas por día para todo el sitio**. Hay que confirmarlo con el uso real, que queda en el registro.
+- Cuando se termina lo gratis del día, la página dice que se renueva a las 21, hora de Argentina (las 0 de la hora universal), y ofrece el Catálogo.
+- Si hacen falta más, el plan Workers Paid (5 dólares por mes) cobra lo que pase de lo gratis: unos 0,15 centavos de dólar por pregunta.
+
+**Cómo se activa (lo hace el autor).**
+1. En <https://dash.cloudflare.com>: "Workers & Pages", el proyecto `datina`, "Settings", "Bindings", "Add", "Workers AI". Nombre de la variable: `AI`. Hacerlo para "Production" y para "Preview".
+2. Pedirle a Claude Code que ponga `"consulta_ia": true` en `datos/manual/sitio.json`. Antes de unirlo, Claude prueba la vista previa del PR con preguntas de verdad (no gasta nada fuera de lo gratis).
+3. Recomendado, igual que con Claude: un límite de pedidos por persona (paso 5 de "Cómo se activa con Claude").
+
+**Límites.**
+- **Contesta peor que Claude.** Respeta menos las reglas de redacción y puede leer mal una tabla. Por eso las fichas van siempre al pie y la página avisa que puede equivocarse.
+- **Ve solo lo que eligió la función.** Si la búsqueda elige mal las tablas, el modelo no tiene los datos y debería decirlo. Las preguntas que cruzan más de tres tablas, o que necesitan una serie larga, salen mejor con Claude.
+- **Procesador.** Elegir y leer las tablas gasta entre 3 y 5 milisegundos en una pregunta común. La tabla más grande, la de votaciones de leyes, unos 11. El plan gratis da 10 por pedido (ver "Límites que hay que conocer").
+
+## Cómo se activa con Claude (lo hace el autor)
 
 Son pasos de cuentas y secretos: los hace el autor, no un agente (`CLAUDE.md`, "Publicación").
 
@@ -77,14 +113,14 @@ Son pasos de cuentas y secretos: los hace el autor, no un agente (`CLAUDE.md`, "
    - `claude-sonnet-5-5`, la mitad del costo;
    - `claude-haiku-5-5`, mucho más barato y algo menos preciso.
 5. Recomendado: un límite de pedidos por persona en Cloudflare, en el dominio, "Security", "WAF", "Rate limiting rules", con la ruta `/api/consulta` y 5 pedidos por minuto por IP. El plan gratis incluye una regla.
-6. Pedirle a Claude Code que ponga `"consulta_ia": true` en `datos/manual/sitio.json`, arme el sitio y lo suba a `main`. Al publicarse aparece "Consultas con IA" en Herramientas y en la portada.
+6. Pedirle a Claude Code que ponga `"consulta_ia": true` y `"consulta_ia_motor": "anthropic"` en `datos/manual/sitio.json`, arme el sitio y lo suba a `main`. Al publicarse aparece "Consultas con IA" en Herramientas y en la portada.
 7. Probar en `https://datina.pages.dev/consulta-ia` con dos o tres preguntas, por ejemplo una por provincia, una del país y una que Datina no tenga, y revisar las cifras contra sus fichas.
 
 Los cambios de variables y secretos de Cloudflare valen para las publicaciones siguientes. Si la página ya está publicada cuando se carga la clave, hay que volver a publicar, con "Retry deployment" en la última publicación.
 
 ## Cómo se apaga
 
-- **Al instante:** desactivar la clave en la consola de Anthropic, en "API keys". La página queda y contesta que las consultas no están disponibles.
+- **Al instante:** con Claude, desactivar la clave en la consola de Anthropic, en "API keys". Con el motor gratis, borrar la conexión `AI` en "Settings", "Bindings" (y volver a publicar). La página queda y contesta que las consultas no están disponibles.
 - **Del todo:** `"consulta_ia": false` en `datos/manual/sitio.json` y armar. La página, su código y el índice se borran de `sitio/`, y la función contesta que no están activadas aunque siga la clave.
 
 ## Límites que hay que conocer
@@ -99,15 +135,16 @@ Los cambios de variables y secretos de Cloudflare valen para las publicaciones s
 
 ## Cómo se prueba
 
-- `node scripts/prueba_consulta_ia.mjs`: 57 controles (y 5 más sobre el índice, si está armado) con la API simulada, sin clave y sin gastar. Controla:
+- `node scripts/prueba_consulta_ia.mjs`: 77 controles (y 9 más sobre el índice, si está armado) con la API de Anthropic y Workers AI simulados, sin clave y sin gastar. Controla:
   - lo que se le pide a la API: modelo, caché, respaldo y herramienta;
   - lo que recibe el modelo de cada tabla: filtros, topes, comillas y nada sobre suicidio;
   - lo que llega a la página;
-  - los casos en que no contesta o contesta a medias: sin clave, sin índice, GET, otro sitio, pregunta vacía o larga, cuerpo de más de 8 KB, rechazo, API saturada, respuesta cortada por el tope de tokens y tope de vueltas.
+  - los casos en que no contesta o contesta a medias: sin clave, sin índice, GET, otro sitio, pregunta vacía o larga, cuerpo de más de 8 KB, rechazo, API saturada, respuesta cortada por el tope de tokens y tope de vueltas;
+  - el motor gratis: qué recibe el modelo (la tabla que más se parece, solo el país y la provincia nombrada, los dos últimos años o el año pedido, nada sobre suicidio), los eventos partidos entre pedazos, la pregunta sobre suicidio que no llega al modelo, sin tablas, lo gratis del día terminado, Workers AI saturado, una respuesta vacía, otro modelo y sin la conexión `AI`. Con el índice armado, que elija tablas que sirven para tres preguntas comunes.
 
   Si existe `sitio/datos/consulta_ia.json`, revisa también ese índice.
 - Con el interruptor prendido, el armado y la prueba de páginas (`node scripts/prueba_paginas.mjs`) incluyen la página nueva.
-- `node scripts/prueba_consulta_ia_pagina.mjs`, con el interruptor prendido: la página en Chrome, en el celular y con movimiento reducido, contra la función de verdad y la API simulada. Son 17 controles:
+- `node scripts/prueba_consulta_ia_pagina.mjs`, con el interruptor prendido: la página en Chrome, en el celular y con movimiento reducido, contra la función de verdad y el motor del índice armado, simulado. Son 17 controles:
   - la pregunta que llega en el enlace;
   - que el foco nunca se pierda y al terminar vaya a la tarjeta;
   - el aviso para lectores de pantalla;

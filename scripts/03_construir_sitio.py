@@ -48,6 +48,10 @@ plantilla = (RAIZ / "scripts" / "plantilla.html").read_text(encoding="utf-8")
 # página, no va en los menús y se borra lo que haya quedado en sitio/ de un armado anterior
 CONSULTA_IA = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8")).get("consulta_ia", False)
 assert CONSULTA_IA in (True, False), 'datos/manual/sitio.json: "consulta_ia" tiene que ser true o false'
+# el motor (26 de octubre de 2026, docs/ia/CONSULTAS.md): "cloudflare", los modelos abiertos y gratis de Cloudflare Workers AI, sin clave,
+# o "anthropic", Claude con la clave del autor. La función lo lee en el índice y la página cambia sus avisos
+MOTOR_IA = json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8")).get("consulta_ia_motor", "anthropic")
+assert MOTOR_IA in ("anthropic", "cloudflare"), 'datos/manual/sitio.json: "consulta_ia_motor" tiene que ser "anthropic" o "cloudflare"'
 _ia = re.search(r"\n\n *<!--IA-->.*?<!--/IA-->", plantilla, re.S)
 assert _ia, "falta la sección de las consultas con IA (entre <!--IA--> y <!--/IA-->) en scripts/plantilla.html"
 plantilla = plantilla.replace(_ia.group(0), re.sub(r"<!--/?IA-->", "", _ia.group(0)) if CONSULTA_IA else "")
@@ -55,6 +59,14 @@ if CONSULTA_IA:
     _herr_sub = '<p class="bloque-sub">Para cruzar indicadores,'
     assert plantilla.count(_herr_sub) == 1, "cambió la bajada de Herramientas en la portada: revisar la de las consultas con IA"
     plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores,')
+    if MOTOR_IA == "cloudflare":
+        for _v, _n in [("La pregunta se envía a Anthropic, la empresa del modelo, para contestarla: no escribas datos personales. Datina no la guarda.",
+                        "La contesta un modelo que corre en Cloudflare, la empresa que publica el sitio, que no usa las preguntas para entrenar modelos: "
+                        "no escribas datos personales. Datina no la guarda. Las consultas son gratis y tienen un tope por día para todo el sitio."),
+                       ("Las respuestas las escribe un modelo de inteligencia artificial (Claude, de Anthropic) con los datos de Datina.",
+                        "Las respuestas las escribe un modelo abierto de inteligencia artificial, en Cloudflare, con los datos de Datina.")]:
+            assert plantilla.count(_v) == 1, f"cambió un aviso de la página de las consultas con IA: {_v[:60]}"
+            plantilla = plantilla.replace(_v, _n)
 JS_IA = (RAIZ / "scripts" / "consulta_ia.js").read_text(encoding="utf-8")
 plantilla = plantilla.replace("__V_IA_JS__", hashlib.sha1(JS_IA.encode("utf-8")).hexdigest()[:10])
 # Cada id una sola vez en la plantilla (etapa 25): una ficha nueva repitió el id de otra (f-actividad) y, como sus claves en datina.js salen
@@ -604,7 +616,7 @@ if CONSULTA_IA:
         _p = UBIC.get(_r[1:], "") if _r.startswith("#") else _r[:-5]
         assert _p, f"consultas con IA: no se sabe en qué página está {_r} ({_t['tabla']})"
         _t["url"] = (f"{_p}.html" if _p != "inicio" else "./") + (f"#{_r[1:]}" if _r.startswith("#") and _r[1:] != _p else "")
-    _IA_INDICE.write_text(json.dumps({"actualizado": RESUMEN["actualizado"], "tablas": _indice_ia}, ensure_ascii=False, separators=(",", ":")),
+    _IA_INDICE.write_text(json.dumps({"actualizado": RESUMEN["actualizado"], "motor": MOTOR_IA, "tablas": _indice_ia}, ensure_ascii=False, separators=(",", ":")),
                           encoding="utf-8", newline="\n")
     _IA_JS.write_text(JS_IA, encoding="utf-8", newline="\n")
 else:

@@ -8,7 +8,8 @@ import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import Anthropic from "../functions/_ia/anthropic-sdk.mjs";
-import { responder, leerTabla, cargarIndice, TOPES, MODELO } from "../functions/_ia/consulta.mjs";
+import { responder, leerTabla, cargarIndice, elegirTablas, TOPES, MODELO, TOPES_CF, MODELO_CF, AYUDA_SUICIDIO } from "../functions/_ia/consulta.mjs";
+import { INDICACIONES_CF } from "../functions/_ia/indicaciones.mjs";
 import { onRequest } from "../functions/api/consulta.js";
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -227,7 +228,87 @@ const silencio = async f => { const [l, e] = [console.log, console.error]; conso
   ok(sinClave.status === 503, "sin el secreto ANTHROPIC_API_KEY no contesta");
 }
 
-// ---------- 6. el índice armado, si está ----------
+// ---------- 6. el motor gratis, Cloudflare Workers AI (26 de octubre de 2026) ----------
+// Workers AI simulado: devuelve la respuesta en eventos "data:", cortados en pedazos de 37 bytes (un evento puede quedar partido entre
+// dos pedazos), o falla con el mensaje que se le pase
+function iaSimulada(respuesta, error = "") {
+  const llamadas = [];
+  return {llamadas, run: async (modelo, opciones) => {
+    llamadas.push({modelo, opciones});
+    if (error) throw new Error(error);
+    const ev = (respuesta.match(/.{1,15}/gs) || []).map(x => `data: ${JSON.stringify({response: x})}\n\n`).join("") +
+      `data: ${JSON.stringify({response: "", usage: {prompt_tokens: 1234, completion_tokens: 56}})}\n\ndata: [DONE]\n\n`;
+    const bytes = new TextEncoder().encode(ev);
+    return new ReadableStream({start(c) { for (let i = 0; i < bytes.length; i += 37) c.enqueue(bytes.slice(i, i + 37)); c.close(); }});
+  }};
+}
+const leerCF = leerDe({...INDICE, motor: "cloudflare"});
+const consultaCF = async (pregunta, ia, env = {}) => {
+  const espera = [];
+  const resp = await responder(pedir({pregunta}), {env, leer: leerCF, ia, esperar: x => espera.push(x)});
+  const ev = resp.status === 200 ? await eventos(resp) : [];
+  await Promise.all(espera);
+  return {resp, ev, texto: ev.filter(e => e.t === "texto").map(e => e.texto).join(""), error: ev.find(e => e.t === "error")?.texto};
+};
+{
+  const respuesta = "En la Ciudad de Buenos Aires cada usuario residencial usó 1.234,5 metros cúbicos de gas en 2025.\n\nFuente: Fuente de prueba.";
+  const ia = iaSimulada(respuesta);
+  const {ev, texto, resp} = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?", ia));
+  ok(resp.status === 200 && texto === respuesta, "Workers AI: el texto que llega a la página es el que escribió el modelo, aunque los eventos lleguen partidos");
+  ok(ia.llamadas.length === 1 && ia.llamadas[0].modelo === MODELO_CF && MODELO_CF === "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "Workers AI: una sola llamada, con el modelo por omisión");
+  const op = ia.llamadas[0].opciones;
+  ok(op.stream === true && op.max_tokens === TOPES_CF.tokens && op.temperature === 0.2, "Workers AI: en vivo, con el tope de tokens y poca temperatura");
+  ok(op.messages.length === 2 && op.messages[0].role === "system" && op.messages[0].content === INDICACIONES_CF, "Workers AI: con sus instrucciones");
+  const u = op.messages[1].content;
+  ok(u.startsWith("Pregunta: ¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?") && u.includes("Tabla gas_usuario_serie.csv"), "Workers AI: la pregunta y la tabla que más se le parece");
+  const csv = u.split("\n\n").at(-1).split("\n");
+  ok(csv[0] === "anio,codigo_indec,territorio,m3_usuario" && csv.length > 2 && csv.slice(1).every(l => /^202[45],0[02],/.test(l)),
+     "Workers AI: de la tabla, solo el país y la Ciudad en los dos últimos años");
+  ok(u.length < TOPES_CF.caracteres * TOPES_CF.tablas + 3000 && !/suicid/i.test(u), "Workers AI: un pedido corto y sin nada sobre suicidio");
+  ok(ev.some(e => e.t === "paso" && e.texto === "Leyendo «¿Cuánto gas usa cada usuario?»…") && ev.some(e => e.t === "paso" && e.texto === "Escribiendo la respuesta…"),
+     "Workers AI: avisa qué lee y cuándo escribe");
+  const fu = ev.find(e => e.t === "fuentes");
+  ok(fu && fu.fichas.some(f => f.tabla === "gas_usuario_serie" && f.url === "energia.html#f-gas-usuario") && ev.at(-1).t === "fin", "Workers AI: manda la ficha consultada y termina con fin");
+}
+{
+  const ia = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Cuánto gas usaba cada usuario de la Ciudad en 2005?", ia));
+  const csv = ia.llamadas[0].opciones.messages[1].content.split("\n\n").at(-1).split("\n").slice(1);
+  ok(csv.some(l => l.startsWith("2005,")) && csv.some(l => l.startsWith("2025,")), "Workers AI: con un año en la pregunta, las filas de ese año y las últimas");
+  const iaMv = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Cuántas muertes violentas y homicidios hubo?", iaMv));
+  const u = iaMv.llamadas[0]?.opciones.messages[1].content || "";
+  ok(u.includes("muertes_violentas") && u.includes("homicidios") && !/suicid/i.test(u), "Workers AI: muertes violentas sin la columna de suicidios");
+}
+{
+  const ia = iaSimulada("no se usa");
+  const {texto, ev} = await silencio(() => consultaCF("¿Cuántos suicidios hubo en Salta?", ia));
+  ok(ia.llamadas.length === 0 && texto === AYUDA_SUICIDIO && /135/.test(texto) && /107/.test(texto) && ev.at(-1).t === "fin",
+     "Workers AI: sobre suicidio no llama al modelo y contesta con las líneas de ayuda");
+  const ia2 = iaSimulada("no se usa");
+  const r2 = await silencio(() => consultaCF("¿Qué opinás de los planetas lejanos?", ia2));
+  ok(ia2.llamadas.length === 0 && /No encontré tablas/.test(r2.error || ""), "Workers AI: sin tablas que se parezcan no llama al modelo y lo dice");
+  const r3 = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaSimulada("", "4006: you have used up your daily free allocation of 10,000 neurons")));
+  ok(/Se renuevan a las 21/.test(r3.error || ""), "Workers AI: con lo gratis del día terminado, dice cuándo vuelve");
+  const r4 = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaSimulada("", "3040: Capacity temporarily exceeded")));
+  ok(/muchas consultas/.test(r4.error || ""), "Workers AI: saturado, pide probar en unos minutos");
+  const r5 = await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", iaSimulada("")));
+  ok(/no están disponibles/.test(r5.error || "") && !r5.ev.some(e => e.t === "fin"), "Workers AI: una respuesta vacía es un error, no una respuesta");
+  const ia6 = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", ia6, {DATINA_IA_MODELO_CF: "@cf/mistralai/mistral-small-3.1-24b-instruct"}));
+  const ia7 = iaSimulada("ok");
+  await silencio(() => consultaCF("¿Cuánto gas usa cada usuario?", ia7, {DATINA_IA_MODELO_CF: "gpt-otro"}));
+  ok(ia6.llamadas[0].modelo === "@cf/mistralai/mistral-small-3.1-24b-instruct" && ia7.llamadas[0].modelo === MODELO_CF, "Workers AI: el autor puede elegir otro modelo de Workers AI y nada más");
+  const sinIA = await consultaCF("¿Cuánto gas usa cada usuario?", null);
+  ok(sinIA.resp.status === 503, "Workers AI: sin la conexión AI no contesta");
+  const r8 = await consultaCF("¿Cuánto gas usa cada usuario?", iaSimulada("ok"), {DATINA_IA_MOTOR: "anthropic"});
+  ok(r8.resp.status === 503, "con DATINA_IA_MOTOR anthropic y sin la clave, no usa Workers AI");
+  const iaFuera = iaSimulada("ok");
+  const conClave = await silencio(() => consulta([{bloques: [{texto: "ok"}], fin: "end_turn"}]));
+  ok(conClave.texto === "ok" && iaFuera.llamadas.length === 0, "con el índice sin motor, sigue contestando Claude");
+}
+
+// ---------- 7. el índice armado, si está ----------
 const REAL = join(DATOS, "consulta_ia.json");
 if (existsSync(REAL)) {
   const d = JSON.parse(readFileSync(REAL, "utf-8"));
@@ -237,7 +318,14 @@ if (existsSync(REAL)) {
   ok(d.tablas.every(t => /^(?:\.\/|[\w-]+\.html)(?:#[\w-]+)?$/.test(t.url)), "cada tabla lleva a una página del sitio");
   ok(!/suicid/i.test(idx.texto), "el texto del índice no nombra el suicidio");
   ok(!d.tablas.some(t => /suicid/i.test(t.tabla + t.titulo)), "ninguna tabla de suicidio en el índice");
-  console.log(`Índice armado: ${d.tablas.length} tablas, ${idx.texto.length} caracteres en las instrucciones.`);
+  ok(["anthropic", "cloudflare"].includes(d.motor), "el índice armado dice qué motor contesta");
+  // las tablas que elige el motor gratis para tres preguntas comunes
+  for (const [q, esperada] of [["¿Cuánto se gana en Neuquén?", /salario/], ["¿Cuánta inflación hubo este año?", /ipc|inflacion|precios/],
+                               ["¿Cuántos turistas extranjeros llegaron?", /turis|receptivo|eti/]]) {
+    const el = elegirTablas(q, idx);
+    ok(el.tablas.length && esperada.test(el.tablas.map(t => t.tabla).join(" ")), `el motor gratis elige tablas que sirven para «${q}» (${el.tablas.map(t => t.tabla).join(", ")})`);
+  }
+  console.log(`Índice armado: ${d.tablas.length} tablas, ${idx.texto.length} caracteres en las instrucciones, motor ${d.motor}.`);
 } else {
   console.log("Sin sitio/datos/consulta_ia.json (consulta_ia apagado): el índice armado no se revisó.");
 }

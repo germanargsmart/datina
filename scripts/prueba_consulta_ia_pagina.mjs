@@ -59,6 +59,15 @@ const fetchSimulado = async (url, init) => {
   return new Response(cuerpo, {status: 200, headers: {"content-type": "text/event-stream"}});
 };
 const cliente = new Anthropic({apiKey: "clave-de-prueba", fetch: fetchSimulado, maxRetries: 0});
+// con el motor gratis (26 de octubre de 2026, "consulta_ia_motor": "cloudflare"), un Workers AI simulado con los mismos casos
+const ia = {run: async (modelo, op) => {
+  const preg = op.messages[1].content;
+  if (preg.includes("error")) throw new Error("3040: Capacity temporarily exceeded");
+  if (preg.includes("lento")) await espera(8000);
+  const ev = RESPUESTA.match(/.{1,20}/gs).map(x => `data: ${JSON.stringify({response: x})}\n\n`).join("") + "data: [DONE]\n\n";
+  return new Response(ev).body;
+}};
+const MOTOR = JSON.parse(readFileSync(join(SITIO, "datos", "consulta_ia.json"), "utf-8")).motor || "anthropic";
 
 const servidor = createServer(async (req, res) => {
   const u = new URL(req.url, "http://local");
@@ -73,7 +82,7 @@ const servidor = createServer(async (req, res) => {
     }
     // la dirección con su puerto: la función compara el origen del pedido con el suyo
     const r = await responder(new Request(`http://${req.headers.host}${req.url}`, {method: req.method, headers: req.headers, body: req.method === "POST" ? cuerpo : undefined}),
-                              {env: {}, leer, cliente});
+                              {env: {}, leer, cliente, ia});
     res.writeHead(r.status, Object.fromEntries(r.headers));
     for await (const c of r.body) res.write(c);
     res.end();
@@ -121,19 +130,21 @@ ok(e.estado === "Respuesta lista." && e.tit === "Respuesta" && e.texto.replace(/
    "la respuesta llega entera, con su título");
 ok(e.foco === "ia-respuesta-tit", `al terminar, el foco va al título de la tarjeta (${e.foco})`);
 ok(e.eco === preg, "la tarjeta repite la pregunta");
-ok(e.fichas.length === 2 && /^(?:\.\/|[\w-]+\.html)(?:#[\w-]+)?$/.test(e.fichas[0]) && e.fichas[1] === `datos/${TABLA}.csv`, "la ficha consultada y su tabla para bajar");
+// con Claude, la ficha que pidió la API simulada. Con el motor gratis, las que eligió la función: cada ficha con su tabla para bajar
+const pares = e.fichas.length >= 2 && e.fichas.length % 2 === 0 && e.fichas.every((f, i) => i % 2 ? /^datos\/\w+\.csv$/.test(f) : /^(?:\.\/|[\w-]+\.html)(?:#[\w-]+)?$/.test(f));
+ok(pares && (MOTOR === "cloudflare" || (e.fichas.length === 2 && e.fichas[1] === `datos/${TABLA}.csv`)), `las fichas consultadas y sus tablas para bajar (${e.fichas.join(", ")})`);
 ok(!e.ocupado && e.boton === "Preguntar" && !e.salida, "el botón vuelve a Preguntar y no hay enlace de error");
 ok(await p.eval(`document.querySelectorAll("#ia-texto p").length`) === 2, "la respuesta va en párrafos");
 
-// 3. un error de la API
-await preguntar("Una pregunta con error");
+// 3. un error de la API (la pregunta nombra el gas para que el motor gratis encuentre una tabla y llame al modelo)
+await preguntar("¿Cuánto gas usa cada usuario? Una pregunta con error");
 e = await hasta(x => !x.ocupado && x.tit !== "Respuesta");
 ok(e.tit === "No se pudo contestar" && /muchas consultas/.test(e.texto), `un error se ve como tal (${e.tit}: ${e.texto})`);
-ok(e.salida === "catalogo.html?q=" + encodeURIComponent("Una pregunta con error"), "ofrece buscar lo escrito en el catálogo");
+ok(e.salida === "catalogo.html?q=" + encodeURIComponent("¿Cuánto gas usa cada usuario? Una pregunta con error"), "ofrece buscar lo escrito en el catálogo");
 ok(e.estado === "" && e.foco === "ia-respuesta-tit" && e.fichas.length === 0, "el error no se repite en el aviso y el foco va al título");
 
 // 4. "Detener"
-await preguntar("Una pregunta lento a propósito");
+await preguntar("¿Cuánto gas usa cada usuario? Una pregunta lento a propósito");
 await espera(800);
 e = await estado();
 ok(e.ocupado && e.boton === "Detener" && e.foco === "ia-enviar", `mientras trabaja, el botón dice Detener y conserva el foco (${e.boton}, ${e.foco})`);
@@ -149,5 +160,5 @@ ok(e.tit === "No se pudo contestar" && /se cortó antes de terminar/.test(e.text
 
 ok(p.errores.length === 0, "sin errores en la página: " + p.errores.join(" | "));
 await ch.cerrar(); servidor.close();
-console.log(fallas ? `${fallas} de ${casos} controles fallaron.` : `Página de las consultas con IA: ${casos} controles bien.`);
+console.log(fallas ? `${fallas} de ${casos} controles fallaron.` : `Página de las consultas con IA (motor ${MOTOR}): ${casos} controles bien.`);
 process.exit(fallas ? 1 : 0);

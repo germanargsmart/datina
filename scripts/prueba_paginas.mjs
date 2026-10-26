@@ -227,6 +227,18 @@ else {
 await lupa("zzqqxx");
 const nada = await q.eval(`document.querySelector("#busca-res [role=option]")?.getAttribute("href") + " | " + document.getElementById("busca-estado")?.textContent`);
 if (!nada.startsWith("catalogo.html?q=zzqqxx | Nada coincide")) problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece el catálogo con lo escrito (${nada})`);
+// consultas con IA (docs/ia/CONSULTAS.md), solo si se armaron con "consulta_ia": true: sin coincidencias, la segunda opción lleva lo escrito
+// a su página, que lo deja escrito sin enviarlo
+const IA = existsSync(join(SITIO, "consulta-ia.html"));
+if (IA) {
+  const segunda = await q.eval(`document.querySelectorAll("#busca-res [role=option]")[1]?.getAttribute("href")`);
+  if (segunda !== "consulta-ia.html?q=zzqqxx") problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece las consultas con IA (${segunda})`);
+  const preg = "¿Cuántos habitantes tiene Salta?";
+  await q.ir(B + "consulta-ia.html?q=" + encodeURIComponent(preg), 1000);
+  const ia = JSON.parse(await q.eval(`JSON.stringify({v: document.getElementById("ia-pregunta")?.value, oculta: document.getElementById("ia-respuesta")?.hidden,
+    etiqueta: !!document.getElementById("ia-pregunta")?.closest("label")?.textContent.trim().startsWith("Tu pregunta"), boton: !!document.getElementById("ia-enviar")})`));
+  if (ia.v !== preg || ia.oculta !== true || !ia.etiqueta || !ia.boton) problemas.push(`consulta-ia.html: el formulario no está como se espera (${JSON.stringify(ia)})`);
+}
 // la respuesta rápida (26 de octubre de 2026): con una ficha, la primera opción es la cifra que ya calcula el sitio, con su fuente, y el aviso
 // para lectores de pantalla la dice. Con una provincia, la de esa provincia y la del país. Nunca sobre suicidio
 const rapida = async txt => {
@@ -244,18 +256,6 @@ if (!rr.resp || !rr.texto.includes("Neuquén:") || !rr.texto.includes("País:") 
 for (const t of ["suicidio", "suicidios en Salta"]) {
   rr = await rapida(t);
   if (rr.resp) problemas.push(`trabajo.html: "${t}" da una respuesta rápida (${rr.texto})`);
-}
-// consultas con IA (docs/ia/CONSULTAS.md), solo si se armaron con "consulta_ia": true: sin coincidencias, la segunda opción lleva lo escrito
-// a su página, que lo deja escrito sin enviarlo
-const IA = existsSync(join(SITIO, "consulta-ia.html"));
-if (IA) {
-  const segunda = await q.eval(`document.querySelectorAll("#busca-res [role=option]")[1]?.getAttribute("href")`);
-  if (segunda !== "consulta-ia.html?q=zzqqxx") problemas.push(`trabajo.html: sin coincidencias, el buscador no ofrece las consultas con IA (${segunda})`);
-  const preg = "¿Cuántos habitantes tiene Salta?";
-  await q.ir(B + "consulta-ia.html?q=" + encodeURIComponent(preg), 1000);
-  const ia = JSON.parse(await q.eval(`JSON.stringify({v: document.getElementById("ia-pregunta")?.value, oculta: document.getElementById("ia-respuesta")?.hidden,
-    etiqueta: !!document.getElementById("ia-pregunta")?.closest("label")?.textContent.trim().startsWith("Tu pregunta"), boton: !!document.getElementById("ia-enviar")})`));
-  if (ia.v !== preg || ia.oculta !== true || !ia.etiqueta || !ia.boton) problemas.push(`consulta-ia.html: el formulario no está como se espera (${JSON.stringify(ia)})`);
 }
 // accesibilidad con el teclado (paso 6): Tab saca el foco de la lupa abierta y la cierra, la primera parada de Tab es "Saltar al
 // contenido" y Enter lleva el foco al título, y el mapa de la portada tiene nombre
