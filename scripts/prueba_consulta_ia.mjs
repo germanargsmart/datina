@@ -268,7 +268,8 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const csv = u.split("\n\n").at(-1).split("\n");
   ok(csv[0] === "anio | codigo_indec | territorio | m3_usuario" && csv.length > 2 && csv.slice(1).every(l => /^202[45] \| 0[02] \| /.test(l)),
      "Workers AI: de la tabla, solo el país y la Ciudad en los dos últimos años, con las columnas separadas por |");
-  ok(csv.slice(1).every(l => /^\d{4} \| \d\d \| [^|]+ \| \d{1,3}(\.\d{3})*$/.test(l)), "Workers AI: el consumo con punto de miles y sin decimales, como en la Argentina");
+  ok(csv.slice(1).every(l => /^\d{4} \| \d\d \| [^|]+ \| \d+$/.test(l)), "Workers AI: el consumo redondeado, sin decimales ni punto de miles (con punto, el modelo leía 2.220 como 2,22)");
+  ok(!u.includes("actualizados al"), "Workers AI: sin la fecha de actualización del sitio, que el modelo daba como período del dato");
   ok(u.length < TOPES_CF.caracteres * TOPES_CF.tablas + 3000 && !/suicid/i.test(u), "Workers AI: un pedido corto y sin nada sobre suicidio");
   ok(ev.some(e => e.t === "paso" && e.texto === "Leyendo «¿Cuánto gas usa cada usuario?»…") && ev.some(e => e.t === "paso" && e.texto === "Escribiendo la respuesta…"),
      "Workers AI: avisa qué lee y cuándo escribe");
@@ -286,8 +287,8 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   ok(u.includes('Datos de la ficha "Muertes violentas"') && u.includes("homicidios") && !/suicid/i.test(u), "Workers AI: muertes violentas sin la columna de suicidios");
 }
 {
-  const casos = [["2073.7800", "nafta", "2.074"], ["4094578.9300", "salario", "4.094.579"], ["37.8500", "pct", "37,9"], ["0.4300", "tasa", "0,43"],
-                 ["-12.3400", "var", "-12,3"], ["5680763", "turistas", "5.680.763"], ["2025", "turistas", "2025"], ["2024.0000", "anio", "2024.0000"],
+  const casos = [["2073.7800", "nafta", "2074"], ["4094578.9300", "salario", "4094579"], ["37.8500", "pct", "37,9"], ["0.4300", "tasa", "0,43"],
+                 ["-12.3400", "var", "-12,3"], ["5680763", "turistas", "5680763"], ["2025", "turistas", "2025"], ["2024.0000", "anio", "2024.0000"],
                  ["06", "codigo_indec", "06"], ["Salta", "territorio", "Salta"], ["2024-05", "periodo", "2024-05"],
                  ["2025.5000", "t", "2025.5000"], ["2025.5000", "semestre", "2025.5000"], ["10.0", "victimas", "10"], ["33.0000", "pct", "33"]];
   const mal = casos.filter(([v, c, e]) => cifraAR(v, c) !== e);

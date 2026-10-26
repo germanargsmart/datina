@@ -373,8 +373,12 @@ async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   // si no entra, se sacan filas del medio: quedan las del año pedido, si hay, y las últimas
   while (filas.length > 2 && filas.join("\n").length > TOPES_CF.caracteres) filas.splice(Math.floor(filas.length / 3), 1);
   const aviso = filas.length < total ? `\nSe muestran ${filas.length} filas de las ${total} que cumplen la consulta.` : "";
-  // sin el nombre del archivo, que el modelo copiaba en la respuesta ("según la tabla inflacion_mensual")
-  const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha");
+  // sin el nombre del archivo, que el modelo copiaba en la respuesta ("según la tabla inflacion_mensual"), y con qué es cada columna
+  // cuando el nombre no alcanza
+  // (en la línea de las columnas, los rangos también sin punto de miles, como las cifras)
+  const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha")
+    .replace(/^Columnas: .*$/m, l => l.replace(/(\d)\.(?=\d{3}(?!\d))/g, "$1")) +
+    (COLUMNAS_CF[info.tabla] ? `\nQué es cada columna: ${COLUMNAS_CF[info.tabla]}.` : "");
   const cab = campos(recientes.cab);
   const tabla = [cab.join(" | "), ...filas.map(l => campos(l).map((v, i) => cifraAR(v, cab[i] || "")).join(" | "))].join("\n");
   return {texto: `${meta}${aviso}${extremos ? extremosCF(cab, filas) : ""}\n\n${tabla}`, info: recientes.info};
@@ -402,17 +406,24 @@ function extremosCF(cab, lineas) {
   return notas.length ? `\nSin contar el total del país, ${notas.join(". ")}.` : "";
 }
 
-// las cifras como se escriben en la Argentina y redondeadas, para que el modelo las copie tal cual en lugar de convertirlas (el 26 de
-// octubre de 2026 escribía "2073,78 pesos"): punto de miles y coma decimal, sin decimales desde 100, uno desde 1 y dos por debajo. Los
-// códigos, años, meses y períodos quedan como están, y también los enteros de menos de cinco cifras, que pueden ser años
+// columnas cuyo nombre no alcanza para saber qué miden (con homicidios, el modelo llamó tasa a las víctimas de tres años)
+const COLUMNAS_CF = {
+  homicidios_provincias: "victimas_3, las víctimas sumadas de los tres últimos años de la tabla. tasa_3, víctimas por año cada 100.000 habitantes en " +
+    "esos tres años. victimas, las víctimas del último año. tasa, víctimas cada 100.000 habitantes en el último año. pct_varones, porcentaje de " +
+    "varones entre las víctimas",
+};
+
+// las cifras redondeadas y con coma decimal, para que el modelo no tenga que convertirlas (el 26 de octubre de 2026 escribía "2073,78
+// pesos"): sin decimales desde 100, uno desde 1 y dos por debajo. Sin punto de miles: con "2.220" el modelo entendió 2,22 (lo leyó como
+// un decimal en inglés). El punto de miles lo pone el modelo al escribir. Los enteros, los códigos, los años y los períodos quedan como están
 // ("t" es el tiempo como número decimal, 2025,5 para el segundo semestre de 2025)
 const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre|^t$/i;
 export function cifraAR(v, col) {
-  if (NO_ES_CIFRA.test(col) || !/^-?\d+(\.\d+)?$/.test(v) || (!v.includes(".") && Math.abs(+v) < 10000)) return v;
+  if (NO_ES_CIFRA.test(col) || !/^-?\d+\.\d+$/.test(v)) return v;
   const n = +v, a = Math.abs(n), dec = a >= 100 || Number.isInteger(n) ? 0 : a >= 1 ? 1 : 2, f = 10 ** dec;
   // mitad hacia arriba, como r1() del sitio
   const [ent, frac] = (Math.round(a * f + 1e-9) / f).toFixed(dec).split(".");
-  return (n < 0 ? "-" : "") + ent.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (frac ? "," + frac : "");
+  return (n < 0 ? "-" : "") + ent + (frac ? "," + frac : "");
 }
 
 // Workers AI manda la respuesta como eventos (data: {...}): el texto viene en "response" (o en choices[0].delta.content) y al final "usage".
@@ -474,7 +485,8 @@ async function conversarCF({pregunta, indice, ia, modelo, leer, enviar, corte}) 
     if (!n) { enviar({t: "error", texto: SIN_TABLAS}); final = "sin tablas"; return uso; }
     enviar({t: "paso", texto: "Escribiendo la respuesta…"});
     const mensajes = [{role: "system", content: INDICACIONES_CF},
-      {role: "user", content: `Pregunta: ${pregunta}\n\nDatos de Datina, actualizados al ${indice.actualizado}. Usá solo estos datos.\n\n${bloques.join("\n\n")}`}];
+      // sin la fecha de actualización del sitio: el modelo la daba como el período del dato
+      {role: "user", content: `Pregunta: ${pregunta}\n\nDatos de Datina. Usá solo estos datos.\n\n${bloques.join("\n\n")}`}];
     const flujo = await ia.run(modelo, {messages: mensajes, max_tokens: TOPES_CF.tokens, temperature: 0.2, stream: true});
     let escrito = "";
     for await (const ev of textoCF(flujo)) {
