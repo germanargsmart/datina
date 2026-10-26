@@ -452,10 +452,13 @@ for b in TEMAS:
         # en las fichas de suicidio, que lo ponen en contexto antes, y en las anchas, cuyo gráfico es una lista larga
         if "herramienta" not in b["clases"] and "ancha" not in m.group(1) and m.group(2) not in TEXTO_ANTES and kl:
             assert 0 <= m.group(3).find('class="grafico') < kl.start(), f"{m.group(2)}: el texto (p.lead) va después del gráfico"
+        # la fuente del pie ("Fuente: ..." o "Fuentes: ..."), para la respuesta rápida del buscador (26 de octubre de 2026)
+        fu = re.search(r'<div class="pie"><span>(Fuentes?: .*?)</span>', m.group(3), re.S)
         # [id, sección, título fijo, clave del título calculado, clave del texto, explorador, después de las líneas de ayuda,
-        #  descripción fija, clave de la descripción calculada]
+        #  descripción fija, clave de la descripción calculada, fuente]
         FICHAS.append([m.group(2), b["id"], texto(h3.group(2)) if h3 else "", kt.group(1) if kt else "", kl.group(1) if kl else "",
-                       int(explorador), int(0 <= ayuda < m.start()), texto(sub.group(2)) if sub else "", (sub.group(1) or "") if sub else ""])
+                       int(explorador), int(0 <= ayuda < m.start()), texto(sub.group(2)) if sub else "", (sub.group(1) or "") if sub else "",
+                       texto(fu.group(1)) if fu else ""])
     # [id, título, pregunta, texto de entrada, herramienta, fichas, artículos, pregunta corta para la tarjeta de la portada]
     SECCIONES.append([b["id"], titulo, texto(preg.group(2)) if preg else "", texto(intro.group(1)) if intro else "",
                       int("herramienta" in b["clases"]), n, len(re.findall(r'<article class="nota"', h)),

@@ -8079,7 +8079,7 @@ if (PAGINA !== "inicio") {
    piezas del Laboratorio, el consultor de pobreza, el Explorador de relaciones y Contacto, agrupa los resultados como la barra (Fichas,
    Temas, Provincias, Historias, Herramientas y Datina), se recorre con las flechas (patrón combobox de WAI-ARIA, como el selector de
    provincias), un aviso aparte dice cuántos resultados hay y, si no hay ninguno, ofrece seguir en el catálogo de datos con lo escrito, ver
-   los temas o una pregunta de ejemplo */
+   los temas o una pregunta de ejemplo. Desde el 26 de octubre de 2026, arriba de los resultados, una respuesta rápida sin IA (respuesta()) */
 (() => {
   const btn = document.getElementById("lupa-btn"), caja = document.getElementById("buscador");
   const ent = document.getElementById("busca"), res = document.getElementById("busca-res"), est = document.getElementById("busca-estado");
@@ -8090,6 +8090,7 @@ if (PAGINA !== "inicio") {
   const MENU_G = {provincias: "Provincias", historias: "Historias", herramientas: "Herramientas"};
   const grupoPag = id => MENU_G[SITIO.menu[id]] || "Temas";
   const SEC_FICHA = Object.fromEntries(SITIO.fichas.map(f => [f[0], f[1]]));
+  const FUENTE = Object.fromEntries(SITIO.fichas.map(f => [f[0], f[9] || ""]));
   let IDX;
   const armar = () => {
     IDX = [];
@@ -8109,15 +8110,72 @@ if (PAGINA !== "inicio") {
       const h = (TX[kt] || tit || "").trim(); if (!h) return;
       // las fichas de suicidio llevan a las líneas de ayuda, que van justo antes
       const ancla = NOTA_A_LA_VISTA.has(id) && trasAyuda ? "#ayuda-suicidio" : "#" + id;
-      IDX.push({t: h, g: "Fichas", sm: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || "")});
+      IDX.push({t: h, g: "Fichas", sm: nombreSec(sec), u: ir(id, ancla), x: (TX[ks] || sub || "") + " " + (TX[kl] || "") + " " + (CLAVE[id]?.[1] || ""), f: id});
     });
-    PREG.forEach(([q, a, h]) => { const id = h.slice(1); if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(id, h), x: a}); });
+    PREG.forEach(([q, a, h]) => { const id = h.slice(1); if (paginaDe(id)) IDX.push({t: q, g: "Fichas", sm: nombreSec(SEC_FICHA[id]), u: ir(id, h), x: a, f: id}); });
     // todos los artículos: los de cruces y, desde el paso 3, también los de series
     ARTS.forEach(a => IDX.push({t: a.titulo, g: "Historias", sm: "Artículo", u: urlPagina(a.id), x: `${a.dek} ${a.t?.bajada || ""} ${nombreSec(a.sec)}`, sec: 1}));
     IDX.forEach(d => { d.tt = st(d.t); d.xx = st(d.x); });
   };
-  const opcion = (d, id) => `<a href="${d.u}" id="${id}" role="option" tabindex="-1" aria-selected="false">` +
-    (d.sm ? `<small>${esc(d.sm)}</small>` : "") + (d.c ? conBandera(d.c, d.t) : esc(d.t)) + "</a>";
+  const opcion = (d, id) => `<a href="${d.u}" id="${id}" role="option" tabindex="-1" aria-selected="false"${d.r ? ' class="busca-resp"' : ""}>` +
+    (d.sm ? `<small>${esc(d.sm)}</small>` : "") + (d.r ? cuerpoResp(d.r) : d.c ? conBandera(d.c, d.t) : esc(d.t)) + "</a>";
+  // respuesta rápida (26 de octubre de 2026, opción A de docs/ia/CONSULTAS.md): si lo escrito apunta a una ficha, arriba de los
+  // resultados va la cifra que el sitio ya calcula, sin IA. Con una provincia nombrada, su valor del perfil provincial (INDP) y el del
+  // país, con la aclaración del caso distorsionado si la tiene. Sin provincia, la cifra destacada de la ficha (CLAVE). Si la provincia
+  // no tiene ese dato no hay respuesta (la ficha sigue en los resultados): una cifra del país no contesta una pregunta por una provincia.
+  // Las fichas de suicidio y la de muertes violentas no llevan cifra destacada ni entran en el perfil, así que nunca tienen respuesta
+  const ALIAS_PROV = [["caba", "02"], ["capital federal", "02"], ["ciudad de buenos aires", "02"], ["ciudad autonoma", "02"],
+    ["provincia de buenos aires", "06"], ["pba", "06"]];
+  const PROVS = [...ALIAS_PROV, ...Object.entries(NOMBRES).map(([c, n]) => [st(n), c])].sort((a, b) => b[0].length - a[0].length);
+  const VACIAS = new Set(("de del la las el los lo en y e o u a al un una unos unas por para con sin que cuanto cuanta cuantos cuantas como " +
+    "cual cuales donde quien quienes hay se es son esta estan fue mas menos muy tiene tienen cada su sus provincia provincias pais argentina").split(" "));
+  const CON_PERFIL = new Set(INDP.filter(e => e.d).map(e => e.id));
+  // la ficha principal de los temas que más se buscan: con una palabra suelta ("inflación", "salario") la búsqueda general prefiere la
+  // ficha que la tiene en la pregunta (la inflación esperada, el salario real), y la respuesta tiene que ser la del tema. Cada clave va
+  // sin tildes y sin palabras vacías. Si una ficha deja de existir, su clave no se usa
+  const PRINCIPAL = Object.entries({
+    "f-inflacion": ["inflacion", "precios", "ipc"], "f-salarios": ["salario", "salarios", "sueldo", "sueldos", "gana", "ganan"],
+    "f-empleo": ["empleo", "asalariados"], "f-empleo-publico": ["empleo publico", "empleados publicos", "cargos publicos"], "f-pobreza": ["pobreza", "pobres", "indigencia"], "f-combustibles": ["nafta", "combustible", "combustibles", "gasoil"],
+    "f-bcra": ["dolar"], "f-petroleo": ["petroleo"], "f-gas": ["gas"], "f-gas-consumo": ["consumo gas"], "f-homicidios": ["homicidios", "homicidio", "asesinatos"],
+    "f-robos": ["robos", "hurtos"], "f-delitos": ["delitos"], "f-mortalidad": ["mortalidad infantil"], "f-esperanza": ["esperanza vida"],
+    "f-poblacion-proy": ["poblacion", "habitantes"], "f-nacimientos": ["nacimientos", "natalidad"], "f-exportaciones": ["exportaciones", "exporta"],
+    "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
+    "f-jubilaciones": ["jubilacion", "jubilaciones", "jubilados", "aportantes"],
+    "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
+    "f-censo": ["cloacas", "agua red"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
+    "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
+    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"],
+    "f-salario-docente": ["maestro", "maestros", "docente", "docentes", "salario docente", "sueldo docente", "salario maestro", "sueldo maestro"], "f-patentes": ["patentes", "autos"], "f-sube": ["sube"]
+  }).flatMap(([id, ks]) => ks.map(k => [k.split(" "), id]));
+  const respuesta = (texto, hall) => {
+    let t = ` ${st(texto).replace(/[^a-z0-9]+/g, " ").trim()} `, c = "";
+    for (const [n, cod] of PROVS) if (t.includes(` ${n} `)) { c = cod; t = t.replace(` ${n} `, " "); break; }
+    const tema = t.trim().split(" ").filter(w => w && !VACIAS.has(w));
+    if (!tema.length) return null;
+    // la ficha: la principal de un tema nombrado (si hay varias, la que tiene más palabras de lo escrito), si no la que tiene todas las
+    // palabras (primero las que las tienen en la pregunta) o, si ninguna, el primer resultado
+    const sirve = d => d && d.f && !NOTA_A_LA_VISTA.has(d.f) && (c ? CON_PERFIL.has(d.f) : CLAVE[d.f]);
+    const tiene = d => tema.filter(w => d.tt.includes(w) || d.xx.includes(w)).length;
+    // sin un tema nombrado, alguna palabra tiene que estar en la pregunta de la ficha: en el resto del texto aparece de pasada
+    const pun = d => tiene(d) === tema.length && tema.some(w => d.tt.includes(w)) ? tema.length + tema.filter(w => d.tt.includes(w)).length : 0;
+    let d = PRINCIPAL.filter(([ks]) => ks.every(k => tema.includes(k))).map(([ks, id]) => ({x: IDX.find(x => x.f === id), n: ks.length}))
+      .filter(r => sirve(r.x)).sort((a, b) => tiene(b.x) - tiene(a.x) || b.n - a.n)[0]?.x;
+    if (!d) d = IDX.filter(sirve).map(x => ({x, p: pun(x)})).filter(r => r.p).sort((a, b) => b.p - a.p)[0]?.x;
+    if (!d && sirve(hall[0]) && tema.some(w => hall[0].tt.includes(w))) d = hall[0];
+    if (!d) return null;
+    const fuente = FUENTE[d.f] || "";
+    if (!c) return {t: CLAVE[d.f][0] + " " + CLAVE[d.f][1], g: "Respuesta rápida", sm: d.sm, u: d.u, r: {cifra: CLAVE[d.f][0], texto: CLAVE[d.f][1] + ".", fuente}};
+    // el indicador del perfil que más se parece a lo escrito (Aprender tiene matemática y lengua, el empleo su nivel y su variación)
+    const parecido = e => tema.filter(w => st(e.lab + " " + e.det).includes(w)).length;
+    const e = INDP.filter(x => x.id === d.f && x.d).reduce((a, b) => parecido(b) > parecido(a) ? b : a);
+    const v = e.d.find(r => r.codigo_indec === c)?.[e.k];
+    if (v == null) return null;
+    const cifra = e.f(v), det = cifra.endsWith("%") ? e.det.replace(/^%\s*/, "") : e.det, nota = notaDist(e, c).replace(/\.$/, "");
+    return {t: `${NOMBRES[c]}: ${cifra} ${det}`, g: "Respuesta rápida", sm: e.lab, u: d.u,
+      r: {c, cifra, texto: `${det}${nota ? ` (${nota})` : ""}. País: ${e.f(e.pais)}.`, fuente}};
+  };
+  const cuerpoResp = r => `<span>${r.c ? conBandera(r.c, NOMBRES[r.c]) + ": " : ""}<b>${esc(r.cifra)}</b> ${esc(r.texto)}</span>` +
+    (r.fuente ? `<span class="busca-fuente">${esc(r.fuente)}</span>` : "");
   // la lista agrupada: los grupos en el orden de su mejor resultado y, adentro, por puntaje
   const pintar = (res, ds, base) => {
     const grupos = [];
@@ -8149,9 +8207,12 @@ if (PAGINA !== "inicio") {
     // enviarse. Con resultados, solo si parece una pregunta (tres palabras o más)
     const aIA = g => ({t: `Preguntarles a los datos: «${texto}»`, g, u: "consulta-ia.html?q=" + encodeURIComponent(texto.slice(0, 400))});
     if (SITIO.ia && hall.length && pal.length >= 3) hall.push(aIA("Consultas con IA"));
+    const rr = respuesta(texto, hall);
+    if (rr) hall.unshift(rr);
     if (hall.length) {
       pintar(res, hall, base);
-      est.textContent = hall.length === 1 ? "1 resultado. Enter para abrirlo." : `${hall.length} resultados. Flechas para recorrerlos, Enter para abrir.`;
+      est.textContent = (rr ? `Respuesta rápida: ${rr.t}. ` : "") +
+        (hall.length === 1 ? "1 resultado. Enter para abrirlo." : `${hall.length} resultados. Flechas para recorrerlos, Enter para abrir.`);
     } else {
       // nada coincide: tres caminos reales para seguir (el catálogo de datos filtra por lo escrito con ?q=)
       const g = `Nada coincide con «${texto}»`;

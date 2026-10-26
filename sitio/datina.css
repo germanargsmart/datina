@@ -386,6 +386,10 @@ body[data-pagina="inicio"] .barra:not(.clara) .marca{visibility:hidden}
 .busca-res [role="group"]:first-child .busca-grupo{margin-top:var(--e-1)}
 .busca-res a.activo{background:var(--superficie-2);box-shadow:inset 3px 0 0 var(--celeste-fuerte)}
 @media (hover:hover) and (pointer:fine){.busca-res a:hover{background:var(--superficie-2)}}
+/* respuesta rápida del buscador (26 de octubre de 2026): la cifra que ya calcula el sitio, arriba de los resultados, con su fuente */
+.busca-res a.busca-resp b{font-weight:650}
+.busca-res .busca-resp .con-bandera{font-weight:600}
+.busca-res .busca-fuente{font-size:var(--t-2);line-height:var(--i-tarjeta);color:var(--muted)}
 @media (max-width:760px){.buscador-caja{padding:var(--e-4) var(--margen) var(--e-6)}}
 
 /* ---------- marca: gorro frigio sobre la i, como sobre la pica del escudo ---------- */
