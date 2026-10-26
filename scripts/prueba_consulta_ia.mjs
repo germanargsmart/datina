@@ -292,7 +292,8 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const casos = [["2073.7800", "nafta", "2074"], ["4094578.9300", "salario", "4094579"], ["37.8500", "pct", "37,9"], ["0.4300", "tasa", "0,43"],
                  ["-12.3400", "var", "-12,3"], ["5680763", "turistas", "5680763"], ["2025", "turistas", "2025"], ["2024.0000", "anio", "2024.0000"],
                  ["06", "codigo_indec", "06"], ["Salta", "territorio", "Salta"], ["2024-05", "periodo", "2024-05"],
-                 ["2025.5000", "t", "2025.5000"], ["2025.5000", "semestre", "2025.5000"], ["10.0", "victimas", "10"], ["33.0000", "pct", "33"]];
+                 ["2025.5000", "t", "2025.5000"], ["2025.5000", "semestre", "2025.5000"], ["10.0", "victimas", "10"], ["33.0000", "pct", "33"],
+                 ["192.2435", "millones_usd_1er_semestre_2026", "192"], ["3.9311", "var_mes", "3,9"], ["2040.0000", "anio_maximo", "2040.0000"]];
   const mal = casos.filter(([v, c, e]) => cifraAR(v, c) !== e);
   ok(!mal.length, `Workers AI: las cifras como en la Argentina, redondeadas, sin tocar códigos, años ni textos (${mal.map(([v, c]) => `${v} → ${cifraAR(v, c)}`).join(", ")})`);
   // "¿qué provincia ... más?": la más alta y la más baja de cada columna, del último año y sin el total del país
@@ -302,7 +303,7 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   const ultGas = filasGas.map(f => f[0]).sort().at(-1);
   const topGas = filasGas.filter(f => f[0] === ultGas && f[1] !== "00").sort((a, b) => b[3] - a[3])[0];
   const uMas = iaMas.llamadas[0]?.opciones.messages[1].content || "";
-  ok(uMas.includes(`Sin contar el total del país, m3_usuario: la más alta es ${topGas[2]} (`), `Workers AI: con "más", la provincia más alta del último año (${topGas[2]}, ${ultGas})`);
+  ok(uMas.includes("Sin contar el total del país, la más alta y la más baja de cada columna:\n") && uMas.includes(`\nm3_usuario: la más alta es ${topGas[2]} (`), `Workers AI: con "más", la provincia más alta del último año (${topGas[2]}, ${ultGas})`);
   const iaProv = iaSimulada("ok");
   await silencio(() => consultaCF("¿Cuánto gas usa cada usuario en la Ciudad de Buenos Aires?", iaProv));
   ok(!iaProv.llamadas[0].opciones.messages[1].content.includes("Sin contar el total del país"), "Workers AI: sin \"más\" ni \"menos\", no suma los extremos");
@@ -385,6 +386,19 @@ if (existsSync(REAL)) {
     ok(u.includes(`las víctimas sumadas de ${a - 2} a ${a}`) && u.includes(`cada 100 mil habitantes en ${a}`),
        `el motor gratis dice los años de cada columna de homicidios (${a - 2} a ${a})`);
   }
+  // lo que recibe el modelo con el índice armado
+  const recibe = async pregunta => {
+    const iaR = iaSimulada("ok"), espera = [];
+    await silencio(async () => eventos(await responder(pedir({pregunta}), {env: {}, leer: leerDe({...d, motor: "cloudflare"}), ia: iaR, esperar: x => espera.push(x)})));
+    await Promise.all(espera);
+    return iaR.llamadas[0]?.opciones.messages[1].content || "";
+  };
+  // la tabla de un artículo sin fuente en el índice lleva la suya (el modelo inventó "la Encuesta Permanente de Hogares de Datina")
+  const uEph = await recibe("¿Cuál es la desocupación en Tucumán?");
+  ok(uEph.includes("las capitales con más desocupación") && uEph.includes("Fuente: INDEC, Encuesta Permanente de Hogares."), "la tabla de las capitales de la EPH lleva su fuente");
+  // los rangos de la línea de las columnas, redondeados como las cifras (el modelo copió "31683,84 millones" del rango)
+  const colsExp = ((await recibe("¿Qué provincia exporta más?")).match(/^Columnas: .*$/m) || [""])[0];
+  ok(colsExp.includes("millones_usd") && !/\d{3},\d/.test(colsExp), `los rangos de las columnas, redondeados (${colsExp.slice(0, 120)})`);
   console.log(`Índice armado: ${d.tablas.length} tablas, ${idx.texto.length} caracteres en las instrucciones, motor ${d.motor}.`);
 } else {
   console.log("Sin sitio/datos/consulta_ia.json (consulta_ia apagado): el índice armado no se revisó.");

@@ -380,9 +380,12 @@ async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   const aviso = filas.length < total ? `\nSe muestran ${filas.length} filas de las ${total} que cumplen la consulta.` : "";
   // sin el nombre del archivo, que el modelo copiaba en la respuesta ("según la tabla inflacion_mensual"), y con qué es cada columna
   // cuando el nombre no alcanza
-  // (en la línea de las columnas, los rangos también sin punto de miles, como las cifras)
+  // (en la línea de las columnas, los rangos también sin punto de miles y redondeados, como las cifras: el modelo copiaba "31683,84
+  // millones" del rango). Las tablas de los artículos que no traen fuente llevan la suya, o la de la ficha: el modelo inventaba "la
+  // Encuesta Permanente de Hogares de Datina"
   const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha")
-    .replace(/^Columnas: .*$/m, l => l.replace(/(\d)\.(?=\d{3}(?!\d))/g, "$1")) +
+    .replace(/^Columnas: .*$/m, l => l.replace(/(\d)\.(?=\d{3}(?!\d))/g, "$1").replace(/(-?\d+),(\d+)/g, (x, e, d) => cifraAR(`${e}.${d}`, "valor"))) +
+    (info.fuente ? "" : `\nFuente: ${FUENTES_CF[info.tabla] || "la que figura en la ficha de Datina"}.`) +
     (glosa && !/NaN/.test(glosa) ? `\nQué es cada columna: ${glosa}.` : "");
   const cab = campos(recientes.cab);
   const tabla = [cab.join(" | "), ...filas.map(l => campos(l).map((v, i) => cifraAR(v, cab[i] || "")).join(" | "))].join("\n");
@@ -408,8 +411,12 @@ function extremosCF(cab, lineas) {
     if (v.length < 5) return "";
     return `${c}: la más alta es ${v[0][ter]} (${cifraAR(v[0][i], c)}) y la más baja, ${v.at(-1)[ter]} (${cifraAR(v.at(-1)[i], c)})`;
   }).filter(Boolean).slice(0, 8);
-  return notas.length ? `\nSin contar el total del país, ${notas.join(". ")}.` : "";
+  // una columna por renglón: en un solo párrafo, el modelo dio la más alta de una columna como la de otra (exportaciones por habitante)
+  return notas.length ? `\nSin contar el total del país, la más alta y la más baja de cada columna:\n${notas.join(".\n")}.` : "";
 }
+
+// la fuente de las tablas de los artículos que no la traen en el índice (la dice el texto del artículo)
+const FUENTES_CF = {capitales: "INDEC, Censo 2022, por municipio", capitales_eph: "INDEC, Encuesta Permanente de Hogares"};
 
 // columnas cuyo nombre no alcanza para saber qué miden (con homicidios, el modelo llamó tasa a las víctimas de tres años), con los años
 // de la tabla (a, el último, e i, el primero, salen de "Qué mide": el modelo escribía "el último año" sin nombrarlo)
@@ -433,7 +440,8 @@ const COLUMNAS_CF = {
 // pesos"): sin decimales desde 100, uno desde 1 y dos por debajo. Sin punto de miles: con "2.220" la respuesta dijo 2,22 (quizás no el
 // modelo sino el corte de textoCF, que perdía los ceros de la derecha). El punto de miles lo pone la página (scripts/consulta_ia.js), porque el modelo perdía cifras al ponerlo. Los enteros, los códigos, los años y los períodos quedan como están
 // ("t" es el tiempo como número decimal, 2025,5 para el segundo semestre de 2025)
-const NO_ES_CIFRA = /codigo|anio|año|periodo|fecha|mes|eleccion|trimestre|semestre|^t$/i;
+// (el nombre entero: con "semestre" en cualquier lugar, "millones_usd_1er_semestre_2026" quedaba sin redondear)
+const NO_ES_CIFRA = /^(?:codigo\w*|anio(?:_\w+)?|año|periodo(?:_\w+)?|fecha\w*|mes(?:_indice)?|eleccion|trimestre|semestre|t)$/i;
 export function cifraAR(v, col) {
   if (NO_ES_CIFRA.test(col) || !/^-?\d+\.\d+$/.test(v)) return v;
   const n = +v, a = Math.abs(n), dec = a >= 100 || Number.isInteger(n) ? 0 : a >= 1 ? 1 : 2, f = 10 ** dec;

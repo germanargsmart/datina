@@ -40,11 +40,13 @@
   // el punto de miles en las cifras de cinco o más cifras: el motor gratis le da al modelo las cifras sin puntos (con puntos, Workers AI
   // perdía los ceros de la derecha), y el modelo a veces las copia así. Las de cuatro quedan como vienen, como acepta la RAE: pueden ser años
   const miles = t => t.replace(/(?<![\d.,])\d{5,}(?!\d|\.\d)/g, n => n.replace(/\B(?=(\d{3})+$)/g, "."));
+  // "e" solo delante del sonido de la i, como yE() de datina.js: el modelo gratis escribió "en Neuquén e 0,17 en Jujuy"
+  const yE = t => t.replace(/ e (?![iíIÍ]|h[iíIÍ](?![aeoáéó])|[yY](?![aeiouáéíóú]))/g, " y ");
   const pintar = () => {
     pendiente = false;
     // sin marcas de formato: el modelo escribe párrafos, y si se le escapa un ** no se muestra
     // y sin espacios repetidos (el modelo gratis a veces deja dos alrededor de un número)
-    const parrafos = miles(escrito.replace(/\*\*/g, "").replace(/[ \t]{2,}/g, " ")).split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
+    const parrafos = yE(miles(escrito.replace(/\*\*/g, "").replace(/[ \t]{2,}/g, " "))).split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
     const hay = texto.children;
     while (hay.length > parrafos.length) hay[hay.length - 1].remove();
     parrafos.forEach((p, i) => {

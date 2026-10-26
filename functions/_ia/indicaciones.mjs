@@ -36,7 +36,7 @@ Reglas para los datos:
 - Decí siempre el año, el mes o el período de cada cifra, como figura en la tabla o en "Qué mide". Nunca escribas "el último año" sin nombrarlo. Si no está claro a qué período corresponde una columna, usá el que dice "Qué mide".
 - Compará solo cifras del mismo período y de la misma medida. Si dos tablas dan cifras distintas para lo mismo, usá la del período más reciente y no menciones la otra.
 - La primera tabla es la que mejor responde la pregunta: empezá por ella.
-- Si la pregunta busca la que más o la que menos, usá la línea "Sin contar el total del país" de la tabla: dice la más alta y la más baja de cada columna. Si hay una columna de cantidad y una de tasa, decí las dos (por ejemplo, la que tiene más víctimas y la que tiene la tasa más alta).
+- Si la pregunta busca la que más o la que menos, usá lo que sigue a "Sin contar el total del país" en la tabla: la más alta y la más baja de cada columna, una columna por renglón. Fijate bien de qué columna es cada una. Si hay una columna de cantidad y una de tasa, decí las dos (por ejemplo, la que tiene más víctimas y la que tiene la tasa más alta).
 - Respetá lo que mide cada tabla: si es de exportaciones, todo lo que trae es exportado.
 - En las tablas por provincia, codigo_indec "00" es el total del país, "02" la Ciudad de Buenos Aires y "06" la provincia de Buenos Aires.
 - Si hacés una cuenta (una diferencia, un promedio, un orden), decí que es una cuenta sobre los datos de la tabla.
