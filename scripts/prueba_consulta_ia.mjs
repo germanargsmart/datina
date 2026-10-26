@@ -371,6 +371,9 @@ if (existsSync(REAL)) {
     const el = elegirTablas(q, idx);
     ok(el.tablas.length && esperada.test(el.tablas.map(t => t.tabla).join(" ")), `el motor gratis elige tablas que sirven para «${q}» (${el.tablas.map(t => t.tabla).join(", ")})`);
   }
+  // la población de la provincia primero (el 26 de octubre de 2026, "¿Cuántos habitantes tiene Córdoba?" dio la de la ciudad capital)
+  const elPob = elegirTablas("¿Cuántos habitantes tiene Córdoba?", idx);
+  ok(elPob.tablas[0]?.tabla === "poblacion_proyectada_provincias", `con "habitantes", primero la población de cada provincia (${elPob.tablas.map(t => t.tabla).join(", ")})`);
   // los años de cada columna de homicidios, que salen de "Qué mide" (el 26 de octubre de 2026 el modelo escribía "el último año")
   const hom = d.tablas.find(t => t.tabla === "homicidios_provincias");
   if (hom) {

@@ -322,7 +322,9 @@ const raiz = w => w.length > 5 ? w.slice(0, w.length - 2) : w;
 const TABLA_PRINCIPAL = {inflacion: "inflacion_mensual", precios: "inflacion_mensual", salario: "salarios_provincias", sueldo: "salarios_provincias",
   gana: "salarios_provincias", pobreza: "pobreza_serie", indigencia: "pobreza_serie", nafta: "combustibles_provincias", petroleo: "hidrocarburos_provincias",
   glaciares: "glaciares_provincias", turistas: "turistas_no_residentes_anual", homicidios: "homicidios_provincias", exporta: "exportaciones_provincias",
-  exportaciones: "exportaciones_provincias", empleo: "empleo_provincias", reservas: "reservas_bcra", deuda: "deuda_pbi"};
+  exportaciones: "exportaciones_provincias", empleo: "empleo_provincias", reservas: "reservas_bcra", deuda: "deuda_pbi",
+  // "¿cuántos habitantes tiene Córdoba?" elegía la tabla de las capitales (viviendas por habitante) y daba la población de la ciudad
+  habitantes: "poblacion_proyectada_provincias", poblacion: "poblacion_proyectada_provincias"};
 
 export function elegirTablas(pregunta, indice) {
   let q = ` ${normal(pregunta).replace(/[^a-z0-9]+/g, " ").trim()} `, prov = "";
@@ -356,6 +358,8 @@ async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   const cp = COLS_PERIODO.some(c => cols.has(c));
   const ultimo = (String(info.periodo || "").match(/(\d{4})\D*$/) || [])[1];
   const anioFinal = ultimo || (String(info.descripcion || "").match(/(\d{4})\D*$/) || [])[1];
+  const anioInicio = (String(info.periodo || info.descripcion || "").match(/\d{4}/) || [])[0];
+  const glosa = COLUMNAS_CF[info.tabla]?.(+anioFinal, +anioInicio);
   const filtros = prov && cols.has("codigo_indec") ? [{columna: "codigo_indec", valores: [prov, "00"]}] : [];
   const partes = async (desde, hasta) => {
     const r = await leerTabla({tabla: info.tabla, columnas: [], filtros, desde, hasta}, indice, leer);
@@ -379,7 +383,7 @@ async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   // (en la línea de las columnas, los rangos también sin punto de miles, como las cifras)
   const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha")
     .replace(/^Columnas: .*$/m, l => l.replace(/(\d)\.(?=\d{3}(?!\d))/g, "$1")) +
-    (COLUMNAS_CF[info.tabla] && anioFinal ? `\nQué es cada columna: ${COLUMNAS_CF[info.tabla](+anioFinal)}.` : "");
+    (glosa && !/NaN/.test(glosa) ? `\nQué es cada columna: ${glosa}.` : "");
   const cab = campos(recientes.cab);
   const tabla = [cab.join(" | "), ...filas.map(l => campos(l).map((v, i) => cifraAR(v, cab[i] || "")).join(" | "))].join("\n");
   return {texto: `${meta}${aviso}${extremos ? extremosCF(cab, filas) : ""}\n\n${tabla}`, info: recientes.info};
@@ -408,8 +412,18 @@ function extremosCF(cab, lineas) {
 }
 
 // columnas cuyo nombre no alcanza para saber qué miden (con homicidios, el modelo llamó tasa a las víctimas de tres años), con los años
-// de la tabla (a, el último, sale de "Qué mide": el modelo escribía "el último año" sin nombrarlo)
+// de la tabla (a, el último, e i, el primero, salen de "Qué mide": el modelo escribía "el último año" sin nombrarlo)
 const COLUMNAS_CF = {
+  poblacion_proyectada_provincias: (a, i) => `personas_hoy, la población proyectada por el INDEC para ${i}, la de este año. personas_${a}, la ` +
+    `proyectada para ${a}. var_personas y var_pct, cuánto cambia de ${i} a ${a}, en personas y en porcentaje. anio_maximo, el año en que la ` +
+    `población proyectada llega a su máximo`,
+  // las dos tablas de las capitales no traen "Qué mide": el modelo dio la población de la ciudad de Córdoba como la de la provincia
+  capitales: () => "territorio, la ciudad capital de la provincia (su municipio, y en la Ciudad de Buenos Aires sus 15 comunas), no la provincia " +
+    "entera. poblacion y viviendas, las de esa ciudad en el Censo 2022",
+  capitales_eph: () => "territorio, el aglomerado urbano de la capital de la provincia que mide la Encuesta Permanente de Hogares (como Gran La " +
+    "Plata), no la provincia entera. aglomerado, su código. pobreza e indigencia, porcentaje de personas. desocupacion y empleo, tasas en " +
+    "porcentaje, promedio de los últimos cuatro trimestres. alquila, porcentaje de hogares inquilinos. cv_pobreza y cv_indigencia, el " +
+    "coeficiente de variación de esas estimaciones",
   homicidios_provincias: a => `victimas_3, las víctimas sumadas de ${a - 2} a ${a}. tasa_3, víctimas por año cada 100 mil habitantes, en ` +
     `promedio de ${a - 2} a ${a}. victimas, las víctimas de ${a}. tasa, víctimas cada 100 mil habitantes en ${a}. pct_varones, porcentaje de ` +
     `varones entre las víctimas de ${a}`,
