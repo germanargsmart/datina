@@ -25,7 +25,10 @@ export const MODELO = "claude-opus-5-5";
 // cada vuelta (contando lo que piensa), filas y caracteres que recibe de cada tabla
 export const TOPES = {pregunta: 400, vueltas: 6, tokens: 8000, filas: 300, caracteres: 30000};
 const SIN_SUICIDIO = /suicid|autoinflig|autolesi/i;
-const COLS_PERIODO = ["periodo", "fecha", "mes", "anio", "año", "eleccion"];
+// la columna de período de cada tabla, la primera que tenga (el año antes que el mes: en algunas tablas "mes" es el número del mes)
+const COLS_PERIODO = ["periodo", "fecha", "anio", "año", "mes", "eleccion"];
+// los semestres ("1S2026") se comparan como "2026-S1", así entran en el orden de los años (26 de octubre de 2026)
+const clavePeriodo = v => { const m = /^(\d)([ST])(\d{4})$/i.exec(v); return m ? `${m[3]}-${m[2].toUpperCase()}${m[1]}` : v; };
 const COBERTURA = {"Las 24 jurisdicciones y el total del país": "provincias y país", "Las 24 jurisdicciones": "provincias",
                    "Total del país": "país", "Sin desglose territorial": "sin provincias"};
 const NO_ACTIVA = "Las consultas con IA no están activadas.";
@@ -115,8 +118,11 @@ export async function leerTabla(entrada, indice, leer) {
   const conPeriodo = !!(entrada.desde.trim() || entrada.hasta.trim());
   // el prefiltro también por período cuando es un año (26 de octubre de 2026): las líneas que no nombran ningún año del rango no se
   // separan en campos, que es lo que gasta procesador. El filtro de período de abajo sigue decidiendo
+  // (no en las tablas cuyo período es solo el número del mes, que no nombran años)
   const a0 = +(entrada.desde.trim().match(/^\d{4}/) || [0])[0], a1 = +(entrada.hasta.trim().match(/^\d{4}/) || [new Date().getFullYear() + 1])[0];
-  if (a0 && a1 >= a0 && a1 - a0 < 30) previos.push(new RegExp(Array.from({length: a1 - a0 + 1}, (_, i) => a0 + i).join("|")));
+  const colsInfo = info.columnas.map(c => c[0]);
+  if (a0 && a1 >= a0 && a1 - a0 < 30 && COLS_PERIODO.find(c => colsInfo.includes(c)) !== "mes")
+    previos.push(new RegExp(Array.from({length: a1 - a0 + 1}, (_, i) => a0 + i).join("|")));
   const leida = filasCSV(await r.text(), l => previos.every(x => x.test(l)), filtros.length || conPeriodo ? Infinity : TOPES.filas);
   const cab0 = leida.cab;
   // nunca una columna ni una fila sobre suicidio (en las tablas de muertes violentas y de la comparación con la OCDE)
@@ -135,9 +141,10 @@ export async function leerTabla(entrada, indice, leer) {
   if (conPeriodo) {
     const cp = COLS_PERIODO.map(pos).find(i => i >= 0);
     if (cp === undefined) avisos.push("Esta tabla no tiene una columna de período: no se aplicaron desde ni hasta.");
+    else if (!filas.some(x => /^\d{4}/.test(clavePeriodo(x[cp] ?? "")))) avisos.push("La columna de período de esta tabla no trae años: no se aplicaron desde ni hasta.");
     else {
       const d = entrada.desde.trim(), h = entrada.hasta.trim();
-      filas = filas.filter(x => /^\d{4}/.test(x[cp]) && (!d || x[cp] >= d) && (!h || x[cp] <= h + "\uffff"));
+      filas = filas.filter(x => { const k = clavePeriodo(x[cp] ?? ""); return /^\d{4}/.test(k) && (!d || k >= d) && (!h || k <= h + "\uffff"); });
     }
   }
   // sin filtros, las filas que no se separaron también cuentan
@@ -424,7 +431,8 @@ async function conversarCF({pregunta, indice, ia, modelo, leer, enviar, corte}) 
       if (!i || tablas[i - 1].titulo !== info.titulo) enviar({t: "paso", texto: `Leyendo «${info.titulo}»…`});
       const m = await muestraCF(info, prov, anio, indice, leer);
       if (!m) continue;
-      bloques.push(`### Tabla ${bloques.length + 1}\n${m.texto}`);
+      // sin número: el modelo citaba "la tabla 1"
+      bloques.push(`---\n${m.texto}`);
       consultadas.push({titulo: m.info.titulo, url: m.info.url, tabla: m.info.tabla});
     }
     n = consultadas.length;

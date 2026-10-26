@@ -323,6 +323,19 @@ const consultaCF = async (pregunta, ia, env = {}) => {
   ok(conClave.texto === "ok" && iaFuera.llamadas.length === 0, "con el índice sin motor, sigue contestando Claude");
 }
 
+// períodos que no empiezan con el año (26 de octubre de 2026): los semestres de la pobreza y el número de mes de la estacionalidad
+{
+  const idx = await cargarIndice(leerDe({actualizado: "26/10/2026", tablas: [
+    fila("pobreza_serie", "¿Cuántas personas viven bajo la línea de pobreza?", "pobreza.html#f-pobreza", "Total del país", "2S2016 a 1S2026"),
+    fila("energia_estacionalidad", "¿En qué meses se usa más electricidad?", "energia.html#f-meses", "Total del país", "")]}));
+  const base = {columnas: [], filtros: []};
+  const po = await leerTabla({...base, tabla: "pobreza_serie", desde: "2025", hasta: ""}, idx, leerDe(null));
+  const filasPo = po.texto?.split("\n\n").at(-1).split("\n").slice(1) || [];
+  ok(filasPo.length >= 2 && filasPo.every(l => /^[12]S202[56],/.test(l)), `los semestres ("1S2026") se filtran por año (${filasPo.join(" / ")})`);
+  const es = await leerTabla({...base, tabla: "energia_estacionalidad", desde: "2025", hasta: ""}, idx, leerDe(null));
+  ok(es.texto && /no trae años/.test(es.texto) && es.texto.split("\n\n").at(-1).split("\n").length > 2, "una tabla con el número de mes no queda vacía al pedir un período");
+}
+
 // ---------- 7. el índice armado, si está ----------
 const REAL = join(DATOS, "consulta_ia.json");
 if (existsSync(REAL)) {
