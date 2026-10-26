@@ -355,6 +355,7 @@ async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   const cols = new Set(info.columnas.map(c => c[0]));
   const cp = COLS_PERIODO.some(c => cols.has(c));
   const ultimo = (String(info.periodo || "").match(/(\d{4})\D*$/) || [])[1];
+  const anioFinal = ultimo || (String(info.descripcion || "").match(/(\d{4})\D*$/) || [])[1];
   const filtros = prov && cols.has("codigo_indec") ? [{columna: "codigo_indec", valores: [prov, "00"]}] : [];
   const partes = async (desde, hasta) => {
     const r = await leerTabla({tabla: info.tabla, columnas: [], filtros, desde, hasta}, indice, leer);
@@ -378,7 +379,7 @@ async function muestraCF(info, prov, anio, indice, leer, extremos = false) {
   // (en la línea de las columnas, los rangos también sin punto de miles, como las cifras)
   const meta = recientes.meta.replace(/^Tabla \S+\.csv, de la ficha/, "Datos de la ficha")
     .replace(/^Columnas: .*$/m, l => l.replace(/(\d)\.(?=\d{3}(?!\d))/g, "$1")) +
-    (COLUMNAS_CF[info.tabla] ? `\nQué es cada columna: ${COLUMNAS_CF[info.tabla]}.` : "");
+    (COLUMNAS_CF[info.tabla] && anioFinal ? `\nQué es cada columna: ${COLUMNAS_CF[info.tabla](+anioFinal)}.` : "");
   const cab = campos(recientes.cab);
   const tabla = [cab.join(" | "), ...filas.map(l => campos(l).map((v, i) => cifraAR(v, cab[i] || "")).join(" | "))].join("\n");
   return {texto: `${meta}${aviso}${extremos ? extremosCF(cab, filas) : ""}\n\n${tabla}`, info: recientes.info};
@@ -406,11 +407,12 @@ function extremosCF(cab, lineas) {
   return notas.length ? `\nSin contar el total del país, ${notas.join(". ")}.` : "";
 }
 
-// columnas cuyo nombre no alcanza para saber qué miden (con homicidios, el modelo llamó tasa a las víctimas de tres años)
+// columnas cuyo nombre no alcanza para saber qué miden (con homicidios, el modelo llamó tasa a las víctimas de tres años), con los años
+// de la tabla (a, el último, sale de "Qué mide": el modelo escribía "el último año" sin nombrarlo)
 const COLUMNAS_CF = {
-  homicidios_provincias: "victimas_3, las víctimas sumadas de los tres últimos años de la tabla. tasa_3, víctimas por año cada 100 mil habitantes en " +
-    "esos tres años. victimas, las víctimas del último año. tasa, víctimas cada 100 mil habitantes en el último año. pct_varones, porcentaje de " +
-    "varones entre las víctimas",
+  homicidios_provincias: a => `victimas_3, las víctimas sumadas de ${a - 2} a ${a}. tasa_3, víctimas por año cada 100 mil habitantes, en ` +
+    `promedio de ${a - 2} a ${a}. victimas, las víctimas de ${a}. tasa, víctimas cada 100 mil habitantes en ${a}. pct_varones, porcentaje de ` +
+    `varones entre las víctimas de ${a}`,
 };
 
 // las cifras redondeadas y con coma decimal, para que el modelo no tenga que convertirlas (el 26 de octubre de 2026 escribía "2073,78

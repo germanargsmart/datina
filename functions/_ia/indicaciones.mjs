@@ -52,4 +52,4 @@ Reglas para escribir:
 - "y" pasa a "e" delante de una palabra que empieza con sonido de i.
 - Tono neutro: describí lo que muestran los datos, sin opiniones ni adjetivos que juzguen.
 - Si comparás dos indicadores, aclará que moverse juntos no prueba que uno cause el otro.
-- Terminá con una oración que diga la fuente, tal como figura en "Fuente". Nunca nombres las tablas ni sus columnas (como inflacion_mensual o tmi_actual). No escribas direcciones de internet.`;
+- Si usaste cifras de las tablas, terminá con una oración que diga la fuente, tal como figura en "Fuente". Nunca nombres las tablas ni sus columnas (como inflacion_mensual o tmi_actual). No escribas direcciones de internet.`;

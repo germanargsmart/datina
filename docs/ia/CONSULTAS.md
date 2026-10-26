@@ -76,6 +76,11 @@ Es la opción B que eligió el autor el 26 de octubre de 2026. Cloudflare, que y
 **Cómo funciona.** Lo hace `conversarCF()` en `functions/_ia/consulta.mjs`.
 1. La función busca en el índice las tablas que más se parecen a la pregunta (`elegirTablas()`), como el buscador del sitio: por las palabras de la pregunta de cada ficha, de lo que mide, de sus columnas y de sus unidades. Reconoce las 24 jurisdicciones por su nombre y unos pocos sinónimos ("gana" es salario, "luz" es electricidad). Se queda con hasta 3 tablas.
 2. Lee cada tabla con `leerTabla()`, la misma lectura del motor de Claude, filtrada por la provincia nombrada y el país, y por los dos últimos años de la tabla (si la pregunta nombra un año, también ese). Le pasa al modelo las últimas 60 filas, como mucho, y hasta 6.000 caracteres por tabla.
+   - Las cifras van ya redondeadas, con coma decimal y sin punto de miles (`cifraAR()`): con el punto, el modelo leía 2.220 pesos como 2,22. Los códigos, los años y los períodos quedan como están.
+   - Sin el nombre del archivo ni la fecha de actualización del sitio, que el modelo copiaba en la respuesta o tomaba por el período del dato.
+   - Si la pregunta no nombra un año, la tabla principal del tema va primero (`TABLA_PRINCIPAL`: la inflación mensual antes que la de rubros, por ejemplo).
+   - Si la pregunta busca "más" o "menos", suma una línea con la más alta y la más baja de cada columna en el último período, sin el total del país: el modelo no ordena bien una tabla larga.
+   - Las columnas cuyo nombre no alcanza llevan qué mide cada una, con sus años (`COLUMNAS_CF`, por ahora la de homicidios).
 3. Le manda al modelo, en una sola llamada, sus instrucciones (`INDICACIONES_CF` en `functions/_ia/indicaciones.mjs`, las mismas reglas de redacción del sitio, dichas más corto), la pregunta y esas tablas. El modelo no elige tablas: escribe la respuesta, que la página muestra a medida que llega, con las fichas consultadas.
 
 **El modelo.** `@cf/meta/llama-3.3-70b-instruct-fp8-fast` (Llama 3.3, de Meta, en Cloudflare). Con una variable de texto `DATINA_IA_MODELO_CF` en Cloudflare se puede elegir otro modelo de Workers AI (tiene que empezar con `@cf/`).
@@ -96,6 +101,7 @@ Es la opción B que eligió el autor el 26 de octubre de 2026. Cloudflare, que y
 
 **Límites.**
 - **Contesta peor que Claude.** Respeta menos las reglas de redacción y puede leer mal una tabla. Por eso las fichas van siempre al pie y la página avisa que puede equivocarse.
+- **Probado con el modelo real** el 26 de octubre de 2026, en la vista previa del PR que la prendió, con unas 25 preguntas en seis tandas. Al final contestaron bien la nafta (2.220 pesos por litro en Misiones), la inflación (33,4 por ciento interanual a septiembre de 2026), el salario de Neuquén (4.094.579 pesos en mayo de 2026), la pobreza (32,3 por ciento en el primer semestre de 2026), el petróleo, las exportaciones de Chubut, las cloacas de Formosa y la provincia con más homicidios. Sobre suicidio contesta el texto fijo y fuera de tema dice que solo responde sobre los datos. Lo que se corrigió en el camino: cifras cortadas o sin espacio, decimales de más, el nombre de las tablas en la respuesta, el semestre de la pobreza y los meses que no se leían, la tabla equivocada de la inflación, la provincia con más homicidios y la unidad de su tasa, el punto de miles y los espacios dobles. Todavía puede escribir una unidad o un período a medias: por eso conviene mirar la ficha del pie.
 - **Ve solo lo que eligió la función.** Si la búsqueda elige mal las tablas, el modelo no tiene los datos y debería decirlo. Las preguntas que cruzan más de tres tablas, o que necesitan una serie larga, salen mejor con Claude.
 - **Procesador.** Elegir y leer las tablas gasta entre 3 y 5 milisegundos en una pregunta común. La tabla más grande, la de votaciones de leyes, unos 11. El plan gratis da 10 por pedido (ver "Límites que hay que conocer").
 
@@ -135,12 +141,12 @@ Los cambios de variables y secretos de Cloudflare valen para las publicaciones s
 
 ## Cómo se prueba
 
-- `node scripts/prueba_consulta_ia.mjs`: 77 controles (y 9 más sobre el índice, si está armado) con la API de Anthropic y Workers AI simulados, sin clave y sin gastar. Controla:
+- `node scripts/prueba_consulta_ia.mjs`: 87 controles (y 10 más sobre el índice, si está armado) con la API de Anthropic y Workers AI simulados, sin clave y sin gastar. Controla:
   - lo que se le pide a la API: modelo, caché, respaldo y herramienta;
   - lo que recibe el modelo de cada tabla: filtros, topes, comillas y nada sobre suicidio;
   - lo que llega a la página;
   - los casos en que no contesta o contesta a medias: sin clave, sin índice, GET, otro sitio, pregunta vacía o larga, cuerpo de más de 8 KB, rechazo, API saturada, respuesta cortada por el tope de tokens y tope de vueltas;
-  - el motor gratis: qué recibe el modelo (la tabla que más se parece, solo el país y la provincia nombrada, los dos últimos años o el año pedido, nada sobre suicidio), los eventos partidos entre pedazos, la pregunta sobre suicidio que no llega al modelo, sin tablas, lo gratis del día terminado, Workers AI saturado, una respuesta vacía, otro modelo y sin la conexión `AI`. Con el índice armado, que elija tablas que sirven para tres preguntas comunes.
+  - el motor gratis: qué recibe el modelo (la tabla que más se parece, solo el país y la provincia nombrada, los dos últimos años o el año pedido, nada sobre suicidio), los eventos partidos entre pedazos, la pregunta sobre suicidio que no llega al modelo, sin tablas, lo gratis del día terminado, Workers AI saturado, una respuesta vacía, otro modelo y sin la conexión `AI`. Lo que corrigió la prueba con el modelo real: las cifras como en la Argentina, un número que llega pegado a una palabra, los períodos por semestre y los que son solo un mes, y la más alta y la más baja para "¿cuál tiene más?". Con el índice armado, que elija tablas que sirven para tres preguntas comunes y que diga los años de cada columna de homicidios.
 
   Si existe `sitio/datos/consulta_ia.json`, revisa también ese índice.
 - Con el interruptor prendido, el armado y la prueba de páginas (`node scripts/prueba_paginas.mjs`) incluyen la página nueva.

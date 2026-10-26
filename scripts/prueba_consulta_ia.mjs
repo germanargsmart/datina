@@ -366,6 +366,17 @@ if (existsSync(REAL)) {
     const el = elegirTablas(q, idx);
     ok(el.tablas.length && esperada.test(el.tablas.map(t => t.tabla).join(" ")), `el motor gratis elige tablas que sirven para «${q}» (${el.tablas.map(t => t.tabla).join(", ")})`);
   }
+  // los años de cada columna de homicidios, que salen de "Qué mide" (el 26 de octubre de 2026 el modelo escribía "el último año")
+  const hom = d.tablas.find(t => t.tabla === "homicidios_provincias");
+  if (hom) {
+    const iaHom = iaSimulada("ok"), espera = [];
+    await silencio(async () => eventos(await responder(pedir({pregunta: "¿Qué provincia tiene más homicidios?"}),
+      {env: {}, leer: leerDe({...d, motor: "cloudflare"}), ia: iaHom, esperar: x => espera.push(x)})));
+    await Promise.all(espera);
+    const a = +hom.descripcion.match(/(\d{4})\D*$/)[1], u = iaHom.llamadas[0]?.opciones.messages[1].content || "";
+    ok(u.includes(`las víctimas sumadas de ${a - 2} a ${a}`) && u.includes(`cada 100 mil habitantes en ${a}`),
+       `el motor gratis dice los años de cada columna de homicidios (${a - 2} a ${a})`);
+  }
   console.log(`Índice armado: ${d.tablas.length} tablas, ${idx.texto.length} caracteres en las instrucciones, motor ${d.motor}.`);
 } else {
   console.log("Sin sitio/datos/consulta_ia.json (consulta_ia apagado): el índice armado no se revisó.");
