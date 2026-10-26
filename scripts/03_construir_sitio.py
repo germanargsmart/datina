@@ -1034,7 +1034,9 @@ INDEXADAS = []
 
 
 def metadatos(id_, titulo_social, descripcion, tipo):
-    archivo = "" if id_ == "inicio" else f"{id_}.html"
+    # Cloudflare Pages sirve cada página sin el .html (trabajo.html redirige a /trabajo, docs/deploy/CLOUDFLARE.md): las direcciones
+    # absolutas (canonical, og:url, JSON-LD y sitemap.xml) van sin él, así los buscadores no pasan por la redirección
+    archivo = "" if id_ == "inicio" else id_
     m = [f'<meta property="og:site_name" content="Datina">', '<meta property="og:locale" content="es_AR">',
          f'<meta property="og:type" content="{tipo}">', f'<meta property="og:title" content="{e(titulo_social)}">',
          f'<meta property="og:description" content="{e(descripcion)}">', '<meta name="twitter:card" content="summary">',

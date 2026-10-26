@@ -66,7 +66,8 @@ def revisar(url_sitio=None):
             except ValueError:
                 problemas.append(f"{nombre}: JSON-LD que no se puede leer")
                 continue
-            for u in re.findall(r'"(https?://[^"]+)"', json.dumps(ld)):
+            # la licencia del Dataset de la portada es la página de Creative Commons: va afuera a propósito
+            for u in re.findall(r'"(https?://[^"]+)"', json.dumps({k: v for k, v in ld.items() if k != "license"})):
                 if not u.startswith("https://schema.org") and (not url_sitio or not u.startswith(url_sitio + "/")):
                     problemas.append(f"{nombre}: el JSON-LD apunta a {u}")
         if nombre.startswith("a-") and '"@type": "Article"' not in h:

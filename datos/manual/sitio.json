@@ -1,8 +1,8 @@
 {
-  "url": "",
+  "url": "https://datina.pages.dev",
   "formularios": "",
   "nota_formularios": "Quién recibe el formulario de Contacto y la suscripción del pie. Vacío (23 de octubre de 2026, decisión del autor al pasar a Cloudflare Pages, que no los recibe): el armado los saca y Contacto dice que el formulario todavía no está disponible. Con \"netlify\" vuelven como estaban, para Netlify Forms.",
-  "nota": "Dirección pública definitiva del sitio, con https y sin barra final (por ejemplo, https://datina.ar). Queda vacía hasta que el autor la decida. Mientras esté vacía, 03_construir_sitio.py no publica canonical absolutos, og:url, sitemap.xml, robots.txt ni el Dataset en JSON-LD, para no apuntar a un dominio inventado. Al completarla, el próximo armado los agrega solos.",
+  "nota": "Dirección pública definitiva del sitio, con https y sin barra final (por ejemplo, https://datina.ar). Desde el 26 de octubre de 2026, la de Cloudflare Pages, que eligió el autor al publicar el sitio: si se suma un dominio propio, va acá. Mientras esté vacía, 03_construir_sitio.py no publica canonical absolutos, og:url, sitemap.xml, robots.txt ni el Dataset en JSON-LD, para no apuntar a un dominio inventado. Al completarla, el próximo armado los agrega solos.",
   "consulta_ia": false,
   "nota_consulta_ia": "Las consultas con IA (docs/ia/CONSULTAS.md). Con true, el armado suma la página consulta-ia.html en Herramientas, su código y el índice de tablas que lee la función functions/api/consulta.js. Además hace falta el secreto ANTHROPIC_API_KEY en Cloudflare Pages, que pone el autor. Queda en false hasta que el autor las active."
 }

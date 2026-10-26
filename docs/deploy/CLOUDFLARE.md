@@ -8,7 +8,7 @@ Decisión del autor del 23 de octubre de 2026: el sitio se publica en Cloudflare
 - `sitio/_headers` (lo escribe `03_construir_sitio.py`): los archivos que las páginas piden con su huella (`?v=...`) se guardan un año en el navegador. Es el equivalente de los `[[headers]]` de `netlify.toml`, que queda en el repositorio sin uso.
 - `sitio/404.html`: Cloudflare la muestra sola en cualquier dirección que no existe.
 - Formularios: con `"formularios": ""` en `datos/manual/sitio.json`, el armado los saca. Con `"netlify"` vuelven (solo sirven en Netlify).
-- Sin dominio (`"url": ""` en `datos/manual/sitio.json`): no hay `sitemap.xml`, `robots.txt` ni enlaces canónicos absolutos. Se agregan solos en el armado siguiente a completar la dirección.
+- La dirección es `https://datina.pages.dev` (`"url"` en `datos/manual/sitio.json`, desde el 26 de octubre de 2026). Con ella el armado escribe `sitemap.xml`, `robots.txt` y las direcciones completas de cada página (canonical, `og:url` y JSON-LD), sin el `.html`, porque Cloudflare sirve cada página así (`/trabajo`). Con la dirección vacía no escribe ninguna de esas cosas.
 - `functions/` (25 de octubre de 2026): las consultas con IA, una función que Cloudflare publica sola con el sitio en `/api/consulta` (la encuentra en la raíz del repositorio, sin instalar nada: la biblioteca de Anthropic va empaquetada). Sin el secreto `ANTHROPIC_API_KEY` y sin `"consulta_ia": true` no hace nada. Cómo se activa: `docs/ia/CONSULTAS.md`. Es la única dirección que pasa por una función: el resto del sitio se sigue sirviendo como archivos, sin gastar el límite de pedidos de las funciones.
 
 ## Límite que hay que tener en cuenta
@@ -28,7 +28,9 @@ Cloudflare Pages no acepta archivos de más de 25 MiB ([límites de Cloudflare P
    - Build output directory: `sitio`.
    - Root directory: vacío.
    - Environment variables: `SKIP_DEPENDENCY_INSTALL` = `1`. Apaga la instalación automática de paquetes de Cloudflare, que no hace falta porque el sitio ya viene armado (sin la variable, puede intentar instalar lo de `requirements.txt` en cada publicación).
-5. "Save and Deploy". La primera publicación tarda unos minutos (sube unos 420 archivos). Desde ahí, cada cambio en `main` se publica solo, también la actualización mensual del día 5.
+5. "Save and Deploy". La primera publicación tarda unos minutos (sube unos 420 archivos). Desde ahí, cada cambio en `main` se publica solo, también la actualización mensual del día 5, y cada cambio nuevo en otra rama arma su vista previa (el enlace aparece en un comentario de Cloudflare en el PR).
+
+Hecho por el autor el 26 de octubre de 2026: `https://datina.pages.dev`. Cuidado: en el panel de Cloudflare, "Create" arma por defecto un Worker, no un proyecto Pages. El primer intento quedó como Worker y fallaba en cada cambio ("Workers Builds: datina" en rojo en el PR), porque un Worker necesita un archivo de configuración que este repositorio no tiene. El proyecto tiene que salir de la pestaña "Pages", y un Worker que haya quedado se borra en su "Settings".
 
 ## Verificar (después de cada publicación importante)
 
