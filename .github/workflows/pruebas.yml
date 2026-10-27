@@ -1,0 +1,49 @@
+# Pruebas en cada PR (plan de mejora, etapa 0, T1, 27 de octubre de 2026): arma el sitio sin descargar nada y corre las pruebas
+# antes de que el PR se una. Hasta entonces solo las corria la actualizacion del dia 5, y un PR podia romper el sitio sin que nadie
+# se enterara. No guarda ni publica nada: Cloudflare Pages publica la carpeta sitio/ tal como queda en main.
+name: Pruebas
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+# si se sube otro cambio al mismo PR mientras corre, se corta la corrida vieja y se prueba el cambio nuevo
+concurrency:
+  group: pruebas-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  pruebas:
+    # la misma maquina y las mismas versiones que la actualizacion mensual (actualizar.yml)
+    runs-on: ubuntu-24.04
+    # las pruebas tardan unos 10 minutos: si algo se cuelga, se corta a la media hora
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      # corre pruebas_datos.py, el catalogo, las relaciones y su validador, la copia del consultor de pobreza, los metadatos, los
+      # encabezados y la navegacion: si algo falla, el sitio no se arma y el PR queda en rojo
+      - run: python scripts/03_construir_sitio.py
+      # Cloudflare publica sitio/ tal como se subio: si el armado de recien cambia algun archivo, el PR trae cambios en scripts/ o en
+      # datos/manual/ sin el sitio vuelto a armar, y las pruebas de abajo revisarian algo distinto de lo que se publica. GitHub prueba
+      # el PR unido con main: si main cambio despues (la actualizacion del dia 5), hay que traer main a la rama y volver a armar
+      - name: El sitio subido es el que arman las fuentes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "El armado cambio estos archivos: falta correr python scripts/03_construir_sitio.py (despues de traer main, si cambio) y subir lo que cambie."
+            git status --short
+            exit 1
+          fi
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - name: Sintaxis de datina.js
+        run: node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"
+      # las pruebas de Chrome usan el que trae la maquina de GitHub: queda anotada su version por si un dia cambia y fallan
+      - name: Version de Chrome
+        run: google-chrome --version
+      - run: node scripts/prueba_paginas.mjs
+      - run: node scripts/prueba_fallas.mjs
+      - run: node scripts/prueba_consulta_ia.mjs

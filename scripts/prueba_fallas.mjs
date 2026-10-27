@@ -5,7 +5,8 @@
 // - un artículo que falla no corte la portada ni los otros artículos, y su página lo diga;
 // - "Ver tabla" vuelva a pedir la tabla después de una falla, y la comparación con la OCDE y el mapa de departamentos avisen si su archivo
 //   no llega y vuelvan a intentar.
-// No la corre la actualización mensual: se corre a mano después de tocar cómo se cargan los datos o se dibujan los gráficos en datina.js.
+// No la corre la actualización mensual. La corre cada PR (.github/workflows/pruebas.yml, desde el 27 de octubre de 2026), y conviene correrla
+// a mano antes de subir un cambio en cómo se cargan los datos o se dibujan los gráficos en datina.js.
 // Si dice "no está: ...", cambió el código que la prueba rompe a propósito: hay que actualizar ese texto acá.
 // Uso: node scripts/prueba_fallas.mjs   (Node 22 o más y Google Chrome. Otra ruta de Chrome: variable CHROME)
 import { createServer } from "node:http";

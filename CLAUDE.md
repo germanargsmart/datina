@@ -35,6 +35,7 @@ functions/                     consultas con IA: la función de Cloudflare Pages
 sitio/                         lo único que se publica (Cloudflare Pages, _headers). Nunca se edita a mano: sale de scripts/
 docs/roadmap/                  plan vigente, estado, decisiones, criterios de aceptación e inventario
 .github/workflows/actualizar.yml  actualización automática mensual (día 5): descarga, procesa, prueba, arma y publica
+.github/workflows/pruebas.yml     en cada PR: arma sin descargar y corre las pruebas (un PR en rojo no se une)
 ```
 
 ## Comandos
