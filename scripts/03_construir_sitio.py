@@ -187,7 +187,7 @@ FRECUENCIA = {
     "f-esperanza": "censo", "f-causas-muerte": "anio", "f-mortalidad": "anio", "f-causas-infantiles": "anio", "f-muertes": "anio", "f-suicidio": "anio",
     "f-suicidio-prov": "anio", "f-edad": "anio",
     # Seguridad
-    "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio",
+    "f-delitos": "anio", "f-robos": "anio", "f-homicidios": "anio", "f-carceles": "anio", "f-sin-condena": "anio",
     # Educación
     "f-escolarizacion": "anio", "f-aprender": "aprender", "f-pisa": "pisa", "f-salario-docente": "trimestre", "f-inversion-educativa": "anio",
     # Población

@@ -570,6 +570,17 @@ const LEAD = {
       `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000 habitantes. El ${pct(SG.sn_condenados)} tenía una condena. Las demás estaban procesadas, ` +
       `con la causa todavía en trámite, o en otra situación. No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`;
   },
+  // la parte sin condena (plan de mejora, etapa 4): cada servicio penitenciario provincial, o el país año por año
+  "sin-condena": v => {
+    if (v === "serie") return `En ${SG.sn_ini}, el ${pct(SG.sn_sin_ini)} de las personas privadas de libertad en las cárceles del país no tenía condena. ` +
+      `En ${SG.sn_anio} fue el ${pct(SG.sn_sin)}${SG.sn_sin < 50 ? ", así que la mayoría tenía condena" : ""}. ` +
+      `En el Servicio Penitenciario Federal, el ${pct(SG.sn_sin_spf)}.`;
+    return `Al 31 de diciembre de ${SG.sn_anio}, ` + (SG.sn_sin_mitad ? `en ${SG.sn_sin_mitad} de los ${SG.sn_n_prov} servicios penitenciarios provinciales más de la mitad de las personas presas no tenía condena. `
+      : `en ninguno de los ${SG.sn_n_prov} servicios penitenciarios provinciales más de la mitad de las personas presas estaba sin condena. `) +
+      `La parte más alta fue la de ${SG.sn_sin_top[0]}, el ${pct(SG.sn_sin_top[1])}, y la más baja, la de ${SG.sn_sin_bajo[0]}, el ${pct(SG.sn_sin_bajo[1])}. ` +
+      `En el Servicio Penitenciario Federal, que va aparte, el ${pct(SG.sn_sin_spf)}. La parte depende también de dónde aloja cada provincia a las personas procesadas: ` +
+      `las que esperan juicio en una comisaría no se cuentan, así que una parte baja no quiere decir por sí sola que haya menos personas presas sin condena.`;
+  },
   // ---- gobierno (etapa 25)
   "cuentas-nacion": v => {
     if (v === "gasto") return `En ${GBN.anio}, el ${pct(GBN.gasto_tipos[0][1])} del gasto primario de la Nación, el que no cuenta los intereses de la deuda, ` +
@@ -1366,6 +1377,10 @@ const TX = {
   homicidios: LEAD.homicidios("prov"), "homicidios-nota": `Víctimas de homicidios dolosos que registran las fuerzas policiales y de seguridad. Un homicidio es doloso cuando alguien le quita la vida a otra persona con intención de hacerlo. ` +
     `Por provincia, la tasa suma las víctimas de ${SG.hom3_desde} a ${SG.anio} y las divide por la población del INDEC de esos años, porque donde hay ` +
     `pocos casos la tasa de un solo año cambia mucho. Las muertes en siniestros viales y los femicidios están en la ficha de muertes de Salud.`,
+  "sin-condena": LEAD["sin-condena"]("prov"),
+  "sin-condena-nota": `Sin condena quiere decir que la persona estaba procesada, con la causa todavía en trámite, o en otra situación legal. ` +
+    `Cada provincia es su servicio penitenciario: CABA no tiene uno propio y el Servicio Penitenciario Federal va aparte. La línea del país suma todos, también el federal. ` +
+    `No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`,
   carceles: LEAD.carceles("serie"), "carceles-nota": `Censo de las personas alojadas en establecimientos penitenciarios al 31 de diciembre de cada año. No incluye a las ` +
     `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia: ` +
     `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
@@ -2740,7 +2755,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3140,6 +3155,19 @@ Object.assign(DIB, {
     }
     $t("carceles").textContent = txt;
     lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "tasa", lab: "Todo el país", c: NAR}]});
+  },
+  // la parte sin condena (plan de mejora, etapa 4): cada servicio penitenciario provincial con la línea del país, o el país año por año
+  "sin-condena": a => {
+    const el = G("sin-condena"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["sin-condena"](MED["sin-condena"]);
+    if (MED["sin-condena"] === "prov") {
+      if (fp) txt += ` En ${fp.territorio}, el ${pct(fp.pct_sin_condena)}: ${n0(fp.personas - fp.condenados)} de ${n0(fp.personas)} personas.`;
+      $t("sin-condena").textContent = txt;
+      return barrasH(el, {anim: a, data: T.carceles_provincias, k: "pct_sin_condena", vf: pct, af: v => n0(v) + "%", ref: SG.sn_sin, refLab: `País ${pct(SG.sn_sin)}`,
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_sin_condena)} sin condena al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.personas - d.condenados)} de ${n0(d.personas)} personas en el servicio penitenciario provincial`});
+    }
+    $t("sin-condena").textContent = txt;
+    lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", series: [{k: "pct_sin_condena", lab: "Todo el país", c: NAR}]});
   },
   // inflación (etapa 25): en doce meses o mes a mes, el país y la región de la provincia elegida, o las seis regiones en el último mes
   inflacion: conTablas("inflacion", () => MED.inflacion === "region" ? [] : ["inflacion_mensual"], a => {
@@ -6135,6 +6163,8 @@ const CLAVE = {
   "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`, `delitos cada 100.000 habitantes en ${SG.anio}`],
   "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`, `robos cada 100.000 habitantes en el país en ${SG.anio}`],
   "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`, `víctimas cada 100.000 habitantes en el país en ${SG.anio}`],
+  "f-sin-condena": [pct(SG.sn_sin), `de las personas privadas de libertad en las cárceles del país no tenía condena al 31 de diciembre de ${SG.sn_anio}`,
+    `sin condena en el país al 31 de diciembre de ${SG.sn_anio}`],
   "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`,
     `personas cada 100.000 habitantes en el país al 31 de diciembre de ${SG.sn_anio}`],
   "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`,
@@ -7210,6 +7240,8 @@ const PREG = [
    `${n0(ECB.cbt_hogar)} pesos por mes en ${ECB.mes} para un hogar de cuatro integrantes del Gran Buenos Aires, según la canasta básica total del INDEC.`, "#f-canastas"],
   ["¿Le ganan los salarios registrados a la inflación?",
    `En los doce meses hasta ${ESR.mes}, descontada la inflación, el salario registrado del sector privado ${cambioPct(ESR.real_priv)} y el del sector público ${cambioPct(ESR.real_pub)}.`, "#f-salario-real"],
+  ["¿Qué parte de las personas presas no tiene condena?",
+   `Al 31 de diciembre de ${SG.sn_anio}, el ${pct(SG.sn_sin)} de las personas en cárceles no tenía condena. En ${SG.sn_ini}, el ${pct(SG.sn_sin_ini)}.`, "#f-sin-condena"],
   ["¿Cuántas personas están presas?",
    `Al 31 de diciembre de ${SG.sn_anio}, ${n0(SG.sn_personas)} personas en cárceles, ${n0(SG.sn_tasa)} cada 100.000 habitantes. En ${SG.sn_ini}, ${n0(SG.sn_personas_ini)}.`, "#f-carceles"],
   ["¿Qué parte de la electricidad usan las industrias y los grandes comercios?",
@@ -8246,7 +8278,7 @@ if (PAGINA !== "inicio") {
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
     "f-censo": ["cloacas", "agua red"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
-    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"],
+    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-salario-docente": ["maestro", "maestros", "docente", "docentes", "salario docente", "sueldo docente", "salario maestro", "sueldo maestro"], "f-patentes": ["patentes", "autos"], "f-sube": ["sube"]
   }).flatMap(([id, ks]) => ks.map(k => [k.split(" "), id]));
   const respuesta = (texto, hall) => {

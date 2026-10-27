@@ -3207,6 +3207,34 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:sneep_poblacion.csv",
+   "a": "f-sin-condena",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_sn = pd.read_csv(CRUDO / \"sneep_poblacion.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"carceles_serie\": carceles_serie,"
+    }
+   ],
+   "tabla": "carceles_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:sneep_condenados.csv",
+   "a": "f-sin-condena",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_snc = pd.read_csv(CRUDO / \"sneep_condenados.csv\""
+    }
+   ],
+   "tabla": "carceles_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:educ_escolarizacion.zip",
    "a": "f-escolarizacion",
    "evidencia": [

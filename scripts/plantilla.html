@@ -794,6 +794,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población</span><a href="datos/carceles_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <article class="ficha" id="f-sin-condena">
+      <h2>¿Qué parte de las personas presas no tiene condena?</h2>
+      <p class="ficha-sub">Personas privadas de libertad sin condena, en % del total de cada servicio penitenciario, al 31 de diciembre de cada año, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="sin-condena">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Todo el país</button>
+      </div>
+      <div class="grafico" data-g="sin-condena" data-forma="barras"></div>
+      <p class="lead" data-t="sin-condena"></p>
+      <p class="nota" data-t="sin-condena-nota"></p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia</span><a href="datos/carceles_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
   </section>
 
   <section class="tema con-pregunta" id="educacion">

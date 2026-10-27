@@ -4822,6 +4822,10 @@ carceles_provincias["tasa"] = carceles_provincias.personas / carceles_provincias
 carceles_provincias["pct_condenados"] = carceles_provincias.condenados / carceles_provincias.personas * 100
 carceles_provincias["territorio"] = carceles_provincias.codigo_indec.map(CORTO)
 carceles_provincias = carceles_provincias.round(4).sort_values("tasa", ascending=False)
+# la parte sin condena (plan de mejora, etapa 4): las personas procesadas, con la causa en trámite, o en otra situación legal
+carceles_serie["pct_sin_condena"] = (100 - carceles_serie.pct_condenados).round(4)
+carceles_provincias["pct_sin_condena"] = (100 - carceles_provincias.pct_condenados).round(4)
+_sn_sin = carceles_provincias.sort_values("pct_sin_condena", ascending=False)
 _seg_s = delitos_serie.set_index("anio")
 _seg_hom = homicidios_provincias[homicidios_provincias.codigo_indec != "00"]
 _seg_rob = robos_provincias[robos_provincias.codigo_indec != "00"]
@@ -4847,6 +4851,12 @@ SEG_RES = {
     "sn_personas_ini": int(_seg_cs.personas[SN_INI]), "sn_tasa_ini": float(_seg_cs.tasa[SN_INI]), "sn_condenados": r1(float(_seg_cs.pct_condenados[SN_ULT])),
     "sn_spf": int(_sn.loc[SN_ULT, "spf"]),
     "sn_top": [carceles_provincias.iloc[0].territorio, float(carceles_provincias.iloc[0].tasa)], "sn_bajo": [carceles_provincias.iloc[-1].territorio, float(carceles_provincias.iloc[-1].tasa)],
+    # sin condena: el país (con el Servicio Penitenciario Federal), los servicios provinciales y el federal
+    "sn_sin": r1(float(_seg_cs.pct_sin_condena[SN_ULT])), "sn_sin_ini": r1(float(_seg_cs.pct_sin_condena[SN_INI])),
+    "sn_sin_top": [_sn_sin.iloc[0].territorio, r1(float(_sn_sin.iloc[0].pct_sin_condena))],
+    "sn_sin_bajo": [_sn_sin.iloc[-1].territorio, r1(float(_sn_sin.iloc[-1].pct_sin_condena))],
+    "sn_sin_mitad": int((_sn_sin.pct_sin_condena.map(r1) > 50).sum()), "sn_n_prov": int(len(_sn_sin)),
+    "sn_sin_spf": r1(100 - float(_snc.loc[SN_ULT, "spf"]) / float(_sn.loc[SN_ULT, "spf"]) * 100),
 }
 for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolosos", "víctimas cada 100.000 habitantes"),
                                    ("robos", "tasa_robos", "hechos cada 100.000 habitantes"), ("hurtos", "tasa_hurtos", "hechos cada 100.000 habitantes")):
@@ -4855,6 +4865,10 @@ for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolo
     agregar(_seg_t.assign(territorio=_seg_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])), _seg_var, _seg_uni, "SNIC, Ministerio de Seguridad")
 agregar(carceles_serie.rename(columns={"anio": "periodo", "personas": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "personas_privadas_de_libertad_establecimientos_penitenciarios", "personas al 31 de diciembre", "SNEEP, Ministerio de Justicia")
+_sn_l = pd.concat([carceles_serie.rename(columns={"anio": "periodo", "pct_sin_condena": "valor"}).assign(codigo_indec="00")[["codigo_indec", "periodo", "valor"]],
+                   carceles_provincias.rename(columns={"pct_sin_condena": "valor"}).assign(periodo=SN_ULT)[["codigo_indec", "periodo", "valor"]]])
+agregar(_sn_l.dropna().assign(territorio=lambda t: t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])),
+        "pct_personas_privadas_de_libertad_sin_condena", "% de las personas privadas de libertad", "SNEEP, Ministerio de Justicia")
 
 # ---------------------------------------------------------------- artículo: el turismo y el dólar (etapa 24)
 # Por mes: los viajes de turistas no residentes que llegan al país (desde 2010) y de residentes que viajan al exterior (desde 2016), del SINTA,
