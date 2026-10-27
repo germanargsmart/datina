@@ -5435,6 +5435,10 @@ MG_RES = {
         "europa_pct": r1(_mg_pp[_mg_pp.continente == "Europa"].personas.sum() / _mg_pp.personas.sum() * 100),
         "primer_pais_n": int((nacidos_otro_pais_provincias[nacidos_otro_pais_provincias.codigo_indec != "00"].primer_pais
                               == _mg_prim.at["00", "pais"]).sum()),
+        # el país que es el primero en más jurisdicciones (E13, 27 de octubre de 2026): no siempre es el más frecuente del total. Con el
+        # Censo 2022, Paraguay es el primero del total y en 7 jurisdicciones, y Chile en 8. El texto decía solo lo de Paraguay
+        "primer_pais_mas": sorted(([p, int(n)] for p, n in nacidos_otro_pais_provincias[nacidos_otro_pais_provincias.codigo_indec != "00"]
+                                   .primer_pais.value_counts().items()), key=lambda x: (-x[1], x[0]))[:3],
     },
     # por departamento (etapa 26): los tres más altos entre los de 10.000 habitantes o más, como las listas de Departamentos
     "departamentos": {"n": int(len(mig_dep)), "min_pob": 10000,

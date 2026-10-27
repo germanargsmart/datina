@@ -643,7 +643,9 @@ const LEAD = {
     // la cifra destacada ya dice la parte de la población del país: el texto empieza por cuántas personas son
     return `En el Censo 2022, ${n0(MGC.personas)} personas que vivían en el país habían nacido en otro país. La parte de la población nacida en otro país ` +
       `era más alta en ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y más baja en ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
-      `${MGC.paises[0][0]}, el país de nacimiento más frecuente en el total, era también el primero en ${MGC.primer_pais_n} de las 24 jurisdicciones.`;
+      `${MGC.paises[0][0]}, el país de nacimiento más frecuente en el total, era también el primero en ${MGC.primer_pais_n} de las 24 jurisdicciones` +
+      // E13 (27 de octubre de 2026): si otro país es el primero en más jurisdicciones, se dice (con el Censo 2022, Chile en 8)
+      (MGC.primer_pais_mas[0][1] > MGC.primer_pais_n ? `, y ${MGC.primer_pais_mas[0][0]}, en ${MGC.primer_pais_mas[0][1]}, más que ningún otro país.` : ".");
   },
   "migracion-interna": v => v === "mapa" ? `Por departamento, entre los de ${n0(MGP.min_pob)} habitantes o más, la parte de la población nacida en ` +
     `otra provincia es más alta en ${depsTop(MGP.otra_top)}.` +
