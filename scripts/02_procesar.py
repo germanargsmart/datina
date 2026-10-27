@@ -2028,8 +2028,12 @@ _pa["pet_kbd"], _pa["gas_mmm3d"] = _pa.prod_pet / _pa.dias * BBL / 1000, _pa.pro
 # junio de 2015, enero de 2019 y septiembre de 2024 suman entre 84% y 96% de la serie del país) y esos años quedarían con huecos
 
 
-FORMA_SOC = re.compile(r"[\s,]*(\(?sucursal[^)]*\)?|ltd\.?|s\.?\s?a\.?\s?u\.?|s\.?\s?a\.?|s\.?\s?r\.?\s?l\.?|s\.?\s?l\.?|sau)$", re.I)
+FORMA_SOC = re.compile(r"[\s,]*(\(?sucursal[^)]*\)?|ltd\.?|s\.?\s?a\.?\s?u\.?|s\.?\s?a\.?\s?p\.?\s?e\.?\s?m\.?|s\.?\s?a\.?|s\.?\s?r\.?\s?l\.?"
+                       r"|s\.?\s?l\.?|sau|sas|s\.\s?e\.?|-)$", re.I)
 SIGLAS_EMP = {"YPF", "CGC", "PCR", "GYP"}
+# la fuente escribe los nombres en mayúsculas y sin tildes (plan de mejora, R10): "PAMPA ENERGIA S.A." se lee "Pampa Energía"
+TILDES_EMP = {"energia": "Energía", "ingenieria": "Ingeniería", "petroleos": "Petróleos", "petroquimica": "Petroquímica", "trebol": "Trébol",
+              "quimica": "Química", "compania": "Compañía"}
 
 
 def nombre_empresa(n):
@@ -2037,8 +2041,8 @@ def nombre_empresa(n):
     t, antes = str(n).strip(), None
     while t != antes:
         antes, t = t, FORMA_SOC.sub("", t).strip(" .,")
-    return " ".join(w if w.upper() in SIGLAS_EMP or not w.isalpha() else w.lower() if i and w.lower() in ("de", "del", "la", "las", "los", "y") else w.capitalize()
-                    for i, w in enumerate(t.split()))
+    return " ".join(w if w.upper() in SIGLAS_EMP or not w.isalpha() else w.lower() if i and w.lower() in ("de", "del", "la", "las", "los", "y")
+                    else TILDES_EMP.get(w.lower(), w.capitalize()) for i, w in enumerate(t.split()))
 
 
 emp_h = pd.read_csv(CRUDO / "se_produccion_empresas.csv")
