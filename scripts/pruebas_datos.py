@@ -12,7 +12,8 @@ Qué revisan:
   6. Mandatos presidenciales sin huecos ni superposiciones.
   7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
   8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
-     nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2).
+     nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2). El total de motos sin las jurisdicciones excluidas (E3) va en
+     las sumas de control.
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -128,7 +129,10 @@ def prueba_sumas(d, t):
     pp = pd.DataFrame(d["datos"]["patentamientos_provincias"])
     anio_p = int(pa.index.max())
     for col in ("autos", "motos"):
-        s, n = pp[col].sum(), pa.loc[anio_p, col]
+        # E3 (26 de octubre de 2026): las jurisdicciones marcadas "excluir" en distorsiones.json no entran en el total del país. Con
+        # las motos de Tierra del Fuego de 2025 adentro, el país sumaba 4,6% más que las demás provincias
+        excl = [t_ for t_, x in d["resumen"]["distorsiones"].get(f"patentamientos_provincias.{col}_1000", {}).items() if x["accion"] == "excluir"]
+        s, n = pp[~pp.territorio.isin(excl)][col].sum(), pa.loc[anio_p, col]
         if abs(s / n - 1) > .01:
             sale.append((f"total|patentamientos_{col}", f"patentamientos de {col} {anio_p}: las provincias suman {s:,.0f} y el país {n:,.0f}"))
     sp = pd.DataFrame(d["datos"]["suicidio_provincias"]); ss = pd.DataFrame(d["datos"]["suicidio_serie"]).set_index("anio")

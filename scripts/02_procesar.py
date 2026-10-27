@@ -869,6 +869,14 @@ pat_prov["autos_1000"] = pat_prov.autos / pat_prov.codigo_indec.map(POB) * 1000
 pat_prov["motos_1000"] = pat_prov.motos / pat_prov.codigo_indec.map(POB) * 1000
 pat_prov["territorio"] = pat_prov.codigo_indec.map(CORTO)
 assert pat_prov.territorio.notna().all() and len(pat_prov) == 24, "Faltan provincias en los patentamientos"
+# Las motos de las jurisdicciones marcadas "excluir" en datos/manual/distorsiones.json (E3 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre
+# de 2026): el dato de Tierra del Fuego de 2025 es decenas de veces el de los otros años, probablemente un error del dato abierto. El
+# total del país del año de la ficha (ANIO_AU) y su tasa van sin ellas, como el gráfico por provincia. La marca es manual y vale para
+# ANIO_AU: cuando el año completo más reciente ya no tenga el error, hay que sacarla de distorsiones.json
+MOTOS_EXCL = EXCLUIR("patentamientos_provincias.motos_1000")
+_motos_excl = pat_prov.codigo_indec.isin(MOTOS_EXCL)
+patent.loc[patent.anio == ANIO_AU, "motos"] -= float(pat_prov[_motos_excl].motos.sum())
+MOTOS_PAIS_1000 = pat_prov[~_motos_excl].motos.sum() / (POB_PAIS - sum(POB[c] for c in MOTOS_EXCL)) * 1000
 for col, var in [("autos", "autos_nuevos_inscriptos"), ("motos", "motos_nuevas_inscriptas")]:
     d = patent[["anio", col]].dropna().rename(columns={"anio": "periodo", col: "valor"})
     d["codigo_indec"], d["territorio"] = "00", "Argentina"
@@ -6662,7 +6670,7 @@ resumen = {
         "moto_top": pat_prov[~pat_prov.codigo_indec.isin(EXCLUIR("patentamientos_provincias.motos_1000"))].sort_values("motos_1000").iloc[-1].territorio,
         "moto_top_v": r1(pat_prov[~pat_prov.codigo_indec.isin(EXCLUIR("patentamientos_provincias.motos_1000"))].motos_1000.max()),
         "moto_excluidos": [CORTO[c] for c in EXCLUIR("patentamientos_provincias.motos_1000")],
-        "pais_1000": r1(pat_prov.autos.sum() / POB_PAIS * 1000), "motos_pais_1000": r1(pat_prov.motos.sum() / POB_PAIS * 1000),
+        "pais_1000": r1(pat_prov.autos.sum() / POB_PAIS * 1000), "motos_pais_1000": r1(MOTOS_PAIS_1000),
     },
 }
 

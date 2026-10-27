@@ -1275,7 +1275,8 @@ const TX = {
   patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}.`,
   "patentes-nota": `Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en ${au.motos_ini}.`,
   // la cifra destacada ya dice los autos cada 1.000 habitantes del país: el texto empieza por los extremos
-  "patentes-prov": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). En motos, el promedio del país fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes y el valor más alto, el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}.`,
+  "patentes-prov": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). En motos, el promedio del país fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes y el valor más alto, el de ${au.moto_top} (${n1(au.moto_top_v)})` +
+    (au.moto_excluidos.length ? `. Los dos van sin contar ${lista(au.moto_excluidos)}: ${au.moto_excluidos.map(t => DIST["patentamientos_provincias.motos_1000"][t].motivo).join(". ")}` : "") + ".",
   "electricidad-provincias": LEAD["electricidad-provincias"]("prov"), "electricidad-provincias-nota": `Demanda residencial que los distribuidores declaran cada mes a CAMMESA, por provincia, ` +
     `dividida por la población de cada año (proyecciones del INDEC desde 2022 y la población implícita en las tasas del SNIC antes). La parte de los hogares se calcula sobre las tres categorías de tarifa ` +
     `que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa la Ciudad de Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: ` +
@@ -6122,8 +6123,10 @@ const CLAVE = {
   "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`,
     `de las personas, bajo la línea de pobreza en el ${R.pobreza.sem}`],
   "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`, `tarjetas en trenes en ${su.mes}`],
-  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`,
-    `motos en ${au.anio}, ${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`],
+  // sin las motos de las jurisdicciones excluidas en distorsiones.json (E3, 26 de octubre de 2026): el total del país ya viene sin ellas
+  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}${au.moto_excluidos.length ? ` (sin contar las de ${lista(au.moto_excluidos)})` : ""}, ` +
+    `${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`,
+    `motos en ${au.anio}${au.moto_excluidos.length ? ` sin ${lista(au.moto_excluidos)}` : ""}, ${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`],
   "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`, "autos cada 1.000 habitantes en todo el país"],
   "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`, `en ${vpq.top} (${vpq.top_lugar}), el más visitado en ${vpq.ult}`],
   "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`, `toneladas de todas las especies en ${pe.anio}, contra ${n0(pe.total_ini)} en ${pe.ini}`],
@@ -7160,7 +7163,7 @@ const PREG = [
   ["¿Qué es lo que más se pesca en el mar argentino?",
    `${pe.top[0]}: ${n0(pe.top_t[0])} toneladas en ${pe.anio}, el ${pct(pe.top_pct)} de todo lo desembarcado.`, "#f-pesca"],
   ["¿Se patentan más autos o más motos?",
-   `En ${au.anio} se inscribieron ${n0(au.motos)} motos nuevas y ${n0(au.autos)} autos.`, "#f-patentes"],
+   `En ${au.anio} se inscribieron ${n0(au.motos)} motos nuevas${au.moto_excluidos.length ? ` (sin contar las de ${lista(au.moto_excluidos)})` : ""} y ${n0(au.autos)} autos.`, "#f-patentes"],
   ["¿Volvieron los pasajeros al tren y al subte?",
    `En ${su.mes} viajaban por día hábil ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} tarjetas en tren y ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"} en subte que en marzo de 2020.`, "#f-sube-modos"],
   [`¿Cuántos bebés se llamaron Lionel en ${cu.lionel_anio}?`,
