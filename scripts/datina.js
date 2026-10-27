@@ -276,9 +276,21 @@ const deLas24 = n => n === 24 ? "en las 24 jurisdicciones" : n === 0 ? "en ningu
 const TEC_CEN = [{k: "termica", lab: "Térmica", c: "#8C9AAB"}, {k: "hidraulica", lab: "Hidroeléctrica", c: "#2C74B5"}, {k: "nuclear", lab: "Nuclear", c: "#85340A"},
   {k: "eolica", lab: "Eólica", c: "#74ACDF"}, {k: "solar", lab: "Solar", c: "#F6B40E"}, {k: "biogas", lab: "Biomasa y biogás", c: "#5E9E6E"}];
 const COL_CEN = Object.fromEntries(TEC_CEN.map(t => [t.lab, t.c]));
-// nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes
-const tituloArea = s => String(s || "").trim().toLowerCase().replace(/(^|[\s\-(.])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
-  .replace(/ (De|Del|Y) /g, (m, w) => ` ${w.toLowerCase()} `).replace(/ Sa$/, " SA");
+// nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes. Desde el 27 de octubre de 2026 (R10 del plan de mejora)
+// también se arreglan la provincia pegada con guion bajo ("EL PORTON_MENDOZA"), los números romanos ("Ayala Iii"), las siglas y los códigos
+// ("Cnq 7/a", "Ct Neuquen") y las tildes de palabras comunes ("Rio", "Cajon"). Los nombres propios que no están en la lista quedan como vienen
+const TILDE_AREA = {rio: "río", leon: "león", maria: "maría", cajon: "cajón", porton: "portón", cañadon: "cañadón", fortin: "fortín",
+  estacion: "estación", explotacion: "explotación", fraccion: "fracción", cordon: "cordón", volcan: "volcán", oceano: "océano",
+  octogono: "octógono", guardian: "guardián", hernandez: "hernández", fernandez: "fernández", coiron: "coirón", payun: "payún",
+  trebol: "trébol", ines: "inés", aguila: "águila", tunuyan: "tunuyán", neuquen: "neuquén", ceron: "cerón", zuñiga: "zúñiga",
+  martin: "martín", angela: "ángela", saenz: "sáenz", eolico: "eólico", ampliacion: "ampliación", biogas: "biogás"};
+const SIGLA_AREA = new Set(["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "cnq", "cn", "cgsj", "ca", "lp", "rn", "ni", "ct", "ctbg",
+  "ctbrs", "pe", "pah", "mater"]);
+const tituloArea = s => String(s || "").trim().toLowerCase()
+  .replace(/_(\p{L}+)$/u, (m, p) => ` (${(TILDE_AREA[p] || p).replace(/^./, c => c.toUpperCase())})`)
+  .replace(/[\p{L}\d/.]+/gu, w => SIGLA_AREA.has(w) || /\d/.test(w) && w.length < 6 ? w.toUpperCase() : TILDE_AREA[w] || w)
+  .replace(/(^|[\s\-(.])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
+  .replace(/ (De|Del|Y)(?= )/g, (m, w) => " " + w.toLowerCase()).replace(/ de (La|Las|Los) /g, (m, w) => ` de ${w.toLowerCase()} `).replace(/ Sa$/, " SA");
 // mapa de pozos no convencionales: un tono por grupo de años de inicio, del más viejo (claro) al más nuevo (oscuro)
 const COL_POZOS = ["#B9D3EC", "#7FB0DD", "#3F86C6", "#1F5E97", "#0B2F52"];
 const masPct = v => (v > 0 ? "+" : "") + pct(v);
