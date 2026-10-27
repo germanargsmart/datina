@@ -85,6 +85,10 @@ const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
 // y el voto por provincia. Antes había cinco, y Cruces llamaba "fuerte" a un 0,52 que los artículos llamaban "moderada". Mide el valor que
 // se muestra, con dos decimales y el mismo redondeo que n2: un 0,395 se ve "0,40" y es "moderada". Prueba: scripts/prueba_escala.mjs
 const fuerza = r => { const a = Math.abs(Number(r.toFixed(2))); return a >= .6 ? "fuerte" : a >= .4 ? "moderada" : a >= .2 ? "débil" : "casi nula"; };
+// la respuesta destacada de los artículos, con la misma escala (plan de mejora, E4, 28 de octubre de 2026): hasta entonces los cruces daban
+// "Sí, en general" desde 0,40, la nafta desde 0,60 y el turismo pedía las dos relaciones. Con 24 casos, el azar llega a 0,41 una vez de 20
+const RESP = {"fuerte": "Sí.", "moderada": "En parte.", "débil": "Apenas.", "casi nula": "No hay un patrón claro."};
+const respuestaR = r => RESP[fuerza(r)];
 const pct = v => n1(v) + "%";
 const kbdF = v => v >= 10 ? n0(v) : n1(v);
 // una cifra sobre otra, con un decimal y sin ",0": "2 veces", "2,3 veces"
@@ -7700,7 +7704,7 @@ function textoArt(a, c) {
   const [px, rx] = partesU(a.ux), [py, ry] = partesU(a.uy);
   const vx = f => `${fx(f[a.x])}${px} ${rx}`, vy = f => `${fy(f[a.y])}${py} ${ry}`;
   const ab = Math.abs(c.rs), mismo = Math.sign(c.rs) === a.espera;
-  const respuesta = ab < .2 ? "No hay un patrón claro." : !mismo ? "No: la relación va en sentido contrario." : ab >= .4 ? "Sí, en general." : "Apenas.";
+  const respuesta = ab >= .2 && !mismo ? "No: la relación va en sentido contrario." : respuestaR(c.rs);
   const bajada = ab < .2
     ? `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} no tienden a tener más ni menos ${a.ly}.`
     : `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} tienden a tener ${c.rs > 0 ? "más" : "menos"} ${a.ly}, y las que tienen menos ${a.lx}, ${c.rs > 0 ? "menos" : "más"}. La relación es ${fuerza(c.rs)}.`;
@@ -7785,7 +7789,7 @@ const ART_SERIE = [{
     // la respuesta: las dos relaciones más claras (la parte importada de la inversión y la construcción del año siguiente), en toda la
     // serie y sin sus seis primeros años
     const full = Math.max(ab(d.rs_imp), ab(d.rs_sig)), sinP = Math.max(ab(d.rs_imp_sin), ab(d.rs_sig_sin));
-    const respuesta = full < .4 ? "No hay un patrón claro." : sinP < .4 ? "En parte, y sobre todo en los primeros años de la serie." : "Sí, en general.";
+    const respuesta = fz(sinP) === fz(full) ? respuestaR(sinP) : `Desde ${sin}, ${respuestaR(sinP).toLowerCase()} Antes, la relación era más marcada.`;
     const dirImp = d.rs_imp < 0 ? "pesaron menos" : "pesaron más", dirSig = d.rs_sig < 0 ? "crecer más" : "crecer menos";
     const bajada = `Desde el ${d.desde}, con el dólar más caro en términos reales, las máquinas y equipos importados ${dirImp} en la inversión, ` +
       `y cuando construir fue más barato en dólares, la inversión en construcción tendió a ${dirSig} en el año siguiente. ` +
@@ -7886,7 +7890,8 @@ const ART_SERIE = [{
     "de la República Argentina, índices de tipo de cambio real multilateral y bilaterales",
   texto: () => {
     const t = R.turismo_dolar;
-    const respuesta = ab(t.rs_llegan) >= .4 && ab(t.rs_salen) >= .4 ? "Sí, en general." : ab(t.rs_llegan) >= .4 || ab(t.rs_salen) >= .4 ? "En parte." : "No hay un patrón claro.";
+    const debil = Math.min(ab(t.rs_llegan), ab(t.rs_salen)), fuerte = Math.max(ab(t.rs_llegan), ab(t.rs_salen));
+    const respuesta = fz(debil) === fz(fuerte) || fuerte < .4 ? respuestaR(debil) : "En parte.";
     const salen = t.rs_salen < 0 ? "viajan menos" : "viajan más", llegan = t.rs_llegan > 0 ? "llegan más" : "llegan menos";
     const bajada = `Cuando el dólar real sube frente al mismo mes del año anterior, ${salen} residentes al exterior y ${llegan} turistas extranjeros: ` +
       `${dosRel(t.rs_salen, t.rs_llegan)}. Los meses de la pandemia, con las fronteras cerradas o con restricciones, no se cuentan.`;
@@ -7952,7 +7957,7 @@ const ART_SERIE = [{
     "referencia (Comunicación \"A\" 3500), y Administración de Información Energética de los Estados Unidos (EIA), precio del petróleo Brent",
   texto: () => {
     const t = R.nafta_dolares, usd = v => n2(v), m = Math.max(ab(t.rs_var), ab(t.rs_nivel));
-    const respuesta = m >= .6 ? "Sí, en general." : m >= .4 ? "En parte." : "No hay un patrón claro.";
+    const respuesta = respuestaR(m);
     const bajada = `Al tipo de cambio oficial, cuando el petróleo Brent sube frente al mismo mes del año anterior, la nafta en dólares tiende a ` +
       `${t.rs_var > 0 ? "subir" : "bajar"}: la relación es ${fz(t.rs_var)}. Entre los precios de cada mes, la relación es ${fz(t.rs_nivel)}` +
       (ab(t.rs_nivel) < .4 ? ": hubo años con el petróleo caro y la nafta barata en dólares, y al revés." : ".");
@@ -8008,7 +8013,7 @@ const ART_SERIE = [{
     "Central de la República Argentina, índices de tipo de cambio real multilateral y bilateral con Brasil",
   texto: () => {
     const t = R.exportaciones_dolar, rs = t.rs, mx = Math.max(ab(rs.total), ab(t.rs_moi_brasil));
-    const respuesta = mx >= .4 ? "Sí, en general." : mx >= .2 ? "Apenas." : "No hay un patrón claro.";
+    const respuesta = respuestaR(mx);
     const sube = rs.total > 0 ? "crecer" : "caer";
     const bajada = `Cuando el dólar real sube frente al año anterior, las cantidades que exporta el país medio año después tienden a ${sube}` +
       `: la relación es ${fz(rs.total)}. En el mismo trimestre, la relación es ${fz(t.rs_mismo)}. Las cantidades de combustibles y de productos ` +
