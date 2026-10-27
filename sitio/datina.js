@@ -7289,11 +7289,11 @@ const PERFIL_GRUPOS = [["trabajo", "Trabajo"], ["social", "Seguridad social"], [
   ["poblacion", "Población y migraciones"], ["gobierno", "Gobierno"], ["vivienda", "Vivienda y servicios"], ["energia", "Energía"],
   ["turismo", "Turismo y naturaleza"], ["capital", "La capital"]];
 const CAP_P = [
-  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, veces:true, lab:"Viviendas por habitante", det:"viviendas particulares cada 1.000 habitantes, Censo 2022",
+  {id:"a-viviendas-alquiler", g:"capital", cap:true, veces:true, lab:"Viviendas por habitante", det:"viviendas particulares cada 1.000 habitantes, Censo 2022",
     d:T.capitales, k:"viviendas_1000", pais:R.capitales_pais.viviendas_1000, f:n0},
   {id:"a-viviendas-alquiler", g:"capital", cap:true, veces:true, lab:"Hogares que alquilan en la capital", det:"% de los hogares, Censo 2022",
     d:T.capitales, k:"alquila", pais:VV.pct_alquila, f:pct},
-  {id:"a-viviendas-hacinamiento", g:"capital", cap:true, veces:true, lab:"Hacinamiento crítico", det:"% de los hogares con más de tres personas por cuarto, Censo 2022",
+  {id:"a-viviendas-alquiler", g:"capital", cap:true, veces:true, lab:"Hacinamiento crítico", det:"% de los hogares con más de tres personas por cuarto, Censo 2022",
     d:T.capitales, k:"hacinamiento", pais:VV.pct_hacinamiento, f:pct},
 ];
 const PERFIL = [...INDP, ...CAP_P];
@@ -7576,23 +7576,19 @@ const CV_EPH = (() => {
 const LIM_AGLO = "Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares, que en algunos casos junta dos ciudades, como Rawson con Trelew o Ushuaia con Río Grande. Es un área distinta del municipio que usan los artículos de las viviendas, que salen del censo.";
 const ART = [
   // etapa 27: tres artículos de las capitales con la Encuesta Permanente de Hogares (tabla capitales_eph, por aglomerado)
-  {id: "a-pobreza-desocupacion", tabla: "capitales_eph", x: "desocupacion", y: "pobreza", espera: 1, frec: "La desocupación se actualiza cada trimestre",
-    lx: "desocupación", ly: "pobreza", ux: "% de quienes trabajan o buscan trabajo", uy: "% de las personas",
-    dek: "La desocupación de cada capital de provincia, en promedio de los últimos cuatro trimestres, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.",
-    contexto: "La desocupación y la pobreza miden cosas distintas: una cuenta a quienes buscan trabajo y no lo consiguen, y la otra mira si los ingresos del hogar alcanzan para la canasta básica total. Este cruce pone una al lado de la otra, capital por capital, con la Encuesta Permanente de Hogares (EPH) del INDEC.",
+  {id: "a-pobreza-desocupacion", tabla: "capitales_eph", frec: "La desocupación y el empleo se actualizan cada trimestre",
+    dek: "La desocupación y la parte de la población que trabaja en cada capital de provincia, en promedio de los últimos cuatro trimestres, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.",
+    contexto: "La desocupación cuenta a quienes buscan trabajo y no lo consiguen: quien dejó de buscar, o no busca, no figura. La tasa de empleo mira otra cosa, la parte de toda la población que trabaja. La pobreza mira si los ingresos del hogar alcanzan para la canasta básica total. Este artículo pone la pobreza al lado de los dos datos del trabajo, capital por capital, con la Encuesta Permanente de Hogares (EPH) del INDEC.",
+    // etapa 5: junta los dos artículos de las capitales sobre el trabajo y la pobreza (hasta entonces, a-pobreza-desocupacion y a-empleo-pobreza)
+    partes: [
+      {x: "desocupacion", y: "pobreza", espera: 1, lx: "desocupación", ly: "pobreza", ux: "% de quienes trabajan o buscan trabajo", uy: "% de las personas",
+        limites: ["Una persona puede tener trabajo y ser pobre: la desocupación no dice cuánto se gana."]},
+      {x: "empleo", y: "pobreza", espera: -1, desde: "menos", lx: "empleo", ly: "pobreza", ux: "% de la población", uy: "% de las personas",
+        limites: ["La tasa de empleo se calcula sobre toda la población, con los chicos y las personas mayores: una capital con una parte mayor de personas en edad de trabajar tiende a tener, solo por eso, una tasa más alta. Y donde hay más chicos suele haber también más pobreza, porque la pobreza es más alta entre los chicos.",
+          "Tener trabajo no dice cuánto se gana ni si el trabajo está registrado."]}],
     limites: [LIM_AGLO,
-      "La EPH es una encuesta por muestra, y en los aglomerados chicos la desocupación de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres: si en uno el INDEC no publicó el dato por tener pocos casos, el promedio usa los otros tres.",
-      CV_EPH,
-      "Una persona puede tener trabajo y ser pobre: la desocupación no dice cuánto se gana."]},
-  {id: "a-empleo-pobreza", tabla: "capitales_eph", x: "empleo", y: "pobreza", espera: -1, frec: "El empleo se actualiza cada trimestre",
-    lx: "empleo", ly: "pobreza", ux: "% de la población", uy: "% de las personas",
-    dek: "La parte de toda la población de cada capital de provincia que tiene trabajo, chicos y personas mayores incluidos, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.",
-    contexto: "La desocupación cuenta solo a quienes buscan trabajo y no lo consiguen: quien dejó de buscar, o no busca, no figura. La tasa de empleo mira otra cosa, la parte de toda la población que trabaja. Este cruce la compara, capital por capital, con la parte de las personas bajo la línea de pobreza, según la Encuesta Permanente de Hogares (EPH) del INDEC.",
-    limites: ["La tasa de empleo se calcula sobre toda la población, con los chicos y las personas mayores: una capital con una parte mayor de personas en edad de trabajar tiende a tener, solo por eso, una tasa más alta. Y donde hay más chicos suele haber también más pobreza, porque la pobreza es más alta entre los chicos.",
-      LIM_AGLO,
-      "La EPH es una encuesta por muestra, y en los aglomerados chicos la tasa de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres.",
-      CV_EPH,
-      "Tener trabajo no dice cuánto se gana ni si el trabajo está registrado."]},
+      "La EPH es una encuesta por muestra, y en los aglomerados chicos la tasa de un trimestre es poco precisa. Por eso se usa el promedio de los últimos cuatro trimestres: si en uno el INDEC no publicó el dato por tener pocos casos, el promedio usa los otros tres.",
+      CV_EPH]},
   {id: "a-alquiler-pobreza", desde: "menos", tabla: "capitales_eph", x: "pobreza", y: "alquila", espera: -1, frec: "La parte de los hogares que alquila se actualiza cada trimestre",
     lx: "pobreza", ly: "hogares que alquilan", ux: "% de las personas", uy: "% de los hogares",
     dek: "La parte de los habitantes de cada capital de provincia bajo la línea de pobreza, frente a la parte de sus hogares que alquila la vivienda donde vive, según la Encuesta Permanente de Hogares del INDEC.",
@@ -7603,22 +7599,15 @@ const ART = [
       CV_EPH, "Alquilar puede ir también con otras cosas que este cruce no mide, como el tamaño de la ciudad o la llegada de personas de otras provincias."]},
   // etapa 26: artículos de las 24 capitales de provincia, con la tabla de las capitales (Censo 2022 por municipio). Van antes que los de
   // las provincias porque son los más nuevos
-  {id: "a-viviendas-hacinamiento", tabla: "capitales", x: "viviendas_1000", y: "hacinamiento", espera: -1, frec: "Se actualiza con cada censo",
-    lx: "viviendas por habitante", ly: "hacinamiento crítico", ux: "viviendas cada 1.000 habitantes", uy: "% de los hogares",
-    dek: "Cuántas viviendas hay cada 1.000 habitantes en cada capital de provincia, frente a la parte de sus hogares con más de tres personas por cuarto.",
-    contexto: "Para saber si alcanzan las viviendas suele contarse cuántas hay cada 1.000 habitantes, la misma medida que se usa para comparar países. En la Argentina no hay una estadística oficial de precios de la vivienda que permita comparar las capitales, pero el censo sí cuenta cuántas personas viven en cada cuarto. Este cruce pone una cosa al lado de la otra, capital por capital.",
-    limites: ["Las viviendas por habitante dependen también de cuántas personas viven en cada hogar: donde los hogares son más grandes hay menos viviendas por habitante, aunque cada hogar tenga la suya.",
-      "Las viviendas incluyen las que no tenían personas presentes el día del censo, como las de uso temporal, las que estaban en alquiler o venta y las que se estaban construyendo.",
-      "Cada capital es su municipio, y CABA, sus 15 comunas. En Mendoza y San Juan el municipio es solo el centro de una ciudad mucho más grande, y el de San Miguel de Tucumán incluye una parte del departamento de Lules.",
-      "No hay una estadística oficial de precios de venta o de alquiler de viviendas que permita comparar las 24 capitales. Por eso este cruce no dice si las viviendas cuestan más o menos donde hay más."]},
-  {id: "a-viviendas-alquiler", tabla: "capitales", x: "viviendas_1000", y: "alquila", espera: 1, frec: "Se actualiza con cada censo",
-    lx: "viviendas por habitante", ly: "hogares que alquilan", ux: "viviendas cada 1.000 habitantes", uy: "% de los hogares",
-    dek: "Cuántas viviendas hay cada 1.000 habitantes en cada capital de provincia, frente a la parte de sus hogares que alquila la vivienda donde vive.",
-    contexto: "Un hogar que no es dueño de su vivienda puede alquilarla, y para eso tiene que haber viviendas en alquiler. Este cruce compara, capital por capital, cuántas viviendas hay por habitante con la parte de los hogares que alquila, según el último censo.",
-    limites: ["Las viviendas por habitante dependen también de cuántas personas viven en cada hogar: donde los hogares son más grandes hay menos viviendas por habitante, aunque cada hogar tenga la suya.",
+  // etapa 5: el eje pasa de las viviendas por habitante (casi la inversa del tamaño del hogar, auditoría de los artículos) a los departamentos
+  {id: "a-viviendas-alquiler", tabla: "capitales", x: "en_departamento", y: "alquila", espera: 1, frec: "Se actualiza con cada censo",
+    lx: "departamentos", ly: "hogares que alquilan", ux: "% de las viviendas particulares", uy: "% de los hogares",
+    dek: "La parte de las viviendas de cada capital de provincia que son departamentos, frente a la parte de sus hogares que alquila la vivienda donde vive, según el último censo.",
+    contexto: "Un hogar que no es dueño de su vivienda puede alquilarla, y en las ciudades se alquilan sobre todo departamentos. Este cruce compara, capital por capital, qué parte de las viviendas son departamentos con qué parte de los hogares alquila, según el último censo.",
+    limites: ["Los departamentos se concentran en las ciudades más grandes y más densas, donde también hay más hogares chicos, más estudiantes y más personas que llegan de otros lugares: este cruce no separa esas cosas.",
       "El censo pregunta si el hogar alquila la vivienda, no cuánto paga ni desde cuándo.",
       "Cada capital es su municipio, y CABA, sus 15 comunas. En Mendoza y San Juan el municipio es solo el centro de una ciudad mucho más grande, y el de San Miguel de Tucumán incluye una parte del departamento de Lules.",
-      "No hay una estadística oficial de precios de venta o de alquiler de viviendas que permita comparar las 24 capitales. Por eso este cruce no dice si alquilar cuesta más o menos donde hay más viviendas."]},
+      "No hay una estadística oficial de precios de venta o de alquiler de viviendas que permita comparar las 24 capitales. Por eso este cruce no dice si alquilar cuesta más o menos donde hay más departamentos."]},
   {id: "a-atn-presupuesto", x: "atn_hab", y: "apoyo_presupuesto", espera: 1, frec: "Se actualiza cada año",
     lx: "ATN por habitante", ly: "apoyo al presupuesto", uy: "% de los votos",
     // descontada la inflación y en promedio de todos los años: sin eso, los pesos no se pueden leer (auditoría de los artículos)
@@ -7641,22 +7630,22 @@ const ART = [
     contexto: "Las cloacas son una de las condiciones de vida de los hogares que mide el censo. Este cruce compara la parte de los hogares conectados a la red cloacal en cada provincia con su tasa de mortalidad infantil. Sirve para ver una desigualdad entre provincias, no para medir el efecto de las cloacas en la salud de los bebés.",
     limites: ["Muchas muertes de bebés se deben a afecciones perinatales, como la prematurez, o a malformaciones congénitas. Las causas que suelen estar más ligadas a las condiciones de vida, como las enfermedades infecciosas y respiratorias, son solo una parte.", "La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.",
       "La mortalidad infantil depende también de la atención durante el embarazo y el parto, de los ingresos de las familias y de su cobertura de salud, que este cruce no mide. Las provincias con menos cloacas suelen tener también más pobreza y menos cobertura de salud: el cruce no separa una cosa de la otra."]},
-  {id: "a-cobertura-adolescentes", x: "sin_cobertura", y: "madres_adolescentes", espera: 1, frec: "Se actualiza cada año",
-    lx: "personas sin obra social ni prepaga", ly: "maternidad adolescente", ux: "% de las personas", uy: "% de los nacimientos",
-    dek: "La parte de la población sin obra social ni prepaga según el último censo, frente a la parte de los nacimientos que son de madres menores de 20 años.",
-    contexto: "En la Argentina, la obra social llega sobre todo con el empleo registrado. Por eso este cruce usa la falta de cobertura como una aproximación a las condiciones económicas de cada provincia.",
-    limites: ["La maternidad adolescente se mide como la parte de los nacimientos que son de madres menores de 20 años, no como los nacimientos cada 1.000 adolescentes: depende también de cuántos hijos tienen las mujeres adultas de cada provincia.", "La ficha de maternidad adolescente compara el mismo dato con otros indicadores del censo, como las necesidades básicas insatisfechas y la parte de los adultos con el secundario completo."]},
   {id: "a-recursos-empleo", x: "autonomia_fiscal", y: "empleo_privado", espera: 1, frec: "Se actualiza cada año",
     lx: "recursos propios", ly: "empleo privado registrado", ux: "% de los ingresos", uy: "asalariados cada 100 habitantes",
     dek: "Qué parte de sus ingresos recauda cada provincia por su cuenta, frente a cuántos asalariados privados registrados tiene cada 100 habitantes.",
     contexto: "Las provincias se financian con lo que recaudan y con lo que reciben de la Nación. Una economía privada más grande puede dejar más impuestos propios, pero también pesan la coparticipación y las decisiones de cada gobierno.",
     limites: ["Una parte de la relación es contable: el impuesto provincial que más recauda, ingresos brutos, se cobra sobre la actividad de las empresas, que es también la que da empleo privado.",
       "Los recursos propios incluyen impuestos provinciales y otros ingresos, como las regalías. Una provincia con petróleo o minería puede recaudar mucho sin tener mucho empleo privado.", "El Sistema Integrado Previsional Argentino (SIPA) asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias."]},
-  {id: "a-cobertura-esperanza", desde: "menos", x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, frec: "Se actualiza con cada censo",
-    lx: "personas sin obra social ni prepaga", ly: "esperanza de vida", ux: "% de las personas", uy: "años",
-    dek: "La esperanza de vida al nacer de cada provincia, frente a la parte de su población sin obra social ni prepaga.",
-    contexto: "La esperanza de vida resume en un número las condiciones de mortalidad de un período. La falta de obra social o prepaga se usa acá como una aproximación a las condiciones de vida, no como una medida del acceso a la salud: el hospital público atiende a todas las personas.",
-    limites: ["La esperanza de vida resume la mortalidad de todas las edades de un año, y cambia con hechos de ese año, como una epidemia: conviene mirar de qué año es el dato antes de compararlo con otros períodos."]},
+  {id: "a-cobertura-esperanza", frec: "Se actualiza cada año",
+    dek: "La parte de la población sin obra social ni prepaga de cada provincia, según el último censo, frente a su esperanza de vida al nacer y a la parte de sus nacimientos que son de madres menores de 20 años.",
+    contexto: "En la Argentina, la obra social llega sobre todo con el empleo registrado. Por eso la falta de obra social o prepaga se usa acá como una marca de las condiciones económicas de cada provincia, no como una medida del acceso a la salud: el hospital público atiende a todas las personas. Este artículo la compara con dos datos: la esperanza de vida al nacer, que resume las condiciones de mortalidad, y la parte de los nacimientos que son de madres adolescentes.",
+    // etapa 5: junta los dos artículos de la cobertura (hasta entonces, a-cobertura-esperanza y a-cobertura-adolescentes)
+    partes: [
+      {x: "sin_cobertura", y: "esperanza_vida", espera: -1, yAuto: true, lx: "personas sin obra social ni prepaga", ly: "esperanza de vida", ux: "% de las personas", uy: "años",
+        limites: ["La esperanza de vida resume la mortalidad de todas las edades de un año, y cambia con hechos de ese año, como una epidemia: conviene mirar de qué año es el dato antes de compararlo con otros períodos."]},
+      {x: "sin_cobertura", y: "madres_adolescentes", espera: 1, lx: "personas sin obra social ni prepaga", ly: "maternidad adolescente", ux: "% de las personas", uy: "% de los nacimientos",
+        limites: ["La maternidad adolescente se mide como la parte de los nacimientos que son de madres menores de 20 años, no como los nacimientos cada 1.000 adolescentes: depende también de cuántos hijos tienen las mujeres adultas de cada provincia.",
+          "La ficha de maternidad adolescente compara el mismo dato con otros indicadores del censo, como las necesidades básicas insatisfechas y la parte de los adultos con el secundario completo."]}]},
   {id: "a-internet-aprender", x: "internet", y: "aprender_mat", espera: 1, frec: "Se actualiza con cada Aprender",
     lx: "hogares con internet", ly: "chicos con nivel satisfactorio o avanzado en matemática", ux: "% de los hogares", uy: "% de los chicos de 6° grado",
     dek: "La parte de los hogares con internet según el último censo, frente a la parte de los chicos de 6° grado con nivel satisfactorio o avanzado en matemática en la evaluación Aprender.",
@@ -7699,62 +7688,68 @@ const partesU = u => u.startsWith("%") ? ["%", u.replace(/^%\s*/, "")] : ["", u]
 // El cruce de un artículo. Plantilla nueva (plan de mejora, etapa 5, 28 de octubre de 2026): además de las correlaciones y del caso que más
 // pesa, las dos mitades por el primer dato con la mediana del segundo en cada una, los casos de los dos extremos del primer dato, el que más
 // se aparta del orden general (por su puesto en los dos datos, la misma lógica que la correlación de Spearman, y no por la distancia a la
-// recta, como hasta entonces) y, si no hay patrón, dos casos vecinos en el primer dato y lo más lejos posible en el segundo
-function calcularArt(a) {
-  const F = T[tablaArt(a)].filter(f => f[a.x] != null && f[a.y] != null), n = F.length, h = Math.floor(n / 2);
-  const xs = F.map(f => f[a.x]), ys = F.map(f => f[a.y]);
+// recta, como hasta entonces) y, si no hay patrón, dos casos vecinos en el primer dato y lo más lejos posible en el segundo.
+// Un artículo puede juntar varios cruces de la misma tabla (a.partes, etapa 5): cada parte lleva sus datos (x, y, espera, lx, ly, ux, uy,
+// desde, yAuto y sus límites), y el artículo, lo común. Sin partes, el artículo es su única parte
+const partesArt = a => a.partes || [a];
+function calcularArt(a, p = a) {
+  const F = T[tablaArt(a)].filter(f => f[p.x] != null && f[p.y] != null), n = F.length, h = Math.floor(n / 2);
+  const xs = F.map(f => f[p.x]), ys = F.map(f => f[p.y]);
   const S = CX.simple(xs, ys), iCook = d3.maxIndex(S.cook), sinC = F.filter((_, i) => i !== iCook), rs = CX.spearman(xs, ys);
   // el puesto de cada caso en los dos datos (1 = el valor más alto)
-  const ordX = [...F].sort((p, q) => q[a.x] - p[a.x]), ordY = [...F].sort((p, q) => q[a.y] - p[a.y]);
+  const ordX = [...F].sort((u, v) => v[p.x] - u[p.x]), ordY = [...F].sort((u, v) => v[p.y] - u[p.y]);
   const px = new Map(ordX.map((f, i) => [f, i + 1])), py = new Map(ordY.map((f, i) => [f, i + 1]));
   const desvio = f => Math.abs((rs >= 0 ? px.get(f) : n + 1 - px.get(f)) - py.get(f));
   let par = null;
-  ordX.forEach((f, i) => ordX.slice(i + 1, i + 3).forEach(g => { if (!par || Math.abs(f[a.y] - g[a.y]) > Math.abs(par[0][a.y] - par[1][a.y])) par = [f, g]; }));
-  return {F, n, h, rs, rp: CX.pearson(xs, ys), rs2: CX.spearman(sinC.map(f => f[a.x]), sinC.map(f => f[a.y])), cook: F[iCook], px, py, par,
+  ordX.forEach((f, i) => ordX.slice(i + 1, i + 3).forEach(g => { if (!par || Math.abs(f[p.y] - g[p.y]) > Math.abs(par[0][p.y] - par[1][p.y])) par = [f, g]; }));
+  return {F, n, h, rs, rp: CX.pearson(xs, ys), rs2: CX.spearman(sinC.map(f => f[p.x]), sinC.map(f => f[p.y])), cook: F[iCook], px, py, par,
     lejos: F.reduce((m, f) => desvio(f) > desvio(m) ? f : m, F[0]), mas: ordX[0], menos: ordX[n - 1],
-    medMas: d3.median(ordX.slice(0, h), f => f[a.y]), medMenos: d3.median(ordX.slice(n - h), f => f[a.y])};
+    medMas: d3.median(ordX.slice(0, h), f => f[p.y]), medMenos: d3.median(ordX.slice(n - h), f => f[p.y])};
 }
 // Las advertencias de todo cruce, iguales en todos los artículos: van en un recuadro fijo, "Cómo leer un cruce", y cada artículo lista solo las
 // suyas, la más importante primero (auditoría de los artículos: repetidas palabra por palabra al comienzo de la lista, el lector las salteaba
 // justo antes de las que importan)
 const leerCruce = (c, U) => `Son ${c.n} ${U.pl}: con tan pocos casos, una o dos pueden cambiar el resultado. Que dos datos vayan juntos no ` +
   `prueba que uno cause el otro: los dos pueden responder a otras cosas que el cruce no mide. ${U.prom}`;
-function textoArt(a, c) {
-  const Mx = META_TAB[tablaArt(a)][a.x], My = META_TAB[tablaArt(a)][a.y], U = CASOS_ART[tablaArt(a)];
+// el texto de una parte. Con varias partes, la casualidad y los períodos nombran los dos datos de su cruce
+function textoArt(a, c, p = a, varias = false) {
+  const Mx = META_TAB[tablaArt(a)][p.x], My = META_TAB[tablaArt(a)][p.y], U = CASOS_ART[tablaArt(a)];
   const fx = v => loc.format(`,.${Mx.dec}f`)(v), fy = v => loc.format(`,.${My.dec}f`)(v);
-  const [px, rx] = partesU(a.ux), [py, ry] = partesU(a.uy);
-  const vx = f => `${fx(f[a.x])}${px} ${rx}`, vy = f => `${fy(f[a.y])}${py} ${ry}`;
-  const ab = Math.abs(c.rs), mismo = Math.sign(c.rs) === a.espera;
+  const [px, rx] = partesU(p.ux), [py, ry] = partesU(p.uy);
+  const vx = f => `${fx(f[p.x])}${px} ${rx}`, vy = f => `${fy(f[p.y])}${py} ${ry}`;
+  const ab = Math.abs(c.rs), mismo = Math.sign(c.rs) === p.espera, entre = varias ? ` entre ${p.lx} y ${p.ly}` : "";
   const respuesta = ab >= .2 && !mismo ? "No: la relación va en sentido contrario." : respuestaR(c.rs);
-  // las dos mitades, en el sentido de la pregunta del título: a.desde = "menos" cuando el título pregunta por las que tienen menos del primer dato
-  const menos = a.desde === "menos", [A, B] = menos ? [c.menos, c.mas] : [c.mas, c.menos];
+  // las dos mitades, en el sentido de la pregunta del título: p.desde = "menos" cuando el título pregunta por las que tienen menos del primer dato
+  const menos = p.desde === "menos", [A, B] = menos ? [c.menos, c.mas] : [c.mas, c.menos];
   const [m1, m2] = menos ? [c.medMenos, c.medMas] : [c.medMas, c.medMenos], [d1, d2] = menos ? ["menos", "más"] : ["más", "menos"];
-  const frase = `${mayusc(a.ly)} en las ${c.h} ${U.pl} con ${d1} ${a.lx}: ${fy(m1)}${py} ${ry}. En las ${c.h} con ${d2}: ${fy(m2)}${py}.` +
+  const frase = `${mayusc(p.ly)} en las ${c.h} ${U.pl} con ${d1} ${p.lx}: ${fy(m1)}${py} ${ry}. En las ${c.h} con ${d2}: ${fy(m2)}${py}.` +
     (ab >= .2 && fuerza(c.rs2) !== fuerza(c.rs) ? ` Sin ${c.cook.territorio}, la relación pasa a ser ${fuerza(c.rs2)}.` : "");
   // el gancho: los dos extremos del primer dato y lo que tienen en el segundo, en el sentido del título
-  const gancho = `${A.territorio} es la ${U.s} con ${d1} ${a.lx} (${vx(A)}) y ${B.territorio}, la que ${d2} (${fx(B[a.x])}${px}). ` +
-    `En ${a.ly}, ${A.territorio} tiene ${vy(A)} y ${B.territorio}, ${fy(B[a.y])}${py}.`;
+  const gancho = `${A.territorio} es la ${U.s} con ${d1} ${p.lx} (${vx(A)}) y ${B.territorio}, la que ${d2} (${fx(B[p.x])}${px}). ` +
+    `En ${p.ly}, ${A.territorio} tiene ${vy(A)} y ${B.territorio}, ${fy(B[p.y])}${py}.`;
   const [P, Q] = c.par, L = c.lejos;
   const caso = ab < .2
-    ? `Dos ${U.pl} vecinas en ${a.lx} pueden estar lejos en ${a.ly}: ${P.territorio}, con ${vx(P)} y ${vy(P)}, y ${Q.territorio}, con ${vx(Q)} y ${vy(Q)}.`
-    : `La que más se aparta del orden general es ${L.territorio}: es la ${c.px.get(L)}.ª de las ${c.n} con más ${a.lx} (${vx(L)}) y la ` +
-      `${c.py.get(L)}.ª con más ${a.ly} (${vy(L)}).`;
-  const calculo = [`Las dos mitades ordenan las ${c.n} ${U.pl} por ${a.lx}: las ${c.h} con más y las ${c.h} con menos. De cada mitad se muestra la ` +
-    `mediana de ${a.ly}, el valor que deja a la mitad de esas ${U.pl} por encima y a la otra mitad por debajo.`,
+    ? `Dos ${U.pl} vecinas en ${p.lx} pueden estar lejos en ${p.ly}: ${P.territorio}, con ${vx(P)} y ${vy(P)}, y ${Q.territorio}, con ${vx(Q)} y ${vy(Q)}.`
+    : `La que más se aparta del orden general es ${L.territorio}: es la ${c.px.get(L)}.ª de las ${c.n} con más ${p.lx} (${vx(L)}) y la ` +
+      `${c.py.get(L)}.ª con más ${p.ly} (${vy(L)}).`;
+  // en "Cómo se calcula": lo general una vez por artículo y lo de cada cruce aparte
+  const comun = [`Las dos mitades ordenan las ${c.n} ${U.pl} por el primer dato: las ${c.h} con más y las ${c.h} con menos. De cada mitad se muestra la ` +
+    `mediana del segundo dato, el valor que deja a la mitad de esas ${U.pl} por encima y a la otra mitad por debajo.`,
     `La relación se mide con la correlación de Spearman, que compara el orden de las ${c.n} ${U.pl} en los dos datos. Va de −1 a 1: cuanto más lejos ` +
-    `está de 0, más marcada es la relación${c.rs <= -.2 ? ", y un valor negativo quiere decir que cuando un dato sube, el otro tiende a bajar" : ""}. ` +
-    `Acá es de ${rTxt(c.rs)}, una relación ${fuerza(c.rs)}. Desde 0,60 la relación es fuerte, desde 0,40 moderada, desde 0,20 débil y por debajo, casi nula.`,
+    `está de 0, más marcada es la relación, y un valor negativo quiere decir que cuando un dato sube, el otro tiende a bajar. Desde 0,60 la relación es ` +
+    "fuerte, desde 0,40 moderada, desde 0,20 débil y por debajo, casi nula. La línea punteada de cada gráfico es la recta que mejor se acerca a los puntos."];
+  const propio = `${varias ? mayusc(p.lx) + " y " + p.ly + ": la" : "Acá la"} correlación es de ${rTxt(c.rs)}, una relación ${fuerza(c.rs)}. ` +
     `${c.cook.territorio} es la ${U.s} que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05
       ? `Sin ella, la correlación ${rTxt(c.rs2) === rTxt(c.rs) ? "no cambia" : "casi no cambia"}: da ${rTxt(c.rs2)}.`
-      : `Sin ella, la correlación pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerza(c.rs2) !== fuerza(c.rs) ? `, una relación ${fuerza(c.rs2)}.` : ".")),
-    (Math.abs(c.rs - c.rp) > .2 ? `La correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}: que las dos den tan distinto indica que ` +
-      "unos pocos casos influyen mucho. " : "") + "La línea punteada del gráfico es la recta que mejor se acerca a los puntos."];
+      : `Sin ella, pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerza(c.rs2) !== fuerza(c.rs) ? `, una relación ${fuerza(c.rs2)}.` : ".")) +
+    (Math.abs(c.rs - c.rp) > .2 ? ` La correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}: que las dos den tan distinto indica ` +
+      "que unos pocos casos influyen mucho." : "");
   const lim = [
-    ...(ab < .2 ? [`Con ${c.n} casos y una relación casi nula, la diferencia entre las dos mitades puede ser casualidad.`]
-      : ab < .4 ? [`Con ${c.n} casos, una relación débil como esta puede aparecer por casualidad.`] : []),
-    ...a.limites,
-    ...(Mx.periodo !== My.periodo ? [`Los datos son de períodos distintos: el de ${a.lx} es ${delPer(Mx.periodo)} y el de ${a.ly}, ${delPer(My.periodo)}.`] : [])];
-  return {respuesta, frase, gancho, caso, calculo, lim, leer: leerCruce(c, U), vx, vy};
+    ...(ab < .2 ? [`Con ${c.n} casos y una relación casi nula${entre}, la diferencia entre las dos mitades puede ser casualidad.`]
+      : ab < .4 ? [`Con ${c.n} casos, una relación débil como esta${entre} puede aparecer por casualidad.`] : []),
+    ...(p.limites || []),
+    ...(Mx.periodo !== My.periodo ? [`Los datos son de períodos distintos: el de ${p.lx} es ${delPer(Mx.periodo)} y el de ${p.ly}, ${delPer(My.periodo)}.`] : [])];
+  return {respuesta, frase, gancho, caso, comun, propio, lim, leer: leerCruce(c, U), vx, vy, Mx, My};
 }
 const fuenteArt = m => m.fuente.includes(m.periodo) ? m.fuente : `${m.fuente} (${m.periodo})`;
 const SEC = Object.fromEntries(SITIO.secciones.map(([id, t, p, x, herr, f, a, c]) => [id, {id, t, p, x, herr, f, a, c}]));
@@ -7765,39 +7760,45 @@ const tarjetaArt = a => `<a class="tarjeta art-card" href="${urlPagina(a.id)}"><
 // título, ícono y sección de cada artículo: de la plantilla (data-titulo, data-ico y data-sec), por el índice del sitio
 const DAT_ART = Object.fromEntries(SITIO.articulos.map(([id, titulo, icono, sec]) => [id, {titulo, icono, sec}]));
 // las cuentas de cada artículo se hacen en todas las páginas (la portada y el buscador las usan): si las de uno fallan, se anota en la
-// consola (la prueba de páginas lo ve) y ese artículo queda afuera, sin cortar el resto de la página (estabilización, P2-17)
+// consola (la prueba de páginas lo ve) y ese artículo queda afuera, sin cortar el resto de la página (estabilización, P2-17). a.c y a.t
+// tienen una entrada por parte
 ART.forEach(a => {
   Object.assign(a, DAT_ART[a.id]);
-  try { a.c = calcularArt(a); a.t = textoArt(a, a.c); } catch (e) { a.c = a.t = null; console.error(`Datina: no se pudo armar el artículo ${a.id}.`, e); }
+  try { a.c = partesArt(a).map(p => calcularArt(a, p)); a.t = partesArt(a).map((p, i) => textoArt(a, a.c[i], p, partesArt(a).length > 1)); }
+  catch (e) { a.c = a.t = null; console.error(`Datina: no se pudo armar el artículo ${a.id}.`, e); }
 });
-// el orden de la nota (etapa 5): el gancho como bajada, "En una frase" con la respuesta y las dos mitades, el contexto, el gráfico, el caso que
-// se aparta, "Cómo se calcula" plegado, los límites propios con el recuadro fijo de cómo leer un cruce, y las fuentes
+// el orden de la nota (etapa 5): el gancho como bajada, "En una frase" con la respuesta y las dos mitades de cada cruce, el contexto, el gráfico
+// y el caso que se aparta de cada cruce, "Cómo se calcula" plegado, los límites propios con el recuadro fijo de cómo leer un cruce, y las fuentes
 ART.forEach(a => {
   if (!a.t) { const nota = document.getElementById(a.id); if (nota) nota.innerHTML = '<p class="nota">No se pudo armar este artículo. Probá recargar la página.</p>'; return; }
-  const {c, t} = a, tabla = tablaArt(a), Mx = META_TAB[tabla][a.x], My = META_TAB[tabla][a.y], U = CASOS_ART[tabla], key = "art-" + a.id;
+  const P = partesArt(a), tabla = tablaArt(a), U = CASOS_ART[tabla], t0 = a.t[0];
   const ficha = id => id && paginaDe(id) ? urlPagina(paginaDe(id), "#" + id) : null;
-  const fichas = [...new Map([[Mx.ficha, Mx.nombre], [My.ficha, My.nombre]]).entries()].filter(([id]) => ficha(id));
-  const [px] = partesU(a.ux), [py] = partesU(a.uy), fts = [...new Set([fuenteArt(Mx), fuenteArt(My)])];
+  const fichas = [...new Map(a.t.flatMap(t => [[t.Mx.ficha, t.Mx.nombre], [t.My.ficha, t.My.nombre]])).entries()].filter(([id]) => ficha(id));
+  const fts = [...new Set(a.t.flatMap(t => [fuenteArt(t.Mx), fuenteArt(t.My)]))];
+  const key = i => "art-" + a.id + (i ? "-" + i : "");
   const nota = document.getElementById(a.id); if (!nota) return;
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
-    `<p class="nota-bajada">${t.gancho}</p>` +
-    `<div class="nota-frase"><h2>En una frase</h2><p><mark>${t.respuesta}</mark> ${t.frase}</p></div><p>${a.contexto}</p>` +
+    `<p class="nota-bajada">${t0.gancho}</p>` +
+    `<div class="nota-frase"><h2>En una frase</h2>${a.t.map(t => `<p><mark>${t.respuesta}</mark> ${t.frase}</p>`).join("")}</div><p>${a.contexto}</p>` +
     // data-forma reserva el alto del gráfico mientras se dibuja, así el texto de abajo no salta (revisión de la línea de base)
-    `<div class="nota-graf"><h2>${Mx.nombre} ${yE(minusc(My.nombre))}, por ${U.s}</h2><div class="grafico" data-g="${key}" data-forma="puntos"></div>` +
-    `<p class="nota-pie-graf">Cada punto es una ${U.s}. ${Mx.nombre}: ${Mx.unidad}. ${My.nombre}: ${My.unidad}. La línea punteada muestra la tendencia.</p></div>` +
-    `<p>${t.caso}</p>` +
-    `<details class="nota-calculo"><summary>Cómo se calcula</summary>${t.calculo.map(p => `<p>${p}</p>`).join("")}</details>` +
-    `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul>` +
-    `<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t.leer}</p></div></div>` +
+    a.t.map((t, i) => `<div class="nota-graf"><h2>${t.Mx.nombre} ${yE(minusc(t.My.nombre))}, por ${U.s}</h2><div class="grafico" data-g="${key(i)}" data-forma="puntos"></div>` +
+      `<p class="nota-pie-graf">Cada punto es una ${U.s}. ${t.Mx.nombre}: ${t.Mx.unidad}. ${t.My.nombre}: ${t.My.unidad}. La línea punteada muestra la tendencia.</p></div>` +
+      `<p>${t.caso}</p>`).join("") +
+    `<details class="nota-calculo"><summary>Cómo se calcula</summary>${[...t0.comun, ...a.t.map(t => t.propio)].map(x => `<p>${x}</p>`).join("")}</details>` +
+    `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${[...a.t.flatMap(t => t.lim), ...(P.length > 1 ? a.limites || [] : [])].map(l => `<li>${l}</li>`).join("")}</ul>` +
+    `<div class="nota-leer"><h3>Cómo leer un cruce</h3><p>${t0.leer}</p></div></div>` +
     `<div class="nota-fuentes"><p>${fts.length > 1 ? "Fuentes" : "Fuente"}: ${listaY(fts)}.</p><div class="acciones">` +
     fichas.map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom.toLowerCase()}</a>`).join("") +
-    (tabla === "cruces_provincias" ? `<a class="boton chico accion" href="cruces.html?cx=${a.x}&cy=${a.y}">Abrir en Cruces</a>` : "") +
+    (tabla === "cruces_provincias" ? P.map(p => `<a class="boton chico accion" href="cruces.html?cx=${p.x}&cy=${p.y}">Abrir en Cruces${P.length > 1 ? `: ${p.lx}` : ""}</a>`).join("") : "") +
     `<a class="boton chico accion" href="datos/${tabla}.csv" download>Descargar CSV</a></div></div>`;
-  // en el gráfico van con nombre las jurisdicciones que menciona el texto
-  DIB[key] = anim => dispersion(G(key), {anim, data: c.F, x: a.x, y: a.y, yAuto: a.yAuto, xLab: Mx.nombre, yLab: My.nombre,
-    marcar: [c.mas, c.menos, ...(Math.abs(c.rs) < .2 ? c.par : [c.lejos]), c.cook].map(f => f.codigo_indec),
-    fx: v => n0(v) + px, fy: v => n0(v) + py, vx: v => a.t.vx({[a.x]: v}), vy: v => a.t.vy({[a.y]: v})});
+  // en cada gráfico van con nombre las jurisdicciones que menciona el texto
+  P.forEach((p, i) => {
+    const c = a.c[i], t = a.t[i], [px] = partesU(p.ux), [py] = partesU(p.uy);
+    DIB[key(i)] = anim => dispersion(G(key(i)), {anim, data: c.F, x: p.x, y: p.y, yAuto: p.yAuto, xLab: t.Mx.nombre, yLab: t.My.nombre,
+      marcar: [c.mas, c.menos, ...(Math.abs(c.rs) < .2 ? c.par : [c.lejos]), c.cook].map(f => f.codigo_indec),
+      fx: v => n0(v) + px, fy: v => n0(v) + py, vx: v => t.vx({[p.x]: v}), vy: v => t.vy({[p.y]: v})});
+  });
 });
 /* ---------- artículos con series del país (etapa 22): preguntas que se responden cruzando series en el tiempo ----------
    Las cifras salen del resumen (02_procesar.py las calcula sobre los trimestres) y las tablas de los gráficos se bajan aparte, al abrir el
@@ -7812,26 +7813,27 @@ const PLURAL = {"fuerte": "fuertes", "moderada": "moderadas", "débil": "débile
 // dos relaciones a la vez: "las dos relaciones son débiles" o "la primera relación es fuerte y la segunda, moderada"
 const dosRel = (r1, r2) => fz(r1) === fz(r2) ? `las dos relaciones son ${PLURAL[fz(r1)]}` : `la primera relación es ${fz(r1)} y la segunda, ${fz(r2)}`;
 const ART_SERIE = [{
-  id: "a-dolar-inversion", frec: "Se actualiza cada trimestre", tablas: ["dolar_inversion_trimestral", "compras_dolares_anual"],
-  dek: "El dólar en términos reales, trimestre por trimestre, frente a lo que se invierte en máquinas importadas y en construcción. También muestra lo que cuesta construir medido en dólares y las compras de dólares de personas y empresas.",
+  // etapa 5: la pregunta pasa a ser la de la construcción, y las compras de dólares, que eran su cuarta sección, van en su propio artículo
+  id: "a-dolar-inversion", frec: "Se actualiza cada trimestre", tablas: ["dolar_inversion_trimestral"],
+  dek: "Lo que cuesta construir medido en dólares, trimestre por trimestre, frente a lo que cambia la inversión en construcción en el año siguiente. También muestra el dólar en términos reales y la parte de la inversión que va a máquinas importadas.",
   fichas: [["f-isac", "actividad de la construcción"], ["f-costo", "costo de la construcción"], ["f-hipotecas", "créditos hipotecarios"]],
-  csv: [["dolar_inversion_trimestral", "Descargar CSV por trimestre"], ["compras_dolares_anual", "Descargar CSV de las compras de dólares"]],
+  csv: [["dolar_inversion_trimestral", "Descargar CSV por trimestre"]],
   fuentes: "Banco Central de la República Argentina, índice de tipo de cambio real multilateral, e INDEC y Banco Central vía API de Series de Tiempo: " +
-    "inversión bruta interna fija (oferta y demanda globales), tipo de cambio de referencia (Comunicación \"A\" 3500) y balance cambiario",
+    "inversión bruta interna fija (oferta y demanda globales) y tipo de cambio de referencia (Comunicación \"A\" 3500)",
   texto: () => {
     const d = DL, sin = d.primeros_hasta + 1;
-    // la respuesta: las dos relaciones más claras (la parte importada de la inversión y la construcción del año siguiente), en toda la
-    // serie y sin sus seis primeros años
-    const full = Math.max(ab(d.rs_imp), ab(d.rs_sig)), sinP = Math.max(ab(d.rs_imp_sin), ab(d.rs_sig_sin));
-    const respuesta = fz(sinP) === fz(full) ? respuestaR(sinP) : `Desde ${sin}, ${respuestaR(sinP).toLowerCase()} Antes, la relación era más marcada.`;
+    // la respuesta: la construcción del año siguiente, desde el fin de los primeros años de la serie (los que siguieron a la devaluación de 2002);
+    // si en toda la serie la relación es más marcada, lo dice
+    const respuesta = fz(d.rs_sig_sin) === fz(d.rs_sig) ? respuestaR(d.rs_sig_sin)
+      : `Desde ${sin}, ${respuestaR(d.rs_sig_sin).toLowerCase()} Antes, la relación era más marcada.`;
     const dirImp = d.rs_imp < 0 ? "pesaron menos" : "pesaron más", dirSig = d.rs_sig < 0 ? "crecer más" : "crecer menos";
     const bajada = `Desde el ${d.desde}, con el dólar más caro en términos reales, las máquinas y equipos importados ${dirImp} en la inversión, ` +
       `y cuando construir fue más barato en dólares, la inversión en construcción tendió a ${dirSig} en el año siguiente. ` +
       `Desde ${sin}, ${dosRel(d.rs_imp_sin, d.rs_sig_sin)}, y en toda la serie, ${dosRel(d.rs_imp, d.rs_sig)}. ` +
       `Cuánto se invierte en total, de un año a otro, tiene una relación ${fz(d.rs_var_total)} con lo que cambia el dólar.`;
     const contexto = "El tipo de cambio mueve los precios relativos. Con un dólar caro, lo que se trae de afuera cuesta más pesos, y lo que se hace en el país, " +
-      `como una obra, cuesta menos dólares. Este artículo pone al lado, trimestre por trimestre desde ${d.desde_anio}, el dólar en términos reales, la inversión ` +
-      "en máquinas y equipos y en construcción, lo que cuesta construir medido en dólares y las compras de dólares de personas y empresas.";
+      `como una obra, cuesta menos dólares. Este artículo pone al lado, trimestre por trimestre desde ${d.desde_anio}, lo que cuesta construir medido en dólares, ` +
+      "la inversión en construcción, el dólar en términos reales y la inversión en máquinas y equipos.";
     // 1. el dólar real y lo que cuesta construir en dólares
     const extremo = (q, max, min, nom) => q === max ? `, el ${nom} más alto de la serie` : q === min ? `, el ${nom} más bajo de la serie` : "";
     const s1 = `El índice de tipo de cambio real multilateral del Banco Central compara los precios de la Argentina con los de sus principales socios comerciales, ` +
@@ -7863,18 +7865,10 @@ const ART_SERIE = [{
       `La correlación de Spearman es de ${rTxt(d.rs_sig)}, una relación ${fz(d.rs_sig)}. ` +
       `Pero ${d.barato_primeros} de esos ${d.barato_n} trimestres más baratos son de ${d.desde_anio} a ${d.primeros_hasta}, los primeros años de la serie, después de la ` +
       `devaluación de 2002. Desde ${sin}, la correlación es de ${rTxt(d.rs_sig_sin)}, una relación ${fz(d.rs_sig_sin)}.`;
-    // 4. las compras de dólares de personas y empresas
-    const y = d.fae_ytd;
-    const s4 = `En ${d.fae_anio}, las personas y las empresas compraron en neto ${n0(d.fae_ult)} millones de dólares en billetes y divisas en el mercado oficial de cambios` +
-      (d.fae_max_anio === d.fae_anio ? `, el monto más alto de la serie, que empieza en ${d.fae_ini}.` : `. El año más alto de la serie, que empieza en ${d.fae_ini}, fue ${d.fae_max_anio}, con ${n0(d.fae_max)} millones.`) +
-      (y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} compraron ${n0(y.millones)} millones, frente a ${n0(y.ant)} en los mismos meses de ${y.anio - 1}.` : "") +
-      (d.fae_neg.length ? ` En ${listaY(d.fae_neg.map(String))}, vendieron más de lo que compraron.` : "") +
-      ` Por trimestre, estas compras ${ab(d.rs_fae) < .2 ? "no muestran una relación con el nivel del dólar real" : `tienen una relación ${fz(d.rs_fae)} con el nivel del dólar real`} ` +
-      `(la correlación de Spearman es de ${rTxt(d.rs_fae)}). En buena parte de estos años hubo límites para comprar dólares, que cambian cuánto se puede comprar.`;
     const lim = [`Son ${d.n} trimestres de una sola economía, y los trimestres seguidos no son casos independientes: una misma crisis o una misma recuperación pesa ` +
       "en varios a la vez, y eso puede hacer que una relación parezca más fuerte de lo que es.",
-      "Una correlación no prueba que una cosa cause la otra. En los mismos trimestres cambiaron también la actividad, el crédito, las tasas de interés, los " +
-      "impuestos y las reglas para comprar dólares.",
+      "Una correlación no prueba que una cosa cause la otra. En los mismos trimestres cambiaron también la actividad, el crédito, las tasas de interés y los " +
+      "impuestos.",
       "La pandemia de COVID-19 hizo caer la construcción en 2020 y rebotar en 2021: esos trimestres son los puntos más alejados del gráfico de la construcción. " +
       "La correlación de Spearman, que usa el orden de los valores y no su tamaño, pesa menos esos extremos.",
       "El índice de tipo de cambio real compara con una canasta de monedas de los principales socios comerciales, no solo con el dólar estadounidense, y usa " +
@@ -7883,9 +7877,6 @@ const ART_SERIE = [{
       "Lo que cuesta construir en dólares es el índice de precios implícitos de la inversión en construcción del INDEC (lo invertido en construcción a precios de " +
       "cada año, dividido por lo mismo a precios de 2004), pasado a dólares con el tipo de cambio de referencia del Banco Central. No es el precio del metro " +
       "cuadrado de una vivienda.",
-      "Las compras de dólares son las del sector privado no financiero en el mercado oficial de cambios que registra el Banco Central, " +
-      "en neto: compras menos ventas. " +
-      "No dicen en qué se usaron esos dólares, si quedaron guardados, si se depositaron en un banco del país o si sirvieron para comprar una vivienda o hacer una obra.",
       "La inversión se mide en pesos de 2004, y el INDEC revisa los últimos trimestres en cada publicación."];
     return {respuesta, bajada, contexto, lim, secciones: [
       {g: "dolar-espejo", tit: "El dólar real y lo que cuesta construir en dólares, por trimestre", forma: "lineas",
@@ -7894,8 +7885,6 @@ const ART_SERIE = [{
         pie: "Cada punto es un trimestre. La línea punteada muestra la tendencia. La inversión se mide en pesos de 2004.", txt: [s2, s2b]},
       {g: "dolar-construccion", tit: "Lo que cuesta construir en dólares y lo que cambia la construcción en el año siguiente", forma: "puntos",
         pie: `Cada punto es un trimestre: lo que costaba construir en dólares (promedio desde ${d.desde_anio} = 100) y cuánto cambió la inversión en construcción en los cuatro trimestres siguientes.`, txt: [s3]},
-      {g: "dolar-compras", tit: "Compras netas de dólares de personas y empresas, por año", forma: "lineas",
-        pie: "Millones de dólares de cada año: compras menos ventas de billetes y divisas del sector privado no financiero (personas, empresas e inversores institucionales) en el mercado oficial de cambios.", txt: [s4]},
     ]};
   },
   // los gráficos de cada sección, con las tablas del artículo ya cargadas
@@ -7911,6 +7900,43 @@ const ART_SERIE = [{
       data: T.dolar_inversion_trimestral.filter(r => r.construccion_anio_siguiente != null).map(r => ({...r, codigo_indec: r.periodo, territorio: triCorto(r)})),
       xLab: "Lo que cuesta construir en dólares (índice)", yLab: "Cambio de la construcción en el año siguiente",
       fx: n0, fy: v => n0(v) + "%", vx: n1, vy: v => (v > 0 ? "+" : "") + pct(v)}),
+  },
+}, {
+  // etapa 5: las compras de dólares de personas y empresas, que hasta entonces eran la cuarta sección del artículo del dólar y la inversión
+  id: "a-compras-dolares", frec: "Se actualiza cada mes", tablas: ["compras_dolares_anual"],
+  dek: "Cuántos dólares compraron en neto, cada año, las personas y las empresas en el mercado oficial de cambios, y cómo se movieron esas compras con el dólar en términos reales.",
+  fichas: [["f-bcra", "dólar, tasas y dinero"]],
+  csv: [["compras_dolares_anual", "Descargar CSV por año"]],
+  fuentes: "Banco Central de la República Argentina, balance cambiario, vía API de Series de Tiempo, e índice de tipo de cambio real multilateral",
+  texto: () => {
+    const d = DL;
+    // la respuesta es la cifra del último año completo
+    const respuesta = `${n0(d.fae_ult)} millones de dólares en ${d.fae_anio}.`;
+    const bajada = `Es lo que compraron en neto, en billetes y divisas, las personas y las empresas en el mercado oficial de cambios: las compras menos las ventas` +
+      (d.fae_max_anio === d.fae_anio ? `. Es el monto más alto de la serie, que empieza en ${d.fae_ini}.` : `. El año más alto de la serie, que empieza en ${d.fae_ini}, fue ${d.fae_max_anio}.`);
+    const contexto = "Las personas y las empresas compran dólares para ahorrar, para viajar, para importar o para pagar deudas en dólares, y los venden cuando necesitan " +
+      "pesos. El Banco Central registra cada mes esas compras y ventas en el mercado oficial de cambios. Este artículo suma lo comprado en neto cada año desde " +
+      `${d.fae_ini} y lo compara con el dólar en términos reales.`;
+    const y = d.fae_ytd;
+    // la cifra del año y el máximo ya están en la respuesta y la bajada: el texto sigue con lo que va del año
+    const s4 = (d.fae_max_anio === d.fae_anio ? "" : `En ${d.fae_max_anio} compraron ${n0(d.fae_max)} millones.`) +
+      (y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} compraron ${n0(y.millones)} millones, frente a ${n0(y.ant)} en los mismos meses de ${y.anio - 1}.` : "") +
+      (d.fae_neg.length ? ` En ${listaY(d.fae_neg.map(String))}, vendieron más de lo que compraron.` : "") +
+      ` Por trimestre, estas compras ${ab(d.rs_fae) < .2 ? "no muestran una relación con el nivel del dólar real" : `tienen una relación ${fz(d.rs_fae)} con el nivel del dólar real`} ` +
+      `(la correlación de Spearman es de ${rTxt(d.rs_fae)}). En buena parte de estos años hubo límites para comprar dólares, que cambian cuánto se puede comprar.`;
+    const lim = [
+      "Las compras de dólares son las del sector privado no financiero en el mercado oficial de cambios que registra el Banco Central, " +
+      "en neto: compras menos ventas. " +
+      "No dicen en qué se usaron esos dólares, si quedaron guardados, si se depositaron en un banco del país o si sirvieron para comprar una vivienda o hacer una obra.",
+      "Entre fines de 2011 y fines de 2015, y entre septiembre de 2019 y abril de 2025, las personas tuvieron límites para comprar dólares al tipo de cambio " +
+      "oficial: lo que se compró en esos años depende de esas reglas, además de lo que la gente quería comprar.",
+      "Las compras por fuera del mercado oficial, como las del dólar que no pasa por los bancos, no se cuentan."];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "dolar-compras", tit: "Compras netas de dólares de personas y empresas, por año", forma: "lineas",
+        pie: "Millones de dólares de cada año: compras menos ventas de billetes y divisas del sector privado no financiero (personas, empresas e inversores institucionales) en el mercado oficial de cambios.", txt: [s4]},
+    ]};
+  },
+  dib: {
     "dolar-compras": (el, a) => lineas(el, {anim: a, x: "anio", y0: Math.min(0, d3.min(T.compras_dolares_anual, r => r.millones_usd)), ref: 0, vf: n0, yf: n0,
       data: T.compras_dolares_anual, series: [{k: "millones_usd", lab: "Compras netas", c: NAR}]}),
   },
@@ -8127,7 +8153,7 @@ const ARTS = [...ART_SERIE, ...ART];
 // amarillo) y después los más nuevos. Los de política no se eligen por un cálculo automático. El resto, en "Todos los artículos"
 const artHome = document.getElementById("art-grid-home");
 if (artHome) {
-  const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c.rs) - Math.abs(p.c.rs))[0];
+  const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c[0].rs) - Math.abs(p.c[0].rs))[0];
   // antes de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2)
   artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
 }
@@ -8135,7 +8161,8 @@ if (artHome) {
    usan, la misma relación de los botones "Ficha: …" de cada artículo, al revés. Va en el pie, debajo de las acciones, en el orden de la
    lista de Artículos. Se arma acá y no con el resto del pie porque necesita los artículos, que se definen después del pie en el archivo */
 const ARTS_DE = {};
-ART.forEach(a => { const M = META_TAB[tablaArt(a)]; [M[a.x].ficha, M[a.y].ficha].forEach(id => { if (id) (ARTS_DE[id] ||= []).push(a); }); });
+ART.forEach(a => { const M = META_TAB[tablaArt(a)];
+  new Set(partesArt(a).flatMap(p => [M[p.x].ficha, M[p.y].ficha])).forEach(id => { if (id) (ARTS_DE[id] ||= []).push(a); }); });
 ART_SERIE.forEach(a => a.fichas.forEach(([id]) => (ARTS_DE[id] ||= []).push(a)));
 document.querySelectorAll("article.ficha").forEach(f => {
   const arts = ARTS.filter(a => ARTS_DE[f.id]?.includes(a));
@@ -8181,7 +8208,7 @@ document.querySelector(".saltar")?.addEventListener("click", ev => {
 
 /* portada: una tarjeta por sección */
 // ícono de cada página (secciones, tu provincia y artículos): lo pone el constructor, que también lo usa en el final de página
-const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "consulta-ia": "dialogo", "a-dolar-inversion": "billetes", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-empleo-pobreza": "personas", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-hacinamiento": "casa", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-cobertura-adolescentes": "mamadera", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna", "corte-suprema": "balanza"};
+const SEC_ICONO = {"articulos": "periodico", "provincia": "pin", "trabajo": "maletin", "empresas": "tienda", "pobreza": "casa", "salud": "botiquin", "educacion": "birrete", "poblacion": "personas", "politica": "congreso", "movilidad": "colectivo", "construccion": "grua", "energia": "rayo", "petroleo": "ciguena", "seguridad": "escudo", "economia": "carrito", "migraciones": "globo", "gobierno": "mastil", "externo": "buque", "turismo": "valija", "naturaleza": "andes", "curiosidades": "mate", "cruces": "dispersion", "indice": "podio", "departamentos": "mosaico", "diagnostico": "portapapeles", "catalogo": "planilla", "laboratorio": "matraz", "consulta-ia": "dialogo", "a-dolar-inversion": "billetes", "a-compras-dolares": "monedas", "a-turismo-dolar": "valija", "a-nafta-dolares": "ciguena", "a-exportaciones-dolar": "buque", "a-pobreza-desocupacion": "maletin", "a-alquiler-pobreza": "casa", "a-atn-presupuesto": "monedas", "a-viviendas-alquiler": "casa", "a-exportaciones-empleo": "buque", "a-cloacas-mortalidad": "gota", "a-recursos-empleo": "monedas", "a-cobertura-esperanza": "reloj", "a-internet-aprender": "laptop", "a-inversion-aprender": "birrete", "a-milei-empleo": "urna", "corte-suprema": "balanza"};
 // en la tarjeta va la pregunta corta de la sección, si tiene una (data-corta en la plantilla)
 // sin la tarjeta de Artículos, que tienen su bloque más arriba. Con las 14 secciones (Petróleo y gas volvió a tener su página en la
 // etapa 22) ninguna fila queda con una sola tarjeta, en ningún ancho: por eso "Tu provincia", que se sumó cuando eran 13 para llegar a

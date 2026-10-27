@@ -12,8 +12,8 @@ import { fileURLToPath } from "node:url";
 import { abrirChrome, espera } from "./cdp.mjs";
 
 const SITIO = normalize(fileURLToPath(new URL("../sitio/", import.meta.url)));
-// páginas que solo redirigen a otra
-const SALTEAR = new Set(["emprendedores.html"]);
+// páginas que solo redirigen a otra (REDIRECCIONES en 03_construir_sitio.py: una sección vieja o un artículo que se juntó con otro)
+const SALTEAR = new Set(readdirSync(SITIO).filter(f => f.endsWith(".html") && readFileSync(join(SITIO, f), "utf8").includes("Esta página se mudó")));
 // las 19 secciones con "En cifras" y dos provincias para probarla: Neuquén (con la aclaración de Aprender) y la Ciudad (con la de empleo)
 const SECCIONES = ["trabajo", "economia", "empresas", "externo", "pobreza", "salud", "seguridad", "educacion", "poblacion", "migraciones", "politica", "gobierno", "movilidad", "construccion", "energia", "petroleo",
   "turismo", "naturaleza", "curiosidades"];

@@ -23,8 +23,10 @@ a-pobreza-desocupacion a-recursos-empleo a-turismo-dolar a-viviendas-alquiler a-
 contacto corte-suprema cruces curiosidades departamentos diagnostico economia educacion emprendedores empresas energia externo gobierno
 index indice laboratorio migraciones movilidad naturaleza nosotros petroleo poblacion pobreza politica provincia relaciones salud seguridad
 trabajo turismo""".split()
-# las que no llevan la barra común: una redirección y el Explorador (que la tiene como enlaces)
-SIN_BARRA = {"emprendedores.html", "relaciones.html"}
+# las que no llevan la barra común: el Explorador (que la tiene como enlaces) y las redirecciones (REDIRECCIONES de 03_construir_sitio.py:
+# las páginas que cambiaron de nombre y, desde la etapa 5 del plan de mejora, los artículos que se juntaron con otro o se retiraron)
+SIN_BARRA = {"relaciones.html"}
+es_redireccion = lambda h: '<meta name="robots" content="noindex">' in h and "Esta página se mudó" in h
 
 
 def tramo(h, inicio, fin):
@@ -66,8 +68,11 @@ def revisar():
     cols = re.findall(r"<h2>([^<]+)</h2>", pie_ref)
     if cols != PIE:
         problemas.append(f"el pie no tiene las partes de la barra: {cols}")
+    redirecciones = {n for n, h in html.items() if es_redireccion(h)}
+    if "emprendedores.html" not in redirecciones:
+        problemas.append("emprendedores.html ya no es la redirección a empresas.html")
     for nombre, h in html.items():
-        if nombre in SIN_BARRA:
+        if nombre in SIN_BARRA | redirecciones:
             continue
         if tramo(h, '<nav class="temas"', "</nav>") != barra_ref:
             problemas.append(f"{nombre}: la barra no es la misma que en la portada")
@@ -99,7 +104,7 @@ def revisar():
     if len(set(provincias)) != 24:
         problemas.append(f"el menú Provincias tiene {len(set(provincias))} jurisdicciones y no 24")
 
-    # 4. ninguna página sin enlaces que lleguen a ella (salvo la 404 y la redirección)
+    # 4. ninguna página sin enlaces que lleguen a ella (salvo la 404 y las redirecciones)
     llegan = {n: set() for n in html}
     for nombre, h in html.items():
         # la portada se enlaza como "./" (la marca de la barra) o "./#…"
@@ -108,7 +113,7 @@ def revisar():
             if d in llegan and d != nombre:
                 llegan[d].add(nombre)
     for nombre, desde in llegan.items():
-        if not desde and nombre not in ("404.html", "emprendedores.html"):
+        if not desde and nombre != "404.html" and nombre not in redirecciones:
             problemas.append(f"{nombre}: ninguna página la enlaza")
     if not any('href="pobreza/"' in h for h in html.values()):
         problemas.append("ninguna página enlaza al consultor de pobreza")
