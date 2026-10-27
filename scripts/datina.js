@@ -1594,7 +1594,10 @@ const TX = {
   exportaciones: `Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}. En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
     "",
   "exportaciones-nota": `Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
-  "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. Sin obra social, prepaga ni plan estatal: personas, no hogares, sin ninguna de esas coberturas de salud. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
+  cobertura: textoCenso("sin_cobertura"), "cobertura-nota": `Personas en viviendas particulares según el Censo 2022 que no tenían obra social (incluido el ` +
+    `PAMI), prepaga ni un programa o plan estatal de salud: dependían solo de los hospitales y centros de salud públicos, que atienden a todas las personas. ` +
+    `El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
+  "censo-nota": `Hogares en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
   // la cifra destacada ya dice el valor más alto: el texto empieza por el más bajo
   internet: `En el ${nv.in_trim}, el valor más bajo fue el de ${nv.in_low}, con ${n1(nv.in_low_v)} accesos a internet fijo cada 100 hogares.` +
     (DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top]?.accion === "aclarar" ? ` ${DIST["internet_fijo_provincias.accesos_100_hogares"][nv.in_top].motivo}.` : "") +
@@ -2808,6 +2811,15 @@ const DIB = protegerDib({
     // la jurisdicción que todavía no publicó el año de la ficha va con su año al lado del nombre (E12, 27 de octubre de 2026)
     barrasH(G("fiscal"), {anim:a, data: d.map(r => fz.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${fz.atrasadas[r.territorio]})`} : r), k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
       color: k === "resultado" ? (r => r.resultado < 0 ? css("--sol") : css("--celeste")) : null});
+  },
+  // la cobertura de salud (plan de mejora, etapa 4): la misma tabla del censo, en su ficha de Salud
+  cobertura: a => {
+    const fp = T.censo2022_provincias.find(r => r.codigo_indec === prov);
+    let txt = textoCenso("sin_cobertura");
+    if (fp && fp.territorio !== nv.censo_top.sin_cobertura[0] && fp.territorio !== nv.censo_low.sin_cobertura[0]) txt += ` En ${fp.territorio}, el ${pct(fp.sin_cobertura)}.`;
+    $t("cobertura").textContent = txt;
+    barrasH(G("cobertura"), {anim: a, data: T.censo2022_provincias, k: "sin_cobertura", ref: nv.censo.sin_cobertura, refLab: `País ${pct(nv.censo.sin_cobertura)}`,
+      vf: pct, af: v => n0(v) + "%"});
   },
   censo: a => {
     document.querySelector('[data-t="censo"]').textContent = textoCenso(MED.censo);
@@ -6441,6 +6453,8 @@ const CLAVE = {
   "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
     `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares por habitante, promedio del país"],
+  "f-cobertura": [pct(nv.censo.sin_cobertura), `de las personas no tenía obra social, prepaga ni plan estatal de salud en el Censo 2022`,
+    "de las personas del país no tenía obra social, prepaga ni plan estatal de salud en el Censo 2022"],
   "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, "de los hogares del país tenía desagüe a red cloacal"],
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
     `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
@@ -7205,7 +7219,7 @@ const INDP = [
     d:T.esperanza_vida_provincias, k:"total", pais:nv.ev_pais, f:n1, ocde:OC.esperanza_vida.ocde},
   {id:"f-causas-muerte", g:"salud", lab:"Mortalidad ajustada por edad", veces:true, det:`muertes por año cada 100.000 habitantes, descontado el efecto de la edad de la población, promedio ${CM.desde} a ${CM.hasta}`,
     d:T.causas_muerte_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_total", pais:CM.pais, f:n0},
-  {id:"f-censo", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, Censo 2022",
+  {id:"f-cobertura", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, Censo 2022",
     d:T.censo2022_provincias, k:"sin_cobertura", pais:nv.censo.sin_cobertura, f:pct},
   {id:"f-censo", g:"vivienda", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, Censo 2022",
     d:T.censo2022_provincias, k:"cloaca", pais:nv.censo.cloaca, f:pct},
@@ -8444,7 +8458,7 @@ if (PAGINA !== "inicio") {
     "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
     "f-jubilaciones": ["jubilacion", "jubilaciones", "jubilados", "aportantes"],
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
-    "f-censo": ["cloacas", "agua red"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
+    "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],

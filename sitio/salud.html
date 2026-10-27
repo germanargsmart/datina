@@ -167,6 +167,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022. Se actualiza cada año.</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+<!-- la cobertura de salud del Censo 2022 (plan de mejora, etapa 4, 27 de octubre de 2026): hasta entonces, una opción de la ficha del censo en Pobreza -->
+    <article class="ficha" id="f-cobertura">
+      <h2>¿Cuánta gente no tiene obra social, prepaga ni plan estatal de salud?</h2>
+      <p class="ficha-sub">Personas sin obra social, prepaga ni plan estatal de salud, en % de la población de cada provincia, Censo 2022</p>
+      <div class="grafico" data-g="cobertura" data-forma="barras"></div>
+      <p class="lead" data-t="cobertura"></p>
+      <p class="nota" data-t="cobertura-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022. Se actualiza con cada censo.</span><a href="datos/censo2022_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <div class="ayuda" id="ayuda-suicidio" role="note">
       <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
     </div>
@@ -284,7 +294,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=0a4aa54e12"></script>
-<script src="datina.js?v=8aaaf57bd0"></script>
+<script src="datos/fichas.js?v=f863135203"></script>
+<script src="datina.js?v=4b9fd82441"></script>
 </body>
 </html>

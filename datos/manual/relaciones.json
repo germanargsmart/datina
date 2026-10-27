@@ -2833,6 +2833,22 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:manual/censo2022_provincias.csv",
+   "a": "f-cobertura",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "censo = pd.read_csv(RAIZ / \"datos\" / \"manual\" / \"censo2022_provincias.csv\""
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"censo2022_provincias\": censo,"
+    }
+   ],
+   "tabla": "censo2022_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:enacom_internet_accesos.csv",
    "a": "f-internet",
    "evidencia": [
@@ -7587,6 +7603,11 @@
   "f-sin-condena": {
    "variables": [
     "pct_personas_privadas_de_libertad_sin_condena"
+   ]
+  },
+  "f-cobertura": {
+   "variables": [
+    "censo2022_sin_cobertura"
    ]
   }
  }

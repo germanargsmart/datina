@@ -6175,7 +6175,7 @@ CRUCES_META = {
     "autos": ("Autos nuevos", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
     "motos": ("Motos nuevas", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
     "esperanza_vida": ("Esperanza de vida", "años al nacer", str(ANIO_EV), "Salud", "INDEC, tablas de mortalidad", "f-esperanza", 1),
-    "sin_cobertura": ("Sin obra social ni prepaga", "% de las personas, sin cobertura de salud ni plan estatal", "2022", "Salud", "INDEC, Censo 2022", "f-censo", 1),
+    "sin_cobertura": ("Sin obra social ni prepaga", "% de las personas, sin cobertura de salud ni plan estatal", "2022", "Salud", "INDEC, Censo 2022", "f-cobertura", 1),
     "agua_red": ("Agua de red", "% de los hogares", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
     "cloaca": ("Cloacas", "% de los hogares con desagüe a red cloacal", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
     "nbi": ("Necesidades básicas insatisfechas", "% de los hogares", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
