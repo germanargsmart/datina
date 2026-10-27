@@ -4154,8 +4154,8 @@ const mayus = t => t.charAt(0).toUpperCase() + t.slice(1);
 const deEsp = e => ("de " + ESP_TXT[e]).replace(/^de el /, "del ");
 // postura de la mayoría de un espacio: [a favor, en contra, abstenciones, ausentes]
 const postura = c => { const [si, no, ab, au] = c; return si + no + ab < au ? "aus" : si > no + ab ? "si" : no > si + ab ? "no" : "div"; };
-const nomVt = n => { const t = w => w.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toUpperCase()).replace(/ (De|Del|La|Las|Los|Y) /g, m => m.toLowerCase());
-  const k = n.indexOf(","); return k < 0 ? t(n) : `${t(n.slice(k + 1).trim())} ${t(n.slice(0, k))}`; };
+// "Apellido, Nombre" a "Nombre Apellido": las mayúsculas y las tildes ya vienen arregladas de 02_procesar.py (nombres_propios.py, R10)
+const nomVt = n => { const k = n.indexOf(","); return k < 0 ? n : `${n.slice(k + 1).trim()} ${n.slice(0, k)}`; };
 function resumenEspacios(esp) {
   const gr = {si: [], no: [], div: [], aus: []};
   VT.espacios.filter(e => esp[e]).forEach(e => gr[postura(esp[e])].push(e));

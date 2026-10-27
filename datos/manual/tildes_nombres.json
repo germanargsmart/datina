@@ -1,0 +1,40 @@
+{
+ "_leeme": "Tildes y siglas de los nombres de legisladores y de bloques (plan de mejora, R10, 27 de octubre de 2026). Lo usa scripts/nombres_propios.py al escribir las tablas del Congreso en 02_procesar.py. 'personas' y 'bloques': cada palabra sin tilde y en minúsculas, con su forma correcta. Entran solo palabras que siempre llevan tilde (María, Rodríguez) y las que las fuentes escriben con una tilde de más (Juán, Beatríz, Cármen), que van sin tilde. Las que dependen de la persona (Óscar y Oscar, Solá y Sola) no entran: para esas vale la forma con tilde que la otra fuente da a la misma persona. 'siglas': las que van siempre en mayúsculas en el nombre de un bloque. La lista salió de cruzar las dos fuentes (el registro de la Cámara y las actas de ¿Cómo Votó?): cada palabra está escrita con tilde en alguna de las dos.",
+ "personas": {
+  "adan": "adán", "adrian": "adrián", "agustin": "agustín", "aida": "aída", "ailen": "ailén", "alarcon": "alarcón", "albarracin": "albarracín",
+  "alfonsin": "alfonsín", "almiron": "almirón", "alvarez": "álvarez", "alvaro": "álvaro", "americo": "américo", "amilcar": "amílcar",
+  "analia": "analía", "andres": "andrés", "angel": "ángel", "angela": "ángela", "angeles": "ángeles", "angelica": "angélica", "anibal": "aníbal",
+  "aragon": "aragón", "aragones": "aragonés", "armendariz": "armendáriz", "avalos": "ávalos", "avila": "ávila", "ayelen": "ayelén",
+  "abalos": "ábalos", "barbara": "bárbara", "barbaro": "bárbaro", "belen": "belén", "beltran": "beltrán", "benitez": "benítez",
+  "benjamin": "benjamín", "bermudez": "bermúdez", "caceres": "cáceres", "catalan": "catalán", "centurion": "centurión", "cesar": "césar",
+  "chavez": "chávez", "concepcion": "concepción", "cordoba": "córdoba", "cristobal": "cristóbal", "damaso": "dámaso", "damian": "damián",
+  "dario": "darío", "debora": "débora", "diaz": "díaz", "diogenes": "diógenes", "dominguez": "domínguez", "echevarria": "echevarría",
+  "efrain": "efraín", "elias": "elías", "elida": "élida", "espinola": "espínola", "estevez": "estévez", "fabian": "fabián", "felix": "félix", "fermin": "fermín",
+  "fernandez": "fernández", "galvan": "galván", "garcia": "garcía", "gaston": "gastón", "german": "germán", "geronima": "gerónima",
+  "geronimo": "gerónimo", "gimenez": "giménez", "gomez": "gómez", "gonzalez": "gonzález", "gutierrez": "gutiérrez", "guzman": "guzmán",
+  "haydee": "haydée", "hector": "héctor", "hernan": "hernán", "hernandez": "hernández", "hipolito": "hipólito", "ibañez": "ibáñez",
+  "ines": "inés", "itati": "itatí", "ivan": "iván", "jeronimo": "jerónimo", "jesus": "jesús", "jimenez": "jiménez", "joaquin": "joaquín",
+  "jose": "josé", "josue": "josué", "juarez": "juárez", "julian": "julián", "leguizamon": "leguizamón", "leon": "león", "leonidas": "leónidas",
+  "lia": "lía", "lopez": "lópez", "lucia": "lucía", "lujan": "luján", "macias": "macías", "maria": "maría", "marin": "marín", "marquez": "márquez",
+  "martin": "martín", "martinez": "martínez", "matias": "matías", "mendez": "méndez", "merida": "mérida", "minguez": "mínguez", "moises": "moisés",
+  "monica": "mónica", "napoleon": "napoleón", "narvaez": "narváez", "nelida": "nélida", "nestor": "néstor", "nicolas": "nicolás", "noemi": "noemí",
+  "nuñez": "núñez", "paez": "páez", "pelaez": "peláez", "perez": "pérez", "ramirez": "ramírez", "ramon": "ramón", "raul": "raúl", "rene": "rené",
+  "rios": "ríos", "rocio": "rocío", "rodriguez": "rodríguez", "roldan": "roldán", "roman": "román", "rosalia": "rosalía", "ruben": "rubén", "saenz": "sáenz",
+  "sanchez": "sánchez", "santillan": "santillán", "saul": "saúl", "sebastian": "sebastián", "simon": "simón", "sofia": "sofía",
+  "suarez": "suárez", "tomas": "tomás", "tristan": "tristán", "valdes": "valdés", "valentin": "valentín", "vazquez": "vázquez",
+  "velazquez": "velázquez", "veronica": "verónica", "victor": "víctor", "zacarias": "zacarías",
+  "juan": "juan", "beatriz": "beatriz", "federico": "federico", "carmen": "carmen", "evangelina": "evangelina"
+ },
+ "bloques": {
+  "accion": "acción", "autodeterminacion": "autodeterminación", "autonomo": "autónomo", "balbin": "balbín", "civica": "cívica", "civico": "cívico",
+  "coalicion": "coalición", "concertacion": "concertación", "confederacion": "confederación", "conviccion": "convicción", "cordobes": "cordobés",
+  "democrata": "demócrata", "democratica": "democrática", "democratico": "democrático", "dialogo": "diálogo", "educacion": "educación",
+  "emancipacion": "emancipación", "energia": "energía", "evolucion": "evolución", "inclusion": "inclusión", "innovacion": "innovación",
+  "integracion": "integración", "liberacion": "liberación", "linea": "línea", "mas": "más", "nucleo": "núcleo", "pais": "país",
+  "participacion": "participación", "patagonico": "patagónico", "peron": "perón", "politica": "política", "produccion": "producción",
+  "renovacion": "renovación", "republica": "república", "revolucion": "revolución", "rio": "río", "soberania": "soberanía",
+  "transformacion": "transformación", "tucuman": "tucumán", "union": "unión"
+ },
+ "siglas": ["ARI", "BG", "CONFE", "ECO", "ELI", "FIT", "FORJA", "FPV", "FREJULI", "FREPASO", "GEN", "MID", "MIJD", "MODIN", "MST", "PJ", "PRO",
+            "PTS", "SER", "SI", "UCR", "UNEN", "UPT"]
+}
