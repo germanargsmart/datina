@@ -1,0 +1,1545 @@
+{
+ "grupo": "G2",
+ "cambios": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Dónde se crea empleo formal?\">¿Dónde se crea empleo formal y cuánto se gana en cada provincia?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto empleo registrado hay?\">¿Cuánto empleo registrado hay en cada provincia y cuánto se gana?</p>",
+   "motivo": "«Dónde se crea» presupone que el empleo crece (cayó en 21 de las 24 jurisdicciones): la pregunta nueva dice lo que miden las fichas, el nivel del empleo registrado y el salario."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>El empleo registrado en el sector privado es el primer termómetro de una economía provincial. Después vienen los salarios, cuánto dura un empleo y lo que cada provincia le vende al mundo. Las finanzas de cada provincia están en <a href=\"gobierno.html#f-fiscal\">Cuentas públicas</a>.</p>",
+   "propuesto": "<p>La página abre con el empleo asalariado registrado en el sector privado de cada provincia, que se cuenta cada mes con los registros de la seguridad social. Le siguen el salario promedio, el tiempo que llevan los asalariados en su empleo, las personas que cobran el seguro de desempleo y lo que exporta cada provincia por habitante. Las finanzas de cada provincia están en <a href=\"gobierno.html#f-fiscal\">Cuentas públicas</a>.</p>",
+   "motivo": "Saca la valoración sin dato («primer termómetro»), suma el seguro de desempleo, que la página tiene y la intro no nombraba, y escribe oraciones completas."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"nota\">El SIPA asigna cada puesto a la provincia donde declara el empleador. Por eso CABA incluye a muchas personas que viven en el Gran Buenos Aires y trabajan en la Ciudad. La población es la proyección {{anio_pob}} del INDEC usada por el SNIC.</p>",
+   "propuesto": "<p class=\"nota\">El SIPA, el registro de la seguridad social, cuenta a cada persona en la provincia donde la declara su empleador, que puede no ser la provincia donde vive. Por eso CABA suma a muchas personas que viven en el Gran Buenos Aires y trabajan allí. La población es la proyección {{anio_pob}} del INDEC.</p>",
+   "motivo": "Explica la sigla SIPA, dice «persona» como el explicador (se cuentan personas, no puestos), usa CABA y saca «usada por el SNIC», un resto de cuando la población salía del SNIC (02_procesar.py usa las proyecciones del INDEC)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En los doce meses hasta ${em.mes}, el total del país ${signo(em.var_nac)} y el empleo creció ${deLas24(em.suben)}. En total eran ${n1(em.total_millones)} millones de personas.`",
+   "propuesto": "`En ${em.mes} había ${n1(em.total_millones)} millones de personas asalariadas registradas en el sector privado. En doce meses, el total del país ${signo(em.var_nac)} y el empleo creció ${deLas24(em.suben)}. El registro cuenta a cada persona en la provincia donde la declara su empleador: por eso CABA suma a muchas personas que viven en el Gran Buenos Aires.`",
+   "motivo": "Ordena la cifra total antes que la variación, nombra quiénes se cuentan y lleva al texto visible la advertencia que cambia la lectura del gráfico (CABA primera por el lugar de registro), que estaba solo en la nota."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`personas asalariadas registradas en el sector privado por cada 100 habitantes, ${em.mes}`",
+   "propuesto": "`personas asalariadas registradas en el sector privado cada 100 habitantes en ${em.mes}`",
+   "motivo": "«Cada 100» como en el resto del sitio y el mes unido a la frase."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Salario promedio de los asalariados registrados del sector privado por provincia, {{salarios.mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Salario bruto promedio de los asalariados registrados del sector privado, por provincia, {{salarios.mes}}</p>",
+   "motivo": "Dice que es el salario bruto, como la cifra destacada y la nota."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Descontada la inflación, el salario del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant}, y subió ${deLas24(SA.n_suben)}. `",
+   "propuesto": "`Descontada la inflación, el salario promedio del país ${cambioPct(SA.var_real_12m)} frente a ${SA.ant} y subió ${deLas24(SA.n_suben)}. `",
+   "motivo": "Nombra la medida (el promedio del OEDE), distinta del índice de salarios de Precios y actividad, que da otra variación."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En pesos de igual valor (descontada la inflación con el índice de precios al consumidor del INDEC), el salario promedio del país de ${SA.mes} fue `",
+   "propuesto": "`Descontada la inflación con el índice de precios al consumidor del INDEC, el salario promedio del país de ${SA.mes} fue `",
+   "motivo": "Término fijo: «descontada la inflación» en lugar de «en pesos de igual valor»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` En ${fp.territorio}, el salario de ${SA.mes} ${cambioPct(fp.var_real_12m)} frente a ${SA.ant} en pesos de igual valor.`",
+   "propuesto": "` En ${fp.territorio}, descontada la inflación, el salario de ${SA.mes} ${cambioPct(fp.var_real_12m)} frente a ${SA.ant}.`",
+   "motivo": "Término fijo: «descontada la inflación»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "entre provincias usa ${SA.mes}, el último mes publicado sin aguinaldo (el último es ${SA.ult}).",
+   "propuesto": "entre provincias usa ${SA.mes}, el último mes sin aguinaldo (el último publicado es ${SA.ult}).",
+   "motivo": "«El último es» no decía último de qué."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y el resto de la provincia, pesados por su empleo. No incluye el empleo público ni el trabajo no registrado. Los dos últimos años son provisorios.`",
+   "propuesto": "`y el resto de la provincia, ponderados por su empleo. No incluye el empleo público ni el trabajo no registrado. Los dos últimos años son provisorios. La variación del salario en Precios y actividad sale de otra medida, el índice de salarios del INDEC, y puede dar otro número.`",
+   "motivo": "«Ponderados» es el término. Avisa que el salario real de Precios y actividad usa otra fuente y otro mes, y por eso da otra caída."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos asalariados llevan un año o menos en su empleo?</h2>",
+   "propuesto": "<h2>¿Qué parte de los asalariados lleva un año o menos en su empleo?</h2>",
+   "motivo": "La cifra y el gráfico son porcentajes, no cantidades."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Asalariados con un año o menos en su empleo actual, {{rotacion.anios}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Porcentaje de asalariados con un año o menos en su empleo actual, en 31 aglomerados urbanos, {{rotacion.anios}}</p>",
+   "motivo": "Suma la unidad y la cobertura de la encuesta (solo aglomerados urbanos)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<option value=\"tamano\">Personas en el lugar de trabajo</option>",
+   "propuesto": "<option value=\"tamano\">Tamaño del lugar de trabajo</option>",
+   "motivo": "Nombra lo que agrupa la opción: cuántas personas trabajan en el lugar."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "rotacion: `En el otro extremo, el ${pct(RO.total_largo)} de las personas asalariadas llevaba más de cinco años en su empleo, entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}. ` +",
+   "propuesto": "rotacion: `Entre el ${trim(RO.desde)} y el ${trim(RO.hasta)}, el ${pct(RO.total_largo)} de las personas asalariadas llevaba más de cinco años en su empleo. ` +",
+   "motivo": "El texto empezaba refiriéndose a la cifra de arriba («En el otro extremo»): ahora se lee solo, con el período primero."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`La rotación se concentra en quienes tienen menos de 25 años",
+   "propuesto": "`Llevar un año o menos es más común entre quienes tienen menos de 25 años",
+   "motivo": "La nota aclara que la antigüedad corta no siempre es rotación: el texto ya no la llama así."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Las personas en el lugar de trabajo son todas las que trabajan allí, en los tramos que usa el INDEC.",
+   "propuesto": "El tamaño del lugar de trabajo es la cantidad de personas que trabajan allí, en los tramos que usa el INDEC.",
+   "motivo": "Acompaña el nuevo nombre de la opción del selector."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"de los asalariados de 31 aglomerados urbanos\"],",
+   "propuesto": "\"de los asalariados de 31 aglomerados urbanos llevaba un año o menos en su empleo\"],",
+   "motivo": "La frase de la ficha no decía qué mide la cifra."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántas personas cobran el seguro de desempleo?</h2>",
+   "propuesto": "<h2>¿Cuántas personas cobran el seguro de desempleo en cada provincia?</h2>",
+   "motivo": "La vista inicial y tres de las cuatro son por provincia."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Beneficiarios de la prestación por desempleo por provincia, cada 1.000 habitantes, frente al empleo y en cantidad, y del país, {{desempleo.ini}} a {{desempleo.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Personas que cobran el seguro de desempleo, por provincia en {{desempleo.prov_anio}} y en todo el país desde {{desempleo.ini}}</p>",
+   "motivo": "La descripción enumeraba las vistas. Ahora dice qué se mide y el período de cada parte, y usa el mismo nombre que la pregunta (término fijo: seguro de desempleo)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban la prestación por desempleo ${n1(DS.pais_1000)} personas cada 1.000 habitantes en el país. `",
+   "propuesto": "`En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n1(DS.pais_1000)} de cada 1.000 habitantes del país. `",
+   "motivo": "Término fijo (seguro de desempleo, como la pregunta) y una construcción más natural."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`La prestación por desempleo es el seguro que cobran los asalariados registrados de la Ley de Contrato de Trabajo y de la construcción que quedan sin ` +",
+   "propuesto": "`El seguro de desempleo, cuyo nombre oficial es prestación por desempleo, lo cobran los asalariados registrados de la Ley de Contrato de Trabajo y de la construcción que quedan sin ` +",
+   "motivo": "El nombre oficial va una vez, en la nota, y el resto de la ficha usa «seguro de desempleo»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`trabajo por un despido sin causa u otro motivo que fija la ley y aportaron al Fondo Nacional de Empleo. Dura de 2 a 12 meses según el tiempo trabajado y la paga ANSES. Los trabajadores rurales tienen un sistema aparte, que no ` +",
+   "propuesto": "`trabajo por un despido sin causa u otro motivo que fija la ley y que aportaron al Fondo Nacional de Empleo. Dura de 2 a 12 meses según el tiempo trabajado y lo paga ANSES. Los trabajadores rurales tienen un sistema aparte, que no ` +",
+   "motivo": "Concordancia con el nuevo sujeto (el seguro) y una relativa que se leía cortada."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`está. Cada año es el promedio de los doce meses",
+   "propuesto": "`se incluye. Cada año es el promedio de los doce meses",
+   "motivo": "«Que no está» era vago: el sistema rural no se incluye."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en la Ciudad. La población",
+   "propuesto": "`arriba, porque mucha gente vive en el Gran Buenos Aires y trabaja en CABA. La población",
+   "motivo": "Término fijo: CABA."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${MESES[DS.mes - 1]} de ${DS.anio} cobraban la prestación por desempleo ${n0(DS.v)} personas, contra un promedio de ${n0(DS.v_anio_ant)} ` +",
+   "propuesto": "`En ${MESES[DS.mes - 1]} de ${DS.anio} cobraban el seguro de desempleo ${n0(DS.v)} personas, contra un promedio de ${n0(DS.v_anio_ant)} ` +",
+   "motivo": "Término fijo: seguro de desempleo."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} había ${n1(DS.pais_100)} beneficiarios de la prestación por desempleo cada 100 asalariados ` +",
+   "propuesto": "`En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n1(DS.pais_100)} personas cada 100 asalariados ` +",
+   "motivo": "Término fijo: seguro de desempleo."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban la prestación por desempleo ${n0(tot)} personas en todo el país.`",
+   "propuesto": "`En ${MESES[DS.prov_mes - 1]} de ${DS.prov_anio} cobraban el seguro de desempleo ${n0(tot)} personas en todo el país.`",
+   "motivo": "Término fijo: seguro de desempleo."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto le vende al mundo cada provincia?</h2>",
+   "propuesto": "<h2>¿Cuánto exporta cada provincia por habitante?</h2>",
+   "motivo": "La ficha mide dólares por habitante. La pregunta vieja era casi la misma que la de f-exporta-provincias, en Sector externo."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Exportaciones por habitante según provincia de origen, {{nuevos.ex_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Exportaciones de bienes por habitante, en dólares, según la provincia de origen, {{nuevos.ex_anio}}</p>",
+   "motivo": "Suma la unidad (dólares) y que son bienes."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "exportaciones: `En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ?",
+   "propuesto": "exportaciones: `Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}. En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ?",
+   "motivo": "Empieza por lo que muestra el gráfico (los extremos por habitante de 2025) y deja al final el primer semestre del año siguiente, un período distinto. Va junto con el cambio siguiente."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` Por habitante, las producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}.`,",
+   "propuesto": "\"\",",
+   "motivo": "La oración por habitante pasó al principio del texto (cambio anterior): acá queda una cadena vacía para no tocar el resto de la expresión."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"exportaciones-nota\": `Valor FOB de los bienes exportados según la provincia donde se produjeron.",
+   "propuesto": "\"exportaciones-nota\": `Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron.",
+   "motivo": "Explica FOB la primera vez que aparece en la página."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} US$ por habitante<br>${n0(d.millones_usd)} millones de US$ en total`,",
+   "propuesto": "tip: d => `<b>${d.territorio}</b><br>${n0(d.usd_por_habitante)} dólares por habitante<br>${n0(d.millones_usd)} millones de dólares en total`,",
+   "motivo": "En el cuadro emergente hay lugar para la palabra entera, como en el resto del sitio."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-exportaciones\": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, \"dólares, promedio del país\"],",
+   "propuesto": "\"f-exportaciones\": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, \"dólares por habitante, promedio del país\"],",
+   "motivo": "La frase de la ficha no decía la unidad completa."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Esta sección reúne dos miradas sobre la economía de cada provincia. La primera cuenta a las personas asalariadas registradas en el sector privado, con datos mensuales que publica la Secretaría de Trabajo a partir de los registros de la seguridad social. La segunda muestra cuánto exporta cada provincia según el origen de los bienes vendidos al exterior, una estadística del INDEC llamada OPEX.",
+   "propuesto": "La primera ficha cuenta a las personas asalariadas registradas en el sector privado de cada provincia, con datos mensuales que publica la Secretaría de Trabajo a partir de los registros de la seguridad social. Las siguientes muestran su salario promedio, cuánto tiempo llevan los asalariados en su empleo según la Encuesta Permanente de Hogares y cuántas personas cobran el seguro de desempleo. La última muestra cuánto exporta cada provincia según el origen de los bienes vendidos al exterior, una estadística del INDEC llamada OPEX.",
+   "motivo": "El texto era de cuando la página tenía dos fichas (empleo y exportaciones): ahora describe todas, en orden."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "El registro previsional que hoy se usa para medir el empleo formal tiene su base",
+   "propuesto": "El registro previsional que hoy se usa para medir el empleo registrado tiene su base",
+   "motivo": "El mismo término que el resto de la página."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "La informalidad se aproxima con los asalariados sin descuento jubilatorio.",
+   "propuesto": "La informalidad se aproxima con los asalariados sin descuento jubilatorio. En esta página, la EPH es la fuente de la ficha sobre el tiempo que llevan los asalariados en su empleo: las tasas de actividad, empleo y desocupación no tienen ficha propia.",
+   "motivo": "El bloque explica tasas que la página no muestra: lo dice, y dice qué ficha usa la EPH."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánto suben los precios?\">¿Cuánto suben los precios y cuánto alcanza lo que se gana?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto suben los precios?\">¿Cuánto suben los precios y cuánto cambia la actividad económica?</p>",
+   "motivo": "Ninguna ficha compara lo que se gana con lo que cuesta vivir. La página sí contesta cuánto suben los precios y cuánto cambian la actividad, las ventas y el consumo."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Primero, la inflación: cuánto suben los precios de lo que compran los hogares, en todo el país, en cada región y en cada rubro. Después, cuánto cuesta la canasta que marca la línea de pobreza, cuánto cambiaron los salarios descontada la inflación y cómo viene la actividad económica, todo con datos del INDEC. Al final, el dólar, las tasas de interés y el dinero, con los datos del Banco Central. Los salarios de cada provincia están en <a href=\"trabajo.html#f-salarios\">Trabajo</a>, y cuántas personas son pobres, en <a href=\"pobreza.html\">Pobreza y hogares</a>.</p>",
+   "propuesto": "<p>Primero, los precios: la inflación del país, de cada región y de cada rubro, la que espera la gente y cuánto cuesta la canasta que marca la línea de pobreza. Después, los salarios descontada la inflación, la actividad económica, las ventas en supermercados y la confianza de los consumidores. Al final, el dólar, las tasas de interés y el dinero, con los datos del Banco Central. Los salarios de cada provincia están en <a href=\"trabajo.html#f-salarios\">Trabajo</a>, y cuántas personas son pobres, en <a href=\"pobreza.html\">Pobreza y hogares</a>.</p>",
+   "motivo": "Nombra las nueve fichas en su orden (faltaban las expectativas, los supermercados y la confianza) y saca «todo con datos del INDEC», que no es cierto: dos fichas son de la Universidad Torcuato Di Tella."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Inflación del país y de sus seis regiones, mes a mes y en doce meses, {{economia.ipc.anio_ini}} a {{economia.ipc.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Variación de los precios al consumidor en el país y en las seis regiones del INDEC, {{economia.ipc.anio_ini}} a {{economia.ipc.anio}}</p>",
+   "motivo": "La descripción enumeraba las vistas: ahora dice qué se mide y dónde."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y la más baja, la de ${EIP.ia_min_mes}, ${pct(EIP.ia_min)}.`;",
+   "propuesto": "`y la más baja, la de ${EIP.ia_min_mes}, ${pct(EIP.ia_min)}. Por región, en los doce meses hasta ${EIP.mes}, los precios subieron de ${pct(EIP.reg_min[1])} en ${REG_ART[EIP.reg_min[0]]} a ${pct(EIP.reg_max[1])} en ${REG_ART[EIP.reg_max[0]]}.`;",
+   "motivo": "La pregunta es por regiones y la vista inicial no nombraba ninguna: suma el rango, con valores que ya están en el resumen (REG_ART se define antes)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`grupos de ciudades donde se relevan los precios. El Gran Buenos Aires es la Ciudad de Buenos Aires y los 24 partidos que la rodean. La región Pampeana reúne el ` +",
+   "propuesto": "`grupos de ciudades donde se relevan los precios. El Gran Buenos Aires es CABA y los 24 partidos que la rodean. La región Pampeana reúne el ` +",
+   "motivo": "Término fijo: CABA."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Neuquén, Río Negro, Santa Cruz y Tierra del Fuego). Con una provincia elegida, el gráfico muestra su región.`,",
+   "propuesto": "`Neuquén, Río Negro, Santa Cruz y Tierra del Fuego). Si elegís una provincia en Tu provincia, el gráfico suma su región.`,",
+   "motivo": "Dice cómo se elige la provincia, con la misma fórmula que las demás notas del sitio."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "if (v === \"categoria\") return `En los doce meses hasta ${EIP.mes}, los precios regulados, los que están sujetos a regulación o tienen un alto componente de ` +",
+   "propuesto": "if (v === \"categoria\") return `En los doce meses hasta ${EIP.mes}, según el INDEC, los precios regulados ${cambioPl(EIP.regulados)}, los estacionales ${cambioPl(EIP.estacionales)} ` +",
+   "motivo": "Parte una oración de tres aposiciones en dos: primero las cifras, después qué es cada categoría (1 de 3, líneas seguidas)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`impuestos, ${cambioPl(EIP.regulados)}, los estacionales, que cambian con la temporada, ${cambioPl(EIP.estacionales)}, y los demás, la inflación núcleo, ` +",
+   "propuesto": "`y los demás, que forman la inflación núcleo, ${cambioPl(EIP.nucleo)}. Los regulados son los que están sujetos a regulación o tienen un alto componente de impuestos, y los estacionales, los que cambian con la temporada. ` +",
+   "motivo": "Parte una oración de tres aposiciones (2 de 3)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${cambioPl(EIP.nucleo)}, según el INDEC. Los precios de los servicios",
+   "propuesto": "`Los precios de los servicios",
+   "motivo": "Parte una oración de tres aposiciones (3 de 3): la cifra núcleo y la fuente pasaron arriba."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánta inflación espera la gente para el año siguiente?</h2>",
+   "propuesto": "<h2>¿Cuánta inflación espera la gente para los próximos doce meses?</h2>",
+   "motivo": "La encuesta pregunta por los doce meses siguientes, no por el año calendario."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Inflación esperada para los doce meses siguientes y la que hubo, mes a mes desde {{expectativas_inflacion.desde_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Mediana y promedio de la inflación que espera la gente para los doce meses siguientes, y la que hubo, mes a mes desde {{expectativas_inflacion.desde_anio}}</p>",
+   "motivo": "Nombra las dos medidas que dibuja el gráfico."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`empieza en diciembre de 2016: antes no hay con qué comparar en el sitio, y en los meses más recientes todavía no pasaron los doce meses.` : \"\",",
+   "propuesto": "`empieza en diciembre de 2016: antes no hay con qué comparar en el sitio, y en los meses más recientes todavía no pasaron los doce meses. Lo que esperan los analistas, según el Relevamiento de Expectativas de Mercado del Banco Central, está en la última ficha de la página.` : \"\",",
+   "motivo": "Hay dos expectativas de inflación en la página: la nota dice cuál es cada una y dónde está la otra."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto necesita un hogar para cubrir lo básico?</h2>",
+   "propuesto": "<h2>¿Cuánto necesita un hogar por mes para no quedar bajo la línea de pobreza?</h2>",
+   "motivo": "«Lo básico» era vago: la canasta básica total marca la línea de pobreza, y la cifra es por mes."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Canasta básica alimentaria y canasta básica total, por región y mes a mes, {{economia.canasta.anio_ini}} a {{economia.canasta.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Canasta básica total y alimentaria, en pesos por adulto equivalente en cada región ({{economia.canasta.reg_mes}}) y mes a mes en el Gran Buenos Aires, {{economia.canasta.anio_ini}} a {{economia.canasta.anio}}</p>",
+   "motivo": "La cifra destacada es la del hogar de cuatro integrantes y el gráfico inicial, la de una persona en otro mes: la descripción dice la unidad y el mes del gráfico."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return base + `Por adulto equivalente, en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +",
+   "propuesto": "return base + `El gráfico muestra la canasta por adulto equivalente, las necesidades de un varón adulto de actividad moderada: en ${ECB.reg_mes}, el último mes del informe semestral del INDEC, la canasta básica total iba de ` +",
+   "motivo": "Avisa que el gráfico usa otra unidad y otro mes que la cifra destacada."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "if (v === \"precios\") return base + `En doce meses, la canasta básica total ${cambioPct(ECB.ia_cbt)} y la alimentaria ${cambioPct(ECB.ia_cba)}, ` +",
+   "propuesto": "if (v === \"precios\") return base + `En los doce meses hasta ${ECB.mes}, la canasta básica total ${cambioPct(ECB.ia_cbt)}, la alimentaria ${cambioPct(ECB.ia_cba)} ` +",
+   "motivo": "Dice hasta qué mes y ordena la enumeración (1 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y los precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;",
+   "propuesto": "`y el nivel general de precios del Gran Buenos Aires, ${pct(ECB.ia_ipc_gba)}.`;",
+   "motivo": "Nombra la tercera línea como lo que es, el índice de precios (2 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.cbt)} pesos<br>Canasta básica alimentaria: ${n0(d.cba)} pesos` +",
+   "propuesto": "tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.cbt)} pesos por adulto equivalente<br>Canasta básica alimentaria: ${n0(d.cba)} pesos` +",
+   "motivo": "El cuadro emergente dice la unidad, que no es la de la cifra destacada."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto cambió el poder de compra de los salarios?</h2>",
+   "propuesto": "<h2>¿Cuánto cambió el poder de compra de los salarios registrados?</h2>",
+   "motivo": "La ficha muestra solo los salarios registrados (el índice también publica el no registrado, que no está)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Salarios registrados del sector privado y del sector público descontada la inflación, {{economia.salarios.anio_ini}} a {{economia.salarios.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Índice de salarios registrados del sector privado y del sector público descontada la inflación ({{economia.salarios.base}} = 100), {{economia.salarios.anio_ini}} a {{economia.salarios.anio}}</p>",
+   "motivo": "Suma la unidad del gráfico: un índice con base 100."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"salario-real\": () => `En el sector público, el salario registrado ${cambioPct(ESR.real_pub)} en los doce meses hasta ${ESR.mes}. Sin descontar la inflación, ` +",
+   "propuesto": "\"salario-real\": () => `En el sector público, el salario registrado ${cambioPct(ESR.real_pub)} en los doce meses hasta ${ESR.mes}, descontada la inflación. Sin descontarla, ` +",
+   "motivo": "Dice que la primera cifra también descuenta la inflación, antes de pasar a las que no."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Frente a ${ESR.base}, en pesos de igual valor, el privado ` +",
+   "propuesto": "`Descontada la inflación, frente a ${ESR.base} el privado ` +",
+   "motivo": "Término fijo: «descontada la inflación»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`cobra en promedio cada persona. El del sector privado no registrado no se compara con los precios del mismo mes, porque sale de la Encuesta Permanente de ` +",
+   "propuesto": "`cobra en promedio cada persona. El INDEC publica también el del sector privado no registrado, que la ficha no muestra: sale de la Encuesta Permanente de ` +",
+   "motivo": "Dice con claridad que el salario no registrado no está en el gráfico (1 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Hogares y llega con cinco meses de rezago. Los salarios promedio de cada provincia están en Trabajo.`,",
+   "propuesto": "`Hogares y llega con cinco meses de rezago, así que no se puede comparar con los precios del mismo mes. Los salarios promedio de cada provincia están en Trabajo: son otra medida, el promedio por puesto del OEDE, y pueden variar distinto.`,",
+   "motivo": "Conserva el motivo y avisa que el salario de Trabajo es otra medida y da otra variación (2 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${ESR.real_priv < 0 ? \"bajó\" : \"subió\"} el salario privado en los doce meses hasta ${ESR.mes}`],",
+   "propuesto": "`${ESR.real_priv < 0 ? \"bajó\" : \"subió\"} el salario privado registrado en los doce meses hasta ${ESR.mes}, descontada la inflación`],",
+   "motivo": "La frase de la ficha no decía que es el salario registrado ni que descuenta la inflación."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Actividad económica mes a mes y por sector, {{economia.actividad.desde}} a {{economia.actividad.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Estimador Mensual de Actividad Económica del INDEC (índice 2004 = 100) y sus sectores, {{economia.actividad.desde}} a {{economia.actividad.anio}}</p>",
+   "motivo": "El gráfico muestra un índice sin decir su base: la descripción la da."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`porque algunos, como la pesca y el agro, cambian mucho de un mes a otro. Sin los impuestos netos de subsidios, que el INDEC suma al total.`,",
+   "propuesto": "`porque algunos, como la pesca y el agro, cambian mucho de un mes a otro. La vista por sector no incluye los impuestos netos de subsidios, que el INDEC suma al total.`,",
+   "motivo": "La última oración no tenía sujeto ni decía a qué vista se refería."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Ventas en supermercados en pesos de igual valor, por provincia y mes a mes, {{economia.super.desde}} a {{economia.super.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Ventas en supermercados descontada la inflación, por provincia y mes a mes, {{economia.super.desde}} a {{economia.super.anio}}</p>",
+   "motivo": "Término fijo: «descontada la inflación»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${pct(Math.abs(P.pais))} en todo el país, con los precios de los bienes de cada región, según el INDEC. ` + (P.suben && P.bajan",
+   "propuesto": "`${pct(Math.abs(P.pais))} en todo el país, descontada la inflación de cada región, con datos del INDEC. ` + (P.suben && P.bajan",
+   "motivo": "«Con los precios de los bienes de cada región» era opaco. La cuenta por región la hace el sitio, no el INDEC."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${ESU.interanual < 0 ? \"cayeron\" : \"crecieron\"} las ventas de los supermercados en pesos de igual ` +",
+   "propuesto": "`${ESU.interanual < 0 ? \"cayeron\" : \"crecieron\"} las ventas de los supermercados, descontada la ` +",
+   "motivo": "Término fijo: «descontada la inflación» (1 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`valor en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? \"cayeron\" : \"crecieron\"} en el país en ${ESU.mes} frente a ${ESU.mes_ant}`],",
+   "propuesto": "`inflación, en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? \"cayeron\" : \"crecieron\"} las ventas del país en ${ESU.mes} frente a ${ESU.mes_ant}`],",
+   "motivo": "Término fijo (2 de 2). La frase de la ficha dice qué cayó."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`frente a los doce anteriores<br>${conSigno(d.var_mes)} en ${ESU.mes}, frente a ${ESU.mes_ant}<br>Precios de la región ${d.region}`});",
+   "propuesto": "`frente a los doce anteriores<br>${conSigno(d.var_mes)} en ${ESU.mes}, frente a ${ESU.mes_ant}<br>Con la inflación de la región ${d.region}`});",
+   "motivo": "Dice para qué se usa la región: para descontar la inflación."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "? `En ${mesPer(C.mes)} el índice era ${n1(C.capital)} en la Ciudad de Buenos Aires, ${n1(C.gba)} en el Gran Buenos Aires ${yE(n1(C.interior))} en el interior del país, ` +",
+   "propuesto": "? `En ${mesPer(C.mes)} el índice era ${n1(C.capital)} en CABA, ${n1(C.gba)} en el Gran Buenos Aires ${yE(n1(C.interior))} en el interior del país, ` +",
+   "motivo": "Término fijo: CABA."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "{k: \"capital\", lab: \"Ciudad de Buenos Aires\", corto: \"Capital\", c: css(\"--muted\"), w: 1.8}",
+   "propuesto": "{k: \"capital\", lab: \"CABA\", corto: \"CABA\", c: css(\"--muted\"), w: 1.8}",
+   "motivo": "Término fijo: CABA en los gráficos. La clave de la serie no cambia."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Por región, Capital es la Ciudad de Buenos Aires y GBA, los partidos del ` +",
+   "propuesto": "Por región, la encuesta separa CABA, los partidos del Gran Buenos Aires (GBA en el gráfico) y el interior del ` +",
+   "motivo": "Acompaña el nombre nuevo de la serie (1 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Gran Buenos Aires. Como toda encuesta tiene margen de error: los cambios chicos",
+   "propuesto": "`país. Como toda encuesta, tiene margen de error: los cambios chicos",
+   "motivo": "Acompaña el nombre nuevo de la serie y agrega la coma que faltaba (2 de 2)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "data-vistas=\"nominal,En pesos,real,A precios de hoy\">",
+   "propuesto": "data-vistas=\"nominal,En pesos,real,Sin inflación\">",
+   "motivo": "Término fijo: nada de «a precios de hoy». Tiene que coincidir con BCR_VISTAS.dolar y el botón (1 de 4)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<button type=\"button\" data-m=\"real\" aria-pressed=\"false\">A precios de hoy</button>\r\n      </div>\r\n      <div class=\"grafico\" data-g=\"bcra\"",
+   "propuesto": "<button type=\"button\" data-m=\"real\" aria-pressed=\"false\">Sin inflación</button>\r\n      </div>\r\n      <div class=\"grafico\" data-g=\"bcra\"",
+   "motivo": "Término fijo (2 de 4). El fragmento sigue hasta el gráfico para no tocar el botón igual de la ficha de los haberes."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "dolar: [[\"nominal\", \"En pesos\"], [\"real\", \"A precios de hoy\"]],",
+   "propuesto": "dolar: [[\"nominal\", \"En pesos\"], [\"real\", \"Sin inflación\"]],",
+   "motivo": "Término fijo, el mismo que ya usan los montos en pesos (3 de 4)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La vista a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos.`;",
+   "propuesto": "La vista «Sin inflación» descuenta la inflación de la Argentina y la de los Estados Unidos.`;",
+   "motivo": "Acompaña el nombre nuevo del botón (4 de 4)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`El dólar a precios de hoy descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que ` +",
+   "propuesto": "`En la vista «Sin inflación», el dólar descuenta la inflación de la Argentina y la de los Estados Unidos con el tipo de cambio real bilateral del BCRA. La tasa real compara lo que ` +",
+   "motivo": "Acompaña el nombre nuevo del botón."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`La serie histórica del dinero (base monetaria, M1, M2 y M3) está en pesos de hoy: entre 1970 y 1992 a la moneda se le sacaron 13 ceros. ` +",
+   "propuesto": "`La serie histórica del dinero (base monetaria, M1, M2 y M3) está expresada en la moneda actual: entre 1970 y 1992 a la moneda se le sacaron 13 ceros. ` +",
+   "motivo": "«En pesos de hoy» se leía como descontada la inflación. Quiere decir otra cosa: los montos viejos pasados a la moneda actual."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "así que los primeros años dan cero o quedan redondeados: aquí empieza en ` +",
+   "propuesto": "así que los primeros años dan cero o quedan redondeados: acá empieza en ` +",
+   "motivo": "Español rioplatense."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Son grupos de ciudades donde se relevan los precios, no provincias: el Gran Buenos Aires es la Ciudad de Buenos Aires y los 24 partidos que la rodean, y el resto de la provincia de Buenos Aires está en la región Pampeana.",
+   "propuesto": "Son grupos de ciudades donde se relevan los precios, no provincias: el Gran Buenos Aires es CABA y los 24 partidos que la rodean, y el resto de la provincia de Buenos Aires está en la región Pampeana.",
+   "motivo": "Término fijo: CABA."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "y los demás, que forman la inflación núcleo. Y separa los bienes de los servicios.",
+   "propuesto": "y los demás, que forman la inflación núcleo. También separa los bienes de los servicios.",
+   "motivo": "Una oración que empezaba con «Y» quedaba suelta."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Para ver si los salarios suben más o menos que los precios, el sitio divide el índice de salarios por el de precios al consumidor.",
+   "propuesto": "Para ver si los salarios suben más o menos que los precios, el sitio divide el índice de salarios por el de precios al consumidor. La ficha muestra el sector privado registrado y el sector público.",
+   "motivo": "Dice cuáles de los tres índices están en la ficha."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Para compararlas, el sitio las lleva a pesos de igual valor con el índice de precios de los bienes de su región.",
+   "propuesto": "Para compararlas, el sitio les descuenta la inflación con el índice de precios de los bienes de su región.",
+   "motivo": "Término fijo: «descontada la inflación»."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Pesos de igual valor",
+   "propuesto": "Descontada la inflación",
+   "motivo": "Término fijo del glosario: el sitio ya no dice «pesos de igual valor»."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Montos de meses distintos llevados a los precios de un mismo mes con el índice de precios al consumidor, para compararlos descontada la inflación.",
+   "propuesto": "Montos de meses distintos llevados a los precios de un mismo mes con el índice de precios al consumidor, para poder compararlos.",
+   "motivo": "Acompaña el término nuevo, sin repetirlo en la definición."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${ESR.vs_base_pub < 0 ? \"más bajo\" : \"más alto\"}. El salario privado registrado más alto de la serie, descontada la inflación, fue el de ${ESR.max_priv_mes} ` +",
+   "propuesto": "`${ESR.vs_base_pub < 0 ? \"más bajo\" : \"más alto\"}. El salario privado registrado más alto de la serie fue el de ${ESR.max_priv_mes} ` +",
+   "motivo": "«Descontada la inflación» ya estaba dos veces en el texto: la tercera sobraba."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuántas empresas abren y cierran?\">¿Cuántas empresas hay en cada provincia y cuántas abren y cierran?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuántas empresas abren y cierran?\">¿Cuántas empresas privadas hay en cada provincia y cuántas abren y cierran?</p>",
+   "motivo": "Las fichas cuentan solo empresas privadas con personal (OEDE)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Cuántas empresas con empleados hay en cada provincia, cuántas se crean y cuántas cierran cada año. Y una guía de los datos del sitio que muestran necesidades sin resolver y mercados que crecen.</p>",
+   "propuesto": "<p>Las fichas cuentan las empresas privadas que declaran personal en relación de dependencia ante la seguridad social: cuántas hay en cada provincia en relación con su población y cuántas abren y cierran cada año en el país desde {{empresas.ini}}. Por provincia, muestran también el saldo entre aperturas y cierres del último año. No incluyen a quienes trabajan por su cuenta sin empleados.</p>",
+   "motivo": "La guía de «necesidades sin resolver y mercados que crecen» ya no está en la página. La intro nombra la población que cuenta el OEDE (su nota metodológica: declaraciones de las empresas sobre su personal en relación de dependencia, excluido el trabajo por cuenta propia) y solo lo que las dos fichas muestran."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Empresas privadas con empleados cada 1.000 habitantes, {{empresas.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Empresas privadas con personal en relación de dependencia, cada 1.000 habitantes, por provincia, {{empresas.anio}}</p>",
+   "motivo": "Nombra la población con la definición del OEDE."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`empresas privadas con personal en relación de dependencia en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes`,",
+   "propuesto": "`empresas privadas con personal en relación de dependencia sumaban las 24 jurisdicciones en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes: la que tiene personal en varias provincias cuenta en cada una`,",
+   "motivo": "La cifra es la suma de las provincias (fila Total del cuadro 1 del OEDE, verificada en el Excel), no el total de empresas del país: el texto lo dice. Corregir el dato queda pendiente."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`en todo el país, ${n1(EM.pais_1000)} cada 1.000 habitantes`],",
+   "propuesto": "`sumadas las 24 jurisdicciones, ${n1(EM.pais_1000)} cada 1.000 habitantes`],",
+   "motivo": "Mismo motivo: «en todo el país» presentaba la suma de las provincias como el total del país."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"empresas-nota\": `Empresas que declaran personal ante la seguridad social. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni al personal de casas particulares. Una empresa con personal en varias provincias se cuenta en cada una, por eso las provincias suman más que el total del país.",
+   "propuesto": "\"empresas-nota\": `Empresas privadas que declaran personal en relación de dependencia ante la seguridad social (el SIPA), cada una identificada por su CUIT. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni el trabajo en casas particulares. Una empresa con personal en varias provincias se cuenta en cada una: por eso la suma de las provincias, que es la cifra destacada, es mayor que la cantidad de empresas que hay en el país.",
+   "motivo": "Precisa la población con la nota metodológica del OEDE y avisa que la cifra destacada es esa suma."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`empresas privadas cada 1.000 habitantes en ${EM.top}, la jurisdicción con más, en ${EM.anio}. En ${EM.low}, ${n1(EM.low_v)}`],",
+   "propuesto": "`empresas privadas con empleados cada 1.000 habitantes tenía ${EM.top} en ${EM.anio}, la jurisdicción con más. ${EM.low} tenía ${n1(EM.low_v)}`],",
+   "motivo": "Ordena la oración (la cifra, qué cuenta, dónde y cuándo) y nombra la población."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Apertura y cierre de empresas privadas, {{empresas.ini}} a {{empresas.ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Empresas privadas que abrieron y que cerraron cada año, en % de las empresas activas, {{empresas.ini}} a {{empresas.ult}}</p>",
+   "motivo": "Suma la unidad del gráfico: las tasas son porcentajes de las empresas activas."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "dinamica: `En ${EM.ult}, la tasa de entrada de empresas con empleados fue de ${pct(EM.te)} y la de salida, de ${pct(EM.ts)} sobre el total de empresas. ` +",
+   "propuesto": "dinamica: `En ${EM.ult}, la tasa de entrada, las empresas que abrieron sobre todas las activas en el año, fue de ${pct(EM.te)}, y la de salida, las que cerraron, de ${pct(EM.ts)}. Acá cada empresa cuenta una sola vez, en la provincia donde declara más personal. ` +",
+   "motivo": "Explica las tasas al usarlas y aclara que el universo no es la suma de la ficha anterior: con 609.664, 53.706 cierres darían 8,8% y no 10,7%."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`El cambio neto fue ${EM.neta >= 0 ? \"positivo\" : \"negativo\"}, de ${pct(Math.abs(EM.neta))}, y solo ${EM.positivas === 1 ? \"una provincia tuvo\" : EM.positivas + \" provincias tuvieron\"} más aperturas que cierres. ` +",
+   "propuesto": "`El cambio neto fue ${EM.neta >= 0 ? \"positivo\" : \"negativo\"}, de ${n1(Math.abs(EM.neta))} puntos, y ${EM.positivas < 12 ? \"solo \" : \"\"}${EM.positivas === 1 ? \"una jurisdicción tuvo\" : EM.positivas + \" jurisdicciones tuvieron\"} más aperturas que cierres. ` +",
+   "motivo": "La diferencia entre dos tasas son puntos, no un porcentaje. «Solo» únicamente cuando son menos de la mitad, y «jurisdicciones», porque CABA está entre las 24."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`La tasa de entrada más alta de la serie fue ${pct(EM.te_max)}, en ${EM.te_max_anio}. Desde ${EM.ini}, el cambio neto fue negativo en ${EM.anios_negativos} años.`,",
+   "propuesto": "`La tasa de entrada más alta de la serie fue de ${pct(EM.te_max)}, en ${EM.te_max_anio}. Desde ${EM.ini}, cerraron más empresas de las que abrieron en ${EM.anios_negativos} años.`,",
+   "motivo": "Dice en palabras qué significa un cambio neto negativo."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Una empresa abre cuando declara empleados por primera vez y cierra cuando pasa un año (cuatro trimestres) sin declarar personal, con el cierre fechado en el primer trimestre sin empleo: por eso la serie llega hasta un año antes que el empleo.",
+   "propuesto": "Una empresa abre cuando declara personal por primera vez. Se considera que cerró cuando pasan cuatro trimestres seguidos, un año, sin que declare personal ocupado, y el cierre se fecha en el primero de esos trimestres: por eso la serie termina un año antes que la del empleo.",
+   "motivo": "Ejemplo F del encargo, con la regla del OEDE (nota metodológica del Excel: «no declara personal ocupado a lo largo de un año (4 trimestres)», cierre en «el primer período de empleo nulo»)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Las tasas dividen aperturas y cierres por todas las empresas activas en el año. La vista por provincia",
+   "propuesto": "`Las tasas dividen aperturas y cierres por todas las empresas activas en el año, incluidas las que abrieron y las que cerraron. La vista por provincia",
+   "motivo": "Completa el denominador como lo define el OEDE."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "serieM(\"Saldo de empresas por año: aperturas menos cierres, en % del total\",",
+   "propuesto": "serieM(\"Cambio neto de empresas por año: tasa de entrada menos tasa de salida\",",
+   "motivo": "El minigráfico usa el mismo nombre que la ficha y no dice «% del total», que no era el denominador."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Una empresa abre cuando aparecen sus primeras declaraciones de personal ocupado. Se considera cerrada cuando pasa un año, cuatro trimestres seguidos, sin declarar empleados, el mismo criterio que usa la oficina de estadísticas laborales de los Estados Unidos. Las tasas de entrada y de salida dividen las aperturas y los cierres por todas las empresas que estuvieron activas en el período. El cambio neto es la diferencia entre las dos.",
+   "propuesto": "Una empresa abre cuando aparecen sus primeras declaraciones de personal ocupado. Se considera que cerró cuando pasan cuatro trimestres seguidos, un año, sin que declare personal ocupado: es el mismo criterio que usa la oficina de estadísticas laborales de los Estados Unidos. El cierre se fecha en el primero de esos trimestres sin empleo. Las tasas de entrada y de salida dividen las aperturas y los cierres por todas las empresas que estuvieron activas en el período, incluidas las que cerraron. El cambio neto es la diferencia entre las dos tasas.",
+   "motivo": "Ejemplo F del encargo: la regla completa del OEDE, con la condición, el período y la fecha del cierre."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Una empresa que tiene personal en varias provincias figura en cada una de ellas, por eso la suma provincial supera al total del país. Para estudiar aperturas y cierres el Observatorio usa las empresas locales:",
+   "propuesto": "Una empresa que tiene personal en varias provincias figura en cada una de ellas, por eso la suma de las provincias supera a la cantidad de empresas del país. La cifra destacada de la primera ficha es esa suma. Para estudiar aperturas y cierres, el Observatorio usa las empresas locales:",
+   "motivo": "Avisa que la cifra destacada es la suma de las provincias."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánto se construye y cuánto cuesta?\">¿Cuánto se construye, cuánto cuesta y cuántos hogares alquilan?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto se construye y cuánto cuesta?\">¿Cuánto se construye, cuánto cuesta construir y cuántos hogares alquilan?</p>",
+   "motivo": "«Cuánto cuesta» no decía qué."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>La actividad de la construcción mes a mes, sus insumos y su costo, el empleo que genera en cada provincia y cómo son las viviendas según el Censo 2022.</p>",
+   "propuesto": "<p>La actividad de la construcción se sigue mes a mes con el índice del INDEC, los permisos para construir y el consumo de insumos. La página muestra también la obra pública de la Nación, el empleo del sector en cada provincia, cuánto cuesta construir, cuánto se presta en créditos hipotecarios y cómo son las viviendas según el Censo 2022.</p>",
+   "motivo": "Faltaban los permisos, la obra pública y los créditos hipotecarios, y no era una oración completa."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Actividad de la construcción por mes, {{construccion.isac_ini}} a {{construccion.isac_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Indicador Sintético de la Actividad de la Construcción del INDEC (índice 2004 = 100), por mes, {{construccion.isac_ini}} a {{construccion.isac_anio}}</p>",
+   "motivo": "Dice qué índice es y su base: el gráfico muestra números sin unidad."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Superficie autorizada por los permisos de edificación, por mes, {{construccion.per_desde}} a {{construccion.per_mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Superficie autorizada por los permisos de edificación de {{construccion.per_municipios}} municipios, en miles de metros cuadrados por mes, {{construccion.per_desde}} a {{construccion.per_mes}}</p>",
+   "motivo": "Suma la unidad y que es una nómina de municipios, no el total del país."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Consumo aparente de insumos para la construcción, variación a {{construccion.ins_mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Variación del consumo aparente de cada insumo de la construcción hasta {{construccion.ins_mes}}</p>",
+   "motivo": "«Variación a» no era natural."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El consumo aparente de cemento portland varió ${masPct(CN.cemento_12m)}.`,",
+   "propuesto": "El consumo aparente de cemento portland ${creceCae(CN.cemento_12m)}.`,",
+   "motivo": "«Varió −2,3%» pasa a «cayó 2,3%» (creceCae se define antes)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Obra pública de la Nación por provincia, {{construccion.op_desde}} a {{construccion.op_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Gasto de la Nación en obra pública, en pesos de {{construccion.op_ult}}: por habitante en cada provincia y en total, {{construccion.op_desde}} a {{construccion.op_ult}}</p>",
+   "motivo": "Suma la unidad (pesos de un año, por habitante en la vista por provincia)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`de pesos invirtió la Nación en obra pública en ${CN.op_ult}. El máximo desde ${CN.op_desde} fue de ${n0(CN.op_max)} mil millones, en ${CN.op_max_anio}, en pesos del mismo valor`],",
+   "propuesto": "`de pesos invirtió la Nación en obra pública en ${CN.op_ult}, contra ${n0(CN.op_max)} mil millones en ${CN.op_max_anio}, el máximo desde ${CN.op_desde}, todo en pesos de ${CN.op_ult}`],",
+   "motivo": "Una oración en lugar de dos, y dice en pesos de qué año están los montos."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "? `En pesos de ${CN.op_ult}, la Nación invirtió ${n0(CN.op_total)} miles de millones en obra pública en ${CN.op_ult}: ${n0(CN.op_obras)} en obras propias y ${n0(CN.op_transf)} en transferencias de capital a provincias y municipios. ` +",
+   "propuesto": "? `En pesos de ${CN.op_ult}, la Nación invirtió ${n0(CN.op_total)} mil millones en obra pública en ${CN.op_ult}: ${n0(CN.op_obras)} mil millones en obras propias y ${n0(CN.op_transf)} mil millones en transferencias de capital a provincias y municipios. ` +",
+   "motivo": "La misma unidad que la cifra destacada («mil millones»), con la unidad en cada monto."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`El máximo de la serie fue en ${CN.op_max_anio}, con ${n0(CN.op_max)} miles de millones, y el mínimo, en ${CN.op_min_anio}, con ${n0(CN.op_min)}.` +",
+   "propuesto": "`El máximo de la serie fue en ${CN.op_max_anio}, con ${n0(CN.op_max)} mil millones, y el mínimo, en ${CN.op_min_anio}, con ${n0(CN.op_min)} mil millones.` +",
+   "motivo": "La misma unidad que la cifra destacada."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` En ${CN.op_ult - 1} había sido de ${n0(CN.op_ant)} miles de millones.`",
+   "propuesto": "` En ${CN.op_ult - 1} había sido de ${n0(CN.op_ant)} mil millones.`",
+   "motivo": "La misma unidad que la cifra destacada."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y también forman parte de las transferencias \"otras no automáticas\" de la sección Política.",
+   "propuesto": "`y también forman parte de las transferencias \"otras no automáticas\" de Instituciones políticas.",
+   "motivo": "La sección se llama Instituciones políticas."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Empleo registrado en la construcción por provincia, {{construccion.emp_trim}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Asalariados registrados en la construcción privada, por provincia, {{construccion.emp_trim}}</p>",
+   "motivo": "Nombra quiénes se cuentan, como la cifra destacada."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "una empresa con sede en la Ciudad que construye en otra provincia suma en la Ciudad. ` +",
+   "propuesto": "una empresa con sede en CABA que construye en otra provincia suma en CABA. ` +",
+   "motivo": "Término fijo: CABA."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Personas ocupadas en la construcción por provincia y departamento, 2022</p>",
+   "propuesto": "<p class=\"ficha-sub\">Porcentaje de las personas ocupadas que trabajan en la construcción, con o sin registro, por provincia y departamento, Censo 2022</p>",
+   "motivo": "Suma la unidad (es un porcentaje) y la diferencia con la ficha anterior (con o sin registro)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}.`,",
+   "propuesto": "`La proporción va del ${pct(CN.viv_top.pct_ocupados_construccion[1])} en ${CN.viv_top.pct_ocupados_construccion[0]} al ${pct(CN.viv_low.pct_ocupados_construccion[1])} en ${CN.viv_low.pct_ocupados_construccion[0]}. El censo cuenta a cada persona donde vive y el empleo registrado de la ficha anterior, donde la declara la empresa: por eso las dos fichas ordenan distinto a las provincias.`,",
+   "motivo": "Las dos fichas de empleo ordenan al revés (CABA) y solo la nota lo explicaba: una oración visible lo dice."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Costo de la construcción frente a los precios al consumidor, {{construccion.costo_desde}} a {{construccion.costo_mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Costo de construir en el Gran Buenos Aires dividido por los precios al consumidor ({{construccion.costo_desde}} = 100), {{construccion.costo_desde}} a {{construccion.costo_mes}}</p>",
+   "motivo": "Dice que el índice es solo del Gran Buenos Aires y la unidad del gráfico."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-costo\": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? \"menos\" : \"más\"} que los precios al consumidor subió el costo de construir desde ${CN.costo_desde}`,",
+   "propuesto": "\"f-costo\": [pct(Math.abs(CN.icc_real)), `${CN.icc_real < 0 ? \"menos\" : \"más\"} cuesta construir en el Gran Buenos Aires que en ${CN.costo_desde}, descontada la inflación`,",
+   "motivo": "La frase vieja no dejaba claro si eran puntos o porcentaje ni que el índice es del Gran Buenos Aires. La cifra es el índice dividido por los precios: 87,1 sobre 100."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${CN.icc_real < 0 ? \"menos\" : \"más\"} que los precios al consumidor subió el costo de construir`],",
+   "propuesto": "`${CN.icc_real < 0 ? \"menos\" : \"más\"} cuesta construir que en ${CN.costo_desde}, descontada la inflación`],",
+   "motivo": "Mismo motivo, en la frase de la ficha."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Créditos hipotecarios UVA nuevos por mes, {{construccion.hip_desde}} a {{construccion.hip_mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Créditos hipotecarios UVA nuevos por mes, en miles de millones de pesos de {{construccion.hip_mes}}, {{construccion.hip_desde}} a {{construccion.hip_mes}}</p>",
+   "motivo": "Suma la unidad del gráfico."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "hipotecas: (CN.hip_var != null ? `En pesos de igual valor, los créditos hipotecarios UVA de ${CN.hip_mes} fueron",
+   "propuesto": "hipotecas: (CN.hip_var != null ? `Descontada la inflación, los créditos hipotecarios UVA de ${CN.hip_mes} fueron",
+   "motivo": "Término fijo: «descontada la inflación»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`, contra ${n0(CN.hip_anual_max)} en ${CN.hip_anual_max_anio}, el año con más créditos,`",
+   "propuesto": "`, contra ${n0(CN.hip_anual_max)} mil millones en ${CN.hip_anual_max_anio}, el año con más créditos,`",
+   "motivo": "Las cifras iban sin unidad."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` y ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, el año con menos.`,",
+   "propuesto": "` y ${n0(CN.hip_anual_min)} mil millones en ${CN.hip_anual_min_anio}, el año con menos.`,",
+   "motivo": "Las cifras iban sin unidad."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "No incluye los créditos hipotecarios en pesos sin UVA ni los en dólares.",
+   "propuesto": "No incluye los créditos hipotecarios en pesos sin UVA ni los que se dan en dólares.",
+   "motivo": "«Ni los en dólares» no es correcto."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos hogares alquilan o viven hacinados?</h2>",
+   "propuesto": "<h2>¿Qué parte de los hogares alquila o vive hacinada en cada provincia?</h2>",
+   "motivo": "La cifra y el gráfico son porcentajes por provincia, no cantidades."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Cómo son las viviendas y los hogares, por provincia y departamento, 2022</p>",
+   "propuesto": "<p class=\"ficha-sub\">Indicadores de los hogares y las viviendas del Censo 2022, por provincia y departamento</p>",
+   "motivo": "Dice de dónde salen los indicadores del selector."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<option value=\"pct_hacinamiento\">Hacinamiento crítico</option>",
+   "propuesto": "<option value=\"pct_hacinamiento\">Hogares con hacinamiento crítico</option>",
+   "motivo": "La opción dice qué se cuenta, como «Hogares que alquilan»."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "La ficha divide el ICC por el índice de precios al consumidor (IPC) nacional del INDEC, así muestra si construir se encareció más o menos que el resto de los precios.",
+   "propuesto": "La ficha divide el ICC por el índice de precios al consumidor (IPC) nacional del INDEC para mostrar si construir se encareció más o menos que el resto de los precios.",
+   "motivo": "Dos oraciones pegadas con una coma."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánto recauda y gasta el Estado?\">¿Cuánto recauda y cuánto gasta el Estado, y cuánto debe?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto recauda y gasta el Estado?\">¿Cuánto recauda, cuánto gasta y cuánto debe el Estado?</p>",
+   "motivo": "Una enumeración en lugar de dos preguntas pegadas con «y»."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto se recauda de cada impuesto nacional, cuánto debe el Estado nacional, cuántos cargos tienen las administraciones provinciales, cuánto recauda cada provincia de impuestos propios y cómo son las finanzas de cada provincia: qué parte de sus ingresos recauda por su cuenta, si le sobra o le falta y cuánto gasta en personal. Las transferencias de la Nación a las provincias están en <a href=\"politica.html#f-transferencias\">Instituciones políticas</a>, y los subsidios a la energía, en <a href=\"energia.html#f-subsidios\">Energía</a>.</p>",
+   "propuesto": "<p>Primero, las cuentas de la Nación: cuánto le ingresa, en qué gasta y si le sobra o le falta, como parte del PBI. Después, cuánto recauda cada impuesto nacional y cuánto debe el Estado nacional. Para las provincias, cuántos cargos tienen sus administraciones, cuánto recaudan de impuestos propios y cómo son sus finanzas: qué parte de sus ingresos recaudan por su cuenta, si les sobra o les falta y cuánto gastan en personal. Las transferencias no automáticas de la Nación a las provincias están en <a href=\"politica.html#f-transferencias\">Instituciones políticas</a>, y los subsidios a la energía, en <a href=\"energia.html#f-subsidios\">Energía</a>.</p>",
+   "motivo": "Parte una oración de unas 60 palabras en tres. Instituciones políticas tiene solo las transferencias no automáticas (la pregunta de esa ficha lo dice): la coparticipación no está en ninguna página."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Las transferencias de la Nación a cada provincia están en Instituciones políticas, y los ` +",
+   "propuesto": "Las transferencias no automáticas de la Nación a cada provincia están en Instituciones políticas, y los ` +",
+   "motivo": "Mismo motivo: allá están solo las no automáticas."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(GBN.en_el_anio ? ` Hasta ${GBN.mes}, el resultado primario del año fue un ${sobra(GBN.ytd_primario)} de ${billones(Math.abs(GBN.ytd_primario))}, y el ` +",
+   "propuesto": "(GBN.en_el_anio ? ` Hasta ${GBN.mes}, el resultado primario del año fue un ${sobra(GBN.ytd_primario)} de ${billones(Math.abs(GBN.ytd_primario))} corrientes, y el ` +",
+   "motivo": "El texto pasaba de % del PBI a pesos sin avisarlo: «corrientes» dice que no descuentan la inflación (1 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`financiero, un ${sobra(GBN.ytd_financiero)} de ${billones(Math.abs(GBN.ytd_financiero))}.` : \"\");",
+   "propuesto": "`financiero, un ${sobra(GBN.ytd_financiero)} de ${billones(Math.abs(GBN.ytd_financiero))} corrientes.` : \"\");",
+   "motivo": "Mismo motivo (2 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "la recaudación de impuestos nacionales sumó ${billones(GRT.doce_millones)}: el ${pct(GRT.iva)} fue IVA, ` +",
+   "propuesto": "la recaudación de impuestos nacionales sumó ${billones(GRT.doce_millones)} corrientes: el ${pct(GRT.iva)} fue IVA, ` +",
+   "motivo": "Dice que es una suma de pesos de cada mes, sin descontar la inflación."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Lo que va del año, en pesos de igual valor con el índice de precios al consumidor del INDEC. La ley de ` +",
+   "propuesto": "La variación de lo que va del año descuenta la inflación con el índice de precios al consumidor del INDEC. La ley de ` +",
+   "motivo": "Término fijo («descontada la inflación») y una oración con verbo."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "deuda: () => `En dólares, la deuda bruta de la Administración Central sumaba ${n0(GBD.usd_millones)} millones al ${GBD.fecha}, ` +",
+   "propuesto": "deuda: () => `La deuda bruta de la Administración Central sumaba ${n0(GBD.usd_millones)} millones de dólares al ${GBD.fecha}, ` +",
+   "motivo": "La unidad junto a la cifra."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`según la Secretaría de Finanzas. A fin de ${GBD.anio} era el ${pct(GBD.pct_anio)}. Desde ${GBD.desde}, el valor más alto fue el de ` +",
+   "propuesto": "`según la Secretaría de Finanzas, e incluye la que tienen otros organismos del propio Estado. A fin de ${GBD.anio} era el ${pct(GBD.pct_anio)} del PBI. Desde ${GBD.desde}, el valor más alto fue el de ` +",
+   "motivo": "La deuda bruta incluye la que está en manos del propio Estado (lo dicen la nota y el glosario): el texto visible lo dice. Y el porcentaje lleva su base."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Cargos en las administraciones provinciales cada 1.000 habitantes, {{gobierno.empleo.anio}}, y dotación de la administración nacional</p>",
+   "propuesto": "<p class=\"ficha-sub\">Cargos ocupados en las administraciones provinciales cada 1.000 habitantes, {{gobierno.empleo.anio}}, y personas que trabajan en la administración nacional, mes a mes</p>",
+   "motivo": "«Dotación» es jerga: dice qué cuenta la vista de la Nación."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "mes de la serie, la dotación ${cambioPct(GBC.dot_var)}: eran ${n0(GBC.dot_total_ini)} personas.`;",
+   "propuesto": "mes de la serie, la cantidad de personas ${cambioPct(GBC.dot_var)}: eran ${n0(GBC.dot_total_ini)}.`;",
+   "motivo": "«Dotación» es jerga."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `En total, las administraciones de las provincias y de la Ciudad tenían ${n0(GBC.cargos)} cargos ocupados en ${GBC.anio}, ` +",
+   "propuesto": "return `En total, las administraciones de las provincias y de CABA tenían ${n0(GBC.cargos)} cargos ocupados en ${GBC.anio}, ` +",
+   "motivo": "Término fijo: CABA."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto recauda cada provincia por habitante?</h2>",
+   "propuesto": "<h2>¿Cuánto recauda cada provincia de impuestos propios por habitante?</h2>",
+   "motivo": "Dice qué se recauda: solo los impuestos provinciales, no lo que llega de la Nación."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"impuestos-provinciales\": () => `En total, las provincias y la Ciudad recaudaron ${billones(GBP.millones)} de impuestos propios en ${GBP.anio}, ` +",
+   "propuesto": "\"impuestos-provinciales\": () => `En total, las provincias y CABA recaudaron ${billones(GBP.millones)} de impuestos propios en ${GBP.anio}` + (GBP.faltan.length ? `, sin contar ${lista(GBP.faltan)}` : \"\") + `, ` +",
+   "motivo": "El total no incluye a la jurisdicción sin datos del año (02_procesar.py la deja afuera): el texto lo dice. Término fijo: CABA."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. Iba de ${n0(GBP.bajo[1])} pesos ` +",
+   "propuesto": "`según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. La recaudación por habitante iba de ${n0(GBP.bajo[1])} pesos ` +",
+   "motivo": "«Iba de» no tenía sujeto."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`por habitante en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +",
+   "propuesto": "`en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +",
+   "motivo": "Acompaña el sujeto nuevo, sin repetir «por habitante»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? \"tienen\" : \"tiene\"} datos completos del año.` : \"\"),",
+   "propuesto": "(GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? \"tienen\" : \"tiene\"} datos completos del año y no ${GBP.faltan.length > 1 ? \"entran\" : \"entra\"} en el total ni en el gráfico.` : \"\"),",
+   "motivo": "Dice qué consecuencia tiene la falta de datos."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-impuestos-provinciales\": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y la Ciudad en ${GBP.anio}`, \"por habitante, promedio del país\"],",
+   "propuesto": "\"f-impuestos-provinciales\": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y CABA en ${GBP.anio}` + (GBP.faltan.length ? `, sin contar ${lista(GBP.faltan)}` : \"\"), GBP.faltan.length ? \"por habitante, promedio de las jurisdicciones con datos\" : \"por habitante, promedio del país\"],",
+   "motivo": "El promedio deja afuera a la jurisdicción sin datos: la frase lo dice solo cuando pasa. Término fijo: CABA."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto financia cada provincia con recursos propios?</h2>",
+   "propuesto": "<h2>¿Qué parte de sus ingresos recauda cada provincia por su cuenta?</h2>",
+   "motivo": "La cifra es una parte de los ingresos: la pregunta usa las mismas palabras que la intro."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Recursos propios, resultado fiscal y gasto en personal por provincia, {{fiscal.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Recursos propios y resultado fiscal en % de los ingresos, y gasto en personal en % del gasto, por provincia, {{fiscal.anio}}</p>",
+   "motivo": "Suma la base de cada porcentaje."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-fiscal\": [pct(R.fiscal.mediana), `de los ingresos de la provincia del medio fueron recursos propios en ${R.fiscal.anio}. El resto llegó de la Nación`],",
+   "propuesto": "\"f-fiscal\": [pct(R.fiscal.mediana), `fue la mediana de la parte de sus ingresos que las provincias y CABA recaudaron por su cuenta en ${R.fiscal.anio}: la mitad quedó por debajo y la otra mitad, por encima`],",
+   "motivo": "La cifra es la mediana, el promedio de las dos del medio (40,5 y 40,0): ninguna provincia la tiene, así que «la provincia del medio» no era exacto. Saca «el resto llegó de la Nación», que repetía el texto."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "En la provincia del medio fueron el ${pct(fz.mediana)}, contra el ${pct(fz.mediana_ini)} en ${fz.ini}. El resto llega de la Nación, por coparticipación y otras transferencias.`",
+   "propuesto": "La mediana de las 24 jurisdicciones fue de ${pct(fz.mediana)}, contra ${pct(fz.mediana_ini)} en ${fz.ini}. El resto de los ingresos llega de la Nación, por coparticipación y otras transferencias.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${fz.anio}: figura con ${a}.`).join(\"\")}`",
+   "motivo": "Mediana en lugar de «la provincia del medio». La provincia que figura con un año anterior (fiscal-nota ya lo calcula con R.fiscal.atrasadas) se avisa en el texto visible, porque entra en la mediana."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "? `En ${fz.anio}, ${fz.superavit} provincias cerraron con superávit financiero y ${fz.deficit} con déficit. El mayor superávit, en proporción a sus ingresos, fue el de ${ord[0].territorio} (${sg(ord[0].resultado)}) y el mayor déficit el de ${ord[ord.length - 1].territorio} (${sg(ord[ord.length - 1].resultado)}).`",
+   "propuesto": "? `En ${fz.anio}, ${fz.superavit} jurisdicciones cerraron con superávit financiero y ${fz.deficit} con déficit. El mayor superávit, en proporción a sus ingresos, fue el de ${ord[0].territorio} (${sg(ord[0].resultado)}) y el mayor déficit, el de ${ord[ord.length - 1].territorio} (${sg(ord[ord.length - 1].resultado)}).${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join(\"\")}`",
+   "motivo": "«Jurisdicciones», porque CABA está entre las 24, y el aviso de la provincia que figura con otro año, que entra en el conteo."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ": `En ${fz.anio}, los sueldos y cargas sociales fueron el ${pct(ord[0].personal)} del gasto de ${ord[0].territorio} y el ${pct(ord[ord.length - 1].personal)} del de ${ord[ord.length - 1].territorio}.`;",
+   "propuesto": ": `En ${fz.anio}, los sueldos y cargas sociales fueron el ${pct(ord[0].personal)} del gasto de ${ord[0].territorio} y el ${pct(ord[ord.length - 1].personal)} del de ${ord[ord.length - 1].territorio}.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join(\"\")}`;",
+   "motivo": "El aviso de la provincia que figura con otro año, también en esta vista."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Las exportaciones traen los dólares con los que el país paga lo que compra afuera. Acá está qué se exporta y qué se importa, con qué países se comercia y desde qué provincia sale cada venta, el saldo de las cuentas con el resto del mundo y las reservas del Banco Central.",
+   "propuesto": "<p>Cada ficha contesta una parte de la pregunta: qué exporta y qué importa la Argentina, con qué países comercia y desde qué provincias salen las ventas. Al final están el saldo de las cuentas con el resto del mundo y las reservas del Banco Central.",
+   "motivo": "La primera oración era una explicación económica que la página no muestra. La intro ahora describe las fichas."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto vende y cuánto compra la Argentina?</h2>",
+   "propuesto": "<h2>¿Cuánto exporta e importa la Argentina en bienes y cuál es el saldo?</h2>",
+   "motivo": "Repetía la pregunta de la página. La nueva dice que son bienes y nombra el saldo, que es la cifra destacada."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-balanza\": [`${n0(Math.abs(BZ_S))} M`, `de dólares de ${BZ_S >= 0 ? \"superávit\" : \"déficit\"} comercial ${BZ_P}` +",
+   "propuesto": "\"f-balanza\": [`${n0(Math.abs(BZ_S))} millones`, `de dólares de ${BZ_S >= 0 ? \"superávit\" : \"déficit\"} comercial ${BZ_P}` +",
+   "motivo": "Un solo formato para los millones de dólares en las cifras destacadas («millones», como en el resto de la página)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`, contra ${saldoTx(SX.balanza.ytd_saldo_ant)} en los mismos meses del año anterior` : \"\"), `de ${BZ_S >= 0 ? \"superávit\" : \"déficit\"} comercial ${BZ_P}`],",
+   "propuesto": "`, contra ${saldoTx(SX.balanza.ytd_saldo_ant)} en los mismos meses del año anterior` : \"\"), `de dólares de ${BZ_S >= 0 ? \"superávit\" : \"déficit\"} comercial ${BZ_P}`],",
+   "motivo": "Con «millones» en la cifra, la frase de la ficha necesita «de dólares»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(B.ytd_anio > B.anio ? ` Entre enero y ${MESES[B.ytd_mes - 1]} de ${B.ytd_anio}, las exportaciones ${subioBajo(B.ytd_expo_var, \"crecieron\", \"cayeron\")} ` +",
+   "propuesto": "(B.ytd_anio > B.anio ? ` Entre enero y ${MESES[B.ytd_mes - 1]} de ${B.ytd_anio}, meses que el gráfico todavía no muestra porque el año está incompleto, las exportaciones ${subioBajo(B.ytd_expo_var, \"crecieron\", \"cayeron\")} ` +",
+   "motivo": "La cifra destacada y el gráfico usan períodos distintos: el texto lo dice."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"exporta-rubros\": `Las manufacturas de origen agropecuario fueron el ${pct(SX.rubros.pct.moa)} de lo exportado en ${SX.rubros.anio}, ` +",
+   "propuesto": "\"exporta-rubros\": `La agroindustria, es decir las manufacturas de origen agropecuario, fue el ${pct(SX.rubros.pct.moa)} de lo exportado en ${SX.rubros.anio}, ` +",
+   "motivo": "El texto y el gráfico usaban nombres distintos para los mismos rubros: ahora usa los del gráfico y explica el primero (1 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`las de origen industrial el ${pct(SX.rubros.pct.moi)}, los productos primarios el ${pct(SX.rubros.pct.primarios)} y los combustibles y la energía el ${pct(SX.rubros.pct.combustibles)}` +",
+   "propuesto": "`la industria, el ${pct(SX.rubros.pct.moi)}, los productos primarios, el ${pct(SX.rubros.pct.primarios)}, y la energía, el ${pct(SX.rubros.pct.combustibles)}` +",
+   "motivo": "Los nombres del gráfico, que la nota explica (2 de 2)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Entre los que vendieron más de 500 millones de dólares, el que más creció frente al mismo período del año anterior fue ${el(C.crece.n)}: ${conSigno(C.crece.var)}.`; })(),",
+   "propuesto": "`Entre los sectores y los complejos que vendieron más de 500 millones de dólares, el que más creció frente al mismo período del año anterior fue ${el(C.crece.n)}: ${conSigno(C.crece.var)}.`; })(),",
+   "motivo": "El que más creció puede ser un complejo que no tiene barra propia (el litio va dentro del sector minero): el texto dice que la comparación incluye complejos."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Los sectores agrupan varios complejos, y el cuadro de cada barra dice cuánto aportó cada uno. Datos provisorios, en dólares FOB.`,",
+   "propuesto": "Los sectores agrupan varios complejos, y el cuadro de cada barra dice cuánto aportó cada uno. Datos provisorios, en dólares FOB (sin flete ni seguro).`,",
+   "motivo": "Explica FOB en esta ficha."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Adónde exporta cada provincia?</h2>",
+   "propuesto": "<h2>¿Adónde exporta la Argentina y cada provincia?</h2>",
+   "motivo": "La vista inicial, la cifra y el texto son del país: la provincia aparece solo si se eligió una."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "? `Los primeros destinos del ${D.periodo} fueron ${lista(nombres.slice(0, 3).map(r => `${r.destino_nombre} (${pct(r.pct)})`))}. ` +",
+   "propuesto": "? `Sin contar las zonas que agrupan varios países, los primeros destinos del ${D.periodo} fueron ${lista(nombres.slice(0, 3).map(r => `${r.destino_nombre} (${pct(r.pct)})`))}. ` +",
+   "motivo": "La primera barra del gráfico es una zona («Resto del mundo»), más grande que Brasil: el texto dice por qué no la cuenta."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return x ? `Entre los seis primeros, las ventas que más crecieron",
+   "propuesto": "return x ? `Entre los seis primeros países, las ventas que más crecieron",
+   "motivo": "Dice de qué son los seis primeros."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Con una provincia elegida, el gráfico muestra sus destinos.`",
+   "propuesto": "\"\"",
+   "motivo": "Era una instrucción de interfaz dentro del texto. Pasa a la nota, con la misma fórmula que el resto del sitio."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "el INDEC lo reserva por secreto estadístico y va como \"sin detalle\". Datos provisorios.`,",
+   "propuesto": "el INDEC lo reserva por secreto estadístico y va como \"sin detalle\". Datos provisorios. Si elegís una provincia en Tu provincia, el gráfico muestra sus destinos.`,",
+   "motivo": "Recibe la instrucción que salió del texto."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`de las exportaciones del ${SX.destinos.periodo} fue a ${SX.destinos.top[0].n}, el primer destino`, `a ${SX.destinos.top[0].n}, el primer destino del país`],",
+   "propuesto": "`de las exportaciones del ${SX.destinos.periodo} fue a ${SX.destinos.top[0].n}, el primer país de destino`, `a ${SX.destinos.top[0].n}, el primer país de destino`],",
+   "motivo": "Una zona del gráfico («Resto del mundo») es más grande: Brasil es el primer país, no el primer destino."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`de lo exportado en el país, desde ${lista(SX.provincias.top3)}`],",
+   "propuesto": "`de lo exportado por el país salió de ${lista(SX.provincias.top3)}`],",
+   "motivo": "La frase de la ficha no tenía verbo."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `Según el rubro que más pesa en lo que exportó cada una en ${P.anio}, hay ${lista(",
+   "propuesto": "return `Si se clasifica a cada jurisdicción por el rubro que más pesó en sus exportaciones de ${P.anio}, hay ${lista(",
+   "motivo": "«Cada una» no tenía antecedente."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Entran más dólares de los que salen?</h2>",
+   "propuesto": "<h2>¿Cuál es el saldo con el exterior en bienes, servicios y rentas?</h2>",
+   "motivo": "La cuenta corriente no es todo lo que entra y sale: falta la cuenta financiera (en 2025 dio déficit y las reservas subieron). La pregunta nombra lo que suma."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-cuenta-corriente\": [`${n0(Math.abs(SX.cuenta_corriente.total))} M`,",
+   "propuesto": "\"f-cuenta-corriente\": [`${n0(Math.abs(SX.cuenta_corriente.total))} millones`,",
+   "motivo": "Un solo formato para los millones de dólares en las cifras destacadas."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(SX.cuenta_corriente.total < 0 ? \"salieron más dólares de los que entraron\" : \"entraron más dólares de los que salieron\"), `de ${SX.cuenta_corriente.total < 0 ? \"déficit\" : \"superávit\"} en ${SX.cuenta_corriente.anio}`],",
+   "propuesto": "(SX.cuenta_corriente.total < 0 ? \"por bienes, servicios, rentas y transferencias salieron más dólares de los que entraron\" : \"por bienes, servicios, rentas y transferencias entraron más dólares de los que salieron\"), `de dólares de ${SX.cuenta_corriente.total < 0 ? \"déficit\" : \"superávit\"} en ${SX.cuenta_corriente.anio}`],",
+   "motivo": "Dice qué flujos suma la cuenta corriente, para no leerla como todo lo que entra y sale. La frase de la ficha suma «de dólares»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `En ${C.anio}, el comercio de bienes dejó un saldo de ${saldoTx(C.bienes)}, los servicios de ${saldoTx(C.servicios)}, el ingreso primario de ${saldoTx(C.primario)} ` +",
+   "propuesto": "return `En ${C.anio}, el comercio de bienes dejó un saldo de ${saldoTx(C.bienes)}, los servicios, de ${saldoTx(C.servicios)}, el ingreso primario (intereses, utilidades y dividendos), de ${saldoTx(C.primario)} ` +",
+   "motivo": "Explica «ingreso primario», que el gráfico llama «Rentas»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y las transferencias de ${saldoTx(C.secundario)}. ` +",
+   "propuesto": "`y las transferencias, de ${saldoTx(C.secundario)}. El saldo de bienes no coincide con el de la primera ficha porque el balance de pagos los registra y los valúa de otra manera. ` +",
+   "motivo": "Los bienes dan 15.359 acá y 11.320 en la balanza comercial para el mismo año: solo la nota lo explicaba."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(s.length ? `Desde ${C.desde}, entraron más dólares de los que salieron en ${s.length} ${s.length === 1 ? \"año\" : \"años\"}: ${lista(s.map(String))}.` : `Desde ${C.desde}, en ningún año entraron más dólares de los que salieron.`) +",
+   "propuesto": "(s.length ? `Desde ${C.desde}, la cuenta corriente tuvo superávit en ${s.length} ${s.length === 1 ? \"año\" : \"años\"}: ${lista(s.map(String))}.` : `Desde ${C.desde}, la cuenta corriente no tuvo superávit en ningún año.`) +",
+   "motivo": "Mismo motivo que la pregunta: el saldo es de la cuenta corriente, no de todos los dólares."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Cuando salen más dólares de los que entran, la diferencia se cubre con deuda, inversiones del exterior o reservas. El gráfico no muestra el ingreso secundario, que es chico, ` +",
+   "propuesto": "`Cuando la cuenta corriente tiene déficit, la diferencia se cubre con deuda, inversiones del exterior o reservas: esos movimientos van en la cuenta financiera del balance de pagos, que esta ficha no muestra. El gráfico no muestra el ingreso secundario, que es chico, ` +",
+   "motivo": "Dice qué parte del balance de pagos falta en la ficha."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántas reservas tiene el Banco Central?</h2>",
+   "propuesto": "<h2>¿Cuántas reservas brutas tiene el Banco Central?</h2>",
+   "motivo": "La ficha siguiente pregunta por las netas: las dos preguntas eran casi iguales."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`de dólares de reservas tenía el Banco Central el ${fLarga(SX.reservas.fecha)}`, `de dólares el ${fLarga(SX.reservas.fecha)}`],",
+   "propuesto": "`de dólares de reservas brutas tenía el Banco Central el ${fLarga(SX.reservas.fecha)}`, `de dólares el ${fLarga(SX.reservas.fecha)}`],",
+   "motivo": "Distingue las brutas de las netas."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `Un año antes eran ${n0(V.hace_un_anio)} millones. El máximo",
+   "propuesto": "return `Un año antes, las reservas brutas eran ${n0(V.hace_un_anio)} millones de dólares. El máximo",
+   "motivo": "El texto empezaba refiriéndose a la cifra de arriba."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "$t(\"reservas-netas\").textContent = `A fin de ${m}, las reservas brutas del BCRA eran ${n0(N.brutas)} millones de dólares y las netas, ${n0(N.netas)} millones, el ${pct(N.pct_netas)}. ` +",
+   "propuesto": "$t(\"reservas-netas\").textContent = `A fin de ${m}, el último mes de la planilla, las reservas brutas del BCRA eran ${n0(N.brutas)} millones de dólares y las netas, ${n0(N.netas)} millones, el ${pct(N.pct_netas)} de las brutas. ` +",
+   "motivo": "No decía de qué es el porcentaje. Y explica por qué las brutas no coinciden con las de la ficha anterior, que llega a un día más reciente."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuántos turistas llegan?\">¿Cuántos turistas llegan y a qué provincias van?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuántos turistas llegan?\">¿Cuántos turistas del exterior llegan y a qué provincias van?</p>",
+   "motivo": "Las fichas cuentan turistas que viven fuera del país, no el turismo interno."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Turistas que llegan del exterior, ocupación de los hoteles y viajes por los pasos internacionales.</p>",
+   "propuesto": "<p>Los registros de Migraciones dicen cuántos turistas del exterior llegan al país. Dos encuestas que el INDEC hace con el área de turismo de la Nación suman cuántos viajeros se alojan en hoteles y qué provincias visitan quienes se van por Ezeiza o Aeroparque. Las dos están en pausa mientras el INDEC las reformula.</p>",
+   "motivo": "No hay ficha de ocupación hotelera (f-hoteles cuenta viajeros) ni de los pasos de frontera. Suma que dos encuestas están en pausa, como dicen sus pies."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos turistas extranjeros llegan al país?</h2>",
+   "propuesto": "<h2>¿Cuántos turistas del exterior llegan al país?</h2>",
+   "motivo": "El dato es de no residentes, que incluye a los argentinos que viven afuera."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Solo se muestran años completos.",
+   "propuesto": "es decir personas que viven en otro país y pasan al menos una noche en la Argentina, por todos los pasos aéreos, terrestres y fluviales. Se cuentan por el país donde viven, no por su nacionalidad: un argentino que vive afuera es no residente. Una persona que entra dos veces en el año cuenta como dos viajes. Solo se muestran años completos.",
+   "motivo": "Explica qué es un no residente y que se cuentan viajes, no personas (el explicador lo dice: «cuenta los viajes de no residentes»)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en la Ciudad.`,",
+   "propuesto": "El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en CABA.`,",
+   "motivo": "Término fijo: CABA (el nombre del instituto queda como es)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Qué provincias visitan los turistas extranjeros?</h2>",
+   "propuesto": "<h2>¿Qué provincias visitan los turistas del exterior?</h2>",
+   "motivo": "El mismo término que la primera ficha: son no residentes."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Turistas extranjeros que visitaron cada provincia y salieron por Ezeiza o Aeroparque, {{turismo.eti_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Turistas del exterior que visitaron cada provincia y se fueron del país por Ezeiza o Aeroparque, {{turismo.eti_anio}}</p>",
+   "motivo": "El mismo término que la primera ficha."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-eti\": [n0(tu.eti_top_v), `turistas extranjeros que salieron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}`,",
+   "propuesto": "\"f-eti\": [n0(tu.eti_top_v), `turistas del exterior que se fueron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}, la jurisdicción con más en cantidad`,",
+   "motivo": "La cifra es una cantidad y el gráfico abre cada 1.000 habitantes, con otra provincia primera: la frase nombra la medida."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`visitaron ${tu.eti_top}, la jurisdicción con más turistas`],",
+   "propuesto": "`visitaron ${tu.eti_top}, la jurisdicción con más turistas en cantidad`],",
+   "motivo": "Mismo motivo, en la frase de la ficha."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${tu.eti_pc_top} fue la jurisdicción con más turistas no residentes que se fueron del país por Ezeiza o Aeroparque:",
+   "propuesto": "${tu.eti_pc_top} fue la jurisdicción con más turistas del exterior que se fueron del país por Ezeiza o Aeroparque:",
+   "motivo": "El mismo término en toda la página."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "provM(\"Turistas extranjeros cada 1.000 habitantes\", T.turistas_extranjeros_provincias,",
+   "propuesto": "provM(\"Turistas del exterior cada 1.000 habitantes\", T.turistas_extranjeros_provincias,",
+   "motivo": "El mismo término en toda la página."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Las fichas de este sitio cuentan turistas, es decir, personas que pasaron al menos una noche en el lugar.",
+   "propuesto": "Las fichas de esta página cuentan turistas, es decir, personas que pasaron al menos una noche en el lugar.",
+   "motivo": "El bloque es de esta página, no de todo el sitio."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Se arma con los registros de la Dirección Nacional de Migraciones y la publica todos los meses la Dirección Nacional de Mercados y Estadística, de la Subsecretaría de Turismo.",
+   "propuesto": "Se arma con los registros de la Dirección Nacional de Migraciones y la publica todos los meses la Dirección Nacional de Mercados y Estadística, de la Subsecretaría de Turismo. No residente es quien vive en otro país, sea o no argentino.",
+   "motivo": "Explica el término que usan las fichas."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Por eso la distribución por provincia visitada refleja sobre todo a quienes viajan en avión.",
+   "propuesto": "Por eso la distribución por provincia visitada refleja sobre todo a quienes viajan en avión. La ficha por provincia usa solo a quienes se van por Ezeiza y Aeroparque. Hoy la encuesta está en pausa: el INDEC la está reformulando.",
+   "motivo": "Dice qué parte de la encuesta usa la ficha y que está en pausa, como su pie."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "No incluye casas de familiares ni alquileres temporarios particulares.",
+   "propuesto": "No incluye casas de familiares ni alquileres temporarios particulares. Hoy la encuesta está en pausa: el INDEC la está reformulando.",
+   "motivo": "Dice que está en pausa, como su pie."
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>Trabajo</h2> (y Precios y actividad, Sector privado, Construcción y vivienda, Cuentas públicas, Sector externo, Turismo)",
+   "motivo": "Primer h2 de cada sección: es el nombre en la barra, el pie y las migas. No se cambia."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "¿Qué le vende y qué le compra la Argentina al mundo?",
+   "motivo": "La pregunta de Sector externo ya es concreta y la página la contesta: no se cambia por cambiar."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Dónde se gana más en un empleo privado registrado?</h2>",
+   "motivo": "Ya es clara. Además es uno de los cuatro datos destacados de la portada (DESTACADOS en 03) y la respuesta rápida «¿Cuánto se gana en Neuquén?» lleva a esta ficha."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Cuántos cargos públicos tiene cada provincia?</h2>",
+   "motivo": "La ficha cuenta cargos, no personas (lo dicen el texto y la nota): no se adopta «empleados públicos», que propuso la auditoría."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Cuántas reservas netas tiene el Banco Central?</h2>",
+   "motivo": "Precisa y corta: la descripción explica qué son las netas. Con «brutas» en la ficha anterior, las dos preguntas ya se distinguen."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<button type=\"button\" data-m=\"categoria\" aria-pressed=\"false\">Categorías</button>",
+   "motivo": "Es el término del INDEC (regulados, estacionales y núcleo) y el texto de la vista los nombra. Un nombre más largo no entra en el conmutador de dos botones en 320 píxeles."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA",
+   "motivo": "Los dos nombres del organismo son correctos según relaciones.json (el OEDE depende de la Secretaría de Trabajo del Ministerio de Capital Humano). El mismo pie, idéntico, está también en f-empleo-hidro (Petróleo y gas, otro grupo): unificarlo se deja como pendiente para no tocar una ficha ajena."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuente: Ministerio de Turismo y Deportes, SINTA, estimación de turismo internacional",
+   "motivo": "El repositorio usa tres nombres (Ministerio de Turismo y Deportes en los pies y en relaciones.json, Secretaría de Turismo en las notas, Subsecretaría de Turismo en los explicadores) y ninguno está documentado como el vigente. Queda como está y va a pendientes."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Los ingresos de enero de 2026 incluyen la venta de las acciones del Estado en centrales hidroeléctricas.",
+   "motivo": "Hecho fijo de FIJOS en 03_construir_sitio.py («enero de 2026 incluyen la venta»): no se toca."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión",
+   "motivo": "Hecho fijo de FIJOS («desde 2026 el indec reformula»): no se toca."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "serieM(\"Costo de la construcción dividido por los precios al consumidor, diciembre de cada año y el último mes\",",
+   "motivo": "Es evidencia de catalogo.json (costo_anual): se conserva el texto."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "serieM(\"Actividad de la construcción, promedio de cada año, índice 2004 = 100\",",
+   "motivo": "Es evidencia de catalogo.json (isac_anual): se conserva el texto."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "unidad: `miles de millones de pesos de ${CN.op_ult}`, data: T.obra_publica_serie});",
+   "motivo": "Unidad correcta del eje y evidencia de catalogo.json (obra_publica_serie)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "bcra-nota (BADLAR, TM20, TAMAR, BAIBAR, tasas para juicios) y reservas-netas-nota",
+   "motivo": "Ya explican cada sigla y el criterio con precisión. Solo se cambian el nombre de la vista del dólar, «pesos de hoy» y «aquí»."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "cita (todas las fuentes de trabajo, economia, empresas, construccion, gobierno y turismo)",
+   "motivo": "Citas textuales de las fuentes: no se tocan."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "Instituto de Estadística de la Ciudad de Buenos Aires",
+   "motivo": "Nombre de un organismo: se conserva aunque el resto del texto pase a CABA."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Ingreso primario (lab) y Rentas (corto) en DIB[\"cuenta-corriente\"]",
+   "motivo": "Nombres de las series del gráfico: el texto explica ahora el ingreso primario con «intereses, utilidades y dividendos»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Variables del selector del BCRA (Préstamos personales, TM20 de bancos privados, Comunicación P 14.290...)",
+   "motivo": "Salen de bcra_variables_lista en 02_procesar.py: cambiarlas es reprocesar los datos (R14). Va a pendientes."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "empresas.html#f-empresas",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-empresas\": [n0(EM.total_pais),",
+   "motivo": "Dato (E2 del plan): 609.664 es la fila Total del cuadro 1 del OEDE, que suma las provincias y cuenta varias veces a las empresas con personal en más de una (verificado en datos/crudo/oede_empresas_provincias.xlsx: la suma de las 25 filas da 609.664). También el 13,1 cada 1.000 y la línea «País 13,1» del gráfico. El texto ya dice «sumadas las 24 jurisdicciones».",
+   "propuesta": "Usar el total nacional sin doble conteo que publique el OEDE (o la suma de empresas locales de los cuadros 6 y 7) y cambiar refLab «País» por ese promedio. Si no hay otro dato, rotular la línea «Suma de las provincias»."
+  },
+  {
+   "ruta": "empresas.html#f-empresas",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const conVeces = (v, pais) =>",
+   "motivo": "conVeces (G6a) escribe «menos de la mitad del promedio del país» para 4,5 sobre 13,1 (un tercio) y para 2,5 sobre 8,6 en f-empleo-construccion. Es un ayudante de todo el sitio.",
+   "propuesta": "Que vecesPais diga «un tercio del promedio» o «menos de un tercio» cuando corresponda."
+  },
+  {
+   "ruta": "gobierno.html#f-fiscal",
+   "archivo": "scripts/datina.js",
+   "fragmento": "barrasH(G(\"fiscal\"), {anim:a, data: d, k,",
+   "motivo": "La Pampa figura con 2024 en un gráfico de 2025 y entra en la mediana y en el conteo de superávit y déficit. El texto y la nota ya lo dicen, la barra no.",
+   "propuesta": "Rotular la barra «La Pampa (2024)» o dejarla afuera de la mediana, como en f-impuestos-provinciales."
+  },
+  {
+   "ruta": "economia.html#f-bcra",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-bcra\": [pct(BCR_PF.v),",
+   "motivo": "La cifra destacada es la tasa del plazo fijo y el selector abre en el dólar minorista (gráfico y texto del dólar).",
+   "propuesta": "Que la cifra cambie con la variable elegida, o que el selector abra en el plazo fijo a 30 días."
+  },
+  {
+   "ruta": "economia.html#f-supermercados",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-supermercados\": [pct(Math.abs(ESU.interanual)),",
+   "motivo": "Tres cifras del país: −3,7% en la cifra (agosto contra agosto), −2,7% en el gráfico por provincia (doce meses con la inflación de cada región) y −1,9% en la vista mes a mes (índice del INDEC). El texto ahora dice el período de cada una.",
+   "propuesta": "Cifra destacada con el corte del gráfico inicial: «2,7% cayeron las ventas en los doce meses hasta agosto»."
+  },
+  {
+   "ruta": "turismo.html#f-eti",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<button type=\"button\" data-m=\"cada_1000\" aria-pressed=\"true\">Cada 1.000 habitantes</button>",
+   "motivo": "La cifra destacada es la cantidad de CABA y el gráfico abre cada 1.000 habitantes, con Tierra del Fuego primero. La frase de la cifra ahora dice «en cantidad».",
+   "propuesta": "Abrir en «Cantidad de turistas» o usar como cifra la de Tierra del Fuego por habitante."
+  },
+  {
+   "ruta": "gobierno.html#f-recaudacion",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-recaudacion\": [pct(GRT.pbi),",
+   "motivo": "La cifra es la recaudación anual de 2025 en % del PBI y la vista inicial, la composición de los doce meses hasta septiembre de 2026.",
+   "propuesta": "Abrir en «Año por año» o usar como cifra la recaudación de los doce meses."
+  },
+  {
+   "ruta": "economia.html#f-canastas",
+   "archivo": "scripts/datina.js",
+   "fragmento": "DIB2 canastas: barrasH(el, {anim: a, data, k: \"cbt\"",
+   "motivo": "La cifra es la canasta del hogar de cuatro integrantes en septiembre y el gráfico, la de un adulto equivalente por región en junio. La descripción y el texto ahora lo dicen.",
+   "propuesta": "Graficar el hogar tipo (cbt por 3,09 adultos equivalentes) o usar como cifra la canasta por adulto equivalente."
+  },
+  {
+   "ruta": "externo.html#f-destinos",
+   "archivo": "scripts/datina.js",
+   "fragmento": "DIB.destinos barrasH(... filas ...)",
+   "motivo": "«Resto del mundo» encabeza el gráfico de destinos (12,9%, arriba de Brasil) y es tercero en f-origen. El texto ahora dice «sin contar las zonas que agrupan varios países».",
+   "propuesta": "Llevar las zonas «resto...» al final del orden en f-destinos y f-origen."
+  },
+  {
+   "ruta": "externo.html#f-complejos",
+   "archivo": "scripts/datina.js",
+   "fragmento": "DIB.complejos tip: partes.map(p => `<br>${p.complejo}: ${n0(p.millones_usd)}`)",
+   "motivo": "El texto dice que el que más creció es el complejo litio (+186,3%), que no tiene barra propia y cuyo cuadro no muestra su variación.",
+   "propuesta": "Sumar la variación de cada complejo en el cuadro de su sector."
+  },
+  {
+   "ruta": "trabajo.html#f-exportaciones",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<article class=\"ficha\" id=\"f-exportaciones\">",
+   "motivo": "Misma fuente y año que f-exporta-provincias de Sector externo. La intro de Sector externo manda al lector a Trabajo para ver lo mismo por habitante.",
+   "propuesta": "Llevarla a Sector externo como vista «Por habitante» de f-exporta-provincias."
+  },
+  {
+   "ruta": "trabajo.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<section class=\"tema con-pregunta\" id=\"trabajo\">",
+   "motivo": "La página no muestra desocupación ni informalidad (el explicador las define y ahora dice que no tienen ficha). La única desocupación visible es la estimación del Banco Mundial en un botón OCDE.",
+   "propuesta": "Ficha nueva de la EPH (desocupación por aglomerado, ya en capitales_eph.csv), primera de la página. Después, la pregunta podría ser «¿Cuánto trabajo hay en cada provincia y cuánto se gana?»."
+  },
+  {
+   "ruta": "trabajo.html#f-desempleo",
+   "archivo": "scripts/datina.js",
+   "fragmento": "CLAVE (no hay entrada para f-desempleo)",
+   "motivo": "La ficha no tiene cifra destacada, a diferencia del resto (también f-expectativas, f-confianza-consumidor y f-reservas-netas). El resumen no tiene el mes del dato por provincia en palabras para la descripción.",
+   "propuesta": "Sumar CLAVE: «2,5 de cada 1.000 habitantes cobraban el seguro de desempleo en mayo de 2026», y un campo desempleo.prov_mes_txt en el resumen."
+  },
+  {
+   "ruta": "trabajo.html#f-rotacion",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "{{rotacion.anios}}",
+   "motivo": "La descripción dice «2025 y 2026», pero son los cuatro trimestres del segundo de 2025 al primero de 2026. El resumen no tiene ese período en palabras. Además, «Generación» repite casi lo mismo que «Edad» en el selector.",
+   "propuesta": "Sumar al resumen rotacion.periodo («segundo trimestre de 2025 a primer trimestre de 2026») y usarlo en la descripción. Evaluar sacar la opción «Generación»."
+  },
+  {
+   "ruta": "trabajo.html#f-salarios y economia.html#f-salario-real",
+   "archivo": "scripts/datina.js",
+   "fragmento": "LEAD.salarios / LEAD[\"salario-real\"]",
+   "motivo": "El salario privado registrado descontada la inflación baja 1,3% en Trabajo (OEDE, mayo) y 2,3% en Precios y actividad (índice del INDEC, agosto). Las notas de las dos fichas ahora lo avisan y los textos nombran su medida, pero los textos se escriben con textContent y no admiten enlaces.",
+   "propuesta": "Un enlace visible entre las dos fichas (debajo del texto o en «Artículos con este dato»)."
+  },
+  {
+   "ruta": "economia.html#f-expectativas y #f-bcra",
+   "archivo": "scripts/datina.js",
+   "fragmento": "bcra_variables_lista (02_procesar.py): «Inflación esperada para los próximos 12 meses (REM)»",
+   "motivo": "Dos expectativas de inflación en la página: la de la UTDT (la gente) en su ficha y la del REM (analistas) escondida entre 49 variables. La nota de f-expectativas ahora dice dónde está la otra.",
+   "propuesta": "Sumar el REM como segunda línea de f-expectativas («Lo que esperan los analistas») y sacarlo del selector."
+  },
+  {
+   "ruta": "economia.html#f-bcra",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "bcra_variables_lista: nombres de las 49 variables",
+   "motivo": "49 variables con siglas y pares ambiguos («Préstamos personales» es una tasa y «Personales en pesos», un saldo, «Base monetaria» y «Base monetaria, serie histórica»). Los nombres salen de los datos (R14).",
+   "propuesta": "Nombres que digan si es tasa o saldo («Tasa de...», «Saldo de...») y una lista corta por defecto, con el resto en el Catálogo."
+  },
+  {
+   "ruta": "economia.html#f-emae",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{k: \"desestacionalizada\", lab: \"Sin estacionalidad\", corto: \"Actividad\", c: NAR}",
+   "motivo": "La leyenda muestra «Sin estacionalidad 149,9», un índice sin base. La descripción ahora dice «índice 2004 = 100».",
+   "propuesta": "Cambiar el rótulo de la serie a «Índice sin estacionalidad» si entra en la leyenda en 320 píxeles (lo controla prueba_320.mjs)."
+  },
+  {
+   "ruta": "externo.html",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "<!--EXPLICADOR:externo--> (no existe)",
+   "motivo": "Sector externo es la única página del grupo sin «Para entender los datos», y la de más jerga (balance de pagos, ingreso primario, FOB y CIF, reservas netas). Sin ese bloque tampoco tiene «Cómo se calcula».",
+   "propuesta": "Explicador nuevo en explicadores.json: la balanza del INDEC y el balance de pagos, FOB y CIF, la cuenta corriente y la financiera, reservas brutas y netas."
+  },
+  {
+   "ruta": "externo.html#f-reservas-bcra y #f-reservas-netas",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "id=\"f-reservas-bcra\" / id=\"f-reservas-netas\"",
+   "motivo": "Dos fichas seguidas con dos reservas brutas distintas (50,2 mil millones al 21 de octubre y 46.092 millones a fin de septiembre). El texto de las netas ahora dice que es el último mes de la planilla.",
+   "propuesta": "Una sola ficha con las vistas «Brutas», «Netas», «De dónde salen» y «Qué las movió»."
+  },
+  {
+   "ruta": "externo.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "SX.complejos / SX.destinos / SX.balanza (cortes distintos)",
+   "motivo": "La página usa cuatro cortes para el comercio: enero a agosto (balanza y rubros), primer semestre (complejos y destinos), enero a septiembre (origen) y años completos.",
+   "propuesta": "Un corte común o una línea en cada descripción que diga por qué difieren."
+  },
+  {
+   "ruta": "construccion.html#f-empleo-construccion y #f-trabajadores",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "id=\"f-empleo-construccion\" / id=\"f-trabajadores\"",
+   "motivo": "Dos fichas casi iguales que ordenan al revés a las provincias (registro por empresa y censo por residencia). El texto del censo ahora lo explica.",
+   "propuesta": "Una sola ficha con las vistas «Registradas» y «Con o sin registro (Censo)»."
+  },
+  {
+   "ruta": "construccion.html#f-vivienda",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Qué parte de los hogares alquila o vive hacinada en cada provincia?</h2>",
+   "motivo": "El selector trae seis indicadores y la pregunta cubre dos (alquiler y hacinamiento): las tres medidas de viviendas sin personas y la calidad de los materiales quedan afuera.",
+   "propuesta": "Partir la ficha (hogares y viviendas) o evaluar llevar la parte de hogares a Pobreza y hogares, como propone la auditoría."
+  },
+  {
+   "ruta": "construccion.html#f-insumos",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const NOMBRE_INS = n =>",
+   "motivo": "Los insumos van sin artículo en el texto («el que más cayó, yeso») y la barra «Resto (grifería...)» encabeza el ranking.",
+   "propuesta": "NOMBRE_INS con artículo según el género y el número de cada insumo, y el grupo «Resto» al final del orden."
+  },
+  {
+   "ruta": "gobierno.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<section class=\"tema con-pregunta\" id=\"gobierno\">",
+   "motivo": "La coparticipación, la mayor transferencia a las provincias, no tiene ficha en ninguna página. La intro ahora dice que en Instituciones políticas están solo las no automáticas.",
+   "propuesta": "Ficha de coparticipación por provincia (DNAP, transferencias automáticas)."
+  },
+  {
+   "ruta": "gobierno.html#f-deuda",
+   "archivo": "scripts/datina.js",
+   "fragmento": "deuda: () =>",
+   "motivo": "El texto ahora dice que la deuda bruta incluye la que tiene el propio Estado, pero no cuánto: la Secretaría de Finanzas publica la deuda por acreedor.",
+   "propuesta": "Vista por acreedor (sector público, organismos internacionales, privados)."
+  },
+  {
+   "ruta": "gobierno.html#f-cuentas-nacion",
+   "archivo": "scripts/datina.js",
+   "fragmento": "GBN.ytd_primario",
+   "motivo": "El texto da el año en curso en billones de pesos corrientes (ahora lo dice) y el resto en % del PBI. El resumen no tiene el año en curso como parte del PBI.",
+   "propuesta": "Sumar al resumen el resultado del año en curso en % del PBI estimado, o dejarlo en pesos."
+  },
+  {
+   "ruta": "todas las fichas del grupo",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Turismo: Ministerio de Turismo y Deportes / Secretaría de Turismo / Subsecretaría de Turismo",
+   "motivo": "Tres nombres para el organismo de turismo en pies, notas y explicadores. relaciones.json no documenta cuál es el vigente.",
+   "propuesta": "Que el autor confirme el nombre vigente y unificarlo en los tres pies de Turismo, en las dos notas y en relaciones.json (alias)."
+  },
+  {
+   "ruta": "empresas.html, construccion.html, petroleo.html#f-empleo-hidro",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA",
+   "motivo": "El OEDE aparece como «Secretaría de Trabajo» en f-salarios y como «Ministerio de Capital Humano» en otros cuatro pies, uno de ellos en Petróleo y gas.",
+   "propuesta": "Unificar los cinco pies en «Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, en base al SIPA» (veces: 4), en una sola pasada para todo el sitio."
+  },
+  {
+   "ruta": "turismo.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<section class=\"tema con-pregunta\" id=\"turismo\">",
+   "motivo": "Falta el turismo interno, que es la mayor parte, y dos de las tres encuestas están en pausa.",
+   "propuesta": "Ficha de la Encuesta de Viajes y Turismo de los Hogares (INDEC y Secretaría de Turismo)."
+  },
+  {
+   "ruta": "las siete páginas",
+   "archivo": "scripts/datina.js",
+   "fragmento": "EN_CIFRAS: trabajo, economia, empresas, construccion, externo, gobierno, turismo",
+   "motivo": "«En cifras» repite las cifras destacadas (en Precios y actividad, el 33,4% aparece cinco veces en la página).",
+   "propuesta": "Llevar a «En cifras» datos que no estén en las cifras destacadas, o sacar la repetición de los textos."
+  },
+  {
+   "ruta": "para G6b: trabajo.html#f-empleo, construccion.html#f-hipotecas, turismo.html#f-receptivo",
+   "archivo": "scripts/datina.js",
+   "fragmento": "OCDE_BOTON / OCDE_NOTA",
+   "motivo": "Vistas OCDE de este grupo: f-empleo tiene dos (tasa de empleo y desocupación del Banco Mundial), que miden otra cosa que los asalariados registrados cada 100 habitantes y suman cinco botones en dos filas. En f-receptivo, la vista de 2019 muestra en la leyenda «2020» y «OCDE 71», y el texto dice 190 para 2019 (promedio) y 116 (mediana): revisar si la leyenda toma otro año o la mediana.",
+   "propuesta": "Revisar en G6b: llevar la desocupación OCDE a una ficha de la EPH, y corregir la leyenda de f-receptivo."
+  },
+  {
+   "ruta": "para G6b: buscador (PREG)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "[\"¿Cuánto da la cuenta corriente del balance de pagos?\",",
+   "motivo": "Las respuestas del buscador para fichas de este grupo usan los textos viejos: la cuenta corriente como «salieron más dólares de los que entraron», «en pesos de igual valor» en supermercados e hipotecas, y «¿Cuánto vende y cuánto compra la Argentina?» para f-balanza.",
+   "propuesta": "Alinearlas con los cambios de G2: «el saldo de bienes, servicios, rentas y transferencias», «descontada la inflación» y la pregunta nueva de f-balanza."
+  },
+  {
+   "ruta": "para G6a: perfil provincial (INDP)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{id:\"f-supermercados\", g:\"economia\", lab:\"Ventas en supermercados\", det:`variación en pesos de igual valor, doce meses hasta ${ESU.mes}`,",
+   "motivo": "El perfil provincial dice «en pesos de igual valor» para una ficha de este grupo.",
+   "propuesta": "«variación descontada la inflación, doce meses hasta ...»."
+  },
+  {
+   "ruta": "las siete páginas",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "descripción: \"<Sección>: <pregunta> Datos por provincia con su fuente, su año y la tabla para descargar.\"",
+   "motivo": "La descripción de la pestaña dice «Datos por provincia» también en Sector externo y en Precios y actividad, que son sobre todo del país.",
+   "propuesta": "Una frase según la sección (G6b, metadatos)."
+  },
+  {
+   "ruta": "para quien aplique los cambios: economia.html#f-bcra y el botón de haberes",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<button type=\"button\" data-m=\"real\" aria-pressed=\"false\">A precios de hoy</button>",
+   "motivo": "G2 cambia solo el botón de f-bcra con un fragmento que sigue hasta su gráfico (el término fijo prohíbe «a precios de hoy»). El mismo botón, idéntico, está en la ficha de haberes (línea 937 de la plantilla, otro grupo), con su texto en datina.js («A precios de hoy» pasa los montos...). Si otro grupo lo cambia con «veces»: 2, falla después del cambio de G2.",
+   "propuesta": "Que el otro grupo cambie solo su botón (una vez) y, si lo pasa a «Sin inflación», también su texto en datina.js."
+  }
+ ]
+}

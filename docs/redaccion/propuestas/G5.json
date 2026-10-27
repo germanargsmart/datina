@@ -1,0 +1,882 @@
+{
+ "grupo": "G5",
+ "cambios": [
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    lx: \"desocupación\", ly: \"pobreza\", ux: \"% de la población económicamente activa\", uy: \"% de las personas\",",
+   "propuesto": "    lx: \"desocupación\", ly: \"pobreza\", ux: \"% de quienes trabajan o buscan trabajo\", uy: \"% de las personas\",",
+   "motivo": "La unidad de la desocupación dicha en lenguaje común (la población económicamente activa son quienes trabajan o buscan trabajo): es lo que se lee en cada cifra del texto. El nombre técnico sigue en la unidad de la tabla y en el pie del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"La desocupación de cada capital de provincia en el último año, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares.\",",
+   "propuesto": "    dek: \"La desocupación de cada capital de provincia, en promedio de los últimos cuatro trimestres, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.\",",
+   "motivo": "Dice qué es \"el último año\" (el promedio de cuatro trimestres que usa el artículo) y nombra al organismo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"La desocupación y la pobreza miden cosas distintas: una cuenta a quienes buscan trabajo y no lo consiguen, y la otra mira si los ingresos del hogar alcanzan para la canasta básica. Este cruce pone una al lado de la otra, capital por capital, con la Encuesta Permanente de Hogares del INDEC.\",",
+   "propuesto": "    contexto: \"La desocupación y la pobreza miden cosas distintas: una cuenta a quienes buscan trabajo y no lo consiguen, y la otra mira si los ingresos del hogar alcanzan para la canasta básica total. Este cruce pone una al lado de la otra, capital por capital, con la Encuesta Permanente de Hogares (EPH) del INDEC.\",",
+   "motivo": "La línea de pobreza es la canasta básica total. La sigla EPH, que usan los límites, se presenta la primera vez.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"La parte de la población de cada capital de provincia que trabaja, en el último año, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares.\",",
+   "propuesto": "    dek: \"La parte de toda la población de cada capital de provincia que tiene trabajo, chicos y personas mayores incluidos, frente a la parte de sus habitantes bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.\",",
+   "motivo": "La tasa de empleo se calcula sobre toda la población: decirlo en la tarjeta adelanta el límite más importante del artículo (la edad).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"La desocupación cuenta solo a quienes buscan trabajo y no lo consiguen: quien dejó de buscar, o no busca, no figura. La tasa de empleo mira otra cosa, la parte de toda la población que trabaja. Este cruce la compara, capital por capital, con la parte de las personas bajo la línea de pobreza, según la Encuesta Permanente de Hogares del INDEC.\",",
+   "propuesto": "    contexto: \"La desocupación cuenta solo a quienes buscan trabajo y no lo consiguen: quien dejó de buscar, o no busca, no figura. La tasa de empleo mira otra cosa, la parte de toda la población que trabaja. Este cruce la compara, capital por capital, con la parte de las personas bajo la línea de pobreza, según la Encuesta Permanente de Hogares (EPH) del INDEC.\",",
+   "motivo": "Presenta la sigla EPH, que usan los límites.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"La parte de los habitantes de cada capital de provincia bajo la línea de pobreza, frente a la parte de sus hogares que alquila, según la Encuesta Permanente de Hogares.\",",
+   "propuesto": "    dek: \"La parte de los habitantes de cada capital de provincia bajo la línea de pobreza, frente a la parte de sus hogares que alquila la vivienda donde vive, según la Encuesta Permanente de Hogares del INDEC.\",",
+   "motivo": "Dice qué se alquila y nombra al organismo, como en el artículo de las viviendas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"Quien no tiene una vivienda propia suele alquilarla, y para alquilar hacen falta ingresos con los que pagar el contrato. Este cruce compara, capital por capital, la parte de las personas bajo la línea de pobreza con la parte de los hogares que alquila, según la Encuesta Permanente de Hogares del INDEC.\",",
+   "propuesto": "    contexto: \"Quien no es dueño de la vivienda donde vive puede alquilarla o vivir en una prestada, entre otras situaciones. Este cruce compara, capital por capital, la parte de las personas bajo la línea de pobreza con la parte de los hogares que alquila, según la Encuesta Permanente de Hogares (EPH) del INDEC.\",",
+   "motivo": "Saca la frase que proponía una causa (hacen falta ingresos para alquilar) antes de mostrar el dato. Presenta la sigla EPH.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      CV_EPH]},",
+   "propuesto": "      CV_EPH, \"Alquilar puede ir también con otras cosas que este cruce no mide, como el tamaño de la ciudad o la llegada de personas de otras provincias.\"]},",
+   "motivo": "Un límite propio que faltaba: nombra otros factores posibles sin afirmar ninguno (la auditoría señala Río Gallegos y Ushuaia).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Cada capital es su municipio, y la Ciudad de Buenos Aires, sus 15 comunas.",
+   "propuesto": "Cada capital es su municipio, y CABA, sus 15 comunas.",
+   "motivo": "Término fijo: CABA (los dos artículos de las viviendas).",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"Quien no tiene una vivienda propia suele alquilarla, y para eso tiene que haber viviendas en alquiler. Este cruce compara, capital por capital, cuántas viviendas hay por habitante con la parte de los hogares que alquila, según el último censo.\",",
+   "propuesto": "    contexto: \"Un hogar que no es dueño de su vivienda puede alquilarla, y para eso tiene que haber viviendas en alquiler. Este cruce compara, capital por capital, cuántas viviendas hay por habitante con la parte de los hogares que alquila, según el último censo.\",",
+   "motivo": "Saca \"suele\", una afirmación que el artículo no mide.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"Los Aportes del Tesoro Nacional que recibió cada provincia por habitante, frente a la parte de los votos de sus diputados y senadores de fuera del bloque oficialista que fue a favor del presupuesto nacional.\",",
+   "propuesto": "    dek: \"Cuánto recibió cada provincia por habitante en Aportes del Tesoro Nacional, frente a qué parte de los votos de sus legisladores de fuera del bloque oficialista fue a favor del presupuesto nacional.\",",
+   "motivo": "Bajada más corta y con una sola subordinada (auditoría, P2).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"Los Aportes del Tesoro Nacional (ATN) son un fondo para atender emergencias y desequilibrios financieros de las provincias, y los asigna el Ministerio del Interior. El presupuesto es la ley que fija cada año los gastos y los recursos de la administración nacional, y para aprobarlo el gobierno suele necesitar votos de otros bloques. Este cruce compara, provincia por provincia, cuánto recibió cada una en ATN por habitante con cuánto votaron a favor del presupuesto sus legisladores de fuera del bloque oficialista.\",",
+   "propuesto": "    contexto: \"Los Aportes del Tesoro Nacional (ATN) son un fondo para atender emergencias y desequilibrios financieros de las provincias, y los asigna el Ministerio del Interior. El presupuesto es la ley que fija cada año los gastos y los recursos de la administración nacional. Este cruce compara, provincia por provincia, cuánto recibió cada una en ATN por habitante, descontada la inflación, con cuánto votaron a favor del presupuesto sus legisladores de fuera del bloque oficialista. Si las dos cosas van juntas, hay varias lecturas posibles: que los ATN se repartan según el apoyo de los legisladores, que los legisladores voten según los ATN que recibe su provincia o que las dos cosas dependan de otra, como el tamaño de cada provincia o la relación de su gobernador con el gobierno nacional.\",",
+   "motivo": "Saca la frase que sugería un intercambio antes de dar el dato (\"el gobierno suele necesitar votos\"), dice que los montos están descontada la inflación y sube las lecturas posibles al contexto, con el tamaño de las provincias, como pide la auditoría (P0 y P1).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"Cada provincia suma los votos de sus diputados y senadores de fuera del bloque oficialista en todos esos presupuestos: son pocas personas que votan muchas veces, y las ausencias cuentan como votos que no fueron a favor.\",",
+   "propuesto": "      \"Las provincias con menos habitantes tienen más legisladores por habitante, por cómo se reparten las bancas, y un mismo monto de ATN da más por habitante donde hay menos gente. Este cruce no descuenta el tamaño de cada provincia.\", \"Que vayan juntos no dice cuál de esas lecturas es la correcta: este cruce no permite separarlas.\", \"Cada provincia suma los votos de sus diputados y senadores de fuera del bloque oficialista en todos esos presupuestos: son pocas personas que votan muchas veces, y las ausencias cuentan como votos que no fueron a favor.\",",
+   "motivo": "Primer límite nuevo, el más importante de este cruce según la auditoría (el tamaño de las provincias), sin cifras. El de las tres lecturas pasa al segundo lugar y se acorta porque las lecturas ya están en el contexto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"El bloque oficialista es el más numeroso del espacio del presidente: los aliados del gobierno de otros bloques cuentan como de fuera, así que suman las provincias cuyos legisladores suelen acompañar al gobierno de turno.\",",
+   "propuesto": "      \"El bloque oficialista es el bloque más numeroso del espacio del presidente. Los legisladores aliados que están en otros bloques cuentan como de fuera, así que suman más apoyo las provincias con legisladores que suelen acompañar al gobierno de turno.\",",
+   "motivo": "\"Suman las provincias\" no se entendía: dice qué suman y por qué. Dos oraciones en lugar de una.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"Que vayan juntos no dice si los ATN se reparten según el apoyo de los legisladores, si los legisladores votan según los ATN que recibe su provincia o si las dos cosas dependen de la relación de cada gobernador con el gobierno nacional.\"]},",
+   "propuesto": "      ]},",
+   "motivo": "El límite de las tres lecturas pasa al segundo lugar de la lista (cambio anterior), así que acá solo se cierra la lista.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"Lo que cada provincia le vende al mundo, frente a cuántas personas tienen un empleo privado registrado.\",",
+   "propuesto": "    dek: \"Lo que cada provincia exporta en bienes por habitante, frente a cuántos asalariados privados registrados tiene cada 100 habitantes.\",",
+   "motivo": "El Origen Provincial de las Exportaciones cuenta solo bienes (auditoría, P0), y la bajada nombra las dos unidades que usa el artículo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"Exportar trae dólares a una provincia, pero no todas las actividades necesitan la misma cantidad de personas para producir lo mismo. Este cruce pone una cosa al lado de la otra, provincia por provincia.\",",
+   "propuesto": "    contexto: \"Exportar trae dólares, pero no todas las actividades necesitan la misma cantidad de trabajadores para producir lo mismo. Este cruce pone un dato al lado del otro, provincia por provincia.\",",
+   "motivo": "Los dólares de una exportación no quedan necesariamente en la provincia. \"Una cosa al lado de la otra\" pasa a \"un dato al lado del otro\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    limites: [\"El registro previsional asigna cada empleo a la provincia donde está inscripto el empleador. Por eso la Ciudad de Buenos Aires aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.\",",
+   "propuesto": "    limites: [\"Las exportaciones son solo de bienes: no cuentan los servicios, como el software, los servicios profesionales o el turismo.\", \"El Sistema Integrado Previsional Argentino (SIPA) asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.\",",
+   "motivo": "Suma el límite de los servicios (la exportación que más pesa en CABA no está en el dato) y presenta el SIPA por su nombre. CABA, término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"El acceso a la red cloacal según el último censo, frente a las muertes de bebés menores de un año.\",",
+   "propuesto": "    dek: \"La parte de los hogares con desagüe a la red cloacal según el último censo, frente a las muertes de bebés menores de un año cada 1.000 nacidos vivos.\",",
+   "motivo": "Nombra las dos unidades del cruce.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"El saneamiento forma parte de las condiciones en las que nace y crece un bebé. Este cruce compara la cobertura de cloacas de cada provincia con su tasa de mortalidad infantil.\",",
+   "propuesto": "    contexto: \"Las cloacas son una de las condiciones de vida de los hogares que mide el censo. Este cruce compara la parte de los hogares conectados a la red cloacal en cada provincia con su tasa de mortalidad infantil. Sirve para ver una desigualdad entre provincias, no para medir el efecto de las cloacas en la salud de los bebés.\",",
+   "motivo": "La primera oración sugería una causa (auditoría, P1). Ahora dice qué compara y para qué sirve, como el artículo de internet y Aprender.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    limites: [\"La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.\",",
+   "propuesto": "    limites: [\"Muchas muertes de bebés se deben a afecciones perinatales, como la prematurez, o a malformaciones congénitas. Las causas que suelen estar más ligadas a las condiciones de vida, como las enfermedades infecciosas y respiratorias, son solo una parte.\", \"La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.\",",
+   "motivo": "Límite propio nuevo, sin cifras, con las mismas palabras que la ficha de causas de la mortalidad infantil (DIB.causas).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"La mortalidad infantil depende también de la atención durante el embarazo y el parto, que este cruce no mide.\"]},",
+   "propuesto": "      \"La mortalidad infantil depende también de la atención durante el embarazo y el parto, de los ingresos de las familias y de su cobertura de salud, que este cruce no mide.\"]},",
+   "motivo": "Nombra otros factores que el cruce no mide (auditoría: las provincias con menos cloacas también son más pobres).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"La cobertura de salud del último censo, frente a la parte de los nacimientos que son de madres adolescentes.\",",
+   "propuesto": "    dek: \"La parte de la población sin obra social ni prepaga según el último censo, frente a la parte de los nacimientos que son de madres menores de 20 años.\",",
+   "motivo": "Dice qué se mide de la cobertura y qué edad cuenta como adolescente (la unidad del dato).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    limites: [\"La ficha de maternidad adolescente compara el mismo dato con otros indicadores del Censo, como las necesidades básicas insatisfechas y el secundario completo de los adultos.\"]},",
+   "propuesto": "    limites: [\"La maternidad adolescente se mide como la parte de los nacimientos que son de madres menores de 20 años, no como los nacimientos cada 1.000 adolescentes: depende también de cuántos hijos tienen las mujeres adultas de cada provincia.\", \"La ficha de maternidad adolescente compara el mismo dato con otros indicadores del censo, como las necesidades básicas insatisfechas y la parte de los adultos con el secundario completo.\"]},",
+   "motivo": "Suma el límite que faltaba (es una parte de los nacimientos, no una tasa, auditoría P1). \"Censo\" en minúscula, nombre común.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"Qué parte de sus ingresos recauda cada provincia, frente a cuánto empleo privado registrado tiene.\",",
+   "propuesto": "    dek: \"Qué parte de sus ingresos recauda cada provincia por su cuenta, frente a cuántos asalariados privados registrados tiene cada 100 habitantes.\",",
+   "motivo": "Nombra la unidad del empleo y repite el \"por su cuenta\" del título.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    limites: [\"Los recursos propios incluyen impuestos provinciales y otros ingresos, como las regalías. Una provincia con petróleo o minería puede recaudar mucho sin tener mucho empleo privado.\"]},",
+   "propuesto": "    limites: [\"Los recursos propios incluyen impuestos provinciales y otros ingresos, como las regalías. Una provincia con petróleo o minería puede recaudar mucho sin tener mucho empleo privado.\", \"El Sistema Integrado Previsional Argentino (SIPA) asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.\"]},",
+   "motivo": "Suma el límite del SIPA que ya tiene el artículo de exportaciones: CABA tiene 48 asalariados cada 100 habitantes (auditoría, P1).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    limites: [\"La esperanza de vida de 2020 y 2021 refleja la pandemia de COVID-19. Conviene mirar el año del dato antes de compararlo con otros períodos.\"]},",
+   "propuesto": "    limites: [\"La esperanza de vida de 2020 y 2021 refleja la pandemia de COVID-19. El año del dato de este artículo figura en la fuente, al pie: conviene mirarlo antes de compararlo con otros períodos.\"]},",
+   "motivo": "El dato del artículo no es de 2020 ni de 2021 (auditoría, P1): dice dónde ver su año sin escribirlo a mano.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    lx: \"hogares con internet\", ly: \"matemática en Aprender\", ux: \"% de los hogares\", uy: \"% de 6° grado en nivel satisfactorio o avanzado\",",
+   "propuesto": "    lx: \"hogares con internet\", ly: \"chicos con nivel satisfactorio o avanzado en matemática\", ux: \"% de los hogares\", uy: \"% de los chicos de 6° grado\",",
+   "motivo": "El nombre de y entra en frases nuevas de textoArt (\"tienden a tener más ...\", \"con más ... de lo que marca la línea\"): \"más matemática en Aprender\" no se entiende. La unidad deja de repetir \"nivel satisfactorio o avanzado\", que ya dice el nombre.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El cálculo propio de Aprender sobre la base agregada difiere levemente del informe oficial.",
+   "propuesto": "Los resultados de Aprender son un cálculo propio de Datina sobre la base agregada y difieren levemente de los del informe oficial.",
+   "motivo": "Dice de quién es el cálculo y qué difiere (los dos artículos de Aprender).",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"La conexión a internet en los hogares según el último censo, frente a los resultados de 6° grado en la evaluación Aprender.\",",
+   "propuesto": "    dek: \"La parte de los hogares con internet según el último censo, frente a la parte de los chicos de 6° grado con nivel satisfactorio o avanzado en matemática en la evaluación Aprender.\",",
+   "motivo": "Nombra qué resultado de Aprender se usa (matemática, nivel satisfactorio o avanzado).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    lx: \"inversión en educación por alumno\", ly: \"matemática en Aprender\", ux: \"pesos por alumno de gestión estatal por año\", uy: \"% de 6° grado en nivel satisfactorio o avanzado\",",
+   "propuesto": "    lx: \"inversión en educación por alumno\", ly: \"chicos con nivel satisfactorio o avanzado en matemática\", ux: \"pesos por alumno de escuela estatal por año\", uy: \"% de los chicos de 6° grado\",",
+   "motivo": "Como en el artículo de internet. \"Alumno de gestión estatal\": la gestión es de la escuela, no del alumno.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"Lo que invierte el Estado por cada alumno de las escuelas estatales de cada provincia, frente a los resultados de 6° grado en la evaluación Aprender.\",",
+   "propuesto": "    dek: \"Lo que invierte el Estado por cada alumno de las escuelas estatales de cada provincia, frente a la parte de los chicos de 6° grado con nivel satisfactorio o avanzado en matemática en la evaluación Aprender.\",",
+   "motivo": "Nombra qué resultado de Aprender se usa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    limites: [\"La inversión está en pesos de cada año, sin ajustar por lo que cuesta vivir en cada provincia ni por el tamaño de las escuelas: donde hay pocos alumnos por escuela o los salarios son más altos, cada alumno cuesta más.\",",
+   "propuesto": "    limites: [\"La inversión está en pesos del año del dato, sin ajustar por lo que cuesta vivir en cada provincia ni por el tamaño de las escuelas: donde hay pocos alumnos por escuela o los salarios son más altos, cada alumno cuesta más.\",",
+   "motivo": "Todas las provincias tienen el dato del mismo año: \"pesos de cada año\" hacía pensar en una serie.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"Aprender evalúa a los alumnos de 6° grado de las escuelas estatales y privadas, y la inversión cuenta solo a los de gestión estatal.\",",
+   "propuesto": "      \"Aprender evalúa a los alumnos de 6° grado de las escuelas estatales y privadas, y la inversión cuenta solo a los de las escuelas estatales.\",",
+   "motivo": "Mismo término que la bajada (escuelas estatales).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    lx: \"empleo privado registrado\", ly: \"voto a Milei en el balotaje\", ux: \"asalariados cada 100 habitantes\", uy: \"% de los votos positivos\",",
+   "propuesto": "    lx: \"empleo privado registrado\", ly: \"voto a Milei en la segunda vuelta\", ux: \"asalariados cada 100 habitantes\", uy: \"% de los votos a las dos fórmulas\",",
+   "motivo": "Término fijo (segunda vuelta, no balotaje) y \"votos positivos\" dicho en lenguaje común (auditoría, P2). Cambio chico: el artículo tiene una decisión del autor pendiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    dek: \"Cómo se repartió el voto del balotaje presidencial según el peso del empleo privado registrado en cada provincia.\",",
+   "propuesto": "    dek: \"Cómo se repartió el voto de la segunda vuelta presidencial según el peso del empleo privado registrado en cada provincia.\",",
+   "motivo": "Término fijo: segunda vuelta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    contexto: \"El balotaje enfrentó a dos fórmulas con propuestas económicas distintas. Este cruce describe cómo se repartió el voto según el peso del empleo privado registrado en cada provincia, sin juzgar las razones de cada elector.\",",
+   "propuesto": "    contexto: \"La segunda vuelta presidencial enfrentó a dos fórmulas con propuestas económicas distintas. Este cruce describe cómo se repartió el voto según el peso del empleo privado registrado en cada provincia, sin juzgar las razones de cada elector.\",",
+   "motivo": "Término fijo: segunda vuelta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"El resultado es el del escrutinio provisorio, el único publicado como datos abiertos para esa elección.\"]},",
+   "propuesto": "      \"El resultado es el del escrutinio provisorio, el único publicado como datos abiertos para esa elección.\", \"El Sistema Integrado Previsional Argentino (SIPA) asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias.\"]},",
+   "motivo": "Suma el límite del SIPA (CABA aparece con 48 asalariados cada 100 habitantes). Cambio chico, sin tocar el problema de fondo, que queda pendiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    ? `En las ${c.n} ${U.pl} con dato, conocer el nivel de ${a.lx} casi no ayuda a anticipar el de ${a.ly}. La correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`",
+   "propuesto": "    ? `En las ${c.n} ${U.pl}${c.n === 24 ? \"\" : \" con dato\"}, las que tienen más ${a.lx} no tienden a tener más ni menos ${a.ly}.`",
+   "motivo": "Sin patrón claro: la bajada dice lo que pasa en lenguaje común. El coeficiente y su escala pasan al párrafo de la correlación (Spearman fuera de la primera oración). \"Con dato\" solo cuando faltan jurisdicciones: hoy están las 24.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    : `En las ${c.n} ${U.pl} con dato, las que tienen más ${a.lx} tienden a tener valores ${c.rs > 0 ? \"más altos\" : \"más bajos\"} de ${a.ly}. La relación es ${fuerzaArt(c.rs)}: la correlación de Spearman es de ${rTxt(c.rs)}, en una escala que va de menos 1 a 1.`;",
+   "propuesto": "    : `En las ${c.n} ${U.pl}${c.n === 24 ? \"\" : \" con dato\"}, las que tienen más ${a.lx} tienden a tener ${c.rs > 0 ? \"más\" : \"menos\"} ${a.ly}, y las que tienen menos ${a.lx}, ${c.rs > 0 ? \"menos\" : \"más\"}. La relación es ${fuerzaArt(c.rs)}.`;",
+   "motivo": "Saca el resto de plantilla (\"valores más bajos de\") y dice la relación en los dos sentidos, así también va en el sentido del título en cloacas, esperanza de vida y alquiler (\"donde menos hogares tienen cloacas\"). Spearman y la escala pasan al párrafo de la correlación. \"Con dato\" solo cuando faltan jurisdicciones.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  const enProv = fs => listaY(fs.map(f => `${fy(f[a.y])}${py} en ${f.territorio}`));",
+   "propuesto": "  const enProv = fs => listaY(fs.map((f, i) => `${i ? fy(f[a.y]) + py : vy(f)} en ${f.territorio}`));",
+   "motivo": "La unidad va con la primera cifra de la lista y no al final entre paréntesis (\"5,5 muertes cada 1.000 nacidos vivos en CABA, 5,9 en Tierra del Fuego y 6,3 en Chubut\"). Usa solo funciones de la misma entrada (vy, fy, py).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  const extremos = `Las tres ${U.pl} con más ${a.lx} son ${listaY(top.map(f => `${f.territorio} (${vx(f)})`))}. ` +",
+   "propuesto": "  const extremos = `Las tres ${U.pl} con más ${a.lx} son ${listaY(top.map((f, i) => `${f.territorio} (${i ? fx(f[a.x]) + px : vx(f)})`))}. ` +",
+   "motivo": "La unidad completa una sola vez por lista (\"Tierra del Fuego (33.123 pesos por habitante por año), La Rioja (28.154) y Santa Cruz (22.388)\"), no tres veces seguidas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    `En ${a.ly}, los valores son ${enProv(top)} (${ry}). ` +",
+   "propuesto": "    `En ${a.ly}, los valores son ${enProv(top)}. ` +",
+   "motivo": "La unidad ya va con la primera cifra (cambio de enProv).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    `Las tres con menos son ${listaY(bajo.map(f => `${f.territorio} (${vx(f)})`))}. En ${a.ly}, esas tres tienen ${enProv(bajo)}.`;",
+   "propuesto": "    `Las tres con menos son ${listaY(bajo.map((f, i) => `${f.territorio} (${i ? fx(f[a.x]) + px : vx(f)})`))}. En ${a.ly}, esas tres tienen ${enProv(bajo)}.`;",
+   "motivo": "Igual que en las tres con más: la unidad completa una sola vez por lista.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  const excep = `Las que más se apartan de la tendencia son ${c.arriba.territorio}, con ${vy(c.arriba)} y ${vx(c.arriba)}, por encima de la línea del gráfico, ` +",
+   "propuesto": "  const excep = `${ab < .2 ? \"Aunque no hay un patrón claro, las más alejadas de la línea del gráfico\" : \"Las que más se apartan de la tendencia\"} son ${c.arriba.territorio} (${vx(c.arriba)} y ${vy(c.arriba)}), con más ${a.ly} de lo que marca la línea punteada, ` +",
+   "motivo": "Las dos cifras en el mismo orden que el resto del texto (primero x, después y) y dicho qué significa estar por encima de la línea. Con una relación casi nula ya no habla de \"la tendencia\", que el propio artículo dice que no hay (auditoría, P1).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    `y ${c.abajo.territorio}, con ${vy(c.abajo)} y ${vx(c.abajo)}, por debajo.`;",
+   "propuesto": "    `y ${c.abajo.territorio} (${vx(c.abajo)} y ${vy(c.abajo)}), con menos.`;",
+   "motivo": "Como la primera mitad de la oración.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  const peso = `${c.cook.territorio} es la ${U.s} que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05",
+   "propuesto": "  const peso = `La correlación de Spearman, que compara el orden de las ${c.n} ${U.pl} en los dos datos, es de ${rTxt(c.rs)}. Esa medida va de menos 1 a 1: cuanto más lejos está de 0, más marcada es la relación${c.rs <= -.2 ? \", y un valor negativo quiere decir que cuando un dato sube, el otro tiende a bajar\" : \"\"}. ${c.cook.territorio} es la ${U.s} que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05",
+   "motivo": "El coeficiente sale de la primera oración y llega acá, con lo que mide y qué quiere decir la escala (antes solo \"de menos 1 a 1\"). Los artículos no tienen \"Cómo se calcula\", así que no se borra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    ? `Sin ella, la correlación casi no cambia: pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}, así que el resultado no depende de un solo caso.`",
+   "propuesto": "    ? `Sin ella, la correlación ${rTxt(c.rs2) === rTxt(c.rs) ? \"no cambia\" : \"casi no cambia\"}: da ${rTxt(c.rs2)}, así que el resultado no depende de un solo caso.`",
+   "motivo": "\"Pasa de menos 0,85 a menos 0,85\" no decía nada (auditoría, P1): una sola cifra, y \"no cambia\" cuando redondeada es la misma.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    : `Sin ella, la correlación de Spearman pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerzaArt(c.rs2) !== fuerzaArt(c.rs) ? `, una relación ${fuerzaArt(c.rs2)}.` : \".\"));",
+   "propuesto": "    : `Sin ella, la correlación pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerzaArt(c.rs2) !== fuerzaArt(c.rs) ? `, una relación ${fuerzaArt(c.rs2)}.` : \".\"));",
+   "motivo": "El nombre de la medida ya está en la oración anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  const lim = [`Son ${c.n} casos. Con tan pocos, una o dos ${U.pl} pueden cambiar el resultado.`,",
+   "propuesto": "  const lim = [...a.limites,",
+   "motivo": "Orden de la lista (1 de 6): los límites propios de cada artículo van primero, el más importante antes (auditoría, P1). Solo cambia el orden.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    \"Una correlación no prueba que una cosa cause la otra. Las dos pueden responder a otros factores que este cruce no mide.\",",
+   "propuesto": "    ...(Mx.periodo !== My.periodo ? [`Los datos son de períodos distintos: el de ${a.lx} es ${delPer(Mx.periodo)} y el de ${a.ly}, ${delPer(My.periodo)}.`] : []),",
+   "motivo": "Orden de la lista (2 de 6): el aviso de los períodos sube después de los propios. \"Los datos son de períodos distintos\" en lugar de \"los períodos no coinciden\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    U.prom,",
+   "propuesto": "    ...(Math.abs(c.rs - c.rp) > .2 ? [`Otra medida, la correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}. Que las dos medidas den tan distinto indica que unos pocos casos influyen mucho en el resultado.`] : []),",
+   "motivo": "Orden de la lista (3 de 6): el aviso de Pearson sube, dicho en lenguaje común (\"la diferencia con la de Spearman\" pasa a \"que las dos medidas den tan distinto\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    ...(Mx.periodo !== My.periodo ? [`Los períodos no coinciden: el dato de ${a.lx} es ${delPer(Mx.periodo)} y el de ${a.ly}, ${delPer(My.periodo)}.`] : []),",
+   "propuesto": "    `Son ${c.n} casos. Con tan pocos, una o dos ${U.pl} pueden cambiar el resultado.`,",
+   "motivo": "Orden de la lista (4 de 6): los generales van al final. El texto no cambia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    ...(Math.abs(c.rs - c.rp) > .2 ? [`La correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}. La diferencia con la de Spearman indica que unos pocos casos influyen mucho.`] : []),",
+   "propuesto": "    \"Una correlación no prueba que una cosa cause la otra: las dos pueden responder a otros factores que este cruce no mide.\",",
+   "motivo": "Orden de la lista (5 de 6). Se conserva la aclaración de que una correlación no prueba una causa (solo cambia el punto por dos puntos).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    ...a.limites];",
+   "propuesto": "    U.prom];",
+   "motivo": "Orden de la lista (6 de 6).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    `<div class=\"nota-graf\"><h2>${Mx.nombre} ${yE(minusc(My.nombre))} por ${U.s}</h2><div class=\"grafico\" data-g=\"${key}\" data-forma=\"puntos\"></div>` +",
+   "propuesto": "    `<div class=\"nota-graf\"><h2>${Mx.nombre} ${yE(minusc(My.nombre))}, por ${U.s}</h2><div class=\"grafico\" data-g=\"${key}\" data-forma=\"puntos\"></div>` +",
+   "motivo": "Con la coma no se lee \"Aprender, matemática por jurisdicción\" ni \"apoyo al presupuesto de sus legisladores por jurisdicción\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    `<p class=\"nota-pie-graf\">Cada punto es una ${U.s}. La línea punteada muestra la tendencia.</p></div>` +",
+   "propuesto": "    `<p class=\"nota-pie-graf\">Cada punto es una ${U.s}. ${Mx.nombre}: ${Mx.unidad}. ${My.nombre}: ${My.unidad}. La línea punteada muestra la tendencia.</p></div>` +",
+   "motivo": "Las unidades completas de los dos datos, con su moneda y su período, salen del resumen (por ejemplo \"pesos de 2025 por habitante por año, promedio 2000 a 2025\" en los ATN, auditoría P0). Ningún año escrito a mano.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  dek: \"El dólar en términos reales, la inversión en máquinas importadas y en construcción, lo que cuesta construir medido en dólares y las compras de dólares de personas y empresas.\",",
+   "propuesto": "  dek: \"El dólar en términos reales, trimestre por trimestre, frente a lo que se invierte en máquinas importadas y en construcción. También muestra lo que cuesta construir medido en dólares y las compras de dólares de personas y empresas.\",",
+   "motivo": "Dice qué se compara con qué, en lugar de enumerar cinco series seguidas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `En toda la serie, ${dosRel(d.rs_imp, d.rs_sig)}, y desde ${sin}, ${dosRel(d.rs_imp_sin, d.rs_sig_sin)}. ` +",
+   "propuesto": "      `Desde ${sin}, ${dosRel(d.rs_imp_sin, d.rs_sig_sin)}, y en toda la serie, ${dosRel(d.rs_imp, d.rs_sig)}. ` +",
+   "motivo": "Lo que vale hoy (desde 2010) va primero (auditoría, P1). Solo cambia el orden.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      ` Lo que cuesta construir medido en dólares ${ab(d.rs_espejo) >= .7 ? \"va casi en espejo\" : \"tiende a moverse en sentido contrario\"}: la correlación de Spearman entre los dos índices es de ${rTxt(d.rs_espejo)}, en una escala que va ` +",
+   "propuesto": "      ` Lo que cuesta construir medido en dólares ${ab(d.rs_espejo) >= .7 ? \"va casi en espejo\" : \"tiende a moverse en sentido contrario\"}, como es esperable: los dos índices comparan los precios del país con el dólar, en sentido contrario. La correlación de Spearman entre los dos índices es de ${rTxt(d.rs_espejo)}, en una escala que va ` +",
+   "motivo": "La explicación de por qué van en espejo va antes del coeficiente (la correlación es mecánica, auditoría P1).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `de menos 1 a 1. Es lo esperable, porque los dos comparan los precios del país con el dólar, en sentido contrario. En el ${d.ult}, construir costaba en dólares un ` +",
+   "propuesto": "      `de menos 1 a 1. En el ${d.ult}, construir costaba en dólares un ` +",
+   "motivo": "La explicación pasó a la oración anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `${pctAbs(d.costo_vs_prom)} ${d.costo_vs_prom < 0 ? \"menos\" : \"más\"} que el promedio${extremo(d.ult, d.costo_max, d.costo_min, \"valor\")}.` +",
+   "propuesto": "      `${pctAbs(d.costo_vs_prom)} ${d.costo_vs_prom < 0 ? \"menos\" : \"más\"} que su promedio desde ${d.desde_anio}${extremo(d.ult, d.costo_max, d.costo_min, \"valor\")}.` +",
+   "motivo": "Dice de qué promedio se habla, como en el índice del dólar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      (d.costo_max !== d.ult ? ` El trimestre más caro fue el ${d.costo_max}.` : \"\");",
+   "propuesto": "      (d.costo_max !== d.ult ? ` El más caro fue el ${d.costo_max}.` : \"\");",
+   "motivo": "\"El trimestre más caro fue el primer trimestre\" repetía la palabra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      : `La parte de la inversión que va a máquinas, equipos y vehículos importados es mayor cuando el dólar está ${d.rs_imp < 0 ? \"barato\" : \"caro\"} en términos reales.`;",
+   "propuesto": "      : `La parte de la inversión que va a máquinas, equipos y vehículos importados tiende a ser mayor cuando el dólar está ${d.rs_imp < 0 ? \"barato\" : \"caro\"} en términos reales.`;",
+   "motivo": "Desde 2010 la relación es débil: \"tiende a ser\" en lugar de \"es\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `con el dólar más alto, el ${pct(d.imp_dolar_caro)}. La correlación de Spearman es de ${rTxt(d.rs_imp)}, una relación ${fz(d.rs_imp)}, y desde ${sin} es de ` +",
+   "propuesto": "      `con el dólar más alto, el ${pct(d.imp_dolar_caro)}. Desde ${sin}, la correlación de Spearman es de ${rTxt(d.rs_imp_sin)}, una relación ${fz(d.rs_imp_sin)}, y en toda la serie, de ` +",
+   "motivo": "Lo reciente primero (auditoría, P1: \"desde 2010 la relación es débil\"). Solo cambia el orden de las dos cifras.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `${rTxt(d.rs_imp_sin)}, una relación ${fz(d.rs_imp_sin)}. En el ${d.ult}, la parte importada era del ${pct(d.imp_ult)}.`;",
+   "propuesto": "      `${rTxt(d.rs_imp)}, una relación ${fz(d.rs_imp)}. En el ${d.ult}, la parte importada era del ${pct(d.imp_ult)}.`;",
+   "motivo": "Segunda mitad del mismo cambio de orden.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "        : maxVar < .4 ? `Son relaciones débiles: cuando el dólar real sube, la inversión de ese año tiende a ${d.rs_var_total < 0 ? \"caer\" : \"subir\"}, con muchas excepciones.`",
+   "propuesto": "        : maxVar < .4 ? `Ninguna pasa de débil: cuando el dólar real sube, la inversión de ese año tiende a ${d.rs_var_total < 0 ? \"caer\" : \"subir\"}, con muchas excepciones.`",
+   "motivo": "En esta rama alguna puede ser casi nula (hoy la de la construcción, menos 0,15): \"son relaciones débiles\" no era exacto para todas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      (d.fae_max_anio === d.fae_anio ? `, el monto más alto desde ${d.fae_ini}.` : `. El año más alto desde ${d.fae_ini} fue ${d.fae_max_anio}, con ${n0(d.fae_max)} millones.`) +",
+   "propuesto": "      (d.fae_max_anio === d.fae_anio ? `, el monto más alto de la serie, que empieza en ${d.fae_ini}.` : `. El año más alto de la serie, que empieza en ${d.fae_ini}, fue ${d.fae_max_anio}, con ${n0(d.fae_max)} millones.`) +",
+   "motivo": "\"El más alto desde 2004\" se leía como si en 2004 hubiera habido uno mayor: la serie empieza ese año (auditoría, P1).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"Las compras de dólares son las del mercado oficial de cambios que registra el Banco Central, del sector privado no financiero (personas, empresas e \" +",
+   "propuesto": "      \"Las compras de dólares son las del sector privado no financiero en el mercado oficial de cambios que registra el Banco Central, \" +",
+   "motivo": "Quién compra ya se dice en el pie del gráfico: no se repite en el límite (auditoría, P2).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"inversores institucionales), en neto: compras menos ventas. \" +",
+   "propuesto": "      \"en neto: compras menos ventas. \" +",
+   "motivo": "Segunda mitad del cambio anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    const dif = t.balanza_12m < 0 ? `salieron ${n0(-t.balanza_12m)} más de los que llegaron` : `llegaron ${n0(t.balanza_12m)} más de los que salieron`;",
+   "propuesto": "    const dif = t.balanza_12m < 0 ? `salieron ${n1(-t.balanza_12m / 1e6)} millones más de los que llegaron` : `llegaron ${n1(t.balanza_12m / 1e6)} millones más de los que salieron`;",
+   "motivo": "Millones con un decimal, como el gráfico (auditoría, P2: \"nadie retiene 4.629.636\"). Es la misma cifra redondeada.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    const s1 = `En los doce meses hasta ${t.ult} llegaron ${n0(t.llegan_12m)} turistas extranjeros y viajaron al exterior ${n0(t.salen_12m)} residentes: ${dif}. ` +",
+   "propuesto": "    const s1 = `En los doce meses hasta ${t.ult} llegaron ${n1(t.llegan_12m / 1e6)} millones de turistas extranjeros y viajaron al exterior ${n1(t.salen_12m / 1e6)} millones de residentes: ${dif}. ` +",
+   "motivo": "Millones con un decimal, como el gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `Las llegadas fueron las más altas de la serie en los doce meses hasta ${t.llegan_12m_max_mes}, con ${n0(t.llegan_12m_max)}, y las salidas, en los doce meses ` +",
+   "propuesto": "      `Las llegadas fueron las más altas de la serie en los doce meses hasta ${t.llegan_12m_max_mes}, con ${n1(t.llegan_12m_max / 1e6)} millones, y las salidas, en los doce meses ` +",
+   "motivo": "Millones con un decimal.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `hasta ${t.salen_12m_max_mes}, con ${n0(t.salen_12m_max)}. Entre ${t.pand_ini} y ${t.pand_fin} llegó menos de la mitad de los turistas que en el mismo mes ` +",
+   "propuesto": "      `hasta ${t.salen_12m_max_mes}, con ${n1(t.salen_12m_max / 1e6)} millones. Entre ${t.pand_ini} y ${t.pand_fin} llegó menos de la mitad de los turistas que en el mismo mes ` +",
+   "motivo": "Millones con un decimal.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"los viajes no dependían del dólar. También quedaron afuera los meses que se comparan con uno de ese período. La ventana sale de los datos: son los meses \" +",
+   "propuesto": "      \"los viajes no dependían del dólar. También quedaron afuera los meses que se comparan con uno de ese período. Son los meses \" +",
+   "motivo": "Saca la jerga de método (\"la ventana sale de los datos\", auditoría P1). La regla se conserva.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      \"desde 2020 en que llegó menos de la mitad de los turistas que en el mismo mes de 2019, así que el mes en que empezaron a caer los viajes queda en las correlaciones.\",",
+   "propuesto": "      \"desde 2020 en que llegó menos de la mitad de los turistas que en el mismo mes de 2019. El mes en que empezaron a caer los viajes no cumple esa condición, así que queda en las correlaciones.\",",
+   "motivo": "Parte la oración en dos y conserva la aclaración del método.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      {g: \"turismo-flujos\", tit: \"Turistas que llegan y que salen en los últimos doce meses\", forma: \"lineas\",",
+   "propuesto": "      {g: \"turismo-flujos\", tit: \"Turistas que llegan y residentes que viajan al exterior, en los doce meses hasta cada mes\", forma: \"lineas\",",
+   "motivo": "El gráfico es la suma de doce meses hasta cada mes, toda la serie, no solo los últimos doce meses. Dice también quién sale (los residentes).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `cambio oficial de referencia. Un litro de petróleo Brent costaba ${usd(t.brent_litro)} dólares (${n2(t.brent)} el barril). Medida en dólares, la nafta ` +",
+   "propuesto": "      `cambio oficial de referencia. Un litro de petróleo Brent costaba ${usd(t.brent_litro)} dólares (${n2(t.brent)} el barril). Medida en dólares al tipo de cambio oficial, la nafta ` +",
+   "motivo": "La aclaración del tipo de cambio pegada al récord, que cae en años con límites para comprar dólares (auditoría, P1).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `fue la más cara en ${t.usd_max_mes}, con ${usd(t.usd_max)}, y la más barata en ${t.usd_min_mes}, con ${usd(t.usd_min)}.`;",
+   "propuesto": "      `fue la más cara en ${t.usd_max_mes}, con ${usd(t.usd_max)} dólares por litro, y la más barata en ${t.usd_min_mes}, con ${usd(t.usd_min)}.`;",
+   "motivo": "Unidad completa de la cifra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    const bajada = `Cuando el dólar real sube frente al año anterior, las cantidades que exporta el país medio año después tienden a ${sube} ` +",
+   "propuesto": "    const bajada = `Cuando el dólar real sube frente al año anterior, las cantidades que exporta el país medio año después tienden a ${sube}` +",
+   "motivo": "Saca el espacio antes de los dos puntos (cambio siguiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `un poco: la relación es ${fz(rs.total)}. En el mismo trimestre, la relación es ${fz(t.rs_mismo)}. Las cantidades de combustibles y de productos ` +",
+   "propuesto": "      `: la relación es ${fz(rs.total)}. En el mismo trimestre, la relación es ${fz(t.rs_mismo)}. Las cantidades de combustibles y de productos ` +",
+   "motivo": "\"Un poco\" quedaba escrito aunque la relación fuera fuerte: la fuerza ya la dice \"la relación es ...\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      (t.total_max_anio === t.anio_ult ? `las más altas desde ${t.desde_anio}. ` : `menores que las de ${t.total_max_anio}, el año más alto desde ${t.desde_anio}. `) +",
+   "propuesto": "      (t.total_max_anio === t.anio_ult ? `las más altas de la serie, que empieza en ${t.desde_anio}. ` : `menores que las de ${t.total_max_anio}, el año más alto de la serie, que empieza en ${t.desde_anio}. `) +",
+   "motivo": "\"Las más altas desde 2004\" se leía como si en 2004 hubiera habido otras mayores: la serie empieza ese año (auditoría, P1).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `lo que cambiaron las cantidades exportadas es de ${rTxt(rs.total)}, una relación ${fz(rs.total)}, en una escala que va de menos 1 a 1, y desde ` +",
+   "propuesto": "      `lo que cambiaron las cantidades exportadas es de ${rTxt(rs.total)}, una relación ${fz(rs.total)}, en una escala que va de menos 1 a 1. Desde ` +",
+   "motivo": "Parte una oración con cinco cifras.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `${t.sin_desde}, de ${rTxt(t.rs_sin)}. Con el dólar del mismo trimestre es de ${rTxt(t.rs_mismo)}, y con el de un año antes, de ${rTxt(t.rs_anio)}. ` +",
+   "propuesto": "      `${t.sin_desde}, es de ${rTxt(t.rs_sin)}. Con el dólar del mismo trimestre es de ${rTxt(t.rs_mismo)}, y con el de un año antes, de ${rTxt(t.rs_anio)}. ` +",
+   "motivo": "Segunda mitad del cambio anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "      <p>Cada artículo responde una pregunta cruzando datos de distintas fuentes: dos indicadores de las 24 jurisdicciones, o series de todo el país a lo largo del tiempo. Los textos y los números se recalculan solos cuando se actualiza cada fuente, y cada artículo dice qué no se puede concluir del cruce.</p>",
+   "propuesto": "      <p>Cada artículo responde una pregunta con datos oficiales: pone lado a lado dos indicadores de las 24 jurisdicciones o de las 24 capitales de provincia, o sigue series de todo el país en el tiempo. Dice qué encontró, de dónde salen los datos y qué no se puede concluir. Las cifras cambian cuando se actualiza cada fuente.</p>",
+   "motivo": "\"Se recalculan solos\" era información para el autor (auditoría, P1). Suma las capitales (seis de los cruces son de capitales), saca el gerundio y dice qué trae cada artículo. \"De distintas fuentes\" no valía para los dos de las viviendas, que salen solo del censo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "      <article class=\"nota\" id=\"a-dolar-inversion\" data-ico=\"billetes\" data-sec=\"construccion\" data-titulo=\"¿Qué pasa con la inversión y la construcción cuando cambia el dólar?\"></article>",
+   "propuesto": "      <article class=\"nota\" id=\"a-dolar-inversion\" data-ico=\"billetes\" data-sec=\"construccion\" data-titulo=\"¿Cambia la inversión en máquinas importadas y en construcción cuando sube o baja el dólar?\"></article>",
+   "motivo": "La pregunta era abierta (\"¿Qué pasa...?\") y la respuesta es de sí o no (\"En parte\"). Nombra las dos inversiones que deciden la respuesta. Lo leen 03 (NOTAS), la portada, Artículos, Anterior y Siguiente y \"Artículos con este dato\": todos lo toman de data-titulo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "      <article class=\"nota\" id=\"a-exportaciones-empleo\" data-ico=\"buque\" data-sec=\"externo\" data-titulo=\"¿Las provincias que más exportan tienen más empleo formal?\"></article>",
+   "propuesto": "      <article class=\"nota\" id=\"a-exportaciones-empleo\" data-ico=\"buque\" data-sec=\"externo\" data-titulo=\"¿Las provincias que más exportan por habitante tienen más empleo privado registrado?\"></article>",
+   "motivo": "El artículo mide el empleo privado registrado (el formal incluye al público) y las exportaciones por habitante (auditoría, P2). Lo leen los mismos lugares que el título anterior, todos desde data-titulo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "    descr = f\"{html.unescape(titulo)} Un cruce de {CRUZA(id_)}, con sus fuentes y sus límites.\"",
+   "propuesto": "    descr = f\"{html.unescape(titulo)} Compara {CRUZA(id_)} y dice de dónde salen y qué no permiten concluir.\"",
+   "motivo": "Las 18 descripciones decían lo mismo (\"un cruce ... con sus fuentes y sus límites\"). Ahora dicen qué hace el artículo. La respuesta de cada uno no está cuando arma 03 (la calcula datina.js): queda pendiente.",
+   "veces": 1
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "const rTxt = r => n2(r).replace(/[-−]/, \"menos \");",
+   "motivo": "El signo escrito en letras (\"menos 0,53\") se conserva: un texto solo para lectores de pantalla dentro de la cifra se leería duplicado en el índice del buscador y en textContent (\"menos −0,53\"). Queda pendiente con una propuesta."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "const respuesta = ab < .2 ? \"No hay un patrón claro.\" : !mismo ? \"No: la relación va en sentido contrario.\" : ab >= .4 ? \"Sí, en general.\" : \"Apenas.\";",
+   "motivo": "Las cuatro respuestas están claras. Sus umbrales (desde 0,4 \"Sí\") son cálculo: quedan pendientes."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"Una correlación no prueba que una cosa cause la otra",
+   "motivo": "La aclaración de que una correlación no prueba una causa se conserva en los 14 cruces y en las 4 series."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "septiembre de 2019 y abril de 2025",
+   "motivo": "Frase de FIJOS en 03 (el único año reciente que puede ir escrito): se conserva literal en los tres límites del tipo de cambio."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "<p class=\"nota\">No se pudo armar este artículo. Probá recargar la página.</p>",
+   "motivo": "Literal que busca prueba_fallas.mjs (línea 79)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Qué no dice este dato / Ficha: ${nom.toLowerCase()} / Abrir en Cruces / Descargar CSV",
+   "motivo": "Rótulos fijos del sitio y literales de las pruebas (\"Ficha: …\")."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "const LIM_AGLO = \"Cada capital es su aglomerado urbano según la Encuesta Permanente de Hogares",
+   "motivo": "Ya está claro y explica por qué las capitales de la EPH y las del censo son áreas distintas."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "const CV_EPH = (() => {",
+   "motivo": "Explica la precisión de cada estimación como la califica el INDEC, con las capitales de cada grupo desde el resumen. Ya está claro."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "prom: \"Son promedios de cada jurisdicción: no dicen qué pasa con cada persona ni con los municipios de una misma provincia.\"",
+   "motivo": "La advertencia de los datos agregados (falacia ecológica) se entiende y se conserva en los tres tipos de cruce."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "frec: \"El empleo se actualiza cada mes\"",
+   "motivo": "a-milei-empleo tiene una decisión del autor pendiente (retirarlo o rehacerlo con el empleo de noviembre de 2023): no se toca la frecuencia."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "contexto: \"Para saber si alcanzan las viviendas suele contarse cuántas hay cada 1.000 habitantes",
+   "motivo": "a-viviendas-hacinamiento: decisión del autor pendiente (retirarlo). Solo cambia CABA en su límite."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<p class=\"pregunta\">¿Qué cuentan los datos cuando se los cruza?</p>",
+   "motivo": "La pregunta de la página describe bien lo que reúne (artículos de cruces) y la usa la descripción de la página."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "data-titulo=\"¿Votaron más a Milei las provincias con más empleo privado?\"",
+   "motivo": "Decisión del autor pendiente (sección 13 de PLAN_MEJORA, tanda 1, punto 1): solo cambios chicos de redacción en ese artículo."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "data-titulo=\"¿Hay menos hacinamiento en las capitales con más viviendas por habitante?\"",
+   "motivo": "Decisión del autor pendiente (retirarlo, PLAN_MEJORA sección 7)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "fuentes: \"Banco Central de la República Argentina, índice de tipo de cambio real multilateral, e INDEC y Banco Central vía API de Series de Tiempo: \"",
+   "motivo": "Las fuentes de las cuatro series nombran a los organismos y las publicaciones por su nombre oficial."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "a-*.html (los 14 cruces)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "ab >= .4 ? \"Sí, en general.\" : \"Apenas.\"",
+   "motivo": "Umbrales de la respuesta: \"Sí\" desde 0,4, que con 24 casos el azar alcanza una vez de cada 20. Nafta usa 0,6 y turismo pide las dos relaciones. Es cálculo.",
+   "propuesta": "Una sola escala para los 18: \"Sí\" desde 0,6, \"En parte\" de 0,4 a 0,6, \"Apenas\" de 0,2 a 0,4, y por debajo de 0,4 una línea \"Puede ser casualidad\"."
+  },
+  {
+   "ruta": "a-*.html (los 14 cruces)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "function calcularArt(a)",
+   "motivo": "La plantilla nueva de la auditoría necesita cálculos que hoy no se hacen: mitades por mediana, un gancho propio de cada artículo y casos que se apartan elegidos por su orden (hoy salen de una recta, Pearson, y la cifra es Spearman).",
+   "propuesta": "Sumar a calcularArt las medianas de y en las 12 con más x y las 12 con menos, un campo gancho por artículo con su plantilla de una oración y los residuos por rangos. Después, \"En una frase\" con las mitades arriba."
+  },
+  {
+   "ruta": "a-*.html (los 14 cruces)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "${t.extremos}",
+   "motivo": "Las tres más y las tres menos siguen siendo doce cifras en prosa (ahora con la unidad una sola vez). Mostrar solo la más alta y la más baja cambia qué cifras se eligen.",
+   "propuesta": "Una sola comparación: la más alta contra la más baja en x, con su y. El resto queda en \"Ver tabla\" o en el CSV."
+  },
+  {
+   "ruta": "a-*.html (los 14 cruces)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const lim = [",
+   "motivo": "Los tres límites generales se repiten igual en los 14. Ahora van al final, pero siguen en cada artículo.",
+   "propuesta": "Un recuadro fijo \"Cómo leer un cruce\" con los generales y un enlace, y en cada artículo solo los propios. Es estructura."
+  },
+  {
+   "ruta": "a-*.html (los 18)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const rTxt = r => n2(r).replace(/[-−]/, \"menos \");",
+   "motivo": "\"menos 0,53\" en letras se lee raro en pantalla (auditoría, P2).",
+   "propuesta": "Mostrar −0,53 con el signo y dejar \"menos\" solo para el lector de pantalla, sin que la bajada (que usa el buscador) lleve la cifra: hoy ya no la lleva. Revisar antes cómo lo leen NVDA y VoiceOver."
+  },
+  {
+   "ruta": "a-*.html (los 18)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "Spearman",
+   "motivo": "Los artículos no tienen \"Cómo se calcula\": el coeficiente se mudó al párrafo de la correlación, después del gráfico, pero sigue en el texto.",
+   "propuesta": "Un \"Cómo se calcula\" por artículo, plegado, con el coeficiente, la escala y Pearson."
+  },
+  {
+   "ruta": "a-*.html (los 18)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "<p class=\"nota-meta\">${nombreSec(a.sec)}. ${a.frec}</p>",
+   "motivo": "Un metadato arriba de la pregunta (las fichas ya no llevan la sección arriba) y no se ve hasta qué fecha llegan los datos.",
+   "propuesta": "Pasar la frecuencia al pie, junto a la fuente, con una línea \"Datos hasta …\" desde el resumen."
+  },
+  {
+   "ruta": "a-milei-empleo.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "data-titulo=\"¿Votaron más a Milei las provincias con más empleo privado?\"",
+   "motivo": "Decisión del autor (PLAN_MEJORA, sección 13, tanda 1): usa el empleo de junio de 2026 para un voto de noviembre de 2023 y responde \"Sí, en general\" a una diferencia de 2,4 puntos entre mitades. Solo se hicieron cambios chicos (segunda vuelta, votos a las dos fórmulas, el límite del SIPA).",
+   "propuesta": "Reemplazarlo por \"¿Qué candidato ganó en cada provincia desde 1983?\", o rehacerlo con el empleo de noviembre de 2023, sin la frecuencia mensual y con la respuesta \"Apenas\"."
+  },
+  {
+   "ruta": "a-viviendas-hacinamiento.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{id: \"a-viviendas-hacinamiento\"",
+   "motivo": "Es casi una identidad: las viviendas por habitante son la inversa del tamaño del hogar, y el hacinamiento sube con el tamaño del hogar. Decisión del autor pendiente.",
+   "propuesta": "Retirarlo, o pasarlo a \"¿Dónde viven más personas por hogar?\" con el tamaño del hogar como dato principal."
+  },
+  {
+   "ruta": "a-viviendas-alquiler.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{id: \"a-viviendas-alquiler\", tabla: \"capitales\", x: \"viviendas_1000\"",
+   "motivo": "El mismo problema: el tamaño del hogar y la parte de las viviendas que son departamentos van con el alquiler más que el eje elegido. Cambiar el eje es cambiar el dato.",
+   "propuesta": "Usar como x las viviendas que son departamentos (en_departamento ya está en la tabla de las capitales) o juntarlo con el de hacinamiento."
+  },
+  {
+   "ruta": "a-atn-presupuesto.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{id: \"a-atn-presupuesto\"",
+   "motivo": "Los ATN por habitante miden sobre todo el tamaño de la provincia: descontada la población, la relación baja de 0,51 a 0,33 (cálculo de la auditoría). Ahora el límite lo dice sin cifras.",
+   "propuesta": "Calcular la relación descontada la población y la relación año por año, y responder \"En parte, y sobre todo por el tamaño de las provincias\"."
+  },
+  {
+   "ruta": "a-empleo-pobreza.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{id: \"a-empleo-pobreza\"",
+   "motivo": "El \"Sí\" depende de CABA y la tasa de empleo se calcula sobre toda la población. La bajada de la tarjeta ya dice que cuenta a los chicos.",
+   "propuesta": "Usar el empleo de 15 a 64 años si la EPH lo permite, o responder \"Apenas, y depende de CABA\" con una escala nueva."
+  },
+  {
+   "ruta": "a-exportaciones-dolar.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "las de productos primarios tuvieron su mayor caída en ${t.pp_caida_anio}",
+   "motivo": "La auditoría pide nombrar la sequía de 2023. El año sale de los datos: escribir la sequía pegada a un año calculado quedaría mal si otro año tuviera una caída mayor.",
+   "propuesta": "Una nota fija de los hechos de cada año (sequía de 2023, cepo, barril criollo) que se muestre solo si coincide con el año que sale de los datos."
+  },
+  {
+   "ruta": "a-nafta-dolares.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const s3 = \"Un litro de nafta cuesta más que un litro de petróleo",
+   "motivo": "Falta el contexto del precio del crudo en el país (derechos de exportación móviles, barril criollo, congelamiento): fechas de memoria de la auditoría, sin verificar.",
+   "propuesta": "Un párrafo descriptivo con esas medidas y sus normas, después de confirmar cada fecha. Y el gráfico de las veces primero."
+  },
+  {
+   "ruta": "a-turismo-dolar.html y a-dolar-inversion.html",
+   "archivo": "02_procesar.py (resumen)",
+   "fragmento": "su promedio desde ${t.desde} / su promedio desde ${d.desde_anio}",
+   "motivo": "El mismo índice del dólar real contra dos promedios distintos (desde enero de 2010 y desde 2004): dos respuestas a qué tan barato está el dólar.",
+   "propuesta": "Un solo período de referencia en todo el sitio."
+  },
+  {
+   "ruta": "a-alquiler-pobreza.html y a-viviendas-alquiler.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "34,4% en CABA (EPH) y 36,8% en CABA (censo)",
+   "motivo": "Dos cifras de hogares que alquilan para CABA en dos artículos vecinos, y dos áreas distintas llamadas capital. Los límites lo explican, pero lejos.",
+   "propuesta": "Un solo dato de alquiler por capital, o una nota fija \"Dos maneras de contar una capital\" en los dos."
+  },
+  {
+   "ruta": "a-dolar-inversion.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "id=\"a-dolar-inversion\"",
+   "motivo": "Mete cuatro historias en una página (dólar real, equipos importados, construcción y compras de dólares). El título nuevo nombra las dos que deciden la respuesta.",
+   "propuesta": "Partirlo en \"¿Se invierte más en construcción cuando construir es barato en dólares?\" y \"¿Cuántos dólares compran por año las personas y las empresas?\"."
+  },
+  {
+   "ruta": "a-exportaciones-dolar.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "Por rubro, con medio año de rezago, es de ${rTxt(rs.primarios)}",
+   "motivo": "Nueve coeficientes en un párrafo. Pasarlos a una tabla es estructura.",
+   "propuesta": "Dejar uno en el texto y el resto en una tabla chica debajo del gráfico."
+  },
+  {
+   "ruta": "articulos.html",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "_LISTA_ARTS",
+   "motivo": "Las tarjetas dicen qué datos usa cada artículo, pero no qué encontró, y no hay filtros ni bloques. La respuesta la calcula datina.js.",
+   "propuesta": "Cada tarjeta con su respuesta en una línea, filtros por los cuatro grupos de temas y dos bloques: \"El país en el tiempo\" y \"Las 24 comparadas\"."
+  },
+  {
+   "ruta": "a-*.html",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "orden = [n[0] for n in NOTAS]",
+   "motivo": "Anterior y Siguiente no siguen el orden de la lista agrupado por tema (de alquiler salta a ATN y vuelve a vivienda). Es navegación.",
+   "propuesta": "El mismo orden que la lista, agrupado por tema."
+  },
+  {
+   "ruta": "a-*.html",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "descr = f\"{html.unescape(titulo)} Compara {CRUZA(id_)}",
+   "motivo": "La descripción para buscadores y redes no dice lo que encontró cada artículo: la respuesta la calcula datina.js en el navegador.",
+   "propuesta": "Que 02 o 03 calculen la respuesta (o que la descripción use la bajada de cada artículo, dek, que 03 ya lee en _ARTS_JS)."
+  },
+  {
+   "ruta": "articulos.html",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "descr = f\"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar.\"",
+   "motivo": "La descripción de la página Artículos sale de la plantilla común de las secciones y dice \"Datos por provincia con ... la tabla para descargar\", que no describe una lista de artículos. Cambiarla toca todas las secciones.",
+   "propuesta": "Una descripción propia para articulos.html: \"Artículos que cruzan datos oficiales de las 24 jurisdicciones, de las capitales y del país, con sus fuentes y lo que no se puede concluir.\""
+  },
+  {
+   "ruta": "a-milei-empleo.html y los demás cruces",
+   "archivo": "scripts/02_procesar.py (metadatos de cruces, capitales y capitales_eph)",
+   "fragmento": "\"nombre\": \"Voto a Milei en el balotaje\", \"unidad\": \"% de los votos positivos, segunda vuelta presidencial\"",
+   "motivo": "Los nombres y las unidades de los datos (título del gráfico, botones \"Ficha: …\" y ahora el pie del gráfico) salen del resumen: \"balotaje\" y \"votos positivos\" contra el término fijo \"segunda vuelta\", \"población económicamente activa\" sin explicar y \"Aprender, matemática\". Corregirlos es reprocesar (R14).",
+   "propuesta": "En 02: \"Voto a Milei en la segunda vuelta\" con \"% de los votos a las dos fórmulas\", y \"% de quienes trabajan o buscan trabajo\" en la desocupación."
+  },
+  {
+   "ruta": "a-*.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "Ficha: ${nom.toLowerCase()}",
+   "motivo": "El botón pasa a minúscula todo el nombre (\"Ficha: voto a milei en el balotaje\"). Hoy no se ve porque el botón va en mayúsculas, pero el lector de pantalla lo recibe así.",
+   "propuesta": "Usar minusc() en lugar de toLowerCase(), como el título del gráfico."
+  },
+  {
+   "ruta": "a-cobertura-esperanza.html y a-cobertura-adolescentes.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "data-titulo=\"¿Se vive más años donde más gente tiene obra social o prepaga?\"",
+   "motivo": "El título pregunta por la obra social y el contexto aclara que se usa como aproximación a las condiciones de vida, no al acceso a la salud. Resolverlo es juntar o rehacer artículos.",
+   "propuesta": "Juntar los dos artículos de cobertura en uno sobre la falta de obra social como marca del empleo no registrado (auditoría, sección B)."
+  },
+  {
+   "ruta": "a-recursos-empleo.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{id: \"a-recursos-empleo\"",
+   "motivo": "Ingresos Brutos, el principal impuesto provincial, se cobra sobre la actividad económica: la relación es en parte contable (auditoría, P1). No se sumó el límite porque afirma algo que el sitio no muestra.",
+   "propuesta": "Sumar un límite con el peso de Ingresos Brutos en la recaudación propia de cada provincia, si el sitio lo tiene (impuestos_provinciales)."
+  }
+ ]
+}

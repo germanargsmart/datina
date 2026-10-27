@@ -274,7 +274,7 @@ def publicar(cat, plantilla, secciones, ubic):
         ubic_ev, _ = ubicar_evidencia(c["evidencia"], lineas)
         nodos.append({"id": c["id"], "tipo": "conjunto", "nombre": c["nombre"], "fuente": c["fuente"], "ruta": c["ruta"], "url": c.get("url", ""),
                       "origen": "Se descarga en la actualización mensual" if c["ruta"].startswith("datos/crudo/") else
-                      "Archivo armado a mano o una sola vez por un programa del repositorio",
+                      "Se armó a mano o una sola vez con un programa del sitio",
                       "descarga": {"fecha": r["descargado"][:10], "estado": r["estado"]} if r else None,
                       "evidencia": {"archivo": c["evidencia"]["archivo"], "linea": ubic_ev[0], "texto": ubic_ev[1]} if ubic_ev else None})
         aristas.append({"de": c["fuente"], "a": c["id"], "tipo": "publica", "evidencia": []})

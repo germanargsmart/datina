@@ -275,9 +275,9 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None)
         dl = [("Fuente", d.get("fuente") or ""), ("Cobertura", cob), ("Período", per),
               ("Actualización", d.get("frecuencia", "")), ("Tamaño", f"{fmt_num(len(filas))} {'fila' if len(filas) == 1 else 'filas'}, {tamanio(ruta.stat().st_size)}")]
         otros = [(i, tipo) for i, tipo in us[1:]]
-        uso_txt = ("" if not otros else '<p class="cat-otros">También se usa en ' +
-                   ", ".join(f'<a href="{ref(i)}">{e(info.get(i, {}).get("titulo", i))}</a>' for i, _ in otros) + ".</p>")
-        compl_txt = ('<p class="cat-otros">No se dibuja: sus cifras van en el texto de la ficha o la acompañan.</p>' if t in compl else "")
+        uso_txt = ("" if not otros else '<p class="cat-otros">También se usa en: ' +
+                   ", ".join(f'<a href="{ref(i)}">{e(info.get(i, {}).get("titulo", i))}</a>' for i, _ in otros) + "</p>")
+        compl_txt = ('<p class="cat-otros">No tiene gráfico propio: sus cifras van en el texto de la ficha o la complementan.</p>' if t in compl else "")
         filas_dic = "".join(f'<tr><th scope="row"><code>{e(c)}</code></th><td>{e(ti)}</td><td>{e(v)}</td></tr>' for c, ti, v in dic)
         unid = f'<p class="cat-otros">Unidades: {e(", ".join(unidades))}.</p>' if 0 < len(unidades) <= 8 else ""
         nota = f'<h3>Cómo se calcula</h3><p class="cat-nota">{e(d["nota"])}</p>' if d.get("nota") else ""
@@ -320,10 +320,12 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None)
     resto = sorted(temas_usados - {s for _, _, its in grupos for it in its for s in (it[1] if isinstance(it, tuple) else [it])} - {""},
                    key=lambda s: orden_sec.index(s) if s in orden_sec else len(orden_sec))
     if resto:
-        op_tema += '<optgroup label="Herramientas, Tu provincia y Laboratorio">' + "".join(
+        op_tema += '<optgroup label="Otras páginas del sitio">' + "".join(
             f'<option value="{s}">{e(tit_sec.get(s, s))}</option>' for s in resto) + "</optgroup>"
-    nom_org = lambda o: org[o]["nombre"] if not org[o].get("sigla") or org[o]["sigla"] == org[o]["nombre"] else f'{org[o]["sigla"]} ({org[o]["nombre"]})'
-    op_org = "".join(f'<option value="{o}">{e(nom_org(o))}</option>' for o in sorted(cuenta_org, key=lambda o: norm(nom_org(o))))
+    # la sigla va entre paréntesis solo si no está ya en el nombre: "Datina (selección propia)", "¿Cómo Votó?" o "Secretaría de Hacienda", no
+    # "Datina (Datina (selección propia))" ni "Hacienda (Secretaría de Hacienda)" (auditoría del 26 de octubre de 2026, R11)
+    nom_org = lambda o: org[o]["nombre"] if not org[o].get("sigla") or re.search(rf"(^|\W){re.escape(norm(org[o]['sigla']))}($|\W)", norm(org[o]["nombre"])) else f'{org[o]["sigla"]} ({org[o]["nombre"]})'
+    op_org = "".join(f'<option value="{o}">{e(nom_org(o))}</option>' for o in sorted(cuenta_org, key=lambda o: norm(nom_org(o)).lstrip("¿")))
     cobs = {re.search(r'data-cob="(\w+)"', x).group(1) for x in items}
     op_cob = "".join(f'<option value="{k}">{n}</option>' for k, n in COBERTURAS if k in cobs)
     op_anio = "".join(f'<option value="{a}">{a}</option>' for a in sorted(anios, reverse=True))
@@ -337,10 +339,10 @@ def armar(plantilla, secciones, ubic, grupos, sitio=RAIZ / "sitio", indice=None)
          + sel("cat-cob", "Cobertura", "Todas", op_cob) + sel("cat-anio", "Con datos de", "Cualquier año", op_anio) + "</div>"
          f'<div class="cat-resumen"><p class="cat-cuenta" id="cat-cuenta" aria-live="polite"><b>{len(items)}</b> tablas</p>'
          '<button type="button" class="boton chico accion" id="cat-limpiar" hidden><span class="lbl">Sacar los filtros</span></button>'
-         f'<a class="enlace" href="datos/tabla_larga.csv" download>Bajar la tabla completa (CSV, {tamanio(completa.stat().st_size) if completa.exists() else ""})</a></div>'
+         f'<a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa con todos los indicadores (CSV, {tamanio(completa.stat().st_size) if completa.exists() else ""})</a></div>'
          '<p class="cat-vacio" id="cat-vacio" role="status" hidden>Ninguna tabla coincide. Probá con otras palabras o sacá un filtro.</p>'
          f'<ol class="cat-lista" id="cat-lista">{"".join(items)}</ol>'
-         '<p class="cat-licencia">Los datos de base son de cada organismo. Al usarlos, citá la fuente que figura en cada tabla.</p></div>')
+         '<p class="cat-licencia">Para reutilizar una tabla, citá a Datina y a la fuente que figura en ella. Los datos de base son de cada organismo y se rigen por sus condiciones.</p></div>')
     return h, []
 
 

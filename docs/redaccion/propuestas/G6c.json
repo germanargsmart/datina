@@ -1,0 +1,1000 @@
+{
+ "grupo": "G6c",
+ "cambios": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Cada tabla de Datina con su fuente, su período y su cobertura, para saber qué trae antes de bajarla. Y la tabla completa, con todos los indicadores en un solo archivo. Se pueden reutilizar citando a Datina y a la fuente de cada una (<a href=\"nosotros.html#licencia\">licencia</a>).",
+   "propuesto": "Acá están las tablas de Datina, cada una con su fuente, su período, su cobertura y sus columnas, para saber qué trae antes de descargarla. También podés descargar la tabla completa, con todos los indicadores en un solo archivo. Las tablas se pueden reutilizar citando a Datina y a la fuente de cada una (<a href=\"nosotros.html#licencia\">licencia</a>).",
+   "motivo": "La introducción tenía dos frases sin verbo ('Cada tabla de Datina con...', 'Y la tabla completa...'). Ahora son oraciones completas, suman las columnas (que el catálogo muestra en el diccionario de cada tabla) y usan 'descargar', el verbo de todos los botones.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": "'<p class=\"cat-otros\">También se usa en ' +",
+   "propuesto": "'<p class=\"cat-otros\">También se usa en: ' +",
+   "motivo": "Con dos puntos la lista de fichas queda introducida y no necesita el punto final (ver el cambio siguiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": "for i, _ in otros) + \".</p>\")",
+   "propuesto": "for i, _ in otros) + \"</p>\")",
+   "motivo": "Los títulos de las fichas son preguntas: el punto final dejaba '¿Cuánto gas produce el país?.'. Va junto con el cambio anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": "No se dibuja: sus cifras van en el texto de la ficha o la acompañan.",
+   "propuesto": "No tiene gráfico propio: sus cifras van en el texto de la ficha o la complementan.",
+   "motivo": "'No se dibuja' es lenguaje del programa y 'la acompañan' no dejaba claro qué acompaña a qué.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": "<optgroup label=\"Herramientas, Tu provincia y Laboratorio\">",
+   "propuesto": "<optgroup label=\"Otras páginas del sitio\">",
+   "motivo": "El grupo del filtro Tema también reúne Departamentos y Curiosidades, que no son herramientas: el nombre nuevo describe lo que contiene sin enumerarlo mal.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": ">Bajar la tabla completa (CSV, ",
+   "propuesto": ">Descargar la tabla completa con todos los indicadores (CSV, ",
+   "motivo": "'Descargar' como en los demás botones, y el enlace dice qué trae la tabla completa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": "Los datos de base son de cada organismo. Al usarlos, citá la fuente que figura en cada tabla.",
+   "propuesto": "Para reutilizar una tabla, citá a Datina y a la fuente que figura en ella. Los datos de base son de cada organismo y se rigen por sus condiciones.",
+   "motivo": "La misma página daba dos reglas de cita distintas (auditoría, catálogo). Ahora el pie dice lo mismo que la introducción y que 'Licencia y reutilización' de Sobre nosotros.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": "    nom_org = lambda o: org[o][\"nombre\"] if not org[o].get(\"sigla\") or org[o][\"sigla\"] == org[o][\"nombre\"] else f'{org[o][\"sigla\"]} ({org[o][\"nombre\"]})'",
+   "propuesto": "    # la sigla va entre paréntesis solo si no está ya en el nombre: \"Datina (selección propia)\", \"¿Cómo Votó?\" o \"Secretaría de Hacienda\", no\n    # \"Datina (Datina (selección propia))\" ni \"Hacienda (Secretaría de Hacienda)\" (auditoría del 26 de octubre de 2026, R11)\n    nom_org = lambda o: org[o][\"nombre\"] if not org[o].get(\"sigla\") or re.search(rf\"(^|\\W){re.escape(norm(org[o]['sigla']))}($|\\W)\", norm(org[o][\"nombre\"])) else f'{org[o][\"sigla\"]} ({org[o][\"nombre\"]})'",
+   "motivo": "R11 del plan: los paréntesis dobles del filtro Organismo ('Datina (Datina (selección propia))', 'Cómo Votó (¿Cómo Votó?)', 'Wikimedia (Wikimedia (Wikipedia y Wikidata))') salían de mostrar 'sigla (nombre)' cuando la sigla ya está en el nombre. Solo cambia la condición que elige entre las dos formas que ya existían, con norm(), que ya está en el archivo. Se compara por palabra entera para que 'SE' no coincida dentro de 'Secretaría'. Cambia el orden alfabético de algunas opciones (Hacienda pasa a 'Secretaría de Hacienda').",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "original": "for o in sorted(cuenta_org, key=lambda o: norm(nom_org(o))))",
+   "propuesto": "for o in sorted(cuenta_org, key=lambda o: norm(nom_org(o)).lstrip(\"¿\")))",
+   "motivo": "Va con el cambio de nom_org: '¿Cómo Votó?' (antes 'Cómo Votó (¿Cómo Votó?)') se ordenaría después de la W por el signo de apertura. Así sigue en la C, donde estaba. No cambia ningún otro orden.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "No se pudo cargar la vista previa. Probá de nuevo.",
+   "propuesto": "No se pudo cargar la vista previa. Cerrala y volvé a abrirla para probar de nuevo.",
+   "motivo": "Dice cómo probar de nuevo: el código vuelve a pedir la tabla al abrir otra vez la vista previa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Escribí una pregunta sobre la Argentina o sobre una provincia. Un modelo de inteligencia artificial la contesta solo con las tablas de Datina y dice de qué ficha sale cada cifra, para que la puedas verificar.",
+   "propuesto": "Escribí una pregunta sobre la Argentina o sobre una provincia. Un modelo de inteligencia artificial la contesta solo con las tablas de Datina. Debajo de la respuesta aparecen las fichas que se consultaron para contestar, para que puedas verificar cada cifra.",
+   "motivo": "La página no dice 'de qué ficha sale cada cifra': muestra al pie la lista de fichas cuyas tablas leyó (Fichas consultadas), y con el motor gratis el modelo puede no usar todas. El texto nuevo describe lo que hace y parte la oración larga.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Hasta 400 caracteres. La pregunta se envía a Anthropic, la empresa del modelo, para contestarla: no escribas datos personales. Datina no la guarda.",
+   "propuesto": "Hasta 400 caracteres. No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.",
+   "motivo": "La advertencia va primero y cada idea en su oración. Es el aviso del motor de Claude: 03 lo busca literal para cambiarlo por el del motor de Cloudflare, así que va junto con el cambio de 03_construir_sitio.py que sigue.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "(\"La pregunta se envía a Anthropic, la empresa del modelo, para contestarla: no escribas datos personales. Datina no la guarda.\",",
+   "propuesto": "(\"No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.\",",
+   "motivo": "Tiene que ser idéntico al texto nuevo de la ayuda en la plantilla (03 comprueba que aparezca una sola vez y si no, frena el armado).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"La contesta un modelo que corre en Cloudflare, la empresa que publica el sitio, que no usa las preguntas para entrenar modelos: \"",
+   "propuesto": "\"No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare, \"",
+   "motivo": "Ayuda del motor gratis, primera mitad (sigue en la línea siguiente). Eran 47 palabras con cinco ideas en una oración. 'Publica' era ambiguo: Cloudflare aloja el sitio. La advertencia va primero, como en la del motor de Claude. No se nombra el modelo porque DATINA_IA_MODELO_CF lo puede cambiar sin tocar el sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"no escribas datos personales. Datina no la guarda. Las consultas son gratis y tienen un tope por día para todo el sitio.\"),",
+   "propuesto": "\"la empresa que aloja el sitio. Según su política, Cloudflare no usa las preguntas para entrenar modelos. Datina no las guarda. Las consultas son gratis y tienen un tope diario para todo el sitio.\"),",
+   "motivo": "Segunda mitad de la ayuda del motor gratis: una idea por oración. 'Según su política' es lo que documenta docs/ia/CONSULTAS.md (Privacidad). Texto visible completo: 'Hasta 400 caracteres. No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare, la empresa que aloja el sitio. Según su política, Cloudflare no usa las preguntas para entrenar modelos. Datina no las guarda. Las consultas son gratis y tienen un tope diario para todo el sitio.'",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"Las respuestas las escribe un modelo abierto de inteligencia artificial, en Cloudflare, con los datos de Datina.\")]:",
+   "propuesto": "\"Las respuestas las escribe un modelo de inteligencia artificial con los datos de Datina.\")]:",
+   "motivo": "La ayuda del campo ya dice qué modelo y dónde corre: el aviso del pie lo repetía (auditoría). Queda: 'Las respuestas las escribe un modelo de inteligencia artificial con los datos de Datina. Puede equivocarse: revisá cada cifra en su ficha antes de usarla.' El texto que 03 busca en la plantilla no cambia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.html",
+   "original": "<p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>",
+   "propuesto": "<p>Acá se ve qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación trae su evidencia: la línea del código del sitio que la confirma.</p>",
+   "motivo": "La primera oración no tenía verbo. 'La línea del programa del sitio que la muestra' no se entendía: la evidencia es la línea de código que prueba la relación.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.html",
+   "original": "Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.",
+   "propuesto": "Tocá un punto para ver de dónde sale y a qué lleva. Para moverte, arrastrá el dibujo. Para acercar o alejar, usá los botones o Ctrl y la rueda del mouse. Con el teclado, las flechas recorren los puntos, Enter elige uno, + acerca y − aleja. La vista Tabla muestra lo mismo en filas.",
+   "motivo": "Una oración por forma de uso (auditoría: 46 palabras con tres formas de uso mezcladas). 'De dónde sale y a qué lleva' es lo que muestra el panel.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.html",
+   "original": "<h2 id=\"rx-def-tit\">Qué es una relación acá</h2>",
+   "propuesto": "<h2 id=\"rx-def-tit\">Qué significa cada relación</h2>",
+   "motivo": "El título anuncia lo que sigue: la definición de cada uno de los tres tipos de relación.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.html",
+   "original": "El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.",
+   "propuesto": "El organismo publica el archivo que baja Datina. La evidencia es la dirección de descarga o el programa que arma el archivo.",
+   "motivo": "'Sale de' no tenía sujeto claro. Ahora es paralela a la definición de 'Alimenta' ('La evidencia es la línea que lo lee').",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.html",
+   "original": "Qué no muestra: si un indicador influye en otro o si dos indicadores van juntos. Para eso están <a class=\"enlace\" href=\"cruces.html\">Cruces</a> y los <a class=\"enlace\" href=\"articulos.html\">artículos</a>. Dos fichas del mismo tema no quedan unidas por eso. Las fichas sobre suicidios no están en el explorador.",
+   "propuesto": "Qué no muestra: si un indicador influye en otro ni si dos indicadores van juntos. Para ver si van juntos están <a class=\"enlace\" href=\"cruces.html\">Cruces</a> y los <a class=\"enlace\" href=\"articulos.html\">artículos</a>. Que dos fichas sean del mismo tema no las une en el explorador. Las fichas sobre suicidio no están en el explorador.",
+   "motivo": "'Para eso están Cruces y los artículos' sugería que esas páginas muestran si un indicador influye en otro: muestran si van juntos, y aclaran que eso no prueba una causa. La tercera oración se entendía al revés.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "original": "\"Algunos datos del explorador vinieron incompletos y no se pudo dibujar todo. La tabla puede seguir sirviendo.\"",
+   "propuesto": "\"Algunos datos del explorador llegaron incompletos y no se pudo dibujar todo. La vista Tabla puede funcionar igual.\"",
+   "motivo": "Nombra la vista que se puede probar ('Tabla', como el botón) en lugar de 'la tabla puede seguir sirviendo'. La prueba de fallas solo busca el aviso sin D3, que no cambia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "original": "  const lista_ = v => Array.isArray(v) ? v : [];",
+   "propuesto": "  const lista_ = v => Array.isArray(v) ? v : [];\n  // la sigla va entre paréntesis solo si no está ya en el nombre (\"Datina (selección propia)\", \"¿Cómo Votó?\", \"Secretaría de Hacienda\"):\n  // antes salían \"Datina (selección propia) (Datina)\" o \"Secretaría de Hacienda (Hacienda)\" (auditoría del 26 de octubre de 2026, R11)\n  const conSigla = n => !!n.sigla && !new RegExp(`(^|[^a-z0-9])${sinTildes(n.sigla).replace(/[^a-z0-9 ]/g, \"\\\\$&\")}($|[^a-z0-9])`).test(sinTildes(n.nombre));",
+   "motivo": "R11 del plan, en el Explorador: la condición que elige entre 'nombre' y 'nombre (sigla)' en el filtro Organismo y en los enlaces del panel. Va con los dos cambios siguientes. Solo usa sinTildes(), definida antes en el archivo. Se compara por palabra entera ('SE' no coincide dentro de 'Secretaría').",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "original": "n.tipo === \"fuente\" && n.sigla && n.sigla !== n.nombre ?",
+   "propuesto": "n.tipo === \"fuente\" && conSigla(n) ?",
+   "motivo": "Enlaces a un organismo en el panel de detalle: la misma regla (ver el cambio anterior).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "original": "org.add(new Option(n.sigla && n.sigla !== n.nombre ?",
+   "propuesto": "org.add(new Option(conSigla(n) ?",
+   "motivo": "Opciones del filtro Organismo: '¿Cómo Votó?' en lugar de '¿Cómo Votó? (Cómo Votó)', 'Datina (selección propia)' en lugar de 'Datina (selección propia) (Datina)', 'Wikimedia (Wikipedia y Wikidata)' sin '(Wikimedia)' al final.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "original": "fila(\"Sigla\", esc(n.sigla))",
+   "propuesto": "fila(\"Sigla o nombre corto\", esc(n.sigla))",
+   "motivo": "El campo guarda siglas (INDEC) y también nombres cortos (Hacienda, Educación, Senado, Banco Mundial): 'Sigla: Hacienda' era incorrecto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "original": "boton(a.de) + (a.tipo === \"calcula\" ? \" (se calcula a partir de esta)\" : \"\")",
+   "propuesto": "boton(a.de) + (a.tipo === \"calcula\" ? \" (esta ficha se calcula a partir de ella)\" : \"\")",
+   "motivo": "En la columna 'Viene de', la nota decía lo contrario de la relación: es la ficha de la fila la que se calcula a partir de la nombrada (panel: 'Se calcula a partir de').",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "original": "boton(a.a) + (a.tipo === \"calcula\" ? \" (se calcula a partir de esta)\" : \"\")",
+   "propuesto": "boton(a.a) + (a.tipo === \"calcula\" ? \" (se calcula a partir de esta ficha)\" : \"\")",
+   "motivo": "En la columna 'Lleva a', 'esta' queda claro: la ficha nombrada se calcula a partir de la de la fila. Es la contracara del cambio anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/relaciones.py",
+   "original": "\"Archivo armado a mano o una sola vez por un programa del repositorio\"",
+   "propuesto": "\"Se armó a mano o una sola vez con un programa del sitio\"",
+   "motivo": "Lo ve la persona en 'Cómo llega'. 'Repositorio' es jerga de quien programa, y la otra opción ('Se descarga en la actualización mensual') es una oración con verbo: ahora las dos responden igual a 'Cómo llega'.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "Subsecretaría de Programación Macroeconómica (API de Series de Tiempo)",
+   "propuesto": "Subsecretaría de Programación Macroeconómica",
+   "motivo": "R11: el nombre del organismo no lleva el canal por el que se baja (los paréntesis dobles 'SSPM (... (API de Series de Tiempo))'). El nombre corto ya es un alias de org:sspm y es parte del nombre viejo: todo pie que nombraba el viejo nombra el nuevo, así que el validador de relaciones.py sigue pasando (además, f-empleo nombra la Subsecretaría y f-desempleo valida por sus otros organismos). No hace falta agregar el viejo como alias.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "ACNUR: refugiadas y solicitantes de asilo en la Argentina, por país de origen",
+   "propuesto": "ACNUR: personas refugiadas y solicitantes de asilo en la Argentina, por país de origen",
+   "motivo": "Faltaba el sustantivo ('refugiadas' de qué), como en los otros tres archivos del ACNUR.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "Selección de leyes clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
+   "propuesto": "Selección de leyes y proyectos clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
+   "motivo": "Término fijo de la reescritura: la selección incluye proyectos que no fueron ley.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "Jueces, fiscales y defensores de cada provincia y de la Ciudad por año, desde 2011",
+   "propuesto": "Jueces, fiscales y defensores de cada provincia y de CABA por año, desde 2011",
+   "motivo": "Término fijo: CABA, no 'la Ciudad'.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "Cuántos miembros fija la ley para el máximo tribunal de cada provincia y de la Ciudad",
+   "propuesto": "Cuántos miembros fija la ley para el máximo tribunal de cada provincia y de CABA",
+   "motivo": "Término fijo: CABA, no 'la Ciudad'.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "Proyecciones de población por provincia, sexo y edad 2022-2040",
+   "propuesto": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
+   "motivo": "Los períodos del sitio se escriben 'de X a Y', como en la fuente de las fichas de población ('proyecciones de población por provincia 2022 a 2040').",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "Tablas de mortalidad por jurisdicción 2020-2022",
+   "propuesto": "Tablas de mortalidad por jurisdicción, 2020 a 2022",
+   "motivo": "Mismo criterio para los períodos.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "original": "Demanda eléctrica total y residencial y EMAE (series de tiempo)",
+   "propuesto": "Demanda eléctrica total y residencial y Estimador Mensual de Actividad Económica (EMAE), en series de tiempo",
+   "motivo": "La sigla EMAE iba sin explicar, como pide el criterio de siglas (otro archivo ya lo nombra completo: 'Estimador Mensual de Actividad Económica, nivel general').",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/observablehq.config.js",
+   "original": "title: \"Pobreza en la Argentina: consultas\",",
+   "propuesto": "title: \"Consultor de pobreza | Datina\",",
+   "motivo": "Título de la pestaña: el nombre con que el sitio lo enlaza (Consultor de pobreza, NOMBRE_MENU de 03) y '| Datina', como las demás páginas (auditoría). El diccionario queda 'Diccionario de datos | Consultor de pobreza | Datina'. Va con el título de index.md, el h1 y los de Open Graph.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "title: \"Pobreza en la Argentina: consultas\"",
+   "propuesto": "title: \"Consultor de pobreza | Datina\"",
+   "motivo": "Igual al título del sitio en observablehq.config.js: Framework no lo repite y la pestaña dice 'Consultor de pobreza | Datina'.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "# Pobreza en la Argentina: consultas",
+   "propuesto": "# ¿Cuánta pobreza hay en cada aglomerado, partido y comuna?",
+   "motivo": "Regla del autor: el título de cada página es una pregunta concreta que los datos contestan. Es lo que dice el botón que lleva acá desde Pobreza y hogares ('Consultar pobreza por aglomerado, partido y comuna').",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/observablehq.config.js",
+   "original": "content=\"Pobreza en la Argentina: consultas\">",
+   "propuesto": "content=\"Consultor de pobreza: ¿Cuánta pobreza hay en cada aglomerado, partido y comuna?\">",
+   "motivo": "Open Graph y Twitter, con la forma de las demás páginas de Datina ('Nombre: pregunta').",
+   "veces": 2
+  },
+  {
+   "archivo": "pobreza/observablehq.config.js",
+   "original": "Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.",
+   "propuesto": "Pobreza e indigencia en la Argentina para consultar, filtrar y descargar: los 31 aglomerados urbanos de la EPH del INDEC y estimaciones por partido del Gran Buenos Aires y comuna de CABA.",
+   "motivo": "Descripción para buscadores y para compartir (las tres etiquetas). Dice qué se puede hacer, CABA en lugar de 'la Ciudad', y sin el semestre escrito a mano, que quedaba viejo con cada actualización (no está en la lista del paso 2 de pobreza/README.md).",
+   "veces": 3
+  },
+  {
+   "archivo": "pobreza/observablehq.config.js",
+   "original": "  toc: false,",
+   "propuesto": "  toc: {show: false, label: \"En esta página\"},",
+   "motivo": "El índice del diccionario decía 'Contents', en inglés: es la etiqueta por omisión de Framework. Con la etiqueta en la configuración, el 'toc: true' del diccionario la toma (mergeToc en framework/dist/render.js) y no hace falta tocar el archivo generado. El resto sigue sin índice.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/observablehq.config.js",
+   "original": "Elaboración propia sobre INDEC: Encuesta Permanente de Hogares y Censo 2022.",
+   "propuesto": "Elaboración de Datina con datos del INDEC: Encuesta Permanente de Hogares y Censo 2022.",
+   "motivo": "'Elaboración propia sobre INDEC' es una fórmula comprimida: dice quién elabora y con qué datos.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "<p class=\"bajada\">Los datos del tablero de pobreza e indigencia, abiertos para consultar, filtrar y descargar. En el primer semestre de 2026, el ${num1(ultimo.pob_per)}% de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${num1(ultimo.ind_per)}% bajo la línea de indigencia.</p>",
+   "propuesto": "<p class=\"bajada\">Acá podés consultar, filtrar y descargar los datos de pobreza e indigencia de la Encuesta Permanente de Hogares (EPH) del INDEC y las estimaciones por partido del Gran Buenos Aires y comuna de CABA. En el primer semestre de 2026, el ${num1(ultimo.pob_per)}% de las personas que viven en los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de pobreza y el ${num1(ultimo.ind_per)}%, bajo la de indigencia.</p>",
+   "motivo": "La primera oración no tenía verbo y hablaba de un 'tablero' que la página no explica. Ahora dice qué datos hay y qué se puede hacer, y presenta la sigla EPH. Las cifras siguen saliendo de los datos.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "**De dónde salen los datos.** La serie nacional, los grupos de edad y los 31 aglomerados vienen de la Encuesta Permanente de Hogares (EPH) del INDEC, informe técnico de pobreza e indigencia del 1S 2026 (datos provisorios) y su anexo de coeficientes de variación. La serie arranca en el 2S 2016. La EPH cubre solo población urbana de 31 aglomerados (unos 30,1 millones de personas) y no mide provincias.",
+   "propuesto": "**De dónde salen los datos.** La serie nacional, los grupos de edad y los 31 aglomerados vienen de la EPH del INDEC: del informe técnico de pobreza e indigencia del primer semestre de 2026, con datos provisorios, y de su anexo de coeficientes de variación. La serie empieza en el segundo semestre de 2016. La EPH cubre solo la población urbana de 31 aglomerados, unos 30,1 millones de personas, y no da datos por provincia.",
+   "motivo": "Fechas en palabras ('1S 2026' y '2S 2016' eran abreviaturas sin explicar). La sigla EPH ya se presentó en la bajada. 'No mide provincias' pasa a 'no da datos por provincia'.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "Las cifras por partido del Gran Buenos Aires, comuna de la Ciudad y fracción censal no son mediciones oficiales. Salen de un modelo de estimación en áreas pequeñas: se estima en los microdatos de la EPH del 1T 2026, se aplica a las características de cada radio del Censo 2022 y se calibra para reproducir el total oficial del 1S 2026 (36,9% de personas pobres en los Partidos del GBA y 11,1% en la Ciudad). Su población de referencia es la censal de 2022.",
+   "propuesto": "Las cifras por partido del Gran Buenos Aires, comuna de CABA y fracción censal no son mediciones oficiales. Salen de un modelo de estimación en áreas pequeñas. El modelo se estima con los microdatos de la EPH del primer trimestre de 2026, se aplica a las características de cada radio del Censo 2022 y se calibra para que coincida con el total oficial del primer semestre de 2026: 36,9% de personas pobres en los Partidos del GBA y 11,1% en CABA. La población de referencia es la del Censo 2022.",
+   "motivo": "Fechas en palabras ('1T 2026', '1S 2026'), CABA en lugar de 'la Ciudad' y la explicación del modelo en su propia oración. 'Partidos del GBA' queda: es el nombre del aglomerado del INDEC. Las cifras de calibración siguen escritas a mano, como antes (ver pendientes).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "Cada cifra de la EPH es una estimación por muestra. El coeficiente de variación (CV) mide su error relativo: el INDEC recomienda leer con cuidado los valores con CV entre 16% y 25% y considera no confiables los que superan 25%. Los intervalos de confianza son al 90% y solo existen para el último semestre (aglomerados) y para partidos y comunas (intervalos bootstrap). Las fracciones censales son una capa exploratoria sin intervalos.",
+   "propuesto": "Cada cifra de la EPH es una estimación hecha con una muestra. El coeficiente de variación (CV) mide su error relativo: el INDEC recomienda leer con cuidado los valores con un CV de entre 16% y 25% y considera no confiables los que superan el 25%. Los intervalos de confianza, al 90%, solo están para el último semestre de los aglomerados y para los partidos y las comunas, donde se calcularon por remuestreo (bootstrap). Las fracciones censales son una capa exploratoria, sin intervalos.",
+   "motivo": "'Bootstrap' iba sin explicar y los paréntesis cortaban la oración. El contenido es el mismo.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "Elegí una tabla y los filtros. Abajo está la consulta SQL que da el mismo resultado: podés copiarla o llevarla a la caja de SQL libre para modificarla.",
+   "propuesto": "Elegí una tabla y los filtros. Debajo del resultado está la consulta SQL que lo produce: podés copiarla o llevarla al editor de SQL libre para cambiarla. En las tablas y en los gráficos, 1S y 2S quieren decir primer y segundo semestre.",
+   "motivo": "Un solo nombre para el editor ('caja de SQL libre', 'editor de SQL' y 'SQL libre' convivían). Explica las abreviaturas 1S y 2S, que siguen en los valores de los datos, en las tablas y en el eje de los gráficos.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "[\"Serie nacional, 31 aglomerados (2S 2016 a 1S 2026)\", \"serie_nacional\"],",
+   "propuesto": "[\"Serie nacional de los 31 aglomerados, por semestre desde 2016\", \"serie_nacional\"],",
+   "motivo": "Opción del selector Tabla: sin la abreviatura del semestre y sin el último período escrito a mano, que queda viejo con cada actualización (el título del gráfico dice el período).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "[\"Aglomerados y regiones, 1S 2026 con CV e intervalos\", \"aglomerados\"],",
+   "propuesto": "[\"Aglomerados y regiones, último semestre, con CV e intervalos\", \"aglomerados\"],",
+   "motivo": "Opción del selector Tabla: misma razón. La tabla trae solo el último semestre publicado.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "[\"Partidos del GBA y comunas de la Ciudad, 1S 2026 (estimación)\", \"gba_partidos_comunas\"],",
+   "propuesto": "[\"Partidos del GBA y comunas de CABA, último semestre (estimación)\", \"gba_partidos_comunas\"],",
+   "motivo": "Opción del selector Tabla: CABA y sin el semestre abreviado.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "[\"Fracciones censales del GBA y la Ciudad, 1S 2026 (exploratorio)\", \"gba_fracciones\"]",
+   "propuesto": "[\"Fracciones censales del GBA y CABA, último semestre (exploratoria)\", \"gba_fracciones\"]",
+   "motivo": "Opción del selector Tabla: CABA, sin el semestre abreviado y 'exploratoria' concordando con 'estimación' (como dice la página: 'capa exploratoria').",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "[\"Ciudad y conurbano\", \"todo\"],",
+   "propuesto": "[\"CABA y partidos del GBA\", \"todo\"],",
+   "motivo": "Opción del selector Zona: los mismos nombres que las otras dos opciones ('Solo partidos del GBA', 'Solo comunas de CABA'). El valor no cambia.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "[\"Solo comunas de la Ciudad\", \"j:CABA\"],",
+   "propuesto": "[\"Solo comunas de CABA\", \"j:CABA\"],",
+   "motivo": "Término fijo: CABA. El valor no cambia.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "const num0 = (v) => v == null ? \"sin dato\" : Number(v).toLocaleString(\"es-AR\", {maximumFractionDigits: 0});",
+   "propuesto": "const num0 = (v) => v == null ? \"sin dato\" : Number(v).toLocaleString(\"es-AR\", {maximumFractionDigits: 0});\n// el semestre en palabras para los textos y el selector (\"1S 2026\" pasa a \"Primer semestre de 2026\"): los datos, las tablas y la\n// consulta SQL lo conservan como viene\nconst semestreLargo = (p) => String(p).replace(/^([12])S (\\d{4})$/, (_, s, a) => `${s === \"1\" ? \"Primer\" : \"Segundo\"} semestre de ${a}`);",
+   "motivo": "Pedido del paquete: el consultor mostraba '1S 2026' en el selector Semestre y en el título del gráfico. Es solo una forma de escribir un valor que ya está; no cambia ningún dato. Va en el primer bloque, que también lee scripts/prueba_guiada.mjs: es JavaScript común y no choca con otro nombre. La usan los dos cambios siguientes.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "{label: \"Semestre\", width: 460, value: tabla === \"aglomerados_serie\" ? \"1S 2026\" : \"Todos los semestres\"}",
+   "propuesto": "{label: \"Semestre\", format: semestreLargo, width: 460, value: tabla === \"aglomerados_serie\" ? \"1S 2026\" : \"Todos los semestres\"}",
+   "motivo": "El selector Semestre muestra 'Primer semestre de 2026' en lugar de '1S 2026'. Con 'format', Inputs.select cambia solo lo que se ve: el valor elegido sigue siendo '1S 2026' y 'Todos los semestres' queda igual.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "const per = conf.periodo ? (guiada.unaFecha ? periodo : \"2S 2016 a 1S 2026\") : \"1S 2026\";",
+   "propuesto": "const per = conf.periodo ? (guiada.unaFecha ? semestreLargo(periodo) : \"Segundo semestre de 2016 a primer semestre de 2026\") : \"Primer semestre de 2026\";",
+   "motivo": "El título del gráfico con el período en palabras. Va al comienzo de una oración ('... de los 31 aglomerados urbanos. Primer semestre de 2026.'), por eso la mayúscula.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "gba_partidos_comunas: `sobre la población censal 2022 de cada partido o comuna (estimación)`,",
+   "propuesto": "gba_partidos_comunas: `sobre la población del Censo 2022 de cada partido o comuna (estimación)`,",
+   "motivo": "'Población censal 2022' pasa a 'población del Censo 2022', como en el resto de la página.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "gba_fracciones: `sobre la población censal 2022 de cada fracción (estimación exploratoria)`",
+   "propuesto": "gba_fracciones: `sobre la población del Censo 2022 de cada fracción (estimación exploratoria)`",
+   "motivo": "Mismo criterio.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "\"Fuente: estimación en áreas pequeñas sobre INDEC, EPH 1T 2026 y Censo 2022, calibrada al 1S 2026.\"",
+   "propuesto": "\"Fuente: estimación en áreas pequeñas con datos del INDEC (EPH del primer trimestre de 2026 y Censo 2022), calibrada al primer semestre de 2026.\"",
+   "motivo": "Fechas en palabras y la frase conectada ('sobre INDEC, EPH 1T 2026').",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "\"Fuente: INDEC, EPH.\"",
+   "propuesto": "\"Fuente: INDEC, Encuesta Permanente de Hogares.\"",
+   "motivo": "Pie del gráfico: la fuente completa, como en las fichas.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "notas.push(\"En amarillo, estimaciones con CV mayor a 16%: leer con cuidado.\");",
+   "propuesto": "notas.push(\"En amarillo, las estimaciones con un CV mayor a 16%, que hay que leer con cuidado.\");",
+   "motivo": "Una oración completa en lugar de una nota telegráfica.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "notas.push(`Se muestran las ${tope} filas con mayor valor de un total de ${filas.length.toLocaleString(\"es-AR\")}. La tabla tiene todas.`);",
+   "propuesto": "notas.push(`El gráfico muestra las ${tope} filas con el valor más alto, de un total de ${filas.length.toLocaleString(\"es-AR\")}. La tabla tiene todas.`);",
+   "motivo": "Dice qué es lo que muestra solo una parte: el gráfico, no la tabla.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "display(Inputs.table(filasGuiada, {locale: \"es-AR\", format: formatos(filasGuiada), rows: 12, maxWidth: 1100}));",
+   "propuesto": "// encabezados en castellano para leer la tabla: el CSV y la consulta SQL conservan los nombres de las columnas\nconst encabezadosGuiada = {\n  periodo: \"Período\", anio: \"Año\", semestre: \"Semestre (1 o 2)\", indicador: \"Indicador\", unidad: tabla.startsWith(\"gba\") ? \"Partido o comuna\" : \"Unidad\",\n  valor_pct: `${indicador === \"pobreza\" ? \"Pobreza\" : \"Indigencia\"} (% de ${unidad === \"hogares\" ? \"hogares\" : \"personas\"})`,\n  li_90: \"Mínimo (intervalo al 90%)\", ls_90: \"Máximo (intervalo al 90%)\", cv: \"Error relativo (CV, %)\",\n  cantidad_miles: `${unidad === \"hogares\" ? \"Hogares\" : \"Personas\"} ${indicador === \"pobreza\" ? \"pobres\" : \"indigentes\"} (miles)`,\n  nombre: \"Aglomerado, región o total\", aglomerado: \"Aglomerado, región o total\", tipo: \"Tipo\", region: \"Región\", grupo_edad: \"Grupo de edad\",\n  jurisdiccion: \"Jurisdicción\", zona: \"Zona\", fraccion: \"Fracción censal\", poblacion_censo_2022: \"Población (Censo 2022)\",\n  personas_pobres: \"Personas pobres (estimación)\", personas_indigentes: \"Personas indigentes (estimación)\"\n};\ndisplay(Inputs.table(filasGuiada, {locale: \"es-AR\", format: formatos(filasGuiada), header: encabezadosGuiada, rows: 12, maxWidth: 1100}));",
+   "motivo": "Pedido del paquete y de la auditoría: la tabla de la consulta guiada mostraba los nombres internos de las columnas ('valor_pct li_90 ls_90 cv cantidad_miles'). La opción 'header' de Inputs.table cambia solo el encabezado que se ve (la versión de la caché de Framework la tiene): las claves de las filas no cambian, así que formatos(), el CSV y la consulta SQL siguen iguales, y scripts/prueba_guiada.mjs no lee este bloque. Cada encabezado dice qué se cuenta y sobre qué: con 'Hogares', '% de hogares' y 'Hogares pobres (miles)'. Al pasar el mouse sigue viéndose el nombre de la columna.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "La versión para Excel usa coma decimal.",
+   "propuesto": "La versión para Excel separa las columnas con punto y coma y usa coma decimal.",
+   "motivo": "Dice la otra diferencia de esa versión (csv(): el separador es punto y coma), que explica por qué Excel la abre bien. Se nombra con palabras, sin el signo.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "Llevar esta consulta a la caja de SQL libre",
+   "propuesto": "Llevar esta consulta al editor de SQL libre",
+   "motivo": "Un solo nombre para el editor (ver la introducción de la consulta guiada).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "La consulta corrió bien pero no devolvió filas.",
+   "propuesto": "La consulta funcionó, pero no devolvió ninguna fila.",
+   "motivo": "Coma antes de 'pero' y un verbo más común que 'corrió bien'.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "que: \"Pobreza e indigencia en personas y hogares, total 31 aglomerados, por semestre desde 2S 2016\"",
+   "propuesto": "que: \"Pobreza e indigencia en personas y hogares, total de los 31 aglomerados, por semestre desde el segundo semestre de 2016\"",
+   "motivo": "Tabla de descargas: fechas en palabras y la frase completa ('total de los 31 aglomerados').",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "que: \"Pobreza e indigencia por grupo de edad, total 31 aglomerados, por semestre\"",
+   "propuesto": "que: \"Pobreza e indigencia por grupo de edad, total de los 31 aglomerados, por semestre\"",
+   "motivo": "Misma corrección.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "que: \"Aglomerados, regiones y totales en el 1S 2026, con CV, intervalos al 90% y cantidades\"",
+   "propuesto": "que: \"Aglomerados, regiones y totales en el primer semestre de 2026, con CV, intervalos de confianza al 90% y cantidades\"",
+   "motivo": "Fechas en palabras y qué intervalos son.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "que: \"Estimación 1S 2026 por partido del GBA y comuna de la Ciudad, con intervalos y datos censales de contexto\"",
+   "propuesto": "que: \"Estimación del primer semestre de 2026 por partido del GBA y comuna de CABA, con intervalos y datos del Censo 2022 como contexto\"",
+   "motivo": "Fechas en palabras, CABA y de dónde salen los datos de contexto.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "original": "que: \"Estimación exploratoria 1S 2026 por fracción censal, sin intervalos\"",
+   "propuesto": "que: \"Estimación exploratoria del primer semestre de 2026 por fracción censal, sin intervalos\"",
+   "motivo": "Fechas en palabras.",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Este archivo se genera solo con `python scripts/exportar_parquet.py`. Si lo editás a mano, el próximo export lo pisa. Todas las tablas son Parquet con compresión zstd y se pueden leer con DuckDB, R, Python, QGIS o Excel con un complemento. Los porcentajes están en escala de 0 a 100.",
+   "propuesto": "Las seis tablas del consultor de pobreza, columna por columna. Todas están en formato Parquet, comprimidas con zstd, y se pueden leer con DuckDB, R, Python, QGIS o Excel con un complemento. Los porcentajes van de 0 a 100. <!-- Lo genera scripts/exportar_parquet.py: si se edita a mano, el próximo export lo pisa. -->",
+   "motivo": "La primera oración que lee el público era una instrucción para quien mantiene el sitio. Pasa a un comentario HTML, que no se ve. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "        \"Este archivo se genera solo con `python scripts/exportar_parquet.py`. Si lo editás a mano, el próximo \"\n        \"export lo pisa. Todas las tablas son Parquet con compresión zstd y se pueden leer con DuckDB, R, Python, \"\n        \"QGIS o Excel con un complemento. Los porcentajes están en escala de 0 a 100.\",",
+   "propuesto": "        \"Las seis tablas del consultor de pobreza, columna por columna. Todas están en formato Parquet, comprimidas \"\n        \"con zstd, y se pueden leer con DuckDB, R, Python, QGIS o Excel con un complemento. Los porcentajes van de \"\n        \"0 a 100. <!-- Lo genera scripts/exportar_parquet.py: si se edita a mano, el próximo export lo pisa. -->\",",
+   "motivo": "El mismo cambio que en diccionario.md (la introducción para el público), en el programa que lo genera. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Para medir la precisión, el INDEC recomienda leer con cuidado los valores con coeficiente de variación entre",
+   "propuesto": "Cómo leer la precisión: el INDEC recomienda leer con cuidado los valores con un coeficiente de variación de entre",
+   "motivo": "'Para medir la precisión, el INDEC recomienda leer...' no se seguía. Usa el mismo rótulo que el recuadro de la página de consultas. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "\"Para medir la precisión, el INDEC recomienda leer con cuidado los valores con coeficiente de variación \"",
+   "propuesto": "\"Cómo leer la precisión: el INDEC recomienda leer con cuidado los valores con un coeficiente de variación de \"",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "[Volver a la página de consultas](./)",
+   "propuesto": "[Volver al consultor de pobreza](./)",
+   "motivo": "El enlace nombra la página con el nombre que le da el sitio. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "\"[Volver a la página de consultas](./)\",",
+   "propuesto": "\"[Volver al consultor de pobreza](./)\",",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "desde el 2S 2016 hasta el 1S 2026",
+   "propuesto": "desde el segundo semestre de 2016 hasta el primero de 2026",
+   "motivo": "Fechas en palabras. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "desde el 2S 2016 hasta el 1S 2026",
+   "propuesto": "desde el segundo semestre de 2016 hasta el primero de 2026",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Foto del 1S 2026 para el total de 31 aglomerados",
+   "propuesto": "Datos del primer semestre de 2026 para el total de 31 aglomerados",
+   "motivo": "Fechas en palabras, y 'datos' en lugar de 'foto'. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "\"Foto del 1S 2026 para el total de 31 aglomerados",
+   "propuesto": "\"Datos del primer semestre de 2026 para el total de 31 aglomerados",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "abierto en Ciudad y Partidos del GBA",
+   "propuesto": "dividido en CABA y Partidos del GBA",
+   "motivo": "Término fijo: CABA. 'Abierto en' era jerga de tablas. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "abierto en Ciudad y Partidos del GBA",
+   "propuesto": "dividido en CABA y Partidos del GBA",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "informe técnico del 1S 2026 y anexo de CV",
+   "propuesto": "informe técnico del primer semestre de 2026 y anexo de CV",
+   "motivo": "Fechas en palabras. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "informe técnico del 1S 2026 y anexo de CV",
+   "propuesto": "informe técnico del primer semestre de 2026 y anexo de CV",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "2S 2019 y Ushuaia - Río Grande en el 2S 2020",
+   "propuesto": "segundo semestre de 2019 y Ushuaia - Río Grande en el segundo semestre de 2020",
+   "motivo": "Fechas en palabras. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "2S 2019 y Ushuaia - Río Grande en el 2S 2020",
+   "propuesto": "segundo semestre de 2019 y Ushuaia - Río Grande en el segundo semestre de 2020",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Partidos del GBA y comunas de la Ciudad (estimación en áreas pequeñas)",
+   "propuesto": "Partidos del GBA y comunas de CABA (estimación en áreas pequeñas)",
+   "motivo": "Término fijo: CABA. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "Partidos del GBA y comunas de la Ciudad (estimación en áreas pequeñas)",
+   "propuesto": "Partidos del GBA y comunas de CABA (estimación en áreas pequeñas)",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "15 comunas de la Ciudad para el 1S 2026",
+   "propuesto": "15 comunas de CABA para el primer semestre de 2026",
+   "motivo": "CABA y fechas en palabras. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "15 comunas de la Ciudad para el 1S 2026",
+   "propuesto": "15 comunas de CABA para el primer semestre de 2026",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "con la EPH del 1T 2026",
+   "propuesto": "con la EPH del primer trimestre de 2026",
+   "motivo": "Fechas en palabras. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "con la EPH del 1T 2026",
+   "propuesto": "con la EPH del primer trimestre de 2026",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "y 11,1% en la Ciudad). Intervalos bootstrap al 90%.",
+   "propuesto": "y 11,1% en CABA). Intervalos de confianza al 90%, calculados por remuestreo (bootstrap).",
+   "motivo": "CABA, y 'bootstrap' explicado como en la página de consultas. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "y 11,1% en la Ciudad). Intervalos bootstrap al 90%. ",
+   "propuesto": "y 11,1% en CABA). Intervalos de confianza al 90%, calculados por remuestreo (bootstrap). ",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Población de referencia: la censal de 2022.",
+   "propuesto": "Población de referencia: la del Censo 2022.",
+   "motivo": "Como en la página de consultas y en la tabla de las fracciones. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "\"Población de referencia: la censal de 2022.\"",
+   "propuesto": "\"Población de referencia: la del Censo 2022.\"",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Fracciones censales del GBA y la Ciudad",
+   "propuesto": "Fracciones censales del GBA y CABA",
+   "motivo": "Término fijo: CABA. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "\"titulo\": \"Fracciones censales del GBA y la Ciudad\",",
+   "propuesto": "\"titulo\": \"Fracciones censales del GBA y CABA\",",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Período de referencia 1S 2026, población censal 2022.",
+   "propuesto": "Período de referencia: primer semestre de 2026. Población de referencia: la del Censo 2022.",
+   "motivo": "Fechas en palabras y dos datos en dos oraciones. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "Período de referencia 1S 2026, población censal 2022.",
+   "propuesto": "Período de referencia: primer semestre de 2026. Población de referencia: la del Censo 2022.",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "Partido del GBA o comuna de la Ciudad",
+   "propuesto": "Partido del GBA o comuna de CABA",
+   "motivo": "Término fijo: CABA (columna unidad de las dos tablas del GBA). diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 2
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "Partido del GBA o comuna de la Ciudad",
+   "propuesto": "Partido del GBA o comuna de CABA",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 2
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "original": "CABA (comunas de la Ciudad) o GBA (partidos del conurbano)",
+   "propuesto": "CABA (comunas) o GBA (partidos del conurbano)",
+   "motivo": "'CABA (comunas de la Ciudad)' repetía lo mismo con dos nombres. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "pobreza/scripts/exportar_parquet.py",
+   "original": "CABA (comunas de la Ciudad) o GBA (partidos del conurbano)",
+   "propuesto": "CABA (comunas) o GBA (partidos del conurbano)",
+   "motivo": "El mismo cambio que en diccionario.md. diccionario.md lo genera pobreza/scripts/exportar_parquet.py: el mismo cambio va en los dos archivos para que el próximo export no lo pise (si no se quiere tocar el programa, aplicar solo el de diccionario.md y anotarlo como pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "README.md",
+   "original": "Números de las 24 Argentinas.",
+   "propuesto": "Las 24 Argentinas en números.",
+   "motivo": "El lema del sitio, igual que en la portada, el pie y el título de la pestaña.",
+   "veces": 1
+  },
+  {
+   "archivo": "README.md",
+   "original": "Estadísticas públicas de la Argentina con contexto, fuente y tabla descargable.",
+   "propuesto": "Datina reúne estadísticas públicas de la Argentina y las muestra jurisdicción por jurisdicción: las 23 provincias y CABA, una al lado de la otra, con la misma unidad y el mismo período. Cada cifra dice qué mide, de qué período es y de dónde sale, y trae su tabla para descargar. El sitio está en https://datina.pages.dev. Los contenidos tienen licencia Creative Commons Atribución 4.0 (`LICENCIA-CONTENIDOS.md`) y el código, licencia MIT (`LICENSE`).",
+   "motivo": "La presentación era una frase sin verbo. Ahora dice qué hace Datina con las mismas palabras de Sobre nosotros, dónde está el sitio (la dirección de datos/manual/sitio.json) y las licencias que ya están en el repositorio.",
+   "veces": 1
+  },
+  {
+   "archivo": "README.md",
+   "original": "Secretaría de Energía, INDEC, RENAPER, SNIC (Ministerio de Seguridad), SIPA (Subsecretaría de Programación Macroeconómica), DEIS (Ministerio de Salud), SUBE (Ministerio de Transporte), Ministerio de Educación (Aprender y Relevamiento Anual) y OCDE (PISA, vía Our World in Data). Comparación con la OCDE: Indicadores del Desarrollo Mundial del Banco Mundial. Datos provinciales nuevos: Censo 2022 (INDEC, resumen hecho una sola vez con `scripts/censo_2022.py`), tablas de mortalidad del INDEC, ENACOM, Origen Provincial de las Exportaciones y población extranjera del RENAPER. Registro de cada descarga en `datos/crudo/_registro.csv`.",
+   "propuesto": "Los datos vienen de organismos públicos, entre ellos el INDEC (también el Censo 2022, las tablas de mortalidad y el Origen Provincial de las Exportaciones), la Secretaría de Energía, el RENAPER, el SNIC (Ministerio de Seguridad), el SIPA (que publica la Subsecretaría de Programación Macroeconómica), la DEIS (Ministerio de Salud), la SUBE (Ministerio de Transporte), la Secretaría de Educación (Aprender y Relevamiento Anual), el ENACOM y la OCDE (PISA, a través de Our World in Data). La comparación con los países de la OCDE usa los Indicadores del Desarrollo Mundial del Banco Mundial. Cada ficha del sitio dice de dónde salen sus datos, y el Explorador de relaciones muestra qué publica cada organismo. Cada descarga queda registrada en `datos/crudo/_registro.csv`.",
+   "motivo": "Era una lista con etiquetas ('Comparación con la OCDE:', 'Datos provinciales nuevos:'). Ahora son oraciones, con el nombre que el repositorio documenta para Educación (Secretaría de Educación, datos/manual/relaciones.json) y sin el detalle técnico de cómo se armó el Censo 2022.",
+   "veces": 1
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "fragmento": "Datina (selección propia)",
+   "motivo": "Decisión del autor del 10 de octubre de 2026 (docs/roadmap/DECISIONES.md): las selecciones armadas a mano llevan ese organismo. El paréntesis doble del Catálogo y del Explorador se arregla con la regla de nom_org y de conSigla, sin renombrarlo."
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "fragmento": "Wikimedia (Wikipedia y Wikidata)",
+   "motivo": "Es el nombre que documenta docs/roadmap/EXPLORADOR.md. Con la regla nueva se muestra solo, sin '(Wikimedia)' delante ni detrás."
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "fragmento": "COBERTURAS y los textos de cobertura ('Las 24 jurisdicciones y el total del país', 'Sin desglose territorial', 'Total del país')",
+   "motivo": "Ya son claros, y functions/_ia/consulta.mjs (COBERTURA) los traduce para el modelo comparándolos literalmente: cambiarlos cambia lo que recibe la IA."
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "fragmento": "Ver la pieza",
+   "motivo": "'Pieza' es el nombre que el Laboratorio les da a sus gráficos ('Piezas para mirar con tiempo', 'piezas visuales'). El destino es la pieza de la Corte Suprema."
+  },
+  {
+   "archivo": "scripts/catalogo.py",
+   "fragmento": "placeholder=\"empleo, salarios, INDEC…\"",
+   "motivo": "Ya muestra los tres tipos de búsqueda que entiende (tema, palabra, organismo) en poco espacio. Uno más largo se corta en el celular."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "placeholder=\"Una pregunta sobre la Argentina o una provincia\"",
+   "motivo": "El ejemplo en el campo de Consultas con IA es una decisión pendiente del autor (PLAN_MEJORA.md, sección 13, punto 11)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<p class=\"pregunta\">¿Qué querés saber de los datos?</p> y <p class=\"pregunta\">¿Qué datos puedo bajar?</p>",
+   "motivo": "Preguntas concretas que la herramienta contesta. 'Bajar' es rioplatense y la pregunta es la que hace quien llega."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Tu pregunta, Respuesta, Pregunta:, Preguntar, Detener, Fichas consultadas, Buscar en el Catálogo de datos",
+   "motivo": "Claros, y varios los leen literal scripts/prueba_paginas.mjs ('Tu pregunta') y scripts/prueba_consulta_ia_pagina.mjs ('Respuesta', 'Preguntar', 'Detener')."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Las respuestas las escribe un modelo de inteligencia artificial (Claude, de Anthropic) con los datos de Datina. Puede equivocarse: revisá cada cifra en su ficha antes de usarla.",
+   "motivo": "Aviso del motor de Claude: claro, y 03 busca literal su primera oración. Para el motor de Cloudflare se cambia solo el reemplazo en 03."
+  },
+  {
+   "archivo": "scripts/consulta_ia.js",
+   "fragmento": "NO_DISPONIBLE, CORTADA, TARDA, 'Tu pregunta quedó escrita. Tocá Preguntar para enviarla.', 'Buscando en los datos de Datina…', 'Buscando más datos…', 'Escribiendo la respuesta…', 'Respuesta lista.', 'No se pudo contestar', 'Consulta detenida', 'La detuviste antes de que terminara.', 'Escribí una pregunta de al menos tres letras.'",
+   "motivo": "Mensajes ya claros, que distinguen bien cada caso (no disponible, cortada, tardó, detenida). Varios los busca scripts/prueba_consulta_ia_pagina.mjs ('quedó escrita', 'Respuesta lista.', 'se cortó antes de terminar', 'No se pudo contestar', 'Consulta detenida')."
+  },
+  {
+   "archivo": "functions/_ia/consulta.mjs",
+   "fragmento": "NO_ACTIVA, NO_DISPONIBLE, MUCHAS, NO_PUEDO, AGOTADO, SIN_TABLAS, 'Leyendo «…»…', 'Revisando los datos…', 'Escribiendo la respuesta…', '(La respuesta quedó incompleta: probá con una pregunta más acotada.)', 'Escribí una pregunta.', 'La pregunta puede tener hasta 400 caracteres.'",
+   "motivo": "Claros y precisos (AGOTADO dice cuándo se renueva y qué hacer mientras tanto). scripts/prueba_consulta_ia.mjs compara literal NO_ACTIVA, NO_PUEDO, el aviso de respuesta incompleta, 'Leyendo «…»…' y 'Escribiendo la respuesta…', y por expresión 'No encontré tablas' y 'no están disponibles'. Los mensajes de leerTabla() y 'Ya no quedan lecturas de tablas…' van al modelo, no a la persona: no se tocan (configuración de la IA)."
+  },
+  {
+   "archivo": "scripts/relaciones.js",
+   "fragmento": "No se pudo cargar el programa que dibuja el explorador. Probá recargar la página.",
+   "motivo": "Claro, y scripts/prueba_fallas.mjs busca 'No se pudo cargar el programa'."
+  },
+  {
+   "archivo": "scripts/relaciones.html",
+   "fragmento": "Grafo (botón de vista, aria-roledescription y aria-label del dibujo)",
+   "motivo": "Es el término de la herramienta en cinco lugares (botón, rol, nombre accesible, ayuda y relaciones.js). 'Diagrama' sería más común, pero cambiarlo solo en el botón mezclaría dos nombres: queda anotado como pendiente."
+  },
+  {
+   "archivo": "datos/manual/relaciones.json",
+   "fragmento": "Nombres de archivos con el código del Banco Mundial (por ejemplo 'Población total (Banco Mundial, SP.POP.TOTL), Argentina y OCDE') e 'International Migrant Stock 2024'",
+   "motivo": "El Explorador sirve para seguir un número hasta su archivo de origen: el código del indicador y el nombre oficial de la base son lo que permite encontrarlos en la fuente."
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "fragmento": "\"Todos los semestres\"",
+   "motivo": "El código de la consulta guiada y scripts/prueba_guiada.mjs lo comparan como valor literal."
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "fragmento": "Comentarios y valores de los ejemplos de SQL ('-- Aglomerados cuya pobreza en personas del 1S 2026 …', WHERE periodo = '1S 2026')",
+   "motivo": "Son código que la persona ejecuta: '1S 2026' es el valor de la columna periodo. La introducción de la consulta guiada ahora explica 1S y 2S."
+  },
+  {
+   "archivo": "pobreza/src/diccionario.md",
+   "fragmento": "Semestre, por ejemplo 1S 2026 / Semestre de referencia (1S 2026) / tamano / ninez / region",
+   "motivo": "Describen el valor tal como viene en la tabla (columna periodo, tipo o serie_grupos): en un diccionario de datos tienen que coincidir con el dato."
+  },
+  {
+   "archivo": "pobreza/src/index.md",
+   "fragmento": "Partidos del GBA",
+   "motivo": "Nombre oficial del aglomerado en la EPH del INDEC."
+  },
+  {
+   "archivo": "pobreza/observablehq.config.js",
+   "fragmento": "Datina: Pobreza y hogares",
+   "motivo": "Enlace de vuelta a la sección de Datina de donde se llega: claro. El resto del menú del consultor queda como pendiente (es un menú)."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "catalogo.html, consulta-ia.html (meta description y og:description)",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "descr = f\"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar.\"",
+   "motivo": "La fórmula es la misma para todas las secciones y no describe estas dos herramientas: Consultas con IA no son 'datos por provincia', y el Catálogo es justamente la lista de tablas. Cambiarla toca todas las páginas (otro grupo).",
+   "propuesta": "Una descripción propia para las herramientas. Catálogo: 'Catálogo de datos: ¿Qué datos puedo bajar? Las tablas de Datina con su fuente, su período, su cobertura y sus columnas, para descargar en CSV.' Consultas con IA: 'Consultas con IA: ¿Qué querés saber de los datos? Un modelo de inteligencia artificial contesta preguntas sobre la Argentina y sus provincias con las tablas de Datina y muestra las fichas de las que salen los datos.'"
+  },
+  {
+   "ruta": "relaciones.html, catalogo.html (organismo DEIS)",
+   "archivo": "datos/manual/relaciones.json",
+   "fragmento": "\"nombre\": \"Dirección de Estadísticas e Información de Salud\" (fuente org:deis)",
+   "motivo": "El nombre oficial es 'Dirección de Estadísticas e Información en Salud', como la escribe el pie de f-mortalidad en la plantilla (línea 685) y uno de sus alias. No entra como cambio porque el mismo texto es también un alias de org:deis y un 'original' sin escapar no puede apuntar solo al nombre (los alias no se cambian).",
+   "propuesta": "Cambiar a mano solo el valor de 'nombre' de org:deis (línea 147) por 'Dirección de Estadísticas e Información en Salud' y dejar el alias 'de Salud' como está. El validador sigue pasando: la sigla DEIS y los alias no cambian."
+  },
+  {
+   "ruta": "relaciones.html (grafo y tabla)",
+   "archivo": "datos/manual/relaciones.json",
+   "fragmento": "\"sigla\": \"CSJN\" en org:csjn (Registro Nacional de Femicidios de la Justicia Argentina)",
+   "motivo": "El grafo y la tabla muestran a los organismos por su sigla: hay dos puntos 'CSJN' (Registro de Femicidios y Oficina de Estadísticas). El valor 'CSJN' se repite en el archivo y no se puede apuntar a uno solo con un fragmento sin escapar. Una sigla oficial que el repositorio no documenta sería inventarla.",
+   "propuesta": "Cambiar a mano la sigla de org:csjn por 'Registro de Femicidios' (nombre corto, como 'Hacienda' o 'Seguridad Social'), o por 'RNFJA' si el autor confirma que es la sigla que usa la Oficina de la Mujer de la Corte. El pie de f-muertes sigue validando por el nombre completo, que está en los alias."
+  },
+  {
+   "ruta": "consulta-ia.html (respuesta fija sobre suicidio del motor gratis)",
+   "archivo": "functions/_ia/consulta.mjs",
+   "fragmento": "Datina trata ese tema en la sección Salud, sin cifras destacadas ni comparaciones entre provincias. … 135 desde la Ciudad de Buenos Aires y el Gran Buenos Aires …",
+   "motivo": "La primera oración no es exacta: Salud tiene la ficha de suicidio por provincia (f-suicidio-prov), que compara las 24 jurisdicciones, y su forma está en discusión (decisión del autor, sección 13, punto 3). Además dice 'la Ciudad de Buenos Aires' donde el recuadro de ayuda del sitio dice 'CABA'. Es un tema sensible y un texto fijo de la función: lo decide el autor.",
+   "propuesta": "Datina trata ese tema al final de la sección Salud. Si estás atravesando un momento difícil, o alguien cercano lo está, podés pedir ayuda. El Centro de Asistencia al Suicida atiende gratis en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107. (Conserva 135 y 107, que busca scripts/prueba_consulta_ia.mjs, y las tres líneas.)"
+  },
+  {
+   "ruta": "consulta-ia.html",
+   "archivo": "scripts/plantilla.html, scripts/03_construir_sitio.py",
+   "fragmento": "La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare",
+   "motivo": "La auditoría propone nombrar el modelo (hoy Llama 3.3, de Meta). No se escribe a mano porque DATINA_IA_MODELO_CF lo cambia sin tocar el sitio y el texto quedaría mal.",
+   "propuesta": "Si el autor quiere nombrarlo, que 03 lo tome de MODELO_CF de functions/_ia/consulta.mjs al armar, no escrito en la plantilla."
+  },
+  {
+   "ruta": "consulta-ia.html#ia-pregunta",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "placeholder=\"Una pregunta sobre la Argentina o una provincia\"",
+   "motivo": "Decisión del autor (PLAN_MEJORA.md, sección 13, punto 11).",
+   "propuesta": "Un ejemplo solo en este campo: 'Por ejemplo: ¿cuánto se gana en Neuquén?' (una pregunta que el motor gratis ya contestó bien en la prueba del 26 de octubre de 2026)."
+  },
+  {
+   "ruta": "catalogo.html (filtro 'Con datos de')",
+   "archivo": "scripts/catalogo.py",
+   "fragmento": "sel(\"cat-anio\", \"Con datos de\", \"Cualquier año\", op_anio)",
+   "motivo": "Tiene 178 opciones, de 2040 a 1863, y los años futuros son proyecciones. Cambiarlo es cambiar el filtro (auditoría).",
+   "propuesta": "Rangos: 'antes de 2000', '2000 a 2019', '2020 en adelante' y 'proyecciones'."
+  },
+  {
+   "ruta": "catalogo.html (filtro Tema)",
+   "archivo": "scripts/catalogo.py",
+   "fragmento": "<optgroup label=\"Otras páginas del sitio\">",
+   "motivo": "El filtro mezcla temas con lugares del sitio (Tu provincia, Cruces, Laboratorio, Departamentos). Se corrigió solo el nombre del grupo, que no describía lo que trae.",
+   "propuesta": "Temas en el orden de GRUPOS y un filtro aparte 'Aparece en' (auditoría)."
+  },
+  {
+   "ruta": "catalogo.html (bajadas repetidas)",
+   "archivo": "scripts/catalogo.py",
+   "fragmento": "f'<p class=\"cat-sub\">{e(d[\"sub\"])}</p>'",
+   "motivo": "Las tablas de una misma ficha llevan la bajada de la ficha: las tres de nacidos en otro país dicen lo mismo y solo el nombre del archivo las distingue. Distinguirlas pide un dato por tabla que hoy no existe.",
+   "propuesta": "Una descripción por tabla en datos/manual/catalogo.json para las tablas que comparten ficha (por provincia, por departamento, por país de nacimiento)."
+  },
+  {
+   "ruta": "catalogo.html (Actualización de las proyecciones)",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Se actualiza cada año. (en las fichas de proyecciones de población)",
+   "motivo": "Sale de FRECUENCIA y del pie de esas fichas (otro grupo). Las proyecciones 2022 a 2040 del INDEC no se publican cada año.",
+   "propuesta": "'Se actualiza con cada nueva proyección del INDEC.' en las fichas de proyecciones, que el catálogo copia solo."
+  },
+  {
+   "ruta": "relaciones.html",
+   "archivo": "scripts/03_construir_sitio.py (MENUS)",
+   "fragmento": "Explorador de relaciones en el menú Herramientas",
+   "motivo": "Es una herramienta de auditoría (nombres de archivo, códigos, líneas de programa). Sacarla del menú es un cambio de navegación: decisión del autor (sección 13, punto 7).",
+   "propuesta": "Enlazarla desde Sobre nosotros ('Cómo se hace'), desde el pie y desde cada tabla del Catálogo ('Ver su origen')."
+  },
+  {
+   "ruta": "relaciones.html",
+   "archivo": "scripts/relaciones.html, scripts/relaciones.js",
+   "fragmento": "Grafo",
+   "motivo": "Término técnico para el público general. Aparece en el botón de vista, en aria-roledescription, en el aria-label del dibujo y en relaciones.js.",
+   "propuesta": "'Diagrama' en todos esos lugares a la vez, si el autor lo prefiere."
+  },
+  {
+   "ruta": "relaciones.html, catalogo.html, nosotros.html",
+   "archivo": "scripts/relaciones.js, scripts/catalogo.py",
+   "fragmento": "46 organismos, 167 archivos y 141 fichas / 209 tablas",
+   "motivo": "Tres conteos distintos sin explicar (auditoría, P2): el Explorador no tiene las fichas de suicidio ni las herramientas, y el Catálogo cuenta tablas, no fichas.",
+   "propuesta": "Una aclaración fija bajo la cuenta del Explorador: 'Sin las fichas sobre suicidio ni las herramientas.'"
+  },
+  {
+   "ruta": "pobreza/ (menú del consultor)",
+   "archivo": "pobreza/observablehq.config.js",
+   "fragmento": "<a href=\"./\">Consultas</a>",
+   "motivo": "Dos herramientas se llaman 'Consultas' (Consultas con IA y esta). Es un menú: queda para el autor.",
+   "propuesta": "'Consultor de pobreza' en lugar de 'Consultas', el nombre que le da el resto del sitio."
+  },
+  {
+   "ruta": "pobreza/",
+   "archivo": "pobreza/src/index.md",
+   "fragmento": "d.periodo === \"1S 2026\" (ultimoDe), value: ... \"1S 2026\" (selector Semestre), 36,9% y 11,1% (calibración), unos 30,1 millones de personas",
+   "motivo": "El último semestre y las cifras de calibración están escritos a mano. pobreza/README.md (paso 2) dice actualizarlos cada semestre, pero si se olvida, la bajada sigue mostrando el semestre viejo. Leerlos de los datos es cambiar el código.",
+   "propuesta": "Que ultimoDe y el valor inicial del selector tomen el último período de la serie (periodos.at(-1)), y que las cifras de calibración salgan de la tabla gba_partidos_comunas o de ALL.json."
+  },
+  {
+   "ruta": "pobreza/",
+   "archivo": "pobreza/README.md",
+   "fragmento": "En `src/index.md` buscá los textos que mencionan 1S 2026, 1T 2026 o los totales de calibración (36,9% y 11,1%) y actualizalos.",
+   "motivo": "Con los cambios de este grupo esos textos dicen 'primer semestre de 2026' y 'primer trimestre de 2026': la búsqueda del paso 2 ya no los encuentra. Es documentación técnica, fuera del alcance de la reescritura.",
+   "propuesta": "Sumar al paso 2: 'primer semestre de 2026', 'primer trimestre de 2026' y 'segundo semestre de 2016' en src/index.md, y las mismas frases en las descripciones de TABLAS de scripts/exportar_parquet.py."
+  },
+  {
+   "ruta": "pobreza/ (gráfico de la consulta guiada)",
+   "archivo": "pobreza/src/index.md",
+   "fragmento": "tip: {format: {x: true, y: (v) => num1(v) + \"%\", fill: true, z: true}}, channels: {\"CV %\": …, Nombre: …}",
+   "motivo": "Los cuadros emergentes de Plot pueden mostrar nombres internos de los canales (periodo, valor_pct) cuando el eje no tiene etiqueta, y el eje del gráfico de líneas sigue con '1S 2017'. No se pudo verificar sin abrir la página.",
+   "propuesta": "Revisar en el navegador y, si aparecen, ponerles 'Semestre' y el mismo nombre del encabezado de la tabla con 'label' en cada canal, y tickFormat: semestreLargo si entra en el eje."
+  },
+  {
+   "ruta": "pobreza/ (resultados del SQL libre)",
+   "archivo": "pobreza/src/index.md",
+   "fragmento": "display(Inputs.table(resultadoLibre.filas, …))",
+   "motivo": "Muestra los nombres de columna que escribe la persona en su consulta: es lo esperable en un editor de SQL.",
+   "propuesta": "Nada."
+  }
+ ]
+}

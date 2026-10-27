@@ -3,7 +3,7 @@
  "programas": [
   {
    "nombre": "Secundaria del Futuro",
-   "donde": "Ciudad de Buenos Aires, escuelas secundarias estatales",
+   "donde": "CABA, escuelas secundarias estatales",
    "que_hace": "Cambia la organización de la escuela secundaria: integra materias en áreas más amplias, suma tutorías, organiza de otra manera el ciclo y la evaluación, y usa más la tecnología.",
    "evaluacion": {
     "titulo": "Informe de evaluación de impacto. Secundaria del Futuro: una mirada sobre los aprendizajes",
@@ -13,7 +13,7 @@
     "url": "https://bde-ueicee.bue.edu.ar/documentos/710"
    },
    "hallazgo": "En las escuelas con el programa, los estudiantes mejoraron más en Lengua y Literatura que en las de secundaria tradicional. En Matemática no hubo diferencias.",
-   "limites": "Mide primer año en una muestra de escuelas estatales de la Ciudad. El efecto apareció en las escuelas que empezaron a aplicar el programa con clases presenciales y no en las que empezaron durante la pandemia.",
+   "limites": "Mide primer año en una muestra de escuelas estatales de CABA. El efecto apareció en las escuelas que empezaron a aplicar el programa con clases presenciales y no en las que empezaron durante la pandemia.",
    "cita": [
     {
      "texto": "indicando un impacto positivo de la política en los aprendizajes en Lengua y Literatura",
@@ -36,7 +36,7 @@
     "tipo": "Cualitativa: cuestionarios y entrevistas a estudiantes, docentes y referentes de las sedes.",
     "url": "https://www.argentina.gob.ar/sites/default/files/informe_fines.pdf"
    },
-   "hallazgo": "El modelo, que combina al Estado con organizaciones sociales, beneficia a las dos partes. Para la mayoría de los estudiantes, el título es un paso hacia estudios superiores y no el final del camino.",
+   "hallazgo": "El modelo, que combina al Estado con organizaciones sociales, beneficia a las dos partes, según la evaluación. Para la mayoría de los estudiantes, el título es un paso hacia estudios superiores y no el final del camino.",
    "limites": "Es un estudio exploratorio en seis municipios del Gran Buenos Aires y no compara con personas que no cursaron el plan, así que no mide su efecto.",
    "cita": [
     {

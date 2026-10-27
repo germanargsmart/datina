@@ -1,0 +1,88 @@
+{
+ "grupo": "principal",
+ "nota": "Cambios de la sesión principal al revisar y unir las propuestas de los nueve grupos.",
+ "cambios": [
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`empresas privadas con personal en relación de dependencia sumaban las 24 jurisdicciones en ${EM.anio}, ${n1(EM.pais_1000)} cada 1.000 habitantes: la que tiene personal en varias provincias cuenta en cada una`,",
+   "propuesto": "`empresas privadas con personal en relación de dependencia en ${EM.anio}, sumadas las 24 jurisdicciones (${n1(EM.pais_1000)} cada 1.000 habitantes). Una empresa con personal en varias provincias cuenta en cada una`,",
+   "motivo": "Revisión de la sesión principal sobre la propuesta de G2: «sumaban las 24 jurisdicciones» se leía como si las empresas sumaran las jurisdicciones. La aclaración del doble conteo va en su propia oración."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${c.pais == null ? \"\" : ` País: ${c.f(c.pais)}.`} Posición ${orden} de ${c.d.length}, de mayor a menor.</span>` +",
+   "propuesto": "${c.pais == null ? \"\" : ` País: ${c.f(c.pais)}.`} ${puestoTxt(orden, c.d.length)}.</span>` +",
+   "motivo": "«En cifras» con una provincia elegida usa la misma frase del puesto que el perfil provincial («La 3.ª cifra más baja de las 24 jurisdicciones»), en lugar de dar vuelta el puesto (auditoría, pendiente de G6a y G6b)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<small>${pos}.º de ${x.d.length}, de mayor a menor. País: ${x.f(x.pais)}</small>` +",
+   "propuesto": "<small>${puestoTxt(pos, x.d.length)}. País: ${x.f(x.pais)}</small>` +",
+   "motivo": "La tarjeta del mapa de la portada usa la misma frase del puesto que el perfil provincial y «En cifras»."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "const conVeces = (v, pais) => { const t = vecesPais(v, pais); return t ? ` (${t})` : \"\"; };",
+   "propuesto": "const puestoTxt = (orden, n, que = n < 24 ? \"jurisdicciones con dato\" : \"jurisdicciones\") => `${orden === 1 ? \"La cifra más alta\" : orden === n ? \"La cifra más baja\"\n  : orden <= n / 2 ? `La ${orden}.ª cifra más alta` : `La ${n - orden + 1}.ª cifra más baja`} de las ${n} ${que}`;",
+   "motivo": "Una sola frase para el puesto de una provincia en el perfil, en «En cifras» y en el mapa de la portada, contada desde el lado más cercano y sin valorar."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "todas las votaciones divididas del año, no solo las leyes clave.",
+   "propuesto": "todas las votaciones divididas del año, no solo las leyes y proyectos clave.",
+   "motivo": "Término fijo: la selección incluye proyectos que no fueron ley."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<button type=\"button\" data-m=\"real\" aria-pressed=\"false\">A precios de hoy</button>",
+   "propuesto": "<button type=\"button\" data-m=\"real\" aria-pressed=\"false\">Sin inflación</button>",
+   "motivo": "Término fijo: nada de «a precios de hoy». El botón de los haberes queda igual al de las variables del Banco Central («Sin inflación»), con la misma explicación en la nota."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Desde 2020 se cuentan solo los beneficios no suspendidos. \"A precios de hoy\" descuenta la inflación",
+   "propuesto": "Desde 2020 se cuentan solo los beneficios no suspendidos. La vista \"Sin inflación\" descuenta la inflación",
+   "motivo": "Acompaña el nombre nuevo del botón de los haberes."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "en las administraciones de las provincias y de la Ciudad, con el personal",
+   "propuesto": "en las administraciones de las provincias y de CABA, con el personal",
+   "motivo": "Término fijo: CABA."
+  },
+  {
+   "archivo": "pobreza/README.md",
+   "original": "En `src/index.md` buscá los textos que mencionan 1S 2026, 1T 2026 o los totales de calibración (36,9% y 11,1%) y actualizalos.",
+   "propuesto": "En `src/index.md` buscá los textos que mencionan 1S 2026, 1T 2026, \"primer semestre de 2026\", \"primer trimestre de 2026\" o los totales de calibración (36,9% y 11,1%) y actualizalos.",
+   "motivo": "Documentación técnica: el consultor ahora escribe los períodos en palabras y la búsqueda del paso 2 tiene que encontrarlos (pendiente de G6c)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span>",
+   "propuesto": "Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span>",
+   "veces": 3,
+   "motivo": "Un solo nombre para el OEDE en todos los pies, con el organismo del que depende como lo documenta datos/manual/relaciones.json (Secretaría de Trabajo, Ministerio de Capital Humano) y la sigla SIPA desarrollada."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span>",
+   "propuesto": "Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span>",
+   "motivo": "El mismo nombre del OEDE que en los demás pies."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, en base al SIPA, e INDEC, índice de precios al consumidor</span>",
+   "propuesto": "Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA), e INDEC, índice de precios al consumidor</span>",
+   "motivo": "El mismo nombre del OEDE que en los demás pies: suma el ministerio del que depende la Secretaría de Trabajo."
+  },
+  {
+   "archivo": "scripts/02_procesar.py",
+   "original": "\"Educación\", \"Ministerio de Educación\", \"f-",
+   "propuesto": "\"Educación\", \"Secretaría de Educación\", \"f-",
+   "veces": 3,
+   "motivo": "Nombre del organismo en Cruces y en las fuentes de los artículos de Aprender: el mismo que usan las fichas de Educación (Secretaría de Educación, como lo registra datos/manual/relaciones.json)."
+  }
+ ],
+ "conservados": [],
+ "pendientes": []
+}

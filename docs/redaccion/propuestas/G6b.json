@@ -1,0 +1,695 @@
+{
+ "grupo": "G6b",
+ "cambios": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "content=\"Datina: las 24 Argentinas en números. Datos públicos sobre la Argentina, los argentinos y las 24 provincias, explicados para que cualquiera los entienda, los compare y los pueda verificar.\">",
+   "propuesto": "content=\"Datina: las 24 Argentinas en números. Datos públicos de la Argentina y de sus 24 jurisdicciones, explicados para que cualquiera pueda entenderlos, compararlos y verificarlos.\">",
+   "motivo": "Descripción de la portada: son 23 provincias y CABA (término fijo «las 24 jurisdicciones»), sin «los argentinos», que no agrega, y con los tres verbos en paralelo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"bajada\">Datos públicos sobre la Argentina, los argentinos y las 24 provincias, explicados para que cualquiera los entienda, los compare y los pueda verificar.</p>",
+   "propuesto": "<p class=\"bajada\">Datos públicos de la Argentina y de sus 24 jurisdicciones, explicados para que cualquiera pueda entenderlos, compararlos y verificarlos.</p>",
+   "motivo": "Bajada de la portada: «las 24 provincias» incluía a CABA (término fijo «las 24 jurisdicciones») y la construcción verbal era despareja.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"bloque-sub\">Preguntas respondidas cruzando datos oficiales y piezas visuales del Laboratorio. Los números se recalculan con cada actualización.</p>",
+   "propuesto": "<p class=\"bloque-sub\">Artículos que cruzan datos oficiales para contestar una pregunta, y piezas visuales del Laboratorio. Las cifras se recalculan con cada actualización de los datos.</p>",
+   "motivo": "«Preguntas respondidas cruzando… y piezas visuales» mezclaba dos cosas en una construcción con gerundio: ahora dice qué es cada una.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"bloque-sub\">Para cruzar indicadores, armar tu propio ranking, describir la educación de cada provincia, consultar la pobreza por partido y comuna, bajar cualquier tabla y ver de dónde sale cada número.</p>",
+   "propuesto": "<p class=\"bloque-sub\">Para cruzar indicadores, ordenar las provincias según lo que te importa y ver dónde está cada una en educación. También para consultar la pobreza por partido y comuna, bajar cualquier tabla y saber de dónde sale cada número.</p>",
+   "motivo": "Siete acciones en una oración de 35 palabras (auditoría): pasa a dos oraciones y cada acción usa el nombre de su herramienta (Tu índice, Diagnóstico educativo). Conserva el comienzo «Para cruzar indicadores,» que 03 controla y completa con las consultas con IA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"nos-bajada\">Datina reúne las estadísticas públicas de la Argentina y las muestra provincia por provincia, para entender un problema, opinar con datos y encontrar oportunidades.</p>",
+   "propuesto": "<p class=\"nos-bajada\">Datina reúne estadísticas públicas de la Argentina y las muestra provincia por provincia, para entender un tema, comparar jurisdicciones y discutir con datos.</p>",
+   "motivo": "«Encontrar oportunidades» promete una lectura que los datos no dan (el mismo problema que la auditoría marcó en Sector privado). «Las estadísticas» sugería que están todas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2 id=\"fuentes\">Fuentes oficiales</h2><p>Los datos vienen de organismos públicos o de trabajos basados en ellos que publican su conjunto de datos: el INDEC, los ministerios nacionales, el Congreso, la Dirección Nacional Electoral, el RENAPER, el Banco Mundial y la OCDE, entre otros. Hay dos excepciones, señaladas donde aparecen: el lugar de nacimiento de los ministros, que sale de Wikipedia y Wikidata porque ningún organismo lo publica, y algunas fechas de los jueces de la Corte Suprema, que la tabla con las fuentes de esa pieza señala fila por fila.</p>",
+   "propuesto": "<h2 id=\"fuentes\">De dónde salen los datos</h2><p>Casi todos los datos vienen de organismos públicos: el INDEC, los ministerios nacionales, el Banco Central, el Congreso, la Dirección Nacional Electoral y el RENAPER, entre otros. Para comparar con otros países se usan el Banco Mundial, la OCDE y otras fuentes internacionales. Unas pocas fuentes no son oficiales y cada ficha las nombra. Las encuestas de confianza y de expectativas de inflación son de la Universidad Torcuato Di Tella. Las votaciones nominales del Congreso vienen de ¿Cómo Votó?, que reúne las actas oficiales de cada cámara. El lugar de nacimiento de presidentes y ministros sale de Wikipedia y Wikidata, porque ningún organismo lo publica. En la pieza de la Corte Suprema, la tabla de fuentes señala fila por fila las fechas de los jueces que no salen de un registro oficial.</p>",
+   "motivo": "Decía que había «dos excepciones» a las fuentes públicas, pero datos/manual/relaciones.json documenta más: las tres encuestas de la Universidad Torcuato Di Tella (org:utdt), ¿Cómo Votó? (org:como-voto) y los presidentes de Wikimedia. Una idea por oración. El título pasa a lo que el bloque cuenta, y coincide con el enlace del pie.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>Cruces con advertencias</h2><p>Datina cruza fuentes distintas para buscar relaciones entre provincias. Cada cruce aclara sus límites: son pocos casos, son promedios y una correlación no prueba que una cosa cause la otra.</p>",
+   "propuesto": "<h2>Cruces con advertencias</h2><p>Datina cruza fuentes distintas para ver si dos datos van juntos, entre las provincias o a lo largo del tiempo. Cada cruce aclara sus límites: son pocos casos, son promedios y que dos datos vayan juntos no prueba que uno cause el otro.</p>",
+   "motivo": "Cuatro de los artículos cruzan series del país en el tiempo, no provincias. «Van juntos» es el término fijo para una relación entre dos datos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Las fichas sobre suicidio llevan líneas de ayuda y no entran en el perfil provincial ni en los cruces.</p>",
+   "propuesto": "Las fichas sobre suicidio llevan las líneas de ayuda y no entran en el perfil provincial, en los cruces ni en los artículos.</p>",
+   "motivo": "La regla de CLAUDE.md también deja las tasas de suicidio fuera de los artículos: el texto lo dice completo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>Se actualiza sola</h2><p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p>",
+   "propuesto": "<h2>Se actualiza sola</h2><p>El día 5 de cada mes, el sitio vuelve a bajar los datos de cada fuente, los procesa y se arma de nuevo. Si una prueba de los datos falla, no se publica. Cada ficha dice cada cuánto se actualiza su dato.</p>",
+   "motivo": "Decía «todos los meses» sin el día ni cómo se controla. El día 5 sale del flujo .github/workflows/actualizar.yml (cron del día 5) y el freno de pruebas_datos.py está en CLAUDE.md. No todas las fuentes son organismos públicos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Datina no es un sitio oficial ni habla en nombre de ningún organismo. Muestra datos públicos tal como los publica cada fuente y explica en cada ficha cómo se procesaron.</p>",
+   "propuesto": "<p>Datina no es un sitio oficial ni habla en nombre de ningún organismo. Parte de los datos tal como los publica cada fuente y explica en cada página cómo se procesaron.</p>",
+   "motivo": "«Muestra los datos tal como los publica… y explica cómo se procesaron» se contradecía: el sitio calcula tasas y promedios. «Cómo se calcula» está en «Para entender los datos» de cada página, no en cada ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Tres programas hacen todo el trabajo. El primero",
+   "propuesto": "<p>Tres programas hacen el trabajo de cada mes. El primero",
+   "motivo": "«Todo el trabajo» no era cierto: hay programas que se corren una vez o una vez por año (CLAUDE.md, Estructura).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "muestra qué organismo publica cada archivo que baja el sitio y qué fichas arma con él, con la línea del programa que lo muestra.</p>",
+   "propuesto": "muestra qué organismo publica cada archivo que baja el sitio, qué fichas se arman con él y la línea del programa que lo prueba.</p>",
+   "motivo": "«Muestra… con la línea del programa que lo muestra» repetía el verbo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Datina toma ideas de The Pudding, que arranca cada historia con una pregunta, de Our World in Data, por mostrar siempre la fuente y la tabla, y de USAFacts, por presentar los datos públicos de forma clara y sin opinión. En la Argentina,",
+   "propuesto": "<p>De The Pudding, Datina toma la idea de arrancar cada historia con una pregunta. De Our World in Data, la de mostrar siempre la fuente y la tabla. De USAFacts, la de presentar los datos públicos de forma clara y sin opinión. En la Argentina,",
+   "motivo": "Tres ideas con tres construcciones distintas («que arranca», «por mostrar», «por presentar») en una oración: una idea por oración, en paralelo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2 id=\"privacidad\">Tus datos</h2>\r\n      <p>Los formularios de Contacto y de novedades por correo guardan solo lo que escribís. Los correos se usan para avisar cuando hay datos o artículos nuevos y para responder mensajes: no se comparten ni se publican. Para darte de baja o pedir que se borre tu correo, escribí desde <a href=\"contacto.html\">Contacto</a>.</p>",
+   "propuesto": "<h2 id=\"privacidad\">Tus datos</h2>\r\n      <p>Datina no tiene cuentas de usuario. La provincia que elegís queda guardada en tu navegador, para mostrarla en las demás páginas.</p>\r\n      <p>Los formularios de Contacto y de novedades por correo guardan solo lo que escribís. Los correos se usan para avisar cuando hay datos o artículos nuevos y para responder mensajes: no se comparten ni se publican. Para darte de baja o pedir que se borre tu correo, escribí desde <a href=\"contacto.html\">Contacto</a>.</p><!--IA-PRIVACIDAD-->",
+   "motivo": "«Tus datos» describía formularios que el armado saca (\"formularios\" vacío en datos/manual/sitio.json, auditoría E9). Suma una oración que es cierta siempre (la provincia se guarda en localStorage), deja el párrafo de los formularios para que 03 lo saque cuando están apagados y una marca donde 03 pone adónde va la pregunta de las consultas con IA (ver los cambios de 03).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"nos-bajada\">Puede que la dirección tenga un error o que la página se haya mudado. Los datos siguen acá: elegí una sección o buscá con la lupa.</p>",
+   "propuesto": "<p class=\"nos-bajada\">Puede que la dirección tenga un error o que la página se haya mudado. Elegí un tema o buscá con la lupa de la barra.</p>",
+   "motivo": "«Los datos siguen acá» no agrega. Dice dónde está la lupa y usa «tema», como el botón «Ver todos los temas».",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "JS_IA = (RAIZ / \"scripts\" / \"consulta_ia.js\").read_text(encoding=\"utf-8\")",
+   "propuesto": "# \"Tus datos\", en Sobre nosotros (auditoría del 26 de octubre de 2026, E9): adónde va la pregunta de las consultas con IA, según el motor\r\n# (docs/ia/CONSULTAS.md, \"Privacidad\"). Con las consultas apagadas, el párrafo no va\r\n_IA_PRIV = {\"cloudflare\": \"<p>Las preguntas de Consultas con IA las contesta un modelo que corre en Cloudflare, la empresa que aloja el sitio. \"\r\n                          \"Según su política, Cloudflare no usa esas preguntas para entrenar modelos. Datina no las guarda. \"\r\n                          \"No escribas datos personales en una pregunta.</p>\",\r\n            \"anthropic\": \"<p>Las preguntas de Consultas con IA viajan a Anthropic, la empresa del modelo que las contesta. Datina no las guarda. \"\r\n                         \"No escribas datos personales en una pregunta.</p>\"}\r\nassert plantilla.count(\"<!--IA-PRIVACIDAD-->\") == 1, \"falta la marca <!--IA-PRIVACIDAD--> en Tus datos (Sobre nosotros)\"\r\nplantilla = plantilla.replace(\"<!--IA-PRIVACIDAD-->\", _IA_PRIV[MOTOR_IA] if CONSULTA_IA else \"\")\r\nJS_IA = (RAIZ / \"scripts\" / \"consulta_ia.js\").read_text(encoding=\"utf-8\")",
+   "motivo": "Nosotros no decía que las preguntas de las consultas con IA (prendidas) pasan por un tercero. El texto sale de docs/ia/CONSULTAS.md («Privacidad» de cada motor) y depende de los dos interruptores que 03 ya lee: no cambia ningún comportamiento.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "    assert _n == 1, \"no se encontró el formulario de Contacto en la plantilla\"",
+   "propuesto": "    assert _n == 1, \"no se encontró el formulario de Contacto en la plantilla\"\r\n    # y \"Tus datos\", en Sobre nosotros, deja de hablar de los formularios (auditoría del 26 de octubre de 2026, E9)\r\n    base, _n = re.subn(r'<p>Los formularios de Contacto y de novedades por correo.*?</p>', \"\", base, count=1, flags=re.S)\r\n    assert _n == 1, \"no se encontró el párrafo de los formularios en Tus datos (Sobre nosotros)\"",
+   "motivo": "Con los formularios apagados, el armado ya saca la suscripción y el formulario de Contacto: con el mismo interruptor saca el párrafo de Nosotros que los describía, que hoy es falso.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "DESTACADOS = [(\"personas\", \"f-esperanza\"), (\"economia\", \"f-salarios\"), (\"estado\", \"f-homicidios\"), (\"territorio\", \"f-petroleo\")]",
+   "propuesto": "DESTACADOS = [(\"personas\", \"f-esperanza\"), (\"economia\", \"f-salarios\"), (\"estado\", \"f-homicidios\"), (\"territorio\", \"f-petroleo\")]\r\n# la pregunta de cada dato destacado (D7 del plan del 26 de octubre de 2026): la cifra es la del país, así que la pregunta también. La de\r\n# la ficha pregunta por las provincias, que muestra su gráfico\r\n_PREG_DEST = {\"f-esperanza\": \"¿Cuántos años se vive en la Argentina?\", \"f-salarios\": \"¿Cuánto se gana en un empleo privado registrado?\",\r\n              \"f-homicidios\": \"¿Cuántas víctimas de homicidio hay en la Argentina?\", \"f-petroleo\": \"¿Cuánto petróleo produce el país?\"}",
+   "motivo": "Los destacados preguntaban «en cada provincia» o «dónde» y mostraban la cifra del país (D7). Cada uno tiene su pregunta propia, que contesta la cifra, sin cambiar la pregunta de la ficha (que sí muestra las provincias). La de petróleo ya estaba bien y queda igual.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "f'<span class=\"c-preg\">{e(_ficha[i][2])}</span>",
+   "propuesto": "f'<span class=\"c-preg\">{e(_PREG_DEST[i])}</span>",
+   "motivo": "Usa la pregunta del destacado en lugar de la de la ficha (ver el cambio anterior).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "(f'<p class=\"bloque-sub\">El perfil de cada jurisdicción en {_n_temas_perfil} temas y su historia. Los números dentro de cada '\r\n                    'provincia, en <a class=\"enlace\" href=\"departamentos.html\">Departamentos</a>.</p><ul class=\"prov-home\">'",
+   "propuesto": "(f'<p class=\"bloque-sub\">El perfil de cada jurisdicción en {_n_temas_perfil} temas, con su historia. Los datos de cada departamento, partido '\r\n                    'o comuna están en <a class=\"enlace\" href=\"departamentos.html\">Departamentos</a>.</p><ul class=\"prov-home\">'",
+   "motivo": "La segunda oración no tenía verbo («Los números dentro de cada provincia, en Departamentos»). Nombra lo que muestra Departamentos (departamentos, partidos y las comunas de CABA).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"consultor\": (\"Consultor de pobreza\", \"Consultar pobreza por aglomerado, partido y comuna\", \"casa\")",
+   "propuesto": "\"consultor\": (\"Consultor de pobreza\", \"¿Cuánta pobreza hay en cada ciudad, partido y comuna?\", \"casa\")",
+   "motivo": "Era la única tarjeta de Herramientas sin pregunta (auditoría y plan, sección 4). «Ciudad» por «aglomerado», que es jerga del INDEC.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"provincia\": \"Perfil provincial\"",
+   "propuesto": "\"provincia\": \"Cada provincia frente al país\"",
+   "motivo": "«Perfil provincial» era un quinto nombre para la misma página (auditoría): la línea de la tarjeta dice qué muestra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "(\"nosotros.html#fuentes\", \"Fuentes y método\")",
+   "propuesto": "(\"nosotros.html#fuentes\", \"De dónde salen los datos\")",
+   "motivo": "El enlace lleva al bloque de las fuentes, no al método (que es «Cómo se hace», el enlace de al lado). Coincide con el título nuevo del bloque.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"leyes\": \"Se actualiza cuando se suma una ley a la selección.\"",
+   "propuesto": "\"leyes\": \"Se actualiza cuando se suma una ley o un proyecto a la selección.\"",
+   "motivo": "La selección incluye proyectos que no fueron ley (término fijo «leyes y proyectos clave»). Sigue empezando por «Se actualiza», como piden catalogo.py y relaciones.py.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "for id_, titulo, preg, *_ in SECCIONES:\r\n    descr = f\"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar.\" if preg else f\"{titulo} en Datina.\"",
+   "propuesto": "for id_, titulo, preg, _, es_herr, *_ in SECCIONES:\r\n    cola = (\"Herramienta de Datina con datos públicos de la Argentina y sus 24 jurisdicciones.\" if es_herr else\r\n            \"Cada artículo cruza datos oficiales y dice sus fuentes y sus límites.\" if id_ == \"articulos\" else\r\n            \"Cada dato con su fuente, su período y su tabla para descargar.\")\r\n    descr = f\"{titulo}: {preg} {cola}\" if preg else f\"{titulo} en Datina.\"",
+   "motivo": "La misma cola («Datos por provincia con su fuente, su año y la tabla para descargar») iba en las herramientas, en Artículos y en páginas con datos sobre todo nacionales (Sector externo, Precios y actividad). En los temas queda lo que vale para todos (la fuente, el período y la tabla de cada dato), sin prometer datos por provincia. Se elige la frase según el valor «herramienta» que el índice ya calcula. «Período» en lugar de «año»: muchos datos son mensuales.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"Cada provincia comparada con el total del país en todos los indicadores con dato provincial, su posición entre las 24 y las provincias que más se le parecen.\"",
+   "propuesto": "\"El perfil de cada provincia: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las provincias que más se le parecen.\"",
+   "motivo": "La descripción no nombraba la historia, que el perfil tiene, y «las 24» quedaba sin sustantivo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"Datos difíciles, en gráficos: cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.\"",
+   "propuesto": "\"Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.\"",
+   "motivo": "«Datos difíciles» no dice nada y faltaba la pieza de la Corte Suprema, que también es del Laboratorio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "\"datos oficiales de las 24 capitales de provincia\" if id_ in ART_CAPITALES",
+   "propuesto": "\"datos oficiales de las 23 capitales de provincia y de CABA\" if id_ in ART_CAPITALES",
+   "motivo": "CABA no es una capital de provincia: las tablas de las capitales (capitales.csv y capitales_eph.csv) tienen 24 filas, las 23 capitales y CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "actualizado: `Datos descargados y procesados el ${R.actualizado}.`",
+   "propuesto": "actualizado: `Datos descargados y procesados el ${fLarga(R.actualizado)}.`",
+   "motivo": "La fecha iba como «24/10/2026»: los criterios piden fechas en palabras. fLarga (definida arriba, línea 184) ya convierte ese formato de 02 («24 de octubre de 2026»).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p>\r\n      <p><a class=\"enlace\" href=\"catalogo.html\">Catálogo de datos</a></p>",
+   "propuesto": "<p>Se actualizan solos el día 5 de cada mes, con lo último que publicó cada fuente.</p>\r\n      <p><a class=\"enlace\" href=\"catalogo.html\">Catálogo de datos</a></p>",
+   "motivo": "Pie de todas las páginas: dice el día de la actualización (cron del día 5) y «fuente», porque no todas son organismos públicos (Universidad Torcuato Di Tella, ¿Cómo Votó?).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "}).catch(() => sinDatos(el, \"No se pudieron cargar los datos.\"));",
+   "propuesto": "}).catch(() => sinDatos(el, \"No se pudieron cargar los datos. Probá recargar la página.\"));",
+   "motivo": "El aviso decía qué pasó pero no qué hacer: recargar vuelve a pedir el archivo (cargarTabla olvida la promesa fallida).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<span class=\"lbl\">En el catálogo</span>",
+   "propuesto": "<span class=\"lbl\">Ver en el catálogo</span>",
+   "motivo": "El botón decía un lugar y no la acción: lleva a la tabla de la ficha en el Catálogo de datos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "fecundidad_adolescente: \"Fecundidad adolescente\"",
+   "propuesto": "fecundidad_adolescente: \"Nacimientos cada 1.000 adolescentes\"",
+   "motivo": "R2: el botón nombra la medida y su unidad (nacimientos cada 1.000 mujeres de 15 a 19 años), distinta del porcentaje de nacimientos de madres adolescentes de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "gasto_salud: \"Gasto en salud\",",
+   "propuesto": "gasto_salud: \"Gasto en salud en % del PBI\",",
+   "motivo": "R2: el botón dice que es otra medida (gasto en salud en porcentaje del PBI) dentro de la ficha de mortalidad infantil.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "homicidios: \"Homicidios\", viales: \"Siniestros viales\",",
+   "propuesto": "homicidios: \"Tasa de homicidios\", viales: \"Tasa de muertes viales\",",
+   "motivo": "R2: la vista propia es «Cantidad por año» y la de la OCDE es una tasa cada 100.000 habitantes. «Siniestros viales» no decía que cuenta muertes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "desocupacion: \"Desocupación\",",
+   "propuesto": "desocupacion: \"Tasa de desocupación\",",
+   "motivo": "R2: nombra la medida (tasa de desocupación), como ya hacía «Tasa de empleo».",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "gini: \"Gini\", internet: \"Uso de internet\",",
+   "propuesto": "gini: \"Índice de Gini\", internet: \"Personas que usan internet\",",
+   "motivo": "R2: «Gini» solo no es una medida para el público. La ficha cuenta accesos fijos cada 100 hogares y la OCDE, personas que usan internet.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "turistas: \"Turistas por habitante\",",
+   "propuesto": "turistas: \"Turistas cada 100 habitantes\",",
+   "motivo": "R2: la unidad de la serie es turistas por cada 100 habitantes, no por habitante.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "credito_hogares: \"Crédito a los hogares\",",
+   "propuesto": "credito_hogares: \"Crédito a los hogares en % del PBI\",",
+   "motivo": "R2: la ficha muestra créditos nuevos por mes en pesos y la OCDE, el total de deuda de los hogares en porcentaje del PBI.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Unidad: ${o.unidad}. ${OCDE_NOTA[k] ? OCDE_NOTA[k] + \" \" : \"\"}La línea <span class=\"ocde-marca\">OCDE</span> es el promedio simple de los países miembros con dato ese año y la franja violeta clara va del percentil 25 al 75: ahí está la mitad de los países. `",
+   "propuesto": "`No es la misma medida que la del resto de la ficha: muestra ${o.frase}${o.unidad.startsWith(\"por \") ? \" \" : \", en \"}${o.unidad}. ${OCDE_NOTA[k] ? OCDE_NOTA[k] + \" \" : \"\"}La línea <span class=\"ocde-marca\">OCDE</span> es el promedio simple de los países miembros con dato ese año. La franja violeta clara va del percentil 25 al 75: ahí está la mitad central de los países. `",
+   "motivo": "R2 pide una línea que avise que la vista OCDE es otra medida. Todas lo son: los botones existen solo cuando la unidad no coincide con la de la ficha (comentario de OCDE_VISTA). Usa la frase y la unidad que ya trae el resumen, con «por cada…» sin «en» delante, y parte la oración larga de la línea y la franja.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "pobreza_relativa: \"Es una medida de pobreza relativa, la que usa la OCDE, distinta de la pobreza por canastas del INDEC.",
+   "propuesto": "pobreza_relativa: \"Es la pobreza relativa que usa la OCDE, distinta de la pobreza por canastas del INDEC.",
+   "motivo": "La nota repetía «medida» después de la línea nueva que ya la define, y tenía un inciso entre comas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "turistas: \"Llegadas de turistas internacionales dividido por la población de cada país. El Banco Mundial no publica esta serie después de 2019.\",",
+   "propuesto": "turistas: `Son las llegadas de turistas internacionales divididas por la población de cada país. El Banco Mundial no publica esta serie después de ${OC.turistas.anio}.`,",
+   "motivo": "Concordancia («llegadas… divididas») y el año sale del resumen en lugar de ir escrito a mano (OC ya se usa en OCDE_NOTA, en credito_hogares).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "pesca: \"Toneladas de pesca de captura, marítima y continental, dividido por la población de cada país.\",",
+   "propuesto": "pesca: \"Suma la pesca marítima y la continental, y la divide por la población de cada país.\",",
+   "motivo": "Decía «toneladas» con una unidad en kilos por habitante, y «pesca… dividido» no concordaba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "suicidio: \"Estimaciones de la OMS ajustadas por edad, distintas de los registros del SNIC y de la DEIS que usa esta sección.\",",
+   "propuesto": "suicidio: \"Son estimaciones de la OMS, distintas de los registros del SNIC y de la DEIS que usa esta sección.\",",
+   "motivo": "«Ajustadas por edad» ya lo dice la línea nueva (la frase del resumen). Se conserva la aclaración del SNIC y la DEIS.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "eolica_solar: \"Participación de la energía eólica y la solar en la electricidad generada en el año, no en la potencia instalada que muestra el resto de la ficha. \" +",
+   "propuesto": "eolica_solar: \"Cuenta la electricidad generada en el año, no la potencia instalada que muestra el resto de la ficha. \" +",
+   "motivo": "La línea nueva ya dice qué mide: la nota queda con la diferencia que importa (generación contra potencia).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "credito_hogares: `Préstamos de todos los sectores a las familias y a las instituciones sin fines de lucro que las sirven, como porcentaje del producto interno bruto, al cierre de cada año: ` +",
+   "propuesto": "credito_hogares: `Son los préstamos de todos los sectores a las familias y a las instituciones sin fines de lucro que las sirven, al cierre de cada año: ` +",
+   "motivo": "La unidad (porcentaje del PBI) ya está en la línea nueva y la nota empezaba sin verbo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "En ${o.ini} los valores eran ${f(o.arg_ini)} y ${f(o.ocde_ini)}.` +",
+   "propuesto": "En ${o.ini}, la Argentina tenía ${f(o.arg_ini)} y el promedio de la OCDE, ${f(o.ocde_ini)}.` +",
+   "motivo": "«Los valores eran X y Y» obligaba a adivinar cuál era cuál.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(ocdeViejo(k) ? ` Es el último año que publica el Banco Mundial para esta comparación.` : \"\");",
+   "propuesto": "(ocdeViejo(k) ? ` Es el último año con dato para esta comparación.` : \"\");",
+   "motivo": "No todas las series vienen del Banco Mundial (el Banco de Pagos Internacionales, Ember): la frase es cierta para todas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "ver los temas o una pregunta de ejemplo.`;",
+   "propuesto": "ver los temas o abrir una pregunta de ejemplo.`;",
+   "motivo": "Aviso para lectores de pantalla sin resultados: «ofrece… ver los temas o una pregunta» no era paralelo. Sigue empezando por «Nada coincide», como pide la prueba de páginas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "mil barriles por día en ${PG.mes}, el ${pct(PG.pct_shale)} de pozos de shale. Según la EIA, en ${PG.mundo.crudo_kbd.anio} fue el productor número",
+   "propuesto": "mil barriles por día en ${PG.mes}. El ${pct(PG.pct_shale)} salió de pozos de shale. Según la EIA, en ${PG.mundo.crudo_kbd.anio} la Argentina fue el productor número",
+   "motivo": "«El 72,4% de pozos de shale» no tenía verbo, y «fue el productor» quedaba sin sujeto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Cuánto petróleo sale de una sola área de concesión?\",",
+   "propuesto": "[\"¿Cuánto petróleo sale del área de concesión que más produce?\",",
+   "motivo": "La respuesta es la de la primera área (areas_pet_top), no la de cualquiera.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Cuántos hogares cocinan con gas de red?\",",
+   "propuesto": "[\"¿Qué parte de los hogares cocina con gas de red?\",",
+   "motivo": "La respuesta es un porcentaje, no una cantidad (como «¿Qué parte de los hogares tiene cloacas?»).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "contra ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, en pesos de igual valor.`",
+   "propuesto": "contra ${n0(CN.hip_anual_min)} en ${CN.hip_anual_min_anio}, en pesos de ${CN.hip_mes}.`",
+   "motivo": "«Pesos de igual valor» no dice de qué momento: 02 lleva los montos a pesos del último mes (HIP_UM), como dice el texto de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${e.el_ult}, ${n0(e.el_pais)} kilovatios hora por habitante en el país.",
+   "propuesto": "`En ${e.el_ult}, los hogares del país consumieron ${n0(e.el_pais)} kilovatios hora por habitante.",
+   "motivo": "La pregunta es por los hogares y la respuesta no los nombraba (la cifra destacada de la ficha sí).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Cuánto gana en promedio un asalariado registrado?\",",
+   "propuesto": "[\"¿Cuánto gana en promedio un asalariado registrado del sector privado?\",",
+   "motivo": "La respuesta es solo del sector privado.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "con 10 años de antigüedad y jornada simple. Va de ${n0(DC.bajo[1])}",
+   "propuesto": "con 10 años de antigüedad y jornada simple. Según la provincia, va de ${n0(DC.bajo[1])}",
+   "motivo": "«Va de…» no tenía sujeto claro.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Cuánto da la cuenta corriente del balance de pagos?\",",
+   "propuesto": "[\"¿Cuál fue el saldo de la cuenta corriente del balance de pagos?\",",
+   "motivo": "«Cuánto da» es coloquial y no dice que se pregunta por el saldo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "y el ingreso primario ${saldoTx(SX.cuenta_corriente.primario)}.`",
+   "propuesto": "y el ingreso primario (intereses, utilidades y dividendos) ${saldoTx(SX.cuenta_corriente.primario)}.`",
+   "motivo": "Sigla de jerga sin explicar (R6): la explicación es la de la nota de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Cuántas personas pidieron refugio en la Argentina el último año?\",",
+   "propuesto": "[\"¿Cuántas personas piden refugio en la Argentina por año?\",",
+   "motivo": "«El último año» es ambiguo: la respuesta da el año del dato.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Ese año reconoció como refugiadas a ` +",
+   "propuesto": "Ese año, la Comisión reconoció como refugiadas a ` +",
+   "motivo": "El verbo quedaba sin sujeto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${ESU.interanual < 0 ? \"Menos\" : \"Más\"}: en ${ESU.mes}, las ventas en pesos de igual valor fueron ${pct(Math.abs(ESU.interanual))} ` +",
+   "propuesto": "`${ESU.interanual < 0 ? \"Menos\" : \"Más\"}: en ${ESU.mes}, descontada la inflación, las ventas fueron ${pct(Math.abs(ESU.interanual))} ` +",
+   "motivo": "Término fijo: «descontada la inflación», no «en pesos de igual valor».",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "pesos por mes en ${ECB.mes}, un hogar de cuatro integrantes del Gran Buenos Aires",
+   "propuesto": "pesos por mes en ${ECB.mes} para un hogar de cuatro integrantes del Gran Buenos Aires",
+   "motivo": "Faltaba la preposición: el hogar quedaba suelto en la oración.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Le ganan los salarios a la inflación?\",",
+   "propuesto": "[\"¿Le ganan los salarios registrados a la inflación?\",",
+   "motivo": "La respuesta es la de los salarios registrados (plan, sección 4, f-salario-real).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Qué parte de la electricidad usan las industrias?\",",
+   "propuesto": "[\"¿Qué parte de la electricidad usan las industrias y los grandes comercios?\",",
+   "motivo": "La respuesta cuenta industrias y grandes comercios juntos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "[\"¿Cuántos bebés menos nacen que hace una década?\",",
+   "propuesto": "[\"¿Cuánto bajaron los nacimientos?\",",
+   "motivo": "«Hace una década» queda vieja cuando cambia el último año: la respuesta compara con el año de más nacimientos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${n1(em.top_v)} asalariados cada 100 habitantes en ${em.top}",
+   "propuesto": "`${n1(em.top_v)} asalariados registrados del sector privado cada 100 habitantes en ${em.top}",
+   "motivo": "Nombra la población completa que cuenta la cifra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`A ${pz.dif_mat} puntos en matemática en ${pz.anio}: ${pz.mat} contra ${pz.ocde_mat}.`",
+   "propuesto": "`A unos ${pz.dif_mat} puntos en matemática en ${pz.anio}: ${pz.mat} contra ${pz.ocde_mat}.`",
+   "motivo": "R12: la diferencia sale de los puntajes con decimales (95) y la resta de los que se muestran da 94. «Unos» avisa que es redondeo sin calcular nada nuevo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "En ${es.low}, el ${pct(es.low_v)}.`, \"#f-escolarizacion\"]",
+   "propuesto": "En ${es.low}, la más baja, el ${pct(es.low_v)}.`, \"#f-escolarizacion\"]",
+   "motivo": "No decía por qué se nombraba esa provincia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${su.mes} viajaban por día hábil ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? \"menos\" : \"más\"} tarjetas en tren y ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? \"menos\" : \"más\"} en subte que en marzo de 2020.`",
+   "propuesto": "`En ${su.mes}, por día hábil, se usaron ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? \"menos\" : \"más\"} tarjetas SUBE en el tren y ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? \"menos\" : \"más\"} en el subte que en marzo de 2020.`",
+   "motivo": "«Viajaban… tarjetas» no concordaba: las tarjetas se usan, no viajan.",
+   "veces": 1
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<title>Datina | Las 24 Argentinas en números</title>",
+   "motivo": "Lema del sitio. 03 lo busca literal (TITULO) para reemplazarlo en las demás páginas."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Explorá la Argentina por tema",
+   "motivo": "Pedido del autor (etapa 36). «Explorá» no es uno de los verbos prohibidos y es el rótulo de un bloque, no el título de una página."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "aria-label=\"Mapa de las 24 jurisdicciones. Con el teclado, cada una está en la lista de Provincias, más abajo en esta página\"",
+   "motivo": "Ya es claro. La prueba de páginas pide que diga «Provincias»."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "placeholder=\"Tema, provincia o pregunta\"",
+   "motivo": "Claro y corto. La prueba de páginas controla que entre entero en 360 y 768 píxeles: no se alarga."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<p class=\"bloque-sub\">Para cruzar indicadores,",
+   "motivo": "03 controla este comienzo literal (_herr_sub) y le antepone las consultas con IA: el texto nuevo lo conserva."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2 id=\"nos-tit\">Sobre nosotros</h2> · <h2 id=\"contacto-tit\">Contacto</h2> · <h2 id=\"no-tit\">Esta página no existe</h2>",
+   "motivo": "Páginas auxiliares, sin datos que respondan una pregunta. «Sobre nosotros» y «Contacto» son los nombres del pie y del buscador."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Licencia y reutilización (párrafo entero)",
+   "motivo": "Ya es claro y preciso. Falta un enlace al código y un «Cómo citar»: van en pendientes."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>Para quién es</h2>, <h2>El nombre y los símbolos</h2>, <h2>Las 24, una por una</h2>, <h2>Cada cifra con su origen</h2> (y sus textos)",
+   "motivo": "Ya están claros y no prometen nada que el sitio no haga."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Todos los artículos · Laboratorio · Curiosidades · Ir a la portada · Ver todos los temas · Elegí tu provincia · Saltar al contenido",
+   "motivo": "Botones que ya dicen adónde llevan."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Novedades por correo · Avisarme · Enviando · Anotado (suscripción del pie)",
+   "motivo": "Se ve solo con los formularios prendidos. Los textos son claros."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "GRUPOS, MENUS, NOMBRE_MENU, TITULO_DE (Tu provincia, Sobre nosotros, Contacto, Laboratorio)",
+   "motivo": "Nombres de la navegación: los controla prueba_navegacion.py y la barra tiene que coincidir con la portada."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "Seguí explorando · Todos los temas · Todos los artículos · Todo el Laboratorio · Qué es Datina · Inicio de Datina · Herramienta · N fichas",
+   "motivo": "Ya dicen qué es cada tarjeta. Las flechas van en pendientes (diseño)."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "FRASE_FRECUENCIA (salvo «leyes»)",
+   "motivo": "Frases claras. Tienen que empezar por «Se actualiza» (o «La encuesta está en pausa») porque catalogo.py y relaciones.py las leen con esa forma."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "El formulario de contacto todavía no está disponible.",
+   "motivo": "Es cierto y claro. Qué canal ofrecer es una decisión del autor (pendiente)."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "Las banderas de las provincias y la nacional vienen de Wikimedia Commons… y la lista «Autores y licencias»",
+   "motivo": "Los autores y las licencias son la atribución que pide cada licencia, copiada de Commons (datos/manual/banderas/fuentes.csv): no se traducen ni se corrigen."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "Qué se mide, cómo se calcula y de dónde sale cada dato de esta página. / Para entender los datos: qué se mide, de dónde sale y qué tener en cuenta, al final de la página",
+   "motivo": "Literal «Para entender los datos». El texto ya es claro. La flecha «↓» va en pendientes."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Ver tabla · Ocultar tabla · Copiar enlace · Enlace copiado · No se pudo copiar · De dónde sale · Descargar imagen · Descargar CSV · Cómo se calcula · Sobre los datos · Ver más · Ver menos",
+   "motivo": "Botones del pie de ficha que ya dicen la acción. «Ver tabla» y «Cómo se calcula» son literales de prueba."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "No se pudo dibujar este gráfico. · No se pudo cargar la comparación con la OCDE. · No se pudo cargar el mapa. · No se pudo armar este artículo.",
+   "motivo": "prueba_fallas.mjs los busca literales."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "No se pudo cargar la tabla. Probá de nuevo. · No hay filas para lo elegido en el gráfico. · La tabla completa está en el CSV. (y la explicación del resaltado)",
+   "motivo": "Ya dicen qué pasó y qué hacer."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Gráfico: {pregunta}. Los datos están en «Ver tabla», debajo",
+   "motivo": "Nombre accesible de cada gráfico: la prueba de páginas controla que ningún gráfico quede sin nombre."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Respuesta rápida · Respuesta rápida: {…} · Nada coincide con «…» · Buscar «…» en el catálogo de datos · Preguntarles a los datos: «…» · Preguntas de ejemplo · Para empezar · 1 resultado. Enter para abrirlo.",
+   "motivo": "Literales de la prueba de páginas («Respuesta rápida:», «Nada coincide», la primera opción al catálogo) o ya claros."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "PREG: ¿Cuánto cuesta un litro de nafta? · ¿Qué parte de los hogares tiene cloacas? · ¿Qué provincia tiene más glaciares?",
+   "motivo": "Son las preguntas de ejemplo (EJEMPLOS en 03, que controla que sigan en PREG)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "OCDE_BOTON: Hijos por mujer · Terminan el ciclo básico · Tasa estimada por la OMS · Tasa de empleo · Pobreza relativa · Electricidad por habitante · CO₂ por habitante · Pesca por habitante · Eólica y solar en la generación",
+   "motivo": "Ya nombran la medida. «Tasa estimada por la OMS» es la vista de la ficha de suicidio: neutra y sin cambios."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "OCDE_VISTA: Nacimientos · Por provincia · Registro del SNIC · Cantidad por año · Pobreza e indigencia · Hogares y resto · Turistas por año · Por especie · Créditos nuevos · Centrales y potencia",
+   "motivo": "Nombres de la vista propia de cada ficha: dicen bien adónde vuelve el gráfico."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "En cifras (título del bloque) · Tu provincia · Elegí una provincia para ver sus datos de esta sección junto a los del país. · Todo el país",
+   "motivo": "Nombre del componente que controla la prueba de páginas y textos ya claros."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "nos-cifras: fichas con su tabla · jurisdicciones · secciones temáticas · artículos de cruces",
+   "motivo": "Los 18 artículos son cruces (también los de series del país)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Tocá una provincia para ver sus datos · Hacé clic en una provincia para ver sus datos · {Provincia}: ver sus datos · Ver perfil completo · Cerrar · Ver todo el país · Provincia elegida: {nombre}. Ver su perfil",
+   "motivo": "Ayudas del mapa y de la provincia elegida: claras."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Cuadros de los gráficos (País: X, N puntos más o menos · Subió/Bajó · Sin cambio · sin dato en la fuente · Miles de GWh · Las 24 jurisdicciones, de mayor a menor · Más alto · Más bajo · En amarillo)",
+   "motivo": "Cuadros emergentes genéricos ya claros y cortos."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "contacto.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Para avisar de un error en un dato, sugerir una fuente o una pregunta, o contar cómo usás Datina. / El formulario de contacto todavía no está disponible.",
+   "motivo": "La bajada ofrece algo que la página no da: no hay canal para escribir. Es la decisión 2 de la sección 13 del plan.",
+   "propuesta": "Un correo del proyecto o los «issues» del repositorio, y que la bajada diga cómo usarlo. Si el autor deja la página como está, que la bajada diga «Todavía no hay un canal para escribirle a Datina» en lugar de prometerlo."
+  },
+  {
+   "ruta": "todas las páginas",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "FLECHA_ANT, FLECHA_SIG («← Anterior», «Siguiente →», «Todos los temas →») y «al final de la página ↓» en gancho()",
+   "motivo": "La regla de diseño dice «sin flechas decorativas» y la auditoría las marcó. Sacarlas cambia lo que se ve: necesita aprobación visual.",
+   "propuesta": "Sacar las flechas y dejar «Anterior», «Siguiente», «Todos los temas» y «al final de la página»."
+  },
+  {
+   "ruta": "páginas de sección con provincia elegida, portada (tarjeta del mapa)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "Posición ${orden} de ${c.d.length}, de mayor a menor. / ${pos}.º de ${x.d.length}, de mayor a menor.",
+   "motivo": "La auditoría pide «la 3.ª más baja de 24» en lugar de dar vuelta el puesto. Es la misma frase que el perfil provincial (grupo G6a): conviene cambiarlas juntas, y el puesto desde abajo es una cuenta nueva (n − puesto + 1).",
+   "propuesta": "Si el autor lo aprueba: «la N.ª más alta de 24» si el puesto está en la mitad de arriba y «la N.ª más baja de 24» si está en la de abajo, en el perfil, en «En cifras» y en la tarjeta del mapa a la vez."
+  },
+  {
+   "ruta": "salud.html#f-mortalidad, energia.html#f-hogares, pobreza.html#f-pobreza",
+   "archivo": "scripts/datina.js",
+   "fragmento": "OCDE_VISTA: f-mortalidad → gasto_salud, f-hogares → co2, f-pobreza → pobreza_relativa y gini",
+   "motivo": "R2 pide además sacar los botones OCDE que no responden la pregunta de su ficha (el gasto en salud no contesta por la mortalidad infantil). Sacar un botón está fuera de esta tarea. Los botones ya nombran la medida y la nota avisa que es otra.",
+   "propuesta": "Sacar gasto_salud de f-mortalidad y co2 de f-hogares, o llevarlos a una ficha propia de comparación internacional."
+  },
+  {
+   "ruta": "buscador (todas las páginas)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "IDX.push({t: \"La Corte Suprema: quién designó a cada juez\", g: \"Historias\", u: \"corte-suprema.html\",",
+   "motivo": "El título de la pieza va escrito dos veces a mano: en el buscador y en data-titulo de la plantilla (otro grupo). Si se cambia uno, el otro queda distinto.",
+   "propuesta": "Que el buscador tome el título del índice (03 ya lee las piezas en PIEZAS) o, si el otro grupo cambia el título, cambiar también esta línea."
+  },
+  {
+   "ruta": "nosotros.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Sobre nosotros (falta «Quién lo hace», el enlace al código MIT, «Cómo citar» y la fecha de la última actualización)",
+   "motivo": "La auditoría lo marcó (P1). Necesita datos que el repositorio no tiene (quién firma, si el repositorio es público) o una sección nueva.",
+   "propuesta": "Un párrafo «Quién lo hace» y el enlace al repositorio si es público. «Cómo citar» con un ejemplo para copiar (F2 del plan). La fecha de la última actualización puede salir de {{actualizado}} con el mismo formato en palabras."
+  },
+  {
+   "ruta": "provincia.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "document.title queda en «Tu provincia | Datina» con una provincia elegida",
+   "motivo": "Cambiar el título de la pestaña al elegir una provincia es comportamiento nuevo, no redacción (auditoría P0, grupo del perfil).",
+   "propuesta": "Que datina.js ponga «{Provincia} en números | Datina» al elegir, y las páginas fijas por provincia del plan (D3) para compartir."
+  },
+  {
+   "ruta": "index.html#destacados",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "Datos destacados",
+   "motivo": "La pregunta de cada destacado ya contesta la cifra del país. D7 propone además mostrar el rango provincial debajo de la cifra, que es diseño.",
+   "propuesta": "Una tira con las 24 provincias o la más alta y la más baja debajo de cada cifra (aprobación visual)."
+  },
+  {
+   "ruta": "index.html (Herramientas)",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Para cruzar indicadores, ordenar las provincias según lo que te importa…",
+   "motivo": "La bajada describe siete herramientas porque el menú tiene siete. La auditoría propone un menú de cinco (decisión 7 del autor).",
+   "propuesta": "Si el autor simplifica el menú, la bajada queda en dos oraciones: «Para preguntar, cruzar, ordenar y bajar los datos. Cada número muestra de dónde sale.»"
+  }
+ ]
+}

@@ -1,0 +1,1620 @@
+{
+ "grupo": "G3",
+ "cambios": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "¿Cómo se reparten las bancas, los votos y los fondos entre las provincias?</p>",
+   "propuesto": "¿Cómo vota cada provincia y cómo se reparten entre ellas las bancas, los fondos y los jueces?</p>",
+   "motivo": "Los votos no se reparten: la pregunta nombra lo que la página mide (voto por provincia, bancas, transferencias y justicia). Se conserva la página entera, sin adelantar la partición que decide el autor.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Cómo votó cada provincia, quiénes la representan en el Congreso, cuánto pesa su voto y cuánto recibe de la Nación sin una fórmula fija. Al final, la justicia: cuántos casos resuelve la Corte Suprema y cuántos jueces, fiscalías y defensorías hay en cada provincia. Los colores indican espacios políticos y la clasificación está explicada en cada ficha.</p>",
+   "propuesto": "<p>Cómo votó cada provincia para presidente, quiénes la representan en el Congreso y cuánto pesa su voto allí. Cómo votan los legisladores las leyes y los proyectos clave, y cuánto recibe cada provincia de la Nación sin una fórmula fija. También dónde nacieron los presidentes y los ministros y cuánta confianza genera el gobierno nacional. Al final, la justicia: los casos de la Corte Suprema y los jueces, fiscales y defensores de cada provincia. Los colores indican el espacio político, con una clasificación propia que cada ficha explica.</p>",
+   "motivo": "La entrada no nombraba las votaciones, los presidentes, los ministros ni la confianza en el gobierno. Oraciones más cortas y \"leyes y proyectos clave\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Elecciones presidenciales y PASO por provincia, 1983 a {{elecciones_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Porcentaje de votos de cada fórmula presidencial por provincia, en las elecciones generales y las PASO, 1983 a {{elecciones_ult}}</p>",
+   "motivo": "La descripción dice qué se mide (porcentaje de votos de cada fórmula), no solo el tema.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Diputados y senadores nacionales por provincia en cada período, 1983 a hoy",
+   "propuesto": "Diputados y senadores nacionales de cada provincia en cada período legislativo, desde 1983",
+   "motivo": "Un solo cierre para el período (\"desde 1983\") y \"período legislativo\", el término de la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Los hemiciclos muestran quién ocupaba cada banca el 1 de marzo de cada período, la fecha del gráfico de la composición del Congreso, y hoy en el período actual.",
+   "propuesto": "Los hemiciclos muestran quién ocupaba cada banca el 1 de marzo de cada período, la misma fecha del gráfico de la composición del Congreso. En el período actual muestran quién la ocupa hoy.",
+   "motivo": "La oración terminaba con \"y hoy en el período actual\", mal conectado. Se parte en dos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Bloque parlamentario para los diputados desde 2007, y partido o alianza por la que fueron electos para los diputados anteriores y para los senadores.",
+   "propuesto": "Desde 2007, cada diputado figura con su bloque parlamentario. Los diputados anteriores y los senadores figuran con el partido o la alianza por la que fueron electos.",
+   "motivo": "Oración sin verbo, con el sujeto al final. Misma regla, dicha en dos oraciones.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Legisladores nacionales con más años en el Congreso, 1983 a hoy",
+   "propuesto": "Diputados y senadores nacionales con más años en el Congreso, sumados desde 1983",
+   "motivo": "Dice qué se suma y desde cuándo, con el mismo cierre que la ficha de legisladores.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "ocupó una banca de diputado o de senador nacional desde que asumió en 1983 hasta hoy,",
+   "propuesto": "ocupó una banca de diputado o de senador nacional desde 1983 hasta hoy,",
+   "motivo": "\"Desde que asumió en 1983\" se leía como si todos hubieran asumido en 1983.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos habitantes hay por cada banca de diputado?</h2>",
+   "propuesto": "<h2>¿Cuántos habitantes hay por banca de diputado en cada provincia?</h2>",
+   "motivo": "La ficha compara provincias: la pregunta lo dice.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Habitantes por banca de diputado nacional según provincia, {{anio_pob}}",
+   "propuesto": "Habitantes por banca de diputado nacional en cada provincia, con la población proyectada para {{anio_pob}}",
+   "motivo": "El año es el de la población proyectada, no el de las bancas: la descripción lo aclara.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántas bancas tuvo cada espacio político?</h2>",
+   "propuesto": "<h2>¿Cuántas bancas tuvo cada espacio político en cada período?</h2>",
+   "motivo": "La ficha es la serie por período (la composición de hoy está en la ficha de legisladores).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Composición del Congreso por espacio político en cada período legislativo, 1983 a {{congreso.anio_fin}}",
+   "propuesto": "Bancas de cada espacio político en Diputados y en el Senado al 1 de marzo de cada período legislativo, 1983 a {{congreso.anio_fin}}",
+   "motivo": "Nombra la unidad (bancas), las dos cámaras y la fecha de referencia de cada barra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Bancas ocupadas el 1° de marzo siguiente al comienzo de cada período",
+   "propuesto": "Bancas ocupadas el 1 de marzo siguiente al comienzo de cada período",
+   "motivo": "Misma forma de fecha que el resto de la página (\"1 de marzo\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "La Coalición Cívica y el ARI van en otras fuerzas.",
+   "propuesto": "La Coalición Cívica y el ARI van en otras fuerzas, y el bloque Provincias Unidas, en las fuerzas provinciales.",
+   "motivo": "Explica por qué la UCR y aliados tiene pocas bancas hoy: Provincias Unidas va con las fuerzas provinciales (REGLAS_ESPACIO de 02_procesar.py).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cómo votó cada legislador las leyes clave?</h2>",
+   "propuesto": "<h2>¿Cómo votó cada legislador las leyes y los proyectos clave?</h2>",
+   "motivo": "Término fijo: la selección incluye proyectos que no fueron ley (la 125, Ficha limpia, la IVE de 2018).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Voto de cada legislador y de cada espacio político en las leyes clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}",
+   "propuesto": "Voto de cada diputado y senador en la votación en general de las leyes y los proyectos clave, por espacio político, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}",
+   "motivo": "Dice qué votación se muestra (la votación en general) y usa el término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<label class=\"selector-ficha\"><span>Ley</span><select id=\"vt-sel\">",
+   "propuesto": "<label class=\"selector-ficha\"><span>Ley o proyecto</span><select id=\"vt-sel\">",
+   "motivo": "El selector incluye proyectos que no fueron ley.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Qué parte de cada espacio votó a favor de cada ley?</h2>",
+   "propuesto": "<h2>¿Qué parte de cada espacio político votó a favor de cada ley o proyecto?</h2>",
+   "motivo": "Término completo (\"espacio político\") y proyectos que no fueron ley.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Parte de cada espacio político que votó a favor de las leyes clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}",
+   "propuesto": "Porcentaje de los legisladores presentes de cada espacio político que votó a favor de las leyes y los proyectos clave, {{votaciones.leyes_ini}} a {{votaciones.leyes_fin}}",
+   "motivo": "La unidad de cada celda es el porcentaje de los presentes (lo dice la nota): la descripción lo nombra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Votan más con el gobierno los legisladores de las provincias que más lo votaron?</h2>",
+   "propuesto": "<h2>¿Votan más con el oficialismo los legisladores de las provincias donde más votos sacó el presidente?</h2>",
+   "motivo": "Al gobierno no se lo vota: se vota al presidente. La ficha mide la coincidencia con el bloque oficialista.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Voto de los legisladores en las leyes clave y voto de su provincia al presidente, {{votaciones.rep_ini}} a {{votaciones.rep_fin}}",
+   "propuesto": "Coincidencia de los legisladores de cada provincia con el bloque oficialista en las leyes y los proyectos clave, y voto de la provincia al presidente, {{votaciones.rep_ini}} a {{votaciones.rep_fin}}",
+   "motivo": "Nombra las dos medidas que cruza el gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto recibe cada provincia en ATN?</h2>",
+   "propuesto": "<h2>¿Cuánto recibe cada provincia en Aportes del Tesoro Nacional?</h2>",
+   "motivo": "Sin sigla en la pregunta: la sigla se explica en la descripción.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Aportes del Tesoro Nacional (ATN) a las provincias, {{transferencias.desde}} a {{transferencias.ult}}",
+   "propuesto": "Aportes del Tesoro Nacional (ATN) a las provincias, descontada la inflación, en pesos de {{transferencias.ult}}, {{transferencias.desde}} a {{transferencias.ult}}",
+   "motivo": "Faltaba la unidad: los montos están descontada la inflación, en pesos del último año (término fijo).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto recibe cada provincia en transferencias no automáticas?</h2>",
+   "propuesto": "<h2>¿Cuánto recibe cada provincia por habitante en transferencias no automáticas?</h2>",
+   "motivo": "Por provincia, la ficha muestra montos por habitante.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Transferencias no automáticas de la Nación a las provincias, {{transferencias.desde}} a {{transferencias.ult}}",
+   "propuesto": "Transferencias no automáticas de la Nación a las provincias sin contar los ATN, descontada la inflación, en pesos de {{transferencias.ult}}, {{transferencias.desde}} a {{transferencias.ult}}",
+   "motivo": "\"Sin contar los ATN\" estaba solo en el texto y faltaba la unidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "download>Total por año, miles de millones (CSV)</a><a href=\"datos/transferencias_provincias.csv\" download>Por provincia, millones (CSV)</a>",
+   "propuesto": "download>Total por año, en miles de millones de pesos (CSV)</a><a href=\"datos/transferencias_provincias.csv\" download>Por provincia, en millones de pesos (CSV)</a>",
+   "motivo": "Los botones de descarga nombran la moneda.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Votan más con el gobierno los legisladores de las provincias que reciben más fondos?</h2>",
+   "propuesto": "<h2>¿Votan más con el oficialismo los legisladores de las provincias que reciben más transferencias no automáticas?</h2>",
+   "motivo": "Nombra qué fondos se cruzan (ATN y otras no automáticas) y distingue esta pregunta de la de f-voto-provincia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Apoyo al gobierno de los legisladores de cada provincia y transferencias discrecionales, {{votaciones.apoyo.desde}} a {{votaciones.apoyo.hasta}}",
+   "propuesto": "Votos de los legisladores de otros bloques de cada provincia iguales a los del bloque oficialista, y transferencias no automáticas por habitante, {{votaciones.apoyo.desde}} a {{votaciones.apoyo.hasta}}",
+   "motivo": "\"Discrecionales\" valora (término fijo: transferencias no automáticas). La descripción nombra la medida de apoyo que usa la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Qué parte de los legisladores de fuera del oficialismo votó el presupuesto?</h2>",
+   "propuesto": "<h2>¿Qué parte de los legisladores de fuera del oficialismo votó a favor de cada presupuesto?</h2>",
+   "motivo": "\"Votó el presupuesto\" puede leerse como \"participó de la votación\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Cómo votaron el presupuesto los legisladores de fuera del bloque oficialista, {{presupuesto.desde}} a {{presupuesto.hasta}}",
+   "propuesto": "Voto de los diputados y senadores de fuera del bloque oficialista en la votación en general de cada presupuesto, {{presupuesto.desde}} a {{presupuesto.hasta}}",
+   "motivo": "La descripción dice qué votación se muestra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "AMBA: la Ciudad de Buenos Aires y los 24 partidos del Gran Buenos Aires según el INDEC.",
+   "propuesto": "AMBA (Área Metropolitana de Buenos Aires): CABA y los 24 partidos del Gran Buenos Aires, según el INDEC.",
+   "motivo": "La sigla con su nombre y \"CABA\" (término fijo).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Ministros nacionales según lugar de nacimiento, 1983 a hoy",
+   "propuesto": "Ministros nacionales y jefes de gabinete de cada gobierno según su lugar de nacimiento, desde 1983",
+   "motivo": "La ficha incluye a los jefes de gabinete (lo dice la nota). Mismo cierre del período que las otras fichas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuentes: Wikipedia, Wikidata y Casa Rosada</span>",
+   "propuesto": "<span>Fuentes: Casa Rosada, Wikipedia y Wikidata</span>",
+   "motivo": "La fuente oficial primero, como en la ficha de presidentes. Siguen los tres nombres (Explorador de relaciones).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos casos resuelve la Corte Suprema por año?</h2>",
+   "propuesto": "<h2>¿Cuántos casos llegan a la Corte Suprema y cuántos resuelve?</h2>",
+   "motivo": "El gráfico y el texto muestran los casos que llegan y los que se resuelven.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos jueces federales hay en cada provincia?</h2>",
+   "propuesto": "<h2>¿Cuántos cargos de juez federal hay en cada provincia y cuántos tienen titular?</h2>",
+   "motivo": "La ficha cuenta cargos (no personas) y su cifra destacada es la parte sin titular.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Fiscalías y defensorías públicas oficiales de la Justicia Federal por provincia, {{justicia.mp.fecha}}</p>",
+   "propuesto": "Fiscalías y defensorías públicas oficiales de la Justicia Federal por provincia, {{justicia.mp.fecha}}, el último padrón con fiscales y defensores</p>",
+   "motivo": "La ficha de al lado tiene otra fecha: la descripción dice por qué esta es más vieja.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos jueces tiene la corte de cada provincia?</h2>",
+   "propuesto": "<h2>¿Cuántos jueces tiene la corte de cada provincia y cuántos lugares están vacantes?</h2>",
+   "motivo": "El gráfico y el texto hablan de los lugares vacantes que fija la ley.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Ministras y ministros del máximo tribunal de cada provincia y de la Ciudad de Buenos Aires al 31 de octubre",
+   "propuesto": "Ministras y ministros del máximo tribunal de cada provincia y de CABA al 31 de octubre",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Jueces (con la justicia de paz), fiscales y defensores de cada provincia y de la Ciudad de Buenos Aires cada 100.000 habitantes, al 31 de octubre",
+   "propuesto": "Jueces (con la justicia de paz), fiscales y defensores de la justicia de cada provincia y de CABA, cada 100.000 habitantes, al 31 de octubre",
+   "motivo": "Término fijo (CABA) y aclara que es la justicia provincial, no la federal.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Primero, los delitos que registran las fuerzas policiales y de seguridad y cuáles son los más frecuentes. Después, los robos y los hurtos, los homicidios y las personas privadas de libertad en las cárceles. Son registros de hechos denunciados o detectados: los delitos que nadie denuncia no figuran. Los homicidios y los robos por departamento están en <a href=\"departamentos.html\">Departamentos</a>, y las muertes por homicidio, en siniestros viales y por femicidio, en <a href=\"salud.html#f-muertes\">Salud</a>.</p>",
+   "propuesto": "<p>Cuántos delitos registran las fuerzas policiales y de seguridad y cuáles son los más frecuentes. Cuántos robos, hurtos y homicidios hay en cada provincia y cuántas personas están en las cárceles. Son registros de hechos denunciados o detectados: los delitos que nadie denuncia no figuran. Los homicidios y los robos por departamento están en <a href=\"departamentos.html\">Departamentos</a>. La serie de muertes por homicidio, en siniestros viales y por femicidio está en <a href=\"salud.html#f-muertes\">Salud</a>.</p>",
+   "motivo": "Sin el índice \"Primero... Después...\": dice qué responde la página. La última oración se parte en dos. Se conservan los dos enlaces y la advertencia sobre lo que no se denuncia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos delitos se registran y de qué tipo?</h2>",
+   "propuesto": "<h2>¿Cuántos delitos se registran en el país y de qué tipo?</h2>",
+   "motivo": "Es la única ficha de la página sin datos por provincia: la pregunta lo dice.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Delitos registrados en el país por tipo, {{seguridad.anio_ini}} a {{seguridad.anio}}",
+   "propuesto": "Delitos registrados en el país cada 100.000 habitantes, por tipo, {{seguridad.anio_ini}} a {{seguridad.anio}}",
+   "motivo": "Faltaba la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Víctimas de homicidios dolosos cada 100.000 habitantes por provincia, {{seguridad.anio_ini}} a {{seguridad.anio}}",
+   "propuesto": "Víctimas de homicidios dolosos cada 100.000 habitantes por año: por provincia, promedio de {{seguridad.hom3_desde}} a {{seguridad.anio}}, y en el país, {{seguridad.anio_ini}} a {{seguridad.anio}}",
+   "motivo": "Las barras por provincia son el promedio de tres años y la cifra destacada es el último año del país: la descripción nombra los dos períodos (hallazgo P0 de la auditoría).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántas personas hay en las cárceles?</h2>",
+   "propuesto": "<h2>¿Cuántas personas hay en las cárceles del país y de cada provincia?</h2>",
+   "motivo": "La ficha tiene vista por provincia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Personas privadas de libertad en cárceles cada 100.000 habitantes, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}",
+   "propuesto": "Personas privadas de libertad en cárceles cada 100.000 habitantes, al 31 de diciembre de cada año, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}",
+   "motivo": "El dato es un censo al 31 de diciembre: la descripción lo dice.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\">Datos difíciles, en gráficos.</p>",
+   "propuesto": "<p class=\"pregunta\">Muchos datos en un solo gráfico.</p>",
+   "motivo": "\"Difíciles\" es vago: lo que tienen en común las piezas es que juntan muchos datos en un dibujo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Piezas para mirar con tiempo: muchos datos en un solo dibujo, como cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha, con la tabla para descargar.</p>",
+   "propuesto": "<p>Piezas para mirar con tiempo, como los jueces de la Corte Suprema, cada banca del Congreso o cada pozo de Vaca Muerta. Cada una dice de dónde salen sus datos y lleva a su ficha o a su página, con las tablas para descargar.</p>",
+   "motivo": "Nombra la pieza más nueva (la Corte Suprema, que tiene página propia) y no repite la idea de la línea de arriba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span class=\"etiqueta\">Justicia</span>",
+   "propuesto": "<span class=\"etiqueta\">Instituciones políticas</span>",
+   "motivo": "No hay una sección Justicia: las otras etiquetas nombran la sección del tema, y la justicia está en Instituciones políticas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "style=\"view-transition-name:t-corte-suprema\">La Corte Suprema, juez por juez: quién designó a cada uno</h2>",
+   "propuesto": "style=\"view-transition-name:t-corte-suprema\">¿Qué gobierno designó a cada juez de la Corte Suprema?</h2>",
+   "motivo": "Regla del autor: el título es una pregunta. Es el mismo título que el h1 de la pieza (comparten la transición de vista), su data-titulo y su entrada del buscador.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2 id=\"l-hemiciclo-t\">Diputados y senadores, banca por banca</h2>",
+   "propuesto": "<h2 id=\"l-hemiciclo-t\">¿Quién ocupa cada banca del Congreso?</h2>",
+   "motivo": "Regla del autor: el título de cada pieza es una pregunta que el gráfico contesta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2 id=\"l-pozos-t\">Cada pozo de Vaca Muerta</h2>",
+   "propuesto": "<h2 id=\"l-pozos-t\">¿Dónde está cada pozo de Vaca Muerta y cuándo empezó a producir?</h2>",
+   "motivo": "Pregunta: el mapa ubica cada pozo y lo colorea por el año en que empezó a producir.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2 id=\"l-anios-t\">Quiénes estuvieron más años en el Congreso</h2>",
+   "propuesto": "<h2 id=\"l-anios-t\">¿Quiénes pasaron más años en el Congreso?</h2>",
+   "motivo": "La misma pregunta que su ficha (f-anios-congreso).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2 id=\"l-cruces-t\">Las 24, año por año</h2>",
+   "propuesto": "<h2 id=\"l-cruces-t\">¿Cómo cambiaron la natalidad y la mortalidad infantil en cada provincia?</h2>",
+   "motivo": "Pregunta que nombra los dos indicadores del dibujo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "data-titulo=\"La Corte Suprema: quién designó a cada juez\"",
+   "propuesto": "data-titulo=\"¿Qué gobierno designó a cada juez de la Corte Suprema?\"",
+   "motivo": "El título de la pieza es una pregunta (regla del autor). Lo usan la pestaña, Open Graph, la tarjeta de la portada y \"Seguí explorando\". El nombre corto del menú (\"La Corte Suprema\", NOMBRE_MENU de 03) no cambia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `En total, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país en ${SG.anio}, y la tasa cada 100.000 habitantes ` +",
+   "propuesto": "return `En ${SG.anio}, las fuerzas policiales y de seguridad registraron ${n0(SG.total)} delitos en el país. La tasa cada 100.000 habitantes ` +",
+   "motivo": "Una idea por oración: el total y, aparte, cómo cambió la tasa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${SG.anio - 1}. Los más frecuentes fueron ${lista(SG.tipos.map(",
+   "propuesto": "${SG.anio - 1}. Los más frecuentes, como parte del total, fueron ${lista(SG.tipos.map(",
+   "motivo": "Aclara de qué son los porcentajes entre paréntesis.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "const deDia = t => t === \"CABA\" ? \", que cada día recibe a muchas personas que viven en otras jurisdicciones\" : \"\";",
+   "propuesto": "const deDia = t => t === \"CABA\" ? \" CABA recibe cada día a muchas personas que viven en otras jurisdicciones, pero la tasa se calcula solo con quienes viven en ella.\" : \"\";",
+   "motivo": "La aclaración sobre CABA pasa a ser una oración propia al final del texto (iba colgada después del paréntesis). Va junto con los cuatro cambios siguientes, que la mueven de lugar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${conVeces(SG.hurtos_top[1], SG.hurtos)}${deDia(SG.hurtos_top[0])}, y la más baja, la de ` +",
+   "propuesto": "${conVeces(SG.hurtos_top[1], SG.hurtos)}, y la más baja, la de ` +",
+   "motivo": "Saca la aclaración de CABA del medio de la oración (va al final, cambio siguiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${SG.hurtos_bajo[0]}, con ${n0(SG.hurtos_bajo[1])}${conVeces(SG.hurtos_bajo[1], SG.hurtos)}.`;",
+   "propuesto": "`${SG.hurtos_bajo[0]}, con ${n0(SG.hurtos_bajo[1])}${conVeces(SG.hurtos_bajo[1], SG.hurtos)}.${deDia(SG.hurtos_top[0])}`;",
+   "motivo": "La aclaración de CABA, como oración aparte al final (va con el cambio anterior).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "un ${pct(Math.abs(r))} frente a ${SG.anio - 1}, ` +",
+   "propuesto": "un ${pct(Math.abs(r))} frente a ${SG.anio - 1}. ` +",
+   "motivo": "Parte en dos la oración larga de los robos (va con el cambio siguiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y bajó ${deLas24(SG.n_robos_bajan)}. La más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}${deDia(SG.robos_top[0])}, ` +",
+   "propuesto": "`Bajó ${deLas24(SG.n_robos_bajan)}. La tasa más alta fue la de ${SG.robos_top[0]}, con ${n0(SG.robos_top[1])}${conVeces(SG.robos_top[1], SG.robos)}, ` +",
+   "motivo": "Oraciones cortas y la aclaración de CABA al final (cambio siguiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y la más baja, la de ${SG.robos_bajo[0]}, con ${n0(SG.robos_bajo[1])}${conVeces(SG.robos_bajo[1], SG.robos)}.`;",
+   "propuesto": "`y la más baja, la de ${SG.robos_bajo[0]}, con ${n0(SG.robos_bajo[1])}${conVeces(SG.robos_bajo[1], SG.robos)}.${deDia(SG.robos_top[0])}`;",
+   "motivo": "La aclaración de CABA, como oración aparte al final.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `En total, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país en ${SG.anio}, una cada ` +",
+   "propuesto": "return `En ${SG.anio}, ${n0(SG.hom_victimas)} personas fueron víctimas de homicidios dolosos en el país` +",
+   "motivo": "Saca \"una cada 27.700 habitantes\", que repetía la tasa de la cifra destacada con otra forma (auditoría). Va con los dos cambios siguientes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${unoCada(SG.hom_tasa)} habitantes` + (SG.hom_min_anio === SG.anio ? `, la tasa más baja desde ${SG.anio_ini}` : \"\") + `. El ${pct(SG.hom_varones)} eran varones. ` +",
+   "propuesto": "(SG.hom_min_anio === SG.anio ? `, y la tasa fue la más baja desde ${SG.anio_ini}` : \"\") + `. El ${pct(SG.hom_varones)} de las víctimas eran varones. ` +",
+   "motivo": "\"La tasa más baja\" quedaba pegada a una cantidad de personas. Va con el cambio anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Entre ${SG.hom3_desde} y ${SG.anio}, la tasa más alta fue la de ${SG.hom3_top[0]}, con ${n1(SG.hom3_top[1])} por año${conVeces(SG.hom3_top[1], SG.hom3_pais)}, ` +",
+   "propuesto": "`Entre ${SG.hom3_desde} y ${SG.anio}, el país tuvo en promedio ${n1(SG.hom3_pais)} víctimas cada 100.000 habitantes por año. La tasa más alta fue la de ${SG.hom3_top[0]}, con ${n1(SG.hom3_top[1])}${conVeces(SG.hom3_top[1], SG.hom3_pais)}, ` +",
+   "motivo": "Hallazgo P0: el gráfico usa el promedio de tres años del país (4,0) y la cifra destacada el último año (3,6). El texto nombra la medida del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Penitenciario Federal alojaban a ${n0(SG.sn_spf)} personas. La Ciudad de Buenos Aires no tiene un servicio penitenciario propio.`;",
+   "propuesto": "`Penitenciario Federal, que van aparte, alojaban a ${n0(SG.sn_spf)} personas. CABA no tiene un servicio penitenciario propio. No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`;",
+   "motivo": "La advertencia de la nota que cambia la lectura de las provincias con pocos presos pasa al texto. CABA, término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `En total, al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país. ` +",
+   "propuesto": "return `Al 31 de diciembre de ${SG.sn_anio} había ${n0(SG.sn_personas)} personas privadas de libertad en las cárceles del país. ` +",
+   "motivo": "\"En total\" sobraba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El ${pct(SG.sn_condenados)} tenía una condena, y las demás estaban procesadas, ` +",
+   "propuesto": "El ${pct(SG.sn_condenados)} tenía una condena. Las demás estaban procesadas, ` +",
+   "motivo": "Una idea por oración (va con el cambio siguiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`con la causa en trámite, o en otra situación.`;",
+   "propuesto": "`con la causa todavía en trámite, o en otra situación. No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`;",
+   "motivo": "La advertencia de la nota sube al texto visible (criterio común).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`cuenta un delito. El total suma",
+   "propuesto": "`cuenta como un delito. El total suma",
+   "motivo": "Corrige la frase (\"cada hecho cuenta como un delito\", como en el explicador).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"homicidios-nota\": `Víctimas de homicidios dolosos, cuando se quita la vida a una persona con intención de hacerlo, que registran ` +",
+   "propuesto": "\"homicidios-nota\": `Víctimas de homicidios dolosos que registran las fuerzas policiales y de seguridad. Un homicidio es doloso cuando alguien le quita la vida a otra persona con intención de hacerlo. ` +",
+   "motivo": "La definición iba en medio de la oración. Va con el cambio siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`las fuerzas policiales y de seguridad. En las provincias, la tasa suma ${SG.hom3_desde} a ${SG.anio} sobre la población del INDEC de esos años, porque donde hay ` +",
+   "propuesto": "`Por provincia, la tasa suma las víctimas de ${SG.hom3_desde} a ${SG.anio} y las divide por la población del INDEC de esos años, porque donde hay ` +",
+   "motivo": "\"La tasa suma 2023 a 2025\" no decía qué se suma.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "refLab: `País ${n1(SG.hom3_pais)}`,",
+   "propuesto": "refLab: `País ${n1(SG.hom3_pais)} (${SG.hom3_desde} a ${SG.anio})`,",
+   "motivo": "Hallazgo P0: la línea del país es el promedio de tres años y la cifra destacada, el último año. El rótulo dice el período. Revisar en 360 píxeles que el rótulo entre.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`los de ${R.justicia.corte.desde}. El ${pct(R.justicia.corte.previsional_pct)} fue a la secretaría que trata los temas previsionales, como jubilaciones y pensiones. ` +",
+   "propuesto": "`los de ${R.justicia.corte.desde}, y la Corte resolvió ${n0(R.justicia.corte.resueltos)}. El ${pct(R.justicia.corte.previsional_pct)} de los casos que llegaron fue a la secretaría que trata los temas previsionales, como jubilaciones y pensiones. ` +",
+   "motivo": "Hallazgo P0: la pregunta habla de casos resueltos y el texto no los daba. Usa la cifra del resumen que ya usa la cifra destacada.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "las cifras se cargaron a mano, cada una con su página, y la cantidad de",
+   "propuesto": "las cifras se cargaron a mano, cada una con la página de la que sale, y la cantidad de",
+   "motivo": "\"Con su página\" no se entendía.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `Son ${n0(F.cargos)} cargos en ${n0(F.organos)} juzgados, cámaras y tribunales orales que funcionan. De los que no tienen titular, ${n0(F.subrogante)} los ` +",
+   "propuesto": "return `En ${F.fecha}, la Justicia Federal tenía ${n0(F.cargos)} cargos de juez en ${n0(F.organos)} juzgados, cámaras y tribunales orales que funcionan. De los cargos sin titular, ${n0(F.subrogante)} están ` +",
+   "motivo": "La oración arrancaba sin sujeto. Va con los dos cambios siguientes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`cubre un subrogante, que es otro juez, un conjuez o un secretario designado para reemplazarlo, y ${n0(F.sin_cubrir)} no tienen a nadie designado. ` +",
+   "propuesto": "`cubiertos por un subrogante: otro juez, un conjuez o un secretario designado para reemplazar al titular. Los otros ${n0(F.sin_cubrir)} no tienen a nadie designado. ` +",
+   "motivo": "La definición de subrogante iba en medio de una oración de 35 palabras.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${F.fecha_ant} estaba sin titular el ${pct(F.pct_sin_titular_ant)}. Por habitante,",
+   "propuesto": "`En ${F.fecha_ant}, el ${pct(F.pct_sin_titular_ant)} de los cargos estaba sin titular. Por habitante,",
+   "motivo": "El sujeto antes del verbo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La Justicia Nacional, que es la justicia ordinaria de la Ciudad de Buenos Aires (civil, comercial, ",
+   "propuesto": "La Justicia Nacional, que es la justicia ordinaria de CABA (civil, comercial, ",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `Las fiscalías investigan los delitos federales y acusan, y las defensorías públicas oficiales defienden a quien no tiene un abogado particular. ` +",
+   "propuesto": "return `Las fiscalías investigan los delitos federales y acusan. Las defensorías públicas oficiales defienden a quien no tiene un abogado particular. Cada fiscalía o defensoría puede tener más de un cargo. ` +",
+   "motivo": "Hallazgo P0: la cifra destacada cuenta fiscalías y el texto, cargos de fiscal. El texto avisa que no son lo mismo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`de los ${n0(M.defensorias_cargos)} de defensor. Contando las dos, ${mx.territorio} tiene ${n1(tot(mx))} cada 100.000 habitantes y ${mn.territorio}, ${n1(tot(mn))}.`; })(),",
+   "propuesto": "`de los ${n0(M.defensorias_cargos)} cargos de defensor. Sumando fiscalías y defensorías, ${mx.territorio} tiene ${n1(tot(mx))} cada 100.000 habitantes y ${mn.territorio}, ${n1(tot(mn))}.`; })(),",
+   "motivo": "\"Contando las dos\" no decía qué se suma.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Nación. En la Ciudad de Buenos Aires funcionan además",
+   "propuesto": "`Nación. En CABA funcionan además",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Nacional, la justicia ordinaria de la Ciudad, que no entran en las barras.",
+   "propuesto": "`Nacional, su justicia ordinaria, que no entran en las barras.",
+   "motivo": "Evita \"la Ciudad\" (término fijo: CABA, ya nombrada en la oración).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`el de ${c.territorio}${i ? \",\" : \" tenía\"} ${c.ministros} de ${c.ley}`",
+   "propuesto": "`el de ${c.territorio}${i ? \",\" : \" tenía ocupados\"} ${c.ministros} de ${c.ley}`",
+   "motivo": "\"Tenía 3 de 7\" no decía qué: son lugares ocupados.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `De los ${P.cortes_ley} máximos tribunales cuyo tamaño se pudo leer en la ley, ${P.cortes_completas} tenían ocupados todos sus lugares ` +",
+   "propuesto": "return `En ${P.cortes_ley} de los 24 máximos tribunales se pudo leer en la ley cuántos lugares tienen. De ellos, ${P.cortes_completas} tenían todos sus lugares ocupados ` +",
+   "motivo": "\"Cuyo tamaño se pudo leer\" era texto de proceso. Dos oraciones: cuántos se pudieron verificar y cuántos estaban completos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "personas que integraban los máximos tribunales de las provincias y de la Ciudad, ${n0(P.ministras)} eran mujeres.",
+   "propuesto": "personas que integraban los máximos tribunales de las provincias y de CABA, ${n0(P.ministras)} eran mujeres.",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return `Sumaban ${n0(P.magistratura)} jueces, ${n0(P.fiscales)} fiscales y ${n0(P.defensores)} defensores, sin contar la justicia federal. Por habitante, ` +",
+   "propuesto": "return `Las justicias de las provincias y de CABA sumaban ${n0(P.magistratura)} jueces, ${n0(P.fiscales)} fiscales y ${n0(P.defensores)} defensores, sin contar la justicia federal. Por habitante, ` +",
+   "motivo": "La oración arrancaba sin sujeto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`la más baja, ${n1(P.min.magistratura.valor)}: la diferencia depende en parte de cuántos juzgados de paz tiene cada provincia. En fiscales, el promedio del ` +",
+   "propuesto": "`la más baja, ${n1(P.min.magistratura.valor)}. La diferencia depende en parte de cuántos juzgados de paz tiene cada provincia` + (P.min.magistratura.territorio === \"CABA\" ? `. En CABA, además, la mayor parte de la justicia ordinaria es la Justicia Nacional, que este conteo no incluye` : \"\") + `. En fiscales, el promedio del ` +",
+   "motivo": "Hallazgo P0: el mínimo de CABA no se explica por los juzgados de paz sino porque su justicia ordinaria es la Justicia Nacional, que la ficha no cuenta (estaba solo en la nota). Se dice solo cuando el mínimo es CABA. Va con el cambio siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`país es ${n1(P.pais.fiscales)} cada 100.000 habitantes, y en defensores, ${n1(P.pais.defensores)}.`; })(),",
+   "propuesto": "`país${P.mp_unico.length ? `, sin ${P.mp_unico.map(m => m.territorio).join(\" ni \")},` : \"\"} es ${n1(P.pais.fiscales)} cada 100.000 habitantes, y en defensores, ${n1(P.pais.defensores)}.`; })(),",
+   "motivo": "El promedio de fiscales y defensores se calcula sin Catamarca (02_procesar.py suma solo las jurisdicciones con dato): el texto lo dice.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` No incluye a la justicia federal ni a la Justicia Nacional de la Ciudad.",
+   "propuesto": "` No incluye a la justicia federal ni a la Justicia Nacional de CABA.",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "así que la correlación exagera lo que se puede afirmar. La correlación de Spearman, que usa el orden y no los valores, es ` +",
+   "propuesto": "así que la correlación exagera lo que se puede afirmar. La que da el texto de esa vista, ${n2(R.confianza_gobierno.elecciones.r)}, es la de Pearson, que usa los valores. La de Spearman, que usa el orden y no los valores, es ` +",
+   "motivo": "El texto da una correlación (0,86, de Pearson) y la nota otra (0,78, de Spearman) sin decir que son dos medidas distintas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "y fue la primera en ${e.prov_ganador} de las 24 jurisdicciones.",
+   "propuesto": "y salió primera ${deLas24(e.prov_ganador)}.",
+   "motivo": "Evita \"24 de las 24\" con la función que ya usa el sitio (deLas24).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"Ninguna de las cuatro agrupaciones más votadas tuvo interna. \"",
+   "propuesto": "\"Ninguna de las cuatro agrupaciones más votadas tuvo competencia interna. \"",
+   "motivo": "\"Tuvo interna\" es jerga.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "y fue la más votada en ${e.prov_ganador} de las 24 jurisdicciones.",
+   "propuesto": "y fue la más votada ${deLas24(e.prov_ganador)}.",
+   "motivo": "Evita \"24 de las 24\" con deLas24.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "? `Al ${CG.fecha}, en la Cámara de Diputados ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}. El gráfico muestra el reparto al 1 de marzo de cada período desde la vuelta de la democracia, así que la última barra puede diferir de hoy por cambios de bloque y reemplazos. Tocá un espacio en la leyenda para ver cómo votó las leyes clave.`",
+   "propuesto": "? `Al ${fLarga(CG.fecha)}, en la Cámara de Diputados ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]}, ${v[ord[1]]}, y ${ESP_TXT[ord[2]]}, ${v[ord[2]]}. El gráfico muestra el reparto al 1 de marzo de cada período desde 1983: la última barra puede no coincidir con hoy por los cambios de bloque y los reemplazos. Tocá un espacio en la leyenda para ver cómo votó las leyes y los proyectos clave.`",
+   "motivo": "Fecha en palabras con fLarga (definida antes, convierte el \"24/10/2026\" del resumen), comas que separan espacio y cifra, y \"leyes y proyectos clave\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ": `Al ${CG.fecha}, en el Senado ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]} ${v[ord[1]]} y ${ESP_TXT[ord[2]]} ${v[ord[2]]}. Tocá un espacio en la leyenda para ver cómo votó las leyes clave.`;",
+   "propuesto": ": `Al ${fLarga(CG.fecha)}, en el Senado ${ESP_TXT[ord[0]]} tenía ${v[ord[0]]} de las ${n} bancas, ${ESP_TXT[ord[1]]}, ${v[ord[1]]}, y ${ESP_TXT[ord[2]]}, ${v[ord[2]]}. Cada senador figura con el partido o la alianza por la que fue electo, no con su bloque actual. Tocá un espacio en la leyenda para ver cómo votó las leyes y los proyectos clave.`;",
+   "motivo": "Hallazgo P0: el Senado clasifica por la alianza electoral y Diputados por el bloque. La advertencia, que estaba solo en la nota, pasa al texto. Fecha en palabras.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "sinDatos(el, \"No se pudo cargar la lista.\")",
+   "propuesto": "sinDatos(el, \"No se pudo cargar la lista de legisladores.\")",
+   "motivo": "El aviso dice qué lista falló.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<p class=\"hemi-pie\">Cada punto es una banca, con quien la ocupaba ${per === LG_ULT ? \"hoy\" : `el ${fechaLarga(LGP.hemiciclo_fecha[per])}`}. ` +",
+   "propuesto": "`<p class=\"hemi-pie\">Cada punto es una banca, con quien la ${per === LG_ULT ? \"ocupa hoy\" : `ocupaba el ${fechaLarga(LGP.hemiciclo_fecha[per])}`}. ` +",
+   "motivo": "\"Con quien la ocupaba hoy\" mezclaba tiempos: en el período actual, \"ocupa hoy\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${a.nombre} sumó ${cam}${a.sigue ? \", y sigue en el cargo\" : \"\"}.` +",
+   "propuesto": "`El gráfico muestra a las 15 personas con más años. ${a.nombre} sumó ${cam}${a.sigue ? \", y sigue en el cargo\" : \"\"}.` +",
+   "motivo": "Hallazgo P0: el texto dice que 17 sumaron 20 años o más y el gráfico muestra 15 barras. El 15 es el tope fijo del gráfico (slice en DIB.anioscong, también en la nota), no un dato.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`20 años o más. Las barras separan los años en Diputados y en el Senado, y en negrita van quienes siguen en el cargo.`;",
+   "propuesto": "`20 años o más. El gráfico muestra a las 10 con más años: las barras separan los años en Diputados y en el Senado, y en negrita van quienes siguen en el cargo.`;",
+   "motivo": "Igual que en la ficha: el texto cuenta 17 y la pieza muestra 10 (tope fijo de DIB[\"lab-anios\"]).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y la mortalidad infantil en ${bajaY === data.length ? `las ${data.length}` : `${bajaY} de las ${data.length}`}. ${mx.nombre}",
+   "propuesto": "`y la mortalidad infantil, en ${bajaY === data.length ? (bajaX === data.length ? \"todas\" : `las ${data.length}`) : `${bajaY} de las ${data.length}`}. ${mx.nombre}",
+   "motivo": "Evita \"en las 24 jurisdicciones y la mortalidad infantil en las 24\": elige \"todas\" cuando las dos bajaron en todas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "pan: \"del PAN\"",
+   "propuesto": "pan: \"del Partido Autonomista Nacional (PAN)\"",
+   "motivo": "Primera mención de la sigla en el texto de la pieza, con su nombre.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Las franjas muestran cuántos jueces había al final de cada año, con el color del gobierno que designó a cada uno, y lo rayado, los lugares vacantes hasta los que fija la ley.`;",
+   "propuesto": "`Las franjas muestran cuántos jueces había al final de cada año, con el color del gobierno que designó a cada uno. Lo rayado son los lugares vacantes, hasta los jueces que fija la ley.`;",
+   "motivo": "Una idea por oración.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "style=\"view-transition-name:t-corte-suprema\">La Corte Suprema tuvo ${CO.personas} jueces desde ${CO.desde}. Quién los designó</h1>",
+   "propuesto": "style=\"view-transition-name:t-corte-suprema\">¿Qué gobierno designó a cada juez de la Corte Suprema?</h1>",
+   "motivo": "Regla del autor: el título es una pregunta, sin cifras ni años. La cifra y el año siguen en el primer párrafo. Mismo texto que data-titulo, el h2 del Laboratorio y el buscador.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ". Los designaron ${CO.presidentes} presidentes. ` +",
+   "propuesto": ". Los designaron ${CO.presidentes} presidentes, constitucionales y de facto. ` +",
+   "motivo": "Los 35 incluyen a gobernantes de facto: el texto lo dice.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Según el gobierno que firmó cada una, ${listaY(grupos)}.</p>` +",
+   "propuesto": "`Según el grupo del gobierno que firmó cada designación, ${listaY(grupos)}.</p>` +",
+   "motivo": "\"Cada una\" no tenía referente cercano. La lista cuenta grupos de gobierno, no gobiernos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<h2>Cuánto estuvo cada juez en la Corte</h2>",
+   "propuesto": "<h2>¿Cuánto tiempo estuvo cada juez en la Corte?</h2>",
+   "motivo": "Regla del autor: el título de cada gráfico es una pregunta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<p class=\"nota-pie-graf\">Una fila por designación, en el orden en que llegaron.",
+   "propuesto": "`<p class=\"nota-pie-graf\">Una fila por cada una de las ${CO.designaciones} designaciones desde ${CO.desde}, en el orden en que llegaron.",
+   "motivo": "El pie del gráfico dice el período, que faltaba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<h2>Los jueces de cada año, según quién los designó</h2>",
+   "propuesto": "<h2>¿Qué gobiernos designaron a los jueces de cada año?</h2>",
+   "motivo": "Regla del autor: el título de cada gráfico es una pregunta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<p class=\"nota-pie-graf\">Jueces en funciones al 31 de diciembre de cada año (en el año en curso, hoy),",
+   "propuesto": "`<p class=\"nota-pie-graf\">Jueces en funciones al 31 de diciembre de cada año desde ${CO.desde} (en el año en curso, hoy),",
+   "motivo": "El pie del gráfico dice el período.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Lo rayado son los lugares vacantes, hasta los jueces que fija la ley, que marca la línea de arriba.</p></div>` +",
+   "propuesto": "`Lo rayado son los lugares vacantes: la línea de arriba marca cuántos jueces fija la ley.</p></div>` +",
+   "motivo": "Oración más directa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<p>En ${CO.anios_un_grupo} de esos ${nAnios} años,",
+   "propuesto": "`<p>En ${CO.anios_un_grupo} de los ${nAnios} años desde ${CO.desde},",
+   "motivo": "\"Esos\" no tenía referente en la oración.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "de las designaciones, todas sin acuerdo del Senado.</p>` +",
+   "propuesto": "de las designaciones, todas sin acuerdo del Senado. En total, ${CO.sin_acuerdo} designaciones no tuvieron ese acuerdo.</p>` +",
+   "motivo": "\"Todas sin acuerdo del Senado\" dejaba creer que las demás lo tuvieron. El total sale del resumen (R.corte.sin_acuerdo).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<h2>Cuántos jueces designó cada presidente</h2>",
+   "propuesto": "<h2>¿Cuántos jueces designó cada presidente?</h2>",
+   "motivo": "Regla del autor: el título de cada gráfico es una pregunta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<p class=\"nota-pie-graf\">Un cuadrado por cada juez que juró, junto al presidente que lo designó,",
+   "propuesto": "`<p class=\"nota-pie-graf\">Un cuadrado por cada juez que juró desde ${CO.desde}, junto al presidente que lo designó,",
+   "motivo": "El pie del gráfico dice el período.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "fue la de ${CO.ultimo.nombre}, de ${CO.ultimo.designado_por}, en ${CO.ultimo.anio}.</p>` +",
+   "propuesto": "fue la de ${CO.ultimo.nombre}, que hizo ${CO.ultimo.designado_por} en ${CO.ultimo.anio}.</p>` +",
+   "motivo": "\"La de X, de Y\" era ambiguo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "IDX.push({t: \"La Corte Suprema: quién designó a cada juez\",",
+   "propuesto": "IDX.push({t: \"¿Qué gobierno designó a cada juez de la Corte Suprema?\",",
+   "motivo": "El buscador muestra el mismo título que la pieza.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "En su mayoría, ",
+   "propuesto": "Por mayoría de sus legisladores, ",
+   "motivo": "\"En su mayoría\" se leía como \"la mayoría de los espacios\". La postura es la de la mayoría de cada espacio (función postura).",
+   "veces": 3
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<optgroup label=\"Leyes de efecto directo\">",
+   "propuesto": "<optgroup label=\"Leyes y proyectos de efecto directo\">",
+   "motivo": "Término fijo: la selección incluye proyectos que no fueron ley.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<optgroup label=\"Otras leyes clave\">",
+   "propuesto": "<optgroup label=\"Otras leyes y proyectos clave\">",
+   "motivo": "Término fijo: leyes y proyectos clave.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`El Senado no publica el acta con el voto de cada senador de esta ley. `",
+   "propuesto": "`El Senado no publica el acta con el voto de cada senador de esta votación. `",
+   "motivo": "Puede ser un proyecto que no fue ley. Igual que el aviso del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "const tit = `${e}: ${c[0]} a favor, ${c[1]} en contra, ${c[2]} abstenciones y ${c[3]} ausentes`;",
+   "propuesto": "const tit = `${e}: ${c[0]} a favor, ${c[1]} en contra, ${c[2]} ${c[2] === 1 ? \"abstención\" : \"abstenciones\"} y ${c[3]} ${c[3] === 1 ? \"ausente\" : \"ausentes\"}`;",
+   "motivo": "Plural: \"1 ausentes\" y \"1 abstenciones\" en el cuadro y en el texto para lectores de pantalla.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<tfoot><tr><td class=\"ley\">Plataforma 2023<small>qué propuso</small></td>",
+   "propuesto": "`<tfoot><tr><td class=\"ley\">Plataforma electoral de 2023<small>qué propuso cada alianza (PDF)</small></td>",
+   "motivo": "La fila de enlaces no se entendía. Sacarla de la tabla queda pendiente (es estructura).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "hay acta nominal de ${leyes.length} de las ${filas.length} leyes ${soloEd ? \"de efecto directo\" : \"clave\"}. ` +",
+   "propuesto": "hay acta nominal de ${leyes.length === filas.length ? `las ${filas.length}` : `${leyes.length} de las ${filas.length}`} leyes y proyectos ${soloEd ? \"de efecto directo (los que cambian, o proponían cambiar, algo de la vida diaria de muchas personas)\" : \"clave\"}. ` +",
+   "motivo": "Evita \"29 de las 29\", usa el término fijo y define \"efecto directo\" donde se elige ese filtro (la definición estaba solo en la nota).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(mas ? `Contando la postura de la mayoría de cada espacio, ${ESP_TXT[mas.e1]} y ${ESP_TXT[mas.e2]} votaron igual en ${mas.igual} de las ${mas.n} leyes en que los dos tomaron posición, ` +",
+   "propuesto": "(mas ? `Contando la postura de la mayoría de cada espacio, los que más coincidieron fueron ${ESP_TXT[mas.e1]} y ${ESP_TXT[mas.e2]}: votaron igual en ${mas.igual === mas.n ? `las ${mas.n}` : `${mas.igual} de las ${mas.n}`} leyes y proyectos en que los dos tomaron posición. ` +",
+   "motivo": "Los dos pares ya son el más parecido y el más distinto (el código los ordena): el texto no lo decía y parecían elegidos a mano. Va con el cambio siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`y ${ESP_TXT[menos.e1]} y ${ESP_TXT[menos.e2]} votaron distinto en ${menos.n - menos.igual} de ${menos.n}. ` : \"\") +",
+   "propuesto": "`Los que menos coincidieron fueron ${ESP_TXT[menos.e1]} y ${ESP_TXT[menos.e2]}: votaron distinto en ${menos.n - menos.igual} de ${menos.n}. ` : \"\") +",
+   "motivo": "Dice que es el par más distinto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "no tuvo legisladores en ninguna de las ${total} leyes clave con acta nominal.`",
+   "propuesto": "no tuvo legisladores en ninguna de las ${total} leyes y proyectos clave con acta nominal.`",
+   "motivo": "Término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${leyes.length} de las ${total}`} leyes clave con acta nominal, y la mayoría del espacio",
+   "propuesto": "`${leyes.length} de las ${total}`} leyes y proyectos clave con acta nominal, y la mayoría del espacio",
+   "motivo": "Término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La selección de leyes también es propia.</p></div>`;",
+   "propuesto": "La selección de leyes y proyectos también es propia.</p></div>`;",
+   "motivo": "Término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "TX[\"votaciones-nota\"] = $t(\"votaciones-nota\").textContent = `Votación en general de cada ley en cada cámara, según el acta de votación nominal. Cada punto es un legislador: pasá el cursor o tocá un punto para ver quién es.",
+   "propuesto": "TX[\"votaciones-nota\"] = $t(\"votaciones-nota\").textContent = `Votación en general de cada ley o proyecto en cada cámara, según el acta de votación nominal. Cada punto es un legislador: pasá el mouse o tocá un punto para ver quién es.",
+   "motivo": "Proyectos que no fueron ley y \"mouse\", como en el resto del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`La selección de leyes es propia: leyes muy debatidas o con efectos amplios, de todos los gobiernos desde",
+   "propuesto": "`La selección es propia: leyes y proyectos muy debatidos o con efectos amplios, de todos los gobiernos desde",
+   "motivo": "Término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El total de los superpoderes en Diputados no se encontró publicado",
+   "propuesto": "El total de la reasignación de partidas por el jefe de Gabinete en Diputados no se encontró publicado",
+   "motivo": "Mismo nombre neutro que la ley en leyes_clave.csv (\"superpoderes\" es el rótulo de la oposición y la prensa).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Los diputados y senadores de ${A.max} que no eran del bloque oficialista votaron como ese bloque en el ${pct(A.max_v)} de los casos, y los de ${A.min}, en el ${pct(A.min_v)}. ` +",
+   "propuesto": "`Los diputados y senadores de otros bloques que más votaron como el bloque oficialista fueron los de ${A.max}, en el ${pct(A.max_v)} de los casos, y los que menos, los de ${A.min}, en el ${pct(A.min_v)}. ` +",
+   "motivo": "Dice que son la provincia con más y la con menos coincidencia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ": `La relación entre ese apoyo y ${nomT} por habitante fue",
+   "propuesto": ": `La relación entre esa coincidencia y ${nomT} por habitante fue",
+   "motivo": "Describe la medida (\"coincidencia\") en lugar de valorarla (\"apoyo\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Entre ${AP.desde} y ${AP.hasta}, la relación fue positiva y al menos moderada, es decir que las provincias que más acompañaron recibieron más, en ` +",
+   "propuesto": "`Entre ${AP.desde} y ${AP.hasta}, la relación ` +",
+   "motivo": "Saca \"es decir que las provincias que más acompañaron recibieron más\", que sonaba a votos a cambio de fondos. Va con los dos cambios siguientes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(pos.length ? `${pos.length === 1 ? \"un año\" : `${pos.length} años`} (${listaY(pos)})` : \"ningún año\") +",
+   "propuesto": "(pos.length ? `fue positiva y al menos moderada en ${pos.length === 1 ? \"un año\" : `${pos.length} años`} (${listaY(pos)})` : \"nunca fue positiva y al menos moderada\") +",
+   "motivo": "Evita \"en ningún año\" al final de una oración larga. Va con el cambio anterior y el siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(neg.length ? `, y fue al revés en ${listaY(neg)}.` : `, y en ningún año fue al revés.`);",
+   "propuesto": "(neg.length ? `, y fue negativa y al menos moderada en ${listaY(neg)}.` : `, y nunca fue negativa y al menos moderada.`) + ` Positiva quiere decir que las provincias con más coincidencia tendieron a recibir más por habitante, y negativa, menos. Que las dos cosas vayan juntas no muestra que los fondos dependan de los votos ni que los votos dependan de los fondos.`;",
+   "motivo": "\"Al revés\" se nombra y se explica, y se suma \"qué no dice este dato\" en el texto visible (estaba solo en la nota plegada).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Que dos cosas vayan juntas no prueba que una cause la otra: las provincias gobernadas por aliados del gobierno suelen tener legisladores que lo acompañan y también más acceso a esos fondos.`;",
+   "propuesto": "Que dos cosas vayan juntas no prueba que una cause la otra: puede haber una tercera explicación, por ejemplo que las provincias gobernadas por aliados del gobierno tengan legisladores que lo acompañan y también más acceso a esos fondos.`;",
+   "motivo": "\"Suelen tener\" afirmaba algo que la ficha no muestra: queda como posibilidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "let t = `${cam === \"Diputados\" ? \"En Diputados\" : \"En el Senado\"}, en la votación en general de los ${r.n} presupuestos con acta entre ${r.desde} y ${r.hasta}, ` +",
+   "propuesto": "let t = `Hay acta de la votación en general de ${r.n} presupuestos ${cam === \"Diputados\" ? \"en Diputados\" : \"en el Senado\"} entre ${r.desde} y ${r.hasta}. ` +",
+   "motivo": "Partía en dos una oración de 40 palabras. Va con el cambio siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`la parte de los legisladores de fuera del bloque oficialista que votó a favor fue de ${pct(r.min.v)} a ${pct(r.max.v)}. ` +",
+   "propuesto": "`En esas votaciones, la parte de los legisladores de fuera del bloque oficialista que votó a favor fue de ${pct(r.min.v)} a ${pct(r.max.v)}. ` +",
+   "motivo": "Segunda mitad de la oración partida.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "t += ` En el del ${r.ult.anio},",
+   "propuesto": "t += ` En el de ${r.ult.anio},",
+   "motivo": "\"El del 2026\" es coloquial.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<br>Bloque oficialista: ${d.bloque_oficialista}<br>De fuera: ${d.fuera} legisladores`});",
+   "propuesto": "`<br>Bloque oficialista: ${d.bloque_oficialista}<br>Legisladores de fuera de ese bloque: ${d.fuera}`});",
+   "motivo": "\"De fuera\" no decía de qué.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(elección ${g.eleccion})`;",
+   "propuesto": "(elección de ${g.eleccion})`;",
+   "motivo": "Falta la preposición.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En las leyes clave de cada gobierno, la correlación de Spearman entre el voto al presidente en la primera vuelta y la coincidencia de los legisladores de cada provincia con el bloque oficialista fue ` +",
+   "propuesto": "`La relación entre el voto al presidente en la primera vuelta y la coincidencia de los legisladores de cada provincia con el bloque oficialista, en las leyes y los proyectos clave, cambia de un gobierno a otro. ` +",
+   "motivo": "Una oración de 80 palabras con seis coeficientes y \"Spearman\" en la primera línea: se parte en una oración por gobierno (término fijo: \"correlación\" en el texto, Spearman en la nota). Va con el cambio siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "RV.map(g => `${n2(g.r).replace(\"-\", \"menos \")} con ${g.presidente} (${g.leyes} ${g.leyes === 1 ? \"ley\" : \"leyes\"} entre ${g.anios[0]} y ${g.anios[1]}, ${rvFuerza(g.r)})`).join(\", \") + \".\";",
+   "propuesto": "RV.map(g => `Con ${g.presidente} fue ${rvFuerza(g.r)} (correlación de ${n2(g.r).replace(\"-\", \"menos \")}, en ${g.leyes} ${g.leyes === 1 ? \"ley o proyecto\" : \"leyes o proyectos\"} ${g.anios[0] === g.anios[1] ? `de ${g.anios[0]}` : `entre ${g.anios[0]} y ${g.anios[1]}`})`).join(\". \") + \". Con pocas leyes, un solo voto puede mover mucho el resultado. Que las dos medidas vayan juntas no muestra que una explique la otra.\";",
+   "motivo": "Una oración por gobierno, la advertencia de las pocas leyes (con dos o tres leyes un voto cambia el resultado) y \"qué no dice este dato\" en el texto visible.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "en las leyes clave de ese gobierno, contando también",
+   "propuesto": "en las leyes y los proyectos clave de ese gobierno, contando también",
+   "motivo": "Término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "la candidatura del gobierno sacó ` +",
+   "propuesto": "la candidatura del gobierno tendió a sacar ` +",
+   "motivo": "Es una tendencia en diez elecciones, no una regla.",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La candidatura del gobierno fue la más votada en ${E.primero} de las ${E.n} elecciones.`;",
+   "propuesto": "La candidatura del gobierno fue la más votada en ${E.primero} de las ${E.n} elecciones. Que el índice y el voto vayan juntos no muestra que uno cause el otro.`;",
+   "motivo": "Se conserva \"qué no dice este dato\" en el texto visible (estaba solo en la nota).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "en una escala de 0 a 5${comp}. ` +",
+   "propuesto": "en una escala de 0 a 5${comp}. Es una encuesta: un cambio de pocas centésimas puede no ser significativo. ` +",
+   "motivo": "Advertencia de la nota que cambia la lectura de \"igual que un año antes\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<option value=\"acum\">Por provincia, suma de ${TRR.desde} a ${TRR.ult}</option>`",
+   "propuesto": "`<option value=\"acum\">Por provincia, suma por habitante de ${TRR.desde} a ${TRR.ult}</option>`",
+   "motivo": "La suma es de los montos por habitante (lo dice la nota).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Pesos de ${TRR.ult}, ajustados por el deflactor del PBI.",
+   "propuesto": "Descontada la inflación con el deflactor del PBI, en pesos de ${TRR.ult}.",
+   "motivo": "Término fijo: \"descontada la inflación\".",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Los montos dependen de cada gobierno y de cada año, porque no hay una fórmula de reparto.`;",
+   "propuesto": "`La ley 23.548 los destina a emergencias y desequilibrios financieros de las provincias y no fija una fórmula para repartirlos.`;",
+   "motivo": "Encuadre vago: se dice la regla concreta, como en el explicador (ley 23.548, artículo 5).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${TRR.atn_acum_max} fue la provincia con más ATN (${n0(TRR.atn_acum_max_v)} pesos de ${TRR.ult} por habitante) y ${TRR.atn_acum_min} la que menos (${n0(TRR.atn_acum_min_v)}). ` +",
+   "propuesto": "${TRR.atn_acum_max} fue la que más ATN recibió (${n0(TRR.atn_acum_max_v)} pesos de ${TRR.ult} por habitante) y ${TRR.atn_acum_min}, la que menos (${n0(TRR.atn_acum_min_v)}). ` +",
+   "motivo": "CABA puede ser la que menos: no es \"la provincia\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${data[0].territorio} fue la provincia con más transferencias no automáticas (${n0(data[0].otras_hab)} pesos de ${TRR.ult} por habitante) y ${data[data.length - 1].territorio} la que menos (${n0(data[data.length - 1].otras_hab)}).`",
+   "propuesto": "${data[0].territorio} fue la que más transferencias no automáticas recibió sin contar los ATN (${n0(data[0].otras_hab)} pesos de ${TRR.ult} por habitante) y ${data[data.length - 1].territorio}, la que menos (${n0(data[data.length - 1].otras_hab)}).`",
+   "motivo": "Faltaba \"sin contar los ATN\" en esta vista.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "en el promedio del país. ${data[0].territorio} recibió ${n0(data[0].otras_hab)} por habitante y ${data[data.length - 1].territorio}, ${n0(data[data.length - 1].otras_hab)}.`;",
+   "propuesto": "en el promedio del país. La que más recibió fue ${data[0].territorio}, con ${n0(data[0].otras_hab)} por habitante, y la que menos, ${data[data.length - 1].territorio}, con ${n0(data[data.length - 1].otras_hab)}.`;",
+   "motivo": "No decía que son la más alta y la más baja.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${PRR.amba} nacieron en el AMBA, ` +",
+   "propuesto": "${PRR.amba} nacieron en el Área Metropolitana de Buenos Aires (AMBA), ` +",
+   "motivo": "Sigla sin explicar en la primera mención de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Entre todos gobernaron ${n1(PRR.anios_amba)}",
+   "propuesto": "Entre ellos gobernaron ${n1(PRR.anios_amba)}",
+   "motivo": "\"Entre todos\" se leía como los doce presidentes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Los doce nacieron en ${PRR.prov_distintas} jurisdicciones distintas.`;",
+   "propuesto": "Los ${PRR.n} nacieron en ${PRR.prov_distintas} jurisdicciones distintas.`;",
+   "motivo": "La cantidad de presidentes sale del resumen, no escrita a mano.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : \"hoy\"}<br>Nació en",
+   "propuesto": "`<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? \"\" : ` a ${d.fin ? d.fin.slice(0, 4) : \"hoy\"}`}<br>Nació en",
+   "motivo": "Evita \"2001 a 2001\" en el cuadro de los interinos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${d.interino ? \" (interino)\" : \"\"}, ${d.inicio.slice(0, 4)} a ${d.fin ? d.fin.slice(0, 4) : \"hoy\"}</span>` +",
+   "propuesto": "${d.interino ? \" (interino)\" : \"\"}, ${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? \"\" : ` a ${d.fin ? d.fin.slice(0, 4) : \"hoy\"}`}</span>` +",
+   "motivo": "Evita \"2001 a 2001\" en la lista.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "d.provincia.replace(\"Ciudad Autónoma de Buenos Aires\", \"Ciudad de Buenos Aires\")",
+   "propuesto": "d.provincia.replace(\"Ciudad Autónoma de Buenos Aires\", \"CABA\")",
+   "motivo": "Término fijo: CABA (la leyenda conserva la categoría de los datos).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`El ${pct(GBR.pct_amba)} nació en el AMBA, que tiene el ${pct(PRR.amba_pob)} de la población, y ${GBR.caba} en la Ciudad de Buenos Aires. ` +",
+   "propuesto": "`El ${pct(GBR.pct_amba)} nació en el Área Metropolitana de Buenos Aires (AMBA), donde vive el ${pct(PRR.amba_pob)} de la población. En CABA nacieron ${GBR.caba}. ` +",
+   "motivo": "Sigla con su nombre en la primera mención de la ficha y CABA (término fijo).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` y el que menos, el de ${apellido(GBR.min_gob)} (${pct(GBR.min_gob_v)}). ` +",
+   "propuesto": "` y el que menos, sin contar a los interinos de 2001, el de ${apellido(GBR.min_gob)} (${pct(GBR.min_gob_v)}). ` +",
+   "motivo": "Hallazgo P0: el gráfico muestra a los interinos de 2001 con menos nacidos en el AMBA que De la Rúa. 02_procesar.py calcula el mínimo sin ellos: el texto lo dice.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ".replace(\"Ciudad Autónoma de Buenos Aires\", \"la Ciudad de Buenos Aires\")",
+   "propuesto": ".replace(\"Ciudad Autónoma de Buenos Aires\", \"CABA\")",
+   "motivo": "Término fijo: CABA, en los dos cuadros de los ministros.",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Cada provincia elige al menos cinco diputados y tres senadores, sin importar su población. ` +",
+   "propuesto": "`Cada jurisdicción elige al menos cinco diputados y tres senadores, sin importar su población, y el reparto de los diputados todavía sigue el censo de 1980. ` +",
+   "motivo": "Faltaba la mitad de la explicación (estaba solo en la nota y en \"Para entender\"). CABA también elige cinco y tres: \"jurisdicción\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"<br>Sin el número de la ley verificado\"",
+   "propuesto": "\"<br>Sin verificar en la ley cuántos lugares tiene\"",
+   "motivo": "Orden natural de la frase.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`fallos firmó la Corte Suprema en ${R.justicia.corte.hasta}, que cerraron ${n0(R.justicia.corte.resueltos)} casos`,",
+   "propuesto": "`fallos firmó la Corte Suprema en ${R.justicia.corte.hasta}. Con ellos resolvió ${n0(R.justicia.corte.resueltos)} casos: un fallo puede cerrar varios casos iguales a la vez`,",
+   "motivo": "Hallazgo P0: la cifra de fallos y la de casos resueltos parecían contradecirse. La frase las reconcilia (cambiar la cifra elegida queda pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`ministras y ministros tenían los máximos tribunales de las provincias y de la Ciudad al 31 de octubre de ${R.justicia.prov.anio}`,",
+   "propuesto": "`ministras y ministros tenían los máximos tribunales de las provincias y de CABA al 31 de octubre de ${R.justicia.prov.anio}`,",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`ministros en los máximos tribunales de las provincias`],",
+   "propuesto": "`ministras y ministros en los máximos tribunales de las provincias y de CABA`],",
+   "motivo": "La cifra incluye a CABA y a las ministras, como la frase de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`jueces cada 100.000 habitantes tenían las justicias de las provincias y de la Ciudad al 31 de octubre de",
+   "propuesto": "`jueces cada 100.000 habitantes tenían las justicias de las provincias y de CABA al 31 de octubre de",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"el balotaje\" : \"la primera vuelta\"",
+   "propuesto": "\"la segunda vuelta\" : \"la primera vuelta\"",
+   "motivo": "Término fijo: segunda vuelta (la ficha ya la llama así).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(ELU.provisorio ? \". Escrutinio provisorio\" : \"\")",
+   "propuesto": "(ELU.provisorio ? \". Datos del escrutinio provisorio\" : \"\")",
+   "motivo": "Frase completa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "que en ${CG.rep_min} (${n0(CG.rep_min_v)}), ${CG.anio}`],",
+   "propuesto": "que en ${CG.rep_min} (${n0(CG.rep_min_v)}), con la población de ${CG.anio}`],",
+   "motivo": "El año colgado al final no decía de qué era.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`bancas de Diputados tenía ${ESP_TXT[ESP_DIP[0]]} al ${CG.fecha}, el espacio con más.",
+   "propuesto": "`bancas de Diputados tenía ${ESP_TXT[ESP_DIP[0]]} al ${fLarga(CG.fecha)}, más que cualquier otro espacio.",
+   "motivo": "Fecha en palabras (fLarga, definida antes en el archivo) en una página que escribe las fechas así.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`provincias recibieron aportes del Tesoro Nacional (ATN) en ${TRR.ult}, por ${milM(TRR.atn_ult)} de pesos. No hay una fórmula de reparto`],",
+   "propuesto": "`provincias recibieron Aportes del Tesoro Nacional (ATN) en ${TRR.ult}, por ${milM(TRR.atn_ult)} de pesos. La ley no fija una fórmula para repartirlos`],",
+   "motivo": "Mismo nombre que la ficha y la regla dicha con precisión.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`presidentes desde 1983 nacieron en el AMBA, donde vive el ${pct(PRR.amba_pob)} de la población`],",
+   "propuesto": "`presidentes desde 1983, contando a los interinos de 2001, nacieron en el Área Metropolitana de Buenos Aires (AMBA), donde vive el ${pct(PRR.amba_pob)} de la población`],",
+   "motivo": "La sigla con su nombre y quiénes cuentan entre los doce.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Superpoderes del jefe de Gabinete,",
+   "propuesto": ",Reasignación de partidas por el jefe de Gabinete,",
+   "motivo": "\"Superpoderes\" es el rótulo de la oposición y la prensa. Nombre descriptivo de lo que hizo la ley 26.124. Hay que correr 02_procesar.py (el nombre pasa al resumen y a votaciones_leyes_clave.csv).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Acuerdo con los holdouts,",
+   "propuesto": ",Pago a los bonistas fuera de los canjes (holdouts),",
+   "motivo": "Anglicismo: nombre descriptivo, con el término conocido entre paréntesis.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Aporte solidario de las grandes fortunas,",
+   "propuesto": ",Aporte extraordinario sobre los grandes patrimonios,",
+   "motivo": "Nombre descriptivo de lo que gravó (patrimonios), como dice su descripción, sin el rótulo de las \"fortunas\".",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Cambios en Ganancias (2023),",
+   "propuesto": ",Cambios en el impuesto a las Ganancias,",
+   "motivo": "El año ya va en el selector y en la tabla. El nombre queda único sin él.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Paquete fiscal (2024),",
+   "propuesto": ",Paquete fiscal,",
+   "motivo": "El año ya va en el selector y en la tabla. El nombre queda único sin él.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Financiamiento universitario (2024),",
+   "propuesto": ",Financiamiento universitario,",
+   "motivo": "El selector decía \"2024, Financiamiento universitario (2024)\". El nombre queda único sin el año.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Modernización laboral,",
+   "propuesto": ",Reforma laboral,",
+   "motivo": "\"Modernización\" es el nombre que eligió el gobierno: nombre descriptivo, con el mismo criterio que \"Reforma previsional\".",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Eliminó el régimen de capitalización privada y pasó los aportes y los fondos de las AFJP al sistema público de reparto.,",
+   "propuesto": ",\"Eliminó el régimen de capitalización privada y pasó los aportes y los fondos de las AFJP, las administradoras privadas de fondos de jubilaciones y pensiones, al sistema público de reparto.\",",
+   "motivo": "La sigla AFJP se explica en la primera mención (va entre comillas de CSV porque ahora tiene comas).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "original": ",Aprobó el programa de facilidades extendidas para refinanciar el préstamo que el FMI había otorgado en 2018.,",
+   "propuesto": ",Aprobó el programa de facilidades extendidas con el Fondo Monetario Internacional (FMI) para refinanciar el préstamo que había otorgado en 2018.,",
+   "motivo": "La sigla con su nombre.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "La diferencia importa. Los umbrales del 45% y el 40% para elegir presidente se calculan sobre los votos afirmativos, sin los blancos. El piso del 1,5% de las PASO se calcula sobre los válidos.",
+   "propuesto": "Esa distinción cambia los cálculos: los umbrales del 45% y el 40% para elegir presidente se calculan sobre los votos afirmativos, sin los blancos, y el piso del 1,5% de las PASO, sobre los válidos.",
+   "motivo": "\"La diferencia importa\" era vacío: se dice por qué importa.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Cada provincia y la Ciudad de Buenos Aires forman un distrito electoral. El reparto entre distritos sale de la ley 22.847 de 1983, con base en el censo de 1980.",
+   "propuesto": "Cada provincia y CABA forman un distrito electoral. El reparto entre distritos sale de la ley 22.847 de 1983, con base en el censo de 1980, y no se actualizó con los censos posteriores.",
+   "motivo": "CABA (término fijo) y la consecuencia que explica la ficha de representación.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "el Senado tiene tres bancas por cada provincia y tres por la Ciudad de Buenos Aires, 72 en total.",
+   "propuesto": "el Senado tiene tres bancas por cada provincia y tres por CABA, 72 en total.",
+   "motivo": "Término fijo: CABA (la cita de la Constitución no se toca).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "y la Ciudad de Buenos Aires recibe cada día a muchas personas que viven en otras jurisdicciones.",
+   "propuesto": "y CABA recibe cada día a muchas personas que viven en otras jurisdicciones.",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "fragmento": "Interrupción voluntaria del embarazo (2018), Interrupción voluntaria del embarazo (2020), Fórmula de movilidad jubilatoria (2020), Movilidad jubilatoria (2024)",
+   "motivo": "El año entre paréntesis distingue nombres que si no serían iguales o casi iguales: 02_procesar.py mapea nombre a clave (dict(zip(lc.nombre, lc.clave))) y dos nombres iguales romperían los votos."
+  },
+  {
+   "archivo": "datos/manual/leyes_clave.csv",
+   "fragmento": "Retenciones móviles al agro (resolución 125), Fin de las AFJP, Memorándum con Irán, Ley Bases, Ficha limpia, Ley de Solidaridad Social, Expropiación de YPF",
+   "motivo": "Nombres de uso común y descriptivos (o el nombre oficial abreviado), sin rótulo partidario. Los tres primeros aparecen en minúscula en la nota del Senado sin acta, y se leen bien."
+  },
+  {
+   "archivo": "datos/manual/presupuestos.csv",
+   "fragmento": "columna nota",
+   "motivo": "No llega al sitio: 02_procesar.py no la copia a ninguna tabla ni al resumen."
+  },
+  {
+   "archivo": "datos/manual/corte_jueces.csv, corte_no_asumieron.csv, corte_tamano.csv, corte_casos.csv, cortes_provinciales.csv",
+   "fragmento": "columnas notas, nota, motivo, fuentes, norma, tribunal",
+   "motivo": "Las notas y fuentes solo van a las tablas que se descargan. Se ven en el sitio los nombres de personas, los nombres oficiales de los tribunales (tribunal) y las categorías de cese, que se muestran con coMotivo de datina.js: son datos o nombres oficiales."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "¿Cuántos delitos se registran en cada provincia y cuántas personas están presas?",
+   "motivo": "La pregunta de Seguridad cubre las cuatro fichas (delitos, robos y homicidios por provincia y cárceles). Partirla dejaría afuera la ficha de cárceles."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "data-corta=\"¿Cómo se reparten bancas y fondos?\"",
+   "motivo": "Sigue siendo cierta para la pregunta nueva y entra en la tarjeta de la portada."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Dónde nacieron los presidentes?</h2>",
+   "motivo": "Ya es pregunta. \"Desde 1983\" va en la descripción: la regla del autor no admite años en el título."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<button type=\"button\" data-m=\"ed\" aria-pressed=\"false\">De efecto directo</button>",
+   "motivo": "Es el nombre del concepto que el autor creó en la etapa 12 y se usa en el selector, la tabla, la nota y el filtro. Ahora el texto de la ficha lo define cuando se elige ese filtro. Renombrarlo en todo el sitio queda pendiente."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "ESP_COLOR, ESP_TXT, ESP_CORTO (\"Cambiemos y Juntos por el Cambio\", \"LLA\", \"Provinciales\")",
+   "motivo": "Son las categorías de espacio político de 02_procesar.py (REGLAS_ESPACIO) y claves de los datos."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "ORIGEN_COLOR (\"Ciudad de Buenos Aires\", \"Conurbano\"...)",
+   "motivo": "Categorías de la tabla gabinetes_origen: la leyenda las muestra tal cual. Cambiarlas es reprocesar."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuente: Sistema Nacional de Información Criminal (SNIC), Ministerio de Seguridad Nacional",
+   "motivo": "Nombre del ministerio como lo publica el informe del SNIC citado en el explicador. La diferencia con \"Ministerio de Seguridad\" en Salud es de otro grupo."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Son datos del escrutinio provisorio.",
+   "motivo": "Claro y correcto. Usar el escrutinio definitivo es un cambio de datos (pendiente)."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "citas (cita) de los bloques de politica y seguridad",
+   "motivo": "Citas textuales de las fuentes: no se tocan."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "NOMBRE_MENU = {\"corte-suprema\": \"La Corte Suprema\", ...}",
+   "motivo": "Nombre corto del menú y del pie, no título de página."
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "pagina(\"laboratorio\", \"Laboratorio\", \"Piezas visuales con datos públicos: cada juez de la Corte Suprema, ...\"",
+   "motivo": "La descripción del Laboratorio ya la cambió otro grupo en el árbol de trabajo (decía \"Datos difíciles, en gráficos\" y no nombraba la Corte). No se propone otra versión para no pisarla."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "TX[\"lab-hemiciclo\"] y TX[\"lab-pozos\"]",
+   "motivo": "Ya dicen con precisión qué muestra cada pieza y cómo se usa."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "rvFuerza y fuerza (\"casi nula\", \"débil\", \"moderada\", \"fuerte\")",
+   "motivo": "Escala de cálculo: no se cambia en esta tarea (ver pendientes)."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "politica.html#f-votaciones-espacios, politica.html#f-votaciones",
+   "archivo": "datos (votaciones_leyes_clave, bloques de 2012 y 2013)",
+   "fragmento": "el peronismo y el PRO votaron distinto en 24 de 25; Fuerzas provinciales: 12 a favor, 22 en contra (Irán, 2013)",
+   "motivo": "Error de datos E1: en YPF (2012) e Irán (2013), 11 diputados del PRO vienen con el bloque Partido Bloquista de San Juan y caen en Fuerzas provinciales. Afecta las celdas del PRO y de las provinciales, el texto del par más distinto y los cuadros. No se corrige acá.",
+   "propuesta": "Corregir el bloque de esas filas por nombre del legislador, volver a correr 02 y sumar a pruebas_datos.py una regla: un bloque provincial no puede tener legisladores de otra provincia."
+  },
+  {
+   "ruta": "politica.html (h1 y estructura)",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "¿Cómo vota cada provincia y cómo se reparten entre ellas las bancas, los fondos y los jueces?",
+   "motivo": "La pregunta nueva cubre la página como está hoy (20 fichas). Si el autor decide llevar la justicia a una página propia (decisión 5 del plan), la pregunta cambia.",
+   "propuesta": "Si se parte: \"¿Cómo vota cada provincia y cuánto pesa en el Congreso?\" para politica.html y \"¿Cuántos jueces, fiscales y defensores hay en cada provincia?\" para la página nueva."
+  },
+  {
+   "ruta": "politica.html#f-corte-casos",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-corte-casos\": [n0(R.justicia.corte.fallos), ...",
+   "motivo": "La pregunta habla de casos y la cifra destacada da fallos. La frase ahora los reconcilia, pero la cifra sigue siendo otra medida. Cambiarla es elegir otra cifra.",
+   "propuesta": "Cifra destacada: casos resueltos (R.justicia.corte.resueltos) con \"casos resolvió la Corte en 2025\" y los fallos en la frase."
+  },
+  {
+   "ruta": "politica.html#f-fiscalias-federales",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-fiscalias-federales\": [n0(R.justicia.mp.fiscalias), ...",
+   "motivo": "La cifra fuerte (parte de los cargos de fiscal sin titular) no está en la cifra destacada, a diferencia de la ficha de jueces. Hace falta calcular el porcentaje en 02.",
+   "propuesta": "Sumar al resumen el porcentaje de cargos de fiscal sin titular y usarlo como cifra destacada, paralela a la de jueces."
+  },
+  {
+   "ruta": "politica.html#f-elecciones y En cifras",
+   "archivo": "datos (elecciones_presidenciales)",
+   "fragmento": "Son datos del escrutinio provisorio.",
+   "motivo": "Hay escrutinio definitivo de 2023 (y de las PASO de 2019). Con el redondeo del sitio, Massa daría 44,4 y no 44,3. Es un cambio de fuente.",
+   "propuesta": "Pasar 2023 y las PASO de 2019 al escrutinio definitivo de la Dirección Nacional Electoral y sacar la frase."
+  },
+  {
+   "ruta": "politica.html y seguridad.html, En cifras",
+   "archivo": "scripts/datina.js",
+   "fragmento": "EN_CIFRAS politica: x-balotaje, x-representacion, x-congreso, x-atn, x-presidentes; seguridad: f-homicidios, f-robos, x-hurtos, f-carceles, f-delitos",
+   "motivo": "Varias tarjetas repiten la primera cifra del texto de su ficha o su cifra destacada, y \"4 de 12 presidentes en el AMBA\" (33%) no es un hallazgo frente al 30,2% de la población. Cambiarlas es elegir otras cifras.",
+   "propuesta": "Política: ministros nacidos en el AMBA (51,4%) en lugar de presidentes, la participación o las 21 de 24 jurisdicciones en lugar del porcentaje del ganador. Seguridad: la caída de los robos frente al año anterior, la parte de presos sin condena y la provincia con la tasa más alta de presos."
+  },
+  {
+   "ruta": "politica.html#f-congreso, #f-legisladores",
+   "archivo": "datos (congreso_composicion, legisladores_por_periodo)",
+   "fragmento": "Senado: Cambiemos y Juntos por el Cambio 14",
+   "motivo": "Diputados clasifica por bloque y el Senado por alianza electoral. El texto ahora lo advierte, pero las dos cámaras no se pueden comparar.",
+   "propuesta": "Una sola regla para las dos cámaras (bloque actual), con la alianza electoral en el cuadro."
+  },
+  {
+   "ruta": "politica.html#f-congreso",
+   "archivo": "scripts/datina.js",
+   "fragmento": "DIB.congreso (texto)",
+   "motivo": "El texto repite la composición de hoy, que ya está en En cifras y en la leyenda de f-legisladores. Contar cómo cambió el reparto entre períodos necesita cifras nuevas en el resumen.",
+   "propuesta": "Sumar al resumen el espacio con más bancas en cada período y cuántas veces cambió, y que el texto cuente esa historia."
+  },
+  {
+   "ruta": "politica.html#f-atn y #f-transferencias, #f-voto-provincia y #f-apoyo, #f-votaciones y #f-votaciones-espacios",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "tres pares de fichas casi iguales",
+   "motivo": "Unir fichas es estructura.",
+   "propuesta": "Una ficha de transferencias con botones ATN y Otras no automáticas, una de apoyo con selector de medida, y la tabla por espacio arriba del voto de cada legislador (auditoría, sección C)."
+  },
+  {
+   "ruta": "politica.html#f-votaciones-espacios",
+   "archivo": "scripts/datina.js",
+   "fragmento": "<tfoot><tr><td class=\"ley\">Plataforma electoral de 2023...",
+   "motivo": "La fila de enlaces a las plataformas al pie de una tabla de votos sigue sin encajar. Sacarla es estructura.",
+   "propuesta": "Llevar los enlaces a la nota o solo al cuadro de cada espacio, que ya los tiene."
+  },
+  {
+   "ruta": "politica.html#f-votaciones-espacios",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "De efecto directo",
+   "motivo": "Es jerga propia. El texto ahora lo define al elegir el filtro, pero el botón sigue sin explicarse solo.",
+   "propuesta": "Que el autor decida un nombre más claro (\"Vida diaria\") para el concepto en todo el sitio: botón, selector, tabla y notas."
+  },
+  {
+   "ruta": "politica.html#f-votaciones",
+   "archivo": "datos/manual/leyes_clave.csv",
+   "fragmento": "2018, Interrupción voluntaria del embarazo (2018) y 2024, Movilidad jubilatoria (2024)",
+   "motivo": "El selector repite el año en cuatro opciones. Sacarlo del nombre rompe el mapeo de 02 (nombres iguales).",
+   "propuesta": "Que opcionLey saque el año entre paréntesis al armar la opción, o que 02 mapee por clave y no por nombre."
+  },
+  {
+   "ruta": "politica.html#f-presupuesto",
+   "archivo": "scripts/datina.js",
+   "fragmento": "No figuran los presupuestos ${tramosAnios(faltan)}, que no tienen una votación en general en las actas de la fuente.",
+   "motivo": "Mezcla años sin acta y años sin presupuesto aprobado (rigió el anterior). Separarlos necesita un dato por año que hoy no existe.",
+   "propuesta": "Sumar a presupuestos.csv los años sin presupuesto aprobado y que el texto los nombre aparte."
+  },
+  {
+   "ruta": "politica.html#f-apoyo y #f-voto-provincia",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const fuerza = r => ... >= .7 ... y const rvFuerza = r => ... < .6 ...",
+   "motivo": "Las dos fichas usan escalas distintas para \"moderada\" y \"fuerte\" (0,4 a 0,7 y 0,4 a 0,6). Es cálculo.",
+   "propuesta": "Una sola escala para todo el sitio."
+  },
+  {
+   "ruta": "politica.html#f-atn",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const milM = v => v >= 1000 ? `${n1(v / 1000)} billones` : ...",
+   "motivo": "El mismo texto mezcla \"1,8 billones\" y \"209 mil millones\". Cambiar el formato es cambiar la función.",
+   "propuesta": "Una sola escala en cada texto (miles de millones)."
+  },
+  {
+   "ruta": "politica.html#f-legisladores, laboratorio.html#l-anios",
+   "archivo": "datos (legisladores_por_periodo, anios_congreso)",
+   "fragmento": "Damian Arabia, Lucia Campora, COALICION CIVICA, José Miguel Ángel May…",
+   "motivo": "Nombres sin tildes y en mayúsculas como llegan de la fuente, y nombres completos recortados en la pieza del Laboratorio. Corregirlos es reprocesar.",
+   "propuesta": "Una tabla de corrección de nombres en datos/manual (ya existe nombres_con_tilde.csv) y nombres de uso (Mayans) en las piezas."
+  },
+  {
+   "ruta": "laboratorio.html (h1)",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2 id=\"lab-tit\">Laboratorio</h2>",
+   "motivo": "El h1 del Laboratorio es su nombre, no una pregunta: la sección no es \"tema con-pregunta\" y el constructor no convierte la p.pregunta en h1. Volverlo pregunta es estructura, y eximirlo es una decisión del autor.",
+   "propuesta": "Escribir en CLAUDE.md que el Laboratorio, por ser una galería, lleva su nombre como título."
+  },
+  {
+   "ruta": "laboratorio.html#l-cruces",
+   "archivo": "datos (R.cruces, unidad de la mortalidad infantil)",
+   "fragmento": "muertes de menores de 1 año cada 1.000 nacidos vivos, promedio 3 años",
+   "motivo": "Falta la preposición (\"promedio de tres años\"). La unidad sale de los datos de Cruces (otro grupo).",
+   "propuesta": "Corregir la unidad en su origen."
+  },
+  {
+   "ruta": "politica.html (Para entender los datos)",
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "bloques de politica",
+   "motivo": "Cinco fichas de justicia sin explicación de fuero federal, nacional y provincial, subrogantes ni ministerio público. Sumar bloques necesita fuentes con citas textuales que no se pueden inventar.",
+   "propuesta": "Sumar \"Justicia federal, nacional y provincial\" y \"Cargos, titulares y subrogantes\", con citas del Ministerio de Justicia y de la Corte."
+  },
+  {
+   "ruta": "seguridad.html#f-robos",
+   "archivo": "datos (SNIC)",
+   "fragmento": "la tasa de robos del país bajó un 22,4% frente a 2024. Bajó en las 24 jurisdicciones",
+   "motivo": "Una caída así en un año y en todas las jurisdicciones pide verificar si el SNIC cambió la forma de carga en 2025.",
+   "propuesta": "Revisar el informe SNIC 2025 y, si hubo cambios, decirlo en la nota."
+  },
+  {
+   "ruta": "seguridad.html#f-carceles",
+   "archivo": "scripts/datina.js",
+   "fragmento": "LEAD.carceles(\"prov\")",
+   "motivo": "Neuquén tiene la tasa más baja y 100% de condenados, probablemente porque los procesados quedan en comisarías. El texto ahora advierte que no se cuentan las comisarías, pero vincularlo con una provincia necesita verificación.",
+   "propuesta": "Verificar con el informe del SNEEP y, si se confirma, nombrarlo en la nota de la ficha."
+  },
+  {
+   "ruta": "seguridad.html#f-homicidios",
+   "archivo": "scripts/datina.js",
+   "fragmento": "refLab: `País ${n1(SG.hom3_pais)} (${SG.hom3_desde} a ${SG.anio})`",
+   "motivo": "El rótulo de la línea del país es más largo: hay que mirarlo en 360 y 390 píxeles.",
+   "propuesta": "Si no entra, usar refLabCorto o dejar solo \"País 4,0\" (el texto y la descripción ya dicen el período)."
+  },
+  {
+   "ruta": "corte-suprema.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "La última designación que llegó a la jura fue la de ${CO.ultimo.nombre}...",
+   "motivo": "No dice que García-Mansilla fue designado por decreto, sin acuerdo del Senado, y que renunció a los pocos días. El resumen no tiene esos datos en CO.ultimo y el año no se puede escribir a mano.",
+   "propuesta": "Sumar a R.corte.ultimo el acuerdo del Senado y la fecha de cese, y armar la frase con ellos."
+  },
+  {
+   "ruta": "politica.html#f-presidentes",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuentes: Casa Rosada, Wikipedia y Wikidata, que coinciden en los doce casos",
+   "motivo": "\"Doce\" está escrito a mano y queda viejo con el próximo presidente.",
+   "propuesta": "Usar {{presidentes.n}} si el autor acepta la cifra en el pie."
+  },
+  {
+   "ruta": "seguridad.html y salud.html#f-muertes",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Ministerio de Seguridad Nacional / Ministerio de Seguridad",
+   "motivo": "El mismo organismo con dos nombres en dos páginas (Salud es de otro grupo).",
+   "propuesta": "Un solo nombre, el del informe del SNIC."
+  },
+  {
+   "ruta": "seguridad.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "La serie de muertes por homicidio, en siniestros viales y por femicidio está en Salud.",
+   "motivo": "Los homicidios de Salud son los mismos del SNIC. Llevar femicidios y siniestros viales a Seguridad es estructura (y toca la ficha sensible de Salud).",
+   "propuesta": "Que el autor decida si esa serie vive en Seguridad."
+  },
+  {
+   "ruta": "corte-suprema.html y politica.html",
+   "archivo": "datos (grupos de gobierno de la Corte, espacios)",
+   "fragmento": "PRO (Corte) y Cambiemos y Juntos por el Cambio (Senado)",
+   "motivo": "El mismo gobierno con dos nombres según la página. Son categorías de los datos.",
+   "propuesta": "Una tabla de nombres única para todo el sitio."
+  },
+  {
+   "ruta": "laboratorio.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "l-hemiciclo y l-anios",
+   "motivo": "Dos de las cinco piezas repiten fichas de Instituciones políticas. Es estructura.",
+   "propuesta": "Que el autor decida si quedan."
+  },
+  {
+   "ruta": "politica.html (todas las fichas de leyes)",
+   "archivo": "datos/manual/leyes_clave.csv",
+   "fragmento": "nombres de leyes cambiados",
+   "motivo": "Los nombres de leyes_clave.csv llegan al sitio por 02_procesar.py (resumen, votaciones_leyes_clave.csv y .json): con solo 03 no se ven.",
+   "propuesta": "Correr 02_procesar.py antes de 03 al aplicar este grupo."
+  }
+ ]
+}

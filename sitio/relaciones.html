@@ -38,12 +38,12 @@
   </div>
 </header>
 <main class="envoltura" id="contenido" tabindex="-1">
-<section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=9560472420">
+<section class="tema rx" id="relaciones" data-datos="datos/relaciones.json?v=a608af7d5d">
   <nav class="migas" aria-label="Ubicación"><ol><li><a href="./">Datina</a></li><li><span>Herramientas</span></li></ol></nav>
   <h1>Explorador de relaciones</h1>
   <div class="tema-intro">
     <p class="pregunta">¿De dónde sale cada número?</p>
-    <p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>
+    <p>Acá se ve qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación trae su evidencia: la línea del código del sitio que la confirma.</p>
   </div>
   <p class="rx-error" id="rx-error" role="alert" hidden></p>
   <p class="rx-aviso" id="rx-muestra" hidden>Es una muestra: todavía no están todas las fichas del sitio.</p>
@@ -82,7 +82,7 @@
         <svg id="rx-svg" tabindex="0" role="application" aria-roledescription="grafo" aria-describedby="rx-ayuda-grafo" aria-label="Grafo de organismos, archivos y fichas"></svg>
         <p class="rx-vacio" id="rx-vacio-grafo" hidden></p>
       </div>
-        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.</p>
+        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale y a qué lleva. Para moverte, arrastrá el dibujo. Para acercar o alejar, usá los botones o Ctrl y la rueda del mouse. Con el teclado, las flechas recorren los puntos, Enter elige uno, + acerca y − aleja. La vista Tabla muestra lo mismo en filas.</p>
 
       <div class="rx-tabla" id="rx-tabla" hidden>
         <a class="rx-saltar rx-saltar-tabla" id="rx-saltar-tabla" href="#rx-panel">Saltar la tabla</a>
@@ -113,13 +113,13 @@
   <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
 
   <section class="rx-definiciones" id="rx-definiciones" aria-labelledby="rx-def-tit" tabindex="-1">
-    <h2 id="rx-def-tit">Qué es una relación acá</h2>
+    <h2 id="rx-def-tit">Qué significa cada relación</h2>
     <dl>
-      <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>
+      <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. La evidencia es la dirección de descarga o el programa que arma el archivo.</dd>
       <dt>Alimenta</dt><dd>Un programa del sitio lee el archivo para armar la tabla de la ficha. La evidencia es la línea que lo lee.</dd>
       <dt>Se calcula a partir de</dt><dd>La cifra de una ficha usa la de otra ficha del sitio.</dd>
     </dl>
-    <p>Qué no muestra: si un indicador influye en otro o si dos indicadores van juntos. Para eso están <a class="enlace" href="cruces.html">Cruces</a> y los <a class="enlace" href="articulos.html">artículos</a>. Dos fichas del mismo tema no quedan unidas por eso. Las fichas sobre suicidios no están en el explorador.</p>
+    <p>Qué no muestra: si un indicador influye en otro ni si dos indicadores van juntos. Para ver si van juntos están <a class="enlace" href="cruces.html">Cruces</a> y los <a class="enlace" href="articulos.html">artículos</a>. Que dos fichas sean del mismo tema no las une en el explorador. Las fichas sobre suicidio no están en el explorador.</p>
   </section>
 </section>
 </main>
@@ -129,15 +129,15 @@
       <a class="marca" href="./">Dat<span class="i-gorro">i<svg class="gorro" viewBox="0 0 40 40" aria-hidden="true"><path class="gorro-cuerpo" d="M8.5,33 C7.6,23.5 9.6,14.6 16,8.6 C21.2,3.8 29.4,2.8 34.6,6.8 C38.2,9.6 38,14.8 34.6,16.6 C32.2,17.9 29.6,16.8 28.6,14.6 C27.9,13.1 26.4,12.3 24.8,12.8 C29.4,17.4 31.6,24.4 31.6,33 Z"/><path class="gorro-brillo" d="M13.2,27 C13,20.6 14.8,15.2 18.6,11.4"/><path class="gorro-banda" d="M6.4,31.2 Q20,29.4 33.6,31.2 L33.6,36.6 Q20,38.4 6.4,36.6 Z"/></svg></span>na</a>
       <p class="pie-lema">Las 24 Argentinas en números</p>
     </div>
-    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Personas y bienestar</h2><ul><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="pie-col"><h2>Trabajo y economía</h2><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Precios y actividad</a></li><li><a href="empresas.html">Sector privado</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="gobierno.html">Cuentas públicas</a></li><li><a href="externo.html">Sector externo</a></li><li><a href="turismo.html">Turismo</a></li></ul></div><div class="pie-col"><h2>Estado y sociedad</h2><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li></ul></div><div class="pie-col"><h2>Territorio y recursos</h2><ul><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="pie-col"><h2>Provincias</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="departamentos.html">Departamentos</a></li></ul></div><div class="pie-col"><h2>Historias con datos</h2><ul><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li><li><a href="corte-suprema.html">La Corte Suprema</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="consulta-ia.html">Consultas con IA</a></li><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="pobreza/">Consultor de pobreza</a></li><li><a href="catalogo.html">Catálogo de datos</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li></ul></div><div class="pie-col"><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">Fuentes y método</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
+    <nav class="pie-mapa" aria-label="Mapa del sitio"><div class="pie-col"><h2>Personas y bienestar</h2><ul><li><a href="poblacion.html">Población</a></li><li><a href="migraciones.html">Migraciones</a></li><li><a href="salud.html">Salud</a></li><li><a href="educacion.html">Educación</a></li><li><a href="pobreza.html">Pobreza y hogares</a></li></ul></div><div class="pie-col"><h2>Trabajo y economía</h2><ul><li><a href="trabajo.html">Trabajo</a></li><li><a href="economia.html">Precios y actividad</a></li><li><a href="empresas.html">Sector privado</a></li><li><a href="construccion.html">Construcción y vivienda</a></li><li><a href="gobierno.html">Cuentas públicas</a></li><li><a href="externo.html">Sector externo</a></li><li><a href="turismo.html">Turismo</a></li></ul></div><div class="pie-col"><h2>Estado y sociedad</h2><ul><li><a href="politica.html">Instituciones políticas</a></li><li><a href="seguridad.html">Seguridad</a></li></ul></div><div class="pie-col"><h2>Territorio y recursos</h2><ul><li><a href="energia.html">Energía</a></li><li><a href="petroleo.html">Petróleo y gas</a></li><li><a href="movilidad.html">Movilidad</a></li><li><a href="naturaleza.html">Flora y fauna</a></li></ul></div><div class="pie-col"><h2>Provincias</h2><ul><li><a href="provincia.html">Tu provincia</a></li><li><a href="departamentos.html">Departamentos</a></li></ul></div><div class="pie-col"><h2>Historias con datos</h2><ul><li><a href="articulos.html">Artículos</a></li><li><a href="laboratorio.html">Laboratorio</a></li><li><a href="corte-suprema.html">La Corte Suprema</a></li><li><a href="curiosidades.html">Curiosidades</a></li></ul></div><div class="pie-col"><h2>Herramientas</h2><ul><li><a href="consulta-ia.html">Consultas con IA</a></li><li><a href="cruces.html">Cruces</a></li><li><a href="indice.html">Tu índice</a></li><li><a href="diagnostico.html">Diagnóstico educativo</a></li><li><a href="pobreza/">Consultor de pobreza</a></li><li><a href="catalogo.html">Catálogo de datos</a></li><li><a href="relaciones.html">Explorador de relaciones</a></li></ul></div><div class="pie-col"><h2>Datina</h2><ul><li><a href="nosotros.html">Sobre nosotros</a></li><li><a href="nosotros.html#como-se-hace">Cómo se hace</a></li><li><a href="nosotros.html#fuentes">De dónde salen los datos</a></li><li><a href="contacto.html">Contacto</a></li></ul></div></nav>
     <div class="pie-datos">
       <h2>Los datos</h2>
-      <p>Todos los meses, los datos se actualizan con lo último que publica cada organismo público.</p>
+      <p>Se actualizan solos el día 5 de cada mes, con lo último que publicó cada fuente.</p>
       <p><a class="enlace" href="catalogo.html">Catálogo de datos</a></p>
       <p><a class="enlace" href="datos/tabla_larga.csv" download>Descargar la tabla completa (CSV)</a></p>
     </div>
   </div>
 </footer>
-<script src="relaciones.js?v=01f2a79c5a"></script>
+<script src="relaciones.js?v=4a005122a4"></script>
 </body>
 </html>
