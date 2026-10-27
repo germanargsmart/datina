@@ -466,7 +466,7 @@
    },
    {
     "titulo": "Empresas locales y empresas en varias provincias",
-    "texto": "Una empresa que tiene personal en varias provincias figura en cada una de ellas, por eso la suma de las provincias supera a la cantidad de empresas del país. La cifra destacada de la primera ficha es esa suma. Para estudiar aperturas y cierres, el Observatorio usa las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su empleo. La entrada y salida de las empresas no locales es más volátil y refleja menos el crecimiento del tejido productivo de cada región.",
+    "texto": "Una empresa que tiene personal en varias provincias figura en cada una de ellas, por eso la suma de las provincias supera a la cantidad de empresas del país. La cifra destacada de la primera ficha es el total del país, que cuenta a cada empresa una sola vez. Para ese total y para estudiar aperturas y cierres, el Observatorio usa las empresas locales: cada empresa es local en la provincia donde declara la mayor parte de su empleo. La entrada y salida de las empresas no locales es más volátil y refleja menos el crecimiento del tejido productivo de cada región.",
     "fuentes": [
      {
       "nombre": "OEDE, estadísticas provinciales, nota metodológica",
