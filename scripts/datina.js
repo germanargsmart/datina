@@ -4195,18 +4195,44 @@ const vtConm = (g, cam) => {  // pone el conmutador de una ficha en la cámara i
   conm.querySelectorAll("button").forEach((b, i) => { const on = b.dataset.m === cam; b.setAttribute("aria-pressed", on); if (on) conm.style.setProperty("--i", i); });
 };
 $("vt-sel").addEventListener("change", ev => { MED.vtLey = ev.target.value; cambiarVista("votaciones"); DIB.vtmatriz(false); });
+// una lista "2 a favor, 90 en contra, 1 ausente" que no entra en su columna sigue en un segundo renglón, cortada después de una coma
+// (en las votaciones, la cuenta va a la izquierda de los puntos y se pisaba con ellos en las más largas)
+function partirLista(nodo, max) {
+  if (!(nodo.getComputedTextLength() > max)) return;
+  const s = d3.select(nodo), partes = nodo.textContent.split(", ");
+  s.text("");
+  let linea = [], t = s.append("tspan").attr("x", s.attr("x"));
+  partes.forEach(p => {
+    t.text([...linea, p].join(", "));
+    if (linea.length && t.node().getComputedTextLength() > max) {
+      t.text(linea.join(", ") + ",");
+      linea = [];
+      t = s.append("tspan").attr("x", s.attr("x")).attr("dy", "1.2em");
+    }
+    linea.push(p);
+    t.text(linea.join(", "));
+  });
+}
 function puntosVoto(el, cfg) {
   const w = Math.max(300, el.clientWidth), angosto = w < 560;
   const paso = cfg.senado ? (angosto ? 13 : 16) : (angosto ? 8.6 : 10.5), r = paso * .4;
   const labW = angosto ? 0 : 170, arriba = angosto ? 34 : 0, cols = Math.max(8, Math.floor((w - labW) / paso));
+  const cuentaDe = f => { const cu = [1, 2, 3, 4].map(k => f.v.filter(x => x[4] === k).length);
+    return [[0, "a favor"], [1, "en contra"], [2, cu[2] === 1 ? "abstención" : "abstenciones"], [3, cu[3] === 1 ? "ausente" : "ausentes"]].filter(([i]) => cu[i]).map(([i, t]) => `${cu[i]} ${t}`).join(", "); };
+  // en la computadora la cuenta va a la izquierda de los puntos: los renglones que ocupa se miden antes, para darle alto a su fila
+  const renglones = cfg.filas.map(() => 1);
+  if (!angosto) {
+    const prueba = d3.select(el).append("svg").style("position", "absolute").style("visibility", "hidden"), t = prueba.append("text").attr("class", "etq-suave").attr("x", 0);
+    cfg.filas.forEach((f, j) => { t.text(cuentaDe(f)); partirLista(t.node(), labW - 8); renglones[j] = Math.max(1, t.selectAll("tspan").size()); });
+    prueba.remove();
+  }
   let alto = 0;
-  const lay = cfg.filas.map(f => { const y0 = alto; alto += arriba + Math.max(Math.ceil(f.v.length / cols) * paso, angosto ? 0 : 38) + 14; return {f, y0}; });
+  const lay = cfg.filas.map((f, j) => { const y0 = alto; alto += arriba + Math.max(Math.ceil(f.v.length / cols) * paso, angosto ? 0 : 38 + (renglones[j] - 1) * 16) + 14; return {f, y0}; });
   const C = lienzo(el, alto, {t: 0, r: 0, b: 0, l: 0}), g = C.g;
   lay.forEach(({f, y0}, j) => {
-    const cu = [1, 2, 3, 4].map(k => f.v.filter(x => x[4] === k).length);
-    const det = [[0, "a favor"], [1, "en contra"], [2, cu[2] === 1 ? "abstención" : "abstenciones"], [3, cu[3] === 1 ? "ausente" : "ausentes"]].filter(([i]) => cu[i]).map(([i, t]) => `${cu[i]} ${t}`).join(", ");
     g.append("text").attr("class", "etq-fuerte").attr("x", 0).attr("y", y0 + 13).text(ESP_CORTO[f.e]);
-    g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", y0 + 29).text(det);
+    const cuenta = g.append("text").attr("class", "etq-suave").attr("x", 0).attr("y", y0 + 29).text(cuentaDe(f));
+    if (!angosto) partirLista(cuenta.node(), labW - 8);
     const pt = g.append("g").selectAll("circle").data(f.v).join("circle")
       .attr("cx", (d, i) => labW + (i % cols) * paso + paso / 2).attr("cy", (d, i) => y0 + arriba + Math.floor(i / cols) * paso + paso / 2).attr("r", r)
       .attr("fill", d => d[4] === 4 ? "none" : VOTO_COL[d[4]]).attr("stroke", d => d[3] === prov && prov ? css("--ink") : d[4] === 4 ? VOTO_COL[4] : "none")
