@@ -2290,10 +2290,11 @@ function apiladasH(el, cfg) {
     const r = tramos.selectAll("rect.parte").data(partes).join("rect").attr("class", "parte").attr("y", 0).attr("height", y.bandwidth())
       .attr("x", p => x(p.x0)).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0))).attr("fill", p => p.k.c)
       .attr("opacity", opac(d));
-    // con cfg.sinValores, solo el texto del final (los máximos tribunales: "3 de 7" ya dice lo que dirían los tramos)
+    // con cfg.sinValores, solo el texto del final (los máximos tribunales: "3 de 7" ya dice lo que dirían los tramos). cfg.valF cambia el
+    // formato de los valores (por defecto, sin decimales)
     const t = d3.select(this).selectAll("text.v").data(partes.filter(p => !cfg.sinValores && x(p.x0 + p.v) - x(p.x0) > 34)).join("text").attr("class","v")
       .attr("x", p => x(p.x0) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("font-size", 11.5).attr("font-family","var(--mono)")
-      .attr("fill", p => p.k.texto || "#fff").text(p => n0(p.v));
+      .attr("fill", p => p.k.texto || "#fff").text(p => (cfg.valF || n0)(p.v));
     if (cfg.anim) { r.attr("width", 0).transition().duration(DUR_G).ease(EASE).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0)));
       aparecer(t, 150); }
     // un texto al final de la barra (el total de años)
@@ -3286,7 +3287,8 @@ Object.assign(DIB, {
       : ` En ${fp.territorio}, el ${pct(fp.pct_micro)} eran microempresas y el ${pct(fp.pct_grandes)}, grandes.`;
     $t("empresas-tamano").textContent = txt;
     const pais = T.empresas_tamano_sector.find(r => r.codigo_indec === "00");
-    apiladasH(el, {anim: a, claves: cl, data: [pais, ...T.empresas_tamano_sector.filter(r => r.codigo_indec !== "00").sort((p, q) => q[cl[0].k] - p[cl[0].k])]});
+    // los valores con un decimal, como el texto y la cifra destacada
+    apiladasH(el, {anim: a, claves: cl, valF: n1, data: [pais, ...T.empresas_tamano_sector.filter(r => r.codigo_indec !== "00").sort((p, q) => q[cl[0].k] - p[cl[0].k])]});
   },
   // la desocupación (plan de mejora, etapa 4): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida (se
   // redibuja al cambiarla, como los ingresos por aglomerado), o el total de los 31 trimestre a trimestre
