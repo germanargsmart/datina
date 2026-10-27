@@ -1253,7 +1253,9 @@ for id_, _, _, titulo in NOTAS:
     pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_), tipo="article")
 
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
-REDIRECCIONES = {"emprendedores": "empresas"}
+# Etapa 5 del plan de mejora (28 de octubre de 2026): los artículos que se juntaron con otro o se retiraron llevan al que queda
+REDIRECCIONES = {"emprendedores": "empresas", "a-empleo-pobreza": "a-pobreza-desocupacion", "a-cobertura-adolescentes": "a-cobertura-esperanza",
+                 "a-viviendas-hacinamiento": "a-viviendas-alquiler"}
 for viejo, nuevo in REDIRECCIONES.items():
     (SITIO / f"{viejo}.html").write_text(
         f'<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Datina</title>'

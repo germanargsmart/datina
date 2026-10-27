@@ -67,16 +67,16 @@ caso("Gráfico que falla: su aviso", /No se pudo dibujar este gráfico/.test(sin
 caso("Gráfico que falla: los demás se dibujan", r.otros === r.total - 1, `${r.otros} de ${r.total - 1}`);
 caso("Gráfico que falla: la consola lo anota (la prueba de páginas lo ve)", p.errores.some(e => /no se pudo dibujar el gráfico hogares/.test(e)), p.errores.length + " errores");
 
-// 3. P2-17: un artículo que falla (a-empleo-pobreza)
+// 3. P2-17: un artículo que falla (a-alquiler-pobreza)
 await p.ir(BASE + "index.html", 1500);
 const tarjetasAntes = await p.eval(`[...document.querySelectorAll("#art-grid-home .art-card")].map(a => a.getAttribute("href")).join(" ")`);
-CAMBIOS = [["try { a.c = calcularArt(a);", 'try { a.c = a.id === "a-empleo-pobreza" ? null.x : calcularArt(a);']];
+CAMBIOS = [["try { a.c = partesArt(a)", 'try { a.c = a.id === "a-alquiler-pobreza" ? null.x : partesArt(a)']];
 await p.ir(BASE + "index.html", 1500);
 r = JSON.parse(await p.eval(`JSON.stringify({tarjetas: [...document.querySelectorAll("#art-grid-home .art-card")].map(a => a.getAttribute("href")).join(" "), destacados: [...document.querySelectorAll(".destacado .c-num")].filter(e => e.textContent.trim()).length})`));
 caso("Artículo que falla: la portada sigue (las mismas tarjetas de artículos y los datos destacados)", r.tarjetas.split(" ").length === tarjetasAntes.split(" ").length && r.destacados === 4, "antes " + tarjetasAntes + " | ahora " + r.tarjetas);
-caso("Artículo que falla: la consola lo anota", p.errores.some(e => /no se pudo armar el artículo a-empleo-pobreza/.test(e)) && !p.errores.some(e => /^excepción/.test(e)), p.errores.join(" | ").slice(0, 200));
-await p.ir(BASE + "a-empleo-pobreza.html", 1500);
-r = await p.eval(`document.getElementById("a-empleo-pobreza").textContent`);
+caso("Artículo que falla: la consola lo anota", p.errores.some(e => /no se pudo armar el artículo a-alquiler-pobreza/.test(e)) && !p.errores.some(e => /^excepción/.test(e)), p.errores.join(" | ").slice(0, 200));
+await p.ir(BASE + "a-alquiler-pobreza.html", 1500);
+r = await p.eval(`document.getElementById("a-alquiler-pobreza").textContent`);
 caso("Artículo que falla: su página lo dice", /No se pudo armar este artículo/.test(r), r.slice(0, 80));
 await p.ir(BASE + "a-pobreza-desocupacion.html", 1500); await p.recorrer();
 r = JSON.parse(await p.eval(`JSON.stringify({bajada: !!document.querySelector("#a-pobreza-desocupacion .nota-frase mark"), svg: !!document.querySelector("#a-pobreza-desocupacion .grafico svg")})`));
