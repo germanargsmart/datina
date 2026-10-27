@@ -81,6 +81,10 @@ const conTablas = (g, nombres, dibujo) => a => {
 };
 const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
 const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
+// fuerza de una correlación: una sola escala para todo el sitio (plan de mejora, E5, 27 de octubre de 2026), la que ya usaban los artículos
+// y el voto por provincia. Antes había cinco, y Cruces llamaba "fuerte" a un 0,52 que los artículos llamaban "moderada". Mide el valor que
+// se muestra, con dos decimales y el mismo redondeo que n2: un 0,395 se ve "0,40" y es "moderada". Prueba: scripts/prueba_escala.mjs
+const fuerza = r => { const a = Math.abs(Number(r.toFixed(2))); return a >= .6 ? "fuerte" : a >= .4 ? "moderada" : a >= .2 ? "débil" : "casi nula"; };
 const pct = v => n1(v) + "%";
 const kbdF = v => v >= 10 ? n0(v) : n1(v);
 // una cifra sobre otra, con un decimal y sin ",0": "2 veces", "2,3 veces"
@@ -4409,10 +4413,9 @@ const rvNombre = g => `${g.presidente}, ${g.anios[0] === g.anios[1] ? g.anios[0]
 const rvSel = $("vprov-sel");
 rvSel.innerHTML = RV.map(g => `<option value="${rvClave(g)}">${rvNombre(g)}</option>`).join("");
 MED.vprov = rvClave(RV[RV.length - 1]); rvSel.value = MED.vprov;
-const rvFuerza = r => Math.abs(r) < .2 ? "casi nula" : Math.abs(r) < .4 ? "débil" : Math.abs(r) < .6 ? "moderada" : "fuerte";
 TX["vprov"] = $t("vprov").textContent = 
   `La relación entre el voto al presidente en la primera vuelta y la coincidencia de los legisladores de cada provincia con el bloque oficialista, en las leyes y los proyectos clave, cambia de un gobierno a otro. ` +
-  RV.map(g => `Con ${g.presidente} fue ${rvFuerza(g.r)} (correlación de ${n2(g.r).replace("-", "menos ")}, en ${g.leyes} ${g.leyes === 1 ? "ley o proyecto" : "leyes o proyectos"} ${g.anios[0] === g.anios[1] ? `de ${g.anios[0]}` : `entre ${g.anios[0]} y ${g.anios[1]}`})`).join(". ") + ". Con pocas leyes, un solo voto puede mover mucho el resultado. Que las dos medidas vayan juntas no muestra que una explique la otra.";
+  RV.map(g => `Con ${g.presidente} fue ${fuerza(g.r)} (correlación de ${n2(g.r).replace("-", "menos ")}, en ${g.leyes} ${g.leyes === 1 ? "ley o proyecto" : "leyes o proyectos"} ${g.anios[0] === g.anios[1] ? `de ${g.anios[0]}` : `entre ${g.anios[0]} y ${g.anios[1]}`})`).join(". ") + ". Con pocas leyes, un solo voto puede mover mucho el resultado. Que las dos medidas vayan juntas no muestra que una explique la otra.";
 DIB.vprov = a => {
   const g = RV.find(x => rvClave(x) === MED.vprov);
   dispersion(G("vprov"), {anim: a, data: T.voto_legisladores_y_provincia.filter(d => d.presidente === g.presidente && d.eleccion === g.eleccion),
@@ -4467,7 +4470,6 @@ function dispersion(el, cfg) {
   pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${vx(d[cfg.x])}<br>${cfg.yLab}: ${vy(d[cfg.y])}`, 46 + x(d[cfg.x]), 34 + y(d[cfg.y])))
     .on("pointerleave", ocultarSiMouse);
 }
-const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada" : "débil";
 const AN = R.ado_nse, MC = R.mi_causas;
 $("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
 MED.adonse = AN.indicadores[0].k;
@@ -4744,7 +4746,7 @@ DIB["confianza-gobierno"] = a => {
   const el = G("confianza-gobierno"), C = R.confianza_gobierno;
   if (MED["confianza-gobierno"] === "elecciones") {
     const E = C.elecciones, elec = x => x.tipo === "PASO" ? `las PASO de ${x.anio}` : `la primera vuelta de ${x.anio}`;
-    const grado = Math.abs(E.r) >= .7 ? "fuerte" : "moderada";
+    const grado = fuerza(E.r);
     const rel = E.r >= .4 ? `Las dos líneas suben y bajan juntas: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno tendió a sacar ` +
         `más votos cuando la confianza en el gobierno del mes anterior era más alta. La relación es ${grado} (correlación de ${n2(E.r)})`
       : E.r <= -.4 ? `Las dos líneas van en sentido contrario: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno tendió a sacar ` +
@@ -5410,7 +5412,6 @@ const CX = (() => {
   const validos = (ids) => filas().filter(f => !st.fuera.has(f.codigo_indec) && ids.every(k => f[k] != null && isFinite(f[k])));
   const logOk = id => FILAS.every(f => f[id] == null || f[id] > 0);
   const tx = (id, log) => log ? v => Math.log10(v) : v => v;
-  const fuerza = r => { const a = Math.abs(r); return a < .1 ? "prácticamente nula" : a < .3 ? "débil" : a < .5 ? "moderada" : a < .7 ? "fuerte" : "muy fuerte"; };
 
   /* ---- controles ---- */
   if (!document.getElementById("f-cruces")) return {pearson, spearman, simple};
@@ -5613,7 +5614,7 @@ const CX = (() => {
     caja.innerHTML = [["Jurisdicciones", m.n], ["r de Pearson", fr(m.r)], ["R²", fr(m.r2)], ["ρ de Spearman", fr(rho)], ["Valor p", fp(m.p)]]
       .map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join("") + (log ? `<div class="aclara">Calculado sobre el logaritmo de ${st.logx && st.logy ? "ambos ejes" : st.logx ? "el eje horizontal" : "el eje vertical"}</div>` : "");
     const sentido = `${m.r > 0 ? "positiva" : "negativa"}: las jurisdicciones con valores más altos en «${X.nombre}» tienden a tener valores ${m.r > 0 ? "más altos" : "más bajos"} en «${Y.nombre}»`;
-    let t = `Con ${m.n} jurisdicciones, la relación es ${fuerza(m.r)} y ${Math.abs(m.r) < .1 ? "no muestra una tendencia clara" : sentido} (r = ${fr(m.r)}). `;
+    let t = `Con ${m.n} jurisdicciones, la relación es ${fuerza(m.r)} y ${fuerza(m.r) === "casi nula" ? "no muestra una tendencia clara" : sentido} (r = ${fr(m.r)}). `;
     t += m.p < .05 ? `Es poco probable que una relación así aparezca solo por azar (valor p ${fp(m.p)}). `
       : `Con tan pocos casos, una relación de este tamaño puede aparecer por azar (valor p ${fp(m.p)}), así que no alcanza para afirmar que existe. `;
     if (Math.abs(m.r - rho) > .2) t += `La correlación por rangos de Spearman es ${fr(rho)}: la diferencia sugiere que unos pocos casos extremos o una forma no lineal pesan en el resultado. `;
@@ -7405,7 +7406,6 @@ const delPer = p => /^(primer|segundo|tercer|cuarto) /.test(p) ? "del " + p : "d
 const rTxt = r => n2(r).replace(/[-−]/, "menos ");
 // la primera letra en minúscula, salvo que el nombre empiece con un nombre propio (antes se bajaba todo: "voto a milei", etapa 24)
 const minusc = t => /^(Aprender|PISA|ATN)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
-const fuerzaArt = r => { const a = Math.abs(r); return a >= .6 ? "fuerte" : a >= .4 ? "moderada" : a >= .2 ? "débil" : "casi nula"; };
 // "% de los hogares" se pega al número (45,2%) y el resto de la unidad va después
 const partesU = u => u.startsWith("%") ? ["%", u.replace(/^%\s*/, "")] : ["", u];
 function calcularArt(a) {
@@ -7424,7 +7424,7 @@ function textoArt(a, c) {
   const respuesta = ab < .2 ? "No hay un patrón claro." : !mismo ? "No: la relación va en sentido contrario." : ab >= .4 ? "Sí, en general." : "Apenas.";
   const bajada = ab < .2
     ? `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} no tienden a tener más ni menos ${a.ly}.`
-    : `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} tienden a tener ${c.rs > 0 ? "más" : "menos"} ${a.ly}, y las que tienen menos ${a.lx}, ${c.rs > 0 ? "menos" : "más"}. La relación es ${fuerzaArt(c.rs)}.`;
+    : `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} tienden a tener ${c.rs > 0 ? "más" : "menos"} ${a.ly}, y las que tienen menos ${a.lx}, ${c.rs > 0 ? "menos" : "más"}. La relación es ${fuerza(c.rs)}.`;
   const ord = [...c.F].sort((p, q) => q[a.x] - p[a.x]), top = ord.slice(0, 3), bajo = ord.slice(-3).reverse();
   // "22,0 en Neuquén, 14,9 en Santa Cruz y 13,7 en Santa Fe": el nombre separa los números, sin ambigüedad con la coma decimal
   const enProv = fs => listaY(fs.map((f, i) => `${i ? fy(f[a.y]) + py : vy(f)} en ${f.territorio}`));
@@ -7435,7 +7435,7 @@ function textoArt(a, c) {
     `y ${c.abajo.territorio} (${vx(c.abajo)} y ${vy(c.abajo)}), con menos.`;
   const peso = `La correlación de Spearman, que compara el orden de las ${c.n} ${U.pl} en los dos datos, es de ${rTxt(c.rs)}. Esa medida va de menos 1 a 1: cuanto más lejos está de 0, más marcada es la relación${c.rs <= -.2 ? ", y un valor negativo quiere decir que cuando un dato sube, el otro tiende a bajar" : ""}. ${c.cook.territorio} es la ${U.s} que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05
     ? `Sin ella, la correlación ${rTxt(c.rs2) === rTxt(c.rs) ? "no cambia" : "casi no cambia"}: da ${rTxt(c.rs2)}, así que el resultado no depende de un solo caso.`
-    : `Sin ella, la correlación pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerzaArt(c.rs2) !== fuerzaArt(c.rs) ? `, una relación ${fuerzaArt(c.rs2)}.` : "."));
+    : `Sin ella, la correlación pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerza(c.rs2) !== fuerza(c.rs) ? `, una relación ${fuerza(c.rs2)}.` : "."));
   const lim = [...a.limites,
     ...(Mx.periodo !== My.periodo ? [`Los datos son de períodos distintos: el de ${a.lx} es ${delPer(Mx.periodo)} y el de ${a.ly}, ${delPer(My.periodo)}.`] : []),
     ...(Math.abs(c.rs - c.rp) > .2 ? [`Otra medida, la correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}. Que las dos medidas den tan distinto indica que unos pocos casos influyen mucho en el resultado.`] : []),
@@ -7488,7 +7488,7 @@ ART.forEach(a => {
    describen con la misma escala que los artículos de cruces, leída sobre el valor que se muestra, y la respuesta destacada sale de los datos.
    Para sumar uno: su nota en la plantilla, sus cifras en el resumen, sus tablas en DIFERIDAS y su entrada acá. */
 const DL = R.dolar;
-const r100 = r => Math.round(r * 100) / 100, fz = r => fuerzaArt(r100(r)), ab = r => Math.abs(r100(r));
+const r100 = r => Math.round(r * 100) / 100, fz = fuerza, ab = r => Math.abs(r100(r));
 const ORD_T = ["1.er", "2.º", "3.er", "4.º"], triCorto = r => `${ORD_T[r.trimestre - 1]} trim. ${r.anio}`;
 const pctAbs = v => pct(Math.abs(v));
 const PLURAL = {"fuerte": "fuertes", "moderada": "moderadas", "débil": "débiles", "casi nula": "casi nulas"};
