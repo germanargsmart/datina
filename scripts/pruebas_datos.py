@@ -13,7 +13,8 @@ Qué revisan:
   7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
   8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
      nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2). El total de motos sin las jurisdicciones excluidas (E3) va en
-     las sumas de control. Los pozos no convencionales del mismo mes, iguales en la ficha de pozos y en el mapa (E13).
+     las sumas de control. Los pozos no convencionales del mismo mes, iguales en la ficha de pozos y en el mapa (E13). El valor del país de los
+     recursos propios provinciales, que no puede ser la mediana.
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -463,6 +464,14 @@ def prueba_errores(d, t):
                 sale.append((f"pozos|{k}", f"pozos de {k} en {pg['pozos_mes']}: la ficha de pozos dice {pg[f'pozos_{k}']:,} y el mapa {pg[f'map_{k}']:,}"))
         if pg["map_activos"] != pg["pozos_shale"] + pg["pozos_tight"]:
             sale.append(("pozos|activos", f"pozos no convencionales en {pg['pozos_mes']}: el mapa dice {pg['map_activos']:,} y la ficha de pozos suma {pg['pozos_shale'] + pg['pozos_tight']:,}"))
+    # recursos propios: el valor del país del perfil provincial era la mediana de las provincias. Tiene que ser el de las provincias
+    # sumadas, que queda entre la más baja y la más alta y no es la mediana
+    fi = d["resumen"]["fiscal"]
+    vals = [f["autonomia"] for f in d["datos"]["fiscal_provincias"] if f["anio"] == fi["anio"]]
+    if "pais" not in fi:
+        sale.append(("fiscal|pais", "recursos propios: el resumen no tiene el valor del país (las provincias sumadas)"))
+    elif not min(vals) <= fi["pais"] <= max(vals) or fi["pais"] == fi["mediana"]:
+        sale.append(("fiscal|pais", f"recursos propios: el valor del país ({fi['pais']}) no es el de las provincias sumadas (mediana {fi['mediana']}, de {min(vals):.1f} a {max(vals):.1f})"))
     return sale
 
 

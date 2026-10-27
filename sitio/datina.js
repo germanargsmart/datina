@@ -6927,8 +6927,10 @@ const INDP = [
     d:T.censo2022_provincias, k:"internet", pais:nv.censo.internet, f:pct},
   {id:"f-exportaciones", g:"economia", lab:"Exportaciones", veces:true, det:`dólares por habitante, ${nv.ex_anio}`,
     d:T.exportaciones_provincias, k:"usd_por_habitante", pais:nv.ex_pc_pais, f:n0},
-  {id:"f-fiscal", g:"gobierno", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}`,
-    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.mediana, f:pct},
+  // el país: las cuentas de las provincias y CABA sumadas (26 de octubre de 2026). Hasta entonces mostraba la mediana como si fuera el país
+  {id:"f-fiscal", g:"gobierno", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}. El país suma las cuentas de ` +
+    `todas las provincias y CABA${R.fiscal.pais_sin.length ? `, sin ${lista(R.fiscal.pais_sin)}` : ""}`,
+    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.pais, f:pct},
   {id:"f-eti", g:"turismo", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
   {id:"f-gas-hogares", g:"energia", lab:"Gas de red para cocinar", veces:"debajo", det:"% de los hogares, Censo 2022",

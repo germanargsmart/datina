@@ -1903,7 +1903,8 @@ for hoja in xl.sheet_names[1:]:
             continue
         fisc.append({"codigo_indec": cod, "anio": a, "autonomia": (v(ic) - v(nac) - v(trc) + v(rpc)) / v(tot) * 100,
                      "resultado": v(res) / v(tot) * 100, "personal": v(per) / v(gas) * 100,
-                     "regalias": v(reg_f) / v(tot) * 100, "regalias_millones": v(reg_f), "ird_millones": v(ird_f), "ingresos_millones": v(tot)})
+                     "regalias": v(reg_f) / v(tot) * 100, "regalias_millones": v(reg_f), "ird_millones": v(ird_f), "ingresos_millones": v(tot),
+                     "propios_millones": v(ic) - v(nac) - v(trc) + v(rpc)})
 fisc = pd.DataFrame(fisc)
 assert fisc.codigo_indec.nunique() == 24, "Faltan provincias en las cuentas fiscales"
 # ultimo anio con dato para al menos 20 provincias. Las que todavia no lo publicaron van con su ultimo anio disponible
@@ -6696,10 +6697,15 @@ _ex_t, _ex_b = top_bot(exp_prov, "usd_por_habitante")
 _in_t, _in_b = top_bot(internet_fijo, "accesos_100_hogares")
 _ve_t, _ve_b = top_bot(internet_fijo, "mbps")
 _fa_t, _fa_b = top_bot(fiscal, "autonomia")
+# El valor del país de los recursos propios (26 de octubre de 2026, plan de mejora): las provincias y CABA juntas, los recursos propios
+# sumados sobre los ingresos totales sumados, solo con las jurisdicciones que tienen el año de la ficha (sumar pesos de años distintos no
+# sirve). El perfil lo mostraba como "País" y era la mediana de las provincias, que sigue en "En cifras" y en la cifra destacada
+_fc = fisc[fisc.anio == ANIO_FISC]
 resumen["fiscal"] = {
     "anio": ANIO_FISC, "top": _fa_t.territorio, "top_v": r1(_fa_t.autonomia), "low": _fa_b.territorio, "low_v": r1(_fa_b.autonomia),
     "deficit": int((fiscal.resultado < 0).sum()), "superavit": int((fiscal.resultado > 0).sum()),
     "mediana": r1(fiscal.autonomia.median()), "ini": int(fisc.anio.min()),
+    "pais": r1(_fc.propios_millones.sum() / _fc.ingresos_millones.sum() * 100), "pais_sin": sorted(CORTO[c] for c in set(fiscal.codigo_indec) - set(_fc.codigo_indec)),
     "mediana_ini": r1(fisc[fisc.anio == fisc.anio.min()].autonomia.median()),
     "atrasadas": FISC_ATRASADAS,
 }
