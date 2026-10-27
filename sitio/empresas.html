@@ -133,6 +133,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada año.</span><a href="datos/empresas_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- las empresas por tamaño y por sector (plan de mejora, etapa 4, 27 de octubre de 2026): cuadros 1 y 3 del OEDE -->
+    <article class="ficha" id="f-empresas-tamano">
+      <h2>¿En qué sectores y de qué tamaño son las empresas de cada provincia?</h2>
+      <p class="ficha-sub">Empresas privadas con personal en relación de dependencia por tamaño (industria, comercio y servicios) y por sector, en % de las de cada provincia, 2024</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="empresas-tamano">
+        <button type="button" data-m="tam" aria-pressed="true">Por tamaño</button>
+        <button type="button" data-m="sec" aria-pressed="false">Por sector</button>
+      </div>
+      <div class="pol-ley" id="empresas-tamano-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="empresas-tamano" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="empresas-tamano"></p>
+      <p class="nota" data-t="empresas-tamano-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA). Se actualiza cada año.</span><a href="datos/empresas_tamano_sector.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-dinamica-empresas">
       <h2>¿Cuántas empresas abren y cuántas cierran?</h2>
       <p class="ficha-sub">Empresas privadas que abrieron y que cerraron cada año, en % de las empresas activas, 1996 a 2024</p>
@@ -232,7 +247,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=84d7a03a93"></script>
-<script src="datina.js?v=48a27e845b"></script>
+<script src="datos/fichas.js?v=0a4aa54e12"></script>
+<script src="datina.js?v=8aaaf57bd0"></script>
 </body>
 </html>

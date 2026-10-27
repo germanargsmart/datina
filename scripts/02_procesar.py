@@ -1854,6 +1854,59 @@ if (CRUDO / "oede_empresas_provincias.xlsx").exists():
                "anios_negativos": len(_neg), "ultimos_negativos": [a_ for a_ in _neg if a_ > _ult - 5]}
     d = empresas[["codigo_indec", "territorio", "cada_1000_hab"]].rename(columns={"cada_1000_hab": "valor"}); d["periodo"] = _anio_emp
     agregar(d, "empresas_privadas_cada_1000_habitantes", "empresas", "OEDE, Ministerio de Capital Humano, en base al SIPA")
+    # Por sector y por tamaño (plan de mejora, etapa 4, 27 de octubre de 2026): los cuadros 1 (siete sectores) y 3 (tamaño, solo de industria,
+    # comercio y servicios, los sectores que el OEDE clasifica por tamaño). Buenos Aires suma sus tres filas (partidos del conurbano, resto
+    # de la provincia y, en el cuadro 1, su total). El país suma las provincias: una empresa con personal en varias cuenta en cada una
+    EMP_SEC = {"agricultura, ganaderia y pesca": "agro", "mineria y petroleo": "mineria", "industria": "industria", "electricidad, gas y agua": "energia",
+               "construccion": "construccion", "comercio": "comercio", "servicios": "servicios"}
+    emt_sec = {j: EMP_SEC[norm(str(_t1.iat[_fila_tit, j])).strip()] for j in range(1, _col_tot)}
+    assert sorted(emt_sec.values()) == sorted(EMP_SEC.values()), "OEDE: cambiaron los sectores del cuadro 1"
+    emt = {}
+    for i in range(_fila_tit + 1, len(_t1)):
+        c = _cod_oede(_t1.iat[i, 0])
+        if c:
+            for j, k in emt_sec.items():
+                emt.setdefault(c, {}).setdefault(k, 0)
+                emt[c][k] += float(pd.to_numeric(_t1.iat[i, j], errors="coerce") or 0)
+    _t3 = _xo.parse("T3", header=None)
+    emt_col = {j: _cod_oede(_t3.iat[1, j]) for j in range(1, _t3.shape[1]) if pd.notna(_t3.iat[1, j]) and _cod_oede(_t3.iat[1, j])}
+    emt_fila = {norm(str(v)).strip(): i for i, v in _t3[0].items() if pd.notna(v)}
+    emt_tot = _t3[0].astype(str).str.strip().eq("Total").idxmax()
+    EMP_TAM = {"microempresas": "micro", "pequenas": "pequenas", "medianas": "medianas", "grandes": "grandes"}
+    for k_t, k in EMP_TAM.items():
+        i = next(i for i in range(emt_tot + 1, emt_tot + 5) if norm(str(_t3.iat[i, 0])).strip() == k_t)
+        for j, c in emt_col.items():
+            emt[c].setdefault(k, 0)
+            emt[c][k] += float(pd.to_numeric(_t3.iat[i, j], errors="coerce") or 0)
+    empresas_tamano_sector = pd.DataFrame([{"codigo_indec": c, "territorio": CORTO[c], **v} for c, v in sorted(emt.items())])
+    assert len(empresas_tamano_sector) == 24, "OEDE: faltan provincias en los cuadros 1 y 3"
+    empresas_tamano_sector = pd.concat([pd.DataFrame([{"codigo_indec": "00", "territorio": "Todo el país",
+                                                       **empresas_tamano_sector.drop(columns=["codigo_indec", "territorio"]).sum().to_dict()}]),
+                                        empresas_tamano_sector], ignore_index=True)
+    empresas_tamano_sector["total"] = empresas_tamano_sector[list(EMP_SEC.values())].sum(axis=1)
+    empresas_tamano_sector["con_tamano"] = empresas_tamano_sector[list(EMP_TAM.values())].sum(axis=1)
+    # el cuadro 3 tiene que sumar lo mismo que industria, comercio y servicios del cuadro 1
+    assert (empresas_tamano_sector.con_tamano - empresas_tamano_sector[["industria", "comercio", "servicios"]].sum(axis=1)).abs().max() < 1, \
+        "OEDE: el cuadro 3 no suma lo mismo que el cuadro 1"
+    for k in EMP_TAM.values():
+        empresas_tamano_sector[f"pct_{k}"] = empresas_tamano_sector[k] / empresas_tamano_sector.con_tamano * 100
+    empresas_tamano_sector["pct_agro"] = empresas_tamano_sector.agro / empresas_tamano_sector.total * 100
+    empresas_tamano_sector["pct_industria_mineria_energia"] = empresas_tamano_sector[["industria", "mineria", "energia"]].sum(axis=1) / empresas_tamano_sector.total * 100
+    for k in ("construccion", "comercio", "servicios"):
+        empresas_tamano_sector[f"pct_{k}"] = empresas_tamano_sector[k] / empresas_tamano_sector.total * 100
+    empresas_tamano_sector = empresas_tamano_sector.round(2)
+    emt_p = empresas_tamano_sector[empresas_tamano_sector.codigo_indec == "00"].iloc[0]
+    emt_v = empresas_tamano_sector[empresas_tamano_sector.codigo_indec != "00"]
+    emt_x = lambda k: [[emt_v.sort_values(k).iloc[-1].territorio, r1(emt_v[k].max())], [emt_v.sort_values(k).iloc[0].territorio, r1(emt_v[k].min())]]
+    emp_res.update({
+        "tam_micro": r1(emt_p.pct_micro), "tam_pequenas": r1(emt_p.pct_pequenas), "tam_medianas": r1(emt_p.pct_medianas), "tam_grandes": r1(emt_p.pct_grandes),
+        "tam_cubre": r1(emt_p.con_tamano / emt_p.total * 100), "micro_ext": emt_x("pct_micro"), "grandes_ext": emt_x("pct_grandes"),
+        "sec_servicios": r1(emt_p.pct_servicios), "sec_comercio": r1(emt_p.pct_comercio), "sec_agro": r1(emt_p.pct_agro),
+        "sec_industria": r1(emt_p.pct_industria_mineria_energia), "sec_construccion": r1(emt_p.pct_construccion),
+        "agro_ext": emt_x("pct_agro"), "servicios_ext": emt_x("pct_servicios"),
+    })
+    d = emt_v[["codigo_indec", "territorio", "pct_micro"]].rename(columns={"pct_micro": "valor"}); d["periodo"] = _anio_emp
+    agregar(d, "microempresas_pct_empresas_industria_comercio_servicios", "% de las empresas", "OEDE, Ministerio de Capital Humano, en base al SIPA")
 
 # Antiguedad en el empleo de los asalariados (EPH, cuatro ultimos trimestres, resumen armado en 01_descargar.py)
 rotacion, rot_res = None, None
@@ -6529,7 +6582,8 @@ tablas = {
                          "bcra_variables": bcra_variables, "bcra_variables_lista": bcra_variables_lista}.items() if v is not None},
     **({"exportaciones_destinos": se_destinos} if se_destinos is not None else {}),
     **({"exportaciones_complejos": se_complejos} if se_complejos is not None else {}),
-    **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),
+    **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie, "empresas_tamano_sector": empresas_tamano_sector}
+       if empresas is not None else {}),
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
     **({"haberes_previsionales": haberes} if haberes is not None else {}),

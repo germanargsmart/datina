@@ -180,7 +180,7 @@ FRECUENCIA = {
     # Economía y precios
     "f-inflacion": "mes", "f-inflacion-rubros": "mes", "f-canastas": "mes", "f-salario-real": "mes", "f-emae": "mes", "f-supermercados": "mes", "f-bcra": "mes", "f-expectativas": "mes", "f-confianza-consumidor": "mes",
     # Empresas y oportunidades
-    "f-empresas": "anio", "f-dinamica-empresas": "anio",
+    "f-empresas": "anio", "f-empresas-tamano": "anio", "f-dinamica-empresas": "anio",
     # Pobreza y hogares
     "f-pobreza": "semestre", "f-ingresos-aglomerados": "trimestre", "f-censo": "censo", "f-internet": "trimestre",
     # Salud

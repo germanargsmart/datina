@@ -2721,6 +2721,26 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:oede_empresas_provincias.xlsx",
+   "a": "f-empresas-tamano",
+   "tabla": "empresas_tamano_sector",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_xo = pd.ExcelFile(CRUDO / \"oede_empresas_provincias.xlsx\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_t3 = _xo.parse(\"T3\", header=None)"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"empresas_tamano_sector\": empresas_tamano_sector}"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:indec_proyecciones_provincias.csv",
    "a": "f-empresas",
    "evidencia": [
@@ -7226,6 +7246,11 @@
   "f-empresas": {
    "variables": [
     "empresas_privadas_cada_1000_habitantes"
+   ]
+  },
+  "f-empresas-tamano": {
+   "variables": [
+    "microempresas_pct_empresas_industria_comercio_servicios"
    ]
   },
   "f-envejecimiento": {

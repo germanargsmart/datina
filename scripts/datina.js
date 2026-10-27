@@ -639,6 +639,14 @@ const LEAD = {
       (N.length ? `${N.length > 1 ? "Las" : "La"} de ${lista(N)} ${N.length > 1 ? "pasan" : "pasa"} de 25% y no ${N.length > 1 ? "son confiables" : "es confiable"}. ` : "") +
       `Dos ciudades con valores parecidos pueden no ser distintas.`;
   },
+  // por tamaño o por sector (plan de mejora, etapa 4): el país y la más alta y la más baja de cada medida
+  "empresas-tamano": v => v === "sec"
+    ? `En ${EM.anio}, el ${pct(EM.sec_servicios)} de las empresas privadas con empleados del país eran de servicios, el ${pct(EM.sec_comercio)} de comercio, ` +
+      `el ${pct(EM.sec_industria)} de la industria, la minería y la energía, el ${pct(EM.sec_agro)} del agro y la pesca, y el ${pct(EM.sec_construccion)} de la ` +
+      `construcción. El agro iba del ${pct(EM.agro_ext[1][1])} de las empresas en ${EM.agro_ext[1][0]} al ${pct(EM.agro_ext[0][1])} en ${EM.agro_ext[0][0]}.`
+    : `En ${EM.anio}, el ${pct(EM.tam_micro)} de las empresas privadas de industria, comercio y servicios del país eran microempresas, el ${pct(EM.tam_pequenas)} ` +
+      `pequeñas, el ${pct(EM.tam_medianas)} medianas y el ${pct(EM.tam_grandes)} grandes. Las microempresas iban del ${pct(EM.micro_ext[1][1])} en ` +
+      `${EM.micro_ext[1][0]} al ${pct(EM.micro_ext[0][1])} en ${EM.micro_ext[0][0]}. El tamaño es el de toda la empresa: una grande puede tener pocas personas en una provincia.`,
   // la desocupación (plan de mejora, etapa 4): los 31 aglomerados de la EPH con el promedio de cuatro trimestres, o el total trimestre a trimestre
   desocupacion: v => v === "serie"
     ? `En el ${DSO.ultimo}, el ${pct(DSO.pais_ultimo)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada` +
@@ -1453,6 +1461,12 @@ const TX = {
     `Buenos Aires va en dos partes también entre las ciudades. Un aglomerado es una ciudad con su área urbana y puede juntar dos ciudades o dos provincias. ` +
     `El coeficiente de variación mide la precisión de cada estimación: cuanto más alto, menos precisa. Está en el cuadro de cada barra, con la indigencia. ` +
     `En el consultor de pobreza están los partidos del Gran Buenos Aires y las comunas de CABA.`,
+  "empresas-tamano": LEAD["empresas-tamano"]("tam"), "empresas-tamano-nota": `Empresas privadas con al menos una persona en relación de dependencia ` +
+    `declarada en el SIPA, según el Observatorio de Empleo y Dinámica Empresarial. No cuenta a quienes trabajan por su cuenta sin empleados. Una empresa con ` +
+    `personal en varias provincias cuenta en cada una, y el país suma las provincias: por eso da más que la cantidad de empresas de la ficha anterior. El ` +
+    `tamaño es el de toda la empresa, según su personal promedio de los últimos cuatro trimestres, con topes distintos en cada rama: en el comercio minorista, ` +
+    `una microempresa tiene hasta 5 personas, una pequeña hasta 26 y una mediana hasta 100. El OEDE clasifica por tamaño solo a la industria, el comercio y ` +
+    `los servicios, el ${pct(EM.tam_cubre)} de las empresas del país: el agro, la minería, la construcción y la electricidad, gas y agua no entran en esa vista.`,
   desocupacion: LEAD.desocupacion("ciudad"), "desocupacion-nota": `Desocupada es la persona que no tiene trabajo, lo buscó activamente y está ` +
     `disponible para trabajar. La tasa se calcula sobre la población económicamente activa: las personas que trabajan o buscan trabajo. La EPH es una ` +
     `encuesta del INDEC en 31 aglomerados urbanos, que no mide las zonas rurales ni las ciudades chicas. Un aglomerado es una ciudad con su área urbana ` +
@@ -2813,7 +2827,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", desocupacion: "ciudad", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3244,6 +3258,23 @@ Object.assign(DIB, {
       tip: d => `<b>${d.nombre}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>Coeficiente de variación: ${pct(d.cv_pobreza)}` +
         `<br>Indigencia: ${pct(d.indigencia)}`});
     el.resaltar = null;
+  },
+  // las empresas por tamaño o por sector (plan de mejora, etapa 4): barras apiladas, el país arriba y las provincias por la primera parte
+  "empresas-tamano": a => {
+    const v = MED["empresas-tamano"], el = G("empresas-tamano"), fp = T.empresas_tamano_sector.find(r => r.codigo_indec === prov);
+    const cl = v === "sec"
+      ? [{k: "pct_servicios", lab: "Servicios", c: "#2C74B5"}, {k: "pct_comercio", lab: "Comercio", c: "#74ACDF", texto: "#18212B"},
+        {k: "pct_industria_mineria_energia", lab: "Industria, minería y energía", c: "#1F5E97"},
+        {k: "pct_construccion", lab: "Construcción", c: "#C3CAD2", texto: "#18212B"}, {k: "pct_agro", lab: "Agro y pesca", c: "#F6B40E", texto: "#18212B"}]
+      : [{k: "pct_micro", lab: "Micro", c: "#C6DCF1", texto: "#18212B"}, {k: "pct_pequenas", lab: "Pequeñas", c: "#74ACDF", texto: "#18212B"},
+        {k: "pct_medianas", lab: "Medianas", c: "#2C74B5"}, {k: "pct_grandes", lab: "Grandes", c: "#1F5E97"}];
+    leyenda("empresas-tamano-ley", cl);
+    let txt = LEAD["empresas-tamano"](v);
+    if (fp) txt += v === "sec" ? ` En ${fp.territorio}, el ${pct(fp.pct_servicios)} eran de servicios y el ${pct(fp.pct_agro)} del agro y la pesca.`
+      : ` En ${fp.territorio}, el ${pct(fp.pct_micro)} eran microempresas y el ${pct(fp.pct_grandes)}, grandes.`;
+    $t("empresas-tamano").textContent = txt;
+    const pais = T.empresas_tamano_sector.find(r => r.codigo_indec === "00");
+    apiladasH(el, {anim: a, claves: cl, data: [pais, ...T.empresas_tamano_sector.filter(r => r.codigo_indec !== "00").sort((p, q) => q[cl[0].k] - p[cl[0].k])]});
   },
   // la desocupación (plan de mejora, etapa 4): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida (se
   // redibuja al cambiarla, como los ingresos por aglomerado), o el total de los 31 trimestre a trimestre
@@ -6294,6 +6325,8 @@ const CLAVE = {
   "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`, "cargos cada 1.000 habitantes en todo el país"],
   "f-pobreza-aglomerados": [pct(PZA.reg_max[1]), `de las personas de los aglomerados urbanos ${delReg(PZA.reg_max[0])} estaba bajo la línea de pobreza ` +
     `en el ${PZA.semestre}, la región con más pobreza`, `de las personas de los aglomerados urbanos ${delReg(PZA.reg_max[0])}, la región con más pobreza, en el ${PZA.semestre}`],
+  "f-empresas-tamano": [pct(EM.tam_micro), `de las empresas privadas de industria, comercio y servicios del país eran microempresas en ${EM.anio}`,
+    `de las empresas de industria, comercio y servicios del país eran microempresas en ${EM.anio}`],
   "f-desocupacion": [pct(DSO.pais), `de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada, en promedio, en ${DSO.trimestres}`,
     `desocupación de los 31 aglomerados, promedio de ${DSO.trimestres}`],
   "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +
@@ -7368,6 +7401,8 @@ const PREG = [
    `En los doce meses hasta ${ESR.mes}, descontada la inflación, el salario registrado del sector privado ${cambioPct(ESR.real_priv)} y el del sector público ${cambioPct(ESR.real_pub)}.`, "#f-salario-real"],
   ["¿Cuánta pobreza hay en cada región?",
    `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.reg_min[1])} en ${REG_ART[PZA.reg_min[0]]} al ${pct(PZA.reg_max[1])} en ${REG_ART[PZA.reg_max[0]]}, según la EPH del INDEC.`, "#f-pobreza-aglomerados"],
+  ["¿De qué tamaño son las empresas?",
+   `En ${EM.anio}, el ${pct(EM.tam_micro)} de las empresas privadas de industria, comercio y servicios eran microempresas y el ${pct(EM.tam_grandes)}, grandes, según el OEDE.`, "#f-empresas-tamano"],
   ["¿Cuánta gente busca trabajo y no consigue?",
    `En el ${DSO.ultimo}, el ${pct(DSO.pais_ultimo)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada, según la EPH del INDEC.`, "#f-desocupacion"],
   ["¿Cuánto recibe cada provincia por coparticipación?",
@@ -8414,6 +8449,7 @@ if (PAGINA !== "inicio") {
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
     "f-desocupacion": ["desocupacion", "desocupados", "desocupada", "tasa de desocupacion"],
+    "f-empresas-tamano": ["pymes", "pyme", "microempresas", "tamano de las empresas", "empresas por sector"],
     "f-pobreza-aglomerados": ["pobreza por region", "pobreza por ciudad", "pobreza por aglomerado"],
     "f-salario-docente": ["maestro", "maestros", "docente", "docentes", "salario docente", "sueldo docente", "salario maestro", "sueldo maestro"], "f-patentes": ["patentes", "autos"], "f-sube": ["sube"]
   }).flatMap(([id, ks]) => ks.map(k => [k.split(" "), id]));
