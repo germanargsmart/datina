@@ -3316,6 +3316,8 @@ for e in ELECCIONES:
                                     "listas": _listas.get(c, [])} for c in TOP_EL[e]],
                     "ganador": g_, "pct_ganador": round1(float(presidenciales[(presidenciales.eleccion == e) & (presidenciales.codigo_indec == "00")][g_].iloc[0])),
                     "prov_ganador": int((otros_gan == g_).sum()),
+                    # la más votada en cada jurisdicción, para el artículo de quién ganó en cada provincia (etapa 5 del plan de mejora)
+                    "gan_prov": dict(zip(pp.codigo_indec, pp[TOP_EL[e]].idxmax(axis=1))),
                     "max_prov": pp.sort_values(g_).iloc[-1].territorio, "max_v": round1(pp[g_].max()),
                     "min_prov": pp.sort_values(g_).iloc[0].territorio, "min_v": round1(pp[g_].min()),
                     "participacion": round1(tot_el[tot_el.eleccion == e].votantes.sum() / tot_el[tot_el.eleccion == e].electores.sum() * 100),
@@ -5250,6 +5252,46 @@ CNT_RES = {
     "mini": [[p, float(v)] for p, v in cnt_.set_index("periodo").cbt_hogar.iloc[-10:].items()],
 }
 
+# Tabla de equivalencias del INDEC (etapa 5 del plan de mejora, octubre de 2026): las unidades de adulto equivalente de cada edad y sexo,
+# de la misma planilla de las canastas, para la calculadora del artículo de la canasta por región. Se controla con los tres hogares de
+# ejemplo que publica el INDEC en esa hoja.
+_cnt_e = pd.read_excel(_cbx, "Tabla de adulto equivalente", header=None)
+_cnt_eh = _cnt_e.index[_cnt_e[0].astype(str).str.strip().eq("Edad")][0]
+assert [str(_cnt_e.iat[_cnt_eh, j]).strip() for j in (1, 2)] == ["Mujeres", "Varones"], "cambió la tabla de adulto equivalente del INDEC"
+_cnt_ef = []
+for _, _r in _cnt_e.iloc[_cnt_eh + 1:].iterrows():
+    _t = str(_r[0]).strip()
+    if pd.isna(_r[1]) or pd.isna(_r[2]):
+        if _cnt_ef:
+            break
+        continue
+    _t = re.sub(r"(\d)(a[ñn]os?)$", r"\1 \2", _t)
+    if re.fullmatch(r"[Mm]enor de 1 año", _t):
+        _d, _h, _t = 0, 0, "Menos de 1 año"
+    elif re.fullmatch(r"más de (\d+) años", _t, re.I):
+        _d, _h, _t = int(re.search(r"\d+", _t).group()) + 1, None, "Más de " + re.search(r"\d+", _t).group() + " años"
+    elif re.fullmatch(r"(\d+) a (\d+) años", _t):
+        _d, _h = map(int, re.findall(r"\d+", _t))
+    elif re.fullmatch(r"(\d+) años?", _t):
+        _d = _h = int(re.search(r"\d+", _t).group())
+    else:
+        raise AssertionError(f"una edad de la tabla de adulto equivalente que no se reconoce: {_t}")
+    _cnt_ef.append({"edad": _t, "edad_desde": _d, "edad_hasta": _h, "mujeres": float(_r[1]), "varones": float(_r[2])})
+adulto_equivalente = pd.DataFrame(_cnt_ef).astype({"edad_hasta": "Int64"})
+assert len(adulto_equivalente) >= 20 and adulto_equivalente.edad_desde.is_monotonic_increasing, "faltan edades en la tabla de adulto equivalente"
+
+
+def _ae(edad, sexo):
+    f = adulto_equivalente[(adulto_equivalente.edad_desde <= edad) & (adulto_equivalente.edad_hasta.fillna(200) >= edad)]
+    assert len(f) == 1, f"la edad {edad} no está una sola vez en la tabla de adulto equivalente"
+    return float(f[sexo].iloc[0])
+
+
+# los tres hogares de ejemplo del INDEC: 2,46, 3,09 y 3,25 adultos equivalentes
+for _hog, _v in (([(35, "mujeres"), (18, "varones"), (61, "mujeres")], 2.46), ([(35, "varones"), (31, "mujeres"), (6, "varones"), (8, "mujeres")], 3.09),
+                 ([(30, "varones"), (30, "mujeres"), (5, "varones"), (3, "varones"), (1, "varones")], 3.25)):
+    assert abs(sum(_ae(e, s) for e, s in _hog) - _v) < .005, f"la tabla de adulto equivalente no da los {_v} de un hogar de ejemplo del INDEC"
+
 # Índice de salarios del INDEC (octubre de 2016 = 100): sector privado registrado, sector público y total registrado, en pesos de igual valor
 # con el IPC del país (diciembre de 2016 = 100, el primer mes del IPC). El del sector no registrado no se compara con los precios del mismo mes:
 # sale de la Encuesta Permanente de Hogares y tiene cinco meses de rezago.
@@ -5279,6 +5321,22 @@ SRL_RES = {
     "min_priv_mes": _mes_per(_srl_pmin), "min_priv": r1(_srl_r.at[_srl_pmin, "privado"]),
     "mini": [[p, float(v)] for p, v in _srl_ia.privado.dropna().iloc[-10:].items()],
 }
+# El salario real en cada gobierno (etapa 5 del plan de mejora, artículo del salario real): del último mes antes de que asuma cada presidente
+# (o del comienzo de la serie) al último mes antes de que asuma el siguiente (o al último mes con dato). Sin los interinos de 2001 y 2002
+_srg_pr = pd.read_csv(RAIZ / "datos" / "manual" / "presidentes.csv", parse_dates=["inicio"])
+_srg_pr = _srg_pr[~_srg_pr.interino].sort_values("inicio").reset_index(drop=True)
+_srg_ant = lambda fecha: (pd.Period(fecha, "M") - 1).strftime("%Y-%m")
+SRL_RES["gobiernos"] = []
+for _i, _p in _srg_pr.iterrows():
+    _d = max(_srg_ant(_p.inicio), _srl_r.index[0])
+    _h = min(_srg_ant(_srg_pr.inicio[_i + 1]), _srl_u) if _i + 1 < len(_srg_pr) else _srl_u
+    if _d >= _h or _d not in _srl_r.index or _h not in _srl_r.index:
+        continue
+    SRL_RES["gobiernos"].append({"presidente": _p.nombre, "corto": " ".join(_p.nombre.split()[1:]), "desde": _mes_per(_d), "hasta": _mes_per(_h),
+                                 "desde_p": _d, "parcial": _d != _srg_ant(_p.inicio), "en_curso": _h == _srl_u,
+                                 "priv": r1((_srl_r.at[_h, "privado"] / _srl_r.at[_d, "privado"] - 1) * 100),
+                                 "pub": r1((_srl_r.at[_h, "publico"] / _srl_r.at[_d, "publico"] - 1) * 100)})
+assert SRL_RES["gobiernos"] and SRL_RES["gobiernos"][-1]["en_curso"], "el salario real por gobierno no llega al último mes"
 
 # Estimador Mensual de Actividad Económica (INDEC, base 2004 = 100): la serie original con su variación contra el mismo mes del año anterior
 # y la desestacionalizada con su variación contra el mes anterior, desde 2004, y los quince sectores (sin los impuestos netos de subsidios).
@@ -6670,6 +6728,7 @@ tablas = {
     "inflacion_rubros": inflacion_rubros,
     "canasta_mensual": canasta_mensual,
     "canasta_regiones": canasta_regiones,
+    "adulto_equivalente": adulto_equivalente,
     "salario_real_mensual": salario_real_mensual,
     "actividad_mensual": actividad_mensual,
     "actividad_anual": actividad_anual,

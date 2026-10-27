@@ -1255,7 +1255,7 @@ for id_, _, _, titulo in NOTAS:
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace
 # Etapa 5 del plan de mejora (28 de octubre de 2026): los artículos que se juntaron con otro o se retiraron llevan al que queda
 REDIRECCIONES = {"emprendedores": "empresas", "a-empleo-pobreza": "a-pobreza-desocupacion", "a-cobertura-adolescentes": "a-cobertura-esperanza",
-                 "a-viviendas-hacinamiento": "a-viviendas-alquiler"}
+                 "a-viviendas-hacinamiento": "a-viviendas-alquiler", "a-recursos-empleo": "a-coparticipacion"}
 for viejo, nuevo in REDIRECCIONES.items():
     (SITIO / f"{viejo}.html").write_text(
         f'<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Datina</title>'

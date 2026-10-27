@@ -223,6 +223,8 @@ const REG_IPC = {"02": ["gba"], "06": ["gba", "pampeana"], "10": ["noroeste"], "
   "30": ["pampeana"], "34": ["noreste"], "38": ["noroeste"], "42": ["pampeana"], "46": ["noroeste"], "50": ["cuyo"], "54": ["noreste"], "58": ["patagonia"],
   "62": ["patagonia"], "66": ["noroeste"], "70": ["cuyo"], "74": ["cuyo"], "78": ["patagonia"], "82": ["pampeana"], "86": ["noroeste"], "90": ["noroeste"],
   "94": ["patagonia"]};
+// "de" con el nombre de una región: "del Noroeste", "de la Patagonia", "de Cuyo"
+const deReg = n => ("de " + REG_ART[n]).replace(/^de el /, "del ");
 const REG_ART = {"Gran Buenos Aires": "el Gran Buenos Aires", "Pampeana": "la región Pampeana", "Noreste": "el Noreste", "Noroeste": "el Noroeste", "Cuyo": "Cuyo",
   "Patagonia": "la Patagonia"};
 // "del Noreste", "de la Patagonia", "de Cuyo"
@@ -7633,12 +7635,6 @@ const ART = [
     contexto: "Las cloacas son una de las condiciones de vida de los hogares que mide el censo. Este cruce compara la parte de los hogares conectados a la red cloacal en cada provincia con su tasa de mortalidad infantil. Sirve para ver una desigualdad entre provincias, no para medir el efecto de las cloacas en la salud de los bebés.",
     limites: ["Muchas muertes de bebés se deben a afecciones perinatales, como la prematurez, o a malformaciones congénitas. Las causas que suelen estar más ligadas a las condiciones de vida, como las enfermedades infecciosas y respiratorias, son solo una parte.", "La mortalidad infantil es un promedio de tres años, porque en las provincias con pocos nacimientos la tasa de un solo año salta mucho.",
       "La mortalidad infantil depende también de la atención durante el embarazo y el parto, de los ingresos de las familias y de su cobertura de salud, que este cruce no mide. Las provincias con menos cloacas suelen tener también más pobreza y menos cobertura de salud: el cruce no separa una cosa de la otra."]},
-  {id: "a-recursos-empleo", x: "autonomia_fiscal", y: "empleo_privado", espera: 1, frec: "Se actualiza cada año",
-    lx: "recursos propios", ly: "empleo privado registrado", ux: "% de los ingresos", uy: "asalariados cada 100 habitantes",
-    dek: "Qué parte de sus ingresos recauda cada provincia por su cuenta, frente a cuántos asalariados privados registrados tiene cada 100 habitantes.",
-    contexto: "Las provincias se financian con lo que recaudan y con lo que reciben de la Nación. Una economía privada más grande puede dejar más impuestos propios, pero también pesan la coparticipación y las decisiones de cada gobierno.",
-    limites: ["Una parte de la relación es contable: el impuesto provincial que más recauda, ingresos brutos, se cobra sobre la actividad de las empresas, que es también la que da empleo privado.",
-      "Los recursos propios incluyen impuestos provinciales y otros ingresos, como las regalías. Una provincia con petróleo o minería puede recaudar mucho sin tener mucho empleo privado.", "El Sistema Integrado Previsional Argentino (SIPA) asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias."]},
   {id: "a-cobertura-esperanza", frec: "Se actualiza cada año",
     dek: "La parte de la población sin obra social ni prepaga de cada provincia, según el último censo, frente a su esperanza de vida al nacer y a la parte de sus nacimientos que son de madres menores de 20 años.",
     contexto: "En la Argentina, la obra social llega sobre todo con el empleo registrado. Por eso la falta de obra social o prepaga se usa acá como una marca de las condiciones económicas de cada provincia, no como una medida del acceso a la salud: el hospital público atiende a todas las personas. Este artículo la compara con dos datos: la esperanza de vida al nacer, que resume las condiciones de mortalidad, y la parte de los nacimientos que son de madres adolescentes.",
@@ -7816,6 +7812,556 @@ const PLURAL = {"fuerte": "fuertes", "moderada": "moderadas", "débil": "débile
 // dos relaciones a la vez: "las dos relaciones son débiles" o "la primera relación es fuerte y la segunda, moderada"
 const dosRel = (r1, r2) => fz(r1) === fz(r2) ? `las dos relaciones son ${PLURAL[fz(r1)]}` : `la primera relación es ${fz(r1)} y la segunda, ${fz(r2)}`;
 const ART_SERIE = [{
+  // etapa 5 del plan de mejora: el nombre más elegido en cada provincia (auditoría de los artículos, idea 10)
+  id: "a-nombres-provincias", frec: "Se actualiza cada año", tablas: ["nombres_top"],
+  dek: "El nombre más inscripto para las nenas y para los varones en cada provincia en el último año, y en cuántas jurisdicciones gana cada uno.",
+  fichas: [["f-nombres", "nombres de los bebés"]],
+  csv: [["nombres_top", "Descargar CSV de los nombres"]],
+  fuentes: "Registro Nacional de las Personas (RENAPER), nombres más frecuentes por provincia",
+  texto: () => {
+    const cu = R.curiosidades, N = T.nombres_top, cods = Object.keys(NOMBRES);
+    const primero = (c, s) => N.filter(r => r.codigo_indec === c && r.sexo === s).sort((a, b) => b.cantidad - a.cantidad)[0];
+    const filas = cods.map(c => ({codigo_indec: c, territorio: NOMBRES[c], nena: primero(c, "F")?.mostrar, varon: primero(c, "M")?.mostrar}))
+      .filter(f => f.nena && f.varon).sort((a, b) => a.territorio.localeCompare(b.territorio));
+    const nF = filas.filter(f => f.nena === cu.nena).length, nM = filas.filter(f => f.varon === cu.varon).length;
+    const distintos = new Set(filas.flatMap(f => [f.nena, f.varon])).size;
+    const respuesta = `${cu.varon} para los varones ${yE(cu.nena)} para las nenas, en todo el país en ${cu.nom_anio}.`;
+    const bajada = `Pero cambia de una provincia a otra: ${cu.varon} es el más elegido para los varones en ${nM} de las ${filas.length} jurisdicciones, ` +
+      `${yE(cu.nena)}, para las nenas, en ${nF}. Entre las ${filas.length}, los más elegidos son ${distintos} nombres distintos.`;
+    const contexto = "El Registro Nacional de las Personas (RENAPER) publica cada año los nombres más inscriptos de los bebés de cada provincia. " +
+      "Datina toma los diez más frecuentes de cada sexo en el último año publicado. El registro publica los nombres sin tildes: se muestran con la " +
+      "tilde que llevan casi siempre.";
+    const s2 = `En ${cu.nom_ini}, el primer año de la serie, los más inscriptos del país habían sido ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones.` +
+      (cu.lionel_anio ? ` En ${cu.lionel_anio}, después del Mundial de 2022, se inscribieron ${n0(cu.lionel_max)} bebés llamados Lionel, ${veces(cu.lionel_max, cu.lionel_prev)} veces los del año anterior.` : "");
+    const tabla = tablaDatos(filas.map(f => ({codigo_indec: f.codigo_indec, territorio: f.territorio, "nombre_de_nena": f.nena, "nombre_de_varón": f.varon})), "a-nombres-provincias")
+      .replace('aria-label="Tabla: Datos"', 'aria-label="Tabla: el nombre más elegido en cada provincia"').replace(">Datos</caption>", ">El nombre más elegido en cada provincia</caption>");
+    const lim = ["Son las inscripciones de nombres de pila en el RENAPER de cada año: cuentan cuántas veces se eligió cada nombre, no cuántas personas viven con ese nombre.",
+      "En las provincias chicas, pocas inscripciones alcanzan para cambiar el primer puesto: dos nombres pueden quedar casi empatados."];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {tit: "El nombre más elegido en cada provincia", html: `<div class="nota-tabla">${tabla}</div>`, pie: `Último año publicado: ${cu.nom_anio}. Ordenadas por nombre.`, txt: []},
+      {g: "nombres-ganan", tit: "En cuántas jurisdicciones es el más elegido cada nombre", forma: "barras",
+        pie: `Cantidad de jurisdicciones en las que cada nombre fue el más inscripto en ${cu.nom_anio}.`, txt: [s2]},
+    ]};
+  },
+  dib: {
+    "nombres-ganan": (el, a) => {
+      const N = T.nombres_top, cods = Object.keys(NOMBRES), cuenta = {};
+      cods.forEach(c => ["F", "M"].forEach(s => {
+        const p = N.filter(r => r.codigo_indec === c && r.sexo === s).sort((x, y) => y.cantidad - x.cantidad)[0];
+        if (p) (cuenta[p.mostrar + "|" + s] ||= {codigo_indec: p.mostrar + s, territorio: `${p.mostrar} (${s === "F" ? "nena" : "varón"})`, n: 0}).n++;
+      }));
+      barrasH(el, {anim: a, data: Object.values(cuenta), k: "n", vf: n0, af: n0, l: 170, lAngosto: 140, cambiaConProv: true,
+        tip: d => `<b>${d.territorio}</b><br>El más elegido en ${d.n} ${d.n === 1 ? "jurisdicción" : "jurisdicciones"}`});
+    },
+  },
+}, {
+  // etapa 5 del plan de mejora: la producción de Vaca Muerta y lo que le deja a Neuquén en regalías y empleo (auditoría de los artículos, idea 9)
+  id: "a-vaca-muerta", frec: "Se actualiza cada mes", tablas: ["hidrocarburos_anual", "regalias_provincias"],
+  dek: "Cuánto petróleo sale de Vaca Muerta frente al resto del país, año por año, y cuánto pesan las regalías en los ingresos de Neuquén y de las otras provincias petroleras.",
+  fichas: [["f-petroleo", "producción de petróleo"], ["f-hidro-provincias", "petróleo y gas por provincia"], ["f-regalias", "regalías"], ["f-empleo-hidro", "empleo en petróleo y gas"]],
+  csv: [["hidrocarburos_anual", "Descargar CSV de la producción por año"], ["regalias_provincias", "Descargar CSV de las regalías"]],
+  fuentes: "Secretaría de Energía, producción de petróleo y gas por pozo (capítulo IV) y regalías, Ministerio de Economía, esquema " +
+    "ahorro-inversión-financiamiento de cada provincia, y Secretaría de Trabajo, SIPA",
+  texto: () => {
+    const P = PG, H = T.hidrocarburos_anual.filter(r => r.anio <= P.anio_ult), h0 = H[0];
+    const respuesta = `${n0(P.vm_kbd)} mil barriles de petróleo por día, el ${pct(P.vm_pct)} del país, entre ${P.v_desde} y ${P.v_hasta}.`;
+    const bajada = `En los mismos meses, ${P.top} produjo ${n0(P.top_kbd)} mil barriles por día. Diez años antes, entre ${P.v10_desde} y ${P.v10_hasta}, ` +
+      `${n0(P.top_antes)} mil. ` + (P.reg_top === P.top ? `Para la provincia, las regalías fueron el ${pct(P.reg_top_pct)} de todos sus ingresos en ${P.reg_anio}.` : "");
+    const contexto = "Vaca Muerta es una formación de roca de la cuenca neuquina, sobre todo en Neuquén, con petróleo y gas que no salen solos: se " +
+      "extraen con pozos horizontales y fractura hidráulica, lo que se llama producción no convencional, o shale. Empezó a producir en escala en la " +
+      "década de 2010. A la provincia donde está cada pozo, lo que se extrae le deja regalías, un porcentaje del valor del petróleo y el gas.";
+    const ini = h0.pct_pet_nc < .5 ? "menos del 1%" : pct(h0.pct_pet_nc);
+    const s1 = `En ${P.anio_ult}, el petróleo no convencional fue el ${pct(P.pct_nc_ult)} de la producción del país. En ${h0.anio}, ${ini}. ` +
+      `La producción total pasó de ${n0(P.kbd_ini)} mil barriles por día en ${P.anio_ini} a ${n0(P.kbd_ult)} mil en ${P.anio_ult}, con su mínimo en ${P.anio_min}: ${n0(P.kbd_min)} mil.` +
+      (P.record ? ` En ${P.mes}, el país produjo ${n0(P.kbd)} mil barriles por día, el máximo de la serie.` : "");
+    const s2 = `En ${P.reg_anio}, las regalías fueron el 10% o más de los ingresos totales en ${P.reg_n_10} provincias, y la parte más alta fue la de ${P.reg_top}: ` +
+      `${pct(P.reg_top_pct)}. Las de petróleo crudo equivalieron a ${n0(P.reg_usd_top_hab)} dólares por habitante en ${P.reg_usd_top}. ` +
+      `${CN.pet_emp_top} es la provincia con más puestos asalariados registrados en la extracción de petróleo y gas y sus servicios: ${n0(CN.pet_emp_top_v)} en el ${CN.emp_trim}.`;
+    const lim = ["El petróleo no convencional es casi todo de Vaca Muerta, pero no todo: una parte es tight, de otras formaciones.",
+      "Las regalías son un porcentaje del valor del petróleo y el gas en boca de pozo: cambian con la producción, con el precio internacional y con el tipo de cambio.",
+      "La provincia recibe otros ingresos por la actividad, como ingresos brutos, que no se cuentan como regalías. Las regalías de los yacimientos del mar son del Estado nacional.",
+      "El empleo registrado se cuenta en la provincia donde la empresa declara a sus trabajadores, que puede no ser la del yacimiento."];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "vm-produccion", tit: "Producción de petróleo por tipo de recurso", forma: "lineas",
+        pie: "Miles de barriles por día, promedio de cada año. Shale: no convencional de formaciones como Vaca Muerta. Tight: no convencional de otras arenas.", txt: [s1]},
+      {g: "vm-regalias", tit: "Regalías en los ingresos de cada provincia", forma: "barras",
+        pie: `% de los ingresos totales de cada provincia, ${P.reg_anio_txt}. Solo las provincias con regalías.`, txt: [s2]},
+    ]};
+  },
+  dib: {
+    "vm-produccion": (el, a) => lineas(el, {anim: a, data: T.hidrocarburos_anual.filter(r => r.anio <= PG.anio_ult), x: "anio", y0: 0, vf: n0, yf: n0,
+      series: [{k: "pet_conv", lab: "Convencional", c: COL_TIPO.conv}, {k: "pet_shale", lab: "Shale", c: COL_TIPO.shale}, {k: "pet_tight", lab: "Tight", c: COL_TIPO.tight}]}),
+    "vm-regalias": (el, a) => barrasH(el, {anim: a, data: T.regalias_provincias.filter(r => r.pct_regalias > 0).map(r => PG.reg_atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${r.anio_aif})`} : r),
+      k: "pct_regalias", vf: pct, af: v => n0(v) + "%", tip: d => `<b>${d.territorio}</b><br>Regalías: ${pct(d.pct_regalias)} de los ingresos en ${d.anio_aif}`}),
+  },
+}, {
+  // etapa 5 del plan de mejora: a qué provincias se muda la gente de otras provincias, con el último censo (auditoría de los artículos, idea 8)
+  id: "a-migracion-interna", frec: "Se actualiza con cada censo", tablas: ["cruces_provincias"],
+  dek: "Qué parte de quienes viven en cada provincia nació en otra, según el último censo, en qué departamentos son más de la mitad y si alquilan más hogares donde más gente llegó de otra provincia.",
+  fichas: [["f-migracion-interna", "migración interna"], ["f-nacidos-otro-pais", "nacidos en otro país"], ["f-vivienda", "vivienda"]],
+  csv: [["cruces_provincias", "Descargar CSV por provincia"], ["migraciones_departamentos", "Descargar CSV por departamento"]],
+  fuentes: "INDEC, Censo Nacional de Población, Hogares y Viviendas, lugar de nacimiento y tenencia de la vivienda",
+  texto: () => {
+    const M = R.migraciones.censo, Dp = R.migraciones.departamentos, F = T.cruces_provincias.filter(r => r.otra_provincia != null);
+    const ord = [...F].sort((a, b) => b.otra_provincia - a.otra_provincia), top = ord.slice(0, 3), anio = META_CX.otra_provincia.periodo;
+    const respuesta = `A ${listaY(top.map(r => r.territorio))}: en ${top[0].territorio}, ${pct(top[0].otra_provincia)} de quienes viven nacieron en otra provincia.`;
+    const bajada = `En todo el país, el ${pct(M.otra_pct)} de las personas vive en una provincia distinta de la que nació, según el censo de ${anio}: ` +
+      `${n0(M.otra_personas)} personas. La parte más baja es la de ${listaY(M.otra_bajos[0])}, el ${pct(M.otra_bajos[1])}.`;
+    const contexto = "El censo pregunta a cada persona dónde nació. Quien vive en una provincia distinta de la de su nacimiento se mudó alguna vez, " +
+      "aunque el censo no dice cuándo. Por eso este dato no mide los movimientos de un año, sino lo que se acumuló en la vida de las personas que " +
+      "viven hoy en cada provincia: llegadas de hace décadas y de hace meses.";
+    const seis = ord.slice(0, 6), pat = seis.filter(r => r.region === "Patagonia").length;
+    const s1 = (pat >= 3 ? `${pat} de las 6 provincias con más personas nacidas en otra son de la Patagonia. ` : "") +
+      `En ${Dp.otra_mitad} departamentos, más de la mitad de quienes viven nacieron en otra provincia. Los de la parte más alta son ` +
+      `${listaY(Dp.otra_top.map(([d, p, v]) => `${d} (${p}), con ${pct(v)}`))}.`;
+    const c = calcularArt({tabla: "cruces_provincias"}, {x: "otra_provincia", y: "alquila"});
+    const s2 = `¿Alquilan más hogares donde más gente nació en otra provincia? ${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} ` +
+      `En las ${c.h} jurisdicciones con más personas nacidas en otra provincia, la mediana de hogares que alquilan es ${pct(c.medMas)}. En las ${c.h} con menos, ${pct(c.medMenos)}.`;
+    const lim = ["Una persona nacida en CABA que vive en el Gran Buenos Aires cuenta como nacida en otra provincia, aunque se haya mudado a pocas cuadras.",
+      "Estos datos no dicen de qué provincia llegó cada persona ni cuándo. Los hijos de quienes llegaron, nacidos ya en la provincia, cuentan como nacidos ahí.",
+      "La relación con el alquiler es entre provincias, no entre personas: no dice que quienes llegaron de otra provincia alquilen más que quienes nacieron ahí.",
+      ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} jurisdicciones y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "migra-provincias", tit: "Personas nacidas en otra provincia", forma: "barras",
+        pie: `% de la población en viviendas particulares de cada jurisdicción, censo de ${anio}. La línea marca el total del país.`, txt: [s1]},
+      {g: "migra-alquiler", tit: "Nacidos en otra provincia y hogares que alquilan", forma: "puntos",
+        pie: "Cada punto es una jurisdicción. Nacidos en otra provincia: % de la población. Alquilan: % de los hogares. La línea punteada muestra la tendencia.", txt: [s2]},
+    ]};
+  },
+  dib: {
+    "migra-provincias": (el, a) => barrasH(el, {anim: a, data: T.cruces_provincias.filter(r => r.otra_provincia != null), k: "otra_provincia", vf: pct, af: v => n0(v) + "%",
+      ref: R.migraciones.censo.otra_pct, refLab: `País ${pct(R.migraciones.censo.otra_pct)}`, tip: d => `<b>${d.territorio}</b><br>${pct(d.otra_provincia)} nació en otra provincia`}),
+    "migra-alquiler": (el, a) => {
+      const c = calcularArt({tabla: "cruces_provincias"}, {x: "otra_provincia", y: "alquila"});
+      dispersion(el, {anim: a, data: c.F, x: "otra_provincia", y: "alquila", xLab: "Nacidos en otra provincia", yLab: "Hogares que alquilan",
+        marcar: [c.mas, c.menos, c.lejos].map(f => f.codigo_indec), fx: v => n0(v) + "%", fy: v => n0(v) + "%", vx: v => `${pct(v)} de la población`, vy: v => `${pct(v)} de los hogares`});
+    },
+  },
+}, {
+  // etapa 5 del plan de mejora: la fórmula más votada en cada provincia en cada vuelta presidencial desde 1983 (auditoría de los artículos,
+  // idea 7). Sale del resumen de las elecciones (gan_prov, 02_procesar.py), sin bajar la tabla de los resultados
+  id: "a-ganador-provincias", frec: "Se actualiza con cada elección", tablas: [],
+  dek: "Qué fórmula sacó más votos en cada provincia en cada primera vuelta y cada balotaje presidencial desde 1983, qué provincias votaron siempre como el país y en cuáles ganó siempre el mismo espacio.",
+  fichas: [["f-elecciones", "elecciones presidenciales"], ["f-congreso", "composición del Congreso"]],
+  csv: [["elecciones_presidenciales", "Descargar CSV de los resultados"]],
+  fuentes: "Dirección Nacional Electoral, resultados de las elecciones presidenciales por provincia",
+  texto: () => {
+    const E = R.elecciones.filter(e => e.vuelta >= 1), n = E.length, ini = E[0].anio, cods = Object.keys(E[0].gan_prov);
+    const esp = (e, c) => e.candidatos.find(x => x.c === e.gan_prov[c])?.espacio || "Otras fuerzas";
+    const coinc = c => E.filter(e => e.gan_prov[c] === e.ganador).length, nom = c => NOMBRES[c];
+    const siempre = cods.filter(c => coinc(c) === n), menos = Math.min(...cods.map(coinc)), lasMenos = cods.filter(c => coinc(c) === menos);
+    const fieles = d3.groups(cods.filter(c => new Set(E.map(e => esp(e, c))).size === 1), c => esp(E[0], c));
+    const primeras = E.filter(e => e.vuelta === 1).length, balotajes = E.filter(e => e.vuelta === 2).map(e => e.anio);
+    const respuesta = siempre.length
+      ? `${listaY(siempre.map(nom))} ${siempre.length > 1 ? "votaron" : "votó"} a la fórmula más votada del país en las ${n} vueltas desde ${ini}.`
+      : `Ninguna provincia votó a la fórmula más votada del país en todas las vueltas desde ${ini}.`;
+    const bajada = fieles.map(([k, cs]) => `En ${listaY(cs.map(nom))}, la más votada fue siempre una fórmula ${k === "Peronismo" ? "del peronismo" : `de ${k}`}.`).join(" ") +
+      ` ${listaY(lasMenos.map(nom))} ${lasMenos.length > 1 ? "son las que menos coincidieron" : "es la que menos coincidió"} con el país: en ${menos} de las ${n} vueltas.`;
+    const contexto = `Desde ${ini} hubo ${primeras} elecciones presidenciales. En ${listaY(balotajes.map(String))} hubo además una segunda vuelta, el balotaje, ` +
+      "entre las dos fórmulas más votadas. En 2003 no hubo balotaje: la fórmula más votada en la primera vuelta no se presentó a la segunda, y asumió la " +
+      "segunda más votada. Este artículo muestra, para cada provincia y cada vuelta, qué fórmula sacó más votos, y si coincidió con la más votada del país.";
+    // la provincia que más veces cambió de espacio, en las primeras vueltas
+    const cambios = c => E.filter(e => e.vuelta === 1).reduce((s, e, i, l) => s + (i && esp(e, c) !== esp(l[i - 1], c) ? 1 : 0), 0);
+    const maxC = Math.max(...cods.map(cambios)), cambiantes = cods.filter(c => cambios(c) === maxC);
+    const s1 = `En las primeras vueltas, ${listaY(cambiantes.map(nom))} ${cambiantes.length > 1 ? "son las que más veces cambiaron" : "es la que más veces cambió"} ` +
+      `de espacio político entre una elección y la siguiente: ${maxC} veces en ${primeras} elecciones.`;
+    const lim = ["Muestra la fórmula más votada, no por cuánto ganó: una provincia puede figurar con una fórmula que sacó apenas un voto más que la segunda.",
+      "Los espacios agrupan partidos y alianzas afines, con la misma clasificación propia que la composición del Congreso. Una misma fórmula pudo tener otro nombre en cada elección.",
+      "Hasta 1989 el presidente lo elegía un colegio electoral, con electores votados en cada provincia. Desde 1995 se elige por voto directo, con balotaje si ninguna fórmula llega a los votos que pide la Constitución.",
+      "Los porcentajes son sobre los votos positivos, sin contar los votos en blanco ni los nulos."];
+    // las claves de los años llevan un "_" (se ve como espacio): con un año solo, el navegador las ordena antes que las de los balotajes
+    const filas = cods.map(c => ({codigo_indec: c, territorio: nom(c), ...Object.fromEntries(E.map(e => [e.anio + (e.vuelta === 2 ? "_balotaje" : "_"), e.gan_prov[c]])),
+      "como_el_país": coinc(c)})).sort((a, b) => b["como_el_país"] - a["como_el_país"] || a.territorio.localeCompare(b.territorio));
+    const nomT = "la fórmula más votada en cada provincia";
+    const tabla = tablaDatos(filas, "a-ganador-provincias").replace('aria-label="Tabla: Datos"', `aria-label="Tabla: ${nomT}"`).replace(">Datos</caption>", `>${mayusc(nomT)}</caption>`);
+    const usados = [...new Set(E.flatMap(e => cods.map(c => esp(e, c))))];
+    const ley = `<div class="pol-ley">${Object.keys(ESP_COLOR).filter(k => usados.includes(k)).map(k => `<span><i style="background:${ESP_COLOR[k]}"></i>${k}</span>`).join("")}</div>`;
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "ganadores", tit: "La fórmula más votada en cada provincia, por elección", forma: "bloque", alto: "560px", antes: ley,
+        despues: `<details class="nota-calculo"><summary>Ver la tabla</summary>${tabla}</details>`,
+        pie: `Cada cuadro es la fórmula más votada en esa provincia, con el color de su espacio. «b»: balotaje. A la derecha, en cuántas de las ${n} vueltas coincidió con la más votada del país.`, txt: [s1]},
+    ]};
+  },
+  dib: {
+    "ganadores": el => {
+      const E = R.elecciones.filter(e => e.vuelta >= 1), n = E.length, cods = Object.keys(E[0].gan_prov);
+      const esp = (e, c) => e.candidatos.find(x => x.c === e.gan_prov[c])?.espacio || "Otras fuerzas";
+      const coinc = c => E.filter(e => e.gan_prov[c] === e.ganador).length;
+      const filas = cods.map(c => ({c, k: coinc(c), t: NOMBRES[c]})).sort((a, b) => b.k - a.k || a.t.localeCompare(b.t));
+      const angosto = el.clientWidth < 520, l = angosto ? 112 : 150, alto = 22 * filas.length + 30;
+      const arriba = angosto ? 36 : 26, C = lienzo(el, alto + arriba - 26, {t: arriba, r: 30, b: 4, l}), {g, iw} = C;
+      const x = d3.scaleBand().domain(E.map(e => e.id)).range([0, iw]).paddingInner(.12), y = d3.scaleBand().domain(filas.map(f => f.c)).range([0, 22 * filas.length]).paddingInner(.14);
+      g.selectAll("text.col").data(E).join("text").attr("class", "etq-suave").attr("text-anchor", "middle").attr("x", e => x(e.id) + x.bandwidth() / 2)
+        .attr("y", (e, i) => angosto && i % 2 === 0 ? -22 : -10)
+        .text(e => (angosto ? String(e.anio).slice(2) : e.anio) + (e.vuelta === 2 ? "b" : ""));
+      g.selectAll("text.fila").data(filas).join("text").attr("class", "etq").attr("text-anchor", "end").attr("x", -8).attr("y", f => y(f.c) + y.bandwidth() / 2 + 4).text(f => f.t);
+      g.selectAll("text.k").data(filas).join("text").attr("class", "etq-suave").attr("x", iw + 8).attr("y", f => y(f.c) + y.bandwidth() / 2 + 4).text(f => f.k);
+      const celdas = filas.flatMap(f => E.map(e => ({f, e, esp: esp(e, f.c)})));
+      g.selectAll("rect").data(celdas).join("rect").attr("x", d => x(d.e.id)).attr("y", d => y(d.f.c)).attr("width", x.bandwidth()).attr("height", y.bandwidth())
+        .attr("rx", 2).attr("fill", d => ESP_COLOR[d.esp] || ESP_COLOR["Otras fuerzas"])
+        .on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.f.t}, ${d.e.anio}${d.e.vuelta === 2 ? ", balotaje" : ""}</b><br>${d.e.gan_prov[d.f.c]} (${d.esp})` +
+          `<br>${d.e.gan_prov[d.f.c] === d.e.ganador ? "Como en el país" : `En el país: ${d.e.ganador}`}`, l + x(d.e.id) + x.bandwidth() / 2, arriba + y(d.f.c)))
+        .on("pointerleave", ocultarSiMouse);
+    },
+  },
+}, {
+  // etapa 5 del plan de mejora: cuánto compra un salario registrado frente a otros años, con los cambios de gobierno marcados sin adjetivos
+  // (auditoría de los artículos, idea 6). Cada gobierno se mide del último mes antes de que asuma al último antes del siguiente (02_procesar.py)
+  id: "a-salario-real", frec: "Se actualiza cada mes", tablas: ["salario_real_mensual"],
+  dek: "Cuánto compran los salarios registrados del sector privado y del sector público frente a los precios, mes por mes desde fines de 2016, y cuánto cambió ese poder de compra en cada gobierno.",
+  fichas: [["f-salario-real", "salario real"], ["f-salarios", "salarios por provincia"], ["f-inflacion", "inflación"]],
+  csv: [["salario_real_mensual", "Descargar CSV por mes"]],
+  fuentes: "INDEC, índice de salarios e índice de precios al consumidor",
+  texto: () => {
+    const S = ESR, mm = v => Math.round(Math.abs(v) * 10) === 0 ? "lo mismo" : `${pct(Math.abs(v))} ${v < 0 ? "menos" : "más"}`;
+    const respuesta = `${mayusc(mm(S.vs_base_priv))} que en ${S.base}, en el sector privado registrado.`;
+    const bajada = `Es lo que compraba en ${S.mes} un salario privado registrado, descontada la inflación, frente a lo que compraba en ${S.base}. ` +
+      `Uno del sector público compraba ${mm(S.vs_base_pub)}. En los últimos doce meses, el salario real privado ${cambioPct(S.real_priv)} y el público ${cambioPct(S.real_pub)}.`;
+    const contexto = "El salario real es el salario descontada la inflación: dice cuántas cosas se pueden comprar con él. Datina lo calcula dividiendo " +
+      "el índice de salarios del INDEC, que sigue lo que cobran los asalariados registrados de los sectores privado y público, por el índice de " +
+      `precios al consumidor del mismo mes. Las dos series empiezan en ${S.base}, el primer mes del índice de precios de todo el país: 100 es lo ` +
+      "que compraba un salario ese mes.";
+    const s1 = `El salario real privado llegó a su punto más alto en ${S.max_priv_mes}, con ${n1(S.max_priv)}, y al más bajo en ${S.min_priv_mes}, con ${n1(S.min_priv)}.`;
+    const s2 = S.gobiernos.map(g => `Entre ${g.desde}${g.parcial ? ", cuando empieza la serie," : ""} y ${g.hasta}${g.en_curso ? ", el último mes con datos," : ","} ` +
+      `con ${g.presidente}, el salario real privado ${cambioPct(g.priv)} y el público ${cambioPct(g.pub)}.`).join(" ");
+    const lim = ["El índice de salarios sigue lo que se paga en los puestos registrados, no lo que cobra cada persona: si alguien cambia de trabajo, suma otro o lo pierde, no se ve.",
+      "No incluye a los asalariados no registrados ni a quienes trabajan por su cuenta. El INDEC publica el índice de los no registrados con cinco meses de rezago, y por eso no se compara con los precios del mismo mes.",
+      "Lo que cambió en cada gobierno depende también de la economía del mundo, de las sequías y de lo que venía de antes: no mide solo las decisiones de cada uno.",
+      `Que ${S.base} valga 100 no quiere decir que ese mes fuera bueno o malo para el salario: es solo el punto de partida de la serie.`];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "salario-real", tit: "Salario real registrado, privado y público", forma: "lineas",
+        pie: `Índice, ${S.base} = 100 (la línea gris): el índice de salarios dividido por el de precios. Las líneas punteadas marcan el mes en que asumió cada presidente.`, txt: [s1, s2]},
+    ]};
+  },
+  dib: {
+    "salario-real": (el, a) => lineas(el, {anim: a, data: T.salario_real_mensual.map(r => ({...r, t: tPer(r.periodo)})), x: "t", y0: 0, vf: n1, yf: n0,
+      xl: r => mesPer(r.periodo), mensual: true, ref: 100,
+      eventos: ESR.gobiernos.filter(g => !g.parcial).map(g => ({x: tPer(g.desde_p) + 1 / 12, lab: g.corto})),
+      series: [{k: "privado", lab: "Privado registrado", corto: "Privado", c: NAR}, {k: "publico", lab: "Público", c: FRI}]}),
+  },
+}, {
+  // etapa 5 del plan de mejora: aportantes por jubilación o pensión desde 1994, con los haberes frente al salario (auditoría de los
+  // artículos, idea 5)
+  id: "a-aportantes", frec: "Se actualiza cada trimestre", tablas: ["jubilaciones_aportantes", "haberes_previsionales"],
+  dek: "Cuántas personas aportan al sistema previsional que administra ANSES por cada jubilación o pensión que paga, año por año desde 1994, y cuánto representan los haberes frente al salario.",
+  fichas: [["f-jubilaciones", "aportantes por jubilación"], ["f-haberes", "haberes previsionales"], ["f-envejecimiento", "envejecimiento"]],
+  csv: [["jubilaciones_aportantes", "Descargar CSV de aportantes y beneficios"], ["haberes_previsionales", "Descargar CSV de los haberes"]],
+  fuentes: "Secretaría de Seguridad Social y ANSES, aportantes y beneficios del sistema previsional, haberes, y salario de los asalariados registrados, " +
+    "e INDEC, proyecciones de población",
+  texto: () => {
+    const J = JU, H = HB, A = T.jubilaciones_aportantes, ini = A[0], ult = A.at(-1), cuando = J.mes ? `${MESES[J.mes - 1]} de ${J.anio}` : String(J.anio);
+    const respuesta = `${n2(J.ratio)} aportantes por cada jubilación o pensión, en ${cuando}.`;
+    const bajada = `Son ${n0(J.aportantes)} personas que aportan y ${n0(J.beneficios)} beneficios que paga ANSES. En ${J.ini} había ${n2(J.ini_ratio)} aportantes ` +
+      `por beneficio. El valor más alto de la serie fue ${n2(J.max)}, en ${J.max_anio}, y el más bajo, ${n2(J.min)}, en ${J.min_anio}.`;
+    const contexto = "Desde 2008 el sistema previsional nacional es de reparto: los aportes de quienes trabajan hoy, junto con impuestos asignados y otros " +
+      "recursos, pagan las jubilaciones y pensiones de hoy. Por eso se mira cuántas personas aportan por cada beneficio que se paga. Ese número depende " +
+      "de dos cosas: cuánta gente tiene un trabajo registrado y aporta, y cuántas personas cobran un beneficio, algo que crece con el envejecimiento de " +
+      "la población y que creció también con las moratorias, que desde mediados de los años 2000 permitieron jubilarse a personas sin todos los años de aportes.";
+    // el año en que más crecieron los beneficios
+    let salto = null;
+    A.slice(1).forEach((r, i) => { const v = (r.beneficios / A[i].beneficios - 1) * 100; if (!r.mes && (!salto || v > salto.v)) salto = {anio: r.anio, v}; });
+    const vA = (ult.aportantes / ini.aportantes - 1) * 100, vB = (ult.beneficios / ini.beneficios - 1) * 100;
+    const s1 = `Desde ${ini.anio}, ` + (vA > 0 && vB > 0 ? `los aportantes crecieron ${pct(vA)} y los beneficios, ${pct(vB)}. ` : `los aportantes ${cambioPl(vA)} y los beneficios ${cambioPl(vB)}. `) +
+      `El año en que más crecieron los beneficios fue ${salto.anio}: ${pct(salto.v)} en un año. ` +
+      `En la población, según las proyecciones del INDEC, las personas de 15 a 64 años por cada persona de 65 o más pasan de ${n1(EV.trab_hoy)} en ${EV.anio} a ${n1(EV.trab_fin)} en ${EV.anio_fin}.`;
+    const s2 = `En ${H.anio}${H.meses < 12 ? `, hasta ${MESES[H.meses - 1]},` : ""} la jubilación promedio equivalía al ${pct(H.pct_jub)} del salario promedio de los asalariados ` +
+      `registrados, y el haber mínimo con los refuerzos que se pagan aparte, al ${pct(H.pct_min_ad)}. En ${H.ini}, al ${pct(H.ini_pct_jub)} y al ${pct(H.ini_pct_min_ad)}. ` +
+      `El haber mínimo con refuerzos llegó a su punto más alto frente al salario en ${H.max_pct.anio}, con el ${pct(H.max_pct.v)}, y al más bajo en ${H.min_pct.anio}, con el ${pct(H.min_pct.v)}.`;
+    const lim = ["Un beneficio no es una persona: alguien puede cobrar una jubilación y una pensión a la vez.",
+      "Los aportantes incluyen asalariados, autónomos, monotributistas y trabajadoras de casas particulares, y también jubilados que siguen aportando.",
+      "Los aportes no son el único recurso del sistema: también lo financian impuestos asignados y fondos del Tesoro. Cuántos aportantes hay por beneficio no dice si al sistema le alcanza o le falta.",
+      "No incluye las cajas provinciales ni los regímenes que no administra ANSES. Desde abril de 2019 se cuentan solo los beneficios no suspendidos, y hasta 2008 la serie incluye el sistema de capitalización.",
+      `Cada año es el promedio de sus meses, salvo ${ult.mes ? `${ult.anio}, que es el último mes publicado` : "el último, que es el último mes publicado"}.`];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "aportantes-ratio", tit: "Aportantes por cada jubilación o pensión", forma: "lineas",
+        pie: "Personas que aportan sobre beneficios que paga ANSES, promedio de cada año.", txt: [s1]},
+      {g: "aportantes-haberes", tit: "Haberes frente al salario promedio de los asalariados registrados", forma: "lineas",
+        pie: "% del salario promedio de los asalariados registrados sujeto a aportes, sin aguinaldo. Promedio de cada año.", txt: [s2]},
+    ]};
+  },
+  dib: {
+    "aportantes-ratio": (el, a) => lineas(el, {anim: a, data: T.jubilaciones_aportantes, x: "anio", y0: 0, vf: n2, yf: v => n1(v),
+      series: [{k: "aportantes_por_beneficio", c: NAR, lab: "Por beneficio"}], xl: d => d.mes ? `${MESES[d.mes - 1]} de ${d.anio}` : d.anio}),
+    "aportantes-haberes": (el, a) => lineas(el, {anim: a, data: T.haberes_previsionales, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%",
+      xl: r => r.meses < 12 ? `${r.anio}, hasta ${MESES[r.meses - 1]}` : r.anio,
+      series: [{k: "pct_jubilacion", lab: "Jubilación promedio", corto: "Promedio", c: NAR}, {k: "pct_minimo_adicionales", lab: "Mínimo con refuerzos", corto: "Con refuerzos", c: FRI}]}),
+  },
+}, {
+  // etapa 5 del plan de mejora: la maternidad adolescente en el primer y el último año con datos, provincia por provincia (auditoría de los
+  // artículos, idea 4: antes y después, sin atribuir la causa)
+  id: "a-madres-adolescentes", frec: "Se actualiza cada año", tablas: ["madres_adolescentes_provincias", "nacimientos"],
+  dek: "La parte de los nacimientos de cada provincia que son de madres menores de 20 años, en el primer y en el último año con datos, y cuántos nacimientos de madres adolescentes hubo cada año en el país.",
+  fichas: [["f-adolescentes", "maternidad adolescente"], ["f-adolescentes-nse", "maternidad adolescente y condiciones de vida"], ["f-nacimientos", "nacimientos"]],
+  csv: [["madres_adolescentes_provincias", "Descargar CSV por provincia"], ["nacimientos", "Descargar CSV por año"]],
+  fuentes: "Dirección de Estadísticas e Información en Salud (DEIS), Ministerio de Salud, estadísticas vitales",
+  texto: () => {
+    const N = nac, P = T.madres_adolescentes_provincias, dif = r => r[ADO_INI] - r[ADO_ULT];
+    const bajaron = P.filter(r => r[ADO_ULT] < r[ADO_INI]).length, mas = [...P].sort((a, b) => dif(b) - dif(a))[0];
+    const rel = r => dif(r) / r[ADO_INI] * 100, masRel = [...P].sort((a, b) => rel(b) - rel(a))[0];
+    const alto = [...P].sort((a, b) => b[ADO_ULT] - a[ADO_ULT])[0], bajo = [...P].sort((a, b) => a[ADO_ULT] - b[ADO_ULT])[0];
+    const respuesta = `De ${n1(N.pct_ini)} a ${n1(N.pct_ult)} de cada 100 nacimientos del país, entre ${N.anio_ini} y ${N.anio_ult}.`;
+    const bajada = `En cantidad, los nacimientos de madres menores de 20 años pasaron de ${n0(N.ado_pico)} en ${N.ado_anio_pico}, el máximo desde ${N.anio_ini}, ` +
+      `a ${n0(N.ado_ult)} en ${N.anio_ult}: ${pct(Math.abs(N.ado_caida))} menos. ` +
+      (bajaron === P.length ? `La parte de madres adolescentes bajó en las ${P.length} jurisdicciones.` : `La parte de madres adolescentes bajó en ${bajaron} de las ${P.length} jurisdicciones.`);
+    const contexto = "La maternidad adolescente se mide acá como la parte de los nacimientos de cada año cuya madre tenía menos de 20 años, según las " +
+      "estadísticas vitales del Ministerio de Salud. En los mismos años bajó también " +
+      "la cantidad total de nacimientos, en todas las edades de las madres. Este artículo muestra cuánto bajó en cada provincia, sin atribuirle una causa.";
+    const s1 = `La que más bajó, en puntos, fue ${mas.territorio}: de ${pct(mas[ADO_INI])} a ${pct(mas[ADO_ULT])} de los nacimientos. ` +
+      (masRel !== mas ? `En proporción, la que más bajó fue ${masRel.territorio}, de ${pct(masRel[ADO_INI])} a ${pct(masRel[ADO_ULT])}: ${pct(rel(masRel))} menos. ` : "") +
+      `En ${N.anio_ult}, la parte más alta era la de ${alto.territorio}, ${pct(alto[ADO_ULT])}, y la más baja, la de ${bajo.territorio}, ${pct(bajo[ADO_ULT])}.`;
+    const s2 = `Los nacimientos de madres adolescentes bajaron más que el total: desde el máximo de cada serie, ${pct(Math.abs(N.ado_caida))} contra ` +
+      `${pct(Math.abs(N.caida))}. Por eso su parte en los nacimientos también bajó, de ${pct(N.pct_ini)} en ${N.anio_ini} a ${pct(N.pct_ult)} en ${N.anio_ult}.`;
+    const lim = ["Es la parte de los nacimientos, no la cantidad de nacimientos cada 1.000 adolescentes: también cambia cuando cambian los nacimientos de las madres adultas.",
+      "En esos años cambiaron las políticas de salud sexual y reproductiva, la educación y la economía. Estos datos no permiten separar el efecto de cada cambio.",
+      "Cada nacimiento se cuenta en la provincia donde vive la madre, no donde nació el bebé."];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "ado-provincias", tit: "Nacimientos de madres menores de 20 años, por provincia", forma: "pesas",
+        pie: `% de los nacidos vivos de cada provincia. El círculo claro marca ${N.anio_ini} y el oscuro, ${N.anio_ult}.`, txt: [s1]},
+      {g: "ado-serie", tit: "Nacimientos de madres menores de 20 años en el país, por año", forma: "lineas",
+        pie: "Nacidos vivos de madres menores de 20 años, registrados en las estadísticas vitales.", txt: [s2]},
+    ]};
+  },
+  dib: {
+    "ado-provincias": (el, a) => pesas(el, {anim: a, data: T.madres_adolescentes_provincias, a: ADO_INI, b: ADO_ULT, la: String(nac.anio_ini), lb: String(nac.anio_ult),
+      mejor: "baja", uDif: " puntos", pais: [nac.pct_ini, nac.pct_ult]}),
+    "ado-serie": (el, a) => lineas(el, {anim: a, x: "anio", y0: 0, vf: n0, yf: ejeMil, data: T.nacimientos,
+      series: [{k: "madres_menores_20", lab: "Madres menores de 20 años", corto: "Menores de 20", c: NAR}]}),
+  },
+}, {
+  // etapa 5 del plan de mejora: el peso de cada provincia en el Congreso y su relación con los ATN, sin sugerir un intercambio (auditoría
+  // de los artículos, idea 3: las dos cosas van con el tamaño de la provincia)
+  id: "a-peso-voto", frec: "Se actualiza cada año", tablas: ["representacion_provincias", "cruces_provincias"],
+  dek: "Cuántas bancas de diputados y senadores tiene cada provincia frente a su parte de la población, cuántos habitantes representa cada legislador y cómo se relaciona ese peso con los ATN que recibió cada provincia.",
+  fichas: [["f-representacion", "representación en el Congreso"], ["f-atn", "ATN"], ["f-congreso", "composición del Congreso"]],
+  csv: [["representacion_provincias", "Descargar CSV de la representación"]],
+  fuentes: "Ley 22.847, Constitución Nacional, INDEC, proyecciones de población, y Presupuesto Abierto, Secretaría de Hacienda (ATN)",
+  texto: () => {
+    const K = R.congreso, TR = R.transferencias, rp = T.representacion_provincias, n = rp.length;
+    const respuesta = `${n1(K.peso_max_v)} veces lo que le tocaría por su población en ${K.peso_max}, y ${n2(K.peso_min_v)} veces en ${K.peso_min}.`;
+    const bajada = "El peso compara la parte de las bancas de las dos cámaras que tiene cada provincia con su parte de la población del país. " +
+      "Con 1, el reparto sería proporcional. Con más de 1, sus habitantes tienen más legisladores que los que les tocarían por su cantidad, y con menos de 1, menos.";
+    const contexto = `El Congreso tiene ${K.n_dip} diputados y ${K.n_sen} senadores. El Senado representa a las provincias, no a los habitantes: ` +
+      "cada provincia y CABA tienen tres bancas, cualquiera sea su población. En Diputados, las bancas se reparten según la población, pero la ley " +
+      "22.847, de 1983, fija un mínimo de cinco por provincia y todavía usa como base el censo de 1980. Las dos reglas dan más representación, por " +
+      "habitante, a las provincias con menos población.";
+    const mas1 = rp.filter(r => r.peso_voto > 1), pobTot = d3.sum(rp, r => r.poblacion), pobMas = d3.sum(mas1, r => r.poblacion);
+    const s1 = `En ${mas1.length} de las ${n} jurisdicciones el peso es mayor que 1. Juntas tienen el ${pct(pobMas / pobTot * 100)} de la población del país.`;
+    const sen = [...rp].sort((a, b) => a.hab_por_senador - b.hab_por_senador), sMin = sen[0], sMax = sen.at(-1);
+    const s2 = `En ${K.rep_min} hay un diputado cada ${n0(K.rep_min_v)} habitantes. En ${K.rep_max}, uno cada ${n0(K.rep_max_v)}. ` +
+      `En el Senado la diferencia es mayor: un senador cada ${n0(sMin.hab_por_senador)} habitantes en ${sMin.territorio} y uno cada ${n0(sMax.hab_por_senador)} en ${sMax.territorio}.`;
+    // el peso y los ATN: las dos mitades por peso, y los dos datos frente a la población
+    const c = calcularArt({tabla: "cruces_provincias"}, {x: "peso_voto", y: "atn_hab"});
+    const conPob = k => CX.spearman(c.F.map(f => f.poblacion), c.F.map(f => f[k]));
+    const s3 = `¿Recibieron más ATN las provincias con más peso en el Congreso? ${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} ` +
+      `En las ${c.h} con más peso, la mediana fue de ${n0(c.medMas)} pesos de ${TR.ult} por habitante por año, en promedio de ${TR.desde} a ${TR.ult}. ` +
+      `En las ${c.h} con menos peso, de ${n0(c.medMenos)} pesos.` +
+      (conPob("peso_voto") <= -.6 && conPob("atn_hab") <= -.2 ? " Las dos cosas van con el tamaño de la provincia: el peso en el Congreso depende casi solo de la " +
+        "población, y las provincias con menos habitantes también recibieron, en general, más ATN por habitante. Por eso este cruce no permite saber si una cosa influye en la otra." : "");
+    const lim = ["El peso usa la población proyectada por el INDEC para hoy, no la del censo de 1980 con la que se repartieron las bancas de Diputados.",
+      "Cuenta las bancas de cada provincia, no cómo votan sus legisladores: dos diputados de la misma provincia pueden votar distinto.",
+      "Los ATN son un promedio de muchos años y los asigna el Ministerio del Interior. Este artículo no dice que se den a cambio de votos: el artículo sobre los ATN y el presupuesto mira eso por separado.",
+      ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} jurisdicciones y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "peso-voto", tit: "Peso de cada habitante en el Congreso", forma: "barras",
+        pie: "Parte de las bancas de diputados y senadores de cada jurisdicción sobre su parte de la población. La línea marca 1, el reparto proporcional.", txt: [s1]},
+      {g: "peso-diputado", tit: "Habitantes por cada diputado", forma: "barras",
+        pie: `Población proyectada por el INDEC para ${R.anio_pob} sobre las bancas de diputados de cada jurisdicción.`, txt: [s2]},
+      {g: "peso-atn", tit: "Peso en el Congreso y ATN por habitante", forma: "puntos",
+        pie: `Cada punto es una jurisdicción. ATN: pesos de ${TR.ult} por habitante por año, en promedio de ${TR.desde} a ${TR.ult}. La línea punteada muestra la tendencia.`, txt: [s3]},
+    ]};
+  },
+  dib: {
+    "peso-voto": (el, a) => barrasH(el, {anim: a, data: T.representacion_provincias, k: "peso_voto", vf: n2, af: v => n1(v).replace(/,0$/, ""),
+      ref: 1, refLab: "Proporcional: 1", tip: d => `<b>${d.territorio}</b><br>Peso: ${n2(d.peso_voto)}<br>${d.diputados} diputados y 3 senadores`}),
+    "peso-diputado": (el, a) => barrasH(el, {anim: a, data: T.representacion_provincias, k: "hab_por_diputado", vf: n0, af: ejeMil,
+      tip: d => `<b>${d.territorio}</b><br>${n0(d.hab_por_diputado)} habitantes por diputado<br>${n0(d.hab_por_senador)} habitantes por senador`}),
+    "peso-atn": (el, a) => {
+      const c = calcularArt({tabla: "cruces_provincias"}, {x: "peso_voto", y: "atn_hab"});
+      dispersion(el, {anim: a, data: c.F, x: "peso_voto", y: "atn_hab", xLab: "Peso en el Congreso", yLab: "ATN por habitante",
+        marcar: [c.mas, c.menos, c.lejos].map(f => f.codigo_indec), fx: v => n1(v).replace(/,0$/, ""), fy: n0,
+        vx: n2, vy: v => `${n0(v)} pesos de ${R.transferencias.ult} por habitante por año`});
+    },
+  },
+}, {
+  // etapa 5 del plan de mejora: qué es la coparticipación y cuánto recibe cada provincia (auditoría de los artículos, idea 2). Suma el cruce
+  // de los recursos propios con el empleo privado, que hasta entonces era un artículo aparte (a-recursos-empleo)
+  id: "a-coparticipacion", frec: "Se actualiza cada año", tablas: ["coparticipacion_provincias", "fiscal_provincias", "cruces_provincias"],
+  dek: "Cómo reparte la Nación los impuestos con las provincias, cuánto recibe cada una por habitante, qué parte de sus ingresos es y cuánto recauda cada provincia por su cuenta.",
+  fichas: [["f-coparticipacion", "coparticipación"], ["f-fiscal", "cuentas de las provincias"], ["f-transferencias", "transferencias de la Nación"], ["f-empleo", "empleo privado"]],
+  csv: [["coparticipacion_provincias", "Descargar CSV de la coparticipación"], ["fiscal_provincias", "Descargar CSV de las cuentas de las provincias"]],
+  fuentes: "Ministerio de Economía, esquema ahorro-inversión-financiamiento de cada provincia (tributos de origen nacional, recursos propios e " +
+    "ingresos totales), INDEC, proyecciones de población, y Secretaría de Trabajo, Sistema Integrado Previsional Argentino (SIPA)",
+  texto: () => {
+    const C = CPA, F = R.fiscal, mill = v => v < 1e6 ? `${n0(v / 1e3)} mil` : `${n2(v / 1e6)} millones`, at = Object.entries(C.atrasadas);
+    const sin = at.length ? `, sin contar ${lista(at.map(([p]) => p))}` : "";
+    const respuesta = `De ${mill(C.bajo_hab[1])} de pesos por habitante en ${C.bajo_hab[0]} a ${mill(C.top_hab[1])} en ${C.top_hab[0]}, en ${C.anio}.`;
+    const bajada = `Es lo que recibió cada jurisdicción por la coparticipación federal y por los otros impuestos nacionales que se reparten por ley. ` +
+      `En total, las provincias y CABA recibieron ${billones(C.millones)}${sin}: ${mill(C.pais_hab)} de pesos por habitante. El ${pct(C.federal)} fue coparticipación federal.`;
+    const contexto = "La Nación cobra los impuestos que más recaudan, como el IVA y Ganancias, y reparte una parte con las provincias. Las reglas " +
+      "están en la ley de coparticipación federal, la 23.548, de 1988. Primero divide lo recaudado entre la Nación y el conjunto de las provincias, " +
+      "y después lo reparte entre las provincias con un porcentaje fijo para cada una, que no cambia con su población ni con lo que recauda. CABA y " +
+      "Tierra del Fuego no figuran en esos porcentajes, porque en 1988 la Ciudad no era autónoma y Tierra del Fuego era territorio nacional: su parte " +
+      "se fijó después. La Constitución de 1994 pidió una ley nueva, acordada entre la Nación y las provincias, que no se aprobó. Además, otras leyes " +
+      "reparten parte de algunos impuestos con un destino fijo, y la Nación envía otros fondos por decisión propia, como los Aportes del Tesoro Nacional (ATN).";
+    // el reparto y la población: las dos mitades de jurisdicciones, por cantidad de habitantes
+    const cp = T.coparticipacion_provincias.filter(r => r.anio === C.anio), pob = Object.fromEntries(T.cruces_provincias.map(r => [r.codigo_indec, r.poblacion]));
+    const porPob = [...cp].filter(r => pob[r.codigo_indec]).sort((a, b) => pob[a.codigo_indec] - pob[b.codigo_indec]), h = Math.floor(porPob.length / 2);
+    const medChicas = d3.median(porPob.slice(0, h), r => r.por_habitante), medGrandes = d3.median(porPob.slice(-h), r => r.por_habitante);
+    const s1 = `${C.top_hab[0]} recibió por habitante ${veces(C.top_hab[1], C.bajo_hab[1])} veces lo que recibió ${C.bajo_hab[0]}. ` +
+      `Como el reparto no sigue la cantidad de habitantes, las ${h} jurisdicciones con menos población recibieron una mediana de ${mill(medChicas)} de pesos ` +
+      `por habitante, y las ${h} con más, ${mill(medGrandes)}.`;
+    const s2 = `En ${C.mas_mitad} de las 24 jurisdicciones, estos fondos fueron más de la mitad de todos sus ingresos. La parte más alta fue la de ` +
+      `${C.top_pct[0]}, el ${pct(C.top_pct[1])}, y la más baja, la de ${C.bajo_pct[0]}, el ${pct(C.bajo_pct[1])}. En el conjunto de las provincias y CABA, ` +
+      `el ${pct(C.pct_pais)}${C.pct_pais_ini !== C.pct_pais ? `, y en ${C.ini}, el ${pct(C.pct_pais_ini)}` : ""}.`;
+    const s3 = `Lo que cada provincia recauda por su cuenta, con sus impuestos, sus regalías y otros ingresos, es la otra cara de la misma cuenta. ` +
+      `De cada 100 pesos que ingresaron a ${F.low}, ${n0(F.low_v)} los recaudó la provincia. En ${F.top}, ${n0(F.top_v)}. ` +
+      `La mitad de las provincias recaudó por su cuenta menos del ${pct(F.mediana)} de sus ingresos.`;
+    // el cruce que era un artículo aparte: recursos propios y empleo privado registrado
+    const c = calcularArt({tabla: "cruces_provincias"}, {x: "autonomia_fiscal", y: "empleo_privado"});
+    const s4 = `¿Tienen más empleo privado las provincias que recaudan más por su cuenta? ${c.rs <= -.2 ? "No: la relación va en sentido contrario." : respuestaR(c.rs)} En las ${c.h} con más recursos propios, ` +
+      `la mediana es de ${n1(c.medMas)} asalariados privados registrados cada 100 habitantes. En las ${c.h} con menos, de ${n1(c.medMenos)}.`;
+    const lim = ["Los montos son los tributos de origen nacional que registra cada provincia en sus cuentas: la coparticipación federal y lo que se reparte por otras leyes. No incluyen los ATN ni otras transferencias que la Nación decide cada año.",
+      "Son pesos de cada año: para comparar años distintos hay que descontar la inflación.",
+      ...at.map(([p, a]) => `${p} todavía no publicó sus cuentas de ${C.anio}: en la parte de sus ingresos figura con ${a}, y no está en los pesos por habitante, porque los pesos de ${a} no se comparan con los de ${C.anio}.`),
+      "Una parte de la relación entre recursos propios y empleo privado es contable: el impuesto provincial que más recauda, ingresos brutos, se cobra sobre la actividad de las empresas, que es también la que da empleo privado.",
+      "Los recursos propios incluyen las regalías: una provincia con petróleo, gas o minería puede recaudar mucho sin tener mucho empleo privado.",
+      "El SIPA asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta en el empleo privado, aunque parte de esos trabajos se hagan en otras provincias.",
+      ...(Math.abs(c.rs) < .4 ? [`Con ${c.n} provincias y una relación ${fuerza(c.rs)}, la diferencia entre las dos mitades puede ser casualidad.`] : [])];
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "copa-hab", tit: "Coparticipación y otros impuestos nacionales por habitante", forma: "barras",
+        pie: `Millones de pesos por habitante, ${C.anio}. La línea marca el conjunto de las provincias y CABA.`, txt: [s1]},
+      {g: "copa-pct", tit: "La coparticipación y los otros impuestos nacionales en los ingresos de cada provincia", forma: "barras",
+        pie: `% de los ingresos totales de cada jurisdicción, ${C.anio_txt}.`, txt: [s2]},
+      {g: "copa-propios", tit: "Lo que recauda cada provincia por su cuenta", forma: "barras",
+        pie: `Recursos propios, % de los ingresos totales de cada jurisdicción, ${F.anio_txt}.`, txt: [s3]},
+      {g: "copa-empleo", tit: "Recursos propios y empleo privado registrado", forma: "puntos",
+        pie: "Cada punto es una jurisdicción. Recursos propios: % de sus ingresos. Empleo privado: asalariados registrados cada 100 habitantes. La línea punteada muestra la tendencia.", txt: [s4]},
+    ]};
+  },
+  dib: {
+    "copa-hab": (el, a) => barrasH(el, {anim: a, data: T.coparticipacion_provincias.filter(r => r.anio === CPA.anio), k: "por_habitante", vf: millonesM, af: ejeM,
+      ref: CPA.pais_hab, refLab: `País ${millonesM(CPA.pais_hab)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${CPA.anio}`}),
+    "copa-pct": (el, a) => barrasH(el, {anim: a, data: T.coparticipacion_provincias.map(r => CPA.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${CPA.atrasadas[r.territorio]})`} : r),
+      k: "pct_ingresos", vf: pct, af: v => n0(v) + "%", ref: CPA.pct_pais, refLab: `País ${pct(CPA.pct_pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_ingresos)} de sus ingresos en ${d.anio}`}),
+    "copa-propios": (el, a) => barrasH(el, {anim: a, data: T.fiscal_provincias.map(r => r.anio !== R.fiscal.anio ? {...r, territorio: `${r.territorio} (${r.anio})`} : r),
+      k: "autonomia", vf: pct, af: v => n0(v) + "%", ref: R.fiscal.pais, refLab: `País ${pct(R.fiscal.pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>Recursos propios: ${pct(d.autonomia)} de sus ingresos en ${d.anio}`}),
+    "copa-empleo": (el, a) => {
+      const c = calcularArt({tabla: "cruces_provincias"}, {x: "autonomia_fiscal", y: "empleo_privado"});
+      dispersion(el, {anim: a, data: c.F, x: "autonomia_fiscal", y: "empleo_privado", xLab: "Recursos propios", yLab: "Empleo privado registrado",
+        marcar: [c.mas, c.menos, c.lejos].map(f => f.codigo_indec), fx: v => n0(v) + "%", fy: n0,
+        vx: v => `${pct(v)} de sus ingresos`, vy: v => `${n1(v)} asalariados cada 100 habitantes`});
+    },
+  },
+}, {
+  // etapa 5 del plan de mejora: la línea de pobreza de cada región, con una calculadora para armar el hogar propio (auditoría de los
+  // artículos, idea 1). La canasta de cada región es la del último mes del informe semestral, y la tabla de adulto equivalente, la del INDEC
+  id: "a-canasta-regiones", frec: "Se actualiza cada semestre", tablas: ["canasta_regiones", "adulto_equivalente", "pobreza_aglomerados"],
+  dek: "Lo que necesita por mes un hogar para no quedar bajo la línea de pobreza en cada una de las seis regiones del INDEC, una calculadora para el hogar propio y la parte de las personas bajo esa línea en cada región.",
+  fichas: [["f-canastas", "canastas básicas"], ["f-pobreza-aglomerados", "pobreza por región y por ciudad"], ["f-pobreza", "pobreza e indigencia"]],
+  csv: [["canasta_regiones", "Descargar CSV de las canastas por región"], ["adulto_equivalente", "Descargar CSV de la tabla de adulto equivalente"]],
+  fuentes: "INDEC, canasta básica alimentaria y canasta básica total (valores por región del informe de pobreza y tabla de adulto equivalente), " +
+    "e incidencia de la pobreza y la indigencia, Encuesta Permanente de Hogares",
+  texto: () => {
+    const C = ECB, ae = C.adultos_hogar, regs = T.canasta_regiones, [rMin, vMin] = C.reg_min, [rMax, vMax] = C.reg_max;
+    const fila = n => regs.find(r => r.region === n), pr = T.pobreza_aglomerados.filter(r => r.tipo === "region");
+    const respuesta = `De ${n0(vMin * ae)} pesos por mes en ${REG_ART[rMin]} a ${n0(vMax * ae)} en ${REG_ART[rMax]}.`;
+    const bajada = `Es la canasta básica total de ${C.reg_mes} para el hogar de ejemplo del INDEC, de cuatro integrantes: un varón de 35 años, una mujer de 31, ` +
+      "un hijo de 6 y una hija de 8. Si los ingresos de un hogar así no llegan a esa cifra, el hogar y quienes viven en él cuentan como pobres." +
+      (C.periodo !== regs[0].periodo ? ` En el Gran Buenos Aires, la canasta se publica cada mes: la de ${C.mes} fue de ${n0(C.cbt_hogar)} pesos.` : "");
+    const contexto = "El INDEC mide la pobreza por los ingresos. Primero valoriza una canasta de alimentos que cubre lo que necesita comer una persona, " +
+      "la canasta básica alimentaria, que marca la línea de indigencia. Después le suma los demás bienes y servicios, como la ropa, el transporte, " +
+      "la educación y la salud: es la canasta básica total, que marca la línea de pobreza. Como un chico no necesita lo mismo que un adulto, cada persona " +
+      "cuenta según su edad y su sexo, en adultos equivalentes. Y como los precios y lo que se consume cambian de un lugar a otro, el INDEC calcula " +
+      "una canasta para cada una de las seis regiones del país.";
+    const fMax = fila(rMax), fMin = fila(rMin), difT = (vMax / vMin - 1) * 100, difA = (fMax.cba / fMin.cba - 1) * 100;
+    const s1 = `La canasta ${deReg(rMax)} cuesta ${pct(difT)} más que la ${deReg(rMin)}.` +
+      (difA < difT / 2 ? ` En los alimentos solos, la diferencia es de ${pct(difA)}: el resto viene de los demás bienes y servicios, que pesan distinto en cada región.` : "") +
+      ` En el Gran Buenos Aires, el hogar de ejemplo necesitaba ${n0(fila("Gran Buenos Aires").cbt * ae)} pesos.`;
+    const masPob = pr.reduce((a, b) => b.pobreza > a.pobreza ? b : a), menosPob = pr.reduce((a, b) => b.pobreza < a.pobreza ? b : a);
+    const pobDe = n => pr.find(r => r.nombre === n);
+    const s3 = (menosPob.nombre === rMax
+      ? `La región con la canasta más cara, ${REG_ART[rMax]}, es la que tiene menos personas bajo la línea de pobreza: ${pct(menosPob.pobreza)}.`
+      : `${mayusc(REG_ART[rMax])}, la región con la canasta más cara, tiene ${pct(pobDe(rMax).pobreza)} de sus personas bajo la línea de pobreza.`) +
+      ` La de más pobreza es ${REG_ART[masPob.nombre]}, con ${pct(masPob.pobreza)}` + (masPob.nombre !== rMax ? `, y su canasta cuesta ${n0(fila(masPob.nombre).cbt * ae)} pesos.` : ".") +
+      " La pobreza depende de lo que cuesta la canasta y también de lo que ganan los hogares de cada región.";
+    const lim = ["La línea de pobreza mira solo los ingresos: un hogar que gana apenas más que su canasta no cuenta como pobre, aunque le falten otras cosas, como una vivienda adecuada.",
+      "Las canastas por región salen del informe semestral de pobreza, con el último mes de cada semestre. Solo la del Gran Buenos Aires se publica todos los meses.",
+      "El INDEC no calcula canastas por provincia ni por ciudad: la calculadora usa la de la región, y dentro de una región los precios también cambian.",
+      "La pobreza por región es la de los aglomerados urbanos que releva la Encuesta Permanente de Hogares, no la de toda la región: la encuesta no cubre las zonas rurales ni los pueblos.",
+      "La encuesta registra los ingresos que declaran los hogares, que pueden no coincidir con lo que cobran."];
+    const opcR = regs.map(r => `<option value="${r.codigo}">${r.region}</option>`).join("");
+    const calc = `<div class="calc" id="calc-canasta"><label class="selector-ficha"><span>Región</span><select class="calc-region">${opcR}</select></label>` +
+      `<fieldset class="calc-personas"><legend>Quiénes viven en el hogar</legend><ol class="calc-lista"></ol>` +
+      `<button type="button" class="boton chico calc-sumar">Sumar una persona</button></fieldset><p class="calc-res" aria-live="polite"></p></div>`;
+    return {respuesta, bajada, contexto, lim, secciones: [
+      {g: "canasta-regiones", tit: "Canasta básica total del hogar de ejemplo, por región", forma: "barras",
+        pie: `Pesos por mes, ${C.reg_mes}. Hogar de cuatro integrantes, ${n2(ae)} adultos equivalentes.`, txt: [s1]},
+      {tit: "¿Cuánto necesita tu hogar?", html: calc,
+        pie: `Cada persona cuenta según la tabla de adulto equivalente del INDEC, y la canasta es la de ${C.reg_mes} de cada región. Lo que se elige acá no se guarda.`, txt: []},
+      {g: "canasta-pobreza", tit: "Personas bajo la línea de pobreza, por región", forma: "barras",
+        pie: `% de las personas de los aglomerados urbanos de cada región, ${PZA.semestre}. La línea marca el total de los 31 aglomerados.`, txt: [s3]},
+    ]};
+  },
+  // la calculadora: arranca con el hogar de ejemplo del INDEC y la región de la provincia elegida
+  iniciar: nota => {
+    const caja = nota.querySelector("#calc-canasta"), tab = T.adulto_equivalente, regs = T.canasta_regiones;
+    if (!caja || !tab) return;
+    const lista = caja.querySelector(".calc-lista"), selR = caja.querySelector(".calc-region"), res = caja.querySelector(".calc-res");
+    const sumar = caja.querySelector(".calc-sumar"), MAX = 12;
+    selR.value = (REG_IPC[prov] || ["gba"])[0];
+    const deEdad = e => tab.findIndex(r => r.edad_desde <= e && (r.edad_hasta == null || r.edad_hasta >= e));
+    const calcular = () => {
+      const filas = [...lista.children], n = filas.length;
+      filas.forEach((li, i) => {
+        li.querySelector(".calc-n").textContent = `Persona ${i + 1}`;
+        li.querySelectorAll("select").forEach(s => s.setAttribute("aria-label", `${s.dataset.c === "edad" ? "Edad" : "Sexo"} de la persona ${i + 1}`));
+        li.querySelector(".calc-quitar").setAttribute("aria-label", `Quitar a la persona ${i + 1}`);
+        li.querySelector(".calc-quitar").hidden = n === 1;
+      });
+      sumar.disabled = n >= MAX;
+      const u = filas.reduce((s, li) => s + tab[+li.querySelector('[data-c="edad"]').value][li.querySelector('[data-c="sexo"]').value], 0);
+      const r = regs.find(x => x.codigo === selR.value);
+      res.innerHTML = `${n === 1 ? "Una persona" : `Un hogar de ${n} personas`} suma ${n2(u)} ${u === 1 ? "adulto equivalente" : "adultos equivalentes"}. ` +
+        `En ${REG_ART[r.region]}, su canasta básica total de ${ECB.reg_mes} era de <b>${n0(u * r.cbt)} pesos por mes</b>: con ingresos por debajo de esa cifra, ` +
+        `el INDEC lo cuenta como pobre. Su canasta alimentaria, la línea de indigencia, era de ${n0(u * r.cba)} pesos.`;
+    };
+    const persona = (edad, sexo) => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="calc-n"></span><label class="selector-ficha"><span>Edad</span><select data-c="edad">` +
+        tab.map((r, i) => `<option value="${i}">${r.edad}</option>`).join("") + `</select></label>` +
+        `<label class="selector-ficha"><span>Sexo</span><select data-c="sexo"><option value="mujeres">Mujer</option><option value="varones">Varón</option></select></label>` +
+        `<button type="button" class="enlace calc-quitar">Quitar</button>`;
+      li.querySelector('[data-c="edad"]').value = deEdad(edad);
+      li.querySelector('[data-c="sexo"]').value = sexo;
+      li.querySelector(".calc-quitar").addEventListener("click", () => {
+        const sig = li.nextElementSibling || li.previousElementSibling;
+        li.remove(); calcular();
+        (sig?.querySelector("select") || sumar).focus();
+      });
+      lista.append(li);
+    };
+    [[35, "varones"], [31, "mujeres"], [6, "varones"], [8, "mujeres"]].forEach(([e, s]) => persona(e, s));
+    caja.addEventListener("change", calcular);
+    sumar.addEventListener("click", () => { persona(35, "mujeres"); calcular(); lista.lastElementChild.querySelector("select").focus(); });
+    calcular();
+  },
+  dib: {
+    "canasta-regiones": (el, a) => {
+      const ae = ECB.adultos_hogar, regs = new Set((REG_IPC[prov] || []).map(r => "r-" + r));
+      barrasH(el, {anim: a, data: T.canasta_regiones.map(r => ({codigo_indec: "r-" + r.codigo, territorio: r.region, v: r.cbt * ae, cba: r.cba * ae})),
+        k: "v", vf: v => n0(v / 1000) + " mil", af: ejeMil, l: 150, lAngosto: 128, marcar: regs,
+        tip: d => `<b>${d.territorio}</b><br>Canasta básica total: ${n0(d.v)} pesos por mes<br>Canasta básica alimentaria: ${n0(d.cba)} pesos`});
+    },
+    "canasta-pobreza": (el, a) => {
+      const tot = T.pobreza_aglomerados.find(r => r.tipo === "total"), regs = new Set((REG_IPC[prov] || []).map(r => "r-" + r));
+      barrasH(el, {anim: a, data: T.pobreza_aglomerados.filter(r => r.tipo === "region").map(r => ({codigo_indec: "r-" + r.clave, territorio: r.nombre, v: r.pobreza, ind: r.indigencia})),
+        k: "v", vf: pct, af: v => n0(v) + "%", l: 150, lAngosto: 128, marcar: regs, ref: tot.pobreza, refLab: `Total ${pct(tot.pobreza)}`,
+        tip: d => `<b>${d.territorio}</b><br>Pobreza: ${pct(d.v)} de las personas<br>Indigencia: ${pct(d.ind)}`});
+    },
+  },
+}, {
   // etapa 5: la pregunta pasa a ser la de la construcción, y las compras de dólares, que eran su cuarta sección, van en su propio artículo
   id: "a-dolar-inversion", frec: "Se actualiza cada trimestre", tablas: ["dolar_inversion_trimestral"],
   dek: "Lo que cuesta construir medido en dólares, trimestre por trimestre, frente a lo que cambia la inversión en construcción en el año siguiente. También muestra el dólar en términos reales y la parte de la inversión que va a máquinas importadas.",
@@ -8142,13 +8688,16 @@ ART_SERIE.forEach(a => {
   nota.innerHTML =
     `<div class="nota-cab"><span class="nota-ico">${icono(a.icono)}</span><div><p class="nota-meta">${nombreSec(a.sec)}. ${a.frec}</p><h1 class="nota-tit" style="view-transition-name:t-${a.id}">${a.titulo}</h1></div></div>` +
     `<p class="nota-bajada"><mark>${t.respuesta}</mark> ${t.bajada}</p><p>${t.contexto}</p>` +
-    t.secciones.map(s => `<div class="nota-graf"><h2>${s.tit}</h2><div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` +
+    t.secciones.map(s => `<div class="nota-graf"><h2>${s.tit}</h2>` +
+      (s.html || (s.antes || "") + `<div class="grafico" data-g="art-${s.g}" data-forma="${s.forma}"${s.alto ? ` style="--alto:${s.alto}"` : ""}></div>` + (s.despues || "")) +
       `<p class="nota-pie-graf">${s.pie}</p></div>` + s.txt.map(p => `<p>${p}</p>`).join("")).join("") +
     `<div class="nota-limites"><h2>Qué no dice este dato</h2><ul>${t.lim.map(l => `<li>${l}</li>`).join("")}</ul></div>` +
     `<div class="nota-fuentes"><p>Fuentes: ${a.fuentes}.</p><div class="acciones">` +
     a.fichas.filter(([id]) => ficha(id)).map(([id, nom]) => `<a class="boton chico accion" href="${ficha(id)}">Ficha: ${nom}</a>`).join("") +
     a.csv.map(([n, lab]) => `<a class="boton chico accion" href="datos/${n}.csv" download>${lab}</a>`).join("") + `</div></div>`;
   Object.entries(a.dib).forEach(([g, f]) => { DIB["art-" + g] = conTablas("art-" + g, a.tablas, anim => f(G("art-" + g), anim)); });
+  // lo que no es un gráfico, como la calculadora de la canasta (etapa 5 del plan de mejora)
+  a.iniciar?.(nota);
 });
 // todos los artículos, primero los de series (los más nuevos). La lista de Artículos la escribe el constructor en este mismo orden
 const ARTS = [...ART_SERIE, ...ART];
@@ -8185,7 +8734,7 @@ const nosCifras = document.getElementById("nos-cifras");
 if (nosCifras) {
   const temas = SITIO.secciones.filter(s => !s[4] && s[0] !== "articulos").length;
   nosCifras.innerHTML = [[NFICHAS, "fichas con su tabla"], [24, "jurisdicciones"],
-    [temas, "secciones temáticas"], [ARTS.length, "artículos de cruces"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
+    [temas, "secciones temáticas"], [ARTS.length, "artículos"]].map(([n, t]) => `<div class="nos-cifra"><b>${n}</b><span>${t}</span></div>`).join("");
 }
 
 /* recuadro de estado de la portada */
