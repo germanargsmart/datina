@@ -4643,6 +4643,38 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:aif_provincias.xlsx",
+   "a": "f-coparticipacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "xl = pd.ExcelFile(CRUDO / \"aif_provincias.xlsx\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"coparticipacion_provincias\": coparticipacion,"
+    }
+   ],
+   "tabla": "coparticipacion_provincias"
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_proyecciones_provincias.csv",
+   "a": "f-coparticipacion",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "_pr = pd.read_csv(CRUDO / \"indec_proyecciones_provincias.csv\", sep=\";\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "coparticipacion[\"por_habitante\"] = coparticipacion.nacional_millones * 1e6 / [POB_POR_ANIO[(c, a)]"
+    }
+   ],
+   "tabla": "coparticipacion_provincias"
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:sube_usuarios_dia.csv",
    "a": "f-sube",
    "evidencia": [
@@ -7176,6 +7208,12 @@
     "gasto_personal_pct_gasto"
    ]
   },
+  "f-coparticipacion": {
+   "variables": [
+    "tributos_origen_nacional_por_habitante",
+    "tributos_origen_nacional_pct_ingresos"
+   ]
+  },
   "f-fracturas": {
    "variables": [
     "etapas_fractura_no_convencional"
@@ -7456,6 +7494,11 @@
     "jueces_provinciales_cada_100mil",
     "fiscales_provinciales_cada_100mil",
     "defensores_provinciales_cada_100mil"
+   ]
+  },
+  "f-sin-condena": {
+   "variables": [
+    "pct_personas_privadas_de_libertad_sin_condena"
    ]
   }
  }

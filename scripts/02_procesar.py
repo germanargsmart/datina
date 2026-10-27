@@ -107,6 +107,8 @@ _pr.columns = [c.strip() for c in _pr.columns]
 _pr["Poblacion"] = pd.to_numeric(_pr.Poblacion.astype(str).str.replace(".", "", regex=False), errors="coerce")
 POB = {f"{int(j):02d}": float(v) for j, v in _pr[_pr.Fecha == ANIO_POB].groupby("Jurisdiccion").Poblacion.sum().items()}
 assert len(POB) == 24, "faltan provincias en las proyecciones del INDEC"
+# la misma población, de cada año de las proyecciones (2022 a 2040), para los datos de un año que no es ANIO_POB
+POB_POR_ANIO = {(f"{int(j):02d}", int(a)): float(v) for (j, a), v in _pr.groupby(["Jurisdiccion", "Fecha"]).Poblacion.sum().items()}
 
 # Proyecciones del INDEC por provincia, sexo y edad (base Censo 2022): envejecimiento y relacion de dependencia
 proy = pd.read_csv(CRUDO / "indec_proyecciones_provincias.csv", sep=";")
@@ -1913,6 +1915,7 @@ for hoja in xl.sheet_names[1:]:
         return t.loc[i], i
     ic, i_ic = fila("i. ingresos corrientes")
     nac, _ = fila("de origen nacional", i_ic)
+    cpa_sub, _ = fila("sub - total", i_ic)  # la coparticipación federal, con la parte que la Ley 26.075 destina a educación
     trc, _ = fila("transferencias corrientes", i_ic)
     rpc, _ = fila("recursos propios de capital")
     tot, _ = fila("vi. ingresos totales")
@@ -1928,7 +1931,7 @@ for hoja in xl.sheet_names[1:]:
         fisc.append({"codigo_indec": cod, "anio": a, "autonomia": (v(ic) - v(nac) - v(trc) + v(rpc)) / v(tot) * 100,
                      "resultado": v(res) / v(tot) * 100, "personal": v(per) / v(gas) * 100,
                      "regalias": v(reg_f) / v(tot) * 100, "regalias_millones": v(reg_f), "ird_millones": v(ird_f), "ingresos_millones": v(tot),
-                     "propios_millones": v(ic) - v(nac) - v(trc) + v(rpc)})
+                     "propios_millones": v(ic) - v(nac) - v(trc) + v(rpc), "nacional_millones": v(nac), "cpa_millones": v(cpa_sub)})
 fisc = pd.DataFrame(fisc)
 assert fisc.codigo_indec.nunique() == 24, "Faltan provincias en las cuentas fiscales"
 # ultimo anio con dato para al menos 20 provincias. Las que todavia no lo publicaron van con su ultimo anio disponible
@@ -1941,6 +1944,42 @@ fiscal = fiscal[["codigo_indec", "territorio", "anio", "autonomia", "resultado",
 for col, var in [("autonomia", "recursos_propios_pct_ingresos"), ("resultado", "resultado_financiero_pct_ingresos"), ("personal", "gasto_personal_pct_gasto")]:
     d = fisc[["codigo_indec", "anio", col]].rename(columns={"anio": "periodo", col: "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
     agregar(d, var, "%", "Ministerio de Economia, cuentas provinciales (esquema AIF)")
+
+# Coparticipación (plan de mejora, etapa 4, 27 de octubre de 2026): los tributos de origen nacional de cada provincia en el mismo
+# esquema AIF, que son la coparticipación federal (Ley 23.548, con la parte que la Ley 26.075 destina a educación) y otros impuestos
+# nacionales que se reparten por ley. No son las transferencias "por ley o por fallo" de Presupuesto Abierto (f-transferencias), que
+# pasan por el presupuesto nacional. Cada provincia con su último año, como las demás cuentas fiscales, y por habitante con la
+# población del INDEC de ese año. En pesos de cada año: el país y la vista por habitante solo con las que tienen ANIO_FISC
+cpa_ini = fisc[fisc.anio == fisc.anio.min()].set_index("codigo_indec")
+coparticipacion = fiscal[["codigo_indec", "territorio", "anio"]].merge(
+    fisc[["codigo_indec", "anio", "nacional_millones", "cpa_millones", "ingresos_millones"]], on=["codigo_indec", "anio"], validate="1:1")
+assert len(coparticipacion) == 24 and all((c, a) in POB_POR_ANIO for c, a in zip(coparticipacion.codigo_indec, coparticipacion.anio)), \
+    "faltan provincias o población en la coparticipación"
+coparticipacion["por_habitante"] = coparticipacion.nacional_millones * 1e6 / [POB_POR_ANIO[(c, a)] for c, a in zip(coparticipacion.codigo_indec, coparticipacion.anio)]
+coparticipacion["pct_ingresos"] = coparticipacion.nacional_millones / coparticipacion.ingresos_millones * 100
+coparticipacion["pct_coparticipacion_federal"] = coparticipacion.cpa_millones / coparticipacion.nacional_millones * 100
+coparticipacion["pct_ingresos_ini"] = coparticipacion.codigo_indec.map(cpa_ini.nacional_millones / cpa_ini.ingresos_millones * 100)
+cpa_fed = coparticipacion[coparticipacion.anio == ANIO_FISC]
+cpa_fed = r1(cpa_fed.cpa_millones.sum() / cpa_fed.nacional_millones.sum() * 100)
+coparticipacion = coparticipacion.rename(columns={"nacional_millones": "millones", "ingresos_millones": "ingresos_totales_millones"}).drop(columns="cpa_millones")
+cpa_u = coparticipacion[coparticipacion.anio == ANIO_FISC]
+cpa_pais_hab = cpa_u.millones.sum() * 1e6 / sum(POB_POR_ANIO[(c, ANIO_FISC)] for c in cpa_u.codigo_indec)
+cpa_h, cpa_p = cpa_u.sort_values("por_habitante"), coparticipacion.sort_values("pct_ingresos")
+cpa_res = {
+    "anio": ANIO_FISC, "ini": int(fisc.anio.min()), "atrasadas": FISC_ATRASADAS,
+    "anio_txt": f"{ANIO_FISC}" + (" (" + ", ".join(f"{p}, {a}" for p, a in FISC_ATRASADAS.items()) + ")" if FISC_ATRASADAS else ""),
+    "pais_hab": float(cpa_pais_hab), "millones": float(cpa_u.millones.sum()),
+    "top_hab": [cpa_h.iloc[-1].territorio, float(cpa_h.iloc[-1].por_habitante)], "bajo_hab": [cpa_h.iloc[0].territorio, float(cpa_h.iloc[0].por_habitante)],
+    "pct_pais": r1(cpa_u.millones.sum() / cpa_u.ingresos_totales_millones.sum() * 100),
+    "pct_pais_ini": r1(cpa_ini.nacional_millones.sum() / cpa_ini.ingresos_millones.sum() * 100),
+    "top_pct": [cpa_p.iloc[-1].territorio, r1(cpa_p.iloc[-1].pct_ingresos)], "bajo_pct": [cpa_p.iloc[0].territorio, r1(cpa_p.iloc[0].pct_ingresos)],
+    "mas_mitad": int((coparticipacion.pct_ingresos > 50).sum()),
+    "federal": cpa_fed,
+}
+agregar(coparticipacion.assign(periodo=coparticipacion.anio.astype(str), valor=coparticipacion.por_habitante), "tributos_origen_nacional_por_habitante",
+        "pesos por habitante", "Ministerio de Economia, cuentas provinciales (esquema AIF), e INDEC")
+agregar(coparticipacion.assign(periodo=coparticipacion.anio.astype(str), valor=coparticipacion.pct_ingresos), "tributos_origen_nacional_pct_ingresos",
+        "% de los ingresos totales", "Ministerio de Economia, cuentas provinciales (esquema AIF)")
 
 # Tasa de natalidad por provincia (DEIS), nacidos vivos cada 1.000 habitantes
 na = pd.read_csv(CRUDO / "deis_natalidad.csv", encoding="utf-8-sig")
@@ -6396,6 +6435,7 @@ tablas = {
     "exportaciones_provincias": exp_prov,
     "extranjeros_provincias": extranjeros,
     "fiscal_provincias": fiscal,
+    "coparticipacion_provincias": coparticipacion,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -6779,6 +6819,7 @@ resumen["fiscal"] = {
     "mediana_ini": r1(fisc[fisc.anio == fisc.anio.min()].autonomia.median()),
     "atrasadas": FISC_ATRASADAS,
 }
+resumen["coparticipacion"] = cpa_res
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta

@@ -203,7 +203,7 @@ FRECUENCIA = {
     "f-corte-casos": "anio", "f-jueces-federales": "padron", "f-fiscalias-federales": "ultimo",
     "f-cortes-provinciales": "anio", "f-justicia-provincial": "anio",
     # Gobierno
-    "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio",
+    "f-cuentas-nacion": "mes", "f-recaudacion": "mes", "f-deuda": "trimestre", "f-empleo-publico": "anio", "f-impuestos-provinciales": "anio", "f-coparticipacion": "anio",
     "f-fiscal": "anio",
     # Movilidad
     "f-sube": "mes", "f-sube-modos": "mes", "f-patentes": "mes", "f-patentes-prov": "mes", "f-combustibles": "mes",
