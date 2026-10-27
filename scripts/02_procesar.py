@@ -29,9 +29,30 @@ SITIO.mkdir(parents=True, exist_ok=True)
 largo = []  # filas: codigo_indec, territorio, periodo, variable, valor, unidad, fuente
 
 
+# Unidades y fuentes con sus tildes y escritas siempre igual (plan de mejora, R14): la tabla larga que se descarga traía "millones de
+# dolares" y "millones de dólares", "anios" y "años", "Secretaria de Energia". Se arreglan acá, al sumar cada serie, y
+# pruebas_datos.py controla que cada unidad sea una de las conocidas (UNIDADES) y que no quede ninguna de estas palabras sin tilde
+LG_TILDES = {"anio": "año", "anios": "años", "capitulo": "capítulo", "coordinacion": "coordinación", "dia": "día", "direccion": "dirección",
+             "dolares": "dólares", "economia": "economía", "economica": "económica", "educacion": "educación", "energia": "energía",
+             "estadisticas": "estadísticas", "estimacion": "estimación", "evaluacion": "evaluación", "gestion": "gestión", "indice": "índice",
+             "indices": "índices", "informacion": "información", "meteorologico": "meteorológico", "ocupacion": "ocupación",
+             "perforacion": "perforación", "petroleo": "petróleo", "poblacion": "población", "produccion": "producción",
+             "secretaria": "secretaría", "subsecretaria": "subsecretaría", "tramites": "trámites", "vehiculos": "vehículos", "via": "vía"}
+LG_IGUAL = {"índice 2004=100": "índice, 2004 = 100", "grados C": "grados Celsius", "ha": "hectáreas", "kg por habitante por año": "kilos por habitante por año",
+            "INDEC, intercambio comercial argentino": "INDEC, Intercambio Comercial Argentino"}
+
+
+def lg_texto(s):
+    """"millones de dolares" -> "millones de dólares", "Secretaria de Energia" -> "Secretaría de Energía", "m3" -> "m³"."""
+    s = re.sub(r"[^\W\d_]+", lambda m: (lambda t: t[:1].upper() + t[1:] if m.group(0)[0].isupper() else t)(LG_TILDES.get(m.group(0).lower(), m.group(0).lower()))
+               if m.group(0).lower() in LG_TILDES else m.group(0), str(s))
+    s = re.sub(r"\bm([23])\b", lambda m: "m" + "²³"[int(m.group(1)) - 2], s)
+    return LG_IGUAL.get(s, s)
+
+
 def agregar(df, variable, unidad, fuente):
     d = df.copy()
-    d["variable"], d["unidad"], d["fuente"] = variable, unidad, fuente
+    d["variable"], d["unidad"], d["fuente"] = variable, lg_texto(unidad), lg_texto(fuente)
     largo.append(d[["codigo_indec", "territorio", "periodo", "variable", "valor", "unidad", "fuente"]])
 
 
