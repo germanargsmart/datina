@@ -868,7 +868,9 @@ const TX = {
   "mapa-pozos-nota": `Cada punto es un pozo no convencional que produjo petróleo o gas alguna vez, según la producción por pozo del Capítulo IV, en la ubicación que informa ` +
     `la Secretaría de Energía (en unos pocos pozos la latitud y la longitud vienen cambiadas y se corrigen). El color dice el año en que empezó a producir, y los que no produjeron en ` +
     `${PG.map_mes} van más claros. Las áreas son las concesiones de explotación, con una geometría simplificada: al pasar el mouse por un área se ve lo que produjo en ${PG.areas_anio}. ` +
-    `La vista de la cuenca Neuquina abarca Neuquén, Río Negro, Mendoza y La Pampa.`,
+    `La vista de la cuenca Neuquina abarca Neuquén, Río Negro, Mendoza y La Pampa. ` +
+    `Las cantidades de pozos del texto salen del mismo resumen que la ficha de los pozos en producción, así las dos dicen lo mismo. El listado con la ubicación ` +
+    `de cada pozo se baja aparte y puede tener unos pocos pozos más o menos.`,
   productividad: LEAD.productividad("pozo"),
   "productividad-nota": `Pozos de shale de Vaca Muerta que la producción por pozo del Capítulo IV clasifica como petrolíferos, según el año del primer mes con producción. ` +
     `El primer año son los doce meses desde ese inicio, y los meses sin declaración cuentan como cero. Van solo los años de inicio en los que todos los pozos ya tienen doce meses de historia ` +
@@ -1147,7 +1149,7 @@ const TX = {
     `Según las proyecciones del INDEC, en ${EV.anio_fin} serán ${n1(EV.fin)}, unas ${n1(EV.trab_fin)} por cada una. La relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}).`,
   // la cifra destacada ya dice el total y el promedio del país: el texto va a las provincias
   empresas: `Cada 1.000 habitantes, ${EM.top} tenía ${n1(EM.top_v)} empresas privadas con empleados${conVeces(EM.top_v, EM.pais_1000)} y ${EM.low}, ${n1(EM.low_v)}${conVeces(EM.low_v, EM.pais_1000)}.`,
-  "empresas-nota": `Empresas que declaran personal ante la seguridad social. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni al personal de casas particulares. Una empresa con personal en varias provincias se cuenta en cada una, por eso las provincias suman más que el total del país. La población es la proyección ${R.anio_pob} del INDEC.`,
+  "empresas-nota": `Empresas que declaran personal ante la seguridad social. No incluye a quienes trabajan solos como monotributistas o autónomos sin empleados, ni al personal de casas particulares. Una empresa con personal en varias provincias se cuenta en cada una, por eso las provincias suman más que el total del país, que cuenta a cada empresa una sola vez, en la provincia donde tiene más empleo. La población es la proyección ${R.anio_pob} del INDEC.`,
   // la cifra destacada ya dice cuántas abrieron y cerraron: el texto empieza por las tasas
   dinamica: `En ${EM.ult}, la tasa de entrada de empresas con empleados fue de ${pct(EM.te)} y la de salida, de ${pct(EM.ts)} sobre el total de empresas. ` +
     `El cambio neto fue ${EM.neta >= 0 ? "positivo" : "negativo"}, de ${pct(Math.abs(EM.neta))}, y solo ${EM.positivas === 1 ? "una provincia tuvo" : EM.positivas + " provincias tuvieron"} más aperturas que cierres. ` +
@@ -1275,7 +1277,8 @@ const TX = {
   patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? "menos" : "más"} autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}.`,
   "patentes-nota": `Inscripciones iniciales de vehículos cero kilómetro. Automotores incluye autos, camionetas y vehículos de carga. Los datos de motos empiezan en ${au.motos_ini}.`,
   // la cifra destacada ya dice los autos cada 1.000 habitantes del país: el texto empieza por los extremos
-  "patentes-prov": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). En motos, el promedio del país fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes y el valor más alto, el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar("patentamientos_provincias.motos_1000", au.moto_excluidos)}.`,
+  "patentes-prov": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). En motos, el promedio del país fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes y el valor más alto, el de ${au.moto_top} (${n1(au.moto_top_v)})` +
+    (au.moto_excluidos.length ? `. Los dos van sin contar ${lista(au.moto_excluidos)}: ${au.moto_excluidos.map(t => DIST["patentamientos_provincias.motos_1000"][t].motivo).join(". ")}` : "") + ".",
   "electricidad-provincias": LEAD["electricidad-provincias"]("prov"), "electricidad-provincias-nota": `Demanda residencial que los distribuidores declaran cada mes a CAMMESA, por provincia, ` +
     `dividida por la población de cada año (proyecciones del INDEC desde 2022 y la población implícita en las tasas del SNIC antes). La parte de los hogares se calcula sobre las tres categorías de tarifa ` +
     `que publica CAMMESA: residencial, comercial e industrial o comercial grande. CAMMESA no separa la Ciudad de Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: ` +
@@ -6122,8 +6125,10 @@ const CLAVE = {
   "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`,
     `de las personas, bajo la línea de pobreza en el ${R.pobreza.sem}`],
   "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`, `tarjetas en trenes en ${su.mes}`],
-  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`,
-    `motos en ${au.anio}, ${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`],
+  // sin las motos de las jurisdicciones excluidas en distorsiones.json (E3, 26 de octubre de 2026): el total del país ya viene sin ellas
+  "f-patentes": [n0(au.motos), `motos nuevas se inscribieron en ${au.anio}${au.moto_excluidos.length ? ` (sin contar las de ${lista(au.moto_excluidos)})` : ""}, ` +
+    `${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`,
+    `motos en ${au.anio}${au.moto_excluidos.length ? ` sin ${lista(au.moto_excluidos)}` : ""}, ${au.motos > au.autos ? "más" : "menos"} que autos (${n0(au.autos)})`],
   "f-patentes-prov": [n1(au.pais_1000), `autos nuevos cada 1.000 habitantes en ${au.anio}`, "autos cada 1.000 habitantes en todo el país"],
   "f-visitas-parque": [n0(vpq.top_v), `visitas recibió ${vpq.top}, el parque nacional más visitado en ${vpq.ult}`, `en ${vpq.top} (${vpq.top_lugar}), el más visitado en ${vpq.ult}`],
   "f-pesca": [n0(pe.total), `toneladas de pescados y mariscos desembarcadas en ${pe.anio}`, `toneladas de todas las especies en ${pe.anio}, contra ${n0(pe.total_ini)} en ${pe.ini}`],
@@ -6922,8 +6927,10 @@ const INDP = [
     d:T.censo2022_provincias, k:"internet", pais:nv.censo.internet, f:pct},
   {id:"f-exportaciones", g:"economia", lab:"Exportaciones", veces:true, det:`dólares por habitante, ${nv.ex_anio}`,
     d:T.exportaciones_provincias, k:"usd_por_habitante", pais:nv.ex_pc_pais, f:n0},
-  {id:"f-fiscal", g:"gobierno", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}`,
-    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.mediana, f:pct},
+  // el país: las cuentas de las provincias y CABA sumadas (26 de octubre de 2026). Hasta entonces mostraba la mediana como si fuera el país
+  {id:"f-fiscal", g:"gobierno", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}. El país suma las cuentas de ` +
+    `todas las provincias y CABA${R.fiscal.pais_sin.length ? `, sin ${lista(R.fiscal.pais_sin)}` : ""}`,
+    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.pais, f:pct},
   {id:"f-eti", g:"turismo", lab:"Turistas extranjeros", det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
   {id:"f-gas-hogares", g:"energia", lab:"Gas de red para cocinar", veces:"debajo", det:"% de los hogares, Censo 2022",
@@ -7160,7 +7167,7 @@ const PREG = [
   ["¿Qué es lo que más se pesca en el mar argentino?",
    `${pe.top[0]}: ${n0(pe.top_t[0])} toneladas en ${pe.anio}, el ${pct(pe.top_pct)} de todo lo desembarcado.`, "#f-pesca"],
   ["¿Se patentan más autos o más motos?",
-   `En ${au.anio} se inscribieron ${n0(au.motos)} motos nuevas y ${n0(au.autos)} autos.`, "#f-patentes"],
+   `En ${au.anio} se inscribieron ${n0(au.motos)} motos nuevas${au.moto_excluidos.length ? ` (sin contar las de ${lista(au.moto_excluidos)})` : ""} y ${n0(au.autos)} autos.`, "#f-patentes"],
   ["¿Volvieron los pasajeros al tren y al subte?",
    `En ${su.mes} viajaban por día hábil ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? "menos" : "más"} tarjetas en tren y ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? "menos" : "más"} en subte que en marzo de 2020.`, "#f-sube-modos"],
   [`¿Cuántos bebés se llamaron Lionel en ${cu.lionel_anio}?`,

@@ -11,6 +11,10 @@ Qué revisan:
   5. Indicadores con más de una fuente y diferencia mayor al 2%.
   6. Mandatos presidenciales sin huecos ni superposiciones.
   7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
+  8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
+     nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2). El total de motos sin las jurisdicciones excluidas (E3) va en
+     las sumas de control. Los pozos no convencionales del mismo mes, iguales en la ficha de pozos y en el mapa (E13). El valor del país de los
+     recursos propios provinciales, que no puede ser la mediana.
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -126,7 +130,10 @@ def prueba_sumas(d, t):
     pp = pd.DataFrame(d["datos"]["patentamientos_provincias"])
     anio_p = int(pa.index.max())
     for col in ("autos", "motos"):
-        s, n = pp[col].sum(), pa.loc[anio_p, col]
+        # E3 (26 de octubre de 2026): las jurisdicciones marcadas "excluir" en distorsiones.json no entran en el total del país. Con
+        # las motos de Tierra del Fuego de 2025 adentro, el país sumaba 4,6% más que las demás provincias
+        excl = [t_ for t_, x in d["resumen"]["distorsiones"].get(f"patentamientos_provincias.{col}_1000", {}).items() if x["accion"] == "excluir"]
+        s, n = pp[~pp.territorio.isin(excl)][col].sum(), pa.loc[anio_p, col]
         if abs(s / n - 1) > .01:
             sale.append((f"total|patentamientos_{col}", f"patentamientos de {col} {anio_p}: las provincias suman {s:,.0f} y el país {n:,.0f}"))
     sp = pd.DataFrame(d["datos"]["suicidio_provincias"]); ss = pd.DataFrame(d["datos"]["suicidio_serie"]).set_index("anio")
@@ -420,9 +427,57 @@ def prueba_corte(d, t):
     return sale
 
 
+# ---------------------------------------------------------------- 8. errores que ya pasaron (26 de octubre de 2026)
+# Cada error de dato que encontró la auditoría del 26 de octubre de 2026 (docs/roadmap/PLAN_MEJORA.md, sección 1) deja acá su prueba.
+# E1: la copia de ¿Cómo Votó? les puso a los diputados del PRO de CABA y de Buenos Aires el bloque "Partido Bloquista de San Juan" en
+# 2012 y 2013. Un bloque cuyo nombre lleva una provincia (o su gentilicio) no puede tener legisladores de otra. "Buenos Aires" no
+# entra: lo usan bloques de CABA y de la provincia
+BLOQUE_PROVINCIA = [(r"san juan|sanjuanin", "San Juan"), (r"neuquin", "Neuquén"), (r"fuegui", "Tierra del Fuego"), (r"santiago", "Santiago del Estero"),
+                    (r"\bsalta\b|salteñ", "Salta"), (r"catamarca", "Catamarca"), (r"c[oó]rdoba|cordobes", "Córdoba"), (r"corrientes|correntin", "Corrientes"),
+                    (r"mendoza|mendocin", "Mendoza"), (r"misiones|misioner", "Misiones"), (r"r[ií]o negro|rionegrin", "Río Negro"),
+                    (r"santa cruz", "Santa Cruz"), (r"santa fe|santafesin", "Santa Fe"), (r"san luis|puntan", "San Luis"), (r"tucum[aá]n", "Tucumán"),
+                    (r"chubut", "Chubut"), (r"entre r[ií]os|entrerrian", "Entre Ríos"), (r"la pampa", "La Pampa"), (r"jujuy|jujeñ", "Jujuy"),
+                    (r"formos", "Formosa"), (r"chaco|chaqueñ", "Chaco"), (r"la rioja|riojan", "La Rioja"), (r"bonaerense", "Buenos Aires")]
+
+
+def prueba_errores(d, t):
+    import re
+    sale = []
+    vt = pd.read_csv(SITIO / "datos" / "votaciones_leyes_clave.csv")
+    for (bloque, prov), g in vt.groupby(["bloque", "provincia"]):
+        dueña = next((p for rx, p in BLOQUE_PROVINCIA if re.search(rx, str(bloque).lower())), None)
+        if dueña and prov != dueña:
+            sale.append((f"bloque|{bloque}|{prov}", f"el bloque «{bloque}» tiene {len(g)} votos de legisladores de {prov} ({', '.join(sorted(set(g.ley)))[:120]})"))
+    # E2: el total de empresas del país no puede salir de sumar las provincias, que cuentan una vez en cada una a la empresa con personal
+    # en varias (lo dice la nota metodológica del OEDE). El total sin doble conteo es menor que esa suma
+    em = d["resumen"].get("empresas")
+    if em:
+        suma = sum(f["empresas"] for f in d["datos"]["empresas_provincias"])
+        if em["total_pais"] >= suma:
+            sale.append(("total-doble|empresas", f"empresas: el total del país ({em['total_pais']:,}) no es menor que la suma de las provincias ({suma:,.0f})"))
+    # E13: la ficha de pozos y el mapa de los pozos no convencionales cuentan lo mismo cuando hablan del mismo mes (con agosto de 2026
+    # daban 2.922 y 2.918 pozos de shale, de dos archivos bajados en días distintos)
+    pg = d["resumen"]["petroleo"]
+    if pg["pozos_mes"] == pg["map_mes"]:
+        for k in ("shale", "tight"):
+            if pg[f"map_{k}"] != pg[f"pozos_{k}"]:
+                sale.append((f"pozos|{k}", f"pozos de {k} en {pg['pozos_mes']}: la ficha de pozos dice {pg[f'pozos_{k}']:,} y el mapa {pg[f'map_{k}']:,}"))
+        if pg["map_activos"] != pg["pozos_shale"] + pg["pozos_tight"]:
+            sale.append(("pozos|activos", f"pozos no convencionales en {pg['pozos_mes']}: el mapa dice {pg['map_activos']:,} y la ficha de pozos suma {pg['pozos_shale'] + pg['pozos_tight']:,}"))
+    # recursos propios: el valor del país del perfil provincial era la mediana de las provincias. Tiene que ser el de las provincias
+    # sumadas, que queda entre la más baja y la más alta y no es la mediana
+    fi = d["resumen"]["fiscal"]
+    vals = [f["autonomia"] for f in d["datos"]["fiscal_provincias"] if f["anio"] == fi["anio"]]
+    if "pais" not in fi:
+        sale.append(("fiscal|pais", "recursos propios: el resumen no tiene el valor del país (las provincias sumadas)"))
+    elif not min(vals) <= fi["pais"] <= max(vals) or fi["pais"] == fi["mediana"]:
+        sale.append(("fiscal|pais", f"recursos propios: el valor del país ({fi['pais']}) no es el de las provincias sumadas (mediana {fi['mediana']}, de {min(vals):.1f} a {max(vals):.1f})"))
+    return sale
+
+
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
-           ("La Corte Suprema", prueba_corte)]
+           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores)]
 
 
 def correr(mostrar=True):

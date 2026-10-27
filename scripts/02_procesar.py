@@ -869,6 +869,14 @@ pat_prov["autos_1000"] = pat_prov.autos / pat_prov.codigo_indec.map(POB) * 1000
 pat_prov["motos_1000"] = pat_prov.motos / pat_prov.codigo_indec.map(POB) * 1000
 pat_prov["territorio"] = pat_prov.codigo_indec.map(CORTO)
 assert pat_prov.territorio.notna().all() and len(pat_prov) == 24, "Faltan provincias en los patentamientos"
+# Las motos de las jurisdicciones marcadas "excluir" en datos/manual/distorsiones.json (E3 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre
+# de 2026): el dato de Tierra del Fuego de 2025 es decenas de veces el de los otros años, probablemente un error del dato abierto. El
+# total del país del año de la ficha (ANIO_AU) y su tasa van sin ellas, como el gráfico por provincia. La marca es manual y vale para
+# ANIO_AU: cuando el año completo más reciente ya no tenga el error, hay que sacarla de distorsiones.json
+MOTOS_EXCL = EXCLUIR("patentamientos_provincias.motos_1000")
+_motos_excl = pat_prov.codigo_indec.isin(MOTOS_EXCL)
+patent.loc[patent.anio == ANIO_AU, "motos"] -= float(pat_prov[_motos_excl].motos.sum())
+MOTOS_PAIS_1000 = pat_prov[~_motos_excl].motos.sum() / (POB_PAIS - sum(POB[c] for c in MOTOS_EXCL)) * 1000
 for col, var in [("autos", "autos_nuevos_inscriptos"), ("motos", "motos_nuevas_inscriptas")]:
     d = patent[["anio", col]].dropna().rename(columns={"anio": "periodo", col: "valor"})
     d["codigo_indec"], d["territorio"] = "00", "Argentina"
@@ -1799,9 +1807,19 @@ if (CRUDO / "oede_empresas_provincias.xlsx").exists():
     _e = empresas.sort_values("cada_1000_hab")
     _n = empresas.sort_values(f"tasa_neta_{_ult}")
     _neg = [int(a_) for a_ in _es.index if _es.tasa_neta[a_] < 0]
-    emp_res = {"anio": _anio_emp, "ult": _ult, "total_pais": int(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot])),
+    # El total del país sin doble conteo (E2 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre de 2026). La fila Total del cuadro 1 suma las
+    # provincias, y una empresa con personal en varias cuenta en cada una. Según la nota metodológica del OEDE, cada empresa es "local"
+    # en una sola provincia, la de más empleo: el total de las empresas locales del cuadro 2 es la cantidad de empresas del país
+    _t2 = _xo.parse("T2", header=None)
+    _f_loc = _t2.index[_t2.apply(lambda r: r.astype(str).str.strip().eq("Locales").any(), axis=1)][0]
+    _c_loc = [j for j in range(_t2.shape[1]) if str(_t2.iat[_f_loc, j]).strip() == "Locales"][0]
+    _c_tot2 = [j for j in range(_c_loc, _t2.shape[1]) if str(_t2.iat[_f_loc + 1, j]).strip() == "Total"][0]
+    EMP_PAIS = int(float(_t2[_t2[0].astype(str).str.strip() == "Total"].iloc[0, _c_tot2]))
+    EMP_SUMA = int(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot]))
+    assert EMP_PAIS < EMP_SUMA, f"OEDE: las empresas locales del país ({EMP_PAIS}) no dan menos que la suma de las provincias ({EMP_SUMA})"
+    emp_res = {"anio": _anio_emp, "ult": _ult, "total_pais": EMP_PAIS, "suma_provincias": EMP_SUMA,
                "top": _e.iloc[-1].territorio, "top_v": r1(_e.cada_1000_hab.max()), "low": _e.iloc[0].territorio, "low_v": r1(_e.cada_1000_hab.min()),
-               "pais_1000": round(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot]) / POB_PAIS * 1000, 1),
+               "pais_1000": round(EMP_PAIS / POB_PAIS * 1000, 1),
                "ap": int(_es.aperturas[_ult]), "ci": int(_es.cierres[_ult]), "te": r1(_es.tasa_entrada[_ult]), "ts": r1(_es.tasa_salida[_ult]),
                "neta": r1(_es.tasa_neta[_ult]), "neta_top": _n.iloc[-1].territorio, "neta_top_v": r1(_n[f"tasa_neta_{_ult}"].max()),
                "neta_low": _n.iloc[0].territorio, "neta_low_v": r1(_n[f"tasa_neta_{_ult}"].min()),
@@ -1885,7 +1903,8 @@ for hoja in xl.sheet_names[1:]:
             continue
         fisc.append({"codigo_indec": cod, "anio": a, "autonomia": (v(ic) - v(nac) - v(trc) + v(rpc)) / v(tot) * 100,
                      "resultado": v(res) / v(tot) * 100, "personal": v(per) / v(gas) * 100,
-                     "regalias": v(reg_f) / v(tot) * 100, "regalias_millones": v(reg_f), "ird_millones": v(ird_f), "ingresos_millones": v(tot)})
+                     "regalias": v(reg_f) / v(tot) * 100, "regalias_millones": v(reg_f), "ird_millones": v(ird_f), "ingresos_millones": v(tot),
+                     "propios_millones": v(ic) - v(nac) - v(trc) + v(rpc)})
 fisc = pd.DataFrame(fisc)
 assert fisc.codigo_indec.nunique() == 24, "Faltan provincias en las cuentas fiscales"
 # ultimo anio con dato para al menos 20 provincias. Las que todavia no lo publicaron van con su ultimo anio disponible
@@ -2184,6 +2203,20 @@ _act_nq = pozos_nc[_activo].provincia.map(lambda t: codigo(t)).eq("58")
 MAP_CORTES = [2015, 2018, 2021, _ult_nc.year - 2]  # cinco grupos por año de inicio: hasta 2015, 2016 a 2018, ...
 assert MAP_CORTES[2] < MAP_CORTES[3], "los grupos de años del mapa se superponen"
 _top_areas = pozos_nc[_activo].groupby("area").size().sort_values(ascending=False).head(3)
+# Los pozos no convencionales en producción que cuentan los textos (E13 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre de 2026). El listado
+# con ubicación (se_pozos_nc.csv) y el resumen por tipo (se_pozos_resumen.csv) se bajan por separado y, si se bajan en días distintos,
+# para el mismo mes cuentan unos pozos más o menos: con agosto de 2026, 2.918 y 2.922 de shale. Si llegan al mismo mes, las cantidades
+# de las dos fichas salen del resumen, el mismo de la ficha de pozos. Los puntos y las áreas del mapa siguen saliendo del listado
+_nc_prov = pozos_prov.set_index("codigo_indec")[["shale", "tight"]].sum(axis=1)
+if str(_ult_nc) == PO_ULT:
+    MAP_CUENTA = {"activos": int(_pt.pozos[["shale", "tight"]].sum()), "shale": int(_pt.pozos["shale"]), "tight": int(_pt.pozos["tight"]),
+                  "pct_nq": r1(_nc_prov.get("58", 0) / _nc_prov.sum() * 100),
+                  "otras": [[CORTO[c], int(n)] for c, n in _nc_prov[_nc_prov > 0].sort_values(ascending=False).items() if c not in ("58", "62", "50", "42", MAR)]}
+else:
+    MAP_CUENTA = {"activos": int(_activo.sum()), "shale": int((pozos_nc[_activo].recurso == "Shale").sum()),
+                  "tight": int((pozos_nc[_activo].recurso == "Tight").sum()), "pct_nq": r1(_act_nq.mean() * 100),
+                  "otras": [[CORTO[c], int(n)] for c, n in pozos_nc[_activo].provincia.map(lambda t: codigo(t)).value_counts().items()
+                            if c not in ("58", "62", "50", "42")]}
 _ap = pd.read_csv(CRUDO / "se_produccion_areas.csv")
 AREAS_ANIO = int(_ap.anio.max()) - 1  # el último año completo
 # Producción por área de concesión (etapa 21, como las páginas por yacimiento de Norsk Petroleum): las áreas que produjeron petróleo o gas
@@ -5655,6 +5688,15 @@ for cam, arch in [("Diputados", "diputados"), ("Senado", "senadores")]:
 votos = pd.concat(_filas_v, ignore_index=True)
 votos = votos.merge(pd.DataFrame(_meta_v, columns=["camara", "vid", "fecha"]), on=["camara", "vid"])
 votos["codigo_indec"] = votos.codigo_indec.where(votos.codigo_indec.isin(DIP_LEY))
+# La copia les pone el bloque "Partido Bloquista de San Juan" a los 13 diputados del PRO de CABA y de Buenos Aires en todas las actas
+# del 30 de noviembre de 2011 al 28 de noviembre de 2013 (E1 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre de 2026). Son los mismos
+# diputados que antes figuran como "Propuesta Republicana" y desde 2014 como "Unión PRO", y en esos años ningún diputado de San Juan
+# tiene ese bloque. Van con el bloque que la misma fuente les da después, y su espacio sale de ese bloque. pruebas_datos.py controla
+# que un bloque con el nombre de una provincia no tenga legisladores de otra
+_bq_mal = ((votos.camara == "Diputados") & (votos.bloque == "Partido Bloquista de San Juan") & (votos.codigo_indec != "70")
+           & votos.fecha.between(pd.Timestamp("2011-11-30"), pd.Timestamp("2013-11-28")))
+votos.loc[_bq_mal, "bloque"] = "Unión PRO"
+votos.loc[_bq_mal, "espacio"] = espacio_leg("Unión PRO", familia("Unión PRO"))
 votos.loc[votos.bloque.str.upper().str.contains("FRENTE DE TODOS") & (votos.fecha < FDT_HASTA), "espacio"] = "UCR y aliados"  # ver FDT_HASTA
 
 # Espacio del gobierno nacional en cada fecha (presidentes desde 1989). En el gobierno de Macri, el PRO y la alianza
@@ -6643,7 +6685,7 @@ resumen = {
         "moto_top": pat_prov[~pat_prov.codigo_indec.isin(EXCLUIR("patentamientos_provincias.motos_1000"))].sort_values("motos_1000").iloc[-1].territorio,
         "moto_top_v": r1(pat_prov[~pat_prov.codigo_indec.isin(EXCLUIR("patentamientos_provincias.motos_1000"))].motos_1000.max()),
         "moto_excluidos": [CORTO[c] for c in EXCLUIR("patentamientos_provincias.motos_1000")],
-        "pais_1000": r1(pat_prov.autos.sum() / POB_PAIS * 1000), "motos_pais_1000": r1(pat_prov.motos.sum() / POB_PAIS * 1000),
+        "pais_1000": r1(pat_prov.autos.sum() / POB_PAIS * 1000), "motos_pais_1000": r1(MOTOS_PAIS_1000),
     },
 }
 
@@ -6655,10 +6697,15 @@ _ex_t, _ex_b = top_bot(exp_prov, "usd_por_habitante")
 _in_t, _in_b = top_bot(internet_fijo, "accesos_100_hogares")
 _ve_t, _ve_b = top_bot(internet_fijo, "mbps")
 _fa_t, _fa_b = top_bot(fiscal, "autonomia")
+# El valor del país de los recursos propios (26 de octubre de 2026, plan de mejora): las provincias y CABA juntas, los recursos propios
+# sumados sobre los ingresos totales sumados, solo con las jurisdicciones que tienen el año de la ficha (sumar pesos de años distintos no
+# sirve). El perfil lo mostraba como "País" y era la mediana de las provincias, que sigue en "En cifras" y en la cifra destacada
+_fc = fisc[fisc.anio == ANIO_FISC]
 resumen["fiscal"] = {
     "anio": ANIO_FISC, "top": _fa_t.territorio, "top_v": r1(_fa_t.autonomia), "low": _fa_b.territorio, "low_v": r1(_fa_b.autonomia),
     "deficit": int((fiscal.resultado < 0).sum()), "superavit": int((fiscal.resultado > 0).sum()),
     "mediana": r1(fiscal.autonomia.median()), "ini": int(fisc.anio.min()),
+    "pais": r1(_fc.propios_millones.sum() / _fc.ingresos_millones.sum() * 100), "pais_sin": sorted(CORTO[c] for c in set(fiscal.codigo_indec) - set(_fc.codigo_indec)),
     "mediana_ini": r1(fisc[fisc.anio == fisc.anio.min()].autonomia.median()),
     "atrasadas": FISC_ATRASADAS,
 }
@@ -6772,10 +6819,9 @@ resumen["petroleo"] = {
     "rama_m_ult": round(float(_pvd_m.rama_m[COS_ULT])), "rama_m_bpm_max": round(float(_pvd_m.rama_m[_pvd_m.bbl_por_1000m.idxmax()])),
     "curvas": COS_CURVAS, "curva12_ult": r1(_cv[f"c{COS_ULT}"][12]), "curva12_ini": r1(_cv[f"c{COS_CURVAS[0]}"][12]),
     # mapa de los pozos no convencionales y de las áreas de concesión
-    "map_n": int(len(pozos_nc)), "map_activos": int(_activo.sum()), "map_mes": mes_txt(str(_ult_nc)), "map_pct_nq": r1(_act_nq.mean() * 100),
+    "map_n": int(len(pozos_nc)), "map_activos": MAP_CUENTA["activos"], "map_mes": mes_txt(str(_ult_nc)), "map_pct_nq": MAP_CUENTA["pct_nq"],
     "map_top_areas": [[a, int(n)] for a, n in _top_areas.items()], "map_cortes": MAP_CORTES, "map_ini": int(pozos_nc.inicio.str[:4].astype(int).min()),
-    "map_otras": [[CORTO[c], int(n)] for c, n in pozos_nc[_activo].provincia.map(lambda t: codigo(t)).value_counts().items() if c not in ("58", "62", "50", "42")],
-    "map_shale": int((pozos_nc[_activo].recurso == "Shale").sum()), "map_tight": int((pozos_nc[_activo].recurso == "Tight").sum()), "areas_anio": AREAS_ANIO,
+    "map_otras": MAP_CUENTA["otras"], "map_shale": MAP_CUENTA["shale"], "map_tight": MAP_CUENTA["tight"], "areas_anio": AREAS_ANIO,
     # reservas
     "res_anio": int(RV_ULT.anio), "res_ini": int(RV_INI.anio), "res_pet": round(float(RV_ULT.pet_millones_m3)), "res_bbl": r1(RV_ULT.pet_miles_millones_bbl),
     "res_gas": round(float(RV_ULT.gas_miles_millones_m3)), "res_hor_pet": r1(RV_ULT.horizonte_pet), "res_hor_gas": r1(RV_ULT.horizonte_gas),
