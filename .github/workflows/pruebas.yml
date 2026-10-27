@@ -47,5 +47,7 @@ jobs:
       - name: Version de Chrome
         run: google-chrome --version
       - run: node scripts/prueba_paginas.mjs
+      # la cifra destacada de cada ficha, en su vista inicial (plan de mejora, E11 y T7): poco más de un minuto
+      - run: node scripts/prueba_cifras.mjs
       - run: node scripts/prueba_fallas.mjs
       - run: node scripts/prueba_consulta_ia.mjs
