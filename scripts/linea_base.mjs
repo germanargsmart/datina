@@ -24,7 +24,7 @@ mkdirSync(SALIDA, { recursive: true });
 
 const PAGINAS = [
   ["portada", "index.html"], ["seccion", "trabajo.html"], ["perfil", "provincia.html?prov=58"], ["ficha", "petroleo.html#f-hidro-provincias"],
-  ["articulo", "a-milei-empleo.html"], ["buscador", "index.html", "document.getElementById('lupa-btn').click()"],
+  ["articulo", "a-cloacas-mortalidad.html"], ["buscador", "index.html", "document.getElementById('lupa-btn').click()"],
   ["explorador", "relaciones.html"], ["pobreza", "pobreza/"],
 ];
 const ANCHOS = [320, 360, 390, 430, 768, 1024, 1280, 1440, 1920];

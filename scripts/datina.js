@@ -7658,12 +7658,6 @@ const ART = [
     limites: ["La inversión está en pesos del año del dato, sin ajustar por lo que cuesta vivir en cada provincia ni por el tamaño de las escuelas: donde hay pocos alumnos por escuela o los salarios son más altos, cada alumno cuesta más.",
       "Aprender evalúa a los alumnos de 6° grado de las escuelas estatales y privadas, y la inversión cuenta solo a los de las escuelas estatales.",
       "Los resultados de Aprender son un cálculo propio de Datina sobre la base agregada y difieren levemente de los del informe oficial."]},
-  {id: "a-milei-empleo", x: "empleo_privado", y: "voto_milei_2023", espera: 1, frec: "El empleo se actualiza cada mes",
-    lx: "empleo privado registrado", ly: "voto a Milei en la segunda vuelta", ux: "asalariados cada 100 habitantes", uy: "% de los votos a las dos fórmulas",
-    dek: "Cómo se repartió el voto de la segunda vuelta presidencial según el peso del empleo privado registrado en cada provincia.",
-    contexto: "La segunda vuelta presidencial enfrentó a dos fórmulas con propuestas económicas distintas. Este cruce describe cómo se repartió el voto según el peso del empleo privado registrado en cada provincia, sin juzgar las razones de cada elector.",
-    limites: ["Votan todas las personas habilitadas, y el empleo privado registrado cubre solo a una parte de quienes trabajan.",
-      "El resultado es el del escrutinio provisorio, el único publicado como datos abiertos para esa elección.", "El Sistema Integrado Previsional Argentino (SIPA) asigna cada empleo a la provincia donde está inscripto el empleador. Por eso CABA aparece muy alta, aunque parte de esos trabajos se hagan en otras provincias."]},
 ];
 const META_CX = Object.fromEntries(R.cruces.map(m => [m.id, m]));
 // cada artículo de cruces usa la tabla de las provincias o, con tabla: "capitales", la de las 24 capitales (etapa 26), con su metadato y su
@@ -7941,7 +7935,7 @@ const ART_SERIE = [{
   // etapa 5 del plan de mejora: la fórmula más votada en cada provincia en cada vuelta presidencial desde 1983 (auditoría de los artículos,
   // idea 7). Sale del resumen de las elecciones (gan_prov, 02_procesar.py), sin bajar la tabla de los resultados
   id: "a-ganador-provincias", frec: "Se actualiza con cada elección", tablas: [],
-  dek: "Qué fórmula sacó más votos en cada provincia en cada primera vuelta y cada balotaje presidencial desde 1983, qué provincias votaron siempre como el país y en cuáles ganó siempre el mismo espacio.",
+  dek: "Qué fórmula sacó más votos en cada provincia en cada primera y segunda vuelta presidencial desde 1983, qué provincias votaron siempre como el país y en cuáles ganó siempre el mismo espacio.",
   fichas: [["f-elecciones", "elecciones presidenciales"], ["f-congreso", "composición del Congreso"]],
   csv: [["elecciones_presidenciales", "Descargar CSV de los resultados"]],
   fuentes: "Dirección Nacional Electoral, resultados de las elecciones presidenciales por provincia",
@@ -7951,14 +7945,14 @@ const ART_SERIE = [{
     const coinc = c => E.filter(e => e.gan_prov[c] === e.ganador).length, nom = c => NOMBRES[c];
     const siempre = cods.filter(c => coinc(c) === n), menos = Math.min(...cods.map(coinc)), lasMenos = cods.filter(c => coinc(c) === menos);
     const fieles = d3.groups(cods.filter(c => new Set(E.map(e => esp(e, c))).size === 1), c => esp(E[0], c));
-    const primeras = E.filter(e => e.vuelta === 1).length, balotajes = E.filter(e => e.vuelta === 2).map(e => e.anio);
+    const primeras = E.filter(e => e.vuelta === 1).length, segundas = E.filter(e => e.vuelta === 2).map(e => e.anio);
     const respuesta = siempre.length
       ? `${listaY(siempre.map(nom))} ${siempre.length > 1 ? "votaron" : "votó"} a la fórmula más votada del país en las ${n} vueltas desde ${ini}.`
       : `Ninguna provincia votó a la fórmula más votada del país en todas las vueltas desde ${ini}.`;
     const bajada = fieles.map(([k, cs]) => `En ${listaY(cs.map(nom))}, la más votada fue siempre una fórmula ${k === "Peronismo" ? "del peronismo" : `de ${k}`}.`).join(" ") +
       ` ${listaY(lasMenos.map(nom))} ${lasMenos.length > 1 ? "son las que menos coincidieron" : "es la que menos coincidió"} con el país: en ${menos} de las ${n} vueltas.`;
-    const contexto = `Desde ${ini} hubo ${primeras} elecciones presidenciales. En ${listaY(balotajes.map(String))} hubo además una segunda vuelta, el balotaje, ` +
-      "entre las dos fórmulas más votadas. En 2003 no hubo balotaje: la fórmula más votada en la primera vuelta no se presentó a la segunda, y asumió la " +
+    const contexto = `Desde ${ini} hubo ${primeras} elecciones presidenciales. En ${listaY(segundas.map(String))} hubo además una segunda vuelta ` +
+      "entre las dos fórmulas más votadas. En 2003 no hubo segunda vuelta: la fórmula más votada en la primera no se presentó a la segunda, y asumió la " +
       "segunda más votada. Este artículo muestra, para cada provincia y cada vuelta, qué fórmula sacó más votos, y si coincidió con la más votada del país.";
     // la provincia que más veces cambió de espacio, en las primeras vueltas
     const cambios = c => E.filter(e => e.vuelta === 1).reduce((s, e, i, l) => s + (i && esp(e, c) !== esp(l[i - 1], c) ? 1 : 0), 0);
@@ -7967,10 +7961,11 @@ const ART_SERIE = [{
       `de espacio político entre una elección y la siguiente: ${maxC} veces en ${primeras} elecciones.`;
     const lim = ["Muestra la fórmula más votada, no por cuánto ganó: una provincia puede figurar con una fórmula que sacó apenas un voto más que la segunda.",
       "Los espacios agrupan partidos y alianzas afines, con la misma clasificación propia que la composición del Congreso. Una misma fórmula pudo tener otro nombre en cada elección.",
-      "Hasta 1989 el presidente lo elegía un colegio electoral, con electores votados en cada provincia. Desde 1995 se elige por voto directo, con balotaje si ninguna fórmula llega a los votos que pide la Constitución.",
-      "Los porcentajes son sobre los votos positivos, sin contar los votos en blanco ni los nulos."];
-    // las claves de los años llevan un "_" (se ve como espacio): con un año solo, el navegador las ordena antes que las de los balotajes
-    const filas = cods.map(c => ({codigo_indec: c, territorio: nom(c), ...Object.fromEntries(E.map(e => [e.anio + (e.vuelta === 2 ? "_balotaje" : "_"), e.gan_prov[c]])),
+      "Hasta 1989 el presidente lo elegía un colegio electoral, con electores votados en cada provincia. Desde 1995 se elige por voto directo, con segunda vuelta si ninguna fórmula llega a los votos que pide la Constitución.",
+      "Los porcentajes son sobre los votos positivos, sin contar los votos en blanco ni los nulos.",
+      ...(E.some(e => e.provisorio) ? [`En ${listaY([...new Set(E.filter(e => e.provisorio).map(e => String(e.anio)))])}, los resultados son los del escrutinio provisorio, porque el definitivo no está publicado como datos abiertos.`] : [])];
+    // las claves de los años llevan un "_" (se ve como espacio): con un año solo, el navegador las ordena antes que las de las segundas vueltas
+    const filas = cods.map(c => ({codigo_indec: c, territorio: nom(c), ...Object.fromEntries(E.map(e => [e.anio + (e.vuelta === 2 ? "_segunda_vuelta" : "_"), e.gan_prov[c]])),
       "como_el_país": coinc(c)})).sort((a, b) => b["como_el_país"] - a["como_el_país"] || a.territorio.localeCompare(b.territorio));
     const nomT = "la fórmula más votada en cada provincia";
     const tabla = tablaDatos(filas, "a-ganador-provincias").replace('aria-label="Tabla: Datos"', `aria-label="Tabla: ${nomT}"`).replace(">Datos</caption>", `>${mayusc(nomT)}</caption>`);
@@ -7979,7 +7974,7 @@ const ART_SERIE = [{
     return {respuesta, bajada, contexto, lim, secciones: [
       {g: "ganadores", tit: "La fórmula más votada en cada provincia, por elección", forma: "bloque", alto: "560px", antes: ley,
         despues: `<details class="nota-calculo"><summary>Ver la tabla</summary>${tabla}</details>`,
-        pie: `Cada cuadro es la fórmula más votada en esa provincia, con el color de su espacio. «b»: balotaje. A la derecha, en cuántas de las ${n} vueltas coincidió con la más votada del país.`, txt: [s1]},
+        pie: `Cada cuadro es la fórmula más votada en esa provincia, con el color de su espacio. «·2»: segunda vuelta. A la derecha, en cuántas de las ${n} vueltas coincidió con la más votada del país.`, txt: [s1]},
     ]};
   },
   dib: {
@@ -7989,17 +7984,18 @@ const ART_SERIE = [{
       const coinc = c => E.filter(e => e.gan_prov[c] === e.ganador).length;
       const filas = cods.map(c => ({c, k: coinc(c), t: NOMBRES[c]})).sort((a, b) => b.k - a.k || a.t.localeCompare(b.t));
       const angosto = el.clientWidth < 520, l = angosto ? 112 : 150, alto = 22 * filas.length + 30;
-      const arriba = angosto ? 36 : 26, C = lienzo(el, alto + arriba - 26, {t: arriba, r: 30, b: 4, l}), {g, iw} = C;
+      // los años de las columnas, en dos filas alternadas para que no se pisen
+      const arriba = 36, C = lienzo(el, alto + arriba - 26, {t: arriba, r: 30, b: 4, l}), {g, iw} = C;
       const x = d3.scaleBand().domain(E.map(e => e.id)).range([0, iw]).paddingInner(.12), y = d3.scaleBand().domain(filas.map(f => f.c)).range([0, 22 * filas.length]).paddingInner(.14);
       g.selectAll("text.col").data(E).join("text").attr("class", "etq-suave").attr("text-anchor", "middle").attr("x", e => x(e.id) + x.bandwidth() / 2)
-        .attr("y", (e, i) => angosto && i % 2 === 0 ? -22 : -10)
-        .text(e => (angosto ? String(e.anio).slice(2) : e.anio) + (e.vuelta === 2 ? "b" : ""));
+        .attr("y", (e, i) => i % 2 === 0 ? -22 : -10)
+        .text(e => (angosto ? String(e.anio).slice(2) : e.anio) + (e.vuelta === 2 ? "·2" : ""));
       g.selectAll("text.fila").data(filas).join("text").attr("class", "etq").attr("text-anchor", "end").attr("x", -8).attr("y", f => y(f.c) + y.bandwidth() / 2 + 4).text(f => f.t);
       g.selectAll("text.k").data(filas).join("text").attr("class", "etq-suave").attr("x", iw + 8).attr("y", f => y(f.c) + y.bandwidth() / 2 + 4).text(f => f.k);
       const celdas = filas.flatMap(f => E.map(e => ({f, e, esp: esp(e, f.c)})));
       g.selectAll("rect").data(celdas).join("rect").attr("x", d => x(d.e.id)).attr("y", d => y(d.f.c)).attr("width", x.bandwidth()).attr("height", y.bandwidth())
         .attr("rx", 2).attr("fill", d => ESP_COLOR[d.esp] || ESP_COLOR["Otras fuerzas"])
-        .on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.f.t}, ${d.e.anio}${d.e.vuelta === 2 ? ", balotaje" : ""}</b><br>${d.e.gan_prov[d.f.c]} (${d.esp})` +
+        .on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.f.t}, ${d.e.anio}${d.e.vuelta === 2 ? ", segunda vuelta" : ""}</b><br>${d.e.gan_prov[d.f.c]} (${d.esp})` +
           `<br>${d.e.gan_prov[d.f.c] === d.e.ganador ? "Como en el país" : `En el país: ${d.e.ganador}`}`, l + x(d.e.id) + x.bandwidth() / 2, arriba + y(d.f.c)))
         .on("pointerleave", ocultarSiMouse);
     },
@@ -8200,7 +8196,7 @@ const ART_SERIE = [{
     const contexto = "La Nación cobra los impuestos que más recaudan, como el IVA y Ganancias, y reparte una parte con las provincias. Las reglas " +
       "están en la ley de coparticipación federal, la 23.548, de 1988. Primero divide lo recaudado entre la Nación y el conjunto de las provincias, " +
       "y después lo reparte entre las provincias con un porcentaje fijo para cada una, que no cambia con su población ni con lo que recauda. CABA y " +
-      "Tierra del Fuego no figuran en esos porcentajes, porque en 1988 la Ciudad no era autónoma y Tierra del Fuego era territorio nacional: su parte " +
+      "Tierra del Fuego no figuran en esos porcentajes, porque en 1988 CABA no era autónoma y Tierra del Fuego era territorio nacional: su parte " +
       "se fijó después. La Constitución de 1994 pidió una ley nueva, acordada entre la Nación y las provincias, que no se aprobó. Además, otras leyes " +
       "reparten parte de algunos impuestos con un destino fijo, y la Nación envía otros fondos por decisión propia, como los Aportes del Tesoro Nacional (ATN).";
     // el reparto y la población: las dos mitades de jurisdicciones, por cantidad de habitantes

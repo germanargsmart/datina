@@ -155,7 +155,7 @@ for (const prov of PROVINCIAS) {
 // las fichas a la vista, sus textos y gráficos, y el menú "Más" que abre. Y si falta D3 y el arranque de datina.js se corta, las
 // fichas igual se ven (antes quedaban invisibles)
 const CDN = ["*cdnjs.cloudflare.com*", "*cdn.jsdelivr.net*"];
-const SIN_CDN = {"trabajo.html": {textos: true, graficos: true}, "departamentos.html": {graficos: true}, "a-milei-empleo.html": {graficos: true},
+const SIN_CDN = {"trabajo.html": {textos: true, graficos: true}, "departamentos.html": {graficos: true}, "a-cloacas-mortalidad.html": {graficos: true},
   "index.html": {}, "relaciones.html": {sinDatina: true}};
 const MIRAR = `(() => {
   const f = [...document.querySelectorAll("article.ficha")], btn = document.getElementById("menu-btn");
