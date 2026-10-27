@@ -21,6 +21,11 @@ import prueba_frescura  # noqa: E402
 _fr, _ = prueba_frescura.revisar()
 if _fr:
     sys.exit("La prueba de la frescura de las fichas falla (scripts/prueba_frescura.py): el sitio no se armó.\n  " + "\n  ".join(_fr))
+import prueba_nombres  # noqa: E402
+# y la de los nombres de legisladores y bloques (R10), que escribe 02_procesar.py: si falla, tampoco
+_nm, _ = prueba_nombres.revisar()
+if _nm:
+    sys.exit("La prueba de los nombres del Congreso falla (scripts/prueba_nombres.py): el sitio no se armó.\n  " + "\n  ".join(_nm))
 # --con-pobreza copia el armado del consultor de pobreza (pobreza/dist) a sitio/pobreza/. Sin ella, sitio/pobreza/ no se toca
 OPCIONES = {"--con-pobreza"}
 if _otras := [a for a in sys.argv[1:] if a not in OPCIONES]:

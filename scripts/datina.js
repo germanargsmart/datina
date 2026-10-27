@@ -276,9 +276,21 @@ const deLas24 = n => n === 24 ? "en las 24 jurisdicciones" : n === 0 ? "en ningu
 const TEC_CEN = [{k: "termica", lab: "Térmica", c: "#8C9AAB"}, {k: "hidraulica", lab: "Hidroeléctrica", c: "#2C74B5"}, {k: "nuclear", lab: "Nuclear", c: "#85340A"},
   {k: "eolica", lab: "Eólica", c: "#74ACDF"}, {k: "solar", lab: "Solar", c: "#F6B40E"}, {k: "biogas", lab: "Biomasa y biogás", c: "#5E9E6E"}];
 const COL_CEN = Object.fromEntries(TEC_CEN.map(t => [t.lab, t.c]));
-// nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes
-const tituloArea = s => String(s || "").trim().toLowerCase().replace(/(^|[\s\-(.])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
-  .replace(/ (De|Del|Y) /g, (m, w) => ` ${w.toLowerCase()} `).replace(/ Sa$/, " SA");
+// nombres de áreas de concesión: la fuente los escribe en mayúsculas y sin tildes. Desde el 27 de octubre de 2026 (R10 del plan de mejora)
+// también se arreglan la provincia pegada con guion bajo ("EL PORTON_MENDOZA"), los números romanos ("Ayala Iii"), las siglas y los códigos
+// ("Cnq 7/a", "Ct Neuquen") y las tildes de palabras comunes ("Rio", "Cajon"). Los nombres propios que no están en la lista quedan como vienen
+const TILDE_AREA = {rio: "río", leon: "león", maria: "maría", cajon: "cajón", porton: "portón", cañadon: "cañadón", fortin: "fortín",
+  estacion: "estación", explotacion: "explotación", fraccion: "fracción", cordon: "cordón", volcan: "volcán", oceano: "océano",
+  octogono: "octógono", guardian: "guardián", hernandez: "hernández", fernandez: "fernández", coiron: "coirón", payun: "payún",
+  trebol: "trébol", ines: "inés", aguila: "águila", tunuyan: "tunuyán", neuquen: "neuquén", ceron: "cerón", zuñiga: "zúñiga",
+  martin: "martín", angela: "ángela", saenz: "sáenz", eolico: "eólico", ampliacion: "ampliación", biogas: "biogás"};
+const SIGLA_AREA = new Set(["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "cnq", "cn", "cgsj", "ca", "lp", "rn", "ni", "ct", "ctbg",
+  "ctbrs", "pe", "pah", "mater"]);
+const tituloArea = s => String(s || "").trim().toLowerCase()
+  .replace(/_(\p{L}+)$/u, (m, p) => ` (${(TILDE_AREA[p] || p).replace(/^./, c => c.toUpperCase())})`)
+  .replace(/[\p{L}\d/.]+/gu, w => SIGLA_AREA.has(w) || /\d/.test(w) && w.length < 6 ? w.toUpperCase() : TILDE_AREA[w] || w)
+  .replace(/(^|[\s\-(.])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase())
+  .replace(/ (De|Del|Y)(?= )/g, (m, w) => " " + w.toLowerCase()).replace(/ de (La|Las|Los) /g, (m, w) => ` de ${w.toLowerCase()} `).replace(/ Sa$/, " SA");
 // mapa de pozos no convencionales: un tono por grupo de años de inicio, del más viejo (claro) al más nuevo (oscuro)
 const COL_POZOS = ["#B9D3EC", "#7FB0DD", "#3F86C6", "#1F5E97", "#0B2F52"];
 const masPct = v => (v > 0 ? "+" : "") + pct(v);
@@ -4142,8 +4154,8 @@ const mayus = t => t.charAt(0).toUpperCase() + t.slice(1);
 const deEsp = e => ("de " + ESP_TXT[e]).replace(/^de el /, "del ");
 // postura de la mayoría de un espacio: [a favor, en contra, abstenciones, ausentes]
 const postura = c => { const [si, no, ab, au] = c; return si + no + ab < au ? "aus" : si > no + ab ? "si" : no > si + ab ? "no" : "div"; };
-const nomVt = n => { const t = w => w.toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toUpperCase()).replace(/ (De|Del|La|Las|Los|Y) /g, m => m.toLowerCase());
-  const k = n.indexOf(","); return k < 0 ? t(n) : `${t(n.slice(k + 1).trim())} ${t(n.slice(0, k))}`; };
+// "Apellido, Nombre" a "Nombre Apellido": las mayúsculas y las tildes ya vienen arregladas de 02_procesar.py (nombres_propios.py, R10)
+const nomVt = n => { const k = n.indexOf(","); return k < 0 ? n : `${n.slice(k + 1).trim()} ${n.slice(0, k)}`; };
 function resumenEspacios(esp) {
   const gr = {si: [], no: [], div: [], aus: []};
   VT.espacios.filter(e => esp[e]).forEach(e => gr[postura(esp[e])].push(e));
@@ -5028,7 +5040,9 @@ DIB.transferencias = conTablas("transferencias", () => /^\d+$/.test(MED.transfer
 
 const ORIGEN_COLOR = {"Ciudad de Buenos Aires": "#2C74B5", "Conurbano": "#74ACDF", "Resto de Buenos Aires": "#A9CBEA", "Otras provincias": "#F6B40E", "Otro país": "#98A2AE"};
 const ORIGEN_TEXTO = {"Ciudad de Buenos Aires": "#fff", "Conurbano": "#18212B", "Resto de Buenos Aires": "#18212B", "Otras provincias": "#18212B", "Otro país": "#18212B"};
-const leyOrigen = ks => ks.map(k => `<span><i style="background:${ORIGEN_COLOR[k]}"></i>${k}</span>`).join("");
+// "Ciudad de Buenos Aires" es el nombre de la categoría en las tablas que se descargan. En pantalla, CABA, como en todo el sitio (términos fijos)
+const origenLab = k => k === "Ciudad de Buenos Aires" ? "CABA" : k;
+const leyOrigen = ks => ks.map(k => `<span><i style="background:${ORIGEN_COLOR[k]}"></i>${origenLab(k)}</span>`).join("");
 const PRR = R.presidentes, GBR = R.gabinetes;
 const apellido = n => ({"Cristina Fernández de Kirchner": "Fernández de Kirchner", "Adolfo Rodríguez Saá": "Rodríguez Saá", "Fernando de la Rúa": "De la Rúa",
   "Interinos de 2001": "Interinos de 2001"})[n] || n.split(" ").slice(-1)[0];
@@ -5050,7 +5064,7 @@ DIB.presidentes = a => {
     .attr("x", d => x(new Date(d.inicio)) + 5).attr("y", 23).attr("font-size", 12).attr("fill", d => ORIGEN_TEXTO[d.origen]).text(d => apellido(d.nombre));
   g.append("g").attr("class","eje").attr("transform","translate(0,42)").call(d3.axisBottom(x).ticks(angosto ? 4 : 8).tickSize(0).tickPadding(8)).call(s => s.select(".domain").remove());
   if (a) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}<br>Nació en ${d.lugar_nacimiento}, ${d.provincia}`,
+  r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}<br>Nació en ${d.provincia.startsWith("Ciudad") ? "CABA" : `${d.lugar_nacimiento}, ${d.provincia}`}`,
       4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarSiMouse);
   document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i>${bandera(COD_PROV[d.provincia])}<span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}</span>` +
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "CABA") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
@@ -5071,7 +5085,7 @@ DIB.ministros = a => {
     ley.innerHTML = leyOrigen(ks); ley.hidden = false;
     const INTERINOS = T.presidentes.filter(p => p.interino && p.inicio.startsWith("2001"));
     const presi = n => T.presidentes.find(p => p.nombre === n);
-    apiladasH(G("ministros"), {anim: a, claves: ks.map(k => ({k, lab: k, c: ORIGEN_COLOR[k], texto: ORIGEN_TEXTO[k]})),
+    apiladasH(G("ministros"), {anim: a, claves: ks.map(k => ({k, lab: origenLab(k), c: ORIGEN_COLOR[k], texto: ORIGEN_TEXTO[k]})),
       data: T.gabinetes_origen.map(d => ({...d, codigo_indec: d.gobierno, territorio: apellido(d.gobierno)})),
       bandera: d => d.gobierno === "Interinos de 2001" ? INTERINOS.length : COD_PROV[presi(d.gobierno)?.provincia],
       tipExtra: d => d.gobierno === "Interinos de 2001"

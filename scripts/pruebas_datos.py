@@ -17,6 +17,8 @@ Qué revisan:
      recursos propios provinciales, que no puede ser la mediana. El país de nacimiento que es el primero en más jurisdicciones (E13, 27 de
      octubre de 2026), que el texto dice cuando no es el más frecuente del total.
      Una jurisdicción con otro año que el de su ficha (E12): rotulada y fuera de la mediana.
+     Las diferencias y los conteos de un texto, con las cifras que se muestran (R12).
+  9. Unidades conocidas (R14 y T13): cada unidad de la tabla larga, una de las conocidas, y unidades y fuentes con sus tildes.
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -495,12 +497,70 @@ def prueba_errores(d, t):
     pg_reg = {f["territorio"]: f["anio_aif"] for f in d["datos"]["regalias_provincias"] if f["anio_aif"] != pg["reg_anio"]}
     if pg_reg != pg.get("reg_atrasadas"):
         sale.append(("otro-anio|regalias", f"regalías: con otro año que {pg['reg_anio']} están {pg_reg} y la ficha rotula {pg.get('reg_atrasadas')}"))
+    # R12 (27 de octubre de 2026): las diferencias y los conteos que dice un texto salen de las cifras que se muestran. PISA decía
+    # "95 puntos" entre 378 y 472, y Jujuy se veía "1,0%" en las regalías y contaba entre las de menos del 1%
+    pz = d["resumen"]["pisa"]
+    if pz["dif_mat"] != pz["ocde_mat"] - pz["mat"]:
+        sale.append(("redondeo|pisa", f"PISA: la diferencia dice {pz['dif_mat']} puntos y la resta de lo que se ve da {pz['ocde_mat'] - pz['mat']}"))
+    vistos = [round(f["pct_regalias"] + 1e-9, 1) for f in d["datos"]["regalias_provincias"]]
+    if pg["reg_n_1"] != sum(v >= 1 for v in vistos) or pg["reg_n_10"] != sum(v >= 10 for v in vistos):
+        sale.append(("redondeo|regalias", f"regalías: el texto cuenta {pg['reg_n_1']} con 1% o más y {pg['reg_n_10']} con 10% o más, "
+                                          f"y con lo que se ve son {sum(v >= 1 for v in vistos)} y {sum(v >= 10 for v in vistos)}"))
+    return sale
+
+
+# ---------------------------------------------------------------- 9. unidades conocidas
+# Plan de mejora, R14 y T13 (27 de octubre de 2026): la tabla larga que se descarga traía la misma unidad escrita de varias formas
+# ("millones de dolares" y "millones de dólares", "anios" y "años") y fuentes sin tildes. 02_procesar.py las arregla al sumar cada serie
+# (lg_texto). Cada unidad tiene que ser una de UNIDADES, y ninguna unidad ni fuente puede tener una de las palabras de SIN_TILDE. Los años de
+# una unidad ("pesos de 2025") no cuentan: cambian con los datos. Una unidad nueva se suma acá, después de revisar que no sea otra forma de
+# una que ya está
+UNIDADES = {"%", "% de estudiantes de 6 grado", "% de hogares", "% de la electricidad generada", "% de la población",
+            "% de la población de 15 años o más", "% de la población económicamente activa", "% de la población en edad de terminarlo",
+            "% de la población en viviendas particulares", "% de la producción de gas", "% de la producción de petróleo",
+            "% de la superficie continental", "% de las personas ocupadas", "% de los electores", "% de los hogares",
+            "% de los ingresos totales", "% de los votos positivos", "% de personas", "% del PBI", "% del producto interno bruto",
+            "% del salario promedio registrado", "% del territorio", "% para los doce meses siguientes", "GWh", "GWh por año", "MW",
+            "aportantes por beneficio", "asalariados registrados cada 1.000 habitantes", "años",
+            "beneficiarios cada 100 asalariados privados registrados",
+            "beneficiarios de la prestación por desempleo cada 1.000 habitantes", "cargos cada 1.000 habitantes", "cargos de juez",
+            "cargos de juez cada 100.000 habitantes", "casos", "defensorías", "dólares por habitante",
+            "dólares por litro al tipo de cambio de referencia (Com. A 3500), mediana de las estaciones", "empresas",
+            "etapas de fractura por año", "fiscalías", "grados Celsius", "hechos cada 100.000 habitantes", "hectáreas",
+            "hijos con AUH cada 100 menores de 18 años", "hijos por mujer", "kWh por habitante por año", "kilos por habitante por año",
+            "kilovatios hora por año", "miles", "miles de barriles por día", "miles de barriles por pozo en sus primeros doce meses",
+            "miles de millones de m³", "miles de pesos", "millones de dólares", "millones de kg", "millones de litros",
+            "millones de m³", "millones de m³ por día", "muertes de menores de un año por cada 1.000 nacidos vivos",
+            "m² por habitante", "m³ por usuario por año", "nacimientos por cada 1.000 mujeres de 15 a 19 años",
+            "pensiones (promedio mensual)", "pensiones cada 1.000 habitantes", "personas", "personas (promedio mensual)",
+            "personas al 31 de diciembre", "personas cada 100.000 habitantes",
+            "pesos corrientes por alumno de gestión estatal por año", "pesos corrientes por mes",
+            "pesos corrientes por mes, promedio por puesto, con aguinaldo en junio y diciembre", "pesos de AAAA por habitante",
+            "pesos por habitante", "pesos por litro, mediana de las estaciones", "por 1.000 nacidos vivos",
+            "por 100.000 habitantes de 5 años y más", "por cada 100.000 habitantes", "pozos terminados por año", "puntos",
+            "solicitudes", "tarjetas", "toneladas", "toneladas por año", "trámites", "turistas", "turistas por cada 100 habitantes",
+            "vehículos", "viajeros", "viajes de turistas", "viajes por mes", "visitas", "víctimas cada 100.000 habitantes",
+            "índice de 0 a 100", "índice de 0 a 5", "índice, 17 de diciembre de AAAA = 100", "índice, AAAA = 100",
+            "índice, diciembre de AAAA = 100"}
+SIN_TILDE = r"(?i)\b(anios?|capitulo|direccion|dolares|economia|educacion|energia|estadisticas|estimacion|gestion|indices?|informacion|petroleo|poblacion|produccion|secretaria|tramites|vehiculos|via|dia)\b"
+
+
+def prueba_unidades(d, t):
+    import re
+    sale = []
+    for u in sorted(t.unidad.dropna().unique()):
+        if re.sub(r"\b(19|20)\d{2}\b", "AAAA", u) not in UNIDADES:
+            sale.append((f"unidad|{u}", f"unidad que no está entre las conocidas: «{u}» ({', '.join(sorted(set(t[t.unidad == u].variable)))[:120]})"))
+    for campo in ("unidad", "fuente"):
+        for x in sorted(t[campo].dropna().unique()):
+            if m := re.search(SIN_TILDE, x):
+                sale.append((f"tilde|{campo}|{x}", f"{campo} con «{m.group(0)}» sin tilde: «{x}»"))
     return sale
 
 
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
-           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores)]
+           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores), ("Unidades conocidas", prueba_unidades)]
 
 
 def correr(mostrar=True):

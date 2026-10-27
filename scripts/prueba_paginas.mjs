@@ -43,6 +43,20 @@ const MALOS = `(() => {
   return [...t.matchAll(/.{0,50}(\\bNaN\\b|\\bundefined\\b|\\bnull\\b|\\bInfinity\\b|\\[object Object\\]|\\{\\{[\\w.]+\\}\\}).{0,30}/g)].map(m => m[0].trim()).slice(0, 5);
 })()`;
 
+// términos fijos (plan de mejora, R5 y T12, 27 de octubre de 2026): un mismo concepto se llama igual en todo el sitio (.claude/rules/redaccion.md).
+// Ninguna de estas variantes puede estar en el texto visible. "Ciudad de Buenos Aires" sí, en un nombre oficial: el aglomerado del INDEC (en
+// la ficha de ingresos por aglomerado) y el Ministerio de Educación de la Ciudad
+const TERMINOS = `(() => {
+  const agl = document.getElementById("f-ingresos-aglomerados")?.innerText || "";
+  const t = (document.body.innerText.replace(agl, "") + "\\n" + [...document.querySelectorAll("svg text")].filter(x => !x.closest("#f-ingresos-aglomerados"))
+    .map(x => x.textContent).join("\\n")).replace(/\\s+/g, " ").replace(/Ministerio de Educación de la Ciudad de Buenos Aires/g, "");  // con los espacios que no cortan (sinViuda)
+  const MAL = [[/balotaje/i, "segunda vuelta"], [/pesos (de igual|del mismo) valor|a precios de hoy/i, "descontada la inflación"],
+    [/transferencias discrecionales/i, "transferencias no automáticas"], [/las 24 provincias/i, "las 24 jurisdicciones"],
+    [/pensi[oó]n(es)? (no contributivas? )?por discapacidad/i, "pensión por invalidez"], [/\\bleyes clave\\b/i, "leyes y proyectos clave"],
+    [/\\b[Ll]a Ciudad\\b|Ciudad (Autónoma )?de Buenos Aires/, "CABA"]];
+  return MAL.flatMap(([rx, bien]) => [...t.matchAll(new RegExp(".{0,40}(" + rx.source + ").{0,30}", rx.flags + "g"))].slice(0, 2).map(m => [m[0].trim(), bien]));
+})()`;
+
 // los enlaces entre artículos y fichas (Fase 2, paso 4), como "artículo>ficha": los botones "Ficha: …" de cada artículo (IDA) y los
 // "Artículos con este dato" del pie de cada ficha (VUELTA). Tienen que coincidir
 const IDA = [], VUELTA = [];
@@ -64,6 +78,7 @@ async function revisarPagina(pg, intento = 1) {
   if ((malos.length || errores.length) && intento === 1) return revisarPagina(pg, 2);   // una segunda vez, por si fue la red
   malos.forEach(m => problemas.push(`${pg}: texto con un valor sin calcular: «${m}»`));
   errores.forEach(e => problemas.push(`${pg}: ${e}`));
+  (await p.eval(TERMINOS)).forEach(([m, bien]) => problemas.push(`${pg}: un término fijo escrito de otra forma (va «${bien}»): «${m}»`));
   (pg.startsWith("a-") ? IDA : VUELTA).push(...await p.eval(ENLACES));
   const fi = await p.eval(FICHAS);
   CUENTA.fichas += fi.n; CUENTA.como += fi.como;

@@ -146,7 +146,7 @@ const silencio = async f => { const [l, e] = [console.log, console.error]; conso
   const lp = per.texto.split("\n\n").at(-1).split("\n");
   ok(lp[0] === "anio,m3_usuario" && lp.length > 1 && lp.slice(1).every(l => l.startsWith("2024,")), "período y columnas elegidas");
   const vot = await leerTabla({...base, tabla: "votaciones_leyes_clave", filtros: [{columna: "legislador", valores: ["ocaña, graciela"]}]}, idx, leer);
-  ok(vot.texto && vot.texto.includes('"OCAÑA, GRACIELA"'), "campos con comillas y comas, y filtro sin distinguir mayúsculas");
+  ok(vot.texto && vot.texto.includes('"Ocaña, Graciela"'), "campos con comillas y comas, y filtro sin distinguir mayúsculas");
   const no = await leerTabla({...base, tabla: "../../functions/_ia/consulta"}, idx, leer);
   ok(no.error && /No hay ninguna tabla/.test(no.error), "no lee nada fuera del índice");
   const sui = await leerTabla({...base, tabla: "suicidios_provincias"}, idx, leer);

@@ -18,6 +18,7 @@ Texto completo y motivos de cada regla: `docs/historico/etapas-previas.md`, secc
 ## Formato y fuentes
 
 - `tabla_larga.csv`: `codigo_indec, territorio, periodo, variable, valor, unidad, fuente`. Toda variable nueva entra por `agregar()` de `02_procesar.py`. "00" es el total país. Los trimestres se escriben `2T2026`.
+- Desde el 27 de octubre de 2026 (plan de mejora, R14 y T13) `agregar()` pasa la unidad y la fuente por `lg_texto()` (tildes y formas únicas: "millones de dólares", "años", "m³"). Una unidad nueva va en `UNIDADES` de `pruebas_datos.py`, después de revisar que no sea otra forma de una que ya está: si no, frena el armado.
 - Una fuente principal por indicador: la nacional (INDEC, DEIS, ministerios). Las series `bm_*` del Banco Mundial solo en la comparación con la OCDE, rotuladas "estimación de [organismo] para [año]". El promedio OCDE es el promedio simple de los 38 miembros, solo con dato de al menos 29.
 - Población: proyecciones del INDEC 2022 a 2040 (`POB`, de `indec_proyecciones_provincias.csv`). Excepciones declaradas en cada ficha: tasas que publica la fuente (SNIC, DEIS, ENACOM, escolarización, Aprender), series por provincia anteriores a 2022 (población implícita en el SNIC) y edad y origen por departamento (RENAPER).
 - Redondeo único: cuatro decimales en las tablas y un solo redondeo al mostrar (`r1()`).

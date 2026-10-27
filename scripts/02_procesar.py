@@ -29,9 +29,33 @@ SITIO.mkdir(parents=True, exist_ok=True)
 largo = []  # filas: codigo_indec, territorio, periodo, variable, valor, unidad, fuente
 
 
+# Unidades y fuentes con sus tildes y escritas siempre igual (plan de mejora, R14): la tabla larga que se descarga traía "millones de
+# dolares" y "millones de dólares", "anios" y "años", "Secretaria de Energia". Se arreglan acá, al sumar cada serie, y
+# pruebas_datos.py controla que cada unidad sea una de las conocidas (UNIDADES) y que no quede ninguna de estas palabras sin tilde
+LG_TILDES = {"anio": "año", "anios": "años", "capitulo": "capítulo", "coordinacion": "coordinación", "dia": "día", "direccion": "dirección",
+             "dolares": "dólares", "economia": "economía", "economica": "económica", "educacion": "educación", "energia": "energía",
+             "estadisticas": "estadísticas", "estimacion": "estimación", "evaluacion": "evaluación", "gestion": "gestión", "indice": "índice",
+             "indices": "índices", "informacion": "información", "meteorologico": "meteorológico", "ocupacion": "ocupación",
+             "perforacion": "perforación", "petroleo": "petróleo", "poblacion": "población", "produccion": "producción",
+             "secretaria": "secretaría", "subsecretaria": "subsecretaría", "tramites": "trámites", "vehiculos": "vehículos", "via": "vía"}
+LG_IGUAL = {"índice 2004=100": "índice, 2004 = 100", "grados C": "grados Celsius", "ha": "hectáreas", "kg por habitante por año": "kilos por habitante por año",
+            "INDEC, intercambio comercial argentino": "INDEC, Intercambio Comercial Argentino",
+            # un organismo con un solo nombre (R4), el que documenta datos/manual/relaciones.json
+            "SNIC, Ministerio de Seguridad": "SNIC, Ministerio de Seguridad Nacional", "OEDE, Ministerio de Capital Humano (SIPA)": "OEDE, Secretaría de Trabajo (SIPA)",
+            "OEDE, Ministerio de Capital Humano, en base al SIPA": "OEDE, Secretaría de Trabajo (SIPA)"}
+
+
+def lg_texto(s):
+    """"millones de dolares" -> "millones de dólares", "Secretaria de Energia" -> "Secretaría de Energía", "m3" -> "m³"."""
+    s = re.sub(r"[^\W\d_]+", lambda m: (lambda t: t[:1].upper() + t[1:] if m.group(0)[0].isupper() else t)(LG_TILDES.get(m.group(0).lower(), m.group(0).lower()))
+               if m.group(0).lower() in LG_TILDES else m.group(0), str(s))
+    s = re.sub(r"\bm([23])\b", lambda m: "m" + "²³"[int(m.group(1)) - 2], s)
+    return LG_IGUAL.get(s, s)
+
+
 def agregar(df, variable, unidad, fuente):
     d = df.copy()
-    d["variable"], d["unidad"], d["fuente"] = variable, unidad, fuente
+    d["variable"], d["unidad"], d["fuente"] = variable, lg_texto(unidad), lg_texto(fuente)
     largo.append(d[["codigo_indec", "territorio", "periodo", "variable", "valor", "unidad", "fuente"]])
 
 
@@ -2028,8 +2052,12 @@ _pa["pet_kbd"], _pa["gas_mmm3d"] = _pa.prod_pet / _pa.dias * BBL / 1000, _pa.pro
 # junio de 2015, enero de 2019 y septiembre de 2024 suman entre 84% y 96% de la serie del país) y esos años quedarían con huecos
 
 
-FORMA_SOC = re.compile(r"[\s,]*(\(?sucursal[^)]*\)?|ltd\.?|s\.?\s?a\.?\s?u\.?|s\.?\s?a\.?|s\.?\s?r\.?\s?l\.?|s\.?\s?l\.?|sau)$", re.I)
+FORMA_SOC = re.compile(r"[\s,]*(\(?sucursal[^)]*\)?|ltd\.?|s\.?\s?a\.?\s?u\.?|s\.?\s?a\.?\s?p\.?\s?e\.?\s?m\.?|s\.?\s?a\.?|s\.?\s?r\.?\s?l\.?"
+                       r"|s\.?\s?l\.?|sau|sas|s\.\s?e\.?|-)$", re.I)
 SIGLAS_EMP = {"YPF", "CGC", "PCR", "GYP"}
+# la fuente escribe los nombres en mayúsculas y sin tildes (plan de mejora, R10): "PAMPA ENERGIA S.A." se lee "Pampa Energía"
+TILDES_EMP = {"energia": "Energía", "ingenieria": "Ingeniería", "petroleos": "Petróleos", "petroquimica": "Petroquímica", "trebol": "Trébol",
+              "quimica": "Química", "compania": "Compañía"}
 
 
 def nombre_empresa(n):
@@ -2037,8 +2065,8 @@ def nombre_empresa(n):
     t, antes = str(n).strip(), None
     while t != antes:
         antes, t = t, FORMA_SOC.sub("", t).strip(" .,")
-    return " ".join(w if w.upper() in SIGLAS_EMP or not w.isalpha() else w.lower() if i and w.lower() in ("de", "del", "la", "las", "los", "y") else w.capitalize()
-                    for i, w in enumerate(t.split()))
+    return " ".join(w if w.upper() in SIGLAS_EMP or not w.isalpha() else w.lower() if i and w.lower() in ("de", "del", "la", "las", "los", "y")
+                    else TILDES_EMP.get(w.lower(), w.capitalize()) for i, w in enumerate(t.split()))
 
 
 emp_h = pd.read_csv(CRUDO / "se_produccion_empresas.csv")
@@ -3242,6 +3270,14 @@ for camara, archivo in [("Diputados", "diputados_nacionales.csv"), ("Senado", "s
     d["camara"] = camara
     leg.append(d)
 leg = pd.concat(leg, ignore_index=True)
+# nombres como se leen (plan de mejora, R10): "RODRIGUEZ, Marcela Virginia" pasa a "Rodríguez, Marcela Virginia", con las tildes de la tabla
+# y las que las actas de votación le ponen a la misma persona (scripts/nombres_propios.py). La unión de personas y de reemplazos usa el
+# nombre sin tildes ni mayúsculas, así que no cambia
+import gzip
+import nombres_propios as NPR
+NPR_FORMAS = NPR.variantes(list(leg.nombre) + [n for _npr_a in ("diputados", "senadores")
+                                               for n in json.loads(gzip.decompress((CRUDO / f"congreso_votaciones_{_npr_a}.json.gz").read_bytes()))["names"]])
+leg["nombre"] = leg.nombre.map(lambda n: NPR.persona(n, NPR_FORMAS))
 leg["inicio_aprox"] = leg.inicio_aprox.fillna(False).astype(bool)
 # en el Senado, las observaciones dicen a quien reemplaza o de quien completa el mandato un senador
 _obs = leg.observaciones.fillna("").str.extract(r"(?i)(?:REEMPLAZA|COMPLETA)(.*)")[0]
@@ -3254,6 +3290,8 @@ assert leg.codigo_indec.notna().all(), leg[leg.codigo_indec.isna()].provincia.un
 FDT_HASTA = pd.Timestamp("2019-06-01")
 leg["espacio"] = [espacio_leg(b, f) for b, f in zip(leg.bloque, leg.familia)]
 leg.loc[leg.bloque.fillna("").str.upper().str.contains("FRENTE DE TODOS") & (leg.inicio < FDT_HASTA), "espacio"] = "UCR y aliados"
+# el bloque como se lee ("COALICION CIVICA - ARI" pasa a "Coalición Cívica - ARI"), después de sacar el espacio con el nombre de la fuente
+leg["bloque"] = leg.bloque.map(NPR.bloque)
 leg["fin"] = leg.fin.fillna(pd.Timestamp("2100-01-01"))
 # la fuente repite a algunas personas con dos códigos para el mismo mandato (por ejemplo, el nombre con y sin tilde): se unifican
 _persona = leg.nombre.map(lambda n: re.sub(r"[^A-Z]", "", norm(n).upper()))
@@ -3351,7 +3389,8 @@ for a in PERIODOS:
     filas_p.append(m)
 congreso = pd.DataFrame(comp).pivot_table(index=["camara", "anio", "periodo"], columns="espacio", values="bancas", fill_value=0).reset_index()
 congreso = congreso[["camara", "anio", "periodo"] + [e for e in ESPACIOS if e in congreso.columns]]
-leg_p = pd.concat(filas_p, ignore_index=True).sort_values(["periodo", "camara", "codigo_indec", "inicio", "nombre"])
+leg_p = pd.concat(filas_p, ignore_index=True).sort_values(["periodo", "camara", "codigo_indec", "inicio", "nombre"],
+                                                          key=lambda c: c.map(NPR.clave_persona) if c.name == "nombre" else c)
 leg_p["territorio"] = leg_p.codigo_indec.map(CORTO)
 leg_p[["periodo", "camara", "codigo_indec", "territorio", "nombre", "bloque", "espacio", "desde", "hasta", "reemplaza_a"]].rename(
     columns={"periodo": "periodo_inicio"}).to_csv(SITIO / "legisladores_por_periodo.csv", index=False, lineterminator="\n")
@@ -3461,7 +3500,9 @@ anios_congreso = pd.DataFrame(_anr)
 assert len(ANIOS_SOLAPADOS) <= 5, f"más personas en las dos cámaras a la vez: {ANIOS_SOLAPADOS}"
 anios_congreso["anios_total"] = (anios_congreso.anios_diputados + anios_congreso.anios_senado).round(2)
 anios_congreso["territorio"] = anios_congreso.codigo_indec.map(CORTO)
-anios_congreso = anios_congreso.sort_values(["anios_total", "nombre"], ascending=[False, True]).reset_index(drop=True)
+# el orden alfabético sin mirar las tildes: "Élida" va con la E, no después de la Z
+anios_congreso = anios_congreso.sort_values(["anios_total", "nombre"], ascending=[False, True],
+                                            key=lambda c: c.map(NPR.clave_persona) if c.name == "nombre" else c).reset_index(drop=True)
 assert anios_congreso.anios_total.max() <= (HOY - pd.Timestamp("1983-11-29")).days / 365.25 + .01, "alguien suma más años de los que pasaron desde 1983"
 _ant3 = anios_congreso.head(3)
 ANIOS_CONG = {"personas": int(len(anios_congreso)), "dos_camaras": int(((anios_congreso.anios_diputados > 0) & (anios_congreso.anios_senado > 0)).sum()),
@@ -5692,6 +5733,10 @@ for cam, arch in [("Diputados", "diputados"), ("Senado", "senadores")]:
 votos = pd.concat(_filas_v, ignore_index=True)
 votos = votos.merge(pd.DataFrame(_meta_v, columns=["camara", "vid", "fecha"]), on=["camara", "vid"])
 votos["codigo_indec"] = votos.codigo_indec.where(votos.codigo_indec.isin(DIP_LEY))
+# el nombre de cada legislador como se lee, igual que en la composición del Congreso (R10). El bloque se arregla recién al escribir las
+# tablas: el bloque oficialista de cada votación es el más numeroso con el nombre que da el acta
+_npr_v = {n: NPR.persona(n, NPR_FORMAS) for n in votos.nombre.unique()}
+votos["nombre"] = votos.nombre.map(_npr_v)
 # La copia les pone el bloque "Partido Bloquista de San Juan" a los 13 diputados del PRO de CABA y de Buenos Aires en todas las actas
 # del 30 de noviembre de 2011 al 28 de noviembre de 2013 (E1 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre de 2026). Son los mismos
 # diputados que antes figuran como "Propuesta Republicana" y desde 2014 como "Unión PRO", y en esos años ningún diputado de San Juan
@@ -5755,7 +5800,7 @@ for r in lc.itertuples():
                                "total": {k: cuenta.get(k, 0) for k in ["si", "no", "abs", "aus"]},
                                "espacios": {e: por_esp[e] for e in ESPACIOS if e in por_esp}}
         for x in g.itertuples():
-            filas_csv.append({"ley": r.nombre, "camara": cam, "fecha": fecha.strftime("%Y-%m-%d"), "legislador": x.nombre, "bloque": x.bloque,
+            filas_csv.append({"ley": r.nombre, "camara": cam, "fecha": fecha.strftime("%Y-%m-%d"), "legislador": x.nombre, "bloque": NPR.bloque(x.bloque),
                               "espacio": x.espacio, "provincia": CORTO.get(x.codigo_indec, ""), "voto": {1: "Afirmativo", 2: "Negativo", 3: "Abstención", 4: "Ausente"}[x.voto]})
     leyes_v.append(ley)
 votos_clave = pd.DataFrame(filas_csv)
@@ -5848,6 +5893,7 @@ PV_DESDE = int(presupuesto_votos[presupuesto_votos.camara == "Senado"].ejercicio
 _pv_v = votos.merge(presupuesto_votos[presupuesto_votos.ejercicio >= PV_DESDE][["camara", "acta", "bloque_oficialista"]].rename(columns={"acta": "vid"}),
                     on=["camara", "vid"])
 _pv_v = _pv_v[(_pv_v.bloque != _pv_v.bloque_oficialista) & _pv_v.codigo_indec.notna()]
+presupuesto_votos["bloque_oficialista"] = presupuesto_votos.bloque_oficialista.map(NPR.bloque)  # como se lee, ya hecha la cuenta (R10)
 apoyo_presupuesto = _pv_v.groupby("codigo_indec").agg(apoyo=("voto", lambda s: round(100 * (s == 1).mean(), 2)), votos=("voto", "size")).reset_index()
 assert len(apoyo_presupuesto) == 24 and apoyo_presupuesto.votos.min() >= 30, "el apoyo al presupuesto no tiene las 24 provincias o tiene muy pocos votos"
 # ---- voto de los legisladores en las leyes clave y voto de su provincia al presidente
@@ -6562,8 +6608,10 @@ resumen = {
         "anio": ANIO_PISA, "anio_prev": int(pp_prev.anio),
         "mat": round(float(pu.arg_mat)), "lec": round(float(pu.arg_lec)), "cie": round(float(pu.arg_cie)),
         "ocde_mat": round(float(pu.ocde_mat)), "ocde_lec": round(float(pu.ocde_lec)), "ocde_cie": round(float(pu.ocde_cie)),
-        "dif_mat": round(float(pu.ocde_mat - pu.arg_mat)), "var_mat": round(float(pu.arg_mat - pp_prev.arg_mat)),
-        "var_lec": round(float(pu.arg_lec - pp_prev.arg_lec)), "var_cie": round(float(pu.arg_cie - pp_prev.arg_cie)),
+        # las diferencias, entre las cifras que se muestran (R12 del plan de mejora, 27 de octubre de 2026): con los puntos sin
+        # redondear, 472 menos 378 daba "95 puntos"
+        "dif_mat": round(float(pu.ocde_mat)) - round(float(pu.arg_mat)), "var_mat": round(float(pu.arg_mat)) - round(float(pp_prev.arg_mat)),
+        "var_lec": round(float(pu.arg_lec)) - round(float(pp_prev.arg_lec)), "var_cie": round(float(pu.arg_cie)) - round(float(pp_prev.arg_cie)),
     },
     # los valores de 99,5% o más (y los que pasan de 100) reflejan diferencias entre la matrícula y la proyección de población:
     # no se presentan como el máximo (pedido del autor, octubre de 2026)
@@ -6840,7 +6888,8 @@ resumen["petroleo"] = {
     "res_nq_pet": r1(reservas_prov.set_index("codigo_indec").pct_pet.get("58", 0)), "res_nq_gas": r1(reservas_prov.set_index("codigo_indec").pct_gas.get("58", 0)),
     # regalías
     "reg_anio": ANIO_FISC, "reg_top": _rp_ult.iloc[-1].territorio, "reg_top_pct": r1(_rp_ult.iloc[-1].pct_regalias),
-    "reg_n_10": int((reg_prov.pct_regalias >= 10).sum()), "reg_n_1": int((reg_prov.pct_regalias >= 1).sum()),
+    # contadas con el porcentaje que se ve, con un decimal (R12): Jujuy, con 0,96, se ve "1,0%" y caía en "menos del 1%"
+    "reg_n_10": int((reg_prov.pct_regalias.map(r1) >= 10).sum()), "reg_n_1": int((reg_prov.pct_regalias.map(r1) >= 1).sum()),
     "reg_atrasadas": {CORTO[c]: int(a) for c, a in zip(reg_prov.codigo_indec, reg_prov.anio_aif) if a < ANIO_FISC},
     # la descripción de la ficha con los dos años (E12): "2025 (La Pampa, 2024)"
     "reg_anio_txt": f"{ANIO_FISC}" + (" (" + ", ".join(f"{CORTO[c]}, {int(a)}" for c, a in zip(reg_prov.codigo_indec, reg_prov.anio_aif) if a < ANIO_FISC) + ")"

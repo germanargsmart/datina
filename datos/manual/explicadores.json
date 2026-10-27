@@ -1496,7 +1496,7 @@
    },
    {
     "titulo": "El SNIC y por qué difiere de la DEIS",
-    "texto": "El Sistema Nacional de Información Criminal (SNIC), del Ministerio de Seguridad, fue creado en el año 2000 por la ley 25.266. Reúne los hechos presuntamente delictuosos que registran las policías provinciales, las fuerzas federales y otros organismos que reciben denuncias en todas las jurisdicciones. Sus módulos de alerta temprana relevan caso por caso los homicidios dolosos, las muertes viales y los suicidios, aunque estos dos últimos no sean delitos. Como se basa en las primeras actuaciones policiales, sus cifras pueden diferir de las de otros organismos. La DEIS, en cambio, parte de defunciones certificadas por personal de salud y las asigna al lugar donde vivía la persona fallecida.",
+    "texto": "El Sistema Nacional de Información Criminal (SNIC), del Ministerio de Seguridad Nacional, fue creado en el año 2000 por la ley 25.266. Reúne los hechos presuntamente delictuosos que registran las policías provinciales, las fuerzas federales y otros organismos que reciben denuncias en todas las jurisdicciones. Sus módulos de alerta temprana relevan caso por caso los homicidios dolosos, las muertes viales y los suicidios, aunque estos dos últimos no sean delitos. Como se basa en las primeras actuaciones policiales, sus cifras pueden diferir de las de otros organismos. La DEIS, en cambio, parte de defunciones certificadas por personal de salud y las asigna al lugar donde vivía la persona fallecida.",
     "fuentes": [
      {
       "nombre": "Ministerio de Seguridad Nacional. Documento metodológico del SNIC",
@@ -3988,7 +3988,7 @@
    },
    {
     "titulo": "De dónde salen los datos",
-    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, según el departamento donde ocurrió el hecho. La edad de la población viene del Registro Nacional de las Personas (RENAPER), que cuenta a las personas con DNI según el domicilio que declararon. El RENAPER publica CABA sin dividirla en comunas. El lugar de nacimiento y los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de CABA.",
+    "texto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad Nacional, según el departamento donde ocurrió el hecho. La edad de la población viene del Registro Nacional de las Personas (RENAPER), que cuenta a las personas con DNI según el domicilio que declararon. El RENAPER publica CABA sin dividirla en comunas. El lugar de nacimiento y los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de CABA.",
     "fuentes": [
      {
       "nombre": "SNIC, estadísticas criminales por departamento",
