@@ -79,7 +79,7 @@ await p.ir(BASE + "a-empleo-pobreza.html", 1500);
 r = await p.eval(`document.getElementById("a-empleo-pobreza").textContent`);
 caso("Artículo que falla: su página lo dice", /No se pudo armar este artículo/.test(r), r.slice(0, 80));
 await p.ir(BASE + "a-pobreza-desocupacion.html", 1500); await p.recorrer();
-r = JSON.parse(await p.eval(`JSON.stringify({bajada: !!document.querySelector("#a-pobreza-desocupacion .nota-bajada mark"), svg: !!document.querySelector("#a-pobreza-desocupacion .grafico svg")})`));
+r = JSON.parse(await p.eval(`JSON.stringify({bajada: !!document.querySelector("#a-pobreza-desocupacion .nota-frase mark"), svg: !!document.querySelector("#a-pobreza-desocupacion .grafico svg")})`));
 caso("Artículo que falla: otro artículo se arma entero", r.bajada && r.svg, JSON.stringify(r));
 CAMBIOS = [];
 
