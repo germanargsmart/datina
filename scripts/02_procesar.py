@@ -2202,6 +2202,20 @@ _act_nq = pozos_nc[_activo].provincia.map(lambda t: codigo(t)).eq("58")
 MAP_CORTES = [2015, 2018, 2021, _ult_nc.year - 2]  # cinco grupos por año de inicio: hasta 2015, 2016 a 2018, ...
 assert MAP_CORTES[2] < MAP_CORTES[3], "los grupos de años del mapa se superponen"
 _top_areas = pozos_nc[_activo].groupby("area").size().sort_values(ascending=False).head(3)
+# Los pozos no convencionales en producción que cuentan los textos (E13 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre de 2026). El listado
+# con ubicación (se_pozos_nc.csv) y el resumen por tipo (se_pozos_resumen.csv) se bajan por separado y, si se bajan en días distintos,
+# para el mismo mes cuentan unos pozos más o menos: con agosto de 2026, 2.918 y 2.922 de shale. Si llegan al mismo mes, las cantidades
+# de las dos fichas salen del resumen, el mismo de la ficha de pozos. Los puntos y las áreas del mapa siguen saliendo del listado
+_nc_prov = pozos_prov.set_index("codigo_indec")[["shale", "tight"]].sum(axis=1)
+if str(_ult_nc) == PO_ULT:
+    MAP_CUENTA = {"activos": int(_pt.pozos[["shale", "tight"]].sum()), "shale": int(_pt.pozos["shale"]), "tight": int(_pt.pozos["tight"]),
+                  "pct_nq": r1(_nc_prov.get("58", 0) / _nc_prov.sum() * 100),
+                  "otras": [[CORTO[c], int(n)] for c, n in _nc_prov[_nc_prov > 0].sort_values(ascending=False).items() if c not in ("58", "62", "50", "42", MAR)]}
+else:
+    MAP_CUENTA = {"activos": int(_activo.sum()), "shale": int((pozos_nc[_activo].recurso == "Shale").sum()),
+                  "tight": int((pozos_nc[_activo].recurso == "Tight").sum()), "pct_nq": r1(_act_nq.mean() * 100),
+                  "otras": [[CORTO[c], int(n)] for c, n in pozos_nc[_activo].provincia.map(lambda t: codigo(t)).value_counts().items()
+                            if c not in ("58", "62", "50", "42")]}
 _ap = pd.read_csv(CRUDO / "se_produccion_areas.csv")
 AREAS_ANIO = int(_ap.anio.max()) - 1  # el último año completo
 # Producción por área de concesión (etapa 21, como las páginas por yacimiento de Norsk Petroleum): las áreas que produjeron petróleo o gas
@@ -6799,10 +6813,9 @@ resumen["petroleo"] = {
     "rama_m_ult": round(float(_pvd_m.rama_m[COS_ULT])), "rama_m_bpm_max": round(float(_pvd_m.rama_m[_pvd_m.bbl_por_1000m.idxmax()])),
     "curvas": COS_CURVAS, "curva12_ult": r1(_cv[f"c{COS_ULT}"][12]), "curva12_ini": r1(_cv[f"c{COS_CURVAS[0]}"][12]),
     # mapa de los pozos no convencionales y de las áreas de concesión
-    "map_n": int(len(pozos_nc)), "map_activos": int(_activo.sum()), "map_mes": mes_txt(str(_ult_nc)), "map_pct_nq": r1(_act_nq.mean() * 100),
+    "map_n": int(len(pozos_nc)), "map_activos": MAP_CUENTA["activos"], "map_mes": mes_txt(str(_ult_nc)), "map_pct_nq": MAP_CUENTA["pct_nq"],
     "map_top_areas": [[a, int(n)] for a, n in _top_areas.items()], "map_cortes": MAP_CORTES, "map_ini": int(pozos_nc.inicio.str[:4].astype(int).min()),
-    "map_otras": [[CORTO[c], int(n)] for c, n in pozos_nc[_activo].provincia.map(lambda t: codigo(t)).value_counts().items() if c not in ("58", "62", "50", "42")],
-    "map_shale": int((pozos_nc[_activo].recurso == "Shale").sum()), "map_tight": int((pozos_nc[_activo].recurso == "Tight").sum()), "areas_anio": AREAS_ANIO,
+    "map_otras": MAP_CUENTA["otras"], "map_shale": MAP_CUENTA["shale"], "map_tight": MAP_CUENTA["tight"], "areas_anio": AREAS_ANIO,
     # reservas
     "res_anio": int(RV_ULT.anio), "res_ini": int(RV_INI.anio), "res_pet": round(float(RV_ULT.pet_millones_m3)), "res_bbl": r1(RV_ULT.pet_miles_millones_bbl),
     "res_gas": round(float(RV_ULT.gas_miles_millones_m3)), "res_hor_pet": r1(RV_ULT.horizonte_pet), "res_hor_gas": r1(RV_ULT.horizonte_gas),

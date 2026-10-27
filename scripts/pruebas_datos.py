@@ -13,7 +13,7 @@ Qué revisan:
   7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
   8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
      nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2). El total de motos sin las jurisdicciones excluidas (E3) va en
-     las sumas de control.
+     las sumas de control. Los pozos no convencionales del mismo mes, iguales en la ficha de pozos y en el mapa (E13).
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -454,6 +454,15 @@ def prueba_errores(d, t):
         suma = sum(f["empresas"] for f in d["datos"]["empresas_provincias"])
         if em["total_pais"] >= suma:
             sale.append(("total-doble|empresas", f"empresas: el total del país ({em['total_pais']:,}) no es menor que la suma de las provincias ({suma:,.0f})"))
+    # E13: la ficha de pozos y el mapa de los pozos no convencionales cuentan lo mismo cuando hablan del mismo mes (con agosto de 2026
+    # daban 2.922 y 2.918 pozos de shale, de dos archivos bajados en días distintos)
+    pg = d["resumen"]["petroleo"]
+    if pg["pozos_mes"] == pg["map_mes"]:
+        for k in ("shale", "tight"):
+            if pg[f"map_{k}"] != pg[f"pozos_{k}"]:
+                sale.append((f"pozos|{k}", f"pozos de {k} en {pg['pozos_mes']}: la ficha de pozos dice {pg[f'pozos_{k}']:,} y el mapa {pg[f'map_{k}']:,}"))
+        if pg["map_activos"] != pg["pozos_shale"] + pg["pozos_tight"]:
+            sale.append(("pozos|activos", f"pozos no convencionales en {pg['pozos_mes']}: el mapa dice {pg['map_activos']:,} y la ficha de pozos suma {pg['pozos_shale'] + pg['pozos_tight']:,}"))
     return sale
 
 

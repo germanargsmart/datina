@@ -868,7 +868,9 @@ const TX = {
   "mapa-pozos-nota": `Cada punto es un pozo no convencional que produjo petróleo o gas alguna vez, según la producción por pozo del Capítulo IV, en la ubicación que informa ` +
     `la Secretaría de Energía (en unos pocos pozos la latitud y la longitud vienen cambiadas y se corrigen). El color dice el año en que empezó a producir, y los que no produjeron en ` +
     `${PG.map_mes} van más claros. Las áreas son las concesiones de explotación, con una geometría simplificada: al pasar el mouse por un área se ve lo que produjo en ${PG.areas_anio}. ` +
-    `La vista de la cuenca Neuquina abarca Neuquén, Río Negro, Mendoza y La Pampa.`,
+    `La vista de la cuenca Neuquina abarca Neuquén, Río Negro, Mendoza y La Pampa. ` +
+    `Las cantidades de pozos del texto salen del mismo resumen que la ficha de los pozos en producción, así las dos dicen lo mismo. El listado con la ubicación ` +
+    `de cada pozo se baja aparte y puede tener unos pocos pozos más o menos.`,
   productividad: LEAD.productividad("pozo"),
   "productividad-nota": `Pozos de shale de Vaca Muerta que la producción por pozo del Capítulo IV clasifica como petrolíferos, según el año del primer mes con producción. ` +
     `El primer año son los doce meses desde ese inicio, y los meses sin declaración cuentan como cero. Van solo los años de inicio en los que todos los pozos ya tienen doce meses de historia ` +
