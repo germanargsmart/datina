@@ -157,3 +157,19 @@ La opción recomendada va primero.
 - No se corrió `01_descargar.py`.
 - No se actualizó `docs/roadmap/ESTADO.md` ni otra documentación de mantenimiento: el encargo lo pide así. La única excepción es una línea de `pobreza/README.md` (paso 2), que buscaba "1S 2026" y ahora el consultor lo escribe en palabras.
 - El sitio armado (`sitio/`) cambió porque se volvió a armar: los cambios de `sitio/` son el resultado de los cambios en las fuentes.
+
+## Unión con los arreglos de datos (27 de octubre de 2026)
+
+La reescritura se subió a la rama `redaccion-local` (commit cc7b6bf, sobre ec326a6) y se unió con `main` después del PR #12, que corrigió los errores de datos E1, E2, E3, E13 y el "País" de los recursos propios del perfil. Esos cinco pendientes de `PENDIENTES.md` quedan resueltos, y también la decisión 6 de este resumen ("Un PR de datos"). Siete textos de la reescritura se escribieron antes de esos arreglos y se ajustaron al unir:
+
+| Dónde | Texto de la reescritura | Cómo quedó |
+|---|---|---|
+| `datina.js`, cifra de "En cifras" de `f-empresas` | "…sumadas las 24 jurisdicciones (… cada 1.000 habitantes). Una empresa con personal en varias provincias cuenta en cada una" | "…había en el país en {año}, cada una contada una sola vez (… cada 1.000 habitantes)". La versión corta, "en todo el país", queda como en `main` |
+| `datina.js`, `empresas-nota` | "…por eso la suma de las provincias, que es la cifra destacada, es mayor que la cantidad de empresas que hay en el país" | "…por eso la suma de las provincias es mayor que el total del país, que cuenta a cada empresa una sola vez, en la provincia donde tiene más empleo" |
+| `explicadores.json`, Sector privado | "La cifra destacada de la primera ficha es esa suma" | "La cifra destacada de la primera ficha es el total del país, que cuenta a cada empresa una sola vez. Para ese total y para estudiar aperturas y cierres…" |
+| `datina.js`, `patentes` | "El total de motos de {año} incluye el dato de Tierra del Fuego…" | "…no incluye el dato de Tierra del Fuego…" |
+| `datina.js`, `patentes-prov` | "El promedio del país en motos fue de … con ese dato incluido" | "…también sin ese dato". El resto, como la reescritura |
+| `datina.js`, cifra destacada de `f-patentes` | Sin aclarar las motos excluidas | La de `main`: "(sin contar las de Tierra del Fuego)" |
+| `datina.js`, `mapa-pozos-nota` y la tarjeta de recursos propios del perfil | "al pasar el mouse o tocar un área" y el nuevo detalle de turistas extranjeros | Los dos textos de la reescritura, más la explicación de E13 (las cantidades del mapa salen del mismo resumen que la ficha de pozos) y el país sumado de `main` |
+
+`02_procesar.py` se corrió sin descargar nada, con la fecha de la última actualización (24 de octubre de 2026). El resumen de datos quedó igual al de `main` salvo los mismos 20 textos que cambió la reescritura, y igual al de la rama salvo los 24 campos que corrigió el PR #12. Ningún otro número cambió.

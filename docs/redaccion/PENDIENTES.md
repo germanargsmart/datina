@@ -2,6 +2,8 @@
 
 Lo que cada grupo de la reescritura no cambió porque necesita corregir un dato, cambiar una vista o la estructura, una decisión del autor o verificar un hecho. Sale de `docs/redaccion/propuestas/*.json` (generado por `scripts/inventario_textos.py`).
 
+**Actualización del 27 de octubre de 2026.** El PR #12 resolvió los cinco errores de datos de esta lista: Trabajo y economía 1 (E2, el total de empresas), Estado y sociedad 1 (E1, el bloque del PRO), Territorio y recursos 1 y 2 (E3, las motos de Tierra del Fuego, y E13, los pozos) y Perfil provincial 1 (el "País" de los recursos propios). Cómo se ajustaron los textos de la reescritura al unirla: `RESUMEN_REESCRITURA_GLOBAL.md`, "Unión con los arreglos de datos".
+
 ## Personas y bienestar (23)
 
 1. **salud.html#f-suicidio-prov** (`scripts/datina.js`)
