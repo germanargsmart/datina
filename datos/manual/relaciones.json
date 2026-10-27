@@ -100,7 +100,7 @@
   {
    "id": "org:csjn",
    "nombre": "Registro Nacional de Femicidios de la Justicia Argentina",
-   "sigla": "CSJN",
+   "sigla": "Registro de Femicidios",
    "depende": "Corte Suprema de Justicia de la Nación",
    "url": "https://datos.csjn.gob.ar",
    "alias": [
