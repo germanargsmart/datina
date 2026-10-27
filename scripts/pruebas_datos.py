@@ -14,7 +14,9 @@ Qué revisan:
   8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
      nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2). El total de motos sin las jurisdicciones excluidas (E3) va en
      las sumas de control. Los pozos no convencionales del mismo mes, iguales en la ficha de pozos y en el mapa (E13). El valor del país de los
-     recursos propios provinciales, que no puede ser la mediana.
+     recursos propios provinciales, que no puede ser la mediana. El país de nacimiento que es el primero en más jurisdicciones (E13, 27 de
+     octubre de 2026), que el texto dice cuando no es el más frecuente del total.
+     Una jurisdicción con otro año que el de su ficha (E12): rotulada y fuera de la mediana.
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -472,6 +474,27 @@ def prueba_errores(d, t):
         sale.append(("fiscal|pais", "recursos propios: el resumen no tiene el valor del país (las provincias sumadas)"))
     elif not min(vals) <= fi["pais"] <= max(vals) or fi["pais"] == fi["mediana"]:
         sale.append(("fiscal|pais", f"recursos propios: el valor del país ({fi['pais']}) no es el de las provincias sumadas (mediana {fi['mediana']}, de {min(vals):.1f} a {max(vals):.1f})"))
+    # E13 (27 de octubre de 2026): el texto de nacidos en otro país decía que Paraguay, el primero del total, era el primero en 7
+    # jurisdicciones, y no decía que Chile lo era en 8. El resumen tiene que traer el país que es el primero en más, contado de la tabla
+    mg = d["resumen"]["migraciones"]["censo"]
+    cuenta = pd.Series([f["primer_pais"] for f in d["datos"]["nacidos_otro_pais_provincias"] if f["codigo_indec"] != "00"]).value_counts()
+    if "primer_pais_mas" not in mg:
+        sale.append(("nacidos|primer", "nacidos en otro país: el resumen no tiene el país que es el primero en más jurisdicciones"))
+    elif mg["primer_pais_mas"][0][1] != int(cuenta.max()) or mg["primer_pais_n"] != int(cuenta.get(mg["paises"][0][0], 0)):
+        sale.append(("nacidos|primer", f"nacidos en otro país: el resumen dice {mg['primer_pais_mas'][0]} y {mg['paises'][0][0]} en {mg['primer_pais_n']}, "
+                                       f"y la tabla cuenta {dict(cuenta.head(3))}"))
+    # E12 (27 de octubre de 2026): La Pampa figuraba con 2024 en las fichas de recursos propios y de regalías de 2025, sin rótulo, y su
+    # dato entraba en la mediana. Toda jurisdicción con otro año tiene que estar en la lista que la ficha rotula, y la mediana no la cuenta
+    otro_anio = {f["territorio"]: f["anio"] for f in d["datos"]["fiscal_provincias"] if f["anio"] != fi["anio"]}
+    if otro_anio != fi.get("atrasadas"):
+        sale.append(("otro-anio|fiscal", f"recursos propios: con otro año que {fi['anio']} están {otro_anio} y la ficha rotula {fi.get('atrasadas')}"))
+    del_anio = [f["autonomia"] for f in d["datos"]["fiscal_provincias"] if f["anio"] == fi["anio"]]
+    if abs(statistics.median(del_anio) - fi["mediana"]) > 0.051 or fi.get("mediana_n") != len(del_anio):
+        sale.append(("otro-anio|fiscal-mediana", f"recursos propios: la mediana ({fi['mediana']}, de {fi.get('mediana_n')}) no es la de las {len(del_anio)} "
+                                                 f"jurisdicciones con datos de {fi['anio']} ({statistics.median(del_anio):.1f})"))
+    pg_reg = {f["territorio"]: f["anio_aif"] for f in d["datos"]["regalias_provincias"] if f["anio_aif"] != pg["reg_anio"]}
+    if pg_reg != pg.get("reg_atrasadas"):
+        sale.append(("otro-anio|regalias", f"regalías: con otro año que {pg['reg_anio']} están {pg_reg} y la ficha rotula {pg.get('reg_atrasadas')}"))
     return sale
 
 

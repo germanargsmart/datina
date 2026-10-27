@@ -81,6 +81,10 @@ const conTablas = (g, nombres, dibujo) => a => {
 };
 const loc = d3.formatLocale({decimal:",", thousands:".", grouping:[3], currency:["$",""]});
 const n0 = loc.format(",.0f"), n1 = loc.format(",.1f"), n2 = loc.format(",.2f");
+// fuerza de una correlación: una sola escala para todo el sitio (plan de mejora, E5, 27 de octubre de 2026), la que ya usaban los artículos
+// y el voto por provincia. Antes había cinco, y Cruces llamaba "fuerte" a un 0,52 que los artículos llamaban "moderada". Mide el valor que
+// se muestra, con dos decimales y el mismo redondeo que n2: un 0,395 se ve "0,40" y es "moderada". Prueba: scripts/prueba_escala.mjs
+const fuerza = r => { const a = Math.abs(Number(r.toFixed(2))); return a >= .6 ? "fuerte" : a >= .4 ? "moderada" : a >= .2 ? "débil" : "casi nula"; };
 const pct = v => n1(v) + "%";
 const kbdF = v => v >= 10 ? n0(v) : n1(v);
 // una cifra sobre otra, con un decimal y sin ",0": "2 veces", "2,3 veces"
@@ -403,15 +407,15 @@ const LEAD = {
   },
   // fracturas y pozos terminados (etapa 19): años completos, el último puede subir porque las empresas informan con demora
   fracturas: v => v === "rama"
-    // la cifra destacada ya dice la rama del último año y la del primero: la vista empieza por qué es la rama
+    // la vista empieza por qué es la rama y después dice cuánto creció
     ? `La rama horizontal es el tramo del pozo que avanza en horizontal dentro de la formación. Entre ${PG.dv_ini} y ${PG.fr_ult}, la de los pozos de Vaca Muerta ` +
       `se hizo ${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga: de ${n0(PG.dv_rama_ini)} a ${n0(PG.dv_rama_ult)} metros en promedio.`
     : v === "etapas_pozo"
     ? `Cada pozo de Vaca Muerta fracturado en ${PG.fr_ult} llevó en promedio ${n1(PG.dv_etapas_ult)} etapas de fractura y ${n0(PG.dv_arena_ult)} toneladas de arena. ` +
       `En ${PG.dv_ini} eran ${n1(PG.dv_etapas_ini)} etapas y ${n0(PG.dv_arena_ini)} toneladas.`
-    : `En ${PG.fr_ult}, las empresas informaron ${n0(PG.fr_etapas)} etapas de fractura en formaciones no convencionales${PG.fr_record ? ", el máximo de la serie" : ""}. ` +
-      `Fueron ${PG.fr_var >= 0 ? pct(PG.fr_var) + " más" : pct(-PG.fr_var) + " menos"} que en ${PG.fr_ult - 1} y ${PG.fr_veces} veces las de ${PG.fr_ini}. ` +
-      `El ${pct(PG.fr_vm_pct)} fue en Vaca Muerta. Cada etapa es un tramo de la rama horizontal del pozo que se fractura por separado. En total se bombearon ${n1(PG.fr_arena_mt)} millones de toneladas de arena.`,
+    // la cifra destacada ya dice las etapas del último año y la parte de Vaca Muerta (E11): el texto empieza por cuánto cambiaron
+    : `Las etapas de fractura de ${PG.fr_ult} fueron ${PG.fr_record ? "el máximo de la serie: " : ""}${PG.fr_var >= 0 ? pct(PG.fr_var) + " más" : pct(-PG.fr_var) + " menos"} ` +
+      `que en ${PG.fr_ult - 1} y ${PG.fr_veces} veces las de ${PG.fr_ini}. Cada etapa es un tramo de la rama horizontal del pozo que se fractura por separado. En total se bombearon ${n1(PG.fr_arena_mt)} millones de toneladas de arena.`,
   "pozos-terminados": v => v === "prov"
     ? `Entre ${PG.pt_v_desde} y ${PG.pt_mes} se terminaron ${n0(PG.pt_12m)} pozos de petróleo y gas, ` +
       `${PG.pt_12m >= PG.pt_12m_ant ? n0(PG.pt_12m - PG.pt_12m_ant) + " más" : n0(PG.pt_12m_ant - PG.pt_12m) + " menos"} que en los doce meses anteriores. ` +
@@ -572,8 +576,9 @@ const LEAD = {
     if (v === "anio") return `En ${GRT.anio}, la recaudación de impuestos nacionales fue el ${pct(GRT.pbi)} del PBI. Desde ${GRT.desde}, el valor más alto ` +
       `fue el de ${GRT.pbi_max_anio}, ${pct(GRT.pbi_max)}, y el más bajo, el de ${GRT.pbi_min_anio}, ${pct(GRT.pbi_min)}. Una parte de lo recaudado se reparte ` +
       `en forma automática con las provincias por la coparticipación.`;
-    return `En los doce meses hasta ${GRT.doce_hasta}, la recaudación de impuestos nacionales sumó ${billones(GRT.doce_millones)} corrientes: el ${pct(GRT.iva)} fue IVA, ` +
-      `el ${pct(GRT.seguridad_social)}, aportes y contribuciones a la seguridad social, y el ${pct(GRT.ganancias)}, Ganancias. Los derechos de exportación ` +
+    // la cifra destacada ya dice la parte del IVA (E11): el texto sigue con el total y los otros impuestos
+    return `En los doce meses hasta ${GRT.doce_hasta}, la recaudación de impuestos nacionales sumó ${billones(GRT.doce_millones)} corrientes. Los aportes y ` +
+      `contribuciones a la seguridad social fueron el ${pct(GRT.seguridad_social)} y Ganancias, el ${pct(GRT.ganancias)}. Los derechos de exportación ` +
       `aportaron el ${pct(GRT.exportacion)}. Entre enero y ${MESES[GRT.ytd.mes - 1]} de ${GRT.ytd.anio}, descontada la inflación, la recaudación ` +
       `${cambioPct(GRT.ytd.var)} frente a los mismos meses del año anterior.`;
   },
@@ -617,16 +622,16 @@ const LEAD = {
   // ventas en supermercados (etapa 26): el país con el índice del INDEC, y cada provincia con sus ventas llevadas a pesos de igual valor con
   // el índice de precios de su región
   supermercados: v => {
-    // la cifra destacada y la descripción ya dicen la variación del último mes: el texto empieza por los doce meses
-    if (v === "mes") return `En los doce meses hasta ${ESU.mes}, las ventas ${ESU.doce < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.doce))} ` +
-      `frente a los doce anteriores, según el INDEC. ` +
+    // la cifra destacada es la de la vista por provincia (E11): esta vista dice el último mes y los doce meses con el índice del INDEC
+    if (v === "mes") return `En ${ESU.mes}, las ventas ${ESU.interanual < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.interanual))} frente a ${ESU.mes_ant}, ` +
+      `y en los doce meses hasta ${ESU.mes}, ${ESU.doce < 0 ? "cayeron" : "crecieron"} ${pct(Math.abs(ESU.doce))} frente a los doce anteriores, según el índice del INDEC. ` +
       (ESU.vs_max < 0 ? `Sin la estacionalidad, están ${pct(Math.abs(ESU.vs_max))} por debajo de ${ESU.max_mes}, el mes más alto de la serie, que empieza en ${ESU.desde}.`
         : `Sin la estacionalidad, están en el nivel más alto de la serie, que empieza en ${ESU.desde}.`);
     const P = ESU.prov;
-    return `En los doce meses hasta ${ESU.mes}, frente a los doce anteriores, las ventas ${P.pais < 0 ? "cayeron" : "crecieron"} ` +
-      `${pct(Math.abs(P.pais))} en todo el país, descontada la inflación de cada región, con datos del INDEC. ` + (P.suben && P.bajan
-        ? `Subieron en ${P.suben} jurisdicciones y bajaron en ${P.bajan}: la variación fue de ${conSigno(P.top[1])} en ${P.top[0]} a ${conSigno(P.bajo[1])} en ${P.bajo[0]}.`
-        : `${P.suben ? "Subieron" : "Bajaron"} en todas las jurisdicciones, de ${conSigno(P.bajo[1])} en ${P.bajo[0]} a ${conSigno(P.top[1])} en ${P.top[0]}.`);
+    // la cifra destacada ya dice el país en los doce meses (E11): el texto empieza por las provincias
+    return `Descontada la inflación de cada región, con datos del INDEC, ` + (P.suben && P.bajan
+        ? `las ventas subieron en ${P.suben} jurisdicciones y bajaron en ${P.bajan} en los doce meses hasta ${ESU.mes}: la variación fue de ${conSigno(P.top[1])} en ${P.top[0]} a ${conSigno(P.bajo[1])} en ${P.bajo[0]}.`
+        : `las ventas ${P.suben ? "subieron" : "bajaron"} en todas las jurisdicciones en los doce meses hasta ${ESU.mes}, de ${conSigno(P.bajo[1])} en ${P.bajo[0]} a ${conSigno(P.top[1])} en ${P.top[0]}.`);
   },
   // ---- migraciones (etapa 25)
   "nacidos-otro-pais": v => {
@@ -639,7 +644,9 @@ const LEAD = {
     // la cifra destacada ya dice la parte de la población del país: el texto empieza por cuántas personas son
     return `En el Censo 2022, ${n0(MGC.personas)} personas que vivían en el país habían nacido en otro país. La parte de la población nacida en otro país ` +
       `era más alta en ${MGC.top[0]}, ${pct(MGC.top[1])}${conVeces(MGC.top[1], MGC.pct)}, y más baja en ${lista(MGC.bajos[0])}, ${pct(MGC.bajos[1])}. ` +
-      `${MGC.paises[0][0]}, el país de nacimiento más frecuente en el total, era también el primero en ${MGC.primer_pais_n} de las 24 jurisdicciones.`;
+      `${MGC.paises[0][0]}, el país de nacimiento más frecuente en el total, era también el primero en ${MGC.primer_pais_n} de las 24 jurisdicciones` +
+      // E13 (27 de octubre de 2026): si otro país es el primero en más jurisdicciones, se dice (con el Censo 2022, Chile en 8)
+      (MGC.primer_pais_mas[0][1] > MGC.primer_pais_n ? `, y ${MGC.primer_pais_mas[0][0]}, en ${MGC.primer_pais_mas[0][1]}, más que ningún otro país.` : ".");
   },
   "migracion-interna": v => v === "mapa" ? `Por departamento, entre los de ${n0(MGP.min_pob)} habitantes o más, la parte de la población nacida en ` +
     `otra provincia es más alta en ${depsTop(MGP.otra_top)}.` +
@@ -817,8 +824,10 @@ const RO = R.rotacion, trim = t => `${["primer", "segundo", "tercer", "cuarto"][
 // la misma oración que nombra el máximo, o el caso queda fuera del máximo
 const DIST = R.distorsiones || {};
 const aclara = (clave, terr) => DIST[clave]?.[terr]?.accion === "aclarar" ? ` (${DIST[clave][terr].motivo})` : "";
-// en las tarjetas (perfil, "En cifras" y el mapa de la portada) va la versión corta del motivo, si el indicador tiene un caso distorsionado
-const notaDist = (c, cod) => { const d = c.dist && DIST[c.dist]?.[NOMBRES[cod]]; return d ? d.corto || d.motivo : ""; };
+// en las tarjetas (perfil, "En cifras" y el mapa de la portada) va la versión corta del motivo, si el indicador tiene un caso distorsionado,
+// y el año del dato si la provincia todavía no publicó el de la ficha (E12, 27 de octubre de 2026: La Pampa con 2024 en recursos propios)
+const notaDist = (c, cod) => { const d = c.dist && DIST[c.dist]?.[NOMBRES[cod]], a = c.otroAnio?.[NOMBRES[cod]];
+  return [d ? d.corto || d.motivo : "", a ? `Dato de ${a}, el último que publicó.` : ""].filter(Boolean).join(" "); };
 const sinContar = (clave, terrs) => terrs.length ? `, sin contar ${terrs.join(" y ")}: ${terrs.map(t => DIST[clave][t].motivo).join(". ")}` : "";
 const TX = {
   // ---- construcción y vivienda (etapa 18)
@@ -1023,7 +1032,7 @@ const TX = {
   // la justicia (24 de octubre de 2026): casos de la Corte Suprema, jueces, fiscalías y defensorías federales. Las cifras salen de
   // R.justicia (02_procesar.py), que arma las tablas y explica cada fuente
   "corte-casos": `En ${R.justicia.corte.hasta} llegaron a la Corte Suprema ${n0(R.justicia.corte.ingresados)} casos, ${n1(R.justicia.corte.veces_ingresados)} veces ` +
-    `los de ${R.justicia.corte.desde}, y la Corte resolvió ${n0(R.justicia.corte.resueltos)}. El ${pct(R.justicia.corte.previsional_pct)} de los casos que llegaron fue a la secretaría que trata los temas previsionales, como jubilaciones y pensiones. ` +
+    `los de ${R.justicia.corte.desde}, y la Corte resolvió ${n0(R.justicia.corte.resueltos)} con ${n0(R.justicia.corte.fallos)} fallos: un fallo puede cerrar varios casos iguales a la vez. El ${pct(R.justicia.corte.previsional_pct)} de los casos que llegaron fue a la secretaría que trata los temas previsionales, como jubilaciones y pensiones. ` +
     (R.justicia.corte.saldo_desde ? `Desde ${R.justicia.corte.saldo_desde} llegan cada año más casos de los que se resuelven: entre ${R.justicia.corte.saldo_desde} y ` +
       `${R.justicia.corte.hasta} entraron ${n0(R.justicia.corte.saldo)} casos más de los que se resolvieron. ` : "") +
     `El año con más casos resueltos fue ${R.justicia.corte.max_res_anio}, con ${n0(R.justicia.corte.max_res)}, y el de menos, ${R.justicia.corte.min_res_anio}, ` +
@@ -1285,7 +1294,9 @@ const TX = {
   hoteles: `El ${pct(tu.eoh_nr_pct)} de los viajeros que se hospedaron en hoteles y parahoteles de las localidades relevadas en ${tu.eoh_anio} no residía en el país. ${tu.eoh_reg} fue la región con más viajeros, con el ${pct(tu.eoh_reg_pct)} del total. El máximo de la serie fue en ${tu.eoh_max_anio}, con ${n1(tu.eoh_max)} millones.`,
   "hoteles-nota": `Encuesta de Ocupación Hotelera, que releva hoteles y parahoteles de las principales localidades turísticas agrupadas en siete regiones. No publica datos por provincia. El último mes publicado es ${tu.eoh_ultimo}, por eso el último año completo es ${tu.eoh_anio}. El INDEC informó que, al no renovarse el convenio de financiamiento con la Secretaría de Turismo, la encuesta se reformulará y su difusión se reprogramará. El Instituto de Estadística de la Ciudad de Buenos Aires continúa el relevamiento solo en CABA.`,
   // la cifra destacada ya dice los turistas de la jurisdicción más visitada: el texto empieza por la más visitada en relación con su población
-  eti: `En ${tu.eti_anio}, en relación con su población, ${tu.eti_pc_top} fue la jurisdicción con más turistas del exterior que se fueron del país por Ezeiza o Aeroparque: ${n1(tu.eti_pc_top_v)} cada 1.000 habitantes. En cantidad, la segunda más visitada fue ${tu.eti_2}, con ${n0(tu.eti_2_v)} turistas.`,
+  // la cifra destacada ya dice la más alta cada 1.000 habitantes (E11): el texto empieza por la cantidad
+  eti: `En cantidad, la jurisdicción más visitada en ${tu.eti_anio} por los turistas del exterior que se fueron del país por Ezeiza o Aeroparque fue ${tu.eti_top}, ` +
+    `con ${n0(tu.eti_top_v)}, y la segunda, ${tu.eti_2}, con ${n0(tu.eti_2_v)}.`,
   "eti-nota": `Encuesta de Turismo Internacional. Solo cubre a los turistas que dejan el país por los aeropuertos de Ezeiza y Aeroparque, así que subestima a las provincias que reciben turistas por otros pasos, como las limítrofes. Un turista que visitó varias provincias cuenta en cada una. La cantidad por habitante usa la población ${R.anio_pob} proyectada por el INDEC. Desde 2026 el INDEC reformula esta encuesta y reprogramó su difusión porque no se renovó el convenio de financiamiento con la Secretaría de Turismo.`,
   // la cifra destacada ya dice la pobreza del último semestre: el texto empieza por la indigencia
   pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas de los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era ${R.pobreza.pob > R.pobreza.pob_prev ? "más baja" : R.pobreza.pob < R.pobreza.pob_prev ? "más alta" : "igual"}: ${pct(R.pobreza.pob_prev)}. La indigencia era del ${pct(R.pobreza.ind_prev)}. El valor más alto de la pobreza en la serie fue ${pct(R.pobreza.max)}, en el ${R.pobreza.max_sem}.`,
@@ -2691,11 +2702,12 @@ const DIB = protegerDib({
   fiscal: a => {
     const k = MED.fiscal, d = T.fiscal_provincias, fz = R.fiscal, ord = [...d].sort((p, q) => q[k] - p[k]);
     document.querySelector('[data-t="fiscal"]').textContent = k === "autonomia"
-      ? `En ${fz.anio}, los recursos propios, sobre todo impuestos provinciales y regalías, fueron el ${pct(fz.top_v)} de los ingresos de ${fz.top} y el ${pct(fz.low_v)} de los de ${fz.low}. La mediana de las 24 jurisdicciones fue de ${pct(fz.mediana)}, contra ${pct(fz.mediana_ini)} en ${fz.ini}. El resto de los ingresos llega de la Nación, por coparticipación y otras transferencias.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${fz.anio}: figura con ${a}.`).join("")}`
+      ? `En ${fz.anio}, los recursos propios, sobre todo impuestos provinciales y regalías, fueron el ${pct(fz.top_v)} de los ingresos de ${fz.top} y el ${pct(fz.low_v)} de los de ${fz.low}. La mediana de ${fz.mediana_n === 24 ? "las 24 jurisdicciones" : `las ${fz.mediana_n} jurisdicciones con datos de ${fz.anio}`} fue de ${pct(fz.mediana)}, contra ${pct(fz.mediana_ini)} en ${fz.ini}. El resto de los ingresos llega de la Nación, por coparticipación y otras transferencias.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${fz.anio}: figura con ${a}.`).join("")}`
       : k === "resultado"
       ? `En ${fz.anio}, ${fz.superavit} jurisdicciones cerraron con superávit financiero y ${fz.deficit} con déficit. El mayor superávit, en proporción a sus ingresos, fue el de ${ord[0].territorio} (${sg(ord[0].resultado)}) y el mayor déficit, el de ${ord[ord.length - 1].territorio} (${sg(ord[ord.length - 1].resultado)}).${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join("")}`
       : `En ${fz.anio}, los sueldos y cargas sociales fueron el ${pct(ord[0].personal)} del gasto de ${ord[0].territorio} y el ${pct(ord[ord.length - 1].personal)} del de ${ord[ord.length - 1].territorio}.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join("")}`;
-    barrasH(G("fiscal"), {anim:a, data: d, k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+    // la jurisdicción que todavía no publicó el año de la ficha va con su año al lado del nombre (E12, 27 de octubre de 2026)
+    barrasH(G("fiscal"), {anim:a, data: d.map(r => fz.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${fz.atrasadas[r.territorio]})`} : r), k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
       color: k === "resultado" ? (r => r.resultado < 0 ? css("--sol") : css("--celeste")) : null});
   },
   censo: a => {
@@ -2831,7 +2843,9 @@ Object.assign(DIB, {
   regalias: a => {
     const k = MED.regalias, usd = k === "usd_crudo_hab";
     $t("regalias").textContent = LEAD.regalias(k);
-    barrasH(G("regalias"), {anim: a, data: usd ? T.regalias_provincias.filter(d => d.usd_crudo_hab > 0) : T.regalias_provincias, k,
+    barrasH(G("regalias"), {anim: a, data: usd ? T.regalias_provincias.filter(d => d.usd_crudo_hab > 0)
+      // en % de los ingresos, la jurisdicción que todavía no publicó el año va con el suyo al lado del nombre (E12)
+      : T.regalias_provincias.map(d => PG.reg_atrasadas[d.territorio] ? {...d, territorio: `${d.territorio} (${PG.reg_atrasadas[d.territorio]})`} : d), k,
       vf: usd ? n0 : v => n1(v) + "%", af: usd ? n0 : v => v + "%",
       tip: d => `<b>${d.territorio}</b><br>Regalías: ${pct(d.pct_regalias)} de los ingresos totales en ${d.anio_aif}` +
         (d.usd_crudo_hab > 0 ? `<br>Petróleo crudo: ${n1(d.usd_crudo_millones)} millones de dólares en ${PG.reg_usd_anio}, ${n0(d.usd_crudo_hab)} por habitante` : "")});
@@ -4409,10 +4423,9 @@ const rvNombre = g => `${g.presidente}, ${g.anios[0] === g.anios[1] ? g.anios[0]
 const rvSel = $("vprov-sel");
 rvSel.innerHTML = RV.map(g => `<option value="${rvClave(g)}">${rvNombre(g)}</option>`).join("");
 MED.vprov = rvClave(RV[RV.length - 1]); rvSel.value = MED.vprov;
-const rvFuerza = r => Math.abs(r) < .2 ? "casi nula" : Math.abs(r) < .4 ? "débil" : Math.abs(r) < .6 ? "moderada" : "fuerte";
 TX["vprov"] = $t("vprov").textContent = 
   `La relación entre el voto al presidente en la primera vuelta y la coincidencia de los legisladores de cada provincia con el bloque oficialista, en las leyes y los proyectos clave, cambia de un gobierno a otro. ` +
-  RV.map(g => `Con ${g.presidente} fue ${rvFuerza(g.r)} (correlación de ${n2(g.r).replace("-", "menos ")}, en ${g.leyes} ${g.leyes === 1 ? "ley o proyecto" : "leyes o proyectos"} ${g.anios[0] === g.anios[1] ? `de ${g.anios[0]}` : `entre ${g.anios[0]} y ${g.anios[1]}`})`).join(". ") + ". Con pocas leyes, un solo voto puede mover mucho el resultado. Que las dos medidas vayan juntas no muestra que una explique la otra.";
+  RV.map(g => `Con ${g.presidente} fue ${fuerza(g.r)} (correlación de ${n2(g.r).replace("-", "menos ")}, en ${g.leyes} ${g.leyes === 1 ? "ley o proyecto" : "leyes o proyectos"} ${g.anios[0] === g.anios[1] ? `de ${g.anios[0]}` : `entre ${g.anios[0]} y ${g.anios[1]}`})`).join(". ") + ". Con pocas leyes, un solo voto puede mover mucho el resultado. Que las dos medidas vayan juntas no muestra que una explique la otra.";
 DIB.vprov = a => {
   const g = RV.find(x => rvClave(x) === MED.vprov);
   dispersion(G("vprov"), {anim: a, data: T.voto_legisladores_y_provincia.filter(d => d.presidente === g.presidente && d.eleccion === g.eleccion),
@@ -4467,7 +4480,6 @@ function dispersion(el, cfg) {
   pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${vx(d[cfg.x])}<br>${cfg.yLab}: ${vy(d[cfg.y])}`, 46 + x(d[cfg.x]), 34 + y(d[cfg.y])))
     .on("pointerleave", ocultarSiMouse);
 }
-const fuerza = r => Math.abs(r) >= .7 ? "fuerte" : Math.abs(r) >= .4 ? "moderada" : "débil";
 const AN = R.ado_nse, MC = R.mi_causas;
 $("adonse-sel").innerHTML = AN.indicadores.map(i => `<option value="${i.k}">${i.lab}</option>`).join("");
 MED.adonse = AN.indicadores[0].k;
@@ -4744,7 +4756,7 @@ DIB["confianza-gobierno"] = a => {
   const el = G("confianza-gobierno"), C = R.confianza_gobierno;
   if (MED["confianza-gobierno"] === "elecciones") {
     const E = C.elecciones, elec = x => x.tipo === "PASO" ? `las PASO de ${x.anio}` : `la primera vuelta de ${x.anio}`;
-    const grado = Math.abs(E.r) >= .7 ? "fuerte" : "moderada";
+    const grado = fuerza(E.r);
     const rel = E.r >= .4 ? `Las dos líneas suben y bajan juntas: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno tendió a sacar ` +
         `más votos cuando la confianza en el gobierno del mes anterior era más alta. La relación es ${grado} (correlación de ${n2(E.r)})`
       : E.r <= -.4 ? `Las dos líneas van en sentido contrario: en las ${E.n} elecciones presidenciales entre ${E.desde} y ${E.hasta}, la candidatura del gobierno tendió a sacar ` +
@@ -5410,7 +5422,6 @@ const CX = (() => {
   const validos = (ids) => filas().filter(f => !st.fuera.has(f.codigo_indec) && ids.every(k => f[k] != null && isFinite(f[k])));
   const logOk = id => FILAS.every(f => f[id] == null || f[id] > 0);
   const tx = (id, log) => log ? v => Math.log10(v) : v => v;
-  const fuerza = r => { const a = Math.abs(r); return a < .1 ? "prácticamente nula" : a < .3 ? "débil" : a < .5 ? "moderada" : a < .7 ? "fuerte" : "muy fuerte"; };
 
   /* ---- controles ---- */
   if (!document.getElementById("f-cruces")) return {pearson, spearman, simple};
@@ -5613,7 +5624,7 @@ const CX = (() => {
     caja.innerHTML = [["Jurisdicciones", m.n], ["r de Pearson", fr(m.r)], ["R²", fr(m.r2)], ["ρ de Spearman", fr(rho)], ["Valor p", fp(m.p)]]
       .map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join("") + (log ? `<div class="aclara">Calculado sobre el logaritmo de ${st.logx && st.logy ? "ambos ejes" : st.logx ? "el eje horizontal" : "el eje vertical"}</div>` : "");
     const sentido = `${m.r > 0 ? "positiva" : "negativa"}: las jurisdicciones con valores más altos en «${X.nombre}» tienden a tener valores ${m.r > 0 ? "más altos" : "más bajos"} en «${Y.nombre}»`;
-    let t = `Con ${m.n} jurisdicciones, la relación es ${fuerza(m.r)} y ${Math.abs(m.r) < .1 ? "no muestra una tendencia clara" : sentido} (r = ${fr(m.r)}). `;
+    let t = `Con ${m.n} jurisdicciones, la relación es ${fuerza(m.r)} y ${fuerza(m.r) === "casi nula" ? "no muestra una tendencia clara" : sentido} (r = ${fr(m.r)}). `;
     t += m.p < .05 ? `Es poco probable que una relación así aparezca solo por azar (valor p ${fp(m.p)}). `
       : `Con tan pocos casos, una relación de este tamaño puede aparecer por azar (valor p ${fp(m.p)}), así que no alcanza para afirmar que existe. `;
     if (Math.abs(m.r - rho) > .2) t += `La correlación por rangos de Spearman es ${fr(rho)}: la diferencia sugiere que unos pocos casos extremos o una forma no lineal pesan en el resultado. `;
@@ -6043,6 +6054,8 @@ const sg = v => (v > 0 ? "+" : "") + pct(v);
 const BZ_Y = SX.balanza.ytd_anio > SX.balanza.anio, BZ_S = BZ_Y ? SX.balanza.ytd_saldo : SX.balanza.saldo;
 const BZ_P = BZ_Y ? `entre enero y ${MESES[SX.balanza.ytd_mes - 1]} de ${SX.balanza.ytd_anio}` : `en ${SX.balanza.anio}`;
 const BCR_PF = SX.bcra.variables.find(v => v.id === 12) || SX.bcra.variables[0];
+// la variable con la que abre la ficha del Banco Central (la primera, el dólar minorista): su cifra destacada (E11, 27 de octubre de 2026)
+const BCR_INI = SX.bcra.variables[0];
 const CLAVE = {
   "f-petroleo": [`${n0(PG.kbd)} mil`, `barriles de petróleo por día produjo el país en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`,
     `barriles por día en ${PG.mes}${PG.record ? ", el valor más alto de la serie" : ""}`],
@@ -6059,7 +6072,8 @@ const CLAVE = {
     `de petróleo, al ritmo de producción de ${PG.res_anio}`],
   "f-balanza-energetica": [n0(PG.bal_saldo), `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} tuvo el comercio exterior de energía en ${PG.bal_anio}`,
     `millones de dólares de saldo ${PG.bal_saldo >= 0 ? "positivo" : "negativo"} en ${PG.bal_anio}`],
-  "f-fracturas": [`${n0(PG.dv_rama_ult)} m`, `de rama horizontal tuvo en promedio un pozo de Vaca Muerta fracturado en ${PG.fr_ult}, contra ${n0(PG.dv_rama_ini)} m en ${PG.dv_ini}`],
+  // E11: las etapas del último año, como la vista inicial. Antes era la rama horizontal, que está en otra vista
+  "f-fracturas": [n0(PG.fr_etapas), `etapas de fractura informaron las empresas en ${PG.fr_ult} en formaciones no convencionales, el ${pct(PG.fr_vm_pct)} en Vaca Muerta`],
   "f-pozos-terminados": [n0(PG.pt_total), `pozos de petróleo y gas se terminaron en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`,
     `terminados en ${PG.pt_anio}, contra ${n0(PG.pt_max)} en ${PG.pt_max_anio}`],
   "f-productividad": [`${n0(PG.cos_kbbl_ult)} mil`, `barriles de petróleo sacó en su primer año un pozo de shale de Vaca Muerta que empezó en ${PG.cos_ult}, ${n1(PG.cos_veces)} veces uno de ${PG.cos_ini}`,
@@ -6085,7 +6099,8 @@ const CLAVE = {
     `personas cada 100.000 habitantes en el país al 31 de diciembre de ${SG.sn_anio}`],
   "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`,
     `del PBI fue el ${sobra(GBN.primario)} primario en ${GBN.anio}, antes de pagar los intereses de la deuda`],
-  "f-recaudacion": [pct(GRT.pbi), `del PBI fue la recaudación de impuestos nacionales en ${GRT.anio}`],
+  // E11: la cifra de la vista inicial, por impuesto en los doce meses. Antes era la recaudación de un año en % del PBI, que está en la otra vista
+  "f-recaudacion": [pct(GRT.iva), `de la recaudación de impuestos nacionales de los doce meses hasta ${GRT.doce_hasta} fue IVA`],
   "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`, `del PBI al ${GBD.fecha}`],
   "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`, "cargos cada 1.000 habitantes en todo el país"],
   "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y CABA en ${GBP.anio}` + (GBP.faltan.length ? `, sin contar ${lista(GBP.faltan)}` : ""), GBP.faltan.length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
@@ -6110,8 +6125,9 @@ const CLAVE = {
     `${EMA.interanual < 0 ? "cayó" : "creció"} en ${EMA.mes} frente a ${EMA.mes_ant}`],
   "f-refugio": [n0(MGR.solicitudes), `solicitudes de refugio se presentaron en la Argentina en ${MGR.anio}, según la CONARE`,
     `solicitudes en ${MGR.anio}, según la CONARE`],
-  "f-supermercados": [pct(Math.abs(ESU.interanual)), `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados, descontada la ` +
-    `inflación, en ${ESU.mes} frente a ${ESU.mes_ant}, según el INDEC`, `${ESU.interanual < 0 ? "cayeron" : "crecieron"} las ventas del país en ${ESU.mes} frente a ${ESU.mes_ant}`],
+  // E11 (27 de octubre de 2026): la cifra de la vista inicial, por provincia, que es la del país en los doce meses. Antes era la del último mes
+  "f-supermercados": [pct(Math.abs(ESU.prov.pais)), `${ESU.prov.pais < 0 ? "cayeron" : "crecieron"} las ventas de los supermercados del país, descontada la ` +
+    `inflación de cada región, en los doce meses hasta ${ESU.mes} frente a los doce anteriores`, `${ESU.prov.pais < 0 ? "cayeron" : "crecieron"} las ventas del país en los doce meses hasta ${ESU.mes}`],
   "f-electricidad-sectores": [pct(e.els_pct.ind), `de la electricidad del país la usaron las industrias y los grandes comercios en ${e.el_ult}`,
     "de la electricidad del país la usaron las industrias y los grandes comercios"],
   "f-combustibles": [`${n0(CB.nafta)} pesos`, `por litro fue el precio mediano de la nafta súper en el surtidor en ${CB.mes}`,
@@ -6153,8 +6169,9 @@ const CLAVE = {
   "f-visitas": [n1(nt.vis / 1e6), `millones de visitas a parques nacionales en ${nt.vis_anio}`, `millones de visitas en ${nt.vis_anio}`],
   "f-receptivo": [n1(tu.turistas / 1e6), `millones de turistas no residentes llegaron al país en ${tu.anio}`, `millones en ${tu.anio}, por todos los pasos de frontera`],
   "f-hoteles": [n1(tu.eoh_total), `millones de viajeros se hospedaron en hoteles y parahoteles en ${tu.eoh_anio}`, `millones en ${tu.eoh_anio}, en las localidades relevadas`],
-  "f-eti": [n0(tu.eti_top_v), `turistas del exterior que se fueron por Ezeiza o Aeroparque visitaron ${tu.eti_top} en ${tu.eti_anio}, la jurisdicción con más en cantidad`,
-    `visitaron ${tu.eti_top}, la jurisdicción con más turistas en cantidad`],
+  // E11: la cifra de la vista inicial, cada 1.000 habitantes. Antes era la cantidad de CABA, que está en la otra vista
+  "f-eti": [n1(tu.eti_pc_top_v), `turistas del exterior cada 1.000 habitantes visitaron ${tu.eti_pc_top} en ${tu.eti_anio}, la jurisdicción con más en relación con su población, ` +
+    `entre los que se fueron del país por Ezeiza o Aeroparque`, `cada 1.000 habitantes visitaron ${tu.eti_pc_top}, la jurisdicción con más en relación con su población`],
   "f-pobreza": [pct(R.pobreza.pob), `de las personas de los 31 aglomerados urbanos estaba bajo la línea de pobreza en el ${R.pobreza.sem}`,
     `de las personas, bajo la línea de pobreza en el ${R.pobreza.sem}`],
   "f-sube-modos": [`${n0(su.tren_miles)} mil`, `tarjetas SUBE usadas en trenes en un día hábil típico de ${su.mes}`, `tarjetas en trenes en ${su.mes}`],
@@ -6188,7 +6205,10 @@ const CLAVE = {
   "f-cuenta-corriente": [`${n0(Math.abs(SX.cuenta_corriente.total))} millones`, `de dólares de ${SX.cuenta_corriente.total < 0 ? "déficit" : "superávit"} en la cuenta corriente en ${SX.cuenta_corriente.anio}: ` +
     (SX.cuenta_corriente.total < 0 ? "por bienes, servicios, rentas y transferencias salieron más dólares de los que entraron" : "por bienes, servicios, rentas y transferencias entraron más dólares de los que salieron"), `de dólares de ${SX.cuenta_corriente.total < 0 ? "déficit" : "superávit"} en ${SX.cuenta_corriente.anio}`],
   "f-reservas-bcra": [`${n1(SX.reservas.valor / 1000)} mil millones`, `de dólares de reservas brutas tenía el Banco Central el ${fLarga(SX.reservas.fecha)}`, `de dólares el ${fLarga(SX.reservas.fecha)}`],
-  "f-bcra": [pct(BCR_PF.v), `nominal anual pagaban en promedio los plazos fijos a 30 días el ${fLarga(BCR_PF.f)}`, `nominal anual en plazos fijos a 30 días, el ${fLarga(BCR_PF.f)}`],
+  // E11: la cifra de la variable con la que abre el gráfico. Antes era la tasa del plazo fijo, que está en otra opción del selector
+  "f-bcra": BCR_INI.t === "dolar"
+    ? [`${n0(BCR_INI.v)} pesos`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}, según el Banco Central`, `costaba el ${BCR_INI.n.toLowerCase()}, el ${fLarga(BCR_INI.f)}`]
+    : [pct(BCR_PF.v), `nominal anual pagaban en promedio los plazos fijos a 30 días el ${fLarga(BCR_PF.f)}`, `nominal anual en plazos fijos a 30 días, el ${fLarga(BCR_PF.f)}`],
   "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
     `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares por habitante, promedio del país"],
@@ -6196,7 +6216,8 @@ const CLAVE = {
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
     `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
   "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país con DNI argentino cada 100 habitantes, ${nv.xt_corte}`, "cada 100 habitantes, en todo el país"],
-  "f-fiscal": [pct(R.fiscal.mediana), `fue la mediana de la parte de sus ingresos que las provincias y CABA recaudaron por su cuenta en ${R.fiscal.anio}: la mitad quedó por debajo y la otra mitad, por encima`],
+  "f-fiscal": [pct(R.fiscal.mediana), `fue la mediana de la parte de sus ingresos que las provincias y CABA recaudaron por su cuenta en ${R.fiscal.anio}` +
+    (Object.keys(R.fiscal.atrasadas).length ? `, sin ${lista(Object.keys(R.fiscal.atrasadas))}` : "") + `: la mitad quedó por debajo y la otra mitad, por encima`],
   "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia había en el país en ${EM.anio}, cada una contada una sola vez (${n1(EM.pais_1000)} cada 1.000 habitantes)`,
     `en todo el país, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
   "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`, `abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
@@ -6204,8 +6225,9 @@ const CLAVE = {
     "de los asalariados de 31 aglomerados urbanos llevaba un año o menos en su empleo"],
   "f-sube": [n2(su.total_millones),`millones de tarjetas SUBE distintas usadas en un día hábil típico de ${su.mes}`,
     `millones de tarjetas distintas en ${su.mes}, en colectivos, trenes, subtes y lanchas`],
-  "f-corte-casos": [n0(R.justicia.corte.fallos), `fallos firmó la Corte Suprema en ${R.justicia.corte.hasta}. Con ellos resolvió ${n0(R.justicia.corte.resueltos)} casos: un fallo puede cerrar varios casos iguales a la vez`,
-    `fallos firmados en ${R.justicia.corte.hasta}`],
+  // E11: los casos resueltos, como el gráfico. Antes eran los fallos, que no están en el gráfico
+  "f-corte-casos": [n0(R.justicia.corte.resueltos), `casos resolvió la Corte Suprema en ${R.justicia.corte.hasta}, con ${n0(R.justicia.corte.fallos)} fallos: un fallo puede cerrar varios casos iguales a la vez`,
+    `casos resueltos en ${R.justicia.corte.hasta}`],
   "f-jueces-federales": [pct(R.justicia.federal.pct_sin_titular), `de los cargos de juez federal no tenía juez titular en ${R.justicia.federal.fecha}`,
     "de los cargos de juez federal, sin titular"],
   "f-fiscalias-federales": [n0(R.justicia.mp.fiscalias), `fiscalías federales funcionaban en ${R.justicia.mp.fecha}, junto con ${n0(R.justicia.mp.defensorias)} defensorías públicas oficiales`,
@@ -6228,7 +6250,9 @@ const ELU = R.elecciones.filter(x => x.vuelta > 0).at(-1);
 const ESP_DIP = Object.keys(CG.dip).sort((a, b) => CG.dip[b] - CG.dip[a]);
 const masMenos = (v, mas, menos) => v < 0 ? menos : mas;
 const EXTRA = {
-  "x-pet-shale": ["f-petroleo", pct(PG.pct_shale), `del petróleo de ${PG.mes} salió de pozos de shale. Con el tight, el no convencional fue el ${pct(PG.pct_nc)}, contra el ${pct(PG.pct_nc_ult)} en todo ${PG.anio_ult}`],
+  // E11: el no convencional, como su serie y el texto. Antes la cifra era solo el shale
+  "x-pet-shale": ["f-petroleo", pct(PG.pct_nc), `del petróleo de ${PG.mes} salió de pozos no convencionales, contra el ${pct(PG.pct_nc_ult)} en todo ${PG.anio_ult}. ` +
+    `El shale fue el ${pct(PG.pct_shale)} y el resto, tight`],
   "x-pet-ytd": ["f-petroleo", pct(Math.abs(PG.ytd.pet.var)), `${PG.ytd.pet.var < 0 ? "cayó" : "creció"} la producción de petróleo entre enero y ${MESES[PG.ytd.pet.mes - 1]} de ${PG.ytd.pet.anio}, frente a los mismos meses de ${PG.ytd.pet.anio - 1}`],
   "x-vaca-muerta": ["f-hidro-provincias", pct(PG.vm_pct), `del petróleo del país salió de la formación Vaca Muerta entre ${PG.v_desde} y ${PG.v_hasta}`],
   "x-construccion-ytd": ["f-isac", pct(Math.abs(CN.isac_ytd.var)), `${CN.isac_ytd.var < 0 ? "cayó" : "creció"} la actividad de la construcción entre enero y ${MESES[CN.isac_ytd.mes - 1]} de ${CN.isac_ytd.anio}, frente a los mismos meses del año anterior`],
@@ -6963,7 +6987,7 @@ const INDP = [
   // el país: las cuentas de las provincias y CABA sumadas (26 de octubre de 2026). Hasta entonces mostraba la mediana como si fuera el país
   {id:"f-fiscal", g:"gobierno", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}. El país suma las cuentas de ` +
     `todas las provincias y CABA${R.fiscal.pais_sin.length ? `, sin ${lista(R.fiscal.pais_sin)}` : ""}`,
-    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.pais, f:pct},
+    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.pais, f:pct, otroAnio: R.fiscal.atrasadas},
   {id:"f-eti", g:"turismo", lab:"Turistas extranjeros", det:`turistas que visitaron la provincia cada 1.000 habitantes, entre los que salieron del país por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
   {id:"f-gas-hogares", g:"energia", lab:"Hogares que cocinan con gas de red", veces:"debajo", det:"% de los hogares, Censo 2022",
@@ -7405,7 +7429,6 @@ const delPer = p => /^(primer|segundo|tercer|cuarto) /.test(p) ? "del " + p : "d
 const rTxt = r => n2(r).replace(/[-−]/, "menos ");
 // la primera letra en minúscula, salvo que el nombre empiece con un nombre propio (antes se bajaba todo: "voto a milei", etapa 24)
 const minusc = t => /^(Aprender|PISA|ATN)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
-const fuerzaArt = r => { const a = Math.abs(r); return a >= .6 ? "fuerte" : a >= .4 ? "moderada" : a >= .2 ? "débil" : "casi nula"; };
 // "% de los hogares" se pega al número (45,2%) y el resto de la unidad va después
 const partesU = u => u.startsWith("%") ? ["%", u.replace(/^%\s*/, "")] : ["", u];
 function calcularArt(a) {
@@ -7424,7 +7447,7 @@ function textoArt(a, c) {
   const respuesta = ab < .2 ? "No hay un patrón claro." : !mismo ? "No: la relación va en sentido contrario." : ab >= .4 ? "Sí, en general." : "Apenas.";
   const bajada = ab < .2
     ? `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} no tienden a tener más ni menos ${a.ly}.`
-    : `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} tienden a tener ${c.rs > 0 ? "más" : "menos"} ${a.ly}, y las que tienen menos ${a.lx}, ${c.rs > 0 ? "menos" : "más"}. La relación es ${fuerzaArt(c.rs)}.`;
+    : `En las ${c.n} ${U.pl}${c.n === 24 ? "" : " con dato"}, las que tienen más ${a.lx} tienden a tener ${c.rs > 0 ? "más" : "menos"} ${a.ly}, y las que tienen menos ${a.lx}, ${c.rs > 0 ? "menos" : "más"}. La relación es ${fuerza(c.rs)}.`;
   const ord = [...c.F].sort((p, q) => q[a.x] - p[a.x]), top = ord.slice(0, 3), bajo = ord.slice(-3).reverse();
   // "22,0 en Neuquén, 14,9 en Santa Cruz y 13,7 en Santa Fe": el nombre separa los números, sin ambigüedad con la coma decimal
   const enProv = fs => listaY(fs.map((f, i) => `${i ? fy(f[a.y]) + py : vy(f)} en ${f.territorio}`));
@@ -7435,7 +7458,7 @@ function textoArt(a, c) {
     `y ${c.abajo.territorio} (${vx(c.abajo)} y ${vy(c.abajo)}), con menos.`;
   const peso = `La correlación de Spearman, que compara el orden de las ${c.n} ${U.pl} en los dos datos, es de ${rTxt(c.rs)}. Esa medida va de menos 1 a 1: cuanto más lejos está de 0, más marcada es la relación${c.rs <= -.2 ? ", y un valor negativo quiere decir que cuando un dato sube, el otro tiende a bajar" : ""}. ${c.cook.territorio} es la ${U.s} que más pesa en el resultado. ` + (Math.abs(c.rs2 - c.rs) < .05
     ? `Sin ella, la correlación ${rTxt(c.rs2) === rTxt(c.rs) ? "no cambia" : "casi no cambia"}: da ${rTxt(c.rs2)}, así que el resultado no depende de un solo caso.`
-    : `Sin ella, la correlación pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerzaArt(c.rs2) !== fuerzaArt(c.rs) ? `, una relación ${fuerzaArt(c.rs2)}.` : "."));
+    : `Sin ella, la correlación pasa de ${rTxt(c.rs)} a ${rTxt(c.rs2)}` + (fuerza(c.rs2) !== fuerza(c.rs) ? `, una relación ${fuerza(c.rs2)}.` : "."));
   const lim = [...a.limites,
     ...(Mx.periodo !== My.periodo ? [`Los datos son de períodos distintos: el de ${a.lx} es ${delPer(Mx.periodo)} y el de ${a.ly}, ${delPer(My.periodo)}.`] : []),
     ...(Math.abs(c.rs - c.rp) > .2 ? [`Otra medida, la correlación de Pearson, que pesa más los valores extremos, da ${rTxt(c.rp)}. Que las dos medidas den tan distinto indica que unos pocos casos influyen mucho en el resultado.`] : []),
@@ -7488,7 +7511,7 @@ ART.forEach(a => {
    describen con la misma escala que los artículos de cruces, leída sobre el valor que se muestra, y la respuesta destacada sale de los datos.
    Para sumar uno: su nota en la plantilla, sus cifras en el resumen, sus tablas en DIFERIDAS y su entrada acá. */
 const DL = R.dolar;
-const r100 = r => Math.round(r * 100) / 100, fz = r => fuerzaArt(r100(r)), ab = r => Math.abs(r100(r));
+const r100 = r => Math.round(r * 100) / 100, fz = fuerza, ab = r => Math.abs(r100(r));
 const ORD_T = ["1.er", "2.º", "3.er", "4.º"], triCorto = r => `${ORD_T[r.trimestre - 1]} trim. ${r.anio}`;
 const pctAbs = v => pct(Math.abs(v));
 const PLURAL = {"fuerte": "fuertes", "moderada": "moderadas", "débil": "débiles", "casi nula": "casi nulas"};
@@ -7935,7 +7958,6 @@ const SERIE_CIFRA = {
   "f-carceles": () => serieM("Personas privadas de libertad cada 100.000 habitantes", T.carceles_serie.map(r => [r.anio, r.tasa]), n0),
   // gobierno (etapa 25)
   "f-cuentas-nacion": () => serieM("Resultado primario del Sector Público Nacional, % del PBI", GBN.mini, pct),
-  "f-recaudacion": () => serieM("Recaudación de impuestos nacionales, % del PBI", T.recaudacion_anual.map(r => [r.anio, r.total_pbi]), pct),
   "f-deuda": () => serieM("Deuda bruta de la Administración Central, % del PBI", T.deuda_pbi.map(r => [r.periodo.includes("T") ? `${r.periodo[0]}T ${r.periodo.slice(2)}` : r.periodo, r.pct_pbi]), pct),
   "f-empleo-publico": () => provM(`Cargos en la administración provincial cada 1.000 habitantes, ${GBC.anio}`, T.empleo_publico_provincias, "cada_1000", GBC.cada_1000, n1),
   "f-impuestos-provinciales": () => provM(`Impuestos provinciales, pesos por habitante, ${GBP.anio}`, T.impuestos_provinciales, "por_habitante", GBP.pais, n0),

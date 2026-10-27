@@ -1390,7 +1390,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-fiscal">
       <h2>¿Qué parte de sus ingresos recauda cada provincia por su cuenta?</h2>
-      <p class="ficha-sub">Recursos propios y resultado fiscal en % de los ingresos, y gasto en personal en % del gasto, por provincia, {{fiscal.anio}}</p>
+      <p class="ficha-sub">Recursos propios y resultado fiscal en % de los ingresos, y gasto en personal en % del gasto, por provincia, {{fiscal.anio_txt}}</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="fiscal" style="--n:3">
         <button type="button" data-m="autonomia" aria-pressed="true">Recursos propios</button>
         <button type="button" data-m="resultado" aria-pressed="false">Resultado</button>
@@ -2002,7 +2002,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-regalias">
       <h2>¿Qué parte de los ingresos de cada provincia son regalías?</h2>
-      <p class="ficha-sub">Regalías en % de los ingresos totales de cada provincia, {{petroleo.reg_anio}}, y regalías de petróleo crudo por habitante, en dólares</p>
+      <p class="ficha-sub">Regalías en % de los ingresos totales de cada provincia, {{petroleo.reg_anio_txt}}, y regalías de petróleo crudo por habitante, en dólares</p>
       <div class="conmutador" role="group" aria-label="Medida" data-g="regalias">
         <button type="button" data-m="pct_regalias" aria-pressed="true">% de los ingresos</button>
         <button type="button" data-m="usd_crudo_hab" aria-pressed="false">Dólares por habitante, petróleo</button>

@@ -5435,6 +5435,10 @@ MG_RES = {
         "europa_pct": r1(_mg_pp[_mg_pp.continente == "Europa"].personas.sum() / _mg_pp.personas.sum() * 100),
         "primer_pais_n": int((nacidos_otro_pais_provincias[nacidos_otro_pais_provincias.codigo_indec != "00"].primer_pais
                               == _mg_prim.at["00", "pais"]).sum()),
+        # el país que es el primero en más jurisdicciones (E13, 27 de octubre de 2026): no siempre es el más frecuente del total. Con el
+        # Censo 2022, Paraguay es el primero del total y en 7 jurisdicciones, y Chile en 8. El texto decía solo lo de Paraguay
+        "primer_pais_mas": sorted(([p, int(n)] for p, n in nacidos_otro_pais_provincias[nacidos_otro_pais_provincias.codigo_indec != "00"]
+                                   .primer_pais.value_counts().items()), key=lambda x: (-x[1], x[0]))[:3],
     },
     # por departamento (etapa 26): los tres más altos entre los de 10.000 habitantes o más, como las listas de Departamentos
     "departamentos": {"n": int(len(mig_dep)), "min_pob": 10000,
@@ -6696,7 +6700,9 @@ _ev_t, _ev_b = top_bot(ev, "total")
 _ex_t, _ex_b = top_bot(exp_prov, "usd_por_habitante")
 _in_t, _in_b = top_bot(internet_fijo, "accesos_100_hogares")
 _ve_t, _ve_b = top_bot(internet_fijo, "mbps")
-_fa_t, _fa_b = top_bot(fiscal, "autonomia")
+# la más alta y la más baja, y la mediana, solo con las jurisdicciones que tienen el año de la ficha (E12, 27 de octubre de 2026): La Pampa
+# figuraba con 2024 en las fichas de 2025 y entraba en la mediana. La ficha la muestra igual, con su año al lado del nombre
+_fa_t, _fa_b = top_bot(fiscal[fiscal.anio == ANIO_FISC], "autonomia")
 # El valor del país de los recursos propios (26 de octubre de 2026, plan de mejora): las provincias y CABA juntas, los recursos propios
 # sumados sobre los ingresos totales sumados, solo con las jurisdicciones que tienen el año de la ficha (sumar pesos de años distintos no
 # sirve). El perfil lo mostraba como "País" y era la mediana de las provincias, que sigue en "En cifras" y en la cifra destacada
@@ -6704,7 +6710,9 @@ _fc = fisc[fisc.anio == ANIO_FISC]
 resumen["fiscal"] = {
     "anio": ANIO_FISC, "top": _fa_t.territorio, "top_v": r1(_fa_t.autonomia), "low": _fa_b.territorio, "low_v": r1(_fa_b.autonomia),
     "deficit": int((fiscal.resultado < 0).sum()), "superavit": int((fiscal.resultado > 0).sum()),
-    "mediana": r1(fiscal.autonomia.median()), "ini": int(fisc.anio.min()),
+    "mediana": r1(fiscal[fiscal.anio == ANIO_FISC].autonomia.median()), "mediana_n": int((fiscal.anio == ANIO_FISC).sum()), "ini": int(fisc.anio.min()),
+    # la descripción de la ficha con los dos años: "2025 (La Pampa, 2024)"
+    "anio_txt": f"{ANIO_FISC}" + (" (" + ", ".join(f"{p}, {a}" for p, a in FISC_ATRASADAS.items()) + ")" if FISC_ATRASADAS else ""),
     "pais": r1(_fc.propios_millones.sum() / _fc.ingresos_millones.sum() * 100), "pais_sin": sorted(CORTO[c] for c in set(fiscal.codigo_indec) - set(_fc.codigo_indec)),
     "mediana_ini": r1(fisc[fisc.anio == fisc.anio.min()].autonomia.median()),
     "atrasadas": FISC_ATRASADAS,
@@ -6834,6 +6842,9 @@ resumen["petroleo"] = {
     "reg_anio": ANIO_FISC, "reg_top": _rp_ult.iloc[-1].territorio, "reg_top_pct": r1(_rp_ult.iloc[-1].pct_regalias),
     "reg_n_10": int((reg_prov.pct_regalias >= 10).sum()), "reg_n_1": int((reg_prov.pct_regalias >= 1).sum()),
     "reg_atrasadas": {CORTO[c]: int(a) for c, a in zip(reg_prov.codigo_indec, reg_prov.anio_aif) if a < ANIO_FISC},
+    # la descripción de la ficha con los dos años (E12): "2025 (La Pampa, 2024)"
+    "reg_anio_txt": f"{ANIO_FISC}" + (" (" + ", ".join(f"{CORTO[c]}, {int(a)}" for c, a in zip(reg_prov.codigo_indec, reg_prov.anio_aif) if a < ANIO_FISC) + ")"
+                                      if (reg_prov.anio_aif < ANIO_FISC).any() else ""),
     "reg_usd_anio": REG_ULT, "reg_usd_total": round(float(reg_prov.usd_crudo_millones.sum() + _reg_mar)), "reg_usd_mar": round(_reg_mar, 1),
     "reg_usd_top": _reg_hab.territorio, "reg_usd_top_hab": round(float(_reg_hab.usd_crudo_hab)),
     "reg_usd_ini": int(regalias_serie.anio.min()), "reg_usd_max": round(float(regalias_serie.usd_crudo_millones.max())),

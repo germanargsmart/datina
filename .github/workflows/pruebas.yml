@@ -41,9 +41,13 @@ jobs:
           node-version: "22"
       - name: Sintaxis de datina.js
         run: node -e "new Function(require('fs').readFileSync('sitio/datina.js','utf8'))"
+      # una sola escala de fuerza de las correlaciones (plan de mejora, E5 y T6): sin Chrome, en menos de un segundo
+      - run: node scripts/prueba_escala.mjs
       # las pruebas de Chrome usan el que trae la maquina de GitHub: queda anotada su version por si un dia cambia y fallan
       - name: Version de Chrome
         run: google-chrome --version
       - run: node scripts/prueba_paginas.mjs
+      # la cifra destacada de cada ficha, en su vista inicial (plan de mejora, E11 y T7): poco más de un minuto
+      - run: node scripts/prueba_cifras.mjs
       - run: node scripts/prueba_fallas.mjs
       - run: node scripts/prueba_consulta_ia.mjs

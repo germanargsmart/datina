@@ -15,6 +15,12 @@ import csv, datetime, hashlib, html, json, math, pathlib, re, shutil, sys
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "scripts"))
 import consultor_pobreza  # noqa: E402
+import frescura  # noqa: E402
+import prueba_frescura  # noqa: E402
+# la regla del aviso de dato atrasado (T3) se prueba antes de armar: si falla, el sitio no se arma
+_fr, _ = prueba_frescura.revisar()
+if _fr:
+    sys.exit("La prueba de la frescura de las fichas falla (scripts/prueba_frescura.py): el sitio no se armó.\n  " + "\n  ".join(_fr))
 # --con-pobreza copia el armado del consultor de pobreza (pobreza/dist) a sitio/pobreza/. Sin ella, sitio/pobreza/ no se toca
 OPCIONES = {"--con-pobreza"}
 if _otras := [a for a in sys.argv[1:] if a not in OPCIONES]:
@@ -141,6 +147,9 @@ def dato_resumen(m):
     return e(v)
 
 
+# el último período de cada ficha, de su descripción con {{ruta}} (T3, frescura): se lee antes de completar las rutas
+PERIODO_FICHA = {i: frescura.periodos_de(sub, RESUMEN) for i, sub in re.findall(
+    r'<article class="ficha[^"]*" id="(f-[^"]+)">(?:(?!</article>).)*?<p class="ficha-sub">(.*?)</p>', plantilla, re.S)}
 plantilla = re.sub(r"\{\{([\w.]+)\}\}", dato_resumen, plantilla)
 
 # Cada cuánto se actualiza el dato de cada ficha (etapa 27, pedido del autor, como USAFacts): una frase después de la fuente, en el pie, que
@@ -211,12 +220,42 @@ FRECUENCIA = {
     # Curiosidades
     "f-nombres": "anio", "f-carne": "mes", "f-vino": "mes", "f-yerba": "mes", "f-glaciares": "inventario", "f-clima": "anio",
 }
+# Frescura (plan de mejora, T3, 27 de octubre de 2026, aprobado por el autor): si el último período de una ficha está más atrasado
+# que el doble de su frecuencia frente a la última actualización de los datos, el pie lo dice después de la frecuencia
+# (scripts/frescura.py). No frena el armado. DEMORA_HABITUAL suma meses a las fichas cuya fuente ya tenía ese atraso el 24 de
+# octubre de 2026, el día de la última actualización: el aviso sale si se atrasan más. SIN_FRESCURA son las fichas cuyo período no
+# dice hasta cuándo llega el dato
+DEMORA_HABITUAL = {
+    "f-empleo": 2,                 # el SIPA por provincia llegaba a junio de 2026 (4 meses)
+    "f-ingresos-aglomerados": 1,   # la EPH llegaba al primer trimestre de 2026 (7 meses)
+    "f-permisos": 1,               # los permisos de edificación llegaban a julio de 2026 (3 meses)
+    "f-empleo-construccion": 1,    # el empleo registrado por rama llegaba al primer trimestre de 2026 (7 meses)
+    "f-empleo-hidro": 1,           # el mismo dato que la anterior, para petróleo y gas
+}
+SIN_FRESCURA = {
+    "f-parques": "el año de la descripción es el de creación del último parque, no el del dato",
+}
 _fichas = re.findall(r'<article class="(ficha[^"]*)" id="(f-[^"]+)"', plantilla)
 _herramientas = {i for c, i in _fichas if "explorador" in c.split()}
 _faltan = [i for c, i in _fichas if i not in _herramientas and i not in FRECUENCIA]
 _sobran = [i for i in FRECUENCIA if i not in {j for _, j in _fichas} or i in _herramientas or FRECUENCIA[i] not in FRASE_FRECUENCIA]
 if _faltan or _sobran:
     sys.exit(f"Frecuencia de actualización: faltan {_faltan} y sobran o no tienen frase {_sobran} (FRECUENCIA en 03_construir_sitio.py).")
+_sobran = [i for i in {**DEMORA_HABITUAL, **SIN_FRESCURA} if i not in FRECUENCIA]
+if _sobran:
+    sys.exit(f"Frescura: {_sobran} no son fichas con frecuencia (DEMORA_HABITUAL y SIN_FRESCURA en 03_construir_sitio.py).")
+ATRASADAS = []
+
+
+def aviso_atraso(ident):
+    """La frase del pie si el dato de la ficha está atrasado (T3), o nada."""
+    p = None if ident in SIN_FRESCURA else PERIODO_FICHA.get(ident)
+    meses = frescura.atraso(p, FRECUENCIA[ident], RESUMEN["actualizado"], DEMORA_HABITUAL.get(ident, 0))
+    if not meses:
+        return ""
+    ATRASADAS.append(f"{ident} ({p[3]}, {meses} meses)")
+    de = "del" if p[3].split()[0] in ("primer", "segundo", "tercer", "cuarto") or "º" in p[3].split()[0] else "de"
+    return f" El último dato es {de} {p[3]}, más atrasado que lo habitual."
 
 
 def con_frecuencia(m):
@@ -228,7 +267,7 @@ def con_frecuencia(m):
     if not pie:
         sys.exit(f"La ficha {ident} no tiene la fuente en el pie: no se puede sumar la frecuencia.")
     fuente = pie.group(2).rstrip()
-    nuevo = f"{pie.group(1)}{fuente}{'' if fuente.endswith('.') else '.'} {FRASE_FRECUENCIA[FRECUENCIA[ident]]}{pie.group(3)}"
+    nuevo = f"{pie.group(1)}{fuente}{'' if fuente.endswith('.') else '.'} {FRASE_FRECUENCIA[FRECUENCIA[ident]]}{aviso_atraso(ident)}{pie.group(3)}"
     return f'<article class="{clase}" id="{ident}">{cuerpo[:pie.start()]}{nuevo}{cuerpo[pie.end():]}</article>'
 
 
@@ -1288,5 +1327,7 @@ if _grandes:
     sys.exit("Archivos de más de 25 MB, que Cloudflare Pages no publica: el sitio no se dio por armado.\n" + "\n".join(_grandes))
 respaldo_sitio.terminado()
 print(f"Listo: sitio/index.html, {len(SECCIONES)} paginas de seccion y {len(NOTAS)} articulos")
+if ATRASADAS:
+    print("Fichas con el dato más atrasado que lo habitual (el pie lo dice): " + ", ".join(ATRASADAS))
 if AVISO_POBREZA:
     print(AVISO_POBREZA)
