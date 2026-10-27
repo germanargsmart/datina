@@ -502,7 +502,7 @@
   },
   {
    "id": "org:sspm",
-   "nombre": "Subsecretaría de Programación Macroeconómica (API de Series de Tiempo)",
+   "nombre": "Subsecretaría de Programación Macroeconómica",
    "sigla": "SSPM",
    "depende": "Ministerio de Economía",
    "url": "https://apis.datos.gob.ar/series/",
@@ -587,7 +587,7 @@
   },
   {
    "id": "ds:acnur_asilo_argentina_origen.csv",
-   "nombre": "ACNUR: refugiadas y solicitantes de asilo en la Argentina, por país de origen",
+   "nombre": "ACNUR: personas refugiadas y solicitantes de asilo en la Argentina, por país de origen",
    "fuente": "org:acnur",
    "ruta": "datos/crudo/acnur_asilo_argentina_origen.csv",
    "url": "https://api.unhcr.org/population/v1/population/",
@@ -1243,7 +1243,7 @@
   },
   {
    "id": "ds:energia_emae.csv",
-   "nombre": "Demanda eléctrica total y residencial y EMAE (series de tiempo)",
+   "nombre": "Demanda eléctrica total y residencial y Estimador Mensual de Actividad Económica (EMAE), en series de tiempo",
    "fuente": "org:cammesa",
    "ruta": "datos/crudo/energia_emae.csv",
    "evidencia": {
@@ -1406,7 +1406,7 @@
   },
   {
    "id": "ds:indec_proyecciones_provincias.csv",
-   "nombre": "Proyecciones de población por provincia, sexo y edad 2022-2040",
+   "nombre": "Proyecciones de población por provincia, sexo y edad, 2022 a 2040",
    "fuente": "org:indec",
    "ruta": "datos/crudo/indec_proyecciones_provincias.csv",
    "evidencia": {
@@ -1428,7 +1428,7 @@
   },
   {
    "id": "ds:indec_tablas_mortalidad.csv",
-   "nombre": "Tablas de mortalidad por jurisdicción 2020-2022",
+   "nombre": "Tablas de mortalidad por jurisdicción, 2020 a 2022",
    "fuente": "org:indec",
    "ruta": "datos/crudo/indec_tablas_mortalidad.csv",
    "evidencia": {
@@ -1568,7 +1568,7 @@
   },
   {
    "id": "ds:manual/leyes_clave.csv",
-   "nombre": "Selección de leyes clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
+   "nombre": "Selección de leyes y proyectos clave con el id del acta en cada cámara (ley, qué cambia, desenlace, efecto directo)",
    "fuente": "org:datina",
    "ruta": "datos/manual/leyes_clave.csv",
    "evidencia": {
@@ -2333,7 +2333,7 @@
   },
   {
    "id": "ds:manual/justicia_provincias.csv",
-   "nombre": "Jueces, fiscales y defensores de cada provincia y de la Ciudad por año, desde 2011",
+   "nombre": "Jueces, fiscales y defensores de cada provincia y de CABA por año, desde 2011",
    "fuente": "org:csjn-om",
    "ruta": "datos/manual/justicia_provincias.csv",
    "evidencia": {
@@ -2344,7 +2344,7 @@
   },
   {
    "id": "ds:manual/cortes_provinciales.csv",
-   "nombre": "Cuántos miembros fija la ley para el máximo tribunal de cada provincia y de la Ciudad",
+   "nombre": "Cuántos miembros fija la ley para el máximo tribunal de cada provincia y de CABA",
    "fuente": "org:datina",
    "ruta": "datos/manual/cortes_provinciales.csv",
    "evidencia": {

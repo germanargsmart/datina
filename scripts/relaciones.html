@@ -31,7 +31,7 @@
   <h1>Explorador de relaciones</h1>
   <div class="tema-intro">
     <p class="pregunta">¿De dónde sale cada número?</p>
-    <p>Qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación tiene su evidencia: la línea del programa del sitio que la muestra.</p>
+    <p>Acá se ve qué organismo publica cada dato, qué archivo baja Datina y qué fichas arma con él. Cada relación trae su evidencia: la línea del código del sitio que la confirma.</p>
   </div>
   <p class="rx-error" id="rx-error" role="alert" hidden></p>
   <p class="rx-aviso" id="rx-muestra" hidden>Es una muestra: todavía no están todas las fichas del sitio.</p>
@@ -70,7 +70,7 @@
         <svg id="rx-svg" tabindex="0" role="application" aria-roledescription="grafo" aria-describedby="rx-ayuda-grafo" aria-label="Grafo de organismos, archivos y fichas"></svg>
         <p class="rx-vacio" id="rx-vacio-grafo" hidden></p>
       </div>
-        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale. Arrastrá para moverte, y acercá con los botones o con Ctrl y la rueda. Con el teclado: las flechas recorren los puntos, Enter elige, + y − acercan y alejan. La vista Tabla muestra lo mismo en filas.</p>
+        <p class="rx-ayuda" id="rx-ayuda-grafo">Tocá un punto para ver de dónde sale y a qué lleva. Para moverte, arrastrá el dibujo. Para acercar o alejar, usá los botones o Ctrl y la rueda del mouse. Con el teclado, las flechas recorren los puntos, Enter elige uno, + acerca y − aleja. La vista Tabla muestra lo mismo en filas.</p>
 
       <div class="rx-tabla" id="rx-tabla" hidden>
         <a class="rx-saltar rx-saltar-tabla" id="rx-saltar-tabla" href="#rx-panel">Saltar la tabla</a>
@@ -101,13 +101,13 @@
   <p class="rx-estado rx-oculto" id="rx-estado" aria-live="polite"></p>
 
   <section class="rx-definiciones" id="rx-definiciones" aria-labelledby="rx-def-tit" tabindex="-1">
-    <h2 id="rx-def-tit">Qué es una relación acá</h2>
+    <h2 id="rx-def-tit">Qué significa cada relación</h2>
     <dl>
-      <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. Sale de la dirección de descarga o del programa que arma el archivo.</dd>
+      <dt>Publica</dt><dd>El organismo publica el archivo que baja Datina. La evidencia es la dirección de descarga o el programa que arma el archivo.</dd>
       <dt>Alimenta</dt><dd>Un programa del sitio lee el archivo para armar la tabla de la ficha. La evidencia es la línea que lo lee.</dd>
       <dt>Se calcula a partir de</dt><dd>La cifra de una ficha usa la de otra ficha del sitio.</dd>
     </dl>
-    <p>Qué no muestra: si un indicador influye en otro o si dos indicadores van juntos. Para eso están <a class="enlace" href="cruces.html">Cruces</a> y los <a class="enlace" href="articulos.html">artículos</a>. Dos fichas del mismo tema no quedan unidas por eso. Las fichas sobre suicidios no están en el explorador.</p>
+    <p>Qué no muestra: si un indicador influye en otro ni si dos indicadores van juntos. Para ver si van juntos están <a class="enlace" href="cruces.html">Cruces</a> y los <a class="enlace" href="articulos.html">artículos</a>. Que dos fichas sean del mismo tema no las une en el explorador. Las fichas sobre suicidio no están en el explorador.</p>
   </section>
 </section>
 </main>

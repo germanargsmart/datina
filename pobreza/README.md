@@ -39,7 +39,7 @@ Eso descarga Observable Framework en la carpeta `node_modules`. Se hace una sola
 ## Actualizar los datos cada semestre
 
 1. **Reemplazá los datos de origen.** Poné el nuevo `ALL.json` en `datos/crudo/ALL.json`, con la misma estructura que el actual. Si en el futuro los datos llegan en otro formato (por ejemplo cuadros sueltos del INDEC), hay que adaptar la función `construir` de `scripts/exportar_parquet.py`, que es la única parte que lee el origen.
-2. **Revisá el período.** Si el semestre nuevo no es el 1S 2026, cambiá la línea `PERIODO_ULTIMO = "1S 2026"` en `scripts/exportar_parquet.py`. En `src/index.md` buscá los textos que mencionan 1S 2026, 1T 2026 o los totales de calibración (36,9% y 11,1%) y actualizalos.
+2. **Revisá el período.** Si el semestre nuevo no es el 1S 2026, cambiá la línea `PERIODO_ULTIMO = "1S 2026"` en `scripts/exportar_parquet.py`. En `src/index.md` buscá los textos que mencionan 1S 2026, 1T 2026, "primer semestre de 2026", "primer trimestre de 2026" o los totales de calibración (36,9% y 11,1%) y actualizalos.
 3. **Generá las tablas.** En la terminal, desde esta carpeta:
 
    ```

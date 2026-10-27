@@ -1,0 +1,1297 @@
+{
+ "grupo": "G4",
+ "cambios": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánta energía usamos?\">¿Cuánta electricidad y cuánto gas usamos, y de dónde sale la electricidad?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánta energía usamos?\">¿Cuánta electricidad y cuánto gas se usan en cada provincia?</p>",
+   "motivo": "Pregunta más corta y sin la coma antes de la y: la página mide el uso de electricidad y de gas por provincia (las centrales y los subsidios quedan en la entrada).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>La electricidad que consumen los hogares y la economía, por provincia y mes a mes, las centrales que la generan, el gas de red en los hogares y los subsidios del Estado nacional a la energía. La producción de petróleo y gas tiene su propia página: <a class=\"enlace\" href=\"petroleo.html\">Petróleo y gas</a>.</p>",
+   "propuesto": "<p>Esta página muestra cuánta electricidad usan los hogares, los comercios y las industrias de cada provincia, en qué meses se usa más y dónde están las centrales que la generan. También muestra qué parte de los hogares cocina con gas de red, cuánto gas consume cada usuario residencial y cuánto gasta el Estado nacional en subsidios a la energía. La producción de petróleo y gas tiene su propia página: <a class=\"enlace\" href=\"petroleo.html\">Petróleo y gas</a>.</p>",
+   "motivo": "La entrada era una lista de 33 palabras sin verbo: ahora son oraciones con verbo que nombran lo que muestra cada ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Participación de los hogares en la demanda eléctrica, {{energia.anio_ini}} a {{energia.anio_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Demanda eléctrica de los hogares y del resto de los usuarios (índice {{energia.anio_ini}} = 100) y parte de los hogares en el total, {{energia.anio_ini}} a {{energia.anio_ult}}</p>",
+   "motivo": "El gráfico es un índice con base en el primer año y eso solo estaba en la nota oculta: la bajada lo dice, con el año del resumen.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Consumo eléctrico de los hogares por habitante, por provincia, {{energia.el_ini}} a {{energia.el_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Consumo eléctrico de los hogares por habitante, en kilovatios hora (kWh) por año, por provincia, {{energia.el_ini}} a {{energia.el_ult}}</p>",
+   "motivo": "Faltaba la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Demanda eléctrica de comercios e industrias por habitante, por provincia, {{energia.el_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Demanda eléctrica de comercios e industrias por habitante, en kWh por año, por provincia, {{energia.el_ult}}</p>",
+   "motivo": "Faltaba la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<button type=\"button\" data-m=\"partes\" aria-pressed=\"false\">Partes</button>",
+   "propuesto": "<button type=\"button\" data-m=\"partes\" aria-pressed=\"false\">Reparto</button>",
+   "motivo": "\"Partes\" no decía qué muestra la vista: el reparto de la demanda de cada provincia entre hogares, comercios e industrias.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto acompaña la demanda eléctrica a la actividad económica?</h2>",
+   "propuesto": "<h2>¿Cuánto creció la demanda eléctrica frente a la actividad económica?</h2>",
+   "motivo": "\"Acompaña\" sugería una relación que la ficha no mide: la ficha compara cuánto creció cada serie.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Demanda eléctrica y nivel de actividad económica, {{energia.anio_ini}} a {{energia.anio_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Demanda eléctrica total y actividad económica, índices con base {{energia.anio_ini}} = 100, {{energia.anio_ini}} a {{energia.anio_ult}}</p>",
+   "motivo": "La base del índice estaba solo en la nota oculta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Demanda eléctrica promedio por mes, {{energia.meses_desde}} a {{energia.meses_hasta}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Demanda eléctrica promedio de cada mes, en gigavatios hora (GWh), {{energia.meses_desde}} a {{energia.meses_hasta}}</p>",
+   "motivo": "Faltaba la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Con qué y dónde se genera la electricidad?</h2>",
+   "propuesto": "<h2>¿Dónde están las centrales eléctricas y cuánta potencia tiene cada tecnología?</h2>",
+   "motivo": "La pregunta nombra lo que muestran las dos vistas y la cifra destacada (potencia instalada por tecnología), no la electricidad generada.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Centrales eléctricas, {{energia.cen_fecha}}, y potencia instalada por tecnología, {{energia.pot_desde}} a {{energia.pot_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Centrales eléctricas del listado de la Secretaría de Energía, {{energia.cen_fecha}}, y potencia instalada del país por tecnología, en megavatios, {{energia.pot_desde}} a {{energia.pot_anio}}</p>",
+   "motivo": "Faltaban la fuente del listado y la unidad de la potencia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos hogares cocinan con gas de red?</h2>",
+   "propuesto": "<h2>¿Qué parte de los hogares cocina con gas de red?</h2>",
+   "motivo": "La ficha responde con porcentajes, no con una cantidad de hogares.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Hogares según el combustible que usan para cocinar, por provincia y departamento, 2022</p>",
+   "propuesto": "<p class=\"ficha-sub\">Hogares según el combustible que usan principalmente para cocinar, por provincia y departamento, Censo 2022</p>",
+   "motivo": "Nombra la fuente del año y que es el combustible principal, como dice la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Consumo de gas natural por usuario residencial, {{energia.gas_ini}} a {{energia.gas_hasta}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Consumo de gas natural por usuario residencial, en metros cúbicos (m³), {{energia.gas_ini}} a {{energia.gas_hasta}}</p>",
+   "motivo": "Faltaba la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto gasta el Estado en subsidios a la energía?</h2>",
+   "propuesto": "<h2>¿Cuánto gasta el Estado nacional en subsidios a la energía?</h2>",
+   "motivo": "La serie es del Sector Público Nacional: no incluye provincias ni municipios.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Subsidios económicos a la energía, {{energia.sub_ini}} a {{energia.sub_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Subsidios económicos a la energía del Sector Público Nacional, como parte del PBI y en pesos de {{energia.sub_ult}}, {{energia.sub_ini}} a {{energia.sub_ult}}</p>",
+   "motivo": "Faltaban quién gasta y en qué unidad se muestra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánto petróleo y gas producimos?\">¿Cuánto petróleo y gas produce el país, dónde y quién lo produce?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto petróleo y gas producimos?\">¿Cuánto petróleo y gas produce el país y de qué provincias sale?</p>",
+   "motivo": "Pregunta más directa: \"dónde y quién lo produce\" repetía el verbo y quedaba suelta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>La producción mes a mes, por provincia y por área de concesión, el peso de Vaca Muerta, los pozos y sus fracturas, las empresas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar del país entre los productores del mundo. El consumo de electricidad y de gas de los hogares está en <a class=\"enlace\" href=\"energia.html\">Energía</a>.</p>",
+   "propuesto": "<p>La página sigue la producción de petróleo y gas mes a mes y muestra cuánto sale de cada provincia, de cada área de concesión y de cada empresa. También reúne los pozos de Vaca Muerta y sus fracturas, el empleo, las regalías, las reservas, el comercio exterior de energía y el lugar de la Argentina entre los productores del mundo. El consumo de electricidad y de gas de los hogares está en <a class=\"enlace\" href=\"energia.html\">Energía</a>.</p>",
+   "motivo": "La entrada era una lista larga sin verbo: ahora son dos oraciones que dicen qué se mide.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Producción de petróleo por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Producción de petróleo de cada mes, en miles de barriles por día, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>",
+   "motivo": "Faltaba la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Producción de gas natural por mes, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Producción de gas natural de cada mes, en millones de metros cúbicos por día, {{petroleo.anio_ini}} a {{petroleo.anio_mes}}</p>",
+   "motivo": "Faltaba la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuente: Secretaría de Energía, producción del Capítulo IV (Resolución SE 319/1993) por cuenca y tipo de recurso</span>",
+   "propuesto": "<span>Fuente: Secretaría de Energía, producción que declaran las empresas según el Capítulo IV de la Resolución SE 319/1993, por cuenca y tipo de recurso</span>",
+   "motivo": "\"Producción del Capítulo IV\" no decía qué es: son las declaraciones de producción de las empresas.",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Producción de petróleo y gas por provincia, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Producción de petróleo, en miles de barriles por día, y de gas, en millones de metros cúbicos por día, por provincia, promedio de {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>",
+   "motivo": "Las barras no tienen unidad y el período es un promedio de doce meses.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuente: Secretaría de Energía, producción del Capítulo IV agrupada por yacimiento y formación productiva</span>",
+   "propuesto": "<span>Fuente: Secretaría de Energía, producción que declaran las empresas (Capítulo IV), agrupada por yacimiento y formación productiva</span>",
+   "motivo": "\"Producción del Capítulo IV\" no decía qué es: son las declaraciones de producción de las empresas.",
+   "veces": 3
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Producción de petróleo y gas por área de concesión, {{petroleo.areas_ini}} a {{petroleo.areas_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Producción de petróleo y gas por área de concesión, promedio diario de cada año, {{petroleo.areas_ini}} a {{petroleo.areas_anio}}</p>",
+   "motivo": "Aclara que cada valor es el promedio por día de un año.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos pozos producen y cuánto saca cada uno?</h2>",
+   "propuesto": "<h2>¿Cuántos pozos producen y cuánto petróleo saca cada uno?</h2>",
+   "motivo": "La vista inicial mide petróleo por pozo: la pregunta lo nombra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Pozos en producción y lo que produce cada uno, {{petroleo.pozos_mes}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Pozos en producción y barriles de petróleo por día que saca cada uno, según el tipo de recurso, {{petroleo.pozos_mes}}</p>",
+   "motivo": "Faltaban la unidad y la separación por tipo de recurso que muestra el gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuente: Secretaría de Energía, producción del Capítulo IV por pozo</span>",
+   "propuesto": "<span>Fuente: Secretaría de Energía, producción que declaran las empresas para cada pozo (Capítulo IV)</span>",
+   "motivo": "\"Producción del Capítulo IV\" no decía qué es.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos pozos se terminan por año?</h2>",
+   "propuesto": "<h2>¿Cuántos pozos de petróleo y gas se terminan por año?</h2>",
+   "motivo": "Dice de qué pozos se habla.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Pozos de petróleo y gas terminados por año, {{petroleo.pt_ini}} a {{petroleo.pt_anio}}, y por provincia</p>",
+   "propuesto": "<p class=\"ficha-sub\">Pozos de petróleo y gas terminados por año y por tipo, {{petroleo.pt_ini}} a {{petroleo.pt_anio}}, y por provincia, {{petroleo.pt_v_desde}} a {{petroleo.pt_mes}}</p>",
+   "motivo": "La vista por provincia usa otro período (los doce meses más recientes) y la bajada no lo decía.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Producción de petróleo y gas por empresa, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Parte de cada empresa en la producción de petróleo y gas del país, {{petroleo.v_desde}} a {{petroleo.v_hasta}}</p>",
+   "motivo": "El gráfico muestra porcentajes del total del país, no volúmenes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto empleo registrado da el petróleo y el gas?</h2>",
+   "propuesto": "<h2>¿Cuántos asalariados registrados trabajan en la extracción de petróleo y gas?</h2>",
+   "motivo": "Corrige la concordancia (\"da\" con dos sujetos) y nombra lo que se cuenta: puestos asalariados registrados.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Empleo registrado en la extracción de petróleo y gas, {{construccion.emp_trim}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Puestos asalariados registrados del sector privado en la extracción de petróleo y gas y sus servicios, {{construccion.emp_trim}}</p>",
+   "motivo": "Precisa la población: asalariados privados, con las empresas de servicios de la rama.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "data-t=\"empleo-hidro-nota\"></p>\n      <div class=\"pie\"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial, Ministerio de Capital Humano, en base al SIPA</span>",
+   "propuesto": "data-t=\"empleo-hidro-nota\"></p>\n      <div class=\"pie\"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span>",
+   "motivo": "SIPA sin explicar y \"en base a\": ahora con el nombre completo del registro y la sigla del OEDE, que usa la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto pesan las regalías en los ingresos de cada provincia?</h2>",
+   "propuesto": "<h2>¿Qué parte de los ingresos de cada provincia son regalías?</h2>",
+   "motivo": "Pregunta concreta, con la medida que da la respuesta (un porcentaje).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Regalías en los ingresos de cada provincia, {{petroleo.reg_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Regalías en % de los ingresos totales de cada provincia, {{petroleo.reg_anio}}, y regalías de petróleo crudo por habitante, en dólares</p>",
+   "motivo": "Faltaban la unidad de cada vista y que la segunda es solo petróleo crudo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Reservas comprobadas de petróleo y gas, {{petroleo.res_ini}} a {{petroleo.res_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Reservas comprobadas de petróleo y gas al 31 de diciembre de cada año y años de producción que cubren, {{petroleo.res_ini}} a {{petroleo.res_anio}}</p>",
+   "motivo": "Dice la fecha de corte y suma la vista de años de producción, que es la de la cifra destacada.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánta energía exporta e importa el país?</h2>",
+   "propuesto": "<h2>¿Cuánto exporta e importa el país en combustibles y energía?</h2>",
+   "motivo": "La ficha mide dólares de comercio de combustibles, no cantidades de energía.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Exportaciones e importaciones de energía, {{petroleo.bal_ini}} a {{petroleo.bal_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Exportaciones de combustibles y energía e importaciones de combustibles y lubricantes, en millones de dólares, {{petroleo.bal_ini}} a {{petroleo.bal_anio}}</p>",
+   "motivo": "Nombra los dos rubros del INDEC y la unidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">La Argentina entre los productores de petróleo y gas del mundo, {{petroleo.mundo.crudo_kbd.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Producción de petróleo, {{petroleo.mundo.crudo_kbd.anio}}, y de gas natural, {{petroleo.mundo.gas_bcm.anio}}, de la Argentina y de los países que más producen, según la EIA</p>",
+   "motivo": "La vista del gas es de otro año y la bajada prometía el mismo para las dos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánto se usa el transporte público?\">¿Cuánto se usa el transporte público y cuánto cuesta moverse en auto?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto se usa el transporte público?\">¿Cuánto se usa el transporte público, cuántos autos y motos se patentan y cuánto cuesta la nafta?</p>",
+   "motivo": "La pregunta no nombraba los patentamientos, que son dos de las cinco fichas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Los viajes en transporte público y la venta de autos y motos nuevas acompañan el nivel de actividad y el poder de compra.</p>",
+   "propuesto": "<p>Las fichas de esta página muestran cuántas tarjetas SUBE se usan por día en colectivos, trenes y subtes, cuántos autos y motos nuevos se inscriben cada año y en cada provincia, y cuánto cuestan la nafta y el gasoil en el surtidor.</p>",
+   "motivo": "La entrada afirmaba una relación con la actividad y el poder de compra que ninguna ficha muestra, y tenía mal la concordancia (\"autos y motos nuevas\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Tarjetas SUBE usadas por día hábil, 2020 a {{sube.anio_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Tarjetas SUBE distintas usadas en un día hábil típico (mediana de cada mes), 2020 a {{sube.anio_ult}}</p>",
+   "motivo": "Precisa que cuenta tarjetas distintas y que el valor del mes es la mediana de sus días hábiles.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Tarjetas SUBE usadas por día hábil en trenes y subtes, 2020 a {{sube.anio_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Tarjetas SUBE distintas usadas en un día hábil típico en trenes y en subtes, 2020 a {{sube.anio_ult}}</p>",
+   "motivo": "La misma medida que la ficha anterior, dicha igual.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuente: Dirección Nacional de los Registros de la Propiedad Automotor (DNRPA), Ministerio de Justicia</span>",
+   "propuesto": "<span>Fuente: Dirección Nacional de los Registros Nacionales de la Propiedad del Automotor y de Créditos Prendarios (DNRPA), Ministerio de Justicia</span>",
+   "motivo": "Nombre oficial del organismo, como lo documentan relaciones.json y el explicador de la página.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Precio de la nafta súper y del gasoil en el surtidor, {{combustibles.anual_ini}} a {{combustibles.anio_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Precio mediano de la nafta súper y del gasoil en el surtidor, en pesos por litro, {{combustibles.anual_ini}} a {{combustibles.anio_ult}}</p>",
+   "motivo": "Faltaban la medida (mediana de las estaciones) y la unidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánto territorio está protegido?\">¿Cuánto territorio está protegido y cuántas especies se registran en él?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto territorio está protegido?\">¿Cuánto territorio está protegido, cuántas especies se registran y cuánto se pesca?</p>",
+   "motivo": "\"En él\" dejaba afuera la pesca en el mar y en los ríos, que son dos fichas de la página.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Áreas protegidas, parques nacionales y sus visitas, especies registradas y pesca.</p>",
+   "propuesto": "<p>Las fichas muestran cuánto territorio protege cada provincia, cuánta superficie cubren las áreas protegidas nacionales y cuántas visitas reciben los parques nacionales. También, cuántas especies animales se registran en esas áreas y cuánto se pesca en el mar y en los ríos.</p>",
+   "motivo": "La entrada era una lista de sustantivos: ahora dice qué se mide.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Superficie protegida por provincia, {{naturaleza.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Superficie terrestre dentro de áreas protegidas, en % del territorio y en m² por habitante, por provincia, {{naturaleza.anio}}</p>",
+   "motivo": "Faltaban que es superficie terrestre y las unidades de las dos vistas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánta superficie protegen los parques nacionales y desde cuándo?</h2>",
+   "propuesto": "<h2>¿Cuántas áreas protege la Administración de Parques Nacionales y cuánta superficie cubren?</h2>",
+   "motivo": "La cifra destacada es la cantidad de áreas (incluye reservas, monumentos y áreas marinas, no solo parques) y el gráfico, la superficie: la pregunta nombra las dos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Superficie de las áreas protegidas nacionales según año de creación, {{naturaleza.anio_ini}} a {{naturaleza.anio_fin}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Superficie acumulada de las áreas protegidas nacionales, terrestres y marinas, según el año de creación de cada área, {{naturaleza.anio_ini}} a {{naturaleza.anio_fin}}</p>",
+   "motivo": "El gráfico suma superficie año tras año y separa tierra y mar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántas personas visitan los parques nacionales?</h2>",
+   "propuesto": "<h2>¿Cuántas visitas reciben los parques nacionales?</h2>",
+   "motivo": "Se cuentan visitas, no personas: quien entra dos veces cuenta dos (lo dice la nota).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Visitas a parques nacionales, {{naturaleza.vis_ini_anio}} a {{naturaleza.vis_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Visitas registradas en los parques nacionales con control de ingreso, de residentes y de no residentes, {{naturaleza.vis_ini_anio}} a {{naturaleza.vis_anio}}</p>",
+   "motivo": "Precisa qué parques entran y las series del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Visitas por parque nacional, {{visitas_parque.anios}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Visitas registradas en cada parque nacional, {{visitas_parque.anios}}, y en 2019, antes de la pandemia</p>",
+   "motivo": "La ficha tiene una vista de 2019 que la bajada no nombraba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Qué animales se registran más en las áreas protegidas?</h2>",
+   "propuesto": "<h2>¿Qué áreas protegidas nacionales tienen más especies animales registradas?</h2>",
+   "motivo": "La pregunta pedía animales y el gráfico muestra áreas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Especies animales registradas en las áreas protegidas nacionales, las 15 con más registros</p>",
+   "propuesto": "<p class=\"ficha-sub\">Especies animales registradas en cada área protegida nacional terrestre, las 15 áreas con más registros</p>",
+   "motivo": "Precisa que son áreas terrestres y que el corte de 15 es de áreas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Desembarques de pesca marítima de las tres especies principales, {{pesca.ini}} a {{pesca.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Toneladas desembarcadas en puertos argentinos por la pesca marítima, las tres especies principales, {{pesca.ini}} a {{pesca.anio}}</p>",
+   "motivo": "Faltaba la unidad y \"desembarque\" sin explicar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Pesca comercial en ríos por especie, {{pesca.rio_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Toneladas de pesca comercial en ríos y lagunas, por especie, {{pesca.rio_anio}}</p>",
+   "motivo": "Faltaba la unidad. La nota dice ríos y lagunas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánta carne y yerba consumimos?\">¿Cuánta carne, vino y yerba consumimos, y cuánto se calentó el país?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánta carne y yerba consumimos?\">¿Cuánta carne, vino y yerba consumimos y cuánto cambió la temperatura del país?</p>",
+   "motivo": "Sin coma antes de la y y con una pregunta neutra sobre la temperatura, como la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Los nombres más elegidos, el consumo de carne, vino y yerba, los glaciares y el clima.</p>",
+   "propuesto": "<p>Esta página junta datos de temas distintos: qué nombres se eligen para los bebés, cuánta carne vacuna come cada habitante, cuánto vino y cuánta yerba mate salen al mercado, cuántos glaciares tiene cada provincia y cuánto cambió la temperatura media del país.</p>",
+   "motivo": "La entrada era una lista sin verbo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Nombres más elegidos para los bebés, {{curiosidades.nom_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Los diez nombres más inscriptos para los bebés, por sexo, {{curiosidades.nom_anio}}</p>",
+   "motivo": "Dice cuántos nombres muestra el gráfico y que se separan por sexo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Consumo de carne vacuna por habitante, {{curiosidades.carne_ini}} a {{curiosidades.carne_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Consumo de carne vacuna por habitante, en kilos por año, {{curiosidades.carne_ini}} a {{curiosidades.carne_anio}}</p>",
+   "motivo": "Faltaba la unidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Vino vendido en el mercado interno, {{curiosidades.vino_ini}} a {{curiosidades.vino_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Vino despachado para la venta en el país, en millones de litros por año, {{curiosidades.vino_ini}} a {{curiosidades.vino_anio}}</p>",
+   "motivo": "Faltaba la unidad. \"Despachado\" es lo que mide el INV.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánta yerba mate sale de los molinos?</h2>",
+   "propuesto": "<h2>¿Cuánta yerba mate despachan los molinos por año?</h2>",
+   "motivo": "Pregunta con un verbo claro y la unidad de tiempo. No se dice \"se vende en el país\" porque la fuente no lo separa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Yerba mate que salió de los molinos, {{curiosidades.yerba_ini}} a {{curiosidades.yerba_anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Yerba mate elaborada que despachan los molinos (salida de molino), en millones de kilos por año, {{curiosidades.yerba_ini}} a {{curiosidades.yerba_anio}}</p>",
+   "motivo": "Explica \"salida de molino\" y suma la unidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Glaciares por provincia</p>",
+   "propuesto": "<p class=\"ficha-sub\">Glaciares y cuerpos de hielo inventariados, por provincia</p>",
+   "motivo": "Dice qué se cuenta, como la nota. El año del inventario no está en el resumen (queda pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto se calentó el país?</h2>",
+   "propuesto": "<h2>¿Cuánto cambió la temperatura media del país?</h2>",
+   "motivo": "Pregunta neutra, que no da por sentada la respuesta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Diferencia de la temperatura media anual del país con su valor de referencia, {{curiosidades.cl_ini}} a {{curiosidades.cl_fin}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Diferencia de la temperatura media anual del país con el promedio de 1991 a 2020, en grados, {{curiosidades.cl_ini}} a {{curiosidades.cl_fin}}</p>",
+   "motivo": "\"Su valor de referencia\" no decía cuál: es el promedio de 1991 a 2020 del SMN (explicador de la página).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `En ${PG.mes}, el ${pct(PG.pct_shale)} salió de pozos de shale. ` +",
+   "propuesto": "      `En ${PG.mes}, el ${pct(PG.pct_nc)} salió de pozos no convencionales: el ${pct(PG.pct_shale)} de shale y el resto de tight. ` +",
+   "motivo": "El petróleo decía solo shale y el gas, no convencional: ahora los dos textos usan la misma medida y se pueden comparar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `En ${PG.anio_ult} el promedio fue de ${n1(PG.gas_ult)} millones de metros cúbicos por día. El más bajo de la serie fue el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,",
+   "propuesto": "      `El promedio de ${PG.anio_ult} fue de ${n1(PG.gas_ult)} millones de metros cúbicos por día, y el promedio anual más bajo de la serie, el de ${PG.anio_min_gas}, con ${n1(PG.gas_min)}.`,",
+   "motivo": "Una oración en lugar de dos y \"promedio anual\" dicho igual que en el petróleo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "En total, ${PG.n_prov} provincias producen petróleo o gas. La formación",
+   "propuesto": "En total, ${PG.n_prov} provincias producen petróleo o gas, además de los yacimientos del mar de jurisdicción nacional. La formación",
+   "motivo": "El gráfico tiene una barra más que las provincias que nombra el texto: el mar argentino.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    return `En ${PG.areas_anio}, ${PG.areas_n} áreas de concesión produjeron petróleo o gas. La mitad del ${gas ? \"gas\" : \"petróleo\"} del país salió de ${gas ? PG.areas_n50_gas : PG.areas_n50_pet} de ellas, ` +\n      `y las diez que más produjeron sumaron el ${pct(gas ? PG.areas_top10_gas : PG.areas_top10_pet)}. ` +",
+   "propuesto": "    return `En ${PG.areas_anio}, ${PG.areas_n} áreas de concesión produjeron petróleo o gas. La mitad del ${gas ? \"gas\" : \"petróleo\"} del país salió de ${gas ? PG.areas_n50_gas : PG.areas_n50_pet} de ellas` +\n      `${gas ? `, y las diez que más produjeron sumaron el ${pct(PG.areas_top10_gas)}` : \"\"}. ` +",
+   "motivo": "En la vista del petróleo el texto repetía la cifra destacada (las diez áreas): queda solo en la vista del gas, que no tiene esa cifra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `Un pozo de shale produjo en promedio ${n0(PG.bpd_shale)} barriles por día y uno convencional, ${n1(PG.bpd_conv)}: ${PG.veces} veces menos. ` +",
+   "propuesto": "      `En promedio, un pozo de shale produjo ${n0(PG.bpd_shale)} barriles de petróleo por día y uno convencional, ${n1(PG.bpd_conv)}. ` +",
+   "motivo": "El texto repetía las \"18 veces\" de la cifra destacada.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(${pct(e[2].pct_gas)}).`",
+   "propuesto": "(${pct(e[2].pct_gas)}). Un mismo grupo empresario puede aparecer en más de una barra, porque puede declarar con más de una razón social.`",
+   "motivo": "La advertencia de que un grupo puede figurar con varios nombres estaba solo en la nota oculta, y el gráfico la muestra (dos barras del mismo grupo).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.n_empresas} empresas declararon producción de petróleo, y las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}.`;",
+   "propuesto": "      : `Entre ${PG.v_desde} y ${PG.v_hasta}, ${PG.n_empresas} empresas declararon producción de petróleo. Las ${PG.emp_n} del gráfico sumaron el ${pct(100 - PG.emp_resto_pct)}. ` +\n        `Un mismo grupo empresario puede aparecer en más de una barra, porque puede declarar con más de una razón social.`;",
+   "motivo": "La advertencia de que un grupo puede figurar con varios nombres estaba solo en la nota oculta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  \"empleo-hidro\": () => `En el ${CN.emp_trim}, frente al mismo trimestre del año anterior, los puestos asalariados registrados del sector privado en la extracción de petróleo y gas ` +\n    `y sus servicios ${creceCae(CN.pet_emp_var, \"crecieron\", \"cayeron\")}, en las provincias con dato en los dos trimestres. ${CN.pet_emp_top} tenía ${n0(CN.pet_emp_top_v)}.`,",
+   "propuesto": "  \"empleo-hidro\": () => `En el ${CN.emp_trim}, los puestos asalariados registrados del sector privado en la extracción de petróleo y gas y sus servicios ` +\n    `${creceCae(CN.pet_emp_var, \"crecieron\", \"cayeron\")} frente al ${CN.emp_trim_ant}, en las provincias con dato en los dos trimestres. ${CN.pet_emp_top} es la provincia con más puestos: ${n0(CN.pet_emp_top_v)}. ` +\n    `CABA aparece en el gráfico porque el registro cuenta cada puesto en la provincia donde la empresa declara a sus trabajadores, que puede no ser la del yacimiento.`,",
+   "motivo": "Sujeto antes del verbo y el trimestre de comparación nombrado. Lleva a la vista por qué aparece CABA, que estaba solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    : `En ${PG.reg_anio}, las regalías superaron el 10% de los ingresos totales en ${PG.reg_n_10} provincias y el 1% en ${PG.reg_n_1}. En las otras ${24 - PG.reg_n_1}, menos del 1%.`,",
+   "propuesto": "    : `En ${PG.reg_anio}, las regalías fueron el 10% o más de los ingresos totales en ${PG.reg_n_10} provincias y quedaron entre el 1% y el 10% en otras ${PG.reg_n_1 - PG.reg_n_10}. ` +\n      `En las ${24 - PG.reg_n_1} jurisdicciones restantes fueron menos del 1%. El porcentaje suma todas las regalías: las de petróleo y gas, y también las mineras y las hidroeléctricas.` +\n      (Object.keys(PG.reg_atrasadas).length ? ` ${lista(Object.entries(PG.reg_atrasadas).map(([p, a]) => `${p} va con ${a}`))}, su último año publicado.` : \"\"),",
+   "motivo": "Las tres cuentas se leían como 3 + 9 + 15: ahora son grupos que no se pisan (el 1% incluía a las del 10%). Lleva a la vista que el porcentaje incluye regalías mineras e hidroeléctricas y la provincia con otro año, que estaban solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "unos ${n1(PG.res_bbl)} mil millones de barriles. ` +",
+   "propuesto": "unos ${n0(PG.res_bbl * 1000)} millones de barriles. ` +",
+   "motivo": "\"3,9 mil millones\" es un giro raro: \"3.900 millones\" es la misma cifra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El ${pct(PG.res_nc_pet)} era no convencional y el ${pct(PG.res_nq_pet)} estaba en Neuquén.`,",
+   "propuesto": "El ${pct(PG.res_nc_pet)} era no convencional y el ${pct(PG.res_nq_pet)} estaba en Neuquén. Las de gas alcanzaban para ${n1(PG.res_hor_gas)} años de producción.`,",
+   "motivo": "La pregunta incluye el gas y la vista inicial no lo nombraba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  \"balanza-energetica\": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía e importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes. ` +\n    (PG.bal_def_n ? `Entre ${PG.bal_def_desde} y ${PG.bal_def_hasta} el saldo fue negativo en ${PG.bal_def_n} de ${PG.bal_def_hasta - PG.bal_def_desde + 1} años, con el déficit más grande en ${PG.bal_def_max_anio}: ${n0(PG.bal_def_max)} millones. ` : \"\") +\n    `Entre enero y ${MESES[PG.bal_ytd.mes - 1]} de ${PG.bal_ytd.anio}, el saldo fue de ${n0(PG.bal_ytd.saldo)} millones y las exportaciones ${creceCae(PG.bal_ytd_expo.var, \"crecieron\", \"cayeron\")} frente a los mismos meses del año anterior.`,",
+   "propuesto": "  \"balanza-energetica\": () => `En ${PG.bal_anio}, la Argentina exportó ${n0(PG.bal_expo)} millones de dólares en combustibles y energía. Importó ${n0(PG.bal_impo)} millones en combustibles y lubricantes. ` +\n    (PG.bal_def_n ? `Entre ${PG.bal_def_desde} y ${PG.bal_def_hasta}, el saldo fue negativo en ${PG.bal_def_n} de ${PG.bal_def_hasta - PG.bal_def_desde + 1} años. El déficit más grande fue el de ${PG.bal_def_max_anio}: ${n0(PG.bal_def_max)} millones. ` : \"\") +\n    `Entre enero y ${MESES[PG.bal_ytd.mes - 1]} de ${PG.bal_ytd.anio}, el saldo fue de ${saldoTx(PG.bal_ytd.saldo)} y las exportaciones ${creceCae(PG.bal_ytd_expo.var, \"crecieron\", \"cayeron\")} frente a los mismos meses de ${PG.bal_ytd.anio - 1}.`,",
+   "motivo": "Oraciones más cortas, el sentido del saldo de lo que va del año (a favor o en contra) y el año de comparación nombrado.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "        (q ? ` Si Neuquén fuera un país, con ${n0(q.kbd)} mil barriles por día estaría en el puesto ${q.puesto}, entre ${q.arriba} y ${q.abajo}.` : \"\");",
+   "propuesto": "        (m.crudo_kbd.anio === PG.anio_ult ? ` La Secretaría de Energía, que usa el resto de la página, registra ${n0(PG.kbd_ult)} mil: la EIA estima a todos los países con un mismo criterio.` : \"\") +\n        (q ? ` Si Neuquén fuera un país, con ${n0(q.kbd)} mil barriles por día estaría en el puesto ${q.puesto}, entre ${q.arriba} y ${q.abajo}.` : \"\");",
+   "motivo": "El mismo año da dos cifras distintas en la página (EIA y Secretaría de Energía) y la explicación estaba solo en la nota oculta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    : `En ${PG.fr_ult}, las empresas informaron ${n0(PG.fr_etapas)} etapas de fractura en formaciones no convencionales${PG.fr_record ? \", el máximo de la serie\" : \"\"}, ` +\n      `${PG.fr_var >= 0 ? pct(PG.fr_var) + \" más\" : pct(-PG.fr_var) + \" menos\"} que en ${PG.fr_ult - 1} y ${PG.fr_veces} veces las de ${PG.fr_ini}. ` +\n      `El ${pct(PG.fr_vm_pct)} fue en Vaca Muerta. Se bombearon ${n1(PG.fr_arena_mt)} millones de toneladas de arena.`,",
+   "propuesto": "    : `En ${PG.fr_ult}, las empresas informaron ${n0(PG.fr_etapas)} etapas de fractura en formaciones no convencionales${PG.fr_record ? \", el máximo de la serie\" : \"\"}. ` +\n      `Fueron ${PG.fr_var >= 0 ? pct(PG.fr_var) + \" más\" : pct(-PG.fr_var) + \" menos\"} que en ${PG.fr_ult - 1} y ${PG.fr_veces} veces las de ${PG.fr_ini}. ` +\n      `El ${pct(PG.fr_vm_pct)} fue en Vaca Muerta. Cada etapa es un tramo de la rama horizontal del pozo que se fractura por separado. En total se bombearon ${n1(PG.fr_arena_mt)} millones de toneladas de arena.`,",
+   "motivo": "Parte una oración larga y explica qué es una etapa de fractura, con la definición del glosario.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    : `De los pozos de petróleo y gas terminados en ${PG.pt_anio}, ${n0(PG.pt_explot)} fueron de explotación y ${n0(PG.pt_explor)} de exploración o de avanzada. ` +\n      (PG.pt_total < PG.pt_max ? `Hoy se terminan menos pozos que en ${PG.pt_max_anio}, el año con más de la serie, pero en Vaca Muerta cada uno tiene una rama horizontal ` +\n        `${n1(PG.dv_rama_ult / PG.dv_rama_ini)} veces más larga que en ${PG.dv_ini}.` : `En ${PG.pt_anio} se terminaron más pozos que en cualquier otro año de la serie.`),",
+   "propuesto": "    : `De los pozos de petróleo y gas terminados en ${PG.pt_anio}, ${n0(PG.pt_explot)} fueron de explotación, ${n0(PG.pt_explor)} de exploración o de avanzada y el resto, de servicio.` +\n      (PG.pt_total < PG.pt_max ? \"\" : ` En ${PG.pt_anio} se terminaron más pozos que en cualquier otro año de la serie.`),",
+   "motivo": "Las cuentas no sumaban el total (faltaban los de servicio). Se saca el \"hoy\" vago, que repetía la cifra destacada, y la rama horizontal, que repetía la ficha de fracturas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "con ${n0(PG.bpm_max)}: los pozos de ${PG.cos_ult} son más largos",
+   "propuesto": "con ${n0(PG.bpm_max)}. Los pozos de ${PG.cos_ult} son más largos",
+   "motivo": "Parte una oración con dos signos de puntuación fuertes seguidos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    ? `Producción acumulada promedio de un pozo según los meses desde que empezó a producir, por año de inicio. A los doce meses, un pozo de ${PG.cos_ult} ` +",
+   "propuesto": "    ? `Cada línea suma, mes a mes, el petróleo que sacó en promedio un pozo desde que empezó a producir, según su año de inicio. A los doce meses, un pozo de ${PG.cos_ult} ` +",
+   "motivo": "La primera oración no tenía verbo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "        : ` Son los que más petróleo sacaron en sus primeros doce meses desde ${PG.cos_ini}.`),",
+   "propuesto": "        : ` Son los que más petróleo sacaron en sus primeros doce meses desde ${PG.cos_ini}.`) +\n      ` La serie llega hasta ${PG.cos_ult} porque no todos los pozos que empezaron después cumplieron todavía doce meses de producción.`,",
+   "motivo": "La bajada termina un año antes que el resto de la página y el motivo estaba solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "al pasar el mouse por un área se ve lo que produjo en ${PG.areas_anio}. ` +",
+   "propuesto": "al pasar el mouse o tocar un área se ve lo que produjo en ${PG.areas_anio}. ` +",
+   "motivo": "El cuadro también aparece al tocar: el texto no dependía solo del mouse.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Al pasar el mouse, cada barra muestra la parte del país, la parte no convencional y la producción de los mismos meses diez años antes, entre ${PG.v10_desde} y ${PG.v10_hasta}.`,",
+   "propuesto": "Al pasar el mouse o tocar una barra se ven la parte del país, la parte no convencional y la producción de los mismos meses diez años antes, entre ${PG.v10_desde} y ${PG.v10_hasta}.`,",
+   "motivo": "El cuadro también aparece al tocar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(rama 11 de la clasificación de actividades), según el SIPA, en promedio del trimestre. ` +\n    `El SIPA asigna cada puesto a la provincia donde declara el empleador: por eso la Ciudad de Buenos Aires, donde tienen sede muchas empresas, aparece con empleo petrolero. ` +",
+   "propuesto": "(rama 11 de la clasificación de actividades), según el Sistema Integrado Previsional Argentino (SIPA), en promedio del trimestre. ` +\n    `El SIPA asigna cada puesto a la provincia donde declara el empleador: por eso CABA, donde tienen sede muchas empresas, aparece con empleo petrolero. ` +",
+   "motivo": "Sigla con su nombre la primera vez y CABA como en el resto del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  \"x-pet-shale\": [\"f-petroleo\", pct(PG.pct_shale), `del petróleo de ${PG.mes} salió de pozos de shale. En ${PG.anio_ult}, la producción no convencional fue el ${pct(PG.pct_nc_ult)} del total`],",
+   "propuesto": "  \"x-pet-shale\": [\"f-petroleo\", pct(PG.pct_shale), `del petróleo de ${PG.mes} salió de pozos de shale. Con el tight, el no convencional fue el ${pct(PG.pct_nc)}, contra el ${pct(PG.pct_nc_ult)} en todo ${PG.anio_ult}`],",
+   "motivo": "Comparaba shale de un mes con no convencional (shale y tight) de un año: ahora compara la misma medida en los dos períodos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "const cantArea = (v, gas) => gas ? (v >= .1 ? `${n1(v)} millones de metros cúbicos` : `${n0(v * 1000)} mil metros cúbicos`) + \" de gas por día\"\n  : (v >= 1 ? `${kbdF(v)} mil barriles` : `${n0(v * 1000)} barriles`) + \" de petróleo por día\";",
+   "propuesto": "const cantArea = (v, gas) => gas ? (v >= .1 ? `${n1(v)} millones de metros cúbicos` : n0(v * 1000) === \"0\" ? \"menos de mil metros cúbicos\" : `${n0(v * 1000)} mil metros cúbicos`) + \" de gas por día\"\n  : (v >= 1 ? `${kbdF(v)} mil barriles` : n0(v * 1000) === \"0\" ? \"menos de un barril\" : `${n0(v * 1000)} barriles`) + \" de petróleo por día\";",
+   "motivo": "Las áreas chicas decían \"produjo 0 mil metros cúbicos\" y \"su año de mayor producción fue 2006, con 0 mil\": ahora dicen \"menos de mil metros cúbicos\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100 hogares cocinaba con gas de red. ` : \"\") +\n      `Donde más hogares lo tenían era en ${lista(alto.map(r => `${r.territorio} (${pct(r.pct_gas_red)})`))}.`;",
+   "propuesto": "      (CN.gas_nea.length ? `En ${lista(CN.gas_nea)}, menos de ${Math.ceil(CN.gas_nea_max)} de cada 100 hogares cocinaban con gas de red. ` : \"\") +\n      `Los porcentajes más altos eran los de ${lista(alto.map(r => `${r.territorio} (${pct(r.pct_gas_red)})`))}.`;",
+   "motivo": "Concordancia (\"3 de cada 100 hogares cocinaban\") y una oración más directa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    if (v === \"mes\") return `Entre ${e.el_est_desde} y ${e.el_ult}, el mes en que más electricidad consumieron los hogares del país fue ${e.el_mes_max}, con ${n0(e.el_mes_max_kwh)} kWh por habitante, ` +",
+   "propuesto": "    if (v === \"mes\") return `En promedio entre ${e.el_est_desde} y ${e.el_ult}, el mes en que más electricidad consumieron los hogares del país fue ${e.el_mes_max}, con ${n0(e.el_mes_max_kwh)} kWh por habitante, ` +",
+   "motivo": "Las cifras son el promedio de esos años para cada mes y el texto no lo decía.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    return `En ${e.el_ult}, según la demanda residencial que registra CAMMESA, el consumo de electricidad de los hogares más alto fue el de ${t[0]}, ` +\n      `con ${n0(t[1])} kilovatios hora (kWh) por habitante${conVeces(t[1], e.el_pais)}, y el más bajo, el de ${b[0]}, con ${n0(b[1])}${conVeces(b[1], e.el_pais)}. ` +\n      `En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}.`;",
+   "propuesto": "    return `En ${e.el_ult}, los hogares de ${t[0]} consumieron ${n0(t[1])} kilovatios hora (kWh) por habitante${conVeces(t[1], e.el_pais)}, el valor más alto. ` +\n      `Los de ${b[0]} consumieron ${n0(b[1])}${conVeces(b[1], e.el_pais)}, el más bajo. En ${e.el_res_top[0]}, los hogares fueron el ${pct(e.el_res_top[1])} de la demanda de electricidad, y en ${e.el_res_bajo[0]}, el ${pct(e.el_res_bajo[1])}. ` +\n      `Los datos son de CAMMESA, la empresa que administra el mercado eléctrico mayorista, que informa juntas CABA y la provincia de Buenos Aires y no incluye Tierra del Fuego.`;",
+   "motivo": "Sujeto antes del verbo. CAMMESA explicada la primera vez y a la vista que junta CABA con Buenos Aires y no informa Tierra del Fuego (estaba solo en la nota).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(los usuarios que no son hogares y demandan menos de 300 kW) usaron",
+   "propuesto": "(los usuarios que no son hogares y demandan una potencia de menos de 300 kilovatios) usaron",
+   "motivo": "kW (potencia) aparecía junto a kWh (energía) sin explicar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan 300 kW o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país. ` +",
+   "propuesto": "    return `En ${e.el_ult}, las industrias y los grandes comercios (los que demandan una potencia de 300 kilovatios o más) usaron ${n0(e.els_ind)} kWh de electricidad por habitante en el país. ` +",
+   "motivo": "kW (potencia) aparecía junto a kWh (energía) sin explicar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `con ${n0(b[1])}${conVeces(b[1], e.els_ind)}.`;",
+   "propuesto": "      `con ${n0(b[1])}${conVeces(b[1], e.els_ind)}. Donde hay una gran planta industrial o minera, una sola empresa puede concentrar buena parte de la demanda de la provincia.`;",
+   "motivo": "El valor de Chubut se entiende con esta advertencia, que estaba solo en la nota oculta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(a === maxA ? `, el precio más alto desde ${ini} en pesos de igual valor` : a === minA ? `, el precio más bajo desde ${ini} en pesos de igual valor` : \"\")",
+   "propuesto": "(a === maxA ? `, el precio más alto desde ${ini}, descontada la inflación` : a === minA ? `, el precio más bajo desde ${ini}, descontada la inflación` : \"\")",
+   "motivo": "Término fijo del sitio: \"descontada la inflación\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "      `La mediana más alta fue la de ${alto[0]} (${n0(alto[1])} pesos por litro) y la más baja, la de ${bajo[0]} (${n0(bajo[1])}).`;",
+   "propuesto": "      `La mediana más alta fue la de ${alto[0]} (${n0(alto[1])} pesos por litro) y la más baja, la de ${bajo[0]} (${n0(bajo[1])}). ` +\n      `Las estaciones declaran con demora: ${CB.mes} es el último mes en el que declararon casi todas.`;",
+   "motivo": "El dato tiene varios meses y el motivo estaba solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    const ytd = y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio} sumaron un ${pct(Math.abs(y.var))} ${y.var < 0 ? \"menos\" : \"más\"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor.` : \"\";",
+   "propuesto": "    const ytd = y ? ` Entre enero y ${MESES[y.mes - 1]} de ${y.anio}, descontada la inflación, sumaron un ${pct(Math.abs(y.var))} ${y.var < 0 ? \"menos\" : \"más\"} que en los mismos meses de ${y.anio - 1}.` : \"\";",
+   "motivo": "Término fijo del sitio: \"descontada la inflación\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${maxA === e.sub_ini ? \", el primer año\" : \"\"}",
+   "propuesto": "${maxA === e.sub_ini ? \", el primer año con dato\" : \"\"}",
+   "motivo": "Como la serie empieza en su máximo, \"el primer año\" se podía leer como una caída que viene de antes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "          `${pct(Math.abs(y.var))} ${y.var < 0 ? \"menos\" : \"más\"} que en los mismos meses de ${y.anio - 1}, en pesos de igual valor. `",
+   "propuesto": "          `${pct(Math.abs(y.var))} ${y.var < 0 ? \"menos\" : \"más\"} que en los mismos meses de ${y.anio - 1}, descontada la inflación. `",
+   "motivo": "Término fijo del sitio: \"descontada la inflación\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    return `En ${e.gas_anio}, las cinco provincias patagónicas tenían el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales de gas natural del país ` +\n      `y consumieron el ${pct(e.gas_pat_gas)} del gas residencial. En ${t[0][0]}, un usuario consumió en promedio ${n0(t[0][1])} metros cúbicos, ` +\n      `${n1(e.gas_veces_top)} veces el promedio del país, y le siguieron ${t[1][0]} (${n0(t[1][1])}) y ${t[2][0]} (${n0(t[2][1])}). El más bajo fue el de ${e.gas_bajo[0]} (${n0(e.gas_bajo[1])}).`;",
+   "propuesto": "    return `En ${e.gas_anio}, un usuario residencial de ${t[0][0]} consumió en promedio ${n0(t[0][1])} metros cúbicos de gas natural, ${n1(e.gas_veces_top)} veces el promedio del país, ` +\n      `y uno de ${e.gas_bajo[0]}, ${n0(e.gas_bajo[1])}, el valor más bajo. Las cinco provincias patagónicas tenían el ${pct(e.gas_pat_usuarios)} de los usuarios residenciales ` +\n      `y consumieron el ${pct(e.gas_pat_gas)} del gas residencial.` +\n      (e.gas_ytd ? ` Entre enero y ${MESES[e.gas_ytd.mes - 1]} de ${e.gas_ytd.anio}, el consumo por usuario del país ${e.gas_ytd.var < 0 ? \"bajó\" : \"subió\"} ${pct(Math.abs(e.gas_ytd.var))} frente a los mismos meses de ${e.gas_ytd.anio - 1}.` : \"\") +\n      (e.gas_chicas.length ? ` ${lista(e.gas_chicas.map(([p]) => p))} ${e.gas_chicas.length > 1 ? \"quedan\" : \"queda\"} afuera por tener menos de ${n0(e.gas_min_usuarios)} usuarios residenciales.` : \"\") +\n      (e.gas_sin.length ? ` ${lista(e.gas_sin)} no ${e.gas_sin.length > 1 ? \"figuran\" : \"figura\"} en los datos de las distribuidoras.` : \"\");",
+   "motivo": "La bajada llega a un mes de este año y el texto no lo usaba. Dice a la vista qué provincias faltan en el gráfico y por qué (estaba solo en la nota). Saca los dos valores que el gráfico ya muestra.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    ? `En ${e.pot_anio} el país tenía ${n0(e.pot_total)} megavatios de potencia eléctrica instalada: ${pct(e.pot_pct.termica)} térmica, ${pct(e.pot_pct.hidraulica)} hidráulica, ` +\n      `${pct(e.pot_pct.nuclear)} nuclear, ${pct(e.pot_pct.eolica)} eólica y ${pct(e.pot_pct.solar)} solar. La eólica y la solar sumaban ${n0(e.pot_renov_ult)} megavatios, ` +\n      `el ${pct(e.pot_pct_renov_ult)} del total, contra ${n0(e.pot_renov_ini)} megavatios (${pct(e.pot_pct_renov_ini)}) en ${e.pot_ini}.`",
+   "propuesto": "    ? `En ${e.pot_anio}, las centrales del país tenían ${n0(e.pot_total)} megavatios de potencia instalada: ${pct(e.pot_pct.termica)} térmica, ${pct(e.pot_pct.hidraulica)} hidroeléctrica, ` +\n      `${pct(e.pot_pct.nuclear)} nuclear, ${pct(e.pot_pct.eolica)} eólica y ${pct(e.pot_pct.solar)} solar. La potencia es la capacidad de generación de las centrales, no la electricidad que generan en el año. ` +\n      `La eólica y la solar sumaban ${n0(e.pot_renov_ult)} megavatios, contra ${n0(e.pot_renov_ini)} en ${e.pot_ini}.`",
+   "motivo": "Explica que la potencia no es la electricidad generada (la comparación con la OCDE usa generación). \"Hidroeléctrica\" como en la leyenda. Saca los porcentajes que repetían la cifra destacada.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    `y la hidráulica incluye las centrales de menos de 50 megavatios.`,",
+   "propuesto": "    `y la hidroeléctrica incluye las centrales de menos de 50 megavatios.`,",
+   "motivo": "El mismo nombre que la leyenda del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  hogares: `En ${e.anio_ini} los hogares explicaban el ${pct(e.pct_res_ini)} de la electricidad demandada en el país. Entre ${e.anio_ini} y ${e.anio_ult} la demanda residencial creció ${pct(e.crec_res)} y la del resto de los usuarios creció ${pct(e.crec_resto)}.`,",
+   "propuesto": "  hogares: `En ${e.anio_ini}, los hogares eran el ${pct(e.pct_res_ini)} de la electricidad demandada en el país. Entre ${e.anio_ini} y ${e.anio_ult}, su demanda ${creceCae(e.crec_res)} y la del resto de los usuarios ${creceCae(e.crec_resto)}. ` +\n    `El gráfico muestra las dos como índices: el valor de ${e.anio_ini} es 100.`,",
+   "motivo": "\"Explicaban\" sonaba causal. Lleva a la vista que el gráfico es un índice, que estaba solo en la nota, y el verbo sigue al signo del dato.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  actividad: `En ${e.anio_ult} el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad. La actividad económica del gráfico sale del Estimador Mensual de Actividad Económica (EMAE) del INDEC.` +",
+   "propuesto": "  actividad: `En ${e.anio_ult}, el país demandó ${n0(e.gwh_ult)} gigavatios hora (GWh) de electricidad. Desde ${e.anio_ini}, la demanda de los hogares creció ${e.crec_res > e.crec_emae ? \"más\" : \"menos\"} que la actividad económica, ` +\n    `y la del resto de los usuarios creció ${e.crec_resto > e.crec_emae ? \"más\" : \"menos\"} que la economía.` +",
+   "motivo": "El texto no contestaba la pregunta y metía la metodología del EMAE, que ya está en la nota. Ahora compara las series que muestra la ficha, sin afirmar una causa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    `En los primeros días hábiles de marzo de 2020, antes del aislamiento, se usaban ${n2(su.pre_millones)} millones de tarjetas por día hábil.`,",
+   "propuesto": "    `En los primeros días hábiles de marzo de 2020, antes del aislamiento, se usaban ${n2(su.pre_millones)} millones de tarjetas por día hábil` +\n    (su.vs_pre == null ? \". \" : `: en ${su.mes} se usaron ${pct(Math.abs(su.vs_pre))} ${su.vs_pre < 0 ? \"menos\" : \"más\"}. `) +\n    `La SUBE, el Sistema Único de Boleto Electrónico, funciona en el Área Metropolitana de Buenos Aires y en decenas de ciudades del interior, pero no en las que tienen un sistema de pago propio.`,",
+   "motivo": "Faltaba la conclusión (cuánto cambió frente a antes de la pandemia, dato del resumen) y el alcance de la SUBE, que estaba solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  \"sube-modos\": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.subte_miles)} mil tarjetas SUBE en subtes. En los primeros días hábiles de marzo de 2020 eran ${n0(su.tren_pre_miles)} mil en trenes y ${n0(su.subte_pre_miles)} mil en subtes: el tren ${su.tren_vs_pre < 0 ? \"tiene\" : \"suma\"} ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? \"menos\" : \"más\"} y el subte ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? \"menos\" : \"más\"}, aunque desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos. En colectivo la diferencia es de ${su.colectivo_vs_pre > 0 ? \"+\" : \"\"}${pct(su.colectivo_vs_pre)}.`,",
+   "propuesto": "  \"sube-modos\": `En ${su.mes}, en un día hábil típico se usaron ${n0(su.subte_miles)} mil tarjetas SUBE en subtes. En los primeros días hábiles de marzo de 2020, antes del aislamiento, eran ${n0(su.tren_pre_miles)} mil en trenes y ${n0(su.subte_pre_miles)} mil en subtes. ` +\n    `Frente a entonces, los trenes tienen ${pct(Math.abs(su.tren_vs_pre))} ${su.tren_vs_pre < 0 ? \"menos\" : \"más\"} tarjetas y los colectivos, ${pct(Math.abs(su.colectivo_vs_pre))} ${su.colectivo_vs_pre < 0 ? \"menos\" : \"más\"}. ` +\n    `En el subte hay ${pct(Math.abs(su.subte_vs_pre))} ${su.subte_vs_pre < 0 ? \"menos\" : \"más\"}, pero esa diferencia no mide pasajeros: desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE y no figura en estos datos.`,",
+   "motivo": "Una oración de 45 palabras en tres. La cifra del subte queda junto a la advertencia que impide compararla. Se conserva literal la frase de FIJOS.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El subte funciona solo en la Ciudad de Buenos Aires y los trenes con SUBE, sobre todo en el Área Metropolitana. ` +",
+   "propuesto": "El subte funciona solo en CABA y los trenes con SUBE, sobre todo en el Área Metropolitana. ` +",
+   "motivo": "CABA, como en el resto del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? \"menos\" : \"más\"} autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}.`,",
+   "propuesto": "  patentes: `Entre ${au.ytd} se inscribieron en los registros del país ${pct(Math.abs(au.ytd_var))} ${au.ytd_var < 0 ? \"menos\" : \"más\"} autos nuevos que en el mismo período del año anterior. El máximo de autos de la serie fue en ${au.max_anio}, con ${n0(au.max)}, y el mínimo en ${au.min_anio}, con ${n0(au.min)}. ` +\n    `La serie de autos cuenta todos los automotores: también camionetas y vehículos de carga.` +\n    (au.moto_excluidos.length ? ` El total de motos de ${au.anio} incluye el dato de ${lista(au.moto_excluidos)}, que la ficha siguiente señala como un probable error de la fuente.` : \"\"),",
+   "motivo": "Lleva a la vista que \"autos\" incluye camionetas y carga (estaba en la nota) y que el total de motos suma el dato que la ficha siguiente deja afuera por probable error.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  \"patentes-prov\": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). En motos, el promedio del país fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes y el valor más alto, el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar(\"patentamientos_provincias.motos_1000\", au.moto_excluidos)}.`,",
+   "propuesto": "  \"patentes-prov\": `En ${au.anio}, el valor más alto de autos nuevos inscriptos cada 1.000 habitantes fue el de ${au.top} (${n1(au.top_v)}) y el más bajo, el de ${au.low} (${n1(au.low_v)}). ` +\n    `Cada inscripción se cuenta en la provincia del registro, que no siempre es donde se usa el vehículo. ` +\n    `En motos, el valor más alto fue el de ${au.moto_top} (${n1(au.moto_top_v)})${sinContar(\"patentamientos_provincias.motos_1000\", au.moto_excluidos)}. ` +\n    `El promedio del país en motos fue de ${n1(au.motos_pais_1000)} cada 1.000 habitantes${au.moto_excluidos.length ? `, con ${au.moto_excluidos.length > 1 ? \"esos datos incluidos\" : \"ese dato incluido\"}` : \"\"}.`,",
+   "motivo": "Una oración larga en cuatro. Lleva a la vista el aviso del registro (explica los valores altos, estaba en la nota) y dice que el promedio del país incluye el dato excluido del máximo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "(proyecciones del INDEC desde 2022 y la población implícita en las tasas del SNIC antes).",
+   "propuesto": "(proyecciones del INDEC desde 2022 y, antes, la población que se deduce de las tasas del Sistema Nacional de Información Criminal, SNIC).",
+   "motivo": "Sigla sin explicar y orden más claro.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "CAMMESA no separa la Ciudad de Buenos Aires de la provincia, así que van juntas, y no informa Tierra del Fuego: ` +",
+   "propuesto": "CAMMESA no separa CABA de la provincia de Buenos Aires, así que van juntas, y no informa Tierra del Fuego: ` +",
+   "motivo": "CABA, como en el resto del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Si elegís la Ciudad o la provincia de Buenos Aires en Tu provincia, el gráfico resalta la fila de las dos.`,",
+   "propuesto": "Si elegís CABA o la provincia de Buenos Aires en Tu provincia, el gráfico resalta la fila que las junta.`,",
+   "motivo": "CABA, como en el resto del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "una sola empresa puede explicar buena parte de la demanda de la provincia. CAMMESA no separa la Ciudad de ` +\n    `Buenos Aires de la provincia, así que van juntas,",
+   "propuesto": "una sola empresa puede concentrar buena parte de la demanda de la provincia. CAMMESA no separa CABA ` +\n    `de la provincia de Buenos Aires, así que van juntas,",
+   "motivo": "CABA, como en el resto del sitio, y \"concentrar\" en lugar de \"explicar\", que sonaba causal.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional, que cubrían ${n1(nt.ha_millones)} millones de hectáreas, unos ${n0(nt.m2_pais)} metros cuadrados por habitante. ${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low} el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}.`,",
+   "propuesto": "  protegida: `En ${nt.anio} había ${n0(nt.areas)} áreas protegidas nacionales, provinciales y con designación internacional. Cubrían ${n1(nt.ha_millones)} millones de hectáreas de tierra firme, unos ${n0(nt.m2_pais)} metros cuadrados (m²) por habitante. ` +\n    `${nt.top} tenía protegido el ${pct(nt.top_v)} de su superficie${conVeces(nt.top_v, nt.pct)} y ${nt.low}, el ${pct(nt.low_v)}${conVeces(nt.low_v, nt.pct)}. Por habitante, la superficie protegida va de ${n0(nt.m2_top_v)} m² en ${nt.m2_top} a ${n1(nt.m2_low_v)} m² en ${nt.m2_low}. ` +\n    `La fuente suma la superficie de cada designación, así que una misma zona puede contarse más de una vez.`,",
+   "motivo": "Parte la primera oración, dice que la superficie es terrestre y lleva a la vista la advertencia de las superposiciones, que estaba solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "proyectada por el INDEC. La línea punteada azul marca el promedio simple de los países de la OCDE",
+   "propuesto": "proyectada por el INDEC. La línea punteada violeta marca el promedio simple de los países de la OCDE",
+   "motivo": "El gráfico dibuja esa línea en violeta (--ocde), no en azul.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  especies: `La segunda área protegida nacional con más especies animales registradas es ${nt.esp_2}, con ${n0(nt.esp_2_v)}.`,",
+   "propuesto": "  especies: `La segunda área protegida nacional con más especies animales registradas es ${nt.esp_2}, con ${n0(nt.esp_2_v)}. ` +\n    `El número depende también de cuánto se estudió cada área: las más antiguas e investigadas acumulan más registros, así que no mide por sí solo cuántas especies viven en ella.`,",
+   "motivo": "La advertencia que cambia la lectura del ranking estaba solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  visitas: `El ${pct(nt.vis_nr_pct)} de las visitas a los parques nacionales en ${nt.vis_anio} correspondió a personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)}, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ${nt.ytd_frase} las visitas ${movio(nt.ytd_var)} respecto del mismo período del año anterior.`,",
+   "propuesto": "  visitas: `En ${nt.vis_anio}, el ${pct(nt.vis_nr_pct)} de las visitas a los parques nacionales fue de personas que no residen en el país. El máximo de la serie fue en ${nt.vis_max_anio}, con ${n0(nt.vis_max)} visitas, y el mínimo en ${nt.vis_min_anio}, con ${n0(nt.vis_min)}. ` +\n    `${nt.ytd_frase}, según esta fuente, las visitas ${movio(nt.ytd_var)} frente a los mismos meses del año anterior. ` +\n    `La ficha siguiente usa otra fuente, el tablero de la Secretaría de Turismo, y su comparación de lo que va del año puede dar otro resultado.`,",
+   "motivo": "Las dos fichas vecinas daban para este año variaciones de signo contrario sin decir que son fuentes y meses distintos: ahora cada texto nombra su fuente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La fuente no publica datos abiertos por parque.`,",
+   "propuesto": "Esta fuente no publica datos abiertos por parque: la ficha siguiente usa el tablero de la Secretaría de Turismo.`,",
+   "motivo": "Dice de dónde sale la ficha siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "    (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, las visitas a los parques nacionales fueron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? \"más altas\" : \"más bajas\"} que en los mismos meses de ${vpq.par - 1}.` : \"\"),",
+   "propuesto": "    (vpq.par ? ` Entre enero y ${MESES[vpq.par_mes - 1]} de ${vpq.par}, según este tablero, los parques nacionales recibieron un ${pct(Math.abs(vpq.par_var))} ${vpq.par_var >= 0 ? \"más\" : \"menos\"} de visitas que en los mismos meses de ${vpq.par - 1}.` : \"\"),",
+   "motivo": "Nombra la fuente de la comparación (la ficha anterior usa otra) y \"visitas más altas\" pasa a \"más visitas\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  \"visitas-parque-nota\": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso. El tablero de la Secretaría de Turismo no tiene un enlace de descarga fijo: la exportación completa, mes a mes desde 2008, se guarda en el repositorio y hay que renovarla a mano.`,",
+   "propuesto": "  \"visitas-parque-nota\": `Visitas registradas en ${vpq.n} áreas protegidas nacionales con control de ingreso, según el tablero de áreas protegidas de la Secretaría de Turismo. ` +\n    `El tablero no tiene un enlace de descarga fijo: Datina guarda una copia de la exportación completa, mes a mes desde 2008, y la renueva a mano, así que puede quedar desactualizada respecto de la fuente.`,",
+   "motivo": "\"Se guarda en el repositorio\" era una nota interna: ahora dice qué significa para el lector.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  \"pesca-rio\": `En ${pe.rio_anio} la pesca comercial en aguas continentales registró ${n0(pe.rio_total)} toneladas. Las capturas informadas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}).`,",
+   "propuesto": "  \"pesca-rio\": `En ${pe.rio_anio}, la pesca comercial en ríos y lagunas registró ${n0(pe.rio_total)} toneladas. Las capturas se concentraron en ${lista(pe.rio_provs)}, sobre todo en ${pe.rio_prov_top} (${pct(pe.rio_prov_top_pct)}). ` +\n    `Solo cuentan las provincias que informan datos, y no entran la pesca deportiva ni la de subsistencia.`,",
+   "motivo": "\"Aguas continentales\" en palabras simples y el alcance del registro a la vista (estaba solo en la nota).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  nombres: `En ${cu.nom_ini}, los nombres más inscriptos en el país fueron ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones. En ${cu.nom_anio} se inscribieron ${n0(cu.nena_n)} bebés con el nombre ${cu.nena} ${yE(n0(cu.varon_n))} con el nombre ${cu.varon}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones.`,",
+   "propuesto": "  nombres: `En ${cu.nom_anio} se inscribieron ${n0(cu.nena_n)} bebés con el nombre ${cu.nena} ${yE(n0(cu.varon_n))} con el nombre ${cu.varon}. ${cu.varon_prov} fue el nombre de varón más elegido en ${cu.varon_prov_n} de las 24 jurisdicciones. ` +\n    `En ${cu.nom_ini}, el primer año de la serie, los más inscriptos habían sido ${cu.nena0} para las nenas ${yE(cu.varon0)} para los varones.` +\n    (cu.lionel_anio ? ` En ${cu.lionel_anio} se inscribieron ${n0(cu.lionel_max)} bebés llamados Lionel, ${veces(cu.lionel_max, cu.lionel_prev)} veces los del año anterior.` : \"\"),",
+   "motivo": "Empezaba por el año más viejo de la serie. Suma el dato de Lionel, que el resumen ya calcula y el buscador ya usa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "en el Registro Nacional de las Personas. Los nombres se muestran como los registra el RENAPER, sin tildes.",
+   "propuesto": "en el Registro Nacional de las Personas (RENAPER). El RENAPER publica los nombres sin tildes: Datina se las agrega con una tabla de equivalencias, y la tabla descargable trae las dos formas.",
+   "motivo": "La nota decía que los nombres se ven sin tildes, pero el gráfico los muestra con tilde (columna \"mostrar\" de la tabla).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "  carne: `Entre enero y ${cu.carne_ytd_hasta}, cada habitante consumió carne vacuna a un ritmo de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? \", el más bajo de la serie\" : \"\"}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)}.`,",
+   "propuesto": "  carne: `Entre enero y ${cu.carne_ytd_hasta}, cada habitante consumió carne vacuna a un ritmo de ${n1(cu.carne_ytd)} kilos por año${cu.carne_min_serie ? \", por debajo del promedio de cualquier año completo de la serie\" : \"\"}. En ${cu.asado_hasta}, un kilo de asado costaba lo mismo que ${n1(cu.asado)} kilos de pollo en el Gran Buenos Aires. En ${cu.asado_ini_anio} equivalía a ${n1(cu.asado_ini)} kilos.`,",
+   "motivo": "\"El más bajo de la serie\" comparaba unos meses con años completos: ahora dice exactamente qué se compara (así lo calcula 02_procesar.py).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El ${pct(cu.vino_mza)} del vino vendido en el país en ${cu.vino_anio} salió de bodegas de Mendoza. En ${cu.vino_ini} se vendieron ${n0(cu.vino_ini_v)} millones de litros.` +",
+   "propuesto": "El ${pct(cu.vino_mza)} del vino vendido en el país en ${cu.vino_anio} salió de bodegas de Mendoza.` +",
+   "motivo": "El litraje del primer año repetía la cifra destacada, que ya compara con ese año.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "de los glaciares inventariados del país.`,",
+   "propuesto": "de los glaciares inventariados del país. El dato cuenta glaciares, no su superficie: una provincia con muchos glaciares chicos puede tener menos hielo que otra con pocos glaciares grandes.`,",
+   "motivo": "El ranking cuenta glaciares y se puede leer como cantidad de hielo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "${cu.cl_ult < 0 ? \"por debajo\" : \"por encima\"} del valor de referencia. `) + `De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que la referencia.",
+   "propuesto": "${cu.cl_ult < 0 ? \"por debajo\" : \"por encima\"} del promedio de 1991 a 2020. `) + `De los ${cu.cl_n_desde2000} años desde 2000, ${cu.cl_pos_desde2000} fueron más cálidos que el promedio de 1991 a 2020.",
+   "motivo": "\"El valor de referencia\" no decía cuál es.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "respecto del período de referencia que usa el Servicio Meteorológico Nacional.",
+   "propuesto": "respecto del promedio de 1991 a 2020, el período de referencia que usa hoy el Servicio Meteorológico Nacional (SMN).",
+   "motivo": "Nombra el período de referencia, como el explicador.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}`,\n    \"puestos asalariados registrados del sector privado en todo el país\"],",
+   "propuesto": "`puestos asalariados registrados en la extracción de petróleo y gas en el ${CN.emp_trim}, en las provincias con dato`,\n    \"puestos asalariados registrados del sector privado, suma de las provincias con dato\"],",
+   "motivo": "La cifra es la suma de las provincias con dato (lo dice la nota), no el total del país.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`en ${nt.esp_top}, el área con más registros`],",
+   "propuesto": "`especies animales registradas en ${nt.esp_top}, el área con más registros`],",
+   "motivo": "La cifra de la ficha no decía qué cuenta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`motos nuevas se inscribieron en ${au.anio}, más que autos (${n0(au.autos)})`,",
+   "propuesto": "`motos nuevas se inscribieron en ${au.anio}, ${au.motos > au.autos ? \"más\" : \"menos\"} que autos (${n0(au.autos)})`,",
+   "motivo": "\"Más que autos\" estaba escrito fijo: ahora sigue al dato, como la frase de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`millones de kilos de yerba mate salieron de los molinos en ${cu.yerba_anio}`",
+   "propuesto": "`millones de kilos de yerba mate despacharon los molinos en ${cu.yerba_anio}`",
+   "motivo": "El mismo verbo que la pregunta nueva.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`en ${cu.cl_max_anio}, el año más cálido desde ${cu.cl_ini}`",
+   "propuesto": "`en ${cu.cl_max_anio} frente al promedio de 1991 a 2020, el año más cálido desde ${cu.cl_ini}`",
+   "motivo": "En \"En cifras\" la cifra no decía contra qué se mide.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "serieM(\"Yerba mate que salió de los molinos, en millones de kilos por año\",",
+   "propuesto": "serieM(\"Yerba mate que despacharon los molinos, en millones de kilos por año\",",
+   "motivo": "El mismo verbo que la pregunta nueva.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "serieM(\"Desvío de la temperatura media anual respecto de la referencia del SMN, en °C\",",
+   "propuesto": "serieM(\"Desvío de la temperatura media anual respecto del promedio de 1991 a 2020, en °C\",",
+   "motivo": "Nombra el período de referencia.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "La Ley 24.065, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico. Reconoce cuatro tipos de actores del Mercado Eléctrico Mayorista (MEM): generadores, transportistas, distribuidores y grandes usuarios. El texto ordenado vigente se aprobó con el Decreto 450 de 2025. En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias. La Compañía Administradora del Mercado Mayorista Eléctrico (CAMMESA) se constituyó por el Decreto 1192 del 10 de julio de 1992, según el artículo 35 de la Ley 24.065. Es una sociedad anónima sin fines de lucro que despacha el Sistema Argentino de Interconexión (SADI): decide qué centrales generan en cada momento para abastecer la demanda. Su capital se reparte entre el Estado Nacional y cuatro asociaciones civiles de generadores, transportistas, distribuidores y grandes usuarios. Es la fuente de los datos de demanda de este sitio.",
+   "propuesto": "CAMMESA, la Compañía Administradora del Mercado Mayorista Eléctrico, administra el Mercado Eléctrico Mayorista (MEM). En el MEM se compra y se vende la energía en grandes bloques, antes de que llegue a hogares, comercios e industrias. CAMMESA despacha el Sistema Argentino de Interconexión (SADI): decide qué centrales generan en cada momento para abastecer la demanda. Es una sociedad anónima sin fines de lucro. Su capital se reparte entre el Estado nacional y cuatro asociaciones civiles de generadores, transportistas, distribuidores y grandes usuarios, los cuatro tipos de actores del MEM. Se constituyó por el Decreto 1192 del 10 de julio de 1992, según el artículo 35 de la Ley 24.065. Esa ley, sancionada el 19 de diciembre de 1991, ordena el sector eléctrico, y su texto ordenado vigente se aprobó con el Decreto 450 de 2025. CAMMESA es la fuente de los datos de demanda de este sitio.",
+   "motivo": "El bloque empezaba por la cronología legal y nombraba a CAMMESA recién en la quinta oración: ahora empieza por lo que hace. Se conservan todas las normas y fechas.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "No separa la Ciudad de Buenos Aires de la provincia y no informa la demanda de Tierra del Fuego, por eso las fichas por provincia muestran juntas a la Ciudad y a la provincia de Buenos Aires.",
+   "propuesto": "CAMMESA no separa CABA de la provincia de Buenos Aires y no informa la demanda de Tierra del Fuego. Por eso las fichas por provincia muestran juntas a CABA y a la provincia de Buenos Aires, y no incluyen Tierra del Fuego.",
+   "motivo": "Sujeto explícito, CABA como en el resto del sitio y la consecuencia completa (falta Tierra del Fuego).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Las fichas de electricidad usan la serie mensual de demanda de electricidad de la API de Series de Tiempo del Estado nacional.",
+   "propuesto": "Las fichas de la demanda del país (la parte de los hogares, la comparación con la actividad económica y los meses de más consumo) usan la serie mensual de demanda de electricidad de la API de Series de Tiempo del Estado nacional. Las fichas por provincia usan la demanda que publica CAMMESA en su Informe Síntesis Mensual.",
+   "motivo": "Decía que todas las fichas de electricidad usan la API, pero las de provincias usan el informe de CAMMESA (lo dicen sus pies).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "en megavatios, con datos de CAMMESA.",
+   "propuesto": "en megavatios, con datos de CAMMESA. La potencia instalada es la capacidad de generación de las centrales, no la electricidad que generan en el año.",
+   "motivo": "Distingue potencia de generación, que la ficha y la comparación con la OCDE mezclan.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "La ley 25.565 creó un fondo que compensa las tarifas diferenciales de los usuarios residenciales de la Región Patagónica, el departamento de Malargüe y la Puna (el régimen de zona fría), y en 2021 la ley 27.637 lo prorrogó hasta 2031 y lo amplió a otras zonas frías.",
+   "propuesto": "La Ley 25.565 creó un fondo que compensa las tarifas diferenciales de los usuarios residenciales de la Región Patagónica, el departamento de Malargüe y la Puna: el régimen de zona fría. En 2021, la Ley 27.637 lo prorrogó hasta 2031 y lo amplió a otras zonas frías.",
+   "motivo": "Parte una oración larga y escribe \"Ley\" como en el resto de los textos.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Como las presentaciones de los últimos meses pueden llegar incompletas, las comparaciones por provincia y por empresa usan los doce meses que terminan en el último mes en el que la suma de lo declarado coincide con el total del país que publica la misma Secretaría, con menos de 1% de diferencia, y la de los pozos usa el último mes que cumple esa misma condición.",
+   "propuesto": "Las presentaciones de los últimos meses pueden llegar incompletas. Por eso las comparaciones por provincia y por empresa usan los doce meses que terminan en el último mes en el que la suma de lo declarado coincide, con menos de 1% de diferencia, con el total del país que publica la misma Secretaría. La ficha de los pozos usa el último mes que cumple esa condición.",
+   "motivo": "Una oración de 60 palabras en tres, sin cambiar el criterio.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "El dataset lo publica a diario la Dirección Nacional de Desarrollo Tecnológico del Ministerio de Transporte.",
+   "propuesto": "Los datos los publica a diario la Dirección Nacional de Desarrollo Tecnológico del Ministerio de Transporte.",
+   "motivo": "\"Dataset\" en castellano.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Los archivos anuales están disponibles desde 2020.",
+   "propuesto": "Los archivos anuales están disponibles desde 2020. Las fichas de esta página no usan esta serie: cuentan tarjetas por día, no usos.",
+   "motivo": "El bloque explica una serie que ninguna ficha de la página muestra (no aparece en 01, 02 ni datina.js): el lector tiene que saberlo.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "El Sistema de Información de Biodiversidad (SIB) lo creó la Administración de Parques Nacionales en 2002.",
+   "propuesto": "El Sistema de Información de Biodiversidad (SIB) lo creó la Administración de Parques Nacionales (APN) en 2002.",
+   "motivo": "El bloque usa después la sigla APN sin haberla presentado.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/distorsiones.json",
+   "original": "su dato del DNRPA salta durante 2025 a valores decenas de veces mayores que los de los años anteriores y siguientes, y las cámaras del sector no registran ese aumento: es probable un error en el dato abierto",
+   "propuesto": "su dato del DNRPA de 2025 es decenas de veces mayor que el de los años anteriores y siguientes, y las cámaras del sector no registran ese aumento, así que probablemente sea un error del dato abierto",
+   "motivo": "El motivo entra tal cual en el texto de f-patentes-prov y dejaba dos \"dos puntos\" seguidos en la misma oración. Se ve después de correr 02_procesar.py, que lo copia al resumen.",
+   "veces": 1
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>Energía</h2>, <h2>Petróleo y gas</h2>, <h2>Movilidad</h2>, <h2>Flora y fauna</h2>, <h2>Curiosidades</h2>",
+   "motivo": "Primer h2 de cada sección: es el nombre de la barra, el pie y las migas. Renombrar Flora y fauna queda pendiente."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Cuánto petróleo produce el país?</h2>",
+   "motivo": "Ya es una pregunta concreta. La respuesta rápida a \"petróleo\" de prueba_paginas.mjs depende de esta ficha (por PRINCIPAL en datina.js)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "desde diciembre de 2024 parte de los viajes en subte se paga sin SUBE",
+   "motivo": "Frase de FIJOS en 03_construir_sitio.py: se conserva literal (sin coma después de 2024) para que el armado no frene."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Desde diciembre de 2024 el subte acepta tarjetas bancarias y celulares sin contacto, y desde mayo de 2025 pagos con QR",
+   "motivo": "Frases de FIJOS: no se tocan."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "series:[{k:\"idx_demanda\", lab:\"Electricidad\", c:NAR, w:3}, {k:\"idx_emae\", lab:\"Actividad\", c:GRIS}]",
+   "motivo": "Evidencia literal de relaciones.json para f-actividad."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "serieM(\"Producción de petróleo, miles de barriles por día, promedio de cada año\", T.hidrocarburos_anual.map(r => [r.anio, r.pet_total]), n0)",
+   "motivo": "Su final es evidencia literal de catalogo.json (hidrocarburos_anual). Además ya está claro."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-hogares\": [\"hogares\", \"Hogares y resto\", [\"electricidad\", \"co2\"]], \"f-centrales\": [\"centrales\", \"Centrales y potencia\", [\"eolica_solar\"]], \"f-pesca\": [\"pesca\", \"Por especie\", [\"pesca\"]]",
+   "motivo": "OCDE_BOTON: lo revisa G6b y además son evidencias de relaciones.json."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Capítulo IV, Adjunto IV, Resolución SE 319/1993, Resolución SE 324/2006, Resolución 1104/2004",
+   "motivo": "Nombres oficiales de las presentaciones y normas de la Secretaría de Energía. Se agregó qué son (declaraciones de las empresas) sin cambiar el nombre."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "(la fuente los llama Estado Nacional)",
+   "motivo": "Cita el rótulo de la fuente: la mayúscula es de la fuente."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"Mar argentino\"",
+   "motivo": "Rótulo de las tablas y del gráfico: la nota lo explica."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuente: Ministerio de Turismo y Deportes, Sistema de Información Turística de la Argentina (SINTA); Ministerio de Ambiente (CIAM); Ministerio de Transporte, datos abiertos de SUBE",
+   "motivo": "Nombres de organismos: el repositorio no documenta el nombre vigente (los alias de relaciones.json no lo son). Queda pendiente verificarlo."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<button type=\"button\" data-m=\"visitas_pre\" aria-pressed=\"false\">2019</button>",
+   "motivo": "Año fijo (antes de la pandemia), menor que el corte de anios_a_mano."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "TX glaciares-nota, pesca-nota, pesca, parques, parques-nota, mapa-areas-nota, lista-areas-nota, meses, meses-nota, petroleo-nota, gas-nota, pozos-nota, fracturas-nota, productividad-nota, reservas-nota, regalias-nota, balanza-energetica-nota, mundo-petroleo-nota, combustibles-nota, patentes-nota, patentes-prov-nota, sube-nota, gas-consumo-nota, gas-hogares-nota, subsidios-nota, centrales (vista del mapa)",
+   "motivo": "Revisados: ya dicen qué se mide, de dónde sale y qué límites tiene, con oraciones claras."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "cita",
+   "motivo": "Las citas de las fuentes son textuales y no se tocan."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "movilidad.html#f-patentes",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "\"motos\": int(patent.motos.iloc[-1])",
+   "motivo": "Error de dato (E3): el total nacional de motos de 2025 (658.735) y el promedio de 14,2 cada 1.000 suman las motos de Tierra del Fuego, que la misma página señala como probable error. Sin ellas la ventaja sobre los autos baja de unos 43 mil a unos 15 mil.",
+   "propuesta": "Sacar del total y del promedio del país las jurisdicciones excluidas en distorsiones.json (o avisarlo en la cifra destacada) y revisar el titular \"más que autos\". Mientras tanto, el texto de f-patentes y de f-patentes-prov ya lo dice."
+  },
+  {
+   "ruta": "petroleo.html#f-pozos y #f-mapa-pozos",
+   "archivo": "datos/crudo/se_pozos_resumen.csv, datos/crudo/se_pozos_nc.csv",
+   "fragmento": "Los 2.922 de shale / 2.918 eran de shale y 1.226 de tight",
+   "motivo": "Error de dato (E13): el mismo mes da conteos distintos de pozos de shale y tight porque los dos archivos se bajaron en fechas distintas, y 2.918 + 1.226 no da los 4.148 de la cifra destacada.",
+   "propuesta": "Que las dos fichas usen el mismo archivo o la misma fecha de descarga, explicar los pozos que no son shale ni tight y, más adelante, unir las dos fichas."
+  },
+  {
+   "ruta": "naturaleza.html#f-visitas y #f-visitas-parque",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "ytd_frase / par_var",
+   "motivo": "Dos fichas vecinas dan dos variaciones de este año de signo contrario, con fuentes y meses distintos. El texto ahora nombra cada fuente, pero el lector sigue viendo dos cifras para lo mismo.",
+   "propuesta": "Un solo dato de lo que va del año, de la fuente que llega más lejos, o unir las dos fichas (cambio de estructura)."
+  },
+  {
+   "ruta": "petroleo.html (En cifras)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"x-pet-shale\": [\"f-petroleo\", pct(PG.pct_shale),",
+   "motivo": "La cifra destacada es shale y su serie (SERIE_CIFRA) es no convencional. El texto ya compara no convencional con no convencional, pero la cifra sigue siendo shale.",
+   "propuesta": "Cambiar la cifra a pct(PG.pct_nc) (\"72,8% del petróleo de agosto fue no convencional, contra 63,0% en 2025\")."
+  },
+  {
+   "ruta": "petroleo.html#f-fracturas",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-fracturas\": [`${n0(PG.dv_rama_ult)} m`,",
+   "motivo": "La pregunta pide etapas de fractura y la cifra destacada da la rama horizontal. Cambiar la cifra es elegir otro dato.",
+   "propuesta": "Cifra: n0(PG.fr_etapas), \"etapas de fractura en formaciones no convencionales en ${PG.fr_ult}, el ${pct(PG.fr_vm_pct)} en Vaca Muerta\"."
+  },
+  {
+   "ruta": "naturaleza.html#f-parques",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-parques\": [n0(nt.pn_n),",
+   "motivo": "La cifra destacada es una cantidad de áreas. La pregunta nueva nombra cantidad y superficie, pero la superficie no tiene cifra.",
+   "propuesta": "Si el autor prefiere una sola pregunta de superficie: cifra con nt.pn_terr_millones + nt.pn_mar_millones (\"millones de hectáreas, siete de cada diez en el mar\")."
+  },
+  {
+   "ruta": "petroleo.html#f-regalias",
+   "archivo": "scripts/datina.js",
+   "fragmento": "vf: usd ? n0 : v => n1(v) + \"%\"",
+   "motivo": "Jujuy (0,96%) y Corrientes (1,006%) se ven las dos como 1,0%, pero una cuenta entre las de menos del 1% y la otra no.",
+   "propuesta": "Mostrar dos decimales en los valores cercanos al corte, o redondear el corte igual que la etiqueta (cambio de cálculo)."
+  },
+  {
+   "ruta": "movilidad.html#f-combustibles y petroleo.html (todas)",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "FRECUENCIA (\"Se actualiza cada mes\")",
+   "motivo": "datos.energia.gob.ar no responde desde el 23 de octubre de 2026: la nafta quedó en julio de 2026 y la producción, los pozos y las áreas salen de archivos de principios de octubre. El pie sigue diciendo \"Se actualiza cada mes\".",
+   "propuesta": "Mostrar la fecha de descarga en \"De dónde sale\" y un aviso cuando el archivo tenga más de 30 días. Mientras siga caído el servidor, sacar la nafta de \"En cifras\" o aclarar el mes."
+  },
+  {
+   "ruta": "petroleo.html#f-areas-hidro y #f-empresas-hidro",
+   "archivo": "scripts/02_procesar.py y tituloArea() de datina.js",
+   "fragmento": "El Porton_mendoza, Gobernador Ayala Iii, Cnq 7/a, Rio Mayo, Confluencia Sur (dos veces), Pampa Energia, Pluspetrol y Pluspetrol Cuenca Neuquina",
+   "motivo": "Nombres crudos de la fuente: guiones bajos, romanos rotos, sin tildes, áreas repetidas sin provincia y un mismo grupo en dos barras. Corregirlos es tocar los datos.",
+   "propuesta": "Tabla de equivalencias de nombres (como nombres_con_tilde.csv), agrupar por grupo empresario y un buscador en lugar de la lista de 280 áreas."
+  },
+  {
+   "ruta": "energia.html#f-hogares, #f-centrales, naturaleza.html#f-pesca",
+   "archivo": "scripts/datina.js",
+   "fragmento": "OCDE_BOTON (líneas 5147 a 5151)",
+   "motivo": "Para G6b: el botón \"OCDE: CO₂ por habitante\" no responde a la pregunta de f-hogares (parte de los hogares en la electricidad). En f-centrales, la vista OCDE compara generación eólica y solar mientras la ficha muestra potencia (la nota OCDE ya lo aclara). \"Hogares y resto\" y \"Centrales y potencia\" son los rótulos de las vistas iniciales.",
+   "propuesta": "Llevar el CO₂ a una ficha de emisiones (Flora y fauna o Energía) y revisar los rótulos de las vistas iniciales."
+  },
+  {
+   "ruta": "energia.html, petroleo.html, movilidad.html, naturaleza.html, curiosidades.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "orden y unión de fichas",
+   "motivo": "Cambios de estructura propuestos por la auditoría, fuera de esta reescritura.",
+   "propuesta": "Unir f-hogares con f-actividad (misma tabla), f-sube con f-sube-modos, f-mapa-pozos con f-pozos y f-fracturas con f-pozos-terminados. Cuatro subtítulos en Petróleo y gas (Producción, Vaca Muerta y los pozos, Lo que deja, Lo que queda). Mover glaciares y clima a Flora y fauna, y renombrar Flora y fauna (por ejemplo, Naturaleza y ambiente, como el archivo). Separar los dos grupos de botones de f-combustibles. Mostrar 15 parques en f-visitas-parque con \"Ver todos\". f-balanza-energetica repite Sector externo: dejar una y enlazar desde la otra."
+  },
+  {
+   "ruta": "curiosidades.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<p class=\"pregunta\" data-corta=\"¿Cuánta carne y yerba consumimos?\">",
+   "motivo": "La pregunta de la página sigue nombrando la temperatura porque el clima todavía está en Curiosidades.",
+   "propuesta": "Si glaciares y clima pasan a Flora y fauna: \"¿Qué nombres se eligen para los bebés y cuánta carne, vino y yerba consumimos?\"."
+  },
+  {
+   "ruta": "petroleo.html#f-hidro-provincias, energia.html#f-hogares y #f-actividad",
+   "archivo": "scripts/datina.js",
+   "fragmento": "barrasH(G(\"hidro-provincias\"), ... vf: gas ? n1 : kbdF / lineas(G(\"hogares\")...)",
+   "motivo": "Las barras no tienen unidad y los índices no dicen \"2005 = 100\" en el gráfico. La bajada ya lo dice, pero el gráfico es cambio de diseño.",
+   "propuesta": "Rótulo de unidad en el eje o en el valor (\"mil barriles por día\") y \"índice, 2005 = 100\" junto a las líneas."
+  },
+  {
+   "ruta": "todo el sitio",
+   "archivo": "scripts/datina.js",
+   "fragmento": "vecesPais(): \"menos de la cuarta parte del promedio del país\"",
+   "motivo": "Frase molde que achica la diferencia: se usa para 0,18 y para 0,13 del promedio (Santiago del Estero en f-electricidad-sectores, La Pampa en f-protegida). Es una función de todo el sitio.",
+   "propuesta": "Decir la razón real (\"unas ocho veces menos\") con veces(pais, v) cuando el valor queda por debajo de la cuarta parte."
+  },
+  {
+   "ruta": "naturaleza.html, movilidad.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Ministerio de Turismo y Deportes / Ministerio de Ambiente / Ministerio de Transporte",
+   "motivo": "Nombres de organismos anteriores a diciembre de 2023, y en Flora y fauna el mismo organismo aparece como Ministerio de Turismo y Deportes y como Secretaría de Turismo. El repositorio no documenta el nombre vigente.",
+   "propuesta": "Verificar el nombre vigente de cada organismo, sumarlo a relaciones.json y usar uno solo en todo el sitio."
+  },
+  {
+   "ruta": "curiosidades.html#f-glaciares, naturaleza.html#f-especies",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "gl_total, esp_top (sin año)",
+   "motivo": "Las bajadas de glaciares y de especies no tienen período porque el resumen no guarda el año del inventario ni el de los registros. Glaciares cuenta glaciares y no superficie.",
+   "propuesta": "Sumar al resumen el año del inventario del IANIGLA y la superficie de hielo por provincia, y la fecha de corte del SIB, y usarlos con {{ruta}}."
+  },
+  {
+   "ruta": "curiosidades.html#f-nombres",
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "desde 2012 hasta 2024 ... La serie tiene un año de atraso respecto del calendario.",
+   "motivo": "El explicador tiene los años escritos a mano y dice \"un año de atraso\" con datos de 2024 en octubre de 2026.",
+   "propuesta": "Verificar si el RENAPER ya publicó 2025 y escribir el atraso sin años fijos (\"publica cada año con el año anterior\")."
+  },
+  {
+   "ruta": "energia.html#f-centrales",
+   "archivo": "scripts/datina.js",
+   "fragmento": "y ${n0(e.cen_tec[\"Nuclear\"])} nucleares",
+   "motivo": "El listado tiene 2 centrales nucleares (Embalse y Atucha II) y el 4,0% de potencia nuclear parece incluir Atucha I. No está documentado en el repositorio.",
+   "propuesta": "Verificar en el listado de la Secretaría de Energía y, si corresponde, aclarar que Atucha I y II figuran como una sola central."
+  },
+  {
+   "ruta": "movilidad.html#f-combustibles",
+   "archivo": "scripts/datina.js",
+   "fragmento": "la más baja, la de ${bajo[0]}",
+   "motivo": "Tierra del Fuego tiene la nafta más barata y el texto no dice por qué. La exención del impuesto a los combustibles en la zona sur (Ley 23.966) no está documentada en el repositorio.",
+   "propuesta": "Verificar la norma y sumar una oración con su fuente."
+  },
+  {
+   "ruta": "energia.html, petroleo.html, naturaleza.html (En cifras)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "EN_CIFRAS",
+   "motivo": "\"En cifras\" copia las cifras destacadas de las fichas casi palabra por palabra.",
+   "propuesta": "Elegir datos que no estén en las cifras destacadas, o enlazar cada cifra a su ficha."
+  },
+  {
+   "ruta": "curiosidades.html#f-vino, #f-yerba, #f-carne",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "vino_v, yerba_v",
+   "motivo": "Faltan los litros de vino y los kilos de yerba por habitante, que darían una lectura comparable con la carne. Es un cálculo nuevo.",
+   "propuesta": "Sumarlos al resumen con la población del INDEC y usarlos en el texto."
+  },
+  {
+   "ruta": "buscador (todas las páginas)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const PREG = [ (entradas que llevan a f-fracturas, f-petroleo, f-gas-hogares, f-sube, f-sube-modos, f-patentes, f-nombres y las demás fichas de G4)",
+   "motivo": "Las preguntas del buscador repiten textos de estas fichas y no las revisé, porque no son de las páginas del grupo. Hay que ponerlas en línea con los cambios: \"¿Cuántos hogares cocinan con gas de red?\" pasa a \"¿Qué parte de los hogares cocina con gas de red?\", \"¿Volvieron los pasajeros al tren y al subte?\" no dice que la baja del subte no mide pasajeros, \"¿Se patentan más autos o más motos?\" suma Tierra del Fuego, y \"¿Cuánto petróleo produce la Argentina?\" usa shale en lugar de no convencional.",
+   "propuesta": "Que el grupo del buscador las alinee con las fichas nuevas."
+  },
+  {
+   "ruta": "todas las páginas del grupo",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "descr = f\"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar.\"",
+   "motivo": "La descripción para buscadores y redes dice \"Datos por provincia\" también en Curiosidades y en Petróleo y gas, que muestran sobre todo datos del país.",
+   "propuesta": "Para el grupo de metadatos: una descripción propia por página o una frase que no prometa datos por provincia."
+  },
+  {
+   "ruta": "datos/manual/distorsiones.json",
+   "archivo": "datos/manual/distorsiones.json",
+   "fragmento": "patentamientos_provincias.motos_1000 / 94 / motivo",
+   "motivo": "El cambio propuesto al motivo se ve recién después de correr 02_procesar.py, que lo copia al resumen.",
+   "propuesta": "Correr 02_procesar.py en la próxima actualización (o en esta sesión, si el autor lo aprueba) y revisar el texto de f-patentes-prov."
+  },
+  {
+   "ruta": "petroleo.html#f-pozos-terminados",
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "explotación, exploración, avanzada, servicio",
+   "motivo": "Los tipos de pozo no están definidos en el glosario y el repositorio no documenta la definición de la Secretaría de Energía.",
+   "propuesta": "Sumar al glosario las cuatro definiciones, con la fuente de la Secretaría."
+  },
+  {
+   "ruta": "salud.html#f-mortalidad y la ficha de esperanza de vida (otro grupo)",
+   "archivo": "scripts/datina.js",
+   "fragmento": "La línea punteada azul marca el promedio simple de los países de la OCDE (mortalidad-nota y esperanza-nota)",
+   "motivo": "Las dos notas dicen \"azul\", pero barrasH dibuja la línea de la OCDE con --ocde (violeta), como en f-protegida, que ya se corrige en este grupo.",
+   "propuesta": "Para el grupo de Salud: \"La línea punteada violeta\"."
+  },
+  {
+   "ruta": "energia.html#f-centrales",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "potencia_instalada",
+   "motivo": "La cifra destacada compara potencia instalada y la OCDE compara generación. Lo justo sería comparar generación con generación.",
+   "propuesta": "Sumar la generación por fuente de CAMMESA (informe mensual) y usarla en la cifra o en una vista."
+  }
+ ]
+}

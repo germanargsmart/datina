@@ -1,0 +1,1171 @@
+{
+ "grupo": "G1",
+ "cambios": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "menos personas en edad de trabajar por cada jubilado.",
+   "propuesto": "menos personas en edad de trabajar por cada persona mayor.",
+   "motivo": "Tener 65 años o más no es lo mismo que estar jubilado: lo aclara la propia nota de f-envejecimiento.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Nacimientos por año en la Argentina y en la OCDE, {{nacimientos.anio_ini}} a {{nacimientos.anio_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Nacimientos por año en la Argentina y en la OCDE, índice {{nacimientos.anio_ini}} = 100, {{nacimientos.anio_ini}} a {{nacimientos.anio_ult}}</p>",
+   "motivo": "La bajada nombra la unidad del gráfico (un índice con base en el primer año), que hoy solo explica la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Población por edad y sexo, {{piramide.anio}} y {{piramide.anio_fin}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Porcentaje de la población por edad y sexo, {{piramide.anio}} y {{piramide.anio_fin}}, según las proyecciones del INDEC</p>",
+   "motivo": "La bajada dice la unidad (porcentaje del total) y que el segundo año es una proyección.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Personas de 65 años o más por cada 100 en edad de trabajar, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Personas de 65 años o más por cada 100 de 15 a 64 años, por provincia, {{envejecimiento.anio}} y {{envejecimiento.anio_fin}}</p>",
+   "motivo": "La bajada da las edades exactas del denominador, como la nota, y dice que es por provincia. La pregunta conserva la forma coloquial.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos aportan por cada jubilación?</h2>",
+   "propuesto": "<h2>¿Cuántas personas aportan por cada jubilación o pensión?</h2>",
+   "motivo": "La pregunta nombra el sujeto y cuenta también las pensiones, como la cifra y el texto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Aportantes por cada beneficio previsional de ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Personas que aportan por cada jubilación o pensión que paga ANSES, {{jubilaciones.ini}} a {{jubilaciones.anio}}</p>",
+   "motivo": "Lenguaje llano en lugar de \"beneficio previsional\", con el mismo alcance.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos bebés tienen madres menores de 20 años?</h2>",
+   "propuesto": "<h2>¿Qué parte de los nacimientos es de madres menores de 20 años?</h2>",
+   "motivo": "La ficha mide un porcentaje de los nacimientos, no una cantidad de bebés: la pregunta dice lo que se mide.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Nacimientos de madres menores de 20 años por provincia, {{nacimientos.anio_ini}} y {{nacimientos.anio_ult}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Porcentaje de los nacimientos que son de madres menores de 20 años, por provincia, {{nacimientos.anio_ini}} y {{nacimientos.anio_ult}}</p>",
+   "motivo": "La bajada dice la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Porcentaje de los nacidos vivos de cada provincia, según el lugar donde vive la madre, cuya madre tenía menos de 20 años. El círculo claro",
+   "propuesto": "Porcentaje de los nacidos vivos de cada provincia cuya madre tenía menos de 20 años. Cada nacimiento se asigna a la provincia donde vive la madre. El círculo claro",
+   "motivo": "La oración intercalaba la residencia entre el sujeto y su relativo: se parte en dos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Madres menores de 20 años y nivel socioeconómico por provincia</p>",
+   "propuesto": "<p class=\"ficha-sub\">Nacimientos de madres menores de 20 años en {{ado_nse.anio}} e indicadores sociales del Censo 2022, por provincia</p>",
+   "motivo": "La bajada no tenía período ni decía de dónde salen los indicadores.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "¿Cuántas personas nacieron en otro país y cuántos argentinos viven afuera?</p>",
+   "propuesto": "¿Cuántas personas nacidas en otro país viven en la Argentina y cuántos argentinos viven afuera?</p>",
+   "motivo": "\"Cuántas personas nacieron en otro país\" no decía dónde viven: la página cuenta a las que viven en la Argentina.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Primero, cuántas personas nacidas en otro país viven en la Argentina y en cada provincia, y cuántas viven en una provincia distinta de la que nacieron, según el Censo 2022. Después, cómo cambió la inmigración desde el primer censo, cuántas personas nacidas en otro país tienen documento argentino, cuántas residencias otorga Migraciones cada año y cuántas personas nacidas en la Argentina viven en otro país.</p>",
+   "propuesto": "<p>El Censo 2022 cuenta a las personas nacidas en otro país y a las que viven en una provincia distinta de la que nacieron. Los censos anteriores muestran cómo cambió la inmigración desde el primero, de 1869. El Registro Nacional de las Personas (RENAPER) cuenta a las nacidas en otro país que tienen DNI argentino. La Dirección Nacional de Migraciones y la Comisión Nacional para los Refugiados informan las residencias y los pedidos de refugio de cada año. Las Naciones Unidas estiman cuántos argentinos viven en otro país.</p>",
+   "motivo": "Dos oraciones de 70 palabras con forma de índice: se parte en una oración por fuente, se nombra qué cuenta cada una y se suma el refugio, que faltaba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Personas nacidas en otro país por provincia, departamento y país de nacimiento, 2022</p>",
+   "propuesto": "<p class=\"ficha-sub\">Parte de la población de cada provincia que nació en otro país, en porcentaje, Censo 2022</p>",
+   "motivo": "La bajada enumeraba las vistas: ahora dice qué mide la vista principal, en qué unidad y de qué censo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos viven en una provincia distinta de la que nacieron?</h2>",
+   "propuesto": "<h2>¿Cuántas personas viven en una provincia distinta de la que nacieron?</h2>",
+   "motivo": "La pregunta nombra el sujeto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Dónde nacieron las personas que viven en cada provincia y departamento, 2022</p>",
+   "propuesto": "<p class=\"ficha-sub\">Población de cada provincia según dónde nació: en la misma provincia, en otra o en otro país, Censo 2022</p>",
+   "motivo": "La bajada dice las tres categorías del gráfico y de qué censo salen.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Personas nacidas en otro país en cada censo nacional, {{migraciones.historia.ini}} a 2022</p>",
+   "propuesto": "<p class=\"ficha-sub\">Parte de la población nacida en otro país en cada censo nacional, en porcentaje, {{migraciones.historia.ini}} a 2022</p>",
+   "motivo": "El gráfico muestra porcentajes de la población, no cantidades de personas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántas personas nacidas en otro país tienen documento argentino?</h2>",
+   "propuesto": "<h2>¿Cuántas personas nacidas en otro país tienen DNI argentino?</h2>",
+   "motivo": "\"Documento argentino\" se puede leer como ciudadanía. El RENAPER cuenta DNI, también de residentes extranjeros, como dice la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Personas nacidas en otro país con documento argentino por provincia, {{nuevos.xt_corte}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Personas nacidas en otro país con DNI argentino cada 100 habitantes, por provincia, {{nuevos.xt_corte}}</p>",
+   "motivo": "Mismo término que la pregunta y la unidad del gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Residencias otorgadas por la Dirección Nacional de Migraciones, {{migraciones.dnm.desde}} a {{migraciones.dnm.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Residencias permanentes y temporarias otorgadas por la Dirección Nacional de Migraciones, {{migraciones.dnm.desde}} a {{migraciones.dnm.anio}}</p>",
+   "motivo": "La bajada nombra las dos categorías que apila el gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Solicitudes de refugio por año y nacionalidad, {{migraciones.refugio.ini}} a {{migraciones.refugio.anio}}, y personas refugiadas en el país</p>",
+   "propuesto": "<p class=\"ficha-sub\">Solicitudes de refugio por año, {{migraciones.refugio.ini}} a {{migraciones.refugio.anio}}, y personas refugiadas que viven en el país</p>",
+   "motivo": "La bajada no enumera las vistas y distingue los trámites de cada año de las personas que viven en el país.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Cuánto vivimos y de qué nos morimos?\">¿Cuánto vivimos y de qué nos morimos antes de tiempo?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Cuánto se vive y de qué se muere?\">¿Cuánto se vive y de qué se muere en cada provincia?</p>",
+   "motivo": "\"Antes de tiempo\" era vago y no describía la página. La pregunta nueva dice lo que las fichas responden, por provincia. La corta de la portada sigue a la larga.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>La esperanza de vida y la mortalidad infantil resumen cómo funciona el sistema de salud. Las muertes por causas externas,",
+   "propuesto": "<p>La esperanza de vida y la mortalidad infantil son dos medidas habituales para comparar la salud de una población. Dependen del sistema de salud y también de las condiciones de vida. Las muertes por causas externas,",
+   "motivo": "Afirmaba que las dos medidas resumen el sistema de salud: también dependen de las condiciones de vida, como dicen los explicadores.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿De qué se muere la gente en cada provincia?</h2>",
+   "propuesto": "<h2>¿Cuánta gente muere en cada provincia y por qué causas?</h2>",
+   "motivo": "La vista inicial es la mortalidad de todas las causas y el selector elige cada causa: la pregunta cubre las dos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Muertes por año cada 100.000 habitantes según la causa, ajustadas por edad, por provincia, {{causas_muerte.desde}} a {{causas_muerte.hasta}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Muertes por año cada 100.000 habitantes, ajustadas por edad, por provincia y causa, {{causas_muerte.desde}} a {{causas_muerte.hasta}}</p>",
+   "motivo": "Bajada más ordenada: la unidad primero y después la apertura.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Tasa de mortalidad infantil por provincia, {{mortalidad.tri_base}} y {{mortalidad.tri_act}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Muertes de menores de un año cada 1.000 nacidos vivos por provincia, promedios de {{mortalidad.tri_base}} y de {{mortalidad.tri_act}}</p>",
+   "motivo": "La bajada dice la unidad y que el gráfico compara promedios de tres años, no un solo año como la cifra destacada.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"nota\">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede responder a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) contabiliza las defunciones con otra metodología y sus cifras no coinciden exactamente. El SNIC calcula esta tasa sobre las personas de 5 años y más, con el criterio de la OPS y la OMS, y la de homicidios sobre toda la población: por eso las dos tasas no se comparan entre sí, y se comparan las cantidades. Las tasas por sexo están disponibles desde 2017.</p>",
+   "propuesto": "<p class=\"nota\">El SNIC registra hechos a partir de intervenciones policiales y judiciales. Parte de la variación entre años puede deberse a cambios en la cobertura del registro. El Ministerio de Salud (DEIS) cuenta las defunciones con otra metodología, y sus cifras no coinciden exactamente con las del SNIC. El SNIC calcula esta tasa sobre las personas de 5 años y más, con el criterio de la Organización Panamericana de la Salud y la Organización Mundial de la Salud, y la de homicidios, sobre toda la población. Por eso esas dos tasas no se comparan entre sí: se comparan las cantidades. Las tasas por sexo están disponibles desde 2017.</p>",
+   "motivo": "Nota de unas 85 palabras con una subordinada larga: se parte la oración final, se desarrollan OPS y OMS y se conservan enteras la aclaración del SNIC y la DEIS y la de las tasas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan.</p>",
+   "propuesto": "Se excluyen los casos sin esos datos. Los menores de 15 años y los mayores de 80 se agrupan. Esta base del SNIC, la del Sistema de Alerta Temprana, llega hasta {{suicidio.sat_hasta}}.</p>",
+   "motivo": "Explica por qué esta ficha termina en otro año que las demás fichas de suicidio, sin cifras nuevas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Primero, cuántos adolescentes van a la secundaria y cuántos alumnos de sexto grado alcanzan el nivel esperado en lengua y matemática. Después, cómo le va al país frente al mundo en las pruebas PISA. Al final, cuánto cobra un maestro de grado en cada provincia y cuánto invierte el Estado por alumno.</p>",
+   "propuesto": "<p>La página sigue a los chicos en la escuela: cuántos adolescentes van a la secundaria, cuántos alumnos de 6° grado alcanzan el nivel esperado en lengua y matemática y cómo le va al país en las pruebas internacionales PISA. También muestra cuánto cobra un maestro de grado en cada provincia y cuánto invierte el Estado por alumno de escuela estatal.</p>",
+   "motivo": "Índice en prosa con \"Primero, Después, Al final\": se dice qué sigue la página. \"6° grado\" como en las fichas y la inversión con su alcance.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuente: Ministerio de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span>",
+   "propuesto": "<span>Fuente: Secretaría de Educación, Dirección Nacional de Información y Estadística Educativa, Relevamiento Anual</span>",
+   "motivo": "El repositorio documenta el organismo vigente como Secretaría de Educación (relaciones.json, org:educacion). Mismo nombre en todos los pies de G1.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuente: Ministerio de Educación, evaluación Aprender, base agregada</span>",
+   "propuesto": "<span>Fuente: Secretaría de Educación, evaluación Aprender, base agregada</span>",
+   "motivo": "Nombre vigente del organismo, el mismo en todos los pies de G1 (relaciones.json, org:educacion).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Resultados de la Argentina en las pruebas PISA, 2000 a {{pisa.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Puntaje promedio de la Argentina y de los países de la OCDE en las pruebas PISA, 2000 a {{pisa.anio}}</p>",
+   "motivo": "La bajada dice qué se mide (el puntaje promedio) y que el gráfico compara con la OCDE.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto invierte cada provincia por alumno?</h2>",
+   "propuesto": "<h2>¿Cuánto se invierte por alumno de escuela estatal en cada provincia?</h2>",
+   "motivo": "La cifra suma el gasto de la provincia y las transferencias de la Nación y solo cuenta alumnos de escuelas estatales: la pregunta ya no atribuye todo a la provincia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Inversión en educación por alumno de gestión estatal por provincia, {{inversion_edu.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Gasto público en educación por alumno de escuelas de gestión estatal, en pesos, por provincia, {{inversion_edu.anio}}</p>",
+   "motivo": "La bajada usa el nombre de la nota (gasto público) y dice la unidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>La pobreza por ingresos cambia rápido con los precios y los salarios. El censo muestra",
+   "propuesto": "<p>La pobreza por ingresos cambia rápido con los precios y los salarios. La misma encuesta muestra cuánto ingresan los hogares de cada ciudad. El censo muestra",
+   "motivo": "La entrada no nombraba la ficha de ingresos por ciudad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Pobreza e indigencia en los 31 aglomerados urbanos, {{pobreza.ini}} a {{pobreza.fin}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Porcentaje de personas bajo las líneas de pobreza e indigencia en los 31 aglomerados urbanos, por semestre, {{pobreza.ini}} a {{pobreza.fin}}</p>",
+   "motivo": "La bajada dice la unidad (personas, no hogares) y la frecuencia.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuánto ingreso por persona tienen los hogares de cada ciudad?</h2>",
+   "propuesto": "<h2>¿De cuánto es el ingreso por persona de los hogares en cada ciudad?</h2>",
+   "motivo": "Forma más natural de la misma pregunta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, en pesos del {{ingresos_aglomerados.trimestre}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, {{ingresos_aglomerados.trimestres}}, en pesos del {{ingresos_aglomerados.trimestre}}</p>",
+   "motivo": "La bajada dice el período real: se juntan cuatro trimestres, no solo el último.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos hogares tienen cloacas, agua de red y computadora?</h2>",
+   "propuesto": "<h2>¿Cuántos hogares tienen cloacas, agua de red, internet y computadora?</h2>",
+   "motivo": "La pregunta suma internet, que es una opción del selector. NBI y cobertura de salud siguen en la bajada (mover la cobertura a Salud queda pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Servicios, equipamiento y cobertura de salud por provincia, Censo 2022</p>",
+   "propuesto": "<p class=\"ficha-sub\">Hogares con cada servicio o equipamiento y con necesidades básicas insatisfechas, y personas sin cobertura de salud, en porcentaje por provincia, Censo 2022</p>",
+   "motivo": "La bajada dice la unidad y que la cobertura de salud cuenta personas, no hogares.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Internet fijo por provincia, {{nuevos.in_trim}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Accesos a internet fijo cada 100 hogares y velocidad media de bajada, por provincia, {{nuevos.in_trim}}</p>",
+   "motivo": "La bajada dice las dos medidas y su unidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántas personas cobran una pensión por discapacidad?</h2>",
+   "propuesto": "<h2>¿Cuántas personas cobran una pensión por invalidez?</h2>",
+   "motivo": "La bajada, la fuente y el texto hablan de pensiones por invalidez (término fijo del sitio). La nota aclara que no incluye las pensiones por discapacidad de las provincias.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Pensiones no contributivas por invalidez, {{pensiones_invalidez.ini}} a {{pensiones_invalidez.anio}}, y por provincia, en cantidad y cada 1.000 habitantes</p>",
+   "propuesto": "<p class=\"ficha-sub\">Pensiones no contributivas por invalidez que paga ANSES, por provincia y en el país, {{pensiones_invalidez.ini}} a {{pensiones_invalidez.anio}}</p>",
+   "motivo": "La bajada no enumera las vistas y dice quién paga la pensión.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>¿Cuántos chicos cobran la Asignación Universal por Hijo?</h2>",
+   "propuesto": "<h2>¿Cuántos chicos reciben la Asignación Universal por Hijo?</h2>",
+   "motivo": "La AUH la cobran los titulares por cada hijo: los chicos la reciben.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"ficha-sub\">Hijos con AUH por provincia, cada 100 menores de 18 años y en cantidad, y asignaciones familiares de los menores del país, {{auh.anio}}</p>",
+   "propuesto": "<p class=\"ficha-sub\">Chicos con AUH por provincia, cada 100 menores de 18 años, y qué asignación familiar reciben los menores del país, {{auh.anio}}</p>",
+   "motivo": "\"Asignaciones familiares de los menores del país\" se entendía mal: se dice qué muestra la vista de cobertura.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "El diagnóstico describe su lugar entre las 24, la distancia con el promedio del país",
+   "propuesto": "El diagnóstico describe su puesto entre las 24 jurisdicciones, la distancia con el total del país",
+   "motivo": "\"Las 24\" sin sustantivo. La herramienta compara con el valor de todo el país, que no es un promedio de provincias.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"lead\">Describe posiciones y diferencias con los últimos datos oficiales de cada tema. No dice qué hacer ni explica por qué cada provincia está donde está.</p>",
+   "propuesto": "<p class=\"lead\">Cada tema usa su último dato oficial: Aprender {{diagnostico.anio}} para 6° grado, el Relevamiento Anual {{diagnostico.esc_hasta}} para la secundaria y el Censo 2022 para los hogares y los adultos.</p>",
+   "motivo": "La advertencia estaba tres veces (este texto, el recuadro \"Qué no dice este diagnóstico\" y Para entender los datos): queda en el recuadro y el texto dice de qué año es cada fuente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuentes: Aprender y DiNIEE (Ministerio de Educación), Censo 2022 (INDEC) y PISA (OCDE)</span>",
+   "propuesto": "<span>Fuentes: Aprender y Relevamiento Anual (Secretaría de Educación), Censo 2022 (INDEC) y PISA (OCDE)</span>",
+   "motivo": "DiNIEE era una sigla sin explicar: se nombra el operativo (Relevamiento Anual) y el organismo vigente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que solo traen la causa con tres caracteres. ",
+   "propuesto": "Ese dato no se publica por provincia y no se puede calcular con los datos abiertos, que traen solo los tres primeros caracteres del código de cada causa. ",
+   "motivo": "\"La causa con tres caracteres\" era jerga: se dice qué falta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social ni prepaga del Censo 2022.",
+   "propuesto": "Las correlaciones comparan la tasa de cada grupo de causas con el porcentaje de población sin obra social, prepaga ni plan estatal de salud del Censo 2022.",
+   "motivo": "Es la variable P19 = 3 del Censo (censo_2022.py), la misma que la ficha de servicios del Censo llama \"sin obra social, prepaga ni plan estatal\": un solo nombre.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "provincias, y la Ciudad de Buenos Aires y los partidos del conurbano van por separado.",
+   "propuesto": "provincias: la Ciudad de Buenos Aires y los Partidos del GBA son dos aglomerados distintos.",
+   "motivo": "Se usan los nombres de aglomerado del INDEC que muestra el gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Sin ajustar, la más alta es la de ${CM.bruta_max}",
+   "propuesto": "`Sin ajustar por edad, la más alta es la de ${CM.bruta_max}",
+   "motivo": "Dice qué no se ajusta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Después vienen ${CM_FRASE[CMG[1].k]} (${pct(CMG[1].pct)} de las muertes) ${yE(CM_FRASE[CMG[2].k])} (${pct(CMG[2].pct)}).`",
+   "propuesto": "`Por causa, después de ${CM_FRASE[CMG[0].k]} vienen ${CM_FRASE[CMG[1].k]} (${pct(CMG[1].pct)} de las muertes) ${yE(CM_FRASE[CMG[2].k])} (${pct(CMG[2].pct)}).`",
+   "motivo": "\"Después\" remitía a la cifra destacada, no a lo que decía el texto: se nombra la primera causa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`: la provincia de Buenos Aires pasa de tener el ${pct(PPY.pba_pct_hoy)} de los habitantes del país al ${pct(PPY.pba_pct_fin)}.`",
+   "propuesto": "`. La provincia de Buenos Aires pasa de tener el ${pct(PPY.pba_pct_hoy)} de los habitantes del país al ${pct(PPY.pba_pct_fin)}.`",
+   "motivo": "Oración de tres ideas: se parte.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}).`",
+   "propuesto": "Por provincia, en ${EV.anio} la relación más alta es la de ${EV.max} (${n1(EV.max_v)}) y la más baja, la de ${EV.min} (${n1(EV.min_v)}). El gráfico muestra al lado de cada provincia su valor de ${EV.anio_fin}.`",
+   "motivo": "El texto citaba los extremos del primer año sin decirlo y el gráfico rotula y ordena por el último: se nombran los dos períodos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${PI.anio} la mitad de la población del país tiene menos de ${PI.edad_mediana_hoy} años, aproximadamente. Según",
+   "propuesto": "`En ${PI.anio}, la mitad de la población del país tiene menos de unos ${PI.edad_mediana_hoy} años: es la edad mediana. Según",
+   "motivo": "El adverbio al final de la oración demoraba la idea: la aproximación va junto a la cifra y se nombra la medida.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`La demografía empuja en la misma dirección: según las proyecciones del INDEC, las personas de 15 a 64 años",
+   "propuesto": "`En la población, según las proyecciones del INDEC, las personas de 15 a 64 años",
+   "motivo": "\"Empuja en la misma dirección\" atribuía una causa: la nota aclara que los aportantes dependen del empleo registrado. Se describe el dato.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Desde ${HB.ini}, el haber mínimo con adicionales ` +",
+   "propuesto": "Desde ${HB.ini}, el haber mínimo con refuerzos ` +",
+   "motivo": "Dos nombres para lo mismo en el mismo texto: queda \"refuerzos\", como en el gráfico.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"A precios de hoy\" pasa los montos a pesos de ${MESES[+HB.mes_real.slice(5) - 1]} de ${HB.mes_real.slice(0, 4)} con el IPC del INDEC, desde ${HB.ini_real}, ",
+   "propuesto": "\"A precios de hoy\" descuenta la inflación con el IPC del INDEC: pasa los montos a pesos de ${MESES[+HB.mes_real.slice(5) - 1]} de ${HB.mes_real.slice(0, 4)} desde ${HB.ini_real}, ",
+   "motivo": "Dice qué hace la vista con el término fijo del sitio (descontada la inflación). El nombre del botón se conserva porque cambiarlo queda pendiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "? `A precios de ${mesPer(HB.mes_real)}, el haber mínimo con refuerzos promedió",
+   "propuesto": "? `Descontada la inflación, en pesos de ${mesPer(HB.mes_real)}, el haber mínimo con refuerzos promedió",
+   "motivo": "Término fijo del sitio para valores ajustados por inflación, con el mes de los pesos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "nacimientos, ${pct(Math.abs(nac.caida))} menos que los ${n0(nac.pico)} de ${nac.anio_pico}.",
+   "propuesto": "nacimientos, ${pct(Math.abs(nac.caida))} menos que en ${nac.anio_pico}, el año con más nacimientos desde ${nac.anio_ini} (${n0(nac.pico)}). El gráfico toma ${nac.anio_ini} como base 100.",
+   "motivo": "El texto comparaba con el máximo (idxmax en 02) sin decirlo, y el gráfico usa otra base: se dicen las dos cosas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país correspondían a madres menores de 20 años. En cantidad, esos nacimientos pasaron de ${n0(nac.ado_pico)} en ${nac.ado_anio_pico} a ${n0(nac.ado_ult)} en ${nac.anio_ult}, una caída de ${pct(Math.abs(nac.ado_caida))}.`",
+   "propuesto": "adolescentes: `En ${nac.anio_ini}, ${n1(nac.pct_ini)} de cada 100 nacimientos del país eran de madres menores de 20 años. En cantidad, el máximo desde ${nac.anio_ini} fue de ${n0(nac.ado_pico)} nacimientos, en ${nac.ado_anio_pico}. En ${nac.anio_ult} fueron ${n0(nac.ado_ult)}, ${pct(Math.abs(nac.ado_caida))} menos.`",
+   "motivo": "Mezclaba dos años de partida sin decir que el segundo es el máximo desde el primer año de la serie (idxmax en 02).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "suicidio: `En ${s.anio} el SNIC registró ${n0(s.casos)} suicidios, una tasa de ${n1(s.tasa)} por cada 100.000 habitantes de 5 años y más. En ${s.anio-1} la tasa había sido ${n1(s.tasa_prev)}. La tasa de los varones (${n1(s.tasa_v)}) más que triplica la de las mujeres (${n1(s.tasa_m)}).`",
+   "propuesto": "suicidio: `En ${s.anio}, el SNIC registró ${n0(s.casos)} suicidios, una tasa de ${n1(s.tasa)} por cada 100.000 habitantes de 5 años y más. En ${s.anio-1}, la tasa había sido de ${n1(s.tasa_prev)}. La de los varones fue de ${n1(s.tasa_v)} y la de las mujeres, de ${n1(s.tasa_m)}.`",
+   "motivo": "\"Más que triplica\" estaba escrito a mano y no cambia con los datos: se dan las dos tasas, con tono más sobrio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "muertes: `En ${s.anio} se registraron ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos",
+   "propuesto": "muertes: `En ${s.anio}, el SNIC registró ${n0(s.casos)} suicidios, ${n0(s.homicidios)} homicidios dolosos",
+   "motivo": "Dice qué registro cuenta las tres series.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "En ${R.femicidios.anio} la Justicia registró ${n0(R.femicidios.n)} víctimas directas de femicidio.`",
+   "propuesto": "El último dato del Registro Nacional de Femicidios de la Justicia Argentina es de ${R.femicidios.anio}: ${n0(R.femicidios.n)} víctimas directas.`",
+   "motivo": "El resto del texto es de otro año: se dice que es el último dato de ese registro.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "mortalidad: `En ${mo.anio-1}, la tasa de mortalidad infantil del país fue de ${n1(mo.tasa_prev)} muertes de menores de un año cada 1.000 nacidos vivos, y en ${mo.anio_inicio}, de ${n1(mo.tasa_inicio)}. En el promedio de ${mo.tri_act} la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó en ${mo.bajan} de las 24 jurisdicciones respecto de ${mo.tri_base}.`",
+   "propuesto": "mortalidad: `En ${mo.anio_inicio}, la tasa de mortalidad infantil del país era de ${n1(mo.tasa_inicio)} muertes de menores de un año cada 1.000 nacidos vivos. El gráfico compara promedios de tres años: en el de ${mo.tri_act}, la tasa más alta fue la de ${mo.top} (${n1(mo.top_v)}) y la más baja, la de ${mo.low} (${n1(mo.low_v)}). La tasa bajó ${deLas24(mo.bajan)} frente al promedio de ${mo.tri_base}.`",
+   "motivo": "El texto abría con el año anterior a la cifra destacada y escondía que la tasa subió: el año anterior pasa a la frase de la cifra y el texto dice que el gráfico usa promedios de tres años.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La línea punteada azul marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`",
+   "propuesto": "La línea punteada violeta marca el promedio simple de los países de la OCDE en ${OC.mortalidad_infantil.anio}, según el Banco Mundial.`",
+   "motivo": "La línea es violeta (--ocde en pesas()), no azul.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_lec} y ${pz.ocde_cie} puntos. En matemática la diferencia con la OCDE fue de ${pz.dif_mat} puntos. Frente a",
+   "propuesto": "pisa: `En PISA ${pz.anio}, los estudiantes de 15 años de la Argentina obtuvieron en promedio ${pz.lec} puntos en lectura y ${pz.cie} en ciencias. El promedio de los países de la OCDE fue de ${pz.ocde_lec} y ${pz.ocde_cie} puntos. Frente a",
+   "motivo": "La diferencia en matemática (95) sale de valores sin redondear y no coincide con la resta de las cifras que se ven (472 menos 378): la cifra destacada ya da los dos puntajes.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Desde entonces, la tasa subió ${deLas24(es.suben)}, aunque la comparación cruza un quiebre de serie: desde 2022 la población de referencia sale del Censo 2022. ` +",
+   "propuesto": "Desde entonces, la tasa subió ${deLas24(es.suben)}. La comparación cruza un quiebre de serie: desde 2022, la población de referencia sale del Censo 2022. ` +",
+   "motivo": "Oración larga con una concesión: se parte.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${es.fin} fue más alta en ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${es.top_excluidos.join(\", \").replace(/, ([^,]*)$/, \" y $1\")}, donde la tasa llega casi al 100% por diferencias entre la matrícula y la población estimada,` : \"\") +",
+   "propuesto": "`En ${es.fin}, la tasa más alta fue la de ${es.top} (${pct(es.top_v)})` + (es.top_excluidos.length ? `, sin contar ${lista(es.top_excluidos)}, donde llega casi al 100% por diferencias entre la matrícula y la población estimada` : \"\") +",
+   "motivo": "Va con el cambio siguiente (misma oración, dos renglones): el extremo bajo pasa a otra oración. lista() pone la \"e\" donde corresponde.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` y más baja en ${es.low} (${pct(es.low_v)}).`,",
+   "propuesto": "`. La más baja fue la de ${es.low} (${pct(es.low_v)}).`,",
+   "motivo": "Va con el cambio anterior: la oración tenía una salvedad de 25 palabras entre sus dos extremos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "aprender: `En lengua, el ${pct(ap.len)} de los estudiantes de 6° grado de primaria del país alcanzó un nivel satisfactorio o avanzado en Aprender ${ap.anio}. En matemática, el ${pct(ap.mat_debajo)} quedó por debajo del nivel básico. Por provincia, el porcentaje en matemática fue más alto en ${ap.top} (${pct(ap.top_v)}) y más bajo en ${ap.low} (${pct(ap.low_v)}).`",
+   "propuesto": "aprender: `En matemática, el ${pct(ap.mat_debajo)} de los estudiantes de 6° grado de primaria del país quedó por debajo del nivel básico en Aprender ${ap.anio}. Por provincia, la parte con nivel satisfactorio o avanzado en matemática fue más alta en ${ap.top} (${pct(ap.top_v)}) y más baja en ${ap.low} (${pct(ap.low_v)}). En lengua, el ${pct(ap.len)} del país alcanzó un nivel satisfactorio o avanzado.`",
+   "motivo": "El gráfico abre en matemática y el texto empezaba por lengua: matemática primero, lengua al final.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Aprender es la evaluación nacional del Ministerio de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes están calculados sobre la base agregada por departamento, sector y ámbito que publica el Ministerio,",
+   "propuesto": "`Aprender es la evaluación nacional de aprendizajes de la Secretaría de Educación. En ${ap.anio} fue censal para 6° grado de primaria. Los porcentajes se calculan con la base agregada por departamento, sector y ámbito que publica la Secretaría,",
+   "motivo": "Nombre vigente del organismo (relaciones.json, org:educacion), el mismo en todo G1.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era del ${pct(R.pobreza.pob_prev)} y la indigencia, del ${pct(R.pobreza.ind_prev)}. El valor",
+   "propuesto": "pobreza: `En el ${R.pobreza.sem}, el ${pct(R.pobreza.ind)} de las personas de los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de indigencia. Un año antes, en el ${R.pobreza.sem_prev}, la pobreza era ${R.pobreza.pob > R.pobreza.pob_prev ? \"más baja\" : R.pobreza.pob < R.pobreza.pob_prev ? \"más alta\" : \"igual\"}: ${pct(R.pobreza.pob_prev)}. La indigencia era del ${pct(R.pobreza.ind_prev)}. El valor",
+   "motivo": "El lector tenía que restar para ver si la pobreza subió: el texto dice si un año antes era más baja, más alta o igual, con los valores del resumen (ya vienen con un decimal, como se muestran).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "En la página de consultas están los aglomerados, los partidos del Gran Buenos Aires y las comunas de la Ciudad, con sus intervalos de confianza.",
+   "propuesto": "En el consultor de pobreza están los aglomerados, los partidos del Gran Buenos Aires y las comunas de CABA, con sus intervalos de confianza.",
+   "motivo": "Nombre de la herramienta como en el sitio y CABA como término fijo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En pesos de igual valor (con el índice de precios al consumidor del INDEC), el salario promedio de un maestro de grado del país en ${DC.trim} fue ` +",
+   "propuesto": "`Descontada la inflación con el índice de precios al consumidor del INDEC, el salario promedio de un maestro de grado del país en ${DC.trim} fue ` +",
+   "motivo": "Término fijo del sitio para valores ajustados por inflación, el mismo de la otra vista de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "el promedio del país ${cambioPct(DC.fonid_var)} en pesos de igual valor.`",
+   "propuesto": "el promedio del país ${cambioPct(DC.fonid_var)}, descontada la inflación.`",
+   "motivo": "Término fijo del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` En ${DC.extra[0][0]}, ese salario incluye una suma extraordinaria de ${n0(DC.extra[0][1])} pesos.`",
+   "propuesto": "` En ${DC.extra[0][0]}, ese salario incluye una suma extraordinaria de ${n0(DC.extra[0][1])} pesos, que el gráfico suma a su barra.`",
+   "motivo": "Avisa que la barra de esa provincia incluye el pago extraordinario (sacarlo del gráfico queda pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "` En ${lista(DC.extra.map(x => x[0]))}, ese salario incluye sumas extraordinarias.`",
+   "propuesto": "` En ${lista(DC.extra.map(x => x[0]))}, ese salario incluye sumas extraordinarias, que el gráfico suma a sus barras.`",
+   "motivo": "Mismo aviso en plural.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "txt += ` En ${fp.territorio}, el salario de ${DC.trim} ${cambioPct(fp.var_real_12m)} frente a ${DC.ant} en pesos de igual valor.`",
+   "propuesto": "txt += ` En ${fp.territorio}, descontada la inflación, el salario de ${DC.trim} ${cambioPct(fp.var_real_12m)} frente a ${DC.ant}.`",
+   "motivo": "Término fijo del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En pesos de ${IE.anio} (con el deflactor del PBI), la inversión por alumno de gestión estatal del país pasó de",
+   "propuesto": "`Descontada la inflación con el deflactor del PBI, en pesos de ${IE.anio}, la inversión por alumno de gestión estatal del país pasó de",
+   "motivo": "Término fijo del sitio para valores ajustados por inflación.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La más alta fue la de ${IE.real_max_anio}, con ${n0(IE.real_max)}, y la más baja, la de ${IE.real_min_anio}, con ${n0(IE.real_min)}.`",
+   "propuesto": "El año más alto fue ${IE.real_max_anio}, con ${n0(IE.real_max)}, y el más bajo, ${IE.real_min_anio}, con ${n0(IE.real_min)}.`",
+   "motivo": "\"La más alta fue la de 2015\" dejaba el sustantivo implícito: se nombran los años.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Suma lo que gastan las provincias en educación y lo que les transfiere la Nación.`",
+   "propuesto": "La cifra suma lo que gasta cada provincia en educación y lo que le transfiere la Nación.`",
+   "motivo": "La oración no tenía sujeto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "La parte del gasto público no cuenta esas transferencias de la Nación. Pesos de cada año, y en la serie, pesos de ${IE.anio} ` +",
+   "propuesto": "La parte del gasto público no cuenta esas transferencias de la Nación. Montos en pesos de cada año. En la vista Año por año, descontada la inflación, en pesos de ${IE.anio} ` +",
+   "motivo": "Nombra la vista y el término fijo del sitio. Sigue en el renglón de abajo (\"con el deflactor del PBI\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Según ACNUR, que reúne las cifras de cada gobierno, a fines de ${A.anio}",
+   "propuesto": "`Según ACNUR, la agencia de las Naciones Unidas para los refugiados, que reúne las cifras de cada gobierno, a fines de ${A.anio}",
+   "motivo": "La sigla aparece por primera vez en la ficha: se dice qué es.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "la Dirección Nacional de Migraciones resolvió a favor un ${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? \"menos\" : \"más\"} de trámites de residencia ` +",
+   "propuesto": "la Dirección Nacional de Migraciones otorgó ${n0(MGD.permanentes)} residencias permanentes y ${n0(MGD.temporarias)} temporarias, ` +",
+   "motivo": "\"Resolvió a favor un X menos de trámites de residencia\" alejaba el sujeto: se usa el verbo de la pregunta y de la cifra (otorgó residencias) y las cantidades van primero. Va con el cambio siguiente (misma oración, dos renglones).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`que en el año anterior: ${n0(MGD.permanentes)} permanentes y ${n0(MGD.temporarias)} temporarias. Desde ` +",
+   "propuesto": "`${pct(Math.abs(MGD.var))} ${MGD.var < 0 ? \"menos\" : \"más\"} que en el año anterior. Desde ` +",
+   "motivo": "Va con el cambio anterior: la variación queda después de las cantidades, sin dos puntos que la confundían con ellas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`El país de nacimiento más frecuente era ${MGC.paises[0][0]} en ${MGC.primer_pais_n} de las 24 jurisdicciones.`",
+   "propuesto": "`${MGC.paises[0][0]}, el país de nacimiento más frecuente en el total, era también el primero en ${MGC.primer_pais_n} de las 24 jurisdicciones.`",
+   "motivo": "La frase sugería que ese país domina en las provincias: en el CSV, Chile es el primero en más jurisdicciones. Se aclara que es el más frecuente en el total (el detalle por país queda pendiente).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`provincia: ${pct(MGC.otra_top[1])}` : `, ${pct(MGC.otra_top[1])}`) + `, y la más baja, la de ${lista(MGC.otra_bajos[0])}, ${pct(MGC.otra_bajos[1])}. ` +",
+   "propuesto": "`provincia (${pct(MGC.otra_top[1])})` : `, con el ${pct(MGC.otra_top[1])}`) + `, y la más baja, la de ${lista(MGC.otra_bajos[0])}, con el ${pct(MGC.otra_bajos[1])}. ` +",
+   "motivo": "\"Había nacido en otra provincia: 50,9%, y la más baja\" quedaba mal puntuado.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "otro país, porque cuenta documentos con el domicilio declarado: está en la ficha de abajo.`",
+   "propuesto": "otro país porque cuenta los DNI con el domicilio declarado: está más abajo, en la ficha del RENAPER.`",
+   "motivo": "La ficha de abajo es la de migración interna: la del RENAPER está tres fichas más abajo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}.`",
+   "propuesto": "Con mujeres y varones juntos, por provincia iba de ${n1(nv.ev_top_v)} años en ${nv.ev_top} a ${n1(nv.ev_low_v)} en ${nv.ev_low}. El gráfico muestra al lado de cada provincia la esperanza de vida de las mujeres.`",
+   "motivo": "El rango es de ambos sexos y el gráfico rotula y ordena por mujeres: el texto nombra las dos medidas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "reflejan la mortalidad de la pandemia de covid-19. La línea punteada azul marca",
+   "propuesto": "reflejan la mortalidad de la pandemia de COVID-19. La línea punteada violeta marca",
+   "motivo": "La línea es violeta (--ocde en pesas()). COVID-19 se escribe como en el resto de Salud.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "según la definición del INDEC. El INDEC no publica estos totales provinciales",
+   "propuesto": "según la definición del INDEC. Sin obra social, prepaga ni plan estatal: personas, no hogares, sin ninguna de esas coberturas de salud. El INDEC no publica estos totales provinciales",
+   "motivo": "La nota no definía la cobertura de salud, que cuenta personas y no hogares.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En total, el RENAPER identifica ${n0(MG.renaper.personas)} personas nacidas en otro país con documento argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022: ` +",
+   "propuesto": "`El RENAPER registra ${n0(MG.renaper.personas)} personas nacidas en otro país con DNI argentino, un ${pct(MG.renaper.mas)} más que las que contó el Censo 2022. Los dos cuentan distinto: ` +",
+   "motivo": "Oración de 45 palabras con dos aclaraciones: se parte. Va con el cambio siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`cuenta documentos con el domicilio que declaró cada persona, que puede estar desactualizado, mientras que el censo cuenta a quienes viven en cada vivienda. ` +",
+   "propuesto": "`el RENAPER usa el domicilio que figura en cada DNI, que puede estar desactualizado, y el Censo cuenta a quienes viven en cada vivienda. ` +",
+   "motivo": "Va con el cambio anterior: cada fuente con su sujeto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${nv.xt_top} tiene el valor más alto, con ${n1(nv.xt_top_v)} cada 100 habitantes.",
+   "propuesto": "`${nv.xt_top} tiene la proporción más alta, ${n1(nv.xt_top_v)} cada 100 habitantes.",
+   "motivo": "Nombra la medida.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Personas nacidas en el extranjero identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI:",
+   "propuesto": "`Personas nacidas en otro país identificadas por el RENAPER, según la provincia del domicilio que declararon en su DNI:",
+   "motivo": "Mismo término que el resto de la página.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El promedio anual más alto fue el de ${PIN.max_anio}, ${n0(PIN.max)}, y el de ${PIN.anio_ant}, ${n0(PIN.v_anio_ant)}.`",
+   "propuesto": "El promedio anual más alto fue el de ${PIN.max_anio}, con ${n0(PIN.max)} por mes. En ${PIN.anio_ant}, el promedio fue de ${n0(PIN.v_anio_ant)}.`",
+   "motivo": "\"Y el de 2025\" se leía como otro máximo: se separa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "de ${AU.anio} cobraban la AUH ${n0(AU.beneficios)} chicos, ${n1(AU.pais_100)} cada 100 menores de 18 años, a través de ${n0(AU.titulares)} ` +",
+   "propuesto": "de ${AU.anio}, ${n0(AU.beneficios)} chicos recibían la AUH, ${n1(AU.pais_100)} cada 100 menores de 18 años. La cobraban ${n0(AU.titulares)} ` +",
+   "motivo": "La AUH la cobra el titular: los chicos la reciben. Se parte la oración.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En ${MESES[AU.mes - 1]} de ${AU.anio} cobraban la AUH ${n0(AU.beneficios)} chicos en todo el país.`",
+   "propuesto": "`En ${MESES[AU.mes - 1]} de ${AU.anio}, ${n0(AU.beneficios)} chicos recibían la AUH en todo el país.`",
+   "motivo": "Mismo criterio en la vista Cantidad.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "de los menores de 18 años del país cobraba alguna asignación familiar: el ` +",
+   "propuesto": "de los menores de 18 años del país recibía alguna asignación familiar: el ` +",
+   "motivo": "Las asignaciones las cobra el padre o la madre: los chicos las reciben.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "El ${pct(100 - AU.cob_total)} no cobraba ninguna: entre ` +",
+   "propuesto": "El ${pct(100 - AU.cob_total)} no recibía ninguna: entre ` +",
+   "motivo": "Mismo criterio.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "? `En el ${IA.trimestre}, la mitad de las personas de los 31 aglomerados urbanos vivía en hogares",
+   "propuesto": "? `En ${IA.trimestres}, en pesos del ${IA.trimestre}, la mitad de las personas de los 31 aglomerados urbanos vivía en hogares",
+   "motivo": "El texto atribuía a un solo trimestre datos que juntan cuatro: se dice el período y el momento de los pesos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ": `En el ${IA.trimestre}, la mitad de los ocupados que cobran por su trabajo",
+   "propuesto": ": `En ${IA.trimestres}, en pesos del ${IA.trimestre}, la mitad de los ocupados que cobran por su trabajo",
+   "motivo": "Mismo criterio en la vista Del trabajo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${conArt(E.max, true)} tenía la mediana más alta, ${mil(E.max_v)} pesos (${pct(E.max_pct)} de la mediana de los 31 aglomerados), y ${conArt(E.min)} la más baja, ` +",
+   "propuesto": "`${conArt(E.max, true)} tenía la mediana más alta, ${mil(E.max_v)} pesos, y ${conArt(E.min)}, la más baja, ` +",
+   "motivo": "Tres formas de decir la misma distancia: queda \"2,7 veces\". El porcentaje sigue en el cuadro de cada barra. Va con el cambio siguiente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`${mil(E.min_v)} pesos (${pct(E.min_pct)}). La más alta es ${n1(E.veces)} veces la más baja.`",
+   "propuesto": "`${mil(E.min_v)} pesos. La más alta es ${n1(E.veces)} veces la más baja.`",
+   "motivo": "Va con el cambio anterior.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Las provincias con más nacimientos de madres menores de 20 años suelen ser también las de peores indicadores socioeconómicos. ` +",
+   "propuesto": "`Las provincias con más nacimientos de madres menores de 20 años suelen tener también peores indicadores socioeconómicos. ` +",
+   "motivo": "Forma más directa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Con ${i.lab.toLowerCase()} la relación es ${rel(i)} (correlación de ${n2(i.r)}):",
+   "propuesto": "`Con ${i.lab.toLowerCase()}, la relación es ${rel(i)} (correlación de ${n2(i.r)}):",
+   "motivo": "Coma después del complemento inicial.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Con los otros indicadores del Censo, la relación es ${listaY(otros.map(o => `${rel(o)} con ${o.lab.toLowerCase()} (${n2(o.r)})`))}.`",
+   "propuesto": "`Con los otros indicadores del Censo, la relación es ${listaY(otros.map(o => `${rel(o)} con ${o.lab.toLowerCase()} (${n2(o.r)})`))}. Que dos datos vayan juntos no prueba que uno cause el otro.`",
+   "motivo": "Un cruce sin aviso de correlación en el texto visible: se suma la aclaración que hoy está solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`El ${pct(gk.perinatales.pct)} por afecciones perinatales, como la prematurez y las complicaciones del embarazo y el parto, y el ${pct(gk.malformaciones.pct)} por malformaciones congénitas. ` +",
+   "propuesto": "`El ${pct(gk.perinatales.pct)} murió por afecciones perinatales, como la prematurez y las complicaciones del embarazo y el parto, y el ${pct(gk.malformaciones.pct)}, por malformaciones congénitas. ` +",
+   "motivo": "La oración no tenía verbo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`En las provincias con más población sin obra social ni prepaga, la mortalidad por ${listaY(fuertes.map(x => `${x.lab.toLowerCase()} (correlación de ${n2(x.r_cobertura)})`))} tiende a ser más alta.`",
+   "propuesto": "`En las provincias con más población sin obra social, prepaga ni plan estatal de salud, la mortalidad por ${listaY(fuertes.map(x => `${x.lab.toLowerCase()} (correlación de ${n2(x.r_cobertura)})`))} tiende a ser más alta. ${fuertes.length > 1 ? \"Esas relaciones no se ven en el gráfico y no prueban\" : \"Esa relación no se ve en el gráfico y no prueba\"} que una cosa cause la otra.`",
+   "motivo": "Correlación que el gráfico no muestra, sin aviso de causalidad. Mismo nombre de la variable del Censo que en la ficha de servicios.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "AP = `Aprender ${RD.anio}, Ministerio de Educación`",
+   "propuesto": "AP = `Aprender ${RD.anio}, Secretaría de Educación`",
+   "motivo": "Nombre vigente del organismo (relaciones.json, org:educacion), el mismo en todo G1.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "cita: `DiNIEE, Ministerio de Educación, ${RD.esc_hasta}`",
+   "propuesto": "cita: `Relevamiento Anual, Secretaría de Educación, ${RD.esc_hasta}`",
+   "motivo": "DiNIEE era una sigla sin explicar: se nombra el operativo y el organismo vigente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Igual al valor de todo el país, ${pct(IND[k].pais)}.` : `${n1(Math.abs(d))} puntos ${d > 0 ? \"más\" : \"menos\"} que todo el país, ${pct(IND[k].pais)}.`",
+   "propuesto": "`Igual al total del país (${pct(IND[k].pais)}).` : `${n1(Math.abs(d))} puntos ${d > 0 ? \"más\" : \"menos\"} que el total del país (${pct(IND[k].pais)}).`",
+   "motivo": "La cifra suelta después de la coma se leía como otro dato.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`Donde más se aleja del valor de todo el país, teniendo en cuenta cuánto se separan las provincias entre sí, es en ${IND[lejos.k].corto}, ${lejos.z > 0 ? \"por encima\" : \"por debajo\"}.`",
+   "propuesto": "`Su mayor distancia con el total del país, en relación con cuánto varían las provincias en cada indicador, está en ${IND[lejos.k].corto}, ${lejos.z > 0 ? \"por encima\" : \"por debajo\"}.`",
+   "motivo": "Oración con gerundio intercalado: el sujeto va primero.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`de cada 100 nacimientos de ${nac.anio_ult} fueron de madres de 10 a 19 años.",
+   "propuesto": "`de cada 100 nacimientos de ${nac.anio_ult} fueron de madres menores de 20 años.",
+   "motivo": "Mismo grupo de edad con el mismo nombre que la pregunta, la bajada y la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"f-mortalidad\": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}`, `cada 1.000 nacidos vivos en todo el país en ${mo.anio}`],",
+   "propuesto": "\"f-mortalidad\": [n1(mo.tasa), `muertes de menores de un año por cada 1.000 nacidos vivos en ${mo.anio}. En ${mo.anio - 1}, ${n1(mo.tasa_prev)}`, `cada 1.000 nacidos vivos en todo el país en ${mo.anio}. En ${mo.anio - 1}, ${n1(mo.tasa_prev)}`],",
+   "motivo": "El año anterior pasa del texto a la cifra destacada: así se ve junto al último dato si la tasa subió o bajó.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`personas nacidas en otro país cada 100 habitantes, ${nv.xt_corte}`",
+   "propuesto": "`personas nacidas en otro país con DNI argentino cada 100 habitantes, ${nv.xt_corte}`",
+   "motivo": "En \"En cifras\" la tarjeta no decía que es el registro del DNI, distinto del Censo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "contra ${n1(nv.ev_v)}, ${nv.ev_anio}`",
+   "propuesto": "contra ${n1(nv.ev_v)} años en ${nv.ev_anio}`",
+   "motivo": "El año quedaba suelto al final.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "provM(\"Personas nacidas en otro país cada 100 habitantes\", T.extranjeros_provincias,",
+   "propuesto": "provM(\"Personas nacidas en otro país con DNI argentino, cada 100 habitantes\", T.extranjeros_provincias,",
+   "motivo": "Mismo criterio que la tarjeta.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "El Registro Nacional de las Personas tiene a su cargo la inscripción y la identificación de las personas: registra a quienes tienen documento argentino, con el domicilio que declararon y que deben actualizar cuando se mudan. Por eso no cuenta a quienes viven en el país sin documento argentino, y sí a quienes se fueron o se mudaron sin avisar. El Censo, en cambio, cuenta a quienes viven en cada vivienda. Por eso los dos dan números distintos de personas nacidas en otro país.",
+   "propuesto": "El Registro Nacional de las Personas (RENAPER) tiene a su cargo la inscripción y la identificación de las personas: registra a quienes tienen DNI argentino, con el domicilio que declararon y que deben actualizar cuando se mudan. Por eso no cuenta a quienes viven en el país sin DNI argentino, y sí a quienes se fueron del país o se mudaron sin avisar. El Censo, en cambio, cuenta a quienes viven en cada vivienda. Por eso los dos dan números distintos de personas nacidas en otro país.",
+   "motivo": "Mismo término que la ficha (DNI) y la sigla junto al nombre, que el título del bloque usa.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "La sección combina tres fuentes. La pobreza y la indigencia por ingresos salen de la Encuesta Permanente de Hogares (EPH) del INDEC. Indican qué proporción de hogares y de personas no alcanza con sus ingresos a cubrir una canasta de bienes y servicios. El Censo 2022 aporta datos de todos los hogares del país sobre condiciones de la vivienda, servicios, salud y educación, con los que se calculan, entre otros, el acceso a cloacas y agua de red y las Necesidades Básicas Insatisfechas. El Ente Nacional de Comunicaciones (ENACOM) informa cada trimestre la penetración de internet fijo por provincia, medida cada 100 hogares.",
+   "propuesto": "La página combina varias fuentes. La pobreza y la indigencia por ingresos salen de la Encuesta Permanente de Hogares (EPH) del INDEC. Indican qué proporción de hogares y de personas no alcanza con sus ingresos a cubrir una canasta de bienes y servicios. El Censo 2022 aporta datos de todos los hogares del país sobre condiciones de la vivienda, servicios, salud y educación, con los que se calculan, entre otros, el acceso a cloacas y agua de red y las Necesidades Básicas Insatisfechas. El Ente Nacional de Comunicaciones (ENACOM) informa cada trimestre cuántos accesos a internet fijo hay cada 100 hogares en cada provincia. Las pensiones no contributivas por invalidez y la Asignación Universal por Hijo salen del Boletín Estadístico de la Seguridad Social, con datos de ANSES.",
+   "motivo": "La página usa más de tres fuentes: se saca el número y se suma la del Boletín de la Seguridad Social, que nombran los pies. \"Penetración\" era jerga.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Aprender es la evaluación nacional de los aprendizajes. En 2025 se aplicó de manera censal a estudiantes de 6° grado de primaria de todo el país, en Lengua y Matemática. Cada estudiante queda en un nivel de desempeño: por debajo del básico, básico, satisfactorio o avanzado. El diagnóstico usa la base pública del Ministerio,",
+   "propuesto": "Aprender es la evaluación nacional de los aprendizajes. En 2025 se aplicó de manera censal a estudiantes de 6° grado de primaria de todo el país, en lengua y matemática. Cada estudiante queda en un nivel de desempeño: por debajo del básico, básico, satisfactorio o avanzado. El diagnóstico usa la base pública de la Secretaría de Educación,",
+   "motivo": "Nombre vigente del organismo (relaciones.json, org:educacion) y las áreas en minúscula, como en las fichas.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "así que el Ministerio publica su dato a título informativo",
+   "propuesto": "así que la Secretaría de Educación publica su dato a título informativo",
+   "motivo": "Nombre vigente del organismo, el mismo en todo G1.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "El nivel socioeconómico es un índice que el Ministerio arma con un análisis factorial",
+   "propuesto": "El nivel socioeconómico es un índice que la Secretaría de Educación arma con un análisis factorial",
+   "motivo": "Nombre vigente del organismo, el mismo en todo G1.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/programas_educacion.json",
+   "original": "El modelo, que combina al Estado con organizaciones sociales, beneficia a las dos partes.",
+   "propuesto": "El modelo, que combina al Estado con organizaciones sociales, beneficia a las dos partes, según la evaluación.",
+   "motivo": "Juicio de valor en un tema político: se atribuye a la evaluación, que lo dice (cita de la página 10).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/programas_educacion.json",
+   "original": "Ciudad de Buenos Aires, escuelas secundarias estatales",
+   "propuesto": "CABA, escuelas secundarias estatales",
+   "motivo": "CABA como término fijo del sitio (el nombre del ministerio de la Ciudad se conserva).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/programas_educacion.json",
+   "original": "Mide primer año en una muestra de escuelas estatales de la Ciudad.",
+   "propuesto": "Mide primer año en una muestra de escuelas estatales de CABA.",
+   "motivo": "CABA como término fijo del sitio.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/distorsiones.json",
+   "original": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y el Ministerio de Educación publica su dato a título informativo",
+   "propuesto": "su participación en Aprender quedó por debajo del umbral mínimo de representatividad estadística y la Secretaría de Educación publica su dato a título informativo",
+   "motivo": "Nombre vigente del organismo, el mismo en todo G1. Es texto visible (nota de Aprender y Diagnóstico) pero llega al sitio por el resumen: se ve recién después de correr 02_procesar.py.",
+   "veces": 2
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>Muertes por suicidio, homicidio, siniestros viales y femicidio, {{suicidio.serie_ini}} a {{suicidio.anio}}</h2> (y los títulos de f-suicidio, f-suicidio-prov y f-edad)",
+   "motivo": "Regla de CLAUDE.md: las fichas de suicidio y la de muertes violentas conservan su título descriptivo."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<div class=\"ayuda\" id=\"ayuda-suicidio\" role=\"note\">",
+   "motivo": "Líneas de ayuda: salvaguarda de suicidio, texto y lugar fijados por el autor."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"suicidio-prov\": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios",
+   "motivo": "Sacar los extremos u ordenar la ficha alfabéticamente es decisión del autor (anotado en pendientes)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Por cada homicidio hubo ${n1(s.razon_hom)} suicidios.",
+   "motivo": "Sacar la razón cambia la lectura de la ficha: queda para el autor (anotado en pendientes)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Cuántos años se vive en cada provincia?</h2>",
+   "motivo": "El h2 de f-esperanza es también la pregunta del dato destacado de la portada (DESTACADOS en 03 lee el h2), que revisa G6b. Anotado en pendientes."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Hasta octubre de 2026 el sitio usaba los nacimientos inscriptos en el RENAPER",
+   "motivo": "Frase de FIJOS en 03_construir_sitio.py: la nota de f-nacimientos queda igual."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuente: INDEC, proyecciones de población por provincia 2022 a 2040, base Censo 2022",
+   "motivo": "Contiene la frase de FIJOS \"2022 a 2040, base Censo\" y es el nombre de la publicación."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>Diagnóstico educativo</h2> y <h2>Diagnóstico de educación por provincia</h2>",
+   "motivo": "El primero es el nombre de la sección en la barra. El segundo sigue la forma de los exploradores (Explorador de indicadores provinciales, Armá tu propio índice): la pregunta de la herramienta ya está en p.pregunta, y repetirla en el h2 de la ficha duplicaría el título."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Fuente: Dirección Nacional de Migraciones, trámites de radicación resueltos",
+   "motivo": "Es el nombre del conjunto de datos del Ministerio del Interior (cita en explicadores.json): \"radicación\" es el término de la fuente."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "y Banco Mundial, deflactor del PBI",
+   "motivo": "El pie nombra la fuente que usa la tabla (relaciones.json la registra). Si el deflactor debe atribuirse al INDEC es una verificación de datos, no de redacción."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Ciudad de Buenos Aires, Partidos del GBA (nombres de aglomerado en f-ingresos-aglomerados y IA_CORTO)",
+   "motivo": "Nombres oficiales de aglomerados del INDEC que vienen de los datos: la tabla de términos fijos los exceptúa."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "La correlación es la de rangos de Spearman, que va de menos 1 a 1",
+   "motivo": "Está en la nota, no en la primera oración del texto, como pide la tabla de términos fijos."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "Nombres de fuentes como \"Ministerio de Educación. Evaluación Nacional Aprender. Documento metodológico de bases usuarias\" y \"Ministerio de Capital Humano. Aprender 2025. Informe nacional...\"",
+   "motivo": "Son los títulos y autores de documentos publicados, con el nombre que tenía el organismo cuando los publicó. También quedan los hechos históricos (los Operativos Nacionales de Evaluación que el Ministerio de Educación empezó en 1993, \"el Ministerio advierte\" del documento de 2018)."
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "fragmento": "el Estado nacional, las provincias y la Ciudad de Buenos Aires tienen que universalizar los servicios educativos",
+   "motivo": "Paráfrasis de un texto legal (Ley 26.206): se conserva el nombre de la jurisdicción como lo usa la ley."
+  },
+  {
+   "archivo": "datos/manual/programas_educacion.json",
+   "fragmento": "Ministerio de Educación de la Ciudad de Buenos Aires",
+   "motivo": "Nombre oficial del organismo autor de la evaluación."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<a class=\"boton principal\" href=\"pobreza/\">Consultar pobreza por aglomerado, partido y comuna</a>",
+   "motivo": "La etiqueta dice la acción y el destino reales (el consultor por aglomerado, partido del GBA y comuna de CABA)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "`En todo el país, el ${pct(MGC.pct)} había nacido en otro país.`",
+   "motivo": "La auditoría propone sacarla por repetida, pero nombra el tercer color del gráfico apilado (En otro país): se deja."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-internet\": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto",
+   "motivo": "Mostrar el total del país en lugar de CABA es un cálculo nuevo (no hay fila 00): pendiente. La aclaración de ENACOM la pone el mecanismo de distorsiones.json."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<p class=\"pregunta\" data-corta=\"¿Qué tan rápido envejece la población?\">, la de Educación y la de Pobreza y hogares",
+   "motivo": "Ya dicen lo que responde cada página, con sus dos partes."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "OCDE_BOTON, OCDE_NOTA y los nombres de vista de OCDE_VISTA",
+   "motivo": "Los revisa G6b: lo que hace falta en las fichas de G1 está en pendientes."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Las preguntas de PREG para las fichas de G1 (\"¿Cuánto cobra un maestro de grado?\", \"¿De qué se muere la gente en la Argentina?\" y otras)",
+   "motivo": "Son las preguntas de la lupa, un componente de todo el sitio: no repiten los h2 cambiados, así que la lupa sigue llevando a la ficha correcta."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "salud.html#f-suicidio-prov",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"suicidio-prov\": `${s.top} registró la tasa más alta, con ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes de 5 años y más, y ${s.low} la más baja",
+   "motivo": "Barras de mayor a menor con los extremos nombrados: tensión con la regla \"sin rankings\" (el perfil provincial ya excluye estas tasas por eso). Decisión del autor.",
+   "propuesta": "Orden alfabético o mapa, y un texto sin superlativos: \"Las tasas provinciales iban de ${n1(s.low_tasa)} a ${n1(s.top_tasa)} suicidios por cada 100.000 habitantes de 5 años y más. La tasa nacional fue ${n1(s.tasa)}.\""
+  },
+  {
+   "ruta": "salud.html#f-muertes",
+   "archivo": "scripts/datina.js",
+   "fragmento": "Por cada homicidio hubo ${n1(s.razon_hom)} suicidios. Desde ${s.anio_cruce} los suicidios superan cada año a las muertes viales.",
+   "motivo": "Las dos comparaciones presentan el suicidio como dato llamativo. Las pautas de la OMS para comunicar sobre suicidio recomiendan evitarlo. Sacarlas cambia la lectura de la ficha: decide el autor.",
+   "propuesta": "Dejar solo las tres cantidades del SNIC y el dato de femicidios, o reemplazar las dos oraciones por \"Las tres series son cantidades de víctimas del mismo registro del SNIC.\""
+  },
+  {
+   "ruta": "salud.html#f-mortalidad",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-mortalidad\": [\"mortalidad\", \"Por provincia\", [\"gasto_salud\"]], y OCDE_BOTON gasto_salud: \"Gasto en salud\"",
+   "motivo": "Para G6b: la pestaña \"OCDE: Gasto en salud, 2023\" muestra otro indicador (% del PBI) dentro de una ficha de mortalidad infantil, sin aviso.",
+   "propuesta": "Sacar la pestaña de esta ficha o, si queda, que el botón diga \"OCDE: gasto en salud, % del PBI\" y que OCDE_NOTA sume \"No es la mortalidad infantil: compara cuánto gasta cada país en salud.\""
+  },
+  {
+   "ruta": "poblacion.html#f-nacimientos, poblacion.html#f-adolescentes, educacion.html#f-escolarizacion, pobreza.html#f-pobreza, pobreza.html#f-internet",
+   "archivo": "scripts/datina.js",
+   "fragmento": "OCDE_BOTON = {fecundidad: \"Hijos por mujer\", fecundidad_adolescente: \"Fecundidad adolescente\", gasto_salud: \"Gasto en salud\", secundaria: \"Terminan el ciclo básico\", ... pobreza_relativa: \"Pobreza relativa\", gini: \"Gini\", internet: \"Uso de internet\"",
+   "motivo": "Para G6b: las pestañas OCDE de G1 cambian de medida y de unidad (hijos por mujer, nacimientos cada 1.000 mujeres de 15 a 19, % que termina el ciclo básico, pobreza relativa, Gini, uso de internet por persona) y no avisan que no es la medida de la vista principal. Solo pobreza relativa y suicidio lo dicen en OCDE_NOTA.",
+   "propuesta": "Sumar a OCDE_NOTA de fecundidad, fecundidad_adolescente, secundaria, gini e internet una oración del tipo \"Es otra medida que la de la vista principal de esta ficha: [qué mide].\" Por ejemplo, internet: \"Cuenta personas que usaron internet, no accesos fijos por hogar como ENACOM.\""
+  },
+  {
+   "ruta": "index.html (dato destacado) y salud.html#f-esperanza",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Cuántos años se vive en cada provincia?</h2>",
+   "motivo": "Para G6b: DESTACADOS de 03_construir_sitio.py usa el h2 de f-esperanza como pregunta del destacado de la portada, que muestra la cifra del país. Cambiar el h2 cambia el destacado.",
+   "propuesta": "Si G6b cambia la pregunta del destacado (\"¿Cuántos años se vive en la Argentina?\"), que el destacado tenga una pregunta propia en DESTACADOS en lugar de leer el h2, y el h2 de la ficha quede como está."
+  },
+  {
+   "ruta": "pobreza.html#f-censo",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<option value=\"sin_cobertura\">Sin obra social, prepaga ni plan estatal</option>",
+   "motivo": "La cobertura de salud está en Pobreza y hogares y no en Salud, y es la única opción del selector que cuenta personas. Mover o partir la ficha es un cambio de estructura.",
+   "propuesta": "Una ficha de cobertura de salud en Salud (\"¿Cuánta gente tiene solo el hospital público?\") con esta variable, y sacar la opción de f-censo."
+  },
+  {
+   "ruta": "poblacion.html#f-adolescentes-nse",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "NSE_IND = {\"pct_pob_solo_cobertura_publica\": \"Población sin obra social ni prepaga\"",
+   "motivo": "Es la misma variable que sin_cobertura (P19 = 3 del Censo, mismos valores en las dos tablas), con otro nombre que omite el plan estatal. El rótulo viene de los datos (punto R14 del plan).",
+   "propuesta": "Rótulo \"Población sin obra social, prepaga ni plan estatal\" en NSE_IND y en el catálogo de variables (línea 5994), como en f-censo y en los textos de G1."
+  },
+  {
+   "ruta": "salud.html#f-causas-infantiles",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "grupos de mi_causas: \"Infecciosas y parasitarias\"",
+   "motivo": "El rótulo viene de los datos y en el texto queda \"la mortalidad por infecciosas y parasitarias\", sin sustantivo.",
+   "propuesta": "Rótulo \"Enfermedades infecciosas y parasitarias\" en el resumen (R14), como en CM_FRASE."
+  },
+  {
+   "ruta": "salud.html#f-causas-infantiles",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const fuertes = gr.filter(x => Math.abs(x.r_cobertura) >= .4)",
+   "motivo": "El texto dice \"tiende a ser más alta\" para todas las correlaciones fuertes, pero el filtro también deja pasar las negativas. Hoy las dos son positivas. Corregirlo es lógica, no redacción.",
+   "propuesta": "Filtrar solo las positivas para esa oración, o elegir \"más alta\" o \"más baja\" según el signo de cada una."
+  },
+  {
+   "ruta": "poblacion.html#f-envejecimiento",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "\"envejecimiento\": {... \"max\": \"CABA\", \"max_v\": 29.9, \"min\": \"Tierra del Fuego\", \"min_v\": 11.4 ...}",
+   "motivo": "El gráfico rotula y ordena por el último año (CABA 33,4, Misiones 16,8 abajo) y el resumen solo tiene los extremos del primero. El texto ya nombra los dos años, pero no puede citar los del último.",
+   "propuesta": "Sumar max_fin, max_fin_v, min_fin y min_fin_v al resumen y cerrar el texto con \"En ${EV.anio_fin}, ${EV.max_fin} (${n1(EV.max_fin_v)}) y ${EV.min_fin} (${n1(EV.min_fin_v)}).\""
+  },
+  {
+   "ruta": "migraciones.html#f-nacidos-otro-pais",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "\"primer_pais_n\": 7",
+   "motivo": "Por jurisdicción, Chile es el primer país de nacimiento en 8, Paraguay en 7 y Bolivia en 6 (CSV): el resumen solo cuenta las del primero del total.",
+   "propuesta": "Sumar al resumen la cuenta por país (por ejemplo primer_pais_cuenta: [[\"Chile\", 8], [\"Paraguay\", 7], [\"Bolivia\", 6]]) y decir \"Por jurisdicción, Chile es el primero en 8, Paraguay en 7 y Bolivia en 6\"."
+  },
+  {
+   "ruta": "educacion.html#f-pisa",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "\"dif_mat\": 95",
+   "motivo": "La diferencia sale de valores sin redondear (472,4 menos 377,5) y no coincide con la resta de las cifras que se ven (94). El texto ya no la usa.",
+   "propuesta": "Si se quiere volver a mostrarla, calcularla en 02 con los puntajes redondeados que muestra el sitio."
+  },
+  {
+   "ruta": "educacion.html#f-escolarizacion",
+   "archivo": "scripts/datina.js",
+   "fragmento": "Desde entonces, la tasa subió ${deLas24(es.suben)}",
+   "motivo": "El texto no dice qué provincia bajó (no está en el resumen), y el verde y el rojo comparan años que cruzan el quiebre de serie de 2022.",
+   "propuesta": "Sumar al resumen la provincia que bajó y evaluar comparar desde el primer año con la misma población de referencia (como hace el Diagnóstico), o marcar a La Pampa en el gráfico."
+  },
+  {
+   "ruta": "educacion.html#f-salario-docente",
+   "archivo": "scripts/datina.js",
+   "fragmento": "barrasH(el, {anim: a, data: T.salario_docente.filter(r => r.codigo_indec !== \"00\"), k: \"bruto\"",
+   "motivo": "La barra de Santiago del Estero queda segunda por un pago único. El texto ya avisa que la barra lo incluye.",
+   "propuesta": "Dibujar la barra sin la suma extraordinaria y el extra en otro tono, rotulado."
+  },
+  {
+   "ruta": "poblacion.html#f-haberes",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<button type=\"button\" data-m=\"real\" aria-pressed=\"false\">A precios de hoy</button>",
+   "motivo": "La tabla de términos fijos pide \"descontada la inflación\", pero ese renglón es idéntico al del botón de f-bcra (otro grupo): no hay un fragmento de una línea que cambie solo el de f-haberes.",
+   "propuesta": "Cambiar los dos botones a \"Descontada la inflación\" en un mismo cambio, junto con el grupo de f-bcra, y la referencia entre comillas de la nota de haberes (\"A precios de hoy\" descuenta la inflación...)."
+  },
+  {
+   "ruta": "pobreza.html#f-internet",
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"f-internet\": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto",
+   "motivo": "Es la única ficha cuya cifra destacada y cuya tarjeta de En cifras son una provincia: el dato del país no está (no hay fila 00). La aclaración de los accesos de empresas aparece en la cifra, en el texto y en la nota.",
+   "propuesta": "Calcular el total del país en 02 (accesos del país sobre hogares del país) para la cifra y la línea \"País\". Con eso, la aclaración de ENACOM queda solo en la nota."
+  },
+  {
+   "ruta": "pobreza.html#f-pobreza",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<p class=\"nota\" data-t=\"pobreza-nota\"></p>\n      <p class=\"lead\" data-t=\"pobreza\"></p>",
+   "motivo": "Es la única ficha de G1 con la nota antes del texto. Cambiar el orden es estructura.",
+   "propuesta": "Poner el texto antes de la nota, como en las demás fichas."
+  },
+  {
+   "ruta": "pobreza.html#f-pensiones-invalidez",
+   "archivo": "scripts/datina.js",
+   "fragmento": "pie de f-pensiones-invalidez",
+   "motivo": "La auditoría señala que es la única ficha del grupo sin \"Descargar imagen\". Es comportamiento, no redacción.",
+   "propuesta": "Revisar por qué el mapa no ofrece la imagen y sumarla, o decir por qué falta."
+  },
+  {
+   "ruta": "poblacion.html, migraciones.html, salud.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "orden de las fichas",
+   "motivo": "La auditoría propone otro orden (Población: madres adolescentes junto a nacimientos. Migraciones: Censo y RENAPER juntos, migración interna al final) y un índice de anclas. Es estructura.",
+   "propuesta": "Ver la sección C de docs/roadmap/auditoria-2026-10/personas-y-bienestar.md."
+  },
+  {
+   "ruta": "poblacion.html#f-adolescentes-nse",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>¿Hay más madres adolescentes en las provincias con más carencias?</h2>",
+   "motivo": "La ficha y el artículo \"¿Hay más madres adolescentes donde menos gente tiene obra social o prepaga?\" responden casi lo mismo. Unir o sacar una es estructura.",
+   "propuesta": "Dejar el cruce solo como artículo y enlazarlo desde f-adolescentes."
+  },
+  {
+   "ruta": "educacion.html#f-salario-docente y #f-inversion-educativa",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "Coordinación de Evaluación de Costos Educativos, Secretaría de Educación",
+   "motivo": "Los pies dicen \"Coordinación de Evaluación de Costos Educativos\" y la fuente del explicador \"Coordinación General de Estudio de Costos del Sistema Educativo\" (CGECSE). No pude verificar cuál es el nombre vigente.",
+   "propuesta": "Verificar el nombre en la página del organismo y usar uno solo en pies, explicador y relaciones.json."
+  },
+  {
+   "ruta": "educacion.html#f-pisa",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "OCDE, Programa para la Evaluación Internacional de Alumnos (PISA)",
+   "motivo": "El pie dice \"de Alumnos\" y el explicador \"de Estudiantes\". Los dos nombres circulan en español: hace falta elegir uno.",
+   "propuesta": "Usar el nombre que usa la Secretaría de Educación (\"Programa para la Evaluación Internacional de Estudiantes\") en el pie y sumar ese alias en relaciones.json."
+  },
+  {
+   "ruta": "pobreza.html#f-ingresos-aglomerados",
+   "archivo": "scripts/datina.js",
+   "fragmento": "conArt(E.max, true)",
+   "motivo": "La auditoría pide usar CABA y Gran Buenos Aires, pero los nombres vienen de la tabla de aglomerados del INDEC (\"Ciudad de Buenos Aires\", \"Partidos del GBA\").",
+   "propuesta": "Si el autor prefiere CABA en el texto, usar IA_CORTO también en el texto (ya lo usa el gráfico angosto)."
+  }
+ ]
+}
