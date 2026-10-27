@@ -823,8 +823,10 @@ const RO = R.rotacion, trim = t => `${["primer", "segundo", "tercer", "cuarto"][
 // la misma oración que nombra el máximo, o el caso queda fuera del máximo
 const DIST = R.distorsiones || {};
 const aclara = (clave, terr) => DIST[clave]?.[terr]?.accion === "aclarar" ? ` (${DIST[clave][terr].motivo})` : "";
-// en las tarjetas (perfil, "En cifras" y el mapa de la portada) va la versión corta del motivo, si el indicador tiene un caso distorsionado
-const notaDist = (c, cod) => { const d = c.dist && DIST[c.dist]?.[NOMBRES[cod]]; return d ? d.corto || d.motivo : ""; };
+// en las tarjetas (perfil, "En cifras" y el mapa de la portada) va la versión corta del motivo, si el indicador tiene un caso distorsionado,
+// y el año del dato si la provincia todavía no publicó el de la ficha (E12, 27 de octubre de 2026: La Pampa con 2024 en recursos propios)
+const notaDist = (c, cod) => { const d = c.dist && DIST[c.dist]?.[NOMBRES[cod]], a = c.otroAnio?.[NOMBRES[cod]];
+  return [d ? d.corto || d.motivo : "", a ? `Dato de ${a}, el último que publicó.` : ""].filter(Boolean).join(" "); };
 const sinContar = (clave, terrs) => terrs.length ? `, sin contar ${terrs.join(" y ")}: ${terrs.map(t => DIST[clave][t].motivo).join(". ")}` : "";
 const TX = {
   // ---- construcción y vivienda (etapa 18)
@@ -2697,11 +2699,12 @@ const DIB = protegerDib({
   fiscal: a => {
     const k = MED.fiscal, d = T.fiscal_provincias, fz = R.fiscal, ord = [...d].sort((p, q) => q[k] - p[k]);
     document.querySelector('[data-t="fiscal"]').textContent = k === "autonomia"
-      ? `En ${fz.anio}, los recursos propios, sobre todo impuestos provinciales y regalías, fueron el ${pct(fz.top_v)} de los ingresos de ${fz.top} y el ${pct(fz.low_v)} de los de ${fz.low}. La mediana de las 24 jurisdicciones fue de ${pct(fz.mediana)}, contra ${pct(fz.mediana_ini)} en ${fz.ini}. El resto de los ingresos llega de la Nación, por coparticipación y otras transferencias.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${fz.anio}: figura con ${a}.`).join("")}`
+      ? `En ${fz.anio}, los recursos propios, sobre todo impuestos provinciales y regalías, fueron el ${pct(fz.top_v)} de los ingresos de ${fz.top} y el ${pct(fz.low_v)} de los de ${fz.low}. La mediana de ${fz.mediana_n === 24 ? "las 24 jurisdicciones" : `las ${fz.mediana_n} jurisdicciones con datos de ${fz.anio}`} fue de ${pct(fz.mediana)}, contra ${pct(fz.mediana_ini)} en ${fz.ini}. El resto de los ingresos llega de la Nación, por coparticipación y otras transferencias.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} todavía no publicó ${fz.anio}: figura con ${a}.`).join("")}`
       : k === "resultado"
       ? `En ${fz.anio}, ${fz.superavit} jurisdicciones cerraron con superávit financiero y ${fz.deficit} con déficit. El mayor superávit, en proporción a sus ingresos, fue el de ${ord[0].territorio} (${sg(ord[0].resultado)}) y el mayor déficit, el de ${ord[ord.length - 1].territorio} (${sg(ord[ord.length - 1].resultado)}).${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join("")}`
       : `En ${fz.anio}, los sueldos y cargas sociales fueron el ${pct(ord[0].personal)} del gasto de ${ord[0].territorio} y el ${pct(ord[ord.length - 1].personal)} del de ${ord[ord.length - 1].territorio}.${Object.entries(fz.atrasadas).map(([p, a]) => ` ${p} figura con ${a}.`).join("")}`;
-    barrasH(G("fiscal"), {anim:a, data: d, k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
+    // la jurisdicción que todavía no publicó el año de la ficha va con su año al lado del nombre (E12, 27 de octubre de 2026)
+    barrasH(G("fiscal"), {anim:a, data: d.map(r => fz.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${fz.atrasadas[r.territorio]})`} : r), k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
       color: k === "resultado" ? (r => r.resultado < 0 ? css("--sol") : css("--celeste")) : null});
   },
   censo: a => {
@@ -2837,7 +2840,9 @@ Object.assign(DIB, {
   regalias: a => {
     const k = MED.regalias, usd = k === "usd_crudo_hab";
     $t("regalias").textContent = LEAD.regalias(k);
-    barrasH(G("regalias"), {anim: a, data: usd ? T.regalias_provincias.filter(d => d.usd_crudo_hab > 0) : T.regalias_provincias, k,
+    barrasH(G("regalias"), {anim: a, data: usd ? T.regalias_provincias.filter(d => d.usd_crudo_hab > 0)
+      // en % de los ingresos, la jurisdicción que todavía no publicó el año va con el suyo al lado del nombre (E12)
+      : T.regalias_provincias.map(d => PG.reg_atrasadas[d.territorio] ? {...d, territorio: `${d.territorio} (${PG.reg_atrasadas[d.territorio]})`} : d), k,
       vf: usd ? n0 : v => n1(v) + "%", af: usd ? n0 : v => v + "%",
       tip: d => `<b>${d.territorio}</b><br>Regalías: ${pct(d.pct_regalias)} de los ingresos totales en ${d.anio_aif}` +
         (d.usd_crudo_hab > 0 ? `<br>Petróleo crudo: ${n1(d.usd_crudo_millones)} millones de dólares en ${PG.reg_usd_anio}, ${n0(d.usd_crudo_hab)} por habitante` : "")});
@@ -6199,7 +6204,8 @@ const CLAVE = {
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
     `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
   "f-extranjeros": [n1(nv.xt_pais), `personas nacidas en otro país con DNI argentino cada 100 habitantes, ${nv.xt_corte}`, "cada 100 habitantes, en todo el país"],
-  "f-fiscal": [pct(R.fiscal.mediana), `fue la mediana de la parte de sus ingresos que las provincias y CABA recaudaron por su cuenta en ${R.fiscal.anio}: la mitad quedó por debajo y la otra mitad, por encima`],
+  "f-fiscal": [pct(R.fiscal.mediana), `fue la mediana de la parte de sus ingresos que las provincias y CABA recaudaron por su cuenta en ${R.fiscal.anio}` +
+    (Object.keys(R.fiscal.atrasadas).length ? `, sin ${lista(Object.keys(R.fiscal.atrasadas))}` : "") + `: la mitad quedó por debajo y la otra mitad, por encima`],
   "f-empresas": [n0(EM.total_pais), `empresas privadas con personal en relación de dependencia había en el país en ${EM.anio}, cada una contada una sola vez (${n1(EM.pais_1000)} cada 1.000 habitantes)`,
     `en todo el país, ${n1(EM.pais_1000)} cada 1.000 habitantes`],
   "f-dinamica-empresas": [n0(EM.ap), `empresas con empleados abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`, `abrieron en ${EM.ult} y ${n0(EM.ci)} cerraron`],
@@ -6966,7 +6972,7 @@ const INDP = [
   // el país: las cuentas de las provincias y CABA sumadas (26 de octubre de 2026). Hasta entonces mostraba la mediana como si fuera el país
   {id:"f-fiscal", g:"gobierno", lab:"Recursos propios", det:`% de los ingresos totales de la provincia, ${R.fiscal.anio}. El país suma las cuentas de ` +
     `todas las provincias y CABA${R.fiscal.pais_sin.length ? `, sin ${lista(R.fiscal.pais_sin)}` : ""}`,
-    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.pais, f:pct},
+    d:T.fiscal_provincias, k:"autonomia", pais:R.fiscal.pais, f:pct, otroAnio: R.fiscal.atrasadas},
   {id:"f-eti", g:"turismo", lab:"Turistas extranjeros", det:`turistas que visitaron la provincia cada 1.000 habitantes, entre los que salieron del país por Ezeiza o Aeroparque, ${tu.eti_anio}`,
     d:T.turistas_extranjeros_provincias, k:"cada_1000", pais:null, f:n1},
   {id:"f-gas-hogares", g:"energia", lab:"Hogares que cocinan con gas de red", veces:"debajo", det:"% de los hogares, Censo 2022",
