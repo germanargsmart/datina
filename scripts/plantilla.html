@@ -375,6 +375,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio)</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la desocupación de los 31 aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
+    <article class="ficha" id="f-desocupacion">
+      <h2>¿Cuánta gente busca trabajo y no consigue en cada ciudad?</h2>
+      <p class="ficha-sub">Tasa de desocupación en los 31 aglomerados urbanos de la EPH, promedio de {{desocupacion.trimestres}}, y en el total de los 31, trimestre a trimestre, del {{desocupacion.ini}} al {{desocupacion.ultimo}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="desocupacion">
+        <button type="button" data-m="ciudad" aria-pressed="true">Por ciudad</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="desocupacion" data-forma="barras" style="--filas:32"></div>
+      <p class="lead" data-t="desocupacion"></p>
+      <p class="nota" data-t="desocupacion-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos</span><a href="datos/desocupacion_aglomerados.csv" download>Por aglomerado (CSV)</a><a href="datos/desocupacion_serie.csv" download>Total de los 31, por trimestre (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-desempleo">
       <h2>¿Cuántas personas cobran el seguro de desempleo en cada provincia?</h2>
       <p class="ficha-sub">Personas que cobran el seguro de desempleo, por provincia en {{desempleo.prov_anio}} y en todo el país desde {{desempleo.ini}}</p>
@@ -540,6 +554,21 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span><a href="datos/empresas_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- las empresas por tamaño y por sector (plan de mejora, etapa 4, 27 de octubre de 2026): cuadros 1 y 3 del OEDE -->
+    <article class="ficha" id="f-empresas-tamano">
+      <h2>¿En qué sectores y de qué tamaño son las empresas de cada provincia?</h2>
+      <p class="ficha-sub">Empresas privadas con personal en relación de dependencia por tamaño (industria, comercio y servicios) y por sector, en % de las de cada provincia, {{empresas.anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="empresas-tamano">
+        <button type="button" data-m="tam" aria-pressed="true">Por tamaño</button>
+        <button type="button" data-m="sec" aria-pressed="false">Por sector</button>
+      </div>
+      <div class="pol-ley" id="empresas-tamano-ley" aria-hidden="true"></div>
+      <div class="grafico" data-g="empresas-tamano" data-forma="barras" style="--filas:25"></div>
+      <p class="lead" data-t="empresas-tamano"></p>
+      <p class="nota" data-t="empresas-tamano-nota"></p>
+      <div class="pie"><span>Fuente: Observatorio de Empleo y Dinámica Empresarial (OEDE), Secretaría de Trabajo, Ministerio de Capital Humano, con datos del Sistema Integrado Previsional Argentino (SIPA)</span><a href="datos/empresas_tamano_sector.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-dinamica-empresas">
       <h2>¿Cuántas empresas abren y cuántas cierran?</h2>
       <p class="ficha-sub">Empresas privadas que abrieron y que cerraron cada año, en % de las empresas activas, {{empresas.ini}} a {{empresas.ult}}</p>
@@ -573,6 +602,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la pobreza de las regiones y de los aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
+    <article class="ficha" id="f-pobreza-aglomerados">
+      <h2>¿Cuánta pobreza hay en cada región y en cada ciudad?</h2>
+      <p class="ficha-sub">Personas bajo la línea de pobreza en las seis regiones y en los 31 aglomerados urbanos de la EPH, {{pobreza_aglomerados.semestre}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pobreza-aglomerados">
+        <button type="button" data-m="region" aria-pressed="true">Por región</button>
+        <button type="button" data-m="ciudad" aria-pressed="false">Por ciudad</button>
+      </div>
+      <div class="grafico" data-g="pobreza-aglomerados" data-forma="barras"></div>
+      <p class="lead" data-t="pobreza-aglomerados"></p>
+      <p class="nota" data-t="pobreza-aglomerados-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia</span><a href="datos/pobreza_aglomerados.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-ingresos-aglomerados">
       <h2>¿De cuánto es el ingreso por persona de los hogares en cada ciudad?</h2>
       <p class="ficha-sub">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, {{ingresos_aglomerados.trimestres}}, en pesos del {{ingresos_aglomerados.trimestre}}</p>
@@ -588,7 +631,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-censo">
       <h2>¿Cuántos hogares tienen cloacas, agua de red, internet y computadora?</h2>
-      <p class="ficha-sub">Hogares con cada servicio o equipamiento y con necesidades básicas insatisfechas, y personas sin cobertura de salud, en porcentaje por provincia, Censo 2022</p>
+      <p class="ficha-sub">Hogares con cada servicio o equipamiento y con necesidades básicas insatisfechas, en porcentaje por provincia, Censo 2022</p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="censo">
           <option value="cloaca" selected>Cloacas</option>
@@ -596,7 +639,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="internet">Internet en el hogar</option>
           <option value="computadora">Computadora o tableta</option>
           <option value="nbi">Necesidades básicas insatisfechas</option>
-          <option value="sin_cobertura">Sin obra social, prepaga ni plan estatal</option>
         </select></label>
       <div class="grafico" data-g="censo" data-forma="barras"></div>
       <p class="lead" data-t="censo"></p>
@@ -696,6 +738,16 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: DEIS, Ministerio de Salud, defunciones por causa y nacidos vivos, e INDEC, Censo 2022</span><a href="datos/mortalidad_infantil_causas.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+<!-- la cobertura de salud del Censo 2022 (plan de mejora, etapa 4, 27 de octubre de 2026): hasta entonces, una opción de la ficha del censo en Pobreza -->
+    <article class="ficha" id="f-cobertura">
+      <h2>¿Cuánta gente no tiene obra social, prepaga ni plan estatal de salud?</h2>
+      <p class="ficha-sub">Personas sin obra social, prepaga ni plan estatal de salud, en % de la población de cada provincia, Censo 2022</p>
+      <div class="grafico" data-g="cobertura" data-forma="barras"></div>
+      <p class="lead" data-t="cobertura"></p>
+      <p class="nota" data-t="cobertura-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Censo Nacional de Población, Hogares y Viviendas 2022</span><a href="datos/censo2022_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <div class="ayuda" id="ayuda-suicidio" role="note">
       <strong>Si estás atravesando un momento difícil, podés pedir ayuda.</strong> El Centro de Asistencia al Suicida atiende de forma gratuita en el 135 desde CABA y el Gran Buenos Aires, y en el (011) 5275-1135 desde todo el país. En una emergencia, llamá al 107 o acercate a la guardia más cercana.
     </div>
@@ -792,6 +844,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="carceles"></p>
       <p class="nota" data-t="carceles-nota"></p>
       <div class="pie"><span>Fuentes: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia, e INDEC, proyecciones de población</span><a href="datos/carceles_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <article class="ficha" id="f-sin-condena">
+      <h2>¿Qué parte de las personas presas no tiene condena?</h2>
+      <p class="ficha-sub">Personas privadas de libertad sin condena, en % del total de cada servicio penitenciario, al 31 de diciembre de cada año, {{seguridad.sn_ini}} a {{seguridad.sn_anio}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="sin-condena">
+        <button type="button" data-m="prov" aria-pressed="true">Por provincia</button>
+        <button type="button" data-m="serie" aria-pressed="false">Todo el país</button>
+      </div>
+      <div class="grafico" data-g="sin-condena" data-forma="barras"></div>
+      <p class="lead" data-t="sin-condena"></p>
+      <p class="nota" data-t="sin-condena-nota"></p>
+      <div class="pie"><span>Fuente: Sistema Nacional de Estadísticas sobre Ejecución de la Pena (SNEEP), Ministerio de Justicia</span><a href="datos/carceles_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
@@ -1400,6 +1465,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="fiscal"></p>
       <p class="nota" data-t="fiscal-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento</span><a href="datos/fiscal_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <!-- la coparticipación (plan de mejora, etapa 4, 27 de octubre de 2026): los tributos de origen nacional del mismo esquema AIF -->
+    <article class="ficha" id="f-coparticipacion">
+      <h2>¿Cuánto recibe cada provincia por coparticipación?</h2>
+      <p class="ficha-sub">Coparticipación federal y otros impuestos nacionales que se reparten por ley, por habitante y en % de los ingresos de cada provincia, {{coparticipacion.anio_txt}}</p>
+      <div class="conmutador" role="group" aria-label="Medida" data-g="coparticipacion">
+        <button type="button" data-m="hab" aria-pressed="true">Por habitante</button>
+        <button type="button" data-m="pct" aria-pressed="false">% de sus ingresos</button>
+      </div>
+      <div class="grafico" data-g="coparticipacion" data-forma="barras"></div>
+      <p class="lead" data-t="coparticipacion"></p>
+      <p class="nota" data-t="coparticipacion-nota"></p>
+      <div class="pie"><span>Fuentes: Ministerio de Economía, Dirección Nacional de Asuntos Provinciales, esquema ahorro inversión financiamiento, e INDEC, proyecciones de población</span><a href="datos/coparticipacion_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>

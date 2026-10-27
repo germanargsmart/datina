@@ -136,6 +136,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares. Se actualiza cada seis meses.</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la pobreza de las regiones y de los aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
+    <article class="ficha" id="f-pobreza-aglomerados">
+      <h2>¿Cuánta pobreza hay en cada región y en cada ciudad?</h2>
+      <p class="ficha-sub">Personas bajo la línea de pobreza en las seis regiones y en los 31 aglomerados urbanos de la EPH, primer semestre de 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pobreza-aglomerados">
+        <button type="button" data-m="region" aria-pressed="true">Por región</button>
+        <button type="button" data-m="ciudad" aria-pressed="false">Por ciudad</button>
+      </div>
+      <div class="grafico" data-g="pobreza-aglomerados" data-forma="barras"></div>
+      <p class="lead" data-t="pobreza-aglomerados"></p>
+      <p class="nota" data-t="pobreza-aglomerados-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia. Se actualiza cada seis meses.</span><a href="datos/pobreza_aglomerados.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-ingresos-aglomerados">
       <h2>¿De cuánto es el ingreso por persona de los hogares en cada ciudad?</h2>
       <p class="ficha-sub">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, los cuatro trimestres hasta el primero de 2026, en pesos del primer trimestre de 2026</p>
@@ -151,7 +165,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <article class="ficha" id="f-censo">
       <h2>¿Cuántos hogares tienen cloacas, agua de red, internet y computadora?</h2>
-      <p class="ficha-sub">Hogares con cada servicio o equipamiento y con necesidades básicas insatisfechas, y personas sin cobertura de salud, en porcentaje por provincia, Censo 2022</p>
+      <p class="ficha-sub">Hogares con cada servicio o equipamiento y con necesidades básicas insatisfechas, en porcentaje por provincia, Censo 2022</p>
       <label class="selector-ficha"><span>Indicador</span>
         <select data-g="censo">
           <option value="cloaca" selected>Cloacas</option>
@@ -159,7 +173,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
           <option value="internet">Internet en el hogar</option>
           <option value="computadora">Computadora o tableta</option>
           <option value="nbi">Necesidades básicas insatisfechas</option>
-          <option value="sin_cobertura">Sin obra social, prepaga ni plan estatal</option>
         </select></label>
       <div class="grafico" data-g="censo" data-forma="barras"></div>
       <p class="lead" data-t="censo"></p>
@@ -294,7 +307,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=f36dd50745"></script>
-<script src="datina.js?v=32061c2633"></script>
+<script src="datos/fichas.js?v=f863135203"></script>
+<script src="datina.js?v=f37aaefcb4"></script>
 </body>
 </html>

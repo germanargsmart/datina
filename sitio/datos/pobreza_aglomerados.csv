@@ -1,0 +1,40 @@
+tipo,clave,nombre,provincias,pobreza,cv_pobreza,indigencia,cv_indigencia
+total,total,31 aglomerados urbanos,00,32.3,2.7,7.5,7.4
+region,gba,Gran Buenos Aires,,32.1,4.6,8.4,11.5
+region,cuyo,Cuyo,,36.7,5.1,5.0,16.1
+region,noreste,Noreste,,41.5,5.8,10.5,13.7
+region,noroeste,Noroeste,,31.5,5.0,4.3,11.4
+region,pampeana,Pampeana,,30.3,4.1,7.2,9.1
+region,patagonia,Patagonia,,28.4,6.6,4.2,14.6
+aglomerado,a32,CABA,02,11.1,17.2,1.5,30.5
+aglomerado,a33,Partidos del Gran Buenos Aires,06,36.9,4.7,9.9,11.7
+aglomerado,a10,Gran Mendoza,50,36.9,7.4,7.3,18.9
+aglomerado,a27,Gran San Juan,70,36.8,8.7,1.6,39.1
+aglomerado,a26,Gran San Luis,74,35.7,8.7,3.1,21.0
+aglomerado,a12,Corrientes,18,41.0,10.4,8.6,26.9
+aglomerado,a15,Formosa,34,29.9,9.7,5.9,41.9
+aglomerado,a8,Gran Resistencia,22,48.6,10.8,17.3,21.6
+aglomerado,a7,Posadas,54,42.2,12.5,8.2,29.9
+aglomerado,a22,Gran Catamarca,10,37.3,7.1,8.3,19.3
+aglomerado,a29,Gran Tucumán-Tafí Viejo,90,27.9,7.3,4.4,21.2
+aglomerado,a19,Jujuy-Palpalá,38,27.6,11.4,1.4,36.0
+aglomerado,a25,La Rioja,46,38.4,8.6,4.7,31.8
+aglomerado,a23,Salta,66,29.7,6.7,4.4,24.8
+aglomerado,a18,Santiago del Estero-La Banda,86,38.5,19.6,3.9,31.1
+aglomerado,a3,Bahía Blanca-Cerri,06,26.6,14.0,6.2,29.7
+aglomerado,a14,Concordia,30,56.2,6.1,12.7,11.9
+aglomerado,a13,Gran Córdoba,14,31.1,8.1,7.0,17.9
+aglomerado,a2,Gran La Plata,06,37.8,13.0,9.2,29.3
+aglomerado,a4,Gran Rosario,82,23.1,9.4,6.2,20.2
+aglomerado,a6,Gran Paraná,30,34.3,11.2,6.0,24.9
+aglomerado,a5,Gran Santa Fe,82,38.6,10.8,9.8,26.2
+aglomerado,a34,Mar del Plata,06,20.4,17.7,5.0,31.3
+aglomerado,a36,Río Cuarto,14,23.6,11.2,3.2,30.1
+aglomerado,a30,Santa Rosa-Toay,42,25.4,15.5,4.9,26.4
+aglomerado,a38,San Nicolás-Villa Constitución,"06,82",35.5,9.3,10.3,17.9
+aglomerado,a9,Comodoro Rivadavia-Rada Tilly,26,37.2,13.6,3.7,38.4
+aglomerado,a17,Neuquén-Plottier,58,19.6,16.1,2.8,31.6
+aglomerado,a20,Río Gallegos,78,25.6,14.8,2.6,49.8
+aglomerado,a31,Ushuaia-Río Grande,94,25.9,14.2,3.1,35.3
+aglomerado,a91,Rawson-Trelew,26,35.1,14.8,10.0,24.4
+aglomerado,a93,Viedma-Carmen de Patagones,62,33.2,12.9,5.2,35.6

@@ -221,6 +221,8 @@ const REG_IPC = {"02": ["gba"], "06": ["gba", "pampeana"], "10": ["noroeste"], "
   "94": ["patagonia"]};
 const REG_ART = {"Gran Buenos Aires": "el Gran Buenos Aires", "Pampeana": "la región Pampeana", "Noreste": "el Noreste", "Noroeste": "el Noroeste", "Cuyo": "Cuyo",
   "Patagonia": "la Patagonia"};
+// "del Noreste", "de la Patagonia", "de Cuyo"
+const delReg = n => REG_ART[n].startsWith("el ") ? "del " + REG_ART[n].slice(3) : "de " + REG_ART[n];
 // la región de la provincia elegida, en una frase, con el valor de una tabla de regiones: "Chaco está en el Noreste: 37,0%."
 const enSuRegion = (filas, k, f) => {
   const regs = REG_IPC[prov]; if (!regs) return "";
@@ -249,7 +251,9 @@ const rangoDep = (filas, k, que) => {
     (base === grandes && grandes.length < enP.length ? `, entre los departamentos de ${n0(MGP.min_pob)} habitantes o más.` : ".");
 };
 // Gobierno (etapa 25): las cuentas de la Nación, la recaudación, la deuda, el empleo público y los impuestos de las provincias
-const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda, GBC = GOB.empleo, GBP = GOB.provincial;
+// la desocupación de los aglomerados de la EPH (plan de mejora, etapa 4)
+const DSO = R.desocupacion, PZA = R.pobreza_aglomerados;
+const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda, GBC = GOB.empleo, GBP = GOB.provincial, CPA = R.coparticipacion;
 // superávit o déficit, en palabras
 const sobra = v => v < 0 ? "déficit" : "superávit";
 // millones de pesos en billones (un millón de millones)
@@ -570,6 +574,17 @@ const LEAD = {
       `En ${SG.sn_ini} eran ${n0(SG.sn_personas_ini)}, ${n0(SG.sn_tasa_ini)} cada 100.000 habitantes. El ${pct(SG.sn_condenados)} tenía una condena. Las demás estaban procesadas, ` +
       `con la causa todavía en trámite, o en otra situación. No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`;
   },
+  // la parte sin condena (plan de mejora, etapa 4): cada servicio penitenciario provincial, o el país año por año
+  "sin-condena": v => {
+    if (v === "serie") return `En ${SG.sn_ini}, el ${pct(SG.sn_sin_ini)} de las personas privadas de libertad en las cárceles del país no tenía condena. ` +
+      `En ${SG.sn_anio} fue el ${pct(SG.sn_sin)}${SG.sn_sin < 50 ? ", así que la mayoría tenía condena" : ""}. ` +
+      `En el Servicio Penitenciario Federal, el ${pct(SG.sn_sin_spf)}.`;
+    return `Al 31 de diciembre de ${SG.sn_anio}, ` + (SG.sn_sin_mitad ? `en ${SG.sn_sin_mitad} de los ${SG.sn_n_prov} servicios penitenciarios provinciales más de la mitad de las personas presas no tenía condena. `
+      : `en ninguno de los ${SG.sn_n_prov} servicios penitenciarios provinciales más de la mitad de las personas presas estaba sin condena. `) +
+      `La parte más alta fue la de ${SG.sn_sin_top[0]}, el ${pct(SG.sn_sin_top[1])}, y la más baja, la de ${SG.sn_sin_bajo[0]}, el ${pct(SG.sn_sin_bajo[1])}. ` +
+      `En el Servicio Penitenciario Federal, que va aparte, el ${pct(SG.sn_sin_spf)}. La parte depende también de dónde aloja cada provincia a las personas procesadas: ` +
+      `las que esperan juicio en una comisaría no se cuentan, así que una parte baja no quiere decir por sí sola que haya menos personas presas sin condena.`;
+  },
   // ---- gobierno (etapa 25)
   "cuentas-nacion": v => {
     if (v === "gasto") return `En ${GBN.anio}, el ${pct(GBN.gasto_tipos[0][1])} del gasto primario de la Nación, el que no cuenta los intereses de la deuda, ` +
@@ -613,6 +628,46 @@ const LEAD = {
     `según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. La recaudación por habitante iba de ${n0(GBP.bajo[1])} pesos ` +
     `en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +
     (GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? "tienen" : "tiene"} datos completos del año y no ${GBP.faltan.length > 1 ? "entran" : "entra"} en el total ni en el gráfico.` : ""),
+  // la pobreza de las regiones y los aglomerados de la EPH (plan de mejora, etapa 4), con la advertencia del INDEC sobre la precisión
+  "pobreza-aglomerados": v => {
+    const C = PZA.cuidado, N = PZA.no_confiable;
+    if (v === "region") return `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.reg_min[1])} en ${REG_ART[PZA.reg_min[0]]} al ${pct(PZA.reg_max[1])} en ` +
+      `${REG_ART[PZA.reg_max[0]]}. En el total de los 31 aglomerados urbanos fue del ${pct(PZA.pais)}. Cada región cuenta solo sus aglomerados urbanos.`;
+    return `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.ag_min[1])} en ${PZA.ag_min[0]} al ${pct(PZA.ag_max[1])} en ${PZA.ag_max[0]}. ` +
+      `En el total de los 31 aglomerados urbanos fue del ${pct(PZA.pais)}. ` +
+      (C.length ? `El INDEC pide leer con cuidado ${C.length > 1 ? "las estimaciones" : "la estimación"} de ${lista(C)}, que ${C.length > 1 ? "tienen" : "tiene"} un coeficiente de variación de entre 16% y 25%. ` : "") +
+      (N.length ? `${N.length > 1 ? "Las" : "La"} de ${lista(N)} ${N.length > 1 ? "pasan" : "pasa"} de 25% y no ${N.length > 1 ? "son confiables" : "es confiable"}. ` : "") +
+      `Dos ciudades con valores parecidos pueden no ser distintas.`;
+  },
+  // por tamaño o por sector (plan de mejora, etapa 4): el país y la más alta y la más baja de cada medida
+  "empresas-tamano": v => v === "sec"
+    ? `En ${EM.anio}, el ${pct(EM.sec_servicios)} de las empresas privadas con empleados del país eran de servicios, el ${pct(EM.sec_comercio)} de comercio, ` +
+      `el ${pct(EM.sec_industria)} de la industria, la minería y la energía, el ${pct(EM.sec_agro)} del agro y la pesca, y el ${pct(EM.sec_construccion)} de la ` +
+      `construcción. El agro iba del ${pct(EM.agro_ext[1][1])} de las empresas en ${EM.agro_ext[1][0]} al ${pct(EM.agro_ext[0][1])} en ${EM.agro_ext[0][0]}.`
+    : `En ${EM.anio}, el ${pct(EM.tam_micro)} de las empresas privadas de industria, comercio y servicios del país eran microempresas, el ${pct(EM.tam_pequenas)} ` +
+      `pequeñas, el ${pct(EM.tam_medianas)} medianas y el ${pct(EM.tam_grandes)} grandes. Las microempresas iban del ${pct(EM.micro_ext[1][1])} en ` +
+      `${EM.micro_ext[1][0]} al ${pct(EM.micro_ext[0][1])} en ${EM.micro_ext[0][0]}. El tamaño es el de toda la empresa: una grande puede tener pocas personas en una provincia.`,
+  // la desocupación (plan de mejora, etapa 4): los 31 aglomerados de la EPH con el promedio de cuatro trimestres, o el total trimestre a trimestre
+  desocupacion: v => v === "serie"
+    ? `En el ${DSO.ultimo}, el ${pct(DSO.pais_ultimo)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada` +
+      (DSO.pais_anio_antes != null ? `, contra el ${pct(DSO.pais_anio_antes)} un año antes` : "") + `. La tasa más alta desde el ${DSO.ini} fue la del ` +
+      `${DSO.pico[0]}, el ${pct(DSO.pico[1])}, y la más baja, la del ${DSO.piso[0]}, el ${pct(DSO.piso[1])}. Cada trimestre tiene sus temporadas de trabajo: ` +
+      `conviene comparar con el mismo trimestre de otro año.`
+    : `En ${DSO.trimestres}, en promedio, el ${pct(DSO.pais)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba ` +
+      `desocupada: buscaba trabajo y no conseguía. La tasa iba del ${pct(DSO.min[1])} en ${DSO.min[0]} al ${pct(DSO.max[1])} en ${DSO.max[0]}.`,
+  // la coparticipación (plan de mejora, etapa 4): por habitante, solo con las jurisdicciones que tienen el año de la ficha (los pesos de
+  // otro año no se comparan), o en % de los ingresos de cada una, con su año al lado del nombre si es otro
+  coparticipacion: v => {
+    const mill = v => `${n2(v / 1e6)} millones`, at = Object.entries(CPA.atrasadas), sin = at.length ? `, sin contar ${lista(at.map(([p]) => p))}` : "";
+    if (v === "pct") return `En ${CPA.anio}, la coparticipación federal y los otros impuestos nacionales que se reparten por ley fueron el ${pct(CPA.pct_pais)} de los ` +
+      `ingresos de las provincias y CABA juntas${sin}. En ${CPA.ini}, el ${pct(CPA.pct_pais_ini)}. En ${CPA.mas_mitad} de las 24 jurisdicciones fueron más de la mitad ` +
+      `de sus ingresos. La parte más alta fue la de ${CPA.top_pct[0]}, el ${pct(CPA.top_pct[1])}, y la más baja, la de ${CPA.bajo_pct[0]}, el ${pct(CPA.bajo_pct[1])}.` +
+      at.map(([p, a]) => ` ${p} todavía no publicó ${CPA.anio}: figura con ${a}.`).join("");
+    return `En ${CPA.anio}, las provincias y CABA recibieron ${billones(CPA.millones)} por la coparticipación federal y otros impuestos nacionales que se ` +
+      `reparten por ley${sin}: ${mill(CPA.pais_hab)} de pesos por habitante. El ${pct(CPA.federal)} fue coparticipación federal. Por habitante, iba de ` +
+      `${mill(CPA.bajo_hab[1])} de pesos en ${CPA.bajo_hab[0]} a ${mill(CPA.top_hab[1])} en ${CPA.top_hab[0]}${conVeces(CPA.top_hab[1], CPA.pais_hab)}.` +
+      at.map(([p, a]) => ` ${p} todavía no publicó ${CPA.anio}: está en la vista en % de sus ingresos, con ${a}, y no en esta, porque los pesos de ${a} no se comparan con los de ${CPA.anio}.`).join("");
+  },
   // refugio (etapa 26): las solicitudes y las personas reconocidas de la CONARE, y las personas refugiadas y solicitantes de asilo de ACNUR
   refugio: v => {
     if (v === "nacionalidad") return `En ${MGR.anio}, las nacionalidades con más solicitudes de refugio fueron la ${MGR.top[0][0].toLowerCase()}, con ` +
@@ -1366,6 +1421,10 @@ const TX = {
   homicidios: LEAD.homicidios("prov"), "homicidios-nota": `Víctimas de homicidios dolosos que registran las fuerzas policiales y de seguridad. Un homicidio es doloso cuando alguien le quita la vida a otra persona con intención de hacerlo. ` +
     `Por provincia, la tasa suma las víctimas de ${SG.hom3_desde} a ${SG.anio} y las divide por la población del INDEC de esos años, porque donde hay ` +
     `pocos casos la tasa de un solo año cambia mucho. Las muertes en siniestros viales y los femicidios están en la ficha de muertes de Salud.`,
+  "sin-condena": LEAD["sin-condena"]("prov"),
+  "sin-condena-nota": `Sin condena quiere decir que la persona estaba procesada, con la causa todavía en trámite, o en otra situación legal. ` +
+    `Cada provincia es su servicio penitenciario: CABA no tiene uno propio y el Servicio Penitenciario Federal va aparte. La línea del país suma todos, también el federal. ` +
+    `No se cuentan las personas detenidas en comisarías ni las que tienen prisión domiciliaria.`,
   carceles: LEAD.carceles("serie"), "carceles-nota": `Censo de las personas alojadas en establecimientos penitenciarios al 31 de diciembre de cada año. No incluye a las ` +
     `personas detenidas en comisarías ni a las que tienen prisión domiciliaria. Por provincia, cada servicio penitenciario provincial sobre la población de su provincia: ` +
     `las cárceles federales van aparte y una cárcel puede alojar a personas detenidas por la justicia de otra provincia. El país, sobre la población que usa el SNIC. ` +
@@ -1396,6 +1455,32 @@ const TX = {
     `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
     `rentas de cada provincia. Por habitante con la población del INDEC. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
     `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en la ficha siguiente.`,
+  "pobreza-aglomerados": LEAD["pobreza-aglomerados"]("region"), "pobreza-aglomerados-nota": `Personas en hogares cuyos ingresos no alcanzan la canasta ` +
+    `básica total, según la Encuesta Permanente de Hogares del INDEC, que releva 31 aglomerados urbanos y no mide las zonas rurales ni las ciudades chicas. ` +
+    `Las regiones son las de la encuesta: Gran Buenos Aires (CABA y los partidos del conurbano), Noroeste, Noreste, Cuyo, Pampeana y Patagonia. El Gran ` +
+    `Buenos Aires va en dos partes también entre las ciudades. Un aglomerado es una ciudad con su área urbana y puede juntar dos ciudades o dos provincias. ` +
+    `El coeficiente de variación mide la precisión de cada estimación: cuanto más alto, menos precisa. Está en el cuadro de cada barra, con la indigencia. ` +
+    `En el consultor de pobreza están los partidos del Gran Buenos Aires y las comunas de CABA.`,
+  "empresas-tamano": LEAD["empresas-tamano"]("tam"), "empresas-tamano-nota": `Empresas privadas con al menos una persona en relación de dependencia ` +
+    `declarada en el SIPA, según el Observatorio de Empleo y Dinámica Empresarial. No cuenta a quienes trabajan por su cuenta sin empleados. Una empresa con ` +
+    `personal en varias provincias cuenta en cada una, y el país suma las provincias: por eso da más que la cantidad de empresas de la ficha anterior. El ` +
+    `tamaño es el de toda la empresa, según su personal promedio de los últimos cuatro trimestres, con topes distintos en cada rama: en el comercio minorista, ` +
+    `una microempresa tiene hasta 5 personas, una pequeña hasta 26 y una mediana hasta 100. El OEDE clasifica por tamaño solo a la industria, el comercio y ` +
+    `los servicios, el ${pct(EM.tam_cubre)} de las empresas del país: el agro, la minería, la construcción y la electricidad, gas y agua no entran en esa vista.`,
+  desocupacion: LEAD.desocupacion("ciudad"), "desocupacion-nota": `Desocupada es la persona que no tiene trabajo, lo buscó activamente y está ` +
+    `disponible para trabajar. La tasa se calcula sobre la población económicamente activa: las personas que trabajan o buscan trabajo. La EPH es una ` +
+    `encuesta del INDEC en 31 aglomerados urbanos, que no mide las zonas rurales ni las ciudades chicas. Un aglomerado es una ciudad con su área urbana ` +
+    `y puede juntar dos ciudades (Neuquén con Plottier) o dos provincias (Viedma con Carmen de Patagones). El Gran Buenos Aires va en dos partes, CABA ` +
+    `y los partidos del conurbano. En los aglomerados chicos la encuesta tiene pocos casos y la tasa de un trimestre, un margen de error grande: por eso ` +
+    `cada uno va con el promedio de cuatro trimestres, y dos ciudades con tasas parecidas pueden no ser distintas. Si el INDEC no publicó la tasa de un ` +
+    `aglomerado en un trimestre, por tener pocos casos, el promedio usa los otros tres. El seguro de desempleo, en la ficha siguiente, cuenta otra cosa: ` +
+    `las personas que cobran la prestación.`,
+  coparticipacion: LEAD.coparticipacion("hab"), "coparticipacion-nota": `Tributos de origen nacional del esquema ahorro inversión financiamiento ` +
+    `de cada provincia, según el Ministerio de Economía: la coparticipación federal de impuestos (Ley 23.548, con la parte que la Ley 26.075 destina ` +
+    `a educación) y otros impuestos nacionales que se reparten por ley. No incluye lo que pasa por el presupuesto nacional, como los ATN y las demás ` +
+    `transferencias no automáticas, que están en Instituciones políticas. El reparto entre provincias no sigue a la población: la Ley 23.548, de 1988, ` +
+    `fija un porcentaje para cada una. CABA y Tierra del Fuego, que en 1988 no eran provincias, reciben su parte de la que le toca a la Nación, con ` +
+    `porcentajes que fijan otras normas: los de CABA cambiaron en 2016 y en 2020. En pesos de cada año. Por habitante, con la población del INDEC de ese año.`,
   refugio: LEAD.refugio("anio"), "refugio-nota": `Solicitudes de reconocimiento de la condición de persona refugiada presentadas cada año ante la ` +
     `CONARE, que decide quién es reconocida como refugiada, y personas reconocidas, según sus estadísticas de ${MGR.anio}. La CONARE las publica solo ` +
     `en PDF: el sitio copia sus cuadros. Las cifras de ACNUR son las personas refugiadas y solicitantes de asilo que vivían en el país a fin de cada ` +
@@ -1509,7 +1594,10 @@ const TX = {
   exportaciones: `Por habitante, las exportaciones producidas en ${nv.ex_top} sumaron ${n0(nv.ex_top_v)} dólares${conVeces(nv.ex_top_v, nv.ex_pc_pais)} y las de ${nv.ex_low}, ${n0(nv.ex_low_v)}${conVeces(nv.ex_low_v, nv.ex_pc_pais)}. En total, el país exportó bienes por ${n0(nv.ex_total)} millones de dólares en ${nv.ex_anio}.` + (nv.ex_sem ? ` En el primer semestre de ${nv.ex_sem.anio}, con datos provisorios, las exportaciones sumaron ${n0(nv.ex_sem.total)} millones de dólares, ${pct(Math.abs(nv.ex_sem.var))} ${nv.ex_sem.var >= 0 ? "más" : "menos"} que en el primer semestre de ${nv.ex_sem.anio - 1}, y subieron en ${nv.ex_sem.suben} de las 24 jurisdicciones.` : "") +
     "",
   "exportaciones-nota": `Valor FOB (la mercadería puesta en el puerto o en la frontera, sin flete ni seguro) de los bienes exportados, según la provincia donde se produjeron. El ${pct(nv.ex_provincial_pct)} del total tiene una provincia de origen identificada. El resto sale de la plataforma continental, es mercadería extranjera o tiene origen indeterminado. La tabla descargable separa productos primarios, manufacturas agropecuarias, manufacturas industriales y combustibles. La población es la proyección ${R.anio_pob} del INDEC.`,
-  "censo-nota": `Hogares y personas en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. Sin obra social, prepaga ni plan estatal: personas, no hogares, sin ninguna de esas coberturas de salud. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
+  cobertura: textoCenso("sin_cobertura"), "cobertura-nota": `Personas en viviendas particulares según el Censo 2022 que no tenían obra social (incluido el ` +
+    `PAMI), prepaga ni un programa o plan estatal de salud: dependían solo de los hospitales y centros de salud públicos, que atienden a todas las personas. ` +
+    `El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
+  "censo-nota": `Hogares en viviendas particulares según el Censo 2022. Agua de red: agua corriente de red pública. Cloacas: inodoro con descarga de agua y desagüe a red pública. Internet: conexión en la vivienda, incluida la del celular. Necesidades básicas insatisfechas: hacinamiento, vivienda precaria, sin baño, chicos sin escuela o baja capacidad de subsistencia, según la definición del INDEC. El INDEC no publica estos totales provinciales en un archivo propio: se suman desde los resultados por radio censal, así que pueden diferir levemente de sus cuadros.`,
   // la cifra destacada ya dice el valor más alto: el texto empieza por el más bajo
   internet: `En el ${nv.in_trim}, el valor más bajo fue el de ${nv.in_low}, con ${n1(nv.in_low_v)} accesos a internet fijo cada 100 hogares.` +
     (DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top]?.accion === "aclarar" ? ` ${DIST["internet_fijo_provincias.accesos_100_hogares"][nv.in_top].motivo}.` : "") +
@@ -1954,7 +2042,9 @@ function barrasH(el, cfg) {
   // Se ven entre una barra y la siguiente, y los valores llevan un borde del color del fondo (.f text en datina.css)
   if (cfg.ref != null) {
     g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3").lower();
-    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
+    const rl = g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
+    // si el rótulo no entra a la derecha de la línea (la línea cerca del final, en el celular), va a su izquierda
+    if (rl.node().getComputedTextLength?.() > iw + 50 - x(cfg.ref)) rl.attr("x", x(cfg.ref) - 5).attr("text-anchor", "end");
   }
   if (cfg.ref2 != null) {
     g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2).lower();
@@ -2200,10 +2290,11 @@ function apiladasH(el, cfg) {
     const r = tramos.selectAll("rect.parte").data(partes).join("rect").attr("class", "parte").attr("y", 0).attr("height", y.bandwidth())
       .attr("x", p => x(p.x0)).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0))).attr("fill", p => p.k.c)
       .attr("opacity", opac(d));
-    // con cfg.sinValores, solo el texto del final (los máximos tribunales: "3 de 7" ya dice lo que dirían los tramos)
+    // con cfg.sinValores, solo el texto del final (los máximos tribunales: "3 de 7" ya dice lo que dirían los tramos). cfg.valF cambia el
+    // formato de los valores (por defecto, sin decimales)
     const t = d3.select(this).selectAll("text.v").data(partes.filter(p => !cfg.sinValores && x(p.x0 + p.v) - x(p.x0) > 34)).join("text").attr("class","v")
       .attr("x", p => x(p.x0) + 5).attr("y", y.bandwidth()/2).attr("dy",".35em").attr("font-size", 11.5).attr("font-family","var(--mono)")
-      .attr("fill", p => p.k.texto || "#fff").text(p => n0(p.v));
+      .attr("fill", p => p.k.texto || "#fff").text(p => (cfg.valF || n0)(p.v));
     if (cfg.anim) { r.attr("width", 0).transition().duration(DUR_G).ease(EASE).attr("width", p => Math.max(0, x(p.x0 + p.v) - x(p.x0) - (p.v > 0 ? 1 : 0)));
       aparecer(t, 150); }
     // un texto al final de la barra (el total de años)
@@ -2722,6 +2813,15 @@ const DIB = protegerDib({
     barrasH(G("fiscal"), {anim:a, data: d.map(r => fz.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${fz.atrasadas[r.territorio]})`} : r), k, vf: v => (k === "resultado" && v > 0 ? "+" : "") + n1(v) + "%", af: v => v + "%",
       color: k === "resultado" ? (r => r.resultado < 0 ? css("--sol") : css("--celeste")) : null});
   },
+  // la cobertura de salud (plan de mejora, etapa 4): la misma tabla del censo, en su ficha de Salud
+  cobertura: a => {
+    const fp = T.censo2022_provincias.find(r => r.codigo_indec === prov);
+    let txt = textoCenso("sin_cobertura");
+    if (fp && fp.territorio !== nv.censo_top.sin_cobertura[0] && fp.territorio !== nv.censo_low.sin_cobertura[0]) txt += ` En ${fp.territorio}, el ${pct(fp.sin_cobertura)}.`;
+    $t("cobertura").textContent = txt;
+    barrasH(G("cobertura"), {anim: a, data: T.censo2022_provincias, k: "sin_cobertura", ref: nv.censo.sin_cobertura, refLab: `País ${pct(nv.censo.sin_cobertura)}`,
+      vf: pct, af: v => n0(v) + "%"});
+  },
   censo: a => {
     document.querySelector('[data-t="censo"]').textContent = textoCenso(MED.censo);
     barrasH(G("censo"), {anim:a, data: T.censo2022_provincias, k: MED.censo, ref: nv.censo[MED.censo], refLab: `País ${pct(nv.censo[MED.censo])}`,
@@ -2740,7 +2840,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", desocupacion: "ciudad", "empresas-tamano": "tam", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3140,6 +3240,98 @@ Object.assign(DIB, {
     }
     $t("carceles").textContent = txt;
     lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: n0, yf: n0, series: [{k: "tasa", lab: "Todo el país", c: NAR}]});
+  },
+  // la parte sin condena (plan de mejora, etapa 4): cada servicio penitenciario provincial con la línea del país, o el país año por año
+  "sin-condena": a => {
+    const el = G("sin-condena"), fp = T.carceles_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD["sin-condena"](MED["sin-condena"]);
+    if (MED["sin-condena"] === "prov") {
+      if (fp) txt += ` En ${fp.territorio}, el ${pct(fp.pct_sin_condena)}: ${n0(fp.personas - fp.condenados)} de ${n0(fp.personas)} personas.`;
+      $t("sin-condena").textContent = txt;
+      return barrasH(el, {anim: a, data: T.carceles_provincias, k: "pct_sin_condena", vf: pct, af: v => n0(v) + "%", ref: SG.sn_sin, refLab: `País ${pct(SG.sn_sin)}`,
+        tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_sin_condena)} sin condena al 31 de diciembre de ${SG.sn_anio}<br>${n0(d.personas - d.condenados)} de ${n0(d.personas)} personas en el servicio penitenciario provincial`});
+    }
+    $t("sin-condena").textContent = txt;
+    lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", series: [{k: "pct_sin_condena", lab: "Todo el país", c: NAR}]});
+  },
+  // la pobreza (plan de mejora, etapa 4): las seis regiones o los 32 aglomerados de la EPH con la línea de los 31, resaltadas la región o los
+  // aglomerados de la provincia elegida (se redibuja al cambiarla)
+  "pobreza-aglomerados": a => {
+    const v = MED["pobreza-aglomerados"], el = G("pobreza-aglomerados");
+    const filas = T.pobreza_aglomerados.filter(r => r.tipo === (v === "region" ? "region" : "aglomerado")).map(r => ({...r, codigo_indec: r.clave, territorio: r.nombre}));
+    const suyas = !prov ? [] : v === "region" ? filas.filter(r => (REG_IPC[prov] || []).includes(r.clave)) : filas.filter(r => String(r.provincias).split(",").includes(prov));
+    let txt = LEAD["pobreza-aglomerados"](v);
+    if (v === "region" && suyas.length) txt += ` ${NOMBRES[prov]} está en ${lista(suyas.map(r => `${REG_ART[r.nombre]} (${pct(r.pobreza)})`))}.`;
+    if (v === "ciudad" && suyas.length === 1) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].pobreza)}.`;
+    if (v === "ciudad" && suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.pobreza)} en ${r.nombre}`))}.`;
+    $t("pobreza-aglomerados").textContent = txt;
+    barrasH(el, {anim: a, data: filas, k: "pobreza", vf: pct, af: v => n0(v) + "%", ref: PZA.pais, refLab: `31 aglomerados ${pct(PZA.pais)}`,
+      marcar: new Set(suyas.map(r => r.codigo_indec)), l: v === "region" ? 150 : 220, lAngosto: 132,
+      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
+      tip: d => `<b>${d.nombre}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>Coeficiente de variación: ${pct(d.cv_pobreza)}` +
+        `<br>Indigencia: ${pct(d.indigencia)}`});
+    el.resaltar = null;
+  },
+  // las empresas por tamaño o por sector (plan de mejora, etapa 4): barras apiladas, el país arriba y las provincias por la primera parte
+  "empresas-tamano": a => {
+    const v = MED["empresas-tamano"], el = G("empresas-tamano"), fp = T.empresas_tamano_sector.find(r => r.codigo_indec === prov);
+    const cl = v === "sec"
+      ? [{k: "pct_servicios", lab: "Servicios", c: "#2C74B5"}, {k: "pct_comercio", lab: "Comercio", c: "#74ACDF", texto: "#18212B"},
+        {k: "pct_industria_mineria_energia", lab: "Industria, minería y energía", c: "#1F5E97"},
+        {k: "pct_construccion", lab: "Construcción", c: "#C3CAD2", texto: "#18212B"}, {k: "pct_agro", lab: "Agro y pesca", c: "#F6B40E", texto: "#18212B"}]
+      : [{k: "pct_micro", lab: "Micro", c: "#C6DCF1", texto: "#18212B"}, {k: "pct_pequenas", lab: "Pequeñas", c: "#74ACDF", texto: "#18212B"},
+        {k: "pct_medianas", lab: "Medianas", c: "#2C74B5"}, {k: "pct_grandes", lab: "Grandes", c: "#1F5E97"}];
+    leyenda("empresas-tamano-ley", cl);
+    let txt = LEAD["empresas-tamano"](v);
+    if (fp) txt += v === "sec" ? ` En ${fp.territorio}, el ${pct(fp.pct_servicios)} eran de servicios y el ${pct(fp.pct_agro)} del agro y la pesca.`
+      : ` En ${fp.territorio}, el ${pct(fp.pct_micro)} eran microempresas y el ${pct(fp.pct_grandes)}, grandes.`;
+    $t("empresas-tamano").textContent = txt;
+    const pais = T.empresas_tamano_sector.find(r => r.codigo_indec === "00");
+    // los valores con un decimal, como el texto y la cifra destacada
+    apiladasH(el, {anim: a, claves: cl, valF: n1, data: [pais, ...T.empresas_tamano_sector.filter(r => r.codigo_indec !== "00").sort((p, q) => q[cl[0].k] - p[cl[0].k])]});
+  },
+  // la desocupación (plan de mejora, etapa 4): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida (se
+  // redibuja al cambiarla, como los ingresos por aglomerado), o el total de los 31 trimestre a trimestre
+  desocupacion: a => {
+    const el = G("desocupacion");
+    let txt = LEAD.desocupacion(MED.desocupacion);
+    if (MED.desocupacion === "serie") {
+      $t("desocupacion").textContent = txt;
+      return lineas(el, {anim: a, data: T.desocupacion_serie.map(r => ({...r, t: +r.periodo.slice(2) + (+r.periodo[0] - 1) / 4})), x: "t", y0: 0,
+        vf: pct, yf: v => n0(v) + "%", xl: r => trimTx(r.periodo), mensual: true, series: [{k: "desocupacion", lab: "31 aglomerados", c: NAR}]});
+    }
+    const filas = T.desocupacion_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
+    const suyas = prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)) : [];
+    if (suyas.length === 1 && suyas[0].nombre !== DSO.max[0] && suyas[0].nombre !== DSO.min[0]) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].desocupacion)}.`;
+    if (suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.desocupacion)} en ${r.nombre}`))}.`;
+    $t("desocupacion").textContent = txt;
+    barrasH(el, {anim: a, data: filas, k: "desocupacion", vf: pct, af: v => n0(v) + "%", ref: DSO.pais, refLab: `31 aglomerados ${pct(DSO.pais)}`,
+      marcar: new Set(suyas.map(r => r.codigo_indec)), l: 220, lAngosto: 132,
+      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
+      tip: d => `<b>${d.nombre}</b><br>${pct(d.desocupacion)} de desocupación, promedio de ${DSO.trimestres}` +
+        (d.desocupacion_ultimo_trimestre != null ? `<br>Solo el ${DSO.ultimo}: ${pct(d.desocupacion_ultimo_trimestre)}` : `<br>Sin dato del ${DSO.ultimo}`) +
+        `<br>Tasa de empleo: ${pct(d.empleo)}`});
+    el.resaltar = null;
+  },
+  // la coparticipación (plan de mejora, etapa 4): por habitante, solo las jurisdicciones con el año de la ficha, o en % de los ingresos de
+  // las 24, la que todavía no publicó ese año con el suyo al lado del nombre (como en la ficha anterior)
+  coparticipacion: a => {
+    const v = MED.coparticipacion, el = G("coparticipacion"), fp = T.coparticipacion_provincias.find(r => r.codigo_indec === prov);
+    let txt = LEAD.coparticipacion(v);
+    if (v === "hab") {
+      if (fp && fp.anio === CPA.anio && fp.territorio !== CPA.top_hab[0] && fp.territorio !== CPA.bajo_hab[0])
+        txt += ` En ${fp.territorio}, ${n2(fp.por_habitante / 1e6)} millones de pesos por habitante${conVeces(fp.por_habitante, CPA.pais_hab)}.`;
+      $t("coparticipacion").textContent = txt;
+      return barrasH(el, {anim: a, data: T.coparticipacion_provincias.filter(r => r.anio === CPA.anio), k: "por_habitante", vf: millonesM, af: ejeM,
+        ref: CPA.pais_hab, refLab: `País ${millonesM(CPA.pais_hab)}`, tip: d => `<b>${d.territorio}</b><br>${n0(d.por_habitante)} pesos por habitante en ${CPA.anio}<br>` +
+          `${billones(d.millones)}<br>${pct(d.pct_ingresos)} de sus ingresos`});
+    }
+    if (fp && fp.territorio !== CPA.top_pct[0] && fp.territorio !== CPA.bajo_pct[0])
+      txt += ` En ${fp.territorio}, el ${pct(fp.pct_ingresos)}${fp.anio !== CPA.anio ? ` en ${fp.anio}` : ""}. En ${CPA.ini}, el ${pct(fp.pct_ingresos_ini)}.`;
+    $t("coparticipacion").textContent = txt;
+    barrasH(el, {anim: a, data: T.coparticipacion_provincias.map(r => CPA.atrasadas[r.territorio] ? {...r, territorio: `${r.territorio} (${CPA.atrasadas[r.territorio]})`} : r),
+      k: "pct_ingresos", vf: pct, af: v => n0(v) + "%", ref: CPA.pct_pais, refLab: `País ${pct(CPA.pct_pais)}`,
+      tip: d => `<b>${d.territorio}</b><br>${pct(d.pct_ingresos)} de sus ingresos en ${d.anio}<br>En ${CPA.ini}, ${pct(d.pct_ingresos_ini)}`});
   },
   // inflación (etapa 25): en doce meses o mes a mes, el país y la región de la provincia elegida, o las seis regiones en el último mes
   inflacion: conTablas("inflacion", () => MED.inflacion === "region" ? [] : ["inflacion_mensual"], a => {
@@ -6135,6 +6327,8 @@ const CLAVE = {
   "f-delitos": [n0(SG.total_tasa), `delitos registrados cada 100.000 habitantes en ${SG.anio}`, `delitos cada 100.000 habitantes en ${SG.anio}`],
   "f-robos": [n0(SG.robos), `robos registrados cada 100.000 habitantes en ${SG.anio}`, `robos cada 100.000 habitantes en el país en ${SG.anio}`],
   "f-homicidios": [n1(SG.hom_tasa), `víctimas de homicidios dolosos cada 100.000 habitantes en ${SG.anio}`, `víctimas cada 100.000 habitantes en el país en ${SG.anio}`],
+  "f-sin-condena": [pct(SG.sn_sin), `de las personas privadas de libertad en las cárceles del país no tenía condena al 31 de diciembre de ${SG.sn_anio}`,
+    `sin condena en el país al 31 de diciembre de ${SG.sn_anio}`],
   "f-carceles": [n0(SG.sn_tasa), `personas privadas de libertad en cárceles cada 100.000 habitantes al 31 de diciembre de ${SG.sn_anio}`,
     `personas cada 100.000 habitantes en el país al 31 de diciembre de ${SG.sn_anio}`],
   "f-cuentas-nacion": [pct(Math.abs(GBN.primario)), `del PBI fue el ${sobra(GBN.primario)} primario del Sector Público Nacional en ${GBN.anio}, antes de pagar los intereses de la deuda`,
@@ -6143,6 +6337,15 @@ const CLAVE = {
   "f-recaudacion": [pct(GRT.iva), `de la recaudación de impuestos nacionales de los doce meses hasta ${GRT.doce_hasta} fue IVA`],
   "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`, `del PBI al ${GBD.fecha}`],
   "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`, "cargos cada 1.000 habitantes en todo el país"],
+  "f-pobreza-aglomerados": [pct(PZA.reg_max[1]), `de las personas de los aglomerados urbanos ${delReg(PZA.reg_max[0])} estaba bajo la línea de pobreza ` +
+    `en el ${PZA.semestre}, la región con más pobreza`, `de las personas de los aglomerados urbanos ${delReg(PZA.reg_max[0])}, la región con más pobreza, en el ${PZA.semestre}`],
+  "f-empresas-tamano": [pct(EM.tam_micro), `de las empresas privadas de industria, comercio y servicios del país eran microempresas en ${EM.anio}`,
+    `de las empresas de industria, comercio y servicios del país eran microempresas en ${EM.anio}`],
+  "f-desocupacion": [pct(DSO.pais), `de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada, en promedio, en ${DSO.trimestres}`,
+    `desocupación de los 31 aglomerados, promedio de ${DSO.trimestres}`],
+  "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +
+    `impuestos nacionales que se reparten por ley` + (Object.keys(CPA.atrasadas).length ? `, sin contar ${lista(Object.keys(CPA.atrasadas))}` : ""),
+    Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
   "f-impuestos-provinciales": [`${n0(GBP.pais)} pesos`, `por habitante recaudaron de impuestos propios las provincias y CABA en ${GBP.anio}` + (GBP.faltan.length ? `, sin contar ${lista(GBP.faltan)}` : ""), GBP.faltan.length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
   "f-nacidos-otro-pais": [pct(MGC.pct), `de las personas que vivían en el país en 2022 había nacido en otro país, según el Censo`,
     "de la población del país, según el Censo"],
@@ -6252,6 +6455,8 @@ const CLAVE = {
   "f-causas-muerte": [pct(CMG[0].pct), `de las muertes del país de ${CM.desde} a ${CM.hasta} fueron por ${CM_FRASE[CMG[0].k]}, la primera causa`,
     `de las muertes del país, por ${CM_FRASE[CMG[0].k]}, la primera causa`],
   "f-exportaciones": [n0(nv.ex_pc_pais), `dólares por habitante exportó el país en ${nv.ex_anio}`, "dólares por habitante, promedio del país"],
+  "f-cobertura": [pct(nv.censo.sin_cobertura), `de las personas no tenía obra social, prepaga ni plan estatal de salud en el Censo 2022`,
+    "de las personas del país no tenía obra social, prepaga ni plan estatal de salud en el Censo 2022"],
   "f-censo": [pct(nv.censo.cloaca), `de los hogares tenía desagüe a red cloacal en el Censo 2022`, "de los hogares del país tenía desagüe a red cloacal"],
   "f-internet": [n1(nv.in_top_v), `accesos a internet fijo cada 100 hogares en ${nv.in_top}, el valor más alto, en el ${nv.in_trim}${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando también los accesos de empresas y organizaciones" : ""}`,
     `accesos cada 100 hogares en ${nv.in_top}, el valor más alto${DIST["internet_fijo_provincias.accesos_100_hogares"]?.[nv.in_top] ? ", contando los de empresas y organizaciones" : ""}`],
@@ -6586,7 +6791,7 @@ async function imagenFicha(f) {
 const SIN_RELACIONES = new Set(["f-edad", "f-suicidio", "f-suicidio-prov"]);
 // "En el catálogo" (11 de octubre de 2026, pedido del autor): lleva a la tabla del pie en catalogo.html, abierta con su vista previa. Solo
 // en las fichas cuya tabla está en el catálogo, que le pasa el constructor desde scripts/catalogo.py (las de suicidio no están)
-const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
+const EN_CATALOGO = new Set(["actividad_anual", "actividad_mensual", "actividad_sectores", "anios_congreso", "apoyo_gobierno_provincias", "aprender_departamentos", "aprender_diagnostico", "aprender_provincias", "areas_produccion", "areas_protegidas_provincias", "areas_serie", "argentinos_exterior", "argentinos_exterior_destinos", "asignaciones_cobertura", "auh_provincias", "balanza_comercial", "balanza_energetica", "bcra_variables", "bcra_variables_lista", "canasta_mensual", "canasta_regiones", "capitales", "capitales_eph", "carceles_provincias", "carceles_serie", "carne_vacuna", "causas_muerte_provincias", "censo2022_provincias", "centrales", "clima_desvio", "combustibles_anual", "combustibles_mensual", "combustibles_provincias", "compras_dolares_anual", "confianza_consumidor", "confianza_gobierno", "confianza_gobierno_elecciones", "confianza_gobierno_gobiernos", "congreso_composicion", "coparticipacion_provincias", "corte_casos", "corte_composicion", "corte_jueces", "corte_jueces_fuentes", "corte_no_asumieron", "corte_presidentes", "costo_anual", "costo_construccion", "cruces_provincias", "cruces_series", "cuenta_corriente", "cuentas_nacion", "curvas_vm", "delitos_serie", "delitos_tipo", "departamentos", "desembarques_especies", "desembarques_top", "desocupacion_aglomerados", "desocupacion_serie", "deuda_pbi", "diputados_nacionales", "diseno_pozos_vm", "dolar_inversion_trimestral", "dotacion_nacion", "elecciones_presidenciales", "electricidad_mensual", "electricidad_provincias", "electricidad_sectores", "electricidad_serie", "empleo_construccion_provincias", "empleo_construccion_serie", "empleo_provincias", "empleo_publico_provincias", "empresas_provincias", "empresas_serie_pais", "empresas_tamano_sector", "energia_estacionalidad", "energia_hogares", "envejecimiento_pais", "envejecimiento_provincias", "escolarizacion_secundaria_provincias", "especies_areas_nacionales", "esperanza_vida_provincias", "expectativas_inflacion", "exportaciones_cantidades_anual", "exportaciones_complejos", "exportaciones_destinos", "exportaciones_dolar_trimestral", "exportaciones_provincias", "exportaciones_rubros_anual", "extranjeros_provincias", "fiscal_provincias", "fiscalias_defensorias_federales", "fracturas_anual", "gabinetes_origen", "gas_usuario_mensual", "gas_usuario_provincias", "gas_usuario_serie", "gasto_nacion_tipo", "glaciares_provincias", "haberes_previsionales", "hidrocarburos_anual", "hidrocarburos_empresas", "hidrocarburos_mensual", "hidrocarburos_provincias", "hipotecas_mensual", "homicidios_provincias", "importaciones_origen", "importaciones_usos", "impuestos_provinciales", "inflacion_anual", "inflacion_mensual", "inflacion_regiones", "inflacion_rubros", "ingresos_aglomerados", "internet_fijo_provincias", "inversion_educativa", "inversion_educativa_serie", "isac_anual", "isac_insumos", "isac_mensual", "jubilaciones_aportantes", "justicia_federal_provincias", "justicia_provincias", "legisladores_por_periodo", "madres_adolescentes_nse", "madres_adolescentes_provincias", "migracion_censos", "migraciones_departamentos", "ministros_nacionales", "ministros_provincias", "mortalidad_infantil_causas", "mortalidad_infantil_provincias", "muertes_violentas", "mundo_hidrocarburos", "mundo_paises", "nacidos_otro_pais_paises", "nacidos_otro_pais_provincias", "nacimientos", "nafta_dolares_anual", "nafta_dolares_mensual", "nombres_top", "obra_publica_provincias", "obra_publica_serie", "ocde_comparacion", "parques_nacionales_historia", "parques_nacionales_lista", "patentamientos_anual", "patentamientos_provincias", "pensiones_invalidez", "pensiones_invalidez_provincias", "permisos_mensual", "pesca_continental", "pesca_continental_provincias", "piramide_poblacion", "pisa_argentina_ocde", "poblacion_proyectada_provincias", "pobreza_aglomerados", "pobreza_serie", "potencia_instalada", "pozos_no_convencionales", "pozos_provincias", "pozos_terminados", "pozos_terminados_provincias", "pozos_tipo", "presidentes", "prestacion_desempleo", "prestacion_desempleo_provincias", "presupuesto_votos", "productividad_vm", "radicaciones_anual", "radicaciones_nacionalidad", "recaudacion_anual", "recaudacion_impuestos", "refugio_acnur", "refugio_nacionalidades", "refugio_solicitudes", "regalias_crudo_serie", "regalias_provincias", "representacion_provincias", "reservas_bcra", "reservas_factores", "reservas_hidrocarburos", "reservas_netas", "reservas_provincias", "robos_provincias", "rotacion_laboral", "salario_docente", "salario_docente_serie", "salario_real_mensual", "salarios_provincias", "salarios_serie", "seguridad_serie_prov", "senadores_nacionales", "sube_dia_habil", "subsidios_energia", "supermercados_mensual", "supermercados_provincias", "transferencias_acumulado", "transferencias_provincias", "transferencias_serie", "turismo_dolar_mensual", "turistas_extranjeros_provincias", "turistas_no_residentes_anual", "viajeros_hoteles_anual", "vino_mercado_interno", "visitas_parques_nacionales", "visitas_por_parque", "vivienda_departamentos", "vivienda_provincias", "votaciones_leyes_clave", "voto_legisladores_y_provincia", "yerba_molino"]);
 // el nombre de la sección arriba de la pregunta, solo en una página con fichas de más de una sección. Desde la Fase 2 (paso 5, respuesta
 // del autor del 23 de octubre de 2026) ninguna lo es: el nombre ya está arriba de la página y la pregunta queda primera
 const VARIAS_SECCIONES = new Set([...document.querySelectorAll("article.ficha")].map(f => f.closest(".tema"))).size > 1;
@@ -7016,7 +7221,7 @@ const INDP = [
     d:T.esperanza_vida_provincias, k:"total", pais:nv.ev_pais, f:n1, ocde:OC.esperanza_vida.ocde},
   {id:"f-causas-muerte", g:"salud", lab:"Mortalidad ajustada por edad", veces:true, det:`muertes por año cada 100.000 habitantes, descontado el efecto de la edad de la población, promedio ${CM.desde} a ${CM.hasta}`,
     d:T.causas_muerte_provincias.filter(r => r.codigo_indec !== "00"), k:"tasa_total", pais:CM.pais, f:n0},
-  {id:"f-censo", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, Censo 2022",
+  {id:"f-cobertura", g:"salud", lab:"Sin cobertura de salud", veces:true, det:"% de las personas sin obra social, prepaga ni plan estatal, Censo 2022",
     d:T.censo2022_provincias, k:"sin_cobertura", pais:nv.censo.sin_cobertura, f:pct},
   {id:"f-censo", g:"vivienda", lab:"Cloacas", veces:"debajo", det:"% de los hogares con desagüe a red cloacal, Censo 2022",
     d:T.censo2022_provincias, k:"cloaca", pais:nv.censo.cloaca, f:pct},
@@ -7210,6 +7415,17 @@ const PREG = [
    `${n0(ECB.cbt_hogar)} pesos por mes en ${ECB.mes} para un hogar de cuatro integrantes del Gran Buenos Aires, según la canasta básica total del INDEC.`, "#f-canastas"],
   ["¿Le ganan los salarios registrados a la inflación?",
    `En los doce meses hasta ${ESR.mes}, descontada la inflación, el salario registrado del sector privado ${cambioPct(ESR.real_priv)} y el del sector público ${cambioPct(ESR.real_pub)}.`, "#f-salario-real"],
+  ["¿Cuánta pobreza hay en cada región?",
+   `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.reg_min[1])} en ${REG_ART[PZA.reg_min[0]]} al ${pct(PZA.reg_max[1])} en ${REG_ART[PZA.reg_max[0]]}, según la EPH del INDEC.`, "#f-pobreza-aglomerados"],
+  ["¿De qué tamaño son las empresas?",
+   `En ${EM.anio}, el ${pct(EM.tam_micro)} de las empresas privadas de industria, comercio y servicios eran microempresas y el ${pct(EM.tam_grandes)}, grandes, según el OEDE.`, "#f-empresas-tamano"],
+  ["¿Cuánta gente busca trabajo y no consigue?",
+   `En el ${DSO.ultimo}, el ${pct(DSO.pais_ultimo)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada, según la EPH del INDEC.`, "#f-desocupacion"],
+  ["¿Cuánto recibe cada provincia por coparticipación?",
+   `En ${CPA.anio}, las provincias y CABA recibieron ${n2(CPA.pais_hab / 1e6)} millones de pesos por habitante por la coparticipación federal y otros impuestos nacionales. ` +
+   `Fue el ${pct(CPA.pct_pais)} de sus ingresos.`, "#f-coparticipacion"],
+  ["¿Qué parte de las personas presas no tiene condena?",
+   `Al 31 de diciembre de ${SG.sn_anio}, el ${pct(SG.sn_sin)} de las personas en cárceles no tenía condena. En ${SG.sn_ini}, el ${pct(SG.sn_sin_ini)}.`, "#f-sin-condena"],
   ["¿Cuántas personas están presas?",
    `Al 31 de diciembre de ${SG.sn_anio}, ${n0(SG.sn_personas)} personas en cárceles, ${n0(SG.sn_tasa)} cada 100.000 habitantes. En ${SG.sn_ini}, ${n0(SG.sn_personas_ini)}.`, "#f-carceles"],
   ["¿Qué parte de la electricidad usan las industrias y los grandes comercios?",
@@ -8244,9 +8460,13 @@ if (PAGINA !== "inicio") {
     "f-importaciones": ["importaciones"], "f-reservas-bcra": ["reservas"], "f-deuda": ["deuda"], "f-haberes": ["jubilacion", "jubilados", "jubilado"],
     "f-jubilaciones": ["jubilacion", "jubilaciones", "jubilados", "aportantes"],
     "f-auh": ["auh", "asignacion universal"], "f-desempleo": ["desempleo"], "f-aprender": ["aprender"], "f-escolarizacion": ["escolarizacion", "secundaria"],
-    "f-censo": ["cloacas", "agua red"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
+    "f-censo": ["cloacas", "agua red"], "f-cobertura": ["obra social", "prepaga", "cobertura de salud", "sin cobertura"], "f-internet": ["internet"], "f-glaciares": ["glaciares"], "f-receptivo": ["turistas", "turismo"], "f-isac": ["construccion"],
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
-    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"],
+    "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
+    "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
+    "f-desocupacion": ["desocupacion", "desocupados", "desocupada", "tasa de desocupacion"],
+    "f-empresas-tamano": ["pymes", "pyme", "microempresas", "tamano de las empresas", "empresas por sector"],
+    "f-pobreza-aglomerados": ["pobreza por region", "pobreza por ciudad", "pobreza por aglomerado"],
     "f-salario-docente": ["maestro", "maestros", "docente", "docentes", "salario docente", "sueldo docente", "salario maestro", "sueldo maestro"], "f-patentes": ["patentes", "autos"], "f-sube": ["sube"]
   }).flatMap(([id, ks]) => ks.map(k => [k.split(" "), id]));
   const respuesta = (texto, hall) => {

@@ -107,6 +107,8 @@ _pr.columns = [c.strip() for c in _pr.columns]
 _pr["Poblacion"] = pd.to_numeric(_pr.Poblacion.astype(str).str.replace(".", "", regex=False), errors="coerce")
 POB = {f"{int(j):02d}": float(v) for j, v in _pr[_pr.Fecha == ANIO_POB].groupby("Jurisdiccion").Poblacion.sum().items()}
 assert len(POB) == 24, "faltan provincias en las proyecciones del INDEC"
+# la misma población, de cada año de las proyecciones (2022 a 2040), para los datos de un año que no es ANIO_POB
+POB_POR_ANIO = {(f"{int(j):02d}", int(a)): float(v) for (j, a), v in _pr.groupby(["Jurisdiccion", "Fecha"]).Poblacion.sum().items()}
 
 # Proyecciones del INDEC por provincia, sexo y edad (base Censo 2022): envejecimiento y relacion de dependencia
 proy = pd.read_csv(CRUDO / "indec_proyecciones_provincias.csv", sep=";")
@@ -1852,6 +1854,59 @@ if (CRUDO / "oede_empresas_provincias.xlsx").exists():
                "anios_negativos": len(_neg), "ultimos_negativos": [a_ for a_ in _neg if a_ > _ult - 5]}
     d = empresas[["codigo_indec", "territorio", "cada_1000_hab"]].rename(columns={"cada_1000_hab": "valor"}); d["periodo"] = _anio_emp
     agregar(d, "empresas_privadas_cada_1000_habitantes", "empresas", "OEDE, Ministerio de Capital Humano, en base al SIPA")
+    # Por sector y por tamaño (plan de mejora, etapa 4, 27 de octubre de 2026): los cuadros 1 (siete sectores) y 3 (tamaño, solo de industria,
+    # comercio y servicios, los sectores que el OEDE clasifica por tamaño). Buenos Aires suma sus tres filas (partidos del conurbano, resto
+    # de la provincia y, en el cuadro 1, su total). El país suma las provincias: una empresa con personal en varias cuenta en cada una
+    EMP_SEC = {"agricultura, ganaderia y pesca": "agro", "mineria y petroleo": "mineria", "industria": "industria", "electricidad, gas y agua": "energia",
+               "construccion": "construccion", "comercio": "comercio", "servicios": "servicios"}
+    emt_sec = {j: EMP_SEC[norm(str(_t1.iat[_fila_tit, j])).strip()] for j in range(1, _col_tot)}
+    assert sorted(emt_sec.values()) == sorted(EMP_SEC.values()), "OEDE: cambiaron los sectores del cuadro 1"
+    emt = {}
+    for i in range(_fila_tit + 1, len(_t1)):
+        c = _cod_oede(_t1.iat[i, 0])
+        if c:
+            for j, k in emt_sec.items():
+                emt.setdefault(c, {}).setdefault(k, 0)
+                emt[c][k] += float(pd.to_numeric(_t1.iat[i, j], errors="coerce") or 0)
+    _t3 = _xo.parse("T3", header=None)
+    emt_col = {j: _cod_oede(_t3.iat[1, j]) for j in range(1, _t3.shape[1]) if pd.notna(_t3.iat[1, j]) and _cod_oede(_t3.iat[1, j])}
+    emt_fila = {norm(str(v)).strip(): i for i, v in _t3[0].items() if pd.notna(v)}
+    emt_tot = _t3[0].astype(str).str.strip().eq("Total").idxmax()
+    EMP_TAM = {"microempresas": "micro", "pequenas": "pequenas", "medianas": "medianas", "grandes": "grandes"}
+    for k_t, k in EMP_TAM.items():
+        i = next(i for i in range(emt_tot + 1, emt_tot + 5) if norm(str(_t3.iat[i, 0])).strip() == k_t)
+        for j, c in emt_col.items():
+            emt[c].setdefault(k, 0)
+            emt[c][k] += float(pd.to_numeric(_t3.iat[i, j], errors="coerce") or 0)
+    empresas_tamano_sector = pd.DataFrame([{"codigo_indec": c, "territorio": CORTO[c], **v} for c, v in sorted(emt.items())])
+    assert len(empresas_tamano_sector) == 24, "OEDE: faltan provincias en los cuadros 1 y 3"
+    empresas_tamano_sector = pd.concat([pd.DataFrame([{"codigo_indec": "00", "territorio": "Todo el país",
+                                                       **empresas_tamano_sector.drop(columns=["codigo_indec", "territorio"]).sum().to_dict()}]),
+                                        empresas_tamano_sector], ignore_index=True)
+    empresas_tamano_sector["total"] = empresas_tamano_sector[list(EMP_SEC.values())].sum(axis=1)
+    empresas_tamano_sector["con_tamano"] = empresas_tamano_sector[list(EMP_TAM.values())].sum(axis=1)
+    # el cuadro 3 tiene que sumar lo mismo que industria, comercio y servicios del cuadro 1
+    assert (empresas_tamano_sector.con_tamano - empresas_tamano_sector[["industria", "comercio", "servicios"]].sum(axis=1)).abs().max() < 1, \
+        "OEDE: el cuadro 3 no suma lo mismo que el cuadro 1"
+    for k in EMP_TAM.values():
+        empresas_tamano_sector[f"pct_{k}"] = empresas_tamano_sector[k] / empresas_tamano_sector.con_tamano * 100
+    empresas_tamano_sector["pct_agro"] = empresas_tamano_sector.agro / empresas_tamano_sector.total * 100
+    empresas_tamano_sector["pct_industria_mineria_energia"] = empresas_tamano_sector[["industria", "mineria", "energia"]].sum(axis=1) / empresas_tamano_sector.total * 100
+    for k in ("construccion", "comercio", "servicios"):
+        empresas_tamano_sector[f"pct_{k}"] = empresas_tamano_sector[k] / empresas_tamano_sector.total * 100
+    empresas_tamano_sector = empresas_tamano_sector.round(2)
+    emt_p = empresas_tamano_sector[empresas_tamano_sector.codigo_indec == "00"].iloc[0]
+    emt_v = empresas_tamano_sector[empresas_tamano_sector.codigo_indec != "00"]
+    emt_x = lambda k: [[emt_v.sort_values(k).iloc[-1].territorio, r1(emt_v[k].max())], [emt_v.sort_values(k).iloc[0].territorio, r1(emt_v[k].min())]]
+    emp_res.update({
+        "tam_micro": r1(emt_p.pct_micro), "tam_pequenas": r1(emt_p.pct_pequenas), "tam_medianas": r1(emt_p.pct_medianas), "tam_grandes": r1(emt_p.pct_grandes),
+        "tam_cubre": r1(emt_p.con_tamano / emt_p.total * 100), "micro_ext": emt_x("pct_micro"), "grandes_ext": emt_x("pct_grandes"),
+        "sec_servicios": r1(emt_p.pct_servicios), "sec_comercio": r1(emt_p.pct_comercio), "sec_agro": r1(emt_p.pct_agro),
+        "sec_industria": r1(emt_p.pct_industria_mineria_energia), "sec_construccion": r1(emt_p.pct_construccion),
+        "agro_ext": emt_x("pct_agro"), "servicios_ext": emt_x("pct_servicios"),
+    })
+    d = emt_v[["codigo_indec", "territorio", "pct_micro"]].rename(columns={"pct_micro": "valor"}); d["periodo"] = _anio_emp
+    agregar(d, "microempresas_pct_empresas_industria_comercio_servicios", "% de las empresas", "OEDE, Ministerio de Capital Humano, en base al SIPA")
 
 # Antiguedad en el empleo de los asalariados (EPH, cuatro ultimos trimestres, resumen armado en 01_descargar.py)
 rotacion, rot_res = None, None
@@ -1913,6 +1968,7 @@ for hoja in xl.sheet_names[1:]:
         return t.loc[i], i
     ic, i_ic = fila("i. ingresos corrientes")
     nac, _ = fila("de origen nacional", i_ic)
+    cpa_sub, _ = fila("sub - total", i_ic)  # la coparticipación federal, con la parte que la Ley 26.075 destina a educación
     trc, _ = fila("transferencias corrientes", i_ic)
     rpc, _ = fila("recursos propios de capital")
     tot, _ = fila("vi. ingresos totales")
@@ -1928,7 +1984,7 @@ for hoja in xl.sheet_names[1:]:
         fisc.append({"codigo_indec": cod, "anio": a, "autonomia": (v(ic) - v(nac) - v(trc) + v(rpc)) / v(tot) * 100,
                      "resultado": v(res) / v(tot) * 100, "personal": v(per) / v(gas) * 100,
                      "regalias": v(reg_f) / v(tot) * 100, "regalias_millones": v(reg_f), "ird_millones": v(ird_f), "ingresos_millones": v(tot),
-                     "propios_millones": v(ic) - v(nac) - v(trc) + v(rpc)})
+                     "propios_millones": v(ic) - v(nac) - v(trc) + v(rpc), "nacional_millones": v(nac), "cpa_millones": v(cpa_sub)})
 fisc = pd.DataFrame(fisc)
 assert fisc.codigo_indec.nunique() == 24, "Faltan provincias en las cuentas fiscales"
 # ultimo anio con dato para al menos 20 provincias. Las que todavia no lo publicaron van con su ultimo anio disponible
@@ -1941,6 +1997,42 @@ fiscal = fiscal[["codigo_indec", "territorio", "anio", "autonomia", "resultado",
 for col, var in [("autonomia", "recursos_propios_pct_ingresos"), ("resultado", "resultado_financiero_pct_ingresos"), ("personal", "gasto_personal_pct_gasto")]:
     d = fisc[["codigo_indec", "anio", col]].rename(columns={"anio": "periodo", col: "valor"}); d["territorio"] = d.codigo_indec.map(CORTO)
     agregar(d, var, "%", "Ministerio de Economia, cuentas provinciales (esquema AIF)")
+
+# Coparticipación (plan de mejora, etapa 4, 27 de octubre de 2026): los tributos de origen nacional de cada provincia en el mismo
+# esquema AIF, que son la coparticipación federal (Ley 23.548, con la parte que la Ley 26.075 destina a educación) y otros impuestos
+# nacionales que se reparten por ley. No son las transferencias "por ley o por fallo" de Presupuesto Abierto (f-transferencias), que
+# pasan por el presupuesto nacional. Cada provincia con su último año, como las demás cuentas fiscales, y por habitante con la
+# población del INDEC de ese año. En pesos de cada año: el país y la vista por habitante solo con las que tienen ANIO_FISC
+cpa_ini = fisc[fisc.anio == fisc.anio.min()].set_index("codigo_indec")
+coparticipacion = fiscal[["codigo_indec", "territorio", "anio"]].merge(
+    fisc[["codigo_indec", "anio", "nacional_millones", "cpa_millones", "ingresos_millones"]], on=["codigo_indec", "anio"], validate="1:1")
+assert len(coparticipacion) == 24 and all((c, a) in POB_POR_ANIO for c, a in zip(coparticipacion.codigo_indec, coparticipacion.anio)), \
+    "faltan provincias o población en la coparticipación"
+coparticipacion["por_habitante"] = coparticipacion.nacional_millones * 1e6 / [POB_POR_ANIO[(c, a)] for c, a in zip(coparticipacion.codigo_indec, coparticipacion.anio)]
+coparticipacion["pct_ingresos"] = coparticipacion.nacional_millones / coparticipacion.ingresos_millones * 100
+coparticipacion["pct_coparticipacion_federal"] = coparticipacion.cpa_millones / coparticipacion.nacional_millones * 100
+coparticipacion["pct_ingresos_ini"] = coparticipacion.codigo_indec.map(cpa_ini.nacional_millones / cpa_ini.ingresos_millones * 100)
+cpa_fed = coparticipacion[coparticipacion.anio == ANIO_FISC]
+cpa_fed = r1(cpa_fed.cpa_millones.sum() / cpa_fed.nacional_millones.sum() * 100)
+coparticipacion = coparticipacion.rename(columns={"nacional_millones": "millones", "ingresos_millones": "ingresos_totales_millones"}).drop(columns="cpa_millones")
+cpa_u = coparticipacion[coparticipacion.anio == ANIO_FISC]
+cpa_pais_hab = cpa_u.millones.sum() * 1e6 / sum(POB_POR_ANIO[(c, ANIO_FISC)] for c in cpa_u.codigo_indec)
+cpa_h, cpa_p = cpa_u.sort_values("por_habitante"), coparticipacion.sort_values("pct_ingresos")
+cpa_res = {
+    "anio": ANIO_FISC, "ini": int(fisc.anio.min()), "atrasadas": FISC_ATRASADAS,
+    "anio_txt": f"{ANIO_FISC}" + (" (" + ", ".join(f"{p}, {a}" for p, a in FISC_ATRASADAS.items()) + ")" if FISC_ATRASADAS else ""),
+    "pais_hab": float(cpa_pais_hab), "millones": float(cpa_u.millones.sum()),
+    "top_hab": [cpa_h.iloc[-1].territorio, float(cpa_h.iloc[-1].por_habitante)], "bajo_hab": [cpa_h.iloc[0].territorio, float(cpa_h.iloc[0].por_habitante)],
+    "pct_pais": r1(cpa_u.millones.sum() / cpa_u.ingresos_totales_millones.sum() * 100),
+    "pct_pais_ini": r1(cpa_ini.nacional_millones.sum() / cpa_ini.ingresos_millones.sum() * 100),
+    "top_pct": [cpa_p.iloc[-1].territorio, r1(cpa_p.iloc[-1].pct_ingresos)], "bajo_pct": [cpa_p.iloc[0].territorio, r1(cpa_p.iloc[0].pct_ingresos)],
+    "mas_mitad": int((coparticipacion.pct_ingresos > 50).sum()),
+    "federal": cpa_fed,
+}
+agregar(coparticipacion.assign(periodo=coparticipacion.anio.astype(str), valor=coparticipacion.por_habitante), "tributos_origen_nacional_por_habitante",
+        "pesos por habitante", "Ministerio de Economia, cuentas provinciales (esquema AIF), e INDEC")
+agregar(coparticipacion.assign(periodo=coparticipacion.anio.astype(str), valor=coparticipacion.pct_ingresos), "tributos_origen_nacional_pct_ingresos",
+        "% de los ingresos totales", "Ministerio de Economia, cuentas provinciales (esquema AIF)")
 
 # Tasa de natalidad por provincia (DEIS), nacidos vivos cada 1.000 habitantes
 na = pd.read_csv(CRUDO / "deis_natalidad.csv", encoding="utf-8-sig")
@@ -4822,6 +4914,10 @@ carceles_provincias["tasa"] = carceles_provincias.personas / carceles_provincias
 carceles_provincias["pct_condenados"] = carceles_provincias.condenados / carceles_provincias.personas * 100
 carceles_provincias["territorio"] = carceles_provincias.codigo_indec.map(CORTO)
 carceles_provincias = carceles_provincias.round(4).sort_values("tasa", ascending=False)
+# la parte sin condena (plan de mejora, etapa 4): las personas procesadas, con la causa en trámite, o en otra situación legal
+carceles_serie["pct_sin_condena"] = (100 - carceles_serie.pct_condenados).round(4)
+carceles_provincias["pct_sin_condena"] = (100 - carceles_provincias.pct_condenados).round(4)
+_sn_sin = carceles_provincias.sort_values("pct_sin_condena", ascending=False)
 _seg_s = delitos_serie.set_index("anio")
 _seg_hom = homicidios_provincias[homicidios_provincias.codigo_indec != "00"]
 _seg_rob = robos_provincias[robos_provincias.codigo_indec != "00"]
@@ -4847,6 +4943,12 @@ SEG_RES = {
     "sn_personas_ini": int(_seg_cs.personas[SN_INI]), "sn_tasa_ini": float(_seg_cs.tasa[SN_INI]), "sn_condenados": r1(float(_seg_cs.pct_condenados[SN_ULT])),
     "sn_spf": int(_sn.loc[SN_ULT, "spf"]),
     "sn_top": [carceles_provincias.iloc[0].territorio, float(carceles_provincias.iloc[0].tasa)], "sn_bajo": [carceles_provincias.iloc[-1].territorio, float(carceles_provincias.iloc[-1].tasa)],
+    # sin condena: el país (con el Servicio Penitenciario Federal), los servicios provinciales y el federal
+    "sn_sin": r1(float(_seg_cs.pct_sin_condena[SN_ULT])), "sn_sin_ini": r1(float(_seg_cs.pct_sin_condena[SN_INI])),
+    "sn_sin_top": [_sn_sin.iloc[0].territorio, r1(float(_sn_sin.iloc[0].pct_sin_condena))],
+    "sn_sin_bajo": [_sn_sin.iloc[-1].territorio, r1(float(_sn_sin.iloc[-1].pct_sin_condena))],
+    "sn_sin_mitad": int((_sn_sin.pct_sin_condena.map(r1) > 50).sum()), "sn_n_prov": int(len(_sn_sin)),
+    "sn_sin_spf": r1(100 - float(_snc.loc[SN_ULT, "spf"]) / float(_sn.loc[SN_ULT, "spf"]) * 100),
 }
 for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolosos", "víctimas cada 100.000 habitantes"),
                                    ("robos", "tasa_robos", "hechos cada 100.000 habitantes"), ("hurtos", "tasa_hurtos", "hechos cada 100.000 habitantes")):
@@ -4855,6 +4957,10 @@ for _seg_k, _seg_var, _seg_uni in (("homicidios", "tasa_victimas_homicidios_dolo
     agregar(_seg_t.assign(territorio=_seg_t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])), _seg_var, _seg_uni, "SNIC, Ministerio de Seguridad")
 agregar(carceles_serie.rename(columns={"anio": "periodo", "personas": "valor"}).assign(codigo_indec="00", territorio="Argentina"),
         "personas_privadas_de_libertad_establecimientos_penitenciarios", "personas al 31 de diciembre", "SNEEP, Ministerio de Justicia")
+_sn_l = pd.concat([carceles_serie.rename(columns={"anio": "periodo", "pct_sin_condena": "valor"}).assign(codigo_indec="00")[["codigo_indec", "periodo", "valor"]],
+                   carceles_provincias.rename(columns={"pct_sin_condena": "valor"}).assign(periodo=SN_ULT)[["codigo_indec", "periodo", "valor"]]])
+agregar(_sn_l.dropna().assign(territorio=lambda t: t.codigo_indec.map(lambda c: "Argentina" if c == "00" else NOMBRE[c])),
+        "pct_personas_privadas_de_libertad_sin_condena", "% de las personas privadas de libertad", "SNEEP, Ministerio de Justicia")
 
 # ---------------------------------------------------------------- artículo: el turismo y el dólar (etapa 24)
 # Por mes: los viajes de turistas no residentes que llegan al país (desde 2010) y de residentes que viajan al exterior (desde 2016), del SINTA,
@@ -6069,7 +6175,7 @@ CRUCES_META = {
     "autos": ("Autos nuevos", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
     "motos": ("Motos nuevas", "cada 1.000 habitantes", str(ANIO_AU), "Movilidad", "DNRPA", "f-patentes-prov", 1),
     "esperanza_vida": ("Esperanza de vida", "años al nacer", str(ANIO_EV), "Salud", "INDEC, tablas de mortalidad", "f-esperanza", 1),
-    "sin_cobertura": ("Sin obra social ni prepaga", "% de las personas, sin cobertura de salud ni plan estatal", "2022", "Salud", "INDEC, Censo 2022", "f-censo", 1),
+    "sin_cobertura": ("Sin obra social ni prepaga", "% de las personas, sin cobertura de salud ni plan estatal", "2022", "Salud", "INDEC, Censo 2022", "f-cobertura", 1),
     "agua_red": ("Agua de red", "% de los hogares", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
     "cloaca": ("Cloacas", "% de los hogares con desagüe a red cloacal", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
     "nbi": ("Necesidades básicas insatisfechas", "% de los hogares", "2022", "Condiciones de vida", "INDEC, Censo 2022", "f-censo", 1),
@@ -6264,6 +6370,78 @@ if (CRUDO / "eph_ingresos_aglomerados.csv").exists():
                "trimestres": EPH_TEN_TXT, "casos_min": int(_ipa_a.ipcf_casos.min()), "casos_min_ocup": int(_ipa_a.ocupacion_casos.min()),
                "ipcf": _ipa_ext("ipcf"), "ocupacion": _ipa_ext("ocupacion")}
 
+# ---------------------------------------------------------------- desocupación por aglomerado (plan de mejora, etapa 4, 27 de octubre de 2026)
+# Las tasas que publica el INDEC para los 31 aglomerados de la EPH, del mismo archivo que la desocupación de las capitales: 32 áreas, porque el
+# Gran Buenos Aires va en dos partes (CABA y los partidos del conurbano). Cada aglomerado con el promedio de los últimos cuatro trimestres
+# (EPH_TRIMS), como las capitales: en los chicos la tasa de un trimestre es poco precisa. El total de los 31 aglomerados, trimestre a trimestre
+dso_ag = {**{c: (p, n) for c, (p, n, _) in EPH_CAP.items()}, **EPH_OTROS, 33: ("06", "Partidos del Gran Buenos Aires")}
+dso_cod = {**_eph_cod, **{_eph_nom(n): c for c, (_, n) in dso_ag.items()}, "total31aglomeradosurbanos": 0}
+dso = pd.read_csv(CRUDO / "indec_eph_aglomerados.csv")
+dso["cod"] = dso.aglomerado.map(_eph_nom).map(dso_cod)
+dso = dso.dropna(subset=["cod"]).astype({"cod": int})
+assert set(dso.cod) == set(dso_ag) | {0}, f"faltan aglomerados en las tasas del mercado de trabajo ({sorted(set(dso_ag) - set(dso.cod))})"
+dso_4 = dso[dso.periodo.isin(EPH_TRIMS)]
+assert dso_4[dso_4.indicador == "desocupacion"].groupby("cod").size().min() >= 3, "faltan trimestres de algún aglomerado en la desocupación"
+dso_p = dso_4.pivot_table(index="cod", columns="indicador", values="valor", aggfunc="mean")
+dso_u = dso[(dso.periodo == EPH_TRIMS[-1]) & (dso.indicador == "desocupacion")].set_index("cod").valor
+desocupacion_aglomerados = pd.DataFrame({"aglomerado": [0, *sorted(dso_ag)]})
+desocupacion_aglomerados["nombre"] = desocupacion_aglomerados.aglomerado.map(lambda c: dso_ag[c][1] if c else "31 aglomerados urbanos")
+desocupacion_aglomerados["provincias"] = desocupacion_aglomerados.aglomerado.map(lambda c: dso_ag[c][0] if c else "00")
+desocupacion_aglomerados["desocupacion"] = desocupacion_aglomerados.aglomerado.map(dso_p.desocupacion)
+desocupacion_aglomerados["desocupacion_ultimo_trimestre"] = desocupacion_aglomerados.aglomerado.map(dso_u)
+desocupacion_aglomerados["empleo"] = desocupacion_aglomerados.aglomerado.map(dso_p.empleo)
+assert desocupacion_aglomerados.desocupacion.between(0, 30).all() and desocupacion_aglomerados.empleo.between(25, 65).all(), "desocupación fuera de rango"
+desocupacion_aglomerados = desocupacion_aglomerados.sort_values("desocupacion", ascending=False).reset_index(drop=True)
+dso_s = dso[dso.cod == 0].pivot(index="periodo", columns="indicador", values="valor").sort_index()
+assert dso_s.desocupacion.notna().all() and len(dso_s) >= 20, "la serie de desocupación de los 31 aglomerados tiene huecos"
+desocupacion_serie = pd.DataFrame({"periodo": [f"{p[-1]}T{p[:4]}" for p in dso_s.index], "desocupacion": dso_s.desocupacion.values,
+                                   "empleo": dso_s.empleo.values})
+dso_tx = lambda p: f"{_eph_ord[int(p[0]) - 1].replace('primero', 'primer').replace('tercero', 'tercer')} trimestre de {p[2:]}"
+dso_a = desocupacion_aglomerados[desocupacion_aglomerados.aglomerado > 0]
+dso_ss = desocupacion_serie.set_index("periodo").desocupacion
+dso_ult, dso_ant = desocupacion_serie.periodo.iloc[-1], f"{desocupacion_serie.periodo.iloc[-1][0]}T{int(desocupacion_serie.periodo.iloc[-1][2:]) - 1}"
+dso_res = {
+    "trimestres": EPH_TRIM_TXT, "ultimo": dso_tx(dso_ult), "ini": dso_tx(desocupacion_serie.periodo.iloc[0]),
+    "pais": r1(dso_p.desocupacion.loc[0]), "pais_ultimo": r1(dso_ss[dso_ult]), "pais_anio_antes": r1(dso_ss[dso_ant]) if dso_ant in dso_ss else None,
+    "max": [dso_a.iloc[0].nombre, r1(dso_a.iloc[0].desocupacion)], "min": [dso_a.iloc[-1].nombre, r1(dso_a.iloc[-1].desocupacion)],
+    "pico": [dso_tx(dso_ss.idxmax()), r1(dso_ss.max())], "piso": [dso_tx(dso_ss.idxmin()), r1(dso_ss.min())],
+}
+agregar(desocupacion_serie.assign(codigo_indec="00", territorio="Argentina", valor=desocupacion_serie.desocupacion),
+        "tasa_desocupacion_31_aglomerados", "% de la población económicamente activa", "INDEC, Encuesta Permanente de Hogares")
+
+# ---------------------------------------------------------------- pobreza por región y por aglomerado (plan de mejora, etapa 4, 27 de octubre de 2026)
+# El mismo cuadro del INDEC que la pobreza de las capitales: las seis regiones de la EPH y los 31 aglomerados (32 áreas, como la desocupación),
+# del último semestre, con el coeficiente de variación que publica el INDEC (pide leer con cuidado de 16% a 25% y no confiar en más de 25%)
+PZA_REG = {"granbuenosaires": ("gba", "Gran Buenos Aires"), "noroeste": ("noroeste", "Noroeste"), "noreste": ("noreste", "Noreste"),
+           "cuyo": ("cuyo", "Cuyo"), "pampeana": ("pampeana", "Pampeana"), "patagonia": ("patagonia", "Patagonia")}
+pza = pd.read_csv(CRUDO / "indec_pobreza_aglomerados.csv")
+pza["n"] = pza.aglomerado.map(_eph_nom)
+pza_cod = {**dso_cod, **{_eph_nom(n): c for c, (_, n) in EPH_OTROS.items()}}
+pza_r = pza[pza.n.isin(PZA_REG)]
+pza_a = pza[pza.n.map(pza_cod).notna()].assign(cod=lambda x: x.n.map(pza_cod).astype(int))
+assert len(pza_r) == 6 and set(pza_a.cod) == set(dso_ag) | {0} and pza.semestre.nunique() == 1, "faltan regiones o aglomerados en la pobreza del INDEC"
+pobreza_aglomerados = pd.concat([
+    pd.DataFrame({"tipo": "total", "clave": "total", "nombre": "31 aglomerados urbanos", "provincias": "00"}, index=[0]).assign(
+        **pza_a[pza_a.cod == 0][["pobreza", "cv_pobreza", "indigencia", "cv_indigencia"]].iloc[0].to_dict()),
+    pd.DataFrame({"tipo": "region", "clave": pza_r.n.map(lambda n: PZA_REG[n][0]), "nombre": pza_r.n.map(lambda n: PZA_REG[n][1]), "provincias": "",
+                  **{k: pza_r[k] for k in ["pobreza", "cv_pobreza", "indigencia", "cv_indigencia"]}}),
+    pd.DataFrame({"tipo": "aglomerado", "clave": pza_a[pza_a.cod > 0].cod.map(lambda c: f"a{c}"), "nombre": pza_a[pza_a.cod > 0].cod.map(lambda c: dso_ag[c][1]),
+                  "provincias": pza_a[pza_a.cod > 0].cod.map(lambda c: dso_ag[c][0]),
+                  **{k: pza_a[pza_a.cod > 0][k] for k in ["pobreza", "cv_pobreza", "indigencia", "cv_indigencia"]}}),
+], ignore_index=True)
+assert pobreza_aglomerados.pobreza.between(3, 80).all() and len(pobreza_aglomerados) == 39, "pobreza por aglomerado fuera de lo esperado"
+pza_o = lambda t: pobreza_aglomerados[pobreza_aglomerados.tipo == t].sort_values("pobreza")
+pza_res = {
+    "semestre": EPH_SEM_TXT, "pais": r1(pobreza_aglomerados.pobreza.iloc[0]),
+    "reg_max": [pza_o("region").iloc[-1].nombre, r1(pza_o("region").iloc[-1].pobreza)], "reg_min": [pza_o("region").iloc[0].nombre, r1(pza_o("region").iloc[0].pobreza)],
+    "ag_max": [pza_o("aglomerado").iloc[-1].nombre, r1(pza_o("aglomerado").iloc[-1].pobreza)],
+    "ag_min": [pza_o("aglomerado").iloc[0].nombre, r1(pza_o("aglomerado").iloc[0].pobreza)],
+    "cuidado": pza_o("aglomerado")[pza_o("aglomerado").cv_pobreza.between(16, 25)].nombre.tolist(),
+    "no_confiable": pza_o("aglomerado")[pza_o("aglomerado").cv_pobreza > 25].nombre.tolist(),
+}
+# las regiones y los aglomerados no son jurisdicciones: van solo en su tabla, como los ingresos por aglomerado (el total ya está en la serie
+# de la pobreza)
+
 # ---------------------------------------------------------------- series por provincia para animar los cruces
 # Una fila por provincia, anio e indicador, desde 2000. Se carga aparte, solo cuando alguien pide ver la evolucion.
 hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
@@ -6375,6 +6553,9 @@ tablas = {
     "capitales": capitales.round(3),
     "capitales_eph": capitales_eph.round(3),
     **({"ingresos_aglomerados": ipa_tabla} if ipa_tabla is not None else {}),
+    "desocupacion_aglomerados": desocupacion_aglomerados,
+    "desocupacion_serie": desocupacion_serie,
+    "pobreza_aglomerados": pobreza_aglomerados,
     "mundo_paises": mundo,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
@@ -6382,6 +6563,7 @@ tablas = {
     "exportaciones_provincias": exp_prov,
     "extranjeros_provincias": extranjeros,
     "fiscal_provincias": fiscal,
+    "coparticipacion_provincias": coparticipacion,
     "elecciones_presidenciales": presidenciales,
     "congreso_composicion": congreso,
     "anios_congreso": anios_congreso,
@@ -6400,7 +6582,8 @@ tablas = {
                          "bcra_variables": bcra_variables, "bcra_variables_lista": bcra_variables_lista}.items() if v is not None},
     **({"exportaciones_destinos": se_destinos} if se_destinos is not None else {}),
     **({"exportaciones_complejos": se_complejos} if se_complejos is not None else {}),
-    **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie} if empresas is not None else {}),
+    **({"empresas_provincias": empresas, "empresas_serie_pais": empresas_serie, "empresas_tamano_sector": empresas_tamano_sector}
+       if empresas is not None else {}),
     **({"rotacion_laboral": rotacion} if rotacion is not None else {}),
     **({"jubilaciones_aportantes": jubil} if jubil is not None else {}),
     **({"haberes_previsionales": haberes} if haberes is not None else {}),
@@ -6765,6 +6948,7 @@ resumen["fiscal"] = {
     "mediana_ini": r1(fisc[fisc.anio == fisc.anio.min()].autonomia.median()),
     "atrasadas": FISC_ATRASADAS,
 }
+resumen["coparticipacion"] = cpa_res
 resumen["departamentos"] = {"meta": {k: {"nombre": v[0], "unidad": v[1], "fuente": v[2]} for k, v in DEP_META.items()},
                             "anio_snic": ANIO_DEP, "n": int(len(departamentos))}
 resumen["elecciones"] = el_meta
@@ -6963,6 +7147,8 @@ resumen["capitales"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2
 assert all(m["id"] in capitales.columns for m in resumen["capitales"])
 resumen["capitales_pais"] = CAP_PAIS
 resumen["ingresos_aglomerados"] = ipa_res
+resumen["desocupacion"] = dso_res
+resumen["pobreza_aglomerados"] = pza_res
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                             for k, v in CAPITALES_EPH_META.items()]
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])
