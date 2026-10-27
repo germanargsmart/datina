@@ -39,7 +39,10 @@ LG_TILDES = {"anio": "año", "anios": "años", "capitulo": "capítulo", "coordin
              "perforacion": "perforación", "petroleo": "petróleo", "poblacion": "población", "produccion": "producción",
              "secretaria": "secretaría", "subsecretaria": "subsecretaría", "tramites": "trámites", "vehiculos": "vehículos", "via": "vía"}
 LG_IGUAL = {"índice 2004=100": "índice, 2004 = 100", "grados C": "grados Celsius", "ha": "hectáreas", "kg por habitante por año": "kilos por habitante por año",
-            "INDEC, intercambio comercial argentino": "INDEC, Intercambio Comercial Argentino"}
+            "INDEC, intercambio comercial argentino": "INDEC, Intercambio Comercial Argentino",
+            # un organismo con un solo nombre (R4), el que documenta datos/manual/relaciones.json
+            "SNIC, Ministerio de Seguridad": "SNIC, Ministerio de Seguridad Nacional", "OEDE, Ministerio de Capital Humano (SIPA)": "OEDE, Secretaría de Trabajo (SIPA)",
+            "OEDE, Ministerio de Capital Humano, en base al SIPA": "OEDE, Secretaría de Trabajo (SIPA)"}
 
 
 def lg_texto(s):

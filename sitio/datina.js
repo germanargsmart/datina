@@ -5040,7 +5040,9 @@ DIB.transferencias = conTablas("transferencias", () => /^\d+$/.test(MED.transfer
 
 const ORIGEN_COLOR = {"Ciudad de Buenos Aires": "#2C74B5", "Conurbano": "#74ACDF", "Resto de Buenos Aires": "#A9CBEA", "Otras provincias": "#F6B40E", "Otro país": "#98A2AE"};
 const ORIGEN_TEXTO = {"Ciudad de Buenos Aires": "#fff", "Conurbano": "#18212B", "Resto de Buenos Aires": "#18212B", "Otras provincias": "#18212B", "Otro país": "#18212B"};
-const leyOrigen = ks => ks.map(k => `<span><i style="background:${ORIGEN_COLOR[k]}"></i>${k}</span>`).join("");
+// "Ciudad de Buenos Aires" es el nombre de la categoría en las tablas que se descargan. En pantalla, CABA, como en todo el sitio (términos fijos)
+const origenLab = k => k === "Ciudad de Buenos Aires" ? "CABA" : k;
+const leyOrigen = ks => ks.map(k => `<span><i style="background:${ORIGEN_COLOR[k]}"></i>${origenLab(k)}</span>`).join("");
 const PRR = R.presidentes, GBR = R.gabinetes;
 const apellido = n => ({"Cristina Fernández de Kirchner": "Fernández de Kirchner", "Adolfo Rodríguez Saá": "Rodríguez Saá", "Fernando de la Rúa": "De la Rúa",
   "Interinos de 2001": "Interinos de 2001"})[n] || n.split(" ").slice(-1)[0];
@@ -5062,7 +5064,7 @@ DIB.presidentes = a => {
     .attr("x", d => x(new Date(d.inicio)) + 5).attr("y", 23).attr("font-size", 12).attr("fill", d => ORIGEN_TEXTO[d.origen]).text(d => apellido(d.nombre));
   g.append("g").attr("class","eje").attr("transform","translate(0,42)").call(d3.axisBottom(x).ticks(angosto ? 4 : 8).tickSize(0).tickPadding(8)).call(s => s.select(".domain").remove());
   if (a) r.attr("opacity", 0).transition().delay(escalon).duration(DUR_G).attr("opacity", 1);
-  r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}<br>Nació en ${d.lugar_nacimiento}, ${d.provincia}`,
+  r.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.nombre}</b><br>${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}<br>Nació en ${d.provincia.startsWith("Ciudad") ? "CABA" : `${d.lugar_nacimiento}, ${d.provincia}`}`,
       4 + x(new Date(d.inicio)) + (x(fin(d)) - x(new Date(d.inicio))) / 2, 8)).on("pointerleave", ocultarSiMouse);
   document.getElementById("pr-lista").innerHTML = P.map(d => `<li><i style="background:${ORIGEN_COLOR[d.origen]}"></i>${bandera(COD_PROV[d.provincia])}<span>${d.nombre}${d.interino ? " (interino)" : ""}, ${d.inicio.slice(0, 4)}${d.fin && d.fin.slice(0, 4) === d.inicio.slice(0, 4) ? "" : ` a ${d.fin ? d.fin.slice(0, 4) : "hoy"}`}</span>` +
     `<small>${d.lugar_nacimiento === d.provincia || d.provincia.startsWith("Ciudad") ? d.provincia.replace("Ciudad Autónoma de Buenos Aires", "CABA") : `${d.lugar_nacimiento}, ${d.provincia}`}</small></li>`).join("");
@@ -5083,7 +5085,7 @@ DIB.ministros = a => {
     ley.innerHTML = leyOrigen(ks); ley.hidden = false;
     const INTERINOS = T.presidentes.filter(p => p.interino && p.inicio.startsWith("2001"));
     const presi = n => T.presidentes.find(p => p.nombre === n);
-    apiladasH(G("ministros"), {anim: a, claves: ks.map(k => ({k, lab: k, c: ORIGEN_COLOR[k], texto: ORIGEN_TEXTO[k]})),
+    apiladasH(G("ministros"), {anim: a, claves: ks.map(k => ({k, lab: origenLab(k), c: ORIGEN_COLOR[k], texto: ORIGEN_TEXTO[k]})),
       data: T.gabinetes_origen.map(d => ({...d, codigo_indec: d.gobierno, territorio: apellido(d.gobierno)})),
       bandera: d => d.gobierno === "Interinos de 2001" ? INTERINOS.length : COD_PROV[presi(d.gobierno)?.provincia],
       tipExtra: d => d.gobierno === "Interinos de 2001"
