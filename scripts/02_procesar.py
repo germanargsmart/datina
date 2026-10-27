@@ -5655,6 +5655,15 @@ for cam, arch in [("Diputados", "diputados"), ("Senado", "senadores")]:
 votos = pd.concat(_filas_v, ignore_index=True)
 votos = votos.merge(pd.DataFrame(_meta_v, columns=["camara", "vid", "fecha"]), on=["camara", "vid"])
 votos["codigo_indec"] = votos.codigo_indec.where(votos.codigo_indec.isin(DIP_LEY))
+# La copia les pone el bloque "Partido Bloquista de San Juan" a los 13 diputados del PRO de CABA y de Buenos Aires en todas las actas
+# del 30 de noviembre de 2011 al 28 de noviembre de 2013 (E1 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre de 2026). Son los mismos
+# diputados que antes figuran como "Propuesta Republicana" y desde 2014 como "Unión PRO", y en esos años ningún diputado de San Juan
+# tiene ese bloque. Van con el bloque que la misma fuente les da después, y su espacio sale de ese bloque. pruebas_datos.py controla
+# que un bloque con el nombre de una provincia no tenga legisladores de otra
+_bq_mal = ((votos.camara == "Diputados") & (votos.bloque == "Partido Bloquista de San Juan") & (votos.codigo_indec != "70")
+           & votos.fecha.between(pd.Timestamp("2011-11-30"), pd.Timestamp("2013-11-28")))
+votos.loc[_bq_mal, "bloque"] = "Unión PRO"
+votos.loc[_bq_mal, "espacio"] = espacio_leg("Unión PRO", familia("Unión PRO"))
 votos.loc[votos.bloque.str.upper().str.contains("FRENTE DE TODOS") & (votos.fecha < FDT_HASTA), "espacio"] = "UCR y aliados"  # ver FDT_HASTA
 
 # Espacio del gobierno nacional en cada fecha (presidentes desde 1989). En el gobierno de Macri, el PRO y la alianza

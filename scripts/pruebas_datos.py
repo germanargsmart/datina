@@ -11,6 +11,8 @@ Qué revisan:
   5. Indicadores con más de una fuente y diferencia mayor al 2%.
   6. Mandatos presidenciales sin huecos ni superposiciones.
   7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
+  8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
+     nombre de una provincia con legisladores de otra (E1).
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -420,9 +422,33 @@ def prueba_corte(d, t):
     return sale
 
 
+# ---------------------------------------------------------------- 8. errores que ya pasaron (26 de octubre de 2026)
+# Cada error de dato que encontró la auditoría del 26 de octubre de 2026 (docs/roadmap/PLAN_MEJORA.md, sección 1) deja acá su prueba.
+# E1: la copia de ¿Cómo Votó? les puso a los diputados del PRO de CABA y de Buenos Aires el bloque "Partido Bloquista de San Juan" en
+# 2012 y 2013. Un bloque cuyo nombre lleva una provincia (o su gentilicio) no puede tener legisladores de otra. "Buenos Aires" no
+# entra: lo usan bloques de CABA y de la provincia
+BLOQUE_PROVINCIA = [(r"san juan|sanjuanin", "San Juan"), (r"neuquin", "Neuquén"), (r"fuegui", "Tierra del Fuego"), (r"santiago", "Santiago del Estero"),
+                    (r"\bsalta\b|salteñ", "Salta"), (r"catamarca", "Catamarca"), (r"c[oó]rdoba|cordobes", "Córdoba"), (r"corrientes|correntin", "Corrientes"),
+                    (r"mendoza|mendocin", "Mendoza"), (r"misiones|misioner", "Misiones"), (r"r[ií]o negro|rionegrin", "Río Negro"),
+                    (r"santa cruz", "Santa Cruz"), (r"santa fe|santafesin", "Santa Fe"), (r"san luis|puntan", "San Luis"), (r"tucum[aá]n", "Tucumán"),
+                    (r"chubut", "Chubut"), (r"entre r[ií]os|entrerrian", "Entre Ríos"), (r"la pampa", "La Pampa"), (r"jujuy|jujeñ", "Jujuy"),
+                    (r"formos", "Formosa"), (r"chaco|chaqueñ", "Chaco"), (r"la rioja|riojan", "La Rioja"), (r"bonaerense", "Buenos Aires")]
+
+
+def prueba_errores(d, t):
+    import re
+    sale = []
+    vt = pd.read_csv(SITIO / "datos" / "votaciones_leyes_clave.csv")
+    for (bloque, prov), g in vt.groupby(["bloque", "provincia"]):
+        dueña = next((p for rx, p in BLOQUE_PROVINCIA if re.search(rx, str(bloque).lower())), None)
+        if dueña and prov != dueña:
+            sale.append((f"bloque|{bloque}|{prov}", f"el bloque «{bloque}» tiene {len(g)} votos de legisladores de {prov} ({', '.join(sorted(set(g.ley)))[:120]})"))
+    return sale
+
+
 PRUEBAS = [("Sumas de control", prueba_sumas), ("Tasas y porcentajes fuera de rango", prueba_rango), ("Períodos faltantes", prueba_faltantes),
            ("Más de cinco veces la mediana", None), ("Dos fuentes para lo mismo", prueba_fuentes), ("Mandatos presidenciales", prueba_mandatos),
-           ("La Corte Suprema", prueba_corte)]
+           ("La Corte Suprema", prueba_corte), ("Errores que ya pasaron", prueba_errores)]
 
 
 def correr(mostrar=True):
