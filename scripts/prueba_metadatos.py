@@ -10,6 +10,9 @@ Revisa:
 - Los enlaces internos (href y src que no van a otro sitio) llevan a archivos que existen, y los #anclas de la misma página existen
   en el HTML (las que arma datina.js al cargar, como las de las notas, no se pueden revisar acá).
 
+- Con los formularios apagados ("formularios" vacío en datos/manual/sitio.json), ninguna página tiene uno de Netlify ni habla de
+  formularios o de suscribirse, salvo el aviso de Contacto (E9 del plan de mejora, 27 de octubre de 2026).
+
 Uso: python scripts/prueba_metadatos.py. Devuelve 1 si hay problemas. 03_construir_sitio.py la corre al final.
 """
 import json
@@ -94,6 +97,18 @@ def revisar(url_sitio=None):
             problemas.append(f"falta {f} con la dirección definitiva")
         if not url_sitio and existe:
             problemas.append(f"{f} existe sin dirección definitiva en datos/manual/sitio.json")
+    # E9 (27 de octubre de 2026): con "formularios" vacío en datos/manual/sitio.json, el armado saca el formulario de Contacto y la
+    # suscripción del pie, y ningún texto a la vista puede describirlos como si existieran (Sobre nosotros hablaba de "los formularios de
+    # Contacto y de novedades por correo"). Queda solo el aviso de Contacto. Los buscadores también son <form> y no cuentan
+    if not json.loads((RAIZ / "datos" / "manual" / "sitio.json").read_text(encoding="utf-8")).get("formularios", "").strip():
+        for nombre, h in textos.items():
+            if re.search(r'<form\b[^>]*(netlify|form-suscripcion|name="contacto")', h):
+                problemas.append(f"{nombre}: tiene un formulario de Netlify con los formularios apagados")
+            visible = re.sub(r"<[^>]+>", " ", re.sub(r"<!--.*?-->|<(script|style)\b[^>]*>.*?</\1>", " ", h, flags=re.S))
+            for m in re.finditer(r"[^.]{0,60}\b(formularios?|suscrib\w*|suscripci\w*|novedades por correo)\b[^.]{0,60}", visible, re.I):
+                frase = " ".join(m.group(0).split())
+                if frase != "El formulario de contacto todavía no está disponible":
+                    problemas.append(f"{nombre}: habla de formularios que están apagados: «{frase}»")
     return sorted(set(problemas))
 
 
