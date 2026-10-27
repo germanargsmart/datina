@@ -1799,9 +1799,19 @@ if (CRUDO / "oede_empresas_provincias.xlsx").exists():
     _e = empresas.sort_values("cada_1000_hab")
     _n = empresas.sort_values(f"tasa_neta_{_ult}")
     _neg = [int(a_) for a_ in _es.index if _es.tasa_neta[a_] < 0]
-    emp_res = {"anio": _anio_emp, "ult": _ult, "total_pais": int(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot])),
+    # El total del país sin doble conteo (E2 de docs/roadmap/PLAN_MEJORA.md, 26 de octubre de 2026). La fila Total del cuadro 1 suma las
+    # provincias, y una empresa con personal en varias cuenta en cada una. Según la nota metodológica del OEDE, cada empresa es "local"
+    # en una sola provincia, la de más empleo: el total de las empresas locales del cuadro 2 es la cantidad de empresas del país
+    _t2 = _xo.parse("T2", header=None)
+    _f_loc = _t2.index[_t2.apply(lambda r: r.astype(str).str.strip().eq("Locales").any(), axis=1)][0]
+    _c_loc = [j for j in range(_t2.shape[1]) if str(_t2.iat[_f_loc, j]).strip() == "Locales"][0]
+    _c_tot2 = [j for j in range(_c_loc, _t2.shape[1]) if str(_t2.iat[_f_loc + 1, j]).strip() == "Total"][0]
+    EMP_PAIS = int(float(_t2[_t2[0].astype(str).str.strip() == "Total"].iloc[0, _c_tot2]))
+    EMP_SUMA = int(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot]))
+    assert EMP_PAIS < EMP_SUMA, f"OEDE: las empresas locales del país ({EMP_PAIS}) no dan menos que la suma de las provincias ({EMP_SUMA})"
+    emp_res = {"anio": _anio_emp, "ult": _ult, "total_pais": EMP_PAIS, "suma_provincias": EMP_SUMA,
                "top": _e.iloc[-1].territorio, "top_v": r1(_e.cada_1000_hab.max()), "low": _e.iloc[0].territorio, "low_v": r1(_e.cada_1000_hab.min()),
-               "pais_1000": round(float(_t1[_t1[0].astype(str).str.strip() == "Total"].iloc[0, _col_tot]) / POB_PAIS * 1000, 1),
+               "pais_1000": round(EMP_PAIS / POB_PAIS * 1000, 1),
                "ap": int(_es.aperturas[_ult]), "ci": int(_es.cierres[_ult]), "te": r1(_es.tasa_entrada[_ult]), "ts": r1(_es.tasa_salida[_ult]),
                "neta": r1(_es.tasa_neta[_ult]), "neta_top": _n.iloc[-1].territorio, "neta_top_v": r1(_n[f"tasa_neta_{_ult}"].max()),
                "neta_low": _n.iloc[0].territorio, "neta_low_v": r1(_n[f"tasa_neta_{_ult}"].min()),

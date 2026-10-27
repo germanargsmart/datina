@@ -12,7 +12,7 @@ Qué revisan:
   6. Mandatos presidenciales sin huecos ni superposiciones.
   7. La Corte Suprema (etapa 33): jueces en funciones contra los que fija la ley, fechas, superposiciones y quién designó a cada uno.
   8. Errores que ya pasaron (plan del 26 de octubre de 2026, docs/roadmap/PLAN_MEJORA.md), para que no vuelvan: un bloque con el
-     nombre de una provincia con legisladores de otra (E1).
+     nombre de una provincia con legisladores de otra (E1), un total de empresas del país que suma las provincias (E2).
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -443,6 +443,13 @@ def prueba_errores(d, t):
         dueña = next((p for rx, p in BLOQUE_PROVINCIA if re.search(rx, str(bloque).lower())), None)
         if dueña and prov != dueña:
             sale.append((f"bloque|{bloque}|{prov}", f"el bloque «{bloque}» tiene {len(g)} votos de legisladores de {prov} ({', '.join(sorted(set(g.ley)))[:120]})"))
+    # E2: el total de empresas del país no puede salir de sumar las provincias, que cuentan una vez en cada una a la empresa con personal
+    # en varias (lo dice la nota metodológica del OEDE). El total sin doble conteo es menor que esa suma
+    em = d["resumen"].get("empresas")
+    if em:
+        suma = sum(f["empresas"] for f in d["datos"]["empresas_provincias"])
+        if em["total_pais"] >= suma:
+            sale.append(("total-doble|empresas", f"empresas: el total del país ({em['total_pais']:,}) no es menor que la suma de las provincias ({suma:,.0f})"))
     return sale
 
 
