@@ -8188,11 +8188,11 @@ const ART_SERIE = [{
   fuentes: "Ministerio de Economía, esquema ahorro-inversión-financiamiento de cada provincia (tributos de origen nacional, recursos propios e " +
     "ingresos totales), INDEC, proyecciones de población, y Secretaría de Trabajo, Sistema Integrado Previsional Argentino (SIPA)",
   texto: () => {
-    const C = CPA, F = R.fiscal, mill = v => v < 1e6 ? `${n0(v / 1e3)} mil` : `${n2(v / 1e6)} millones`, at = Object.entries(C.atrasadas);
+    const C = CPA, F = R.fiscal, mill = v => v < 1e6 ? `${n0(v / 1e3)} mil pesos` : `${n2(v / 1e6)} millones de pesos`, at = Object.entries(C.atrasadas);
     const sin = at.length ? `, sin contar ${lista(at.map(([p]) => p))}` : "";
-    const respuesta = `De ${mill(C.bajo_hab[1])} de pesos por habitante en ${C.bajo_hab[0]} a ${mill(C.top_hab[1])} en ${C.top_hab[0]}, en ${C.anio}.`;
+    const respuesta = `De ${mill(C.bajo_hab[1])} por habitante en ${C.bajo_hab[0]} a ${mill(C.top_hab[1])} en ${C.top_hab[0]}, en ${C.anio}.`;
     const bajada = `Es lo que recibió cada jurisdicción por la coparticipación federal y por los otros impuestos nacionales que se reparten por ley. ` +
-      `En total, las provincias y CABA recibieron ${billones(C.millones)}${sin}: ${mill(C.pais_hab)} de pesos por habitante. El ${pct(C.federal)} fue coparticipación federal.`;
+      `En total, las provincias y CABA recibieron ${billones(C.millones)}${sin}: ${mill(C.pais_hab)} por habitante. El ${pct(C.federal)} fue coparticipación federal.`;
     const contexto = "La Nación cobra los impuestos que más recaudan, como el IVA y Ganancias, y reparte una parte con las provincias. Las reglas " +
       "están en la ley de coparticipación federal, la 23.548, de 1988. Primero divide lo recaudado entre la Nación y el conjunto de las provincias, " +
       "y después lo reparte entre las provincias con un porcentaje fijo para cada una, que no cambia con su población ni con lo que recauda. CABA y " +
@@ -8204,7 +8204,7 @@ const ART_SERIE = [{
     const porPob = [...cp].filter(r => pob[r.codigo_indec]).sort((a, b) => pob[a.codigo_indec] - pob[b.codigo_indec]), h = Math.floor(porPob.length / 2);
     const medChicas = d3.median(porPob.slice(0, h), r => r.por_habitante), medGrandes = d3.median(porPob.slice(-h), r => r.por_habitante);
     const s1 = `${C.top_hab[0]} recibió por habitante ${veces(C.top_hab[1], C.bajo_hab[1])} veces lo que recibió ${C.bajo_hab[0]}. ` +
-      `Como el reparto no sigue la cantidad de habitantes, las ${h} jurisdicciones con menos población recibieron una mediana de ${mill(medChicas)} de pesos ` +
+      `Como el reparto no sigue la cantidad de habitantes, las ${h} jurisdicciones con menos población recibieron una mediana de ${mill(medChicas)} ` +
       `por habitante, y las ${h} con más, ${mill(medGrandes)}.`;
     const s2 = `En ${C.mas_mitad} de las 24 jurisdicciones, estos fondos fueron más de la mitad de todos sus ingresos. La parte más alta fue la de ` +
       `${C.top_pct[0]}, el ${pct(C.top_pct[1])}, y la más baja, la de ${C.bajo_pct[0]}, el ${pct(C.bajo_pct[1])}. En el conjunto de las provincias y CABA, ` +
@@ -8704,6 +8704,30 @@ if (artHome) {
   const fuerte = ART.filter(a => a.sec !== "politica" && a.c).sort((p, q) => Math.abs(q.c[0].rs) - Math.abs(p.c[0].rs))[0];
   // antes de las piezas del Laboratorio, que escribe el constructor (Fase 2, paso 2)
   artHome.insertAdjacentHTML("afterbegin", [fuerte, ...ARTS.filter(a => a !== fuerte)].slice(0, 3).map(tarjetaArt).join(""));
+}
+/* la página Artículos (etapa 5 del plan de mejora): la respuesta de cada artículo en su tarjeta, la misma que lo abre, y los filtros por
+   tema. El constructor escribe las tarjetas, los dos bloques y los botones (ocultos sin JavaScript) */
+const sinMarcas = t => String(t).replace(/<[^>]*>/g, "");
+document.querySelectorAll(".art-resp[data-art]").forEach(s => {
+  const a = ARTS.find(x => x.id === s.dataset.art);
+  try {
+    // en los de series, una respuesta corta ("En parte.") va con la primera oración de su bajada, que dice de qué
+    const t = a.c ? null : a.texto(), r = a.c ? `${a.t[0].respuesta} ${a.t[0].frase}` : t.respuesta;
+    s.textContent = sinMarcas(r.length < 40 && t ? `${r} ${sinMarcas(t.bajada).split(/(?<=\.)\s/)[0]}` : r);
+  } catch { s.remove(); }
+});
+const artFiltros = document.querySelector("#art-grid .art-filtros");
+if (artFiltros) {
+  const lista = document.getElementById("art-grid"), cuenta = lista.querySelector(".art-cuenta");
+  artFiltros.hidden = false;
+  artFiltros.addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-grupo]"); if (!b) return;
+    artFiltros.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    lista.querySelectorAll(".art-card").forEach(c => { c.hidden = !!b.dataset.grupo && c.dataset.grupo !== b.dataset.grupo; });
+    lista.querySelectorAll(".art-bloque").forEach(s => { s.hidden = !s.querySelector(".art-card:not([hidden])"); });
+    const n = lista.querySelectorAll(".art-card:not([hidden])").length;
+    cuenta.textContent = `${n} ${n === 1 ? "artículo" : "artículos"}${b.dataset.grupo ? ` de ${b.textContent}` : ""}.`;
+  });
 }
 /* "Artículos con este dato" (Fase 2, paso 4, respuesta del autor del 23 de octubre de 2026): cada ficha enlaza a los artículos que la
    usan, la misma relación de los botones "Ficha: …" de cada artículo, al revés. Va en el pie, debajo de las acciones, en el orden de la

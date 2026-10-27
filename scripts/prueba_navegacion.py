@@ -117,6 +117,14 @@ def revisar():
             problemas.append(f"{nombre}: ninguna página la enlaza")
     if not any('href="pobreza/"' in h for h in html.values()):
         problemas.append("ninguna página enlaza al consultor de pobreza")
+
+    # 5. las migas: cada paso con su nombre entero y, si lleva a un grupo de la portada, a uno que existe (en la etapa 5 del plan de mejora
+    #    un nombre repetido en el constructor dejó "c" como nombre del grupo en todas las páginas, y nada lo marcaba)
+    grupos = {g[0] for g in indice["grupos"]}
+    for nombre, h in html.items():
+        for href, txt in re.findall(r'<a href="([^"]*)">([^<]*)</a>', tramo(h, '<nav class="migas"', "</nav>")):
+            if len(txt.strip()) < 3 or (href.startswith("./#tg-") and href[len("./#tg-"):] not in grupos):
+                problemas.append(f"{nombre}: un paso de las migas está mal ({href} «{txt}»)")
     return problemas
 
 

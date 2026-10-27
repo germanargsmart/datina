@@ -800,7 +800,7 @@ def navegacion(h, pagina):
     """Piezas que dependen de la página: la fila de secciones del celular, las migas y "Anterior / Siguiente"."""
     if pagina.startswith("a-"):
         nota = f'<article class="nota" id="{pagina}"'
-        orden = [n[0] for n in NOTAS]
+        orden = ORDEN_ARTS  # el de la lista de Artículos (etapa 5 del plan de mejora)
         i = orden.index(pagina)
         art = lambda j: orden[j % len(orden)]
         h = h.replace(nota, pildoras("articulos") + migas(("", MENU_DE["articulos"][1]), ("articulos.html", "Artículos"), prov=False) + nota, 1)
@@ -1208,16 +1208,43 @@ def _arts_js(ini, fin):
 _ARTS_JS = _arts_js("const ART_SERIE = [", "\n}];") + _arts_js("const ART = [", "\n];")
 _NOTA_DE = {i: (ico, sec, html.unescape(t)) for i, ico, sec, t in NOTAS}
 assert sorted(i for i, *_ in _ARTS_JS) == sorted(_NOTA_DE), "los artículos de datina.js no son los de la plantilla"
-_LISTA_ARTS = "".join(
-    f'<a class="tarjeta art-card" href="{i}.html"><span class="art-ico">{icono_svg(_NOTA_DE[i][0])}</span><span class="art-txt">'
-    f'<b style="view-transition-name:t-{i}">{e(_NOTA_DE[i][2])}</b><span class="art-dek">{e(dek)}</span>'
-    f'<small>{e(_SEC[_NOTA_DE[i][1]][1])}. {e(frec)}</small></span></a>' for i, frec, dek in _ARTS_JS)
+# Etapa 5 del plan de mejora (28 de octubre de 2026): la lista en dos bloques, "El país en el tiempo" (series de todo el país) y "Las 24
+# comparadas" (provincias, capitales y regiones lado a lado), que dice data-bloque en cada artículo de la plantilla, con filtros por los
+# cuatro grupos de temas. "Anterior" y "Siguiente" de cada artículo siguen este mismo orden (navegacion())
+BLOQUES_ART = [("pais", "El país en el tiempo", "Series de todo el país, mes a mes o año a año, con lo que pasaba en cada momento."),
+               ("provincias", "Las 24 comparadas", "Las provincias, las capitales o las regiones, lado a lado, con un mismo dato.")]
+BLOQUE_NOTA = dict(re.findall(r'<article class="nota" id="(a-[\w-]+)"[^>]*? data-bloque="(\w+)"', base))
+assert set(BLOQUE_NOTA) == set(_NOTA_DE) and set(BLOQUE_NOTA.values()) <= {b for b, *_ in BLOQUES_ART}, \
+    "cada artículo de la plantilla necesita data-bloque, pais o provincias"
+# el grupo de cada artículo sale de GRUPO_DE (sección -> (grupo, nombre)), el mismo de las migas
+assert all(sec in GRUPO_DE for _, sec, _ in _NOTA_DE.values()), "un artículo es de una sección que no está en los cuatro grupos de temas"
+ORDEN_ARTS = [i for b, *_ in BLOQUES_ART for i, *_ in _ARTS_JS if BLOQUE_NOTA[i] == b]
+
+
+def _tarjeta_art(i, frec, dek):
+    ico, sec, tit = _NOTA_DE[i]
+    # la respuesta del artículo la escribe datina.js en .art-resp, que reserva su lugar: la tarjeta no salta al llegar
+    return (f'<a class="tarjeta art-card" href="{i}.html" data-grupo="{GRUPO_DE[sec][0]}"><span class="art-ico">{icono_svg(ico)}</span><span class="art-txt">'
+            f'<b style="view-transition-name:t-{i}">{e(tit)}</b><span class="art-resp" data-art="{i}"></span><span class="art-dek">{e(dek)}</span>'
+            f'<small>{e(_SEC[sec][1])}. {e(frec)}</small></span></a>')
+
+
+_ART_JS_DE = {i: (frec, dek) for i, frec, dek in _ARTS_JS}
+# los filtros se ven solo con JavaScript, que los hace andar
+_LISTA_ARTS = ('<div class="art-filtros" role="group" aria-label="Filtrar los artículos por tema" hidden>'
+               '<button type="button" class="boton chico" data-grupo="" aria-pressed="true">Todos</button>'
+               + "".join(f'<button type="button" class="boton chico" data-grupo="{g}" aria-pressed="false">{e(n)}</button>'
+                         for g, n, _ in GRUPOS if any(GRUPO_DE[s][0] == g for _, s, _ in _NOTA_DE.values())) +
+               '</div><p class="art-cuenta solo-lector" aria-live="polite"></p>'
+               + "".join(f'<section class="art-bloque" aria-labelledby="ab-{b}"><h2 id="ab-{b}">{e(t)}</h2><p class="art-bloque-sub">{e(sub)}</p>'
+                         f'<div class="art-grid">{"".join(_tarjeta_art(i, *_ART_JS_DE[i]) for i in ORDEN_ARTS if BLOQUE_NOTA[i] == b)}</div></section>'
+                         for b, t, sub in BLOQUES_ART))
 
 
 def lista_articulos(h):
-    vacia = '<div class="art-grid" id="art-grid"></div>'
-    assert h.count(vacia) == 1, "falta la grilla de Artículos en la plantilla"
-    return sin_notas(h).replace(vacia, f'<div class="art-grid" id="art-grid">{_LISTA_ARTS}</div>', 1)
+    vacia = '<div class="art-lista" id="art-grid"></div>'
+    assert h.count(vacia) == 1, "falta la lista de Artículos en la plantilla"
+    return sin_notas(h).replace(vacia, f'<div class="art-lista" id="art-grid">{_LISTA_ARTS}</div>', 1)
 
 
 for id_, titulo, preg, _, es_herr, *_ in SECCIONES:
