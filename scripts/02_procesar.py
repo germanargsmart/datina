@@ -6317,6 +6317,78 @@ if (CRUDO / "eph_ingresos_aglomerados.csv").exists():
                "trimestres": EPH_TEN_TXT, "casos_min": int(_ipa_a.ipcf_casos.min()), "casos_min_ocup": int(_ipa_a.ocupacion_casos.min()),
                "ipcf": _ipa_ext("ipcf"), "ocupacion": _ipa_ext("ocupacion")}
 
+# ---------------------------------------------------------------- desocupación por aglomerado (plan de mejora, etapa 4, 27 de octubre de 2026)
+# Las tasas que publica el INDEC para los 31 aglomerados de la EPH, del mismo archivo que la desocupación de las capitales: 32 áreas, porque el
+# Gran Buenos Aires va en dos partes (CABA y los partidos del conurbano). Cada aglomerado con el promedio de los últimos cuatro trimestres
+# (EPH_TRIMS), como las capitales: en los chicos la tasa de un trimestre es poco precisa. El total de los 31 aglomerados, trimestre a trimestre
+dso_ag = {**{c: (p, n) for c, (p, n, _) in EPH_CAP.items()}, **EPH_OTROS, 33: ("06", "Partidos del Gran Buenos Aires")}
+dso_cod = {**_eph_cod, **{_eph_nom(n): c for c, (_, n) in dso_ag.items()}, "total31aglomeradosurbanos": 0}
+dso = pd.read_csv(CRUDO / "indec_eph_aglomerados.csv")
+dso["cod"] = dso.aglomerado.map(_eph_nom).map(dso_cod)
+dso = dso.dropna(subset=["cod"]).astype({"cod": int})
+assert set(dso.cod) == set(dso_ag) | {0}, f"faltan aglomerados en las tasas del mercado de trabajo ({sorted(set(dso_ag) - set(dso.cod))})"
+dso_4 = dso[dso.periodo.isin(EPH_TRIMS)]
+assert dso_4[dso_4.indicador == "desocupacion"].groupby("cod").size().min() >= 3, "faltan trimestres de algún aglomerado en la desocupación"
+dso_p = dso_4.pivot_table(index="cod", columns="indicador", values="valor", aggfunc="mean")
+dso_u = dso[(dso.periodo == EPH_TRIMS[-1]) & (dso.indicador == "desocupacion")].set_index("cod").valor
+desocupacion_aglomerados = pd.DataFrame({"aglomerado": [0, *sorted(dso_ag)]})
+desocupacion_aglomerados["nombre"] = desocupacion_aglomerados.aglomerado.map(lambda c: dso_ag[c][1] if c else "31 aglomerados urbanos")
+desocupacion_aglomerados["provincias"] = desocupacion_aglomerados.aglomerado.map(lambda c: dso_ag[c][0] if c else "00")
+desocupacion_aglomerados["desocupacion"] = desocupacion_aglomerados.aglomerado.map(dso_p.desocupacion)
+desocupacion_aglomerados["desocupacion_ultimo_trimestre"] = desocupacion_aglomerados.aglomerado.map(dso_u)
+desocupacion_aglomerados["empleo"] = desocupacion_aglomerados.aglomerado.map(dso_p.empleo)
+assert desocupacion_aglomerados.desocupacion.between(0, 30).all() and desocupacion_aglomerados.empleo.between(25, 65).all(), "desocupación fuera de rango"
+desocupacion_aglomerados = desocupacion_aglomerados.sort_values("desocupacion", ascending=False).reset_index(drop=True)
+dso_s = dso[dso.cod == 0].pivot(index="periodo", columns="indicador", values="valor").sort_index()
+assert dso_s.desocupacion.notna().all() and len(dso_s) >= 20, "la serie de desocupación de los 31 aglomerados tiene huecos"
+desocupacion_serie = pd.DataFrame({"periodo": [f"{p[-1]}T{p[:4]}" for p in dso_s.index], "desocupacion": dso_s.desocupacion.values,
+                                   "empleo": dso_s.empleo.values})
+dso_tx = lambda p: f"{_eph_ord[int(p[0]) - 1].replace('primero', 'primer').replace('tercero', 'tercer')} trimestre de {p[2:]}"
+dso_a = desocupacion_aglomerados[desocupacion_aglomerados.aglomerado > 0]
+dso_ss = desocupacion_serie.set_index("periodo").desocupacion
+dso_ult, dso_ant = desocupacion_serie.periodo.iloc[-1], f"{desocupacion_serie.periodo.iloc[-1][0]}T{int(desocupacion_serie.periodo.iloc[-1][2:]) - 1}"
+dso_res = {
+    "trimestres": EPH_TRIM_TXT, "ultimo": dso_tx(dso_ult), "ini": dso_tx(desocupacion_serie.periodo.iloc[0]),
+    "pais": r1(dso_p.desocupacion.loc[0]), "pais_ultimo": r1(dso_ss[dso_ult]), "pais_anio_antes": r1(dso_ss[dso_ant]) if dso_ant in dso_ss else None,
+    "max": [dso_a.iloc[0].nombre, r1(dso_a.iloc[0].desocupacion)], "min": [dso_a.iloc[-1].nombre, r1(dso_a.iloc[-1].desocupacion)],
+    "pico": [dso_tx(dso_ss.idxmax()), r1(dso_ss.max())], "piso": [dso_tx(dso_ss.idxmin()), r1(dso_ss.min())],
+}
+agregar(desocupacion_serie.assign(codigo_indec="00", territorio="Argentina", valor=desocupacion_serie.desocupacion),
+        "tasa_desocupacion_31_aglomerados", "% de la población económicamente activa", "INDEC, Encuesta Permanente de Hogares")
+
+# ---------------------------------------------------------------- pobreza por región y por aglomerado (plan de mejora, etapa 4, 27 de octubre de 2026)
+# El mismo cuadro del INDEC que la pobreza de las capitales: las seis regiones de la EPH y los 31 aglomerados (32 áreas, como la desocupación),
+# del último semestre, con el coeficiente de variación que publica el INDEC (pide leer con cuidado de 16% a 25% y no confiar en más de 25%)
+PZA_REG = {"granbuenosaires": ("gba", "Gran Buenos Aires"), "noroeste": ("noroeste", "Noroeste"), "noreste": ("noreste", "Noreste"),
+           "cuyo": ("cuyo", "Cuyo"), "pampeana": ("pampeana", "Pampeana"), "patagonia": ("patagonia", "Patagonia")}
+pza = pd.read_csv(CRUDO / "indec_pobreza_aglomerados.csv")
+pza["n"] = pza.aglomerado.map(_eph_nom)
+pza_cod = {**dso_cod, **{_eph_nom(n): c for c, (_, n) in EPH_OTROS.items()}}
+pza_r = pza[pza.n.isin(PZA_REG)]
+pza_a = pza[pza.n.map(pza_cod).notna()].assign(cod=lambda x: x.n.map(pza_cod).astype(int))
+assert len(pza_r) == 6 and set(pza_a.cod) == set(dso_ag) | {0} and pza.semestre.nunique() == 1, "faltan regiones o aglomerados en la pobreza del INDEC"
+pobreza_aglomerados = pd.concat([
+    pd.DataFrame({"tipo": "total", "clave": "total", "nombre": "31 aglomerados urbanos", "provincias": "00"}, index=[0]).assign(
+        **pza_a[pza_a.cod == 0][["pobreza", "cv_pobreza", "indigencia", "cv_indigencia"]].iloc[0].to_dict()),
+    pd.DataFrame({"tipo": "region", "clave": pza_r.n.map(lambda n: PZA_REG[n][0]), "nombre": pza_r.n.map(lambda n: PZA_REG[n][1]), "provincias": "",
+                  **{k: pza_r[k] for k in ["pobreza", "cv_pobreza", "indigencia", "cv_indigencia"]}}),
+    pd.DataFrame({"tipo": "aglomerado", "clave": pza_a[pza_a.cod > 0].cod.map(lambda c: f"a{c}"), "nombre": pza_a[pza_a.cod > 0].cod.map(lambda c: dso_ag[c][1]),
+                  "provincias": pza_a[pza_a.cod > 0].cod.map(lambda c: dso_ag[c][0]),
+                  **{k: pza_a[pza_a.cod > 0][k] for k in ["pobreza", "cv_pobreza", "indigencia", "cv_indigencia"]}}),
+], ignore_index=True)
+assert pobreza_aglomerados.pobreza.between(3, 80).all() and len(pobreza_aglomerados) == 39, "pobreza por aglomerado fuera de lo esperado"
+pza_o = lambda t: pobreza_aglomerados[pobreza_aglomerados.tipo == t].sort_values("pobreza")
+pza_res = {
+    "semestre": EPH_SEM_TXT, "pais": r1(pobreza_aglomerados.pobreza.iloc[0]),
+    "reg_max": [pza_o("region").iloc[-1].nombre, r1(pza_o("region").iloc[-1].pobreza)], "reg_min": [pza_o("region").iloc[0].nombre, r1(pza_o("region").iloc[0].pobreza)],
+    "ag_max": [pza_o("aglomerado").iloc[-1].nombre, r1(pza_o("aglomerado").iloc[-1].pobreza)],
+    "ag_min": [pza_o("aglomerado").iloc[0].nombre, r1(pza_o("aglomerado").iloc[0].pobreza)],
+    "cuidado": pza_o("aglomerado")[pza_o("aglomerado").cv_pobreza.between(16, 25)].nombre.tolist(),
+    "no_confiable": pza_o("aglomerado")[pza_o("aglomerado").cv_pobreza > 25].nombre.tolist(),
+}
+# las regiones y los aglomerados no son jurisdicciones: van solo en su tabla, como los ingresos por aglomerado (el total ya está en la serie
+# de la pobreza)
+
 # ---------------------------------------------------------------- series por provincia para animar los cruces
 # Una fila por provincia, anio e indicador, desde 2000. Se carga aparte, solo cuando alguien pide ver la evolucion.
 hp = snic_prov[snic_prov.codigo_delito_snic_nombre == "Hurtos"].copy()
@@ -6428,6 +6500,9 @@ tablas = {
     "capitales": capitales.round(3),
     "capitales_eph": capitales_eph.round(3),
     **({"ingresos_aglomerados": ipa_tabla} if ipa_tabla is not None else {}),
+    "desocupacion_aglomerados": desocupacion_aglomerados,
+    "desocupacion_serie": desocupacion_serie,
+    "pobreza_aglomerados": pobreza_aglomerados,
     "mundo_paises": mundo,
     "esperanza_vida_provincias": ev,
     "censo2022_provincias": censo,
@@ -7018,6 +7093,8 @@ resumen["capitales"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2
 assert all(m["id"] in capitales.columns for m in resumen["capitales"])
 resumen["capitales_pais"] = CAP_PAIS
 resumen["ingresos_aglomerados"] = ipa_res
+resumen["desocupacion"] = dso_res
+resumen["pobreza_aglomerados"] = pza_res
 resumen["capitales_eph"] = [{"id": k, "nombre": v[0], "unidad": v[1], "periodo": v[2], "tema": v[3], "fuente": v[4], "ficha": v[5], "dec": v[6]}
                             for k, v in CAPITALES_EPH_META.items()]
 assert all(m["id"] in capitales_eph.columns for m in resumen["capitales_eph"])

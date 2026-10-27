@@ -2299,6 +2299,28 @@
    "url": "https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_usu_{trimestre}_Trim_{anio}_txt.zip"
   },
   {
+   "id": "ds:indec_pobreza_aglomerados.csv",
+   "nombre": "Pobreza e indigencia de las regiones y los 31 aglomerados de la EPH, último semestre, con su coeficiente de variación",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_pobreza_aglomerados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "d.to_csv(CRUDO / \"indec_pobreza_aglomerados.csv\", index=False)"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_informe_pobreza_{mes}_{anio}.xls"
+  },
+  {
+   "id": "ds:indec_eph_aglomerados.csv",
+   "nombre": "Tasas de empleo y desocupación de los 31 aglomerados de la EPH, por trimestre desde 2016",
+   "fuente": "org:indec",
+   "ruta": "datos/crudo/indec_eph_aglomerados.csv",
+   "evidencia": {
+    "archivo": "scripts/01_descargar.py",
+    "contiene": "t.to_csv(CRUDO / \"indec_eph_aglomerados.csv\", index=False)"
+   },
+   "url": "https://www.indec.gob.ar/ftp/cuadros/sociedad/cuadros_eph_informe_{mes}_{anio}.xls"
+  },
+  {
    "id": "ds:manual/corte_casos.csv",
    "nombre": "Casos que llegaron a la Corte Suprema y casos que resolvió por año, con los fallos de los últimos años",
    "fuente": "org:csjn-estadisticas",
@@ -6838,6 +6860,42 @@
   },
   {
    "tipo": "alimenta",
+   "de": "ds:indec_pobreza_aglomerados.csv",
+   "a": "f-pobreza-aglomerados",
+   "tabla": "pobreza_aglomerados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "pza = pd.read_csv(CRUDO / \"indec_pobreza_aglomerados.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"pobreza_aglomerados\": pobreza_aglomerados,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
+   "de": "ds:indec_eph_aglomerados.csv",
+   "a": "f-desocupacion",
+   "tabla": "desocupacion_aglomerados",
+   "evidencia": [
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "dso = pd.read_csv(CRUDO / \"indec_eph_aglomerados.csv\")"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"desocupacion_aglomerados\": desocupacion_aglomerados,"
+    },
+    {
+     "archivo": "scripts/02_procesar.py",
+     "contiene": "\"desocupacion_serie\": desocupacion_serie,"
+    }
+   ]
+  },
+  {
+   "tipo": "alimenta",
    "de": "ds:manual/corte_casos.csv",
    "a": "f-corte-casos",
    "tabla": "corte_casos",
@@ -7462,6 +7520,11 @@
   "f-expectativas": {
    "variables": [
     "inflacion_esperada_12m_mediana"
+   ]
+  },
+  "f-desocupacion": {
+   "variables": [
+    "tasa_desocupacion_31_aglomerados"
    ]
   },
   "f-desempleo": {

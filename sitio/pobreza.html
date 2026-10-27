@@ -136,6 +136,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares. Se actualiza cada seis meses.</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la pobreza de las regiones y de los aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
+    <article class="ficha" id="f-pobreza-aglomerados">
+      <h2>¿Cuánta pobreza hay en cada región y en cada ciudad?</h2>
+      <p class="ficha-sub">Personas bajo la línea de pobreza en las seis regiones y en los 31 aglomerados urbanos de la EPH, primer semestre de 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pobreza-aglomerados">
+        <button type="button" data-m="region" aria-pressed="true">Por región</button>
+        <button type="button" data-m="ciudad" aria-pressed="false">Por ciudad</button>
+      </div>
+      <div class="grafico" data-g="pobreza-aglomerados" data-forma="barras"></div>
+      <p class="lead" data-t="pobreza-aglomerados"></p>
+      <p class="nota" data-t="pobreza-aglomerados-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia. Se actualiza cada seis meses.</span><a href="datos/pobreza_aglomerados.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-ingresos-aglomerados">
       <h2>¿De cuánto es el ingreso por persona de los hogares en cada ciudad?</h2>
       <p class="ficha-sub">Mediana del ingreso por persona del hogar y del ingreso de la ocupación principal en los 31 aglomerados urbanos, los cuatro trimestres hasta el primero de 2026, en pesos del primer trimestre de 2026</p>
@@ -294,7 +308,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=d58f1b4106"></script>
-<script src="datina.js?v=1536b2a3d7"></script>
+<script src="datos/fichas.js?v=84d7a03a93"></script>
+<script src="datina.js?v=48a27e845b"></script>
 </body>
 </html>

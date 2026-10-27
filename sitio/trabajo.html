@@ -167,6 +167,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio). Se actualiza cada tres meses.</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la desocupación de los 31 aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
+    <article class="ficha" id="f-desocupacion">
+      <h2>¿Cuánta gente busca trabajo y no consigue en cada ciudad?</h2>
+      <p class="ficha-sub">Tasa de desocupación en los 31 aglomerados urbanos de la EPH, promedio de los cuatro trimestres hasta el segundo de 2026, y en el total de los 31, trimestre a trimestre, del segundo trimestre de 2016 al segundo trimestre de 2026</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="desocupacion">
+        <button type="button" data-m="ciudad" aria-pressed="true">Por ciudad</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="desocupacion" data-forma="barras" style="--filas:32"></div>
+      <p class="lead" data-t="desocupacion"></p>
+      <p class="nota" data-t="desocupacion-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos. Se actualiza cada tres meses.</span><a href="datos/desocupacion_aglomerados.csv" download>Por aglomerado (CSV)</a><a href="datos/desocupacion_serie.csv" download>Total de los 31, por trimestre (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-desempleo">
       <h2>¿Cuántas personas cobran el seguro de desempleo en cada provincia?</h2>
       <p class="ficha-sub">Personas que cobran el seguro de desempleo, por provincia en 2026 y en todo el país desde 2001</p>
@@ -282,7 +296,7 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 <p class="solo-lector" id="aviso" aria-live="polite"></p>
 
 <!-- los datos van en un archivo aparte que el navegador guarda una sola vez para todas las páginas -->
-<script src="datos/fichas.js?v=d58f1b4106"></script>
-<script src="datina.js?v=1536b2a3d7"></script>
+<script src="datos/fichas.js?v=84d7a03a93"></script>
+<script src="datina.js?v=48a27e845b"></script>
 </body>
 </html>

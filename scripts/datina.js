@@ -221,6 +221,8 @@ const REG_IPC = {"02": ["gba"], "06": ["gba", "pampeana"], "10": ["noroeste"], "
   "94": ["patagonia"]};
 const REG_ART = {"Gran Buenos Aires": "el Gran Buenos Aires", "Pampeana": "la región Pampeana", "Noreste": "el Noreste", "Noroeste": "el Noroeste", "Cuyo": "Cuyo",
   "Patagonia": "la Patagonia"};
+// "del Noreste", "de la Patagonia", "de Cuyo"
+const delReg = n => REG_ART[n].startsWith("el ") ? "del " + REG_ART[n].slice(3) : "de " + REG_ART[n];
 // la región de la provincia elegida, en una frase, con el valor de una tabla de regiones: "Chaco está en el Noreste: 37,0%."
 const enSuRegion = (filas, k, f) => {
   const regs = REG_IPC[prov]; if (!regs) return "";
@@ -249,6 +251,8 @@ const rangoDep = (filas, k, que) => {
     (base === grandes && grandes.length < enP.length ? `, entre los departamentos de ${n0(MGP.min_pob)} habitantes o más.` : ".");
 };
 // Gobierno (etapa 25): las cuentas de la Nación, la recaudación, la deuda, el empleo público y los impuestos de las provincias
+// la desocupación de los aglomerados de la EPH (plan de mejora, etapa 4)
+const DSO = R.desocupacion, PZA = R.pobreza_aglomerados;
 const GOB = R.gobierno, GBN = GOB.nacion, GRT = GOB.recaudacion, GBD = GOB.deuda, GBC = GOB.empleo, GBP = GOB.provincial, CPA = R.coparticipacion;
 // superávit o déficit, en palabras
 const sobra = v => v < 0 ? "déficit" : "superávit";
@@ -624,6 +628,25 @@ const LEAD = {
     `según la Dirección Nacional de Asuntos Provinciales. El ${pct(GBP.iibb)} fue de ingresos brutos. La recaudación por habitante iba de ${n0(GBP.bajo[1])} pesos ` +
     `en ${GBP.bajo[0]} a ${n0(GBP.top[1])} en ${GBP.top[0]}${conVeces(GBP.top[1], GBP.pais)}.` +
     (GBP.faltan.length ? ` ${lista(GBP.faltan)} no ${GBP.faltan.length > 1 ? "tienen" : "tiene"} datos completos del año y no ${GBP.faltan.length > 1 ? "entran" : "entra"} en el total ni en el gráfico.` : ""),
+  // la pobreza de las regiones y los aglomerados de la EPH (plan de mejora, etapa 4), con la advertencia del INDEC sobre la precisión
+  "pobreza-aglomerados": v => {
+    const C = PZA.cuidado, N = PZA.no_confiable;
+    if (v === "region") return `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.reg_min[1])} en ${REG_ART[PZA.reg_min[0]]} al ${pct(PZA.reg_max[1])} en ` +
+      `${REG_ART[PZA.reg_max[0]]}. En el total de los 31 aglomerados urbanos fue del ${pct(PZA.pais)}. Cada región cuenta solo sus aglomerados urbanos.`;
+    return `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.ag_min[1])} en ${PZA.ag_min[0]} al ${pct(PZA.ag_max[1])} en ${PZA.ag_max[0]}. ` +
+      `En el total de los 31 aglomerados urbanos fue del ${pct(PZA.pais)}. ` +
+      (C.length ? `El INDEC pide leer con cuidado ${C.length > 1 ? "las estimaciones" : "la estimación"} de ${lista(C)}, que ${C.length > 1 ? "tienen" : "tiene"} un coeficiente de variación de entre 16% y 25%. ` : "") +
+      (N.length ? `${N.length > 1 ? "Las" : "La"} de ${lista(N)} ${N.length > 1 ? "pasan" : "pasa"} de 25% y no ${N.length > 1 ? "son confiables" : "es confiable"}. ` : "") +
+      `Dos ciudades con valores parecidos pueden no ser distintas.`;
+  },
+  // la desocupación (plan de mejora, etapa 4): los 31 aglomerados de la EPH con el promedio de cuatro trimestres, o el total trimestre a trimestre
+  desocupacion: v => v === "serie"
+    ? `En el ${DSO.ultimo}, el ${pct(DSO.pais_ultimo)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada` +
+      (DSO.pais_anio_antes != null ? `, contra el ${pct(DSO.pais_anio_antes)} un año antes` : "") + `. La tasa más alta desde el ${DSO.ini} fue la del ` +
+      `${DSO.pico[0]}, el ${pct(DSO.pico[1])}, y la más baja, la del ${DSO.piso[0]}, el ${pct(DSO.piso[1])}. Cada trimestre tiene sus temporadas de trabajo: ` +
+      `conviene comparar con el mismo trimestre de otro año.`
+    : `En ${DSO.trimestres}, en promedio, el ${pct(DSO.pais)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba ` +
+      `desocupada: buscaba trabajo y no conseguía. La tasa iba del ${pct(DSO.min[1])} en ${DSO.min[0]} al ${pct(DSO.max[1])} en ${DSO.max[0]}.`,
   // la coparticipación (plan de mejora, etapa 4): por habitante, solo con las jurisdicciones que tienen el año de la ficha (los pesos de
   // otro año no se comparan), o en % de los ingresos de cada una, con su año al lado del nombre si es otro
   coparticipacion: v => {
@@ -1424,6 +1447,20 @@ const TX = {
     `brutos, inmobiliario, sellos, automotor y otros, según la Dirección Nacional de Asuntos Provinciales, que replica lo que publica la dirección de ` +
     `rentas de cada provincia. Por habitante con la población del INDEC. Las provincias no cobran los mismos impuestos: en algunas, el automotor lo ` +
     `cobran los municipios. Las finanzas de cada provincia, con lo que recibe de la Nación, están en la ficha siguiente.`,
+  "pobreza-aglomerados": LEAD["pobreza-aglomerados"]("region"), "pobreza-aglomerados-nota": `Personas en hogares cuyos ingresos no alcanzan la canasta ` +
+    `básica total, según la Encuesta Permanente de Hogares del INDEC, que releva 31 aglomerados urbanos y no mide las zonas rurales ni las ciudades chicas. ` +
+    `Las regiones son las de la encuesta: Gran Buenos Aires (CABA y los partidos del conurbano), Noroeste, Noreste, Cuyo, Pampeana y Patagonia. El Gran ` +
+    `Buenos Aires va en dos partes también entre las ciudades. Un aglomerado es una ciudad con su área urbana y puede juntar dos ciudades o dos provincias. ` +
+    `El coeficiente de variación mide la precisión de cada estimación: cuanto más alto, menos precisa. Está en el cuadro de cada barra, con la indigencia. ` +
+    `En el consultor de pobreza están los partidos del Gran Buenos Aires y las comunas de CABA.`,
+  desocupacion: LEAD.desocupacion("ciudad"), "desocupacion-nota": `Desocupada es la persona que no tiene trabajo, lo buscó activamente y está ` +
+    `disponible para trabajar. La tasa se calcula sobre la población económicamente activa: las personas que trabajan o buscan trabajo. La EPH es una ` +
+    `encuesta del INDEC en 31 aglomerados urbanos, que no mide las zonas rurales ni las ciudades chicas. Un aglomerado es una ciudad con su área urbana ` +
+    `y puede juntar dos ciudades (Neuquén con Plottier) o dos provincias (Viedma con Carmen de Patagones). El Gran Buenos Aires va en dos partes, CABA ` +
+    `y los partidos del conurbano. En los aglomerados chicos la encuesta tiene pocos casos y la tasa de un trimestre, un margen de error grande: por eso ` +
+    `cada uno va con el promedio de cuatro trimestres, y dos ciudades con tasas parecidas pueden no ser distintas. Si el INDEC no publicó la tasa de un ` +
+    `aglomerado en un trimestre, por tener pocos casos, el promedio usa los otros tres. El seguro de desempleo, en la ficha siguiente, cuenta otra cosa: ` +
+    `las personas que cobran la prestación.`,
   coparticipacion: LEAD.coparticipacion("hab"), "coparticipacion-nota": `Tributos de origen nacional del esquema ahorro inversión financiamiento ` +
     `de cada provincia, según el Ministerio de Economía: la coparticipación federal de impuestos (Ley 23.548, con la parte que la Ley 26.075 destina ` +
     `a educación) y otros impuestos nacionales que se reparten por ley. No incluye lo que pasa por el presupuesto nacional, como los ATN y las demás ` +
@@ -1988,7 +2025,9 @@ function barrasH(el, cfg) {
   // Se ven entre una barra y la siguiente, y los valores llevan un borde del color del fondo (.f text en datina.css)
   if (cfg.ref != null) {
     g.append("line").attr("x1",x(cfg.ref)).attr("x2",x(cfg.ref)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ink")).attr("stroke-dasharray","3 3").lower();
-    g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
+    const rl = g.append("text").attr("x", x(cfg.ref) + 5).attr("y", data.length*fila + 4).attr("class","etq-suave").text(cfg.refLab);
+    // si el rótulo no entra a la derecha de la línea (la línea cerca del final, en el celular), va a su izquierda
+    if (rl.node().getComputedTextLength?.() > iw + 50 - x(cfg.ref)) rl.attr("x", x(cfg.ref) - 5).attr("text-anchor", "end");
   }
   if (cfg.ref2 != null) {
     g.append("line").attr("x1",x(cfg.ref2)).attr("x2",x(cfg.ref2)).attr("y1",-4).attr("y2",data.length*fila).attr("stroke",css("--ocde")).attr("stroke-dasharray","4 3").attr("stroke-width",2).lower();
@@ -2774,7 +2813,7 @@ const DIB = protegerDib({
 
 /* ---------- petróleo y gas, construcción y vivienda (etapa 18) ---------- */
 Object.assign(MED, {refugio: "anio", supermercados: "prov", "cuentas-nacion": "resultado", recaudacion: "impuesto", "empleo-publico": "prov", "nacidos-otro-pais": "prov", "migracion-interna": "prov", radicaciones: "anio", "argentinos-exterior": "anio", inflacion: "doce", "inflacion-rubros": "division", canastas: "region", emae: "mes", "electricidad-provincias": "prov", "electricidad-sectores": "ind", salarios: "prov", "salario-docente": "prov", "inversion-educativa": "alumno",
-  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
+  delitos: "tipo", robos: "robos", homicidios: "prov", carceles: "serie", "sin-condena": "prov", coparticipacion: "hab", desocupacion: "ciudad", "pobreza-aglomerados": "region", combustibles: "nafta", "combustibles-vista": "prov", subsidios: "pbi", "obra-publica": "prov", "gas-consumo": "prov", centrales: "mapa", "mapa-pozos": "cuenca", productividad: "pozo", fracturas: "etapas", "pozos-terminados": "anio", petroleo: "tipo", gas: "tipo", "gas-hogares-vista": "prov", "hidro-provincias": "pet_kbd", "areas-hidro": "pet", arArea: "", pozos: "pozo", "empresas-hidro": "pct_pet",
   "empleo-hidro": "prov", regalias: "pct_regalias", reservas: "pet", "mundo-petroleo": "crudo_kbd", insumos: "var_12m",
   "empleo-construccion": "construccion_cada_1000", "trabajadores-vista": "prov", vivienda: "pct_alquila", "vivienda-vista": "prov"});
 const COL_TIPO = {conv: "#A9CBEA", tight: "#F6B40E", shale: "#1F5E97"};
@@ -3187,6 +3226,47 @@ Object.assign(DIB, {
     }
     $t("sin-condena").textContent = txt;
     lineas(el, {anim: a, data: T.carceles_serie, x: "anio", y0: 0, vf: pct, yf: v => n0(v) + "%", series: [{k: "pct_sin_condena", lab: "Todo el país", c: NAR}]});
+  },
+  // la pobreza (plan de mejora, etapa 4): las seis regiones o los 32 aglomerados de la EPH con la línea de los 31, resaltadas la región o los
+  // aglomerados de la provincia elegida (se redibuja al cambiarla)
+  "pobreza-aglomerados": a => {
+    const v = MED["pobreza-aglomerados"], el = G("pobreza-aglomerados");
+    const filas = T.pobreza_aglomerados.filter(r => r.tipo === (v === "region" ? "region" : "aglomerado")).map(r => ({...r, codigo_indec: r.clave, territorio: r.nombre}));
+    const suyas = !prov ? [] : v === "region" ? filas.filter(r => (REG_IPC[prov] || []).includes(r.clave)) : filas.filter(r => String(r.provincias).split(",").includes(prov));
+    let txt = LEAD["pobreza-aglomerados"](v);
+    if (v === "region" && suyas.length) txt += ` ${NOMBRES[prov]} está en ${lista(suyas.map(r => `${REG_ART[r.nombre]} (${pct(r.pobreza)})`))}.`;
+    if (v === "ciudad" && suyas.length === 1) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].pobreza)}.`;
+    if (v === "ciudad" && suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.pobreza)} en ${r.nombre}`))}.`;
+    $t("pobreza-aglomerados").textContent = txt;
+    barrasH(el, {anim: a, data: filas, k: "pobreza", vf: pct, af: v => n0(v) + "%", ref: PZA.pais, refLab: `31 aglomerados ${pct(PZA.pais)}`,
+      marcar: new Set(suyas.map(r => r.codigo_indec)), l: v === "region" ? 150 : 220, lAngosto: 132,
+      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
+      tip: d => `<b>${d.nombre}</b><br>${pct(d.pobreza)} bajo la línea de pobreza en el ${PZA.semestre}<br>Coeficiente de variación: ${pct(d.cv_pobreza)}` +
+        `<br>Indigencia: ${pct(d.indigencia)}`});
+    el.resaltar = null;
+  },
+  // la desocupación (plan de mejora, etapa 4): cada aglomerado de la EPH con la línea de los 31, resaltados los de la provincia elegida (se
+  // redibuja al cambiarla, como los ingresos por aglomerado), o el total de los 31 trimestre a trimestre
+  desocupacion: a => {
+    const el = G("desocupacion");
+    let txt = LEAD.desocupacion(MED.desocupacion);
+    if (MED.desocupacion === "serie") {
+      $t("desocupacion").textContent = txt;
+      return lineas(el, {anim: a, data: T.desocupacion_serie.map(r => ({...r, t: +r.periodo.slice(2) + (+r.periodo[0] - 1) / 4})), x: "t", y0: 0,
+        vf: pct, yf: v => n0(v) + "%", xl: r => trimTx(r.periodo), mensual: true, series: [{k: "desocupacion", lab: "31 aglomerados", c: NAR}]});
+    }
+    const filas = T.desocupacion_aglomerados.filter(r => r.aglomerado > 0).map(r => ({...r, codigo_indec: "a" + r.aglomerado, territorio: r.nombre}));
+    const suyas = prov ? filas.filter(r => String(r.provincias).split(",").includes(prov)) : [];
+    if (suyas.length === 1 && suyas[0].nombre !== DSO.max[0] && suyas[0].nombre !== DSO.min[0]) txt += ` En ${suyas[0].nombre}, el ${pct(suyas[0].desocupacion)}.`;
+    if (suyas.length > 1) txt += ` En los aglomerados de ${NOMBRES[prov]}, ${lista(suyas.map(r => `${pct(r.desocupacion)} en ${r.nombre}`))}.`;
+    $t("desocupacion").textContent = txt;
+    barrasH(el, {anim: a, data: filas, k: "desocupacion", vf: pct, af: v => n0(v) + "%", ref: DSO.pais, refLab: `31 aglomerados ${pct(DSO.pais)}`,
+      marcar: new Set(suyas.map(r => r.codigo_indec)), l: 220, lAngosto: 132,
+      corto: d => d.nombre === "Partidos del Gran Buenos Aires" ? "Partidos del GBA" : IA_CORTO[d.nombre] || d.nombre,
+      tip: d => `<b>${d.nombre}</b><br>${pct(d.desocupacion)} de desocupación, promedio de ${DSO.trimestres}` +
+        (d.desocupacion_ultimo_trimestre != null ? `<br>Solo el ${DSO.ultimo}: ${pct(d.desocupacion_ultimo_trimestre)}` : `<br>Sin dato del ${DSO.ultimo}`) +
+        `<br>Tasa de empleo: ${pct(d.empleo)}`});
+    el.resaltar = null;
   },
   // la coparticipación (plan de mejora, etapa 4): por habitante, solo las jurisdicciones con el año de la ficha, o en % de los ingresos de
   // las 24, la que todavía no publicó ese año con el suyo al lado del nombre (como en la ficha anterior)
@@ -6212,6 +6292,10 @@ const CLAVE = {
   "f-recaudacion": [pct(GRT.iva), `de la recaudación de impuestos nacionales de los doce meses hasta ${GRT.doce_hasta} fue IVA`],
   "f-deuda": [pct(GBD.pct), `del PBI era la deuda bruta de la Administración Central al ${GBD.fecha}`, `del PBI al ${GBD.fecha}`],
   "f-empleo-publico": [n1(GBC.cada_1000), `cargos ocupados cada 1.000 habitantes tenían las administraciones provinciales en ${GBC.anio}`, "cargos cada 1.000 habitantes en todo el país"],
+  "f-pobreza-aglomerados": [pct(PZA.reg_max[1]), `de las personas de los aglomerados urbanos ${delReg(PZA.reg_max[0])} estaba bajo la línea de pobreza ` +
+    `en el ${PZA.semestre}, la región con más pobreza`, `de las personas de los aglomerados urbanos ${delReg(PZA.reg_max[0])}, la región con más pobreza, en el ${PZA.semestre}`],
+  "f-desocupacion": [pct(DSO.pais), `de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada, en promedio, en ${DSO.trimestres}`,
+    `desocupación de los 31 aglomerados, promedio de ${DSO.trimestres}`],
   "f-coparticipacion": [`${n2(CPA.pais_hab / 1e6)} millones de pesos`, `por habitante recibieron las provincias y CABA en ${CPA.anio} por la coparticipación federal y otros ` +
     `impuestos nacionales que se reparten por ley` + (Object.keys(CPA.atrasadas).length ? `, sin contar ${lista(Object.keys(CPA.atrasadas))}` : ""),
     Object.keys(CPA.atrasadas).length ? "por habitante, promedio de las jurisdicciones con datos" : "por habitante, promedio del país"],
@@ -7282,6 +7366,10 @@ const PREG = [
    `${n0(ECB.cbt_hogar)} pesos por mes en ${ECB.mes} para un hogar de cuatro integrantes del Gran Buenos Aires, según la canasta básica total del INDEC.`, "#f-canastas"],
   ["¿Le ganan los salarios registrados a la inflación?",
    `En los doce meses hasta ${ESR.mes}, descontada la inflación, el salario registrado del sector privado ${cambioPct(ESR.real_priv)} y el del sector público ${cambioPct(ESR.real_pub)}.`, "#f-salario-real"],
+  ["¿Cuánta pobreza hay en cada región?",
+   `En el ${PZA.semestre}, la pobreza iba del ${pct(PZA.reg_min[1])} en ${REG_ART[PZA.reg_min[0]]} al ${pct(PZA.reg_max[1])} en ${REG_ART[PZA.reg_max[0]]}, según la EPH del INDEC.`, "#f-pobreza-aglomerados"],
+  ["¿Cuánta gente busca trabajo y no consigue?",
+   `En el ${DSO.ultimo}, el ${pct(DSO.pais_ultimo)} de las personas que trabajaban o buscaban trabajo en los 31 aglomerados urbanos estaba desocupada, según la EPH del INDEC.`, "#f-desocupacion"],
   ["¿Cuánto recibe cada provincia por coparticipación?",
    `En ${CPA.anio}, las provincias y CABA recibieron ${n2(CPA.pais_hab / 1e6)} millones de pesos por habitante por la coparticipación federal y otros impuestos nacionales. ` +
    `Fue el ${pct(CPA.pct_pais)} de sus ingresos.`, "#f-coparticipacion"],
@@ -8325,6 +8413,8 @@ if (PAGINA !== "inicio") {
     "f-carne": ["carne"], "f-vino": ["vino"], "f-yerba": ["yerba"], "f-electricidad-provincias": ["electricidad", "luz"], "f-subsidios": ["subsidios"],
     "f-empresas": ["empresas"], "f-canastas": ["canasta", "canasta basica"], "f-emae": ["actividad economica", "emae"], "f-carceles": ["carceles", "presos"], "f-sin-condena": ["sin condena", "presos sin condena", "procesados", "prision preventiva"],
     "f-coparticipacion": ["coparticipacion", "coparticipacion federal", "reparto de impuestos"],
+    "f-desocupacion": ["desocupacion", "desocupados", "desocupada", "tasa de desocupacion"],
+    "f-pobreza-aglomerados": ["pobreza por region", "pobreza por ciudad", "pobreza por aglomerado"],
     "f-salario-docente": ["maestro", "maestros", "docente", "docentes", "salario docente", "sueldo docente", "salario maestro", "sueldo maestro"], "f-patentes": ["patentes", "autos"], "f-sube": ["sube"]
   }).flatMap(([id, ks]) => ks.map(k => [k.split(" "), id]));
   const respuesta = (texto, hall) => {

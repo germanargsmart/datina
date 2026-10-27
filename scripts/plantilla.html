@@ -375,6 +375,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, bases usuarias trimestrales (procesamiento propio)</span><a href="datos/rotacion_laboral.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+    <!-- la desocupación de los 31 aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
+    <article class="ficha" id="f-desocupacion">
+      <h2>¿Cuánta gente busca trabajo y no consigue en cada ciudad?</h2>
+      <p class="ficha-sub">Tasa de desocupación en los 31 aglomerados urbanos de la EPH, promedio de {{desocupacion.trimestres}}, y en el total de los 31, trimestre a trimestre, del {{desocupacion.ini}} al {{desocupacion.ultimo}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="desocupacion">
+        <button type="button" data-m="ciudad" aria-pressed="true">Por ciudad</button>
+        <button type="button" data-m="serie" aria-pressed="false">Evolución</button>
+      </div>
+      <div class="grafico" data-g="desocupacion" data-forma="barras" style="--filas:32"></div>
+      <p class="lead" data-t="desocupacion"></p>
+      <p class="nota" data-t="desocupacion-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, mercado de trabajo, tasas e indicadores socioeconómicos</span><a href="datos/desocupacion_aglomerados.csv" download>Por aglomerado (CSV)</a><a href="datos/desocupacion_serie.csv" download>Total de los 31, por trimestre (CSV)</a></div>
+    </article>
+
     <article class="ficha" id="f-desempleo">
       <h2>¿Cuántas personas cobran el seguro de desempleo en cada provincia?</h2>
       <p class="ficha-sub">Personas que cobran el seguro de desempleo, por provincia en {{desempleo.prov_anio}} y en todo el país desde {{desempleo.ini}}</p>
@@ -571,6 +585,20 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="pobreza"></p>
       <p class="ir-consultas"><a class="boton principal" href="pobreza/">Consultar pobreza por aglomerado, partido y comuna</a></p>
       <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares</span><a href="datos/pobreza_serie.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+    <!-- la pobreza de las regiones y de los aglomerados de la EPH (plan de mejora, etapa 4, 27 de octubre de 2026) -->
+    <article class="ficha" id="f-pobreza-aglomerados">
+      <h2>¿Cuánta pobreza hay en cada región y en cada ciudad?</h2>
+      <p class="ficha-sub">Personas bajo la línea de pobreza en las seis regiones y en los 31 aglomerados urbanos de la EPH, {{pobreza_aglomerados.semestre}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="pobreza-aglomerados">
+        <button type="button" data-m="region" aria-pressed="true">Por región</button>
+        <button type="button" data-m="ciudad" aria-pressed="false">Por ciudad</button>
+      </div>
+      <div class="grafico" data-g="pobreza-aglomerados" data-forma="barras"></div>
+      <p class="lead" data-t="pobreza-aglomerados"></p>
+      <p class="nota" data-t="pobreza-aglomerados-nota"></p>
+      <div class="pie"><span>Fuente: INDEC, Encuesta Permanente de Hogares, incidencia de la pobreza y la indigencia</span><a href="datos/pobreza_aglomerados.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-ingresos-aglomerados">
