@@ -60,13 +60,22 @@ if CONSULTA_IA:
     assert plantilla.count(_herr_sub) == 1, "cambió la bajada de Herramientas en la portada: revisar la de las consultas con IA"
     plantilla = plantilla.replace(_herr_sub, '<p class="bloque-sub">Para hacerles preguntas a los datos, cruzar indicadores,')
     if MOTOR_IA == "cloudflare":
-        for _v, _n in [("La pregunta se envía a Anthropic, la empresa del modelo, para contestarla: no escribas datos personales. Datina no la guarda.",
-                        "La contesta un modelo que corre en Cloudflare, la empresa que publica el sitio, que no usa las preguntas para entrenar modelos: "
-                        "no escribas datos personales. Datina no la guarda. Las consultas son gratis y tienen un tope por día para todo el sitio."),
+        for _v, _n in [("No escribas datos personales: para contestarla, la pregunta se envía a Anthropic, la empresa que hace el modelo. Datina no la guarda.",
+                        "No escribas datos personales. La pregunta la contesta un modelo abierto de inteligencia artificial que corre en Cloudflare, "
+                        "la empresa que aloja el sitio. Según su política, Cloudflare no usa las preguntas para entrenar modelos. Datina no las guarda. Las consultas son gratis y tienen un tope diario para todo el sitio."),
                        ("Las respuestas las escribe un modelo de inteligencia artificial (Claude, de Anthropic) con los datos de Datina.",
-                        "Las respuestas las escribe un modelo abierto de inteligencia artificial, en Cloudflare, con los datos de Datina.")]:
+                        "Las respuestas las escribe un modelo de inteligencia artificial con los datos de Datina.")]:
             assert plantilla.count(_v) == 1, f"cambió un aviso de la página de las consultas con IA: {_v[:60]}"
             plantilla = plantilla.replace(_v, _n)
+# "Tus datos", en Sobre nosotros (auditoría del 26 de octubre de 2026, E9): adónde va la pregunta de las consultas con IA, según el motor
+# (docs/ia/CONSULTAS.md, "Privacidad"). Con las consultas apagadas, el párrafo no va
+_IA_PRIV = {"cloudflare": "<p>Las preguntas de Consultas con IA las contesta un modelo que corre en Cloudflare, la empresa que aloja el sitio. "
+                          "Según su política, Cloudflare no usa esas preguntas para entrenar modelos. Datina no las guarda. "
+                          "No escribas datos personales en una pregunta.</p>",
+            "anthropic": "<p>Las preguntas de Consultas con IA viajan a Anthropic, la empresa del modelo que las contesta. Datina no las guarda. "
+                         "No escribas datos personales en una pregunta.</p>"}
+assert plantilla.count("<!--IA-PRIVACIDAD-->") == 1, "falta la marca <!--IA-PRIVACIDAD--> en Tus datos (Sobre nosotros)"
+plantilla = plantilla.replace("<!--IA-PRIVACIDAD-->", _IA_PRIV[MOTOR_IA] if CONSULTA_IA else "")
 JS_IA = (RAIZ / "scripts" / "consulta_ia.js").read_text(encoding="utf-8")
 plantilla = plantilla.replace("__V_IA_JS__", hashlib.sha1(JS_IA.encode("utf-8")).hexdigest()[:10])
 # Cada id una sola vez en la plantilla (etapa 25): una ficha nueva repitió el id de otra (f-actividad) y, como sus claves en datina.js salen
@@ -141,7 +150,7 @@ FRASE_FRECUENCIA = {
     "mes": "Se actualiza cada mes.", "trimestre": "Se actualiza cada tres meses.", "semestre": "Se actualiza cada seis meses.",
     "anio": "Se actualiza cada año.", "censo": "Se actualiza con cada censo.", "eleccion": "Se actualiza con cada elección.",
     "congreso": "Se actualiza con cada renovación del Congreso.", "aprender": "Se actualiza con cada evaluación Aprender.",
-    "pisa": "Se actualiza con cada evaluación PISA.", "leyes": "Se actualiza cuando se suma una ley a la selección.",
+    "pisa": "Se actualiza con cada evaluación PISA.", "leyes": "Se actualiza cuando se suma una ley o un proyecto a la selección.",
     "presidente": "Se actualiza con cada cambio de presidente.", "gabinete": "Se actualiza con cada cambio de gabinete.",
     "onu": "Se actualiza cada cuatro o cinco años.", "inventario": "Se actualiza con cada inventario.",
     "pausa": "La encuesta está en pausa: el INDEC la está reformulando.",
@@ -325,7 +334,7 @@ HISTORIA = json.loads((RAIZ / "datos" / "manual" / "provincias_historia.json").r
 _fj = json.loads((SITIO / "datos" / "fichas.json").read_text(encoding="utf-8"))
 HAB = {f["codigo_indec"]: f["poblacion"] for f in _fj["datos"]["empleo_provincias"] if f.get("poblacion")}
 HAB_ANIO = _fj["resumen"]["anio_pob"]
-_H_CAMPOS = [("fundacion_capital", "Fundación"), ("provincia_desde", "Autonomía"), ("antecedente", "Antes"),
+_H_CAMPOS = [("fundacion_capital", "La capital"), ("provincia_desde", "La provincia"), ("antecedente", "Antecedentes"),
              ("guerras_civiles", "Guerras civiles"), ("quienes", "Quiénes"), ("curiosidad", "Dato curioso")]
 _h_txt = lambda h, k: ((h.get(k) or {}).get("texto") if isinstance(h.get(k), dict) else h.get(k)) or ""
 _h_err = []
@@ -361,21 +370,21 @@ def historia_prov(c, h):
         datos.append(("Autonomía desde" if c == "02" else "Provincia desde", str(pd["anio"]), ""))
     if c in HAB:
         datos.append(("Habitantes", f"{_miles(HAB[c])} en {HAB_ANIO}", "Proyección del INDEC, base Censo 2022"))
-    partes = [("Fundación", " ".join(t for t in (fc.get("texto"), pd.get("texto")) if t)), ("Antes", h.get("antecedente")),
+    partes = [("La ciudad y su autonomía" if c == "02" else "La capital y la provincia", " ".join(t for t in (fc.get("texto"), pd.get("texto")) if t)), ("Antecedentes", h.get("antecedente")),
               ("Guerras civiles y formación del Estado", h.get("guerras_civiles")), ("Quiénes fueron y quiénes son", h.get("quienes"))]
     texto_h = "".join(f'<h3 class="ph-sub">{e(t)}</h3><p>{e(p)}</p>' for t, p in partes if p)
     if not texto_h:
         return ""
     dl = "".join(f'<div><dt>{e(k)}</dt><dd>{e(v)}{f"<small>{e(s)}</small>" if s else ""}</dd></div>' for k, v, s in datos)
     cur = (f'<div class="ph-curiosidad"><p class="ph-sub">Dato curioso</p><p>{e(h["curiosidad"])}</p></div>' if h.get("curiosidad") else "")
-    nombres = dict(_H_CAMPOS)
+    nombres = dict(_H_CAMPOS, **({"fundacion_capital": "La ciudad", "provincia_desde": "La autonomía"} if c == "02" else {}))
     fuentes = "".join(f'<li><span class="ph-dato">{e(nombres.get(f.get("dato"), ""))}</span> <a href="{e(f["url"])}" target="_blank" rel="noopener">'
                       f'{e(f.get("titulo") or f["url"])}</a></li>' for f in h.get("fuentes", []) if f.get("url", "").startswith("https://"))
     return (f'<article class="ph" data-c="{c}" aria-labelledby="ph-{c}" hidden><h2 class="ph-tit" id="ph-{c}">¿De dónde viene {e(NOMBRE_PROV[c])}?</h2>'
             f'<div class="ph-cuerpo"><div class="ph-texto">{texto_h}</div><aside class="ph-lado" aria-label="Datos básicos">'
             f'<dl class="ph-datos">{dl}</dl>{cur}</aside></div>'
             f'<details class="ph-fuentes"><summary>Fuentes</summary><p>Textos de Datina a partir de sitios oficiales de cada provincia y del '
-            f'Estado nacional, leyes y universidades públicas. Los habitantes, de la proyección de población del INDEC.</p><ul>{fuentes}</ul></details></article>')
+            f'Estado nacional, sitios municipales, leyes y trabajos de universidades públicas y del CONICET, entre otras fuentes. Delante de cada fuente figura el apartado del texto que respalda. Los habitantes salen de la proyección de población del INDEC, base Censo 2022.</p><ul>{fuentes}</ul></details></article>')
 
 
 assert base.count("<!--HISTORIA-->") == 1
@@ -684,7 +693,7 @@ def carta(pid, meta=None):
     if pid.startswith("a-"):
         return (f"{pid}.html", TIT_NOTA[pid], meta or "Artículo", SEC_ICONO[pid], f"t-{pid}")
     sec = next((x for x in SECCIONES if x[0] == pid), None)
-    desc = {"provincia": "Perfil provincial", "nosotros": "Qué es Datina", "articulos": f"{len(NOTAS)} artículos",
+    desc = {"provincia": "Cada provincia frente al país", "nosotros": "Qué es Datina", "articulos": f"{len(NOTAS)} artículos",
             "laboratorio": f"{LAB_PIEZAS} piezas visuales"}.get(pid) or (
         "Herramienta" if sec and sec[4] else f"{sec[5]} fichas" if sec else "")
     return (url_pagina(pid), TITULO_DE[pid], meta or desc, SEC_ICONO.get(pid, "sol"), f"t-{pid}" if sec else "")
@@ -817,7 +826,7 @@ _col = lambda nombre, pares: f'<div class="pie-col"><h2>{e(nombre)}</h2>{lista(p
 MAPA = ("".join(_col(n, [(url_pagina(s), TITULO_DE[s]) for s in _secs_de(items)]) for _, n, items in GRUPOS)
         + "".join(_col(completo, [(url_menu(p), nombre_menu(p)) for p in _secs_de(items)]) for _, _, completo, _, items in MENUS)
         + _col("Datina", [("nosotros.html", "Sobre nosotros"), ("nosotros.html#como-se-hace", "Cómo se hace"),
-                          ("nosotros.html#fuentes", "Fuentes y método"), ("contacto.html", "Contacto")]))
+                          ("nosotros.html#fuentes", "De dónde salen los datos"), ("contacto.html", "Contacto")]))
 assert "<!--MAPA-->" in base
 base = base.replace("<!--MAPA-->", MAPA)
 # La barra (Fase 2, 23 de octubre de 2026): Temas, Provincias, Historias y Herramientas, cada uno con su menú (el mismo código que los
@@ -905,6 +914,10 @@ for _id, _q in EJEMPLOS:
 # de la ficha (CLAVE en datina.js), que se calcula en el navegador: el constructor escribe el grupo, la pregunta y el enlace, y deja
 # reservado el lugar de la cifra para que la portada no salte. Nunca una ficha de suicidio ni de muertes violentas
 DESTACADOS = [("personas", "f-esperanza"), ("economia", "f-salarios"), ("estado", "f-homicidios"), ("territorio", "f-petroleo")]
+# la pregunta de cada dato destacado (D7 del plan del 26 de octubre de 2026): la cifra es la del país, así que la pregunta también. La de
+# la ficha pregunta por las provincias, que muestra su gráfico
+_PREG_DEST = {"f-esperanza": "¿Cuántos años se vive en la Argentina?", "f-salarios": "¿Cuánto se gana en un empleo privado registrado?",
+              "f-homicidios": "¿Cuántas víctimas de homicidio hay en la Argentina?", "f-petroleo": "¿Cuánto petróleo produce el país?"}
 _clave_js = js[js.index("const CLAVE = {"):js.index("\n};", js.index("const CLAVE = {"))]
 _ficha = {f[0]: f for f in FICHAS}
 _nombre_grupo = {g: n for g, n, _ in GRUPOS}
@@ -913,12 +926,12 @@ for _g, _id in DESTACADOS:
     assert _id not in TEXTO_ANTES and _ficha[_id][2], f"{_id}: no puede ser un dato destacado o le falta la pregunta fija"
     assert GRUPO_DE[_ficha[_id][1]][0] == _g, f"{_id}: no es del grupo {_g}"
 _destacados = "".join(f'<a class="tarjeta cifra destacado" href="{url_pagina(UBIC[i])}#{i}" data-clave="{i}"><span class="c-lab">{e(_nombre_grupo[g])}</span>'
-                      f'<span class="c-preg">{e(_ficha[i][2])}</span><span class="c-num"></span><span class="c-txt"></span></a>' for g, i in DESTACADOS)
+                      f'<span class="c-preg">{e(_PREG_DEST[i])}</span><span class="c-num"></span><span class="c-txt"></span></a>' for g, i in DESTACADOS)
 # Provincias: las 24 jurisdicciones con su bandera, cada una a su perfil. Es también la forma de llegar con el teclado a lo que muestra
 # el mapa de la portada, que el teclado saltea
 _n_temas_perfil = len(re.findall(r'\["(\w+)", "([^"]+)"\]', js[js.index("const PERFIL_GRUPOS = ["):js.index("];", js.index("const PERFIL_GRUPOS = ["))]))
-_provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas y su historia. Los números dentro de cada '
-                    'provincia, en <a class="enlace" href="departamentos.html">Departamentos</a>.</p><ul class="prov-home">'
+_provincias_home = (f'<p class="bloque-sub">El perfil de cada jurisdicción en {_n_temas_perfil} temas, con su historia. Los datos de cada departamento, partido '
+                    'o comuna están en <a class="enlace" href="departamentos.html">Departamentos</a>.</p><ul class="prov-home">'
                     + "".join(f'<li><a href="provincia.html?prov={c}"><img class="bandera" src="datos/banderas/{c}.png" alt="" width="24" height="16" '
                               f'loading="lazy" decoding="async">{e(NOMBRE_PROV[c])}</a></li>' for c in _PROVS) + "</ul>")
 # Historias con datos: los tres artículos los agrega datina.js (el de la relación más marcada primero, regla aprobada el 5 de octubre de
@@ -927,7 +940,7 @@ _historias_home = "".join(f'<a class="tarjeta art-card" href="{i}.html"><span cl
                           f'<b>{e(html.unescape(t))}</b><small>Laboratorio</small></span></a>' for i, ico, t, _ in PIEZAS)
 # Herramientas: las del menú, en su orden, con el mismo dibujo que las tarjetas de antes (las armaba datina.js). Departamentos pasó a
 # Provincias
-_HERR_EXTRA = {"consultor": ("Consultor de pobreza", "Consultar pobreza por aglomerado, partido y comuna", "casa"),
+_HERR_EXTRA = {"consultor": ("Consultor de pobreza", "¿Cuánta pobreza hay en cada ciudad, partido y comuna?", "casa"),
                "relaciones": ("Explorador de relaciones", "¿De dónde sale cada número?", "laptop")}
 
 
@@ -959,6 +972,9 @@ if not FORMULARIOS:
     base, _n = re.subn(r'<!-- formulario de Netlify.*?<p class="form-gracias" id="susc-gracias" hidden>[^<]*</p>',
                        '<p class="form-nota">El formulario de contacto todavía no está disponible.</p>', base, count=1, flags=re.S)
     assert _n == 1, "no se encontró el formulario de Contacto en la plantilla"
+    # y "Tus datos", en Sobre nosotros, deja de hablar de los formularios (auditoría del 26 de octubre de 2026, E9)
+    base, _n = re.subn(r'<p>Los formularios de Contacto y de novedades por correo.*?</p>', "", base, count=1, flags=re.S)
+    assert _n == 1, "no se encontró el párrafo de los formularios en Tus datos (Sobre nosotros)"
 BLOQUES = bloques(base)
 for b in BLOQUES:
     b["pagina"] = pagina_de(b)
@@ -983,7 +999,7 @@ def perfil_vacio():
     """El índice y los grupos del perfil con tarjetas vacías, igual a lo que arma datina.js."""
     indice = "".join(f'<li><a class="enlace" href="#pg-{g}">{i + 1}. {t}</a></li>' for i, (g, t) in enumerate(PERFIL_GRUPOS))
     grupos = "".join(f'<section class="perfil-grupo" id="pg-{g}" aria-labelledby="pg-{g}-t"><div class="perfil-cab"><h3 class="bloque-grupo" '
-                     f'id="pg-{g}-t">{i + 1}. <span>{t}</span></h3><a class="enlace" href="#perfil-indice">Volver al índice</a></div>'
+                     f'id="pg-{g}-t">{i + 1}. <span>{t}</span></h3><a class="enlace" href="#perfil-indice">Volver a los temas</a></div>'
                      f'<div class="perfil-tarjetas">{tarjetas_vacias(PERFIL_G.count(g), "dp esqueleto")}</div></section>'
                      for i, (g, t) in enumerate(PERFIL_GRUPOS))
     return f'<nav class="perfil-indice" id="perfil-indice" aria-label="Temas del perfil"><ol>{indice}</ol></nav>{grupos}'
@@ -1113,7 +1129,7 @@ def pagina(id_, titulo, descripcion, quedan, recorte=None, titulo_social=None, t
 pagina("inicio", None, None, {"inicio"})
 # Tu provincia: el perfil de la provincia elegida, en su propia pagina (se entra desde el primer destacado)
 pagina("provincia", "Tu provincia",
-       "Cada provincia comparada con el total del país en todos los indicadores con dato provincial, su posición entre las 24 y las provincias que más se le parecen.",
+       "El perfil de cada provincia: sus indicadores frente al total del país, su posición entre las 24 jurisdicciones, su historia y las provincias que más se le parecen.",
        {"provincia"})
 # Sobre nosotros: proposito, principios y forma de trabajo de Datina
 pagina("nosotros", "Sobre nosotros",
@@ -1121,7 +1137,7 @@ pagina("nosotros", "Sobre nosotros",
        {"nosotros"})
 # Laboratorio (etapa 33): piezas visuales grandes, como The Viz Lab de USAFacts
 pagina("laboratorio", "Laboratorio",
-       "Datos difíciles, en gráficos: cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
+       "Piezas visuales con datos públicos: cada juez de la Corte Suprema, cada banca del Congreso, cada pozo de Vaca Muerta y las 24 jurisdicciones año por año, con sus fuentes.",
        {"laboratorio"})
 for id_, _, titulo, descr in PIEZAS:
     pagina(id_, html.unescape(titulo), html.unescape(descr), {id_}, tipo="article")
@@ -1160,8 +1176,11 @@ def lista_articulos(h):
     return sin_notas(h).replace(vacia, f'<div class="art-grid" id="art-grid">{_LISTA_ARTS}</div>', 1)
 
 
-for id_, titulo, preg, *_ in SECCIONES:
-    descr = f"{titulo}: {preg} Datos por provincia con su fuente, su año y la tabla para descargar." if preg else f"{titulo} en Datina."
+for id_, titulo, preg, _, es_herr, *_ in SECCIONES:
+    cola = ("Herramienta de Datina con datos públicos de la Argentina y sus 24 jurisdicciones." if es_herr else
+            "Cada artículo cruza datos oficiales y dice sus fuentes y sus límites." if id_ == "articulos" else
+            "Cada dato con su fuente, su período y su tabla para descargar.")
+    descr = f"{titulo}: {preg} {cola}" if preg else f"{titulo} en Datina."
     pagina(id_, titulo, descr, {id_}, lista_articulos if id_ == "articulos" else None, titulo_social=f"{titulo}: {preg}" if preg else None)
 
 
@@ -1184,9 +1203,9 @@ ART_SERIES = set(re.findall(r'^\s+id: "(a-[\w-]+)"', bloque_js("const ART_SERIE 
 ART_CAPITALES = set(re.findall(r'\{id: "(a-[\w-]+)", tabla: "capitales', bloque_js("const ART = [", "\n];")))
 assert ART_SERIES and ART_CAPITALES, "no se encontraron los artículos de series o de las capitales en datina.js"
 CRUZA = lambda id_: ("series oficiales del país" if id_ in ART_SERIES else
-                     "datos oficiales de las 24 capitales de provincia" if id_ in ART_CAPITALES else "datos oficiales de las 24 jurisdicciones")
+                     "datos oficiales de las 23 capitales de provincia y de CABA" if id_ in ART_CAPITALES else "datos oficiales de las 24 jurisdicciones")
 for id_, _, _, titulo in NOTAS:
-    descr = f"{html.unescape(titulo)} Un cruce de {CRUZA(id_)}, con sus fuentes y sus límites."
+    descr = f"{html.unescape(titulo)} Compara {CRUZA(id_)} y dice de dónde salen y qué no permiten concluir."
     pagina(id_, html.unescape(titulo), descr, {"articulos"}, solo_nota(id_), tipo="article")
 
 # Paginas que cambiaron de nombre: la direccion vieja lleva a la nueva, con la ficha y la provincia del enlace

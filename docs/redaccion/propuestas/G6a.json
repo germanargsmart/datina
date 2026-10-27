@@ -1,0 +1,779 @@
+{
+ "grupo": "G6a",
+ "cambios": [
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span id=\"prov-titulo-txt\">Elegí una de las 24</span>",
+   "propuesto": "<span id=\"prov-titulo-txt\">¿Cómo se compara tu provincia con el país?</span>",
+   "motivo": "El título de la página sin provincia elegida era una instrucción: pasa a ser la pregunta que contesta el perfil (regla del autor). Con una provincia sigue el patrón del proyecto, \"[Provincia] en números\". Va igual en datina.js para que no salte al cargar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ": \"Elegí una de las 24\", animar);",
+   "propuesto": ": \"¿Cómo se compara tu provincia con el país?\", animar);",
+   "motivo": "El mismo título sin provincia que la plantilla: cambiarTexto lo compara con el que ya está.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "prov === \"02\" ? \"La Ciudad, entre las capitales\"",
+   "propuesto": "prov === \"02\" ? \"CABA, entre las capitales\"",
+   "motivo": "Término fijo: CABA, no \"la Ciudad\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "el.querySelector(\".dp-pos\").textContent = fila ? `${c.cap ? `Puesto ${orden} entre las ${c.d.length} capitales` : `Posición ${orden} de ${c.d.length}`}, de mayor a menor.${c.pais == null ? \"\" : ` País: ${c.f(c.pais)}.`}${vz ? ` Es ${vz}.` : \"\"}${c.ocde == null ? \"\" : ` OCDE: ${c.f(c.ocde)}.`}` : c.pais == null ? \"Sin total nacional comparable\" : \"Total del país\";",
+   "propuesto": "el.querySelector(\".dp-pos\").textContent = fila ? `${orden === 1 ? \"La cifra más alta\" : orden === c.d.length ? \"La cifra más baja\" : orden <= c.d.length / 2 ? `La ${orden}.ª cifra más alta` : `La ${c.d.length - orden + 1}.ª cifra más baja`} de las ${c.d.length} ${c.cap ? \"capitales\" : c.d.length < 24 ? \"jurisdicciones con dato\" : \"jurisdicciones\"}.${c.pais == null ? \"\" : ` País: ${c.f(c.pais)}.`}${vz ? ` Es ${vz}.` : \"\"}${c.ocde == null ? \"\" : ` Promedio de la OCDE: ${c.f(c.ocde)}.`}` : c.pais == null ? \"Sin total nacional comparable\" : nombre ? `Sin dato para ${nombre}: la cifra es la del total del país.` : \"Total del país\";",
+   "motivo": "La línea de posición se repite en 40 tarjetas y 24 páginas: \"Posición 22 de 24, de mayor a menor\" obligaba a dar vuelta el puesto. Ahora dice \"La 3.ª cifra más baja de las 24 jurisdicciones\" o \"La 2.ª cifra más alta\", sin valorar, con las mismas variables (orden, c.d.length, c.cap). Cuando faltan jurisdicciones dice \"de las 21 jurisdicciones con dato\" (antes \"4 de 21\" sin explicación). \"OCDE\" pasa a \"Promedio de la OCDE\" (es el promedio simple de sus países). Con provincia elegida y sin dato propio (CAMMESA no separa CABA de Buenos Aires ni informa Tierra del Fuego) ya no dice \"Total del país\" como si fuera su dato. \"País:\" queda literal.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "return r >= 1.5 && !soloDebajo ? `${veces(v, pais)} veces el promedio del país` : r < .1 ? \"menos de la décima parte del promedio del país\"\r\n    : r < .25 ? \"menos de la cuarta parte del promedio del país\" : r < .5 ? \"menos de la mitad del promedio del país\" : \"\";",
+   "propuesto": "return r >= 1.5 && !soloDebajo ? `${veces(v, pais)} veces el valor del país` : r < .1 ? \"menos de la décima parte del valor del país\"\n    : r < .25 ? \"menos de la cuarta parte del valor del país\" : r < .5 ? \"menos de la mitad del valor del país\" : \"\";",
+   "motivo": "\"País\" es el valor del país (total, tasa o promedio nacional), no el promedio de las 24 jurisdicciones. \"Veces el valor del país\" sirve en el perfil (\"Es 1,7 veces el valor del país.\") y en los conVeces de las otras fichas (\"4.094.579 pesos (1,9 veces el valor del país)\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "href=\"#perfil-indice\">Volver al índice</a>",
+   "propuesto": "href=\"#perfil-indice\">Volver a los temas</a>",
+   "motivo": "\"Índice\" en la página de una provincia se confunde con la herramienta Tu índice: el enlace vuelve a la lista de temas del perfil. Va igual en 03, que arma la silueta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "original": "href=\"#perfil-indice\">Volver al índice</a>",
+   "propuesto": "href=\"#perfil-indice\">Volver a los temas</a>",
+   "motivo": "La silueta del perfil que arma el constructor tiene que decir lo mismo que datina.js.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`tasa neta de escolarización, ${es.fin}`",
+   "propuesto": "det:`% de los adolescentes en edad de ir a la secundaria que van a ese nivel (tasa neta), ${es.fin}`",
+   "motivo": "\"Tasa neta de escolarización\" no decía qué se cuenta: la definición sale del explicador de Educación.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`% de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`",
+   "propuesto": "det:`% de los estudiantes de 6° grado con nivel satisfactorio o avanzado, ${ap.anio}`",
+   "motivo": "Faltaba quiénes: los estudiantes de 6° grado. Matemática y lengua usan el mismo detalle.",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "lab:\"Variación del empleo privado\", det:`% en los doce meses a ${em.mes}`",
+   "propuesto": "lab:\"Variación del empleo privado registrado\", det:`% en los doce meses hasta ${em.mes}`",
+   "motivo": "Es el empleo privado registrado (SIPA), como la tarjeta de al lado. \"Hasta\" en lugar de \"a\", como en supermercados.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`muertes por año cada 100.000 habitantes, ${CM.desde} a ${CM.hasta}`",
+   "propuesto": "det:`muertes por año cada 100.000 habitantes, descontado el efecto de la edad de la población, promedio ${CM.desde} a ${CM.hasta}`",
+   "motivo": "\"Ajustada por edad\" no se entiende sin decir para qué: sin eso, CABA, con población más vieja, parecería tener la mortalidad más alta. \"Promedio\" como en la mortalidad infantil.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:\"% de las personas sin obra social, prepaga ni plan estatal, 2022\"",
+   "propuesto": "det:\"% de las personas sin obra social, prepaga ni plan estatal, Censo 2022\"",
+   "motivo": "La fuente del año (Censo 2022), como en las demás tarjetas del censo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:\"% de los hogares con desagüe a red cloacal, 2022\"",
+   "propuesto": "det:\"% de los hogares con desagüe a red cloacal, Censo 2022\"",
+   "motivo": "La fuente del año (Censo 2022), como en las demás tarjetas del censo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "lab:\"Internet en el hogar\", det:\"% de los hogares, 2022\"",
+   "propuesto": "lab:\"Internet en el hogar\", det:\"% de los hogares con internet en la vivienda, Censo 2022\"",
+   "motivo": "\"% de los hogares\" no decía qué se cuenta (la variable del censo es internet en la vivienda).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`dólares por habitante, ${nv.ex_anio}`",
+   "propuesto": "det:`dólares por habitante de lo que se produjo en la provincia y se exportó, ${nv.ex_anio}`",
+   "motivo": "El INDEC asigna cada exportación a la provincia donde se produjo (Origen Provincial de las Exportaciones), no al puerto de salida: el detalle lo dice.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`cada 1.000 habitantes, salidos por Ezeiza o Aeroparque, ${tu.eti_anio}`",
+   "propuesto": "det:`turistas que visitaron la provincia cada 1.000 habitantes, entre los que salieron del país por Ezeiza o Aeroparque, ${tu.eti_anio}`",
+   "motivo": "No se entendía qué se cuenta ni dónde se midió: son los turistas extranjeros que visitaron la provincia, entre los que salieron por Ezeiza o Aeroparque (la bajada de la ficha f-eti).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "lab:\"Gas de red para cocinar\"",
+   "propuesto": "lab:\"Hogares que cocinan con gas de red\"",
+   "motivo": "El mismo indicador se llama así en Cruces, en Departamentos y en la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`m³ por usuario residencial de gas natural, ${e.gas_anio}`",
+   "propuesto": "det:`m³ de gas natural por usuario residencial en el año, ${e.gas_anio}`",
+   "motivo": "Faltaba el período del consumo: es lo que consumió en el año cada usuario residencial.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`pesos por habitante, ${CN.op_ult}`",
+   "propuesto": "det:`pesos por habitante en obras con provincia asignada, ${CN.op_ult}`",
+   "motivo": "El valor del país también cuenta solo las obras con provincia asignada (el texto de la ficha lo dice): sin eso, la comparación parece incompleta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`kWh por habitante, ${e.el_ult}`",
+   "propuesto": "det:`kilovatios hora (kWh) por habitante en el año, ${e.el_ult}`",
+   "motivo": "La sigla desplegada una vez y el período del consumo.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "lab:\"Salario promedio de los asalariados registrados privados\", veces:true, det:`pesos por mes, bruto, ${SA.mes}`",
+   "propuesto": "lab:\"Salario privado registrado\", veces:true, det:`pesos brutos por mes, promedio de los asalariados registrados del sector privado, ${SA.mes}`",
+   "motivo": "El rótulo de 56 letras en mayúsculas se leía mal: pasa a ser corto y el detalle dice qué promedio es, con las palabras de la bajada de f-salarios.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`pesos por mes, bruto, con 10 años de antigüedad, ${DC.trim}`",
+   "propuesto": "det:`pesos brutos por mes, con 10 años de antigüedad y jornada simple, ${DC.trim}`",
+   "motivo": "Faltaba la jornada simple, que dicen la ficha y Cruces. \"Pesos brutos por mes\" en lugar de \"por mes, bruto\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`pesos por alumno de gestión estatal, ${IE.anio}`",
+   "propuesto": "det:`pesos por alumno de las escuelas de gestión estatal, ${IE.anio}`",
+   "motivo": "La gestión estatal es de las escuelas, no de los alumnos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`víctimas cada 100.000 habitantes por año, ${SG.hom3_desde} a ${SG.anio}`",
+   "propuesto": "det:`víctimas por año cada 100.000 habitantes, promedio ${SG.hom3_desde} a ${SG.anio}`",
+   "motivo": "Es el promedio de tres años, como dice el mapa de Departamentos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`cada 100.000 habitantes, ${SG.anio}`",
+   "propuesto": "det:`hechos registrados cada 100.000 habitantes, ${SG.anio}`",
+   "motivo": "Faltaba qué se cuenta: hechos registrados.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`cada 1.000 habitantes, ${GBC.anio}`",
+   "propuesto": "det:`cargos cada 1.000 habitantes, sin municipios ni empresas provinciales, ${GBC.anio}`",
+   "motivo": "Faltaba qué se cuenta (cargos, no personas) y qué no incluye, como dice el texto de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`pesos por habitante, ${GBP.anio}`",
+   "propuesto": "det:`pesos recaudados por habitante, ${GBP.anio}`",
+   "motivo": "Dice que es recaudación.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "det:`variación en pesos de igual valor, doce meses hasta ${ESU.mes}`",
+   "propuesto": "det:`variación descontada la inflación, en los doce meses hasta ${ESU.mes}`",
+   "motivo": "Término fijo: \"descontada la inflación\", no \"en pesos de igual valor\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "lab:\"Pensiones por discapacidad\"",
+   "propuesto": "lab:\"Pensiones por invalidez\"",
+   "motivo": "Término fijo: la pensión no contributiva es por invalidez (el detalle ya lo decía). Va igual en Cruces (02_procesar.py).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "cap:true, veces:true, lab:\"Hogares que alquilan\"",
+   "propuesto": "cap:true, veces:true, lab:\"Hogares que alquilan en la capital\"",
+   "motivo": "El mismo rótulo aparecía en Vivienda (la provincia) y en La capital, con cifras distintas: parecía una contradicción.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "en los ${R.cruces.length - 1} indicadores del explorador.</p></div>` +",
+   "propuesto": "en los ${R.cruces.length - 1} indicadores de Cruces.</p></div>` +",
+   "motivo": "\"Explorador\" es el nombre de otra herramienta (el Explorador de relaciones): los indicadores son los de Cruces.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "<p class=\"suave\">Elegí una provincia para compararla con los países del mundo.</p>",
+   "propuesto": "<p class=\"suave\">Elegí una provincia para ver a qué países se parece en esperanza de vida y mortalidad infantil.</p>",
+   "motivo": "Dice con qué se compara.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<p class=\"suave\">La más distinta es ${lista[lista.length - 1].f.territorio}. Se compara la distancia en los ${R.cruces.length - 1} indicadores del explorador, cada uno medido en desvíos respecto del promedio de las 24.</p></div>` +",
+   "propuesto": "`<p class=\"suave\">La que menos se le parece es ${lista[lista.length - 1].f.territorio}. La comparación usa los ${R.cruces.length - 1} indicadores de Cruces. Cada uno se lleva a una misma escala, según cuánto se aleja del promedio de las 24 jurisdicciones, para que todos pesen lo mismo.</p></div>` +",
+   "motivo": "\"Explorador\" y \"desvíos\" eran jerga: se explica en palabras qué se compara y por qué se lleva todo a la misma escala.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Su esperanza de vida, ${n1(ev.total)} años en ${nv.ev_anio}, se parece a la de <b>${pe.pais}</b> (${n1(pe.esperanza_vida)}).",
+   "propuesto": "Su esperanza de vida al nacer, ${n1(ev.total)} años en ${nv.ev_anio}, se parece a la de <b>${pe.pais}</b> (${n1(pe.esperanza_vida)} años en ${pe.esperanza_vida_anio}).",
+   "motivo": "Al país le faltaba el año, que la tabla del Banco Mundial ya trae (la mortalidad infantil sí lo tenía).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "Su mortalidad infantil, ${n1(mi.tmi_actual)} cada 1.000 nacidos vivos en ${mo.tri_act}, se parece",
+   "propuesto": "Su mortalidad infantil, ${n1(mi.tmi_actual)} muertes de menores de un año cada 1.000 nacidos vivos (promedio ${mo.tri_act}), se parece",
+   "motivo": "\"En 2022 a 2024\" no se lee: es un promedio de tres años, como en la tarjeta del perfil. Se nombra qué se cuenta.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`</ul><p class=\"suave\">Países según el Banco Mundial. La Argentina en su conjunto tiene ${n1(nv.ev_pais)} años de esperanza de vida y el promedio de la OCDE, ${n1(OC.esperanza_vida.ocde)}.</p></div>`;",
+   "propuesto": "`</ul><p class=\"suave\">Los datos de los países son del Banco Mundial y pueden ser de otro año que los de la provincia. La esperanza de vida de la Argentina en su conjunto es de ${n1(nv.ev_pais)} años, y el promedio de los países de la OCDE, de ${n1(OC.esperanza_vida.ocde)}.</p></div>`;",
+   "motivo": "Oración completa y el límite de la comparación: fuentes y años distintos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\" data-corta=\"¿Qué indicadores se mueven juntos?\">¿Qué indicadores se mueven juntos entre las provincias?</p>",
+   "propuesto": "<p class=\"pregunta\" data-corta=\"¿Qué indicadores van juntos?\">¿Qué indicadores van juntos entre las provincias?</p>",
+   "motivo": "La vista principal compara jurisdicciones en un mismo momento, no cómo se mueven en el tiempo: \"van juntos\" es el término fijo para una relación entre dos datos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Elegí dos indicadores y mirá cómo se ubican las 24 jurisdicciones, con la recta que mejor las resume y las advertencias para no sacar conclusiones de más.</p>",
+   "propuesto": "<p>Elegí dos indicadores y fijate cómo se ubican las 24 jurisdicciones. También podés ver las correlaciones entre todos los pares de indicadores y una regresión con varios a la vez.</p>",
+   "motivo": "La bajada y el texto de la ficha repetían la misma instrucción: la bajada pasa a decir qué ofrece la página entera (las tres vistas).",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>Explorador de indicadores provinciales</h2>",
+   "propuesto": "<h2>¿Cómo se relacionan dos indicadores entre las provincias?</h2>",
+   "motivo": "El título de la ficha pasa a ser la pregunta que contesta la herramienta (regla del autor) y deja la palabra \"Explorador\" para el Explorador de relaciones.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"lead\">Elegí dos indicadores y mirá si las 24 jurisdicciones se ordenan juntas. Sirve para explorar: una correlación no dice qué causa qué. El diseño sigue a los exploradores regionales de la OCDE y Eurostat, a Gapminder y al Atlas de Desarrollo Humano de Brasil.</p>",
+   "propuesto": "<p class=\"lead\">Cada punto es una jurisdicción, y la recta resume la relación entre los dos indicadores. Debajo del gráfico, un texto dice qué tan fuerte es la relación y si puede deberse al azar. Sirve para explorar: que dos indicadores vayan juntos no dice que uno cause el otro. El diseño sigue a los exploradores regionales de la OCDE y de Eurostat, a Gapminder y al Atlas de Desarrollo Humano de Brasil.</p>",
+   "motivo": "Dice cómo se lee el gráfico en lugar de repetir la instrucción de la bajada. Se conservan el límite de la correlación y los créditos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<input type=\"checkbox\" id=\"cx-logx\"> Horizontal logarítmico</label>",
+   "propuesto": "<input type=\"checkbox\" id=\"cx-logx\"> Eje horizontal logarítmico</label>",
+   "motivo": "El rótulo nombra el eje, como los selectores de arriba (\"Eje horizontal\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<input type=\"checkbox\" id=\"cx-logy\"> Vertical logarítmico</label>",
+   "propuesto": "<input type=\"checkbox\" id=\"cx-logy\"> Eje vertical logarítmico</label>",
+   "motivo": "El rótulo nombra el eje, como los selectores de arriba (\"Eje vertical\").",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"nota\">Tocá un punto para sacar esa jurisdicción del cálculo y otra vez para volver a sumarla. La recta es una regresión lineal por mínimos cuadrados y la franja celeste, su intervalo de confianza del 95%. Con 24 casos, correlaciones moderadas pueden aparecer por azar. Son promedios de cada provincia: no dicen nada de cada persona. Y dos indicadores pueden moverse juntos porque dependen de un tercero, como el ingreso o la urbanización.</p>",
+   "propuesto": "<p class=\"nota\">Tocá un punto, o llegá a él con Tab y apretá Enter, para sacar esa jurisdicción del cálculo. Hacé lo mismo para volver a sumarla. La recta es la que mejor resume los puntos (regresión lineal por mínimos cuadrados), y la franja celeste es su margen de error, con un 95% de confianza. Con 24 casos, una correlación moderada puede aparecer por azar. Los datos son de cada jurisdicción en su conjunto: no dicen nada de cada persona. Dos indicadores también pueden ir juntos porque los dos dependen de un tercero, como el ingreso o la urbanización.</p>",
+   "motivo": "Suma cómo se usa con el teclado, explica \"intervalo de confianza\" en palabras y corrige \"promedios de cada provincia\" (hay tasas, porcentajes y totales). Se conservan los tres límites.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"nota\">Regresión lineal por mínimos cuadrados con todas las variables estandarizadas, así los coeficientes se pueden comparar: cada uno indica cuántos desvíos cambia el indicador a explicar cuando esa variable sube un desvío y las demás quedan fijas. Las barras son intervalos de confianza del 95%. En azul, los coeficientes con valor p menor a 0,05. El VIF mide cuánto se superpone cada variable con las otras: arriba de 5, sus coeficientes separados no son confiables. Con 24 casos, conviene usar pocas variables.</p>",
+   "propuesto": "<p class=\"nota\">Es una regresión lineal por mínimos cuadrados. Todas las variables se pasan a la misma escala, en desvíos estándar respecto de su promedio, así los coeficientes se pueden comparar entre sí. Cada coeficiente dice cuántos desvíos más arriba o más abajo tiende a estar el indicador a explicar cuando esa variable está un desvío más arriba y las demás quedan fijas. Cada barra es el margen de error de un coeficiente, con un 95% de confianza. En azul, los coeficientes con valor p menor a 0,05, que es poco probable que se deban al azar. El VIF mide cuánto se superpone cada variable con las otras: arriba de 5, sus coeficientes por separado no son confiables. Con 24 casos, conviene usar pocas variables.</p>",
+   "motivo": "La misma explicación en oraciones cortas y sin jerga sin explicar (estandarizadas, intervalo, valor p). \"Tiende a estar\" en lugar de \"cambia cuando sube\", que sonaba a causa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuentes: las de cada indicador, indicadas debajo del gráfico</span>",
+   "propuesto": "<span>Fuentes: las de cada indicador, que figuran debajo del gráfico</span>",
+   "motivo": "Evita \"indicador, indicadas\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": ".attr(\"aria-label\", d => `${d.territorio}: ${fm(st.x)(d[st.x])} y ${fm(st.y)(d[st.y])}. ${st.fuera.has(d.codigo_indec) ? \"Fuera del cálculo, tocá para sumarla\" : \"Tocá para sacarla del cálculo\"}`);",
+   "propuesto": ".attr(\"aria-label\", d => `${d.territorio}. ${X.nombre}: ${fm(st.x)(d[st.x])}. ${Y.nombre}: ${fm(st.y)(d[st.y])}. ${st.fuera.has(d.codigo_indec) ? \"Fuera del cálculo: al elegirla, vuelve a sumarse\" : \"Al elegirla, sale del cálculo\"}`);",
+   "motivo": "El lector de pantalla leía dos números sin decir de qué indicador es cada uno, y \"tocá\" a quien usa el teclado.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "la diferencia indica que unos pocos casos extremos o una forma no lineal pesan en el resultado.",
+   "propuesto": "la diferencia sugiere que unos pocos casos extremos o una forma no lineal pesan en el resultado.",
+   "motivo": "Es una señal, no una prueba: \"sugiere\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "t += `${datos[imax].territorio} es la jurisdicción que más mueve la recta: sin ella, r sería ${fr(r2)}. `;",
+   "propuesto": "t += `${datos[imax].territorio} es la jurisdicción que más mueve la recta: sin ella, r sería ${fr(r2)}${fuerza(r2) !== fuerza(m.r) ? ` y la relación pasaría a ser ${fuerza(r2)}` : \"\"}. `;",
+   "motivo": "Auditoría (P0): con Maternidad adolescente y Aprender, la relación es \"fuerte\" con CABA y moderada sin ella. Ahora lo dice, con la misma escala (fuerza) y el r sin esa jurisdicción que ya se calculaba.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "t += ` Mostrando ${st.anio}: los valores son anuales y pueden diferir del último dato, que en algunos indicadores es un promedio de varios años.`;",
+   "propuesto": "t += ` El gráfico muestra el año ${st.anio}: los valores son de ese año y pueden diferir del último dato, que en algunos indicadores es un promedio de varios años.`;",
+   "motivo": "Oración con sujeto en lugar del gerundio suelto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"Matriz de correlaciones entre los indicadores provinciales. Moverse con las flechas y elegir con Enter\"",
+   "propuesto": "\"Matriz de correlaciones entre los indicadores provinciales. Usá las flechas para pasar de una celda a otra y Enter para ver la dispersión de ese par\"",
+   "motivo": "Instrucción completa, con voseo, y qué pasa al elegir.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<b>${META[d.a].nombre}</b> y <b>${META[d.b].nombre}</b><br>r = ${fr(d.r)}",
+   "propuesto": "`<b>${META[d.a].nombre}</b> ${yE(`<b>${META[d.b].nombre}</b>`)}<br>r = ${fr(d.r)}",
+   "motivo": "La \"y\" delante de un nombre que empieza con i (Internet en el hogar, Impuestos provinciales, Inversión educativa) pasa a \"e\" con yE(), que ya ignora las etiquetas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "document.getElementById(\"cm-matriz-nota\").textContent = `Cada celda es la correlación de Pearson entre dos indicadores, de −1 (rojo) a 1 (azul), con las ${FILAS.length - st.fuera.size} jurisdicciones incluidas. ` +\r\n      `En negrita, las que tienen valor p menor a 0,05: son ${sig} de ${celdas.length} pares. Con tantos pares, unos ${Math.round(celdas.length * .05)} pueden dar significativos solo por azar, así que conviene mirar cada uno en la dispersión antes de sacar conclusiones. Tocá una celda para abrirla.`;",
+   "propuesto": "document.getElementById(\"cm-matriz-nota\").textContent = `Cada celda es la correlación de Pearson entre dos indicadores en las ${FILAS.length - st.fuera.size} jurisdicciones incluidas. Va de −1, en rojo (cuando uno sube, el otro baja), a 1, en azul (cuando suben juntos). ` +\n      `En negrita, los pares con valor p menor a 0,05: son ${n0(sig)} de ${n0(celdas.length)}. Con tantos pares, unos ${n0(Math.round(celdas.length * .05))} pueden dar significativos solo por azar: conviene mirar cada uno en la dispersión antes de sacar conclusiones. Tocá una celda para ver su dispersión.`;",
+   "motivo": "Dice qué significan −1 y 1, y las cantidades llevan punto de miles (decía \"829 de 1770 pares\"). Se conserva la advertencia de los falsos positivos.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "let t = `Con ${res.n} jurisdicciones, ${xs.length === 1 ? \"la variable elegida explica\" : `las ${xs.length} variables elegidas explican`} en conjunto el ${loc.format(\",.0f\")(res.r2 * 100)}% de las diferencias entre provincias en «${Y.nombre}» (R² ajustado ${fr(res.r2a)}, valor p del modelo ${fp(res.pF)}). `;\r\n    t += sig.length ? `Con las demás variables fijas, ${lista(sig.map(r => `«${META[r.k].nombre}» (${r.b > 0 ? \"relación positiva\" : \"relación negativa\"})`))} ${sig.length > 1 ? \"mantienen\" : \"mantiene\"} una relación distinta de cero. `\r\n      : `Ninguna variable tiene, por sí sola, una relación distinta de cero una vez que se consideran las demás. `;\r\n    if (filas.some(r => r.vif > 5)) t += `Algunas variables explicativas están muy correlacionadas entre sí (VIF mayor a 5): sus coeficientes por separado no son confiables. `;",
+   "propuesto": "let t = `Con ${res.n} jurisdicciones, ${xs.length === 1 ? \"el modelo con la variable elegida reproduce\" : `el modelo con las ${xs.length} variables elegidas reproduce`} el ${loc.format(\",.0f\")(res.r2 * 100)}% de las diferencias entre provincias en «${Y.nombre}» (R² ajustado ${fr(res.r2a)}, valor p del modelo ${fp(res.pF)}). `;\n    t += sig.length ? `${xs.length > 1 ? \"Si las demás variables quedan fijas, l\" : \"L\"}${sig.length > 1 ? \"as relaciones con\" : \"a relación con\"} ${lista(sig.map(r => `«${META[r.k].nombre}» (${r.b > 0 ? \"positiva\" : \"negativa\"})`))} ${sig.length > 1 ? \"siguen siendo claras: es poco probable que se deban\" : xs.length > 1 ? \"sigue siendo clara: es poco probable que se deba\" : \"es clara: es poco probable que se deba\"} al azar. `\n      : `${xs.length > 1 ? \"Una vez que se tienen en cuenta las demás, ninguna variable muestra por sí sola\" : \"La variable elegida no muestra\"} una relación que se pueda distinguir del azar. `;\n    if (filas.some(r => r.vif > 5)) t += `Algunas variables explicativas se superponen mucho entre sí (VIF mayor a 5): sus coeficientes por separado no son confiables. `;",
+   "motivo": "\"Las variables explican el 54%\" sonaba a causa: el modelo \"reproduce\" esa parte de las diferencias. \"Mantiene una relación distinta de cero\" era jerga: ahora dice que la relación sigue siendo clara y que es poco probable que se deba al azar.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Cada persona le da su propio peso a siete dimensiones y el índice ordena las provincias con esos pesos.</p>",
+   "propuesto": "<p>Elegí cuánto pesa cada una de siete dimensiones, como la salud, la educación o la seguridad, y el índice ordena las 24 jurisdicciones con esos pesos.</p>",
+   "motivo": "Dice qué hace la persona y cuáles son las dimensiones, con el término fijo \"las 24 jurisdicciones\".",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<h2>Armá tu propio índice de bienestar provincial</h2>",
+   "propuesto": "<h2>¿Cómo cambia el orden de las provincias según el peso de cada dimensión?</h2>",
+   "motivo": "El título de la ficha pasa a ser la pregunta que contesta la herramienta (regla del autor), sin repetir la de la página.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"lead\">Cada persona valora cosas distintas. Mové los controles para darle más o menos peso a cada dimensión y mirá cómo cambia el orden de las 24 jurisdicciones. La idea viene del Índice para una Vida Mejor de la OCDE.</p>",
+   "propuesto": "<p class=\"lead\">Cada persona valora cosas distintas. Mové los controles para darle a cada dimensión un peso de 0 a 5 y fijate cómo cambia el orden de las 24 jurisdicciones. Cada barra es el puntaje de una jurisdicción, de 0 a 10, y sus colores muestran cuánto aporta cada dimensión. La idea viene del Índice para una Vida Mejor de la OCDE.</p>",
+   "motivo": "Suma las dos escalas (pesos de 0 a 5, puntaje de 0 a 10) y cómo se lee la barra, que antes estaba al final de la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<span>Fuentes: las de cada indicador, en la tabla descargable</span>",
+   "propuesto": "<span>Fuentes: las de cada indicador, que figuran en Cruces</span>",
+   "motivo": "La tabla descargable (cruces_provincias.csv) no trae las fuentes: las muestra Cruces al elegir cada indicador.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "document.getElementById(\"ix-nota\").textContent = \"Cada indicador se lleva a una escala de 0 a 10, donde 0 es el peor valor entre las 24 jurisdicciones y 10 el mejor. Exportaciones y velocidad de internet se miden en logaritmo, para que un valor extremo no aplaste al resto. Cada dimensión es el promedio de sus indicadores y el índice es el promedio de las dimensiones según los pesos elegidos. Los indicadores son de años distintos, entre \" + Math.min(...IX_ANIOS) + \" y \" + Math.max(...IX_ANIOS) + \", y cada barra muestra cuánto aporta cada dimensión. No es un índice oficial: es una forma de ver qué pasa con el orden según lo que cada uno valora. Los pesos elegidos quedan en el enlace para compartirlo.\";",
+   "propuesto": "document.getElementById(\"ix-nota\").textContent = \"Cada indicador se lleva a una escala de 0 a 10: 0 es el peor valor entre las 24 jurisdicciones y 10, el mejor. Las exportaciones y la velocidad de internet se pasan antes a escala logarítmica, para que un valor extremo no aplaste al resto. Cada dimensión es el promedio de sus indicadores, y el índice, el promedio de las dimensiones con los pesos elegidos. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás. Los indicadores son de años distintos, entre \" + Math.min(...IX_ANIOS) + \" y \" + Math.max(...IX_ANIOS) + \". No es un índice oficial: muestra cómo cambia el orden según lo que cada uno valora. Los pesos elegidos quedan en el enlace, para compartirlo.\";",
+   "motivo": "Oraciones más cortas, la lectura de la barra pasa al texto de la ficha y suma un límite que estaba solo en el código: si falta un indicador, la dimensión se promedia con los que hay.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "queda primera, con ${n1(datos[0].t)} puntos de 10, y ${datos[datos.length - 1].f.territorio} última,",
+   "propuesto": "queda primera, con ${n1(datos[0].t)} puntos sobre 10, y ${datos[datos.length - 1].f.territorio}, última,",
+   "motivo": "\"Puntos sobre 10\" y la coma que marca el verbo omitido.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "t += ` ${NOMBRES[prov]} queda en el puesto ${pos(prov)}.`;",
+   "propuesto": "t += ` ${NOMBRES[prov]} queda en el puesto ${pos(prov)} de ${datos.length}.`;",
+   "motivo": "El puesto con su total.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p class=\"pregunta\">¿Cómo cambian los números dentro de cada provincia?</p>",
+   "propuesto": "<p class=\"pregunta\">¿Qué diferencias hay entre los departamentos de una misma provincia?</p>",
+   "motivo": "\"Los números\" no decía de qué: la pregunta nombra la unidad que muestra el mapa.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "original": "<p>Un mapa con los departamentos de todo el país para ver lo que el promedio provincial esconde.</p>",
+   "propuesto": "<p>Un mapa con todos los departamentos, partidos y comunas del país, para ver las diferencias que el dato de cada provincia no muestra.</p>",
+   "motivo": "El dato de la provincia no siempre es un promedio. Nombra partidos y comunas, que es como se llaman en Buenos Aires y CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"mapa-dep-titulo\": `Indicadores de los ${R.departamentos.n} departamentos del país`,",
+   "propuesto": "\"mapa-dep-titulo\": `¿Cómo varía cada indicador de un departamento a otro?`,",
+   "motivo": "El título de la ficha pasa a ser una pregunta y sin cifras (regla del autor): la cantidad de departamentos pasa al texto.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "\"mapa-dep\": `Cada provincia se divide en departamentos, partidos o comunas. Este mapa muestra datos de seguridad del SNIC, la estructura de edad de la población identificada por el RENAPER y, según el Censo 2022, dónde nació la población y cómo son las viviendas y los hogares en cada uno. Tocá una provincia para acercarte.`,",
+   "propuesto": "\"mapa-dep\": `Cada provincia se divide en departamentos, que en Buenos Aires se llaman partidos y en CABA, comunas: son ${n0(R.departamentos.n)} en todo el país. El mapa reúne datos de tres fuentes: los homicidios, los robos y las muertes viales del Sistema Nacional de Información Criminal (SNIC), la edad de la población según el Registro Nacional de las Personas (RENAPER), y el lugar de nacimiento, las viviendas y los hogares según el Censo 2022 del INDEC. Tocá una provincia para acercarte.`,",
+   "motivo": "Siglas desplegadas la primera vez, la cantidad de departamentos que salió del título y qué datos trae cada fuente.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "`<br>${n0(r.poblacion_identificada)} personas identificadas`",
+   "propuesto": "`<br>${n0(r.poblacion_identificada)} personas identificadas por el RENAPER`",
+   "motivo": "Dice quién identifica a esas personas.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "original": "document.getElementById(\"mp-nota\").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos en cinco grupos del mismo tamaño. ` + (censo\r\n      ? `Los porcentajes del Censo 2022 se calculan sobre todos los hogares (o todas las viviendas) de cada departamento, y el censo cuenta a cada persona en la vivienda donde vive habitualmente. ` +\r\n        `A diferencia del RENAPER, separa las 15 comunas de la Ciudad de Buenos Aires. Las listas solo incluyen los departamentos con al menos ${n0(MIN_HOG)} hogares. Tocá una provincia en el mapa para acercarte.`\r\n      : `En los departamentos con poca población, unos pocos casos mueven mucho una tasa, por eso las listas solo incluyen los que tienen al menos ${n0(MIN_POB)} personas identificadas y las tasas del SNIC usan el promedio de tres años. ` +\r\n      `Los datos del SNIC son hechos registrados por las fuerzas de seguridad según el lugar donde ocurrieron. El RENAPER cuenta personas con DNI según el domicilio que declararon, que puede no ser donde viven hoy: es un registro de domicilios, no un conteo de residentes. Publica la Ciudad de Buenos Aires sin separar por comuna, así que sus 15 comunas muestran el mismo valor. Tocá una provincia en el mapa para acercarte.`);",
+   "propuesto": "document.getElementById(\"mp-nota\").textContent = `${m.nombre}: ${m.unidad}. Fuente: ${m.fuente}. El color divide a los departamentos del país en cinco grupos del mismo tamaño, de menor a mayor valor. ` + (censo\n      ? `El censo cuenta a cada persona en la vivienda donde vive habitualmente, y cada porcentaje se calcula sobre el total de personas, hogares o viviendas del departamento, según el indicador. ` +\n        `A diferencia del RENAPER, separa las 15 comunas de CABA. Las listas solo incluyen los departamentos con al menos ${n0(MIN_HOG)} hogares.`\n      : m.fuente.startsWith(\"SNIC\") ? `El SNIC cuenta los hechos y las víctimas que registran las fuerzas de seguridad, según el lugar donde ocurrieron. En los departamentos con poca población, unos pocos casos mueven mucho una tasa: por eso ${m.unidad.includes(\"promedio\") ? \"esta tasa es el promedio de tres años y \" : \"\"}las listas solo incluyen los departamentos con al menos ${n0(MIN_POB)} personas identificadas por el RENAPER.`\n      : `El RENAPER cuenta a las personas con DNI según el domicilio que declararon, que puede no ser donde viven hoy: es un registro de domicilios, no un conteo de residentes. Publica CABA sin separar por comuna, así que sus 15 comunas muestran el mismo valor. Las listas solo incluyen los departamentos con al menos ${n0(MIN_POB)} personas identificadas.`);",
+   "motivo": "La nota mezclaba el SNIC y el RENAPER en todos los indicadores y decía mal dos cosas: que todas las tasas del SNIC son promedios de tres años (los robos son de un año) y que los porcentajes del censo son sobre hogares o viviendas (los nacidos en otro país son sobre personas). Ahora elige la aclaración según la fuente del indicador (m.fuente y m.unidad, de la misma entrada). La comuna repetida es solo del RENAPER: el SNIC sí separa las comunas. \"Del país\": al acercar una provincia, los colores siguen los grupos de todo el país. \"Tocá una provincia\" queda solo en el texto de la ficha.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Cada punto es una de las 24 jurisdicciones. Su posición depende de dos indicadores que elegís vos, por ejemplo empleo registrado y pobreza. La recta resume la relación promedio entre los dos y la franja alrededor marca el margen de error de esa recta. Todos los indicadores son tasas, porcentajes o valores por habitante, para que el tamaño de cada provincia no domine la comparación.",
+   "propuesto": "Cada punto es una de las 24 jurisdicciones. Su posición depende de dos indicadores que elegís vos, por ejemplo el empleo privado registrado y los homicidios dolosos. La recta resume la relación promedio entre los dos, y la franja que la rodea marca su margen de error. Salvo la población, ningún indicador depende del tamaño de la jurisdicción: son tasas, porcentajes, promedios o valores por habitante, para que las más grandes no dominen la comparación.",
+   "motivo": "El ejemplo usaba la pobreza, que no está en la lista (no hay dato provincial), y la frase final era falsa: la población es un total y los salarios o la esperanza de vida son promedios.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Son solo 24 casos, así que una provincia puede mover mucho la recta: el explorador avisa cuál pesa más. Que dos indicadores se muevan juntos no prueba que uno cause el otro, porque puede haber un tercer factor detrás. Además son promedios provinciales: lo que vale para las provincias no tiene por qué valer para cada persona que vive en ellas, un error que se conoce como falacia ecológica. Cuando los indicadores son de años distintos, el explorador también lo aclara.",
+   "propuesto": "Son solo 24 casos, así que una jurisdicción puede mover mucho la recta: la herramienta avisa cuál pesa más. Que dos indicadores vayan juntos no prueba que uno cause el otro: puede haber un tercer factor detrás de los dos. Además, son datos de cada jurisdicción en su conjunto: lo que vale para las provincias no tiene por qué valer para cada persona que vive en ellas. Suponerlo es un error que se conoce como falacia ecológica. Cuando los indicadores son de años distintos, la herramienta también lo aclara.",
+   "motivo": "\"El explorador\" es otra herramienta del sitio. Oraciones más cortas. Se conservan los tres límites.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Cuando los dos indicadores tienen serie por año, se puede ver cómo se movió cada provincia, al estilo de los gráficos animados de Gapminder. La vista de regresión múltiple estima el peso de hasta cuatro indicadores a la vez sobre otro, con las variables llevadas a la misma escala. Con 24 casos y varios indicadores parecidos entre sí, los resultados son frágiles: el factor de inflación de la varianza (VIF) avisa cuando dos explicativas se superponen demasiado.",
+   "propuesto": "Cuando los dos indicadores tienen serie por año, el botón «Ver la evolución» muestra cómo se movió cada jurisdicción, al estilo de los gráficos animados de Gapminder. La vista Correlaciones muestra en una matriz la relación entre todos los pares de indicadores. La vista Regresión múltiple relaciona un indicador con hasta cuatro a la vez, con todas las variables llevadas a la misma escala. Con 24 casos y varios indicadores parecidos entre sí, los resultados son frágiles: el factor de inflación de la varianza (VIF) avisa cuando dos variables explicativas se superponen demasiado.",
+   "motivo": "Faltaba la vista Correlaciones. \"Estima el peso de hasta cuatro indicadores sobre otro\" sonaba a causa.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "El índice reúne siete dimensiones, como salud, educación, trabajo y vivienda. Cada persona elige cuánto pesa cada una, de cero a cinco. Con esos pesos se calcula un promedio y las provincias se ordenan de mayor a menor. No hay un índice correcto: cambia según lo que a cada uno le importa, y por eso los pesos quedan guardados en el enlace para compartirlo.",
+   "propuesto": "El índice reúne siete dimensiones, como salud, educación, trabajo y vivienda. Cada persona elige cuánto pesa cada una, de cero a cinco. Con esos pesos se calcula un promedio, y las 24 jurisdicciones se ordenan de mayor a menor. No hay un índice correcto: el resultado cambia según lo que a cada uno le importa. Los pesos elegidos quedan guardados en el enlace, para compartirlo.",
+   "motivo": "\"Y por eso los pesos quedan en el enlace\" unía dos ideas que no se siguen una de otra: van en dos oraciones.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Cada indicador se pasa a una escala de cero a diez: la provincia con el peor valor recibe cero, la del mejor recibe diez y el resto queda en proporción. Así se pueden promediar indicadores con unidades distintas. Las exportaciones por habitante y la velocidad de internet se miden en escala logarítmica, para que unas pocas provincias con valores muy altos no aplasten al resto.",
+   "propuesto": "Cada indicador se pasa a una escala de cero a diez: la provincia con el peor valor recibe cero, la del mejor recibe diez y el resto queda en proporción. Así se pueden promediar indicadores con unidades distintas. Las exportaciones por habitante y la velocidad de internet se miden en escala logarítmica, para que unas pocas provincias con valores muy altos no aplasten al resto. Si a una jurisdicción le falta un indicador, su dimensión se calcula con los demás.",
+   "motivo": "Suma un límite que estaba solo en el código.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "La escala compara a las provincias entre sí. Un diez significa la mejor de las 24, no un nivel ideal. Si todas mejoran o empeoran juntas, el índice no lo muestra. Además, cada indicador es de su último año disponible y no todos coinciden. Por eso conviene mirar también las fichas de cada tema, que muestran los valores reales y su evolución.",
+   "propuesto": "La escala compara a las jurisdicciones entre sí. Un diez es el mejor valor entre las 24, no un nivel ideal. Si todas mejoran o empeoran juntas, el índice no lo muestra. Cada indicador es de su último año disponible, y no todos coinciden. Los indicadores de cada dimensión los eligió Datina y no son los únicos posibles: por ejemplo, las exportaciones por habitante miden lo que vende la provincia, no el ingreso de quienes viven en ella. Por eso conviene mirar también las fichas de cada tema, que muestran los valores y su evolución.",
+   "motivo": "Suma el límite que marcó la auditoría (la elección de los indicadores, con el ejemplo de las exportaciones) sin cambiar el índice.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "El mapa baja de la provincia al departamento, partido o comuna, la unidad en la que el INDEC divide cada provincia. Así se ve lo que el promedio provincial esconde: diferencias grandes entre la capital y el interior, o entre zonas vecinas. Los límites salen del Servicio de Normalización de Datos Geográficos (Georef), simplificados para que el mapa cargue rápido.",
+   "propuesto": "El mapa baja del dato de cada provincia al de cada departamento, partido o comuna, la división de las provincias que usa el INDEC para sus estadísticas. Así se ven las diferencias que el dato provincial no muestra, como las que hay entre la capital y el interior o entre zonas vecinas. Los límites salen del Servicio de Normalización de Datos Geográficos (Georef), simplificados para que el mapa cargue rápido.",
+   "motivo": "El dato provincial no siempre es un promedio, y la definición de departamento queda como en el glosario.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, por departamento donde ocurrió el hecho. La edad de la población viene del Registro Nacional de las Personas (RENAPER), con las personas identificadas según su domicilio. El RENAPER publica la Ciudad de Buenos Aires sin dividirla en comunas. El lugar de nacimiento y los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de la Ciudad.",
+   "propuesto": "Los homicidios, las muertes en siniestros viales y los robos vienen del Sistema Nacional de Información Criminal (SNIC) del Ministerio de Seguridad, según el departamento donde ocurrió el hecho. La edad de la población viene del Registro Nacional de las Personas (RENAPER), que cuenta a las personas con DNI según el domicilio que declararon. El RENAPER publica CABA sin dividirla en comunas. El lugar de nacimiento y los indicadores de las viviendas y los hogares vienen del Censo Nacional de Población, Hogares y Viviendas 2022 del INDEC, que sí separa las comunas de CABA.",
+   "motivo": "Término fijo CABA y qué cuenta el RENAPER.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "En los departamentos con poca población unos pocos casos cambian mucho la tasa. Por eso las muertes se promedian en tres años y las listas de mayores y menores valores dejan afuera a los departamentos con menos de diez mil personas. El SNIC registra los hechos que llegan a la policía o a la justicia, así que los delitos no denunciados no aparecen.",
+   "propuesto": "En los departamentos con poca población, unos pocos casos cambian mucho la tasa. Por eso los homicidios y las muertes viales se promedian en tres años, y las listas de valores más altos y más bajos dejan afuera a los departamentos con menos de diez mil personas identificadas por el RENAPER, o con menos de tres mil hogares en los datos del censo. El SNIC registra los hechos que llegan a la policía o a la justicia, así que los delitos no denunciados no aparecen. El RENAPER registra domicilios declarados, que pueden no ser donde las personas viven hoy.",
+   "motivo": "Decía \"las muertes\" (son los homicidios y las muertes viales, los robos son de un año) y daba un solo umbral para las listas, cuando las del censo se cortan por hogares. Suma el límite del RENAPER, que estaba solo en la nota.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/explicadores.json",
+   "original": "División de cada provincia que usa el INDEC para sus estadísticas. En Buenos Aires se llaman partidos y en la Ciudad de Buenos Aires, comunas.",
+   "propuesto": "División de cada provincia que usa el INDEC para sus estadísticas. En Buenos Aires se llaman partidos y en CABA, comunas.",
+   "motivo": "Término fijo: CABA.",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/distorsiones.json",
+   "original": "La tasa se calcula sobre quienes viven en la Ciudad, que recibe cada día a muchas personas de otras jurisdicciones.",
+   "propuesto": "La tasa se calcula sobre quienes viven en CABA, que recibe cada día a muchas personas de otras jurisdicciones.",
+   "motivo": "Término fijo: CABA. Es la aclaración corta que muestra la tarjeta del perfil (y En cifras y el mapa de la portada).",
+   "veces": 1
+  },
+  {
+   "archivo": "datos/manual/distorsiones.json",
+   "original": "Dato a título informativo: la participación en Aprender quedó por debajo del umbral de representatividad.",
+   "propuesto": "Dato a título informativo: participaron en Aprender menos estudiantes de los necesarios para que el resultado sea representativo.",
+   "motivo": "\"Umbral de representatividad\" era jerga: se dice en palabras qué pasó. Es la misma aclaración corta para matemática y lengua.",
+   "veces": 2
+  },
+  {
+   "archivo": "scripts/02_procesar.py",
+   "original": "\"pensiones_invalidez\": (\"Pensiones por discapacidad\",",
+   "propuesto": "\"pensiones_invalidez\": (\"Pensiones por invalidez\",",
+   "motivo": "Término fijo: pensión por invalidez, como en el perfil. Es el nombre del indicador en los selectores de Cruces: necesita correr 02_procesar.py para llegar al resumen.",
+   "veces": 1
+  },
+  {
+   "archivo": "scripts/02_procesar.py",
+   "original": "\"voto_milei_2023\": (\"Voto a Milei en el balotaje\",",
+   "propuesto": "\"voto_milei_2023\": (\"Voto a Milei en la segunda vuelta\",",
+   "motivo": "Término fijo: segunda vuelta, no balotaje. Necesita correr 02_procesar.py para llegar a los selectores de Cruces.",
+   "veces": 1
+  }
+ ],
+ "conservados": [
+  {
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "El perfil de cada provincia: sus indicadores frente al total del país",
+   "motivo": "La descripción de provincia.html ya la reescribió la sesión principal (piezas comunes, G6b): no se propone otra para no pisarla."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": " País: ${c.f(c.pais)}.",
+   "motivo": "\"País:\" es un literal que buscan las pruebas: se conserva en la línea de posición del perfil."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "lab:\"Mortalidad infantil\"",
+   "motivo": "MAPA_IND (mapa de la portada) busca por texto los rótulos Empleo privado registrado, Esperanza de vida, Mortalidad infantil y Aprender, matemática: no se renombran."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "det:`% de los nacimientos de ${nac.anio_ult} con madres menores de 20 años`",
+   "motivo": "Los detalles que empiezan con \"%\" lo conservan aunque la cifra ya lo tenga: el mismo texto se lee como \"rótulo: detalle\" en En cifras y en la tarjeta chica, y la respuesta rápida ya saca el \"%\". Sacarlo solo en el perfil es un cambio de código (pendiente)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "${nombre} en números",
+   "motivo": "Con una provincia elegida, el título sigue el patrón del proyecto (\"Neuquén en números\"): el perfil reúne muchos temas y no contesta una sola pregunta (ejemplo C del encargo)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "[\"trabajo\", \"Trabajo\"], [\"social\", \"Seguridad social\"]",
+   "motivo": "Los nombres de los temas del perfil (PERFIL_GRUPOS) los lee también 03 para la silueta y ya son claros."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<h2>Cruces</h2>",
+   "motivo": "El primer h2 de cada sección es su nombre en la barra, el pie y las migas: no se cambia. Lo mismo con Tu índice y Departamentos."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<span>Indicador a explicar</span>",
+   "motivo": "\"Indicador a explicar\" y \"Variables explicativas\" son los nombres técnicos de la regresión. El texto que arma la lectura ya no dice que las variables \"explican\" el indicador."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "El diseño sigue a los exploradores regionales de la OCDE y Eurostat",
+   "motivo": "Los créditos se conservan en el texto de la ficha hasta que el autor decida si pasan a Nosotros (pendiente)."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "No se pudo cargar el mapa.",
+   "motivo": "Literal que busca scripts/prueba_fallas.mjs."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "\"s/d\"",
+   "motivo": "Abreviatura de \"sin dato\" en una tabla angosta de dos columnas de números: se entiende y ocupa poco."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<summary>Ver los datos del cruce</summary>",
+   "motivo": "Claro, pero duplica \"Ver tabla\": unir los dos es estructura (pendiente)."
+  },
+  {
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<span>Fuentes: SNIC (Ministerio de Seguridad), RENAPER, INDEC (Censo 2022) y Georef (IGN)</span>",
+   "motivo": "Nombres de los organismos tal como los documenta el sitio."
+  },
+  {
+   "archivo": "scripts/datina.js",
+   "fragmento": "Con ${m.n} jurisdicciones, la relación es ${fuerza(m.r)}",
+   "motivo": "La escala de fuerza (fuerte desde 0,5) es cálculo: no se toca. Se suma, con la misma escala, cuando la relación cambia de categoría sin la jurisdicción que más pesa."
+  }
+ ],
+ "pendientes": [
+  {
+   "ruta": "provincia.html?prov=*",
+   "archivo": "scripts/datina.js",
+   "fragmento": "k:\"autonomia\", pais:R.fiscal.mediana",
+   "motivo": "Error de rótulo: la tarjeta dice \"País: 40,3%\" (y \"Total del país\" sin provincia), pero el valor es la mediana de las provincias (R.fiscal.mediana), como dice En cifras (\"la provincia del medio\"). La raya de la tira también marca la mediana. Lo mismo pasa en En cifras con provincia elegida, en la tarjeta chica y en la respuesta rápida.",
+   "propuesta": "Sumar a la entrada un rótulo propio para la referencia (por ejemplo ref:\"Mediana de las 24\") y usarlo en lugar de \"País\" en la línea de posición, en \"Total del país\" y en pintarCifras, miniIndp y la respuesta rápida. O usar el valor del país si las cuentas provinciales lo permiten."
+  },
+  {
+   "ruta": "provincia.html",
+   "archivo": "scripts/03_construir_sitio.py",
+   "fragmento": "pagina(\"provincia\", \"Tu provincia\",",
+   "motivo": "Al elegir una provincia, la pestaña, el marcador y la vista previa al compartir siguen diciendo \"Tu provincia\" (nada cambia document.title). Es comportamiento.",
+   "propuesta": "Que pintarPanel ponga \"Neuquén en números | Datina\" en document.title al elegir, y páginas estáticas por provincia para compartir (auditoría D8)."
+  },
+  {
+   "ruta": "En cifras de cada sección con provincia elegida y mapa de la portada",
+   "archivo": "scripts/datina.js",
+   "fragmento": "Posición ${orden} de ${c.d.length}, de mayor a menor.",
+   "motivo": "La misma frase de posición que se reescribió en el perfil vive también en pintarCifras (\"Posición 9 de 24, de mayor a menor.\") y en tarjetaMapa (\"9.º de 24, de mayor a menor. País:\"), piezas comunes de G6b. Si no se cambian, el sitio usa dos formas.",
+   "propuesta": "Usar la misma fórmula del perfil: ${orden === 1 ? \"La cifra más alta\" : orden === c.d.length ? \"La cifra más baja\" : orden <= c.d.length / 2 ? `La ${orden}.ª cifra más alta` : `La ${c.d.length - orden + 1}.ª cifra más baja`} de las ${c.d.length} ${c.d.length < 24 ? \"jurisdicciones con dato\" : \"jurisdicciones\"}. (en tarjetaMapa, con pos y x.d.length)."
+  },
+  {
+   "ruta": "provincia.html?prov=*",
+   "archivo": "scripts/datina.js",
+   "fragmento": "<span class=\"dp-det\">${c.det}</span>",
+   "motivo": "En las tarjetas con porcentaje se lee \"8,5%\" y abajo \"% de los nacimientos…\": el \"%\" se repite. El detalle lo necesita en En cifras y en la tarjeta chica.",
+   "propuesta": "En el perfil, sacar el \"%\" inicial del detalle cuando la cifra ya lo tiene, como hace la respuesta rápida (c.det.replace(/^%\\s*/, \"\"))."
+  },
+  {
+   "ruta": "provincia.html?prov=*",
+   "archivo": "scripts/datina.js",
+   "fragmento": "d:T.nacidos_otro_pais_provincias.filter(r => r.codigo_indec !== \"00\"), k:\"pct_otro_pais\", pais:MGC.pct, f:n1",
+   "motivo": "Nacidos en otro país y en otra provincia son porcentajes, pero la cifra sale sin \"%\" (f:n1) y la del país también (\"País: 4,2\"). Es formato, no texto.",
+   "propuesta": "Usar f:pct en las dos entradas."
+  },
+  {
+   "ruta": "provincia.html?prov=*",
+   "archivo": "scripts/datina.js",
+   "fragmento": "el.querySelector(\".dp-aclara\").textContent = fila ? notaDist(c, prov) : \"\";",
+   "motivo": "Cuando faltan jurisdicciones (impuestos 23, gas 20, electricidad 21) la tarjeta ahora dice \"de las 21 jurisdicciones con dato\", pero no cuáles faltan ni por qué.",
+   "propuesta": "Nombrar en .dp-aclara las que no tienen dato y el motivo (CAMMESA informa CABA y Buenos Aires juntas y no informa Tierra del Fuego, la distribución de gas no llega a cuatro provincias, etc.)."
+  },
+  {
+   "ruta": "provincia.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const PERFIL_GRUPOS = [",
+   "motivo": "Estructura del perfil (decisión 6 de PLAN_MEJORA): la historia va antes que los números (la primera cifra a 1.223 px), no hay un resumen de dónde se destaca, Provincias parecidas queda al fondo sin valores, los grupos son h3 que cuelgan del h1, hay dos selectores de provincia y faltan temas que el sitio ya tiene (pobreza del aglomerado, cuentas fiscales, transferencias, participación electoral).",
+   "propuesta": "Lo que proponga el autor entre las opciones de la auditoría (herramientas-y-perfiles.md, sección B)."
+  },
+  {
+   "ruta": "cruces.html",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "\"pct_pob_solo_cobertura_publica\": (\"Población sin obra social ni prepaga\"",
+   "motivo": "Indicadores repetidos en Cruces y en la matriz: \"Sin obra social ni prepaga\" (sin_cobertura) y \"Población sin obra social ni prepaga\" dan exactamente los mismos valores (CABA 16,31 en las dos), y \"Necesidades básicas insatisfechas\" y \"Hogares con necesidades básicas insatisfechas\" también (4,75 y 4,8, solo cambia el redondeo). No hay nombre que los distinga: son el mismo dato.",
+   "propuesta": "Dejar uno de cada par en CRUCES_META (y en la matriz, que hoy cuenta pares de un indicador consigo mismo)."
+  },
+  {
+   "ruta": "cruces.html",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "\"pct_hog_cloaca\": (\"Hogares con cloacas\", \"% de los hogares con desagüe a red pública\"",
+   "motivo": "\"Cloacas\" (inodoro con descarga a red cloacal, de los microdatos del censo por radio) y \"Hogares con cloacas\" (desagüe a red pública, del cuadro publicado del INDEC) miden lo mismo con cifras distintas (CABA 97,2 y 98,8). Los nombres sugieren conceptos distintos y no dicen por qué difieren. Verificación factual pendiente: el denominador de cada tabla.",
+   "propuesta": "Verificar las dos definiciones y dejar una, o nombrarlas por su diferencia real (por ejemplo, \"sobre todos los hogares\" y \"sobre los hogares con baño\")."
+  },
+  {
+   "ruta": "cruces.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "${META[a].nombre} ${yE(META[b].nombre.toLowerCase())}",
+   "motivo": "Los botones de \"Para empezar\" pasan el segundo nombre a minúscula y queda \"Maternidad adolescente y aprender, matemática\", que se lee como el verbo. Aprender es el nombre de la evaluación.",
+   "propuesta": "No pasar a minúscula los nombres propios (Aprender, AUH, ATN) o escribir el par a mano en SUG."
+  },
+  {
+   "ruta": "cruces.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const fuerza = r => { const a = Math.abs(r); return a < .1 ? \"prácticamente nula\" : a < .3 ? \"débil\" : a < .5 ? \"moderada\" : a < .7 ? \"fuerte\" : \"muy fuerte\"; };",
+   "motivo": "Auditoría P0: el sitio tiene cinco escalas de fuerza; en los artículos (fuerzaArt) r = −0,52 sería \"moderada\" y acá es \"fuerte\". Es cálculo.",
+   "propuesta": "Una sola escala para todo el sitio (decisión del autor)."
+  },
+  {
+   "ruta": "cruces.html",
+   "archivo": "scripts/plantilla.html",
+   "fragmento": "<details class=\"cx-detalle\"><summary>Ver los datos del cruce</summary>",
+   "motivo": "\"Ver los datos del cruce\" y \"Ver tabla\" hacen casi lo mismo. La regresión múltiple, con su jerga, podría ir plegada. Los créditos (OCDE, Eurostat, Gapminder, Brasil) podrían ir a Nosotros. Es estructura.",
+   "propuesta": "Un solo botón de tabla, la regresión bajo \"Avanzado\" y los créditos en Nosotros (auditoría)."
+  },
+  {
+   "ruta": "cruces.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "const ids = R.cruces.map(m => m.id).filter(id => id !== \"poblacion\")",
+   "motivo": "\"Población\" es un total y está en los selectores de los ejes y de la regresión, aunque ya existe \"Tamaño según población\". El explicador se corrigió para decirlo.",
+   "propuesta": "Sacarla de los selectores de ejes y de la regresión."
+  },
+  {
+   "ruta": "indice.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "${datos[datos.length - 1].f.territorio} última, con ${n1(datos[datos.length - 1].t)}",
+   "motivo": "Con pesos iguales, Chaco y Santiago del Estero tienen 2,3 y el texto nombra solo a la última. Detectar empates es cálculo.",
+   "propuesta": "Si el puntaje redondeado de la anteúltima es igual, decir \"Chaco y Santiago del Estero comparten el último lugar, con 2,3\"."
+  },
+  {
+   "ruta": "indice.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "{id: \"trabajo\", nombre: \"Trabajo y producción\", c: \"#B27A00\", ind: [[\"empleo_privado\", 1], [\"exportaciones\", 1]]}",
+   "motivo": "Las exportaciones por habitante miden lo que vende la provincia, no el bienestar de quien vive ahí (el explicador ahora lo dice). Cambiar el indicador es decisión del autor.",
+   "propuesta": "Consultar al autor si van el salario registrado o la tasa de empleo."
+  },
+  {
+   "ruta": "indice.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "<small>${d.ind.map(([k]) => M[k].nombre).join(\", \")}</small>",
+   "motivo": "La lista de indicadores se une con comas y los nombres de Aprender ya tienen coma: \"Escolarización secundaria, Aprender, matemática, Aprender, lengua\".",
+   "propuesta": "Unir con lista() o renombrar en CRUCES_META \"Aprender en matemática\" y \"Aprender en lengua\" (el rótulo del perfil no cambia: lo usa el mapa de la portada)."
+  },
+  {
+   "ruta": "departamentos.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": "`<h3>Valores más altos</h3><ol>${lista.slice(0, 5).map(item).join(\"\")}</ol><h3>Valores más bajos</h3>",
+   "motivo": "Con homicidios, la lista de valores más bajos son cinco ceros empatados elegidos sin criterio visible. Detectar el empate es cálculo.",
+   "propuesta": "Con empate: \"N departamentos sin homicidios en 2023 a 2025, entre ellos…\"."
+  },
+  {
+   "ruta": "departamentos.html",
+   "archivo": "scripts/datina.js",
+   "fragmento": ".on(\"click\", (ev, f) => { if (!NOMBRES[pv]) { cerca = {c: f.properties.prov, de: prov}; ocultarTip(); cambiarVista(\"mapa-dep\"); } });",
+   "motivo": "Accesibilidad: acercar una provincia solo se puede tocando el mapa (los departamentos no se alcanzan con el teclado), contra la regla de que nada dependa solo del mouse. Tampoco hay un buscador de departamento.",
+   "propuesta": "Un selector de provincia propio del mapa o un buscador \"Buscá tu departamento o partido\" que acerque el mapa y muestre su valor."
+  },
+  {
+   "ruta": "provincia.html?prov=*",
+   "archivo": "scripts/datina.js",
+   "fragmento": "cambiarTexto(el.querySelector(\".dp-num\"), fila ? c.f(fila[c.k]) : invita ? \"Elegí una provincia\" : c.f(c.pais), animar);",
+   "motivo": "Si una provincia elegida no tuviera dato de turistas extranjeros (la única tarjeta sin total del país), la cifra diría \"Elegí una provincia\" con una provincia ya elegida. Hoy no pasa: las 24 tienen dato.",
+   "propuesta": "invita ? (NOMBRES[prov] ? \"Sin dato\" : \"Elegí una provincia\")."
+  },
+  {
+   "ruta": "cruces.html, indice.html",
+   "archivo": "scripts/02_procesar.py",
+   "fragmento": "\"pensiones_invalidez\": (\"Pensiones por discapacidad\",",
+   "motivo": "Los dos cambios de nombre de CRUCES_META (pensión por invalidez y segunda vuelta) solo se ven después de correr 02_procesar.py.",
+   "propuesta": "Correr python scripts/02_procesar.py y pruebas_datos.py antes de armar, o dejar esos dos cambios para la próxima actualización."
+  }
+ ]
+}

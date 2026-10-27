@@ -1,6 +1,6 @@
 // Configuración del sitio. Documentación: https://observablehq.com/framework/config
 export default {
-  title: "Pobreza en la Argentina: consultas",
+  title: "Consultor de pobreza | Datina",
   root: "src",
   output: "dist",
 
@@ -11,7 +11,7 @@ export default {
   ],
   sidebar: false,
   pager: false,
-  toc: false,
+  toc: {show: false, label: "En esta página"},
   search: false,
 
   // Tema claro de Framework más la hoja de estilos propia (colores, tipografía)
@@ -31,15 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (a) a.href = new URL("../pobreza.html", location.href.replace(/[^/]*$/, "")).href;
 });
 </script>
-<meta name="description" content="Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.">
+<meta name="description" content="Pobreza e indigencia en la Argentina para consultar, filtrar y descargar: los 31 aglomerados urbanos de la EPH del INDEC y estimaciones por partido del Gran Buenos Aires y comuna de CABA.">
 <meta property="og:site_name" content="Datina">
 <meta property="og:locale" content="es_AR">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pobreza en la Argentina: consultas">
-<meta property="og:description" content="Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.">
+<meta property="og:title" content="Consultor de pobreza: ¿Cuánta pobreza hay en cada aglomerado, partido y comuna?">
+<meta property="og:description" content="Pobreza e indigencia en la Argentina para consultar, filtrar y descargar: los 31 aglomerados urbanos de la EPH del INDEC y estimaciones por partido del Gran Buenos Aires y comuna de CABA.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pobreza en la Argentina: consultas">
-<meta name="twitter:description" content="Datos abiertos y consultables de pobreza e indigencia en la Argentina: 31 aglomerados urbanos (INDEC, EPH) y estimaciones por partido del GBA y comuna de la Ciudad, primer semestre de 2026.">`,
+<meta name="twitter:title" content="Consultor de pobreza: ¿Cuánta pobreza hay en cada aglomerado, partido y comuna?">
+<meta name="twitter:description" content="Pobreza e indigencia en la Argentina para consultar, filtrar y descargar: los 31 aglomerados urbanos de la EPH del INDEC y estimaciones por partido del Gran Buenos Aires y comuna de CABA.">`,
   header: `<nav class="cabecera"><a href="../pobreza.html" class="volver">Datina: Pobreza y hogares</a><a href="./">Consultas</a><a href="./diccionario">Diccionario de datos</a></nav>`,
-  footer: `Elaboración propia sobre INDEC: Encuesta Permanente de Hogares y Censo 2022. Las cifras por partido, comuna y fracción son estimaciones estadísticas, no mediciones oficiales.`
+  footer: `Elaboración de Datina con datos del INDEC: Encuesta Permanente de Hogares y Censo 2022. Las cifras por partido, comuna y fracción son estimaciones estadísticas, no mediciones oficiales.`
 };

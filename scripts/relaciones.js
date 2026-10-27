@@ -29,6 +29,9 @@
   const sinTildes = t => String(t ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   const plural = (k, uno, varios) => `${k} ${k === 1 ? uno : varios}`;
   const lista_ = v => Array.isArray(v) ? v : [];
+  // la sigla va entre paréntesis solo si no está ya en el nombre ("Datina (selección propia)", "¿Cómo Votó?", "Secretaría de Hacienda"):
+  // antes salían "Datina (selección propia) (Datina)" o "Secretaría de Hacienda (Hacienda)" (auditoría del 26 de octubre de 2026, R11)
+  const conSigla = n => !!n.sigla && !new RegExp(`(^|[^a-z0-9])${sinTildes(n.sigla).replace(/[^a-z0-9 ]/g, "\\$&")}($|[^a-z0-9])`).test(sinTildes(n.nombre));
 
   const Q = new URLSearchParams(location.search);
   const E = {vista: Q.get("v") || (ANGOSTO.matches ? "tabla" : "grafo"), elegido: null, foco: null, q: Q.get("q") || "", tema: Q.get("t") || "",
@@ -51,7 +54,7 @@
       console.warn("Explorador de relaciones:", err);
       const p = $("rx-error");
       p.hidden = false;
-      p.textContent = D ? "Algunos datos del explorador vinieron incompletos y no se pudo dibujar todo. La tabla puede seguir sirviendo." :
+      p.textContent = D ? "Algunos datos del explorador llegaron incompletos y no se pudo dibujar todo. La vista Tabla puede funcionar igual." :
         "No se pudieron cargar los datos del explorador. Probá recargar la página.";
     });
 
@@ -303,7 +306,7 @@
   const ir = id => {
     const n = porId.get(id);
     if (!n) return esc(id);
-    return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.nombre)}${n.tipo === "fuente" && n.sigla && n.sigla !== n.nombre ? ` (${esc(n.sigla)})` : ""}</button>`;
+    return `<button type="button" class="enlace" data-ir="${esc(id)}">${esc(n.nombre)}${n.tipo === "fuente" && conSigla(n) ? ` (${esc(n.sigla)})` : ""}</button>`;
   };
   const fila = (t, v) => v ? `<dt>${t}</dt><dd>${v}</dd>` : "";
   function panel(n) {
@@ -325,7 +328,7 @@
     const de = entra.get(n.id), a = sale.get(n.id);
     if (n.tipo === "fuente") {
       const fichas = [...cadena(n.id, "abajo")].map(x => porId.get(x)).filter(x => x.tipo === "indicador");
-      h += `<dl>${fila("Sigla", esc(n.sigla))}${fila("Depende de", esc(n.depende))}${fila("Sitio", n.url ? `<a class="enlace" href="${esc(n.url)}" rel="noopener">${esc(n.url.replace(/^https?:\/\//, ""))}</a>` : "")}</dl>`;
+      h += `<dl>${fila("Sigla o nombre corto", esc(n.sigla))}${fila("Depende de", esc(n.depende))}${fila("Sitio", n.url ? `<a class="enlace" href="${esc(n.url)}" rel="noopener">${esc(n.url.replace(/^https?:\/\//, ""))}</a>` : "")}</dl>`;
       h += `<h3>Publica ${a.length === 1 ? "un archivo que usa" : a.length + " archivos que usa"} Datina</h3><ul>${a.map(x => `<li>${ir(x.a)}</li>`).join("")}</ul>`;
       h += `<h3>Fichas que usan sus datos (${fichas.length})</h3><ul>${ordenados(fichas).map(x => `<li>${ir(x.id)}</li>`).join("")}</ul>`;
     } else if (n.tipo === "conjunto") {
@@ -399,7 +402,7 @@
     const tema = $("rx-tema"), org = $("rx-fuente");
     for (const [id, t] of D.secciones) tema.add(new Option(t, id));
     for (const n of N.filter(x => x.tipo === "fuente").sort((a, b) => a.nombre.localeCompare(b.nombre, "es")))
-      org.add(new Option(n.sigla && n.sigla !== n.nombre ? `${n.nombre} (${n.sigla})` : n.nombre, n.id));
+      org.add(new Option(conSigla(n) ? `${n.nombre} (${n.sigla})` : n.nombre, n.id));
     tema.value = D.secciones.some(s => s[0] === E.tema) ? E.tema : (E.tema = "");
     org.value = porId.has(E.fuente) ? E.fuente : (E.fuente = "");
     $("rx-buscar").value = E.q;
@@ -504,8 +507,8 @@
     $("rx-filas").innerHTML = filas.slice(0, topeFilas).map(n => `<tr data-id="${esc(n.id)}">
       <td data-col="Tipo"><span><svg viewBox="-8 -8 16 16" aria-hidden="true">${ICONO[n.tipo]}</svg>${TIPO_NOMBRE[n.tipo]}</span></td>
       <th scope="row" data-col="Nombre">${boton(n.id)}</th><td data-col="Tema">${esc(tema(n)) || '<span aria-hidden="true">—</span>'}</td>
-      <td data-col="Viene de">${lista(entra.get(n.id).filter(a => vis.has(a.de)).map(a => boton(a.de) + (a.tipo === "calcula" ? " (se calcula a partir de esta)" : "")))}</td>
-      <td data-col="Lleva a">${lista(sale.get(n.id).filter(a => vis.has(a.a)).map(a => boton(a.a) + (a.tipo === "calcula" ? " (se calcula a partir de esta)" : "")))}</td></tr>`).join("");
+      <td data-col="Viene de">${lista(entra.get(n.id).filter(a => vis.has(a.de)).map(a => boton(a.de) + (a.tipo === "calcula" ? " (esta ficha se calcula a partir de ella)" : "")))}</td>
+      <td data-col="Lleva a">${lista(sale.get(n.id).filter(a => vis.has(a.a)).map(a => boton(a.a) + (a.tipo === "calcula" ? " (se calcula a partir de esta ficha)" : "")))}</td></tr>`).join("");
     resaltar();
   }
   $("rx-filas").addEventListener("click", e => {

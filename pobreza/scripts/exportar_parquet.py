@@ -49,7 +49,7 @@ TABLAS: dict[str, dict] = {
         "titulo": "Serie nacional de pobreza e indigencia",
         "descripcion": (
             "Incidencia de la pobreza y la indigencia en el total de 31 aglomerados urbanos, "
-            "por semestre, desde el 2S 2016 hasta el 1S 2026. Fuente: INDEC, EPH."
+            "por semestre, desde el segundo semestre de 2016 hasta el primero de 2026. Fuente: INDEC, EPH."
         ),
         "columnas": [
             ("periodo", S, "Semestre, por ejemplo 1S 2026"),
@@ -80,10 +80,10 @@ TABLAS: dict[str, dict] = {
     "aglomerados": {
         "titulo": "Aglomerados, regiones y totales en el último semestre",
         "descripcion": (
-            "Foto del 1S 2026 para el total de 31 aglomerados, las 6 regiones estadísticas, los 31 "
-            "aglomerados (con Gran Buenos Aires abierto en Ciudad y Partidos del GBA) y los grupos por "
+            "Datos del primer semestre de 2026 para el total de 31 aglomerados, las 6 regiones estadísticas, los 31 "
+            "aglomerados (con Gran Buenos Aires dividido en CABA y Partidos del GBA) y los grupos por "
             "tamaño. Incluye coeficiente de variación (CV) e intervalo de confianza al 90% de cada "
-            "incidencia. Fuente: INDEC, EPH, informe técnico del 1S 2026 y anexo de CV."
+            "incidencia. Fuente: INDEC, EPH, informe técnico del primer semestre de 2026 y anexo de CV."
         ),
         "columnas": [
             ("periodo", S, "Semestre de referencia (1S 2026)"),
@@ -115,7 +115,7 @@ TABLAS: dict[str, dict] = {
         "descripcion": (
             "Incidencia de la pobreza y la indigencia por semestre para cada una de las 42 unidades "
             "de la tabla aglomerados. Vacío donde el INDEC no publicó dato (Gran Resistencia en el "
-            "2S 2019 y Ushuaia - Río Grande en el 2S 2020). Fuente: INDEC, EPH."
+            "segundo semestre de 2019 y Ushuaia - Río Grande en el segundo semestre de 2020). Fuente: INDEC, EPH."
         ),
         "columnas": [
             ("aglomerado", S, "Nombre del aglomerado, región o total"),
@@ -130,19 +130,19 @@ TABLAS: dict[str, dict] = {
         ],
     },
     "gba_partidos_comunas": {
-        "titulo": "Partidos del GBA y comunas de la Ciudad (estimación en áreas pequeñas)",
+        "titulo": "Partidos del GBA y comunas de CABA (estimación en áreas pequeñas)",
         "descripcion": (
             "Estimación de la pobreza y la indigencia en los 24 partidos del Gran Buenos Aires y las "
-            "15 comunas de la Ciudad para el 1S 2026. No es una medición oficial: sale de un modelo "
-            "estimado con la EPH del 1T 2026 y aplicado a las características de cada radio censal "
+            "15 comunas de CABA para el primer semestre de 2026. No es una medición oficial: sale de un modelo "
+            "estimado con la EPH del primer trimestre de 2026 y aplicado a las características de cada radio censal "
             "(Censo 2022), calibrado para reproducir el total oficial de cada dominio (36,9% de "
-            "personas pobres en los Partidos del GBA y 11,1% en la Ciudad). Intervalos bootstrap al 90%. "
-            "Población de referencia: la censal de 2022."
+            "personas pobres en los Partidos del GBA y 11,1% en CABA). Intervalos de confianza al 90%, calculados por remuestreo (bootstrap). "
+            "Población de referencia: la del Censo 2022."
         ),
         "columnas": [
             ("periodo", S, "Semestre de referencia de la estimación (1S 2026)"),
-            ("unidad", S, "Partido del GBA o comuna de la Ciudad"),
-            ("jurisdiccion", S, "CABA (comunas de la Ciudad) o GBA (partidos del conurbano)"),
+            ("unidad", S, "Partido del GBA o comuna de CABA"),
+            ("jurisdiccion", S, "CABA (comunas) o GBA (partidos del conurbano)"),
             ("zona", S, "Agrupamiento: Primera corona, Segunda corona, La Matanza, CABA norte, CABA centro o CABA sur"),
             ("poblacion_censo_2022", I32, "Personas según el Censo 2022"),
             ("hogares_censo_2022", I32, "Hogares según el Censo 2022"),
@@ -167,16 +167,16 @@ TABLAS: dict[str, dict] = {
         ],
     },
     "gba_fracciones": {
-        "titulo": "Fracciones censales del GBA y la Ciudad",
+        "titulo": "Fracciones censales del GBA y CABA",
         "descripcion": (
             "El mismo modelo de la tabla gba_partidos_comunas aplicado a cada fracción censal "
             "(unidades de unos 3 mil a 20 mil habitantes). Capa exploratoria, sin intervalos de "
-            "confianza. Período de referencia 1S 2026, población censal 2022."
+            "confianza. Período de referencia: primer semestre de 2026. Población de referencia: la del Censo 2022."
         ),
         "columnas": [
             ("periodo", S, "Semestre de referencia de la estimación (1S 2026)"),
             ("fraccion", S, "Código de la fracción censal (7 dígitos: provincia, departamento y fracción)"),
-            ("unidad", S, "Partido del GBA o comuna de la Ciudad que la contiene"),
+            ("unidad", S, "Partido del GBA o comuna de CABA que la contiene"),
             ("jurisdiccion", S, "CABA o GBA"),
             ("zona", S, "Zona de la unidad que la contiene"),
             ("poblacion_censo_2022", I32, "Personas según el Censo 2022"),
@@ -332,14 +332,14 @@ def escribir_diccionario(conteos: dict[str, int]) -> None:
         "",
         "# Diccionario de datos",
         "",
-        "Este archivo se genera solo con `python scripts/exportar_parquet.py`. Si lo editás a mano, el próximo "
-        "export lo pisa. Todas las tablas son Parquet con compresión zstd y se pueden leer con DuckDB, R, Python, "
-        "QGIS o Excel con un complemento. Los porcentajes están en escala de 0 a 100.",
+        "Las seis tablas del consultor de pobreza, columna por columna. Todas están en formato Parquet, comprimidas "
+        "con zstd, y se pueden leer con DuckDB, R, Python, QGIS o Excel con un complemento. Los porcentajes van de "
+        "0 a 100. <!-- Lo genera scripts/exportar_parquet.py: si se edita a mano, el próximo export lo pisa. -->",
         "",
-        "Para medir la precisión, el INDEC recomienda leer con cuidado los valores con coeficiente de variación "
+        "Cómo leer la precisión: el INDEC recomienda leer con cuidado los valores con un coeficiente de variación de "
         "entre 16% y 25% y considera no confiables los que superan 25%.",
         "",
-        "[Volver a la página de consultas](./)",
+        "[Volver al consultor de pobreza](./)",
         "",
     ]
     for nombre, meta in TABLAS.items():

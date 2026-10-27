@@ -5,15 +5,15 @@ toc: true
 
 # Diccionario de datos
 
-Este archivo se genera solo con `python scripts/exportar_parquet.py`. Si lo editás a mano, el próximo export lo pisa. Todas las tablas son Parquet con compresión zstd y se pueden leer con DuckDB, R, Python, QGIS o Excel con un complemento. Los porcentajes están en escala de 0 a 100.
+Las seis tablas del consultor de pobreza, columna por columna. Todas están en formato Parquet, comprimidas con zstd, y se pueden leer con DuckDB, R, Python, QGIS o Excel con un complemento. Los porcentajes van de 0 a 100. <!-- Lo genera scripts/exportar_parquet.py: si se edita a mano, el próximo export lo pisa. -->
 
-Para medir la precisión, el INDEC recomienda leer con cuidado los valores con coeficiente de variación entre 16% y 25% y considera no confiables los que superan 25%.
+Cómo leer la precisión: el INDEC recomienda leer con cuidado los valores con un coeficiente de variación de entre 16% y 25% y considera no confiables los que superan 25%.
 
-[Volver a la página de consultas](./)
+[Volver al consultor de pobreza](./)
 
 ## serie_nacional
 
-**Serie nacional de pobreza e indigencia.** Incidencia de la pobreza y la indigencia en el total de 31 aglomerados urbanos, por semestre, desde el 2S 2016 hasta el 1S 2026. Fuente: INDEC, EPH.
+**Serie nacional de pobreza e indigencia.** Incidencia de la pobreza y la indigencia en el total de 31 aglomerados urbanos, por semestre, desde el segundo semestre de 2016 hasta el primero de 2026. Fuente: INDEC, EPH.
 
 Archivo: `data/serie_nacional.parquet` (80 filas).
 
@@ -44,7 +44,7 @@ Archivo: `data/pobreza_edad.parquet` (360 filas).
 
 ## aglomerados
 
-**Aglomerados, regiones y totales en el último semestre.** Foto del 1S 2026 para el total de 31 aglomerados, las 6 regiones estadísticas, los 31 aglomerados (con Gran Buenos Aires abierto en Ciudad y Partidos del GBA) y los grupos por tamaño. Incluye coeficiente de variación (CV) e intervalo de confianza al 90% de cada incidencia. Fuente: INDEC, EPH, informe técnico del 1S 2026 y anexo de CV.
+**Aglomerados, regiones y totales en el último semestre.** Datos del primer semestre de 2026 para el total de 31 aglomerados, las 6 regiones estadísticas, los 31 aglomerados (con Gran Buenos Aires dividido en CABA y Partidos del GBA) y los grupos por tamaño. Incluye coeficiente de variación (CV) e intervalo de confianza al 90% de cada incidencia. Fuente: INDEC, EPH, informe técnico del primer semestre de 2026 y anexo de CV.
 
 Archivo: `data/aglomerados.parquet` (42 filas).
 
@@ -79,7 +79,7 @@ Archivo: `data/aglomerados.parquet` (42 filas).
 
 ## aglomerados_serie
 
-**Serie por aglomerado, región y total.** Incidencia de la pobreza y la indigencia por semestre para cada una de las 42 unidades de la tabla aglomerados. Vacío donde el INDEC no publicó dato (Gran Resistencia en el 2S 2019 y Ushuaia - Río Grande en el 2S 2020). Fuente: INDEC, EPH.
+**Serie por aglomerado, región y total.** Incidencia de la pobreza y la indigencia por semestre para cada una de las 42 unidades de la tabla aglomerados. Vacío donde el INDEC no publicó dato (Gran Resistencia en el segundo semestre de 2019 y Ushuaia - Río Grande en el segundo semestre de 2020). Fuente: INDEC, EPH.
 
 Archivo: `data/aglomerados_serie.parquet` (3360 filas).
 
@@ -97,15 +97,15 @@ Archivo: `data/aglomerados_serie.parquet` (3360 filas).
 
 ## gba_partidos_comunas
 
-**Partidos del GBA y comunas de la Ciudad (estimación en áreas pequeñas).** Estimación de la pobreza y la indigencia en los 24 partidos del Gran Buenos Aires y las 15 comunas de la Ciudad para el 1S 2026. No es una medición oficial: sale de un modelo estimado con la EPH del 1T 2026 y aplicado a las características de cada radio censal (Censo 2022), calibrado para reproducir el total oficial de cada dominio (36,9% de personas pobres en los Partidos del GBA y 11,1% en la Ciudad). Intervalos bootstrap al 90%. Población de referencia: la censal de 2022.
+**Partidos del GBA y comunas de CABA (estimación en áreas pequeñas).** Estimación de la pobreza y la indigencia en los 24 partidos del Gran Buenos Aires y las 15 comunas de CABA para el primer semestre de 2026. No es una medición oficial: sale de un modelo estimado con la EPH del primer trimestre de 2026 y aplicado a las características de cada radio censal (Censo 2022), calibrado para reproducir el total oficial de cada dominio (36,9% de personas pobres en los Partidos del GBA y 11,1% en CABA). Intervalos de confianza al 90%, calculados por remuestreo (bootstrap). Población de referencia: la del Censo 2022.
 
 Archivo: `data/gba_partidos_comunas.parquet` (39 filas).
 
 | Columna | Tipo | Qué contiene |
 |---|---|---|
 | `periodo` | texto | Semestre de referencia de la estimación (1S 2026) |
-| `unidad` | texto | Partido del GBA o comuna de la Ciudad |
-| `jurisdiccion` | texto | CABA (comunas de la Ciudad) o GBA (partidos del conurbano) |
+| `unidad` | texto | Partido del GBA o comuna de CABA |
+| `jurisdiccion` | texto | CABA (comunas) o GBA (partidos del conurbano) |
 | `zona` | texto | Agrupamiento: Primera corona, Segunda corona, La Matanza, CABA norte, CABA centro o CABA sur |
 | `poblacion_censo_2022` | entero | Personas según el Censo 2022 |
 | `hogares_censo_2022` | entero | Hogares según el Censo 2022 |
@@ -130,7 +130,7 @@ Archivo: `data/gba_partidos_comunas.parquet` (39 filas).
 
 ## gba_fracciones
 
-**Fracciones censales del GBA y la Ciudad.** El mismo modelo de la tabla gba_partidos_comunas aplicado a cada fracción censal (unidades de unos 3 mil a 20 mil habitantes). Capa exploratoria, sin intervalos de confianza. Período de referencia 1S 2026, población censal 2022.
+**Fracciones censales del GBA y CABA.** El mismo modelo de la tabla gba_partidos_comunas aplicado a cada fracción censal (unidades de unos 3 mil a 20 mil habitantes). Capa exploratoria, sin intervalos de confianza. Período de referencia: primer semestre de 2026. Población de referencia: la del Censo 2022.
 
 Archivo: `data/gba_fracciones.parquet` (1373 filas).
 
@@ -138,7 +138,7 @@ Archivo: `data/gba_fracciones.parquet` (1373 filas).
 |---|---|---|
 | `periodo` | texto | Semestre de referencia de la estimación (1S 2026) |
 | `fraccion` | texto | Código de la fracción censal (7 dígitos: provincia, departamento y fracción) |
-| `unidad` | texto | Partido del GBA o comuna de la Ciudad que la contiene |
+| `unidad` | texto | Partido del GBA o comuna de CABA que la contiene |
 | `jurisdiccion` | texto | CABA o GBA |
 | `zona` | texto | Zona de la unidad que la contiene |
 | `poblacion_censo_2022` | entero | Personas según el Censo 2022 |

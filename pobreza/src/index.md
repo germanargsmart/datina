@@ -1,5 +1,5 @@
 ---
-title: "Pobreza en la Argentina: consultas"
+title: "Consultor de pobreza | Datina"
 toc: false
 ---
 
@@ -28,6 +28,9 @@ const GRIS = "#9aa6b2";
 
 const num1 = (v) => v == null || Number.isNaN(v) ? "sin dato" : Number(v).toLocaleString("es-AR", {minimumFractionDigits: 1, maximumFractionDigits: 1});
 const num0 = (v) => v == null ? "sin dato" : Number(v).toLocaleString("es-AR", {maximumFractionDigits: 0});
+// el semestre en palabras para los textos y el selector ("1S 2026" pasa a "Primer semestre de 2026"): los datos, las tablas y la
+// consulta SQL lo conservan como viene
+const semestreLargo = (p) => String(p).replace(/^([12])S (\d{4})$/, (_, s, a) => `${s === "1" ? "Primer" : "Segundo"} semestre de ${a}`);
 
 // Convierte el resultado de DuckDB (tabla Arrow) en filas comunes de JavaScript.
 // Los enteros grandes (BigInt) y los decimales se pasan a número para poder graficarlos y exportarlos.
@@ -86,7 +89,7 @@ function botonesCsv(filas, nombre) {
   const b2 = html`<button type="button">Descargar CSV para Excel</button>`;
   b1.onclick = () => bajar(false);
   b2.onclick = () => bajar(true);
-  return html`<div class="descargas">${b1}${b2}<span class="nota">${filas.length.toLocaleString("es-AR")} filas. La versión para Excel usa coma decimal.</span></div>`;
+  return html`<div class="descargas">${b1}${b2}<span class="nota">${filas.length.toLocaleString("es-AR")} filas. La versión para Excel separa las columnas con punto y coma y usa coma decimal.</span></div>`;
 }
 
 // Escapa texto para meterlo dentro de un literal SQL
@@ -99,28 +102,28 @@ const ultimo = {pob_per: ultimoDe("pobreza"), ind_per: ultimoDe("indigencia")};
 const periodos = [...new Set(T.serie_nacional.slice().sort(asc("anio", "semestre")).map((d) => d.periodo))];
 ```
 
-# Pobreza en la Argentina: consultas
+# ¿Cuánta pobreza hay en cada aglomerado, partido y comuna?
 
-<p class="bajada">Los datos del tablero de pobreza e indigencia, abiertos para consultar, filtrar y descargar. En el primer semestre de 2026, el ${num1(ultimo.pob_per)}% de las personas que viven en los 31 aglomerados urbanos relevados por la EPH estaba bajo la línea de pobreza y el ${num1(ultimo.ind_per)}% bajo la línea de indigencia.</p>
+<p class="bajada">Acá podés consultar, filtrar y descargar los datos de pobreza e indigencia de la Encuesta Permanente de Hogares (EPH) del INDEC y las estimaciones por partido del Gran Buenos Aires y comuna de CABA. En el primer semestre de 2026, el ${num1(ultimo.pob_per)}% de las personas que viven en los 31 aglomerados urbanos que releva la EPH estaba bajo la línea de pobreza y el ${num1(ultimo.ind_per)}%, bajo la de indigencia.</p>
 
-**De dónde salen los datos.** La serie nacional, los grupos de edad y los 31 aglomerados vienen de la Encuesta Permanente de Hogares (EPH) del INDEC, informe técnico de pobreza e indigencia del 1S 2026 (datos provisorios) y su anexo de coeficientes de variación. La serie arranca en el 2S 2016. La EPH cubre solo población urbana de 31 aglomerados (unos 30,1 millones de personas) y no mide provincias.
+**De dónde salen los datos.** La serie nacional, los grupos de edad y los 31 aglomerados vienen de la EPH del INDEC: del informe técnico de pobreza e indigencia del primer semestre de 2026, con datos provisorios, y de su anexo de coeficientes de variación. La serie empieza en el segundo semestre de 2016. La EPH cubre solo la población urbana de 31 aglomerados, unos 30,1 millones de personas, y no da datos por provincia.
 
-Las cifras por partido del Gran Buenos Aires, comuna de la Ciudad y fracción censal no son mediciones oficiales. Salen de un modelo de estimación en áreas pequeñas: se estima en los microdatos de la EPH del 1T 2026, se aplica a las características de cada radio del Censo 2022 y se calibra para reproducir el total oficial del 1S 2026 (36,9% de personas pobres en los Partidos del GBA y 11,1% en la Ciudad). Su población de referencia es la censal de 2022.
+Las cifras por partido del Gran Buenos Aires, comuna de CABA y fracción censal no son mediciones oficiales. Salen de un modelo de estimación en áreas pequeñas. El modelo se estima con los microdatos de la EPH del primer trimestre de 2026, se aplica a las características de cada radio del Censo 2022 y se calibra para que coincida con el total oficial del primer semestre de 2026: 36,9% de personas pobres en los Partidos del GBA y 11,1% en CABA. La población de referencia es la del Censo 2022.
 
-<p class="aviso"><strong>Cómo leer la precisión.</strong> Cada cifra de la EPH es una estimación por muestra. El coeficiente de variación (CV) mide su error relativo: el INDEC recomienda leer con cuidado los valores con CV entre 16% y 25% y considera no confiables los que superan 25%. Los intervalos de confianza son al 90% y solo existen para el último semestre (aglomerados) y para partidos y comunas (intervalos bootstrap). Las fracciones censales son una capa exploratoria sin intervalos.</p>
+<p class="aviso"><strong>Cómo leer la precisión.</strong> Cada cifra de la EPH es una estimación hecha con una muestra. El coeficiente de variación (CV) mide su error relativo: el INDEC recomienda leer con cuidado los valores con un CV de entre 16% y 25% y considera no confiables los que superan el 25%. Los intervalos de confianza, al 90%, solo están para el último semestre de los aglomerados y para los partidos y las comunas, donde se calcularon por remuestreo (bootstrap). Las fracciones censales son una capa exploratoria, sin intervalos.</p>
 
 ## Consulta guiada
 
-Elegí una tabla y los filtros. Abajo está la consulta SQL que da el mismo resultado: podés copiarla o llevarla a la caja de SQL libre para modificarla.
+Elegí una tabla y los filtros. Debajo del resultado está la consulta SQL que lo produce: podés copiarla o llevarla al editor de SQL libre para cambiarla. En las tablas y en los gráficos, 1S y 2S quieren decir primer y segundo semestre.
 
 ```js
 const TABLAS_GUIADAS = new Map([
-  ["Serie nacional, 31 aglomerados (2S 2016 a 1S 2026)", "serie_nacional"],
+  ["Serie nacional de los 31 aglomerados, por semestre desde 2016", "serie_nacional"],
   ["Aglomerados y regiones, serie por semestre", "aglomerados_serie"],
-  ["Aglomerados y regiones, 1S 2026 con CV e intervalos", "aglomerados"],
+  ["Aglomerados y regiones, último semestre, con CV e intervalos", "aglomerados"],
   ["Grupos de edad, 31 aglomerados", "pobreza_edad"],
-  ["Partidos del GBA y comunas de la Ciudad, 1S 2026 (estimación)", "gba_partidos_comunas"],
-  ["Fracciones censales del GBA y la Ciudad, 1S 2026 (exploratorio)", "gba_fracciones"]
+  ["Partidos del GBA y comunas de CABA, último semestre (estimación)", "gba_partidos_comunas"],
+  ["Fracciones censales del GBA y CABA, último semestre (exploratoria)", "gba_fracciones"]
 ]);
 const tabla = view(Inputs.select(TABLAS_GUIADAS, {label: "Tabla", value: "aglomerados", width: 460}));
 ```
@@ -150,9 +153,9 @@ const opcionesGrupo =
     : tabla === "pobreza_edad"
     ? new Map([["Grupos generales (0 a 14, 15 a 29, 30 a 64, 65 y más)", "general"], ["Niñez y adolescencia (0 a 17 y subgrupos)", "ninez"]])
     : new Map([
-        ["Ciudad y conurbano", "todo"],
+        ["CABA y partidos del GBA", "todo"],
         ["Solo partidos del GBA", "j:GBA"],
-        ["Solo comunas de la Ciudad", "j:CABA"],
+        ["Solo comunas de CABA", "j:CABA"],
         ...ZONAS.map((z) => [`Zona ${z}`, "z:" + z])
       ]);
 
@@ -178,7 +181,7 @@ const grupo = conf.grupo ? view(Inputs.select(opcionesGrupo, {label: etiquetaGru
 
 ```js
 const periodo = conf.periodo
-  ? view(Inputs.select(["Todos los semestres", ...periodos.slice().reverse()], {label: "Semestre", width: 460, value: tabla === "aglomerados_serie" ? "1S 2026" : "Todos los semestres"}))
+  ? view(Inputs.select(["Todos los semestres", ...periodos.slice().reverse()], {label: "Semestre", format: semestreLargo, width: 460, value: tabla === "aglomerados_serie" ? "1S 2026" : "Todos los semestres"}))
   : "1S 2026";
 ```
 
@@ -278,18 +281,18 @@ const filasGuiada = guiada.resolver(T[tabla]);
 const descripcion = (() => {
   const u = unidad === "hogares" ? "hogares" : "personas";
   const que = `${indicador === "pobreza" ? "Pobreza" : "Indigencia"}: % de ${u} ${indicador === "pobreza" ? "bajo la línea de pobreza" : "bajo la línea de indigencia"}`;
-  const per = conf.periodo ? (guiada.unaFecha ? periodo : "2S 2016 a 1S 2026") : "1S 2026";
+  const per = conf.periodo ? (guiada.unaFecha ? semestreLargo(periodo) : "Segundo semestre de 2016 a primer semestre de 2026") : "Primer semestre de 2026";
   const pob = {
     serie_nacional: `sobre el total de ${u} de los 31 aglomerados urbanos`,
     aglomerados_serie: `sobre el total de ${u} de cada aglomerado, región o total`,
     aglomerados: `sobre el total de ${u} de cada aglomerado, región o total`,
     pobreza_edad: `sobre el total de personas de cada grupo de edad, 31 aglomerados urbanos`,
-    gba_partidos_comunas: `sobre la población censal 2022 de cada partido o comuna (estimación)`,
-    gba_fracciones: `sobre la población censal 2022 de cada fracción (estimación exploratoria)`
+    gba_partidos_comunas: `sobre la población del Censo 2022 de cada partido o comuna (estimación)`,
+    gba_fracciones: `sobre la población del Censo 2022 de cada fracción (estimación exploratoria)`
   }[tabla];
   const fuente = tabla.startsWith("gba")
-    ? "Fuente: estimación en áreas pequeñas sobre INDEC, EPH 1T 2026 y Censo 2022, calibrada al 1S 2026."
-    : "Fuente: INDEC, EPH.";
+    ? "Fuente: estimación en áreas pequeñas con datos del INDEC (EPH del primer trimestre de 2026 y Censo 2022), calibrada al primer semestre de 2026."
+    : "Fuente: INDEC, Encuesta Permanente de Hogares.";
   return {titulo: `${que}, ${pob}. ${per}.`, fuente};
 })();
 ```
@@ -370,8 +373,8 @@ function graficoGuiado(filas, width) {
   });
   const notas = [];
   if (guiada.li) notas.push("La línea horizontal es el intervalo de confianza al 90%.");
-  if (guiada.cv) notas.push("En amarillo, estimaciones con CV mayor a 16%: leer con cuidado.");
-  if (filas.length > tope) notas.push(`Se muestran las ${tope} filas con mayor valor de un total de ${filas.length.toLocaleString("es-AR")}. La tabla tiene todas.`);
+  if (guiada.cv) notas.push("En amarillo, las estimaciones con un CV mayor a 16%, que hay que leer con cuidado.");
+  if (filas.length > tope) notas.push(`El gráfico muestra las ${tope} filas con el valor más alto, de un total de ${filas.length.toLocaleString("es-AR")}. La tabla tiene todas.`);
   return html`${g}${notas.length ? html`<p class="pie-grafico">${notas.join(" ")}</p>` : ""}`;
 }
 ```
@@ -393,7 +396,17 @@ display(resize((width) => graficoGuiado(filasGuiada, width)));
 <p class="pie-grafico">${descripcion.fuente}</p>
 
 ```js
-display(Inputs.table(filasGuiada, {locale: "es-AR", format: formatos(filasGuiada), rows: 12, maxWidth: 1100}));
+// encabezados en castellano para leer la tabla: el CSV y la consulta SQL conservan los nombres de las columnas
+const encabezadosGuiada = {
+  periodo: "Período", anio: "Año", semestre: "Semestre (1 o 2)", indicador: "Indicador", unidad: tabla.startsWith("gba") ? "Partido o comuna" : "Unidad",
+  valor_pct: `${indicador === "pobreza" ? "Pobreza" : "Indigencia"} (% de ${unidad === "hogares" ? "hogares" : "personas"})`,
+  li_90: "Mínimo (intervalo al 90%)", ls_90: "Máximo (intervalo al 90%)", cv: "Error relativo (CV, %)",
+  cantidad_miles: `${unidad === "hogares" ? "Hogares" : "Personas"} ${indicador === "pobreza" ? "pobres" : "indigentes"} (miles)`,
+  nombre: "Aglomerado, región o total", aglomerado: "Aglomerado, región o total", tipo: "Tipo", region: "Región", grupo_edad: "Grupo de edad",
+  jurisdiccion: "Jurisdicción", zona: "Zona", fraccion: "Fracción censal", poblacion_censo_2022: "Población (Censo 2022)",
+  personas_pobres: "Personas pobres (estimación)", personas_indigentes: "Personas indigentes (estimación)"
+};
+display(Inputs.table(filasGuiada, {locale: "es-AR", format: formatos(filasGuiada), header: encabezadosGuiada, rows: 12, maxWidth: 1100}));
 display(botonesCsv(filasGuiada, `consulta_${tabla}`));
 ```
 
@@ -401,7 +414,7 @@ display(botonesCsv(filasGuiada, `consulta_${tabla}`));
 <summary>Ver la consulta SQL de este resultado</summary>
 
 ```js
-const llevar = html`<button type="button">Llevar esta consulta a la caja de SQL libre</button>`;
+const llevar = html`<button type="button">Llevar esta consulta al editor de SQL libre</button>`;
 llevar.onclick = () => cargarEnEditor(guiada.sqlTexto, true);
 display(html`<pre class="sql-generado">${guiada.sqlTexto}</pre>`);
 display(llevar);
@@ -571,7 +584,7 @@ if (resultadoLibre.cerrado) {
 } else if (!resultadoLibre.ok) {
   display(html`<div class="error-sql"><p><strong>No se pudo ejecutar la consulta.</strong> Revisá la sintaxis y los nombres de tablas y columnas (están en el diccionario de datos). Detalle técnico que devolvió DuckDB, en inglés:</p><code>${resultadoLibre.error}</code></div>`);
 } else if (!resultadoLibre.filas.length) {
-  display(html`<p class="nota">La consulta corrió bien pero no devolvió filas.</p>`);
+  display(html`<p class="nota">La consulta funcionó, pero no devolvió ninguna fila.</p>`);
 } else {
   display(html`<p class="nota">Resultado en ${num0(resultadoLibre.ms)} milisegundos.</p>`);
   display(Inputs.table(resultadoLibre.filas, {locale: "es-AR", format: formatos(resultadoLibre.filas), rows: 15, maxWidth: 1100}));
@@ -585,12 +598,12 @@ Cada tabla está en formato Parquet, un formato abierto y liviano que se lee con
 
 ```js
 const ARCHIVOS = [
-  {tabla: "serie_nacional", archivo: FileAttachment("data/serie_nacional.parquet"), que: "Pobreza e indigencia en personas y hogares, total 31 aglomerados, por semestre desde 2S 2016"},
-  {tabla: "pobreza_edad", archivo: FileAttachment("data/pobreza_edad.parquet"), que: "Pobreza e indigencia por grupo de edad, total 31 aglomerados, por semestre"},
-  {tabla: "aglomerados", archivo: FileAttachment("data/aglomerados.parquet"), que: "Aglomerados, regiones y totales en el 1S 2026, con CV, intervalos al 90% y cantidades"},
+  {tabla: "serie_nacional", archivo: FileAttachment("data/serie_nacional.parquet"), que: "Pobreza e indigencia en personas y hogares, total de los 31 aglomerados, por semestre desde el segundo semestre de 2016"},
+  {tabla: "pobreza_edad", archivo: FileAttachment("data/pobreza_edad.parquet"), que: "Pobreza e indigencia por grupo de edad, total de los 31 aglomerados, por semestre"},
+  {tabla: "aglomerados", archivo: FileAttachment("data/aglomerados.parquet"), que: "Aglomerados, regiones y totales en el primer semestre de 2026, con CV, intervalos de confianza al 90% y cantidades"},
   {tabla: "aglomerados_serie", archivo: FileAttachment("data/aglomerados_serie.parquet"), que: "Serie semestral por aglomerado, región y total"},
-  {tabla: "gba_partidos_comunas", archivo: FileAttachment("data/gba_partidos_comunas.parquet"), que: "Estimación 1S 2026 por partido del GBA y comuna de la Ciudad, con intervalos y datos censales de contexto"},
-  {tabla: "gba_fracciones", archivo: FileAttachment("data/gba_fracciones.parquet"), que: "Estimación exploratoria 1S 2026 por fracción censal, sin intervalos"}
+  {tabla: "gba_partidos_comunas", archivo: FileAttachment("data/gba_partidos_comunas.parquet"), que: "Estimación del primer semestre de 2026 por partido del GBA y comuna de CABA, con intervalos y datos del Censo 2022 como contexto"},
+  {tabla: "gba_fracciones", archivo: FileAttachment("data/gba_fracciones.parquet"), que: "Estimación exploratoria del primer semestre de 2026 por fracción censal, sin intervalos"}
 ];
 const conteos = Object.fromEntries(ARCHIVOS.map((a) => [a.tabla, T[a.tabla].length]));
 display(html`<table class="lista-tablas">
