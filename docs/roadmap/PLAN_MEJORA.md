@@ -427,6 +427,9 @@ Van en tandas, con opciones, como pidió el autor el 5 de octubre de 2026. La re
 3. **Suicidio por provincia** (hoy barras de mayor a menor que nombran la más alta y la más baja, en tensión con "sin rankings"). Orden alfabético sin superlativos · mapa · dejarlo como está.
 
 **Tanda 2 (antes de la etapa 6)**
+
+_Decidido por el autor el 27 de octubre de 2026: la opción recomendada en las cinco (índice de capítulos, justicia en su página y el resto en capítulos, la historia del perfil al final, el menú simplificado y "Naturaleza y ambiente"). En la tanda 1, a-milei-empleo se retira y su dirección lleva a "¿Qué candidato ganó en cada provincia en cada elección presidencial?"._
+
 4. **Páginas largas.** Índice de capítulos sin pestañas · pestañas internas · dejarlas como están.
 5. **Instituciones políticas.** Justicia en una página propia y el resto en cuatro capítulos · solo capítulos · como está.
 6. **Perfil provincial.** La historia al final y "Dónde se destaca" arriba · la historia plegada arriba · como está.
