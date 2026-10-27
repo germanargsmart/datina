@@ -4701,15 +4701,18 @@ function dispersion(el, cfg) {
   const etiq = new Set([...orden.slice(0, 3), ...orden.slice(-3)].map(d => d.codigo_indec).concat(prov ? [prov] : [], cfg.marcar || []));
   const pt = g.selectAll("circle").data(data).join("circle").attr("cx", d => x(d[cfg.x])).attr("cy", d => y(d[cfg.y])).attr("r", 5.5)
     .attr("fill", d => d.codigo_indec === prov ? css("--celeste-fuerte") : css("--celeste")).attr("stroke", "#fff");
-  // etiquetas sin superponerse: la provincia elegida primero, después las de los extremos
-  const puestas = [], conLab = data.filter(d => etiq.has(d.codigo_indec)).sort((p, q) => (q.codigo_indec === prov) - (p.codigo_indec === prov)).filter(d => {
-    const px = x(d[cfg.x]), py = y(d[cfg.y]);
-    if (puestas.some(([qx, qy]) => Math.abs(qx - px) < 90 && Math.abs(qy - py) < 13)) return false;
-    puestas.push([px, py]); return true;
+  // etiquetas sin superponerse: la provincia elegida primero, después las que nombra el texto (marcar) y por último las de los extremos.
+  // Cada nombre se mide ya puesto y se saca si pisa a otro (hasta octubre de 2026 se comparaban solo los puntos, y dos nombres que crecían
+  // uno hacia el otro, como el de un punto de la derecha y el de uno del medio, se pisaban)
+  const marcados = new Set(cfg.marcar || []), prio = d => d.codigo_indec === prov ? 2 : marcados.has(d.codigo_indec) ? 1 : 0, cajas = [];
+  data.filter(d => etiq.has(d.codigo_indec)).sort((p, q) => prio(q) - prio(p)).forEach(d => {
+    const px = x(d[cfg.x]), der = px > iw * .8;
+    const t = g.append("text").attr("class", d.codigo_indec === prov ? "etq-fuerte lab" : "etq lab").attr("x", px + (der ? -8 : 8))
+      .attr("text-anchor", der ? "end" : "start").attr("y", y(d[cfg.y]) + 4).text(d.territorio);
+    const c = t.node().getBBox();
+    if (cajas.some(o => c.x < o.x + o.width + 6 && o.x < c.x + c.width + 6 && c.y < o.y + o.height && o.y < c.y + c.height)) t.remove();
+    else cajas.push(c);
   });
-  g.selectAll("text.lab").data(conLab).join("text").attr("class", d => d.codigo_indec === prov ? "etq-fuerte lab" : "etq lab")
-    .attr("x", d => x(d[cfg.x]) + (x(d[cfg.x]) > iw * .8 ? -8 : 8)).attr("text-anchor", d => x(d[cfg.x]) > iw * .8 ? "end" : "start")
-    .attr("y", d => y(d[cfg.y]) + 4).text(d => d.territorio);
   if (cfg.anim) pt.attr("r", 0).transition().delay(escalon).duration(DUR_G).attr("r", 5.5);
   pt.on("pointerenter", (ev, d) => mostrarTip(el, `<b>${d.territorio}</b><br>${cfg.xLab}: ${vx(d[cfg.x])}<br>${cfg.yLab}: ${vy(d[cfg.y])}`, 46 + x(d[cfg.x]), 34 + y(d[cfg.y])))
     .on("pointerleave", ocultarSiMouse);
@@ -7938,7 +7941,7 @@ const ART_SERIE = [{
   },
   dib: {
     "dolar-compras": (el, a) => lineas(el, {anim: a, x: "anio", y0: Math.min(0, d3.min(T.compras_dolares_anual, r => r.millones_usd)), ref: 0, vf: n0, yf: n0,
-      data: T.compras_dolares_anual, series: [{k: "millones_usd", lab: "Compras netas", c: NAR}]}),
+      data: T.compras_dolares_anual, series: [{k: "millones_usd", lab: "Compras netas", corto: "Compras", c: NAR}]}),
   },
 }, {
   // etapa 24: el turismo internacional y el dólar real, mes por mes (SINTA y BCRA)
