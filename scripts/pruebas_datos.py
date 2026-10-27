@@ -17,6 +17,7 @@ Qué revisan:
      recursos propios provinciales, que no puede ser la mediana. El país de nacimiento que es el primero en más jurisdicciones (E13, 27 de
      octubre de 2026), que el texto dice cuando no es el más frecuente del total.
      Una jurisdicción con otro año que el de su ficha (E12): rotulada y fuera de la mediana.
+     Las diferencias y los conteos de un texto, con las cifras que se muestran (R12).
 
 Lo que está explicado se acepta, con su motivo, en ACEPTADAS (y los casos distorsionados por el lugar de registro, en
 datos/manual/distorsiones.json, que también usan los textos). Un hallazgo nuevo sin motivo hace fallar las pruebas.
@@ -495,6 +496,15 @@ def prueba_errores(d, t):
     pg_reg = {f["territorio"]: f["anio_aif"] for f in d["datos"]["regalias_provincias"] if f["anio_aif"] != pg["reg_anio"]}
     if pg_reg != pg.get("reg_atrasadas"):
         sale.append(("otro-anio|regalias", f"regalías: con otro año que {pg['reg_anio']} están {pg_reg} y la ficha rotula {pg.get('reg_atrasadas')}"))
+    # R12 (27 de octubre de 2026): las diferencias y los conteos que dice un texto salen de las cifras que se muestran. PISA decía
+    # "95 puntos" entre 378 y 472, y Jujuy se veía "1,0%" en las regalías y contaba entre las de menos del 1%
+    pz = d["resumen"]["pisa"]
+    if pz["dif_mat"] != pz["ocde_mat"] - pz["mat"]:
+        sale.append(("redondeo|pisa", f"PISA: la diferencia dice {pz['dif_mat']} puntos y la resta de lo que se ve da {pz['ocde_mat'] - pz['mat']}"))
+    vistos = [round(f["pct_regalias"] + 1e-9, 1) for f in d["datos"]["regalias_provincias"]]
+    if pg["reg_n_1"] != sum(v >= 1 for v in vistos) or pg["reg_n_10"] != sum(v >= 10 for v in vistos):
+        sale.append(("redondeo|regalias", f"regalías: el texto cuenta {pg['reg_n_1']} con 1% o más y {pg['reg_n_10']} con 10% o más, "
+                                          f"y con lo que se ve son {sum(v >= 1 for v in vistos)} y {sum(v >= 10 for v in vistos)}"))
     return sale
 
 

@@ -6562,8 +6562,10 @@ resumen = {
         "anio": ANIO_PISA, "anio_prev": int(pp_prev.anio),
         "mat": round(float(pu.arg_mat)), "lec": round(float(pu.arg_lec)), "cie": round(float(pu.arg_cie)),
         "ocde_mat": round(float(pu.ocde_mat)), "ocde_lec": round(float(pu.ocde_lec)), "ocde_cie": round(float(pu.ocde_cie)),
-        "dif_mat": round(float(pu.ocde_mat - pu.arg_mat)), "var_mat": round(float(pu.arg_mat - pp_prev.arg_mat)),
-        "var_lec": round(float(pu.arg_lec - pp_prev.arg_lec)), "var_cie": round(float(pu.arg_cie - pp_prev.arg_cie)),
+        # las diferencias, entre las cifras que se muestran (R12 del plan de mejora, 27 de octubre de 2026): con los puntos sin
+        # redondear, 472 menos 378 daba "95 puntos"
+        "dif_mat": round(float(pu.ocde_mat)) - round(float(pu.arg_mat)), "var_mat": round(float(pu.arg_mat)) - round(float(pp_prev.arg_mat)),
+        "var_lec": round(float(pu.arg_lec)) - round(float(pp_prev.arg_lec)), "var_cie": round(float(pu.arg_cie)) - round(float(pp_prev.arg_cie)),
     },
     # los valores de 99,5% o más (y los que pasan de 100) reflejan diferencias entre la matrícula y la proyección de población:
     # no se presentan como el máximo (pedido del autor, octubre de 2026)
@@ -6840,7 +6842,8 @@ resumen["petroleo"] = {
     "res_nq_pet": r1(reservas_prov.set_index("codigo_indec").pct_pet.get("58", 0)), "res_nq_gas": r1(reservas_prov.set_index("codigo_indec").pct_gas.get("58", 0)),
     # regalías
     "reg_anio": ANIO_FISC, "reg_top": _rp_ult.iloc[-1].territorio, "reg_top_pct": r1(_rp_ult.iloc[-1].pct_regalias),
-    "reg_n_10": int((reg_prov.pct_regalias >= 10).sum()), "reg_n_1": int((reg_prov.pct_regalias >= 1).sum()),
+    # contadas con el porcentaje que se ve, con un decimal (R12): Jujuy, con 0,96, se ve "1,0%" y caía en "menos del 1%"
+    "reg_n_10": int((reg_prov.pct_regalias.map(r1) >= 10).sum()), "reg_n_1": int((reg_prov.pct_regalias.map(r1) >= 1).sum()),
     "reg_atrasadas": {CORTO[c]: int(a) for c, a in zip(reg_prov.codigo_indec, reg_prov.anio_aif) if a < ANIO_FISC},
     # la descripción de la ficha con los dos años (E12): "2025 (La Pampa, 2024)"
     "reg_anio_txt": f"{ANIO_FISC}" + (" (" + ", ".join(f"{CORTO[c]}, {int(a)}" for c, a in zip(reg_prov.codigo_indec, reg_prov.anio_aif) if a < ANIO_FISC) + ")"
