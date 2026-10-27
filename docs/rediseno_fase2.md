@@ -369,3 +369,14 @@ Hecha después de unir todo en la rama `claude/estabilizacion-y-produccion`, en 
 - **Capturas**: las 88 de cada versión quedaron fuera del repositorio (la carpeta `linea_base/` no se sube). Se revisaron a ojo la portada, una sección, el perfil provincial, el artículo y el consultor.
 - **Pruebas**: el armado con todas sus comprobaciones y la prueba de páginas sobre el estado final de la rama.
 
+## Escala del diseño (27 de octubre de 2026)
+
+Decisión del autor del 25 de octubre de 2026: llevar a la escala lo que el paso 7 dejó escrito a mano en `datina.css` (la letra fuera de la escala y los espacios), en un PR propio con capturas de antes y después. Es la etapa 3 del plan de mejora (`docs/roadmap/PLAN_MEJORA.md`). Capturas: https://claude.ai/artifact/LQLNvSa5am6v8JpLiTNTRt (página privada del autor).
+
+- **Letra**: 9,5, 10,5 y 11,5 píxeles pasan a `--t-1` (11). 12, 12,5 y 14 a `--t-2` (13). 18 a `--t-5`, y la bajada de la portada a `--t-7` (de 20 a 22 en el celular). Casi todo son rótulos de gráficos y tablas, la barra y los cuadros al pasar el mouse.
+- **Espacios**: al valor más cercano de la escala (5 a 4, 7 y 9 a 8, 18 a 16). En un empate (6, 10, 14, 20 y 28) el relleno de lo que se toca (enlaces, botones, campos, opciones) sube, para que nada se achique al tocarlo, y lo demás baja, "lo que va junto, junto" (pedido del 10 de octubre de 2026). Los botones de vista ya miden al menos 34 píxeles: su empate baja (al subir, "Cada 100 habitantes" partía en dos renglones en el celular).
+- **Quedan escritas a mano** las medidas de dibujo: la marca, el título de la portada, la cruz del mapa, la silueta de carga de cada gráfico (copia sus márgenes: cambiarla haría saltar la página), el hueco para la flecha de los selectores, la sangría alineada con un ícono y los ajustes finos de 0 a 2 píxeles. Las correcciones de 1 píxel del foco del buscador de provincias y de la fila de secciones se conservan con `calc(var(--e-3) - 1px)`.
+- 113 declaraciones. Medido con una huella de 10 páginas en 390 y 1440 píxeles (dos huellas del mismo sitio dan idénticas): de 58.164 elementos comparados cambian 15.801, casi todos solo de lugar. 1.911 cambian de letra, entre medio y un píxel y medio. La barra mide lo mismo. Ningún botón ni enlace suelto baja de 24 píxeles de alto.
+- Un arreglo que salió de las capturas: en "¿Cómo votó cada legislador…?" la cuenta de cada espacio ya se pisaba con los puntos en las más largas. Ahora sigue en un segundo renglón (`partirLista()` en `datina.js`) y la fila crece.
+
+Pruebas: el armado con todas sus comprobaciones, la prueba de páginas ("Todo en orden"), la de 320 píxeles (ninguna de las 54 páginas se corre de costado), cifras destacadas, fallas a propósito, escala de las correlaciones y consultas con IA.
