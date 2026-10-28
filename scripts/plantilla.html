@@ -1851,13 +1851,19 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
     <h2 class="bloque-grupo" id="g-electricidad">Electricidad</h2>
 
+    <!-- f-hogares y f-actividad, unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026): usaban la misma tabla.
+         La dirección vieja (#f-actividad) lleva acá (FICHAS_UNIDAS en 03_construir_sitio.py) -->
     <article class="ficha" id="f-hogares">
-      <h2>¿Qué parte de la electricidad consumen los hogares?</h2>
-      <p class="ficha-sub">Demanda eléctrica de los hogares y del resto de los usuarios (índice {{energia.anio_ini}} = 100) y parte de los hogares en el total, {{energia.anio_ini}} a {{energia.anio_ult}}</p>
+      <h2>¿Cuánto creció la demanda eléctrica frente a la economía?</h2>
+      <p class="ficha-sub">Demanda eléctrica total, de los hogares y del resto de los usuarios, y actividad económica, índices con base {{energia.anio_ini}} = 100, {{energia.anio_ini}} a {{energia.anio_ult}}</p>
+      <div class="conmutador" role="group" aria-label="Vista" data-g="hogares" style="--n:2">
+        <button type="button" data-m="total" aria-pressed="true">Total y economía</button>
+        <button type="button" data-m="usuarios" aria-pressed="false">Hogares y resto</button>
+      </div>
       <div class="grafico" data-g="hogares" data-forma="lineas"></div>
       <p class="lead" data-t="hogares"></p>
-      <p class="nota">Índice con base 2005 = 100. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
-      <div class="pie"><span>Fuente: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
+      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original. El resto de los usuarios agrupa comercios, industrias y grandes usuarios conectados al mercado eléctrico mayorista.</p>
+      <div class="pie"><span>Fuentes: CAMMESA, publicado por la Subsecretaría de Programación Macroeconómica en la API de Series de Tiempo de datos.gob.ar, e INDEC</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
     <article class="ficha" id="f-electricidad-provincias">
@@ -1889,15 +1895,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: CAMMESA, demanda mensual por provincia y tipo de usuario (Informe Síntesis Mensual), e INDEC, proyecciones de población</span><a href="datos/electricidad_sectores.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
-    <article class="ficha" id="f-actividad">
-      <h2>¿Cuánto creció la demanda eléctrica frente a la actividad económica?</h2>
-      <p class="ficha-sub">Demanda eléctrica total y actividad económica, índices con base {{energia.anio_ini}} = 100, {{energia.anio_ini}} a {{energia.anio_ult}}</p>
-      <div class="grafico" data-g="actividad" data-forma="lineas"></div>
-      <p class="lead" data-t="actividad"></p>
-      <p class="nota">Índices con base 2005 = 100. La actividad económica es el promedio anual del Estimador Mensual de Actividad Económica (EMAE) del INDEC, serie original.</p>
-      <div class="pie"><span>Fuentes: CAMMESA e INDEC, vía API de Series de Tiempo</span><a href="datos/energia_hogares.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
     <article class="ficha" id="f-meses">
       <h2>¿En qué meses se usa más electricidad?</h2>
       <p class="ficha-sub">Demanda eléctrica promedio de cada mes, en gigavatios hora (GWh), {{energia.meses_desde}} a {{energia.meses_hasta}}</p>
@@ -1906,6 +1903,8 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="meses-nota"></p>
       <div class="pie"><span>Fuente: CAMMESA, vía API de Series de Tiempo</span><a href="datos/energia_estacionalidad.csv" download>Descargar tabla (CSV)</a></div>
     </article>
+
+    <h2 class="bloque-grupo" id="g-generacion">Generación</h2>
 
     <article class="ficha" id="f-centrales">
       <h2>¿Dónde están las centrales eléctricas y cuánta potencia tiene cada tecnología?</h2>

@@ -211,7 +211,7 @@ FRECUENCIA = {
     "f-isac": "mes", "f-permisos": "mes", "f-insumos": "mes", "f-obra-publica": "anio", "f-empleo-construccion": "trimestre",
     "f-trabajadores": "censo", "f-costo": "mes", "f-hipotecas": "mes", "f-vivienda": "censo",
     # Energía
-    "f-hogares": "mes", "f-electricidad-provincias": "mes", "f-electricidad-sectores": "mes", "f-actividad": "mes", "f-meses": "mes",
+    "f-hogares": "mes", "f-electricidad-provincias": "mes", "f-electricidad-sectores": "mes", "f-meses": "mes",
     "f-centrales": "anio", "f-gas-hogares": "censo", "f-gas-consumo": "mes", "f-subsidios": "mes",
     # Petróleo y gas
     "f-petroleo": "mes", "f-gas": "mes", "f-hidro-provincias": "mes", "f-areas-hidro": "anio", "f-mapa-pozos": "mes", "f-pozos": "mes",
@@ -614,6 +614,14 @@ INDICE = {"secciones": SECCIONES, "fichas": FICHAS, "articulos": [[i, html.unesc
           "grupos": [[g, n, [list(it) if isinstance(it, tuple) else it for it in items]] for g, n, items in GRUPOS],
           "cat": {s: subs[0] for s, (_, subs) in CATEGORIA.items()},
           "menu": {p: m for p, (m, _) in MENU_DE.items()}, "ejemplos": [list(x) for x in EJEMPLOS], "lab": [list(x) for x in LAB_PIEZAS_IDX]}
+# Fichas unidas (plan de mejora, R7, decisión del autor del 28 de octubre de 2026: once pares de fichas casi iguales pasan a ser una ficha
+# con vistas): la ficha que se fue y la que quedó. datina.js manda la dirección vieja (energia.html#f-actividad) a la nueva, en esa página
+# o en otra. La que se fue no puede seguir en la plantilla, y la que quedó tiene que estar
+FICHAS_UNIDAS = {"f-actividad": "f-hogares"}
+for _vieja, _nueva in FICHAS_UNIDAS.items():
+    assert _vieja not in UBIC, f"{_vieja}: la ficha unida a {_nueva} sigue en la plantilla"
+    assert UBIC.get(_nueva), f"{_vieja}: la ficha que la reemplaza ({_nueva}) no está en la plantilla"
+INDICE["alias"] = FICHAS_UNIDAS
 # con las consultas con IA prendidas, el buscador ofrece llevar lo escrito a la página de las consultas (datina.js, buscar)
 if CONSULTA_IA:
     INDICE["ia"] = 1

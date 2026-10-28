@@ -20,7 +20,7 @@ const EXCEPCIONES = {
 };
 // las que ya estaban así el 27 de octubre de 2026, sin revisar una por una (ver arriba). No se suman fichas nuevas a esta lista
 const SIN_REVISAR = new Set([
-  "f-actividad", "f-adolescentes", "f-areas-hidro", "f-balanza", "f-canastas", "f-causas-muerte", "f-centrales", "f-cortes-provinciales",
+  "f-adolescentes", "f-areas-hidro", "f-balanza", "f-canastas", "f-causas-muerte", "f-centrales", "f-cortes-provinciales",
   "f-costo", "f-delitos", "f-electricidad-sectores", "f-emae", "f-empleo-construccion", "f-empleo-hidro", "f-empresas", "f-escolarizacion",
   "f-esperanza", "f-exporta-provincias", "f-exporta-rubros", "f-fiscalias-federales", "f-gas-hogares", "f-glaciares", "f-hidro-provincias",
   "f-hogares", "f-homicidios", "f-hoteles", "f-importaciones", "f-impuestos-provinciales", "f-insumos", "f-inversion-educativa", "f-isac",

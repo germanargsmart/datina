@@ -703,16 +703,6 @@
    }
   },
   {
-   "id": "ds:bm_EN.GHG.CO2.PC.CE.AR5.json",
-   "nombre": "Emisión de dióxido de carbono por habitante (Banco Mundial, para la comparación con la OCDE)",
-   "fuente": "org:banco-mundial",
-   "ruta": "datos/crudo/bm_EN.GHG.CO2.PC.CE.AR5.json",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "\"EG.USE.ELEC.KH.PC\", \"EN.GHG.CO2.PC.CE.AR5\""
-   }
-  },
-  {
    "id": "ds:bm_ER.FSH.CAPT.MT.json",
    "nombre": "Pesca de captura, Argentina y países de la OCDE",
    "fuente": "org:banco-mundial",
@@ -773,17 +763,6 @@
     "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
    },
    "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SH.STA.TRAF.P5?format=json"
-  },
-  {
-   "id": "ds:bm_SH.XPD.CHEX.GD.ZS.json",
-   "nombre": "Gasto corriente en salud (% del PBI): Argentina y países de la OCDE",
-   "fuente": "org:banco-mundial",
-   "ruta": "datos/crudo/bm_SH.XPD.CHEX.GD.ZS.json",
-   "evidencia": {
-    "archivo": "scripts/01_descargar.py",
-    "contiene": "FUENTES[f\"bm_{_ind}.json\"] = ("
-   },
-   "url": "https://api.worldbank.org/v2/country/ARG;.../indicator/SH.XPD.CHEX.GD.ZS?format=json"
   },
   {
    "id": "ds:bm_SI.DST.50MD.json",
@@ -2955,22 +2934,6 @@
     {
      "archivo": "scripts/datina.js",
      "contiene": "ref: OC.mortalidad_infantil.ocde, refLab:"
-    }
-   ],
-   "tabla": "ocde_comparacion"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bm_SH.XPD.CHEX.GD.ZS.json",
-   "a": "f-mortalidad",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "(\"SH.XPD.CHEX.GD.ZS\""
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-mortalidad\": [\"mortalidad\", \"Por provincia\", [\"gasto_salud\"]]"
     }
    ],
    "tabla": "ocde_comparacion"
@@ -5207,26 +5170,10 @@
     {
      "archivo": "scripts/02_procesar.py",
      "contiene": "\"energia_hogares\": anual[[\"anio\", \"total\", \"residencial\", \"resto\", \"pct_residencial\","
-    }
-   ],
-   "tabla": "energia_hogares"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:energia_emae.csv",
-   "a": "f-actividad",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "e = pd.read_csv(CRUDO / \"energia_emae.csv\", parse_dates=[\"indice_tiempo\"])"
-    },
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"energia_hogares\": anual[[\"anio\", \"total\", \"residencial\", \"resto\", \"pct_residencial\","
     },
     {
      "archivo": "scripts/datina.js",
-     "contiene": "series:[{k:\"idx_demanda\", lab:\"Electricidad\", c:NAR, w:3}, {k:\"idx_emae\", lab:\"Actividad\", c:GRIS}]"
+     "contiene": ": [{k:\"idx_demanda\", lab:\"Electricidad\", c:NAR, w:3}, {k:\"idx_emae\", lab:\"Actividad\", c:GRIS}]}),"
     }
    ],
    "tabla": "energia_hogares"
@@ -5258,23 +5205,7 @@
     },
     {
      "archivo": "scripts/datina.js",
-     "contiene": "\"f-hogares\": [\"hogares\", \"Hogares y resto\", [\"electricidad\", \"co2\"]],"
-    }
-   ],
-   "tabla": "ocde_comparacion"
-  },
-  {
-   "tipo": "alimenta",
-   "de": "ds:bm_EN.GHG.CO2.PC.CE.AR5.json",
-   "a": "f-hogares",
-   "evidencia": [
-    {
-     "archivo": "scripts/02_procesar.py",
-     "contiene": "\"co2\": (\"EN.GHG.CO2.PC.CE.AR5\""
-    },
-    {
-     "archivo": "scripts/datina.js",
-     "contiene": "\"f-hogares\": [\"hogares\", \"Hogares y resto\", [\"electricidad\", \"co2\"]],"
+     "contiene": "\"f-hogares\": [\"hogares\", \"Demanda eléctrica\", [\"electricidad\"]],"
     }
    ],
    "tabla": "ocde_comparacion"
@@ -7103,12 +7034,6 @@
   }
  ],
  "fichas": {
-  "f-actividad": {
-   "variables": [
-    "demanda_electrica_total",
-    "emae_promedio_anual"
-   ]
-  },
   "f-adolescentes": {
    "variables": [
     "pct_nacimientos_madres_menores_20",
@@ -7337,7 +7262,9 @@
   },
   "f-hogares": {
    "variables": [
-    "demanda_electrica_residencial"
+    "demanda_electrica_residencial",
+    "demanda_electrica_total",
+    "emae_promedio_anual"
    ]
   },
   "f-hoteles": {
