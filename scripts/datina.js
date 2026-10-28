@@ -6564,8 +6564,8 @@ const EN_CIFRAS = {
   petroleo: ["f-petroleo", "f-gas", "x-pet-shale", "f-reservas", "f-hidro-provincias", "x-vaca-muerta", "f-mundo-petroleo", "f-balanza-energetica",
     "f-pozos", "f-regalias", "f-empleo-hidro"],
   turismo: ["f-receptivo", "x-turistas-doce", "f-hoteles", "f-eti", "x-hoteles-nr"],
-  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio"],
-  curiosidades: ["f-nombres", "f-carne", "f-vino", "f-yerba", "f-clima", "f-glaciares"],
+  naturaleza: ["f-protegida", "f-parques", "f-visitas", "f-pesca", "f-especies", "f-visitas-parque", "f-pesca-rio", "f-clima", "f-glaciares"],
+  curiosidades: ["f-nombres", "f-carne", "f-vino", "f-yerba"],
 };
 const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;"})[c]);
 // nombre de una provincia con su bandera (tablas, listas, buscador, migas)

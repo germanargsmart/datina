@@ -155,7 +155,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
     <div class="prov-extra" id="prov-extra"></div>
   </section>
 
-
   <section class="nosotros" id="nosotros" aria-labelledby="nos-tit">
     <h2 id="nos-tit">Sobre nosotros</h2>
     <p class="nos-bajada">Datina reúne estadísticas públicas de la Argentina y las muestra provincia por provincia, para entender un tema, comparar jurisdicciones y discutir con datos.</p>
@@ -418,7 +417,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="nota" data-t="exportaciones-nota"></p>
       <div class="pie"><span>Fuente: INDEC, Origen Provincial de las Exportaciones (el último año es provisorio)</span><a href="datos/exportaciones_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
-
 
   </section>
 
@@ -1328,7 +1326,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuentes: Universidad Torcuato Di Tella, Escuela de Gobierno, Índice de Confianza en el Gobierno, y Dirección Nacional Electoral</span><a href="datos/confianza_gobierno.csv" download>Mes a mes (CSV)</a><a href="datos/confianza_gobierno_gobiernos.csv" download>Por gobierno (CSV)</a><a href="datos/confianza_gobierno_elecciones.csv" download>Elecciones (CSV)</a></div>
     </article>
 
-
     <!-- La justicia (24 de octubre de 2026, pedido del autor: "en la corte suprema cuántos fallos por año realiza, después cuánta justicia
          hay en Argentina, cuántas fiscalías federales, provinciales, cuántas cortes supremas provinciales, cuántos jueces tiene cada una").
          Respuestas del autor: dentro de Instituciones políticas, y lo provincial armado a mano. Datos y advertencias en 02_procesar.py -->
@@ -1925,7 +1922,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
-
   <section class="tema con-pregunta" id="petroleo">
     <h2>Petróleo y gas</h2>
     <div class="tema-intro">
@@ -2137,7 +2133,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
 
   </section>
 
-
   <section class="tema con-pregunta" id="turismo">
     <h2>Turismo</h2>
     <div class="tema-intro">
@@ -2180,10 +2175,10 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
   </section>
 
   <section class="tema con-pregunta" id="naturaleza">
-    <h2>Flora y fauna</h2>
+    <h2>Naturaleza y ambiente</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido, cuántas especies se registran y cuánto se pesca?</p>
-      <p>Las fichas muestran cuánto territorio protege cada provincia, cuánta superficie cubren las áreas protegidas nacionales y cuántas visitas reciben los parques nacionales. También, cuántas especies animales se registran en esas áreas y cuánto se pesca en el mar y en los ríos.</p>
+      <p class="pregunta" data-corta="¿Cuánto territorio está protegido?">¿Cuánto territorio está protegido, cuánto se pesca, cuántos glaciares hay y cuánto cambió la temperatura?</p>
+      <p>Las fichas muestran cuánto territorio protege cada provincia, cuánta superficie cubren las áreas protegidas nacionales y cuántas visitas reciben los parques nacionales. También, cuántas especies animales se registran en esas áreas, cuánto se pesca en el mar y en los ríos, cuántos glaciares tiene cada provincia y cuánto cambió la temperatura media del país.</p>
     </div>
     <!--EXPLICADOR:naturaleza-->
 
@@ -2274,13 +2269,33 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <div class="pie"><span>Fuente: Ministerio de Ambiente (CIAM), con datos de la Subsecretaría de Pesca y Acuicultura</span><a href="datos/pesca_continental_provincias.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
+
+
+    <article class="ficha" id="f-glaciares">
+      <h2>¿Cuántos glaciares tiene cada provincia?</h2>
+      <p class="ficha-sub">Glaciares y cuerpos de hielo inventariados, por provincia</p>
+      <div class="grafico" data-g="glaciares" data-forma="barras" style="--filas:12"></div>
+      <p class="lead" data-t="glaciares"></p>
+      <p class="nota" data-t="glaciares-nota"></p>
+      <div class="pie"><span>Fuente: Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM)</span><a href="datos/glaciares_provincias.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
+
+
+    <article class="ficha" id="f-clima">
+      <h2>¿Cuánto cambió la temperatura media del país?</h2>
+      <p class="ficha-sub">Diferencia de la temperatura media anual del país con el promedio de 1991 a 2020, en grados, {{curiosidades.cl_ini}} a {{curiosidades.cl_fin}}</p>
+      <div class="grafico" data-g="clima" data-forma="franjas"></div>
+      <p class="lead" data-t="clima"></p>
+      <p class="nota" data-t="clima-nota"></p>
+      <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
+    </article>
   </section>
 
   <section class="tema con-pregunta" id="curiosidades">
     <h2>Curiosidades</h2>
     <div class="tema-intro">
-      <p class="pregunta" data-corta="¿Cuánta carne y yerba consumimos?">¿Cuánta carne, vino y yerba consumimos y cuánto cambió la temperatura del país?</p>
-      <p>Esta página junta datos de temas distintos: qué nombres se eligen para los bebés, cuánta carne vacuna come cada habitante, cuánto vino y cuánta yerba mate salen al mercado, cuántos glaciares tiene cada provincia y cuánto cambió la temperatura media del país.</p>
+      <p class="pregunta" data-corta="¿Cuánta carne y yerba consumimos?">¿Qué nombres se eligen para los bebés y cuánta carne, vino y yerba consumimos?</p>
+      <p>Esta página junta datos de temas distintos: qué nombres se eligen para los bebés, cuánta carne vacuna come cada habitante y cuánto vino y cuánta yerba mate salen al mercado. Los glaciares y la temperatura están en Naturaleza y ambiente.</p>
     </div>
     <!--EXPLICADOR:curiosidades-->
 
@@ -2323,24 +2338,6 @@ addEventListener("pagereveal", e => { if (e.viewTransition) { LLEGADA.activa = t
       <p class="lead" data-t="yerba"></p>
       <p class="nota" data-t="yerba-nota"></p>
       <div class="pie"><span>Fuente: Ministerio de Economía (SSPMI), con datos del Instituto Nacional de la Yerba Mate</span><a href="datos/yerba_molino.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-glaciares">
-      <h2>¿Cuántos glaciares tiene cada provincia?</h2>
-      <p class="ficha-sub">Glaciares y cuerpos de hielo inventariados, por provincia</p>
-      <div class="grafico" data-g="glaciares" data-forma="barras" style="--filas:12"></div>
-      <p class="lead" data-t="glaciares"></p>
-      <p class="nota" data-t="glaciares-nota"></p>
-      <div class="pie"><span>Fuente: Inventario Nacional de Glaciares (IANIGLA), vía Ministerio de Ambiente (CIAM)</span><a href="datos/glaciares_provincias.csv" download>Descargar tabla (CSV)</a></div>
-    </article>
-
-    <article class="ficha" id="f-clima">
-      <h2>¿Cuánto cambió la temperatura media del país?</h2>
-      <p class="ficha-sub">Diferencia de la temperatura media anual del país con el promedio de 1991 a 2020, en grados, {{curiosidades.cl_ini}} a {{curiosidades.cl_fin}}</p>
-      <div class="grafico" data-g="clima" data-forma="franjas"></div>
-      <p class="lead" data-t="clima"></p>
-      <p class="nota" data-t="clima-nota"></p>
-      <div class="pie"><span>Fuente: Servicio Meteorológico Nacional, vía Ministerio de Ambiente (CIAM)</span><a href="datos/clima_desvio.csv" download>Descargar tabla (CSV)</a></div>
     </article>
 
   </section>
