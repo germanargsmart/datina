@@ -5652,12 +5652,18 @@ document.querySelectorAll(".tema:not(.herramienta) > article.ficha").forEach(f =
     document.querySelectorAll(".sobre[open]").forEach(o => { if (o !== d) o.open = false; });
   });
 });
-// se cierra con Escape o tocando afuera
+// se cierra con Escape o tocando afuera, igual que el menú "Compartir y descargar" del pie (D6)
 document.addEventListener("keydown", ev => {
-  const d = ev.key === "Escape" && document.querySelector(".sobre[open]");
+  const d = ev.key === "Escape" && document.querySelector(".sobre[open], .compartir[open]");
   if (d) { d.open = false; d.querySelector("summary").focus(); }
 });
-document.addEventListener("pointerdown", ev => document.querySelectorAll(".sobre[open]").forEach(d => { if (!d.contains(ev.target)) d.open = false; }));
+document.addEventListener("pointerdown", ev => document.querySelectorAll(".sobre[open], .compartir[open]").forEach(d => { if (!d.contains(ev.target)) d.open = false; }));
+// con el teclado, salir del menú con Tab lo cierra
+document.addEventListener("focusin", ev => document.querySelectorAll(".compartir[open]").forEach(d => { if (!d.contains(ev.target)) d.open = false; }));
+document.addEventListener("toggle", ev => {
+  const d = ev.target;
+  if (d.classList?.contains("compartir") && d.open) document.querySelectorAll(".sobre[open], .compartir[open]").forEach(o => { if (o !== d) o.open = false; });
+}, true);
 
 const VISTA = {};
 Object.entries(OCDE_VISTA).forEach(([id, [g, propio, ks]]) => {
@@ -6954,10 +6960,10 @@ async function imagenFicha(f) {
   const tit = envolver(f.querySelector("h2, h3").textContent, fT), lead = envolver(f.querySelector(".lead")?.textContent || "", fL);
   // con el título como pregunta (etapa 35), la descripción con el período va debajo
   const sub = envolver(f.querySelector(".ficha-sub")?.textContent || "", fS);
-  // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo, y sin el enlace "Cómo se calcula"
-  // (paso 5), que en la imagen no lleva a ningún lado
+  // la fuente termina en un punto desde que dice cada cuánto se actualiza (etapa 27): sin repetirlo, y sin los enlaces "Cómo se calcula"
+  // (paso 5) y "de dónde sale" (D6), que en la imagen no llevan a ningún lado
   const fuente = f.querySelector(".pie > span")?.cloneNode(true);
-  fuente?.querySelector(".como-calcula")?.remove();
+  fuente?.querySelector(".pie-enlaces")?.remove();
   const pieL = envolver(`${(fuente?.textContent || "").trim().replace(/\.$/, "")}. Datina, ${location.host}${location.pathname}#${f.id}`, fP);
   // las leyendas que se ven en la ficha, leídas después de volver a dibujar el gráfico: así quedan al día con la medida elegida
   const leyes = [...f.querySelectorAll(LEY_IMG)].filter(e => e.getClientRects().length && e.textContent.trim()).map(e => leyendaImg(med, e, W - pad * 2))
@@ -7016,18 +7022,26 @@ document.querySelectorAll("article.ficha").forEach(f => {
   const nombre = (csv.getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1], filas = nombre && T[nombre], propia = TABLA_PROPIA[f.id];
   const conTabla = propia || nombre && DIFERIDAS[nombre] || Array.isArray(filas) && filas.length > 0 && typeof filas[0] === "object" ||
     [...f.querySelectorAll(".panel-pestana[data-vieja]")].some(x => TABLA_PROPIA[x.dataset.vieja]);
-  if (PARA_ENTENDER) pie.querySelector(":scope > span")?.insertAdjacentHTML("beforeend",
-    ` <a class="enlace como-calcula" href="#para-entender" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}">Cómo se calcula</a>`);
-  acc.innerHTML = `<button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
-    (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
-    (!f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="boton chico accion origen" href="relaciones.html?n=${f.id}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">De dónde sale</span></a>` : "") +
-    (EN_CATALOGO.has(nombre) ? `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"><span class="lbl">Ver en el catálogo</span></a>` : "") +
-    (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "");
+  // D6 (plan de mejora, 28 de octubre de 2026): "De dónde sale" deja de ser un botón y va con "Cómo se calcula" al final de la fuente,
+  // porque dice de dónde vienen los datos. Al pie quedan "Ver tabla" y el menú "Compartir y descargar" con lo demás (hasta entonces,
+  // hasta seis botones en dos o tres filas en el celular)
+  const desc = `aria-describedby="${tituloFicha.id || (tituloFicha.id = f.id + "-tit")}"`;
+  const enlaces = [PARA_ENTENDER ? `<a class="enlace como-calcula" href="#para-entender" ${desc}>Cómo se calcula</a>` : "",
+    !f.classList.contains("explorador") && !SIN_RELACIONES.has(f.id) ? `<a class="enlace origen" href="relaciones.html?n=${f.id}" ${desc}>${PARA_ENTENDER ? "de" : "De"} dónde sale</a>` : ""]
+    .filter(Boolean);
+  if (enlaces.length) pie.querySelector(":scope > span")?.insertAdjacentHTML("beforeend", ` <span class="pie-enlaces">${enlaces.join(" y ")}</span>`);
+  acc.innerHTML = (conTabla ? `<button type="button" class="boton chico accion ver-tabla" aria-expanded="false"><span class="lbl">Ver tabla</span></button>` : "") +
+    `<details class="compartir"><summary class="boton chico accion"><span class="lbl">Compartir y descargar</span><span class="desp-signo" aria-hidden="true"></span></summary>` +
+    `<div class="compartir-panel"><button type="button" class="boton chico accion copiar"><span class="lbl">Copiar enlace</span></button>` +
+    (f.querySelector(".grafico[data-g]") ? `<button type="button" class="boton chico accion imagen" hidden><span class="lbl">Descargar imagen</span></button>` : "") +
+    `</div></details>`;
+  const panel = acc.querySelector(".compartir-panel");
   // las de una ficha con vistas conservan su nombre si tienen uno propio ("Reservas por mes (CSV)")
   [csv, ...otrosCsv].forEach(a => {
     const lbl = a.dataset.panel && a.textContent !== "Descargar tabla (CSV)" ? a.textContent : "Descargar CSV";
-    a.className = "boton chico accion"; a.innerHTML = `<span class="lbl">${lbl}</span>`; acc.appendChild(a);
+    a.className = "boton chico accion"; a.innerHTML = `<span class="lbl">${lbl}</span>`; panel.appendChild(a);
   });
+  if (EN_CATALOGO.has(nombre)) panel.insertAdjacentHTML("beforeend", `<a class="boton chico accion" href="catalogo.html#cat-${nombre}" ${desc}><span class="lbl">Ver en el catálogo</span></a>`);
   pie.appendChild(acc);
   const tablaActiva = () => (([csv, ...otrosCsv].find(a => !a.hidden) || csv).getAttribute("href").match(/datos\/(\w+)\.csv/) || [])[1] || nombre;
   acc.querySelector(".ver-tabla")?.addEventListener("click", async ev => {

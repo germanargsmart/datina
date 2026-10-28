@@ -170,7 +170,8 @@ p,li,dd,dt,small,.sec-preg,.c-txt,.dp-det{text-wrap:pretty}
    Los que tienen estilo propio son variantes de esos seis (Fase 2, paso 7, sin cambiar cómo se ven):
    - secundario: .conmutador y .co-btn (con el elegido lleno), .susc-boton, .elige-btn, .lupa-btn, .chip-prov y .chip-borrar
    - enlace: .esp-btn, .vt-ley, .cx-chip, .ver-mas, .dx-quitar y .mt-cerrar (la cruz que cierra la tarjeta del mapa)
-   - despliegue: .despliegue, .sobre, .menu-parte, .cx-detalle, .ph-fuentes y .creditos (los de <summary>)
+   - despliegue: .despliegue, .sobre, .menu-parte, .cx-detalle, .ph-fuentes, .creditos y .compartir (los de <summary>: el de .compartir,
+     con el borde del secundario, porque va junto a "Ver tabla")
    - navegación: .menu-btn, la barra, los menús, las migas, .subsecciones, .pildoras y el pie
    - los puntos y celdas de los gráficos que se tocan (.cx-punto, .cx-celda, .dep, .provs) son parte del dibujo, no botones */
 /* Un botón cuyo texto no entra en el ancho que tiene (320 píxeles, o el zoom del 400% de WCAG) pasa a dos renglones parejos en lugar de
@@ -1101,7 +1102,19 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 /* la fuente, con la frecuencia de actualización (etapa 27), se acomoda en dos renglones antes de mandar los botones a otra fila */
 @media (min-width:761px){.pie>span{flex:1 1 16em;min-width:0}}  /* en el celular el pie es una columna */
 .acciones{display:flex;flex-wrap:wrap;gap:var(--e-2);margin-left:auto}
-.como-calcula{white-space:nowrap}  /* "Cómo se calcula" al final de la fuente (paso 5), sin partirse en dos renglones */
+.como-calcula,.pie .origen{white-space:nowrap}  /* "Cómo se calcula y de dónde sale" al final de la fuente (paso 5 y D6), cada enlace sin partirse */
+/* "Compartir y descargar" (D6): un menú que se abre hacia arriba, desde el botón, con copiar el enlace, la imagen, los CSV y el catálogo */
+.compartir{position:relative}
+.compartir>summary{list-style:none}
+.compartir>summary::-webkit-details-marker{display:none}
+.js .compartir .desp-signo{display:block;width:14px;height:14px;color:currentColor}
+.compartir[open] .desp-signo{transform:rotate(180deg)}
+.compartir-panel{position:absolute;z-index:6;right:0;bottom:calc(100% + var(--e-2));display:flex;flex-direction:column;align-items:stretch;gap:var(--e-1);
+  min-width:100%;padding:var(--e-2);background:#fff;border:1px solid var(--azul);border-radius:var(--r-panel);box-shadow:var(--sombra-panel);transform-origin:100% 100%}
+.compartir[open]>.compartir-panel{animation:abre-sobre var(--dur-2) var(--ease-out)}
+/* adentro, filas sin borde: el borde lo tiene el menú */
+.compartir-panel .boton{--b-borde:transparent;justify-content:flex-start;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){.compartir-panel .boton:hover{--b-fondo:var(--superficie)}}
 /* "Artículos con este dato" (Fase 2, paso 4): una fila propia debajo de las acciones, con la pregunta de cada artículo como enlace */
 .pie-arts{flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-1) var(--e-4);margin:0}
 .accion .lbl{display:inline-block;min-width:7.2em;text-align:center;transition:opacity var(--dur-1) var(--ease-out)}
@@ -1127,6 +1140,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
   .grafico{margin:var(--e-6) 0 var(--e-1)}
   .pie{flex-direction:column;align-items:flex-start}
   .acciones{margin-left:0}
+  .compartir-panel{right:auto;left:0;transform-origin:0 100%}
 }
 
 /* fichas horizontales: la cabeza y el texto a la izquierda y el gráfico a la derecha, desde 1080 px. La fila del texto toma el alto que
