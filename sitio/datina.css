@@ -545,6 +545,9 @@ html:not(.js) .busca-portada{display:none}
 .destacado .c-preg{font-size:var(--t-3);line-height:1.3;color:var(--ink);text-wrap:pretty}
 .destacado .c-num{min-height:1em}
 .destacado .c-txt{min-height:4.2em}
+/* D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país y debajo va cómo cambia entre las provincias,
+   de la más baja a la más alta. Su lugar queda reservado (dos renglones) para que la portada no salte */
+.destacado .c-rango{display:block;min-height:2.8em;margin-top:var(--e-2);padding-top:var(--e-2);border-top:1px solid var(--line);font-size:var(--t-2);line-height:1.4;color:var(--muted)}
 /* Provincias en la portada: las 24 jurisdicciones con su bandera */
 .prov-home{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--e-1) var(--e-4);margin:0;padding:0;list-style:none}
 @media (max-width:1080px){.prov-home{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -747,7 +750,10 @@ html:not(.js) .busca-portada{display:none}
 .perfil-cab .enlace{font-size:var(--t-2)}
 .perfil-tarjetas{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--e-4)}
 .dp{gap:2px;padding:var(--e-4) var(--e-6)}
-.dp-lab{font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+/* D9 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): las mayúsculas en letra mono quedan para rótulos de hasta tres
+   palabras. Los nombres de indicadores del perfil, el lugar de los mapas por departamento, los títulos del diagnóstico, del perfil y de
+   Cruces, y las preguntas de los programas de Educación pueden ser más largos: van con la letra del texto, en negrita */
+.dp-lab{font-size:var(--t-2);font-weight:600;line-height:1.3;color:var(--ink)}
 .dp-num{font-size:var(--t-8);line-height:1.1;font-weight:500;letter-spacing:-.03em;color:var(--azul);font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 45,"opsz" 144;font-family:var(--f-c45)}
 /* sin provincia elegida y sin total del país: "Elegí una provincia" en letra de texto, con el alto de la cifra para que nada salte al elegir */
 .dp-num.invita{display:flex;align-items:center;min-height:calc(var(--t-8) * 1.1);font:500 var(--t-4)/1.3 var(--f);letter-spacing:0;font-variation-settings:normal;color:var(--muted)}
@@ -763,7 +769,7 @@ html:not(.js) .busca-portada{display:none}
 #prov-band .bandera{display:block}
 .prov-extra{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-6);margin-top:var(--e-6)}
 .prov-extra>div{border-top:1px dotted var(--azul);padding-top:var(--e-3)}
-.prov-extra h3{margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
+.prov-extra h3{margin:0 0 var(--e-2);font-size:var(--t-3);font-weight:600;line-height:1.3;color:var(--azul)}
 .prov-extra ol,.prov-extra ul{margin:0;font-size:var(--t-3);line-height:var(--i-texto)}
 .prov-extra ol{padding-left:var(--e-6)}
 .prov-extra .suave{color:var(--muted);font-size:var(--t-2)}
@@ -998,7 +1004,7 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 .programa p{margin:0;font-size:var(--t-3);line-height:var(--i-chico)}
 .programa .programa-donde{margin-top:calc(-1 * var(--e-2));font-size:var(--t-2);color:var(--muted)}
 .programa dl{display:grid;gap:var(--e-3);margin:0;padding-top:var(--e-3);border-top:1px solid var(--line)}
-.programa dt{font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.programa dt{font-size:var(--t-2);font-weight:600;line-height:1.4;color:var(--muted)}
 .programa dd{margin:2px 0 0;font-size:var(--t-3);line-height:var(--i-chico)}
 .programa dd small{display:block;margin-top:2px;font-size:var(--t-2);color:var(--muted)}
 .programa .enlace{margin-top:auto;padding-top:var(--e-2);font-size:var(--t-3)}
@@ -1041,12 +1047,11 @@ dl.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr)
 
 /* ---------- fichas: redondeadas, como todas las tarjetas ---------- */
 .ficha{position:relative;margin:var(--bloque) 0;padding:clamp(var(--e-4),2.2vw,var(--e-6)) clamp(var(--e-4),2.2vw,var(--e-6)) var(--e-4);background:var(--bg);border:1px solid var(--borde);border-radius:var(--r-tarjeta);box-shadow:var(--sombra-tarjeta);transition:border-color var(--dur-1) var(--ease-out)}
-/* La tarjeta aparece una sola vez, al entrar en pantalla (datina.js pone "listo" en la página y "visto" en cada ficha).
-   Mientras el código no llegó, se ve con su silueta desde los 400 ms (ver "formas de carga"): si llega antes, nunca se ve vacía */
+/* Mientras el código no llegó, la tarjeta se ve con su silueta desde los 400 ms (ver "formas de carga"): si llega antes, nunca se ve vacía.
+   Desde el 28 de octubre de 2026 (plan de mejora, D5, aprobado por el autor) la tarjeta ya no aparece con un fundido al entrar en pantalla:
+   bajando rápido se veían huecos en blanco. Se ve desde el principio, con la silueta de su gráfico, y lo que se anima al entrar es el
+   dibujo del gráfico (datina.js pone "visto" en cada ficha y la dibuja) */
 .js:not(.listo) .ficha{animation:esqueleto var(--dur-2) var(--ease-out) 400ms both}
-.listo .ficha{opacity:0;transform:translateY(10px);transition:opacity var(--dur-3) var(--ease-out) var(--retraso,0ms),transform var(--dur-3) var(--ease-out) var(--retraso,0ms),border-color var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
-.listo .ficha.sin-entrada{transition:border-color var(--dur-1) var(--ease-out),box-shadow var(--dur-1) var(--ease-out)}
-.listo .ficha.visto{opacity:1;transform:none}
 .etiqueta{display:inline-block;margin:0 0 var(--e-3);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .etiqueta::before{content:"# ";color:var(--azul)}
 /* con el título como pregunta (etapa 35), la descripción con el período va debajo. Desde el 11 de octubre de 2026 (pedido del autor:
@@ -1366,7 +1371,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .mp-mapa path.dep{stroke:#fff;stroke-width:.3;cursor:pointer}
 .mp-mapa path.dep:hover{stroke:var(--ink);stroke-width:1.2}
 .mp-mapa path.limite{fill:none;stroke:var(--azul);stroke-width:.9;pointer-events:none}
-.mp-lugar{margin:0 0 var(--e-2);font-family:var(--mono);font-size:var(--t-1);letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
+.mp-lugar{margin:0 0 var(--e-2);font-size:var(--t-2);font-weight:600;color:var(--azul)}
 .mp-lado h3{margin:var(--e-4) 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .mp-lado ol{margin:0;padding-left:var(--e-6);font-size:var(--t-3);line-height:1.5}
 .mp-lado ol span{color:var(--muted);font-variant-numeric:tabular-nums}
@@ -1401,7 +1406,8 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .dx-cuerpo{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--e-6);align-items:start}
 .dx-cuerpo>*{min-width:0}
 @media (min-width:1080px){.dx-cuerpo{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}.dx-grafico-caja{position:sticky;top:96px}}
-.dx-grafico-tit,.dx-prov h4,.dx-no-dice h3{margin:0 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dx-prov h4,.dx-no-dice h3{margin:0 0 var(--e-3);font:500 var(--t-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dx-grafico-tit{margin:0 0 var(--e-3);font-size:var(--t-2);font-weight:600;line-height:1.4;color:var(--muted)}
 .dx-prov{margin:0 0 var(--e-4);padding:var(--e-6);border:1px solid var(--borde);border-radius:var(--r-interno);background:var(--bg)}
 .dx-prov h3{margin:0 0 var(--e-3);font-size:var(--t-4);font-weight:600}
 .dx-prov h4{margin-top:var(--e-6);text-wrap:wrap}
@@ -1451,7 +1457,7 @@ svg.mapa-prov .caba-aparte line{stroke:var(--muted);stroke-width:.8}
 .cx-leyenda i{display:inline-block;width:10px;height:10px;margin-right:var(--e-1);border-radius:50%;vertical-align:-1px}
 .cx-lectura{max-width:46em;margin:var(--e-4) 0 0;color:var(--ink)}
 .cx-residuos{display:grid;grid-template-columns:1fr 1fr;gap:var(--e-6);margin:var(--e-4) 0 0}
-.cx-residuos h3{margin:0 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--azul)}
+.cx-residuos h3{margin:0 0 var(--e-1);font-size:var(--t-3);font-weight:600;line-height:1.3;color:var(--azul)}
 .cx-residuos ol{margin:0;padding-left:var(--e-6);font-size:var(--t-3);color:var(--muted)}
 .cx-residuos b{margin-right:var(--e-1);font-weight:500;color:var(--ink)}
 .cx-detalle{margin-top:var(--e-4)}
@@ -1870,7 +1876,7 @@ p code{overflow-wrap:anywhere}
 @media (min-width:1080px){.ph-cuerpo{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--e-8);align-items:start}}
 @media (max-width:1079px){.ph-lado{order:-1}}
 .ph-lado{display:grid;gap:var(--e-4);align-content:start}
-.ph-sub{margin:var(--e-6) 0 var(--e-1);font-family:var(--mono);font-size:var(--t-1);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.ph-sub{margin:var(--e-6) 0 var(--e-1);font-size:var(--t-3);font-weight:600;line-height:1.3;color:var(--ink)}
 .ph-texto>.ph-sub:first-child,.ph-curiosidad>.ph-sub{margin-top:0}
 .ph-texto p{margin:0;font-family:var(--f-bajada);font-size:var(--t-4);line-height:1.55;font-weight:340;font-variation-settings:"opsz" 28;
   letter-spacing:-.003em;color:var(--tinta-bajada);text-align:justify;-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:7 3 3}

@@ -8949,6 +8949,31 @@ document.querySelectorAll(".destacado[data-clave]").forEach(a => {
   const c = CLAVE[a.dataset.clave];
   if (c) { a.querySelector(".c-num").innerHTML = c[0]; a.querySelector(".c-txt").innerHTML = c[1]; }
 });
+// D7 (plan de mejora, 28 de octubre de 2026, aprobado por el autor): la cifra es la del país, y debajo, de la provincia más baja a la más
+// alta, como en el gráfico de la ficha (en el petróleo, cuánto sale de la primera). Con una provincia elegida, también la suya. Los
+// homicidios por provincia van, como en su ficha, en el promedio de tres años: en las provincias chicas un año solo salta mucho
+const RANGO_DEST = {
+  "f-esperanza": [() => T.esperanza_vida_provincias, "total", v => n1(v), " años", "Por provincia"],
+  "f-salarios": [() => T.salarios_provincias, "salario", v => n2(v / 1e6), " millones de pesos", "Por provincia"],
+  "f-homicidios": [() => T.homicidios_provincias, "tasa_3", n1, "", `Por provincia, en promedio de ${SG.hom3_desde} a ${SG.anio}`],
+};
+function pintarRangos() {
+  document.querySelectorAll(".destacado[data-clave] .c-rango").forEach(el => {
+    const id = el.closest(".destacado").dataset.clave, r = RANGO_DEST[id];
+    if (id === "f-petroleo") {
+      const fp = NOMBRES[prov] && T.hidrocarburos_provincias.find(x => x.codigo_indec === prov);
+      el.textContent = `El ${pct(PG.top_pct)} salió de ${PG.top} entre ${PG.v_desde} y ${PG.v_hasta}.` + (!NOMBRES[prov] || fp?.territorio === PG.top ? "" :
+        fp && fp.pct_pet_pais > 0 ? ` ${NOMBRES[prov]}: ${pct(fp.pct_pet_pais)}.` : ` ${NOMBRES[prov]} no produce petróleo.`);
+      return;
+    }
+    if (!r) return;
+    const [tabla, k, f, u, ini] = r, filas = tabla().filter(x => x.codigo_indec !== "00" && x[k] != null).sort((a, b) => a[k] - b[k]);
+    const lo = filas[0], hi = filas[filas.length - 1], fp = filas.find(x => x.codigo_indec === prov);
+    el.textContent = `${ini}, de ${f(lo[k])}${u} en ${lo.territorio} a ${f(hi[k])} en ${hi.territorio}.` +
+      (fp && fp !== lo && fp !== hi ? ` ${fp.territorio}: ${f(fp[k])}.` : "");
+  });
+}
+if (document.querySelector(".destacado .c-rango")) { pintarRangos(); alCambiarProv.push(pintarRangos); }
 
 /* Sobre nosotros: cifras contadas en el propio sitio */
 const NFICHAS = SITIO.fichas.filter(f => !f[5]).length;
